@@ -4581,25 +4581,21 @@
 /area/security/processing)
 "atm" = (
 /obj/structure/rack,
-/obj/item/storage/box/rubbershot{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/structure/window/reinforced,
+/obj/item/storage/box/rubbershot{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/beanbag,
+/obj/item/storage/box/beanbag,
+/obj/item/storage/box/tranquilizer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5593,10 +5589,9 @@
 /turf/space,
 /area/hallway/spacebridge/cargocom)
 "awL" = (
-/obj/machinery/door/airlock/security{
-	name = "Evidence Storage";
-	req_access = null;
-	req_access_txt = "63"
+/obj/machinery/door/airlock/security/glass{
+	name = "Warden's Office";
+	req_access_txt = "3"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -6321,12 +6316,10 @@
 /area/security/main)
 "azc" = (
 /obj/structure/table,
+/obj/item/book/manual/security_space_law,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "azd" = (
-/obj/effect/landmark/start{
-	name = "Security Officer"
-	},
 /obj/structure/chair{
 	dir = 8
 	},
@@ -7454,12 +7447,10 @@
 "aCB" = (
 /obj/structure/table,
 /obj/item/clothing/head/beret/sec,
+/obj/item/book/manual/sop_legal,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "aCC" = (
-/obj/effect/landmark/start{
-	name = "Security Officer"
-	},
 /obj/structure/chair{
 	dir = 8
 	},
@@ -7923,9 +7914,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/security/glass{
-	id_tag = null;
-	name = "Brig";
-	req_access_txt = "63"
+	name = "Equipment Storage";
+	req_access_txt = "1"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -9541,6 +9531,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/effect/landmark/start{
+	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28765,6 +28758,7 @@
 	name = "Criminal Deposit";
 	req_access_txt = "2"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull";
 	tag = "icon-redfull (NORTHWEST)"
@@ -29623,6 +29617,9 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/trunk,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "red"
@@ -44985,6 +44982,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/effect/landmark/start{
+	name = "Security Officer"
+	},
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint2)
 "col" = (
@@ -50069,6 +50069,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/start{
+	name = "Security Officer"
+	},
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint/science)
 "cyS" = (
@@ -52075,12 +52078,12 @@
 /area/security/securearmoury)
 "cEz" = (
 /obj/structure/rack,
-/obj/item/gun/energy/e_gun{
+/obj/item/gun/energy/gun{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/energy/e_gun,
-/obj/item/gun/energy/e_gun{
+/obj/item/gun/energy/gun,
+/obj/item/gun/energy/gun{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -62635,6 +62638,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "dmN" = (
+/obj/structure/closet/wardrobe/red,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "red"
@@ -65403,6 +65407,7 @@
 	pixel_x = -3;
 	pixel_y = 7
 	},
+/obj/item/reagent_containers/food/drinks/mug/hos,
 /turf/simulated/floor/carpet,
 /area/security/hos)
 "dvT" = (
@@ -76334,6 +76339,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/westalt)
+"lPt" = (
+/obj/effect/turf_decal/caution/stand_clear,
+/turf/simulated/floor/plasteel,
+/area/security/brig)
 "lQq" = (
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
@@ -77285,6 +77294,11 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
+"mGA" = (
+/obj/structure/table,
+/obj/item/book/manual/sop_security,
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "mGM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -81040,6 +81054,9 @@
 "qho" = (
 /obj/structure/chair/office/dark{
 	dir = 8
+	},
+/obj/effect/landmark/start{
+	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -100569,7 +100586,7 @@ duh
 urP
 dvg
 dvF
-azc
+mGA
 aFh
 aDM
 aHy
@@ -106484,7 +106501,7 @@ aGP
 hRW
 byW
 cHu
-aGP
+lPt
 bBl
 dye
 bCv
@@ -110073,7 +110090,7 @@ cRx
 auz
 dmo
 afd
-abW
+cbY
 eee
 eee
 azp
@@ -110330,7 +110347,7 @@ cSb
 alr
 aTz
 afd
-cbY
+hyJ
 cEG
 duR
 azp
