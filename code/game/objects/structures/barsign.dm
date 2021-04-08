@@ -1,5 +1,5 @@
 /obj/structure/sign/barsign // All Signs are 64 by 32 pixels, they take two tiles
-	name = "Bar Sign"
+	name = "bar sign"
 	desc = "A bar sign with no writing on it"
 	icon = 'icons/obj/barsigns.dmi'
 	icon_state = "empty"
@@ -7,7 +7,7 @@
 	max_integrity = 500
 	integrity_failure = 250
 	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-	var/list/barsigns=list()
+	var/list/barsigns = list()
 	var/list/hiddensigns = list()
 	var/panel_open = FALSE
 	var/datum/barsign/prev_sign
@@ -15,17 +15,16 @@
 
 /obj/structure/sign/barsign/Initialize(mapload)
 	. = ..()
-	//filling the barsigns list
-	for(var/bartype in typesof(/datum/barsign))
+	//Filling the lists
+	for(var/bartype in subtypesof(/datum/barsign))
 		var/datum/barsign/signinfo = new bartype
 		if(!signinfo.hidden)
 			barsigns += signinfo
 		else
 			hiddensigns += signinfo
-	if(!prev_sign)
-		set_sign(pick(barsigns))	// Randomly assigning a sign
-	else							// Unless there is a prev_sign
-		set_sign(prev_sign)
+	//Randomly assigning a sign unless there is a prev_sign
+	prev_sign = pick(barsigns)
+	set_sign(prev_sign)
 
 /obj/structure/sign/barsign/proc/set_sign(datum/barsign/S)
 	if(!istype(S))
@@ -39,6 +38,16 @@
 		desc = S.desc
 	else
 		desc = "It displays \"[name]\"."
+
+/obj/structure/sign/barsign/proc/pick_sign()
+	var/new_sign
+	if(!broken)
+		new_sign = input("Available Signage: ", "Bar Sign", null) as null|anything in (barsigns + (emagged ? hiddensigns : list()))
+		if(!new_sign)
+			return
+		set_sign(new_sign)
+	else
+		set_sign(new /datum/barsign/empbarsign)
 
 /obj/structure/sign/barsign/obj_break(damage_flag)
 	if(!broken && !(flags & NODECONSTRUCT))
@@ -63,20 +72,19 @@
 	if(panel_open)
 		if(allowed(user))
 			if(broken)
-				to_chat(user, "<span class='danger'>The controls seem unresponsive.</span>")
+				to_chat(user, "<span class='warning'>The controls seem unresponsive.</span>")
 				return
 			else
 				pick_sign()
-				to_chat(user, "<span class='notice'>You set the barsign and close the maintenance panel.</span>")
+				to_chat(user, "<span class='notice'>You set the bar sign and close the maintenance panel.</span>")
 				panel_open = FALSE
 				return
 		else
-			to_chat(user, "<span class='info'>Access denied.</span>")
+			to_chat(user, "<span class='warning'>Access denied.</span>")
 			return
 	else
-		to_chat(user, "<span class='info'>The maintenance panel is currently closed.</span>")
+		to_chat(user, "<span class='warning'>The maintenance panel is currently closed.</span>")
 		return
-
 
 /obj/structure/sign/barsign/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/cable_coil) && panel_open)
@@ -93,26 +101,26 @@
 		else if(!broken && !emagged)
 			to_chat(user, "<span class='warning'>This sign is functioning properly!</span>")
 			return
-	if(isscrewdriver(I) || iswrench(I))
-		return	// No damage.
 	else
 		return ..()
 
-/obj/structure/sign/barsign/screwdriver_act(mob/user)
+/obj/structure/sign/barsign/screwdriver_act(mob/user, /obj/item/I)
+	. = TRUE
 	if(!panel_open)
 		to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
 		set_sign(new /datum/barsign/signoff)
 		panel_open = TRUE
 	else
-		if(prev_sign.icon != icon_state && istype(prev_sign, /datum/barsign))	// Sanity, I suppose
+		if(prev_sign.icon != icon_state)
 			set_sign(prev_sign)
 		to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
 		panel_open = FALSE
 	return
 
 /obj/structure/sign/barsign/wrench_act(mob/user)
+	. = TRUE
 	if(!panel_open)
-		to_chat(user, "<span_class='notice>You must first open the maintenance panel before trying to unbolt the barsign.</span>")
+		to_chat(user, "<span_class='notice'>You must first open the maintenance panel before trying to unbolt the bar sign.</span>")
 		return
 	else
 		var/obj/item/sign/barsign/S = new(user.loc)
@@ -127,7 +135,7 @@
 		qdel(src)
 
 /obj/item/sign/barsign
-	name = "barsign"
+	name = "bar sign"
 	desc = ""
 	icon = 'icons/obj/barsigns.dmi'
 	w_class = WEIGHT_CLASS_HUGE		// Don't put this in your backpack!
@@ -137,13 +145,12 @@
 	var/datum/barsign/prev_sign
 
 /obj/item/sign/barsign/wrench_act(mob/user)	//construction
+	if(QDELETED(src))
+		return
+	var/direction = input("In which direction?", "Select direction.") as null|anything in list("North", "East", "South", "West")
+	if(!direction)
+		return
 	if(isturf(user.loc))
-		var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
-		//The only sprite that exists is South, but we forced this in when we dismantled the barsign.
-		if(direction == "Cancel")
-			return
-		if(QDELETED(src))
-			return
 		var/obj/structure/sign/barsign/S = new(user.loc)
 		switch(direction)
 			if("North")
@@ -154,8 +161,6 @@
 				S.pixel_y = -32
 			if("West")
 				S.pixel_x = -32
-			else
-				return
 		S.name = name
 		S.desc = desc
 		S.broken = broken
@@ -165,34 +170,19 @@
 		S.prev_sign = prev_sign
 		S.icon_state = prev_sign.icon
 		S.sign_holder = null
-		to_chat(user, "<span_class='notice>You bolt \the [S] with your wrench, closing the maintenance panel in the process.</span>")
+		to_chat(user, "<span_class='notice>You bolt bar sign with your wrench, closing the maintenance panel in the process.</span>")
 		qdel(src)
 	else
 		return
 
-/obj/structure/sign/barsign/proc/pick_sign()
-	var/list/signs = barsigns.Copy()
-	var/new_sign
-	if(!broken)
-		if(!emagged)
-			new_sign = input("Available Signage: ", "Bar Sign", null) as null|anything in signs
-			set_sign(new_sign)
-		else
-			signs += hiddensigns
-			new_sign = input("Available Signage: ", "Bar Sign", null) as null|anything in signs
-			set_sign(new_sign)
-	else
-		set_sign(new /datum/barsign/empbarsign)
-
 /obj/structure/sign/barsign/emp_act(severity)
-	set_sign(new /datum/barsign/empbarsign)
 	broken = TRUE
 
 /obj/structure/sign/barsign/emag_act(mob/user)
 	if(broken || emagged)
 		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
 		return
-	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
+	to_chat(user, "<span class='notice'>You emag bar sign. Takeover in progress ... </span>")
 	addtimer(CALLBACK(src, .proc/post_emag), 100)
 
 /obj/structure/sign/barsign/proc/post_emag()
@@ -446,7 +436,7 @@
 	hidden = TRUE
 
 /datum/barsign/signoff
-	name = "Bar Sign"
+	name = "bar sign"
 	icon = "off"
 	desc = "This sign doesn't seem to be on."
 	hidden = TRUE
