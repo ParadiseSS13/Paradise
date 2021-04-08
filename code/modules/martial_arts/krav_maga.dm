@@ -17,6 +17,7 @@
 	to_chat(owner, "<b><i>You cancel your prepared attack.</i></b>")
 	owner.visible_message("<span class='danger'> [owner] relaxes [owner.p_their()] stance.</span>")
 	H.mind.martial_art.combos.Cut()
+	H.mind.martial_art.in_stance = FALSE
 
 /datum/action/neck_chop
 	name = "Neck Chop - Injures the neck, stopping the victim from speaking for a while."
@@ -150,3 +151,18 @@
 	desc = "These gloves can teach you to perform Krav Maga using nanochips."
 	icon_state = "fightgloves"
 	item_state = "fightgloves"
+
+/obj/item/clothing/gloves/color/black/krav_maga/combat // for nukies
+	name = "combat gloves plus"
+	desc = "These combat gloves have been upgraded with nanochips that teach the wearer Krav Maga."
+	icon_state = "combat"
+	item_state = "swat_gl"
+	siemens_coefficient = 0
+	permeability_coefficient = 0.05
+	strip_delay = 8 SECONDS
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	resistance_flags = NONE
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)

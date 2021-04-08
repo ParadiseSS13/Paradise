@@ -17,7 +17,7 @@
 
 //Brig Physician
 /obj/item/clothing/suit/storage/brigdoc
-	name = "brig physician vest"
+	name = "brig physician's vest"
 	desc = "A vest often worn by doctors caring for inmates."
 	icon_state = "brigphysician-vest"
 	item_state = "brigphysician-vest"
@@ -207,7 +207,7 @@
 
 //Blueshield
 /obj/item/clothing/suit/storage/blueshield
-	name = "blueshield coat"
+	name = "blueshield's coat"
 	desc = "NT deluxe ripoff. You finally have your own coat."
 	icon_state = "blueshieldcoat"
 	item_state = "blueshieldcoat"

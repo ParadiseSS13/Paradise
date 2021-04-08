@@ -75,7 +75,7 @@
 			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 			to_chat(user, "<span class='notice'>You wire the airlock assembly.</span>")
 
-	else if(istype(W, /obj/item/airlock_electronics) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS && W.icon_state != "door_electronics_smoked")
+	else if(istype(W, /obj/item/airlock_electronics) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS && !istype(W, /obj/item/airlock_electronics/destroyed))
 		playsound(loc, W.usesound, 100, 1)
 		user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly...")
 
@@ -187,6 +187,7 @@
 		door.name = base_name
 	door.previous_airlock = previous_assembly
 	electronics.forceMove(door)
+	electronics = null
 	qdel(src)
 	update_icon()
 

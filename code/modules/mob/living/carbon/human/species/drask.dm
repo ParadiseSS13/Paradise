@@ -31,7 +31,7 @@
 		"is sucking in warm air!",
 		"is holding their breath!")
 
-	species_traits = list(LIPS)
+	species_traits = list(LIPS, NO_HAIR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	has_gender = FALSE

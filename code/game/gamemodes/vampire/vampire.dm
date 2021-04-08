@@ -220,6 +220,10 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		/obj/effect/proc_holder/spell/vampire/targetted/enthrall = 300,
 		/datum/vampire_passive/full = 500)
 
+/datum/vampire/proc/adjust_nullification(base, extra)
+	// First hit should give full nullification, while subsequent hits increase the value slower
+	nullified = max(nullified + extra, base)
+
 /datum/vampire/New(gend = FEMALE)
 	gender = gend
 

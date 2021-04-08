@@ -37,12 +37,13 @@
 	var/list/recipiecache = list()
 
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
+	var/board_type = /obj/item/circuitboard/autolathe
 
 /obj/machinery/autolathe/New()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, .proc/AfterMaterialInsert))
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/autolathe(null)
+	component_parts += new board_type(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -57,7 +58,7 @@
 /obj/machinery/autolathe/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/autolathe(null)
+	component_parts += new board_type(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -288,6 +289,8 @@
 	return ..()
 
 /obj/machinery/autolathe/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	. = TRUE
@@ -492,3 +495,13 @@
 /obj/machinery/autolathe/proc/check_disabled_callback()
 	if(!wires.is_cut(WIRE_AUTOLATHE_DISABLE))
 		disabled = FALSE
+
+/obj/machinery/autolathe/syndicate
+	name = "syndicate autolathe"
+	board_type = /obj/item/circuitboard/autolathe/syndi
+
+/obj/machinery/autolathe/syndicate/New()
+	..()
+	if(files)
+		QDEL_NULL(files)
+	files = new /datum/research/autolathe/syndicate(src)
