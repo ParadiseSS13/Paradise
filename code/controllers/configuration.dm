@@ -934,7 +934,7 @@
 		if(!length(line))
 			continue
 		// Skip comments
-		if(copytext(line,1,2) == "#")
+		if(line[1] == "#")
 			continue
 
 		//Split the line at every " - "

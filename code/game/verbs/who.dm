@@ -1,4 +1,3 @@
-
 /client/verb/who()
 	set name = "Who"
 	set category = "OOC"
@@ -27,20 +26,13 @@
 			continue
 		// Get the colour
 		var/colour = client2rankcolour(C)
+		var/out = "[p]"
+		if(C.holder)
+			out = "<b>[out]</b>"
 		if(colour)
-			// Staff are bold
-			if(C.holder)
-				output_players.Add("<font color='[colour]'><b>[p]</b></font>")
-			// Patrons arent
-			else
-				output_players.Add("<font color='[colour]'>[p]</font>")
-		else
-			// Staff are bold
-			if(C.holder)
-				output_players.Add("<b>[p]</b>")
-			// Regular people arent
-			else
-				output_players.Add("[p]")
+			out = "<font color='[colour]'>[out]</font>"
+
+		output_players.Add(out)
 
 	lines.Add("<b>Current Players ([length(output_players)]): </b>")
 	lines.Add(output_players.Join(", ")) // Turn players into a comma separated list
@@ -60,7 +52,7 @@
 	var/list/Lines = list()
 
 	for(var/client/C in GLOB.clients)
-		if(C.holder && C.holder.big_brother && !check_rights(R_PERMISSIONS, 0)) // need PERMISSIONS to see BB
+		if(C.holder && C.holder.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // need PERMISSIONS to see BB
 			continue
 
 		var/entry = "\t[C.key]"
