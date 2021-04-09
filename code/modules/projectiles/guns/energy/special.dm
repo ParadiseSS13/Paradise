@@ -88,10 +88,10 @@
 /obj/item/gun/energy/mindflayer
 	name = "\improper Mind Flayer"
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."
-	icon_state = "xray"
+	icon_state = "flayer"
 	item_state = null
+	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
-	ammo_x_offset = 2
 
 // Energy Crossbows //
 /obj/item/gun/energy/kinetic_accelerator/crossbow

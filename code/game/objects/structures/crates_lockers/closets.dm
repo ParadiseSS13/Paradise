@@ -76,10 +76,14 @@
 
 /obj/structure/closet/proc/dump_contents()
 	var/turf/T = get_turf(src)
-	for(var/atom/movable/AM in src)
-		AM.forceMove(T)
+	for(var/mob/AM1 in src) //Does the same as below but removes the mobs first to avoid forcing players to step on items in the locker (e.g. soap) when opened.
+		AM1.forceMove(T)
 		if(throwing) // you keep some momentum when getting out of a thrown closet
-			step(AM, dir)
+			step(AM1, dir)
+	for(var/atom/movable/AM2 in src)
+		AM2.forceMove(T)
+		if(throwing) // you keep some momentum when getting out of a thrown closet
+			step(AM2, dir)
 	if(throwing)
 		throwing.finalize(FALSE)
 

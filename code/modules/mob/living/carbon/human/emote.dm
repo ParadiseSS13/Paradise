@@ -118,6 +118,11 @@
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
+		if("rattle", "rattles")
+			if(isskeleton(src) || isplasmaman(src)) //Only Plasmamen and Skeletons can rattle.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
 
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
@@ -268,6 +273,12 @@
 			message = "<B>[src]</B> emits a negative blip[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/machines/synth_no.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
+
+		if("rattle", "rattles")
+			var/M = handle_emote_param(param)
+
+			message = "<b>[src]</b> rattles [p_their()] bones[M ? " at [M]" : ""]."
+			m_type = 1
 
 		if("wag", "wags")
 			if(body_accessory)
@@ -983,6 +994,10 @@
 					emotelist += "\n<u>Vox specific emotes</u> :- wag(s), swag(s), quill(s)"
 				if("Vulpkanin")
 					emotelist += "\n<u>Vulpkanin specific emotes</u> :- wag(s), swag(s), growl(s)-none/mob, howl(s)-none/mob"
+				if("Plasmaman")
+					emotelist += "\n<u>Plasmaman specific emotes</u> :- rattle(s)-none/mob"
+				if("Skeleton")
+					emotelist += "\n<u>Skeleton specific emotes</u> :- rattle(s)-none/mob"
 
 			if(ismachineperson(src))
 				emotelist += "\n<u>Machine specific emotes</u> :- beep(s)-none/mob, buzz(es)-none/mob, no-none/mob, ping(s)-none/mob, yes-none/mob, buzz2-none/mob"

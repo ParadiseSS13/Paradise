@@ -124,6 +124,10 @@
 	name = "Pyromancer REAL_NAME"
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU", "ONI SOMA!")
 
+/datum/dog_fashion/head/black_wizard
+	name = "Necromancer REAL_NAME"
+	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
+
 /datum/dog_fashion/head/cardborg
 	name = "Borgi"
 	speak = list("Ping!","Beep!","Woof!")
@@ -147,6 +151,8 @@
 /datum/dog_fashion/head/cargo_tech
 	name = "Corgi Tech REAL_NAME"
 	desc = "The reason your yellow gloves have chew-marks."
+
+/datum/dog_fashion/head/softcap
 
 /datum/dog_fashion/head/reindeer
 	name = "REAL_NAME the red-nosed Corgi"
@@ -208,3 +214,38 @@
 /datum/dog_fashion/head/fried_vox_empty
 	name = "Colonel REAL_NAME"
 	desc = "Keep away from live vox."
+
+/datum/dog_fashion/head/HoS
+	name = "Head of Security REAL_NAME"
+	desc = "Probably better than the last HoS."
+
+/datum/dog_fashion/head/beret/sec
+	name = "Officer REAL_NAME"
+	desc = "Ever-loyal, ever-vigilant."
+
+/datum/dog_fashion/head/bowlerhat
+	name = "REAL_NAME"
+	desc = "A sophisticated city gent."
+
+/datum/dog_fashion/head/surgery
+	name = "Nurse-in-Training REAL_NAME"
+	desc = "The most adorable bed-side manner ever."
+
+/datum/dog_fashion/head/bucket
+	name = "REAL_NAME"
+	desc = "A janitor's best friend."
+
+/datum/dog_fashion/head/justice_wig
+	name = "Arbiter REAL_NAME"
+	desc = "Head of the High Court of Cute."
+
+/datum/dog_fashion/head/wizard/magus
+	name = "Battlemage REAL_NAME"
+
+/datum/dog_fashion/head/wizard/marisa
+	name = "Witch REAL_NAME"
+	desc = "Flying broom not included."
+
+/datum/dog_fashion/head/roman
+	name = "Imperator REAL_NAME"
+	desc = "For the Senate and the people of Rome!"

@@ -166,7 +166,7 @@
 	icon_state = "roman"
 	item_state = "roman"
 	strip_delay = 100
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/roman
 
 /obj/item/clothing/head/helmet/roman/fake
 	desc = "An ancient helmet made of plastic and leather."

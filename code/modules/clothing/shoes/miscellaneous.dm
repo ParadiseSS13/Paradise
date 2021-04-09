@@ -22,16 +22,16 @@
 	flags = NOSLIP
 
 /obj/item/clothing/shoes/sandal
-	desc = "A pair of rather plain, wooden sandals."
 	name = "sandals"
+	desc = "A pair of rather plain, wooden sandals."
 	icon_state = "wizard"
 	strip_delay = 50
 	put_on_delay = 50
 	magical = TRUE
 
 /obj/item/clothing/shoes/sandal/marisa
-	desc = "A pair of magic, black shoes."
 	name = "magic shoes"
+	desc = "A pair of magic, black shoes."
 	icon_state = "black"
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
 
@@ -41,8 +41,8 @@
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
 
 /obj/item/clothing/shoes/galoshes
-	desc = "A pair of yellow rubber boots, designed to prevent slipping on wet surfaces."
 	name = "galoshes"
+	desc = "A pair of yellow rubber boots, designed to prevent slipping on wet surfaces."
 	icon_state = "galoshes"
 	permeability_coefficient = 0.05
 	flags = NOSLIP
@@ -69,8 +69,8 @@
 		t_loc.MakeDry(TURF_WET_WATER)
 
 /obj/item/clothing/shoes/clown_shoes
-	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
 	name = "clown shoes"
+	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
 	icon_state = "clown"
 	item_state = "clown_shoes"
 	slowdown = SHOES_SLOWDOWN+1
@@ -219,13 +219,13 @@
 	item_state = "noble_boot"
 
 /obj/item/clothing/shoes/sandal/white
-	name = "White Sandals"
+	name = "white sandals"
 	desc = "Medical sandals that nerds wear."
 	icon_state = "medsandal"
 	item_color = "medsandal"
 
 /obj/item/clothing/shoes/sandal/fancy
-	name = "Fancy Sandals"
+	name = "fancy sandals"
 	desc = "FANCY!!."
 	icon_state = "fancysandal"
 	item_color = "fancysandal"

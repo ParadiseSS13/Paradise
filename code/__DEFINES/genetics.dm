@@ -81,3 +81,4 @@
 #define NO_INTORGANS	"no_internal_organs"
 #define CAN_WINGDINGS	"can_wingdings"
 #define NO_CLONESCAN 	"no_clone_scan"
+#define NO_HAIR			"no_hair"

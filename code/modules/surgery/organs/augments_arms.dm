@@ -62,8 +62,13 @@
 		Retract()
 	..()
 
+/obj/item/organ/internal/cyberimp/arm/proc/check_cuffs()
+	if(owner.handcuffed)
+		to_chat(owner, "<span class='warning'>The handcuffs interfere with [src]!</span>")
+		return TRUE
+
 /obj/item/organ/internal/cyberimp/arm/proc/Retract()
-	if(!holder || (holder in src))
+	if(!holder || (holder in src) || check_cuffs())
 		return
 
 	owner.visible_message("<span class='notice'>[owner] retracts [holder] back into [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
@@ -80,9 +85,8 @@
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 
 /obj/item/organ/internal/cyberimp/arm/proc/Extend(obj/item/item)
-	if(!(item in src))
+	if(!(item in src) || check_cuffs())
 		return
-
 
 	holder = item
 

@@ -952,6 +952,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/toy/carpplushie/dehy_carp
 	cost = 2
 
+/datum/uplink_item/stealthy_weapons/combat_plus
+	name = "Combat Gloves Plus"
+	desc = "Combat gloves with installed nanochips that teach you Krav Maga when worn, great as a cheap backup weapon. Warning, the nanochips will override any other fighting styles such as CQC."
+	reference = "CGP"
+	item = /obj/item/clothing/gloves/color/black/krav_maga/combat
+	cost = 5
+	gamemodes = list(/datum/game_mode/nuclear)
+
 // GRENADES AND EXPLOSIVES
 
 /datum/uplink_item/explosives
