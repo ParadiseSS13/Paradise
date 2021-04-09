@@ -14,6 +14,7 @@
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
+	brute_mod = 1.5 // 100% * 1.5 * 0.66 (robolimbs) ~= 100%
 	tox_mod = 0
 	clone_mod = 0
 	death_message = "gives a short series of shrill beeps, their chassis shuddering before falling limp, nonfunctional."
