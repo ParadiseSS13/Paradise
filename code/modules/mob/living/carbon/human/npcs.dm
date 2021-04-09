@@ -16,4 +16,4 @@
 	. = ..()
 	name = "Mr. Teeny"
 	real_name = name
-	resize = "0.8"
+	resize = 0.8
