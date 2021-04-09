@@ -10,9 +10,9 @@
 			continue
 
 		if(C.holder && C.holder.fakekey)
-			temp.Add(C.holder.fakekey)
+			temp += C.holder.fakekey
 		else
-			temp.Add(C.key)
+			temp += C.key
 
 	temp = sortList(temp) // Sort it. We dont do this above because fake keys would be out of order, which would be a giveaway
 
@@ -32,13 +32,13 @@
 		if(colour)
 			out = "<font color='[colour]'>[out]</font>"
 
-		output_players.Add(out)
+		output_players += out
 
-	lines.Add("<b>Current Players ([length(output_players)]): </b>")
-	lines.Add(output_players.Join(", ")) // Turn players into a comma separated list
+	lines += "<b>Current Players ([length(output_players)]): </b>"
+	lines += output_players.Join(", ") // Turn players into a comma separated list
 
 	if(check_rights(R_ADMIN, FALSE))
-		lines.Add("Click <a href='?_src_=holder;who_advanced=1'>here</a> for detailed (old) who.")
+		lines += "Click <a href='?_src_=holder;who_advanced=1'>here</a> for detailed (old) who."
 
 	var/msg = lines.Join("\n")
 
@@ -89,7 +89,7 @@
 
 		if(is_special_character(C.mob))
 			entry += " - <b><font color='red'>Antagonist</font></b>"
-		entry += " ([ADMIN_QUE(C.mob,"?")])"
+		entry += " ([ADMIN_QUE(C.mob, "?")])"
 		Lines += entry
 
 	var/msg = ""
