@@ -120,7 +120,7 @@
 		client.time_died_as_mouse = world.time
 
 /mob/living/simple_animal/mouse/acid_act()
-	visible_message("<span class='warning'>[src] dissolve[gender==PLURAL?"":"s"] into a puddle of sizzling goop!</span>")
+	visible_message("<span class='warning'>[src] dissolves into a puddle of sizzling goop!</span>")
 	playsound(src, 'sound/items/welder.ogg', 150, TRUE)
 	new /obj/effect/decal/cleanable/greenglow(drop_location())
 	qdel(src)
