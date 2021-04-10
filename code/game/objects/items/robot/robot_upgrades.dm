@@ -91,12 +91,21 @@
 /obj/item/borg/upgrade/vtec/action(mob/living/silicon/robot/R)
 	if(..())
 		return
-	if(R.speed < 0)
+	var/obj/item/borg/upgrade/vtec/W = locate() in R
+	if(W)
 		to_chat(R, "<span class='notice'>A VTEC unit is already installed!</span>")
 		to_chat(usr, "<span class='notice'>There's no room for another VTEC unit!</span>")
 		return
-
-	R.speed = -1 // Gotta go fast.
+	if(istype(R.module, /obj/item/robot_module/security))
+		to_chat(R, "<span class='notice'>You do not have the spare processing power for a VTEC unit!</span>")
+		to_chat(usr, "<span class='notice'>Security cyborgs are incompatable with VTEC units!</span>")
+		return
+	var/obj/item/borg/upgrade/floorbuffer/U = locate() in R
+	if(U)
+		to_chat(R, "<span class='notice'>The floor buffer upgrade rejects the installation of a VTEC unit!</span>")
+		to_chat(usr, "<span class='notice'>VTEC units are incompatable with floor buffer upgrades!</span>")
+		return
+	R.speed = -0.5 // Gotta go fast.
 
 	return TRUE
 
@@ -387,3 +396,27 @@
 			msg_cooldown = world.time
 	else
 		deactivate()
+
+/obj/item/borg/upgrade/floorbuffer
+	name = "janitor cyborg floor buffer upgrade"
+	desc = "A floor buffer upgrade kit that can be attached to janitor cyborgs."
+	icon = 'icons/obj/vehicles.dmi'
+	icon_state = "upgrade"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/janitor
+
+/obj/item/borg/upgrade/floorbuffer/action(mob/living/silicon/robot/R)
+	if(..())
+		return
+	var/obj/item/borg/upgrade/vtec/W = locate() in R
+	if(W)
+		to_chat(R, "<span class='notice'>The VTEC upgrade rejects the installation of a floor buffer!</span>")
+		to_chat(usr, "<span class='notice'>Floor buffer upgrades are incompatable with VTEC units!</span>")
+		return
+	var/obj/item/borg/upgrade/floorbuffer/U = locate() in R
+	if(U)
+		to_chat(R, "<span class='notice'>A floor buffer unit is already installed!</span>")
+		to_chat(usr, "<span class='notice'>There's no room for another floor buffer unit!</span>")
+		return
+	R.floorbuffer = TRUE
+	return TRUE

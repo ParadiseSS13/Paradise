@@ -107,6 +107,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/magpulse = 0
 	var/ionpulse = 0 // Jetpack-like effect.
 	var/ionpulse_on = 0 // Jetpack-like effect.
+	var/floorbuffer = FALSE //Does it clean the tile under it?
 
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
@@ -1225,7 +1226,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 						GLOB.cameranet.updatePortableCamera(src.camera)
 					updating = 0
 	if(module)
-		if(module.type == /obj/item/robot_module/janitor)
+		if(floorbuffer)
 			var/turf/tile = loc
 			if(stat != DEAD && isturf(tile))
 				var/floor_only = TRUE
