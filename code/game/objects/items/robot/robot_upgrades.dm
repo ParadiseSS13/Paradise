@@ -105,7 +105,10 @@
 		to_chat(R, "<span class='notice'>The floor buffer upgrade rejects the installation of a VTEC unit!</span>")
 		to_chat(usr, "<span class='notice'>VTEC units are incompatable with floor buffer upgrades!</span>")
 		return
-	R.speed = -0.5 // Gotta go fast.
+	if(R.scrambledcodes)
+		R.speed = -1 // Off-station borgs (nukies) get that zoom.
+	else
+		R.speed = -0.5
 
 	return TRUE
 

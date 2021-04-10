@@ -115,6 +115,7 @@
 
 
 /obj/item/mop/advanced/cyborg
+	refill_reagent = "cleaner"
 
 /obj/item/mop/advanced/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return
