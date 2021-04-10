@@ -128,6 +128,10 @@
 	P.setAngle(new_angle_s)
 	return TRUE
 
+/turf/simulated/wall/proc/asteroid_check() //checks if baseturf is asteroid sand, these should not become plating!
+	if(baseturf == /turf/simulated/floor/plating/asteroid)
+		return TRUE
+
 /turf/simulated/wall/dismantle_wall(devastated = FALSE, explode = FALSE)
 	if(devastated)
 		devastate_wall()
@@ -143,8 +147,10 @@
 			P.roll_and_drop(src)
 		else
 			O.forceMove(src)
-
-	ChangeTurf(/turf/simulated/floor/plating)
+		if(asteroid_check())
+			ChangeTurf(baseturf)
+		else
+			ChangeTurf(/turf/simulated/floor/plating)
 	return TRUE
 
 /turf/simulated/wall/proc/break_wall()

@@ -48,6 +48,9 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 //		if(!( locate(/obj/machinery/mass_driver, src) ))
 //			return 0
 //	return ..()
+/turf/simulated/floor/proc/asteroid_check() //checks if baseturf is asteroid sand, these should not become plating!
+	if(baseturf == /turf/simulated/floor/plating/asteroid)
+		return TRUE
 
 /turf/simulated/floor/ex_act(severity)
 	if(is_shielded())
@@ -55,24 +58,45 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	switch(severity)
 		if(1.0)
 			ChangeTurf(baseturf)
+			if(asteroid_check()) //sorry for cramming all these new if checks in here
+				icon_state = "asteroid"
+				icon_plating = "asteroid"
 		if(2.0)
 			switch(pick(1,2;75,3))
 				if(1)
 					spawn(0)
-						ReplaceWithLattice()
+						if(!asteroid_check())
+							ReplaceWithLattice()
+						else
+							ChangeTurf(baseturf)
+							icon_state = "asteroid"
+							icon_plating = "asteroid"
 						if(prob(33)) new /obj/item/stack/sheet/metal(src)
 				if(2)
 					ChangeTurf(baseturf)
+					if(asteroid_check())
+						icon_state = "asteroid"
+						icon_plating = "asteroid"
 				if(3)
-					if(prob(80))
-						break_tile_to_plating()
+					if(!asteroid_check())
+						if(prob(80))
+							break_tile_to_plating()
+						else
+							break_tile()
 					else
-						break_tile()
+						ChangeTurf(baseturf)
+						icon_state = "asteroid"
+						icon_plating = "asteroid"
 					hotspot_expose(1000,CELL_VOLUME)
 					if(prob(33)) new /obj/item/stack/sheet/metal(src)
 		if(3.0)
 			if(prob(50))
-				break_tile()
+				if(!asteroid_check())
+					break_tile()
+				else
+					ChangeTurf(baseturf)
+					icon_state = "asteroid"
+					icon_plating = "asteroid"
 				hotspot_expose(1000,CELL_VOLUME)
 	return
 

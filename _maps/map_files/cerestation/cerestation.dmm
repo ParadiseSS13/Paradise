@@ -650,8 +650,9 @@
 /area/turret_protected/aisat_interior)
 "ads" = (
 /obj/machinery/porta_turret{
-	dir = 4;
-	installation = /obj/item/gun/energy/e_gun
+	dir = 8;
+	installation = /obj/item/gun/energy/gun;
+	name = "hallway turret"
 	},
 /obj/machinery/light{
 	dir = 8
@@ -681,8 +682,9 @@
 /area/turret_protected/aisat_interior)
 "adv" = (
 /obj/machinery/porta_turret{
-	dir = 4;
-	installation = /obj/item/gun/energy/e_gun
+	dir = 8;
+	installation = /obj/item/gun/energy/gun;
+	name = "hallway turret"
 	},
 /obj/machinery/light{
 	dir = 4
@@ -1146,18 +1148,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/aisat_interior)
-"afS" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
 /obj/machinery/turretid/stun{
 	control_area = "\improper AI Satellite Hallway";
 	name = "AI Chamber Hallway Turret Control";
-	pixel_y = 24;
+	pixel_x = 25;
+	pixel_y = 32;
 	req_access_txt = "75"
 	},
 /turf/simulated/floor/plasteel{
@@ -11588,7 +11583,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -32325,6 +32319,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bGZ" = (
@@ -36008,6 +36003,7 @@
 	pixel_y = -22
 	},
 /obj/machinery/computer/card/minor/ce,
+/obj/item/paper/tcommskey,
 /turf/simulated/floor/plasteel,
 /area/engine/chiefs_office)
 "bPC" = (
@@ -49887,15 +49883,6 @@
 /area/quartermaster/miningdock)
 "cxX" = (
 /obj/structure/table,
-/obj/item/cartridge/signal/toxins,
-/obj/item/cartridge/signal/toxins{
-	pixel_x = -4;
-	pixel_y = 2
-	},
-/obj/item/cartridge/signal/toxins{
-	pixel_x = 4;
-	pixel_y = 6
-	},
 /obj/machinery/photocopier/faxmachine{
 	department = "Research Director's Office"
 	},
@@ -53470,6 +53457,7 @@
 /area/security/execution)
 "cHt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -57533,6 +57521,7 @@
 	pixel_x = 3;
 	pixel_y = -2
 	},
+/obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
@@ -57621,6 +57610,15 @@
 	pixel_y = -28
 	},
 /obj/structure/closet/secure_closet/RD,
+/obj/item/cartridge/signal/toxins{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/item/cartridge/signal/toxins{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/cartridge/signal/toxins,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
@@ -76828,6 +76826,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"lMs" = (
+/obj/effect/baseturf_helper/asteroid,
+/turf/simulated/floor/plating,
+/area/maintenance/aft)
 "lMv" = (
 /obj/machinery/door/firedoor,
 /obj/structure/table/wood/poker,
@@ -78622,6 +78624,15 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/security/checkpoint/science)
+"njJ" = (
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/baseturf_helper/asteroid,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint2)
 "njY" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -78767,6 +78778,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -88082,6 +88094,23 @@
 "vXn" = (
 /turf/simulated/wall,
 /area/hallway/primary/starboard/south)
+"vXr" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/baseturf_helper/asteroid,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/medical/reception)
 "vYN" = (
 /obj/machinery/conveyor/auto{
 	dir = 6
@@ -88365,9 +88394,14 @@
 	sound_environment = 15
 	})
 "wlC" = (
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /obj/effect/baseturf_helper/asteroid,
-/turf/simulated/floor/grass,
-/area/medical/genetics)
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "wlG" = (
 /turf/space,
 /area/solar/starboard)
@@ -130376,7 +130410,7 @@ tIC
 tIC
 vUQ
 tIC
-vgu
+lMs
 cQY
 uEz
 aYf
@@ -134120,7 +134154,7 @@ adh
 adh
 adh
 uht
-afS
+aiQ
 agR
 ahD
 aij
@@ -135398,7 +135432,7 @@ ccz
 acK
 cEm
 hMC
-hMC
+aaf
 aaf
 aaf
 aaf
@@ -138840,7 +138874,7 @@ cJb
 bvB
 hWm
 byQ
-bzT
+vXr
 bVK
 dBf
 bCj
@@ -140438,7 +140472,7 @@ jVs
 cfm
 cfm
 fZk
-lOz
+njJ
 chI
 cio
 ciV
@@ -140589,7 +140623,7 @@ ftr
 ftr
 hIM
 hIM
-wAG
+wlC
 rBW
 ftr
 ftr
@@ -145785,7 +145819,7 @@ ejP
 rxZ
 uyn
 bDA
-wlC
+iEW
 iEW
 iEW
 xNq
