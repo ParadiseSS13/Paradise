@@ -5415,17 +5415,17 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "avW" = (
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
 /obj/structure/cable/orange{
 	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
-	},
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/sleep{
@@ -5434,17 +5434,17 @@
 "avX" = (
 /obj/structure/cable/orange{
 	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -8426,7 +8426,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay";
-	req_access_txt = "31"
+	req_access_txt = "50"
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -8434,7 +8434,7 @@
 "aEY" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay";
-	req_access_txt = "31"
+	req_access_txt = "50"
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -11162,11 +11162,20 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore)
 "aLp" = (
+/obj/structure/sign/directions/security{
+	dir = 8;
+	pixel_x = 2;
+	pixel_y = 39
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
 /obj/effect/turf_decal/arrows{
-	dir = 8
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkbrown"
 	},
 /area/teleporter/quantum/cargo)
 "aLr" = (
@@ -11179,9 +11188,19 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/effect/turf_decal/arrows,
+/obj/structure/sign/directions/evac{
+	pixel_x = -1;
+	pixel_y = 39
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkbrown"
 	},
 /area/teleporter/quantum/cargo)
 "aLs" = (
@@ -11563,15 +11582,18 @@
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/obj/effect/turf_decal/arrows{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkbrown"
 	},
 /area/teleporter/quantum/cargo)
 "aMn" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/landmark{
 	name = "event_spawn"
 	},
@@ -11579,9 +11601,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11593,11 +11612,15 @@
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/obj/effect/turf_decal/arrows{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkbrown"
 	},
 /area/teleporter/quantum/cargo)
 "aMp" = (
@@ -11988,7 +12011,8 @@
 "aNr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 10;
+	icon_state = "darkbrown"
 	},
 /area/teleporter/quantum/cargo)
 "aNs" = (
@@ -12001,7 +12025,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkbrown"
 	},
 /area/teleporter/quantum/cargo)
 "aNt" = (
@@ -12010,7 +12034,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/item/screwdriver,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "darkbrown"
 	},
 /area/teleporter/quantum/cargo)
 "aNu" = (
@@ -14496,7 +14521,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/item/screwdriver,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 9;
+	icon_state = "darkred"
 	},
 /area/teleporter/quantum/science)
 "aSy" = (
@@ -14506,7 +14532,8 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/teleporter/quantum/science)
 "aSz" = (
@@ -14521,7 +14548,8 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "darkred"
 	},
 /area/teleporter/quantum/science)
 "aSA" = (
@@ -14939,18 +14967,14 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
-	},
+/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/arrows,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/teleporter/quantum/science)
 "aTw" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -14964,11 +14988,11 @@
 	dir = 8;
 	pixel_x = 27
 	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/arrows,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/teleporter/quantum/science)
 "aTz" = (
@@ -15120,13 +15144,19 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/arrows,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -24
 	},
+/obj/structure/sign/directions/science{
+	pixel_x = 2;
+	pixel_y = -25
+	},
+/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/arrows,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/teleporter/quantum/science)
 "aTV" = (
@@ -15290,7 +15320,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkred"
 	},
 /area/teleporter/quantum/science)
 "aUq" = (
@@ -24354,9 +24384,7 @@
 	req_access_txt = "2"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
+/obj/structure/disposalpipe/trunk,
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = 20
@@ -25033,6 +25061,10 @@
 	},
 /area/hallway/primary/starboard/south)
 "bqK" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -25793,7 +25825,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/engine/engineering)
 "bsc" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -28723,6 +28755,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/unary/portables_connector{
+	name = "Portable Air Pump Connector"
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "byy" = (
@@ -28888,6 +28924,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/structure/window/reinforced,
+/obj/item/stock_parts/cell,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -28925,7 +28962,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
 	name = "Criminal Deposit";
-	req_access_txt = "2"
+	req_access_txt = "63"
 	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
@@ -29056,6 +29093,7 @@
 	name = "Station Intercom (General)";
 	pixel_x = 29
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/blue,
 /turf/simulated/floor/plasteel{
 	dir = 4
 	},
@@ -42915,7 +42953,8 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkpurple"
 	},
 /area/teleporter/quantum/science)
 "cjp" = (
@@ -42924,8 +42963,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "escape"
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/teleporter/quantum/science)
 "cjs" = (
@@ -42961,7 +43000,8 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkgreen"
 	},
 /area/teleporter/quantum/docking)
 "cju" = (
@@ -43341,27 +43381,50 @@
 	dir = 4;
 	pixel_x = -24
 	},
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_x = 2;
+	pixel_y = 39
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
 /obj/effect/turf_decal/arrows{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkpurple"
 	},
 /area/teleporter/quantum/science)
 "ckh" = (
-/obj/effect/turf_decal/arrows{
-	dir = 4
+/obj/structure/sign/directions/cargo{
+	dir = 4;
+	pixel_x = -1;
+	pixel_y = -25
 	},
+/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/arrows,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/teleporter/quantum/science)
 "cki" = (
+/obj/structure/sign/directions/science{
+	dir = 8;
+	pixel_x = 2;
+	pixel_y = 39
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
 /obj/effect/turf_decal/arrows{
-	dir = 8
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkgreen"
 	},
 /area/teleporter/quantum/docking)
 "ckj" = (
@@ -43384,11 +43447,20 @@
 	dir = 8;
 	pixel_x = 24
 	},
+/obj/structure/sign/directions/cargo{
+	dir = 1;
+	pixel_x = -1;
+	pixel_y = 39
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
 /obj/effect/turf_decal/arrows{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/teleporter/quantum/docking)
 "ckm" = (
@@ -43637,11 +43709,15 @@
 	dir = 4;
 	pixel_x = -32
 	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/obj/effect/turf_decal/arrows{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkpurple"
 	},
 /area/teleporter/quantum/science)
 "ckP" = (
@@ -43652,11 +43728,15 @@
 	name = "EXTERNAL AIRLOCK";
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/obj/effect/turf_decal/arrows{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkpurple"
 	},
 /area/teleporter/quantum/science)
 "ckQ" = (
@@ -43668,11 +43748,15 @@
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkgreen"
 	},
 /area/teleporter/quantum/docking)
 "ckS" = (
@@ -43681,11 +43765,15 @@
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/teleporter/quantum/docking)
 "ckT" = (
@@ -43901,7 +43989,8 @@
 "clz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 10;
+	icon_state = "darkgreen"
 	},
 /area/teleporter/quantum/docking)
 "clB" = (
@@ -43910,7 +43999,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/item/screwdriver,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "darkgreen"
 	},
 /area/teleporter/quantum/docking)
 "clD" = (
@@ -45167,9 +45257,11 @@
 /turf/simulated/floor/plasteel,
 /area/teleporter)
 "cof" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
-/area/teleporter)
+/area/engine/break_room)
 "cog" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-21"
@@ -45706,9 +45798,22 @@
 /turf/simulated/wall/r_wall,
 /area/teleporter)
 "cpf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/wall/r_wall,
-/area/teleporter)
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_x = -1;
+	pixel_y = 39
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkpurple"
+	},
+/area/teleporter/quantum/science)
 "cpg" = (
 /obj/machinery/door/airlock/command{
 	name = "Teleport Access";
@@ -45716,6 +45821,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/teleporter)
 "cph" = (
@@ -45944,23 +46050,21 @@
 	},
 /area/hallway/secondary/entry/south)
 "cpK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "bluecorner"
+	icon_state = "darkgreen"
 	},
-/area/hallway/secondary/entry/south)
+/area/teleporter/quantum/docking)
 "cpL" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -53944,12 +54048,10 @@
 	},
 /area/hallway/primary/central)
 "cIM" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/wall,
-/area/security/checkpoint/medical)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel,
+/area/teleporter)
 "cIN" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -53986,13 +54088,12 @@
 	},
 /area/hallway/primary/starboard/south)
 "cIS" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
 /obj/machinery/door/airlock/security{
 	name = "Security Office";
 	req_access_txt = "1"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint/medical)
@@ -66870,7 +66971,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/engine/engineering)
 "dzf" = (
 /obj/structure/cable{
@@ -71264,6 +71365,9 @@
 "gtz" = (
 /obj/structure/table,
 /obj/item/storage/box/cups,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4
 	},
@@ -73419,15 +73523,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "izx" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/baseturf_helper/asteroid,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -74249,6 +74349,7 @@
 "jpU" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plasteel{
 	dir = 4
 	},
@@ -75286,9 +75387,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plasteel,
@@ -76771,15 +76869,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "lJn" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/baseturf_helper/asteroid,
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -78502,9 +78596,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/computer/cryopod{
-	pixel_x = 32
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull";
 	tag = "icon-whitebluefull"
@@ -79850,8 +79941,8 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "escape"
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/teleporter/quantum/cargo)
 "orJ" = (
@@ -84065,6 +84156,9 @@
 /turf/simulated/wall,
 /area/construction)
 "sth" = (
+/obj/machinery/computer/cryopod{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull";
 	tag = "icon-whitebluefull"
@@ -85627,7 +85721,8 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkbrown"
 	},
 /area/teleporter/quantum/cargo)
 "tTu" = (
@@ -88257,15 +88352,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/hydroponics)
-"wfN" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/portable_atmospherics/pump,
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4;
-	name = "Portable Air Pump Connector"
-	},
-/turf/simulated/floor/plasteel,
-/area/engine/break_room)
 "wgh" = (
 /obj/machinery/light{
 	dir = 8
@@ -116833,7 +116919,7 @@ cda
 ccW
 bKg
 cjp
-ckh
+cpf
 ckP
 uJt
 cph
@@ -118496,8 +118582,8 @@ nLP
 lqk
 atJ
 dkg
-avW
 hyJ
+avW
 cGk
 uyM
 wDs
@@ -118754,7 +118840,7 @@ asD
 atK
 cSY
 avX
-hyJ
+cRT
 jEG
 uyM
 uyM
@@ -120884,7 +120970,7 @@ aYJ
 bwi
 rsj
 eWx
-wfN
+bCI
 bAE
 bCI
 eXT
@@ -121398,9 +121484,9 @@ buP
 bwj
 bxu
 bDX
-bCJ
 bDX
 bDX
+cof
 bCJ
 bDX
 bFh
@@ -130970,7 +131056,7 @@ mhJ
 cjt
 gLl
 lJn
-gLl
+cpK
 cmh
 cnq
 uiK
@@ -134057,11 +134143,11 @@ ckT
 clH
 enD
 cmm
-cof
-cpf
-cpK
-gLZ
-crN
+cmm
+ckT
+uSP
+uiK
+jHY
 fqR
 rNK
 ctZ
@@ -134314,11 +134400,11 @@ ckT
 clI
 cmn
 cnA
-cmn
+cIM
 cpg
 cpL
-uiK
-jHY
+gLZ
+crN
 fqR
 rNK
 ctZ
@@ -137838,7 +137924,7 @@ cOC
 cOC
 cOC
 bob
-cIM
+bob
 cIS
 bob
 bob
