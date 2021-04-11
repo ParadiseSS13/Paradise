@@ -48,6 +48,21 @@
 			"s" = list("ss", "sss", "ssss")
 		)
 
+/datum/species/vulpkanin
+	autohiss_basic_map = list(
+			"wh" = list("v"),
+			"w" = list("v"),
+			"th" = list("z")
+	)
+
+	autohiss_extra_map = list(
+			"ex" = list("ekz"),
+			"and" = list("ahnd"),
+			"beer" = list("bier"),
+	)
+
+	autohiss_exempt = list("Canilunzt")
+
 /datum/species/kidan
 	autohiss_basic_map = list(
 			"z" = list("zz", "zzz", "zzzz"),
@@ -61,7 +76,7 @@
 /datum/species/drask
 	autohiss_basic_map = list(
 			"o" = list ("oo", "ooo"),
-			"u" = list ("uu", "uuu")			
+			"u" = list ("uu", "uuu")
 		)
 	autohiss_extra_map = list(
 			"m" = list ("mm", "mmm")
@@ -79,29 +94,30 @@
 	if(mode == AUTOHISS_FULL && autohiss_extra_map)
 		map |= autohiss_extra_map
 
-	. = list()
+	. = ""
 
 	while(length(message))
 		var/min_index = 10000 // if the message is longer than this, the autohiss is the least of your problems
-		var/min_char = null
-		for(var/char in map)
-			var/i = findtext(message, char)
+		var/min_key = null
+		for(var/key in map) //find the next key to replace
+			var/i = findtext(message, key)
 			if(!i) // no more of this character anywhere in the string, don't even bother searching next time
-				map -= char
+				map -= key
 			else if(i < min_index)
 				min_index = i
-				min_char = char
-		if(!min_char) // we didn't find any of the mapping characters
+				min_key = key
+
+		if(!min_key) // we didn't find any of the mapping characters
 			. += message
 			break
-		. += copytext(message, 1, min_index)
-		if(copytext(message, min_index, min_index+1) == uppertext(min_char))
-			. += capitalize(pick(map[min_char]))
-		else
-			. += pick(map[min_char])
-		message = copytext(message, min_index + 1)
 
-	return jointext(., "")
+		. += copytext(message, 1, min_index)
+
+		if(copytext(message, min_index, min_index + length(min_key)) == capitalize(min_key))
+			. += capitalize(pick(map[min_key]))
+		else
+			. += pick(map[min_key])
+		message = copytext(message, min_index + length(min_key))
 
 #undef AUTOHISS_OFF
 #undef AUTOHISS_BASIC
