@@ -10569,8 +10569,6 @@
 /obj/item/radio/intercom/department/security{
 	pixel_x = -28
 	},
-/obj/structure/bed/dogbed/ducktron,
-/mob/living/simple_animal/chick/ducktron,
 /turf/simulated/floor/plasteel,
 /area/security/processing)
 "auU" = (
