@@ -94,7 +94,7 @@
 	if(mode == AUTOHISS_FULL && autohiss_extra_map)
 		map |= autohiss_extra_map
 
-	. = ""
+	. = list()
 
 	while(length(message))
 		var/min_index = 10000 // if the message is longer than this, the autohiss is the least of your problems
@@ -118,6 +118,8 @@
 		else
 			. += pick(map[min_key])
 		message = copytext(message, min_index + length(min_key))
+
+	return jointext(., "")
 
 #undef AUTOHISS_OFF
 #undef AUTOHISS_BASIC
