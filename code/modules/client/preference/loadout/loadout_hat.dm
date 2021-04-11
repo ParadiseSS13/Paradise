@@ -141,27 +141,27 @@
 	subtype_cost_overlap = FALSE
 
 /datum/gear/hat/beret_job/sec
-	display_name = "Security beret"
+	display_name = "Beret, security"
 	path = /obj/item/clothing/head/beret/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/hat/beret_job/sci
-	display_name = "Science beret"
+	display_name = "Beret, science"
 	path = /obj/item/clothing/head/beret/sci
 	allowed_roles = list("Research Director", "Scientist")
 
 /datum/gear/hat/beret_job/med
-	display_name = "Medical beret"
+	display_name = "Beret, medical"
 	path = /obj/item/clothing/head/beret/med
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Brig Physician" , "Coroner")
 
 /datum/gear/hat/beret_job/eng
-	display_name = "Engineering beret"
+	display_name = "Beret, engineering"
 	path = /obj/item/clothing/head/beret/eng
 	allowed_roles = list("Chief Engineer", "Station Engineer")
 
 /datum/gear/hat/beret_job/atmos
-	display_name = "Atmospherics beret"
+	display_name = "Beret, atmospherics"
 	path = /obj/item/clothing/head/beret/atmos
 	allowed_roles = list("Chief Engineer", "Life Support Specialist")
 

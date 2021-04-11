@@ -56,7 +56,7 @@
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
 /datum/gear/suit/coat/job/miner
-	display_name = "Winter coat, miner"
+	display_name = "Winter coat, mining"
 	path = /obj/item/clothing/suit/hooded/wintercoat/miner
 	allowed_roles = list("Shaft Miner")
 
@@ -218,5 +218,4 @@
 /datum/gear/suit/witch
 	display_name = "Witch robes"
 	path = /obj/item/clothing/suit/wizrobe/marisa/fake
-
 

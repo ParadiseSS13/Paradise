@@ -173,7 +173,7 @@
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Security Pod Pilot")
 
 /datum/gear/accessory/armband_job/cargo
-	display_name = "Cargo armband"
+	display_name = "Armband, cargo"
 	path = /obj/item/clothing/accessory/armband/cargo
 	allowed_roles = list("Quartermaster","Cargo Technician", "Shaft Miner")
 
