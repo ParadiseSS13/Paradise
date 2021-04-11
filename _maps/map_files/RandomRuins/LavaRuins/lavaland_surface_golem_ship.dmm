@@ -254,12 +254,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/freegolem)
-"aS" = (
-/obj/item/pod_parts/pod_frame/aft_starboard{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/freegolem)
 "aT" = (
 /obj/structure/table,
 /obj/item/stack/sheet/wood{
@@ -315,18 +309,10 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bg" = (
+/obj/item/storage/toolbox/mechanical,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/structure/table/wood,
 /obj/structure/table,
-/obj/item/pod_parts/core,
-/obj/item/pod_parts/armor,
-/obj/item/spacepod_equipment/weaponry/mining_laser,
-/obj/item/spacepod_equipment/cargo/ore,
-/obj/item/circuitboard/mecha/pod,
-/turf/simulated/floor/plating,
-/area/shuttle/freegolem)
-"bB" = (
-/obj/item/pod_parts/pod_frame/aft_port{
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "cD" = (
@@ -342,12 +328,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"ee" = (
-/obj/item/pod_parts/pod_frame/fore_starboard{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "rJ" = (
 /obj/structure/table/wood,
@@ -369,12 +349,6 @@
 /obj/structure/computerframe,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
-"Gs" = (
-/obj/item/storage/toolbox/mechanical,
-/obj/item/reagent_containers/spray/cleaner,
-/obj/structure/table/wood,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "Lh" = (
 /turf/simulated/floor/light{
 	color = ""
@@ -388,12 +362,6 @@
 "OK" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"QK" = (
-/obj/item/pod_parts/pod_frame/fore_port{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "Xn" = (
 /obj/machinery/constructable_frame/machine_frame,
@@ -572,7 +540,7 @@ ap
 aq
 au
 aH
-Gs
+aj
 ap
 ap
 ab
@@ -654,7 +622,7 @@ ab
 "}
 (15,1,1) = {"
 ab
-aj
+ap
 ap
 al
 ap
@@ -720,8 +688,8 @@ ap
 ap
 ap
 ab
-QK
-bB
+af
+af
 ab
 "}
 (19,1,1) = {"
@@ -738,8 +706,8 @@ ab
 aY
 aZ
 ab
-ee
-aS
+af
+af
 ab
 "}
 (20,1,1) = {"
