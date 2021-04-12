@@ -1,6 +1,6 @@
 /obj/item/gun/energy/laser
 	name = "laser gun"
-	desc = "A basic energy-based laser gun that fires concentrated beams of light which pass through glass and thin metal."
+	desc = "A WT-650 'Sentinel' laser carbine manufactured by Warp-Tac Inc. The golden shield of Nanotrasen Security is visible."
 	icon_state = "laser"
 	item_state = "laser"
 	w_class = WEIGHT_CLASS_NORMAL

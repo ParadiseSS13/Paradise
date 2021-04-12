@@ -1,6 +1,6 @@
 /obj/item/gun/energy/gun
 	name = "energy gun"
-	desc = "A basic energy-based gun with two settings: kill and disable."
+	desc = "An E-07 energy gun manufactured by Shellguard Munitions. The fire selector has 'kill' and 'disable' settings."
 	icon_state = "energy"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
@@ -10,6 +10,7 @@
 	ammo_x_offset = 3
 	flight_x_offset = 15
 	flight_y_offset = 10
+	shaded_charge = 1
 
 /obj/item/gun/energy/gun/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
@@ -30,6 +31,7 @@
 	charge_sections = 3
 	can_flashlight = 0 // Can't attach or detach the flashlight, and override it's icon update
 	actions_types = list(/datum/action/item_action/toggle_gunlight)
+	shaded_charge = 0
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
 	gun_light = new /obj/item/flashlight/seclite(src)
@@ -51,6 +53,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	shaded_charge = 0
 
 /obj/item/gun/energy/gun/blueshield
 	name = "advanced stun revolver"
@@ -79,6 +82,7 @@
 	can_flashlight = 0
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
+	shaded_charge = 0
 
 /obj/item/gun/energy/gun/nuclear
 	name = "advanced energy gun"
@@ -92,3 +96,4 @@
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/disabler)
 	selfcharge = 1
+	shaded_charge = 0
