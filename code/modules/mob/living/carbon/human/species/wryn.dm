@@ -34,7 +34,7 @@
 		"antennae" =    /obj/item/organ/internal/wryn/hivenode
 		)
 
-	species_traits = list(LIPS, IS_WHITELISTED, NO_CLONESCAN, HIVEMIND)
+	species_traits = list(LIPS, IS_WHITELISTED, NO_CLONESCAN, NO_HAIR, HIVEMIND)
 	inherent_traits = list(TRAIT_NOBREATH)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR
