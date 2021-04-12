@@ -132,6 +132,7 @@
 		S.req_access = req_access
 		S.panel_open = !panel_open
 		S.prev_sign = prev_sign
+		to_chat(user, "<span_class='notice'>You unbolt the bar sign with your wrench.</span>")
 		qdel(src)
 
 /obj/item/sign/barsign
@@ -170,7 +171,7 @@
 		S.prev_sign = prev_sign
 		S.icon_state = prev_sign.icon
 		S.sign_holder = null
-		to_chat(user, "<span_class='notice>You bolt bar sign with your wrench, closing the maintenance panel in the process.</span>")
+		to_chat(user, "<span_class='notice>You bolt the bar sign in place with your wrench, closing the maintenance panel in the process.</span>")
 		qdel(src)
 	else
 		return
@@ -182,7 +183,7 @@
 	if(broken || emagged)
 		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
 		return
-	to_chat(user, "<span class='notice'>You emag bar sign. Takeover in progress ... </span>")
+	to_chat(user, "<span class='notice'>You emag the bar sign. Takeover in progress ... </span>")
 	addtimer(CALLBACK(src, .proc/post_emag), 100)
 
 /obj/structure/sign/barsign/proc/post_emag()
