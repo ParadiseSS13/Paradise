@@ -113,8 +113,10 @@
 
 		. += copytext(message, 1, min_index)
 
-		if(copytext(message, min_index, min_index + length(min_key)) == capitalize(min_key))
+		if(copytext(message, min_index, min_index + length(min_key)) == capitalize(min_key)) //starts with cap
 			. += capitalize(pick(map[min_key]))
+		else if(copytext(message, min_index, min_index + length(min_key)) == uppertext(min_key)) //all caps
+			. += uppertext(pick(map[min_key]))
 		else
 			. += pick(map[min_key])
 		message = copytext(message, min_index + length(min_key))
