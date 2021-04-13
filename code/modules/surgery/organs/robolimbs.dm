@@ -4,40 +4,30 @@ GLOBAL_LIST_EMPTY(selectable_robolimbs)
 GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 
 
-#define model        0	// Model = This iconset contains ONLY a monitor and is a subtypeof a Brand
-#define brand        1	// Brand = This iconset contains all body parts (including a monitor) and there are other monitor Models for this type/Brand
-#define childless    2	// Childless = This iconset contains all body parts (including a monitor). There are no other monitor Models for this type
+///Model = This iconset contains ONLY a monitor and is a subtypeof a Brand
+#define model        0
+///Brand = This iconset contains all body parts (including a monitor) and there are other monitor Models for this type/Brand
+#define brand        1
+//Childless = This iconset contains all body parts (including a monitor). There are no other monitor Models for this type
+#define childless    2
+
 /datum/robolimb
-	var/company = "Unbranded"								// Shown when selecting the limb. Dio Unbrando.
-	var/desc = "A generic unbranded robotic prosthesis."	// Seen when examining a limb.
-	var/icon = 'icons/mob/human_races/robotic.dmi'			// Icon base to draw from.
-	var/unavailable_at_chargen = FALSE						// If TRUE, not available at chargen.
-	var/selectable = TRUE	// If set, is it available for selection on attack_self with a robo limb?
-	var/is_monitor			// If set, limb is a monitor and CANNOT USE HAIR. See ipc_face and ipc_optics for how hair and facial accessories work for IPCs.
+	///The name shown when selecting the limb(s) from a menu.
+	var/company = "Unbranded"
+	///The description of the limb(s) that appears when you examine one.
+	var/desc = "A generic unbranded robotic prosthesis."
+	///The .dmi file path of the icon base.
+	var/icon = 'icons/mob/human_races/robotic.dmi'
+	///Whether the robolimb is unavailable when setting up a character. Defaults to FALSE.
+	var/unavailable_at_chargen = FALSE
+	///Whether the limb type is available for selection via attack_self with a robolimb - see robo_parts Defaults to TRUE.
+	var/selectable = TRUE
+	///Does this iconset contain a head sprite with a screen? If TRUE, head sprite cannot use hair and instead uses ipc_face.
+	var/is_monitor
+	///Which of the following types is this robolimb: model, brand, or childless?
 	var/has_subtypes = childless
-	var/parts = list("chest", "groin", "head", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "l_arm", "l_hand")	// Defines what parts said brand can replace on a body.
-
-
-/*
-	/* Robo Company Name */
-	// Body Parts Sprite File name
-	/datum/robolimb/companyname
-		company = (how you want the limb names to appear)
-		desc = (description of the limbs)
-		icon = (the .dmi file path)
-		has_subtypes = (use this to override childless - see #defines above)
-		is_monitor = (TRUE if the monitor/head sprite uses a SCREEN | FALSE means no screen and then the IPC monitor - see ipc_face.dm)
-		unavailable_at_chargen = (use this to override FALSE - see preferences.dm)
-
-	/datum/robolimb/companyname/monitorname -- Used for Additional Monitor Sprites
-		company = (how you want this alternative monitor name to appear)
-		icon = (the .dmi file path)
-		parts = list("head")	(use this to override the parts list so that it will only appear in the "head" menu in chargen)
-		has_subtypes = model	(it's monitor model!)
-		is_monitor = (TRUE if the monitor/head sprite uses a SCREEN | FALSE means no screen - see ipc_face.dm)
-		selectable = FALSE	(use this override TRUE [up to you!] - see robo_parts.dm)
-		unavailable_at_chargen = (use this to override FALSE - see preferences.dm)
-*/
+	///The list of body parts that are contained in the iconset
+	var/parts = list("chest", "groin", "head", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "l_arm", "l_hand")
 
 
 /* Bishop */
