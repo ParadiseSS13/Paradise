@@ -91141,6 +91141,14 @@
 	dir = 2
 	},
 /area/crew_quarters/dorms)
+"iMw" = (
+/obj/effect/landmark{
+	name = "AI Shell"
+	},
+/turf/simulated/floor/plating,
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "iNz" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 4
@@ -91738,14 +91746,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
-"lqo" = (
-/mob/living/silicon/robot/shell,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
-	},
-/area/turret_protected/ai)
 "lwe" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
@@ -132030,7 +132030,7 @@ dqw
 dqw
 dnc
 dni
-lqo
+drE
 drv
 drE
 dni
@@ -132785,7 +132785,7 @@ diQ
 djI
 dpf
 dpq
-dpA
+iMw
 dkI
 dld
 dlK
