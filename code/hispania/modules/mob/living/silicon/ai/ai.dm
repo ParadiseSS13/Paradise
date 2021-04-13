@@ -78,6 +78,6 @@
 	var/mob/living/silicon/robot/S = new /mob/living/silicon/robot(shell_landmark.loc)
 	S.make_shell()
 
-/mob/living/silicon/ai/moveToEmptyCore()
+/mob/living/silicon/ai/on_mob_init()
 	..()
 	spawn_shell()
