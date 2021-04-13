@@ -5,6 +5,7 @@
 	desc = "A blue striped tie made of silk. Made by D&N Corp."
 	icon = 'icons/hispania/obj/clothing/ties.dmi'
 	icon_state = "blue1"
+	item_state = "blue1"
 	item_color = "blue1"
 	hispania_icon = TRUE	
 	sprite_sheets = list(
@@ -18,4 +19,5 @@
 	icon = 'icons/hispania/obj/clothing/ties.dmi'
 	hispania_icon = TRUE
 	icon_state = "red1"
+	item_state = "red1"
 	item_color = "red1"
