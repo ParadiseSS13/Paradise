@@ -129,7 +129,7 @@
 	return TRUE
 
 /turf/simulated/wall/proc/asteroid_check() //checks if baseturf is asteroid sand, these should not become plating!
-	if(baseturf == /turf/simulated/floor/plating/asteroid)
+	if(baseturf == /turf/simulated/floor/plating/asteroid/airless)
 		return TRUE
 
 /turf/simulated/wall/dismantle_wall(devastated = FALSE, explode = FALSE)
@@ -224,7 +224,10 @@
 /turf/simulated/wall/burn_down()
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
 		return
-	ChangeTurf(/turf/simulated/floor)
+	if(asteroid_check())
+		ChangeTurf(baseturf)
+	else
+		ChangeTurf(/turf/simulated/floor)
 
 /turf/simulated/wall/proc/thermitemelt(mob/user as mob, speed)
 	var/wait = 100
@@ -242,11 +245,17 @@
 	O.density = 1
 	O.layer = 5
 
-	src.ChangeTurf(/turf/simulated/floor/plating)
+
 
 	var/turf/simulated/floor/F = src
-	F.burn_tile()
-	F.icon_state = "plating"
+
+	if(asteroid_check())
+		src.ChangeTurf(baseturf)
+		F.burn_tile()
+	else
+		src.ChangeTurf(/turf/simulated/floor/plating)
+		F.burn_tile()
+		F.icon_state = "plating"
 	if(user)
 		to_chat(user, "<span class='warning'>The thermite starts melting through the wall.</span>")
 
