@@ -1813,7 +1813,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/rparts = list("chest", "groin", "head", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "l_arm", "l_hand")
 					for(var/comp in typesof(/datum/robolimb))	//This loop populates a list of companies that shells
 						R = new comp()
-						if(R.has_subtypes != 0)					//No Monitor Models
+						if(!R.unavailable_at_chargen && R.has_subtypes)	//Needs to be available at chargen and not a Monitor Model
 							robolimb_companies[R.company] = R
 					R = new() //Re-initialize R.
 					choice = input(user, "Which manufacturer model would you like to use?") as null|anything in robolimb_companies
@@ -1842,7 +1842,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/second_limb = null // if you try to change the arm, the hand should also change
 					var/third_limb = null  // if you try to unchange the hand, the arm should also change
 					var/valid_limb_states = list("Normal", "Prosthesis")
-					var/no_amputate = 0
+					var/no_amputate = FALSE
 
 					switch(limb_name)
 						if("Torso")

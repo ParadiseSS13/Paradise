@@ -4,28 +4,41 @@ GLOBAL_LIST_EMPTY(selectable_robolimbs)
 GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 
 
-#define model        0
-#define brand        1
-#define childless    2
+#define model        0	// Model = This iconset contains ONLY a monitor and is a subtypeof a Brand
+#define brand        1	// Brand = This iconset contains all body parts (including a monitor) and there are other monitor Models for this type/Brand
+#define childless    2	// Childless = This iconset contains all body parts (including a monitor). There are no other monitor Models for this type
 /datum/robolimb
 	var/company = "Unbranded"								// Shown when selecting the limb. Dio Unbrando.
 	var/desc = "A generic unbranded robotic prosthesis."	// Seen when examining a limb.
 	var/icon = 'icons/mob/human_races/robotic.dmi'			// Icon base to draw from.
 	var/unavailable_at_chargen = FALSE						// If TRUE, not available at chargen.
 	var/selectable = TRUE	// If set, is it available for selection on attack_self with a robo limb?
-							// This also affects character set up. Setting everything to TRUE by default. If we want to change this, let me know (Iren / Kiyahitayika)
-	var/is_monitor			// If set, limb is a monitor and should be getting monitor styles.
-	// If 0, object is a model. If 1, object is a brand (that serves as the default model) with child models. If 2, object is a brand that has no child models and thus also serves as the model..
+	var/is_monitor			// If set, limb is a monitor and CANNOT USE HAIR. See ipc_face and ipc_optics for how hair and facial accessories work for IPCs.
 	var/has_subtypes = childless
 	var/parts = list("chest", "groin", "head", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "l_arm", "l_hand")	// Defines what parts said brand can replace on a body.
 
-/* Nanotrasen */
-/datum/robolimb/nanotrasen
-	company = "Nanotrasen Modular Mechanics"
-	desc = "This limb is made from a cheap polymer."
-	icon = 'icons/mob/human_races/cyberlimbs/nanotrasen/nanotrasen_main.dmi'
-	has_subtypes = childless
-	is_monitor = TRUE
+
+/*
+	/* Robo Company Name */
+	// Body Parts Sprite File name
+	/datum/robolimb/companyname
+		company = (how you want the limb names to appear)
+		desc = (description of the limbs)
+		icon = (the .dmi file path)
+		has_subtypes = (use this to override childless - see #defines above)
+		is_monitor = (TRUE if the monitor/head sprite uses a SCREEN | FALSE means no screen and then the IPC monitor - see ipc_face.dm)
+		unavailable_at_chargen = (use this to override FALSE - see preferences.dm)
+
+	/datum/robolimb/companyname/monitorname -- Used for Additional Monitor Sprites
+		company = (how you want this alternative monitor name to appear)
+		icon = (the .dmi file path)
+		parts = list("head")	(use this to override the parts list so that it will only appear in the "head" menu in chargen)
+		has_subtypes = model	(it's monitor model!)
+		is_monitor = (TRUE if the monitor/head sprite uses a SCREEN | FALSE means no screen - see ipc_face.dm)
+		selectable = FALSE	(use this override TRUE [up to you!] - see robo_parts.dm)
+		unavailable_at_chargen = (use this to override FALSE - see preferences.dm)
+*/
+
 
 /* Bishop */
 //Main
@@ -41,12 +54,12 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	parts = list("head")
 	has_subtypes = model
 	is_monitor = TRUE
-
+	selectable = FALSE
 
 //Rook
 /datum/robolimb/rook
 	company = "Bishop Rook"
-	desc = "This limb has a polished metallic casing and a holographic face emitter."
+	desc = "This limb has a polished metallic casing."
 	icon = 'icons/mob/human_races/cyberlimbs/bishop/bishop_rook.dmi'
 	has_subtypes = brand
 
@@ -56,12 +69,13 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	parts = list("head")
 	has_subtypes = model
 	is_monitor = TRUE
+	selectable = FALSE
 
 /* Hesphiastos */
 //Main
 /datum/robolimb/hesphiastos
 	company = "Hesphiastos Industries"
-	desc = "This limb has a militaristic black and green casing with gold stripes."
+	desc = "This limb has a militaristic black-and-green casing with gold stripes."
 	icon = 'icons/mob/human_races/cyberlimbs/hesphiastos/hesphiastos_main.dmi'
 	has_subtypes = brand
 
@@ -71,11 +85,12 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	parts = list("head")
 	has_subtypes = model
 	is_monitor = TRUE
+	selectable = FALSE
 
 //Titan
 /datum/robolimb/titan
 	company = "Hesphiastos Titan"
-	desc = "This limb has a casing of an olive drab finish, providing a reinforced housing look."
+	desc = "This limb has an olive drab casing, providing a reinforced housing look."
 	icon = 'icons/mob/human_races/cyberlimbs/hesphiastos/hesphiastos_titan.dmi'
 	has_subtypes = brand
 
@@ -85,28 +100,30 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	parts = list("head")
 	has_subtypes = model
 	is_monitor = TRUE
+	selectable = FALSE
 
 /* Morpheus */
 //Main
 /datum/robolimb/morpheus
+	// This is the Default IPC loadout
 	company = "Morpheus Cyberkinetics"
 	desc = "This limb is simple and functional; no effort has been made to make it look human."
 	icon = 'icons/mob/human_races/cyberlimbs/morpheus/morpheus_main.dmi'
 	has_subtypes = brand
-	is_monitor = TRUE	//Needed for default loadout.
+	is_monitor = TRUE	// Because this one has a SCREEN - it needs to use ipc_face.dm instead of using HAIR.
 
 /datum/robolimb/morpheus/monitor
 	company = "Cyberkinetics Sport"
 	icon = 'icons/mob/human_races/cyberlimbs/morpheus/morpheus_alt1.dmi'
 	parts = list("head")
-	has_subtypes = model //Look, I'm not sure what they're talking about in the original comment below, but this is becoming a model, not childless, so that it will NOT show up in the IPC Synthetic Shell loadout options.
+	has_subtypes = model
 	is_monitor = TRUE
-	//Edge case. We want to be able to pick this one, and if we had it left as null for has_subtypes we'd be assuming it'll be chosen as a child model, and since the parent is unavailable at chargen, we wouldn't be able to see it in the list anyway. Now, we'll be able to select the Morpheus Ckt. Alt. head as a solo-model.
+	selectable = FALSE
 
 //Mantis
 /datum/robolimb/mantis
 	company = "Morpheus Mantis"
-	desc = "This limb has a casing of sleek black metal and innovative insectile design."
+	desc = "This limb has a sleek black metal casing with an innovative insectile design."
 	icon = 'icons/mob/human_races/cyberlimbs/morpheus/morpheus_mantis.dmi'
 	has_subtypes = brand
 
@@ -116,6 +133,16 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	parts = list("head")
 	has_subtypes = model
 	is_monitor = TRUE
+	selectable = FALSE
+
+/* Nanotrasen */
+/datum/robolimb/nanotrasen
+	company = "Nanotrasen Modular Mechanics"
+	desc = "This limb is made from a cheap polymer."
+	icon = 'icons/mob/human_races/cyberlimbs/nanotrasen/nanotrasen_main.dmi'
+	has_subtypes = childless
+	is_monitor = TRUE
+	selectable = TRUE	// Let 'em the cheap stuff
 
 /* Ward Takahashi */
 //Main
@@ -131,11 +158,12 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	parts = list("head")
 	has_subtypes = model
 	is_monitor = TRUE
+	selectable = FALSE
 
 //Economy
 /datum/robolimb/wardeconomy
 	company = "Ward-Takahashi Efficiency"
-	desc = "A simple robotic limb with retro design. Seems rather stiff."
+	desc = "This simple, robotic limb with a retro design seems rather stiff."
 	icon = 'icons/mob/human_races/cyberlimbs/wardtakahashi/wardtakahashi_economy.dmi'
 	has_subtypes = brand
 
@@ -145,6 +173,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	parts = list("head")
 	has_subtypes = model
 	is_monitor = TRUE
+	selectable = FALSE
 
 /* Xion */
 //Main
@@ -160,11 +189,12 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	parts = list("head")
 	has_subtypes = model
 	is_monitor = TRUE
+	selectable = FALSE
 
 //Economy
 /datum/robolimb/xioneconomy
 	company = "Xion Economy"
-	desc = "This skeletal mechanical limb has a minimalist black and red casing."
+	desc = "This mechanical limb is skeletal and has a minimalistic black-and-red casing."
 	icon = 'icons/mob/human_races/cyberlimbs/xion/xion_econo.dmi'
 	has_subtypes = brand
 
@@ -174,12 +204,13 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	parts = list("head")
 	has_subtypes = model
 	is_monitor = TRUE
+	selectable = FALSE
 
 /* Shellguard */
 //Main
 /datum/robolimb/shellguard
 	company = "Shellguard Munitions"
-	desc = "This limb features exposed robust steel and paint to match Shellguards motifs"
+	desc = "This limb features exposed robust steel, painted to match Shellguard's motifs."
 	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_main.dmi'
 	has_subtypes = brand
 
@@ -189,6 +220,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	parts = list("head")
 	has_subtypes = model
 	is_monitor = TRUE
+	selectable = FALSE
 
 //Elite
 /datum/robolimb/shellguard/alt1
@@ -197,6 +229,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	parts = list("head")
 	has_subtypes = model
 	is_monitor = TRUE
+	selectable = FALSE
 
 /* Zenghu */
 //Zenghu - Main
@@ -205,16 +238,15 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	desc = "This limb has a rubbery fleshtone covering with visible seams."
 	icon = 'icons/mob/human_races/cyberlimbs/zenghu/zenghu_main.dmi'
 	has_subtypes = childless
-	is_monitor = TRUE
-
+	// Zeng-Hu Pharm is fairly human-looking, so we're going to make this unavailable at chargen. This is inheriting selectable = TRUE, see robo_parts.dm
+	unavailable_at_chargen = TRUE
 
 //Zenghu - Spirit
 /datum/robolimb/spirit
 	company = "Zeng-Hu Spirit"
-	desc = "This limb has a sleek black and white polymer finish."
+	desc = "This limb has a sleek black-and-white polymer finish."
 	icon = 'icons/mob/human_races/cyberlimbs/zenghu/zenghu_spirit.dmi'
 	has_subtypes = childless
-	is_monitor = TRUE
 
 #undef model
 #undef brand
