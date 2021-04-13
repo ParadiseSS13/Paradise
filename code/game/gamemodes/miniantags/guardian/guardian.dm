@@ -250,8 +250,7 @@
 	var/name_list = list("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
-	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
-		if(G.summoner == user)
+	if(has_guardian(user))
 			to_chat(user, "You already have a [mob_name]!")
 			return
 	if(user.mind && (user.mind.changeling || user.mind.vampire))
@@ -285,6 +284,9 @@
 
 	if(candidates.len)
 		theghost = pick(candidates)
+		if(has_guardian(user))
+			to_chat(user, "You already have a [mob_name]!")
+			return
 		spawn_guardian(user, theghost.key, guardian_type)
 	else
 		to_chat(user, "[failure_message]")
@@ -294,6 +296,13 @@
 	. = ..()
 	if(used)
 		. += "<span class='notice'>[used_message]</span>"
+
+/obj/item/guardiancreator/proc/has_guardian(mob/living/user)
+	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
+		if(G.summoner == user)
+			return TRUE
+	return FALSE
+
 
 /obj/item/guardiancreator/proc/spawn_guardian(mob/living/user, key, guardian_type)
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
