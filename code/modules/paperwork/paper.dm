@@ -190,8 +190,9 @@
 		var/obj/item/paper/crumpled/P = new(loc)
 		P.name = name
 		if(info) // Something written on the paper.
-			var/new_text = strip_html_properly(info, MAX_PAPER_MESSAGE_LEN, TRUE) // Don't want HTML stuff getting gibberished.
-			P.info = Gibberish(new_text, 100)
+			/*var/new_text = strip_html_properly(info, MAX_PAPER_MESSAGE_LEN, TRUE) // Don't want HTML stuff getting gibberished.
+			P.info = Gibberish(new_text, 100)*/
+			P.info = "<i>Whatever was once written here has been made completely illegible by a combination of chew marks and saliva.</i>"
 			message_ending = ", the drool making it an unreadable mess!"
 		P.update_icon()
 		qdel(src)
