@@ -286,6 +286,7 @@
 		theghost = pick(candidates)
 		if(has_guardian(user))
 			to_chat(user, "You already have a [mob_name]!")
+			used = FALSE
 			return
 		spawn_guardian(user, theghost.key, guardian_type)
 	else
