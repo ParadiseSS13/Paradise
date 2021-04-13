@@ -251,8 +251,8 @@
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
 	if(has_guardian(user))
-			to_chat(user, "You already have a [mob_name]!")
-			return
+		to_chat(user, "You already have a [mob_name]!")
+		return
 	if(user.mind && (user.mind.changeling || user.mind.vampire))
 		to_chat(user, "[ling_failure]")
 		return
