@@ -12,7 +12,7 @@
 	paint_setting = pick(modes)
 
 /datum/painter/pipe/pick_color(mob/user)
-	paint_setting = input("Which colour do you want to use?", null, paint_setting) in modes
+	paint_setting = input("Which color do you want to use?", null, paint_setting) in modes
 
 /datum/painter/pipe/paint_atom(atom/target, mob/user)
 	if(!istype(target, /obj/machinery/atmospherics/pipe))
