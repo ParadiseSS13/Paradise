@@ -108,7 +108,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	parts = list("head")
 	has_subtypes = model
 	is_monitor = TRUE
-	selectable = FALSE
+	selectable = TRUE	// Both the parent (brand) and the child (model) have monitors with screens, therefore this "head" should be selectable.
 
 //Mantis
 /datum/robolimb/mantis
@@ -132,7 +132,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	icon = 'icons/mob/human_races/cyberlimbs/nanotrasen/nanotrasen_main.dmi'
 	has_subtypes = childless
 	is_monitor = TRUE
-	selectable = TRUE	// Let 'em the cheap stuff
+	selectable = TRUE	// Let 'em choose the cheap stuff
 
 /* Ward Takahashi */
 //Main
