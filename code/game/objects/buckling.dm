@@ -120,7 +120,7 @@
 /atom/movable/proc/user_buckle_minorfail(mob/living/M, mob/user)
 	M.forceMove(loc)
 	M.visible_message("<span class='notice'>[M] fails to pull [M.p_them()]self up onto [src].</span>",\
-		"<span class='warning'>You fail to climb onto [src]. Come on you got this!</span>",\
+		"<span class='warning'>You fail to climb onto [src]. Come on, you've got this!</span>",\
 		"<span class='italics'>You hear someone grunting.</span>")
 
 /atom/movable/proc/user_buckle_majorfail(mob/living/M, mob/user) //Knocks user out and does minor brute/brain damage
