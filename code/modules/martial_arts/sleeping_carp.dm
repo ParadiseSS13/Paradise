@@ -6,7 +6,7 @@
 	no_guns = TRUE
 	no_guns_message = "Use of ranged weaponry would bring dishonor to the clan."
 	has_explaination_verb = TRUE
-	combos = list(/datum/martial_combo/sleeping_carp/crashing_kick, /datum/martial_combo/sleeping_carp/keehaul, /datum/martial_combo/sleeping_carp/gnashing_teeth)
+	combos = list(/datum/martial_combo/sleeping_carp/crashing_kick, /datum/martial_combo/sleeping_carp/keelhaul, /datum/martial_combo/sleeping_carp/gnashing_teeth)
 
 /datum/martial_art/the_sleeping_carp/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
@@ -33,6 +33,10 @@
 /datum/martial_art/the_sleeping_carp/teach(mob/living/carbon/human/H, make_temporary)
 	. = ..()
 	H.faction |= "carp"// :D
+	to_chat(H, "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! \
+					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you when in throw mode. \
+					However, you are also unable to use any ranged weaponry. \
+					You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>")
 
 /datum/martial_art/the_sleeping_carp/remove(mob/living/carbon/human/H)
 	. = ..()
