@@ -218,9 +218,9 @@
 			return IsStandingStill()
 
 		if(MONKEY_HUNT)		// hunting for attacker
-			if(health < MONKEY_FLEE_HEALTH)
+			/*if(health < MONKEY_FLEE_HEALTH)
 				mode = MONKEY_FLEE
-				return TRUE
+				return TRUE*/
 
 			if(target != null)
 				walk2derpless(target)
@@ -283,7 +283,7 @@
 			else
 				back_to_idle()
 
-		if(MONKEY_FLEE)
+		/*if(MONKEY_FLEE)
 			var/list/around = view(src, MONKEY_FLEE_VISION)
 			target = null
 
@@ -300,7 +300,7 @@
 				back_to_idle()
 				return TRUE
 
-			return TRUE
+			return TRUE*/
 		/*
 		if(MONKEY_DISPOSE)
 
