@@ -126,7 +126,7 @@
 /atom/movable/proc/user_buckle_majorfail(mob/living/M, mob/user) //Knocks user out and does minor brute/brain damage
 	M.StopResting()
 	M.forceMove(loc) //All that effort wasn't for nothing!
-	M.visible_message("<span class='warning'>[M]'s hand slips and they slam their forhead on [src]!</span>",\
+	M.visible_message("<span class='warning'>[M]'s hand slips and they slam their forehead on [src]!</span>",\
 		"<span class='danger'>SHIT! Your hand slips and you slam your forehead into [src]!</span>",\
 		"<span class='italics'>You hear a thwack and a heavy thump.</span>")
 	M.StartResting() //could if statement these lines down to playsound if you wanted this only to happen with certain seats
