@@ -364,7 +364,7 @@
 	back_to_idle()
 */
 
-/mob/living/carbon/human/proc/back_to_idle(var/walk_enabled = TRUE)
+/mob/living/carbon/human/proc/back_to_idle()
 
 	if(pulling)
 		stop_pulling()
