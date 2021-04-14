@@ -835,7 +835,8 @@
 "aea" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "ferry_home";
-	locked = 1
+	locked = 1;
+	name = "External airlock"
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/south)
@@ -3148,7 +3149,10 @@
 	dir = 4;
 	level = 2
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "anp" = (
@@ -3707,14 +3711,16 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/external{
-	name = "Airlock"
+	name = "External airlock";
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "apn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/external{
-	name = "Airlock"
+	name = "External airlock";
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
@@ -4709,10 +4715,9 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "atg" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/obj/machinery/status_display/supply_display,
+/turf/simulated/wall,
+/area/maintenance/disposal)
 "atk" = (
 /turf/simulated/wall,
 /area/security/processing)
@@ -6451,8 +6456,8 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "ayY" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "azb" = (
 /obj/effect/landmark/start{
@@ -7515,17 +7520,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/alarm{
+	pixel_y = 23
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "aCo" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/status_display{
-	name = "cargo display";
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel,
+/obj/machinery/status_display/supply_display,
+/turf/simulated/wall,
 /area/quartermaster/office)
 "aCp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7554,14 +7556,9 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "aCs" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/alarm{
-	pixel_y = 23
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/office)
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/space)
 "aCt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -12044,7 +12041,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore)
 "aNm" = (
@@ -14879,7 +14879,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore)
 "aTd" = (
@@ -14913,7 +14916,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/teleporter/quantum/cargo)
 "aTj" = (
@@ -15115,7 +15121,7 @@
 	},
 /area/security/nuke_storage)
 "aTF" = (
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -15725,6 +15731,9 @@
 /obj/item/folder/documents,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/bluegrid,
 /area/security/nuke_storage)
 "aVr" = (
@@ -15877,7 +15886,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore/west)
 "aVK" = (
@@ -15955,7 +15967,10 @@
 /area/security/nuke_storage)
 "aVR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore)
 "aVS" = (
@@ -15965,7 +15980,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore)
 "aVT" = (
@@ -16106,7 +16124,7 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/machinery/light/small,
+/obj/machinery/light,
 /turf/simulated/floor/bluegrid,
 /area/security/nuke_storage)
 "aWz" = (
@@ -16666,7 +16684,10 @@
 /area/hallway/primary/central)
 "aYK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
 "aYN" = (
@@ -16907,7 +16928,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/port/north)
 "aZw" = (
@@ -17078,7 +17102,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
 "aZM" = (
@@ -17304,7 +17331,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/north)
 "baq" = (
@@ -18831,6 +18861,10 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -24
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bdR" = (
@@ -18878,9 +18912,8 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bdY" = (
-/obj/structure/closet/chefcloset,
-/turf/simulated/floor/plasteel/freezer,
-/area/crew_quarters/kitchen)
+/turf/simulated/wall,
+/area/space)
 "bdZ" = (
 /obj/machinery/chem_master/condimaster,
 /turf/simulated/floor/plasteel/freezer,
@@ -19384,6 +19417,9 @@
 "bfi" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/warning_stripes/northwest,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -20304,6 +20340,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "kitchen"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
@@ -21040,7 +21080,7 @@
 	dir = 4
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
+	dir = 8;
 	id_tag = "kitchen"
 	},
 /obj/machinery/door/firedoor,
@@ -21065,6 +21105,7 @@
 "biB" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/condiment/saltshaker,
+/obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
@@ -21425,7 +21466,7 @@
 "bjt" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
+	dir = 8;
 	id_tag = "kitchen"
 	},
 /obj/machinery/door/firedoor,
@@ -22908,10 +22949,6 @@
 	name = "Station Intercom (General)";
 	pixel_y = -28
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -23004,7 +23041,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bmv" = (
@@ -23016,7 +23056,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
 "bmw" = (
@@ -23137,6 +23180,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
+/obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
 "bmI" = (
@@ -23171,7 +23215,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
 "bmO" = (
@@ -23216,7 +23263,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/south)
 "bmS" = (
@@ -26628,6 +26678,9 @@
 	dir = 1;
 	name = "Cooling Loop Bypass"
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "btt" = (
@@ -26720,6 +26773,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "btE" = (
@@ -27196,7 +27252,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -27226,7 +27285,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "buL" = (
@@ -27514,7 +27576,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -27552,7 +27617,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -33198,6 +33266,9 @@
 /obj/item/stack/packageWrap,
 /obj/machinery/light,
 /obj/item/destTagger,
+/obj/structure/reagent_dispensers/fueltank/chem{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -33244,6 +33315,9 @@
 "bIQ" = (
 /obj/structure/table/glass,
 /obj/machinery/reagentgrinder,
+/obj/structure/reagent_dispensers/fueltank/chem{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -34800,6 +34874,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36344,7 +36419,10 @@
 "bPO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/south)
 "bPX" = (
@@ -37080,6 +37158,7 @@
 /area/engine/engine_smes)
 "bRL" = (
 /obj/machinery/suit_storage_unit/engine,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "yellow"
@@ -37113,7 +37192,10 @@
 	},
 /area/hallway/primary/starboard/south)
 "bRP" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -37846,12 +37928,16 @@
 	},
 /area/security/prisonershuttle)
 "bTL" = (
-/obj/machinery/power/emitter,
-/obj/machinery/light/small{
-	dir = 4
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 3;
+	height = 5;
+	id = "mining_home";
+	name = "mining shuttle bay";
+	width = 7
 	},
-/turf/simulated/floor/plating,
-/area/engine/engine_smes)
+/turf/space,
+/area/space)
 "bTN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -38150,6 +38236,7 @@
 /obj/item/stack/rods{
 	amount = 50
 	},
+/obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
 "bUx" = (
@@ -38157,7 +38244,6 @@
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
 "bUz" = (
-/obj/machinery/light/small,
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
@@ -38861,7 +38947,10 @@
 	},
 /area/mimeoffice)
 "bWs" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "bWt" = (
@@ -39645,6 +39734,9 @@
 	pixel_y = 23
 	},
 /obj/machinery/suit_storage_unit/standard_unit,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39664,14 +39756,10 @@
 	},
 /area/hallway/primary/port/south)
 "bYL" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/suit_storage_unit/standard_unit,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ai_monitored/storage/eva)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/computer/supplycomp,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/office)
 "bYM" = (
 /obj/machinery/door/morgue{
 	name = "Confession Room"
@@ -40509,7 +40597,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/port/south)
 "cbw" = (
@@ -40690,7 +40781,10 @@
 	})
 "cbT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -40879,7 +40973,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "ccF" = (
@@ -42049,19 +42146,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "cgx" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "mining_home";
-	locked = 1;
-	name = "Mining Dock Airlock";
-	req_access_txt = "48"
-	},
-/obj/structure/fans/tiny,
-/obj/effect/decal/warning_stripes/northeastsouth,
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "cgz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/aft/west)
 "cgA" = (
@@ -42103,15 +42196,14 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/aft/west)
 "cgE" = (
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 3;
-	height = 5;
-	id = "mining_home";
-	name = "mining shuttle bay";
-	width = 7
+/obj/machinery/door/airlock/external{
+	id_tag = "mining_home";
+	locked = 1;
+	name = "Mining Dock Airlock";
+	req_access_txt = "48"
 	},
-/turf/space,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
 /area/space)
 "cgG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -42359,7 +42451,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/aft/west)
 "chv" = (
@@ -46516,6 +46611,9 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
 "cqj" = (
@@ -47093,7 +47191,7 @@
 /turf/simulated/floor/bluegrid,
 /area/assembly/chargebay)
 "cry" = (
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 4
 	},
 /obj/machinery/firealarm{
@@ -51692,7 +51790,8 @@
 "cAX" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "specops_home";
-	locked = 1
+	locked = 1;
+	name = "External airlock"
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/south)
@@ -51905,7 +52004,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/external{
-	name = "Airlock"
+	name = "External airlock";
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
@@ -52263,7 +52363,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/external{
-	name = "Airlock"
+	name = "External airlock";
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
@@ -52372,7 +52473,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/north)
 "cCM" = (
@@ -52974,7 +53078,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
 "cFt" = (
@@ -54252,6 +54359,9 @@
 "cID" = (
 /obj/structure/dispenser/oxygen,
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -57217,6 +57327,7 @@
 	name = "Toxins Launcher Bay Door";
 	protected = 0
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/toxins/launch)
 "cQl" = (
@@ -57459,7 +57570,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cRc" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/teleporter/quantum/science)
 "cRf" = (
@@ -58296,6 +58410,10 @@
 "cTP" = (
 /obj/machinery/smartfridge,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "kitchen"
+	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/kitchen)
 "cTQ" = (
@@ -61482,7 +61600,10 @@
 	},
 /area/atmos)
 "deg" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore)
 "deh" = (
@@ -62160,7 +62281,10 @@
 "diY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "diZ" = (
@@ -63496,13 +63620,6 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/east)
-"dnO" = (
-/obj/machinery/door/airlock/external{
-	name = "Labor Camp Shuttle Airlock";
-	req_access_txt = "2"
-	},
-/turf/simulated/floor/plating,
-/area/security/prisonershuttle)
 "dnS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/cable/orange{
@@ -69013,7 +69130,10 @@
 "dIq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "dIF" = (
@@ -69501,7 +69621,10 @@
 	},
 /area/hallway/primary/port/south)
 "ehH" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
@@ -69781,6 +69904,9 @@
 /obj/structure/closet/firecloset,
 /obj/item/crowbar/red,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -69822,7 +69948,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
 "eug" = (
@@ -70070,6 +70199,9 @@
 /obj/structure/morgue,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -70549,6 +70681,11 @@
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"fcz" = (
+/obj/machinery/power/emitter,
+/obj/machinery/light,
+/turf/simulated/floor/plating,
+/area/engine/engine_smes)
 "fcF" = (
 /turf/simulated/floor/engine,
 /area/hallway/spacebridge/servsci)
@@ -70796,6 +70933,18 @@
 	tag = "icon-whiteblue (NORTH)"
 	},
 /area/medical/medbay)
+"fsg" = (
+/obj/structure/morgue{
+	dir = 8;
+	tag = "icon-morgue1 (WEST)"
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "ftr" = (
 /turf/simulated/wall,
 /area/maintenance/apmaint)
@@ -71493,9 +71642,7 @@
 /obj/item/clothing/gloves/color/fyellow{
 	pixel_y = 6
 	},
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/south)
 "fXV" = (
@@ -71580,7 +71727,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/disposal/external/east)
 "gbJ" = (
@@ -72175,7 +72325,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/east)
 "gGR" = (
@@ -72458,6 +72611,11 @@
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_4)
+"gQN" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/ore_box,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/miningdock)
 "gQP" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/asteroid,
@@ -72858,7 +73016,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/external{
-	name = "Airlock"
+	name = "External airlock";
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
@@ -73202,7 +73361,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
 "hEU" = (
@@ -73505,7 +73667,8 @@
 /area/medical/virology)
 "hSM" = (
 /obj/machinery/door/airlock/external{
-	name = "Airlock"
+	name = "External airlock";
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/westalt)
@@ -75309,6 +75472,9 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "jBa" = (
@@ -75472,6 +75638,15 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry/south)
+"jIf" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/camera{
+	c_tag = "Psychiatrists Office";
+	dir = 4;
+	network = list("SS13","CMO")
+	},
+/turf/simulated/floor/carpet,
+/area/medical/psych)
 "jIv" = (
 /obj/machinery/door/airlock/hatch{
 	name = "AI Core Hallway";
@@ -75998,7 +76173,10 @@
 /area/engine/engineering)
 "kkt" = (
 /obj/machinery/door/airlock/external{
-	name = "Labor Camp Shuttle Airlock"
+	id_tag = "laborcamp_home";
+	locked = 1;
+	name = "Labor Camp Airlock";
+	req_access_txt = "2"
 	},
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
@@ -77109,6 +77287,21 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/north)
+"lex" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/engine/engineering)
 "leM" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -77917,7 +78110,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/external{
-	name = "Airlock"
+	name = "External airlock";
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/disposal/external/southwest)
@@ -78611,7 +78805,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4;
 	level = 2
@@ -78675,6 +78872,11 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/port)
+"muF" = (
+/obj/structure/rack,
+/obj/machinery/light,
+/turf/simulated/floor/plating,
+/area/hallway/primary/central)
 "muN" = (
 /obj/structure/closet/wardrobe/grey,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -79021,8 +79223,6 @@
 /area/maintenance/storage)
 "mKP" = (
 /obj/machinery/light/small,
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "mKW" = (
@@ -79186,6 +79386,10 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/port/east)
+"mPK" = (
+/obj/machinery/light,
+/turf/simulated/floor/plating,
+/area/hallway/primary/central)
 "mPT" = (
 /obj/machinery/disposal/deliveryChute{
 	dir = 4
@@ -79861,7 +80065,10 @@
 	dir = 4;
 	level = 2
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/south)
 "nty" = (
@@ -80840,7 +81047,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "opo" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/teleporter/quantum/docking)
 "opM" = (
@@ -81201,6 +81411,9 @@
 /area/maintenance/port)
 "oFE" = (
 /obj/structure/closet/secure_closet/freezer/money,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/bluegrid,
 /area/security/nuke_storage)
 "oFP" = (
@@ -81538,7 +81751,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/westalt)
 "oXT" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "oYa" = (
@@ -81798,6 +82014,25 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"pko" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/toxins/lab)
+"pls" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plating,
+/area/hallway/primary/fore)
 "plC" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -81969,6 +82204,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -82489,6 +82727,11 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/servsci)
+"pKj" = (
+/obj/structure/table,
+/obj/machinery/light,
+/turf/simulated/floor/plating,
+/area/hallway/primary/central)
 "pKR" = (
 /obj/machinery/atmospherics/unary/cryo_cell,
 /obj/effect/decal/cleanable/dirt,
@@ -83199,6 +83442,11 @@
 	},
 /turf/simulated/wall/rust,
 /area/maintenance/disposal/south)
+"qsx" = (
+/obj/structure/closet/emcloset,
+/obj/machinery/light,
+/turf/simulated/floor/plating,
+/area/hallway/primary/fore)
 "qsY" = (
 /mob/living/simple_animal/pet/sloth/paperwork,
 /turf/simulated/floor/plasteel,
@@ -83400,7 +83648,6 @@
 /area/hallway/primary/starboard/north)
 "qBk" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "qBF" = (
@@ -83739,6 +83986,7 @@
 "qQJ" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
+/obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
 "qQO" = (
@@ -84186,7 +84434,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "rng" = (
@@ -84665,7 +84916,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/external{
-	name = "Airlock"
+	name = "External airlock";
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/disposal/external/southeast)
@@ -85068,7 +85320,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/disposal/external/north)
 "scI" = (
@@ -85108,6 +85363,7 @@
 /obj/item/vending_refill/cola,
 /obj/item/multitool,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -86615,7 +86871,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/external{
-	name = "Airlock"
+	name = "External airlock";
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/southwest)
@@ -86831,6 +87088,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
+"tHV" = (
+/obj/machinery/light,
+/turf/simulated/floor/plating,
+/area/maintenance/aft)
 "tIC" = (
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/aft)
@@ -87520,7 +87781,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/south)
 "ukS" = (
@@ -87764,7 +88028,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/west)
 "uuT" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
 "uuW" = (
@@ -87953,6 +88220,11 @@
 	icon_state = "neutralcorner"
 	},
 /area/hydroponics)
+"uCu" = (
+/obj/structure/closet/emcloset,
+/obj/machinery/light,
+/turf/simulated/floor/plating,
+/area/hallway/primary/aft/west)
 "uCK" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -87965,6 +88237,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
+/obj/machinery/light,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "uDu" = (
@@ -88228,6 +88501,11 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/southwest)
+"uRe" = (
+/obj/structure/table,
+/obj/machinery/light,
+/turf/simulated/floor/plating,
+/area/hallway/primary/port/south)
 "uRg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -89078,6 +89356,11 @@
 	icon_state = "dark"
 	},
 /area/construction)
+"vCM" = (
+/obj/structure/closet/emcloset,
+/obj/machinery/light,
+/turf/simulated/floor/plating,
+/area/hallway/primary/starboard/south)
 "vCV" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -89162,6 +89445,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue";
 	tag = "icon-whiteblue"
@@ -89865,7 +90149,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/external{
-	name = "Airlock"
+	name = "External airlock";
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/southeast)
@@ -90663,8 +90948,24 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/starboard/north)
+"wSu" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/green,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/engine/engineering)
 "wSM" = (
 /obj/structure/dispenser/oxygen,
+/obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore/west)
 "wTu" = (
@@ -90946,6 +91247,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/closet/chefcloset,
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "xdJ" = (
@@ -91179,6 +91481,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"xuC" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ai_monitored/storage/eva)
 "xuJ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -91455,7 +91766,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/hallway/primary/aft/west)
@@ -92046,7 +92360,10 @@
 /turf/simulated/floor/plating,
 /area/teleporter/quantum/docking)
 "ykW" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "External airlock";
+	req_access_txt = "12"
+	},
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
@@ -103449,7 +103766,7 @@ rNK
 rNK
 rNK
 awG
-dnO
+kkt
 awG
 rNK
 awG
@@ -103963,7 +104280,7 @@ rNK
 eRW
 eRW
 awG
-dnO
+kkt
 awG
 eRW
 awG
@@ -105404,7 +105721,7 @@ chn
 chM
 cit
 chN
-cjJ
+uCu
 vkl
 ccW
 clQ
@@ -108204,7 +108521,7 @@ kiZ
 xSj
 xSj
 xSj
-uhX
+uRe
 kiZ
 aXn
 bhO
@@ -109268,7 +109585,7 @@ cfv
 coE
 cpu
 cqB
-ctM
+pko
 cst
 cpu
 ctF
@@ -110464,7 +110781,7 @@ bbi
 bbI
 bct
 bbk
-bdY
+bbk
 baF
 bfL
 bgV
@@ -121781,7 +122098,7 @@ aYJ
 baN
 baN
 blh
-bbv
+muF
 aYJ
 mho
 bgf
@@ -124874,7 +125191,7 @@ bts
 kfo
 buV
 buV
-byz
+wSu
 byz
 naP
 bBN
@@ -125111,7 +125428,7 @@ baj
 baN
 baN
 baQ
-baN
+mPK
 aYJ
 cIL
 bgf
@@ -126910,7 +127227,7 @@ bam
 baN
 bbt
 kbl
-baM
+pKj
 aYJ
 ber
 bfa
@@ -127444,7 +127761,7 @@ btC
 bva
 bwp
 bxC
-byF
+lex
 byF
 jyG
 bBT
@@ -127652,7 +127969,7 @@ aSZ
 aSZ
 aMk
 aUJ
-aLn
+qsx
 aKp
 abW
 abW
@@ -128235,7 +128552,7 @@ bRJ
 bND
 bTm
 bTm
-bUA
+fcz
 bND
 vVm
 vVm
@@ -128491,7 +128808,7 @@ bQK
 bND
 bND
 bTn
-bTL
+bUA
 bUA
 bND
 ixa
@@ -130212,7 +130529,7 @@ abW
 aKp
 aLn
 aMk
-aNi
+pls
 aKp
 aPz
 cDp
@@ -130506,7 +130823,7 @@ aYf
 aYf
 aYf
 baS
-bYL
+bZk
 bYS
 bZn
 bdA
@@ -130763,7 +131080,7 @@ aYf
 aYf
 aYf
 baS
-bZk
+xuC
 bYQ
 bYQ
 bdB
@@ -131041,7 +131358,7 @@ rVC
 aYJ
 bvl
 fzq
-vgu
+tHV
 byK
 byK
 cJk
@@ -140050,7 +140367,7 @@ bCg
 mNs
 bMB
 sBp
-rVN
+vCM
 vXn
 vXn
 vXn
@@ -140787,7 +141104,7 @@ aZM
 aZO
 aZO
 rbI
-laA
+jIf
 xVV
 lWV
 ivO
@@ -143295,7 +143612,7 @@ akC
 alh
 ali
 amN
-aiR
+atg
 aov
 aov
 aqo
@@ -143565,7 +143882,7 @@ aoz
 aov
 aov
 aAd
-any
+aCo
 aCm
 aDC
 any
@@ -144080,14 +144397,14 @@ aoz
 aoz
 aoz
 any
-aCo
+aCm
 aDE
 aEX
 aGt
 aHr
 aov
 aDC
-aoz
+aCo
 aLv
 aov
 aov
@@ -146136,7 +146453,7 @@ aoz
 aoz
 aoz
 any
-aCo
+aCm
 aDH
 any
 aGB
@@ -146649,8 +146966,8 @@ ade
 aov
 aov
 aAd
-any
-aCs
+aCo
+aCm
 aDH
 aEZ
 aGD
@@ -146893,7 +147210,7 @@ akx
 akx
 alc
 alc
-any
+aCo
 aoC
 aov
 arW
@@ -146902,7 +147219,7 @@ asb
 ata
 qKs
 ado
-aox
+bYL
 aox
 ayP
 aox
@@ -149213,9 +149530,9 @@ amP
 amP
 amP
 amP
-atg
+amP
 avr
-atg
+amP
 amP
 amP
 amP
@@ -149469,11 +149786,11 @@ alc
 alc
 alc
 alc
-rNK
+aCs
 ayY
+avp
 mKP
-ayY
-rNK
+aCs
 rNK
 rNK
 rNK
@@ -149726,11 +150043,11 @@ alc
 alc
 alc
 akx
-rNK
-ayY
+aCs
 cgx
-ayY
-rNK
+cgx
+gQN
+aCs
 rNK
 rNK
 rNK
@@ -149983,11 +150300,11 @@ alc
 alc
 alc
 rNK
-rNK
-rNK
+bdY
+aCs
 cgE
-rNK
-rNK
+aCs
+bdY
 rNK
 rNK
 rNK
@@ -150061,7 +150378,7 @@ bil
 bil
 bil
 bil
-xTb
+fsg
 xTb
 xTb
 xTb
@@ -150242,7 +150559,7 @@ alc
 rNK
 rNK
 rNK
-rNK
+bTL
 rNK
 rNK
 rNK
