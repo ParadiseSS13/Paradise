@@ -140,7 +140,7 @@
 //Allows people to climb onto chairs if they're next to or under them and incapacitated but not stunned
 //especially helpful for people with no legs. However it can fail on random chance based on how many hands they have
 /atom/movable/proc/user_buckle_incapacitated(mob/living/M, mob/user, check_loc = TRUE)
-	M.visible_message("<span class='warning'>[M] looks like theyre attempting to pull [M.p_them()]self up onto [src].</span>",\
+	M.visible_message("<span class='warning'>[M] looks like they're attempting to pull [M.p_them()]self up onto [src].</span>",\
 		"<span class='warning'>You attempt to climb onto [src].</span>",\
 		"<span class='italics'>You hear someone grunting.</span>")
 	var/buckle_chance = rand(1, 100)
