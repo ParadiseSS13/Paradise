@@ -7,8 +7,7 @@
 	origin_tech = "combat=4;magnets=3"
 	modifystate = 2
 	can_flashlight = 1
-	ammo_x_offset = 3
-	flight_x_offset = 15
+	flight_x_offset = 20
 	flight_y_offset = 10
 	shaded_charge = TRUE
 
