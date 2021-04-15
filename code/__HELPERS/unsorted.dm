@@ -156,16 +156,17 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	for(var/obj/structure/window/D in loc)
 		if(!D.density)
 			continue
-		if(D.fulltile)
-			return 1
+		if(is_fulltile(D))
+			return TRUE
 		if(D.dir == dir)
-			return 1
+			return TRUE
 
 	for(var/obj/machinery/door/D in loc)
-		if(!D.density)//if the door is open
+		if(!D.density)	//if the door is open
 			continue
-		else return 1	// if closed, it's a real, air blocking door
-	return 0
+		else
+			return TRUE	// if closed, it's a real, air blocking door
+	return FALSE
 
 /////////////////////////////////////////////////////////////////////////
 

@@ -258,7 +258,7 @@
 					T.ChangeTurf(/turf/simulated/wall/r_wall/rust)
 				for(var/obj/structure/window/window in T.contents)
 					window.take_damage(rand(30,80))
-					if(window && window.fulltile)
+					if(window && is_fulltile(window))
 						new/obj/effect/temp_visual/revenant/cracks(window.loc)
 				for(var/obj/structure/closet/closet in T.contents)
 					closet.open()

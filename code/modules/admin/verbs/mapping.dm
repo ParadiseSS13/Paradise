@@ -88,7 +88,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 			if(!(locate(/obj/structure/grille,T)))
 				var/window_check = 0
 				for(var/obj/structure/window/W in T)
-					if(W.dir == turn(C1.dir,180) || W.fulltile)
+					if(W.dir == turn(C1.dir,180) || is_fulltile(W))
 						window_check = 1
 						break
 				if(!window_check)

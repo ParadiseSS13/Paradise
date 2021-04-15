@@ -180,12 +180,10 @@
 	if((AM.anchored && !push_anchored) || (force < (AM.move_resist * MOVE_FORCE_PUSH_RATIO)))
 		now_pushing = FALSE
 		return
-	if(istype(AM, /obj/structure/window))
-		var/obj/structure/window/W = AM
-		if(W.fulltile)
-			for(var/obj/structure/window/win in get_step(W,t))
-				now_pushing = FALSE
-				return
+	if(is_fulltile(AM))
+		for(var/obj/structure/window/win in get_step(W,t))
+			now_pushing = FALSE
+			return
 	if(pulling == AM)
 		stop_pulling()
 	var/current_dir

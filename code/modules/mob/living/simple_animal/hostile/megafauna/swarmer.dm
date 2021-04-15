@@ -188,8 +188,9 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	//SPECIFIC CASES:
 	//Smash fulltile windows before grilles
 	if(istype(the_target, /obj/structure/grille))
-		for(var/obj/structure/window/rogueWindow in get_turf(the_target))
-			if(rogueWindow.fulltile) //done this way because the subtypes are weird.
+		for(var/obj/structure/window/W in get_turf(the_target))
+			if(is_fulltile(W))
+				var/obj/structure/window/full/rogueWindow = W
 				the_target = rogueWindow
 				break
 

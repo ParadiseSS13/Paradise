@@ -271,7 +271,17 @@
 	..()
 	RemoveLattice()
 	if(!ignore_air)
+		ignore_air = WindowCheck()
+	if(!ignore_air)
 		Assimilate_Air()
+
+/turf/simulated/proc/WindowCheck()
+	if(!isfloorturf(src))
+		return FALSE
+	for(var/thing in loc.contents)
+		if(istype(thing, /obj/structure/window))
+			return TRUE
+	return FALSE
 
 //////Assimilate Air//////
 /turf/simulated/proc/Assimilate_Air()
