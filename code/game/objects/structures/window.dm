@@ -426,11 +426,15 @@
 	move_update_air(T)
 
 /obj/structure/window/CanAtmosPass(turf/T)
-	if(!density)
+	if(!istype(T))
+		return FA;SE
+	if(!density || get_turf(loc) == T)
 		return TRUE
 	if(is_fulltile(src))	// This won't work with an override on /window/full
 		return !Secured()
-	else
+	else					// Welcome to the realm of Directional Windows
+		if(!get_dir(loc, T) in GLOB.cardinal)
+			return FALSE	// Directional windows only face NORTH, SOUTH, EAST, WEST
 		if(!Secured())
 			return TRUE
 		else

@@ -271,19 +271,9 @@
 	..()
 	RemoveLattice()
 	if(!ignore_air)
-		ignore_air = WindowCheck()
-	if(!ignore_air)
 		Assimilate_Air()
 
-/turf/simulated/proc/WindowCheck()
-	if(!isfloorturf(src))
-		return FALSE
-	for(var/thing in loc.contents)
-		if(istype(thing, /obj/structure/window))
-			return TRUE
-	return FALSE
-
-//////Assimilate Air//////
+////Assimilate Air////
 /turf/simulated/proc/Assimilate_Air()
 	if(air)
 		var/aoxy = 0 //Holders to assimilate air from nearby turfs
@@ -296,7 +286,9 @@
 		var/turf_count = 0
 
 		for(var/direction in GLOB.cardinal)//Only use cardinals to cut down on lag
-			var/turf/T = get_step(src, direction)
+			var/turf/T = get_turf(get_step(src, direction))	// Get_Turf on a Get_Step? Iunno, it threw an error saying it wasn't a turf.
+			if(!T.CanAtmosPass(src))
+				continue
 			if(istype(T, /turf/space))//Counted as no air
 				turf_count++//Considered a valid turf for air calcs
 				continue
