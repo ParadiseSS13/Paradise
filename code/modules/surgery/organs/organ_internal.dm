@@ -13,7 +13,7 @@
 	if(istype(holder))
 		insert(holder)
 
-/obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, var/dont_remove_slot = 0)
+/obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
 		return
 
@@ -83,7 +83,7 @@
 		if(2)
 			receive_damage(7, 1)
 
-/obj/item/organ/internal/replaced(var/mob/living/carbon/human/target)
+/obj/item/organ/internal/replaced(mob/living/carbon/human/target)
     insert(target)
 
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user)
@@ -245,7 +245,7 @@
 	singlemutcheck(M, GLOB.comicblock, MUTCHK_FORCED)
 	organhonked = world.time
 	M.AddElement(/datum/element/waddling)
-	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50)
+	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50, falloff_exponent = 20)
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
 	. = ..()
@@ -304,7 +304,7 @@
 
 /obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = 0)
 
-	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50)
+	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50, falloff_exponent = 20)
 
 /obj/item/organ/internal/honkbladder/remove(mob/living/carbon/M, special = 0)
 	. = ..()

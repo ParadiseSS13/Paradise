@@ -806,11 +806,9 @@
 /obj/machinery/vending/power_change()
 	if(powered())
 		stat &= ~NOPOWER
-		update_icon()
 	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
-			update_icon()
+		stat |= NOPOWER
+	update_icon()
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(!(stat & BROKEN))

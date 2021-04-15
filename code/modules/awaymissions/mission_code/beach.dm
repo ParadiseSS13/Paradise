@@ -47,6 +47,10 @@
 	icon_state = "desert"
 	mouse_opacity = MOUSE_OPACITY_ICON
 	baseturf = /turf/simulated/floor/beach/away/sand
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/beach/away/sand/Initialize(mapload)
 	. = ..()			//adds some aesthetic randomness to the beach sand
@@ -63,6 +67,10 @@
 	icon_state = "beach"
 	water_overlay_image = "water_coast"
 	baseturf = /turf/simulated/floor/beach/away/coastline
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
 
 /turf/simulated/floor/beach/away/coastline/dense		//for boundary "walls"
 	density = TRUE
@@ -74,6 +82,10 @@
 	water_overlay_image = "water_shallow"
 	var/obj/machinery/poolcontroller/linkedcontroller = null
 	baseturf = /turf/simulated/floor/beach/away/water
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
 
 /turf/simulated/floor/beach/away/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()

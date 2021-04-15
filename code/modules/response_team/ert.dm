@@ -234,7 +234,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 /datum/response_team/proc/check_slot_available(role)
 	return slots[role]
 
-/datum/response_team/proc/equip_officer(var/officer_type, var/mob/living/carbon/human/M)
+/datum/response_team/proc/equip_officer(officer_type, mob/living/carbon/human/M)
 	switch(officer_type)
 		if("Engineer")
 			M.equipOutfit(engineering_outfit)

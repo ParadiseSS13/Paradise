@@ -15,7 +15,7 @@
 		else
 			icon_state = icon_opened
 
-/obj/structure/closet/secure_closet/freezer/ex_act(var/severity)
+/obj/structure/closet/secure_closet/freezer/ex_act(severity)
 	// IF INDIANA JONES CAN DO IT SO CAN YOU
 
 	// Bomb in here? (using same search as space transits searching for nuke disk)

@@ -8,6 +8,7 @@
 	health = 35
 	bubble_icon = "machine"
 	pass_flags = PASSTABLE
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	braintype = "Robot"
 	lawupdate = FALSE
 	density = FALSE

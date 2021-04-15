@@ -176,7 +176,7 @@
 		return loc
 	return FALSE
 
-/obj/item/clothing/mask/muzzle/safety/shock/proc/process_activation(var/obj/D, var/normal = 1, var/special = 1)
+/obj/item/clothing/mask/muzzle/safety/shock/proc/process_activation(obj/D, normal = 1, special = 1)
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 	var/mob/M = can_shock(loc)
 	if(M)
@@ -225,7 +225,7 @@
 		)
 
 
-/obj/item/clothing/mask/surgical/attack_self(var/mob/user)
+/obj/item/clothing/mask/surgical/attack_self(mob/user)
 	adjustmask(user)
 
 /obj/item/clothing/mask/fakemoustache
@@ -408,7 +408,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/mask/gas/clown_hat/pennywise
-	name = "Pennywise Mask"
+	name = "\improper Pennywise mask"
 	desc = "It's the eater of worlds, and of children."
 	icon_state = "pennywise_mask"
 	item_state = "pennywise_mask"
@@ -436,7 +436,7 @@
 		)
 	actions_types = list(/datum/action/item_action/adjust)
 
-/obj/item/clothing/mask/bandana/attack_self(var/mob/user)
+/obj/item/clothing/mask/bandana/attack_self(mob/user)
 	adjustmask(user)
 
 /obj/item/clothing/mask/bandana/red

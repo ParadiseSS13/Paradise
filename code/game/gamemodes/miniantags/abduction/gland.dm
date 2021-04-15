@@ -68,7 +68,7 @@
 	active_mind_control = FALSE
 	update_gland_hud()
 
-/obj/item/organ/internal/heart/gland/remove(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/remove(mob/living/carbon/M, special = 0)
 	active = 0
 	if(initial(uses) == 1)
 		uses = initial(uses)
@@ -77,7 +77,7 @@
 	clear_mind_control()
 	. = ..()
 
-/obj/item/organ/internal/heart/gland/insert(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/insert(mob/living/carbon/M, special = 0)
 	..()
 	if(special != 2 && uses) // Special 2 means abductor surgery
 		Start()
@@ -295,7 +295,7 @@
 /obj/item/organ/internal/heart/gland/electric/activate()
 	owner.visible_message("<span class='danger'>[owner]'s skin starts emitting electric arcs!</span>",\
 	"<span class='warning'>You feel electric energy building up inside you!</span>")
-	playsound(get_turf(owner), "sparks", 100, 1, -1)
+	playsound(get_turf(owner), "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	addtimer(CALLBACK(src, .proc/zap), rand(30, 100))
 
 /obj/item/organ/internal/heart/gland/electric/proc/zap()

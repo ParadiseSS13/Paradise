@@ -115,7 +115,7 @@
 				H.equip_or_collect(new path(H), slot_in_backpack)
 
 		for(var/path in cybernetic_implants)
-			var/obj/item/organ/internal/O = new path(H)
+			var/obj/item/organ/internal/O = new path
 			O.insert(H)
 
 	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))

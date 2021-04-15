@@ -205,7 +205,7 @@
 			return amt
 	return FALSE
 
-/datum/component/material_container/proc/transer_amt_to(var/datum/component/material_container/T, amt, id)
+/datum/component/material_container/proc/transer_amt_to(datum/component/material_container/T, amt, id)
 	if((amt==0)||(!T)||(!id))
 		return FALSE
 	if(amt<0)

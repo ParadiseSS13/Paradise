@@ -774,7 +774,7 @@
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					M.delayed_gib()
 					return
-				if(!M.suiciding && !HAS_TRAIT(M, TRAIT_HUSK) && !HAS_TRAIT(M, TRAIT_BADDNA) && (!M.mind || M.mind && M.mind.is_revivable()))
+				if(!M.suiciding && !HAS_TRAIT(M, TRAIT_HUSK) && !HAS_TRAIT(M, TRAIT_BADDNA))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					M.adjustCloneLoss(50)

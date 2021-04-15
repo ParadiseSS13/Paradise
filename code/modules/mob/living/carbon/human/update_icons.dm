@@ -1309,7 +1309,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
-		. += "[eyes.eye_colour]"
+		. += "[eyes.eye_color]"
 	else
 		. += "#000000"
 
