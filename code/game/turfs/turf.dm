@@ -286,11 +286,11 @@
 		var/turf_count = 0
 
 		for(var/direction in GLOB.cardinal)//Only use cardinals to cut down on lag
-			var/turf/T = get_turf(get_step(src, direction))	// Get_Turf on a Get_Step? Iunno, it threw an error saying it wasn't a turf.
-			if(!T.CanAtmosPass(src))
+			var/turf/T = get_step(src, direction)
+			if(!CanAtmosPass(T))
 				continue
 			if(istype(T, /turf/space))//Counted as no air
-				turf_count++//Considered a valid turf for air calcs
+				turf_count++ //Considered a valid turf for air calcs
 				continue
 			else if(istype(T, /turf/simulated/floor))
 				var/turf/simulated/S = T
