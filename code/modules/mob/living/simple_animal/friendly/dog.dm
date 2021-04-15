@@ -513,12 +513,14 @@
 		if(movement_target && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
 			movement_target = null
 			stop_automated_movement = FALSE
+
 		// No current target, or current target is out of range.
-		if(!movement_target || !(movement_target.loc in oview(src, 3)))
+		var/list/snack_range = oview(src, 3)
+		if(!movement_target || !(movement_target.loc in snack_range))
 			movement_target = null
 			stop_automated_movement = FALSE
 			var/obj/item/possible_target = null
-			for(var/I in oview(src, 3))
+			for(var/I in snack_range)
 				if(istype(I, /obj/item/reagent_containers/food/snacks)) // Noms
 					possible_target = I
 					break
@@ -544,14 +546,7 @@
 
 	if(movement_target) // Not redundant due to sleeps, Item can be gone in 6 deciseconds
 		// Face towards the thing
-		if(movement_target.loc.x < src.x)
-			dir = WEST
-		else if(movement_target.loc.x > src.x)
-			dir = EAST
-		else if(movement_target.loc.y > src.y)
-			dir = NORTH
-		else // Face south if you're on or above the tile
-			dir = SOUTH
+		dir = get_dir(src, movement_target)
 
 		if(!Adjacent(movement_target)) //can't reach food through windows.
 			return
