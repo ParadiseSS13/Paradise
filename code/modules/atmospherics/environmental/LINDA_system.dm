@@ -1,64 +1,55 @@
 /turf/proc/CanAtmosPass(turf/T)
-	if(!istype(T))	return 0
-	var/R
+	if(!istype(T))
+		return FALSE
+	var/R = TRUE	// return
 	if(blocks_air || T.blocks_air)
-		R = 1
+		R = FALSE
 
-	for(var/obj/O in contents)
-		if(!O.CanAtmosPass(T))
-			R = 1
-			if(O.BlockSuperconductivity()) 	//the direction and open/closed are already checked on CanAtmosPass() so there are no arguments
-				var/D = get_dir(src, T)
-				atmos_supeconductivity |= D
-				D = get_dir(T, src)
-				T.atmos_supeconductivity |= D
-				return 0						//no need to keep going, we got all we asked
-
-	for(var/obj/O in T.contents)
-		if(!O.CanAtmosPass(src))
-			R = 1
+	for(var/obj/O in (contents + T.contents))
+		if(!O.CanAtmosPass(src) || !O.CanAtmosPass(T))
+			R = FALSE
 			if(O.BlockSuperconductivity())
 				var/D = get_dir(src, T)
-				atmos_supeconductivity |= D
+				atmos_superconductivity |= D
 				D = get_dir(T, src)
-				T.atmos_supeconductivity |= D
-				return 0
+				T.atmos_superconductivity |= D
+				return R
 
 	var/D = get_dir(src, T)
-	atmos_supeconductivity &= ~D
+	atmos_superconductivity &= ~D
 	D = get_dir(T, src)
-	T.atmos_supeconductivity &= ~D
+	T.atmos_superconductivity &= ~D
 
-	if(!R)
-		return 1
+	return R
 
 /atom/movable/proc/CanAtmosPass()
-	return 1
+	return TRUE
 
 /atom/proc/CanPass(atom/movable/mover, turf/target, height=1.5)
 	return (!density || !height)
 
 /turf/CanPass(atom/movable/mover, turf/target, height=1.5)
-	if(!target) return 0
+	if(!target)
+		return FALSE
 
 	if(istype(mover)) // turf/Enter(...) will perform more advanced checks
 		return !density
 
 	else // Now, doing more detailed checks for air movement and air group formation
 		if(target.blocks_air||blocks_air)
-			return 0
+			return FALSE
 
 		for(var/obj/obstacle in src)
 			if(!obstacle.CanPass(mover, target, height))
-				return 0
+				return FALSE
 		for(var/obj/obstacle in target)
 			if(!obstacle.CanPass(mover, src, height))
-				return 0
+				return FALSE
 
-		return 1
+		return TRUE
 
 /atom/movable/proc/BlockSuperconductivity() // objects that block air and don't let superconductivity act. Only firelocks atm.
-	return 0
+	return FALSE
 
 /turf/proc/CalculateAdjacentTurfs()
 	for(var/direction in GLOB.cardinal)

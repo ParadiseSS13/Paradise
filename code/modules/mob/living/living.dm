@@ -181,7 +181,7 @@
 		now_pushing = FALSE
 		return
 	if(is_fulltile(AM))
-		for(var/obj/structure/window/win in get_step(W,t))
+		for(var/obj/structure/window/win in get_step(AM, t))
 			now_pushing = FALSE
 			return
 	if(pulling == AM)

@@ -26,6 +26,8 @@
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/breaksound = "shatter"
 	var/hitsound = 'sound/effects/Glasshit.ogg'
+	var/clockwork = FALSE
+	var/made_glow = FALSE
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -49,10 +51,12 @@
 /obj/structure/window/Initialize(mapload, direct)
 	. = ..()
 
-	if(direct)
+	if(direct && !is_fulltile(src))
 		setDir(direct)
 	if(reinf && anchored)
 		state = WINDOW_SCREWED_TO_FRAME
+	if(clockwork && made_glow)
+		new /obj/effect/temp_visual/ratvar/window(get_turf(src))
 
 	ini_dir = dir
 
@@ -424,14 +428,13 @@
 /obj/structure/window/CanAtmosPass(turf/T)
 	if(!density)
 		return TRUE
-	// Now we're in the realm of Directional Windows
-	if(!Secured())
-		return TRUE
-	// Once we know the window is Secured(), we want to check the direction the atmos atoms are going to
-	if(dir == get_dir(loc, T))	// Specifically this case.
-		return FALSE
+	if(is_fulltile(src))	// This won't work with an override on /window/full
+		return !Secured()
 	else
-		return TRUE
+		if(!Secured())
+			return TRUE
+		else
+			return (dir != get_dir(loc, T))
 
 //This proc is used to update the icons of nearby windows.
 /obj/structure/window/proc/update_nearby_icons()
@@ -451,7 +454,7 @@
 	return 0
 
 /obj/structure/window/basic
-	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
+	desc = "It looks thin and flimsy. A few knocks with ... anything, really, should shatter it."
 
 /obj/structure/window/reinforced
 	name = "reinforced window"
@@ -566,7 +569,6 @@
  * Full Tile Windows
  */
 
-
 //Class
 /obj/structure/window/full
 	glass_amount = 2
@@ -578,20 +580,14 @@
 
 /obj/structure/window/full/Initialize(mapload, direct)
 	. = ..()
-	set_dir(dir)
 	if(decon_speed == null)
 		decon_speed = 2 SECONDS
 
-/obj/structure/window/proc/can_be_reached(mob/user)
+/obj/structure/window/full/can_be_reached(mob/user)
 	return TRUE
 
 /obj/structure/window/full/CanPass(atom/movable/mover, turf/target, height=0)
 	return FALSE
-
-/obj/structure/window/full/CanAtmosPass(turf/T)
-	if(!density)
-		return TRUE
-	return !Secured()
 
 /obj/structure/window/full/CanAStarPass(ID, to_dir)
 	if(!density)
@@ -599,7 +595,7 @@
 	return FALSE
 
 /obj/structure/window/full/ratvar_act()
-	new /obj/structure/window/full/clockwork/reinforced(get_turf(src))
+	new /obj/structure/window/full/clockworkreinforced(get_turf(src))
 	qdel(src)
 
 /obj/structure/window/full/update_icon()
@@ -623,18 +619,26 @@
 		. += new shardtype(location)
 
 /obj/structure/window/GetExplosionBlock()
-	return reinf ? real_explsion_block : 0
+	return (reinf ? real_explosion_block : 0)
 
 
 /obj/structure/window/full/shuttle/narsie_act()
 	color = "#3C3434"
+
+/* Plasma Window Overrides */
+
+/obj/structure/window/full/plasmabasic/BlockSuperconductivity()
+	return TRUE
+
+/obj/structure/window/full/plasmareinforced/BlockSuperconductivity()
+	return TRUE
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
 
 //Types
 /obj/structure/window/full/basic
-	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
+	desc = "It looks thin and flimsy. A few knocks with ... anything, really, should shatter it."
 	icon = 'icons/obj/smooth_structures/window.dmi'
 	icon_state = "window"
 	max_integrity = 50
@@ -690,6 +694,7 @@
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	canSmoothWith = list(/turf/simulated/wall/indestructible/opsglass, /obj/structure/window/full/plastitanium)
+
 /obj/structure/window/full/reinforced
 	name = "reinforced window"
 	desc = "It looks rather strong. Might take a few good hits to shatter it."
@@ -737,7 +742,7 @@
 
 
 /*
- * Oh look, it's clockwork
+ * Clockwork
  */
 
 /obj/structure/window/clockwork
@@ -750,10 +755,24 @@
 	armor = list("melee" = 60, "bullet" = 25, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
 	glass_type = /obj/item/stack/tile/brass
-	reinf = FALSE
-	var/made_glow = FALSE
+	clockwork = TRUE
+	made_glow = TRUE
 
-/obj/structure/window/full/clockwork/reinforced
+/obj/structure/window/reinforced/clockwork
+	name = "brass window"
+	desc = "A paper-thin pane of translucent yet reinforced brass."
+	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
+	icon_state = "clockwork_window_single"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	max_integrity = 80
+	armor = list("melee" = 60, "bullet" = 25, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
+	glass_type = /obj/item/stack/tile/brass
+	reinf = TRUE
+	clockwork = TRUE
+	made_glow = TRUE
+
+/obj/structure/window/full/clockworkreinforced
 	icon_state = "clockwork_window"
 	smooth = SMOOTH_TRUE
 	canSmoothWith = null
@@ -762,28 +781,25 @@
 	max_integrity = 120
 	level = 3
 	glass_amount = 2
-
-/obj/structure/window/full/clockwork/reinforced/Initialize(mapload, direct)
-	. = ..()
+	clockwork = TRUE
 	made_glow = TRUE
-	new /obj/effect/temp_visual/ratvar/window(get_turf(src))
 
-/obj/structure/window/full/clockwork/reinforced/spawnDebris(location)
+/obj/structure/window/clockwork/reinforced/spawnDebris(location)
 	. = list()
 	. += new /obj/item/stack/tile/brass(location, 1)
 
-/obj/structure/window/full/clockwork/reinforced/setDir(direct)
+/obj/structure/window/clockwork/reinforced/setDir(direct)
 	if(!made_glow)
 		var/obj/effect/E = new /obj/effect/temp_visual/ratvar/window/single(get_turf(src))
 		E.setDir(direct)
 		made_glow = TRUE
 	..()
 
-/obj/structure/window/full/clockwork/reinforced/ratvar_act()
+/obj/structure/window/clockwork/reinforced/ratvar_act()
 	obj_integrity = max_integrity
 	update_nearby_icons()
 
-/obj/structure/window/full/clockwork/reinforced/narsie_act()
+/obj/structure/window/clockwork/reinforced/narsie_act()
 	take_damage(rand(25, 75), BRUTE)
 	if(src)
 		var/previouscolor = color
