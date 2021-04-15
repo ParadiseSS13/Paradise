@@ -242,7 +242,7 @@
 
 /datum/recipe/microwave/wishsoup
 	reagents = list("water" = 20)
-	result= /obj/item/reagent_containers/food/snacks/soup/wishsoup
+	result = /obj/item/reagent_containers/food/snacks/soup/wishsoup
 
 /datum/recipe/microwave/hotchili
 	items = list(/obj/item/reagent_containers/food/snacks/meat, /obj/item/reagent_containers/food/snacks/grown/chili, /obj/item/reagent_containers/food/snacks/grown/tomato)
