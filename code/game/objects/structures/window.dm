@@ -223,6 +223,7 @@
 				return
 			state = (state == WINDOW_IN_FRAME ? WINDOW_SCREWED_TO_FRAME : WINDOW_IN_FRAME)
 			to_chat(user, "<span class='notice'>You [state == WINDOW_IN_FRAME ? "unfasten the window from":"fasten the window to"] the frame.</span>")
+			air_update_turf(TRUE)
 
 		else if(state == WINDOW_OUT_OF_FRAME)
 			if(decon_speed)
@@ -591,6 +592,8 @@
 	return TRUE
 
 /obj/structure/window/full/CanPass(atom/movable/mover, turf/target, height=0)
+	if(istype(mover) && mover.checkpass(PASSGLASS))
+		return TRUE
 	return FALSE
 
 /obj/structure/window/full/CanAStarPass(ID, to_dir)
