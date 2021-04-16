@@ -14,10 +14,11 @@
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
-	brute_mod = 2.28 // 100% * 2.28 * 0.66 (robolimbs) ~= 150%
-	burn_mod = 2.28  // So they take 50% extra damage from brute/burn overall
+	brute_mod = 1.51 // 100% * 1.51 * 0.66 (robolimbs) ~= 100%
+	burn_mod = 2.28 // 100% * 2.28 * 0.66 (robolimbs) ~= 150%
 	tox_mod = 0
 	clone_mod = 0
+	hunger_drain = 0.14
 	death_message = "gives a short series of shrill beeps, their chassis shuddering before falling limp, nonfunctional."
 	death_sounds = list('sound/voice/borg_deathsound.ogg') //I've made this a list in the event we add more sounds for dead robots.
 
