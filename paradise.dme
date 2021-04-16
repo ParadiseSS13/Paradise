@@ -1317,6 +1317,7 @@
 #include "code\hispania\modules\projectiles\guns\projectile\natasha.dm"
 #include "code\hispania\modules\projectiles\guns\projectile\revolver.dm"
 #include "code\hispania\modules\projectiles\projectiles\beams.dm"
+#include "code\hispania\modules\reagents\chemistry\machinery\chem_dispenser.dm"
 #include "code\hispania\modules\reagents\chemistry\reagents\alcohol.dm"
 #include "code\hispania\modules\reagents\chemistry\reagents\drinks.dm"
 #include "code\hispania\modules\reagents\chemistry\reagents\food.dm"
