@@ -40,7 +40,7 @@
 	name = "circuit board (Botanical Chem Dispenser)"
 	build_path = /obj/machinery/chem_dispenser/botanical
 	board_type = "machine"
-	origin_tech = "programming = 5,biotech = 3,materials = 4,plasmatech = 4"
+	origin_tech = "programming = 5,biotech = 3"
 	req_components = list(
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/cable_coil = 1,
