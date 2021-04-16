@@ -3,7 +3,7 @@
 
 /datum/outfit/admin/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	if(!visualsOnly)
+	if(!visualsOnly && H.mind)
 		H.mind.assigned_role = name
 		H.job = name
 
@@ -643,7 +643,7 @@
 	uniform = /obj/item/clothing/under/solgov
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	back = /obj/item/storage/backpack/security
-	belt = /obj/item/storage/belt/military/assault
+	belt = /obj/item/storage/belt/military/assault/marines/full
 	head = /obj/item/clothing/head/soft/solgov
 	glasses = /obj/item/clothing/glasses/night
 	gloves = /obj/item/clothing/gloves/combat
@@ -651,16 +651,14 @@
 	l_ear = /obj/item/radio/headset/ert
 	id = /obj/item/card/id
 	l_hand = /obj/item/gun/projectile/automatic/ar
+	suit_store = /obj/item/gun/projectile/automatic/pistol/m1911
 	r_pocket = /obj/item/flashlight/seclite
 	pda = /obj/item/pda
 	backpack_contents = list(
 		/obj/item/storage/box/responseteam = 1,
-		/obj/item/ammo_box/magazine/m556 = 3,
 		/obj/item/clothing/shoes/magboots = 1,
-		/obj/item/gun/projectile/automatic/pistol/m1911 = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
-		/obj/item/ammo_box/magazine/m45 = 2
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,
@@ -700,22 +698,15 @@
 	back = /obj/item/storage/backpack/satchel
 	l_ear = /obj/item/radio/headset/ert/alt/commander
 	l_hand = null
+	belt = /obj/item/melee/baton
+	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	backpack_contents = list(
 		/obj/item/storage/box/responseteam = 1,
-		/obj/item/restraints/handcuffs = 1,
-		/obj/item/melee/classic_baton/telescopic = 1,
+		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
-		/obj/item/gun/projectile/automatic/pistol/deagle = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
 		/obj/item/ammo_box/magazine/m50 = 3
-	)
-	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/chest/nutriment
-	)
-	implants = list(/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
 	)
 	is_solgov_lieutenant = TRUE
 
@@ -723,43 +714,38 @@
 	name = "Solar Federation Specops Marine"
 	uniform = /obj/item/clothing/under/solgov/elite
 	head = /obj/item/clothing/head/soft/solgov/elite
+	belt =/obj/item/storage/belt/military/assault/marines/elite/full
 	l_hand = /obj/item/gun/projectile/automatic/shotgun/bulldog
 	backpack_contents = list(
 		/obj/item/storage/box/responseteam = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/whetstone = 1,
-		/obj/item/gun/projectile/automatic/pistol/m1911 = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
-		/obj/item/ammo_box/magazine/m45 = 2
-		/obj/item/ammo_box/magazine/m12g = 4
 	)
-
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/cyberimp/chest/nutriment,
+		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
+		/obj/item/organ/internal/cyberimp/arm/flash,
+		/obj/item/organ/internal/eyes/cybernetic/shield
+	)
 /datum/outfit/admin/solgov/elite/lieutenant
 	name = "Solar Federation Specops Lieutenant"
 	uniform = /obj/item/clothing/under/solgov/command/elite
 	head = /obj/item/clothing/head/beret/solgov/command/elite
 	glasses = /obj/item/clothing/glasses/night
 	back = /obj/item/storage/backpack/satchel
+	belt = /obj/item/melee/baton
 	l_hand = null
+	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	l_ear = /obj/item/radio/headset/ert/alt/commander
 	backpack_contents = list(
 		/obj/item/storage/box/responseteam = 1,
-		/obj/item/restraints/handcuffs = 1,
-		/obj/item/melee/classic_baton/telescopic = 1,
+		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
-		/obj/item/gun/projectile/automatic/pistol/deagle = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
 		/obj/item/ammo_box/magazine/m50 = 3
-	)
-	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/chest/nutriment,
-		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
-		/obj/item/organ/internal/cyberimp/arm/flash
-	)
-	implants = list(/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
 	)
 	is_solgov_lieutenant = TRUE
 

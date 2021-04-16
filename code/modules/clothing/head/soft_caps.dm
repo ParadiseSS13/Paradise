@@ -126,7 +126,7 @@
 	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
 	strip_delay = 60
 
-/obj/item/clothing/head/soft/solgov/slite
+/obj/item/clothing/head/soft/solgov/elite
 	name = "\improper Trans-Solar Federation Specops marine cap"
 	desc = "A soft cap worn by marines of the Trans-Solar Federation Specops division."
 	icon_state = "solgovelitesoft"
