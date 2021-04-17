@@ -632,7 +632,7 @@
 
 /obj/item/twohanded/shockpaddles/syndicate
 	name = "combat defibrillator paddles"
-	desc = "A pair of high-tech paddles with flat plasteel surfaces to revive deceased operatives(unless they exploded). They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
+	desc = "A pair of high-tech paddles with flat plasteel surfaces to revive deceased operatives (unless they exploded). They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
 	icon_state = "syndiepaddles0"
 	item_state = "syndiepaddles0"
 	base_icon_state = "syndiepaddles"
