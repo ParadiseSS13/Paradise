@@ -344,8 +344,8 @@
 //Elite Syndie suit
 /obj/item/clothing/suit/space/hardsuit/syndi/elite
 	name = "elite syndicate hardsuit"
-	desc = "An elite version of the syndicate hardsuit, with improved armour and fire shielding. It is in EVA mode."
-	alt_desc = "An elite version of the syndicate hardsuit, with improved armour and fire shielding. It is in combat mode."
+	desc = "A elite version of the syndicate hardsuit, with improved armor and fireproofing. It is in EVA mode."
+	alt_desc = "A elite version of the syndicate hardsuit, with improved armor and fireproofing. It is in combat mode."
 	icon_state = "hardsuit0-syndielite"
 	item_color = "syndielite"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/combat/syndi/elite
@@ -363,8 +363,8 @@
 
 /obj/item/clothing/suit/space/hardsuit/syndi/freedom
 	name = "eagle suit"
-	desc = "An advanced, light suit, fabricated from a mixture of synthetic feathers and space-resistant material. A gun holster appears to be integrated into the suit. It is in EVA mode."
-	alt_desc = "An advanced, light suit, fabricated from a mixture of synthetic feathers and space-resistant material. A gun holster appears to be integrated into the suit. It is in combat mode."
+	desc = "An advanced and light suit, fabricated from a mixture of synthetic feathers and space-resistant materials. A gun holster appears to be integrated into the suit. It is in EVA mode."
+	alt_desc = "An advanced and light suit, fabricated from a mixture of synthetic feathers and space-resistant materials. A gun holster appears to be integrated into the suit. It is in combat mode."
 	icon_state = "freedom"
 	item_state = "freedom"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/combat/syndi/freedom

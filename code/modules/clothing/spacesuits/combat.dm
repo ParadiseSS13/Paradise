@@ -86,8 +86,8 @@
 //Elite Syndicate hardsuit helmets
 /obj/item/clothing/head/helmet/space/hardsuit/combat/syndi/elite
 	name = "elite syndicate hardsuit helmet"
-	desc = "An dual-mode elite version of the syndicate helmet, with improved armour and fire shielding. It is in EVA mode. Property of Gorlex Marauders."
-	alt_desc = "An elite version of the syndicate helmet, with improved armour and fire shielding. It is in combat mode. Property of Gorlex Marauders."
+	desc = "A dual-mode elite version of the syndicate helmet, with improved armor and fireproofing. It is in EVA mode. Property of Gorlex Marauders."
+	alt_desc = "A dual-mode elite version of the syndicate helmet, with improved armour and fireproofing. It is in combat mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit0-syndielite"
 	item_color = "syndielite"
 	armor = list("melee" = 60, "bullet" = 60, "laser" = 50, "energy" = 25, "bomb" = 55, "bio" = 100, "rad" = 70, "fire" = 100, "acid" = 100)
@@ -103,8 +103,8 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/combat/syndi/freedom
 	name = "eagle helmet"
-	desc = "An advanced, space-proof helmet. It appears to be modeled after an old-world eagle. It is in EVA mode."
-	alt_desc = "An advanced, space-proof helmet. It appears to be modeled after an old-world eagle. It is in combat mode."
+	desc = "An advanced, space-proof helmet. It appears to be modelled after an old-world eagle. It is in EVA mode."
+	alt_desc = "An advanced, space-proof helmet. It appears to be modelled after an old-world eagle. It is in combat mode."
 	icon_state = "griffinhat"
 	item_state = "griffinhat"
 	sprite_sheets = null

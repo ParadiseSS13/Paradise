@@ -1,8 +1,8 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/combat/ert
 	name = "emergency response team helmet"
-	desc = "A dual-mode advanced combat hardsuit helmet worn by members of the Nanotrasen Emergency Response Team. Armoured and space ready. It is in EVA mode."
-	alt_desc = "A dual-mode advanced combat hardsuit helmet worn by members of the Nanotrasen Emergency Response Team. Armoured and space ready. It is in combat mode."
+	desc = "A dual-mode advanced combat hardsuit helmet worn by members of Nanotrasen Emergency Response Teams. Armored and space ready. It is in EVA mode."
+	alt_desc = "A dual-mode advanced combat hardsuit helmet worn by members of Nanotrasen Emergency Response Teams. Armored and space ready. It is in combat mode."
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "helm-command"
 	item_color = "ert_commander"
@@ -46,8 +46,8 @@
 
 /obj/item/clothing/suit/space/hardsuit/ert
 	name = "emergency response team suit"
-	desc = "A dual-mode advanced combat hardsuit worn by members of the Nanotrasen Emergency Response Team. Armoured, space ready, and fire resistant. It is in EVA mode."
-	alt_desc = "A dual-mode advanced combat hardsuit worn by members of the Nanotrasen Emergency Response Team. Armoured, space ready, and fire resistant. It is in combat mode."
+	desc = "A dual-mode advanced combat hardsuit worn by members of Nanotrasen Emergency Response Teams. Armored, space ready, and fireproof. It is in EVA mode."
+	alt_desc = "A dual-mode advanced combat hardsuit worn by members of Nanotrasen Emergency Response Teams. Armored, space ready, and fireproof. It is in combat mode."
 	icon_state = "ert_commander"
 	item_state = "suit-command"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -69,8 +69,8 @@
 //Commander
 /obj/item/clothing/head/helmet/space/hardsuit/combat/ert/commander
 	name = "emergency response team commander helmet"
-	desc = "A dual-mode advanced combat hardsuit helmet worn by the commander of a Nanotrasen Emergency Response Team. Has blue highlights. Armoured and space ready. It is in EVA mode."
-	alt_desc = "A dual-mode advanced combat hardsuit helmet worn by the commander of a Nanotrasen Emergency Response Team. Has blue highlights. Armoured and space ready. It is in combat mode."
+	desc = "A dual-mode advanced combat hardsuit helmet worn by the commanders of Nanotrasen Emergency Response Teams. Has blue highlights. Armored and space ready. It is in EVA mode."
+	alt_desc = "A dual-mode advanced combat hardsuit helmet worn by the commanders of Nanotrasen Emergency Response Teams. Has blue highlights. Armored and space ready. It is in combat mode."
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "helm-command"
 	item_color = "ert_commander"
@@ -83,8 +83,8 @@
 
 /obj/item/clothing/suit/space/hardsuit/ert/commander
 	name = "emergency response team commander suit"
-	desc = "A dual-mode advanced combat hardsuit worn by the commander of a Nanotrasen Emergency Response Team. Has blue highlights. Armoured, space ready, and fire resistant. It is in EVA mode."
-	alt_desc = "A dual-mode advanced combat hardsuit worn by the commander of a Nanotrasen Emergency Response Team. Has blue highlights. Armoured, space ready, and fire resistant. It is in combat mode."
+	desc = "A dual-mode advanced combat hardsuit worn by the commanders of Nanotrasen Emergency Response Teams. Has blue highlights. Armored, space ready, and fireproof. It is in EVA mode."
+	alt_desc = "A dual-mode advanced combat hardsuit worn by the commanders of Nanotrasen Emergency Response Teams. Has blue highlights. Armored, space ready, and fireproof. It is in combat mode."
 	icon_state = "ert_commander"
 	item_state = "suit-command"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/combat/ert/commander
@@ -98,8 +98,8 @@
 //Security
 /obj/item/clothing/head/helmet/space/hardsuit/combat/ert/security
 	name = "emergency response team security helmet"
-	desc = "A dual-mode advanced combat hardsuit helmet worn by security members of a Nanotrasen Emergency Response Team. Has red highlights. Armoured and space ready. It is in EVA mode."
-	alt_desc = "A dual-mode advanced combat hardsuit helmet worn by security members of a Nanotrasen Emergency Response Team. Has red highlights. Armoured and space ready. It is in combat mode."
+	desc = "A dual-mode advanced combat hardsuit helmet worn by security members of Nanotrasen Emergency Response Teams. Has red highlights. Armored and space ready. It is in EVA mode."
+	alt_desc = "A dual-mode advanced combat hardsuit helmet worn by security members of Nanotrasen Emergency Response Teams. Has red highlights. Armored and space ready. It is in combat mode."
 	icon_state = "hardsuit0-ert_security"
 	item_state = "syndicate-helm-black-red"
 	item_color = "ert_security"
@@ -112,8 +112,8 @@
 
 /obj/item/clothing/suit/space/hardsuit/ert/security
 	name = "emergency response team security suit"
-	desc = "A dual-mode advanced combat hardsuit worn by security members of a Nanotrasen Emergency Response Team. Has red highlights. Armoured, space ready, and fire resistant. It is in EVA mode."
-	alt_desc = "A dual-mode advanced combat hardsuit worn by security members of a Nanotrasen Emergency Response Team. Has red highlights. Armoured, space ready, and fire resistant. It is in combat mode."
+	desc = "A dual-mode advanced combat hardsuit worn by security members of Nanotrasen Emergency Response Teams. Has red highlights. Armored, space ready, and fireproof. It is in EVA mode."
+	alt_desc = "A dual-mode advanced combat hardsuit worn by security members of Nanotrasen Emergency Response Teams. Has red highlights. Armored, space ready, and fireproof. It is in combat mode."
 	icon_state = "ert_security"
 	item_state = "syndicate-black-red"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/combat/ert/security
@@ -127,8 +127,8 @@
 //Engineer
 /obj/item/clothing/head/helmet/space/hardsuit/combat/ert/engineer
 	name = "emergency response team engineer helmet"
-	desc = "A dual-mode advanced combat hardsuit helmet worn by engineers of a Nanotrasen Emergency Response Team. Has yellow highlights. Armoured and space ready. It is in EVA mode."
-	alt_desc = "A dual-mode advanced combat hardsuit helmet worn by engineers of a Nanotrasen Emergency Response Team. Has yellow highlights. Armoured and space ready."
+	desc = "A dual-mode advanced combat hardsuit helmet worn by engineers of Nanotrasen Emergency Response Teams. Has yellow highlights. Armored and space ready. It is in EVA mode."
+	alt_desc = "A dual-mode advanced combat hardsuit helmet worn by engineers of Nanotrasen Emergency Response Teams. Has yellow highlights. Armored and space ready."
 	icon_state = "hardsuit0-ert_engineer"
 	item_state = "helm-orange"
 	item_color = "ert_engineer"
@@ -142,8 +142,8 @@
 
 /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	name = "emergency response team engineer suit"
-	desc = "A dual-mode advanced combat hardsuit worn by the engineers of a Nanotrasen Emergency Response Team. Has yellow highlights. Armoured, space ready, and fire resistant. It is in EVA mode."
-	alt_desc = "A dual-mode advanced combat hardsuit worn by the engineers of a Nanotrasen Emergency Response Team. Has yellow highlights. Armoured, space ready, and fire resistant. It is in combat mode."
+	desc = "A dual-mode advanced combat hardsuit worn by the engineers of Nanotrasen Emergency Response Teams. Has yellow highlights. Armored, space ready, and fireproof. It is in EVA mode."
+	alt_desc = "A dual-mode advanced combat hardsuit worn by the engineers of Nanotrasen Emergency Response Teams. Has yellow highlights. Armored, space ready, and fireproof. It is in combat mode."
 	icon_state = "ert_engineer"
 	item_state = "suit-orange"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/combat/ert/engineer
@@ -157,8 +157,8 @@
 //Medical
 /obj/item/clothing/head/helmet/space/hardsuit/combat/ert/medical
 	name = "emergency response team medical helmet"
-	desc = "A dual-mode advanced combat hardsuit helmet worn by medical members of a Nanotrasen Emergency Response Team. Has white highlights. Armoured and space ready. It is in EVA mode."
-	alt_desc = "A dual-mode advanced combat hardsuit helmet worn by medical members of a Nanotrasen Emergency Response Team. Has white highlights. Armoured and space ready. It is in combat mode."
+	desc = "A dual-mode advanced combat hardsuit helmet worn by medical members of Nanotrasen Emergency Response Teams. Has white highlights. Armored and space ready. It is in EVA mode."
+	alt_desc = "A dual-mode advanced combat hardsuit helmet worn by medical members of Nanotrasen Emergency Response Teams. Has white highlights. Armored and space ready. It is in combat mode."
 	icon_state = "hardsuit0-ert_medical"
 	item_color = "ert_medical"
 
@@ -170,8 +170,8 @@
 
 /obj/item/clothing/suit/space/hardsuit/ert/medical
 	name = "emergency response team medical suit"
-	desc = "A dual-mode advanced combat hardsuit worn by medical members of a Nanotrasen Emergency Response Team. Has white highlights. Armoured and space ready. It is in EVA mode."
-	alt_desc = "A dual-mode advanced combat hardsuit worn by medical members of a Nanotrasen Emergency Response Team. Has white highlights. Armoured and space ready. It is in combat mode."
+	desc = "A dual-mode advanced combat hardsuit worn by medical members of Nanotrasen Emergency Response Teams. Has white highlights. Armored and space ready. It is in EVA mode."
+	alt_desc = "A dual-mode advanced combat hardsuit worn by medical members of Nanotrasen Emergency Response Teams. Has white highlights. Armored and space ready. It is in combat mode."
 	icon_state = "ert_medical"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/combat/ert/medical
 
@@ -184,8 +184,8 @@
 //Janitor
 /obj/item/clothing/head/helmet/space/hardsuit/combat/ert/janitor
 	name = "emergency response team janitor helmet"
-	desc = "A dual-mode advanced combat hardsuit helmet worn by janitorial members of a Nanotrasen Emergency Response Team. Has purple highlights. Armoured and space ready. It is in EVA mode."
-	alt_desc = "A dual-mode advanced combat hardsuit helmet worn by janitorial members of a Nanotrasen Emergency Response Team. Has purple highlights. Armoured and space ready. It is in combat mode."
+	desc = "A dual-mode advanced combat hardsuit helmet worn by janitors of Nanotrasen Emergency Response Teams. Has purple highlights. Armored and space ready. It is in EVA mode."
+	alt_desc = "A dual-mode advanced combat hardsuit helmet worn by janitors of Nanotrasen Emergency Response Teams. Has purple highlights. Armored and space ready. It is in combat mode."
 	icon_state = "hardsuit0-ert_janitor"
 	item_color = "ert_janitor"
 
@@ -197,8 +197,8 @@
 
 /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	name = "emergency response team janitor suit"
-	desc = "A dual-mode advanced combat hardsuit worn by the janitorial of a Nanotrasen Emergency Response Team. Has purple highlights. Armoured, space ready, and fire resistant. It is in EVA mode."
-	alt_desc = "A dual-mode advanced combat hardsuit worn by the janitorial of a Nanotrasen Emergency Response Team. Has purple highlights. Armoured, space ready, and fire resistant. It is in combat mode."
+	desc = "A dual-mode advanced combat hardsuit worn by the janitors of Nanotrasen Emergency Response Teams. Has purple highlights. Armored, space ready, and fireproof. It is in EVA mode."
+	alt_desc = "A dual-mode advanced combat hardsuit worn by the janitors of Nanotrasen Emergency Response Teams. Has purple highlights. Armored, space ready, and fireproof. It is in combat mode."
 	icon_state = "ert_janitor"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/combat/ert/janitor
 
@@ -227,9 +227,9 @@
 		)
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal
-	name = "paranormal response team suit"
-	desc = "Powerful wards are built into this hardsuit, protecting the user from all manner of paranormal threats. It is in EVA mode."
-	alt_desc = "Powerful wards are built into this hardsuit, protecting the user from all manner of paranormal threats. It is in combat mode."
+	name = "paranormal response Teams suit"
+	desc = "Powerful wards are built into this hardsuit, protecting the user from all manner ofparanormal threats. It is in EVA mode."
+	alt_desc = "Powerful wards are built into this hardsuit, protecting the user from all manner ofparanormal threats. It is in combat mode."
 	icon_state = "hardsuit-paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/combat/ert/paranormal
@@ -261,7 +261,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/combat/ert/paranormal/berserker
 	name = "champion's helmet"
-	desc = "Peering into the eyes of the helmet is enough to seal damnation."
+	desc = "Peering into the eyes ofthe helmet is enough to seal damnation."
 	icon_state = "hardsuit0-berserker"
 	item_color = "berserker"
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
