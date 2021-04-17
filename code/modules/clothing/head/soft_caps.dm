@@ -123,16 +123,18 @@
 	icon_state = "solgovsoft"
 	item_color = "solgov"
 	dog_fashion = null
+
+/obj/item/clothing/head/soft/solgov/marines
 	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
 	strip_delay = 60
 
-/obj/item/clothing/head/soft/solgov/elite
+/obj/item/clothing/head/soft/solgov/marines/elite
 	name = "\improper Trans-Solar Federation Specops marine cap"
 	desc = "A soft cap worn by marines of the Trans-Solar Federation Specops division."
 	icon_state = "solgovelitesoft"
 	item_color = "solgovelite"
 
-/obj/item/clothing/head/soft/solgov/command
+/obj/item/clothing/head/soft/solgov/marines/command
 	name = "\improper Trans-Solar Federation lieutenant's cap"
 	desc = "A soft cap worn by marines of the Trans-Solar Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
 	icon_state = "solgovcsoft"
@@ -141,7 +143,7 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
 	strip_delay = 80
 
-/obj/item/clothing/head/soft/solgov/command/elite
+/obj/item/clothing/head/soft/solgov/marines/command/elite
 	name = "\improper Trans-Solar Federation Specops Lieutenant's cap"
 	desc = "A soft cap worn by marines of the Trans-Solar Federation Specops division. The insignia signifies the wearer bears the rank of a Lieutenant."
 	icon_state = "solgovcelitesoft"
