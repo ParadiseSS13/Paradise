@@ -1395,6 +1395,7 @@
 #include "code\modules\clothing\shoes\miscellaneous.dm"
 #include "code\modules\clothing\spacesuits\alien.dm"
 #include "code\modules\clothing\spacesuits\chronosuit.dm"
+#include "code\modules\clothing\spacesuits\combat.dm"
 #include "code\modules\clothing\spacesuits\ert.dm"
 #include "code\modules\clothing\spacesuits\hardsuit.dm"
 #include "code\modules\clothing\spacesuits\miscellaneous.dm"
