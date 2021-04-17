@@ -416,7 +416,6 @@
 							"gold",
 							"silver",
 							"centcom",
-							"centcom_old",
 							"security",
 							"medical",
 							"HoS",
@@ -891,7 +890,7 @@
 	return list("data","id","gold","silver","security","medical","research","cargo","engineering","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
 
 /proc/get_centcom_card_skins()
-	return list("centcom","centcom_old","nanotrasen","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
+	return list("centcom","nanotrasen","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
 
 /proc/get_all_card_skins()
 	return get_station_card_skins() + get_centcom_card_skins()
@@ -910,8 +909,6 @@
 			return "Research Director"
 		if("CE")
 			return "Chief Engineer"
-		if("centcom_old")
-			return "Centcom Old"
 		if("ERT_leader")
 			return "ERT Leader"
 		if("ERT_empty")
