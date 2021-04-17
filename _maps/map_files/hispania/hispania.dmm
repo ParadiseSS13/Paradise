@@ -76,6 +76,9 @@
 /area/toxins/teleci)
 "aap" = (
 /obj/machinery/telepad,
+/obj/structure/sign/science{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -97,6 +100,10 @@
 	pixel_x = -5;
 	pixel_y = -5
 	},
+/obj/machinery/firealarm{
+	dir = 2;
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -115,6 +122,16 @@
 	network = list("Research","SS13");
 	pixel_x = 0
 	},
+/obj/machinery/requests_console{
+	department = "Science";
+	departmentType = 2;
+	name = "Science Requests Console";
+	pixel_y = 30
+	},
+/obj/machinery/light_switch{
+	pixel_x = 27;
+	pixel_y = -4
+	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-whitepurple (EAST)";
 	icon_state = "whitepurple";
@@ -123,12 +140,16 @@
 /area/toxins/teleci)
 "aat" = (
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "aau" = (
 /obj/structure/closet/bluespace,
+/obj/machinery/status_display{
+	density = 0;
+	layer = 4;
+	pixel_x = 0;
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -194,9 +215,7 @@
 /area/toxins/teleci)
 "aaB" = (
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plating,
 /area/toxins/teleci)
 "aaC" = (
 /turf/simulated/floor/plasteel{
@@ -356,9 +375,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "aaW" = (
 /obj/machinery/door/poddoor{
@@ -508,6 +525,7 @@
 	dir = 4;
 	level = 1
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -581,6 +599,7 @@
 	icon_state = "1-2";
 	pixel_y = 0
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -10539,8 +10558,6 @@
 /obj/item/radio/intercom/department/security{
 	pixel_x = -28
 	},
-/obj/structure/bed/dogbed/ducktron,
-/mob/living/simple_animal/chick/ducktron,
 /turf/simulated/floor/plasteel,
 /area/security/processing)
 "auU" = (
@@ -21580,7 +21597,6 @@
 	},
 /obj/structure/table,
 /obj/item/folder/white,
-/obj/item/bell/medbay,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whitebluefull";
 	icon_state = "whitebluefull"
@@ -39970,7 +39986,7 @@
 "bDj" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/eastright{
-	dir = 8;
+	dir = 4;
 	name = "Chemistry Desk";
 	req_access_txt = "33"
 	},
@@ -39991,6 +40007,7 @@
 	name = "Quarantine Lockdown";
 	opacity = 0
 	},
+/obj/item/bell/medbay,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -91133,6 +91150,14 @@
 	dir = 2
 	},
 /area/crew_quarters/dorms)
+"iMw" = (
+/obj/effect/landmark{
+	name = "AI Shell"
+	},
+/turf/simulated/floor/plating,
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "iNz" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 4
@@ -91632,6 +91657,7 @@
 /area/space/nearstation)
 "kSB" = (
 /obj/machinery/light,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -93997,6 +94023,17 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
+"urW" = (
+/obj/structure/closet/bluespace,
+/obj/item/radio/intercom{
+	dir = 1;
+	name = "station intercom (General)";
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/teleci)
 "uuK" = (
 /obj/effect/turf_decal/tile/brown,
 /turf/simulated/floor/plasteel{
@@ -132798,7 +132835,7 @@ diQ
 djI
 dpf
 dpq
-dpA
+iMw
 dkI
 dld
 dlK
@@ -139428,7 +139465,7 @@ cpH
 cxO
 aao
 aao
-aau
+urW
 aaY
 abg
 aaz

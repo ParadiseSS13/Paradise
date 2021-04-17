@@ -68,3 +68,16 @@
 		to_chat(src, "<span class='danger'>Your remote connection has been reset!</span>")
 		deployed_shell.undeploy()
 	diag_hud_set_deployed()
+
+/mob/living/silicon/ai/proc/spawn_shell()
+	var/obj/shell_landmark
+	for(var/obj/effect/landmark/shell_loc in GLOB.landmarks_list)
+		if(shell_loc.name == "AI Shell")
+			shell_landmark = shell_loc
+
+	var/mob/living/silicon/robot/S = new /mob/living/silicon/robot(shell_landmark.loc)
+	S.make_shell()
+
+/mob/living/silicon/ai/on_mob_init()
+	..()
+	spawn_shell()
