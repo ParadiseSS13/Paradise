@@ -8,7 +8,6 @@ const stats = [
   ['good', 'Conscious'],
   ['average', 'Unconscious'],
   ['bad', 'DEAD'],
-  ['average', 'Anesthetized'],
 ];
 
 const damages = [
