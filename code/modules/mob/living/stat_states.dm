@@ -33,9 +33,9 @@
 	else if(stat == CONSCIOUS || isLivingSSD(src))
 		return FALSE
 	stat = CONSCIOUS
-		create_attack_log("<font color='red'>Woken up at [atom_loc_line(get_turf(src))]</font>")
-		add_attack_logs(src, null, "Woken up", ATKLOG_ALL)
-		log_game("[key_name(src)] woke up at [atom_loc_line(get_turf(src))]")
+	create_attack_log("<font color='red'>Woken up at [atom_loc_line(get_turf(src))]</font>")
+	add_attack_logs(src, null, "Woken up", ATKLOG_ALL)
+	log_game("[key_name(src)] woke up at [atom_loc_line(get_turf(src))]")
 	if(updating)
 		update_sight()
 		update_blind_effects()
