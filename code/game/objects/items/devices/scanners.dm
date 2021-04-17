@@ -134,7 +134,7 @@ REAGENT SCANNER
 		OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
 		to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: dead</span>")
 	else
-		to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: [H.stat > 1 ? "dead" : "[H.health]% healthy"]</span>")
+		to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: [H.stat == DEAD ? "dead" : "[H.health]% healthy"]</span>")
 	to_chat(user, "\t Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>")
 	to_chat(user, "\t Damage Specifics: <font color='blue'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
 	to_chat(user, "<span class='notice'>Body Temperature: [H.bodytemperature-T0C]&deg;C ([H.bodytemperature*1.8-459.67]&deg;F)</span>")
@@ -696,8 +696,11 @@ REAGENT SCANNER
 			t1 = "Conscious"
 		if(UNCONSCIOUS)
 			t1 = "Unconscious"
+		if(ANESTHETIZED)
+			t1 = "Anesthetized"
 		else
-			t1 = "*dead*"
+			t1 = "*DEAD*"
+
 	dat += "[target.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [target.health], ([t1])</font><br>"
 
 	var/found_disease = FALSE

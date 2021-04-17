@@ -174,9 +174,9 @@
 	//TRACE GASES
 	if(breath.sleeping_agent)
 		if(SA_partialpressure > SA_para_min)
-			Paralyse(3)
+			Paralyse(3, ane =TRUE)
 			if(SA_partialpressure > SA_sleep_min)
-				AdjustSleeping(2, bound_lower = 0, bound_upper = 10)
+				AdjustSleeping(2, bound_lower = 0, bound_upper = 10, ane =TRUE)
 		else if(SA_partialpressure > 0.01)
 			if(prob(20))
 				emote(pick("giggle","laugh"))
@@ -300,10 +300,13 @@
 		AdjustDizzy(-restingpwr)
 
 	if(drowsyness)
-		AdjustDrowsy(-restingpwr)
+		var/ane = FALSE
+		if(anesthetized)
+			ane = TRUE
+		AdjustDrowsy(-restingpwr, ane)
 		EyeBlurry(2)
 		if(prob(5))
-			AdjustSleeping(1)
+			AdjustSleeping(1, ane)
 			Paralyse(5)
 
 	if(confused)
@@ -319,9 +322,9 @@
 
 		AdjustHallucinate(-2)
 
-	// Keep SSD people asleep
+	// Keep SSD people Anesthetized, so Pain won't wake them
 	if(player_logged)
-		Sleeping(2)
+		Sleeping(2, TRUE)
 
 /mob/living/carbon/handle_sleeping()
 	if(..())
@@ -381,7 +384,7 @@
 /mob/living/carbon/update_damage_hud()
 	if(!client)
 		return
-	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)
+	if(stat == (UNCONSCIOUS | ANESTHETIZED) && health <= HEALTH_THRESHOLD_CRIT)
 		if(check_death_method())
 			var/severity = 0
 			switch(health)

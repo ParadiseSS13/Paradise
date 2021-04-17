@@ -388,12 +388,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/paper/abductor/AltClick()
 	return
 
-#define BATON_STUN 0
-#define BATON_SLEEP 1
-#define BATON_CUFF 2
-#define BATON_PROBE 3
-#define BATON_MODES 4
-
+#define BATON_STUN        0
+#define BATON_ANESTHESIA  1
+#define BATON_CUFF        2
+#define BATON_PROBE       3
+#define BATON_MODES       4
 /obj/item/abductor_baton
 	name = "advanced baton"
 	desc = "A quad-mode baton used for incapacitation and restraining of specimens."
@@ -413,7 +412,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	switch(mode)
 		if(BATON_STUN)
 			txt = "stunning"
-		if(BATON_SLEEP)
+		if(BATON_ANESTHESIA)
 			txt = "sleep inducement"
 		if(BATON_CUFF)
 			txt = "restraining"
@@ -431,7 +430,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(BATON_STUN)
 			icon_state = "wonderprodStun"
 			item_state = "wonderprodStun"
-		if(BATON_SLEEP)
+		if(BATON_ANESTHESIA)
 			icon_state = "wonderprodSleep"
 			item_state = "wonderprodSleep"
 		if(BATON_CUFF)
@@ -442,20 +441,16 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			item_state = "wonderprodProbe"
 
 /obj/item/abductor_baton/attack(mob/target, mob/living/user)
-	if(!isabductor(user))
+	if(!isabductor(user))	// Non-Abdcutors cannot use this
 		return
-
-	if(isrobot(target))
+	if(isrobot(target))		// Yeah, yeah, nice try - you can't stun a Robot
 		..()
 		return
-
-	if(!isliving(target))
+	if(!isliving(target))	// Yeah, nope - they have to be living
 		return
 
 	var/mob/living/L = target
-
 	user.do_attack_animation(L)
-
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
@@ -465,8 +460,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	switch(mode)
 		if(BATON_STUN)
 			StunAttack(L,user)
-		if(BATON_SLEEP)
-			SleepAttack(L,user)
+		if(BATON_ANESTHESIA)
+			AnesthetizeAttack(L,user)
 		if(BATON_CUFF)
 			CuffAttack(L,user)
 		if(BATON_PROBE)
@@ -497,17 +492,17 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	add_attack_logs(user, L, "Stunned with [src]")
 
-/obj/item/abductor_baton/proc/SleepAttack(mob/living/L,mob/living/user)
+/obj/item/abductor_baton/proc/AnesthetizeAttack(mob/living/L,mob/living/user)
 	if(L.stunned || L.sleeping)
-		L.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
+		L.visible_message("<span class='danger'>[user] infused anesthesia into  in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
 		playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
-		L.Sleeping(60)
+		L.Sleeping(60, ane = TRUE)
 		add_attack_logs(user, L, "Put to sleep with [src]")
 	else
-		L.AdjustDrowsy(1)
-		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens! </span>")
-		L.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
+		L.AdjustDrowsy(1, ane = TRUE)
+		to_chat(user, "<span class='warning'>Anesthesia infusion works fully only on stunned specimens! </span>")
+		L.visible_message("<span class='danger'>[user] tried to infuse anesthesia into [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel drowsy!</span>")
 
 /obj/item/abductor_baton/proc/CuffAttack(mob/living/L,mob/living/user)
@@ -571,7 +566,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	switch(mode)
 		if(BATON_STUN)
 			. += "<span class='warning'>The baton is in stun mode.</span>"
-		if(BATON_SLEEP)
+		if(BATON_ANESTHESIA)
 			. += "<span class='warning'>The baton is in sleep inducement mode.</span>"
 		if(BATON_CUFF)
 			. += "<span class='warning'>The baton is in restraining mode.</span>"

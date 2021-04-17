@@ -49,7 +49,7 @@
 /mob/living/carbon/proc/experience_dream(dream_image, isNightmare)
 	dreaming--
 	nightmare--
-	if(stat != UNCONSCIOUS || InCritical())
+	if(stat != (UNCONSCIOUS | ANESTHETIZED) || InCritical())
 		return
 	if(isNightmare)
 		dream_image = "<span class='cultitalic'>[dream_image]</span>"

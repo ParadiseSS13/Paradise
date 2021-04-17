@@ -72,9 +72,12 @@
 	if(isliving(the_target))
 		var/mob/living/L = the_target
 
-		if (!faction_check_mob(L) && attack_same == 2)
+		if(!faction_check_mob(L) && attack_same == 2)
 			return FALSE
-		if(L.stat > stat_attack)
+		var/lstat = L.stat
+		if(lstat == ANESTHETIZED)
+			lstat = UNCONSCIOUS
+		if(lstat > stat_attack)
 			return FALSE
 
 		return TRUE

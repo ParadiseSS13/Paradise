@@ -98,6 +98,7 @@
 	var/stunned = 0
 	var/stuttering = 0
 	var/weakened = 0
+	var/anesthetized = FALSE
 
 // RESTING
 
@@ -144,15 +145,16 @@
 
 // DROWSY
 
-/mob/living/Drowsy(amount)
-	SetDrowsy(max(drowsyness, amount))
+/mob/living/Drowsy(amount, ane = FALSE)
+	SetDrowsy(max(drowsyness, amount), ane)
 
-/mob/living/SetDrowsy(amount)
+/mob/living/SetDrowsy(amount, ane = FALSE)
 	drowsyness = max(amount, 0)
+	anesthetized = ane
 
-/mob/living/AdjustDrowsy(amount, bound_lower = 0, bound_upper = INFINITY)
+/mob/living/AdjustDrowsy(amount, bound_lower = 0, bound_upper = INFINITY, ane = FALSE)
 	var/new_value = directional_bounded_sum(drowsyness, amount, bound_lower, bound_upper)
-	SetDrowsy(new_value)
+	SetDrowsy(new_value, ane)
 
 // DRUNK
 
@@ -266,10 +268,11 @@
 
 // PARALYSE
 
-/mob/living/Paralyse(amount, updating = 1, force = 0)
-	return SetParalysis(max(paralysis, amount), updating, force)
+/mob/living/Paralyse(amount, updating = TRUE, force = 0, ane = FALSE)
+	return SetParalysis(max(paralysis, amount), updating, force, ane)
 
-/mob/living/SetParalysis(amount, updating = 1, force = 0)
+/mob/living/SetParalysis(amount, updating = TRUE, force = 0, ane = FALSE)
+	anesthetized = ane
 	. = STATUS_UPDATE_STAT
 	if((!!amount) == (!!paralysis)) // We're not changing from + to 0 or vice versa
 		updating = FALSE
@@ -280,9 +283,9 @@
 			update_canmove()
 			update_stat("paralysis")
 
-/mob/living/AdjustParalysis(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
+/mob/living/AdjustParalysis(amount, bound_lower = 0, bound_upper = INFINITY, updating = TRUE, force = 0, ane = FALSE)
 	var/new_value = directional_bounded_sum(paralysis, amount, bound_lower, bound_upper)
-	return SetParalysis(new_value, updating, force)
+	return SetParalysis(new_value, updating, force, ane)
 
 // SILENT
 
@@ -298,12 +301,13 @@
 
 // SLEEPING
 
-/mob/living/Sleeping(amount, updating = 1, no_alert = FALSE)
-	return SetSleeping(max(sleeping, amount), updating, no_alert)
+/mob/living/Sleeping(amount, updating = TRUE, no_alert = FALSE, ane = FALSE)
+	return SetSleeping(max(sleeping, amount), updating, no_alert, ane)
 
-/mob/living/SetSleeping(amount, updating = 1, no_alert = FALSE)
+/mob/living/SetSleeping(amount, updating = TRUE, no_alert = FALSE, ane = FALSE)
 	if(frozen) // If the mob has been admin frozen, sleeping should not be changeable
 		return
+	anesthetized = TRUE
 	. = STATUS_UPDATE_STAT
 	if((!!amount) == (!!sleeping)) // We're not changing from + to 0 or vice versa
 		updating = FALSE
@@ -314,9 +318,9 @@
 		update_stat("sleeping")
 		update_canmove()
 
-/mob/living/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, no_alert = FALSE)
+/mob/living/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, no_alert = FALSE, ane = FALSE)
 	var/new_value = directional_bounded_sum(sleeping, amount, bound_lower, bound_upper)
-	return SetSleeping(new_value, updating, no_alert)
+	return SetSleeping(new_value, updating, no_alert, ane)
 
 // SLOWED
 

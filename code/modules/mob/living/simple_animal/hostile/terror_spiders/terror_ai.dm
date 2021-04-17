@@ -11,7 +11,7 @@
 			continue
 		if(H.flags & GODMODE)
 			continue
-		if(H.stat == UNCONSCIOUS && !stat_attack)
+		if(H.stat == (UNCONSCIOUS | ANESTHETIZED) && !stat_attack)
 			continue
 		if(isterrorspider(H))
 			if(H in enemies)
@@ -79,7 +79,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/LoseTarget()
 	if(target && isliving(target))
 		var/mob/living/T = target
-		if(T.stat > 0)
+		if(T.stat != CONSCIOUS)
 			killcount++
 			regen_points += regen_points_per_kill
 	attackstep = 0

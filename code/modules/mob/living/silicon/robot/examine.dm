@@ -38,7 +38,7 @@
 		if(CONSCIOUS)
 			if(!client)
 				msg += "It appears to be in stand-by mode.\n" //afk
-		if(UNCONSCIOUS)
+		if(UNCONSCIOUS, ANESTHETIZED)
 			msg += "<span class='warning'>It doesn't seem to be responding.</span>\n"
 		if(DEAD)
 			if(!suiciding)

@@ -525,6 +525,8 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 				status = "<font color='orange'><b>Unconscious</b></font>"
 			if(DEAD)
 				status = "<font color='red'><b>Dead</b></font>"
+			if(ANESTHETIZED)
+				status = "<font color='blue'<b>Anesthetized</b></font>"
 		health_description = "Status = [status]"
 		health_description += "<BR>Oxy: [L.getOxyLoss()] - Tox: [L.getToxLoss()] - Fire: [L.getFireLoss()] - Brute: [L.getBruteLoss()] - Clone: [L.getCloneLoss()] - Brain: [L.getBrainLoss()]"
 	else

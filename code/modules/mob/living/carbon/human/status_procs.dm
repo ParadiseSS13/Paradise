@@ -6,10 +6,10 @@
 	amount = dna.species.spec_stun(src, amount)
 	return ..()
 
-/mob/living/carbon/human/SetParalysis(amount, updating = 1, force = 0)
+/mob/living/carbon/human/SetParalysis(amount, updating = TRUE, force = 0, ane = FALSE)
 	amount = dna.species.spec_stun(src, amount)
 	return ..()
 
-/mob/living/carbon/human/SetSleeping(amount, updating = 1, no_alert = FALSE)
+/mob/living/carbon/human/SetSleeping(amount, updating = TRUE, no_alert = FALSE, ane = FALSE)
 	amount = dna.species.spec_stun(src, amount)
 	return ..()

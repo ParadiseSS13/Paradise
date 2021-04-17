@@ -106,7 +106,7 @@
 	if(output)
 		var/temp = ""
 		if(patient)
-			temp = "<br />\[Occupant: [patient] ([patient.stat > 1 ? "*DECEASED*" : "Health: [patient.health]%"])\]<br /><a href='?src=[UID()];view_stats=1'>View stats</a>|<a href='?src=[UID()];eject=1'>Eject</a>"
+			temp = "<br />\[Occupant: [patient] ([patient.stat == DEAD ? "*DECEASED*" : "Health: [patient.health]%"])\]<br /><a href='?src=[UID()];view_stats=1'>View stats</a>|<a href='?src=[UID()];eject=1'>Eject</a>"
 		return "[output] [temp]"
 	return
 
@@ -155,15 +155,18 @@
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/get_patient_dam()
 	var/t1
 	switch(patient.stat)
-		if(0)
+		if(CONSCIOUS)
 			t1 = "Conscious"
-		if(1)
+		if(UNCONSCIOUS)
 			t1 = "Unconscious"
-		if(2)
-			t1 = "*dead*"
+		if(DEAD)
+			t1 = "*DEAD*"
+		if(ANESTHETIZED)
+			t1 = "Anesthetized"
 		else
 			t1 = "Unknown"
-	return {"<font color="[patient.health > 50 ? "blue" : "red"]"><b>Health:</b> [patient.stat > 1 ? "[t1]" : "[patient.health]% ([t1])"]</font><br />
+
+	return {"<font color="[patient.health > 50 ? "blue" : "red"]"><b>Health:</b> [patient.stat == DEAD ? "[t1]" : "[patient.health]% ([t1])"]</font><br />
 				<font color="[patient.bodytemperature > 50 ? "blue" : "red"]"><b>Core Temperature:</b> [patient.bodytemperature-T0C]&deg;C ([patient.bodytemperature*1.8-459.67]&deg;F)</font><br />
 				<font color="[patient.getBruteLoss() < 60 ? "blue" : "red"]"><b>Brute Damage:</b> [patient.getBruteLoss()]%</font><br />
 				<font color="[patient.getOxyLoss() < 60 ? "blue" : "red"]"><b>Respiratory Damage:</b> [patient.getOxyLoss()]%</font><br />

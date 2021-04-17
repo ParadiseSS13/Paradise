@@ -338,8 +338,14 @@
 		if(!istype(M))
 			return -1
 
-		if(!M.brainmob || !M.brainmob.client || !M.brainmob.ckey || M.brainmob.stat >= DEAD)
+		if(!M.brainmob || !M.brainmob.ckey)
 			to_chat(user, "<span class='danger'>That brain is not usable.</span>")
+			return -1
+		if(!M.brainmob.client)
+			to_chat(user, "<span class='danger'>That brain seems to be missing a mind.</span>")
+			return -1
+		if(!M.brainmob.stat == DEAD)
+			to_chat(user, "<span class='danger'>That brain appears lifeless and dead.</span>")
 			return -1
 
 		if(!affected.is_robotic())

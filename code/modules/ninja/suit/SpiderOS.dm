@@ -50,7 +50,7 @@
 			if(U.dna)
 				dat += "<b>Fingerprints</b>: <i>[md5(U.dna.uni_identity)]</i><br>"
 				dat += "<b>Unique identity</b>: <i>[U.dna.unique_enzymes]</i><br>"
-			dat += "<h4>Overall Status: [U.stat > 1 ? "dead" : "[U.health]% healthy"]</h4>"
+			dat += "<h4>Overall Status: [U.stat == DEAD ? "dead" : "[U.health]% healthy"]</h4>"
 			dat += "<h4>Nutrition Status: [U.nutrition]</h4>"
 			dat += "Oxygen loss: [U.getOxyLoss()]"
 			dat += " | Toxin levels: [U.getToxLoss()]<br>"
@@ -220,7 +220,7 @@
 				to_chat(display_to, "<span class='danger'>Error: unable to deliver message.</span>")
 				display_spideros()
 				return
-			
+
 			var/datum/data/pda/app/messenger/M = P.find_program(/datum/data/pda/app/messenger)
 			M.notify("<b>Message from unknown source: </b>\"[t]\" (Unable to Reply)", 0)
 

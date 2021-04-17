@@ -631,14 +631,14 @@
 			M.AdjustDizzy(1)
 			M.Confused(10)
 		if(9 to 12)
-			M.Drowsy(10)
+			M.Drowsy(10, TRUE)	// Anesthetize
 			M.AdjustDizzy(1)
 			M.Confused(20)
 		if(13)
 			M.emote("faint")
 		if(14 to INFINITY)
 			update_flags |= M.Paralyse(10, FALSE)
-			M.Drowsy(20)
+			M.Drowsy(20, TRUE)
 
 	M.AdjustJitter(-30)
 	if(M.getBrainLoss() <= 80)
@@ -795,7 +795,7 @@
 			M.emote("drool")
 			M.Confused(5)
 		if(2 to 4)
-			M.Drowsy(20)
+			M.Drowsy(20, TRUE)	// Anesthetize
 		if(5)
 			M.emote("faint")
 			update_flags |= M.Weaken(5, FALSE)
@@ -832,7 +832,7 @@
 			M.emote("faint")
 			update_flags |= M.Weaken(5, FALSE)
 		if(11 to INFINITY)
-			update_flags |= M.Paralyse(25, FALSE)
+			update_flags |= M.Paralyse(25, FALSE,ane = TRUE)	// Anesthetize
 	return ..() | update_flags
 
 /datum/reagent/sulfonal
@@ -852,14 +852,14 @@
 			if(prob(7))
 				M.emote("yawn")
 		if(11 to 20)
-			M.Drowsy(20)
+			M.Drowsy(20, TRUE)	// Anesthetize
 		if(21)
 			M.emote("faint")
 		if(22 to INFINITY)
 			if(prob(20))
 				M.emote("faint")
 				update_flags |= M.Paralyse(5, FALSE)
-			M.Drowsy(20)
+			M.Drowsy(20, TRUE)
 	update_flags |= M.adjustToxLoss(1, FALSE)
 	return ..() | update_flags
 

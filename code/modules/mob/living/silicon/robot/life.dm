@@ -54,7 +54,7 @@
 	if(stat != CONSCIOUS)
 		uneq_all()
 
-	if(!is_component_functioning("radio") || stat == UNCONSCIOUS)
+	if(!is_component_functioning("radio") || stat == (UNCONSCIOUS | ANESTHETIZED))	// How does the Silicon get Anesthetized? Iunno.
 		radio.on = 0
 	else
 		radio.on = 1

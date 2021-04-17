@@ -5,7 +5,11 @@
 // partname is the name of a body part
 // amount is a num from 1 to 100
 /mob/living/carbon/human/proc/pain(partname, amount)
-	if(stat >= UNCONSCIOUS)
+	if(stat == (DEAD | ANESTHETIZED))
+		return				//No messages when Anesthetized or Dead
+	if(stat == UNCONSCIOUS)	//You can't sleep through the pain, get the funk up.
+		WakeUp()
+	if(HAS_TRAIT(src, TRAIT_NOPAIN) || HAS_TRAIT(src, TRAIT_FAKEDEATH))	// Should I put this here?
 		return
 	if(reagents.has_reagent("sal_acid"))
 		return
@@ -31,10 +35,11 @@
 
 // message is the custom message to be displayed
 /mob/living/carbon/human/proc/custom_pain(message)
-	if(stat >= UNCONSCIOUS)
-		return
-
-	if(HAS_TRAIT(src, TRAIT_NOPAIN))
+	if(stat == (DEAD | ANESTHETIZED))
+		return				// No messages when Anesthetized or Dead
+	if(stat == UNCONSCIOUS)	// You can't sleep through the pain.
+		WakeUp()			// GET. THE. FUNK. UP.
+	if(HAS_TRAIT(src, TRAIT_NOPAIN) || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return
 	if(reagents.has_reagent("morphine"))
 		return
@@ -50,11 +55,10 @@
 	next_pain_time = world.time + 100
 
 /mob/living/carbon/human/proc/handle_pain()
-	// not when sleeping
-
-	if(stat >= UNCONSCIOUS)
+	// not when Anesthetized or Dead
+	if(stat == (DEAD | ANESTHETIZED))
 		return
-	if(HAS_TRAIT(src, TRAIT_NOPAIN))
+	if(HAS_TRAIT(src, TRAIT_NOPAIN) || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return
 	if(reagents.has_reagent("morphine"))
 		return

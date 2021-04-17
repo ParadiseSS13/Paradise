@@ -495,7 +495,7 @@
 	surgeries.Cut() //End all surgeries.
 	if(stat == DEAD)
 		update_revive()
-	else if(stat == UNCONSCIOUS)
+	else if(stat == (UNCONSCIOUS | ANESTHETIZED))
 		WakeUp()
 
 	update_fire()
@@ -1026,10 +1026,10 @@
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if("stat")
-			if((stat == DEAD) && (var_value < DEAD))//Bringing the dead back to life
+			if((stat == DEAD) && (var_value < DEAD))	//Bringing he, dead, back to the life
 				GLOB.dead_mob_list -= src
 				GLOB.alive_mob_list += src
-			if((stat < DEAD) && (var_value == DEAD))//Kill he
+			if((stat != DEAD) && (var_value == DEAD))	//Kill he!
 				GLOB.alive_mob_list -= src
 				GLOB.dead_mob_list += src
 	. = ..()

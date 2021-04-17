@@ -20,6 +20,8 @@
 			switch(C.mob.stat)
 				if(UNCONSCIOUS)
 					entry += " - <font color='darkgray'><b>Unconscious</b></font>"
+				if(ANESTHETIZED)
+					entry += " - <font color='darkgray'><b>Anesthetized</b></font>"
 				if(DEAD)
 					if(isobserver(C.mob))
 						var/mob/dead/observer/O = C.mob

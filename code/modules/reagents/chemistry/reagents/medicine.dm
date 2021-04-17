@@ -15,7 +15,7 @@
 
 /datum/reagent/medicine/hydrocodone
 	name = "Hydrocodone"
-	id = "hydrocodone"
+	id = "hydrocodone"		//Pain Modification (0.99) found in helpers.dm.
 	description = "An extremely effective painkiller; may have long term abuse consequences."
 	reagent_state = LIQUID
 	color = "#C805DC"
@@ -595,7 +595,7 @@
 
 /datum/reagent/medicine/morphine
 	name = "Morphine"
-	id = "morphine"
+	id = "morphine"			//Pain Modification (0.99) found in helpers.dm.
 	description = "A strong but highly addictive opiate painkiller with sedative side effects."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
@@ -614,10 +614,10 @@
 			if(prob(7))
 				M.emote("yawn")
 		if(16 to 35)
-			M.Drowsy(20)
+			M.Drowsy(20, TRUE)	//This will Anesthetize a patient as well as provide pain-killing (see pain.dm).
 		if(36 to INFINITY)
-			update_flags |= M.Paralyse(15, FALSE)
-			M.Drowsy(20)
+			update_flags |= M.Paralyse(15, FALSE, ane= TRUE)
+			M.Drowsy(20, TRUE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/oculine
@@ -1043,10 +1043,10 @@
 			if(prob(7))
 				M.emote("yawn")
 		if(31 to 40)
-			M.Drowsy(20)
+			M.Drowsy(20, TRUE)
 		if(41 to INFINITY)
-			update_flags |= M.Paralyse(15, FALSE)
-			M.Drowsy(20)
+			update_flags |= M.Paralyse(15, FALSE, ane = TRUE)
+			M.Drowsy(20, TRUE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs

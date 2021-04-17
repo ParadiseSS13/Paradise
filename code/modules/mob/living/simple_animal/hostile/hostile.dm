@@ -201,7 +201,10 @@
 			if(robust_searching)
 				if(faction_check && !attack_same)
 					return FALSE
-				if(L.stat > stat_attack)
+				var/lstat = L.stat
+				if(lstat == ANESTHETIZED)	// ANESTHEIZED > DEAD
+					lstat = UNCONSCIOUS		// UNCONSCIOUS < DEAD
+				if(lstat > stat_attack)
 					return FALSE
 				if(L in friends)
 					return FALSE

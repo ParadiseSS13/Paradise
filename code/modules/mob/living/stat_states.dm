@@ -1,28 +1,37 @@
 // There, now `stat` is a proper state-machine
 
-/mob/living/proc/KnockOut(updating = 1)
+/mob/living/proc/KnockOut(updating = TRUE, anesthetized = FALSE)
 	if(stat == DEAD)
 		log_runtime(EXCEPTION("KnockOut called on a dead mob."), src)
-		return 0
-	else if(stat == UNCONSCIOUS)
-		return 0
-	create_attack_log("<font color='red'>Fallen unconscious at [atom_loc_line(get_turf(src))]</font>")
-	add_attack_logs(src, null, "Fallen unconscious", ATKLOG_ALL)
-	log_game("[key_name(src)] fell unconscious at [atom_loc_line(get_turf(src))]")
-	stat = UNCONSCIOUS
+		return FALSE
+	else if(stat == (UNCONSCIOUS | ANESTHETIZED))
+		return FALSE
+
+	if(anesthetized)
+		stat = ANESTHETIZED
+		create_attack_log("<font color='red'>Anesthetized at [atom_loc_line(get_turf(src))]</font>")
+		add_attack_logs(src, null, "Anesthetized", ATKLOG_ALL)
+		log_game("[key_name(src)] was anesthetized at [atom_loc_line(get_turf(src))]")
+	else
+		stat = UNCONSCIOUS
+		create_attack_log("<font color='red'>Fallen unconscious at [atom_loc_line(get_turf(src))]</font>")
+		add_attack_logs(src, null, "Fallen unconscious", ATKLOG_ALL)
+		log_game("[key_name(src)] fell unconscious at [atom_loc_line(get_turf(src))]")
+
 	if(updating)
 		update_sight()
 		update_blind_effects()
 		update_canmove()
 		set_typing_indicator(FALSE)
-	return 1
 
-/mob/living/proc/WakeUp(updating = 1)
+	return TRUE
+
+/mob/living/proc/WakeUp(updating = TRUE)
 	if(stat == DEAD)
 		log_runtime(EXCEPTION("WakeUp called on a dead mob."), src)
-		return 0
+		return FALSE
 	else if(stat == CONSCIOUS)
-		return 0
+		return FALSE
 	create_attack_log("<font color='red'>Woken up at [atom_loc_line(get_turf(src))]</font>")
 	add_attack_logs(src, null, "Woken up", ATKLOG_ALL)
 	log_game("[key_name(src)] woke up at [atom_loc_line(get_turf(src))]")
@@ -31,7 +40,7 @@
 		update_sight()
 		update_blind_effects()
 		update_canmove()
-	return 1
+	return TRUE
 
 /mob/living/proc/can_be_revived()
 	. = TRUE

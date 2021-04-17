@@ -320,7 +320,7 @@
 	msg += "</span>"
 
 	if(!appears_dead)
-		if(stat == UNCONSCIOUS)
+		if(stat == (UNCONSCIOUS | ANESTHETIZED))
 			msg += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep.\n"
 		else if(getBrainLoss() >= 60)
 			msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"

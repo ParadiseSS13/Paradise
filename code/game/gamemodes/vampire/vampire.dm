@@ -301,7 +301,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			return
 		old_bloodtotal = bloodtotal
 		old_bloodusable = bloodusable
-		if(H.stat < DEAD)
+		if(H.stat != DEAD)
 			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, H.blood_volume)	// if they have less than 20 blood, give them the remnant else they get 20 blood
 				bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0

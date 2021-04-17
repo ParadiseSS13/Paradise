@@ -191,6 +191,8 @@
 		patientStatus = "Awake"
 	else if(table.patient.stat == UNCONSCIOUS)
 		patientStatus = "Asleep"
+	else if(table.patient.stat == ANESTHETIZED)
+		patientStatus = "Anesthetized"
 
 	if(isNewPatient)
 		atom_say("New patient detected, loading stats")
