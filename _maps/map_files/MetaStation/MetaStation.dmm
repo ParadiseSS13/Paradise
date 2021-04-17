@@ -89326,13 +89326,6 @@
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
 	})
-"hrj" = (
-/obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "bluecorner"
-	},
-/area/medical/morgue)
 "hxv" = (
 /obj/machinery/camera{
 	c_tag = "Telecoms - Server Room - Aft";
@@ -89726,6 +89719,16 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
+"knj" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/window/eastright{
+	dir = 2;
+	name = "Coroner Office";
+	req_access_txt = "5"
+	},
+/turf/simulated/floor/plasteel,
+/area/medical/morgue)
 "koz" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -90768,6 +90771,13 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
+"qDj" = (
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "bluecorner"
+	},
+/area/medical/morgue)
 "qFg" = (
 /obj/machinery/space_heater,
 /obj/machinery/power/apc{
@@ -91622,16 +91632,6 @@
 "vZo" = (
 /turf/simulated/floor/plating,
 /area/space/nearstation)
-"wfQ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/window/eastright{
-	dir = 2;
-	name = "Coroner Office";
-	req_access_txt = "5"
-	},
-/turf/simulated/floor/plasteel,
-/area/medical/morgue)
 "wgm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -116776,7 +116776,7 @@ cKn
 bRn
 cMd
 clQ
-wfQ
+knj
 wxw
 cnc
 cpJ
@@ -117033,7 +117033,7 @@ cGh
 cDg
 bRt
 rOw
-hrj
+qDj
 cmu
 cVm
 col
