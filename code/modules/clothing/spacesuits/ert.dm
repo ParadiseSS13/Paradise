@@ -46,8 +46,8 @@
 
 /obj/item/clothing/suit/space/hardsuit/ert
 	name = "emergency response team suit"
-	desc = "A dual-mode advanced combat hardsuit worn by members of Nanotrasen Emergency Response Teams. Armored, space ready, and fireproof. It is in EVA mode."
-	alt_desc = "A dual-mode advanced combat hardsuit worn by members of Nanotrasen Emergency Response Teams. Armored, space ready, and fireproof. It is in combat mode."
+	desc = "A dual-mode advanced combat hardsuit worn by members of Nanotrasen Emergency Response Teams. Armored and space ready. It is in EVA mode."
+	alt_desc = "A dual-mode advanced combat hardsuit worn by members of Nanotrasen Emergency Response Teams. Armored and space ready. It is in combat mode."
 	icon_state = "ert_commander"
 	item_state = "suit-command"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -230,7 +230,7 @@
 
 //Paranormal
 /obj/item/clothing/head/helmet/space/hardsuit/combat/ert/paranormal
-	name = "paranormal response unit helmet"
+	name = "paranormal paranormal response team suit helmet"
 	desc = "A dual-mode advanced combat hardsuit helmet worn by those who deal with paranormal threats for a living."
 	icon_state = "hardsuit0-ert_paranormal"
 	item_color = "ert_paranormal"
@@ -247,9 +247,9 @@
 		)
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal
-	name = "paranormal response Teams suit"
-	desc = "Powerful wards are built into this hardsuit, protecting the user from all manner ofparanormal threats. It is in EVA mode."
-	alt_desc = "Powerful wards are built into this hardsuit, protecting the user from all manner ofparanormal threats. It is in combat mode."
+	name = "paranormal response team suit"
+	desc = "Powerful wards are built into this hardsuit, protecting the user from all manner of paranormal threats. It is in EVA mode."
+	alt_desc = "Powerful wards are built into this hardsuit, protecting the user from all manner of paranormal threats. It is in combat mode."
 	icon_state = "hardsuit-paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/combat/ert/paranormal
@@ -281,7 +281,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/combat/ert/paranormal/berserker
 	name = "champion's helmet"
-	desc = "Peering into the eyes ofthe helmet is enough to seal damnation."
+	desc = "Peering into the eyes of the helmet is enough to seal damnation."
 	icon_state = "hardsuit0-berserker"
 	item_color = "berserker"
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
