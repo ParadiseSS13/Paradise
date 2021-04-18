@@ -644,7 +644,7 @@
 //TODO
 /obj/mecha/emp_act(severity)
 	if(get_charge())
-		use_power((cell.charge/3)/(severity*2))
+		use_power(cell.maxcharge/(severity * 6)) // 6 heavy EMPs or 12 light ones
 		take_damage(30 / severity, BURN, "energy", 1)
 	log_message("EMP detected", 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)

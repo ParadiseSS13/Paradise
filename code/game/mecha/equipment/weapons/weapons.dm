@@ -302,13 +302,17 @@
 	icon_state = "mecha_scatter"
 	origin_tech = "combat=4"
 	equip_cooldown = 20
-	projectile = /obj/item/projectile/bullet/midbullet
+	projectile = /obj/item/projectile/bullet/pellet
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	projectiles = 40
 	projectile_energy_cost = 25
-	projectiles_per_shot = 4
-	variance = 25
+	projectiles_per_shot = 6
+	variance = 20
 	harmful = TRUE
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/syndie
+	name = "LBX AC 25 \"Scattershot\""
+	projectile = /obj/item/projectile/bullet/midbullet
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	name = "Ultra AC 2"
