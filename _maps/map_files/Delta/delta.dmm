@@ -11334,7 +11334,7 @@
 "azT" = (
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "engsm";
 	name = "Supermatter Blast Doors";
 	opacity = 0
@@ -11809,7 +11809,7 @@
 "aBf" = (
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "engsm";
 	name = "Supermatter Blast Doors";
 	opacity = 0
@@ -12727,7 +12727,7 @@
 "aCZ" = (
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "engsm";
 	name = "Supermatter Blast Doors";
 	opacity = 0
@@ -19783,7 +19783,7 @@
 "aQa" = (
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "engsm";
 	name = "Supermatter Blast Doors";
 	opacity = 0
@@ -51508,7 +51508,7 @@
 "ceV" = (
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "Singularity";
 	layer = 2.7;
 	name = "Singularity Blast Doors";
@@ -52851,7 +52851,7 @@
 "cic" = (
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "Singularity";
 	layer = 2.7;
 	name = "Singularity Blast Doors";
@@ -53640,7 +53640,7 @@
 "cjL" = (
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "Singularity";
 	layer = 2.7;
 	name = "Singularity Blast Doors";
@@ -53705,7 +53705,7 @@
 "cjP" = (
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "Singularity";
 	layer = 2.7;
 	name = "Singularity Blast Doors";
@@ -54439,7 +54439,7 @@
 "cls" = (
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "Singularity";
 	layer = 2.7;
 	name = "Singularity Blast Doors";
@@ -56298,7 +56298,7 @@
 "cpp" = (
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "Singularity";
 	layer = 2.7;
 	name = "Singularity Blast Doors";
@@ -63523,7 +63523,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno5";
 	name = "Creature Cell #5";
 	opacity = 0
@@ -63544,7 +63544,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno5";
 	name = "Creature Cell #5";
 	opacity = 0
@@ -64040,7 +64040,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno6";
 	name = "Creature Cell #6";
 	opacity = 0
@@ -64190,7 +64190,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno6";
 	name = "Creature Cell #6";
 	opacity = 0
@@ -65556,7 +65556,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno1";
 	name = "Creature Cell #1";
 	opacity = 0
@@ -69078,7 +69078,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno4";
 	name = "Creature Cell #4";
 	opacity = 0
@@ -69100,7 +69100,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno4";
 	name = "Creature Cell #4";
 	opacity = 0
@@ -69123,7 +69123,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno4";
 	name = "Creature Cell #4";
 	opacity = 0
@@ -69145,7 +69145,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno5";
 	name = "Creature Cell #5";
 	opacity = 0
@@ -69174,7 +69174,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno6";
 	name = "Creature Cell #6";
 	opacity = 0
@@ -69920,7 +69920,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xenosecure";
 	name = "Secure Creature Cell";
 	opacity = 0
@@ -70859,7 +70859,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xenosecure";
 	name = "Secure Creature Cell";
 	opacity = 0
@@ -71517,7 +71517,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xenosecure";
 	name = "Secure Creature Cell";
 	opacity = 0
@@ -72212,7 +72212,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xenosecure";
 	name = "Secure Creature Cell";
 	opacity = 0
@@ -73105,7 +73105,7 @@
 /obj/structure/cable,
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xenosecure";
 	name = "Secure Creature Cell";
 	opacity = 0
@@ -73894,7 +73894,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno1";
 	name = "Creature Cell #1";
 	opacity = 0
@@ -73914,7 +73914,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno1";
 	name = "Creature Cell #1";
 	opacity = 0
@@ -73941,7 +73941,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno2";
 	name = "Creature Cell #4";
 	opacity = 0
@@ -73968,7 +73968,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno3";
 	name = "Creature Cell #3";
 	opacity = 0
@@ -81260,7 +81260,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "experimentor";
 	name = "Experimentor Blast Door";
 	opacity = 0
@@ -81281,7 +81281,7 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "experimentor";
 	name = "Experimentor Blast Door";
 	opacity = 0
@@ -81293,7 +81293,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "experimentor";
 	name = "Experimentor Blast Door";
 	opacity = 0
@@ -106646,7 +106646,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno3";
 	name = "Creature Cell #3";
 	opacity = 0
@@ -109720,7 +109720,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno2";
 	name = "Creature Cell #4";
 	opacity = 0
@@ -120348,7 +120348,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno2";
 	name = "Creature Cell #4";
 	opacity = 0
@@ -126963,7 +126963,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xeno3";
 	name = "Creature Cell #3";
 	opacity = 0
