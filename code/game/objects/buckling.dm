@@ -1,3 +1,7 @@
+#define MINOR_FAIL_CHANCE 25
+#define MAJOR_FAIL_CHANCE 5
+#define INCAPACITATED_BUCKLE_TIME 3 SECONDS
+#define ONE_HAND_MULTIPLIER 3
 /atom/movable
 	var/can_buckle = FALSE
 	var/buckle_lying = -1 //bed-like behaviour, forces mob.lying = buckle_lying if != -1
@@ -117,58 +121,50 @@
 /atom/movable/proc/post_unbuckle_mob(mob/living/M)
 	return
 
-/atom/movable/proc/user_buckle_minorfail(mob/living/M, mob/user)
-	M.forceMove(loc)
-	M.visible_message("<span class='notice'>[M] fails to pull [M.p_them()]self up onto [src].</span>",\
-		"<span class='warning'>You fail to climb onto [src]. Come on, you've got this!</span>",\
-		"<span class='italics'>You hear someone grunting.</span>")
-
-/atom/movable/proc/user_buckle_majorfail(mob/living/M, mob/user) //Knocks user out and does minor brute/brain damage
-	M.StopResting()
+/atom/movable/proc/user_buckle_fail(mob/living/M, mob/user, severity)
 	M.forceMove(loc) //All that effort wasn't for nothing!
-	M.visible_message("<span class='warning'>[M]'s hand slips and they slam their forehead on [src]!</span>",\
-		"<span class='danger'>SHIT! Your hand slips and you slam your forehead into [src]!</span>",\
-		"<span class='italics'>You hear a thwack and a heavy thump.</span>")
-	M.StartResting() //could if statement these lines down to playsound if you wanted this only to happen with certain seats
-	M.adjustBrainLoss(10)
-	M.Paralyse(5)
-	M.apply_damage(50, STAMINA)
-	M.apply_damage(15, BRUTE, "head")
-	M.AdjustSleeping(1)
-	playsound(src.loc, 'sound/items/trayhit1.ogg', 50, 0) //bonk
+	switch(severity)
+		if (1)
+			M.visible_message("<span class='notice'>[M] fails to pull [M.p_them()]self up onto [src].</span>",\
+				"<span class='warning'>You fail to climb onto [src]. Come on, you've got this!</span>",\
+				"<span class='italics'>You hear someone grunting.</span>")
+		if (2)
+			M.visible_message("<span class='warning'>[M]'s hand slips and [M.p_they()] slam [M.p_their()] forehead on [src]!</span>",\
+				"<span class='danger'>SHIT! Your hand slips and you slam your forehead into [src]!</span>",\
+				"<span class='italics'>You hear a thwack and a heavy thump.</span>")
+			M.adjustBrainLoss(10)
+			M.Paralyse(5)
+			M.apply_damage(50, STAMINA)
+			M.apply_damage(15, BRUTE, "head")
+			M.AdjustSleeping(1)
+			playsound(src, 'sound/items/trayhit1.ogg', 50, FALSE) //bonk
 
 //Allows people to climb onto chairs if they're next to or under them and incapacitated but not stunned
 //especially helpful for people with no legs. However it can fail on random chance based on how many hands they have
 /atom/movable/proc/user_buckle_incapacitated(mob/living/M, mob/user, check_loc = TRUE)
-	M.visible_message("<span class='warning'>[M] looks like they're attempting to pull [M.p_them()]self up onto [src].</span>",\
+	M.visible_message("<span class='warning'>[M] looks like [M.p_they()] [M.p_are()] attempting to pull [M.p_them()]self up onto [src].</span>",\
 		"<span class='warning'>You attempt to climb onto [src].</span>",\
 		"<span class='italics'>You hear someone grunting.</span>")
 	var/buckle_chance = rand(1, 100)
+	var/time_multiplier = 1
 	M.StartResting()
-	if (user.has_both_hands())
-		if(!in_range(user, src) || !isturf(user.loc) || M.anchored) //chair in range?
+	if(!user.has_both_hands())
+		buckle_chance /= ONE_HAND_MULTIPLIER
+		time_multiplier++
+
+	if(do_after(user, INCAPACITATED_BUCKLE_TIME * time_multiplier, target = src, use_default_checks=FALSE)) //Two hands
+		if (buckle_chance <= MAJOR_FAIL_CHANCE)
+			user_buckle_fail(M, user, 2)
 			return FALSE
-		if (do_after(user, 2 SECONDS, target = src, use_default_checks=FALSE)) //Two hands
-			if (buckle_chance <= 5)
-				user_buckle_majorfail(M, user)
-				return FALSE
-			if (buckle_chance <= 25)
-				user_buckle_minorfail(M, user)
-				return FALSE
-	else if (do_after(user, 5 SECONDS, target = src, use_default_checks=FALSE)) //One hand
-		if(!in_range(user, src) || !isturf(user.loc) || M.anchored)
+		if (buckle_chance <= MINOR_FAIL_CHANCE)
+			user_buckle_fail(M, user, 1)
 			return FALSE
-		if (buckle_chance <= 20)
-			user_buckle_majorfail(M, user)
-			return FALSE
-		if (buckle_chance <= 75)
-			user_buckle_minorfail(M, user)
-			return FALSE
+
 	M.forceMove(loc)
-	if (M.get_num_legs()) //people shouldn't go back to resting after unbuckling
+	if(M.get_num_legs()) //people with legs shouldn't go back to resting after unbuckling
 		M.StopResting()
-	M.visible_message("<span class='notice'>[M] pulls [M.p_them()]self up onto the [src].</span>",\
-		"<span class='notice'>You pull yourself onto the [src].</span>",\
+	M.visible_message("<span class='notice'>[M] pulls [M.p_them()]self up onto [src].</span>",\
+		"<span class='notice'>You pull yourself onto [src].</span>",\
 		"<span class='italics'>You hear someone grunting.</span>")
 	return TRUE
 
@@ -177,10 +173,10 @@
 	if(!in_range(user, src) || !isturf(user.loc) || M.anchored)
 		return FALSE
 
-	if ((user.incapacitated() && !user.IsStunned()) && (user.has_right_hand() || user.has_left_hand()) && M == user)
-		if (!user_buckle_incapacitated(M,user,TRUE))
+	if((user.incapacitated() && !user.IsStunned()) && (user.has_right_hand() || user.has_left_hand()) && M == user)
+		if(!user_buckle_incapacitated(M, user, TRUE))
 			return FALSE
-	else if (user.incapacitated())
+	else if(user.incapacitated())
 		return FALSE
 	add_fingerprint(user)
 	. = buckle_mob(M, check_loc = check_loc)
