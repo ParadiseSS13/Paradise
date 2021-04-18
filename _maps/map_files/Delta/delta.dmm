@@ -2738,7 +2738,7 @@
 "ahq" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "adminshuttleshutters";
 	name = "Blast Shutters";
 	opacity = 0
@@ -2754,7 +2754,7 @@
 "ahr" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "adminshuttleshutters";
 	name = "Blast Shutters";
 	opacity = 0
@@ -2770,7 +2770,7 @@
 "ahs" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "adminshuttleshutters";
 	name = "Blast Shutters";
 	opacity = 0
@@ -41528,7 +41528,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 8;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "meetroomshutters";
 	name = "Meeting Room Shutters";
 	opacity = 0
@@ -44347,7 +44347,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "ceprivacy";
 	name = "CE Privacy Shutters";
 	opacity = 0
@@ -46475,7 +46475,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "ceprivacy";
 	name = "CE Privacy Shutters";
 	opacity = 0
@@ -47592,7 +47592,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "ceprivacy";
 	name = "CE Privacy Shutters";
 	opacity = 0
@@ -47615,7 +47615,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "ceprivacy";
 	name = "CE Privacy Shutters";
 	opacity = 0
@@ -47631,7 +47631,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "ceprivacy";
 	name = "CE Privacy Shutters";
 	opacity = 0
@@ -52163,7 +52163,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 8;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "hopqueueshutters";
 	name = "Queue Shutters";
 	opacity = 0
@@ -58705,7 +58705,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 8;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "hopqueueshutters";
 	name = "Queue Shutters";
 	opacity = 0
@@ -72437,7 +72437,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "researchdesk1";
 	name = "Research Desk Shutters";
 	opacity = 0
@@ -72537,7 +72537,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "researchdesk1";
 	name = "Research Desk Shutters";
 	opacity = 0
@@ -72552,7 +72552,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "researchdesk1";
 	name = "Research Desk Shutters";
 	opacity = 0
@@ -73436,7 +73436,7 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "researchdesk2";
 	name = "Research Desk Shutters";
 	opacity = 0
@@ -76646,7 +76646,7 @@
 /obj/item/pen,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "researchdesk2";
 	name = "Research Desk Shutters";
 	opacity = 0
@@ -78453,7 +78453,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "rdprivacy";
 	name = "Research Director Office Shutters";
 	opacity = 0
@@ -78473,7 +78473,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "rdprivacy";
 	name = "Research Director Office Shutters";
 	opacity = 0
@@ -78495,7 +78495,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "rdprivacy";
 	name = "Research Director Office Shutters";
 	opacity = 0
@@ -78517,7 +78517,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "rdprivacy";
 	name = "Research Director Office Shutters";
 	opacity = 0
@@ -79044,7 +79044,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "rdprivacy";
 	name = "Research Director Office Shutters";
 	opacity = 0
@@ -81384,7 +81384,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "rdprivacy";
 	name = "Research Director Office Shutters";
 	opacity = 0
@@ -82737,7 +82737,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "rdprivacy";
 	name = "Research Director Office Shutters";
 	opacity = 0
@@ -84058,7 +84058,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "rdprivacy";
 	name = "Research Director Office Shutters";
 	opacity = 0
@@ -86598,7 +86598,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "rdprivacy";
 	name = "Research Director Office Shutters";
 	opacity = 0
@@ -108916,7 +108916,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "rdprivacy";
 	name = "Research Director Office Shutters";
 	opacity = 0
@@ -114572,7 +114572,7 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "researchdesk2";
 	name = "Research Desk Shutters";
 	opacity = 0
@@ -115933,7 +115933,7 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "researchdesk2";
 	name = "Research Desk Shutters";
 	opacity = 0
@@ -120397,7 +120397,7 @@
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
-	icon_state = "shutter0";
+	icon_state = "open";
 	id_tag = "rdprivacy";
 	name = "Research Director Office Shutters";
 	opacity = 0
