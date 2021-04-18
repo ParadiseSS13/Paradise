@@ -658,6 +658,7 @@
 		/obj/item/storage/box/responseteam = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/whetstone = 1,
+		/obj/item/clothing/mask/gas/explorer = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
 	)
 	cybernetic_implants = list(
@@ -698,7 +699,7 @@
 	back = /obj/item/storage/backpack/satchel
 	l_ear = /obj/item/radio/headset/ert/alt/commander
 	l_hand = null
-	belt = /obj/item/melee/baton
+	belt = /obj/item/melee/baton/loaded
 	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	backpack_contents = list(
@@ -706,6 +707,7 @@
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
+		/obj/item/clothing/mask/gas/explorer = 1,
 		/obj/item/ammo_box/magazine/m50 = 3
 	)
 	is_solgov_lieutenant = TRUE
@@ -718,8 +720,9 @@
 	l_hand = /obj/item/gun/projectile/automatic/ar
 	backpack_contents = list(
 		/obj/item/storage/box/responseteam = 1,
-		/obj/item/clothing/shoes/magboots = 1,
+		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/whetstone = 1,
+		/obj/item/clothing/mask/gas/explorer = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
 	)
 	cybernetic_implants = list(
@@ -735,7 +738,7 @@
 	head = /obj/item/clothing/head/beret/solgov/command/elite
 	glasses = /obj/item/clothing/glasses/night
 	back = /obj/item/storage/backpack/satchel
-	belt = /obj/item/melee/baton
+	belt = /obj/item/melee/baton/loaded
 	l_hand = null
 	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
 	l_pocket = /obj/item/pinpointer/advpinpointer
@@ -744,6 +747,7 @@
 		/obj/item/storage/box/responseteam = 1,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
+		/obj/item/clothing/mask/gas/explorer = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
 		/obj/item/ammo_box/magazine/m50 = 3
 	)
