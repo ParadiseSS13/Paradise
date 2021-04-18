@@ -163,9 +163,9 @@
 	M.forceMove(loc)
 	if(M.get_num_legs()) //people with legs shouldn't go back to resting after unbuckling
 		M.StopResting()
-	M.visible_message("<span class='notice'>[M] pulls [M.p_them()]self up onto [src].</span>",\
-		"<span class='notice'>You pull yourself onto [src].</span>",\
-		"<span class='italics'>You hear someone grunting.</span>")
+		M.visible_message("<span class='notice'>[M] pulls [M.p_them()]self up onto [src].</span>",\
+			"<span class='notice'>You pull yourself onto [src].</span>",\
+			"<span class='italics'>You hear someone grunting.</span>")
 	return TRUE
 
 //Wrapper procs that handle sanity and user feedback
