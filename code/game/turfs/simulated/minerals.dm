@@ -198,13 +198,6 @@
 		/turf/simulated/mineral/silver = 6, /turf/simulated/mineral/plasma = 15, /turf/simulated/mineral/iron = 40,
 		/turf/simulated/mineral/gibtonite = 2, /turf/simulated/mineral/bscrystal = 1)
 
-/turf/simulated/mineral/random/very_low_chance
-	icon_state = "rock_lowchance"
-	mineralChance = 3
-	mineralSpawnChanceList = list(
-		/turf/simulated/mineral/uranium = 1, /turf/simulated/mineral/diamond = 1, /turf/simulated/mineral/gold = 2, /turf/simulated/mineral/titanium = 2,
-		/turf/simulated/mineral/silver = 3, /turf/simulated/mineral/plasma = 5, /turf/simulated/mineral/iron = 20)
-
 /turf/simulated/mineral/random/volcanic
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
