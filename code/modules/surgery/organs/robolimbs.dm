@@ -20,6 +20,8 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	var/icon = 'icons/mob/human_races/robotic.dmi'
 	///Whether the robolimb is unavailable when setting up a character. Defaults to FALSE.
 	var/unavailable_at_chargen = FALSE
+	///Which Species can choose these Robolimbs at CharGen
+	var/list/species_allowed = list("Machine", "Human", "Skrell", "Unathi", "Drask", "Wryn", "Tajaran", "Vulpkanin", "Tajaran", "Nucleation", "Diona", "Slime People", "Plasmamen")
 	///Whether the limb type is available for selection via attack_self with a robolimb - see robo_parts Defaults to TRUE.
 	var/selectable = TRUE
 	///Does this iconset contain a head sprite with a screen? If TRUE, head sprite cannot use hair and instead uses ipc_face.
@@ -83,6 +85,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	desc = "This limb has an olive drab casing, providing a reinforced housing look."
 	icon = 'icons/mob/human_races/cyberlimbs/hesphiastos/hesphiastos_titan.dmi'
 	has_subtypes = brand
+	species_allowed = list("Machine")
 
 /datum/robolimb/titan/monitor
 	company = "Titan Enforcer"
@@ -132,7 +135,54 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	icon = 'icons/mob/human_races/cyberlimbs/nanotrasen/nanotrasen_main.dmi'
 	has_subtypes = childless
 	is_monitor = TRUE
-	selectable = TRUE	// Let 'em choose the cheap stuff
+
+/*Robo Vox */
+//Main
+/datum/robolimb/robovox
+	company = "Vox"
+	desc = "This limb is cybernetic and looks like like it would only fit a Vox Primalis."
+	icon = 'icons/mob/human_races/cyberlimbs/robovox/main.dmi'
+	has_subtypes = childless
+	selectable = FALSE
+	// The only robolimbs for Vox at Chargen
+	species_allowed = list("Vox")
+
+/* Shellguard */
+//Main
+/datum/robolimb/shellguard
+	company = "Shellguard Munitions"
+	desc = "This limb features exposed robust steel, painted to match Shellguard's motifs."
+	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_main.dmi'
+	has_subtypes = brand
+
+/datum/robolimb/shellguard/monitor
+	company = "Shellguard Munitions Standard Series"
+	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_monitor.dmi'
+	parts = list("head")
+	has_subtypes = model
+	is_monitor = TRUE
+	selectable = FALSE
+
+//Elite
+/datum/robolimb/shellguard/alt1
+	company = "Shellguard Munitions Elite Series"
+	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_alt1.dmi'
+	parts = list("head")
+	has_subtypes = model
+	is_monitor = TRUE
+	selectable = FALSE
+
+/* Vey-Med */
+//Main
+/datum/robolimb/veymed
+	company = "Vey-Med"
+	desc = "This replacement human limb is nearly indistringuishable from an organic one; maybe it was grown in a lab?"
+	icon = 'icons/mob/human_races/cyberlimbs/veymed/veymed_main.dmi'
+	has_subtypes = childless
+	selectable = FALSE
+	// Only available for Humans and at Chargen
+	species_allowed = list("Human")
+
 
 /* Ward Takahashi */
 //Main
@@ -196,30 +246,6 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	is_monitor = TRUE
 	selectable = FALSE
 
-/* Shellguard */
-//Main
-/datum/robolimb/shellguard
-	company = "Shellguard Munitions"
-	desc = "This limb features exposed robust steel, painted to match Shellguard's motifs."
-	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_main.dmi'
-	has_subtypes = brand
-
-/datum/robolimb/shellguard/monitor
-	company = "Shellguard Munitions Standard Series"
-	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_monitor.dmi'
-	parts = list("head")
-	has_subtypes = model
-	is_monitor = TRUE
-	selectable = FALSE
-
-//Elite
-/datum/robolimb/shellguard/alt1
-	company = "Shellguard Munitions Elite Series"
-	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_alt1.dmi'
-	parts = list("head")
-	has_subtypes = model
-	is_monitor = TRUE
-	selectable = FALSE
 
 /* Zenghu */
 //Zenghu - Main
@@ -228,8 +254,6 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	desc = "This limb has a rubbery fleshtone covering with visible seams."
 	icon = 'icons/mob/human_races/cyberlimbs/zenghu/zenghu_main.dmi'
 	has_subtypes = childless
-	// Zeng-Hu Pharm is fairly human-looking, so we're going to make this unavailable at chargen. This is inheriting selectable = TRUE, see robo_parts.dm
-	unavailable_at_chargen = TRUE
 
 //Zenghu - Spirit
 /datum/robolimb/spirit
@@ -237,6 +261,9 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	desc = "This limb has a sleek black-and-white polymer finish."
 	icon = 'icons/mob/human_races/cyberlimbs/zenghu/zenghu_spirit.dmi'
 	has_subtypes = childless
+	selectable = FALSE
+	// Only available for IPCs and at Chargen
+	species_allowed = list("Machine")
 
 #undef model
 #undef brand

@@ -1813,7 +1813,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/rparts = list("chest", "groin", "head", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "l_arm", "l_hand")
 					for(var/comp in typesof(/datum/robolimb))	//This loop populates a list of companies that shells
 						R = new comp()
-						if(!R.unavailable_at_chargen && R.has_subtypes)	//Needs to be available at chargen and not a Monitor Model
+						if(!R.unavailable_at_chargen && R.has_subtypes && (species in R.species_allowed))	//Needs to be available at chargen and not a Monitor Model and species in species_allowed
 							robolimb_companies[R.company] = R
 					R = new() //Re-initialize R.
 					choice = input(user, "Which manufacturer model would you like to use?") as null|anything in robolimb_companies
@@ -1836,7 +1836,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(S.bodyflags & ALL_RPARTS)
 						valid_limbs = list("Torso", "Lower Body", "Head", "Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
 					var/limb_name = input(user, "Which limb do you want to change?") as null|anything in valid_limbs
-					if(!limb_name) return
+					if(!limb_name)
+						return
 
 					var/limb = null
 					var/second_limb = null // if you try to change the arm, the hand should also change
@@ -1916,7 +1917,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							for(var/limb_type in typesof(/datum/robolimb)) //This loop populates a list of companies that offer the limb the user selected previously as one of their cybernetic products.
 								R = new limb_type()
 								if(!R.unavailable_at_chargen && (limb in R.parts) && R.has_subtypes) //Ensures users can only choose companies that offer the parts they want, that singular models get added to the list as well companies that offer more than one model, and...
-									robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
+									if(species in R.species_allowed)
+										robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
 							R = new() //Re-initialize R.
 
 							choice = input(user, "Which manufacturer do you wish to use for this limb?") as null|anything in robolimb_companies //Choose from a list of companies that offer the part the user wants.
