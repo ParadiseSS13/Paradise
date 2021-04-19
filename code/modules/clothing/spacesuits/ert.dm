@@ -140,6 +140,7 @@
 	icon_state = "hardsuit0-ert_engineer"
 	item_state = "helm-orange"
 	item_color = "ert_engineer"
+	actions_types = list(/datum/action/item_action/toggle_helmet_mode, /datum/action/item_action/toggle_geiger_counter)
 
 //Engineer
 /obj/item/clothing/head/helmet/space/hardsuit/combat/ert/engineer/gamma
