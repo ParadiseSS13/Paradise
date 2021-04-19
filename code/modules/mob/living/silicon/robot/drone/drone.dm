@@ -362,6 +362,10 @@
 	. = ..()
 	density = emagged //this is reset every canmove update otherwise
 
+/mob/living/silicon/robot/drone/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
+	..()
+	update_headlamp(TRUE, 0, FALSE)
+
 /mob/living/silicon/robot/drone/flash_eyes(intensity = 1, override_blindness_check = FALSE, affect_silicon = FALSE, visual = FALSE)
 	if(affect_silicon)
 		return ..()
