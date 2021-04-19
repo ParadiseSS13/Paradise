@@ -21,7 +21,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	///Whether the robolimb is unavailable when setting up a character. Defaults to FALSE.
 	var/unavailable_at_chargen = FALSE
 	///Which Species can choose these Robolimbs at CharGen
-	var/list/species_allowed = list("Machine", "Human", "Skrell", "Unathi", "Drask", "Wryn", "Tajaran", "Vulpkanin", "Tajaran", "Nucleation", "Diona", "Slime People", "Plasmamen")
+	var/list/species_allowed = list("Machine", "Human", "Skrell", "Unathi", "Drask", "Wryn", "Tajaran", "Vox", "Vulpkanin", "Tajaran", "Nucleation", "Diona", "Slime People", "Plasmamen")
 	///Whether the limb type is available for selection via attack_self with a robolimb - see robo_parts Defaults to TRUE.
 	var/selectable = TRUE
 	///Does this iconset contain a head sprite with a screen? If TRUE, head sprite cannot use hair and instead uses ipc_face.
