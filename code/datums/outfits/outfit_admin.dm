@@ -627,6 +627,10 @@
 		/obj/item/implanter/death_alarm = 1,
 	)
 
+	implants = list(/obj/item/implant/mindshield,
+		/obj/item/implant/death_alarm
+	)
+
 /datum/outfit/admin/solgov_rep/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
@@ -658,7 +662,7 @@
 		/obj/item/storage/box/responseteam = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/whetstone = 1,
-		/obj/item/clothing/mask/gas/explorer = 1,
+		/obj/item/clothing/mask/gas/explorer/marines = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
 	)
 	cybernetic_implants = list(
@@ -707,7 +711,7 @@
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
-		/obj/item/clothing/mask/gas/explorer = 1,
+		/obj/item/clothing/mask/gas/explorer/marines = 1,
 		/obj/item/ammo_box/magazine/m50 = 3
 	)
 	is_solgov_lieutenant = TRUE
@@ -722,7 +726,7 @@
 		/obj/item/storage/box/responseteam = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/whetstone = 1,
-		/obj/item/clothing/mask/gas/explorer = 1,
+		/obj/item/clothing/mask/gas/explorer/marines = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
 	)
 	cybernetic_implants = list(
@@ -747,7 +751,7 @@
 		/obj/item/storage/box/responseteam = 1,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
-		/obj/item/clothing/mask/gas/explorer = 1,
+		/obj/item/clothing/mask/gas/explorer/marines = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
 		/obj/item/ammo_box/magazine/m50 = 3
 	)
