@@ -65357,13 +65357,6 @@
 	icon_state = "dark"
 	},
 /area/security/securearmoury)
-"drd" = (
-/obj/effect/spawner/window/reinforced,
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/maintenance/portsolar{
-	name = "\improper Command Solar Maintenance"
-	})
 "drf" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -133150,7 +133143,7 @@ abW
 lzH
 abW
 ckx
-drd
+fRy
 knk
 ckx
 abW
