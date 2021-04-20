@@ -37,7 +37,6 @@
 	rt_mob_job = "ERT Commander"
 
 	uniform = /obj/item/clothing/under/rank/centcom_officer/sensor
-	gloves = /obj/item/clothing/gloves/combat
 	back = /obj/item/storage/backpack/ert/commander
 	l_ear = /obj/item/radio/headset/ert/alt/commander
 
@@ -126,7 +125,6 @@
 	rt_job = "Emergency Response Team Officer"
 	rt_mob_job = "ERT Security"
 	uniform = /obj/item/clothing/under/rank/security/sensor
-	gloves = /obj/item/clothing/gloves/combat
 	back = /obj/item/storage/backpack/ert/security
 	belt = /obj/item/storage/belt/security/response_team
 	pda = /obj/item/pda/heads/ert/security
@@ -217,7 +215,6 @@
 	rt_mob_job = "ERT Engineering"
 	back = /obj/item/storage/backpack/ert/engineer
 	uniform = /obj/item/clothing/under/rank/engineer
-	gloves = /obj/item/clothing/gloves/combat
 	belt = /obj/item/storage/belt/utility/full/multitool
 	pda = /obj/item/pda/heads/ert/engineering
 	id = /obj/item/card/id/ert/engineering
@@ -301,7 +298,6 @@
 	rt_job = "Emergency Response Team Medic"
 	rt_mob_job = "ERT Medical"
 	uniform = /obj/item/clothing/under/rank/medical
-	gloves = /obj/item/clothing/gloves/combat
 	back = /obj/item/storage/backpack/ert/medical
 	pda = /obj/item/pda/heads/ert/medical
 	id = /obj/item/card/id/ert/medic
@@ -409,7 +405,6 @@
 	rt_mob_job = "ERT Paranormal"
 	uniform = /obj/item/clothing/under/rank/chaplain
 	back = /obj/item/storage/backpack/ert/security
-	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/ert/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
@@ -478,7 +473,6 @@
 	uniform = /obj/item/clothing/under/color/purple/sensor
 	back = /obj/item/storage/backpack/ert/janitor
 	belt = /obj/item/storage/belt/janitor/full
-	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/galoshes
 	l_ear = /obj/item/radio/headset/ert/alt
 	id = /obj/item/card/id/centcom
