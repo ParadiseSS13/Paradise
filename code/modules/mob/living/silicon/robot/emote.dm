@@ -164,7 +164,7 @@
 			message = "<B>[src]</B> spins!"
 
 		if("help")
-			to_chat(src, "salute, bow-(none)/mob, clap, flap, aflap, twitch, twitches, nod, deathgasp, glare-(none)/mob, stare-(none)/mob, look,\n law, halt")
+			to_chat(src, "salute, bow-(none)/mob, clap, flap, aflap, twitch, twitches, nod, deathgasp, glare-(none)/mob, stare-(none)/mob, look,\n law, halt, flip, spin")
 
 	..()
 
