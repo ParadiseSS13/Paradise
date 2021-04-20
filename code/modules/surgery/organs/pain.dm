@@ -8,7 +8,7 @@
 	if(stat == (DEAD | ANESTHETIZED))
 		return				//No messages when Anesthetized or Dead
 	if(stat == UNCONSCIOUS)	//You can't sleep through the pain, get the funk up.
-		WakeUp()
+		handle_wakeup()
 	if(HAS_TRAIT(src, TRAIT_NOPAIN) || HAS_TRAIT(src, TRAIT_FAKEDEATH))	// Should I put this here?
 		return
 	if(reagents.has_reagent("sal_acid"))
@@ -38,7 +38,7 @@
 	if(stat == (DEAD | ANESTHETIZED))
 		return				// No messages when Anesthetized or Dead
 	if(stat == UNCONSCIOUS)	// You can't sleep through the pain.
-		WakeUp()			// GET. THE. FUNK. UP.
+		handle_wakeup()
 	if(HAS_TRAIT(src, TRAIT_NOPAIN) || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return
 	if(reagents.has_reagent("morphine"))
@@ -53,6 +53,23 @@
 		last_pain_message = msg
 		to_chat(src, msg)
 	next_pain_time = world.time + 100
+
+/mob/living/carbon/human/proc/handle_wakeup()
+	///Chance of waking up from Pain while UNCONSCIOUS
+	var/chance = 70
+	for(var/obj/thing in loc.contents)
+		var/obj/O = thing
+		if(istype(O, /obj/machinery/optable))
+			chance = 5
+			break
+		if(istype(O, /obj/structure/bed))
+			chance = 10
+			break
+		if(istype(O, /obj/structure/table))
+			chance = 15
+			break
+	if(chance)
+		WakeUp()
 
 /mob/living/carbon/human/proc/handle_pain()
 	// not when Anesthetized or Dead
