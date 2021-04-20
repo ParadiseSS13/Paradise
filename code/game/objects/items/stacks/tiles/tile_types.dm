@@ -107,7 +107,7 @@
 	gender = PLURAL
 	singular_name = "light floor tile"
 	desc = "A floor tile, made out off glass. Use a multitool on it to change its color."
-	icon_state = "tile_light blue"
+	icon_state = "tile_white"
 	force = 3
 	throwforce = 5
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
