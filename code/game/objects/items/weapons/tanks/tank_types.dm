@@ -44,6 +44,7 @@
 	icon_state = "anesthetic"
 	item_state = "an_tank"
 	force = 10
+	shutoff = 360	// 6 minutes
 
 /obj/item/tank/internals/anesthetic/populate_gas()
 	air_contents.oxygen = (3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * O2STANDARD

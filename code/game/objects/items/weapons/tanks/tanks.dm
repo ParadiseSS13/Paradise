@@ -16,6 +16,8 @@
 	var/distribute_pressure = ONE_ATMOSPHERE
 	var/integrity = 3
 	var/volume = 70
+	var/tanktimer = null
+	var/shutoff = 0	// Measured in Seconds
 
 /obj/item/tank/New()
 	..()
@@ -49,6 +51,9 @@
 
 	if(C.internal == src)
 		to_chat(C, "<span class='notice'>You close \the [src] valve.</span>")
+		if(shutoff)
+			deltimer(tanktimer)
+			tanktimer = null
 		C.internal = null
 	else
 		if(!C.get_organ_slot("breathing_tube")) // Breathing tubes can always use internals, if they have one, skip ahead and turn internals on/off
@@ -70,8 +75,20 @@
 			else
 				to_chat(C, "<span class='notice'>You open \the [src] valve.</span>")
 		C.internal = src
+		if(shutoff)
+			tanktimer = addtimer(CALLBACK(src, /obj/item/tank/.proc/turnoff_callback, C), shutoff SECONDS, TIMER_STOPPABLE)
 	C.update_action_buttons_icon()
 
+/obj/item/tank/proc/turnoff_callback(mob/user)
+	var/mob/living/carbon/C = user
+	if(istype(C))
+		var/min = round((shutoff/60), 0.5)
+		if(min > 1)
+			visible_message("<span class='warning'>\The [src] attached to [C] automatically shuts off after [min] minutes.</span>")
+		else
+			visible_message("<span class='warning'>\The [src] attached to [C] automatically shuts off after a minute.</span>")
+		C.internal = null
+		C.update_action_buttons_icon()
 
 /obj/item/tank/examine(mob/user)
 	. = ..()
