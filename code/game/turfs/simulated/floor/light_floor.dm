@@ -55,10 +55,17 @@
 		var/new_color = input(user, "Select a bulb color", "Select a bulb color", color) as color|null
 		if(!new_color)
 			return
+
 		// Cancel if they walked away
 		if(!Adjacent(user, src))
 			return
-		color = new_color
+
+		// Now lets make sure it cant go fully black. Yes I know this is more dense than my skull.
+		var/list/hsl = rgb2hsl(hex2num(copytext(new_color, 2, 4)), hex2num(copytext(new_color, 4, 6)), hex2num(copytext(new_color, 6, 8)))
+		hsl[3] = max(hsl[3], 0.4)
+		var/list/rgb = hsl2rgb(arglist(hsl))
+		color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+
 		to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
 		update_icon()
 	else
