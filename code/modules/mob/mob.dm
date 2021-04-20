@@ -1343,10 +1343,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/can_resist()
 	return FALSE		//overridden in living.dm
 
-#define SPIN_DIRECTION_CLOCKWISE 0
-#define SPIN_DIRECTION_COUNTERCLOCKWISE 1
-#define SPIN_DIRECTION_RANDOM 2
-
 /mob/proc/spin(spintime, speed)
 	set waitfor = 0
 	if(!spintime || !speed || spintime > 100)
@@ -1359,10 +1355,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			dir = turn(dir, 90)
 		else
 			dir = turn(dir, -90)
-
-#undef SPIN_DIRECTION_CLOCKWISE
-#undef SPIN_DIRECTION_COUNTERCLOCKWISE
-#undef SPIN_DIRECTION_RANDOM
 
 /mob/proc/is_literate()
 	return FALSE
