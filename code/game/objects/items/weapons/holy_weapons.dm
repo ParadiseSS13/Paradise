@@ -39,7 +39,7 @@
 	if(ishuman(M) && M.mind?.vampire)
 		if(!M.mind.vampire.get_ability(/datum/vampire_passive/full))
 			to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
-			M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+			M.mind.vampire.adjust_nullification(5, 2)
 
 /obj/item/nullrod/pickup(mob/living/user)
 	. = ..()
@@ -476,7 +476,7 @@
 					return
 
 				if(target.mind.vampire && !target.mind.vampire.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
-					target.mind.vampire.nullified = max(120, target.mind.vampire.nullified + 120)
+					target.mind.vampire.adjust_nullification(120, 50)
 					to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
 					praying = FALSE
 					return
@@ -500,7 +500,7 @@
 		if(holder.l_hand == src || holder.r_hand == src) // Holding this in your hand will
 			for(var/mob/living/carbon/human/H in range(5, loc))
 				if(H.mind && H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full))
-					H.mind.vampire.nullified = max(5, H.mind.vampire.nullified + 2)
+					H.mind.vampire.adjust_nullification(5, 2)
 					if(prob(10))
 						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
 
