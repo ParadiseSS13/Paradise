@@ -448,12 +448,12 @@
 		if("spin", "spins")
 			if(!restrained() && !lying)
 				if(prob(5))
-					INVOKE_ASYNC(src, .proc/spin, 30, 1)
+					spin(30, 1, spin_direction = 2)
 					message = "<B>[src]</B> spins too much!"
 					Dizzy(12)
 					Confused(12)
 				else
-					INVOKE_ASYNC(src, .proc/spin, 20, 1)
+					spin(20, 1, spin_direction = 2)
 					message = "<B>[src]</B> spins!"
 
 		if("aflap", "aflaps")

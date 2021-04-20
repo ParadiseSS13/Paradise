@@ -1343,24 +1343,52 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/can_resist()
 	return FALSE		//overridden in living.dm
 
-/mob/proc/spin(spintime, speed)
+#define SPIN_DIRECTION_CLOCKWISE 0
+#define SPIN_DIRECTION_COUNTERCLOCKWISE 1
+#define SPIN_DIRECTION_RANDOM 2
+
+/mob/proc/spin(spintime, speed, spin_direction = SPIN_DIRECTION_CLOCKWISE)
 	set waitfor = 0
 	if(!spintime || !speed || spintime > 100)
 		CRASH("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
 	var/D = dir
-	while(spintime >= speed)
-		sleep(speed)
-		switch(D)
-			if(NORTH)
-				D = EAST
-			if(SOUTH)
-				D = WEST
-			if(EAST)
-				D = SOUTH
-			if(WEST)
-				D = NORTH
-		setDir(D)
-		spintime -= speed
+	var/S
+	if(spin_direction == SPIN_DIRECTION_CLOCKWISE || spin_direction == SPIN_DIRECTION_COUNTERCLOCKWISE)
+		S = spin_direction
+	else
+		S = pick(SPIN_DIRECTION_CLOCKWISE,SPIN_DIRECTION_COUNTERCLOCKWISE)
+	if(S == SPIN_DIRECTION_CLOCKWISE)
+		while(spintime >= speed)
+			sleep(speed)
+			switch(D)
+				if(NORTH)
+					D = EAST
+				if(SOUTH)
+					D = WEST
+				if(EAST)
+					D = SOUTH
+				if(WEST)
+					D = NORTH
+			setDir(D)
+			spintime -= speed
+	else
+		while(spintime >= speed)
+			sleep(speed)
+			switch(D)
+				if(NORTH)
+					D = WEST
+				if(SOUTH)
+					D = EAST
+				if(EAST)
+					D = NORTH
+				if(WEST)
+					D = SOUTH
+			setDir(D)
+			spintime -= speed
+
+#undef SPIN_DIRECTION_CLOCKWISE
+#undef SPIN_DIRECTION_COUNTERCLOCKWISE
+#undef SPIN_DIRECTION_RANDOM
 
 /mob/proc/is_literate()
 	return FALSE

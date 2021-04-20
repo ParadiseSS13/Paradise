@@ -160,7 +160,7 @@
 			src.SpinAnimation(5,1)
 
 		if("spin","spins")
-			INVOKE_ASYNC(src, .proc/spin, 20, 1)
+			spin(20, 1, spin_direction = 2)
 			message = "<B>[src]</B> spins!"
 
 		if("help")
