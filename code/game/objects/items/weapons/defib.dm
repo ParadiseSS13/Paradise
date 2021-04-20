@@ -445,7 +445,7 @@
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
 						else if(total_burn >= 180 || total_brute >= 180)
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
-						else if(ghost) // todo: Prevent revival if set as DNR. (Currently revives as catatonic)
+						else if(ghost)
 							user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
 							to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
 							window_flash(ghost.client)
