@@ -160,7 +160,7 @@
 			src.SpinAnimation(5,1)
 
 		if("spin","spins")
-			spin(20, 1, spin_direction = 2)
+			spin(20, 1)
 			message = "<B>[src]</B> spins!"
 
 		if("help")

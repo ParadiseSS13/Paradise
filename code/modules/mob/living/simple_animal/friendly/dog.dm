@@ -21,17 +21,17 @@
 	var/yelp_sound = 'sound/creatures/dog_yelp.ogg' //Used on death.
 	var/last_eaten = 0
 	footstep_type = FOOTSTEP_MOB_CLAW
-	var/next_spin = 0
+	var/next_spin_message = 0
 
 /mob/living/simple_animal/pet/dog/verb/chasetail()
 	set name = "Chase your tail"
 	set desc = "d'awwww."
 	set category = "Dog"
 
-	if(next_spin <= world.time)
+	if(next_spin_message <= world.time)
 		visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
-		spin(20, 1)
-		next_spin = world.time + 5 SECONDS
+		next_spin_message = world.time + 5 SECONDS
+	spin(20, 1)
 
 /mob/living/simple_animal/pet/dog/death(gibbed)
 	// Only execute the below if we successfully died
