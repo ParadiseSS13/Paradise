@@ -44,24 +44,16 @@
 // taken from /mob/living/carbon/human/interactive/
 /mob/living/carbon/human/proc/walk2derpless(target)
 	if(!target || IsStandingStill())
+		walk_to(src,0)
 		return FALSE
 
-	if(myPath.len <= 0)
-		myPath = get_path_to(src, get_turf(target), /turf/proc/Distance, 7 + 1, 250,1)
-	if(!incapacitated())
-		if(myPath && myPath.len > 0)
-			for(var/i = 0; i < maxStepsTick; ++i)
-				if(myPath.len >= 1)
-					walk_to(src,myPath[1],0,5)
-					myPath -= myPath[1]
-			return TRUE
+	if(stat || paralysis || lying)
+		walk_to(src,0)
+		return FALSE
 
-	// failed to path correctly so just try to head straight for a bit
-	walk_to(src,get_turf(target),0,5)
-	sleep(1)
-	walk_to(src,0)
+	walk_to(src,get_turf(target),1,5)
 
-	return FALSE
+	return TRUE
 
 /mob/living/carbon/human/proc/equip_item(obj/item/I)
 	if(I.loc == src)
@@ -119,6 +111,9 @@
 	return FALSE
 
 /mob/living/carbon/human/proc/handle_combat()
+	if(incapacitated(TRUE, TRUE)) // No vamos a checar si esta esposado o agarrado.
+		walk_to(src,0)
+		return FALSE
 
 	if(on_fire || buckled || restrained())
 		if(!resisting && prob(MONKEY_RESIST_PROB))
@@ -130,7 +125,7 @@
 
 	// have we been disarmed
 	if(!locate(/obj/item/melee) in get_both_hands(src))
-		best_force = 0
+		best_force = 8
 
 	if(restrained() || blacklistItems[pickupTarget])
 		pickupTarget = null
@@ -167,7 +162,6 @@
 				pickupTimer = 0
 			else
 				walk2derpless(pickupTarget.loc)
-
 		return TRUE
 
 	// nuh uh you don't pull me!
@@ -179,7 +173,6 @@
 			return TRUE
 
 	switch(mode)
-
 		if(MONKEY_IDLE)		// idle
 
 			var/list/around = view(src, MONKEY_ENEMY_VISION)
@@ -189,7 +182,6 @@
 			for(var/mob/living/L in around)
 				if( should_target(L) )
 					if(L.stat == CONSCIOUS)
-						emote("scream")
 						retaliate(L)
 						return TRUE
 					/*
@@ -222,7 +214,7 @@
 				mode = MONKEY_FLEE
 				return TRUE*/
 
-			if(target != null)
+			if(target != null )
 				walk2derpless(target)
 
 			//drop shitty items that wont help him
@@ -240,7 +232,7 @@
 			// recruit other monkies
 			var/list/around = view(src, MONKEY_ENEMY_VISION)
 			for(var/mob/living/carbon/human/M in around)
-				if(M.mode == MONKEY_IDLE && prob(MONKEY_RECRUIT_PROB))
+				if(M.mode == MONKEY_IDLE && prob(MONKEY_RECRUIT_PROB) && IsLesserBeing(M))
 					M.emote("scream")
 					M.target = target
 					M.mode = MONKEY_HUNT
@@ -283,64 +275,9 @@
 			else
 				back_to_idle()
 
-		/*if(MONKEY_FLEE)
-			var/list/around = view(src, MONKEY_FLEE_VISION)
-			target = null
-
-			// flee from anyone who attacked us and we didn't beat down
-			for(var/mob/living/L in around)
-				if(enemies[L] && L.stat == CONSCIOUS)
-					target = L
-			if(!incapacitated())
-				if(target != null)
-					walk_away(src, target, MONKEY_ENEMY_VISION, 5)
-				else
-					back_to_idle()
-			else
-				back_to_idle()
-				return TRUE
-
-			return TRUE*/
-		/*
-		if(MONKEY_DISPOSE)
-
-			// if can't dispose of body go back to idle
-			if(!target || !bodyDisposal || frustration >= MONKEY_DISPOSE_FRUSTRATION_LIMIT)
-				back_to_idle()
-				return TRUE
-
-			if(target.pulledby != src && !istype(target.pulledby, /mob/living/carbon/human/))
-
-				addtimer(CALLBACK(src, .proc/walk2derpless, target.loc), 0)
-
-				if(Adjacent(target) && isturf(target.loc))
-					a_intent = INTENT_GRAB
-					target.grabbedby(src)
-				else
-					var/turf/olddist = get_dist(src, target)
-					if((get_dist(src, target)) >= (olddist))
-						frustration++
-					else
-						frustration = 0
-
-			else if(!disposing_body)
-				addtimer(CALLBACK(src, .proc/walk2derpless, bodyDisposal.loc), 0)
-
-				if(Adjacent(bodyDisposal))
-					disposing_body = TRUE
-					addtimer(CALLBACK(src, .proc/stuff_mob_in), 5)
-
-				else
-					var/turf/olddist = get_dist(src, bodyDisposal)
-					if((get_dist(src, bodyDisposal)) >= (olddist))
-						frustration++
-					else
-						frustration = 0
-
-			return TRUE
-		*/
-
-
+	if(incapacitated(TRUE,TRUE)) // TABLING
+		walk_to(src,0)
+		return FALSE
 
 	return IsStandingStill()
 
@@ -406,6 +343,8 @@
 
 // get angry are a mob
 /mob/living/carbon/human/proc/retaliate(mob/living/L)
+	if(!IsLesserBeing(src)) // Por si las moscas
+		return
 	mode = MONKEY_HUNT
 	target = L
 	enemies[L] += MONKEY_HATRED_AMOUNT

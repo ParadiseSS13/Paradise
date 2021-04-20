@@ -38,7 +38,8 @@
 	burn_mod = 1.5
 
 /datum/species/monkey/handle_npc(mob/living/carbon/human/H)
-	if(H.incapacitated())
+	if(H.incapacitated(TRUE, TRUE) || !H.canmove)
+		walk_to(H,0)
 		return
 	if(H.handle_combat())
 		return
