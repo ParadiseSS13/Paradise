@@ -341,6 +341,7 @@
 	can_holster = FALSE
 	unique_rename = 1
 	unique_reskin = 1
+	pb_knockback = 1
 
 /obj/item/gun/projectile/revolver/doublebarrel/New()
 	..()

@@ -11,13 +11,10 @@
 	icon_state = "spark"
 	color = "#FFFF00"
 	nodamage = 1
-	stun = 5
-	weaken = 5
-	stutter = 5
-	jitter = 20
 	hitsound = 'sound/weapons/tase.ogg'
 	range = 7
 	//Damage will be handled on the MOB side, to prevent window shattering.
+	var/apply_stun_delay = 1.5 SECONDS
 
 /obj/item/projectile/energy/electrode/on_hit(atom/target, blocked = 0)
 	. = ..()
@@ -30,7 +27,7 @@
 			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		else if(C.status_flags & CANWEAKEN)
 			spawn(5)
-				C.do_jitter_animation(jitter)
+				electrode_effect(C)
 
 /obj/item/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
 	do_sparks(1, 1, src)
