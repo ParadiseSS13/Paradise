@@ -1,4 +1,6 @@
 //generic procs copied from obj/effect/alien
+#define SPIDER_SOFT_CAP 30
+#define SPIDER_HARD_CAP 40
 /obj/structure/spider
 	name = "web"
 	desc = "it's stringy and sticky"
@@ -67,7 +69,7 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/spider/eggcluster/process()
-	if(SSmobs.giant_spiders <= 30) //eggs gonna chill out until there is less spiders
+	if(SSmobs.giant_spiders <= SPIDER_SOFT_CAP) //eggs gonna chill out until there is less spiders
 		amount_grown += rand(0,2)
 
 		if(amount_grown >= 100)
@@ -170,7 +172,7 @@
 	if(isturf(loc))
 		amount_grown += rand(0,2)
 		if(amount_grown >= 100)
-			if (SSmobs.giant_spiders <= 40)
+			if (SSmobs.giant_spiders <= SPIDER_HARD_CAP)
 				if(!grow_as)
 					grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
 				var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
