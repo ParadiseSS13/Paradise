@@ -128,7 +128,7 @@
 			M.visible_message("<span class='notice'>[M] fails to pull [M.p_them()]self up onto [src].</span>",\
 				"<span class='warning'>You fail to climb onto [src]. Come on, you've got this!</span>",\
 				"<span class='italics'>You hear someone grunting.</span>")
-		if (2)
+		if(2)
 			M.visible_message("<span class='warning'>[M]'s hand slips and [M.p_they()] slam [M.p_their()] forehead on [src]!</span>",\
 				"<span class='danger'>SHIT! Your hand slips and you slam your forehead into [src]!</span>",\
 				"<span class='italics'>You hear a thwack and a heavy thump.</span>")
