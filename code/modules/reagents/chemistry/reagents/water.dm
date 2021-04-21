@@ -284,7 +284,7 @@
 			update_flags |= M.adjustStaminaLoss(5, FALSE)
 			if(prob(20))
 				M.emote("scream")
-			M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+			M.mind.vampire.adjust_nullification(5, 2)
 			M.mind.vampire.bloodusable = max(M.mind.vampire.bloodusable - 3,0)
 			if(M.mind.vampire.bloodusable)
 				V.vomit(0,1)
@@ -296,7 +296,7 @@
 			switch(current_cycle)
 				if(1 to 4)
 					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					M.mind.vampire.adjust_nullification(5, 2)
 				if(5 to 12)
 					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
 					update_flags |= M.adjustFireLoss(1, FALSE)
@@ -304,7 +304,7 @@
 					M.Jitter(20)
 					if(prob(20))
 						M.emote("scream")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					M.mind.vampire.adjust_nullification(5, 2)
 				if(13 to INFINITY)
 					to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
 					for(var/mob/O in viewers(M, null))
@@ -316,7 +316,7 @@
 					M.Jitter(30)
 					if(prob(40))
 						M.emote("scream")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					M.mind.vampire.adjust_nullification(5, 2)
 	return ..() | update_flags
 
 
@@ -333,7 +333,7 @@
 				return
 			else
 				to_chat(M, "<span class='warning'>Something holy interferes with your powers!</span>")
-				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+				M.mind.vampire.adjust_nullification(5, 2)
 
 
 /datum/reagent/holywater/reaction_turf(turf/simulated/T, volume)
