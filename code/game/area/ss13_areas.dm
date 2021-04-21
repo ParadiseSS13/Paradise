@@ -593,12 +593,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/atmos/control
 	name = "Atmospherics Control Room"
 	icon_state = "atmos"
-	no_teleportlocs = TRUE
+	no_teleportlocs = FALSE
 
 /area/atmos/distribution
 	name = "Atmospherics Distribution Loop"
 	icon_state = "atmos"
-	no_teleportlocs = TRUE
+	no_teleportlocs = FALSE
 
 //Maintenance
 /area/maintenance
