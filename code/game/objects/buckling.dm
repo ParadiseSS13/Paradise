@@ -124,7 +124,7 @@
 /atom/movable/proc/user_buckle_fail(mob/living/M, mob/user, severity)
 	M.forceMove(loc) //All that effort wasn't for nothing!
 	switch(severity)
-		if (1)
+		if(1)
 			M.visible_message("<span class='notice'>[M] fails to pull [M.p_them()]self up onto [src].</span>",\
 				"<span class='warning'>You fail to climb onto [src]. Come on, you've got this!</span>",\
 				"<span class='italics'>You hear someone grunting.</span>")
