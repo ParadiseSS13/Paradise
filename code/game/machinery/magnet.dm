@@ -32,7 +32,8 @@
 /obj/machinery/magnetic_module/New()
 	..()
 	var/turf/T = loc
-	hide(T.intact)
+	if(!istype(T, /turf/simulated/floor/transparent))
+		hide(T.intact)
 	center = T
 
 	spawn(10)	// must wait for map loading to finish

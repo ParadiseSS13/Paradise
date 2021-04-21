@@ -35,6 +35,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	icon_state = "0-1"
 	var/d1 = 0
 	var/d2 = 1
+	plane = FLOOR_PLANE
 	layer = WIRE_LAYER //Just below unary stuff, which is at 2.45 and above pipes, which are at 2.4
 	color = COLOR_RED
 
@@ -68,9 +69,11 @@ By design, d1 is the smallest direction and d2 is the highest
 	d2 = text2num(copytext( icon_state, dash+1 ))
 
 	var/turf/T = get_turf(src)			// hide if turf is not intact
+	LAZYADD(GLOB.cable_list, src) //add it to the global cable list
+	if(istype(T, /turf/simulated/floor/transparent))
+		return
 	if(level == 1)
 		hide(T.intact)
-	LAZYADD(GLOB.cable_list, src) //add it to the global cable list
 
 /obj/structure/cable/Destroy()					// called when a cable is deleted
 	if(powernet)
@@ -162,6 +165,9 @@ By design, d1 is the smallest direction and d2 is the highest
 //
 /obj/structure/cable/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
+	if(istype(T, /turf/simulated/floor/transparent))
+		to_chat(user, "<span class='danger'>You must remove the glass first.</span>")
+		return
 	if(T.intact)
 		return
 
@@ -204,6 +210,9 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
+	if(istype(T, /turf/simulated/floor/transparent))
+		to_chat(user, "<span class='danger'>You must remove the glass first.</span>")
+		return
 	if(T.intact)
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))

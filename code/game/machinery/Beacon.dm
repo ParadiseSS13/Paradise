@@ -26,7 +26,8 @@
 	Beacon.syndicate = syndicate
 	Beacon.area_bypass = area_bypass
 	Beacon.cc_beacon = cc_beacon
-	hide(T.intact)
+	if(!istype(T, /turf/simulated/floor/transparent))
+		hide(T.intact)
 
 /obj/machinery/bluespace_beacon/proc/destroy_beacon()
 	QDEL_NULL(Beacon)

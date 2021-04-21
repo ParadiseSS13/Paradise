@@ -70,6 +70,42 @@
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
 		return TRUE
 
+	else if(istype(C, /obj/item/stack/sheet/glass))
+		if(broken || burnt)
+			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
+			return TRUE
+		var/obj/item/stack/sheet/glass/R = C
+		if(R.get_amount() < 2)
+			to_chat(user, "<span class='warning'>You need two glass to make a glass floor!</span>")
+			return TRUE
+		else
+			to_chat(user, "<span class='notice'>You begin swapping the plating for glass...</span>")
+			if(do_after(user, 30 * C.toolspeed, target = src))
+				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/transparent/glass))
+					ChangeTurf(/turf/simulated/floor/transparent/glass)
+					playsound(src, C.usesound, 80, 1)
+					R.use(2)
+					to_chat(user, "<span class='notice'>You swap the plating for glass.</span>")
+				return TRUE
+
+	else if(istype(C, /obj/item/stack/sheet/rglass))
+		if(broken || burnt)
+			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
+			return TRUE
+		var/obj/item/stack/sheet/rglass/R = C
+		if(R.get_amount() < 2)
+			to_chat(user, "<span class='warning'>You need two reinforced glass to make a reinforced glass floor!</span>")
+			return TRUE
+		else
+			to_chat(user, "<span class='notice'>You begin swapping the plating for reinforced glass...</span>")
+			if(do_after(user, 30 * C.toolspeed, target = src))
+				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/transparent/glass/reinforced))
+					ChangeTurf(/turf/simulated/floor/transparent/glass/reinforced)
+					playsound(src, C.usesound, 80, 1)
+					R.use(2)
+					to_chat(user, "<span class='notice'>You swap the plating for reinforced glass.</span>")
+				return TRUE
+
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
