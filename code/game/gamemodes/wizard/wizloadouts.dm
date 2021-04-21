@@ -54,7 +54,7 @@
 		to_chat(usr, "<span class='notice'>You make a vow of silence.</span>")
 	..()
 
-/obj/effect/proc_holder/spell/targeted/mime/speak/wizard() //Low cooldown on vow of silence for mime wizard
+/obj/effect/proc_holder/spell/targeted/mime/speak/wizard //Low cooldown on vow of silence for mime wizard
 	charge_max = 100
 
 /datum/spellbook_entry/loadout/gunreaper
