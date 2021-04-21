@@ -153,11 +153,11 @@
 		buckle_chance /= ONE_HAND_MULTIPLIER
 		time_multiplier++
 
-	if(do_after(user, INCAPACITATED_BUCKLE_TIME * time_multiplier, target = src, use_default_checks=FALSE)) //Two hands
-		if (buckle_chance <= MAJOR_FAIL_CHANCE)
+	if(do_after(user, INCAPACITATED_BUCKLE_TIME * time_multiplier, target = src, use_default_checks = FALSE)) //Two hands
+		if(buckle_chance <= MAJOR_FAIL_CHANCE)
 			user_buckle_fail(M, user, 2)
 			return FALSE
-		if (buckle_chance <= MINOR_FAIL_CHANCE)
+		if(buckle_chance <= MINOR_FAIL_CHANCE)
 			user_buckle_fail(M, user, 1)
 			return FALSE
 
