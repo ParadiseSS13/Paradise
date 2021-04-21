@@ -261,7 +261,7 @@
 	origin_tech = "biotech=4;programming=4;syndicate=2"
 	syndiemmi = TRUE
 
-/obj/item/mmi/syndie/attack_self(/obj/item/O as obj, /mob/user as mob, params)
+/obj/item/mmi/syndie/attack_self(mob/user as mob)
 	if(ishuman(user) && !mindslave_master)
 		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
 		mindslave_master = user
@@ -269,7 +269,7 @@
 	else
 		..()
 
-/obj/item/mmi/syndie/attackby(/obj/item/O as obj, /mob/user as mob, params)
+/obj/item/mmi/syndie/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(ishuman(user) && !mindslave_master && istype(O,/obj/item/organ/internal/brain))
 		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
 		mindslave_master = user
