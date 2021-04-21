@@ -37,20 +37,25 @@
 /datum/spellbook_entry/loadout/mimewiz
 	name = "Silencio"
 	desc = "...<br><br> \
-		</i>Provides Finger Gun and Invisible Greater Wall manuals, Mime Robes, a Cane and Duct Tape, Ethereal Jaunt, Blink, Teleport, Mime Malaise, Knock, and Stop Time.<i>"
+		</i>Provides Finger Gun and Invisible Greater Wall, Mime Robes, a Cane and Duct Tape, Ethereal Jaunt, Teleport, Mime Malaise and Knock.<i>"
 	log_name = "SHH"
-	items_path = list(/obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/greaterwall, /obj/item/clothing/suit/wizrobe/mime, /obj/item/clothing/head/wizard/mime, \
+	items_path = list(/obj/item/clothing/suit/wizrobe/mime, /obj/item/clothing/head/wizard/mime, \
 		/obj/item/clothing/mask/gas/mime/wizard, /obj/item/clothing/shoes/sandal/marisa, /obj/item/cane, /obj/item/stack/tape_roll)
-	spells_path = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt, /obj/effect/proc_holder/spell/targeted/turf_teleport/blink, /obj/effect/proc_holder/spell/targeted/area_teleport/teleport, \
-		/obj/effect/proc_holder/spell/targeted/touch/mime_malaise, /obj/effect/proc_holder/spell/aoe_turf/knock, /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop)
+	spells_path = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt, /obj/effect/proc_holder/spell/targeted/area_teleport/teleport, \
+		/obj/effect/proc_holder/spell/targeted/touch/mime_malaise, /obj/effect/proc_holder/spell/aoe_turf/knock, \
+		/obj/effect/proc_holder/spell/targeted/mime/speak/wizard, /obj/effect/proc_holder/spell/targeted/forcewall/mime, \
+		/obj/effect/proc_holder/spell/targeted/mime/fingergun)
 	category = "Unique"
 	destroy_spellbook = TRUE
 
 /datum/spellbook_entry/loadout/mimewiz/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(user.mind)
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mime/speak(null))
 		user.mind.miming = TRUE
+		to_chat(usr, "<span class='notice'>You make a vow of silence.</span>")
 	..()
+
+/obj/effect/proc_holder/spell/targeted/mime/speak/wizard() //Low cooldown on vow of silence for mime wizard
+	charge_max = 100
 
 /datum/spellbook_entry/loadout/gunreaper
 	name = "Gunslinging Reaper"
