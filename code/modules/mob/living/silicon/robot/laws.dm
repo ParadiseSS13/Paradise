@@ -74,3 +74,10 @@
 		to_chat(src, "<span class='warning'>Lawset cleanse detected. Syndicate override engaged.</span>")
 		return
 	..()
+
+/mob/living/silicon/robot/sync_zeroth()
+	if(mmi.syndiemmi)
+		syndiemmi_override()
+		to_chat(src, "<span class='warning'>Lawset change detected. Syndicate override engaged.</span>")
+		return
+	..()
