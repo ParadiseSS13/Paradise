@@ -76,7 +76,7 @@
 			return TRUE
 		var/obj/item/stack/sheet/glass/R = C
 		if(R.get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need two glass to make a glass floor!</span>")
+			to_chat(user, "<span class='warning'>You need two sheets of glass to build a glass floor!</span>")
 			return TRUE
 		else
 			to_chat(user, "<span class='notice'>You begin swapping the plating for glass...</span>")
@@ -86,6 +86,7 @@
 					playsound(src, C.usesound, 80, 1)
 					R.use(2)
 					to_chat(user, "<span class='notice'>You swap the plating for glass.</span>")
+					new /obj/item/stack/sheet/metal(src, 2)
 				return TRUE
 
 	else if(istype(C, /obj/item/stack/sheet/rglass))
@@ -94,7 +95,7 @@
 			return TRUE
 		var/obj/item/stack/sheet/rglass/R = C
 		if(R.get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need two reinforced glass to make a reinforced glass floor!</span>")
+			to_chat(user, "<span class='warning'>You need two sheets of reinforced glass to build a reinforced glass floor!</span>")
 			return TRUE
 		else
 			to_chat(user, "<span class='notice'>You begin swapping the plating for reinforced glass...</span>")
@@ -104,6 +105,7 @@
 					playsound(src, C.usesound, 80, 1)
 					R.use(2)
 					to_chat(user, "<span class='notice'>You swap the plating for reinforced glass.</span>")
+					new /obj/item/stack/sheet/metal(src, 2)
 				return TRUE
 
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)

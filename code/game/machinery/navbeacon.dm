@@ -26,7 +26,7 @@
 	set_codes()
 
 	var/turf/T = loc
-	if(!istype(T, /turf/simulated/floor/transparent))
+	if(!T.transparent_floor)
 		hide(T.intact)
 	if(!codes || !codes.len)
 		log_runtime(EXCEPTION("Empty codes datum at ([x],[y],[z])"), src, list("codes_txt: '[codes_txt]'"))

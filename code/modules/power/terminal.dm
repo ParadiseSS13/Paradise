@@ -15,7 +15,7 @@
 /obj/machinery/power/terminal/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
-	if(istype(T, /turf/simulated/floor/transparent))
+	if(T.transparent_floor)
 		return
 	if(level == 1)
 		hide(T.intact)

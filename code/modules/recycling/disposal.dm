@@ -758,7 +758,7 @@
 // update the icon_state to reflect hidden status
 /obj/structure/disposalpipe/proc/update()
 	var/turf/T = get_turf(src)
-	if(istype(T, /turf/simulated/floor/transparent))
+	if(T.transparent_floor)
 		update_icon()
 		return
 	hide(T.intact && !istype(T, /turf/space))	// space never hides pipes
@@ -893,8 +893,8 @@
 
 /obj/structure/disposalpipe/attackby(obj/item/I, mob/user, params)
 	var/turf/T = get_turf(src)
-	if(T.intact || istype(T, /turf/simulated/floor/transparent))
-		to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
+	if(T.intact || T.transparent_floor)
+		to_chat(user, "<span class='danger'>You must remove the [T.transparent_floor ? "glass": "plating"] first.</span>")
 		return 		// prevent interaction with T-scanner revealed pipes and pipes under glass
 
 	add_fingerprint(user)
@@ -904,7 +904,7 @@
 	var/turf/T = get_turf(src)
 	if(!I.tool_use_check(user, 0))
 		return
-	if(istype(T, /turf/simulated/floor/transparent))
+	if(T.transparent_floor)
 		to_chat(user, "<span class='danger'>You must remove the glass first.</span>")
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE

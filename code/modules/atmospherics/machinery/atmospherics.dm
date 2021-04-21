@@ -165,7 +165,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
 	if(can_unwrench && istype(W, /obj/item/wrench))
 		var/turf/T = get_turf(src)
-		if(istype(T, /turf/simulated/floor/transparent))
+		if(T.transparent_floor)
 			to_chat(user, "<span class='danger'>You must remove the glass first.</span>")
 			return
 		if(level == 1 && isturf(T) && T.intact)

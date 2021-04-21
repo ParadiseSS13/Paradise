@@ -70,7 +70,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	var/turf/T = get_turf(src)			// hide if turf is not intact
 	LAZYADD(GLOB.cable_list, src) //add it to the global cable list
-	if(istype(T, /turf/simulated/floor/transparent))
+	if(T.transparent_floor)
 		return
 	if(level == 1)
 		hide(T.intact)
@@ -165,7 +165,7 @@ By design, d1 is the smallest direction and d2 is the highest
 //
 /obj/structure/cable/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
-	if(istype(T, /turf/simulated/floor/transparent))
+	if(T.transparent_floor)
 		to_chat(user, "<span class='danger'>You must remove the glass first.</span>")
 		return
 	if(T.intact)
@@ -210,7 +210,7 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
-	if(istype(T, /turf/simulated/floor/transparent))
+	if(T.transparent_floor)
 		to_chat(user, "<span class='danger'>You must remove the glass first.</span>")
 		return
 	if(T.intact)

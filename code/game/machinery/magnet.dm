@@ -32,7 +32,7 @@
 /obj/machinery/magnetic_module/New()
 	..()
 	var/turf/T = loc
-	if(!istype(T, /turf/simulated/floor/transparent))
+	if(!T.transparent_floor)
 		hide(T.intact)
 	center = T
 

@@ -13,6 +13,7 @@
 	layer = TRANSPARENT_TURF_LAYER
 	keep_dir = FALSE
 	intact = FALSE
+	transparent_floor = TRUE
 
 /turf/simulated/floor/transparent/glass/Initialize(mapload)
 	. = ..()

@@ -55,7 +55,7 @@
 					node3 = target
 				break
 	var/turf/T = src.loc			// hide if turf is not intact
-	if(istype(T, /turf/simulated/floor/transparent))
+	if(T.transparent_floor)
 		return
 	hide(T.intact)
 	update_icon()

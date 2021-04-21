@@ -68,7 +68,7 @@
 							break
 
 		var/turf/T = loc			// hide if turf is not intact
-		if(!istype(T, /turf/simulated/floor/transparent))
+		if(!T.transparent_floor)
 			hide(T.intact)
 		update_icon()
 

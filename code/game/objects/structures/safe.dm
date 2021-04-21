@@ -368,7 +368,7 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/floor/Initialize()
 	. = ..()
 	var/turf/T = loc
-	if(!istype(T, /turf/simulated/floor/transparent))
+	if(!T.transparent_floor)
 		hide(T.intact)
 
 /obj/structure/safe/floor/hide(intact)
