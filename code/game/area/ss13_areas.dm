@@ -43,6 +43,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	outdoors = TRUE
 	ambientsounds = SPACE_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
+	no_teleportlocs = TRUE
 
 /area/space/nearstation
 	icon_state = "space_near"
@@ -585,16 +586,19 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 //STATION13
 
 /area/atmos
- 	name = "Atmospherics"
- 	icon_state = "atmos"
+	name = "Atmospherics"
+	icon_state = "atmos"
+	no_teleportlocs = TRUE
 
 /area/atmos/control
- 	name = "Atmospherics Control Room"
- 	icon_state = "atmos"
+	name = "Atmospherics Control Room"
+	icon_state = "atmos"
+	no_teleportlocs = TRUE
 
 /area/atmos/distribution
- 	name = "Atmospherics Distribution Loop"
- 	icon_state = "atmos"
+	name = "Atmospherics Distribution Loop"
+	icon_state = "atmos"
+	no_teleportlocs = TRUE
 
 //Maintenance
 /area/maintenance
@@ -661,10 +665,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/incinerator
 	name = "\improper Incinerator"
 	icon_state = "disposal"
+	no_teleportlocs = TRUE
 
 /area/maintenance/turbine
 	name = "\improper Turbine"
 	icon_state = "disposal"
+	no_teleportlocs = TRUE
 
 /area/maintenance/disposal
 	name = "Waste Disposal"
@@ -673,7 +679,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/genetics
 	name = "Genetics Maintenance"
 	icon_state = "asmaint"
-
 
 /area/maintenance/electrical
 	name = "Electrical Maintenance"
@@ -1140,6 +1145,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Supermatter Engine"
 	icon_state = "engine"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+	no_teleportlocs = TRUE
 
 //Solars
 
@@ -1149,6 +1155,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
+	no_teleportlocs = TRUE
 
 /area/solar/auxport
 	name = "\improper Fore Port Solar Array"
@@ -1643,6 +1650,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/toxins/supermatter
 	name = "\improper Supermatter Lab"
 	icon_state = "toxlab"
+	no_teleportlocs = TRUE
 
 /area/toxins/xenobiology
 	name = "\improper Xenobiology Lab"
@@ -1665,10 +1673,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Toxins Test Area"
 	icon_state = "toxtest"
 	valid_territory = FALSE
+	no_teleportlocs = TRUE
 
 /area/toxins/mixing
 	name = "\improper Toxins Mixing Room"
 	icon_state = "toxmix"
+	no_teleportlocs = TRUE
 
 /area/toxins/launch
 	name = "Toxins Launch Room"
@@ -1681,6 +1691,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/toxins/test_chamber
 	name = "\improper Research Testing Chamber"
 	icon_state = "toxtest"
+	no_teleportlocs = TRUE
 
 /area/toxins/server
 	name = "\improper Server Room"
@@ -1689,6 +1700,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/toxins/server_coldroom
 	name = "\improper Server Coldroom"
 	icon_state = "servercold"
+	no_teleportlocs = TRUE
 
 /area/toxins/explab
 	name = "\improper Experimentation Lab"
@@ -1991,6 +2003,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/turret_protected/
 	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg')
+	no_teleportlocs = TRUE
 
 /area/turret_protected/ai_upload
 	name = "\improper AI Upload Chamber"
@@ -2014,6 +2027,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/aisat
 	name = "\improper AI Satellite Exterior"
 	icon_state = "yellow"
+	no_teleportlocs = TRUE
 
 /area/aisat/entrance
 	name = "\improper AI Satellite Entrance"
@@ -2058,6 +2072,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/tcommsat
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg', 'sound/ambience/ambitech.ogg',\
 											'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg', 'sound/ambience/ambimystery.ogg')
+	no_teleportlocs = TRUE
 
 /area/tcommsat/chamber
 	name = "\improper Telecoms Central Compartment"
