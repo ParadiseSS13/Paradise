@@ -17,6 +17,8 @@
 		var/datum/mindslaves/slaved = owner.som
 		slaved.serv -= owner
 		slaved.leave_serv_hud(owner)
+	for(var/datum/objective/protect/mindslave/O in owner.objectives)
+		remove_objective(O)
 	antag_memory = ""
 	owner.special_role = null
 	update_mindslave_icons_removed()
