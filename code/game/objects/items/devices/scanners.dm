@@ -100,9 +100,9 @@ REAGENT SCANNER
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message("<span class='warning'>[user] analyzes the floor's vitals!</span>", "<span class='notice'>You stupidly try to analyze the floor's vitals!</span>")
-		to_chat(user, "<span class='info'>Analyzing results for The floor:\n\tOverall status: <b>Healthy</b></span>")
-		to_chat(user, "<span class='info'>Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FF8000'>Burn</font>/<font color='red'>Brute</font></span>")
-		to_chat(user, "<span class='info'>\tDamage specifics: <font color='blue'>0</font>-<font color='green'>0</font>-<font color='#FF8000'>0</font>-<font color='red'>0</font></span>")
+		to_chat(user, "<span class='info'>Analyzing results for The floor:\n\tOverall status: Healthy</span>")
+		to_chat(user, "<span class='info'>Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burn</font>/<font color='red'>Brute</font></span>")
+		to_chat(user, "<span class='info'>\tDamage specifics: <font color='blue'>0</font> - <font color='green'>0</font> - <font color='#FFA500'>0</font> - <font color='red'>0</font></span>")
 		to_chat(user, "<span class='info'>Body temperature: ???</span>")
 		return
 
@@ -132,9 +132,14 @@ REAGENT SCANNER
 	var/BR = H.getBruteLoss() > 50 	? 	"<b>[H.getBruteLoss()]</b>" 	: H.getBruteLoss()
 	if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
 		OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
-		to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: dead</span>")
+		to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: Dead</span>")
 	else
-		to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: [H.stat > 1 ? "dead" : "[H.health]% healthy"]</span>")
+		var/mob/dead/observer/ghost = H.get_ghost(TRUE)
+		if(ghost && !ghost.can_reenter_corpse)
+			to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: Dead <b>\[DNR]</b></span>")
+		else
+			to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: [H.stat > 1 ? "Dead" : "[H.health]% Healthy"]</span>")
+
 	to_chat(user, "\t Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>")
 	to_chat(user, "\t Damage Specifics: <font color='blue'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
 	to_chat(user, "<span class='notice'>Body Temperature: [H.bodytemperature-T0C]&deg;C ([H.bodytemperature*1.8-459.67]&deg;F)</span>")
