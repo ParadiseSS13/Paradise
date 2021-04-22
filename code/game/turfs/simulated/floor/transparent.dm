@@ -8,8 +8,8 @@
 	smooth = SMOOTH_MORE
 	canSmoothWith = list(/turf/simulated/floor/transparent)
 	footstep = FOOTSTEP_PLATING
-	light_power = 0.75
-	light_range = 2
+	light_power = 0.45
+	light_range = 3
 	layer = TRANSPARENT_TURF_LAYER
 	keep_dir = FALSE
 	intact = FALSE

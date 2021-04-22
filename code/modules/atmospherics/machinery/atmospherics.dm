@@ -163,14 +163,14 @@ Pipelines + Other Objects -> Pipe network
 
 //(De)construction
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
+	var/turf/T = get_turf(src)
 	if(can_unwrench && istype(W, /obj/item/wrench))
-		var/turf/T = get_turf(src)
 		if(T.transparent_floor)
 			to_chat(user, "<span class='danger'>You must remove the glass first.</span>")
 			return
 		if(level == 1 && isturf(T) && T.intact)
 			to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
-			return 1
+			return
 		var/datum/gas_mixture/int_air = return_air()
 		var/datum/gas_mixture/env_air = loc.return_air()
 		add_fingerprint(user)
@@ -184,14 +184,14 @@ Pipelines + Other Objects -> Pipe network
 		playsound(src.loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
 		if(internal_pressure > 2*ONE_ATMOSPHERE)
-			to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gush of air blows in your face... maybe you should reconsider?</span>")
+			to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?</span>")
 			unsafe_wrenching = TRUE //Oh dear oh dear
 
 		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
 				"<span class='notice'>You have unfastened \the [src].</span>", \
-				"<span class='italics'>You hear ratchet.</span>")
+				"<span class='italics'>You hear ratcheting.</span>")
 			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
 
 			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
@@ -206,6 +206,9 @@ Pipelines + Other Objects -> Pipe network
 					unsafe_pressure_release(user,internal_pressure)
 			deconstruct(TRUE)
 	else
+		if(T.transparent_floor)
+			to_chat(user, "<span class='danger'>You must remove the glass first.</span>")
+			return
 		return ..()
 
 //Called when an atmospherics object is unwrenched while having a large pressure difference
