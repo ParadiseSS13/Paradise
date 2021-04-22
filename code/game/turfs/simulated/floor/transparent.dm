@@ -8,8 +8,8 @@
 	smooth = SMOOTH_MORE
 	canSmoothWith = list(/turf/simulated/floor/transparent)
 	footstep = FOOTSTEP_PLATING
-	light_power = 0.45
-	light_range = 3
+	light_power = 0.25
+	light_range = 2
 	layer = TRANSPARENT_TURF_LAYER
 	keep_dir = FALSE
 	intact = FALSE
@@ -20,7 +20,7 @@
 	var/image/I = image('icons/turf/space.dmi', src, SPACE_ICON_STATE)
 	I.plane = PLANE_SPACE
 	underlays += I
-	dir = 2
+	dir = 2 //dirs that are not 2 cause smoothing jank
 	icon_state = "" //Prevents default icon appearing behind the glass
 
 /turf/simulated/floor/transparent/attackby(obj/item/C as obj, mob/user as mob, params)
@@ -51,10 +51,10 @@
 
 /turf/simulated/floor/transparent/glass/reinforced
 	name = "reinforced glass floor"
-	desc = "Do jump on it, it can take it. Promise..."
+	desc = "Jump on it, it can cope. Promise..."
 	icon = 'icons/turf/floors/reinf_glass.dmi'
-	thermal_conductivity = 0.025
-	heat_capacity = 325000
+	thermal_conductivity = 0.035
+	heat_capacity = 50000
 
 /turf/simulated/floor/transparent/glass/reinforced/acid_act(acidpwr, acid_volume)
 	acidpwr = min(acidpwr, 50)
