@@ -45,13 +45,13 @@
 			. += "<span class='notice'>The window is <b>screwed</b> to the floor.</span>"
 		else
 			. += "<span class='notice'>The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.</span>"
-	if(!anchored && !is_fulltile(src))
+	if(!anchored && !isfulltile(src))
 		. += "<span class='notice'>Alt-click to rotate it.</span>"
 
 /obj/structure/window/Initialize(mapload, direct)
 	. = ..()
 
-	if(direct && !is_fulltile(src))
+	if(direct && !isfulltile(src))
 		setDir(direct)
 	if(reinf && anchored)
 		state = WINDOW_SCREWED_TO_FRAME
@@ -79,9 +79,6 @@
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct(FALSE)
-
-/obj/structure/window/setDir(direct)
-	..()
 
 /obj/structure/window/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
@@ -290,7 +287,7 @@
 /obj/structure/window/proc/check_state_and_anchored(checked_state, checked_anchored)
 	return check_state(checked_state) && check_anchored(checked_anchored)
 
-/obj/structure/window/proc/Secured()
+/obj/structure/window/proc/secured()
 	if(reinf)
 		return check_state_and_anchored(WINDOW_SCREWED_TO_FRAME, TRUE)
 	else
@@ -431,12 +428,12 @@
 		return FALSE
 	if(!density || get_turf(loc) == T)
 		return TRUE
-	if(is_fulltile(src))	// This won't work with an override on /window/full
-		return !Secured()
+	if(isfulltile(src))	// This won't work with an override on /window/full
+		return !secured()
 	else					// Welcome to the realm of Directional Windows
 		if(!(get_dir(loc, T) in GLOB.cardinal))
 			return FALSE	// Directional windows only face NORTH, SOUTH, EAST, WEST
-		if(!Secured())
+		if(!secured())
 			return TRUE
 		else
 			return (dir != get_dir(loc, T))
@@ -459,7 +456,7 @@
 	return 0
 
 /obj/structure/window/basic
-	desc = "It looks thin and flimsy. A few knocks with ... anything, really, should shatter it."
+	desc = "It looks thin and flimsy. A few knocks with... anything, really, should shatter it."
 
 /obj/structure/window/reinforced
 	name = "reinforced window"

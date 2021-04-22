@@ -156,7 +156,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	for(var/obj/structure/window/D in loc)
 		if(!D.density)
 			continue
-		if(is_fulltile(D))
+		if(isfulltile(D))
 			return TRUE
 		if(D.dir == dir)
 			return TRUE
