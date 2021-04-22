@@ -588,7 +588,7 @@
 /obj/structure/window/full/can_be_reached(mob/user)
 	return TRUE
 
-/obj/structure/window/full/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/window/full/CanPass(atom/movable/mover, turf/target, height = 0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return TRUE
 	return FALSE
@@ -613,7 +613,7 @@
 		cut_overlay(crack_overlay)
 		if(ratio > 75)
 			return
-		crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer+0.1))
+		crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer + 0.1))
 		add_overlay(crack_overlay)
 
 /obj/structure/window/full/spawnDebris(location)
