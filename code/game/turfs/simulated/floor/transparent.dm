@@ -27,19 +27,35 @@
 	if(!C || !user)
 		return
 	if(istype(C, /obj/item/crowbar))
-		to_chat(user, "<span class='notice'>You begin removing the glass...</span>")
-		playsound(src, C.usesound, 80, 1)
-		if(do_after(user, 30 * C.toolspeed, target = src))
-			if(!istype(src, /turf/simulated/floor/transparent))
+		var/obj/item/stack/R = user.get_inactive_hand()
+		if(istype(R, /obj/item/stack/sheet/metal))
+			if(R.get_amount() < 2) //not enough metal in the stack
+				to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle a glass floor!</span>")
 				return
-			if(istype(src, /turf/simulated/floor/transparent/glass/reinforced))
-				new /obj/item/stack/sheet/rglass(src, 2)
 			else
-				new /obj/item/stack/sheet/glass(src, 2)
-			ChangeTurf(/turf/simulated/floor/plating)
+				to_chat(user, "<span class='notice'>You begin replacing the glass...</span>")
+				playsound(src, C.usesound, 80, 1)
+				if(do_after(user, 30 * C.toolspeed, target = src))
+					if(!src.transparent_floor)
+						return
+					if(istype(src, /turf/simulated/floor/transparent/glass/reinforced))
+						new /obj/item/stack/sheet/rglass(src, 2)
+					else
+						new /obj/item/stack/sheet/glass(src, 2)
+					R.use(2)
+					ChangeTurf(/turf/simulated/floor/plating)
+		else //not holding metal at all
+			to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle a glass floor!</span>")
+			return
 
 
 /turf/simulated/floor/transparent/glass/reinforced
 	name = "reinforced glass floor"
 	desc = "Do jump on it, it can take it. Promise..."
 	icon = 'icons/turf/floors/reinf_glass.dmi'
+	thermal_conductivity = 0.025
+	heat_capacity = 325000
+
+/turf/simulated/floor/transparent/glass/reinforced/acid_act(acidpwr, acid_volume)
+	acidpwr = min(acidpwr, 50)
+	. = ..()
