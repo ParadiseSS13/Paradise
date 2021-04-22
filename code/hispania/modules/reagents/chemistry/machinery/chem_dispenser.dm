@@ -11,7 +11,6 @@
 		"water",
 		"atrazine",
 		"pestkiller",
-		"cryoxadone",
 		"ammonia",
 		"ash",
 		"diethylamine")
