@@ -80,10 +80,10 @@
 			return TRUE
 		else
 			to_chat(user, "<span class='notice'>You begin swapping the plating for glass...</span>")
-			if(do_after(user, 30 * C.toolspeed, target = src))
+			if(do_after(user, 3 SECONDS * C.toolspeed, target = src))
 				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/transparent/glass))
 					ChangeTurf(/turf/simulated/floor/transparent/glass)
-					playsound(src, C.usesound, 80, 1)
+					playsound(src, C.usesound, 80, TRUE)
 					R.use(2)
 					to_chat(user, "<span class='notice'>You swap the plating for glass.</span>")
 					new /obj/item/stack/sheet/metal(src, 2)
@@ -99,10 +99,10 @@
 			return TRUE
 		else
 			to_chat(user, "<span class='notice'>You begin swapping the plating for reinforced glass...</span>")
-			if(do_after(user, 30 * C.toolspeed, target = src))
+			if(do_after(user, 3 SECONDS * C.toolspeed, target = src))
 				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/transparent/glass/reinforced))
 					ChangeTurf(/turf/simulated/floor/transparent/glass/reinforced)
-					playsound(src, C.usesound, 80, 1)
+					playsound(src, C.usesound, 80, TRUE)
 					R.use(2)
 					to_chat(user, "<span class='notice'>You swap the plating for reinforced glass.</span>")
 					new /obj/item/stack/sheet/metal(src, 2)

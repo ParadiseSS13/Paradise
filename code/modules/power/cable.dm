@@ -166,7 +166,7 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor)
-		to_chat(user, "<span class='danger'>You must remove the glass first.</span>")
+		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
 	if(T.intact)
 		return
@@ -211,7 +211,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	. = TRUE
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor)
-		to_chat(user, "<span class='danger'>You must remove the glass first.</span>")
+		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
 	if(T.intact)
 		return

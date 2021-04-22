@@ -894,7 +894,7 @@
 /obj/structure/disposalpipe/attackby(obj/item/I, mob/user, params)
 	var/turf/T = get_turf(src)
 	if(T.intact || T.transparent_floor)
-		to_chat(user, "<span class='danger'>You must remove the [T.transparent_floor ? "glass": "plating"] first.</span>")
+		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return 		// prevent interaction with T-scanner revealed pipes and pipes under glass
 
 	add_fingerprint(user)
@@ -905,7 +905,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(T.transparent_floor)
-		to_chat(user, "<span class='danger'>You must remove the glass first.</span>")
+		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))

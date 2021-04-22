@@ -172,7 +172,7 @@ Pipelines + Other Objects -> Pipe network
 	var/turf/T = get_turf(src)
 	if(can_unwrench && istype(W, /obj/item/wrench))
 		if(T.transparent_floor)
-			to_chat(user, "<span class='danger'>You must remove the glass first.</span>")
+			to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 			return
 		if(level == 1 && isturf(T) && T.intact)
 			to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
@@ -213,7 +213,7 @@ Pipelines + Other Objects -> Pipe network
 			deconstruct(TRUE)
 	else
 		if(T.transparent_floor)
-			to_chat(user, "<span class='danger'>You must remove the glass first.</span>")
+			to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 			return
 		return ..()
 
