@@ -4,7 +4,7 @@
 	sort_category = "Glasses"
 
 /datum/gear/glasses/sunglasses
-	display_name = "Cheap sunglasses"
+	display_name = "cheap sunglasses"
 	path = /obj/item/clothing/glasses/sunglasses_fake
 
 /datum/gear/glasses/eyepatch
