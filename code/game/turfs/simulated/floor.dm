@@ -133,6 +133,10 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		W.icon_plating = old_plating
 	if(W.keep_dir)
 		W.dir = old_dir
+	if(W.transparent_floor)
+		var/obj/machinery/atmospherics/R
+		for(R in W)
+			R.update_icon()
 
 	W.update_icon()
 	return W
