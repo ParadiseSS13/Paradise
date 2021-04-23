@@ -1210,7 +1210,7 @@
 		return
 
 	var/turf/T = src.loc
-	if(T.intact)
+	if(T.intact || T.transparent_floor)
 		return		// prevent interaction with T-scanner revealed pipes
 	src.add_fingerprint(user)
 

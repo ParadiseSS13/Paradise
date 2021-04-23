@@ -171,7 +171,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
 	if(can_unwrench && istype(W, /obj/item/wrench))
-		if(T.transparent_floor)
+		if(T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe))
 			to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 			return
 		if(level == 1 && isturf(T) && T.intact)
@@ -249,7 +249,12 @@ Pipelines + Other Objects -> Pipe network
 	dir = D
 	initialize_directions = P
 	var/turf/T = loc
-	level = T.intact ? 2 : 1
+	if(!T.transparent_floor)
+		level = T.intact ? 2 : 1
+	else
+		level = 2
+		plane = GAME_PLANE
+		layer = GAS_PIPE_VISIBLE_LAYER
 	add_fingerprint(usr)
 	if(!SSair.initialized) //If there's no atmos subsystem, we can't really initialize pipenets
 		SSair.machinery_to_construct.Add(src)

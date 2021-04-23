@@ -20,7 +20,7 @@
 	var/image/I = image('icons/turf/space.dmi', src, SPACE_ICON_STATE)
 	I.plane = PLANE_SPACE
 	underlays += I
-	dir = SOUTH //dirs that are not 2 cause smoothing jank
+	dir = SOUTH //dirs that are not 2/south cause smoothing jank
 	icon_state = "" //Prevents default icon appearing behind the glass
 
 /turf/simulated/floor/transparent/glass/attackby(obj/item/C, mob/user, params)

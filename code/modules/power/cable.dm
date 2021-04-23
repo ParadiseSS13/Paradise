@@ -165,10 +165,8 @@ By design, d1 is the smallest direction and d2 is the highest
 //
 /obj/structure/cable/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
-	if(T.transparent_floor)
+	if(T.transparent_floor || T.intact)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-		return
-	if(T.intact)
 		return
 
 	else if(istype(W, /obj/item/stack/cable_coil))
@@ -210,10 +208,8 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
-	if(T.transparent_floor)
+	if(T.transparent_floor || T.intact)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-		return
-	if(T.intact)
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -712,7 +708,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 	var/turf/T = get_turf(C)
 
-	if(!isturf(T) || T.intact)		// sanity checks, also stop use interacting with T-scanner revealed cable
+	if(!isturf(T) || T.intact || T.transparent_floor)		// sanity checks, also stop use interacting with T-scanner revealed cable
 		return
 
 	if(get_dist(C, user) > 1)		// make sure it's close enough
@@ -728,7 +724,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 	// one end of the clicked cable is pointing towards us
 	if(C.d1 == dirn || C.d2 == dirn)
-		if(U.intact)						// can't place a cable if the floor is complete
+		if(U.intact || U.transparent_floor)						// can't place a cable if the floor is complete
 			to_chat(user, "<span class='warning'>You can't lay cable there unless the floor tiles are removed!</span>")
 			return
 		else
