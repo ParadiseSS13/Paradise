@@ -171,7 +171,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
 	if(can_unwrench && istype(W, /obj/item/wrench))
-		if(T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe))
+		if(T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe) && layer != GAS_PIPE_VISIBLE_LAYER) //pipes on GAS_PIPE_VISIBLE_LAYER are above the transparent floor and should be interactable
 			to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 			return
 		if(level == 1 && isturf(T) && T.intact)

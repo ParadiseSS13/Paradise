@@ -507,7 +507,7 @@
 	user.visible_message( \
 		"[user] fastens the [src].", \
 		"<span class='notice'>You have fastened the [src].</span>", \
-		"You hear ratchet.")
+		"You hear ratcheting.")
 	qdel(src)	// remove the pipe item
 
 	return
