@@ -108,6 +108,7 @@
 	for(var/datum/objective/objective in wizard.objectives)
 		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
+	to_chat(wizard.current, "<span class='motd'>For more information, check the wiki page: (https://www.paradisestation.org/wiki/index.php/Wizard)</span>")
 	return
 
 /*/datum/game_mode/proc/learn_basic_spells(mob/living/carbon/human/wizard_mob)

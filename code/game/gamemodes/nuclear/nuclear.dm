@@ -245,6 +245,7 @@
 	for(var/datum/objective/objective in syndicate.objectives)
 		to_chat(syndicate.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
+	to_chat(syndicate.current, "<span class='motd'>For more information, check the wiki page: (https://www.paradisestation.org/wiki/index.php/Nuclear_Agent)</span>")
 	return
 
 
