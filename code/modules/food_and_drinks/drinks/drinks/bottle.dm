@@ -12,7 +12,7 @@
 	var/const/duration = 13 //Directly relates to the 'weaken' duration. Lowered by armor (i.e. helmets)
 	var/isGlass = 1 //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
 
-/obj/item/reagent_containers/food/drinks/bottle/proc/smash(mob/living/target, mob/living/user, ranged = 0)
+/obj/item/reagent_containers/food/drinks/bottle/proc/smash(mob/living/target, mob/living/user, ranged = FALSE)
 
 	//Creates a shattering noise and replaces the bottle with a broken_bottle
 	var/new_location = get_turf(loc)
@@ -123,6 +123,11 @@
 		M.visible_message("<span class='danger'>The contents of \the [src] splashes all over [M]!</span>")
 		reagents.reaction(M, REAGENT_TOUCH)
 		reagents.clear_reagents()
+
+/obj/item/reagent_containers/food/drinks/bottle/throw_impact(atom/target,mob/thrower)
+	..()
+	SplashReagents(target)
+	smash(target, thrower, ranged = TRUE)
 
 /obj/item/reagent_containers/food/drinks/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!reagents.total_volume)
@@ -345,11 +350,10 @@
 			if(istype(R, A))
 				firestarter = 1
 				break
-	SplashReagents(target)
+	..()
 	if(firestarter && active)
 		target.fire_act()
 		new /obj/effect/hotspot(get_turf(target))
-	..()
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
 	if(is_hot(I) && !active)
