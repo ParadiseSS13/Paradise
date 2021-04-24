@@ -231,7 +231,7 @@
 			if(ishuman(L))
 				var/mob/living/carbon/human/M = L
 				var/heatBlockPercent = 1 - M.get_heat_protection(temp)
-				M.bodytemperature += (temp - M.bodytemperature) * heatBlockPercent / 2
+				M.bodytemperature += (temp - M.bodytemperature) * heatBlockPercent / 3
 			else
 				L.bodytemperature = (2 * L.bodytemperature + temp) / 3
 
@@ -299,7 +299,7 @@
 			if(ishuman(L))
 				var/mob/living/carbon/human/M = L
 				var/heatBlockPercent = 1 - M.get_heat_protection(temp)
-				M.bodytemperature += (temp - M.bodytemperature) * heatBlockPercent / 2
+				M.bodytemperature += (temp - M.bodytemperature) * heatBlockPercent / 3
 			else
 				L.bodytemperature = (2 * L.bodytemperature + temp) / 3
 
