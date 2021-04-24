@@ -78,30 +78,60 @@
 						to_chat(src, "Unable to verify! No power connection detected!")
 						aiRestorePowerRoutine = 2
 						return
-					to_chat(src, "Connection verified. Searching for APC in power network.")
+					if(!is_special_character(src) || src.can_shunt) (src, "Connection verified. Searching for APC in power network.")
 					sleep(50)
 
 					my_area = get_area(src)
 					T = get_turf(src)
 
 					var/obj/machinery/power/apc/theAPC = null
+					if(!is_special_character(src) || src.can_shunt)
+						var/PRP
+						for(PRP = 1, PRP <= 4, PRP++)
+							for(var/obj/machinery/power/apc/APC in my_area)
+								if(!(APC.stat & BROKEN))
+									theAPC = APC
+									break
 
-					var/PRP
-					for(PRP = 1, PRP <= 4, PRP++)
-						for(var/obj/machinery/power/apc/APC in my_area)
-							if(!(APC.stat & BROKEN))
-								theAPC = APC
-								break
+							if(!theAPC)
+								switch(PRP)
+									if(1)
+										to_chat(src, "Unable to locate APC!")
+									else
+										to_chat(src, "Lost connection with the APC!")
+								aiRestorePowerRoutine = 2
+								return
 
-						if(!theAPC)
+							if(!lacks_power())
+								to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
+								aiRestorePowerRoutine = 0
+								update_blind_effects()
+								update_sight()
+								to_chat(src, "Here are your current laws:")
+								show_laws()
+								return
+
 							switch(PRP)
 								if(1)
-									to_chat(src, "Unable to locate APC!")
-								else
-									to_chat(src, "Lost connection with the APC!")
-							aiRestorePowerRoutine = 2
-							return
+									to_chat(src, "APC located. Optimizing route to APC to avoid needless power waste.")
+								if(2)
+									to_chat(src, "Best route identified. Hacking offline APC power port.")
+								if(3)
+									to_chat(src, "Power port upload access confirmed. Loading control program into APC power port software.")
+								if(4)
+									to_chat(src, "Transfer complete. Forcing APC to execute program.")
+									sleep(50)
+									to_chat(src, "Receiving control information from APC.")
+									sleep(2)
+									//bring up APC dialog
+									apc_override = 1
+									theAPC.attack_ai(src)
+									apc_override = 0
+									aiRestorePowerRoutine = 3
+							sleep(50)
+							theAPC = null
 
+					else
 						if(!lacks_power())
 							to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
 							aiRestorePowerRoutine = 0
@@ -110,26 +140,8 @@
 							to_chat(src, "Here are your current laws:")
 							show_laws()
 							return
-
-						switch(PRP)
-							if(1)
-								to_chat(src, "APC located. Optimizing route to APC to avoid needless power waste.")
-							if(2)
-								to_chat(src, "Best route identified. Hacking offline APC power port.")
-							if(3)
-								to_chat(src, "Power port upload access confirmed. Loading control program into APC power port software.")
-							if(4)
-								to_chat(src, "Transfer complete. Forcing APC to execute program.")
-								sleep(50)
-								to_chat(src, "Receiving control information from APC.")
-								sleep(2)
-								//bring up APC dialog
-								apc_override = 1
-								theAPC.attack_ai(src)
-								apc_override = 0
-								aiRestorePowerRoutine = 3
 						sleep(50)
-						theAPC = null
+
 
 /mob/living/silicon/ai/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
