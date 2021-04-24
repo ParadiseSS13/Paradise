@@ -67,7 +67,6 @@
 		var/mob/living/M = target
 		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
 
-
 /obj/item/projectile/magic/fireball/infernal
 	name = "infernal fireball"
 	exp_heavy = -1
