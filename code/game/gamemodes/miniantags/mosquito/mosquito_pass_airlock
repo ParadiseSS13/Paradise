@@ -1,0 +1,44 @@
+/obj/effect/proc_holder/spell/targeted/click/pass_airlock
+	name = "Pass Airlock"
+	desc = "Squeeze through an airlock"
+	clothes_req = FALSE
+	charge_max = 10 SECONDS
+	range = 1
+	allowed_type = /obj/machinery/door/airlock
+	selection_activated_message = "<span class='sinister'>Click on an airlock to try and pass through it.</span>"
+	click_radius = -1
+
+/obj/effect/proc_holder/spell/targeted/click/pass_airlock/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/simple_animal/mosquito/user = usr)
+	if(!istype(user))
+		to_chat(user, "<span class='warning'>You should not be able to use this abilty! Report this as a bug on github please.</span>")
+		stack_trace()
+		log_debug("[user] has the spell [src] while he is not a morph")
+		return FALSE
+	return ..()
+
+/obj/effect/proc_holder/spell/targeted/click/pass_airlock/can_cast(mob/living/simple_animal/mosquito/user, charge_check, show_message)
+	if(!istype(user))
+		return FALSE
+	return ..()
+
+/obj/effect/proc_holder/spell/targeted/click/pass_airlock/cast(list/targets, mob/living/simple_animal/mosquito/user)
+	var/obj/machinery/door/airlock/A = targets[1]
+	if(A.locked)
+		to_chat(user, "<span class='warning'>[A] is bolted shut! You're unable to squeeze through it!</span>")
+		revert_cast(user)
+		return
+	user.visible_message("<span class='warning'>[user] starts pushing itself against [A]!</span>", "<span class='sinister'>You try to pry [A] open enough to get through.</span>")
+	if(!do_after(user, 6 SECONDS, FALSE, user, TRUE, list(CALLBACK(src, .proc/pass_check, user, A)), FALSE))
+		if(A.locked)
+			to_chat(user, "<span class='warning'>[A] is bolted shut! You're unable to squeeze through it!</span>")
+		else
+			to_chat(user, "<span class='warning'>You need to stay still to pass through [A]!</span>")
+		revert_cast(user)
+		return
+
+	user.visible_message("<span class='warning'>[user] You just barrely squeeze through a small gap! [A]</span>", "<span class='sinister'>You slide through the open crack [A].</span>")
+	user.forceMove(A.loc) // Move into the turf of the airlock
+
+
+/obj/effect/proc_holder/spell/targeted/click/pass_airlock/proc/pass_check(mob/living/simple_animal/mosquito/user, obj/machinery/door/airlock/A)
+	return A.locked
