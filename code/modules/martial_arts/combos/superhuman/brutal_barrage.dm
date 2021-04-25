@@ -2,6 +2,7 @@
 	name = "Brutal Barrage"
 	explaination_text = "We unleash a flurry of swift blows that completely decimates an oppenent in a critical state."
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HARM)
+	combo_text_override = "Harm, Disarm, Grab, switch hands, Harm"
 
 /datum/martial_combo/superhuman/brutal_barrage/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
@@ -14,4 +15,5 @@
 		target.visible_message("<span class='warning'>[user]'s arm swings, enlarging before impact, striking [target]'s face with great force!</span>",
 						  "<span class='userdanger'>[user] slams you in the face!</span>")
 	target.apply_damage(target.getBruteLoss() * 0.75, BRUTE, BODY_ZONE_HEAD)
+	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Brutal Barrage", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE

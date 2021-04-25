@@ -1,6 +1,5 @@
 /datum/martial_art/superhuman
 	name = "Superhuman Physiology"
-	block_chance = 100
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/superhuman/hammer_fist, /datum/martial_combo/superhuman/piston_kick, /datum/martial_combo/superhuman/foot_skewer, /datum/martial_combo/superhuman/brutal_barrage)
 
@@ -45,7 +44,9 @@
 	return TRUE
 
 /datum/martial_art/superhuman/explaination_header(user)
-	to_chat(usr, "<b><i>We scour the memories of all those we have absorbed, remembering their fighting styles... </i></b>")
+	to_chat(user, "<b><i>We scour the memories of all those we have absorbed, remembering their fighting styles... </i></b>")
 
-/datum/martial_art/superhuman/explaination_footer(user)
-	to_chat(user, "<b><i>In addition, by having our throw mode on when being attacked, we enter an active defense mode where we block and sometimes even counter melee attacks done to us.</i></b>")
+/datum/martial_art/superhuman/teach(mob/living/carbon/human/H, make_temporary)
+	. = ..()
+	to_chat(H, "<span class='sciradio'> We shift our biology, we are now able to rapidly form weapons out of different limbs after preforming different attacks. \
+				Our basic punches are augmented to be slashing claws that do large damage at the cost of knockdown chance. Our disarms become aggressive slams that ram our target to the floor. <span/>")

@@ -12,5 +12,6 @@
 		target.apply_damage(15, BRUTE, pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
 		target.Slowed(5)
 		target.emote("scream")
+		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Foot Skewer", ATKLOG_ALL)
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_DONE_BASIC_HIT
