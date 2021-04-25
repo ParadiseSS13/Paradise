@@ -72,7 +72,7 @@
 		to_chat(user, "<span class='warning'>[user.mind.martial_art.no_guns_message]</span>")
 		return
 	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
-		to_chat(user, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
+		to_chat(user, "<span class='warning'>Your meaty finger is far too large for the trigger guard!</span>")
 		return
 	if(user && user.get_active_hand() == src) // Make sure our user is still holding us
 		var/turf/target_turf = get_turf(target)
