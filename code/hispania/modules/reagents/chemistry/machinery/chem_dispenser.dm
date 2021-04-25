@@ -14,7 +14,7 @@
 		"ammonia",
 		"ash",
 		"diethylamine")
-	upgrade_reagents = null
+	upgrade_reagents = "cryoxadone"
 
 /obj/machinery/chem_dispenser/botanical/New()
 	..()
