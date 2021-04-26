@@ -96,7 +96,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
 		cult_objs.study(cult_mind.current)
-		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: (https://www.paradisestation.org/wiki/index.php/Cultist)</span>")
+		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Cultist)</span>")
 	cult_threshold_check()
 	addtimer(CALLBACK(src, .proc/cult_threshold_check), 2 MINUTES) // Check again in 2 minutes for latejoiners
 	..()
@@ -208,7 +208,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 				ascend(cult_mind.current)
 		check_cult_size()
 		cult_objs.study(cult_mind.current)
-		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: (https://www.paradisestation.org/wiki/index.php/Cultist)</span>")
+		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Cultist)</span>")
 		return TRUE
 
 
