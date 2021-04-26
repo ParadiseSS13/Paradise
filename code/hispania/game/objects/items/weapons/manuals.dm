@@ -124,7 +124,7 @@
 	author = "Zunxao Quumqr, Nanotrasen Research and Mining Specialist"
 	title = "How to Tame: The Goliath"
 
-	dat = {"Taming guide of the giant of the fiery wasteland, The Goliath.</br>
+	dat = {"<center><b>Taming guide of the giant of the fiery wasteland, The Goliath.</b></center></br></br>
 
 			Trying your luck with a goliath? Well, this book is for you, this guide on how to tame those savage beasts will guide you in every step of making a bond with the goliath.</br></br>
 
