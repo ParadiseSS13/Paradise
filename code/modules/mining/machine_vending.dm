@@ -88,6 +88,7 @@
 		EQUIPMENT("Minebot Melee Upgrade", 			/obj/item/mine_bot_upgrade, 										400),
 	)
 	prize_list["Miscellaneous"] = list(
+		EQUIPMENT("How to Tame: The Goliath",		/obj/item/book/manual/how_to_goliath,								10),
 		EQUIPMENT("Absinthe", 						/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium, 	100),
 		EQUIPMENT("Alien Toy", 						/obj/item/clothing/mask/facehugger/toy, 							300),
 		EQUIPMENT("Cigar", 							/obj/item/clothing/mask/cigarette/cigar/havana, 					150),
