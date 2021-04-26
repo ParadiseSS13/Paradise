@@ -46,3 +46,14 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mixer
 	category = list("Misc. Machinery")
+
+
+/datum/design/chem_dispenser/botanical
+	name = "Machine Board (Botanical Chem Dispenser)"
+	desc = "The circuit board for a Botanical Chem Dispenser."
+	id = "botanical_chem_dispenser"
+	req_tech = list("programming" = 5, "biotech" = 3, "materials" = 4, "plasmatech" = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/chem_dispenser/botanical
+	category = list ("Hydroponics Machinery")
