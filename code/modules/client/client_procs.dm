@@ -680,7 +680,7 @@
 	if(query_find_link.NextRow())
 		if(query_find_link.item[1])
 			if(!fromban)
-				to_chat(src, "Your forum account is already set. (" + query_find_link.item[1] + ")")
+				to_chat(src, "Your forum account is already set. ([query_find_link.item[1]])")
 			qdel(query_find_link)
 			return
 	qdel(query_find_link)
