@@ -20,7 +20,7 @@
 	},
 /area/medical/genetics_cloning)
 "aaf" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/mine/unexplored{
 	name = "AI Asteroid"
 	})
@@ -403,7 +403,7 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/disposal/northeast)
 "abW" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/mine/unexplored{
 	name = "Command Asteroid"
 	})
@@ -1332,7 +1332,7 @@
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
 "agk" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/security/execution)
 "agl" = (
 /turf/simulated/wall,
@@ -2522,7 +2522,7 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "alc" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/mine/unexplored{
 	name = "Cargo Asteroid"
 	})
@@ -9791,7 +9791,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/mine/unexplored{
 	name = "Cargo Asteroid"
 	})
@@ -15239,7 +15239,7 @@
 	},
 /area/teleporter/quantum/science)
 "aTz" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/security/permabrig)
 "aTA" = (
 /obj/structure/closet/l3closet/janitor,
@@ -16606,7 +16606,7 @@
 	name = "\improper Cargo Solar Array"
 	})
 "aXn" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/mine/unexplored{
 	name = "Civilian Asteroid"
 	})
@@ -16688,7 +16688,7 @@
 	sound_environment = 15
 	})
 "aXR" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/mine/unexplored{
 	name = "Engineering Asteroid"
 	})
@@ -17339,7 +17339,7 @@
 	sound_environment = 15
 	})
 "aZK" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/hallway/primary/central)
 "aZL" = (
 /obj/structure/cable{
@@ -17355,7 +17355,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
 "aZM" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/mine/unexplored{
 	name = "Medical Asteroid"
 	})
@@ -23143,7 +23143,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/mine/unexplored{
 	name = "Civilian Asteroid"
 	})
@@ -40277,7 +40277,7 @@
 /turf/simulated/wall,
 /area/chapel/main)
 "bZa" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/chapel/main)
 "bZb" = (
 /obj/structure/chair{
@@ -40637,7 +40637,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/port)
 "cal" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/crew_quarters/theatre{
 	name = "Top Secret Clown HQ"
 	})
@@ -41234,7 +41234,7 @@
 	name = "Docking Asteroid"
 	})
 "cbV" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/mine/unexplored{
 	name = "Docking Asteroid"
 	})
@@ -41544,7 +41544,7 @@
 	},
 /area/maintenance/fpmaint2)
 "ccW" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/mine/unexplored{
 	name = "Research Asteroid"
 	})
@@ -52224,7 +52224,7 @@
 /turf/simulated/wall,
 /area/toxins/xenobiology)
 "cAL" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/security/securearmoury)
 "cAM" = (
 /obj/machinery/light{
@@ -52391,7 +52391,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "cBe" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/hallway/secondary/entry)
 "cBf" = (
 /obj/machinery/power/apc{
@@ -53396,7 +53396,7 @@
 	},
 /area/security/brig)
 "cEM" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/maintenance/fsmaint2)
 "cEN" = (
 /obj/machinery/ai_status_display,
@@ -69372,7 +69372,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 4
 	},
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/mine/unexplored{
 	name = "Engineering Asteroid"
 	})
@@ -69400,7 +69400,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/red{
 	dir = 4
 	},
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/mine/unexplored{
 	name = "Medical Asteroid"
 	})
@@ -71546,7 +71546,7 @@
 /area/maintenance/asmaint)
 "fje" = (
 /obj/effect/baseturf_helper/asteroid/airless,
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/mine/unexplored{
 	name = "Civilian Asteroid"
 	})
@@ -73034,7 +73034,7 @@
 /turf/simulated/floor/wood,
 /area/maintenance/asmaint)
 "gwb" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/maintenance/storage)
 "gwy" = (
 /turf/simulated/wall/r_wall,
@@ -73764,7 +73764,7 @@
 /area/toxins/lab)
 "hbW" = (
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/mine/unexplored{
 	name = "Medical Asteroid"
 	})
@@ -74465,7 +74465,7 @@
 	},
 /area/crew_quarters/locker)
 "hIM" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/maintenance/apmaint)
 "hIX" = (
 /obj/machinery/meter,
@@ -76148,7 +76148,7 @@
 	},
 /area/medical/medbay)
 "jec" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/maintenance/asmaint2)
 "jee" = (
 /obj/structure/weightmachine/stacklifter,
@@ -76173,7 +76173,7 @@
 	},
 /area/toxins/misc_lab)
 "jft" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/mine/unexplored{
 	name = "Near Station Asteroids"
 	})
@@ -77184,7 +77184,7 @@
 /area/hydroponics)
 "jUn" = (
 /obj/effect/baseturf_helper/asteroid/airless,
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/crew_quarters/theatre{
 	name = "Top Secret Clown HQ"
 	})
@@ -80833,7 +80833,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 4
 	},
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/maintenance/storage)
 "mKP" = (
 /obj/machinery/light/small,
@@ -81726,7 +81726,7 @@
 /area/ntrep)
 "nuH" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/maintenance/asmaint)
 "nuY" = (
 /mob/living/simple_animal/mouse/gray,
@@ -82352,7 +82352,7 @@
 	},
 /area/crew_quarters/locker)
 "nVW" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/maintenance/maintcentral)
 "nWt" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -84017,7 +84017,7 @@
 /turf/simulated/wall/r_wall,
 /area/hallway/spacebridge/servsci)
 "pqg" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/toxins/misc_lab)
 "pqy" = (
 /obj/structure/disposalpipe/trunk{
@@ -84689,7 +84689,7 @@
 	},
 /area/engine/engine_smes)
 "pLT" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/maintenance/disposal/west)
 "pMC" = (
 /obj/machinery/power/terminal{
@@ -84900,7 +84900,7 @@
 /turf/simulated/wall,
 /area/maintenance/port)
 "pXX" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/maintenance/auxsolarport)
 "pYj" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -86056,7 +86056,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "qVZ" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/medical/genetics)
 "qWf" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -87350,7 +87350,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "sbn" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/maintenance/gambling_den)
 "sbH" = (
 /turf/simulated/floor/plating{
@@ -87475,7 +87475,7 @@
 	},
 /area/medical/patients_rooms)
 "sgl" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/maintenance/fpmaint2)
 "sgp" = (
 /turf/simulated/floor/plating{
@@ -89237,7 +89237,7 @@
 /turf/simulated/floor/plating,
 /area/engine/gravitygenerator)
 "tHx" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/maintenance/fore)
 "tHC" = (
 /obj/machinery/vending/assist,
@@ -91446,7 +91446,7 @@
 	},
 /area/civilian/barber)
 "vtS" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/maintenance/fsmaint)
 "vtV" = (
 /obj/effect/turf_decal/stripes/line{
@@ -91460,7 +91460,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/southwest)
 "vtY" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/maintenance/port)
 "vuo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -92269,7 +92269,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/aft)
 "vVm" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/maintenance/aft)
 "vVE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -92312,7 +92312,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "vWF" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/cere,
 /area/maintenance/asmaint)
 "vWU" = (
 /obj/structure/cable/orange{
