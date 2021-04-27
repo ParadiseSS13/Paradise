@@ -265,7 +265,6 @@
 	icon_state = "queen_item"
 	item_state = ""
 	icon = 'icons/mob/bees.dmi'
-	gender = FEMALE
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen
 
 
