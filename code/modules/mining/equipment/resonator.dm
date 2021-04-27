@@ -94,7 +94,7 @@
 	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/resonance_crush(T)
 	if(ismineralturf(T))
-		if(istype(target_turf, /turf/simulated/mineral/cere))
+		if(istype(T, /turf/simulated/mineral/cere))
 			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
 		else
 			var/turf/simulated/mineral/M = T
