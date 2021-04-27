@@ -262,11 +262,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/block/check_completion()
 	if(!istype(owner.current, /mob/living/silicon))
-		return 0
+		return FALSE
+	if(SSticker.mode.station_was_nuked)
+		return TRUE
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
-		return 0
+		return FALSE
 	if(!owner.current)
-		return 0
+		return FALSE
 
 	var/area/A = SSshuttle.emergency.areaInstance
 
@@ -276,9 +278,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 		if(player.mind && player.stat != DEAD)
 			if(get_area(player) == A)
-				return 0 // If there are any other organic mobs on the shuttle, you failed the objective.
+				return FALSE // If there are any other organic mobs on the shuttle, you failed the objective.
 
-	return 1
+	return TRUE
 
 /datum/objective/escape
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
