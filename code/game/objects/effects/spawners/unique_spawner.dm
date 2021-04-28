@@ -2,7 +2,10 @@
  * How to use:
  * Either place the base unique_spawner in the map and define the key_override to determine which spawners belong to one another.
  * Or make a child instance of the unique_spawner and define the values there.
- * When using the base version be sure to define both total_amount and max_per_spawner on only one of the spawners.
+ *
+ * When using the base version be sure to define both total_amount and max_per_spawner on at least one of the spawners of the key group.
+ * A mismatch between instances of the same group between these values will lead to a runtime.
+ * So either leave it empty for the rest or have the rest have the same values
 ***/
 
 #define GET_KEY key_override ? key_override : type
