@@ -143,8 +143,6 @@ REAGENT SCANNER
 		var/tdelta = round(world.time - H.timeofdeath)
 		if(tdelta < DEFIB_TIME_LIMIT)
 			to_chat(user, "<span class='danger'>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</span>")
-		else
-			to_chat(user, "<font color='red'>Subject died [DisplayTimeText(tdelta)] ago.</font>")
 
 	if(mode == 1)
 		var/list/damaged = H.get_damaged_organs(1,1)
