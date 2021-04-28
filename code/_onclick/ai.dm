@@ -188,17 +188,21 @@
 /obj/machinery/door/airlock/AIAltShiftClick(mob/user)  // Sets/Unsets Emergency Access Override
 	if(!ai_control_check(user))
 		return
-	addtimer(CALLBACK(src, /obj/machinery/door/airlock/.proc/toggle_emergency_status, user), 5 SECONDS)
+	toggle_emergency_status(user)
 
 /obj/machinery/door/airlock/AIShiftClick(mob/user)  // Opens and closes doors!
 	if(!ai_control_check(user))
 		return
-	addtimer(CALLBACK(src, /obj/machinery/door/airlock/.proc/open_close, user), 5 SECONDS)
+	open_close(user)
 
 /obj/machinery/door/airlock/AICtrlClick(mob/living/silicon/user) // Bolts doors
 	if(!ai_control_check(user))
 		return
-	addtimer(CALLBACK(src, /obj/machinery/door/airlock/.proc/toggle_bolt, user), 5 SECONDS)
+	if(src.locked )
+		toggle_bolt(user)
+	else
+		addtimer(CALLBACK(src, /obj/machinery/door/airlock/.proc/toggle_bolt, user), 5 SECONDS)
+		to_chat(user, "You send a signal to raise the door bolts of [src].")
 
 /obj/machinery/door/airlock/AIAltClick(mob/living/silicon/user) // Electrifies doors.
 	if(!ai_control_check(user))
@@ -206,15 +210,16 @@
 	if(wires.is_cut(WIRE_ELECTRIFY))
 		to_chat(user, "<span class='warning'>The electrification wire is cut - Cannot electrify the door.</span>")
 	if(isElectrified())
-		addtimer(CALLBACK(src, /obj/machinery/door/airlock/.proc/electrify, 0, user), 5 SECONDS)
+		electrify(0, user, TRUE) // un-shock
 	else
 		addtimer(CALLBACK(src, /obj/machinery/door/airlock/.proc/electrify, -1, user), 5 SECONDS)
+		to_chat(user, "You send a signal to shock [src].")
 
 
 /obj/machinery/door/airlock/AIMiddleClick(mob/living/user) // Toggles door bolt lights.
 	if(!ai_control_check(user))
 		return
-	addtimer(CALLBACK(src, /obj/machinery/door/airlock/.proc/toggle_light, user), 5 SECONDS)
+	toggle_light(user)
 
 // AI-CONTROLLED SLIP GENERATOR IN AI CORE
 
