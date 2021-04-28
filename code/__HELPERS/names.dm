@@ -129,7 +129,7 @@ GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
 	/N
 	*/
 
-/* Quitar si no usan frases en espanol
+/* Quitar si no usan frases en español
 /proc/generate_code_phrase()//Proc is used for phrase and response in master_controller.dm
 
 	var/code_phrase = ""//What is returned when the proc finishes.
