@@ -331,7 +331,8 @@
 		to_chat(L, "<span class='danger'><B>The blast wave from [src] tears you atom from atom!</B></span>")
 		L.dust()
 	to_chat(world, "<B>The AI cleansed the station of life with the doomsday device!</B>")
-	SSticker.force_ending = 1
+	SSticker.force_ending = TRUE
+	SSticker.mode.station_was_nuked = TRUE
 
 //AI Turret Upgrade: Increases the health and damage of all turrets.
 /datum/AI_Module/large/upgrade_turrets
@@ -785,4 +786,3 @@
 /datum/AI_Module/large/cameracrack/upgrade(mob/living/silicon/ai/AI)
 	if(AI.builtInCamera)
 		QDEL_NULL(AI.builtInCamera)
-
