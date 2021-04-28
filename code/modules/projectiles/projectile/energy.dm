@@ -14,7 +14,6 @@
 	hitsound = 'sound/weapons/tase.ogg'
 	range = 7
 	//Damage will be handled on the MOB side, to prevent window shattering.
-	var/apply_stun_delay = 1.5 SECONDS
 
 /obj/item/projectile/energy/electrode/on_hit(atom/target, blocked = 0)
 	. = ..()
@@ -26,8 +25,7 @@
 		if(HAS_TRAIT(C, TRAIT_HULK))
 			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		else if(C.status_flags & CANWEAKEN)
-			spawn(5)
-				electrode_effect(C)
+			electrode_effect(C)
 
 /obj/item/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
 	do_sparks(1, 1, src)

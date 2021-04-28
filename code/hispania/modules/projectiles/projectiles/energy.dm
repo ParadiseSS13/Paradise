@@ -19,3 +19,12 @@
 		if(C.status_flags & CANWEAKEN)
 			spawn(5)
 				C.do_jitter_animation(jitter)
+
+/obj/item/projectile/energy/electrode/proc/electrode_effect(mob/living/carbon/C)
+	C.do_jitter_animation(20)
+	C.stuttering = max(8,C.stuttering)
+	spawn(1.5 SECONDS) // Las cosas que se tienen que hacer por pasar el electrodo a qdelete
+		C.Weaken(5)
+		C.Stun(5)
+		C.do_jitter_animation(20)
+	return TRUE
