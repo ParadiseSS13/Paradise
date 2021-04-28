@@ -2,14 +2,16 @@
  * How to use:
  * Either place the base unique_spawner in the map and define the key_override to determine which spawners belong to one another.
  * Or make a child instance of the unique_spawner and define the values there.
- * When using the base version be sure to define both total_amount and max_per_spawner on only one of the spawners
+ * When using the base version be sure to define both total_amount and max_per_spawner on only one of the spawners.
 ***/
+
+#define GET_KEY key_override ? key_override : type
 
 /obj/effect/spawner/unique_spawner
 	name = "unique spawner"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
-	/// Which path will be used to spawn. Will be used to determine the uniqueness if you use the base unique_spawner type
+	/// Which path will be used to spawn.
 	var/path_to_spawn
 	/// How many will spawn. Set this in the map edit tool or in a child instance to set it for all the other instances.
 	var/total_amount
@@ -18,7 +20,7 @@
 	/// The key of the group spawners this spawner belongs to. Define this for map instances if you want to link different spawners up or want to use the base version.
 	var/key_override
 
-	/// The assoc list of unique spawners. Key = type or key_override, value = list of spawners of that type
+	/// The assoc list of unique spawners. Key = key_override if defined else type, value = list of spawners with that key
 	var/static/list/spawners
 	/// Which spawners are chosen to spawn the objects
 	var/static/list/chosen_spawners
@@ -36,7 +38,7 @@
 	if(!T)
 		CRASH("Spawner placed in nullspace!")
 
-	var/key = get_key_to_use()
+	var/key = GET_KEY
 	if(key == /obj/effect/spawner/unique_spawner) // Not allowed to use the base type as key
 		CRASH("key_override was not set for [src] of type '[type]'")
 
@@ -49,7 +51,7 @@
 
 /obj/effect/spawner/unique_spawner/LateInitialize()
 	..()
-	var/key = get_key_to_use()
+	var/key = GET_KEY
 
 	if(LAZYACCESS(spawners, key) && !LAZYACCESS(chosen_spawners, key)) // Not yet picked the spawners
 		pick_spawners(key)
@@ -65,7 +67,7 @@
 
 /obj/effect/spawner/unique_spawner/Destroy()
 	. = ..()
-	var/key = get_key_to_use()
+	var/key = GET_KEY
 	LAZYREMOVEASSOC(chosen_spawners, key, src)
 	if(!LAZYACCESS(chosen_spawners, key)) // Last instance that uses these values
 		LAZYREMOVE(total_amount_for_spawners, key)
@@ -93,14 +95,6 @@
 	total_amount = total_amount_for_spawners[key]
 	max_per_spawner = max_per_spawner_for_spawners[key]
 
-
-/**
- * Will return which key will be used to determine uniqueness.
- * Will either use key_override if defined or the type of the spawner.
- */
-/obj/effect/spawner/unique_spawner/proc/get_key_to_use()
-	return key_override ? key_override : type
-
 /obj/effect/spawner/unique_spawner/proc/spawn_objects(turf/T, amount)
 	for(var/i in 1 to amount)
 		new path_to_spawn(T)
@@ -127,3 +121,5 @@
 	path_to_spawn = /obj/item/bikehorn/rubberducky
 	max_per_spawner = 2
 	total_amount = 5
+
+#undef GET_KEY
