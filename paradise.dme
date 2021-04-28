@@ -1139,6 +1139,7 @@
 #include "code\game\verbs\who.dm"
 #include "code\hispania\__DEFINES\monkey.dm"
 #include "code\hispania\__HELPERS\cmp.dm"
+#include "code\hispania\__HELPERS\names.dm"
 #include "code\hispania\__HELPERS\unsorted.dm"
 #include "code\hispania\controllers\subsystem\processing\quirks.dm"
 #include "code\hispania\datums\autofiresystem.dm"
