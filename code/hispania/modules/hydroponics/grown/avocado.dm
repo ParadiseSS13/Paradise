@@ -35,7 +35,7 @@
 /obj/item/reagent_containers/food/snacks/grown/avocado/attackby(obj/item/W, mob/user, params)
 	if(is_sharp(W))
 		var/mob/living/carbon/human/H = user
-		if(prob(5))
+		if(prob(20))
 			var/picked_hand = pick("l_hand", "r_hand")
 			var/obj/item/organ/external/M = H.get_organ(picked_hand)
 			if (prob(99))
