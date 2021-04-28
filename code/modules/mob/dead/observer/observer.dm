@@ -408,7 +408,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(choice == "Yes")
 		to_chat(src, "<span class='boldnotice'>Do Not Revive state enabled.</span>")
 		can_reenter_corpse = FALSE
-		mind.current.med_hud_set_status()
+		if(!QDELETED(mind.current)) // Could change while they're choosing
+			mind.current.med_hud_set_status()
 
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"

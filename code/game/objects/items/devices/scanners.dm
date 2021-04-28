@@ -130,24 +130,29 @@ REAGENT SCANNER
 	var/TX = H.getToxLoss() > 50 	? 	"<b>[H.getToxLoss()]</b>" 		: H.getToxLoss()
 	var/BU = H.getFireLoss() > 50 	? 	"<b>[H.getFireLoss()]</b>" 		: H.getFireLoss()
 	var/BR = H.getBruteLoss() > 50 	? 	"<b>[H.getBruteLoss()]</b>" 	: H.getBruteLoss()
-	if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
-		OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
-		to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: Dead</span>")
-	else
-		var/mob/dead/observer/ghost = H.get_ghost(TRUE)
-		if(ghost && !ghost.can_reenter_corpse)
-			to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: Dead <b>\[DNR]</b></span>")
-		else
-			to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: [H.stat > 1 ? "Dead" : "[H.health]% Healthy"]</span>")
 
+	var/status = "<font color='red'>Dead</font>" // Dead by default to make it simpler
+	var/mob/dead/observer/ghost = H.get_ghost(TRUE)
+	var/DNR = (ghost && !ghost.can_reenter_corpse)
+	if(H.stat == DEAD && DNR)
+		status = "<font color='red'>Dead <b>\[DNR]</b></font>"
+	else // Alive or unconscious
+		if(HAS_TRAIT(H, TRAIT_FAKEDEATH)) // status still shows as "Dead"
+			OX = fake_oxy > 50 ? "<b>[fake_oxy]</b>" : fake_oxy
+		else
+			status = "[H.health]% Healthy"
+
+	to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: [status]")
 	to_chat(user, "\t Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>")
 	to_chat(user, "\t Damage Specifics: <font color='blue'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
 	to_chat(user, "<span class='notice'>Body Temperature: [H.bodytemperature-T0C]&deg;C ([H.bodytemperature*1.8-459.67]&deg;F)</span>")
 	if(H.timeofdeath && (H.stat == DEAD || (HAS_TRAIT(H, TRAIT_FAKEDEATH))))
 		to_chat(user, "<span class='notice'>Time of Death: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]</span>")
 		var/tdelta = round(world.time - H.timeofdeath)
-		if(tdelta < DEFIB_TIME_LIMIT)
+		if(tdelta < DEFIB_TIME_LIMIT && !DNR)
 			to_chat(user, "<span class='danger'>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</span>")
+		else
+			to_chat(user, "<font color='red'>Subject died [DisplayTimeText(tdelta)] ago.</font>")
 
 	if(mode == 1)
 		var/list/damaged = H.get_damaged_organs(1,1)

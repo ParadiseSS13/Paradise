@@ -771,13 +771,14 @@
 	if(iscarbon(M))
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
+				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
+					M.delayed_gib()
+					return
 				var/mob/dead/observer/ghost = M.get_ghost(TRUE)
 				if(ghost && !ghost.can_reenter_corpse) // DNR or AntagHUD
 					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
 					return
-				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
-					M.delayed_gib()
-					return
+
 				if(!M.suiciding && !HAS_TRAIT(M, TRAIT_HUSK) && !HAS_TRAIT(M, TRAIT_BADDNA))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
