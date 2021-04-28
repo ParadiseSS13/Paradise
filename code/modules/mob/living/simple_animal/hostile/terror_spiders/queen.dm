@@ -99,7 +99,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/death(gibbed)
 	if(can_die() && !hasdied)
 		if(spider_uo71)
-			UnlockBlastDoors("UO71_Caves", z)
+			unlock_blastdoors("UO71_Caves", z)
 		// When a queen (or subtype!) dies, so do all of her spiderlings, and half of all her fully grown offspring
 		// This feature is intended to provide a way for crew to still win even if the queen has overwhelming numbers - by sniping the queen.
 		for(var/thing in GLOB.ts_spiderlist)

@@ -342,13 +342,14 @@
 	var/activation_msg = "<span class='notice'>The button briefly activates, then sparks and breaks.</span>"
 
 /obj/machinery/door_control/away/button_single_use/attack_hand(mob/user)
-	if(allowed(user) && (wires & 1) && !beenused)
-		..()
-		beenused = TRUE
-		stat = BROKEN
-		playsound(get_turf(src), "sparks", 100, TRUE)
-		do_sparks(3, 1, src)
-		to_chat(user, activation_msg)
+	..()
+	if(!allowed(user) || !(wires & 1) || beenused)
+		return
+	beenused = TRUE
+	stat = BROKEN
+	playsound(get_turf(src), "sparks", 100, TRUE)
+	do_sparks(3, 1, src)
+	to_chat(user, activation_msg)
 
 /obj/machinery/door_control/away/button_single_use/dsbssigma_lockdown_random
 	name = "Emergency Lockdown Control"
@@ -585,7 +586,7 @@
 	brute_damage = 1000
 	name = "William Simmons"
 	mob_name = "William Simmons"
-	gender = "male"
+	gender = MALE
 	hair_style = "cut"
 	facial_hair_style = "shaved"
 	uniform = /obj/item/clothing/under/syndicate
@@ -597,7 +598,7 @@
 	brute_damage = 1000
 	name = "Xiu Yao"
 	mob_name = "Xiu Yao"
-	gender = "male"
+	gender = MALE
 	hair_style = "bald"
 	facial_hair_style = "gt"
 	uniform = /obj/item/clothing/under/syndicate
@@ -694,7 +695,7 @@
 /mob/living/simple_animal/hostile/alien/queen/large/dsbssigma/death()
 	if(can_die() && !hasdied)
 		hasdied = TRUE
-		UnlockBlastDoors("dsbss_overseersquarters_blast", z)
+		unlock_blastdoors("dsbss_overseersquarters_blast", z)
 		for(var/mob/M in GLOB.player_list)
 			if(M.z == z)
 				to_chat(M, "<span class='notice'>You hear a distant sound of a blast door opening.</span>")
