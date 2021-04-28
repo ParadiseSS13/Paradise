@@ -520,3 +520,6 @@ RESPAWN_DELAY_DRONE 10
 
 ## Disable splitting logs by Round_ID.
 #FULL_DAY_LOGS
+
+# Allow head to departments to assign civilian to his departament around Head of Personal
+#ALLOW_HEAD_OF_DEPARTAMENTS_ASSIGN_CIVILIAN
