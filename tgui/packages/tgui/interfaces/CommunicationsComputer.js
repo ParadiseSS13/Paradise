@@ -96,7 +96,7 @@ export const CommunicationsComputer = (props, context) => {
         key={slevel.name}
         icon={slevel.icon}
         content={slevel.name}
-        disabled={!data.authcapt
+        disabled={!data.authhead
           || slevel.id === data.security_level}
         onClick={() => act('newalertlevel', { level: slevel.id })} />
     );

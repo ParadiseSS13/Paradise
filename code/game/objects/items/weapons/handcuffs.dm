@@ -33,7 +33,7 @@
 		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
 		apply_cuffs(user, user)
 		return
-
+	monkey_retaliation(C, user)
 	cuff(C, user)
 
 /obj/item/restraints/handcuffs/proc/cuff(mob/living/carbon/C, mob/user, remove_src = TRUE)

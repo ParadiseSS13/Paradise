@@ -38,7 +38,10 @@
 	burn_mod = 1.5
 
 /datum/species/monkey/handle_npc(mob/living/carbon/human/H)
-	if(H.stat != CONSCIOUS)
+	if(H.incapacitated(TRUE, TRUE) || !H.canmove)
+		walk_to(H,0)
+		return
+	if(H.handle_combat())
 		return
 	if(prob(33) && H.canmove && isturf(H.loc) && !H.pulledby) //won't move if being pulled
 		step(H, pick(GLOB.cardinal))

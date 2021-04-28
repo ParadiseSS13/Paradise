@@ -64,7 +64,7 @@
 		L = target
 		if(!L.can_inject(user, TRUE))
 			return
-
+	monkey_retaliation(target, user)
 	switch(mode)
 		if(SYRINGE_DRAW)
 

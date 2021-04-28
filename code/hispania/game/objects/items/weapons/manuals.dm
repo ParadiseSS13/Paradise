@@ -117,3 +117,51 @@
 			<h1><a name="Notas"><B>Notas finales</B></a></h1><BR>
 			Peque�a pero muy esperada primera edici�n de Recetas Hispanas! Para chefs profesionales y bartender refinados, no olvid�n que la versi�n extendida de nuestro libro ya se encuentra en preventa, y estar� disponidble en su biblioteca mas cercana muy pronto.<BR>
 			"}
+
+/obj/item/book/manual/how_to_goliath
+	name = "How to Tame: The Goliath"
+	icon_state = "book1"
+	author = "Zunxao Quumqr, Nanotrasen Research and Mining Specialist"
+	title = "How to Tame: The Goliath"
+
+	dat = {"<center><b>Taming guide of the giant of the fiery wasteland, The Goliath.</b></center></br></br>
+
+			Trying your luck with a goliath? Well, this book is for you, this guide on how to tame those savage beasts will guide you in every step of making a bond with the goliath.</br></br>
+
+			<center><b>Things that you need to prepare before even attempting this feat.</b></center></br></br>
+
+			1. First of all, a good quantity of monster meat, basically giant spider meat OR goliath meat, yes they are cannibals.</br></br>
+
+			2. Any type of lavalands flora.</br></br>
+
+			3. Legion cores, spent ones work too but with a diminished effect.</br></br>
+
+			4. Diamonds, not processed ones, just rough diamond ore.</br></br>
+
+			5. Biological organs, yes, you read that correctly, organs, you can harvest them from the bodies that legions drop when they are killed.</br></br>
+
+			<center><b>Everything ready? Alright lets go tame some babies.</b></center></br></br>
+
+			1. You need to locate a baby goliath or a sub-adult one. Adult ones wont work and will never go passive.</br></br>
+
+			2. Next you will need to feed the goliath the monster meat till they stop attacking you.</br></br>
+
+			3. After they become passive you will need to see what they want, examine them. Then feed him what he wants.</br></br>
+
+				- If he wants something refreshing feed him a legion core.</br></br>
+
+				- If he wants something envigorating feed him the plants.</br></br>
+
+				- If he wants something crunchy feed him one diamond ore. JUST ONE!</br></br>
+
+				- If he wants something soft feed him one organ.</br></br>
+
+			4. Continue feeding him till he becomes your pet. If something fails when he gets sentience, repeat till he becomes sentient.</br></br>
+
+			5. Profit.</br></br>
+
+			Optional: If you feed him dragon blood something special will happen :)</br></br>
+
+			- Zunxao Quumqr</br>
+
+			"}
