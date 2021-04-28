@@ -1,6 +1,6 @@
 /// Ties by Danaleja2005 ///
 
-/obj/item/clothing/accessory/blue1
+/obj/item/clothing/accessory/blue_alt
 	name = "blue striped tie"
 	desc = "A blue striped tie made of silk. Made by D&N Corp."
 	icon = 'icons/hispania/obj/clothing/ties.dmi'
@@ -13,7 +13,7 @@
 		"Grey" = 'icons/hispania/mob/species/grey/ties.dmi' 
 	)
 
-/obj/item/clothing/accessory/red1
+/obj/item/clothing/accessory/red_alt
 	name = "red striped tie"
 	desc = "A red striped tie made of silk. Made by D&N Corp."
 	icon = 'icons/hispania/obj/clothing/ties.dmi'
