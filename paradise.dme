@@ -1183,6 +1183,7 @@
 #include "code\hispania\game\objects\items\divices\binoculars.dm"
 #include "code\hispania\game\objects\items\divices\whistle.dm"
 #include "code\hispania\game\objects\items\divices\radio\radio.dm"
+#include "code\hispania\game\objects\items\divices\stacks\medical.dm"
 #include "code\hispania\game\objects\items\miscellaneous\barrel.dm"
 #include "code\hispania\game\objects\items\miscellaneous\bell.dm"
 #include "code\hispania\game\objects\items\miscellaneous\noose.dm"
