@@ -35,6 +35,7 @@
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
 	var/list/restricted_species
+	var/pb_knockback = 0
 
 	var/spread = 0
 	var/randomspread = 1
@@ -117,6 +118,10 @@
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
+	if(pointblank && pb_knockback > 0 && ismob(target))
+		var/atom/throw_target = get_edge_target_turf(target, user.dir)
+		var/atom/movable/targett = target
+		targett.throw_at(throw_target, pb_knockback, 2)
 	if(recoil)
 		shake_camera(user, recoil + 1, recoil)
 
