@@ -141,6 +141,10 @@
 	user.visible_message("<span class='notice'> [user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>", \
 		"<span class='notice'> You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>")
 	affected.open = 3
+	if(affected.status &= ORGAN_BROKEN)
+		affected.status &= ~ORGAN_BURNT
+		affected.brute_mod /= 1.2
+		affected.burn_mod /= 1.2
 
 	return 1
 

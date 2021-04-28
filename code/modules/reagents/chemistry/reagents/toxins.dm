@@ -1262,3 +1262,37 @@
 
 /datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=REAGENT_TOUCH, reac_volume)
 	L.ForceContractDisease(new /datum/disease/transformation/morph())
+
+/datum/reagent/burn_toxin
+	name = "Necrotic Tissue"
+	id = "burn_toxin"
+	description = "A horrible black sludge made from decaying tissues. Causes a horrible effects if left to build up in someones body."
+	reagent_state = LIQUID
+	color = COLOR_BLOOD_MACHINE
+	can_synth = FALSE
+	taste_description = "decay"
+	metabolization_rate = 5 // 100u full of this stuff from a sleepypen doesn't sound too fun
+
+/datum/reagent/burn_toxin/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(volume < 15)
+		return ..() | update_flags // you can go a while with a burn before toxins set in
+	else if(volume < 30)
+		update_flags |= M.adjustToxLoss(0.5, FALSE)
+	else if(volume < 40)
+		update_flags |= M.adjustToxLoss(0.5, FALSE)
+		if(prob(10))
+			M.Confused(5)
+			M.EyeBlurry(10, FALSE)
+			to_chat(M, "<span class='warning'> You feel confused and tired!</span>")
+	else
+		update_flags |= M.adjustToxLoss(2, FALSE)
+		update_flags |= M.EyeBlurry(6, FALSE)
+		if(prob(10))
+			M.Weaken(5)
+			to_chat(M, "<span class='warning'> You feel extremely weak</span>")
+			if(iscarbon(M))
+				var/mob/living/carbon/C = M
+				C.vomit()
+	return ..() | update_flags
+
