@@ -103,7 +103,7 @@
 	name = "Hand Made Splint"
 	result = list(/obj/item/stack/medical/splint/hand_made)
 	time = 30
-	reqs = list(/obj/item/stack/cable_coil = 2,
-		        /obj/item/stack/tape_roll = 5,
-		        /obj/item/stack/rods = 5)
+	reqs = list(/obj/item/stack/cable_coil = 10,
+		        /obj/item/stack/tape_roll = 15,
+		        /obj/item/stack/rods = 20)
 	category = CAT_PRIMAL
