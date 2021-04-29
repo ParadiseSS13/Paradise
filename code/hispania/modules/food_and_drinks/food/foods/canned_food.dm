@@ -25,6 +25,7 @@
 /obj/item/reagent_containers/food/snacks/canned_food/attack(mob/M, mob/user, proximity)
 	if(sealed)
 		to_chat(user, "<span class='notice'>You need to open the can!</span>")
+		antable = TRUE
 		return
 	return ..()
 
