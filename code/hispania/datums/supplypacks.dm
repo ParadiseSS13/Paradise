@@ -52,6 +52,6 @@
 					/obj/item/reagent_containers/food/snacks/canned_food/beans,
 					/obj/item/reagent_containers/food/snacks/canned_food/tomato,
 					/obj/item/reagent_containers/food/snacks/canned_food/spinach,
-					/obj/item/reagent_containers/food/snacks/canned_food/true)
+					/obj/item/reagent_containers/food/snacks/canned_food/caviar)
 	cost = 20
 	containername = "canned food crate"
