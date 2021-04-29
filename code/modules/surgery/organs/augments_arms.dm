@@ -382,7 +382,7 @@
 			break
 		A.charging = 1
 		if(A.cell.charge >= 500)
-			H.adjust_nutrition(20)
+			H.adjust_nutrition(50)
 			A.cell.charge -= 500
 			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
 		else
