@@ -110,6 +110,7 @@
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(prob(10))
 				E.mend_fracture()
+				E.fix_severe_burn()
 
 /obj/item/gun/medbeam/proc/on_beam_release(mob/living/target)
 	return

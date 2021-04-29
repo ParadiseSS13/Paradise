@@ -29,7 +29,6 @@
 	var/disfigured = 0
 	var/cannot_amputate
 	var/cannot_break
-	var/cannot_burn
 	var/s_tone = null
 	var/s_col = null // If this is instantiated, it should be a hex value.
 	var/list/child_icons = list()
@@ -292,9 +291,7 @@ This function completely restores a damaged organ to perfect condition.
 /obj/item/organ/external/rejuvenate()
 	damage_state = "00"
 	surgeryize()
-	if(status == ORGAN_BURNT)
-		burn_mod /= BURN_WOUND_DAMAGE_MOD
-		brute_mod /= BURN_WOUND_DAMAGE_MOD
+	fix_severe_burn()
 	if(is_robotic())	//Robotic organs stay robotic.
 		status = ORGAN_ROBOT
 	else
@@ -651,7 +648,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return TRUE
 
 /obj/item/organ/external/proc/severe_burn()
-	if(status & ORGAN_BURNT || is_robotic() || cannot_burn)
+	if(status & ORGAN_BURNT || is_robotic() || ((NO_SEVERE_BURN) in owner.dna.species.species_traits))
 		return
 	if(owner)
 		owner.visible_message(
@@ -666,6 +663,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 	perma_injury = burn_dam
 	burn_mod *= BURN_WOUND_DAMAGE_MOD
 	brute_mod *= BURN_WOUND_DAMAGE_MOD
+
+/obj/item/organ/external/proc/fix_severe_burn()
+	if(is_robotic())
+		return
+
+	if(!(status &= ORGAN_BURNT))
+		return
+	status &= ~ORGAN_BURNT
+	brute_mod /= BURN_WOUND_DAMAGE_MOD
+	burn_mod /= BURN_WOUND_DAMAGE_MOD
+	perma_injury = 0
 
 /obj/item/organ/external/robotize(company, make_tough = 0, convert_all = 1)
 	..()
@@ -682,7 +690,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(company && istext(company))
 		set_company(company)
-	cannot_burn = TRUE
 	cannot_break = TRUE
 	get_icon()
 	for(var/obj/item/organ/external/T in children)
