@@ -1266,7 +1266,7 @@
 /datum/reagent/burn_toxin
 	name = "Necrotic Tissue"
 	id = "burn_toxin"
-	description = "A horrible black sludge made from decaying tissues. Causes a horrible effects if left to build up in someones body."
+	description = "A horrible black sludge made from decaying tissues. Causes horrible effects if left to build up in someone's body."
 	reagent_state = LIQUID
 	color = COLOR_BLOOD_MACHINE
 	can_synth = FALSE
@@ -1284,13 +1284,13 @@
 		if(prob(10))
 			M.Confused(5)
 			M.EyeBlurry(10, FALSE)
-			to_chat(M, "<span class='warning'> You feel confused and tired!</span>")
+			to_chat(M, "<span class='warning'>You feel confused and tired!</span>")
 	else
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.EyeBlurry(6, FALSE)
 		if(prob(10))
 			M.Weaken(5)
-			to_chat(M, "<span class='warning'> You feel extremely weak</span>")
+			to_chat(M, "<span class='warning'>You feel extremely weak!</span>")
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M
 				C.vomit()

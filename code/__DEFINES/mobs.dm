@@ -15,6 +15,8 @@
 #define DROPLIMB_BLUNT 1
 #define DROPLIMB_BURN 2
 
+#define BURN_WOUND_DAMAGE_MOD 1.2
+
 //Mob bio-types flags
 #define MOB_ORGANIC 	(1 << 0)
 #define MOB_MINERAL		(1 << 1)

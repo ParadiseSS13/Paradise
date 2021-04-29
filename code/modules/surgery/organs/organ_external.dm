@@ -1,8 +1,6 @@
 /****************************************************
 				EXTERNAL ORGANS
 ****************************************************/
-#define BURN_WOUND_DAMAGE_MOD 1.2
-
 /obj/item/organ/external
 	name = "external"
 	min_broken_damage = 30
@@ -657,14 +655,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(owner)
 		owner.visible_message(
-			"<span class='warning'>You hear a quiet sizzling sound coming from \the [owner].</span>",
+			"<span class='warning'>You hear a quiet sizzling sound coming from [owner]'s [name].</span>",
 			"<span class='danger'>Your [name] blisters. The skin sloughs off to reveal a horrible burn!</span>",
 			"You hear a slight sizzle.")
 		playsound(owner, 'sound/effects/sizzle.ogg', 150, 1)
 		if(!HAS_TRAIT(owner, TRAIT_NOPAIN))
 			owner.emote("scream")
 	status |= ORGAN_BURNT
-	burn_description = pick("third-degree burn")
+	burn_description = "third-degree burn"
 	perma_injury = burn_dam
 	burn_mod *= BURN_WOUND_DAMAGE_MOD
 	brute_mod *= BURN_WOUND_DAMAGE_MOD
