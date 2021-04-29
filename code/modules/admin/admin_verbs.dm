@@ -24,12 +24,9 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
 	/client/proc/cmd_admin_open_logging_view,
 	/client/proc/getserverlogs,			/*allows us to fetch server logs (diary) for other days*/
-	/client/proc/jumptocoord,			/*we ghost and jump to a coordinate*/
 	/client/proc/Getmob,				/*teleports a mob to our location*/
 	/client/proc/Getkey,				/*teleports a mob with a certain ckey to our location*/
-	/client/proc/Jump,
-	/client/proc/jumptokey,				/*allows us to jump to the location of a mob with a certain ckey*/
-	/client/proc/jumptomob,				/*allows us to jump to a specific mob*/
+	/client/proc/jump_to,				/*Opens a menu for jumping to an Area, Mob, Key or Coordinate*/
 	/client/proc/jumptoturf,			/*allows us to jump to a specific turf*/
 	/client/proc/admin_call_shuttle,	/*allows us to call the emergency shuttle*/
 	/client/proc/admin_cancel_shuttle,	/*allows us to cancel the emergency shuttle, sending it back to centcomm*/
@@ -606,7 +603,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [D].</span>")
 
-/client/proc/make_sound(var/obj/O in view()) // -- TLE
+/client/proc/make_sound(obj/O in view()) // -- TLE
 	set category = "Event"
 	set name = "Make Sound"
 	set desc = "Display a message to everyone who can hear the target"
@@ -635,7 +632,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		togglebuildmode(src.mob)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Build Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/object_talk(var/msg as text) // -- TLE
+/client/proc/object_talk(msg as text) // -- TLE
 	set category = "Event"
 	set name = "oSay"
 	set desc = "Display a message to everyone who can hear the target"
@@ -696,7 +693,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			return
 
 		var/datum/db_query/rank_read = SSdbcore.NewQuery(
-			"SELECT rank FROM [format_table_name("admin")] WHERE ckey=:ckey",
+			"SELECT admin_rank FROM [format_table_name("admin")] WHERE ckey=:ckey",
 			list("ckey" = ckey)
 		)
 
@@ -722,7 +719,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 				return
 
 			var/datum/db_query/admin_read = SSdbcore.NewQuery(
-				"SELECT ckey, rank, flags FROM [format_table_name("admin")] WHERE ckey=:ckey",
+				"SELECT ckey, admin_rank, flags FROM [format_table_name("admin")] WHERE ckey=:ckey",
 				list("ckey" = ckey)
 			)
 
@@ -987,7 +984,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	to_chat(T, "<span class='notice'><b><font size=3>Man up and deal with it.</font></b></span>")
 	to_chat(T, "<span class='notice'>Move on.</span>")
-	T << 'sound/voice/manup1.ogg'
+	SEND_SOUND(T, sound('sound/voice/manup1.ogg'))
 
 	log_admin("[key_name(usr)] told [key_name(T)] to man up and deal with it.")
 	message_admins("[key_name_admin(usr)] told [key_name(T)] to man up and deal with it.")
@@ -1003,9 +1000,10 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	var/confirm = alert("Are you sure you want to send the global message?", "Confirm Man Up Global", "Yes", "No")
 
 	if(confirm == "Yes")
-		for(var/mob/T as mob in GLOB.mob_list)
-			to_chat(T, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
-			T << 'sound/voice/manup1.ogg'
+		var/manned_up_sound = sound('sound/voice/manup1.ogg')
+		for(var/sissy in GLOB.player_list)
+			to_chat(sissy, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
+			SEND_SOUND(sissy, manned_up_sound)
 
 		log_admin("[key_name(usr)] told everyone to man up and deal with it.")
 		message_admins("[key_name_admin(usr)] told everyone to man up and deal with it.")

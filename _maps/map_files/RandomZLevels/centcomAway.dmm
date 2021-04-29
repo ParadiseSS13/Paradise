@@ -6513,6 +6513,9 @@
 	icon_state = "dark"
 	},
 /area/awaymission/centcomAway/thunderdome)
+"Cs" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/awaymission/centcomAway/hangar)
 "Di" = (
 /obj/structure/chair{
 	dir = 4
@@ -11774,7 +11777,7 @@ cP
 dA
 cP
 dT
-bx
+Cs
 bx
 bx
 eD

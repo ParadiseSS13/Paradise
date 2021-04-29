@@ -3,7 +3,7 @@
 	var/frequency as num
 	var/list/obj/devices = list()
 
-/datum/radio_frequency/proc/post_signal(obj/source as obj|null, datum/signal/signal, var/filter = null as text|null, var/range = null as num|null)
+/datum/radio_frequency/proc/post_signal(obj/source as obj|null, datum/signal/signal, filter = null as text|null, range = null as num|null)
 	var/turf/start_point
 	if(range)
 		start_point = get_turf(source)
@@ -19,7 +19,7 @@
 			send_to_filter(source, signal, next_filter, start_point, range)
 
 //Sends a signal to all machines belonging to a given filter. Should be called by post_signal()
-/datum/radio_frequency/proc/send_to_filter(obj/source, datum/signal/signal, var/filter, var/turf/start_point = null, var/range = null)
+/datum/radio_frequency/proc/send_to_filter(obj/source, datum/signal/signal, filter, turf/start_point = null, range = null)
 	if(range && !start_point)
 		return
 
@@ -35,7 +35,7 @@
 
 		device.receive_signal(signal, TRANSMISSION_RADIO, frequency)
 
-/datum/radio_frequency/proc/add_listener(obj/device as obj, var/filter as text|null)
+/datum/radio_frequency/proc/add_listener(obj/device as obj, filter as text|null)
 	if(!filter)
 		filter = RADIO_DEFAULT
 	//log_admin("add_listener(device=[device],filter=[filter]) frequency=[frequency]")

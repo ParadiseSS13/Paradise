@@ -29,6 +29,7 @@
 	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST | MOB_REPTILE
 	mob_size = MOB_SIZE_SMALL
 	gold_core_spawnable = FRIENDLY_SPAWN
 	obj_damage = 0

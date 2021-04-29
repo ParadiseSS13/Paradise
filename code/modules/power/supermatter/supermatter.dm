@@ -255,11 +255,11 @@
 /obj/machinery/power/supermatter_crystal/proc/alarm()
 	switch(get_status())
 		if(SUPERMATTER_DELAMINATING)
-			playsound(src, 'sound/misc/bloblarm.ogg', 100, FALSE, 40, 30)
+			playsound(src, 'sound/misc/bloblarm.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 		if(SUPERMATTER_EMERGENCY)
-			playsound(src, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30)
+			playsound(src, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(SUPERMATTER_DANGER)
-			playsound(src, 'sound/machines/engine_alert2.ogg', 100, FALSE, 30, 30)
+			playsound(src, 'sound/machines/engine_alert2.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(SUPERMATTER_WARNING)
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
 
@@ -280,6 +280,10 @@
 	add_overlay(causality_field, TRUE)
 
 	var/speaking = "[emergency_alert] The supermatter has reached critical integrity failure. Emergency causality destabilization field has been activated."
+	for(var/mob/M in GLOB.player_list) // for all players
+		var/turf/T = get_turf(M)
+		if(istype(T) && atoms_share_level(T, src)) // if the player is on the same zlevel as the SM shared
+			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
 	radio.autosay(speaking, name, null, list(z))
 	for(var/i in SUPERMATTER_COUNTDOWN_TIME to 0 step -10)
 		if(damage < explosion_point) // Cutting it a bit close there engineers
@@ -312,10 +316,12 @@
 			L.rad_act(rads)
 
 	var/turf/T = get_turf(src)
-	for(var/mob/M in GLOB.player_list)
+	var/super_matter_charge_sound = sound('sound/magic/charge.ogg')
+	for(var/player in GLOB.player_list)
+		var/mob/M = player
 		var/turf/mob_turf = get_turf(M)
 		if(atoms_share_level(T, mob_turf))
-			SEND_SOUND(M, 'sound/magic/charge.ogg')
+			SEND_SOUND(M, super_matter_charge_sound)
 
 			if(atoms_share_level(M, src))
 				to_chat(M, "<span class='boldannounce'>You feel reality distort for a moment...</span>")
@@ -371,9 +377,9 @@
 	if(last_accent_sound < world.time && prob(20))
 		var/aggression = min(((damage / 800) * (power / 2500)), 1.0) * 100
 		if(damage >= 300)
-			playsound(src, "smdelam", max(50, aggression), FALSE, 40, 30)
+			playsound(src, "smdelam", max(50, aggression), FALSE, 40, 30, falloff_distance = 10, channel = CHANNEL_ENGINE)
 		else
-			playsound(src, "smcalm", max(50, aggression), FALSE, 25, 25)
+			playsound(src, "smcalm", max(50, aggression), FALSE, 25, 25, falloff_distance = 10, channel = CHANNEL_ENGINE)
 		var/next_sound = round((100 - aggression) * 5)
 		last_accent_sound = world.time + max(SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN, next_sound)
 
@@ -562,7 +568,7 @@
 			zap_count += 1
 
 		if(zap_count >= 1)
-			playsound(src.loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10)
+			playsound(src.loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10, channel = CHANNEL_ENGINE)
 			for(var/i in 1 to zap_count)
 				supermatter_zap(src, range, clamp(power*2, 4000, 20000), flags)
 
@@ -632,8 +638,8 @@
 	investigate_log("Supermatter shard consumed by singularity.", "singulo")
 	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
 	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
-	var/supermatter_sound = 'sound/effects/supermatter.ogg'
-	for(var/mob/M in GLOB.player_list)
+	var/supermatter_sound = sound('sound/effects/supermatter.ogg')
+	for(var/M in GLOB.player_list)
 		if(atoms_share_level(M, src))
 			SEND_SOUND(M, supermatter_sound) //everyone goan know bout this
 			to_chat(M, "<span class='boldannounce'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>")
@@ -801,7 +807,7 @@
 	icon_state = "darkmatter"
 
 /obj/machinery/power/supermatter_crystal/proc/supermatter_pull(turf/center, pull_range = 3)
-	playsound(center, 'sound/weapons/marauder.ogg', 100, TRUE, extrarange = pull_range - world.view)
+	playsound(center, 'sound/weapons/marauder.ogg', 100, TRUE, extrarange = pull_range - world.view, channel = CHANNEL_ENGINE)
 	for(var/atom/movable/P in orange(pull_range,center))
 		if((P.anchored || P.move_resist >= MOVE_FORCE_EXTREMELY_STRONG)) //move resist memes.
 			if(istype(P, /obj/structure/closet))
@@ -812,6 +818,10 @@
 			var/mob/M = P
 			if(M.mob_negates_gravity())
 				continue //You can't pull someone nailed to the deck
+			else if(M.buckled)
+				var/atom/movable/buckler = M.buckled
+				if(buckler.unbuckle_mob(M, TRUE))
+					visible_message("<span class='danger'>[src]'s sheer force rips [M] away from [buckler]!</span>")
 		step_towards(P,center)
 
 /obj/machinery/power/supermatter_crystal/proc/supermatter_anomaly_gen(turf/anomalycenter, type = FLUX_ANOMALY, anomalyrange = 5)
