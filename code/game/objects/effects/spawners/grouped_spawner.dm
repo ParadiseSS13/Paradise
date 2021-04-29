@@ -42,7 +42,7 @@
 	if(!T)
 		CRASH("Spawner placed in nullspace!")
 
-	if(!group_id) // Set the group_id if null
+	if(isnull(group_id)) // Set the group_id if null
 		group_id = type
 
 	if(group_id == /obj/effect/spawner/grouped_spawner) // Not allowed to use the base type as group_id
