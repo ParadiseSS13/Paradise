@@ -30,7 +30,7 @@
 	QDEL_NULL(brainmob)
 	return ..()
 
-/obj/item/organ/internal/brain/proc/transfer_identity(var/mob/living/carbon/H)
+/obj/item/organ/internal/brain/proc/transfer_identity(mob/living/carbon/H)
 	brainmob = new(src)
 	if(isnull(dna)) // someone didn't set this right...
 		log_runtime(EXCEPTION("[src] at [loc] did not contain a dna datum at time of removal."), src)
@@ -53,7 +53,7 @@
 	else
 		. += "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
 
-/obj/item/organ/internal/brain/remove(var/mob/living/user,special = 0)
+/obj/item/organ/internal/brain/remove(mob/living/user,special = 0)
 	if(dna)
 		name = "[dna.real_name]'s [initial(name)]"
 
@@ -73,7 +73,7 @@
 		H.update_hair()
 	. = ..()
 
-/obj/item/organ/internal/brain/insert(var/mob/living/target,special = 0)
+/obj/item/organ/internal/brain/insert(mob/living/target,special = 0)
 
 	name = "[initial(name)]"
 	var/brain_already_exists = 0

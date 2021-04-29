@@ -38,7 +38,7 @@
 		Die()
 
 /obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
-	return O.attack_obj(src, user)
+	return O.attack_obj(src, user, params)
 
 /obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
 	return attack_hand(user)
@@ -104,24 +104,23 @@
 
 /obj/item/clothing/mask/facehugger/proc/Attach(mob/living/M)
 	if(!isliving(M))
-		return 0
+		return FALSE
 	if((!iscorgi(M) && !iscarbon(M)) || isalien(M))
-		return 0
+		return FALSE
 	if(attached)
-		return 0
+		return FALSE
 	else
 		attached++
 		spawn(MAX_IMPREGNATION_TIME)
 			attached = 0
-	if(M.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
-		return 0
-	if(M.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
-		return 0
+	if(HAS_TRAIT(M, TRAIT_XENO_IMMUNE))
+		return FALSE
 	if(loc == M)
-		return 0
+		return FALSE
 	if(stat != CONSCIOUS)
-		return 0
-	if(!sterile) M.take_organ_damage(strength,0) //done here so that even borgs and humans in helmets take damage
+		return FALSE
+	if(!sterile)
+		M.take_organ_damage(strength, 0) //done here so that even borgs and humans in helmets take damage
 	M.visible_message("<span class='danger'>[src] leaps at [M]'s face!</span>", \
 						"<span class='userdanger'>[src] leaps at [M]'s face!</span>")
 	if(ishuman(M))
@@ -130,12 +129,12 @@
 			H.visible_message("<span class='danger'>[src] smashes against [H]'s [H.head]!</span>", \
 								"<span class='userdanger'>[src] smashes against [H]'s [H.head]!</span>")
 			Die()
-			return 0
+			return FALSE
 	if(iscarbon(M))
 		var/mob/living/carbon/target = M
 		if(target.wear_mask)
 			if(prob(20))
-				return 0
+				return FALSE
 			if(istype(target.wear_mask, /obj/item/clothing/mask/muzzle))
 				var/obj/item/clothing/mask/muzzle/S = target.wear_mask
 				if(S.do_break())
@@ -143,7 +142,7 @@
 									"<span class='userdanger'>[src] spits acid onto [S] melting the lock!</span>")
 			var/obj/item/clothing/W = target.wear_mask
 			if(W.flags & NODROP)
-				return 0
+				return FALSE
 			target.unEquip(W)
 
 			target.visible_message("<span class='danger'>[src] tears [W] off of [target]'s face!</span>", \
@@ -159,7 +158,7 @@
 	spawn(rand(MIN_IMPREGNATION_TIME,MAX_IMPREGNATION_TIME))
 		Impregnate(M)
 
-	return 1
+	return TRUE
 
 /obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target as mob)
 	if(!target || target.stat == DEAD || loc != target) //was taken off or something
@@ -220,22 +219,22 @@
 
 /proc/CanHug(mob/living/M)
 	if(!istype(M))
-		return 0
+		return FALSE
 	if(M.stat == DEAD)
-		return 0
-	if(M.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
-		return 0
+		return FALSE
+	if(HAS_TRAIT(M, TRAIT_XENO_IMMUNE))
+		return FALSE
 
 	if(iscorgi(M))
-		return 1
+		return TRUE
 
 	var/mob/living/carbon/C = M
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(H.head && H.head.flags_cover & HEADCOVERSMOUTH)
-			return 0
-		return 1
-	return 0
+			return FALSE
+		return TRUE
+	return FALSE
 
 /obj/item/clothing/mask/facehugger/lamarr
 	name = "Lamarr"

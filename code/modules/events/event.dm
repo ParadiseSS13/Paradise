@@ -177,7 +177,7 @@
 	SSevents.active_events -= src
 	SSevents.event_complete(src)
 
-/datum/event/New(var/datum/event_meta/EM)
+/datum/event/New(datum/event_meta/EM)
 	// event needs to be responsible for this, as stuff like APLUs currently make their own events for curious reasons
 	SSevents.active_events += src
 

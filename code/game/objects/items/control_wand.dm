@@ -41,6 +41,10 @@
 
 	to_chat(user, "<span class='notice'>Now in mode: [mode].</span>")
 
+/obj/item/door_remote/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It's current mode is: [mode]</span>"
+
 /obj/item/door_remote/afterattack(obj/machinery/door/airlock/D, mob/user)
 	if(!istype(D))
 		return
