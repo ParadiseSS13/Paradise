@@ -8,6 +8,9 @@
 
 /obj/effect/spawner/lootdrop/New()
 	..()
+	//loot hispa init
+	make_hispa_loot()
+	//loot hispanos end
 	if(loot && loot.len)
 		for(var/i = lootcount, i > 0, i--)
 			if(!loot.len) break
