@@ -2,7 +2,7 @@
 #define BLOODCRAWL     1
 #define BLOODCRAWL_EAT 2
 
-/mob/living/proc/phaseout(var/obj/effect/decal/cleanable/B)
+/mob/living/proc/phaseout(obj/effect/decal/cleanable/B)
 
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
@@ -105,7 +105,7 @@
 	icon = 'icons/effects/blood.dmi'
 	flags = NODROP|ABSTRACT
 
-/mob/living/proc/phasein(var/obj/effect/decal/cleanable/B)
+/mob/living/proc/phasein(obj/effect/decal/cleanable/B)
 
 	if(notransform)
 		to_chat(src, "<span class='warning'>Finish eating first!</span>")

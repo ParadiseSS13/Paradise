@@ -67,7 +67,7 @@
 	if(mind && suiciding)
 		mind.suicided = TRUE
 	reset_perspective(null)
-	clear_fullscreens()
+	hud_used?.reload_fullscreen()
 	update_sight()
 	update_action_buttons_icon()
 
@@ -77,13 +77,6 @@
 	med_hud_set_status()
 	if(!gibbed && !QDELETED(src))
 		addtimer(CALLBACK(src, .proc/med_hud_set_status), DEFIB_TIME_LIMIT + 1)
-
-	for(var/s in ownedSoullinks)
-		var/datum/soullink/S = s
-		S.ownerDies(gibbed, src)
-	for(var/s in sharedSoullinks)
-		var/datum/soullink/S = s
-		S.sharerDies(gibbed, src)
 
 	if(!gibbed)
 		update_canmove()
@@ -104,8 +97,6 @@
 
 	if(SSticker && SSticker.mode)
 		SSticker.mode.check_win()
-	if(mind && mind.devilinfo) // Expand this into a general-purpose death-response system when appropriate
-		mind.devilinfo.beginResurrectionCheck(src)
 
 	// u no we dead
 	return TRUE

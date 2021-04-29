@@ -19,13 +19,14 @@
 	range = 7
 	//Damage will be handled on the MOB side, to prevent window shattering.
 
-/obj/item/projectile/energy/electrode/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/energy/electrode/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
 		do_sparks(1, 1, src)
 	else if(iscarbon(target))
 		var/mob/living/carbon/C = target
-		if(HULK in C.mutations)
+		SEND_SIGNAL(C, COMSIG_LIVING_MINOR_SHOCK, 33)
+		if(HAS_TRAIT(C, TRAIT_HULK))
 			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		else if(C.status_flags & CANWEAKEN)
 			spawn(5)

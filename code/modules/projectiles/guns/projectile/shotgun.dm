@@ -57,7 +57,7 @@
 	if(chambered)//We have a shell in the chamber
 		chambered.loc = get_turf(src)//Eject casing
 		chambered.SpinAnimation(5, 1)
-		playsound(src, chambered.drop_sound, 60, 1)
+		playsound(src, chambered.casing_drop_sound, 60, 1)
 		chambered = null
 
 /obj/item/gun/projectile/shotgun/proc/pump_reload(mob/M)
@@ -105,7 +105,7 @@
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
-			afterattack(user, user)
+			process_fire(user, user)
 			user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
 			return
 		else

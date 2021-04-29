@@ -2,7 +2,7 @@
 	Everything karma related is here.
 	Part of karma purchase is handled in client_procs.dm	*/
 
-/proc/sql_report_karma(var/mob/spender, var/mob/receiver)
+/proc/sql_report_karma(mob/spender, mob/receiver)
 	var/receiverrole = "None"
 	var/receiverspecial = "None"
 
@@ -142,7 +142,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 	spend_karma(pickedmob)
 
-/mob/verb/spend_karma(var/mob/M)
+/mob/verb/spend_karma(mob/M)
 	set name = "Award Karma to Player"
 	set desc = "Let the gods know whether someone's been nice. Can only be used once per round."
 	set category = "Special Verbs"
@@ -361,7 +361,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	popup.open(0)
 
 //Checks if can afford, what you're purchasing, then purchases. (used in client_procs.dm)
-/client/proc/karma_purchase(var/karma = 0, var/price = 1, var/category, var/name, var/DBname = null)
+/client/proc/karma_purchase(karma = 0, price = 1, category, name, DBname = null)
 	if(karma < price)
 		to_chat(usr, "You do not have enough karma!")
 		return
@@ -379,7 +379,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		DB_species_unlock(name,price)
 		karmashopmenu()
 
-/client/proc/DB_job_unlock(var/job,var/cost)
+/client/proc/DB_job_unlock(job, cost)
 	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT ckey, job FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
@@ -430,7 +430,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			to_chat(usr, "You already have this job unlocked!")
 			return
 
-/client/proc/DB_species_unlock(var/species,var/cost)
+/client/proc/DB_species_unlock(species, cost)
 	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT ckey, species FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
@@ -479,7 +479,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			to_chat(usr, "You already have this species unlocked!")
 			return
 
-/client/proc/karmacharge(var/cost,var/refund = FALSE)
+/client/proc/karmacharge(cost, refund = FALSE)
 	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey=:ckey", list(
 		"ckey" = ckey
 	))
@@ -508,7 +508,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			qdel(update_query)
 			return
 
-/client/proc/karmarefund(var/type,var/name,var/cost)
+/client/proc/karmarefund(type, name, cost)
 	switch(name)
 		if("Tajaran Ambassador","Unathi Ambassador","Skrell Ambassador","Diona Ambassador","Kidan Ambassador",
 		"Slime People Ambassador","Grey Ambassador","Vox Ambassador","Customs Officer")
@@ -570,7 +570,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	else
 		to_chat(usr, "<span class='warning'>Your ckey ([dbckey]) was not found.</span>")
 
-/client/proc/checkpurchased(var/name = null) // If the first parameter is null, return a full list of purchases
+/client/proc/checkpurchased(name = null) // If the first parameter is null, return a full list of purchases
 	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, job, species FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))

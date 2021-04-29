@@ -6,6 +6,7 @@
 	icon_living = "cat2"
 	icon_dead = "cat2_dead"
 	gender = MALE
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	maxHealth = 20
 	health = 20
 	melee_damage_lower = 10

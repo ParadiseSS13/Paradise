@@ -14,6 +14,10 @@ if grep -P 'step_[xy]' _maps/**/*.dmm;	then
     echo "ERROR: step_x/step_y variables detected in maps, please remove them."
     st=1
 fi;
+if grep -P '^/[\w/]\S+\(.*(var/|, ?var/.*).*\)' code/**/*.dm; then
+    echo "changed files contains proc argument starting with 'var'"
+    st=1
+fi;
 if grep -P '^/*var/' code/**/*.dm; then
     echo "ERROR: Unmanaged global var use detected in code, please use the helpers."
     st=1

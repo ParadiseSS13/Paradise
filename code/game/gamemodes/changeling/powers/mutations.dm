@@ -21,7 +21,7 @@
 	var/weapon_type
 	var/weapon_name_simple
 
-/datum/action/changeling/weapon/try_to_sting(var/mob/user, var/mob/target)
+/datum/action/changeling/weapon/try_to_sting(mob/user, mob/target)
 	if(istype(user.l_hand, weapon_type)) //Not the nicest way to do it, but eh
 		qdel(user.l_hand)
 		if(!silent)
@@ -36,7 +36,7 @@
 		return
 	..(user, target)
 
-/datum/action/changeling/weapon/sting_action(var/mob/user)
+/datum/action/changeling/weapon/sting_action(mob/user)
 	if(!user.drop_item())
 		to_chat(user, "The [user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return
@@ -60,7 +60,7 @@
 	var/recharge_slowdown = 0
 	var/blood_on_castoff = 0
 
-/datum/action/changeling/suit/try_to_sting(var/mob/user, var/mob/target)
+/datum/action/changeling/suit/try_to_sting(mob/user, mob/target)
 	var/datum/changeling/changeling = user.mind.changeling
 	if(!ishuman(user) || !changeling)
 		return
@@ -84,7 +84,7 @@
 		return
 	..(H, target)
 
-/datum/action/changeling/suit/sting_action(var/mob/living/carbon/human/user)
+/datum/action/changeling/suit/sting_action(mob/living/carbon/human/user)
 	if(!user.unEquip(user.wear_suit))
 		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
 		return
@@ -358,7 +358,7 @@
 	weapon_type = /obj/item/shield/changeling
 	weapon_name_simple = "shield"
 
-/datum/action/changeling/weapon/shield/sting_action(var/mob/user)
+/datum/action/changeling/weapon/shield/sting_action(mob/user)
 	var/datum/changeling/changeling = user.mind.changeling //So we can read the absorbedcount.
 	if(!changeling)
 		return

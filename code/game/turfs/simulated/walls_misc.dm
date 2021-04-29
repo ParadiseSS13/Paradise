@@ -11,7 +11,7 @@
 
 /turf/simulated/wall/cult/Initialize(mapload)
 	. = ..()
-	if(SSticker.mode)//game hasn't started offically don't do shit..
+	if(SSticker.mode)//game hasn't started officially don't do shit..
 		new /obj/effect/temp_visual/cult/turf(src)
 		icon_state = SSticker.cultdat.cult_wall_icon_state
 

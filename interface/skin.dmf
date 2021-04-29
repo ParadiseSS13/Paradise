@@ -115,6 +115,15 @@ menu "menu"
 		can-check = true
 		saved-params = "is-checked"
 	elem
+		name = "&Volume"
+		command = ""
+		saved-params = "is-checked"
+	elem
+		name = "&Open Volume Mixer"
+		command = "Open-Volume-Mixer"
+		category = "&Volume"
+		saved-params = "is-checked"
+	elem
 		name = "&Help"
 		command = ""
 		saved-params = "is-checked"

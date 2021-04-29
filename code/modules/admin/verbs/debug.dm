@@ -171,7 +171,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	return usr && usr.client && GLOB.AdminProcCaller == usr.client.ckey
 #endif
 
-/client/proc/callproc_datum(var/A as null|area|mob|obj|turf)
+/client/proc/callproc_datum(A as null|area|mob|obj|turf)
 	set category = null
 	set name = "Atom ProcCall"
 
@@ -284,7 +284,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	usr.show_message(t, 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status (Location)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_robotize(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_robotize(mob/M in GLOB.mob_list)
 	set category = "Event"
 	set name = "Make Robot"
 
@@ -302,7 +302,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else
 		alert("Invalid mob")
 
-/client/proc/cmd_admin_animalize(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_animalize(mob/M in GLOB.mob_list)
 	set category = "Event"
 	set name = "Make Simple Animal"
 
@@ -326,7 +326,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		M.Animalize()
 
 
-/client/proc/makepAI(var/turf/T in GLOB.mob_list)
+/client/proc/makepAI(turf/T in GLOB.mob_list)
 	set category = "Event"
 	set name = "Make pAI"
 	set desc = "Specify a location to spawn a pAI device, then specify a key to play that pAI"
@@ -362,7 +362,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			GLOB.paiController.pai_candidates.Remove(candidate)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make pAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_alienize(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_alienize(mob/M in GLOB.mob_list)
 	set category = "Event"
 	set name = "Make Alien"
 
@@ -382,7 +382,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else
 		alert("Invalid mob")
 
-/client/proc/cmd_admin_slimeize(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_slimeize(mob/M in GLOB.mob_list)
 	set category = "Event"
 	set name = "Make slime"
 
@@ -402,7 +402,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else
 		alert("Invalid mob")
 
-/client/proc/cmd_admin_super(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_super(mob/M in GLOB.mob_list)
 	set category = "Event"
 	set name = "Make Superhero"
 
@@ -455,7 +455,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	message_admins("[key_name_admin(src)] has remade the powernets. makepowernets() called.", 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Powernets") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_grantfullaccess(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_grantfullaccess(mob/M in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Grant Full Access"
 
@@ -489,7 +489,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_admin("[key_name(src)] has granted [M.key] full access.")
 	message_admins("<span class='notice'>[key_name_admin(usr)] has granted [M.key] full access.</span>", 1)
 
-/client/proc/cmd_assume_direct_control(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_assume_direct_control(mob/M in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Assume direct control"
 	set desc = "Direct intervention"
@@ -845,19 +845,19 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	usr << browse(dat, "window=simpledellog")
 
-/client/proc/cmd_admin_toggle_block(var/mob/M,var/block)
+/client/proc/cmd_admin_toggle_block(mob/M, block)
 	if(!check_rights(R_SPAWN))
 		return
 
 	if(!SSticker)
 		alert("Wait until the game starts")
 		return
-	if(istype(M, /mob/living/carbon))
+	if(ishuman(M))
 		M.dna.SetSEState(block,!M.dna.GetSEState(block))
-		genemutcheck(M,block,null,MUTCHK_FORCED)
+		singlemutcheck(M, block, MUTCHK_FORCED)
 		M.update_mutations()
-		var/state="[M.dna.GetSEState(block)?"on":"off"]"
-		var/blockname=GLOB.assigned_blocks[block]
+		var/state = "[M.dna.GetSEState(block) ? "on" : "off"]"
+		var/blockname = GLOB.assigned_blocks[block]
 		message_admins("[key_name_admin(src)] has toggled [M.key]'s [blockname] block [state]!")
 		log_admin("[key_name(src)] has toggled [M.key]'s [blockname] block [state]!")
 	else

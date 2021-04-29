@@ -27,7 +27,7 @@
 	point_rate = new_rate
 
 
-/obj/structure/blob/core/adjustcolors(var/a_color)
+/obj/structure/blob/core/adjustcolors(a_color)
 	overlays.Cut()
 	color = null
 	var/image/I = new('icons/mob/blob.dmi', "blob")

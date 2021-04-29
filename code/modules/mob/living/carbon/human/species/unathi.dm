@@ -2,7 +2,6 @@
 	name = "Unathi"
 	name_plural = "Unathi"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
-	deform = 'icons/mob/human_races/r_def_lizard.dmi'
 	language = "Sinta'unathi"
 	tail = "sogtail"
 	skinned_type = /obj/item/stack/sheet/animalhide/lizard
@@ -16,6 +15,7 @@
 	their native tongue is a heavy hissing laungage called Sinta'Unathi."
 
 	species_traits = list(LIPS)
+	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_REPTILE
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING
 	dietflags = DIET_CARN
@@ -117,4 +117,4 @@
 	default_language = "Sinta'unathi"
 
 	speed_mod = -0.80
-	species_traits = list(NO_BREATHE, NOGUNS)
+	inherent_traits = list(TRAIT_CHUNKYFINGERS, TRAIT_NOBREATH)
