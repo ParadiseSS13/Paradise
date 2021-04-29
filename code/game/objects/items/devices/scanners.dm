@@ -134,8 +134,9 @@ REAGENT SCANNER
 	var/status = "<font color='red'>Dead</font>" // Dead by default to make it simpler
 	var/mob/dead/observer/ghost = H.get_ghost(TRUE)
 	var/DNR = (ghost && !ghost.can_reenter_corpse)
-	if(H.stat == DEAD && DNR)
-		status = "<font color='red'>Dead <b>\[DNR]</b></font>"
+	if(H.stat == DEAD)
+		if(DNR)
+			status = "<font color='red'>Dead <b>\[DNR]</b></font>"
 	else // Alive or unconscious
 		if(HAS_TRAIT(H, TRAIT_FAKEDEATH)) // status still shows as "Dead"
 			OX = fake_oxy > 50 ? "<b>[fake_oxy]</b>" : fake_oxy
