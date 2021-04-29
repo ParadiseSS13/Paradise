@@ -236,15 +236,15 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	return user.has_internal_radio_channel_access(user, internal_channels[freq])
 
-/mob/proc/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/proc/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
 	var/obj/item/card/id/I = user.get_id_card()
 	return has_access(list(), req_one_accesses, I ? I.GetAccess() : list())
 
-/mob/living/silicon/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/living/silicon/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
 	var/list/access = get_all_accesses()
 	return has_access(list(), req_one_accesses, access)
 
-/mob/dead/observer/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/dead/observer/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
 	return can_admin_interact()
 
 /obj/item/radio/proc/ToggleBroadcast()
@@ -475,7 +475,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return FALSE
 
 
-/obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, var/verb = "says")
+/obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, verb = "says")
 	if(broadcasting)
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, message_pieces, null, verb)

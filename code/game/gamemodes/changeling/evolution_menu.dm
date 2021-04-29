@@ -84,7 +84,7 @@
 			view_mode = new_view_mode
 			return TRUE
 
-/datum/changeling/proc/purchasePower(var/mob/living/carbon/user, var/sting_name)
+/datum/changeling/proc/purchasePower(mob/living/carbon/user, sting_name)
 	var/datum/action/changeling/thepower = null
 	var/list/all_powers = init_subtypes(/datum/action/changeling)
 
@@ -112,7 +112,7 @@
 		to_chat(user, "We have reached our capacity for abilities.")
 		return FALSE
 
-	if(user.status_flags & FAKEDEATH)//To avoid potential exploits by buying new powers while in stasis, which clears your verblist.
+	if(HAS_TRAIT(user, TRAIT_FAKEDEATH)) //To avoid potential exploits by buying new powers while in stasis, which clears your verblist.
 		to_chat(user, "We lack the energy to evolve new abilities right now.")
 		return FALSE
 
@@ -122,7 +122,7 @@
 	return TRUE
 
 //Reselect powers
-/datum/changeling/proc/lingRespec(var/mob/user)
+/datum/changeling/proc/lingRespec(mob/user)
 	if(!ishuman(user) || issmall(user))
 		to_chat(user, "<span class='danger'>We can't remove our evolutions in this form!</span>")
 		return FALSE
@@ -136,7 +136,7 @@
 		to_chat(user, "<span class='danger'>You lack the power to readapt your evolutions!</span>")
 		return FALSE
 
-/mob/proc/make_changeling(var/get_free_powers = TRUE)
+/mob/proc/make_changeling(get_free_powers = TRUE)
 	if(!mind)
 		return
 	if(!ishuman(src))
@@ -170,7 +170,7 @@
 	return 1
 
 //Used to dump the languages from the changeling datum into the actual mob.
-/mob/proc/changeling_update_languages(var/updated_languages)
+/mob/proc/changeling_update_languages(updated_languages)
 
 	for(var/datum/language/L in updated_languages)
 		add_language("L.name")
@@ -190,7 +190,7 @@
 	chem_recharge_slowdown = initial(chem_recharge_slowdown)
 	mimicing = ""
 
-/mob/proc/remove_changeling_powers(var/keep_free_powers=0)
+/mob/proc/remove_changeling_powers(keep_free_powers=0)
 	if(ishuman(src))
 		if(mind && mind.changeling)
 			digitalcamo = 0

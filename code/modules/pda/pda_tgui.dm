@@ -93,14 +93,17 @@
 						P.unnotify()
 				cartridge = null
 				update_shortcuts()
-		if("Authenticate")//Checks for ID
+				playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+		if("Authenticate") //Checks for ID
 			id_check(usr, 1)
 		if("Ringtone")
+			if(!silent)
+				playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
 			return set_ringtone()
 		else
 			if(current_app)
 				. = current_app.ui_act(action, params, ui, state) // It needs proxying through down here so apps actually have their interacts called
 
-	if((honkamt > 0) && (prob(60)))//For clown virus.
+	if((honkamt > 0) && (prob(60))) //For clown virus.
 		honkamt--
-		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
+		playsound(src, 'sound/items/bikehorn.ogg', 30, TRUE)

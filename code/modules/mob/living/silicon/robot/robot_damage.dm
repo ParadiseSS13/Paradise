@@ -84,7 +84,7 @@
 	var/datum/robot_component/C = pick(components)
 	C.take_damage(brute, burn, sharp, updating_health)
 
-/mob/living/silicon/robot/heal_overall_damage(var/brute, var/burn, updating_health = TRUE)
+/mob/living/silicon/robot/heal_overall_damage(brute, burn, updating_health = TRUE)
 	var/list/datum/robot_component/parts = get_damaged_components(brute, burn)
 
 	while(LAZYLEN(parts) && (brute > 0 || burn > 0) )

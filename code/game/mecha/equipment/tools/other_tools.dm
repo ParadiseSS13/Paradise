@@ -296,7 +296,7 @@
 		return 1000 //making magic
 
 
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_power_channel(var/area/A)
+/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_power_channel(area/A)
 	var/pow_chan
 	if(A)
 		for(var/c in use_channels)
@@ -395,7 +395,7 @@
 		if(result)
 			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 
-/obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(var/obj/item/I)
+/obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(obj/item/I)
 	if(istype(I) && (fuel_type in I.materials))
 		if(istype(I, /obj/item/stack/sheet))
 			var/obj/item/stack/sheet/P = I

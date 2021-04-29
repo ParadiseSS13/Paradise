@@ -11,7 +11,7 @@
 	GLOB.blob_nodes += src
 	START_PROCESSING(SSobj, src)
 
-/obj/structure/blob/node/adjustcolors(var/a_color)
+/obj/structure/blob/node/adjustcolors(a_color)
 	overlays.Cut()
 	color = null
 	var/image/I = new('icons/mob/blob.dmi', "blob")

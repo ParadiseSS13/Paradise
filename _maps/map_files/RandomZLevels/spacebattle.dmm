@@ -666,7 +666,7 @@
 /area/awaymission/spacebattle/cruiser)
 "cS" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/stew,
+/obj/item/reagent_containers/food/snacks/soup/stew,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	dir = 2

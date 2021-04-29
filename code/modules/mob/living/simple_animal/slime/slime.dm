@@ -32,6 +32,8 @@
 	// for the sake of cleanliness, though, here they are.
 	status_flags = CANPARALYSE | CANPUSH
 
+	footstep_type = FOOTSTEP_MOB_SLIME
+
 	var/cores = 1 // the number of /obj/item/slime_extract's the slime has left inside
 	var/mutation_chance = 30 // Chance of mutating, should be between 25 and 35
 
@@ -262,7 +264,7 @@
 			Feedon(Food)
 	return ..()
 
-/mob/living/simple_animal/slime/unEquip(obj/item/I, force)
+/mob/living/simple_animal/slime/unEquip(obj/item/I, force, silent = FALSE)
 	return
 
 /mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)

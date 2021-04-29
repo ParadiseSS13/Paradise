@@ -103,10 +103,10 @@
 /obj/item/radio/headset/syndicate/alt/syndteam
 	ks1type = /obj/item/encryptionkey/syndteam
 
-/obj/item/radio/headset/syndicate/alt/lavaland
-	name = "syndicate lavaland headset"
+/obj/item/radio/headset/syndicate/alt/nocommon
+	name = "syndicate researcher headset"
 
-/obj/item/radio/headset/syndicate/alt/lavaland/New()
+/obj/item/radio/headset/syndicate/alt/nocommon/New()
 	. = ..()
 	set_frequency(SYND_FREQ)
 
@@ -127,6 +127,10 @@
 	flags = EARBANGPROTECT
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
+
+/obj/item/radio/headset/headset_sec/alt/brig_phys
+	name = "brig physician bowman headset"
+	ks1type = /obj/item/encryptionkey/headset_med
 
 /obj/item/radio/headset/headset_iaa
 	name = "internal affairs bowman headset"

@@ -1,5 +1,5 @@
 GLOBAL_VAR(create_turf_html)
-/datum/admins/proc/create_turf(var/mob/user)
+/datum/admins/proc/create_turf(mob/user)
 	if(!GLOB.create_turf_html)
 		var/turfjs = null
 		turfjs = jointext(typesof(/turf), ";")
