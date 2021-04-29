@@ -97,3 +97,13 @@
 				/obj/item/healthanalyzer = 1)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_MISC
+
+///Hand Made Splint///
+/datum/crafting_recipe/hand_made_splint
+	name = "Hand Made Splint"
+	result = list(/obj/item/stack/medical/splint/hand_made)
+	time = 30
+	reqs = list(/obj/item/stack/cable_coil = 10,
+		        /obj/item/stack/tape_roll = 15,
+		        /obj/item/stack/rods = 20)
+	category = CAT_PRIMAL
