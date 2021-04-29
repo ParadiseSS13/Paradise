@@ -28,12 +28,12 @@
     result = /obj/item/reagent_containers/food/snacks/sliceable/honeybread
 
 //Pancake by Nothing (Con ayuda de Ume, gracias!)
-/datum/recipe/oven/pancake
+/datum/recipe/oven/pancake_sal
     reagents = list("sugar" = 5, "sodiumchloride" = 1)
     items = list(
         /obj/item/reagent_containers/food/snacks/sliceable/flatdough,
     )
-    result = /obj/item/reagent_containers/food/snacks/pancake
+    result = /obj/item/reagent_containers/food/snacks/pancake_sal
 
 //Peachmeat//
 /datum/recipe/oven/peachmeat
