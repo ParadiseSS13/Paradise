@@ -12,8 +12,6 @@
 	var/should_equip = TRUE
 	var/traitor_kind = TRAITOR_HUMAN
 	var/list/assigned_targets = list() // This includes assassinate as well as steal objectives. prevents duplicate objectives
-	/// Whether the traitor can specialize into a contractor.
-	var/is_contractor = FALSE
 
 /datum/antagonist/traitor/on_gain()
 	if(owner.current && isAI(owner.current))
@@ -70,7 +68,8 @@
 		var/mob/living/carbon/human/traitor_mob = owner.current
 		if(traitor_mob && istype(traitor_mob))
 			to_chat(traitor_mob, "<span class='warning'>Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.</span>")
-			traitor_mob.mutations.Remove(CLUMSY)
+			traitor_mob.dna.SetSEState(GLOB.clumsyblock, FALSE)
+			singlemutcheck(traitor_mob, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(traitor_mob)
 
@@ -81,7 +80,8 @@
 		var/mob/living/carbon/human/traitor_mob = owner.current
 		if(traitor_mob && istype(traitor_mob))
 			to_chat(traitor_mob, "<span class='warning'>You lose your syndicate training and return to your own clumsy, clownish self.</span>")
-			traitor_mob.mutations.Add(CLUMSY)
+			traitor_mob.dna.SetSEState(GLOB.clumsyblock, TRUE)
+			singlemutcheck(traitor_mob, GLOB.clumsyblock, MUTCHK_FORCED)
 			for(var/datum/action/innate/A in traitor_mob.actions)
 				if(istype(A, /datum/action/innate/toggle_clumsy))
 					A.Remove(traitor_mob)
@@ -251,14 +251,15 @@
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
+	var/is_contractor = LAZYACCESS(GLOB.contractors, traitor_mind)
 	if(locate(/datum/objective/hijack) in owner.objectives)
 		var/datum/atom_hud/antag/hijackhud = GLOB.huds[ANTAG_HUD_TRAITOR]
 		hijackhud.join_hud(owner.current, null)
-		set_antag_hud(owner.current, "hudhijack")
+		set_antag_hud(owner.current, is_contractor ? "hudhijackcontractor" : "hudhijack")
 	else
 		var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
 		traitorhud.join_hud(owner.current, null)
-		set_antag_hud(owner.current, "hudsyndicate")
+		set_antag_hud(owner.current, is_contractor ? "hudcontractor" : "hudsyndicate")
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_removed(datum/mind/traitor_mind)
@@ -271,13 +272,13 @@
 	switch(traitor_kind)
 		if(TRAITOR_AI)
 			add_law_zero()
-			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE)
+			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 			var/mob/living/silicon/ai/A = owner.current
 			A.show_laws()
 		if(TRAITOR_HUMAN)
 			if(should_equip)
 				equip_traitor()
-			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
+			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 
 /datum/antagonist/traitor/proc/give_codewords()
@@ -360,7 +361,7 @@
 	return 1
 
 
-/datum/antagonist/traitor/proc/assign_exchange_role(var/datum/mind/owner)
+/datum/antagonist/traitor/proc/assign_exchange_role(datum/mind/owner)
 	//set faction
 	var/faction = "red"
 	if(owner == SSticker.mode.exchange_blue)
@@ -411,8 +412,3 @@
 					<b>The code responses were:</b> <span class='redtext'>[responses]</span><br>"
 
 	return message
-
-/datum/antagonist/traitor/specialization(datum/mind/new_owner)
-	if(isAI(new_owner?.current) || !is_contractor)
-		return ..()
-	return new /datum/antagonist/traitor/contractor

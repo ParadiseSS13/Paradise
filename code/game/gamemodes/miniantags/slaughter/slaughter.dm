@@ -15,6 +15,7 @@
 	icon_living = "daemon"
 	speed = 1
 	a_intent = INTENT_HARM
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
@@ -79,7 +80,7 @@
 	if(mind)
 		to_chat(src, src.playstyle_string)
 		to_chat(src, "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></B>")
-		src << 'sound/misc/demon_dies.ogg'
+		SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
 		if(!(vialspawned))
 			var/datum/objective/slaughter/objective = new
 			var/datum/objective/demonFluff/fluffObjective = new
@@ -165,13 +166,13 @@
 		if(!demon_candidates.len)
 			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
 			qdel(src)
-			return 0
+			return
 		var/mob/M = pick(demon_candidates)
 		var/mob/living/simple_animal/slaughter/cult/S = src
 		if(!M || !M.client)
 			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
 			qdel(src)
-			return 0
+			return
 		var/client/C = M.client
 
 		S.key = C.key
@@ -302,6 +303,11 @@
 	health = 175
 	melee_damage_lower = 25
 	melee_damage_upper = 25
+	playstyle_string = "<B>You are the Laughter Demon, an adorable creature from another existence. You have a single desire: to hug and tickle.  \
+						You may use the blood crawl icon when on blood pools to travel through them, appearing and dissapearing from the station at will. \
+						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to hug them. \
+						You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. \
+						(You should be attacking people on harm intent, and not nuzzling them.)</B>"
 
 	attack_sound = 'sound/items/bikehorn.ogg'
 	feast_sound = 'sound/spookoween/scary_horn2.ogg'

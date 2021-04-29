@@ -11,7 +11,7 @@
 
 /turf/simulated/wall/cult/Initialize(mapload)
 	. = ..()
-	if(SSticker.mode)//game hasn't started offically don't do shit..
+	if(SSticker.mode)//game hasn't started officially don't do shit..
 		new /obj/effect/temp_visual/cult/turf(src)
 		icon_state = SSticker.cultdat.cult_wall_icon_state
 
@@ -43,12 +43,6 @@
 	desc = "A huge chunk of rusted reinforced metal."
 	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi'
 	icon_state = "rrust"
-
-/turf/simulated/wall/r_wall/coated			//Coated for heat resistance
-	name = "coated reinforced wall"
-	desc = "A huge chunk of reinforced metal used to seperate rooms. It seems to have additional plating to protect against heat."
-	icon = 'icons/turf/walls/coated_reinforced_wall.dmi'
-	max_temperature = INFINITY
 
 //Clockwork walls
 /turf/simulated/wall/clockwork

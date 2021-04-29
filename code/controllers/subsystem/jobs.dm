@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(jobs)
 	name = "Jobs"
 	init_order = INIT_ORDER_JOBS // 12
-	wait = 3000 // 5 minutes (Deciseconds)
+	wait = 5 MINUTES // Dont ever make this a super low value since EXP updates are calculated from this value
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Job playtime hours will no longer be logged. No immediate action is needed."
 
@@ -25,11 +25,11 @@ SUBSYSTEM_DEF(jobs)
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
-	if(!config.sql_enabled || !config.use_exp_tracking)
+	if(!SSdbcore.IsConnected() || !config.use_exp_tracking)
 		return
-	INVOKE_ASYNC(GLOBAL_PROC, /.proc/update_exp, 5, 0)
+	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
 
-/datum/controller/subsystem/jobs/proc/SetupOccupations(var/list/faction = list("Station"))
+/datum/controller/subsystem/jobs/proc/SetupOccupations(list/faction = list("Station"))
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
@@ -47,7 +47,7 @@ SUBSYSTEM_DEF(jobs)
 	return 1
 
 
-/datum/controller/subsystem/jobs/proc/Debug(var/text)
+/datum/controller/subsystem/jobs/proc/Debug(text)
 	if(!GLOB.debug2)
 		return 0
 	job_debug.Add(text)
@@ -67,7 +67,7 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/proc/GetPlayerAltTitle(mob/new_player/player, rank)
 	return player.client.prefs.GetPlayerAltTitle(GetJob(rank))
 
-/datum/controller/subsystem/jobs/proc/AssignRole(var/mob/new_player/player, var/rank, var/latejoin = 0)
+/datum/controller/subsystem/jobs/proc/AssignRole(mob/new_player/player, rank, latejoin = 0)
 	Debug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
 	if(player && player.mind && rank)
 		var/datum/job/job = GetJob(rank)
@@ -110,7 +110,7 @@ SUBSYSTEM_DEF(jobs)
 	Debug("AR has failed, Player: [player], Rank: [rank]")
 	return 0
 
-/datum/controller/subsystem/jobs/proc/FreeRole(var/rank)	//making additional slot on the fly
+/datum/controller/subsystem/jobs/proc/FreeRole(rank)	//making additional slot on the fly
 	var/datum/job/job = GetJob(rank)
 	if(job && job.current_positions >= job.total_positions && job.total_positions != -1)
 		job.total_positions++
@@ -145,7 +145,7 @@ SUBSYSTEM_DEF(jobs)
 			candidates += player
 	return candidates
 
-/datum/controller/subsystem/jobs/proc/GiveRandomJob(var/mob/new_player/player)
+/datum/controller/subsystem/jobs/proc/GiveRandomJob(mob/new_player/player)
 	Debug("GRJ Giving random job, Player: [player]")
 	for(var/datum/job/job in shuffle(occupations))
 		if(!job)
@@ -229,7 +229,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 ///This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level
-/datum/controller/subsystem/jobs/proc/CheckHeadPositions(var/level)
+/datum/controller/subsystem/jobs/proc/CheckHeadPositions(level)
 	for(var/command_position in GLOB.command_positions)
 		var/datum/job/job = GetJob(command_position)
 		if(!job)
@@ -409,7 +409,7 @@ SUBSYSTEM_DEF(jobs)
 	log_debug("Dividing Occupations took [stop_watch(watch)]s")
 	return 1
 
-/datum/controller/subsystem/jobs/proc/AssignRank(var/mob/living/carbon/human/H, var/rank, var/joined_late = 0)
+/datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = 0)
 	if(!H)
 		return null
 	var/datum/job/job = GetJob(rank)
@@ -500,7 +500,7 @@ SUBSYSTEM_DEF(jobs)
 		job.after_spawn(H)
 
 		//Gives glasses to the vision impaired
-		if(NEARSIGHTED in H.mutations)
+		if(HAS_TRAIT(H, TRAIT_NEARSIGHT))
 			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), slot_glasses)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
@@ -726,3 +726,139 @@ SUBSYSTEM_DEF(jobs)
 		new_id_change_records["[id_change_counter]"] = thisrecord
 		id_change_counter++
 	id_change_records = new_id_change_records
+
+// This proc will update all players EXP at once. It will calculate amount of time to add dynamically based on the SS fire time.
+/datum/controller/subsystem/jobs/proc/batch_update_player_exp(announce = FALSE)
+	// Right off the bat
+	var/start_time = start_watch()
+	// First calculate minutes
+	var/divider = 10 // By default, 10 deciseconds in 1 second
+	if(flags & SS_TICKER)
+		divider = 20 // If this SS ever gets made into a ticker SS, account for that
+
+	var/minutes = (wait / divider) / 60 // Calculate minutes based on the SS wait time (How often this proc fires)
+
+	// Step 1: Get us a list of clients to process
+	var/list/client/clients_to_process = GLOB.clients.Copy() // This is copied so that clients joining in the middle of this dont break things
+	Debug("Starting EXP update for [length(clients_to_process)] clients. (Adding [minutes] minutes)")
+
+	var/list/datum/db_query/select_queries = list() // List of SELECT queries to mass grab EXP.
+
+	for(var/i in clients_to_process)
+		var/client/C = i
+		if(!C)
+			continue // If a client logs out in the middle of this
+
+		var/datum/db_query/exp_read = SSdbcore.NewQuery(
+			"SELECT exp FROM [format_table_name("player")] WHERE ckey=:ckey",
+			list("ckey" = C.ckey)
+		)
+
+		select_queries[C.ckey] = exp_read
+
+	var/list/read_records = list()
+	// Explanation for parameters:
+	// TRUE: We want warnings if these fail
+	// FALSE: Do NOT qdel() queries here, otherwise they wont be read. At all.
+	// TRUE: This is an assoc list, so it needs to prepare for that
+	// FALSE: We dont want to logspam
+	SSdbcore.MassExecute(select_queries, TRUE, FALSE, TRUE, FALSE) // Batch execute so we can take advantage of async magic
+
+	for(var/i in clients_to_process)
+		var/client/C = i
+		if(!C)
+			continue // If a client logs out in the middle of this
+
+		if(select_queries[C.ckey]) // This check should not be necessary, but I am paranoid
+			while(select_queries[C.ckey].NextRow())
+				read_records[C.ckey] = params2list(select_queries[C.ckey].item[1])
+
+	QDEL_LIST_ASSOC_VAL(select_queries) // Clean stuff up
+
+	var/list/play_records = list()
+
+	var/list/datum/db_query/player_update_queries = list() // List of queries to update player EXP
+	var/list/datum/db_query/playtime_history_update_queries = list() // List of queries to update the playtime history table
+
+	for(var/i in clients_to_process)
+		var/client/C = i
+		if(!C)
+			continue // If a client logs out in the middle of this
+		// Get us a container
+		play_records[C.ckey] = list()
+		for(var/rtype in GLOB.exp_jobsmap)
+			if(text2num(read_records[C.ckey][rtype]))
+				play_records[C.ckey][rtype] = text2num(read_records[C.ckey][rtype])
+			else
+				play_records[C.ckey][rtype] = 0
+
+
+		var/myrole
+		if(C.mob.mind)
+			if(C.mob.mind.playtime_role)
+				myrole = C.mob.mind.playtime_role
+			else if(C.mob.mind.assigned_role)
+				myrole = C.mob.mind.assigned_role
+
+		var/added_living = 0
+		var/added_ghost = 0
+		if(C.mob.stat == CONSCIOUS && myrole)
+			play_records[C.ckey][EXP_TYPE_LIVING] += minutes
+			added_living += minutes
+
+			if(announce)
+				to_chat(C.mob, "<span class='notice'>You got: [minutes] Living EXP!</span>")
+
+			for(var/category in GLOB.exp_jobsmap)
+				if(GLOB.exp_jobsmap[category]["titles"])
+					if(myrole in GLOB.exp_jobsmap[category]["titles"])
+						play_records[C.ckey][category] += minutes
+						if(announce)
+							to_chat(C.mob, "<span class='notice'>You got: [minutes] [category] EXP!</span>")
+
+			if(C.mob.mind.special_role)
+				play_records[C.ckey][EXP_TYPE_SPECIAL] += minutes
+				if(announce)
+					to_chat(C.mob, "<span class='notice'>You got: [minutes] Special EXP!</span>")
+
+		else if(isobserver(C.mob))
+			play_records[C.ckey][EXP_TYPE_GHOST] += minutes
+			added_ghost += minutes
+			if(announce)
+				to_chat(C.mob, "<span class='notice'>You got: [minutes] Ghost EXP!</span>")
+		else
+			continue
+
+		var/new_exp = list2params(play_records[C.ckey])
+
+		C.prefs.exp = new_exp
+
+		var/datum/db_query/update_query = SSdbcore.NewQuery(
+			"UPDATE [format_table_name("player")] SET exp =:newexp, lastseen=NOW() WHERE ckey=:ckey",
+			list(
+				"newexp" = new_exp,
+				"ckey" = C.ckey
+			)
+		)
+
+		player_update_queries += update_query
+
+		var/datum/db_query/update_query_history = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("playtime_history")] (ckey, date, time_living, time_ghost)
+			VALUES (:ckey, CURDATE(), :addedliving, :addedghost)
+			ON DUPLICATE KEY UPDATE time_living=time_living + VALUES(time_living), time_ghost=time_ghost + VALUES(time_ghost)"},
+			list(
+				"ckey" = C.ckey,
+				"addedliving" = added_living,
+				"addedghost" = added_ghost
+			)
+		)
+
+		playtime_history_update_queries += update_query_history
+
+
+	// warn=TRUE, qdel=TRUE, assoc=FALSE, log=FALSE
+	SSdbcore.MassExecute(player_update_queries, TRUE, TRUE, FALSE, FALSE) // Batch execute so we can take advantage of async magic
+	SSdbcore.MassExecute(playtime_history_update_queries, TRUE, TRUE, FALSE, FALSE)
+
+	Debug("Successfully updated all EXP data in [stop_watch(start_time)]s")

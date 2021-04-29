@@ -5,6 +5,8 @@
 	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = 1
 	weather_immunities = list("ash")
+	mob_biotypes = MOB_ROBOTIC
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	var/syndicate = 0
 	var/const/MAIN_CHANNEL = "Main Frequency"
 	var/lawchannel = MAIN_CHANNEL // Default channel on which to state laws
@@ -161,7 +163,7 @@
 /mob/living/silicon/drop_item()
 	return
 
-/mob/living/silicon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+/mob/living/silicon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return FALSE //So borgs they don't die trying to fix wiring
 
 /mob/living/silicon/emp_act(severity)
@@ -178,7 +180,7 @@
 	to_chat(src, "<span class='warning'>Warning: Electromagnetic pulse detected.</span>")
 
 
-/mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
+/mob/living/silicon/proc/damage_mob(brute = 0, fire = 0, tox = 0)
 	return
 
 /mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
@@ -208,7 +210,7 @@
 	user.visible_message("<span class='alert'>[user] patches some dents on [src] with [I].</span>")
 
 
-/mob/living/silicon/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/bullet_act(obj/item/projectile/Proj)
 
 
 	if(!Proj.nodamage)
@@ -222,29 +224,11 @@
 
 	return 2
 
-/mob/living/silicon/apply_effect(var/effect = 0,var/effecttype = STUN, var/blocked = 0, var/negate_armor = 0)
-	return 0//The only effect that can hit them atm is flashes and they still directly edit so this works for now
-/*
-	if(!effect || (blocked >= 2))	return 0
-	switch(effecttype)
-		if(STUN)
-			Stun(effect / (blocked + 1))
-		if(WEAKEN)
-			Weaken(effect / (blocked + 1))
-		if(PARALYZE)
-			Paralyse(effect / (blocked + 1))
-		if(IRRADIATE)
-			radiation += min((effect - (effect*getarmor(null, "rad"))), 0)//Rads auto check armor
-		if(STUTTER)
-			stuttering = max(stuttering,(effect/(blocked+1)))
-		if(EYE_BLUR)
-			eye_blurry = max(eye_blurry,(effect/(blocked+1)))
-		if(DROWSY)
-			drowsyness = max(drowsyness,(effect/(blocked+1)))
-	updatehealth()
-	return 1*/
+/mob/living/silicon/apply_effect(effect = 0, effecttype = STUN, blocked = 0)
+	return FALSE //The only effect that can hit them atm is flashes and they still directly edit so this works for now
 
-/proc/islinked(var/mob/living/silicon/robot/bot, var/mob/living/silicon/ai/ai)
+
+/proc/islinked(mob/living/silicon/robot/bot, mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))
 		return 0
 	if(bot.connected_ai == ai)
@@ -272,12 +256,12 @@
 /mob/living/silicon/can_speak_language(datum/language/speaking)
 	return universal_speak || (speaking in src.speech_synthesizer_langs)	//need speech synthesizer support to vocalize a language
 
-/mob/living/silicon/add_language(var/language, var/can_speak=1)
+/mob/living/silicon/add_language(language, can_speak=1)
 	if(..(language) && can_speak)
 		speech_synthesizer_langs.Add(GLOB.all_languages[language])
 		return 1
 
-/mob/living/silicon/remove_language(var/rem_language)
+/mob/living/silicon/remove_language(rem_language)
 	..(rem_language)
 
 	for(var/datum/language/L in speech_synthesizer_langs)
@@ -370,7 +354,7 @@
 		if("Disable")
 			to_chat(src, "Sensor augmentations disabled.")
 
-/mob/living/silicon/adjustToxLoss(var/amount)
+/mob/living/silicon/adjustToxLoss(amount)
 	return STATUS_UPDATE_NONE
 
 /mob/living/silicon/get_access()

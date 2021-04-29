@@ -312,12 +312,10 @@
 	if(!occupant)
 		return TRUE
 
-	if(ishuman(occupant))
-		var/mob/living/carbon/human/H = occupant
-		if(NO_DNA in H.dna.species.species_traits)
-			return TRUE
+	if(HAS_TRAIT(occupant, TRAIT_GENELESS))
+		return TRUE
 
-	var/radiation_protection = occupant.run_armor_check(null, "rad", "Your clothes feel warm.", "Your clothes feel warm.")
+	var/radiation_protection = occupant.run_armor_check(null, "rad")
 	if(radiation_protection > NEGATE_MUTATION_THRESHOLD)
 		return TRUE
 	return FALSE
@@ -473,7 +471,7 @@
 		occupantData["name"] = connected.occupant.dna.real_name
 		occupantData["stat"] = connected.occupant.stat
 		occupantData["isViableSubject"] = 1
-		if((NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !connected.occupant.dna || (NO_DNA in connected.occupant.dna.species.species_traits))
+		if((HAS_TRAIT(connected.occupant, TRAIT_BADDNA) && connected.scan_level < 3) || !connected.occupant.dna || HAS_TRAIT(connected.occupant, TRAIT_GENELESS))
 			occupantData["isViableSubject"] = 0
 		occupantData["health"] = connected.occupant.health
 		occupantData["maxHealth"] = connected.occupant.maxHealth
@@ -540,7 +538,7 @@
 				return
 
 			var/radiation = (((radiation_intensity * 3) + radiation_duration * 3) / connected.damage_coeff)
-			connected.occupant.apply_effect(radiation, IRRADIATE, 0)
+			connected.occupant.apply_effect(radiation, IRRADIATE)
 			if(connected.radiation_check())
 				return
 
@@ -588,7 +586,7 @@
 
 			if(prob((80 + (radiation_duration / 2))))
 				var/radiation = (radiation_intensity + radiation_duration)
-				connected.occupant.apply_effect(radiation,IRRADIATE,0)
+				connected.occupant.apply_effect(radiation, IRRADIATE)
 
 				if(connected.radiation_check())
 					return
@@ -598,13 +596,13 @@
 				connected.occupant.UpdateAppearance()
 			else
 				var/radiation = ((radiation_intensity * 2) + radiation_duration)
-				connected.occupant.apply_effect(radiation, IRRADIATE, 0)
+				connected.occupant.apply_effect(radiation, IRRADIATE)
 				if(connected.radiation_check())
 					return
 
 				if(prob(20 + radiation_intensity))
 					randmutb(connected.occupant)
-					domutcheck(connected.occupant, connected)
+					domutcheck(connected.occupant)
 				else
 					randmuti(connected.occupant)
 					connected.occupant.UpdateAppearance()
@@ -644,7 +642,7 @@
 			if(connected.occupant)
 				if(prob((80 + ((radiation_duration / 2) + (connected.precision_coeff ** 3)))))
 					var/radiation = ((radiation_intensity + radiation_duration) / connected.damage_coeff)
-					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
+					connected.occupant.apply_effect(radiation, IRRADIATE)
 
 					if(connected.radiation_check())
 						return 1
@@ -659,10 +657,10 @@
 
 					//testing("Irradiated SE block [real_SE_block]:[selected_se_subblock] ([original_block] now [block]) [(real_SE_block!=selected_se_block) ? "(SHIFTED)":""]!")
 					connected.occupant.dna.SetSESubBlock(real_SE_block, selected_se_subblock, block)
-					domutcheck(connected.occupant, connected)
+					domutcheck(connected.occupant)
 				else
 					var/radiation = (((radiation_intensity * 2) + radiation_duration) / connected.damage_coeff)
-					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
+					connected.occupant.apply_effect(radiation, IRRADIATE)
 
 					if(connected.radiation_check())
 						return
@@ -670,7 +668,7 @@
 					if(prob(80 - radiation_duration))
 						//testing("Random bad mut!")
 						randmutb(connected.occupant)
-						domutcheck(connected.occupant, connected)
+						domutcheck(connected.occupant)
 					else
 						randmuti(connected.occupant)
 						//testing("Random identity mut!")
@@ -723,7 +721,7 @@
 				if("changeLabel")
 					ui_modal_input(src, "changeBufferLabel", "Please enter the new buffer label:", null, list("id" = bufferId), buffer.name, UI_MODAL_INPUT_MAX_LENGTH_NAME)
 				if("transfer")
-					if(!connected.occupant || (NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !connected.occupant.dna)
+					if(!connected.occupant || (HAS_TRAIT(connected.occupant, TRAIT_BADDNA) && connected.scan_level < 3) || !connected.occupant.dna)
 						return
 
 					irradiating = 2
@@ -737,7 +735,7 @@
 					connected.locked = lock_state
 
 					var/radiation = (rand(20,50) / connected.damage_coeff)
-					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
+					connected.occupant.apply_effect(radiation, IRRADIATE)
 
 					if(connected.radiation_check())
 						return
@@ -752,7 +750,7 @@
 					else if(buf.types & DNA2_BUF_SE)
 						connected.occupant.dna.SE = buf.dna.SE.Copy()
 						connected.occupant.dna.UpdateSE()
-						domutcheck(connected.occupant, connected)
+						domutcheck(connected.occupant)
 				if("createInjector")
 					if(!injector_ready)
 						return

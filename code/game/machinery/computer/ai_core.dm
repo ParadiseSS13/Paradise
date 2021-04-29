@@ -7,7 +7,7 @@
 	max_integrity = 500
 	var/state = 0
 	var/datum/ai_laws/laws = null
-	var/obj/item/circuitboard/circuit = null
+	var/obj/item/circuitboard/aicore/circuit = null
 	var/obj/item/mmi/brain = null
 
 /obj/structure/AIcore/Destroy()
@@ -242,8 +242,8 @@
 	anchored = TRUE
 	state = AI_READY_CORE
 
-/obj/structure/AIcore/deactivated/New()
-	..()
+/obj/structure/AIcore/deactivated/Initialize(mapload)
+	. = ..()
 	circuit = new(src)
 
 /obj/structure/AIcore/deactivated/Destroy()

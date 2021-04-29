@@ -177,6 +177,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	M.mind.original = M
 	M.mind.assigned_role = SPECIAL_ROLE_ERT
 	M.mind.special_role = SPECIAL_ROLE_ERT
+	M.mind.offstation_role = TRUE
 	if(!(M.mind in SSticker.minds))
 		SSticker.minds += M.mind //Adds them to regular mind list.
 	SSticker.mode.ert += M.mind
@@ -233,7 +234,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 /datum/response_team/proc/check_slot_available(role)
 	return slots[role]
 
-/datum/response_team/proc/equip_officer(var/officer_type, var/mob/living/carbon/human/M)
+/datum/response_team/proc/equip_officer(officer_type, mob/living/carbon/human/M)
 	switch(officer_type)
 		if("Engineer")
 			M.equipOutfit(engineering_outfit)
@@ -311,6 +312,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	id = /obj/item/card/id/ert
 	l_ear = /obj/item/radio/headset/ert/alt
 	box = /obj/item/storage/box/responseteam
+	gloves = /obj/item/clothing/gloves/combat
 
 	implants = list(/obj/item/implant/mindshield)
 

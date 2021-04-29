@@ -6,7 +6,7 @@ GLOBAL_VAR_INIT(total_runtimes, 0)
 GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 // The ifdef needs to be down here, since the error viewer references total_runtimes
 #ifdef DEBUG
-/world/Error(var/exception/e, var/datum/e_src)
+/world/Error(exception/e, datum/e_src)
 	if(!istype(e)) // Something threw an unusual exception
 		log_world("\[[time_stamp()]] Uncaught exception: [e]")
 		return ..()

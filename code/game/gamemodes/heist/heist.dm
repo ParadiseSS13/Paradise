@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 	return ..()
 
-/datum/game_mode/proc/create_vox(var/datum/mind/newraider)
+/datum/game_mode/proc/create_vox(datum/mind/newraider)
 
 	var/sounds = rand(2,8)
 	var/i = 0
@@ -175,7 +175,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 	return objs
 
-/datum/game_mode/proc/greet_vox(var/datum/mind/raider)
+/datum/game_mode/proc/greet_vox(datum/mind/raider)
 	to_chat(raider.current, "<span class='boldnotice'>You are a Vox Raider, fresh from the Shoal!</span>")
 	to_chat(raider.current, "<span class='notice'>The Vox are a race of cunning, sharp-eyed nomadic raiders and traders endemic to the frontier and much of the unexplored galaxy. You and the crew have come to the [station_name()] for plunder, trade or both.</span>")
 	to_chat(raider.current, "<span class='notice'>Vox are cowardly and will flee from larger groups, but corner one or find them en masse and they are vicious.</span>")

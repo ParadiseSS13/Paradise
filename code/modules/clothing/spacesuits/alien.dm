@@ -1,6 +1,6 @@
 //Skrell space gear. Sleek like a wetsuit.
 /obj/item/clothing/head/helmet/space/skrell
-	name = "Skrellian helmet"
+	name = "skrellian helmet"
 	desc = "Smoothly contoured and polished to a shine. Still looks like a fishbowl."
 	species_restricted = list("Skrell","Human")
 
@@ -15,7 +15,7 @@
 	item_color = "skrell_helmet_black"
 
 /obj/item/clothing/suit/space/skrell
-	name = "Skrellian hardsuit"
+	name = "skrellian hardsuit"
 	desc = "Seems like a wetsuit with reinforced plating seamlessly attached to it. Very chic."
 	species_restricted = list("Skrell","Human")
 
@@ -75,7 +75,7 @@
 // Can't be equipped by any other species due to bone structure and vox cybernetics.
 /obj/item/clothing/suit/space/vox
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank)
+	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	armor = list(melee = 40, bullet = 40, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30, fire = 80, acid = 85)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
@@ -175,8 +175,8 @@
 		)
 
 /obj/item/clothing/gloves/color/yellow/vox
-	desc = "These bizarre gauntlets seem to be fitted for... bird claws?"
 	name = "insulated gauntlets"
+	desc = "These bizarre gauntlets seem to be fitted for... bird claws?"
 	icon_state = "gloves-vox"
 	item_state = "gloves-vox"
 	siemens_coefficient = 0
@@ -190,8 +190,8 @@
 		)
 
 /obj/item/clothing/shoes/magboots/vox
-	desc = "A pair of heavy, jagged armoured foot pieces, seemingly suitable for a velociraptor."
 	name = "vox magclaws"
+	desc = "A pair of heavy, jagged armoured foot pieces, seemingly suitable for a velociraptor."
 	item_state = "boots-vox"
 	icon_state = "boots-vox"
 	icon = 'icons/obj/clothing/species/vox/shoes.dmi'

@@ -65,12 +65,12 @@
 		..()
 	return
 
-/obj/item/laser_pointer/afterattack(var/atom/target, var/mob/living/user, flag, params)
+/obj/item/laser_pointer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)	//we're placing the object on a table or in backpack
 		return
 	laser_act(target, user, params)
 
-/obj/item/laser_pointer/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
+/obj/item/laser_pointer/proc/laser_act(atom/target, mob/living/user, params)
 	if( !(user in (viewers(7,target))) )
 		return
 	if(!diode)
@@ -79,11 +79,9 @@
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if((HULK in H.mutations) || (NOGUNS in H.dna.species.species_traits))
-			user << "<span class='warning'>Your fingers can't press the button!</span>"
-			return
+	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
+		to_chat(user, "<span class='warning'>Your fingers can't press the button!</span>")
+		return
 
 	add_fingerprint(user)
 
@@ -110,8 +108,6 @@
 			//20% chance to actually hit the eyes
 			if(prob(effectchance * diode.rating) && C.flash_eyes(severity))
 				outmsg = "<span class='notice'>You blind [C] by shining [src] in [C.p_their()] eyes.</span>"
-				if(C.weakeyes)
-					C.Stun(1)
 			else
 				outmsg = "<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>"
 
