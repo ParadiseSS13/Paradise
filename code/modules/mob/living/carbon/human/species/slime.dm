@@ -11,7 +11,6 @@
 	name_plural = "Slime People"
 	language = "Bubblish"
 	icobase = 'icons/mob/human_races/r_slime.dmi'
-	deform = 'icons/mob/human_races/r_slime.dmi'
 	remains_type = /obj/effect/decal/remains/slime
 	inherent_factions = list("slime")
 
@@ -40,6 +39,7 @@
 	butt_sprite = "slime"
 	//Has default darksight of 2.
 
+	vision_organ = null
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/slime,
 		"heart" = /obj/item/organ/internal/heart/slime,

@@ -28,7 +28,7 @@ GLOBAL_DATUM_INIT(centcomm_store, /datum/store, new())
 	for(var/itempath in subtypesof(/datum/storeitem))
 		items += new itempath()
 
-/datum/store/proc/charge(var/datum/mind/mind,var/amount,var/datum/storeitem/item)
+/datum/store/proc/charge(datum/mind/mind, amount, datum/storeitem/item)
 	if(!mind.initial_account)
 		//testing("No initial_account")
 		return 0
@@ -52,7 +52,7 @@ GLOBAL_DATUM_INIT(centcomm_store, /datum/store, new())
 			linked_db = DB
 			break
 
-/datum/store/proc/PlaceOrder(var/mob/living/usr, var/itemID)
+/datum/store/proc/PlaceOrder(mob/living/usr, itemID)
 	// Get our item, first.
 	var/datum/storeitem/item = items[itemID]
 	if(!item)

@@ -806,11 +806,9 @@
 /obj/machinery/vending/power_change()
 	if(powered())
 		stat &= ~NOPOWER
-		update_icon()
 	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
-			update_icon()
+		stat |= NOPOWER
+	update_icon()
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(!(stat & BROKEN))
@@ -1583,6 +1581,7 @@
 	products = list(/obj/item/storage/bag/tray = 8,
 					/obj/item/kitchen/utensil/fork = 6,
 					/obj/item/trash/plate = 20,
+					/obj/item/trash/bowl = 20,
 					/obj/item/kitchen/knife = 3,
 					/obj/item/kitchen/rollingpin = 2,
 					/obj/item/kitchen/sushimat = 3,

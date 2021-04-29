@@ -11,6 +11,7 @@
 	icon_state = "cursedclown"
 	icon_living = "cursedclown"
 	icon_gib = "clown_gib"
+	mob_biotypes = NONE
 	maxHealth = 200
 	health = 200
 	speed = -1

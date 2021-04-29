@@ -318,8 +318,9 @@
 		announced = max(0, announced-1)
 
 /obj/machinery/doomsday_device/proc/detonate(z_level = 1)
-	for(var/mob/M in GLOB.player_list)
-		M << 'sound/machines/alarm.ogg'
+	var/doomsday_alarm = sound('sound/machines/alarm.ogg')
+	for(var/explodee in GLOB.player_list)
+		SEND_SOUND(explodee, doomsday_alarm)
 	sleep(100)
 	for(var/mob/living/L in GLOB.mob_list)
 		var/turf/T = get_turf(L)
@@ -330,7 +331,8 @@
 		to_chat(L, "<span class='danger'><B>The blast wave from [src] tears you atom from atom!</B></span>")
 		L.dust()
 	to_chat(world, "<B>The AI cleansed the station of life with the doomsday device!</B>")
-	SSticker.force_ending = 1
+	SSticker.force_ending = TRUE
+	SSticker.mode.station_was_nuked = TRUE
 
 //AI Turret Upgrade: Increases the health and damage of all turrets.
 /datum/AI_Module/large/upgrade_turrets
@@ -784,4 +786,3 @@
 /datum/AI_Module/large/cameracrack/upgrade(mob/living/silicon/ai/AI)
 	if(AI.builtInCamera)
 		QDEL_NULL(AI.builtInCamera)
-

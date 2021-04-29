@@ -13,13 +13,13 @@ GLOBAL_LIST_EMPTY(whitelist)
 	if(!GLOB.whitelist.len)
 		GLOB.whitelist = null
 /*
-/proc/check_whitelist(mob/M, var/rank)
+/proc/check_whitelist(mob/M, rank)
 	if(!whitelist)
 		return 0
 	return ("[M.ckey]" in whitelist)
 */
 
-/proc/is_job_whitelisted(mob/M, var/rank)
+/proc/is_job_whitelisted(mob/M, rank)
 	if(guest_jobbans(rank))
 		if(!config.usewhitelist)
 			return TRUE
@@ -68,7 +68,7 @@ GLOBAL_LIST_EMPTY(alien_whitelist)
 		GLOB.alien_whitelist = splittext(text, "\n")
 
 //todo: admin aliens
-/proc/is_alien_whitelisted(mob/M, var/species)
+/proc/is_alien_whitelisted(mob/M, species)
 	if(!config.usealienwhitelist)
 		return TRUE
 	if(config.disable_karma)

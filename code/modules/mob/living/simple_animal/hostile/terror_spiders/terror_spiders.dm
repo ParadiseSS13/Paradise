@@ -25,6 +25,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	icon_living = "terror_red"
 	icon_dead = "terror_red_dead"
 
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
+
 	// Health
 	maxHealth = 120
 	health = 120
@@ -158,7 +160,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	// DEBUG OPTIONS & COMMANDS
 	var/spider_growinstantly = FALSE // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
 	var/spider_debug = FALSE
-
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: SHARED ATTACK CODE -----------------------
@@ -398,7 +400,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		to_chat(src, "<span class='warning'>Your type of spider is not strong enough to force open doors.</span>")
 	else
 		visible_message("<span class='danger'>[src] forces the door!</span>")
-		playsound(src.loc, "sparks", 100, 1)
+		playsound(src.loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(D.density)
 			D.open(TRUE)
 		else

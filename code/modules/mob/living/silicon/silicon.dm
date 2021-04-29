@@ -5,6 +5,7 @@
 	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = 1
 	weather_immunities = list("ash")
+	mob_biotypes = MOB_ROBOTIC
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	var/syndicate = 0
 	var/const/MAIN_CHANNEL = "Main Frequency"
@@ -179,7 +180,7 @@
 	to_chat(src, "<span class='warning'>Warning: Electromagnetic pulse detected.</span>")
 
 
-/mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
+/mob/living/silicon/proc/damage_mob(brute = 0, fire = 0, tox = 0)
 	return
 
 /mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
@@ -209,7 +210,7 @@
 	user.visible_message("<span class='alert'>[user] patches some dents on [src] with [I].</span>")
 
 
-/mob/living/silicon/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/bullet_act(obj/item/projectile/Proj)
 
 
 	if(!Proj.nodamage)
@@ -227,7 +228,7 @@
 	return FALSE //The only effect that can hit them atm is flashes and they still directly edit so this works for now
 
 
-/proc/islinked(var/mob/living/silicon/robot/bot, var/mob/living/silicon/ai/ai)
+/proc/islinked(mob/living/silicon/robot/bot, mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))
 		return 0
 	if(bot.connected_ai == ai)
@@ -255,12 +256,12 @@
 /mob/living/silicon/can_speak_language(datum/language/speaking)
 	return universal_speak || (speaking in src.speech_synthesizer_langs)	//need speech synthesizer support to vocalize a language
 
-/mob/living/silicon/add_language(var/language, var/can_speak=1)
+/mob/living/silicon/add_language(language, can_speak=1)
 	if(..(language) && can_speak)
 		speech_synthesizer_langs.Add(GLOB.all_languages[language])
 		return 1
 
-/mob/living/silicon/remove_language(var/rem_language)
+/mob/living/silicon/remove_language(rem_language)
 	..(rem_language)
 
 	for(var/datum/language/L in speech_synthesizer_langs)
@@ -353,7 +354,7 @@
 		if("Disable")
 			to_chat(src, "Sensor augmentations disabled.")
 
-/mob/living/silicon/adjustToxLoss(var/amount)
+/mob/living/silicon/adjustToxLoss(amount)
 	return STATUS_UPDATE_NONE
 
 /mob/living/silicon/get_access()
