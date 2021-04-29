@@ -17,7 +17,7 @@
 	var/button_icon_state = "default"
 	var/mob/owner
 
-/datum/action/New(var/Target)
+/datum/action/New(Target)
 	target = Target
 	button = new
 	button.linked_action = src

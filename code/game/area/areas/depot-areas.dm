@@ -314,7 +314,7 @@
 	for(var/obj/machinery/computer/syndicate_depot/C in src)
 		C.security_lockout = FALSE
 
-/area/syndicate_depot/core/proc/set_emergency_access(var/openaccess)
+/area/syndicate_depot/core/proc/set_emergency_access(openaccess)
 	for(var/obj/machinery/door/airlock/A in src)
 		if(istype(A, /obj/machinery/door/airlock/hatch/syndicate/vault))
 			continue
@@ -341,7 +341,7 @@
 			receivers |= M
 	for(var/mob/R in receivers)
 		to_chat(R, msg_text)
-		R << sound('sound/misc/notice1.ogg')
+		SEND_SOUND(R, sound('sound/misc/notice1.ogg'))
 
 /area/syndicate_depot/core/proc/shields_up()
 	if(shield_list.len)

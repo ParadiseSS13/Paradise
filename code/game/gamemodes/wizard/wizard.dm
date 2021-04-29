@@ -77,7 +77,7 @@
 	wizhud.leave_hud(wiz_mind.current)
 	set_antag_hud(wiz_mind.current, null)
 
-/datum/game_mode/proc/forge_wizard_objectives(var/datum/mind/wizard)
+/datum/game_mode/proc/forge_wizard_objectives(datum/mind/wizard)
 	var/datum/objective/wizchaos/wiz_objective = new
 	wiz_objective.owner = wizard
 	wizard.objectives += wiz_objective
@@ -98,7 +98,7 @@
 	if(wizard_mob.mind)
 		wizard_mob.mind.name = newname
 
-/datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
+/datum/game_mode/proc/greet_wizard(datum/mind/wizard, you_are=1)
 	addtimer(CALLBACK(wizard.current, /mob/.proc/playsound_local, null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
 	if(you_are)
 		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
@@ -198,7 +198,7 @@
 		finished = 1
 		return 1
 
-/datum/game_mode/wizard/declare_completion(var/ragin = 0)
+/datum/game_mode/wizard/declare_completion(ragin = 0)
 	if(finished && !ragin)
 		SSticker.mode_result = "wizard loss - wizard killed"
 		to_chat(world, "<span class='warning'><FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT></span>")

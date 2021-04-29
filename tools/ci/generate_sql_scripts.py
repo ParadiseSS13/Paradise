@@ -45,7 +45,7 @@ scriptLines = [
     "#!/bin/bash\n",
     "set -euo pipefail\n"
     "python3 -m pip install setuptools\n" # Yes I know you can PIP multiple things but they need to happen in this order
-    "python3 -m pip install mysql-connector\n"
+    "python3 -m pip install mysql-connector-python\n"
     "mysql -u root -proot < tools/ci/sql_v0.sql\n"
 ]
 
@@ -79,7 +79,6 @@ scriptLines.append("mysql -u root -proot -e 'DROP DATABASE feedback;'\n")
 scriptLines.append("mysql -u root -proot < SQL/paradise_schema_prefixed.sql\n")
 scriptLines.append("mysql -u root -proot -e 'DROP DATABASE feedback;'\n")
 scriptLines.append("mysql -u root -proot < SQL/paradise_schema.sql\n")
-scriptLines.append("mysql -u root -proot -e 'GRANT ALL on feedback.* TO `ci_sql`@`127.0.0.1` IDENTIFIED BY \"not_a_strong_password\";'\n")
 
 outputScript = open("tools/ci/validate_sql.sh", "w+")
 outputScript.writelines(scriptLines)

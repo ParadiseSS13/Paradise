@@ -16,7 +16,6 @@ Bonus
 */
 
 /datum/symptom/deafness
-
 	name = "Deafness"
 	stealth = -1
 	resistance = -2
@@ -29,15 +28,12 @@ Bonus
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/M = A.affected_mob
+		var/obj/item/organ/internal/ears/ears = M.get_organ_slot("ears")
+		if(!ears)
+			return //cutting off your ears to cure the deafness: the ultimate own
 		switch(A.stage)
 			if(3, 4)
 				to_chat(M, "<span class='warning'>[pick("You hear a ringing in your ear.", "Your ears pop.")]</span>")
 			if(5)
-				if(!(DEAF in M.mutations))
-					to_chat(M, "<span class='userdanger'>Your ears pop and begin ringing loudly!</span>")
-					M.BecomeDeaf()
-					spawn(200)
-						if(M)
-							to_chat(M, "<span class='warning'>The ringing in your ears fades...</span>")
-							M.CureDeaf()
-	return
+				to_chat(M, "<span class='userdanger'>Your ears pop and begin ringing loudly!</span>")
+				ears.deaf = min(20, ears.deaf + 15)

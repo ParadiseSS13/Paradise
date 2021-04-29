@@ -123,7 +123,7 @@
 		return 1
 	if(mover.throwing)
 		return 1
-	if(locate(/obj/structure/table) in get_turf(mover))
+	if(length(get_atoms_of_type(get_turf(mover), /obj/structure/table) - mover))
 		return 1
 	if(flipped)
 		if(get_dir(loc, target) == dir)
@@ -591,7 +591,7 @@
 	verbs -= /obj/structure/table/verb/do_flip
 	typecache_can_hold = typecacheof(typecache_can_hold)
 	for(var/atom/movable/held in get_turf(src))
-		if(is_type_in_typecache(held, typecache_can_hold))
+		if(!held.anchored && held.move_resist != INFINITY && is_type_in_typecache(held, typecache_can_hold))
 			held_items += held.UID()
 
 /obj/structure/table/tray/Move(NewLoc, direct)

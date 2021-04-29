@@ -603,7 +603,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			fail_invoke()
 			return
 
-	SEND_SOUND(mob_to_revive, 'sound/ambience/antag/bloodcult.ogg')
+	SEND_SOUND(mob_to_revive, sound('sound/ambience/antag/bloodcult.ogg'))
 	to_chat(mob_to_revive, "<span class='cultlarge'>\"PASNAR SAVRAE YAM'TOTH. Arise.\"</span>")
 	mob_to_revive.visible_message("<span class='warning'>[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes.</span>", \
 								  "<span class='cultlarge'>You awaken suddenly from the void. You're alive!</span>")
@@ -1001,7 +1001,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	used = TRUE
 	color = rgb(255, 0, 0)
 	..()
-	SEND_SOUND(world, 'sound/effects/dimensional_rend.ogg')
+	SEND_SOUND(world, sound('sound/effects/dimensional_rend.ogg'))
 	to_chat(world, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
 	icon_state = "rune_large_distorted"
 	var/turf/T = get_turf(src)

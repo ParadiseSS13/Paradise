@@ -13,7 +13,7 @@
 	var/flags = 0
 	var/location_override
 
-/datum/theft_objective/proc/check_completion(var/datum/mind/owner)
+/datum/theft_objective/proc/check_completion(datum/mind/owner)
 	if(!owner.current)
 		return 0
 	if(!isliving(owner.current))
@@ -62,7 +62,7 @@
 	typepath = /obj/item/aicard
 	location_override = "AI Satellite. An intellicard for transportation can be found in Tech Storage, Science Department or manufactured"
 
-/datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
+/datum/theft_objective/ai/check_special_completion(obj/item/aicard/C)
 	if(..())
 		for(var/mob/living/silicon/ai/A in C)
 			if(istype(A, /mob/living/silicon/ai) && A.stat != 2) //See if any AI's are alive inside that card.
@@ -154,7 +154,7 @@
 		required_amount=rand(lower,upper)*step
 	name = "[required_amount] [name]"
 
-/datum/theft_objective/number/check_completion(var/datum/mind/owner)
+/datum/theft_objective/number/check_completion(datum/mind/owner)
 	if(!owner.current)
 		return 0
 	if(!isliving(owner.current))
@@ -166,7 +166,7 @@
 			found_amount += getAmountStolen(I)
 	return found_amount >= required_amount
 
-/datum/theft_objective/number/proc/getAmountStolen(var/obj/item/I)
+/datum/theft_objective/number/proc/getAmountStolen(obj/item/I)
 	return I:amount
 
 /datum/theft_objective/unique
