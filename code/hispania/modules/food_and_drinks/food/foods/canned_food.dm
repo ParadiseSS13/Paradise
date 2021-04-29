@@ -53,7 +53,7 @@
 	name = "canned beans"
 	icon_state = "beans"
 	desc = "Luna Colony beans. Carefully synthethized from soy."
-	trash = /obj/item/trash/beans
+	trash = /obj/item/trash/canned_beans
 	filling_color = "#ff6633"
 	list_reagents = list("beans" = 4, "sodiumchloride" = 4)
 	tastes = list("beans" = 1)
@@ -63,7 +63,7 @@
 	name = "canned tomato soup"
 	icon_state = "tomato"
 	desc = "Plain old unseasoned tomato soup. This can predates the formation of the SCG."
-	trash = /obj/item/trash/tomato
+	trash = /obj/item/trash/canned_tomato
 	filling_color = "#ae0000"
 	list_reagents = list("tomatojuice" = 4, "sodiumchloride" = 4)
 	tastes = list("tomato" = 1)
@@ -73,7 +73,7 @@
 	name = "canned spinach"
 	icon_state = "spinach"
 	desc = "Wup-Az! Brand canned spinach. Notably has less iron in it than a watermelon."
-	trash = /obj/item/trash/spinach
+	trash = /obj/item/trash/canned_spinach
 	filling_color = "#003300"
 	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 2, "sodiumchloride" = 1) //WEEDEATER
 	tastes = list("soggy" = 1, "vegetable" = 1)
@@ -83,7 +83,7 @@
 	name = "canned ilegal caviar"
 	icon_state = "carpeggs"
 	desc = "Terran caviar, or space carp eggs. Banned by the Sol Food Health Administration for exceeding the legally set amount of carpotoxins in foodstuffs."
-	trash = /obj/item/trash/carpegg
+	trash = /obj/item/trash/canned_carpegg
 	filling_color = "#330066"
 	list_reagents = list("protein" = 1, "carpotoxin" = 2, "vitamin" = 1)
 	tastes = list("fish" = 1, "salt" = 1, "numbing sensation" = 1)
@@ -93,7 +93,7 @@
 	name = "canned caviar"
 	icon_state = "fisheggs"
 	desc = "Terran caviar, or space carp eggs. Carefully faked using alginate, artificial flavoring and salt. Skrell approved!"
-	trash = /obj/item/trash/fishegg
+	trash = /obj/item/trash/canned_fishegg
 	filling_color = "#000000"
 	list_reagents = list("protein" = 3, "sodiumchloride" = 1)
 	tastes = list("fish" = 1, "salt" = 1)
