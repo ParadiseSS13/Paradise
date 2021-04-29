@@ -12,7 +12,7 @@
 	. = ..()
 	to_chat(user, "It is [sealed ? "" : "un"]sealed.")
 
-/obj/item/reagent_containers/food/snacks/canned_food/attack_self(var/mob/user)
+/obj/item/reagent_containers/food/snacks/canned_food/attack_self(mob/user)
 	if(sealed)
 		playsound(loc,'sound/effects/canopen.ogg', rand(10,50), 1)
 		to_chat(user, "<span class='notice'>You unseal \the [src] with a crack of metal.</span>")
