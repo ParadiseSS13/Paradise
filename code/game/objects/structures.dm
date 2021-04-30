@@ -72,7 +72,7 @@
 	//HISPATRAITS START
 	var/escala = 50
 	if(HAS_TRAIT(user, TRAIT_FREERUNNING))
-		escala = 25
+		escala /= 2
 	//HISPATRAITS END
 	if(!do_after(user, escala, target = src))
 		climber = null
