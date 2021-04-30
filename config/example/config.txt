@@ -386,7 +386,7 @@ EXTRA_SPACE_RUIN_LEVELS_MAX 4
 #SHUTDOWN_ON_REBOOT
 ## A command to run prior to the world shutting down, only used if the above option is enabled
 ## This default value will kill Dream Daemon on Windows machines.
-SHUTDOWN_SHELL_COMMAND taskkill /f /im dreamdaemon.exe
+#SHUTDOWN_SHELL_COMMAND taskkill /f /im dreamdaemon.exe
 
 ## Uncomment this to disable karma and unlock all karma purchases for players by default
 #DISABLE_KARMA
@@ -446,13 +446,13 @@ BYOND_ACCOUNT_AGE_THRESHOLD 3
 #DISCORD_WEBHOOKS_ADMIN_ROLE_ID 111111111111
 
 ## Webhook URLs for the main discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
-#DISCORD_WEBHOOKS_MAIN_URL https://discordapp.com/api/webhooks/.........................
+#DISCORD_WEBHOOKS_MAIN_URL
 
 ## Webhook URLs for the admin discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
-#DISCORD_WEBHOOKS_ADMIN_URL https://discordapp.com/api/webhooks/.........................
+#DISCORD_WEBHOOKS_ADMIN_URL
 
 ## Webhook URLs for the mentor discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
-#DISCORD_WEBHOOKS_MENTOR_URL https://discordapp.com/api/webhooks/........................
+#DISCORD_WEBHOOKS_MENTOR_URL
 
 ## Uncomment to send all ahelps to discord. If the line is commented, only ahelps made when no admins are online will be forwarded
 ## Ahelps forwarded when staff are online will never have the role ping, regardless of the setting above
