@@ -5719,23 +5719,6 @@
 	dir = 1
 	},
 /area/security/seceqstorage)
-"amK" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
-"amL" = (
-/obj/machinery/shower{
-	tag = "icon-shower (WEST)";
-	icon_state = "shower";
-	dir = 8
-	},
-/obj/structure/curtain/open/shower,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
 "amM" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "red";
@@ -23173,7 +23156,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
 "aUO" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
@@ -23480,7 +23462,6 @@
 	},
 /area/crew_quarters/dorms)
 "aVx" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
@@ -41364,9 +41345,7 @@
 	},
 /area/medical/reception)
 "bGf" = (
-/obj/structure/chair/comfy/teal{
-	dir = 1
-	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue";
 	icon_state = "whiteblue"
@@ -41883,6 +41862,7 @@
 	input_dir = 1;
 	stack_amt = 10
 	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bHg" = (
@@ -42641,6 +42621,10 @@
 	},
 /area/quartermaster/office)
 "bIH" = (
+/obj/machinery/door/window/eastleft{
+	dir = 2;
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bII" = (
@@ -43338,6 +43322,7 @@
 	name = "station intercom (General)";
 	pixel_y = -28
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue (SOUTHEAST)";
 	icon_state = "whiteblue";
@@ -90193,6 +90178,10 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"eUh" = (
+/obj/item/soap,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "eUO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -92481,6 +92470,14 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"oqN" = (
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "old sink";
+	pixel_y = 28
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "ovc" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -94409,6 +94406,24 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
+"vBb" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/portable_atmospherics/canister/air{
+	filled = 0.1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
+"vEL" = (
+/obj/machinery/shower{
+	dir = 8;
+	icon_state = "shower";
+	tag = "icon-shower (WEST)"
+	},
+/obj/structure/curtain/open/shower,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "vEQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -94428,6 +94443,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"vFe" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "vKM" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -94566,6 +94591,10 @@
 /obj/machinery/floodlight,
 /turf/simulated/floor/plating,
 /area/storage/secure)
+"wnS" = (
+/obj/effect/spawner/random_barrier/possibly_welded_airlock,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "wqX" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/computer/atmos_alert,
@@ -94847,6 +94876,9 @@
 /obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"xko" = (
+/turf/space,
+/area/maintenance/fsmaint)
 "xms" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/camera{
@@ -133726,9 +133758,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
+awl
+awl
+awl
 awl
 awl
 awl
@@ -133983,11 +134015,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 awl
-amK
+oqN
+avq
+wnS
+atw
 atT
 auK
 bVQ
@@ -134240,11 +134272,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 awl
 aCh
+eUh
+awl
+vBb
 atG
 auA
 axg
@@ -134497,11 +134529,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 awl
-amL
+vEL
+vFe
+awl
+awl
 atG
 axf
 dgk
@@ -134754,11 +134786,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 awl
 awl
+awl
+awl
+xko
 awl
 azT
 azT
