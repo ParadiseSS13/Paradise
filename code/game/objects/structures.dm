@@ -96,6 +96,7 @@
 		//HISPATRAITS START
 		if(HAS_TRAIT(M, TRAIT_FREERUNNING))
 			to_chat(M, "<span class='warning'>You land on your feet like a boss!</span>")
+			to_chat(viewers(loc), "<span class='warning'>[M] lands on hes feet like a boss!</span>")
 			return
 		//HISPATRAITS END
 		M.Weaken(5)
