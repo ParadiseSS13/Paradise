@@ -42622,12 +42622,8 @@
 /area/quartermaster/office)
 "bIH" = (
 /obj/machinery/door/window/eastleft{
-	base_state = "right";
 	dir = 2;
-	icon_state = "right";
-	layer = 3;
-	name = "interior door";
-	req_access_txt = "50"
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
