@@ -93,7 +93,11 @@
 	for(var/mob/living/M in get_turf(src))
 
 		if(M.lying) return //No spamming this on people.
-
+		//HISPATRAITS START
+		if(HAS_TRAIT(M, TRAIT_FREERUNNING))
+			to_chat(M, "<span class='warning'>You land on your feet like a boss!</span>")
+			return
+		//HISPATRAITS END
 		M.Weaken(5)
 		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")
 
