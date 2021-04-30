@@ -13,7 +13,7 @@ ADDRESS 127.0.0.1
 PORT 3306
 
 ## Database for all SQL functions, not just feedback.
-FEEDBACK_DATABASE paradise
+FEEDBACK_DATABASE feedback
 
 ## This value must be set to the version of the paradise schema in use.
 ## If this value does not match, the SQL database will not be loaded and an error will be generated.

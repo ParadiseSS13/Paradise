@@ -5,7 +5,6 @@ SERVERNAME ParaCode Test
 SERVER_TAG_LINE ParaCode Test
 
 ## Server extra features: This appears in the feature list on the hub entry.
-#SERVER_EXTRA_FEATURES MedRP, varied species and jobs
 SERVER_EXTRA_FEATURES Medium RP, varied species/jobs.
 
 ## Download the RSC from the web - this needs to be regenerated every time the code is changed.
