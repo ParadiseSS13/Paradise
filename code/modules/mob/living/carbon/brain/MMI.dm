@@ -257,7 +257,7 @@
 
 /obj/item/mmi/syndie
 	name = "Syndicate Man-Machine Interface"
-	desc = "Syndicate's own brand of MMI. Mindslave any brain inserted into it, for as long as it's in. Cyborgs made with this MMI will be slaved to the owner. Does not fit into NT AIs."
+	desc = "Syndicate's own brand of MMI. Mindslaves any brain inserted into it for as long as it's in. Cyborgs made with this MMI will be slaved to the owner. Does not fit into NT AI cores."
 	origin_tech = "biotech=4;programming=4;syndicate=2"
 	syndiemmi = TRUE
 
@@ -279,7 +279,7 @@
 	..()
 	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave) //Overrides any previous mindslaving
 	if(mindslave_master)
-		to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will, and slave it to [mindslave_master.real_name]! \
+		to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will and slaving you to [mindslave_master.real_name]! \
 			You now must assist in [mindslave_master.p_their()] goals at any cost!</span>")
 		var/datum/objective/protect/mindslave/MS = new
 		MS.owner = brainmob.mind
@@ -299,7 +299,7 @@
 
 /obj/item/mmi/syndie/dropbrain(/turf/dropspot)
 	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave)
-	to_chat(brainmob, "<span class='userdanger'>You are no longer a mindslave: you have complete and free control of your own faculties, once more!</span>")
+	to_chat(brainmob, "<span class='userdanger'>You are no longer a mindslave: You have complete and free control of your own faculties once more!</span>")
 	..()
 
 /obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
