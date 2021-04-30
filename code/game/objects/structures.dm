@@ -69,7 +69,12 @@
 
 	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
-	if(!do_after(user, 50, target = src))
+	//HISPATRAITS START
+	var/escala = 50
+	if(HAS_TRAIT(user, TRAIT_FREERUNNING))
+		escala /= 2
+	//HISPATRAITS END
+	if(!do_after(user, escala, target = src))
 		climber = null
 		return
 
@@ -88,7 +93,12 @@
 	for(var/mob/living/M in get_turf(src))
 
 		if(M.lying) return //No spamming this on people.
-
+		//HISPATRAITS START
+		if(HAS_TRAIT(M, TRAIT_FREERUNNING))
+			to_chat(M, "<span class='warning'>You land on your feet like a boss!</span>")
+			to_chat(viewers(loc), "<span class='warning'>[M] lands on hes feet like a boss!</span>")
+			return
+		//HISPATRAITS END
 		M.Weaken(5)
 		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")
 
