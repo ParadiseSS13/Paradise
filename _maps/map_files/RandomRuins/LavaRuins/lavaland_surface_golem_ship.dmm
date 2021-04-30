@@ -14,32 +14,18 @@
 /obj/structure/closet/crate/golemgear,
 /turf/simulated/floor/plating,
 /area/shuttle/freegolem)
-"ae" = (
-/obj/structure/table/wood,
-/obj/item/bedsheet/rd/royal_cape{
-	layer = 3;
-	pixel_x = 5;
-	pixel_y = 9
-	},
-/obj/item/book/manual/research_and_development{
-	name = "Sacred Text of the Liberator";
-	pixel_x = -4;
-	pixel_y = 3
-	},
-/obj/structure/window/reinforced,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "af" = (
 /turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "ag" = (
-/obj/structure/statue/gold/rd{
-	name = "statue of the Liberator"
+/obj/structure/chair/comfy/purp{
+	dir = 8;
+	icon_state = "comfychair"
 	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+/obj/item/bedsheet/rd/royal_cape{
+	layer = 3;
+	pixel_x = 5;
+	pixel_y = 9
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
@@ -166,14 +152,6 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
-/area/shuttle/freegolem)
-"aD" = (
-/obj/machinery/light,
-/obj/structure/chair/comfy/purp{
-	icon_state = "comfychair";
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "aE" = (
 /obj/structure/extinguisher_cabinet{
@@ -334,8 +312,24 @@
 /obj/item/card/id/golem,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
+"rX" = (
+/obj/structure/table/wood,
+/obj/item/book/manual/research_and_development{
+	name = "Sacred Text of the Liberator";
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
 "yC" = (
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/light,
+/area/shuttle/freegolem)
+"yK" = (
+/obj/structure/statue/gold/rd{
+	name = "statue of the Liberator"
+	},
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "BM" = (
 /obj/structure/table/wood,
@@ -349,7 +343,12 @@
 /obj/structure/computerframe,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
+"DA" = (
+/obj/structure/chair/comfy/purp,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
 "Lh" = (
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/light{
 	color = ""
 	},
@@ -388,8 +387,8 @@ ab
 "}
 (2,1,1) = {"
 av
-ae
 ax
+ap
 av
 aa
 aa
@@ -407,7 +406,7 @@ av
 (3,1,1) = {"
 av
 ag
-aD
+aL
 ab
 ab
 ar
@@ -537,10 +536,10 @@ ap
 CS
 ap
 ap
-aq
 au
+ap
+aq
 aH
-aj
 ap
 ap
 ab
@@ -550,9 +549,9 @@ ab
 "}
 (11,1,1) = {"
 ab
-ap
-ap
-BM
+yK
+DA
+rX
 ap
 ap
 ap
@@ -586,7 +585,7 @@ ab
 "}
 (13,1,1) = {"
 ab
-ap
+aj
 aL
 ab
 cD
@@ -689,7 +688,7 @@ ap
 ap
 ab
 af
-af
+ad
 ab
 "}
 (19,1,1) = {"
@@ -707,7 +706,7 @@ aY
 aZ
 ab
 af
-af
+ad
 ab
 "}
 (20,1,1) = {"
