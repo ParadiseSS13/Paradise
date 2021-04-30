@@ -4,7 +4,7 @@
 	icon_state = "tape-splint"
 	other_delay = 100
 
-/obj/item/stack/medical/bruise_pack/earthly_cataplasm
+/obj/item/stack/medical/ointment/earthly_cataplasm
 	name = "earthly herbal cataplasm"
 	singular_name = "earthly herbal cataplasm"
 	desc = "A type of primitive herbal cataplasm made with Lavaland plants. Smells horrible.\n It is imbued with ancient wisdom."
@@ -15,7 +15,7 @@
 	heal_brute = 30
 	self_delay = 15
 
-/obj/item/stack/medical/bruise_pack/earthly_cataplasm/heal(mob/living/M, mob/user)
+/obj/item/stack/medical/ointment/earthly_cataplasm/heal(mob/living/M, mob/user)
 	if(ishuman(M))
 		var/obj/item/clothing/mask/P = M.wear_mask
 		playsound(src, 'sound/misc/soggy.ogg', 30, TRUE)
@@ -36,7 +36,7 @@
 		M.Weaken(2)
 	return ..()
 
-/obj/item/stack/medical/bruise_pack/fiery_cataplasm
+/obj/item/stack/medical/ointment/fiery_cataplasm
 	name = "fiery herbal cataplasm"
 	singular_name = "fiery herbal cataplasm"
 	desc = "A type of primitive herbal cataplasm made with Lavaland plants. Smells horrible.\n It is imbued with ancient wisdom."
@@ -47,7 +47,7 @@
 	heal_burn = 30
 	self_delay = 15
 
-/obj/item/stack/medical/bruise_pack/fiery_cataplasm/heal(mob/living/M, mob/user)
+/obj/item/stack/medical/ointment/fiery_cataplasm/heal(mob/living/M, mob/user)
 	if(ishuman(M))
 		var/obj/item/clothing/mask/P = M.wear_mask
 		playsound(src, 'sound/misc/soggy.ogg', 30, TRUE)
