@@ -41862,6 +41862,7 @@
 	input_dir = 1;
 	stack_amt = 10
 	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bHg" = (
@@ -42620,6 +42621,14 @@
 	},
 /area/quartermaster/office)
 "bIH" = (
+/obj/machinery/door/window/eastleft{
+	base_state = "right";
+	dir = 2;
+	icon_state = "right";
+	layer = 3;
+	name = "interior door";
+	req_access_txt = "50"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bII" = (
@@ -90173,14 +90182,10 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
-"eTM" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/space)
 "eUh" = (
 /obj/item/soap,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fsmaint)
 "eUO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -92373,9 +92378,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
-"nTX" = (
-/turf/simulated/wall,
-/area/space)
 "nVM" = (
 /obj/effect/decal/warning_stripes/southwest,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -92479,7 +92481,7 @@
 	pixel_y = 28
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fsmaint)
 "ovc" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -94425,7 +94427,7 @@
 	},
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fsmaint)
 "vEQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -94454,7 +94456,7 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fsmaint)
 "vKM" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -94597,9 +94599,6 @@
 /obj/effect/spawner/random_barrier/possibly_welded_airlock,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
-"wqz" = (
-/turf/simulated/floor/plating,
-/area/space)
 "wqX" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/computer/atmos_alert,
@@ -133763,9 +133762,9 @@ aaa
 aaa
 aaa
 aaa
-nTX
-nTX
-nTX
+awl
+awl
+awl
 awl
 awl
 awl
@@ -134020,9 +134019,9 @@ aaa
 aaa
 aaa
 aaa
-nTX
+awl
 oqN
-wqz
+avq
 wnS
 atw
 atT
@@ -134277,8 +134276,8 @@ aaa
 aaa
 aaa
 aaa
-nTX
-eTM
+awl
+aCh
 eUh
 awl
 vBb
@@ -134534,7 +134533,7 @@ aaa
 aaa
 aaa
 aaa
-nTX
+awl
 vEL
 vFe
 awl
@@ -134791,9 +134790,9 @@ aaa
 aaa
 aaa
 aaa
-nTX
-nTX
-nTX
+awl
+awl
+awl
 awl
 xko
 awl
