@@ -65,7 +65,7 @@
 #define MEDICAL_SOUNDS list('sound/ambience/ambinice.ogg')
 
 #define SPOOKY_SOUNDS list('sound/ambience/ambimo1.ogg','sound/ambience/ambimo2.ogg','sound/ambience/ambiruin7.ogg','sound/ambience/ambiruin6.ogg',\
-										'sound/ambience/ambiodd.ogg', 'sound/ambience/ambimystery.ogg')
+										'sound/ambience/ambiodd.ogg', 'sound/ambience/ambimystery.ogg' , 'sound/hispania/ambience/ambidanger3.ogg') //Hispania Sounds
 
 #define SPACE_SOUNDS list('sound/ambience/ambispace.ogg', 'sound/ambience/ambispace2.ogg', 'sound/music/title2.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/hispania/ambience/ambispace3.ogg', 'sound/hispania/ambience/ambispace4.ogg') //Hispania Sounds
 
