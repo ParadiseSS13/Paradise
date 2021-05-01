@@ -204,6 +204,9 @@ REAGENT SCANNER
 		if(e.status & ORGAN_BROKEN)
 			if((e.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")) && !(e.status & ORGAN_SPLINTED))
 				to_chat(user, "<span class='warning'>Unsecured fracture in subject [limb]. Splinting recommended for transport.</span>")
+		if(e.status & ORGAN_BURNT)
+			if(!(e.status & ORGAN_SALVED))
+				to_chat(user, "<span class='warning'>Severe burns on subject's [limb]. Ointment reccommended to reduce infections.</span>")
 		if(e.has_infected_wound())
 			to_chat(user, "<span class='warning'>Infected wound detected in subject [limb]. Disinfection recommended.</span>")
 
@@ -212,11 +215,14 @@ REAGENT SCANNER
 		if(!e)
 			continue
 		if(e.status & ORGAN_BROKEN)
-			to_chat(user, "<span class='warning'>Bone fractures detected. Advanced scanner required for location.</span>")
+			to_chat(user, "<span class='warning'>Bone fractures detected.</span>")
+			break
+		if(e.status & ORGAN_BURNT)
+			to_chat(user, "<span class='warning'>Severe burns detected.</span>")
 			break
 	for(var/obj/item/organ/external/e in H.bodyparts)
 		if(e.internal_bleeding)
-			to_chat(user, "<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>")
+			to_chat(user, "<span class='warning'>Internal bleeding detected.</span>")
 			break
 	var/blood_id = H.get_blood_id()
 	if(blood_id)
@@ -786,6 +792,8 @@ REAGENT SCANNER
 			splint = "Splinted:"
 		if(e.status & ORGAN_BROKEN)
 			AN = "[e.broken_description]:"
+		if(e.status & ORGAN_BURNT)
+			AN = "[e.burn_description]:"
 		if(e.is_robotic())
 			robot = "Robotic:"
 		if(e.open)
