@@ -297,22 +297,12 @@
 						C.pixel_x -= pixel_x_diff
 						C.pixel_y -= pixel_y_diff
 			src = oldsrc
-		AdjustDizzy(-restingpwr)
 
-	if(drowsyness)
-		AdjustDrowsy(-restingpwr)
-		EyeBlurry(2)
-		if(prob(5))
-			AdjustSleeping(1)
-			Paralyse(5)
 
-	if(confused)
-		AdjustConfused(-1)
 
 	//Jitteryness
 	if(jitteriness)
 		do_jitter_animation(jitteriness)
-		AdjustJitter(-restingpwr)
 
 	if(hallucination)
 		spawn handle_hallucinations()
