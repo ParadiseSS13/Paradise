@@ -8,7 +8,8 @@
 	name = "\improper ChemMaster 3000"
 	density = TRUE
 	anchored = TRUE
-	icon = 'icons/obj/chemical.dmi'
+	//icon = 'icons/obj/chemical.dmi' Solucion TGUI
+	icon = 'icons/hispania/obj/chemical.dmi'
 	icon_state = "mixer0"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
