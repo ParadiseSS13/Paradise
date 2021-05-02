@@ -677,6 +677,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/robotize(company, make_tough = 0, convert_all = 1)
 	..()
+	fix_severe_burn() // your skin is being replaced by metal
 	//robot limbs take reduced damage
 	if(!make_tough)
 		brute_mod = 0.66
@@ -687,7 +688,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// Robot parts also lack bones
 	// This is so surgery isn't kaput, let's see how this does
 	encased = null
-
 	if(company && istext(company))
 		set_company(company)
 	cannot_break = TRUE
