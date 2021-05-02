@@ -55,7 +55,7 @@
 
 
 /datum/event/headcrabs/announce()
-	GLOB.event_announcement.Announce("Bioscans indicate that headcrabs have been breeding on the station. Clear them out, before this starts to affect productivity", "Lifesign Alert")
+	GLOB.event_announcement.Announce("Bioscans indicate that headcrabs have been breeding on the station. Clear them out, before this starts to affect productivity", "Lifesign Alert", 'sound/AI/aliens.ogg')
 
 #undef HEADCRAB_NORMAL
 #undef HEADCRAB_FASTMIX
