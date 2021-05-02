@@ -260,8 +260,7 @@
 	req_access = list(ACCESS_PARAMEDIC)
 
 /obj/structure/closet/secure_closet/paramedic/populate_contents()
-	new /obj/item/clothing/suit/space/eva/paramedic(src)
-	new /obj/item/clothing/head/helmet/space/eva/paramedic(src)
+	new /obj/item/clothing/suit/space/hardsuit/paramedic(src)
 	new /obj/item/sensor_device(src)
 	new /obj/item/key/ambulance(src)
 	new /obj/item/pinpointer/crew(src)
