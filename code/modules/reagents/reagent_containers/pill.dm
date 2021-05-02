@@ -6,7 +6,8 @@
 /obj/item/reagent_containers/food/pill
 	name = "pill"
 	desc = "A pill."
-	icon = 'icons/obj/chemical.dmi'
+	//icon = 'icons/obj/chemical.dmi' Solucion TGUI
+	icon = 'icons/hispania/obj/chemical.dmi'
 	icon_state = null
 	item_state = "pill"
 	container_type = NONE
@@ -20,7 +21,7 @@
 /obj/item/reagent_containers/food/pill/Initialize(mapload)
 	. = ..()
 	if(!icon_state)
-		icon_state = "pill[rand(1, 20)]"
+		icon_state = "pill[rand(1, 27)]" //Tenemos mas sprites
 
 /obj/item/reagent_containers/food/pill/attack(mob/living/carbon/M, mob/user, def_zone)
 	if(!istype(M))
