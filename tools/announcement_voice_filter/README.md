@@ -13,5 +13,5 @@ Plain text, Standard engine, Englush US, Joanna - Female.
 
 ### Bitwig studio
 All you need to do is drag your generated polly voice into the project.
-Ensure the tempo is 110 for your track.
+Ensure the tempo is 114.4 for your track.
 Record or export the output directly to OGG (if you own a license) or to a free editor such as Audacity via loopback recording
