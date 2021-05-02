@@ -1337,6 +1337,7 @@
 #include "code\hispania\modules\reagents\chemistry\recipes\drinks.dm"
 #include "code\hispania\modules\reagents\chemistry\recipes\slime_extracts.dm"
 #include "code\hispania\modules\reagents\reagent_containers\glass_containers.dm"
+#include "code\hispania\modules\reagents\reagent_containers\syringes.dm"
 #include "code\hispania\modules\research\circuitprinter.dm"
 #include "code\hispania\modules\research\rdconsole.dm"
 #include "code\hispania\modules\research\designs\autolathe_designs.dm"
