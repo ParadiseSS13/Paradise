@@ -174,3 +174,4 @@ I use this to standardize shadowling dethrall code
 	for(var/obj/item/organ/external/O in bodyparts)
 		if((O.status & ORGAN_BURNT) && !(O.status & ORGAN_SALVED))
 			reagents.add_reagent("burn_toxin", 5.2) // slightly more than its metabolize rate, so that it builds up
+			return

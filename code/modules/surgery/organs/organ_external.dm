@@ -668,7 +668,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(is_robotic())
 		return
 
-	if(!(status &= ORGAN_BURNT))
+	if(!(status & ORGAN_BURNT))
 		return
 	status &= ~ORGAN_BURNT
 	brute_mod /= BURN_WOUND_DAMAGE_MOD
