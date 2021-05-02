@@ -92,7 +92,7 @@
 
 	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
 
-	var/datum/announcement/priority/crew_shuttle_called = new(0, new_sound = sound('sound/AI/cshuttle_call.ogg'))
+	var/datum/announcement/priority/crew_shuttle_called = new(0, new_sound = sound('sound/AI/cshuttle.ogg'))
 	var/datum/announcement/priority/crew_shuttle_docked = new(0, new_sound = sound('sound/AI/cshuttle_dock.ogg'))
 
 
