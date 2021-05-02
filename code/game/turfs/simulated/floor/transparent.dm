@@ -6,7 +6,10 @@
 	baseturf = /turf/space
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/turf/simulated/floor/transparent/glass, /turf/simulated/floor/transparent/glass/reinforced, /turf/simulated/floor/transparent/glass/plasma, /turf/simulated/floor/transparent/glass/reinforced/plasma)
-	footstep = FOOTSTEP_PLATING
+	footstep = FOOTSTEP_GLASS
+	barefootstep = FOOTSTEP_GLASS_BAREFOOT
+	clawfootstep = FOOTSTEP_GLASS_BAREFOOT
+	heavyfootstep = FOOTSTEP_GLASS_BAREFOOT
 	light_power = 0.25
 	light_range = 2
 	layer = TRANSPARENT_TURF_LAYER
