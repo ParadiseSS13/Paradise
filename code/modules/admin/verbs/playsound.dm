@@ -26,8 +26,8 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	if(alert("Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Server Sound\".", "Confirmation request" ,"Play", "Cancel") == "Cancel")
 		return
 
-	log_admin("[key_name(src)] played sound [S]")
-	message_admins("[key_name_admin(src)] played sound [S]", 1)
+	log_admin("[key_name(src)] played global sound [S]")
+	message_admins("[key_name_admin(src)] played global sound [S]", 1)
 
 	for(var/mob/M in GLOB.player_list)
 		if(M.client.prefs.sound & SOUND_MIDI)
@@ -44,9 +44,22 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	set name = "Play Local Sound"
 	if(!check_rights(R_SOUNDS))	return
 
-	log_admin("[key_name(src)] played a local sound [S]")
-	message_admins("[key_name_admin(src)] played a local sound [S]", 1)
-	playsound(get_turf(src.mob), S, 50, 0, 0)
+	var/sound/uploaded_sound = sound(S, repeat = 0, wait = 1, channel = CHANNEL_ADMIN)
+	uploaded_sound.priority = 250
+
+	GLOB.sounds_cache += S
+
+	if(alert("Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Local Sound\".", "Confirmation request" ,"Play", "Cancel") == "Cancel")
+		return
+
+	log_admin("[key_name(src)] played local sound [S]")
+	message_admins("[key_name_admin(src)] played local sound [S]", 1)
+
+	for(var/mob/M in GLOB.player_list)
+		if(M.client.prefs.sound & SOUND_MIDI)
+			uploaded_sound.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
+			SEND_SOUND(get_turf(src.mob), uploaded_sound)
+
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Local Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/play_server_sound()
@@ -57,10 +70,16 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	var/sound/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
 	if(!melody)	return
 
-	play_sound(melody)
+	log_admin("[key_name(src)] played server sound [melody]")
+	message_admins("[key_name_admin(src)] played server sound [melody]", 1)
+
+	for(var/mob/M in GLOB.player_list)
+		if(prefs.sound & SOUND_LOBBY)
+			SEND_SOUND(src, sound(melody, repeat = 0, wait = 0, volume = 85 * prefs.get_channel_volume(CHANNEL_LOBBYMUSIC), channel = CHANNEL_LOBBYMUSIC))
+
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Server Sound") //If you are copy-pasting this, ensure the 2nd paramter is unique to the new proc!
 
 /client/proc/play_intercomm_sound()
@@ -75,8 +94,11 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	var/sound/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
 	if(!melody)	return
+
+	log_admin("[key_name(src)] played sound via intercomms [melody]")
+	message_admins("[key_name_admin(src)] played sound via intercomms [melody]", 1)
 
 	var/cvol = 35
 	var/inputvol = input("How loud would you like this to be? (1-70)", "Volume", "35") as num | null
@@ -102,4 +124,9 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			continue
 		if(!I.on && !ignore_power)
 			continue
-		playsound(I, melody, cvol)
+		for(var/mob/M in GLOB.player_list)
+			if(M.client.prefs.sound & SOUND_MIDI)
+				var/ivol = cvol * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
+				playsound(I, melody, ivol)
+
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Intercomms Sound") //If you are copy-pasting this, ensure the 2nd paramter is unique to the new proc!
