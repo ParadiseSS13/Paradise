@@ -68,6 +68,8 @@
 	. = ..()
 	if(flag)
 		return // too close
+	if(!user)
+		return
 	if(user?.mind?.martial_art?.no_guns)
 		to_chat(user, "<span class='warning'>[user.mind.martial_art.no_guns_message]</span>")
 		return
