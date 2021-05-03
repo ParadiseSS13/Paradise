@@ -24,21 +24,15 @@
 # +SPAWN (or +CREATE) = mob transformations, spawning of most atoms including mobs (high-risk atoms, e.g. blackholes, will require the +FUN flag too)
 # +EVERYTHING (or +HOST or +ALL) = Simply gives you everything without having to type every flag
 # +VIEWRUNTIMES = Allows a player to view the runtimes of the server, but not use other debug verbs
-
+ 
 # Admin Ranks
 Admin Observer
 Mentor					+MENTOR
-Moderator               +MOD
-Trial Admin             +ADMIN +BAN +DEBUG +REJUVINATE
-Game Admin              +ADMIN +BAN +DEBUG +REJUVINATE +BUILDMODE +EVENT +SERVER +POSSESS +STEALTH +VAREDIT +SOUND +SPAWN
-Senior Admin			+ADMIN +BAN +DEBUG +REJUVINATE +BUILDMODE +EVENT +SERVER +POSSESS +STEALTH +VAREDIT +SOUND +SPAWN
-Retired Admin  			+ADMIN +BAN +STEALTH +VAREDIT +SPAWN
+Trial Admin             +ADMIN +BAN +STEALTH +REJUVINATE
+Game Admin              +ADMIN +BAN +DEBUG +REJUVINATE +BUILDMODE +EVENT +SERVER +POSSESS +PROCCALL +STEALTH +VAREDIT +SOUND +SPAWN
 Head of Staff           +EVERYTHING
 
 Hosting Provider        +EVERYTHING
  
 # Coder Ranks
-Trial Coder				+ADMIN +VAREDIT +REJUVINATE +DEBUG
-Coders                  +ADMIN +VAREDIT +REJUVINATE +DEBUG +BUILDMODE +EVENT +SERVER +POSSESS +STEALTH +SOUND +SPAWN
-Retired Coder			+ADMIN +VAREDIT +REJUVINATE +DEBUG +BUILDMODE +EVENT +SERVER +POSSESS +STEALTH +SOUND +SPAWN +BAN
 Maintainers             +EVERYTHING

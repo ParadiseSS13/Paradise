@@ -334,7 +334,7 @@
 	return ..() | update_flags
 
 /datum/reagent/acid/facid/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	if(ishuman(M))
+	if(ishuman(M) && !isgrey(M))
 		var/mob/living/carbon/human/H = M
 		if(method == REAGENT_TOUCH)
 			if(volume > 9)
