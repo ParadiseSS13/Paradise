@@ -8,9 +8,20 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	// Right off the bat
 	enable_auxtools_debugger()
 
+	// Do sanity checks to ensure RUST actually exists
+	if(!fexists(RUST_G))
+		DIRECT_OUTPUT(world.log, "ERROR: RUSTG was not found and is required for the game to function. Server will now exit.")
+		del(world)
+
+	var/rustg_version = rustg_get_version()
+	if(rustg_version != RUST_G_VERSION)
+		DIRECT_OUTPUT(world.log, "ERROR: RUSTG version mismatch. Library is [rustg_version], code wants [RUST_G_VERSION]. Server will now exit.")
+		del(world)
+
 	//temporary file used to record errors with loading config and the database, moved to log directory once logging is set up
 	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = GLOB.sql_log = "data/logs/config_error.log"
 	load_configuration()
+	GLOB.configuration.load_configuration()
 
 	// Right off the bat, load up the DB
 	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
@@ -188,7 +199,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	config = new /datum/configuration()
 	config.load("config/config.txt")
 	config.load("config/game_options.txt","game_options")
-	config.loadsql("config/dbconfig.txt")
 	config.loadoverflowwhitelist("config/ofwhitelist.txt")
 	// apply some settings from config..
 

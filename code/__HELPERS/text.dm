@@ -10,7 +10,7 @@
 
 
 /proc/format_table_name(table as text)
-	return sqlfdbktableprefix + table
+	return GLOB.configuration.database.table_prefix + table
 
 /*
  * Text sanitization

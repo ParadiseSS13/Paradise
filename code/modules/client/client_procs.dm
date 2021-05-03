@@ -274,7 +274,7 @@
 	GLOB.directory[ckey] = src
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
-	if(!config.disable_localhost_admin)
+	if(GLOB.configuration.admin.enable_localhost_autoadmin)
 		if(is_connecting_from_localhost())
 			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
 	holder = GLOB.admin_datums[ckey]

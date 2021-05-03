@@ -24,8 +24,6 @@
 	var/log_world_output = 0			// log world.log << messages
 	var/log_runtimes = 0                // logs world.log to a file
 	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
-	var/sql_enabled = 0					// for sql switching
-	var/allow_admin_ooccolor = 0		// Allows admins with relevant permissions to have their own ooc colour
 	var/pregame_timestart = 240			// Time it takes for the server to start the game
 	var/allow_vote_restart = 0 			// allow votes to restart
 	var/allow_vote_mode = 0				// allow votes to change mode
@@ -37,14 +35,12 @@
 	var/vote_no_dead = 0				// dead people can't vote (tbi)
 //	var/enable_authentication = 0		// goon authentication
 	var/del_new_on_log = 1				// qdel's new players if they log before they spawn in
-	var/feature_object_spell_system = 0 //spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
 	var/traitor_scaling = 0 			//if amount of traitors scales based on amount of players
 	var/protect_roles_from_antagonist = 0// If security and such can be tratior/cult/other
 	var/continuous_rounds = 0			// Gamemodes which end instantly will instead keep on going until the round ends by escape shuttle or nuke.
 	var/allow_Metadata = 0				// Metadata is supported.
 	var/popup_admin_pm = 0				//adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
 	var/Ticklag = 0.5
-	var/socket_talk	= 0					// use socket_talk to communicate with other processes
 	var/list/resource_urls = null
 	var/antag_hud_allowed = 0      // Ghosts can turn on Antagovision to see a HUD of who is the bad guys this round.
 	var/antag_hud_restricted = 0                    // Ghosts that turn on Antagovision cannot rejoin the round.
@@ -72,12 +68,6 @@
 	var/assistantlimit = 0 //enables assistant limiting
 	var/assistantratio = 2 //how many assistants to security members
 
-	// The AFK subsystem will not be activated if any of the below config values are equal or less than 0
-	var/warn_afk_minimum = 0 // How long till you get a warning while being AFK
-	var/auto_cryo_afk = 0 // How long till you get put into cryo when you're AFK
-	var/auto_despawn_afk = 0 // How long till you actually despawn in cryo when you're AFK (Not ssd so not automatic)
-
-	var/auto_cryo_ssd_mins = 0
 	var/ssd_warning = 0
 
 	var/list_afk_minimum = 5 // How long people have to be AFK before it's listed on the "List AFK players" verb
@@ -91,7 +81,6 @@
 
 	var/usealienwhitelist = 0
 	var/limitalienplayers = 0
-	var/alien_to_human_ratio = 0.5
 
 	var/server
 	var/banappeals
@@ -100,7 +89,6 @@
 	var/rulesurl = "http://example.org"
 	var/githuburl = "http://example.org"
 	var/donationsurl = "http://example.org"
-	var/repositoryurl = "http://example.org"
 	var/discordurl = "http://example.org"
 	var/discordforumurl = "http://example.org"
 
@@ -223,9 +211,6 @@
 	// Developer
 	var/developer_express_start = 0
 
-	// Automatic localhost admin disable
-	var/disable_localhost_admin = 0
-
 	//Start now warning
 	var/start_now_confirmation = 0
 
@@ -262,12 +247,6 @@
 
 	/// URL for the CentCom Ban DB API
 	var/centcom_ban_db_url = null
-
-	/// Timeout (seconds) for async SQL queries
-	var/async_sql_query_timeout = 10 SECONDS
-
-	/// Limit of how many SQL threads can run at once
-	var/rust_sql_thread_limit = 50
 
 	/// Max amount of CIDs that one ckey can have attached to them before they trip a warning
 	var/max_client_cid_history = 3
@@ -323,9 +302,6 @@
 				if("resource_urls")
 					config.resource_urls = splittext(value, " ")
 
-				if("admin_legacy_system")
-					config.admin_legacy_system = 1
-
 				if("ban_legacy_system")
 					config.ban_legacy_system = 1
 
@@ -350,15 +326,6 @@
 				if("shadowling_max_age")
 					config.shadowling_max_age = text2num(value)
 
-				if("warn_afk_minimum")
-					config.warn_afk_minimum = text2num(value)
-				if("auto_cryo_afk")
-					config.auto_cryo_afk = text2num(value)
-				if("auto_despawn_afk")
-					config.auto_despawn_afk = text2num(value)
-
-				if("auto_cryo_ssd_mins")
-					config.auto_cryo_ssd_mins = text2num(value)
 				if("ssd_warning")
 					config.ssd_warning = 1
 
@@ -439,9 +406,6 @@
 
 				if("mentors")
 					config.mods_are_mentors = 1
-
-				if("allow_admin_ooccolor")
-					config.allow_admin_ooccolor = 1
 
 				if("pregame_timestart")
 					config.pregame_timestart = text2num(value)
@@ -524,9 +488,6 @@
 				if("donationsurl")
 					config.donationsurl = value
 
-				if("repositoryurl")
-					config.repositoryurl = value
-
 				if("guest_jobban")
 					config.guest_jobban = 1
 
@@ -538,9 +499,6 @@
 
 				if("usewhitelist")
 					config.usewhitelist = 1
-
-				if("feature_object_spell_system")
-					config.feature_object_spell_system = 1
 
 				if("allow_metadata")
 					config.allow_Metadata = 1
@@ -587,9 +545,6 @@
 				if("ticklag")
 					Ticklag = text2num(value)
 
-				if("socket_talk")
-					socket_talk = text2num(value)
-
 				if("allow_antag_hud")
 					config.antag_hud_allowed = 1
 
@@ -604,10 +559,6 @@
 
 				if("usealienwhitelist")
 					usealienwhitelist = 1
-
-				if("alien_player_ratio")
-					limitalienplayers = 1
-					alien_to_human_ratio = text2num(value)
 
 				if("assistant_maint")
 					config.assistant_maint = 1
@@ -744,8 +695,6 @@
 					config.disable_high_pop_mc_mode_amount = text2num(value)
 				if("developer_express_start")
 					config.developer_express_start = 1
-				if("disable_localhost_admin")
-					config.disable_localhost_admin = 1
 				if("enable_gamemode_player_limit")
 					config.enable_gamemode_player_limit = 1
 				if("byond_account_age_threshold")
@@ -836,59 +785,6 @@
 					config.cubemonkeycap = text2num(value)
 				else
 					log_config("Unknown setting in configuration: '[name]'")
-
-/datum/configuration/proc/loadsql(filename)  // -- TLE
-	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>SQL configuration reload blocked: Advanced ProcCall detected.</span>")
-		message_admins("[key_name(usr)] attempted to reload SQL configuration via advanced proc-call")
-		log_admin("[key_name(usr)] attempted to reload SQL configuration via advanced proc-call")
-		return
-	var/list/Lines = file2list(filename)
-	for(var/t in Lines)
-		if(!t)	continue
-
-		t = trim(t)
-		if(length(t) == 0)
-			continue
-		else if(copytext(t, 1, 2) == "#")
-			continue
-
-		var/pos = findtext(t, " ")
-		var/name = null
-		var/value = null
-
-		if(pos)
-			name = lowertext(copytext(t, 1, pos))
-			value = copytext(t, pos + 1)
-		else
-			name = lowertext(t)
-
-		if(!name)
-			continue
-
-		switch(name)
-			if("sql_enabled")
-				config.sql_enabled = 1
-			if("address")
-				sqladdress = value
-			if("port")
-				sqlport = value
-			if("feedback_database")
-				sqlfdbkdb = value
-			if("feedback_login")
-				sqlfdbklogin = value
-			if("feedback_password")
-				sqlfdbkpass = value
-			if("feedback_tableprefix")
-				sqlfdbktableprefix = value
-			if("db_version")
-				sql_version = text2num(value)
-			if("async_query_timeout")
-				async_sql_query_timeout = text2num(value)
-			if("rust_sql_thread_limit")
-				config.rust_sql_thread_limit = text2num(value)
-			else
-				log_config("Unknown setting in configuration: '[name]'")
 
 /datum/configuration/proc/loadoverflowwhitelist(filename)
 	var/list/Lines = file2list(filename)

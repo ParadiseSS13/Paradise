@@ -61,7 +61,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		if(check_rights(R_MOD,0) && !check_rights(R_ADMIN,0))
 			display_colour = GLOB.moderator_ooc_colour
 		else if(check_rights(R_ADMIN,0))
-			if(config.allow_admin_ooccolor)
+			if(GLOB.configuration.admin.allow_admin_ooc_colour)
 				display_colour = src.prefs.ooccolor
 			else
 				display_colour = GLOB.admin_ooc_colour

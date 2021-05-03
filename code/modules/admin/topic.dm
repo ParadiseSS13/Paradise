@@ -287,19 +287,19 @@
 				if(null,"") return
 				if("*New Rank*")
 					new_rank = input("Please input a new rank", "New custom rank", null, null) as null|text
-					if(config.admin_legacy_system)
+					if(!GLOB.configuration.admin.use_database_admins)
 						new_rank = ckeyEx(new_rank)
 					if(!new_rank)
 						to_chat(usr, "<font color='red'>Error: Topic 'editrights': Invalid rank</font>")
 						return
-					if(config.admin_legacy_system)
+					if(!GLOB.configuration.admin.use_database_admins)
 						if(GLOB.admin_ranks.len)
 							if(new_rank in GLOB.admin_ranks)
 								rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
 							else
 								GLOB.admin_ranks[new_rank] = 0			//add the new rank to admin_ranks
 				else
-					if(config.admin_legacy_system)
+					if(!GLOB.configuration.admin.use_database_admins)
 						new_rank = ckeyEx(new_rank)
 						rights = GLOB.admin_ranks[new_rank]				//we input an existing rank, use its rights
 

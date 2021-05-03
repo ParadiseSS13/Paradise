@@ -129,17 +129,11 @@
 			if((head_organ.dna.species.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
 				hair += i
 
-		var/file = file2text("config/custom_sprites.txt")		//Pulls up the custom_sprites list
-		var/lines = splittext(file, "\n")
 
-		for(var/line in lines)									// Looks for lines set up as screen:ckey:screen_name
-			var/list/Entry = splittext(line, ":")				// split lines
-			for(var/i = 1 to Entry.len)
-				Entry[i] = trim(Entry[i])						// Cleans up lines
-				if(Entry.len != 3 || Entry[1] != "screen")		// Ignore entries that aren't for screens
-					continue
-				if(Entry[2] == H.ckey)							// They're in the list? Custom sprite time, var and icon change required
-					hair += Entry[3]							// Adds custom screen to list
+		if(H.ckey in GLOB.configuration.custom_sprites.ipc_screen_map)
+			// key: ckey | value: list of icon states
+			for(var/style in GLOB.configuration.custom_sprites.ipc_screen_map[H.ckey])
+				hair += style
 
 		var/new_style = input(H, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
 		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color

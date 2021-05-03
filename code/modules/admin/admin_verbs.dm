@@ -672,21 +672,13 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	var/datum/admins/D = GLOB.admin_datums[ckey]
 	var/rank = null
-	if(config.admin_legacy_system)
-		//load text from file
-		var/list/Lines = file2list("config/admins.txt")
-		for(var/line in Lines)
-			if(findtext(line, "#")) // Skip comments
+	if(!GLOB.configuration.admin.use_database_admins)
+		for(var/iterator_key in GLOB.configuration.admin.ckey_rank_map)
+			var/_ckey = ckey(iterator_key) // Snip out formatting
+			if(ckey != _ckey)
 				continue
-
-			var/list/splitline = splittext(line, " - ")
-			if(length(splitline) != 2) // Always 'ckey - rank'
-				continue
-			if(lowertext(splitline[1]) == ckey)
-				rank = ckeyEx(splitline[2])
-				break
-			continue
-
+			rank = GLOB.configuration.admin.ckey_rank_map[iterator_key]
+			break
 	else
 		if(!SSdbcore.IsConnected())
 			to_chat(src, "Warning, MYSQL database is not connected.")
@@ -706,7 +698,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 		qdel(rank_read)
 	if(!D)
-		if(config.admin_legacy_system)
+		if(!GLOB.configuration.admin.use_database_admins)
 			if(GLOB.admin_ranks[rank] == null)
 				error("Error while re-adminning [src], admin rank ([rank]) does not exist.")
 				to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.")

@@ -110,16 +110,6 @@
 		obj_count++
 	return
 
-/*/datum/game_mode/proc/learn_basic_spells(mob/living/carbon/human/wizard_mob)
-	if(!istype(wizard_mob))
-		return
-	if(!config.feature_object_spell_system)
-		wizard_mob.verbs += /client/proc/jaunt
-		wizard_mob.mind.special_verbs += /client/proc/jaunt
-	else
-		wizard_mob.spell_list += new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(usr)
-*/
-
 /datum/game_mode/proc/equip_wizard(mob/living/carbon/human/wizard_mob)
 	if(!istype(wizard_mob))
 		return
