@@ -110,19 +110,16 @@
 			var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
 			GLOB.map_templates[T.name] = T
 
-	if(!config.disable_space_ruins) // so we don't unnecessarily clutter start-up
+	if(GLOB.configuration.ruins.enable_space_ruins) // so we don't unnecessarily clutter start-up
 		preloadRuinTemplates()
 	preloadShelterTemplates()
 	preloadShuttleTemplates()
 
 /proc/preloadRuinTemplates()
-	// Still supporting bans by filename
-	var/list/banned
-	if(fexists("config/spaceRuinBlacklist.txt"))
-		banned = generateMapList("config/spaceRuinBlacklist.txt")
-	else
-		banned = generateMapList("config/example/spaceRuinBlacklist.txt")
-	banned += generateMapList("config/lavaRuinBlacklist.txt")
+	// Merge the active lists together
+	var/list/space_ruins = GLOB.configuration.ruins.active_space_ruins.Copy()
+	var/list/lava_ruins = GLOB.configuration.ruins.active_lava_ruins.Copy()
+	var/list/all_ruins = mergeLists(space_ruins, lava_ruins)
 
 	for(var/item in subtypesof(/datum/map_template/ruin))
 		var/datum/map_template/ruin/ruin_type = item
@@ -131,7 +128,8 @@
 			continue
 		var/datum/map_template/ruin/R = new ruin_type()
 
-		if(banned.Find(R.mappath))
+		// If not in the active list, skip it
+		if(!(R.mappath in all_ruins))
 			continue
 
 		GLOB.map_templates[R.name] = R

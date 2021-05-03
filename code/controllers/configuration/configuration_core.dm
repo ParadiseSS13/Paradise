@@ -15,6 +15,8 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/database_configuration/database
 	/// Holder for the MC configuration datum
 	var/datum/configuration_section/mc_configuration/mc
+	/// Holder for the ruins configuration datum
+	var/datum/configuration_section/ruin_configuration/ruins
 
 /datum/server_configuration/Destroy(force)
 	SHOULD_CALL_PARENT(FALSE)
@@ -33,6 +35,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	custom_sprites = new()
 	database = new()
 	mc = new()
+	ruins = new()
 
 	// Load our stuff up
 	var/config_file = "config/config.toml"
@@ -46,6 +49,8 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	afk.load_data(raw_config_data["afk_configuration"])
 	custom_sprites.load_data(raw_config_data["custom_sprites_configuration"])
 	database.load_data(raw_config_data["database_configuration"])
+	mc.load_data(raw_config_data["mc_configuration"])
+	ruins.load_data(raw_config_data["ruin_configuration"])
 
 	// And report the load
 	DIRECT_OUTPUT(world.log, "Config loaded in [stop_watch(start)]s")

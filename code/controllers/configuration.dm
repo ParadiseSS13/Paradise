@@ -171,10 +171,6 @@
 	var/list/overflow_whitelist = list() //whitelist for overflow
 
 	var/disable_away_missions = 0 // disable away missions
-	var/disable_space_ruins = 0 //disable space ruins
-
-	var/extra_space_ruin_levels_min = 4
-	var/extra_space_ruin_levels_max = 8
 
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
@@ -201,9 +197,6 @@
 
 	//Start now warning
 	var/start_now_confirmation = 0
-
-	// Lavaland
-	var/lavaland_budget = 60
 
 	//cube monkey limit
 	var/cubemonkeycap = 20
@@ -624,22 +617,11 @@
 				if("disable_away_missions")
 					config.disable_away_missions = 1
 
-				if("disable_space_ruins")
-					config.disable_space_ruins = 1
-
 				if("disable_lobby_music")
 					config.disable_lobby_music = 1
 
 				if("disable_cid_warn_popup")
 					config.disable_cid_warn_popup = 1
-
-				if("extra_space_ruin_levels_min")
-					var/vvalue = text2num(value)
-					config.extra_space_ruin_levels_min = max(vvalue, 0)
-
-				if("extra_space_ruin_levels_max")
-					var/vvalue = text2num(value)
-					config.extra_space_ruin_levels_max = max(vvalue, 0)
 
 				if("max_loadout_points")
 					config.max_loadout_points = text2num(value)
@@ -754,8 +736,6 @@
 					config.randomize_shift_time = TRUE
 				if("enable_night_shifts")
 					config.enable_night_shifts = TRUE
-				if("lavaland_budget")
-					config.lavaland_budget = text2num(value)
 				if("cubemonkey_cap")
 					config.cubemonkeycap = text2num(value)
 				else
