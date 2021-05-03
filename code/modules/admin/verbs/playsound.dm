@@ -23,11 +23,11 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 	GLOB.sounds_cache += S
 
-	if(alert("Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Server Sound\".", "Confirmation request" ,"Play", "Cancel") == "Cancel")
+	if(alert("Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Server Sound\".", "Confirmation request", "Play", "Cancel") == "Cancel")
 		return
 
 	log_admin("[key_name(src)] played global sound [S]")
-	message_admins("[key_name_admin(src)] played global sound [S]", 1)
+	message_admins("[key_name_admin(src)] played global sound [S]")
 
 	for(var/mob/M in GLOB.player_list)
 		if(M.client.prefs.sound & SOUND_MIDI)
@@ -44,16 +44,16 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	set name = "Play Local Sound"
 	if(!check_rights(R_SOUNDS))	return
 
-	var/sound/uploaded_sound = sound(S, repeat = 0, wait = 1, channel = CHANNEL_ADMIN)
+	var/sound/uploaded_sound = sound(S, channel = CHANNEL_ADMIN)
 	uploaded_sound.priority = 250
 
 	GLOB.sounds_cache += S
 
-	if(alert("Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Local Sound\".", "Confirmation request" ,"Play", "Cancel") == "Cancel")
+	if(alert("Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Local Sound\".", "Confirmation request", "Play", "Cancel") == "Cancel")
 		return
 
 	log_admin("[key_name(src)] played local sound [S]")
-	message_admins("[key_name_admin(src)] played local sound [S]", 1)
+	message_admins("[key_name_admin(src)] played local sound [S]")
 
 	for(var/mob/M in GLOB.player_list)
 		if(M.client.prefs.sound & SOUND_MIDI)
@@ -74,11 +74,11 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	if(!melody)	return
 
 	log_admin("[key_name(src)] played server sound [melody]")
-	message_admins("[key_name_admin(src)] played server sound [melody]", 1)
+	message_admins("[key_name_admin(src)] played server sound [melody]")
 
 	for(var/mob/M in GLOB.player_list)
-		if(prefs.sound & SOUND_LOBBY)
-			SEND_SOUND(src, sound(melody, repeat = 0, wait = 0, volume = 85 * prefs.get_channel_volume(CHANNEL_LOBBYMUSIC), channel = CHANNEL_LOBBYMUSIC))
+		if(prefs.sound & SOUND_MIDI)
+			SEND_SOUND(src, sound(melody, volume = 85 * prefs.get_channel_volume(CHANNEL_ADMIN), channel = CHANNEL_ADMIN))
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Server Sound") //If you are copy-pasting this, ensure the 2nd paramter is unique to the new proc!
 
@@ -98,7 +98,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	if(!melody)	return
 
 	log_admin("[key_name(src)] played sound via intercomms [melody]")
-	message_admins("[key_name_admin(src)] played sound via intercomms [melody]", 1)
+	message_admins("[key_name_admin(src)] played sound via intercomms [melody]")
 
 	var/cvol = 35
 	var/inputvol = input("How loud would you like this to be? (1-70)", "Volume", "35") as num | null
