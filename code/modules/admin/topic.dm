@@ -2630,7 +2630,7 @@
 		fax_panel(usr)
 
 	else if(href_list["getplaytimewindow"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_ADMIN | R_MOD | R_MENTOR))
 			return
 		var/mob/M = locateUID(href_list["getplaytimewindow"])
 		if(!istype(M, /mob))
