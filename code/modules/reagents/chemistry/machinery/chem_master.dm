@@ -1,4 +1,5 @@
 #define MAX_PILL_SPRITE 27 //max icon state of the pill sprites
+#define MAX_PILL_LIMIT 20 //TG UI Fix
 #define MAX_MULTI_AMOUNT 20 // Max number of pills/patches that can be made at once
 #define MAX_UNITS_PER_PILL 100 // Max amount of units in a pill
 #define MAX_UNITS_PER_PATCH 30 // Max amount of units in a patch
@@ -367,7 +368,7 @@
 					ui_modal_input(src, id, "Please enter the amount of pills to make (max [MAX_MULTI_AMOUNT] at a time):", null, arguments, pillamount, 5)
 				if("change_pill_style")
 					var/list/choices = list()
-					for(var/i = 1 to MAX_PILL_SPRITE)
+					for(var/i = 1 to MAX_PILL_LIMIT) //Evitamos errores de UI
 						choices += "pill[i].png"
 					ui_modal_bento(src, id, "Please select the new style for pills:", null, arguments, pillsprite, choices)
 				if("create_patch")

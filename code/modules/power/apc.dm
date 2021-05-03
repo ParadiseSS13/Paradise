@@ -1103,11 +1103,12 @@
 	else
 		main_status = APC_EXTERNAL_POWER_GOOD
 
-	update_cell()//hispania
+
 	if(debug)
 		log_debug("Status: [main_status] - Excess: [excess] - Last Equip: [lastused_equip] - Last Light: [lastused_light] - Longterm: [longtermpower]")
 
 	if(cell && !shorted)
+		update_cell()//hispania
 		// draw power from cell as before to power the area
 		var/cellused = min(cell.charge, GLOB.CELLRATE * lastused_total)	// clamp deduction to a max, amount left in cell
 		cell.use(cellused)

@@ -164,14 +164,6 @@
 				walk2derpless(pickupTarget.loc)
 		return TRUE
 
-	// nuh uh you don't pull me!
-	if(pulledby && (mode != MONKEY_IDLE || prob(MONKEY_PULL_AGGRO_PROB)))
-		if(Adjacent(pulledby))
-			a_intent = INTENT_DISARM
-			monkey_attack(pulledby)
-			retaliate(pulledby)
-			return TRUE
-
 	switch(mode)
 		if(MONKEY_IDLE)		// idle
 
@@ -213,6 +205,14 @@
 			/*if(health < MONKEY_FLEE_HEALTH)
 				mode = MONKEY_FLEE
 				return TRUE*/
+
+			// nuh uh you don't pull me!
+			if(pulledby)
+				if(Adjacent(pulledby))
+					a_intent = INTENT_DISARM
+					monkey_attack(pulledby)
+					retaliate(pulledby)
+					return TRUE
 
 			if(target != null )
 				walk2derpless(target)
