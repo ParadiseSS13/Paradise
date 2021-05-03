@@ -11,7 +11,7 @@
 
 /datum/configuration_section/afk_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
-	CONFIG_LOAD_INT(warning_minutes, data["afk_warning_minutes"])
-	CONFIG_LOAD_INT(auto_cryo_minutes, data["afk_auto_cryo_minutes"])
-	CONFIG_LOAD_INT(auto_despawn_minutes, data["afk_auto_despawn_minutes"])
-	CONFIG_LOAD_INT(ssd_auto_cryo_minutes, data["ssd_auto_cryo_minutes"])
+	CONFIG_LOAD_NUM(warning_minutes, data["afk_warning_minutes"])
+	CONFIG_LOAD_NUM(auto_cryo_minutes, data["afk_auto_cryo_minutes"])
+	CONFIG_LOAD_NUM(auto_despawn_minutes, data["afk_auto_despawn_minutes"])
+	CONFIG_LOAD_NUM(ssd_auto_cryo_minutes, data["ssd_auto_cryo_minutes"])

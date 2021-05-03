@@ -8,8 +8,8 @@
 		target = ((input == 1) ? TRUE : FALSE)\
 	}
 
-/// Wrapper to not overwrite a variable if a list key doesnt exist. Auto casts to int.
-#define CONFIG_LOAD_INT(target, input) \
+/// Wrapper to not overwrite a variable if a list key doesnt exist. Auto casts to number.
+#define CONFIG_LOAD_NUM(target, input) \
 	if(!isnull(input)) {\
 		target = text2num(input)\
 	}

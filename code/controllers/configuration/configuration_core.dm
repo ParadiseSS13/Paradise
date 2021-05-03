@@ -7,9 +7,14 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 /datum/server_configuration
 	/// Holder for the admin configuration datum
 	var/datum/configuration_section/admin_configuration/admin
+	/// Holder for the AFK configuration datum
 	var/datum/configuration_section/afk_configuration/afk
+	/// Holder for the custom sprites configuration datum
 	var/datum/configuration_section/custom_sprites_configuration/custom_sprites
+	/// Holder for the DB configuration datum
 	var/datum/configuration_section/database_configuration/database
+	/// Holder for the MC configuration datum
+	var/datum/configuration_section/mc_configuration/mc
 
 /datum/server_configuration/Destroy(force)
 	SHOULD_CALL_PARENT(FALSE)
@@ -27,6 +32,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	afk = new()
 	custom_sprites = new()
 	database = new()
+	mc = new()
 
 	// Load our stuff up
 	var/config_file = "config/config.toml"

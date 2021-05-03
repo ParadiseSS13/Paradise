@@ -189,6 +189,7 @@
 #include "code\controllers\configuration\sections\afk_configuration.dm"
 #include "code\controllers\configuration\sections\custom_sprites_configuration.dm"
 #include "code\controllers\configuration\sections\database_configuration.dm"
+#include "code\controllers\configuration\sections\mc_configuration.dm"
 #include "code\controllers\subsystem\acid.dm"
 #include "code\controllers\subsystem\afk.dm"
 #include "code\controllers\subsystem\air.dm"

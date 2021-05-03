@@ -34,13 +34,11 @@
 	var/vote_no_default = 0				// vote does not default to nochange/norestart (tbi)
 	var/vote_no_dead = 0				// dead people can't vote (tbi)
 //	var/enable_authentication = 0		// goon authentication
-	var/del_new_on_log = 1				// qdel's new players if they log before they spawn in
 	var/traitor_scaling = 0 			//if amount of traitors scales based on amount of players
 	var/protect_roles_from_antagonist = 0// If security and such can be tratior/cult/other
 	var/continuous_rounds = 0			// Gamemodes which end instantly will instead keep on going until the round ends by escape shuttle or nuke.
 	var/allow_Metadata = 0				// Metadata is supported.
 	var/popup_admin_pm = 0				//adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
-	var/Ticklag = 0.5
 	var/list/resource_urls = null
 	var/antag_hud_allowed = 0      // Ghosts can turn on Antagovision to see a HUD of who is the bad guys this round.
 	var/antag_hud_restricted = 0                    // Ghosts that turn on Antagovision cannot rejoin the round.
@@ -193,16 +191,6 @@
 	var/shutdown_on_reboot = 0 // Whether to shut down the world instead of rebooting it
 
 	var/disable_karma = 0 // Disable all karma functions and unlock karma jobs by default
-
-	// StonedMC
-	var/tick_limit_mc_init = TICK_LIMIT_MC_INIT_DEFAULT	//SSinitialization throttling
-
-	// Highpop tickrates
-	var/base_mc_tick_rate = 1
-	var/high_pop_mc_tick_rate = 1.1
-
-	var/high_pop_mc_mode_amount = 65
-	var/disable_high_pop_mc_mode_amount = 60
 
 	// Nightshift
 	var/randomize_shift_time = FALSE
@@ -542,9 +530,6 @@
 				if("allow_holidays")
 					config.allow_holidays = 1
 
-				if("ticklag")
-					Ticklag = text2num(value)
-
 				if("allow_antag_hud")
 					config.antag_hud_allowed = 1
 
@@ -683,16 +668,6 @@
 				if("start_now_confirmation")
 					config.start_now_confirmation = 1
 
-				if("tick_limit_mc_init")
-					config.tick_limit_mc_init = text2num(value)
-				if("base_mc_tick_rate")
-					config.base_mc_tick_rate = text2num(value)
-				if("high_pop_mc_tick_rate")
-					config.high_pop_mc_tick_rate = text2num(value)
-				if("high_pop_mc_mode_amount")
-					config.high_pop_mc_mode_amount = text2num(value)
-				if("disable_high_pop_mc_mode_amount")
-					config.disable_high_pop_mc_mode_amount = text2num(value)
 				if("developer_express_start")
 					config.developer_express_start = 1
 				if("enable_gamemode_player_limit")

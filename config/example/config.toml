@@ -151,29 +151,6 @@ async_thread_limit = 50
 ################################################################
 
 
-[debug_configuration]
-# This section is settings for debug/backend related things
-# Dont change these unless you know what you are doing
-
-# Disable calling qdel on players if they logout before spawning in
-dont_delete_newmob = false
-# Defines world tick lag. 0.5 is default for 20 TPS/FPS (10 * ticklag = TPS/FPS)
-ticklag = 0.5
-# Tick usage percentage limit for the MC during initialization.
-world_init_mc_tick_limit = 500
-# Base MC tick rate. 1 = once per BYOND tick
-base_mc_tick_rate = 1
-# Highpop MC tick rate. Increased to account for lag
-highpop_mc_tick_rate = 1.1
-# Threshold to enable MC highpop mode
-mc_highpop_threshold_enable = 65
-# Threshold to disable MC highpop mode
-mc_highpop_threshold_disable = 60
-
-
-################################################################
-
-
 [discord_configuration]
 # This section contains all the information related to Discord webhook sending from the code
 # If you are using webhooks, please fill out this section in full
@@ -521,6 +498,27 @@ enable_href_logging = true
 enable_admin_warning_logging = true
 # Log asay messages
 enable_adminchat_logging = true
+
+
+################################################################
+
+
+[mc_configuration]
+# This section is settings for the MC
+# Dont change these unless you know what you are doing
+
+# Defines world tick lag. 0.5 is default for 20 TPS/FPS (10 * ticklag = TPS/FPS)
+ticklag = 0.5
+# Tick usage percentage limit for the MC during initialization.
+world_init_mc_tick_limit = 500
+# Base MC tick rate. 1 = once per BYOND tick
+base_mc_tick_rate = 1
+# Highpop MC tick rate. Increased to account for lag
+highpop_mc_tick_rate = 1.1
+# Threshold to enable MC highpop mode
+mc_highpop_threshold_enable = 65
+# Threshold to disable MC highpop mode
+mc_highpop_threshold_disable = 60
 
 
 ################################################################
