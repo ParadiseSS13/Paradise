@@ -177,3 +177,13 @@
 /datum/reagent/consumable/drink/cold/rewriter/on_mob_life(mob/living/M)
 	M.Jitter(5)
 	return ..()
+
+/datum/reagent/consumable/drink/cold/gingerbeer
+	name = "Ginger beer"
+	description = "Ginger beer! Confusing alcohol laws since 1888"
+	id = "gingerbeer"
+	color = "#9E7102" // rgb:158, 113, 2
+	drink_icon = "gingerbeer"
+	drink_name = "Ginger beer"
+	drink_desc = "Ginger beer! Confusing alcohol laws since 1888"
+	taste_description = "ginger beer"
