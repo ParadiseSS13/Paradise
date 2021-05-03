@@ -568,8 +568,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_EVENT))
 		return
 
-	config.allow_ai = !( config.allow_ai )
-	if(!( config.allow_ai ))
+
+	GLOB.configuration.jobs.allow_ai = !(GLOB.configuration.jobs.allow_ai)
+	if(!GLOB.configuration.jobs.allow_ai)
 		to_chat(world, "<B>The AI job is no longer chooseable.</B>")
 	else
 		to_chat(world, "<B>The AI job is chooseable now.</B>")

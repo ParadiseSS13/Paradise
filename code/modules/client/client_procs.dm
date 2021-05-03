@@ -593,7 +593,7 @@
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
 	if(config.ipintel_email)
-		if(config.ipintel_maxplaytime && config.use_exp_tracking)
+		if(config.ipintel_maxplaytime && GLOB.configuration.jobs.enable_exp_tracking)
 			var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
 			if(living_hours >= config.ipintel_maxplaytime)
 				return
@@ -628,7 +628,7 @@
 /client/proc/check_forum_link()
 	if(!config.forum_link_url || !prefs || prefs.fuid)
 		return
-	if(config.use_exp_tracking)
+	if(GLOB.configuration.jobs.enable_exp_tracking)
 		var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
 		if(living_hours < 20)
 			return

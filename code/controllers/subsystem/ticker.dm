@@ -276,7 +276,7 @@ SUBSYSTEM_DEF(ticker)
 
 	if(playercount >= highpop_trigger)
 		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
-		SSjobs.LoadJobs("config/jobs_highpop.txt")
+		SSjobs.LoadJobs(TRUE)
 	else
 		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
 

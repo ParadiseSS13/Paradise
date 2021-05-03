@@ -46,25 +46,18 @@
 	var/list/modes = list()				// allowed modes
 	var/list/votable_modes = list()		// votable modes
 	var/list/probabilities = list()		// relative probability of each mode
-	var/humans_need_surnames = 0
 	var/allow_random_events = 0			// enables random events mid-round when set to 1
-	var/allow_ai = 1					// allow ai job
 	var/respawn = 0
 	var/guest_jobban = 1
 	var/panic_bunker_threshold = 150	// above this player count threshold, never-before-seen players are blocked from connecting
 	var/usewhitelist = 0
 	var/mods_are_mentors = 0
-	var/load_jobs_from_txt = 0
 	var/automute_on = 0					//enables automuting/spam prevention
-	var/jobs_have_minimal_access = 0	//determines whether jobs use minimal access or expanded access.
 	var/round_abandon_penalty_period = 30 MINUTES // Time from round start during which ghosting out is penalized
 	var/medal_hub_address = null
 	var/medal_hub_password = null
 
 	var/reactionary_explosions = 0 //If we use reactionary explosions, explosions that react to walls and doors
-
-	var/assistantlimit = 0 //enables assistant limiting
-	var/assistantratio = 2 //how many assistants to security members
 
 	var/ssd_warning = 0
 
@@ -133,18 +126,11 @@
 	var/forum_link_url
 	var/forum_playerinfo_url
 
-	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
-	var/use_age_restriction_for_jobs = 0 //Do jobs use account age restrictions? --requires database
 	var/use_age_restriction_for_antags = 0 //Do antags use account age restrictions? --requires database
-
-	var/use_exp_tracking = 0
-	var/use_exp_restrictions = 0
-	var/use_exp_restrictions_admin_bypass = 0
 
 	var/simultaneous_pm_warning_timeout = 100
 
-	var/assistant_maint = 0 //Do assistants get maint access?
 	var/gateway_delay = 6000
 	var/ghost_interaction = 0
 
@@ -286,24 +272,6 @@
 				if("ban_legacy_system")
 					config.ban_legacy_system = 1
 
-				if("use_age_restriction_for_jobs")
-					config.use_age_restriction_for_jobs = 1
-
-				if("use_age_restriction_for_antags")
-					config.use_age_restriction_for_antags = 1
-
-				if("use_exp_tracking")
-					config.use_exp_tracking = 1
-
-				if("use_exp_restrictions")
-					config.use_exp_restrictions = 1
-
-				if("use_exp_restrictions_admin_bypass")
-					config.use_exp_restrictions_admin_bypass = 1
-
-				if("jobs_have_minimal_access")
-					config.jobs_have_minimal_access = 1
-
 				if("shadowling_max_age")
 					config.shadowling_max_age = text2num(value)
 
@@ -385,9 +353,6 @@
 				if("log_runtime")
 					config.log_runtimes = 1
 
-				if("mentors")
-					config.mods_are_mentors = 1
-
 				if("pregame_timestart")
 					config.pregame_timestart = text2num(value)
 
@@ -414,12 +379,6 @@
 
 				if("vote_period")
 					config.vote_period = text2num(value)
-
-				if("allow_ai")
-					config.allow_ai = 1
-
-//				if("authentication")
-//					config.enable_authentication = 1
 
 				if("norespawn")
 					config.respawn = 0
@@ -469,9 +428,6 @@
 				if("donationsurl")
 					config.donationsurl = value
 
-				if("guest_jobban")
-					config.guest_jobban = 1
-
 				if("guest_ban")
 					GLOB.guests_allowed = 0
 
@@ -508,8 +464,6 @@
 				if("allow_random_events")
 					config.allow_random_events = 1
 
-				if("load_jobs_from_txt")
-					load_jobs_from_txt = 1
 
 				if("forbid_singulo_possession")
 					forbid_singulo_possession = 1
@@ -529,17 +483,11 @@
 				if("antag_hud_restricted")
 					config.antag_hud_restricted = 1
 
-				if("humans_need_surnames")
-					humans_need_surnames = 1
-
 				if("automute_on")
 					automute_on = 1
 
 				if("usealienwhitelist")
 					usealienwhitelist = 1
-
-				if("assistant_maint")
-					config.assistant_maint = 1
 
 				if("gateway_delay")
 					config.gateway_delay = text2num(value)
@@ -561,12 +509,6 @@
 							GLOB.python_path = "/usr/bin/env python2"
 						else //probably windows, if not this should work anyway
 							GLOB.python_path = "pythonw"
-
-				if("assistant_limit")
-					config.assistantlimit = 1
-
-				if("assistant_ratio")
-					config.assistantratio = text2num(value)
 
 				if("allow_drone_spawn")
 					config.allow_drone_spawn = text2num(value)

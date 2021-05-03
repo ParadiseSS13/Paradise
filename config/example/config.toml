@@ -690,7 +690,7 @@ shutdown_on_reboot = false
 
 # Location of server resources. Used to offload sending the paradise.rsc from DD to a webserver
 # NOTE: This wants paradise.rsc inside a zip file, and it is HTTP ONLY. NO HTTPS
-#rsc_url = "http://www.paradisestation.org/windows/paradise.rsc.zip"
+#rsc_urls = ["http://www.paradisestation.org/windows/paradise.rsc.zip"]
 # Link URL to link forum accounts to ckeys. If set to an empty string, no link option will be offered
 # Token is appended right on the end, so set parameters as needed
 #forum_link_url = "https://example.com/link.php?token="

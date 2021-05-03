@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	set category = "Special Verbs"
 	set name = "Check my playtime"
 
-	if(!config.use_exp_tracking)
+	if(!GLOB.configuration.jobs.enable_exp_tracking)
 		to_chat(src, "<span class='warning'>Playtime tracking is not enabled.</span>")
 		return
 
@@ -105,9 +105,9 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		return 0
 	if(!role)
 		return 0
-	if(!config.use_exp_restrictions)
+	if(!GLOB.configuration.jobs.enable_exp_restrictions)
 		return 0
-	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, C.mob))
+	if(GLOB.configuration.jobs.enable_exp_admin_bypass && check_rights(R_ADMIN, 0, C.mob))
 		return 0
 	var/list/play_records = params2list(C.prefs.exp)
 	var/isexempt = text2num(play_records[EXP_TYPE_EXEMPT])
@@ -128,9 +128,9 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		return 0
 	if(!exp_requirements || !exp_type)
 		return 0
-	if(!config.use_exp_restrictions)
+	if(!GLOB.configuration.jobs.enable_exp_restrictions)
 		return 0
-	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, C.mob))
+	if(GLOB.configuration.jobs.enable_exp_admin_bypass && check_rights(R_ADMIN, 0, C.mob))
 		return 0
 	var/list/play_records = params2list(C.prefs.exp)
 	var/isexempt = text2num(play_records[EXP_TYPE_EXEMPT])
@@ -156,7 +156,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		return "[src] has no client."
 
 /client/proc/get_exp_report()
-	if(!config.use_exp_tracking)
+	if(!GLOB.configuration.jobs.enable_exp_tracking)
 		return "Tracking is disabled in the server configuration file."
 	var/list/play_records = params2list(prefs.exp)
 	if(!play_records.len)
@@ -174,10 +174,10 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 				return_text += "<LI>Exempt (all jobs auto-unlocked)</LI>"
 			else if(exp_data[EXP_TYPE_LIVING] > 0)
 				return_text += "<LI>[dep]: [get_exp_format(exp_data[dep])]</LI>"
-	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, mob))
+	if(GLOB.configuration.jobs.enable_exp_admin_bypass && check_rights(R_ADMIN, 0, mob))
 		return_text += "<LI>Admin</LI>"
 	return_text += "</UL>"
-	if(config.use_exp_restrictions)
+	if(GLOB.configuration.jobs.enable_exp_restrictions)
 		var/list/jobs_locked = list()
 		var/list/jobs_unlocked = list()
 		for(var/datum/job/job in SSjobs.occupations)
