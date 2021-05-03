@@ -121,7 +121,8 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_world(text)
 	SEND_TEXT(world.log, text)
-	if(GLOB.configuration.logging.world_logging)
+	// This has to be presence checked as log_world() is used before world/New().
+	if(GLOB?.configuration?.logging?.world_logging)
 		rustg_log_write(GLOB.world_game_log, "WORLD: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_runtime_txt(text) // different from /tg/'s log_runtime because our error handler has a log_runtime proc already that does other stuff
