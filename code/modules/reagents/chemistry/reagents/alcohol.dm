@@ -699,7 +699,7 @@
 	drink_icon = "adminfreeze"
 	drink_name = "Admin Freeze"
 	drink_desc = "The ultimate punishment."
-	taste_description = "a series of bad decisions...BWOINK"
+	taste_description = "a series of bad decisions"
 
 /datum/reagent/consumable/ethanol/adminfreeze/reaction_mob(mob/living/M, method = REAGENT_INGEST, volume)
 	..()
