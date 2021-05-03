@@ -646,11 +646,10 @@
 					message = "<B>[src]</B> laughs[M ? " at [M]" : ""]."
 					m_type = 2
 					//Hispania Laugh Starts Here
-					if(ishuman(src))
-						if(gender == FEMALE)
-							playsound(loc,'sound/hispania/voice/human/womanlaugh.ogg',50,1)
-						else
-							playsound(loc,'sound/hispania/voice/human/manlaugh.ogg',50,1)
+					if(gender == FEMALE)
+						playsound(loc, pick(dna.species.female_laughs_sound), 120, 1, frequency = get_age_pitch()) //Hispania Screams
+					else
+						playsound(loc, pick(dna.species.male_laughs_sound), 120, 1, frequency = get_age_pitch()) //Hispania Screams
 					//Hispania Laugh Ends Here
 				else
 					message = "<B>[src]</B> makes a noise."
