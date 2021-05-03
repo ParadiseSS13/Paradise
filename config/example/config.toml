@@ -498,6 +498,8 @@ enable_href_logging = true
 enable_admin_warning_logging = true
 # Log asay messages
 enable_adminchat_logging = true
+# Log debug messages
+enable_debug_logging = true
 
 
 ################################################################

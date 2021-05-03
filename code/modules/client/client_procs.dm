@@ -122,7 +122,7 @@
 
 
 	//Logs all hrefs
-	if(config && config.log_hrefs)
+	if(GLOB.configuration.logging.href_logging)
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
 	if(href_list["karmashop"])

@@ -759,11 +759,11 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 
 	if(config)
-		if(config.log_hrefs)
-			config.log_hrefs = 0
+		if(GLOB.configuration.logging.href_logging)
+			GLOB.configuration.logging.href_logging = FALSE
 			to_chat(src, "<b>Stopped logging hrefs</b>")
 		else
-			config.log_hrefs = 1
+			GLOB.configuration.logging.href_logging = TRUE
 			to_chat(src, "<b>Started logging hrefs</b>")
 
 /client/proc/check_ai_laws()

@@ -8,22 +8,6 @@
 
 	var/nudge_script_path = "nudge.py"  // where the nudge.py script is located
 
-	var/log_ooc = 0						// log OOC channel
-	var/log_access = 0					// log login/logout
-	var/log_say = 0						// log client say
-	var/log_admin = 0					// log admin actions
-	var/log_debug = 1					// log debug output
-	var/log_game = 0					// log game events
-	var/log_vote = 0					// log voting
-	var/log_whisper = 0					// log client whisper
-	var/log_emote = 0					// log emotes
-	var/log_attack = 0					// log attack messages
-	var/log_adminchat = 0				// log admin chat messages
-	var/log_adminwarn = 0				// log warnings admins get about bomb construction and such
-	var/log_pda = 0						// log pda messages
-	var/log_world_output = 0			// log world.log << messages
-	var/log_runtimes = 0                // logs world.log to a file
-	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
 	var/pregame_timestart = 240			// Time it takes for the server to start the game
 	var/allow_vote_restart = 0 			// allow votes to restart
 	var/allow_vote_mode = 0				// allow votes to change mode
@@ -304,54 +288,6 @@
 
 				if("forum_playerinfo_url")
 					config.forum_playerinfo_url = value
-
-				if("log_ooc")
-					config.log_ooc = 1
-
-				if("log_access")
-					config.log_access = 1
-
-				if("log_say")
-					config.log_say = 1
-
-				if("log_admin")
-					config.log_admin = 1
-
-				if("log_debug")
-					config.log_debug = 1
-
-				if("log_game")
-					config.log_game = 1
-
-				if("log_vote")
-					config.log_vote = 1
-
-				if("log_whisper")
-					config.log_whisper = 1
-
-				if("log_attack")
-					config.log_attack = 1
-
-				if("log_emote")
-					config.log_emote = 1
-
-				if("log_adminchat")
-					config.log_adminchat = 1
-
-				if("log_adminwarn")
-					config.log_adminwarn = 1
-
-				if("log_pda")
-					config.log_pda = 1
-
-				if("log_world_output")
-					config.log_world_output = 1
-
-				if("log_hrefs")
-					config.log_hrefs = 1
-
-				if("log_runtime")
-					config.log_runtimes = 1
 
 				if("pregame_timestart")
 					config.pregame_timestart = text2num(value)
