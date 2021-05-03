@@ -694,15 +694,18 @@
 	description = "Ultimate Punishment."
 	reagent_state = LIQUID
 	color = "#30F0FF" // rgb: 048, 240, 255
-	alcohol_perc = 0.5
+	dizzy_adj = 4
+	alcohol_perc = 1.5 // oof
 	drink_icon = "adminfreeze"
 	drink_name = "Admin Freeze"
 	drink_desc = "The ultimate punishment."
 	taste_description = "a series of bad decisions...BWOINK"
 
-/datum/reagent/consumable/ethanol/adminfreeze/on_mob_life(mob/living/M)
-	M.bodytemperature = max(M.bodytemperature - 5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0)
-	return ..()
+/datum/reagent/consumable/ethanol/adminfreeze/reaction_mob(mob/living/M, method = REAGENT_INGEST, volume)
+	..()
+	if(method == REAGENT_INGEST)
+		M.apply_status_effect(/datum/status_effect/freon/watcher)
+		M.adjust_bodytemperature(-110)
 
 /datum/reagent/consumable/ethanol/barefoot
 	name = "Barefoot"
