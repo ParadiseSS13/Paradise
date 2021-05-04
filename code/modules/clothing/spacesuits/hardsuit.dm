@@ -713,10 +713,11 @@
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 15, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 
 	// Captain's shiny special hardsuit
-/obj/item/clothing/head/helmet/space/hardsuit/capspace
+/obj/item/clothing/head/helmet/space/hardsuit/captain
 	name = "captain's hardsuit helmet"
-	icon_state = "capspace"
+	icon_state = "hardsuit0-captain"
 	item_state = "capspacehelmet"
+	item_color = "captain"
 	desc = "A special helmet designed for only the most fashionable of military figureheads."
 	flags_inv = HIDEFACE
 	permeability_coefficient = 0.01
@@ -728,15 +729,6 @@
 		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)
 
-/obj/item/clothing/head/helmet/space/hardsuit/capspace/equipped(mob/living/carbon/human/user, slot)
-	if(ishuman(user) && slot == slot_head)
-		if(isvox(user))
-			if(flags & BLOCKHAIR)
-				flags &= ~BLOCKHAIR
-		else
-			if((initial(flags) & BLOCKHAIR) && !(flags & BLOCKHAIR))
-				flags |= BLOCKHAIR
-
 /obj/item/clothing/suit/space/hardsuit/captain
 	name = "captain's hardsuit"
 	desc = "A bulky, heavy-duty piece of exclusive Nanotrasen armor. YOU are in charge!"
@@ -747,18 +739,19 @@
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 50, "energy" = 25, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 	species_restricted = list("exclude", "Wryn")
 
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/capspace
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/captain
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
-//Paramedic EVA suit
+	//Paramedic hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/paramedic
 	name = "paramedic hardsuit helmet"
 	desc = "A brand new paramedic EVA helmet. It seems to reassemble to your head shape. Used for retrieving bodies in space."
-	icon_state = "paramedic-eva-helmet"
+	icon_state = "hardsuit0-paramedic"
 	item_state = "paramedic-eva-helmet"
+	item_color = "paramedic"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
 	species_restricted = list("exclude", "Wryn")
 
