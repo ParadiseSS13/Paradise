@@ -391,20 +391,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/storage/belt/bandolier,
 					/obj/item/storage/belt/bandolier,
 					/obj/item/storage/belt/bandolier)
-	cost = 50
-	containername = "riot shotgun crate"
-
-/datum/supply_packs/security/armory/ballisticauto
-	name = "Combat Shotguns Crate"
-	contains = list(/obj/item/gun/projectile/shotgun/automatic/combat,
-					/obj/item/gun/projectile/shotgun/automatic/combat,
-					/obj/item/gun/projectile/shotgun/automatic/combat,
-					/obj/item/storage/belt/bandolier,
-					/obj/item/storage/belt/bandolier,
-					/obj/item/storage/belt/bandolier)
 	cost = 80
-	containername = "combat shotgun crate"
-
+	containername = "riot shotgun crate"
 /datum/supply_packs/security/armory/buckshotammo
 	name = "Buckshot Ammo Crate"
 	contains = list(/obj/item/ammo_box/shotgun/buck,
