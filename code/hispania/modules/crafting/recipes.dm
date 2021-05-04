@@ -107,3 +107,22 @@
 		        /obj/item/stack/tape_roll = 15,
 		        /obj/item/stack/rods = 20)
 	category = CAT_PRIMAL
+
+/datum/crafting_recipe/earthly_cataplasm
+	name = "Earthly Herbal Cataplasm"
+	result = list(/obj/item/stack/medical/ointment/earthly_cataplasm)
+	time = 40
+	reqs = list(/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf = 4,
+		        /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap = 4,
+				/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit = 4)
+
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/fiery_cataplasm
+	name = "Fiery Herbal Cataplasm"
+	result = list(/obj/item/stack/medical/ointment/fiery_cataplasm)
+	time = 40
+	reqs = list(/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf = 4,
+		        /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap= 4,
+		        /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_stem = 4)
+	category = CAT_PRIMAL
