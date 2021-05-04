@@ -26,6 +26,8 @@
 	male_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
 	female_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
 
+	male_laughs_sound = list('sound/hispania/voice/human/silence.ogg')//Hispania Laughs
+	female_laughs_sound = list('sound/hispania/voice/human/silence.ogg')//Hispania Laughs
 	tail = "chimptail"
 	bodyflags = HAS_TAIL
 	reagent_tag = PROCESS_ORG

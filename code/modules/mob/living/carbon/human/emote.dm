@@ -645,6 +645,12 @@
 				if(!muzzled)
 					message = "<B>[src]</B> laughs[M ? " at [M]" : ""]."
 					m_type = 2
+					//Hispania Laugh Starts Here
+					if(gender == FEMALE)
+						playsound(loc, pick(dna.species.female_laughs_sound), 120, 1, frequency = get_age_pitch()) //Hispania Screams
+					else
+						playsound(loc, pick(dna.species.male_laughs_sound), 120, 1, frequency = get_age_pitch()) //Hispania Screams
+					//Hispania Laugh Ends Here
 				else
 					message = "<B>[src]</B> makes a noise."
 					m_type = 2
@@ -884,9 +890,11 @@
 					message = "<B>[src]</B> [dna.species.scream_verb][M ? " at [M]" : ""]!"
 					m_type = 2
 					if(gender == FEMALE)
-						playsound(loc, dna.species.female_scream_sound, 80, 1, frequency = get_age_pitch())
+						//playsound(loc, dna.species.female_scream_sound, 80, 1, frequency = get_age_pitch())
+						playsound(loc, pick(dna.species.female_scream_sound), 120, 1, frequency = get_age_pitch()) //Hispania Screams
 					else
-						playsound(loc, dna.species.male_scream_sound, 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
+						//playsound(loc, dna.species.male_scream_sound, 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
+						playsound(loc, pick(dna.species.male_scream_sound), 120, 1, frequency = get_age_pitch()) //Hispania Screams
 
 				else
 					message = "<B>[src]</B> makes a very loud noise[M ? " at [M]" : ""]."
