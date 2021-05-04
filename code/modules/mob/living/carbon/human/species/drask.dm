@@ -9,6 +9,8 @@
 	speech_chance = 20
 	male_scream_sound = 'sound/voice/drasktalk2.ogg'
 	female_scream_sound = 'sound/voice/drasktalk2.ogg'
+	male_laughs_sound = list('sound/hispania/voice/human/silence.ogg')//Hispania Laughs
+	female_laughs_sound = list('sound/hispania/voice/human/silence.ogg')//Hispania Laughs
 	male_cough_sounds = 'sound/voice/draskcough.ogg'
 	female_cough_sounds = 'sound/voice/draskcough.ogg'
 	male_sneeze_sound = 'sound/voice/drasksneeze.ogg'

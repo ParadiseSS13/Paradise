@@ -39,6 +39,8 @@
 	reagent_tag = PROCESS_SYN
 	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
+	male_laughs_sound = list('sound/hispania/voice/human/silence.ogg')//Hispania Laughs
+	female_laughs_sound = list('sound/hispania/voice/human/silence.ogg')//Hispania Laughs
 	male_cough_sounds = list('sound/effects/mob_effects/m_machine_cougha.ogg','sound/effects/mob_effects/m_machine_coughb.ogg', 'sound/effects/mob_effects/m_machine_coughc.ogg')
 	female_cough_sounds = list('sound/effects/mob_effects/f_machine_cougha.ogg','sound/effects/mob_effects/f_machine_coughb.ogg')
 	male_sneeze_sound = 'sound/effects/mob_effects/machine_sneeze.ogg'
