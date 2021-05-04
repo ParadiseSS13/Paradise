@@ -1236,6 +1236,7 @@
 #include "code\hispania\modules\clothing\head\helmets.dm"
 #include "code\hispania\modules\clothing\head\jobs.dm"
 #include "code\hispania\modules\clothing\head\misc.dm"
+#include "code\hispania\modules\clothing\shoes\miscellaneous.dm"
 #include "code\hispania\modules\clothing\suits\armor.dm"
 #include "code\hispania\modules\clothing\suits\labcoat.dm"
 #include "code\hispania\modules\clothing\suits\miscellaneous.dm"
