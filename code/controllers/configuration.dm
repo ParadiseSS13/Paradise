@@ -67,7 +67,6 @@
 	var/discordurl = "http://example.org"
 	var/discordforumurl = "http://example.org"
 
-	var/overflow_server_url
 	var/forbid_singulo_possession = 0
 
 	var/check_randomizer = 0
@@ -136,8 +135,6 @@
 
 	var/starlight = 0	// Whether space turfs have ambient light or not
 	var/allow_holidays = 0
-	var/player_overflow_cap = 0 //number of players before the server starts rerouting
-	var/list/overflow_whitelist = list() //whitelist for overflow
 
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
@@ -479,13 +476,6 @@
 				if("starlight")
 					config.starlight = 1
 
-				if("player_reroute_cap")
-					var/vvalue = text2num(value)
-					config.player_overflow_cap = vvalue >= 0 ? vvalue : 0
-
-				if("overflow_server_url")
-					config.overflow_server_url = value
-
 				if("disable_lobby_music")
 					config.disable_lobby_music = 1
 
@@ -609,19 +599,6 @@
 					config.cubemonkeycap = text2num(value)
 				else
 					log_config("Unknown setting in configuration: '[name]'")
-
-/datum/configuration/proc/loadoverflowwhitelist(filename)
-	var/list/Lines = file2list(filename)
-	for(var/t in Lines)
-		if(!t)	continue
-
-		t = trim(t)
-		if(length(t) == 0)
-			continue
-		else if(copytext(t, 1, 2) == "#")
-			continue
-
-		config.overflow_whitelist += t
 
 /datum/configuration/proc/pick_mode(mode_name)
 	for(var/T in subtypesof(/datum/game_mode))

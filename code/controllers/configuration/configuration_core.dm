@@ -21,6 +21,8 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/logging_configuration/logging
 	/// Holder for the MC configuration datum
 	var/datum/configuration_section/mc_configuration/mc
+	/// Holder for the overflow configuration datum
+	var/datum/configuration_section/overflow_configuration/overflow
 	/// Holder for the ruins configuration datum
 	var/datum/configuration_section/ruin_configuration/ruins
 
@@ -44,6 +46,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	jobs = new()
 	logging = new()
 	mc = new()
+	overflow = new()
 	ruins = new()
 
 	// Load our stuff up
@@ -62,6 +65,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	jobs.load_data(raw_config_data["job_configuration"])
 	logging.load_data(raw_config_data["logging_configuration"])
 	mc.load_data(raw_config_data["mc_configuration"])
+	overflow.load_data(raw_config_data["overflow_configuration"])
 	ruins.load_data(raw_config_data["ruin_configuration"])
 
 	// And report the load
