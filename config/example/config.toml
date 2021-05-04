@@ -248,7 +248,7 @@ traitor_objective_amount = 2
 
 # Do we want to enable this at all? Disable for faster load times in testing
 enable_away_mission = true
-# Delay (in seconds) before the gateway is usable
+# Delay (in deciseconds) before the gateway is usable
 away_mission_delay = 0
 # List of all enabled away missions. Comment out an entry to disable it.
 enabled_away_missions = [

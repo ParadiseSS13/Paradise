@@ -13,6 +13,8 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/custom_sprites_configuration/custom_sprites
 	/// Holder for the DB configuration datum
 	var/datum/configuration_section/database_configuration/database
+	/// Holder for the gateway configuration datum
+	var/datum/configuration_section/gateway_configuration/gateway
 	/// Holder for the job configuration datum
 	var/datum/configuration_section/job_configuration/jobs
 	/// Holder for the logging configuration datum
@@ -38,6 +40,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	afk = new()
 	custom_sprites = new()
 	database = new()
+	gateway = new()
 	jobs = new()
 	logging = new()
 	mc = new()
@@ -55,6 +58,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	afk.load_data(raw_config_data["afk_configuration"])
 	custom_sprites.load_data(raw_config_data["custom_sprites_configuration"])
 	database.load_data(raw_config_data["database_configuration"])
+	gateway.load_data(raw_config_data["gateway_configuration"])
 	jobs.load_data(raw_config_data["job_configuration"])
 	logging.load_data(raw_config_data["logging_configuration"])
 	mc.load_data(raw_config_data["mc_configuration"])

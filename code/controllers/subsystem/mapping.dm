@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(mapping)
 	// Load all Z level templates
 	preloadTemplates()
 	// Pick a random away mission.
-	if(!config.disable_away_missions)
+	if(GLOB.configuration.gateway.enable_away_mission)
 		load_away_mission()
 	// Seed space ruins
 	if(GLOB.configuration.ruins.enable_space_ruins)
@@ -166,11 +166,11 @@ SUBSYSTEM_DEF(mapping)
 	if(length(GLOB.awaydestinations))
 		return
 
-	if(GLOB.potentialRandomZlevels && length(GLOB.potentialRandomZlevels))
+	if(length(GLOB.configuration.gateway.enabled_away_missions))
 		var/watch = start_watch()
 		log_startup_progress("Loading away mission...")
 
-		var/map = pick(GLOB.potentialRandomZlevels)
+		var/map = pick(GLOB.configuration.gateway.enabled_away_missions)
 		var/file = file(map)
 		if(isfile(file))
 			var/zlev = GLOB.space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL,BLOCK_TELEPORT))

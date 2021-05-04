@@ -115,7 +115,6 @@
 
 	var/simultaneous_pm_warning_timeout = 100
 
-	var/gateway_delay = 6000
 	var/ghost_interaction = 0
 
 	var/comms_password = ""
@@ -139,8 +138,6 @@
 	var/allow_holidays = 0
 	var/player_overflow_cap = 0 //number of players before the server starts rerouting
 	var/list/overflow_whitelist = list() //whitelist for overflow
-
-	var/disable_away_missions = 0 // disable away missions
 
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
@@ -425,9 +422,6 @@
 				if("usealienwhitelist")
 					usealienwhitelist = 1
 
-				if("gateway_delay")
-					config.gateway_delay = text2num(value)
-
 				if("continuous_rounds")
 					config.continuous_rounds = 1
 
@@ -491,9 +485,6 @@
 
 				if("overflow_server_url")
 					config.overflow_server_url = value
-
-				if("disable_away_missions")
-					config.disable_away_missions = 1
 
 				if("disable_lobby_music")
 					config.disable_lobby_music = 1
