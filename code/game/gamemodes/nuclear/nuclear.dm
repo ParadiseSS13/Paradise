@@ -162,7 +162,7 @@
 			U.hidden_uplink.uses++
 			remainder--
 
-/datum/game_mode/proc/create_syndicate(datum/mind/synd_mind, var/obj/machinery/nuclearbomb/syndicate/the_bomb) // So we don't have inferior species as ops - randomize a human
+/datum/game_mode/proc/create_syndicate(datum/mind/synd_mind, obj/machinery/nuclearbomb/syndicate/the_bomb) // So we don't have inferior species as ops - randomize a human
 	var/mob/living/carbon/human/M = synd_mind.current
 
 	M.set_species(/datum/species/human, TRUE)
@@ -190,9 +190,9 @@
 
 	if(the_bomb)
 		synd_mind.store_memory("<B>Syndicate [the_bomb.name] Code</B>: [the_bomb.r_code]", 0, 0)
-		to_chat(synd_mind.current, "The [the_bomb.name] code is: <B>[the_bomb.r_code]</B>")
+		to_chat(synd_mind.current, "The code for \the [the_bomb.name] is: <B>[the_bomb.r_code]</B>")
 
-/datum/game_mode/proc/prepare_syndicate_leader(datum/mind/synd_mind, var/obj/machinery/nuclearbomb/syndicate/the_bomb)
+/datum/game_mode/proc/prepare_syndicate_leader(datum/mind/synd_mind, obj/machinery/nuclearbomb/syndicate/the_bomb)
 	var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
 	synd_mind.current.real_name = "[syndicate_name()] Team [leader_title]"
 	to_chat(synd_mind.current, "<B>You are the Syndicate leader for this mission. You are responsible for the distribution of telecrystals and your ID is the only one who can open the launch bay doors.</B>")
@@ -206,7 +206,7 @@
 
 	if(the_bomb)
 		var/obj/item/paper/P = new
-		P.info = "The [the_bomb.name] code is: <B>[the_bomb.r_code]</B>"
+		P.info = "The code for \the [the_bomb.name] is: <B>[the_bomb.r_code]</B>"
 		P.name = "nuclear bomb code"
 		var/obj/item/stamp/syndicate/stamp = new
 		P.stamp(stamp)
