@@ -238,6 +238,10 @@
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(-5)
+	//HEAL CHAP STARTS HERE
+	if(ishuman(M) && M.mind.isholy)
+		update_flags |= M.adjustToxLoss(-1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	//HEAL CHAP ENDS HERE
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
 		M.AdjustStuttering(4, bound_lower = 0, bound_upper = 20)
 		M.Dizzy(5)
