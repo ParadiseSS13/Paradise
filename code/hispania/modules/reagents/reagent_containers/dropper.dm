@@ -1,4 +1,4 @@
-/obj/item/reagent_containers/syringe/proc/syringedump(atom/target, mob/user)
+/obj/item/reagent_containers/dropper/proc/dropperdump(atom/target, mob/user)
 	if(isfloorturf(target))
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='notice'>[src] is empty.</span>")
