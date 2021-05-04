@@ -74,6 +74,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	. = TRUE
 	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
 		light("<span class='notice'>[user] casually lights the [name] with [I], what a badass.</span>")
+		user.update_inv_wear_mask()
+		user.update_inv_l_hand()
+		user.update_inv_r_hand()
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/user, params)
 	..()
