@@ -93,7 +93,7 @@
 
 	for(var/A in loc)
 		var/atom/item = A
-		if(item && item != src) // It's possible that the item is deleted in temperature_expose
+		if(!QDELETED(item) && item != src) // It's possible that the item is deleted in temperature_expose
 			item.fire_act(null, temperature, volume)
 
 	color = heat2color(temperature)
@@ -284,7 +284,7 @@
 				if(isliving(A))
 					continue
 				if(A != existing_hotspot)
-					A.fire_act(null, expose_temp, existing_hotspot.volume)
+					A.fire_act(null, expose_temp, existing_hotspot.volume) // triggers another fuel tank boom
 		if(isfloorturf(T))
 			var/turf/simulated/floor/F = T
 			F.burn_tile()
@@ -295,15 +295,13 @@
 
 		if(T.density)
 			continue
-		for(var/obj/O in T)
-			if(O.density)
-				continue
+
 		if(dist == max_dist)
 			continue
 
 		for(var/dir in GLOB.cardinal)
 			var/turf/link = get_step(T, dir)
-			if (!link)
+			if (!link || !T.CanAtmosPass(link)) // Check if you can get to that turf
 				continue
 			var/dx = link.x - Ce.x
 			var/dy = link.y - Ce.y

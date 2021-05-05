@@ -112,19 +112,21 @@
 			if(holder)
 				holder.del_reagent(id)
 			return
-		var/turf/T = get_turf(holder.my_atom)
+		var/datum/reagents/old_holder = holder
+		if(holder) // Delete the fuel from the holder before we trigger the fireball
+			holder.del_reagent(id)
+
+		var/turf/T = get_turf(old_holder.my_atom)
 		var/radius = min(max(min_radius, volume * volume_radius_multiplier + volume_radius_modifier), max_radius)
 		fireflash_sm(T, radius, 2200 + radius * 250, radius * 50)
-		if(holder && volume >= explosion_threshold)
-			if(holder.my_atom)
-				holder.my_atom.visible_message("<span class='danger'>[holder.my_atom] explodes!</span>")
-				message_admins("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
-				log_game("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
-				holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
+		if(old_holder && volume >= explosion_threshold)
+			if(old_holder.my_atom)
+				old_holder.my_atom.visible_message("<span class='danger'>[old_holder.my_atom] explodes!</span>")
+				message_admins("Fuel explosion ([old_holder.my_atom], reagent type: [id]) at [COORD(old_holder.my_atom.loc)]. Last touched by: [old_holder.my_atom.fingerprintslast ? "[old_holder.my_atom.fingerprintslast]" : "*null*"].")
+				log_game("Fuel explosion ([old_holder.my_atom], reagent type: [id]) at [COORD(old_holder.my_atom.loc)]. Last touched by: [old_holder.my_atom.fingerprintslast ? "[old_holder.my_atom.fingerprintslast]" : "*null*"].")
+				old_holder.my_atom.investigate_log("A fuel explosion, last touched by [old_holder.my_atom.fingerprintslast ? "[old_holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(old_holder.my_atom.loc)].", INVESTIGATE_BOMB)
 			var/boomrange = min(max(min_explosion_radius, round(volume * volume_explosion_radius_multiplier + volume_explosion_radius_modifier)), max_explosion_radius)
 			explosion(T, -1, -1, boomrange, 1)
-		if(holder)
-			holder.del_reagent(id)
 
 /datum/reagent/fuel/reaction_turf(turf/T, volume) //Don't spill the fuel, or you'll regret it
 	if(isspaceturf(T))
@@ -149,10 +151,11 @@
 
 /datum/reagent/plasma/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
-		fireflash(get_turf(holder.my_atom), min(max(0, volume / 10), 8))
-		fire_flash_log(holder, id)
+		var/datum/reagents/old_holder = holder
 		if(holder)
-			holder.del_reagent(id)
+			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+		fire_flash_log(old_holder, id)
+		fireflash(get_turf(old_holder.my_atom), min(max(0, volume / 10), 8))
 
 /datum/reagent/plasma/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -439,10 +442,11 @@
 
 /datum/reagent/plasma_dust/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
-		fireflash(get_turf(holder.my_atom), min(max(0, volume / 10), 8))
-		fire_flash_log(holder, id)
+		var/datum/reagents/old_holder = holder
 		if(holder)
-			holder.del_reagent(id)
+			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+		fire_flash_log(old_holder, id)
+		fireflash(get_turf(old_holder.my_atom), min(max(0, volume / 10), 8))
 
 /datum/reagent/plasma_dust/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

@@ -204,14 +204,17 @@
 	if(exposed_temperature > T0C + 600)
 		var/turf/T = get_turf(holder.my_atom)
 		holder.my_atom.visible_message("<b>The oil burns!</b>")
+		var/datum/reagents/old_holder = holder
+		if(holder)
+			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+
+		fire_flash_log(old_holder, id)
 		fireflash(T, min(max(0, volume / 40), 8))
-		fire_flash_log(holder, id)
 		var/datum/effect_system/smoke_spread/bad/BS = new
 		BS.set_up(1, 0, T)
 		BS.start()
-		if(holder)
-			holder.add_reagent("ash", round(volume * 0.5))
-			holder.del_reagent(id)
+		if(!QDELETED(old_holder))
+			old_holder.add_reagent("ash", round(volume * 0.5))
 
 /datum/reagent/oil/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
