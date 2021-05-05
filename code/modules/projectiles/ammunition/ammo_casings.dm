@@ -141,11 +141,10 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
-/obj/item/ammo_casing/shotgun/syndicate
-	name = "syndicate shotgun slug"
-	desc = "A modified 12 gauge lead slug commonly used by syndicate nuclear operatives. Sacrifices armor penetration for stopping power."
+/obj/item/ammo_casing/shotgun/military
+	name = "military shotgun slug"
+	desc = "A modified 12 gauge lead slug commonly used by military operatives. Sacrifices armor penetration for stopping power."
 	projectile_type = /obj/item/projectile/bullet
-	materials = null
 
 /obj/item/ammo_casing/shotgun/buckshot
 	name = "buckshot shell"
