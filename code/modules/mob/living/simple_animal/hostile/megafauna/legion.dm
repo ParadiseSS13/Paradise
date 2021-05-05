@@ -128,7 +128,7 @@ Difficulty: Medium
 			loot = list(/obj/item/staff/storm)
 			elimination = 0
 		else if(prob(5))
-			loot = list(/obj/structure/closet/crate/necropolis/tendril)
+			loot = list(/obj/structure/closet/crate/necropolis/tendril = 1, /obj/item/paintkit/skull_legion = 1) //Skull Paintkit
 			if(!true_spawn)
 				loot = null
 		return ..()
