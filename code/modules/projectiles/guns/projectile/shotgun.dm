@@ -308,6 +308,7 @@
 	origin_tech = "combat=6"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
+	fire_delay = 8
 
 //Dual Feed Shotgun
 

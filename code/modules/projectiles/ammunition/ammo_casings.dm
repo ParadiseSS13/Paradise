@@ -131,16 +131,21 @@
 	muzzle_flash_color = null
 
 /obj/item/ammo_casing/shotgun
-	name = "shotgun slug"
-	desc = "A 12 gauge lead slug."
+	name = "armor piercing shotgun slug"
+	desc = "A 12 gauge lead slug, effective at penetrating armor."
 	icon_state = "blshell"
 	caliber = "shotgun"
 	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
-	projectile_type = /obj/item/projectile/bullet
+	projectile_type = /obj/item/projectile/bullet/shotgun/slug
 	materials = list(MAT_METAL=4000)
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
+/obj/item/ammo_casing/shotgun/syndicate
+	name = "syndicate shotgun slug"
+	desc = "A modified 12 gauge lead slug commonly used by syndicate nuclear operatives. Sacrifices armor penetration for stopping power."
+	projectile_type = /obj/item/projectile/bullet
+	materials = null
 
 /obj/item/ammo_casing/shotgun/buckshot
 	name = "buckshot shell"

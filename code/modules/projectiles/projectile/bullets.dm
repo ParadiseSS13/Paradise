@@ -7,10 +7,15 @@
 	hitsound_wall = "ricochet"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
 
+/obj/item/projectile/bullet/shotgun/slug
+	name = "12 gauge AP slug"
+	damage = 35
+	armour_penetration = 25
+
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
 	damage = 5
-	stamina = 80
+	stamina = 60
 
 /obj/item/projectile/bullet/weakbullet/booze
 
@@ -82,15 +87,15 @@
 
 /obj/item/projectile/bullet/pellet
 	name = "pellet"
-	damage = 12.5
+	damage = 10
 	tile_dropoff = 0.75
 	tile_dropoff_s = 1.25
-	armour_penetration = -30
+	armour_penetration = -27
 
 /obj/item/projectile/bullet/pellet/rubber
 	name = "rubber pellet"
 	damage = 3
-	stamina = 25
+	stamina = 13.3
 	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/pellet/weak
