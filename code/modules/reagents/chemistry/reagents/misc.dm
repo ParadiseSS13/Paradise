@@ -205,10 +205,10 @@
 		var/turf/T = get_turf(holder.my_atom)
 		holder.my_atom.visible_message("<b>The oil burns!</b>")
 		var/datum/reagents/old_holder = holder
+		fire_flash_log(holder, id)
 		if(holder)
 			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
 
-		fire_flash_log(old_holder, id)
 		fireflash(T, min(max(0, volume / 40), 8))
 		var/datum/effect_system/smoke_spread/bad/BS = new
 		BS.set_up(1, 0, T)

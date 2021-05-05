@@ -284,7 +284,7 @@
 				if(isliving(A))
 					continue
 				if(A != existing_hotspot)
-					A.fire_act(null, expose_temp, existing_hotspot.volume) // triggers another fuel tank boom
+					A.fire_act(null, expose_temp, existing_hotspot.volume)
 		if(isfloorturf(T))
 			var/turf/simulated/floor/F = T
 			F.burn_tile()
