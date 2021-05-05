@@ -652,3 +652,22 @@
 
 	// return the split html object to the caller
 	return s
+
+/**
+  * Proc to generate a "rank colour" from a client
+  *
+  * This takes the client and looks at various factors in order, such as patreon status, staff rank, and more
+  * Arguments:
+  * * C - The client were looking up
+  */
+/proc/client2rankcolour(client/C)
+	// First check if end user is an admin
+	if(C.holder)
+		if(C.holder.rank in GLOB.rank_colour_map)
+			// Return their rank colour if they are in here
+			return GLOB.rank_colour_map[C.holder.rank]
+
+	// If they arent an admin, see if they are a patreon. Just accept any level
+	if(C.donator_level)
+		return "#e67e22" // Patreon orange
+	return null
