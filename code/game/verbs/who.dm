@@ -170,6 +170,7 @@
 						msg += "<font color='[rank_colour]'><b>[C]</b></font> is a [C.holder.rank]"
 					else
 						msg += "<b>[C]</b> is a [C.holder.rank]"
+					msg += "\n"
 					num_admins_online++
 			else if(check_rights(R_MOD|R_MENTOR, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
 				var/rank_colour = client2rankcolour(C)
@@ -177,6 +178,7 @@
 					modmsg += "<font color='[rank_colour]'><b>[C]</b></font> is a [C.holder.rank]"
 				else
 					modmsg += "<b>[C]</b> is a [C.holder.rank]"
+				modmsg += "\n"
 				num_mods_online++
 
 	var/noadmins_info = "\n<span class='notice'><small>If no admins or mentors are online, make a ticket anyways. Adminhelps and mentorhelps will be relayed to discord, and staff will still be informed.<small></span>"
