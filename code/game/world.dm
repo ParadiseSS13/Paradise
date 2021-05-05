@@ -196,6 +196,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	config = new /datum/configuration()
 	config.load("config/config.txt")
 	config.load("config/game_options.txt","game_options")
+	config.load_rank_colour_map()
 	// apply some settings from config..
 
 /world/proc/update_status()

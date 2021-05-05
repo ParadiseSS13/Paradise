@@ -3556,6 +3556,8 @@
 		var/datum/browser/popup = new(usr, "view_karma", "Karma stats for [target_ckey]", 600, 300)
 		popup.set_content(dat)
 		popup.open(FALSE)
+	else if(href_list["who_advanced"])
+		usr.client.who_advanced()
 
 /client/proc/create_eventmob_for(mob/living/carbon/human/H, killthem = 0)
 	if(!check_rights(R_EVENT))
