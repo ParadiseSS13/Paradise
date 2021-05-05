@@ -8,6 +8,8 @@
 	var/list/rank_rights_map = list()
 	/// Assoc list of admin ckeys and their ranks. key: ckey | value: rank name
 	var/list/ckey_rank_map = list()
+	/// Assoc list of admin ranks and their colours. key: rank | value: rank colour
+	var/list/rank_colour_map = list()
 
 /datum/configuration_section/admin_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
@@ -26,6 +28,12 @@
 		ckey_rank_map.Cut()
 		for(var/list/kvset in data["admin_assignments"])
 			ckey_rank_map[kvset["ckey"]] = kvset["rank"]
+
+	// Load admin colours
+	if(islist(data["admin_rank_colour_map"]))
+		rank_colour_map.Cut()
+		for(var/list/kvset in data["admin_rank_colour_map"])
+			rank_colour_map[kvset["name"]] = kvset["colour"]
 
 	// For the person who asks "Why not put admin datum generation in this step?", well I will tell you why
 	// Admins can be reloaded at runtime when DB edits are made and such, and I dont want an entire config reload to be part of this

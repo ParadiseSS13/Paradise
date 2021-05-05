@@ -79,6 +79,17 @@ admin_assignments = [
 ]
 # Allow admins to set their own OOC colour
 allow_admin_ooc_colour = true
+# Map of admin rank colours to their respective rank. Note you can use hex or colour name here.
+admin_rank_colour_map = [
+	{name = "Head of Staff", colour = "#e74c3c"},
+	{name = "Maintainer", colour = "#992d22"},
+	{name = "Server Dev", colour = "#1abc9c"},
+	{name = "Community Manager", colour = "#e91e63"},
+	{name = "Game Admin", colour = "#238afa"},
+	{name = "Trial Admin", colour = "#7fb6fc"},
+	{name = "PR Reviewer", colour = "#c27c0e"},
+	{name = "Mentor", colour = "#f1c40f"},
+]
 
 
 ################################################################
