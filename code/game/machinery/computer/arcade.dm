@@ -951,7 +951,7 @@
 		message_admins("[key_name_admin(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")
 		log_game("[key_name(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")
 	else
-		var/score = alive + round(food/2) + round(fuel/5) + engine + hull + electronics - lings_aboard
+		var/score = alive + round(food/2) + round(fuel/5) + engine + hull + electronics - lings_aboard + 20 //Boost Hispania
 		prizevend(score)
 	emagged = 0
 	name = "The Orion Trail"
