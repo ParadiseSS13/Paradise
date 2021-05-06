@@ -1392,9 +1392,8 @@ About the new airlock wires panel:
 			DA.update_name()
 			DA.update_icon()
 
-			if(!disassembled)
-				if(DA)
-					DA.obj_integrity = DA.max_integrity * 0.5
+			if(!disassembled && DA)
+				DA.obj_integrity = DA.max_integrity * 0.5
 		if(user)
 			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 		var/obj/item/airlock_electronics/ae
