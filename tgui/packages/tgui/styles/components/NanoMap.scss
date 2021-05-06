@@ -12,6 +12,23 @@ $color-background: rgba(0, 0, 0, 0.33) !default;
   margin: 0px;
 }
 
+/*.NanoMap__button {
+  background: blue;
+  padding: 3px 3px;
+  font-size: 12px;
+  border: 2px solid black;
+  color: #fff;
+}*/
+.NanoMap__button{
+  padding: 3px 3px;
+  font-size: 12px;
+  border: 2px solid black;
+}
+
+.NanoMap__button:hover {
+  background-color: greenyellow;
+}
+
 .NanoMap__zoomer {
   z-index: 20;
   background-color: $color-background;

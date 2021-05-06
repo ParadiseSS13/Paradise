@@ -76,7 +76,7 @@
 			user.client.register_map_obj(plane)
 		user.client.register_map_obj(cam_background)
 		// Open UI
-		ui = new(user, src, ui_key, "CameraConsole", name, 870, 708, master_ui, state)
+		ui = new(user, src, ui_key, "CameraConsole", name, 1200, 600, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/security/ui_data()
@@ -99,6 +99,9 @@
 		var/obj/machinery/camera/C = cameras[i]
 		data["cameras"] += list(list(
 			name = C.c_tag,
+			x = C.x,
+			y = C.y,
+			z = C.z
 		))
 	return data
 
