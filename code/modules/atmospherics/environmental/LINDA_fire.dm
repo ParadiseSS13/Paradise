@@ -245,7 +245,7 @@
 		var/turf/T = open[1]
 		var/dist = open[T]
 		open -= T
-		closed += T
+		closed[T] = TRUE
 
 		if(isspaceturf(T))
 			continue
@@ -301,12 +301,13 @@
 
 		for(var/dir in GLOB.cardinal)
 			var/turf/link = get_step(T, dir)
-			if (!link || !T.CanAtmosPass(link)) // Check if you can get to that turf
+			if (!link)
 				continue
-			var/dx = link.x - Ce.x
-			var/dy = link.y - Ce.y
-			var/target_dist = max((dist + 1 + sqrt(dx * dx + dy * dy)) / 2, dist)
-			if(!(link in closed))
+			// Check if it wasn't already visited and if you can get to that turf
+			if(!closed[link] && T.CanAtmosPass(link))
+				var/dx = link.x - Ce.x
+				var/dy = link.y - Ce.y
+				var/target_dist = max((dist + 1 + sqrt(dx * dx + dy * dy)) / 2, dist)
 				if(link in open)
 					if(open[link] > target_dist)
 						open[link] = target_dist
