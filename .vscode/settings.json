@@ -1,0 +1,8 @@
+{
+	"workbench.editorAssociations": [
+		{
+			"filenamePattern": "*.dmi",
+			"viewType": "imagePreview.previewEditor"
+		}
+	]
+}
