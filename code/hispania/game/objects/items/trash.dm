@@ -60,4 +60,4 @@
 /obj/item/trash/canned_fishegg
 	name ="empty canned caviar"
 	icon = 'icons/hispania/obj/trash.dmi'
-	icon_state = "carpeggs"
+	icon_state = "fisheggs"
