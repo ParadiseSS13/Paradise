@@ -119,7 +119,7 @@
 	remove_from_all_data_huds()
 	generation = gen
 	add_language("Cortical Link")
-	notify_ghosts("A cortical borer has been created in [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
+	notify_ghosts("A cortical borer has been created in [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK, role = ROLE_BORER)
 	real_name = "Cortical Borer [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
 	GrantBorerActions()
