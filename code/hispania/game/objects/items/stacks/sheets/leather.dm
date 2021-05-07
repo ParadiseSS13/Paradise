@@ -10,6 +10,6 @@
 GLOBAL_LIST_INIT(cartiplaz_recipes, list ( \
 	new/datum/stack_recipe("digested plasma", /obj/item/dig_plasma, 2, on_floor = 1)))
 
-/obj/item/stack/sheet/cartiplaz/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/cartiplaz/New(loc, amount=null)
 	recipes = GLOB.cartiplaz_recipes
 	return ..()
