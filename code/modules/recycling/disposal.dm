@@ -164,9 +164,9 @@
 	to_chat(user, "You [mode ? "unfasten": "fasten"] the screws around the power connection.")
 
 /obj/machinery/disposal/welder_act(mob/user, obj/item/I)
-	. = TRUE
 	if(mode != required_mode_to_deconstruct)
 		return
+	. = TRUE
 	if(contents.len > 0)
 		to_chat(user, "Eject the items first!")
 		return

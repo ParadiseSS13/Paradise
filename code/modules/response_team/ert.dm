@@ -312,6 +312,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	id = /obj/item/card/id/ert
 	l_ear = /obj/item/radio/headset/ert/alt
 	box = /obj/item/storage/box/responseteam
+	gloves = /obj/item/clothing/gloves/combat
 
 	implants = list(/obj/item/implant/mindshield)
 

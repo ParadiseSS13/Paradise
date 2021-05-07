@@ -22,6 +22,7 @@
 	new /obj/item/storage/backpack/cultpack(src)
 	new /obj/item/clothing/head/helmet/riot/knight/templar(src)
 	new /obj/item/clothing/suit/armor/riot/knight/templar(src)
+	new /obj/item/clothing/suit/storage/labcoat(src)
 	new /obj/item/soulstone/anybody/purified/chaplain(src)
 	new /obj/item/storage/fancy/candle_box/eternal(src)
 	new /obj/item/storage/fancy/candle_box/eternal(src)

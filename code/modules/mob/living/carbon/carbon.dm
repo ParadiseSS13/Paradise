@@ -215,7 +215,7 @@
 	if(stat == DEAD)
 		if(M != src)
 			M.visible_message("<span class='notice'>[M] desperately shakes [src] trying to wake [p_them()] up, but sadly there is no reaction!</span>", \
-			"<span class='notice'>You shake [src] trying to wake [p_them()] sadly they appear to be too far gone!</span>")
+			"<span class='notice'>You shake [src] trying to wake [p_them()], sadly they appear to be too far gone!</span>")
 		return
 	if(health >= HEALTH_THRESHOLD_CRIT)
 		if(src == M && ishuman(src))
