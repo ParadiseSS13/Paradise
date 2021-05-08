@@ -165,14 +165,15 @@
 				S.message = uppertext(S.message)
 				verb = "yells loudly"
 
-		if(istype(wear_mask, /obj/item/clothing/mask/gas/voice_modulator))
-			var/obj/item/clothing/mask/gas/voice_modulator/VM = wear_mask
-			var/obj/item/voice_changer/changer = VM.voice_modulator
-			if (changer.active)
-				verb = pick("modulates", "drones", "hums", "buzzes")
-
 		if(span)
 			S.message = "<span class='[span]'>[S.message]</span>"
+
+	if(istype(wear_mask, /obj/item/clothing/mask/gas/voice_modulator))
+		var/obj/item/clothing/mask/gas/voice_modulator/VM = wear_mask
+		var/obj/item/voice_changer/changer = VM.voice_modulator
+		if (changer.active)
+			verb = pick("modulates", "drones", "hums", "buzzes")
+
 	return list("verb" = verb)
 
 /mob/living/carbon/human/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
