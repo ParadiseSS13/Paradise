@@ -165,6 +165,12 @@
 				S.message = uppertext(S.message)
 				verb = "yells loudly"
 
+		if(istype(wear_mask, /obj/item/clothing/mask/gas/voice_modulator))
+			var/obj/item/voice_changer/changer = locate() in wear_mask
+			if (!changer.active)
+				continue
+			verb = pick("modulates", "drones", "hums", "buzzes")
+
 		if(span)
 			S.message = "<span class='[span]'>[S.message]</span>"
 	return list("verb" = verb)

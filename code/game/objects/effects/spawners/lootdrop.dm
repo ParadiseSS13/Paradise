@@ -144,6 +144,8 @@
 				/obj/item/stamp/chameleon = 2,
 				/obj/item/clothing/shoes/chameleon/noslip = 5,
 				/obj/item/clothing/mask/chameleon = 2,
+				/obj/item/clothing/mask/gas/voice_modulator = 2,
+				/obj/item/clothing/mask/gas/voice_modulator/chameleon = 2,
 				/obj/item/dnascrambler = 1,
 				/obj/item/storage/backpack/satchel_flat = 2,
 				/obj/item/storage/toolbox/syndicate = 2,
