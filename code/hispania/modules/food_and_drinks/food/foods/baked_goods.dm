@@ -409,3 +409,29 @@
 	icon_state = "stuffed_mushrooms"
 	list_reagents = list("nutriment" = 3, "vitamin" = 2)
 	tastes = list("bacon" = 1,"cheesy" = 1,"earthy" = 1)
+
+//Pene Waffle uwu//
+/obj/item/reagent_containers/food/snacks/pene_waffle_uwu
+	name = "Pene Waffle"
+	desc = "Una delicia con relleno sabrosito."
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "waffles"
+	list_reagents = list("nutriment" = 30, "vitamin" = 20)
+	tastes = list("furry" = 1,"cream" = 1,"viscous" = 1)
+
+/obj/item/reagent_containers/food/snacks/pene_waffle_uwu/attack(mob/living/carbon/M, mob/user, def_zone)
+	..()
+	if(!istype(M))
+		to_chat(user, "<span class='warning'>[M] se niega a comer el pene waffle.</span>")
+		return FALSE
+	if(QDELETED(M) || M.stat == DEAD)
+		return
+	M.visible_message("<span class='danger'>[M] comienza a comer el pene waffle!</span>")
+	M.visible_message("<span class='userdanger'>Se le salio el relleno cremosito a [M]!</span>")
+	M.suiciding = TRUE
+	do_sparks(3, 1, M)
+	M.gib()
+	return TRUE
+
+
+
