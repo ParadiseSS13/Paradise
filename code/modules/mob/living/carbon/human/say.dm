@@ -166,10 +166,10 @@
 				verb = "yells loudly"
 
 		if(istype(wear_mask, /obj/item/clothing/mask/gas/voice_modulator))
-			var/obj/item/voice_changer/changer = locate() in wear_mask
-			if (!changer.active)
-				continue
-			verb = pick("modulates", "drones", "hums", "buzzes")
+			var/obj/item/clothing/mask/gas/voice_modulator/VM = wear_mask
+			var/obj/item/voice_changer/changer = VM.voice_modulator
+			if (changer.active)
+				verb = pick("modulates", "drones", "hums", "buzzes")
 
 		if(span)
 			S.message = "<span class='[span]'>[S.message]</span>"

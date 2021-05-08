@@ -1179,7 +1179,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A syndicate tactical mask equipped with chameleon technology and a sound modulator for disguising your voice. \
 			While the mask is active, your voice will sound unrecognizable to others"
 	reference = "CVMM"
-	item = /obj/item/clothing/mask/gas/voice_modulator
+	item = /obj/item/clothing/mask/gas/voice_modulator/chameleon
 	cost = 1
 	excludefrom = list(/datum/game_mode/nuclear)
 
