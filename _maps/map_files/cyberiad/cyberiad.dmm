@@ -47098,7 +47098,8 @@
 	},
 /area/medical/chemistry)
 "bLE" = (
-/turf/simulated/floor/mech_bay_recharge_floor,
+/obj/effect/turf_decal/mech,
+/turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "bLF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,

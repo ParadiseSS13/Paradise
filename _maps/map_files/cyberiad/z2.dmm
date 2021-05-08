@@ -11478,7 +11478,10 @@
 	icon_state = "4-8";
 	pixel_x = 0
 	},
-/turf/simulated/floor/mech_bay_recharge_floor,
+/obj/effect/turf_decal/mech,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
 /area/shuttle/gamma/space)
 "Bk" = (
 /obj/structure/cable{
@@ -12138,6 +12141,12 @@
 /obj/machinery/shuttle_manipulator,
 /turf/unsimulated/floor{
 	icon_state = "light_on"
+	},
+/area/centcom/specops)
+"DD" = (
+/obj/effect/turf_decal/mech,
+/turf/unsimulated/floor{
+	icon_state = "dark"
 	},
 /area/centcom/specops)
 "DI" = (
@@ -14373,6 +14382,7 @@
 /area/syndicate_mothership/jail)
 "OB" = (
 /obj/mecha/combat/gygax/ert/loaded,
+/obj/effect/turf_decal/mech,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -41464,9 +41474,9 @@ yQ
 yH
 yH
 yH
-yH
-yH
-yH
+DD
+DD
+DD
 wC
 UN
 td

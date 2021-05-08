@@ -80099,7 +80099,11 @@
 /turf/simulated/floor/bluegrid,
 /area/assembly/chargebay)
 "dip" = (
-/turf/simulated/floor/mech_bay_recharge_floor,
+/obj/effect/turf_decal/mech,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
 /area/assembly/chargebay)
 "diq" = (
 /obj/structure/cable{
