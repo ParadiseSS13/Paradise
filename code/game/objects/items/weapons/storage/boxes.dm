@@ -157,7 +157,7 @@
 		new /obj/item/dnainjector/h2m(src)
 
 /obj/item/storage/box/slug
-	name = "Ammunition Box (AP Slug)"
+	name = "ammunition box (AP Slug)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "slugbox"
 
