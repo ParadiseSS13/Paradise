@@ -120,7 +120,7 @@
 
 /datum/crafting_recipe/fiery_cataplasm
 	name = "Fiery Herbal Cataplasm"
-	result = list(/obj/item/stack/medical/ointment/fiery_cataplasm)
+	result = list(/obj/item/stack/medical/ointment/earthly_cataplasm/fiery_cataplasm)
 	time = 40
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf = 4,
 		        /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap= 4,
