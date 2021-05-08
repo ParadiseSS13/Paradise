@@ -29,6 +29,6 @@
 
 /obj/item/toy/plushie_hispania_sound/cocoana
 	name = "Cocoana Huge Head Plushie"
-	desc = "An adorable stuffed huge head that resembles a mixed race half elf girl from a sad world."
+	desc = "An adorable stuffed huge head that resembles a half elf girl from a sad world."
 	icon_state = "cocoana"
 	toysounds = list('sound/hispania/effects/toys/cocoana1.ogg', 'sound/hispania/effects/toys/cocoana2.ogg', 'sound/hispania/effects/toys/cocoana3.ogg', 'sound/hispania/effects/toys/cocoana4.ogg')
