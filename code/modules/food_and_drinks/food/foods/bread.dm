@@ -133,7 +133,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/banarnarbreadslice
 	slices_num = 5
 	filling_color = "#6F0000"
-	list_reagents = list("nutriment" = 15, "vitamin" = 5)
+	list_reagents = list("nutriment" = 20, "vitamin" = 5)
 	tastes = list("heresy" = 10, "banana" = 10)
 
 /obj/item/reagent_containers/food/snacks/banarnarbreadslice
@@ -142,7 +142,7 @@
 	icon_state = "banarnarbreadslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#6F0000"
-	list_reagents = list("nutriment" = 5, "vitamin" = 1)
+	list_reagents = list("nutriment" = 4, "vitamin" = 1)
 	tastes = list("heresy" = 10, "banana" = 10)
 
 
