@@ -180,7 +180,7 @@
 
 /datum/reagent/consumable/drink/cold/gingerbeer
 	name = "Ginger beer"
-	description = "Ginger beer! Confusing alcohol laws since 1888"
+	description = "Ginger beer! Confusing alcohol laws since 1888."
 	id = "gingerbeer"
 	color = "#9E7102" // rgb:158, 113, 2
 	drink_icon = "gingerbeer"
