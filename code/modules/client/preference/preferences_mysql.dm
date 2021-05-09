@@ -440,7 +440,7 @@
 													"f_style" = f_style,
 													"markingstyleslist" = markingstyleslist,
 													"ha_style" = ha_style,
-													"alt_head" = alt_head || "",
+													"alt_head" = (alt_head ? alt_head : ""), // This it intentional. It wont work without it!
 													"e_colour" = e_colour,
 													"underwear" = underwear,
 													"undershirt" = undershirt,
