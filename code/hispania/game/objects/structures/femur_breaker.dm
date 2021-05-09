@@ -46,9 +46,11 @@
 		if(BREAKER_SLAT_MOVING)
 			return
 		if(BREAKER_SLAT_DROPPED)
+			current_action = BREAKER_ACTION_INUSE
 			slat_status = BREAKER_SLAT_MOVING
 			icon_state = "breaker_raise"
 			addtimer(CALLBACK(src, .proc/raise_slat), BREAKER_ANIMATION_LENGTH)
+			current_action = 0
 			return
 		if(BREAKER_SLAT_RAISED)
 			if(LAZYLEN(buckled_mobs))
@@ -58,10 +60,10 @@
 					current_action = BREAKER_ACTION_INUSE
 
 					if(do_after(user, BREAKER_ACTIVATE_DELAY, target = src) && slat_status == BREAKER_SLAT_RAISED)
-						current_action = 0
 						slat_status = BREAKER_SLAT_MOVING
 						icon_state = "breaker_drop"
 						drop_slat(user)
+						current_action = 0
 					else
 						current_action = 0
 				else
@@ -87,6 +89,7 @@
 
 /obj/structure/femur_breaker/proc/drop_slat(mob/user)
 	if(buckled_mobs.len)
+		current_action = BREAKER_ACTION_INUSE
 		var/mob/living/carbon/human/H = buckled_mobs[1]
 
 		if(!H)
@@ -97,16 +100,12 @@
 		addtimer(CALLBACK(src, .proc/damage_leg, H), BREAKER_ANIMATION_LENGTH, TIMER_UNIQUE)
 		add_attack_logs(user, H, "femur broke with [src]")
 
+		if(H.key && H.stat == CONSCIOUS)
+			attract_oldman()
+
 	slat_status = BREAKER_SLAT_DROPPED
 	icon_state = "breaker"
-	for(var/mob/living/simple_animal/hostile/oldman/M in GLOB.player_list)
-		to_chat(M, "<span class='warning'>You sense an incapacited victim nearby...</span>")
-		if(M.dimension)
-			M.forceMove(get_turf(src))
-			M.notransform = TRUE
-			to_chat(M, "<span class='danger'>You cannot resist your hunger and you go directly to them!</span>")
-			spawn(20)
-				M.notransform = FALSE
+	current_action = 0
 
 /obj/structure/femur_breaker/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!anchored)
@@ -186,6 +185,37 @@
 		return
 	else
 		return ..()
+
+/obj/structure/femur_breaker/proc/attract_oldman()
+	for(var/mob/living/simple_animal/hostile/oldman/M in GLOB.player_list)
+		if(!M)
+			return
+		var/mob/living/carbon/human/H = buckled_mobs[1]
+		to_chat(M, "<span class='warning'>You sense an incapacited victim nearby...</span>")
+		if(M.dimension)
+			M.forceMove(get_turf(src))
+			M.notransform = TRUE
+			to_chat(M, "<span class='danger'>You cannot resist your hunger and you go directly to them!</span>")
+			spawn(2 SECONDS)
+				if(world.time - M.time_spawned > 20 MINUTES)
+					new /obj/effect/decal/cleanable/blood/oil/sludge(get_turf(src))
+					playsound(src, 'sound/hispania/effects/oldman/sacrifice.ogg', 50, FALSE)
+					M.icon_state = "sacrifice"
+					M.maxHealth = 999999 //Para que sobreviva durante la animacion
+					M.health = 999999
+					M.incorporeal_move = 0
+					M.density = TRUE
+					M.pass_flags = 0
+					M.dimension = FALSE
+					M.mob_size = MOB_SIZE_LARGE
+					M.invisibility = 0
+					spawn(14 SECONDS)
+						H.gib()
+						spawn(2 SECONDS)
+							M.icon_state = "idle"
+							M.death()
+				else
+					M.notransform = FALSE
 
 #undef BREAKER_ANIMATION_LENGTH
 #undef BREAKER_SLAT_RAISED
