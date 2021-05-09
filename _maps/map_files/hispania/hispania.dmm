@@ -70612,9 +70612,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/airlock/engineering{
-	name = "Engineering Maintenance";
-	req_one_access_txt = "32"
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
@@ -72312,9 +72311,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/engineering{
-	name = "Engineering Maintenance";
-	req_one_access_txt = "32"
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
@@ -73899,11 +73897,6 @@
 	icon_state = "white"
 	},
 /area/toxins/xenobiology)
-"cVh" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/particle_accelerator/particle_emitter/right,
-/turf/simulated/floor/plating,
-/area/engine/singularity)
 "cVj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -74263,11 +74256,6 @@
 "cWy" = (
 /obj/machinery/power/rad_collector,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/engine/singularity)
-"cWz" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/particle_accelerator/fuel_chamber,
 /turf/simulated/floor/plating,
 /area/engine/singularity)
 "cWA" = (
@@ -75188,6 +75176,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"cZf" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plating,
+/area/engine/engineering)
 "cZg" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -77166,7 +77158,6 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/starboardsolar)
 "deF" = (
-/obj/machinery/floodlight,
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plating,
@@ -77802,12 +77793,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
-"dgJ" = (
-/obj/machinery/shieldgen,
-/obj/effect/decal/warning_stripes/west,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plating,
-/area/storage/secure)
 "dgP" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -78094,25 +78079,12 @@
 /area/engine/engineering)
 "dhD" = (
 /obj/structure/table,
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
 /obj/item/clothing/head/welding,
 /obj/item/clothing/head/welding{
 	layer = 8
 	},
 /obj/item/clothing/glasses/welding,
 /obj/item/clothing/glasses/welding,
-/obj/item/stack/sheet/metal{
-	amount = 50;
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50;
-	pixel_x = 2;
-	pixel_y = 2
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -82105,10 +82077,6 @@
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
-"dsO" = (
-/obj/structure/particle_accelerator/particle_emitter/left,
-/turf/simulated/floor/plating,
-/area/engine/singularity)
 "dsP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -82144,7 +82112,6 @@
 /area/engine/engineering)
 "dsW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/particle_accelerator/power_box,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/engine/singularity)
@@ -84207,10 +84174,6 @@
 /obj/item/stack/sheet/metal{
 	amount = 50
 	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/tape_roll,
 /obj/item/stack/tape_roll,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27;
@@ -91096,7 +91059,6 @@
 	},
 /area/atmos/control)
 "mzc" = (
-/obj/machinery/field/generator,
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -93583,10 +93545,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/supermatter)
-"oZx" = (
-/obj/structure/particle_accelerator/end_cap,
-/turf/simulated/floor/plating,
-/area/engine/singularity)
 "pao" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -93878,11 +93836,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/singularity)
-"ppT" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/toxins,
-/turf/simulated/floor/plating,
-/area/engine/engineering)
 "pqk" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -95229,7 +95182,7 @@
 /area/engine/mechanic_workshop)
 "qJu" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
+	req_access_txt = "32"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plating,
@@ -95752,6 +95705,10 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
 /area/space)
+"rvN" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "rvO" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/machinery/light{
@@ -97002,7 +96959,6 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "swx" = (
-/obj/machinery/floodlight,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -99553,7 +99509,7 @@
 	},
 /area/escapepodbay)
 "uZM" = (
-/obj/machinery/vending/boozeomat,
+/obj/structure/closet/cardboard,
 /turf/simulated/floor/plating,
 /area/engine/equipmentstorage)
 "var" = (
@@ -100167,7 +100123,6 @@
 /area/hallway/primary/aft)
 "vGp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/particle_accelerator/particle_emitter/center,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -102091,7 +102046,6 @@
 /area/engine/singularity)
 "xsm" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal/fifty,
 /obj/machinery/door_control{
 	id = "smstorage";
 	name = "Supermatter Storage";
@@ -102234,7 +102188,6 @@
 	dir = 4;
 	pixel_x = 28
 	},
-/obj/machinery/field/generator,
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plating,
@@ -102887,7 +102840,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/power/emitter,
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plating,
@@ -128309,7 +128261,7 @@ cJg
 cPb
 dsG
 dEj
-dsO
+qjX
 dsW
 tMz
 kvl
@@ -128567,7 +128519,7 @@ cJx
 rds
 dEj
 vGp
-oZx
+qjX
 xwl
 cVb
 axo
@@ -128823,8 +128775,8 @@ fda
 cPb
 dsG
 dEj
-cVh
-cWz
+xwl
+xwl
 cXw
 cVo
 cJB
@@ -130378,10 +130330,10 @@ wnw
 cSU
 swx
 deF
-dgJ
-dgJ
+deF
+deF
 mzc
-xvd
+deF
 xvd
 xvd
 ugZ
@@ -130638,7 +130590,7 @@ cRb
 iAw
 iAw
 xxa
-lPI
+rvN
 lPI
 yfH
 cTx
@@ -141955,7 +141907,7 @@ gqS
 tuH
 cSU
 kZH
-kZH
+cZf
 qAp
 bwI
 cSU
@@ -142212,7 +142164,7 @@ dlX
 dmh
 cSU
 dmO
-dmO
+cZf
 qAp
 ttL
 iBo
@@ -142469,7 +142421,7 @@ pvq
 eXW
 cSU
 yeQ
-ppT
+cZf
 dQW
 ttL
 jpf
