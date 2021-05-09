@@ -234,6 +234,7 @@
 "aaD" = (
 /obj/item/disk/tech_disk,
 /obj/structure/table/reinforced,
+/obj/item/book/manual/how_to_telesci,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whitepurple (EAST)";
 	icon_state = "whitepurple";
@@ -82441,6 +82442,7 @@
 "dyq" = (
 /obj/structure/table,
 /obj/item/book/manual/sop_service,
+/obj/item/book/manual/hispania_recipes_arepas,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cafeteria";
@@ -98310,6 +98312,7 @@
 /obj/structure/table,
 /obj/item/kitchen/knife,
 /obj/item/kitchen/rollingpin,
+/obj/item/book/manual/hispania_recipes,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cafeteria";
