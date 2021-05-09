@@ -276,7 +276,6 @@
 
 	qdel(query)
 	//Sanitize
-	var/datum/species/SP = GLOB.all_species[species]
 	metadata		= sanitize_text(metadata, initial(metadata))
 	real_name		= reject_bad_name(real_name, 1)
 	if(isnull(species)) species = "Human"
@@ -285,7 +284,7 @@
 	if(isnull(speciesprefs)) speciesprefs = initial(speciesprefs)
 	if(!real_name) real_name = random_name(gender,species)
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
-	gender			= sanitize_gender(gender, FALSE, !SP.has_gender)
+	gender			= sanitize_gender(gender)
 	age				= sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
 	h_colour		= sanitize_hexcolor(h_colour)
 	h_sec_colour	= sanitize_hexcolor(h_sec_colour)

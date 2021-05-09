@@ -1337,8 +1337,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
 						return
 					if(prev_species != species)
-						if(NS.has_gender && gender == PLURAL)
-							gender = pick(MALE,FEMALE)
 						var/datum/robolimb/robohead
 						if(NS.bodyflags & ALL_RPARTS)
 							var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
@@ -1977,19 +1975,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						toggles ^= PREFTOGGLE_DONATOR_PUBLIC
 
 				if("gender")
-					if(!S.has_gender)
-						var/newgender = input(user, "Choose Gender:") as null|anything in list("Male", "Female", "Genderless")
-						switch(newgender)
-							if("Male")
-								gender = MALE
-							if("Female")
-								gender = FEMALE
-							if("Genderless")
-								gender = PLURAL
-					else
-						if(gender == MALE)
+					switch(gender)
+						if(MALE) // Cycle between them
 							gender = FEMALE
-						else
+						if(FEMALE)
+							gender = PLURAL
+						if(PLURAL)
 							gender = MALE
 					underwear = random_underwear(gender)
 
@@ -2240,12 +2231,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		character.body_accessory = GLOB.body_accessory_by_name["[body_accessory]"]
 
 	character.backbag = backbag
-
-	//Debugging report to track down a bug, which randomly assigned the plural gender to people.
-	if(character.dna.species.has_gender && (character.gender in list(PLURAL, NEUTER)))
-		if(isliving(src)) //Ghosts get neuter by default
-			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
-			character.change_gender(MALE)
 
 	character.change_eye_color(e_colour)
 	character.original_eye_color = e_colour

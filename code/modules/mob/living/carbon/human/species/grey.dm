@@ -22,7 +22,6 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
-	has_gender = FALSE
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#a598ad"
 	blood_color = "#A200FF"

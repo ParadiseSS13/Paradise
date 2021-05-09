@@ -10,7 +10,6 @@ export const AppearanceChanger = (props, context) => {
     specimen,
     change_gender,
     gender,
-    has_gender,
     change_eye_color,
     change_skin_tone,
     change_skin_color,
@@ -88,15 +87,13 @@ export const AppearanceChanger = (props, context) => {
                   () => act('gender', { gender: "female" })
                 }
               />
-              {!has_gender && (
-                <Button
-                  content="Genderless"
-                  selected={gender === "plural"}
-                  onClick={
-                    () => act('gender', { gender: "plural" })
-                  }
-                />
-              )}
+              <Button
+                content="Genderless"
+                selected={gender === "plural"}
+                onClick={
+                  () => act('gender', { gender: "plural" })
+                }
+              />
             </LabeledList.Item>
           )}
           {!!has_colours && (
