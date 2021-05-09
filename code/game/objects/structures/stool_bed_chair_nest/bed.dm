@@ -25,7 +25,6 @@
 	buckle_offset = -6
 	var/comfort = 2 // default comfort
 
-
 /obj/structure/bed/psych
 	name = "psych bed"
 	desc = "For prime comfort during psychiatric evaluations."
