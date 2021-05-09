@@ -25,11 +25,6 @@
 	buckle_offset = -6
 	var/comfort = 2 // default comfort
 
-/obj/structure/bed/post_buckle_mob(mob/living/M)
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		C.drop_l_hand()
-		C.drop_r_hand() // no self surgery
 
 /obj/structure/bed/psych
 	name = "psych bed"
@@ -90,7 +85,6 @@
 		return ..()
 
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
-	..()
 	density = TRUE
 	icon_state = "up"
 	M.pixel_y = initial(M.pixel_y)
