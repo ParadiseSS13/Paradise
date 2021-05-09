@@ -1439,3 +1439,14 @@
 	drink_desc = "A sawed-off cola bottle filled with Fernet Cola. You can hear cuarteto music coming from the inside."
 	taste_description = "low class heaven"
 	remove_nutrition = 1
+
+/datum/reagent/consumable/ethanol/dark_and_stormy
+	name = "Dark and stormy"
+	description = "the archetypal example of a florid, melodramatic style of mixology."
+	id = "dark_and_stormy"
+	color = "#CCCCB3" // rgb: 204, 204, 179
+	alcohol_perc = 0.6
+	drink_icon = "dark_and_stormy"
+	drink_name = "Dark and stormy"
+	drink_desc = "the archetypal example of a florid, melodramatic style of mixology."
+	taste_description = "refreshing rum and ginger beer"
