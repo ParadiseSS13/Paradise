@@ -15,8 +15,8 @@
 	if(!cooldown)
 		to_chat(user, "<span class='notice'>You press the button on [src].</span>")
 		playsound(user, pick(toysounds), 20, 1)
-		cooldown = 1
-		spawn(30) cooldown = 0
+		cooldown = TRUE
+		spawn(3 SECONDS) cooldown = FALSE
 		return
 	..()
 
