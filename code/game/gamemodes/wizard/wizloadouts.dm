@@ -71,3 +71,16 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), slot_gloves)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), slot_w_uniform)
+
+/datum/spellbook_entry/loadout/jordanius
+	name = "Jordanius The Very Baldius"
+	desc = "Jordanius was mocked for being bald for such a long time, failure, after failure.<br> \
+		Now Jordanius has thrown down the gloves and will make the station pay for mocking him.<br> \
+		With this set, station will remember you, but not for your name, but for the death you leave behind you.<br> \
+		<i>With Recall, Spellblade, Blink, Etheral Jaunt, Blink, Disable Tech and a Necromantic Stone</i>"
+	log_name = "JTVB"
+	items_path = list(/obj/item/necromantic_stone, /obj/item/gun/magic/staff/spellblade)
+	spells_path = list(/obj/effect/proc_holder/spell/targeted/emplosion/disable_tech, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt, \
+		/obj/effect/proc_holder/spell/targeted/summonitem, /obj/effect/proc_holder/spell/targeted/turf_teleport/blink)
+	category = "Unique"
+	destroy_spellbook = TRUE
