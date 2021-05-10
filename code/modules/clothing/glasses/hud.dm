@@ -145,6 +145,11 @@
 /obj/item/clothing/glasses/hud/security/sunglasses/prescription
 	prescription = 1
 
+/obj/item/clothing/glasses/hud/security/sunglasses/aviators
+	name = "HUD aviators"
+	desc = "A aviators with a HUD."
+	icon_state = "aviators"
+
 /obj/item/clothing/glasses/hud/hydroponic
 	name = "Hydroponic HUD"
 	desc = "A heads-up display capable of analyzing the health and status of plants growing in hydro trays and soil."
