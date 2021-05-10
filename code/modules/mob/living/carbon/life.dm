@@ -263,7 +263,6 @@
 			setStaminaLoss(0, FALSE)
 			update_health_hud()
 
-	var/restingpwr = 1 + 4 * resting
 
 	//Dizziness
 	if(dizziness)
