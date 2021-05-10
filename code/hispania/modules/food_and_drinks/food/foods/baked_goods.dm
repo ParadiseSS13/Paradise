@@ -412,12 +412,13 @@
 
 //Pene Waffle uwu//
 /obj/item/reagent_containers/food/snacks/pene_waffle_uwu
-	name = "Pene Waffle"
+	name = "pene waffle"
 	desc = "Una delicia con relleno sabrosito."
 	icon = 'icons/hispania/obj/food/food.dmi'
 	icon_state = "waffles"
 	list_reagents = list("nutriment" = 5, "vitamin" = 5)
 	tastes = list("furry" = 1,"cream" = 1,"viscous" = 1)
+	bitesize = 100 // 1 mordida = 1 uso por pene waffle
 
 /obj/item/reagent_containers/food/snacks/pene_waffle_uwu/attack(mob/living/carbon/M, mob/user, def_zone)
 	..()
@@ -432,6 +433,3 @@
 	do_sparks(3, 1, M)
 	M.gib()
 	return TRUE
-
-
-
