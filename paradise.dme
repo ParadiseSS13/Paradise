@@ -1193,6 +1193,7 @@
 #include "code\hispania\game\objects\items\miscellaneous\noose.dm"
 #include "code\hispania\game\objects\items\robot\robot_upgrades.dm"
 #include "code\hispania\game\objects\items\toys\balloon.dm"
+#include "code\hispania\game\objects\items\toys\plushies.dm"
 #include "code\hispania\game\objects\items\toys\uno.dm"
 #include "code\hispania\game\objects\items\weapons\chronoeraser.dm"
 #include "code\hispania\game\objects\items\weapons\holy_weapons.dm"
