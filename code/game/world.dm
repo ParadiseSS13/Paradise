@@ -175,7 +175,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			GLOB.master_mode = Lines[1]
 			log_game("Saved mode is '[GLOB.master_mode]'")
 
-/world/proc/save_mode(var/the_mode)
+/world/proc/save_mode(the_mode)
 	var/F = file("data/mode.txt")
 	fdel(F)
 	F << the_mode
@@ -190,6 +190,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	config.load("config/game_options.txt","game_options")
 	config.loadsql("config/dbconfig.txt")
 	config.loadoverflowwhitelist("config/ofwhitelist.txt")
+	config.load_rank_colour_map()
 	// apply some settings from config..
 
 /world/proc/update_status()

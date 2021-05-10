@@ -262,11 +262,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/block/check_completion()
 	if(!istype(owner.current, /mob/living/silicon))
-		return 0
+		return FALSE
+	if(SSticker.mode.station_was_nuked)
+		return TRUE
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
-		return 0
+		return FALSE
 	if(!owner.current)
-		return 0
+		return FALSE
 
 	var/area/A = SSshuttle.emergency.areaInstance
 
@@ -276,9 +278,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 		if(player.mind && player.stat != DEAD)
 			if(get_area(player) == A)
-				return 0 // If there are any other organic mobs on the shuttle, you failed the objective.
+				return FALSE // If there are any other organic mobs on the shuttle, you failed the objective.
 
-	return 1
+	return TRUE
 
 /datum/objective/escape
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
@@ -431,7 +433,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/steal/exchange
 	martyr_compatible = 0
 
-/datum/objective/steal/exchange/proc/set_faction(var/faction,var/otheragent)
+/datum/objective/steal/exchange/proc/set_faction(faction, otheragent)
 	target = otheragent
 	var/datum/theft_objective/unique/targetinfo
 	if(faction == "red")
@@ -442,7 +444,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	steal_target = targetinfo
 
 /datum/objective/steal/exchange/backstab
-/datum/objective/steal/exchange/backstab/set_faction(var/faction)
+/datum/objective/steal/exchange/backstab/set_faction(faction)
 	var/datum/theft_objective/unique/targetinfo
 	if(faction == "red")
 		targetinfo = new /datum/theft_objective/unique/docs_red
@@ -477,7 +479,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/absorb
-/datum/objective/absorb/proc/gen_amount_goal(var/lowbound = 4, var/highbound = 6)
+/datum/objective/absorb/proc/gen_amount_goal(lowbound = 4, highbound = 6)
 	target_amount = rand (lowbound,highbound)
 	if(SSticker)
 		var/n_p = 1 //autowin

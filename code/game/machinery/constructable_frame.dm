@@ -490,7 +490,8 @@ to destroy them and players will be able to make replacements.
 							"\improper Secure Refrigerated Medicine Storage" = /obj/machinery/smartfridge/secure/medbay,
 							"\improper Smart Chemical Storage" = /obj/machinery/smartfridge/secure/chemistry,
 							"smart virus storage" = /obj/machinery/smartfridge/secure/chemistry/virology,
-							"\improper Drink Showcase" = /obj/machinery/smartfridge/drinks
+							"\improper Drink Showcase" = /obj/machinery/smartfridge/drinks,
+							"disk compartmentalizer" = /obj/machinery/smartfridge/disks
 	)
 
 
@@ -623,6 +624,10 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 3,
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/sheet/glass = 1)
+
+/obj/item/circuitboard/autolathe/syndi
+	name = "Circuit board (Syndi Autolathe)"
+	build_path = /obj/machinery/autolathe/syndicate
 
 /obj/item/circuitboard/protolathe
 	name = "Circuit board (Protolathe)"

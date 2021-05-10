@@ -81,7 +81,7 @@
 	qdel(D)
 
 
-/obj/item/reagent_containers/spray/attack_self(var/mob/user)
+/obj/item/reagent_containers/spray/attack_self(mob/user)
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
@@ -180,7 +180,7 @@
 	origin_tech = "combat=3;materials=3;engineering=3"
 
 
-/obj/item/reagent_containers/spray/chemsprayer/spray(var/atom/A)
+/obj/item/reagent_containers/spray/chemsprayer/spray(atom/A)
 	var/Sprays[3]
 	for(var/i=1, i<=3, i++) // intialize sprays
 		if(reagents.total_volume < 1) break
@@ -217,7 +217,7 @@
 
 
 
-/obj/item/reagent_containers/spray/chemsprayer/attack_self(var/mob/user)
+/obj/item/reagent_containers/spray/chemsprayer/attack_self(mob/user)
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	to_chat(user, "<span class='notice'>You adjust the output switch. You'll now use [amount_per_transfer_from_this] units per spray.</span>")

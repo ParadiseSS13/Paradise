@@ -20,6 +20,7 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
+	species_traits = list(NO_HAIR)
 	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
 	clothing_flags = HAS_SOCKS
@@ -39,13 +40,11 @@
 		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
 		"respiratory vacuoles" =   /obj/item/organ/internal/lungs/diona,
 		"neural strata" =      /obj/item/organ/internal/heart/diona,
-		"receptor node" =      /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
+		"eyes"			 =      /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
 		"gas bladder" =        /obj/item/organ/internal/brain/diona,
 		"polyp segment" =      /obj/item/organ/internal/kidneys/diona,
 		"anchoring ligament" = /obj/item/organ/internal/appendix/diona
 		)
-
-	vision_organ = /obj/item/organ/internal/eyes/diona
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/diona),
 		"groin" =  list("path" = /obj/item/organ/external/groin/diona),
