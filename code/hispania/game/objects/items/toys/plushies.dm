@@ -6,7 +6,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
 	attack_verb = list("poofed", "bopped", "whapped","cuddled","fluffed")
-	var/cooldown = 0
+	var/cooldown = FALSE
 	var/list/toysounds  = list('sound/hispania/effects/toys/lona1.ogg','sound/hispania/effects/toys/lona2.ogg','sound/hispania/effects/toys/yeah.ogg')
 
 /obj/item/toy/plushie_hispania_sound/attack_self(mob/user)
