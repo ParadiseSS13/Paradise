@@ -423,11 +423,11 @@
 /obj/item/reagent_containers/food/snacks/pene_waffle_uwu/attack(mob/living/carbon/M, mob/user, def_zone)
 	..()
 	if(!istype(M)) //Ashdrakes no comen pene waffles
-		to_chat(user, "<span class='warning'>[M] se niega a comer el pene waffle.</span>")
+		to_chat(user, "<span class='warning'>[M] se niega a comer el [src].</span>")
 		return FALSE
 	if(QDELETED(M) || M.stat == DEAD)//Muertos no comen pene waffles
 		return
-	M.visible_message("<span class='danger'>[M] comienza a comer el pene waffle!</span>")
+	M.visible_message("<span class='danger'>[M] comienza a comer el [src]!</span>")
 	M.visible_message("<span class='userdanger'>Se le salio el relleno cremosito a [M]!</span>")
 	M.suiciding = TRUE
 	do_sparks(3, 1, M)
