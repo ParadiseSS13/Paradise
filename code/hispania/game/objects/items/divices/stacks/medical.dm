@@ -60,3 +60,43 @@
 		heal(M, user)
 		M.UpdateDamageIcon()
 		use(1)
+
+/obj/item/stack/medical/quickclot
+	name = "surgical quikclot gauze kit"
+	desc = "A brand of hemostatic dressing famous through centuries, wound dressing that contains an agent that promotes blood clotting."
+	icon = 'icons/hispania/obj/miscellaneous.dmi'
+	icon_state = "quickclot"
+	self_delay = 100
+	var/other_delay = 20
+	amount = 3
+
+/obj/item/stack/medical/quickclot/attack(mob/living/M, mob/user)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
+		var/limb = affecting.name
+		if(!(affecting.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")))
+			to_chat(user, "<span class='danger'>You can't apply a [src] there!</span>")
+			return TRUE
+		if(affecting.internal_bleeding)
+			if((M == user && self_delay > 0) || (M != user && other_delay > 0))
+				user.visible_message("<span class='notice'>[user] starts to apply [src] to [H]'s [limb].</span>", \
+										"<span class='notice'>You start to apply [src] to [H]'s [limb].</span>", \
+										"<span class='notice'>You hear something being wrapped.</span>")
+			if(M == user && !do_mob(user, H, self_delay))
+				return TRUE
+			else if(!do_mob(user, H, other_delay))
+				return TRUE
+			user.visible_message("<span class='notice'>[user] applies [src] to [H]'s [limb].</span>", \
+								"<span class='notice'>You apply [src] to [H]'s [limb] stopping the internal bleeding.</span>")
+			affecting.internal_bleeding = FALSE
+			use(1)
+		else
+			to_chat(user, "<span class='warning'>You are unable to find any signs of internal bleeding on this limb.</span>")
+
+/obj/item/stack/medical/quickclot/survivalqc
+	name = "survival quikclot gauze kit"
+	desc = "A brand of hemostatic dressing famous through centuries, wound dressing that contains an agent that promotes blood clotting."
+	icon_state = "quickclot"
+	other_delay = 40
+	amount = 1

@@ -17,6 +17,12 @@
     cost = 15
     containername = "rolled bed crate"
 
+//Surgical Quickclot//
+/datum/supply_packs/medical/quickclotcrate
+	name = "Surgical Quikclot Crate"
+	contains = list(/obj/item/stack/medical/quickclot)
+	cost = 120 //Expensive AF
+	containername = "surgical quickclot crate"
 
 //Sec///
 /datum/supply_packs/security/spacesuit

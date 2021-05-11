@@ -26,3 +26,7 @@
 /obj/structure/closet/secure_closet/hos/New()
 	..()
 	new /obj/item/whistle(src)
+
+/obj/structure/closet/secure_closet/blueshield/New()
+	..()
+	new /obj/item/stack/medical/quickclot(src)
