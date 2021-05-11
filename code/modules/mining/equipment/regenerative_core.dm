@@ -14,6 +14,10 @@
 		to_chat(user, "<span class='warning'>The stabilizer only works on certain types of monster organs, generally regenerative in nature.</span>")
 		return ..()
 
+	if(C.inert)
+		to_chat(user, "<span class='warning'>It is too late, this organ has already decayed.</span>")
+		return ..()
+
 	C.preserved()
 	to_chat(user, "<span class='notice'>You inject the [M] with the stabilizer. It will no longer go inert.</span>")
 	qdel(src)
