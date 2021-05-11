@@ -166,7 +166,7 @@
 			M.levelupdate()
 
 /turf/simulated/mineral/cere
-	name = "Ancient rock"
+	name = "ancient rock"
 	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
 
 /turf/simulated/mineral/random/high_chance
