@@ -144,7 +144,6 @@
 					real_name,
 					name_is_always_random,
 					gender,
-					body_type,
 					age,
 					species,
 					language,
@@ -192,7 +191,8 @@
 					socks,
 					body_accessory,
 					gear,
-					autohiss
+					autohiss,
+					body_type
 				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
 						 "slot" = slot
@@ -207,51 +207,50 @@
 		real_name = query.item[2]
 		be_random_name = text2num(query.item[3])
 		gender = query.item[4]
-		body_type = query.item[5]
-		age = text2num(query.item[6])
-		species = query.item[7]
-		language = query.item[8]
+		age = text2num(query.item[5])
+		species = query.item[6]
+		language = query.item[7]
 
-		h_colour = query.item[9]
-		h_sec_colour = query.item[10]
-		f_colour = query.item[11]
-		f_sec_colour = query.item[12]
-		s_tone = text2num(query.item[13])
-		s_colour = query.item[14]
-		m_colours = params2list(query.item[15])
-		hacc_colour = query.item[16]
-		h_style = query.item[17]
-		f_style = query.item[18]
-		m_styles = params2list(query.item[19])
-		ha_style = query.item[20]
-		alt_head = query.item[21]
-		e_colour = query.item[22]
-		underwear = query.item[23]
-		undershirt = query.item[24]
-		backbag = query.item[25]
-		b_type = query.item[26]
+		h_colour = query.item[8]
+		h_sec_colour = query.item[9]
+		f_colour = query.item[10]
+		f_sec_colour = query.item[11]
+		s_tone = text2num(query.item[12])
+		s_colour = query.item[13]
+		m_colours = params2list(query.item[14])
+		hacc_colour = query.item[15]
+		h_style = query.item[16]
+		f_style = query.item[17]
+		m_styles = params2list(query.item[18])
+		ha_style = query.item[19]
+		alt_head = query.item[20]
+		e_colour = query.item[21]
+		underwear = query.item[22]
+		undershirt = query.item[23]
+		backbag = query.item[24]
+		b_type = query.item[25]
 
 
 		//Jobs
-		alternate_option = text2num(query.item[27])
-		job_support_high = text2num(query.item[28])
-		job_support_med = text2num(query.item[29])
-		job_support_low = text2num(query.item[30])
-		job_medsci_high = text2num(query.item[31])
-		job_medsci_med = text2num(query.item[32])
-		job_medsci_low = text2num(query.item[33])
-		job_engsec_high = text2num(query.item[34])
-		job_engsec_med = text2num(query.item[35])
-		job_engsec_low = text2num(query.item[36])
-		job_karma_high = text2num(query.item[37])
-		job_karma_med = text2num(query.item[38])
-		job_karma_low = text2num(query.item[39])
+		alternate_option = text2num(query.item[26])
+		job_support_high = text2num(query.item[27])
+		job_support_med = text2num(query.item[28])
+		job_support_low = text2num(query.item[29])
+		job_medsci_high = text2num(query.item[30])
+		job_medsci_med = text2num(query.item[31])
+		job_medsci_low = text2num(query.item[32])
+		job_engsec_high = text2num(query.item[33])
+		job_engsec_med = text2num(query.item[34])
+		job_engsec_low = text2num(query.item[35])
+		job_karma_high = text2num(query.item[36])
+		job_karma_med = text2num(query.item[37])
+		job_karma_low = text2num(query.item[38])
 
 		//Miscellaneous
-		flavor_text = query.item[40]
-		med_record = query.item[41]
-		sec_record = query.item[42]
-		gen_record = query.item[43]
+		flavor_text = query.item[39]
+		med_record = query.item[40]
+		sec_record = query.item[41]
+		gen_record = query.item[42]
 		// Apparently, the preceding vars weren't always encoded properly...
 		if(findtext(flavor_text, "<")) // ... so let's clumsily check for tags!
 			flavor_text = html_encode(flavor_text)
@@ -261,18 +260,19 @@
 			sec_record = html_encode(sec_record)
 		if(findtext(gen_record, "<"))
 			gen_record = html_encode(gen_record)
-		disabilities = text2num(query.item[44])
-		player_alt_titles = params2list(query.item[45])
-		organ_data = params2list(query.item[46])
-		rlimb_data = params2list(query.item[47])
-		nanotrasen_relation = query.item[48]
-		speciesprefs = text2num(query.item[49])
+		disabilities = text2num(query.item[43])
+		player_alt_titles = params2list(query.item[44])
+		organ_data = params2list(query.item[45])
+		rlimb_data = params2list(query.item[46])
+		nanotrasen_relation = query.item[47]
+		speciesprefs = text2num(query.item[48])
 
 		//socks
-		socks = query.item[50]
-		body_accessory = query.item[51]
-		loadout_gear = params2list(query.item[52])
-		autohiss_mode = text2num(query.item[53])
+		socks = query.item[49]
+		body_accessory = query.item[50]
+		loadout_gear = params2list(query.item[51])
+		autohiss_mode = text2num(query.item[52])
+		body_type = query.item[53]
 
 		saved = TRUE
 
