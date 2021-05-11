@@ -182,6 +182,10 @@
 		add_attack_logs(user, L, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	deductcharge(hitcost)
+	if(cell.rigged)
+		cell = null
+		turned_on = FALSE
+		update_icon()
 
 
 /obj/item/melee/baton/emp_act(severity)
