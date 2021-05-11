@@ -8274,7 +8274,7 @@
 	},
 /area/security/armoury)
 "apB" = (
-/obj/machinery/autolathe{
+/obj/machinery/autolathe/security{
 	hacked = 1
 	},
 /turf/simulated/floor/plasteel{

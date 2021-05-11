@@ -491,3 +491,15 @@
 /obj/machinery/autolathe/proc/check_disabled_callback()
 	if(!wires.is_cut(WIRE_AUTOLATHE_DISABLE))
 		disabled = FALSE
+
+/obj/machinery/autolathe/security
+	name = "Security Autolathe"
+	desc = "Autolathe with preloaded open recipes"
+	icon = 'icons/obj/sec_autolathe.dmi'
+
+/obj/machinery/autolathe/security/New()
+	. = ..()
+	for (wires)
+		wires.cut(WIRE_AUTOLATHE_HACK)
+	adjust_hacked(TRUE)
+
