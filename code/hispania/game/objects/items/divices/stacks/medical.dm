@@ -99,4 +99,4 @@
 	desc = "A brand of hemostatic dressing famous through centuries, wound dressing that contains an agent that promotes blood clotting."
 	icon_state = "quickclot"
 	other_delay = 40
-	amount = 1
+	amount = 2
