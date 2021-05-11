@@ -76,6 +76,10 @@
 	if(!cell)
 		return
 	cell.use(amount)
+	if(cell.rigged)
+		cell = null
+		turned_on = FALSE
+		update_icon()
 	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 		turned_on = FALSE
 		update_icon()
@@ -182,10 +186,6 @@
 		add_attack_logs(user, L, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	deductcharge(hitcost)
-	if(cell.rigged)
-		cell = null
-		turned_on = FALSE
-		update_icon()
 
 
 /obj/item/melee/baton/emp_act(severity)
