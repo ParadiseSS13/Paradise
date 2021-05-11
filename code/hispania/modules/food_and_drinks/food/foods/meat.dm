@@ -45,7 +45,7 @@
 	list_reagents = list("nutriment" = 20)
 	tastes = list("BRONTOSAURIO" = 1)
 
-/obj/item/reagent_containers/food/snacks/plazmiteleg
+/obj/item/reagent_containers/food/snacks/monstermeat/plazmiteleg
 	name = "plazmite leg"
 	icon = 'icons/hispania/obj/food/food.dmi'
 	desc = "A plazmite leg. It's not very edible now, but it cooks great in lava, rumors says its great for digestion."
@@ -53,7 +53,7 @@
 	list_reagents = list("protein" = 3, "plazmitevenom" = 5)
 	tastes = list("tough meat" = 1)
 
-/obj/item/reagent_containers/food/snacks/plazmiteleg/burn()
+/obj/item/reagent_containers/food/snacks/monstermeat/plazmiteleg/burn()
 	visible_message("[src] finishes cooking!")
 	new /obj/item/reagent_containers/food/snacks/plazmite_fingers(loc)
 	qdel(src)
