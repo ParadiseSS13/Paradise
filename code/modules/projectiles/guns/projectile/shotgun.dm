@@ -13,6 +13,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	var/recentpump = 0 // to prevent spammage
 	weapon_weight = WEAPON_HEAVY
+	pb_knockback = 1
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/A, mob/user, params)
 	. = ..()
@@ -106,7 +107,7 @@
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
-			afterattack(user, user)
+			process_fire(user, user)
 			user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
 			return
 		else
@@ -309,6 +310,7 @@
 	origin_tech = "combat=6"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
+	pb_knockback = 2
 
 //Dual Feed Shotgun
 

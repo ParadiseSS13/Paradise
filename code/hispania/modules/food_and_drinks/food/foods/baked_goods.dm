@@ -306,8 +306,8 @@
 	filling_color = "#EFD8A7"
 
 ///        Pancakes    (Coughthanksumeandevancough) ///
-/obj/item/reagent_containers/food/snacks/pancake
-    name = "pancake"
+/obj/item/reagent_containers/food/snacks/pancake_sal
+    name = "fluffy pancake"
     desc = "A fluffy pancake. The softer, superior relative of the waffle. This time with a top of butter."
     icon = 'icons/hispania/obj/food/food.dmi'
     icon_state = "pancake_1"
@@ -318,33 +318,33 @@
     var/list/pancakes = list()// If the pancakes are stacked, they come here
     tastes = list("soft dough" = 10, "butter" = 10)
 
-/obj/item/reagent_containers/food/snacks/pancake/update_icon()
+/obj/item/reagent_containers/food/snacks/pancake_sal/update_icon()
     overlays = list()
     if(pancakes.len > 0)
         desc = "A pile of delicious pancakes. There appears to be [pancakes.len+1] pancakes in the pile. All fully loaded of butter."
     icon_state = "pancake_[pancakes.len+1]"
 
-/obj/item/reagent_containers/food/snacks/pancake/attackby(obj/item/reagent_containers/food/snacks/pancake/I, mob/user, params)
-    if(istype(I, /obj/item/reagent_containers/food/snacks/pancake/))
-        var/obj/item/reagent_containers/food/snacks/pancake = I
+/obj/item/reagent_containers/food/snacks/pancake_sal/attackby(obj/item/reagent_containers/food/snacks/pancake_sal/I, mob/user, params)
+    if(istype(I, /obj/item/reagent_containers/food/snacks/pancake_sal/))
+        var/obj/item/reagent_containers/food/snacks/pancake_sal = I
 
         var/list/pancakestoadd = list()
-        pancakestoadd += pancake
-        for(var/obj/item/reagent_containers/food/snacks/pancake/i in I.pancakes)
+        pancakestoadd += pancake_sal
+        for(var/obj/item/reagent_containers/food/snacks/pancake_sal/i in I.pancakes)
             pancakestoadd += i
         if((pancakes.len) + pancakestoadd.len <= 2)
             user.drop_item()
-            pancake.loc = src
+            pancake_sal.loc = src
             pancakes.Add(pancakestoadd)
-            pancake.update_icon()
+            pancake_sal.update_icon()
             update_icon()
-            to_chat(user, "<span class='warning'>You put the [pancake] ontop of the [src]!</span>")
+            to_chat(user, "<span class='warning'>You put the [pancake_sal] ontop of the [src]!</span>")
         else
             to_chat(user, "<span class='warning'>The stack is too high!</span>")
 
 ///        Pancakes de mermelada ñom ñom ///
 /obj/item/reagent_containers/food/snacks/pancake_mermelada
-    name = "pancake"
+    name = "fluffy berry pancake"
     desc = "A fluffy pancake. The softer, superior relative of the waffle. This time with a top of a jelly made of nispero and berries."
     icon = 'icons/hispania/obj/food/food.dmi'
     icon_state = "pancake_mermelada_1"
@@ -409,3 +409,27 @@
 	icon_state = "stuffed_mushrooms"
 	list_reagents = list("nutriment" = 3, "vitamin" = 2)
 	tastes = list("bacon" = 1,"cheesy" = 1,"earthy" = 1)
+
+//Pene Waffle uwu//
+/obj/item/reagent_containers/food/snacks/pene_waffle_uwu
+	name = "pene waffle"
+	desc = "Una delicia con relleno sabrosito."
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "waffles"
+	list_reagents = list("nutriment" = 5, "vitamin" = 5)
+	tastes = list("furry" = 1,"cream" = 1,"viscous" = 1)
+	bitesize = 100 // 1 mordida = 1 uso por pene waffle
+
+/obj/item/reagent_containers/food/snacks/pene_waffle_uwu/attack(mob/living/carbon/M, mob/user, def_zone)
+	..()
+	if(!istype(M)) //Ashdrakes no comen pene waffles
+		to_chat(user, "<span class='warning'>[M] se niega a comer el [src].</span>")
+		return FALSE
+	if(QDELETED(M) || M.stat == DEAD)//Muertos no comen pene waffles
+		return
+	M.visible_message("<span class='danger'>[M] comienza a comer el [src]!</span>")
+	M.visible_message("<span class='userdanger'>Se le salio el relleno cremosito a [M]!</span>")
+	M.suiciding = TRUE
+	do_sparks(3, 1, M)
+	M.gib()
+	return TRUE

@@ -8,6 +8,9 @@
 
 /obj/effect/spawner/lootdrop/New()
 	..()
+	//loot hispa init
+	make_hispa_loot()
+	//loot hispanos end
 	if(loot && loot.len)
 		for(var/i = lootcount, i > 0, i--)
 			if(!loot.len) break
@@ -255,7 +258,7 @@
 	loot = list(
 				// Robotics
 				/obj/item/mmi/robotic_brain = 50, // Low-value, but we want to encourage getting more players back in the round.
-				/obj/item/assembly/signaler/anomaly = 50, // anomaly core
+				/obj/item/assembly/signaler/anomaly/random = 50, // anomaly core
 				/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 25, // mecha x-ray laser
 				/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 25, // upgraded mecha teleporter
 				/obj/item/autosurgeon = 50,

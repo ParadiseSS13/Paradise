@@ -81,7 +81,7 @@
 		)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
-	name = "officer's beret"
+	name = "officer beret"
 	desc = "An armored beret commonly used by special operations officers."
 	icon_state = "beret_officer"
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
@@ -158,7 +158,7 @@
 
 //Paramedic EVA suit
 /obj/item/clothing/head/helmet/space/eva/paramedic
-	name = "Paramedic EVA helmet"
+	name = "paramedic EVA helmet"
 	desc = "A brand new paramedic EVA helmet. It seems to mold to your head shape. Used for retrieving bodies in space."
 	icon_state = "paramedic-eva-helmet"
 	item_state = "paramedic-eva-helmet"
@@ -179,7 +179,7 @@
 		)
 
 /obj/item/clothing/suit/space/eva/paramedic
-	name = "Paramedic EVA suit"
+	name = "paramedic EVA suit"
 	icon_state = "paramedic-eva"
 	item_state = "paramedic-eva"
 	desc = "A brand new paramedic EVA suit. The nitrile seems a bit too thin to be space proof. Used for retrieving bodies in space."
@@ -242,7 +242,7 @@
 
 //Mime's Hardsuit
 /obj/item/clothing/head/helmet/space/eva/mime
-	name = "mime eva helmet"
+	name = "mime EVA helmet"
 //	icon = 'spaceciv.dmi'
 	desc = ". . ."
 	icon_state = "spacemimehelmet"
@@ -253,7 +253,7 @@
 	sprite_sheets_obj = null
 
 /obj/item/clothing/suit/space/eva/mime
-	name = "mime eva suit"
+	name = "mime EVA suit"
 //	icon = 'spaceciv.dmi'
 	desc = ". . ."
 	icon_state = "spacemime_suit"
@@ -264,7 +264,7 @@
 	sprite_sheets_obj = null
 
 /obj/item/clothing/head/helmet/space/eva/clown
-	name = "clown eva helmet"
+	name = "clown EVA helmet"
 //	icon = 'spaceciv.dmi'
 	desc = "An EVA helmet specifically designed for the clown. SPESSHONK!"
 	icon_state = "clownhelmet"
@@ -275,7 +275,7 @@
 	sprite_sheets_obj = null
 
 /obj/item/clothing/suit/space/eva/clown
-	name = "clown eva suit"
+	name = "clown EVA suit"
 //	icon = 'spaceciv.dmi'
 	desc = "An EVA suit specifically designed for the clown. SPESSHONK!"
 	icon_state = "spaceclown_suit"

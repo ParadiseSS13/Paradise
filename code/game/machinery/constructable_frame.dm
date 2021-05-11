@@ -643,6 +643,10 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/sheet/glass = 1)
 
+/obj/item/circuitboard/autolathe/syndi
+	name = "Circuit board (Syndi Autolathe)"
+	build_path = /obj/machinery/autolathe/syndicate
+
 /obj/item/circuitboard/protolathe
 	name = "Circuit board (Protolathe)"
 	build_path = /obj/machinery/r_n_d/protolathe

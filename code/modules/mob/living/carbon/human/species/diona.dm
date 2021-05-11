@@ -4,6 +4,8 @@
 	icobase = 'icons/mob/human_races/r_diona.dmi'
 	language = "Rootspeak"
 	speech_sounds = list('sound/voice/dionatalk1.ogg') //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
+	male_laughs_sound = list('sound/hispania/voice/human/silence.ogg')//Hispania Laughs
+	female_laughs_sound = list('sound/hispania/voice/human/silence.ogg')//Hispania Laughs
 	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/diona
 	remains_type = /obj/effect/decal/cleanable/ash
@@ -26,6 +28,7 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
+	species_traits = list(NO_HAIR)
 	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY, TRAIT_NOPAIN)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
 	clothing_flags = HAS_SOCKS

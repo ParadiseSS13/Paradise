@@ -35,6 +35,7 @@
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
 	var/list/restricted_species
+	var/pb_knockback = 0
 
 	var/spread = 0
 	var/randomspread = 1
@@ -117,6 +118,10 @@
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
+	if(pointblank && pb_knockback > 0 && ismob(target))
+		var/atom/throw_target = get_edge_target_turf(target, user.dir)
+		var/atom/movable/targett = target
+		targett.throw_at(throw_target, pb_knockback, 2)
 	if(recoil)
 		shake_camera(user, recoil + 1, recoil)
 
@@ -425,14 +430,17 @@
 		reskin_gun(user)
 
 /obj/item/gun/proc/reskin_gun(mob/M)
-	var/choice = input(M,"Warning, you can only reskin your weapon once!","Reskin Gun") in options
-
-	if(src && choice && !current_skin && !M.incapacitated() && in_range(M,src))
-		if(options[choice] == null)
-			return
-		current_skin = options[choice]
-		to_chat(M, "Your gun is now skinned as [choice]. Say hello to your new friend.")
-		update_icon()
+	var/list/skins = list()
+	for(var/I in options)
+		var/skin_icon = options[I] // Get the accociated list
+		var/image/image = image(icon, icon_state = skin_icon)
+		skins[I] = image
+	var/choice = show_radial_menu(M, src, skins, null, 40, CALLBACK(src, .proc/radial_check, M), TRUE)
+	if(!choice || !radial_check(M))
+		return
+	current_skin = options[choice]
+	to_chat(M, "Your gun is now skinned as [choice]. Say hello to your new friend.")
+	update_icon()
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params)
 	if(!ishuman(user) || !ishuman(target))

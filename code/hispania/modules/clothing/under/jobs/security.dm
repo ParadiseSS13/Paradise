@@ -11,6 +11,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	icon = 'icons/hispania/mob/uniform.dmi'
 	icon_state = "oficialblue"
 	item_color = "oficialblue"
+	starting_accessories = list(/obj/item/clothing/accessory/blue_alt)
 	hispania_icon = TRUE
 	sprite_sheets = list(
 		"Vox" = 'icons/hispania/mob/species/vox/uniform.dmi',
@@ -19,6 +20,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 
 /obj/item/clothing/under/rank/security/private/red
 	name = "formal red security officer's uniform"
+	starting_accessories = list(/obj/item/clothing/accessory/red_alt)
 	icon_state = "oficialred"
 	item_color = "oficialred"
 

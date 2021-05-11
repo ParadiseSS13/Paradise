@@ -52,6 +52,11 @@
 		return
 	..()
 
+/obj/item/twohanded/staff/broom/dropped(mob/user)
+	if((user.mind in SSticker.mode.wizards) && user.flying)
+		user.flying = FALSE
+	..()
+
 /obj/item/twohanded/staff/broom/horsebroom
 	name = "broomstick horse"
 	desc = "Saddle up!"

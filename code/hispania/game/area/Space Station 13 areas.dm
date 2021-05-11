@@ -12,3 +12,10 @@
 /area/shuttle/tsf
 	name = "TSF Discovery"
 	icon_state = "shuttle"
+
+/area/centcom/bar
+	name = "Centcom Bar"
+
+/area/engine/singularity
+	name = "Singularity Engine"
+	icon_state = "engine"

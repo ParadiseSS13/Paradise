@@ -101,6 +101,14 @@
 		addtimer(CALLBACK(src, .proc/react_buzz), 5)
 	return ..()
 
+/mob/living/simple_animal/bot/honkbot/attackby(obj/item/W, mob/user, params)
+	..()
+	if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
+		return
+	if(!istype(W, /obj/item/screwdriver) && (W.force) && (!target) && (W.damtype != STAMINA) ) // Added check for welding tool to fix #2432. Welding tool behavior is handled in superclass.
+		retaliate(user)
+		addtimer(CALLBACK(src, .proc/react_buzz), 5)
+
 /mob/living/simple_animal/bot/honkbot/emag_act(mob/user)
 	..()
 	if(emagged == 2)
@@ -167,6 +175,9 @@
 		sensor_blink()
 	if(!spam_flag)
 		if(ishuman(C))
+			var/mob/living/carbon/human/H = C
+			if(H.check_ear_prot() >= HEARING_PROTECTION_MAJOR)
+				return
 			C.stuttering = 20 //stammer
 			C.AdjustEarDamage(0, 5) //far less damage than the H.O.N.K.
 			C.Jitter(50)
@@ -202,6 +213,7 @@
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 5) //gives up easier than beepsky
 				walk_to(src, 0)
+				playsound(loc, 'sound/misc/sadtrombone.ogg', 25, 1, -1)
 				back_to_idle()
 				return
 			if(target)		// make sure target exists
@@ -257,14 +269,12 @@
 		if((C.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
 
-		if(threatlevel <= 3)
+		if(threatlevel <= 3 && emagged <= 1)
 			if(C in view(4, src)) //keep the range short for patrolling
 				if(!spam_flag)
 					bike_horn()
-		else if(threatlevel >= 10)
-			bike_horn() //just spam the shit outta this
 		else if(threatlevel >= 4)
-			if(!spam_flag)
+			if(!spam_flag || emagged > 1)
 				target = C
 				oldtarget_name = C.name
 				bike_horn()
@@ -275,6 +285,8 @@
 				break
 			else
 				continue
+		else if(emagged > 1)
+			bike_horn() //just spam the shit outta this
 
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
 	walk_to(src, 0)

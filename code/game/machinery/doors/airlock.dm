@@ -1284,6 +1284,7 @@ About the new airlock wires panel:
 		sleep(6)
 		if(QDELETED(src))
 			return
+		electronics = new /obj/item/airlock_electronics/destroyed()
 		operating = FALSE
 		if(!open())
 			update_icon(AIRLOCK_CLOSED, 1)
@@ -1363,6 +1364,9 @@ About the new airlock wires panel:
 		if(!panel_open)
 			panel_open = TRUE
 		wires.cut_all()
+		var/datum/effect_system/smoke_spread/smoke = new
+		smoke.set_up(4, 0, loc)
+		smoke.start()
 		update_icon()
 
 /obj/machinery/door/airlock/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
@@ -1370,25 +1374,25 @@ About the new airlock wires panel:
 	if(obj_integrity < (0.75 * max_integrity))
 		update_icon()
 
-/obj/machinery/door/airlock/deconstruct(disassembled = TRUE, mob/user)
+/obj/machinery/door/airlock/deconstruct(disassembled = TRUE, mob/user, assemblyvar = TRUE)
 	if(!(flags & NODECONSTRUCT))
-		var/obj/structure/door_assembly/DA
-		if(assemblytype)
-			DA = new assemblytype(loc)
-		else
-			DA = new /obj/structure/door_assembly(loc)
-			//If you come across a null assemblytype, it will produce the default assembly instead of disintegrating.
-		DA.heat_proof_finished = heat_proof //tracks whether there's rglass in
-		DA.anchored = TRUE
-		DA.glass = src.glass
-		DA.state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
-		DA.created_name = name
-		DA.previous_assembly = previous_airlock
-		DA.update_name()
-		DA.update_icon()
+		if(assemblyvar)
+			var/obj/structure/door_assembly/DA
+			if(assemblytype)
+				DA = new assemblytype(loc)
+			else
+				DA = new /obj/structure/door_assembly(loc)
+				//If you come across a null assemblytype, it will produce the default assembly instead of disintegrating.
+			DA.heat_proof_finished = heat_proof //tracks whether there's rglass in
+			DA.anchored = TRUE
+			DA.glass = src.glass
+			DA.state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
+			DA.created_name = name
+			DA.previous_assembly = previous_airlock
+			DA.update_name()
+			DA.update_icon()
 
-		if(!disassembled)
-			if(DA)
+			if(!disassembled && DA)
 				DA.obj_integrity = DA.max_integrity * 0.5
 		if(user)
 			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
@@ -1405,9 +1409,6 @@ About the new airlock wires panel:
 			ae = electronics
 			electronics = null
 			ae.forceMove(loc)
-		if(emagged)
-			ae.icon_state = "door_electronics_smoked"
-			operating = 0
 	qdel(src)
 
 /obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock

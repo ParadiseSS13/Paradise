@@ -141,6 +141,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //hispatraits
 #define TRAIT_AGEUSIA			"ageusia"
 #define TRAIT_NOSLIPWATER		"noslip_water"
+#define TRAIT_FREERUNNING			"freerunning"
 //finhispatraits
 
 #define TRAIT_DWARF				"dwarf"

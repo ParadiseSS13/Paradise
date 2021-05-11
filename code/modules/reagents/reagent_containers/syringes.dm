@@ -56,6 +56,7 @@
 /obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
 	if(!proximity)
 		return
+	syringedump(target, user) //Hispania Syrengdump
 	if(!target.reagents)
 		return
 
@@ -64,7 +65,7 @@
 		L = target
 		if(!L.can_inject(user, TRUE))
 			return
-
+	monkey_retaliation(target, user)
 	switch(mode)
 		if(SYRINGE_DRAW)
 

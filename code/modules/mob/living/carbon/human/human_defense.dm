@@ -354,11 +354,12 @@ emp_act
 			if(prob(min(acidpwr * acid_volume / 10, 90))) //Applies disfigurement
 				head_organ.receive_damage(acidity, 2 * acidity)
 				emote("scream")
-				head_organ.h_style = "Bald"
-				head_organ.f_style = "Shaved"
-				update_hair()
-				update_fhair()
 				head_organ.disfigure()
+				if(!(NO_HAIR in dna.species.species_traits))
+					head_organ.h_style = "Bald"
+					head_organ.f_style = "Shaved"
+					update_hair()
+					update_fhair()
 
 		UpdateDamageIcon()
 
@@ -535,6 +536,7 @@ emp_act
 					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
 					hitpush = FALSE
 					skipcatch = TRUE //can't catch the now embedded item
+	on_hitby(AM)
 	return ..()
 
 /mob/living/carbon/human/proc/bloody_hands(mob/living/source, amount = 2)
@@ -577,6 +579,7 @@ emp_act
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		dna.species.spec_attack_hand(H, src)
+	on_attack_hand(user)
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite.
@@ -628,6 +631,7 @@ emp_act
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	. = ..()
+	on_attack_animal(M)
 	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		if(check_shields(M, damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration))

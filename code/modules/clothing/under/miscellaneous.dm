@@ -61,8 +61,8 @@
 	item_color = "vice"
 
 /obj/item/clothing/under/solgov
-	name = "Sol Federation marine uniform"
-	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces."
+	name = "\improper Trans-Solar Federation marine uniform"
+	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Marine Forces."
 	icon_state = "solgov"
 	item_state = "ro_suit"
 	item_color = "solgov"
@@ -70,21 +70,21 @@
 	displays_id = 0
 
 /obj/item/clothing/under/solgov/command
-	name = "Sol Federation Lieutenant's uniform"
-	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces. This one has additional insignia on its shoulders."
+	name = "\improper Trans-Solar Federation Lieutenant's uniform"
+	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Marine Forces. This one has additional insignia on its shoulders."
 	icon_state = "solgovc"
 	item_color = "solgovc"
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 
 /obj/item/clothing/under/solgov/rep
-	name = "Sol Federation representative's uniform"
-	desc = "A formal uniform worn by the diplomatic representatives of the Sol Federation."
+	name = "\improper Trans-Solar Federation representative's uniform"
+	desc = "A formal uniform worn by the diplomatic representatives of the Trans-Solar Federation."
 	icon_state = "solgovr"
 	item_color = "solgovr"
 
 /obj/item/clothing/under/rank/centcom_officer
-	desc = "It's a jumpsuit worn by CentComm Officers."
 	name = "\improper CentComm officer's jumpsuit"
+	desc = "It's a jumpsuit worn by CentComm Officers."
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
@@ -94,15 +94,15 @@
 	random_sensor = FALSE
 
 /obj/item/clothing/under/rank/centcom_commander
+	name = "\improper CentComm commander's jumpsuit"
 	desc = "It's a jumpsuit worn by CentComm's highest-tier Commanders."
-	name = "\improper CentComm officer's jumpsuit"
 	icon_state = "centcom"
 	item_state = "dg_suit"
 	item_color = "centcom"
 
 /obj/item/clothing/under/rank/centcom/officer
+	name = "\improper Nanotrasen naval officer's uniform"
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
-	name = "\improper Nanotrasen Naval Officer Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
 	item_color = "navy_gold"
@@ -110,8 +110,8 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/captain
+	name = "\improper Nanotrasen naval captain's uniform"
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
-	name = "\improper Nanotrasen Naval Captain Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
 	item_color = "navy_gold"
@@ -119,8 +119,8 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/blueshield
+	name = "formal blueshield's uniform"
 	desc = "Gold trim on space-black cloth, this uniform bears \"Close Protection\" on the left shoulder. It's got exotic materials for protection."
-	name = "\improper Formal Blueshield's Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
@@ -128,8 +128,8 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/representative
+	name = "formal Nanotrasen Representative's uniform"
 	desc = "Gold trim on space-black cloth, this uniform bears \"N.S.S. Cyberiad\" on the left shoulder."
-	name = "\improper Formal Nanotrasen Representative's Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
@@ -140,8 +140,8 @@
 	desc = "Gold trim on space-black cloth, this uniform bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/magistrate
+	name = "formal magistrate's uniform"
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
-	name = "\improper Formal Magistrate's Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
@@ -152,8 +152,8 @@
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/diplomatic
+	name = "\improper Nanotrasen diplomatic uniform"
 	desc = "A very gaudy and official looking uniform of the Nanotrasen Diplomatic Corps."
-	name = "\improper Nanotrasen Diplomatic Uniform"
 	icon_state = "presidente"
 	item_state = "g_suit"
 	item_color = "presidente"
@@ -422,25 +422,25 @@
 	item_color = "dress_saloon"
 
 /obj/item/clothing/under/dress/dress_rd
-	name = "research director dress uniform"
+	name = "research director's dress uniform"
 	desc = "Feminine fashion for the style concious RD."
 	icon_state = "dress_rd"
 	item_color = "dress_rd"
 
 /obj/item/clothing/under/dress/dress_cap
-	name = "captain dress uniform"
+	name = "captain's dress uniform"
 	desc = "Feminine fashion for the style concious captain."
 	icon_state = "dress_cap"
 	item_color = "dress_cap"
 
 /obj/item/clothing/under/dress/dress_hop
-	name = "head of personal dress uniform"
+	name = "head of personal's dress uniform"
 	desc = "Feminine fashion for the style concious HoP."
 	icon_state = "dress_hop"
 	item_color = "dress_hop"
 
 /obj/item/clothing/under/dress/dress_hr
-	name = "human resources director uniform"
+	name = "human resources director's uniform"
 	desc = "Superior class for the nosy H.R. Director."
 	icon_state = "huresource"
 	item_color = "huresource"
@@ -604,14 +604,14 @@
 
 
 /obj/item/clothing/under/bane
-	name = "Bane Harness"
+	name = "bane harness"
 	desc = "Wear this harness to become the bane of the station."
 	icon_state = "bane"
 	item_state = "bane"
 	item_color = "bane"
 
 /obj/item/clothing/under/vox
-	name = "Ripped Jumpsuit"
+	name = "ripped jumpsuit"
 	desc = "A jumpsuit that looks like it's been shredded by some talons. Who could wear this now?"
 	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
 	icon_state = "vgrey"
@@ -619,35 +619,35 @@
 	item_color = "vgrey"
 
 /obj/item/clothing/under/psyjump
-	name = "Psychic Amp Jumpsuit"
+	name = "psychic amp jumpsuit"
 	desc = "A suit made of strange materials."
 	icon_state = "psyamp"
 	item_state = "psyamp"
 	item_color = "psyamp"
 
 /obj/item/clothing/under/rebeloutfit
-	name = "Rebel Outfit"
+	name = "rebel outfit"
 	desc = "Made in Seattle, 2216."
 	icon_state = "colin_earle"
 	item_state = "colin_earle"
 	item_color = "colin_earle"
 
 /obj/item/clothing/under/officeruniform
-	name = "Clown Officer's Uniform"
+	name = "clown officer's uniform"
 	desc = "For Clown officers, this uniform was designed by the great clown designer Hugo Boss."
 	icon_state = "officeruniform"
 	item_color = "officeruniform"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/soldieruniform
-	name = "Clown Soldier's Uniform"
+	name = "clown soldier's uniform"
 	desc = "For the basic grunt of the Clown army."
 	icon_state = "soldieruniform"
 	item_color = "soldieruniform"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/pennywise
-	name = "Pennywise Costume"
+	name = "\improper Pennywise costume"
 	desc = "It's everything you ever were afraid of."
 	icon_state = "pennywise"
 	item_color = "pennywise"

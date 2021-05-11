@@ -44,3 +44,14 @@
 					)
 	cost = 60
 	containername = "blackout shutdown"
+
+//Food//
+/datum/supply_packs/organic/canned_foods
+	name = "Canned Foods Crate"
+	contains = list(/obj/item/reagent_containers/food/snacks/canned_food/beef,
+					/obj/item/reagent_containers/food/snacks/canned_food/beans,
+					/obj/item/reagent_containers/food/snacks/canned_food/tomato,
+					/obj/item/reagent_containers/food/snacks/canned_food/spinach,
+					/obj/item/reagent_containers/food/snacks/canned_food/caviar)
+	cost = 20
+	containername = "canned food crate"

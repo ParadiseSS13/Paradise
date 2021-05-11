@@ -5,6 +5,7 @@
 /obj/structure/closet/secure_closet/detective/New()
 	..()
 	new /obj/item/storage/belt/security(src)
+	new /obj/item/taperoll(src)
 
 /obj/structure/closet/secure_closet/brigdoc/New()
 	..()

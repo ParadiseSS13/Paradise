@@ -439,7 +439,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/enough_materials = TRUE
 
-	if(!machine.materials.has_materials(efficient_mats, amount))
+	if(!machine.materials.has_materials(being_built.materials, coeff))
 		atom_say("Not enough materials to complete prototype.")
 		enough_materials = FALSE
 	else

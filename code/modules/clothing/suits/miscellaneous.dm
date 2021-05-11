@@ -83,7 +83,7 @@
 
 /obj/item/clothing/suit/greatcoat
 	name = "great coat"
-	desc = "A Nazi great coat."
+	desc = "A Nazi great coat." //A what
 	icon_state = "nazi"
 	item_state = "nazi"
 
@@ -367,6 +367,7 @@
 	desc = "A heavy jacket made from 'synthetic' animal furs."
 	icon_state = "wintercoat"
 	item_state = "coatwinter"
+	strip_delay = 30
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -404,12 +405,13 @@
 	icon_state = "wintercoat_sec"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatsecurity"
-	armor = list("melee" = 15, "bullet" = 10, "laser" = 15, "energy" = 5, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list("melee" = 15, "bullet" = 10, "laser" = 15, "energy" = 5, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 15) // HISPANIA TWEAK
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
 
 /obj/item/clothing/head/hooded/winterhood/security
 	icon_state = "winterhood_sec"
+	armor = list("melee" = 20, "bullet" = 15, "laser" = 20,"energy" = 5, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 15) // HISPANIA ARMOR
 
 /obj/item/clothing/suit/hooded/wintercoat/medical
 	name = "medical winter coat"
@@ -708,7 +710,7 @@
 	icon_state = "white_jacket"
 
 /obj/item/clothing/suit/xenos
-	name = "xenos suit"
+	name = "xeno suit"
 	desc = "A suit made out of chitinous alien hide."
 	icon_state = "xenos"
 	item_state = "xenos_helm"
@@ -762,7 +764,7 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 
 /obj/item/clothing/head/mercy_hood
-	name = "Mercy Hood"
+	name = "mercy Hood"
 	desc = "A soft white hood made of a synthetic fiber that provides improved protection against biohazards. Its elegant design allows a clear field of vision."
 	icon_state = "mercy_hood"
 	item_state = "mercy_hood"
@@ -839,8 +841,8 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
 /obj/item/clothing/suit/officercoat
-	name = "Clown Officer's Coat"
-	desc = "A classy clown officer's overcoat, also designed by Hugo Boss."
+	name = "clown officer's coat"
+	desc = "A classy clown officer's overcoat, also designed by Hugo Boss." //What and why
 	icon_state = "officersuit"
 	item_state = "officersuit"
 	ignore_suitadjust = 0
@@ -852,7 +854,7 @@
 		)
 
 /obj/item/clothing/suit/soldiercoat
-	name = "Clown Soldier's Coat"
+	name = "clown soldier's coat"
 	desc = "An overcoat for the clown soldier, to keep him warm during those cold winter nights on the front."
 	icon_state = "soldiersuit"
 	item_state = "soldiersuit"
@@ -895,7 +897,7 @@
 		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/lordadmiral
-	name = "Lord Admiral's Coat"
+	name = "lord admiral's coat"
 	desc = "You'll be the Ruler of the King's Navy in no time."
 	icon_state = "lordadmiral"
 	item_state = "lordadmiral"
@@ -912,7 +914,7 @@
 ///Advanced Protective Suit, AKA, God Mode in wearable form.
 
 /obj/item/clothing/suit/advanced_protective_suit
-	name = "Advanced Protective Suit"
+	name = "advanced protective suit"
 	desc = "An incredibly advanced and complex suit; it has so many buttons and dials as to be incomprehensible."
 	w_class = WEIGHT_CLASS_BULKY
 	icon_state = "bomb"
