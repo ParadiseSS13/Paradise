@@ -125,6 +125,12 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		GLOB.marking_styles_list.len,		1)
 	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		GLOB.marking_styles_list.len,		1)
 
+	switch(character.body_type)
+		if(FEMALE)
+			SetUIState(DNA_UI_BODY_TYPE, DNA_GENDER_FEMALE, TRUE)
+		if(MALE)
+			SetUIState(DNA_UI_BODY_TYPE, DNA_GENDER_MALE, TRUE)
+
 	//Set the Gender
 	switch(character.gender)
 		if(FEMALE)

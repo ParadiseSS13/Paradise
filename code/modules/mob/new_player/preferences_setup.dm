@@ -213,7 +213,8 @@
 	qdel(preview_icon)
 
 	var/g = "m"
-	if(gender == FEMALE)	g = "f"
+	if(body_type == FEMALE)
+		g = "f"
 
 	var/icon/icobase
 	var/datum/species/current_species = GLOB.all_species[species]

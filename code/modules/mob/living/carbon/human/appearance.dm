@@ -24,6 +24,17 @@
 	update_body()
 	return 1
 
+/mob/living/carbon/human/proc/change_body_type(new_body, update_dna = TRUE)
+	if(!new_body || new_body == body_type)
+		return
+
+	body_type = new_body
+
+	if(update_dna)
+		update_dna()
+	sync_organ_dna(FALSE)
+	update_body(TRUE)
+
 /mob/living/carbon/human/proc/change_hair(hair_style, fluff)
 	var/obj/item/organ/external/head/H = get_organ("head")
 

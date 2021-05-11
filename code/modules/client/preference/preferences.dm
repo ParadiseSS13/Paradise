@@ -95,6 +95,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/real_name						//our character's name
 	var/be_random_name = 0				//whether we are a random name every round
 	var/gender = MALE					//gender of character (well duh)
+	var/body_type = MALE				//body sprite variant
 	var/age = 30						//age of character
 	var/spawnpoint = "Arrivals Shuttle" //where this character will spawn (0-2).
 	var/b_type = "A+"					//blood type (not-chooseable)
@@ -281,11 +282,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>You are banned from using custom names and appearances. \
 				You can continue to adjust your characters, but you will be randomised once you join the game.\
 				</b><br>"
-			dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[gender == MALE ? "Male" : (gender == FEMALE ? "Female" : "Genderless")]</a>"
+			dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender;task=input'>[gender == MALE ? "Male" : (gender == FEMALE ? "Female" : "Genderless")]</a>"
 			dat += "<br>"
 			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[age]</a><br>"
-			dat += "<b>Body:</b> <a href='?_src_=prefs;preference=all;task=random'>(&reg;)</a><br>"
 			dat += "<b>Species:</b> <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
+			dat += "<b>Body:</b> <a href='?_src_=prefs;preference=body;task=input'>[body_type == MALE ? "Male" : "Female"]</a>"
+			dat += "<a href='?_src_=prefs;preference=all;task=random'>(&reg;)</a><br>"
 			if(species == "Vox")
 				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
 			if(species == "Grey")
@@ -1404,6 +1406,24 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 						if(!(NS.autohiss_basic_map))
 							autohiss_mode = AUTOHISS_OFF
+
+				if("gender")
+					switch(gender)
+						if(MALE) // Cycle between them
+							gender = FEMALE
+						if(FEMALE)
+							gender = PLURAL
+						if(PLURAL)
+							gender = MALE
+					body_type = gender == PLURAL ? body_type : gender
+					underwear = random_underwear(gender)
+
+				if("body")
+					if(body_type == MALE) // Cycle between them
+						body_type = FEMALE
+					else
+						body_type = MALE
+
 				if("speciesprefs")
 					speciesprefs = !speciesprefs //Starts 0, so if someone clicks the button up top there, this won't be 0 anymore. If they click it again, it'll go back to 0.
 				if("language")
@@ -1974,16 +1994,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(user.client.donator_level > 0)
 						toggles ^= PREFTOGGLE_DONATOR_PUBLIC
 
-				if("gender")
-					switch(gender)
-						if(MALE) // Cycle between them
-							gender = FEMALE
-						if(FEMALE)
-							gender = PLURAL
-						if(PLURAL)
-							gender = MALE
-					underwear = random_underwear(gender)
-
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
 				if("ui")
@@ -2164,6 +2174,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	character.gen_record = gen_record
 
 	character.change_gender(gender)
+	character.body_type = body_type
 	character.age = age
 
 	//Head-specific
