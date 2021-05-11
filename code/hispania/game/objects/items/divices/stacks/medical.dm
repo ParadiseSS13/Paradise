@@ -67,8 +67,10 @@
 	icon = 'icons/hispania/obj/miscellaneous.dmi'
 	icon_state = "quickclot"
 	self_delay = 100
+	w_class = WEIGHT_CLASS_NORMAL
 	var/other_delay = 20
 	amount = 3
+	max_amount = 3
 
 /obj/item/stack/medical/quickclot/attack(mob/living/M, mob/user)
 	if(ishuman(M))
@@ -97,6 +99,6 @@
 /obj/item/stack/medical/quickclot/survivalqc
 	name = "survival quikclot gauze kit"
 	desc = "A brand of hemostatic dressing famous through centuries, wound dressing that contains an agent that promotes blood clotting."
-	icon_state = "quickclot"
+	icon_state = "quickclot_surv"
 	other_delay = 40
 	amount = 2
