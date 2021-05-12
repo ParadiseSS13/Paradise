@@ -205,7 +205,7 @@
 	if(empty)
 		return
 
-	var/obj/item/storage/toolbox/mre/M = new(src) // HISPANIA MRE
+	var/obj/item/storage/bag/plasticbag/mre/M = new(src) // HISPANIA MRE
 	load(M)
 
 	for(var/i in 1 to 5)

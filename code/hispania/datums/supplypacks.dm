@@ -58,10 +58,10 @@
 
 /datum/supply_packs/organic/erp
 	name = "ERP (Emergency Ration Packs)"
-	contains = list(/obj/item/storage/toolbox/mre,
-					/obj/item/storage/toolbox/mre,
-					/obj/item/storage/toolbox/mre,
-					/obj/item/storage/toolbox/mre,
-					/obj/item/storage/toolbox/mre)
+	contains = list(/obj/item/storage/bag/plasticbag/mre,
+					/obj/item/storage/bag/plasticbag/mre,
+					/obj/item/storage/bag/plasticbag/mre,
+					/obj/item/storage/bag/plasticbag/mre,
+					/obj/item/storage/bag/plasticbag/mre)
 	cost = 200
 	containername = "erp crate"

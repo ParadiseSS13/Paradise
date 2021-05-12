@@ -29,8 +29,8 @@
 
 /obj/structure/closet/secure_closet/blueshield/New()
 	..()
-	new /obj/item/storage/toolbox/mre(src)
-	new /obj/item/storage/toolbox/mre(src)
-	new /obj/item/storage/toolbox/mre(src)
-	new /obj/item/storage/toolbox/mre(src)
-	new /obj/item/storage/toolbox/mre(src)
+	new /obj/item/storage/bag/plasticbag/mre(src)
+	new /obj/item/storage/bag/plasticbag/mre(src)
+	new /obj/item/storage/bag/plasticbag/mre(src)
+	new /obj/item/storage/bag/plasticbag/mre(src)
+	new /obj/item/storage/bag/plasticbag/mre(src)
