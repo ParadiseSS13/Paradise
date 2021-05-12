@@ -1096,6 +1096,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_tools
 	category = "Stealth and Camouflage Items"
 
+/datum/uplink_item/stealthy_tools/adv_first_aid
+	name = "Advanced First Aid Manual"
+	desc = "A manual that teaches a single user how to treat serious injuries with minimal equipment"
+	reference = "AFA"
+	item = /obj/item/adv_first_aid_manual
+	cost = 15
+	gamemodes = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/stealthy_tools/chameleon_stamp
 	name = "Chameleon Stamp"
 	desc = "A stamp that can be activated to imitate an official Nanotrasen Stamp. The disguised stamp will work exactly like the real stamp and will allow you to forge false documents to gain access or equipment; \

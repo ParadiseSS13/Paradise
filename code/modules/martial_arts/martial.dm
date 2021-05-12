@@ -289,6 +289,24 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
+	/obj/item/adv_first_aid_manual
+	name = "Advanced First Aid Manual"
+	desc = "A suspicious manual with medical iconagraphy"
+	icon = 'icons/obj/library.dmi'
+	icon_state = "adv_first_aid_manual"
+
+/obj/item/adv_first_aid_manual/attack_self(mob/living/carbon/human/user)
+	if(!istype(user) || !user)
+		return
+	to_chat(user, "<span class='boldannounce'>You flip through the pages quickly and pick up on a couple of ways to treat serious injuries.</span>")
+
+	var/datum/martial_art/adv_first_aid/adv_first_aid = new(null)
+	adv_first_aid.teach(user)
+	user.drop_item()
+	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	qdel(src)
+
 /obj/item/twohanded/bostaff
 	name = "bo staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
