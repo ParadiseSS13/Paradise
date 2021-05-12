@@ -58,7 +58,7 @@
 /datum/quirk/chadasfuck
 	name = "Exceptional individual"
 	desc = "Your life experiences made your body exceptionally unique. You can take more damage than usual."
-	value = 4
+	value = 6
 	gain_text = "<span class='danger'>I'm sure this shift its going to be easy.</span>"
 	lose_text = "<span class='notice'>I better be careful on what i do.</span>"
 
