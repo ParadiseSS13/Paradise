@@ -40,33 +40,3 @@
 	for(var/i=1; i <= storage_slots; i++)
 		new /obj/item/flashlight/flare(src)
 	return
-
-/obj/item/storage/fancy/mre_cracker
-	name = "enriched crackers pack"
-	icon = 'icons/hispania/obj/food/containers.dmi'
-	item_state = "chocolatebox"
-	icon_state = "crackersbox5"
-	icon_type = "crackers"
-	lefthand_file = 'icons/hispania/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/hispania/mob/inhands/items_righthand.dmi'
-	storage_slots = 5
-	can_hold = list(/obj/item/reagent_containers/food/snacks/mre_cracker)
-	var/opencrack = FALSE
-
-/obj/item/storage/fancy/mre_cracker/populate_contents()
-	..()
-	for(var/i in 1 to storage_slots)
-		new /obj/item/reagent_containers/food/snacks/mre_cracker(src)
-	return
-
-/obj/item/storage/fancy/mre_cracker/New()
-	..()
-	icon_state = "crackersbox"
-
-/obj/item/storage/fancy/mre_cracker/show_to(mob/user)
-	if(!opencrack)
-		to_chat(user, "<span class='warning'>You tear \the [src] open.")
-		playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
-		icon_state = "crackersbox5"
-		opencrack = TRUE
-	..()
