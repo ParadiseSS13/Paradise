@@ -61,7 +61,7 @@
 
 /obj/item/storage/toolbox/comida_mre
 	name = "emergency ration"
-	desc = "A pouch that contains a random meal, made for emergencies"
+	desc = "A pouch that contains a random meal, made for emergencies."
 	icon_state = "mre"
 	item_state = "erp"
 	force = 1
