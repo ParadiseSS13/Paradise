@@ -1098,7 +1098,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_tools/adv_first_aid
 	name = "Advanced First Aid Manual"
-	desc = "A manual that teaches a single user how to treat serious injuries with minimal equipment"
+	desc = "A manual that teaches a single user how to treat serious injuries with minimal equipment."
 	reference = "AFA"
 	item = /obj/item/adv_first_aid_manual
 	cost = 15

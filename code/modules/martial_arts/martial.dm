@@ -291,7 +291,7 @@
 
 	/obj/item/adv_first_aid_manual
 	name = "Advanced First Aid Manual"
-	desc = "A suspicious manual with medical iconagraphy"
+	desc = "A suspicious manual with medical iconography"
 	icon = 'icons/obj/library.dmi'
 	icon_state = "adv_first_aid_manual"
 
