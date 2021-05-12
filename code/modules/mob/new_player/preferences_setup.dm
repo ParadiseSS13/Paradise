@@ -14,6 +14,7 @@
 		gender = gender_override
 	else
 		gender = pick(MALE, FEMALE)
+	body_type = gender
 	underwear = random_underwear(gender, species)
 	undershirt = random_undershirt(gender, species)
 	socks = random_socks(gender, species)
