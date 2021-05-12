@@ -35,7 +35,7 @@
 
 /obj/item/storage/toolbox/lata_arepa
 	name = "emergency arepa can"
-	desc = "A silver can that contains a random arepa, made for special emergencies"
+	desc = "A silver can that contains a random arepa, made for special emergencies."
 	icon_state = "ration_can"
 	item_state = "erp"
 	force = 1
