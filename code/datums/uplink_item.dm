@@ -1101,7 +1101,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A manual that teaches a single user how to treat serious injuries with minimal equipment."
 	reference = "AFA"
 	item = /obj/item/adv_first_aid_manual
-	cost = 15
+	cost = 25
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/chameleon_stamp
