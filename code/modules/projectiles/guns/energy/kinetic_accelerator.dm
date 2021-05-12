@@ -407,7 +407,7 @@
 	new /obj/effect/temp_visual/explosion/fast(target_turf)
 	if(turf_aoe)
 		for(var/T in RANGE_TURFS(1, target_turf) - target_turf)
-			if(ismineralturf(T) && !istype(target_turf, /turf/simulated/mineral/cere))
+			if(ismineralturf(T) && !istype(T, /turf/simulated/mineral/cere))
 				var/turf/simulated/mineral/M = T
 				M.gets_drilled(K.firer)
 	if(modifier)
