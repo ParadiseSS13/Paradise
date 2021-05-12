@@ -2,8 +2,8 @@
 	name = "emergency ration pack"
 	desc = "Silvery plastic package, with the letters \"ERP\" pasted onto the front. Seems air tight, and vacuumed sealed. \
 	The packaging holds usage information within the fineprint: \
-	\"Instructions: Remove contents from packaging, open both mre container and ration can, use them in-hand to activate thermal heater. \
-	Thermal insulation will keep them warm for over four hours. Nutrient paste and morale bar contains medicinal additives for field performace, DO NOT OVERCONSUME.\""
+	\"Instructions: Remove contents from packaging, open both mre container and ration can. \
+	Enriched crackers and morale bar contains medicinal additives for field performace, DO NOT OVERCONSUME.\""
 	icon = 'icons/hispania/obj/items.dmi'
 	icon_state = "erp_closed"
 	item_state = "erp"
@@ -35,7 +35,7 @@
 
 /obj/item/storage/toolbox/lata_arepa
 	name = "emergency arepa can"
-	desc = "A silver can that contains a random arepa, made for special emergencies"
+	desc = "A silver can that contains a random arepa, made for special emergencies."
 	icon_state = "ration_can"
 	item_state = "erp"
 	force = 1
@@ -61,7 +61,7 @@
 
 /obj/item/storage/toolbox/comida_mre
 	name = "emergency ration"
-	desc = "A pouch that contains a random meal, made for emergencies"
+	desc = "A pouch that contains a random meal, made for emergencies."
 	icon_state = "mre"
 	item_state = "erp"
 	force = 1
@@ -87,4 +87,3 @@
 		icon_state = "mre_open"
 		openmre = TRUE
 	..()
-
