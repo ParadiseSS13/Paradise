@@ -31,7 +31,7 @@
 
 /obj/item/reagent_containers/food/snacks/choco_mre
 	name = "morale bar"
-	desc = "Some brand of non-melting military chocolate with a lot of stimulants. It has a label that says \"WARNING DO NOT EAT MORE THAN ONE\""
+	desc = "Some brand of non-melting military chocolate with a lot of stimulants. It has a label that says \"WARNING DO NOT EAT MORE THAN ONE\"."
 	icon = 'icons/hispania/obj/food/candy.dmi'
 	icon_state = "mre_candy"
 	list_reagents = list("sugar" = 4, "coffee" = 8, "nicotine" = 20, "epinephrine" = 12, "nutrient" = 0.25)
