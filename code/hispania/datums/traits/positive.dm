@@ -54,3 +54,36 @@
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/organ/internal/eyes/cybernetic/meson/implant = new
 	implant.insert(H)
+
+/datum/quirk/chadasfuck
+	name = "Exceptional individual"
+	desc = "Your life experiences made your body exceptionally unique. You can take more damage than usual."
+	value = 4
+	gain_text = "<span class='danger'>I'm sure this shift its going to be easy.</span>"
+	lose_text = "<span class='notice'>I better be careful on what i do.</span>"
+
+/datum/quirk/chadasfuck/add()
+	quirk_holder.dna.species.total_health += 40
+
+/datum/quirk/jackichanlol
+	name = "Hit Catcher"
+	desc = "Your difficult life has taught you to learn to take hits. Strikes do slightly less damage."
+	value = 2
+	gain_text = "<span class='danger'>I'm sure this shift its going to be easy.</span>"
+	lose_text = "<span class='notice'>I better be careful on what i do.</span>"
+
+/datum/quirk/jackichanlol/add()
+	quirk_holder.dna.species.armor += 5
+
+/datum/quirk/chadpunches
+	name = "Self-Defense trained"
+	desc = "You have basic self defense training, your unarmed strikes can do slightly more damage."
+	value = 2
+	gain_text = "<span class='danger'>I'm sure this shift its going to be easy.</span>"
+	lose_text = "<span class='notice'>I better be careful on what i do.</span>"
+
+/datum/quirk/chadpunches/add()
+	quirk_holder.dna.species.punchdamagelow += 1 //Base es 0 y queda en 1 esto implica que no puedes fallar un puñetazo
+	quirk_holder.dna.species.punchdamagehigh += 1 //Base es 9 y queda en 10
+
+
