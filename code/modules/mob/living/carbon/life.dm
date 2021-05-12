@@ -314,12 +314,6 @@
 		do_jitter_animation(jitteriness)
 		AdjustJitter(-restingpwr)
 
-
-
-	//Jitteryness
-	if(jitteriness)
-		do_jitter_animation(jitteriness)
-
 	if(hallucination)
 		spawn handle_hallucinations()
 
