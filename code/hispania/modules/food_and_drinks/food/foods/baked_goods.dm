@@ -433,3 +433,4 @@
 	do_sparks(3, 1, M)
 	M.gib()
 	return TRUE
+///obj/item/reagent_containers/food/snacks/C

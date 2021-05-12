@@ -26,3 +26,11 @@
 /obj/structure/closet/secure_closet/hos/New()
 	..()
 	new /obj/item/whistle(src)
+
+/obj/structure/closet/secure_closet/blueshield/New()
+	..()
+	new /obj/item/storage/toolbox/mre(src)
+	new /obj/item/storage/toolbox/mre(src)
+	new /obj/item/storage/toolbox/mre(src)
+	new /obj/item/storage/toolbox/mre(src)
+	new /obj/item/storage/toolbox/mre(src)
