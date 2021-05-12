@@ -43,6 +43,7 @@
 
 /obj/item/storage/fancy/mre_cracker
 	name = "enriched crackers pack"
+	desc = "A tiny paper pack that contains 5 crackers, the crackers have light healing chemicals to help you in the battlefield."
 	icon = 'icons/hispania/obj/food/containers.dmi'
 	item_state = "chocolatebox"
 	icon_state = "crackersbox5"
