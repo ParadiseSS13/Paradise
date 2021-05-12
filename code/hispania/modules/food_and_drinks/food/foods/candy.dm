@@ -26,7 +26,7 @@
 	icon = 'icons/hispania/obj/food/candy.dmi'
 	icon_state = "mre_cracker"
 	bitesize = 2
-	list_reagents = list("nutrient" = 0.25, "teporone" = 1, "weak_omnizine" = 1)
+	list_reagents = list("nutriment" = 0.25, "teporone" = 1, "weak_omnizine" = 1)
 	tastes = list("salty" = 1, "oily" = 1)
 
 /obj/item/reagent_containers/food/snacks/choco_mre
@@ -34,7 +34,7 @@
 	desc = "Some brand of non-melting military chocolate with a lot of stimulants. It has a label that says \"WARNING DO NOT EAT MORE THAN ONE\"."
 	icon = 'icons/hispania/obj/food/candy.dmi'
 	icon_state = "mre_candy"
-	list_reagents = list("sugar" = 4, "coffee" = 8, "nicotine" = 20, "epinephrine" = 12, "nutrient" = 0.25)
+	list_reagents = list("sugar" = 4, "coffee" = 8, "nicotine" = 20, "epinephrine" = 12, "nutriment" = 0.25)
 	var/open = FALSE
 	tastes = list("chocolate" = 1, "chemical" = 1, "coffee" = 1)
 	bitesize = 25
