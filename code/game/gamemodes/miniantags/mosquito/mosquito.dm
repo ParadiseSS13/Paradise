@@ -68,7 +68,7 @@
 		return FALSE
 
 	if(U.donors.Find(target.real_name))
-		to_chat(U, "<span class='warning'>We already took a sample of this targets blood .</span>")
+		to_chat(U, "<span class='warning'>We already took a sample of this target's blood .</span>")
 		return FALSE
 
 	if(do_mob(U, target, 10))
