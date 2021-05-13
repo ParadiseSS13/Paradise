@@ -34,7 +34,7 @@
 
 	if(!length(pickedcandidates)) // if there are no picked candidates
 		kill()
-		message_admins("No picked candidates for mosquito event")
+		message_admins("No candidates picked for mosquito event")
 		return
 
 	while(length(pickedcandidates) && length(vents))
@@ -60,7 +60,7 @@
 /datum/event/spawn_mosquito/announce()
 	if(prob(25)) //25% chance to announce it to the crew
 		var/mosquito_report = "<font size=3><b>[command_name()] High-Priority Update</b></span>"
-		mosquito_report += "<br><br>Suspected biohazard aboard the station. We recommend immidiate investigation."
+		mosquito_report += "<br><br>Suspected biohazard aboard the station. We recommend immediate investigation."
 		print_command_report(mosquito_report, "Classified [command_name()] Update", FALSE)
 		GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg')
 		SuccesAnnouncement = TRUE

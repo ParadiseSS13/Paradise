@@ -1,10 +1,10 @@
 /mob/living/simple_animal/mosquito
 	name = "Mosquito"
-	desc = "A blood thirsty beast, the carrier of diseases"
+	desc = "A bloodthirsty beast, the carrier of diseases."
 	icon_state = "mosquito_alive"
 	icon_living = "mosquito_alive"
 	icon_dead = "mosquito_dead"
-	icon = 'icons/mob/mosquito.dmi'
+	icon = 'icons/goonstation/mob/mosquito.dmi'
 	turns_per_move = 0
 	attacktext = "stings"
 	response_help  = "shoos"
@@ -25,7 +25,7 @@
 	deathmessage = "Stops flapping its wings!"
 	var/list/donors = list()
 	var/playstyle_string = 	"<b><font size=3 color='red'>You are a giant mosquito.</font><br> The most annoying being in the universe and \
-							a carrier for diseases.<br> Your goal is to take blood from biological beings, feeding and healing yourself \
+							a carrier of diseases.<br> Your goal is to take blood from biological beings, feeding and healing yourself \
 							in the process <br> "
 	var/datum/disease/DiseaseOfM
 
@@ -40,10 +40,10 @@
 
 /obj/effect/proc_holder/spell/targeted/click/blood_suck // Takes blood off target
 	name = "Take blood"
-	desc = "Allows you to suck blood from living organisms"
+	desc = "Allows you to suck blood from living organisms."
 	charge_max = 50
 	starts_charged = TRUE
-	still_recharging_msg = "We must first digest the previous blood"
+	still_recharging_msg = "We must first digest the previous blood!"
 	range = 1	//has no effect beyond this range, so setting this makes invalid/useless targets not show up in popup
 	action_icon_state = "blood"
 	clothes_req = 0
@@ -51,7 +51,7 @@
 
 
 	selection_activated_message		= "<span class='notice'>You prepare to sting your target!</B></span>"
-	selection_deactivated_message	= "<span class='notice'>You relax yourself</span>"
+	selection_deactivated_message	= "<span class='notice'>You relax your stinger.</span>"
 	allowed_type = /mob/living/carbon/human
 
 /obj/effect/proc_holder/spell/targeted/click/blood_suck/cast(list/targets, mob/user = usr)
@@ -72,7 +72,7 @@
 		return FALSE
 
 	if(do_mob(U, target, 10))
-		to_chat(U, "<span class='notice'> You draw a little blood from [target].</span>")
+		to_chat(U, "<span class='notice'>You draw a little blood from [target].</span>")
 		if(prob(60))
 			target.ForceContractDisease(U.DiseaseOfM)
 		U.donors += target.real_name
@@ -86,4 +86,3 @@
 	flying = FALSE
 	add_splatter_floor(loc)
 	return ..()
-
