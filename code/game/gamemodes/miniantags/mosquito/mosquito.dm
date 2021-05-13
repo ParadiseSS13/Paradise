@@ -4,7 +4,7 @@
 	icon_state = "mosquito_alive"
 	icon_living = "mosquito_alive"
 	icon_dead = "mosquito_dead"
-	icon = 'icons/mob/mosquito.dmi'
+	icon = 'icons/goonstation/mob/mosquito.dmi'
 	turns_per_move = 0
 	attacktext = "stings"
 	response_help  = "shoos"
