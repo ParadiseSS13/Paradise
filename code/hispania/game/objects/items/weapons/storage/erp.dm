@@ -17,24 +17,23 @@
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
 	var/openmre = FALSE
 
-/obj/item/storage/bag/plasticbag/mre/New()
-	..()
+/obj/item/storage/bag/plasticbag/mre/populate_contents()
 	new /obj/item/storage/bag/plasticbag/comida_mre(src)
 	new /obj/item/storage/lata_arepa(src)
 	new /obj/item/storage/fancy/mre_cracker(src)
 	new /obj/item/reagent_containers/food/snacks/choco_mre(src)
 	new /obj/item/kitchen/utensil/fork(src)
 
-/obj/item/storage/bag/plasticbag/mre/show_to(mob/user)
+/obj/item/storage/bag/plasticbag/mre/attack_self()
 	if(!openmre)
-		to_chat(user, "<span class='warning'>You tear \the [src] open.")
+		to_chat(usr, "<span class='notice'>You tear \the [src] open.</span>")
 		icon_state = "erp_open"
 		openmre = TRUE
 		playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
 	..()
 
 /obj/item/storage/bag/plasticbag/mre/can_be_inserted(obj/item/I, stop_messages = FALSE)
-	to_chat(usr, "<span class='warning'>You dont find a way to put the item in \the [src].")
+	to_chat(usr, "<span class='warning'>You dont find a way to put the item in \the [src].</span>")
 	return FALSE
 
 /obj/item/storage/lata_arepa
@@ -50,21 +49,20 @@
 	hispania_icon = TRUE
 	var/openmre = FALSE
 
-/obj/item/storage/lata_arepa/New()
-	..()
+/obj/item/storage/lata_arepa/populate_contents()
 	var/newarepa = pick(/obj/item/reagent_containers/food/snacks/arepa_ham_cheese, /obj/item/reagent_containers/food/snacks/arepa_salmon, /obj/item/reagent_containers/food/snacks/fruit_arepa, /obj/item/reagent_containers/food/snacks/cheese_arepa, /obj/item/reagent_containers/food/snacks/sweet_arepa, /obj/item/reagent_containers/food/snacks/ghost_arepa, /obj/item/reagent_containers/food/snacks/arepa_ham_cheese, /obj/item/reagent_containers/food/snacks/arepa_ham, /obj/item/reagent_containers/food/snacks/arepa_cheese)
 	new newarepa(src)
 
 
 /obj/item/storage/lata_arepa/remove_from_storage(obj/item/I, atom/new_location)
 	if(!openmre)
-		to_chat(usr, "<span class='warning'>You open \the [src] .")
+		to_chat(usr, "<span class='notice'>You open \the [src].</span>")
 		icon_state = "ration_open"
 		openmre = TRUE
 	..()
 
 /obj/item/storage/lata_arepa/can_be_inserted(obj/item/I, stop_messages = FALSE)
-	to_chat(usr, "<span class='warning'>You dont find a way to put the item in \the [src].")
+	to_chat(usr, "<span class='warning'>You dont find a way to put the item in \the [src].</span>")
 	return FALSE
 
 /obj/item/storage/bag/plasticbag/comida_mre
@@ -82,20 +80,19 @@
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
 	var/openmre = FALSE
 
-/obj/item/storage/bag/plasticbag/comida_mre/New()
-	..()
+/obj/item/storage/bag/plasticbag/comida_mre/populate_contents()
 	var/newfood = pick(/obj/item/reagent_containers/food/snacks/hot_dog, /obj/item/reagent_containers/food/snacks/macacosoup, /obj/item/reagent_containers/food/snacks/avocadosandwich, /obj/item/reagent_containers/food/snacks/mushrooms_curry, /obj/item/reagent_containers/food/snacks/empanada, /obj/item/reagent_containers/food/snacks/fried_vox, /obj/item/reagent_containers/food/snacks/cheeseburger, /obj/item/reagent_containers/food/snacks/lasagna, /obj/item/reagent_containers/food/snacks/pastatomato, /obj/item/reagent_containers/food/snacks/meatsteak_cactus, /obj/item/reagent_containers/food/snacks/meatpizzaslice)
 	new newfood(src)
 
 
 /obj/item/storage/bag/plasticbag/comida_mre/remove_from_storage(obj/item/I, atom/new_location)
 	if(!openmre)
-		to_chat(usr, "<span class='warning'>You open \the [src] .")
+		to_chat(usr, "<span class='notice'>You open \the [src].</span>")
 		playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
 		icon_state = "mre_open"
 		openmre = TRUE
 	..()
 
 /obj/item/storage/bag/plasticbag/comida_mre/can_be_inserted(obj/item/I, stop_messages = FALSE)
-	to_chat(usr, "<span class='warning'>You dont find a way to put the item in \the [src].")
+	to_chat(usr, "<span class='warning'>You dont find a way to put the item in \the [src].</span>")
 	return FALSE

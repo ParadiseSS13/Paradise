@@ -39,19 +39,23 @@
 	tastes = list("chocolate" = 1, "chemical" = 1, "coffee" = 1)
 	bitesize = 25
 
-/obj/item/reagent_containers/food/snacks/choco_mre/attack_self(mob/user)
+/obj/item/reagent_containers/food/snacks/choco_mre/attack_self()
 	if(!open)
 		open = TRUE
-		to_chat(user,("You tear \the [src] open."))
+		to_chat(usr, "<span class='notice'>You tear \the [src] open.</span>")
 		playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
 		icon_state = "mre_candy_open"
 		return
 
 /obj/item/reagent_containers/food/snacks/choco_mre/attack(mob/M as mob, mob/user as mob, def_zone)
-	if(!open)
+	if(!open && (M == user))
 		open = TRUE
 		to_chat(user,("You viciously rip \the [src] open with your teeth, swallowing some plastic in the process, you animal."))
 		playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
 		icon_state = "mre_candy_open"
 		return
-	. = ..()
+	if(!open)
+		to_chat(usr, "<span class='warning'>Open \the [src] first!</span>")
+		return
+	else
+		..()
