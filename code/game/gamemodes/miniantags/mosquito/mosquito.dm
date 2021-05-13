@@ -1,6 +1,6 @@
 /mob/living/simple_animal/mosquito
 	name = "Mosquito"
-	desc = "A blood thirsty beast, the carrier of diseases"
+	desc = "A bloodthirsty beast, the carrier of diseases."
 	icon_state = "mosquito_alive"
 	icon_living = "mosquito_alive"
 	icon_dead = "mosquito_dead"
