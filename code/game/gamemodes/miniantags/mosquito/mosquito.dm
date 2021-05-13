@@ -43,7 +43,7 @@
 	desc = "Allows you to suck blood from living organisms"
 	charge_max = 50
 	starts_charged = TRUE
-	still_recharging_msg = "We must first digest the previous blood"
+	still_recharging_msg = "We must first digest the previous blood!"
 	range = 1	//has no effect beyond this range, so setting this makes invalid/useless targets not show up in popup
 	action_icon_state = "blood"
 	clothes_req = 0
