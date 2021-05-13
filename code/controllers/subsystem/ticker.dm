@@ -68,7 +68,14 @@ SUBSYSTEM_DEF(ticker)
 	'sound/music/space.ogg',\
 	'sound/music/title1.ogg',\
 	'sound/music/title2.ogg',\
-	'sound/music/title3.ogg',)
+	'sound/music/title3.ogg',\
+	'sound/music/Duke_Gneiss-Bluespace.ogg',\
+	'sound/music/Duke_Gneiss-Downtown_2.ogg',\
+	'sound/music/Duke_Gneiss-Neotheology.ogg',\
+	'sound/music/Duke_Gneiss-The_Runner_in_motion.ogg',\
+	'sound/music/Duke_Gneiss-Exploring.ogg',\
+	'sound/music/Duke_Gneiss-Metropolis.ogg',\
+	'sound/music/aa_lobby_remix.ogg')
 
 	return ..()
 
