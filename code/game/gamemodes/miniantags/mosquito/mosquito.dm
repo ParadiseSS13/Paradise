@@ -40,7 +40,7 @@
 
 /obj/effect/proc_holder/spell/targeted/click/blood_suck // Takes blood off target
 	name = "Take blood"
-	desc = "Allows you to suck blood from living organisms"
+	desc = "Allows you to suck blood from living organisms."
 	charge_max = 50
 	starts_charged = TRUE
 	still_recharging_msg = "We must first digest the previous blood!"
