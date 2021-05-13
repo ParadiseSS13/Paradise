@@ -22,7 +22,7 @@
 	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	blood_volume = BLOOD_VOLUME_NORMAL
 	flying = TRUE
-	deathmessage = "Stops flapping it's wings!"
+	deathmessage = "Stops flapping its wings!"
 	var/list/donors = list()
 	var/playstyle_string = 	"<b><font size=3 color='red'>You are a giant mosquito.</font><br> The most annoying being in the universe and \
 							a carrier for diseases.<br> Your goal is to take blood from biological beings, feeding and healing yourself \
