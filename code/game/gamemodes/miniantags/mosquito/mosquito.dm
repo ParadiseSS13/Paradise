@@ -25,7 +25,7 @@
 	deathmessage = "Stops flapping it's wings!"
 	var/list/donors = list()
 	var/playstyle_string = 	"<b><font size=3 color='red'>You are a giant mosquito.</font><br> The most annoying being in the universe and \
-							a carrier for diseases.<br> Your goal is to take blood from biological beings, feeding and healing yourself \
+							a carrier of diseases.<br> Your goal is to take blood from biological beings, feeding and healing yourself \
 							in the process <br> "
 	var/datum/disease/DiseaseOfM
 
