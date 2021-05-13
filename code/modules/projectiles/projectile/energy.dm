@@ -99,7 +99,7 @@
 	damage = 60
 	damage_type = BURN
 	range = 9
-	weaken = 5
+	weaken = 1 //This is going to knock you off your feet
 	eyeblur = 5
 	speed = 2
 	alwayslog = TRUE
@@ -121,7 +121,7 @@
 
 /obj/item/projectile/energy/bsg/proc/kaboom()
 	playsound(src, 'sound/weapons/bsg_explode.ogg', 75, TRUE)
-	for(var/mob/living/M in hearers(7, src))
+	for(var/mob/living/M in hearers(7, src)) //No stuning people with thermals through a wall.
 		var/floored = FALSE
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -131,7 +131,7 @@
 				continue
 		if(prob(min(400 / (1 + get_dist(M, src)), 100)))
 			if(prob(min(150 / (1 + get_dist(M, src)), 100)))
-				M.Weaken(rand(1,3))
+				M.Weaken(1)
 				floored = TRUE
 			M.apply_damage((rand(15,30) * (1.1 - (get_dist(M, src)) / 10)), BURN) //reduced by 10% per tile
 			add_attack_logs(src, M, "Hit heavily by [src]")

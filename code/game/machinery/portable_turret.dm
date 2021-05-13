@@ -842,6 +842,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				if(!user.unEquip(I))
 					to_chat(user, "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
 					return
+				if(!E.can_fit_in_turrets)
+					to_chat(user, "<span class='notice'>The [I] will not operate correctly in \the [src], so you stop trying to put it in \the [src].</span>")
+					return
 				installation = I.type //installation becomes I.type
 				gun_charge = E.cell.charge //the gun's charge is stored in gun_charge
 				to_chat(user, "<span class='notice'>You add [I] to the turret.</span>")

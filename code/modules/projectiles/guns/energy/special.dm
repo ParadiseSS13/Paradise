@@ -319,7 +319,7 @@
 
 /obj/item/gun/energy/bsg
 	name = "\improper B.S.G"
-	desc = "The Blue Space Gun, uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasens BSA division."
+	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasens BSA division."
 	icon_state = "BSG"
 	item_state = "BSG"
 	origin_tech = "combat=6;materials=6;powerstorage=6,bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
@@ -330,6 +330,7 @@
 	slot_flags = SLOT_BACK
 	cell_type = /obj/item/stock_parts/cell/bsg
 	shaded_charge = 1
+	can_fit_in_turrets = FALSE //Crystal would shatter, or someone would try to put an empty gun in the frame.
 	var/obj/item/assembly/signaler/anomaly/flux/core = null
 	var/has_bluespace_crystal = FALSE
 	var/admin_model = FALSE //For the admin gun, prevents crystal shattering, so anyone can use it, and you dont need to carry backup crystals.
@@ -422,8 +423,8 @@
 	core = new /obj/item/assembly/signaler/anomaly/flux
 
 /obj/item/gun/energy/bsg/prebuilt/admin
-	desc = "The Blue Space Gun, uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasens BSA division. \
-	This is an administrative model, and its bluespace crystal will not shatter."
+	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasens BSA division. \
+	This is an excecutive model, and its bluespace crystal will not shatter."
 	admin_model = TRUE
 
 // Temperature Gun //
