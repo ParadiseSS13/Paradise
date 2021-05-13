@@ -72,7 +72,7 @@
 		return FALSE
 
 	if(do_mob(U, target, 10))
-		to_chat(U, "<span class='notice'> You draw a little blood from [target].</span>")
+		to_chat(U, "<span class='notice'>You draw a little blood from [target].</span>")
 		if(prob(60))
 			target.ForceContractDisease(U.DiseaseOfM)
 		U.donors += target.real_name
@@ -86,4 +86,3 @@
 	flying = FALSE
 	add_splatter_floor(loc)
 	return ..()
-
