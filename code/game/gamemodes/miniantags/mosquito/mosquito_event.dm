@@ -34,7 +34,7 @@
 
 	if(!length(pickedcandidates)) // if there are no picked candidates
 		kill()
-		message_admins("No picked candidates for mosquito event")
+		message_admins("No candidates picked for mosquito event")
 		return
 
 	while(length(pickedcandidates) && length(vents))
