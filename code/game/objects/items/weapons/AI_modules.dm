@@ -349,7 +349,7 @@ AI MODULES
 /obj/item/aiModule/peacekeeper
 	name = "\improper Peacekeeper core AI module"
 	desc = "A 'Peacekeeper' Core AI Module: 'Reconfigures the AI's core laws.'"
-	laws = new /datum/ai_laws/maintain()
+	laws = new /datum/ai_laws/peacekeeper()
 
 /******************** Freeform Core ******************/
 /obj/item/aiModule/freeformcore // Slightly more dynamic freeform module -- TLE
