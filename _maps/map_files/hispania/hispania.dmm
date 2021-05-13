@@ -18155,6 +18155,7 @@
 	icon_state = "0-4";
 	d2 = 4
 	},
+/obj/effect/spawner/lootdrop/animals4maint,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aKe" = (
@@ -19567,10 +19568,6 @@
 	lootcount = 2;
 	name = "2maintenance loot spawner"
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint2)
-"aNi" = (
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aNj" = (
@@ -21415,10 +21412,6 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry)
-"aRg" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint2)
 "aRh" = (
 /obj/machinery/sleeper{
 	dir = 4
@@ -21580,6 +21573,7 @@
 	initialize_directions = 11;
 	level = 1
 	},
+/obj/effect/spawner/lootdrop/animals4maint,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aRt" = (
@@ -40250,7 +40244,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bDQ" = (
@@ -66007,17 +66000,6 @@
 	tag = "icon-whitegreen (SOUTHEAST)"
 	},
 /area/medical/virology)
-"czc" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
-	},
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "cze" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -66671,6 +66653,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/effect/spawner/lootdrop/animals4maint,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cAJ" = (
@@ -73641,6 +73624,10 @@
 	icon_state = "yellowcorner"
 	},
 /area/engine/engineering)
+"cUv" = (
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/maintenance/aft)
 "cUw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4;
@@ -79134,10 +79121,6 @@
 	oxygen = 2644
 	},
 /area/atmos)
-"dkv" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "dkw" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	dir = 1;
@@ -84226,6 +84209,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
+"fGR" = (
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "fGU" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -85055,6 +85042,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/spawner/lootdrop/animals4maint,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "gzC" = (
@@ -86369,6 +86357,17 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"hTh" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0;
+	tag = ""
+	},
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "hTv" = (
 /obj/structure/table,
 /obj/item/book/manual/engineering_guide,
@@ -88625,6 +88624,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"koK" = (
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "kpu" = (
 /obj/structure/grille,
 /obj/structure/cable{
@@ -90050,6 +90053,13 @@
 	dir = 1
 	},
 /area/engine/engineering)
+"lHU" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "lIB" = (
 /turf/simulated/floor/plasteel{
 	tag = "icon-cult";
@@ -94081,17 +94091,6 @@
 	icon_state = "floorgrime"
 	},
 /area/engine/singularity)
-"pGT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "pHL" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -94170,6 +94169,10 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
+"pLJ" = (
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint2)
 "pLP" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -95227,11 +95230,6 @@
 	oxygen = 100000
 	},
 /area/atmos)
-"qMF" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
 "qNu" = (
 /obj/structure/bed,
 /obj/item/bedsheet/green,
@@ -95994,6 +95992,10 @@
 	dir = 8
 	},
 /area/atmos/control)
+"rMc" = (
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/wood,
+/area/maintenance/abandonedbar)
 "rMM" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 1
@@ -101413,6 +101415,23 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/engine/engineering)
+"wMQ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "wNb" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -102680,6 +102699,16 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
+"xMN" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "xOH" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -102879,10 +102908,6 @@
 	tag = "icon-wood-broken7"
 	},
 /area/maintenance/asmaint2)
-"xZv" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
 "xZK" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -117144,7 +117169,7 @@ aKN
 aGn
 aPW
 aQb
-aRg
+aHS
 aHS
 aGn
 aHS
@@ -117204,7 +117229,7 @@ jAu
 cLi
 sfP
 nXU
-cNB
+cUv
 cZw
 cwx
 cyn
@@ -117657,7 +117682,7 @@ aGn
 aLj
 aGn
 aOU
-aHS
+pLJ
 aHS
 aSp
 aGn
@@ -118456,7 +118481,7 @@ bqr
 blQ
 blQ
 bIP
-bCk
+lHU
 bGS
 blQ
 blQ
@@ -119262,7 +119287,7 @@ liO
 sdu
 tNz
 wsr
-qMF
+cZw
 cNB
 cLi
 ttE
@@ -119524,7 +119549,7 @@ nWn
 cLi
 vUk
 cWn
-cNB
+cUv
 vmY
 cMv
 xiX
@@ -128453,7 +128478,7 @@ aAp
 aRM
 aEl
 aVD
-xZv
+aPi
 baf
 aSA
 aSA
@@ -136481,7 +136506,7 @@ ndz
 ttF
 ndz
 oft
-csL
+koK
 csL
 cJc
 csL
@@ -141110,7 +141135,7 @@ cyJ
 dMD
 chf
 chf
-dMd
+wMQ
 cAv
 ctZ
 kQx
@@ -144900,7 +144925,7 @@ aNh
 aOG
 aGX
 aHb
-aOG
+hTh
 aGY
 aTg
 aGY
@@ -144979,7 +145004,7 @@ xOY
 cTQ
 cHe
 dcW
-pGT
+ccI
 gJT
 cHe
 bGH
@@ -145490,7 +145515,7 @@ cuQ
 cuQ
 cuQ
 qHH
-cac
+xMN
 cac
 cOm
 rDl
@@ -146695,7 +146720,7 @@ aGX
 aQI
 aGY
 aGX
-aNi
+aGY
 aGY
 aGX
 aGX
@@ -147817,7 +147842,7 @@ ciY
 wfs
 qEP
 bGG
-bGG
+fGR
 bGG
 bGG
 cuQ
@@ -148497,7 +148522,7 @@ aGX
 aMn
 aMz
 aGX
-aOG
+hTh
 aGY
 aGY
 aGY
@@ -150540,7 +150565,7 @@ aaa
 aAg
 aBg
 aBV
-aBg
+rMc
 aBg
 aBg
 aGc
@@ -152664,7 +152689,7 @@ cqk
 cuT
 cgs
 bGG
-czc
+cyR
 cAP
 cCj
 cDD
@@ -152700,8 +152725,8 @@ cuQ
 cuQ
 dff
 bGG
+fGR
 bGG
-dkv
 bGG
 bZZ
 aaa
@@ -153948,7 +153973,7 @@ csg
 cqk
 cvi
 cgs
-bGG
+fGR
 cyR
 bGG
 bGG
