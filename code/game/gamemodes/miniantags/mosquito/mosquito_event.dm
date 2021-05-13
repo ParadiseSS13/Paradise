@@ -19,32 +19,32 @@
 	/datum/disease/cold9)
 	ChosenDisease = pick(possible_diseases)
 
-	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE) // gets all vent locations
-	var/list/pickedcandidates = new()
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a mosquito?", ROLE_MOSQUITO, TRUE, source = /mob/living/simple_animal/mosquito) // gets ghosts
+	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
+	var/list/picked_candidates = new()
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a mosquito?", ROLE_MOSQUITO, TRUE, source = /mob/living/simple_animal/mosquito)
 
-	if(!length(candidates)) // if there are no picked candidates
+	if(!length(candidates))
 		kill()
 		message_admins("No candidates for mosquito event")
 		return
 
-	while(spawncount && length(candidates)) // should be for forloop
-		pickedcandidates.Add(pick_n_take(candidates)) // decides on ghosts to play mosquitos
+	while(spawncount && length(candidates)) // todo: should be for forloop
+		picked_candidates.Add(pick_n_take(candidates))
 		spawncount--
 
-	if(!length(pickedcandidates)) // if there are no picked candidates
+	if(!length(picked_candidates))
 		kill()
 		message_admins("No candidates picked for mosquito event")
 		return
 
-	while(length(pickedcandidates) && length(vents))
-		var/mob/currentselected = pick_n_take(pickedcandidates) // takes one of the candidates
+	while(length(picked_candidates) && length(vents))
+		var/mob/currentselected = pick_n_take(picked_candidates)
 		var/key_of_mosquito = currentselected.key
 
 		var/datum/mind/player_mind = new /datum/mind(key_of_mosquito)
-		player_mind.active = 1
+		player_mind.active = TRUE
 
-		var/obj/vent = pick_n_take(vents) // decides on vent
+		var/obj/vent = pick_n_take(vents)
 		var/mob/living/simple_animal/mosquito/S = new /mob/living/simple_animal/mosquito(vent.loc, ChosenDisease)
 		player_mind.transfer_to(S)
 		player_mind.assigned_role = ROLE_MOSQUITO
@@ -58,7 +58,7 @@
 
 
 /datum/event/spawn_mosquito/announce()
-	if(prob(25)) //25% chance to announce it to the crew
+	if(prob(25))
 		var/mosquito_report = "<font size=3><b>[command_name()] High-Priority Update</b></span>"
 		mosquito_report += "<br><br>Suspected biohazard aboard the station. We recommend immediate investigation."
 		print_command_report(mosquito_report, "Classified [command_name()] Update", FALSE)

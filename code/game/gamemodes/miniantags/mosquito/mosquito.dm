@@ -55,16 +55,15 @@
 	allowed_type = /mob/living/carbon/human
 
 /obj/effect/proc_holder/spell/targeted/click/blood_suck/cast(list/targets, mob/user = usr)
-	var/mob/living/simple_animal/mosquito/U = user
-
 	if(!targets.len)
 		to_chat(user, "<span class='notice'>No target found in range.</span>")
 		return
 
 	var/mob/living/carbon/human/target = targets[1]
+	var/mob/living/simple_animal/mosquito/U = user
 
 	if(!target.dna || (NO_BLOOD in target.dna.species.species_traits))
-		to_chat(U, "<span class='warning'>That donor has no blood to take.</span>")
+		to_chat(U, "<span class='warning'>That target has no blood to take.</span>")
 		return FALSE
 
 	if(U.donors.Find(target.real_name))
