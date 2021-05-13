@@ -51,7 +51,7 @@
 
 
 	selection_activated_message		= "<span class='notice'>You prepare to sting your target!</B></span>"
-	selection_deactivated_message	= "<span class='notice'>You relax yourself</span>"
+	selection_deactivated_message	= "<span class='notice'>You relax your stinger.</span>"
 	allowed_type = /mob/living/carbon/human
 
 /obj/effect/proc_holder/spell/targeted/click/blood_suck/cast(list/targets, mob/user = usr)
