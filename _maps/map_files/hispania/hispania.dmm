@@ -26863,6 +26863,7 @@
 	},
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/storage/firstaid/aquatic_kit/full,
+/obj/item/book/manual/salmonsuperduper,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cafeteria";
