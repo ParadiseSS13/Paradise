@@ -195,11 +195,6 @@
 /obj/machinery/door/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
 
-/obj/machinery/door/window/ratvar_act()
-	var/obj/machinery/door/window/clockwork/C = new(loc, dir)
-	C.name = name
-	qdel(src)
-
 /obj/machinery/door/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > T0C + (reinf ? 1600 : 800))
@@ -332,44 +327,6 @@
 	name = "cell door"
 	desc = "For keeping in criminal scum."
 	req_access = list(ACCESS_BRIG)
-
-/obj/machinery/door/window/clockwork
-	name = "brass windoor"
-	desc = "A thin door with translucent brass paneling."
-	icon_state = "clockwork"
-	base_state = "clockwork"
-	shards = 0
-	rods = 0
-	resistance_flags = ACID_PROOF | FIRE_PROOF
-	var/made_glow = FALSE
-
-/obj/machinery/door/window/clockwork/spawnDebris(location)
-	. = ..()
-	. = new /obj/item/stack/tile/brass(location, 2)
-
-/obj/machinery/door/window/clockwork/setDir(direct)
-	if(!made_glow)
-		var/obj/effect/E = new /obj/effect/temp_visual/ratvar/door/window(get_turf(src))
-		E.setDir(direct)
-		made_glow = TRUE
-	..()
-
-/obj/machinery/door/window/clockwork/emp_act(severity)
-	if(prob(80/severity))
-		open()
-
-/obj/machinery/door/window/clockwork/ratvar_act()
-	obj_integrity = max_integrity
-
-/obj/machinery/door/window/clockwork/hasPower()
-	return TRUE //yup that's power all right
-
-/obj/machinery/door/window/clockwork/narsie_act()
-	take_damage(rand(30, 60), BRUTE)
-	if(src)
-		var/previouscolor = color
-		color = "#960000"
-		animate(src, color = previouscolor, time = 8)
 
 /obj/machinery/door/window/northleft
 	dir = NORTH

@@ -55,13 +55,6 @@
 	if(!anchored)
 		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
 
-/obj/structure/grille/ratvar_act()
-	if(broken)
-		new /obj/structure/grille/ratvar/broken(loc)
-	else
-		new /obj/structure/grille/ratvar(loc)
-	qdel(src)
-
 /obj/structure/grille/Bumped(atom/user)
 	if(ismob(user))
 		if(!(shockcooldown <= world.time))
@@ -266,38 +259,4 @@
 	rods_amount = 1
 	rods_broken = 0
 	grille_type = /obj/structure/grille
-	broken_type = null
-
-/obj/structure/grille/ratvar
-	icon_state = "ratvargrille"
-	name = "cog grille"
-	desc = "A strangely-shaped grille."
-	broken_type = /obj/structure/grille/ratvar/broken
-
-/obj/structure/grille/ratvar/Initialize(mapload)
-	. = ..()
-	if(broken)
-		new /obj/effect/temp_visual/ratvar/grille/broken(get_turf(src))
-	else
-		new /obj/effect/temp_visual/ratvar/grille(get_turf(src))
-		new /obj/effect/temp_visual/ratvar/beam/grille(get_turf(src))
-
-/obj/structure/grille/ratvar/narsie_act()
-	take_damage(rand(1, 3), BRUTE)
-	if(src)
-		var/previouscolor = color
-		color = "#960000"
-		animate(src, color = previouscolor, time = 8)
-
-/obj/structure/grille/ratvar/ratvar_act()
-	return
-
-/obj/structure/grille/ratvar/broken
-	icon_state = "brokenratvargrille"
-	density = FALSE
-	obj_integrity = 20
-	broken = TRUE
-	rods_amount = 1
-	rods_broken = 0
-	grille_type = /obj/structure/grille/ratvar
 	broken_type = null
