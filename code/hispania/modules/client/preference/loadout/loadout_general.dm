@@ -63,3 +63,8 @@
 	display_name = "huge cocoana plushie head"
 	cost = 5
 	path = /obj/item/toy/plushie_hispania_sound/cocoana
+
+/datum/gear/mre
+	display_name = "ERP"
+	cost = 3
+	path = /obj/item/storage/bag/plasticbag/mre
