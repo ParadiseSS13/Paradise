@@ -361,24 +361,20 @@
 		to_chat(user, "<span class='notice'>You load [O] into [src].</span>")
 		S.use(1)
 		has_bluespace_crystal = TRUE
-		if(core)
-			icon_state = "BSG_FINISHED"
-		else
-			icon_state = "BSG_CRYSTAL"
+		update_icon()
 		return
+
 	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
 		if(core)
 			to_chat(user, "<span class='notice'>[src] already has a [O]!</span>")
+			return
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[O] is stuck to your hand!</span>")
 			return
 		to_chat(user, "<span class='notice'>You insert [O] into [src], and [src] starts to warm up.</span>")
 		O.forceMove(src)
 		core = O
-		if(has_bluespace_crystal)
-			icon_state = "BSG_FINISHED"
-		else
-			icon_state = "BSG_CORE"
+		update_icon()
 		return
 	else
 		return ..()
@@ -398,6 +394,18 @@
 	..()
 	update_icon()
 
+/obj/item/gun/energy/bsg/update_icon()
+	. = ..()
+	if(core)
+		if(has_bluespace_crystal)
+			icon_state = "BSG_FINISHED"
+		else
+			icon_state = "BSG_CORE"
+	else if(has_bluespace_crystal)
+		icon_state = "BSG_CRYSTAL"
+	else
+		icon_state = "BSG"
+
 /obj/item/gun/energy/bsg/emp_act(severity)
 	..()
 	if(prob(75 / severity))
@@ -410,10 +418,7 @@
 	visible_message("<span class='warning'>[src]'s bluespace crystal shatters!</span>")
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 50, TRUE)
 	has_bluespace_crystal = FALSE
-	if(core)
-		icon_state = "BSG_CORE"
-	else
-		icon_state = "BSG"
+	update_icon()
 
 /obj/item/gun/energy/bsg/prebuilt
 	icon_state = "BSG_FINISHED"
@@ -422,6 +427,7 @@
 /obj/item/gun/energy/bsg/prebuilt/Initialize(mapload, ...)
 	. = ..()
 	core = new /obj/item/assembly/signaler/anomaly/flux
+	update_icon()
 
 /obj/item/gun/energy/bsg/prebuilt/admin
 	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasen's BSA division. \

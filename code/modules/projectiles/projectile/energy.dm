@@ -108,7 +108,7 @@
 	..()
 	var/obj/item/projectile/energy/bsg/P = BB
 	spawn(1)
-		P.chain = P.Beam(user, icon_state = "sm_arc_supercharged", icon = 'icons/effects/beam.dmi', time = 1000, maxdistance = 30)
+		P.chain = P.Beam(user, icon_state = "sm_arc_supercharged", icon = 'icons/effects/beam.dmi', time = 10 SECONDS, maxdistance = 30)
 
 /obj/item/projectile/energy/bsg/on_hit(atom/target)
 	. = ..()
@@ -129,11 +129,11 @@
 			if(N)
 				to_chat(H, "<span class='notice'>[N] deploys an energy shield to project you from [src]'s explosion.</span>")
 				continue
-		if(prob(min(400 / (1 + get_dist(M, src)), 100)))
-			if(prob(min(150 / (1 + get_dist(M, src)), 100)))
-				M.Weaken(1)
+		var/distance = (1 + get_dist(M, src))
+		if(prob(min(400 / distance, 100))) //100% chance to hit with the blast up to 3 tiles, after that chance to hit is 80% at 4 tiles, 66.6% at 5, 57% at 6, and 50% at 7
+			if(prob(min(150 / distance, 100)))//100% chance to upgraded to a stun as well at a direct hit, 75% at 1 tile, 50% at 2, 37.5% at 3, 30% at 4, 25% at 5, 21% at 6, and finaly 19% at 7. This is calculated after the first hit however.
 				floored = TRUE
-			M.apply_damage((rand(15, 30) * (1.1 - (get_dist(M, src)) / 10)), BURN) //reduced by 10% per tile
+			M.apply_damage((rand(15, 30) * (1.1 - distance / 10)), BURN) //reduced by 10% per tile
 			add_attack_logs(src, M, "Hit heavily by [src]")
 			if(floored)
 				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!</span>")
