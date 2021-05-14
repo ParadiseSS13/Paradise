@@ -30204,6 +30204,9 @@
 	tag = ""
 	},
 /obj/structure/closet/secure_closet/hydroponics,
+/obj/structure/sign/hispania/kudzupainting{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -35406,6 +35409,9 @@
 "btl" = (
 /obj/structure/table/wood,
 /obj/item/stack/packageWrap,
+/obj/structure/sign/hispania/cutebottles{
+	pixel_x = -32
+	},
 /turf/simulated/floor/wood,
 /area/library)
 "btm" = (
@@ -37562,6 +37568,9 @@
 /area/hallway/primary/starboard/east)
 "bxQ" = (
 /obj/machinery/vending/coffee/free,
+/obj/structure/sign/hispania/waiblu{
+	pixel_x = -32
+	},
 /turf/simulated/floor/wood,
 /area/library)
 "bxR" = (
@@ -53725,6 +53734,9 @@
 	pixel_y = 9
 	},
 /obj/item/rcs,
+/obj/structure/sign/hispania/diggydiggyhole{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -59535,6 +59547,9 @@
 	pixel_y = 25
 	},
 /obj/structure/reagent_dispensers/watertank,
+/obj/structure/sign/hispania/masks4here{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -62448,6 +62463,9 @@
 /obj/machinery/light{
 	dir = 4;
 	icon_state = "tube1"
+	},
+/obj/structure/sign/hispania{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
@@ -66555,6 +66573,9 @@
 	dir = 8;
 	initialize_directions = 11;
 	level = 1
+	},
+/obj/structure/sign/hispania/physic{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-whitebluecorner (WEST)";
@@ -83611,6 +83632,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"eUK" = (
+/obj/structure/sign/hispania/gradius{
+	pixel_y = 32
+	},
+/turf/simulated/floor/engine,
+/area/security/podbay)
 "eUO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -84266,6 +84293,18 @@
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/engine/supermatter)
+"fHV" = (
+/obj/structure/bed,
+/obj/machinery/light/small{
+	tag = "icon-bulb1 (EAST)";
+	icon_state = "bulb1";
+	dir = 4
+	},
+/obj/structure/sign/hispania/theduck{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "fIV" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
@@ -85530,6 +85569,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"gXs" = (
+/obj/structure/table/reinforced,
+/obj/structure/sign/hispania/funnycarp{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/crew_quarters/bar)
 "gXQ" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -85947,6 +85995,12 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/engine/engineering)
+"hvl" = (
+/obj/structure/sign/hispania/testchamberus{
+	pixel_x = 32
+	},
+/turf/space,
+/area/space)
 "hvV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -87472,6 +87526,9 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/sign/hispania/xenolisa{
+	pixel_x = 32
+	},
 /turf/simulated/floor/wood,
 /area/library)
 "jeI" = (
@@ -88384,6 +88441,12 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
+"ker" = (
+/obj/structure/sign/hispania/kate{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "kfd" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -92807,6 +92870,9 @@
 	dir = 8;
 	network = list("SS13")
 	},
+/obj/structure/sign/hispania/sunset{
+	pixel_x = 32
+	},
 /turf/simulated/floor/wood,
 /area/library)
 "olB" = (
@@ -93487,6 +93553,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/supermatter)
+"oZJ" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
+	},
+/obj/machinery/newscaster{
+	pixel_x = 30
+	},
+/turf/simulated/floor/wood,
+/area/library)
 "pao" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -95115,6 +95192,12 @@
 	},
 /turf/space,
 /area/solar/port)
+"qGc" = (
+/obj/structure/sign/hispania/snostorms{
+	pixel_x = 32
+	},
+/turf/simulated/floor/wood,
+/area/library)
 "qGN" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -98510,8 +98593,8 @@
 /area/maintenance/apmaint)
 "tSU" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/newscaster{
-	pixel_x = 30
+/obj/structure/sign/hispania/hospital{
+	pixel_x = 32
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -101415,6 +101498,13 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/engine/engineering)
+"wLT" = (
+/obj/structure/lattice,
+/obj/structure/sign/hispania/testchamberus{
+	pixel_x = 32
+	},
+/turf/space,
+/area/space/nearstation)
 "wMQ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -102967,6 +103057,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/structure/sign/hispania/thegreatleapforward{
+	pixel_y = 32
 	},
 /turf/simulated/floor/carpet,
 /area/maintenance/asmaint2)
@@ -136971,7 +137064,7 @@ aUQ
 aUS
 bhr
 bja
-bkO
+gXs
 bcU
 aNe
 bmq
@@ -137180,7 +137273,7 @@ anA
 anA
 anA
 anA
-aoJ
+ker
 adY
 amm
 amN
@@ -140276,7 +140369,7 @@ arG
 asG
 atU
 ajb
-apY
+fHV
 arS
 aqc
 auZ
@@ -140780,7 +140873,7 @@ aaa
 aaa
 aaa
 ajb
-ajw
+eUK
 ajw
 ajw
 ajw
@@ -147758,12 +147851,12 @@ liG
 cSe
 vin
 jel
-cSe
+oZJ
 tSU
 bcj
 olh
 bfT
-bcp
+qGc
 bjF
 bll
 bmD
@@ -160135,14 +160228,14 @@ aab
 aaa
 afO
 aaa
+hvl
 aaa
 aaa
 aaa
 aaa
 aaa
 aaa
-aaa
-aab
+wLT
 aab
 cCs
 aaa
