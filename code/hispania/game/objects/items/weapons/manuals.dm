@@ -416,26 +416,26 @@
 				Recetas para parrilla:
 				<br>
 				<I>Salmon Ahumado:</I><br>
-				<li>1 Filite de Salmon</li>
+				<li>1 Filete de Salmon</li>
 				<li>1u Sal</li>
 				<li>1u Pimienta</li>
 				<li>10u Agua</li>
 				<br>
 			<I>Salmon con Aguacate:</I><br>
-				<li>1 Filite de Salmon</li>
+				<li>1 Filete de Salmon</li>
 				<li>1u Sal</li>
 				<li>1u Pimienta</li>
 				<li>1 Rebanada de Aguacate</li>
 				<br>
 			<I>Salmon con Citricos:</I><br>
-				<li>1 Filite de Salmon</li>
+				<li>1 Filete de Salmon</li>
 				<li>1u Sal</li>
 				<li>1u Pimienta</li>
 				<li>1 Limon</li>
 				<li>1 Naranja</li>
 				<br>
 			<I>Salmon Clasico:</I><br>
-				<li>1 Filite de Salmon</li>
+				<li>1 Filete de Salmon</li>
 				<li>1u Sal</li>
 				<li>1u Pimienta</li>
 				<br>
@@ -443,7 +443,7 @@
 			Recetas para microondas:
 				<br>
 				<I>Consome de Salmon:</I><br>
-				<li>1 Filite de Salmon</li>
+				<li>1 Filete de Salmon</li>
 				<li>1u Sal</li>
 				<li>1u Pimienta</li>
 				<li>10u Agua</li>
@@ -451,7 +451,7 @@
 				<li>1 Cebolla</li>
 				<br>
 				<I>Curry de Salmon:</I><br>
-				<li>1 Filite de Salmon</li>
+				<li>1 Filete de Salmon</li>
 				<li>1u Sal</li>
 				<li>1u Pimienta</li>
 				<li>10u Leche</li>
