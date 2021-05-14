@@ -10,6 +10,6 @@
 	target.apply_damage(40, STAMINA)
 	target.Weaken(2)
 	target.visible_message("<span class='warning'>[user] kicks [target] in the head, sending them face first into the floor!</span>",
-						"<span class='userdanger'>You are kicked in the head by [user], sending you crashing to the floor!</span>",)
+						"<span class='userdanger'>You are kicked in the head by [user], sending you crashing to the floor!</span>")
 	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Keelhaul", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE
