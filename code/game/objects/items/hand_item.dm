@@ -51,7 +51,7 @@
 	item_state = "nothing"
 	force = 0
 	throwforce = 0
-	flags = DROPDEL | ABSTRACT | NODROP
+	flags = DROPDEL | ABSTRACT
 	/// The kind of projectile this version of the kiss blower fires
 	var/kiss_type = /obj/item/projectile/kiss
 
