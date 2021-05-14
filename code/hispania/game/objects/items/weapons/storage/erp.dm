@@ -15,6 +15,8 @@
 	hispania_icon = TRUE
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	allow_quick_empty = FALSE
+	allow_quick_gather = FALSE
 	var/openmre = FALSE
 
 /obj/item/storage/bag/plasticbag/mre/populate_contents()
@@ -78,6 +80,8 @@
 	hispania_icon = TRUE
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	allow_quick_empty = FALSE
+	allow_quick_gather = FALSE
 	var/openmre = FALSE
 
 /obj/item/storage/bag/plasticbag/comida_mre/populate_contents()
