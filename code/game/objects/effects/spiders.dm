@@ -70,7 +70,7 @@
 
 /obj/structure/spider/eggcluster/process()
 	if(SSmobs.giant_spiders <= SPIDER_SOFT_CAP) //eggs gonna chill out until there is less spiders
-		amount_grown += rand(0,2)
+		amount_grown += rand(0, 2)
 
 		if(amount_grown >= 100)
 			var/num = rand(3, 12)
@@ -79,7 +79,7 @@
 				S.faction = faction.Copy()
 				S.master_commander = master_commander
 				if(player_spiders)
-					S.player_spiders = 1
+					S.player_spiders = TRUE
 			qdel(src)
 
 /obj/structure/spider/spiderling
@@ -172,7 +172,7 @@
 	if(isturf(loc))
 		amount_grown += rand(0,2)
 		if(amount_grown >= 100)
-			if (SSmobs.giant_spiders <= SPIDER_HARD_CAP)
+			if(SSmobs.giant_spiders <= SPIDER_HARD_CAP)
 				if(!grow_as)
 					grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
 				var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
