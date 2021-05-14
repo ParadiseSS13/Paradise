@@ -60,7 +60,8 @@
 
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary
 
-	var/chain = null //For when you want your projectile to have a chain coming out of the gun
+	/// For when you want your projectile to have a chain coming out of the gun
+	var/chain = null
 
 /obj/item/projectile/New()
 	permutated = list()

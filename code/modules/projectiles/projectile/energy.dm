@@ -127,20 +127,20 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/gun/energy/bsg/N = locate() in H
 			if(N)
-				to_chat(H, "<span class='notice'>[N] deploys an energy shield to project you from the [src]'s explosion.</span>")
+				to_chat(H, "<span class='notice'>[N] deploys an energy shield to project you from [src]'s explosion.</span>")
 				continue
 		if(prob(min(400 / (1 + get_dist(M, src)), 100)))
 			if(prob(min(150 / (1 + get_dist(M, src)), 100)))
 				M.Weaken(1)
 				floored = TRUE
-			M.apply_damage((rand(15,30) * (1.1 - (get_dist(M, src)) / 10)), BURN) //reduced by 10% per tile
+			M.apply_damage((rand(15, 30) * (1.1 - (get_dist(M, src)) / 10)), BURN) //reduced by 10% per tile
 			add_attack_logs(src, M, "Hit heavily by [src]")
 			if(floored)
-				to_chat(M, "<span class='danger'>You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!</span>")
+				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!</span>")
 			else
-				to_chat(M, "<span class='danger'>You see a flash of briliant blue light as [src] explodes, burning you!</span>")
+				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, burning you!</span>")
 		else
-			to_chat(M, "<span class='danger'>You feel the heat of the explosion of the [src], but the blast mostly misses you.</span>")
+			to_chat(M, "<span class='userdanger'>You feel the heat of the explosion of [src], but the blast mostly misses you.</span>")
 			add_attack_logs(src, M, "Hit lightly by [src]")
 			M.apply_damage(rand(1, 5), BURN)
 

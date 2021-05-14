@@ -319,17 +319,17 @@
 
 /obj/item/gun/energy/bsg
 	name = "\improper B.S.G"
-	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasens BSA division."
+	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasen's BSA division."
 	icon_state = "BSG"
 	item_state = "BSG"
-	origin_tech = "combat=6;materials=6;powerstorage=6,bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
+	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
 	ammo_type = list(/obj/item/ammo_casing/energy/bsg)
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_HUGE
 	can_holster = FALSE
 	slot_flags = SLOT_BACK
 	cell_type = /obj/item/stock_parts/cell/bsg
-	shaded_charge = 1
+	shaded_charge = TRUE
 	can_fit_in_turrets = FALSE //Crystal would shatter, or someone would try to put an empty gun in the frame.
 	var/obj/item/assembly/signaler/anomaly/flux/core = null
 	var/has_bluespace_crystal = FALSE
@@ -350,7 +350,7 @@
 	else
 		. += "It is missing a flux anomaly core and bluespace crystal to be operational."
 
-/obj/item/gun/energy/bsg/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/item/gun/energy/bsg/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
 		if(has_bluespace_crystal)
 			to_chat(user, "<span class='notice'>[src] already has a bluespace crystal in it.</span>")
@@ -383,14 +383,15 @@
 	else
 		return ..()
 
-/obj/item/gun/energy/bsg/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
+/obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)
-		to_chat(usr, "<span class='warning'>The [src] has no bluespace crystal to power it!</span>")
-		return 0
+		to_chat(user, "<span class='warning'>[src] has no bluespace crystal to power it!</span>")
+		return
 	if(!core)
-		to_chat(usr, "<span class='warning'>The [src] has no flux anomaly core to power it!</span>")
-		return 0
-	..()
+		to_chat(user, "<span class='warning'>[src] has no flux anomaly core to power it!</span>")
+		return
+	return ..()
+
 /obj/item/gun/energy/bsg/process_chamber()
 	if(prob(25))
 		shatter()
@@ -423,8 +424,8 @@
 	core = new /obj/item/assembly/signaler/anomaly/flux
 
 /obj/item/gun/energy/bsg/prebuilt/admin
-	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasens BSA division. \
-	This is an excecutive model, and its bluespace crystal will not shatter."
+	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasen's BSA division. \
+	This is an executive model, and its bluespace crystal will not shatter."
 	admin_model = TRUE
 
 // Temperature Gun //

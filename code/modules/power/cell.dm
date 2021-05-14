@@ -357,6 +357,6 @@
 
 /obj/item/stock_parts/cell/bsg
 	name = "\improper B.S.G power cell"
-	desc = "A high capacity, slow charging cell for the B.S.G"
+	desc = "A high capacity, slow charging cell for the B.S.G."
 	maxcharge = 40000
 	chargerate = 2600 // about 30 seconds to charge with a default recharger
