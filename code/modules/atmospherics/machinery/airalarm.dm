@@ -334,7 +334,7 @@
 			if(!gas)
 				return
 			if(!regulating_temperature && thermostat_state == THERMOSTAT_ON)
-				regulating_temperature = 1
+				regulating_temperature = TRUE
 				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
 
 			if(target_temperature > MAX_TEMPERATURE)
@@ -347,7 +347,7 @@
 				var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
 
 				//Use power.  Assuming that each power unit represents 1000 watts....
-				use_power(energy_used/1000, ENVIRON)
+				use_power(energy_used / 1000, ENVIRON)
 
 				//We need to cool ourselves.
 				if(heat_capacity)
@@ -357,7 +357,7 @@
 						gas.temperature += energy_used / heat_capacity
 
 				if(abs(environment.temperature - target_temperature) <= 0.5)
-					regulating_temperature = 0
+					regulating_temperature = FALSE
 					visible_message("\The [src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
 
 			environment.merge(gas)
