@@ -9,10 +9,10 @@
 		return
 
 	if(ishuman(target))
-		target.visible_message("<span class='warning'>[user] creates a tourniquet using [target]'s clothing. </span>", \
-								"<span class='userdanger'>[user] makes a tourniquet out of your clothes.</span>")
 		var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 		if(affected && affected.internal_bleeding)
+			target.visible_message("<span class='warning'>[user] creates a tourniquet using [target]'s clothing, staunching the bleeding in [target.p_their()] [affected.name]. </span>", \
+								"<span class='userdanger'>[user] makes a tourniquet out of your clothes, staunching the bleeding in your [affected.name].</span>")
 			target.apply_damage(10, BRUTE)
 			target.Slowed(5)
 			affected.internal_bleeding = FALSE

@@ -9,10 +9,10 @@
 		return
 
 	if(ishuman(target))
-		target.visible_message("<span class='warning'>[user] sets [target]'s broken bone. </span>", \
-								"<span class='userdanger'>[user] sets your broken bone, mending it.</span>")
 		var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 		if(affected && affected.status & ORGAN_BROKEN)
+			target.visible_message("<span class='warning'>[user] sets [target]'s broken bone in [target.p_their()] [affected.name]. </span>", \
+								"<span class='userdanger'>[user] sets the broken bone in your [affected.name], mending it.</span>")
 			target.apply_damage(10, BRUTE)
 			target.Slowed(5)
 			affected.mend_fracture()
