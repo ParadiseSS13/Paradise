@@ -43,7 +43,7 @@
 /mob/proc/put_in_l_hand(obj/item/W)
 	if(!put_in_hand_check(W))
 		return 0
-	if(!l_hand && has_left_hand() && !ABSTRACT)
+	if(!l_hand && has_left_hand())
 		W.forceMove(src)		//TODO: move to equipped?
 		l_hand = W
 		W.layer = ABOVE_HUD_LAYER	//TODO: move to equipped?
@@ -57,7 +57,7 @@
 
 //Puts the item into your r_hand if possible and calls all necessary triggers/updates. returns 1 on success.
 /mob/proc/put_in_r_hand(obj/item/W)
-	if(!put_in_hand_check(W) && !ABSTRACT)
+	if(!put_in_hand_check(W))
 		return 0
 	if(!r_hand && has_right_hand())
 		W.forceMove(src)

@@ -288,6 +288,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		if(!user.unEquip(src, silent = TRUE))
 			return 0
 
+	if(flags & ABSTRACT)
+		return 0
+
 	else
 		if(isliving(loc))
 			return 0

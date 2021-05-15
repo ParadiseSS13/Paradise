@@ -68,11 +68,6 @@
 	blown_kiss.fire()
 	qdel(src)
 
-/obj/item/kisser/attack_self(mob/living/user)
-	to_chat(usr, "<span class='notice'>You lower your kiss-blowing hand!</span>")
-	qdel(src)
-	return
-
 /obj/item/kisser/death
 	name = "kiss of death"
 	desc = "If looks could kill, they'd be this."
