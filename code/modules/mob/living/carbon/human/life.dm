@@ -589,26 +589,7 @@
 				to_chat(src, "<span class='notice'>You no longer feel vigorous.</span>")
 			metabolism_efficiency = 1
 
-	if(drowsyness)
-		AdjustDrowsy(-1)
-		EyeBlurry(2)
-		if(prob(5))
-			AdjustSleeping(1)
-			Paralyse(5)
 
-	if(confused)
-		AdjustConfused(-1)
-	// decrement dizziness counter, clamped to 0
-	if(resting)
-		if(dizziness)
-			AdjustDizzy(-15)
-		if(jitteriness)
-			AdjustJitter(-15)
-	else
-		if(dizziness)
-			AdjustDizzy(-3)
-		if(jitteriness)
-			AdjustJitter(-3)
 
 	if(NO_INTORGANS in dna.species.species_traits)
 		return
