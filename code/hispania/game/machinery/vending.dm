@@ -22,7 +22,8 @@
 	hispa_prices = list(/obj/item/reagent_containers/food/drinks/cans/mr_coffe_brown = 25)
 
 /obj/machinery/vending/security
-	hispa_products = list(/obj/item/taperoll = 8, /obj/item/device/binoculars/security = 2)
+	hispa_products = list(/obj/item/taperoll = 8, /obj/item/device/binoculars/security = 2, /obj/item/storage/bag/plasticbag/mre = 2)
+	hispa_prices = list(/obj/item/storage/bag/plasticbag/mre = 450)
 
 /obj/machinery/vending/tool
 	hispa_products = list(/obj/item/taperoll/engi = 10)

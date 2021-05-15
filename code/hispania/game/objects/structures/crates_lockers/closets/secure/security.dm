@@ -26,3 +26,8 @@
 /obj/structure/closet/secure_closet/hos/New()
 	..()
 	new /obj/item/whistle(src)
+
+/obj/structure/closet/secure_closet/blueshield/populate_contents()
+	..()
+	for(var/i in 1 to 5)
+		new /obj/item/storage/bag/plasticbag/mre(src)
