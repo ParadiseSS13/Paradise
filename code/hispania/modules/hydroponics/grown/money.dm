@@ -20,13 +20,17 @@
 /obj/item/reagent_containers/food/snacks/grown/money
 	seed = /obj/item/seeds/money
 	name = "wad of bills"
-	desc = "A nicely arranged wad of bills. Open to reveal its contents."
+	desc = "A nicely arranged wad of 10 credits. Open to reveal them."
 	icon = 'icons/hispania/obj/hydroponics/harvest.dmi'
 	icon_state = "wad"
 	resistance_flags = FLAMMABLE
+	var/stacktype = /obj/item/stack/spacecash
 
 /obj/item/reagent_containers/food/snacks/grown/money/attack_self(mob/user)
-	new /obj/item/stack/spacecash/c10(get_turf(user))
-	to_chat(user, "<span class='notice'>You open [src] revealing 10 credits.</span>")
-	user.drop_item()
+	to_chat(user, "<span class='notice'>You open [src].</span>")
+	var/wadAmt = 1 // The wad we're holding
+	for(var/obj/item/reagent_containers/food/snacks/grown/money/M in user.loc) // The wads on the floor
+		wadAmt += 1
+		qdel(M)
+	new stacktype(get_turf(user), wadAmt * 10)
 	qdel(src)
