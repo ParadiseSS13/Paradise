@@ -289,14 +289,14 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
-	/obj/item/adv_first_aid_manual
+/obj/item/adv_first_aid_manual
 	name = "Advanced First Aid Manual"
 	desc = "A suspicious manual with medical iconography"
 	icon = 'icons/obj/library.dmi'
 	icon_state = "adv_first_aid_manual"
 
 /obj/item/adv_first_aid_manual/attack_self(mob/living/carbon/human/user)
-	if(!istype(user) || !user)
+	if(!istype(user))
 		return
 	to_chat(user, "<span class='boldannounce'>You flip through the pages quickly and pick up on a couple of ways to treat serious injuries.</span>")
 

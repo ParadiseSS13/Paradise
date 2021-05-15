@@ -5,14 +5,14 @@
 
 /datum/martial_combo/adv_first_aid/set_bone/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!do_after(user, 10 SECONDS, TRUE, target))
-		to_chat(usr, "<span class='warning' you were interrupted. </span>")
+		to_chat(user, "<span class='warning' You were interrupted! </span>")
 		return
 
-	if(!target.stat && ishuman(target))
+	if(ishuman(target))
 		target.visible_message("<span class='warning'>[user] sets [target]'s broken bone. </span>", \
 								"<span class='userdanger'>[user] sets your broken bone, mending it.</span>")
 		var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-		if(affected.status & ORGAN_BROKEN)
+		if(affected && affected.status & ORGAN_BROKEN)
 			target.apply_damage(10, BRUTE)
 			target.Slowed(5)
 			affected.mend_fracture()
