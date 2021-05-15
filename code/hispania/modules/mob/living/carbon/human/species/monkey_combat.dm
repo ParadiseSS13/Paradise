@@ -220,7 +220,7 @@
 			//drop shitty items that wont help him
 			if(locate(/obj/item) in get_both_hands(src))
 				var/obj/item/I = locate(/obj/item) in get_both_hands(src)
-				if(istype(I, /obj/item/restraint/handcuff)
+				if(istype(I, /obj/item/restraints/handcuffs))
 					resist()
 				else if(I.force == 0)
 					unEquip(I)
