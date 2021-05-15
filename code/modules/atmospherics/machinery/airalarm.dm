@@ -56,9 +56,6 @@
 #define MAX_TEMPERATURE 363.15 // 90C
 #define MIN_TEMPERATURE 233.15 // -40C
 
-#define THERMOSTAT_OFF 0
-#define THERMOSTAT_ON 1
-
 #define AIR_ALARM_FRAME		0
 #define AIR_ALARM_BUILDING	1
 #define AIR_ALARM_READY		2
@@ -115,7 +112,7 @@
 
 	var/target_temperature = T20C
 	var/regulating_temperature = 0
-	var/thermostat_state = THERMOSTAT_OFF
+	var/thermostat_state = FALSE
 
 	var/list/TLV = list()
 
@@ -333,7 +330,7 @@
 			var/datum/gas_mixture/gas = location.remove_air(0.25 * environment.total_moles())
 			if(!gas)
 				return
-			if(!regulating_temperature && thermostat_state == THERMOSTAT_ON)
+			if(!regulating_temperature && thermostat_state == TRUE)
 				regulating_temperature = TRUE
 				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
 
@@ -342,7 +339,7 @@
 
 			if(target_temperature < MIN_TEMPERATURE)
 				target_temperature = MIN_TEMPERATURE
-			if(thermostat_state == THERMOSTAT_ON)
+			if(thermostat_state == TRUE)
 				var/heat_capacity = gas.heat_capacity()
 				var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
 
