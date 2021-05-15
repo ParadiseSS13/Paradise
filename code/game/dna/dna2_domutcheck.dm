@@ -3,7 +3,8 @@
 // M: Mob to mess with
 // flags: See below, bitfield.
 /proc/domutcheck(mob/living/M, flags = 0)
-	for(var/datum/mutation/mutation in GLOB.dna_mutations)
+	for(var/mutation_type in GLOB.dna_mutations)
+		var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
 		if(!M || !M.dna)
 			return
 		if(!mutation.block)
