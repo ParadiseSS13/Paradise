@@ -12,6 +12,18 @@
 /obj/item/stock_parts/cell/proc/discharge()
 	use(charge)
 
+// checks if the power cell is able to provide the specified amount of charge
+/obj/item/stock_parts/cell/proc/check_charge(amount)
+	return (charge >= amount)
+
+// Checks if the specified amount can be provided. If it can, it removes the amount
+// from the cell and returns 1. Otherwise does nothing and returns 0.
+/obj/item/stock_parts/cell/proc/checked_use(amount)
+	if(!check_charge(amount))
+		return FALSE
+	use(amount)
+	return TRUE
+
 /atom/movable/proc/fabricated()
 	return FALSE
 
