@@ -2497,7 +2497,6 @@
 #include "code\modules\world_topic\_topic_base.dm"
 #include "code\modules\world_topic\adminmsg.dm"
 #include "code\modules\world_topic\announce.dm"
-#include "code\modules\world_topic\hostannounce.dm"
 #include "code\modules\world_topic\manifest.dm"
 #include "code\modules\world_topic\ping.dm"
 #include "code\modules\world_topic\players.dm"

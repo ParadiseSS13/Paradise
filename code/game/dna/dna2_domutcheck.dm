@@ -32,7 +32,7 @@
 	var/mutation_active = M.dna.GetSEState(mutation.block)
 
 	// Sanity checks, don't skip.
-	if(!mutation.can_activate(M, flags) && mutation_active)
+	if(mutation_active && !mutation.can_activate(M, flags))
 		//testing("[M] - Failed to activate [gene.name] (can_activate fail).")
 		return FALSE
 
@@ -46,11 +46,7 @@
 		if(mutation_active)
 			//testing("[gene.name] activated!")
 			mutation.activate(M)
-			if(M)
-				M.active_mutations |= mutation.type
 		// If Gene is NOT active:
 		else
 			//testing("[gene.name] deactivated!")
 			mutation.deactivate(M)
-			if(M)
-				M.active_mutations -= mutation.type
