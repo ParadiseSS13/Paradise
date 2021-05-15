@@ -5,7 +5,7 @@
 
 /datum/martial_combo/adv_first_aid/mend_bleeding/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!do_after(user, 10 SECONDS, TRUE, target))
-		to_chat(user, "<span class='warning' You were interrupted! </span>")
+		to_chat(user, "<span class='warning'>You were interrupted!</span>")
 		return
 
 	if(ishuman(target))
