@@ -32,7 +32,6 @@
 // Called when the gene activates.  Do your magic here.
 /datum/mutation/proc/activate(mob/living/M)
 	M.gene_stability -= instability
-	M.active_mutations |= type // |= is probably not required but just in case
 	for(var/thing in traits_to_add)
 		ADD_TRAIT(M, thing, GENETIC_MUTATION)
 	if(length(activation_messages))
@@ -44,7 +43,6 @@
 // Only called when the block is deactivated.
 /datum/mutation/proc/deactivate(mob/living/M)
 	M.gene_stability += instability
-	M.active_mutations -= type
 	for(var/thing in traits_to_add)
 		REMOVE_TRAIT(M, thing, GENETIC_MUTATION)
 	if(length(deactivation_messages))

@@ -170,10 +170,11 @@
 					emote("drool")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	for(var/mutation_type in active_mutations)
-		var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
-		mutation.on_life(src)
-
+	for(var/datum/mutation/mutation in GLOB.dna_mutations)
+		if(!mutation.block)
+			continue
+		if(mutation.is_active(src))
+			mutation.on_life(src)
 	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
