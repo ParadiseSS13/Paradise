@@ -11,6 +11,8 @@
 	var/tank_volume = 1000 //In units, how much the dispenser can hold
 	var/reagent_id = "water" //The ID of the reagent that the dispenser uses
 	var/lastrigger = "" // The last person to rig this fuel tank - Stored with the object. Only the last person matter for investigation
+	/// If the dispenser is being blown up already. Used to avoid multiple boom calls due to itself exploding etc
+	var/went_boom = FALSE
 
 /obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
@@ -35,7 +37,13 @@
 			if(reagents)
 				reagents.temperature_reagents(exposed_temperature)
 
-/obj/structure/reagent_dispensers/proc/boom()
+/obj/structure/reagent_dispensers/proc/boom(rigtrigger = FALSE, log_attack = FALSE)
+	if(went_boom)
+		return
+	went_boom = TRUE
+	do_boom(rigtrigger, log_attack)
+
+/obj/structure/reagent_dispensers/proc/do_boom(rigtrigger = FALSE, log_attack = FALSE)
 	visible_message("<span class='danger'>[src] ruptures!</span>")
 	chem_splash(loc, 5, list(reagents))
 	qdel(src)
@@ -89,7 +97,7 @@
 			investigate_log("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]", INVESTIGATE_BOMB)
 			boom()
 
-/obj/structure/reagent_dispensers/fueltank/boom(rigtrigger = FALSE, log_attack = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
+/obj/structure/reagent_dispensers/fueltank/do_boom(rigtrigger = FALSE, log_attack = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
 	if(rigtrigger) // If the explosion is triggered by an assembly holder
 		log_game("A fueltank, last rigged by [lastrigger], triggered at [COORD(loc)]")
 		add_attack_logs(lastrigger, src, "rigged fuel tank exploded", ATKLOG_FEW)
