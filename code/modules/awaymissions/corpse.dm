@@ -304,31 +304,6 @@
 	death = FALSE
 	roundstart = FALSE //you could use these for alive fake humans on roundstart but this is more common scenario
 
-
-//Non-human spawners
-
-/obj/effect/mob_spawn/mouse
-	name = "sleeper"
-	mob_name = "space mouse"
-	mob_type = 	/mob/living/simple_animal/mouse
-	death = FALSE
-	roundstart = FALSE
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
-	flavour_text = "Squeak!"
-
-/obj/effect/mob_spawn/cow
-	name = "sleeper"
-	mob_name = "space cow"
-	mob_type = 	/mob/living/simple_animal/cow
-	death = FALSE
-	roundstart = FALSE
-	mob_gender = FEMALE
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
-	flavour_text = "Moo!"
-
-
 ///////////Civilians//////////////////////
 
 /obj/effect/mob_spawn/human/corpse/assistant

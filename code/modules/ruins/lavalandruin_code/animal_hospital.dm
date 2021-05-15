@@ -17,3 +17,56 @@
 	var/obj/structure/fluff/empty_sleeper/S = new(drop_location())
 	S.setDir(dir)
 	return ..()
+
+/obj/effect/mob_spawn/human/alive/vet_monkey
+	name = "broken rejuvenation pod - monkey"
+	desc = "A small sleeper typically used to instantly restore minor wounds. This one seems broken. There's a sleeping monkey inside."
+	mob_name = "a translocated monkey"
+	mob_species = /datum/species/monkey
+	description = "You are a monkey in an animal hospital that suddenly got transported to lavaland. Ook!"
+	flavour_text = "You are a monkey. You remember being put into a cold place and falling asleep. You've woken up. The air smells strange..."
+
+/obj/effect/mob_spawn/human/alive/vet_monkey/Destroy()
+	var/obj/structure/fluff/empty_sleeper/S = new(drop_location())
+	S.setDir(dir)
+	return ..()
+
+/obj/effect/mob_spawn/animal_sleeper
+	name = "broken rejuvenation pod - mouse"
+	desc = "A small sleeper typically used to instantly restore minor wounds. This one seems broken. There's an animal sleeping inside."
+	mob_name = "space mouse"
+	mob_type = 	/mob/living/simple_animal/mouse
+	death = FALSE
+	roundstart = FALSE
+	icon = 'icons/obj/cryogenic2.dmi'
+	icon_state = "sleeper"
+	description = "You are a mouse in an animal hospital that suddenly got transported to lavaland. Squeak!"
+	flavour_text = "You are a mouse. You remember being put into a cold place and falling asleep. You've woken up. The air smells strange..."
+
+/obj/effect/mob_spawn/animal_sleeper/Destroy()
+	var/obj/structure/fluff/empty_sleeper/S = new(drop_location())
+	S.setDir(dir)
+	return ..()
+
+
+/obj/effect/mob_spawn/animal_sleeper/cow
+	name = "broken rejuvenation pod - cow"
+	mob_name = "a translocated cow"
+	mob_type = 	/mob/living/simple_animal/cow
+	mob_gender = FEMALE
+	description = "You are a cow in an animal hospital that suddenly got transported to lavaland. Moo."
+	flavour_text = "You are a cow. You remember being put into a cold place and falling asleep. You've woken up. The air smells strange..."
+
+/obj/effect/mob_spawn/animal_sleeper/dog
+	name = "broken rejuvenation pod - dog"
+	mob_name = "a translocated dog"
+	mob_type = 	/mob/living/simple_animal/pet/dog/pug
+	description = "You are a dog in an animal hospital that suddenly got transported to lavaland. Woof."
+	flavour_text = "You are a dog. You remember being put into a cold place and falling asleep. You've woken up. The air smells strange..."
+
+/obj/effect/mob_spawn/animal_sleeper/cat
+	name = "broken rejuvenation pod - cat"
+	mob_name = "a translocated cat"
+	mob_type = 	/mob/living/simple_animal/pet/cat
+	description = "You are a cat in an animal hospital that suddenly got transported to lavaland. Meow."
+	flavour_text = "You are a cat. You remember being put into a cold place and falling asleep. You've woken up. The air smells strange..."
