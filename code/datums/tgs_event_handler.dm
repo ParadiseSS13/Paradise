@@ -5,7 +5,7 @@ GLOBAL_VAR_INIT(slower_restart, FALSE)
 	to_chat(world, "<span style='color: #ff00ff'>\[Server] [announcement_text]</span>")
 
 /proc/server_announce_adminonly(announcement_text)
-	to_chat(GLOB.admins, "<span style='color: #ff00ff'>\[Server]</span> <span class='adminsay'>\[Admin] [announcement_text]</span>")
+	to_chat(GLOB.admins, "<span style='color: #ff00ff'>\[Server] \[Admin] [announcement_text]</span>")
 
 /datum/tgs_event_handler/impl
 	var/datum/timedevent/reattach_timer
