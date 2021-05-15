@@ -67,7 +67,6 @@
 		// NEW RECORD
 		if(current_count > record_count)
 			record_count = current_count
-	log_debug("Persistent data for [src] loaded (current_count: [current_count] | record_count: [record_count])")
 	update_maptext()
 
 /obj/structure/disaster_counter/persistent_save()
@@ -80,7 +79,6 @@
 
 	S["count"] << current_count
 	S["record"] << record_count
-	log_debug("Persistent data for [src] saved (current_count: [current_count] | record_count: [record_count])")
 
 // Prefab definitions to make mapping easier
 /obj/structure/disaster_counter/supermatter

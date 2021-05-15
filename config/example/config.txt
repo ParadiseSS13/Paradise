@@ -271,7 +271,7 @@ TICKLAG 0.5
 SOCKET_TALK 0
 
 ## Comment this out to disable automuting
-#AUTOMUTE_ON
+#CONFIG_GET(flag/automute_on)
 
 ## How long the delay is before the Away Mission gate opens. Default is half an hour.
 GATEWAY_DELAY 10

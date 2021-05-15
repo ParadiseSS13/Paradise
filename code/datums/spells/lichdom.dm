@@ -24,14 +24,11 @@
 		for(var/obj/effect/proc_holder/spell/S in M.spell_list)
 			if(istype(S,/obj/effect/proc_holder/spell/targeted/lichdom) && S != src)
 				return ..()
-	if(existence_stops_round_end)
-		config.continuous_rounds = 0
 	return ..()
 
 /obj/effect/proc_holder/spell/targeted/lichdom/cast(list/targets, mob/user = usr)
-	if(!config.continuous_rounds)
+	if(!CONFIG_GET(flag/continuous_rounds))
 		existence_stops_round_end = 1
-		config.continuous_rounds = 1
 
 	for(var/mob/M in targets)
 		var/list/hand_items = list()

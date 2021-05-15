@@ -7,14 +7,14 @@ SUBSYSTEM_DEF(mapping)
 	// Load all Z level templates
 	preloadTemplates()
 	// Pick a random away mission.
-	if(!config.disable_away_missions)
+	if(!CONFIG_GET(flag/disable_away_missions))
 		load_away_mission()
 	// Seed space ruins
-	if(!config.disable_space_ruins)
+	if(!CONFIG_GET(flag/disable_space_ruins))
 		// load in extra levels of space ruins
 		var/load_zlevels_timer = start_watch()
 		log_startup_progress("Creating random space levels...")
-		var/num_extra_space = rand(config.extra_space_ruin_levels_min, config.extra_space_ruin_levels_max)
+		var/num_extra_space = rand(CONFIG_GET(number/extra_space_ruin_levels_min), CONFIG_GET(number/extra_space_ruin_levels_max))
 		for(var/i = 1, i <= num_extra_space, i++)
 			GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
 		log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
@@ -37,7 +37,7 @@ SUBSYSTEM_DEF(mapping)
 	// Spawn Lavaland ruins and rivers.
 	log_startup_progress("Populating lavaland...")
 	var/lavaland_setup_timer = start_watch()
-	seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
+	seedRuins(list(level_name_to_num(MINING)), CONFIG_GET(number/lavaland_budget), /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
 	spawn_rivers(list(level_name_to_num(MINING)))
 	log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
 
@@ -70,8 +70,8 @@ SUBSYSTEM_DEF(mapping)
 		GLOB.map_name = "Unknown"
 
 	// World name
-	if(config && config.server_name)
-		world.name = "[config.server_name]: [station_name()]"
+	if(config && CONFIG_GET(string/server_name))
+		world.name = "[CONFIG_GET(string/server_name)]: [station_name()]"
 	else
 		world.name = station_name()
 

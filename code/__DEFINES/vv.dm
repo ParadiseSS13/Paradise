@@ -20,3 +20,5 @@
 #define VV_RESTORE_DEFAULT "Restore to Default"
 #define VV_MARKED_DATUM "Marked Datum"
 #define VV_REGEX "Regex"
+#define VV_TEXT_LOCATE "Custom Reference Locate"
+#define VV_PROCCALL_RETVAL "Return Value of Proccall"

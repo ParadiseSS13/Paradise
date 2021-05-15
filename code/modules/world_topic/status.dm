@@ -8,8 +8,8 @@
 	status_info["mode"] = GLOB.master_mode
 	status_info["respawn"] = GLOB.abandon_allowed
 	status_info["enter"] = GLOB.enter_allowed
-	status_info["vote"] = config.allow_vote_mode
-	status_info["ai"] = config.allow_ai
+	status_info["vote"] = CONFIG_GET(flag/allow_vote_mode)
+	status_info["ai"] = CONFIG_GET(flag/allow_ai)
 	status_info["host"] = world.host ? world.host : null
 	status_info["players"] = list()
 	status_info["roundtime"] = worldtime2text()

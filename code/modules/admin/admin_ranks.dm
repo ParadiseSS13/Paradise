@@ -73,7 +73,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 	for(var/A in world.GetConfig("admin"))
 		world.SetConfig("APP/admin", A, null)
 
-	if(config.admin_legacy_system)
+	if(CONFIG_GET(flag/admin_legacy_system))
 		load_admin_ranks()
 
 		//load text from file
@@ -113,7 +113,6 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		//The current admin system uses SQL
 		if(!SSdbcore.IsConnected())
 			log_world("Failed to connect to database in load_admins(). Reverting to legacy system.")
-			config.admin_legacy_system = 1
 			load_admins()
 			return
 
@@ -141,7 +140,6 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 		if(!GLOB.admin_datums)
 			log_world("The database query in load_admins() resulted in no admins being added to the list. Reverting to legacy system.")
-			config.admin_legacy_system = 1
 			load_admins()
 			return
 

@@ -15,7 +15,7 @@
   */
 /datum/world_topic_handler/proc/invoke(list/input)
 	SHOULD_NOT_OVERRIDE(TRUE)
-	var/authorised = (config.comms_password && input["key"] == config.comms_password) // No password means no comms, not any password
+	var/authorised = (CONFIG_GET(number/comms_password) && input["key"] == CONFIG_GET(number/comms_password)) // No password means no comms, not any password
 	if(requires_commskey && !authorised)
 		// Try keep all returns in JSON unless absolutely necessary (?ping for example)
 		return(json_encode(list("error" = "Invalid Key")))

@@ -1,4 +1,6 @@
-GLOBAL_REAL(config, /datum/configuration)
+GLOBAL_REAL(config, /datum/controller/configuration)
+
+GLOBAL_DATUM(revdata, /datum/getrev)
 
 GLOBAL_VAR(host)
 GLOBAL_VAR(join_motd)

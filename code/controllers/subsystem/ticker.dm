@@ -62,6 +62,8 @@ SUBSYSTEM_DEF(ticker)
 	/// Time the real reboot kicks in
 	var/real_reboot_time = 0
 
+	var/totalPlayersReady = 0
+
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
 	'sound/music/thunderdome.ogg',\
@@ -77,9 +79,9 @@ SUBSYSTEM_DEF(ticker)
 	switch(current_state)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
-			round_start_time = world.time + (config.pregame_timestart * 10)
+			round_start_time = world.time + (CONFIG_GET(number/pregame_timestart) * 10)
 			to_chat(world, "<B><span class='darkmblue'>Welcome to the pre-game lobby!</span></B>")
-			to_chat(world, "Please, setup your character and select ready. Game will start in [config.pregame_timestart] seconds")
+			to_chat(world, "Please, setup your character and select ready. Game will start in [CONFIG_GET(number/pregame_timestart)] seconds")
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
 			for(var/mob/new_player/N in GLOB.player_list)
@@ -112,10 +114,10 @@ SUBSYSTEM_DEF(ticker)
 
 			if(world.time > next_autotransfer)
 				SSvote.autotransfer()
-				next_autotransfer = world.time + config.vote_autotransfer_interval
+				next_autotransfer = world.time + CONFIG_GET(number/vote_autotransfer_interval)
 
 			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
-			if(config.continuous_rounds)
+			if(CONFIG_GET(flag/continuous_rounds))
 				mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
 			else
 				game_finished |= mode.check_finished()
@@ -200,11 +202,9 @@ SUBSYSTEM_DEF(ticker)
 	// Behold, a rough way of figuring out what takes 10 years
 	var/watch = start_watch()
 	create_characters() // Create player characters and transfer clients
-	log_debug("Creating characters took [stop_watch(watch)]s")
 
 	watch = start_watch()
 	populate_spawn_points() // Put mobs in their spawn locations
-	log_debug("Populating spawn points took [stop_watch(watch)]s")
 
 	// Gather everyones minds
 	for(var/mob/living/player in GLOB.player_list)
@@ -213,11 +213,9 @@ SUBSYSTEM_DEF(ticker)
 
 	watch = start_watch()
 	equip_characters() // Apply outfits and loadouts to the characters
-	log_debug("Equipping characters took [stop_watch(watch)]s")
 
 	watch = start_watch()
 	GLOB.data_core.manifest() // Create the manifest
-	log_debug("Manifest creation took [stop_watch(watch)]s")
 
 	// Update the MC and state to game playing
 	current_state = GAME_STATE_PLAYING
@@ -264,7 +262,7 @@ SUBSYSTEM_DEF(ticker)
 	round_start_time = world.time
 
 	// Sets the auto shuttle vote to happen after the config duration
-	next_autotransfer = world.time + config.vote_autotransfer_initial
+	next_autotransfer = world.time + CONFIG_GET(number/vote_autotransfer_initial)
 
 	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)
@@ -275,10 +273,7 @@ SUBSYSTEM_DEF(ticker)
 	var/highpop_trigger = 80
 
 	if(playercount >= highpop_trigger)
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
 		SSjobs.LoadJobs("config/jobs_highpop.txt")
-	else
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
 
 	#ifdef UNIT_TESTS
 	RunUnitTests()

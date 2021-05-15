@@ -94,7 +94,6 @@
 	//if we don't have avatars yet, spawn them
 	if(!avatar)
 		if(!avatar_point)
-			log_debug("[src] attempted to spawn a battle mob avatar without a spawn point!")
 			return
 		else
 			avatar = new(get_turf(avatar_point))
@@ -234,8 +233,6 @@
 			closest = bmp
 	if(closest)
 		avatar_point = closest
-	else
-		log_debug("[src] was unable to locate a nearby mob battle landmark! Unable to spawn battle avatars!")
 
 /obj/machinery/computer/mob_battle_terminal/proc/do_attack()
 	if(!ready)		//no attacking if you arent ready to fight (duh)

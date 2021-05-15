@@ -1,7 +1,3 @@
-// Always return "Something/(Something)", even if it's an error message.
-/proc/key_name(whom, include_link = FALSE, type = null)
-	return key_name_helper(whom, TRUE, include_link, type)
-
 /proc/key_name_hidden(whom, include_link = FALSE, type = null)
 	return key_name_helper(whom, FALSE, include_link, type)
 
@@ -69,12 +65,6 @@
 		. += "/([name])"
 
 	return .
-
-/proc/key_name_admin(whom)
-	if(whom)
-		var/datum/whom_datum = whom //As long as it's not null, will be close enough/has the proc UID() that is all that's needed
-		var/message = "[key_name(whom, 1)]([ADMIN_QUE(whom_datum,"?")])[isAntag(whom) ? "<font color='red'>(A)</font>" : ""][isLivingSSD(whom) ? "<span class='danger'>(SSD!)</span>" : ""] ([admin_jump_link(whom)])"
-		return message
 
 /proc/key_name_mentor(whom)
 	// Same as key_name_admin, but does not include (?) or (A) for antags.

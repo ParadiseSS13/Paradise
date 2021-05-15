@@ -395,7 +395,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_BAN))
 		return
 
-	if(config.ban_legacy_system)
+	if(CONFIG_GET(flag/ban_legacy_system))
 		holder.unbanpanel()
 	else
 		holder.DB_ban_panel()
@@ -672,7 +672,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	var/datum/admins/D = GLOB.admin_datums[ckey]
 	var/rank = null
-	if(config.admin_legacy_system)
+	if(CONFIG_GET(flag/admin_legacy_system))
 		//load text from file
 		var/list/Lines = file2list("config/admins.txt")
 		for(var/line in Lines)
@@ -706,9 +706,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 		qdel(rank_read)
 	if(!D)
-		if(config.admin_legacy_system)
+		if(CONFIG_GET(flag/admin_legacy_system))
 			if(GLOB.admin_ranks[rank] == null)
-				error("Error while re-adminning [src], admin rank ([rank]) does not exist.")
 				to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.")
 				return
 
@@ -767,11 +766,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 
 	if(config)
-		if(config.log_hrefs)
-			config.log_hrefs = 0
+		if(CONFIG_GET(flag/log_hrefs))
 			to_chat(src, "<b>Stopped logging hrefs</b>")
 		else
-			config.log_hrefs = 1
 			to_chat(src, "<b>Started logging hrefs</b>")
 
 /client/proc/check_ai_laws()
@@ -956,9 +953,16 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_SERVER))
 		return
 
-	config.allow_drone_spawn = !(config.allow_drone_spawn)
-	log_admin("[key_name(usr)] has [config.allow_drone_spawn ? "enabled" : "disabled"] maintenance drones.")
-	message_admins("[key_name_admin(usr)] has [config.allow_drone_spawn ? "enabled" : "disabled"] maintenance drones.")
+	log_admin("[key_name(usr)] has [CONFIG_GET(flag/allow_drone_spawn) ? "enabled" : "disabled"] maintenance drones.")
+	message_admins("[key_name_admin(usr)] has [CONFIG_GET(flag/allow_drone_spawn) ? "enabled" : "disabled"] maintenance drones.")
+
+/client/proc/findStealthKey(txt)
+	if(txt)
+		for(var/P in GLOB.stealthminID)
+			if(GLOB.stealthminID[P] == txt)
+				return P
+	txt = GLOB.stealthminID[ckey]
+	return txt
 
 /client/proc/toggledebuglogs()
 	set name = "Toggle Debug Log Messages"

@@ -33,7 +33,6 @@
 
 	if(usr != owner && !check_rights(R_ADMIN))
 		message_admins("Warning: possible href exploit by [key_name_admin(usr)] - failed permissions check in law manager!")
-		log_debug("Warning: possible href exploit by [key_name(usr)] - failed permissions check in law manager!")
 		return
 
 	. = TRUE

@@ -118,7 +118,7 @@
 
 		var/list/affected_turfs = spiral_range_turfs(max_range, epicenter)
 
-		if(config.reactionary_explosions)
+		if(CONFIG_GET(flag/reactionary_explosions))
 			for(var/A in affected_turfs) // we cache the explosion block rating of every turf in the explosion area
 				var/turf/T = A
 				cached_exp_block[T] = 0
@@ -136,7 +136,7 @@
 				continue
 			var/dist = HYPOTENUSE(T.x, T.y, x0, y0)
 
-			if(config.reactionary_explosions)
+			if(CONFIG_GET(flag/reactionary_explosions))
 				var/turf/Trajectory = T
 				while(Trajectory != epicenter)
 					Trajectory = get_step_towards(Trajectory, epicenter)

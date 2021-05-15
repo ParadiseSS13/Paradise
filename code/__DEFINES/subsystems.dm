@@ -1,3 +1,27 @@
+//! Defines for subsystems and overlays
+//!
+//! Lots of important stuff in here, make sure you have your brain switched on
+//! when editing this file
+
+//! ## DB defines
+/**
+ * DB major schema version
+ *
+ * Update this whenever the db schema changes
+ *
+ * make sure you add an update to the schema_version stable in the db changelog
+ */
+#define DB_MAJOR_VERSION 5
+
+/**
+ * DB minor schema version
+ *
+ * Update this whenever the db schema changes
+ *
+ * make sure you add an update to the schema_version stable in the db changelog
+ */
+#define DB_MINOR_VERSION 12
+
 //Timing subsystem
 //Don't run if there is an identical unique timer active
 //if the arguments to addtimer are the same as an existing timer, it doesn't create a new timer, and returns the id of the existing timer
@@ -46,20 +70,21 @@
 // The numbers just define the ordering, they are meaningless otherwise.
 #define INIT_ORDER_PROFILER	101
 #define INIT_ORDER_TITLE 100 // Load this quickly so people dont see a blank lobby screen
-#define INIT_ORDER_GARBAGE 21
-#define INIT_ORDER_DBCORE 20
-#define INIT_ORDER_BLACKBOX 19
-#define INIT_ORDER_CLEANUP 18
-#define INIT_ORDER_INPUT 17
-#define INIT_ORDER_SOUNDS 16
-#define INIT_ORDER_INSTRUMENTS 15
-#define INIT_ORDER_RESEARCH 14
-#define INIT_ORDER_EVENTS 13
-#define INIT_ORDER_JOBS 12
-#define INIT_ORDER_TRAITS 11
-#define INIT_ORDER_TICKER 10
-#define INIT_ORDER_MAPPING 9
-#define INIT_ORDER_NETWORKS 8
+#define INIT_ORDER_GARBAGE 22
+#define INIT_ORDER_DBCORE 21
+#define INIT_ORDER_BLACKBOX 20
+#define INIT_ORDER_CLEANUP 19
+#define INIT_ORDER_INPUT 18
+#define INIT_ORDER_SOUNDS 17
+#define INIT_ORDER_INSTRUMENTS 16
+#define INIT_ORDER_RESEARCH 15
+#define INIT_ORDER_EVENTS 14
+#define INIT_ORDER_JOBS 13
+#define INIT_ORDER_TRAITS 12
+#define INIT_ORDER_TICKER 11
+#define INIT_ORDER_MAPPING 10
+#define INIT_ORDER_NETWORKS 9
+#define INIT_ORDER_ECONOMY 8
 #define INIT_ORDER_ATOMS 7
 #define INIT_ORDER_LANGUAGE 6
 #define INIT_ORDER_MACHINES 5

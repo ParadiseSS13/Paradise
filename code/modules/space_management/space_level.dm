@@ -150,8 +150,6 @@ GLOBAL_LIST_INIT(maploader_typecache, typecacheof(/obj/effect/landmark/map_loade
 /datum/space_level/proc/resume_init()
 	if(dirt_count > 0)
 		throw EXCEPTION("Init told to resume when z-level still dirty. Z level: '[zpos]'")
-	log_debug("Releasing freeze on z-level '[zpos]'!")
-	log_debug("Beginning initialization!")
 	var/list/our_atoms = init_list // OURS NOW!!! (Keeping this list to ourselves will prevent hijack)
 	init_list = list()
 	var/watch = start_watch()
@@ -163,7 +161,6 @@ GLOBAL_LIST_INIT(maploader_typecache, typecacheof(/obj/effect/landmark/map_loade
 	// so we separate them out here
 	our_atoms -= late_maps
 	SSatoms.InitializeAtoms(our_atoms, FALSE)
-	log_debug("Primary initialization finished in [stop_watch(watch)]s.")
 	our_atoms.Cut()
 	if(pipes.len)
 		do_pipes(pipes)
@@ -174,28 +171,20 @@ GLOBAL_LIST_INIT(maploader_typecache, typecacheof(/obj/effect/landmark/map_loade
 
 /datum/space_level/proc/do_pipes(list/pipes)
 	var/watch = start_watch()
-	log_debug("Initializing atmos machines on z-level '[zpos]'!")
 	var/init_count = SSair._setup_atmos_machinery(pipes)
-	log_debug("Initialized [init_count] machines, took [stop_watch(watch)]s")
 	watch = start_watch()
-	log_debug("Initializing pipe networks on z-level '[zpos]'!")
 	init_count = SSair._setup_pipenets(pipes)
-	log_debug("Initialized pipenets for [init_count] machines, took [stop_watch(watch)]s")
 	pipes.Cut()
 
 /datum/space_level/proc/do_cables(list/cables)
 	var/watch = start_watch()
-	log_debug("Building powernets on z-level '[zpos]'!")
 	SSmachines.setup_template_powernets(cables)
 	cables.Cut()
-	log_debug("Took [stop_watch(watch)]s")
 
 /datum/space_level/proc/do_late_maps(list/late_maps)
 	var/watch = start_watch()
-	log_debug("Loading map templates on z-level '[zpos]'!")
 	GLOB.space_manager.add_dirt(zpos) // Let's not repeatedly resume init for each template
 	for(var/atom/movable/AM in late_maps)
 		AM.Initialize()
 	late_maps.Cut()
 	GLOB.space_manager.remove_dirt(zpos)
-	log_debug("Took [stop_watch(watch)]s")

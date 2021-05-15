@@ -24,6 +24,10 @@
 
 #define DROPDEL					16384	// When dropped, it calls qdel on itself
 
+// for /datum/var/datum_flags
+#define DF_USE_TAG (1<<0)
+#define DF_VAR_EDITED (1<<1)
+#define DF_ISPROCESSING (1<<2)
 
 /* Secondary atom flags, for the flags_2 var, denoted with a _2 */
 

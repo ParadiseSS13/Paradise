@@ -807,9 +807,6 @@
 	move_inside(user)
 
 /obj/spacepod/proc/move_inside(mob/user)
-	if(!istype(user))
-		log_debug("SHIT'S GONE WRONG WITH THE SPACEPOD [src] AT [x], [y], [z], AREA [get_area(src)], TURF [get_turf(src)]")
-
 	occupant_sanity_check()
 
 	if(passengers.len <= max_passengers)
@@ -841,15 +838,12 @@
 			for(var/i = passengers.len; i <= max_passengers; i--)
 				var/mob/occupant = passengers[i - 1]
 				occupant.forceMove(get_turf(src))
-				log_debug("##SPACEPOD WARNING: passengers EXCEED CAP: MAX passengers [max_passengers], passengers [english_list(passengers)], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
 				passengers[i - 1] = null
 		for(var/mob/M in passengers)
 			if(!ismob(M))
 				M.forceMove(get_turf(src))
-				log_debug("##SPACEPOD WARNING: NON-MOB OCCUPANT [M], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
 				passengers -= M
 			else if(M.loc != src)
-				log_debug("##SPACEPOD WARNING: OCCUPANT [M] ESCAPED, TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
 				passengers -= M
 
 /obj/spacepod/verb/exit_pod()

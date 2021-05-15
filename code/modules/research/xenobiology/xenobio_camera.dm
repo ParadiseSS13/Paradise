@@ -233,8 +233,8 @@
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
-		if(LAZYLEN(SSmobs.cubemonkeys) >= config.cubemonkeycap)
-			to_chat(owner, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [config.cubemonkeycap] monkeys on the station at one time!</span>")
+		if(LAZYLEN(SSmobs.cubemonkeys) >= CONFIG_GET(number/cubemonkeycap))
+			to_chat(owner, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [CONFIG_GET(number/cubemonkeycap)] monkeys on the station at one time!</span>")
 			return
 		else if(X.monkeys >= 1)
 			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(remote_eye.loc)

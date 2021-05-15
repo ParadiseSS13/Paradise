@@ -22,7 +22,6 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 		log_admin("[key_name(usr)] attempted to edit feedback a new admin rank via advanced proc-call")
 		return
 	if(!ckey)
-		error("Admin datum created without a ckey argument. Datum has been deleted")
 		qdel(src)
 		return
 	admincaster_signature = "Nanotrasen Officer #[rand(0,9)][rand(0,9)][rand(0,9)]"

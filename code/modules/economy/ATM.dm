@@ -182,7 +182,6 @@ log transactions
 				view_screen = screen_proper
 			else
 				message_admins("Warning: possible href exploit by [key_name(usr)] - Invalid screen number passed into an ATM")
-				log_debug("Warning: possible href exploit by [key_name(usr)] - Invalid screen number passed into an ATM")
 
 		if("change_security_level")
 			if(authenticated_account)

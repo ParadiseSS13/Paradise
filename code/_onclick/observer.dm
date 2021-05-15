@@ -50,7 +50,7 @@
 	if(modifiers["alt"])
 		AltClickNoInteract(src, A)
 		return
-	// You are responsible for checking config.ghost_interaction when you override this function
+	// You are responsible for checking CONFIG_GET(flag/ghost_interaction) when you override this function
 	// Not all of them require checking, see below
 	A.attack_ghost(src)
 

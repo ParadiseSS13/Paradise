@@ -33,7 +33,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		// Make sure we dont load a dir up
 		var/lastchar = copytext(fname, -1)
 		if(lastchar == "/" || lastchar == "\\")
-			log_debug("Attempted to load map template without filename (Attempted [tfile])")
 			return
 		tfile = file2text(tfile)
 		if(!length(tfile))
@@ -54,7 +53,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	// This try-catch is used as a budget "Finally" clause, as the dirt count
 	// needs to be reset
 	var/watch = start_watch()
-	log_debug("[measureOnly ? "Measuring" : "Loading"] map: [fname]")
 	try
 		LM.index = 1
 		while(dmmRegex.Find(tfile, LM.index))
@@ -153,7 +151,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		throw e
 
 	GLOB._preloader.reset()
-	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
 		log_runtime(EXCEPTION("Bad Map bounds in [fname]"), src, list(

@@ -262,7 +262,6 @@
 	if(!brainmob)
 		return 0
 	if(!parent)
-		log_debug("Attempting to insert into a null parent!")
 		return 0
 	if(H.get_int_organ(/obj/item/organ/internal/brain))
 		// one brain at a time

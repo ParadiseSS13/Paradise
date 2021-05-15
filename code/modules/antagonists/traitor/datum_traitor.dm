@@ -117,9 +117,9 @@
 		objective_count += 1					//Exchange counts towards number of objectives
 
 
-	var/objective_amount = config.traitor_objectives_amount
+	var/objective_amount = CONFIG_GET(number/traitor_objectives_amount)
 
-	if(is_hijacker && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
+	if(is_hijacker && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in CONFIG_GET(number/traitor_objectives_amount)
 		if (!(locate(/datum/objective/hijack) in objectives))
 			var/datum/objective/hijack/hijack_objective = new
 			hijack_objective.owner = owner
@@ -154,7 +154,7 @@
 
 	objective_count += forge_single_objective()
 
-	for(var/i = objective_count, i < config.traitor_objectives_amount)
+	for(var/i = objective_count, i < CONFIG_GET(number/traitor_objectives_amount))
 		var/datum/objective/assassinate/kill_objective = new
 		kill_objective.owner = owner
 		kill_objective.find_target()

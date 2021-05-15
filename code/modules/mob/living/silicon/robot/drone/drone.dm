@@ -146,7 +146,7 @@
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(stat == DEAD)
 		// Currently not functional, so commenting out until it's fixed to avoid confusion
-			/*if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
+			/*if(!CONFIG_GET(flag/allow_drone_spawn) || emagged || health < -35) //It's dead, Dave.
 				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
 				return
 
@@ -167,7 +167,7 @@
 			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
 				if(D.key && D.client)
 					drones++
-			if(drones < config.max_maint_drones)
+			if(drones < CONFIG_GET(number/max_maint_drones))
 				request_player()*/
 			return
 

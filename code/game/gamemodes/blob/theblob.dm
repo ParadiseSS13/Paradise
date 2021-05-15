@@ -189,8 +189,6 @@
 		update_icon()
 
 /obj/structure/blob/proc/change_to(type)
-	if(!ispath(type))
-		error("[type] is an invalid type for the blob.")
 	var/obj/structure/blob/B = new type(src.loc)
 	if(!istype(type, /obj/structure/blob/core) || !istype(type, /obj/structure/blob/node))
 		B.color = color

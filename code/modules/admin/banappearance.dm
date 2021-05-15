@@ -41,7 +41,7 @@ DEBUG
 */
 // AA 2020-11-25: This entire proc isnt even called. What the actual fuck.
 /proc/appearance_loadbanfile()
-	if(config.ban_legacy_system)
+	if(CONFIG_GET(flag/ban_legacy_system))
 		var/savefile/S=new("data/appearance_full.ban")
 		S["keys[0]"] >> GLOB.appearance_keylist
 		log_admin("Loading appearance_rank")
@@ -53,7 +53,6 @@ DEBUG
 	else
 		if(!SSdbcore.IsConnected())
 			log_world("Database connection failed. Reverting to the legacy ban system.")
-			config.ban_legacy_system = 1
 			appearance_loadbanfile()
 			return
 

@@ -194,7 +194,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 	var/start_timeofday = REALTIMEOFDAY
 	// Initialize subsystems.
-	current_ticklimit = config.tick_limit_mc_init
+	current_ticklimit = CONFIG_GET(number/tick_limit_mc_init)
 	for(var/datum/controller/subsystem/SS in subsystems)
 		if(SS.flags & SS_NO_INIT)
 			continue
@@ -206,7 +206,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 	log_startup_progress("Initializations complete within [time] second[time == 1 ? "" : "s"]!")
 
-	if(config.developer_express_start & SSticker.current_state == GAME_STATE_PREGAME)
+	if(CONFIG_GET(flag/developer_express_start) & SSticker.current_state == GAME_STATE_PREGAME)
 		SSticker.current_state = GAME_STATE_SETTING_UP
 
 	if(!current_runlevel)
@@ -216,7 +216,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	sortTim(subsystems, /proc/cmp_subsystem_display)
 	// Set world options.
 	// world.fps = CONFIG_GET(number/fps) // TIGER TODO
-	world.tick_lag = config.Ticklag
+	// world.tick_lag = config.Ticklag
 	var/initialized_tod = REALTIMEOFDAY
 
 	if(sleep_offline_after_initializations)
@@ -623,13 +623,13 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 
 /datum/controller/master/proc/UpdateTickRate()
-	if(!processing)
+	if (!processing)
 		return
 	var/client_count = length(GLOB.clients)
-	if(client_count < config.disable_high_pop_mc_mode_amount)
-		processing = config.base_mc_tick_rate
-	else if(client_count > config.high_pop_mc_mode_amount)
-		processing = config.high_pop_mc_tick_rate
+	if (client_count < CONFIG_GET(number/mc_tick_rate/disable_high_pop_mc_mode_amount))
+		processing = CONFIG_GET(number/mc_tick_rate/base_mc_tick_rate)
+	else if (client_count > CONFIG_GET(number/mc_tick_rate/high_pop_mc_mode_amount))
+		processing = CONFIG_GET(number/mc_tick_rate/high_pop_mc_tick_rate)
 
 /datum/controller/master/proc/formatcpu()
 	switch(world.cpu)
@@ -641,3 +641,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			. = "<font color='#eb4034'>[world.cpu]</font>"
 		if(100 to INFINITY) // >100 = bold red
 			. = "<font color='#eb4034'><b>[world.cpu]</b></font>"
+
+/datum/controller/master/proc/OnConfigLoad()
+	for (var/thing in subsystems)
+		var/datum/controller/subsystem/SS = thing
+		SS.OnConfigLoad()

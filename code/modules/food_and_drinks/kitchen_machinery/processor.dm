@@ -218,7 +218,6 @@
 	for(var/O in contents)
 		var/datum/food_processor_process/P = select_recipe(O)
 		if(!P)
-			log_debug("The [O] in processor([src]) does not have a suitable recipe, but it was somehow put inside of the processor anyways.")
 			continue
 		total_time += P.time
 	sleep(total_time / rating_speed)
@@ -226,7 +225,6 @@
 	for(var/O in contents)
 		var/datum/food_processor_process/P = select_recipe(O)
 		if(!P)
-			log_debug("The [O] in processor([src]) does not have a suitable recipe, but it was somehow put inside of the processor anyways.")
 			continue
 		P.process_food(loc, O, src)
 	processing = 0

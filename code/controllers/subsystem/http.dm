@@ -45,7 +45,6 @@ SUBSYSTEM_DEF(http)
 					log_data += "\tResponse body: [res.body]"
 					log_data += "\tResponse headers: [json_encode(res.headers)]"
 				log_data += "END ASYNC RESPONSE (ID: [req.id])"
-				rustg_log_write(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
 
 /**
   * Async request creator
@@ -74,7 +73,6 @@ SUBSYSTEM_DEF(http)
 		log_data += "END ASYNC REQUEST (ID: [req.id])"
 
 		// Write the log data
-		rustg_log_write(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
 
 /**
   * Blocking request creator

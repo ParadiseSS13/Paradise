@@ -3,9 +3,9 @@
 GLOBAL_LIST_EMPTY(whitelist)
 
 /proc/init_whitelists()
-	if(config.usewhitelist)
+	if(CONFIG_GET(flag/usewhitelist))
 		load_whitelist()
-	if(config.usealienwhitelist)
+	if(CONFIG_GET(flag/usealienwhitelist))
 		load_alienwhitelist()
 
 /proc/load_whitelist()
@@ -21,9 +21,9 @@ GLOBAL_LIST_EMPTY(whitelist)
 
 /proc/is_job_whitelisted(mob/M, rank)
 	if(guest_jobbans(rank))
-		if(!config.usewhitelist)
+		if(!CONFIG_GET(flag/usewhitelist))
 			return TRUE
-		if(config.disable_karma)
+		if(CONFIG_GET(flag/disable_karma))
 			return TRUE
 		if(check_rights(R_ADMIN, 0, M))
 			return TRUE
@@ -69,9 +69,9 @@ GLOBAL_LIST_EMPTY(alien_whitelist)
 
 //todo: admin aliens
 /proc/is_alien_whitelisted(mob/M, species)
-	if(!config.usealienwhitelist)
+	if(!CONFIG_GET(flag/usealienwhitelist))
 		return TRUE
-	if(config.disable_karma)
+	if(CONFIG_GET(flag/disable_karma))
 		return TRUE
 	if(species == "human" || species == "Human")
 		return TRUE

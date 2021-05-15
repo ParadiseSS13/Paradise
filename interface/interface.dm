@@ -3,12 +3,12 @@
 	set name = "wiki"
 	set desc = "Type what you want to know about.  This will open the wiki in your web browser."
 	set hidden = 1
-	if(config.wikiurl)
+	if(CONFIG_GET(string/wikiurl))
 		var/query = stripped_input(src, "Enter Search:", "Wiki Search", "Homepage")
 		if(query == "Homepage")
-			src << link(config.wikiurl)
+			src << link(CONFIG_GET(string/wikiurl))
 		else if(query)
-			var/output = config.wikiurl + "/index.php?title=Special%3ASearch&profile=default&search=" + query
+			var/output = CONFIG_GET(string/wikiurl) + "/index.php?title=Special%3ASearch&profile=default&search=" + query
 			src << link(output)
 	else
 		to_chat(src, "<span class='danger'>The wiki URL is not set in the server configuration.</span>")
@@ -18,11 +18,11 @@
 	set name = "forum"
 	set desc = "Visit the forum."
 	set hidden = 1
-	if(config.forumurl)
+	if(CONFIG_GET(string/forumurl))
 		if(alert("Open the forum in your browser?", null, "Yes", "No") == "Yes")
-			if(config.forum_link_url && prefs && !prefs.fuid)
+			if(CONFIG_GET(string/forum_link_url) && prefs && !prefs.fuid)
 				link_forum_account()
-			src << link(config.forumurl)
+			src << link(CONFIG_GET(string/forumurl))
 	else
 		to_chat(src, "<span class='danger'>The forum URL is not set in the server configuration.</span>")
 
@@ -30,10 +30,10 @@
 	set name = "Rules"
 	set desc = "View the server rules."
 	set hidden = 1
-	if(config.rulesurl)
+	if(CONFIG_GET(string/rulesurl))
 		if(alert("This will open the rules in your browser. Are you sure?", null, "Yes", "No") == "No")
 			return
-		src << link(config.rulesurl)
+		src << link(CONFIG_GET(string/rulesurl))
 	else
 		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
 
@@ -41,10 +41,10 @@
 	set name = "GitHub"
 	set desc = "Visit the GitHub page."
 	set hidden = 1
-	if(config.githuburl)
+	if(CONFIG_GET(string/githuburl))
 		if(alert("This will open our GitHub repository in your browser. Are you sure?", null, "Yes", "No") == "No")
 			return
-		src << link(config.githuburl)
+		src << link(CONFIG_GET(string/githuburl))
 	else
 		to_chat(src, "<span class='danger'>The GitHub URL is not set in the server configuration.</span>")
 
@@ -53,9 +53,9 @@
 	set desc = "Join our Discord server."
 	set hidden = 1
 
-	var/durl = config.discordurl
-	if(config.forum_link_url && prefs && prefs.fuid && config.discordforumurl)
-		durl = config.discordforumurl
+	var/durl = CONFIG_GET(string/discordurl)
+	if(CONFIG_GET(string/forum_link_url) && prefs && prefs.fuid && CONFIG_GET(string/discordforumurl))
+		durl = CONFIG_GET(string/discordforumurl)
 	if(!durl)
 		to_chat(src, "<span class='danger'>The Discord URL is not set in the server configuration.</span>")
 		return
@@ -67,10 +67,10 @@
 	set name = "Donate"
 	set desc = "Donate to help with hosting costs."
 	set hidden = 1
-	if(config.donationsurl)
+	if(CONFIG_GET(string/donationsurl))
 		if(alert("This will open the donation page in your browser. Are you sure?", null, "Yes", "No") == "No")
 			return
-		src << link(config.donationsurl)
+		src << link(CONFIG_GET(string/donationsurl))
 	else
 		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
 

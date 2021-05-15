@@ -8,13 +8,10 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 	if(!smoothTurfs)
 		smoothTurfs = turfs
 
-	log_debug("Setting up atmos")
 	if(SSair)
 		SSair.setup_allturfs(turfs)
-	log_debug("\tTook [stop_watch(subtimer)]s")
 
 	subtimer = start_watch()
-	log_debug("Smoothing tiles")
 	for(var/turf/T in smoothTurfs)
 		if(T.smooth)
 			queue_smooth(T)
@@ -22,14 +19,10 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 			var/atom/A = R
 			if(A.smooth)
 				queue_smooth(A)
-	log_debug("\tTook [stop_watch(subtimer)]s")
-	log_debug("Late setup finished - took [stop_watch(total_timer)]s")
 
 /proc/empty_rect(low_x,low_y, hi_x,hi_y, z)
 	var/timer = start_watch()
-	log_debug("Emptying region: ([low_x], [low_y]) to ([hi_x], [hi_y]) on z '[z]'")
 	empty_region(block(locate(low_x, low_y, z), locate(hi_x, hi_y, z)))
-	log_debug("Took [stop_watch(timer)]s")
 
 /proc/empty_region(list/turfs)
 	for(var/thing in turfs)

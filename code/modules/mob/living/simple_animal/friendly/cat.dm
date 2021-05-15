@@ -72,7 +72,6 @@
 
 	if(isnull(family))
 		family = list()
-	log_debug("Persistent data for [src] loaded (family: [family ? list2params(family) : "None"])")
 
 /mob/living/simple_animal/pet/cat/Runtime/proc/write_memory(dead)
 	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
@@ -86,7 +85,6 @@
 			else
 				family[C.type] = 1
 	S["family"]				<< family
-	log_debug("Persistent data for [src] saved (family: [family ? list2params(family) : "None"])")
 
 /mob/living/simple_animal/pet/cat/Runtime/proc/deploy_the_cats()
 	for(var/cat_type in family)

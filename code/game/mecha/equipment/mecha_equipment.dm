@@ -147,6 +147,3 @@
 	if(chassis)
 		chassis.occupant_message("[bicon(src)] [message]")
 
-/obj/item/mecha_parts/mecha_equipment/proc/log_message(message)
-	if(chassis)
-		chassis.log_message("<i>[src]:</i> [message]")

@@ -125,7 +125,7 @@
 	laws.sort_laws()
 
 /mob/living/silicon/proc/make_laws()
-	switch(config.default_laws)
+	switch(CONFIG_GET(flag/default_laws))
 		if(0)
 			laws = new /datum/ai_laws/crewsimov()
 		else

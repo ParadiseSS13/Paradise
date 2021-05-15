@@ -116,8 +116,6 @@
 	owner = target
 	loc = null
 	if(istype(owner))
-		if(!isnull(owner.bodyparts_by_name[limb_name]))
-			log_debug("Duplicate organ in slot \"[limb_name]\", mob '[target]'")
 		owner.bodyparts_by_name[limb_name] = src
 		owner.bodyparts |= src
 		for(var/atom/movable/stuff in src)
@@ -400,7 +398,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 //Updates brute_damn and burn_damn from wound damages. Updates BLEEDING status.
 /obj/item/organ/external/proc/check_fracture(damage_inflicted)
-	if(config.bones_can_break && brute_dam > min_broken_damage && !is_robotic())
+	if(CONFIG_GET(flag/bones_can_break) && brute_dam > min_broken_damage && !is_robotic())
 		if(prob(damage_inflicted))
 			fracture()
 

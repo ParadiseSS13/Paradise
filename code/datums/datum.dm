@@ -9,6 +9,8 @@
 	var/signal_enabled = FALSE
 	var/var_edited = FALSE //Warranty void if seal is broken
 	var/tmp/unique_datum_id = null
+	/// Datum level flags
+	var/datum_flags = NONE
 
 #ifdef TESTING
 	var/running_find_references

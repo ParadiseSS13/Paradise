@@ -1792,8 +1792,6 @@
 		mind = new /datum/mind(key)
 		if(SSticker)
 			SSticker.minds += mind
-		else
-			error("mind_initialize(): No ticker ready yet! Please inform Carn")
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src

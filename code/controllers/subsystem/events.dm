@@ -43,7 +43,6 @@ SUBSYSTEM_DEF(events)
 
 /datum/controller/subsystem/events/proc/event_complete(datum/event/E)
 	if(!E.event_meta)	// datum/event is used here and there for random reasons, maintaining "backwards compatibility"
-		log_debug("Event of '[E.type]' with missing meta-data has completed.")
 		return
 
 	finished_events += E
@@ -64,7 +63,6 @@ SUBSYSTEM_DEF(events)
 	var/datum/event_meta/EM = E.event_meta
 	EC.available_events += EM
 
-	log_debug("Event '[EM.name]' has completed at [station_time_timestamp()].")
 
 /datum/controller/subsystem/events/proc/delay_events(severity, delay)
 	var/datum/event_container/EC = event_containers[severity]

@@ -18,14 +18,7 @@
 	ASSERT(ISODD(mwidth))
 	ASSERT(ISODD(mheight))
 	var/total_time = start_watch()
-	log_debug("\[MAZE] Started generation on maze at [x],[y],[z] | [mwidth * mheight] turfs total")
 	// First we need to partition the maze out into forced walls and open cells
-	LOG_MAZE_PROGRESS(generate_path(), "Generate Path")
-	LOG_MAZE_PROGRESS(apply_helper_modules(TRUE), "Helper Modules")
-	if(length(loot_modules)) // Only bother with this if we have some
-		LOG_MAZE_PROGRESS(calculate_loot_spots(), "Loot Spot Calculation")
-		LOG_MAZE_PROGRESS(apply_loot_modules(), "Loot Modules")
-	log_debug("\[MAZE] Generation of maze at [x],[y],[z] complete within [stop_watch(total_time)]s")
 	qdel(src)
 
 

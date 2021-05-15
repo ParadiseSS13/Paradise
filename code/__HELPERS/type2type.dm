@@ -90,6 +90,10 @@
 /proc/file2list(filename, seperator="\n")
 	return splittext(return_file_text(filename),seperator)
 
+/world/proc/file2list(filename, seperator="\n", trim = TRUE)
+	if (trim)
+		return splittext(trim(file2text(filename)),seperator)
+	return splittext(file2text(filename),seperator)
 
 //Turns a direction into text
 
@@ -392,3 +396,29 @@
 			else
 				return /datum
 	return text2path(copytext(string_type, 1, last_slash))
+
+//returns a string the last bit of a type, without the preceeding '/'
+/proc/type2top(the_type)
+	//handle the builtins manually
+	if(!ispath(the_type))
+		return
+	switch(the_type)
+		if(/datum)
+			return "datum"
+		if(/atom)
+			return "atom"
+		if(/obj)
+			return "obj"
+		if(/mob)
+			return "mob"
+		if(/area)
+			return "area"
+		if(/turf)
+			return "turf"
+		else //regex everything else (works for /proc too)
+			return lowertext(replacetext("[the_type]", "[type2parent(the_type)]/", ""))
+
+/// Return html to load a url.
+/// for use inside of browse() calls to html assets that might be loaded on a cdn.
+/proc/url2htmlloader(url)
+	return {"<html><head><meta http-equiv="refresh" content="0;URL='[url]'"/></head><body onLoad="parent.location='[url]'"></body></html>"}

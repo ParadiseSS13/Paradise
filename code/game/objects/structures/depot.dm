@@ -17,8 +17,6 @@
 		for(var/obj/machinery/porta_turret/syndicate/T in range(50, loc))
 			if(!istype(T.depotarea))
 				T.depotarea = depotarea
-	else
-		log_debug("[src] at [x],[y],[z] failed depotarea istype check during Initialize()! Either it was spawned outside the depot area (bad idea), or a bug is happening.")
 
 /obj/structure/fusionreactor/Destroy()
 	if(istype(depotarea))
@@ -88,8 +86,6 @@
 			depotarea.used_self_destruct = TRUE // Silences all further alerts from this point onwards.
 			depotarea.updateicon()
 		depotarea.shields_down()
-	else
-		log_debug("[src] at [x],[y],[z] failed depotarea istype check during Initialize()! Either it was spawned outside the depot area (bad idea), or a bug is happening.")
 
 /obj/effect/overload/process()
 	var/turf/T = get_turf(src)

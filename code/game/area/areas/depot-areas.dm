@@ -292,7 +292,6 @@
 		if(!reactor.has_overloaded)
 			reactor.overload(containment_failure)
 	else
-		log_debug("Depot: [src] called activate_self_destruct with no reactor.")
 		message_admins("<span class='adminnotice'>Syndicate Depot lacks reactor to initiate self-destruct. Must be destroyed manually.</span>")
 	updateicon()
 

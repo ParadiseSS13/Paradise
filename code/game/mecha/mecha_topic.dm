@@ -227,11 +227,6 @@
 			to_chat(occupant, "[bicon(src)] [message]")
 	return
 
-/obj/mecha/proc/log_message(message as text,red=null)
-	log.len++
-	log[log.len] = list("time"=world.timeofday,"message"="[red?"<font color='red'>":null][message][red?"</font>":null]")
-	return log.len
-
 /obj/mecha/proc/log_append_to_last(message as text,red=null)
 	var/list/last_entry = log[log.len]
 	last_entry["message"] += "<br>[red?"<font color='red'>":null][message][red?"</font>":null]"

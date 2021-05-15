@@ -31,7 +31,6 @@
 	vendingMachines.Remove(originMachine)
 	originMachine.shut_up = FALSE
 	originMachine.shoot_inventory = TRUE
-	log_debug("Original brand intelligence machine: [originMachine] ([ADMIN_VV(originMachine,"VV")]) [ADMIN_JMP(originMachine)]")
 
 /datum/event/brand_intelligence/tick()
 	if(originMachine.shut_up || originMachine.wires.is_all_cut())	//if the original vending machine is missing or has it's voice switch flipped

@@ -33,6 +33,10 @@
 	var/ert_disabled = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 20
+	var/report_type = "invalid"
+	var/maximum_players = -1
+	///How often will this show up incorrectly in a centcom report?
+	var/false_report_weight = 0
 
 	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
@@ -54,7 +58,7 @@
 		if((player.client)&&(player.ready))
 			playerC++
 
-	if(!config.enable_gamemode_player_limit || (playerC >= required_players))
+	if(!CONFIG_GET(flag/enable_gamemode_player_limit) || (playerC >= required_players))
 		return 1
 	return 0
 
@@ -529,6 +533,9 @@
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.join_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, "hudevent")
+
+/datum/game_mode/proc/generate_report() //Generates a small text blurb for the gamemode in centcom report
+	return "Gamemode report for [name] not set.  Contact a coder."
 
 /datum/game_mode/proc/update_eventmisc_icons_removed(datum/mind/mob_mind)
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]

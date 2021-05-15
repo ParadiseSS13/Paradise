@@ -47,7 +47,7 @@
 /mob/proc/say_dead(message)
 	if(client)
 		if(!client.holder)
-			if(!config.dsay_allowed)
+			if(!CONFIG_GET(flag/dsay_allowed))
 				to_chat(src, "<span class='danger'>Deadchat is globally muted.</span>")
 				return
 
@@ -64,7 +64,6 @@
 
 	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts")], <span class='message'>\"[message]\"</span>", src)
 	create_log(DEADCHAT_LOG, message)
-	log_ghostsay(message, src)
 
 /mob/proc/say_understands(mob/other, datum/language/speaking = null)
 	if(stat == DEAD)

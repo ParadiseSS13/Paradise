@@ -538,12 +538,10 @@
 			continue
 		var/datuminfo = "[D]"
 		if(istype(D))
-			datuminfo = datum_info_line(D)
 			href_list[paramname] = D.UID()
 		else if(isclient(D))
 			var/client/C = D
 			href_list[paramname] = C.UID()
-		log_runtime(EXCEPTION("Found \\ref-based '[paramname]' param in VV topic for [datuminfo], should be UID: [href]"))
 
 	if(href_list["Vars"])
 		debug_variables(locateUID(href_list["Vars"]))

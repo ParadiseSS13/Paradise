@@ -60,8 +60,6 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 
 	// Log it in all these
 	log_world(logmsg)
-	log_runtime_txt(logmsg)
-	log_runtime_summary(logmsg)
 
 
 /**
@@ -94,9 +92,9 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 
 	// Commit info
 	if(GLOB.revision_info.commit_hash && GLOB.revision_info.commit_date)
-		msg += "<b>Server Commit:</b> <a href='[config.githuburl]/commit/[GLOB.revision_info.commit_hash]'>[GLOB.revision_info.commit_hash]</a> (Date: [GLOB.revision_info.commit_date])"
+		msg += "<b>Server Commit:</b> <a href='[CONFIG_GET(string/githuburl)]/commit/[GLOB.revision_info.commit_hash]'>[GLOB.revision_info.commit_hash]</a> (Date: [GLOB.revision_info.commit_date])"
 		if(GLOB.revision_info.origin_commit && (GLOB.revision_info.commit_hash != GLOB.revision_info.origin_commit))
-			msg += "<b>Origin Commit:</b> <a href='[config.githuburl]/commit/[GLOB.revision_info.origin_commit]'>[GLOB.revision_info.origin_commit]</a>"
+			msg += "<b>Origin Commit:</b> <a href='[CONFIG_GET(string/githuburl)]/commit/[GLOB.revision_info.origin_commit]'>[GLOB.revision_info.origin_commit]</a>"
 	else
 		msg += "<b>Server Commit:</b> <i>Unable to determine</i>"
 

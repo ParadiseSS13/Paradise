@@ -3,10 +3,8 @@
 	//Multikey checks and logging
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
-	log_access_in(client)
-	create_attack_log("<font color='red'>Logged in at [atom_loc_line(get_turf(src))]</font>")
 	create_log(MISC_LOG, "Logged in")
-	if(config.log_access)
+	if(CONFIG_GET(flag/log_access))
 		for(var/mob/M in GLOB.player_list)
 			if(M == src)	continue
 			if( M.key && (M.key != key) )
@@ -16,15 +14,13 @@
 				if( (M.computer_id == client.computer_id) )
 					if(matches)	matches += " and "
 					matches += "ID ([client.computer_id])"
-					if(!config.disable_cid_warn_popup)
+					if(!CONFIG_GET(flag/disable_cid_warn_popup))
 						spawn() alert("You have logged in already with another key this round, please log out of this one NOW or risk being banned!")
 				if(matches)
 					if(M.client)
 						message_admins("<font color='red'><B>Notice: </B><font color='blue'><A href='?src=[usr.UID()];priv_msg=[src.client.ckey]'>[key_name_admin(src)]</A> has the same [matches] as <A href='?src=[usr.UID()];priv_msg=[M.client.ckey]'>[key_name_admin(M)]</A>.</font>", 1)
-						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(M)].")
 					else
 						message_admins("<font color='red'><B>Notice: </B><font color='blue'><A href='?src=[usr.UID()];priv_msg=[src.client.ckey]'>[key_name_admin(src)]</A> has the same [matches] as [key_name_admin(M)] (no longer logged in). </font>", 1)
-						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(M)] (no longer logged in).")
 
 /mob/Login()
 	GLOB.player_list |= src

@@ -13,7 +13,7 @@
 	outfit = /datum/outfit/job/assistant
 
 /datum/job/civilian/get_access()
-	if(config.assistant_maint)
+	if(CONFIG_GET(flag/assistant_maint))
 		return list(ACCESS_MAINT_TUNNELS)
 	else
 		return list()

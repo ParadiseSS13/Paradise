@@ -42,7 +42,6 @@
 		return
 
 	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
-	log_mentorsay(msg, src)
 
 	if(!msg)
 		return

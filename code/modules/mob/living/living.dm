@@ -525,7 +525,7 @@
 	set category = "OOC"
 	set src in view()
 
-	if(config.allow_Metadata)
+	if(CONFIG_GET(flag/allow_Metadata))
 		if(client)
 			to_chat(usr, "[src]'s Metainfo:<br>[client.prefs.metadata]")
 		else
@@ -928,15 +928,15 @@
 	if(forced_look)
 		. += 3
 	if(ignorewalk)
-		. += config.run_speed
+		. += CONFIG_GET(number/run_speed)
 	else
 		switch(m_intent)
 			if(MOVE_INTENT_RUN)
 				if(drowsyness > 0)
 					. += 6
-				. += config.run_speed
+				. += CONFIG_GET(number/run_speed)
 			if(MOVE_INTENT_WALK)
-				. += config.walk_speed
+				. += CONFIG_GET(number/walk_speed)
 
 
 /mob/living/proc/can_use_guns(obj/item/gun/G)

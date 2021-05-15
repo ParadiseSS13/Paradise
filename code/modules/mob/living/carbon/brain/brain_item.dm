@@ -92,8 +92,6 @@
 				brainmob.mind.transfer_to(target)
 			else
 				target.key = brainmob.key
-	else
-		log_debug("Multibrain shenanigans at ([target.x],[target.y],[target.z]), mob '[target]'")
 	..(target, special = special)
 
 /obj/item/organ/internal/brain/receive_damage(amount, silent = 0) //brains are special; if they receive damage by other means, we really just want the damage to be passed ot the owner and back onto the brain.

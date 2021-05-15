@@ -332,7 +332,7 @@
 	. = speed
 	if(forced_look)
 		. += 3
-	. += config.animal_delay
+	. += CONFIG_GET(number/animal_delay)
 
 /mob/living/simple_animal/Stat()
 	..()

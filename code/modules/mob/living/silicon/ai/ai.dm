@@ -714,7 +714,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			break
 		if(!can_dominate_mechs && !mech_has_controlbeacon)
 			message_admins("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
-			log_debug("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
 			return
 
 		if(controlled_mech)
@@ -1319,7 +1318,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/open_nearest_door(mob/living/target)
 	if(!istype(target))
 		return
-	
+
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 

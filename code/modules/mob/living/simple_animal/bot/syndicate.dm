@@ -206,7 +206,6 @@
 			var/failmsg = "Depot: [src] at [loc.x],[loc.y],[loc.z] lacks patrol target."
 			if(istype(patrol_target))
 				failmsg = "Depot: [src] at [loc.x],[loc.y],[loc.z] cannot reach [patrol_target.x],[patrol_target.y]"
-			log_debug(failmsg)
 	return ..()
 
 /mob/living/simple_animal/bot/ed209/syndicate/proc/raise_alert(reason)

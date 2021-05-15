@@ -34,8 +34,6 @@ SUBSYSTEM_DEF(atoms)
 	var/watch = start_watch()
 	if(noisy)
 		log_startup_progress("Initializing atoms...")
-	else
-		log_debug("Initializing atoms...")
 	var/count
 	var/list/mapload_arg = list(TRUE)
 	if(atoms)
@@ -55,8 +53,6 @@ SUBSYSTEM_DEF(atoms)
 
 	if(noisy)
 		log_startup_progress("Initialized [count] atoms in [stop_watch(watch)]s")
-	else
-		log_debug("	Initialized [count] atoms in [stop_watch(watch)]s")
 	pass(count)
 
 	initialized = INITIALIZATION_INNEW_REGULAR
@@ -65,15 +61,11 @@ SUBSYSTEM_DEF(atoms)
 		watch = start_watch()
 		if(noisy)
 			log_startup_progress("Late-initializing atoms...")
-		else
-			log_debug("Late-initializing atoms...")
 		for(var/I in late_loaders)
 			var/atom/A = I
 			A.LateInitialize()
 		if(noisy)
 			log_startup_progress("Late initialized [length(late_loaders)] atoms in [stop_watch(watch)]s")
-		else
-			log_debug("	Late initialized [length(late_loaders)] atoms in [stop_watch(watch)]s")
 		late_loaders.Cut()
 
 /datum/controller/subsystem/atoms/proc/InitAtom(atom/A, list/arguments)

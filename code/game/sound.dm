@@ -43,7 +43,6 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 
 /proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE)
 	if(isarea(source))
-		error("[source] is an area and is trying to make the sound: [soundin]")
 		return
 
 	var/turf/turf_source = get_turf(source)
@@ -178,7 +177,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	SEND_SOUND(src, S)
 
 /client/proc/playtitlemusic()
-	if(!SSticker || !SSticker.login_music || config.disable_lobby_music)
+	if(!SSticker || !SSticker.login_music || CONFIG_GET(flag/disable_lobby_music))
 		return
 	if(prefs.sound & SOUND_LOBBY)
 		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = 85 * prefs.get_channel_volume(CHANNEL_LOBBYMUSIC), channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS

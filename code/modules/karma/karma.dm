@@ -78,7 +78,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	if(!client)
 		to_chat(src, "<span class='warning'>You can't award karma without being connected.</span>")
 		return FALSE
-	if(config.disable_karma)
+	if(CONFIG_GET(flag/disable_karma))
 		to_chat(src, "<span class='warning'>Karma is disabled.</span>")
 		return FALSE
 	if(!SSticker || !GLOB.player_list.len || (SSticker.current_state == GAME_STATE_PREGAME))
@@ -150,7 +150,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	if(!M)
 		to_chat(usr, "Please right click a mob to award karma directly, or use the 'Award Karma' verb to select a player from the player listing.")
 		return
-	if(config.disable_karma) // this is here because someone thought it was a good idea to add an alert box before checking if they can even give a mob karma
+	if(CONFIG_GET(flag/disable_karma)) // this is here because someone thought it was a good idea to add an alert box before checking if they can even give a mob karma
 		to_chat(usr, "<span class='warning'>Karma is disabled.</span>")
 		return
 	if(alert("Give [M.name] good karma?", "Karma", "Yes", "No") != "Yes")
@@ -180,7 +180,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	set desc = "Reports how much karma you have accrued."
 	set category = "Special Verbs"
 
-	if(config.disable_karma)
+	if(CONFIG_GET(flag/disable_karma))
 		to_chat(src, "<span class='warning'>Karma is disabled.</span>")
 		return
 
@@ -216,7 +216,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	set desc = "Spend your hard-earned karma here"
 	set hidden = TRUE
 
-	if(config.disable_karma)
+	if(CONFIG_GET(flag/disable_karma))
 		to_chat(src, "<span class='warning'>Karma is disabled.</span>")
 		return
 	karmashopmenu()

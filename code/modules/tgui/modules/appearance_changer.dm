@@ -301,7 +301,6 @@
 	var/body_flags = owner.dna.species.bodyflags
 	if(location == "head")
 		if(!head_organ)
-			log_debug("Missing head!")
 			return FALSE
 		body_flags = head_organ.dna.species.bodyflags
 		marking_flag = HAS_HEAD_MARKINGS
@@ -317,7 +316,6 @@
 
 /datum/ui_module/appearance_changer/proc/can_change_alt_head()
 	if(!head_organ)
-		log_debug("Missing head!")
 		return FALSE
 	return owner && (flags & APPEARANCE_ALT_HEAD) && (head_organ.dna.species.bodyflags & HAS_ALT_HEADS)
 

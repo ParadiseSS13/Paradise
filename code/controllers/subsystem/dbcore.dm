@@ -4,6 +4,10 @@ SUBSYSTEM_DEF(dbcore)
 	wait = 1 MINUTES
 	init_order = INIT_ORDER_DBCORE
 
+	var/schema_mismatch = 0
+	var/db_minor = 0
+	var/db_major = 0
+
 	/// Is the DB schema valid
 	var/schema_valid = TRUE
 	/// Timeout of failed connections
@@ -27,18 +31,22 @@ SUBSYSTEM_DEF(dbcore)
 /datum/controller/subsystem/dbcore/stat_entry()
 	..("A: [length(active_queries)]")
 
-// This is in Initialize() so that its actually seen in chat
 /datum/controller/subsystem/dbcore/Initialize()
-	if(!schema_valid)
-		to_chat(world, "<span class='boldannounce'>Database schema ([sql_version]) doesn't match the latest schema version ([SQL_VERSION]). Roundstart has been delayed.</span>")
+	//We send warnings to the admins during subsystem init, as the clients will be New'd and messages
+	//will queue properly with goonchat
+	switch(schema_mismatch)
+		if(1)
+			message_admins("Database schema ([db_major].[db_minor]) doesn't match the latest schema version ([DB_MAJOR_VERSION].[DB_MINOR_VERSION]), this may lead to undefined behaviour or errors")
+		if(2)
+			message_admins("Could not get schema version from database")
 
 	return ..()
 
 /datum/controller/subsystem/dbcore/fire()
 	for(var/I in active_queries)
 		var/datum/db_query/Q = I
-		if(world.time - Q.last_activity_time > 5 MINUTES)
-			log_debug("Found undeleted query, please check the server logs and notify coders.")
+		if(world.time - Q.last_activity_time > (5 MINUTES))
+			message_admins("Found undeleted query, please check the server logs and notify coders.")
 			log_sql("Undeleted query: \"[Q.sql]\" LA: [Q.last_activity] LAT: [Q.last_activity_time]")
 			qdel(Q)
 		if(MC_TICK_CHECK)
@@ -66,7 +74,7 @@ SUBSYSTEM_DEF(dbcore)
 	if(IsConnected())
 		return TRUE
 
-	if(!config.sql_enabled)
+	if(!CONFIG_GET(flag/sql_enabled))
 		return FALSE
 
 	if(failed_connection_timeout <= world.time) //it's been more than 5 seconds since we failed to connect, reset the counter
@@ -76,15 +84,23 @@ SUBSYSTEM_DEF(dbcore)
 		failed_connection_timeout = world.time + 50
 		return FALSE
 
+	var/user = CONFIG_GET(string/feedback_login)
+	var/pass = CONFIG_GET(string/feedback_password)
+	var/db = CONFIG_GET(string/feedback_database)
+	var/address = CONFIG_GET(string/address)
+	var/port = CONFIG_GET(number/port)
+	var/timeout = max(CONFIG_GET(number/async_query_timeout), CONFIG_GET(number/blocking_query_timeout))
+	var/thread_limit = CONFIG_GET(number/bsql_thread_limit)
+
 	var/result = json_decode(rustg_sql_connect_pool(json_encode(list(
-		"host" = sqladdress,
-		"port" = text2num(sqlport),
-		"user" = sqlfdbklogin,
-		"pass" = sqlfdbkpass,
-		"db_name" = sqlfdbkdb,
-		"read_timeout" = config.async_sql_query_timeout,
-		"write_timeout" = config.async_sql_query_timeout,
-		"max_threads" = config.rust_sql_thread_limit,
+		"host" = address,
+		"port" = port,
+		"user" = user,
+		"pass" = pass,
+		"db_name" = db,
+		"read_timeout" = timeout,
+		"write_timeout" = timeout,
+		"max_threads" = thread_limit,
 	))))
 	. = (result["status"] == "ok")
 	if(.)
@@ -95,30 +111,26 @@ SUBSYSTEM_DEF(dbcore)
 		log_sql("Connect() failed | [last_error]")
 		++failed_connections
 
-/**
-  * Schema Version Checker
-  *
-  * Basically verifies that the DB schema in the config is the same as the version the game is expecting.
-  * If it is a valid version, the DB will then connect.
-  */
 /datum/controller/subsystem/dbcore/proc/CheckSchemaVersion()
-	if(config.sql_enabled)
-		// The unit tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running unit tests
-		#ifndef UNIT_TESTS
-		if(config.sql_enabled && sql_version != SQL_VERSION)
-			config.sql_enabled = FALSE
-			schema_valid = FALSE
-			SSticker.ticker_going = FALSE
-			SEND_TEXT(world.log, "Database connection failed: Invalid SQL Versions")
-			return FALSE
-		#endif
+	if(CONFIG_GET(flag/sql_enabled))
 		if(Connect())
-			SEND_TEXT(world.log, "Database connection established")
+			log_world("Database connection established.")
+			var/datum/db_query/query_db_version = NewQuery("SELECT major, minor FROM [format_table_name("schema_revision")] ORDER BY date DESC LIMIT 1")
+			query_db_version.Execute()
+			if(query_db_version.NextRow())
+				db_major = text2num(query_db_version.item[1])
+				db_minor = text2num(query_db_version.item[2])
+				if(db_major != DB_MAJOR_VERSION || db_minor != DB_MINOR_VERSION)
+					schema_mismatch = 1 // flag admin message about mismatch
+					log_sql("Database schema ([db_major].[db_minor]) doesn't match the latest schema version ([DB_MAJOR_VERSION].[DB_MINOR_VERSION]), this may lead to undefined behaviour or errors")
+			else
+				schema_mismatch = 2 //flag admin message about no schema version
+				log_sql("Could not get schema version from database")
+			qdel(query_db_version)
 		else
-			// log_sql() because then an error will be logged in the same place
-			log_sql("Your server failed to establish a connection with the database")
+			log_sql("Your server failed to establish a connection with the database.")
 	else
-		SEND_TEXT(world.log, "Database is not enabled in configuration")
+		log_sql("Database is not enabled in configuration.")
 
 /**
   * Disconnection Handler
@@ -206,25 +218,17 @@ SUBSYSTEM_DEF(dbcore)
   * Does a few sanity checks, then asks the DLL if we are properly connected
   */
 /datum/controller/subsystem/dbcore/proc/IsConnected()
-	if(!config.sql_enabled)
+	if (!CONFIG_GET(flag/sql_enabled))
 		return FALSE
-	if(!schema_valid)
-		return FALSE
-	if(!connection)
+	if (!connection)
 		return FALSE
 	return json_decode(rustg_sql_connected(connection))["status"] == "online"
 
-
-/**
-  * Error Message Helper
-  *
-  * Returns the last error that the subsystem encountered.
-  * Will always report "Database disabled by configuration" if the DB is disabled.
-  */
 /datum/controller/subsystem/dbcore/proc/ErrorMsg()
-	if(!config.sql_enabled)
+	if(!CONFIG_GET(flag/sql_enabled))
 		return "Database disabled by configuration"
 	return last_error
+
 
 /**
   * Error Reporting Helper
@@ -274,8 +278,6 @@ SUBSYSTEM_DEF(dbcore)
 		querys = list(querys)
 
 	var/start_time = start_watch()
-	if(log)
-		log_debug("Mass executing [length(querys)] queries...")
 
 	for(var/thing in querys)
 		var/datum/db_query/query
@@ -297,9 +299,6 @@ SUBSYSTEM_DEF(dbcore)
 		UNTIL(!query.in_progress)
 		if(qdel)
 			qdel(query)
-
-	if(log)
-		log_debug("Executed [length(querys)] queries in [stop_watch(start_time)]s")
 
 /**
   * # db_query
@@ -492,7 +491,7 @@ SUBSYSTEM_DEF(dbcore)
 /client/proc/reestablish_db_connection()
 	set category = "Debug"
 	set name = "Reestablish DB Connection"
-	if(!config.sql_enabled)
+	if(!CONFIG_GET(flag/sql_enabled))
 		to_chat(usr, "<span class='warning'>The Database is not enabled in the server configuration!</span>")
 		return
 

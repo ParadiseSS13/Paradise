@@ -566,7 +566,6 @@
 
 /mob/living/carbon/human/proc/raise_vampire(mob/M)
 	if(!istype(M))
-		log_debug("human/proc/raise_vampire called with invalid argument.")
 		return
 	if(!mind)
 		visible_message("[src] looks to be too stupid to understand what is going on.")

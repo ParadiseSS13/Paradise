@@ -25,7 +25,7 @@ SUBSYSTEM_DEF(jobs)
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
-	if(!SSdbcore.IsConnected() || !config.use_exp_tracking)
+	if(!SSdbcore.IsConnected() || !CONFIG_GET(flag/use_exp_tracking))
 		return
 	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
 
@@ -242,7 +242,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/FillAIPosition()
-	if(config && !config.allow_ai)
+	if(config && !CONFIG_GET(flag/allow_ai))
 		return 0
 
 	var/ai_selected = 0
@@ -406,7 +406,6 @@ SUBSYSTEM_DEF(jobs)
 			player.ready = 0
 			unassigned -= player
 
-	log_debug("Dividing Occupations took [stop_watch(watch)]s")
 	return 1
 
 /datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = 0)
@@ -515,7 +514,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/LoadJobs(jobsfile) //ran during round setup, reads info from jobs.txt -- Urist
-	if(!config.load_jobs_from_txt)
+	if(!CONFIG_GET(flag/load_jobs_from_txt))
 		return 0
 
 	var/list/jobEntries = file2list(jobsfile)

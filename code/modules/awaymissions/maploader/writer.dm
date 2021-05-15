@@ -37,7 +37,6 @@
 
 	var/total_timer = start_watch()
 	var/timer = start_watch()
-	log_debug("Reading turfs...")
 
 	// Read the contents of all the turfs we were given
 	for(var/pos_z in sw.z to ne.z)
@@ -55,7 +54,6 @@
 		template_buffer += "."
 
 	template_buffer_text = jointext(template_buffer, "")
-	log_debug("Reading turfs took [stop_watch(timer)]s.")
 
 	if(length(templates) == 0)
 		CRASH("No templates found!")
@@ -65,7 +63,6 @@
 
 	// Write the list of key/model pairs to the file
 	timer = start_watch()
-	log_debug("Writing out key/model pairs to file header...")
 	var/list/key_models = list()
 	for(var/key_pos in 1 to length(templates))
 		keys[key_pos] = get_model_key(key_pos, key_length)
@@ -73,12 +70,10 @@
 		CHECK_TICK
 
 	dmm_text += jointext(key_models,"")
-	log_debug("Writing key/model pairs complete, took [stop_watch(timer)]s.")
 
 	var/z_level = 0
 	// Loop over all z in our zone
 	timer = start_watch()
-	log_debug("Writing out key map...")
 
 	var/list/key_map = list()
 	var/z_pos = 1
@@ -116,8 +111,6 @@
 		z_pos = findtext(template_buffer_text, ".", z_pos) + 1
 
 	dmm_text += jointext(key_map, "")
-	log_debug("Writing key map complete, took [stop_watch(timer)]s.")
-	log_debug("TOTAL TIME: [stop_watch(total_timer)]s.")
 
 	return dmm_text
 

@@ -26,75 +26,6 @@ Because if you select a player mob as owner it tries to do the proc for
 But you can call procs that are of type /mob/living/carbon/human/proc/ for that player.
 */
 
-/client/proc/callproc()
-	set category = "Debug"
-	set name = "Advanced ProcCall"
-
-	if(!check_rights(R_PROCCALL))
-		return
-
-	spawn(0)
-		var/target = null
-		var/targetselected = 0
-		var/returnval = null
-		var/class = null
-
-		switch(alert("Proc owned by something?",,"Yes","No"))
-			if("Yes")
-				targetselected = 1
-				if(src.holder && src.holder.marked_datum)
-					class = input("Proc owned by...","Owner",null) as null|anything in list("Obj","Mob","Area or Turf","Client","Marked datum ([holder.marked_datum.type])")
-					if(class == "Marked datum ([holder.marked_datum.type])")
-						class = "Marked datum"
-				else
-					class = input("Proc owned by...","Owner",null) as null|anything in list("Obj","Mob","Area or Turf","Client")
-				switch(class)
-					if("Obj")
-						target = input("Enter target:","Target",usr) as obj in world
-					if("Mob")
-						target = input("Enter target:","Target",usr) as mob in world
-					if("Area or Turf")
-						target = input("Enter target:","Target",usr.loc) as area|turf in world
-					if("Client")
-						var/list/keys = list()
-						for(var/client/C)
-							keys += C
-						target = input("Please, select a player!", "Selection", null, null) as null|anything in keys
-					if("Marked datum")
-						target = holder.marked_datum
-					else
-						return
-			if("No")
-				target = null
-				targetselected = 0
-
-		var/procname = clean_input("Proc path, eg: /proc/fake_blood","Path:", null)
-		if(!procname)	return
-
-		if(targetselected && !hascall(target,procname))
-			to_chat(usr, "<font color='red'>Error: callproc(): target has no such call [procname].</font>")
-			return
-
-		var/list/lst = get_callproc_args()
-		if(!lst)
-			return
-
-		if(targetselected)
-			if(!target)
-				to_chat(usr, "<font color='red'>Error: callproc(): owner of proc no longer exists.</font>")
-				return
-			message_admins("[key_name_admin(src)] called [target]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
-			log_admin("[key_name(src)] called [target]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
-			returnval = WrapAdminProcCall(target, procname, lst) // Pass the lst as an argument list to the proc
-		else
-			//this currently has no hascall protection. wasn't able to get it working.
-			message_admins("[key_name_admin(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
-			log_admin("[key_name(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
-			returnval = WrapAdminProcCall(GLOBAL_PROC, procname, lst) // Pass the lst as an argument list to the proc
-
-		to_chat(usr, "<font color='blue'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</font>")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Advanced Proc-Call") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 // All these vars are related to proc call protection
 // If you add more of these, for the love of fuck, protect them
 
@@ -117,42 +48,6 @@ GLOBAL_PROTECT(LastAdminCalledProc)
 GLOBAL_LIST_EMPTY(AdminProcCallSpamPrevention)
 GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
-
-// Wrapper for proccalls where the datum is flagged as vareditted
-/proc/WrapAdminProcCall(datum/target, procname, list/arguments)
-	if(target && procname == "Del")
-		to_chat(usr, "Calling Del() is not allowed")
-		return
-
-	if(target != GLOBAL_PROC && !target.CanProcCall(procname))
-		to_chat(usr, "Proccall on [target.type]/proc/[procname] is disallowed!")
-		return
-	var/current_caller = GLOB.AdminProcCaller
-	var/ckey = usr ? usr.client.ckey : GLOB.AdminProcCaller
-	if(!ckey)
-		CRASH("WrapAdminProcCall with no ckey: [target] [procname] [english_list(arguments)]")
-	if(current_caller && current_caller != ckey)
-		if(!GLOB.AdminProcCallSpamPrevention[ckey])
-			to_chat(usr, "<span class='adminnotice'>Another set of admin called procs are still running, your proc will be run after theirs finish.</span>")
-			GLOB.AdminProcCallSpamPrevention[ckey] = TRUE
-			UNTIL(!GLOB.AdminProcCaller)
-			to_chat(usr, "<span class='adminnotice'>Running your proc</span>")
-			GLOB.AdminProcCallSpamPrevention -= ckey
-		else
-			UNTIL(!GLOB.AdminProcCaller)
-	GLOB.LastAdminCalledProc = procname
-	if(target != GLOBAL_PROC)
-		GLOB.LastAdminCalledTargetUID = target.UID()
-	GLOB.AdminProcCaller = ckey	//if this runtimes, too bad for you
-	++GLOB.AdminProcCallCount
-	try
-		. = world.WrapAdminProcCall(target, procname, arguments)
-	catch
-		to_chat(usr, "<span class='adminnotice'>Your proc call failed to execute, likely from runtimes. You <i>should</i> be out of safety mode. If not, god help you.</span>")
-
-	if(--GLOB.AdminProcCallCount == 0)
-		GLOB.AdminProcCaller = null
-
 //adv proc call this, ya nerds
 /world/proc/WrapAdminProcCall(datum/target, procname, list/arguments)
 	if(target == GLOBAL_PROC)
@@ -163,101 +58,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		to_chat(usr, "<span class='boldannounce'>Call to world/proc/[procname] blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
 		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]l")
-
-/proc/IsAdminAdvancedProcCall()
-#ifdef TESTING
-	return FALSE
-#else
-	return usr && usr.client && GLOB.AdminProcCaller == usr.client.ckey
-#endif
-
-/client/proc/callproc_datum(A as null|area|mob|obj|turf)
-	set category = null
-	set name = "Atom ProcCall"
-
-	if(!check_rights(R_PROCCALL))
-		return
-
-	var/procname = clean_input("Proc name, eg: fake_blood","Proc:", null)
-	if(!procname)
-		return
-
-	if(!hascall(A,procname))
-		to_chat(usr, "<span class='warning'>Error: callproc_datum(): target has no such call [procname].</span>")
-		return
-
-	var/list/lst = get_callproc_args()
-	if(!lst)
-		return
-
-	if(!A || !IsValidSrc(A))
-		to_chat(src, "<span class='warning'>Error: callproc_datum(): owner of proc no longer exists.</span>")
-		return
-	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
-	log_admin("[key_name(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
-
-	spawn()
-		var/returnval = WrapAdminProcCall(A, procname, lst) // Pass the lst as an argument list to the proc
-		to_chat(src, "<span class='notice'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</span>")
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Atom Proc-Call") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/get_callproc_args()
-	var/argnum = input("Number of arguments","Number:",0) as num|null
-	if(!argnum && (argnum!=0))	return
-
-	var/list/lst = list()
-	//TODO: make a list to store whether each argument was initialised as null.
-	//Reason: So we can abort the proccall if say, one of our arguments was a mob which no longer exists
-	//this will protect us from a fair few errors ~Carn
-
-	while(argnum--)
-		var/class = null
-		// Make a list with each index containing one variable, to be given to the proc
-		if(src.holder && src.holder.marked_datum)
-			class = input("What kind of variable?","Variable Type") in list("text","num","type","reference","mob reference","icon","file","client","mob's area","Marked datum ([holder.marked_datum.type])","CANCEL")
-			if(holder.marked_datum && class == "Marked datum ([holder.marked_datum.type])")
-				class = "Marked datum"
-		else
-			class = input("What kind of variable?","Variable Type") in list("text","num","type","reference","mob reference","icon","file","client","mob's area","CANCEL")
-		switch(class)
-			if("CANCEL")
-				return null
-
-			if("text")
-				lst += clean_input("Enter new text:","Text",null)
-
-			if("num")
-				lst += input("Enter new number:","Num",0) as num
-
-			if("type")
-				lst += input("Enter type:","Type") in typesof(/obj,/mob,/area,/turf)
-
-			if("reference")
-				lst += input("Select reference:","Reference",src) as mob|obj|turf|area in world
-
-			if("mob reference")
-				lst += input("Select reference:","Reference",usr) as mob in world
-
-			if("file")
-				lst += input("Pick file:","File") as file
-
-			if("icon")
-				lst += input("Pick icon:","Icon") as icon
-
-			if("client")
-				var/list/keys = list()
-				for(var/mob/M in world)
-					keys += M.client
-				lst += input("Please, select a player!", "Selection", null, null) as null|anything in keys
-
-			if("mob's area")
-				var/mob/temp = input("Select mob", "Selection", usr) as mob in world
-				lst += temp.loc
-
-			if("Marked datum")
-				lst += holder.marked_datum
-	return lst
 
 /client/proc/Cell()
 	set category = "Debug"
@@ -983,3 +783,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	vis.set_content(ui_dat.Join(""))
 	vis.open(FALSE)
+
+/client/proc/reload_configuration()
+	set category = "Debug"
+	set name = "Reload Configuration"
+	set desc = "Force config reload to world default"
+	if(!check_rights(R_DEBUG))
+		return
+	if(alert(usr, "Are you absolutely sure you want to reload the configuration from the default path on the disk, wiping any in-round modificatoins?", "Really reset?", "No", "Yes") == "Yes")
+		config.admin_reload()

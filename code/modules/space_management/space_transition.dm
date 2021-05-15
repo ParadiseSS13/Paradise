@@ -55,8 +55,6 @@
 			add_connection(S, Z_LEVEL_EAST)
 		else if(S.xi == xi-1)
 			add_connection(S, Z_LEVEL_WEST)
-	else // yell about evil wizards, this shouldn't happen
-		log_debug("Two z levels attempted to link, but were not adjacent! Our z:([xi],[yi]). Other z:([S.xi],[S.yi])")
 
 // `direction` here is the direction from `src` to `S`
 /datum/space_level/proc/add_connection(datum/space_level/S, direction)
@@ -199,16 +197,10 @@
 /datum/spacewalk_grid/Destroy()
 	for(var/datum/point/P in filled_nodes)
 		release_node(P)
-	if(available_nodes.len > 1)
-		log_debug("Multiple nodes left behind after SW grid qdel: [available_nodes.len]")
-		for(var/datum/point/P in available_nodes)
-			log_debug("([P.x],[P.y])")
 	return ..()
 
 /datum/spacewalk_grid/proc/add_available_node(datum/point/P)
 	var/hash = P.hash()
-	if(hash in all_nodes)
-		log_debug("Hash overlap! [hash]")
 	all_nodes[P.hash()] = P
 	available_nodes |= P
 
@@ -243,8 +235,6 @@
 				available_nodes -= P2
 				all_nodes -= P2.hash()
 				qdel(P)
-			else
-				log_debug("Isolated z level at ([P2.x],[P2.y]): [P2.spl.zpos]")
 	P.deactivate()
 	P.neighbors.Cut()
 
@@ -346,7 +336,6 @@
 // transit turf cache
 /datum/zlev_manager/proc/setup_space_destinations(force_all_rebuilds = FALSE)
 	var/timer = start_watch()
-	log_debug("Assigning space turf destinations...")
 	var/datum/space_level/D
 	var/datum/space_level/E
 	var/turf/space/S
@@ -361,7 +350,6 @@
 
 	for(var/foo in levels_to_rebuild) //Define the transitions of the z levels
 		D = foo
-		log_debug("Z level [D.zpos]")
 		switch(D.linkage)
 			if(UNAFFECTED)
 				for(var/B in D.transit_west | D.transit_east | D.transit_south | D.transit_north)
@@ -393,7 +381,6 @@
 					S.set_transition_north(E.zpos)
 		unbuilt_space_transitions -= D
 
-	log_debug("Assigning space turf destinations complete. Took [stop_watch(timer)]s.")
 
 // Nothing fancy, just does it all at once
 /datum/zlev_manager/proc/do_transition_setup()

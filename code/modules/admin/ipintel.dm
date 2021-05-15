@@ -14,18 +14,18 @@
 	. = FALSE
 	if(intel < 0)
 		return
-	if(intel <= config.ipintel_rating_bad)
-		if(world.realtime < cacherealtime + (config.ipintel_save_good HOURS))
+	if(intel <= CONFIG_GET(number/ipintel_rating_bad))
+		if(world.realtime < cacherealtime + (CONFIG_GET(number/ipintel_save_good) HOURS))
 			return TRUE
 	else
-		if(world.realtime < cacherealtime + (config.ipintel_save_bad HOURS))
+		if(world.realtime < cacherealtime + (CONFIG_GET(number/ipintel_save_bad) HOURS))
 			return TRUE
 
 /proc/get_ip_intel(ip, bypasscache = FALSE, updatecache = TRUE)
 	var/datum/ipintel/res = new()
 	res.ip = ip
 	. = res
-	if(!ip || !config.ipintel_email || !SSipintel.enabled)
+	if(!ip || !CONFIG_GET(string/ipintel_email) || !SSipintel.enabled)
 		return
 	if(!bypasscache)
 		var/datum/ipintel/cachedintel = SSipintel.cache[ip]
@@ -50,9 +50,9 @@
 					))
 				"}, list(
 					"ip" = ip,
-					"rating_bad" = config.ipintel_rating_bad,
-					"save_good" = config.ipintel_save_good,
-					"save_bad" = config.ipintel_save_bad,
+					"rating_bad" = CONFIG_GET(number/ipintel_rating_bad),
+					"save_good" = CONFIG_GET(number/ipintel_save_good),
+					"save_bad" = CONFIG_GET(number/ipintel_save_bad),
 				))
 			if(!query_get_ip_intel.warn_execute())
 				qdel(query_get_ip_intel)
@@ -93,7 +93,7 @@
 		return
 
 	// Do not refactor this to use SShttp, because that requires the subsystem to be firing for requests to be made, and this will be triggered before the MC has finished loading
-	var/list/http[] = world.Export("http://[config.ipintel_domain]/check.php?ip=[ip]&contact=[config.ipintel_email]&format=json&flags=b")
+	var/list/http[] = world.Export("http://[CONFIG_GET(string/ipintel_domain)]/check.php?ip=[ip]&contact=[CONFIG_GET(string/ipintel_email)]&format=json&flags=b")
 
 	if(http)
 		var/status = text2num(http["STATUS"])
@@ -142,13 +142,12 @@
 
 /proc/log_ipintel(text)
 	log_game("IPINTEL: [text]")
-	log_debug("IPINTEL: [text]")
 
 
 /proc/ipintel_is_banned(t_ckey, t_ip)
-	if(!config.ipintel_email)
+	if(!CONFIG_GET(string/ipintel_email))
 		return FALSE
-	if(!config.ipintel_whitelist)
+	if(!CONFIG_GET(flag/ipintel_whitelist))
 		return FALSE
 	if(!SSdbcore.IsConnected())
 		return FALSE
@@ -159,13 +158,11 @@
 	return TRUE
 
 /proc/ipintel_badip_check(target_ip)
-	var/rating_bad = config.ipintel_rating_bad
+	var/rating_bad = CONFIG_GET(number/ipintel_rating_bad)
 	if(!rating_bad)
-		log_debug("ipintel_badip_check reports misconfigured rating_bad directive")
 		return FALSE
-	var/valid_hours = config.ipintel_save_bad
+	var/valid_hours = CONFIG_GET(number/ipintel_save_bad)
 	if(!valid_hours)
-		log_debug("ipintel_badip_check reports misconfigured ipintel_save_bad directive")
 		return FALSE
 	var/datum/db_query/query_get_ip_intel = SSdbcore.NewQuery({"
 		SELECT * FROM [format_table_name("ipintel")] WHERE ip = INET_ATON(:target_ip)
@@ -177,7 +174,6 @@
 		)
 	)
 	if(!query_get_ip_intel.warn_execute())
-		log_debug("ipintel_badip_check reports failed query execution")
 		qdel(query_get_ip_intel)
 		return FALSE
 	if(!query_get_ip_intel.NextRow())
@@ -187,7 +183,7 @@
 	return TRUE
 
 /proc/vpn_whitelist_check(target_ckey)
-	if(!config.ipintel_whitelist)
+	if(!CONFIG_GET(flag/ipintel_whitelist))
 		return FALSE
 	var/datum/db_query/query_whitelist_check = SSdbcore.NewQuery("SELECT * FROM [format_table_name("vpn_whitelist")] WHERE ckey=:ckey", list(
 		"ckey" = target_ckey

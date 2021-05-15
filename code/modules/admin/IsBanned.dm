@@ -2,7 +2,6 @@
 /world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE)
 
 	if(!key || !address || !computer_id)
-		log_adminwarn("Failed Login (invalid data): [key] [address]-[computer_id]")
 		// The nested ternaries are needed here
 		INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, (ckey(key) || ""), (address || ""), (computer_id || ""), CONNECTION_TYPE_DROPPED_INVALID)
 		return list("reason"="invalid login data", "desc"="Error: Could not check ban status, please try again. Error message: Your computer provided invalid or blank information to the server on connection (BYOND Username, IP, and Computer ID). Provided information for reference: Username: '[key]' IP: '[address]' Computer ID: '[computer_id]'. If you continue to get this error, please restart byond or contact byond support.")
@@ -11,7 +10,6 @@
 		return ..() //shunt world topic banchecks to purely to byond's internal ban system
 
 	if(text2num(computer_id) == 2147483647) //this cid causes stickybans to go haywire
-		log_adminwarn("Failed Login (invalid cid): [key] [address]-[computer_id]")
 		INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_INVALID)
 		return list("reason"="invalid login data", "desc"="Error: Could not check ban status, Please try again. Error message: Your computer provided an invalid Computer ID.")
 
@@ -29,22 +27,20 @@
 
 	//Guest Checking
 	if(!GLOB.guests_allowed && IsGuestKey(key))
-		log_adminwarn("Failed Login: [key] [computer_id] [address] - Guests not allowed")
 		// message_admins("<span class='notice'>Failed Login: [key] - Guests not allowed</span>")
 		INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_BANNED)
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
 
 	//check if the IP address is a known proxy/vpn, and the user is not whitelisted
-	if(check_ipintel && config.ipintel_email && config.ipintel_whitelist && ipintel_is_banned(key, address))
-		log_adminwarn("Failed Login: [key] [computer_id] [address] - Proxy/VPN")
+	if(check_ipintel && CONFIG_GET(string/ipintel_email) && CONFIG_GET(flag/ipintel_whitelist) && ipintel_is_banned(key, address))
 		var/mistakemessage = ""
-		if(config.banappeals)
-			mistakemessage = "\nIf you have to use one, request whitelisting at:  [config.banappeals]"
+		if(CONFIG_GET(string/banappeals))
+			mistakemessage = "\nIf you have to use one, request whitelisting at:  [CONFIG_GET(string/banappeals)]"
 		INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_IPINTEL)
 		return list("reason"="using proxy or vpn", "desc"="\nReason: Proxies/VPNs are not allowed here. [mistakemessage]")
 
 
-	if(config.ban_legacy_system)
+	if(CONFIG_GET(flag/ban_legacy_system))
 		//Ban Checking
 		. = CheckBan(ckey(key), computer_id, address)
 		if(.)
@@ -53,7 +49,6 @@
 				message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching ban on [.["key"]]</span>")
 				addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching ban on [.["key"]].</span>")
 			else
-				log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned [.["reason"]]")
 				return .
 	else
 		var/ckeytext = ckey(key)
@@ -116,15 +111,14 @@
 				expires = " The ban is for [duration] minutes and expires on [expiration] (server time)."
 			else
 				var/appealmessage = ""
-				if(config.banappeals)
-					appealmessage = " You may appeal it at <a href='[config.banappeals]'>[config.banappeals]</a>."
+				if(CONFIG_GET(string/banappeals))
+					appealmessage = " You may appeal it at <a href='[CONFIG_GET(string/banappeals)]'>[CONFIG_GET(string/banappeals)]</a>."
 				expires = " This ban does not expire automatically and must be appealed.[appealmessage]"
 
 			var/desc = "\nReason: You, or another user of this computer or connection ([pckey]) is banned from playing here. The ban reason is:\n[reason]\nThis ban was applied by [ackey] on [bantime][ban_round_id ? " (Round [ban_round_id])" : ""].[expires]"
 
 			. = list("reason"="[bantype]", "desc"="[desc]")
 
-			log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned [.["reason"]]")
 			INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_BANNED)
 			qdel(query)
 			return .
@@ -141,6 +135,5 @@
 			addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching host/sticky ban.</span>")
 			return null
 		else
-			log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned [.["message"]]")
 			INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_BANNED)
 	return .

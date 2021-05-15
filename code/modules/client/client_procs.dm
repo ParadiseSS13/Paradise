@@ -45,9 +45,6 @@
 		// If there's a ]_ in the src, it's a UID, so don't try to locate it
 		if(!hsrc && !findtext(href_list["src"], "]_"))
 			hsrc = locate(href_list["src"])
-			if(hsrc)
-				var/hsrc_info = datum_info_line(hsrc) || "[hsrc]"
-				log_runtime(EXCEPTION("Got \\ref-based src in topic from [src] for [hsrc_info], should be UID: [href]"))
 
 	#if defined(TOPIC_DEBUGGING)
 	to_chat(world, "[src]'s Topic: [href] destined for [hsrc].")
@@ -122,11 +119,11 @@
 
 
 	//Logs all hrefs
-	if(config && config.log_hrefs)
+	if(config && CONFIG_GET(flag/log_hrefs))
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
 	if(href_list["karmashop"])
-		if(config.disable_karma)
+		if(CONFIG_GET(flag/disable_karma))
 			return
 
 		switch(href_list["karmashop"])
@@ -218,7 +215,7 @@
 			to_chat(src, "<span class='danger'>You are sending messages to quickly. Please wait [wait_time] [wait_time == 1 ? "second" : "seconds"] before sending another message.</span>")
 			return 1
 		last_message_time = world.time
-	if(config.automute_on && !check_rights(R_ADMIN, 0) && last_message == message)
+	if(CONFIG_GET(flag/automute_on) && !check_rights(R_ADMIN, 0) && last_message == message)
 		last_message_count++
 		if(last_message_count >= SPAM_TRIGGER_AUTOMUTE)
 			to_chat(src, "<span class='danger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>")
@@ -259,7 +256,7 @@
 		return null
 	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
 		version_blocked = TRUE
-	if(byond_build < config.minimum_client_build)
+	if(byond_build < CONFIG_GET(number/minimum_client_build))
 		version_blocked = TRUE
 
 	var/show_update_prompt = FALSE
@@ -274,7 +271,7 @@
 	GLOB.directory[ckey] = src
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
-	if(!config.disable_localhost_admin)
+	if(!CONFIG_GET(flag/disable_localhost_admin))
 		if(is_connecting_from_localhost())
 			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
 	holder = GLOB.admin_datums[ckey]
@@ -383,7 +380,7 @@
 			playercount += 1
 
 	// Update the state of the panic bunker based on current playercount
-	var/threshold = config.panic_bunker_threshold
+	var/threshold = CONFIG_GET(number/panic_bunker_threshold)
 
 	if((playercount > threshold) && (GLOB.panic_bunker_enabled == FALSE))
 		GLOB.panic_bunker_enabled = TRUE
@@ -465,7 +462,7 @@
 
 /client/proc/donor_loadout_points()
 	if(donator_level > 0 && prefs)
-		prefs.max_gear_slots = config.max_loadout_points + 5
+		prefs.max_gear_slots = CONFIG_GET(number/max_loadout_points) + 5
 
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
@@ -568,7 +565,7 @@
 
 		// Check new peeps for panic bunker
 		if(GLOB.panic_bunker_enabled)
-			var/threshold = config.panic_bunker_threshold
+			var/threshold = CONFIG_GET(number/panic_bunker_threshold)
 			src << "Server is not accepting connections from never-before-seen players until player count is less than [threshold]. Please try again later."
 			qdel(src)
 			return // Dont insert or they can just go in again
@@ -592,18 +589,16 @@
 
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
-	if(config.ipintel_email)
-		if(config.ipintel_maxplaytime && config.use_exp_tracking)
+	if(CONFIG_GET(string/ipintel_email))
+		if(CONFIG_GET(number/ipintel_maxplaytime) && CONFIG_GET(flag/use_exp_tracking))
 			var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
-			if(living_hours >= config.ipintel_maxplaytime)
+			if(living_hours >= CONFIG_GET(number/ipintel_maxplaytime))
 				return
 
 		if(is_connecting_from_localhost())
-			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] connecting from localhost.")
 			return
 
 		if(vpn_whitelist_check(ckey))
-			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] [address] on whitelist.")
 			return
 
 		var/datum/ipintel/res = get_ip_intel(address)
@@ -611,14 +606,14 @@
 		verify_ip_intel()
 
 /client/proc/verify_ip_intel()
-	if(ip_intel >= config.ipintel_rating_bad)
-		var/detailsurl = config.ipintel_detailsurl ? "(<a href='[config.ipintel_detailsurl][address]'>IP Info</a>)" : ""
-		if(config.ipintel_whitelist)
+	if(ip_intel >= CONFIG_GET(number/ipintel_rating_bad))
+		var/detailsurl = CONFIG_GET(string/ipintel_detailsurl) ? "(<a href='[CONFIG_GET(string/ipintel_detailsurl)][address]'>IP Info</a>)" : ""
+		if(CONFIG_GET(flag/ipintel_whitelist))
 			spawn(40) // This is necessary because without it, they won't see the message, and addtimer cannot be used because the timer system may not have initialized yet
 				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]</span>")
 				var/blockmsg = "<B>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</B>"
-				if(config.banappeals)
-					blockmsg += "\nIf you are not actually using a proxy/VPN, or have no choice but to use one, request whitelisting at: [config.banappeals]"
+				if(CONFIG_GET(string/banappeals))
+					blockmsg += "\nIf you are not actually using a proxy/VPN, or have no choice but to use one, request whitelisting at: [CONFIG_GET(string/banappeals)]"
 				to_chat(src, blockmsg)
 				qdel(src)
 		else
@@ -626,9 +621,9 @@
 
 
 /client/proc/check_forum_link()
-	if(!config.forum_link_url || !prefs || prefs.fuid)
+	if(!CONFIG_GET(string/forum_link_url) || !prefs || prefs.fuid)
 		return
-	if(config.use_exp_tracking)
+	if(CONFIG_GET(flag/use_exp_tracking))
 		var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
 		if(living_hours < 20)
 			return
@@ -662,7 +657,7 @@
 	return tokenstr
 
 /client/proc/link_forum_account(fromban)
-	if(!config.forum_link_url)
+	if(!CONFIG_GET(string/forum_link_url))
 		return
 	if(IsGuestKey(key))
 		to_chat(src, "Guest keys cannot be linked.")
@@ -688,7 +683,7 @@
 	if(!tokenid)
 		to_chat(src, "link_forum_account: unable to create token")
 		return
-	var/url = "[config.forum_link_url][tokenid]"
+	var/url = "[CONFIG_GET(string/forum_link_url)][tokenid]"
 	if(fromban)
 		url += "&fwd=appeal"
 		to_chat(src, {"Now opening a window to verify your information with the forums, so that you can appeal your ban. If the window does not load, please copy/paste this link: <a href="[url]">[url]</a>"})
@@ -708,7 +703,7 @@
 	if(connection != "seeker")					//Invalid connection type.
 		return null
 	topic = params2list(topic)
-	if(!config.check_randomizer)
+	if(!CONFIG_GET(flag/check_randomizer))
 		return
 	// Stash o' ckeys
 	var/static/cidcheck = list()
@@ -770,8 +765,6 @@
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
 
-			log_adminwarn("Failed Login: [key] [computer_id] [address] - CID randomizer confirmed (oldcid: [oldcid])")
-
 			qdel(src)
 			return TRUE
 		else
@@ -819,7 +812,6 @@
 /client/proc/cid_check_reconnect()
 	var/token = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
 	. = token
-	log_adminwarn("Failed Login: [key] [computer_id] [address] - CID randomizer check")
 	var/url = winget(src, null, "url")
 	//special javascript to make them reconnect under a new window.
 	src << browse("<a id='link' href='byond://[url]?token=[token]'>\
@@ -841,10 +833,10 @@
 //Send resources to the client.
 /client/proc/send_resources()
 	// Change the way they should download resources.
-	if(config.resource_urls)
-		preload_rsc = pick(config.resource_urls)
+	if(CONFIG_GET(string/resource_urls))
+		preload_rsc = pick(CONFIG_GET(string/resource_urls))
 	else
-		preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
+		preload_rsc = 1 // If CONFIG_GET(string/resource_urls) is not set, preload like normal.
 	// Most assets are now handled through global_cache.dm
 	getFiles(
 		'html/search.js', // Used in various non-TGUI HTML windows for search functionality
@@ -948,7 +940,7 @@
 	void.UpdateGreed(actualview[1],actualview[2])
 
 /client/proc/send_ssd_warning(mob/M)
-	if(!config.ssd_warning)
+	if(!CONFIG_GET(flag/ssd_warning))
 		return FALSE
 	if(ssd_warning_acknowledged)
 		return FALSE
@@ -1033,13 +1025,10 @@
 				// Main return is here
 				return parsed_data
 			catch
-				log_debug("Error parsing byond.com data for [ckey]. Please inform maintainers.")
 				return null
 		else
-			log_debug("Error retrieving data from byond.com for [ckey]. Invalid status code (Expected: 200 | Got: [status]).")
 			return null
 	else
-		log_debug("Failed to retrieve data from byond.com for [ckey]. Connection failed.")
 		return null
 
 
@@ -1073,7 +1062,6 @@
 	// They dont have a date, lets grab one
 	var/list/byond_data = retrieve_byondacc_data()
 	if(isnull(byond_data) || !(byond_data["general"]["joined"]))
-		log_debug("Failed to retrieve an account creation date for [ckey].")
 		return
 
 	byondacc_date = byond_data["general"]["joined"]
@@ -1101,7 +1089,7 @@
 	qdel(query_age)
 
 	// Notify admins on new clients connecting, if the byond account age is less than a config value
-	if(notify && (byondacc_age < config.byond_account_age_threshold))
+	if(notify && (byondacc_age < CONFIG_GET(number/byond_account_age_threshold)))
 		message_admins("[key] has just connected for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 /client/proc/show_update_notice()
@@ -1148,7 +1136,7 @@
   */
 /client/proc/cid_count_check()
 	// If the config is 0, disable this
-	if(config.max_client_cid_history == 0)
+	if(CONFIG_GET(number/max_client_cid_history) == 0)
 		return
 
 	// If we have no DB, dont even bother
@@ -1168,7 +1156,7 @@
 		cidcount = query_cidcheck.item[1]
 	qdel(query_cidcheck)
 
-	if(cidcount > config.max_client_cid_history)
+	if(cidcount > CONFIG_GET(number/max_client_cid_history))
 		// Check their notes for CID tracking in the past
 		var/has_note = FALSE
 		var/note_text = ""

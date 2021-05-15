@@ -16,7 +16,6 @@
 	if(act != "me")
 		return
 
-	log_ghostemote(message, src)
 
 	if(src.client)
 		if(src.client.prefs.muted & MUTE_DEADCHAT)

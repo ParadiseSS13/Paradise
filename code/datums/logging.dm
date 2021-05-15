@@ -3,7 +3,6 @@
 
 /datum/logging/proc/add_log(ckey, datum/log_record/log)
 	if(!ckey)
-		log_debug("GLOB.logging.add_log called with an invalid ckey")
 		return
 
 	if(!logs[ckey])
@@ -28,10 +27,8 @@
 */
 /datum/logging/proc/get_logs_by_type(ckey, log_type)
 	if(!ckey)
-		log_debug("GLOB.logging.get_logs_by_type called with an invalid ckey")
 		return
 	if(!log_type || !(log_type in ALL_LOGS))
-		log_debug("GLOB.logging.get_logs_by_type called with an invalid log_type '[log_type]'")
 		return
 
 	var/list/log_types_list = logs[ckey]
