@@ -638,6 +638,9 @@
 	dir = 8
 	},
 /obj/item/tank/internals/oxygen,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bI" = (
@@ -1014,13 +1017,13 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
-"mX" = (
+"NP" = (
 /obj/effect/mob_spawn/animal_sleeper/cow{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
-"nK" = (
+"UD" = (
 /obj/effect/mob_spawn/animal_sleeper/dog{
 	dir = 4
 	},
@@ -1466,10 +1469,10 @@ ae
 ae
 bh
 bv
-nK
+UD
 cJ
 bn
-mX
+NP
 bP
 ae
 cE
