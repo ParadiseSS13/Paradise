@@ -51,15 +51,18 @@
 		held_item = null
 
 /obj/item/organ/internal/headpocket/emp_act(severity)
-	held_item.emp_act(severity)
+	if(held_item)
+		held_item.emp_act(severity)
 	..()
 
 /obj/item/organ/internal/headpocket/hear_talk(mob/living/M, list/message_pieces)
-	held_item.hear_talk(M, message_pieces)
+	if(held_item)
+		held_item.hear_talk(M, message_pieces)
 	..()
 
 /obj/item/organ/internal/headpocket/hear_message(mob/living/M, msg)
-	held_item.hear_message(M, msg)
+	if(held_item)
+		held_item.hear_message(M, msg)
 	..()
 
 /obj/item/organ/internal/heart/skrell

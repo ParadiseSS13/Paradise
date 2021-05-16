@@ -193,6 +193,8 @@
 /obj/item/grab/proc/adjust_position()
 	if(affecting.buckled)
 		return
+	if(!assailant.Adjacent(affecting)) // To prevent teleportation via grab
+		return
 	if(affecting.lying && state != GRAB_KILL)
 		animate(affecting, pixel_x = 0, pixel_y = 0, 5, 1, LINEAR_EASING)
 		return //KJK

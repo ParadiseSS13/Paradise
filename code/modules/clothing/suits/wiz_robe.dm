@@ -22,7 +22,7 @@
 	name = "black wizard hat"
 	desc = "Strange-looking black hat-wear that most certainly belongs to a real skeleton. Spooky."
 	icon_state = "blackwizard"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/black_wizard
 
 /obj/item/clothing/head/wizard/clown
 	name = "purple wizard hat"
@@ -58,14 +58,14 @@
 	name = "witch hat"
 	desc = "Strange-looking hat-wear, makes you want to cast fireballs."
 	icon_state = "marisa"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/wizard/marisa
 
 /obj/item/clothing/head/wizard/magus
 	name = "magus helm"
 	desc = "A mysterious helmet that hums with an unearthly power"
 	icon_state = "magus"
 	item_state = "magus"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/wizard/magus
 
 /obj/item/clothing/head/wizard/amp
 	name = "psychic amplifier"

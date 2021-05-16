@@ -1,5 +1,11 @@
-# Updating DB from 22-23
-# Adds player.keybindings (longtext) ~dearmochi
+# Updating SQL from version 22 to 23 -AffectedArc07
+# Converts existing MyISAM tables to InnoDB
 
-# Add column to player
-ALTER TABLE `player` ADD COLUMN `keybindings` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL AFTER `byond_date`;
+ALTER TABLE `customuseritems` ENGINE=InnoDB;
+ALTER TABLE `death` ENGINE=InnoDB;
+ALTER TABLE `feedback` ENGINE=InnoDB;
+ALTER TABLE `karma` ENGINE=InnoDB;
+ALTER TABLE `karmatotals` ENGINE=InnoDB;
+ALTER TABLE `legacy_population` ENGINE=InnoDB;
+ALTER TABLE `library` ENGINE=InnoDB;
+ALTER TABLE `whitelist` ENGINE=InnoDB;
