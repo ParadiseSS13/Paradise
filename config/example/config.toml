@@ -241,7 +241,7 @@ gamemode_probabilities = [
 	{gamemode = "wizard", probability = 2},
 ]
 # Maximum cycles (2s) before a shadowling starts to take damage if they dont hatch
-shadowling_max_age = 600
+shadowling_max_age = 600 # 20 minutes
 # Do we want the amount of traitors to scale with population?
 traitor_scaling = true
 # Protect mindshielded roles from being antagonists
@@ -250,6 +250,8 @@ prevent_mindshield_antag = true
 disable_certain_round_early_end = false
 # Amount of objectives for traitors to get (Does not include escape or hijack)
 traitor_objective_amount = 2
+# Enable player limits on gamemodes. Disable if testing
+enable_gamemode_player_limit = true
 
 
 ################################################################
@@ -342,8 +344,6 @@ developer_express_start = false
 minimum_client_build = 1421
 # Give a confirmation when pressing "Start Now". Useful for avoiding starting the live server early
 start_now_confirmation = true
-# Enable player limits on gamemodes. Disable if testing
-enable_gamemode_player_limit = true
 # BYOND accounts younger than this threshold (days) will cause alerts on first login
 byond_account_age_threshold = 3
 # Maximum CIDs a client can have attached to them before they trip a warning

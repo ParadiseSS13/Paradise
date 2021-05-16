@@ -115,7 +115,7 @@ SUBSYSTEM_DEF(ticker)
 				next_autotransfer = world.time + config.vote_autotransfer_interval
 
 			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
-			if(config.continuous_rounds)
+			if(GLOB.configuration.gamemode.disable_certain_round_early_end)
 				mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
 			else
 				game_finished |= mode.check_finished()
@@ -144,7 +144,7 @@ SUBSYSTEM_DEF(ticker)
 	var/list/datum/game_mode/runnable_modes
 
 	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
-		runnable_modes = config.get_runnable_modes()
+		runnable_modes = GLOB.configuration.gamemode.get_runnable_modes()
 		if(!length(runnable_modes))
 			to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
 			force_start = FALSE
@@ -152,9 +152,9 @@ SUBSYSTEM_DEF(ticker)
 			Master.SetRunLevel(RUNLEVEL_LOBBY)
 			return FALSE
 		if(GLOB.secret_force_mode != "secret")
-			var/datum/game_mode/M = config.pick_mode(GLOB.secret_force_mode)
+			var/datum/game_mode/M = GLOB.configuration.gamemode.pick_mode(GLOB.secret_force_mode)
 			if(M.can_start())
-				mode = config.pick_mode(GLOB.secret_force_mode)
+				mode = GLOB.configuration.gamemode.pick_mode(GLOB.secret_force_mode)
 		SSjobs.ResetOccupations()
 		if(!mode)
 			mode = pickweight(runnable_modes)
@@ -162,7 +162,7 @@ SUBSYSTEM_DEF(ticker)
 			var/mtype = mode.type
 			mode = new mtype
 	else
-		mode = config.pick_mode(GLOB.master_mode)
+		mode = GLOB.configuration.gamemode.pick_mode(GLOB.master_mode)
 
 	if(!mode.can_start())
 		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players needed. Reverting to pre-game lobby.")

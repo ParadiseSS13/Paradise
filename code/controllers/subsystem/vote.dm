@@ -211,7 +211,7 @@ SUBSYSTEM_DEF(vote)
 			if("gamemode")
 				if(SSticker.current_state >= 2)
 					return 0
-				choices.Add(config.votable_modes)
+				choices.Add(GLOB.configuration.gamemode.votable_modes)
 			if("crew_transfer")
 				if(check_rights(R_ADMIN|R_MOD))
 					if(SSticker.current_state <= 2)

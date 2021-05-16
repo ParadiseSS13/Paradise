@@ -38,7 +38,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		return 0
 	if(!role)
 		return 0
-	if(!config.use_age_restriction_for_antags)
+	if(!GLOB.configuration.gamemode.antag_account_age_restriction)
 		return 0
 	if(!isnum(C.player_age))
 		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
@@ -1318,17 +1318,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("species")
 					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
 					var/prev_species = species
-//						var/whitelisted = 0
 
-					if(config.usealienwhitelist) //If we're using the whitelist, make sure to check it!
-						for(var/Spec in GLOB.whitelisted_species)
-							if(is_alien_whitelisted(user,Spec))
-								new_species += Spec
-//									whitelisted = 1
-//							if(!whitelisted)
-//								alert(user, "You cannot change your species as you need to be whitelisted. If you wish to be whitelisted contact an admin in-game, on the forums, or on IRC.")
-					else //Not using the whitelist? Aliens for everyone!
-						new_species += GLOB.whitelisted_species
+					for(var/Spec in GLOB.whitelisted_species)
+						if(is_alien_whitelisted(user,Spec))
+							new_species += Spec
 
 					species = input("Please select a species", "Character Generation", null) in sortTim(new_species, /proc/cmp_text_asc)
 					var/datum/species/NS = GLOB.all_species[species]
@@ -1411,18 +1404,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("language")
 //						var/languages_available
 					var/list/new_languages = list("None")
-/*
-					if(config.usealienwhitelist)
-						for(var/L in GLOB.all_languages)
-							var/datum/language/lang = GLOB.all_languages[L]
-							if((!(lang.flags & RESTRICTED)) && (is_alien_whitelisted(user, L)||(!( lang.flags & WHITELISTED ))))
-								new_languages += lang
-								languages_available = 1
-
-						if(!(languages_available))
-							alert(user, "There are not currently any available secondary languages.")
-					else
-*/
 					for(var/L in GLOB.all_languages)
 						var/datum/language/lang = GLOB.all_languages[L]
 						if(!(lang.flags & RESTRICTED))

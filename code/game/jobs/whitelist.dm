@@ -34,10 +34,7 @@
 	else
 		return TRUE
 
-//todo: admin aliens
 /proc/is_alien_whitelisted(mob/M, species)
-	if(!config.usealienwhitelist)
-		return TRUE
 	if(config.disable_karma)
 		return TRUE
 	if(species == "human" || species == "Human")

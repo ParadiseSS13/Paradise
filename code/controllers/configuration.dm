@@ -18,18 +18,12 @@
 	var/vote_no_default = 0				// vote does not default to nochange/norestart (tbi)
 	var/vote_no_dead = 0				// dead people can't vote (tbi)
 //	var/enable_authentication = 0		// goon authentication
-	var/traitor_scaling = 0 			//if amount of traitors scales based on amount of players
-	var/protect_roles_from_antagonist = 0// If security and such can be tratior/cult/other
-	var/continuous_rounds = 0			// Gamemodes which end instantly will instead keep on going until the round ends by escape shuttle or nuke.
 	var/allow_Metadata = 0				// Metadata is supported.
 	var/popup_admin_pm = 0				//adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
 	var/list/resource_urls = null
 	var/antag_hud_allowed = 0      // Ghosts can turn on Antagovision to see a HUD of who is the bad guys this round.
 	var/antag_hud_restricted = 0                    // Ghosts that turn on Antagovision cannot rejoin the round.
-	var/list/mode_names = list()
-	var/list/modes = list()				// allowed modes
-	var/list/votable_modes = list()		// votable modes
-	var/list/probabilities = list()		// relative probability of each mode
+
 	var/respawn = 0
 	var/guest_jobban = 1
 	var/panic_bunker_threshold = 150	// above this player count threshold, never-before-seen players are blocked from connecting
@@ -46,15 +40,9 @@
 
 	var/list_afk_minimum = 5 // How long people have to be AFK before it's listed on the "List AFK players" verb
 
-	var/traitor_objectives_amount = 2
-	var/shadowling_max_age = 0
-
 	var/max_maint_drones = 5				//This many drones can spawn,
 	var/allow_drone_spawn = 1				//assuming the admin allow them to.
 	var/drone_build_time = 1200				//A drone will become available every X ticks since last drone spawn. Default is 2 minutes.
-
-	var/usealienwhitelist = 0
-	var/limitalienplayers = 0
 
 	var/server
 	var/banappeals
@@ -109,7 +97,6 @@
 	var/forum_playerinfo_url
 
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
-	var/use_age_restriction_for_antags = 0 //Do antags use account age restrictions? --requires database
 
 	var/simultaneous_pm_warning_timeout = 100
 
@@ -151,9 +138,6 @@
 	//cube monkey limit
 	var/cubemonkeycap = 20
 
-	// Makes gamemodes respect player limits
-	var/enable_gamemode_player_limit = 0
-
 	/// BYOND account age limit for notifcations of new accounts (Any accounts older than this value will not send notifications on first join)
 	var/byond_account_age_threshold = 7
 
@@ -165,19 +149,6 @@
 
 	/// Enable auto profiler of rounds
 	var/auto_profile = FALSE
-
-/datum/configuration/New()
-	for(var/T in subtypesof(/datum/game_mode))
-		var/datum/game_mode/M = T
-
-		if(initial(M.config_tag))
-			if(!(initial(M.config_tag) in modes))		// ensure each mode is added only once
-				src.modes += initial(M.config_tag)
-				src.mode_names[initial(M.config_tag)] = initial(M.name)
-				src.probabilities[initial(M.config_tag)] = initial(M.probability)
-				if(initial(M.votable))
-					src.votable_modes += initial(M.config_tag)
-	src.votable_modes += "secret"
 
 /datum/configuration/proc/load(filename, type = "config") //the type can also be game_options, in which case it uses a different switch. not making it separate to not copypaste code - Urist
 	if(IsAdminAdvancedProcCall())
@@ -216,9 +187,6 @@
 
 				if("ban_legacy_system")
 					config.ban_legacy_system = 1
-
-				if("shadowling_max_age")
-					config.shadowling_max_age = text2num(value)
 
 				if("ssd_warning")
 					config.ssd_warning = 1
@@ -326,6 +294,7 @@
 					config.donationsurl = value
 
 				if("guest_ban")
+					#warn AA clear this up
 					GLOB.guests_allowed = 0
 
 				if("panic_bunker_threshold")
@@ -336,27 +305,6 @@
 
 				if("allow_metadata")
 					config.allow_Metadata = 1
-
-				if("traitor_scaling")
-					config.traitor_scaling = 1
-
-				if("protect_roles_from_antagonist")
-					config.protect_roles_from_antagonist = 1
-
-				if("probability")
-					var/prob_pos = findtext(value, " ")
-					var/prob_name = null
-					var/prob_value = null
-
-					if(prob_pos)
-						prob_name = lowertext(copytext(value, 1, prob_pos))
-						prob_value = copytext(value, prob_pos + 1)
-						if(prob_name in config.modes)
-							config.probabilities[prob_name] = text2num(prob_value)
-						else
-							log_config("Unknown game mode probability configuration definition: [prob_name].")
-					else
-						log_config("Incorrect probability configuration definition: [prob_name]  [prob_value].")
 
 				if("forbid_singulo_possession")
 					forbid_singulo_possession = 1
@@ -379,12 +327,6 @@
 				if("automute_on")
 					automute_on = 1
 
-				if("usealienwhitelist")
-					usealienwhitelist = 1
-
-				if("continuous_rounds")
-					config.continuous_rounds = 1
-
 				if("ghost_interaction")
 					config.ghost_interaction = 1
 
@@ -392,6 +334,7 @@
 					config.comms_password = value
 
 				if("python_path")
+					#warn AA clear this up
 					if(value)
 						GLOB.python_path = value
 					else
@@ -437,6 +380,7 @@
 					config.shutdown_on_reboot = 1
 
 				if("shutdown_shell_command")
+					#warn AA clear this up
 					GLOB.shutdown_shell_command = value
 
 				if("disable_karma")
@@ -447,8 +391,6 @@
 
 				if("developer_express_start")
 					config.developer_express_start = 1
-				if("enable_gamemode_player_limit")
-					config.enable_gamemode_player_limit = 1
 				if("byond_account_age_threshold")
 					config.byond_account_age_threshold = text2num(value)
 				if("centcom_ban_db_url")
@@ -493,8 +435,6 @@
 					config.bones_can_break = value
 				if("shuttle_refuel_delay")
 					config.shuttle_refuel_delay     = text2num(value)
-				if("traitor_objectives_amount")
-					config.traitor_objectives_amount = text2num(value)
 				if("reactionary_explosions")
 					config.reactionary_explosions	= 1
 				if("bombcap")
@@ -506,6 +446,7 @@
 					if(BombCap > 128)
 						BombCap = 128
 
+					#warn AA clear this up
 					GLOB.max_ex_devastation_range = round(BombCap/4)
 					GLOB.max_ex_heavy_range = round(BombCap/2)
 					GLOB.max_ex_light_range = BombCap
@@ -522,25 +463,3 @@
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
-/datum/configuration/proc/pick_mode(mode_name)
-	for(var/T in subtypesof(/datum/game_mode))
-		var/datum/game_mode/M = T
-		if(initial(M.config_tag) && initial(M.config_tag) == mode_name)
-			return new T()
-	return new /datum/game_mode/extended()
-
-/datum/configuration/proc/get_runnable_modes()
-	var/list/datum/game_mode/runnable_modes = new
-	for(var/T in subtypesof(/datum/game_mode))
-		var/datum/game_mode/M = new T()
-//		to_chat(world, "DEBUG: [T], tag=[M.config_tag], prob=[probabilities[M.config_tag]]")
-		if(!(M.config_tag in modes))
-			qdel(M)
-			continue
-		if(probabilities[M.config_tag]<=0)
-			qdel(M)
-			continue
-		if(M.can_start())
-			runnable_modes[M] = probabilities[M.config_tag]
-//			to_chat(world, "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]")
-	return runnable_modes

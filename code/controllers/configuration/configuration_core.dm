@@ -17,6 +17,8 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/discord_configuration/discord
 	/// Holder for the Event configuration datum
 	var/datum/configuration_section/event_configuration/event
+	/// Holder for the gamemode configuration datum
+	var/datum/configuration_section/gamemode_configuration/gamemode
 	/// Holder for the gateway configuration datum
 	var/datum/configuration_section/gateway_configuration/gateway
 	/// Holder for the job configuration datum
@@ -48,6 +50,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	database = new()
 	discord = new()
 	event = new()
+	gamemode = new()
 	gateway = new()
 	jobs = new()
 	logging = new()
@@ -69,6 +72,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	database.load_data(raw_config_data["database_configuration"])
 	discord.load_data(raw_config_data["discord_configuration"])
 	event.load_data(raw_config_data["event_configuration"])
+	gamemode.load_data(raw_config_data["gamemode_configuration"])
 	gateway.load_data(raw_config_data["gateway_configuration"])
 	jobs.load_data(raw_config_data["job_configuration"])
 	logging.load_data(raw_config_data["logging_configuration"])

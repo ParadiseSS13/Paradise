@@ -99,7 +99,7 @@
 		return
 
 	var/player_age_check = check_client_age(usr.client, 14) // 14 days to play as a drone
-	if(player_age_check && config.use_age_restriction_for_antags)
+	if(player_age_check && GLOB.configuration.gamemode.antag_account_age_restriction)
 		to_chat(usr, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
 		return
 
