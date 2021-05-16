@@ -9,6 +9,7 @@
 	return ishuman(M)
 
 /datum/mutation/monkey/activate(mob/living/carbon/human/H)
+	..()
 	if(!istype(H))
 		return
 	if(issmall(H))
@@ -42,6 +43,7 @@
 	return H
 
 /datum/mutation/monkey/deactivate(mob/living/carbon/human/H)
+	..()
 	if(!istype(H))
 		return
 	if(!issmall(H))
