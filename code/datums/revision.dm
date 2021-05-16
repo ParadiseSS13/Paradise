@@ -13,9 +13,12 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	var/commit_date
 
 /datum/code_revision/New()
-	commit_hash = rustg_git_revparse("HEAD")
-	if(commit_hash)
-		commit_date = rustg_git_commit_date(commit_hash)
+	commit_hash = "-"
+	commit_date = "-"
+	return
+	// commit_hash = rustg_git_revparse("HEAD")
+	// if(commit_hash)
+	// 	commit_date = rustg_git_commit_date(commit_hash)
 
 /**
   * Code Revision Logging Helper
