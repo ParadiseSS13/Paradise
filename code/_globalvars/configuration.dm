@@ -35,10 +35,3 @@ GLOBAL_VAR_INIT(eventchance, 10) //% per 5 mins
 GLOBAL_VAR_INIT(event, 0)
 GLOBAL_VAR_INIT(hadevent, 0)
 GLOBAL_VAR_INIT(blobevent, 0)
-
-// These vars are protected because changing them could pose a security risk, though they are fine to be read since they are just system paths
-GLOBAL_VAR(shutdown_shell_command) // Command to run if shutting down (SHUTDOWN_ON_REBOOT) instead of rebooting
-GLOBAL_PROTECT(shutdown_shell_command)
-
-GLOBAL_VAR(python_path) //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
-GLOBAL_PROTECT(python_path)

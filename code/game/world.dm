@@ -130,10 +130,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		// Now handle a reboot
-		if(config && config.shutdown_on_reboot)
+		if(GLOB?.configuration?.system.shutdown_on_reboot)
 			sleep(0)
-			if(GLOB.shutdown_shell_command)
-				shell(GLOB.shutdown_shell_command)
+			if(GLOB.configuration.system.shutdown_shell_command)
+				shell(GLOB.configuration.system.shutdown_shell_command)
 			del(world)
 			TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying
 			return
@@ -164,10 +164,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 	// And begin the real shutdown
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
-	if(config && config.shutdown_on_reboot)
+	if(GLOB?.configuration?.system.shutdown_on_reboot)
 		sleep(0)
-		if(GLOB.shutdown_shell_command)
-			shell(GLOB.shutdown_shell_command)
+		if(GLOB.configuration.system.shutdown_shell_command)
+			shell(GLOB.configuration.system.shutdown_shell_command)
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		del(world)
 		TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying

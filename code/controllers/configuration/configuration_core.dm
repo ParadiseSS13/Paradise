@@ -31,6 +31,8 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/overflow_configuration/overflow
 	/// Holder for the ruins configuration datum
 	var/datum/configuration_section/ruin_configuration/ruins
+	/// Holder for the system configuration datum
+	var/datum/configuration_section/system_configuration/system
 	/// Holder for the voting configuration datum
 	var/datum/configuration_section/vote_configuration/vote
 
@@ -60,6 +62,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	mc = new()
 	overflow = new()
 	ruins = new()
+	system = new()
 	vote = new()
 
 	// Load our stuff up
@@ -83,6 +86,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	mc.load_data(raw_config_data["mc_configuration"])
 	overflow.load_data(raw_config_data["overflow_configuration"])
 	ruins.load_data(raw_config_data["ruin_configuration"])
+	system.load_data(raw_config_data["system_configuration"])
 	vote.load_data(raw_config_data["voting_configuration"])
 
 	// And report the load

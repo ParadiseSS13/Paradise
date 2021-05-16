@@ -24,8 +24,6 @@
 	var/mods_are_mentors = 0
 	var/automute_on = 0					//enables automuting/spam prevention
 	var/round_abandon_penalty_period = 30 MINUTES // Time from round start during which ghosting out is penalized
-	var/medal_hub_address = null
-	var/medal_hub_password = null
 
 	var/reactionary_explosions = 0 //If we use reactionary explosions, explosions that react to walls and doors
 
@@ -95,7 +93,6 @@
 
 	var/ghost_interaction = 0
 
-	var/comms_password = ""
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
 
@@ -113,8 +110,6 @@
 	var/max_loadout_points = 5 // How many points can be spent on extra items in character setup
 
 	var/disable_ooc_emoji = 0 // prevents people from using emoji in OOC
-
-	var/shutdown_on_reboot = 0 // Whether to shut down the world instead of rebooting it
 
 	var/disable_karma = 0 // Disable all karma functions and unlock karma jobs by default
 
@@ -299,19 +294,6 @@
 				if("ghost_interaction")
 					config.ghost_interaction = 1
 
-				if("comms_password")
-					config.comms_password = value
-
-				if("python_path")
-					#warn AA clear this up
-					if(value)
-						GLOB.python_path = value
-					else
-						if(world.system_type == UNIX)
-							GLOB.python_path = "/usr/bin/env python2"
-						else //probably windows, if not this should work anyway
-							GLOB.python_path = "pythonw"
-
 				if("allow_drone_spawn")
 					config.allow_drone_spawn = text2num(value)
 
@@ -336,21 +318,8 @@
 				if("round_abandon_penalty_period")
 					config.round_abandon_penalty_period = text2num(value) MINUTES
 
-				if("medal_hub_address")
-					config.medal_hub_address = value
-
-				if("medal_hub_password")
-					config.medal_hub_password = value
-
 				if("disable_ooc_emoji")
 					config.disable_ooc_emoji = 1
-
-				if("shutdown_on_reboot")
-					config.shutdown_on_reboot = 1
-
-				if("shutdown_shell_command")
-					#warn AA clear this up
-					GLOB.shutdown_shell_command = value
 
 				if("disable_karma")
 					config.disable_karma = 1
