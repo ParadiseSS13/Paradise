@@ -133,13 +133,13 @@
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(is_admin_level(H.z)) //We can't sacrifice people that are on the centcom z-level
 			continue
-		if(H.mind && !is_convertable_to_cult(H.mind) && (H.stat != DEAD) && (H.mind.offstation_role != TRUE))
+		if(H.mind && !iscultist(H) && !is_convertable_to_cult(H.mind) && (H.stat != DEAD) && !H.mind.offstation_role)
 			target_candidates += H.mind
 	if(!length(target_candidates))	//There are no living unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
 		for(var/mob/living/carbon/human/H in GLOB.player_list)
 			if(is_admin_level(H.z)) //We can't sacrifice people that are on the centcom z-level
 				continue
-			if(H.mind && !iscultist(H) && (H.stat != DEAD) && (H.mind.offstation_role != TRUE))
+			if(H.mind && !iscultist(H) && (H.stat != DEAD) && !H.mind.offstation_role) // Same checks, but add them even if they could be converted
 				target_candidates += H.mind
 	if(length(target_candidates))
 		target = pick(target_candidates)

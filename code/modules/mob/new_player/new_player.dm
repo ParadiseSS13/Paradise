@@ -198,7 +198,8 @@
 			QDEL_NULL(mind)
 			GLOB.respawnable_list += observer
 			qdel(src)
-			return 1
+			return TRUE
+		return FALSE
 	if(href_list["tos"])
 		privacy_consent()
 		return FALSE
