@@ -9,14 +9,7 @@
 	var/nudge_script_path = "nudge.py"  // where the nudge.py script is located
 
 	var/pregame_timestart = 240			// Time it takes for the server to start the game
-	var/allow_vote_restart = 0 			// allow votes to restart
-	var/allow_vote_mode = 0				// allow votes to change mode
-	var/vote_delay = 6000				// minimum time between voting sessions (deciseconds, 10 minute default)
-	var/vote_period = 600				// length of voting period (deciseconds, default 1 minute)
-	var/vote_autotransfer_initial = 72000 // Length of time before the first autotransfer vote is called
-	var/vote_autotransfer_interval = 18000 // length of time before next sequential autotransfer vote
-	var/vote_no_default = 0				// vote does not default to nochange/norestart (tbi)
-	var/vote_no_dead = 0				// dead people can't vote (tbi)
+
 //	var/enable_authentication = 0		// goon authentication
 	var/allow_Metadata = 0				// Metadata is supported.
 	var/popup_admin_pm = 0				//adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
@@ -220,30 +213,6 @@
 
 				if("pregame_timestart")
 					config.pregame_timestart = text2num(value)
-
-				if("allow_vote_restart")
-					config.allow_vote_restart = 1
-
-				if("allow_vote_mode")
-					config.allow_vote_mode = 1
-
-				if("no_dead_vote")
-					config.vote_no_dead = 1
-
-				if("vote_autotransfer_initial")
-					config.vote_autotransfer_initial = text2num(value)
-
-				if("vote_autotransfer_interval")
-					config.vote_autotransfer_interval = text2num(value)
-
-				if("default_no_vote")
-					config.vote_no_default = 1
-
-				if("vote_delay")
-					config.vote_delay = text2num(value)
-
-				if("vote_period")
-					config.vote_period = text2num(value)
 
 				if("norespawn")
 					config.respawn = 0

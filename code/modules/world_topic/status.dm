@@ -8,7 +8,7 @@
 	status_info["mode"] = GLOB.master_mode
 	status_info["respawn"] = GLOB.abandon_allowed
 	status_info["enter"] = GLOB.enter_allowed
-	status_info["vote"] = config.allow_vote_mode
+	status_info["vote"] = GLOB.configuration.vote.allow_mode_votes
 	status_info["ai"] = GLOB.configuration.jobs.allow_ai
 	status_info["host"] = world.host ? world.host : null
 	status_info["players"] = list()

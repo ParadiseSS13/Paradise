@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(vote)
 
 		// Calculate how much time is remaining by comparing current time, to time of vote start,
 		// plus vote duration
-		time_remaining = round((started_time + config.vote_period - world.time)/10)
+		time_remaining = round((started_time + GLOB.configuration.vote.vote_time - world.time)/10)
 
 		if(time_remaining < 0)
 			result()
@@ -83,7 +83,7 @@ SUBSYSTEM_DEF(vote)
 		choices -= sorted_highest
 	choices = sorted_choices
 	//default-vote for everyone who didn't vote
-	if(!config.vote_no_default && choices.len)
+	if(!GLOB.configuration.vote.disable_default_vote && choices.len)
 		var/non_voters = (GLOB.clients.len - total_votes)
 		if(non_voters > 0)
 			if(mode == "restart")
@@ -186,7 +186,7 @@ SUBSYSTEM_DEF(vote)
 
 /datum/controller/subsystem/vote/proc/submit_vote(ckey, vote)
 	if(mode)
-		if(config.vote_no_dead && usr.stat == DEAD && !usr.client.holder)
+		if(GLOB.configuration.vote.prevent_dead_voting && usr.stat == DEAD && !usr.client.holder)
 			return 0
 		if(current_votes[ckey])
 			choices[choices[current_votes[ckey]]]--
@@ -200,7 +200,7 @@ SUBSYSTEM_DEF(vote)
 /datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key)
 	if(!mode)
 		if(started_time != null && !check_rights(R_ADMIN))
-			var/next_allowed_time = (started_time + config.vote_delay)
+			var/next_allowed_time = (started_time + GLOB.configuration.vote.vote_delay)
 			if(next_allowed_time > world.time)
 				return 0
 
@@ -246,7 +246,7 @@ SUBSYSTEM_DEF(vote)
 		log_vote(text)
 		to_chat(world, {"<font color='purple'><b>[text]</b>
 			<a href='?src=[UID()];vote=open'>Click here or type vote to place your vote.</a>
-			You have [config.vote_period/10] seconds to vote.</font>"})
+			You have [GLOB.configuration.vote.vote_time / 10] seconds to vote.</font>"})
 		switch(vote_type)
 			if("crew_transfer")
 				SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
@@ -276,7 +276,7 @@ SUBSYSTEM_DEF(vote)
 			log_admin("OOC was toggled automatically due to custom vote.")
 			message_admins("OOC has been toggled off automatically.")
 
-		time_remaining = round(config.vote_period/10)
+		time_remaining = round(GLOB.configuration.vote.vote_time / 10)
 		return 1
 	return 0
 
@@ -301,25 +301,25 @@ SUBSYSTEM_DEF(vote)
 	else
 		dat += "<div id='vote_div'><h2>Start a vote:</h2><hr><ul><li>"
 		//restart
-		if(admin || config.allow_vote_restart)
+		if(admin || GLOB.configuration.vote.allow_restart_votes)
 			dat += "<a href='?src=[UID()];vote=restart'>Restart</a>"
 		else
 			dat += "<font color='grey'>Restart (Disallowed)</font>"
 		dat += "</li><li>"
-		if(admin || config.allow_vote_restart)
+		if(admin || GLOB.configuration.vote.allow_restart_votes)
 			dat += "<a href='?src=[UID()];vote=crew_transfer'>Crew Transfer</a>"
 		else
 			dat += "<font color='grey'>Crew Transfer (Disallowed)</font>"
 		if(admin)
-			dat += "\t(<a href='?src=[UID()];vote=toggle_restart'>[config.allow_vote_restart?"Allowed":"Disallowed"]</a>)"
+			dat += "\t(<a href='?src=[UID()];vote=toggle_restart'>[GLOB.configuration.vote.allow_restart_votes ? "Allowed" : "Disallowed"]</a>)"
 		dat += "</li><li>"
 		//gamemode
-		if(admin || config.allow_vote_mode)
+		if(admin || GLOB.configuration.vote.allow_mode_votes)
 			dat += "<a href='?src=[UID()];vote=gamemode'>GameMode</a>"
 		else
 			dat += "<font color='grey'>GameMode (Disallowed)</font>"
 		if(admin)
-			dat += "\t(<a href='?src=[UID()];vote=toggle_gamemode'>[config.allow_vote_mode?"Allowed":"Disallowed"]</a>)"
+			dat += "\t(<a href='?src=[UID()];vote=toggle_gamemode'>[GLOB.configuration.vote.allow_mode_votes ? "Allowed" : "Disallowed"]</a>)"
 
 		dat += "</li>"
 		//custom
@@ -371,18 +371,18 @@ SUBSYSTEM_DEF(vote)
 				reset()
 		if("toggle_restart")
 			if(admin)
-				config.allow_vote_restart = !config.allow_vote_restart
+				GLOB.configuration.vote.allow_restart_votes = !GLOB.configuration.vote.allow_restart_votes
 		if("toggle_gamemode")
 			if(admin)
-				config.allow_vote_mode = !config.allow_vote_mode
+				GLOB.configuration.vote.allow_mode_votes = !GLOB.configuration.vote.allow_mode_votes
 		if("restart")
-			if(config.allow_vote_restart || admin)
+			if(GLOB.configuration.vote.allow_restart_votes || admin)
 				initiate_vote("restart",usr.key)
 		if("gamemode")
-			if(config.allow_vote_mode || admin)
+			if(GLOB.configuration.vote.allow_mode_votes || admin)
 				initiate_vote("gamemode",usr.key)
 		if("crew_transfer")
-			if(config.allow_vote_restart || admin)
+			if(GLOB.configuration.vote.allow_restart_votes || admin)
 				initiate_vote("crew_transfer",usr.key)
 		if("custom")
 			if(admin)

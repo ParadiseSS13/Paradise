@@ -230,7 +230,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(config && config.server_extra_features)
 		features += config.server_extra_features
 
-	if(config && config.allow_vote_mode)
+	if(GLOB?.configuration?.vote.allow_restart_votes)
 		features += "vote"
 
 	if(config && config.wikiurl)

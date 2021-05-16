@@ -112,7 +112,7 @@ SUBSYSTEM_DEF(ticker)
 
 			if(world.time > next_autotransfer)
 				SSvote.autotransfer()
-				next_autotransfer = world.time + config.vote_autotransfer_interval
+				next_autotransfer = world.time + GLOB.configuration.vote.autotransfer_interval_time
 
 			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
 			if(GLOB.configuration.gamemode.disable_certain_round_early_end)
@@ -264,7 +264,7 @@ SUBSYSTEM_DEF(ticker)
 	round_start_time = world.time
 
 	// Sets the auto shuttle vote to happen after the config duration
-	next_autotransfer = world.time + config.vote_autotransfer_initial
+	next_autotransfer = world.time + GLOB.configuration.vote.autotransfer_initial_time
 
 	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)

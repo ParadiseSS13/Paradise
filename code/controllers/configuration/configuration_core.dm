@@ -31,6 +31,9 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/overflow_configuration/overflow
 	/// Holder for the ruins configuration datum
 	var/datum/configuration_section/ruin_configuration/ruins
+	/// Holder for the voting configuration datum
+	var/datum/configuration_section/vote_configuration/vote
+
 
 /datum/server_configuration/Destroy(force)
 	SHOULD_CALL_PARENT(FALSE)
@@ -57,6 +60,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	mc = new()
 	overflow = new()
 	ruins = new()
+	vote = new()
 
 	// Load our stuff up
 	var/config_file = "config/config.toml"
@@ -79,6 +83,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	mc.load_data(raw_config_data["mc_configuration"])
 	overflow.load_data(raw_config_data["overflow_configuration"])
 	ruins.load_data(raw_config_data["ruin_configuration"])
+	vote.load_data(raw_config_data["voting_configuration"])
 
 	// And report the load
 	DIRECT_OUTPUT(world.log, "Config loaded in [stop_watch(start)]s")
