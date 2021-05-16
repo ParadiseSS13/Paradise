@@ -9680,6 +9680,16 @@
 	dir = 9
 	},
 /area/crew_quarters/courtroom)
+"aGX" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/asmaint2)
 "aGY" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel/freezer,
@@ -15667,6 +15677,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
+"aUA" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/asmaint)
 "aUB" = (
 /obj/machinery/door/airlock/vault{
 	icon_state = "door_locked";
@@ -16188,6 +16211,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "aVW" = (
@@ -16656,6 +16686,23 @@
 /area/mine/unexplored{
 	name = "Engineering Asteroid"
 	})
+"aXG" = (
+/obj/structure/cable/orange{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/apmaint)
 "aXN" = (
 /obj/machinery/vending/hydronutrients,
 /turf/simulated/floor/grass,
@@ -17831,6 +17878,13 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
 "baQ" = (
@@ -18977,6 +19031,13 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
 	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/north)
@@ -28595,6 +28656,13 @@
 	dir = 1
 	},
 /obj/effect/landmark/burnturf,
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/electrical_shop)
 "bxb" = (
@@ -33213,6 +33281,13 @@
 	pixel_x = 24;
 	pixel_y = 25;
 	req_one_access_txt = "19;41"
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
 	},
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
@@ -40621,6 +40696,13 @@
 "cae" = (
 /obj/structure/table/wood/poker,
 /obj/item/toy/cards/deck,
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
 /turf/simulated/floor/wood,
 /area/maintenance/gambling_den)
 "cah" = (
@@ -42634,6 +42716,13 @@
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "cgo" = (
@@ -42816,6 +42905,16 @@
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"cgT" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating,
+/area/security/execution)
 "cgU" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -44953,6 +45052,13 @@
 "clW" = (
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -52649,6 +52755,13 @@
 	layer = 4;
 	name = "EXTERNAL AIRLOCK";
 	pixel_y = 32
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -69963,6 +70076,13 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
 "dRx" = (
@@ -70541,6 +70661,18 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/toxins/launch)
+"epW" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/fpmaint2)
 "eqs" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -70550,6 +70682,16 @@
 	icon_state = "bcarpet05"
 	},
 /area/crew_quarters/fitness)
+"equ" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating,
+/area/engine/engine_smes)
 "eqT" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/asteroid,
@@ -71593,6 +71735,19 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/asmaint2)
+"flo" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/port)
 "flM" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -73929,6 +74084,24 @@
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
+"hkx" = (
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/gambling_den)
 "hlg" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -74096,6 +74269,18 @@
 /area/maintenance/auxsolarstarboard{
 	name = "\improper Cargo Solar Maintenance"
 	})
+"hqW" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/apmaint)
 "hqZ" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -74162,6 +74347,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/westalt)
+"huR" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/aft)
 "hvd" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -75571,6 +75766,21 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/port/east)
+"iDz" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/apmaint)
 "iEC" = (
 /turf/simulated/wall/r_wall,
 /area/hallway/primary/fore)
@@ -75652,6 +75862,18 @@
 /obj/machinery/status_display,
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
+"iGX" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/aft)
 "iHu" = (
 /turf/simulated/floor/plasteel,
 /area/construction)
@@ -76230,6 +76452,13 @@
 	icon_state = "2-4"
 	},
 /obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar{
 	name = "\improper Command Solar Maintenance"
@@ -76570,6 +76799,16 @@
 /area/crew_quarters/sleep{
 	name = "\improper Arcade Cyrogenic Dormitories"
 	})
+"juK" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/maintcentral)
 "jvh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/security/glass{
@@ -78387,6 +78626,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/westalt)
+"kQN" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/fsmaint2)
 "kRe" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -78475,6 +78727,13 @@
 	icon_state = "pipe-c"
 	},
 /obj/item/wrench,
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
 "kUZ" = (
@@ -79411,6 +79670,23 @@
 "lGy" = (
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/westalt)
+"lIc" = (
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/asmaint)
 "lID" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -79743,6 +80019,28 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
+"lVG" = (
+/obj/effect/decal/cleanable/dirt{
+	desc = "A thin layer of dust coating the floor.";
+	name = "dust"
+	},
+/obj/effect/decal/cleanable/dirt{
+	desc = "A thin layer of dust coating the floor.";
+	name = "dust"
+	},
+/obj/effect/decal/cleanable/dirt{
+	desc = "A thin layer of dust coating the floor.";
+	name = "dust"
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/maintenance/aft)
 "lVT" = (
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
@@ -80014,6 +80312,16 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/disposal/external/southeast)
+"meB" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/fpmaint2)
 "meS" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/firedoor,
@@ -81107,6 +81415,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/prison/cell_block/A)
+"mUe" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "mUu" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -81852,6 +82175,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"nAt" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "nAT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -82821,6 +83154,13 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/east)
@@ -84173,6 +84513,16 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/hallway/primary/fore)
+"pvr" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "pvB" = (
 /obj/effect/turf_decal/stripes/end,
 /obj/structure/cable/orange{
@@ -84387,6 +84737,13 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/southwest)
@@ -84801,6 +85158,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
+"pTJ" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/storage)
 "pUy" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -84822,6 +85189,16 @@
 /obj/item/coin/silver,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
+"pVw" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "pVB" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -85197,6 +85574,13 @@
 "qkL" = (
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -85737,6 +86121,13 @@
 /area/maintenance/disposal/east)
 "qFX" = (
 /obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
 /turf/simulated/floor/plating,
 /area/mine/unexplored{
 	name = "Near Station Asteroids"
@@ -85920,6 +86311,19 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/port)
+"qON" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "qOY" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -85992,6 +86396,16 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/genetics)
+"qTd" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/west)
 "qTI" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -87083,6 +87497,13 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "rRd" = (
@@ -87196,6 +87617,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/southwest)
+"rVw" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating,
+/area/hallway/primary/starboard/south)
 "rVC" = (
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
@@ -87407,6 +87841,13 @@
 /obj/item/multitool,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light,
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -87837,6 +88278,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"swR" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint2)
 "swV" = (
 /obj/item/storage/box/syringes,
 /obj/structure/rack,
@@ -89181,6 +89632,13 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull";
 	tag = "icon-whitebluefull"
@@ -90095,6 +90553,13 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard{
 	name = "\improper Cargo Solar Maintenance"
@@ -90667,6 +91132,24 @@
 /obj/effect/baseturf_helper/asteroid/airless,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
+"uNz" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/asmaint2)
 "uNA" = (
 /turf/simulated/wall/rust,
 /area/maintenance/gambling_den)
@@ -90960,6 +91443,16 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/fore/east)
+"vaY" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/asmaint)
 "vbG" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/plating,
@@ -90978,6 +91471,13 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -91057,6 +91557,18 @@
 	},
 /turf/simulated/wall,
 /area/maintenance/disposal/westalt)
+"vgt" = (
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/asmaint)
 "vgu" = (
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
@@ -92902,6 +93414,23 @@
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"wuM" = (
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/asmaint2)
 "wvp" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -93389,6 +93918,13 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8;
 	icon_state = "pipe-c"
+	},
+/obj/effect/spawner/grouped_spawner{
+	group_id = "tunnelbats";
+	max_per_spawner = 1;
+	name = "bat spawner";
+	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	total_amount = 10
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -102650,7 +103186,7 @@ bhO
 uBw
 tjb
 uGb
-uGb
+pvr
 jZd
 uGb
 uBw
@@ -104633,7 +105169,7 @@ eIP
 ctU
 arc
 arc
-arc
+qTd
 arc
 ipF
 eIP
@@ -106210,7 +106746,7 @@ azV
 azV
 mbc
 oFB
-nmK
+mUe
 cMQ
 cMT
 cMT
@@ -107263,7 +107799,7 @@ bkU
 bkU
 bkU
 eCI
-gHa
+flo
 bEN
 bGi
 bHN
@@ -108371,7 +108907,7 @@ cyI
 czq
 cxd
 cAn
-uUK
+uNz
 cSU
 uUK
 uUK
@@ -111012,7 +111548,7 @@ abW
 abW
 agk
 dkH
-dkH
+cgT
 eVS
 agm
 adS
@@ -114429,7 +114965,7 @@ aXn
 aXn
 aXn
 cEM
-tma
+kQN
 bad
 baH
 baH
@@ -115242,7 +115778,7 @@ aia
 vEs
 rSr
 kNx
-kNx
+hkx
 kNx
 rSr
 xzg
@@ -119151,7 +119687,7 @@ nxx
 coP
 wZD
 kfP
-asN
+wuM
 csD
 csD
 csD
@@ -120967,7 +121503,7 @@ cAA
 cAK
 xxk
 jFh
-kfP
+aGX
 kfP
 oVq
 ccW
@@ -121396,7 +121932,7 @@ rNK
 aXR
 aXR
 gwb
-kNB
+pTJ
 sgp
 qwC
 jsU
@@ -129662,7 +130198,7 @@ cYH
 cYM
 cYC
 cYC
-cYH
+lVG
 cZb
 cZb
 cYM
@@ -130407,7 +130943,7 @@ bQI
 bRG
 bND
 bTk
-bTJ
+equ
 bUx
 bND
 vVm
@@ -130836,7 +131372,7 @@ cXA
 wJC
 xiE
 wJC
-wJC
+juK
 xiE
 eAS
 aJt
@@ -131953,7 +132489,7 @@ vVm
 vVm
 ixa
 ulo
-tIC
+huR
 vgu
 cQY
 ixa
@@ -134762,7 +135298,7 @@ vgu
 vgu
 lrq
 vyv
-vyv
+iGX
 vUQ
 tIC
 tIC
@@ -135160,9 +135696,9 @@ rNK
 rNK
 aaf
 aaf
-rNK
+djp
 aRX
-rNK
+djp
 aaf
 aaf
 aaf
@@ -137498,7 +138034,7 @@ aif
 adq
 sYg
 aqv
-aqv
+pVw
 aqv
 amD
 rae
@@ -138149,7 +138685,7 @@ kCN
 nVz
 pbA
 lwA
-psv
+meB
 psv
 psv
 sgl
@@ -138237,7 +138773,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+djp
 aaf
 aaf
 aaf
@@ -138669,7 +139205,7 @@ wLr
 sgl
 mru
 cgr
-fZk
+swR
 chG
 cii
 ciM
@@ -138751,7 +139287,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+djp
 aaf
 aaf
 aaf
@@ -141842,9 +142378,9 @@ rNK
 rNK
 rNK
 rNK
-rNK
+djp
 cCK
-rNK
+djp
 aaf
 aaf
 aaf
@@ -143249,7 +143785,7 @@ dBL
 bIN
 bCg
 sBp
-bMB
+rVw
 sBp
 mcI
 vXn
@@ -144440,7 +144976,7 @@ aky
 bmb
 alK
 amJ
-dvb
+iDz
 qVG
 eEw
 ftr
@@ -144977,7 +145513,7 @@ cLr
 cLr
 cLr
 fmM
-xTi
+hqW
 uBC
 lrT
 aPH
@@ -145339,7 +145875,7 @@ cbV
 cbV
 sgl
 ccM
-uad
+epW
 psv
 psv
 psv
@@ -148105,7 +148641,7 @@ aZM
 aZM
 aZN
 vqf
-mJk
+lIc
 vXX
 bij
 biT
@@ -148144,7 +148680,7 @@ lCQ
 yfZ
 vqf
 sDL
-mqf
+qON
 iSn
 aZM
 aZM
@@ -150646,7 +151182,7 @@ uBC
 pcf
 aVG
 pcf
-pcf
+nAt
 pcf
 csz
 rNK
@@ -151395,7 +151931,7 @@ avp
 cxV
 vLW
 xTi
-qVG
+aXG
 kGA
 kGA
 tCI
@@ -153282,7 +153818,7 @@ srC
 vWF
 xjx
 xjx
-vqf
+vgt
 xjx
 rNo
 rNK
@@ -153529,7 +154065,7 @@ pLs
 kNm
 vWF
 kef
-xuJ
+aUA
 gdn
 gdn
 vpJ
@@ -154019,7 +154555,7 @@ aZM
 aZM
 aZM
 gQP
-sDL
+vaY
 ekk
 bil
 blW
