@@ -68,13 +68,24 @@
 	item_color = "solgov"
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
+/obj/item/clothing/under/solgov/elite
+	name = "\improper Trans-Solar Federation Specops marine uniform"
+	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces."
+	icon_state = "solgovelite"
+	item_color = "solgovelite"
 
 /obj/item/clothing/under/solgov/command
 	name = "\improper Trans-Solar Federation Lieutenant's uniform"
-	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Marine Forces. This one has additional insignia on its shoulders."
+	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Marine Forces. This one has additional insignia on its shoulders and cuffs."
 	icon_state = "solgovc"
 	item_color = "solgovc"
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+
+/obj/item/clothing/under/solgov/command/elite
+	name = "\improper Trans-Solar Federation Specops Lieutenant's uniform"
+	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces. This one has additional insignia on its shoulders and cuffs."
+	icon_state = "solgovcelite"
+	item_color = "solgovcelite"
 
 /obj/item/clothing/under/solgov/rep
 	name = "\improper Trans-Solar Federation representative's uniform"

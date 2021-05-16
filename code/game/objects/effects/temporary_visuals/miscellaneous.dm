@@ -83,7 +83,7 @@
 
 /obj/effect/temp_visual/dir_setting/wraith
 	name = "blood"
-	icon = 'icons/mob/mob.dmi'
+	icon = 'icons/mob/cult.dmi'
 	icon_state = "phase_shift2"
 	duration = 12
 

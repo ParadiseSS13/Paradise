@@ -724,7 +724,7 @@
 /area/ninja/holding)
 "cT" = (
 /obj/machinery/door/window/southleft,
-/turf/simulated/floor/light/colour_cycle/dancefloor_a{
+/turf/simulated/floor/light{
 	icon_state = "light_on-dancefloor_A"
 	},
 /area/centcom/bar)
@@ -3762,7 +3762,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "nd" = (
-/turf/simulated/floor/light/colour_cycle/dancefloor_a{
+/turf/simulated/floor/light{
 	icon_state = "light_on-dancefloor_A"
 	},
 /area/centcom/bar)
@@ -9458,7 +9458,7 @@
 /area/adminconstruction)
 "FM" = (
 /obj/machinery/disco/immobile,
-/turf/simulated/floor/light/colour_cycle/dancefloor_a{
+/turf/simulated/floor/light{
 	icon_state = "light_on-dancefloor_A"
 	},
 /area/centcom/bar)
@@ -11394,7 +11394,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/light/colour_cycle/dancefloor_a{
+/turf/simulated/floor/light{
 	icon_state = "light_on-dancefloor_A"
 	},
 /area/centcom/bar)
@@ -11418,7 +11418,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/light/colour_cycle/dancefloor_a{
+/turf/simulated/floor/light{
 	icon_state = "light_on-dancefloor_A"
 	},
 /area/centcom/bar)
