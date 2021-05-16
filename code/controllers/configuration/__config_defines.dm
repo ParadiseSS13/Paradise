@@ -14,6 +14,12 @@
 		target = text2num(input)\
 	}
 
+/// Wrapper to not overwrite a variable if a list key doesnt exist. Auto casts to number, and accepts a macro argument for number maths (ds to min for example)
+#define CONFIG_LOAD_NUM_MULT(target, input, multiplier) \
+	if(!isnull(input)) {\
+		target = text2num(input) multiplier\
+	}
+
 /// Wrapper to not overwrite a variable if a list key doesnt exist. Auto casts to string.
 #define CONFIG_LOAD_STR(target, input) \
 	if(!isnull(input)) {\

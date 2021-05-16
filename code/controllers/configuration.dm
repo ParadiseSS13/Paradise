@@ -30,7 +30,6 @@
 	var/list/modes = list()				// allowed modes
 	var/list/votable_modes = list()		// votable modes
 	var/list/probabilities = list()		// relative probability of each mode
-	var/allow_random_events = 0			// enables random events mid-round when set to 1
 	var/respawn = 0
 	var/guest_jobban = 1
 	var/panic_bunker_threshold = 150	// above this player count threshold, never-before-seen players are blocked from connecting
@@ -119,19 +118,6 @@
 	var/comms_password = ""
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
-
-	var/const/minutes_to_ticks = 60 * 10
-	// Event settings
-	var/expected_round_length = 60 * 2 * minutes_to_ticks // 2 hours
-	// If the first delay has a custom start time
-	// No custom time, no custom time, between 80 to 100 minutes respectively.
-	var/list/event_first_run   = list(EVENT_LEVEL_MUNDANE = null, 	EVENT_LEVEL_MODERATE = null,	EVENT_LEVEL_MAJOR = list("lower" = 48000, "upper" = 60000))
-	// The lowest delay until next event
-	// 10, 30, 50 minutes respectively
-	var/list/event_delay_lower = list(EVENT_LEVEL_MUNDANE = 6000,	EVENT_LEVEL_MODERATE = 18000,	EVENT_LEVEL_MAJOR = 30000)
-	// The upper delay until next event
-	// 15, 45, 70 minutes respectively
-	var/list/event_delay_upper = list(EVENT_LEVEL_MUNDANE = 9000,	EVENT_LEVEL_MODERATE = 27000,	EVENT_LEVEL_MAJOR = 42000)
 
 	var/starlight = 0	// Whether space turfs have ambient light or not
 	var/allow_holidays = 0
@@ -372,10 +358,6 @@
 					else
 						log_config("Incorrect probability configuration definition: [prob_name]  [prob_value].")
 
-				if("allow_random_events")
-					config.allow_random_events = 1
-
-
 				if("forbid_singulo_possession")
 					forbid_singulo_possession = 1
 
@@ -426,33 +408,6 @@
 
 				if("max_maint_drones")
 					config.max_maint_drones = text2num(value)
-
-				if("expected_round_length")
-					config.expected_round_length = text2num(value) MINUTES
-
-				if("event_custom_start_mundane")
-					var/values = text2numlist(value, ";")
-					config.event_first_run[EVENT_LEVEL_MUNDANE] = list("lower" = values[1] MINUTES, "upper" = values[2] MINUTES)
-
-				if("event_custom_start_moderate")
-					var/values = text2numlist(value, ";")
-					config.event_first_run[EVENT_LEVEL_MODERATE] = list("lower" = values[1] MINUTES, "upper" = values[2] MINUTES)
-
-				if("event_custom_start_major")
-					var/values = text2numlist(value, ";")
-					config.event_first_run[EVENT_LEVEL_MAJOR] = list("lower" = values[1] MINUTES, "upper" = values[2] MINUTES)
-
-				if("event_delay_lower")
-					var/values = text2numlist(value, ";")
-					config.event_delay_lower[EVENT_LEVEL_MUNDANE] = values[1] MINUTES
-					config.event_delay_lower[EVENT_LEVEL_MODERATE] = values[2] MINUTES
-					config.event_delay_lower[EVENT_LEVEL_MAJOR] = values[3] MINUTES
-
-				if("event_delay_upper")
-					var/values = text2numlist(value, ";")
-					config.event_delay_upper[EVENT_LEVEL_MUNDANE] = values[1] MINUTES
-					config.event_delay_upper[EVENT_LEVEL_MODERATE] = values[2] MINUTES
-					config.event_delay_upper[EVENT_LEVEL_MAJOR] = values[3] MINUTES
 
 				if("starlight")
 					config.starlight = 1

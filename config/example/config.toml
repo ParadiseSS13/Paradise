@@ -203,7 +203,8 @@ event_delay_lower_bounds = {mundane = 10, moderate = 30, major = 50}
 event_delay_upper_bounds = {mundane = 15, moderate = 45, major = 70}
 # Expected round length in minutes. Changes event weights
 expected_round_length = 120
-# Initial delays for the first events firing off. If any of these are commented, a random value based on above thresholds is used
+# Initial delays for the first events firing off. If any of these are commented, a random value based on above thresholds is used.
+# You must specify an upper and lower bound, or the code cries a lot. The events system is so bad good god.
 event_initial_delays = [
 	#{severity = "mundane", lower_bound = 10, upper_bound = 15},
 	{severity = "moderate", lower_bound = 25, upper_bound = 40},

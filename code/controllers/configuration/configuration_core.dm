@@ -15,6 +15,8 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/database_configuration/database
 	/// Holder for the Discord configuration datum
 	var/datum/configuration_section/discord_configuration/discord
+	/// Holder for the Event configuration datum
+	var/datum/configuration_section/event_configuration/event
 	/// Holder for the gateway configuration datum
 	var/datum/configuration_section/gateway_configuration/gateway
 	/// Holder for the job configuration datum
@@ -45,6 +47,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	custom_sprites = new()
 	database = new()
 	discord = new()
+	event = new()
 	gateway = new()
 	jobs = new()
 	logging = new()
@@ -65,6 +68,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	custom_sprites.load_data(raw_config_data["custom_sprites_configuration"])
 	database.load_data(raw_config_data["database_configuration"])
 	discord.load_data(raw_config_data["discord_configuration"])
+	event.load_data(raw_config_data["event_configuration"])
 	gateway.load_data(raw_config_data["gateway_configuration"])
 	jobs.load_data(raw_config_data["job_configuration"])
 	logging.load_data(raw_config_data["logging_configuration"])
