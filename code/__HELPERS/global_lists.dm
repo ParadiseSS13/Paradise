@@ -130,11 +130,9 @@
 
 	// Keybindings
 	for(var/path in subtypesof(/datum/keybinding))
-		var/datum/keybinding/D = new path()
-		if(D.name)
-			GLOB.keybindings += D
-		else
-			qdel(D)
+		var/datum/keybinding/D = path
+		if(initial(D.name))
+			GLOB.keybindings += new path()
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()

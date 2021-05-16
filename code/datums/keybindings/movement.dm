@@ -1,14 +1,14 @@
 /datum/keybinding/movement
 	category = KB_CATEGORY_MOVEMENT
-	key_loop = TRUE
 	/// The direction to move to when held.
 	var/move_dir
+
+/datum/keybinding/movement/should_start_looping(client/C)
+	return TRUE
 
 /datum/keybinding/movement/down(client/C)
 	. = ..()
 	var/datum/input_data/ID = C.input_data
-	if(!ID)
-		return
 	ID.desired_move_dir |= move_dir
 	if(!(ID.desired_move_dir_sub & move_dir))
 		ID.desired_move_dir_add |= move_dir
@@ -16,14 +16,12 @@
 /datum/keybinding/movement/up(client/C)
 	. = ..()
 	var/datum/input_data/ID = C.input_data
-	if(!ID)
-		return
 	ID.desired_move_dir &= ~move_dir
 	if(!(ID.desired_move_dir_add & move_dir))
 		ID.desired_move_dir_sub |= move_dir
 
 /datum/keybinding/movement/should_start_looping(client/C)
-	return C.input_data?.desired_move_dir_add == NONE
+	return C.input_data.desired_move_dir_add == NONE
 
 /datum/keybinding/movement/should_stop_looping(client/C)
 	return FALSE // Handled in SSinput itself

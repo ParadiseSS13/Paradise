@@ -1640,7 +1640,6 @@
 #include "code\modules\hydroponics\grown\tobacco.dm"
 #include "code\modules\hydroponics\grown\tomato.dm"
 #include "code\modules\hydroponics\grown\towercap.dm"
-#include "code\modules\input\focus.dm"
 #include "code\modules\input\input.dm"
 #include "code\modules\input\keybindings.dm"
 #include "code\modules\input\movement.dm"

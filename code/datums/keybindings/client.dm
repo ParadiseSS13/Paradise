@@ -23,7 +23,7 @@
 
 /datum/keybinding/client/say/down(client/C)
 	. = ..()
-	C.mob?.say_wrapper()
+	C.mob.say_wrapper()
 
 /datum/keybinding/client/me
 	name = "Me"
@@ -31,7 +31,7 @@
 
 /datum/keybinding/client/me/down(client/C)
 	. = ..()
-	C.mob?.me_wrapper()
+	C.mob.me_wrapper()
 
 /datum/keybinding/client/toggle_min_hud
 	name = "Toggle Minimal HUD"
@@ -39,4 +39,4 @@
 
 /datum/keybinding/client/toggle_min_hud/down(client/C)
 	. = ..()
-	C.mob?.button_pressed_F12()
+	C.mob.button_pressed_F12()

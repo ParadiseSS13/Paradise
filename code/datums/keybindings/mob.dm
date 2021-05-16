@@ -61,18 +61,18 @@
 
 /datum/keybinding/mob/walk_hold/down(client/C)
 	. = ..()
-	C.mob?.toggle_move_intent()
+	C.mob.toggle_move_intent()
 
 /datum/keybinding/mob/walk_hold/up(client/C)
 	. = ..()
-	C.mob?.toggle_move_intent()
+	C.mob.toggle_move_intent()
 
 /datum/keybinding/mob/walk_toggle
 	name = "Walk (Toggle)"
 
 /datum/keybinding/mob/walk_toggle/down(client/C)
 	. = ..()
-	C.mob?.toggle_move_intent()
+	C.mob.toggle_move_intent()
 
 // Other
 /datum/keybinding/mob/stop_pulling

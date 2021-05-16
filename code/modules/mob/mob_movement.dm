@@ -43,7 +43,7 @@
 	if(world.time < move_delay)
 		return
 	else
-		input_data?.reset_buffers()
+		input_data.reset_buffers()
 	var/old_move_delay = move_delay
 	move_delay = world.time + world.tick_lag //this is here because Move() can now be called multiple times per tick
 	if(!mob || !mob.loc)

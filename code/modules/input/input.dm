@@ -30,9 +30,6 @@
 	set hidden = TRUE
 
 	var/datum/input_data/ID = input_data
-	if(!ID)
-		return
-
 	var/cache = ID.client_keysend_amount++
 	if(ID.keysend_tripped && ID.next_keysend_trip_reset <= world.time)
 		ID.keysend_tripped = FALSE
@@ -95,9 +92,6 @@
 	set hidden = TRUE
 
 	var/datum/input_data/ID = input_data
-	if(!ID)
-		return
-
 	var/key_combo = ID.key_combos_held[_key]
 	if(key_combo)
 		ID.key_combos_held -= _key

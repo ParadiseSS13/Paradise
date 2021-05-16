@@ -17,7 +17,7 @@ SUBSYSTEM_DEF(input)
 	for(var/c in processing)
 		var/client/C = c
 		if(processing[C] + AUTO_CULL_TIME < world.time)
-			if(!length(C.input_data?.keys_held))
+			if(!length(C.input_data.keys_held))
 				LAZYADD(to_cull, C)
 			else
 				continue // they fell asleep on their keyboard or w/e, let them

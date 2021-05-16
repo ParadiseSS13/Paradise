@@ -28,7 +28,8 @@
 		GLOB.dead_mob_list += src
 	else
 		GLOB.alive_mob_list += src
-	set_input_focus(src)
+	input_focus = src
+	reset_perspective(src)
 	prepare_huds()
 	runechat_msg_location = src
 	update_runechat_msg_location()

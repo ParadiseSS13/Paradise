@@ -5,8 +5,6 @@
 	var/category = KB_CATEGORY_UNSORTED
 	/// The default key(s) assigned to the keybind.
 	var/list/keys
-	/// Whether the keybind should add the client to the SSinput processing loop. Use VERY sparingly.
-	var/key_loop = FALSE
 
 /**
   * Returns whether the keybinding can be pressed by the client's current mob.
@@ -25,7 +23,7 @@
   * * C - The client.
   */
 /datum/keybinding/proc/down(client/C)
-	if(key_loop && should_start_looping(C))
+	if(should_start_looping(C))
 		SSinput.processing[C] = world.time
 
 /**
@@ -35,25 +33,25 @@
   * * C - The client.
   */
 /datum/keybinding/proc/up(client/C)
-	if(key_loop && should_stop_looping(C))
+	if(should_stop_looping(C))
 		SSinput.processing -= C
 
 /**
-  * Called on keybind press if should_key_loop is TRUE.
-  * If TRUE is returned, the client will be added to SSinput's processing loop.
+  * Called on keybind press to determine looping behaviour.
+  * If TRUE is returned, the client will be added to SSinput's processing loop. Use VERY sparingly.
   *
   * Arguments:
   * * C - The client.
   */
 /datum/keybinding/proc/should_start_looping(client/C)
-	return TRUE
+	return FALSE
 
 /**
-  * Called on keybind release if should_key_loop is TRUE.
+  * Called on keybind release to determine looping behaviour.
   * If TRUE is returned, the client will be removed from SSinput's processing loop.
   *
   * Arguments:
   * * C - The client.
   */
 /datum/keybinding/proc/should_stop_looping(client/C)
-	return TRUE
+	return FALSE
