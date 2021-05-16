@@ -43,13 +43,18 @@
 			if(wielded)
 				to_chat(user, "<span class='notice'>You hold \the [src] between your legs.</span>")
 
-/obj/item/twohanded/staff/broom/attackby(var/obj/O, mob/user)
+/obj/item/twohanded/staff/broom/attackby(obj/O, mob/user)
 	if(istype(O, /obj/item/clothing/mask/horsehead))
 		new/obj/item/twohanded/staff/broom/horsebroom(get_turf(src))
 		user.unEquip(O)
 		qdel(O)
 		qdel(src)
 		return
+	..()
+
+/obj/item/twohanded/staff/broom/dropped(mob/user)
+	if((user.mind in SSticker.mode.wizards) && user.flying)
+		user.flying = FALSE
 	..()
 
 /obj/item/twohanded/staff/broom/horsebroom

@@ -122,10 +122,13 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	include_user = 1
 	action_icon_state = "ascend"
 
+/obj/effect/proc_holder/spell/targeted/shadowling_ascend/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
+	if(!shadowling_check(user))
+		return FALSE
+	return ..()
+
 /obj/effect/proc_holder/spell/targeted/shadowling_ascend/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/H = user
-	if(!shadowling_check(H))
-		return
 	for(H in targets)
 		var/hatch_or_no = alert(H,"It is time to ascend. Are you sure about this?",,"Yes","No")
 		switch(hatch_or_no)

@@ -1,6 +1,6 @@
 /obj/item/clothing/gloves/color/yellow
-	desc = "These gloves will protect the wearer from electric shock."
 	name = "insulated gloves"
+	desc = "These gloves will protect the wearer from electric shock."
 	icon_state = "yellow"
 	item_state = "ygloves"
 	siemens_coefficient = 0
@@ -52,8 +52,8 @@
 	siemens_coefficient = 1
 
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
-	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
 	name = "budget insulated gloves"
+	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
 	icon_state = "yellow"
 	item_state = "ygloves"
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
@@ -66,19 +66,19 @@
 	siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
 
 /obj/item/clothing/gloves/color/fyellow/old
-	desc = "Old and worn out insulated gloves, hopefully they still work."
 	name = "worn out insulated gloves"
+	desc = "Old and worn out insulated gloves, hopefully they still work."
 
 /obj/item/clothing/gloves/color/fyellow/old/New()
 	..()
 	siemens_coefficient = pick(0,0,0,0.5,0.5,0.5,0.75)
 
 /obj/item/clothing/gloves/color/black
-	desc = "These gloves are fire-resistant."
 	name = "black gloves"
+	desc = "These gloves are fire-resistant."
 	icon_state = "black"
 	item_state = "bgloves"
-	item_color="brown"
+	item_color="black"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
@@ -226,8 +226,8 @@
 
 
 /obj/item/clothing/gloves/color/captain
-	desc = "Regal blue gloves, with a nice gold trim. Swanky."
 	name = "captain's gloves"
+	desc = "Regal blue gloves, with a nice gold trim. Swanky."
 	icon_state = "captain"
 	item_state = "egloves"
 	item_color = "captain"

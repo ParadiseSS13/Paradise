@@ -203,6 +203,7 @@
 	reagent_state = LIQUID
 	color = "#7DFF00"
 	taste_description = "slime"
+	can_synth = FALSE
 
 /datum/reagent/stable_mutagen/on_new(data)
 	..()
@@ -333,7 +334,7 @@
 	return ..() | update_flags
 
 /datum/reagent/acid/facid/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	if(ishuman(M))
+	if(ishuman(M) && !isgrey(M))
 		var/mob/living/carbon/human/H = M
 		if(method == REAGENT_TOUCH)
 			if(volume > 9)
@@ -1076,7 +1077,7 @@
 	return ..() | update_flags
 
 /datum/reagent/pestkiller/reaction_obj(obj/O, volume)
-	if(istype(O, /obj/effect/decal/ants))
+	if(istype(O, /obj/effect/decal/cleanable/ants))
 		O.visible_message("<span class='warning'>The ants die.</span>")
 		qdel(O)
 

@@ -25,7 +25,7 @@
 			if(M.mind && isobserver(M))
 				to_chat(M, "<i>Thought-speech, <b>[src]</b> -> <b>[B.truename]:</b> [message]</i>")
 
-/mob/living/captive_brain/say_understands(var/mob/other, var/datum/language/speaking = null)
+/mob/living/captive_brain/say_understands(mob/other, datum/language/speaking = null)
 	var/mob/living/simple_animal/borer/B = loc
 	if(!istype(B))
 		log_runtime(EXCEPTION("Trapped mind found without a borer!"), src)
@@ -114,12 +114,12 @@
 	var/datum/action/innate/borer/freeze_victim/freeze_victim_action = new
 	var/datum/action/innate/borer/torment/torment_action = new
 
-/mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
+/mob/living/simple_animal/borer/New(atom/newloc, gen=1)
 	..(newloc)
 	remove_from_all_data_huds()
 	generation = gen
 	add_language("Cortical Link")
-	notify_ghosts("A cortical borer has been created in [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
+	notify_ghosts("A cortical borer has been created in [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK, role = ROLE_BORER)
 	real_name = "Cortical Borer [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
 	GrantBorerActions()
@@ -151,7 +151,7 @@
 	if(client.statpanel == "Status")
 		stat("Chemicals", chemicals)
 
-/mob/living/simple_animal/borer/say(var/message)
+/mob/living/simple_animal/borer/say(message)
 	var/list/message_pieces = parse_languages(message)
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		if(!istype(S.speaking, /datum/language/corticalborer) && loc == host && !talk_inside_host)
@@ -823,7 +823,7 @@
 /mob/living/simple_animal/borer/can_use_vents()
 	return
 
-/mob/living/simple_animal/borer/proc/transfer_personality(var/client/candidate)
+/mob/living/simple_animal/borer/proc/transfer_personality(client/candidate)
 
 	if(!candidate || !candidate.mob)
 		return
@@ -837,6 +837,7 @@
 		to_chat(src, "You are a brain slug that worms its way into the head of its victim. Use stealth, persuasion and your powers of mind control to keep you, your host and your eventual spawn safe and warm.")
 		to_chat(src, "Sugar nullifies your abilities, avoid it at all costs!")
 		to_chat(src, "You can speak to your fellow borers by prefixing your messages with ':bo'. Check out your Borer tab to see your abilities.")
+		to_chat(src, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Cortical_Borer)</span>")
 
 /proc/create_borer_mind(key)
 	var/datum/mind/M = new /datum/mind(key)

@@ -8,7 +8,7 @@
 	max_genetic_damage = 3
 
 //Transform into a human.
-/datum/action/changeling/humanform/sting_action(var/mob/living/carbon/human/user)
+/datum/action/changeling/humanform/sting_action(mob/living/carbon/human/user)
 	var/datum/changeling/changeling = user.mind.changeling
 	var/list/names = list()
 	for(var/datum/dna/DNA in (changeling.absorbed_dna+changeling.protected_dna))

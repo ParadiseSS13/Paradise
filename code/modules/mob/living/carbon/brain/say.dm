@@ -19,7 +19,7 @@
 
 	..()
 
-/mob/living/carbon/brain/can_speak(var/warning = FALSE)
+/mob/living/carbon/brain/can_speak(warning = FALSE)
 	. = ..()
 
 	if(!istype(container, /obj/item/mmi))
@@ -31,7 +31,7 @@
 				to_chat(usr, "<span class='warning'>You cannot speak, as your internal speaker is turned off.</span>")
 			. = FALSE
 
-/mob/living/carbon/brain/handle_message_mode(var/message_mode, list/message_pieces, var/verb, var/used_radios)
+/mob/living/carbon/brain/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	switch(message_mode)
 		if("headset")
 			var/radio_worked = 0 // If any of the radios our brainmob could use functioned, this is set true so that we don't use any others

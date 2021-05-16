@@ -131,7 +131,7 @@
 
 		if("02")
 			//Adding airlock electronics for access. Step 6 complete.
-			if(istype(W, /obj/item/airlock_electronics))
+			if(istype(W, /obj/item/airlock_electronics) && !istype(W, /obj/item/airlock_electronics/destroyed))
 				playsound(loc, W.usesound, 100, 1)
 				user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly...")
 				user.drop_item()

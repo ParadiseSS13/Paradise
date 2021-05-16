@@ -149,7 +149,7 @@ GLOBAL_PROTECT(log_end)
 
 // A logging proc that only outputs after setup is done, to
 // help devs test initialization stuff that happens a lot
-/proc/log_after_setup(var/message)
+/proc/log_after_setup(message)
 	if(SSticker && SSticker.current_state > GAME_STATE_SETTING_UP)
 		to_chat(world, "<span class='danger'>[message]</span>")
 		log_world(message)
@@ -160,7 +160,7 @@ GLOBAL_PROTECT(log_end)
 
 // Helper procs for building detailed log lines
 
-/proc/datum_info_line(var/datum/d)
+/proc/datum_info_line(datum/d)
 	if(!istype(d))
 		return
 	if(!istype(d, /mob))
@@ -168,7 +168,7 @@ GLOBAL_PROTECT(log_end)
 	var/mob/m = d
 	return "[m] ([m.ckey]) ([m.type])"
 
-/proc/atom_loc_line(var/atom/a)
+/proc/atom_loc_line(atom/a)
 	if(!istype(a))
 		return
 	var/turf/t = get_turf(a)

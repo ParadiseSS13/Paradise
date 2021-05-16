@@ -17,7 +17,7 @@
 	var/button_icon_state = "default"
 	var/mob/owner
 
-/datum/action/New(var/Target)
+/datum/action/New(Target)
 	target = Target
 	button = new
 	button.linked_action = src
@@ -382,6 +382,9 @@
 
 /datum/action/item_action/hands_free/activate
 	name = "Activate"
+
+/datum/action/item_action/hands_free/activate/always
+    check_flags = null
 
 /datum/action/item_action/toggle_research_scanner
 	name = "Toggle Research Scanner"
