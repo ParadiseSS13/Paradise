@@ -145,7 +145,7 @@
 				 /obj/item/stack/sheet/sinew = 4)
 	category = CAT_PRIMAL
 
-/datum/crafting_recipe/watchebelt
+/datum/crafting_recipe/lighterbelt
 	name = "Lighter Explorer's Webbing"
 	result = list(/obj/item/storage/belt/mining/alt)
 	time = 60
