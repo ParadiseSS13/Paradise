@@ -14,7 +14,7 @@
 	/// SQL password
 	var/password = "root" // Dont do this in prod. Please......
 	/// Database name
-	var/db = "feedback" // TODO: Rename to paradise_db
+	var/db = "feedback" // TODO: Rename to paradise_gamedb
 	/// Table prefix
 	var/table_prefix = "erro_" // TODO: Remove table prefixes
 	/// Time in seconds for async queries to time out
