@@ -471,7 +471,7 @@
 
 			if(target.mind)
 				if(iscultist(target))
-					SSticker.mode.remove_cultist(target.mind) // This proc will handle message generation.
+					SSticker.mode.remove_cultist(target.mind, TRUE, TRUE) // This proc will handle message generation.
 					praying = FALSE
 					return
 

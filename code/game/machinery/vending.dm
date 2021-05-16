@@ -1593,6 +1593,7 @@
 	products = list(/obj/item/storage/bag/tray = 8,
 					/obj/item/kitchen/utensil/fork = 6,
 					/obj/item/trash/plate = 20,
+					/obj/item/trash/bowl = 20,
 					/obj/item/kitchen/knife = 3,
 					/obj/item/kitchen/rollingpin = 2,
 					/obj/item/kitchen/sushimat = 3,

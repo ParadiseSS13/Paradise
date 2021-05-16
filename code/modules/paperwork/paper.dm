@@ -163,6 +163,51 @@
 	else
 		return ..()
 
+/obj/item/paper/attack_animal(mob/living/simple_animal/M)
+	if(!isdog(M)) // Only dogs can eat homework.
+		return
+	var/mob/living/simple_animal/pet/dog/D = M
+	D.changeNext_move(CLICK_CD_MELEE)
+	if(world.time < D.last_eaten + 30 SECONDS)
+		to_chat(D, "<span class='warning'>You are too full to try eating [src] now.</span>")
+		return
+
+	D.visible_message("<span class='warning'>[D] starts chewing the corner of [src]!</span>",
+		"<span class='notice'>You start chewing the corner of [src].</span>",
+		"<span class='warning'>You hear a quiet gnawing, and the sound of paper rustling.</span>")
+	playsound(src, 'sound/effects/pageturn2.ogg', 100, TRUE)
+	if(!do_after(D, 10 SECONDS, FALSE, src))
+		return
+
+	if(world.time < D.last_eaten + 30 SECONDS) // Check again to prevent eating multiple papers at once.
+		to_chat(D, "<span class='warning'>You are too full to try eating [src] now.</span>")
+		return
+	D.last_eaten = world.time
+
+	// 90% chance of a crumpled paper with illegible text.
+	if(prob(90))
+		var/message_ending = "."
+		var/obj/item/paper/crumpled/P = new(loc)
+		P.name = name
+		if(info) // Something written on the paper.
+			/*var/new_text = strip_html_properly(info, MAX_PAPER_MESSAGE_LEN, TRUE) // Don't want HTML stuff getting gibberished.
+			P.info = Gibberish(new_text, 100)*/
+			P.info = "<i>Whatever was once written here has been made completely illegible by a combination of chew marks and saliva.</i>"
+			message_ending = ", the drool making it an unreadable mess!"
+		P.update_icon()
+		qdel(src)
+
+		D.visible_message("<span class='warning'>[D] finishes eating [src][message_ending]</span>",
+			"<span class='notice'>You finish eating [src][message_ending]</span>")
+		D.emote("bark")
+
+	// 10% chance of the paper just being eaten entirely.
+	else
+		D.visible_message("<span class='warning'>[D] swallows [src] whole!</span>", "<span class='notice'>You swallow [src] whole. Tasty!</span>")
+		playsound(D, 'sound/items/eatfood.ogg', 50, TRUE)
+		qdel(src)
+
+
 /obj/item/paper/proc/addtofield(id, text, links = 0)
 	if(id > MAX_PAPER_FIELDS)
 		return
@@ -487,7 +532,8 @@
 	icon_state = "scrap"
 
 /obj/item/paper/crumpled/update_icon()
-	return
+	if(info)
+		icon_state = "scrap_words"
 
 /obj/item/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"
@@ -591,10 +637,6 @@
 	name = "paper- 'Note'"
 	info = "The call has gone out! Our ancestral home has been rediscovered! Not a small patch of land, but a true clown nation, a true Clown Planet! We're on our way home at last!"
 
-/obj/item/paper/crumpled
-	name = "paper scrap"
-	icon_state = "scrap"
-
 /obj/item/paper/syndicate
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='syndielogo.png' width='220' height='135' /></p><hr />"
@@ -610,13 +652,6 @@
 	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Nanotrasen Central Command</h3><p style='text-align: center;font-family:Verdana;'>Official Expedited Memorandum</p></b><hr />"
 	info = ""
 	footer = "<hr /><p style='font-family:Verdana;'><em>Failure to adhere appropriately to orders that may be contained herein is in violation of Space Law, and punishments may be administered appropriately upon return to Central Command.</em><br /><em>The recipient(s) of this memorandum acknowledge by reading it that they are liable for any and all damages to crew or station that may arise from ignoring suggestions or advice given herein.</em></p>"
-
-
-/obj/item/paper/crumpled/update_icon()
-	return
-
-/obj/item/paper/crumpled/bloody
-	icon_state = "scrap_bloodied"
 
 /obj/item/paper/evilfax
 	name = "Centcomm Reply"
