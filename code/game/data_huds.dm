@@ -181,11 +181,18 @@
 	var/dead = stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH)
 	// To the right of health bar
 	if(dead)
-		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
+		var/mob/dead/observer/ghost = get_ghost(TRUE)
+		var/revivable
+		if(ghost && !ghost.can_reenter_corpse) // DNR or AntagHUD
+			revivable = FALSE
+		else if(timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT))
+			revivable = TRUE
+
 		if(revivable)
 			holder.icon_state = "hudflatline"
 		else
 			holder.icon_state = "huddead"
+
 	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"
 	else if(B && B.controlling)

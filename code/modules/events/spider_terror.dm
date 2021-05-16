@@ -56,6 +56,7 @@
 		var/mob/living/simple_animal/hostile/poison/terror_spider/S = new spider_type(vent.loc)
 		var/mob/M = pick_n_take(candidates)
 		S.key = M.key
+		to_chat(S, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Terror_Spider)</span>")
 		spawncount--
 		successSpawn = TRUE
 

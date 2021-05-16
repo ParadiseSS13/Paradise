@@ -250,10 +250,9 @@
 	var/name_list = list("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
-	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
-		if(G.summoner == user)
-			to_chat(user, "You already have a [mob_name]!")
-			return
+	if(has_guardian(user))
+		to_chat(user, "You already have a [mob_name]!")
+		return
 	if(user.mind && (user.mind.changeling || user.mind.vampire))
 		to_chat(user, "[ling_failure]")
 		return
@@ -285,6 +284,10 @@
 
 	if(candidates.len)
 		theghost = pick(candidates)
+		if(has_guardian(user))
+			to_chat(user, "You already have a [mob_name]!")
+			used = FALSE
+			return
 		spawn_guardian(user, theghost.key, guardian_type)
 	else
 		to_chat(user, "[failure_message]")
@@ -294,6 +297,13 @@
 	. = ..()
 	if(used)
 		. += "<span class='notice'>[used_message]</span>"
+
+/obj/item/guardiancreator/proc/has_guardian(mob/living/user)
+	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
+		if(G.summoner == user)
+			return TRUE
+	return FALSE
+
 
 /obj/item/guardiancreator/proc/spawn_guardian(mob/living/user, key, guardian_type)
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
@@ -333,6 +343,7 @@
 	to_chat(G, "You are capable of manifesting or recalling to your master with verbs in the Guardian tab. You will also find a verb to communicate with them privately there.")
 	to_chat(G, "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself.")
 	to_chat(G, "[G.playstyle_string]")
+	to_chat(G, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Guardian)</span>")
 	G.faction = user.faction
 
 	var/color = pick(color_list)

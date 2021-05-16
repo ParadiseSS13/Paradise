@@ -4,7 +4,7 @@
 
 /turf/simulated/wall
 	name = "wall"
-	desc = "A huge chunk of metal used to seperate rooms."
+	desc = "A huge chunk of metal used to separate rooms."
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall"
 	var/rotting = FALSE

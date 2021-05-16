@@ -12,8 +12,8 @@
 	clipped = 1
 
 /obj/item/clothing/gloves/cyborg
-	desc = "beep boop borp"
 	name = "cyborg gloves"
+	desc = "beep boop borp"
 	icon_state = "black"
 	item_state = "r_hands"
 
@@ -25,8 +25,8 @@
 	can_leave_fibers = FALSE
 
 /obj/item/clothing/gloves/combat
-	desc = "These tactical gloves are both insulated and offer protection from heat sources."
 	name = "combat gloves"
+	desc = "These tactical gloves are both insulated and offer protection from heat sources."
 	icon_state = "combat"
 	item_state = "swat_gl"
 	siemens_coefficient = 0
@@ -55,8 +55,8 @@
 	armor = list("melee" = 15, "bullet" = 25, "laser" = 15, "energy" = 15, "bomb" = 20, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
 
 /obj/item/clothing/gloves/botanic_leather
-	desc = "These leather gloves protect against thorns, barbs, prickles, spikes and other harmful objects of floral origin."
 	name = "botanist's leather gloves"
+	desc = "These leather gloves protect against thorns, barbs, prickles, spikes and other harmful objects of floral origin."
 	icon_state = "leather"
 	item_state = "ggloves"
 	permeability_coefficient = 0.9
@@ -68,8 +68,8 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 30)
 
 /obj/item/clothing/gloves/batmangloves
-	desc = "Used for handling all things bat related."
 	name = "batgloves"
+	desc = "Used for handling all things bat related."
 	icon_state = "bmgloves"
 	item_state = "bmgloves"
 	item_color="bmgloves"
@@ -157,7 +157,7 @@
 		update_icon()
 
 /obj/item/clothing/gloves/fingerless/rapid
-	name = "Gloves of the North Star"
+	name = "gloves of the North Star"
 	desc = "Just looking at these fills you with an urge to beat the shit out of people."
 	var/accepted_intents = list(INTENT_HARM)
 	var/click_speed_modifier = CLICK_CD_RAPID
@@ -166,20 +166,20 @@
 	var/mob/living/M = loc
 
 	if(M.a_intent in accepted_intents)
-		if(istype(M.mind.martial_art, /datum/martial_art/cqc))
+		if(M.mind.martial_art || HAS_TRAIT(M, TRAIT_HULK))
 			M.changeNext_move(CLICK_CD_MELEE)//normal attack speed for hulk, CQC and Carp.
 		else
 			M.changeNext_move(click_speed_modifier)
 	.= FALSE
 
 /obj/item/clothing/gloves/fingerless/rapid/admin
-	name = "Advanced Interactive Gloves"
+	name = "advanced interactive gloves"
 	desc = "The gloves are covered in indecipherable buttons and dials, your mind warps by merely looking at them."
 	accepted_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
 	click_speed_modifier = 0
 	siemens_coefficient = 0
 
 /obj/item/clothing/gloves/fingerless/rapid/headpat
-	name = "Gloves of Headpats"
+	name = "gloves of headpats"
 	desc = "You feel the irresistable urge to give headpats by merely glimpsing these."
 	accepted_intents = list(INTENT_HELP)

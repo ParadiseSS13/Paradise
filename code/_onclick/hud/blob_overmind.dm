@@ -132,6 +132,8 @@
 	if(isovermind(usr))
 		var/mob/camera/blob/B = usr
 		B.split_consciousness()
+		if(B.split_used) // Destroys split proc if the split is succesfully used
+			qdel(src)
 
 /datum/hud/blob_overmind/New(mob/user)
 	..()
@@ -194,6 +196,8 @@
 	using.screen_loc = ui_storage2
 	static_inventory += using
 
-	using = new /obj/screen/blob/Split()
-	using.screen_loc = ui_acti
-	static_inventory += using
+	var/mob/camera/blob/B = user
+	if(!B.is_offspring) // Checks if the blob is an offspring, to not create split button if it is
+		using = new /obj/screen/blob/Split()
+		using.screen_loc = ui_acti
+		static_inventory += using

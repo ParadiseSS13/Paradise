@@ -1,7 +1,7 @@
 
 //Voidsuits
 /obj/item/clothing/head/helmet/space/nasavoid
-	name = "NASA Void Helmet"
+	name = "\improper NASA void helmet"
 	desc = "A high tech, NASA Centcom branch designed space suit helmet. Used for AI satellite maintenance."
 	icon_state = "void-red"
 	item_state = "void"
@@ -59,26 +59,26 @@
 
 //Captian's Suit, like the other captian's suit, but looks better, at the cost of armor
 /obj/item/clothing/head/helmet/space/nasavoid/captain
-	name = "Fancy Retro Void Helmet"
+	name = "fancy retro void helmet"
 	icon_state = "void-captian"
 	desc = "A high tech, NASA Centcom branch designed space suit helmet. Used for AI satellite maintenance. This one is fit for a captain."
 
 /obj/item/clothing/suit/space/nasavoid/captain
-	name = "Fancy NASA Void Suit"
+	name = "fancy NASA void suit"
 	icon_state = "void-captian"
 	desc = "A high tech, NASA Centcom branch designed space suit. Used for AI satellite maintenance. This one is fit for a captain."
 
 //Syndi's suit, on par with a blood red softsuit
 
 /obj/item/clothing/head/helmet/space/nasavoid/syndi
-	name = "Blood Red Retro Void Helmet"
+	name = "blood-red retro void helmet"
 	icon_state = "void-syndi"
 	desc = "A high tech, NASA Centcom branch designed space suit helmet. This one looks rather suspicious."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 80, "acid" = 85)
 
 /obj/item/clothing/suit/space/nasavoid/syndi
-	name = "Blood Red NASA Void Suit"
+	name = "blood-red NASA void suit"
 	icon_state = "void-syndi"
 	desc = "A high tech, NASA Centcom branch designed space suit. This one looks rather suspicious."
 	w_class = WEIGHT_CLASS_NORMAL
@@ -88,7 +88,7 @@
 //random spawner
 
 /obj/effect/nasavoidsuitspawner
-	name = "NASA Void Suit Spawner"
+	name = "\improper NASA void suit spawner"
 	icon = 'icons/obj/clothing/suits.dmi'
 	icon_state = "void-red"
 	desc = "You shouldn't see this, a spawner for NASA Void Suits."
