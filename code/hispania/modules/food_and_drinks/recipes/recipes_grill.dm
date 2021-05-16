@@ -171,3 +171,28 @@
 		/obj/item/reagent_containers/food/snacks/drakeribs
 	)
 	result = /obj/item/reagent_containers/food/snacks/brontosaurio
+
+// SALMON STUFF //
+/datum/recipe/grill/smokedsalmon
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "water" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/salmonmeat
+	)
+	result = /obj/item/reagent_containers/food/snacks/smokedsalmon
+
+/datum/recipe/grill/avocadosalmon
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/salmonmeat,
+		/obj/item/reagent_containers/food/snacks/avocadoslice
+	)
+	result = /obj/item/reagent_containers/food/snacks/avocadosalmon
+
+/datum/recipe/grill/citrussalmon
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/salmonmeat,
+		/obj/item/reagent_containers/food/snacks/grown/citrus/lemon,
+		/obj/item/reagent_containers/food/snacks/grown/citrus/orange
+	)
+	result = /obj/item/reagent_containers/food/snacks/citrussalmon
