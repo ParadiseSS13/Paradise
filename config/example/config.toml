@@ -168,12 +168,12 @@ async_thread_limit = 50
 # All role IDs must be STRINGS as BYOND doesnt like ints that big
 enable_discord_webhooks = false
 # List of all webhooks for the primary feed (public channels)
-webhook_main_urls = [
+main_webhook_urls = [
 	"https://webhook.one",
 	"https://webhook.two"
 ]
 # List of all webhook URLs for the mentor feed (mentorhelps relay)
-webhooks_mentor_urls = [
+mentor_webhook_urls = [
 	"https://mentor.webhook.one",
 	"https://mentor.webhook.two"
 ]
@@ -183,7 +183,7 @@ admin_webhook_urls = [
 	"https://admin.webhook.two"
 ]
 # Role ID for the admin role on the discord. Set to "" to disable.
-# THIS MUST BE A STRING
+# THIS MUST BE A STRING. BYOND DOESNT LIKE NUMBERS THIS BIG
 admin_role_id = ""
 # Forward all ahelps to the discord? If disabled, ahelps are only forwarded if admins are AFK/Offline
 forward_all_ahelps = true

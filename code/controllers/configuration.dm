@@ -171,25 +171,6 @@
 	/// BYOND account age limit for notifcations of new accounts (Any accounts older than this value will not send notifications on first join)
 	var/byond_account_age_threshold = 7
 
-	/// Are discord webhooks enabled?
-	var/discord_webhooks_enabled = FALSE
-
-	/// Role ID to be pinged for administrative events
-	var/discord_admin_role_id = null // Intentional null usage
-
-	/// Webhook URLs for the main public webhook
-	var/list/discord_main_webhook_urls = list()
-
-	/// Webhook URLs for the admin webhook
-	var/list/discord_admin_webhook_urls = list()
-
-	/// Webhook URLs for the mentor webhook
-	var/list/discord_mentor_webhook_urls = list()
-
-	/// Do we want to forward all adminhelps to the discord or just ahelps when admins are offline.
-	/// (This does not mean all ahelps are pinged, only ahelps sent when staff are offline get the ping, regardless of this setting)
-	var/discord_forward_all_ahelps = FALSE
-
 	/// URL for the CentCom Ban DB API
 	var/centcom_ban_db_url = null
 
@@ -515,20 +496,6 @@
 					config.enable_gamemode_player_limit = 1
 				if("byond_account_age_threshold")
 					config.byond_account_age_threshold = text2num(value)
-				// Discord stuff
-				if("enable_discord_webhooks")
-					discord_webhooks_enabled = TRUE
-				if("discord_webhooks_admin_role_id")
-					discord_admin_role_id = "[value]" // This MUST be a string because BYOND doesnt like massive integers
-				if("discord_webhooks_main_url")
-					discord_main_webhook_urls = splittext(value, "|")
-				if("discord_webhooks_admin_url")
-					discord_admin_webhook_urls = splittext(value, "|")
-				if("discord_webhooks_mentor_url")
-					discord_mentor_webhook_urls = splittext(value, "|")
-				if("discord_forward_all_ahelps")
-					discord_forward_all_ahelps = TRUE
-				// End discord stuff
 				if("centcom_ban_db_url")
 					centcom_ban_db_url = value
 				if("max_client_cid_history")
