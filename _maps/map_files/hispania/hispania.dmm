@@ -18155,6 +18155,7 @@
 	icon_state = "0-4";
 	d2 = 4
 	},
+/obj/effect/spawner/lootdrop/animals4maint,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aKe" = (
@@ -19567,10 +19568,6 @@
 	lootcount = 2;
 	name = "2maintenance loot spawner"
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint2)
-"aNi" = (
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aNj" = (
@@ -21415,10 +21412,6 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry)
-"aRg" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint2)
 "aRh" = (
 /obj/machinery/sleeper{
 	dir = 4
@@ -21580,6 +21573,7 @@
 	initialize_directions = 11;
 	level = 1
 	},
+/obj/effect/spawner/lootdrop/animals4maint,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aRt" = (
@@ -30210,6 +30204,9 @@
 	tag = ""
 	},
 /obj/structure/closet/secure_closet/hydroponics,
+/obj/structure/sign/hispania/kudzupainting{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -35412,6 +35409,9 @@
 "btl" = (
 /obj/structure/table/wood,
 /obj/item/stack/packageWrap,
+/obj/structure/sign/hispania/cutebottles{
+	pixel_x = -32
+	},
 /turf/simulated/floor/wood,
 /area/library)
 "btm" = (
@@ -37568,6 +37568,9 @@
 /area/hallway/primary/starboard/east)
 "bxQ" = (
 /obj/machinery/vending/coffee/free,
+/obj/structure/sign/hispania/waiblu{
+	pixel_x = -32
+	},
 /turf/simulated/floor/wood,
 /area/library)
 "bxR" = (
@@ -40250,7 +40253,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bDQ" = (
@@ -53732,6 +53734,9 @@
 	pixel_y = 9
 	},
 /obj/item/rcs,
+/obj/structure/sign/hispania/diggydiggyhole{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -59542,6 +59547,9 @@
 	pixel_y = 25
 	},
 /obj/structure/reagent_dispensers/watertank,
+/obj/structure/sign/hispania/masks4here{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -62455,6 +62463,9 @@
 /obj/machinery/light{
 	dir = 4;
 	icon_state = "tube1"
+	},
+/obj/structure/sign/hispania{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
@@ -66007,17 +66018,6 @@
 	tag = "icon-whitegreen (SOUTHEAST)"
 	},
 /area/medical/virology)
-"czc" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
-	},
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "cze" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -66574,6 +66574,9 @@
 	initialize_directions = 11;
 	level = 1
 	},
+/obj/structure/sign/hispania/physic{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-whitebluecorner (WEST)";
 	icon_state = "whitebluecorner";
@@ -66671,6 +66674,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/effect/spawner/lootdrop/animals4maint,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cAJ" = (
@@ -73641,6 +73645,10 @@
 	icon_state = "yellowcorner"
 	},
 /area/engine/engineering)
+"cUv" = (
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/maintenance/aft)
 "cUw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4;
@@ -79134,10 +79142,6 @@
 	oxygen = 2644
 	},
 /area/atmos)
-"dkv" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "dkw" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	dir = 1;
@@ -83628,6 +83632,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"eUK" = (
+/obj/structure/sign/hispania/gradius{
+	pixel_y = 32
+	},
+/turf/simulated/floor/engine,
+/area/security/podbay)
 "eUO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -84226,6 +84236,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
+"fGR" = (
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "fGU" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -84279,6 +84293,18 @@
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/engine/supermatter)
+"fHV" = (
+/obj/structure/bed,
+/obj/machinery/light/small{
+	tag = "icon-bulb1 (EAST)";
+	icon_state = "bulb1";
+	dir = 4
+	},
+/obj/structure/sign/hispania/theduck{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "fIV" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
@@ -85055,6 +85081,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/spawner/lootdrop/animals4maint,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "gzC" = (
@@ -85542,6 +85569,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"gXs" = (
+/obj/structure/table/reinforced,
+/obj/structure/sign/hispania/funnycarp{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/crew_quarters/bar)
 "gXQ" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -85959,6 +85995,12 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/engine/engineering)
+"hvl" = (
+/obj/structure/sign/hispania/testchamberus{
+	pixel_x = 32
+	},
+/turf/space,
+/area/space)
 "hvV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -86369,6 +86411,17 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"hTh" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0;
+	tag = ""
+	},
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "hTv" = (
 /obj/structure/table,
 /obj/item/book/manual/engineering_guide,
@@ -87473,6 +87526,9 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/sign/hispania/xenolisa{
+	pixel_x = 32
+	},
 /turf/simulated/floor/wood,
 /area/library)
 "jeI" = (
@@ -88385,6 +88441,12 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
+"ker" = (
+/obj/structure/sign/hispania/kate{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "kfd" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -88625,6 +88687,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"koK" = (
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "kpu" = (
 /obj/structure/grille,
 /obj/structure/cable{
@@ -90050,6 +90116,13 @@
 	dir = 1
 	},
 /area/engine/engineering)
+"lHU" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "lIB" = (
 /turf/simulated/floor/plasteel{
 	tag = "icon-cult";
@@ -92797,6 +92870,9 @@
 	dir = 8;
 	network = list("SS13")
 	},
+/obj/structure/sign/hispania/sunset{
+	pixel_x = 32
+	},
 /turf/simulated/floor/wood,
 /area/library)
 "olB" = (
@@ -93477,6 +93553,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/supermatter)
+"oZJ" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
+	},
+/obj/machinery/newscaster{
+	pixel_x = 30
+	},
+/turf/simulated/floor/wood,
+/area/library)
 "pao" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -94081,17 +94168,6 @@
 	icon_state = "floorgrime"
 	},
 /area/engine/singularity)
-"pGT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "pHL" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -94170,6 +94246,10 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
+"pLJ" = (
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint2)
 "pLP" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -95112,6 +95192,12 @@
 	},
 /turf/space,
 /area/solar/port)
+"qGc" = (
+/obj/structure/sign/hispania/snostorms{
+	pixel_x = 32
+	},
+/turf/simulated/floor/wood,
+/area/library)
 "qGN" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -95227,11 +95313,6 @@
 	oxygen = 100000
 	},
 /area/atmos)
-"qMF" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
 "qNu" = (
 /obj/structure/bed,
 /obj/item/bedsheet/green,
@@ -95994,6 +96075,10 @@
 	dir = 8
 	},
 /area/atmos/control)
+"rMc" = (
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/wood,
+/area/maintenance/abandonedbar)
 "rMM" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 1
@@ -98508,8 +98593,8 @@
 /area/maintenance/apmaint)
 "tSU" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/newscaster{
-	pixel_x = 30
+/obj/structure/sign/hispania/hospital{
+	pixel_x = 32
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -101413,6 +101498,30 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/engine/engineering)
+"wLT" = (
+/obj/structure/lattice,
+/obj/structure/sign/hispania/testchamberus{
+	pixel_x = 32
+	},
+/turf/space,
+/area/space/nearstation)
+"wMQ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "wNb" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -102680,6 +102789,16 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
+"xMN" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "xOH" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -102879,10 +102998,6 @@
 	tag = "icon-wood-broken7"
 	},
 /area/maintenance/asmaint2)
-"xZv" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
 "xZK" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -102942,6 +103057,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/structure/sign/hispania/thegreatleapforward{
+	pixel_y = 32
 	},
 /turf/simulated/floor/carpet,
 /area/maintenance/asmaint2)
@@ -117144,7 +117262,7 @@ aKN
 aGn
 aPW
 aQb
-aRg
+aHS
 aHS
 aGn
 aHS
@@ -117204,7 +117322,7 @@ jAu
 cLi
 sfP
 nXU
-cNB
+cUv
 cZw
 cwx
 cyn
@@ -117657,7 +117775,7 @@ aGn
 aLj
 aGn
 aOU
-aHS
+pLJ
 aHS
 aSp
 aGn
@@ -118456,7 +118574,7 @@ bqr
 blQ
 blQ
 bIP
-bCk
+lHU
 bGS
 blQ
 blQ
@@ -119262,7 +119380,7 @@ liO
 sdu
 tNz
 wsr
-qMF
+cZw
 cNB
 cLi
 ttE
@@ -119524,7 +119642,7 @@ nWn
 cLi
 vUk
 cWn
-cNB
+cUv
 vmY
 cMv
 xiX
@@ -128453,7 +128571,7 @@ aAp
 aRM
 aEl
 aVD
-xZv
+aPi
 baf
 aSA
 aSA
@@ -136481,7 +136599,7 @@ ndz
 ttF
 ndz
 oft
-csL
+koK
 csL
 cJc
 csL
@@ -136946,7 +137064,7 @@ aUQ
 aUS
 bhr
 bja
-bkO
+gXs
 bcU
 aNe
 bmq
@@ -137155,7 +137273,7 @@ anA
 anA
 anA
 anA
-aoJ
+ker
 adY
 amm
 amN
@@ -140251,7 +140369,7 @@ arG
 asG
 atU
 ajb
-apY
+fHV
 arS
 aqc
 auZ
@@ -140755,7 +140873,7 @@ aaa
 aaa
 aaa
 ajb
-ajw
+eUK
 ajw
 ajw
 ajw
@@ -141110,7 +141228,7 @@ cyJ
 dMD
 chf
 chf
-dMd
+wMQ
 cAv
 ctZ
 kQx
@@ -144900,7 +145018,7 @@ aNh
 aOG
 aGX
 aHb
-aOG
+hTh
 aGY
 aTg
 aGY
@@ -144979,7 +145097,7 @@ xOY
 cTQ
 cHe
 dcW
-pGT
+ccI
 gJT
 cHe
 bGH
@@ -145490,7 +145608,7 @@ cuQ
 cuQ
 cuQ
 qHH
-cac
+xMN
 cac
 cOm
 rDl
@@ -146695,7 +146813,7 @@ aGX
 aQI
 aGY
 aGX
-aNi
+aGY
 aGY
 aGX
 aGX
@@ -147733,12 +147851,12 @@ liG
 cSe
 vin
 jel
-cSe
+oZJ
 tSU
 bcj
 olh
 bfT
-bcp
+qGc
 bjF
 bll
 bmD
@@ -147817,7 +147935,7 @@ ciY
 wfs
 qEP
 bGG
-bGG
+fGR
 bGG
 bGG
 cuQ
@@ -148497,7 +148615,7 @@ aGX
 aMn
 aMz
 aGX
-aOG
+hTh
 aGY
 aGY
 aGY
@@ -150540,7 +150658,7 @@ aaa
 aAg
 aBg
 aBV
-aBg
+rMc
 aBg
 aBg
 aGc
@@ -152664,7 +152782,7 @@ cqk
 cuT
 cgs
 bGG
-czc
+cyR
 cAP
 cCj
 cDD
@@ -152700,8 +152818,8 @@ cuQ
 cuQ
 dff
 bGG
+fGR
 bGG
-dkv
 bGG
 bZZ
 aaa
@@ -153948,7 +154066,7 @@ csg
 cqk
 cvi
 cgs
-bGG
+fGR
 cyR
 bGG
 bGG
@@ -160110,14 +160228,14 @@ aab
 aaa
 afO
 aaa
+hvl
 aaa
 aaa
 aaa
 aaa
 aaa
 aaa
-aaa
-aab
+wLT
 aab
 cCs
 aaa

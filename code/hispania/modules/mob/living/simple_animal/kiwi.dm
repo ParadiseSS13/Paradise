@@ -1,4 +1,3 @@
-
 /mob/living/simple_animal/kiwi
 	name = "kiwi"
 	desc = "It's a real kiwi... maybe?"
@@ -38,17 +37,10 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/icon_animado = FALSE
 
-/mob/living/simple_animal/kiwi/handle_automated_movement()
-	..()
-	if(!pulledby && !stat)
-		var/direction = rand(1,10)
-		var/turf/step = get_step(src, direction)
-		if(step)
-			if(locate(/obj/structure/spacevine) in step)
-				Move(step, get_dir(src, step))
-
 /mob/living/simple_animal/kiwi/Life(seconds, times_fired)
 	.=..()
+	if(prob(90))
+		return
 	if(. && !icon_animado)
 		var/new_animation = rand(1,100)
 		switch(new_animation)
@@ -62,8 +54,6 @@
 				icon_state = "kiwi_jump"
 				icon_animado = TRUE
 				addtimer(CALLBACK(src, .proc/sprite_normal), 6)
-				spawn(6)
-					sprite_normal()
 			if(45 to 80)
 				visible_message("<span class='notice'>[src] dances.</span>")
 				icon_state = "kiwi_dance"
@@ -114,7 +104,3 @@
 			to_chat(src, emotelist)
 
 	..(act, m_type, message)
-
-/mob/living/simple_animal/kiwi/Initialize(mapload)
-	. = ..()
-	name = "kiwi ([rand(1,999)])"

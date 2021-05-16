@@ -25,7 +25,7 @@
 ///ram///
 /obj/item/twohanded/required/ram
 	name = "ram"
-	desc = "A heavy ram used to take down those annoying doors or other structures in you way."
+	desc = "A heavy ram used to take down those annoying doors or other structures in your way."
 	icon = 'icons/hispania/obj/items.dmi'
 	icon_state = "ram"
 	item_state = "ram"
