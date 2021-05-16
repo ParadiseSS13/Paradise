@@ -19,6 +19,7 @@ GLOBAL_VAR(bomb_set)
 	icon_state = "nuclearbomb0"
 	density = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	anchored = TRUE
 	var/extended = FALSE
 	var/lighthack = FALSE
 	var/timeleft = 120
@@ -43,6 +44,10 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
+
+/obj/machinery/nuclearbomb/undeployed
+	extended = FALSE
+	anchored = FALSE
 
 /obj/machinery/nuclearbomb/Initialize()
 	. = ..()
@@ -350,11 +355,6 @@ GLOBAL_VAR(bomb_set)
 				else
 					code = "ERROR"
 			return
-
-	if(!yes_code) // All requests below here require both NAD inserted AND code correct
-		return
-
-	switch(action)
 		if("toggle_anchor")
 			if(removal_stage == NUKE_MOBILE)
 				anchored = FALSE
@@ -369,6 +369,11 @@ GLOBAL_VAR(bomb_set)
 				else
 					visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
 			return
+
+	if(!yes_code) // All requests below here require both NAD inserted AND code correct
+		return
+
+	switch(action)
 		if("set_time")
 			var/time = input(usr, "Detonation time (seconds, min 120, max 600)", "Input Time", 120) as num|null
 			if(time)
