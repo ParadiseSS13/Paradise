@@ -38,7 +38,10 @@
 	R.stamped += /obj/item/stamp
 	R.overlays += stampoverlay
 	R.stamps += "<HR><i>This paper has been stamped by the EFTPOS device.</i>"
-	var/obj/item/smallDelivery/D = new(get_turf(R))
+	var/obj/item/smallDelivery/D = new(get_turf(src.loc))
+	if(istype(src.loc, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = src.loc
+		D.forceMove(H.back)
 	R.forceMove(D)
 	D.wrapped = R
 	D.name = "small parcel - 'EFTPOS access code'"
