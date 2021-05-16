@@ -10,11 +10,11 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 // The order goes from easy to cure to hard to cure.
 GLOBAL_LIST_INIT(advance_cures, list(
-									"sodiumchloride", "sugar", "orangejuice",
-									"spaceacillin", "salglu_solution", "ethanol",
-									"teporone", "diphenhydramine", "lipolicide",
-									"silver", "gold"
-))
+									"salglu_solution", "mannitol", "perfluorodecalin",
+									"mitocholide", "spaceacillin", "pen_acid",
+									"haloperidol", "carpotoxin", "prions",
+									"nanomachines", "bath_salts"
+)) ///Curas Diferentes Hispania
 
 /*
 
