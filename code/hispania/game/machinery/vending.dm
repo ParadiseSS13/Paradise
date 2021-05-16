@@ -24,6 +24,7 @@
 /obj/machinery/vending/security
 	hispa_products = list(/obj/item/taperoll = 8, /obj/item/device/binoculars/security = 2, /obj/item/storage/bag/plasticbag/mre = 2)
 	hispa_prices = list(/obj/item/storage/bag/plasticbag/mre = 450)
+	hispa_premium = list(/obj/item/fluff/mongosflash = 1)
 
 /obj/machinery/vending/tool
 	hispa_products = list(/obj/item/taperoll/engi = 10)
