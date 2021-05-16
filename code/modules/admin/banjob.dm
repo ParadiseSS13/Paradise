@@ -186,7 +186,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		qdel(select_query)
 
 		if(is_actually_banned)
-			if(config.banappeals)
-				to_chat(src, "<span class='warning'>You can appeal the bans at: [config.banappeals]</span>")
+			if(GLOB?.configuration?.url.banappeals_url)
+				to_chat(src, "<span class='warning'>You can appeal the bans at: [GLOB.configuration.url.banappeals_url]</span>")
 		else
 			to_chat(src, "<span class='warning'>You have no active jobbans!</span>")

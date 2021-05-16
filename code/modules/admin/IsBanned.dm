@@ -38,8 +38,8 @@
 	if(check_ipintel && config.ipintel_email && config.ipintel_whitelist && ipintel_is_banned(key, address))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Proxy/VPN")
 		var/mistakemessage = ""
-		if(config.banappeals)
-			mistakemessage = "\nIf you have to use one, request whitelisting at:  [config.banappeals]"
+		if(GLOB?.configuration?.url.banappeals_url)
+			mistakemessage = "\nIf you have to use one, request whitelisting at:  [GLOB.configuration.url.banappeals_url]"
 		INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_IPINTEL)
 		return list("reason"="using proxy or vpn", "desc"="\nReason: Proxies/VPNs are not allowed here. [mistakemessage]")
 
@@ -116,8 +116,8 @@
 				expires = " The ban is for [duration] minutes and expires on [expiration] (server time)."
 			else
 				var/appealmessage = ""
-				if(config.banappeals)
-					appealmessage = " You may appeal it at <a href='[config.banappeals]'>[config.banappeals]</a>."
+				if(GLOB?.configuration?.url.banappeals_url)
+					appealmessage = " You may appeal it at <a href='[GLOB.configuration.url.banappeals_url]'>[GLOB.configuration.url.banappeals_url]</a>."
 				expires = " This ban does not expire automatically and must be appealed.[appealmessage]"
 
 			var/desc = "\nReason: You, or another user of this computer or connection ([pckey]) is banned from playing here. The ban reason is:\n[reason]\nThis ban was applied by [ackey] on [bantime][ban_round_id ? " (Round [ban_round_id])" : ""].[expires]"

@@ -199,6 +199,7 @@
 #include "code\controllers\configuration\sections\overflow_configuration.dm"
 #include "code\controllers\configuration\sections\ruin_configuration.dm"
 #include "code\controllers\configuration\sections\system_configuration.dm"
+#include "code\controllers\configuration\sections\url_configuration.dm"
 #include "code\controllers\configuration\sections\vote_configuration.dm"
 #include "code\controllers\subsystem\acid.dm"
 #include "code\controllers\subsystem\afk.dm"

@@ -159,8 +159,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	// Send the reboot banner to all players
 	for(var/client/C in GLOB.clients)
 		C << output(list2params(list(secs_before_auto_reconnect)), "browseroutput:reboot")
-		if(config.server) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
-			C << link("byond://[config.server]")
+		if(GLOB?.configuration?.url.server_url) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+			C << link("byond://[GLOB.configuration.url.server_url]")
 
 	// And begin the real shutdown
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
@@ -210,8 +210,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(config && config.server_name)
 		s += "<b>[config.server_name]</b> &#8212; "
 	s += "<b>[station_name()]</b> "
-	if(config && config.githuburl)
-		s+= "([GLOB.game_version])"
+	if(GLOB?.configuration?.url.github_url)
+		s+= "([GLOB.game_version])" // TODO: Redo the MOTD
 
 	if(config && config.server_tag_line)
 		s += "<br>[config.server_tag_line]"
@@ -233,8 +233,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(GLOB?.configuration?.vote.allow_restart_votes)
 		features += "vote"
 
-	if(config && config.wikiurl)
-		features += "<a href=\"[config.wikiurl]\">Wiki</a>"
+	if(GLOB?.configuration?.url.wiki_url)
+		features += "<a href=\"[GLOB.configuration.url.wiki_url]\">Wiki</a>"
 
 	if(GLOB.abandon_allowed)
 		features += "respawn"

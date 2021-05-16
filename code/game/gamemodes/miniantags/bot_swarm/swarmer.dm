@@ -112,7 +112,7 @@
 	to_chat(src, "1. Consume resources and replicate until there are no more resources left.")
 	to_chat(src, "2. Ensure that the station is fit for invasion at a later date, do not perform actions that would render it dangerous or inhospitable.")
 	to_chat(src, "3. Biological and sentient resources will be harvested at a later date, do not harm them.")
-	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Swarmer)</span>")
+	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Swarmer)</span>")
 
 /mob/living/simple_animal/hostile/swarmer/New()
 	..()

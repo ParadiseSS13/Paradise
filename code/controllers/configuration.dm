@@ -6,14 +6,11 @@
 
 	var/minimum_client_build = 1421		// Build 1421 due to the middle mouse button exploit
 
-	var/nudge_script_path = "nudge.py"  // where the nudge.py script is located
-
 	var/pregame_timestart = 240			// Time it takes for the server to start the game
 
 //	var/enable_authentication = 0		// goon authentication
 	var/allow_Metadata = 0				// Metadata is supported.
 	var/popup_admin_pm = 0				//adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
-	var/list/resource_urls = null
 	var/antag_hud_allowed = 0      // Ghosts can turn on Antagovision to see a HUD of who is the bad guys this round.
 	var/antag_hud_restricted = 0                    // Ghosts that turn on Antagovision cannot rejoin the round.
 
@@ -21,7 +18,6 @@
 	var/guest_jobban = 1
 	var/panic_bunker_threshold = 150	// above this player count threshold, never-before-seen players are blocked from connecting
 	var/usewhitelist = 0
-	var/mods_are_mentors = 0
 	var/automute_on = 0					//enables automuting/spam prevention
 	var/round_abandon_penalty_period = 30 MINUTES // Time from round start during which ghosting out is penalized
 
@@ -34,16 +30,6 @@
 	var/max_maint_drones = 5				//This many drones can spawn,
 	var/allow_drone_spawn = 1				//assuming the admin allow them to.
 	var/drone_build_time = 1200				//A drone will become available every X ticks since last drone spawn. Default is 2 minutes.
-
-	var/server
-	var/banappeals
-	var/wikiurl = "http://example.org"
-	var/forumurl = "http://example.org"
-	var/rulesurl = "http://example.org"
-	var/githuburl = "http://example.org"
-	var/donationsurl = "http://example.org"
-	var/discordurl = "http://example.org"
-	var/discordforumurl = "http://example.org"
 
 	var/forbid_singulo_possession = 0
 
@@ -83,9 +69,6 @@
 	var/ipintel_maxplaytime = 0
 	var/ipintel_whitelist = 0
 	var/ipintel_detailsurl = "https://iphub.info/?ip="
-
-	var/forum_link_url
-	var/forum_playerinfo_url
 
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
 
@@ -129,8 +112,6 @@
 	/// BYOND account age limit for notifcations of new accounts (Any accounts older than this value will not send notifications on first join)
 	var/byond_account_age_threshold = 7
 
-	/// URL for the CentCom Ban DB API
-	var/centcom_ban_db_url = null
 
 	/// Max amount of CIDs that one ckey can have attached to them before they trip a warning
 	var/max_client_cid_history = 3
@@ -170,9 +151,6 @@
 
 		if(type == "config")
 			switch(name)
-				if("resource_urls")
-					config.resource_urls = splittext(value, " ")
-
 				if("ban_legacy_system")
 					config.ban_legacy_system = 1
 
@@ -200,12 +178,6 @@
 				if("ipintel_detailsurl")
 					config.ipintel_detailsurl = value
 
-				if("forum_link_url")
-					config.forum_link_url = value
-
-				if("forum_playerinfo_url")
-					config.forum_playerinfo_url = value
-
 				if("pregame_timestart")
 					config.pregame_timestart = text2num(value)
 
@@ -226,36 +198,6 @@
 
 				if("minimum_client_build")
 					config.minimum_client_build = text2num(value)
-
-				if("nudge_script_path")
-					config.nudge_script_path = value
-
-				if("server")
-					config.server = value
-
-				if("banappeals")
-					config.banappeals = value
-
-				if("wikiurl")
-					config.wikiurl = value
-
-				if("forumurl")
-					config.forumurl = value
-
-				if("rulesurl")
-					config.rulesurl = value
-
-				if("githuburl")
-					config.githuburl = value
-
-				if("discordurl")
-					config.discordurl = value
-
-				if("discordforumurl")
-					config.discordforumurl = value
-
-				if("donationsurl")
-					config.donationsurl = value
 
 				if("guest_ban")
 					#warn AA clear this up
@@ -331,8 +273,7 @@
 					config.developer_express_start = 1
 				if("byond_account_age_threshold")
 					config.byond_account_age_threshold = text2num(value)
-				if("centcom_ban_db_url")
-					centcom_ban_db_url = value
+
 				if("max_client_cid_history")
 					max_client_cid_history = text2num(value)
 				if("enable_auto_profiler")

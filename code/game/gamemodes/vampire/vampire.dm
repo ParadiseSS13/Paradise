@@ -193,7 +193,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	for(var/datum/objective/objective in vampire.objectives)
 		to_chat(vampire.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
-	to_chat(vampire.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Vampire)</span>")
+	to_chat(vampire.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Vampire)</span>")
 	return
 /datum/vampire
 	var/bloodtotal = 0 // CHANGE TO ZERO WHEN PLAYTESTING HAPPENS

@@ -1099,9 +1099,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				ResetJobs()
 				SetChoices(user)
 			if("learnaboutselection")
-				if(config.wikiurl)
+				if(GLOB?.configuration?.url.wiki_url)
 					if(alert("Would you like to open the Job selection info in your browser?", "Open Job Selection", "Yes", "No") == "Yes")
-						user << link("[config.wikiurl]/index.php/Job_Selection_and_Assignment")
+						user << link("[GLOB.configuration.url.wiki_url]/index.php/Job_Selection_and_Assignment")
 				else
 					to_chat(user, "<span class='danger'>The Wiki URL is not set in the server configuration.</span>")
 			if("random")

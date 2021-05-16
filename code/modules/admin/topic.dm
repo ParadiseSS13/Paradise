@@ -541,8 +541,8 @@
 				to_chat(M, "<span class='warning'><big><b>You have been appearance banned by [usr.client.ckey].</b></big></span>")
 				to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
 				to_chat(M, "<span class='warning'>Appearance ban can be lifted only upon request.</span>")
-				if(config.banappeals)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
+				if(GLOB?.configuration?.url.banappeals_url)
+					to_chat(M, "<span class='warning'>To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
 			if("No")
@@ -1008,8 +1008,8 @@
 
 	else if(href_list["webtools"])
 		var/target_ckey = href_list["webtools"]
-		if(config.forum_playerinfo_url)
-			var/url_to_open = config.forum_playerinfo_url + target_ckey
+		if(GLOB?.configuration?.url.forum_playerinfo_url)
+			var/url_to_open = "[GLOB.configuration.url.forum_playerinfo_url][target_ckey]"
 			if(alert("Open [url_to_open]",,"Yes","No")=="Yes")
 				usr.client << link(url_to_open)
 
@@ -1074,8 +1074,8 @@
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
 				if(M.client)
 					M.client.link_forum_account(TRUE)
-				if(config.banappeals)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
+				if(GLOB.configuration.url.banappeals_url)
+					to_chat(M, "<span class='warning'>To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
@@ -1091,8 +1091,8 @@
 				to_chat(M, "<span class='warning'>This ban does not expire automatically and must be appealed.</span>")
 				if(M.client)
 					M.client.link_forum_account(TRUE)
-				if(config.banappeals)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
+				if(GLOB?.configuration?.url.banappeals_url)
+					to_chat(M, "<span class='warning'>To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
 				ban_unban_log_save("[usr.client.ckey] has permabanned [M.ckey]. - Reason: [reason] - This ban does not expire automatically and must be appealed.")

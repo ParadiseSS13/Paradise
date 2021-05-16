@@ -617,8 +617,8 @@
 			spawn(40) // This is necessary because without it, they won't see the message, and addtimer cannot be used because the timer system may not have initialized yet
 				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]</span>")
 				var/blockmsg = "<B>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</B>"
-				if(config.banappeals)
-					blockmsg += "\nIf you are not actually using a proxy/VPN, or have no choice but to use one, request whitelisting at: [config.banappeals]"
+				if(GLOB?.configuration?.url.banappeals_url)
+					blockmsg += "\nIf you are not actually using a proxy/VPN, or have no choice but to use one, request whitelisting at: [GLOB.configuration.url.banappeals_url]"
 				to_chat(src, blockmsg)
 				qdel(src)
 		else
@@ -626,7 +626,7 @@
 
 
 /client/proc/check_forum_link()
-	if(!config.forum_link_url || !prefs || prefs.fuid)
+	if(!GLOB?.configuration?.url.forum_link_url || !prefs || prefs.fuid)
 		return
 	if(GLOB.configuration.jobs.enable_exp_tracking)
 		var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
@@ -662,7 +662,7 @@
 	return tokenstr
 
 /client/proc/link_forum_account(fromban)
-	if(!config.forum_link_url)
+	if(!GLOB?.configuration?.url.forum_link_url)
 		return
 	if(IsGuestKey(key))
 		to_chat(src, "Guest keys cannot be linked.")
@@ -688,7 +688,7 @@
 	if(!tokenid)
 		to_chat(src, "link_forum_account: unable to create token")
 		return
-	var/url = "[config.forum_link_url][tokenid]"
+	var/url = "[GLOB.configuration.url.forum_link_url][tokenid]"
 	if(fromban)
 		url += "&fwd=appeal"
 		to_chat(src, {"Now opening a window to verify your information with the forums, so that you can appeal your ban. If the window does not load, please copy/paste this link: <a href="[url]">[url]</a>"})
@@ -841,8 +841,8 @@
 //Send resources to the client.
 /client/proc/send_resources()
 	// Change the way they should download resources.
-	if(config.resource_urls)
-		preload_rsc = pick(config.resource_urls)
+	if(GLOB?.configuration?.url.rsc_urls)
+		preload_rsc = pick(GLOB.configuration.url.rsc_urls)
 	else
 		preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 	// Most assets are now handled through global_cache.dm
