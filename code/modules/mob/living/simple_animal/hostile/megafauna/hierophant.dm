@@ -215,7 +215,7 @@ Difficulty: Hard
 	return ..()
 
 // This is its own var modification in a callback to avoid using spawn()
-/mob/living/simple_animal/hostile/megafauna/hierophant/proc/toggleImmunity(state)
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/toggle_immunity(state)
 	immune = state
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink_spam(blink_counter, target_slowness, cross_counter)
@@ -225,7 +225,7 @@ Difficulty: Hard
 		var/oldcolor = color
 		immune = TRUE
 		animate(src, color = "#660099", time = 6)
-		addtimer(CALLBACK(src, .proc/toggleImmunity, FALSE), 6 SECONDS)
+		addtimer(CALLBACK(src, .proc/toggle_immunity, FALSE), 6 SECONDS)
 		SLEEP_CHECK_DEATH(6)
 		while(!QDELETED(target) && blink_counter)
 			if(loc == target.loc || loc == target) //we're on the same tile as them after about a second we can stop now
@@ -249,7 +249,7 @@ Difficulty: Hard
 	var/oldcolor = color
 	immune = TRUE
 	animate(src, color = "#660099", time = 6)
-	addtimer(CALLBACK(src, .proc/toggleImmunity, FALSE), 6 SECONDS)
+	addtimer(CALLBACK(src, .proc/toggle_immunity, FALSE), 6 SECONDS)
 	SLEEP_CHECK_DEATH(6)
 	while(!QDELETED(target) && cross_counter)
 		cross_counter--
@@ -271,7 +271,7 @@ Difficulty: Hard
 	var/oldcolor = color
 	immune = TRUE
 	animate(src, color = "#660099", time = 6)
-	addtimer(CALLBACK(src, .proc/toggleImmunity, FALSE), 6 SECONDS)
+	addtimer(CALLBACK(src, .proc/toggle_immunity, FALSE), 6 SECONDS)
 	SLEEP_CHECK_DEATH(6)
 	var/list/targets = ListTargets()
 	var/list/cardinal_copy = GLOB.cardinal.Copy()
