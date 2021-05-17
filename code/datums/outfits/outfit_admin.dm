@@ -640,6 +640,7 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_centcom_access(), name, "lifetimeid")
 	I.assignment = "Solar Federation Representative"
+	H.sec_hud_set_ID()
 
 
 /datum/outfit/admin/solgov
