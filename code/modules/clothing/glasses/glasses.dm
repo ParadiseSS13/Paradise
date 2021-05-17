@@ -487,6 +487,7 @@
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes."
 	icon_state = "tajblind"
 	item_state = "tajblind"
+	species_restricted = list("Tajaran")
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
@@ -502,16 +503,19 @@
 	name = "industrial veil"
 	icon_state = "tajblind_engi"
 	item_state = "tajblind_engi"
+	species_restricted = list("Tajaran")
 
 /obj/item/clothing/glasses/tajblind/sci
 	name = "hi-tech veil"
 	icon_state = "tajblind_sci"
 	item_state = "tajblind_sci"
+	species_restricted = list("Tajaran")
 
 /obj/item/clothing/glasses/tajblind/cargo
 	name = "khaki veil"
 	icon_state = "tajblind_cargo"
 	item_state = "tajblind_cargo"
+	species_restricted = list("Tajaran")
 
 /obj/item/clothing/glasses/tajblind/attack_self()
 	toggle_veil()
