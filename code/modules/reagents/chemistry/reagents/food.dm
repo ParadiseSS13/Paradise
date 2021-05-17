@@ -798,6 +798,21 @@
 	color = "#B4641B"
 	taste_description = "gravy"
 
+/datum/reagent/consumable/wasabi
+	name = "Wasabi"
+	id = "wasabi"
+	description = "A pungent green paste often served with sushi. Consuming too much causes an uncomfortable burning sensation in the nostrils."
+	reagent_state = LIQUID
+	color = "#80942F"
+	taste_description = "pungency"
+
+/datum/reagent/consumable/wasabi/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST)
+		if(volume <= 1)
+			to_chat(M, "<span class='notice'>Your nostrils tingle briefly.</span>")
+		else
+			to_chat(M, "<span class='warning'>Your nostrils burn uncomfortably!</span>")
+			M.adjustFireLoss(1)
 
 ///Food Related, but non-nutritious
 

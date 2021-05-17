@@ -76,12 +76,11 @@
 	if(rigged && amount > 0)
 		explode()
 		return 0
-	/*if(charge < amount) PARADISE NO SABE NADA DE BATERIAS, ARRIBA ERIS
-		return 0*/
-	var/used = min(charge, amount)
-	charge -= used
-	update_icon()//cada vez que se gana o pierde carga se updatea el icono
-	return used //BY Evan
+	if(charge < amount)
+		return 0
+	charge = (charge - amount)
+	update_icon()
+	return 1
 
 // recharge the cell
 /obj/item/stock_parts/cell/proc/give(amount)

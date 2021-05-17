@@ -591,7 +591,7 @@
 	verbs -= /obj/structure/table/verb/do_flip
 	typecache_can_hold = typecacheof(typecache_can_hold)
 	for(var/atom/movable/held in get_turf(src))
-		if(is_type_in_typecache(held, typecache_can_hold))
+		if(!held.anchored && held.move_resist != INFINITY && is_type_in_typecache(held, typecache_can_hold))
 			held_items += held.UID()
 
 /obj/structure/table/tray/Move(NewLoc, direct)
