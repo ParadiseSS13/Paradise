@@ -122,7 +122,7 @@
 	. = ..()
 	. += slowdown
 	. += 1 //A bit slower than humans, so they're easier to smash
-	. += config.robot_delay
+	. += GLOB.configuration.movement.robot_delay
 
 /mob/living/silicon/pai/update_icons()
 	if(stat == DEAD)

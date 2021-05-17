@@ -928,15 +928,15 @@
 	if(forced_look)
 		. += 3
 	if(ignorewalk)
-		. += config.run_speed
+		. += GLOB.configuration.movement.base_run_speed
 	else
 		switch(m_intent)
 			if(MOVE_INTENT_RUN)
 				if(drowsyness > 0)
 					. += 6
-				. += config.run_speed
+				. += GLOB.configuration.movement.base_run_speed
 			if(MOVE_INTENT_WALK)
-				. += config.walk_speed
+				. += GLOB.configuration.movement.base_walk_speed
 
 
 /mob/living/proc/can_use_guns(obj/item/gun/G)

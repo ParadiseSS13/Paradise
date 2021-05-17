@@ -551,8 +551,6 @@ base_walk_speed = 4
 human_delay = 1.5
 # Move delay for cyborgs
 robot_delay = 2.5
-# Move delay for monkeys (and other primitives)
-monkey_delay = 1.5
 # Move delay for xenomorphs
 alien_delay = 1.5
 # Move delay for slimes (xenobio, not slimepeople)
