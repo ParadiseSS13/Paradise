@@ -92,6 +92,7 @@
 			mind.objectives += fluffObjective
 			to_chat(src, "<B>Objective #[1]</B>: [objective.explanation_text]")
 			to_chat(src, "<B>Objective #[2]</B>: [fluffObjective.explanation_text]")
+		to_chat(src, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Slaughter_Demon)</span>")
 
 
 /obj/effect/decal/cleanable/blood/innards

@@ -265,16 +265,11 @@
 			M.SetConfused(0)
 			return
 		if(iscultist(M))
-			SSticker.mode.remove_cultist(M.mind)
+			SSticker.mode.remove_cultist(M.mind, TRUE, TRUE)
 			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
-			if(ishuman(M)) // Unequip all cult clothing
-				var/mob/living/carbon/human/H = M
-				for(var/I in H.contents)
-					if(is_type_in_list(I, CULT_CLOTHING))
-						H.unEquip(I)
 			return
 	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M
