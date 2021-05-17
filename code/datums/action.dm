@@ -17,7 +17,7 @@
 	var/button_icon_state = "default"
 	var/mob/owner
 
-/datum/action/New(var/Target)
+/datum/action/New(Target)
 	target = Target
 	button = new
 	button.linked_action = src
@@ -369,11 +369,22 @@
 		return FALSE
 	return ..()
 
+/datum/action/item_action/toggle_geiger_counter
+	name = "Toggle Geiger Counter"
+
+/datum/action/item_action/toggle_geiger_counter/Trigger()
+	var/obj/item/clothing/head/helmet/space/hardsuit/H = target
+	if(istype(H))
+		H.toggle_geiger_counter()
+
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/item_action/hands_free/activate
 	name = "Activate"
+
+/datum/action/item_action/hands_free/activate/always
+    check_flags = null
 
 /datum/action/item_action/toggle_research_scanner
 	name = "Toggle Research Scanner"

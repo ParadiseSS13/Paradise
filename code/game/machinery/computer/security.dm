@@ -1,6 +1,5 @@
 #define SEC_DATA_R_LIST	1	// Record list
-#define SEC_DATA_MAINT	2	// Records maintenance
-#define SEC_DATA_RECORD	3	// Record
+#define SEC_DATA_RECORD	2	// Record
 
 #define SEC_FIELD(N, V, E, LB) list(field = N, value = V, edit = E, line_break = LB)
 
@@ -166,7 +165,7 @@
 		if("page") // Select Page
 			if(!logged_in)
 				return
-			var/page_num = clamp(text2num(params["page"]), SEC_DATA_R_LIST, SEC_DATA_MAINT) // SEC_DATA_RECORD cannot be accessed through this act
+			var/page_num = clamp(text2num(params["page"]), SEC_DATA_R_LIST, SEC_DATA_R_LIST) // SEC_DATA_RECORD cannot be accessed through this act
 			current_page = page_num
 			record_general = null
 			record_security = null
@@ -247,25 +246,6 @@
 			QDEL_NULL(record_security)
 			update_all_mob_security_hud()
 			set_temp("Security record deleted.")
-		if("delete_security_all") // Delete All Security Records
-			if(!logged_in)
-				return
-			for(var/datum/data/record/S in GLOB.data_core.security)
-				qdel(S)
-			message_admins("[key_name_admin(usr)] has deleted all security records at [ADMIN_COORDJMP(usr)]")
-			usr.create_log(MISC_LOG, "deleted all security records")
-			update_all_mob_security_hud()
-			set_temp("All security records deleted.")
-		if("delete_cell_logs") // Delete All Cell Logs
-			if(!logged_in)
-				return
-			if(!length(GLOB.cell_logs))
-				set_temp("There are no cell logs to delete.")
-				return
-			message_admins("[key_name_admin(usr)] has deleted all cell logs at [ADMIN_COORDJMP(usr)]")
-			usr.create_log(MISC_LOG, "deleted all cell logs")
-			GLOB.cell_logs.Cut()
-			set_temp("All cell logs deleted.")
 		if("comment_delete") // Delete Comment
 			if(!logged_in)
 				return
@@ -494,6 +474,5 @@
 	density = FALSE
 
 #undef SEC_DATA_R_LIST
-#undef SEC_DATA_MAINT
 #undef SEC_DATA_RECORD
 #undef SEC_FIELD

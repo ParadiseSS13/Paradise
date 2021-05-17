@@ -1,4 +1,4 @@
-/proc/getAssignedBlock(var/name,var/list/blocksLeft, var/activity_bounds=DNA_DEFAULT_BOUNDS, var/good=0)
+/proc/getAssignedBlock(name, list/blocksLeft, activity_bounds=DNA_DEFAULT_BOUNDS, good=0)
 	if(blocksLeft.len==0)
 		warning("[name]: No more blocks left to assign!")
 		return 0
@@ -107,29 +107,32 @@
 	// Monkeyblock is always last.
 	GLOB.monkeyblock = DNA_SE_LENGTH
 
-	// And the genes that actually do the work. (domutcheck improvements)
+	// And the mutations that actually do the work. (domutcheck improvements)
 	var/list/blocks_assigned[DNA_SE_LENGTH]
-	for(var/gene_type in typesof(/datum/dna/gene))
-		var/datum/dna/gene/G = new gene_type
+	for(var/mutation_type in typesof(/datum/mutation))
+		var/datum/mutation/G = new mutation_type
 		if(G.block)
 			if(G.block in blocks_assigned)
 				warning("DNA2: Gene [G.name] trying to use already-assigned block [G.block] (used by [english_list(blocks_assigned[G.block])])")
-			GLOB.dna_genes.Add(G)
+			GLOB.dna_mutations[mutation_type] = G
 			var/list/assignedToBlock[0]
 			if(blocks_assigned[G.block])
-				assignedToBlock=blocks_assigned[G.block]
+				assignedToBlock = blocks_assigned[G.block]
 			assignedToBlock.Add(G.name)
-			blocks_assigned[G.block]=assignedToBlock
+			blocks_assigned[G.block] = assignedToBlock
 			//testing("DNA2: Gene [G.name] assigned to block [G.block].")
+		else
+			qdel(G)
 
-	// I WILL HAVE A LIST OF GENES THAT MATCHES THE RANDOMIZED BLOCKS GODDAMNIT!
-	for(var/block=1;block<=DNA_SE_LENGTH;block++)
+	// I WILL HAVE A LIST OF MUTATIONS THAT MATCHES THE RANDOMIZED BLOCKS GODDAMNIT!
+	for(var/block in 1 to DNA_SE_LENGTH)
 		var/name = GLOB.assigned_blocks[block]
-		for(var/datum/dna/gene/gene in GLOB.dna_genes)
-			if(gene.name == name || gene.block == block)
-				if(gene.block in GLOB.assigned_gene_blocks)
-					warning("DNA2: Gene [gene.name] trying to add to already assigned gene block list (used by [english_list(GLOB.assigned_gene_blocks[block])])")
-				GLOB.assigned_gene_blocks[block] = gene
+		for(var/mutation_type in GLOB.dna_mutations)
+			var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
+			if(mutation.name == name || mutation.block == block)
+				if(mutation.block in GLOB.assigned_mutation_blocks)
+					warning("DNA2: Mutation [mutation.name] trying to add to already assigned gene block list (used by [english_list(GLOB.assigned_mutation_blocks[block])])")
+				GLOB.assigned_mutation_blocks[block] = mutation
 
 	//testing("DNA2: [numsToAssign.len] blocks are unused: [english_list(numsToAssign)]")
 

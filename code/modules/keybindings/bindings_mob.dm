@@ -33,7 +33,7 @@
 			if("E")
 				quick_equip()
 				return
-			if("Alt")
+			if("C")
 				toggle_move_intent()
 				return
 	else
@@ -66,7 +66,7 @@
 			if("E")
 				quick_equip()
 				return
-			if("Alt")
+			if("C")
 				toggle_move_intent()
 				return
 		//Bodypart selections
@@ -139,7 +139,7 @@
 
 /mob/key_up(_key, client/user)
 	switch(_key)
-		if("Alt")
+		if("C")
 			toggle_move_intent()
 			return
 	return ..()

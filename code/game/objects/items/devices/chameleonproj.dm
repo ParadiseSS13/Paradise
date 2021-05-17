@@ -19,6 +19,7 @@
 	var/saved_underlays = null
 
 /obj/item/chameleon/dropped()
+	..()
 	disrupt()
 
 /obj/item/chameleon/equipped()
@@ -65,7 +66,7 @@
 		spawn(8)
 			qdel(T)
 
-/obj/item/chameleon/proc/disrupt(var/delete_dummy = 1)
+/obj/item/chameleon/proc/disrupt(delete_dummy = 1)
 	if(active_dummy)
 		do_sparks(5, 0, src)
 		eject_all()
@@ -90,7 +91,7 @@
 	var/can_move = 1
 	var/obj/item/chameleon/master = null
 
-/obj/effect/dummy/chameleon/proc/activate(var/obj/O, var/mob/M, new_icon, new_iconstate, new_overlays, new_underlays, var/obj/item/chameleon/C)
+/obj/effect/dummy/chameleon/proc/activate(obj/O, mob/M, new_icon, new_iconstate, new_overlays, new_underlays, obj/item/chameleon/C)
 	name = O.name
 	desc = O.desc
 	icon = new_icon
@@ -134,7 +135,7 @@
 	..()
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/relaymove(var/mob/user, direction)
+/obj/effect/dummy/chameleon/relaymove(mob/user, direction)
 	if(istype(loc, /turf/space) || !direction)
 		return //No magical space movement!
 
@@ -199,23 +200,7 @@
 		deactivate(user)
 	else
 		to_chat(user, "<span class='notice'>You activate [src].</span>")
-		var/start = user.filters.len
-		var/X
-		var/Y
-		var/rsq
-		var/i
-		var/f
-		for(i in 1 to 7)
-			do
-				X = 60 * rand() - 30
-				Y = 60 * rand() - 30
-				rsq = X * X + Y * Y
-			while(rsq < 100 || rsq > 900)
-			user.filters += filter(type = "wave", x = X, y = Y, size = rand() * 2.5 + 0.5, offset = rand())
-		for(i in 1 to 7)
-			f = user.filters[start+i]
-			animate(f, offset = f:offset, time = 0, loop = 3, flags = ANIMATION_PARALLEL)
-			animate(offset = f:offset - 1, time = rand() * 20 + 10)
+		apply_wibbly_filters(user)
 		if(do_after(user, 50, target = user) && user.cell.use(activationCost))
 			playsound(src, 'sound/effects/bamf.ogg', 100, 1, -6)
 			to_chat(user, "<span class='notice'>You are now disguised as a Nanotrasen engineering cyborg.</span>")
@@ -223,10 +208,7 @@
 		else
 			to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")
 			do_sparks(3, FALSE, user)
-			for(i in 1 to min(7, user.filters.len)) // removing filters that are animating does nothing, we gotta stop the animations first
-				f = user.filters[start + i]
-				animate(f)
-		user.filters = null
+		remove_wibbly_filters(user)
 
 /obj/item/borg_chameleon/process()
 	if(S)

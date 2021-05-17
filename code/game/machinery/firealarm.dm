@@ -98,9 +98,8 @@ FIRE ALARM
 			if(istype(I, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/coil = I
 				if(!coil.use(5))
-					to_chat(user, "<span class='warning'>You cut the wires!</span>")
+					to_chat(user, "<span class='warning'>You need a total of five cables to wire [src]!</span>")
 					return
-
 				buildstage = FIRE_ALARM_READY
 				playsound(get_turf(src), I.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You wire [src]!</span>")
@@ -220,11 +219,9 @@ FIRE ALARM
 /obj/machinery/firealarm/power_change()
 	if(powered(ENVIRON))
 		stat &= ~NOPOWER
-		update_icon()
 	else
-		spawn(rand(0,15))
-			stat |= NOPOWER
-			update_icon()
+		stat |= NOPOWER
+	update_icon()
 
 /obj/machinery/firealarm/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN) || buildstage != 2)

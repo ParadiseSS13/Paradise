@@ -7,6 +7,7 @@
 		opacity = FALSE
 		anchored = 1
 		resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+		flags_2 = RAD_NO_CONTAMINATE_2
 		max_integrity = 200
 
 /obj/machinery/shield/New()
@@ -673,6 +674,6 @@
 	phaseout()
 	return ..()
 
-/obj/machinery/shieldwall/syndicate/hitby(AM as mob|obj)
+/obj/machinery/shieldwall/syndicate/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	phaseout()
 	return ..()

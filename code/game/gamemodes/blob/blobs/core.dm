@@ -12,22 +12,22 @@
 	var/is_offspring = null
 	var/selecting = 0
 
-/obj/structure/blob/core/New(loc, var/h = 200, var/client/new_overmind = null, var/new_rate = 2, offspring)
+/obj/structure/blob/core/Initialize(mapload, client/new_overmind = null, new_rate = 2, offspring)
+	. = ..()
 	GLOB.blob_cores += src
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	adjustcolors(color) //so it atleast appears
 	if(offspring)
-		is_offspring = 1
+		is_offspring = TRUE
 	if(overmind)
 		adjustcolors(overmind.blob_reagent_datum.color)
 	if(!overmind)
 		create_overmind(new_overmind)
 	point_rate = new_rate
-	..(loc, h)
 
 
-/obj/structure/blob/core/adjustcolors(var/a_color)
+/obj/structure/blob/core/adjustcolors(a_color)
 	overlays.Cut()
 	color = null
 	var/image/I = new('icons/mob/blob.dmi', "blob")
@@ -117,13 +117,13 @@
 
 	if(C && !QDELETED(src))
 		var/mob/camera/blob/B = new(loc)
+		B.is_offspring = is_offspring
 		B.key = C.key
 		B.blob_core = src
 		overmind = B
 		color = overmind.blob_reagent_datum.color
 		if(B.mind && !B.mind.special_role)
 			B.mind.make_Overmind()
-		B.is_offspring = is_offspring
 
 /obj/structure/blob/core/proc/lateblobtimer()
 	addtimer(CALLBACK(src, .proc/lateblobcheck), 50)

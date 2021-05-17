@@ -22,16 +22,18 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	// This needs to happen early, otherwise people can get a null species, nuking their character
 	makeDatumRefLists()
 
-	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
+	InitTGS() // creates a new TGS object
 	log_world("World loaded at [time_stamp()]")
-	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
+	log_world("[length(GLOB.vars) - length(GLOB.gvars_datum_in_built_vars)] global variables")
 	GLOB.revision_info.log_info()
-	load_admins(run_async=FALSE) // This better happen early on.
+	load_admins(run_async = FALSE) // This better happen early on.
 
 	#ifdef UNIT_TESTS
 	log_world("Unit Tests Are Enabled!")
 	#endif
 
+	if(!fexists("config/config.txt") || !fexists("config/game_options.txt"))
+		stack_trace("The game config files have not been properly set! Please copy ALL files from '/config/example' into the parent folder, '/config'.")
 
 	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
@@ -44,7 +46,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 	startup_procs() // Call procs that need to occur on startup (Generate lists, load MOTD, etc)
 
-	src.update_status()
+	update_status()
 
 	GLOB.space_manager.initialize() //Before the MC starts up
 
@@ -57,7 +59,10 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	HandleTestRun()
 	#endif
 
-	return
+
+/world/proc/InitTGS()
+	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
+	GLOB.revision_info.load_tgs_info() // Loads git and TM info from TGS itself
 
 // This is basically a replacement for hook/startup. Please dont shove random bullshit here
 // If it doesnt need to happen IMMEDIATELY on world load, make a subsystem for it
@@ -137,11 +142,11 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	return
 	#endif
 
-	// If we had an update or pending TM, set a 60 second timeout
+	// If the server has been gracefully shutdown in TGS, have a 60 seconds grace period for SQL updates and stuff
 	var/secs_before_auto_reconnect = 10
-	if(GLOB.pending_server_update)
+	if(GLOB.slower_restart)
 		secs_before_auto_reconnect = 60
-		to_chat(world, "<span class='boldannounce'>Reboot will take a little longer, due to pending updates.</span>")
+		server_announce_global("Reboot will take a little longer due to pending backend changes.")
 
 	// Send the reboot banner to all players
 	for(var/client/C in GLOB.clients)
@@ -170,7 +175,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			GLOB.master_mode = Lines[1]
 			log_game("Saved mode is '[GLOB.master_mode]'")
 
-/world/proc/save_mode(var/the_mode)
+/world/proc/save_mode(the_mode)
 	var/F = file("data/mode.txt")
 	fdel(F)
 	F << the_mode
@@ -185,6 +190,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	config.load("config/game_options.txt","game_options")
 	config.loadsql("config/dbconfig.txt")
 	config.loadoverflowwhitelist("config/ofwhitelist.txt")
+	config.load_rank_colour_map()
 	// apply some settings from config..
 
 /world/proc/update_status()

@@ -1,6 +1,6 @@
 // Point controlling procs
 
-/mob/camera/blob/proc/can_buy(var/cost = 15)
+/mob/camera/blob/proc/can_buy(cost = 15)
 	if(blob_points < cost)
 		to_chat(src, "<span class='warning'>You cannot afford this!</span>")
 		return 0
@@ -50,7 +50,7 @@
 	var/turf/T = get_turf(src)
 	create_shield(T)
 
-/mob/camera/blob/proc/create_shield(var/turf/T)
+/mob/camera/blob/proc/create_shield(turf/T)
 
 	var/obj/structure/blob/B = locate(/obj/structure/blob) in T
 	var/obj/structure/blob/shield/S = locate(/obj/structure/blob/shield) in T
@@ -283,7 +283,7 @@
 	var/turf/T = get_turf(src)
 	remove_blob(T)
 
-/mob/camera/blob/proc/remove_blob(var/turf/T)
+/mob/camera/blob/proc/remove_blob(turf/T)
 
 	var/obj/structure/blob/B = locate(/obj/structure/blob) in T
 	if(!T)
@@ -312,7 +312,7 @@
 	var/turf/T = get_turf(src)
 	expand_blob(T)
 
-/mob/camera/blob/proc/expand_blob(var/turf/T)
+/mob/camera/blob/proc/expand_blob(turf/T)
 	if(!T)
 		return
 
@@ -350,7 +350,7 @@
 	var/turf/T = get_turf(src)
 	rally_spores(T)
 
-/mob/camera/blob/proc/rally_spores(var/turf/T)
+/mob/camera/blob/proc/rally_spores(turf/T)
 	to_chat(src, "You rally your spores.")
 
 	var/list/surrounding_turfs = block(locate(T.x - 1, T.y - 1, T.z), locate(T.x + 1, T.y + 1, T.z))
@@ -389,7 +389,7 @@
 		return
 
 	split_used = TRUE
-	new /obj/structure/blob/core/ (get_turf(N), 200, null, blob_core.point_rate, offspring = TRUE)
+	new /obj/structure/blob/core(get_turf(N), null, blob_core.point_rate, TRUE)
 	qdel(N)
 
 	if(SSticker && SSticker.mode.name == "blob")
