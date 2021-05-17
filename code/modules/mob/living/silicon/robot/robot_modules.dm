@@ -593,8 +593,8 @@
 	modules += new /obj/item/screwdriver/cyborg(src)
 	modules += new /obj/item/wrench/cyborg(src)
 	modules += new /obj/item/crowbar/cyborg(src)
-	modules += new /obj/item/wirecutters/cyborg(src)
-	modules += new /obj/item/multitool/cyborg(src)
+	modules += new /obj/item/wirecutters/cyborg/drone(src)
+	modules += new /obj/item/multitool/cyborg/drone(src)
 	modules += new /obj/item/lightreplacer/cyborg(src)
 	modules += new /obj/item/gripper(src)
 	modules += new /obj/item/matter_decompiler(src)
@@ -602,6 +602,7 @@
 	modules += new /obj/item/soap(src)
 	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/rpd(src)
+	emag = null
 
 	for(var/T in stacktypes)
 		var/obj/item/stack/sheet/W = new T(src)

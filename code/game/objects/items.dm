@@ -100,6 +100,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/tool_enabled = TRUE //If we can turn on or off, are we currently active? Mostly for welders and this will normally be TRUE
 	var/tool_volume = 50 //How loud are we when we use our tool?
 	var/toolspeed = 1 // If this item is a tool, the speed multiplier
+	/// Show what a machine/door wire does when held.
+	var/show_wire_information = FALSE
 
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:

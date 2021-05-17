@@ -60,12 +60,16 @@
 	icon_state = "cutters"
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"
+	show_wire_information = TRUE
 	random_color = FALSE
 
 /obj/item/wirecutters/cyborg
 	name = "wirecutters"
 	desc = "This cuts wires."
 	toolspeed = 0.5
+
+/obj/item/wirecutters/cyborg/drone
+	show_wire_information = TRUE
 
 /obj/item/wirecutters/power
 	name = "jaws of life"
