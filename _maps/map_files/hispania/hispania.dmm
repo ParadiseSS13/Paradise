@@ -99598,6 +99598,7 @@
 "var" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellowfull"
@@ -100680,6 +100681,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
+"wau" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 24
+	},
+/turf/simulated/floor/wood,
+/area/blueshield)
 "waE" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -134529,7 +134536,7 @@ chf
 bYF
 oev
 cgS
-clR
+wau
 clR
 umP
 cgS
