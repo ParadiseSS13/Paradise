@@ -295,7 +295,6 @@
 
 //este vending es gratis en paradise
 /obj/machinery/vending/shoedispenser
-	hispa_products = list(/obj/item/clothing/shoes/swagshoes = 1)
 	hispa_prices = list(/obj/item/clothing/shoes/black = 150,
 					/obj/item/clothing/shoes/brown = 400,
 					/obj/item/clothing/shoes/blue = 150,
@@ -304,8 +303,8 @@
 					/obj/item/clothing/shoes/purple = 50,
 					/obj/item/clothing/shoes/red = 100,
 					/obj/item/clothing/shoes/white = 100,
-					/obj/item/clothing/shoes/sandal = 15,
-					/obj/item/clothing/shoes/swagshoes = 3000)
+					/obj/item/clothing/shoes/sandal = 15)
+	hispa_premium = list(/obj/item/clothing/shoes/swagshoes = 1)
 
 /obj/machinery/vending/cola
 	hispa_products = list(/obj/item/reagent_containers/food/drinks/cans/space_mundet = 10, /obj/item/reagent_containers/food/drinks/cans/behemoth_energy = 2,
