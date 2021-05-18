@@ -26,7 +26,7 @@
 		var/obj/target_obj = target
 		if(target_obj.resistance_flags & UNACIDABLE)
 			return
-	if(istype(target_turf, /turf/simulated/mineral/cere))
+	if(is_ancient_rock(target_turf))
 		visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
 		return
 

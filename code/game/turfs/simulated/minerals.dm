@@ -165,7 +165,7 @@
 			src = M
 			M.levelupdate()
 
-/turf/simulated/mineral/cere
+/turf/simulated/mineral/ancient
 	name = "ancient rock"
 	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
 

@@ -215,7 +215,7 @@
 /obj/item/projectile/plasma/on_hit(atom/target)
 	. = ..()
 	if(ismineralturf(target))
-		if(istype(target, /turf/simulated/mineral/cere))
+		if(is_ancient_rock(target))
 			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
 			forcedodge = 0
 			return

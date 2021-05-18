@@ -183,7 +183,7 @@
 				T.on_mark_application(target, CM, had_effect)
 	var/target_turf = get_turf(target)
 	if(ismineralturf(target_turf))
-		if(istype(target_turf, /turf/simulated/mineral/cere))
+		if(is_ancient_rock(target_turf))
 			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
 		else
 			var/turf/simulated/mineral/M = target_turf
