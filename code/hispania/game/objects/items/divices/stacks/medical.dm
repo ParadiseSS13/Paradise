@@ -76,10 +76,10 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
-		var/limb = affecting.name
 		if(!affecting)
 			to_chat(user, "<span class='warning'>[M] doesn't have a limb there!</span>")
 			return TRUE
+		var/limb = affecting.name
 		if(!(affecting.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")))
 			to_chat(user, "<span class='danger'>You can't apply a [src] there!</span>")
 			return TRUE
