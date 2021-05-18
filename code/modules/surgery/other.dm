@@ -125,7 +125,7 @@
 	if(!affected)
 		return 0
 
-	if(!(affected.status & ORGAN_DEAD))
+	if(!(affected.status & ORGAN_DEAD) && !(affected.status & ORGAN_BURNT))
 		return 0
 	return 1
 
