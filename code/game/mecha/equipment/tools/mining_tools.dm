@@ -17,6 +17,7 @@
 	var/drill_level = DRILL_BASIC
 
 /obj/item/mecha_parts/mecha_equipment/drill/action(atom/target)
+	var/turf/target_turf = get_turf(target)
 	if(!action_checks(target))
 		return
 	if(isspaceturf(target))
@@ -25,6 +26,10 @@
 		var/obj/target_obj = target
 		if(target_obj.resistance_flags & UNACIDABLE)
 			return
+	if(istype(target_turf, /turf/simulated/mineral/cere))
+		visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		return
+
 	target.visible_message("<span class='warning'>[chassis] starts to drill [target].</span>",
 					"<span class='userdanger'>[chassis] starts to drill [target]...</span>",
 					 "<span class='italics'>You hear drilling.</span>")
