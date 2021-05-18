@@ -63,14 +63,14 @@
 
 /obj/item/stack/medical/quickclot
 	name = "surgical quikclot gauze kit"
-	desc = "A brand of hemostatic dressing famous through centuries, wound dressing that contains an agent that promotes blood clotting."
+	desc = "A brand of hemostatic dressing famous through centuries, wound dressing that contains an agent that promotes blood clotting. You can take the bandages out with something sharp."
 	icon = 'icons/hispania/obj/miscellaneous.dmi'
 	icon_state = "quickclot"
 	self_delay = 100
 	w_class = WEIGHT_CLASS_NORMAL
 	var/other_delay = 20
-	amount = 3
-	max_amount = 3
+	amount = 4
+	max_amount = 4
 
 /obj/item/stack/medical/quickclot/attack(mob/living/M, mob/user)
 	if(ishuman(M))
@@ -95,10 +95,20 @@
 			use(1)
 		else
 			to_chat(user, "<span class='warning'>You are unable to find any signs of internal bleeding on this limb.</span>")
+			return TRUE
+
+/obj/item/stack/medical/quickclot/attackby(obj/item/I, mob/user, params)
+	if(I.sharp)
+		new /obj/item/stack/medical/bruise_pack(user.drop_location())
+		user.visible_message("[user] cuts the special bandages from [src] into pieces of normal bandages with [I].", \
+					 "<span class='notice'>You cut the special bandages from [src] into pieces of bandages with [I].</span>", \
+					 "<span class='italics'>You hear cutting.</span>")
+		use(1)
+	else
+		return ..()
 
 /obj/item/stack/medical/quickclot/survivalqc
 	name = "survival quikclot gauze kit"
-	desc = "A brand of hemostatic dressing famous through centuries, wound dressing that contains an agent that promotes blood clotting."
 	icon_state = "quickclot_surv"
 	other_delay = 40
 	amount = 2
