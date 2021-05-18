@@ -35,7 +35,8 @@
 					/obj/item/clothing/under/suit_jacket/red = 2,
 					/obj/item/clothing/under/suit_jacket/tan = 2,
 					/obj/item/clothing/under/suit_jacket/burgundy = 2,
-					/obj/item/clothing/under/suit_jacket/charcoal = 2)
+					/obj/item/clothing/under/suit_jacket/charcoal = 2,
+					/obj/item/clothing/shoes/swagshoes = 1)
 
 	hispa_prices = list(/obj/item/clothing/head/that = 50,
 					/obj/item/clothing/head/fedora = 200,
@@ -113,7 +114,8 @@
 					/obj/item/storage/belt/fannypack/red = 30,
 					/obj/item/clothing/suit/mantle = 200,
 					/obj/item/clothing/suit/mantle/old = 200,
-					/obj/item/clothing/suit/mantle/regal = 200)
+					/obj/item/clothing/suit/mantle/regal = 200,
+					/obj/item/clothing/shoes/swagshoes = 3000)
 
 //este vending es gratis en paradise
 /obj/machinery/vending/artvend
