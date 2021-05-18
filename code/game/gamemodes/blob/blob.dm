@@ -15,7 +15,6 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	recommended_enemies = 1
 	restricted_jobs = list("Cyborg", "AI")
 
-	var/declared = 0
 	var/burst = 0
 
 	var/cores_to_spawn = 1
@@ -177,12 +176,8 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 		burst_blobs()
 
-		// Stage 0
-		sleep(wait_time)
-		stage(0)
-
 		// Stage 1
-		sleep(wait_time)
+		sleep((wait_time * 2))
 		stage(1)
 
 		// Stage 2
@@ -193,13 +188,10 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 /datum/game_mode/blob/proc/stage(stage)
 	switch(stage)
-		if(0)
-			send_intercept(1)
-			declared = 1
 		if(1)
 			GLOB.event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 		if(2)
-			send_intercept(2)
+			send_intercept(1)
 
 /datum/game_mode/proc/update_blob_icons_added(datum/mind/mob_mind)
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_BLOB]
