@@ -285,6 +285,8 @@
 			var/organStatus[0]
 			if(E.status & ORGAN_BROKEN)
 				organStatus["broken"] = E.broken_description
+			if(E.status & ORGAN_BURNT)
+				organStatus["burnt"] = E.burn_description
 			if(E.is_robotic())
 				organStatus["robotic"] = TRUE
 			if(E.status & ORGAN_SPLINTED)
