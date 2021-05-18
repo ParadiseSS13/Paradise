@@ -35,8 +35,7 @@
 					/obj/item/clothing/under/suit_jacket/red = 2,
 					/obj/item/clothing/under/suit_jacket/tan = 2,
 					/obj/item/clothing/under/suit_jacket/burgundy = 2,
-					/obj/item/clothing/under/suit_jacket/charcoal = 2,
-					/obj/item/clothing/shoes/swagshoes = 1)
+					/obj/item/clothing/under/suit_jacket/charcoal = 2)
 
 	hispa_prices = list(/obj/item/clothing/head/that = 50,
 					/obj/item/clothing/head/fedora = 200,
@@ -114,8 +113,7 @@
 					/obj/item/storage/belt/fannypack/red = 30,
 					/obj/item/clothing/suit/mantle = 200,
 					/obj/item/clothing/suit/mantle/old = 200,
-					/obj/item/clothing/suit/mantle/regal = 200,
-					/obj/item/clothing/shoes/swagshoes = 3000)
+					/obj/item/clothing/suit/mantle/regal = 200)
 
 //este vending es gratis en paradise
 /obj/machinery/vending/artvend
@@ -297,6 +295,7 @@
 
 //este vending es gratis en paradise
 /obj/machinery/vending/shoedispenser
+	hispa_products = list(/obj/item/clothing/shoes/swagshoes = 1)
 	hispa_prices = list(/obj/item/clothing/shoes/black = 150,
 					/obj/item/clothing/shoes/brown = 400,
 					/obj/item/clothing/shoes/blue = 150,
@@ -305,7 +304,8 @@
 					/obj/item/clothing/shoes/purple = 50,
 					/obj/item/clothing/shoes/red = 100,
 					/obj/item/clothing/shoes/white = 100,
-					/obj/item/clothing/shoes/sandal = 15)
+					/obj/item/clothing/shoes/sandal = 15,
+					/obj/item/clothing/shoes/swagshoes = 3000)
 
 /obj/machinery/vending/cola
 	hispa_products = list(/obj/item/reagent_containers/food/drinks/cans/space_mundet = 10, /obj/item/reagent_containers/food/drinks/cans/behemoth_energy = 2,
@@ -483,6 +483,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 					/obj/item/clothing/glasses/monocle = 5,
 					/obj/item/clothing/glasses/regular = 5,
 					/obj/item/clothing/ears/headphones = 5,
+					/obj/item/clothing/ears/headphones/airpods = 2,
 					/obj/item/clothing/accessory/necklace = 5,
 					/obj/item/clothing/accessory/necklace = 5,
 					/obj/item/clothing/accessory/necklace/dope = 5,
@@ -513,6 +514,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 					/obj/item/clothing/glasses/monocle = 400,
 					/obj/item/clothing/glasses/regular = 400,
 					/obj/item/clothing/ears/headphones = 450,
+					/obj/item/clothing/ears/headphones/airpods = 2000,
 					/obj/item/clothing/accessory/necklace = 300,
 					/obj/item/clothing/accessory/necklace/dope = 500,
 					/obj/item/clothing/accessory/necklace/locket = 1200,
