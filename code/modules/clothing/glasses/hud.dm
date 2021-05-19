@@ -172,7 +172,6 @@
 	icon_state = "tajblind_sec"
 	item_state = "tajblind_sec"
 	flash_protect = 1
-	species_restricted = list("Tajaran")
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
