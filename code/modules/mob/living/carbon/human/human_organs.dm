@@ -171,7 +171,22 @@ I use this to standardize shadowling dethrall code
 			splinted_limbs += limb
 
 /mob/living/carbon/human/proc/handle_severe_burns()
+	var/burned_limbs = 0 // amount of burn wounds that aren't salved a person has
 	for(var/obj/item/organ/external/O in bodyparts)
 		if((O.status & ORGAN_BURNT) && !(O.status & ORGAN_SALVED))
-			reagents.add_reagent("burn_toxin", 5.2) // slightly more than its metabolize rate, so that it builds up
+			burned_limbs += 1
+			continue
+	switch(burned_limbs)
+		if(0)
 			return
+		if(1)
+			reagents.add_reagent("burn_toxin", 5.2)
+		if(2)
+			reagents.add_reagent("burn_toxin", 5.4)
+		if(3)
+			reagents.add_reagent("burn_toxin", 5.7)
+		else
+			reagents.add_reagent("burn_toxin", 6) // at this point you are super fucked up
+
+
+
