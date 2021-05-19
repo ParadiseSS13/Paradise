@@ -57,7 +57,7 @@
 	name = "Solar Federation Code Decryptor and Design Printer"
 	desc = "A unique kind of file system decryptor system unable to be open or move."
 	icon = 'icons/hispania/obj/machines/research.dmi'
-	icon_state = "ntserv2"
+	icon_state = "ntframe1"
 	resistance_flags = INDESTRUCTIBLE
 	flags = NODECONSTRUCT
 	var/systemdisks = 4 //Contador de discos
