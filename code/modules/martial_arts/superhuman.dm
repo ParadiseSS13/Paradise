@@ -28,7 +28,7 @@
 	A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
 	if(prob(60))
 		if(!D.stat && !D.IsWeakened())
-			D.visible_message("<span class='warning'>[A] slams into [D], knocking them to the ground!</span>",
+			D.visible_message("<span class='warning'>[A] slams into [D], knocking [D.p_them()] to the ground!</span>",
 								"<span class='userdanger'>[A] slams into you, knocking you to the ground!</span>")
 			playsound(get_turf(D), 'sound/weapons/punchmiss.ogg', 50, TRUE, -1)
 			D.apply_damage(5, BRUTE)
@@ -48,5 +48,5 @@
 
 /datum/martial_art/superhuman/teach(mob/living/carbon/human/H, make_temporary)
 	. = ..()
-	to_chat(H, "<span class='sciradio'> We shift our biology, we are now able to rapidly form weapons out of different limbs after preforming different attacks. \
-				Our basic punches are augmented to be slashing claws that do large damage at the cost of knockdown chance. Our disarms become aggressive slams that ram our target to the floor. <span/>")
+	to_chat(H, "<span class='sciradio'> We alter our biology, we are now able to rapidly form weapons out of different limbs when preforming special attacks. \
+				When punching, our fingers become slashing claws that shred flesh. However, it is at the cost of lower knockdown chance. Our disarms aggressively slam opponents into the floor. <span/>")

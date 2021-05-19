@@ -1,6 +1,6 @@
 /datum/action/changeling/superhuman
 	name = "Superhuman Physiology"
-	desc = "We combine the fighting knowledge of the hivemind and our enhanced biological strength to form a potent martial art that makes use of our unique abilty to create weapons."
+	desc = "We utilize the pooled knowledge of the hivemind and our enhanced physiology to further weaponize our unique abilities into a dynamic fighting style."
 	dna_cost = 3
 	req_human = FALSE
 	needs_button = FALSE

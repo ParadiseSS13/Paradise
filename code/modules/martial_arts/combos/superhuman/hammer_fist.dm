@@ -1,6 +1,6 @@
 /datum/martial_combo/superhuman/hammer_fist
 	name = "Hammer Fist"
-	explaination_text = "We morph our fist into a bone hammer and slam our target to the ground. The damage is doubled against already stunned targets."
+	explaination_text = "We morph our fist into a bone hammer and slam our target into the ground. Already stunned targets receive twice as much damage."
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM)
 
 /datum/martial_combo/superhuman/hammer_fist/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
