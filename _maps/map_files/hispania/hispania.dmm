@@ -94269,6 +94269,17 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
+"pOo" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/spider/terrorweb/red{
+	icon_state = "floor4"
+	},
+/obj/item/gps/ruin{
+	gpstag = "TSF Discovery";
+	pixel_x = 32
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
 "pOG" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
@@ -149235,7 +149246,7 @@ bZZ
 bZZ
 doE
 vOa
-ssA
+pOo
 jCF
 ssA
 dKU
