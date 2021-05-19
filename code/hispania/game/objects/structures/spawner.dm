@@ -28,9 +28,6 @@
 	faction = list("nether")
 
 /obj/structure/spawner/netherbreach/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/analyzer)) //Item Unico de naga
-		to_chat(user, "<span class='notice'>Closing portal... [src]'s</span>")
-		to_chat(user, "<span class='notice'>The [src]'s seems to be closing.</span>")
+	if(istype(I, /obj/item/stack/ore/bluespace_crystal)) //Item Unico de naga
+		to_chat(user, "<span class='notice'>The [src]'s seems to react with the bluespace crystal and starts to shrink.</span>")
 		max_integrity = 0
-		new /obj/item/stack/ore/bluespace_crystal/refined(user.drop_location())
-		to_chat(user, "<span class='notice'>The [src]'s turns and shrinks into a bluespace crystal.</span>") //idk its science lol

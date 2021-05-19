@@ -50,7 +50,7 @@
 
 /obj/item/disk/nagadisks/redspaceshit
 	name = "NT Results from redspace crystals"
-	icon_state = "holodisk"
+	icon_state = "bluespacearray"
 	desc = "Better keep this safe for Centcom."
 
 /obj/machinery/computer/nagaframe
@@ -64,7 +64,7 @@
 
 /obj/machinery/computer/nagaframe/attacked_by(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/disk/nagadisks)) //HACKERMAN
-		if(systemdisks < 4)
+		if(systemdisks <= 4)
 			qdel(I)
 			to_chat(user, "<span class='notice'>You insert the disk into [src]'s</span>")
 			to_chat(user, "<span class='notice'>The [src]'s starts to process the data.</span>")
@@ -76,7 +76,7 @@
 				playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 				new /obj/item/disk/nagadisks/redspaceshit(user.drop_location())
 			else
-				atom_say("We still need [src.systemdisks] to complete the design.")
+				atom_say("We still need [src.systemdisks] to complete decryption of the files.")
 		else
 			to_chat(user, "<span class='notice'>No more disks needed.</span>")
 
