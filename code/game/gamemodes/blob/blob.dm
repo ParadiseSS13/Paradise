@@ -74,7 +74,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	log_game("[key_name(blob)] has been selected as a Blob")
 	greet_blob(blobmind)
 	to_chat(blob, "<span class='userdanger'>You feel very tired and bloated!  You don't have long before you burst!</span>")
-	addtimer(CALLBACK(src, .proc/burst_blob, blobmind), 600)
+	addtimer(CALLBACK(src, .proc/burst_blob, blobmind), 60 SECONDS)
 	return 1
 
 /datum/game_mode/blob/proc/make_blobs(count)
@@ -126,7 +126,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 				if(!warned)
 					to_chat(C, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
 					message_admins("[key_name_admin(C)] was in space when the blobs burst, and will die if [C.p_they()] [C.p_do()] not return to the station.")
-					addtimer(CALLBACK(src, .proc/burst_blob, blob, 1), 300)
+					addtimer(CALLBACK(src, .proc/burst_blob, blob, 1), 30 SECONDS)
 				else
 					burst++
 					log_admin("[key_name(C)] was in space when attempting to burst as a blob.")
@@ -176,7 +176,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		addtimer(CALLBACK(src, .proc/stage, 1), (wait_time * 2))
 
 		// Stage 2
-		addtimer(CALLBACK(src, .proc/stage, 2), 30000)
+		addtimer(CALLBACK(src, .proc/stage, 2), 50 MINUTES)
 
 	return ..()
 
