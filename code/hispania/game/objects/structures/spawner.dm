@@ -20,11 +20,9 @@
 	desc = "A breach on reality that cant be close now... unless..."
 	icon = 'icons/mob/nest.dmi'
 	icon_state = "nether"
-	light = COLOR_RED
-	light_range = 2
 	max_integrity = 4000 //La idea es desactivarlo pero si le pegas mucho lo matas lol
 	max_mobs = 4
-	spawn_time = 600 // Un minuto para aparecer un mob
+	spawn_time = 300 // 30 segundos para aparecer un mob
 	spawn_text = "crawls through"
 	mob_types = list(/mob/living/simple_animal/hostile/netherworld/migo, /mob/living/simple_animal/hostile/netherworld, /mob/living/simple_animal/hostile/netherworld/blankbody, /mob/living/simple_animal/hostile/hivebot/range/corruptednether, /mob/living/simple_animal/hostile/netherworld/hispanether/corruptcrew)
 	faction = list("nether")
