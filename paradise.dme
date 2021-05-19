@@ -1389,6 +1389,7 @@
 #include "code\hispania\modules\research\xenobiology\crossbreeding\warping.dm"
 #include "code\hispania\modules\shuttle\shuttle.dm"
 #include "code\hispania\modules\spacepods\equipment.dm"
+#include "code\hispania\modules\station_goals\redspacedisk.dm"
 #include "code\hispania\modules\surgery\tools.dm"
 #include "code\hispania\modules\surgery\organs\subtypes\murghal.dm"
 #include "code\hispania\modules\telesci\bscrystal.dm"
