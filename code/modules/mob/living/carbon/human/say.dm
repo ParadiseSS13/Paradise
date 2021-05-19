@@ -154,7 +154,6 @@
 			var/obj/item/clothing/mask/horsehead/hoers = wear_mask
 			if(hoers.voicechange)
 				S.message = pick("NEEIIGGGHHHH!", "NEEEIIIIGHH!", "NEIIIGGHH!", "HAAWWWWW!", "HAAAWWW!")
-				verb = pick("whinnies", "neighs", "says")
 
 		if(dna)
 			for(var/mutation_type in active_mutations)

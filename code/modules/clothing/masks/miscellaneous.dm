@@ -313,7 +313,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	w_class = WEIGHT_CLASS_SMALL
-	var/voicechange = 0
+	var/voicechange = FALSE
 	var/temporaryname = " the Horse"
 	var/originalname = ""
 
@@ -346,6 +346,10 @@
 		return
 	if(user.real_name == "[originalname][temporaryname]" || user.real_name == "A Horse With No Name") //if it's somehow changed while the mask is on it doesn't revert
 		user.real_name = originalname
+
+/obj/item/clothing/mask/horsehead/change_speech_verb()
+	if (voicechange == TRUE)
+		return pick("whinnies", "neighs", "says")
 
 /obj/item/clothing/mask/face
 	flags_inv = HIDEFACE

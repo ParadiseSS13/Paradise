@@ -38,3 +38,7 @@
 /obj/item/clothing/mask/gas/voice_modulator/chameleon/emp_act(severity)
 	. = ..()
 	chameleon_action.emp_randomise()
+
+/obj/item/clothing/mask/gas/voice_modulator/change_speech_verb()
+	if (voice_modulator.active)
+		return pick("modulates", "drones", "hums", "buzzes")
