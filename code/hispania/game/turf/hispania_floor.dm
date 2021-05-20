@@ -10,3 +10,4 @@
 	nitrogen = 82
 	floor_variance = 15
 	temperature = 20
+	icon = 'icons/hispania/turf/snow.dmi'
