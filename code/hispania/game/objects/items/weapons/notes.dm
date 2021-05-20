@@ -4,7 +4,7 @@
 	info = {"<b>Instructions</b><br>
  			<b><i>To anyone who needs to use this old but trusty machine</b></i><br>
  			<b><i> Find all the disks of the code you want to Decrypt </b></i><br>
- 			<b><i>The machine can tell how many disks you need to get the complet file in one disk </b></i><br>
+ 			<b><i>The machine can tell how many disks you need to get the complete file in one disk </b></i><br>
  			<br>
  			<b><p style="color:red;"><i>Insert the disks on the machine stop trying weird thins with my baby.</b></i></p>
 			<b><i>Withe love Lt. Salazar </b></i><br>
@@ -35,7 +35,7 @@
 			<b><i>- Alexander Olivera - </b></i><br>
 			"}
 
-/obj/item/paper/erpcomply
+/obj/item/paper/tsfcomply2
 	name = "TSF Comply #34"
 	icon_state = "paper_words"
 	info = {"<b>Dear Lt. Salazar</b><br>
@@ -43,7 +43,7 @@
 			<b><i>- Alexander Olivera - </b></i><br>
 			"}
 
-/obj/item/paper/erpcomply
+/obj/item/paper/missionreport
 	name = "TSF Mission Report"
 	icon_state = "paper_words"
 	info = {"<b>To: Lt. Salazar</b><br>
