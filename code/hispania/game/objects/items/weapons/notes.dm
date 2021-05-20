@@ -6,7 +6,7 @@
  			<b><i> Find all the disks of the code you want to Decrypt </b></i><br>
  			<b><i>The machine can tell how many disks you need to get the complete file in one disk </b></i><br>
  			<br>
- 			<b><p style="color:red;"><i>Insert the disks on the machine stop trying weird thins with my baby.</b></i></p>
+ 			<b><p style="color:red;"><i>Insert the disks on the machine stop trying weird things with my baby.</b></i></p>
 			<b><i>Withe love Lt. Salazar </b></i><br>
 			"}
 
@@ -22,7 +22,7 @@
 	name = "Hacking Old NT Computers"
 	icon_state = "paper_words"
 	info = {"<b>Dear engineer...</b><br>
- 			<b><i>STOP HITTING ALL THE NT WITH WRENCHES</b></i><br>
+ 			<b><i>STOP HITTING ALL THE NT OLD COMPUTERS WITH WRENCHES</b></i><br>
 			<b><i>Remember just use the damn multitool to get the data</b></i><br>
 			<b><i>Withe love Lt. Salazar </b></i><br>
 			"}
