@@ -139,7 +139,7 @@
 
 /obj/item/organ/internal/eyes/cybernetic/xray/hardened
 	name = "hardened X-ray eyes"
-	desc = "These cybernetic eyes will give you X-ray vision. Blinking is futile.This pair has been hardened for special operations personnel"
+	desc = "These cybernetic eyes will give you X-ray vision. Blinking is futile. This pair has been hardened for special operations personnel."
 	emp_proof = TRUE
 	origin_tech = "materials=6;programming=5;biotech=7;magnets=6;syndicate=3"
 
