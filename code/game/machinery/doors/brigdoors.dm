@@ -456,57 +456,49 @@
 /obj/machinery/door_timer/cell_1
 	name = "Cell 1"
 	id = "Cell 1"
-	dir = 2
 	pixel_y = -32
 
 
 /obj/machinery/door_timer/cell_2
 	name = "Cell 2"
 	id = "Cell 2"
-	dir = 2
 	pixel_y = -32
 
 
 /obj/machinery/door_timer/cell_3
 	name = "Cell 3"
 	id = "Cell 3"
-	dir = 2
 	pixel_y = -32
 
 
 /obj/machinery/door_timer/cell_4
 	name = "Cell 4"
 	id = "Cell 4"
-	dir = 2
 	pixel_y = -32
 
 
 /obj/machinery/door_timer/cell_5
 	name = "Cell 5"
 	id = "Cell 5"
-	dir = 2
 	pixel_y = -32
 
 
 /obj/machinery/door_timer/cell_6
 	name = "Cell 6"
 	id = "Cell 6"
-	dir = 4
-	pixel_x = 32
+	pixel_y = -32
 
 
 /obj/machinery/door_timer/cell_7
 	name = "Cell 7"
 	id = "Cell 7"
-	dir = 4
-	pixel_x = 32
+	pixel_y = -32
 
 
 /obj/machinery/door_timer/cell_8
 	name = "Cell 8"
 	id = "Cell 8"
-	dir = 4
-	pixel_x = 32
+	pixel_y = -32
 
 
 #undef FONT_SIZE
