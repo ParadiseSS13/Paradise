@@ -653,14 +653,6 @@
 	},
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_4)
-"abu" = (
-/obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion (NORTH)";
-	icon_state = "propulsion";
-	dir = 1
-	},
-/turf/space,
-/area/shuttle/tsf)
 "abC" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -98035,6 +98027,14 @@
 	icon_state = "neutral"
 	},
 /area/engine/singularity)
+"tnm" = (
+/obj/structure/shuttle/engine/propulsion{
+	tag = "icon-propulsion (NORTH)";
+	icon_state = "propulsion";
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/tsf)
 "tnB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10;
@@ -146681,7 +146681,7 @@ aaa
 aaa
 aaa
 aaa
-abu
+tnm
 qKs
 lpX
 udF
@@ -147193,7 +147193,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+tnm
 qKs
 tqJ
 sCs
@@ -147705,7 +147705,7 @@ aab
 aaa
 aaa
 aaa
-aaa
+tnm
 qKs
 wRr
 qKs
@@ -150275,7 +150275,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+tnm
 qKs
 iaC
 qKs
@@ -150791,7 +150791,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+tnm
 qKs
 duW
 fmE
@@ -151307,7 +151307,7 @@ aaa
 aaa
 aaa
 aaa
-abu
+tnm
 qKs
 iWl
 lyV
