@@ -1206,6 +1206,7 @@
 #include "code\hispania\game\objects\items\weapons\holy_weapons.dm"
 #include "code\hispania\game\objects\items\weapons\lighters.dm"
 #include "code\hispania\game\objects\items\weapons\manuals.dm"
+#include "code\hispania\game\objects\items\weapons\notes.dm"
 #include "code\hispania\game\objects\items\weapons\shields.dm"
 #include "code\hispania\game\objects\items\weapons\stock_parts.dm"
 #include "code\hispania\game\objects\items\weapons\stunbaton.dm"

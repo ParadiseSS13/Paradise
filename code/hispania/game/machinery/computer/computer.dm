@@ -54,7 +54,7 @@
 	desc = "Better keep this safe for Centcom."
 
 /obj/machinery/computer/nagaframe
-	name = "Solar Federation Code Decryptor and Design Printer"
+	name = "Solar Federation Code Decryptor"
 	desc = "A unique kind of file system decryptor system unable to be open or move."
 	icon = 'icons/hispania/obj/machines/research.dmi'
 	icon_state = "ntframe1"

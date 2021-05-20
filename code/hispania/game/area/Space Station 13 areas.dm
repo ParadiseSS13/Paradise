@@ -23,6 +23,10 @@
 /area/snowland
 	icon_state = "Naga"
 	has_gravity = TRUE
+	ambientsounds = MINING_SOUNDS
+	sound_environment = SOUND_AREA_LAVALAND
+	min_ambience_cooldown = 70 SECONDS
+	max_ambience_cooldown = 220 SECONDS
 
 /area/snowland/explored
 	name = "Naga Surface"
@@ -52,6 +56,8 @@
 	name = "TSF Outpost"
 	icon_state = "mining"
 	has_gravity = TRUE
+	ambientsounds = ENGINEERING_SOUNDS
+
 
 /area/TSF_Outpost/Docking
 	name = "TSF Outpost Docking Area"
@@ -89,6 +95,7 @@
 	name = "NT Naga Research Facility"
 	icon_state = "DJ"
 	has_gravity = TRUE
+	ambientsounds = SPOOKY_SOUNDS
 
 /area/NT_Polar_Outpost/mining
 	name = "RO Naga Mining"
