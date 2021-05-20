@@ -170,10 +170,10 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 		show_message("<span class='userdanger'>You feel like you are about to burst.</span>")
 
-		addtimer(CALLBACK(src, .proc/burst_blobs), (wait_time * 2))
+		addtimer(CALLBACK(src, .proc/burst_blobs), (wait_time / 2))
 
 		// Stage 1
-		addtimer(CALLBACK(src, .proc/stage, 1), (wait_time * 2))
+		addtimer(CALLBACK(src, .proc/stage, 1), (wait_time * 2 + wait_time / 2))
 
 		// Stage 2
 		addtimer(CALLBACK(src, .proc/stage, 2), 50 MINUTES)
