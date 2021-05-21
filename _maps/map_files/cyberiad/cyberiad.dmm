@@ -77234,6 +77234,20 @@
 	icon_state = "white"
 	},
 /area/maintenance/asmaint2)
+"kFI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/genetics)
 "kFT" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/sink{
@@ -87113,6 +87127,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"rvW" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/genetics)
 "rvX" = (
 /obj/structure/table/glass,
 /obj/item/hand_labeler,
@@ -91849,6 +91870,9 @@
 "uNU" = (
 /obj/structure/table,
 /obj/item/reagent_containers/spray/cleaner,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "uOh" = (
@@ -138273,7 +138297,7 @@ bEu
 oON
 bVW
 bEu
-bXW
+rvW
 ole
 cQn
 nZb
@@ -140340,7 +140364,7 @@ sEl
 bIi
 bIi
 bIi
-bIi
+kFI
 bIi
 bIi
 nVN
