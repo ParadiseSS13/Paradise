@@ -23249,7 +23249,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/coatrack,
+/obj/machinery/vending/fitness,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/dorms)
 "aUV" = (
