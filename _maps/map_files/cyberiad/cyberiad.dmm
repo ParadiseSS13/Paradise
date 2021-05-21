@@ -41123,7 +41123,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access_txt = "2"
+	req_access_txt = "1"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -41190,7 +41190,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access_txt = "2"
+	req_access_txt = "1"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -95909,7 +95909,7 @@
 "pdr" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access_txt = "2"
+	req_access_txt = "1"
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
