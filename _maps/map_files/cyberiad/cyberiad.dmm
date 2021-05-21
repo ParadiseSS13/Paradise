@@ -68831,7 +68831,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "ezD" = (
-/turf/simulated/floor/light/colour_cycle/dancefloor_a,
+/turf/simulated/floor/light,
 /area/maintenance/asmaint2)
 "ezX" = (
 /obj/structure/grille,
