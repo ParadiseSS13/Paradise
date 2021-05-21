@@ -297,6 +297,7 @@
 	slot_flags = SLOT_HEAD
 	resistance_flags = NONE
 	container_type = OPENCONTAINER
+	dog_fashion = /datum/dog_fashion/head/bucket
 
 /obj/item/reagent_containers/glass/bucket/wooden
 	name = "wooden bucket"

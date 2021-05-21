@@ -400,6 +400,9 @@
 /proc/get_all_centcom_jobs()
 	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer","Nanotrasen Navy Captain","Supreme Commander")
 
+/proc/get_all_solgov_jobs()
+	return list("Solar Federation Lieutenant","Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader")
+
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds
 /obj/proc/GetJobRealName()
@@ -424,24 +427,6 @@
 
 	return "Unknown"
 
-//gets the alt title, failing that the actual job rank
-//this is unused
-// THEN WHY IS IT STILL HERE?? -AA07, 2020-07-31
-/obj/proc/sdsdsd()	//GetJobDisplayName
-	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
-		return
-
-	var/assignment
-	if(istype(src, /obj/item/pda))
-		if(src:id)
-			assignment = src:id:assignment
-	else if(istype(src, /obj/item/card/id))
-		assignment = src:assignment
-
-	if(assignment)
-		return assignment
-
-	return "Unknown"
 
 /proc/GetIdCard(mob/living/carbon/human/H)
 	if(H.wear_id)
@@ -499,11 +484,17 @@
 
 	var/job_icons = get_all_job_icons()
 	var/centcom = get_all_centcom_jobs()
+	var/solgov = get_all_solgov_jobs()
 
 	if(assignmentName in centcom) //Return with the NT logo if it is a Centcom job
 		return "Centcom"
 	if(rankName in centcom)
 		return "Centcom"
+
+	if(assignmentName in solgov) //Return with the SolGov logo if it is a SolGov job
+		return "solgov"
+	if(rankName in solgov)
+		return "solgov"
 
 	if(assignmentName	in job_icons) //Check if the job has a hud icon
 		return assignmentName

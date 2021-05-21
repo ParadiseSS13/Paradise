@@ -4,9 +4,10 @@
 	mob_biotypes = NONE
 	speak_emote = list("hisses")
 	emote_hear = list("wails","screeches")
-	response_help  = "thinks better of touching"
+	response_help = "thinks better of touching"
 	response_disarm = "flails at"
-	response_harm   = "punches"
+	response_harm = "punches"
+	icon = 'icons/mob/cult.dmi'
 	icon_dead = "shade_dead"
 	speed = 0
 	a_intent = INTENT_HARM
@@ -26,6 +27,9 @@
 	deathmessage = "collapses in a shattered heap."
 	var/construct_type = "shade"
 	var/list/construct_spells = list()
+	/// Is this a holy/purified construct?
+	var/holy = FALSE
+	/// Message to send to the construct when they are created, containing information about their role.
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
 
 /mob/living/simple_animal/hostile/construct/New()
@@ -98,7 +102,6 @@
 	name = "Juggernaut"
 	real_name = "Juggernaut"
 	desc = "A possessed suit of armour driven by the will of the restless dead"
-	icon = 'icons/mob/mob.dmi'
 	icon_state = "behemoth"
 	icon_living = "behemoth"
 	maxHealth = 250
@@ -149,7 +152,6 @@
 	name = "Wraith"
 	real_name = "Wraith"
 	desc = "A wicked bladed shell contraption piloted by a bound spirit"
-	icon = 'icons/mob/mob.dmi'
 	icon_state = "floating"
 	icon_living = "floating"
 	maxHealth = 75
@@ -174,7 +176,6 @@
 	name = "Artificer"
 	real_name = "Artificer"
 	desc = "A bulbous construct dedicated to building and maintaining Cult armies."
-	icon = 'icons/mob/mob.dmi'
 	icon_state = "artificer"
 	icon_living = "artificer"
 	maxHealth = 50
@@ -254,7 +255,6 @@
 	name = "Behemoth"
 	real_name = "Behemoth"
 	desc = "The pinnacle of occult technology, Behemoths are the ultimate weapon in the Cult's arsenal."
-	icon = 'icons/mob/mob.dmi'
 	icon_state = "behemoth"
 	icon_living = "behemoth"
 	maxHealth = 750
@@ -288,7 +288,6 @@
 	name = "Harvester"
 	real_name = "Harvester"
 	desc = "A harbinger of enlightenment. It'll be all over soon."
-	icon = 'icons/mob/mob.dmi'
 	icon_state = "harvester"
 	icon_living = "harvester"
 	maxHealth = 60
@@ -315,6 +314,17 @@
 /mob/living/simple_animal/hostile/construct/harvester/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
+
+
+/mob/living/simple_animal/hostile/construct/proc/make_holy()
+	if(holy) // Already holy-fied
+		return
+	holy = TRUE
+	set_light(3, 5, LIGHT_COLOR_DARK_BLUE)
+	name = "Holy [name]"
+	real_name = "Holy [real_name]"
+	faction.Remove("cult")
+
 
 ///ui stuff
 
