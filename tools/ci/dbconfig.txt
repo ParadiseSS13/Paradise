@@ -2,7 +2,7 @@
 # Dont use it ingame
 # Remember to update this when you increase the SQL version! -aa
 SQL_ENABLED
-DB_VERSION 22
+DB_VERSION 23
 ADDRESS 127.0.0.1
 PORT 3306
 FEEDBACK_DATABASE feedback

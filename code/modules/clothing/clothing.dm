@@ -618,7 +618,9 @@ BLIND     // can't see anything
 	resistance_flags = NONE
 	hide_tail_by_species = null
 	species_restricted = list("exclude","Wryn")
-
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 //Under clothing
 /obj/item/clothing/under
