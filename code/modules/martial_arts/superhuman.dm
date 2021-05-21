@@ -48,5 +48,5 @@
 
 /datum/martial_art/superhuman/teach(mob/living/carbon/human/H, make_temporary)
 	. = ..()
-	to_chat(H, "<span class='sciradio'> We alter our biology, we are now able to rapidly form weapons out of different limbs when preforming special attacks. \
+	to_chat(H, "<span class='sciradio'> We alter our biology, we are now able to rapidly form weapons out of different limbs when performing special attacks. \
 				When punching, our fingers become slashing claws that shred flesh. However, it is at the cost of lower knockdown chance. Our disarms aggressively slam opponents into the floor. <span/>")
