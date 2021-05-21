@@ -25,6 +25,7 @@
 	desc = "A fancy powdered wig given to arbitrators of the law. It looks itchy."
 	icon_state = "jwig"
 	item_state = "jwig"
+	dog_fashion = /datum/dog_fashion/head/justice_wig
 
 /obj/item/clothing/head/beret/blue
 	icon_state = "beret_blue"
@@ -187,6 +188,7 @@
 	icon_state = "bowler_hat"
 	item_state = "bowler_hat"
 	desc = "For that industrial age look."
+	dog_fashion = /datum/dog_fashion/head/bowlerhat
 
 /obj/item/clothing/head/beaverhat
 	name = "beaver hat"

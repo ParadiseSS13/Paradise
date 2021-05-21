@@ -192,6 +192,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		"1020" = 100, // CHANNEL_HEARTBEAT
 		"1019" = 100, // CHANNEL_BUZZ
 		"1018" = 100, // CHANNEL_AMBIENCE
+		"1017" = 100, // CHANNEL_ENGINE
 	)
 	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
 	var/volume_mixer_saving = null
@@ -2041,7 +2042,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("UIalpha")
 					var/UI_style_alpha_new = input(user, "Select a new alpha(transparence) parameter for UI, between 50 and 255", UI_style_alpha) as num
-					if(!UI_style_alpha_new | !(UI_style_alpha_new <= 255 && UI_style_alpha_new >= 50)) return
+					if(!UI_style_alpha_new || !(UI_style_alpha_new <= 255 && UI_style_alpha_new >= 50))
+						return
 					UI_style_alpha = UI_style_alpha_new
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
