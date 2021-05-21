@@ -53,6 +53,7 @@
 		EQUIPMENT("Shelter Capsule", 				/obj/item/survivalcapsule, 											400),
 		EQUIPMENT("Stabilizing Serum", 				/obj/item/hivelordstabilizer, 										400),
 		EQUIPMENT("Survival Medipen", 				/obj/item/reagent_containers/hypospray/autoinjector/survival, 		500),
+		EQUIPMENT("Survival Quikclot", 				/obj/item/stack/medical/quickclot/survivalqc, 						900),
 	)
 	prize_list["Kinetic Accelerator"] = list(
 		EQUIPMENT("Kinetic Accelerator", 			/obj/item/gun/energy/kinetic_accelerator, 							750),
@@ -266,7 +267,19 @@
 			new /obj/item/twohanded/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
-
+		//HISPANIA SPACEPOD STARTER KIT STARTS HERE
+		if("Spacepod Starter Kit")
+			var/confirm = alert("Are you sure theres a mechanic on the station?", "Confirm Pick", "Yes", "No")
+			if(confirm == "Yes")
+				new /obj/item/spacepod_equipment/weaponry/mining_laser_basic(drop_location)
+				new /obj/item/spacepod_equipment/cargo/ore(drop_location)
+				new /obj/item/spacepod_equipment/lock/keyed(drop_location)
+				new /obj/item/spacepod_key(drop_location)
+				new /obj/item/pod_parts/core(drop_location)
+				new /obj/item/circuitboard/mecha/pod(drop_location)
+			else
+				return
+			//HISPANIA SPACEPOD STARTER KIT ENDS HERE
 	qdel(voucher)
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)

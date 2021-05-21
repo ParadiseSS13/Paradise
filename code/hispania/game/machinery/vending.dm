@@ -18,8 +18,8 @@
 	hispa_contraband = list(/obj/item/reagent_containers/food/drinks/bottle/hispania/vampire_bestfriend = 5)
 
 /obj/machinery/vending/coffee
-	hispa_products = list(/obj/item/reagent_containers/food/drinks/cans/mr_coffe_brown = 10)
-	hispa_prices = list(/obj/item/reagent_containers/food/drinks/cans/mr_coffe_brown = 25)
+	hispa_products = list(/obj/item/reagent_containers/food/drinks/cans/hispania/mr_coffe_brown = 10)
+	hispa_prices = list(/obj/item/reagent_containers/food/drinks/cans/hispania/mr_coffe_brown = 25)
 
 /obj/machinery/vending/security
 	hispa_products = list(/obj/item/taperoll = 8, /obj/item/device/binoculars/security = 2, /obj/item/storage/bag/plasticbag/mre = 2)
@@ -306,10 +306,10 @@
 					/obj/item/clothing/shoes/sandal = 15)
 
 /obj/machinery/vending/cola
-	hispa_products = list(/obj/item/reagent_containers/food/drinks/cans/space_mundet = 10, /obj/item/reagent_containers/food/drinks/cans/behemoth_energy = 2,
-					/obj/item/reagent_containers/food/drinks/cans/behemoth_energy_lite = 1)
-	hispa_prices = list(/obj/item/reagent_containers/food/drinks/cans/space_mundet = 20, /obj/item/reagent_containers/food/drinks/cans/behemoth_energy = 50,
-					/obj/item/reagent_containers/food/drinks/cans/behemoth_energy_lite = 50)
+	hispa_products = list(/obj/item/reagent_containers/food/drinks/cans/hispania/space_mundet = 10, /obj/item/reagent_containers/food/drinks/cans/hispania/behemoth_energy = 2,
+					/obj/item/reagent_containers/food/drinks/cans/hispania/behemoth_energy_lite = 1)
+	hispa_prices = list(/obj/item/reagent_containers/food/drinks/cans/hispania/space_mundet = 20, /obj/item/reagent_containers/food/drinks/cans/hispania/behemoth_energy = 50,
+					/obj/item/reagent_containers/food/drinks/cans/hispania/behemoth_energy_lite = 50)
 
 /obj/machinery/vending/wallmed
 	hispa_products = list(/obj/item/reagent_containers/food/pill/patch/styptic = 1, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 1)

@@ -145,22 +145,22 @@
 /obj/structure/platform/do_climb(mob/living/user)
 	if(!can_touch(user) || !climbable)
 		return
-	var/blocking_object = density_check()
-	if(blocking_object)
-		to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [blocking_object]!</span>")
-		return
-
-	var/destino_climb = get_step(src, dir)
-	if(is_blocked_turf(destino_climb))
-		to_chat(user, "<span class='warning'>You cannot climb over the [src], the path is blocked!")
-		return
-	var/turf/T = src.loc
-	if(!T || !istype(T)) return
+	var/turf/destino_climb = src.loc
+	if(!destino_climb || !istype(destino_climb)) return
 
 	if(get_turf(user) == get_turf(src))
-		usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
+		destino_climb = get_step(src, dir)
+		if(is_blocked_turf(destino_climb))
+			to_chat(user, "<span class='warning'>You cannot climb over the [src], the path is blocked!")
+			return
+		usr.visible_message("<span class='warning'>[user] starts climbing onto the [src]!</span>")
 	else
-		usr.visible_message("<span class='warning'>[user] starts getting off \the [src]!</span>")
+		destino_climb = get_turf(src)
+		if(is_blocked_turf(destino_climb))
+			to_chat(user, "<span class='warning'>You cannot leave the [src], the path is blocked!")
+			return
+		usr.visible_message("<span class='warning'>[user] starts getting off the [src]!</span>")
+
 	climber = user
 	if(!do_after(user, 50, target = src))
 		climber = null
@@ -171,11 +171,10 @@
 		return
 
 	if(get_turf(user) == get_turf(src))
-		usr.loc = get_step(src, dir)
-		usr.visible_message("<span class='warning'>[user] leaves \the [src]!</span>")
+		usr.visible_message("<span class='warning'>[user] climbs onto the [src]!</span>")
 	else
-		usr.loc = get_turf(src)
-		usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
+		usr.visible_message("<span class='warning'>[user] leaves the [src]!</span>")
+	usr.loc = destino_climb
 	climber = null
 
 /obj/structure/platform/CanAtmosPass()
