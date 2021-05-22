@@ -33,11 +33,11 @@
 		return
 
 	to_chat(user, "<span class='notice'>You cut the top half off of [src], making a rebreather!</span>")
-	name = "rebreather"  // Change the name
-	desc = "Placeholder" // Change the description
-	icon_state = "rebreather" // Change the sprite
-	flags_inv = null // Override the `HIDEEARS|HIDEEYES|HIDEFACE` from the standard gas mask
-	flags_cover = MASKCOVERSMOUTH // Override the `MASKCOVERSEYES` from the standard gas mask
+	name = "rebreather"
+	desc = "A mouth and nose-covering mask that can be connected to an air supply, Seems like it would offer less protection."
+	icon_state = "rebreather"
+	flags_inv = null
+	flags_cover = MASKCOVERSMOUTH
 // **** Welding gas mask ****
 
 /obj/item/clothing/mask/gas/welding
