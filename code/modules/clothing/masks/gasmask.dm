@@ -20,6 +20,24 @@
 		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi'
 		)
 
+/obj/item/clothing/mask/gas/wirecutter_act(mob/living/user, obj/item/I)
+	if(type != /obj/item/clothing/mask/gas)
+		return
+	if(icon_state == "rebreather")
+		return
+
+	. = TRUE
+	to_chat(user, "<span class='notice'>You start cutting [src].</span>")
+	if(!I.use_tool(user, user, 5 SECONDS, volume = I.tool_volume))
+		to_chat(user, "<span class='warning'>You decide not to cut [src].</span>")
+		return
+
+	to_chat(user, "<span class='notice'>You cut the top half off of [src], making a rebreather!</span>")
+	name = "rebreather"  // Change the name
+	desc = "Placeholder" // Change the description
+	icon_state = "rebreather" // Change the sprite
+	flags_inv = null // Override the `HIDEEARS|HIDEEYES|HIDEFACE` from the standard gas mask
+	flags_cover = MASKCOVERSMOUTH // Override the `MASKCOVERSEYES` from the standard gas mask
 // **** Welding gas mask ****
 
 /obj/item/clothing/mask/gas/welding
