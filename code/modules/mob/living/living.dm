@@ -973,7 +973,7 @@
 			M.LAssailant = usr
 
 /mob/living/proc/check_pull()
-	if(pulling && !(pulling in orange(1)))
+	if(pulling && !pulling.Adjacent(src))
 		stop_pulling()
 
 /mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
