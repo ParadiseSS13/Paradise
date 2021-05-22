@@ -19,11 +19,12 @@
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
 		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi'
 		)
+var/gasmask_cut = FALSE
 
 /obj/item/clothing/mask/gas/wirecutter_act(mob/living/user, obj/item/I)
 	if(type != /obj/item/clothing/mask/gas)
 		return
-	if(icon_state == "rebreather")
+	if(gasmask_cut)
 		return
 
 	. = TRUE
@@ -33,6 +34,7 @@
 		return
 
 	to_chat(user, "<span class='notice'>You cut the top half off of [src], making a rebreather!</span>")
+	gasmask_cut = TRUE
 	name = "rebreather"
 	desc = "A mouth and nose-covering mask that can be connected to an air supply, Seems like it would offer less protection."
 	icon_state = "rebreather"
