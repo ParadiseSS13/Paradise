@@ -36,8 +36,8 @@
 	name = "rebreather"
 	desc = "A mouth and nose-covering mask that can be connected to an air supply, Seems like it would offer less protection."
 	icon_state = "rebreather"
-	flags_inv = null
-	flags_cover = MASKCOVERSMOUTH
+	flags_inv = null // Override the `HIDEEARS|HIDEEYES|HIDEFACE` from the standard gas mask
+	flags_cover = MASKCOVERSMOUTH // Override the `MASKCOVERSEYES` from the standard gas mask
 // **** Welding gas mask ****
 
 /obj/item/clothing/mask/gas/welding
