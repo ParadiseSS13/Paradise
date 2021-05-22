@@ -45,7 +45,7 @@
 	)
 	prize_list["Consumables"] = list(
 		EQUIPMENT("10 Marker Beacons", 				/obj/item/stack/marker_beacon/ten, 									100),
-		EQUIPMENT("Brute First-Aid Kit", 			/obj/item/storage/firstaid/brute,									600),
+		EQUIPMENT("First-Aid Kit", 					/obj/item/storage/firstaid/regular,									600), //Hispania Medikits
 		EQUIPMENT("Fulton Pack", 					/obj/item/extraction_pack, 											1000),
 		EQUIPMENT("Jaunter", 						/obj/item/wormhole_jaunter, 										750),
 		EQUIPMENT("Lazarus Injector", 				/obj/item/lazarus_injector, 										1000),
