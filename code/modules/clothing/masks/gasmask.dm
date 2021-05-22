@@ -19,7 +19,7 @@
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
 		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi'
 		)
-var/gasmask_cut = FALSE
+	var/gasmask_cut = FALSE
 
 /obj/item/clothing/mask/gas/wirecutter_act(mob/living/user, obj/item/I)
 	if(type != /obj/item/clothing/mask/gas)
