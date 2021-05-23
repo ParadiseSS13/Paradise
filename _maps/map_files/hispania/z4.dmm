@@ -218,7 +218,8 @@
 	dir = 8;
 	name = "west bump";
 	pixel_x = -24;
-	shock_proof = 0
+	shock_proof = 0;
+	start_charge = 0
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -754,7 +755,8 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 24;
+	start_charge = 0
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -1360,10 +1362,7 @@
 /area/TSF_Outpost/Hallway)
 "cY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/TSF_Outpost/Hallway)
 "cZ" = (
 /obj/effect/decal/cleanable/blood,
@@ -1669,7 +1668,7 @@
 	initialize_directions = 11;
 	level = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/TSF_Outpost/Hallway)
 "dE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2110,7 +2109,8 @@
 	dir = 8;
 	name = "west bump";
 	pixel_x = -24;
-	shock_proof = 0
+	shock_proof = 0;
+	start_charge = 0
 	},
 /turf/simulated/floor/carpet/black,
 /area/TSF_Outpost/CrewDorms)
@@ -2259,7 +2259,8 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 24;
+	start_charge = 0
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -3413,7 +3414,8 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 24;
+	start_charge = 0
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -3762,7 +3764,8 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 24;
+	start_charge = 0
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -3815,7 +3818,8 @@
 	dir = 8;
 	name = "west bump";
 	pixel_x = -24;
-	shock_proof = 0
+	shock_proof = 0;
+	start_charge = 0
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -4635,7 +4639,8 @@
 	dir = 8;
 	name = "west bump";
 	pixel_x = -24;
-	shock_proof = 0
+	shock_proof = 0;
+	start_charge = 0
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -20599,6 +20604,11 @@
 /obj/item/chair/wood,
 /turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
+"RT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/plasteel,
+/area/TSF_Outpost/Hallway)
 "Sk" = (
 /turf/simulated/wall/r_wall/rust,
 /area/snowland/unexplored)
@@ -22184,7 +22194,7 @@ aE
 bk
 cd
 cF
-bS
+RT
 dG
 iz
 iO
