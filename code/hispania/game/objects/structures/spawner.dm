@@ -29,6 +29,11 @@
 
 /obj/structure/spawner/netherbreach/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/ore/bluespace_crystal)) //Item Unico de naga
-		to_chat(user, "<span class='notice'>The [src]'s seems to react with the bluespace crystal and starts to shrink.</span>")
-		playsound(loc, 'sound/magic/ethereal_exit.ogg', 50, 1)
+		if(!do_mob(user, I, 30))
+			to_chat(user, "<span class='notice'>The [src]'s seems to react with the bluespace crystal wait until its close.</span>")
+			playsound(loc, 'sound/hallucinations/i_see_you1.ogg', 30, 1)
+			return TRUE
+		to_chat(user, "<span class='notice'>The [src]'s starts to shrink.</span>")
+		playsound(loc, 'sound/hallucinations/far_noise.ogg', 30, 1)
 		max_integrity = 0
+		qdel(I)

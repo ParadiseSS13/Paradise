@@ -823,7 +823,7 @@
 	icon_state = "propulsion";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/tsf)
 "abv" = (
 /obj/structure/sign/hispania/theduck,
@@ -95189,16 +95189,8 @@
 /turf/simulated/floor/engine,
 /area/engine/mechanic_workshop)
 "qwD" = (
-/obj/effect/spawner/window/shuttle{
-	tag = "icon-window5_mid";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_mid";
-	dir = 2
-	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
 /area/shuttle/tsf)
 "qwH" = (
 /obj/effect/decal/warning_stripes/south,
