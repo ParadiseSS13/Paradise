@@ -592,10 +592,10 @@
 
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
-	if(config.ipintel_email)
-		if(config.ipintel_maxplaytime && GLOB.configuration.jobs.enable_exp_tracking)
+	if(GLOB.configuration.ipintel.enabled)
+		if(GLOB.configuration.ipintel.playtime_ignore_threshold && GLOB.configuration.jobs.enable_exp_tracking)
 			var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
-			if(living_hours >= config.ipintel_maxplaytime)
+			if(living_hours >= GLOB.configuration.ipintel.playtime_ignore_threshold)
 				return
 
 		if(is_connecting_from_localhost())
@@ -611,9 +611,10 @@
 		verify_ip_intel()
 
 /client/proc/verify_ip_intel()
-	if(ip_intel >= config.ipintel_rating_bad)
-		var/detailsurl = config.ipintel_detailsurl ? "(<a href='[config.ipintel_detailsurl][address]'>IP Info</a>)" : ""
-		if(config.ipintel_whitelist)
+	if(ip_intel >= GLOB.configuration.ipintel.bad_rating)
+		var/detailsurl = GLOB.configuration.ipintel.details_url ? "(<a href='[GLOB.configuration.ipintel.details_url][address]'>IP Info</a>)" : ""
+		if(GLOB.configuration.ipintel.whitelist_mode)
+			// TODO: move this check to world.IsBanned()
 			spawn(40) // This is necessary because without it, they won't see the message, and addtimer cannot be used because the timer system may not have initialized yet
 				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]</span>")
 				var/blockmsg = "<B>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</B>"

@@ -378,12 +378,14 @@ random_ai_lawset = true
 
 
 [ipintel_configuration]
-# This section contains all the information for IPIntel (The AntiVPN system)
+# This section contains all the information for IPIntel (The Anti VPN system)
 
 # Enable or disable IPIntel entirely
 ipintel_enabled = false
+# Whitelist mode. If true, people on proxies/VPNs will need whitelisting if they arent past the threshold below. If false, admins are merely warned with no automatic action
+whitelist_mode = true
 # Threshold to kick people out (0-1 percentage float)
-bad_rading = 0.98
+bad_rating = 0.98
 # Contact email (required, leaving blank disables this)
 contact_email = "ch@nge.me"
 # How many hours to save good matches for (IPIntel has rate limits)

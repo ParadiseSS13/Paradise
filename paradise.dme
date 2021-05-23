@@ -193,6 +193,7 @@
 #include "code\controllers\configuration\sections\event_configuration.dm"
 #include "code\controllers\configuration\sections\gamemode_configuration.dm"
 #include "code\controllers\configuration\sections\gateway_configuration.dm"
+#include "code\controllers\configuration\sections\ipintel_configuration.dm"
 #include "code\controllers\configuration\sections\job_configuration.dm"
 #include "code\controllers\configuration\sections\logging_configuration.dm"
 #include "code\controllers\configuration\sections\mc_configuration.dm"

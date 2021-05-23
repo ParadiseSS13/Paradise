@@ -21,6 +21,8 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/gamemode_configuration/gamemode
 	/// Holder for the gateway configuration datum
 	var/datum/configuration_section/gateway_configuration/gateway
+	/// Holder for the IPIntel configuration datum
+	var/datum/configuration_section/ipintel_configuration/ipintel
 	/// Holder for the job configuration datum
 	var/datum/configuration_section/job_configuration/jobs
 	/// Holder for the logging configuration datum
@@ -61,6 +63,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	event = new()
 	gamemode = new()
 	gateway = new()
+	ipintel = new()
 	jobs = new()
 	logging = new()
 	mc = new()
@@ -87,6 +90,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	event.load_data(raw_config_data["event_configuration"])
 	gamemode.load_data(raw_config_data["gamemode_configuration"])
 	gateway.load_data(raw_config_data["gateway_configuration"])
+	ipintel.load_data(raw_config_data["ipintel_configuration"])
 	jobs.load_data(raw_config_data["job_configuration"])
 	logging.load_data(raw_config_data["logging_configuration"])
 	mc.load_data(raw_config_data["mc_configuration"])
