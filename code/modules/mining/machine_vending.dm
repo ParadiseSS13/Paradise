@@ -45,7 +45,7 @@
 	)
 	prize_list["Consumables"] = list(
 		EQUIPMENT("10 Marker Beacons", 				/obj/item/stack/marker_beacon/ten, 									100),
-		EQUIPMENT("Brute First-Aid Kit", 			/obj/item/storage/firstaid/brute,									600),
+		EQUIPMENT("First-Aid Kit", 					/obj/item/storage/firstaid/regular,									600), //Hispania Medikits
 		EQUIPMENT("Fulton Pack", 					/obj/item/extraction_pack, 											1000),
 		EQUIPMENT("Jaunter", 						/obj/item/wormhole_jaunter, 										750),
 		EQUIPMENT("Lazarus Injector", 				/obj/item/lazarus_injector, 										1000),
@@ -267,7 +267,19 @@
 			new /obj/item/twohanded/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
-
+		//HISPANIA SPACEPOD STARTER KIT STARTS HERE
+		if("Spacepod Starter Kit")
+			var/confirm = alert("Are you sure theres a mechanic on the station?", "Confirm Pick", "Yes", "No")
+			if(confirm == "Yes")
+				new /obj/item/spacepod_equipment/weaponry/mining_laser_basic(drop_location)
+				new /obj/item/spacepod_equipment/cargo/ore(drop_location)
+				new /obj/item/spacepod_equipment/lock/keyed(drop_location)
+				new /obj/item/spacepod_key(drop_location)
+				new /obj/item/pod_parts/core(drop_location)
+				new /obj/item/circuitboard/mecha/pod(drop_location)
+			else
+				return
+			//HISPANIA SPACEPOD STARTER KIT ENDS HERE
 	qdel(voucher)
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)
