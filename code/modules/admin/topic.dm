@@ -541,7 +541,7 @@
 				to_chat(M, "<span class='warning'><big><b>You have been appearance banned by [usr.client.ckey].</b></big></span>")
 				to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
 				to_chat(M, "<span class='warning'>Appearance ban can be lifted only upon request.</span>")
-				if(GLOB?.configuration?.url.banappeals_url)
+				if(GLOB.configuration.url.banappeals_url)
 					to_chat(M, "<span class='warning'>To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
@@ -880,7 +880,7 @@
 		if(notbannedlist.len) //at least 1 unbanned job exists in joblist so we have stuff to ban.
 			switch(alert("Temporary Ban of [M.ckey]?",,"Yes","No", "Cancel"))
 				if("Yes")
-					if(config.ban_legacy_system)
+					if(!GLOB.configuration.general.use_database_bans)
 						to_chat(usr, "<span class='warning'>Your server is using the legacy banning system, which does not support temporary job bans. Consider upgrading. Aborting ban.</span>")
 						return
 					var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
@@ -933,7 +933,7 @@
 		//Unbanning joblist
 		//all jobs in joblist are banned already OR we didn't give a reason (implying they shouldn't be banned)
 		if(joblist.len) //at least 1 banned job exists in joblist so we have stuff to unban.
-			if(!config.ban_legacy_system)
+			if(GLOB.configuration.general.use_database_bans)
 				to_chat(usr, "<span class='warning'>Unfortunately, database based unbanning cannot be done through this panel</span>")
 				DB_ban_panel(M.ckey)
 				return
@@ -1008,7 +1008,7 @@
 
 	else if(href_list["webtools"])
 		var/target_ckey = href_list["webtools"]
-		if(GLOB?.configuration?.url.forum_playerinfo_url)
+		if(GLOB.configuration.url.forum_playerinfo_url)
 			var/url_to_open = "[GLOB.configuration.url.forum_playerinfo_url][target_ckey]"
 			if(alert("Open [url_to_open]",,"Yes","No")=="Yes")
 				usr.client << link(url_to_open)
@@ -1091,7 +1091,7 @@
 				to_chat(M, "<span class='warning'>This ban does not expire automatically and must be appealed.</span>")
 				if(M.client)
 					M.client.link_forum_account(TRUE)
-				if(GLOB?.configuration?.url.banappeals_url)
+				if(GLOB.configuration.url.banappeals_url)
 					to_chat(M, "<span class='warning'>To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
@@ -3019,21 +3019,16 @@
 			if("togglebombcap")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Bomb Cap")
 
-				var/newBombCap = input(usr,"What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be between 4 and 128)", "New Bomb Cap", GLOB.max_ex_light_range) as num|null
+				var/newBombCap = input(usr,"What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be between 4 and 128)", "New Bomb Cap", GLOB.configuration.general.bomb_cap) as num|null
 				if(newBombCap < 4)
 					return
 				if(newBombCap > 128)
 					newBombCap = 128
 
-				GLOB.max_ex_devastation_range = round(newBombCap/4)
-				GLOB.max_ex_heavy_range = round(newBombCap/2)
-				GLOB.max_ex_light_range = newBombCap
-				//I don't know why these are their own variables, but fuck it, they are.
-				GLOB.max_ex_flash_range = newBombCap
-				GLOB.max_ex_flame_range = newBombCap
+				GLOB.configuration.general.bomb_cap = newBombCap
 
-				message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]</span>")
-				log_admin("[key_name(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]")
+				message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [GLOB.configuration.general.bomb_cap / 4], [GLOB.configuration.general.bomb_cap / 2], [GLOB.configuration.general.bomb_cap]</span>")
+				log_admin("[key_name(usr)] changed the bomb cap to [GLOB.configuration.general.bomb_cap / 4], [GLOB.configuration.general.bomb_cap / 2], [GLOB.configuration.general.bomb_cap]")
 
 			if("flicklights")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Flicker Lights")
@@ -3310,7 +3305,7 @@
 				var/val = alert(usr, "What do you want to set night shift to? This will override the automatic system until set to automatic again.", "Night Shift", "On", "Off", "Automatic")
 				switch(val)
 					if("Automatic")
-						if(config.enable_night_shifts)
+						if(GLOB.configuration.general.enable_night_shifts)
 							SSnightshift.can_fire = TRUE
 							SSnightshift.fire()
 						else

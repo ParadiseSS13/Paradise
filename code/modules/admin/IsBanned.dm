@@ -28,7 +28,7 @@
 			admin = 1
 
 	//Guest Checking
-	if(!GLOB.guests_allowed && IsGuestKey(key))
+	if(GLOB.configuration.general.guest_ban && IsGuestKey(key))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Guests not allowed")
 		// message_admins("<span class='notice'>Failed Login: [key] - Guests not allowed</span>")
 		INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_BANNED)
@@ -38,13 +38,13 @@
 	if(check_ipintel && GLOB.configuration.ipintel.contact_email && GLOB.configuration.ipintel.whitelist_mode && ipintel_is_banned(key, address))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Proxy/VPN")
 		var/mistakemessage = ""
-		if(GLOB?.configuration?.url.banappeals_url)
+		if(GLOB.configuration.url.banappeals_url)
 			mistakemessage = "\nIf you have to use one, request whitelisting at:  [GLOB.configuration.url.banappeals_url]"
 		INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_IPINTEL)
 		return list("reason"="using proxy or vpn", "desc"="\nReason: Proxies/VPNs are not allowed here. [mistakemessage]")
 
 
-	if(config.ban_legacy_system)
+	if(!GLOB.configuration.general.use_database_bans)
 		//Ban Checking
 		. = CheckBan(ckey(key), computer_id, address)
 		if(.)
@@ -116,7 +116,7 @@
 				expires = " The ban is for [duration] minutes and expires on [expiration] (server time)."
 			else
 				var/appealmessage = ""
-				if(GLOB?.configuration?.url.banappeals_url)
+				if(GLOB.configuration.url.banappeals_url)
 					appealmessage = " You may appeal it at <a href='[GLOB.configuration.url.banappeals_url]'>[GLOB.configuration.url.banappeals_url]</a>."
 				expires = " This ban does not expire automatically and must be appealed.[appealmessage]"
 

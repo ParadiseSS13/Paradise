@@ -21,6 +21,8 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/gamemode_configuration/gamemode
 	/// Holder for the gateway configuration datum
 	var/datum/configuration_section/gateway_configuration/gateway
+	/// Holder for the general configuration datum
+	var/datum/configuration_section/general_configuration/general
 	/// Holder for the IPIntel configuration datum
 	var/datum/configuration_section/ipintel_configuration/ipintel
 	/// Holder for the job configuration datum
@@ -63,6 +65,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	event = new()
 	gamemode = new()
 	gateway = new()
+	general = new()
 	ipintel = new()
 	jobs = new()
 	logging = new()
@@ -90,6 +93,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	event.load_data(raw_config_data["event_configuration"])
 	gamemode.load_data(raw_config_data["gamemode_configuration"])
 	gateway.load_data(raw_config_data["gateway_configuration"])
+	general.load_data(raw_config_data["general_configuration"])
 	ipintel.load_data(raw_config_data["ipintel_configuration"])
 	jobs.load_data(raw_config_data["job_configuration"])
 	logging.load_data(raw_config_data["logging_configuration"])
@@ -103,7 +107,6 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 
 	// And report the load
 	DIRECT_OUTPUT(world.log, "Config loaded in [stop_watch(start)]s")
-	pass() // Breakpoint here. If I left thing in, scream at me.
 
 
 /datum/configuration_section

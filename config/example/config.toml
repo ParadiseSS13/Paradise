@@ -368,8 +368,8 @@ monkey_cube_cap = 32
 reactionary_explosions = true
 # Bomb cap for explosions (Outer devastation. Other values calculate from this)
 bomb_cap = 20
-# Amount of time (in hundreths of a second [why]) for a brain to keep its "spark of life". Set to -1 to disable.
-revival_brain_life = 60000 # 10 minutes
+# Amount of time (deciseconds) for a brain to keep its "spark of life". Set to -1 to disable.
+revival_brain_life = 6000 # 10 minutes
 # Enable random silicon lawset (If said lawset has default = TRUE in the code). Disable for always crewsimov
 random_ai_lawset = true
 

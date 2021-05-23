@@ -14,7 +14,7 @@
   */
 /datum/admins/proc/create_ccbdb_lookup(ckey)
 	// Bail if disabled
-	if(!GLOB?.configuration?.url.centcom_ban_db_url)
+	if(!GLOB.configuration.url.centcom_ban_db_url)
 		to_chat(usr, "<span class='warning'>The CentCom Ban DB lookup is disabled. Please inform a maintainer or server host.</span>")
 		return
 	// Bail if no ckey is supplied

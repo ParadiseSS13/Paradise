@@ -520,14 +520,14 @@
 	return
 
 
-/mob/living/proc/Examine_OOC()
+/mob/living/verb/Examine_OOC()
 	set name = "Examine Meta-Info (OOC)"
 	set category = "OOC"
 	set src in view()
 
-	if(config.allow_Metadata)
+	if(GLOB.configuration.general.allow_character_metadata)
 		if(client)
-			to_chat(usr, "[src]'s Metainfo:<br>[client.prefs.metadata]")
+			to_chat(usr, "[src]'s Metainfo:<br>[sanitize(client.prefs.metadata)]")
 		else
 			to_chat(usr, "[src] does not have any stored infomation!")
 	else

@@ -16,7 +16,7 @@
 				if( (M.computer_id == client.computer_id) )
 					if(matches)	matches += " and "
 					matches += "ID ([client.computer_id])"
-					if(!config.disable_cid_warn_popup)
+					if(!GLOB.configuration.general.disable_cid_warning_popup)
 						spawn() alert("You have logged in already with another key this round, please log out of this one NOW or risk being banned!")
 				if(matches)
 					if(M.client)

@@ -10,7 +10,7 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 
 	. = list()
 	var/appeal
-	if(GLOB?.configuration?.url.banappeals_url)
+	if(GLOB.configuration.url.banappeals_url)
 		appeal = "\nFor more information on your ban, or to appeal, head to <a href='[GLOB.configuration.url.banappeals_url]'>[GLOB.configuration.url.banappeals_url]</a>"
 	GLOB.banlist_savefile.cd = "/base"
 	if( "[ckey][id]" in GLOB.banlist_savefile.dir )

@@ -162,7 +162,7 @@ Works together with spawning an observer, noted above.
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
 		ghost.key = key
-		if(!(ghost.client && ghost.client.holder) && !config.antag_hud_allowed)    // For new ghosts we remove the verb from even showing up if it's not allowed.
+		if(!(ghost.client && ghost.client.holder) && !GLOB.configuration.general.allow_antag_hud)    // For new ghosts we remove the verb from even showing up if it's not allowed.
 			ghost.verbs -= /mob/dead/observer/verb/toggle_antagHUD  // Poor guys, don't know what they are missing!
 		return ghost
 
@@ -354,7 +354,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 	set name = "Toggle AntagHUD"
 	set desc = "Toggles AntagHUD allowing you to see who is the antagonist"
-	if(!config.antag_hud_allowed && !client.holder)
+	if(!GLOB.configuration.general.allow_antag_hud && !client.holder)
 		to_chat(src, "<span class='warning'>Admins have disabled this for this round.</span>")
 		return
 	if(!client)
@@ -363,7 +363,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(jobban_isbanned(M, "AntagHUD"))
 		to_chat(src, "<span class='danger'>You have been banned from using this feature</span>")
 		return
-	if(config.antag_hud_restricted && !M.has_enabled_antagHUD && !check_rights(R_ADMIN|R_MOD,0))
+	if(GLOB.configuration.general.restrict_antag_hud_rejoin && !M.has_enabled_antagHUD && !check_rights(R_ADMIN|R_MOD,0))
 		var/response = alert(src, "If you turn this on, you will not be able to take any part in the round.","Are you sure you want to turn this feature on?","Yes","No")
 		if(response == "No") return
 		M.can_reenter_corpse = 0

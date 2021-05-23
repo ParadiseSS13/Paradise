@@ -206,8 +206,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 	log_startup_progress("Initializations complete within [time] second[time == 1 ? "" : "s"]!")
 
-	if(config.developer_express_start & SSticker.current_state == GAME_STATE_PREGAME)
-		SSticker.current_state = GAME_STATE_SETTING_UP
+	if(GLOB.configuration.general.developer_express_start)
+		SSticker.force_start = TRUE
 
 	if(!current_runlevel)
 		SetRunLevel(1)

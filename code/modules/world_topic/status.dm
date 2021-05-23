@@ -6,7 +6,7 @@
 	var/list/admins = list()
 	status_info["version"] = GLOB.revision_info.commit_hash
 	status_info["mode"] = GLOB.master_mode
-	status_info["respawn"] = GLOB.abandon_allowed
+	status_info["respawn"] = GLOB.configuration.general.respawn_enabled
 	status_info["enter"] = GLOB.enter_allowed
 	status_info["vote"] = GLOB.configuration.vote.allow_mode_votes
 	status_info["ai"] = GLOB.configuration.jobs.allow_ai

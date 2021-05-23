@@ -220,10 +220,10 @@ SUBSYSTEM_DEF(tickets)
 		"Man Up" = "Man Up",
 		)
 
-	if(GLOB?.configuration?.url.banappeals_url)
+	if(GLOB.configuration.url.banappeals_url)
 		response_phrases["Appeal on the Forums"] = "Appealing a ban must occur on the forums. Privately messaging, or adminhelping about your ban will not resolve it. To appeal your ban, please head to <a href='[GLOB.configuration.url.banappeals_url]'>[GLOB.configuration.url.banappeals_url]</a>"
 
-	if(GLOB?.configuration?.url.github_url)
+	if(GLOB.configuration.url.github_url)
 		response_phrases["Github Issue Report"] = "To report a bug, please go to our <a href='[GLOB.configuration.url.github_url]'>Github page</a>. Then go to 'Issues'. Then 'New Issue'. Then fill out the report form. If the report would reveal current-round information, file it after the round ends."
 
 	var/sorted_responses = list()

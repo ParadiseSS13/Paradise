@@ -1,3 +1,6 @@
+#define DRONE_BUILD_TIME 2 MINUTES
+#define MAX_MAINT_DRONES 5
+
 /obj/machinery/drone_fabricator
 	name = "drone fabricator"
 	desc = "A large automated factory for producing maintenance drones."
@@ -37,14 +40,14 @@
 
 	icon_state = "drone_fab_active"
 	var/elapsed = world.time - time_last_drone
-	drone_progress = round((elapsed / config.drone_build_time) * 100)
+	drone_progress = round((elapsed / DRONE_BUILD_TIME) * 100)
 
 	if(drone_progress >= 100)
 		visible_message("[src] voices a strident beep, indicating a drone chassis is prepared.")
 
 /obj/machinery/drone_fabricator/examine(mob/user)
 	. = ..()
-	if(produce_drones && drone_progress >= 100 && isobserver(user) && config.allow_drone_spawn && count_drones() < config.max_maint_drones)
+	if(produce_drones && drone_progress >= 100 && isobserver(user) && count_drones() < MAX_MAINT_DRONES)
 		. += "<BR><B>A drone is prepared. Select 'Join As Drone' from the Ghost tab to spawn as a maintenance drone.</B>"
 
 /obj/machinery/drone_fabricator/proc/count_drones()
@@ -58,7 +61,7 @@
 	if(stat & NOPOWER)
 		return
 
-	if(!produce_drones || !config.allow_drone_spawn || count_drones() >= config.max_maint_drones)
+	if(!produce_drones || count_drones() >= MAX_MAINT_DRONES)
 		return
 
 	if(!player || !isobserver(player.mob))
@@ -79,10 +82,6 @@
 	set category = "Ghost"
 	set name = "Join As Drone"
 	set desc = "If there is a powered, enabled fabricator in the game world with a prepared chassis, join as a maintenance drone."
-
-	if(!(config.allow_drone_spawn))
-		to_chat(src, "<span class='warning'>That verb is not currently permitted.</span>")
-		return
 
 	if(stat != DEAD)
 		return
@@ -141,7 +140,7 @@
 		if(DF.stat & NOPOWER || !DF.produce_drones)
 			continue
 
-		if(DF.count_drones() >= config.max_maint_drones)
+		if(DF.count_drones() >= MAX_MAINT_DRONES)
 			to_chat(src, "<span class='warning'>There are too many active drones in the world for you to spawn.</span>")
 			return
 
@@ -150,3 +149,6 @@
 			return
 
 	to_chat(src, "<span class='warning'>There are no available drone spawn points, sorry.</span>")
+
+#undef DRONE_BUILD_TIME
+#undef MAX_MAINT_DRONES

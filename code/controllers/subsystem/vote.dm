@@ -53,9 +53,9 @@ SUBSYSTEM_DEF(vote)
 	voting.Cut()
 	current_votes.Cut()
 
-	if(auto_muted && !config.ooc_allowed && !(config.auto_toggle_ooc_during_round && SSticker.current_state == GAME_STATE_PLAYING))
+	if(auto_muted && !GLOB.ooc_enabled && !(GLOB.configuration.general.auto_disable_ooc && SSticker.current_state == GAME_STATE_PLAYING))
 		auto_muted = 0
-		config.ooc_allowed = !( config.ooc_allowed )
+		GLOB.ooc_enabled = TRUE
 		to_chat(world, "<b>The OOC channel has been automatically enabled due to vote end.</b>")
 		log_admin("OOC was toggled automatically due to vote end.")
 		message_admins("OOC has been toggled on automatically.")
@@ -257,21 +257,21 @@ SUBSYSTEM_DEF(vote)
 		if(mode == "gamemode" && SSticker.ticker_going)
 			SSticker.ticker_going = FALSE
 			to_chat(world, "<font color='red'><b>Round start has been delayed.</b></font>")
-		if(mode == "crew_transfer" && config.ooc_allowed)
-			auto_muted = 1
-			config.ooc_allowed = !( config.ooc_allowed )
+		if(mode == "crew_transfer" && GLOB.ooc_enabled)
+			auto_muted = TRUE
+			GLOB.ooc_enabled = FALSE
 			to_chat(world, "<b>The OOC channel has been automatically disabled due to a crew transfer vote.</b>")
 			log_admin("OOC was toggled automatically due to crew_transfer vote.")
 			message_admins("OOC has been toggled off automatically.")
-		if(mode == "gamemode" && config.ooc_allowed)
-			auto_muted = 1
-			config.ooc_allowed = !( config.ooc_allowed )
+		if(mode == "gamemode" && GLOB.ooc_enabled)
+			auto_muted = TRUE
+			GLOB.ooc_enabled = FALSE
 			to_chat(world, "<b>The OOC channel has been automatically disabled due to the gamemode vote.</b>")
 			log_admin("OOC was toggled automatically due to gamemode vote.")
 			message_admins("OOC has been toggled off automatically.")
-		if(mode == "custom" && config.ooc_allowed)
-			auto_muted = 1
-			config.ooc_allowed = !( config.ooc_allowed )
+		if(mode == "custom" && GLOB.ooc_enabled)
+			auto_muted = TRUE
+			GLOB.ooc_enabled = FALSE
 			to_chat(world, "<b>The OOC channel has been automatically disabled due to a custom vote.</b>")
 			log_admin("OOC was toggled automatically due to custom vote.")
 			message_admins("OOC has been toggled off automatically.")

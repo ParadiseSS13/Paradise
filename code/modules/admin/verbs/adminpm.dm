@@ -142,7 +142,7 @@
 			C.adminhelped = 0
 
 		//AdminPM popup for ApocStation and anybody else who wants to use it. Set it with POPUP_ADMIN_PM in config.txt ~Carn
-		if(config.popup_admin_pm)
+		if(GLOB.configuration.general.popup_admin_pm)
 			spawn(0)	//so we don't hold the caller proc up
 				var/sender = src
 				var/sendername = key

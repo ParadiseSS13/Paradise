@@ -70,8 +70,8 @@ SUBSYSTEM_DEF(mapping)
 		GLOB.map_name = "Unknown"
 
 	// World name
-	if(config && config.server_name)
-		world.name = "[config.server_name]: [station_name()]"
+	if(GLOB.configuration.general.server_name)
+		world.name = "[GLOB.configuration.general.server_name]: [station_name()]"
 	else
 		world.name = station_name()
 

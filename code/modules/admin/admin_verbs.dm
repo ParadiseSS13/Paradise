@@ -137,7 +137,6 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/toggle_antagHUD_restrictions,
 	/client/proc/set_ooc,
 	/client/proc/reset_ooc,
-	/client/proc/toggledrones
 	))
 GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/cmd_admin_list_open_jobs,
@@ -395,7 +394,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_BAN))
 		return
 
-	if(config.ban_legacy_system)
+	if(!GLOB.configuration.general.use_database_bans)
 		holder.unbanpanel()
 	else
 		holder.DB_ban_panel()
@@ -758,13 +757,13 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_SERVER))
 		return
 
-	if(config)
-		if(GLOB.configuration.logging.href_logging)
-			GLOB.configuration.logging.href_logging = FALSE
-			to_chat(src, "<b>Stopped logging hrefs</b>")
-		else
-			GLOB.configuration.logging.href_logging = TRUE
-			to_chat(src, "<b>Started logging hrefs</b>")
+	// Why would we ever turn this off?
+	if(GLOB.configuration.logging.href_logging)
+		GLOB.configuration.logging.href_logging = FALSE
+		to_chat(src, "<b>Stopped logging hrefs</b>")
+	else
+		GLOB.configuration.logging.href_logging = TRUE
+		to_chat(src, "<b>Started logging hrefs</b>")
 
 /client/proc/check_ai_laws()
 	set name = "Check AI Laws"
@@ -940,17 +939,6 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		to_chat(usr, "You now won't get admin ticket messages.")
 	else
 		to_chat(usr, "You now will get admin ticket messages.")
-
-/client/proc/toggledrones()
-	set name = "Toggle Maintenance Drones"
-	set category = "Server"
-
-	if(!check_rights(R_SERVER))
-		return
-
-	config.allow_drone_spawn = !(config.allow_drone_spawn)
-	log_admin("[key_name(usr)] has [config.allow_drone_spawn ? "enabled" : "disabled"] maintenance drones.")
-	message_admins("[key_name_admin(usr)] has [config.allow_drone_spawn ? "enabled" : "disabled"] maintenance drones.")
 
 /client/proc/toggledebuglogs()
 	set name = "Toggle Debug Log Messages"

@@ -212,7 +212,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	parent = C
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 
-	max_gear_slots = config.max_loadout_points
+	max_gear_slots = GLOB.configuration.general.base_loadout_points
 	var/loaded_preferences_successfully = FALSE
 	if(istype(C))
 		if(!IsGuestKey(C.key))
@@ -470,7 +470,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Ghost PDA:</b> <a href='?_src_=prefs;preference=ghost_pda'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTPDA) ? "All PDA Messages" : "No PDA Messages"]</b></a><br>"
 			if(check_rights(R_ADMIN,0))
 				dat += "<b>OOC Color:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : GLOB.normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
-			if(config.allow_Metadata)
+			if(GLOB.configuration.general.allow_character_metadata)
 				dat += "<b>OOC Notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
 			dat += "<b>Parallax (Fancy Space):</b> <a href='?_src_=prefs;preference=parallax'>"
 			switch (parallax)
@@ -1099,7 +1099,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				ResetJobs()
 				SetChoices(user)
 			if("learnaboutselection")
-				if(GLOB?.configuration?.url.wiki_url)
+				if(GLOB.configuration.url.wiki_url)
 					if(alert("Would you like to open the Job selection info in your browser?", "Open Job Selection", "Yes", "No") == "Yes")
 						user << link("[GLOB.configuration.url.wiki_url]/index.php/Job_Selection_and_Assignment")
 				else

@@ -3,7 +3,7 @@
 	set name = "wiki"
 	set desc = "Type what you want to know about.  This will open the wiki in your web browser."
 	set hidden = 1
-	if(GLOB?.configuration?.url.wiki_url)
+	if(GLOB.configuration.url.wiki_url)
 		var/query = stripped_input(src, "Enter Search:", "Wiki Search", "Homepage")
 		if(query == "Homepage")
 			src << link(GLOB.configuration.url.wiki_url)
@@ -18,9 +18,9 @@
 	set name = "forum"
 	set desc = "Visit the forum."
 	set hidden = 1
-	if(GLOB?.configuration?.url.forum_url)
+	if(GLOB.configuration.url.forum_url)
 		if(alert("Open the forum in your browser?", null, "Yes", "No") == "Yes")
-			if(GLOB?.configuration?.url.forum_link_url && prefs && !prefs.fuid)
+			if(GLOB.configuration.url.forum_link_url && prefs && !prefs.fuid)
 				link_forum_account()
 			src << link(GLOB.configuration.url.forum_url)
 	else
@@ -30,7 +30,7 @@
 	set name = "Rules"
 	set desc = "View the server rules."
 	set hidden = 1
-	if(GLOB?.configuration?.url.rules_url)
+	if(GLOB.configuration.url.rules_url)
 		if(alert("This will open the rules in your browser. Are you sure?", null, "Yes", "No") == "No")
 			return
 		src << link(GLOB.configuration.url.rules_url)
@@ -41,7 +41,7 @@
 	set name = "GitHub"
 	set desc = "Visit the GitHub page."
 	set hidden = 1
-	if(GLOB?.configuration?.url.github_url)
+	if(GLOB.configuration.url.github_url)
 		if(alert("This will open our GitHub repository in your browser. Are you sure?", null, "Yes", "No") == "No")
 			return
 		src << link(GLOB.configuration.url.github_url)
@@ -55,11 +55,11 @@
 
 	var/durl
 	// Use normal URL
-	if(GLOB?.configuration?.url.discord_url)
+	if(GLOB.configuration.url.discord_url)
 		durl = GLOB.configuration.url.discord_url
 
 	// Use forums URL if set
-	if(GLOB?.configuration?.url.forum_link_url && GLOB?.configuration?.url.discord_forum_url && prefs?.fuid)
+	if(GLOB.configuration.url.forum_link_url && GLOB.configuration?.url.discord_forum_url && prefs?.fuid)
 		durl = GLOB.configuration.url.discord_forum_url
 
 	if(!durl)
@@ -73,7 +73,7 @@
 	set name = "Donate"
 	set desc = "Donate to help with hosting costs."
 	set hidden = 1
-	if(GLOB?.configuration?.url.donations_url)
+	if(GLOB.configuration.url.donations_url)
 		if(alert("This will open the donation page in your browser. Are you sure?", null, "Yes", "No") == "No")
 			return
 		src << link(GLOB.configuration.url.donations_url)

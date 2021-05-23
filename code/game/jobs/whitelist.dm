@@ -1,8 +1,6 @@
 /proc/is_job_whitelisted(mob/M, rank)
 	if(guest_jobbans(rank))
-		if(!config.usewhitelist)
-			return TRUE
-		if(config.disable_karma)
+		if(!GLOB.configuration.general.enable_karma)
 			return TRUE
 		if(check_rights(R_ADMIN, 0, M))
 			return TRUE
@@ -35,7 +33,7 @@
 		return TRUE
 
 /proc/is_alien_whitelisted(mob/M, species)
-	if(config.disable_karma)
+	if(!GLOB.configuration.general.enable_karma)
 		return TRUE
 	if(species == "human" || species == "Human")
 		return TRUE

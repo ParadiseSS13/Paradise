@@ -125,11 +125,10 @@
 	laws.sort_laws()
 
 /mob/living/silicon/proc/make_laws()
-	switch(config.default_laws)
-		if(0)
-			laws = new /datum/ai_laws/crewsimov()
-		else
-			laws = get_random_lawset()
+	if(GLOB.configuration.general.random_ai_lawset)
+		laws = get_random_lawset()
+	else
+		laws = new /datum/ai_laws/crewsimov()
 
 /mob/living/silicon/proc/get_random_lawset()
 	var/list/law_options[0]
