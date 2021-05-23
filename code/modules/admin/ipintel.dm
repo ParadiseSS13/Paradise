@@ -1,3 +1,4 @@
+// AA TODO: Make these procs part of SSipintel
 /datum/ipintel
 	var/ip
 	var/intel = 0
