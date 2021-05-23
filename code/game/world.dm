@@ -153,7 +153,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	// Send the reboot banner to all players
 	for(var/client/C in GLOB.clients)
 		C << output(list2params(list(secs_before_auto_reconnect)), "browseroutput:reboot")
-		if(GLOB.configuration?.url.server_url) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+		if(GLOB.configuration.url.server_url) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[GLOB.configuration.url.server_url]")
 
 	// And begin the real shutdown
