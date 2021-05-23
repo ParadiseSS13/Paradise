@@ -519,22 +519,6 @@
 /mob/living/proc/UpdateDamageIcon()
 	return
 
-
-/mob/living/verb/Examine_OOC()
-	set name = "Examine Meta-Info (OOC)"
-	set category = "OOC"
-	set src in view()
-
-	if(GLOB.configuration.general.allow_character_metadata)
-		if(client)
-			to_chat(usr, "[src]'s Metainfo:<br>[sanitize(client.prefs.metadata)]")
-		else
-			to_chat(usr, "[src] does not have any stored infomation!")
-	else
-		to_chat(usr, "OOC Metadata is not supported by this server!")
-
-	return
-
 /mob/living/Move(atom/newloc, direct, movetime)
 	if(buckled && buckled.loc != newloc) //not updating position
 		if(!buckled.anchored)

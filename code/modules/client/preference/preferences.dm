@@ -2133,13 +2133,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	if(be_random_name)
 		real_name = random_name(gender,species)
 
-	var/firstspace = findtext(real_name, " ")
-	var/name_length = length(real_name)
-	if(!firstspace)	//we need a surname
-		real_name += " [pick(GLOB.last_names)]"
-	else if(firstspace == name_length)
-		real_name += "[pick(GLOB.last_names)]"
-
 	character.add_language(language)
 
 

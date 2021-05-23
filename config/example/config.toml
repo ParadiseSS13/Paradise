@@ -343,7 +343,7 @@ developer_express_start = false
 # Minimum client build for playing the server. Keep above 1421 due to exploits
 minimum_client_build = 1421
 # Give a confirmation when pressing "Start Now". Useful for avoiding starting the live server early
-start_now_confirmation = true
+start_now_confirmation = false
 # BYOND accounts younger than this threshold (days) will cause alerts on first login
 byond_account_age_threshold = 3
 # Maximum CIDs a client can have attached to them before they trip a warning
