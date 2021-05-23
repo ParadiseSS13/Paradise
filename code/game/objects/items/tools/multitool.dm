@@ -94,7 +94,10 @@
 /obj/item/multitool/ai_detect/admin
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors. Has a strange tag that says 'Grief in Safety'" //What else should I say for a meme item?
 	track_delay = 5
-	show_wire_information = TRUE
+
+/obj/item/multitool/ai_detect/admin/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
 
 /obj/item/multitool/ai_detect/admin/multitool_detect()
 	var/turf/our_turf = get_turf(src)
@@ -112,7 +115,10 @@
 	toolspeed = 0.5
 
 /obj/item/multitool/cyborg/drone
-	show_wire_information = TRUE // They're linked to the station
+
+/obj/item/multitool/cyborg/drone/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT) // Drones are linked to the station
 
 /obj/item/multitool/abductor
 	name = "alien multitool"
@@ -121,4 +127,7 @@
 	icon_state = "multitool"
 	toolspeed = 0.1
 	origin_tech = "magnets=5;engineering=5;abductor=3"
-	show_wire_information = TRUE
+
+/obj/item/multitool/abductor/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)

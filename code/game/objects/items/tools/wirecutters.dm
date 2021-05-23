@@ -60,8 +60,11 @@
 	icon_state = "cutters"
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"
-	show_wire_information = TRUE
 	random_color = FALSE
+
+/obj/item/wirecutters/abductor/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
 
 /obj/item/wirecutters/cyborg
 	name = "wirecutters"
@@ -69,7 +72,10 @@
 	toolspeed = 0.5
 
 /obj/item/wirecutters/cyborg/drone
-	show_wire_information = TRUE
+
+/obj/item/wirecutters/cyborg/drone/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT) // Drones are linked to the station
 
 /obj/item/wirecutters/power
 	name = "jaws of life"

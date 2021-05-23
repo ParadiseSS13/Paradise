@@ -218,7 +218,7 @@
 	if(user.can_admin_interact())
 		return TRUE
 	var/obj/item/held_item = user.get_active_hand()
-	if(istype(held_item) && held_item.show_wire_information)
+	if(istype(held_item) && HAS_TRAIT(held_item, TRAIT_SHOW_WIRE_INFO))
 		return TRUE
 	return FALSE
 
