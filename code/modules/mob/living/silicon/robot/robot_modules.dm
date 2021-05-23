@@ -166,7 +166,7 @@
 	for(var/item in basic_modules)
 		add_module(item, FALSE)
 
-	if(R.emagged)
+	if(R.emagged || R.weapons_unlock)
 		for(var/item in emag_modules)
 			add_module(item, FALSE)
 

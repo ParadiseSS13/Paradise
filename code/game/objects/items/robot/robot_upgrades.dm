@@ -25,6 +25,20 @@
  * * R - the cyborg that was clicked on with an upgrade.
  */
 /obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/R)
+	if(!pre_install_checks(R))
+		return
+	if(!do_install(R))
+		return
+	after_install(R)
+	return TRUE
+
+/**
+ * Called when someone clicks on a borg with an upgrade in their hand.
+ *
+ * Arguments:
+ * * R - the cyborg that was clicked on with an upgrade.
+ */
+/obj/item/borg/upgrade/proc/pre_install_checks(mob/living/silicon/robot/R)
 	if(R.stat == DEAD)
 		to_chat(usr, "<span class='warning'>[src] will not function on a deceased cyborg.</span>")
 		return FALSE
@@ -32,17 +46,24 @@
 		to_chat(R, "<span class='warning'>Upgrade mounting error!  No suitable hardpoint detected!</span>")
 		to_chat(usr, "<span class='warning'>There's no mounting point for the module!</span>")
 		return FALSE
-	if(length(items_to_replace))
-		replace_module_items(R)
 	return TRUE
 
 /**
- * Called during the `action()` proc, if applying this upgrade is ment to replace items in the cyborg's inventory.
+ * Executes code that will modify the cyborg or its module.
  *
  * Arguments:
- * * R - the cyborg that will have its items modified.
+ * * R - the cyborg we're applying the upgrade to.
  */
-/obj/item/borg/upgrade/proc/replace_module_items(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/proc/do_install(mob/living/silicon/robot/R)
+	return TRUE
+
+/**
+ * Executes code after the module has been installed and the cyborg has been modified in some way.
+ *
+ * Arguments:
+ * * R - the cyborg that we've applied the upgrade to.
+ */
+/obj/item/borg/upgrade/proc/after_install(mob/living/silicon/robot/R)
 	for(var/item in items_to_replace)
 		var/replacement_type = items_to_replace[item]
 		var/obj/item/replacement = new replacement_type(R.module)
@@ -61,13 +82,12 @@
 	icon_state = "cyborg_upgrade1"
 	require_module = TRUE
 
-/obj/item/borg/upgrade/reset/action(mob/living/silicon/robot/R)
-	if(!..())
-		return
-
+/obj/item/borg/upgrade/reset/do_install(mob/living/silicon/robot/R)
 	R.reset_module()
-
 	return TRUE
+
+/obj/item/borg/upgrade/reset/after_install(mob/living/silicon/robot/R)
+	return // We don't need to give them replacement items, or rebuild their module list. It's going to be a blank borg.
 
 /obj/item/borg/upgrade/rename
 	name = "cyborg reclassification board"
@@ -78,9 +98,7 @@
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
 	heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
 
-/obj/item/borg/upgrade/rename/action(mob/living/silicon/robot/R)
-	if(!..())
-		return
+/obj/item/borg/upgrade/rename/do_install(mob/living/silicon/robot/R)
 	if(!R.allow_rename)
 		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>")
 		return 0
@@ -97,7 +115,7 @@
 	desc = "Used to force a reboot of a disabled-but-repaired cyborg, bringing it back online."
 	icon_state = "cyborg_upgrade1"
 
-/obj/item/borg/upgrade/restart/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/restart/do_install(mob/living/silicon/robot/R)
 	if(R.health < 0)
 		to_chat(usr, "<span class='warning'>You have to repair the cyborg before using this module!</span>")
 		return 0
@@ -122,9 +140,7 @@
 	require_module = TRUE
 	origin_tech = "engineering=4;materials=5;programming=4"
 
-/obj/item/borg/upgrade/vtec/action(mob/living/silicon/robot/R)
-	if(!..())
-		return
+/obj/item/borg/upgrade/vtec/do_install(mob/living/silicon/robot/R)
 	if(R.speed < 0)
 		to_chat(R, "<span class='notice'>A VTEC unit is already installed!</span>")
 		to_chat(usr, "<span class='notice'>There's no room for another VTEC unit!</span>")
@@ -142,10 +158,7 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/security
 
-/obj/item/borg/upgrade/disablercooler/action(mob/living/silicon/robot/R)
-	if(!..())
-		return
-
+/obj/item/borg/upgrade/disablercooler/do_install(mob/living/silicon/robot/R)
 	var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
 	if(!T)
 		to_chat(usr, "<span class='notice'>There's no disabler in this unit!</span>")
@@ -165,10 +178,7 @@
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;powerstorage=4"
 
-/obj/item/borg/upgrade/thrusters/action(mob/living/silicon/robot/R)
-	if(!..())
-		return
-
+/obj/item/borg/upgrade/thrusters/do_install(mob/living/silicon/robot/R)
 	if(R.ionpulse)
 		to_chat(usr, "<span class='notice'>This unit already has ion thrusters installed!</span>")
 		return
@@ -242,13 +252,11 @@
 	origin_tech = "combat=6;materials=6"
 	require_module = TRUE
 
-/obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R)
-	if(!..())
-		return
+/obj/item/borg/upgrade/syndicate/do_install(mob/living/silicon/robot/R)
 	if(R.weapons_unlock)
-		to_chat(R, "<span class='warning'>Warning: Safety Overide Protocols have be disabled.</span>")
-		return
-	R.weapons_unlock = 1
+		return // They already had the safety override upgrade, or they're a cyborg type which has this by default.
+	R.weapons_unlock = TRUE
+	to_chat(R, "<span class='warning'>Warning: Safety Overide Protocols have be disabled.</span>")
 	return TRUE
 
 /obj/item/borg/upgrade/lavaproof
@@ -259,9 +267,7 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 
-/obj/item/borg/upgrade/lavaproof/action(mob/living/silicon/robot/R)
-	if(!..())
-		return
+/obj/item/borg/upgrade/lavaproof/do_install(mob/living/silicon/robot/R)
 	if(istype(R))
 		R.weather_immunities += "lava"
 	return TRUE
@@ -278,10 +284,7 @@
 	var/powercost = 10
 	var/mob/living/silicon/robot/cyborg
 
-/obj/item/borg/upgrade/selfrepair/action(mob/living/silicon/robot/R)
-	if(!..())
-		return
-
+/obj/item/borg/upgrade/selfrepair/do_install(mob/living/silicon/robot/R)
 	var/obj/item/borg/upgrade/selfrepair/U = locate() in R
 	if(U)
 		to_chat(usr, "<span class='warning'>This unit is already equipped with a self-repair module.</span>")
