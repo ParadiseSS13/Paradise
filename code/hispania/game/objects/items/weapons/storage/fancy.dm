@@ -83,4 +83,5 @@
 	..()
 	for(var/i=1; i <= storage_slots; i++)
 		new /obj/item/reagent_containers/food/drinks/cans/beer(src)
+	update_icon()
 	return
