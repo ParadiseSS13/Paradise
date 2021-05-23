@@ -10,7 +10,7 @@
 /datum/quirk/hudmedimplant
 	name = "Medhud Implant"
 	desc = "You start with a MedHud Implant already set."
-	value = 1
+	value = 4
 	gain_text = "<span class='notice'>Your MedHUD implant starts working.</span>"
 	lose_text = "<span class='notice'>Where is your MedHUD implant?</span>"
 
@@ -22,7 +22,7 @@
 /datum/quirk/nutriimplant
 	name = "Nutriment Implant"
 	desc = "You start with a Nutriment Implant already set."
-	value = 1
+	value = 4
 	gain_text = "<span class='notice'>Your Nutriment implant starts working.</span>"
 	lose_text = "<span class='notice'>Where is your Nutriment implant?</span>"
 
@@ -46,7 +46,7 @@
 /datum/quirk/mesonimplant
 	name = "Meson Implant"
 	desc = "You start with a Meson Implant already set."
-	value = 1
+	value = 2
 	gain_text = "<span class='notice'>Your Meson implant starts working.</span>"
 	lose_text = "<span class='notice'>Where is your Meson implant?</span>"
 
@@ -68,7 +68,7 @@
 /datum/quirk/jackichanlol
 	name = "Hit Catcher"
 	desc = "Your difficult life has taught you to learn to take hits. Strikes do slightly less damage."
-	value = 2
+	value = 4
 	gain_text = "<span class='danger'>This ain't nothing, i had it worst back then.</span>"
 	lose_text = "<span class='notice'>Well maybe i'm going to think and plan now on what i can and can't do.</span>"
 
@@ -78,7 +78,7 @@
 /datum/quirk/chadpunches
 	name = "Self-Defense trained"
 	desc = "You have basic self defense training, your unarmed strikes can do slightly more damage."
-	value = 2
+	value = 4
 	gain_text = "<span class='danger'>Remember the basics of Self Defense.</span>"
 	lose_text = "<span class='notice'>I can't seem to remember the basics of self defense.</span>"
 
