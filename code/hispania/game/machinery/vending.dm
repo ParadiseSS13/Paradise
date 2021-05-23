@@ -304,6 +304,7 @@
 					/obj/item/clothing/shoes/red = 100,
 					/obj/item/clothing/shoes/white = 100,
 					/obj/item/clothing/shoes/sandal = 15)
+	hispa_premium = list(/obj/item/clothing/shoes/swagshoes = 1)
 
 /obj/machinery/vending/cola
 	hispa_products = list(/obj/item/reagent_containers/food/drinks/cans/hispania/space_mundet = 10, /obj/item/reagent_containers/food/drinks/cans/hispania/behemoth_energy = 2,
@@ -481,6 +482,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 					/obj/item/clothing/glasses/monocle = 5,
 					/obj/item/clothing/glasses/regular = 5,
 					/obj/item/clothing/ears/headphones = 5,
+					/obj/item/clothing/ears/headphones/airpods = 2,
 					/obj/item/clothing/accessory/necklace = 5,
 					/obj/item/clothing/accessory/necklace = 5,
 					/obj/item/clothing/accessory/necklace/dope = 5,
@@ -511,6 +513,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 					/obj/item/clothing/glasses/monocle = 400,
 					/obj/item/clothing/glasses/regular = 400,
 					/obj/item/clothing/ears/headphones = 450,
+					/obj/item/clothing/ears/headphones/airpods = 2000,
 					/obj/item/clothing/accessory/necklace = 300,
 					/obj/item/clothing/accessory/necklace/dope = 500,
 					/obj/item/clothing/accessory/necklace/locket = 1200,
