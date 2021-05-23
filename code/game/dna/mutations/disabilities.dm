@@ -86,7 +86,7 @@
 				H.emote("twitch")
 			if(2 to 3)
 				if(isvox(H))
-					H.say("[prob(50) ? ";" : ""][pick("SKREK", "DUSTLUNG SKREKS", "TREELESS SKREKS")]")
+					H.say("[prob(50) ? ";" : ""][pick("SKREK", "DUSTLUNG SKREKS", "TREELESS SKREKS", "STUPID MEATS", "IS BADS!", "SKREKKING MEATS", "SKREK OFFS")]")
 				else
 					H.say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]")
 		var/x_offset_old = H.pixel_x
