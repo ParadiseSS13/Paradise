@@ -34,9 +34,7 @@
 
 /// Wrapper to not overwrite a variable if a list key doesnt exist. Ensures target is a list.
 #define CONFIG_LOAD_LIST(target, input) \
-	if(!isnull(input)) {\
-		if(islist(input)) {\
-			target = input\
-		}\
+	if(islist(input)) {\
+		target = input\
 	}
 

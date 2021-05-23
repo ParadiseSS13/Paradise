@@ -1,7 +1,4 @@
 #define CALL_SHUTTLE_REASON_LENGTH 12
-/// Time elapsed from roundstart before shuttle calls are allowed
-#define SHUTTLE_REFUEL_DELAY 20 MINUTES
-
 SUBSYSTEM_DEF(shuttle)
 	name = "Shuttle"
 	wait = 10
@@ -45,7 +42,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/hidden_shuttle_turfs = list() //all turfs hidden from navigation computers associated with a list containing the image hiding them and the type of the turf they are pretending to be
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
 	/// Default refuel delay
-	var/refuel_delay = SHUTTLE_REFUEL_DELAY
+	var/refuel_delay = 20 MINUTES
 
 /datum/controller/subsystem/shuttle/Initialize(start_timeofday)
 	ordernum = rand(1,9000)

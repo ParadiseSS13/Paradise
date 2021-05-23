@@ -1936,5 +1936,3 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			to_chat(usr, "[src] does not have any stored infomation!")
 	else
 		to_chat(usr, "OOC Metadata is not supported by this server!")
-
-	return

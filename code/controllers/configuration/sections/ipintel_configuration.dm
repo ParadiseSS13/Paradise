@@ -2,7 +2,7 @@
 /datum/configuration_section/ipintel_configuration
 	/// Is IPIntel enabled
 	var/enabled = FALSE
-	/// Arew we in whitelist mode (Auto-kick people who are on proxies/VPNs)
+	/// Are we in whitelist mode (Auto-kick people who are on proxies/VPNs)
 	var/whitelist_mode = TRUE
 	/// 0-1 float for percentage threshold to kick people out
 	var/bad_rating = 0.9

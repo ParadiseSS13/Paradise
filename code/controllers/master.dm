@@ -626,10 +626,10 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(!processing)
 		return
 	var/client_count = length(GLOB.clients)
-	if(client_count < GLOB.configuration.mc.mc_highpop_disable_threshold)
-		processing = GLOB.configuration.mc.mc_base_tickrate
-	else if(client_count > GLOB.configuration.mc.mc_highpop_enable_threshold)
-		processing = GLOB.configuration.mc.mc_highpop_tickrate
+	if(client_count < GLOB.configuration.mc.highpop_disable_threshold)
+		processing = GLOB.configuration.mc.base_tickrate
+	else if(client_count > GLOB.configuration.mc.highpop_enable_threshold)
+		processing = GLOB.configuration.mc.highpop_tickrate
 
 /datum/controller/master/proc/formatcpu()
 	switch(world.cpu)

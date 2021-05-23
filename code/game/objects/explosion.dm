@@ -24,11 +24,11 @@
 
 	if(!ignorecap)
 		// Clamp all values to MAX_EXPLOSION_RANGE
-		devastation_range = min (GLOB.configuration.general.bomb_cap / 4, devastation_range)
-		heavy_impact_range = min (GLOB.configuration.general.bomb_cap / 2, heavy_impact_range)
-		light_impact_range = min (GLOB.configuration.general.bomb_cap, light_impact_range)
-		flash_range = min (GLOB.configuration.general.bomb_cap, flash_range)
-		flame_range = min (GLOB.configuration.general.bomb_cap, flame_range)
+		devastation_range = min(GLOB.configuration.general.bomb_cap / 4, devastation_range)
+		heavy_impact_range = min(GLOB.configuration.general.bomb_cap / 2, heavy_impact_range)
+		light_impact_range = min(GLOB.configuration.general.bomb_cap, light_impact_range)
+		flash_range = min(GLOB.configuration.general.bomb_cap, flash_range)
+		flame_range = min(GLOB.configuration.general.bomb_cap, flame_range)
 
 	var/max_range = max(devastation_range, heavy_impact_range, light_impact_range, flame_range)
 

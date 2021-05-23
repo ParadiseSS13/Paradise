@@ -1319,9 +1319,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
 					var/prev_species = species
 
-					for(var/Spec in GLOB.whitelisted_species)
-						if(is_alien_whitelisted(user,Spec))
-							new_species += Spec
+					for(var/species in GLOB.whitelisted_species)
+						if(is_alien_whitelisted(user, species))
+							new_species += species
 
 					species = input("Please select a species", "Character Generation", null) in sortTim(new_species, /proc/cmp_text_asc)
 					var/datum/species/NS = GLOB.all_species[species]

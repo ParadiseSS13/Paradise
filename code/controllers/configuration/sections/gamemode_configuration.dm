@@ -69,6 +69,7 @@
 			return new T()
 
 	// Default to extended if it didnt work
+	stack_trace("Could not pick a gamemode. Defaulting to extended. (Attempted mode: [mode_name])")
 	return new /datum/game_mode/extended()
 
 /datum/configuration_section/gamemode_configuration/proc/get_runnable_modes()
@@ -80,7 +81,7 @@
 			qdel(M)
 			continue
 
-		if(probabilities[M.config_tag]<=0)
+		if(probabilities[M.config_tag] <= 0)
 			qdel(M)
 			continue
 
