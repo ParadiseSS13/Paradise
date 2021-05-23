@@ -22,7 +22,6 @@ Si te encuentras en una pelea a puñetazos con otro jugador, huir y pedir ayuda 
 Diferentes armas tienen diferentes fuerzas. Algunas armas, como las lanzas, los azulejos del suelo y las estrellas ninjas, causan más daño cuando son lanzadas que cuando son atacadas normalmente.
 Un vaso de agua tirado puede hacer un azulejo resbaladizo, permitiéndole reducir la velocidad de sus perseguidores en un abrir y cerrar de ojos.
 Cuando se trata de seguridad, a menudo se puede reducir el tiempo de la sentencia por completo a través de la cooperación y quien sabe, tambien a traves del engaño.
-La función de chat P2P que se encuentra en las computadoras tablet permite una forma sigilosa de comunicarse con la gente.
 Todos fuimos nuevos alguna vez, se paciente y guía a los nuevos jugadores en la dirección correcta
 En la mayoría de las prendas de vestir que van en la ranura del traje, usted puede poner ciertos artículos pequeños en el almacenamiento de su traje, tales como un spraycan, su tanque de oxígeno de emergencia o una linterna.
 La mayoría de las prendas de vestir exóticas relacionadas con el trabajo pueden incluir artículos relacionados con el mismo. Por ejemplo, el abrigo de invierno/traje de invierno del técnico atmosférico puede contener un RPD, y las batas de laboratorio pueden contener la mayoría de los medicamentos.
@@ -198,6 +197,12 @@ El Blob tiene alta resistencia al daño bruto. Usa Laseres.
 Puedes esconder papeles en las ventilaciones. Pero debes usar un destornillador para abrirla primero.
 Si bien las reglas del SOP no son totalmente reglas estan alli por motivos profesionales y de seguridad para la estacion.
 Matar al Mago normalmente termina la ronda, a menos que sea un lich o que la Federación de Magos Espaciales esté MUY ENOJADA!
+Hacer ejercicio tanto en la vida real como en el juego puede hacerte evitar enfermedades cardiacas.
+Puedes colorear cables con un crayon.
+Como Minero la recolección de huesos, carne o plantas es igual de importante a tus minerales. La pestaña de crating en categoría Tribal te ofrece herramientas que mejoran tus chances de supervivencia.
+Al pedir ayuda tu localizacion es lo mas importante.
+Como Vampiro al dormir dentro de un ataud te recuperas de daño bruto, quemadura y toxinas. No dudes en hacerte un pequeño altar por maint para cuando las cosas vayan mal.
+Puedes poner una bolsa de plástico en la cabeza, esto causara que lentamente comiences a morir asfixiado.
 Codea tu mierda.
 Centauri sera terminado algún día.
 Whip and nae nae.

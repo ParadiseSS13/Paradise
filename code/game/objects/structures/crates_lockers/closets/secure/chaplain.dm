@@ -31,3 +31,6 @@
 	new /obj/item/clothing/gloves/ring/silver(src)
 	new /obj/item/clothing/gloves/ring/gold(src)
 	new /obj/item/clothing/gloves/ring/gold(src)
+	new /obj/item/clothing/under/rank/chaplain/elzra(src)
+	new /obj/item/clothing/under/rank/chaplain/elzra/female(src)
+

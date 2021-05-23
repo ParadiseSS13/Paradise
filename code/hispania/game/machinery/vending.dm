@@ -572,3 +572,31 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 					/obj/item/reagent_containers/food/snacks/discountpie = 50,
 					/obj/item/reagent_containers/food/condiment/pack/discount_sauce = 10
 					)
+
+/obj/machinery/vending/fitness
+	name = "\improper SweatMAX"
+	desc = "An exercise aid and nutrition supplement vendor that preys on your inadequacy."
+	ads_list = list("Pain is just weakness leaving the body!","Run! Your fat is catching up to you", "Never forget leg day!","Push out!","This is the only break you get today.","Don't cry, sweat!","Healthy is an outfit that looks good on everybody.")
+	icon = 'icons/hispania/obj/vending.dmi'
+	slogan_list = list("SweatMAX, get robust!")
+	vend_reply = "Get robust!"
+	icon_state = "fitness"
+	icon_vend = "fitness-vend"
+	density = TRUE
+	vend_delay = 12
+	products = list(/obj/item/reagent_containers/food/drinks/hispania/minimilk = 6,
+					/obj/item/reagent_containers/food/drinks/hispania/minimilk/minimilk_chocolate = 6,
+					/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker = 1, ///Cause its edgy everyone wants it
+					/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker/red = 2,
+					/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker/blue = 2,
+					/obj/item/reagent_containers/food/snacks/proteinbar = 3,
+					/obj/item/reagent_containers/glass/beaker/waterbottle = 10
+					)
+	prices = list(	/obj/item/reagent_containers/food/drinks/hispania/minimilk = 50,
+					/obj/item/reagent_containers/food/drinks/hispania/minimilk/minimilk_chocolate = 55,
+					/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker = 550, //Protein its expensive even in space
+					/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker/red = 500,
+					/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker/blue = 500,
+					/obj/item/reagent_containers/food/snacks/proteinbar = 100,
+					/obj/item/reagent_containers/glass/beaker/waterbottle = 30
+					)
