@@ -42,8 +42,8 @@
 	..()
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer
-	name = "foam enforcer"
-	desc = "A toy inspired by the popular enforcer pistol. Ages 8 and up!"
+	name = "foam Enforcer"
+	desc = "A toy inspired by the popular Enforcer pistol. Ages 8 and up!"
 	icon_state = "enforcer"
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer
 	can_flashlight = TRUE
