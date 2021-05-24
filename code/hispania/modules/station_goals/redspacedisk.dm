@@ -7,7 +7,7 @@
 
 /datum/station_goal/redspacesearch/get_report()
 	return {"<b>Redspace Research</b><br>
-	We lost contact with a research facility on a nearby planet to your current location. The Solar Federation gave us directions to recover and old derelict ship with the power and resistence to get into the harsh atmospherics condition on the planet. And old military outpost where you can dock the ship.
+	We have lost contact with a research facility on a nearby planet to your current location. The Solar Federation gave us directions to recover and old derelict ship with the power and resistance to get into the harsh atmospherics condition on the planet and a docking port planet side that use to be a military outpost where you can dock the ship.
 	<br><br>
 		Protocol:
 	<ul style='margin-top: 10px; margin-bottom: 10px;'>
@@ -22,7 +22,7 @@
 /datum/station_goal/redspacesearch/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/bsa/full/B)
-		if(B && is_station_contact(B.z))
+	for(var/obj/item/disk/nagadisks/redspaceshit/B)
+		if(B && is_station_level(B.z))
 			return TRUE
 	return FALSE
