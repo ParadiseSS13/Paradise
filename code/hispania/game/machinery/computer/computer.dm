@@ -30,10 +30,10 @@
 			to_chat(user, "<span class='notice'>You start to hack into the [src]'s</span>")
 			to_chat(user, "<span class='notice'>The [src]'s security system its hard but you are trying your best.</span>")
 			user.visible_message("<span class='notice'>[usr] start to hack into the [src]'s</span>")
-			if(!do_mob(user, I, delay))
+			if(!do_after(user, delay, target = src))
 				playsound(loc, 'sound/machines/buzz-sigh.ogg', 30, 1)
 				return TRUE
-			new /obj/item/disk/nagadisks(user.drop_location())
+			new /obj/item/disk/nagadisks(src.drop_location())
 			playsound(loc, 'sound/machines/ping.ogg', 30, 1)
 			to_chat(user, "<span class='notice'>The [src]'s blinks green and gives you a disk .</span>") //idk its science lol
 			used = TRUE
