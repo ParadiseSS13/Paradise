@@ -89,7 +89,7 @@
 		else
 			qdel(C)
 	if(floor_only)
-		src.clean_blood()
+		clean_blood()
 
 	for(var/mob/living/simple_animal/slime/M in src)
 		M.adjustToxLoss(rand(5, 10))
