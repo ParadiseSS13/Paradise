@@ -82525,9 +82525,6 @@
 	pixel_y = 5
 	},
 /obj/item/autosurgeon,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "dvn" = (
@@ -82715,9 +82712,6 @@
 /area/atmos)
 "dKU" = (
 /obj/structure/barricade/wooden,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "dLT" = (
@@ -83122,9 +83116,6 @@
 	req_access_txt = "32";
 	req_one_access_txt = "0"
 	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "edi" = (
@@ -83225,9 +83216,6 @@
 /area/storage/secure)
 "egA" = (
 /obj/structure/spawner/headcrab_old,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "egM" = (
@@ -83346,9 +83334,6 @@
 "eni" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/mob_spawn/human/sol_gov_dead_default,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "eny" = (
@@ -83536,9 +83521,6 @@
 "euu" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/mob_spawn/human/sol_gov_dead_captain,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "euH" = (
@@ -83548,9 +83530,6 @@
 "evs" = (
 /obj/item/book/manual/research_and_development,
 /obj/structure/table/reinforced,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "ewe" = (
@@ -83808,9 +83787,6 @@
 "eMf" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/computer/mech_bay_power_console,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "eMI" = (
@@ -84189,9 +84165,6 @@
 	},
 /area/engine/engineering)
 "fmE" = (
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "fmN" = (
@@ -84219,9 +84192,6 @@
 /obj/item/reagent_containers/glass/beaker/vial,
 /obj/item/reagent_scanner/adv,
 /obj/structure/table/reinforced,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "fnm" = (
@@ -84315,9 +84285,6 @@
 /obj/item/storage/firstaid/brute{
 	pixel_x = 5;
 	pixel_y = 5
-	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
@@ -84434,9 +84401,6 @@
 /area/engine/engineering)
 "fyT" = (
 /obj/effect/decal/remains/human,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "fzZ" = (
@@ -84749,9 +84713,6 @@
 /area/maintenance/asmaint)
 "fTY" = (
 /obj/machinery/suit_storage_unit/engine,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "fUN" = (
@@ -85045,9 +85006,6 @@
 /area/atmos)
 "glD" = (
 /obj/machinery/sleeper,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "glZ" = (
@@ -85100,9 +85058,6 @@
 /area/maintenance/asmaint2)
 "gnE" = (
 /obj/structure/showcase/horrific_experiment,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "gnV" = (
@@ -85149,9 +85104,6 @@
 /obj/item/seeds/apple,
 /obj/item/seeds/apple,
 /obj/item/seeds/apple,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "grD" = (
@@ -85195,9 +85147,6 @@
 "gsy" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/filingcabinet,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "gsM" = (
@@ -85568,9 +85517,6 @@
 /area/engine/singularity)
 "gLy" = (
 /obj/machinery/shieldgen,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "gLS" = (
@@ -85808,9 +85754,6 @@
 "gTS" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/dispenser,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "gUU" = (
@@ -85991,9 +85934,6 @@
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	name = "Broken Computer"
-	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
@@ -86306,9 +86246,6 @@
 /area/blueshield)
 "hxc" = (
 /obj/structure/closet/emcloset,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "hyv" = (
@@ -86825,9 +86762,6 @@
 	layer = 2.9
 	},
 /obj/item/clothing/under/solgov,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "iaI" = (
@@ -87007,9 +86941,6 @@
 /area/maintenance/storage)
 "ihP" = (
 /obj/machinery/hydroponics/constructable,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "iiE" = (
@@ -87612,9 +87543,6 @@
 /area/engine/singularity)
 "iWl" = (
 /obj/machinery/vending/medical,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "iXp" = (
@@ -87690,9 +87618,6 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	icon_state = "remains";
 	name = "Human remains"
-	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
@@ -88216,9 +88141,6 @@
 	name = "TSF Discovery";
 	req_access_txt = "20"
 	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "jEr" = (
@@ -88597,9 +88519,6 @@
 /area/maintenance/aft)
 "jXY" = (
 /obj/effect/decal/cleanable/vomit,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "jYg" = (
@@ -88672,9 +88591,6 @@
 /area/engine/engineering)
 "kcy" = (
 /obj/machinery/computer/operating,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "ker" = (
@@ -89424,9 +89340,6 @@
 	req_access = null;
 	req_access_txt = "20"
 	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "kTn" = (
@@ -89498,9 +89411,6 @@
 	id_tag = null;
 	name = "Chemistry Lab";
 	req_access_txt = "33"
-	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
@@ -89989,9 +89899,6 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "lqs" = (
@@ -90130,9 +90037,6 @@
 "lxG" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/barricade/wooden,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "lxI" = (
@@ -90161,9 +90065,6 @@
 "lyV" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "lyY" = (
@@ -90661,9 +90562,6 @@
 	name = "Cargo Bay";
 	req_access_txt = "31"
 	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "lVA" = (
@@ -90870,9 +90768,6 @@
 /area/space/nearstation)
 "mek" = (
 /obj/machinery/floodlight,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "meJ" = (
@@ -90939,9 +90834,6 @@
 "mit" = (
 /obj/effect/decal/cleanable/blood,
 /obj/item/clothing/under/solgov,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "miN" = (
@@ -91135,9 +91027,6 @@
 "mow" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "moM" = (
@@ -91255,9 +91144,6 @@
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	name = "Broken Research Logs Computer"
-	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
@@ -91822,9 +91708,6 @@
 /area/storage/tech)
 "mZm" = (
 /obj/structure/lattice,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "nad" = (
@@ -91834,9 +91717,6 @@
 /area/quartermaster/qm)
 "nal" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "naA" = (
@@ -91978,9 +91858,6 @@
 /area/atmos)
 "ngj" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "ngm" = (
@@ -92216,9 +92093,6 @@
 	id = "tsf_home";
 	name = "TSF_Home";
 	width = 21
-	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
@@ -92682,9 +92556,6 @@
 /area/atmos)
 "nRs" = (
 /obj/machinery/vending/dinnerware,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "nRR" = (
@@ -93189,9 +93060,6 @@
 /obj/item/multitool{
 	pixel_x = 5
 	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "ooe" = (
@@ -93339,10 +93207,7 @@
 	name = "Unisex Restrooms";
 	req_access_txt = "0"
 	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
-/turf/space,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "oxq" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
@@ -93604,9 +93469,6 @@
 "oNB" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/chair/comfy/shuttle,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "oOc" = (
@@ -94256,9 +94118,6 @@
 "pzp" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "pzK" = (
@@ -94347,9 +94206,6 @@
 /obj/structure/curtain/open,
 /obj/item/mounted/shower,
 /obj/structure/spawner/headcrab_old,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "pFw" = (
@@ -94412,9 +94268,6 @@
 /area/engine/singularity)
 "pIs" = (
 /obj/structure/closet/firecloset,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "pJG" = (
@@ -94489,9 +94342,6 @@
 /area/atmos)
 "pNG" = (
 /obj/machinery/computer/shuttle/tsf,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "pOG" = (
@@ -94601,9 +94451,6 @@
 	locked = 1;
 	name = "TSF Discovery";
 	req_access_txt = "20"
-	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
@@ -94743,9 +94590,6 @@
 /area/engine/singularity)
 "qem" = (
 /obj/structure/closet/secure_closet/medical3,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "qey" = (
@@ -95526,9 +95370,6 @@
 /area/maintenance/apmaint)
 "qOQ" = (
 /obj/structure/barricade/wooden/crude,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "qPk" = (
@@ -95762,9 +95603,6 @@
 /area/assembly/assembly_line)
 "red" = (
 /obj/machinery/optable,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "rei" = (
@@ -96052,9 +95890,6 @@
 /obj/machinery/door/airlock/research{
 	name = "Research Division Access";
 	req_access_txt = "47"
-	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
@@ -96356,9 +96191,6 @@
 	pixel_x = -12
 	},
 /obj/effect/mob_spawn/human/sol_gov_dead_default,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "rQq" = (
@@ -96679,9 +96511,6 @@
 /area/maintenance/aft)
 "sdg" = (
 /obj/machinery/power/port_gen/pacman,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "sdu" = (
@@ -96953,9 +96782,6 @@
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	name = "Broken Medical Sensor Computer"
 	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "spT" = (
@@ -97050,9 +96876,6 @@
 /area/engine/engineering)
 "ssA" = (
 /obj/effect/decal/cleanable/blood,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "ssS" = (
@@ -97151,9 +96974,6 @@
 "suH" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/vomit,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "suQ" = (
@@ -97161,9 +96981,6 @@
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	name = "Broken RnD Computer"
-	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
@@ -97355,9 +97172,6 @@
 /area/maintenance/apmaint)
 "sCs" = (
 /obj/effect/mob_spawn/human/sol_gov_dead_default,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "sCy" = (
@@ -97514,9 +97328,6 @@
 	icon_state = "remains";
 	name = "Human remains"
 	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "sFC" = (
@@ -97615,9 +97426,6 @@
 /area/engine/engineering)
 "sJf" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "sKF" = (
@@ -98277,9 +98085,6 @@
 /area/maintenance/aft)
 "tqJ" = (
 /obj/machinery/vending/sovietsoda,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "tqU" = (
@@ -98296,9 +98101,6 @@
 /area/engine/singularity)
 "trg" = (
 /obj/machinery/washing_machine,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "trF" = (
@@ -98338,9 +98140,6 @@
 /area/maintenance/asmaint2)
 "tsG" = (
 /obj/item/clothing/under/solgov,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "tsP" = (
@@ -98685,10 +98484,7 @@
 	name = "Port Emergency Storage";
 	req_access_txt = "0"
 	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
-/turf/space,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "tLw" = (
 /turf/simulated/floor/engine{
@@ -98866,9 +98662,6 @@
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	name = "Broken Telecoms Computer"
 	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "tZn" = (
@@ -98933,9 +98726,6 @@
 /obj/item/storage/box/donkpockets{
 	pixel_x = 3;
 	pixel_y = 3
-	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
@@ -99486,9 +99276,6 @@
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	name = "Broken Computer"
 	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "uHd" = (
@@ -100012,9 +99799,6 @@
 	icon_state = "remains";
 	name = "Human remains"
 	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "viU" = (
@@ -100079,9 +99863,6 @@
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	name = "Broken Transit Computer"
-	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
@@ -100282,9 +100063,6 @@
 	name = "Human remains"
 	},
 /obj/structure/chair/comfy/shuttle,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "vAG" = (
@@ -100497,9 +100275,6 @@
 /obj/effect/decal/cleanable/blood,
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/welded,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "vMd" = (
@@ -100601,9 +100376,6 @@
 	locked = 1;
 	name = "TSF Discovery";
 	req_access_txt = "20"
-	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
@@ -100963,9 +100735,6 @@
 	name = "Kitchen";
 	req_access_txt = "28"
 	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "wfs" = (
@@ -101053,9 +100822,6 @@
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	name = "Broken Shield System Computer"
-	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
@@ -101297,9 +101063,6 @@
 "wqX" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/computer/atmos_alert,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "wrC" = (
@@ -101316,9 +101079,6 @@
 "wrF" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/mech_bay_recharge_port,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "wsq" = (
@@ -101543,9 +101303,6 @@
 /area/engine/engineering)
 "wCG" = (
 /obj/structure/ore_box,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "wDc" = (
@@ -101825,9 +101582,6 @@
 /obj/structure/toilet{
 	dir = 4
 	},
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "wRy" = (
@@ -101925,9 +101679,6 @@
 "wVW" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/mecha_wreckage/durand/old,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "wWd" = (
@@ -102308,9 +102059,6 @@
 "xrh" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/spawner/headcrab_old,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "xrB" = (
@@ -102968,9 +102716,6 @@
 "xMD" = (
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/welded,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "xMN" = (
@@ -103024,9 +102769,6 @@
 "xPa" = (
 /obj/effect/decal/cleanable/vomit,
 /obj/item/clothing/head/soft/solgov,
-/obj/structure/spider/terrorweb/red{
-	icon_state = "floor4"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "xPO" = (
