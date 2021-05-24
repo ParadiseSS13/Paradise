@@ -337,9 +337,9 @@
 			floor_only = FALSE
 		else
 			qdel(C)
-	src.color = initial(src.color)
+	color = initial(color)
 	if(floor_only)
-		src.clean_blood()
+		clean_blood()
 
 	for(var/mob/living/simple_animal/slime/M in src)
 		M.adjustToxLoss(rand(5, 10))
