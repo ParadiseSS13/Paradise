@@ -81,7 +81,7 @@
 	toggle_light(FALSE)
 	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
 
-/turf/proc/Clean(floor_only)
+/turf/simulated/floor/light/Clean(floor_only)
 	for(var/obj/effect/decal/cleanable/C in src)
 		var/obj/effect/decal/cleanable/blood/B = C
 		if(istype(B) && B.off_floor)
