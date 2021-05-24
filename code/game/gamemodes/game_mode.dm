@@ -478,10 +478,7 @@
 	var/list/objective_parts = list()
 	var/count = 1
 	for(var/datum/objective/objective in ply.objectives)
-		if(objective.check_completion())
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-		else
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+		objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text]"
 		count++
 	return objective_parts.Join("<br>")
 
