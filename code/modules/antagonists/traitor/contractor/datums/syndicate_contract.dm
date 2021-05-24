@@ -301,7 +301,7 @@
 	else if(!ismob(contract.target.current))
 		invalidate()
 		return
-	U.message_holder("Extraction signal received, agent. [GLOB.using_map.full_name]'s bluespace transport jamming systems have been sabotaged. "\
+	U.message_holder("Extraction signal received, agent. [SSmapping.map_datum.fluff_name]'s bluespace transport jamming systems have been sabotaged. "\
 			 	   + "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
 	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), null, 0)
@@ -528,7 +528,7 @@
 	var/datum/feed_message/FM = new
 	FM.author = "Nyx Daily"
 	FM.admin_locked = TRUE
-	FM.body = "Suspected Syndicate activity was reported in the system. Rumours have surfaced about a [R?.fields["rank"] || M?.mind.assigned_role || DEFAULT_RANK] aboard the [GLOB.using_map.full_name] being the victim of a kidnapping.\n\n" +\
+	FM.body = "Suspected Syndicate activity was reported in the system. Rumours have surfaced about a [R?.fields["rank"] || M?.mind.assigned_role || DEFAULT_RANK] aboard the [SSmapping.map_datum.fluff_name] being the victim of a kidnapping.\n\n" +\
 				"A reliable source said the following: There was a note with the victim's initials which were \"[initials]\" and a scribble saying \"[fluff_message]\""
 	GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(FM)
 
@@ -539,7 +539,7 @@
 		var/datum/feed_message/FM2 = new
 		FM2.author = "Nyx Daily"
 		FM2.admin_locked = TRUE
-		FM2.body = "Nanotrasen's Asset Management board has resigned today after a series of kidnappings aboard the [GLOB.using_map.full_name]." +\
+		FM2.body = "Nanotrasen's Asset Management board has resigned today after a series of kidnappings aboard the [SSmapping.map_datum.fluff_name]." +\
 					"One former member of the board was heard saying: \"I can't do this anymore. How does a single shift on this cursed station manage to cost us over ten million Credits in ransom payments? Is there no security aboard?!\""
 		GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(FM2)
 

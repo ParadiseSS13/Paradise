@@ -40,6 +40,8 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 	amount = 50
 
 /obj/item/stack/sheet/glass/cyborg
+	energy_type = /datum/robot_energy_storage/glass
+	is_cyborg = TRUE
 	materials = list()
 
 /obj/item/stack/sheet/glass/New(loc, amount)
@@ -48,15 +50,15 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 
 /obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W,/obj/item/stack/cable_coil))
+	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
-		if(CC.amount < 5)
+		if(CC.get_amount() < 5)
 			to_chat(user, "<b>There is not enough wire in this coil. You need 5 lengths.</b>")
 			return
 		CC.use(5)
 		to_chat(user, "<span class='notice'>You attach wire to the [name].</span>")
 		new /obj/item/stack/light_w(user.loc)
-		src.use(1)
+		use(1)
 	else if( istype(W, /obj/item/stack/rods) )
 		var/obj/item/stack/rods/V  = W
 		var/obj/item/stack/sheet/rglass/RG = new (user.loc)
@@ -97,9 +99,6 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/rglass
 	point_value = 4
 
-/obj/item/stack/sheet/rglass/cyborg
-	materials = list()
-
 /obj/item/stack/sheet/rglass/New(loc, amount)
 	recipes = GLOB.reinforced_glass_recipes
 	..()
@@ -108,6 +107,11 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	new/datum/stack_recipe/window("directional window", /obj/structure/window/plasmabasic, time = 0, on_floor = TRUE, window_checks = TRUE), \
 	new/datum/stack_recipe/window("fulltile window", /obj/structure/window/full/plasmabasic, 2, time = 0, on_floor = TRUE, window_checks = TRUE) \
 ))
+
+/obj/item/stack/sheet/rglass/cyborg
+	energy_type = /datum/robot_energy_storage/rglass
+	is_cyborg = TRUE
+	materials = list()
 
 /obj/item/stack/sheet/plasmaglass
 	name = "plasma glass"
