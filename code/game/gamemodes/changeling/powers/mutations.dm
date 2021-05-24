@@ -176,7 +176,7 @@
 	Help will drag the target closer. \
 	Disarm will grab whatever the target is holding. \
 	Grab will put the target in our grip after we catch it. \
-	Harm will drag the target closer and stab it. \
+	Harm will drag the target closer and stab it if we are holding a sharp weapon in our other hand. \
 	Cannot be used while in our lesser form."
 	button_icon_state = "tentacle"
 	chemical_cost = 10
