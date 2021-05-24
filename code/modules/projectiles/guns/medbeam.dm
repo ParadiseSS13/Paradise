@@ -92,7 +92,7 @@
 				return 0
 		for(var/obj/effect/ebeam/medical/B in turf)// Don't cross the str-beams!
 			if(B.owner != current_beam)
-				turf.visible_message("<span class='boldwarning'>The medbeams cross and EXPLODE!</span>")
+				turf.visible_message("<span class='userdanger'>The medbeams cross and EXPLODE!</span>")
 				explosion(B.loc,0,3,5,8)
 				qdel(dummy)
 				return 0
