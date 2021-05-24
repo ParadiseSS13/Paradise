@@ -80,3 +80,16 @@
 /turf/simulated/floor/light/extinguish_light()
 	toggle_light(FALSE)
 	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
+
+/turf/proc/Clean(floor_only)
+	for(var/obj/effect/decal/cleanable/C in src)
+		var/obj/effect/decal/cleanable/blood/B = C
+		if(istype(B) && B.off_floor)
+			floor_only = FALSE
+		else
+			qdel(C)
+	if(floor_only)
+		src.clean_blood()
+
+	for(var/mob/living/simple_animal/slime/M in src)
+		M.adjustToxLoss(rand(5, 10))
