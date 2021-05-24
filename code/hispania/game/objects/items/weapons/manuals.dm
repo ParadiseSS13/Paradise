@@ -419,7 +419,7 @@
 				<li>1 Filete de Salmon</li>
 				<li>1u Sal</li>
 				<li>1u Pimienta</li>
-				<li>10u Agua</li>
+				<li>5u Agua</li>
 				<br>
 			<I>Salmon con Aguacate:</I><br>
 				<li>1 Filete de Salmon</li>
@@ -446,15 +446,16 @@
 				<li>1 Filete de Salmon</li>
 				<li>1u Sal</li>
 				<li>1u Pimienta</li>
-				<li>10u Agua</li>
+				<li>5u Agua</li>
 				<li>1 Ajo</li>
+				<li>1 Patata</li>
 				<li>1 Cebolla</li>
 				<br>
 				<I>Curry de Salmon:</I><br>
 				<li>1 Filete de Salmon</li>
 				<li>1u Sal</li>
 				<li>1u Pimienta</li>
-				<li>10u Leche</li>
+				<li>5u Leche</li>
 				<li>1 Arroz Hervido</li>
 				<li>1 Ajo</li>
 				<br>
