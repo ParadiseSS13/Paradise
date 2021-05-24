@@ -246,6 +246,7 @@ to destroy them and players will be able to make replacements.
 		"NanoMed Plus" =						/obj/machinery/vending/medical,
 		"NanoMed" =								/obj/machinery/vending/wallmed,
 		"Vendomat" =							/obj/machinery/vending/assist,
+		"YouTool" =								/obj/machinery/vending/tool,
 		"Engi-Vend" =							/obj/machinery/vending/engivend,
 		"NutriMax" =							/obj/machinery/vending/hydronutrients,
 		"MegaSeed Servitor" =					/obj/machinery/vending/hydroseeds,
