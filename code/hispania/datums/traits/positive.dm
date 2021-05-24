@@ -63,17 +63,17 @@
 	lose_text = "<span class='notice'>I better be careful on what i do.</span>"
 
 /datum/quirk/chadasfuck/add()
-	quirk_holder.dna.species.total_health += 40
+	quirk_holder.dna.species.total_health += 20
 
 /datum/quirk/jackichanlol
 	name = "Hit Catcher"
 	desc = "Your difficult life has taught you to learn to take hits. Strikes do slightly less damage."
-	value = 4
+	value = 5
 	gain_text = "<span class='danger'>This ain't nothing, i had it worst back then.</span>"
 	lose_text = "<span class='notice'>Well maybe i'm going to think and plan now on what i can and can't do.</span>"
 
 /datum/quirk/jackichanlol/add()
-	quirk_holder.dna.species.armor += 5
+	quirk_holder.dna.species.armor += 3
 
 /datum/quirk/chadpunches
 	name = "Self-Defense trained"
