@@ -10,7 +10,7 @@
 /datum/quirk/diacaluroso
 	name = "Heat Intolerance"
 	desc = "Your body cant handle heat. Heat damage it's deadlier than usual."
-	value = -2
+	value = -1
 	gain_text = "<span class='danger'>I dont like warm enviroments.</span>"
 	lose_text = "<span class='notice'>Vacations to a beach now don't look that bad.</span>"
 
