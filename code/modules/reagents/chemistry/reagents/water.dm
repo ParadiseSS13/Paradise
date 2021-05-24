@@ -75,7 +75,8 @@
 				floor_only = FALSE
 			else
 				qdel(C)
-		T.color = initial(T.color)
+		if(!istype(T,/turf/simulated/floor/light))
+			T.color = initial(T.color)
 		if(floor_only)
 			T.clean_blood()
 
