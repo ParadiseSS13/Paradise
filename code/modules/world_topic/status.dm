@@ -30,7 +30,7 @@
 		player_count++
 	status_info["players"] = player_count
 	status_info["admins"] = admin_count
-	status_info["map_name"] = GLOB.map_name ? GLOB.map_name : "Unknown"
+	status_info["map_name"] = SSmapping.map_datum.fluff_name
 
 	// Add more info if we are authed
 	if(key_valid)
