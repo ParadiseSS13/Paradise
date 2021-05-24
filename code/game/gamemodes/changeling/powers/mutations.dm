@@ -173,7 +173,9 @@
 	name = "Tentacle"
 	desc = "We ready a tentacle to grab items or victims with. Costs 10 chemicals."
 	helptext = "We can use it once to retrieve a distant item. If used on living creatures, the effect depends on the intent: \
-	Help will simply drag it closer, Disarm will grab whatever the creature is holding, Grab will put the victim in our hold after catching it, \
+	Help will drag the target closer. \
+	Disarm will grab whatever the target is holding. \
+	Grab will put the target in our grip after we catch it. \
 	and Harm will drag it closer, and stab it if we are also holding a sharp weapon. Cannot be used while in lesser form."
 	button_icon_state = "tentacle"
 	chemical_cost = 10
