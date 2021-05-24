@@ -330,7 +330,7 @@
 /turf/proc/Bless()
 	flags |= NOJAUNT
 
-/turf/proc/Clean(floor_only)
+/turf/proc/clean(floor_only)
 	for(var/obj/effect/decal/cleanable/C in src)
 		var/obj/effect/decal/cleanable/blood/B = C
 		if(istype(B) && B.off_floor)
