@@ -30,7 +30,7 @@
 /datum/quirk/manco
 	name = "One-Hand"
 	desc = "You lost one hand a long time ago."
-	value = -1
+	value = -2
 	gain_text = "<span class='danger'>Where is my hand... Ah yeah that...</span>"
 	lose_text = "<span class='notice'>Well now i can land a hand!.</span>"
 	medical_record_text = "Patient lost one hand a long time ago on and incident."
