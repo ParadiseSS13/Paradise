@@ -1572,6 +1572,7 @@
 	},
 /obj/item/trash/spentcasing,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/clothing/shoes/winterboots,
 /turf/simulated/floor/plasteel,
 /area/TSF_Outpost/Exterior)
 "dw" = (
@@ -3030,6 +3031,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/item/clothing/shoes/winterboots,
 /turf/simulated/floor/plasteel,
 /area/TSF_Outpost/Exterior)
 "hb" = (
@@ -3720,6 +3722,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/item/clothing/shoes/winterboots,
 /turf/simulated/floor/plasteel,
 /area/TSF_Outpost/Exterior)
 "iH" = (
@@ -7108,7 +7111,7 @@
 "qH" = (
 /obj/machinery/door/airlock/security{
 	name = "Security Checkpoint";
-	req_access_txt = "201"
+	req_access_txt = "63"
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/plasteel,
@@ -7217,7 +7220,7 @@
 	},
 /obj/machinery/door/airlock/public/glass{
 	name = "Hydroponics";
-	req_access_txt = "201"
+	req_access_txt = "28"
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -7368,7 +7371,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
 	name = "Hydroponics";
-	req_access_txt = "201"
+	req_access_txt = "28"
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -7667,7 +7670,7 @@
 	dir = 4;
 	icon_state = "left";
 	name = "Hydroponics Desk";
-	req_access_txt = "201"
+	req_access_txt = "28"
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel,
@@ -8200,7 +8203,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Hydroponics Maintenance";
-	req_access_txt = "201"
+	req_access_txt = "28"
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plating,
@@ -8594,7 +8597,7 @@
 /obj/machinery/door/window/eastleft{
 	dir = 1;
 	name = "Hydroponics Desk";
-	req_access_txt = "201"
+	req_access_txt = "28"
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
@@ -8678,7 +8681,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
 	name = "Kitchen";
-	req_access_txt = "201"
+	req_access_txt = "28"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -8719,7 +8722,7 @@
 "tX" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Kitchen Maintenance";
-	req_access_txt = "201"
+	req_access_txt = "28"
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plating,
@@ -9628,7 +9631,7 @@
 	},
 /obj/machinery/door/airlock{
 	name = "Kitchen";
-	req_access_txt = "201"
+	req_access_txt = "28"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -13166,7 +13169,7 @@
 	},
 /obj/machinery/door/airlock/engineering/glass{
 	name = "SMES Room";
-	req_access_txt = "201";
+	req_access_txt = "32";
 	req_one_access_txt = "0"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
@@ -13677,7 +13680,7 @@
 "Cu" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "201"
+	req_access_txt = "63"
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
@@ -15331,7 +15334,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Foyer";
-	req_access_txt = "201"
+	req_access_txt = "32"
 	},
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/engineering)
@@ -15695,7 +15698,7 @@
 "FC" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "201"
+	req_access_txt = "63"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -15830,7 +15833,7 @@
 	},
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering";
-	req_access_txt = "201"
+	req_access_txt = "32"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/floor/plasteel,
@@ -16222,7 +16225,7 @@
 	},
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering";
-	req_access_txt = "201"
+	req_access_txt = "32"
 	},
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/engineering)
@@ -16679,7 +16682,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Chief Engineer";
-	req_access_txt = "201"
+	req_access_txt = "32"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -16840,7 +16843,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/mining{
 	name = "Processing Area";
-	req_access_txt = "201"
+	req_access_txt = "50"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -17107,7 +17110,7 @@
 	},
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mining EVA";
-	req_access_txt = "201"
+	req_access_txt = "50"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -17341,7 +17344,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/mining{
 	name = "Processing Area";
-	req_access_txt = "201"
+	req_access_txt = "50"
 	},
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/simulated/floor/plasteel,
@@ -17717,7 +17720,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/external{
 	name = "Mining External Airlock";
-	req_access_txt = "201"
+	req_access_txt = "50"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -19130,7 +19133,7 @@
 "My" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Mining Maintenance";
-	req_access_txt = "201"
+	req_access_txt = "50"
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/plating,
@@ -20503,7 +20506,7 @@
 "Pk" = (
 /obj/machinery/door/airlock/external{
 	name = "Mining External Airlock";
-	req_access_txt = "201"
+	req_access_txt = "50"
 	},
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/structure/barricade/wooden/crude,

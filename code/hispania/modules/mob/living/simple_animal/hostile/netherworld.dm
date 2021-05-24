@@ -39,5 +39,8 @@
 	desc = "Nothing can be done to save this poor soul"
 	icon_state = "sovmeat"
 	icon_living = "sovmeat"
-
+	health = 100
+	maxHealth = 100
+	melee_damage_lower = 15
+	melee_damage_upper = 20
 
