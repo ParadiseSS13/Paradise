@@ -1,21 +1,26 @@
 /obj/item/organ/external/chest/unbreakable
 	cannot_break = TRUE
 	encased = null
+	convertable_children = list(/obj/item/organ/external/groin/unbreakable)
 
 /obj/item/organ/external/groin/unbreakable
 	cannot_break = TRUE
 
 /obj/item/organ/external/arm/unbreakable
 	cannot_break = TRUE
+	convertable_children = list(/obj/item/organ/external/hand/unbreakable)
 
 /obj/item/organ/external/arm/right/unbreakable
 	cannot_break = TRUE
+	convertable_children = list(/obj/item/organ/external/hand/right/unbreakable)
 
 /obj/item/organ/external/leg/unbreakable
 	cannot_break = TRUE
+	convertable_children = list(/obj/item/organ/external/foot/right/unbreakable)
 
 /obj/item/organ/external/leg/right/unbreakable
 	cannot_break = TRUE
+	convertable_children = list(/obj/item/organ/external/foot/right/unbreakable)
 
 /obj/item/organ/external/foot/unbreakable
 	cannot_break = TRUE

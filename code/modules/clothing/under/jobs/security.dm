@@ -10,8 +10,8 @@
  * Security
  */
 /obj/item/clothing/under/rank/warden
-	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for more robust protection. It has the word \"Warden\" written on the shoulders."
 	name = "warden's jumpsuit"
+	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for more robust protection. It has the word \"Warden\" written on the shoulders."
 	icon_state = "warden"
 	item_state = "r_suit"
 	item_color = "warden"
@@ -19,8 +19,8 @@
 	strip_delay = 50
 
 /obj/item/clothing/under/rank/warden/skirt
-	desc = "Standard feminine fashion for a Warden. It is made of sturdier material than standard jumpskirts. It has the word \"Warden\" written on the shoulders."
 	name = "warden's jumpskirt"
+	desc = "Standard feminine fashion for a Warden. It is made of sturdier material than standard jumpskirts. It has the word \"Warden\" written on the shoulders."
 	icon_state = "wardenf"
 	item_state = "r_suit"
 	item_color = "wardenf"
@@ -91,8 +91,8 @@
  * Head of Security
  */
 /obj/item/clothing/under/rank/head_of_security
-	desc = "It's a jumpsuit worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
 	name = "head of security's jumpsuit"
+	desc = "It's a jumpsuit worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
 	icon_state = "hos"
 	item_state = "r_suit"
 	item_color = "hosred"
@@ -100,8 +100,8 @@
 	strip_delay = 60
 
 /obj/item/clothing/under/rank/head_of_security/skirt
-	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
 	name = "head of security's jumpskirt"
+	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
 	icon_state = "hosredf"
 	item_state = "r_suit"
 	item_color = "hosredf"
@@ -113,8 +113,8 @@
 
 //Jensen cosplay gear
 /obj/item/clothing/under/rank/head_of_security/jensen
-	desc = "You never asked for anything that stylish."
 	name = "head of security's jumpsuit"
+	desc = "You never asked for anything that stylish."
 	icon_state = "jensen"
 	item_state = "jensen"
 	item_color = "jensen"
@@ -122,12 +122,12 @@
 //Paradise Station
 
 /obj/item/clothing/suit/armor/hos/hosnavyjacket
-	name = "head of security navy jacket"
+	name = "head of security's navy jacket"
 	icon_state = "hosdnavyjacket"
 	item_state = "hosdnavyjacket"
 
 /obj/item/clothing/suit/armor/hos/hosbluejacket
-	name = "head of security blue jacket"
+	name = "head of security's blue jacket"
 	icon_state = "hosbluejacket"
 	item_state = "hosbluejacket"
 
@@ -167,8 +167,8 @@
 
 //Brig Physician
 /obj/item/clothing/under/rank/security/brigphys
-	desc = "Jumpsuit for Brig Physician it has both medical and security protection."
 	name = "brig physician's jumpsuit"
+	desc = "Jumpsuit for Brig Physician it has both medical and security protection."
 	icon_state = "brig_phys"
 	item_state = "brig_phys"
 	item_color = "brig_phys"
@@ -176,8 +176,8 @@
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 30, acid = 30)
 
 /obj/item/clothing/under/rank/security/brigphys/skirt
-	desc = "A skirted Brig Physician uniform. It has both security and medical protection."
 	name = "brig physician's jumpskirt"
+	desc = "A skirted Brig Physician uniform. It has both security and medical protection."
 	icon_state = "brig_physf"
 	item_state = "brig_physf"
 	item_color = "brig_physf"
@@ -185,8 +185,8 @@
 
 //Pod Pilot
 /obj/item/clothing/under/rank/security/pod_pilot
-	desc = "Suit for your regular pod pilot."
 	name = "pod pilot's jumpsuit"
+	desc = "Suit for your regular pod pilot."
 	icon_state = "pod_pilot"
 	item_state = "pod_pilot"
 	item_color = "pod_pilot"

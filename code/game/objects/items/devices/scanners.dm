@@ -100,9 +100,9 @@ REAGENT SCANNER
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message("<span class='warning'>[user] analyzes the floor's vitals!</span>", "<span class='notice'>You stupidly try to analyze the floor's vitals!</span>")
-		to_chat(user, "<span class='info'>Analyzing results for The floor:\n\tOverall status: <b>Healthy</b></span>")
-		to_chat(user, "<span class='info'>Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FF8000'>Burn</font>/<font color='red'>Brute</font></span>")
-		to_chat(user, "<span class='info'>\tDamage specifics: <font color='blue'>0</font>-<font color='green'>0</font>-<font color='#FF8000'>0</font>-<font color='red'>0</font></span>")
+		to_chat(user, "<span class='info'>Analyzing results for The floor:\n\tOverall status: Healthy</span>")
+		to_chat(user, "<span class='info'>Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burn</font>/<font color='red'>Brute</font></span>")
+		to_chat(user, "<span class='info'>\tDamage specifics: <font color='blue'>0</font> - <font color='green'>0</font> - <font color='#FFA500'>0</font> - <font color='red'>0</font></span>")
 		to_chat(user, "<span class='info'>Body temperature: ???</span>")
 		return
 
@@ -130,19 +130,30 @@ REAGENT SCANNER
 	var/TX = H.getToxLoss() > 50 	? 	"<b>[H.getToxLoss()]</b>" 		: H.getToxLoss()
 	var/BU = H.getFireLoss() > 50 	? 	"<b>[H.getFireLoss()]</b>" 		: H.getFireLoss()
 	var/BR = H.getBruteLoss() > 50 	? 	"<b>[H.getBruteLoss()]</b>" 	: H.getBruteLoss()
-	if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
-		OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
-		to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: dead</span>")
-	else
-		to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: [H.stat > 1 ? "dead" : "[H.health]% healthy"]</span>")
+
+	var/status = "<font color='red'>Dead</font>" // Dead by default to make it simpler
+	var/mob/dead/observer/ghost = H.get_ghost(TRUE)
+	var/DNR = (ghost && !ghost.can_reenter_corpse)
+	if(H.stat == DEAD)
+		if(DNR)
+			status = "<font color='red'>Dead <b>\[DNR]</b></font>"
+	else // Alive or unconscious
+		if(HAS_TRAIT(H, TRAIT_FAKEDEATH)) // status still shows as "Dead"
+			OX = fake_oxy > 50 ? "<b>[fake_oxy]</b>" : fake_oxy
+		else
+			status = "[H.health]% Healthy"
+
+	to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: [status]")
 	to_chat(user, "\t Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>")
 	to_chat(user, "\t Damage Specifics: <font color='blue'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
 	to_chat(user, "<span class='notice'>Body Temperature: [H.bodytemperature-T0C]&deg;C ([H.bodytemperature*1.8-459.67]&deg;F)</span>")
 	if(H.timeofdeath && (H.stat == DEAD || (HAS_TRAIT(H, TRAIT_FAKEDEATH))))
 		to_chat(user, "<span class='notice'>Time of Death: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]</span>")
 		var/tdelta = round(world.time - H.timeofdeath)
-		if(tdelta < DEFIB_TIME_LIMIT)
+		if(tdelta < DEFIB_TIME_LIMIT && !DNR)
 			to_chat(user, "<span class='danger'>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</span>")
+		else
+			to_chat(user, "<font color='red'>Subject died [DisplayTimeText(tdelta)] ago.</font>")
 
 	if(mode == 1)
 		var/list/damaged = H.get_damaged_organs(1,1)
@@ -239,9 +250,9 @@ REAGENT SCANNER
 
 	to_chat(user, "<span class='notice'>Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font></span>")
 	var/implant_detect
-	for(var/obj/item/organ/internal/cyberimp/CI in H.internal_organs)
-		if(CI.is_robotic())
-			implant_detect += "[H.name] is modified with a [CI.name].<br>"
+	for(var/obj/item/organ/internal/O in H.internal_organs)
+		if(O.is_robotic())
+			implant_detect += "[H.name] is modified with a [O.name].<br>"
 	if(implant_detect)
 		to_chat(user, "<span class='notice'>Detected cybernetic modifications:</span>")
 		to_chat(user, "<span class='notice'>[implant_detect]</span>")
@@ -812,7 +823,7 @@ REAGENT SCANNER
 
 		if(unknown_body || e.hidden)
 			imp += "Unknown body present:"
-		if(!AN && !open && !infected & !imp)
+		if(!AN && !open && !infected && !imp)
 			AN = "None:"
 		dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
 		dat += "</tr>"

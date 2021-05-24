@@ -103,7 +103,7 @@
 	icon = H.icon
 	speak_emote = list("groans")
 	icon_state = "zombie2_s"
-	if(head_organ)
+	if(head_organ && !(NO_HAIR in H.dna.species.species_traits))
 		head_organ.h_style = null
 	H.update_hair()
 	human_overlays = H.overlays

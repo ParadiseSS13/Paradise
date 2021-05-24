@@ -29,7 +29,7 @@
 				return
 		else
 			if(loaded.amount < max_amount)
-				var/amount = min(loaded.amount + C.amount, max_amount)
+				var/amount = min(loaded.amount + C.get_amount(), max_amount)
 				C.use(amount - loaded.amount)
 				loaded.amount = amount
 			else
