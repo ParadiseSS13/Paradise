@@ -20,7 +20,7 @@
 /datum/quirk/diafrio
 	name = "Cold Intolerance"
 	desc = "Your body cant handle cold. Cold damage it's deadlier than usual."
-	value = -2
+	value = -1
 	gain_text = "<span class='danger'>I dont like cold enviroments.</span>"
 	lose_text = "<span class='notice'>Vacations to a mountain now don't look that bad.</span>"
 
