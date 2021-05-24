@@ -28,6 +28,7 @@
 	faction = list("nether")
 
 /obj/structure/spawner/netherbreach/attackby(obj/item/I, mob/user, params)
+	..()
 	if(istype(I, /obj/item/stack/ore/bluespace_crystal)) //Item Unico de naga
 		playsound(loc, 'sound/hallucinations/i_see_you1.ogg', 30, 1)
 		to_chat(user, "<span class='notice'>The [src]'s seems to react with the bluespace crystal wait until its close.</span>")
