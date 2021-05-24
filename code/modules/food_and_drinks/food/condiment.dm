@@ -23,6 +23,7 @@
 	 "sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
 	 "blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
 	 "cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
+	 "wasabi" = list("wasabitube", "wasabi bottle", "A pungent paste commonly served in tiny amounts with sushi. Spicy!"),
 	 "sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"))
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
@@ -112,6 +113,9 @@
 	desc = "Used in cooking various dishes."
 	icon_state = "enzyme"
 	list_reagents = list("enzyme" = 50)
+
+/obj/item/reagent_containers/food/condiment/enzyme/cyborg_recharge(coeff, emagged)
+	reagents.check_and_add("enzyme", volume, 2 * coeff) // Only recharge if the current amount of enzyme is under `volume`.
 
 /obj/item/reagent_containers/food/condiment/sugar
 	name = "sugar bottle"
