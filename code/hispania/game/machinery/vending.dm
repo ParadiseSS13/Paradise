@@ -134,6 +134,12 @@
 
 //este vending es gratis en paradise
 /obj/machinery/vending/autodrobe
+
+	hispa_products = list(/obj/item/clothing/mask/thief = 4,
+					/obj/item/clothing/mask/thief/wolf = 4,
+					/obj/item/clothing/mask/thief/hoxton = 4,
+					/obj/item/clothing/mask/thief/chains = 4)
+
 	hispa_prices = list(/obj/item/clothing/suit/chickensuit = 150,
 					/obj/item/clothing/head/chicken = 150,
 					/obj/item/clothing/under/gladiator = 100,
@@ -204,6 +210,10 @@
 					/obj/item/clothing/mask/face/fox = 90,
 					/obj/item/clothing/mask/face/tribal = 90,
 					/obj/item/clothing/mask/face/rat = 90,
+					/obj/item/clothing/mask/thief = 100,
+					/obj/item/clothing/mask/thief/wolf = 100,
+					/obj/item/clothing/mask/thief/hoxton = 100,
+					/obj/item/clothing/mask/thief/chains = 100,
 					/obj/item/clothing/suit/apron/overalls = 50,
 					/obj/item/clothing/head/rabbitears = 100,
 					/obj/item/clothing/head/sombrero = 100,
