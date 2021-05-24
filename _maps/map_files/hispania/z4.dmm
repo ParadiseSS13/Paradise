@@ -810,12 +810,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/embedded_controller/radio/airlock/access_controller{
-	id_tag = "mining";
-	pixel_y = 25;
-	tag_exterior_door = "mining_outer";
-	tag_interior_door = "mining_inner"
-	},
 /turf/simulated/floor/plasteel,
 /area/TSF_Outpost/Exterior)
 "bY" = (
@@ -1146,36 +1140,16 @@
 /turf/simulated/floor/plasteel,
 /area/TSF_Outpost/Exterior)
 "cz" = (
-/obj/machinery/door/airlock/external{
-	frequency = 1379;
-	glass = 1;
-	id_tag = "mining_inner";
-	locked = 1;
-	name = "External Airlock";
-	opacity = 0;
-	req_access_txt = "54"
-	},
 /obj/structure/fans/tiny,
 /obj/structure/barricade/wooden/crude/snow,
+/obj/machinery/door/airlock/external{
+	name = "Planet Surface"
+	},
 /turf/simulated/floor/plasteel,
 /area/TSF_Outpost/Exterior)
 "cA" = (
 /obj/effect/decal/cleanable/blood,
 /obj/item/clothing/suit/hooded/wintercoat/fluff/shesi,
-/turf/simulated/floor/plasteel,
-/area/TSF_Outpost/Exterior)
-"cB" = (
-/obj/machinery/door/airlock/external{
-	frequency = 1379;
-	glass = 1;
-	id_tag = "mining_outer";
-	locked = 1;
-	name = "External Airlock";
-	opacity = 0;
-	req_access_txt = "54"
-	},
-/obj/structure/fans/tiny,
-/obj/structure/barricade/wooden/crude/snow,
 /turf/simulated/floor/plasteel,
 /area/TSF_Outpost/Exterior)
 "cC" = (
@@ -1320,20 +1294,6 @@
 "cT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
-/area/TSF_Outpost/Exterior)
-"cU" = (
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1450;
-	master_tag = "dorms_maint";
-	name = "interior access button";
-	pixel_x = 25;
-	pixel_y = -25;
-	req_access_txt = "13"
-	},
-/obj/effect/decal/cleanable/blood,
-/obj/item/trash/spentcasing,
 /turf/simulated/floor/plasteel,
 /area/TSF_Outpost/Exterior)
 "cV" = (
@@ -6693,7 +6653,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Security Checkpoint Maintenance";
-	req_access_txt = "201";
+	req_access_txt = "63";
 	req_one_access_txt = "0"
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -8928,7 +8888,7 @@
 "up" = (
 /obj/machinery/door/airlock{
 	name = "Kitchen Cold Room";
-	req_access_txt = "201"
+	req_access_txt = "28"
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
@@ -11268,11 +11228,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/NT_Polar_Outpost/research)
-"yn" = (
-/obj/effect/decal/redspacesthings/wall/walldecals_4,
-/obj/effect/decal/redspacesthings/wall/walldecals_4,
-/turf/simulated/wall/rust,
 /area/NT_Polar_Outpost/research)
 "yo" = (
 /obj/structure/cable{
@@ -16810,11 +16765,6 @@
 	icon_state = "browncorner"
 	},
 /area/NT_Polar_Outpost/mining)
-"Hv" = (
-/obj/effect/decal/redspacesthings/wall/walldecals_3,
-/obj/effect/decal/redspacesthings/wall/walldecals_3,
-/turf/simulated/wall,
-/area/NT_Polar_Outpost/crew)
 "Hw" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
@@ -18664,20 +18614,6 @@
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plating,
 /area/NT_Polar_Outpost/research)
-"Lv" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "mining";
-	name = "exterior access button";
-	pixel_x = -25;
-	pixel_y = -25;
-	req_access_txt = null
-	},
-/obj/structure/lattice/catwalk,
-/obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plating/asteroid/snow/naga,
-/area/TSF_Outpost/Exterior)
 "Lw" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -20058,12 +19994,6 @@
 "Ou" = (
 /obj/effect/decal/redspacesthings/wall/walldecals_3,
 /turf/simulated/wall/r_wall,
-/area/NT_Polar_Outpost/crew)
-"Ov" = (
-/obj/effect/decal/redspacesthings/wall/walldecals_3,
-/obj/effect/decal/redspacesthings/wall/walldecals_3,
-/obj/effect/decal/redspacesthings/wall/walldecals_3,
-/turf/simulated/wall,
 /area/NT_Polar_Outpost/crew)
 "Ow" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -27850,7 +27780,7 @@ ao
 bc
 aW
 cy
-cU
+cS
 aW
 bU
 iI
@@ -28877,7 +28807,7 @@ mx
 lF
 ao
 bW
-cB
+cz
 bW
 ao
 ao
@@ -29134,7 +29064,7 @@ mx
 lF
 IN
 KM
-Lv
+KM
 KM
 IN
 lF
@@ -64180,7 +64110,7 @@ mP
 mP
 mP
 zG
-yn
+sP
 sV
 sP
 tG
@@ -68304,7 +68234,7 @@ tG
 GT
 GT
 GT
-Lh
+tG
 Lj
 Lj
 Lh
@@ -69585,8 +69515,8 @@ nq
 Os
 Os
 Ot
-Ov
-Hv
+Ie
+Ie
 yf
 Ie
 Li
