@@ -19,8 +19,6 @@
 /**
  * Called when someone clicks on a borg with an upgrade in their hand.
  *
- * Base behavior is to check if the upgrade is valid in the current state that the borg is in, and do any item replacements if the upgrade has them.
- *
  * Arguments:
  * * R - the cyborg that was clicked on with an upgrade.
  */
@@ -33,7 +31,7 @@
 	return TRUE
 
 /**
- * Called when someone clicks on a borg with an upgrade in their hand.
+ * Checks if the upgrade is able to be applied to the cyborg, before actually applying it.
  *
  * Arguments:
  * * R - the cyborg that was clicked on with an upgrade.
