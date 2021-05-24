@@ -15,7 +15,7 @@ GLOBAL_VAR(church_name)
 
 	return name
 
-// TODO: Remove this. Its always gonna be NAS Trurl
+// AA TODO: Remove this. Its always gonna be NAS Trurl
 /proc/command_name()
 	return "NAS Trurl"
 

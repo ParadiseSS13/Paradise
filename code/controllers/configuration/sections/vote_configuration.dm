@@ -16,6 +16,8 @@
 	var/prevent_dead_voting = FALSE
 	/// Default to players not voting
 	var/disable_default_vote = TRUE
+	/// Enable map voting?
+	var/enable_map_voting = FALSE
 
 /datum/configuration_section/vote_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
@@ -23,6 +25,7 @@
 	CONFIG_LOAD_BOOL(allow_mode_votes, data["allow_vote_mode"])
 	CONFIG_LOAD_BOOL(prevent_dead_voting, data["prevent_dead_voting"])
 	CONFIG_LOAD_BOOL(disable_default_vote, data["disable_default_vote"])
+	CONFIG_LOAD_BOOL(enable_map_voting, data["enable_map_voting"])
 
 	CONFIG_LOAD_NUM(vote_delay, data["vote_delay"])
 	CONFIG_LOAD_NUM(vote_time, data["vote_time"])

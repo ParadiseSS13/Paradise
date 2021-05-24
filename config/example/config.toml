@@ -755,6 +755,8 @@ autotransfer_interval_time = 18000
 prevent_dead_voting = false
 # Default to players not voting by default
 disable_default_vote = true
+# Enable voting for a map on end round
+enable_map_voting = false
 
 
 ################################################################

@@ -62,7 +62,7 @@ SUBSYSTEM_DEF(mapping)
 	log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
 
 	// Now we make a list of areas for teleport locs
-	// TOOD: Make these locs into lists on the SS itself, not globs
+	// AA TODO: Make these locs into lists on the SS itself, not globs
 	for(var/area/AR in world)
 		if(AR.no_teleportlocs)
 			continue
@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(mapping)
 	// load in extra levels of space ruins
 	var/load_zlevels_timer = start_watch()
 	log_startup_progress("Creating random space levels...")
-	var/num_extra_space = rand(config.extra_space_ruin_levels_min, config.extra_space_ruin_levels_max)
+	var/num_extra_space = rand(GLOB.configuration.ruins.extra_levels_min, GLOB.configuration.ruins.extra_levels_max)
 	for(var/i in 1 to num_extra_space)
 		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
 	log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")

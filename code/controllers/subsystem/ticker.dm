@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(ticker)
 	/// Time the world started, relative to world.time
 	var/round_start_time = 0
 	/// Default timeout for if world.Reboot() doesnt have a time specified
-	var/const/restart_timeout = 600
+	var/const/restart_timeout = 75 SECONDS
 	/// Current status of the game. See code\__DEFINES\game.dm
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
@@ -127,6 +127,8 @@ SUBSYSTEM_DEF(ticker)
 			auto_toggle_ooc(TRUE) // Turn it on
 			declare_completion()
 			addtimer(CALLBACK(src, .proc/call_reboot), 5 SECONDS)
+			if(GLOB.configuration.vote.enable_map_voting)
+				SSvote.initiate_vote("map", "the server", TRUE) // Start a map vote. Timing is a little tight here but we should be good.
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
 	if(mode.station_was_nuked)
