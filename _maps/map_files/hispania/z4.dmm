@@ -8168,9 +8168,6 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plating,
 /area/NT_Polar_Outpost/crew)
-"sU" = (
-/turf/simulated/wall,
-/area/NT_Polar_Outpost/research)
 "sV" = (
 /obj/effect/decal/redspacesthings/wall/walldecals_4,
 /turf/simulated/wall,
@@ -9558,6 +9555,7 @@
 /obj/structure/grille,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/window/full/basic,
+/obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plating,
 /area/NT_Polar_Outpost/research)
 "vE" = (
@@ -12036,7 +12034,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_2,
-/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria";
@@ -12865,7 +12862,6 @@
 /obj/item/radio/off,
 /obj/item/laser_pointer,
 /obj/effect/decal/redspacesthings/floordecals_2,
-/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria";
@@ -13228,16 +13224,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/engineering)
-"BJ" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/decal/redspacesthings/floordecals_2,
-/obj/effect/decal/redspacesthings/floordecals_2,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
-	},
-/area/NT_Polar_Outpost/research)
 "BK" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -13288,6 +13274,7 @@
 	name = "Server Room";
 	req_access_txt = "201"
 	},
+/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13520,11 +13507,6 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/engineering)
-"Ch" = (
-/obj/structure/grille,
-/obj/structure/window/full/basic,
-/turf/simulated/floor/plating,
-/area/NT_Polar_Outpost/research)
 "Ci" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -19079,7 +19061,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mining Foyer";
-	req_access_txt = "201"
+	req_access_txt = "50"
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/plasteel,
@@ -19096,7 +19078,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mining Foyer";
-	req_access_txt = "201"
+	req_access_txt = "50"
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/plasteel,
@@ -64635,7 +64617,7 @@ Oz
 OB
 wJ
 xI
-Kt
+sV
 tG
 tG
 tG
@@ -64888,7 +64870,7 @@ uv
 uP
 CU
 ta
-Ch
+Dm
 wp
 wK
 xJ
@@ -65153,7 +65135,7 @@ sV
 zb
 zK
 Be
-BJ
+zK
 Cy
 sV
 DU
@@ -65911,8 +65893,8 @@ mP
 zG
 tG
 zH
-uj
-uj
+yq
+yq
 zH
 An
 sK
@@ -66440,7 +66422,7 @@ sP
 sP
 sP
 sV
-Kt
+sV
 DY
 zH
 FF
@@ -66698,7 +66680,7 @@ Bj
 BZ
 CB
 sV
-sU
+sV
 tG
 Ev
 tG

@@ -74,7 +74,7 @@
 				atom_say("Design Ready")
 				to_chat(user, "<span class='notice'>The [src]'s starts to prints the technology uncrypted disk.</span>")
 				playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-				new /obj/item/disk/nagadisks/redspaceshit(user.drop_location())
+				new /obj/item/disk/nagadisks/redspaceshit(src.drop_location())
 			else
 				atom_say("We still need [src.systemdisks] to complete decryption of the files.")
 		else
