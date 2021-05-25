@@ -17,6 +17,7 @@
 	dealing with their traders and merchants; those that do rarely enjoy the experience."
 
 	brute_mod = 1.2 //20% more brute damage. Fragile bird bones.
+	brain_mod = 0
 
 	breathid = "n2"
 
