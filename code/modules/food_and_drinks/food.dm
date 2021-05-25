@@ -13,7 +13,7 @@
 	var/transfer_efficiency = 1.0
 	var/instant_application = 0 //if we want to bypass the forcedfeed delay
 	var/can_taste = TRUE//whether you can taste eating from this
-	var/antable = TRUE // Will ants come near it?
+	var/antable = FALSE // Will ants come near it?
 	var/ant_location = null
 	var/ant_timer = null
 	resistance_flags = FLAMMABLE
