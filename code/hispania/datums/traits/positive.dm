@@ -10,7 +10,7 @@
 /datum/quirk/hudmedimplant
 	name = "Medhud Implant"
 	desc = "You start with a MedHud Implant already set."
-	value = 4
+	value = 5
 	gain_text = "<span class='notice'>Your MedHUD implant starts working.</span>"
 	lose_text = "<span class='notice'>Where is your MedHUD implant?</span>"
 
@@ -22,7 +22,7 @@
 /datum/quirk/nutriimplant
 	name = "Nutriment Implant"
 	desc = "You start with a Nutriment Implant already set."
-	value = 4
+	value = 5
 	gain_text = "<span class='notice'>Your Nutriment implant starts working.</span>"
 	lose_text = "<span class='notice'>Where is your Nutriment implant?</span>"
 
