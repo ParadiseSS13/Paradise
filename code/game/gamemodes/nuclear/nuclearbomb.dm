@@ -359,8 +359,9 @@ GLOBAL_VAR(bomb_set)
 
 	var/off_station = 0
 	var/turf/bomb_location = get_turf(src)
+	var/area/A = get_area(src)
 	if( bomb_location && is_station_level(bomb_location.z) )
-		if( (bomb_location.x < (128-NUKERANGE)) || (bomb_location.x > (128+NUKERANGE)) || (bomb_location.y < (128-NUKERANGE)) || (bomb_location.y > (128+NUKERANGE)) )
+		if( (bomb_location.x < (128 - NUKERANGE)) || (bomb_location.x > (128 + NUKERANGE)) || (bomb_location.y < (128 - NUKERANGE)) || (bomb_location.y > (128 + NUKERANGE)) && (!(A in GLOB.the_station_areas)))
 			off_station = 1
 	else
 		off_station = 2
@@ -383,7 +384,7 @@ GLOBAL_VAR(bomb_set)
 			else
 				to_chat(world, "<b>The station was destoyed by the nuclear blast!</b>")
 
-			SSticker.mode.station_was_nuked = (off_station<2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
+			SSticker.mode.station_was_nuked = (off_station < 2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
 															//kinda shit but I couldn't  get permission to do what I wanted to do.
 
 			if(!SSticker.mode.check_finished())//If the mode does not deal with the nuke going off so just reboot because everyone is stuck as is

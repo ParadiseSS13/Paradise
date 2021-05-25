@@ -84,6 +84,10 @@
 /obj/item/melee/cultblade/dagger/proc/can_scribe(mob/living/user)
 	if(!src || !user || loc != user || user.incapacitated())
 		return FALSE
+	if(drawing_rune)
+		to_chat(user, "<span class='warning'>You're already drawing a rune!</span>")
+		return FALSE
+
 	var/turf/T = get_turf(user)
 	if(isspaceturf(T))
 		return FALSE
@@ -135,12 +139,12 @@
 			to_chat(user, "<span class='cultitalic'>The veil is not weak enough here to summon a cultist, you must be on station!</span>")
 			return
 
-	var/old_color = user.color  // we'll temporarily redden the user for better feedback to fellow cultists. Store this to revert them back.
+	var/old_color = user.color // we'll temporarily redden the user for better feedback to fellow cultists. Store this to revert them back.
 	if(narsie_rune)
 		if(!narsie_rune_check(user, A))
 			return // don't do shit
 		var/list/summon_areas = gamemode.cult_objs.obj_summon.summon_spots
-		if(!(A in summon_areas))  // Check again to make sure they didn't move
+		if(!(A in summon_areas)) // Check again to make sure they didn't move
 			to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_areas)]!</span>")
 			return
 		GLOB.command_announcement.Announce("Figments from an eldritch god are being summoned into the [A.map_name] from an unknown dimension. Disrupt the ritual at all costs, before the station is destroyed! Space law and SOP are suspended. The entire crew must kill cultists on sight.", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
@@ -148,7 +152,7 @@
 			var/turf/T = I
 			var/obj/machinery/shield/cult/narsie/N = new(T)
 			shields |= N
-		user.color = "red"
+		user.color = COLOR_RED
 
 	// Draw the rune
 	var/mob/living/carbon/human/H = user
@@ -161,12 +165,14 @@
 	user.visible_message(others_message,
 		"<span class='cultitalic'>You slice open your body and begin drawing a sigil of [SSticker.cultdat.entity_title3].</span>")
 
+	drawing_rune = TRUE // Only one at a time
 	var/scribe_successful = do_after(user, initial(rune.scribe_delay) * scribe_multiplier, target = runeturf)
 	for(var/V in shields) // Only used for the 'Tear Veil' rune
 		var/obj/machinery/shield/S = V
 		if(S && !QDELETED(S))
 			qdel(S)
 	user.color = old_color
+	drawing_rune = FALSE
 	if(!scribe_successful)
 		return
 

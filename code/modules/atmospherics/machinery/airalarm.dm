@@ -961,15 +961,13 @@
 		if(1)
 			if(iscoil(I))
 				var/obj/item/stack/cable_coil/coil = I
-				if(coil.amount < 5)
+				if(coil.get_amount() < 5)
 					to_chat(user, "You need more cable for this!")
 					return
 
 				to_chat(user, "You wire \the [src]!")
 				playsound(get_turf(src), coil.usesound, 50, 1)
-				coil.amount -= 5
-				if(!coil.amount)
-					qdel(coil)
+				coil.use(5)
 
 				buildstage = 2
 				update_icon()

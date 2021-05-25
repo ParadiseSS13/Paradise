@@ -774,6 +774,11 @@
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					M.delayed_gib()
 					return
+				var/mob/dead/observer/ghost = M.get_ghost(TRUE)
+				if(ghost && !ghost.can_reenter_corpse) // DNR or AntagHUD
+					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
+					return
+
 				if(!M.suiciding && !HAS_TRAIT(M, TRAIT_HUSK) && !HAS_TRAIT(M, TRAIT_BADDNA))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
@@ -1006,7 +1011,7 @@
 	reagent_state = LIQUID
 	color = "#FFDCFF"
 	taste_description = "stability"
-	var/list/drug_list = list("crank","methamphetamine","space_drugs","psilocybin","ephedrine","epinephrine","stimulants","bath_salts","lsd","thc")
+	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc")
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
