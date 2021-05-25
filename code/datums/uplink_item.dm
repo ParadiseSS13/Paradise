@@ -1334,7 +1334,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	and other medical supplies helpful for a medical field operative."
 	reference = "SCMK"
 	item = /obj/item/storage/firstaid/tactical
-	cost = 7
+	cost = 4
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/vtec
