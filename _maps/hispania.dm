@@ -9,10 +9,10 @@ z3 = lavaland
 */
 
 #if !defined(USING_MAP_DATUM)
-	#include "map_files\hispania\z2.dmm"
+	#include "map_files\dababy\z2.dmm"
 	#include "map_files\hispania\z4.dmm"
 	#include "map_files\hispania\z6.dmm"
-	#include "map_files\hispania\hispania.dmm"
+	#include "map_files\dababy\sexo.dmm" 
 	#include "map_files\hispania\Lavaland.dmm"
 
 	#define MAP_TRANSITION_CONFIG list(\
