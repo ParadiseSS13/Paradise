@@ -275,6 +275,9 @@
 	/// Enable auto profiler of rounds
 	var/auto_profile = FALSE
 
+	// Enable map voting
+	var/map_voting_enabled = FALSE
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -770,6 +773,8 @@
 					max_client_cid_history = text2num(value)
 				if("enable_auto_profiler")
 					auto_profile = TRUE
+				if("enable_map_voting")
+					map_voting_enabled = TRUE
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
