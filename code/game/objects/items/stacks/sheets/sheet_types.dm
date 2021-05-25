@@ -325,6 +325,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	new /datum/stack_recipe("folder", /obj/item/folder),
 	new /datum/stack_recipe("cardboard tube", /obj/item/c_tube),
 	new /datum/stack_recipe("cardboard box", /obj/structure/closet/cardboard, 4),
+	new /datum/stack_recipe("beer box", /obj/item/storage/fancy/beerbox, 2), //Hispania Beerbox
 	new /datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5)
 ))
 

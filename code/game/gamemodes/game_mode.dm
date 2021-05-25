@@ -513,7 +513,7 @@
 		var/datum/station_goal/picked = pick_n_take(possible)
 		goal_weights += initial(picked.weight)
 		station_goals += new picked
-
+	station_goals += new /datum/station_goal/redspacesearch //Forzamos que siempre sea un station_goal Hispania
 	if(station_goals.len)
 		send_station_goals_message()
 

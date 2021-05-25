@@ -64,3 +64,24 @@
 		playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
 		icon_state = "crackersbox5"
 		opencrack = TRUE
+
+/obj/item/storage/fancy/beerbox
+	name = "beerbox"
+	desc = "A pack of six beers."
+	icon = 'icons/hispania/obj/food/containers.dmi'
+	icon_state = "beerbox0"
+	icon_type = "beer"
+	item_state = "beerbox"
+	lefthand_file = 'icons/hispania/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/hispania/mob/inhands/items_righthand.dmi'
+	storage_slots = 6
+	throwforce = 2
+	slot_flags = SLOT_BELT
+	can_hold = list(/obj/item/reagent_containers/food/drinks/cans/beer)
+
+/obj/item/storage/fancy/beerbox/full/populate_contents()
+	..()
+	for(var/i=1; i <= storage_slots; i++)
+		new /obj/item/reagent_containers/food/drinks/cans/beer(src)
+	update_icon()
+	return

@@ -1120,10 +1120,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/reagent_containers/food/drinks/bottle/goldschlager,
 					/obj/item/reagent_containers/food/drinks/cans/ale,
 					/obj/item/reagent_containers/food/drinks/cans/ale,
-					/obj/item/reagent_containers/food/drinks/cans/beer,
-					/obj/item/reagent_containers/food/drinks/cans/beer,
-					/obj/item/reagent_containers/food/drinks/cans/beer,
-					/obj/item/reagent_containers/food/drinks/cans/beer,
+					/obj/item/storage/fancy/beerbox/full, ///Hispania Beer Box
 					/obj/item/grenade/confetti,
 					/obj/item/grenade/confetti)
 	cost = 20
