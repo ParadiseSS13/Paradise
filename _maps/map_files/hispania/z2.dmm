@@ -13681,17 +13681,6 @@
 	tag = "icon-carpet5-1 (EAST)"
 	},
 /area/holodeck/source_theatre)
-"Zl" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 10;
-	height = 26;
-	id = "tsf_away";
-	name = "TSF_Away";
-	width = 21
-	},
-/turf/space,
-/area/space)
 "Zm" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel{
@@ -50516,7 +50505,7 @@ aN
 aN
 aN
 aN
-Zl
+aN
 aN
 aN
 aN
