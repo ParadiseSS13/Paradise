@@ -23,9 +23,9 @@
 
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"crystallized brain" =    /obj/item/organ/internal/brain/crystal,
-		"eyes" =     /obj/item/organ/internal/eyes/luminescent_crystal, //Standard darksight of 2.
+		ORGAN_HEART = /obj/item/organ/internal/heart,
+		ORGAN_BRAIN = /obj/item/organ/internal/brain/crystal,
+		ORGAN_EYES  = /obj/item/organ/internal/eyes/luminescent_crystal, //Standard darksight of 2.
 		"strange crystal" = /obj/item/organ/internal/nucleation/strange_crystal
 		)
 

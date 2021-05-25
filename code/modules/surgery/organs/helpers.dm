@@ -53,7 +53,7 @@
 	return TRUE
 
 /mob/living/carbon/human/has_left_hand()
-	if(has_organ("l_hand"))
+	if(has_organ(ORGAN_HAND_L))
 		return TRUE
 	return FALSE
 
@@ -62,7 +62,7 @@
 	return TRUE
 
 /mob/living/carbon/human/has_right_hand()
-	if(has_organ("r_hand"))
+	if(has_organ(ORGAN_HAND_R))
 		return TRUE
 	return FALSE
 
@@ -125,7 +125,7 @@
 	return list()
 
 /mob/living/carbon/human/get_missing_limbs()
-	var/list/full = list("head", "chest", "r_arm", "l_arm", "r_leg", "l_leg")
+	var/list/full = list(ORGAN_HEAD, ORGAN_CHEST, ORGAN_ARM_L, ORGAN_ARM_R, ORGAN_LEG_L, ORGAN_LEG_R)
 	for(var/zone in full)
 		if(has_organ(zone))
 			full -= zone

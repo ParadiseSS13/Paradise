@@ -29,22 +29,22 @@
 
 	vision_organ = null
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain/golem,
+		ORGAN_BRAIN = /obj/item/organ/internal/brain/golem,
 		"adamantine_resonator" = /obj/item/organ/internal/adamantine_resonator
 		) //Has standard darksight of 2.
 
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest/unbreakable/sturdy),
-		"groin" =  list("path" = /obj/item/organ/external/groin/unbreakable/sturdy),
-		"head" =   list("path" = /obj/item/organ/external/head/unbreakable/sturdy),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm/unbreakable/sturdy),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/unbreakable/sturdy),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg/unbreakable/sturdy),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/unbreakable/sturdy),
-		"l_hand" = list("path" = /obj/item/organ/external/hand/unbreakable/sturdy),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right/unbreakable/sturdy),
-		"l_foot" = list("path" = /obj/item/organ/external/foot/unbreakable/sturdy),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right/unbreakable/sturdy))
+		ORGAN_CHEST  = list("path" = /obj/item/organ/external/chest/unbreakable/sturdy),
+		ORGAN_GROIN  = list("path" = /obj/item/organ/external/groin/unbreakable/sturdy),
+		ORGAN_HEAD	 = list("path" = /obj/item/organ/external/head/unbreakable/sturdy),
+		ORGAN_ARM_L  = list("path" = /obj/item/organ/external/arm/unbreakable/sturdy),
+		ORGAN_ARM_R  = list("path" = /obj/item/organ/external/arm/right/unbreakable/sturdy),
+		ORGAN_LEG_L  = list("path" = /obj/item/organ/external/leg/unbreakable/sturdy),
+		ORGAN_LEG_R  = list("path" = /obj/item/organ/external/leg/right/unbreakable/sturdy),
+		ORGAN_HAND_L = list("path" = /obj/item/organ/external/hand/unbreakable/sturdy),
+		ORGAN_HAND_R = list("path" = /obj/item/organ/external/hand/right/unbreakable/sturdy),
+		ORGAN_FOOT_L = list("path" = /obj/item/organ/external/foot/unbreakable/sturdy),
+		ORGAN_FOOT_R = list("path" = /obj/item/organ/external/foot/right/unbreakable/sturdy))
 
 	suicide_messages = list(
 		"is crumbling into dust!",
@@ -109,7 +109,7 @@
 	name = "Adamantine Golem"
 	skinned_type = /obj/item/stack/sheet/mineral/adamantine
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain/golem,
+		ORGAN_BRAIN = /obj/item/organ/internal/brain/golem,
 		"adamantine_resonator" = /obj/item/organ/internal/adamantine_resonator,
 		"vocal_cords" = /obj/item/organ/internal/vocal_cords/adamantine
 		)

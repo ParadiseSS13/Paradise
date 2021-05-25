@@ -29,14 +29,14 @@
 	butt_sprite = "skrell"
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/skrell,
-		"lungs" =    /obj/item/organ/internal/lungs/skrell,
-		"liver" =    /obj/item/organ/internal/liver/skrell,
-		"kidneys" =  /obj/item/organ/internal/kidneys/skrell,
-		"brain" =    /obj/item/organ/internal/brain/skrell,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/skrell, //Default darksight of 2.
-		"headpocket" = /obj/item/organ/internal/headpocket
+		ORGAN_HEART	   = /obj/item/organ/internal/heart/skrell,
+		ORGAN_LUNGS	   = /obj/item/organ/internal/lungs/skrell,
+		ORGAN_LIVER	   = /obj/item/organ/internal/liver/skrell,
+		ORGAN_KIDNEYS  = /obj/item/organ/internal/kidneys/skrell,
+		ORGAN_BRAIN	   = /obj/item/organ/internal/brain/skrell,
+		ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		ORGAN_EYES	   = /obj/item/organ/internal/eyes/skrell, //Default darksight of 2.
+		"headpocket"   = /obj/item/organ/internal/headpocket
 		)
 
 	suicide_messages = list(

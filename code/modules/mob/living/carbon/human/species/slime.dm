@@ -41,23 +41,23 @@
 
 	vision_organ = null
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain/slime,
-		"heart" = /obj/item/organ/internal/heart/slime,
-		"lungs" = /obj/item/organ/internal/lungs/slime
+		ORGAN_BRAIN = /obj/item/organ/internal/brain/slime,
+		ORGAN_HEART = /obj/item/organ/internal/heart/slime,
+		ORGAN_LUNGS = /obj/item/organ/internal/lungs/slime
 		)
 	mutantears = null
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest/unbreakable),
-		"groin" =  list("path" = /obj/item/organ/external/groin/unbreakable),
-		"head" =   list("path" = /obj/item/organ/external/head/unbreakable),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm/unbreakable),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/unbreakable),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg/unbreakable),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/unbreakable),
-		"l_hand" = list("path" = /obj/item/organ/external/hand/unbreakable),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right/unbreakable),
-		"l_foot" = list("path" = /obj/item/organ/external/foot/unbreakable),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right/unbreakable)
+		ORGAN_CHEST  = list("path" = /obj/item/organ/external/chest/unbreakable),
+		ORGAN_GROIN  = list("path" = /obj/item/organ/external/groin/unbreakable),
+		ORGAN_HEAD	 = list("path" = /obj/item/organ/external/head/unbreakable),
+		ORGAN_ARM_L  = list("path" = /obj/item/organ/external/arm/unbreakable),
+		ORGAN_ARM_R  = list("path" = /obj/item/organ/external/arm/right/unbreakable),
+		ORGAN_LEG_L  = list("path" = /obj/item/organ/external/leg/unbreakable),
+		ORGAN_LEG_R  = list("path" = /obj/item/organ/external/leg/right/unbreakable),
+		ORGAN_HAND_L = list("path" = /obj/item/organ/external/hand/unbreakable),
+		ORGAN_HAND_R = list("path" = /obj/item/organ/external/hand/right/unbreakable),
+		ORGAN_FOOT_L = list("path" = /obj/item/organ/external/foot/unbreakable),
+		ORGAN_FOOT_R = list("path" = /obj/item/organ/external/foot/right/unbreakable)
 		)
 	suicide_messages = list(
 		"is melting into a puddle!",

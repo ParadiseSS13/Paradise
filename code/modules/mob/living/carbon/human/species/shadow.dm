@@ -11,8 +11,8 @@
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain,
-		"eyes" = /obj/item/organ/internal/eyes/night_vision/nightmare //8 darksight.
+		ORGAN_BRAIN = /obj/item/organ/internal/brain,
+		ORGAN_EYES  = /obj/item/organ/internal/eyes/night_vision/nightmare //8 darksight.
 		)
 
 	species_traits = list(NO_BLOOD)

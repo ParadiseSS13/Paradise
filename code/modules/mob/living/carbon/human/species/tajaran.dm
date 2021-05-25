@@ -35,13 +35,13 @@
 	butt_sprite = "tajaran"
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/tajaran,
-		"lungs" =    /obj/item/organ/internal/lungs/tajaran,
-		"liver" =    /obj/item/organ/internal/liver/tajaran,
-		"kidneys" =  /obj/item/organ/internal/kidneys/tajaran,
-		"brain" =    /obj/item/organ/internal/brain/tajaran,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/tajaran /*Most Tajara see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
+		ORGAN_HEART	   = /obj/item/organ/internal/heart/tajaran,
+		ORGAN_LUNGS	   = /obj/item/organ/internal/lungs/tajaran,
+		ORGAN_LIVER	   = /obj/item/organ/internal/liver/tajaran,
+		ORGAN_KIDNEYS  = /obj/item/organ/internal/kidneys/tajaran,
+		ORGAN_BRAIN	   = /obj/item/organ/internal/brain/tajaran,
+		ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		ORGAN_EYES	   = /obj/item/organ/internal/eyes/tajaran /*Most Tajara see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
 															 unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
 		)
 

@@ -29,7 +29,7 @@
 
 	vision_organ = null
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain/golem,
+		ORGAN_BRAIN = /obj/item/organ/internal/brain/golem,
 	) //Has default darksight of 2.
 
 /datum/species/skeleton/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)

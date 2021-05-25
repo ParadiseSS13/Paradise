@@ -350,7 +350,7 @@
 			to_chat(user, "<span class='danger'>You have no idea what species this person is. Report this on the bug tracker.</span>")
 			return -1
 
-		if(!target.dna.species.has_organ["brain"])
+		if(!target.dna.species.has_organ[ORGAN_BRAIN])
 			to_chat(user, "<span class='danger'>You're pretty sure [target.dna.species.name_plural] don't normally have a brain.</span>")
 			return -1
 

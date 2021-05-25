@@ -1485,9 +1485,9 @@
 		return FALSE
 	if(bullets_left == 1)
 		bullets_left = 0
-		var/zone = "head"
+		var/zone = ORGAN_HEAD
 		if(!(user.has_organ(zone))) // If they somehow don't have a head.
-			zone = "chest"
+			zone = ORGAN_CHEST
 		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 		user.visible_message("<span class='danger'>[src] goes off!</span>")
 		post_shot(user)

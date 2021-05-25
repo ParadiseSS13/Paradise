@@ -55,13 +55,13 @@
 		)
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/vox,
-		"lungs" =    /obj/item/organ/internal/lungs/vox,
-		"liver" =    /obj/item/organ/internal/liver/vox,
-		"kidneys" =  /obj/item/organ/internal/kidneys/vox,
-		"cortical stack" =    /obj/item/organ/internal/brain/vox,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/vox, //Default darksight of 2.
+		ORGAN_HEART	   = /obj/item/organ/internal/heart/vox,
+		ORGAN_LUNGS	   = /obj/item/organ/internal/lungs/vox,
+		ORGAN_LIVER	   = /obj/item/organ/internal/liver/vox,
+		ORGAN_KIDNEYS  = /obj/item/organ/internal/kidneys/vox,
+		ORGAN_BRAIN	   = /obj/item/organ/internal/brain/vox,
+		ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		ORGAN_EYES	   = /obj/item/organ/internal/eyes/vox, //Default darksight of 2.
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
 
 	suicide_messages = list(
@@ -160,13 +160,13 @@
 	icon_template = 'icons/mob/human_races/r_armalis.dmi'
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs/vox,
-		"liver" =    /obj/item/organ/internal/liver,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"cortical stack" =    /obj/item/organ/internal/brain/vox,
-		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
-		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
+		ORGAN_HEART	   = /obj/item/organ/internal/heart/vox,
+		ORGAN_LUNGS	   = /obj/item/organ/internal/lungs/vox,
+		ORGAN_LIVER	   = /obj/item/organ/internal/liver/vox,
+		ORGAN_KIDNEYS  = /obj/item/organ/internal/kidneys/vox,
+		ORGAN_BRAIN	   = /obj/item/organ/internal/brain/vox,
+		ORGAN_EYES	   = /obj/item/organ/internal/eyes/vox, //Default darksight of 2.
+		)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
