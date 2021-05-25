@@ -451,12 +451,9 @@
 				if(isliving(AM))
 					var/mob/living/M = AM
 					to_chat(M, "<span class='userdanger'>You're thrown back by the [owner]'s reactive armor!</span>")
-				INVOKE_ASYNC(src, .proc/repulse, AM, throw_target, repulse_power, dist_from_user)//So stuff gets tossed around at the same time.
+				INVOKE_ASYNC(AM, /atom/movable/.proc/throw_at, throw_target, ((clamp((repulse_power - (clamp(dist_from_user - 2, 0, dist_from_user))), 3, repulse_power))), 1) //So stuff gets tossed around at the same time.
 		disable(rand(2, 5))
 		return TRUE
-
-/obj/item/clothing/suit/armor/reactive/repulse/proc/repulse(atom/movable/AM, throw_target, repulse_power, dist_from_user)
-	AM.throw_at(throw_target, ((clamp((repulse_power - (clamp(dist_from_user - 2, 0, dist_from_user))), 3, repulse_power))), 1)
 
 //All of the armor below is mostly unused
 
