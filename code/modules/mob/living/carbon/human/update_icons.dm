@@ -450,14 +450,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(gender == FEMALE)
 		g = "f"
 	// DNA2 - Drawing underlays.
-	for(var/datum/mutation/mutation in GLOB.dna_mutations)
-		if(!mutation.block)
-			continue
-		if(mutation.is_active(src))
-			var/underlay = mutation.on_draw_underlays(src, g)
-			if(underlay)
-				standing.underlays += underlay
-				add_image = 1
+	for(var/mutation_type in active_mutations)
+		var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
+		var/underlay = mutation.on_draw_underlays(src, g)
+		if(underlay)
+			standing.underlays += underlay
+			add_image = TRUE
+
 	if(HAS_TRAIT(src, TRAIT_LASEREYES))
 		standing.overlays += "lasereyes_s"
 		add_image = 1
@@ -940,7 +939,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				mask_icon = new(wear_mask.sprite_sheets[dna.species.name])
 				standing = mutable_appearance(wear_mask.sprite_sheets[dna.species.name], "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
 			else
-				standing = mutable_appearance('icons/mob/mask.dmi', "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
+				standing = hispania_icon(wear_mask, 'icons/hispania/mob/mask.dmi', 'icons/mob/mask.dmi', "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state][alternate_head.suffix]" in mask_icon.IconStates())) ? "[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
 
 			if(!istype(wear_mask, /obj/item/clothing/mask/cigarette) && wear_mask.blood_DNA)
 				var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "maskblood")

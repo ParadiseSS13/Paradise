@@ -45,7 +45,7 @@
 	list_reagents = list("nutriment" = 20)
 	tastes = list("BRONTOSAURIO" = 1)
 
-/obj/item/reagent_containers/food/snacks/plazmiteleg
+/obj/item/reagent_containers/food/snacks/monstermeat/plazmiteleg
 	name = "plazmite leg"
 	icon = 'icons/hispania/obj/food/food.dmi'
 	desc = "A plazmite leg. It's not very edible now, but it cooks great in lava, rumors says its great for digestion."
@@ -53,7 +53,7 @@
 	list_reagents = list("protein" = 3, "plazmitevenom" = 5)
 	tastes = list("tough meat" = 1)
 
-/obj/item/reagent_containers/food/snacks/plazmiteleg/burn()
+/obj/item/reagent_containers/food/snacks/monstermeat/plazmiteleg/burn()
 	visible_message("[src] finishes cooking!")
 	new /obj/item/reagent_containers/food/snacks/plazmite_fingers(loc)
 	qdel(src)
@@ -107,3 +107,35 @@
 	list_reagents = list("nutriment" = 5, "vitamin" = 1)
 	tastes = list("meat" = 1, "cactus" = 1)
 
+/obj/item/reagent_containers/food/snacks/smokedsalmon
+	name = "salmon smoked steak"
+	desc = "A fillet of freshly-grilled and smoked salmon meat."
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "smokedsalmon"
+	trash = /obj/item/trash/plate
+	filling_color = "#7A3D11"
+	bitesize = 4
+	list_reagents = list("nutriment" = 5, "vitamin" = 1, "sodiumchloride" = 1)
+	tastes = list("smoked salmon" = 1)
+
+/obj/item/reagent_containers/food/snacks/avocadosalmon
+	name = "avocado salmon"
+	desc = "A fillet of freshly-grilled of salmon meat with some avocado."
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "salmonavocado"
+	trash = /obj/item/trash/plate
+	filling_color = "#7A3D11"
+	bitesize = 4
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "sodiumchloride" = 1, "protein" = 1)
+	tastes = list("meat with vegetables" = 1)
+
+/obj/item/reagent_containers/food/snacks/citrussalmon
+	name = "grilled citrus salmon"
+	desc = "A fillet of freshly-grilled of salmon meat with some citrus fruits."
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "citrussalmon"
+	trash = /obj/item/trash/plate
+	filling_color = "#7A3D11"
+	bitesize = 4
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "orangejuice" = 2, "lemonjuice" = 2)
+	tastes = list("salmon" = 1, "citrus" = 1)

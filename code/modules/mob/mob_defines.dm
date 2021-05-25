@@ -174,6 +174,7 @@
 
 	var/stance_damage = 0 //Whether this mob's ability to stand has been affected
 
+	/// List of the active mutation types
 	var/list/active_mutations = list()
 
 	var/last_movement = -100 // Last world.time the mob actually moved of its own accord.

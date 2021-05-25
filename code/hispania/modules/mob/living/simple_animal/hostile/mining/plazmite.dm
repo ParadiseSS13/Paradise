@@ -32,8 +32,8 @@
 	light_color = LIGHT_COLOR_YELLOW
 	loot = list()
 	aggro_vision_range = 9
-	butcher_results = list(/obj/item/stack/sheet/bone = 1, /obj/item/reagent_containers/food/snacks/plazmiteleg = 2)
-	var/venom_per_bite = 6
+	butcher_results = list(/obj/item/stack/sheet/bone = 1, /obj/item/reagent_containers/food/snacks/monstermeat/plazmiteleg = 2, /obj/item/stack/sheet/cartiplaz = 2)
+	var/venom_per_bite = 4
 
 /mob/living/simple_animal/hostile/asteroid/poison/plazmite/AttackingTarget()
 	// This is placed here, NOT on /poison, because the other subtypes of /poison/ already override AttackingTarget() completely, and as such it would do nothing but confuse people there.

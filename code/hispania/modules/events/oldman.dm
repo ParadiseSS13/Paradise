@@ -1,7 +1,7 @@
 #define SPECIAL_ROLE_OLD_MAN "Old Man"
 
 /datum/event/spawn_oldman
-	announceWhen = 2 MINUTES
+	announceWhen = 120
 	var/key_of_oldman
 
 /datum/event/spawn_oldman/announce()

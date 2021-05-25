@@ -28,3 +28,12 @@
 	can_cut_open = 0
 	icon_state = "jacksandal"
 	item_color = "jacksandal"
+
+/obj/item/clothing/shoes/swagshoes
+	name = "swag shoes"
+	desc = "They got me for my foams!"
+	icon = 'icons/hispania/mob/feet.dmi'
+	hispania_icon = TRUE
+	icon_state = "SwagShoes"
+	item_color = "SwagShoes"
+	species_restricted = list("Human", "Slime", "Machine", "Kidan", "Skrell", "Diona" ) //VOX CANT HAVE THIS MUCH SWAG

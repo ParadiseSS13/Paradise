@@ -17,6 +17,12 @@
     cost = 15
     containername = "rolled bed crate"
 
+//Surgical Quickclot//
+/datum/supply_packs/medical/quickclotcrate
+	name = "Surgical Quikclot Crate"
+	contains = list(/obj/item/stack/medical/quickclot)
+	cost = 120 //Expensive AF
+	containername = "surgical quickclot crate"
 
 //Sec///
 /datum/supply_packs/security/spacesuit
@@ -55,3 +61,13 @@
 					/obj/item/reagent_containers/food/snacks/canned_food/caviar)
 	cost = 20
 	containername = "canned food crate"
+
+/datum/supply_packs/organic/erp
+	name = "ERP (Emergency Ration Packs)"
+	contains = list(/obj/item/storage/bag/plasticbag/mre,
+					/obj/item/storage/bag/plasticbag/mre,
+					/obj/item/storage/bag/plasticbag/mre,
+					/obj/item/storage/bag/plasticbag/mre,
+					/obj/item/storage/bag/plasticbag/mre)
+	cost = 200
+	containername = "erp crate"
