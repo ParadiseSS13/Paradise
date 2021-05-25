@@ -263,6 +263,7 @@
 	icon_state = "meson"
 	item_state = "meson"
 	resistance_flags = NONE
+	prescription_upgradable = TRUE
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 
 	sprite_sheets = list(

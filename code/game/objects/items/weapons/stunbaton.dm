@@ -76,6 +76,10 @@
 	if(!cell)
 		return
 	cell.use(amount)
+	if(cell.rigged)
+		cell = null
+		turned_on = FALSE
+		update_icon()
 	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 		turned_on = FALSE
 		update_icon()
@@ -201,6 +205,11 @@
 		playsound(src, "sparks", 50, TRUE)
 		return TRUE
 	..()
+
+/obj/item/melee/baton/cyborg_recharge(coeff, emagged)
+	if(cell)
+		cell.charge = cell.maxcharge
+		update_icon()
 
 //Makeshift stun baton. Replacement for stun gloves.
 /obj/item/melee/baton/cattleprod
