@@ -169,9 +169,9 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
 	#ifdef REFERENCE_TRACKING
-	/client/proc/find_refs,
-	/client/proc/qdel_then_find_references,
-	/client/proc/qdel_then_if_fail_find_references,
+	/datum/proc/find_refs,
+	/datum/proc/qdel_then_find_references,
+	/datum/proc/qdel_then_if_fail_find_references,
 	#endif
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
