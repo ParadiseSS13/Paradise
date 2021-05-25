@@ -32,7 +32,7 @@
 	path = /obj/item/storage/box/matches
 
 /datum/gear/candlebox
-	display_name = "a box candles"
+	display_name = "a box of candles"
 	description = "For setting the mood or for occult rituals."
 	path = /obj/item/storage/fancy/candle_box/full
 
