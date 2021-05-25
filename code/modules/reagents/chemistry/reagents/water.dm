@@ -67,7 +67,7 @@
 		O.clean_blood()
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
-	T.Clean(volume >=1)
+	T.clean(volume >=1)
 
 /datum/reagent/space_cleaner/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	M.clean_blood()
