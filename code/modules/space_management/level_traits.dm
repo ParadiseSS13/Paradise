@@ -37,7 +37,7 @@
 	return secure
 
 // Only CC
-GLOBAL_LIST_INIT(default_map_traits, list(CC_TRANSITION_CONFIG))
+GLOBAL_LIST_INIT(default_map_traits, list(CC_TRANSITION_CONFIG, PLANET_SURFACE, RANDOM_DERELICT_SHIP))
 
 /proc/check_level_trait(z, trait)
 	if(!z)
