@@ -75,11 +75,11 @@
 		if(1)
 			if(istype(P, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = P
-				if(C.amount >= 5)
+				if(C.get_amount() >= 5)
 					playsound(src.loc, C.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
 					if(do_after(user, 20 * C.toolspeed, target = src))
-						if(state == 1 && C.amount >= 5 && C.use(5))
+						if(state == 1 && C.get_amount() >= 5 && C.use(5))
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = 2
 							icon_state = "box_1"
@@ -211,8 +211,8 @@
 						playsound(src.loc, P.usesound, 50, 1)
 						if(istype(P, /obj/item/stack))
 							var/obj/item/stack/S = P
-							var/camt = min(S.amount, req_components[I])
-							var/obj/item/stack/NS = new P.type(src)
+							var/camt = min(S.get_amount(), req_components[I])
+							var/obj/item/stack/NS = new S.merge_type(src)
 							NS.amount = camt
 							NS.update_icon()
 							S.use(camt)

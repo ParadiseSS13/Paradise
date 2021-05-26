@@ -971,6 +971,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	statpanel("Status") // We only want alt-clicked turfs to come before Status
 	stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
+	stat(null, "Map: [SSmapping.map_datum.fluff_name]")
+	if(SSmapping.next_map)
+		stat(null, "Next Map: [SSmapping.next_map.fluff_name]")
 
 	if(mob_spell_list && mob_spell_list.len)
 		for(var/obj/effect/proc_holder/spell/S in mob_spell_list)

@@ -103152,6 +103152,10 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
+"dLL" = (
+/obj/structure/lattice,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
 "dLP" = (
 /obj/structure/cable,
 /obj/machinery/power/apc{
@@ -109639,11 +109643,34 @@
 /obj/machinery/blackbox_recorder,
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
+"elc" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/spawner/headcrab_old,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"eCr" = (
+/turf/space,
+/area/space/nearstation)
+"eIv" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
 "eYL" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
+"eZo" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/dispenser,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"fpF" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
 "fBl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4;
@@ -109665,12 +109692,62 @@
 	icon_state = "dark"
 	},
 /area/tcommsat/chamber)
+"fIe" = (
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/airlock{
+	name = "Unisex Restrooms";
+	req_access_txt = "0"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"fOE" = (
+/obj/structure/sign/vacuum,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/tsf)
+"fPL" = (
+/obj/structure/sign/biohazard,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/tsf)
+"fVv" = (
+/obj/machinery/suit_storage_unit/engine,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"fXe" = (
+/obj/structure/lattice,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/tsf)
+"ghx" = (
+/obj/machinery/power/port_gen/pacman,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"gjE" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/computer/mech_bay_power_console,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"gjV" = (
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/airlock/welded,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"gva" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Telecoms Computer"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
 "gyp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"gAO" = (
+/obj/structure/sink/kitchen,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/tsf)
 "gHn" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 4;
@@ -109696,6 +109773,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
+"gTC" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/mech_bay_recharge_port,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
 "gYw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -109703,10 +109785,27 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry)
+"hbc" = (
+/obj/item/book/manual/research_and_development,
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"his" = (
+/obj/structure/sign/directions/engineering,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/tsf)
 "hng" = (
 /obj/machinery/message_server,
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
+"hwO" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"hDk" = (
+/obj/machinery/sleeper,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
 "hDZ" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -109725,6 +109824,84 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"hIl" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"ibF" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/brute{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/autosurgeon,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"iqx" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering";
+	req_access_txt = "32";
+	req_one_access_txt = "0"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"irq" = (
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/airlock{
+	name = "Port Emergency Storage";
+	req_access_txt = "0"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"ivx" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/sol_gov_dead_captain,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"iSi" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/tsf)
+"iXP" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"jbd" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/filingcabinet,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"jkC" = (
+/obj/structure/sign/greencross,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/tsf)
+"jrc" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/shuttle/tsf)
+"jFT" = (
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = null;
+	name = "Chemistry Lab";
+	req_access_txt = "33"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"jKm" = (
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Research Logs Computer"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"jSf" = (
+/obj/item/mounted/mirror,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/tsf)
 "kpH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -109740,6 +109917,46 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
+"kym" = (
+/obj/machinery/washing_machine,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"kQx" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Kitchen";
+	req_access_txt = "28"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"kRm" = (
+/obj/machinery/door/airlock/mining/glass{
+	name = "Cargo Bay";
+	req_access_txt = "31"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"lpo" = (
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	icon_state = "remains";
+	name = "Human remains"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"lGr" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/multitool{
+	pixel_x = 5
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
 "lVO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/turretid/lethal{
@@ -109751,6 +109968,47 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/aisat)
+"lXE" = (
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"mxc" = (
+/obj/structure/sign/bobross,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/tsf)
+"mxh" = (
+/obj/structure/shuttle/engine/propulsion{
+	tag = "icon-propulsion (NORTH)";
+	icon_state = "propulsion";
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/tsf)
+"mBX" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	icon_state = "remains";
+	name = "Human remains"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"mSi" = (
+/obj/structure/sink{
+	dir = 8;
+	icon_state = "sink";
+	pixel_x = -12
+	},
+/obj/effect/mob_spawn/human/sol_gov_dead_default,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"mVi" = (
+/obj/structure/toilet{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
 "mWj" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
@@ -109773,6 +110031,108 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
+"mXE" = (
+/obj/effect/decal/cleanable/blood,
+/obj/item/reagent_containers/glass/beaker/vial,
+/obj/item/reagent_scanner/adv,
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"naS" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"nxd" = (
+/obj/structure/sign/cargo,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/tsf)
+"nBf" = (
+/obj/effect/mob_spawn/human/sol_gov_dead_default,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"nCY" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"nIR" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken RnD Computer"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"nPy" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"oJI" = (
+/obj/effect/decal/cleanable/vomit,
+/obj/effect/decal/cleanable/vomit,
+/obj/structure/table,
+/obj/item/kitchen/knife,
+/obj/item/seeds/apple,
+/obj/item/seeds/apple,
+/obj/item/seeds/apple,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"oLf" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"oPw" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"plc" = (
+/obj/machinery/hydroponics/constructable,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"plH" = (
+/obj/machinery/vending/medical,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"plV" = (
+/obj/machinery/shieldgen,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"ptA" = (
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = 7
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/tsf)
+"pBC" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"pCp" = (
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"pJB" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"pKI" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Medical Sensor Computer"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"pQN" = (
+/obj/machinery/vending/dinnerware,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"qcx" = (
+/obj/machinery/computer/operating,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
 "qcA" = (
 /obj/docking_port/stationary{
 	dwidth = 4;
@@ -109806,9 +110166,52 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry)
+"qIQ" = (
+/obj/structure/lattice,
+/obj/structure/curtain/open,
+/obj/item/mounted/shower,
+/obj/structure/spawner/headcrab_old,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"qLj" = (
+/obj/item/clothing/under/solgov,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"rjF" = (
+/obj/machinery/computer/shuttle/tsf,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"rDE" = (
+/obj/structure/table,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"rFZ" = (
+/obj/effect/decal/cleanable/vomit,
+/obj/item/clothing/head/soft/solgov,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"rHj" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/airlock/welded,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
 "rSI" = (
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
+"saf" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/brute{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
 "siv" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/securearea{
@@ -109818,6 +110221,163 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
+"slz" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/sol_gov_dead_default,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"sHF" = (
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"sNx" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"sZA" = (
+/obj/structure/sign/directions/science{
+	dir = 4;
+	pixel_x = 0;
+	pixel_y = -7
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/tsf)
+"tfn" = (
+/obj/structure/sign/restroom,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/tsf)
+"tib" = (
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"tuj" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"tNm" = (
+/obj/machinery/door/airlock/highsecurity{
+	locked = 1;
+	name = "TSF Discovery";
+	req_access_txt = "20"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"tOg" = (
+/obj/item/flashlight/flare,
+/obj/item/flashlight/flare,
+/obj/item/flashlight/flare,
+/obj/item/flashlight/flare,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/clothing/under/solgov,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"ukJ" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"ulj" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/door/airlock/highsecurity{
+	locked = 1;
+	name = "TSF Discovery";
+	req_access_txt = "20"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"ulm" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/computer/atmos_alert,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"uqs" = (
+/obj/structure/spawner/headcrab_old,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"uCZ" = (
+/obj/machinery/optable,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"uGW" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/mecha_wreckage/durand/old,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"uIu" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	icon_state = "remains";
+	name = "Human remains"
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"veE" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	icon_state = "remains";
+	name = "Human remains"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"veW" = (
+/obj/effect/decal/cleanable/blood,
+/obj/item/clothing/under/solgov,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"viu" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/highsecurity{
+	locked = 1;
+	name = "TSF Discovery";
+	req_access_txt = "20"
+	},
+/obj/docking_port/mobile{
+	dir = 2;
+	dwidth = 10;
+	height = 26;
+	id = "tsf";
+	name = "TSF";
+	roundstart_move = "tsf_away";
+	width = 21
+	},
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 10;
+	height = 26;
+	id = "tsf_home";
+	name = "TSF_Home";
+	width = 21
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"vlO" = (
+/obj/structure/closet/secure_closet/medical3,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"vsw" = (
+/obj/structure/showcase/horrific_experiment,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"vwv" = (
+/obj/machinery/vending/sovietsoda,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
 "vzz" = (
 /obj/machinery/light{
 	dir = 4;
@@ -109845,10 +110405,68 @@
 	icon_state = "dark"
 	},
 /area/tcommsat/chamber)
+"vWS" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/highsecurity{
+	locked = 1;
+	name = "TSF Discovery";
+	req_access_txt = "20"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"waN" = (
+/obj/structure/noticeboard,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/tsf)
+"wbv" = (
+/obj/structure/ore_box,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"wdU" = (
+/obj/machinery/door/airlock/research{
+	name = "Research Division Access";
+	req_access_txt = "47"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"wva" = (
+/obj/machinery/door/airlock/command{
+	id_tag = "captainofficedoor";
+	name = "Captain's Office";
+	req_access = null;
+	req_access_txt = "20"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
 "wvH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
+"wUg" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Shield System Computer"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"xrG" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"xOE" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Transit Computer"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
+"yls" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/tsf)
 
 (1,1,1) = {"
 aaa
@@ -157866,10 +158484,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
+iSi
+iSi
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -158122,12 +158740,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+mxh
+iSi
+sNx
+rDE
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -158378,14 +158996,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+iSi
+gAO
+tuj
+tuj
+mBX
+tuj
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -158634,23 +159252,23 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+mxh
+iSi
+vwv
+nBf
+oJI
+qLj
+hIl
+plc
+iSi
+iSi
+iSi
+iSi
+iSi
+iSi
+iSi
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -158890,25 +159508,25 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+iSi
+iSi
+iSi
+pQN
+elc
+fpF
+tuj
+tuj
+plc
+iSi
+hIl
+hIl
+hIl
+hIl
+tuj
+gjV
+tuj
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -159146,27 +159764,27 @@ abj
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+mxh
+iSi
+mVi
+iSi
+iSi
+iSi
+iSi
+kQx
+iSi
+sZA
+iSi
+tuj
+iSi
+his
+iqx
+iSi
+iSi
+tuj
+sHF
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -159402,29 +160020,29 @@ dFG
 abj
 abi
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+iSi
+jSf
+mSi
+hIl
+fIe
+hIl
+pBC
+pCp
+ukJ
+tuj
+tuj
+gjV
+hIl
+iSi
+tuj
+hIl
+fVv
+iSi
+tuj
+elc
+iSi
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -159658,31 +160276,31 @@ dXf
 dFG
 abj
 abi
-abj
-abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+eCr
+fXe
+qIQ
+tuj
+kym
+tfn
+rFZ
+mBX
+iSi
+iSi
+fPL
+wdU
+iSi
+tuj
+iSi
+ulm
+hIl
+eZo
+iSi
+hIl
+nBf
+iSi
+jbd
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -159915,32 +160533,32 @@ dXg
 dNr
 aaa
 abj
-aaa
-abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+iSi
+iSi
+fXe
+iSi
+fOE
+iSi
+hIl
+tib
+iSi
+jKm
+elc
+tuj
+iSi
+lpo
+iSi
+ghx
+pBC
+lGr
+iSi
+tuj
+hIl
+wva
+hIl
+wUg
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -160172,32 +160790,32 @@ dGw
 dFG
 abj
 abi
-abj
-abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+vWS
+veE
+tNm
+hIl
+pJB
+nCY
+tuj
+gTC
+iSi
+hbc
+slz
+hIl
+iSi
+hIl
+iSi
+iSi
+iSi
+iSi
+iSi
+iXP
+tuj
+iSi
+hIl
+eIv
+pKI
+jrc
 aaa
 aaa
 aaa
@@ -160429,32 +161047,32 @@ dXg
 dNr
 aaa
 abj
-aaa
-abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+viu
+hIl
+ulj
+tuj
+nCY
+pJB
+hIl
+uGW
+iSi
+mXE
+tuj
+hIl
+iSi
+tuj
+iSi
+nPy
+hIl
+hwO
+iSi
+rjF
+hIl
+mxc
+veW
+uIu
+xOE
+jrc
 aaa
 aaa
 aaa
@@ -160686,32 +161304,32 @@ dXf
 dFG
 abj
 abi
-abj
-abi
-aaa
-aaa
-aaa
-aaa
-aaZ
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+ulj
+hIl
+tNm
+hIl
+pJB
+nCY
+tuj
+gjE
+iSi
+tuj
+hIl
+tuj
+iSi
+tuj
+iSi
+oLf
+tuj
+hwO
+iSi
+nIR
+tuj
+iSi
+hIl
+eIv
+gva
+jrc
 aaa
 aaa
 aaa
@@ -160943,32 +161561,32 @@ dFG
 dFG
 abj
 aaa
-aaa
-abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+iSi
+iSi
+iSi
+iSi
+fXe
+waN
+lpo
+tuj
+iSi
+vsw
+vsw
+vsw
+iSi
+hIl
+iSi
+iSi
+kRm
+iSi
+iSi
+uqs
+tuj
+wva
+hIl
+iXP
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -161200,31 +161818,31 @@ abj
 abj
 abj
 abi
-abj
-abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+eCr
+iSi
+wbv
+wbv
+dLL
+iSi
+tuj
+hIl
+iSi
+iSi
+iSi
+iSi
+iSi
+tuj
+iSi
+xrG
+oPw
+plV
+iSi
+ivx
+hIl
+iSi
+jbd
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -161458,29 +162076,29 @@ abi
 abi
 abi
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+iSi
+iSi
+wbv
+tuj
+irq
+hIl
+tuj
+pCp
+tuj
+hIl
+tuj
+gjV
+tuj
+iSi
+naS
+lpo
+yls
+iSi
+tuj
+tuj
+iSi
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -161716,27 +162334,27 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+mxh
+iSi
+tOg
+iSi
+iSi
+iSi
+jkC
+jFT
+ptA
+iSi
+iSi
+hIl
+iSi
+iSi
+kRm
+nxd
+iSi
+tuj
+iXP
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -161974,25 +162592,25 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+iSi
+iSi
+iSi
+saf
+elc
+lpo
+hIl
+hIl
+uCZ
+iSi
+tuj
+lpo
+hIl
+tuj
+tuj
+rHj
+tuj
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -162232,23 +162850,23 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+mxh
+iSi
+ibF
+tuj
+slz
+tuj
+hIl
+qcx
+iSi
+iSi
+iSi
+iSi
+iSi
+iSi
+iSi
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -162490,14 +163108,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+iSi
+iSi
+hDk
+pBC
+hIl
+vlO
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -162748,12 +163366,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+mxh
+iSi
+plH
+lXE
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -163006,10 +163624,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
+iSi
+iSi
+iSi
+iSi
 aaa
 aaa
 aaa
@@ -164307,7 +164925,7 @@ aaa
 aaa
 aaa
 aaa
-dWe
+aaa
 aaa
 aaa
 aaa
@@ -164797,7 +165415,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aaZ
 aaa
 aaa
 aaa
@@ -167383,7 +168001,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+dWe
 aaa
 aaa
 aaa

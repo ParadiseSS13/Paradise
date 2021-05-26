@@ -1479,7 +1479,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(S.autohiss_basic_map)
 						var/list/autohiss_choice = list("Off" = AUTOHISS_OFF, "Basic" = AUTOHISS_BASIC, "Full" = AUTOHISS_FULL)
 						var/new_autohiss_pref = input(user, "Choose your character's auto-accent level:", "Character Preference") as null|anything in autohiss_choice
-						autohiss_mode = autohiss_choice[new_autohiss_pref]
+						if(new_autohiss_pref)
+							autohiss_mode = autohiss_choice[new_autohiss_pref]
 
 				if("metadata")
 					var/new_metadata = input(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference" , metadata)  as message|null

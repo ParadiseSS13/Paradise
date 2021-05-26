@@ -700,7 +700,7 @@
 	else if(istype(W, /obj/item/stack/cable_coil))
 		if(state == 3 && hasInternalDamage(MECHA_INT_SHORT_CIRCUIT))
 			var/obj/item/stack/cable_coil/CC = W
-			if(CC.amount > 1)
+			if(CC.get_amount() > 1)
 				CC.use(2)
 				clearInternalDamage(MECHA_INT_SHORT_CIRCUIT)
 				to_chat(user, "You replace the fused wires.")

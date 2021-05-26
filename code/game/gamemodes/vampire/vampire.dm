@@ -291,7 +291,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		return
 	add_attack_logs(owner, H, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
 	playsound(owner.loc, 'sound/hispania/effects/drain_blood_new.ogg', 50, 1)
-	owner.visible_message("<span class='danger'>[owner] grabs [H]'s neck harshly and sinks in [owner.p_their()] fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain [owner.p_their()] blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
+	owner.visible_message("<span class='danger'>[owner] grabs [H]'s neck harshly and sinks in [owner.p_their()] fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain [H.p_their()] blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
 	if(!iscarbon(owner))
 		H.LAssailant = null
 	else

@@ -483,3 +483,6 @@ MAX_CLIENT_CID_HISTORY 20
 
 ## Uncomment to enable automatic performance profiling of rounds
 ENABLE_AUTO_PROFILER
+
+## Uncomment to enable map voting
+#ENABLE_MAP_VOTING

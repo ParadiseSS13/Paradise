@@ -177,6 +177,9 @@
 	update_torch()
 	..()
 
+/obj/item/weldingtool/cyborg_recharge(coeff, emagged)
+	if(reagents.check_and_add("fuel", maximum_fuel, 2 * coeff))
+		update_icon()
 
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"

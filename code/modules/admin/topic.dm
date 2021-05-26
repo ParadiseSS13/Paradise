@@ -2348,7 +2348,7 @@
 		P.name = "Central Command - paper"
 		var/stypes = list("Handle it yourselves!","Illegible fax","Fax not signed","Not Right Now","You are wasting our time", "Keep up the good work", "ERT Instructions")
 		var/stype = input(src.owner, "Which type of standard reply do you wish to send to [H]?","Choose your paperwork", "") as null|anything in stypes
-		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><b>Nanotrasen Science Station [GLOB.using_map.station_short]</b></font><BR><BR><BR><font size='4'>NAS Trurl Communications Department Report</font></center><BR><BR>"
+		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><b>[SSmapping.map_datum.fluff_name]</b></font><BR><BR><BR><font size='4'>NAS Trurl Communications Department Report</font></center><BR><BR>"
 		if(stype == "Handle it yourselves!")
 			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention.<BR><BR><i><small>This is an automatic message.</small>"
 		else if(stype == "Illegible fax")
@@ -2817,7 +2817,7 @@
 									if(R.module)
 										R.module.modules += I
 										I.loc = R.module
-										R.module.rebuild()
+										R.module.rebuild_modules()
 										R.activate_module(I)
 										R.module.fix_modules()
 
