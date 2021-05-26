@@ -194,7 +194,7 @@ var/list/chatResources = list(
 			if (found.len > 0)
 				message_admins("[key_name(src.owner)] <span class='boldannounce'>has a cookie from a banned account!</span> (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 				log_admin("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
-				new /datum/cookie_record(owner, found["ckey"], found["ip"], found["compid"])
+				new /datum/cookie_record(owner.ckey, found["ckey"], found["ip"], found["compid"])
 
 	cookieSent = 1
 

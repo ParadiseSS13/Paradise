@@ -542,7 +542,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/input = clean_input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","")
+	var/input = input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.") as null|message
 	if(!input || stat)
 		return
 

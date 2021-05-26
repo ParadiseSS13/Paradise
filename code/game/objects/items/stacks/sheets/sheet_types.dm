@@ -112,6 +112,8 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	point_value = 2
 
 /obj/item/stack/sheet/metal/cyborg
+	energy_type = /datum/robot_energy_storage/metal
+	is_cyborg = TRUE
 	materials = list()
 
 /obj/item/stack/sheet/metal/fifty
@@ -166,6 +168,10 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 /obj/item/stack/sheet/plasteel/New(loc, amount=null)
 	recipes = GLOB.plasteel_recipes
 	return ..()
+
+/obj/item/stack/sheet/wood/cyborg
+	energy_type = /datum/robot_energy_storage/wood
+	is_cyborg = TRUE
 
 /*
  * Wood
