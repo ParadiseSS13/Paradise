@@ -582,11 +582,18 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return 1
 
 	var/is_antag = (isAntag(src) || isobserver(src)) //ghosts don't have minds
+	var/list/result= A.examine(src)
+
 	if(client)
 		client.update_description_holders(A, is_antag)
+		LAZYINITLIST(client.recent_examines)
+		face_atom(A)
+		if(isnull(client.recent_examines[A]) || client.recent_examines[A] < world.time)
+			client.recent_examines[A] = world.time + 5 // set the value to when the examine cooldown ends, >> 5 segundos nada mas.
+			RegisterSignal(A, COMSIG_PARENT_QDELETING, .proc/clear_from_recent_examines, override=TRUE) // to flush the value if deleted early
+			addtimer(CALLBACK(src, .proc/clear_from_recent_examines, A), 5)
+			handle_eye_contact(A)
 
-	face_atom(A)
-	var/list/result = A.examine(src)
 	to_chat(src, result.Join("\n"))
 
 //same as above

@@ -1310,6 +1310,7 @@
 #include "code\hispania\modules\martial_arts\bscqc.dm"
 #include "code\hispania\modules\mining\equipment\kinetic_crusher.dm"
 #include "code\hispania\modules\mob\language.dm"
+#include "code\hispania\modules\mob\mob.dm"
 #include "code\hispania\modules\mob\living\status_procs.dm"
 #include "code\hispania\modules\mob\living\carbon\human\human.dm"
 #include "code\hispania\modules\mob\living\carbon\human\species\monkey_combat.dm"
