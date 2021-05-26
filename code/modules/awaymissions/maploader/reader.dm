@@ -475,7 +475,9 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		if(initial(A.there_can_be_many))
 			area_list[A] = new A
 		else
-			area_list[A] = locate(A)
+			if(!GLOB.all_unique_areas[A])
+				GLOB.all_unique_areas[A] = new A // No locate here else it will find a subtype of the one we're looking for
+			area_list[A] = GLOB.all_unique_areas[A]
 
 	return area_list[A]
 
