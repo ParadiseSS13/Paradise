@@ -391,7 +391,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	if(findtext(value_text, quote, 1, 2))
 		var/endquote = findtext(value_text, quote, -1)
 		if(!endquote)
-			log_runtime(EXCEPTION("Terminating quote not found!"), src)
+			stack_trace("Terminating quote not found!")
 		// Our map writer escapes quotes and curly brackets to avoid
 		// letting our simple parser choke on meanly-crafted names/etc
 		// - so we decode it here so it's back to good ol' legibility
