@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG, PLANET_SURFACE, RANDOM_DERELICT_SHIP))
+GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 
 /world/New()
 	// IMPORTANT
