@@ -689,7 +689,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 
 /datum/uplink_item/ammo/bullslug
-	name = "Bulldog - 12g Military Slug Magazine"
+	name = "Bulldog - 12g Magnum Slug Magazine"
 	desc = "An additional 8-round slug magazine for use in the Bulldog shotgun. Now 8 times less likely to shoot your pals."
 	reference = "12BSG"
 	item = /obj/item/ammo_box/magazine/m12g
@@ -736,7 +736,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/ammo/bulldog_XLmagsbag
 	name = "Bulldog - 12g XL Magazine Duffel Bag"
-	desc = "A duffel bag containing three 16 round drum magazines (Military Slug, Buckshot, Dragon's Breath)."
+	desc = "A duffel bag containing three 16 round drum magazines (Magnum Slug, Buckshot, Dragon's Breath)."
 	reference = "12XLDB"
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
 	cost = 12 // normally 18

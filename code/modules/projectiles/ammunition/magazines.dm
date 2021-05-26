@@ -376,10 +376,10 @@
 	multiple_sprites = 2
 
 /obj/item/ammo_box/magazine/m12g
-	name = "shotgun magazine (12g military slugs)"
+	name = "shotgun magazine (12g magnum slugs)"
 	desc = "A drum magazine."
 	icon_state = "m12gb"
-	ammo_type = /obj/item/ammo_casing/shotgun/military
+	ammo_type = /obj/item/ammo_casing/shotgun/magnum
 	origin_tech = "combat=3;syndicate=1"
 	caliber = "shotgun"
 	max_ammo = 8
@@ -417,11 +417,11 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/breaching
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg
-	name = "\improper XL shotgun magazine (12g military slugs)"
+	name = "\improper XL shotgun magazine (12g magnum slugs)"
 	desc = "An extra large drum magazine."
 	icon_state = "m12gXlSl"
 	w_class = WEIGHT_CLASS_NORMAL
-	ammo_type = /obj/item/ammo_casing/shotgun/military
+	ammo_type = /obj/item/ammo_casing/shotgun/magnum
 	max_ammo = 16
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/ap

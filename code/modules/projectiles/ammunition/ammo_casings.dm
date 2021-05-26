@@ -141,8 +141,8 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
-/obj/item/ammo_casing/shotgun/military
-	name = "military shotgun slug"
+/obj/item/ammo_casing/shotgun/magnum
+	name = "magnum shotgun slug"
 	desc = "A modified 12 gauge lead slug commonly used by military operatives. Sacrifices armor penetration for stopping power."
 	projectile_type = /obj/item/projectile/bullet
 
