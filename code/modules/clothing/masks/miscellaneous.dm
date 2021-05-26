@@ -348,7 +348,7 @@
 		user.real_name = originalname
 
 /obj/item/clothing/mask/horsehead/change_speech_verb()
-	if (voicechange == TRUE)
+	if(voicechange)
 		return pick("whinnies", "neighs", "says")
 
 /obj/item/clothing/mask/face
