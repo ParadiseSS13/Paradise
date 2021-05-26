@@ -7,9 +7,10 @@
 	origin_tech = "combat=4;magnets=3"
 	modifystate = 2
 	can_flashlight = 1
-	flight_x_offset = 20
+	ammo_x_offset = 3
+	flight_x_offset = 15
 	flight_y_offset = 10
-	shaded_charge = TRUE
+	//shaded_charge = TRUE
 
 /obj/item/gun/energy/gun/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
