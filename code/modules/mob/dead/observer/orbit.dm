@@ -114,6 +114,12 @@
 						antag_serialized["antag"] = antag_name
 						antagonists += list(antag_serialized)
 
+				// Player terror spiders have their own category to help see how much there are.
+				// Not in the above block because terrors can be known whether AHUD is on or not.
+				if(isterrorspider(M))
+					var/list/antag_serialized = serialized.Copy()
+					antag_serialized["antag"] = "Terror Spider"
+					antagonists += list(antag_serialized)
 		else
 			misc += list(serialized)
 

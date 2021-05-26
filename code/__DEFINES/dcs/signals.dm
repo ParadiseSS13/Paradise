@@ -740,6 +740,13 @@
 ///from monkey CtrlClickOn(): (/mob)
 #define COMSIG_XENO_MONKEY_CLICK_CTRL "xeno_monkey_click_ctrl"
 
+// HISPANIA START
+///from /mob/living/handle_eye_contact(): (mob/living/other_mob)
+#define COMSIG_MOB_EYECONTACT "mob_eyecontact"
+/// return this if you want to block printing this message to this person, if you want to print your own (does not affect the other person's message)
+#define COMSIG_BLOCK_EYECONTACT (1<<0)
+// HISPANIA END
+
 ///SSalarm signals
 #define COMSIG_TRIGGERED_ALARM "ssalarm_triggered"
 #define COMSIG_CANCELLED_ALARM "ssalarm_cancelled"

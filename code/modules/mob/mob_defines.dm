@@ -111,6 +111,8 @@
 
 	var/move_on_shuttle = 1 // Can move on the shuttle.
 
+	//HISPANIA
+	var/messagereal
 
 	var/has_enabled_antagHUD = 0  // Whether antagHUD was ever enabled. Not a true boolean - sometimes it is set to 2, because reasons.
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now

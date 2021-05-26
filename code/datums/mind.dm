@@ -1384,46 +1384,20 @@
 		switch(href_list["silicon"])
 			if("unemag")
 				var/mob/living/silicon/robot/R = current
-				if(istype(R))
-					R.emagged = 0
-					if(R.module)
-						if(R.activated(R.module.emag))
-							R.module_active = null
-						if(R.module_state_1 == R.module.emag)
-							R.module_state_1 = null
-							R.contents -= R.module.emag
-						else if(R.module_state_2 == R.module.emag)
-							R.module_state_2 = null
-							R.contents -= R.module.emag
-						else if(R.module_state_3 == R.module.emag)
-							R.module_state_3 = null
-							R.contents -= R.module.emag
-					R.clear_supplied_laws()
-					R.laws = new /datum/ai_laws/crewsimov
-					log_admin("[key_name(usr)] has un-emagged [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has un-emagged [key_name_admin(current)]")
+				if(!istype(R))
+					return
+				R.unemag()
+				log_admin("[key_name(usr)] has un-emagged [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has un-emagged [key_name_admin(current)]")
 
 			if("unemagcyborgs")
-				if(isAI(current))
-					var/mob/living/silicon/ai/ai = current
-					for(var/mob/living/silicon/robot/R in ai.connected_robots)
-						R.emagged = 0
-						if(R.module)
-							if(R.activated(R.module.emag))
-								R.module_active = null
-							if(R.module_state_1 == R.module.emag)
-								R.module_state_1 = null
-								R.contents -= R.module.emag
-							else if(R.module_state_2 == R.module.emag)
-								R.module_state_2 = null
-								R.contents -= R.module.emag
-							else if(R.module_state_3 == R.module.emag)
-								R.module_state_3 = null
-								R.contents -= R.module.emag
-						R.clear_supplied_laws()
-						R.laws = new /datum/ai_laws/crewsimov
-					log_admin("[key_name(usr)] has unemagged [key_name(ai)]'s cyborgs")
-					message_admins("[key_name_admin(usr)] has unemagged [key_name_admin(ai)]'s cyborgs")
+				if(!isAI(current))
+					return
+				var/mob/living/silicon/ai/ai = current
+				for(var/mob/living/silicon/robot/R in ai.connected_robots)
+					R.unemag()
+				log_admin("[key_name(usr)] has unemagged [key_name(ai)]'s cyborgs")
+				message_admins("[key_name_admin(usr)] has unemagged [key_name_admin(ai)]'s cyborgs")
 
 	else if(href_list["common"])
 		switch(href_list["common"])
