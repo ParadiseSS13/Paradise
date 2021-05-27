@@ -591,6 +591,7 @@ CREATE TABLE `SS13_2fa_secrets` (
 	`ckey` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`secret` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`date_setup` DATETIME NOT NULL DEFAULT current_timestamp(),
+	`last_time` DATETIME NULL DEFAULT NULL,
 	PRIMARY KEY (`ckey`) USING BTREE
 )
 COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
