@@ -35,11 +35,12 @@
 	QDEL_NULL(showpiece)
 	return ..()
 
-/obj/structure/displaycase/emag_act(user as mob)
+/obj/structure/displaycase/emag_act(mob/user)
 	if(!emagged)
 		to_chat(user, "<span class ='warning'>You override the ID lock on the [src].</span>")
+		trigger_alarm()
 
-		emagged = 1
+		emagged = TRUE
 
 /obj/structure/displaycase/examine(mob/user)
 	. = ..()
