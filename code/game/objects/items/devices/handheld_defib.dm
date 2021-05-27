@@ -18,6 +18,7 @@
 /obj/item/handheld_defibrillator/compact/syndicate
 	icon_state = "syndidefib-on"
 	item_state = "syndidefib"
+	icon_base = "syndidefib"
 
 /obj/item/handheld_defibrillator/emag_act(mob/user)
 	if(!emagged)
