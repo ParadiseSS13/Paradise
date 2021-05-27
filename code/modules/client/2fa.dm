@@ -2,6 +2,7 @@
 /client/proc/edit_2fa()
 	if(!config._2fa_auth_host)
 		alert(usr, "This server does not have 2FA enabled.")
+		return
 	// Client does not have 2FA enabled. Set it up.
 	if(prefs._2fa_status == _2FA_DISABLED)
 		// Get us an auth token
