@@ -23,7 +23,7 @@
 /obj/structure/closet/syndicate/suits/populate_contents()
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
-	new /obj/item/tank/jetpack/oxygen/harness(src)
+	new /obj/item/tank/internals/oxygen/red(src)
 
 /obj/structure/closet/syndicate/nuclear
 	desc = "It's a storage unit for a Syndicate boarding party."
@@ -51,7 +51,7 @@
 /obj/structure/closet/syndicate/sst/populate_contents()
 	new /obj/item/ammo_box/magazine/mm556x45(src)
 	new /obj/item/gun/projectile/automatic/l6_saw(src)
-	new /obj/item/tank/jetpack/oxygen/harness(src)
+	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/storage/belt/military/sst(src)
 	new /obj/item/clothing/glasses/thermal(src)
 	new /obj/item/clothing/shoes/magboots/syndie/advance(src)

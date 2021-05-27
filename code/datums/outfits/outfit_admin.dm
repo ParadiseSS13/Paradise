@@ -84,7 +84,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/syndie
 	r_pocket = /obj/item/radio/uplink/nuclear
 	l_pocket = /obj/item/pinpointer/advpinpointer
-	l_hand = /obj/item/tank/jetpack/oxygen/harness
+	l_hand = /obj/item/tank/internals/oxygen/red
 
 	backpack_contents = list(
 		/obj/item/storage/box/survival_syndi = 1,
