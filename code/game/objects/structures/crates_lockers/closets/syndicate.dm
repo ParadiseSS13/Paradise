@@ -37,6 +37,7 @@
 	new /obj/item/storage/box/teargas(src)
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/storage/backpack/duffel/syndie/med(src)
+	new /obj/item/tank/jetpack/oxygen/harness(src)
 	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
 	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
 	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
