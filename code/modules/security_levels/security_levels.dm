@@ -174,7 +174,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		if("delta")
 			return SEC_LEVEL_DELTA
 
-/proc/get_security_level_colours()
+/proc/get_security_level_colors()
 	switch(GLOB.security_level)
 		if(SEC_LEVEL_GREEN)
 			return "<font color='limegreen'>Green</font>"
