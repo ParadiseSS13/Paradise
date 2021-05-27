@@ -96,7 +96,7 @@
 		return ..()
 
 	if(M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT)
-		to_chat(user, "<span class='warning'>This beings soul seems worthless, not even the stone will absorb it.</span>")
+		to_chat(user, "<span class='warning'>This being's soul seems worthless. Not even the stone will absorb it.</span>")
 		return ..()
 
 	if(optional)
