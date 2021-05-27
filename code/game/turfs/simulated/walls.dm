@@ -384,7 +384,6 @@
 		if(O.can_cut_walls && O.active)
 			to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
 			playsound(src, 'sound/items/welder.ogg', 100, 1)
-			user.flash_eyes(2) // This isn't a precision tool like a plasmacutter, this is gonna hurt
 			if(do_after(user, O.toolspeed * 10 SECONDS, target = src))
 				to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
 				dismantle_wall()
@@ -395,7 +394,6 @@
 		if(O.wielded && !(istype(O, /obj/item/twohanded/dualsaber/toy)))
 			to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
 			playsound(src, 'sound/items/welder.ogg', 100, 1)
-			user.flash_eyes(2) // This isn't a precision tool like a plasmacutter, this is gonna hurt
 			if(do_after(user, O.toolspeed * 10 SECONDS, target = src))
 				to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
 				dismantle_wall()
