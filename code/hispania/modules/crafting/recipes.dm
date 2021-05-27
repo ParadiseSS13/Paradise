@@ -149,6 +149,7 @@
 	name = "Lighter Explorer's Webbing"
 	result = list(/obj/item/storage/belt/mining/alt)
 	time = 60
-	reqs = list(/obj/item/storage/belt/mining = 1)
+	reqs = list(/obj/item/stack/sheet/leather = 2,
+				/obj/item/storage/belt/mining = 1)
 	pathtools = list(/obj/item/kitchen/knife)
 	category = CAT_PRIMAL
