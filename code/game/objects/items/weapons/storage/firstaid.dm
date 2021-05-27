@@ -187,6 +187,7 @@
 	new /obj/item/reagent_containers/applicator/dual/syndi(src) // Because you ain't got no time to look at what damage dey taking yo
 	new /obj/item/clothing/glasses/hud/health/night(src)
 	new /obj/item/handheld_defibrillator/compact(src)
+	new /obj/item/healthanalyzer/advanced(src)
 
 /obj/item/storage/firstaid/tactical/empty/populate_contents()
 	return
