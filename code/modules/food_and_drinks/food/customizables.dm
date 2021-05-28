@@ -343,7 +343,9 @@
 
 /**
  * Tries to add one ingredient and it's ingredients, if any and applicable, to this snack
- * @param snack The ingredient that will be added
+ *
+ * Arguments:
+ * * snack - The ingredient that will be added
  */
 /obj/item/reagent_containers/food/snacks/customizable/proc/add_ingredient(obj/item/reagent_containers/food/snacks/snack, mob/user)
 	if(length(ingredients) > ingredient_limit)
@@ -381,7 +383,9 @@
 
 /**
  * Adds a list of ingredients to the existing snack. Updates the overlays as well
- * @param new_ingredients The new ingredients to be added
+ *
+ * Arguments:
+ * * new_ingredients - The new ingredients to be added
  */
 /obj/item/reagent_containers/food/snacks/customizable/proc/add_ingredients(list/new_ingredients)
 	cut_overlay(top_image) // Remove the top image so we can change it again
