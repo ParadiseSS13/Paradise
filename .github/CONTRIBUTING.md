@@ -482,15 +482,47 @@ in the SQL/updates folder.
 
 ### Mapping Standards
 * Map Merge
-  * You MUST run Map Merge prior to opening your PR when updating existing maps to minimize the change differences (even when using third party mapping programs such as FastDMM.)
+  * You **MUST** run Map Merge prior to opening your PR when updating existing maps to minimize the change differences (even when using third party mapping programs such as FastDMM.)
     * Failure to run Map Merge on a map after using third party mapping programs (such as FastDMM) greatly increases the risk of the map's key dictionary
     becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
+    
+* StrongDMM
+  * When using StrongDMM, the following options **MUST** be enabled to avoid file bloat:
+    * Sanitize Variables
+    * Clean Unused Keys
 
 * Variable Editing (Var-edits)
   * While var-editing an item within the editor is perfectly fine, it is preferred that when you are changing the base behavior of an item (how it functions) that you make a new subtype of that item within the code, especially if you plan to use the item in multiple locations on the same map, or across multiple maps. This makes it easier to make corrections as needed to all instances of the item at one time as opposed to having to find each instance of it and change them all individually.
     * Subtypes only intended to be used on away mission or ruin maps should be contained within an .dm file with a name corresponding to that map within `code\modules\awaymissions` or `code\modules\ruins` respectively. This is so in the event that the map is removed, that subtype will be removed at the same time as well to minimize leftover/unused data within the repo.
   * Please attempt to clean out any dirty variables that may be contained within items you alter through var-editing. For example, due to how DM functions, changing the `pixel_x` variable from 23 to 0 will leave a dirty record in the map's code of `pixel_x = 0`. Likewise this can happen when changing an item's icon to something else and then back. This can lead to some issues where an item's icon has changed within the code, but becomes broken on the map due to it still attempting to use the old entry.
   * Areas should not be var-edited on a map to change it's name or attributes. All areas of a single type and it's altered instances are considered the same area within the code, and editing their variables on a map can lead to issues with powernets and event subsystems which are difficult to debug.
+
+* If you are making non-minor edits to an area or room, (non-minor being more than moving a few objects or fixing bugs) then you should ensure the entire area/room meets these standards.
+
+* When making a change to an area or room, follow these guidelines:
+  * Unless absolutely necessary, do not run pipes (including disposals) under wall turfs.
+  * NEVER run cables under wall turfs.
+  * Keep floor turf variations to a minimum. Generally, more than 3 floor turf types in one room is bad design.
+  * Run air pipes together where possible. The first example below is to be avoided, the second is optimal:
+  * ![image](https://user-images.githubusercontent.com/12197162/120011088-d22c7400-bfd5-11eb-867f-7b137ac5b1b2.png) ![image](https://user-images.githubusercontent.com/12197162/120011126-dfe1f980-bfd5-11eb-96b2-c83238a9cdcf.png)
+  * Decals are to be used sparingly. Good map design does not require warning tape around everything. Decal overuse contributes to maptick slowdown.
+  * Every **area** should contain only one APC and air alarm.
+  * Every **room** should contain at least one fire alarm, air vent, and air scrubber.
+    * Fire alarms should not be placed next to expected heat sources.
+    * Use the following "on" subtype of vents and scrubbers as opposed to var-editing: ```/obj/machinery/atmospherics/unary/vent_scrubber/on``` and ```/obj/machinery/atmospherics/unary/vent_pump/on```
+  * Firelocks should be used at area boundaries over doors and windows. Firelocks can also be used to break up hallways at reasonable intervals.
+    * Double firelocks are to be avoided unless absolutely necessary.
+    * Maintenance access doors should not have firelocks placed over them.
+  * Windows to secure areas or external areas should be reinforced. Windows in the engine areas should be reinforced plasma glass.
+    * High security areas, such as the brig, bridge, and head of staff offices should be electrified by placing a wire node under the window.
+  * Lights are to be used sparingly, they draw a significant amount of power.
+  * Ensure door and windoor access is correctly set, these are handled by the variables `req_access_txt` and `req_one_access_txt`. Public doors should have both of these values as `"0"`. For a list of access values, see `code\__DEFINES\access.dm`.
+    * Always use numerical values encased in quotes for these variables. Multiple access values can be defined by separating them with a `;`, for example: `"28;31"` for kitchen AND cargo access.
+    * req_access_txt requires ALL LISTED ACCESSES to open the door, while req_one_access_txt lets anyone with ONE OF THE LISTED ACCESSES open the door.
+  * Departments should be connected to maintenance through a back or side door. This lets players escape and allows antags to break in.
+    * If this is not possible, departments should have extra entry and exit points.
+
+
 
 ### Other Notes
 * Code should be modular where possible; if you are working on a new addition, then strongly consider putting it in its own file unless it makes sense to put it with similar ones (i.e. a new tool would go in the "tools.dm" file)
