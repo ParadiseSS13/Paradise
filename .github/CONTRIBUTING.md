@@ -497,7 +497,7 @@ in the SQL/updates folder.
   * Please attempt to clean out any dirty variables that may be contained within items you alter through var-editing. For example, due to how DM functions, changing the `pixel_x` variable from 23 to 0 will leave a dirty record in the map's code of `pixel_x = 0`. Likewise this can happen when changing an item's icon to something else and then back. This can lead to some issues where an item's icon has changed within the code, but becomes broken on the map due to it still attempting to use the old entry.
   * Areas should not be var-edited on a map to change it's name or attributes. All areas of a single type and it's altered instances are considered the same area within the code, and editing their variables on a map can lead to issues with powernets and event subsystems which are difficult to debug.
 
-* If you are making non-minor edits to an area or room, (non-minor being more than moving a few objects or fixing bugs) then you should ensure the entire area/room meets these standards.
+* If you are making non-minor edits to an area or room, (non-minor being anything more than moving a few objects or fixing small bugs) then you should ensure the entire area/room meets these standards.
 
 * When making a change to an area or room, follow these guidelines:
   * Unless absolutely necessary, do not run pipes (including disposals) under wall turfs.
@@ -507,9 +507,13 @@ in the SQL/updates folder.
   * ![image](https://user-images.githubusercontent.com/12197162/120011088-d22c7400-bfd5-11eb-867f-7b137ac5b1b2.png) ![image](https://user-images.githubusercontent.com/12197162/120011126-dfe1f980-bfd5-11eb-96b2-c83238a9cdcf.png)
   * Decals are to be used sparingly. Good map design does not require warning tape around everything. Decal overuse contributes to maptick slowdown.
   * Every **area** should contain only one APC and air alarm.
-  * Every **room** should contain at least one fire alarm, air vent, and air scrubber.
+    * Critical infrastructure rooms, such as the engine, should be given an APC with a larger power cell.
+  * Every **room** should contain at least one fire alarm, air vent, air scrubber, light switch, station intercom, and security camera.
+    * Intercoms should be set to frequency 145.9, and be speaker ON Microphone OFF. This is so radio signals can reach people even without headsets on. Larger room will require more than one at a time.
+    * Exceptions can be made to security camera placement for certain rooms, such as the execution room. Larger rooms may require more than one security camera. All security cameras should have a descriptive name that makes it easy to find on a camera console.
     * Fire alarms should not be placed next to expected heat sources.
     * Use the following "on" subtype of vents and scrubbers as opposed to var-editing: ```/obj/machinery/atmospherics/unary/vent_scrubber/on``` and ```/obj/machinery/atmospherics/unary/vent_pump/on```
+  * Head of staff rooms should contain a requests console.
   * Firelocks should be used at area boundaries over doors and windows. Firelocks can also be used to break up hallways at reasonable intervals.
     * Double firelocks are to be avoided unless absolutely necessary.
     * Maintenance access doors should not have firelocks placed over them.
@@ -521,6 +525,8 @@ in the SQL/updates folder.
     * req_access_txt requires ALL LISTED ACCESSES to open the door, while req_one_access_txt lets anyone with ONE OF THE LISTED ACCESSES open the door.
   * Departments should be connected to maintenance through a back or side door. This lets players escape and allows antags to break in.
     * If this is not possible, departments should have extra entry and exit points.
+  * Engine areas, or areas with a high probability of being exploded, should use reinforced flooring where appropriate.
+  * External areas, or areas where depressurisation is expected and normal, should use airless turf variants to prevent additional atmospherics load.
 
 
 
