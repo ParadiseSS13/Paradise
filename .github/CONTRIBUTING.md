@@ -487,9 +487,9 @@ in the SQL/updates folder.
     becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
     
 * StrongDMM
-  * When using StrongDMM, the following options **MUST** be enabled to avoid file bloat:
-    * Sanitize Variables
-    * Clean Unused Keys
+  * When using StrongDMM, the following options **MUST** be enabled to avoid file bloat. They can be found under `File > Preferences > Save Options` in SDMM.
+    * Sanitize Variables - Removes variables that are declared on the map, but are the same as default. (For example: A standard floor turf that has dir = 2 declared on the map will have that variable deleted as it is redundant.)
+    * Clean Unused Keys - Removes content tile keys that are no longer used on the map, usually leftover keys from deletions or edits.
 
 * Variable Editing (Var-edits)
   * While var-editing an item within the editor is perfectly fine, it is preferred that when you are changing the base behavior of an item (how it functions) that you make a new subtype of that item within the code, especially if you plan to use the item in multiple locations on the same map, or across multiple maps. This makes it easier to make corrections as needed to all instances of the item at one time as opposed to having to find each instance of it and change them all individually.
