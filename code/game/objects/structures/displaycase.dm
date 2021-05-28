@@ -37,7 +37,7 @@
 
 /obj/structure/displaycase/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='warning'>You override the ID lock on the [src].</span>")
+		to_chat(user, "<span class='warning'>You override the ID lock on [src].</span>")
 		trigger_alarm()
 
 		emagged = TRUE
