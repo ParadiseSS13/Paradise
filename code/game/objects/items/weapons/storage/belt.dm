@@ -447,6 +447,7 @@
 	item_state = "bandolier"
 	storage_slots = 8
 	can_hold = list(/obj/item/ammo_casing/shotgun)
+	display_contents_with_number = TRUE
 
 /obj/item/storage/belt/bandolier/Initialize(mapload)
 	. = ..()
