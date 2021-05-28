@@ -1,5 +1,5 @@
 /// Controls how many buckets should be kept, each representing a tick. (30 seconds worth)
-#define BUCKET_LEN (world.fps * 1 * 30)
+#define BUCKET_LEN (world.fps * 1 * 60)
 /// Helper for getting the correct bucket for a given chatmessage
 #define BUCKET_POS(scheduled_destruction) (((round((scheduled_destruction - SSrunechat.head_offset) / world.tick_lag) + 1) % BUCKET_LEN) || BUCKET_LEN)
 /// Gets the maximum time at which messages will be handled in buckets, used for deferring to secondary queue
@@ -63,16 +63,11 @@ SUBSYSTEM_DEF(runechat)
 		practical_offset = 1
 		resumed = FALSE
 
-	if((length(bucket_list) != BUCKET_LEN) || (world.tick_lag != bucket_resolution))
-		bucket_list.len = 0
-		bucket_list.len = BUCKET_LEN
-		practical_offset = 1
-		bucket_count = 0
-		head_offset = world.time
-		bucket_resolution = world.tick_lag
+	// Check for when we have to reset buckets, typically from auto-reset
+	if ((length(bucket_list) != BUCKET_LEN) || (world.tick_lag != bucket_resolution))
+		reset_buckets()
 		bucket_list = src.bucket_list
 		resumed = FALSE
-
 	// Store a reference to the 'working' chatmessage so that we can resume if the MC
 	// has us stop mid-way through processing
 	var/static/datum/chatmessage/cm
@@ -135,6 +130,11 @@ SUBSYSTEM_DEF(runechat)
 	bucket_list |= SSrunechat.bucket_list
 	second_queue |= SSrunechat.second_queue
 
+/datum/controller/subsystem/runechat/proc/reset_buckets()
+	bucket_list.len = BUCKET_LEN
+	head_offset = world.time
+	bucket_resolution = world.tick_lag
+
 /**
   * Enters the runechat subsystem with this chatmessage, inserting it into the end-of-life queue
   *
@@ -174,7 +174,7 @@ SUBSYSTEM_DEF(runechat)
 
 	// Handle insertion into the secondary queue if the required time is outside our tracked amounts
 	if (scheduled_destruction >= BUCKET_LIMIT)
-		BINARY_INSERT(src, SSrunechat.second_queue, datum/chatmessage, scheduled_destruction)
+		BINARY_INSERT_TG(src, SSrunechat.second_queue, /datum/chatmessage, src, scheduled_destruction, COMPARE_KEY)
 		return
 
 	// Get bucket position and a local reference to the datum var, it's faster to access this way
