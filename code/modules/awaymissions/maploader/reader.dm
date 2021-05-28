@@ -237,6 +237,11 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				full_def = copytext(full_def, variables_start + 1, length(full_def)) // removing the last '}'
 				fields = readlist(full_def, ";")
 
+				for(var/I in fields)
+					var/value = fields[I]
+					if(istext(value))
+						fields[I] = apply_text_macros(value)
+
 			// then fill the members_attributes list with the corresponding variables
 			members_attributes.len++
 			members_attributes[index++] = fields
@@ -369,45 +374,51 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		if(equal_position) // associative var, so do the association
 			var/trim_right = trim_text(copytext(text, equal_position + 1, position)) // the content of the variable
 
-			// Check for string
-			// Make it read to the next delimiter, instead of the quote
-			if(findtext(trim_right, quote, 1, 2))
-				var/endquote = findtext(trim_right, quote, -1)
-				if(!endquote)
-					log_runtime(EXCEPTION("Terminating quote not found!"), src)
-				// Our map writer escapes quotes and curly brackets to avoid
-				// letting our simple parser choke on meanly-crafted names/etc
-				// - so we decode it here so it's back to good ol' legibility
-				trim_right = dmm_decode(copytext(trim_right, 2, endquote))
-
-			// Check for number
-			else if(isnum(text2num(trim_right)))
-				trim_right = text2num(trim_right)
-
-			// Check for null
-			else if(trim_right == "null")
-				trim_right = null
-
-			// Check for list
-			else if(copytext(trim_right, 1, 5) == "list")
-				trim_right = readlist(copytext(trim_right, 6, length(trim_right)))
-
-			// Check for file
-			else if(copytext(trim_right, 1, 2) == "'")
-				trim_right = file(copytext(trim_right, 2, length(trim_right)))
-
-			// Check for path
-			else if(ispath(text2path(trim_right)))
-				trim_right = text2path(trim_right)
-
-			to_return[trim_left] = trim_right
+			to_return[trim_left] = parse_value(trim_right)
 
 		else// simple var
-			to_return[trim_left] = null
+			to_return += parse_value(trim_left)
 
 	while(position != 0)
 
 	return to_return
+/**
+ * Tries to parse the given value_text. Will fallback on the value_text as a string if it fails
+ */
+/datum/dmm_suite/proc/parse_value(value_text)
+	// Check for string
+	// Make it read to the next delimiter, instead of the quote
+	if(findtext(value_text, quote, 1, 2))
+		var/endquote = findtext(value_text, quote, -1)
+		if(!endquote)
+			stack_trace("Terminating quote not found!")
+		// Our map writer escapes quotes and curly brackets to avoid
+		// letting our simple parser choke on meanly-crafted names/etc
+		// - so we decode it here so it's back to good ol' legibility
+		. = dmm_decode(copytext(value_text, 2, endquote))
+
+	// Check for number
+	else if(isnum(text2num(value_text)))
+		. = text2num(value_text)
+
+	// Check for null
+	else if(value_text == "null")
+		. = null
+
+	// Check for list
+	else if(copytext(value_text, 1, 5) == "list")
+		. = readlist(copytext(value_text, 6, length(value_text)))
+
+	// Check for file
+	else if(copytext(value_text, 1, 2) == "'")
+		. = file(copytext(value_text, 2, length(value_text)))
+
+	// Check for path
+	else if(ispath(text2path(value_text)))
+		. = text2path(value_text)
+
+	else
+		. = value_text // Assume it is a string without quotes
 
 /datum/dmm_suite/Destroy()
 	..()
@@ -470,7 +481,9 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		if(initial(A.there_can_be_many))
 			area_list[A] = new A
 		else
-			area_list[A] = locate(A)
+			if(!GLOB.all_unique_areas[A])
+				GLOB.all_unique_areas[A] = new A // No locate here else it will find a subtype of the one we're looking for
+			area_list[A] = GLOB.all_unique_areas[A]
 
 	return area_list[A]
 

@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
+GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 
 /world/New()
 	// IMPORTANT
@@ -142,11 +142,11 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	return
 	#endif
 
-	// If we had an update or pending TM, set a 60 second timeout
+	// If the server has been gracefully shutdown in TGS, have a 60 seconds grace period for SQL updates and stuff
 	var/secs_before_auto_reconnect = 10
-	if(GLOB.pending_server_update)
+	if(GLOB.slower_restart)
 		secs_before_auto_reconnect = 60
-		to_chat(world, "<span class='boldannounce'>Reboot will take a little longer, due to pending updates.</span>")
+		server_announce_global("Reboot will take a little longer due to pending backend changes.")
 
 	// Send the reboot banner to all players
 	for(var/client/C in GLOB.clients)
@@ -248,7 +248,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.world_href_log = "[GLOB.log_directory]/hrefs.log"
 	GLOB.world_runtime_log = "[GLOB.log_directory]/runtime.log"
 	GLOB.world_qdel_log = "[GLOB.log_directory]/qdel.log"
-	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
 	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
 	GLOB.http_log = "[GLOB.log_directory]/http.log"
 	GLOB.sql_log = "[GLOB.log_directory]/sql.log"
