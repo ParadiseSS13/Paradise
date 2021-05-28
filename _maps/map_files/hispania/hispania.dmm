@@ -858,17 +858,6 @@
 	tag = "icon-stage_stairs"
 	},
 /area/crew_quarters/dorms)
-"abz" = (
-/obj/structure/table/glass,
-/obj/item/clothing/gloves/boxing/blue,
-/obj/item/clothing/gloves/boxing/yellow,
-/obj/item/clothing/gloves/boxing/green,
-/obj/item/clothing/gloves/boxing,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/maintenance/fsmaint2)
 "abA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -143517,7 +143506,7 @@ aGX
 aGY
 aGY
 aGY
-abz
+aGY
 aGY
 aGY
 aGY
