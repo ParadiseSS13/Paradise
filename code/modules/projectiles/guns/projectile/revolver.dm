@@ -348,11 +348,11 @@
 /obj/item/gun/projectile/revolver/doublebarrel/New()
 	..()
 	options["Default"] = "dshotgun"
-	options["Dark Red Finish"] = "dshotgun-d"
-	options["Ash"] = "dshotgun-f"
-	options["Faded Grey"] = "dshotgun-g"
-	options["Maple"] = "dshotgun-l"
-	options["Rosewood"] = "dshotgun-p"
+	options["Gold Plated"] = "dshotgun-g"
+	options["Ivory and Nickel"] = "dshotgun-i"
+	options["Black Polymer"] = "dshotgun-b"
+	options["Ashwood and Iron"] = "dshotgun-a"
+	options["Cherry and Nickel"] = "dshotgun-c"
 	options["Cancel"] = null
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
@@ -362,10 +362,10 @@
 		var/obj/item/melee/energy/W = A
 		if(W.active)
 			sawoff(user)
-			item_state = "ishotgun_sawn"
+			item_state = "shotgun_db_sawn"
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
 		sawoff(user)
-		item_state = "ishotgun_sawn"
+		item_state = "shotgun_db_sawn"
 	else
 		return ..()
 
