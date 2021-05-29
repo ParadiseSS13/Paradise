@@ -139,3 +139,12 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 3, "vitamin" = 3, "orangejuice" = 2, "lemonjuice" = 2)
 	tastes = list("salmon" = 1, "citrus" = 1)
+
+/obj/item/reagent_containers/food/snacks/filetmignon
+	name = "Filet Mignon"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	desc = "Sirloin wrapped in bacon served with mushroom sauce"
+	icon_state = "filetmignon"
+	trash = /obj/item/trash/plate
+	bitesize = 4
+	tastes = list("winey" = 1, "beefy" = 1)

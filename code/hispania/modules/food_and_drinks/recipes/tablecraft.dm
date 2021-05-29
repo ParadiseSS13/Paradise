@@ -23,7 +23,7 @@
 	name = "Salmon Cream cheese toast"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/baguette = 1,
-		/obj/item/reagent_containers/food/snacks/salmonmeat = 2,
+		/obj/item/reagent_containers/food/snacks/smokedsalmon = 1,
 		/obj/item/reagent_containers/food/snacks/cream_cheese = 1,
 	)
 	result = list(/obj/item/reagent_containers/food/snacks/salmoncreamtoast)

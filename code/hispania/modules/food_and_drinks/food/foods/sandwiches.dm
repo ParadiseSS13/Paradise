@@ -30,6 +30,7 @@
 	icon_state = "scc_toast"
 	icon = 'icons/hispania/obj/food/food.dmi'
 	filling_color = "#ff8c69"
+	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 6, "cream_cheese" = 5)
 	tastes = list("bread" = 1, "avocado" = 2)
 
