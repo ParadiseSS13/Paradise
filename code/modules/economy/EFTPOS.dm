@@ -41,7 +41,8 @@
 	var/obj/item/smallDelivery/D = new(get_turf(loc))
 	if(istype(loc, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = loc
-		if(H.back != null) D.forceMove(H.back)
+		if(H.back)
+			D.forceMove(H.back)
 	R.forceMove(D)
 	D.wrapped = R
 	D.name = "small parcel - 'EFTPOS access code'"
