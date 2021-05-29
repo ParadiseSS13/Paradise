@@ -102,6 +102,7 @@
 		descriptive = "furiously hot"
 
 	. += "<span class='notice'>\The [bicon(icon)][src] feels [descriptive]</span>"
+	. += "<span class='notice'>The pressure gauge displays [round(air_contents.return_pressure())] kPa</span>"
 
 /obj/item/tank/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
