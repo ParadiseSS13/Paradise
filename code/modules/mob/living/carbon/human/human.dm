@@ -177,13 +177,6 @@
 			stat(null, "GPS: [COORD(T)]")
 		if(locate(/obj/item/assembly/health) in total_user_contents)
 			stat(null, "Health: [health]")
-		if(internal)
-			if(!internal.air_contents)
-				qdel(internal)
-			else
-				stat("Internal Atmosphere Info", internal.name)
-				stat("Tank Pressure", internal.air_contents.return_pressure())
-				stat("Distribution Pressure", internal.distribute_pressure)
 
 		// I REALLY need to split up status panel things into datums
 		var/mob/living/simple_animal/borer/B = has_brain_worms()
