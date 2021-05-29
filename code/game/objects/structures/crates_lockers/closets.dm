@@ -24,7 +24,7 @@
 // Please dont override this unless you absolutely have to
 /obj/structure/closet/Initialize(mapload)
 	. = ..()
-	if(!opened)
+	if(mapload && !opened)
 		// Youre probably asking, why is this a 0 seconds timer AA?
 		// Well, I will tell you. One day, all /obj/effect/spawner will use Initialize
 		// This includes maint loot spawners. The problem with that is if a closet loads before a spawner,
