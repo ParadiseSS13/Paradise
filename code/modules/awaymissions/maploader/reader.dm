@@ -358,28 +358,30 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 /datum/dmm_suite/proc/readlist(text, delimiter = ",")
 	var/list/to_return = list()
 
-	var/position
+	var/delimiter_position
 	var/old_position = 1
 
 	do
 		// find next delimiter that is not within  "..."
-		position = find_next_delimiter_position(text, old_position, delimiter)
+		delimiter_position = find_next_delimiter_position(text, old_position, delimiter)
 
 		// check if this is a simple variable (as in list(var1, var2)) or an associative one (as in list(var1="foo", var2=7))
-		var/equal_position = findtext(text, "=", old_position, position)
+		var/equal_position = findtext(text, "=", old_position, delimiter_position)
 
-		var/trim_left = trim_text(copytext(text, old_position, (equal_position ? equal_position : position)), 1) // the name of the variable, must trim quotes to build a BYOND compliant associatives list
-		old_position = position + 1
+		// Take the left value of the association or just the value if it isn't an association
+		var/left_value = copytext(text, old_position, (equal_position ? equal_position : delimiter_position))
+		old_position = delimiter_position + 1
 
 		if(equal_position) // associative var, so do the association
-			var/trim_right = trim_text(copytext(text, equal_position + 1, position)) // the content of the variable
+			left_value = trim_text(left_value, TRUE) // the name of the variable, must trim quotes to build a BYOND compliant associatives list
+			var/trim_right = trim_text(copytext(text, equal_position + 1, delimiter_position)) // the content of the variable
 
-			to_return[trim_left] = parse_value(trim_right)
+			to_return[left_value] = parse_value(trim_right)
 
 		else// simple var
-			to_return += parse_value(trim_left)
+			to_return += parse_value(trim_text(left_value)) // Don't trim the quotes
 
-	while(position != 0)
+	while(delimiter_position != 0)
 
 	return to_return
 /**
