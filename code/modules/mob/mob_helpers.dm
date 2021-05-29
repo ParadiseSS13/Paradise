@@ -547,6 +547,8 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			for(var/datum/data/record/R in L)
 				if(R.fields["name"] == oldname)
 					R.fields["name"] = newname
+					if(length(R.fields["id"]) == 32)
+						R.fields["id"] = md5("[newname][mind.assigned_role]")
 					break
 
 		//update our pda and id if we have them on our person

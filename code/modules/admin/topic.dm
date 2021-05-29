@@ -1860,16 +1860,14 @@
 				if(PDA.owner == old_name)
 					PDA.owner = new_name
 					PDA.name = "PDA-[new_name] ([PDA.ownjob])"
-		//rename general records with mob old name
-		for(var/datum/data/record/R in GLOB.data_core.general)
-			if(R.fields["name"] == old_name)
-				R.fields["name"] = new_name
-				break
-		//rename security records with mob old name
-		for(var/datum/data/record/E in GLOB.data_core.security)
-			if(E.fields["name"] == old_name)
-				E.fields["name"] = new_name
-				break
+		//update the datacore records! This is goig to be a bit costly.
+		for(var/list/L in list(GLOB.data_core.general, GLOB.data_core.medical, GLOB.data_core.security, GLOB.data_core.locked))
+			for(var/datum/data/record/R in L)
+				if(R.fields["name"] == old_name)
+					R.fields["name"] = new_name
+					if(length(R.fields["id"]) == 32)
+						R.fields["id"] = md5("[new_name][M.mind.assigned_role]")
+					break
 
 		log_and_message_admins(message + "[new_name].")
 
