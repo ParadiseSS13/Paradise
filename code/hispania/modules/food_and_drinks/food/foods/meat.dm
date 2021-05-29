@@ -74,7 +74,8 @@
 	desc = "A good steak dipped in peach sauce, with an avocado base"
 	icon_state = "peach_meat"
 	trash = /obj/item/trash/plate
-	bitesize = 4
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "protein" = 1, "vitamin" = 1)
 	tastes = list("sweet" = 1, "beefy" = 1)
 
 /obj/item/reagent_containers/food/snacks/baconrolled
@@ -145,6 +146,6 @@
 	icon = 'icons/hispania/obj/food/food.dmi'
 	desc = "Sirloin wrapped in bacon served with mushroom sauce"
 	icon_state = "filetmignon"
-	trash = /obj/item/trash/plate
-	bitesize = 4
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "vitamin" = 1, "protein" = 1)
 	tastes = list("winey" = 1, "beefy" = 1)

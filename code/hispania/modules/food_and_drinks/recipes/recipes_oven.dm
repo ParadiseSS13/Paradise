@@ -90,7 +90,7 @@
 /datum/recipe/oven/filetmignon
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "wine" = 5)
 	items = list(
-	/obj/item/reagent_containers/food/snacks/grown/chanter,
+	/obj/item/reagent_containers/food/snacks/grown/chanter/champignon,
 	/obj/item/reagent_containers/food/snacks/meat,
 	)
-	result = /obj/item/reagent_containers/food/snacks/peach_meat
+	result = /obj/item/reagent_containers/food/snacks/filetmignon
