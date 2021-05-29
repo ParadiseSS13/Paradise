@@ -1,42 +1,42 @@
+#define MAKE_CUSTOM_FOOD(snack_to_add, user, type) \
+do {\
+	var/obj/item/reagent_containers/food/snacks/customizable/custom_snack = new type(get_turf(user));\
+	custom_snack.add_ingredient(snack_to_add, user); \
+	user.put_in_active_hand(custom_snack); \
+	qdel(src);\
+} while(FALSE)
+
 /obj/item/reagent_containers/food/snacks/breadslice/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/food/snacks) && !(W.flags & NODROP))
-		var/obj/item/reagent_containers/food/snacks/customizable/sandwich/S = new(get_turf(user))
-		S.attackby(W,user, params)
-		qdel(src)
+		MAKE_CUSTOM_FOOD(W, user, /obj/item/reagent_containers/food/snacks/customizable/sandwich)
 	else
 		..()
 
 /obj/item/reagent_containers/food/snacks/bun/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/food/snacks) && !(W.flags & NODROP))
-		var/obj/item/reagent_containers/food/snacks/customizable/burger/S = new(get_turf(user))
-		S.attackby(W,user, params)
-		qdel(src)
+		MAKE_CUSTOM_FOOD(W, user, /obj/item/reagent_containers/food/snacks/customizable/burger)
 
 /obj/item/reagent_containers/food/snacks/sliceable/flatdough/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/food/snacks) && !(W.flags & NODROP))
-		var/obj/item/reagent_containers/food/snacks/customizable/pizza/S = new(get_turf(user))
-		S.attackby(W,user, params)
-		qdel(src)
+		MAKE_CUSTOM_FOOD(W, user, /obj/item/reagent_containers/food/snacks/customizable/pizza)
 	else
 		..()
 
 
 /obj/item/reagent_containers/food/snacks/boiledspaghetti/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/food/snacks) && !(W.flags & NODROP))
-		var/obj/item/reagent_containers/food/snacks/customizable/pasta/S = new(get_turf(user))
-		S.attackby(W,user, params)
-		qdel(src)
+		MAKE_CUSTOM_FOOD(W, user, /obj/item/reagent_containers/food/snacks/customizable/pasta)
 	else
 		..()
 
 
 /obj/item/trash/plate/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/food/snacks) && !(W.flags & NODROP))
-		var/obj/item/reagent_containers/food/snacks/customizable/fullycustom/S = new(get_turf(user))
-		S.attackby(W,user, params)
-		qdel(src)
+		MAKE_CUSTOM_FOOD(W, user, /obj/item/reagent_containers/food/snacks/customizable/fullycustom)
 	else
 		..()
+
+#undef MAKE_CUSTOM_FOOD
 
 /obj/item/trash/bowl
 	name = "bowl"
@@ -339,7 +339,7 @@
 		to_chat(user, "<span class='warning'>[I] isn't exactly something that you would want to eat.</span>")
 		return
 
-	add_ingredient(I)
+	add_ingredient(I, user)
 
 /**
  * Tries to add one ingredient and it's ingredients, if any and applicable, to this snack
