@@ -63,6 +63,7 @@
 	},
 /area/ruin/powered)
 "fh" = (
+/obj/machinery/gateway{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
