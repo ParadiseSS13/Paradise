@@ -23,7 +23,7 @@ Difficulty: Medium
 	icon_state = "legion"
 	icon_living = "legion"
 	desc = "One of many."
-	icon = 'icons/mob/lavaland/legion.dmi'
+	icon = 'icons/hispania/mob/lavaland/legion.dmi'
 	attacktext = "chomps"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	speak_emote = list("echoes")
