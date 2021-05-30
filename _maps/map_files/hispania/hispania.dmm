@@ -72464,10 +72464,11 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4"
+	icon_state = "2-4";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -72749,10 +72750,12 @@
 	dir = 4;
 	level = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2"
+	icon_state = "1-2";
+	pixel_y = 0;
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -75596,10 +75599,11 @@
 	dir = 4;
 	level = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "4-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -75643,10 +75647,11 @@
 	dir = 4;
 	level = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "4-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -75664,10 +75669,11 @@
 	dir = 4;
 	level = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "4-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -76479,13 +76485,12 @@
 	pixel_y = 24;
 	shock_proof = 1
 	},
-/obj/structure/cable/yellow{
-	d1 = 0;
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/structure/reagent_dispensers/watertank,
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "dcm" = (
@@ -83227,11 +83232,6 @@
 /area/security/armoury)
 "efR" = (
 /obj/machinery/door/firedoor,
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -84124,11 +84124,6 @@
 /area/maintenance/turbine)
 "ffd" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -85116,14 +85111,14 @@
 /area/maintenance/genetics)
 "gqJ" = (
 /obj/effect/decal/warning_stripes/north,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4;
 	level = 1
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -88422,11 +88417,6 @@
 	dir = 4;
 	level = 1
 	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /turf/simulated/floor/plasteel,
 /area/engine/singularity)
 "jPZ" = (
@@ -90466,6 +90456,12 @@
 	name = "Secure Storage"
 	},
 /obj/effect/decal/warning_stripes/west,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -90615,10 +90611,11 @@
 	dir = 4;
 	level = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "4-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -91035,11 +91032,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
 	initialize_directions = 11
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
@@ -92968,10 +92960,9 @@
 	pixel_y = 24;
 	shock_proof = 1
 	},
-/obj/structure/cable/yellow{
-	d1 = 0;
-	d2 = 8;
-	icon_state = "0-8"
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -93313,10 +93304,11 @@
 	initialize_directions = 11;
 	level = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "4-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
@@ -93398,11 +93390,6 @@
 /area/maintenance/apmaint)
 "oGj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -94988,10 +94975,10 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/singularity)
@@ -95841,10 +95828,12 @@
 /area/atmos)
 "ruy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2"
+	icon_state = "1-2";
+	pixel_y = 0;
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom";
@@ -96347,10 +96336,11 @@
 	name = "station intercom (General)";
 	pixel_y = 28
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "4-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -97443,6 +97433,22 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
+"sIs" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/storage/secure)
 "sIK" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -97883,10 +97889,11 @@
 	dir = 4;
 	level = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "4-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -98439,21 +98446,6 @@
 /area/maintenance/asmaint2)
 "tBw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -98526,10 +98518,11 @@
 	dir = 1;
 	initialize_directions = 11
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "4-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -99332,20 +99325,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/blueshield)
-"uFR" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/storage/secure)
 "uGG" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/computer{
@@ -100600,16 +100579,6 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -101054,15 +101023,12 @@
 /area/storage/tech)
 "wmI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+	icon_state = "1-2";
+	pixel_y = 0;
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -101241,6 +101207,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4;
 	level = 1
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -102297,10 +102274,11 @@
 	dir = 4;
 	level = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "4-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -102456,11 +102434,6 @@
 	icon_state = "tube1"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
@@ -102555,10 +102528,11 @@
 /area/engine/engineering)
 "xCl" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "4-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -102586,10 +102560,11 @@
 	initialize_directions = 11;
 	level = 1
 	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/singularity)
@@ -102756,10 +102731,11 @@
 	dir = 2;
 	network = list("SS13")
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "4-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -129456,7 +129432,7 @@ cZL
 daK
 cSU
 gwd
-kyV
+sIs
 ffd
 eaq
 lPI
@@ -129714,7 +129690,7 @@ daK
 cSU
 dcl
 gqJ
-uFR
+ffd
 eFX
 gNg
 rXz
