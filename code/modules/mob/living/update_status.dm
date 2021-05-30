@@ -86,7 +86,7 @@
 /mob/living/update_canmove(delay_action_updates = 0)
 	var/fall_over = !can_stand()
 	var/buckle_lying = !(buckled && !buckled.buckle_lying)
-	if(fall_over || resting || stunned)
+	if(fall_over || resting || stunned || (buckled && buckle_lying != 0))
 		drop_r_hand()
 		drop_l_hand()
 	else

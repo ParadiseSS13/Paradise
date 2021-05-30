@@ -18,6 +18,7 @@ GLOBAL_LIST_INIT(cell_logs, list())
 GLOBAL_LIST_INIT(navigation_computers, list())
 
 GLOBAL_LIST_INIT(all_areas, list())
+GLOBAL_LIST_INIT(all_unique_areas, list()) // List of all unique areas. AKA areas with there_can_be_many = FALSE
 GLOBAL_LIST_INIT(machines, list())
 GLOBAL_LIST_INIT(rcd_list, list()) //list of Rapid Construction Devices.
 
