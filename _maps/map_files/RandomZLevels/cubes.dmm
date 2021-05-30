@@ -286,7 +286,6 @@
 /area/ruin/powered)
 "ID" = (
 /obj/item/gun/energy/gun,
-/obj/item/gun/energy/gun,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
