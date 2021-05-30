@@ -383,7 +383,7 @@
 		var/obj/item/melee/energy/O = I
 		if(O.can_cut_walls && O.active)
 			to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
-			playsound(src, 'sound/items/welder.ogg', 100, 1)
+			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 			if(do_after(user, O.toolspeed * 10 SECONDS, target = src))
 				to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
 				dismantle_wall()
