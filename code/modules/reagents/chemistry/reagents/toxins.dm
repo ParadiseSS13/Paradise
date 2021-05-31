@@ -1228,16 +1228,18 @@
 	color = "#20324D" //RGB: 32, 50, 77
 	metabolization_rate = 0.2
 	var/shock_timer = 0
+	var/normal_teslium = TRUE //Is this the base teslium, or the blob teslium. Used so it can be a subtype of teslium without inheriting the random shock from normal teslium as well as it's own
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "electricity"
 
 /datum/reagent/teslium/on_mob_life(mob/living/M)
-	shock_timer++
-	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
-		shock_timer = 0
-		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, SHOCK_NOGLOVES) //Override because it's caused from INSIDE of you
-		playsound(M, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	return ..()
+	if(normal_teslium)
+		shock_timer++
+		if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
+			shock_timer = 0
+			M.electrocute_act(rand(5, 20), "Teslium in their body", 1, SHOCK_NOGLOVES) //Override because it's caused from INSIDE of you
+			playsound(M, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		return ..()
 
 /datum/reagent/teslium/on_mob_add(mob/living/M)
 	..()
@@ -1253,19 +1255,24 @@
 
 /datum/reagent/teslium/blob //This version has it's shocks much less frequently, while retaining the shock multiplier
 	id = "blob_teslium"
+	normal_teslium = FALSE
 	var/chosen_timer = 15
-
-/datum/reagent/teslium/blob/reaction_mob/(mob/living/M)
-	chosen_timer = rand(5, 30)
 
 /datum/reagent/teslium/blob/on_mob_life(mob/living/M)
 	shock_timer++
 	if(shock_timer >= chosen_timer) //Random shocks are wildly unpredictable
 		shock_timer = 0
-		chosen_timer = rand(5, 30)
+		chosen_timer = rand(10, 30)
 		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, SHOCK_NOGLOVES) //Override because it's caused from INSIDE of you
 		playsound(M, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	return ..()
+
+/datum/reagent/teslium/blob/on_mob_add(mob/living/M)
+	..()
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.physiology.siemens_coeff *= 2
+	chosen_timer = rand(10, 30)
 
 /datum/reagent/gluttonytoxin
 	name = "Gluttony's Blessing"
