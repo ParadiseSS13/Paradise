@@ -1176,6 +1176,7 @@
 #include "code\hispania\game\machinery\computer\buildandrepair.dm"
 #include "code\hispania\game\machinery\computer\card.dm"
 #include "code\hispania\game\machinery\computer\computer.dm"
+#include "code\hispania\game\machinery\doors\brigdoors_crimes.dm"
 #include "code\hispania\game\mecha\mech_fabricator.dm"
 #include "code\hispania\game\mecha\mecha_control_console.dm"
 #include "code\hispania\game\mecha\paintkits.dm"

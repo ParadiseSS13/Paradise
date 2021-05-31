@@ -33,6 +33,8 @@
 	R.fields["criminal"] = "None"
 	R.fields["mi_crim"] = "None"
 	R.fields["mi_crim_d"] = "No minor crime convictions."
+	R.fields["mo_crim"] = "None" // HISPANIA
+	R.fields["mo_crim_d"] = "No moderate crime convictions." // HISPANIA
 	R.fields["ma_crim"] = "None"
 	R.fields["ma_crim_d"] = "No major crime convictions."
 	R.fields["notes"] = "No notes."
