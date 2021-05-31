@@ -280,10 +280,7 @@
 				else
 					if(T.client == null)
 						to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
-						if(T.ghost_can_reenter())
-							get_cult_ghost(T, user)
-						else
-							get_cult_ghost(T, user, TRUE)
+						get_cult_ghost(T, user, get_new_player = !T.ghost_can_reenter())
 					else
 						if(length(contents))
 							to_chat(user, "<span class='danger'>Capture failed!</span> The soul stone is full! Use or free an existing soul to make room.")
