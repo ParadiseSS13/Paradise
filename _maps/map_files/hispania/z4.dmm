@@ -4947,13 +4947,6 @@
 /obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
-"lz" = (
-/mob/living/simple_animal/bot/medbot/mysterious{
-	desc = "A dark little medical robot. She looks somewhat underwhelmed.";
-	name = "Nightingale"
-	},
-/turf/simulated/floor/plating/asteroid/snow/naga,
-/area/snowland/unexplored)
 "lA" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -20439,6 +20432,13 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/mineral/random/labormineral,
 /area/snowland/unexplored)
+"Rg" = (
+/mob/living/simple_animal/bot/medbot/mysterious{
+	desc = "A dark little medical robot. She looks somewhat underwhelmed.";
+	name = "Nightingale"
+	},
+/turf/simulated/floor/pod/dark,
+/area/awaymission/research)
 "Ri" = (
 /obj/structure/sink/puddle,
 /turf/simulated/floor/plating/asteroid/snow/naga,
@@ -32304,7 +32304,7 @@ ac
 gu
 ac
 ac
-lz
+ac
 ac
 lO
 ac
@@ -78914,7 +78914,7 @@ IZ
 IW
 IW
 Zl
-IW
+Rg
 hY
 ac
 ac

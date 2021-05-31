@@ -59,8 +59,8 @@
 	gold_core_spawnable = NO_SPAWN
 	health = 100
 	maxHealth = 100
-	melee_damage_lower = 5
-	melee_damage_upper = 10
+	melee_damage_lower = 25 //Hispania Values
+	melee_damage_upper = 25 //Hispania Values
 	attacktext = "punches"
 	deathmessage = "falls apart into a fine dust."
 

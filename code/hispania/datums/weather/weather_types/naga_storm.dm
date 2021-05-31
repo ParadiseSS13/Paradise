@@ -15,7 +15,7 @@
 	end_message = "<span class='notice'>The snowfall dies down, it should be safe to go outside again.</span>"
 
 	area_type = /area/snowland/unexplored
-	target_trait = PLANET
+	target_trait = PLANET_STORMS
 
 	immunity_type = "snow"
 
