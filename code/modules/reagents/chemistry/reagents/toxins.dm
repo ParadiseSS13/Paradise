@@ -1251,6 +1251,22 @@
 		H.physiology.siemens_coeff *= 0.5
 	..()
 
+/datum/reagent/teslium/blob //This version has it's shocks much less frequently, while retaining the shock multiplier
+	id = "blob_teslium"
+	var/chosen_timer = 15
+
+/datum/reagent/teslium/blob/reaction_mob/(mob/living/M)
+	chosen_timer = rand(5, 30)
+
+/datum/reagent/teslium/blob/on_mob_life(mob/living/M)
+	shock_timer++
+	if(shock_timer >= chosen_timer) //Random shocks are wildly unpredictable
+		shock_timer = 0
+		chosen_timer = rand(5, 30)
+		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, SHOCK_NOGLOVES) //Override because it's caused from INSIDE of you
+		playsound(M, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	return ..()
+
 /datum/reagent/gluttonytoxin
 	name = "Gluttony's Blessing"
 	id = "gluttonytoxin"
