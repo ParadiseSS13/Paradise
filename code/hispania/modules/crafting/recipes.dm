@@ -153,3 +153,58 @@
 				/obj/item/storage/belt/mining = 1)
 	pathtools = list(/obj/item/kitchen/knife)
 	category = CAT_PRIMAL
+
+///Medkits///
+
+/datum/crafting_recipe/whitemedkit
+	name = "White Medkit"
+	time = 20
+	result = list(/obj/item/storage/firstaid)
+	reqs = list(/obj/item/stack/sheet/plastic = 5)
+	tools = list(TOOL_WIRECUTTER)
+	category = CAT_MISC
+
+/datum/crafting_recipe/yellowmedkit
+	name = "Yellow Medkit"
+	time = 20
+	result = list(/obj/item/storage/firstaid/fire/empty)
+	reqs = list(/obj/item/stack/sheet/plastic = 5)
+	tools = list(TOOL_WIRECUTTER)
+	pathtools = list(/obj/item/toy/crayon/spraycan)
+	category = CAT_MISC
+
+/datum/crafting_recipe/greenmedkit
+	name = "Green Medkit"
+	time = 20
+	result = list(/obj/item/storage/firstaid/toxin/empty)
+	reqs = list(/obj/item/stack/sheet/plastic = 5)
+	tools = list(TOOL_WIRECUTTER)
+	pathtools = list(/obj/item/toy/crayon/spraycan)
+	category = CAT_MISC
+
+/datum/crafting_recipe/lightbluemedkit
+	name = "Light blue Medkit"
+	time = 20
+	result = list(/obj/item/storage/firstaid/o2/empty)
+	reqs = list(/obj/item/stack/sheet/plastic = 5)
+	tools = list(TOOL_WIRECUTTER)
+	pathtools = list(/obj/item/toy/crayon/spraycan)
+	category = CAT_MISC
+
+/datum/crafting_recipe/pinkmedkit
+	name = "Pink Medkit"
+	time = 20
+	result = list(/obj/item/storage/firstaid/brute/empty)
+	reqs = list(/obj/item/stack/sheet/plastic = 5)
+	tools = list(TOOL_WIRECUTTER)
+	pathtools = list(/obj/item/toy/crayon/spraycan)
+	category = CAT_MISC
+
+/datum/crafting_recipe/redmedkit
+	name = "Red Medkit"
+	time = 20
+	result = list(/obj/item/storage/firstaid/adv/empty)
+	reqs = list(/obj/item/stack/sheet/plastic = 5)
+	tools = list(TOOL_WIRECUTTER)
+	pathtools = list(/obj/item/toy/crayon/spraycan)
+	category = CAT_MISC
