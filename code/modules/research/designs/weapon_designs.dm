@@ -237,6 +237,17 @@
 	locked = 1
 	category = list("Weapons")
 
+/datum/design/ipc_combat_upgrade
+	name = "IPC combat upgrade"
+	desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols."
+	materials = list(MAT_METAL=800, MAT_GLASS=1000, MAT_GOLD=2800, MAT_DIAMOND=1650)
+	id = "ipccombatupgrade"
+	build_type = PROTOLATHE
+	req_tech = list("combat" = 6, "magnets" = 5, "powerstorage" = 5, "engineering" = 4,"programming" = 5)
+	build_path = /obj/item/ipc_combat_upgrade
+	locked = 1
+	category = list("Weapons")
+
 /////////////////////////////////////////
 ////////////////ILLEGAL//////////////////
 /////////////////////////////////////////
