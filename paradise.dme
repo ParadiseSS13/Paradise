@@ -1155,6 +1155,7 @@
 #include "code\hispania\datums\traits\negative.dm"
 #include "code\hispania\datums\traits\neutral.dm"
 #include "code\hispania\datums\traits\positive.dm"
+#include "code\hispania\datums\weather\weather_types\naga_storm.dm"
 #include "code\hispania\defines\procs\discord.dm"
 #include "code\hispania\defines\procs\newsounds.dm"
 #include "code\hispania\game\data_huds.dm"
