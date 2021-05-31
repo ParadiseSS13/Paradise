@@ -1239,7 +1239,7 @@
 			shock_timer = 0
 			M.electrocute_act(rand(5, 20), "Teslium in their body", 1, SHOCK_NOGLOVES) //Override because it's caused from INSIDE of you
 			playsound(M, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		return ..()
+	return ..()
 
 /datum/reagent/teslium/on_mob_add(mob/living/M)
 	..()
