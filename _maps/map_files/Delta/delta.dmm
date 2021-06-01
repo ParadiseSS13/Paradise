@@ -38452,7 +38452,6 @@
 	initialize_directions = 11
 	},
 /obj/structure/window/reinforced,
-/obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -41336,14 +41335,16 @@
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 10;
+	icon_state = "darkbluefull"
 	},
 /area/bridge)
 "bHo" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 10;
+	icon_state = "darkbluefull"
 	},
 /area/bridge)
 "bHp" = (
@@ -41427,7 +41428,8 @@
 /obj/item/paper_bin,
 /obj/item/aicard,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 10;
+	icon_state = "darkbluefull"
 	},
 /area/bridge)
 "bHx" = (
@@ -43370,7 +43372,9 @@
 "bKO" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
-	icon_state = "wood"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/bridge/meeting_room)
 "bKP" = (
@@ -43420,7 +43424,9 @@
 "bKX" = (
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/plasteel{
-	icon_state = "wood"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/crew_quarters/captain)
 "bKZ" = (
@@ -44489,7 +44495,9 @@
 	},
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
-	icon_state = "wood"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/bridge/meeting_room)
 "bMW" = (
@@ -44542,7 +44550,9 @@
 "bNb" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
-	icon_state = "wood"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/crew_quarters/captain)
 "bNc" = (
@@ -45422,7 +45432,9 @@
 "bOM" = (
 /obj/machinery/computer/account_database,
 /turf/simulated/floor/plasteel{
-	icon_state = "wood"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/bridge/meeting_room)
 "bOO" = (
@@ -45475,7 +45487,9 @@
 	},
 /mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/plasteel{
-	icon_state = "wood"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/crew_quarters/captain)
 "bOV" = (
@@ -52042,18 +52056,14 @@
 /area/ntrep)
 "cac" = (
 /obj/machinery/computer/secure_data,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/carpet,
 /area/ntrep)
 "cad" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "NT Representative's Office"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/carpet,
 /area/ntrep)
 "cae" = (
 /obj/item/flag/nt,
@@ -52111,13 +52121,13 @@
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel{
-	icon_state = "wood"
+	icon_state = "bcarpet05"
 	},
 /area/blueshield)
 "cak" = (
 /obj/machinery/computer/crew,
 /turf/simulated/floor/plasteel{
-	icon_state = "wood"
+	icon_state = "bcarpet05"
 	},
 /area/blueshield)
 "cal" = (
@@ -64573,7 +64583,6 @@
 	},
 /area/ai_monitored/storage/eva)
 "cyg" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/wall,
 /area/ai_monitored/storage/eva)
 "cyh" = (
@@ -64588,7 +64597,9 @@
 	},
 /obj/structure/window/reinforced,
 /obj/structure/showcase,
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/plasteel{
+	icon_state = "wood"
+	},
 /area/assembly/showroom{
 	name = "\improper Showroom"
 	})
@@ -64669,7 +64680,9 @@
 	dir = 8
 	},
 /obj/structure/showcase,
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/plasteel{
+	icon_state = "wood"
+	},
 /area/assembly/showroom{
 	name = "\improper Showroom"
 	})
@@ -105598,6 +105611,23 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"hXL" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/command/glass{
+	name = "Corporate Lounge";
+	req_one_access_txt = "19"
+	},
+/turf/simulated/floor/carpet,
+/area/assembly/showroom{
+	name = "\improper Showroom"
+	})
 "ieu" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
@@ -105618,6 +105648,17 @@
 	icon_state = "wood"
 	},
 /area/crew_quarters/heads/hop)
+"iuv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/command/glass{
+	name = "Corporate Lounge";
+	req_one_access_txt = "19"
+	},
+/turf/simulated/floor/carpet,
+/area/assembly/showroom{
+	name = "\improper Showroom"
+	})
 "jMk" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -105892,6 +105933,24 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
+"sGQ" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/carpet,
+/area/assembly/showroom{
+	name = "\improper Showroom"
+	})
+"tmY" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/carpet,
+/area/assembly/showroom{
+	name = "\improper Showroom"
+	})
 "tJP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -105985,6 +106044,18 @@
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
+/area/bridge)
+"wmN" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/bridge)
 "wvH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -144942,9 +145013,9 @@ cvD
 cxb
 cyj
 czL
-cyj
-cyj
-cxb
+sGQ
+sGQ
+hXL
 cEV
 cGz
 bsp
@@ -145681,7 +145752,7 @@ aaa
 bwh
 bxr
 byW
-byW
+wmN
 bCt
 bEg
 bFH
@@ -146484,9 +146555,9 @@ cvH
 cxc
 cyo
 czR
-cyo
-cyo
-cxc
+tmY
+tmY
+iuv
 cEX
 bqu
 cHM
