@@ -134,9 +134,6 @@ GLOBAL_PROTECT(log_end)
 /proc/log_href(text)
 	rustg_log_write(GLOB.world_href_log, "HREF: [html_decode(text)][GLOB.log_end]")
 
-/proc/log_asset(text)
-	rustg_log_write(GLOB.world_asset_log, "ASSET: [text][GLOB.log_end]")
-
 /proc/log_runtime_summary(text)
 	rustg_log_write(GLOB.runtime_summary_log, "[text][GLOB.log_end]")
 

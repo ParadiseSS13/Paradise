@@ -474,3 +474,6 @@ ENABLE_AUTO_PROFILER
 
 ## Uncomment to enable map voting
 #ENABLE_MAP_VOTING
+
+## Host for a custom 2FA server. Comment to disable. Do not use a trailing slash or https.
+#2FA_HOST http://127.0.0.1:8080
