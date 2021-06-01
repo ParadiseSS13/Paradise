@@ -1364,6 +1364,7 @@
 #include "code\hispania\modules\reagents\chemistry\recipes\slime_extracts.dm"
 #include "code\hispania\modules\reagents\reagent_containers\dropper.dm"
 #include "code\hispania\modules\reagents\reagent_containers\glass_containers.dm"
+#include "code\hispania\modules\reagents\reagent_containers\moa.dm"
 #include "code\hispania\modules\reagents\reagent_containers\syringes.dm"
 #include "code\hispania\modules\research\circuitprinter.dm"
 #include "code\hispania\modules\research\rdconsole.dm"
