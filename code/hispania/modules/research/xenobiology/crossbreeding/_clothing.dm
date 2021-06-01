@@ -100,7 +100,8 @@
 	item_state = "adamsuit"
 	flags_inv = NONE
 	slowdown = 4
-	var/hit_reflect_chance = 40
+	armor = list("melee" = 65, "bullet" = 65, "laser" = 55, "energy" = 50, "bomb" = 70, "bio" = 70, "rad" = 90, "fire" = 90, "acid" = 90)
+	var/hit_reflect_chance = 30
 	hispania_icon = TRUE
 
 /obj/item/clothing/suit/armor/heavy/adamantine/IsReflect(def_zone)
