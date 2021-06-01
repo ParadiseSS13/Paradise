@@ -88,11 +88,6 @@
 			name = active_camera.c_tag,
 			status = active_camera.status,
 		)
-	return data
-
-/obj/machinery/computer/security/ui_static_data()
-	var/list/data = list()
-	data["mapRef"] = map_name
 	var/list/cameras = get_available_cameras()
 	data["cameras"] = list()
 	for(var/i in cameras)
@@ -101,10 +96,15 @@
 			name = C.c_tag,
 			x = C.x,
 			y = C.y,
-			z = C.z
+			z = C.z,
+			status = C.status
 		))
 	return data
 
+/obj/machinery/computer/security/ui_static_data()
+	var/list/data = list()
+	data["mapRef"] = map_name
+	return data
 
 /obj/machinery/computer/security/ui_act(action, params)
 	if(..())

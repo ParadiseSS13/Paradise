@@ -105,6 +105,7 @@ export const CameraConsoleMapContent = (props, context) => {
               tooltip={cm.name}
               name={cm.name}
               color={"blue"}
+              status={cm.status}
             />
           ))}
         </NanoMap>
@@ -174,7 +175,7 @@ export const CameraConsoleOldContent = (props, context) => {
                   className={classes([
                     'Button',
                     'Button--fluid',
-                    'Button--color--transparent',
+                    camera.status ? 'Button--color--transparent' : 'Button--color--danger',
                     'Button--ellipsis',
                     activeCamera
                     && camera.name === activeCamera.name
