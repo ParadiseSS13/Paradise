@@ -11,7 +11,7 @@
 /obj/machinery/portable_atmospherics/canister/toxins{
 	destroyed = 1
 	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "ac" = (
 /turf/simulated/floor/plating/asteroid/snow/naga,
@@ -63,7 +63,7 @@
 /area/TSF_Outpost/Hallway)
 "am" = (
 /obj/structure/shuttle/engine/heater,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "an" = (
 /turf/simulated/wall/r_wall/rust,
@@ -96,7 +96,7 @@
 /area/TSF_Outpost/Docking)
 "ar" = (
 /obj/machinery/sleeper,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "as" = (
 /mob/living/simple_animal/hostile/winter/reindeer,
@@ -1862,6 +1862,7 @@
 	dir = 9;
 	level = 1
 	},
+/obj/item/trash/canned_spinach,
 /turf/simulated/floor/plasteel,
 /area/TSF_Outpost/Docking)
 "eo" = (
@@ -2744,7 +2745,7 @@
 /area/TSF_Outpost/Docking)
 "gu" = (
 /obj/machinery/vending/snack,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "gv" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -4535,6 +4536,7 @@
 "kj" = (
 /obj/structure/table,
 /obj/item/kitchen/knife,
+/obj/item/trash/canned_fishegg,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cafeteria";
@@ -4748,9 +4750,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/TSF_Outpost/Docking)
-"kF" = (
-/turf/simulated/wall/mineral/wood,
-/area/snowland/unexplored)
 "kG" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/flora/tree/dead,
@@ -4764,33 +4763,25 @@
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
-"kJ" = (
-/obj/structure/table/wood,
-/obj/item/stack/sheet/leather,
-/turf/simulated/floor/wood,
-/area/snowland/unexplored)
 "kK" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
 /turf/simulated/floor/wood,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "kL" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/wood,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "kM" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/security/wooden_tv,
 /turf/simulated/floor/wood,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "kN" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/beans,
 /turf/simulated/floor/wood,
-/area/snowland/unexplored)
-"kO" = (
-/turf/simulated/floor/wood,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "kP" = (
 /turf/simulated/floor/wood/cold,
 /area/snowland/unexplored)
@@ -4799,15 +4790,11 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "kR" = (
-/obj/machinery/door/airlock/wood,
+/obj/structure/mineral_door/wood,
 /turf/simulated/floor/wood,
-/area/snowland/unexplored)
-"kS" = (
-/obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/wood,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "kT" = (
 /mob/living/simple_animal/hostile/tree,
 /turf/simulated/floor/plating/asteroid/snow/naga,
@@ -4846,22 +4833,22 @@
 /obj/machinery/light,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "lc" = (
 /obj/item/clothing/head/bearpelt,
 /turf/simulated/floor/wood,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "ld" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/h_chocolate,
 /turf/simulated/floor/wood,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "le" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "lf" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/blood,
@@ -4878,7 +4865,7 @@
 /area/snowland/unexplored)
 "li" = (
 /turf/simulated/floor/carpet,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "lj" = (
 /obj/item/pickaxe{
 	pixel_x = 5
@@ -4887,7 +4874,7 @@
 /area/snowland/unexplored)
 "lk" = (
 /obj/machinery/vending/cola,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "ll" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -4912,7 +4899,7 @@
 /area/snowland/unexplored)
 "lo" = (
 /obj/machinery/vending/cigarette,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lp" = (
 /obj/structure/ore_box,
@@ -4920,7 +4907,7 @@
 /area/snowland/unexplored)
 "lq" = (
 /obj/machinery/vending/coffee,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lr" = (
 /obj/structure/window/reinforced,
@@ -4932,7 +4919,7 @@
 /area/snowland/unexplored)
 "ls" = (
 /obj/structure/shuttle/engine/router,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lt" = (
 /obj/structure/shuttle/engine/heater{
@@ -4940,7 +4927,7 @@
 	icon_state = "heater";
 	dir = 8
 	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lu" = (
 /obj/machinery/door/airlock/external{
@@ -4950,47 +4937,36 @@
 /area/snowland/unexplored)
 "lv" = (
 /obj/item/storage/toolbox/syndicate,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lw" = (
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/wall/indestructible/rock/snow,
 /area/snowland/unexplored)
-"lx" = (
-/obj/effect/decal/cleanable/blood,
-/turf/simulated/wall/indestructible/rock/snow,
-/area/snowland/unexplored)
 "ly" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
-/turf/simulated/wall/indestructible/rock/snow,
-/area/snowland/unexplored)
-"lz" = (
-/mob/living/simple_animal/bot/medbot/mysterious{
-	desc = "A dark little medical robot. She looks somewhat underwhelmed.";
-	name = "Nightingale"
-	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lA" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lB" = (
 /obj/structure/table,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lC" = (
 /obj/structure/table,
 /obj/item/paper/sc_safehint_paper_shuttle,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lD" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lE" = (
 /obj/structure/shuttle/engine/heater{
@@ -4998,14 +4974,14 @@
 	icon_state = "heater";
 	dir = 1
 	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lF" = (
 /turf/simulated/wall/indestructible/rock/snow,
 /area/TSF_Outpost/Exterior)
 "lG" = (
 /obj/structure/closet/emcloset,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lH" = (
 /obj/structure/table,
@@ -5014,7 +4990,7 @@
 	pixel_y = 4
 	},
 /obj/item/storage/firstaid/toxin,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lI" = (
 /obj/structure/table,
@@ -5027,7 +5003,7 @@
 	dir = 1;
 	in_use = 1
 	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lJ" = (
 /obj/structure/table,
@@ -5039,18 +5015,18 @@
 	pixel_x = -2;
 	pixel_y = 4
 	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lK" = (
 /obj/machinery/light{
 	icon_state = "tube1";
 	dir = 8
 	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lL" = (
 /mob/living/simple_animal/hostile/russian,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lM" = (
 /obj/effect/decal/cleanable/blood,
@@ -5061,7 +5037,7 @@
 	icon_state = "tube1";
 	dir = 4
 	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lO" = (
 /turf/simulated/wall/mineral/titanium,
@@ -5079,38 +5055,38 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lR" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lS" = (
 /obj/structure/table/reinforced,
 /obj/item/pen,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lT" = (
 /obj/structure/table/reinforced,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lU" = (
 /obj/machinery/computer/secure_data,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lV" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lW" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lX" = (
 /mob/living/simple_animal/hostile/skeleton/eskimo,
@@ -5120,7 +5096,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/stamp/granted,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "lZ" = (
 /obj/machinery/door/window/northright{
@@ -5131,20 +5107,20 @@
 	req_access_txt = "103"
 	},
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "ma" = (
 /mob/living/simple_animal/hostile/russian/ranged,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "mb" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "mc" = (
 /obj/structure/bed,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "md" = (
 /obj/structure/grille,
@@ -5166,7 +5142,7 @@
 	icon_state = "tube1";
 	dir = 4
 	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "mf" = (
 /obj/machinery/light{
@@ -5174,7 +5150,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "mg" = (
 /obj/machinery/light{
@@ -5184,33 +5160,33 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "mh" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Rest Room";
 	req_access_txt = "0"
 	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "mi" = (
 /mob/living/simple_animal/hostile/russian/ranged/mosin,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "mj" = (
 /obj/structure/table,
 /obj/structure/bedsheetbin,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "mk" = (
 /obj/structure/table,
 /obj/item/hand_labeler,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "ml" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "mm" = (
 /obj/machinery/door/airlock/hatch{
@@ -5222,11 +5198,11 @@
 "mn" = (
 /obj/structure/table,
 /obj/item/radio/off,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "mo" = (
 /obj/structure/filingcabinet,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "mp" = (
 /obj/structure/table,
@@ -5235,11 +5211,11 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "mq" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "mr" = (
 /obj/structure/table,
@@ -5248,22 +5224,22 @@
 	icon_state = "tube1";
 	dir = 4
 	},
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "ms" = (
 /obj/structure/computerframe,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "mt" = (
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/pen,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "mu" = (
 /obj/structure/table,
 /obj/item/paper_bin,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "mv" = (
 /obj/structure/grille,
@@ -5299,6 +5275,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/snowland/unexplored)
 "mB" = (
+/obj/effect/decal/redspacesthings/floordecals_2,
 /mob/living/simple_animal/hostile/netherworld/migo,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -5365,6 +5342,7 @@
 /area/TSF_Outpost/Hallway)
 "mK" = (
 /obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/redspacesthings/wall/walldecals_2,
 /mob/living/simple_animal/hostile/netherworld,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -5466,9 +5444,6 @@
 /obj/effect/decal/redspacesthings/wall/walldecals_3,
 /turf/simulated/wall/r_wall,
 /area/NT_Polar_Outpost/centrall_hall)
-"mZ" = (
-/turf/simulated/wall/r_wall/rust,
-/area/NT_Polar_Outpost/centrall_hall)
 "na" = (
 /obj/effect/decal/redspacesthings/wall/walldecals_3,
 /turf/simulated/wall/r_wall/rust,
@@ -5518,8 +5493,8 @@
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/centrall_hall)
 "nj" = (
-/obj/machinery/vending/cigarette,
 /obj/effect/decal/redspacesthings/floordecals_2,
+/obj/machinery/computer/nagacomputer/server2,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5604,6 +5579,7 @@
 	icon_state = "comfychair";
 	dir = 4
 	},
+/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5620,7 +5596,7 @@
 /area/NT_Polar_Outpost/gate_failure)
 "nw" = (
 /obj/effect/decal/redspacesthings/floordecals_1,
-/obj/machinery/computer/nagacomputer/server2,
+/mob/living/simple_animal/hostile/netherworld/hispanether/corruptcrew,
 /turf/simulated/floor/plating,
 /area/NT_Polar_Outpost/centrall_hall)
 "nx" = (
@@ -5634,6 +5610,7 @@
 "ny" = (
 /obj/structure/table/wood,
 /obj/item/newspaper,
+/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5641,6 +5618,7 @@
 "nz" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/cans/cola,
+/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5650,6 +5628,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5676,6 +5655,7 @@
 /area/NT_Polar_Outpost/centrall_hall)
 "nD" = (
 /obj/structure/table/wood,
+/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5683,6 +5663,7 @@
 "nE" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/ripley_build_and_repair,
+/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5691,6 +5672,7 @@
 /obj/structure/chair/comfy/beige{
 	dir = 8
 	},
+/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5740,6 +5722,7 @@
 	},
 /area/NT_Polar_Outpost/centrall_hall)
 "nL" = (
+/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5793,6 +5776,7 @@
 	dir = 1;
 	icon_state = "comfychair"
 	},
+/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5803,6 +5787,7 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
+/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5816,6 +5801,7 @@
 	pixel_x = 4;
 	pixel_y = 2
 	},
+/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5867,19 +5853,6 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
-	},
-/area/NT_Polar_Outpost/centrall_hall)
-"oa" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/camera{
-	c_tag = "Arrivals";
-	dir = 8;
-	network = list("UO45")
-	},
-/obj/effect/decal/redspacesthings/floordecals_2,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
 	},
 /area/NT_Polar_Outpost/centrall_hall)
 "ob" = (
@@ -6071,6 +6044,7 @@
 /area/NT_Polar_Outpost/centrall_hall)
 "oz" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/centrall_hall)
 "oA" = (
@@ -6093,6 +6067,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/centrall_hall)
 "oD" = (
@@ -6206,14 +6181,6 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/centrall_hall)
-"oT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/redspacesthings/floordecals_3,
-/obj/machinery/computer/nagacomputer/second,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/NT_Polar_Outpost/research)
 "oU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/damageturf,
@@ -7098,11 +7065,6 @@
 	pixel_x = 0;
 	pixel_y = -24
 	},
-/obj/machinery/camera{
-	c_tag = "Central Hallway";
-	dir = 1;
-	network = list("UO45")
-	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/centrall_hall)
@@ -7267,12 +7229,14 @@
 /area/NT_Polar_Outpost/centrall_hall)
 "re" = (
 /obj/structure/spawner/netherbreach,
+/obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/NT_Polar_Outpost/centrall_hall)
 "rf" = (
 /obj/structure/flora/ausbushes/brflowers,
+/obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/grass,
 /area/NT_Polar_Outpost/centrall_hall)
 "rg" = (
@@ -7371,6 +7335,7 @@
 /area/NT_Polar_Outpost/centrall_hall)
 "rr" = (
 /obj/structure/flora/ausbushes/ywflowers,
+/obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/grass,
 /area/NT_Polar_Outpost/centrall_hall)
 "rs" = (
@@ -7822,11 +7787,6 @@
 	},
 /area/NT_Polar_Outpost/centrall_hall)
 "so" = (
-/obj/machinery/camera{
-	c_tag = "Hydroponics";
-	dir = 1;
-	network = list("UO45")
-	},
 /obj/machinery/power/apc/noalarm{
 	cell_type = 15000;
 	dir = 2;
@@ -7966,6 +7926,7 @@
 "sy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/redspacesthings/floordecals_1,
+/obj/effect/decal/redspacesthings/wall/walldecals_2,
 /turf/simulated/wall/r_wall,
 /area/NT_Polar_Outpost/centrall_hall)
 "sz" = (
@@ -7990,6 +7951,7 @@
 "sB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/redspacesthings/floordecals_1,
+/obj/effect/decal/redspacesthings/wall/walldecals_2,
 /turf/simulated/wall/r_wall/rust,
 /area/NT_Polar_Outpost/centrall_hall)
 "sC" = (
@@ -8015,6 +7977,7 @@
 /area/NT_Polar_Outpost/centrall_hall)
 "sD" = (
 /obj/effect/decal/redspacesthings/floordecals_1,
+/obj/effect/decal/redspacesthings/wall/walldecals_2,
 /turf/simulated/wall/r_wall,
 /area/NT_Polar_Outpost/centrall_hall)
 "sE" = (
@@ -8224,9 +8187,6 @@
 	icon_state = "white"
 	},
 /area/NT_Polar_Outpost/research)
-"tb" = (
-/turf/simulated/wall,
-/area/NT_Polar_Outpost/gate_failure)
 "tc" = (
 /obj/effect/decal/redspacesthings/wall/walldecals_2,
 /obj/effect/decal/redspacesthings/wall/walldecals_3,
@@ -8258,11 +8218,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/camera{
-	c_tag = "Research Lab";
-	dir = 2;
-	network = list("UO45","UO45R")
-	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -8285,12 +8240,6 @@
 	icon_state = "white"
 	},
 /area/NT_Polar_Outpost/research)
-"ti" = (
-/obj/item/gps/computer{
-	gpstag = "SOS"
-	},
-/turf/simulated/floor/pod/dark,
-/area/awaymission/research)
 "tj" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -9218,11 +9167,9 @@
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/gate_failure)
 "uV" = (
-/obj/structure/table,
-/obj/item/radio/off,
-/obj/item/radio/off,
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/redspacesthings/floordecals_3,
+/obj/machinery/computer/nagacomputer/second,
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/gate_failure)
 "uW" = (
@@ -9389,11 +9336,6 @@
 	pixel_x = -23;
 	pixel_y = 0;
 	req_access = null
-	},
-/obj/machinery/camera{
-	c_tag = "Gateway Chamber";
-	dir = 4;
-	network = list("UO45","UO45R")
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_3,
@@ -9705,6 +9647,7 @@
 "vW" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/spawner/netherbreach,
+/obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/grass,
 /area/NT_Polar_Outpost/centrall_hall)
 "vX" = (
@@ -9757,11 +9700,6 @@
 	pixel_x = 23;
 	pixel_y = 0;
 	req_access = null
-	},
-/obj/machinery/camera{
-	c_tag = "Kitchen";
-	dir = 8;
-	network = list("UO45")
 	},
 /obj/structure/table,
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -9849,11 +9787,6 @@
 /turf/simulated/floor/plating,
 /area/NT_Polar_Outpost/gate_failure)
 "wj" = (
-/obj/machinery/camera{
-	c_tag = "Bar";
-	dir = 8;
-	network = list("UO45")
-	},
 /obj/structure/table/reinforced,
 /obj/effect/decal/redspacesthings/floordecals_1,
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -10481,11 +10414,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/camera{
-	c_tag = "Gateway Ready Room";
-	dir = 2;
-	network = list("UO45","UO45R")
-	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/gate_failure)
@@ -10980,11 +10908,6 @@
 	pixel_x = 0;
 	pixel_y = -24
 	},
-/obj/machinery/camera{
-	c_tag = "Research Division East";
-	dir = 1;
-	network = list("UO45","UO45R")
-	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -11227,6 +11150,11 @@
 	icon_state = "white"
 	},
 /area/NT_Polar_Outpost/research)
+"yn" = (
+/obj/item/stack/sheet/leather,
+/mob/living/simple_animal/hostile/skeleton/eskimo,
+/turf/simulated/floor/wood,
+/area/snowland/explored)
 "yo" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -13366,9 +13294,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/NT_Polar_Outpost/crew)
-"BX" = (
-/turf/simulated/wall/rust,
-/area/NT_Polar_Outpost/crew)
 "BY" = (
 /obj/effect/decal/redspacesthings/floordecals_2,
 /obj/structure/spawner/netherbreach,
@@ -13441,11 +13366,6 @@
 "Cd" = (
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Atmospherics";
-	dir = 2;
-	network = list("UO45")
 	},
 /obj/structure/table,
 /obj/item/clothing/gloves/color/yellow,
@@ -16442,11 +16362,6 @@
 /obj/machinery/vending/engivend{
 	req_access_txt = "0"
 	},
-/obj/machinery/camera{
-	c_tag = "Engineering Foyer";
-	dir = 1;
-	network = list("UO45")
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/engineering)
@@ -16920,11 +16835,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Mining";
-	dir = 4;
-	network = list("UO45")
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/mining)
@@ -17110,6 +17020,7 @@
 /area/NT_Polar_Outpost/crew)
 "If" = (
 /obj/effect/decal/cleanable/blood,
+/obj/effect/decal/redspacesthings/wall/walldecals_4,
 /turf/simulated/wall,
 /area/NT_Polar_Outpost/research)
 "Ig" = (
@@ -17937,7 +17848,7 @@
 	},
 /area/NT_Polar_Outpost/engineering)
 "Kh" = (
-/obj/machinery/computer/nagacomputer/server,
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "neutralfull"
@@ -19314,29 +19225,6 @@
 /obj/structure/mineral_door/meatdoor,
 /turf/simulated/floor/plating,
 /area/NT_Polar_Outpost/research)
-"MS" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/camera{
-	c_tag = "Dormitories";
-	dir = 2;
-	network = list("UO45")
-	},
-/obj/effect/decal/redspacesthings/floordecals_2,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/NT_Polar_Outpost/crew)
 "MT" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -20485,96 +20373,234 @@
 "PQ" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/wood,
-/area/snowland/unexplored)
+/area/snowland/explored)
+"Qa" = (
+/mob/living/simple_animal/hostile/winter/reindeer,
+/turf/simulated/floor/plating/asteroid/snow/naga,
+/area/snowland/explored)
 "Qb" = (
 /obj/item/seeds/corn,
 /turf/simulated/floor/plating/asteroid/snow/naga,
-/area/snowland/unexplored)
+/area/snowland/explored)
+"Qh" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/snow/naga,
+/area/snowland/explored)
+"Qs" = (
+/obj/item/trash/canned_tomato,
+/mob/living/simple_animal/hostile/skeleton/eskimo,
+/turf/simulated/floor/wood,
+/area/snowland/explored)
 "Qu" = (
 /obj/item/gun/projectile/shotgun/boltaction,
 /turf/simulated/floor/carpet,
-/area/snowland/unexplored)
+/area/snowland/explored)
+"Qz" = (
+/obj/item/stack/sheet/leather,
+/turf/simulated/floor/wood,
+/area/snowland/explored)
 "QA" = (
 /obj/structure/table/wood,
 /obj/structure/bedsheetbin,
 /turf/simulated/floor/wood,
-/area/snowland/unexplored)
+/area/snowland/explored)
+"QD" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plating/asteroid/snow/naga,
+/area/snowland/explored)
+"QJ" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/wood,
+/area/snowland/explored)
+"QK" = (
+/obj/item/trash/empty_jar,
+/turf/simulated/floor/plasteel,
+/area/TSF_Outpost/Docking)
+"QM" = (
+/obj/item/stack/sheet/cloth/ten,
+/turf/simulated/floor/wood,
+/area/snowland/explored)
 "QQ" = (
 /obj/item/seeds/grape,
 /turf/simulated/floor/plating/asteroid/snow/naga,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "QT" = (
 /obj/effect/decal/cleanable/insectguts,
 /turf/simulated/floor/wood,
+/area/snowland/explored)
+"QZ" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/mineral/random/labormineral,
 /area/snowland/unexplored)
+"Rg" = (
+/mob/living/simple_animal/bot/medbot/mysterious{
+	desc = "A dark little medical robot. She looks somewhat underwhelmed.";
+	name = "Nightingale"
+	},
+/turf/simulated/floor/pod/dark,
+/area/awaymission/research)
 "Ri" = (
 /obj/structure/sink/puddle,
 /turf/simulated/floor/plating/asteroid/snow/naga,
-/area/snowland/unexplored)
+/area/snowland/explored)
+"Rn" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/snowland/explored)
+"Rv" = (
+/obj/item/bedsheet/blue,
+/obj/structure/bed,
+/mob/living/simple_animal/hostile/skeleton/eskimo,
+/turf/simulated/floor/wood,
+/area/snowland/explored)
 "RN" = (
 /obj/item/flashlight/flare,
 /turf/simulated/floor/plating/asteroid/snow/naga,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "RR" = (
 /obj/item/chair/wood,
 /turf/simulated/floor/plating/asteroid/snow/naga,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "RT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel,
 /area/TSF_Outpost/Hallway)
+"Sb" = (
+/obj/structure/spawner/netherbreach,
+/turf/simulated/floor/beach/sand,
+/area/NT_Polar_Outpost)
 "Sk" = (
 /turf/simulated/wall/r_wall/rust,
 /area/snowland/unexplored)
 "Sn" = (
 /obj/effect/decal/cleanable/confetti,
 /turf/simulated/floor/wood,
-/area/snowland/unexplored)
+/area/snowland/explored)
+"Ss" = (
+/obj/structure/ore_box,
+/turf/simulated/floor/plating/asteroid/snow/naga,
+/area/snowland/explored)
+"SG" = (
+/obj/structure/flora/ausbushes/brflowers,
+/obj/effect/decal/redspacesthings/floordecals_1,
+/obj/effect/decal/redspacesthings/floordecals_1,
+/turf/simulated/floor/grass,
+/area/NT_Polar_Outpost/centrall_hall)
+"SH" = (
+/obj/item/trash/canned_spinach,
+/turf/simulated/floor/wood,
+/area/snowland/explored)
+"SM" = (
+/obj/structure/bonfire,
+/turf/simulated/floor/wood,
+/area/snowland/explored)
+"SY" = (
+/obj/effect/decal/cleanable/blood,
+/obj/item/trash/canned_tomato,
+/turf/simulated/floor/pod/dark,
+/area/awaymission/research)
 "Tb" = (
 /obj/effect/decal/cleanable/insectguts,
 /turf/simulated/floor/plating/asteroid/snow/naga,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "Tc" = (
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plating/asteroid/snow/naga,
-/area/snowland/unexplored)
+/area/snowland/explored)
+"Td" = (
+/obj/machinery/computer/nagacomputer/server,
+/turf/simulated/floor/plating,
+/area/NT_Polar_Outpost/engineering)
+"Tn" = (
+/obj/structure/flora/bush,
+/turf/simulated/floor/plating/asteroid/snow/naga,
+/area/snowland/explored)
+"Ty" = (
+/obj/structure/flora/rock/icy,
+/turf/simulated/floor/plating/asteroid/snow/naga,
+/area/snowland/explored)
 "TB" = (
 /obj/item/seeds/prickly_pear,
 /turf/simulated/floor/plating/asteroid/snow/naga,
-/area/snowland/unexplored)
+/area/snowland/explored)
+"TW" = (
+/obj/effect/decal/cleanable/blood,
+/mob/living/simple_animal/hostile/skeleton/eskimo,
+/turf/simulated/floor/wood,
+/area/snowland/explored)
+"Ud" = (
+/obj/structure/flora/rock/pile/icy,
+/turf/simulated/floor/plating/asteroid/snow/naga,
+/area/snowland/explored)
 "Ug" = (
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/carpet,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "Uj" = (
 /obj/item/reagent_containers/glass/bucket/wooden,
 /turf/simulated/floor/plating/asteroid/snow/naga,
-/area/snowland/unexplored)
+/area/snowland/explored)
+"UD" = (
+/obj/structure/flora/grass/both,
+/turf/simulated/floor/plating/asteroid/snow/naga,
+/area/snowland/explored)
+"UJ" = (
+/turf/simulated/wall/indestructible/rock/snow,
+/area/snowland/explored)
+"Vr" = (
+/obj/structure/flora/tree/dead,
+/turf/simulated/floor/plating/asteroid/snow/naga,
+/area/snowland/explored)
 "Vv" = (
 /obj/item/flashlight/flare,
 /turf/simulated/floor/carpet,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "VC" = (
 /obj/item/flashlight/lantern,
 /turf/simulated/floor/plating/asteroid/snow/naga,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "VP" = (
 /obj/item/ammo_box/a762,
 /turf/simulated/floor/wood,
+/area/snowland/explored)
+"VX" = (
+/obj/item/trash/canned_fishegg,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 "Wj" = (
 /obj/structure/decorative_structures/flammable/grandfather_clock,
 /turf/simulated/floor/wood,
-/area/snowland/unexplored)
+/area/snowland/explored)
+"Wo" = (
+/obj/effect/decal/cleanable/blood,
+/obj/item/trash/canned_food,
+/turf/simulated/floor/pod/dark,
+/area/awaymission/research)
+"Wr" = (
+/obj/structure/flora/bush/naga_bush,
+/turf/simulated/floor/plating/asteroid/snow/naga,
+/area/snowland/explored)
 "Wt" = (
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/plating/asteroid/snow/naga,
-/area/snowland/unexplored)
+/area/snowland/explored)
+"Wv" = (
+/obj/item/trash/canned_food,
+/turf/simulated/floor/pod/dark,
+/area/awaymission/research)
 "WA" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/carpet,
+/area/snowland/explored)
+"WC" = (
+/obj/machinery/door/airlock/centcom,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
+"WK" = (
+/obj/item/trash/danitos,
+/turf/simulated/floor/plasteel,
+/area/TSF_Outpost/Docking)
 "WQ" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/structure/barricade/wooden/crude/snow,
@@ -20586,22 +20612,98 @@
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
+"Xm" = (
+/obj/item/trash/sosjerky,
+/turf/simulated/floor/pod/dark,
+/area/awaymission/research)
+"Xv" = (
+/turf/simulated/floor/wood,
+/area/snowland/explored)
+"XE" = (
+/turf/simulated/wall/mineral/wood,
+/area/snowland/explored)
+"XN" = (
+/obj/structure/flora/tree/pine,
+/turf/simulated/floor/plating/asteroid/snow/naga,
+/area/snowland/explored)
+"XQ" = (
+/obj/item/trash/canned_carpegg,
+/turf/simulated/floor/pod/dark,
+/area/awaymission/research)
+"XV" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "burst_l";
+	tag = "icon-burst_l (EAST)"
+	},
+/turf/simulated/floor/plating/asteroid/snow/naga,
+/area/snowland/unexplored)
+"Yq" = (
+/obj/effect/decal/cleanable/confetti,
+/obj/structure/bonfire,
+/turf/simulated/floor/wood,
+/area/snowland/explored)
 "Yr" = (
 /obj/item/seeds/kiwi,
 /turf/simulated/floor/plating/asteroid/snow/naga,
-/area/snowland/unexplored)
-"YG" = (
-/obj/effect/decal/remains/human,
+/area/snowland/explored)
+"Yx" = (
+/obj/structure/table/wood,
+/obj/item/stack/sheet/leather,
 /turf/simulated/floor/wood,
+/area/snowland/explored)
+"YO" = (
+/turf/simulated/floor/plating/asteroid/snow/naga,
+/area/snowland/explored)
+"YP" = (
+/mob/living/simple_animal/hostile/skeleton/eskimo,
+/turf/simulated/floor/wood,
+/area/snowland/explored)
+"YR" = (
+/obj/item/trash/donitos,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria";
+	tag = "icon-cafeteria (NORTHEAST)"
+	},
+/area/TSF_Outpost/Kitchen)
+"YS" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/wood,
+/area/snowland/explored)
+"YV" = (
+/obj/structure/flora/bush,
+/mob/living/simple_animal/hostile/winter/reindeer,
+/turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
+"Ze" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	color = "red";
+	desc = "Your instincts say you shouldn't be following these.";
+	dir = 4;
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "tracks"
+	},
+/obj/item/trash/canned_food,
+/turf/simulated/floor/pod/dark,
+/area/awaymission/research)
 "Zg" = (
 /obj/structure/bonfire,
 /turf/simulated/floor/plating/asteroid/snow/naga,
-/area/snowland/unexplored)
+/area/snowland/explored)
 "Zk" = (
 /obj/item/chair/wood,
 /turf/simulated/floor/wood,
-/area/snowland/unexplored)
+/area/snowland/explored)
+"Zl" = (
+/obj/item/trash/canned_fishegg,
+/turf/simulated/floor/pod/dark,
+/area/awaymission/research)
+"Zr" = (
+/obj/item/bedsheet/blue,
+/obj/structure/bed,
+/turf/simulated/floor/wood,
+/area/snowland/explored)
 "ZD" = (
 /obj/structure/flora/bush,
 /obj/structure/flora/bush/naga_bush,
@@ -20609,6 +20711,16 @@
 /area/snowland/unexplored)
 "ZE" = (
 /obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/asteroid/snow/naga,
+/area/snowland/explored)
+"ZQ" = (
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/plating/asteroid/snow/naga,
+/area/snowland/explored)
+"ZU" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	req_access_txt = "101"
+	},
 /turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
 
@@ -20877,7 +20989,7 @@ mx
 mx
 mx
 mx
-ac
+mx
 ac
 ac
 ac
@@ -21134,7 +21246,7 @@ mx
 mx
 ac
 ac
-ac
+mx
 ac
 ac
 ac
@@ -21391,7 +21503,7 @@ ac
 au
 ac
 ac
-ac
+mx
 ac
 ac
 ac
@@ -21648,7 +21760,7 @@ ac
 ac
 ac
 ac
-ac
+mx
 au
 ac
 ac
@@ -21905,7 +22017,7 @@ ac
 ac
 ac
 ac
-ac
+mx
 ac
 be
 ac
@@ -22160,9 +22272,9 @@ mx
 ac
 ad
 ac
+mx
 ac
-ac
-ac
+mx
 ac
 ac
 bd
@@ -22413,13 +22525,13 @@ mx
 "}
 (8,1,1) = {"
 mx
+mx
+mx
+mx
+mx
+mx
 ac
-ac
-ac
-ac
-ac
-ac
-ad
+mx
 ac
 ac
 bd
@@ -22670,8 +22782,8 @@ mx
 "}
 (9,1,1) = {"
 mx
-ac
-ac
+mx
+mx
 ac
 ac
 ac
@@ -22927,7 +23039,7 @@ mx
 "}
 (10,1,1) = {"
 mx
-ac
+mx
 ac
 ac
 ag
@@ -24335,10 +24447,10 @@ ac
 ac
 ag
 ac
-kF
-kF
-kF
-kF
+XE
+XE
+XE
+XE
 ac
 ac
 ac
@@ -24592,10 +24704,10 @@ ac
 ac
 ac
 ac
-kF
-kS
-kO
-kF
+XE
+YS
+Xv
+XE
 ac
 ac
 ac
@@ -24688,7 +24800,7 @@ fs
 aY
 jA
 jn
-jA
+YR
 jQ
 ae
 bw
@@ -24849,10 +24961,10 @@ ac
 ac
 ac
 ac
-kF
+XE
 lc
-kS
-kF
+YS
+XE
 ac
 ac
 ac
@@ -25106,10 +25218,10 @@ ac
 ac
 ac
 ac
-kF
-kO
-kO
-kF
+XE
+Xv
+Xv
+XE
 ai
 ac
 ac
@@ -25363,10 +25475,10 @@ ac
 ac
 ac
 ac
-kF
-kS
-kO
-kS
+XE
+YS
+Xv
+YS
 ai
 ai
 ac
@@ -25593,7 +25705,7 @@ ac
 ac
 ac
 ac
-ac
+mM
 ac
 ac
 ac
@@ -25620,10 +25732,10 @@ ac
 ac
 ac
 ac
-kF
-kF
-kF
-kF
+XE
+XE
+XE
+XE
 ai
 ac
 ac
@@ -25849,9 +25961,9 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
+mM
+mM
+mM
 ac
 ac
 ac
@@ -26105,11 +26217,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+mM
+mM
+mM
+mM
+mM
 ac
 ac
 ac
@@ -26235,7 +26347,7 @@ kC
 aB
 bB
 dz
-aB
+QK
 eb
 aB
 dP
@@ -26363,9 +26475,9 @@ ac
 ac
 aj
 ac
-ac
-ac
-ac
+mM
+mM
+mM
 ac
 ac
 ac
@@ -26494,7 +26606,7 @@ by
 dA
 aB
 ec
-aB
+WK
 ez
 aB
 dN
@@ -26621,7 +26733,7 @@ ai
 ac
 ac
 ac
-ac
+mM
 ac
 ac
 ac
@@ -27519,7 +27631,7 @@ ko
 aB
 aB
 bD
-aB
+WK
 aB
 ee
 en
@@ -29619,11 +29731,11 @@ ac
 ac
 lO
 lO
-aa
-aa
-aa
-aa
-aa
+XV
+XV
+XV
+XV
+XV
 lO
 lO
 ac
@@ -29881,7 +29993,7 @@ ls
 ls
 ls
 lE
-mx
+ac
 lO
 ac
 ac
@@ -30132,13 +30244,13 @@ ac
 bZ
 ac
 lO
-mx
-mx
+ac
+ac
 lt
 lt
 lt
-mx
-mx
+ac
+ac
 lO
 ac
 ac
@@ -30390,11 +30502,11 @@ ac
 ac
 lO
 lO
-mx
+ac
 lv
-mx
+ac
 ly
-mx
+ac
 lO
 lO
 ac
@@ -30649,7 +30761,7 @@ ac
 lO
 lO
 lO
-lw
+WC
 lO
 lO
 lO
@@ -30905,9 +31017,9 @@ ac
 ac
 ac
 lO
-mx
-mx
-mx
+ac
+ac
+ac
 lO
 ac
 ac
@@ -31162,9 +31274,9 @@ lO
 lO
 lO
 lO
-mx
-mx
-mx
+ac
+ac
+ac
 lO
 lO
 lO
@@ -31416,15 +31528,15 @@ ac
 ac
 ac
 lO
-mx
-mx
-mx
-mx
-mx
-mx
-mx
-mx
-mx
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
 ac
 ac
 ac
@@ -31674,13 +31786,13 @@ bf
 ac
 lO
 lO
-mx
+ac
 ar
-mx
-lx
-mx
-mx
-mx
+ac
+ai
+ac
+ac
+ac
 lO
 ac
 ac
@@ -31931,12 +32043,12 @@ ac
 ac
 ac
 lO
-mx
+ac
 ar
-mx
-mx
-mx
-mx
+ac
+ac
+ac
+ac
 lO
 lO
 ac
@@ -32188,12 +32300,12 @@ ac
 ac
 ac
 lO
-mx
+ac
 gu
-mx
-mx
-lz
-mx
+ac
+ac
+ac
+ac
 lO
 ac
 ac
@@ -32445,16 +32557,16 @@ ac
 lO
 aa
 aa
-mx
+ac
 lk
-mx
-mx
+ac
+ac
 lA
 lA
-mx
+ac
 aa
 ac
-mx
+ac
 ac
 ac
 ac
@@ -32702,13 +32814,13 @@ ac
 lO
 lO
 tx
-mx
+ac
 lo
-mx
-mx
+ac
+ac
 lB
 lB
-mx
+ac
 lt
 lO
 ac
@@ -32959,14 +33071,14 @@ ac
 lO
 lO
 II
-mx
+ac
 lq
-mx
-mx
+ac
+ac
 lC
-mx
-mx
-lO
+ac
+ac
+ac
 lO
 ac
 ac
@@ -33216,13 +33328,13 @@ ag
 ac
 lO
 lO
-mx
-mx
-mx
-lx
+ac
+ac
+ac
+ai
 lD
 lD
-mx
+ac
 ac
 ac
 cO
@@ -33473,13 +33585,13 @@ ac
 ac
 ac
 lO
-mx
-mx
-mx
-mx
-mx
-mx
-mx
+ac
+ac
+ac
+ac
+ac
+ac
+ac
 ac
 ac
 Ip
@@ -33730,13 +33842,13 @@ ac
 ac
 ac
 lO
-mx
-mx
-mx
-mx
-mx
-mx
-mx
+ac
+ac
+ac
+ac
+ac
+ac
+ac
 ac
 ac
 ac
@@ -33987,13 +34099,13 @@ ac
 ac
 bZ
 lO
-mx
-mx
+ac
+ac
 lO
 lw
 lO
-mx
-mx
+ac
+ac
 bZ
 ac
 cO
@@ -34247,7 +34359,7 @@ lO
 lO
 lO
 lO
-mx
+ac
 lO
 lO
 lO
@@ -34504,8 +34616,8 @@ ac
 lM
 ac
 ac
-mx
-mx
+ac
+ac
 ac
 ac
 Ip
@@ -34761,8 +34873,8 @@ cO
 ac
 Ip
 ac
-mx
-mx
+ac
+ac
 ac
 IH
 Ip
@@ -35017,9 +35129,9 @@ ac
 ac
 ac
 nf
-mx
-lx
-mx
+ac
+ai
+ac
 bf
 ac
 ac
@@ -35274,8 +35386,8 @@ cC
 ac
 nf
 Iq
-mx
-mx
+ac
+ac
 ac
 Ip
 Ip
@@ -38818,7 +38930,7 @@ ac
 ac
 ac
 ac
-ac
+mM
 ac
 ac
 ac
@@ -39074,9 +39186,9 @@ ac
 Pn
 ac
 ac
-ac
-ac
-ac
+mM
+mM
+mM
 ac
 ac
 ac
@@ -39330,11 +39442,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+mM
+mM
+mM
+mM
+mM
 ac
 ac
 ac
@@ -39588,9 +39700,9 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
+mM
+mM
+mM
 ac
 ac
 ac
@@ -39846,7 +39958,7 @@ ai
 ac
 ac
 ac
-ac
+mM
 ac
 ac
 ac
@@ -39996,11 +40108,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ad
+XE
+XE
+XE
+XE
+XE
 ac
 ac
 bd
@@ -40253,17 +40365,17 @@ ac
 ac
 ac
 ac
+XE
+Zr
+TW
+Rn
+XE
+ac
+WR
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+WR
 ac
 ac
 ac
@@ -40510,11 +40622,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+XE
+Zr
+Xv
+Yx
+XE
 ac
 ac
 ac
@@ -40767,11 +40879,11 @@ aj
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+XE
+Rv
+Xv
+Rn
+XE
 ac
 ac
 ad
@@ -41024,11 +41136,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-Pn
+XE
+Qz
+YS
+YS
+XE
 ac
 ac
 ac
@@ -41281,11 +41393,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+XE
+Xv
+QM
+YP
+ZQ
 ac
 ac
 ac
@@ -41538,11 +41650,11 @@ ac
 ac
 ac
 aj
-ac
-ac
-ac
-ac
-ac
+XE
+YS
+SM
+YS
+XE
 ac
 ac
 ac
@@ -41795,14 +41907,14 @@ ac
 ac
 ai
 ac
+XE
+Qz
+TW
+QM
+XE
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
+WR
 ac
 ac
 ac
@@ -42052,11 +42164,11 @@ ac
 ac
 ac
 ac
-ac
-be
-ac
-ac
-ac
+XE
+XE
+XE
+XE
+XE
 ac
 ac
 ac
@@ -42237,7 +42349,7 @@ ac
 ac
 ac
 ac
-ac
+mM
 ac
 ac
 ac
@@ -42493,9 +42605,9 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
+mM
+mM
+mM
 ac
 ac
 ac
@@ -42749,11 +42861,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+mM
+mM
+mM
+mM
+mM
 ac
 ac
 ac
@@ -43007,9 +43119,9 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
+mM
+mM
+mM
 ac
 ac
 ac
@@ -43157,11 +43269,11 @@ be
 ac
 aj
 ac
-ac
-ac
-ac
-ac
-ac
+XE
+XE
+XE
+XE
+XE
 ac
 ac
 aj
@@ -43265,7 +43377,7 @@ ac
 ac
 ac
 ac
-ac
+mM
 ac
 ac
 ac
@@ -43414,11 +43526,11 @@ ac
 bd
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+XE
+Zr
+YS
+Rn
+XE
 ac
 ac
 ac
@@ -43671,11 +43783,11 @@ ac
 bd
 ac
 Pn
-ac
-ac
-ac
-ac
-ac
+XE
+Zr
+Qs
+Yx
+XE
 be
 ac
 ac
@@ -43928,17 +44040,17 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+XE
+Zr
+Xv
+Rn
+XE
 ac
 ac
 bd
 ac
 ac
-ac
+lp
 ac
 ac
 ac
@@ -44185,11 +44297,11 @@ ac
 ac
 ac
 ag
-ac
-ac
-ac
-ac
-ac
+XE
+Qz
+TW
+YS
+XE
 ac
 ac
 ac
@@ -44201,7 +44313,7 @@ ac
 ac
 ac
 ai
-ai
+QZ
 ac
 ac
 ac
@@ -44442,11 +44554,11 @@ ac
 ac
 aj
 ac
-ac
-ac
-ac
-ac
-ac
+XE
+Xv
+QM
+SH
+ZQ
 ac
 ac
 ac
@@ -44457,9 +44569,9 @@ ac
 ac
 ac
 ac
-ai
-ac
-ac
+QZ
+mM
+mM
 bd
 ac
 ac
@@ -44699,11 +44811,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+XE
+TW
+SM
+YS
+XE
 ac
 ac
 ad
@@ -44713,11 +44825,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+mM
+mM
+mM
+mM
+mM
 ac
 bd
 ac
@@ -44956,11 +45068,11 @@ ac
 ac
 ac
 ac
-ac
-bd
-ac
-ac
-ac
+XE
+Qz
+TW
+QM
+XE
 ac
 ac
 ag
@@ -44969,13 +45081,13 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+mM
+mM
+mM
+mM
+mM
+mM
+mM
 ac
 ac
 ac
@@ -45213,11 +45325,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+XE
+XE
+XE
+XE
+XE
 ac
 ac
 ac
@@ -45227,11 +45339,11 @@ au
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+mM
+mM
+mM
+mM
+mM
 ac
 ac
 ac
@@ -45485,9 +45597,9 @@ be
 ac
 aj
 ac
-ac
-ac
-ac
+mM
+mM
+mM
 ac
 ac
 ac
@@ -45734,6 +45846,7 @@ ac
 ac
 ac
 ac
+lp
 ac
 ac
 ac
@@ -45742,8 +45855,7 @@ ac
 ac
 ac
 ac
-ac
-ac
+mM
 ac
 ac
 ac
@@ -50580,11 +50692,11 @@ ac
 ac
 ac
 ac
-ai
-ac
-ac
-ac
-ac
+XE
+XE
+XE
+XE
+XE
 ac
 ac
 ac
@@ -50837,11 +50949,11 @@ ac
 ac
 ac
 aj
-ac
-ac
-ac
-be
-ac
+XE
+Zr
+YS
+Rn
+XE
 ac
 ac
 aj
@@ -51094,11 +51206,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+XE
+Zr
+YP
+Yx
+XE
 ac
 ac
 ac
@@ -51351,11 +51463,11 @@ ac
 ac
 ac
 ag
-ac
-ac
-ac
-ac
-ac
+XE
+Zr
+Xv
+Rn
+XE
 ac
 ac
 ag
@@ -51608,16 +51720,16 @@ ac
 ac
 ac
 ac
+XE
+yn
+YS
+TW
+XE
+ac
+lp
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+WR
 ac
 ac
 ac
@@ -51865,11 +51977,11 @@ ac
 ac
 ac
 ac
-ac
-ad
-ac
-ac
-ac
+XE
+Xv
+QM
+Xv
+ZQ
 ac
 ac
 ac
@@ -52122,13 +52234,13 @@ ac
 ac
 ac
 ac
+XE
+YS
+SM
+YS
+XE
 ac
-ag
-ac
-ac
-ac
-ac
-ac
+WR
 ac
 ac
 ac
@@ -52379,11 +52491,11 @@ au
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-au
+XE
+Qz
+TW
+QM
+XE
 ac
 ac
 ac
@@ -52636,11 +52748,11 @@ ac
 be
 ac
 aj
-ac
-ac
-ac
-ac
-ac
+XE
+XE
+XE
+XE
+XE
 be
 ac
 aj
@@ -55289,13 +55401,13 @@ ac
 ac
 ac
 ac
-kF
-kF
-kF
-kF
-kF
-kF
-kF
+XE
+XE
+XE
+XE
+XE
+XE
+XE
 ac
 ac
 Pp
@@ -55546,13 +55658,13 @@ ac
 ac
 ac
 ac
-kF
-kO
-kS
-kO
-kO
-kO
-kF
+XE
+Xv
+YS
+Xv
+Xv
+Xv
+XE
 au
 ac
 ac
@@ -55803,13 +55915,13 @@ ac
 Pn
 ac
 ac
-kF
+XE
 kK
 kK
-kF
-kO
-kS
-kF
+XE
+Xv
+YS
+XE
 ac
 be
 ac
@@ -56028,7 +56140,7 @@ ac
 be
 ll
 lr
-mx
+ac
 lK
 lO
 ac
@@ -56060,13 +56172,13 @@ ac
 ac
 ac
 aj
-kF
-kF
-kF
-kF
-kO
-kO
-kF
+XE
+XE
+XE
+XE
+Xv
+Xv
+XE
 Pt
 ac
 OH
@@ -56285,8 +56397,8 @@ ac
 ac
 lm
 lr
-mx
-mx
+ac
+ac
 lO
 lO
 lO
@@ -56317,11 +56429,11 @@ ac
 ac
 ac
 ac
-kF
+XE
 kL
 lc
-kS
-kS
+YS
+YS
 li
 kR
 ac
@@ -56542,19 +56654,19 @@ ac
 ac
 ln
 lr
-mx
-mx
-lP
-mx
-mx
+ac
+ac
+ZU
+ac
+ac
 lO
 ac
 lO
 mA
 ai
-mx
-mx
-mx
+ac
+ac
+ac
 ac
 ac
 ac
@@ -56574,11 +56686,11 @@ ac
 ad
 ac
 ai
-kF
+XE
 kM
 kQ
 kQ
-kS
+YS
 li
 kR
 ac
@@ -56799,9 +56911,9 @@ ac
 ag
 ac
 lO
-mx
-mx
-mx
+ac
+ac
+ac
 lQ
 lU
 lO
@@ -56831,13 +56943,13 @@ ac
 ac
 ac
 ai
-kF
+XE
 kN
-kJ
+Yx
 ld
-kO
-kO
-kF
+Xv
+Xv
+XE
 ac
 ac
 ac
@@ -57057,17 +57169,17 @@ ac
 ac
 lO
 lG
-mx
-lx
+ac
+ai
 lR
 lV
 lO
 lO
 lO
-lx
-lx
-mx
-lx
+ai
+ai
+ac
+ai
 ma
 lO
 lO
@@ -57088,13 +57200,13 @@ ac
 ac
 ac
 ac
-kF
+XE
 kL
-kO
+Xv
 le
-kO
+Xv
 lb
-kF
+XE
 ag
 ac
 ac
@@ -57313,17 +57425,17 @@ ac
 ac
 ac
 lu
-mx
-lx
-mx
+ac
+ai
+ac
 lS
 lW
-mx
+ac
 lO
-mx
+ac
 mc
 me
-mx
+ac
 mc
 mc
 lO
@@ -57345,13 +57457,13 @@ ac
 ac
 ag
 ac
-kF
+XE
 kL
-kO
-kS
-kO
-kO
-kF
+Xv
+YS
+Xv
+Xv
+XE
 ac
 ac
 ac
@@ -57572,20 +57684,20 @@ ac
 lO
 lH
 lL
-mx
+ac
 lT
 lY
 lT
 lZ
-mx
-mx
-mx
+ac
+ac
+ac
 mh
-mx
-mx
+ac
+ac
 lO
 lD
-mx
+ac
 ac
 LP
 ac
@@ -57602,13 +57714,13 @@ ac
 ac
 ac
 bd
-kF
-kF
-kF
-kF
-kF
-kF
-kF
+XE
+XE
+XE
+XE
+XE
+XE
+XE
 Pu
 OG
 ac
@@ -57828,20 +57940,20 @@ ac
 ac
 lO
 lI
-mx
-mx
-mx
-mx
-mx
+ac
+ac
+ac
+ac
+ac
 ma
-mx
-mx
+ac
+ac
 mf
-mx
-mx
-mx
+ac
+ac
+ac
 mm
-mx
+ac
 mq
 ms
 mv
@@ -58085,21 +58197,21 @@ aj
 ac
 lO
 lJ
-mx
-mx
-lx
-mx
+ac
+ac
+ai
+ac
 lD
 lD
-mx
+ac
 lD
 lD
-mx
-mx
+ac
+ac
 mj
 lO
 lW
-mx
+ac
 mt
 mv
 ac
@@ -58341,18 +58453,18 @@ bd
 ac
 ac
 lu
-mx
-lx
-lx
-mx
-mx
+ac
+ai
+ai
+ac
+ac
 lA
 lA
-mx
+ac
 lA
 lA
 mi
-lx
+ai
 mk
 lO
 mo
@@ -58599,17 +58711,17 @@ ac
 ac
 lO
 lG
-mx
-mx
-mx
-lx
+ac
+ac
+ac
+ai
 lL
-mx
-mx
-mx
-mx
-mx
-mx
+ac
+ac
+ac
+ac
+ac
+ac
 ml
 lO
 lO
@@ -58861,12 +58973,12 @@ mA
 lD
 lD
 lD
-mx
+ac
 lD
 lD
 mg
-mx
-mx
+ac
+ac
 lG
 lO
 ac
@@ -59112,10 +59224,10 @@ ac
 ac
 ll
 lr
-mx
-mx
+ac
+ac
 lP
-mx
+ac
 lO
 lO
 lu
@@ -59369,10 +59481,10 @@ ac
 ac
 lm
 lr
-mx
-mx
+ac
+ac
 lO
-mx
+ac
 lO
 ac
 ac
@@ -59475,7 +59587,7 @@ va
 vv
 vV
 mU
-tb
+vj
 xh
 uW
 yJ
@@ -59626,7 +59738,7 @@ aj
 ac
 ln
 lr
-mx
+ac
 lN
 lO
 lO
@@ -60364,11 +60476,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+XE
+XE
+XE
+XE
+XE
 ac
 ac
 kG
@@ -60621,11 +60733,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-bd
+XE
+Zr
+YS
+Rn
+XE
 ac
 ac
 ac
@@ -60878,11 +60990,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+XE
+Zr
+YP
+Yx
+XE
 ac
 ac
 ac
@@ -61135,11 +61247,11 @@ ac
 ac
 ac
 ac
-ac
-ad
-ac
-ac
-bd
+XE
+Rv
+QJ
+Rn
+XE
 ac
 ac
 ac
@@ -61392,11 +61504,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+XE
+Qz
+YS
+YS
+XE
 ac
 bd
 ac
@@ -61649,11 +61761,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+XE
+YP
+QM
+Xv
+ZQ
 ac
 ac
 ac
@@ -61794,7 +61906,7 @@ Ao
 sK
 sK
 sK
-sK
+Sb
 sK
 mP
 mP
@@ -61906,11 +62018,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ag
-ac
-ac
+XE
+YS
+SM
+YS
+XE
 aj
 ac
 ac
@@ -62163,11 +62275,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+XE
+Qz
+TW
+QM
+XE
 ac
 ac
 ac
@@ -62299,7 +62411,7 @@ sa
 sK
 sa
 sK
-sK
+Sb
 JO
 uj
 wC
@@ -62420,11 +62532,11 @@ ac
 ac
 ac
 aj
-ac
-ac
-ac
-ac
-ac
+XE
+XE
+XE
+XE
+XE
 ac
 ac
 ac
@@ -64350,7 +64462,7 @@ mP
 mP
 zG
 sP
-oT
+ta
 tF
 ut
 uN
@@ -67692,7 +67804,7 @@ mP
 sK
 sK
 sK
-sK
+Sb
 sK
 sK
 sK
@@ -68711,7 +68823,7 @@ rd
 ru
 rJ
 sd
-mZ
+On
 to
 tP
 Or
@@ -69723,7 +69835,7 @@ ns
 ns
 nJ
 nP
-oa
+nP
 of
 tr
 oV
@@ -70251,7 +70363,7 @@ ql
 qN
 qP
 vW
-rf
+SG
 qP
 sH
 tq
@@ -70272,7 +70384,7 @@ zV
 GM
 AN
 Dv
-BX
+Nu
 LQ
 MP
 Gk
@@ -70284,7 +70396,7 @@ sK
 sK
 sK
 sK
-sK
+Sb
 sK
 sK
 sK
@@ -70529,7 +70641,7 @@ Az
 AR
 Bw
 Ea
-BX
+Nu
 MM
 MQ
 Na
@@ -71045,7 +71157,7 @@ Nu
 yA
 yT
 Nz
-MS
+MW
 Nc
 EB
 KC
@@ -71544,7 +71656,7 @@ sw
 vI
 sK
 sK
-sK
+Sb
 sK
 sK
 sK
@@ -75459,7 +75571,7 @@ kU
 kU
 kU
 ac
-bd
+YV
 ac
 ac
 ai
@@ -75927,7 +76039,7 @@ zM
 sK
 sK
 sK
-sK
+Sb
 sK
 sK
 sK
@@ -76453,7 +76565,7 @@ GU
 Bv
 LY
 sK
-sK
+Sb
 sK
 sK
 sK
@@ -76482,7 +76594,7 @@ mP
 mM
 mx
 mx
-ac
+as
 hY
 sN
 IZ
@@ -76741,11 +76853,11 @@ mx
 mx
 ac
 hY
-ti
+sN
 IW
 Jc
 IW
-IW
+Wv
 Jn
 hY
 ac
@@ -76999,11 +77111,11 @@ mx
 ac
 hY
 FG
-IW
+Xm
 IZ
 OI
 IZ
-Jn
+Ze
 hY
 ac
 ac
@@ -77256,7 +77368,7 @@ mx
 ac
 hY
 IT
-IW
+XQ
 Jd
 IW
 Jl
@@ -77515,14 +77627,14 @@ hY
 IT
 IW
 Je
-IZ
+SY
 Je
 Jp
 qW
 kW
 kV
-ac
-ac
+VX
+as
 ac
 ac
 ai
@@ -78029,7 +78141,7 @@ hY
 IU
 IW
 IW
-IZ
+Wo
 IW
 IW
 hY
@@ -78040,7 +78152,7 @@ ac
 ac
 ac
 ac
-ac
+as
 ac
 ac
 ac
@@ -78280,7 +78392,7 @@ mP
 mx
 mx
 ac
-ac
+as
 ac
 rO
 IU
@@ -78671,27 +78783,27 @@ ac
 aj
 ac
 ac
-kF
-kF
-kF
-kF
-kF
-kF
-kF
-kF
-kF
-kF
-kF
-kF
-kF
-kF
-kF
-kF
-kF
-kF
-kF
-mx
-mx
+XE
+XE
+XE
+XE
+XE
+XE
+XE
+XE
+XE
+XE
+XE
+XE
+XE
+XE
+XE
+XE
+XE
+XE
+XE
+UJ
+UJ
 mx
 "}
 (227,1,1) = {"
@@ -78797,12 +78909,12 @@ ac
 ac
 ac
 hY
-IW
+sN
 IZ
 IW
 IW
-IW
-IW
+Zl
+Rg
 hY
 ac
 ac
@@ -78928,27 +79040,27 @@ bd
 ac
 ac
 ac
-kF
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-mx
-mx
-mx
+XE
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+UJ
+UJ
+UJ
 mx
 "}
 (228,1,1) = {"
@@ -79185,27 +79297,27 @@ bd
 ac
 ac
 ac
-kF
-ac
-Pn
-ac
-ac
-Pn
-ac
-ac
-ac
-ag
-ac
-ac
-aj
-ac
-ac
-ac
-ac
-ac
-ac
-mx
-mx
+XE
+YO
+Wr
+YO
+YO
+Wr
+YO
+YO
+YO
+XN
+YO
+YO
+Vr
+YO
+YO
+YO
+YO
+YO
+Ss
+UJ
+UJ
 mx
 "}
 (229,1,1) = {"
@@ -79308,7 +79420,7 @@ ac
 ac
 ac
 ac
-ac
+as
 ac
 hY
 hY
@@ -79442,27 +79554,27 @@ ac
 ac
 ac
 ac
-kF
-ac
-ac
-ac
-ac
-ad
-ac
-ac
-ac
-kF
-kF
-kF
-kF
-kF
-kF
-kF
-ac
-as
-ac
-ac
-mx
+XE
+YO
+YO
+YO
+YO
+Ud
+YO
+YO
+YO
+XE
+XE
+XE
+XE
+XE
+XE
+XE
+YO
+Qa
+YO
+YO
+UJ
 mx
 "}
 (230,1,1) = {"
@@ -79575,7 +79687,7 @@ ac
 ac
 ac
 ac
-ac
+as
 ac
 ac
 ac
@@ -79699,27 +79811,27 @@ ac
 ac
 ac
 Pp
-kF
-ac
+XE
+YO
 Zg
-ac
-ac
-ag
-ac
-ac
-ac
-kF
+YO
+YO
+XN
+YO
+YO
+YO
+XE
 VP
-kS
-kO
-kO
-kO
-kF
-ac
-ac
+YS
+Xv
+Xv
+Xv
+XE
+YO
+YO
 Zg
-ac
-ac
+YO
+YO
 mx
 "}
 (231,1,1) = {"
@@ -79956,27 +80068,27 @@ ac
 aj
 ac
 ac
-kF
-ac
-ac
+XE
+YO
+YO
 RR
-ac
+YO
 Tb
-ac
-ac
-ac
-kF
+YO
+YO
+YO
+XE
 kK
 kK
-kF
+XE
 Sn
-kS
-kF
-ac
-ac
-ac
-ac
-ac
+YS
+XE
+YO
+YO
+YO
+YO
+YO
 mx
 "}
 (232,1,1) = {"
@@ -80084,7 +80196,7 @@ ac
 ac
 ag
 ac
-ac
+as
 ac
 ac
 ac
@@ -80213,27 +80325,27 @@ ac
 ac
 ac
 ac
-ac
-ac
+ZQ
+YO
 ZE
-ac
-ac
-ac
+YO
+YO
+YO
 ZE
-ac
-ad
-kF
-kF
-kF
-kF
-YG
+YO
+Ud
+XE
+XE
+XE
+XE
+QJ
 Sn
-kF
+XE
 VC
-ac
-ac
+YO
+YO
 TB
-ac
+YO
 mx
 "}
 (233,1,1) = {"
@@ -80470,27 +80582,27 @@ ac
 ad
 ac
 ac
-ac
-ac
+ZQ
+YO
 RN
-ac
+YO
 Tc
-ac
-ac
-ac
-ag
-kF
+YO
+YO
+YO
+XN
+XE
 kL
 lc
-kS
-kS
+YS
+YS
 WA
 kR
-ac
-ac
-ad
-ac
-ac
+YO
+YO
+Ud
+YO
+YO
 mx
 "}
 (234,1,1) = {"
@@ -80550,7 +80662,7 @@ mP
 mP
 Bz
 xE
-yd
+Td
 yd
 za
 zE
@@ -80607,7 +80719,7 @@ ac
 ac
 ac
 ac
-ac
+as
 ac
 ac
 ac
@@ -80727,27 +80839,27 @@ ac
 ac
 ac
 ac
-kF
-ac
-ac
+XE
+YO
+YO
 ZE
-ac
-ac
-ac
-ac
-ac
-kF
+YO
+YO
+YO
+YO
+YO
+XE
 kM
 kQ
 kQ
-kS
+YS
 Ug
 kR
-ac
-ac
-ag
+YO
+YO
+XN
 QQ
-ac
+YO
 mx
 "}
 (235,1,1) = {"
@@ -80984,27 +81096,27 @@ ac
 ac
 ac
 Pm
-kF
-ac
-bd
+XE
+YO
+Tn
 Tb
-ac
-ac
-Pn
-ac
-ac
-kF
+YO
+YO
+Wr
+YO
+YO
+XE
 QA
-kJ
+Yx
 ld
-Sn
+Yq
 QT
-kF
-ac
-ac
-ac
-ac
-bd
+XE
+YO
+YO
+YO
+YO
+Tn
 mx
 "}
 (236,1,1) = {"
@@ -81241,27 +81353,27 @@ ac
 ac
 ac
 ac
-kF
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-kF
+XE
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+XE
 kL
 Sn
 le
 PQ
 lb
-kF
-ac
+XE
+YO
 Wt
-ac
+YO
 Wt
-ac
+YO
 mx
 "}
 (237,1,1) = {"
@@ -81498,27 +81610,27 @@ ac
 ac
 ac
 ac
-kF
-ac
-ac
-Pn
+XE
+YO
+YO
+Wr
 Tc
-ac
-ac
+YO
+YO
 Tc
 Tb
-kF
+XE
 kL
 Zk
-kS
-kO
-kO
-kF
-ac
+YS
+Xv
+Xv
+XE
+YO
 Wt
 Uj
 Wt
-ac
+YO
 mx
 "}
 (238,1,1) = {"
@@ -81755,27 +81867,27 @@ ac
 Pn
 ac
 ac
-kF
-ac
-ac
-ac
-ac
-ac
-aj
-ac
-ac
-kF
-kF
-kF
-kF
-kF
-kF
-kF
+XE
+YO
+YO
+YO
+YO
+YO
+Vr
+YO
+YO
+XE
+XE
+XE
+XE
+XE
+XE
+XE
 Qb
 Wt
-ac
+YO
 Wt
-ac
+YO
 mx
 "}
 (239,1,1) = {"
@@ -82012,23 +82124,23 @@ ac
 ac
 ac
 aj
-kF
-ac
-ac
-ac
-ac
-ai
-ac
-ac
-WR
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+XE
+YO
+YO
+YO
+YO
+Qh
+YO
+YO
+QD
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
 Wt
 Ri
 Wt
@@ -82269,27 +82381,27 @@ ac
 aj
 ai
 ac
-kF
-ac
-ac
-ac
-ac
-ac
-ac
+XE
+YO
+YO
+YO
+YO
+YO
+YO
 Tb
-ac
-ac
-ac
-ag
-ac
-ac
-aj
-ac
+YO
+YO
+YO
+XN
+YO
+YO
+Vr
+YO
 Tc
 Wt
 Qb
 Wt
-ac
+YO
 mx
 "}
 (241,1,1) = {"
@@ -82526,27 +82638,27 @@ ac
 ac
 ac
 ac
-kF
-be
-ac
-Pn
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+XE
+UD
+YO
+Wr
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
 Wt
-ac
+YO
 Wt
-ac
+YO
 mx
 "}
 (242,1,1) = {"
@@ -82783,27 +82895,27 @@ ac
 ag
 ac
 ac
-kF
-ac
-kF
-kF
-kF
-kF
-kF
-kF
-kF
-ac
-ac
-ac
-ac
-ac
-ac
-ag
+XE
+YO
+XE
+XE
+XE
+XE
+XE
+XE
+XE
+YO
+YO
+YO
+YO
+YO
+YO
+XN
 Yr
 Wt
 Uj
 Wt
-ac
+YO
 mx
 "}
 (243,1,1) = {"
@@ -83040,27 +83152,27 @@ ac
 ac
 ac
 ac
-kF
-ac
-kF
-kO
-kS
-kO
-kO
-kO
-kF
-ac
-ac
+XE
+YO
+XE
+Xv
+YS
+Xv
+Xv
+Xv
+XE
+YO
+YO
 RR
 Zg
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
 mx
 "}
 (244,1,1) = {"
@@ -83297,27 +83409,27 @@ ac
 ac
 ac
 ac
-kF
-ac
-kF
+XE
+YO
+XE
 kK
 kK
-kF
+XE
 PQ
-kS
-kF
-ad
-ac
-ac
-ac
+YS
+XE
+Ud
+YO
+YO
+YO
 Tb
-ac
-ac
-bd
-ac
-ac
-ac
-ac
+YO
+YO
+Tn
+YO
+YO
+YO
+YO
 mx
 "}
 (245,1,1) = {"
@@ -83554,27 +83666,27 @@ ac
 ac
 ac
 ad
-kF
-ac
-kF
-kF
-kF
-kF
-YG
-kO
-kF
-ag
-ac
-ac
-ac
-as
-ac
+XE
+YO
+XE
+XE
+XE
+XE
+QJ
+Xv
+XE
+XN
+YO
+YO
+YO
+Qa
+YO
 Tc
-ac
-ac
-ac
-ad
-ac
+YO
+YO
+YO
+Ud
+YO
 mx
 "}
 (246,1,1) = {"
@@ -83811,27 +83923,27 @@ ac
 ac
 ac
 ag
-kF
-ac
-kF
+XE
+YO
+XE
 kL
 lc
-kS
-kS
+YS
+YS
 Vv
 kR
-ac
+YO
 Tc
-WR
-au
-ac
-ac
-ac
-ac
-ac
-ac
-ag
-ac
+QD
+Ty
+YO
+YO
+YO
+YO
+YO
+YO
+XN
+YO
 mx
 "}
 (247,1,1) = {"
@@ -84068,27 +84180,27 @@ ac
 aj
 ac
 ac
-kF
-ac
-kF
+XE
+YO
+XE
 Wj
 kQ
 kQ
-kS
+YS
 Qu
 kR
-ac
-ac
-ac
-ac
-be
-ac
-aj
-ac
-ac
-ac
-ac
-ac
+YO
+YO
+YO
+YO
+UD
+YO
+Vr
+YO
+YO
+YO
+YO
+YO
 mx
 "}
 (248,1,1) = {"
@@ -84325,27 +84437,27 @@ bd
 ac
 ac
 ac
-kF
-ac
-kF
+XE
+YO
+XE
 kN
-kJ
+Yx
 ld
-kO
-kO
-kF
+SM
+Xv
+XE
 VC
-ac
-Pn
-ac
-ac
-bd
-ac
-ac
-ac
-ac
-ac
-ac
+YO
+Wr
+YO
+YO
+Tn
+YO
+YO
+YO
+YO
+YO
+YO
 mx
 "}
 (249,1,1) = {"
@@ -84582,27 +84694,27 @@ bd
 ac
 ac
 ac
-kF
-ac
-kF
+XE
+YO
+XE
 kL
-kO
+Xv
 le
 QT
 lb
-kF
-ac
-ac
-ad
-ac
-ac
-bd
-ac
-ac
-ac
-ac
-ac
-mx
+XE
+YO
+YO
+Ud
+YO
+YO
+Tn
+YO
+YO
+YO
+YO
+YO
+UJ
 mx
 "}
 (250,1,1) = {"
@@ -84839,27 +84951,27 @@ ac
 ac
 Pn
 ac
-kF
-ad
-kF
+XE
+Ud
+XE
 kL
-kO
-kS
-kO
-kO
-kF
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-mx
-mx
+Xv
+YS
+Xv
+Xv
+XE
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+UJ
+UJ
 mx
 "}
 (251,1,1) = {"
@@ -85096,27 +85208,27 @@ ac
 ac
 ac
 ac
-kF
-ac
-kF
-kF
-kF
-kF
-kF
-kF
-kF
-as
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-mx
-mx
-mx
+XE
+YO
+XE
+XE
+XE
+XE
+XE
+XE
+XE
+Qa
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+UJ
+UJ
+UJ
 mx
 "}
 (252,1,1) = {"
@@ -85353,27 +85465,27 @@ ac
 aj
 ac
 ac
-kF
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ag
-ac
-ac
-aj
-ac
-mx
-mx
-mx
-mx
+XE
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+XN
+YO
+YO
+Vr
+YO
+UJ
+UJ
+UJ
+UJ
 mx
 "}
 (253,1,1) = {"
@@ -85610,27 +85722,27 @@ ac
 ac
 ac
 ac
-kF
-ac
-ag
-ac
-ac
-aj
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-mx
-mx
-mx
-mx
+XE
+YO
+XN
+YO
+YO
+Vr
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+UJ
+UJ
+UJ
+UJ
 mx
 "}
 (254,1,1) = {"
@@ -85867,27 +85979,27 @@ ac
 ac
 ac
 ac
-kF
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-mx
-mx
-mx
-mx
-mx
-mx
+XE
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 mx
 "}
 (255,1,1) = {"
