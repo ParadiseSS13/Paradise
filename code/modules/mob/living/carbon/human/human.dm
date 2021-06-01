@@ -178,6 +178,16 @@
 		if(locate(/obj/item/assembly/health) in total_user_contents)
 			stat(null, "Health: [health]")
 
+		if(internal)
+			if(!internal.air_contents)
+				qdel(internal)
+			else if(client?.prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL)
+				stat(null, "Internals Tank Connected")
+			else
+				stat("Internal Atmosphere Info", internal.name)
+				stat("Tank Pressure", internal.air_contents.return_pressure())
+				stat("Distribution Pressure", internal.distribute_pressure)
+
 		// I REALLY need to split up status panel things into datums
 		var/mob/living/simple_animal/borer/B = has_brain_worms()
 		if(B && B.controlling)

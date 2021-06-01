@@ -55,6 +55,7 @@
 // Yes I know this being an "enable to disable" is misleading, but it avoids having to tweak all existing pref entries
 #define PREFTOGGLE_2_REVERB_DISABLE	512
 #define PREFTOGGLE_2_FORCE_WHITE_RUNECHAT	1024
+#define PREFTOGGLE_2_SIMPLE_STAT_PANEL	2048
 
 #define TOGGLES_2_TOTAL 			2047 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
