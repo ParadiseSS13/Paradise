@@ -349,7 +349,7 @@
 	prefs.save_preferences(src)
 	to_chat(src, "Your runechats will [(prefs.toggles2 & PREFTOGGLE_2_FORCE_WHITE_RUNECHAT) ? "no longer" : "now"] be forced to be white.")
 
-/client/verb/toggle_simple_stat_pa()
+/client/verb/toggle_simple_stat_panel()
 	set name = "Toggle Simple Status Panel"
 	set category = "Preferences"
 	set desc = "Toggles detailed information on the status panel"
