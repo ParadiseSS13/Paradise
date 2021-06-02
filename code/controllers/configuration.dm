@@ -278,9 +278,6 @@
 	// Enable map voting
 	var/map_voting_enabled = FALSE
 
-	// 2FA auth host
-	var/_2fa_auth_host = null
-
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -778,8 +775,6 @@
 					auto_profile = TRUE
 				if("enable_map_voting")
 					map_voting_enabled = TRUE
-				if("2fa_host")
-					_2fa_auth_host = value
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 

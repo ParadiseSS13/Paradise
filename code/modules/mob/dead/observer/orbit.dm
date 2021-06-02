@@ -66,7 +66,7 @@
 		if(istype(M))
 			if(isnewplayer(M))  // People in the lobby screen; only have their ckey as a name.
 				continue
-			if(isobserver(M) && M.client)
+			if(isobserver(M))
 				ghosts += list(serialized)
 			else if(M.mind == null)
 				npcs += list(serialized)
