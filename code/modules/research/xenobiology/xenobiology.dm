@@ -188,7 +188,7 @@
 		return
 	if(being_used || !ismob(M))
 		return
-	if(!isanimal(M) || M.ckey) //only works on animals that aren't player controlled
+	if(!isanimal(M) || M.mind) //only works on animals that aren't player controlled
 		to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
 		return ..()
 	if(M.stat)

@@ -205,6 +205,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/gear_tab = "General"
 	// Parallax
 	var/parallax = PARALLAX_HIGH
+	/// 2FA status
+	var/_2fa_status = _2FA_DISABLED
 	/// Do we want to force our runechat colour to be white?
 	var/force_white_runechat = FALSE
 
@@ -448,6 +450,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			// LEFT SIDE OF THE PAGE
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>General Settings</h2>"
+			dat += "<b>2FA Setup:</b> <a href='?_src_=prefs;preference=edit_2fa'>[_2fastatus_to_text()]</a><br>"
 			if(user.client.holder)
 				dat += "<b>Adminhelp sound:</b> <a href='?_src_=prefs;preference=hear_adminhelps'><b>[(sound & SOUND_ADMINHELP)?"On":"Off"]</b></a><br>"
 			dat += "<b>AFK Cryoing:</b> <a href='?_src_=prefs;preference=afk_watch'>[(toggles2 & PREFTOGGLE_2_AFKWATCH) ? "Yes" : "No"]</a><br>"
@@ -1434,7 +1437,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(S.autohiss_basic_map)
 						var/list/autohiss_choice = list("Off" = AUTOHISS_OFF, "Basic" = AUTOHISS_BASIC, "Full" = AUTOHISS_FULL)
 						var/new_autohiss_pref = input(user, "Choose your character's auto-accent level:", "Character Preference") as null|anything in autohiss_choice
-						autohiss_mode = autohiss_choice[new_autohiss_pref]
+						if(new_autohiss_pref)
+							autohiss_mode = autohiss_choice[new_autohiss_pref]
 
 				if("metadata")
 					var/new_metadata = input(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference" , metadata)  as message|null
@@ -2142,6 +2146,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
+
+				if("edit_2fa")
+					// Do this async so we arent holding up a topic() call
+					INVOKE_ASYNC(user.client, /client.proc/edit_2fa)
+					return // We return here to avoid focus being lost
 
 
 	ShowChoices(user)
