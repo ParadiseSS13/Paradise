@@ -147,6 +147,9 @@
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
+		if(!is_used_species_available(client.prefs.species))
+			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
+			return FALSE
 		ready = !ready
 		new_player_panel_proc()
 
@@ -213,6 +216,9 @@
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
+		if(!is_used_species_available(client.prefs.species))
+			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
+			return
 		if(client.prefs.species in GLOB.whitelisted_species)
 
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
@@ -232,6 +238,10 @@
 
 		if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 			client.prefs.load_random_character_slot(client)
+
+		if(!is_used_species_available(client.prefs.species))
+			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
+			return
 
 		if(client.prefs.species in GLOB.whitelisted_species)
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
@@ -284,6 +294,14 @@
 		return 1
 	else
 		return 0
+
+/mob/new_player/proc/is_used_species_available(species)
+	var/list/available_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
+	available_species += GLOB.whitelisted_species
+	if(species in available_species)
+		return TRUE
+	else
+		return FALSE
 
 /mob/new_player/proc/IsERTSpawnJob(rank)
 	var/datum/job/job = SSjobs.GetJob(rank)
