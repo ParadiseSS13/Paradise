@@ -64,6 +64,7 @@
 	var/move_delay = 2
 	var/next_move = 0
 	var/can_paint = TRUE
+	var/unique_model = FALSE //Hispania Models
 
 /obj/spacepod/proc/apply_paint(mob/user as mob)
 	var/part_type

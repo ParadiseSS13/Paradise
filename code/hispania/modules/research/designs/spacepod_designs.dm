@@ -54,13 +54,35 @@
 
 /datum/design/reinforced_plates_spacepod
 	construction_time = 100
-	name = "Spacepod Reinforced Plates"
-	desc = "A bunch of plates that can be install near the engine to make it more robust."
-	id = "podmisc_tracker"
-	req_tech = list("materials" = 5)
+	name = "Spacepod Reinforced Engine"
+	desc = "A bunch of plates that can be install near the engine to make it more robust but slower."
+	id = "pod_plates_spacepod"
+	req_tech = list("materials" = 5, "combat" = 4, "engineering" = 4)
 	build_type = PODFAB
 	materials = list(MAT_METAL=5000, MAT_SILVER = 2000)
-	build_path = /obj/item/spacepod_equipment/misc/spacepod_plates
+	build_path = /obj/item/fluff/plates_spacepod
+	category = list("Pod_Parts")
+
+/datum/design/modified_engine
+	construction_time = 100
+	name = "Spacepod Modified Engine"
+	desc = "A bunch of diagrams on how to make it faster but more easy to break."
+	id = "pod_enginelight_spacepod"
+	req_tech = list("materials" = 5, "combat" = 4, "engineering" = 4)
+	build_type = PODFAB
+	materials = list(MAT_METAL=5000, MAT_SILVER = 2000, ,MAT_BLUESPACE = 1000)
+	build_path = /obj/item/fluff/plates_spacepod/velocity
+	category = list("Pod_Parts")
+
+/datum/design/basic_engine
+	construction_time = 100
+	name = "Spacepod Standard Engine"
+	desc = "A bunch of diagrams on how to revert any changes to your engine."
+	id = "pod_standard_spacepod"
+	req_tech = list("materials" = 5, "combat" = 4, "engineering" = 4)
+	build_type = PODFAB
+	materials = list(MAT_METAL=5000)
+	build_path = /obj/item/fluff/plates_spacepod/basic_engine
 	category = list("Pod_Parts")
 
 //////////////////////////////////////////
