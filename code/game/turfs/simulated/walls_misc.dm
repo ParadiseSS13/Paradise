@@ -69,9 +69,6 @@
 	QDEL_NULL(realappearance)
 	return ..()
 
-/turf/simulated/wall/clockwork/ReplaceWithLattice()
-	..()
-
 /turf/simulated/wall/clockwork/narsie_act()
 	..()
 	if(istype(src, /turf/simulated/wall/clockwork)) //if we haven't changed type

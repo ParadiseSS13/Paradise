@@ -176,9 +176,6 @@
 		QDEL_NULL(realappearence)
 	return ..()
 
-/turf/simulated/floor/clockwork/ReplaceWithLattice()
-	. = ..()
-
 /turf/simulated/floor/clockwork/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
