@@ -34,7 +34,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			return
 	var/tctext = input(src, "How much TC do you want to give each team member? Suggested: 20-30. They cannot trade TC.") as num
 	var/tcamount = text2num(tctext)
-	tcamount = between(0, tcamount, 1000)
+	tcamount = clamp(tcamount, 0, 1000)
 	if(GLOB.sent_syndicate_infiltration_team == 1)
 		if(alert("A Syndicate Infiltration Team has already been sent. Sure you want to send another?",,"Yes","No")=="No")
 			return
