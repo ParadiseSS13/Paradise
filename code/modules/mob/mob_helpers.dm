@@ -512,7 +512,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 /**
   * Checks if a mob's ghost can reenter their body or not. Used to check for DNR or AntagHUD.
   *
-  * Returns FALSE if the ghost can't reenter the body, and TRUE if they can.
+  * Returns FALSE if there is a ghost, and it can't reenter the body. Returns TRUE otherwise.
   */
 /mob/proc/ghost_can_reenter()
 	var/mob/dead/observer/ghost = get_ghost(TRUE)
