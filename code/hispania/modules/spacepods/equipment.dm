@@ -55,6 +55,12 @@
 ///////////////////////////////////////
 */
 
+/obj/item/spacepod_equipment/misc/spacepod_plates
+	name = "spacepod reinforced plates"
+	desc = "A bunch of plates that can be install near the engine to make it more robust."
+	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon_state = "mecha_abooster_ccw"
+
 /*
 ///////////////////////////////////////
 /////////Cargo System//////////////////

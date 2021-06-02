@@ -52,6 +52,16 @@
 //////SPACEPOD MISC. ITEMS////////////////
 //////////////////////////////////////////
 
+/datum/design/reinforced_plates_spacepod
+	construction_time = 100
+	name = "Spacepod Reinforced Plates"
+	desc = "A bunch of plates that can be install near the engine to make it more robust."
+	id = "podmisc_tracker"
+	req_tech = list("materials" = 5)
+	build_type = PODFAB
+	materials = list(MAT_METAL=5000, MAT_SILVER = 2000)
+	build_path = /obj/item/spacepod_equipment/misc/spacepod_plates
+	category = list("Pod_Parts")
 
 //////////////////////////////////////////
 //////SPACEPOD CARGO ITEMS////////////////
