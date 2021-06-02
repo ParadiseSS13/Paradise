@@ -794,11 +794,9 @@
 	id = "NT-BLANK"
 	altername = "Пустой бланк для любых целей"
 	category = "Общие формы"
-	is_header_needed = FALSE
-	footer = footer_signstamp
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Основная информация</B></font></center><BR><table></td><tr><td>Имя заявителя:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта заявителя:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Заявление</B></font></center><BR><span class=\"paper_field\"></span><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись заявителя:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись Главы Персонала:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись (дополнительная):<td><span class=\"paper_field\"></span></font>"
+	footer = null
 
-/obj/item/paper/form/NT_BLANK/New()
-	info = "<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\"><span class=\"paper_field\"></span></font></td><tr><td></td><tr><td><B><font size=\"4\"><span class=\"paper_field\"></span></font></B></td><tr><td><table></td><tr><td>Научная Станция Nanotrasen &#34;[GLOB.map_name]&#34;<td><span class=\"paper_field\"></span></td></tr></table></td></tr></table></td></tr></table><center><font size = \"1\"><span class=\"paper_field\"></span></font></center><BR><HR><BR></font>"
 
 /obj/item/paper/form/NT_REQ_01
 	name = "Форма NT-REQ-01"
@@ -807,6 +805,9 @@
 	category = "Общие формы"
 	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Сторона запроса</B></font></center><BR><table></td><tr><td>Имя запросившего:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Способ получения:<BR><font size = \"1\">Предпочитаемый способ</font><td><span class=\"paper_field\"></span><BR></td><tr><td><BR>Причина запроса:<BR><span class=\"paper_field\"></span><BR><BR></td><tr><td>Список запроса:<BR><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Сторона поставки</B></font></center><BR><table></td><tr><td>Имя поставщика:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Способ доставки:<BR><font size = \"1\">Утверждённый способ</font><td><span class=\"paper_field\"></span><BR></td><tr><td><BR>Комментарии:<BR><span class=\"paper_field\"></span><BR><BR></td><tr><td>Список поставки и цены:<BR><span class=\"paper_field\"></span><BR><BR></td><tr><td>Итоговая стоимость:<BR><font size = \"1\">Пропустите, если бесплатно</font><td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись стороны запроса:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись стороны поставки:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись Главы (если требуется):<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
 	footer = footer_signstamp
+
+/obj/item/paper/form/NT_REQ_01/cargo
+	category = "Отдел снабжения"
 
 /obj/item/paper/form/NT_E_112
 	name = "Форма NT-E-112"
@@ -1023,6 +1024,14 @@
 	category = "Медицинский отдел"
 	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Основная информация</B></font></center><BR><table></td><tr><td>Скончавшийся:<td><span class=\"paper_field\"></span><BR></td><tr><td>Раса:<td><span class=\"paper_field\"></span><BR></td><tr><td>Пол:<td><span class=\"paper_field\"></span><BR></td><tr><td>Возраст:<td><span class=\"paper_field\"></span><BR></td><tr><td>Группа крови:<td><span class=\"paper_field\"></span><BR></td><tr><td>Должность:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Отчёт о вскрытии</B></font></center><BR><table></td><tr><td>Тип смерти:<td><span class=\"paper_field\"></span><BR></td><tr><td>Описание тела:<td><span class=\"paper_field\"></span><BR></td><tr><td>Метки и раны:<td><span class=\"paper_field\"></span><BR></td><tr><td>Вероятная причина смерти:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR>Детали:<BR><span class=\"paper_field\"></span><BR><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Вскрытие провёл:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
 	footer = footer_signstamp
+
+/obj/item/paper/form/NT_SUP_01
+	name = "Форма NT-SUP-01"
+	id = "NT-SUP-01"
+	altername = "Регистрационная форма для подтверждения заказа"
+	category = "Отдел снабжения"
+	info = "<font face=\"Verdana\" color=black><center><H3>Отдел снабжения</H3></center><center><B>Регистрационная форма для подтверждения заказа</B></center><BR>Имя заявителя: <span class=\"paper_field\"></span><BR>Должность заявителя: <span class=\"paper_field\"></span><BR>Подробное объяснение о необходимости заказа: <span class=\"paper_field\"></span><BR><BR>Время: <span class=\"paper_field\"></span><BR>Подпись заявителя: <span class=\"paper_field\"></span><BR>Подпись руководителя: <span class=\"paper_field\"></span><BR>Подпись сотрудника снабжения: <span class=\"paper_field\"></span><BR><HR><center><font size = \"1\"><I>Данная форма является приложением для оригинального автоматического документа, полученного с рук заявителя. Для подтверждения заказа заявителя необходимы указанные подписи и соответствующие печати отдела по заказу.<BR></font>"
+	footer = null
 
 /obj/item/paper/deltainfo
 	name = "Информационный буклет НСС Керберос"
