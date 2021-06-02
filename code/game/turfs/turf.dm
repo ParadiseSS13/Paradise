@@ -179,7 +179,7 @@
 // override for space turfs, since they should never hide anything
 /turf/space/levelupdate()
 	for(var/obj/O in src)
-		if(O.level == 1)
+		if(O.level == 1 && O.initialized) // Only do this if the object has initialized
 			O.hide(FALSE)
 
 // Removes all signs of lattice on the pos of the turf -Donkieyo
