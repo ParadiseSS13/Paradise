@@ -94,7 +94,7 @@
 		to_chat(user, "<span class='warning'>You can't use this on [target]!</span>")
 		return
 	var/obj/spacepod/pod = target
-	if(!pod.unique_model)
+	if(!pod.unique_model || istype(src, /obj/item/fluff/plates_spacepod/basic_engine))
 		to_chat(user, "<span class='notice'>You start to work on [target].</span>")
 		if(!do_after(user, 40, target = src))
 			return TRUE
@@ -105,6 +105,7 @@
 		pod.name = new_name
 		pod.icon_state = nuevoicon
 		pod.can_paint = pintura
+		pod.maxhealth = vida
 		qdel(src)
 	else
 		to_chat(user, "<span class='warning'>You can't modify this kind of engine anymore!</span>")

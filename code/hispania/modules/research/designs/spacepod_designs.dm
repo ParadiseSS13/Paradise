@@ -52,6 +52,17 @@
 //////SPACEPOD MISC. ITEMS////////////////
 //////////////////////////////////////////
 
+/datum/design/paintkit
+	construction_time = 100
+	name = "Spacepod Paintkit Bucket"
+	desc = "A bucket full with paint for your spacepod."
+	id = "spacepodpaintkit"
+	req_tech = list("materials" = 1, "combat" = 1, "engineering" = 1)
+	build_type = PODFAB
+	materials = list(MAT_METAL=5000)
+	build_path = /obj/item/pod_paint_bucket
+	category = list("Pod_Parts")
+
 /datum/design/reinforced_plates_spacepod
 	construction_time = 100
 	name = "Spacepod Reinforced Engine"
