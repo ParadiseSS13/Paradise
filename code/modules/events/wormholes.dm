@@ -21,7 +21,7 @@
 		wormholes += new /obj/effect/portal/wormhole(T, null, null, -1)
 
 /datum/event/wormholes/announce()
-	GLOB.event_announcement.Announce("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert", new_sound = 'sound/AI/spanomalies.ogg')
+	GLOB.event_announcement.Announce("Зафиксированы пространственно-временные аномалии на борту станции. Дополнительная информация отсутствует.", "ВНИМАНИЕ: АНОМАЛИЯ", new_sound = 'sound/AI/spanomalies.ogg')
 
 /datum/event/wormholes/tick()
 	if(activeFor % shift_frequency == 0)

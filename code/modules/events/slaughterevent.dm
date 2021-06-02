@@ -3,7 +3,7 @@
 
 /datum/event/spawn_slaughter/proc/get_slaughter(var/end_if_fail = 0)
 	spawn()
-		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, source = /mob/living/simple_animal/slaughter)
+		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Демона Резни?", ROLE_DEMON, TRUE, source = /mob/living/simple_animal/slaughter)
 		if(!candidates.len)
 			key_of_slaughter = null
 			kill()
@@ -42,8 +42,8 @@
 		player_mind.transfer_to(S)
 		player_mind.assigned_role = "Slaughter Demon"
 		player_mind.special_role = SPECIAL_ROLE_SLAUGHTER_DEMON
-		message_admins("[key_name_admin(S)] has been made into a Slaughter Demon by an event.")
-		log_game("[key_name_admin(S)] was spawned as a Slaughter Demon by an event.")
+		message_admins("[key_name_admin(S)] выбран на роль Демона Резни по событию.")
+		log_game("[key_name_admin(S)] выбран на роль Демона Резни по событию.")
 
 /datum/event/spawn_slaughter/start()
 	get_slaughter()

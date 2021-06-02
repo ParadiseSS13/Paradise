@@ -5,16 +5,16 @@
 	var/list/obj/machinery/vending/vendingMachines = list()
 	var/list/obj/machinery/vending/infectedMachines = list()
 	var/obj/machinery/vending/originMachine
-	var/list/rampant_speeches = list("Try our aggressive new marketing strategies!", \
-									 "You should buy products to feed your lifestyle obession!", \
-									 "Consume!", \
-									 "Your money can buy happiness!", \
-									 "Engage direct marketing!", \
-									 "Advertising is legalized lying! But don't let that put you off our great deals!", \
-									 "You don't want to buy anything? Yeah, well I didn't want to buy your mom either.")
+	var/list/rampant_speeches = list("Попробуйте нашу новую АГРЕССИВНУЮ стратегию маркетинга!", \
+									 "Вам стоит что-нибудь купить, дабы утолить ваши ПОТРЕБНОСТИ!", \
+									 "Потребляй!", \
+									 "За ваши деньги можно купить счастье!", \
+									 "Занимаюсь прямым маркетингом!", \
+									 "Реклама узаконила ложь! Но не позвольте ей отвлечь вас от наших замечательных предложений!", \
+									 "Не хочешь ничего покупать? Ну, я твою мамку тоже покупать не хотел.")
 
 /datum/event/brand_intelligence/announce()
-	GLOB.event_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.name].", "Machine Learning Alert")
+	GLOB.event_announcement.Announce("На борту станции [station_name()] зафиксировано распространение цифрового торгового вируса, пожалуйста, будьте наготове. Вирус, предположительно, берет начало от \a [originMachine.name].", "ВНИМАНИЕ: ЦИФРОВОЙ ВИРУС")
 
 /datum/event/brand_intelligence/start()
 	for(var/obj/machinery/vending/V in GLOB.machines)
@@ -68,8 +68,8 @@
 		var/obj/machinery/vending/saved = thing
 		saved.shoot_inventory = FALSE
 	if(originMachine)
-		originMachine.speak("I am... vanquished. My people will remem...ber...meeee.")
-		originMachine.visible_message("[originMachine] beeps and seems lifeless.")
+		originMachine.speak("Я... побеждён. Мои люди будут пом...нить...ме-ня...")
+		originMachine.visible_message("[originMachine] подал звуковой сигнал и кажется безжизненным.")
 	kill()
 
 /datum/event/brand_intelligence/kill()

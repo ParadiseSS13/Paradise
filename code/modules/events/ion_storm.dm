@@ -18,7 +18,7 @@
 
 /datum/event/ion_storm/announce()
 	if(announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)))
-		GLOB.event_announcement.Announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", 'sound/AI/ionstorm.ogg')
+		GLOB.event_announcement.Announce("Вблизи станции обнаружена ионная буря. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок.", "ВНИМАНИЕ: АНОМАЛИЯ", 'sound/AI/ionstorm.ogg')
 
 /datum/event/ion_storm/start()
 	//AI laws
@@ -28,7 +28,7 @@
 			if(message)
 				M.add_ion_law(message)
 				to_chat(M, "<br>")
-				to_chat(M, "<span class='danger'>[message] ...LAWS UPDATED</span>")
+				to_chat(M, "<span class='danger'>[message] ...ЗАКОНЫ ОБНОВЛЕНЫ</span>")
 				to_chat(M, "<br>")
 
 	if(botEmagChance)

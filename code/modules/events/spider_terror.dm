@@ -11,7 +11,7 @@
 
 /datum/event/spider_terror/announce()
 	if(successSpawn)
-		GLOB.command_announcement.Announce("Confirmed outbreak of level 3 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg')
+		GLOB.command_announcement.Announce("Вспышка биологической угрозы 3-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать ее распространение любой ценой!", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА", 'sound/effects/siren-spooky.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Terror Spiders")
 
@@ -47,7 +47,7 @@
 			// Strongest, only used during highpop.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen
 			spawncount = 1
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a terror spider?", null, TRUE, source = spider_type)
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Паука Террора?", null, TRUE, source = spider_type)
 	if(length(candidates) < spawncount)
 		message_admins("Warning: not enough players volunteered to be terrors. Could only spawn [length(candidates)] out of [spawncount]!")
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)

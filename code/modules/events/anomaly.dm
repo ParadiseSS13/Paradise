@@ -36,7 +36,7 @@
 		CRASH("Anomaly: No valid turfs found for [impact_area] - [impact_area.type]")
 
 /datum/event/anomaly/announce()
-	GLOB.event_announcement.Announce("Localized hyper-energetic flux wave detected on long range scanners. Expected location of impact: [impact_area.name].", "Anomaly Alert")
+	GLOB.event_announcement.Announce("На сканерах дальнего действия обнаружена гиперэнергетическая потоковая аномалия. Предполагаемая локация: [impact_area.name]", "ВНИМАНИЕ: АНОМАЛИЯ")
 
 /datum/event/anomaly/start()
 	var/turf/T = pick(get_area_turfs(impact_area))

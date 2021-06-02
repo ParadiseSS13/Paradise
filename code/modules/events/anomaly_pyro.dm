@@ -5,4 +5,4 @@
 	anomaly_path = /obj/effect/anomaly/pyro
 
 /datum/event/anomaly/anomaly_pyro/announce()
-	GLOB.event_announcement.Announce("Atmospheric anomaly detected on long range scanners. Expected location: [impact_area.name].", "Anomaly Alert")
+	GLOB.event_announcement.Announce("На сканерах дальнего действия обнаружена атмосферная аномалия. Предполагаемая локация: [impact_area.name].", "ВНИМАНИЕ: АНОМАЛИЯ")

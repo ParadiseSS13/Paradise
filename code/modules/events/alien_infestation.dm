@@ -10,7 +10,7 @@
 
 /datum/event/alien_infestation/announce()
 	if(successSpawn)
-		GLOB.event_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
+		GLOB.event_announcement.Announce("Обнаружены неопознанные формы жизни на борту станции [station_name()]. Обезопасьте все наружные входы и выходы, включая трубопроводы и вентиляцию.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ", new_sound = 'sound/AI/aliens.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Alien Infestation")
 
@@ -21,7 +21,7 @@
 		spawncount = 4
 
 	spawn()
-		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as an alien?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/larva)
+		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Чужого?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/larva)
 		while(spawncount && length(vents) && length(candidates))
 			var/obj/vent = pick_n_take(vents)
 			var/mob/C = pick_n_take(candidates)

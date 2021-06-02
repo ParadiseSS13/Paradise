@@ -5,7 +5,7 @@
 	var/obj/effect/tear/TE
 
 /datum/event/tear/announce()
-	GLOB.event_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert")
+	GLOB.event_announcement.Announce("На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [impact_area.name].", "ВНИМАНИЕ: АНОМАЛИЯ")
 
 /datum/event/tear/start()
 	var/turf/T = pick(get_area_turfs(impact_area))

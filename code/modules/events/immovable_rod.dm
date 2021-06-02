@@ -11,7 +11,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	GLOB.event_announcement.Announce("What the fuck was that?!", "General Alert")
+	GLOB.event_announcement.Announce("Что это за хуйня?!", "ВНИМАНИЕ: ОБЩАЯ ТРЕВОГА")
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(GLOB.cardinal)
@@ -68,7 +68,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/Bump(atom/clong)
 	if(prob(10))
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		audible_message("CLANG")
+		audible_message("ЛЯЗГ")
 
 	if(clong && prob(25))
 		x = clong.x
@@ -81,7 +81,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	else if(istype(clong, /mob))
 		if(istype(clong, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = clong
-			H.visible_message("<span class='danger'>[H.name] is penetrated by an immovable rod!</span>" , "<span class='userdanger'>The rod penetrates you!</span>" , "<span class ='danger'>You hear a CLANG!</span>")
+			H.visible_message("<span class='danger'>[H.name] пронизан незыблемым стержнем!</span>" , "<span class='userdanger'>Стержень пронзает тебя!</span>" , "<span class ='danger'>Вы слышите ЛЯЗГ!</span>")
 			H.adjustBruteLoss(160)
 		if(clong.density || prob(10))
 			clong.ex_act(2)

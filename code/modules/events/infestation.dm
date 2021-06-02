@@ -29,34 +29,34 @@
 	switch(location)
 		if(LOC_KITCHEN)
 			spawn_area_type = /area/crew_quarters/kitchen
-			locstring = "the kitchen"
+			locstring = "кухне"
 		if(LOC_ATMOS)
 			spawn_area_type = /area/atmos
 			locstring = "atmospherics"
 		if(LOC_INCIN)
 			spawn_area_type = /area/maintenance/incinerator
-			locstring = "the incinerator"
+			locstring = "мусоросжигателе"
 		if(LOC_CHAPEL)
 			spawn_area_type = /area/chapel/main
-			locstring = "the chapel"
+			locstring = "церкви"
 		if(LOC_LIBRARY)
 			spawn_area_type = /area/library
-			locstring = "the library"
+			locstring = "библиотеке"
 		if(LOC_HYDRO)
 			spawn_area_type = /area/hydroponics
-			locstring = "hydroponics"
+			locstring = "гидропонике"
 		if(LOC_VAULT)
 			spawn_area_type = /area/security/nuke_storage
-			locstring = "the vault"
+			locstring = "хранилище"
 		if(LOC_CONSTR)
 			spawn_area_type = /area/construction
 			locstring = "the construction area"
 		if(LOC_TECH)
 			spawn_area_type = /area/storage/tech
-			locstring = "technical storage"
+			locstring = "техническом хранилище"
 		if(LOC_ARMORY)
 			spawn_area_type = /area/security/securearmoury
-			locstring = "armory"
+			locstring = "арсенале"
 
 	for(var/areapath in typesof(spawn_area_type))
 		var/area/A = locate(areapath)
@@ -71,15 +71,15 @@
 		if(VERM_MICE)
 			spawn_types = list(/mob/living/simple_animal/mouse/gray, /mob/living/simple_animal/mouse/brown, /mob/living/simple_animal/mouse/white)
 			max_number = 12
-			vermstring = "mice"
+			vermstring = "мышей"
 		if(VERM_LIZARDS)
 			spawn_types = list(/mob/living/simple_animal/lizard)
 			max_number = 6
-			vermstring = "lizards"
+			vermstring = "ящериц"
 		if(VERM_SPIDERS)
 			spawn_types = list(/obj/structure/spider/spiderling)
 			max_number = 3
-			vermstring = "spiders"
+			vermstring = "пауков"
 
 	spawn(0)
 		var/num = rand(2,max_number)
@@ -97,7 +97,7 @@
 
 
 /datum/event/infestation/announce()
-	GLOB.event_announcement.Announce("Bioscans indicate that [vermstring] have been breeding in [locstring]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
+	GLOB.event_announcement.Announce("Биосканеры фиксируют размножение [vermstring] в [locstring]. Избавьтесь от них, прежде чем это начнет влиять на продуктивность станции.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ")
 
 #undef LOC_KITCHEN
 #undef LOC_ATMOS

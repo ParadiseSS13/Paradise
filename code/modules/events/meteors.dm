@@ -10,9 +10,9 @@
 /datum/event/meteor_wave/announce()
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
-			GLOB.event_announcement.Announce("Meteors have been detected on collision course with the station.", "Meteor Alert", new_sound = 'sound/AI/meteors.ogg')
+			GLOB.event_announcement.Announce("Зафиксировано движение метеоров на встречном со станцией курсе.", "ВНИМАНИЕ: МЕТЕОРИТЫ", new_sound = 'sound/AI/meteors.ogg')
 		else
-			GLOB.event_announcement.Announce("The station is now in a meteor shower.", "Meteor Alert")
+			GLOB.event_announcement.Announce("Станция проходит через метеорный дождь.", "ВНИМАНИЕ: МЕТЕОРИТЫ")
 
 //meteor showers are lighter and more common,
 /datum/event/meteor_wave/tick()
@@ -25,9 +25,9 @@
 /datum/event/meteor_wave/end()
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
-			GLOB.event_announcement.Announce("The station has cleared the meteor storm.", "Meteor Alert")
+			GLOB.event_announcement.Announce("Станция прошла через метеорный шторм", "ВНИМАНИЕ: МЕТЕОРЫ")
 		else
-			GLOB.event_announcement.Announce("The station has cleared the meteor shower", "Meteor Alert")
+			GLOB.event_announcement.Announce("Станция прошла через метеорный дождь", "ВНИМАНИЕ: МЕТЕОРЫ")
 
 /datum/event/meteor_wave/proc/get_meteors()
 	switch(severity)

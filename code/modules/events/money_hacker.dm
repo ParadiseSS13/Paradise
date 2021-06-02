@@ -18,9 +18,9 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 		kill()
 
 /datum/event/money_hacker/announce()
-	var/message = "A brute force hack has been detected (in progress since [station_time_timestamp()]). The target of the attack is: Financial account #[affected_account.account_number], \
-	without intervention this attack will succeed in approximately 10 minutes. Required intervention: temporary suspension of affected account until the attack has ceased. \
-	Notifications will be sent as updates occur.<br>"
+	var/message = "Обнаружен взлом  (выполняется с момента [station_time_timestamp()]). Целью атаки является: Финансовый счет #[affected_account.account_number], \
+без вмешательства эта атака будет успешной примерно через 10 минут. Требуемое вмешательство: временно заморозьте учётную запись до тех пор, пока атака не прекратится. \
+Уведомления будут отправляться по мере появления обновлений."
 	var/my_department = "[station_name()] firewall subroutines"
 
 	for(var/obj/machinery/message_server/MS in GLOB.machines)
@@ -36,7 +36,7 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 /datum/event/money_hacker/end()
 	var/message
 	if(!isnull(affected_account) && !affected_account.suspended)
-		message = "The hack attempt has succeeded."
+		message = "Попытка взлома удалась."
 
 		var/lost = affected_account.money * (MINIMUM_PERCENTAGE_LOSS + rand(0,VARIABLE_LOSS) / 10)
 
@@ -60,7 +60,7 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 
 	else
 		//crew wins
-		message = "The attack has ceased, the affected account can now be brought online."
+		message = "Атака прекратилась, пострадавший аккаунт теперь можно вновь использовать."
 
 	var/my_department = "[station_name()] firewall subroutines"
 
