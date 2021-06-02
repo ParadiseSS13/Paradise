@@ -47,8 +47,10 @@
 				dir = pick(GLOB.cardinal)
 
 /mob/living/carbon/proc/experience_dream(dream_image, isNightmare)
-	dreaming--
-	nightmare--
+	if(dreaming > 0 && !isNightmare)
+		dreaming--
+	if(nightmare > 0 && isNightmare)
+		nightmare--
 	if(stat != UNCONSCIOUS || InCritical())
 		return
 	if(isNightmare)
