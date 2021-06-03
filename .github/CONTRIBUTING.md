@@ -533,7 +533,6 @@ in the SQL/updates folder.
   * Engine areas, or areas with a high probability of receiving explosions, should use reinforced flooring if appropriate.
   * External areas, or areas where depressurisation is expected and normal, should use airless turf variants to prevent additional atmospherics load.
   * Edits in mapping tools should generally be possible to replicate in-game. For this reason, avoid stacking multiple structures on the same tile (i.e. placing a light and an APC on the same wall.)
-  * 
 
 
 
