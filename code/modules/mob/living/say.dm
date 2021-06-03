@@ -137,6 +137,12 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	message = trim_left(message)
 
 	//parse the language code and consume it
+
+	if(HAS_TRAIT(src, TRAIT_ANXIOUS))// PERDONEME
+		SEND_SIGNAL(src, COMSIG_MOB_SAY, message) // HISPANIA
+		message = messagereal
+		messagereal = null // HISPANIA PERDONAME
+
 	var/list/message_pieces = list()
 	if(ignore_languages)
 		message_pieces = message_to_multilingual(message)

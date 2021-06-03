@@ -42,7 +42,7 @@
 	var/fullauto = FALSE
 
 	var/unique_rename = TRUE //allows renaming with a pen
-	var/unique_reskin = TRUE //allows one-time reskinning
+	var/unique_reskin = FALSE //allows one-time reskinning
 	var/current_skin = null //the skin choice if we had a reskin
 	var/list/options = list()
 
@@ -195,6 +195,10 @@
 
 	//DUAL WIELDING
 	var/bonus_spread = 0
+
+	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) // HISPANIA || cringe aim
+		bonus_spread += 25
+
 	var/loop_counter = 0
 	if(ishuman(user) && user.a_intent == INTENT_HARM)
 		var/mob/living/carbon/human/H = user

@@ -596,7 +596,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 /obj/item/stack/cable_coil/examine(mob/user)
 	. = ..()
-	if(in_range(user, src))
+	if(in_range(user, src) && !is_cyborg)
 		if(get_amount() == 1)
 			. += "A short piece of power cable."
 		else if(get_amount() == 2)
@@ -612,10 +612,10 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
 		// Cable merging is handled by parent proc
-		if(C.amount >= MAXCOIL)
+		if(C.get_amount() >= MAXCOIL)
 			to_chat(user, "The coil is as long as it will get.")
 			return
-		if( (C.amount + src.amount <= MAXCOIL) )
+		if((C.get_amount() + get_amount() <= MAXCOIL))
 			to_chat(user, "You join the cable coils together.")
 			return
 		else
@@ -861,7 +861,11 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	return color
 
 /obj/item/stack/cable_coil/cyborg
-	name = "cyborg cable coil"
+	energy_type = /datum/robot_energy_storage/cable
+	is_cyborg = TRUE
+
+/obj/item/stack/cable_coil/cyborg/update_icon()
+	return // icon_state should always be a full cable
 
 /obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
 	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")

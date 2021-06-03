@@ -115,6 +115,9 @@
 	icon_state = "enzyme"
 	list_reagents = list("enzyme" = 50)
 
+/obj/item/reagent_containers/food/condiment/enzyme/cyborg_recharge(coeff, emagged)
+	reagents.check_and_add("enzyme", volume, 2 * coeff) // Only recharge if the current amount of enzyme is under `volume`.
+
 /obj/item/reagent_containers/food/condiment/sugar
 	name = "sugar bottle"
 	desc = "Tasty spacey sugar!"

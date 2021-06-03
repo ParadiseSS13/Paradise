@@ -28,3 +28,6 @@
 	smooth = SMOOTH_MORE | SMOOTH_BORDER
 	canSmoothWith = list(/turf/simulated/floor/plating/ice_naga/smooth, /turf/simulated/floor/plating/ice_naga)
 
+/turf/simulated/floor/plating/ice_naga/Initialize(mapload)
+	. = ..()
+	MakeSlippery(TURF_WET_PERMAFROST, INFINITY)

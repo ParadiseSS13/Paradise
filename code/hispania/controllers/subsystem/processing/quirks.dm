@@ -40,5 +40,6 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			stack_trace("Invalid quirk \"[V]\" in client [cli.ckey] preferences")
 			cli.prefs.all_quirks -= V
 			badquirk = TRUE
+	user.med_record += " / " + user.get_trait_string(TRUE) // HOLA MAMAAAAA RECORDS MEDICOS
 	if(badquirk)
 		cli.prefs.save_character()

@@ -135,8 +135,6 @@ SUBSYSTEM_DEF(shuttle)
 			to_chat(user, "The emergency shuttle has been disabled by Centcom.")
 			return
 
-	call_reason = trim(html_encode(call_reason))
-
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH)
 		to_chat(user, "Reason is too short. [CALL_SHUTTLE_REASON_LENGTH] character minimum.")
 		return

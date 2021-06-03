@@ -156,6 +156,7 @@
 		return FALSE
 	var/old_oxyloss = oxyloss
 	oxyloss = max(oxyloss + amount, 0)
+	if(status_flags & MOAED && oxyloss > 0) return // GET MOAED
 	if(old_oxyloss == oxyloss)
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
