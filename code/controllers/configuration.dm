@@ -284,7 +284,7 @@
 	var/auto_profile = FALSE
 
 	// Enable map voting
-	var/map_voting_enabled = FALSE
+	var/map_voting_enabled = TRUE
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))

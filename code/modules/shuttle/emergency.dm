@@ -242,6 +242,8 @@
 */
 		if(SHUTTLE_DOCKED)
 
+			if(config.map_voting_enabled)
+				SSvote.initiate_vote("map", "the server", TRUE)
 			if(time_left <= 0 && SSshuttle.emergencyNoEscape)
 				GLOB.priority_announcement.Announce("Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.")
 				sound_played = 0
@@ -269,8 +271,6 @@
 				for(var/mob/M in GLOB.player_list)
 					if(!isnewplayer(M) && !M.client.karma_spent && !(M.client.ckey in GLOB.karma_spenders) && !M.get_preference(PREFTOGGLE_DISABLE_KARMA_REMINDER))
 						to_chat(M, "<i>You have not yet spent your karma for the round; was there a player worthy of receiving your reward? Look under Special Verbs tab, Award Karma.</i>")
-				if(config.map_voting_enabled)
-					SSvote.initiate_vote("map", "the server", TRUE)
 
 		if(SHUTTLE_ESCAPE)
 			if(time_left <= 0)
