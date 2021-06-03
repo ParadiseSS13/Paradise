@@ -504,7 +504,12 @@ in the SQL/updates folder.
   * NEVER run cables under wall turfs.
   * Keep floor turf variations to a minimum. Generally, more than 3 floor turf types in one room is bad design.
   * Run air pipes together where possible. The first example below is to be avoided, the second is optimal:
-  * ![image](https://user-images.githubusercontent.com/12197162/120011088-d22c7400-bfd5-11eb-867f-7b137ac5b1b2.png) ![image](https://user-images.githubusercontent.com/12197162/120011126-dfe1f980-bfd5-11eb-96b2-c83238a9cdcf.png)
+  
+    ![image](https://user-images.githubusercontent.com/12197162/120011088-d22c7400-bfd5-11eb-867f-7b137ac5b1b2.png) ![image](https://user-images.githubusercontent.com/12197162/120011126-dfe1f980-bfd5-11eb-96b2-c83238a9cdcf.png)
+  * Pipe layouts should be logical and predictable, easy to understand at a glance. Always avoid complex layouts like in this example: 
+    
+    ![image](https://user-images.githubusercontent.com/12197162/120619480-ecda6f00-c453-11eb-9d9f-abf0d1a99c34.png)
+
   * Decals are to be used sparingly. Good map design does not require warning tape around everything. Decal overuse contributes to maptick slowdown.
   * Every **area** should contain only one APC and air alarm.
     * Critical infrastructure rooms, such as the engine, should be given an APC with a larger power cell.
