@@ -513,7 +513,7 @@ in the SQL/updates folder.
   * Decals are to be used sparingly. Good map design does not require warning tape around everything. Decal overuse contributes to maptick slowdown.
   * Every **area** should contain only one APC and air alarm.
     * Critical infrastructure rooms, such as the engine, should be given an APC with a larger power cell.
-  * Every **room** should contain at least one fire alarm, air vent, air scrubber, light switch, station intercom, and security camera.
+  * Every **room** should contain at least one fire alarm, air vent and scrubber, light switch, station intercom, and security camera.
     * Intercoms should be set to frequency 145.9, and be speaker ON Microphone OFF. This is so radio signals can reach people even without headsets on. Larger room will require more than one at a time.
     * Exceptions can be made to security camera placement for certain rooms, such as the execution room. Larger rooms may require more than one security camera. All security cameras should have a descriptive name that makes it easy to find on a camera console.
     * Fire alarms should not be placed next to expected heat sources.
@@ -525,7 +525,7 @@ in the SQL/updates folder.
   * Windows to secure areas or external areas should be reinforced. Windows in engine areas should be reinforced plasma glass.
     * Windows in high security areas, such as the brig, bridge, and head of staff offices, should be electrified by placing a wire node under the window.
   * Lights are to be used sparingly, they draw a significant amount of power.
-  * Ensure door and windoor access is correctly set, these are handled by the variables `req_access_txt` and `req_one_access_txt`. Public doors should have both of these values as `"0"`. For a list of access values, see `code\__DEFINES\access.dm`.
+  * Ensure door and windoor access is correctly set, these are handled by the variables `req_access_txt` and `req_one_access_txt`. Public doors should have both of these values as `"0"`. For a list of access values, see [`code\__DEFINES\access.dm`](code/__DEFINES/access.dm).
     * Always use numerical values encased in quotes for these variables. Multiple access values can be defined by separating them with a `;`, for example: `"28;31"` for kitchen AND cargo access.
     * req_access_txt requires ALL LISTED ACCESSES to open the door, while req_one_access_txt lets anyone with ONE OF THE LISTED ACCESSES open the door.
   * Departments should be connected to maintenance through a back or side door. This lets players escape and allows antags to break in.
