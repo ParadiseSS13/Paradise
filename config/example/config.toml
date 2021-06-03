@@ -140,7 +140,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 23
+sql_version = 24
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -692,6 +692,8 @@ lavaland_ruin_budget = 60
 shutdown_on_reboot = false
 # If true to above, an optional shell command can be ran. Defaults to killing DD on windows
 #shutdown_shell_command = "taskkill /im dreamdaemon.exe /f"
+# URL for the 2FA backend HTTP host. Do not use https:// or a trailing slash. Comment out to disable
+#_2fa_auth_host = "http://127.0.0.1:8080"
 
 
 ################################################################

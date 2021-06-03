@@ -12,6 +12,8 @@
 	var/shutdown_on_reboot = FALSE
 	/// If above is true, you can run a shell command
 	var/shutdown_shell_command = null
+	/// 2FA backend server host
+	var/_2fa_auth_host = null
 
 /datum/configuration_section/system_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
@@ -21,3 +23,4 @@
 	CONFIG_LOAD_STR(medal_hub_address, data["medal_hub_address"])
 	CONFIG_LOAD_STR(medal_hub_password, data["medal_hub_password"])
 	CONFIG_LOAD_STR(shutdown_shell_command, data["shutdown_shell_command"])
+	CONFIG_LOAD_STR(_2fa_auth_host, data["_2fa_auth_host"])
