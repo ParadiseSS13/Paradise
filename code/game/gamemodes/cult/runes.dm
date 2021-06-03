@@ -366,6 +366,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			return
 
 	var/sacrifice_fulfilled
+	var/worthless = FALSE
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(offering.mind)
 		GLOB.sacrificed += offering.mind
@@ -379,13 +380,16 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(sacrifice_fulfilled)
 			to_chat(M, "<span class='cultlarge'>\"Yes! This is the one I desire! You have done well.\"</span>")
 		else
-			if(ishuman(offering) || isrobot(offering))
+			if(ishuman(offering) && offering.mind.offstation_role && offering.mind.special_role != SPECIAL_ROLE_ERT) //If you try it on a ghost role, you get nothing
+				to_chat(M, "<span class='cultlarge'>\"This soul is of no use to either of us.\"</span>")
+				worthless = TRUE
+			else if(ishuman(offering) || isrobot(offering))
 				to_chat(M, "<span class='cultlarge'>\"I accept this sacrifice.\"</span>")
 			else
 				to_chat(M, "<span class='cultlarge'>\"I accept this meager sacrifice.\"</span>")
 	playsound(offering, 'sound/misc/demon_consume.ogg', 100, TRUE)
 
-	if((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind)
+	if(((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind) && !worthless)
 		var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))
 		stone.invisibility = INVISIBILITY_MAXIMUM // So it's not picked up during transfer_soul()
 		stone.transfer_soul("FORCE", offering, user) // If it cannot be added

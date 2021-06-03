@@ -104,3 +104,12 @@
 #define PARALLAX_MED			4
 #define PARALLAX_HIGH			8
 #define PARALLAX_INSANE			16
+
+// 2FA Defines. These are the same as the schema DB enums //
+
+/// Client has 2FA disabled
+#define _2FA_DISABLED "DISABLED"
+/// Client will be prompted for 2FA on IP changes
+#define _2FA_ENABLED_IP "ENABLED_IP"
+/// Client will be prompted for 2FA always
+#define _2FA_ENABLED_ALWAYS "ENABLED_ALWAYS"

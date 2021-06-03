@@ -243,6 +243,7 @@
 			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/check_state_and_anchored, state, anchored)))
 				return
 			anchored = !anchored
+			air_update_turf(TRUE)
 			update_nearby_icons()
 			to_chat(user, "<span class='notice'>You [anchored ? "fasten the frame to":"unfasten the frame from"] the floor.</span>")
 
@@ -397,7 +398,8 @@
 	return TRUE
 
 /obj/structure/window/AltClick(mob/user)
-
+	if(fulltile) // Can't rotate these.
+		return ..()
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return

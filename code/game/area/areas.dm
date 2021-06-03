@@ -75,6 +75,12 @@
 	///Used to decide what the maximum time between ambience is
 	var/max_ambience_cooldown = 90 SECONDS
 
+/area/New(loc, ...)
+	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
+		GLOB.all_unique_areas[type] = src
+	..()
+
+
 /area/Initialize(mapload)
 	GLOB.all_areas += src
 	icon_state = ""
