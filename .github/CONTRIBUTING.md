@@ -518,20 +518,22 @@ in the SQL/updates folder.
     * Exceptions can be made to security camera placement for certain rooms, such as the execution room. Larger rooms may require more than one security camera. All security cameras should have a descriptive name that makes it easy to find on a camera console.
     * Fire alarms should not be placed next to expected heat sources.
     * Use the following "on" subtype of vents and scrubbers as opposed to var-editing: ```/obj/machinery/atmospherics/unary/vent_scrubber/on``` and ```/obj/machinery/atmospherics/unary/vent_pump/on```
-  * Head of staff rooms should contain a requests console.
+  * Head of staff officers should contain a requests console.
   * Firelocks should be used at area boundaries over doors and windows. Firelocks can also be used to break up hallways at reasonable intervals.
     * Double firelocks are to be avoided unless absolutely necessary.
     * Maintenance access doors should not have firelocks placed over them.
-  * Windows to secure areas or external areas should be reinforced. Windows in the engine areas should be reinforced plasma glass.
-    * High security areas, such as the brig, bridge, and head of staff offices should be electrified by placing a wire node under the window.
+  * Windows to secure areas or external areas should be reinforced. Windows in engine areas should be reinforced plasma glass.
+    * Windows in high security areas, such as the brig, bridge, and head of staff offices, should be electrified by placing a wire node under the window.
   * Lights are to be used sparingly, they draw a significant amount of power.
   * Ensure door and windoor access is correctly set, these are handled by the variables `req_access_txt` and `req_one_access_txt`. Public doors should have both of these values as `"0"`. For a list of access values, see `code\__DEFINES\access.dm`.
     * Always use numerical values encased in quotes for these variables. Multiple access values can be defined by separating them with a `;`, for example: `"28;31"` for kitchen AND cargo access.
     * req_access_txt requires ALL LISTED ACCESSES to open the door, while req_one_access_txt lets anyone with ONE OF THE LISTED ACCESSES open the door.
   * Departments should be connected to maintenance through a back or side door. This lets players escape and allows antags to break in.
     * If this is not possible, departments should have extra entry and exit points.
-  * Engine areas, or areas with a high probability of being exploded, should use reinforced flooring where appropriate.
+  * Engine areas, or areas with a high probability of receiving explosions, should use reinforced flooring if appropriate.
   * External areas, or areas where depressurisation is expected and normal, should use airless turf variants to prevent additional atmospherics load.
+  * Edits in mapping tools should generally be possible to replicate in-game. For this reason, avoid stacking multiple structures on the same tile (i.e. placing a light and an APC on the same wall.)
+  * 
 
 
 
