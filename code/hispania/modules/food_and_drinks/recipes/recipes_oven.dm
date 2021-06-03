@@ -94,3 +94,14 @@
 	/obj/item/reagent_containers/food/snacks/meat,
 	)
 	result = /obj/item/reagent_containers/food/snacks/filetmignon
+
+// Cuy //
+
+/datum/recipe/oven/cuy
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/avocadoslice = 1,
+		/obj/item/reagent_containers/food/snacks/meat/mouse = 1,
+		/obj/item/reagent_containers/food/snacks/grown/potato =2
+	)
+	result = /obj/item/reagent_containers/food/snacks/cuy
