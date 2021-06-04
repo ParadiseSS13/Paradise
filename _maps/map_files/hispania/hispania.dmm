@@ -27393,6 +27393,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "bco" = (
@@ -31857,6 +31858,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "bkJ" = (
@@ -45472,11 +45474,13 @@
 	pixel_y = 0;
 	tag = ""
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/junction{
+	dir = 8;
+	icon_state = "pipe-j2";
+	tag = "icon-pipe-j1 (WEST)"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bNx" = (
@@ -46646,6 +46650,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bPv" = (
@@ -49803,6 +49808,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bUV" = (
@@ -75964,11 +75970,6 @@
 	icon_state = "darkbluecorners"
 	},
 /area/maintenance/aft)
-"daC" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass,
-/turf/simulated/floor/plasteel,
-/area/escapepodbay)
 "daG" = (
 /obj/machinery/light{
 	dir = 1
@@ -89039,6 +89040,10 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 5
@@ -90472,9 +90477,6 @@
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "lQt" = (
-/obj/structure/closet/emcloset,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/mask/breath,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_x = -27;
@@ -91843,13 +91845,7 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
 "nfu" = (
-/obj/structure/rack{
-	dir = 1
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 9
@@ -103252,6 +103248,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"yjY" = (
+/obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
+/area/escapepodbay)
 "ykz" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
@@ -155595,7 +155596,7 @@ bjR
 nfu
 xxN
 lQt
-urf
+yjY
 cFW
 baU
 cIJ
@@ -155852,7 +155853,7 @@ bjR
 fIV
 xxN
 uZH
-daC
+urf
 baV
 baV
 baV
