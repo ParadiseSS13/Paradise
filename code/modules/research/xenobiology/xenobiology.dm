@@ -466,6 +466,7 @@
 		to_chat(user, "<span class='warning'>The potion can only be used on items or vehicles!</span>")
 		return
 	if(isitem(O))
+		if(istype(O, /obj/item/clothing/suit/armor/heavy/adamantine)) return
 		var/obj/item/I = O
 		if(I.slowdown <= 0)
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
