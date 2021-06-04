@@ -413,6 +413,9 @@
 /atom/proc/emag_act()
 	return
 
+/atom/proc/unemag()
+	return
+
 /**
  * Respond to a radioactive wave hitting this atom
  *
@@ -939,9 +942,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	SEND_SIGNAL(src, COMSIG_ATOM_ACID_ACT, acidpwr, acid_volume)
 
 /atom/proc/narsie_act()
-	return
-
-/atom/proc/ratvar_act()
 	return
 
 /**
