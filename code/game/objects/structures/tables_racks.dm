@@ -84,10 +84,6 @@
 	new /obj/structure/table/wood(loc)
 	qdel(src)
 
-/obj/structure/table/ratvar_act()
-	new /obj/structure/table/reinforced/brass(loc)
-	qdel(src)
-
 /obj/structure/table/do_climb(mob/living/user)
 	. = ..()
 	item_placed(user)
@@ -571,9 +567,6 @@
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
 
-/obj/structure/table/reinforced/brass/ratvar_act()
-	obj_integrity = max_integrity
-
 /obj/structure/table/tray
 	name = "surgical tray"
 	desc = "A small metal tray with wheels."
@@ -635,9 +628,6 @@
 	return 0
 
 /obj/structure/table/tray/narsie_act()
-	return 0
-
-/obj/structure/table/tray/ratvar_act()
 	return 0
 
 /*

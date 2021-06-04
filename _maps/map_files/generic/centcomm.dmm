@@ -11168,6 +11168,9 @@
 	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
 "QL" = (
