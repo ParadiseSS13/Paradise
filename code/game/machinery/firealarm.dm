@@ -9,7 +9,7 @@ FIRE ALARM
 /obj/machinery/firealarm
 	name = "fire alarm"
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/hispania/obj/monitors.dmi'
 	icon_state = "fire0"
 	var/detecting = 1.0
 	var/working = 1.0
@@ -44,7 +44,7 @@ FIRE ALARM
 	show_alert_level = FALSE
 
 /obj/machinery/firealarm/update_icon()
-
+	overlays.Cut()
 	if(wiresexposed)
 		switch(buildstage)
 			if(2)
@@ -53,17 +53,33 @@ FIRE ALARM
 				icon_state="fire_b1"
 			if(0)
 				icon_state="fire_b0"
-
 		return
 
 	if(stat & BROKEN)
 		icon_state = "firex"
 	else if(stat & NOPOWER)
 		icon_state = "firep"
-	else if(!detecting)
-		icon_state = "fire1"
+
+	if(!detecting)
+		icon_state = "firep"
+		var/image/on_overlay = image(icon,"fire1")
+		on_overlay.plane = ABOVE_LIGHTING_PLANE
+		overlays += on_overlay
 	else
-		icon_state = "fire0"
+		icon_state = "firep"
+		var/image/off_overlay = image(icon,"fire0")
+		off_overlay.plane = ABOVE_LIGHTING_PLANE
+		overlays += off_overlay
+
+	if(is_station_contact(z) && show_alert_level)
+		if(GLOB.security_level)
+			var/image/stat_overlay = image(icon, "overlay_[get_security_level()]")
+			stat_overlay.plane = ABOVE_LIGHTING_PLANE
+			overlays += stat_overlay
+		else
+			var/image/greenstat_overlay = image(icon, "overlay_green")
+			greenstat_overlay.plane = ABOVE_LIGHTING_PLANE
+			overlays += greenstat_overlay
 
 /obj/machinery/firealarm/emag_act(mob/user)
 	if(!emagged)
@@ -251,6 +267,7 @@ FIRE ALARM
 		return
 	var/area/A = get_area(src)
 	A.firereset(src)
+	update_icon()
 
 /obj/machinery/firealarm/proc/alarm()
 	if(!working || !report_fire_alarms)
@@ -267,12 +284,6 @@ FIRE ALARM
 		wiresexposed = TRUE
 		setDir(direction)
 		set_pixel_offsets_from_dir(26, -26, 26, -26)
-
-	if(is_station_contact(z) && show_alert_level)
-		if(GLOB.security_level)
-			overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")
-		else
-			overlays += image('icons/obj/monitors.dmi', "overlay_green")
 
 	myArea = get_area(src)
 	LAZYADD(myArea.firealarms, src)

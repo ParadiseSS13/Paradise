@@ -209,9 +209,8 @@
 	icon_state = "entertainment_console"
 	icon_screen = "entertainment"
 	light_color = "#FFEEDB"
-	light_range_on = 0
+	light_power_on = 0.5
 	network = list("news")
-	luminosity = 0
 	circuit = /obj/item/circuitboard/camera/telescreen/entertainment
 
 /obj/machinery/computer/security/wooden_tv

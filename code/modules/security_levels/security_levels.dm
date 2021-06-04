@@ -41,8 +41,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
-						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")
+						FA.update_icon()
 
 			if(SEC_LEVEL_BLUE)
 				if(GLOB.security_level < SEC_LEVEL_BLUE)
@@ -55,8 +54,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
-						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_blue")
+						FA.update_icon()
 
 			if(SEC_LEVEL_RED)
 				if(GLOB.security_level < SEC_LEVEL_RED)
@@ -74,8 +72,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
-						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
+						FA.update_icon()
 
 			if(SEC_LEVEL_GAMMA)
 				GLOB.security_announcement_up.Announce("El Comando Central ha ordenado el nivel de seguridad Gamma en la estación. Seguridad debe tener armas equipadas en todo momento, y toda la tripulacion debe buscar a los jefes de departamento para el transporte a un lugar seguro. El arsenal Gamma de la estación se ha desbloqueado y está listo para usar.","¡Atención! ¡Nivel de seguridad Gamma activado!", new_sound = sound('sound/effects/new_siren.ogg'))
@@ -98,8 +95,6 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
-						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_gamma")
 						FA.update_icon()
 
 			if(SEC_LEVEL_EPSILON)
@@ -111,8 +106,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
-						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
+						FA.update_icon()
 
 			if(SEC_LEVEL_DELTA)
 				GLOB.security_announcement_up.Announce("El mecanismo de autodestrucción de la estación ha sido activado. Toda la tripulación tiene instrucciones de localizar inmediatamente y obedecer las ordenes dadas por los jefes departamentales. Cualquier violación de estas órdenes puede ser castigada con la muerte. Esto no es un simulacro.","¡Atención! ¡Nivel de seguridad Delta activado!", new_sound = sound('sound/effects/deltaalarm.ogg'))
@@ -122,8 +116,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
-						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
+						FA.update_icon()
 
 		SSnightshift.check_nightshift(TRUE)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
