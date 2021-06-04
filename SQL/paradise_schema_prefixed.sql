@@ -276,6 +276,7 @@ CREATE TABLE `SS13_player` (
   `fupdate` smallint(4) DEFAULT '0',
   `parallax` tinyint(1) DEFAULT '8',
   `byond_date` DATE DEFAULT NULL,
+  `2fa_status` ENUM('DISABLED','ENABLED_IP','ENABLED_ALWAYS') NOT NULL DEFAULT 'DISABLED' COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
@@ -582,3 +583,15 @@ CREATE TABLE `SS13_round` (
   `station_name` VARCHAR(80) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `2fa_secrets`
+--
+CREATE TABLE `SS13_2fa_secrets` (
+	`ckey` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`secret` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`date_setup` DATETIME NOT NULL DEFAULT current_timestamp(),
+	`last_time` DATETIME NULL DEFAULT NULL,
+	PRIMARY KEY (`ckey`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;

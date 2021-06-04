@@ -55,3 +55,12 @@
 /obj/item/gun/energy/disabler/cyborg/newshot()
 	..()
 	robocharge()
+
+/obj/item/gun/energy/disabler/cyborg/cyborg_recharge(coeff, emagged)
+	if(cell.charge < cell.maxcharge)
+		var/obj/item/ammo_casing/energy/E = ammo_type[select]
+		cell.give(E.e_cost * coeff)
+		on_recharge()
+		update_icon()
+	else
+		charge_tick = 0

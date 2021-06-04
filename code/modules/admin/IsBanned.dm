@@ -1,5 +1,5 @@
 //Blocks an attempt to connect before even creating our client datum thing.
-/world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE)
+/world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE, check_2fa = TRUE)
 
 	if(!key || !address || !computer_id)
 		log_adminwarn("Failed Login (invalid data): [key] [address]-[computer_id]")
@@ -43,6 +43,49 @@
 		INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_IPINTEL)
 		return list("reason"="using proxy or vpn", "desc"="\nReason: Proxies/VPNs are not allowed here. [mistakemessage]")
 
+
+	// If 2FA is enabled, makes sure they were authed within the last minute
+	if(check_2fa && config._2fa_auth_host)
+		// First see if they exist at all
+		var/datum/db_query/check_query = SSdbcore.NewQuery("SELECT 2fa_status, ip FROM [format_table_name("player")] WHERE ckey=:ckey", list("ckey" = ckey(key)))
+
+		if(!check_query.warn_execute())
+			message_admins("Failed to do a DB 2FA check for [key]. You have been warned.")
+			qdel(check_query)
+			return
+
+
+		// If a row is returned, the player exists
+		var/_2fa_enabled = FALSE
+		var/always_check = FALSE
+		var/last_ip
+		if(check_query.NextRow())
+			if(check_query.item[1] != _2FA_DISABLED)
+				_2fa_enabled = TRUE
+			if(check_query.item[1] == _2FA_ENABLED_ALWAYS)
+				always_check = TRUE
+			last_ip = check_query.item[2]
+		qdel(check_query)
+
+		// If client has 2FA enabled, and they either:
+		// Have it set to always check, or their IP is different
+		if(_2fa_enabled && (always_check || (address != last_ip)))
+			// They have 2FA enabled, lets make sure they have authed within the last minute
+			var/datum/db_query/verify_query = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("2fa_secrets")] WHERE (last_time BETWEEN NOW() - INTERVAL 1 MINUTE AND NOW()) AND ckey=:ckey LIMIT 1", list(
+				"ckey" = ckey(key)
+			))
+
+			if(!verify_query.warn_execute())
+				message_admins("Failed to do a DB 2FA check for [key]. You have been warned.")
+				qdel(verify_query)
+				return
+
+			if(!verify_query.NextRow())
+				// If no row was returned, fail 2FA
+				qdel(verify_query)
+				return list("reason"="2fa check failed", "desc"="You have 2FA enabled but did not properly authenticate.")
+
+			qdel(verify_query)
 
 	if(config.ban_legacy_system)
 		//Ban Checking
