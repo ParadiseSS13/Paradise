@@ -389,12 +389,6 @@
 
 /////// SPAWNERS ///////
 
-/obj/effect/landmark/away/dsbssigma
-	name = "dsbssigma_landmark"
-	icon = 'icons/misc/mark.dmi'
-	icon_state = "r_land"
-	color = "#0055b3"
-
 /obj/effect/spawner/random_spawners/away
 	name = "random spawners"
 	result = list(/datum/nothing = 1)
@@ -553,32 +547,35 @@
 	/datum/nothing = 1,
 	/obj/effect/mob_spawn/human/corpse/away/dsbssigma/monkey = 1)
 
-/// RANDOMIZER ///
+/// GROUPED SPAWNERS ///
 
-/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer
-	name = "spawn randomizer"
-	icon_state = "x"
-	color = "#800080"
-	early_del = FALSE
+/obj/effect/spawner/grouped_spawner/away/
+	icon = 'icons/misc/mark.dmi'
+	icon_state = "r_land"
+	color = "#ffc800"
+	max_per_spawner = 1
+	total_amount = 1
 
-/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer/Initialize(mapload)
-	. = ..()
-	return INITIALIZE_HINT_LATELOAD
+/obj/effect/spawner/grouped_spawner/away/fireaxe_spawn
+	name = "grouped fireaxe spawner"
+	path_to_spawn = /obj/item/twohanded/fireaxe
 
-/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer/LateInitialize()
-	var/list/spawn_locations = list()
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/L = thing
-		if(L.name == "dsbssigma_queen" || L.name == "dsbssigma_miner" || L.name == "dsbssigma_organ" || L.name == "dsbssigma_fireaxe" || L.name == "dsbssigma_toolbox")
-			spawn_locations[L.name] += list(get_turf(L))
+/obj/effect/spawner/grouped_spawner/away/toolbox_s_spawn
+	name = "grouped syndicate toolbox spawner"
+	path_to_spawn = /obj/item/storage/toolbox/syndicate
 
-	new /mob/living/simple_animal/hostile/alien/queen/large/dsbssigma(pick(spawn_locations["dsbssigma_queen"]))
-	new /obj/effect/mob_spawn/human/corpse/away/dsbssigma/operative/miner(pick(spawn_locations["dsbssigma_miner"]))
-	new /obj/item/organ/internal/heart/gland/heals/weak(pick(spawn_locations["dsbssigma_organ"]))
-	new /obj/item/twohanded/fireaxe(pick(spawn_locations["dsbssigma_fireaxe"]))
-	new /obj/item/storage/toolbox/syndicate(pick(spawn_locations["dsbssigma_toolbox"]))
+/obj/effect/spawner/grouped_spawner/away/dsbssigma/healorgan_weak_spawn
+	name = "grouped weak healing organ spawner"
+	path_to_spawn = /obj/item/organ/internal/heart/gland/heals/weak
 
-	qdel(src)
+/obj/effect/spawner/grouped_spawner/away/dsbssigma/syndicate_miner_corpse
+	name = "grouped syndicate miner corpse spawner"
+	path_to_spawn = /obj/effect/mob_spawn/human/corpse/away/dsbssigma/operative/miner
+
+/obj/effect/spawner/grouped_spawner/away/dsbssigma/alien_queen
+	name = "grouped alien queen spawner"
+	color = "#ff0000"
+	path_to_spawn = /mob/living/simple_animal/hostile/alien/queen/large/dsbssigma
 
 ////////////////////////// MOBS //////////////////////////
 

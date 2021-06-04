@@ -201,6 +201,12 @@
 	temperature = 2.7
 	},
 /area/awaymission/DSBSSigma/exterior)
+"aI" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/effect/spawner/grouped_spawner/away/dsbssigma/syndicate_miner_corpse,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
 "aJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -762,6 +768,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/DSBSSigma/hangar)
+"bT" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/effect/spawner/grouped_spawner/away/dsbssigma/healorgan_weak_spawn,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/dead_monkey_50pc,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
 "bU" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/decal/cleanable/dirt,
@@ -1055,6 +1068,38 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/hangar)
+"cC" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/grouped_spawner/away/dsbssigma/alien_queen,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"cD" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 6;
+	initialize_directions = 3;
+	level = 2
+	},
+/obj/effect/spawner/grouped_spawner/away/toolbox_s_spawn,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/DSBSSigma/engineering_lifesupport)
+"cE" = (
+/obj/structure/table,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/item/stock_parts/cell/hyper{
+	pixel_x = 17;
+	pixel_y = 5
+	},
+/obj/item/paper/dsbssigma/note4,
+/obj/effect/spawner/grouped_spawner/away/toolbox_s_spawn,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/DSBSSigma/engineering_lifesupport)
 "cF" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/mineral/asteroid/loose/cave,
@@ -2331,6 +2376,13 @@
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/hangar)
+"eD" = (
+/obj/machinery/atmospherics/pipe/simple/visible/supply,
+/obj/effect/spawner/grouped_spawner/away/toolbox_s_spawn,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/DSBSSigma/engineering_lifesupport)
 "eE" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/DSBSSigma/overseer)
@@ -2542,6 +2594,19 @@
 	icon_state = "vault"
 	},
 /area/awaymission/DSBSSigma/hangar)
+"fc" = (
+/obj/machinery/power/terminal{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 0;
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/grouped_spawner/away/toolbox_s_spawn,
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/engineering_lifesupport)
 "fd" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid,
@@ -2550,6 +2615,23 @@
 /obj/structure/flora/rock,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
+"ff" = (
+/obj/structure/alien/weeds/node,
+/obj/effect/spawner/grouped_spawner/away/dsbssigma/alien_queen,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"fg" = (
+/obj/machinery/door_control{
+	id = "dsbss_disposals_blast";
+	name = "Disposals Access Control";
+	pixel_x = 24;
+	pixel_y = 6;
+	req_access_txt = "0"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/grouped_spawner/away/fireaxe_spawn,
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/dormitories)
 "fh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -2559,6 +2641,11 @@
 "fi" = (
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/overseer)
+"fj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/grouped_spawner/away/fireaxe_spawn,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/awaymission/DSBSSigma/exterior)
 "fk" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -9496,25 +9583,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
-"ru" = (
-/obj/structure/table,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/obj/item/stock_parts/cell/hyper{
-	pixel_x = 17;
-	pixel_y = 5
-	},
-/obj/item/paper/dsbssigma/note4,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#ffc800";
-	name = "dsbssigma_toolbox"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/DSBSSigma/engineering_lifesupport)
 "rv" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -10293,20 +10361,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
-	},
-/area/awaymission/DSBSSigma/engineering_lifesupport)
-"sE" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 6;
-	initialize_directions = 3;
-	level = 2
-	},
-/obj/effect/landmark/away/dsbssigma{
-	color = "#ffc800";
-	name = "dsbssigma_toolbox"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "sF" = (
@@ -12977,22 +13031,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
-"wy" = (
-/obj/machinery/power/terminal{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 0;
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#ffc800";
-	name = "dsbssigma_toolbox"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/DSBSSigma/engineering_lifesupport)
 "wz" = (
 /obj/structure/table,
 /obj/item/clothing/glasses/sunglasses{
@@ -14447,16 +14485,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/mech_bay)
-"zu" = (
-/obj/machinery/atmospherics/pipe/simple/visible/supply,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#ffc800";
-	name = "dsbssigma_toolbox"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/DSBSSigma/engineering_lifesupport)
 "zv" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -18958,21 +18986,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/dormitories)
-"HU" = (
-/obj/machinery/door_control{
-	id = "dsbss_disposals_blast";
-	name = "Disposals Access Control";
-	pixel_x = 24;
-	pixel_y = 6;
-	req_access_txt = "0"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#ffc800";
-	name = "dsbssigma_fireaxe"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/DSBSSigma/dormitories)
 "HV" = (
 /obj/machinery/conveyor/south{
 	id = "dsbss_garbage_space"
@@ -19637,14 +19650,6 @@
 /obj/structure/alien/weeds/node,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
-"Pt" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#ffc800";
-	name = "dsbssigma_fireaxe"
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaymission/DSBSSigma/exterior)
 "Py" = (
 /obj/structure/fluff/utility/lattice{
 	icon_state = "4-se"
@@ -19652,14 +19657,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/overseer)
-"PU" = (
-/obj/structure/alien/weeds/node,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#ff0000";
-	name = "dsbssigma_queen"
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
 "PW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -20034,16 +20031,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/overseer)
-"Um" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#1ad600";
-	name = "dsbssigma_organ"
-	},
-/obj/effect/spawner/random_spawners/away/dsbssigma/mob/dead_monkey_50pc,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
 "Uq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/rock/pile,
@@ -20201,12 +20188,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/cave_junction_north)
-"We" = (
-/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/DSBSSigma/mission_control)
 "Wp" = (
 /obj/structure/alien/weeds,
 /obj/structure/flora/rock/pile,
@@ -20320,15 +20301,6 @@
 	icon_state = "vault"
 	},
 /area/awaymission/DSBSSigma/dormitories)
-"Yp" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#ffc800";
-	name = "dsbssigma_miner"
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
 "Yq" = (
 /turf/simulated/mineral/asteroid/loose/cave,
 /area/awaymission/DSBSSigma/cave_junction_east)
@@ -20358,14 +20330,6 @@
 "Zb" = (
 /obj/structure/alien/resin,
 /obj/structure/alien/weeds,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"Zc" = (
-/obj/structure/alien/weeds,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#ff0000";
-	name = "dsbssigma_queen"
-	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
 "Zr" = (
@@ -23212,7 +23176,7 @@ ZJ
 ZJ
 ZJ
 ZJ
-Um
+bT
 Zb
 Zb
 ai
@@ -23651,7 +23615,7 @@ Zb
 Zb
 Zb
 Ln
-Um
+bT
 Zb
 Zb
 Zb
@@ -23665,7 +23629,7 @@ Zb
 Zb
 Zb
 Zb
-Um
+bT
 TK
 ZJ
 ZJ
@@ -23841,10 +23805,10 @@ ZJ
 ZJ
 ZJ
 Nj
-Zc
+cC
 ZJ
 TK
-Um
+bT
 Zb
 ai
 ai
@@ -23951,7 +23915,7 @@ ai
 ai
 Zb
 Zb
-Um
+bT
 Zb
 Zb
 ai
@@ -24287,7 +24251,7 @@ ZJ
 Pr
 Wp
 ZJ
-Zc
+cC
 ZJ
 Kc
 ZJ
@@ -24313,7 +24277,7 @@ ai
 Zb
 Zb
 Zb
-Yp
+aI
 Ln
 Zb
 Zb
@@ -24454,7 +24418,7 @@ ZJ
 ZJ
 Zb
 Zb
-Um
+bT
 ZJ
 ZJ
 Zb
@@ -24575,7 +24539,7 @@ ai
 ai
 ai
 Zb
-Yp
+aI
 OZ
 Wp
 ZJ
@@ -24913,7 +24877,7 @@ Zb
 ai
 Zb
 Zb
-Yp
+aI
 OZ
 ZJ
 ZJ
@@ -25204,7 +25168,7 @@ ai
 Zb
 Ln
 ZJ
-Zc
+cC
 ZJ
 ZJ
 Wp
@@ -25517,7 +25481,7 @@ ai
 ai
 Zb
 Zb
-Um
+bT
 ZJ
 ZJ
 ZJ
@@ -25876,7 +25840,7 @@ Zb
 Zb
 ZJ
 Kc
-PU
+ff
 ZJ
 ZJ
 Zb
@@ -25884,10 +25848,10 @@ ac
 Zb
 Ln
 ZJ
-Zc
+cC
 Kc
 OZ
-Um
+bT
 Zb
 ai
 ai
@@ -26030,7 +25994,7 @@ ai
 ai
 ai
 Zb
-Yp
+aI
 OZ
 ZJ
 ZJ
@@ -26044,7 +26008,7 @@ ZJ
 ZJ
 ZJ
 ZJ
-Yp
+aI
 Zb
 ai
 ai
@@ -26317,7 +26281,7 @@ ST
 ZJ
 Zb
 Zb
-Um
+bT
 OZ
 Ln
 Zb
@@ -26475,7 +26439,7 @@ ZJ
 Zb
 Zb
 Zb
-Yp
+aI
 Zb
 Zb
 ai
@@ -27126,7 +27090,7 @@ ai
 Zb
 Zb
 ZJ
-Um
+bT
 Zb
 Zb
 ZJ
@@ -29611,7 +29575,7 @@ ai
 ai
 pu
 Zb
-Um
+bT
 rN
 VI
 qx
@@ -32797,7 +32761,7 @@ SB
 ai
 Ie
 aj
-Pt
+fj
 aj
 aa
 aa
@@ -33104,13 +33068,13 @@ Hy
 Ee
 Ba
 HF
-HU
+fg
 HX
 Ia
 BH
 ai
 ab
-Pt
+fj
 aj
 aa
 aa
@@ -33223,7 +33187,7 @@ pK
 qh
 qF
 rj
-sE
+cD
 sy
 rT
 tY
@@ -34168,7 +34132,7 @@ nF
 rX
 tI
 ue
-zu
+eD
 uJ
 vs
 pd
@@ -34486,7 +34450,7 @@ pd
 vF
 ql
 vZ
-wy
+fc
 wV
 ql
 ql
@@ -34793,7 +34757,7 @@ ai
 pd
 re
 pz
-ru
+cE
 sJ
 tB
 pd
@@ -38228,7 +38192,7 @@ hZ
 iy
 gi
 jR
-We
+jR
 kz
 lg
 lC
