@@ -67,11 +67,11 @@
 		EQUIPMENT("KA Super Chassis", 				/obj/item/borg/upgrade/modkit/chassis_mod, 							250),
 		EQUIPMENT("KA White Tracer Rounds", 		/obj/item/borg/upgrade/modkit/tracer, 								100),
 		EQUIPMENT("Premium Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka, 					8000),
+		EQUIPMENT("Precise Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/precise, 			8500),
+		EQUIPMENT("Rapid Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/rapid, 					8500),
+		EQUIPMENT("Heavy Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/heavy, 					8500),
+		EQUIPMENT("Modular Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/modular, 			9500),
 		EQUIPMENT("Build-you-own-KA kit", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/byoka, 				9500),
-		EQUIPMENT("Precise Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/precise, 			15000),
-		EQUIPMENT("Rapid Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/rapid, 					15000),
-		EQUIPMENT("Heavy Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/heavy, 					15000),
-		EQUIPMENT("Modular Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/modular, 			20000),
 	)
 	prize_list["Digging Tools"] = list(
 		EQUIPMENT("Diamond Pickaxe", 				/obj/item/pickaxe/diamond, 											2000),
