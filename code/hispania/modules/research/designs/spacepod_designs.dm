@@ -52,6 +52,49 @@
 //////SPACEPOD MISC. ITEMS////////////////
 //////////////////////////////////////////
 
+/datum/design/paintkit
+	construction_time = 100
+	name = "Spacepod Paintkit Bucket"
+	desc = "A bucket full with paint for your spacepod."
+	id = "spacepodpaintkit"
+	req_tech = list("materials" = 1, "combat" = 1, "engineering" = 1)
+	build_type = PODFAB
+	materials = list(MAT_METAL=5000)
+	build_path = /obj/item/pod_paint_bucket
+	category = list("Pod_Parts")
+
+/datum/design/reinforced_plates_spacepod
+	construction_time = 100
+	name = "Spacepod Reinforced Engine"
+	desc = "A bunch of plates that can be install near the engine to make it more robust but slower."
+	id = "pod_plates_spacepod"
+	req_tech = list("materials" = 5, "combat" = 4, "engineering" = 4)
+	build_type = PODFAB
+	materials = list(MAT_METAL=5000, MAT_SILVER = 2000)
+	build_path = /obj/item/fluff/plates_spacepod
+	category = list("Pod_Parts")
+
+/datum/design/modified_engine
+	construction_time = 100
+	name = "Spacepod Modified Engine"
+	desc = "A bunch of diagrams on how to make it faster but more easy to break."
+	id = "pod_enginelight_spacepod"
+	req_tech = list("materials" = 5, "combat" = 4, "engineering" = 4)
+	build_type = PODFAB
+	materials = list(MAT_METAL=5000, MAT_SILVER = 2000, ,MAT_BLUESPACE = 1000)
+	build_path = /obj/item/fluff/plates_spacepod/velocity
+	category = list("Pod_Parts")
+
+/datum/design/basic_engine
+	construction_time = 100
+	name = "Spacepod Standard Engine"
+	desc = "A bunch of diagrams on how to revert any changes to your engine."
+	id = "pod_standard_spacepod"
+	req_tech = list("materials" = 5, "combat" = 4, "engineering" = 4)
+	build_type = PODFAB
+	materials = list(MAT_METAL=5000)
+	build_path = /obj/item/fluff/plates_spacepod/basic_engine
+	category = list("Pod_Parts")
 
 //////////////////////////////////////////
 //////SPACEPOD CARGO ITEMS////////////////

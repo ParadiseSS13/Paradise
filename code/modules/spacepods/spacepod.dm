@@ -48,6 +48,7 @@
 	var/list/pod_paint_effect
 	var/list/colors = new/list(4)
 	var/health = 250
+	var/maxhealth = 250
 	var/empcounter = 0 //Used for disabling movement when hit by an EMP
 
 	var/lights = 0
@@ -64,6 +65,7 @@
 	var/move_delay = 2
 	var/next_move = 0
 	var/can_paint = TRUE
+	var/unique_model = FALSE //Hispania Models
 
 /obj/spacepod/proc/apply_paint(mob/user as mob)
 	var/part_type
@@ -206,9 +208,9 @@
 			to_add = pod_paint_effect[PAINT]
 			to_add.color = colors[PAINT]
 			overlays += to_add
-	if(health <= round(initial(health)/2))
+	if(health <= round(maxhealth/2))
 		overlays += pod_overlays[DAMAGE]
-		if(health <= round(initial(health)/4))
+		if(health <= round(maxhealth/4))
 			overlays += pod_overlays[FIRE]
 
 
@@ -262,7 +264,7 @@
 /obj/spacepod/proc/deal_damage(damage)
 	var/oldhealth = health
 	health = max(0, health - damage)
-	var/percentage = (health / initial(health)) * 100
+	var/percentage = (health / maxhealth) * 100
 	occupant_sanity_check()
 	if(oldhealth > health && percentage <= 25 && percentage > 0)
 		play_sound_to_riders('sound/effects/engine_alert2.ogg')
@@ -289,7 +291,7 @@
 
 /obj/spacepod/proc/repair_damage(repair_amount)
 	if(health)
-		health = min(initial(health), health + repair_amount)
+		health = min(maxhealth, health + repair_amount)
 		update_icons()
 
 
@@ -435,7 +437,7 @@
 	if(!hatch_open)
 		to_chat(user, "<span class='warning'>You must open the maintenance hatch before attempting repairs.</span>")
 		return
-	if(health >= initial(health))
+	if(health >= maxhealth)
 		to_chat(user, "<span class='boldnotice'>[src] is fully repaired!</span>")
 		return
 	if(!I.tool_use_check(user, 0))
