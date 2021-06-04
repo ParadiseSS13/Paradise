@@ -61,18 +61,6 @@
 
 /obj/structure/lattice/clockwork/Initialize(mapload)
 	. = ..()
-	ratvar_act()
-
-/obj/structure/lattice/clockwork/ratvar_act()
-	if((x + y) % 2 != 0)
-		icon = 'icons/obj/smooth_structures/lattice_clockwork_large.dmi'
-		pixel_x = -9
-		pixel_y = -9
-	else
-		icon = 'icons/obj/smooth_structures/lattice_clockwork.dmi'
-		pixel_x = 0
-		pixel_y = 0
-	return TRUE
 
 /obj/structure/lattice/catwalk
 	name = "catwalk"
@@ -109,18 +97,6 @@
 
 /obj/structure/lattice/catwalk/clockwork/Initialize(mapload)
 	. = ..()
-	ratvar_act()
 	if(!mapload)
 		new /obj/effect/temp_visual/ratvar/floor/catwalk(loc)
 		new /obj/effect/temp_visual/ratvar/beam/catwalk(loc)
-
-/obj/structure/lattice/catwalk/clockwork/ratvar_act()
-	if((x + y) % 2 != 0)
-		icon = 'icons/obj/smooth_structures/catwalk_clockwork_large.dmi'
-		pixel_x = -9
-		pixel_y = -9
-	else
-		icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
-		pixel_x = 0
-		pixel_y = 0
-	return TRUE
