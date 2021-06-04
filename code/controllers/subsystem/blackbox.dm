@@ -65,7 +65,7 @@ SUBSYSTEM_DEF(blackbox)
 			sqlversion = versions[FV.key]
 
 		var/datum/db_query/query_feedback_save = SSdbcore.NewQuery({"
-		INSERT DELAYED IGNORE INTO [format_table_name("feedback")] (datetime, round_id, key_name, key_type, version, json)
+		INSERT IGNORE INTO [format_table_name("feedback")] (datetime, round_id, key_name, key_type, version, json)
 		VALUES (NOW(), :rid, :keyname, :keytype, :version, :json)"}, list(
 			"rid" = text2num(GLOB.round_id),
 			"keyname" = FV.key,

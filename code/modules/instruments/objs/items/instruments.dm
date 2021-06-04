@@ -135,6 +135,16 @@
 	playsound (src, 'sound/instruments/trombone/Cn4.mid', 100,1,-1)
 	..()
 
+/obj/item/instrument/trombone/sad
+	name = "sad trombone"
+	desc = "Wah. Waah. Waaah. Waaaaaaah."
+	force = 0
+	attack_verb = list("Wahed", "Waahed", "Waaahed", "Honked")
+
+/obj/item/instrument/trombone/sad/attack(mob/living/carbon/C, mob/user)
+	playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 1, -1)
+	..()
+
 /obj/item/instrument/recorder
 	name = "recorder"
 	desc = "Just like in school, playing ability and all."

@@ -11,11 +11,11 @@ REVIVAL_POD_PLANTS 1
 REVIVAL_CLONING 1
 
 ## Amount of time (in hundredths of seconds) for which a brain retains the "spark of life" after the person's death (set to -1 for infinite)
-REVIVAL_BRAIN_LIFE -1
+REVIVAL_BRAIN_LIFE 60000
 
 ### AUTO TOGGLE OOC DURING ROUND ###
 #Uncomment this if you want OOC to be automatically disabled during the round, it will be enabled during the lobby and after the round end results.
-#AUTO_TOGGLE_OOC_DURING_ROUND
+AUTO_TOGGLE_OOC_DURING_ROUND
 
 ### MOB MOVEMENT ###
 ## We suggest editing these variabled in-game to find a good speed for your server. To do this you must be a high level admin. Open the 'debug' tab ingame. Select "Debug Controller" and then, in the popup, select "Configuration". These variables should have the same name.
@@ -27,7 +27,7 @@ WALK_SPEED 4
 
 ## The variables below affect the movement of specific mob types.
 HUMAN_DELAY 1.5
-ROBOT_DELAY 1.5
+ROBOT_DELAY 2.5
 MONKEY_DELAY 1.5
 ALIEN_DELAY 1.5
 SLIME_DELAY 1.5

@@ -2072,7 +2072,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return _list
 
 /// Waits at a line of code until X is true
-#define UNTIL(X) while(!(X)) stoplag()
+#define UNTIL(X) while(!(X)) sleep(world.tick_lag)
 
 // Check if the source atom contains another atom
 /atom/proc/contains(atom/location)
@@ -2116,6 +2116,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "White Noise"
 		if(CHANNEL_AMBIENCE)
 			return "Ambience"
+		if(CHANNEL_ENGINE)
+			return "Engine Ambience"
 
 /proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
 	switch(input_slot_flags)

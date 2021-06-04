@@ -280,6 +280,10 @@
 	add_overlay(causality_field, TRUE)
 
 	var/speaking = "[emergency_alert] The supermatter has reached critical integrity failure. Emergency causality destabilization field has been activated."
+	for(var/mob/M in GLOB.player_list) // for all players
+		var/turf/T = get_turf(M)
+		if(istype(T) && atoms_share_level(T, src)) // if the player is on the same zlevel as the SM shared
+			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
 	radio.autosay(speaking, name, null, list(z))
 	for(var/i in SUPERMATTER_COUNTDOWN_TIME to 0 step -10)
 		if(damage < explosion_point) // Cutting it a bit close there engineers
@@ -373,9 +377,9 @@
 	if(last_accent_sound < world.time && prob(20))
 		var/aggression = min(((damage / 800) * (power / 2500)), 1.0) * 100
 		if(damage >= 300)
-			playsound(src, "smdelam", max(50, aggression), FALSE, 40, 30, falloff_distance = 10)
+			playsound(src, "smdelam", max(50, aggression), FALSE, 40, 30, falloff_distance = 10, channel = CHANNEL_ENGINE)
 		else
-			playsound(src, "smcalm", max(50, aggression), FALSE, 25, 25, falloff_distance = 10)
+			playsound(src, "smcalm", max(50, aggression), FALSE, 25, 25, falloff_distance = 10, channel = CHANNEL_ENGINE)
 		var/next_sound = round((100 - aggression) * 5)
 		last_accent_sound = world.time + max(SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN, next_sound)
 
@@ -564,7 +568,7 @@
 			zap_count += 1
 
 		if(zap_count >= 1)
-			playsound(src.loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10)
+			playsound(src.loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10, channel = CHANNEL_ENGINE)
 			for(var/i in 1 to zap_count)
 				supermatter_zap(src, range, clamp(power*2, 4000, 20000), flags)
 
@@ -803,7 +807,7 @@
 	icon_state = "darkmatter"
 
 /obj/machinery/power/supermatter_crystal/proc/supermatter_pull(turf/center, pull_range = 3)
-	playsound(center, 'sound/weapons/marauder.ogg', 100, TRUE, extrarange = pull_range - world.view)
+	playsound(center, 'sound/weapons/marauder.ogg', 100, TRUE, extrarange = pull_range - world.view, channel = CHANNEL_ENGINE)
 	for(var/atom/movable/P in orange(pull_range,center))
 		if((P.anchored || P.move_resist >= MOVE_FORCE_EXTREMELY_STRONG)) //move resist memes.
 			if(istype(P, /obj/structure/closet))

@@ -30,7 +30,7 @@ export const SuitStorage = (props, context) => {
           </Dimmer>
         )}
         <StoredItems />
-        <Disinfect />
+        <OpenToggle />
       </Window.Content>
     </Window>
   );
@@ -54,16 +54,16 @@ const StoredItems = (props, context) => {
       buttons={
         <Fragment>
           <Button
+            content="Start Disinfection Cycle"
+            icon="radiation"
+            textAlign="center"
+            onClick={() => act('cook')}
+          />
+          <Button
             content={locked ? "Unlock" : "Lock"}
             icon={locked ? "unlock" : "lock"}
             disabled={open}
             onClick={() => act('toggle_lock')}
-          />
-          <Button
-            content={open ? "Close unit" : "Open unit"}
-            icon={open ? "times-circle" : "expand"}
-            color={open ? "red" : "green"}
-            onClick={() => act('toggle_open')}
           />
         </Fragment>
       }>
@@ -124,16 +124,22 @@ const ItemRow = (props, context) => {
   );
 };
 
-const Disinfect = (props, context) => {
+const OpenToggle = (props, context) => {
   const { act, data } = useBackend(context);
+  const {
+    open,
+    locked,
+  } = data;
   return (
     <Section>
       <Button
         fluid
-        icon="cog"
+        content={open ? "Close Suit Storage Unit" : "Open Suit Storage Unit"}
+        icon={open ? "times-circle" : "expand"}
+        color={open ? "red" : "green"}
+        disabled={locked}
         textAlign="center"
-        content="Start Disinfection Cycle"
-        onClick={() => act('cook')}
+        onClick={() => act('toggle_open')}
       />
     </Section>
   );

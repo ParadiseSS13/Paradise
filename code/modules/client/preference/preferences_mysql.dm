@@ -16,7 +16,8 @@
 					clientfps,
 					atklog,
 					fuid,
-					parallax
+					parallax,
+					2fa_status
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -45,12 +46,13 @@
 		atklog = text2num(query.item[14])
 		fuid = text2num(query.item[15])
 		parallax = text2num(query.item[16])
+		_2fa_status = query.item[17]
 
 	qdel(query)
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
-	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight"), initial(UI_style))
+	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight", "Plasmafire", "Retro", "Slimecore", "Operative"), initial(UI_style))
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, TOGGLES_TOTAL, initial(toggles))
 	toggles2		= sanitize_integer(toggles2, 0, TOGGLES_2_TOTAL, initial(toggles2))
@@ -93,7 +95,8 @@
 					volume_mixer=:volume_mixer,
 					lastchangelog=:lastchangelog,
 					clientfps=:clientfps,
-					parallax=:parallax
+					parallax=:parallax,
+					2fa_status=:_2fa_status
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -111,7 +114,8 @@
 						"lastchangelog" = lastchangelog,
 						"clientfps" = clientfps,
 						"parallax" = parallax,
-						"ckey" = C.ckey
+						"_2fa_status" = _2fa_status,
+						"ckey" = C.ckey,
 					)
 					)
 
@@ -440,7 +444,7 @@
 													"f_style" = f_style,
 													"markingstyleslist" = markingstyleslist,
 													"ha_style" = ha_style,
-													"alt_head" = alt_head || "",
+													"alt_head" = (alt_head ? alt_head : ""), // This it intentional. It wont work without it!
 													"e_colour" = e_colour,
 													"underwear" = underwear,
 													"undershirt" = undershirt,
