@@ -328,7 +328,11 @@
 	name = "double-barreled shotgun"
 	desc = "A true classic."
 	icon_state = "dshotgun"
-	item_state = "shotgun"
+	item_state = "shotgun_db"
+	lefthand_file = 'icons/mob/inhands/64x64_guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/64x64_guns_righthand.dmi'
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
 	force = 10
@@ -358,8 +362,10 @@
 		var/obj/item/melee/energy/W = A
 		if(W.active)
 			sawoff(user)
+			item_state = "ishotgun_sawn"
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
 		sawoff(user)
+		item_state = "ishotgun_sawn"
 	else
 		return ..()
 
@@ -389,7 +395,11 @@
 	name = "improvised shotgun"
 	desc = "Essentially a tube that aims shotgun shells."
 	icon_state = "ishotgun"
-	item_state = "shotgun"
+	item_state = "ishotgun"
+	lefthand_file = 'icons/mob/inhands/64x64_guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/64x64_guns_righthand.dmi'
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	slot_flags = null
@@ -406,6 +416,7 @@
 		if(C.use(10))
 			slot_flags = SLOT_BACK
 			icon_state = "ishotgunsling"
+			item_state = "ishotgunsling"
 			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
 			slung = 1
 			update_icon()
@@ -420,6 +431,7 @@
 	if(slung && (slot_flags & SLOT_BELT) )
 		slung = 0
 		icon_state = "ishotgun-sawn"
+		item_state = "ishotgun_sawn"
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
@@ -436,6 +448,8 @@
 	icon = 'icons/obj/items.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	inhand_x_dimension = 32
+	inhand_y_dimension = 32
 	icon_state = "cane"
 	item_state = "stick"
 	sawn_state = SAWN_OFF

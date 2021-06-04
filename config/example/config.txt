@@ -1,20 +1,20 @@
-## Server name: This appears at the top of the screen in-game. In this case it will read "spacestation13: station_name" where station_name is the randomly generated name of the station for the round. Remove the # infront of SERVERNAME and replace 'spacestation13' with the name of your choice
-# SERVERNAME spacestation13
+## Server name: This identifies your server in the server list. It may also be used as the title of the game window.
+SERVERNAME ParaCode Test
 
 ## Server tagline: This appears on the hub entry.
-#SERVER_TAG_LINE The Perfect Mix of RP & Action
+SERVER_TAG_LINE ParaCode Test
 
 ## Server extra features: This appears in the feature list on the hub entry.
-#SERVER_EXTRA_FEATURES medium RP, varied species/jobs/modes
+SERVER_EXTRA_FEATURES Medium RP, varied species/jobs.
+
+## Download the RSC from the web - this needs to be regenerated every time the code is changed.
+#RESOURCE_URLS http://www.paradisestation.org/windows/paradise.rsc.zip
 
 ## Add a # infront of this if you want to use the SQL based admin system, the legacy system uses admins.txt. You need to set up your database to use the SQL based system.
 ADMIN_LEGACY_SYSTEM
 
 ## Add a # infront of this if you want to use the SQL based banning system. The legacy systems use the files in the data folder. You need to set up your database to use the SQL based system.
 BAN_LEGACY_SYSTEM
-
-## Add a # infront of this to unlimit the builds used to play. Advised is to keep it atleast 1421 due to the middle mouse button locking exploit
-MINIMUM_CLIENT_BUILD 1421
 
 ## Add a # here if you wish to use the setup where jobs have more access. This is intended for servers with low populations - where there are not enough players to fill all roles, so players need to do more than just one job. Also for servers where they don't want people to hide in their own departments.
 JOBS_HAVE_MINIMAL_ACCESS
@@ -46,12 +46,6 @@ LOG_SAY
 ## log admin actions
 LOG_ADMIN
 
-## log debug messages
-LOG_DEBUG
-
-## log admin chat
-LOG_ADMINCHAT
-
 ## log client access (logon/logoff)
 LOG_ACCESS
 
@@ -77,49 +71,53 @@ LOG_PDA
 LOG_RUNTIME
 
 ## log world.log messages
-LOG_WORLD_OUTPUT
+# LOG_WORLD_OUTPUT
 
 ## log all Topic() calls (for use by coders in tracking down Topic issues)
-# LOG_HREFS
+LOG_HREFS
 
-## log admin warning messages
+## log admin warning messages - may result in some message duplication
 LOG_ADMINWARN
 
-## Amount of minutes that a person has to be AFK before he'll be listed on the "List AFK players" verb
-#LIST_AFK_MINIMUM 5
+## Log admin chat
+LOG_ADMINCHAT
 
 ## Amount of minutes that a person has to be AFK before he will be warned by the AFK subsystem. Leave this 0 to prevent the subsystem from activating
-WARN_AFK_MINIMUM 0
+WARN_AFK_MINIMUM 15
 
 ## Amount of minutes that a person has to be AFK before he will be cryod by the AFK subsystem. Leave this 0 to prevent the subsystem from activating
-AUTO_CRYO_AFK 0
+AUTO_CRYO_AFK 20
 
 ## Amount of minutes that a person has to be AFK before he will be despawned by the AFK subsystem. Leave this 0 to prevent the subsystem from activating
-AUTO_DESPAWN_AFK 0
+AUTO_DESPAWN_AFK 21
 
 ## probablities for game modes chosen in "secret" and "random" modes
 ##
 ## default probablity is 1, increase to make that mode more likely to be picked
 ## set to 0 to disable that mode
-PROBABILITY EXTEND-A-TRAITORMONGOUS 3
+PROBABILITY ABDUCTION 0
+PROBABILITY BLOB 1
+PROBABILITY CHANGELING 3
+PROBABILITY CULT 3
+PROBABILITY EXTEND-A-TRAITORMONGOUS 2
+PROBABILITY EXTENDED 3
+PROBABILITY HEIST 0
+PROBABILITY METEOR 0
+PROBABILITY NUCLEAR 2
+PROBABILITY RAGINMAGES 0
+PROBABILITY REVOLUTION 0
+PROBABILITY SHADOWLING 1
+PROBABILITY TRAITOR 2
 PROBABILITY TRAITORCHAN 3
 PROBABILITY TRAITORVAMP 3
-PROBABILITY REVOLUTION 0
-PROBABILITY SHADOWLING 2
-PROBABILITY CULT 4
-PROBABILITY CHANGELING 3
-PROBABILITY WIZARD 2
-PROBABILITY BLOB 1
-PROBABILITY RAGINMAGES 0
-PROBABILITY METEOR 0
-PROBABILITY HEIST 0
 PROBABILITY VAMPIRE 3
-PROBABILITY EXTENDED 2
-PROBABILITY NUCLEAR 3
-PROBABILITY ABDUCTION 0
+PROBABILITY WIZARD 2
 
-## Maximum cycles shadowlings can remain unhatched before they take damage. 1800 = 60 minutes, 900 = 30 minutes, 0 = feature disabled.
-SHADOWLING_MAX_AGE 0
+## Uncomment to allow free golems on all roundtypes. Otherwise, disabled on cult, wiz, raging mages, blob, and nuclear.
+#UNRESTRICTED_FREE_GOLEMS
+
+## MAXIMUM SECONDS SHADOWLINGS CAN REMAIN UNHATCHED BEFORE THEY TAKE DAMAGE
+SHADOWLING_MAX_AGE 600
 
 ## Hash out to disable random events during the round.
 ALLOW_RANDOM_EVENTS
@@ -178,9 +176,6 @@ NORESPAWN
 ## disables calling qdel(src) on newmobs if they logout before spawnin in
 # DONT_DEL_NEWMOB
 
-## set a hosted by name for unix platforms
-# HOSTEDBY Example
-
 ## Set to jobban "Guest-" accounts from Captain, HoS, HoP, CE, RD, CMO, Warden, Security, Detective, and AI positions.
 ## Set to 1 to jobban them from those positions, set to 0 to allow them.
 GUEST_JOBBAN
@@ -194,7 +189,7 @@ PANIC_BUNKER_THRESHOLD 150
 ### IPINTEL:
 ### This allows you to detect likely proxies by checking ips against getipintel.net
 ## Rating to warn at: (0.90 is good, 1 is 100% likely to be a spammer/proxy, 0.8 is 80%, etc) anything equal to or higher then this number triggers an admin warning
-#IPINTEL_RATING_BAD 0.90
+#IPINTEL_RATING_BAD 0.98
 ## Contact email, (required to use the service, leaving blank or default disables IPINTEL)
 #IPINTEL_EMAIL ch@nge.me
 ## How long to save good matches (ipintel rate limits to 15 per minute and 500 per day. so this shouldn't be too low, getipintel.net suggests 6 hours, time is in hours) (Your ip will get banned if you go over 500 a day too many times)
@@ -217,40 +212,40 @@ PANIC_BUNKER_THRESHOLD 150
 #FORUM_PLAYERINFO_URL https://example.com/info.php?ckey=
 
 ## Comment to disable checking for the cid randomizer dll. (disabled if database isn't enabled or connected)
-CHECK_RANDOMIZER
+#CHECK_RANDOMIZER
 
 ## the whitelist
-#USEWHITELIST
+USEWHITELIST
 
 ## set a server location for world reboot. Don't include the byond://, just give the address and port.
 # SERVER server.net:port
 
 ## Forum address
-# FORUMURL http://example.org
+FORUMURL https://www.paradisestation.org/forum/
 
 ## Wiki address
-# WIKIURL http://example.org
+WIKIURL https://www.paradisestation.org/wiki
 
 ## Rules address
-# RULESURL http://example.org
+RULESURL https://www.paradisestation.org/rules
 
-## GitHub address
-# GITHUBURL http://example.org
+## Github address
+GITHUBURL https://github.com/ParadiseSS13/Paradise
 
 ## Discord address
-# DISCORDURL http://example.org
+#DISCORDURL http://example.org
 
 ## Discord address (forum-based invite)
-# DISCORDFORUMURL http://example.org
+DISCORDFORUMURL https://www.paradisestation.org/forum/discord/invite/general/
 
 ## Donations address
-# DONATIONSURL http://example.org
+DONATIONSURL https://www.patreon.com/ParadiseStation
 
 ## Repository address
-# REPOSITORYURL http://example.org
+REPOSITORYURL https://github.com/ParadiseSS13/Paradise
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins
-# BANAPPEALS http://example.org
+BANAPPEALS https://www.paradisestation.org/forum/55-unban-requests/
 
 ## In-game features
 ## spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
@@ -279,16 +274,13 @@ SOCKET_TALK 0
 #AUTOMUTE_ON
 
 ## How long the delay is before the Away Mission gate opens. Default is half an hour.
-GATEWAY_DELAY 6000
+GATEWAY_DELAY 10
 
 ## Remove the # to give assistants maint access.
 ASSISTANT_MAINT
 
 ## Remove the # to enable assistant limiting.
-ASSISTANT_LIMIT
-
-## If you enabled assistant limiting set the ratio of assistants to security members default is 2 assistants to 1 officer
-ASSISTANT_RATIO 2
+#ASSISTANT_LIMIT
 
 # Mins before SSD crew are cryoed.
 AUTO_CRYO_SSD_MINS 15
@@ -296,18 +288,21 @@ AUTO_CRYO_SSD_MINS 15
 # If enabled, prevents people interacting with SSD players unless they acknowledge they have read the server rules.
 SSD_WARNING
 
+## If you enabled assistant limiting set the ratio of assistants to security members default is 2 assistants to 1 officer
+ASSISTANT_RATIO 2
+
 ## Remove the # to make rounds which end instantly (Rev, Wizard, Malf) to continue until the shuttle is called or the station is nuked.
 ## Malf and Rev will let the shuttle be called when the antags/protags are dead.
 #CONTINUOUS_ROUNDS
 
 ## Uncomment to restrict non-admins from using humanoid alien races
-#USEALIENWHITELIST
+USEALIENWHITELIST
 
 ## Comment this to unrestrict the number of alien players allowed in the round. The number represents the number of alien players for every human player.
 ALIEN_PLAYER_RATIO 0.2
 
 ##Remove the # to let ghosts spin chairs
-GHOST_INTERACTION
+#GHOST_INTERACTION
 
 ## Password used for authorizing external tools via world/Topic.
 #COMMS_PASSWORD
@@ -326,12 +321,12 @@ EVENT_DELAY_UPPER 15;45;70
 ## The delay until the first time an event of the given severity runs in minutes.
 ## Unset setting use the EVENT_DELAY_LOWER and EVENT_DELAY_UPPER values instead.
 #EVENT_CUSTOM_START_MINOR 10;15
-#EVENT_CUSTOM_START_MODERATE 30;45
-EVENT_CUSTOM_START_MAJOR 80;100
+EVENT_CUSTOM_START_MODERATE 25;40
+EVENT_CUSTOM_START_MAJOR 55;75
 
 ## Starlight for exterior walls and breaches. Uncomment for starlight!
 ## This is disabled by default to make testing quicker, should be enabled on production servers or testing servers messing with lighting
-#STARLIGHT
+STARLIGHT
 
 ## Player rerouting stuff
 ## If not 0, players can be rerouted to an overflow server after a certain cap is reached
@@ -349,10 +344,10 @@ PLAYER_REROUTE_CAP 0
 #DISABLE_SPACE_RUINS
 
 ## Minimum number of space ruins levels to generate
-EXTRA_SPACE_RUIN_LEVELS_MIN 4
+EXTRA_SPACE_RUIN_LEVELS_MIN 2
 
 ## Maximum number of space ruins levels to generate
-EXTRA_SPACE_RUIN_LEVELS_MAX 8
+EXTRA_SPACE_RUIN_LEVELS_MAX 4
 
 ## Uncomment to disable the OOC/LOOC channel by default.
 #DISABLE_OOC
@@ -390,7 +385,7 @@ EXTRA_SPACE_RUIN_LEVELS_MAX 8
 ## Uncomment this to shut down the world any time it would normally reboot
 #SHUTDOWN_ON_REBOOT
 ## A command to run prior to the world shutting down, only used if the above option is enabled
-## This default value will kill Dream Daemon on Windows machines
+## This default value will kill Dream Daemon on Windows machines.
 #SHUTDOWN_SHELL_COMMAND taskkill /f /im dreamdaemon.exe
 
 ## Uncomment this to disable karma and unlock all karma purchases for players by default
@@ -420,23 +415,24 @@ HIGH_POP_MC_MODE_AMOUNT 65
 ##Disengage high pop mode if player count drops below this
 DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
-##Developer options
-
 ##Uncomment to enable developer start. Auto starts the server after initialization
-##DEVELOPER_EXPRESS_START
+#DEVELOPER_EXPRESS_START
 
 ## Uncomment to disable automatic admin for localhost
 #DISABLE_LOCALHOST_ADMIN
+
+## Add a # infront of this to unlimit the builds used to play. Advised is to keep it atleast 1421 due to the middle mouse button locking exploit
+MINIMUM_CLIENT_BUILD 1421
 
 ## Uncomment to give a confirmation before hitting start now
 #START_NOW_CONFIRMATION
 
 ## If uncommented, all gamemodes will respect the number of required players. Defaults to no.
-#ENABLE_GAMEMODE_PLAYER_LIMIT
+ENABLE_GAMEMODE_PLAYER_LIMIT
 
 ## BYOND accounts younger than the value below will alert admins when they connect for the first time,
 ## as well as making the BYOND account age in player panel bold
-BYOND_ACCOUNT_AGE_THRESHOLD 7
+BYOND_ACCOUNT_AGE_THRESHOLD 3
 
 ##### DISCORD STUFF #####
 
@@ -447,7 +443,7 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 
 ## Role ID to be pinged with administrative events. If unset, all pings to this role will be disabled
 ## IF YOU ARE DISABLING THIS COMMENT IT OUT ENTIRELY, DONT LEAVE IT BLANK
-#DISCORD_WEBHOOKS_ADMIN_ROLE_ID
+#DISCORD_WEBHOOKS_ADMIN_ROLE_ID 111111111111
 
 ## Webhook URLs for the main discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
 #DISCORD_WEBHOOKS_MAIN_URL
@@ -471,7 +467,13 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 CENTCOM_BAN_DB_URL https://centcom.melonmesa.com/ban/search/
 
 ## Max amount of CIDs that one ckey can have attached to them before they trip a warning. Set to 0 to disable.
-MAX_CLIENT_CID_HISTORY 2
+MAX_CLIENT_CID_HISTORY 20
 
 ## Uncomment to enable automatic performance profiling of rounds
-#ENABLE_AUTO_PROFILER
+ENABLE_AUTO_PROFILER
+
+## Uncomment to enable map voting
+#ENABLE_MAP_VOTING
+
+## Host for a custom 2FA server. Comment to disable. Do not use a trailing slash or https.
+#2FA_HOST http://127.0.0.1:8080

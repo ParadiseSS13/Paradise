@@ -173,3 +173,18 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			return SEC_LEVEL_EPSILON
 		if("delta")
 			return SEC_LEVEL_DELTA
+
+/proc/get_security_level_colors()
+	switch(GLOB.security_level)
+		if(SEC_LEVEL_GREEN)
+			return "<font color='limegreen'>Green</font>"
+		if(SEC_LEVEL_BLUE)
+			return "<font color='dodgerblue'>Blue</font>"
+		if(SEC_LEVEL_RED)
+			return "<font color='red'>Red</font>"
+		if(SEC_LEVEL_GAMMA)
+			return "<font color='gold'>Gamma</font>"
+		if(SEC_LEVEL_EPSILON)
+			return "<font color='blueviolet'>Epsilon</font>"
+		if(SEC_LEVEL_DELTA)
+			return "<font color='orangered'>Delta</font>"

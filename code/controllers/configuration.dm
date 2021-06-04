@@ -275,6 +275,12 @@
 	/// Enable auto profiler of rounds
 	var/auto_profile = FALSE
 
+	// Enable map voting
+	var/map_voting_enabled = FALSE
+
+	// 2FA auth host
+	var/_2fa_auth_host = null
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -770,6 +776,10 @@
 					max_client_cid_history = text2num(value)
 				if("enable_auto_profiler")
 					auto_profile = TRUE
+				if("enable_map_voting")
+					map_voting_enabled = TRUE
+				if("2fa_host")
+					_2fa_auth_host = value
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
@@ -925,3 +935,34 @@
 			runnable_modes[M] = probabilities[M.config_tag]
 //			to_chat(world, "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]")
 	return runnable_modes
+
+/datum/configuration/proc/load_rank_colour_map()
+	var/list/lines = file2list("config/rank_colours.txt")
+
+	for(var/line in lines)
+		// Skip newlines
+		if(!length(line))
+			continue
+		// Skip comments
+		if(line[1] == "#")
+			continue
+
+		//Split the line at every " - "
+		var/list/split_holder = splittext(line, " - ")
+		if(!length(split_holder))
+			continue
+
+		// Rank is before the " - "
+		var/rank = split_holder[1]
+		if(!rank)
+			continue
+
+		// Color is after the " - "
+		var/colour = ""
+		if(length(split_holder) >= 2)
+			colour = split_holder[2]
+
+		if(rank && colour)
+			GLOB.rank_colour_map[rank] = colour
+		else
+			stack_trace("Invalid colour for rank '[rank]' in config/rank_colours.txt")
