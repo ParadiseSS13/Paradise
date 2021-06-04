@@ -19,7 +19,6 @@
 
 /obj/item/storage/box/survival_mining/New()
 	..()
-	new /obj/item/crowbar/red(src)
 	new /obj/item/reagent_containers/food/snacks/proteinbar(src)
 
 /obj/item/storage/box/survival_syndi/New()
