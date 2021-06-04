@@ -273,7 +273,7 @@
 	if(!ignore_air)
 		Assimilate_Air()
 
-//////Assimilate Air//////
+////Assimilate Air////
 /turf/simulated/proc/Assimilate_Air()
 	if(air)
 		var/aoxy = 0 //Holders to assimilate air from nearby turfs
@@ -287,8 +287,10 @@
 
 		for(var/direction in GLOB.cardinal)//Only use cardinals to cut down on lag
 			var/turf/T = get_step(src, direction)
+			if(!CanAtmosPass(T))
+				continue
 			if(istype(T, /turf/space))//Counted as no air
-				turf_count++//Considered a valid turf for air calcs
+				turf_count++ //Considered a valid turf for air calcs
 				continue
 			else if(istype(T, /turf/simulated/floor))
 				var/turf/simulated/S = T
