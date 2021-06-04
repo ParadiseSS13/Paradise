@@ -57,7 +57,12 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"TRAIT_NOGERMS" = TRAIT_NOGERMS,
 		"TRAIT_NODECAY" = TRAIT_NODECAY,
 		"TRAIT_NOEXAMINE" = TRAIT_NOEXAMINE,
-		"TRAIT_NOPAIN" = TRAIT_NOPAIN)))
+		"TRAIT_NOPAIN" = TRAIT_NOPAIN
+	),
+	/obj/item = list(
+		"TRAIT_SHOW_WIRE_INFO" = TRAIT_SHOW_WIRE_INFO
+	)
+))
 
 /// value -> trait name, generated on use from trait_by_type global
 GLOBAL_LIST(trait_name_map)

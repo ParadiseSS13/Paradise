@@ -99,7 +99,7 @@
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
 
-//mob traits
+//***** MOB TRAITS *****//
 #define TRAIT_BLIND 			"blind"
 #define TRAIT_MUTE				"mute"
 #define TRAIT_DEAF				"deaf"
@@ -165,6 +165,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Blowing kisses actually does damage to the victim
 #define TRAIT_KISS_OF_DEATH	"kiss_of_death"
+
+//***** ITEM TRAITS *****//
+/// Show what machine/door wires do when held.
+#define TRAIT_SHOW_WIRE_INFO "show_wire_info"
 
 //
 // common trait sources

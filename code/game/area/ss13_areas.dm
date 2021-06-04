@@ -619,53 +619,75 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "fpmaint"
 
 /area/maintenance/fpmaint
-	name = "EVA Maintenance"
+	name = "Fore-Port Maintenance"
 	icon_state = "fpmaint"
 
 /area/maintenance/fpmaint2
-	name = "Arrivals North Maintenance"
+	name = "Fore-Port Secondary Maintenance"
 	icon_state = "fpmaint"
 
 /area/maintenance/fsmaint
-	name = "Dormitory Maintenance"
+	name = "Fore-Starboard Maintenance"
 	icon_state = "fsmaint"
 
 /area/maintenance/fsmaint2
-	name = "Bar Maintenance"
+	name = "Fore-Starboard Secondary Maintenance"
 	icon_state = "fsmaint"
 
 /area/maintenance/asmaint
-	name = "Medbay Maintenance"
+	name = "Aft-Starboard Maintenance"
 	icon_state = "asmaint"
 
 /area/maintenance/asmaint2
-	name = "Science Maintenance"
+	name = "Aft-Starboard Secondary Maintenance"
 	icon_state = "asmaint"
 
 /area/maintenance/apmaint
-	name = "Cargo Maintenance"
+	name = "Aft-Port Maintenance"
+	icon_state = "apmaint"
+
+/area/maintenance/apmaint2
+	name = "Aft-Port Secondary Maintenance"
 	icon_state = "apmaint"
 
 /area/maintenance/maintcentral
-	name = "Bridge Maintenance"
+	name = "Central Maintenance"
 	icon_state = "maintcentral"
 
+/area/maintenance/maintcentral2
+	name = "Central Secondary Maintenance"
+	icon_state = "maintcentral"
 /area/maintenance/fore
 	name = "Fore Maintenance"
 	icon_state = "fmaint"
+
+/area/maintenance/fore2
+	name = "Fore Secondary Maintenance"
+	icon_state = "fmaint"
+
+/area/maintenance/aft
+	name = "Aft Maintenance"
+	icon_state = "amaint"
+
+/area/maintenance/aft2
+	name = "Aft Secondary Maintenance"
+	icon_state = "amaint"
 
 /area/maintenance/starboard
 	name = "Starboard Maintenance"
 	icon_state = "smaint"
 
+/area/maintenance/starboard2
+	name = "Starboard Secondary Maintenance"
+	icon_state = "smaint"
+
 /area/maintenance/port
-	name = "Locker Room Maintenance"
+	name = "Port Maintenance"
 	icon_state = "pmaint"
 
-/area/maintenance/aft
-	name = "Engineering Maintenance"
-	icon_state = "amaint"
-
+/area/maintenance/port2
+	name = "Port Secondary Maintenance"
+	icon_state = "pmaint"
 /area/maintenance/storage
 	name = "Atmospherics Maintenance"
 	icon_state = "green"
@@ -689,18 +711,18 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/maintenance/electrical
 	name = "Electrical Maintenance"
-	icon_state = "yellow"
+	icon_state = "elec"
 
 /area/maintenance/abandonedbar
 	name = "Maintenance Bar"
-	icon_state = "yellow"
+	icon_state = "oldbar"
 	power_equip = 0
 	power_light = 0
 	power_environ = 0
 
 /area/maintenance/electrical_shop
 	name ="Electronics Den"
-	icon_state = "yellow"
+	icon_state = "elec"
 
 /area/maintenance/gambling_den
 	name = "Gambling Den"
@@ -708,7 +730,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/maintenance/consarea
 	name = "Alternate Construction Area"
-	icon_state = "yellow"
+	icon_state = "construction"
 
 
 //Hallway
@@ -848,7 +870,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/comms
 	name = "\improper Communications Relay"
-	icon_state = "tcomsatcham"
+	icon_state = "tcomms"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/server
@@ -858,11 +880,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/ntrep
 	name = "\improper Nanotrasen Representative's Office"
-	icon_state = "bluenew"
+	icon_state = "ntrep"
 
 /area/blueshield
 	name = "\improper Blueshield's Office"
-	icon_state = "blueold"
+	icon_state = "blueshield"
 
 /area/centcomdocks
 	name = "\improper Central Command Docks"
@@ -931,7 +953,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/crew_quarters/bar
 	name = "\improper Bar"
-	icon_state = "bar"
+	icon_state = "barstation"
 	sound_environment = SOUND_AREA_WOODFLOOR
 
 /area/crew_quarters/bar/atrium
@@ -1059,45 +1081,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/holodeck/source_knightarena
 	name = "\improper Holodeck - Knight Arena"
-
-
-//Embassies
-/area/embassy/
-	name = "\improper Embassy Hallway"
-
-/area/embassy/tajaran
-	name = "\improper Tajaran Embassy"
-	icon_state = "tajaran"
-
-/area/embassy/skrell
-	name = "\improper Skrell Embassy"
-	icon_state = "skrell"
-
-/area/embassy/unathi
-	name = "\improper Unathi Embassy"
-	icon_state = "unathi"
-
-/area/embassy/kidan
-	name = "\improper Kidan Embassy"
-	icon_state = "kidan"
-
-/area/embassy/diona
-	name = "\improper Diona Embassy"
-	icon_state = "diona"
-
-/area/embassy/slime
-	name = "\improper Slime Person Embassy"
-	icon_state = "slime"
-
-/area/embassy/grey
-	name = "\improper Grey Embassy"
-	icon_state = "grey"
-
-/area/embassy/vox
-	name = "\improper Vox Embassy"
-	icon_state = "vox"
-
-
 
 //Engineering
 /area/engine
@@ -1322,15 +1305,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/medical/robotics
 	name = "Robotics"
-	icon_state = "medresearch"
+	icon_state = "research"
 
 /area/medical/research
-	name = "Medical Research"
-	icon_state = "medresearch"
-
-/area/medical/research_shuttle_dock
-	name = "\improper Research Shuttle Dock"
-	icon_state = "medresearch"
+	name = "Research Division"
+	icon_state = "research"
 
 /area/medical/virology
 	name = "Virology"
@@ -1471,10 +1450,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Security Equipment Storage"
 	icon_state = "securityequipmentstorage"
 
-/area/security/interrogationhallway
-	name = "\improper Interrogation Hallway"
-	icon_state = "interrogationhall"
-
 /area/security/courtroomdandp
 	name = "\improper Courtroom Defense and Prosecution"
 	icon_state = "seccourt"
@@ -1517,7 +1492,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "secarmory"
 
 /area/security/securehallway
-	name = "\improper Security Secure Hallway"
+	name = "\improper Brig Secure Hallway"
 	icon_state = "securehall"
 
 /area/security/hos
@@ -2073,45 +2048,27 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/tcommsat/chamber
 	name = "\improper Telecoms Central Compartment"
-	icon_state = "tcomsatcham"
+	icon_state = "tcomms"
 
 // These areas are needed for MetaStation's AI sat
-/area/turret_protected/tcomsat
-	name = "\improper Telecoms Satellite"
-	icon_state = "tcomsatlob"
-	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
-
 /area/turret_protected/tcomfoyer
 	name = "\improper Telecoms Foyer"
-	icon_state = "tcomsatentrance"
-	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
-
-/area/turret_protected/tcomwest
-	name = "\improper Telecoms West Wing"
-	icon_state = "tcomsatwest"
+	icon_state = "tcomms"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/turret_protected/tcomeast
 	name = "\improper Telecoms East Wing"
-	icon_state = "tcomsateast"
+	icon_state = "tcomms"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/tcommsat/computer
 	name = "\improper Telecoms Control Room"
-	icon_state = "tcomsatcomp"
+	icon_state = "tcomms"
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
 
 /area/tcommsat/server
 	name = "\improper Telecoms Server Room"
-	icon_state = "tcomsatcham"
-
-/area/tcommsat/lounge
-	name = "\improper Telecoms Lounge"
-	icon_state = "tcomsatlounge"
-
-/area/tcommsat/powercontrol
-	name = "\improper Telecoms Power Control"
-	icon_state = "tcomsatwest"
+	icon_state = "tcomms"
 
 // Away Missions
 /area/awaymission
