@@ -55,13 +55,6 @@
 	if(!anchored)
 		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
 
-/obj/structure/grille/ratvar_act()
-	if(broken)
-		new /obj/structure/grille/ratvar/broken(loc)
-	else
-		new /obj/structure/grille/ratvar(loc)
-	qdel(src)
-
 /obj/structure/grille/Bumped(atom/user)
 	if(ismob(user))
 		if(!(shockcooldown <= world.time))
@@ -288,9 +281,6 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-
-/obj/structure/grille/ratvar/ratvar_act()
-	return
 
 /obj/structure/grille/ratvar/broken
 	icon_state = "brokenratvargrille"

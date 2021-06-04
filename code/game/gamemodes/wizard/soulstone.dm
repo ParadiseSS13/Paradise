@@ -95,6 +95,10 @@
 		to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your fellow's soul.\"</span>")
 		return ..()
 
+	if(M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT)
+		to_chat(user, "<span class='warning'>This being's soul seems worthless. Not even the stone will absorb it.</span>")
+		return ..()
+
 	if(optional)
 		if(!M.ckey)
 			to_chat(user, "<span class='warning'>They have no soul!</span>")
@@ -312,9 +316,9 @@
 											"Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
 											"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
 			/// Custom construct icons for different cults
-			var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("juggernaut")),
-											"Wraith" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("wraith")),
-											"Artificer" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("builder")))
+			var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/cult.dmi', icon_state = SSticker.cultdat.get_icon("juggernaut")),
+											"Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = SSticker.cultdat.get_icon("wraith")),
+											"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = SSticker.cultdat.get_icon("builder")))
 
 			if(shade)
 				var/construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, .proc/radial_check, user), require_near = TRUE)
@@ -323,6 +327,7 @@
 					var/mob/living/simple_animal/hostile/construct/C = new picked_class(shell.loc)
 					C.init_construct(shade, src, shell)
 					to_chat(C, C.playstyle_string)
+					to_chat(C, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Construct)</span>")
 			else
 				to_chat(user, "<span class='danger'>Creation failed!</span>: The soul stone is empty! Go kill someone!")
 
@@ -339,13 +344,11 @@
 	if(shade.mind)
 		shade.mind.transfer_to(src)
 	if(SS.purified)
-		set_light(3, 5, LIGHT_COLOR_DARK_BLUE)
-		name = "Holy [name]"
-		real_name = "Holy [real_name]"
-
+		make_holy()
 		// Replace regular soulstone summoning with purified soulstones
-		RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
-		AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy)
+		if(is_type_in_list(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone, mob_spell_list))
+			RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
+			AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy)
 
 	else if(iscultist(src)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new
