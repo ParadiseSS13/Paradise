@@ -108,18 +108,23 @@
 	var/agent_number = 1
 	var/spawnpos = 1
 
+	var/obj/machinery/nuclearbomb/syndicate/the_bomb
+	if(nuke_spawn && length(synd_spawn))
+		the_bomb = new /obj/machinery/nuclearbomb/syndicate(nuke_spawn.loc)
+		the_bomb.r_code = nuke_code
+
 	for(var/datum/mind/synd_mind in syndicates)
 		if(spawnpos > synd_spawn.len)
 			spawnpos = 2
 		synd_mind.current.loc = synd_spawn[spawnpos]
 		synd_mind.offstation_role = TRUE
 		forge_syndicate_objectives(synd_mind)
-		create_syndicate(synd_mind)
+		create_syndicate(synd_mind, the_bomb)
 		greet_syndicate(synd_mind)
 		equip_syndicate(synd_mind.current)
 
 		if(!leader_selected)
-			prepare_syndicate_leader(synd_mind, nuke_code)
+			prepare_syndicate_leader(synd_mind, the_bomb)
 			leader_selected = 1
 		else
 			synd_mind.current.real_name = "[syndicate_name()] Operative #[agent_number]"
@@ -131,9 +136,6 @@
 
 	scale_telecrystals()
 	share_telecrystals()
-	if(nuke_spawn && synd_spawn.len > 0)
-		var/obj/machinery/nuclearbomb/syndicate/the_bomb = new /obj/machinery/nuclearbomb/syndicate(nuke_spawn.loc)
-		the_bomb.r_code = nuke_code
 
 	return ..()
 
@@ -160,7 +162,7 @@
 			U.hidden_uplink.uses++
 			remainder--
 
-/datum/game_mode/proc/create_syndicate(datum/mind/synd_mind) // So we don't have inferior species as ops - randomize a human
+/datum/game_mode/proc/create_syndicate(datum/mind/synd_mind, obj/machinery/nuclearbomb/syndicate/the_bomb) // So we don't have inferior species as ops - randomize a human
 	var/mob/living/carbon/human/M = synd_mind.current
 
 	M.set_species(/datum/species/human, TRUE)
@@ -186,7 +188,11 @@
 	M.regenerate_icons()
 	M.update_body()
 
-/datum/game_mode/proc/prepare_syndicate_leader(datum/mind/synd_mind, nuke_code)
+	if(the_bomb)
+		synd_mind.store_memory("<B>Syndicate [the_bomb.name] Code</B>: [the_bomb.r_code]")
+		to_chat(synd_mind.current, "The code for \the [the_bomb.name] is: <B>[the_bomb.r_code]</B>")
+
+/datum/game_mode/proc/prepare_syndicate_leader(datum/mind/synd_mind, obj/machinery/nuclearbomb/syndicate/the_bomb)
 	var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
 	synd_mind.current.real_name = "[syndicate_name()] Team [leader_title]"
 	to_chat(synd_mind.current, "<B>You are the Syndicate leader for this mission. You are responsible for the distribution of telecrystals and your ID is the only one who can open the launch bay doors.</B>")
@@ -198,11 +204,9 @@
 
 	update_syndicate_id(synd_mind, leader_title, TRUE)
 
-	if(nuke_code)
-		synd_mind.store_memory("<B>Syndicate Nuclear Bomb Code</B>: [nuke_code]", 0, 0)
-		to_chat(synd_mind.current, "The nuclear authorization code is: <B>[nuke_code]</B>")
+	if(the_bomb)
 		var/obj/item/paper/P = new
-		P.info = "The nuclear authorization code is: <b>[nuke_code]</b>"
+		P.info = "The code for \the [the_bomb.name] is: <B>[the_bomb.r_code]</B>"
 		P.name = "nuclear bomb code"
 		var/obj/item/stamp/syndicate/stamp = new
 		P.stamp(stamp)
@@ -216,8 +220,6 @@
 			H.equip_to_slot_or_del(P, slot_r_store, 0)
 			H.update_icons()
 
-	else
-		nuke_code = "code will be provided later"
 
 /datum/game_mode/proc/update_syndicate_id(datum/mind/synd_mind, is_leader = FALSE)
 	var/list/found_ids = synd_mind.current.search_contents_for(/obj/item/card/id)
