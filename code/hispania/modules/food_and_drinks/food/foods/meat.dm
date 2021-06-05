@@ -169,6 +169,6 @@
 	icon = 'icons/hispania/obj/food/food.dmi'
 	desc = "Wood grilled guinea pig served with potatoes and avocado slices"
 	icon_state = "cuy"
-	bitesize = 3
+	bitesize = 5
 	list_reagents = list("nutriment" = 2, "vitamin" = 1)
 	tastes = list("salty" = 1, "mousey" = 1)
