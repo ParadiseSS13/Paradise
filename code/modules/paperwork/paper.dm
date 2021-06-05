@@ -433,6 +433,7 @@
 				return
 
 		stamp(P)
+		playsound(loc, 'sound/hispania/effects/stamp.ogg', 70, TRUE) //Hispania Sounds
 
 		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
 
