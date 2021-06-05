@@ -751,7 +751,7 @@
 	//Paramedic hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/paramedic
 	name = "paramedic hardsuit helmet"
-	desc = "A brand new paramedic EVA helmet. It seems to reassemble to your head shape. Used for retrieving bodies in space."
+	desc = "A paramedic hardsuit helmet, used for retrieving bodies in space. It seems to reassemble to your head shape."
 	icon_state = "hardsuit0-paramedic"
 	item_state = "paramedic-eva-helmet"
 	item_color = "paramedic"
@@ -763,7 +763,7 @@
 	name = "paramedic hardsuit"
 	icon_state = "paramedic-eva"
 	item_state = "paramedic-eva"
-	desc = "A brand new paramedic hardsuit. The nitrile seems a bit too thin in places to be space proof. Used for retrieving bodies in space."
+	desc = "A paramedic hardsuit, used for retrieving bodies in space. For a space proof suit, the nitrile is worryingly thin. "
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
 	species_restricted = list("exclude", "Wryn")
 
