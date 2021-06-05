@@ -21,7 +21,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 ))
 
 /obj/item/radio
-	icon = 'icons/hispania/obj/radio.dmi'
+	icon = 'icons/obj/radio.dmi'
 	name = "station bounced radio"
 	dog_fashion = /datum/dog_fashion/back
 	suffix = "\[3\]"
