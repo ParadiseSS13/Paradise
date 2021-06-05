@@ -109,7 +109,7 @@
 	var/spawnpos = 1
 
 	var/obj/machinery/nuclearbomb/syndicate/the_bomb
-	if(nuke_spawn && synd_spawn.len > 0)
+	if(nuke_spawn && length(synd_spawn))
 		the_bomb = new /obj/machinery/nuclearbomb/syndicate(nuke_spawn.loc)
 		the_bomb.r_code = nuke_code
 
@@ -189,7 +189,7 @@
 	M.update_body()
 
 	if(the_bomb)
-		synd_mind.store_memory("<B>Syndicate [the_bomb.name] Code</B>: [the_bomb.r_code]", 0, 0)
+		synd_mind.store_memory("<B>Syndicate [the_bomb.name] Code</B>: [the_bomb.r_code]")
 		to_chat(synd_mind.current, "The code for \the [the_bomb.name] is: <B>[the_bomb.r_code]</B>")
 
 /datum/game_mode/proc/prepare_syndicate_leader(datum/mind/synd_mind, obj/machinery/nuclearbomb/syndicate/the_bomb)
