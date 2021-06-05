@@ -1,5 +1,10 @@
 #define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
 
+/*!
+ * Copyright (c) 2021 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 /client/var/status_bar_prev_text = ""
 
 /proc/status_bar_set_text(target, text)
