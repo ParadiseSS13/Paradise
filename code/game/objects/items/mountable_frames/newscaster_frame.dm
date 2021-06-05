@@ -1,7 +1,8 @@
 /obj/item/mounted/frame/newscaster_frame
 	name = "newscaster frame"
 	desc = "Used to build newscasters, just secure to the wall."
-	icon_state = "newscaster"
+	icon = 'icons/hispania/obj/terminals.dmi'
+	icon_state = "newscaster_normal"
 	item_state = "syringe_kit"
 	materials = list(MAT_METAL=14000, MAT_GLASS=8000)
 	mount_reqs = list("simfloor", "nospace")

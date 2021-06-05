@@ -47627,7 +47627,7 @@
 	tag = ""
 	},
 /obj/machinery/computer/security{
-	network = list("SS13","Mining Outpost")
+	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -50474,18 +50474,6 @@
 	icon_state = "4-8";
 	pixel_x = 0
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway)
-"bTQ" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
-/obj/item/radio/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -57921,6 +57909,12 @@
 /area/security/brig)
 "cgu" = (
 /obj/machinery/tcomms/core/station,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	pixel_y = 0
+	},
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
 "cgB" = (
@@ -60381,7 +60375,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Security Maintenance";
-	req_access_txt = "1"
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/range)
@@ -61908,7 +61902,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Security Maintenance";
-	req_access_txt = "1"
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/range)
@@ -110099,6 +110093,13 @@
 /obj/machinery/reagentgrinder,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
+"fuk" = (
+/obj/machinery/autolathe,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "whitepurplecorner"
+	},
+/area/medical/research)
 "fxn" = (
 /obj/structure/closet/athletic_mixed,
 /turf/simulated/floor/plasteel{
@@ -110913,6 +110914,15 @@
 	},
 /turf/simulated/floor/carpet,
 /area/medical/psych)
+"nuR" = (
+/obj/structure/closet/secure_closet/security,
+/obj/machinery/vending/walldrobe/sec{
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/main)
 "nxd" = (
 /obj/structure/sign/cargo,
 /turf/simulated/wall/mineral/plastitanium,
@@ -111012,6 +111022,9 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/surgery)
+"otb" = (
+/turf/space,
+/area/shuttle/gamma/station)
 "oCh" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -111396,6 +111409,10 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
+"sck" = (
+/obj/structure/lattice,
+/turf/space,
+/area/shuttle/gamma/station)
 "sdt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atm{
@@ -111487,6 +111504,16 @@
 	},
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/tsf)
+"tdE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/item/radio/beacon,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/aisat)
 "tef" = (
 /obj/machinery/vending/discdan,
 /turf/simulated/floor/plasteel{
@@ -122971,7 +122998,7 @@ bNM
 bQD
 bRH
 bTK
-bVM
+tdE
 bXN
 bNM
 bku
@@ -124769,7 +124796,7 @@ bLV
 brr
 bku
 bRL
-bTQ
+bTS
 bpq
 brr
 abi
@@ -140956,8 +140983,8 @@ byF
 bGO
 bIL
 bKx
-bIL
 bOn
+bIL
 sdt
 bIL
 bUA
@@ -150759,7 +150786,7 @@ cMm
 cNK
 cPu
 cMl
-cSt
+fuk
 cTT
 cVx
 cWR
@@ -166902,7 +166929,7 @@ bpa
 brc
 bsU
 bui
-bsU
+nuR
 bwE
 bmf
 bIa
@@ -167433,13 +167460,13 @@ bWC
 abj
 iAx
 aaa
-eCr
-aaa
-aaa
-eCr
-aaa
-aaa
-aaa
+otb
+otb
+otb
+otb
+otb
+otb
+otb
 bvh
 aaa
 aaa
@@ -167690,13 +167717,13 @@ abi
 abj
 lOI
 eCr
-eCr
-eCr
-eCr
-eCr
-eCr
-eCr
-abj
+otb
+otb
+otb
+otb
+otb
+otb
+sck
 bvh
 abi
 abi
@@ -167947,13 +167974,13 @@ abj
 aaa
 lOI
 aaa
-eCr
-aaa
-aaa
-eCr
-aaa
-aaa
-aaa
+otb
+otb
+otb
+otb
+otb
+otb
+otb
 bvh
 aaa
 aaa
@@ -168204,13 +168231,13 @@ abi
 abi
 lOI
 eCr
-eCr
-eCr
-eCr
-eCr
-eCr
-eCr
-eCr
+otb
+otb
+otb
+otb
+otb
+otb
+otb
 abi
 abj
 abj
@@ -168461,13 +168488,13 @@ aaa
 aaa
 iAx
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+otb
+otb
+otb
+otb
+otb
+otb
+otb
 iAx
 aaa
 aaa
@@ -168718,13 +168745,13 @@ aaa
 aaa
 iAx
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+otb
+otb
+otb
+otb
+otb
+otb
+otb
 iAx
 aaa
 aaa

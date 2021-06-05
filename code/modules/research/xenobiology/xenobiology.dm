@@ -287,7 +287,7 @@
 		return
 	if(being_used || !ismob(M))
 		return
-	if(!isanimal(M) || M.ckey) //only works on animals that aren't player controlled
+	if(!isanimal(M) || M.mind) //only works on animals that aren't player controlled
 		to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
 		return ..()
 	if(M.stat)
@@ -466,6 +466,7 @@
 		to_chat(user, "<span class='warning'>The potion can only be used on items or vehicles!</span>")
 		return
 	if(isitem(O))
+		if(istype(O, /obj/item/clothing/suit/armor/heavy/adamantine)) return
 		var/obj/item/I = O
 		if(I.slowdown <= 0)
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")

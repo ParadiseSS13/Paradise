@@ -70,7 +70,7 @@
 
 /obj/machinery/alarm
 	name = "alarm"
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/hispania/obj/monitors.dmi'
 	icon_state = "alarm0"
 	anchored = 1
 	use_power = IDLE_POWER_USE
@@ -359,20 +359,26 @@
 				visible_message("\The [src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
 
 /obj/machinery/alarm/update_icon()
+	overlays.Cut()
 	if(wiresexposed)
 		icon_state = "alarmx"
 		return
-	if((stat & (NOPOWER|BROKEN)) || shorted)
-		icon_state = "alarmp"
-		return
+
+	icon_state = "alarmp"
 
 	switch(max(danger_level, alarm_area.atmosalm-1))
 		if(ATMOS_ALARM_NONE)
-			icon_state = "alarm0"
+			var/image/on_overlay = image(icon,"alarm0")
+			on_overlay.plane = ABOVE_LIGHTING_PLANE
+			overlays += on_overlay
 		if(ATMOS_ALARM_WARNING)
-			icon_state = "alarm2" //yes, alarm2 is yellow alarm
+			var/image/on_overlay = image(icon,"alarm2")
+			on_overlay.plane = ABOVE_LIGHTING_PLANE
+			overlays += on_overlay
 		if(ATMOS_ALARM_DANGER)
-			icon_state = "alarm1"
+			var/image/on_overlay = image(icon,"alarm1")
+			on_overlay.plane = ABOVE_LIGHTING_PLANE
+			overlays += on_overlay
 
 /obj/machinery/alarm/proc/register_env_machine(m_id, device_type)
 	var/new_name

@@ -4,8 +4,8 @@
 /obj/machinery/light_switch
 	name = "light switch"
 	desc = "It turns lights on and off. What are you, simple?"
-	icon = 'icons/obj/power.dmi'
-	icon_state = "light1"
+	icon = 'icons/hispania/obj/power.dmi'
+	icon_state = "light-p"
 	anchored = 1.0
 	var/on = 1
 	var/area/area = null
@@ -59,13 +59,16 @@
 	return ..()
 
 /obj/machinery/light_switch/proc/updateicon()
-	if(stat & NOPOWER)
-		icon_state = "light-p"
-	else
+	overlays.Cut()
+	if(!(stat & NOPOWER))
 		if(on)
-			icon_state = "light1"
+			var/image/on_overlay = image(icon,"light1")
+			on_overlay.plane = ABOVE_LIGHTING_PLANE
+			overlays += on_overlay
 		else
-			icon_state = "light0"
+			var/image/off_overlay = image(icon,"light0")
+			off_overlay.plane = ABOVE_LIGHTING_PLANE
+			overlays += off_overlay
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()

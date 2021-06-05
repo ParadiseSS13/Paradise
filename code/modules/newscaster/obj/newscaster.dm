@@ -17,7 +17,7 @@
 /obj/machinery/newscaster
 	name = "newscaster"
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
-	icon = 'icons/obj/terminals.dmi'
+	icon = 'icons/hispania/obj/terminals.dmi'
 	icon_state = "newscaster_normal"
 	max_integrity = 200
 	integrity_failure = 50
@@ -92,13 +92,21 @@
 
 /obj/machinery/newscaster/update_icon()
 	cut_overlays()
-	if(inoperable())
-		icon_state = "newscaster_off"
-	else
-		if(!GLOB.news_network.wanted_issue) //wanted icon state, there can be no overlays on it as it's a priority message
+	if(!inoperable())
+		if(GLOB.news_network.wanted_issue)
+			icon_state = "newscaster_wanted"
+			var/image/wanted_overlay = image(icon,"newscaster_wanted_on")
+			wanted_overlay.plane = ABOVE_LIGHTING_PLANE
+			overlays += wanted_overlay
+		else
 			icon_state = "newscaster_normal"
+			var/image/on_overlay = image(icon,"newscaster_normal_on")
+			on_overlay.plane = ABOVE_LIGHTING_PLANE
+			overlays += on_overlay
 			if(alert) //new message alert overlay
-				add_overlay("newscaster_alert")
+				var/image/alert_overlay = image(icon,"newscaster_alert")
+				alert_overlay.plane = ABOVE_LIGHTING_PLANE
+				overlays += alert_overlay
 	var/hp_percent = obj_integrity * 100 / max_integrity
 	switch(hp_percent)
 		if(75 to INFINITY)
