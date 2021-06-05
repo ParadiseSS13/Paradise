@@ -1,12 +1,12 @@
 /// Raw mouse ///
 
-/obj/item/reagent_containers/food/snacks/meat/mouse
+/obj/item/reagent_containers/food/snacks/rawmouse
 	name = "raw mouse"
 	desc = "A raw mouse, what did you expect? Disgusting!"
 	icon_state = "raw_mouse"
 	icon = 'icons/hispania/obj/food/food.dmi'
 	filling_color = "#FF1C1C"
-	bitesize = 4
+	bitesize = 2
 	list_reagents = list("protein" = 3)
 	tastes = list("nasty" = 1)
 
@@ -170,5 +170,5 @@
 	desc = "Wood grilled guinea pig served with potatoes and avocado slices"
 	icon_state = "cuy"
 	bitesize = 3
-	list_reagents = list("nutriment" = 5, "vitamin" = 1, "protein" = 1)
-	tastes = list("winey" = 1, "beefy" = 1)
+	list_reagents = list("nutriment" = 2, "vitamin" = 1)
+	tastes = list("salty" = 1, "mousey" = 1)

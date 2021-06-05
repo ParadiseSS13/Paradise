@@ -101,7 +101,7 @@
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/avocadoslice = 1,
-		/obj/item/reagent_containers/food/snacks/meat/mouse = 1,
-		/obj/item/reagent_containers/food/snacks/grown/potato =2
+		/obj/item/reagent_containers/food/snacks/rawmouse = 1,
+		/obj/item/reagent_containers/food/snacks/grown/potato =1
 	)
 	result = /obj/item/reagent_containers/food/snacks/cuy
