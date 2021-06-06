@@ -129,7 +129,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	severity = EVENT_LEVEL_MUNDANE
 	available_events = list(
 		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set.
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Nothing",			/datum/event/nothing,			1100),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Nothing",			/datum/event/nothing,			900),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "PDA Spam",			/datum/event/pda_spam, 			0, 		list(ASSIGNMENT_ANY = 4), FALSE, 25, 50),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Money Lotto",		/datum/event/money_lotto, 		0, 		list(ASSIGNMENT_ANY = 1), TRUE, 5,  15),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Money Hacker",		/datum/event/money_hacker, 		0, 		list(ASSIGNMENT_ANY = 4), TRUE, 10, 25),
@@ -145,7 +145,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/moderate
 	severity = EVENT_LEVEL_MODERATE
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Nothing",					/datum/event/nothing,					1230),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Nothing",					/datum/event/nothing,					1100),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Appendicitis", 			/datum/event/spontaneous_appendicitis, 	0,		list(ASSIGNMENT_MEDICAL = 10), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Carp School",				/datum/event/carp_migration,			200, 	list(ASSIGNMENT_ENGINEER = 10, ASSIGNMENT_SECURITY = 20), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Rogue Drones",				/datum/event/rogue_drone, 				0,		list(ASSIGNMENT_SECURITY = 20)),
@@ -193,14 +193,14 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/major
 	severity = EVENT_LEVEL_MAJOR
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Nothing",			/datum/event/nothing,			590),															// 57% on high pop (120+). 64.2% on lowpop (70+)
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Nothing",			/datum/event/nothing,			450),															// 57% on high pop (120+). 64.2% on lowpop (70+)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Carp Migration",	/datum/event/carp_migration,	10,						list(ASSIGNMENT_SECURITY =  3), TRUE),	// 4.8% on high pop, 3.4% on low pop
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",	/datum/event/prison_break/station,	0,			list(ASSIGNMENT_ANY = 5)),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "APC Overload",	/datum/event/apc_overload,		0),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Blob",			/datum/event/blob, 				30,						list(ASSIGNMENT_ENGINEER =  5), TRUE),	// 6.9% on high pop, 5.5% on low pop
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Meteor Wave",		/datum/event/meteor_wave,		30,						list(ASSIGNMENT_ENGINEER =  5),	TRUE),	// 6.9% on high pop, 5.5% on low pop
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Abductor Visit",	/datum/event/abductor, 		    20, 					list(ASSIGNMENT_SECURITY =  3), TRUE),	// 5.8% on high pop, 4.5% on low pop
-		//new /datum/event_meta/alien(EVENT_LEVEL_MAJOR, "Alien Infestation",	/datum/event/alien_infestation, 		0,		list(ASSIGNMENT_SECURITY = 15), TRUE),
+		new /datum/event_meta/alien(EVENT_LEVEL_MAJOR, "Alien Infestation",	/datum/event/alien_infestation, 		0,		list(ASSIGNMENT_SECURITY = 15), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Traders",			/datum/event/traders,			85, is_one_shot = TRUE),										// 8.4% on high pop, 9.4% on low pop
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Terror Spiders",	/datum/event/spider_terror, 	20,						list(ASSIGNMENT_SECURITY = 4), TRUE),	// 7.1% on high pop, 5.3% on low pop
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Slaughter Demon",	/datum/event/spawn_slaughter,	10,  is_one_shot = TRUE),	// 3% on high pop, 2.1% on low pop
