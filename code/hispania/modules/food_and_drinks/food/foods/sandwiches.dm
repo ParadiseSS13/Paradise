@@ -23,3 +23,14 @@
 	filling_color = "#fff98f"
 	list_reagents = list("nutriment" = 6, "vitamin" = 6, "mayonnaise" = 5)
 	tastes = list("bread" = 1, "avocado" = 2)
+
+/obj/item/reagent_containers/food/snacks/salmoncreamtoast
+	name = "Salmon Cream cheese toast"
+	desc = "Bite size toast with salmon and thick cream cheese"
+	icon_state = "scc_toast"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	filling_color = "#ff8c69"
+	bitesize = 3
+	list_reagents = list("nutriment" = 6, "vitamin" = 6, "cream_cheese" = 5)
+	tastes = list("bread" = 1, "avocado" = 2)
+

@@ -30,3 +30,14 @@
 		qdel(I)
 	else
 		return ..()
+
+/obj/item/reagent_containers/food/snacks/cream_cheese
+	name = "cream cheese"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "cream_cheese"
+	desc = "Thick liquid cheese"
+	filling_color = "#f7f7f5"
+	bitesize = 3
+	list_reagents = list("cream_cheese" = 30)
+	tastes = list("buttery" = 1, "sour" = 1)
+	junkiness = 15

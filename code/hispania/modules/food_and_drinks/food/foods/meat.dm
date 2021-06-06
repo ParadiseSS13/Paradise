@@ -1,3 +1,15 @@
+/// Raw mouse ///
+
+/obj/item/reagent_containers/food/snacks/rawmouse
+	name = "raw mouse"
+	desc = "A raw mouse, what did you expect? Disgusting!"
+	icon_state = "raw_mouse"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	filling_color = "#FF1C1C"
+	bitesize = 2
+	list_reagents = list("protein" = 3)
+	tastes = list("nasty" = 1)
+
 //Drake meat//
 
 /obj/item/reagent_containers/food/snacks/drakemeat
@@ -74,7 +86,8 @@
 	desc = "A good steak dipped in peach sauce, with an avocado base"
 	icon_state = "peach_meat"
 	trash = /obj/item/trash/plate
-	bitesize = 4
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "protein" = 1, "vitamin" = 1)
 	tastes = list("sweet" = 1, "beefy" = 1)
 
 /obj/item/reagent_containers/food/snacks/baconrolled
@@ -139,3 +152,23 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 3, "vitamin" = 3, "orangejuice" = 2, "lemonjuice" = 2)
 	tastes = list("salmon" = 1, "citrus" = 1)
+
+/obj/item/reagent_containers/food/snacks/filetmignon
+	name = "Filet Mignon"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	desc = "Sirloin wrapped in bacon served with mushroom sauce"
+	icon_state = "filetmignon"
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "vitamin" = 1, "protein" = 1)
+	tastes = list("winey" = 1, "beefy" = 1)
+
+// Cuy//
+
+/obj/item/reagent_containers/food/snacks/cuy
+	name = "Cuy"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	desc = "Wood grilled guinea pig served with potatoes and avocado slices"
+	icon_state = "cuy"
+	bitesize = 5
+	list_reagents = list("nutriment" = 2, "vitamin" = 1)
+	tastes = list("salty" = 1, "mousey" = 1)

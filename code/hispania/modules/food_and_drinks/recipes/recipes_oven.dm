@@ -85,3 +85,23 @@
 		/obj/item/reagent_containers/food/snacks/dough
 	)
 	result = /obj/item/reagent_containers/food/snacks/pene_waffle_uwu
+
+//Filet Mignon//
+/datum/recipe/oven/filetmignon
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "wine" = 5)
+	items = list(
+	/obj/item/reagent_containers/food/snacks/grown/chanter/champignon,
+	/obj/item/reagent_containers/food/snacks/meat,
+	)
+	result = /obj/item/reagent_containers/food/snacks/filetmignon
+
+// Cuy //
+
+/datum/recipe/oven/cuy
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/avocadoslice = 1,
+		/obj/item/reagent_containers/food/snacks/rawmouse = 1,
+		/obj/item/reagent_containers/food/snacks/grown/potato =1
+	)
+	result = /obj/item/reagent_containers/food/snacks/cuy

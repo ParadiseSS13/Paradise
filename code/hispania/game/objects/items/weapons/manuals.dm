@@ -28,6 +28,7 @@
 			<li><a href="#Mugcakes">Mugcakes de varios sabores</a></li>
 			<li><a href="#Galletas">Galletas con o sin chispitas de chocolate</a></li>
 			<li><a href="#Empanada">Empanada, como la que hac�a tu mami</a></li>
+			<li><a href="#Carnes">Diferentes tipos de cortes, con diferentes preparaciones</a></li>
 			<li><a href="#Notas">Notas</a></li>
 			</ol>
 			<br><BR>
@@ -113,7 +114,32 @@
 			A�ade 1 dough slice + 1 cutlet al horno y cocina hasta que est� bien dorada.<BR>
 
 			<hr>
+			<h1><a name="Carnes"><B>Recetas con carne</B></a></h1><BR>
+			<h2>Filet Mignon</h2><BR>
+			<I>Clásico filet mignon con salsa de champiñones</I><BR>
+			Ingredientes:<BR>
+			<li>1u Salt</li>
+			<li>1u Pepper</li>
+			<li>5u Wine</li>
+			<li>1 Meat</li>
+			<li>1 Champignon</li>
 
+			Preparación:
+			Arregla todos los ingredientes en la bandeja del horno. Hornealos hasta que la carne llegue al termino deseado.<BR>
+			<h2>Raw Mouse</h2>
+			<I>Desagradble excepto, si eres un tajaran o un unathi</I><BR>
+			Ingredientes:<BR>
+			<li>1 dead mouse</li>
+			Preparación:
+			Toma al animalito y descuartizalo con tu cuchillo de cocina.<BR>
+			<h2>Cuy</h2>
+			<I>No juzgues a un libro por su portada....<BR>
+			Ingredientes:<BR>
+			<li>1u Salt</li>
+			<li>1u Pepper</li>
+			<li>1 Raw Mouse</li>
+			<li>1 Avocadoslice</li>
+			<li>1 Potato</li>
 			<h1><a name="Notas"><B>Notas finales</B></a></h1><BR>
 			Peque�a pero muy esperada primera edici�n de Recetas Hispanas! Para chefs profesionales y bartender refinados, no olvid�n que la versi�n extendida de nuestro libro ya se encuentra en preventa, y estar� disponidble en su biblioteca mas cercana muy pronto.<BR>
 			"}
@@ -459,4 +485,16 @@
 				<li>1 Arroz Hervido</li>
 				<li>1 Ajo</li>
 				<br>
+			<hr>
+			Preparaciones manuales:
+				<br>
+				<li>Cream Cheese:<br></li>
+				<I>En la mixer:</I><br>
+				<li>10u Milk<li>
+				<li>20u Cream<li>
+				<li>1u Salt<li>
+				<I>Salmon Cream cheese toast:</I><br>
+				<li> 1 Cream Cheese</li>
+				<li> 1 Baguette</li>
+				<li> 1 Smoked Salmon</li>
 			"}
