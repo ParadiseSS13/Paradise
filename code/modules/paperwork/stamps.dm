@@ -15,6 +15,7 @@
 
 /obj/item/stamp/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead.</span>")
+	playsound(loc, 'sound/hispania/effects/stamp_suicide.ogg', 70, TRUE) //Hispania Sounds
 	return OXYLOSS
 
 /obj/item/stamp/qm
