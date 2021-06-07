@@ -48,6 +48,18 @@
 	materials = list(MAT_METAL=10000)
 	locked = TRUE
 
+/datum/design/pod_gun_blaser
+	construction_time = 200
+	name = "Spacepod Equipment (Burst Laser)"
+	desc = "Allows for the construction of a spacepod mounted laser. This is the burst-fire model."
+	id = "podgun_blaser"
+	build_type = PODFAB
+	req_tech = list("materials" = 4, "combat" = 4)
+	build_path = /obj/item/spacepod_equipment/weaponry/burst_laser
+	category = list("Pod_Weaponry")
+	materials = list(MAT_METAL = 17500,MAT_PLASMA=3000)
+	locked = 1
+
 //////////////////////////////////////////
 //////SPACEPOD MISC. ITEMS////////////////
 //////////////////////////////////////////
