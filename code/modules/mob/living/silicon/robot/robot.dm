@@ -374,7 +374,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Sniperfairy-STD"] = "sniperfairy-Standard"
 			module_sprites["Driker-STD"] = "driker-Standard"
 			module_sprites["Fullofskittles-STD"] = "fullofskittles-Standard"
-			module_sprites["Ntaede-STD"] = "ntaede-Standard"
 
 
 		if("Service")
@@ -397,12 +396,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Wisewill-SRV"] = "wisewill-Service"
 			module_sprites["Desolateg-SRV"] = "desolateg-Service"
 			module_sprites["Ravensdale-SRV"] = "ravensdale-Service"
-			module_sprites["Sigholtstarsong-SRV"] = "sigholtstarsong-Service"
 			module_sprites["Banangarang-SRV"] = "banangarang-Service"
 			module_sprites["Sniperfairy-SRV"] = "sniperfairy-Service"
 			module_sprites["Driker-SRV"] = "driker-Service"
 			module_sprites["Fullofskittles-SRV"] = "fullofskittles-Service"
-			module_sprites["Ntaede-SRV"] = "ntaede-Service"
 			see_reagents = TRUE
 
 		if("Miner")
@@ -434,7 +431,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Sniperfairy-DIG"] = "sniperfairy-Miner"
 			module_sprites["Driker-DIG"] = "driker-Miner"
 			module_sprites["Fullofskittles-DIG"] = "fullofskittles-Miner"
-			module_sprites["Ntaede-DIG"] = "ntaede-Miner"
 
 		if("Medical")
 			module = new /obj/item/robot_module/medical(src)
@@ -457,12 +453,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Wisewill-MED"] = "wisewill-Medical"
 			module_sprites["Desolateg-MED"] = "desolateg-Medical"
 			module_sprites["Ravensdale-MED"] = "ravensdale-Medical"
-			module_sprites["Sigholtstarsong-MED"] = "sigholtstarsong-Medical"
 			module_sprites["Banangarang-MED"] = "banangarang-Medical"
 			module_sprites["Sniperfairy-MED"] = "sniperfairy-Medical"
 			module_sprites["Driker-MED"] = "driker-Medical"
 			module_sprites["Fullofskittles-MED"] = "fullofskittles-Medical"
-			module_sprites["Ntaede-MED"] = "ntaede-Medical"
 			status_flags &= ~CANPUSH
 			see_reagents = TRUE
 
@@ -500,7 +494,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Sniperfairy-SEC"] = "sniperfairy-Security"
 			module_sprites["Driker-SEC"] = "driker-Security"
 			module_sprites["Fullofskittles-SEC"] = "fullofskittles-Security"
-			module_sprites["Ntaede-SEC"] = "ntaede-Security"
 			status_flags &= ~CANPUSH
 
 		if("Engineering")
@@ -529,7 +522,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Sniperfairy-ENGI"] = "sniperfairy-Engineering"
 			module_sprites["Driker-ENGI"] = "driker-Engineering"
 			module_sprites["Fullofskittles-ENGI"] = "fullofskittles-Engineering"
-			module_sprites["Ntaede-ENGI"] = "ntaede-Engineering"
 			magpulse = 1
 
 		if("Janitor")
@@ -556,7 +548,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Sniperfairy-JN"] = "sniperfairy-Janitor"
 			module_sprites["Driker-JN"] = "driker-Janitor"
 			module_sprites["Fullofskittles-JN"] = "fullofskittles-Janitor"
-			module_sprites["Ntaede-JN"] = "ntaede-Janitor"
 
 		if("Destroyer") // Rolling Borg
 			module = new /obj/item/robot_module/destroyer(src)
