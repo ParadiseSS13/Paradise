@@ -71,6 +71,8 @@
 
 	for(var/obj/machinery/computer/prisoner/C in GLOB.prisoncomputer_list)
 		var/obj/item/paper/P = new /obj/item/paper(C.loc)
+		P.pixel_y = rand(-10, -8)
+		P.pixel_x = rand(-9, 9)
 		P.name = "[id] log - [occupant] [station_time_timestamp()]"
 		P.info =  "<center><b>[id] - Brig record</b></center><br><hr><br>"
 		P.info += {"<center>[station_name()] - Security Department</center><br>

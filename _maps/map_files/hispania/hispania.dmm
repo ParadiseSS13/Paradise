@@ -858,6 +858,33 @@
 	tag = "icon-stage_stairs"
 	},
 /area/crew_quarters/dorms)
+"abz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/structure/table/glass,
+/obj/item/reagent_containers/food/snacks/choco_mre{
+	pixel_x = -4;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/snacks/choco_mre{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/snacks/choco_mre{
+	pixel_y = 6
+	},
+/obj/item/storage/fancy/mre_cracker{
+	pixel_y = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding1 (NORTH)";
+	icon_state = "siding1";
+	dir = 1
+	},
+/area/crew_quarters/dorms)
 "abA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -906,33 +933,6 @@
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/dorms)
 "abG" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/structure/table/glass,
-/obj/item/reagent_containers/food/snacks/choco_mre{
-	pixel_x = -4;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/food/snacks/choco_mre{
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/food/snacks/choco_mre{
-	pixel_y = 6
-	},
-/obj/item/storage/fancy/mre_cracker{
-	pixel_y = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/turf/simulated/floor/plasteel{
-	tag = "icon-siding1 (NORTH)";
-	icon_state = "siding1";
-	dir = 1
-	},
-/area/crew_quarters/dorms)
-"abH" = (
 /obj/structure/closet/athletic_mixed,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4;
@@ -945,7 +945,7 @@
 	dir = 1
 	},
 /area/crew_quarters/dorms)
-"abI" = (
+"abH" = (
 /obj/structure/weightmachine/stacklifter,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -957,8 +957,20 @@
 	dir = 1
 	},
 /area/crew_quarters/dorms)
-"abJ" = (
+"abI" = (
 /obj/structure/punching_bag,
+/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding1 (NORTH)";
+	icon_state = "siding1";
+	dir = 1
+	},
+/area/crew_quarters/dorms)
+"abJ" = (
+/obj/structure/chair/stool,
+/obj/effect/landmark/start{
+	name = "Civilian"
+	},
 /turf/simulated/floor/plasteel/dark,
 /turf/simulated/floor/plasteel{
 	tag = "icon-siding1 (NORTH)";
@@ -1049,17 +1061,32 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "abT" = (
-/obj/structure/chair/stool,
-/obj/effect/landmark/start{
-	name = "Civilian"
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	dir = 8;
+	icon_state = "left";
+	name = "Hydroponics Pasture";
+	req_access_txt = "35"
 	},
-/turf/simulated/floor/plasteel/dark,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "asteroid";
+	tag = "icon-asteroid (NORTH)"
+	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-siding1 (NORTH)";
 	icon_state = "siding1";
 	dir = 1
 	},
-/area/crew_quarters/dorms)
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding2 (NORTH)";
+	icon_state = "siding2";
+	dir = 1
+	},
+/area/hydroponics)
 "abU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1138,15 +1165,12 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "abZ" = (
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	dir = 8;
-	icon_state = "left";
-	name = "Hydroponics Pasture";
-	req_access_txt = "35"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6;
+	level = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -1184,30 +1208,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/range)
-"acd" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6;
-	level = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
-	},
-/turf/simulated/floor/plasteel{
-	tag = "icon-siding1 (NORTH)";
-	icon_state = "siding1";
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	tag = "icon-siding2 (NORTH)";
-	icon_state = "siding2";
-	dir = 1
-	},
-/area/hydroponics)
 "acg" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -10936,9 +10936,6 @@
 	name = "Cell 1";
 	req_access_txt = "2"
 	},
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -10982,9 +10979,6 @@
 	req_access_txt = "2"
 	},
 /obj/machinery/door/firedoor,
-/obj/item/radio/intercom{
-	pixel_x = 28
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -13421,9 +13415,6 @@
 	name = "Cell 2";
 	req_access_txt = "2"
 	},
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -13451,9 +13442,6 @@
 	id = "Cell 4";
 	name = "Cell 4";
 	req_access_txt = "2"
-	},
-/obj/item/radio/intercom{
-	pixel_x = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -85033,6 +85021,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"gli" = (
+/obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
+/area/escapepodbay)
 "glD" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -90065,6 +90058,22 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"lxT" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/storage/secure)
 "lxW" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=Armory_South";
@@ -90680,11 +90689,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/library)
-"lYE" = (
-/obj/machinery/door/airlock/public/glass,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel,
-/area/escapepodbay)
 "lYJ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -95224,12 +95228,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
-"qDL" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint2)
 "qEl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	req_access_txt = "0"
@@ -97429,22 +97427,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
-"sIs" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4;
-	level = 1
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/storage/secure)
 "sIK" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -98100,6 +98082,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
+"tnT" = (
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "tnW" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
@@ -129428,7 +129416,7 @@ cZL
 daK
 cSU
 gwd
-sIs
+lxT
 ffd
 eaq
 lPI
@@ -139111,7 +139099,7 @@ aaf
 aam
 aWT
 aWT
-abG
+abz
 abK
 abW
 aOI
@@ -139368,7 +139356,7 @@ aaf
 aan
 abF
 aWT
-abH
+abG
 abK
 bfq
 aOI
@@ -139625,7 +139613,7 @@ aaf
 aaw
 aWT
 aWT
-abI
+abH
 abL
 bfv
 aOI
@@ -139882,7 +139870,7 @@ aaf
 aaQ
 aWT
 aWT
-abJ
+abI
 abQ
 bfr
 bpE
@@ -140139,7 +140127,7 @@ aah
 abv
 abD
 aWT
-abT
+abJ
 abQ
 abX
 aOI
@@ -142461,7 +142449,7 @@ bbI
 aGY
 beb
 bfH
-abZ
+abT
 bjx
 mtc
 bmy
@@ -142718,7 +142706,7 @@ bbV
 aGY
 beb
 bfJ
-acd
+abZ
 bjy
 bkY
 bmy
@@ -143995,7 +143983,7 @@ aQC
 aGY
 aGY
 aGX
-qDL
+tnT
 aGY
 bhp
 bjX
@@ -155591,7 +155579,7 @@ bjR
 nfu
 xxN
 lQt
-lYE
+gli
 cFW
 baU
 cIJ

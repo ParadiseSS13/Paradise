@@ -520,6 +520,8 @@
 	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
 			var/obj/item/paper/P = new /obj/item/paper(C.loc)
+			P.pixel_y = rand(-10, -8)
+			P.pixel_x = rand(-9, 9)
 			P.name = "paper- '[title]'"
 			P.info = text
 			P.update_icon()
@@ -531,6 +533,8 @@
 	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_admin_level(C.z))
 			var/obj/item/paper/P = new /obj/item/paper(C.loc)
+			P.pixel_y = rand(-10, -8)
+			P.pixel_x = rand(-9, 9)
 			P.name = "paper- '[title]'"
 			P.info = text
 			P.update_icon()

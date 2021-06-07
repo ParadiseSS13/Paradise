@@ -71,7 +71,7 @@
 /obj/machinery/alarm
 	name = "alarm"
 	icon = 'icons/hispania/obj/monitors.dmi'
-	icon_state = "alarm0"
+	icon_state = "alarmp"
 	anchored = 1
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 4

@@ -10,7 +10,7 @@ FIRE ALARM
 	name = "fire alarm"
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
 	icon = 'icons/hispania/obj/monitors.dmi'
-	icon_state = "fire0"
+	icon_state = "firep"
 	var/detecting = 1.0
 	var/working = 1.0
 	var/time = 10.0

@@ -394,6 +394,8 @@
   */
 /obj/machinery/computer/secure_data/proc/print_record_finish()
 	var/obj/item/paper/P = new(loc)
+	P.pixel_y = rand(-10, -8)
+	P.pixel_x = rand(-9, 9)
 	P.info = "<center><b>Security Record</b></center><br>"
 	if(record_general && GLOB.data_core.general.Find(record_general))
 		P.info += {"Name: [record_general.fields["name"]] ID: [record_general.fields["id"]]
@@ -428,6 +430,8 @@
   */
 /obj/machinery/computer/secure_data/proc/print_cell_log_finish(name, info)
 	var/obj/item/paper/P = new(loc)
+	P.pixel_y = rand(-10, -8)
+	P.pixel_x = rand(-9, 9)
 	P.name = name
 	P.info = info
 	is_printing = FALSE
