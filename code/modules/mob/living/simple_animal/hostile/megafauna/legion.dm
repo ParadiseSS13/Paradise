@@ -42,8 +42,8 @@ Difficulty: Medium
 	internal_type = /obj/item/gps/internal/legion
 	medal_type = BOSS_MEDAL_LEGION
 	score_type = LEGION_SCORE
-	pixel_y = -90
-	pixel_x = -75
+	pixel_y = -32
+	pixel_x = -32
 	loot = list(/obj/item/stack/sheet/bone = 3)
 	vision_range = 13
 	elimination = 1
