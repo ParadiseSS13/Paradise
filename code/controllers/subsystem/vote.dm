@@ -199,7 +199,7 @@ SUBSYSTEM_DEF(vote)
 		/*
 		if(config.vote_no_dead && usr.stat == DEAD && !usr.client.holder)
 			return 0
-		*/
+		*///Ghost Vote Hispania
 		if(current_votes[ckey])
 			choices[choices[current_votes[ckey]]]--
 		if(vote && 1<=vote && vote<=choices.len)
