@@ -148,28 +148,6 @@
 
 	return TRUE
 
-/obj/item/borg/upgrade/disablercooler
-	name = "cyborg rapid disabler cooling module"
-	desc = "Used to cool a mounted disabler, increasing the potential current in it and thus its recharge rate."
-	icon_state = "cyborg_upgrade3"
-	origin_tech = "engineering=4;powerstorage=4;combat=4"
-	require_module = TRUE
-	module_type = /obj/item/robot_module/security
-
-/obj/item/borg/upgrade/disablercooler/do_install(mob/living/silicon/robot/R)
-	var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
-	if(!T)
-		to_chat(usr, "<span class='notice'>There's no disabler in this unit!</span>")
-		return
-	if(T.charge_delay <= 2)
-		to_chat(R, "<span class='notice'>A cooling unit is already installed!</span>")
-		to_chat(usr, "<span class='notice'>There's no room for another cooling unit!</span>")
-		return
-
-	T.charge_delay = max(2 , T.charge_delay - 4)
-
-	return TRUE
-
 /obj/item/borg/upgrade/thrusters
 	name = "ion thruster upgrade"
 	desc = "A energy-operated thruster system for cyborgs."
