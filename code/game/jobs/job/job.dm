@@ -86,7 +86,7 @@
 
 /datum/job/proc/get_access()
 	if(!GLOB?.configuration?.jobs)	//Needed for robots.
-		// AA TOOD: Remove this once mulebots and stuff use Initialize()
+		// AA TODO: Remove this once mulebots and stuff use Initialize()
 		return src.minimal_access.Copy()
 
 	if(GLOB.configuration.jobs.jobs_have_minimal_access)

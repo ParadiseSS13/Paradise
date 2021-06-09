@@ -28,15 +28,20 @@
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
 
-		if(initial(M.config_tag))
-			// Ensure each mode is added only once
-			if(!(initial(M.config_tag) in gamemodes))
-				gamemodes += initial(M.config_tag)
-				gamemode_names[initial(M.config_tag)] = initial(M.name)
-				probabilities[initial(M.config_tag)] = initial(M.probability)
+		// Dont bother if theres no tag
+		if(!initial(M.config_tag))
+			continue
+		// Ensure each mode is added only once
+		if(initial(M.config_tag) in gamemodes)
+			continue
 
-				if(initial(M.votable))
-					votable_modes += initial(M.config_tag)
+		// Add it in
+		gamemodes += initial(M.config_tag)
+		gamemode_names[initial(M.config_tag)] = initial(M.name)
+		probabilities[initial(M.config_tag)] = initial(M.probability)
+
+		if(initial(M.votable))
+			votable_modes += initial(M.config_tag)
 
 	// Add secret to the votable pool
 	votable_modes += "secret"

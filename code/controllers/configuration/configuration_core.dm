@@ -1,6 +1,7 @@
 // Paradise SS13 Configuration System
 // Refactored to use config sections as part of a single TOML file, since thats much better to deal with
 
+/// Global configuration datum holder for all the config sections
 GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 
 /// Represents a base configuration datum. Has everything else bundled into it
@@ -120,17 +121,17 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 /datum/configuration_section/can_vv_get(var_name)
 	if(protection_state == PROTECTION_PRIVATE)
 		return FALSE
-	. = ..()
+	return ..()
 
 /datum/configuration_section/vv_edit_var(var_name, var_value)
 	if(protection_state in list(PROTECTION_PRIVATE, PROTECTION_READONLY))
 		return FALSE
-	. = ..()
+	return ..()
 
 /datum/configuration_section/vv_get_var(var_name)
 	if(protection_state == PROTECTION_PRIVATE)
 		return FALSE
-	. = ..()
+	return ..()
 
 /datum/configuration_section/Destroy(force)
 	SHOULD_CALL_PARENT(FALSE)

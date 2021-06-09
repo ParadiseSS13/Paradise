@@ -1,8 +1,11 @@
 /// Config holder for all admin related things
 /datum/configuration_section/admin_configuration
 	protection_state = PROTECTION_READONLY // Dont even think about it
+	/// Do we want to load admins from the database?
 	var/use_database_admins = FALSE
+	/// Do we want to auto enable admin rights if you connect from localhost?
 	var/enable_localhost_autoadmin = TRUE
+	/// Do we want to allow admins to set their own OOC colour?
 	var/allow_admin_ooc_colour = TRUE
 	/// Assoc list of admin ranks and their stuff. key: rank name string | value: list of rights
 	var/list/rank_rights_map = list()

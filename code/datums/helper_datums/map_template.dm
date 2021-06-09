@@ -119,7 +119,7 @@
 	// Merge the active lists together
 	var/list/space_ruins = GLOB.configuration.ruins.active_space_ruins.Copy()
 	var/list/lava_ruins = GLOB.configuration.ruins.active_lava_ruins.Copy()
-	var/list/all_ruins = mergeLists(space_ruins, lava_ruins)
+	var/list/all_ruins = space_ruins | lava_ruins
 
 	for(var/item in subtypesof(/datum/map_template/ruin))
 		var/datum/map_template/ruin/ruin_type = item
