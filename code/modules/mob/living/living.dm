@@ -1005,7 +1005,7 @@
 
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
 
-	amount *= RAD_DAMAGE_MULTIPLIER
+	amount *= RAD_DOSAGE_MULTIPLIER
 
 	var/blocked = getarmor(null, "rad")
 

@@ -54,4 +54,4 @@ Ask ninjanomnom if they're around
 #define RAD_GEIGER_MEASURE_SMOOTHING 5
 #define RAD_GEIGER_GRACE_PERIOD 2
 
-#define RAD_DAMAGE_MULTIPLIER 10					// This brings pre-refactor rad values in line with the current danger values
+#define RAD_DOSAGE_MULTIPLIER 10					// This is used to increase radiation dosage taken during rad_act() calls
