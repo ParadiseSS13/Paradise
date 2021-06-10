@@ -538,8 +538,8 @@
 //////////////////// OORAH MARINES ///////////////////
 /datum/outfit/job/centcom/response_team/solgov
 	name = "Solar Federation Marine"
-	name = "Solar Federation Marine"
-	rt_job = rt_assignment
+	rt_assignment = "Solar Federation Marine"
+	rt_job = "Solar Federation Marine"
 	rt_mob_job = "ERT Security"
 	uniform = /obj/item/clothing/under/solgov
 	suit = /obj/item/clothing/suit/armor/bulletproof
@@ -595,7 +595,7 @@
 /datum/outfit/job/centcom/response_team/solgov/lieutenant
 	name = "Solar Federation Lieutenant"
 	rt_assignment = "Solar Federation Lieutenant"
-	rt_job = rt_assignment
+	rt_job = "Solar Federation Lieutenant"
 	rt_mob_job = "ERT Commander"
 	uniform = /obj/item/clothing/under/solgov/command
 	head = /obj/item/clothing/head/beret/solgov/command
@@ -619,6 +619,7 @@
 /datum/outfit/job/centcom/response_team/solgov/elite
 	name = "Solar Federation Specops Marine"
 	rt_assignment = "Solar Federation Specops Marine"
+	rt_job = "Solar Federation Specops Marine"
 	uniform = /obj/item/clothing/under/solgov/elite
 	head = /obj/item/clothing/head/soft/solgov/marines/elite
 	belt = /obj/item/storage/belt/military/assault/marines/elite/full
@@ -640,7 +641,7 @@
 /datum/outfit/job/centcom/response_team/solgov/elite/lieutenant
 	name = "Solar Federation Specops Lieutenant"
 	rt_assignment = "Solar Federation Specops Lieutenant"
-	rt_job = rt_assignment
+	rt_job = "Solar Federation Specops Lieutenant"
 	rt_mob_job = "ERT Commander"
 	uniform = /obj/item/clothing/under/solgov/command/elite
 	head = /obj/item/clothing/head/beret/solgov/command/elite
