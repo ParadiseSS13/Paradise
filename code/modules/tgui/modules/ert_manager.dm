@@ -12,7 +12,7 @@
 /datum/ui_module/ert_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ERTManager", name, 350, 430, master_ui, state)
+		ui = new(user, src, ui_key, "ERTManager", name, 350, 450, master_ui, state)
 		ui.autoupdate = TRUE
 		ui.open()
 
@@ -70,6 +70,10 @@
 					D = new /datum/response_team/red
 				if("Gamma")
 					D = new /datum/response_team/gamma
+				if("SolGov")
+					D = new /datum/response_team/solgov
+				if("SolGov Specops")
+					D = new /datum/response_team/solgovspecops
 				else
 					to_chat(usr, "<span class='userdanger'>Invalid ERT type.</span>")
 					return
@@ -90,11 +94,10 @@
 			if(cyborg_slots > 0)
 				slots_list += "cyborg: [cyborg_slots]"
 			var/slot_text = english_list(slots_list)
-			notify_ghosts("An ERT is being dispatched. Open positions: [slot_text]")
+			notify_ghosts("A [ert_type] ERT is being dispatched. Open positions: [slot_text]")
 			message_admins("[key_name_admin(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]", 1)
 			log_admin("[key_name(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]")
 			GLOB.event_announcement.Announce("Attention, [station_name()]. We are attempting to assemble an ERT. Standby.", "ERT Protocol Activated")
 			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 		else
 			return FALSE
-
