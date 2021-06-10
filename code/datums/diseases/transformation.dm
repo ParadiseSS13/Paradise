@@ -40,13 +40,13 @@
 	if(istype(affected_mob, /mob/living/carbon) && affected_mob.stat != DEAD)
 		if(stage5)
 			to_chat(affected_mob, pick(stage5))
-		if(transformation_text)
-			to_chat(affected_mob, transformation_text)
 		if(jobban_isbanned(affected_mob, new_form))
 			affected_mob.death(1)
 			return
 		if(affected_mob.notransform)
 			return
+		if(transformation_text)
+			to_chat(affected_mob, transformation_text)
 		affected_mob.notransform = 1
 		affected_mob.canmove = 0
 		affected_mob.icon = null
