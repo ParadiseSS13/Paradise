@@ -20,6 +20,9 @@
 	exp_requirements = 2880
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/cmo
+	required_objectives = list(
+		/datum/job_objective/make_station_goal
+	)
 
 /datum/outfit/job/cmo
 	name = "Chief Medical Officer"
