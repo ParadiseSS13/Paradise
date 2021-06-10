@@ -39,6 +39,8 @@
 	if(istype(affected_mob, /mob/living/carbon) && affected_mob.stat != DEAD)
 		if(stage5)
 			to_chat(affected_mob, pick(stage5))
+		if(name == "Gluttony's Blessing")
+			to_chat(affected_mob, "<span class='userdanger'>You are NOT an antagonist, as such you should never eat steal objectives or the contents of the armory.</span>")
 		if(jobban_isbanned(affected_mob, new_form))
 			affected_mob.death(1)
 			return
