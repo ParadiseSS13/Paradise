@@ -80,3 +80,8 @@
 /turf/simulated/floor/light/extinguish_light()
 	toggle_light(FALSE)
 	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
+
+/turf/simulated/floor/light/clean(floor_only)
+	var/color_save = color
+	..()
+	color = color_save

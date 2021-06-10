@@ -156,7 +156,7 @@
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue
-					if(iswallturf(T) && NewTerrainWalls)
+					if(iswallturf(T) && NewTerrainWalls && !istype(T, /turf/simulated/wall/indestructible))
 						T.ChangeTurf(NewTerrainWalls)
 						continue
 				if(istype(Stuff, /obj/structure/chair) && NewTerrainChairs)

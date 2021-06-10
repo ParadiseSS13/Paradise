@@ -285,16 +285,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	SStgui.update_uis(src)
 
-/obj/machinery/computer/rdconsole/proc/start_destroyer()
+/obj/machinery/computer/rdconsole/proc/start_destroyer(mob/user)
 	if(!linked_destroy)
 		return
 
 	if(linked_destroy.busy)
-		to_chat(usr, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
+		to_chat(user, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
 		return
 
 	if(!linked_destroy.loaded_item)
-		to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+		to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
 		return
 
 	var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
@@ -313,7 +313,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	linked_destroy.busy = TRUE
 	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
 	flick("d_analyzer_process", linked_destroy)
-	addtimer(CALLBACK(src, .proc/finish_destroyer, temp_tech), DECONSTRUCT_DELAY)
+	addtimer(CALLBACK(src, .proc/finish_destroyer, user, temp_tech), DECONSTRUCT_DELAY)
 
 // Sends salvaged materials to a linked protolathe, if any.
 /obj/machinery/computer/rdconsole/proc/send_mats()
@@ -329,14 +329,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/can_insert = min(space, salvageable, available)
 		linked_lathe.materials.insert_amount(can_insert, material)
 
-/obj/machinery/computer/rdconsole/proc/finish_destroyer(list/temp_tech)
+/obj/machinery/computer/rdconsole/proc/finish_destroyer(mob/user, list/temp_tech)
 	clear_wait_message()
 	if(!linked_destroy || !temp_tech)
 		return
 
 	if(!linked_destroy.hacked)
 		if(!linked_destroy.loaded_item)
-			to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+			to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
 		else
 			for(var/T in temp_tech)
 				files.UpdateTech(T, temp_tech[T])
