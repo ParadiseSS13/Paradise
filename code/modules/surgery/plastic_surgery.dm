@@ -25,8 +25,8 @@
 /datum/surgery_step/reshape_face/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
 	var/species_names = target.dna.species.name
-	if(head.disfigured)
-		head.disfigured = FALSE
+	if(head.status & ORGAN_DISFIGURED)
+		head.status &= ~ORGAN_DISFIGURED
 		user.visible_message("[user] successfully restores [target]'s appearance!", "<span class='notice'>You successfully restore [target]'s appearance.</span>")
 	else
 		var/list/names = list()

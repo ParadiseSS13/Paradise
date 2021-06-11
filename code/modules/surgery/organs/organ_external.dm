@@ -26,7 +26,6 @@
 	var/icon/mob_icon
 	var/gendered_icon = 0
 	var/limb_name
-	var/disfigured = 0
 	var/cannot_amputate
 	var/cannot_break
 	var/s_tone = null
@@ -296,7 +295,6 @@ This function completely restores a damaged organ to perfect condition.
 	brute_dam = 0
 	burn_dam = 0
 	open = 0 //Closing all wounds.
-	disfigured = FALSE
 
 	// handle internal organs
 	for(var/obj/item/organ/internal/current_organ in internal_organs)
@@ -752,13 +750,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 		qdel(src)
 
 /obj/item/organ/external/proc/disfigure()
-	if(disfigured)
+	if(status & ORGAN_DISFIGURED)
 		return
 	if(owner)
 		owner.visible_message("<span class='warning'>You hear a sickening sound coming from \the [owner]'s [name] as it turns into a mangled mess!</span>",	\
 							  "<span class='danger'>Your [name] becomes a mangled mess!</span>",	\
 							  "<span class='warning'>You hear a sickening sound.</span>")
-	disfigured = TRUE
+
+	 status |= ORGAN_DISFIGURED
 
 /obj/item/organ/external/is_primary_organ(mob/living/carbon/human/O = null)
 	if(isnull(O))

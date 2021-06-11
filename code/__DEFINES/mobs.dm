@@ -7,6 +7,7 @@
 #define ORGAN_DEAD         (1 << 3)
 #define ORGAN_MUTATED      (1 << 4)
 #define ORGAN_INT_BLEEDING (1 << 5)
+#define ORGAN_DISFIGURED   (1 << 6)
 
 #define PROCESS_ACCURACY 10
 
