@@ -38,6 +38,7 @@ var/list/chatResources = list(
 	. = ..()
 
 	owner = C
+	SSchat_pings.chat_datums += src
 
 /datum/chatOutput/proc/start()
 	if(!owner)
@@ -124,14 +125,14 @@ var/list/chatResources = list(
 	if(owner.tos_consent)
 		sendClientData()
 
-	pingLoop()
+	updatePing()
 
-/datum/chatOutput/proc/pingLoop()
-	set waitfor = FALSE
-
-	while (owner)
-		ehjax_send(data = owner.is_afk(29 SECONDS) ? "softPang" : "pang") // SoftPang isn't handled anywhere but it'll always reset the opts.lastPang.
-		sleep(30 SECONDS)
+// PARADISE EDIT: This just updates the ping and is called from SSchat_pings
+/datum/chatOutput/proc/updatePing()
+	if(!owner)
+		qdel(src)
+		return
+	ehjax_send(data = owner.is_afk(29 SECONDS) ? "softPang" : "pang") // SoftPang isn't handled anywhere but it'll always reset the opts.lastPang.
 
 /datum/chatOutput/proc/ehjax_send(client/C = owner, window = "browseroutput", data)
 	if(islist(data))
@@ -222,6 +223,11 @@ var/list/chatResources = list(
   */
 /datum/chatOutput/proc/clear_syndicate_codes()
 	owner << output(null, "browseroutput:codewordsClear")
+
+/datum/chatOutput/Destroy(force)
+	SSchat_pings.chat_datums -= src
+	return ..()
+
 
 /client/verb/debug_chat()
 	set hidden = 1
