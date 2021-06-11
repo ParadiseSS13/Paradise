@@ -307,7 +307,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/red
 
 /datum/response_team/solgov/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()], this is the TSF navy vessel Aurelia. We have detected your distress call, a squad of Marines is inbound. Standby.", "Marines En-Route")
+	GLOB.event_announcement.Announce("Attention, [station_name()], this is the TSF-NV Aurelia. Boarding shuttles have been scrambled and marines are en-route to your location. Standby for boarding.", "Marines En-Route")
 
 /datum/response_team/solgovspecops
 	security_outfit = /datum/outfit/job/centcom/response_team/solgov/elite
@@ -315,7 +315,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/gamma
 
 /datum/response_team/solgovspecops/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()], this is the TSF navy vessel Aurelia. We have detected your distress call, a squad of elite SpecOps Marines is inbound. Standby.", "Marines En-Route")
+	GLOB.event_announcement.Announce("Attention, [station_name()], this is the TSF-NV Aurelia. Boarding shuttles have been scrambled and marines are en-route to your location. Standby for boarding.", "Marines En-Route")
 
 /datum/outfit/job/centcom/response_team
 	name = "Response team"
