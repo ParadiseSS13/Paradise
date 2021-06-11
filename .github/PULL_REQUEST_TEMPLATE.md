@@ -8,7 +8,7 @@
 <!-- Add a short description of why you think these changes would benefit the game. If you can't justify it in words, it might not be worth adding. -->
 
 ## Images of changes
-<!-- If you did not make a map or sprite edit, you may delete this section. You may include a gif or mp4 of your feature if you want -->
+<!-- If you did not make a map or sprite edit, you may delete this section. You may include a gif or mp4 of your feature if you want. -->
 
 ## Changelog
 :cl:
