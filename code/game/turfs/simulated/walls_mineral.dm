@@ -7,6 +7,8 @@
 	canSmoothWith = null
 	smooth = SMOOTH_TRUE
 
+/turf/simulated/wall/mineral/shuttleRotate(rotation)
+
 /turf/simulated/wall/mineral/gold
 	name = "gold wall"
 	desc = "A wall with gold plating. Swag!"
