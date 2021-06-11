@@ -54,7 +54,6 @@
 
 	var/obj/item/hidden = null
 	var/list/embedded_objects = list()
-	var/internal_bleeding = FALSE
 	var/amputation_point // Descriptive string used in amputation.
 	var/can_grasp
 	var/can_stand
@@ -297,7 +296,6 @@ This function completely restores a damaged organ to perfect condition.
 	brute_dam = 0
 	burn_dam = 0
 	open = 0 //Closing all wounds.
-	internal_bleeding = FALSE
 	disfigured = FALSE
 
 	// handle internal organs
@@ -409,8 +407,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	var/local_damage = brute_dam + damage
 	if(damage > 15 && local_damage > 30 && prob(damage) && !is_robotic())
-		internal_bleeding = TRUE
-		owner.custom_pain("You feel something rip in your [name]!")
+		internal_bleed()
 
 // new damage icon system
 // returns just the brute/burn damage code
@@ -636,6 +633,23 @@ Note that amputating the affected organ does in fact remove the infection from t
 	perma_injury = 0
 	if(owner)
 		owner.handle_splints()
+	return TRUE
+
+/obj/item/organ/external/proc/internal_bleed()
+	if(is_robotic())
+		return
+	if(HAS_TRAIT(owner, NO_BLOOD))
+		return
+	status |= ORGAN_INT_BLEEDING
+	owner.custom_pain("You feel something rip in your [name]!")
+
+/obj/item/organ/external/proc/fix_internal_bleeding()
+	if(is_robotic())
+		return FALSE
+	if(!(status & ORGAN_INT_BLEEDING))
+		return FALSE
+	status &= ~ORGAN_INT_BLEEDING
+	perma_injury = 0
 	return TRUE
 
 /obj/item/organ/external/robotize(company, make_tough = 0, convert_all = 1)

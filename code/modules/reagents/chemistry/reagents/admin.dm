@@ -23,7 +23,7 @@
 			I.receive_damage(-5, FALSE)
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			E.mend_fracture()
-			E.internal_bleeding = FALSE
+			E.fix_internal_bleeding()
 	M.SetEyeBlind(0, FALSE)
 	M.cure_nearsighted(null, FALSE)
 	M.cure_blind(null, FALSE)
