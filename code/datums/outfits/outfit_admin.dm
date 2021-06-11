@@ -784,6 +784,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_TRADE_SOL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS), name)
+	H.sec_hud_set_ID()
 
 /datum/outfit/admin/chrono
 	name = "Chrono Legionnaire"

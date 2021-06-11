@@ -289,6 +289,7 @@
 	// 2FA auth host
 	var/_2fa_auth_host = null
 
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
