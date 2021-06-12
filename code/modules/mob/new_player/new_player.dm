@@ -19,11 +19,6 @@
 	GLOB.mob_list += src
 	return INITIALIZE_HINT_NORMAL
 
-/mob/new_player/Destroy()
-	GLOB.player_list -= src
-	return ..()
-
-
 /mob/new_player/verb/new_player_panel()
 	set src = usr
 
