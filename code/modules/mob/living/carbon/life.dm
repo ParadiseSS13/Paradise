@@ -344,7 +344,9 @@
 		if(drunk)
 			comfort += 1 //Aren't naps SO much better when drunk?
 			AdjustDrunk(-0.2*comfort) //reduce drunkenness while sleeping.
-		if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
+		if(comfort > 1 && prob(7))//You don't heal if you're just sleeping on the floor without a blanket.
+			if(istype(wear_suit, /obj/item/clothing/under/pj)) //Anidado Hispania para evitar curar al dormir fuera de una cama.
+				comfort+= 3
 			adjustBruteLoss(-1 * comfort, FALSE)
 			adjustFireLoss(-1 * comfort)
 		if(prob(10) && health && hal_screwyhud != SCREWYHUD_CRIT)
