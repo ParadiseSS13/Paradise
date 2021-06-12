@@ -449,6 +449,7 @@
 
 	var/dat = "<html><body><center>"
 	dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
+	dat += "<b>The station alert level is: [get_security_level_colors()]</b><br>"
 
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"

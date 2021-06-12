@@ -17,7 +17,8 @@
 					atklog,
 					fuid,
 					parallax,
-					keybindings
+					keybindings,
+					2fa_status
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -47,6 +48,7 @@
 		fuid = text2num(query.item[15])
 		parallax = text2num(query.item[16])
 		keybindings = init_keybindings(raw = query.item[17])
+		_2fa_status = query.item[18]
 
 	qdel(query)
 
@@ -96,6 +98,7 @@
 					lastchangelog=:lastchangelog,
 					clientfps=:clientfps,
 					parallax=:parallax,
+					2fa_status=:_2fa_status,
 					keybindings=:keybindings
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
@@ -114,6 +117,7 @@
 						"lastchangelog" = lastchangelog,
 						"clientfps" = clientfps,
 						"parallax" = parallax,
+						"_2fa_status" = _2fa_status,
 						"keybindings" = json_encode(keybindings_overrides),
 						"ckey" = C.ckey
 					)
