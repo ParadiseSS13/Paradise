@@ -373,26 +373,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 60
 	containername = "assault armor crate"
 
-/datum/supply_packs/security/armory/swat
-	name = "Cloaker gear crate"
-	contains = list(/obj/item/clothing/head/beret/centcom/officer,
-					/obj/item/clothing/head/beret/centcom/officer,
-					/obj/item/clothing/suit/armor/bulletproof,
-					/obj/item/clothing/suit/armor/bulletproof,
-					/obj/item/clothing/shoes/combat/swat,
-					/obj/item/clothing/shoes/combat/swat,
-					/obj/item/clothing/gloves/combat,
-					/obj/item/clothing/gloves/combat,
-					/obj/item/melee/classic_baton,
-					/obj/item/melee/classic_baton,
-					/obj/item/clothing/mask/gas/sechailer/cloaker,
-					/obj/item/clothing/mask/gas/sechailer/cloaker,
-					/obj/item/storage/belt/military/assault,
-					/obj/item/storage/belt/military/assault)
-	cost = 120
-	containername = "assault armor crate"
-	contraband = 1
-
 /datum/supply_packs/security/armory/laserarmor
 	name = "Ablative Armor Crate"
 	contains = list(/obj/item/clothing/suit/armor/laserproof,
