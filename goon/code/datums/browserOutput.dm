@@ -94,7 +94,7 @@ var/list/chatResources = list(
 			if(!length(params))
 				return
 			var/error = params[1]
-			data = log_chat_debug("Client: [owner.key || owner] triggered JS error: [error][GLOB.log_end]")
+			log_chat_debug("Client: [owner.key || owner] triggered JS error: [error][GLOB.log_end]")
 
 		if("ping")
 			data = ping(arglist(params))
