@@ -32,7 +32,7 @@
 	act = lowertext(act)
 
 	switch(act)		//This switch makes sure you have air in your lungs before you scream
-		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes")
+		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes", "laugh", "laughs")
 			if(getOxyLoss() > 35)		//no screaming if you don't have enough breath to scream
 				on_CD = handle_emote_CD()
 				emote("gasp")
@@ -125,8 +125,12 @@
 				return
 
 		if("scream", "screams")
-			on_CD = handle_emote_CD(50) //longer cooldown
-		if("fart", "farts", "flip", "flips", "snap", "snaps")
+			on_CD = handle_emote_CD(40)
+		if("laugh", "laughs")
+			on_CD = handle_emote_CD(40)
+		if("fart", "farts")
+			on_CD = handle_emote_CD(40)
+		if("flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
 		if("cough", "coughs", "highfive")
 			on_CD = handle_emote_CD()
