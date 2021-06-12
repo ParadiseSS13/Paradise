@@ -56,7 +56,6 @@
 	if(crowbar_salvage.len)
 		var/obj/S = pick(crowbar_salvage)
 		S.forceMove(user.drop_location())
-		S.invisibility = 0
 		user.visible_message("<span class='notice'>[user] pries [S] from [src].</span>", "<span class='notice'>You pry [S] from [src].</span>")
 		crowbar_salvage -= S
 		return
