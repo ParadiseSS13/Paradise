@@ -5,8 +5,6 @@
 	icon_override = 'icons/hispania/mob/mask.dmi'
 	icon_state = "cloaker"
 	item_state = "cloaker"
-	flags_inv = HIDEFACE
-	flags_cover = MASKCOVERSMOUTH
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 	phrase_list = list(
 
