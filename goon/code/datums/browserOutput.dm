@@ -1,5 +1,3 @@
-#define CHAT_DEBUG_LOG "data/chatDebug.log"
-
 var/list/chatResources = list(
 	"goon/browserassets/js/jquery.min.js",
 	"goon/browserassets/js/jquery.mark.min.js",
@@ -93,7 +91,10 @@ var/list/chatResources = list(
 			data = doneLoading(arglist(params))
 
 		if("debug")
-			data = debug(arglist(params))
+			if(!length(params))
+				return
+			var/error = params[1]
+			data = log_chat_debug("Client: [owner.key || owner] triggered JS error: [error][GLOB.log_end]")
 
 		if("ping")
 			data = ping(arglist(params))
@@ -201,9 +202,6 @@ var/list/chatResources = list(
 
 /datum/chatOutput/proc/ping()
 	return "pong"
-
-/datum/chatOutput/proc/debug(error)
-	rustg_log_write(CHAT_DEBUG_LOG, "Client : [owner.key || owner] triggered JS error: [error][GLOB.log_end]")
 
 /**
   * Sends the lists of code phrases and responses to Goonchat for clientside highlighting
@@ -334,4 +332,3 @@ var/to_chat_src
 		target << output(output_message, "browseroutput:output")
 
 #undef MAX_COOKIE_LENGTH
-#undef CHAT_DEBUG_LOG
