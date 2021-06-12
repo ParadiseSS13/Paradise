@@ -96,22 +96,22 @@
 
 /datum/keybinding/mob/face_dir/north
 	name = "Face North"
-	keys = list("Ctrl+W", "Ctrl+North")
+	keys = list("CtrlW", "CtrlNorth")
 	dir = NORTH
 
 /datum/keybinding/mob/face_dir/south
 	name = "Face South"
-	keys = list("Ctrl+S", "Ctrl+South")
+	keys = list("CtrlS", "CtrlSouth")
 	dir = SOUTH
 
 /datum/keybinding/mob/face_dir/east
 	name = "Face East"
-	keys = list("Ctrl+D", "Ctrl+East")
+	keys = list("CtrlD", "CtrlEast")
 	dir = EAST
 
 /datum/keybinding/mob/face_dir/west
 	name = "Face West"
-	keys = list("Ctrl+A", "Ctrl+West")
+	keys = list("CtrlA", "CtrlWest")
 	dir = WEST
 
 /datum/keybinding/mob/target_cycle/head

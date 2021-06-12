@@ -4,7 +4,7 @@
 	var/rights
 
 /datum/keybinding/admin/can_use(client/C, mob/M)
-	if(rights && !check_rights(rights))
+	if(rights && !check_rights(rights, FALSE))
 		return FALSE
 	return !isnull(C.holder) && ..()
 

@@ -604,7 +604,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/list/keys = override_keys || KB.keys
 					var/keys_buttons = ""
 					for(var/key in keys)
-						var/disp_key = "[replacetext(key, "+", "", -1, 0)]"
+						var/disp_key = key
 						if(override_keys)
 							disp_key = "<b>[disp_key]</b>"
 						keys_buttons += "<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
@@ -2206,21 +2206,50 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						if(KB)
 							if(href_list["key"])
 								var/old_key = href_list["old"]
-								var/new_key = uppertext(copytext(href_list["key"], 1, 16))
-								var/alt_mod = text2num(href_list["alt"]) ? "Alt+" : ""
-								var/ctrl_mod = text2num(href_list["ctrl"]) ? "Ctrl+" : ""
-								var/shift_mod = text2num(href_list["shift"]) ? "Shift+" : ""
-								var/numpad = text2num(href_list["numpad"]) ? "Numpad" : ""
+								var/new_key = copytext(url_decode(href_list["key"]), 1, 16)
+								var/alt_mod = text2num(href_list["alt"]) ? "Alt" : ""
+								var/ctrl_mod = text2num(href_list["ctrl"]) ? "Ctrl" : ""
+								var/shift_mod = text2num(href_list["shift"]) ? "Shift" : ""
+								var/numpad = (text2num(href_list["numpad"]) && text2num(new_key)) ? "Numpad" : ""
 								var/clear = text2num(href_list["clear_key"])
+
+								if(!(length_char(new_key) == 1 && text2ascii(new_key) >= 0x80)) // Don't uppercase unicode stuff
+									new_key = uppertext(new_key)
+
+								// Map for JS keys
+								var/static/list/key_map = list(
+									"UP" = "North",
+									"RIGHT" = "East",
+									"DOWN" = "South",
+									"LEFT" = "West",
+									"INSERT" = "Insert",
+									"HOME" = "Northwest",
+									"PAGEUP" = "Northeast",
+									"DEL" = "Delete",
+									"END" = "Southwest",
+									"PAGEDOWN" = "Southeast",
+									"SPACEBAR" = "Space",
+									"ALT" = "Alt",
+									"SHIFT" = "Shift",
+									"CONTROL" = "Ctrl",
+									"DIVIDE" = "Divide",
+									"MULTIPLY" = "Multiply",
+									"ADD" = "Add",
+									"SUBTRACT" = "Subtract",
+									"DECIMAL" = "Decimal",
+									"CLEAR" = "Center"
+								)
+
+								new_key = key_map[new_key] || new_key
 
 								var/full_key
 								switch(new_key)
 									if("ALT")
-										full_key = "Alt+[ctrl_mod][shift_mod]"
+										full_key = "Alt[ctrl_mod][shift_mod]"
 									if("CONTROL")
-										full_key = "[alt_mod]Ctrl+[shift_mod]"
+										full_key = "[alt_mod]Ctrl[shift_mod]"
 									if("SHIFT")
-										full_key = "[alt_mod][ctrl_mod]Shift+"
+										full_key = "[alt_mod][ctrl_mod]Shift"
 									else
 										full_key = "[alt_mod][ctrl_mod][shift_mod][numpad][new_key]"
 

@@ -3,29 +3,6 @@
 	/// The direction to move to when held.
 	var/move_dir
 
-/datum/keybinding/movement/should_start_looping(client/C)
-	return TRUE
-
-/datum/keybinding/movement/down(client/C)
-	. = ..()
-	var/datum/input_data/ID = C.input_data
-	ID.desired_move_dir |= move_dir
-	if(!(ID.desired_move_dir_sub & move_dir))
-		ID.desired_move_dir_add |= move_dir
-
-/datum/keybinding/movement/up(client/C)
-	. = ..()
-	var/datum/input_data/ID = C.input_data
-	ID.desired_move_dir &= ~move_dir
-	if(!(ID.desired_move_dir_add & move_dir))
-		ID.desired_move_dir_sub |= move_dir
-
-/datum/keybinding/movement/should_start_looping(client/C)
-	return C.input_data.desired_move_dir_add == NONE
-
-/datum/keybinding/movement/should_stop_looping(client/C)
-	return FALSE // Handled in SSinput itself
-
 /datum/keybinding/movement/north
 	name = "Move North"
 	keys = list("W", "North")
@@ -45,3 +22,16 @@
 	name = "Move West"
 	keys = list("A", "West")
 	move_dir = WEST
+
+/datum/keybinding/lock
+	name = "Movement Lock"
+	category = KB_CATEGORY_MOVEMENT
+	keys = list("Ctrl")
+
+/datum/keybinding/lock/down(client/C)
+	. = ..()
+	C.input_data.move_lock = TRUE
+
+/datum/keybinding/lock/up(client/C)
+	. = ..()
+	C.input_data.move_lock = FALSE

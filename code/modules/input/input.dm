@@ -62,9 +62,16 @@
 	// The time a key was pressed isn't actually used anywhere (as of 2019-9-10) but this allows easier access usage/checking
 	ID.keys_held[_key] = world.time
 
-	var/alt_mod = ID.keys_held["Alt"] ? "Alt+" : ""
-	var/ctrl_mod = ID.keys_held["Ctrl"] ? "Ctrl+" : ""
-	var/shift_mod = ID.keys_held["Shift"] ? "Shift+" : ""
+	var/move_dir = movement_kb_dirs[_key]
+	if(move_dir && !ID.move_lock)
+		SSinput.processing[src] = world.time
+		ID.desired_move_dir |= move_dir
+		if(!(ID.desired_move_dir_sub & move_dir))
+			ID.desired_move_dir_add |= move_dir
+
+	var/alt_mod = ID.keys_held["Alt"] ? "Alt" : ""
+	var/ctrl_mod = ID.keys_held["Ctrl"] ? "Ctrl" : ""
+	var/shift_mod = ID.keys_held["Shift"] ? "Shift" : ""
 	var/full_key
 	switch(_key)
 		if("Alt", "Ctrl", "Shift")
@@ -98,6 +105,12 @@
 		KeyUp(key_combo)
 
 	ID.keys_held -= _key
+
+	var/move_dir = movement_kb_dirs[_key]
+	if(move_dir)
+		ID.desired_move_dir &= ~move_dir
+		if(!(ID.desired_move_dir_add & move_dir))
+			ID.desired_move_dir_sub |= move_dir
 
 	var/list/kbs = active_keybindings[_key]
 	if(LAZYLEN(kbs))

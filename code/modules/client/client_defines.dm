@@ -113,6 +113,9 @@
 	/// The client's active keybindings, depending on their active mob.
 	var/list/active_keybindings = list()
 
+	/// The client's movement keybindings to directions, which work regardless of modifiers.
+	var/list/movement_kb_dirs = list()
+
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS
