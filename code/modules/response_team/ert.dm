@@ -315,7 +315,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/gamma
 
 /datum/response_team/solgovspecops/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()], this is the TSF-NV Aurelia. Boarding shuttles have been scrambled and marines are en-route to your location. Standby for boarding.", "Marines En-Route")
+	GLOB.event_announcement.Announce("Attention, [station_name()], this is the TSF-NV Aurelia. Boarding shuttles have been scrambled and specops marines are en-route to your location. Standby for boarding.", "Marines En-Route")
 
 /datum/outfit/job/centcom/response_team
 	name = "Response team"
