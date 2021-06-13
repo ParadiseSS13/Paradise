@@ -48,7 +48,7 @@
 	build_path = /obj/item/reagent_containers/moa
 	category = list("Medical")
 
-/datum/design/moa
+/datum/design/handheldbody
 	name = "Handheld Body Scanner"
 	desc = "A handheld scanner capable of deep-scanning an entire body."
 	id = "handbodyscanner"
