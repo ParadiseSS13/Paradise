@@ -249,6 +249,8 @@
 /obj/machinery/power/port_gen/pacman/proc/overheat()
 	overheating++
 	if(overheating > 60)
+		message_admins("Pacman overheated at [ADMIN_JMP(loc)]. Last touched by: [fingerprintslast ? "[fingerprintslast]" : "*null*"].")
+		log_game("Pacman overheated at [COORD(loc)]. Last touched by: [fingerprintslast ? "[fingerprintslast]" : "*null*"].")
 		explode()
 
 /obj/machinery/power/port_gen/pacman/explode()

@@ -187,13 +187,6 @@
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
 
-/turf/simulated/floor/engine/cult/ratvar_act()
-	. = ..()
-	if(istype(src, /turf/simulated/floor/engine/cult)) //if we haven't changed type
-		var/previouscolor = color
-		color = "#FAE48C"
-		animate(src, color = previouscolor, time = 8)
-
 //air filled floors; used in atmos pressure chambers
 
 /turf/simulated/floor/engine/n20

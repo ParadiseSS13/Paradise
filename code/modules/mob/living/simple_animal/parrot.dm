@@ -562,7 +562,9 @@
 	if(held_item)
 		to_chat(src, "<span class='warning'>You are already holding [held_item]</span>")
 		return 1
-
+	if(istype(loc, /obj/machinery/disposal) || istype(loc, /obj/structure/disposalholder))
+		to_chat(src, "<span class='warning'>You are inside a disposal chute!</span>")
+		return 1
 	for(var/obj/item/I in view(1, src))
 		//Make sure we're not already holding it and it's small enough
 		if(I.loc != src && I.w_class <= WEIGHT_CLASS_SMALL)
