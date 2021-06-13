@@ -1,5 +1,5 @@
 /obj/item/clothing/mask/gas/sechailer/cloaker
-	name = "\improper Cloaker SWAT mask"
+	name = "\improper cloaker SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Cloaker-o-nator 3500."
 	icon = 'icons/hispania/obj/clothing/masks.dmi'
 	icon_state = "cloaker"
