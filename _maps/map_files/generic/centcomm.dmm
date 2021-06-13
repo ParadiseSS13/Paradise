@@ -2971,7 +2971,7 @@
 /area/syndicate_mothership)
 "kL" = (
 /obj/structure/table,
-/obj/item/gun/energy/ionrifle,
+/obj/item/gun/energy/ionrifle/carbine,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kM" = (
