@@ -638,6 +638,7 @@
 		/obj/item/organ/internal/cyberimp/arm/flash,
 		/obj/item/organ/internal/eyes/cybernetic/shield
 	)
+
 /datum/outfit/job/centcom/response_team/solgov/elite/lieutenant
 	name = "Solar Federation Specops Lieutenant"
 	rt_assignment = "Solar Federation Specops Lieutenant"

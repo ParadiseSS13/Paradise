@@ -88,7 +88,7 @@
 	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
-	name = "Trans-Solar Federation commander's beret"
+	name = "\improper Trans-Solar Federation commander's beret"
 	desc = "A camouflaged beret adorned with the star of the Trans-Solar Federation, worn by generals of the Trans-Solar Federation."
 	icon_state = "solgovceliteberet"
 
@@ -105,7 +105,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/space/deathsquad/officer/solgov
-	name = "Trans-Solar Federation commander's jacket"
+	name = "\improper Trans-Solar Federation commander's jacket"
 	icon_state = "solgovcommander"
 	item_state = "solgovcommander"
 
