@@ -73,8 +73,8 @@
 	containername = "erp crate"
 
 //Cloaker//
-/datum/supply_packs/security/armory/swat
-	name = "Cloaker gear crate"
+/datum/supply_packs/security/armory/cloaker
+	name = "cloaker gear crate"
 	contains = list(/obj/item/clothing/head/beret/centcom/officer,
 					/obj/item/clothing/head/beret/centcom/officer,
 					/obj/item/clothing/suit/armor/bulletproof,
