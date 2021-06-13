@@ -129,7 +129,7 @@
 	icon_state = "e_snare"
 	trap_damage = 0
 	flags = DROPDEL
-	breakouttime = 60
+	breakouttime = 6 SECONDS
 
 /obj/item/restraints/legcuffs/beartrap/energy/New()
 	..()
