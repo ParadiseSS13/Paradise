@@ -132,8 +132,7 @@ REAGENT SCANNER
 	var/BR = H.getBruteLoss() > 50 	? 	"<b>[H.getBruteLoss()]</b>" 	: H.getBruteLoss()
 
 	var/status = "<font color='red'>Dead</font>" // Dead by default to make it simpler
-	var/mob/dead/observer/ghost = H.get_ghost(TRUE)
-	var/DNR = (ghost && !ghost.can_reenter_corpse)
+	var/DNR = !H.ghost_can_reenter() // If the ghost can't reenter
 	if(H.stat == DEAD)
 		if(DNR)
 			status = "<font color='red'>Dead <b>\[DNR]</b></font>"
