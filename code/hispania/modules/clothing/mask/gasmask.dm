@@ -2,7 +2,6 @@
 	name = "\improper Cloaker SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Cloaker-o-nator 3500."
 	icon = 'icons/hispania/obj/clothing/masks.dmi'
-	icon_override = 'icons/hispania/mob/mask.dmi'
 	icon_state = "cloaker"
 	item_state = "cloaker"
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
