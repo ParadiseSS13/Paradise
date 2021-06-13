@@ -21,7 +21,6 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 	//temporary file used to record errors with loading config and the database, moved to log directory once logging is set up
 	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = GLOB.sql_log = "data/logs/config_error.log"
 	GLOB.configuration.load_configuration()
-	load_files() // Loads up the MOTD (Welcome message players see when joining the server), TOS and gamemode
 
 	// Right off the bat, load up the DB
 	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
@@ -29,6 +28,7 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 
 	// Setup all log paths and stamp them with startups, including round IDs
 	SetupLogs()
+	load_files() // Loads up the MOTD (Welcome message players see when joining the server), TOS and gamemode
 
 	// This needs to happen early, otherwise people can get a null species, nuking their character
 	makeDatumRefLists()
