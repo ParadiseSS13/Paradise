@@ -83,8 +83,8 @@
 	pda = /obj/item/pda/centcom
 	r_pocket = /obj/item/storage/box/matches
 	back = /obj/item/storage/backpack/satchel
+	box = /obj/item/storage/box/centcomofficer
 	backpack_contents = list(
-		/obj/item/storage/box/centcomofficer = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/storage/box/zipties = 1
 	)

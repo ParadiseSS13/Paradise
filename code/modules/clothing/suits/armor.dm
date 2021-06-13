@@ -232,6 +232,25 @@
 	strip_delay = 70
 	put_on_delay = 50
 
+/obj/item/clothing/suit/armor/bulletproof/full
+	name = "\improper Trans-Solar Federation marine armor"
+	icon_state = "bulletproof_full"
+	item_state = "bulletproof_full"
+	armor = list("melee" = 35, "bullet" = 60, "laser" = 10, "energy" = 10, "bomb" = 25, "bio" = 50, "rad" = 50, "fire" = 80, "acid" = 80)
+	desc = "A bulletproof suit used by elite TSF marines. It excels in protecting the wearer against traditional projectile weaponry. Oorah!"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	resistance_flags = FIRE_PROOF
+	strip_delay = 80
+	put_on_delay = 80
+
+/obj/item/clothing/suit/armor/bulletproof/full/officer
+	name = "\improper Trans-Solar Federation officer coat"
+	icon_state = "lt_jacket"
+	item_state = "lt_jacket"
+	desc = "A bulletproof overcoat used by TSF officers. Quite how this reduces the effect of impacting bullets is a mystery to you."
+
 /obj/item/clothing/suit/armor/laserproof
 	name = "ablative armor vest"
 	desc = "A vest that excels in protecting the wearer against energy projectiles. Projects an energy field around the user, allowing a chance of energy projectile deflection no matter where on the user it would hit."

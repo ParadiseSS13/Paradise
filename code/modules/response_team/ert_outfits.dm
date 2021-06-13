@@ -543,7 +543,7 @@
 	rt_mob_job = "ERT Security"
 	uniform = /obj/item/clothing/under/solgov
 	suit = /obj/item/clothing/suit/armor/bulletproof
-	back = /obj/item/storage/backpack/security
+	back = /obj/item/storage/backpack/ert/solgov
 	belt = /obj/item/storage/belt/military/assault/marines/full
 	head = /obj/item/clothing/head/soft/solgov/marines
 	glasses = /obj/item/clothing/glasses/night
@@ -621,6 +621,7 @@
 	rt_assignment = "Solar Federation Specops Marine"
 	rt_job = "Solar Federation Specops Marine"
 	uniform = /obj/item/clothing/under/solgov/elite
+	suit = /obj/item/clothing/suit/armor/bulletproof/full
 	head = /obj/item/clothing/head/soft/solgov/marines/elite
 	belt = /obj/item/storage/belt/military/assault/marines/elite/full
 	l_hand = /obj/item/gun/projectile/automatic/ar
@@ -646,6 +647,7 @@
 	rt_mob_job = "ERT Commander"
 	uniform = /obj/item/clothing/under/solgov/command/elite
 	head = /obj/item/clothing/head/beret/solgov/command/elite
+	suit = /obj/item/clothing/suit/armor/bulletproof/full/officer
 	glasses = /obj/item/clothing/glasses/night
 	back = /obj/item/storage/backpack/satchel
 	belt = /obj/item/melee/baton/loaded
