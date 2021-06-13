@@ -8,7 +8,7 @@
 	smooth = SMOOTH_TRUE
 
 /turf/simulated/wall/mineral/shuttleRotate(rotation)
-	return //This call is needed to properly rotate the object when on a shuttle that is rotated.
+	return //This override is needed to properly rotate the object when on a shuttle that is rotated.
 
 /turf/simulated/wall/mineral/gold
 	name = "gold wall"
