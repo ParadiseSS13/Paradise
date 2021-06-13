@@ -19,6 +19,8 @@ GLOBAL_VAR(http_log)
 GLOBAL_PROTECT(http_log)
 GLOBAL_VAR(sql_log)
 GLOBAL_PROTECT(sql_log)
+GLOBAL_VAR(chat_debug_log)
+GLOBAL_PROTECT(chat_debug_log)
 GLOBAL_VAR(round_id)
 GLOBAL_PROTECT(round_id)
 
