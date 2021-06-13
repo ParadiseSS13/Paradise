@@ -195,7 +195,11 @@
 					socks,
 					body_accessory,
 					gear,
-					autohiss
+					autohiss,
+					hair_gradient,
+					hair_gradient_offset,
+					hair_gradient_colour,
+					hair_gradient_alpha
 				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
 						 "slot" = slot
@@ -276,6 +280,11 @@
 		loadout_gear = params2list(query.item[51])
 		autohiss_mode = text2num(query.item[52])
 
+		h_grad_style = query.item[53]
+		h_grad_offset_x = query.item[54] // parsed down below
+		h_grad_colour = query.item[55]
+		h_grad_alpha = query.item[56]
+
 		saved = TRUE
 
 	qdel(query)
@@ -330,6 +339,14 @@
 
 	socks			= sanitize_text(socks, initial(socks))
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
+
+	// h_grad_style =
+	var/list/expl = splittext(h_grad_offset_x, ",")
+	if(length(expl) == 2)
+		h_grad_offset_x = text2num(expl[1]) || 0
+		h_grad_offset_y = text2num(expl[2]) || 0
+	h_grad_colour = sanitize_hexcolor(h_grad_colour)
+	h_grad_alpha = sanitize_integer(h_grad_alpha, 0, 255, initial(h_grad_alpha))
 
 //	if(isnull(disabilities)) disabilities = 0
 	if(!player_alt_titles) player_alt_titles = new()
@@ -421,7 +438,11 @@
 												socks=:socks,
 												body_accessory=:body_accessory,
 												gear=:gearlist,
-												autohiss=:autohiss_mode
+												autohiss=:autohiss_mode,
+												hair_gradient=:h_grad_style,
+												hair_gradient_offset=:h_grad_offset,
+												hair_gradient_colour=:h_grad_colour,
+												hair_gradient_alpha=:h_grad_alpha
 												WHERE ckey=:ckey
 												AND slot=:slot"}, list(
 													// OH GOD SO MANY PARAMETERS
@@ -477,6 +498,10 @@
 													"body_accessory" = (body_accessory ? body_accessory : ""),
 													"gearlist" = (gearlist ? gearlist : ""),
 													"autohiss_mode" = autohiss_mode,
+													"h_grad_style" = h_grad_style,
+													"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
+													"h_grad_colour" = h_grad_colour,
+													"h_grad_alpha" = h_grad_alpha,
 													"ckey" = C.ckey,
 													"slot" = default_slot
 												)
