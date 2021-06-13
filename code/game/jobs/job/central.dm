@@ -69,6 +69,7 @@
 /datum/outfit/job/ntspecops
 	name = "Special Operations Officer"
 	jobtype = /datum/job/ntspecops
+	allow_backbag_choice = FALSE
 	uniform = /obj/item/clothing/under/rank/centcom/captain
 	suit = /obj/item/clothing/suit/space/deathsquad/officer
 	belt = /obj/item/storage/belt/military/assault
@@ -81,9 +82,9 @@
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
 	r_pocket = /obj/item/storage/box/matches
-	box = /obj/item/storage/box/centcomofficer
-	backpack = /obj/item/storage/backpack/satchel
+	back = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
+		/obj/item/storage/box/centcomofficer = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/storage/box/zipties = 1
 	)
@@ -113,7 +114,6 @@
 	uniform = /obj/item/clothing/under/rank/centcom/captain/solgov
 	suit = /obj/item/clothing/suit/space/deathsquad/officer/solgov
 	head = /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
-	backpack = /obj/item/storage/backpack/satchel
 
 /datum/outfit/job/ntspecops/solgovspecops/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -121,5 +121,6 @@
 		return
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_centcom_access("Solar Federation Brigadier General"), name, "lifetimeid")
+		apply_to_card(I, H, get_centcom_access(name), name, "lifetimeid")
 	H.sec_hud_set_ID()
+	H.mind.offstation_role = TRUE
