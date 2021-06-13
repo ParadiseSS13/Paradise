@@ -111,6 +111,8 @@
 
 	var/move_on_shuttle = 1 // Can move on the shuttle.
 
+	//HISPANIA
+	var/messagereal
 
 	var/has_enabled_antagHUD = 0  // Whether antagHUD was ever enabled. Not a true boolean - sometimes it is set to 2, because reasons.
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
@@ -174,6 +176,7 @@
 
 	var/stance_damage = 0 //Whether this mob's ability to stand has been affected
 
+	/// List of the active mutation types
 	var/list/active_mutations = list()
 
 	var/last_movement = -100 // Last world.time the mob actually moved of its own accord.

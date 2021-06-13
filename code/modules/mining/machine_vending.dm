@@ -45,7 +45,7 @@
 	)
 	prize_list["Consumables"] = list(
 		EQUIPMENT("10 Marker Beacons", 				/obj/item/stack/marker_beacon/ten, 									100),
-		EQUIPMENT("Brute First-Aid Kit", 			/obj/item/storage/firstaid/brute,									600),
+		EQUIPMENT("First-Aid Kit", 					/obj/item/storage/firstaid/regular,									600), //Hispania Medikits
 		EQUIPMENT("Fulton Pack", 					/obj/item/extraction_pack, 											1000),
 		EQUIPMENT("Jaunter", 						/obj/item/wormhole_jaunter, 										750),
 		EQUIPMENT("Lazarus Injector", 				/obj/item/lazarus_injector, 										1000),
@@ -53,6 +53,7 @@
 		EQUIPMENT("Shelter Capsule", 				/obj/item/survivalcapsule, 											400),
 		EQUIPMENT("Stabilizing Serum", 				/obj/item/hivelordstabilizer, 										400),
 		EQUIPMENT("Survival Medipen", 				/obj/item/reagent_containers/hypospray/autoinjector/survival, 		500),
+		EQUIPMENT("Survival Quikclot", 				/obj/item/stack/medical/quickclot/survivalqc, 						900),
 	)
 	prize_list["Kinetic Accelerator"] = list(
 		EQUIPMENT("Kinetic Accelerator", 			/obj/item/gun/energy/kinetic_accelerator, 							750),
@@ -65,12 +66,12 @@
 		EQUIPMENT("KA Range Increase", 				/obj/item/borg/upgrade/modkit/range, 								1000),
 		EQUIPMENT("KA Super Chassis", 				/obj/item/borg/upgrade/modkit/chassis_mod, 							250),
 		EQUIPMENT("KA White Tracer Rounds", 		/obj/item/borg/upgrade/modkit/tracer, 								100),
-		EQUIPMENT("Premium Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka, 					8000),
-		EQUIPMENT("Precise Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/precise, 			15000),
-		EQUIPMENT("Rapid Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/rapid, 					15000),
-		EQUIPMENT("Heavy Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/heavy, 					15000),
-		EQUIPMENT("Modular Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/modular, 			20000),
-		EQUIPMENT("Build-you-own-KA kit", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/byoka, 				30000),
+		EQUIPMENT("Premium Accelerator", 			/obj/item/gun/energy/kinetic_accelerator/premiumka, 				8000),
+		EQUIPMENT("Precise Accelerator", 			/obj/item/gun/energy/kinetic_accelerator/premiumka/precise, 		5000),
+		EQUIPMENT("Rapid Accelerator", 				/obj/item/gun/energy/kinetic_accelerator/premiumka/rapid, 			5000),
+		EQUIPMENT("Heavy Accelerator", 				/obj/item/gun/energy/kinetic_accelerator/premiumka/heavy, 			5000),
+		EQUIPMENT("Modular Accelerator", 			/obj/item/gun/energy/kinetic_accelerator/premiumka/modular, 		9500),
+		EQUIPMENT("Build-you-own-KA kit", 			/obj/item/gun/energy/kinetic_accelerator/premiumka/byoka, 			9500),
 	)
 	prize_list["Digging Tools"] = list(
 		EQUIPMENT("Diamond Pickaxe", 				/obj/item/pickaxe/diamond, 											2000),
@@ -266,7 +267,19 @@
 			new /obj/item/twohanded/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
-
+		//HISPANIA SPACEPOD STARTER KIT STARTS HERE
+		if("Spacepod Starter Kit")
+			var/confirm = alert("Are you sure theres a mechanic on the station?", "Confirm Pick", "Yes", "No")
+			if(confirm == "Yes")
+				new /obj/item/spacepod_equipment/weaponry/mining_laser_basic(drop_location)
+				new /obj/item/spacepod_equipment/cargo/ore(drop_location)
+				new /obj/item/spacepod_equipment/lock/keyed(drop_location)
+				new /obj/item/spacepod_key(drop_location)
+				new /obj/item/pod_parts/core(drop_location)
+				new /obj/item/circuitboard/mecha/pod(drop_location)
+			else
+				return
+			//HISPANIA SPACEPOD STARTER KIT ENDS HERE
 	qdel(voucher)
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)

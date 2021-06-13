@@ -15,9 +15,9 @@ GLOBAL_VAR(church_name)
 
 	return name
 
-GLOBAL_VAR(command_name)
+// TODO: Remove this. Its always gonna be NAS Trurl
 /proc/command_name()
-	return GLOB.using_map.dock_name
+	return "NAS Trurl"
 
 GLOBAL_VAR(religion_name)
 /proc/religion_name()
@@ -31,11 +31,8 @@ GLOBAL_VAR(religion_name)
 
 	return capitalize(name)
 
-/proc/system_name()
-	return GLOB.using_map.starsys_name
-
 /proc/station_name()
-	return GLOB.using_map.station_name
+	return SSmapping.map_datum.fluff_name
 
 /proc/new_station_name()
 	var/random = rand(1,5)
@@ -129,6 +126,7 @@ GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
 	/N
 	*/
 
+/* Quitar si no usan frases en español
 /proc/generate_code_phrase()//Proc is used for phrase and response in master_controller.dm
 
 	var/code_phrase = ""//What is returned when the proc finishes.
@@ -187,6 +185,7 @@ GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
 			code_phrase += ", "
 
 	return code_phrase
+*/
 
 /proc/GenerateKey()
 	var/newKey

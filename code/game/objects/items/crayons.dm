@@ -174,6 +174,11 @@
 			colourName = "purple"
 	..()
 
+/obj/item/toy/crayon/black
+	icon_state = "crayonblack"
+	colour = "#000000"
+	colourName = "black"
+
 /obj/item/toy/crayon/white
 	icon_state = "crayonwhite"
 	colour = "#FFFFFF"

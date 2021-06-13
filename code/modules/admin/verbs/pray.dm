@@ -20,7 +20,7 @@
 	if(usr.job == "Chaplain")
 		if(SSticker && SSticker.Bible_deity_name)
 			deity = SSticker.Bible_deity_name
-		cross = image('icons/obj/storage.dmi',"kingyellow")
+		cross = image('icons/obj/storage.dmi',"white") // Mas notorio que el kingsyellow
 		font_color = "blue"
 		prayer_type = "CHAPLAIN PRAYER"
 	else if(iscultist(usr))
@@ -28,6 +28,12 @@
 		font_color = "red"
 		prayer_type = "CULTIST PRAYER"
 		deity = SSticker.cultdat.entity_name
+	else if(isliving(usr)) // HISPANIA || ESCUCHENME, QUIERO MI FERRARI, OYERON??!
+		var/mob/living/L = usr
+		if(HAS_TRAIT(L, TRAIT_AMEN))
+			cross = image('icons/obj/storage.dmi',"kingyellow")
+			font_color = "blue"
+			prayer_type = "SPIRITUAL PRAYER"
 
 	log_say("(PRAYER) [msg]", usr)
 	msg = "<span class='notice'>[bicon(cross)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""][mind && mind.isholy ? " (blessings: [mind.num_blessed])" : ""]:</font> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<A HREF='?_src_=holder;Bless=[UID()]'>BLESS</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b> [msg]</span>"

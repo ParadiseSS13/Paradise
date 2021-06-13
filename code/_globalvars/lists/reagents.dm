@@ -45,7 +45,7 @@ GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","li
 					"mead","iced_beer","grog","aloe","andalusia","alliescocktail","soy_latte",
 					"cafe_latte","acidspit","amasec","neurotoxin","hippiesdelight","bananahonk",
 					"silencer","changelingsting","irishcarbomb","syndicatebomb","erikasurprise","driestmartini","flamingmoe",
-					"agave","anonnajuice","kiwijuice","mangojuice","mate","nisperojuice","peachjuice","castor_oil","cactusjuice","strawberryjuice","coconutwater"))
+					"agave","anonnajuice","kiwijuice","mangojuice","mate","nisperojuice","matejuice","peachjuice","castor_oil","cactusjuice","strawberryjuice","coconutwater"))
 
 //Liver Toxins list
 GLOBAL_LIST_INIT(liver_toxins, list("toxin", "plasma", "sacid", "facid", "cyanide","amanitin", "carpotoxin"))

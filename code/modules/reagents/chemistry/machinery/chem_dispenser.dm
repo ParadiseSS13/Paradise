@@ -436,24 +436,26 @@
 	switch(mode)
 		if("dispense")
 			var/free = target.reagents.maximum_volume - target.reagents.total_volume
-			var/actual = min(amount, cell.charge / efficiency, free)
-			target.reagents.add_reagent(current_reagent, actual)
-			cell.charge -= actual / efficiency
+			var/actual = min(amount, round(cell.charge * efficiency), free)
 			if(actual)
-				to_chat(user, "<span class='notice'>You dispense [amount] units of [current_reagent] into the [target].</span>")
-			update_icon()
+				target.reagents.add_reagent(current_reagent, actual)
+				cell.charge -= actual / efficiency
+				to_chat(user, "<span class='notice'>You dispense [actual] unit\s of [current_reagent] into [target].</span>")
+				update_icon()
+			else if(free) // If actual is nil and there's still free space, it means we're out of juice
+				to_chat(user, "<span class='warning'>Insufficient energy to complete operation.</span>")
 		if("remove")
 			if(!target.reagents.remove_reagent(current_reagent, amount))
-				to_chat(user, "<span class='notice'>You remove [amount] units of [current_reagent] from the [target].</span>")
+				to_chat(user, "<span class='notice'>You remove [amount] unit\s of [current_reagent] from [target].</span>")
 		if("isolate")
 			if(!target.reagents.isolate_reagent(current_reagent))
-				to_chat(user, "<span class='notice'>You remove all but the [current_reagent] from the [target].</span>")
+				to_chat(user, "<span class='notice'>You remove all but [current_reagent] from [target].</span>")
 
 /obj/item/handheld_chem_dispenser/attack_self(mob/user)
 	if(cell)
 		ui_interact(user)
 	else
-		to_chat(user, "<span class='warning'>The [src] lacks a power cell!</span>")
+		to_chat(user, "<span class='warning'>[src] lacks a power cell!</span>")
 
 
 /obj/item/handheld_chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
@@ -493,7 +495,7 @@
 	. = TRUE
 	switch(action)
 		if("amount")
-			amount = clamp(round(text2num(params["amount"])), 0, 50) // round to nearest 1 and clamp to 0 - 50
+			amount = clamp(round(text2num(params["amount"])), 1, 50) // round to nearest 1 and clamp to 1 - 50
 		if("dispense")
 			if(params["reagent"] in dispensable_reagents)
 				current_reagent = params["reagent"]

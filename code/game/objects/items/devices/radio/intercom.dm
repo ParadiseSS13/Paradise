@@ -1,6 +1,7 @@
 /obj/item/radio/intercom
 	name = "station intercom (General)"
 	desc = "Talk through this."
+	icon = 'icons/hispania/obj/radio.dmi'
 	icon_state = "intercom"
 	anchored = 1
 	w_class = WEIGHT_CLASS_BULKY
@@ -132,7 +133,7 @@
 		return
 	else if(iscoil(W) && buildstage == 1)
 		var/obj/item/stack/cable_coil/coil = W
-		if(coil.amount < 5)
+		if(coil.get_amount() < 5)
 			to_chat(user, "<span class='warning'>You need more cable for this!</span>")
 			return
 		if(do_after(user, 10 * coil.toolspeed, target = src) && buildstage == 1)
@@ -171,7 +172,6 @@
 		return
 	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 2)
 		return
-	update_icon()
 	on = 1
 	b_stat = 0
 	buildstage = 3
@@ -208,10 +208,15 @@
 		qdel(src)
 
 /obj/item/radio/intercom/update_icon()
+	overlays.Cut()
 	if(!circuitry_installed)
 		icon_state="intercom-frame"
 		return
-	icon_state = "intercom[!on?"-p":""][b_stat ? "-open":""]"
+	if(on)
+		var/image/inter_overlay = image(icon, "intercom_overlay")
+		inter_overlay.plane = ABOVE_LIGHTING_PLANE
+		overlays += inter_overlay
+	icon_state = "intercom[b_stat ? "-open":""]"
 
 /obj/item/radio/intercom/proc/update_operating_status(on = TRUE)
 	var/area/current_area = get_area(src)

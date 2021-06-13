@@ -171,7 +171,7 @@
 	max_combined_w_class = 100 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/reagent_containers/food/snacks/grown,/obj/item/seeds,/obj/item/grown,/obj/item/reagent_containers/food/snacks/grown/ash_flora, /obj/item/reagent_containers/food/snacks/monstermeat/goliath) //Carne de Goliath
+	can_hold = list(/obj/item/reagent_containers/food/snacks/grown,/obj/item/seeds,/obj/item/grown,/obj/item/reagent_containers/food/snacks/grown/ash_flora, /obj/item/reagent_containers/food/snacks/monstermeat/goliath, /obj/item/reagent_containers/food/snacks/monstermeat/plazmiteleg, /obj/item/reagent_containers/honeycomb) //Carne de Goliath y Plazmite
 	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/plants/portaseeder
@@ -314,7 +314,7 @@
 	//Therefore, make a new stack internally that has the remainder.
 	// -Sayu
 
-	if(S.amount > S.max_amount)
+	if(S.get_amount() > S.max_amount)
 		var/obj/item/stack/sheet/temp = new S.type(src)
 		temp.amount = S.amount - S.max_amount
 		S.amount = S.max_amount

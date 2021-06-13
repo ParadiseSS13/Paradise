@@ -692,6 +692,7 @@ BLIND     // can't see anything
 		3 = Report location
 		*/
 	var/list/accessories = list()
+	var/list/starting_accessories = list()
 	var/displays_id = 1
 	var/rolled_down = 0
 	var/basecolor
@@ -701,6 +702,10 @@ BLIND     // can't see anything
 	icon = (hispania_icon ? 'icons/hispania/obj/clothing/uniforms.dmi' : icon)
 	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
 	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
+	if(starting_accessories)
+		for(var/T in starting_accessories)
+			var/obj/item/clothing/accessory/tie = new T(src)
+			src.attach_accessory(tie, null)
 
 /obj/item/clothing/under/rank/New()
 	if(random_sensor)

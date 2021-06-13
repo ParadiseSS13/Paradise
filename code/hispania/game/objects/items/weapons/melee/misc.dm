@@ -25,14 +25,14 @@
 ///ram///
 /obj/item/twohanded/required/ram
 	name = "ram"
-	desc = "A heavy ram used to take down those annoying doors or other structures in you way."
+	desc = "A heavy ram used to take down those annoying doors or other structures in your way."
 	icon = 'icons/hispania/obj/items.dmi'
 	icon_state = "ram"
 	item_state = "ram"
 	force = 10
-	throwforce = 12
+	throwforce = 24
 	throw_range = 3
-	force_wielded = 10
+	force_wielded = 20 // La fire-axe hace 24
 	attack_verb = list("rammed")
 	hitsound = 'sound/hispania/weapons/ram.ogg'
 	usesound = 'sound/hispania/weapons/ram.ogg'
@@ -46,7 +46,7 @@
 	if(istype(target, /obj/machinery/door/airlock) || istype(target, /obj/structure/door_assembly) || \
 	istype(target, /obj/machinery/door/window) || istype(target, /obj/structure/window) || \
 	istype(target, /obj/structure/grille) || istype(target, /obj/structure/table) || \
-	istype(target, /obj/structure/barricade))
+	istype(target, /obj/structure/barricade) || istype(target, /obj/structure/closet))
 		if(ramming)
 			to_chat(user, "<span class='warning'>You are already ramming!</span>")
 			return
@@ -59,6 +59,13 @@
 			if(!do_after(usr, 10, target = A))
 				ramming = FALSE
 				return
+			user.do_attack_animation(A)
 			to_chat(viewers(user), "<span class='danger'>[user] rams [A]!</span>")
-			A.take_damage(120, damtype, "melee", 1)
+			if(A.obj_integrity <= 120 && istype(target, /obj/machinery/door/airlock)) // Si el golpe va a romper el airlock dejame manejarlo yo
+				var/obj/machinery/door/airlock/loqueodeaire = target
+				if(!(loqueodeaire.flags & BROKEN))
+					loqueodeaire.obj_break() // Por si las moscas si no estaba roto ya, mas que todo por el humo.
+				loqueodeaire.deconstruct(TRUE, null, FALSE) // El ultimo argumento hara que no deje el assembly al romperse
+			else
+				A.take_damage(120, damtype, "melee", 1)
 		ramming = FALSE

@@ -98,8 +98,8 @@
 
 		if(SSticker.current_state == GAME_STATE_PREGAME)
 			stat("Players:", "[totalPlayers]")
-			if(check_rights(R_ADMIN, 0, src))
-				stat("Players Ready:", "[totalPlayersReady]")
+			//if(check_rights(R_ADMIN, 0, src)) Readys Global
+			stat("Players Ready:", "[totalPlayersReady]")
 			totalPlayers = 0
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in GLOB.player_list)
@@ -198,7 +198,8 @@
 			QDEL_NULL(mind)
 			GLOB.respawnable_list += observer
 			qdel(src)
-			return 1
+			return TRUE
+		return FALSE
 	if(href_list["tos"])
 		privacy_consent()
 		return FALSE
@@ -463,6 +464,7 @@
 
 	var/dat = "<html><body><center>"
 	dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
+	dat += "<b>The station alert level is: [get_security_level_colors()]</b><br>"
 
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"

@@ -23,7 +23,7 @@ Difficulty: Medium
 	icon_state = "legion"
 	icon_living = "legion"
 	desc = "One of many."
-	icon = 'icons/mob/lavaland/legion.dmi'
+	icon = 'icons/hispania/mob/lavaland/legion.dmi'
 	attacktext = "chomps"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	speak_emote = list("echoes")
@@ -42,8 +42,8 @@ Difficulty: Medium
 	internal_type = /obj/item/gps/internal/legion
 	medal_type = BOSS_MEDAL_LEGION
 	score_type = LEGION_SCORE
-	pixel_y = -90
-	pixel_x = -75
+	pixel_y = -32
+	pixel_x = -32
 	loot = list(/obj/item/stack/sheet/bone = 3)
 	vision_range = 13
 	elimination = 1
@@ -128,7 +128,7 @@ Difficulty: Medium
 			loot = list(/obj/item/staff/storm)
 			elimination = 0
 		else if(prob(5))
-			loot = list(/obj/structure/closet/crate/necropolis/tendril)
+			loot = list(/obj/structure/closet/crate/necropolis/tendril = 1, /obj/item/paintkit/skull_legion = 1) //Skull Paintkit
 			if(!true_spawn)
 				loot = null
 		return ..()

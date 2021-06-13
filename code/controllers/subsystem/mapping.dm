@@ -1,31 +1,51 @@
 SUBSYSTEM_DEF(mapping)
-   	name = "Mapping"
-   	init_order = INIT_ORDER_MAPPING // 9
-   	flags = SS_NO_FIRE
+	name = "Mapping"
+	init_order = INIT_ORDER_MAPPING // 9
+	flags = SS_NO_FIRE
+	/// What map datum are we using
+	var/datum/map/map_datum
+	/// What map will be used next round
+	var/datum/map/next_map
+
+// This has to be here because world/New() uses [station_name()], which looks this datum up
+/datum/controller/subsystem/mapping/PreInit()
+	. = ..()
+	if(map_datum) // Dont do this again if we are recovering
+		return
+	if(fexists("data/next_map.txt"))
+		var/list/lines = file2list("data/next_map.txt")
+		// Check its valid
+		try
+			map_datum = text2path(lines[1])
+			map_datum = new map_datum
+		catch
+			map_datum = new /datum/map/cyberiad // Assume hispania if non-existent
+		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
+	else
+		map_datum = new /datum/map/cyberiad // Assume hispania if non-existent
+
+/datum/controller/subsystem/mapping/Shutdown()
+	if(next_map) // Save map for next round
+		var/F = file("data/next_map.txt")
+		F << next_map.type
 
 /datum/controller/subsystem/mapping/Initialize(timeofday)
 	// Load all Z level templates
 	preloadTemplates()
+
+	// Load the station
+	loadStation()
+
+	// Load lavaland
+	loadLavaland()
+
 	// Pick a random away mission.
 	if(!config.disable_away_missions)
 		load_away_mission()
+
 	// Seed space ruins
 	if(!config.disable_space_ruins)
-		// load in extra levels of space ruins
-		var/load_zlevels_timer = start_watch()
-		log_startup_progress("Creating random space levels...")
-		var/num_extra_space = rand(config.extra_space_ruin_levels_min, config.extra_space_ruin_levels_max)
-		for(var/i = 1, i <= num_extra_space, i++)
-			GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
-		log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
-
-		// Now spawn ruins, random budget between 20 and 30 for all zlevels combined.
-		// While this may seem like a high number, the amount of ruin Z levels can be anywhere between 3 and 7.
-		// Note that this budget is not split evenly accross all zlevels
-		log_startup_progress("Seeding ruins...")
-		var/seed_ruins_timer = start_watch()
-		seedRuins(levels_by_trait(SPAWN_RUINS), rand(20, 30), /area/space, GLOB.space_ruins_templates)
-		log_startup_progress("Successfully seeded ruins in [stop_watch(seed_ruins_timer)]s.")
+		handleRuins()
 
 	// Makes a blank space level for the sake of randomness
 	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = list(REACHABLE))
@@ -63,12 +83,6 @@ SUBSYSTEM_DEF(mapping)
 
 	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
 
-	// Map name. Break these down into SSmapping controller vars instaed of GLOBs at some point
-	if(GLOB.using_map && GLOB.using_map.name)
-		GLOB.map_name = "[GLOB.using_map.name]"
-	else
-		GLOB.map_name = "Unknown"
-
 	// World name
 	if(config && config.server_name)
 		world.name = "[config.server_name]: [station_name()]"
@@ -77,6 +91,56 @@ SUBSYSTEM_DEF(mapping)
 
 	return ..()
 
+// Do not confuse with seedRuins()
+/datum/controller/subsystem/mapping/proc/handleRuins()
+	// load in extra levels of space ruins
+	var/load_zlevels_timer = start_watch()
+	log_startup_progress("Creating random space levels...")
+	var/num_extra_space = rand(config.extra_space_ruin_levels_min, config.extra_space_ruin_levels_max)
+	for(var/i in 1 to num_extra_space)
+		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
+	log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
+
+	// Now spawn ruins, random budget between 20 and 30 for all zlevels combined.
+	// While this may seem like a high number, the amount of ruin Z levels can be anywhere between 3 and 7.
+	// Note that this budget is not split evenly accross all zlevels
+	log_startup_progress("Seeding ruins...")
+	var/seed_ruins_timer = start_watch()
+	seedRuins(levels_by_trait(SPAWN_RUINS), rand(20, 30), /area/space, GLOB.space_ruins_templates)
+	log_startup_progress("Successfully seeded ruins in [stop_watch(seed_ruins_timer)]s.")
+
+// Loads in the station
+/datum/controller/subsystem/mapping/proc/loadStation()
+	ASSERT(map_datum.map_path)
+	if(!fexists(map_datum.map_path))
+		// Make a VERY OBVIOUS error
+		to_chat(world, "<span class='narsie'>ERROR: The path specified for the map to load is invalid. No station has been loaded!</span>")
+		return
+
+	var/watch = start_watch()
+	log_startup_progress("Loading [map_datum.fluff_name]...")
+	// This should always be Z2, but you never know
+	var/map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = CROSSLINKED, traits = list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK))
+	GLOB.maploader.load_map(file(map_datum.map_path), z_offset = map_z_level)
+	log_startup_progress("Loaded [map_datum.fluff_name] in [stop_watch(watch)]s")
+
+	// Save station name in the DB
+	if(!SSdbcore.IsConnected())
+		return
+	var/datum/db_query/query_set_map = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("round")] SET start_datetime=NOW(), map_name=:mapname, station_name=:stationname WHERE id=:round_id",
+		list("mapname" = map_datum.technical_name, "stationname" = map_datum.fluff_name, "round_id" = GLOB.round_id)
+	)
+	query_set_map.Execute(async = FALSE) // This happens during a time of intense server lag, so should be non-async
+	qdel(query_set_map)
+
+// Loads in lavaland
+/datum/controller/subsystem/mapping/proc/loadLavaland()
+	var/watch = start_watch()
+	log_startup_progress("Loading Lavaland...")
+	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = SELFLOOPING, traits = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK))
+	GLOB.maploader.load_map(file("_maps/map_files/hispania/Lavaland.dmm"), z_offset = lavaland_z_level)
+	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")
 
 /datum/controller/subsystem/mapping/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = /area/space, list/potentialRuins)
 	if(!z_levels || !z_levels.len)

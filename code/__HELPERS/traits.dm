@@ -99,7 +99,7 @@
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
 
-//mob traits
+//***** MOB TRAITS *****//
 #define TRAIT_BLIND 			"blind"
 #define TRAIT_MUTE				"mute"
 #define TRAIT_DEAF				"deaf"
@@ -141,6 +141,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //hispatraits
 #define TRAIT_AGEUSIA			"ageusia"
 #define TRAIT_NOSLIPWATER		"noslip_water"
+#define TRAIT_FREERUNNING		"freerunning"
+#define TRAIT_POOR_AIM 			"pooraim"
+#define TRAIT_AMEN 				"amen"
+#define TRAIT_PROSOPAGNOSIA		"prosopagnosia"
+#define TRAIT_ANXIOUS			"anxious"
 //finhispatraits
 
 #define TRAIT_DWARF				"dwarf"
@@ -160,6 +165,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Blowing kisses actually does damage to the victim
 #define TRAIT_KISS_OF_DEATH	"kiss_of_death"
+
+//***** ITEM TRAITS *****//
+/// Show what machine/door wires do when held.
+#define TRAIT_SHOW_WIRE_INFO "show_wire_info"
 
 //
 // common trait sources

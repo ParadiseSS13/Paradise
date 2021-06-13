@@ -373,6 +373,8 @@
   */
 /obj/machinery/computer/med_data/proc/print_finish()
 	var/obj/item/paper/P = new /obj/item/paper(loc)
+	P.pixel_y = rand(-10, -8)
+	P.pixel_x = rand(-9, 9)
 	P.info = "<center></b>Medical Record</b></center><br>"
 	if(istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1))
 		P.info += {"Name: [active1.fields["name"]] ID: [active1.fields["id"]]

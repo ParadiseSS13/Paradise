@@ -40,11 +40,9 @@
 		projtwo.starting = get_turf(my_atom)
 		projtwo.firer = usr
 		projtwo.def_zone = "chest"
-		spawn()
-			playsound(src, fire_sound, 50, 1)
-			projone.dumbfire(my_atom.dir)
-			projtwo.dumbfire(my_atom.dir)
-		sleep(2)
+		playsound(src, fire_sound, 50, 1)
+		projone.dumbfire(my_atom.dir)
+		projtwo.dumbfire(my_atom.dir)
 
 /datum/spacepod/equipment
 	var/obj/spacepod/my_atom
@@ -79,7 +77,7 @@
 /obj/item/spacepod_equipment/weaponry
 	name = "pod weapon"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/vehicles/spacepod.dmi'
+	icon = 'icons/hispania/obj/spacepod.dmi'
 	icon_state = "blank"
 	var/obj/item/projectile/projectile_type
 	var/shot_cost = 0
@@ -88,19 +86,19 @@
 	var/fire_delay = 15
 	var/harmful = TRUE
 
-/obj/item/spacepod_equipment/weaponry/taser
+/obj/item/spacepod_equipment/weaponry/disabler
 	name = "disabler system"
-	desc = "A weak taser system for space pods, fires disabler beams."
-	icon_state = "weapon_taser"
+	desc = "A weak disabler system for space pods, fires disabler beams."
+	icon_state = "weapon_disabler"
 	projectile_type = /obj/item/projectile/beam/disabler
 	shot_cost = 200
 	fire_sound = 'sound/weapons/taser.ogg'
 	harmful = FALSE
 
-/obj/item/spacepod_equipment/weaponry/burst_taser
-	name = "burst taser system"
-	desc = "A weak taser system for space pods, this one fires 3 at a time."
-	icon_state = "weapon_burst_taser"
+/obj/item/spacepod_equipment/weaponry/burst_disabler
+	name = "burst disabler system"
+	desc = "A weak disabler system for space pods, this one fires 3 at a time."
+	icon_state = "weapon_burst_disabler"
 	projectile_type = /obj/item/projectile/beam/disabler
 	shot_cost = 600
 	shots_per = 3
@@ -120,8 +118,7 @@
 /obj/item/spacepod_equipment/weaponry/mining_laser_basic
 	name = "weak mining laser system"
 	desc = "A weak mining laser system for space pods, fires bursts of energy that cut through rock."
-	icon = 'icons/goonstation/pods/ship.dmi'
-	icon_state = "pod_taser"
+	icon_state = "weapon_mining_weak"
 	projectile_type = /obj/item/projectile/kinetic/pod
 	shot_cost = 150
 	fire_delay = 14
@@ -130,8 +127,7 @@
 /obj/item/spacepod_equipment/weaponry/mining_laser
 	name = "mining laser system"
 	desc = "A mining laser system for space pods, fires bursts of energy that cut through rock."
-	icon = 'icons/goonstation/pods/ship.dmi'
-	icon_state = "pod_m_laser"
+	icon_state = "weapon_mining"
 	projectile_type = /obj/item/projectile/kinetic/pod/regular
 	shot_cost = 125
 	fire_delay = 10

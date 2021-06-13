@@ -13,3 +13,22 @@
 	update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
+
+/datum/reagent/medicine/moa_complement
+	name = "CentComm certified oxygen"
+	id = "moa_complement"
+	reagent_state = LIQUID
+	heart_rate_decrease = 1
+	metabolization_rate = 1
+	can_synth = FALSE
+	taste_description = "a mint leaf"
+
+/datum/reagent/medicine/moa_complement/on_mob_life(mob/living/carbon/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.SetSlowed(2)
+	if(M.dna.species.breathid == "o2")
+		update_flags |= M.adjustOxyLoss(-4, FALSE)
+		M.AdjustLoseBreath(-4)
+	else
+		update_flags |= M.adjustOxyLoss(4, FALSE) // MEDBAY FAIL
+	return ..()

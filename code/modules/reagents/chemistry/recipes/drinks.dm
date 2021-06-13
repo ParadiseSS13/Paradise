@@ -455,7 +455,7 @@
 	name = "Daiquiri"
 	id = "daiquiri"
 	result = "daiquiri"
-	required_reagents = list("limejuice" = 1, "sugar" = 1, "rum" = 2)
+	required_reagents = list("limejuice" = 1, "sugar" = 1, "rum" = 2, "ice" = 1)
 	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 

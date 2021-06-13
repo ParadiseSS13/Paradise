@@ -28,12 +28,12 @@
     result = /obj/item/reagent_containers/food/snacks/sliceable/honeybread
 
 //Pancake by Nothing (Con ayuda de Ume, gracias!)
-/datum/recipe/oven/pancake
+/datum/recipe/oven/pancake_sal
     reagents = list("sugar" = 5, "sodiumchloride" = 1)
     items = list(
         /obj/item/reagent_containers/food/snacks/sliceable/flatdough,
     )
-    result = /obj/item/reagent_containers/food/snacks/pancake
+    result = /obj/item/reagent_containers/food/snacks/pancake_sal
 
 //Peachmeat//
 /datum/recipe/oven/peachmeat
@@ -77,3 +77,31 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/cheeseanonnacake
 
+/datum/recipe/oven/penewafflerecipe
+	reagents = list("prions" = 6, "nanomachines" = 6, "sugar" = 6) //Edgy Number of the beast
+	items = list(
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/dough
+	)
+	result = /obj/item/reagent_containers/food/snacks/pene_waffle_uwu
+
+//Filet Mignon//
+/datum/recipe/oven/filetmignon
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "wine" = 5)
+	items = list(
+	/obj/item/reagent_containers/food/snacks/grown/chanter/champignon,
+	/obj/item/reagent_containers/food/snacks/meat,
+	)
+	result = /obj/item/reagent_containers/food/snacks/filetmignon
+
+// Cuy //
+
+/datum/recipe/oven/cuy
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/avocadoslice = 1,
+		/obj/item/reagent_containers/food/snacks/rawmouse = 1,
+		/obj/item/reagent_containers/food/snacks/grown/potato =1
+	)
+	result = /obj/item/reagent_containers/food/snacks/cuy

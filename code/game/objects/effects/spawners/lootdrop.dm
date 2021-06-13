@@ -8,6 +8,9 @@
 
 /obj/effect/spawner/lootdrop/New()
 	..()
+	//loot hispa init
+	make_hispa_loot()
+	//loot hispanos end
 	if(loot && loot.len)
 		for(var/i = lootcount, i > 0, i--)
 			if(!loot.len) break
@@ -258,7 +261,7 @@
 				/obj/item/assembly/signaler/anomaly/random = 50, // anomaly core
 				/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 25, // mecha x-ray laser
 				/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 25, // upgraded mecha teleporter
-				/obj/item/autosurgeon = 50,
+				/obj/item/autosurgeon/organ = 50,
 
 				// Research / Experimentor
 				/obj/item/paper/researchnotes = 150, // papers that give random R&D levels
@@ -388,11 +391,11 @@
 	lootcount = 3
 	lootdoubles = FALSE
 	var/soups = list(
-			/obj/item/reagent_containers/food/snacks/beetsoup,
-			/obj/item/reagent_containers/food/snacks/stew,
-			/obj/item/reagent_containers/food/snacks/hotchili,
-			/obj/item/reagent_containers/food/snacks/nettlesoup,
-			/obj/item/reagent_containers/food/snacks/meatballsoup)
+			/obj/item/reagent_containers/food/snacks/soup/beetsoup,
+			/obj/item/reagent_containers/food/snacks/soup/stew,
+			/obj/item/reagent_containers/food/snacks/soup/hotchili,
+			/obj/item/reagent_containers/food/snacks/soup/nettlesoup,
+			/obj/item/reagent_containers/food/snacks/soup/meatballsoup)
 	var/salads = list(
 			/obj/item/reagent_containers/food/snacks/herbsalad,
 			/obj/item/reagent_containers/food/snacks/validsalad,

@@ -1,3 +1,15 @@
+/// Raw mouse ///
+
+/obj/item/reagent_containers/food/snacks/rawmouse
+	name = "raw mouse"
+	desc = "A raw mouse, what did you expect? Disgusting!"
+	icon_state = "raw_mouse"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	filling_color = "#FF1C1C"
+	bitesize = 2
+	list_reagents = list("protein" = 3)
+	tastes = list("nasty" = 1)
+
 //Drake meat//
 
 /obj/item/reagent_containers/food/snacks/drakemeat
@@ -45,7 +57,7 @@
 	list_reagents = list("nutriment" = 20)
 	tastes = list("BRONTOSAURIO" = 1)
 
-/obj/item/reagent_containers/food/snacks/plazmiteleg
+/obj/item/reagent_containers/food/snacks/monstermeat/plazmiteleg
 	name = "plazmite leg"
 	icon = 'icons/hispania/obj/food/food.dmi'
 	desc = "A plazmite leg. It's not very edible now, but it cooks great in lava, rumors says its great for digestion."
@@ -53,7 +65,7 @@
 	list_reagents = list("protein" = 3, "plazmitevenom" = 5)
 	tastes = list("tough meat" = 1)
 
-/obj/item/reagent_containers/food/snacks/plazmiteleg/burn()
+/obj/item/reagent_containers/food/snacks/monstermeat/plazmiteleg/burn()
 	visible_message("[src] finishes cooking!")
 	new /obj/item/reagent_containers/food/snacks/plazmite_fingers(loc)
 	qdel(src)
@@ -74,7 +86,8 @@
 	desc = "A good steak dipped in peach sauce, with an avocado base"
 	icon_state = "peach_meat"
 	trash = /obj/item/trash/plate
-	bitesize = 4
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "protein" = 1, "vitamin" = 1)
 	tastes = list("sweet" = 1, "beefy" = 1)
 
 /obj/item/reagent_containers/food/snacks/baconrolled
@@ -107,3 +120,55 @@
 	list_reagents = list("nutriment" = 5, "vitamin" = 1)
 	tastes = list("meat" = 1, "cactus" = 1)
 
+/obj/item/reagent_containers/food/snacks/smokedsalmon
+	name = "salmon smoked steak"
+	desc = "A fillet of freshly-grilled and smoked salmon meat."
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "smokedsalmon"
+	trash = /obj/item/trash/plate
+	filling_color = "#7A3D11"
+	bitesize = 4
+	list_reagents = list("nutriment" = 5, "vitamin" = 1, "sodiumchloride" = 1)
+	tastes = list("smoked salmon" = 1)
+
+/obj/item/reagent_containers/food/snacks/avocadosalmon
+	name = "avocado salmon"
+	desc = "A fillet of freshly-grilled of salmon meat with some avocado."
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "salmonavocado"
+	trash = /obj/item/trash/plate
+	filling_color = "#7A3D11"
+	bitesize = 4
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "sodiumchloride" = 1, "protein" = 1)
+	tastes = list("meat with vegetables" = 1)
+
+/obj/item/reagent_containers/food/snacks/citrussalmon
+	name = "grilled citrus salmon"
+	desc = "A fillet of freshly-grilled of salmon meat with some citrus fruits."
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "citrussalmon"
+	trash = /obj/item/trash/plate
+	filling_color = "#7A3D11"
+	bitesize = 4
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "orangejuice" = 2, "lemonjuice" = 2)
+	tastes = list("salmon" = 1, "citrus" = 1)
+
+/obj/item/reagent_containers/food/snacks/filetmignon
+	name = "Filet Mignon"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	desc = "Sirloin wrapped in bacon served with mushroom sauce"
+	icon_state = "filetmignon"
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "vitamin" = 1, "protein" = 1)
+	tastes = list("winey" = 1, "beefy" = 1)
+
+// Cuy//
+
+/obj/item/reagent_containers/food/snacks/cuy
+	name = "Cuy"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	desc = "Wood grilled guinea pig served with potatoes and avocado slices"
+	icon_state = "cuy"
+	bitesize = 5
+	list_reagents = list("nutriment" = 2, "vitamin" = 1)
+	tastes = list("salty" = 1, "mousey" = 1)

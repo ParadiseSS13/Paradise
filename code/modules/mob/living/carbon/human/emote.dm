@@ -32,7 +32,7 @@
 	act = lowertext(act)
 
 	switch(act)		//This switch makes sure you have air in your lungs before you scream
-		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes")
+		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes", "laugh", "laughs")
 			if(getOxyLoss() > 35)		//no screaming if you don't have enough breath to scream
 				on_CD = handle_emote_CD()
 				emote("gasp")
@@ -125,8 +125,12 @@
 				return
 
 		if("scream", "screams")
-			on_CD = handle_emote_CD(50) //longer cooldown
-		if("fart", "farts", "flip", "flips", "snap", "snaps")
+			on_CD = handle_emote_CD(40)
+		if("laugh", "laughs")
+			on_CD = handle_emote_CD(40)
+		if("fart", "farts")
+			on_CD = handle_emote_CD(40)
+		if("flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
 		if("cough", "coughs", "highfive")
 			on_CD = handle_emote_CD()
@@ -645,6 +649,12 @@
 				if(!muzzled)
 					message = "<B>[src]</B> laughs[M ? " at [M]" : ""]."
 					m_type = 2
+					//Hispania Laugh Starts Here
+					if(gender == FEMALE)
+						playsound(loc, pick(dna.species.female_laughs_sound), 60, 1, frequency = get_age_pitch()) //Hispania Screams
+					else
+						playsound(loc, pick(dna.species.male_laughs_sound), 60, 1, frequency = get_age_pitch()) //Hispania Screams
+					//Hispania Laugh Ends Here
 				else
 					message = "<B>[src]</B> makes a noise."
 					m_type = 2
@@ -884,9 +894,11 @@
 					message = "<B>[src]</B> [dna.species.scream_verb][M ? " at [M]" : ""]!"
 					m_type = 2
 					if(gender == FEMALE)
-						playsound(loc, dna.species.female_scream_sound, 80, 1, frequency = get_age_pitch())
+						//playsound(loc, dna.species.female_scream_sound, 80, 1, frequency = get_age_pitch())
+						playsound(loc, pick(dna.species.female_scream_sound), 80, 1, frequency = get_age_pitch()) //Hispania Screams
 					else
-						playsound(loc, dna.species.male_scream_sound, 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
+						//playsound(loc, dna.species.male_scream_sound, 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
+						playsound(loc, pick(dna.species.male_scream_sound), 80, 1, frequency = get_age_pitch()) //Hispania Screams
 
 				else
 					message = "<B>[src]</B> makes a very loud noise[M ? " at [M]" : ""]."

@@ -8,18 +8,20 @@
 	buckle_offset = 0
 	can_buckle = 1
 	buckle_lying = 0
-	var/obj/item/stack/sheet/glass/myglass = null
-	var/obj/item/stack/sheet/metal/mymetal = null
-	var/obj/item/stack/sheet/plasteel/myplasteel = null
-	var/obj/item/flashlight/myflashlight = null
-	var/obj/item/storage/toolbox/mechanical/mybluetoolbox = null
-	var/obj/item/storage/toolbox/electrical/myyellowtoolbox = null
-	var/obj/item/storage/toolbox/emergency/myredtoolbox = null
+	var/obj/item/stack/sheet/glass/myglass // LO SIENTO, ESOS NULLS DOLIAN A LA VISTA
+	var/obj/item/stack/sheet/metal/mymetal
+	var/obj/item/stack/sheet/plasteel/myplasteel
+	var/obj/item/stack/rods/myrods
+	var/obj/item/flashlight/myflashlight
+	var/obj/item/storage/toolbox/mechanical/mybluetoolbox
+	var/obj/item/storage/toolbox/electrical/myyellowtoolbox
+	var/obj/item/storage/toolbox/emergency/myredtoolbox
 
 /obj/structure/engineeringcart/Destroy()
 	QDEL_NULL(myglass)
 	QDEL_NULL(mymetal)
 	QDEL_NULL(myplasteel)
+	QDEL_NULL(myrods)
 	QDEL_NULL(myflashlight)
 	QDEL_NULL(mybluetoolbox)
 	QDEL_NULL(myyellowtoolbox)
@@ -53,6 +55,13 @@
 			if(!myplasteel)
 				put_in_cart(I, user)
 				myplasteel=I
+				update_icon()
+			else
+				to_chat(user, fail_msg)
+		else if(istype(I, /obj/item/stack/rods))
+			if(!myrods)
+				put_in_cart(I, user)
+				myrods=I
 				update_icon()
 			else
 				to_chat(user, fail_msg)
@@ -111,6 +120,8 @@
 		dat += "<a href='?src=[UID()];metal=1'>[mymetal.name]</a><br>"
 	if(myplasteel)
 		dat += "<a href='?src=[UID()];plasteel=1'>[myplasteel.name]</a><br>"
+	if(myrods)
+		dat += "<a href='?src=[UID()];rods=1'>[myrods.name]</a><br>"
 	if(myflashlight)
 		dat += "<a href='?src=[UID()];flashlight=1'>[myflashlight.name]</a><br>"
 	if(mybluetoolbox)
@@ -143,6 +154,11 @@
 			user.put_in_hands(myplasteel)
 			to_chat(user, "<span class='notice'>You take [myplasteel] from [src].</span>")
 			myplasteel = null
+	if(href_list["rods"])
+		if(myrods)
+			user.put_in_hands(myrods)
+			to_chat(user, "<span class='notice'>You take [myrods] from [src].</span>")
+			myrods = null
 	if(href_list["flashlight"])
 		if(myflashlight)
 			user.put_in_hands(myflashlight)
@@ -175,6 +191,8 @@
 		overlays += "cart_metal"
 	if(myplasteel)
 		overlays += "cart_plasteel"
+	if(myrods)
+		overlays += "cart_rods"
 	if(myflashlight)
 		overlays += "cart_flashlight"
 	if(mybluetoolbox)

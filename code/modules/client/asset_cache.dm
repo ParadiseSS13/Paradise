@@ -44,7 +44,6 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 	if(client.cache.Find(asset_name) || client.sending.Find(asset_name))
 		return 0
 
-	log_asset("Sending asset [asset_name] to client [client]")
 	client << browse_rsc(SSassets.cache[asset_name], asset_name)
 	if(!verify) // Can't access the asset cache browser, rip.
 		client.cache += asset_name
@@ -93,7 +92,6 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 		to_chat(client, "Sending Resources...")
 	for(var/asset in unreceived)
 		if(asset in SSassets.cache)
-			log_asset("Sending asset [asset] to client [client]")
 			client << browse_rsc(SSassets.cache[asset], asset)
 
 	if(!verify) // Can't access the asset cache browser, rip.
@@ -317,7 +315,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	assets = list(
 		"Cyberiad_nanomap_z1.png"		= 'icons/_nanomaps/Cyberiad_nanomap_z1.png',
 		"Delta_nanomap_z1.png"			= 'icons/_nanomaps/Delta_nanomap_z1.png',
+		"Hispania_nanomap_z1.png"		= 'icons/_nanomaps/Hispania_nanomap_z1.png',
 		"MetaStation_nanomap_z1.png"	= 'icons/_nanomaps/MetaStation_nanomap_z1.png',
+		"Dababy_nanomap_z1.png"		= 'icons/_nanomaps/Dababy_nanomap_z1.png',
 	)
 
 /datum/asset/simple/safe

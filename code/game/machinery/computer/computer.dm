@@ -1,6 +1,6 @@
 /obj/machinery/computer
 	name = "computer"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/hispania/obj/computer.dmi'
 	icon_state = "computer"
 	density = 1
 	anchored = 1.0
@@ -80,9 +80,11 @@
 		return
 
 	if(stat & BROKEN)
-		overlays += image(icon,"[icon_state]_broken",overlay_layer)
+		overlays += "[icon_state]_broken"
 	else
-		overlays += image(icon,icon_screen,overlay_layer)
+		var/image/on_overlay = image(icon,icon_screen)
+		on_overlay.plane = ABOVE_LIGHTING_PLANE
+		overlays += on_overlay
 
 	if(icon_keyboard)
 		overlays += image(icon, icon_keyboard ,overlay_layer)

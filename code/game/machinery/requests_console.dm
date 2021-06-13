@@ -40,8 +40,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	name = "Requests Console"
 	desc = "A console intended to send requests to different departments on the station."
 	anchored = TRUE
-	icon = 'icons/obj/terminals.dmi'
-	icon_state = "req_comp0"
+	icon = 'icons/hispania/obj/terminals.dmi'
+	icon_state = "req_comp_off"
 	max_integrity = 300
 	armor = list("melee" = 70, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
 	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
@@ -76,11 +76,21 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	update_icon()
 
 /obj/machinery/requests_console/update_icon()
-	if(stat & NOPOWER)
-		if(icon_state != "req_comp_off")
-			icon_state = "req_comp_off"
-	else
-		icon_state = "req_comp[newmessagepriority]"
+	overlays.Cut()
+	if(stat & NOPOWER) return
+	var/image/on_overlay = image(icon,"req_comp[newmessagepriority]")
+	on_overlay.plane = ABOVE_LIGHTING_PLANE
+	overlays += on_overlay
+	var/hp_percent = obj_integrity * 100 / max_integrity
+	switch(hp_percent)
+		if(75 to INFINITY)
+			return
+		if(50 to 75)
+			add_overlay("crack1")
+		if(25 to 50)
+			add_overlay("crack2")
+		else
+			add_overlay("crack3")
 
 /obj/machinery/requests_console/Initialize(mapload)
 	Radio = new /obj/item/radio(src)

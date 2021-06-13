@@ -1,3 +1,4 @@
+/* tenemos nuestra version traducida en hispania
 GLOBAL_DATUM_INIT(stun_words, /regex, regex("stop|wait|stand still|hold on|halt"))
 GLOBAL_DATUM_INIT(weaken_words, /regex, regex("drop|fall|trip"))
 GLOBAL_DATUM_INIT(sleep_words, /regex, regex("sleep|slumber"))
@@ -34,7 +35,7 @@ GLOBAL_DATUM_INIT(deathgasp_words, /regex, regex("play dead"))
 GLOBAL_DATUM_INIT(clap_words, /regex, regex("clap|applaud"))
 GLOBAL_DATUM_INIT(honk_words, /regex, regex("ho+nk")) //hooooooonk
 GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
-
+*/
 /obj/item/organ/internal/vocal_cords //organs that are activated through speech with the :x channel
 	name = "vocal cords"
 	icon_state = "appendix"

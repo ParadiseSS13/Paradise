@@ -76,6 +76,10 @@
 	if(!cell)
 		return
 	cell.use(amount)
+	if(cell.rigged)
+		cell = null
+		turned_on = FALSE
+		update_icon()
 	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 		turned_on = FALSE
 		update_icon()

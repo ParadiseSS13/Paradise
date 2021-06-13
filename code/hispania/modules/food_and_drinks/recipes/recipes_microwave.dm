@@ -132,3 +132,24 @@
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(/obj/item/reagent_containers/food/snacks/grown/cabbage, /obj/item/reagent_containers/food/snacks/grown/tomato, /obj/item/reagent_containers/food/snacks/grown/prickly_pear)
 	result = /obj/item/reagent_containers/food/snacks/ensaladacactus
+
+// SALMON CONSOME
+/datum/recipe/microwave/salmonconsome
+	reagents = list("water" = 5, "sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+	/obj/item/reagent_containers/food/snacks/salmonmeat,
+	/obj/item/reagent_containers/food/snacks/grown/garlic,
+	/obj/item/reagent_containers/food/snacks/grown/potato,
+	/obj/item/reagent_containers/food/snacks/grown/onion
+	)
+	result = /obj/item/reagent_containers/food/snacks/fishconsome
+
+//SALMON CURRY
+/datum/recipe/microwave/salmoncurrry
+	reagents = list("milk" = 5, "sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+	/obj/item/reagent_containers/food/snacks/salmonmeat,
+	/obj/item/reagent_containers/food/snacks/boiledrice,
+	/obj/item/reagent_containers/food/snacks/grown/garlic
+	)
+	result = /obj/item/reagent_containers/food/snacks/salmoncurry

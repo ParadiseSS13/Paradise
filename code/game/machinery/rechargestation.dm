@@ -7,11 +7,18 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 1000
+	/// A reference to the occupant currently sitting inside the recharger.
 	var/mob/occupant = null
+	/// What type of circuit board is required to build this machine.
 	var/circuitboard = /obj/item/circuitboard/cyborgrecharger
+	/// How fast the recharger can give charge to the occupants energy cell. Based on capacitors and the cell the recharger has.
 	var/recharge_speed
+	/// How much nutrition is given to the occupant. Based on capacitors and the cell the recharger has. Only relevent for IPCs.
 	var/recharge_speed_nutrition
+	/// How much the occupant is repaired every cycle. Based on what manipulator the recharger has.
 	var/repairs
+	/// How efficiently the recharger is able to recharge consumable items such as metal, glass, chemicals in sprays, welding tool fuel, etc.
+	var/consumable_recharge_coeff
 
 /obj/machinery/recharge_station/Destroy()
 	go_out()
@@ -42,6 +49,7 @@
 	recharge_speed = 0
 	recharge_speed_nutrition = 0
 	repairs = 0
+	// The recharge_speed can be anywhere from 200 to 3200, depending on the capacitors and the cell.
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		recharge_speed += C.rating * 100
 		recharge_speed_nutrition += C.rating * 10
@@ -52,11 +60,14 @@
 		recharge_speed *= multiplier
 		recharge_speed_nutrition *= multiplier
 
+	// This coefficient can be anywhere from 1, to 16.
+	consumable_recharge_coeff = max(1, recharge_speed / 200)
+
 /obj/machinery/recharge_station/process()
 	if(!(NOPOWER|BROKEN))
 		return
 
-	if(src.occupant)
+	if(occupant)
 		process_occupant()
 
 	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
@@ -133,33 +144,20 @@
 		return TRUE
 
 /obj/machinery/recharge_station/proc/process_occupant()
-	if(occupant)
-		if(isrobot(occupant))
-			var/mob/living/silicon/robot/R = occupant
-			restock_modules()
-			if(repairs)
-				R.heal_overall_damage(repairs, repairs)
-			if(R.cell)
-				var/transfered = R.cell.give(recharge_speed)
-				use_power(transfered * 1.6)
-		else if(ishuman(occupant))
-			var/mob/living/carbon/human/H = occupant
-			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
-				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
-			if(repairs)
-				H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
-			for(var/A in H.reagents.addiction_list)
-				var/datum/reagent/R = A
-				var/addiction_removal_chance = 5
-				if(world.timeofday > (R.last_addiction_dose + 1500)) // 2.5 minutes
-					addiction_removal_chance = 10
-				if(prob(addiction_removal_chance))
-					to_chat(H, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
-					H.reagents.addiction_list.Remove(R)
-					qdel(R)
-		else if(istype(occupant, /mob/living/simple_animal/spiderbot))
-			var/mob/living/simple_animal/spiderbot/H = occupant
-			H.adjustBruteLoss(-repairs-1)
+	if(isrobot(occupant))
+		var/mob/living/silicon/robot/R = occupant
+		if(R.module)
+			R.module.recharge_consumables(R, consumable_recharge_coeff) // This will handle all of a cyborg's items.
+		if(repairs)
+			R.heal_overall_damage(repairs, repairs)
+		if(R.cell)
+			R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
+	else if(ishuman(occupant))
+		var/mob/living/carbon/human/H = occupant
+		if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
+			H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
+		if(repairs)
+			H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
 
 /obj/machinery/recharge_station/proc/go_out()
 	if(!occupant)
@@ -169,76 +167,6 @@
 	build_icon()
 	use_power = IDLE_POWER_USE
 	return
-
-/obj/machinery/recharge_station/proc/restock_modules()
-	if(src.occupant)
-		if(istype(occupant, /mob/living/silicon/robot))
-			var/mob/living/silicon/robot/R = occupant
-			var/coeff = recharge_speed / 200
-			if(R.module && R.module.modules)
-				var/list/um = R.contents|R.module.modules
-				// ^ makes sinle list of active (R.contents) and inactive modules (R.module.modules)
-				for(var/obj/O in um)
-					// Engineering
-					if(istype(O,/obj/item/stack/sheet))
-						var/obj/item/stack/sheet/S = O
-						if(S.amount < S.max_amount)
-							S.amount += round(min(1 * coeff, S.max_amount - S.amount))
-					// Security
-					if(istype(O,/obj/item/flash))
-						var/obj/item/flash/F = O
-						if(F.broken)
-							F.broken = 0
-							F.times_used = 0
-							F.icon_state = "flash"
-					if(istype(O,/obj/item/gun/energy))
-						var/obj/item/gun/energy/D = O
-						if(D.cell.charge < D.cell.maxcharge)
-							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
-							var/transfered = D.cell.give(E.e_cost)
-							D.on_recharge()
-							D.update_icon()
-							use_power(transfered * 1.6)
-						else
-							D.charge_tick = 0
-					if(istype(O,/obj/item/melee/baton))
-						var/obj/item/melee/baton/B = O
-						if(B.cell)
-							var/transfered = B.cell.give(B.cell.chargerate)
-							use_power(transfered * 1.6)
-					//Service
-					if(istype(O,/obj/item/reagent_containers/food/condiment/enzyme))
-						if(O.reagents.get_reagent_amount("enzyme") < 50)
-							O.reagents.add_reagent("enzyme", 2 * coeff)
-					//Janitor
-					if(istype(O, /obj/item/lightreplacer))
-						var/obj/item/lightreplacer/LR = O
-						var/i = 1
-						for(1, i <= coeff, i++)
-							LR.Charge(occupant)
-					//Fire extinguisher
-					if(istype(O, /obj/item/extinguisher))
-						var/obj/item/extinguisher/ext = O
-						ext.reagents.check_and_add("water", ext.max_water, 5 * coeff)
-					//Welding tools
-					if(istype(O, /obj/item/weldingtool))
-						var/obj/item/weldingtool/weld = O
-						weld.reagents.check_and_add("fuel", weld.maximum_fuel, 2 * coeff)
-				if(R)
-					if(R.module)
-						R.module.respawn_consumable(R)
-
-				//Emagged items for janitor and medical borg
-				if(R.module.emag)
-					if(istype(R.module.emag, /obj/item/reagent_containers/spray))
-						var/obj/item/reagent_containers/spray/S = R.module.emag
-						if(S.name == "polyacid spray")
-							S.reagents.add_reagent("facid", 2 * coeff)
-						if(S.name == "lube spray")
-							S.reagents.add_reagent("lube", 2 * coeff)
-						else if(S.name == "acid synthesizer")
-							S.reagents.add_reagent("facid", 2 * coeff)
-							S.reagents.add_reagent("sacid", 2 * coeff)
 
 /obj/machinery/recharge_station/verb/move_eject()
 	set category = "Object"

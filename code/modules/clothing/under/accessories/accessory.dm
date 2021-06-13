@@ -14,7 +14,8 @@
 
 /obj/item/clothing/accessory/New()
 	..()
-	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
+	inv_overlay = (hispania_icon ? image("icon" = 'icons/hispania/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]") : image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]"))
+	icon = (hispania_icon ? 'icons/hispania/obj/clothing/ties.dmi' : icon)
 
 /obj/item/clothing/accessory/Destroy()
 	if(has_suit)
@@ -141,7 +142,7 @@
 			user.visible_message("[user] places \the [src] against [M]'s chest and listens attentively.", "You place \the [src] against [M]'s chest...")
 		var/obj/item/organ/internal/H = M.get_int_organ(/obj/item/organ/internal/heart)
 		var/obj/item/organ/internal/L = M.get_int_organ(/obj/item/organ/internal/lungs)
-		if((H && M.pulse) || (L && !HAS_TRAIT(M, TRAIT_NOBREATH)))
+		if(M.pulse && (H || (L && !HAS_TRAIT(M, TRAIT_NOBREATH))))
 			var/color = "notice"
 			if(H)
 				var/heart_sound

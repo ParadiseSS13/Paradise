@@ -6,11 +6,14 @@
 #define CHANNEL_HEARTBEAT 1020 //sound channel for heartbeats
 #define CHANNEL_BUZZ 1019
 #define CHANNEL_AMBIENCE 1018
+#define CHANNEL_ENGINE 1017 // Engine ambient sounds
+
+#define USER_VOLUME(M, C) M?.client?.prefs.get_channel_volume(C)
 
 //THIS SHOULD ALWAYS BE THE LOWEST ONE!
 //KEEP IT UPDATED
 
-#define CHANNEL_HIGHEST_AVAILABLE 1017
+#define CHANNEL_HIGHEST_AVAILABLE 1016
 
 #define MAX_INSTRUMENT_CHANNELS (128 * 6)
 
@@ -39,7 +42,7 @@
 								'sound/ambience/ambigen6.ogg', 'sound/ambience/ambigen7.ogg',\
 								'sound/ambience/ambigen8.ogg', 'sound/ambience/ambigen9.ogg',\
 								'sound/ambience/ambigen10.ogg', 'sound/ambience/ambigen11.ogg',\
-								'sound/ambience/ambigen12.ogg', 'sound/ambience/ambigen14.ogg', 'sound/ambience/ambigen15.ogg')
+								'sound/ambience/ambigen12.ogg', 'sound/ambience/ambigen14.ogg', 'sound/ambience/ambigen15.ogg', 'sound/hispania/ambience/ambigen16.ogg') //Hispania Sounds
 
 #define HOLY_SOUNDS list('sound/ambience/ambicha1.ogg', 'sound/ambience/ambicha2.ogg', 'sound/ambience/ambicha3.ogg',\
 										'sound/ambience/ambicha4.ogg', 'sound/ambience/ambiholy.ogg', 'sound/ambience/ambiholy2.ogg',\
@@ -51,7 +54,7 @@
 									'sound/ambience/ambiruin2.ogg',  'sound/ambience/ambiruin3.ogg',  'sound/ambience/ambiruin4.ogg',\
 									'sound/ambience/ambiruin5.ogg',  'sound/ambience/ambiruin6.ogg',  'sound/ambience/ambiruin7.ogg',\
 									'sound/ambience/ambidanger.ogg', 'sound/ambience/ambidanger2.ogg', 'sound/ambience/ambitech3.ogg',\
-									'sound/ambience/ambimystery.ogg', 'sound/ambience/ambimaint1.ogg')
+									'sound/ambience/ambimystery.ogg', 'sound/ambience/ambimaint1.ogg', 'sound/hispania/ambience/ambiruin8.ogg') //Hispania Sounds
 
 #define ENGINEERING_SOUNDS list('sound/ambience/ambisin1.ogg', 'sound/ambience/ambisin2.ogg', 'sound/ambience/ambisin3.ogg', 'sound/ambience/ambisin4.ogg',\
 										'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg', 'sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg')
@@ -60,14 +63,14 @@
 											'sound/ambience/ambiruin2.ogg',  'sound/ambience/ambiruin3.ogg',  'sound/ambience/ambiruin4.ogg',\
 											'sound/ambience/ambiruin5.ogg',  'sound/ambience/ambiruin6.ogg',  'sound/ambience/ambiruin7.ogg',\
 											'sound/ambience/ambidanger.ogg', 'sound/ambience/ambidanger2.ogg', 'sound/ambience/ambimaint1.ogg',\
-											'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava2.ogg', 'sound/ambience/ambilava3.ogg')
+											'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava2.ogg', 'sound/ambience/ambilava3.ogg', 'sound/hispania/ambience/ambiruin8.ogg') //Hispania Sounds
 
 #define MEDICAL_SOUNDS list('sound/ambience/ambinice.ogg')
 
 #define SPOOKY_SOUNDS list('sound/ambience/ambimo1.ogg','sound/ambience/ambimo2.ogg','sound/ambience/ambiruin7.ogg','sound/ambience/ambiruin6.ogg',\
-										'sound/ambience/ambiodd.ogg', 'sound/ambience/ambimystery.ogg')
+										'sound/ambience/ambiodd.ogg', 'sound/ambience/ambimystery.ogg' , 'sound/hispania/ambience/ambidanger3.ogg') //Hispania Sounds
 
-#define SPACE_SOUNDS list('sound/ambience/ambispace.ogg', 'sound/ambience/ambispace2.ogg', 'sound/music/title2.ogg', 'sound/ambience/ambiatmos.ogg')
+#define SPACE_SOUNDS list('sound/ambience/ambispace.ogg', 'sound/ambience/ambispace2.ogg', 'sound/music/title2.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/hispania/ambience/ambispace3.ogg', 'sound/hispania/ambience/ambispace4.ogg') //Hispania Sounds
 
 #define MAINTENANCE_SOUNDS list('sound/ambience/ambimaint1.ogg', 'sound/ambience/ambimaint2.ogg', 'sound/ambience/ambimaint3.ogg', 'sound/ambience/ambimaint4.ogg',\
 											'sound/ambience/ambimaint5.ogg', 'sound/voice/lowHiss2.ogg', 'sound/voice/lowHiss3.ogg', 'sound/voice/lowHiss4.ogg', 'sound/ambience/ambitech2.ogg' )

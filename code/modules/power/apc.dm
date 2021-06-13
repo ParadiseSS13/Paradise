@@ -336,12 +336,22 @@
 			overlays.len = 0
 
 		if(!(stat & (BROKEN|MAINT)) && update_state & UPSTATE_ALLGOOD)
-			overlays += status_overlays_lock[locked+1]
-			overlays += status_overlays_charging[charging+1]
+			var/image/locked_overlay = status_overlays_lock[locked+1]
+			locked_overlay.plane = ABOVE_LIGHTING_PLANE
+			overlays += locked_overlay
+			var/image/charging_overlay = status_overlays_charging[charging+1]
+			charging_overlay.plane = ABOVE_LIGHTING_PLANE
+			overlays += charging_overlay
 			if(operating)
-				overlays += status_overlays_equipment[equipment+1]
-				overlays += status_overlays_lighting[lighting+1]
-				overlays += status_overlays_environ[environ+1]
+				var/image/equipment_overlay = status_overlays_equipment[equipment+1]
+				equipment_overlay.plane = ABOVE_LIGHTING_PLANE
+				overlays += equipment_overlay
+				var/image/lighting_overlay = status_overlays_lighting[lighting+1]
+				lighting_overlay.plane = ABOVE_LIGHTING_PLANE
+				overlays += lighting_overlay
+				var/image/enviroment_overlay = status_overlays_environ[environ+1]
+				enviroment_overlay.plane = ABOVE_LIGHTING_PLANE
+				overlays += enviroment_overlay
 
 
 /obj/machinery/power/apc/proc/check_updates()
@@ -1103,11 +1113,12 @@
 	else
 		main_status = APC_EXTERNAL_POWER_GOOD
 
-	update_cell()//hispania
+
 	if(debug)
 		log_debug("Status: [main_status] - Excess: [excess] - Last Equip: [lastused_equip] - Last Light: [lastused_light] - Longterm: [longtermpower]")
 
 	if(cell && !shorted)
+		update_cell()//hispania
 		// draw power from cell as before to power the area
 		var/cellused = min(cell.charge, GLOB.CELLRATE * lastused_total)	// clamp deduction to a max, amount left in cell
 		cell.use(cellused)

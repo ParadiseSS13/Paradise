@@ -56,6 +56,7 @@
 /obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
 	if(!proximity)
 		return
+	syringedump(target, user) //Hispania Syrengdump
 	if(!target.reagents)
 		return
 

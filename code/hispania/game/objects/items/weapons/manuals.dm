@@ -28,6 +28,7 @@
 			<li><a href="#Mugcakes">Mugcakes de varios sabores</a></li>
 			<li><a href="#Galletas">Galletas con o sin chispitas de chocolate</a></li>
 			<li><a href="#Empanada">Empanada, como la que hac�a tu mami</a></li>
+			<li><a href="#Carnes">Diferentes tipos de cortes, con diferentes preparaciones</a></li>
 			<li><a href="#Notas">Notas</a></li>
 			</ol>
 			<br><BR>
@@ -113,7 +114,32 @@
 			A�ade 1 dough slice + 1 cutlet al horno y cocina hasta que est� bien dorada.<BR>
 
 			<hr>
+			<h1><a name="Carnes"><B>Recetas con carne</B></a></h1><BR>
+			<h2>Filet Mignon</h2><BR>
+			<I>Clásico filet mignon con salsa de champiñones</I><BR>
+			Ingredientes:<BR>
+			<li>1u Salt</li>
+			<li>1u Pepper</li>
+			<li>5u Wine</li>
+			<li>1 Meat</li>
+			<li>1 Champignon</li>
 
+			Preparación:
+			Arregla todos los ingredientes en la bandeja del horno. Hornealos hasta que la carne llegue al termino deseado.<BR>
+			<h2>Raw Mouse</h2>
+			<I>Desagradble excepto, si eres un tajaran o un unathi</I><BR>
+			Ingredientes:<BR>
+			<li>1 dead mouse</li>
+			Preparación:
+			Toma al animalito y descuartizalo con tu cuchillo de cocina.<BR>
+			<h2>Cuy</h2>
+			<I>No juzgues a un libro por su portada....<BR>
+			Ingredientes:<BR>
+			<li>1u Salt</li>
+			<li>1u Pepper</li>
+			<li>1 Raw Mouse</li>
+			<li>1 Avocadoslice</li>
+			<li>1 Potato</li>
 			<h1><a name="Notas"><B>Notas finales</B></a></h1><BR>
 			Peque�a pero muy esperada primera edici�n de Recetas Hispanas! Para chefs profesionales y bartender refinados, no olvid�n que la versi�n extendida de nuestro libro ya se encuentra en preventa, y estar� disponidble en su biblioteca mas cercana muy pronto.<BR>
 			"}
@@ -164,4 +190,311 @@
 
 			- Zunxao Quumqr</br>
 
+			"}
+
+/obj/item/book/manual/hispania_recipes_arepas
+	name = "La Venganza de la Arepa y Otros"
+	icon_state = "cooked_book"
+	author = "Daria Woolrey, Medical Doctor"
+	title = "La Venganza de la Arepa y Otros"
+	dat = {"<html>
+			<head>
+			<style>
+			h1 {font-size: 18px; margin: 15px 0px 5px;}
+			h1 {font-size: 15px; margin: 15px 0px 5px;}
+			li {margin: 2px 0px 2px 15px;}
+			ul {list-style: none; margin: 5px; padding: 0px;}
+			ol {margin: 5px; padding: 0px 15px;}
+			</style>
+			</head>
+			<body>
+			<font face="Verdana" color=black>
+			<h1><a name="Contents">Contenido:</a></h1>
+			<ol>
+			<li><a href="#Forward">Notas del Autor</a></li>
+			<li><a href="#Arepas">Arepas</a></li>
+			<li><a href="#Sopas">Sopas</a></li>
+			<li><a href="#Rellenos">Recetas de Horno</a></li>
+			<li><a href="#Notas">Notas</a></li>
+			</ol>
+			<br><BR>
+			<h1><a name="Forward"><U><B>Cualquiera puede cocinar.</B></U></a></h1><BR>
+			<I>No dejes que solo una profesion defina tus habilidades, crea el mundo que deseas. - Dra. Daria Woolrey</I><BR><BR>
+			<hr>
+		<h1><a name="Arepas"><B>Preparacion General de Arepas: <br></h1>
+		Coloca cuidadosamente los ingredientes en la parrilla, cuidado de no pasarte con las cantidades.</a></b>
+      	<br><br>
+			<I>Arepa Basica:</I><BR>
+			<li>1 Flatdough</li>
+			<li>5u Sodiumchloride</li>
+			<br>
+			<I>Arepa de Queso:</I><BR>
+			<li>1 Arepa Basica</li>
+			<li>1 Cheese Wedge</li>
+			<br>
+			<I>Arepa de Jamon:</I><BR>
+			<li>1 Arepa Basica</li>
+			<li>1 Raw Cutlet</li>
+			<br>
+			<I>Arepa de Jamon y Queso:</I><BR>
+			<li>1 Arepa Basica</li>
+			<li>1 Raw Cutlet</li>
+			<li>1 Cheese Wedge</li>
+			<br>
+			<I>Arepa de Plasma:</I><BR>
+			<li>1 Arepa Basica</li>
+			<li>10u Plasma Dust</li>
+			<br>
+			<I>Arepa Fantasma:</I><BR>
+			<li>1 Arepa Basica</li>
+			<li>5u Enzyme</li>
+			<li>5u Milk</li>
+			<li>5u Milk</li>
+			<li>1 Ectoplasm</li>
+			<br>
+			<I>Arepa de Xenomorfo:</I><BR>
+			<li>1 Arepa Basica</li>
+			<li>1 Carne de Xeno</li>
+			<li>5u Sugar</li>
+			<li>5u Enzyme</li>
+			<br>
+			<I>Arepa de Araña:</I><BR>
+			<li>1 Arepa Basica</li>
+			<li>4 Carne de Araña</li>
+			<li>5u Sodiumchloride</li>
+			<li>5u Charcoal</li>
+			<br>
+			<I>Arepa Life:</I><BR>
+			<li>1 Arepa Basica</li>
+			<li>5u Strange Reagent</li>
+			<li>1u Holy Water</li>
+			<br>
+			<I>Arepa Slime:</I><BR>
+			<li>1 Arepa Basica</li>
+			<li>1 Slime Extract</li>
+			<li>10u Water</li>
+			<br>
+			<I>Arepa Dulce:</I><BR>
+			<li>10u slimejelly</li>
+			<li>10u sugar</li>
+			<li>1 Arepa Basica</li>
+			<li>1 Slime Extract</li>
+			<br>
+			<I>Arepa Super Queso:</I><BR>
+			<li>1 Arepa Basica</li>
+			<li>1 Cheese Wheel</li>
+			<br>
+			<I>Arepa De Frutas:</I><BR>
+			<li>1 Arepa Basica</li>
+			<li>1 Banana</li>
+			<li>1 Tomato</li>
+			<li>1 Apple</li>
+			<br>
+			<I>Arepa De Salmon:</I><BR>
+			<li>1 Arepa Basica</li>
+			<li>1 Salmon Meat</li>
+			<br>
+			<I>Arepa Industrial:</I><BR>
+			<li>1 Arepa Basica</li>
+			<li>5u Oil</li>
+			<li>5u Iron</li>
+			<li>1 Robot Head</li>
+			<br>
+			<I>Arepa Infernal:</I><BR>
+			<li>1 Arepa Basica</li>
+			<li>10u Capsaicin</li>
+			<li>1u napalm</li>
+			<br>
+			<I>Arepa de Hielo:</I><BR>
+			<li>1 Arepa Basica</li>
+			<li>10u Frostoil</li>
+			<li>10u Water</li>
+			<br>
+			<I>Arepa Plumphelmet:</I><BR>
+			<li>1 Arepa Basica</li>
+			<li>2 Plumphelmet</li>
+			<br>
+			<I>Arepa De Magma:</I><BR>
+			<li>1 Arepa Infernal</li>
+			<li>10u Capsaicin</li>
+			<li>10 Blood</li>
+			<li>10 Plasma Dust</li>
+			<br>
+			<hr>
+
+	<h1><a name="Sopas"><B>Preparacion General de Sopas: <br></h1>
+			Coloca cuidadosamente los ingredientes en el microondas, cuidado de no pasarte con las cantidades.</a></b>
+	    <br><br>
+			<I>Sopa de Ajo:</I><BR>
+			<li>1 Slice of Bread</li>
+			<li>3 Garlic</li>
+			<li>1 Egg</li>
+			<li>1 Sausage</li>
+			<br>
+			<I>Curry de Hongos:</I><BR>
+			<li>1 Boiled Rice</li>
+			<li>1 Champignon</li>
+			<li>1 Garlic</li>
+			<li>1 Onion</li>
+			<br>
+			<I>Elf Poison:</I><BR>
+			<li>2 Champignon</li>
+			<li>1 Garlic</li>
+			<li>1 Onion</li>
+			<li>1 Amanita</li>
+			<br>
+
+	<h1><a name="Rellenos"><B>Recetas de Horno</B><br>
+			Coloca cuidadosamente los ingredientes en el microondas, cuidado de no pasarte con las cantidades.</a></b>
+		   <br></a></h1>
+			<br>
+ 			<I>Hongos Rellenos:</I><BR>
+ 			<li>3 Champignon</li>
+ 			<li>2 Cheese Wedge</li>
+ 			<li>2 Bacon</li>
+ 			<br>
+			<I>Cheese Moonna Cake:</I><BR>
+			<li>5u Milk</li>
+			<li>15u Sugar</li>
+			<li>3 Dough</li>
+ 			<li>1 Chese Wedge</li>
+ 			<li>1 Anonna</li>
+ 			<br>
+			<I>Pacakes:</I><BR>
+ 			<li>1 Flatdough</li>
+ 			<li>5u Sodiumchloride</li>
+			<li>5u Sugar</li>
+ 			<br>
+			<I>Pacakes de Mermelada:</I><BR>
+			<li>1 Flatdough</li>
+	 		<li>1 Nispero</li>
+			<li>1 Berries</li>
+			<li>1 Sodiumchloride</li>
+			<li>5 Sugar</li>
+ 			<br>
+			<I>Peachmeat:</I><BR>
+ 			<li>2 Peach</li>
+ 			<li>1 Meat</li>
+			<li>1 Sodiumchloride</li>
+			<li>1 Blackpepper</li>
+			<li>1 Guacamole</li>
+ 			<br>
+
+		<h1><a name="Notas"><B>Notas finales</B></a></h1><BR>
+		Esperamos hayas aprendido mas recetas para disfrutar en estos turnos laborales. Esperanos en nuestro siguiente libro. "¿Como sobrevivir sin medbay?"<BR>"}
+
+/obj/item/book/manual/how_to_telesci
+	name = "Formulas para Teleciencias"
+	icon_state = "book1"
+	author = "Adam Wolf, Nanotrasen Research Specialist"
+	title = "Formulas para Teleciencias"
+
+	dat = {"<center><b>Formulas de Teleciencias</b></center></br></br>
+
+			Dejo las formulas para el siguiente en decidir tomar este arte:</br></br>
+
+			<center><b>Variables a tomar en cuenta</b></center></br></br>
+
+			- power_x = true_power * cos(true_angle)</br></br>
+
+			- power_y = true_power * sin(true_angle)</br></br>
+
+			- dest_x = src_x + distance*sin(rotation);</br></br>
+
+			- dest_y = src_y + distance*cos(rotation);</br></br>
+
+			- time = power_y /(2*9.81)</br></br>
+
+			- distance = time * power_x - (time * time *0.1)/2
+				notas:</br><br>
+
+			<center><b>Pasos a tener en cuenta:</b></center></br></br>
+
+			1. dest_x y dest_y es el destino a donde estas apuntando para teleportar algo</br></br>
+
+			2. src_y y src_x son las coordenadas del telepad</br></br>
+
+			3. true_power es el dato real(incluyendo descalibracion) de la consola de teleporte llamada power </br></br>
+
+			4. true_angle es el dato de la consola incluyendo descalibracion angle y se calcula asi: <br>
+			<center>true_angle  = rotation + rotation_off donde rotation_off es un valor arbitratrio entre -10 y 10.</br></center>
+			<br>
+
+      5-Formula:<br>
+			<center> true_power  = power + power * power_off_factor + power_off - abs((z-z_co)*power_off_factor)</center>
+				<br>
+				power_off_factor  es un valor arbitrario entre -0.2 y 0.2
+				<br>
+				power_off es un valor arbitratio entre -4 y 0
+				<br>
+				z es el z de de la consola
+				<br>
+				z_co es el z del destino
+
+		"}
+
+/obj/item/book/manual/salmonsuperduper
+	name = "Recetas Avanzadas de Salmon"
+	icon_state = "cooked_book"
+	author = "Nikolas  Marcotte"
+	title = "El Gran Hombre Salmon"
+	dat = {"<center><b>El Hombre Salmon</b></center></br></br>
+				Recetas para parrilla:
+				<br>
+				<I>Salmon Ahumado:</I><br>
+				<li>1 Filete de Salmon</li>
+				<li>1u Sal</li>
+				<li>1u Pimienta</li>
+				<li>5u Agua</li>
+				<br>
+			<I>Salmon con Aguacate:</I><br>
+				<li>1 Filete de Salmon</li>
+				<li>1u Sal</li>
+				<li>1u Pimienta</li>
+				<li>1 Rebanada de Aguacate</li>
+				<br>
+			<I>Salmon con Citricos:</I><br>
+				<li>1 Filete de Salmon</li>
+				<li>1u Sal</li>
+				<li>1u Pimienta</li>
+				<li>1 Limon</li>
+				<li>1 Naranja</li>
+				<br>
+			<I>Salmon Clasico:</I><br>
+				<li>1 Filete de Salmon</li>
+				<li>1u Sal</li>
+				<li>1u Pimienta</li>
+				<br>
+			<hr>
+			Recetas para microondas:
+				<br>
+				<I>Consome de Salmon:</I><br>
+				<li>1 Filete de Salmon</li>
+				<li>1u Sal</li>
+				<li>1u Pimienta</li>
+				<li>5u Agua</li>
+				<li>1 Ajo</li>
+				<li>1 Patata</li>
+				<li>1 Cebolla</li>
+				<br>
+				<I>Curry de Salmon:</I><br>
+				<li>1 Filete de Salmon</li>
+				<li>1u Sal</li>
+				<li>1u Pimienta</li>
+				<li>5u Leche</li>
+				<li>1 Arroz Hervido</li>
+				<li>1 Ajo</li>
+				<br>
+			<hr>
+			Preparaciones manuales:
+				<br>
+				<li>Cream Cheese:<br></li>
+				<I>En la mixer:</I><br>
+				<li>10u Milk<li>
+				<li>20u Cream<li>
+				<li>1u Salt<li>
+				<I>Salmon Cream cheese toast:</I><br>
+				<li> 1 Cream Cheese</li>
+				<li> 1 Baguette</li>
+				<li> 1 Smoked Salmon</li>
 			"}

@@ -36,7 +36,8 @@
 		secure = (z == level_name_to_num(CENTCOMM))
 	return secure
 
-GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
+// Only CC
+GLOBAL_LIST_INIT(default_map_traits, list(CC_TRANSITION_CONFIG, PLANET_SURFACE, RANDOM_DERELICT_SHIP))
 
 /proc/check_level_trait(z, trait)
 	if(!z)

@@ -319,6 +319,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		S.fields["criminal"]	= "None"
 		S.fields["mi_crim"]		= "None"
 		S.fields["mi_crim_d"]	= "No minor crime convictions."
+		S.fields["mo_crim"]		= "None" // HISPANIA
+		S.fields["mo_crim_d"]	= "No moderate crime convictions." // HISPANIA
 		S.fields["ma_crim"]		= "None"
 		S.fields["ma_crim_d"]	= "No major crime convictions."
 		S.fields["notes"]		= "No notes."

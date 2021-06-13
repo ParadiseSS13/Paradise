@@ -35,13 +35,14 @@
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
 	var/list/restricted_species
+	var/pb_knockback = 0
 
 	var/spread = 0
 	var/randomspread = 1
 	var/fullauto = FALSE
 
 	var/unique_rename = TRUE //allows renaming with a pen
-	var/unique_reskin = TRUE //allows one-time reskinning
+	var/unique_reskin = FALSE //allows one-time reskinning
 	var/current_skin = null //the skin choice if we had a reskin
 	var/list/options = list()
 
@@ -117,6 +118,10 @@
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
+	if(pointblank && pb_knockback > 0 && ismob(target))
+		var/atom/throw_target = get_edge_target_turf(target, user.dir)
+		var/atom/movable/targett = target
+		targett.throw_at(throw_target, pb_knockback, 2)
 	if(recoil)
 		shake_camera(user, recoil + 1, recoil)
 
@@ -190,6 +195,10 @@
 
 	//DUAL WIELDING
 	var/bonus_spread = 0
+
+	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) // HISPANIA || cringe aim
+		bonus_spread += 25
+
 	var/loop_counter = 0
 	if(ishuman(user) && user.a_intent == INTENT_HARM)
 		var/mob/living/carbon/human/H = user

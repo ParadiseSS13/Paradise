@@ -1,19 +1,11 @@
-GLOBAL_LIST_INIT(hazard_overlays, list())
-GLOBAL_LIST_INIT(tape_roll_applications, list())
+GLOBAL_LIST_INIT(hazard_overlays, list(
+	"[NORTH]"	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "N"),
+	"[EAST]"	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "E"),
+	"[SOUTH]"	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "S"),
+	"[WEST]"	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "W"),
+	))
 
-/obj/item/taperoll
-	name = "police tape"
-	icon = 'icons/hispania/obj/policetape.dmi'
-	icon_state = "tape"
-	desc = "A roll of police tape used to block off crime scenes from the public."
-	w_class = WEIGHT_CLASS_SMALL
-	var/turf/start
-	var/turf/end
-	var/tape_type = /obj/item/taper
-	var/icon_base = "tape"
-	var/maxlengths = 7
-	var/apply_tape = FALSE
-	color = COLOR_YELLOW
+GLOBAL_LIST_INIT(tape_roll_applications, list())
 
 /obj/item/taperoll/Initialize()
 	. = ..()
@@ -25,6 +17,62 @@ GLOBAL_LIST_INIT(tape_roll_applications, list())
 		if(airlock)
 			afterattack(airlock, null, TRUE)
 		return INITIALIZE_HINT_QDEL
+
+/obj/structure/taper/update_icon()
+	//Possible directional bitflags: 0 (AIRLOCK), 1 (NORTH), 2 (SOUTH), 4 (EAST), 8 (WEST), 3 (VERTICAL), 12 (HORIZONTAL)
+	overlays.Cut()
+	var/new_state
+	switch (tape_dir)
+		if(0)  // AIRLOCK
+			new_state = "[icon_base]_door"
+		if(3)  // VERTICAL
+			new_state = "[icon_base]_v"
+		if(12) // HORIZONTAL
+			new_state = "[icon_base]_h"
+		else   // END POINT (1|2|4|8)
+			new_state = "[icon_base]_dir"
+			dir = tape_dir
+	icon_state = "[new_state]_[crumpled]"
+
+/obj/item/taperoll
+	name = "police tape"
+	icon = 'icons/hispania/obj/policetape.dmi'
+	icon_state = "tape"
+	desc = "A roll of police tape used to block off crime scenes from the public."
+	w_class = WEIGHT_CLASS_SMALL
+	var/turf/start
+	var/turf/end
+	var/tape_type = /obj/structure/taper
+	var/icon_base = "tape"
+	var/maxlengths = 7
+	var/apply_tape = FALSE
+	color = COLOR_YELLOW
+
+/obj/structure/taper
+	name = "police tape"
+	icon = 'icons/hispania/obj/policetape.dmi'
+	icon_state = "tape"
+	desc = "A length of police tape.  Do not cross."
+	max_integrity = 10
+	layer = ABOVE_DOOR_LAYER
+	anchored = TRUE
+	var/lifted = 0
+	var/crumpled = 0
+	var/tape_dir = 0
+	var/icon_base = "stripetape"
+	var/detail_color
+	color = COLOR_YELLOW
+
+/obj/item/taperoll/engi
+	name = "engineering tape"
+	desc = "A roll of engineering tape used to block off working areas from the public."
+	tape_type = /obj/structure/taper/engi
+	color = COLOR_ORANGE
+
+/obj/structure/taper/engi
+	name = "engineering tape"
+	desc = "A length of engineering tape. Better not cross it."
+	color = COLOR_ORANGE
 
 /obj/item/taperoll/update_icon()
 	overlays.Cut()
@@ -49,69 +97,7 @@ GLOBAL_LIST_INIT(tape_roll_applications, list())
 	update_icon()
 	return ..()
 
-/obj/item/taper
-	name = "police tape"
-	icon = 'icons/hispania/obj/policetape.dmi'
-	icon_state = "tape"
-	desc = "A length of police tape.  Do not cross."
-	max_integrity = 10
-	layer = ABOVE_DOOR_LAYER
-	anchored = TRUE
-	color = COLOR_YELLOW
-	var/lifted = 0
-	var/crumpled = 0
-	var/tape_dir = 0
-	var/icon_base = "stripetape"
-	var/detail_overlay
-	var/detail_color
-
-/obj/item/taper/update_icon()
-	//Possible directional bitflags: 0 (AIRLOCK), 1 (NORTH), 2 (SOUTH), 4 (EAST), 8 (WEST), 3 (VERTICAL), 12 (HORIZONTAL)
-	overlays.Cut()
-	var/new_state
-	switch (tape_dir)
-		if(0)  // AIRLOCK
-			new_state = "[icon_base]_door"
-		if(3)  // VERTICAL
-			new_state = "[icon_base]_v"
-		if(12) // HORIZONTAL
-			new_state = "[icon_base]_h"
-		else   // END POINT (1|2|4|8)
-			new_state = "[icon_base]_dir"
-			dir = tape_dir
-	icon_state = "[new_state]_[crumpled]"
-	if(detail_overlay)
-		var/image/I = image(icon, "[new_state]_[detail_overlay]")
-		I.appearance_flags = RESET_COLOR
-		I.color = detail_color
-		overlays |= I
-
-/obj/item/taper/New()
-	..()
-	if(!GLOB.hazard_overlays)
-		GLOB.hazard_overlays = list()
-		GLOB.hazard_overlays["[NORTH]"]	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "N")
-		GLOB.hazard_overlays["[EAST]"]	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "E")
-		GLOB.hazard_overlays["[SOUTH]"]	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "S")
-		GLOB.hazard_overlays["[WEST]"]	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "W")
-
-/obj/item/taper/proc/crumple()
-	playsound(src,'sound/effects/pageturn1.ogg', 100, 1)
-	crumpled = 1
-	update_icon()
-
-/obj/item/taperoll/engi
-	name = "engineering tape"
-	desc = "A roll of engineering tape used to block off working areas from the public."
-	tape_type = /obj/item/taper/engi
-	color = COLOR_ORANGE
-
-/obj/item/taper/engi
-	name = "engineering tape"
-	desc = "A length of engineering tape. Better not cross it."
-	color = COLOR_ORANGE
-
-/obj/item/taperoll/attack_self(mob/user)
+/obj/item/taperoll/attack_self(mob/user as mob)
 	if(!start)
 		start = get_turf(src)
 		to_chat(usr, "<span class='notice'>You place the first end of \the [src].</span>")
@@ -150,13 +136,13 @@ GLOBAL_LIST_INIT(tape_roll_applications, list())
 				to_chat(usr, "<span class='notice'>You can't place \the [src] here.</span>")
 				return
 			if(possible_dirs & (NORTH|SOUTH))
-				var/obj/item/taper/TP = new tape_type(start)
+				var/obj/structure/taper/TP = new tape_type(start)
 				for(var/dir in list(NORTH, SOUTH))
 					if (possible_dirs & dir)
 						TP.tape_dir += dir
 				TP.update_icon()
 			if(possible_dirs & (EAST|WEST))
-				var/obj/item/taper/TP = new tape_type(start)
+				var/obj/structure/taper/TP = new tape_type(start)
 				for(var/dir in list(EAST, WEST))
 					if (possible_dirs & dir)
 						TP.tape_dir += dir
@@ -173,16 +159,16 @@ GLOBAL_LIST_INIT(tape_roll_applications, list())
 			if(NORTH, SOUTH)	dir = NORTH|SOUTH	// North-South taping
 			if(EAST,   WEST)	dir =  EAST|WEST	// East-West taping
 
-		var/can_place = 1
+		var/can_place = TRUE
 		while(can_place)
 			if(cur.density)
-				can_place = 0
+				can_place = FALSE
 			else if (istype(cur, /turf/space))
-				can_place = 0
+				can_place = FALSE
 			else
 				for(var/obj/O in cur)
 					if(O.density)
-						can_place = 0
+						can_place = FALSE
 						break
 			if(cur == end)
 				break
@@ -196,7 +182,7 @@ GLOBAL_LIST_INIT(tape_roll_applications, list())
 		cur = start
 		var/tapetest
 		var/tape_dir
-		while (1)
+		while(1)
 			tapetest = 0
 			tape_dir = dir
 			if(cur == start)
@@ -213,12 +199,12 @@ GLOBAL_LIST_INIT(tape_roll_applications, list())
 					for(var/obj/structure/window/W in T)
 						if(W.fulltile || W.dir == reverse_direction(orientation))
 							tape_dir = dir
-			for(var/obj/item/taper/T in cur)
+			for(var/obj/structure/taper/T in cur)
 				if((T.tape_dir == tape_dir) && (T.icon_base == icon_base))
 					tapetest = 1
 					break
 			if(!tapetest)
-				var/obj/item/taper/T = new tape_type(cur)
+				var/obj/structure/taper/T = new tape_type(cur)
 				T.tape_dir = tape_dir
 				T.update_icon()
 				if(tape_dir & SOUTH)
@@ -239,7 +225,7 @@ GLOBAL_LIST_INIT(tape_roll_applications, list())
 
 	if(istype(A, /obj/machinery/door/airlock))
 		var/turf/T = get_turf(A)
-		var/obj/item/taper/P = new tape_type(T)
+		var/obj/structure/taper/P = new tape_type(T)
 		P.update_icon()
 		P.layer = ABOVE_DOOR_LAYER
 		to_chat(user, "<span class='notice'>You finish placing \the [src].</span>")
@@ -261,39 +247,43 @@ GLOBAL_LIST_INIT(tape_roll_applications, list())
 			GLOB.tape_roll_applications[F] |= direction
 		return
 
-/obj/item/taper/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/obj/structure/taper/proc/crumple()
+	playsound(src,'sound/effects/pageturn1.ogg', 100, 1)
+	crumpled = 1
+	update_icon()
+
+/obj/structure/taper/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(!lifted && ismob(mover))
 		var/mob/M = mover
 		add_fingerprint(M)
-		if (!allowed(M))	//only select few learn art of not crumpling the tape
-			to_chat(M, "<span class='warning'>You are not supposed to go past [src]...</span>")
-			if(M.a_intent == INTENT_HELP)
-				return FALSE
+		return FALSE
 	else
 		return ..(mover)
 
-/obj/item/taper/attackby(obj/item/W, mob/user)
+/obj/structure/taper/attackby(obj/item/W as obj, mob/user as mob)
 	if(user.a_intent == INTENT_HARM)
 		breaktape(user)
 
-/obj/item/taper/attack_hand(mob/user)
+/obj/structure/taper/attack_hand(mob/user as mob)
 	if(user.a_intent == INTENT_HELP)
 		user.visible_message("<span class='notice'>\The [user] lifts \the [src], allowing passage.</span>")
-		for(var/obj/item/taper/T in gettapeline())
+		for(var/obj/structure/taper/T in gettapeline())
 			crumple()
 			T.lift(20) //~2 seconds
 	else
 		breaktape(user)
 
-/obj/item/taper/proc/lift(time)
+/obj/structure/taper/proc/lift(time)
 	lifted = 1
 	layer = ABOVE_ALL_MOB_LAYER
 	spawn(time)
 		lifted = 0
 		layer = initial(layer)
+		crumpled = 0
+		update_icon()
 
 // Returns a list of all tape objects connected to src, including itself.
-/obj/item/taper/proc/gettapeline()
+/obj/structure/taper/proc/gettapeline()
 	var/list/dirs = list()
 	if(tape_dir & NORTH)
 		dirs += NORTH
@@ -304,28 +294,28 @@ GLOBAL_LIST_INIT(tape_roll_applications, list())
 	if(tape_dir & EAST)
 		dirs += EAST
 
-	var/list/obj/item/taper/tapeline = list()
-	for (var/obj/item/taper/T in get_turf(src))
+	var/list/obj/structure/taper/tapeline = list()
+	for (var/obj/structure/taper/T in get_turf(src))
 		tapeline += T
 	for(var/dir in dirs)
 		var/turf/cur = get_step(src, dir)
 		var/not_found = 0
 		while (!not_found)
 			not_found = 1
-			for (var/obj/item/taper/T in cur)
+			for (var/obj/structure/taper/T in cur)
 				tapeline += T
 				not_found = 0
 			cur = get_step(cur, dir)
 	return tapeline
 
-/obj/item/taper/proc/breaktape(mob/user)
+/obj/structure/taper/proc/breaktape(mob/user)
 	if(user.a_intent == INTENT_HELP)
 		to_chat(user, "<span class='warning'>You refrain from breaking \the [src].</span>")
 		return
 	user.visible_message("<span class='notice'>\The [user] breaks \the [src]!</span>","<span class='notice'>You break \the [src].</span>")
 	playsound(src,'sound/items/poster_ripped.ogg', 80, 1)
 
-	for(var/obj/item/taper/T in gettapeline())
+	for(var/obj/structure/taper/T in gettapeline())
 		if(T == src)
 			continue
 		if(T.tape_dir & get_dir(T, src))

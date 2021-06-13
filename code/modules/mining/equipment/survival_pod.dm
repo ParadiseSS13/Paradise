@@ -205,6 +205,9 @@
 	if(empty)
 		return
 
+	var/obj/item/storage/bag/plasticbag/mre/M = new(src) // HISPANIA MRE
+	load(M)
+
 	for(var/i in 1 to 5)
 		var/obj/item/reagent_containers/food/snacks/warmdonkpocket_weak/W = new(src)
 		load(W)

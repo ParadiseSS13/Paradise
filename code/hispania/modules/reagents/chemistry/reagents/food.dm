@@ -56,3 +56,12 @@
 	if(prob(30))
 		M.reagents.add_reagent("omnizine", 5)
 	return ..()
+
+/datum/reagent/consumable/cream_cheese
+	name = "cream cheese"
+	id = "cream_cheese"
+	description = "Cheese but liquid"
+	reagent_state = LIQUID
+	color = "#f7f7f5"
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	taste_description = "sour"

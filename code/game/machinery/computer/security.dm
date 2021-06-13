@@ -1,6 +1,5 @@
 #define SEC_DATA_R_LIST	1	// Record list
-#define SEC_DATA_MAINT	2	// Records maintenance
-#define SEC_DATA_RECORD	3	// Record
+#define SEC_DATA_RECORD	2	// Record
 
 #define SEC_FIELD(N, V, E, LB) list(field = N, value = V, edit = E, line_break = LB)
 
@@ -42,6 +41,8 @@
 			"criminal" = "Please select new criminal status:",
 			"mi_crim" = "Please input new minor crimes:",
 			"mi_crim_d" = "Please summarize minor crimes:",
+			"mo_crim" = "Please input new moderate crimes:", // HISPANIA
+			"mo_crim_d" = "Please summarize moderate crimes:", // HISPANIA
 			"ma_crim" = "Please input new major crimes:",
 			"ma_crim_d" = "Please summarize major crimes:",
 			"notes" = "Please input new important notes:",
@@ -136,6 +137,8 @@
 						SEC_FIELD("Criminal Status", 	sec_fields["criminal"], 	"criminal", 	TRUE),
 						SEC_FIELD("Minor Crimes", 		sec_fields["mi_crim"], 		"mi_crim", 		FALSE),
 						SEC_FIELD("Details", 			sec_fields["mi_crim_d"], 	"mi_crim_d", 	TRUE),
+						SEC_FIELD("Moderate Crimes", 	sec_fields["mo_crim"], 		"mo_crim", 		FALSE), // HISPANIA
+						SEC_FIELD("Details", 			sec_fields["mo_crim_d"], 	"mo_crim_d", 	TRUE), // HISPANIA
 						SEC_FIELD("Major Crimes", 		sec_fields["ma_crim"], 		"ma_crim", 		FALSE),
 						SEC_FIELD("Details", 			sec_fields["ma_crim_d"], 	"ma_crim_d", 	TRUE),
 						SEC_FIELD("Important Notes", 	sec_fields["notes"], 		null, 			FALSE),
@@ -166,7 +169,7 @@
 		if("page") // Select Page
 			if(!logged_in)
 				return
-			var/page_num = clamp(text2num(params["page"]), SEC_DATA_R_LIST, SEC_DATA_MAINT) // SEC_DATA_RECORD cannot be accessed through this act
+			var/page_num = clamp(text2num(params["page"]), SEC_DATA_R_LIST, SEC_DATA_R_LIST) // SEC_DATA_RECORD cannot be accessed through this act
 			current_page = page_num
 			record_general = null
 			record_security = null
@@ -216,6 +219,8 @@
 			S.fields["criminal"] = SEC_RECORD_STATUS_NONE
 			S.fields["mi_crim"] = "None"
 			S.fields["mi_crim_d"] = "No minor crime convictions."
+			S.fields["mo_crim"] = "None" // HISPANIA
+			S.fields["mo_crim_d"] = "No moderate crime convictions." // HISPANIA
 			S.fields["ma_crim"] = "None"
 			S.fields["ma_crim_d"] = "No major crime convictions."
 			S.fields["notes"] = "No notes."
@@ -247,30 +252,6 @@
 			QDEL_NULL(record_security)
 			update_all_mob_security_hud()
 			set_temp("Security record deleted.")
-		if("delete_security_all") // Delete All Security Records
-			var/datum/ui_login/state = ui_login_get()
-			if(!logged_in)
-				return
-			if((ACCESS_MAGISTRATE in state.access) || (ACCESS_ARMORY in state.access))
-				for(var/datum/data/record/S in GLOB.data_core.security)
-					qdel(S)
-				message_admins("[key_name_admin(usr)] has deleted all security records at [ADMIN_COORDJMP(usr)]")
-				usr.create_log(MISC_LOG, "deleted all security records")
-				update_all_mob_security_hud()
-				set_temp("All security records deleted.")
-			else
-				set_temp("Insufficient permissions to delete all records!")
-				return
-		if("delete_cell_logs") // Delete All Cell Logs
-			if(!logged_in)
-				return
-			if(!length(GLOB.cell_logs))
-				set_temp("There are no cell logs to delete.")
-				return
-			message_admins("[key_name_admin(usr)] has deleted all cell logs at [ADMIN_COORDJMP(usr)]")
-			usr.create_log(MISC_LOG, "deleted all cell logs")
-			GLOB.cell_logs.Cut()
-			set_temp("All cell logs deleted.")
 		if("comment_delete") // Delete Comment
 			if(!logged_in)
 				return
@@ -413,6 +394,8 @@
   */
 /obj/machinery/computer/secure_data/proc/print_record_finish()
 	var/obj/item/paper/P = new(loc)
+	P.pixel_y = rand(-10, -8)
+	P.pixel_x = rand(-9, 9)
 	P.info = "<center><b>Security Record</b></center><br>"
 	if(record_general && GLOB.data_core.general.Find(record_general))
 		P.info += {"Name: [record_general.fields["name"]] ID: [record_general.fields["id"]]
@@ -424,11 +407,13 @@
 		P.name = "paper - 'Security Record: [record_general.fields["name"]]'"
 	else
 		P.info += "<b>General Record Lost!</b><br>"
-	if(record_security && GLOB.data_core.security.Find(record_security))
+	if(record_security && GLOB.data_core.security.Find(record_security)) // HISPANIA
 		P.info += {"<br>\n<center><b>Security Data</b></center>
 		<br>\nCriminal Status: [record_security.fields["criminal"]]<br>\n
 		<br>\nMinor Crimes: [record_security.fields["mi_crim"]]
 		<br>\nDetails: [record_security.fields["mi_crim_d"]]<br>\n
+		<br>\nModerate Crimes: [record_security.fields["mo_crim"]]
+		<br>\nDetails: [record_security.fields["mo_crim_d"]]<br>\n
 		<br>\nMajor Crimes: [record_security.fields["ma_crim"]]
 		<br>\nDetails: [record_security.fields["ma_crim_d"]]<br>\n
 		<br>\nImportant Notes:
@@ -445,6 +430,8 @@
   */
 /obj/machinery/computer/secure_data/proc/print_cell_log_finish(name, info)
 	var/obj/item/paper/P = new(loc)
+	P.pixel_y = rand(-10, -8)
+	P.pixel_x = rand(-9, 9)
 	P.name = name
 	P.info = info
 	is_printing = FALSE
@@ -499,6 +486,5 @@
 	density = FALSE
 
 #undef SEC_DATA_R_LIST
-#undef SEC_DATA_MAINT
 #undef SEC_DATA_RECORD
 #undef SEC_FIELD

@@ -53,3 +53,18 @@
 /datum/gear/flask_grey
 	display_name = "grey flask"
 	path = /obj/item/reagent_containers/food/drinks/flask
+
+/datum/gear/lona_plushie_head
+	display_name = "huge lona plushie head"
+	cost = 5 //El amor puede ser peligroso
+	path = /obj/item/toy/plushie_hispania_sound
+
+/datum/gear/cocoana_plushie_head
+	display_name = "huge cocoana plushie head"
+	cost = 5
+	path = /obj/item/toy/plushie_hispania_sound/cocoana
+
+/datum/gear/mre
+	display_name = "ERP"
+	cost = 3
+	path = /obj/item/storage/bag/plasticbag/mre

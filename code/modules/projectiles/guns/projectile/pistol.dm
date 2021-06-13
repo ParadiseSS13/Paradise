@@ -39,18 +39,16 @@
 	can_suppress = TRUE
 	unique_reskin = TRUE
 	can_flashlight = TRUE
-
-/obj/item/gun/projectile/automatic/pistol/enforcer/New()
-	..()
-	options["Grey slide"] = "enforcer_grey"
-	options["Red slide"] = "enforcer_red"
-	options["Green slide"] = "enforcer_green"
-	options["Tan slide"] = "enforcer_tan"
-	options["Black slide"] = "enforcer_black"
-	options["Green Handle"] = "enforcer_greengrip"
-	options["Tan Handle"] = "enforcer_tangrip"
-	options["Red Handle"] = "enforcer_redgrip"
-	//options["Cancel"] = null HISPANIA RADIALS
+	options = list(
+		"Grey slide" = "enforcer_grey",
+		"Red slide" = "enforcer_red",
+		"Green slide" = "enforcer_green",
+		"Tan slide" = "enforcer_tan",
+		"Black slide" = "enforcer_black",
+		"Green Handle" = "enforcer_greengrip",
+		"Tan Handle" = "enforcer_tangrip",
+		"Red Handle" = "enforcer_redgrip",
+	)
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_icon()
 	..()

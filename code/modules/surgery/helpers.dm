@@ -11,6 +11,9 @@
 								/obj/item/weldingtool = 30
 								)
 
+		if(M == user)
+			return // no self surgery
+
 		if(istype(M, /mob/living/carbon/human))
 			H = M
 			affecting = H.get_organ(check_zone(selected_zone))

@@ -89,3 +89,14 @@
 	new_name = "\"Patriot\""
 	new_desc = "A mech made of plasteel with a beautiful venezuelan flag painted on top of it."
 	allowed_types = list("odysseus")
+
+//RIPLEY LEGION//
+/obj/item/paintkit/skull_legion
+	name = "Skull Mech Paintkit"
+	desc = "A kit containing all the needed tools and parts to turn an ordinary APLU into a Skull-Mech."
+	new_icon_carpet = 'icons/hispania/mecha/mecha.dmi'
+	icon_state = "paintkit_2"
+	new_icon = "skullmech"
+	new_name = "Skull-Mech"
+	new_desc = "A mech reinforced by the skulls from and ancient monster"
+	allowed_types = list("ripley","firefighter")

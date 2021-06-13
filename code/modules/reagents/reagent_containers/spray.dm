@@ -131,6 +131,9 @@
 	volume = 50
 	list_reagents = list("cleaner" = 50)
 
+/obj/item/reagent_containers/spray/cleaner/drone/cyborg_recharge(coeff, emagged)
+	reagents.check_and_add("cleaner", volume, 3 * coeff)
+
 //spray tan
 /obj/item/reagent_containers/spray/spraytan
 	name = "spray tan"

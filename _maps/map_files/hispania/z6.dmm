@@ -9415,7 +9415,7 @@
 	})
 "uQ" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/beetsoup,
+/obj/item/reagent_containers/food/snacks/soup/beetsoup,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

@@ -52,6 +52,8 @@
 			do_sparks(5, 0, src)
 			var/obj/item/paper/monitorkey/MK = new/obj/item/paper/monitorkey
 			MK.loc = src.loc
+			MK.pixel_y = rand(-10, -8)
+			MK.pixel_x = rand(-9, 9)
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			// Will help make emagging the console not so easy to get away with.
 			MK.info += "<br><br><font color='red'>�%@%(*$%&(�&?*(%&�/{}</font>"

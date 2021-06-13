@@ -23,6 +23,7 @@
 /obj/item/reagent_containers/dropper/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
+	dropperdump(target, user) //Hispania Dropperdump
 	var/to_transfer = 0
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target

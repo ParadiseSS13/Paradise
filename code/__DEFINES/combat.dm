@@ -38,6 +38,7 @@
 #define CANPUSH			8
 #define PASSEMOTES		16 //Mob has a cortical borer or holders inside of it that need to see emotes.
 #define GODMODE			32
+#define MOAED			64 // Hispania, evita daño de oxy
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0

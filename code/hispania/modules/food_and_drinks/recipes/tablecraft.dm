@@ -18,3 +18,14 @@
 	result = list(/obj/item/reagent_containers/food/snacks/baconrolled)
 	category = CAT_FOOD
 	subcategory = CAT_SANDWICH
+
+/datum/crafting_recipe/salmoncreamtoast
+	name = "Salmon Cream cheese toast"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/baguette = 1,
+		/obj/item/reagent_containers/food/snacks/smokedsalmon = 1,
+		/obj/item/reagent_containers/food/snacks/cream_cheese = 1,
+	)
+	result = list(/obj/item/reagent_containers/food/snacks/salmoncreamtoast)
+	category = CAT_FOOD
+	subcategory = CAT_SANDWICH

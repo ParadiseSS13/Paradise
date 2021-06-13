@@ -97,3 +97,114 @@
 				/obj/item/healthanalyzer = 1)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_MISC
+
+///Hand Made Splint///
+/datum/crafting_recipe/hand_made_splint
+	name = "Hand Made Splint"
+	result = list(/obj/item/stack/medical/splint/hand_made)
+	time = 30
+	reqs = list(/obj/item/stack/cable_coil = 10,
+		        /obj/item/stack/tape_roll = 15,
+		        /obj/item/stack/rods = 20)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/earthly_cataplasm
+	name = "Earthly Herbal Cataplasm"
+	result = list(/obj/item/stack/medical/ointment/earthly_cataplasm)
+	time = 40
+	reqs = list(/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf = 4,
+		        /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap = 4,
+				/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit = 4)
+
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/fiery_cataplasm
+	name = "Fiery Herbal Cataplasm"
+	result = list(/obj/item/stack/medical/ointment/earthly_cataplasm/fiery_cataplasm)
+	time = 40
+	reqs = list(/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf = 4,
+		        /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap= 4,
+		        /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_stem = 4)
+	category = CAT_PRIMAL
+
+///Lavaland Stuff///
+/datum/crafting_recipe/plaz_lamp
+	name = "Plazmite Lamp"
+	result = list(/obj/item/flashlight/lamp/plazlamp)
+	time = 50
+	reqs = list(/obj/item/stack/sheet/bone = 2,
+				 /obj/item/stack/sheet/sinew = 3,
+				 /obj/item/stack/sheet/cartiplaz = 6)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/watchebelt
+	name = "Sinew Belt"
+	result = list(/obj/item/storage/belt/mining/primitive)
+	time = 80
+	reqs = list(/obj/item/stack/sheet/bone = 4,
+				 /obj/item/stack/sheet/sinew = 4)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/lighterbelt
+	name = "Lighter Explorer's Webbing"
+	result = list(/obj/item/storage/belt/mining/alt)
+	time = 60
+	reqs = list(/obj/item/stack/sheet/leather = 2,
+				/obj/item/storage/belt/mining = 1)
+	pathtools = list(/obj/item/kitchen/knife)
+	category = CAT_PRIMAL
+
+///Medkits///
+
+/datum/crafting_recipe/whitemedkit
+	name = "White Medkit"
+	time = 20
+	result = list(/obj/item/storage/firstaid)
+	reqs = list(/obj/item/stack/sheet/plastic = 5)
+	tools = list(TOOL_WIRECUTTER)
+	category = CAT_MISC
+
+/datum/crafting_recipe/yellowmedkit
+	name = "Yellow Medkit"
+	time = 20
+	result = list(/obj/item/storage/firstaid/fire/empty)
+	reqs = list(/obj/item/stack/sheet/plastic = 5)
+	tools = list(TOOL_WIRECUTTER)
+	pathtools = list(/obj/item/toy/crayon/spraycan)
+	category = CAT_MISC
+
+/datum/crafting_recipe/greenmedkit
+	name = "Green Medkit"
+	time = 20
+	result = list(/obj/item/storage/firstaid/toxin/empty)
+	reqs = list(/obj/item/stack/sheet/plastic = 5)
+	tools = list(TOOL_WIRECUTTER)
+	pathtools = list(/obj/item/toy/crayon/spraycan)
+	category = CAT_MISC
+
+/datum/crafting_recipe/lightbluemedkit
+	name = "Light blue Medkit"
+	time = 20
+	result = list(/obj/item/storage/firstaid/o2/empty)
+	reqs = list(/obj/item/stack/sheet/plastic = 5)
+	tools = list(TOOL_WIRECUTTER)
+	pathtools = list(/obj/item/toy/crayon/spraycan)
+	category = CAT_MISC
+
+/datum/crafting_recipe/pinkmedkit
+	name = "Pink Medkit"
+	time = 20
+	result = list(/obj/item/storage/firstaid/brute/empty)
+	reqs = list(/obj/item/stack/sheet/plastic = 5)
+	tools = list(TOOL_WIRECUTTER)
+	pathtools = list(/obj/item/toy/crayon/spraycan)
+	category = CAT_MISC
+
+/datum/crafting_recipe/redmedkit
+	name = "Red Medkit"
+	time = 20
+	result = list(/obj/item/storage/firstaid/adv/empty)
+	reqs = list(/obj/item/stack/sheet/plastic = 5)
+	tools = list(TOOL_WIRECUTTER)
+	pathtools = list(/obj/item/toy/crayon/spraycan)
+	category = CAT_MISC

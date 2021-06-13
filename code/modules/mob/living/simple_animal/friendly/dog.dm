@@ -140,8 +140,8 @@
 
 
 	var/dat = 	"<div align='center'><b>Inventory of [name]</b></div><p>"
-	dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[inventory_head]" : "add_inv=head'>Nothing"]</A>"
-	dat += "<br><B>Back:</B> <A href='?src=[UID()];[inventory_back ? "remove_inv=back'>[inventory_back]" : "add_inv=back'>Nothing"]</A>"
+	dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[html_encode(inventory_head)]" : "add_inv=head'>Nothing"]</A>"
+	dat += "<br><B>Back:</B> <A href='?src=[UID()];[inventory_back ? "remove_inv=back'>[html_encode(inventory_back)]" : "add_inv=back'>Nothing"]</A>"
 	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
 
 	var/datum/browser/popup = new(user, "mob[UID()]", "[src]", 440, 250)
@@ -503,53 +503,58 @@
 /mob/living/simple_animal/pet/dog/corgi/Ian/handle_automated_movement()
 	. = ..()
 	//Feeding, chasing food, FOOOOODDDD
-	if(!resting && !buckled)
-		turns_since_scan++
-		if(turns_since_scan > 5)
-			turns_since_scan = 0
-			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
-				movement_target = null
-				stop_automated_movement = 0
-			if( !movement_target || !(movement_target.loc in oview(src, 3)) )
-				movement_target = null
-				stop_automated_movement = 0
-				for(var/obj/item/reagent_containers/food/snacks/S in oview(src,3))
-					if(isturf(S.loc) || ishuman(S.loc))
-						movement_target = S
+	if(resting || buckled)
+		return
+
+	if(++turns_since_scan > 5)
+		turns_since_scan = 0
+
+		// Has a target, but it's not where it was before, and it wasn't picked up by someone.
+		if(movement_target && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
+			movement_target = null
+			stop_automated_movement = FALSE
+
+		// No current target, or current target is out of range.
+		var/list/snack_range = oview(src, 3)
+		if(!movement_target || !(movement_target.loc in snack_range))
+			movement_target = null
+			stop_automated_movement = FALSE
+			var/obj/item/possible_target = null
+			for(var/I in snack_range)
+				if(istype(I, /obj/item/reagent_containers/food/snacks)) // Noms
+					possible_target = I
+					break
+				else if(istype(I, /obj/item/paper)) // Important noms
+					if(prob(10))
+						possible_target = I
 						break
-			if(movement_target)
-				spawn(0)
-					stop_automated_movement = 1
-					step_to(src,movement_target,1)
-					sleep(3)
-					step_to(src,movement_target,1)
-					sleep(3)
-					step_to(src,movement_target,1)
+			if(possible_target && (isturf(possible_target.loc) || ishuman(possible_target.loc))) // On the ground or in someone's hand.
+				movement_target = possible_target
+		if(movement_target)
+			INVOKE_ASYNC(src, .proc/move_to_target)
 
-					if(movement_target)		//Not redundant due to sleeps, Item can be gone in 6 decisecomds
-						if(movement_target.loc.x < src.x)
-							dir = WEST
-						else if(movement_target.loc.x > src.x)
-							dir = EAST
-						else if(movement_target.loc.y < src.y)
-							dir = SOUTH
-						else if(movement_target.loc.y > src.y)
-							dir = NORTH
-						else
-							dir = SOUTH
+	if(prob(1))
+		chasetail()
 
-						if(!Adjacent(movement_target)) //can't reach food through windows.
-							return
+/mob/living/simple_animal/pet/dog/corgi/Ian/proc/move_to_target()
+	stop_automated_movement = TRUE
+	step_to(src, movement_target, 1)
+	sleep(3)
+	step_to(src, movement_target, 1)
+	sleep(3)
+	step_to(src, movement_target, 1)
 
-						if(isturf(movement_target.loc) )
-							movement_target.attack_animal(src)
-						else if(ishuman(movement_target.loc) )
-							if(prob(20))
-								custom_emote(1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
+	if(movement_target) // Not redundant due to sleeps, Item can be gone in 6 deciseconds
+		// Face towards the thing
+		dir = get_dir(src, movement_target)
 
-		if(prob(1))
-			custom_emote(1, pick("dances around.","chases its tail!"))
-			spin(20, 1)
+		if(!Adjacent(movement_target)) //can't reach food through windows.
+			return
+
+		if(isturf(movement_target.loc))
+			movement_target.attack_animal(src) // Eat the thing
+		else if(prob(30) && ishuman(movement_target.loc)) // mean hooman has stolen it
+			custom_emote(EMOTE_VISUAL, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face.")
 
 /obj/item/reagent_containers/food/snacks/meat/corgi
 	name = "Corgi meat"

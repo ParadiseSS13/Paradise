@@ -119,8 +119,14 @@
 	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
 	var/list/speech_chance                   // The likelihood of a speech sound playing.
 	var/scream_verb = "screams"
-	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
-	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
+	//var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
+	//var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
+	//HISPANIA SOUNDS STARTS HERE
+	var/list/male_scream_sound = list('sound/hispania/voice/human/malescream_1.ogg', 'sound/hispania/voice/human/malescream_2.ogg', 'sound/hispania/voice/human/malescream_3.ogg', 'sound/hispania/voice/human/malescream_4.ogg', 'sound/hispania/voice/human/malescream_5.ogg')
+	var/list/female_scream_sound =  list('sound/hispania/voice/human/femalescream_1.ogg', 'sound/hispania/voice/human/femalescream_2.ogg', 'sound/hispania/voice/human/femalescream_3.ogg', 'sound/hispania/voice/human/femalescream_4.ogg', 'sound/hispania/voice/human/femalescream_5.ogg')
+	var/list/male_laughs_sound  = list('sound/hispania/voice/human/manlaugh.ogg')
+	var/list/female_laughs_sound = list('sound/hispania/voice/human/womanlaugh.ogg')
+	//HISPANIA SOUNDS ENDS HERE
 	var/list/death_sounds = list('sound/goonstation/voice/deathgasp_1.ogg', 'sound/goonstation/voice/deathgasp_2.ogg')
 	var/list/male_dying_gasp_sounds = list('sound/goonstation/voice/male_dying_gasp_1.ogg', 'sound/goonstation/voice/male_dying_gasp_2.ogg', 'sound/goonstation/voice/male_dying_gasp_3.ogg', 'sound/goonstation/voice/male_dying_gasp_4.ogg', 'sound/goonstation/voice/male_dying_gasp_5.ogg')
 	var/list/female_dying_gasp_sounds = list('sound/goonstation/voice/female_dying_gasp_1.ogg', 'sound/goonstation/voice/female_dying_gasp_2.ogg', 'sound/goonstation/voice/female_dying_gasp_3.ogg', 'sound/goonstation/voice/female_dying_gasp_4.ogg', 'sound/goonstation/voice/female_dying_gasp_5.ogg')

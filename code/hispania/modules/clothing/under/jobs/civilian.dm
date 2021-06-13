@@ -24,3 +24,19 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	item_color = "captain_light"
 	hispania_icon = TRUE
 	species_restricted = list("exclude", "Grey", "Vox")
+
+/obj/item/clothing/under/rank/chaplain/elzra
+	name = "Elzra's Acolyte Robes"
+	desc = "A long acolyte robes for the high religious priests of the order of the great lady (lady elzra) made of silk. Made by D&N Corp."
+	icon_state = "elzramale"
+	item_state = "elzramale"
+	item_color = "elzramale"
+	hispania_icon = TRUE
+	species_restricted = list("exclude", "Grey", "Vox")
+
+/obj/item/clothing/under/rank/chaplain/elzra/female
+	name = "Elzra's Acolyte Female Robes"
+	desc = "A female long acolyte robes for high religious priests of the order of the great lady (lady elzra) made of silk, it have a small ruby on it. Made by D&N Corp."
+	icon_state = "elzrafem"
+	item_state = "elzrafem"
+	item_color = "elzrafem"

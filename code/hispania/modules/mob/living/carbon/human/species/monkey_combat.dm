@@ -115,7 +115,7 @@
 		walk_to(src,0)
 		return FALSE
 
-	if(on_fire || buckled || restrained())
+	if(on_fire || buckled || restrained() || is_muzzled())
 		if(!resisting && prob(MONKEY_RESIST_PROB))
 			resisting = TRUE
 			walk_to(src,0)
@@ -164,14 +164,6 @@
 				walk2derpless(pickupTarget.loc)
 		return TRUE
 
-	// nuh uh you don't pull me!
-	if(pulledby && (mode != MONKEY_IDLE || prob(MONKEY_PULL_AGGRO_PROB)))
-		if(Adjacent(pulledby))
-			a_intent = INTENT_DISARM
-			monkey_attack(pulledby)
-			retaliate(pulledby)
-			return TRUE
-
 	switch(mode)
 		if(MONKEY_IDLE)		// idle
 
@@ -214,13 +206,23 @@
 				mode = MONKEY_FLEE
 				return TRUE*/
 
+			// nuh uh you don't pull me!
+			if(pulledby)
+				if(Adjacent(pulledby))
+					a_intent = INTENT_DISARM
+					monkey_attack(pulledby)
+					retaliate(pulledby)
+					return TRUE
+
 			if(target != null )
 				walk2derpless(target)
 
 			//drop shitty items that wont help him
 			if(locate(/obj/item) in get_both_hands(src))
 				var/obj/item/I = locate(/obj/item) in get_both_hands(src)
-				if(I.force == 0)
+				if(istype(I, /obj/item/restraints/handcuffs))
+					resist()
+				else if(I.force == 0)
 					unEquip(I)
 
 			// pickup any nearby weapon
@@ -314,12 +316,15 @@
 
 // attack using a held weapon otherwise bite the enemy, then if we are angry there is a chance we might calm down a little
 /mob/living/carbon/human/proc/monkey_attack(mob/living/L)
-	var/obj/item/melee/Weapon = locate(/obj/item) in get_both_hands(src)
+	var/obj/item/Weapon = locate(/obj/item) in get_both_hands(src)
 
 	// attack with weapon if we have one
 	if(Weapon)
 		L.attackby(Weapon, src)
 	else
+		if(is_muzzled())
+			resist_muzzle()
+			return
 		L.attack_animal(src)
 
 	// no de-aggro

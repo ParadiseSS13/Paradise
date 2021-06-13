@@ -37,3 +37,13 @@
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 2000, MAT_PLASMA = 1500, MAT_URANIUM = 1500, MAT_TITANIUM = 1500)
 	category = list("Tool Designs")
+
+/datum/design/moa
+	name = "M.O.A"
+	desc = "(Medbay Oxygen Asissistant) A oxigen assistant that will be sending oxygen to the pacient over a period of time."
+	id = "m.o.a"
+	req_tech = list("materials" = 5, "biotech" = 4, "engineering" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=6000, MAT_GLASS=800, MAT_TITANIUM = 850)
+	build_path = /obj/item/reagent_containers/moa
+	category = list("Medical")

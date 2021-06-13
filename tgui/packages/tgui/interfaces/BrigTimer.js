@@ -89,30 +89,38 @@ export const BrigTimer = (props, context) => {
                 )}
               </LabeledList.Item>
               <LabeledList.Item label="Prisoner Crimes">
-                <Button
-                  icon="pencil-alt"
-                  content={data.prisoner_charge
-                    ? data.prisoner_charge
-                    : "-----"}
-                  disabled={!data.isAllowed}
-                  onClick={() => act('prisoner_charge')} />
+                <Fragment>
+                  <Button
+                    icon="file-signature"
+                    content="Add Crimes"
+                    disabled={!data.isAllowed}
+                    onClick={() => act('prisoner_charge')} />
+                  <Button
+                    icon="trash-alt"
+                    content="Clear Crimes"
+                    disabled={!data.isAllowed}
+                    onClick={() => act('clear_crimes')} />
+                  <LabeledList.Item label="Crimes">
+                    {data.prisoner_charge}
+                  </LabeledList.Item>
+                </Fragment>
               </LabeledList.Item>
               <LabeledList.Item label="Prisoner Time">
-                <Button
-                  icon="pencil-alt"
-                  content={data.prisoner_time ? data.prisoner_time : "-----"}
-                  disabled={!data.isAllowed}
-                  onClick={() => act('prisoner_time')} />
-              </LabeledList.Item>
-              <LabeledList.Item label="Start">
-                <Button
-                  icon="gavel"
-                  content="Start Sentence"
-                  disabled={!data.prisoner_name
-                  || !data.prisoner_charge
-                  || !data.prisoner_time
-                  || !data.isAllowed}
-                  onClick={() => act('start')} />
+                <Fragment>
+                  <Button
+                    icon="pencil-alt"
+                    content={data.prisoner_time ? data.prisoner_time : "-----"}
+                    disabled={!data.isAllowed}
+                    onClick={() => act('prisoner_time')} />
+                  <Button
+                    icon="gavel"
+                    content="Start Sentence"
+                    disabled={!data.prisoner_name
+                    || !data.prisoner_charge
+                    || !data.prisoner_time
+                    || !data.isAllowed}
+                    onClick={() => act('start')} />
+                </Fragment>
               </LabeledList.Item>
             </LabeledList>
           </Section>

@@ -90,6 +90,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		if(cure && prob(cure_chance))
 			cure()
 			return FALSE
+	if(affected_mob.status_flags & MOAED && prob(50)) return FALSE // 50% De no conseguir ningun sintoma al estar en un MOA
 	return TRUE
 
 
