@@ -4,6 +4,13 @@
 	icon = 'icons/hispania/obj/clothing/masks.dmi'
 	icon_state = "cloaker"
 	item_state = "cloaker"
+	hispania_icon = TRUE
+	sprite_sheets = list(
+	"Vox" = 'icons/hispania/mob/species/vox/mask.dmi',
+	"Grey" = 'icons/hispania/mob/species/grey/mask.dmi',
+	"Unathi" = 'icons/hispania/mob/species/unathi/mask.dmi',
+	"Drask" = 'icons/hispania/mob/species/drask/mask.dmi',
+	"Tajaran" = 'icons/hispania/mob/species/tajaran/mask.dmi')
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 	phrase_list = list(
 
