@@ -29,7 +29,7 @@
 	melee_damage_lower = 40
 	melee_damage_upper = 40
 	vision_range = 9
-	aggro_vision_range = 18 // man-eating for a reason
+	aggro_vision_range = 10 // man-eating for a reason weird shit
 	speed = 6
 	move_to_delay = 6
 	rapid_melee = 8
@@ -53,7 +53,7 @@
 	var/stomp_range = 1
 	var/stored_move_dirs = 0
 	var/can_move = TRUE
-	var/scream_cooldown_time = 10 SECONDS
+	var/scream_cooldown_time = 20 SECONDS
 	COOLDOWN_DECLARE(scream_cooldown)
 
 /obj/item/gps/internal/wendigo
