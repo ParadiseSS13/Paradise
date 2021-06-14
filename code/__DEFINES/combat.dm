@@ -32,18 +32,12 @@
 #define OBLITERATION 32
 
 //Bitflags defining which status effects could be or are inflicted on a mob
-#define CANSTUN		1
-#define CANWEAKEN	2
-#define CANPARALYSE	4
-#define CANPUSH		8
-#define PASSEMOTES	16      //Mob has a cortical borer or holders inside of it that need to see emotes.
-#define GOTTAGOFAST	32
-#define IGNORESLOWDOWN	128
-#define IGNORE_SPEED_CHANGES	256
-#define GOTTAGONOTSOFAST 512 //This is used for nukacola, mormal meth is a "1" speed up, nuka is 0.5 and they don't stack, feel free to use this one somewhere else
-#define GODMODE		4096
-#define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
-#define XENO_HOST	16384	//Tracks whether we're gonna be a baby alien's mummy.
+#define CANSTUN			1
+#define CANWEAKEN		2
+#define CANPARALYSE		4
+#define CANPUSH			8
+#define PASSEMOTES		16 //Mob has a cortical borer or holders inside of it that need to see emotes.
+#define GODMODE			32
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0

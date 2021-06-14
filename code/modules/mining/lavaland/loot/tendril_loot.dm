@@ -189,14 +189,14 @@
 
 /datum/crafting_recipe/oar
 	name = "goliath bone oar"
-	result = /obj/item/oar
+	result = list(/obj/item/oar)
 	reqs = list(/obj/item/stack/sheet/bone = 2)
 	time = 15
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/boat
 	name = "goliath hide boat"
-	result = /obj/vehicle/lavaboat
+	result = list(/obj/vehicle/lavaboat)
 	reqs = list(/obj/item/stack/sheet/animalhide/goliath_hide = 3)
 	time = 50
 	category = CAT_PRIMAL
@@ -300,6 +300,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "blue_cube"
 	var/obj/item/warp_cube/linked
+	var/cooldown = FALSE
 
 /obj/item/warp_cube/Destroy()
 	if(linked)
@@ -315,6 +316,9 @@
 	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
 		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
+	if(cooldown)
+		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
+		return
 
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1, 0, user.loc)
@@ -326,6 +330,13 @@
 	var/datum/effect_system/smoke_spread/smoke2 = new
 	smoke2.set_up(1, 0, user.loc)
 	smoke2.start()
+	cooldown = TRUE
+	linked.cooldown = TRUE
+	addtimer(CALLBACK(src, .proc/reset), 20 SECONDS)
+
+/obj/item/warp_cube/proc/reset()
+	cooldown = FALSE
+	linked.cooldown = FALSE
 
 /obj/item/warp_cube/red
 	name = "red cube"

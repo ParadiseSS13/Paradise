@@ -4,8 +4,12 @@
 	set desc = "Type what you want to know about.  This will open the wiki in your web browser."
 	set hidden = 1
 	if(config.wikiurl)
-		if(alert("Open the wiki in your browser?", null, "Yes", "No") == "Yes")
+		var/query = stripped_input(src, "Enter Search:", "Wiki Search", "Homepage")
+		if(query == "Homepage")
 			src << link(config.wikiurl)
+		else if(query)
+			var/output = config.wikiurl + "/index.php?title=Special%3ASearch&profile=default&search=" + query
+			src << link(output)
 	else
 		to_chat(src, "<span class='danger'>The wiki URL is not set in the server configuration.</span>")
 	return

@@ -12,6 +12,8 @@
 	item_state = "crowbar"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
+	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
+	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 	toolspeed = 1

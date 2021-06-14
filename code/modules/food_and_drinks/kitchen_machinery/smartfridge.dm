@@ -133,7 +133,7 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/smartfridge/attackby(obj/item/O, var/mob/user)
+/obj/machinery/smartfridge/attackby(obj/item/O, mob/user)
 	if(exchange_parts(user, O))
 		SStgui.update_uis(src)
 		return

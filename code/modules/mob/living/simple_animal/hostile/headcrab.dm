@@ -76,9 +76,9 @@
 	attacktext = "bites"
 	attack_sound = 'sound/creatures/zombie_attack.ogg'
 	icon_state = "zombie2_s"
-	if(head_organ)
+	if(head_organ && !(NO_HAIR in H.dna.species.species_traits))
 		head_organ.h_style = null
-	H.update_hair()
+		H.update_hair()
 	host_species = H.dna.species.name
 	human_overlays = H.overlays
 	update_icons()

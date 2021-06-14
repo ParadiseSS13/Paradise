@@ -178,7 +178,7 @@
 			return
 
 		if(queen_bee)
-			visible_message("<span class='notice'>[user] sets [qb] down inside the apiary, making it [user.p_their()] new home.</span>")
+			visible_message("<span class='notice'>[user] sets [qb] down inside the apiary, making it [qb.p_their()] new home.</span>")
 			var/relocated = 0
 			for(var/b in bees)
 				var/mob/living/simple_animal/hostile/poison/bees/B = b

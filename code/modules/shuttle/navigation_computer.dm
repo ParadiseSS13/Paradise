@@ -11,10 +11,7 @@
 	var/shuttlePortName = "custom location"
 	var/list/jumpto_ports = list() //list of ports to jump to
 	var/access_station = TRUE //can we park near X?
-	var/access_tcomms = TRUE
-	var/access_construction = TRUE
 	var/access_mining = TRUE
-	var/access_derelict = FALSE
 	var/obj/docking_port/stationary/my_port //the custom docking port placed by this console
 	var/obj/docking_port/mobile/shuttle_port //the mobile docking port of the connected shuttle
 	var/view_range = 7
@@ -29,17 +26,13 @@
 	. = ..()
 	GLOB.navigation_computers += src
 	if(access_station)
-		jumpto_ports += list("nav_z1" = 1)
-	if(access_tcomms)
-		jumpto_ports += list("nav_z3" = 1)
+		jumpto_ports += list("nav_z[level_name_to_num(MAIN_STATION)]" = 1)
 	if(access_mining)
-		jumpto_ports += list("nav_z5" = 1)
-	if(access_derelict)
-		jumpto_ports += list("nav_z6" = 1)
+		jumpto_ports += list("nav_z[level_name_to_num(MINING)]" = 1)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/Destroy()
-	. = ..()
 	GLOB.navigation_computers -= src
+	return ..()
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/attack_hand(mob/user)
 	if(!shuttle_port && !SSshuttle.getShuttle(shuttleId))

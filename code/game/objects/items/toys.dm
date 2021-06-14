@@ -271,7 +271,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/ash_type = /obj/effect/decal/cleanable/ash
 
-/obj/item/toy/snappop/proc/pop_burst(var/n=3, var/c=1)
+/obj/item/toy/snappop/proc/pop_burst(n=3, c=1)
 	do_sparks(n, c, src)
 	new ash_type(loc)
 	visible_message("<span class='warning'>[src] explodes!</span>",
@@ -1226,6 +1226,7 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "demonomicon"
 	w_class = WEIGHT_CLASS_SMALL
+	var/list/messages = list("You must challenge the devil to a dance-off!", "The devils true name is Ian", "The devil hates salt!", "Would you like infinite power?", "Would you like infinite wisdom?", " Would you like infinite healing?")
 	var/cooldown = FALSE
 
 /obj/item/toy/codex_gigas/attack_self(mob/user)
@@ -1234,21 +1235,12 @@
 			"<span class='notice'>[user] presses the button on \the [src].</span>",
 			"<span class='notice'>You press the button on \the [src].</span>",
 			"<span class='notice'>You hear a soft click.</span>")
-		var/list/messages = list()
-		var/datum/devilinfo/devil = randomDevilInfo()
-		messages += "Some fun facts about: [devil.truename]"
-		messages += "[GLOB.lawlorify[LORE][devil.bane]]"
-		messages += "[GLOB.lawlorify[LORE][devil.obligation]]"
-		messages += "[GLOB.lawlorify[LORE][devil.ban]]"
-		messages += "[GLOB.lawlorify[LORE][devil.banish]]"
-		playsound(loc, 'sound/machines/click.ogg', 20, 1)
+		playsound(loc, 'sound/machines/click.ogg', 20, TRUE)
 		cooldown = TRUE
-		for(var/message in messages)
+		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 60)
+		for(var/message in pick(messages))
 			user.loc.visible_message("<span class='danger'>[bicon(src)] [message]</span>")
 			sleep(10)
-		spawn(20)
-			cooldown = FALSE
-		return
 
 /obj/item/toy/owl
 	name = "owl action figure"
@@ -1372,7 +1364,7 @@
 	var/cooldown = 0
 	var/obj/stored_minature = null
 
-/obj/item/toy/minigibber/attack_self(var/mob/user)
+/obj/item/toy/minigibber/attack_self(mob/user)
 
 	if(stored_minature)
 		to_chat(user, "<span class='danger'>\The [src] makes a violent grinding noise as it tears apart the miniature figure inside!</span>")
@@ -1385,7 +1377,7 @@
 		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, 1)
 		cooldown = world.time
 
-/obj/item/toy/minigibber/attackby(var/obj/O, var/mob/user, params)
+/obj/item/toy/minigibber/attackby(obj/O, mob/user, params)
 	if(istype(O,/obj/item/toy/character) && O.loc == user)
 		to_chat(user, "<span class='notice'>You start feeding \the [O] [bicon(O)] into \the [src]'s mini-input.</span>")
 		if(do_after(user, 10, target = src))
@@ -1525,7 +1517,7 @@
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
 	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
-	SEND_SOUND(user, 'sound/misc/sadtrombone.ogg') //HONK
+	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
 /*
  * Rubber Chainsaw
  */

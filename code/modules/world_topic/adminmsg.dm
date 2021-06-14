@@ -26,7 +26,7 @@
 	C.received_discord_pm = world.time
 	C.last_discord_pm_time = 0
 
-	SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
+	SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 	to_chat(C, message)
 
 	for(var/client/A in GLOB.admins)

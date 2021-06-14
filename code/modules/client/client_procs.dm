@@ -8,8 +8,8 @@
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
 #define MIN_CLIENT_VERSION	513		// Minimum byond major version required to play.
 									//I would just like the code ready should it ever need to be used.
-#define SUGGESTED_CLIENT_VERSION	513		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
-#define SUGGESTED_CLIENT_BUILD	1536		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
+#define SUGGESTED_CLIENT_VERSION	513		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1542
+#define SUGGESTED_CLIENT_BUILD	1542		// only integers (e.g: 1542, 1543) are useful here. This is the part AFTER the ".", IE 1542 out of 513.1542
 
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
@@ -191,6 +191,7 @@
 	if(href_list["ssdwarning"])
 		ssd_warning_acknowledged = TRUE
 		to_chat(src, "<span class='notice'>SSD warning acknowledged.</span>")
+		return
 	if(href_list["link_forum_account"])
 		link_forum_account()
 		return // prevents a recursive loop where the ..() 5 lines after this makes the proc endlessly re-call itself
@@ -210,7 +211,7 @@
 /client/proc/setDir(newdir)
 	dir = newdir
 
-/client/proc/handle_spam_prevention(var/message, var/mute_type, var/throttle = 0)
+/client/proc/handle_spam_prevention(message, mute_type, throttle = 0)
 	if(throttle)
 		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
 			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
@@ -367,6 +368,8 @@
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
 
+	update_ambience_pref()
+
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
@@ -389,6 +392,13 @@
 	if((playercount < threshold) && (GLOB.panic_bunker_enabled == TRUE))
 		GLOB.panic_bunker_enabled = FALSE
 		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
+
+	// Tell clients about active testmerges
+	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
+		to_chat(src, GLOB.revision_info.get_testmerge_chatmessage(TRUE))
+
+	INVOKE_ASYNC(src, .proc/cid_count_check)
+
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
@@ -414,6 +424,7 @@
 	if(movingmob)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
+	SSambience.ambience_listening_clients -= src
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
@@ -524,6 +535,7 @@
 	if(watchreason)
 		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
 		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
+		watchlisted = TRUE
 
 
 	//Just the standard check to see if it's actually a number
@@ -576,15 +588,7 @@
 		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, TRUE) // Async to avoid other procs in the client chain being delayed by a web request
 
 	// Log player connections to DB
-	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`,`ckey`,`ip`,`computerid`) VALUES(Now(), :ckey, :ip, :cid)", list(
-		"ckey" = ckey,
-		"ip" = "[address ? address : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
-		"cid" = computer_id
-	))
-	// We do nothing with output here, or anything else after, so we dont need to if() wrap it
-	// If you ever extend this proc below this point, please wrap these with an if() in the same way its done above
-	query_accesslog.warn_execute()
-	qdel(query_accesslog)
+	INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey, address, computer_id, CONNECTION_TYPE_ESTABLISHED)
 
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
@@ -676,7 +680,7 @@
 	if(query_find_link.NextRow())
 		if(query_find_link.item[1])
 			if(!fromban)
-				to_chat(src, "Your forum account is already set. (" + query_find_link.item[1] + ")")
+				to_chat(src, "Your forum account is already set. ([query_find_link.item[1]])")
 			qdel(query_find_link)
 			return
 	qdel(query_find_link)
@@ -1138,6 +1142,92 @@
 	qdel(query)
 	// If we are here, they have not accepted, and need to read it
 	return FALSE
+
+/**
+  * Checks if the client has more than a configured amount of CIDs tied to them in the past
+  */
+/client/proc/cid_count_check()
+	// If the config is 0, disable this
+	if(config.max_client_cid_history == 0)
+		return
+
+	// If we have no DB, dont even bother
+	if(!SSdbcore.IsConnected())
+		return
+
+	// Now query how many cids they have
+	var/datum/db_query/query_cidcheck = SSdbcore.NewQuery("SELECT COUNT(DISTINCT computerID) FROM connection_log WHERE ckey=:ckey", list(
+		"ckey" = ckey
+	))
+	if(!query_cidcheck.warn_execute())
+		qdel(query_cidcheck)
+		return
+
+	var/cidcount = 0
+	if(query_cidcheck.NextRow())
+		cidcount = query_cidcheck.item[1]
+	qdel(query_cidcheck)
+
+	if(cidcount > config.max_client_cid_history)
+		// Check their notes for CID tracking in the past
+		var/has_note = FALSE
+		var/note_text = ""
+		var/datum/db_query/query_find_track_note = SSdbcore.NewQuery("SELECT notetext FROM [format_table_name("notes")] WHERE ckey=:ckey AND adminckey=:ackey", list(
+			"ckey" = ckey,
+			"ackey" = CIDTRACKING_PSUEDO_CKEY
+		))
+		if(!query_find_track_note.warn_execute())
+			qdel(query_find_track_note)
+			return
+		if(query_find_track_note.NextRow())
+			note_text = query_find_track_note.item[1] // Grab existing note text
+			has_note = TRUE
+		qdel(query_find_track_note)
+
+
+		if(has_note) // They have a note. Update it.
+			var/new_text = "Connected on the date of this note with unique CID #[cidcount]"
+			// Only update the note if the text is different. Otherwise it bumps the timestamp when it shouldnt
+			if(note_text != new_text)
+				var/datum/db_query/query_update_track_note = SSdbcore.NewQuery("UPDATE [format_table_name("notes")] SET notetext=:notetext, timestamp=NOW(), round_id=:rid WHERE ckey=:ckey AND adminckey=:ackey", list(
+					"notetext" = new_text,
+					"ckey" = ckey,
+					"ackey" = CIDTRACKING_PSUEDO_CKEY,
+					"rid" = GLOB.round_id
+				))
+				if(!query_update_track_note.warn_execute())
+					qdel(query_update_track_note)
+					return
+				qdel(query_update_track_note)
+
+		else // They dont have a note. Make one.
+			// NOT logged because its automatic and will spam logs otherwise
+			// Also right checking must be disabled because its a psuedockey, not a real one
+			add_note(ckey, "Connected on the date of this note with unique CID #[cidcount]", adminckey = CIDTRACKING_PSUEDO_CKEY, logged = FALSE, checkrights = FALSE, automated = TRUE)
+
+		var/show_warning = TRUE
+		// Check if they have a note that matches the warning suppressor
+		var/datum/db_query/query_find_note = SSdbcore.NewQuery("SELECT id FROM [format_table_name("notes")] WHERE ckey=:ckey AND notetext=:notetext", list(
+			"ckey" = ckey,
+			"notetext" = CIDWARNING_SUPPRESSED_NOTETEXT
+		))
+		if(!query_find_note.warn_execute())
+			qdel(query_find_note)
+			return
+		if(query_find_note.NextRow())
+			show_warning = FALSE
+		qdel(query_find_note)
+
+		if(show_warning)
+			message_admins("<font color='red'>[ckey] has just connected and has a history of [cidcount] different CIDs.</font> (<a href='?_src_=holder;webtools=[ckey]'>WebInfo</a>) (<a href='?_src_=holder;suppresscidwarning=[ckey]'>Suppress Warning</a>)")
+
+/client/proc/update_ambience_pref()
+	if(prefs.sound & SOUND_AMBIENCE)
+		if(SSambience.ambience_listening_clients[src] > world.time)
+			return // If already properly set we don't want to reset the timer.
+		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
+	else
+		SSambience.ambience_listening_clients -= src
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

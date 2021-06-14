@@ -10,7 +10,7 @@
 /**
   * # Syndicate Contract
   *
-  * Describes a contract that can be completed by a [/datum/antagonist/traitor/contractor].
+  * Describes a contract that can be completed by a Contractor.
   */
 /datum/syndicate_contract
 	// Settings
@@ -301,7 +301,7 @@
 	else if(!ismob(contract.target.current))
 		invalidate()
 		return
-	U.message_holder("Extraction signal received, agent. [GLOB.using_map.full_name]'s bluespace transport jamming systems have been sabotaged. "\
+	U.message_holder("Extraction signal received, agent. [SSmapping.map_datum.fluff_name]'s bluespace transport jamming systems have been sabotaged. "\
 			 	   + "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
 	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), null, 0)
@@ -320,6 +320,7 @@
   */
 /datum/syndicate_contract/proc/target_received(mob/living/M, obj/effect/portal/redspace/contractor/P)
 	INVOKE_ASYNC(src, .proc/clean_up)
+	add_attack_logs(owning_hub.owner.current, M, "extracted to Syndicate Jail")
 	complete(M.stat == DEAD)
 	handle_target_experience(M, P)
 
@@ -408,13 +409,13 @@
 
 	// Give some species the necessary to survive. Courtesy of the Syndicate.
 	if(istype(H))
-		var/obj/item/tank/emergency_oxygen/tank
+		var/obj/item/tank/internals/emergency_oxygen/tank
 		var/obj/item/clothing/mask/breath/mask
 		if(isvox(H))
-			tank = new /obj/item/tank/emergency_oxygen/nitrogen(H)
+			tank = new /obj/item/tank/internals/emergency_oxygen/nitrogen(H)
 			mask = new /obj/item/clothing/mask/breath/vox(H)
 		else if(isplasmaman(H))
-			tank = new /obj/item/tank/emergency_oxygen/plasma(H)
+			tank = new /obj/item/tank/internals/emergency_oxygen/plasma(H)
 			mask = new /obj/item/clothing/mask/breath(H)
 
 		if(tank)
@@ -465,6 +466,8 @@
 					we thank you for providing them. Your value is expended, and you will be ransomed back to your station. We always get paid, \
 					so it's only a matter of time before we send you back...\"</i></span>")
 
+		to_chat(M, "<span class='danger'><font size=3>You have been kidnapped and interrogated for valuable information! You will be sent back to the station in a few minutes...</font></span>")
+
 /**
   * Handles the target's return to station.
   *
@@ -474,7 +477,7 @@
 /datum/syndicate_contract/proc/handle_target_return(mob/living/M)
 	var/list/turf/possible_turfs = list()
 	for(var/turf/T in contract.extraction_zone.contents)
-		if(!isspaceturf(T) && !isunsimulatedturf(T) && !is_blocked_turf(T))
+		if(!isspaceturf(T) && !is_blocked_turf(T))
 			possible_turfs += T
 
 	var/turf/destination = length(possible_turfs) ? pick(possible_turfs) : pick(GLOB.latejoin)
@@ -525,7 +528,7 @@
 	var/datum/feed_message/FM = new
 	FM.author = "Nyx Daily"
 	FM.admin_locked = TRUE
-	FM.body = "Suspected Syndicate activity was reported in the system. Rumours have surfaced about a [R?.fields["rank"] || M?.mind.assigned_role || DEFAULT_RANK] aboard the [GLOB.using_map.full_name] being the victim of a kidnapping.\n\n" +\
+	FM.body = "Suspected Syndicate activity was reported in the system. Rumours have surfaced about a [R?.fields["rank"] || M?.mind.assigned_role || DEFAULT_RANK] aboard the [SSmapping.map_datum.fluff_name] being the victim of a kidnapping.\n\n" +\
 				"A reliable source said the following: There was a note with the victim's initials which were \"[initials]\" and a scribble saying \"[fluff_message]\""
 	GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(FM)
 
@@ -536,7 +539,7 @@
 		var/datum/feed_message/FM2 = new
 		FM2.author = "Nyx Daily"
 		FM2.admin_locked = TRUE
-		FM2.body = "Nanotrasen's Asset Management board has resigned today after a series of kidnappings aboard the [GLOB.using_map.full_name]." +\
+		FM2.body = "Nanotrasen's Asset Management board has resigned today after a series of kidnappings aboard the [SSmapping.map_datum.fluff_name]." +\
 					"One former member of the board was heard saying: \"I can't do this anymore. How does a single shift on this cursed station manage to cost us over ten million Credits in ransom payments? Is there no security aboard?!\""
 		GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(FM2)
 

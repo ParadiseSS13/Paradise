@@ -68,5 +68,9 @@
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.display_to(list(src))
 
+	if(!fexists("config/config.txt") || !fexists("config/game_options.txt"))
+		to_chat(src, "<span class='biggerdanger'>The game config files have not been properly set!\n Please copy ALL files from '/config/example' into the parent folder, '/config'.</span>")
+		log_world("The game config files have not been properly set! Please copy ALL files from /config/example into the parent folder, /config.")
+
 	update_client_colour(0)
 	update_morgue()

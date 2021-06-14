@@ -30,8 +30,8 @@
 		///////////////
 		//SOUND STUFF//
 		///////////////
-	var/ambience_playing = 0
-	var/played			= 0
+
+	var/ambience_playing = FALSE
 
 		////////////
 		//SECURITY//
@@ -108,6 +108,9 @@
 
 	/// Has the client accepted the TOS about data collection and other stuff
 	var/tos_consent = FALSE
+
+	/// Is the client watchlisted
+	var/watchlisted = FALSE
 
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)

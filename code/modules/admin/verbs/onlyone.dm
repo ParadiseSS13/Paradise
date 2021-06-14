@@ -30,8 +30,6 @@
 		for(var/obj/item/I in H)
 			if(istype(I, /obj/item/implant))
 				continue
-			if(istype(I, /obj/item/organ))
-				continue
 			qdel(I)
 
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/kilt(H), slot_w_uniform)
@@ -55,7 +53,14 @@
 	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ONE! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
 	log_admin("[key_name(usr)] used there can be only one.")
 	GLOB.nologevent = 1
-	world << sound('sound/music/thunderdome.ogg')
+
+	var/sound/music = sound('sound/music/thunderdome.ogg', channel = CHANNEL_ADMIN)
+	for(var/mob/M in GLOB.player_list)
+		if(M.client.prefs.sound & SOUND_MIDI)
+			if(isnewplayer(M) && (M.client.prefs.sound & SOUND_LOBBY))
+				M.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+			music.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
+			SEND_SOUND(M, music)
 
 /client/proc/only_me()
 	if(!SSticker)
@@ -101,4 +106,11 @@
 	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ME! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
 	log_admin("[key_name(usr)] used there can be only me.")
 	GLOB.nologevent = 1
-	world << sound('sound/music/thunderdome.ogg')
+
+	var/sound/music = sound('sound/music/thunderdome.ogg', channel = CHANNEL_ADMIN)
+	for(var/mob/M in GLOB.player_list)
+		if(M.client.prefs.sound & SOUND_MIDI)
+			if(isnewplayer(M) && (M.client.prefs.sound & SOUND_LOBBY))
+				M.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+			music.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
+			SEND_SOUND(M, music)

@@ -142,8 +142,7 @@ SUBSYSTEM_DEF(tickets)
 
 	//Inform the user that they have opened a ticket
 	to_chat(C, "<span class='[span_class]'>You have opened [ticket_name] number #[(getTicketCounter() - 1)]! Please be patient and we will help you soon!</span>")
-	var/ticket_open_sound = sound('sound/effects/adminticketopen.ogg')
-	SEND_SOUND(C, ticket_open_sound)
+	SEND_SOUND(C, sound('sound/effects/adminticketopen.ogg'))
 
 	message_staff(url_title, NONE, TRUE)
 
@@ -172,6 +171,9 @@ SUBSYSTEM_DEF(tickets)
 	if(!other_ticket_system_staff_check())
 		return
 	var/datum/ticket/T = allTickets[ticketId]
+	if(T.ticket_converted)
+		to_chat(usr, "<span class='warning'>This ticket has already been converted!</span>")
+		return
 	convert_ticket(T)
 
 /datum/controller/subsystem/tickets/proc/other_ticket_system_staff_check()
@@ -183,6 +185,7 @@ SUBSYSTEM_DEF(tickets)
 
 /datum/controller/subsystem/tickets/proc/convert_ticket(datum/ticket/T)
 	T.ticketState = TICKET_CLOSED
+	T.ticket_converted = TRUE
 	var/client/C = usr.client
 	var/client/owner = get_client_by_ckey(T.client_ckey)
 	to_chat_safe(owner, list("<span class='[span_class]'>[key_name_hidden(C)] has converted your ticket to a [other_ticket_name] ticket.</span>",\
@@ -241,8 +244,7 @@ SUBSYSTEM_DEF(tickets)
 		if("Mentorhelp")
 			convert_ticket(T)
 		else
-			var/msg_sound = sound('sound/effects/adminhelp.ogg')
-			SEND_SOUND(returnClient(N), msg_sound)
+			SEND_SOUND(returnClient(N), sound('sound/effects/adminhelp.ogg'))
 			to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> <span class='adminticketalt'>[response_phrases[message_key]]</span>")//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
 			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:<span class='adminticketalt'> [message_key] </span>") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
 			T.lastStaffResponse = "Autoresponse: [message_key]"
@@ -282,7 +284,7 @@ SUBSYSTEM_DEF(tickets)
 
 /datum/controller/subsystem/tickets/proc/assignStaffToTicket(client/C, N)
 	var/datum/ticket/T = allTickets[N]
-	if(T.staffAssigned != null && T.staffAssigned != C && alert("Ticket is already assigned to [T.staffAssigned.ckey]. Are you sure you want to take it?","Take ticket","No","Yes") != "Yes")
+	if(T.staffAssigned != null && T.staffAssigned != C && alert("Ticket is already assigned to [T.staffAssigned.ckey]. Are you sure you want to take it?", "Take ticket", "Yes", "No") != "Yes")
 		return FALSE
 	T.assignStaff(C)
 	return TRUE
@@ -290,21 +292,36 @@ SUBSYSTEM_DEF(tickets)
 //Single staff ticket
 
 /datum/ticket
-	var/ticketNum // Ticket number
-	/// ckey of the client who opened the ticket
+	/// Ticket number.
+	var/ticketNum
+	/// ckey of the client who opened the ticket.
 	var/client_ckey
-	var/timeOpened // Time the ticket was opened
-	var/title //The initial message with links
-	var/raw_title // The title without URLs added
-	var/list/content // content of the staff help
-	var/lastStaffResponse // Last staff member who responded
-	var/lastResponseTime // When the staff last responded
-	var/locationSent // Location the player was when they send the ticket
-	var/mobControlled // Mob they were controlling
-	var/ticketState // State of the ticket, open, closed, resolved etc
-	var/timeUntilStale // When the ticket goes stale
-	var/ticketCooldown // Cooldown before allowing the user to open another ticket.
-	var/client/staffAssigned // Staff member who has assigned themselves to this ticket
+	/// Time the ticket was opened.
+	var/timeOpened
+	/// The initial message with links.
+	var/title
+	/// The title without URLs added.
+	var/raw_title
+	/// Content of the staff help.
+	var/list/content
+	/// Last staff member who responded.
+	var/lastStaffResponse
+	/// When the staff last responded.
+	var/lastResponseTime
+	/// The location the player was when they sent the ticket.
+	var/locationSent
+	/// The mob the player was controlling when they sent the ticket.
+	var/mobControlled
+	/// State of the ticket, open, closed, resolved etc.
+	var/ticketState
+	/// Has the ticket been converted to another type? (Mhelp to Ahelp, etc.)
+	var/ticket_converted = FALSE
+	/// When the ticket goes stale.
+	var/timeUntilStale
+	/// Cooldown before allowing the user to open another ticket.
+	var/ticketCooldown
+	/// Staff member who has assigned themselves to this ticket.
+	var/client/staffAssigned
 
 /datum/ticket/New(tit, raw_tit, cont, num)
 	title = tit
@@ -328,6 +345,8 @@ SUBSYSTEM_DEF(tickets)
 
 //Return the ticket state as a colour coded text string.
 /datum/ticket/proc/state2text()
+	if(ticket_converted)
+		return "<font color='yellow'>CONVERTED</font>"
 	switch(ticketState)
 		if(TICKET_OPEN)
 			return "<font color='green'>OPEN</font>"
@@ -430,7 +449,7 @@ UI STUFF
 	dat += "<h2>Ticket #[T.ticketNum]</h2>"
 
 	dat += "<h3>[T.client_ckey] / [T.mobControlled] opened this [ticket_name] at [T.timeOpened] at location [T.locationSent]</h3>"
-	dat += "<h4>Ticket Status: <font color='red'>[status]</font>"
+	dat += "<h4>Ticket Status: [status]"
 	dat += "<table style='width:950px; border: 3px solid;'>"
 	dat += "<tr><td>[T.title]</td></tr>"
 
@@ -578,7 +597,7 @@ UI STUFF
 		else
 			usr.client.resolveAllAdminTickets()
 
-/datum/controller/subsystem/tickets/proc/takeTicket(var/index)
+/datum/controller/subsystem/tickets/proc/takeTicket(index)
 	if(assignStaffToTicket(usr.client, index))
 		if(span_class == "mentorhelp")
 			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>")

@@ -69,7 +69,7 @@
 		if("letter")
 			temp = input("Choose the letter.", "Scribbles") in letters
 		if("random_rune")
-			temp = "rune[rand(1,10)]"
+			temp = "rune[rand(1, 8)]"
 		if("random_graffiti")
 			temp = pick(graffiti)
 		else
@@ -173,6 +173,11 @@
 			colour = COLOR_PURPLE
 			colourName = "purple"
 	..()
+
+/obj/item/toy/crayon/black
+	icon_state = "crayonblack"
+	colour = "#000000"
+	colourName = "black"
 
 /obj/item/toy/crayon/white
 	icon_state = "crayonwhite"

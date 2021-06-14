@@ -134,6 +134,7 @@
 	if(!. && isliving(target))
 		var/mob/living/M = target
 		M.adjustStaminaLoss(stamina_damage)
+		playsound(target, 'sound/weapons/tap.ogg', 50, TRUE)
 	qdel(src)
 
 /obj/item/snowball/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)

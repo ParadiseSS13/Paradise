@@ -102,7 +102,7 @@ effective or pretty fucking useless.
 			if(M)
 				if(intensity >= 5)
 					M.apply_effect(round(intensity/1.5), PARALYZE)
-				M.apply_effect(intensity*10, IRRADIATE)
+				M.rad_act(intensity * 10)
 	else
 		to_chat(user, "<span class='warning'>The radioactive microlaser is still recharging.</span>")
 
@@ -219,6 +219,7 @@ effective or pretty fucking useless.
 			qdel(src)
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
+	dir_correction(user)
 	if(!charges)
 		to_chat(user, "<span class='warning'>The [src] is recharging still.</span>")
 		return
@@ -253,9 +254,9 @@ effective or pretty fucking useless.
 			var/turf/fragging_location = destination
 			telefrag(fragging_location, user)
 			C.forceMove(destination)
-			playsound(mobloc, "sparks", 50, TRUE)
+			playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
-			playsound(destination, "sparks", 50, TRUE)
+			playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
 		else if (EMP_D == FALSE && !(bagholding.len && !flawless)) // This is where the fun begins
 			var/direction = get_dir(user, destination)
@@ -266,8 +267,16 @@ effective or pretty fucking useless.
 		to_chat(C, "<span class='danger'>The [src] will not work here!</span>")
 
 /obj/item/teleporter/proc/tile_check(turf/T)
-	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space) || istype(T, /turf/simulated/shuttle/floor) || istype(T, /turf/simulated/shuttle/floor4) || istype(T, /turf/simulated/shuttle/plating))
+	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space))
 		return TRUE
+
+/obj/item/teleporter/proc/dir_correction(mob/user) //Direction movement, screws with teleport distance and saving throw, and thus must be removed first
+	var/temp_direction = user.dir
+	switch(temp_direction)
+		if(NORTHEAST || SOUTHEAST)
+			user.dir = EAST
+		if(NORTHWEST || SOUTHWEST)
+			user.dir = WEST
 
 /obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination, direction = NORTH)
 	var/saving_throw
@@ -306,10 +315,10 @@ effective or pretty fucking useless.
 		var/turf/fragging_location = new_destination
 		telefrag(fragging_location, user)
 		C.forceMove(new_destination)
-		playsound(mobloc, "sparks", 50, TRUE)
+		playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(new_destination)
-		playsound(new_destination, "sparks", 50, TRUE)
+		playsound(new_destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	else //We tried to save. We failed. Death time.
 		get_fragged(user, destination)
 
@@ -317,14 +326,14 @@ effective or pretty fucking useless.
 /obj/item/teleporter/proc/get_fragged(mob/user, turf/destination)
 	var/turf/mobloc = get_turf(user)
 	user.forceMove(destination)
-	playsound(mobloc, "sparks", 50, TRUE)
+	playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
-	playsound(destination, "sparks", 50, TRUE)
+	playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
 	destination.ex_act(rand(1,2))
 	for(var/obj/item/W in user)
-		if(istype(W, /obj/item/organ)|| istype(W, /obj/item/implant))
+		if(istype(W, /obj/item/implant))
 			continue
 		if(!user.unEquip(W))
 			qdel(W)

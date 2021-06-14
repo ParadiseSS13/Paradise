@@ -6,6 +6,7 @@
 	layer = 3.5
 	max_integrity = 100
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 
 /obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -152,10 +153,10 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "xeno_warning"
 
-/obj/structure/sign/redcross
+/obj/structure/sign/lifestar
 	name = "medbay"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here.'"
-	icon_state = "redcross"
+	desc = "The Star of Life, a symbol of Medical Aid."
+	icon_state = "lifestar"
 
 /obj/structure/sign/greencross
 	name = "medbay"

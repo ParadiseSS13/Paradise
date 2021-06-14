@@ -42,7 +42,7 @@
 	var/has_choke_hold = 0 	// Are we current choking a bitch?
 	var/has_focus = 1		//Can we user our special moves?
 
-/datum/martial_art/ninja_martial_art/teach(var/mob/living/carbon/human/H,var/make_temporary=0)
+/datum/martial_art/ninja_martial_art/teach(mob/living/carbon/human/H, make_temporary=0)
 	..()
 	H.middleClickOverride = new /datum/middleClickOverride/ninja_martial_art()
 		to_chat(H, "You have been taught the ways of the <i>Creeping Widow</i>.<br>\)
@@ -50,7 +50,7 @@
 			Your grabs will instantly be aggressive while you are using this style.<br>Using middle mouse button while on harm intent and behind a person will put them in a silencing choke hold.<br>\
 			Using middle mouse button on a nearby person while on disarm intent will wrench their wrist, causing them to drop what they are holding.</span>"
 
-/datum/martial_art/ninja_martial_art/proc/wrist_wrench(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/ninja_martial_art/proc/wrist_wrench(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!D.stat && !D.weakened)
 		if(has_focus)
 			has_focus = 0
@@ -68,7 +68,7 @@
 		return 0
 	return A.pointed(D)
 
-/datum/martial_art/ninja_martial_art/proc/choke_hold(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/ninja_martial_art/proc/choke_hold(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!D.stat && !D.weakened)
 		A.face_atom(D)
 		if(A.dir != D.dir) // If the user's direction is not the same as the target's after A.face_atom(D) you are not behind them, and cannot use this ability.
@@ -113,7 +113,7 @@
 		return 1
 	return A.pointed(D)
 
-/datum/martial_art/ninja_martial_art/proc/palm_strike(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/ninja_martial_art/proc/palm_strike(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!D.stat && !D.weakened)
 		if(has_focus)
 			has_focus = 0
@@ -134,14 +134,14 @@
 		return 0
 	return A.pointed(D)
 
-/datum/martial_art/ninja_martial_art/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D) //Instant aggressive grab
+/datum/martial_art/ninja_martial_art/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D) //Instant aggressive grab
 	var/obj/item/grab/G = D.grabbedby(A)
 	if(G)
 		G.state = GRAB_AGGRESSIVE
 
 	return 1
 
-/datum/martial_art/ninja_martial_art/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D) // 10 damage punches
+/datum/martial_art/ninja_martial_art/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D) // 10 damage punches
 	var/strike_name = "[pick(attack_names)] [pick("punches", "kicks", "chops", "slams", "strikes")]"
 	D.visible_message("<span class='danger'>[A] [strike_name] on [D]!</span>", \
 					  "<span class='userdanger'>[A] [strike_name] you!</span>")
@@ -153,7 +153,7 @@
 
 /datum/middleClickOverride/ninja_martial_art
 
-/datum/middleClickOverride/ninja_martial_art/onClick(var/atom/A, var/mob/living/carbon/human/user)
+/datum/middleClickOverride/ninja_martial_art/onClick(atom/A, mob/living/carbon/human/user)
 	if(!istype(user.martial_art, /datum/martial_art/ninja_martial_art))
 		user.pointed(A) // If they don't have the required martial art just point at the target.
 

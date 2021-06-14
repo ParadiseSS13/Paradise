@@ -7,14 +7,16 @@ export const CommunicationsComputer = (props, context) => {
   const { act, data } = useBackend(context);
 
   let authReadable;
+  let authSpecial = false;
   if (!data.authenticated) {
     authReadable = "Not Logged In";
-  } else if (data.is_ai) {
-    authReadable = "AI";
   } else if (data.authenticated === 1) {
     authReadable = "Command";
   } else if (data.authenticated === 2) {
     authReadable = "Captain";
+  } else if (data.authenticated === 3) {
+    authReadable = "CentComm Secure Connection";
+    authSpecial = true;
   } else {
     authReadable = "ERROR: Report This Bug!";
   }
@@ -23,15 +25,16 @@ export const CommunicationsComputer = (props, context) => {
     <Fragment>
       <Section title="Authentication">
         <LabeledList>
-          {data.is_ai && (
-            <LabeledList.Item label="Access Level">
-              AI
+          {authSpecial && (
+            <LabeledList.Item label="Access">
+              {authReadable}
             </LabeledList.Item>
           ) || (
             <LabeledList.Item label="Actions">
               <Button
                 icon={data.authenticated ? 'sign-out-alt' : 'id-card'}
                 selected={data.authenticated}
+                disabled={data.noauthbutton}
                 content={data.authenticated
                   ? "Log Out (" + authReadable + ")"
                   : 'Log In'}
@@ -53,7 +56,7 @@ export const CommunicationsComputer = (props, context) => {
                 <Button
                   icon="rocket"
                   content="Call Shuttle"
-                  disabled={!data.authenticated}
+                  disabled={!data.authhead}
                   onClick={() => act('callshuttle')} />
               </LabeledList.Item>
             )}
@@ -62,7 +65,7 @@ export const CommunicationsComputer = (props, context) => {
                 <Button
                   icon="times"
                   content="Recall Shuttle"
-                  disabled={!data.authenticated || data.is_ai}
+                  disabled={!data.authhead || data.is_ai}
                   onClick={() => act('cancelshuttle')} />
               </LabeledList.Item>
             )}
@@ -93,7 +96,7 @@ export const CommunicationsComputer = (props, context) => {
         key={slevel.name}
         icon={slevel.icon}
         content={slevel.name}
-        disabled={!data.authmax
+        disabled={!data.authcapt
           || slevel.id === data.security_level}
         onClick={() => act('newalertlevel', { level: slevel.id })} />
     );
@@ -104,7 +107,7 @@ export const CommunicationsComputer = (props, context) => {
         key={pb.name}
         content={pb.label}
         selected={pb.name === data.stat_display.type}
-        disabled={!data.authenticated}
+        disabled={!data.authhead}
         onClick={() => act('setstat', { statdisp: pb.name })} />
     );
   });
@@ -114,7 +117,7 @@ export const CommunicationsComputer = (props, context) => {
         key={ib.alert}
         content={ib.label}
         selected={ib.alert === data.stat_display.icon}
-        disabled={!data.authenticated}
+        disabled={!data.authhead}
         onClick={() => act('setstat',
           { statdisp: "alert", alert: ib.alert })} />
     );
@@ -126,7 +129,7 @@ export const CommunicationsComputer = (props, context) => {
         <Button
           icon="times"
           content="Return To Message List"
-          disabled={!data.authenticated}
+          disabled={!data.authhead}
           onClick={() => act('messagelist')} />
       }>
         <Box>
@@ -141,13 +144,13 @@ export const CommunicationsComputer = (props, context) => {
           <Button
             icon="eye"
             content="View"
-            disabled={!data.authenticated
+            disabled={!data.authhead
               || data.current_message_title === m.title}
             onClick={() => act('messagelist', { msgid: m.id })} />
           <Button
             icon="times"
             content="Delete"
-            disabled={!data.authenticated}
+            disabled={!data.authhead}
             onClick={() => act('delmessage', { msgid: m.id })} />
         </LabeledList.Item>
       );
@@ -185,7 +188,7 @@ export const CommunicationsComputer = (props, context) => {
                   <Button
                     icon="bullhorn"
                     content={announceText}
-                    disabled={!data.authmax || data.msg_cooldown > 0}
+                    disabled={!data.authcapt || data.msg_cooldown > 0}
                     onClick={() => act('announce')} />
                 </LabeledList.Item>
                 {!!data.emagged && (
@@ -194,12 +197,12 @@ export const CommunicationsComputer = (props, context) => {
                       icon="broadcast-tower"
                       color="red"
                       content={ccMessageText}
-                      disabled={!data.authmax || data.cc_cooldown > 0}
+                      disabled={!data.authcapt || data.cc_cooldown > 0}
                       onClick={() => act('MessageSyndicate')} />
                     <Button
                       icon="sync-alt"
                       content="Reset Relays"
-                      disabled={!data.authmax}
+                      disabled={!data.authcapt}
                       onClick={() => act('RestoreBackup')} />
                   </LabeledList.Item>
                 ) || (
@@ -207,7 +210,7 @@ export const CommunicationsComputer = (props, context) => {
                     <Button
                       icon="broadcast-tower"
                       content={ccMessageText}
-                      disabled={!data.authmax || data.cc_cooldown > 0}
+                      disabled={!data.authcapt || data.cc_cooldown > 0}
                       onClick={() => act('MessageCentcomm')} />
                   </LabeledList.Item>
                 )}
@@ -215,7 +218,7 @@ export const CommunicationsComputer = (props, context) => {
                   <Button
                     icon="bomb"
                     content={nukeRequestText}
-                    disabled={!data.authmax || data.cc_cooldown > 0}
+                    disabled={!data.authcapt || data.cc_cooldown > 0}
                     onClick={() => act('nukerequest')} />
                 </LabeledList.Item>
               </LabeledList>
@@ -226,21 +229,21 @@ export const CommunicationsComputer = (props, context) => {
                   <Button
                     icon="tv"
                     content="Change Status Displays"
-                    disabled={!data.authenticated}
+                    disabled={!data.authhead}
                     onClick={() => act('status')} />
                 </LabeledList.Item>
                 <LabeledList.Item label="Incoming Messages">
                   <Button
                     icon="folder-open"
                     content={reportText}
-                    disabled={!data.authenticated}
+                    disabled={!data.authhead}
                     onClick={() => act('messagelist')} />
                 </LabeledList.Item>
                 <LabeledList.Item label="Misc">
                   <Button
                     icon="sync-alt"
                     content="Restart Nano-Mob Hunter GO! Server"
-                    disabled={!data.authenticated}
+                    disabled={!data.authhead}
                     onClick={() => act('RestartNanoMob')} />
                 </LabeledList.Item>
               </LabeledList>
@@ -273,14 +276,14 @@ export const CommunicationsComputer = (props, context) => {
                   <Button
                     icon="pencil-alt"
                     content={data.stat_display.line_1}
-                    disabled={!data.authenticated}
+                    disabled={!data.authhead}
                     onClick={() => act('setmsg1')} />
                 </LabeledList.Item>
                 <LabeledList.Item label="Message Line 2">
                   <Button
                     icon="pencil-alt"
                     content={data.stat_display.line_2}
-                    disabled={!data.authenticated}
+                    disabled={!data.authhead}
                     onClick={() => act('setmsg2')} />
                 </LabeledList.Item>
               </LabeledList>

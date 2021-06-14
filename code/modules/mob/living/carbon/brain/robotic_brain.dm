@@ -90,10 +90,13 @@
 
 /obj/item/mmi/robotic_brain/transfer_identity(mob/living/carbon/H)
 	name = "[src] ([H])"
-	if(isnull(brainmob.dna))
-		brainmob.dna = H.dna.Clone()
-	brainmob.name = brainmob.dna.real_name
-	brainmob.real_name = brainmob.name
+
+	brainmob.dna = H.dna.Clone()
+	// I'm not sure we can remove species override. There might be some loophole
+	// that would allow posibrains to be cloned without this.
+	brainmob.dna.species = new /datum/species/machine()
+	brainmob.real_name = brainmob.dna.real_name
+	brainmob.name = brainmob.real_name
 	brainmob.timeofhostdeath = H.timeofdeath
 	brainmob.stat = CONSCIOUS
 	if(brainmob.mind)
@@ -201,8 +204,8 @@
 	brainmob = new(src)
 	brainmob.name = "[pick(list("PBU", "HIU", "SINA", "ARMA", "OSI"))]-[rand(100, 999)]"
 	brainmob.real_name = brainmob.name
-	brainmob.forceMove(src)
 	brainmob.container = src
+	brainmob.forceMove(src)
 	brainmob.stat = CONSCIOUS
 	brainmob.SetSilence(0)
 	brainmob.dna = new(brainmob)

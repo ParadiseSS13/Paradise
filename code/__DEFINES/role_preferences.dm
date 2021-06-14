@@ -26,7 +26,6 @@
 #define ROLE_REVENANT			"revenant"
 #define ROLE_HOG_GOD			"hand of god: god" // We're prolly gonna port this one day or another
 #define ROLE_HOG_CULTIST		"hand of god: cultist"
-#define ROLE_DEVIL				"devil"
 #define ROLE_RAIDER				"vox raider"
 #define ROLE_TRADER				"trader"
 #define ROLE_VAMPIRE			"vampire"
@@ -54,7 +53,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_CHANGELING = /datum/game_mode/changeling, 		// Changeling
 	ROLE_BORER, 										// Cortical borer
 	ROLE_CULTIST = /datum/game_mode/cult, 				// Cultist
-	ROLE_DEVIL = /datum/game_mode/devil/devil_agents, 	// Devil
 	ROLE_GSPIDER, 										// Giant spider
 	ROLE_GUARDIAN, 										// Guardian
 	ROLE_MORPH, 										// Morph

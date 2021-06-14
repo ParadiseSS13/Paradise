@@ -110,6 +110,7 @@
 		to_chat(rev_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
 		obj_count++
+	to_chat(rev_mind.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Revolution)</span>")
 
 /////////////////////////////////////////////////////////////////////////////////
 //This are equips the rev heads with their gear, and makes the clown not clumsy//
@@ -121,7 +122,8 @@
 	if(mob.mind)
 		if(mob.mind.assigned_role == "Clown")
 			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-			mob.mutations.Remove(CLUMSY)
+			mob.dna.SetSEState(GLOB.clumsyblock, FALSE)
+			singlemutcheck(mob, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(mob)
 

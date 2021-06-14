@@ -47,7 +47,7 @@
 /datum/construction/proc/custom_action(step, used_atom, user)
 	if(istype(used_atom, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = used_atom
-		if(C.amount<4)
+		if(C.get_amount() < 4)
 			to_chat(user, ("<span class='warning'>There's not enough cable to finish the task.</span>"))
 			return 0
 		else
@@ -55,7 +55,7 @@
 			playsound(holder, C.usesound, 50, 1)
 	else if(istype(used_atom, /obj/item/stack))
 		var/obj/item/stack/S = used_atom
-		if(S.amount < 5)
+		if(S.get_amount() < 5)
 			to_chat(user, ("<span class='warning'>There's not enough material in this stack.</span>"))
 			return 0
 		else
@@ -113,7 +113,7 @@
 		// STACKS
 		if(istype(used_atom,/obj/item/stack))
 			var/obj/item/stack/stack=used_atom
-			if(stack.amount < amount)
+			if(stack.get_amount() < amount)
 				to_chat(user, "<span class='warning'>You don't have enough [stack]! You need at least [amount].</span>")
 				return 0
 			stack.use(amount)
@@ -217,7 +217,7 @@
 	text = replacetext(text,"{HOLDER}","[holder]")
 	return text
 
-/datum/construction/reversible2/custom_action(index, diff, used_atom, var/mob/user)
+/datum/construction/reversible2/custom_action(index, diff, used_atom, mob/user)
 	if(!..(index,used_atom,user))
 		return 0
 

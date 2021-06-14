@@ -74,7 +74,7 @@
 	if(invisibility)
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is being channeled into Redspace, reveal the structure first!</span>")
 		return
-	if(HULK in user.mutations)
+	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='danger'>You cannot seem to manipulate this structure with your bulky hands!</span>")
 		return
 	if(!anchored)
@@ -198,8 +198,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	/turf/simulated/floor/plating/lava,
 	/turf/simulated/floor/chasm,
 	/turf/simulated/wall/cult,
-	/turf/simulated/wall/cult/artificer,
-	/turf/unsimulated/wall
+	/turf/simulated/wall/cult/artificer
 	)))
 
 /obj/structure/cult/functional/pylon

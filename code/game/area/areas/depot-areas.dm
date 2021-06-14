@@ -314,7 +314,7 @@
 	for(var/obj/machinery/computer/syndicate_depot/C in src)
 		C.security_lockout = FALSE
 
-/area/syndicate_depot/core/proc/set_emergency_access(var/openaccess)
+/area/syndicate_depot/core/proc/set_emergency_access(openaccess)
 	for(var/obj/machinery/door/airlock/A in src)
 		if(istype(A, /obj/machinery/door/airlock/hatch/syndicate/vault))
 			continue
@@ -341,7 +341,7 @@
 			receivers |= M
 	for(var/mob/R in receivers)
 		to_chat(R, msg_text)
-		R << sound('sound/misc/notice1.ogg')
+		SEND_SOUND(R, sound('sound/misc/notice1.ogg'))
 
 /area/syndicate_depot/core/proc/shields_up()
 	if(shield_list.len)
@@ -424,18 +424,47 @@
 		return TRUE
 	return FALSE
 
+/**
+  * Returns a STRING, containing the NAMES of the mobs in the provided list, JOINED together with ", "
+  *
+  * E.g. list_show(depotarea.guard_list) returns a string like:
+  * "Syndicate Backup (123), Syndicate Backup(456), Syndicate Backup(789)", etc.
+  * Arguments:
+  * * list/L, the list of UIDs from which to draw members
+  * * show_ckeys, bool, if true will display ckeys in addition to names
+  */
 /area/syndicate_depot/core/proc/list_show(list/L, show_ckeys = FALSE)
-	var/list/formatted = list()
+	var/list/formatted = list_shownames(L, show_ckeys)
+	return formatted.Join(", ")
+
+/**
+  * Returns a LIST of the NAMES of the mobs in the provided list.
+  *
+  * E.g. list_shownames(depotarea.guard_list) returns a list of the names of extra guard mobs in depot.
+  * Arguments:
+  * * list/L, the list of UIDs from which to draw members
+  * * show_ckeys, bool, if true will display ckeys in addition to names
+  */
+/area/syndicate_depot/core/proc/list_shownames(list/L, show_ckeys = FALSE)
+	var/list/names = list()
 	for(var/uid in L)
 		var/mob/M = locateUID(uid)
 		if(!istype(M))
 			continue
 		if(show_ckeys)
-			formatted += "[M.ckey]([M])"
+			names += "[M.ckey]([M])"
 		else
-			formatted += "[M]"
-	return formatted.Join(", ")
+			names += "[M]"
+	return names
 
+/**
+  * Returns a LIST of the MOBS in one of the depot area's lists.
+  *
+  * E.g. list_getmobs(depotarea.guard_list) returns a list of the extra guard mobs in the depot.
+  * Arguments:
+  * * list/L, the list of UIDs from which to draw members
+  * * show_ckeys, bool, if true will display ckeys in addition to names
+  */
 /area/syndicate_depot/core/proc/list_getmobs(list/L, show_ckeys = FALSE)
 	var/list/moblist = list()
 	for(var/uid in L)
@@ -444,19 +473,6 @@
 			continue
 		moblist += M
 	return moblist
-
-/area/syndicate_depot/core/proc/list_gethtmlmobs(list/L)
-	var/returntext = ""
-	var/list/moblist = list_getmobs(L)
-	if(moblist.len)
-		returntext += "<UL>"
-		for(var/mob/thismob in moblist)
-			returntext += "<LI>[thismob]</LI>"
-		returntext += "</UL>"
-	else
-		returntext += "<BR>NONE"
-	return returntext
-
 /area/syndicate_depot/outer
 	name = "Suspicious Asteroid"
 	icon_state = "green"

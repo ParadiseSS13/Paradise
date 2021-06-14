@@ -17,14 +17,11 @@ export const pai_doorjack = (props, context) => {
     cableContent = (
       <Button selected content="Connected" />
     );
-  } else if (cable) {
-    cableContent = (
-      <Button color={"orange"} content="Extended" />
-    );
   } else {
     cableContent = (
       <Button
-        content="Retracted"
+        content={cable ? "Extended" : "Retracted"}
+        color={cable ? "orange" : null}
         onClick={() => act('cable')}
       />
     );

@@ -59,6 +59,8 @@ SUBSYSTEM_DEF(ticker)
 	var/mode_result = "undefined"
 	/// Server end state (Did we end properly or reboot or nuke or what)
 	var/end_state = "undefined"
+	/// Time the real reboot kicks in
+	var/real_reboot_time = 0
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
@@ -123,14 +125,14 @@ SUBSYSTEM_DEF(ticker)
 			current_state = GAME_STATE_FINISHED
 			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
 			auto_toggle_ooc(TRUE) // Turn it on
-
 			declare_completion()
+			addtimer(CALLBACK(src, .proc/call_reboot), 5 SECONDS)
 
-			spawn(50)
-				if(mode.station_was_nuked)
-					world.Reboot("Station destroyed by Nuclear Device.", "nuke")
-				else
-					world.Reboot("Round ended.", "proper completion")
+/datum/controller/subsystem/ticker/proc/call_reboot()
+	if(mode.station_was_nuked)
+		reboot_helper("Station destroyed by Nuclear Device.", "nuke")
+	else
+		reboot_helper("Round ended.", "proper completion")
 
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()
@@ -249,7 +251,7 @@ SUBSYSTEM_DEF(ticker)
 
 	SSdbcore.SetRoundStart()
 	to_chat(world, "<span class='darkmblue'><B>Enjoy the game!</B></span>")
-	world << sound('sound/AI/welcome.ogg')
+	SEND_SOUND(world, sound('sound/AI/welcome.ogg'))
 
 	if(SSholiday.holidays)
 		to_chat(world, "<span class='darkmblue'>and...</span>")
@@ -323,23 +325,23 @@ SUBSYSTEM_DEF(ticker)
 				if("nuclear emergency") //Nuke wasn't on station when it blew up
 					flick("intro_nuke", cinematic)
 					sleep(35)
-					world << sound('sound/effects/explosionfar.ogg')
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 					flick("station_intact_fade_red", cinematic)
 					cinematic.icon_state = "summary_nukefail"
 				if("fake") //The round isn't over, we're just freaking people out for fun
 					flick("intro_nuke", cinematic)
 					sleep(35)
-					world << sound('sound/items/bikehorn.ogg')
+					SEND_SOUND(world, sound('sound/items/bikehorn.ogg'))
 					flick("summary_selfdes", cinematic)
 				else
 					flick("intro_nuke", cinematic)
 					sleep(35)
-					world << sound('sound/effects/explosionfar.ogg')
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 
 
 		if(2)	//nuke was nowhere nearby	//TODO: a really distant explosion animation
 			sleep(50)
-			world << sound('sound/effects/explosionfar.ogg')
+			SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 		else	//station was destroyed
 			if(mode && !override)
 				override = mode.name
@@ -348,25 +350,25 @@ SUBSYSTEM_DEF(ticker)
 					flick("intro_nuke", cinematic)
 					sleep(35)
 					flick("station_explode_fade_red", cinematic)
-					world << sound('sound/effects/explosionfar.ogg')
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 					cinematic.icon_state = "summary_nukewin"
 				if("AI malfunction") //Malf (screen,explosion,summary)
 					flick("intro_malf", cinematic)
 					sleep(76)
 					flick("station_explode_fade_red", cinematic)
-					world << sound('sound/effects/explosionfar.ogg')
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 					cinematic.icon_state = "summary_malf"
 				if("blob") //Station nuked (nuke,explosion,summary)
 					flick("intro_nuke", cinematic)
 					sleep(35)
 					flick("station_explode_fade_red", cinematic)
-					world << sound('sound/effects/explosionfar.ogg')
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 					cinematic.icon_state = "summary_selfdes"
 				else //Station nuked (nuke,explosion,summary)
 					flick("intro_nuke", cinematic)
 					sleep(35)
 					flick("station_explode_fade_red", cinematic)
-					world << sound('sound/effects/explosionfar.ogg')
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 					cinematic.icon_state = "summary_selfdes"
 	//If its actually the end of the round, wait for it to end.
 	//Otherwise if its a verb it will continue on afterwards.
@@ -541,3 +543,38 @@ SUBSYSTEM_DEF(ticker)
 		var/datum/trade_destination/D = new loc_type
 		GLOB.weighted_randomevent_locations[D] = D.viable_random_events.len
 		GLOB.weighted_mundaneevent_locations[D] = D.viable_mundane_events.len
+
+// Easy handler to make rebooting the world not a massive sleep in world/Reboot()
+/datum/controller/subsystem/ticker/proc/reboot_helper(reason, end_string, delay)
+	// Admins delayed round end. Just alert and dont bother with anything else.
+	if(delay_end)
+		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
+		return
+
+	if(!isnull(delay))
+		// Delay time was present. Use that.
+		delay = max(0, delay)
+	else
+		// Use default restart timeout
+		delay = restart_timeout
+
+	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
+
+	real_reboot_time = world.time + delay
+	UNTIL(world.time > real_reboot_time) // Hold it here
+
+	// And if we re-delayed, bail again
+	if(delay_end)
+		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
+		return
+
+	if(end_string)
+		end_state = end_string
+
+	// Play a haha funny noise
+	var/round_end_sound = pick(GLOB.round_end_sounds)
+	var/sound_length = GLOB.round_end_sounds[round_end_sound]
+	SEND_SOUND(world, sound(round_end_sound))
+	sleep(sound_length)
+
+	world.Reboot()

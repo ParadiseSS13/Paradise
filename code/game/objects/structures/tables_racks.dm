@@ -84,10 +84,6 @@
 	new /obj/structure/table/wood(loc)
 	qdel(src)
 
-/obj/structure/table/ratvar_act()
-	new /obj/structure/table/reinforced/brass(loc)
-	qdel(src)
-
 /obj/structure/table/do_climb(mob/living/user)
 	. = ..()
 	item_placed(user)
@@ -123,7 +119,7 @@
 		return 1
 	if(mover.throwing)
 		return 1
-	if(locate(/obj/structure/table) in get_turf(mover))
+	if(length(get_atoms_of_type(get_turf(mover), /obj/structure/table) - mover))
 		return 1
 	if(flipped)
 		if(get_dir(loc, target) == dir)
@@ -571,9 +567,6 @@
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
 
-/obj/structure/table/reinforced/brass/ratvar_act()
-	obj_integrity = max_integrity
-
 /obj/structure/table/tray
 	name = "surgical tray"
 	desc = "A small metal tray with wheels."
@@ -591,7 +584,7 @@
 	verbs -= /obj/structure/table/verb/do_flip
 	typecache_can_hold = typecacheof(typecache_can_hold)
 	for(var/atom/movable/held in get_turf(src))
-		if(is_type_in_typecache(held, typecache_can_hold))
+		if(!held.anchored && held.move_resist != INFINITY && is_type_in_typecache(held, typecache_can_hold))
 			held_items += held.UID()
 
 /obj/structure/table/tray/Move(NewLoc, direct)
@@ -635,9 +628,6 @@
 	return 0
 
 /obj/structure/table/tray/narsie_act()
-	return 0
-
-/obj/structure/table/tray/ratvar_act()
 	return 0
 
 /*

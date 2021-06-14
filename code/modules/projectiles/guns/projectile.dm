@@ -35,7 +35,7 @@
 	if(eject_casing)
 		AC.loc = get_turf(src) //Eject casing onto ground.
 		AC.SpinAnimation(10, 1) //next gen special effects
-		playsound(src, chambered.drop_sound, 100, 1)
+		playsound(src, chambered.casing_drop_sound, 100, 1)
 	if(empty_chamber)
 		chambered = null
 	chamber_round()
@@ -67,7 +67,7 @@
 		update_icon()
 		return
 
-/obj/item/gun/projectile/attackby(var/obj/item/A as obj, mob/user as mob, params)
+/obj/item/gun/projectile/attackby(obj/item/A as obj, mob/user as mob, params)
 	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))

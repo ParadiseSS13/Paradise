@@ -36,19 +36,19 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "gluon"
 	item_state = "flashbang"
-	var/range = 4
-	var/rad_damage = 60
+	var/freeze_range = 4
+	var/rad_damage = 350
 	var/stamina_damage = 30
 
 /obj/item/grenade/gluon/prime()
 	update_mob()
 	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
-	for(var/turf/T in view(range, loc))
+	radiation_pulse(src, rad_damage)
+	for(var/turf/T in view(freeze_range, loc))
 		if(isfloorturf(T))
 			var/turf/simulated/F = T
 			F.MakeSlippery(TURF_WET_PERMAFROST)
 			for(var/mob/living/carbon/L in T)
 				L.adjustStaminaLoss(stamina_damage)
-				L.apply_effect(rad_damage, IRRADIATE)
 				L.adjust_bodytemperature(-230)
 	qdel(src)

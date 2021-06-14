@@ -66,7 +66,7 @@
 
 /obj/item/projectile/bullet/incendiary
 
-/obj/item/projectile/bullet/incendiary/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/bullet/incendiary/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
@@ -196,7 +196,7 @@
 	stun = 8
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
-/obj/item/projectile/bullet/meteorshot/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/bullet/meteorshot/on_hit(atom/target, blocked = 0)
 	..()
 	if(istype(target, /atom/movable))
 		var/atom/movable/M = target
@@ -219,7 +219,7 @@
 	slur = 20
 	stutter = 20
 
-/obj/item/projectile/bullet/mime/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/bullet/mime/on_hit(atom/target, blocked = 0)
 	..(target, blocked)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
@@ -242,7 +242,7 @@
 	create_reagents(50)
 	reagents.set_reacting(FALSE)
 
-/obj/item/projectile/bullet/dart/on_hit(var/atom/target, var/blocked = 0, var/hit_zone)
+/obj/item/projectile/bullet/dart/on_hit(atom/target, blocked = 0, hit_zone)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != 100)
@@ -286,7 +286,7 @@
 	damage_type = TOX
 	weaken = 5
 
-/obj/item/projectile/bullet/neurotoxin/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/bullet/neurotoxin/on_hit(atom/target, blocked = 0)
 	if(isalien(target))
 		weaken = 0
 		nodamage = 1

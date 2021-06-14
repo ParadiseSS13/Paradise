@@ -16,7 +16,10 @@
 	var/can_be_emaged = FALSE
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/lastbang
-	var/sound = 'sound/machines/click.ogg'
+	var/open_sound = 'sound/machines/closet_open.ogg'
+	var/close_sound = 'sound/machines/closet_close.ogg'
+	var/open_sound_volume = 35
+	var/close_sound_volume = 50
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
@@ -72,10 +75,14 @@
 
 /obj/structure/closet/proc/dump_contents()
 	var/turf/T = get_turf(src)
-	for(var/atom/movable/AM in src)
-		AM.forceMove(T)
+	for(var/mob/AM1 in src) //Does the same as below but removes the mobs first to avoid forcing players to step on items in the locker (e.g. soap) when opened.
+		AM1.forceMove(T)
 		if(throwing) // you keep some momentum when getting out of a thrown closet
-			step(AM, dir)
+			step(AM1, dir)
+	for(var/atom/movable/AM2 in src)
+		AM2.forceMove(T)
+		if(throwing) // you keep some momentum when getting out of a thrown closet
+			step(AM2, dir)
 	if(throwing)
 		throwing.finalize(FALSE)
 
@@ -90,10 +97,7 @@
 
 	icon_state = icon_opened
 	opened = TRUE
-	if(sound)
-		playsound(loc, sound, 15, 1, -3)
-	else
-		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
+	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
 	density = 0
 	return TRUE
 
@@ -136,10 +140,7 @@
 
 	icon_state = icon_closed
 	opened = FALSE
-	if(sound)
-		playsound(loc, sound, 15, 1, -3)
-	else
-		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
+	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	density = 1
 	return TRUE
 
@@ -311,7 +312,7 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/closet/container_resist(var/mob/living/L)
+/obj/structure/closet/container_resist(mob/living/L)
 	var/breakout_time = 2 //2 minutes by default
 	if(opened)
 		if(L.loc == src)
@@ -348,11 +349,6 @@
 				var/obj/structure/bigDelivery/BD = loc
 				BD.attack_hand(usr)
 			open()
-
-/obj/structure/closet/tesla_act(var/power)
-	..()
-	visible_message("<span class='danger'>[src] is blown apart by the bolt of electricity!</span>", "<span class='danger'>You hear a metallic screeching sound.</span>")
-	qdel(src)
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))

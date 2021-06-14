@@ -28,6 +28,9 @@
 			pda.ownjob = pda.id.assignment
 			pda.ownrank = pda.id.rank
 			pda.name = "PDA-[pda.owner] ([pda.ownjob])"
+			if(!pda.silent)
+				playsound(pda, 'sound/machines/terminal_processing.ogg', 15, TRUE)
+				addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, pda, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
 		if("pai")
 			if(pda.pai)
 				if(pda.pai.loc != pda)
@@ -39,8 +42,9 @@
 						if(2)		// Eject pAI device
 							var/turf/T = get_turf_or_move(pda.loc)
 							if(T)
-								pda.pai.loc = T
+								pda.pai.forceMove(T)
 								pda.pai = null
+								playsound(pda, 'sound/machines/terminal_eject.ogg', 50, TRUE)
 
 /datum/data/pda/app/notekeeper
 	name = "Notekeeper"
@@ -55,11 +59,14 @@
 		note = "Congratulations, your station has chosen the [pda.model_name]!"
 
 /datum/data/pda/app/notekeeper/update_ui(mob/user as mob, list/data)
-	data["note"] = note	// current pda notes
+	data["note"] = html_decode(note)	// current pda notes
 
 /datum/data/pda/app/notekeeper/ui_act(action, params)
 	if(..())
 		return
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 	. = TRUE
 

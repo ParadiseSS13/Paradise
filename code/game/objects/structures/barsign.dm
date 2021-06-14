@@ -9,7 +9,6 @@
 	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	var/list/barsigns=list()
 	var/list/hiddensigns
-	var/emagged = 0
 	var/state = 0
 	var/prev_sign = ""
 	var/panel_open = 0
@@ -26,7 +25,7 @@
 	//randomly assigning a sign
 	set_sign(pick(barsigns))
 
-/obj/structure/sign/barsign/proc/set_sign(var/datum/barsign/sign)
+/obj/structure/sign/barsign/proc/set_sign(datum/barsign/sign)
 	if(!istype(sign))
 		return
 	icon_state = sign.icon
@@ -69,7 +68,7 @@
 
 
 
-/obj/structure/sign/barsign/attackby(var/obj/item/I, var/mob/user)
+/obj/structure/sign/barsign/attackby(obj/item/I, mob/user)
 	if( istype(I, /obj/item/screwdriver))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")

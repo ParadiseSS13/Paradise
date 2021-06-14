@@ -303,22 +303,6 @@
 	..()
 	wires.cut_all()
 
-/obj/machinery/syndicatebomb/self_destruct
-	name = "self destruct device"
-	desc = "Do not taunt. Warranty invalid if exposed to high temperature. Not suitable for agents under 3 years of age."
-	req_access = list(ACCESS_SYNDICATE)
-	payload = /obj/item/bombcore/large
-	can_unanchor = FALSE
-	var/explosive_wall_group = EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE // If set, this bomb will also cause explosive walls in the same group to explode
-
-/obj/machinery/syndicatebomb/self_destruct/try_detonate(ignore_active = FALSE)
-	. = ..()
-	if(. && explosive_wall_group)
-		for(var/wall in GLOB.explosive_walls)
-			var/turf/simulated/wall/mineral/plastitanium/explosive/E = wall
-			if(E.explosive_wall_group == explosive_wall_group)
-				E.self_destruct()
-				sleep(5)
 
 ///Bomb Cores///
 

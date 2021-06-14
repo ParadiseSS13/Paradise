@@ -65,9 +65,8 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "al" = (
-/obj/structure/shuttle/window,
-/obj/structure/grille,
-/turf/simulated/floor/wood,
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "am" = (
 /obj/structure/table/wood,
@@ -492,7 +491,7 @@
 /area/ruin/unpowered)
 "bG" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "bH" = (
 /turf/simulated/wall/mineral/titanium,
@@ -532,11 +531,6 @@
 	opened = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
-"bO" = (
-/obj/structure/shuttle/window,
-/obj/structure/grille,
-/turf/space,
 /area/ruin/unpowered)
 "bP" = (
 /obj/item/stack/sheet/mineral/plasma,
@@ -709,7 +703,7 @@ ae
 al
 ae
 ae
-bO
+al
 ae
 ae
 ae

@@ -345,7 +345,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		locked += L
 	return
 
-/proc/get_id_photo(mob/living/carbon/human/H, var/custom_job = null)
+/proc/get_id_photo(mob/living/carbon/human/H, custom_job = null)
 	var/icon/preview_icon = null
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = H.get_int_organ(/obj/item/organ/internal/eyes)
@@ -406,7 +406,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = H.dna.species ? H.dna.species.eyes : "eyes_s")
 		if(!eyes_organ)
 			return
-		eyes_s.Blend(eyes_organ.eye_colour, ICON_ADD)
+		eyes_s.Blend(eyes_organ.eye_color, ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 
 	var/datum/sprite_accessory/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]

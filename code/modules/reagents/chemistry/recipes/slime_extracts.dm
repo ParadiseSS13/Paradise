@@ -480,7 +480,7 @@
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 
 //Oil
-/datum/chemical_reaction/slimeexplosion
+/datum/chemical_reaction/slime_explosion
 	name = "Slime Explosion"
 	id = "m_explosion"
 	result = null
@@ -489,13 +489,20 @@
 	required_container = /obj/item/slime_extract/oil
 	required_other = 1
 
-/datum/chemical_reaction/slimeexplosion/on_reaction(datum/reagents/holder)
+/datum/chemical_reaction/slime_explosion/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='danger'>The slime extract begins to vibrate violently !</span>")
-	spawn(50)
-		if(holder && holder.my_atom)
-			explosion(get_turf(holder.my_atom), 1 ,3, 6)
+	var/obj/item/slime_extract/oil/extract = holder.my_atom
+	extract.visible_message("<span class='danger'>The slime extract begins to vibrate violently!</span>")
+	addtimer(CALLBACK(src, .proc/explode, extract), 5 SECONDS)
+
+/datum/chemical_reaction/slime_explosion/proc/explode(obj/item/slime_extract/oil/extract)
+	if(QDELETED(extract))
+		return
+	var/who = extract.injector_mob ? "[key_name_admin(extract.injector_mob)]" : "Unknown"
+	var/turf/extract_turf = get_turf(extract)
+	message_admins("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
+	log_game("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
+	explosion(extract_turf, 1, 3, 6)
 
 //Light Pink
 /datum/chemical_reaction/slimepotion2

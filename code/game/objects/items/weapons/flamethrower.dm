@@ -20,7 +20,7 @@
 	var/operating = FALSE//cooldown
 	var/obj/item/weldingtool/weldtool = null
 	var/obj/item/assembly/igniter/igniter = null
-	var/obj/item/tank/plasma/ptank = null
+	var/obj/item/tank/internals/plasma/ptank = null
 	var/warned_admins = FALSE //for the message_admins() when lit
 	//variables for prebuilt flamethrowers
 	var/create_full = FALSE
@@ -89,7 +89,7 @@
 		update_icon()
 		return
 
-	else if(istype(I, /obj/item/tank/plasma))
+	else if(istype(I, /obj/item/tank/internals/plasma))
 		if(ptank)
 			if(user.drop_item())
 				I.forceMove(src)
@@ -227,7 +227,7 @@
 		igniter.secured = FALSE
 		status = TRUE
 		if(create_with_tank)
-			ptank = new /obj/item/tank/plasma/full(src)
+			ptank = new /obj/item/tank/internals/plasma/full(src)
 		update_icon()
 
 /obj/item/flamethrower/full

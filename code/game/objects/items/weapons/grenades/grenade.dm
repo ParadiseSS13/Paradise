@@ -21,8 +21,8 @@
 	if(!QDELETED(src))
 		qdel(src)
 
-/obj/item/grenade/proc/clown_check(var/mob/living/user)
-	if((CLUMSY in user.mutations) && prob(50))
+/obj/item/grenade/proc/clown_check(mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
 		active = 1
 		icon_state = initial(icon_state) + "_active"

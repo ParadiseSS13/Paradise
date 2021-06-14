@@ -24,8 +24,8 @@
 	..()
 
 	var/obj/item/transfer_valve/V = new(src.loc)
-	var/obj/item/tank/plasma/PT = new(V)
-	var/obj/item/tank/oxygen/OT = new(V)
+	var/obj/item/tank/internals/plasma/PT = new(V)
+	var/obj/item/tank/internals/oxygen/OT = new(V)
 
 	V.tank_one = PT
 	V.tank_two = OT

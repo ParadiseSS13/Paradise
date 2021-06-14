@@ -3,17 +3,13 @@
 	name_plural = "Golems"
 
 	icobase = 'icons/mob/human_races/r_golem.dmi'
-	deform = 'icons/mob/human_races/r_golem.dmi'
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE)
+	species_traits = list(NO_BLOOD, NO_HAIR)
+	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN)
+	inherent_biotypes = MOB_HUMANOID | MOB_MINERAL
 	dies_at_threshold = TRUE
 	speed_mod = 2
-	brute_mod = 0.45 //55% damage reduction
-	burn_mod = 0.45
-	tox_mod = 0.45
-	clone_mod = 0.45
-	brain_mod = 0.45
-	stamina_mod = 0.45
+	armor = 55
 	siemens_coeff = 0
 	punchdamagelow = 5
 	punchdamagehigh = 14
@@ -24,19 +20,6 @@
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
 	reagent_tag = PROCESS_ORG
 
-	warning_low_pressure = -INFINITY
-	hazard_low_pressure = -INFINITY
-	hazard_high_pressure = INFINITY
-	warning_high_pressure = INFINITY
-
-	cold_level_1 = -INFINITY
-	cold_level_2 = -INFINITY
-	cold_level_3 = -INFINITY
-
-	heat_level_1 = INFINITY
-	heat_level_2 = INFINITY
-	heat_level_3 = INFINITY
-
 	blood_color = "#515573"
 	flesh_color = "#137E8F"
 	skinned_type = /obj/item/stack/sheet/metal
@@ -44,6 +27,7 @@
 	blacklisted = TRUE // To prevent golem subtypes from overwhelming the odds when random species changes, only the Random Golem type can be chosen
 	dangerous_existence = TRUE
 
+	vision_organ = null
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/golem,
 		"adamantine_resonator" = /obj/item/organ/internal/adamantine_resonator
@@ -138,10 +122,9 @@
 /datum/species/golem/plasma
 	name = "Plasma Golem"
 	skinned_type = /obj/item/stack/ore/plasma
+	//Can burn and takes damage from heat
+	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN) //no RESISTHEAT, NOFIRE
 	golem_colour = rgb(170, 51, 221)
-	heat_level_1 = 360
-	heat_level_2 = 400
-	heat_level_3 = 460
 	info_text = "As a <span class='danger'>Plasma Golem</span>, you burn easily. Be careful, if you get hot enough while burning, you'll blow up!"
 	heatmod = 0 //fine until they blow up
 	prefix = "Plasma"
@@ -199,12 +182,7 @@
 /datum/species/golem/diamond
 	name = "Diamond Golem"
 	golem_colour = rgb(0, 255, 255)
-	brute_mod = 0.3 //70% damage reduction up from 55%
-	burn_mod = 0.3
-	tox_mod = 0.3
-	clone_mod = 0.3
-	brain_mod = 0.3
-	stamina_mod = 0.3
+	armor = 70 //up from 55
 	skinned_type = /obj/item/stack/ore/diamond
 	info_text = "As a <span class='danger'>Diamond Golem</span>, you are more resistant than the average golem."
 	prefix = "Diamond"
@@ -215,12 +193,7 @@
 	name = "Gold Golem"
 	golem_colour = rgb(204, 204, 0)
 	speed_mod = 1
-	brute_mod = 0.75 //25% damage reduction down from 55%
-	burn_mod = 0.75
-	tox_mod = 0.75
-	clone_mod = 0.75
-	brain_mod = 0.75
-	stamina_mod = 0.75
+	armor = 25 //down from 55
 	skinned_type = /obj/item/stack/ore/gold
 	info_text = "As a <span class='danger'>Gold Golem</span>, you are faster but less resistant than the average golem."
 	prefix = "Golden"
@@ -261,7 +234,7 @@
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/titanium
 	info_text = "As a <span class='danger'>Titanium Golem</span>, you are resistant to burn damage and immune to ash storms."
-	burn_mod = 0.405
+	burn_mod = 0.9
 	prefix = "Titanium"
 	special_names = list("Dioxide")
 
@@ -279,7 +252,7 @@
 	golem_colour = rgb(136, 136, 136)
 	skinned_type = /obj/item/stack/ore/titanium
 	info_text = "As a <span class='danger'>Plastitanium Golem</span>, you are very resistant to burn damage and immune to both ash storms and lava."
-	burn_mod = 0.36
+	burn_mod = 0.8
 	prefix = "Plastitanium"
 	special_names = null
 
@@ -327,20 +300,12 @@
 	name = "Wood Golem"
 	golem_colour = rgb(158, 112, 75)
 	skinned_type = /obj/item/stack/sheet/wood
-	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE, IS_PLANT)
 	//Can burn and take damage from heat
-	brute_mod = 0.7 //30% damage reduction down from 55%
-	burn_mod = 0.875
-	tox_mod = 0.7
-	clone_mod = 0.7
-	brain_mod = 0.7
-	stamina_mod = 0.7
+	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN)
+	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
+	armor = 30
+	burn_mod = 1.25
 	heatmod = 1.5
-
-	heat_level_1 = 300
-	heat_level_2 = 340
-	heat_level_3 = 400
-
 	dietflags = DIET_HERB		// Plants eat...plants?
 
 	info_text = "As a <span class='danger'>Wooden Golem</span>, you have plant-like traits: you take damage from extreme temperatures, can be set on fire, and have lower armor than a normal golem. You regenerate when in the light and wither in the darkness."
@@ -389,13 +354,7 @@
 	special_names = list("Oxide", "Rod", "Meltdown")
 
 /datum/species/golem/uranium/handle_life(mob/living/carbon/human/H)
-	for(var/mob/living/L in range(2, H))
-		if(ishuman(L))
-			var/mob/living/carbon/human/I = L
-			if(!(RADIMMUNE in I.dna.species.species_traits))
-				L.apply_effect(10, IRRADIATE)
-				if(prob(25)) //reduce spam
-					to_chat(L, "<span class='danger'>You are enveloped by a soft green glow emanating from [H].</span>")
+	radiation_pulse(H, 20)
 	..()
 
 //Ventcrawler
@@ -413,12 +372,9 @@
 	name = "Sand Golem"
 	golem_colour = rgb(255, 220, 143)
 	skinned_type = /obj/item/stack/ore/glass //this is sand
-	brute_mod = 0.25
+	armor = 0
 	burn_mod = 3 //melts easily
-	tox_mod = 1
-	clone_mod = 1
-	brain_mod = 1
-	stamina_mod = 1
+	brute_mod = 0.25
 	info_text = "As a <span class='danger'>Sand Golem</span>, you are immune to physical bullets and take very little brute damage, but are extremely vulnerable to burn damage and energy weapons. You will also turn to sand when dying, preventing any form of recovery."
 	unarmed_type = /datum/unarmed_attack/golem/sand
 	prefix = "Sand"
@@ -449,12 +405,9 @@
 	name = "Glass Golem"
 	golem_colour = rgb(90, 150, 180)
 	skinned_type = /obj/item/shard
+	armor = 0
 	brute_mod = 3 //very fragile
 	burn_mod = 0.25
-	tox_mod = 1
-	clone_mod = 1
-	brain_mod = 1
-	stamina_mod = 1
 	info_text = "As a <span class='danger'>Glass Golem</span>, you reflect lasers and energy weapons, and are very resistant to burn damage. However, you are extremely vulnerable to brute damage. On death, you'll shatter beyond any hope of recovery."
 	unarmed_type = /datum/unarmed_attack/golem/glass
 	prefix = "Glass"
@@ -622,7 +575,7 @@
 	prefix = "Bananium"
 	special_names = null
 	unarmed_type = /datum/unarmed_attack/golem/bananium
-
+	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_CHUNKYFINGERS, TRAIT_CLUMSY, TRAIT_COMIC_SANS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN)
 	var/last_honk = 0
 	var/honkooldown = 0
 	var/last_banana = 0
@@ -633,7 +586,6 @@
 	..()
 	last_banana = world.time
 	last_honk = world.time
-	H.mutations.Add(COMIC)
 	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), slot_r_store)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), slot_l_store)
 	H.AddElement(/datum/element/waddling)

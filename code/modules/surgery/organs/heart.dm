@@ -153,8 +153,18 @@
 	icon_state = "heart-c-u-on"
 	icon_base = "heart-c-u"
 	dead_icon = "heart-c-u-off"
-	var/emagged = FALSE
 	var/attempted_restart = FALSE
+
+/obj/item/organ/internal/heart/cybernetic/upgraded/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	RegisterSignal(M, COMSIG_LIVING_MINOR_SHOCK, .proc/shock_heart)
+	RegisterSignal(M, COMSIG_LIVING_ELECTROCUTE_ACT, .proc/shock_heart)
+
+/obj/item/organ/internal/heart/cybernetic/upgraded/remove(mob/living/carbon/M, special = FALSE)
+	UnregisterSignal(M, COMSIG_LIVING_MINOR_SHOCK)
+	UnregisterSignal(M, COMSIG_LIVING_ELECTROCUTE_ACT)
+	return  ..()
+
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/on_life()
 	if(!ishuman(owner))
@@ -235,8 +245,9 @@
 		return
 	necrotize()
 
+/obj/item/organ/internal/heart/cybernetic/upgraded/proc/shock_heart(mob/living/carbon/human/source, intensity)
+	SIGNAL_HANDLER_DOES_SLEEP
 
-/obj/item/organ/internal/heart/cybernetic/upgraded/shock_organ(intensity)
 	if(!ishuman(owner))
 		return
 	if(emp_proof)

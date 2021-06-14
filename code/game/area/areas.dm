@@ -67,6 +67,19 @@
 	var/moving = FALSE
 	/// "Haunted" areas such as the morgue and chapel are easier to boo. Because flavor.
 	var/is_haunted = FALSE
+	///Used to decide what kind of reverb the area makes sound have
+	var/sound_environment = SOUND_ENVIRONMENT_NONE
+
+	///Used to decide what the minimum time between ambience is
+	var/min_ambience_cooldown = 30 SECONDS
+	///Used to decide what the maximum time between ambience is
+	var/max_ambience_cooldown = 90 SECONDS
+
+/area/New(loc, ...)
+	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
+		GLOB.all_unique_areas[type] = src
+	..()
+
 
 /area/Initialize(mapload)
 	GLOB.all_areas += src
@@ -368,7 +381,7 @@
 #define ENVIRON 3
 */
 
-/area/proc/powered(var/chan)		// return true if the area has power to given channel
+/area/proc/powered(chan)		// return true if the area has power to given channel
 
 	if(!requires_power)
 		return 1
@@ -398,7 +411,7 @@
 	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
 	updateicon()
 
-/area/proc/usage(var/chan)
+/area/proc/usage(chan)
 	var/used = 0
 	switch(chan)
 		if(LIGHT)
@@ -432,7 +445,7 @@
 	used_light = 0
 	used_environ = 0
 
-/area/proc/use_power(var/amount, var/chan)
+/area/proc/use_power(amount, chan)
 	switch(chan)
 		if(EQUIP)
 			used_equip += amount
@@ -441,7 +454,7 @@
 		if(ENVIRON)
 			used_environ += amount
 
-/area/proc/use_battery_power(var/amount, var/chan)
+/area/proc/use_battery_power(amount, chan)
 	switch(chan)
 		if(EQUIP)
 			used_equip += amount
@@ -474,35 +487,21 @@
 	if((oldarea.has_gravity == 0) && (newarea.has_gravity == 1) && (L.m_intent == MOVE_INTENT_RUN)) // Being ready when you change areas gives you a chance to avoid falling all together.
 		thunk(L)
 
-	// Ambience goes down here -- make sure to list each area seperately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch
-	if(L && L.client && !L.client.ambience_playing && (L.client.prefs.sound & SOUND_BUZZ))	//split off the white noise from the rest of the ambience because of annoyance complaints - Kluys
+	//Ship ambience just loops if turned on.
+	if(L && L.client && !L.client.ambience_playing && (L.client.prefs.sound & SOUND_BUZZ))
 		L.client.ambience_playing = TRUE
-		SEND_SOUND(L, sound('sound/ambience/shipambience.ogg', repeat = TRUE, wait = FALSE, volume = 35, channel = CHANNEL_BUZZ))
+		SEND_SOUND(L, sound('sound/ambience/shipambience.ogg', repeat = TRUE, wait = FALSE, volume = 35 * L.client.prefs.get_channel_volume(CHANNEL_BUZZ), channel = CHANNEL_BUZZ))
 	else if(L && L.client && !(L.client.prefs.sound & SOUND_BUZZ))
 		L.client.ambience_playing = FALSE
 
-	if(prob(35) && L && L.client && (L.client.prefs.sound & SOUND_AMBIENCE))
-		var/sound = pick(ambientsounds)
-
-		if(!L.client.played)
-			SEND_SOUND(L, sound(sound, repeat = FALSE, wait = FALSE, volume = 25, channel = CHANNEL_AMBIENCE))
-			L.client.played = TRUE
-			addtimer(CALLBACK(L.client, /client/proc/ResetAmbiencePlayed), 600)
-
-/**
-  * Reset the played var to false on the client
-  */
-/client/proc/ResetAmbiencePlayed()
-	played = FALSE
-
-/area/proc/gravitychange(var/gravitystate = 0, var/area/A)
+/area/proc/gravitychange(gravitystate = 0, area/A)
 	A.has_gravity = gravitystate
 
 	if(gravitystate)
 		for(var/mob/living/carbon/human/M in A)
 			thunk(M)
 
-/area/proc/thunk(var/mob/living/carbon/human/M)
+/area/proc/thunk(mob/living/carbon/human/M)
 	if(istype(M,/mob/living/carbon/human/))  // Only humans can wear magboots, so we give them a chance to.
 		if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP))
 			return
@@ -543,9 +542,9 @@
 	for(var/obj/machinery/power/apc/temp_apc in src)
 		INVOKE_ASYNC(temp_apc, /obj/machinery/power/apc.proc/overload_lighting, 70)
 	for(var/obj/machinery/door/airlock/temp_airlock in src)
-		temp_airlock.prison_open()
+		INVOKE_ASYNC(temp_airlock, /obj/machinery/door/airlock.proc/prison_open)
 	for(var/obj/machinery/door/window/temp_windoor in src)
-		temp_windoor.open()
+		INVOKE_ASYNC(temp_windoor, /obj/machinery/door.proc/open)
 
 /area/AllowDrop()
 	CRASH("Bad op: area/AllowDrop() called")

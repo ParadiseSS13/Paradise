@@ -62,7 +62,7 @@
 	item_state = "void"
 	desc = "A CentCom engineering dark red space suit. Age has degraded the suit making is difficult to move around in."
 	slowdown = 4
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/multitool)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
 
 /obj/item/clothing/head/helmet/old
 	name = "degrading helmet"

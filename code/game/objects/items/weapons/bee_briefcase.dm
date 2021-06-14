@@ -1,4 +1,3 @@
-
 /obj/item/bee_briefcase
 	name = "briefcase"
 	desc = "This briefcase has easy-release clasps and smells vaguely of honey and blood..."
@@ -9,7 +8,6 @@
 	flags = CONDUCT
 	hitsound = "swing_hit"
 	force = 10
-	throw_speed = 2
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
@@ -55,7 +53,7 @@
 		to_chat(user, "You spray [I] into [src].")
 		playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
 
-/obj/item/bee_briefcase/attack_self(mob/user as mob)
+/obj/item/bee_briefcase/attack_self(mob/user)
 	var/bees_released
 	if(!bees_left)
 		to_chat(user, "<span class='danger'>The lack of all and any bees at this event has been somewhat of a let-down...</span>")
@@ -67,8 +65,7 @@
 
 		//Release up to 5 bees per use. Without using strange reagent, that means two uses. WITH strange reagent, you can get more if you don't release the last bee
 		for(var/bee = min(5, bees_left), bee > 0, bee--)
-			var/mob/living/simple_animal/hostile/poison/bees/syndi/B = new /mob/living/simple_animal/hostile/poison/bees/syndi(null)
+			var/mob/living/simple_animal/hostile/poison/bees/syndi/B = new /mob/living/simple_animal/hostile/poison/bees/syndi(get_turf(user)) // RELEASE THE BEES!
 			B.master_and_friends = blood_list.Copy()	//Doesn't automatically add the person who opens the case, so the bees will attack the user unless they gave their blood
-			B.forceMove(get_turf(user))			//RELEASE THE BEES!
 			bees_released++
 		bees_left -= bees_released

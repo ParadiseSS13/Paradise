@@ -68,7 +68,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "aj" = (
-/turf/unsimulated/floor/plating/airless,
+/turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/hallway)
 "ak" = (
 /turf/simulated/wall,
@@ -481,7 +481,7 @@
 	dir = 2;
 	icon_state = "coil_red2"
 	},
-/turf/unsimulated/floor/plating/airless,
+/turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/hallway)
 "bf" = (
 /obj/structure/disposalpipe/segment{
@@ -746,7 +746,7 @@
 /area/ruin/onehalf/drone_bay)
 "bJ" = (
 /obj/structure/girder,
-/turf/unsimulated/floor/plating/airless,
+/turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/hallway)
 "bK" = (
 /obj/machinery/vending/coffee{
@@ -813,15 +813,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/onehalf/hallway)
-"bW" = (
-/obj/structure/girder/reinforced,
-/turf/unsimulated/floor/plating/airless,
-/area/ruin/onehalf/hallway)
 "bX" = (
 /turf/simulated/wall/r_wall,
-/area/ruin/onehalf/hallway)
-"bY" = (
-/turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/hallway)
 "bZ" = (
 /obj/structure/disposalpipe/junction{
@@ -902,7 +895,7 @@
 /area/ruin/onehalf/hallway)
 "ck" = (
 /obj/structure/girder/reinforced,
-/turf/unsimulated/floor/plating/airless,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "cl" = (
 /obj/effect/landmark/damageturf,
@@ -1011,7 +1004,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "cw" = (
-/turf/unsimulated/floor/plating/airless,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "cx" = (
 /obj/structure/lattice,
@@ -1126,7 +1119,7 @@
 /area/ruin/onehalf/bridge)
 "cM" = (
 /obj/structure/safe/floor,
-/obj/item/tank/oxygen/red,
+/obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas/syndicate,
 /obj/item/clothing/suit/space/hardsuit/syndi,
 /obj/item/reagent_containers/food/drinks/bottle/rum,
@@ -1572,7 +1565,7 @@ ag
 bh
 bv
 bL
-bW
+bP
 ck
 cw
 aa
@@ -1616,7 +1609,7 @@ ag
 bf
 bw
 bO
-bY
+aj
 aa
 aa
 cE
@@ -1662,9 +1655,9 @@ aL
 bX
 bX
 ax
-bY
+aj
 cF
-bY
+aj
 ax
 bX
 bP

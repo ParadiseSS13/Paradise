@@ -35,8 +35,6 @@
 /obj/structure/spider/spiderling/terror_spiderling/Bump(obj/O)
 	if(istype(O, /obj/structure/table))
 		forceMove(O.loc)
-	else if(istype(O, /obj/machinery/recharge_station))
-		qdel(src)
 	. = ..()
 
 
@@ -160,11 +158,7 @@
 			if(frustration > 2)
 				entry_vent = null
 	else if(prob(33))
-		var/list/nearby = oview(10, src)
-		if(nearby.len)
-			var/target_atom = pick(nearby)
-			if(!istype(get_turf(target_atom),/turf/space))
-				walk_to(src, target_atom)
+		random_skitter()
 	else if(immediate_ventcrawl || prob(ventcrawl_chance))
 		immediate_ventcrawl = FALSE
 		if(!stillborn && !goto_mother)

@@ -549,9 +549,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "bD" = (
-/obj/structure/sign/redcross{
-	icon_state = "greencross"
-	},
+/obj/structure/sign/greencross,
 /turf/simulated/wall/rust,
 /area/ruin/space/ancientstation)
 "bE" = (
@@ -1028,10 +1026,10 @@
 /obj/structure/closet/crate/engineering{
 	name = "plasma tank crate"
 	},
-/obj/item/tank/plasma/full,
-/obj/item/tank/plasma/full,
-/obj/item/tank/plasma/full,
-/obj/item/tank/plasma/full,
+/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/plasma/full,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "cR" = (
@@ -1399,7 +1397,7 @@
 "dP" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/tank/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "blue"
@@ -1801,7 +1799,7 @@
 "eJ" = (
 /obj/structure/table,
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -1907,7 +1905,7 @@
 "eV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/tank/anesthetic,
+/obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

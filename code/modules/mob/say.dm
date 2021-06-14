@@ -66,7 +66,7 @@
 	create_log(DEADCHAT_LOG, message)
 	log_ghostsay(message, src)
 
-/mob/proc/say_understands(var/mob/other, var/datum/language/speaking = null)
+/mob/proc/say_understands(mob/other, datum/language/speaking = null)
 	if(stat == DEAD)
 		return 1
 
@@ -97,7 +97,7 @@
 	return 0
 
 
-/mob/proc/say_quote(var/message, var/datum/language/speaking = null)
+/mob/proc/say_quote(message, datum/language/speaking = null)
 	var/verb = "says"
 	var/ending = copytext(message, length(message))
 
@@ -135,7 +135,7 @@
 //parses the message mode code (e.g. :h, :w) from text, such as that supplied to say.
 //returns the message mode string or null for no message mode.
 //standard mode is the mode returned for the special ';' radio code.
-/mob/proc/parse_message_mode(var/message, var/standard_mode = "headset")
+/mob/proc/parse_message_mode(message, standard_mode = "headset")
 	if(length(message) >= 1 && copytext(message, 1, 2) == ";")
 		return standard_mode
 

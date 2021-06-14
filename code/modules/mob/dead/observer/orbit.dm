@@ -66,7 +66,7 @@
 		if(istype(M))
 			if(isnewplayer(M))  // People in the lobby screen; only have their ckey as a name.
 				continue
-			if(isobserver(M))
+			if(isobserver(M) && M.client)
 				ghosts += list(serialized)
 			else if(M.mind == null)
 				npcs += list(serialized)
@@ -114,6 +114,12 @@
 						antag_serialized["antag"] = antag_name
 						antagonists += list(antag_serialized)
 
+				// Player terror spiders have their own category to help see how much there are.
+				// Not in the above block because terrors can be known whether AHUD is on or not.
+				if(isterrorspider(M))
+					var/list/antag_serialized = serialized.Copy()
+					antag_serialized["antag"] = "Terror Spider"
+					antagonists += list(antag_serialized)
 		else
 			misc += list(serialized)
 
