@@ -526,3 +526,6 @@ RESPAWN_DELAY_DRONE 10
 
 # Do not write world logs to DreamDaemon log window/stdout on Unix
 #DISABLE_ROOT_LOG
+
+# Log all timers on timer auto reset
+LOG_TIMERS_ON_BUCKET_RESET
