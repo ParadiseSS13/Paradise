@@ -120,7 +120,8 @@ GLOBAL_PROTECT(log_end)
 	rustg_log_write(GLOB.world_game_log, "MISC: [text][GLOB.log_end]")
 
 /proc/log_world(text)
-	SEND_TEXT(world.log, text)
+	if(config && !config.disable_root_log)
+		SEND_TEXT(world.log, text)
 	if(config && config.log_world_output)
 		rustg_log_write(GLOB.world_game_log, "WORLD: [html_decode(text)][GLOB.log_end]")
 

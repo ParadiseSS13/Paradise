@@ -523,3 +523,6 @@ RESPAWN_DELAY_DRONE 10
 
 # Allow head to departments to assign civilian to his departament around Head of Personal
 #ALLOW_HEAD_OF_DEPARTAMENTS_ASSIGN_CIVILIAN
+
+# Do not write world logs to DreamDaemon log window/stdout on Unix
+#DISABLE_ROOT_LOG

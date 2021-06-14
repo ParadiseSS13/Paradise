@@ -23,6 +23,7 @@
 	var/log_pda = 0						// log pda messages
 	var/log_world_output = 0			// log world.log << messages
 	var/log_runtimes = 0                // logs world.log to a file
+	var/disable_root_log = 0			// disable writing world.log to log panel / root logger of DreamDaemon
 	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
 	var/sql_enabled = 0					// for sql switching
 	var/allow_admin_ooccolor = 0		// Allows admins with relevant permissions to have their own ooc colour
@@ -448,6 +449,9 @@
 
 				if("log_hrefs")
 					config.log_hrefs = 1
+
+				if("disable_root_log")
+					config.disable_root_log = 1
 
 				if("log_runtime")
 					config.log_runtimes = 1
