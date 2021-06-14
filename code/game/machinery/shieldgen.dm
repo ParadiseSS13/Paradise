@@ -160,7 +160,12 @@
 	for(var/turf/target_tile in range(2, src))
 		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
 			if(malfunction && prob(33) || !malfunction)
-				deployed_shields += new /obj/machinery/shield(target_tile)
+				var/obj/machinery/shield/new_shield = new(target_tile)
+				RegisterSignal(new_shield, COMSIG_PARENT_QDELETING, .proc/remove_shield) // Ensures they properly GC
+				deployed_shields += new_shield
+
+/obj/machinery/shieldgen/proc/remove_shield(obj/machinery/shield/S)
+	deployed_shields -= S
 
 /obj/machinery/shieldgen/proc/shields_down()
 	if(!active)
@@ -169,15 +174,12 @@
 	active = 0
 	update_icon()
 
-	for(var/obj/machinery/shield/shield_tile in deployed_shields)
-		qdel(shield_tile)
+	QDEL_LIST(deployed_shields)
 
 /obj/machinery/shieldgen/process()
 	if(malfunction && active)
-		if(deployed_shields.len && prob(5))
-			qdel(pick(deployed_shields))
-
-	return
+		if(length(deployed_shields) && prob(5))
+			qdel(pick_n_take(deployed_shields))
 
 /obj/machinery/shieldgen/proc/checkhp()
 	if(health <= 30)
