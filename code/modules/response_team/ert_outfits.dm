@@ -621,12 +621,12 @@
 	uniform = /obj/item/clothing/under/solgov/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov
 	head = null
+	mask = /obj/item/clothing/mask/gas/explorer/marines
 	belt = /obj/item/storage/belt/military/assault/marines/elite/full
 	l_hand = /obj/item/gun/projectile/automatic/ar
 	backpack_contents = list(
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/whetstone = 1,
-		/obj/item/clothing/mask/gas/explorer/marines = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
 	)
 	cybernetic_implants = list(
@@ -645,6 +645,7 @@
 	uniform = /obj/item/clothing/under/solgov/command/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov/command
 	head = null
+	mask = /obj/item/clothing/mask/gas/explorer/marines
 	glasses = /obj/item/clothing/glasses/night
 	belt = /obj/item/melee/baton/loaded
 	l_hand = null
@@ -654,7 +655,6 @@
 	backpack_contents = list(
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
-		/obj/item/clothing/mask/gas/explorer/marines = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
 		/obj/item/ammo_box/magazine/m50 = 3
 	)
