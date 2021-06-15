@@ -9,7 +9,6 @@
 	slot_flags = SLOT_BELT
 	force = 5
 	throwforce = 7
-	item_state = "crowbar"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
 	origin_tech = "engineering=1;combat=1"
