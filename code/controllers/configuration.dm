@@ -61,6 +61,7 @@
 	var/guest_jobban = 1
 	var/panic_bunker_threshold = 150	// above this player count threshold, never-before-seen players are blocked from connecting
 	var/usewhitelist = 0
+	var/usewhitelist_database = 0
 	var/mods_are_mentors = 0
 	var/load_jobs_from_txt = 0
 	var/automute_on = 0					//enables automuting/spam prevention
@@ -550,6 +551,9 @@
 
 				if("usewhitelist")
 					config.usewhitelist = 1
+
+				if("usewhitelist_database")
+					config.usewhitelist_database = 1
 
 				if("feature_object_spell_system")
 					config.feature_object_spell_system = 1

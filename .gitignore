@@ -35,3 +35,5 @@ stddef.dm
 
 # ignore midi2piano build cache
 /tools/midi2piano/midi2piano/obj/*
+
+*/node_modules/*
