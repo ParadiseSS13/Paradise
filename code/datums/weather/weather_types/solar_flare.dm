@@ -5,7 +5,7 @@
 	telegraph_duration = 30 SECONDS
 	telegraph_message = null // handled via event announcement
 
-	weather_message = "<span class='userdanger'><i>A solar flare has arrived! Find shelter!</i></span>"
+	weather_message = "<span class='userdanger'><i>Началась солнечная вспышка! Найдите укрытие!</i></span>"
 	weather_overlay = "light_ash"
 	weather_duration_lower = 5 MINUTES
 	weather_duration_upper = 10 MINUTES
@@ -38,11 +38,11 @@
 /datum/weather/solar_flare/weather_act(mob/living/L)
 	L.adjustFireLoss(1)
 	if(prob(10))
-		to_chat(L, "<span class='warning'>The solar flare burns you! Seek shelter!</span>")
+		to_chat(L, "<span class='warning'Солнечная вспышка сжигает вас! Ищите укрытие!</span>")
 
 /datum/weather/solar_flare/end()
 	if(..())
 		return
-	GLOB.event_announcement.Announce("The solar flare has passed.", "Solar Flare Advisory")
+	GLOB.event_announcement.Announce("Солнечная вспышка прошла", "ОПОВЕЩЕНИЕ: СОЛНЕЧНАЯ ВСПЫШКА")
 	// Ends the temporary 40x increase that happened during the weather event
 	SSsun.solar_gen_rate = initial(SSsun.solar_gen_rate)

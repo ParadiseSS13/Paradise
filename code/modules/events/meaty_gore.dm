@@ -14,4 +14,4 @@
 
 
 /datum/event/meteor_wave/gore/end()
-	GLOB.event_announcement.Announce("Станция прошла через обломки.", "ВНИМАНИЕ: МУСОР")
+	GLOB.event_announcement.Announce("Станция прошла через обломки.", "ВНИМАНИЕ: ОБЛОМКИ")
