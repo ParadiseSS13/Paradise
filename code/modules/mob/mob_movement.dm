@@ -126,8 +126,6 @@
 		move_delay = world.time
 	mob.last_movement = world.time
 
-	delay = TICKS2DS(-round(-(DS2TICKS(delay)))) //Rounded to the next tick in equivalent ds
-
 	if(locate(/obj/item/grab, mob))
 		delay += 7
 		var/list/L = mob.ret_grab()
