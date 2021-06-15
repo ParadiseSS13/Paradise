@@ -126,11 +126,12 @@
 		return ..()
 
 /obj/structure/grille/proc/repair(mob/user, obj/item/stack/rods/R)
-	user.visible_message("<span class='notice'>[user] rebuilds the broken grille.</span>",
-		"<span class='notice'>You rebuild the broken grille.</span>")
-	new grille_type(loc)
-	R.use(1)
-	qdel(src)
+	if(R.get_amount() >= 1)
+		user.visible_message("<span class='notice'>[user] rebuilds the broken grille.</span>",
+			"<span class='notice'>You rebuild the broken grille.</span>")
+		new grille_type(loc)
+		R.use(1)
+		qdel(src)
 
 /obj/structure/grille/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
