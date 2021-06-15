@@ -32,7 +32,7 @@
 	if(stat == DEAD)
 		handle_decay()
 
-	//Update our name based on whether our face is obscured/
+	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
 	pulse = handle_pulse(times_fired)
 

@@ -477,7 +477,7 @@
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name()
 	var/obj/item/organ/external/head = get_organ("head")
-	if(!head || head.status & ORGAN_DISFIGURED || cloneloss > 50 || !real_name || HAS_TRAIT(src, TRAIT_HUSK))	//disfigured. use id-name if possible
+	if(!head || (head.status & ORGAN_DISFIGURED) || cloneloss > 50 || !real_name || HAS_TRAIT(src, TRAIT_HUSK))	//disfigured. use id-name if possible
 		return "Unknown"
 	return real_name
 
@@ -1265,9 +1265,7 @@
 				continue
 			var/brute = E.brute_dam
 			var/burn = E.burn_dam
-			var/IB
-			if(E.status & ORGAN_INT_BLEEDING)
-				IB = TRUE
+			var/IB = (E.status & ORGAN_INT_BLEEDING)
 			var/obj/item/organ/external/OE = new E.type()
 			var/stats = list(OE, brute, burn, IB)
 			bodypart_damages += list(stats)
@@ -1287,14 +1285,15 @@
 		dna.species.create_organs(src)
 
 		//Apply relevant damages and variables to the new organs.
-		for(var/B in bodyparts)
-			var/obj/item/organ/external/E = B
+		for(var/obj/item/organ/external/E in bodyparts)
 			for(var/list/part in bodypart_damages)
 				var/obj/item/organ/external/OE = part[1]
 				if((E.type == OE.type)) // Type has to be explicit, as right limbs are a child of left ones etc.
 					var/brute = part[2]
 					var/burn = part[3]
-					//Deal the damage to the new organ and then delete the entry to prevent duplicate checks
+					var/IB = part [4] //Deal the damage to the new organ and then delete the entry to prevent duplicate checks
+					if(IB)
+						E.status |= ORGAN_INT_BLEEDING //TODO make this carry over all statuses
 					E.receive_damage(brute, burn, ignore_resists = TRUE)
 					qdel(part)
 

@@ -644,8 +644,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/fix_internal_bleeding()
 	if(is_robotic())
 		return FALSE
-	if(!(status & ORGAN_INT_BLEEDING))
-		return FALSE
 	status &= ~ORGAN_INT_BLEEDING
 	perma_injury = 0
 	return TRUE
@@ -757,7 +755,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 							  "<span class='danger'>Your [name] becomes a mangled mess!</span>",	\
 							  "<span class='warning'>You hear a sickening sound.</span>")
 
-	 status |= ORGAN_DISFIGURED
+	status |= ORGAN_DISFIGURED
 
 /obj/item/organ/external/is_primary_organ(mob/living/carbon/human/O = null)
 	if(isnull(O))

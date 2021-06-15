@@ -222,7 +222,7 @@
 
 	else if(implement_type in implements_heal_brute)
 		current_type = "brute"
-		if(!(affected.brute_dam > 0 || affected.status & ORGAN_DISFIGURED))
+		if(!(affected.brute_dam > 0 || (affected.status & ORGAN_DISFIGURED)))
 			to_chat(user, "<span class='warning'>The [affected] does not require welding repair!</span>")
 			return -1
 		if(tool.tool_behaviour == TOOL_WELDER)
