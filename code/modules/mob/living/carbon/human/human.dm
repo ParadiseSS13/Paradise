@@ -1293,7 +1293,7 @@
 					var/burn = part[3]
 					var/IB = part [4] //Deal the damage to the new organ and then delete the entry to prevent duplicate checks
 					if(IB)
-						E.status |= ORGAN_INT_BLEEDING //TODO make this carry over all statuses
+						E.status |= ORGAN_INT_BLEEDING
 					E.receive_damage(brute, burn, ignore_resists = TRUE)
 					qdel(part)
 
