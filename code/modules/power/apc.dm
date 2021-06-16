@@ -976,7 +976,7 @@
 		to_chat(malf, "You are already hacking an APC.")
 		return
 	if(constructed)
-		to_chat(malf, "<span class='warning'>This APC was reciently constructed, and not fully linked to station systems, and is of no use to hack.")
+		to_chat(malf, "<span class='warning'>This APC was reciently constructed, and not fully linked to station systems, and is of no use to hack.</span>")
 		return
 	to_chat(malf, "Beginning override of APC systems. This takes some time, and you cannot perform other actions during the process.")
 	malf.malfhack = src
