@@ -105,7 +105,8 @@
 	var/global/list/status_overlays_environ
 	var/indestructible = 0 // If set, prevents aliens from destroying it
 	var/keep_preset_name = 0
-	var/constructed = FALSE //Was this APC built instead of already existing? Used for malfhack to keep borgs from building apcs in space
+	/// Was this APC built instead of already existing? Used for malfhack to keep borgs from building apcs in space
+	var/constructed = FALSE
 
 	var/report_power_alarm = TRUE
 
