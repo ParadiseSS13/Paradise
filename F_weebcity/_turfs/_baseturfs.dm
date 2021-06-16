@@ -5,8 +5,7 @@ LAZY ASS TURF DEFINITION
 	name = "sand"
 	icon = 'F_weebcity/icons/turfs/desertsand.dmi'
 	icon_state = "sand1"
-	gender = PLURAL 
-	slowdown = 2
+	gender = PLURAL
 	light_range = 2
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA
@@ -19,7 +18,8 @@ LAZY ASS TURF DEFINITION
 
 /turf/simulated/floor/plating/desert_sand/Initialize(mapload)
 	. = ..()
-	icon_state = "sand[rand(1,4)]" //Randomized sand icon
+	if(prob(2))
+		icon_state = "sand[rand(2,4)]" //Randomized sand icon
 
 /turf/simulated/floor/plating/desert_sand/ex_act()
 	return

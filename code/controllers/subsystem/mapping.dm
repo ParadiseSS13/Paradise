@@ -12,7 +12,8 @@ SUBSYSTEM_DEF(mapping)
 	. = ..()
 	if(map_datum) // Dont do this again if we are recovering
 		return
-	if(fexists("data/next_map.txt"))
+	// WEEBCITY - JTGSZ CHANGE - Comment out map picker until we have more to work with, this works just fine below uncomment to use standard paradise map shit
+	/*if(fexists("data/next_map.txt"))
 		var/list/lines = file2list("data/next_map.txt")
 		// Check its valid
 		try
@@ -23,6 +24,8 @@ SUBSYSTEM_DEF(mapping)
 		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
 	else
 		map_datum = new /datum/map/cyberiad // Assume cyberiad if non-existent
+		*/
+	map_datum = new /datum/map/test_desert
 
 /datum/controller/subsystem/mapping/Shutdown()
 	if(next_map) // Save map for next round
@@ -36,9 +39,12 @@ SUBSYSTEM_DEF(mapping)
 	// Load the station
 	loadStation()
 
+	/* WEEBCITY - JTGSZ CHANGE - Disable Lavaland Loading unless we plan on using lavaland which is a off-station mining map
 	// Load lavaland
 	loadLavaland()
+	*/
 
+	//The below two are just disabled in the config text files.
 	// Pick a random away mission.
 	if(!config.disable_away_missions)
 		load_away_mission()
@@ -51,16 +57,17 @@ SUBSYSTEM_DEF(mapping)
 	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = list(REACHABLE))
 
 
-	// Setup the Z-level linkage
+	// Setup the Z-level linkage 
 	GLOB.space_manager.do_transition_setup()
 
 	// Spawn Lavaland ruins and rivers.
-	log_startup_progress("Populating lavaland...")
+	/* WEEBCITY - JTGSZ CHANGE - Disable lavaland ruin generation to save on init time/server resources unless we are using it.
+	log_startup_progress("Lavaland is disabled SEE: mapping.dm 62")
 	var/lavaland_setup_timer = start_watch()
 	seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
 	spawn_rivers(list(level_name_to_num(MINING)))
 	log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
-
+*/
 	// Now we make a list of areas for teleport locs
 	// TOOD: Make these locs into lists on the SS itself, not globs
 	for(var/area/AR in world)
