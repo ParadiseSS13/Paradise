@@ -131,9 +131,9 @@
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
 
-
 /obj/machinery/power/apc/constructed // APCS the crew builds
 	constructed = TRUE
+
 /obj/item/apc_electronics
 	name = "power control module"
 	desc = "Heavy-duty switching circuits for power control."
