@@ -67,20 +67,7 @@
 		O.clean_blood()
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
-	if(volume >= 1)
-		var/floor_only = TRUE
-		for(var/obj/effect/decal/cleanable/C in T)
-			var/obj/effect/decal/cleanable/blood/B = C
-			if(istype(B) && B.off_floor)
-				floor_only = FALSE
-			else
-				qdel(C)
-		T.color = initial(T.color)
-		if(floor_only)
-			T.clean_blood()
-
-		for(var/mob/living/simple_animal/slime/M in T)
-			M.adjustToxLoss(rand(5, 10))
+	T.clean(volume >= 1)
 
 /datum/reagent/space_cleaner/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	M.clean_blood()

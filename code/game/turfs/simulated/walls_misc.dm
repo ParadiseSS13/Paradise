@@ -69,11 +69,6 @@
 	QDEL_NULL(realappearance)
 	return ..()
 
-/turf/simulated/wall/clockwork/ReplaceWithLattice()
-	..()
-	for(var/obj/structure/lattice/L in src)
-		L.ratvar_act()
-
 /turf/simulated/wall/clockwork/narsie_act()
 	..()
 	if(istype(src, /turf/simulated/wall/clockwork)) //if we haven't changed type
@@ -122,19 +117,3 @@
 		to_chat(M.occupant, "<span class='userdanger'>The wall's intense heat completely reflects your [M.name]'s attack!</span>")
 		M.take_damage(20, BURN)
 
-/turf/simulated/wall/clockwork/proc/turn_up_the_heat()
-	if(!heated)
-		name = "superheated [name]"
-		visible_message("<span class='warning'>[src] sizzles with heat!</span>")
-		playsound(src, 'sound/machines/fryer/deep_fryer_emerge.ogg', 50, TRUE)
-		heated = TRUE
-		hardness = -100 //Lower numbers are tougher, so this makes the wall essentially impervious to smashing
-		slicing_duration = 150
-		animate(realappearance, color = "#FFC3C3", time = 5)
-	else
-		name = initial(name)
-		visible_message("<span class='notice'>[src] cools down.</span>")
-		heated = FALSE
-		hardness = initial(hardness)
-		slicing_duration = initial(slicing_duration)
-		animate(realappearance, color = initial(realappearance.color), time = 25)

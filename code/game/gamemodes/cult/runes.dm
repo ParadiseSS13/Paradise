@@ -595,7 +595,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 			return
 		sacrifices_used += SOULS_TO_REVIVE
 		mob_to_revive.revive()
-		mob_to_revive.grab_ghost()
+		if(mob_to_revive.ghost_can_reenter())
+			mob_to_revive.grab_ghost()
 
 	if(!mob_to_revive.client || mob_to_revive.client.is_afk())
 		set waitfor = FALSE
