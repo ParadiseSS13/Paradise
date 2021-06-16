@@ -131,9 +131,6 @@
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
 
-/obj/machinery/power/apc/constructed // APCS the crew builds
-	constructed = TRUE
-
 /obj/item/apc_electronics
 	name = "power control module"
 	desc = "Heavy-duty switching circuits for power control."
@@ -175,6 +172,7 @@
 		operating = 0
 		name = "[area.name] APC"
 		stat |= MAINT
+		constructed = TRUE
 		update_icon()
 		addtimer(CALLBACK(src, .proc/update), 5)
 
