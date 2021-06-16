@@ -105,6 +105,7 @@
 	var/global/list/status_overlays_environ
 	var/indestructible = 0 // If set, prevents aliens from destroying it
 	var/keep_preset_name = 0
+	var/constructed = FALSE //Was this APC built instead of already existing? Used for malfhack to keep borgs from building apcs in space
 
 	var/report_power_alarm = TRUE
 
@@ -130,6 +131,9 @@
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
 
+
+/obj/machinery/power/apc/constructed // APCS the crew builds
+	constructed = TRUE
 /obj/item/apc_electronics
 	name = "power control module"
 	desc = "Heavy-duty switching circuits for power control."
@@ -177,8 +181,6 @@
 /obj/machinery/power/apc/Destroy()
 	SStgui.close_uis(wires)
 	GLOB.apcs -= src
-	if(malfai && operating)
-		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	area.power_light = 0
 	area.power_equip = 0
 	area.power_environ = 0
@@ -972,6 +974,9 @@
 		return
 	if(malf.malfhacking)
 		to_chat(malf, "You are already hacking an APC.")
+		return
+	if(constructed)
+		to_chat(malf, "<span class='warning'>This APC was reciently constructed, and not fully linked to station systems, and is of no use to hack.")
 		return
 	to_chat(malf, "Beginning override of APC systems. This takes some time, and you cannot perform other actions during the process.")
 	malf.malfhack = src
