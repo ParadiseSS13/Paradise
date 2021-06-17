@@ -142,7 +142,7 @@
 		if(focus.buckled_mobs)
 			to_chat(user, "<span class='notice'>This object is too heavy to move with something buckled to it!</span>")
 			return
-		for(var/mob/M in focus.contents)
+		if(length(focus.client_mobs_in_contents))
 			to_chat(user, "<span class='notice'>This object is too heavy to move with something inside of it!</span>")
 			return
 		apply_focus_overlay()
