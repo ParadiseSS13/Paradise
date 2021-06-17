@@ -1228,15 +1228,19 @@
 	color = "#20324D" //RGB: 32, 50, 77
 	metabolization_rate = 0.2
 	var/shock_timer = 0
+
+	//The random values assigned to the high and low number for the random time for shocks
+	var/shock_high = 30
+	var/shock_low = 5
+	var/use_chaotic_random = TRUE //Do you change the random number every cycle, or after shock is triggered
+	var/chosen_timer = 15 //The timer chosen last cycle, or every time they are shocked
+
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "electricity"
 
 /datum/reagent/teslium/on_mob_life(mob/living/M)
 	shock_timer++
-	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
-		shock_timer = 0
-		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, SHOCK_NOGLOVES) //Override because it's caused from INSIDE of you
-		playsound(M, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	shock_proc(M)
 	return ..()
 
 /datum/reagent/teslium/on_mob_add(mob/living/M)
@@ -1250,6 +1254,24 @@
 		var/mob/living/carbon/human/H = M
 		H.physiology.siemens_coeff *= 0.5
 	..()
+
+/datum/reagent/teslium/proc/shock_proc(mob/living/M)
+	if(use_chaotic_random)
+		chosen_timer = rand(shock_low, shock_high)
+	if(shock_timer >= chosen_timer)
+		shock_timer = 0
+		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, SHOCK_NOGLOVES) //Override because it's caused from INSIDE of you
+		playsound(M, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		chosen_timer = rand(shock_low, shock_high) //It needs to be randomised here for blob teslium, and randoming it here doesn't affect normal
+
+/datum/reagent/teslium/blob //This version has it's shocks much less frequently, while retaining the shock multiplier
+	id = "blob_teslium"
+	shock_low = 10
+	use_chaotic_random = FALSE
+
+/datum/reagent/teslium/blob/on_mob_add(mob/living/M)
+	..()
+	chosen_timer = rand(10, 30)
 
 /datum/reagent/gluttonytoxin
 	name = "Gluttony's Blessing"
