@@ -46,7 +46,5 @@
 /obj/item/voice_changer/voice_modulator
 	name = "voice modulator"
 	desc = "A voice scrambling module."
-
 	voice = "Unknown"
-
 	actions_types = list(/datum/action/item_action/voice_changer/toggle)

@@ -158,7 +158,7 @@
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
-				"" = 64
+				"" = 64 // Reduce this number if you add things above. Make sure all the numbers in the list add to 100 EXACTLY 
 				)
 
 /obj/effect/spawner/lootdrop/crate_spawner // for ruins
