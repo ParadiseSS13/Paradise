@@ -159,6 +159,7 @@
 	fire_sound_text = null
 	lefthand_file = null
 	righthand_file = null
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	clumsy_check = 0 //Stole your uplink! Honk!
 	needs_permit = 0 //go away beepsky
 
