@@ -408,7 +408,7 @@
 			. = do_teleport(M, locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), pick(target_z)), 2, bypass_area_flag = com.area_bypass)
 		else
 			. = do_teleport(M, com.target, bypass_area_flag = com.area_bypass)
-		if(accurate <= 3)
+		if(accurate < 3)
 			calibrated = FALSE
 
 /obj/machinery/teleport/hub/update_icon()
