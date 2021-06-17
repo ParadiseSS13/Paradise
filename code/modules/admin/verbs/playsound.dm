@@ -78,7 +78,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 	for(var/mob/M in GLOB.player_list)
 		if(prefs.sound & SOUND_MIDI)
-			SEND_SOUND(src, sound(melody, volume = 85 * prefs.get_channel_volume(CHANNEL_ADMIN), channel = CHANNEL_ADMIN))
+			SEND_SOUND(M, sound(melody, volume = 85 * prefs.get_channel_volume(CHANNEL_ADMIN), channel = CHANNEL_ADMIN))
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Server Sound") //If you are copy-pasting this, ensure the 2nd paramter is unique to the new proc!
 
