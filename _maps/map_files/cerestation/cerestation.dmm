@@ -55884,10 +55884,6 @@
 /obj/machinery/door/airlock/titanium{
 	name = "mech bay external airlock"
 	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "cYy" = (
@@ -55900,44 +55896,25 @@
 /obj/machinery/mech_bay_recharge_port{
 	dir = 2
 	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cYA" = (
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cYB" = (
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cYC" = (
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium,
 /area/maintenance/maintcentral)
 "cYD" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/constructable_frame/machine_frame,
 /obj/item/stack/cable_coil,
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cYE" = (
@@ -55949,37 +55926,7 @@
 /area/maintenance/maintcentral)
 "cYF" = (
 /obj/structure/mecha_wreckage/ripley,
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mech_bay_recharge_floor,
-/area/maintenance/maintcentral)
-"cYG" = (
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/turf/simulated/floor/mineral/titanium/yellow,
-/area/maintenance/maintcentral)
-"cYH" = (
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/turf/simulated/floor/mineral/titanium,
 /area/maintenance/maintcentral)
 "cYI" = (
 /obj/effect/spawner/lootdrop{
@@ -55988,14 +55935,6 @@
 	name = "25% mech 75% wreckage ripley spawner"
 	},
 /turf/simulated/floor/mech_bay_recharge_floor,
-/area/maintenance/maintcentral)
-"cYJ" = (
-/obj/machinery/computer/mech_bay_power_console,
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cYK" = (
 /obj/machinery/computer/mech_bay_power_console,
@@ -56021,54 +55960,27 @@
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/metal/fifty,
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cYO" = (
 /obj/effect/turf_decal/delivery{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cYP" = (
 /obj/effect/turf_decal/delivery{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cYQ" = (
 /obj/effect/turf_decal/delivery{
 	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
 	},
 /obj/structure/closet/crate{
 	icon_state = "crateopen";
@@ -56080,10 +55992,6 @@
 "cYR" = (
 /obj/effect/turf_decal/delivery{
 	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
 	},
 /obj/machinery/light{
 	dir = 1
@@ -56102,10 +56010,6 @@
 /obj/item/pickaxe,
 /obj/item/pickaxe,
 /obj/item/storage/toolbox/emergency/old,
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cYT" = (
@@ -56120,24 +56024,13 @@
 	name = "Cargo Blast Door Toggle";
 	pixel_x = -24
 	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cYV" = (
 /obj/effect/turf_decal/delivery{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cYW" = (
@@ -56151,28 +56044,6 @@
 	},
 /obj/item/storage/bag/ore,
 /obj/item/pickaxe,
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/turf/simulated/floor/mineral/titanium/yellow,
-/area/maintenance/maintcentral)
-"cYX" = (
-/obj/effect/turf_decal/delivery{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cYY" = (
@@ -56183,18 +56054,6 @@
 	name = "spare equipment crate"
 	},
 /obj/item/stack/sheet/glass/fifty,
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cYZ" = (
@@ -56206,10 +56065,6 @@
 	name = "Cargo Blast Door Toggle";
 	pixel_x = 24
 	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cZa" = (
@@ -56218,17 +56073,6 @@
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral)
-"cZb" = (
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/turf/simulated/floor/mineral/titanium,
 /area/maintenance/maintcentral)
 "cZc" = (
 /obj/machinery/door/poddoor{
@@ -56278,28 +56122,12 @@
 	name = "spare equipment crate"
 	},
 /obj/item/storage/toolbox/mechanical/old,
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /obj/item/clothing/glasses/welding,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cZA" = (
 /obj/effect/turf_decal/delivery{
 	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
 	},
 /obj/structure/closet/crate{
 	icon_state = "crateopen";
@@ -56309,63 +56137,24 @@
 /obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
-"cZB" = (
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/maintenance/maintcentral)
 "cZC" = (
 /obj/effect/turf_decal/delivery{
 	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
 	},
 /obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cZK" = (
 /obj/structure/ore_box,
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
 "cZL" = (
 /obj/machinery/door/airlock/titanium{
 	name = "cockpit"
 	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/maintenance/maintcentral)
 "cZM" = (
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/maintenance/maintcentral)
@@ -56382,56 +56171,22 @@
 	pixel_x = -1;
 	pixel_y = 2
 	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/maintenance/maintcentral)
 "cZU" = (
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/maintenance/maintcentral)
 "cZV" = (
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/maintenance/maintcentral)
-"cZW" = (
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/maintenance/maintcentral)
 "cZX" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/cobweb,
 /obj/item/storage/firstaid/regular,
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -56439,42 +56194,19 @@
 /area/maintenance/maintcentral)
 "dac" = (
 /obj/structure/table,
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/maintenance/maintcentral)
 "dae" = (
 /obj/machinery/suit_storage_unit/standard_unit,
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/maintenance/maintcentral)
 "daf" = (
 /obj/structure/chair/comfy/black,
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/maintenance/maintcentral)
 "dag" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/maintenance/maintcentral)
 "dam" = (
@@ -56483,17 +56215,9 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/maintenance/maintcentral)
 "dan" = (
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /obj/structure/computerframe,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/maintenance/maintcentral)
@@ -56502,10 +56226,6 @@
 /obj/item/paper_bin{
 	pixel_x = -1;
 	pixel_y = 6
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/maintenance/maintcentral)
@@ -69116,6 +68836,9 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
+"ibl" = (
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/maintenance/maintcentral)
 "ibq" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
@@ -75379,18 +75102,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "lVG" = (
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
-/obj/effect/decal/cleanable/dirt{
-	desc = "A thin layer of dust coating the floor.";
-	name = "dust"
-	},
 /obj/effect/spawner/grouped_spawner{
 	group_id = "tunnelbats";
 	max_per_spawner = 1;
@@ -75398,6 +75109,7 @@
 	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
 	total_amount = 10
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
 /area/maintenance/maintcentral)
 "lVJ" = (
@@ -80147,6 +79859,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/westalt)
+"oXc" = (
+/obj/effect/turf_decal/delivery{
+	dir = 1
+	},
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	name = "spare equipment crate";
+	opened = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/maintenance/maintcentral)
 "oXT" = (
 /obj/machinery/door/airlock/external{
 	name = "External airlock";
@@ -80812,6 +80536,10 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/gambling_den)
+"prN" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/maintenance/maintcentral)
 "prQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -127642,7 +127370,7 @@ cYw
 cYw
 cYw
 cYT
-cYC
+prN
 cYC
 cYT
 cYw
@@ -127899,8 +127627,8 @@ cYw
 cYw
 cYw
 cYU
-cZb
-cZb
+cYC
+prN
 cZz
 cZK
 cYw
@@ -128152,12 +127880,12 @@ rNK
 cYw
 cYz
 cYF
-cYJ
+cYK
 cYw
 cYN
-cYV
-cYH
-cYC
+cYP
+prN
+prN
 cYV
 cYw
 cYw
@@ -128409,17 +128137,17 @@ rNK
 cYw
 cYA
 cYB
-cYB
+ibl
 cYw
 cYO
 cYV
-cYH
-cZb
+prN
+cYC
 cZA
 cYw
 cZT
 dac
-cZW
+cZV
 cYw
 cYw
 rNK
@@ -128665,14 +128393,14 @@ umg
 mJM
 cYw
 cYB
-cYG
-cYG
+ibl
+cYB
 cYL
 cYP
 cYW
-cYH
-cZb
-cZB
+prN
+prN
+prN
 cZL
 cZU
 cZV
@@ -128922,17 +128650,17 @@ mkk
 irM
 cYx
 cYC
-cYH
-cYH
+cYC
+cYC
 cYM
 cYC
-cYC
+prN
 lVG
-cZb
-cZb
+prN
+cYC
 cYM
 cZV
-cZU
+cZV
 daf
 dan
 cYM
@@ -129178,19 +128906,19 @@ umg
 umg
 mJM
 cYw
+ibl
 cYB
-cYB
-cYB
+ibl
 cYL
 cYQ
 cYP
-cZb
-cZb
-cZb
+cYC
+prN
+prN
 cZL
-cZW
-cZW
 cZV
+cZV
+cZU
 dao
 cYM
 rNK
@@ -129436,18 +129164,18 @@ rNK
 rNK
 cYw
 cYA
-cYB
+ibl
 cYB
 cYw
 cYR
-cYX
-cYH
-cYH
+cYV
+cYC
+prN
 cZC
 cYw
 cZX
 dac
-cZV
+cZU
 cYw
 cYw
 rNK
@@ -129698,9 +129426,9 @@ cYK
 cYw
 cYS
 cYY
-cYH
-cYH
-cYQ
+prN
+prN
+oXc
 cYw
 cYw
 cYw
@@ -129955,8 +129683,8 @@ cYw
 cYw
 cYw
 cYZ
-cYH
-cZb
+cYC
+prN
 cYP
 cZM
 cYw
@@ -130212,8 +129940,8 @@ cYw
 cYw
 cYw
 cYT
-cZb
-cYC
+prN
+prN
 cYT
 cYw
 cYw
