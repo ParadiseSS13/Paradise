@@ -588,21 +588,29 @@ Class Procs:
 	if(check_access && !allowed(perp))
 		threatcount += 4
 
-	if(auth_weapons && (!id || !(ACCESS_WEAPONS in id.access)))
+	var/perpname = perp.get_visible_name(TRUE)
+	var/datum/data/record/R = find_security_record("name", perpname)
+	var/weapon_permit = FALSE
+
+	if(R && R.fields["criminal"])
+		switch(R.fields["criminal"])
+			if(SEC_RECORD_STATUS_WEAPON_PERMIT)
+				weapon_permit = TRUE
+	if(ACCESS_WEAPONS in id.access)
+		weapon_permit = TRUE
+
+	if(auth_weapons && (!id || !weapon_permit))
 		if(isitem(perp.l_hand) && perp.l_hand.needs_permit)
 			threatcount += 4
 		if(isitem(perp.r_hand) && perp.r_hand.needs_permit)
 			threatcount += 4
 		if(isitem(perp.belt) && perp.belt.needs_permit)
 			threatcount += 4
+	weapon_permit = FALSE //Done with this being true, have it re-check next time
 
 	if(check_records || check_arrest)
-		var/perpname = perp.get_visible_name(TRUE)
-
-		var/datum/data/record/R = find_security_record("name", perpname)
 		if(check_records && !R)
 			threatcount += 4
-
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
 				if(SEC_RECORD_STATUS_EXECUTE)

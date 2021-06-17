@@ -1506,13 +1506,25 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return threatcount
 
 	//Check for ID
-	var/obj/item/card/id/idcard = get_idcard()
-	if(judgebot.idcheck && !idcard)
+	var/obj/item/card/id/id = get_idcard()
+	if(judgebot.idcheck && !id)
 		threatcount += 4
 
+
+	var/perpname = get_visible_name(TRUE)
+	var/datum/data/record/R = find_security_record("name", perpname)
+	var/weapon_permit = FALSE
+
 	//Check for weapons
+	if(R && R.fields["criminal"])
+		switch(R.fields["criminal"])
+			if(SEC_RECORD_STATUS_WEAPON_PERMIT)
+				weapon_permit = TRUE
+	if(ACCESS_WEAPONS in id.access)
+		weapon_permit = TRUE
+
 	if(judgebot.weaponscheck)
-		if(!idcard || !(ACCESS_WEAPONS in idcard.access))
+		if(!id || !weapon_permit)
 			if(judgebot.check_for_weapons(l_hand))
 				threatcount += 4
 			if(judgebot.check_for_weapons(r_hand))
@@ -1521,12 +1533,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 				threatcount += 4
 			if(judgebot.check_for_weapons(s_store))
 				threatcount += 4
+	weapon_permit = FALSE
 
 
 	//Check for arrest warrant
 	if(judgebot.check_records)
-		var/perpname = get_visible_name(TRUE)
-		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
 				if(SEC_RECORD_STATUS_EXECUTE)
@@ -1548,7 +1559,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		threatcount -= 1
 
 	//Agent cards lower threatlevel.
-	if(istype(idcard, /obj/item/card/id/syndicate))
+	if(istype(id, /obj/item/card/id/syndicate))
 		threatcount -= 5
 
 	return threatcount

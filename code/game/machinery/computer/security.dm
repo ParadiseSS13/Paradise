@@ -49,7 +49,7 @@
 			// General
 			"sex" = list("Male", "Female"),
 			// Security
-			"criminal" = list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_RELEASED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR),
+			"criminal" = list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_RELEASED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_WEAPON_PERMIT),
 		)
 
 /obj/machinery/computer/secure_data/Destroy()
@@ -339,6 +339,8 @@
 							text = "Please explain why they are being executed. Include a list of their crimes, and victims."
 						else if(answer == SEC_RECORD_STATUS_DEMOTE)
 							text = "Please explain why they are being demoted. Include a list of their offenses."
+						else if(answer == SEC_RECORD_STATUS_WEAPON_PERMIT)
+							text = "Please specify the details of their permit. Include a list of their permitted weapons."
 						ui_modal_input(src, "criminal_reason", text, arguments = list("status" = answer))
 						return
 
@@ -350,7 +352,7 @@
 					var/status = arguments["status"]
 					if(!record_security || !(status in field_edit_choices["criminal"]))
 						return
-					if((status in list(SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_DEMOTE)) && !length(answer))
+					if((status in list(SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_WEAPON_PERMIT)) && !length(answer))
 						set_temp("A valid reason must be provided for this status.", "danger")
 						return
 					var/datum/ui_login/state = ui_login_get()

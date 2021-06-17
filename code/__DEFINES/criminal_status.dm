@@ -8,3 +8,4 @@
 #define SEC_RECORD_STATUS_DEMOTE "Demote"
 #define SEC_RECORD_STATUS_SEARCH "Search"
 #define SEC_RECORD_STATUS_MONITOR "Monitor"
+#define SEC_RECORD_STATUS_WEAPON_PERMIT "Weapon Permit"

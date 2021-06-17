@@ -252,7 +252,12 @@
 				status = SEC_RECORD_STATUS_EXECUTE
 				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
 			else
-				return 0
+				return
+		if("weapon_permit", SEC_RECORD_STATUS_WEAPON_PERMIT)
+			if(ACCESS_ARMORY in authcard_access)
+				status = SEC_RECORD_STATUS_WEAPON_PERMIT
+			else
+				return
 		if("search", SEC_RECORD_STATUS_SEARCH)
 			status = SEC_RECORD_STATUS_SEARCH
 		if("monitor", SEC_RECORD_STATUS_MONITOR)

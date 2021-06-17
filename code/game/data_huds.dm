@@ -269,6 +269,9 @@
 				if(SEC_RECORD_STATUS_RELEASED)
 					holder.icon_state = "hudreleased"
 					return
+				if(SEC_RECORD_STATUS_WEAPON_PERMIT)
+					holder.icon_state = "hudpermit"
+					return
 	holder.icon_state = null
 
 /***********************************************
