@@ -25,16 +25,20 @@
 	update_icon()
 
 /obj/item/melee/baton/loaded/Initialize(mapload) //this one starts with a cell pre-installed.
-	if(isrobot(loc.loc)) // First loc would be the module
-		var/mob/living/silicon/robot/R = loc.loc
-		cell = R.cell
-	else
-		cell = new(src)
+	link_new_cell()
 	return ..()
 
 /obj/item/melee/baton/Destroy()
 	QDEL_NULL(cell)
 	return ..()
+
+// Should only be called on Initialize(), or if a borg has their cell replaced.
+/obj/item/melee/baton/proc/link_new_cell()
+	if(isrobot(loc.loc)) // First loc is the module
+		var/mob/living/silicon/robot/R = loc.loc
+		cell = R.cell
+	else
+		cell = new(src)
 
 /obj/item/melee/baton/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")

@@ -189,6 +189,16 @@
 		I.cyborg_recharge(coeff, R.emagged)
 
 /**
+ * Called when the robot owner of this module has their power cell replaced.
+ *
+ * Changes the linked power cell for module items to the newly inserted cell.
+ * Arguments:
+ * * new_cell - The replacement [/obj/item/stock_parts/cell] which will be linked to the items.
+ */
+/obj/item/robot_module/proc/update_cells(obj/item/stock_parts/cell/new_cell)
+	return
+
+/**
  * Called when the robot owner of this module has the `unemag()` proc called on them, which is only via admin means.
  *
  * Deletes this module's emag items, and recreates them.
@@ -407,6 +417,11 @@
 	)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
 	special_rechargables = list(/obj/item/melee/baton/loaded, /obj/item/gun/energy/disabler/cyborg)
+
+/obj/item/robot_module/security/update_cells()
+	var/obj/item/melee/baton/B = locate(/obj/item/melee/baton/loaded) in modules
+	if(B)
+		B.link_new_cell()
 
 // Janitor cyborg module.
 /obj/item/robot_module/janitor
