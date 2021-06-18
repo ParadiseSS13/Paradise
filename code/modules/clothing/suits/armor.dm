@@ -243,7 +243,7 @@
 	var/hit_reflect_chance = 40
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect()
-	var/mob/living/carbon/human/user = src.loc
+	var/mob/living/carbon/human/user = loc
 	if(prob(hit_reflect_chance) && (user.wear_suit == src))
 		return 1
 
