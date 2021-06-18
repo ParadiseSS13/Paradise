@@ -82,9 +82,6 @@ LOG_ADMINWARN
 ## Log admin chat
 LOG_ADMINCHAT
 
-## Log all timers on timer auto reset
-#LOG_TIMERS_ON_BUCKET_RESET
-
 ## Amount of minutes that a person has to be AFK before he will be warned by the AFK subsystem. Leave this 0 to prevent the subsystem from activating
 WARN_AFK_MINIMUM 15
 
