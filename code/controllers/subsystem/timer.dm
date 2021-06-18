@@ -293,7 +293,7 @@ SUBSYSTEM_DEF(timer)
 		// Check that timer has a valid callback and hasn't been invoked
 		if (!timer.callBack || timer.spent)
 			WARNING("Invalid timer: [get_timer_debug_string(timer)] world.time: [world.time], \
-            	head_offset: [head_offset], practical_offset: [practical_offset]")
+				head_offset: [head_offset], practical_offset: [practical_offset]")
 			if (timer.callBack)
 				qdel(timer)
 			continue
