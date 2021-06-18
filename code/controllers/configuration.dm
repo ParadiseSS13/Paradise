@@ -24,7 +24,6 @@
 	var/log_world_output = 0			// log world.log << messages
 	var/log_runtimes = 0                // logs world.log to a file
 	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
-	var/log_timers_on_bucket_reset = 0  // logs all timers in buckets on automatic bucket reset (Useful for timer debugging)
 	var/sql_enabled = 0					// for sql switching
 	var/allow_admin_ooccolor = 0		// Allows admins with relevant permissions to have their own ooc colour
 	var/pregame_timestart = 240			// Time it takes for the server to start the game
@@ -443,9 +442,6 @@
 
 				if("log_runtime")
 					config.log_runtimes = 1
-
-				if("log_timers_on_bucket_reset")
-					config.log_timers_on_bucket_reset = 1
 
 				if("mentors")
 					config.mods_are_mentors = 1
