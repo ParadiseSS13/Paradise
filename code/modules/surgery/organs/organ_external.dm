@@ -405,7 +405,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	var/local_damage = brute_dam + damage
 	if(damage > 15 && local_damage > 30 && prob(damage) && !is_robotic())
-		internal_bleed()
+		cause_internal_bleeding()
 
 // new damage icon system
 // returns just the brute/burn damage code
@@ -633,7 +633,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		owner.handle_splints()
 	return TRUE
 
-/obj/item/organ/external/proc/internal_bleed()
+/obj/item/organ/external/proc/cause_internal_bleeding()
 	if(is_robotic())
 		return
 	if(HAS_TRAIT(owner, NO_BLOOD))

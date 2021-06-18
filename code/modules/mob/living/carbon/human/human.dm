@@ -1291,7 +1291,7 @@
 				if((E.type == OE.type)) // Type has to be explicit, as right limbs are a child of left ones etc.
 					var/brute = part[2]
 					var/burn = part[3]
-					var/IB = part [4] //Deal the damage to the new organ and then delete the entry to prevent duplicate checks
+					var/IB = part[4] //Deal the damage to the new organ and then delete the entry to prevent duplicate checks
 					if(IB)
 						E.status |= ORGAN_INT_BLEEDING
 					E.receive_damage(brute, burn, ignore_resists = TRUE)
