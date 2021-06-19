@@ -7,7 +7,7 @@ import { CrewManifest } from "./common/CrewManifest";
 export const ghost_crew_manifest = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window resizable theme="ghost">
+    <Window resizable theme="nologo">
       <Window.Content scrollable>
         <Section noTopPadding>
           <CrewManifest />
