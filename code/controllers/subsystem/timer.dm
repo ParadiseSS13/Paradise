@@ -12,9 +12,9 @@
   *
   * Handles creation, callbacks, and destruction of timed events.
   *
-  * It is important to understand the buckets used in the timer subsystem are just a series of circular doubly-linked
-  * lists. The object at a given index in bucket_list is a /datum/timedevent, the head of a circular list, which has prev
-  * and next references for the respective elements in that bucket's circular list.
+  * It is important to understand the buckets used in the timer subsystem are just a series of doubly-linked
+  * lists. The object at a given index in bucket_list is a /datum/timedevent, the head of a list, which has prev
+  * and next references for the respective elements in that bucket's list.
   */
 SUBSYSTEM_DEF(timer)
 	name = "Timer"
@@ -50,6 +50,7 @@ SUBSYSTEM_DEF(timer)
 	var/static/last_invoke_warning = 0
 	/// Boolean operator controlling if the timer SS will automatically reset buckets if it fails to invoke callbacks for an extended period of time
 	var/static/bucket_auto_reset = TRUE
+	/// How many times bucket was reset
 	var/bucket_reset_count = 0
 
 /datum/controller/subsystem/timer/PreInit()
@@ -297,7 +298,7 @@ SUBSYSTEM_DEF(timer)
 				qdel(timer)
 			continue
 
-		// Insert the timer into the bucket, and perform necessary circular doubly-linked list operations
+		// Insert the timer into the bucket, and perform necessary doubly-linked list operations
 		new_bucket_count++
 		var/bucket_pos = BUCKET_POS(timer)
 		timer.bucket_pos = bucket_pos
@@ -359,7 +360,9 @@ SUBSYSTEM_DEF(timer)
 	var/datum/timedevent/next
 	/// Previous timed event in the bucket
 	var/datum/timedevent/prev
+	/// Boolean indicating if timer joined into bucket
 	var/bucket_joined = FALSE
+	/// Initial bucket position
 	var/bucket_pos = -1
 
 /datum/timedevent/New(datum/callback/callBack, wait, flags, hash, source)
