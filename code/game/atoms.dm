@@ -1139,3 +1139,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		else
 			name = "[prefix][t]"
 	return t
+
+/atom/proc/set_angle(degrees)
+	var/matrix/M = matrix()
+	M.Turn(degrees)
+	transform = M

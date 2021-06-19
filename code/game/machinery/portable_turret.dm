@@ -678,7 +678,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		last_target = target
 		if(has_cover)
 			popUp()				//pop the turret up if it's not already up.
-		setDir(get_dir(src, target))	//even if you can't shoot, follow the target
+		// Set angle
+		set_angle(ATOM_ANGLE(src, target))
 		shootAt(target)
 		return TRUE
 
