@@ -176,6 +176,12 @@
 	..()
 	new /obj/effect/temp_visual/borgflash(get_turf(src))
 
+/obj/item/flash/cyborg/cyborg_recharge(coeff, emagged)
+	if(broken)
+		broken = FALSE
+		times_used = 0
+		icon_state = "flash"
+
 /obj/item/flash/cameraflash
 	name = "camera"
 	icon = 'icons/obj/items.dmi'

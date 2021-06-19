@@ -129,6 +129,7 @@
 	icon_state = "e_snare"
 	trap_damage = 0
 	flags = DROPDEL
+	breakouttime = 6 SECONDS
 
 /obj/item/restraints/legcuffs/beartrap/energy/New()
 	..()
@@ -192,7 +193,7 @@
 
 /obj/item/restraints/legcuffs/bola/energy/throw_impact(atom/hit_atom)
 	if(iscarbon(hit_atom))
-		var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy/cyborg(get_turf(hit_atom))
+		var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy(get_turf(hit_atom))
 		B.Crossed(hit_atom, null)
 		qdel(src)
 	..()

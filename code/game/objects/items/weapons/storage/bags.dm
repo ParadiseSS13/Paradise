@@ -314,7 +314,7 @@
 	//Therefore, make a new stack internally that has the remainder.
 	// -Sayu
 
-	if(S.amount > S.max_amount)
+	if(S.get_amount() > S.max_amount)
 		var/obj/item/stack/sheet/temp = new S.type(src)
 		temp.amount = S.amount - S.max_amount
 		S.amount = S.max_amount
