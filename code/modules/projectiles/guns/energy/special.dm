@@ -342,13 +342,13 @@
 /obj/item/gun/energy/bsg/examine(mob/user)
 	. = ..()
 	if(core && has_bluespace_crystal)
-		. += "[src] is fully operational"
+		. += "<span class='notice'>[src] is fully operational!</span>"
 	else if(core)
-		. += "It has a flux anomaly core installed, but no bluespace crystal in it."
+		. += "<span class='warning'>It has a flux anomaly core installed, but no bluespace crystal in it.</span>"
 	else if(has_bluespace_crystal)
-		. += "It has a bluespace crystal installed, but no flux anomaly core in it."
+		. += "<span class='warning'>It has a bluespace crystal installed, but no flux anomaly core in it.</span>"
 	else
-		. += "It is missing a flux anomaly core and bluespace crystal to be operational."
+		. += "<span class='warning'>It is missing a flux anomaly core and bluespace crystal to be operational.</span>"
 
 /obj/item/gun/energy/bsg/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/ore/bluespace_crystal))

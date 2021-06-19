@@ -358,7 +358,8 @@
 /obj/effect/temp_visual/bsg_kaboom
 	name = "bluespace explosion"
 	icon = 'icons/effects/96x96.dmi'
-	icon_state = "emfield_s3"
+	icon_state = "explosionfast"
+	color = "blue"
 	pixel_x = -32
 	pixel_y = -32
-	duration = 15
+	duration = 42

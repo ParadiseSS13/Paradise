@@ -117,6 +117,7 @@
 
 /obj/item/projectile/energy/bsg/on_range()
 	kaboom()
+	new /obj/effect/temp_visual/bsg_kaboom(loc)
 	..()
 
 /obj/item/projectile/energy/bsg/proc/kaboom()
