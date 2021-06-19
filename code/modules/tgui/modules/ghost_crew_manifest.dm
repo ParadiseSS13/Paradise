@@ -1,3 +1,5 @@
+GLOBAL_DATUM_INIT(ghost_crew_manifest, /datum/ui_module/ghost_crew_manifest, new)
+
 /datum/ui_module/ghost_crew_manifest
 	name = "Crew Manifest"
 

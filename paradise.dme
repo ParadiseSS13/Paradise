@@ -252,7 +252,6 @@
 #include "code\datums\callback.dm"
 #include "code\datums\chatmessage.dm"
 #include "code\datums\click_intercept.dm"
-#include "code\datums\crew_manifest.dm"
 #include "code\datums\datacore.dm"
 #include "code\datums\datum.dm"
 #include "code\datums\datumvars.dm"

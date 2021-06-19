@@ -602,8 +602,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
 	set category = "Ghost"
-	var/datum/ui_module/ghost_crew_manifest/CM = new()
-	CM.ui_interact(usr)
+	GLOB.ghost_crew_manifest.ui_interact(usr)
 
 //this is called when a ghost is drag clicked to something.
 /mob/dead/observer/MouseDrop(atom/over)
