@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"talisman.png"              = 'icons/paper_icons/talisman.png',
 		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png',
 		"syndielogo.png"		='icons/paper_icons/syndielogo.png',
-		"pogfish.png"                = 'icons/paper_icons/pogfish.png',
+		"pogfish.png"                = 'icons/hispania/paper_icons/pogfish.png',
 	)
 
 /datum/asset/simple/chess
