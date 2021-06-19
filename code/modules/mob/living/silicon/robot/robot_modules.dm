@@ -191,11 +191,11 @@
 /**
  * Called when the robot owner of this module has their power cell replaced.
  *
- * Changes the linked power cell for module items to the newly inserted cell.
+ * Changes the linked power cell for module items to the newly inserted cell, or to `null`.
  * Arguments:
- * * new_cell - The replacement [/obj/item/stock_parts/cell] which will be linked to the items.
+ * * unlink_cell - If TRUE, set the item's power cell variable to `null` rather than linking it to a new one.
  */
-/obj/item/robot_module/proc/update_cells(obj/item/stock_parts/cell/new_cell)
+/obj/item/robot_module/proc/update_cells(unlink_cell = FALSE)
 	return
 
 /**
@@ -418,10 +418,10 @@
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
 	special_rechargables = list(/obj/item/melee/baton/loaded, /obj/item/gun/energy/disabler/cyborg)
 
-/obj/item/robot_module/security/update_cells()
+/obj/item/robot_module/security/update_cells(unlink_cell = FALSE)
 	var/obj/item/melee/baton/B = locate(/obj/item/melee/baton/loaded) in modules
 	if(B)
-		B.link_new_cell()
+		B.link_new_cell(unlink_cell)
 
 // Janitor cyborg module.
 /obj/item/robot_module/janitor

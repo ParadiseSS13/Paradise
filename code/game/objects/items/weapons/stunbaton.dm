@@ -29,12 +29,22 @@
 	return ..()
 
 /obj/item/melee/baton/Destroy()
-	QDEL_NULL(cell)
+	if(cell?.loc == src)
+		QDEL_NULL(cell)
 	return ..()
 
-// Should only be called on Initialize(), or if a borg has their cell replaced.
-/obj/item/melee/baton/proc/link_new_cell()
-	if(isrobot(loc.loc)) // First loc is the module
+/**
+ * Updates the linked power cell on the baton.
+ *
+ * If the baton is held by a cyborg, link it to their internal cell.
+ * Else, spawn a new cell and use that instead.
+ * Arguments:
+ * * unlink - If TRUE, sets the `cell` variable to `null` rather than linking it to a new one.
+ */
+/obj/item/melee/baton/proc/link_new_cell(unlink = FALSE)
+	if(unlink)
+		cell = null
+	else if(isrobot(loc.loc)) // First loc is the module
 		var/mob/living/silicon/robot/R = loc.loc
 		cell = R.cell
 	else
