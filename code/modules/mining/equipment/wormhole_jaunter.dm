@@ -147,7 +147,7 @@
 	qdel(src)
 
 /obj/item/wormhole_jaunter/contractor/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>Emaging [src] has no effect.</span>")
+	to_chat(user, "<span class='warning'>Emagging [src] has no effect.</span>")
 
 /obj/item/wormhole_jaunter/contractor/chasm_react(mob/user)
 	return //This is not an instant getaway portal like the jaunter
@@ -160,6 +160,7 @@
 	new /obj/item/wormhole_jaunter/contractor(src)
 	new /obj/item/radio/beacon/emagged(src)
 	return
+
 /obj/effect/portal/redspace/getaway
 	one_use = TRUE
 
