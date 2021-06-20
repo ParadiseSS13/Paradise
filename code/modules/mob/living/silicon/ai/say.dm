@@ -141,8 +141,10 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	log_game("[key_name(src)] made a vocal announcement: [message].")
 	message_admins("[key_name_admin(src)] made a vocal announcement: [message].")
 
+	var/i = 0
 	for(var/word in words)
-		play_vox_word(word, src.z, null)
+		addtimer(CALLBACK(GLOBAL_PROC, .proc/play_vox_word, word, src.z, null), i)
+		i++
 
 	ai_voice_announcement_to_text(words)
 
