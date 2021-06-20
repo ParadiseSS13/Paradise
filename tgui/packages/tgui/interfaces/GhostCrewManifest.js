@@ -1,11 +1,8 @@
-import { Fragment } from 'inferno';
-import { useBackend } from '../backend';
-import { Box, Section } from '../components';
+import { Section } from '../components';
 import { Window } from '../layouts';
 import { CrewManifest } from "./common/CrewManifest";
 
-export const ghost_crew_manifest = (props, context) => {
-  const { act, data } = useBackend(context);
+export const GhostCrewManifest = (props, context) => {
   return (
     <Window resizable theme="nologo">
       <Window.Content scrollable>

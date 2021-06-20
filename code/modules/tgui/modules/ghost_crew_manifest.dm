@@ -3,11 +3,11 @@ GLOBAL_DATUM_INIT(ghost_crew_manifest, /datum/ui_module/ghost_crew_manifest, new
 /datum/ui_module/ghost_crew_manifest
 	name = "Crew Manifest"
 
-/datum/ui_module/ghost_crew_manifest/ui_interact(user, ui_key = "ghost_crew_manifest", datum/tgui/ui = null, datum/tgui/master_ui = null, state = GLOB.observer_state)
+/datum/ui_module/ghost_crew_manifest/ui_interact(user, ui_key = "GhostCrewManifest", datum/tgui/ui = null, datum/tgui/master_ui = null, state = GLOB.observer_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ghost_crew_manifest", "Crew Manifest", 588, 510, master_ui)
-		ui.autoupdate = FALSE
+		ui = new(user, src, ui_key, "GhostCrewManifest", name, 588, 510, master_ui)
+		ui.set_autoupdate(FALSE)
 		ui.open()
 
 /datum/ui_module/ghost_crew_manifest/ui_data(user)
