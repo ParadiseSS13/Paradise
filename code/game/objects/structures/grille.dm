@@ -184,7 +184,7 @@
 		W.update_nearby_icons()
 		W.state = WINDOW_OUT_OF_FRAME
 		S.use(2)
-		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
+		to_chat(user, "<span class='notice'>You place [W] on [src].</span>")
 
 
 /obj/structure/grille/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

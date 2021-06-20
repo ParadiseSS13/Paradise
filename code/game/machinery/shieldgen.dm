@@ -126,7 +126,7 @@
 	return visible
 
 /obj/machinery/shieldgen
-	name = "Emergency shield projector"
+	name = "emergency shield projector"
 	desc = "Used to seal minor hull breaches."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shieldoff"
@@ -253,7 +253,7 @@
 			health = max_health
 			malfunction = TRUE
 			playsound(loc, coil.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You repair the [src]!</span>")
+			to_chat(user, "<span class='notice'>You repair [src]!</span>")
 			update_icon()
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
@@ -409,7 +409,7 @@
 		active = 2
 	if(active >= 1)
 		if(power == 0)
-			visible_message("<span class='warning'>The [name] shuts down due to lack of power!</span>", \
+			visible_message("<span class='warning'>[name] shuts down due to lack of power!</span>", \
 				"You hear heavy droning fade out")
 			icon_state = "Shield_Gen"
 			active = 0
