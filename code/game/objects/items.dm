@@ -288,6 +288,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		if(!user.unEquip(src, silent = TRUE))
 			return 0
 
+	if(flags & ABSTRACT)
+		return 0
+
 	else
 		if(isliving(loc))
 			return 0
@@ -728,3 +731,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(flags & SLOT_PDA)
 		owner.update_inv_wear_pda()
 
+/// Called on cyborg items that need special charging behavior. Override as needed for specific items.
+/obj/item/proc/cyborg_recharge(coeff = 1, emagged = FALSE)
+	return

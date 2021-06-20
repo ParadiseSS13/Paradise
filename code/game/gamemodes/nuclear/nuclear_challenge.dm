@@ -55,6 +55,7 @@
 
 	for(var/obj/machinery/computer/shuttle/syndicate/S in GLOB.machines)
 		S.challenge = TRUE
+		S.challenge_time = world.time
 
 	 // No. of player - Min. Player to dec, divided by player per bonus, then multipled by TC per bonus. Rounded.
 	total_tc = CHALLENGE_TELECRYSTALS + round((((GLOB.player_list.len - CHALLENGE_MIN_PLAYERS)/CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS))
