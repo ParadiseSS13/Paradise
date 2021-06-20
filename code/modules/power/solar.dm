@@ -191,7 +191,7 @@
 	var/glass_type = null
 
 /obj/item/solar_assembly/attack_hand(var/mob/user)
-	if(!anchored && isturf(loc)) // You can't pick it up
+	if(!anchored && !isturf(loc)) // You can't pick it up
 		..()
 
 // Give back the glass type we were supplied with
