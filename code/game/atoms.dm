@@ -1143,4 +1143,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/set_angle(degrees)
 	var/matrix/M = matrix()
 	M.Turn(degrees)
+	// If we aint 0, make it NN transform
+	if(degrees)
+		appearance_flags |= PIXEL_SCALE
 	transform = M

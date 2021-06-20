@@ -657,6 +657,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	qdel(flick_holder)
 
 	set_raised_raising(FALSE, FALSE)
+	set_angle(0)
 	update_icon()
 
 /obj/machinery/porta_turret/on_assess_perp(mob/living/carbon/human/perp)
