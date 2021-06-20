@@ -123,6 +123,9 @@
 	destination = L[desc]
 	return
 
+/obj/item/wormhole_jaunter/contractor/attack_self(mob/user) // message is later down
+	activate(user, TRUE)
+
 /obj/item/wormhole_jaunter/contractor/activate(mob/user)
 	if(!turf_check(user))
 		return
