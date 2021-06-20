@@ -19459,9 +19459,11 @@
 	},
 /area/security/processing)
 "bjB" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /obj/structure/lattice,
 /obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
 /turf/space,
 /area/space/nearstation)
 "bjD" = (
@@ -38981,10 +38983,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/asmaint)
-"cfK" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/engine/engineering)
 "cfL" = (
 /obj/structure/rack,
 /obj/item/pickaxe/mini,
@@ -63968,6 +63966,14 @@
 	icon_state = "redcorner"
 	},
 /area/hallway/primary/fore/west)
+"eVf" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5;
+	tag = "icon-intact (NORTHEAST)"
+	},
+/turf/space,
+/area/space/nearstation)
 "eVz" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 8;
@@ -91213,6 +91219,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/medical/psych)
+"wuh" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5;
+	tag = "icon-intact (NORTHEAST)"
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "wuk" = (
 /obj/structure/table,
 /turf/simulated/floor/plating,
@@ -125973,24 +125987,24 @@ bgf
 bgg
 biL
 dcG
-sxg
-sxg
-lzH
-sxg
-sxg
-sxg
-cfK
-cfK
-cfK
+biI
+eVf
+biI
+cWR
+biI
+eVf
+bhd
+bhd
+bhd
 cFw
 buS
 eGr
 eGr
 bhd
-cfK
-cfK
-cfK
-cfK
+bhd
+bhd
+bhd
+bhd
 bhd
 cPT
 bGU
@@ -126230,12 +126244,12 @@ bgf
 bgc
 biL
 bhQ
-biI
+dcG
 bjB
-cWR
-biI
-bnQ
-bnQ
+dcG
+dcG
+dcG
+biK
 hOc
 eZM
 ugj
@@ -126488,10 +126502,10 @@ bgc
 biL
 bhQ
 dcG
-lzH
 biK
 cJu
-lzH
+biK
+cJu
 lzH
 bhd
 bqr
@@ -129572,8 +129586,8 @@ bgc
 biL
 bhQ
 dcG
-lzH
 biI
+bnQ
 cWR
 biI
 cWR
@@ -129828,11 +129842,11 @@ bfa
 bgc
 biL
 bhQ
+bhQ
 biK
-bjD
-cJu
-biK
-cJu
+wuh
+bhQ
+bhQ
 dcG
 xIu
 dze
@@ -130084,13 +130098,13 @@ gLK
 bfa
 bgg
 biL
-bhR
-bnQ
+dcG
+biK
 bjD
-bnQ
-bnQ
-bnQ
 cJu
+biK
+cJu
+dcG
 bhd
 gie
 bhd
@@ -130341,13 +130355,13 @@ gLf
 iXq
 bgc
 biL
-sxg
-sxg
-sxg
-lzH
-sxg
-sxg
-lzH
+bhR
+bnQ
+bjD
+bnQ
+bnQ
+bnQ
+cJu
 lzH
 bqD
 sxg
