@@ -24,7 +24,7 @@
 
 
 /obj/item/melee/chainofcommand/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] is strangling [user.p_them()]self with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(user), "<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return OXYLOSS
 
 /obj/item/melee/rapier
@@ -97,7 +97,7 @@
 	if(proximity_flag)
 		if(is_type_in_typecache(target, strong_against))
 			new /obj/effect/decal/cleanable/insectguts(target.drop_location())
-			to_chat(user, "<span class='warning'>You easily splat the [target].</span>")
+			to_chat(user, "<span class='warning'>You easily splat [target].</span>")
 			if(istype(target, /mob/living/))
 				var/mob/living/bug = target
 				bug.death(1)

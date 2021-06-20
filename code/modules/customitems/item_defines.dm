@@ -34,12 +34,12 @@
 
 /obj/item/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent == INTENT_HARM)
-		user.visible_message("<span class='warning'>[user] stabs [M] with the [src]!</span>", "<span class='warning'>You stab [M] with the [src]!</span>")
-		to_chat(M, "<span class='userdanger'>[user] stabs you with the [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
+		user.visible_message("<span class='warning'>[user] stabs [M] with [src]!</span>", "<span class='warning'>You stab [M] with [src]!</span>")
+		to_chat(M, "<span class='userdanger'>[user] stabs you with [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
 		return
 
 	if(used)
-		to_chat(user, "<span class= 'notice'>The [src] is out of ink.</span>")
+		to_chat(user, "<span class= 'notice'>[src] is out of ink.</span>")
 		return
 
 	if(!istype(M, /mob/living/carbon/human))
@@ -62,10 +62,10 @@
 		return
 
 	if(target == user)
-		to_chat(user, "<span class= 'notice'>You use the [src] to apply a [tattoo_name] to yourself!</span>")
+		to_chat(user, "<span class= 'notice'>You use [src] to apply a [tattoo_name] to yourself!</span>")
 
 	else
-		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with the [src].</span>", "<span class='notice'>You begin to tattoo [target] with the [src]!</span>")
+		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with [src].</span>", "<span class='notice'>You begin to tattoo [target] with [src]!</span>")
 		if(!do_after(user, 30 * toolspeed, target = M))
 			return
 		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
@@ -108,12 +108,12 @@
 			tattoo_g = color2G(ink_color)
 			tattoo_b = color2B(ink_color)
 
-			to_chat(user, "<span class='notice'>You change the color setting on the [src].</span>")
+			to_chat(user, "<span class='notice'>You change the color setting on [src].</span>")
 
 			update_icon()
 
 	else
-		to_chat(user, "<span class='notice'>The [src] is out of ink!</span>")
+		to_chat(user, "<span class='notice'>[src] is out of ink!</span>")
 
 /obj/item/fluff/bird_painter // BirdtTalon: Kahkiri
 	name = "Orb of Onyx"
@@ -292,7 +292,7 @@
 		return
 
 	if(target.change_body_accessory("Jay Wingler Tail"))
-		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
+		to_chat(target, "<span class='notice'>You comb your tail with [src].</span>")
 		used = 1
 
 /obj/item/fluff/desolate_coat_kit //DesolateG: Micheal Smith
@@ -460,7 +460,7 @@
 		var/obj/item/clothing/suit/storage/S = target
 		var/obj/item/clothing/suit/storage/fluff/k3_webbing/webbing = new(get_turf(target))
 		webbing.allowed = S.allowed
-		to_chat(user, "<span class='notice'>You modify the [S] with [src].</span>")
+		to_chat(user, "<span class='notice'>You modify [S] with [src].</span>")
 		H.update_inv_wear_suit()
 		qdel(S)
 		qdel(src)
@@ -957,7 +957,7 @@
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.UpdateButtonIcon()
-		to_chat(user, "You turn the [src]'s lighting system [flavour].")
+		to_chat(user, "You turn [src]'s lighting system [flavour].")
 		user.update_inv_wear_suit()
 
 /obj/item/clothing/suit/hooded/hoodie/fluff/xantholne // Xantholne: Meex Zwichsnicrur

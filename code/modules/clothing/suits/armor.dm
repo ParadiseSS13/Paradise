@@ -368,7 +368,7 @@
 	if(!active)
 		return FALSE
 	if(reaction_check(hitby))
-		owner.visible_message("<span class='danger'>The [src] blocks the [attack_text], sending out jets of flame!</span>")
+		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out jets of flame!</span>")
 		for(var/mob/living/carbon/C in range(6, owner))
 			if(C != owner)
 				C.fire_stacks += 8
@@ -405,7 +405,7 @@
 	if(!active)
 		return FALSE
 	if(reaction_check(hitby))
-		owner.visible_message("<span class='danger'>The [src] blocks the [attack_text], sending out arcs of lightning!</span>")
+		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out arcs of lightning!</span>")
 		for(var/mob/living/M in view(6, owner))
 			if(M == owner)
 				continue
@@ -451,7 +451,7 @@
 				new sparkle_path(get_turf(AM), get_dir(owner, AM))
 				if(isliving(AM))
 					var/mob/living/M = AM
-					to_chat(M, "<span class='userdanger'>You're thrown back by the [owner]'s reactive armor!</span>")
+					to_chat(M, "<span class='userdanger'>You're thrown back by [owner]'s reactive armor!</span>")
 				INVOKE_ASYNC(AM, /atom/movable/.proc/throw_at, throw_target, ((clamp((repulse_power - (clamp(dist_from_user - 2, 0, dist_from_user))), 3, repulse_power))), 1) //So stuff gets tossed around at the same time.
 		disable(rand(2, 5))
 		return TRUE
