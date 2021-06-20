@@ -209,8 +209,8 @@
 	icon_dead = "gonarch_peaceful"
 	flip_on_death = TRUE //until we have a death one
 	pixel_x = -16
-	health = 800
-	maxHealth = 800
+	health = 1200
+	maxHealth = 1200
 	force_threshold = 16
 	dodging = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_EPIC
@@ -292,7 +292,7 @@
 	/// Last worldtime that the gonarch used a rangeswoop while returning
 	var/gonarch_rangeattack_swoop_lastattack = 0
 	/// Range of the walking home ranged attack
-	var/gonarch_rangeattack_swoop_range = 9
+	var/gonarch_rangeattack_swoop_range = 7
 	/// These are the soundlists of the gonarch. They are created null and will be filled when the gonarch is spawned to save memory and the hidden init proc.
 	var/list/gonarch_soundlist_rampage
 	/// These are the soundlists of the gonarch. They are created null and will be filled when the gonarch is spawned to save memory and the hidden init proc.
@@ -417,9 +417,9 @@
 
 /obj/item/projectile/gonarch/on_hit(atom/target, blocked = 0)
 	. = ..()
-	var/datum/reagents/R = new/datum/reagents(10)
+	var/datum/reagents/R = new/datum/reagents(15)
 	R.my_atom = target
-	R.add_reagent("sacid" , 10)
+	R.add_reagent("sacid" , 15)
 	chem_splash(get_turf(target), splash_range, list(R), 0, 1, FALSE)
 	for(var/mob/living/C in range(splash_range, target))
 		to_chat(C, "<span class='userdanger'>You have been splashed with acid!</span>")
@@ -466,7 +466,7 @@
 		to_chat(C, "<span class='userdanger'>You have been splashed with acid!</span>")
 
 /mob/living/simple_animal/hostile/headcrab/gonarch/proc/mode_switch(mode_to_switch, sound_to_play, clear_targets = TRUE, change_icon)
-	debug_gonarch_modeswitches.Add("Current Mode: " + mode + " Mode to Switch: " + mode_to_switch) //TODO: Remove simple debug
+	debug_gonarch_modeswitches.Add(mode_to_switch) //TODO: Remove simple debug
 	if(mode_to_switch == mode)
 		return
 	mode = mode_to_switch
