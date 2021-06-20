@@ -108,6 +108,6 @@
 	new_icon_carpet = 'icons/hispania/mecha/mecha.dmi'
 	icon_state = "paintkit_2"
 	new_icon = "purple"
-	new_name = "Purple Phazon"
+	new_name = "Anomaly"
 	new_desc = "A purple phazon."
 	allowed_types = list("phazon")
