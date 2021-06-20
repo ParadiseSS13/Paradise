@@ -93,7 +93,7 @@
 /obj/item/wormhole_jaunter/contractor
 	name = "emergency extraction flare"
 	icon = 'icons/obj/lighting.dmi'
-	desc = "A single use extraction flare, that will let you create a portal to any beacon on the station. You must chose the destination before hand, else it will head to a random beacon. Portal is made 5 seconds after activation, and has 1 use."
+	desc = "A single-use extraction flare that will let you create a portal to any beacon on the station. You must choose the destination beforehand, else it will target a random beacon. The portal is generated 5 seconds after activation, and has 1 use."
 	icon_state = "flare-contractor"
 	item_state = "flare"
 	var/destination
@@ -119,7 +119,7 @@
 			areaindex[tmpname] = 1
 		L[tmpname] = R
 
-	var/desc = input("Please select a location to lock in.", "Flare Target Interface") in L
+	var/desc = input("Please select a location to target.", "Flare Target Interface") in L
 	destination = L[desc]
 	return
 
@@ -132,12 +132,12 @@
 	if(!destination)
 		var/list/L = get_destinations(user)
 		if(!L.len)
-			to_chat(user, "<span class='notice'>[src] found no beacons in the world to create a portal to.</span>")
+			to_chat(user, "<span class='notice'>[src] found no beacons in the sector to target.</span>")
 			return
 		destination = pick(L)
 	var/obj/effect/temp_visual/getaway_flare/F = new(get_turf(src))
-	user.visible_message("<span class='notice'>[user] pulls a black and gold flare from [user.p_their()] belongings before lighting it.</span>",\
-						  "<span class='notice'>You light an emergency extration flare, initiating the extraction process.</span>")
+	user.visible_message("<span class='notice'>[user] pulls out a black and gold flare and lights it.</span>",\
+						  "<span class='notice'>You light an emergency extraction flare, initiating the extraction process.</span>")
 	user.drop_item()
 	forceMove(F)
 	addtimer(CALLBACK(src, .proc/create_portal, destination), 5 SECONDS)
