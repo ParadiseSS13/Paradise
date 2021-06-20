@@ -14,6 +14,7 @@
 	var/precision = TRUE // how close to the portal you will teleport. FALSE = on the portal, TRUE = adjacent
 	var/can_multitool_to_remove = FALSE
 	var/ignore_tele_proof_area_setting = FALSE
+	var/one_use = FALSE // Does this portal go away after one teleport?
 
 /obj/effect/portal/New(loc, turf/target, creator = null, lifespan = 300)
 	..()
@@ -87,6 +88,8 @@
 
 	if(!M.simulated || iseffect(M))
 		. = FALSE
+	if(istype(M, /obj/effect)) // sparks should not go in portals
+		. = FALSE
 
 /obj/effect/portal/proc/teleport(atom/movable/M)
 	if(!can_teleport(M))
@@ -108,7 +111,8 @@
 		if(!do_teleport(M, target, precision, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to a turf adjacent to target.
 			invalid_teleport()
 			return FALSE
-
+	if(one_use)
+		qdel(src)
 	return TRUE
 
 /obj/effect/portal/proc/invalid_teleport()
