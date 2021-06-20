@@ -586,7 +586,7 @@
 		client.prefs.language = "None"
 
 /mob/new_player/proc/ViewManifest()
-	GLOB.ghost_crew_manifest.ui_interact(usr, state = GLOB.always_state)
+	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.always_state)
 
 /mob/new_player/Move()
 	return 0
