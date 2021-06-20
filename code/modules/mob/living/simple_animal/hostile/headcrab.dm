@@ -313,7 +313,7 @@
 	toggle_ai(AI_ON)
 
 /// We need to adjust it's AI to ensure it never goes into AI_IDLE or AI_Z_IDLE or AI_OFF - To ensure it continues to produce headcrabs and follows its statemachine actions.
-/mob/living/simple_animal/hostile/headcrab/gonarch/AIShouldSleep(var/list/possible_targets)
+/mob/living/simple_animal/hostile/headcrab/gonarch/AIShouldSleep(list/possible_targets)
     FindTarget(possible_targets, TRUE)
     return FALSE
 
