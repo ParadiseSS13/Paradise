@@ -10,3 +10,22 @@ use_typepath_names = true
 
 [debugger]
 engine = "auxtools"
+
+[map_renderer.render_passes]
+smart-cables = false
+icon-smoothing = false
+icon-smoothing-2016 = true
+
+[map_renderer.fancy_layers]
+"/turf/simulated/floor/plating" = -10
+"/turf/space" = -10
+"/turf/simulated/floor/plasteel" = -2
+"/turf/simulated/floor/engine" = -2
+"/turf/simulated/floor/wood" = -2
+"/turf/simulated/floor/bluegrid" = -2
+"/turf/simulated/floor/carpet" = -2
+"/turf/simulated/wall" = -2
+# Stuff here should be invisible. So set it to layer -20
+"/obj/effect/mapping_helpers" = -20
+"/obj/effect/landmark" = -20
+"/obj/effect/spawner/random_spawners" = -20
