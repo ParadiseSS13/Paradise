@@ -76,7 +76,7 @@
 	qdel(query)
 
 // This is hacky, but since it's difficult as fuck to make a proper parser in BYOND without killing the server, here it is. - N3X
-/proc/HackProperties(var/mob/living/carbon/human/M,var/obj/item/I,var/script)
+/proc/HackProperties(mob/living/carbon/human/M, obj/item/I, script)
 	var/list/statements = splittext(script,";")
 	if(statements.len == 0)
 		return

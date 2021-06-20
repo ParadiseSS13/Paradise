@@ -135,7 +135,7 @@
 		to_chat(world, text)
 	return 1
 
-/datum/game_mode/proc/forge_vampire_objectives(var/datum/mind/vampire)
+/datum/game_mode/proc/forge_vampire_objectives(datum/mind/vampire)
 	//Objectives are traitor objectives plus blood objectives
 
 	var/datum/objective/blood/blood_objective = new
@@ -172,7 +172,7 @@
 		return
 	vampire_mob.make_vampire()
 
-/datum/game_mode/proc/greet_vampire(var/datum/mind/vampire, var/you_are=1)
+/datum/game_mode/proc/greet_vampire(datum/mind/vampire, you_are=1)
 	var/dat
 	if(you_are)
 		SEND_SOUND(vampire.current, sound('sound/ambience/antag/vampalert.ogg'))
@@ -193,8 +193,8 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	for(var/datum/objective/objective in vampire.objectives)
 		to_chat(vampire.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
+	to_chat(vampire.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Vampire)</span>")
 	return
-
 /datum/vampire
 	var/bloodtotal = 0 // CHANGE TO ZERO WHEN PLAYTESTING HAPPENS
 	var/bloodusable = 0 // CHANGE TO ZERO WHEN PLAYTESTING HAPPENS
@@ -219,6 +219,10 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		/obj/effect/proc_holder/spell/vampire/self/jaunt = 300,
 		/obj/effect/proc_holder/spell/vampire/targetted/enthrall = 300,
 		/datum/vampire_passive/full = 500)
+
+/datum/vampire/proc/adjust_nullification(base, extra)
+	// First hit should give full nullification, while subsequent hits increase the value slower
+	nullified = max(nullified + extra, base)
 
 /datum/vampire/New(gend = FEMALE)
 	gender = gend
@@ -248,7 +252,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		qdel(ability)
 		owner.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp loses his vision based powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
-/datum/vampire/proc/update_owner(var/mob/living/carbon/human/current) //Called when a vampire gets cloned. This updates vampire.owner to the new body.
+/datum/vampire/proc/update_owner(mob/living/carbon/human/current) //Called when a vampire gets cloned. This updates vampire.owner to the new body.
 	if(current.mind && current.mind.vampire && current.mind.vampire.owner && (current.mind.vampire.owner != current))
 		current.mind.vampire.owner = current
 
@@ -286,7 +290,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		draining = null
 		return
 	add_attack_logs(owner, H, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
-	owner.visible_message("<span class='danger'>[owner] grabs [H]'s neck harshly and sinks in [owner.p_their()] fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain [owner.p_their()] blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
+	owner.visible_message("<span class='danger'>[owner] grabs [H]'s neck harshly and sinks in [owner.p_their()] fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain [H.p_their()] blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
 	if(!iscarbon(owner))
 		H.LAssailant = null
 	else

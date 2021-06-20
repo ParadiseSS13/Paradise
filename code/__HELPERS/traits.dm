@@ -99,7 +99,7 @@
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
 
-//mob traits
+//***** MOB TRAITS *****//
 #define TRAIT_BLIND 			"blind"
 #define TRAIT_MUTE				"mute"
 #define TRAIT_DEAF				"deaf"
@@ -151,6 +151,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NODECAY			"no_decay"
 #define TRAIT_NOEXAMINE			"no_examine"
 #define TRAIT_NOPAIN			"no_pain"
+
+//***** ITEM TRAITS *****//
+/// Show what machine/door wires do when held.
+#define TRAIT_SHOW_WIRE_INFO "show_wire_info"
 
 //
 // common trait sources

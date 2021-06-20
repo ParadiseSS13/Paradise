@@ -7,7 +7,7 @@
 	dna_cost = 1
 	req_human = 1 //Monkeys can't grab
 
-/datum/action/changeling/swap_form/can_sting(var/mob/living/carbon/user)
+/datum/action/changeling/swap_form/can_sting(mob/living/carbon/user)
 	if(!..())
 		return
 	var/obj/item/grab/G = user.get_active_hand()
@@ -29,7 +29,7 @@
 		return
 	return 1
 
-/datum/action/changeling/swap_form/sting_action(var/mob/living/carbon/user)
+/datum/action/changeling/swap_form/sting_action(mob/living/carbon/user)
 	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/human/target = G.affecting
 	var/datum/changeling/changeling = user.mind.changeling

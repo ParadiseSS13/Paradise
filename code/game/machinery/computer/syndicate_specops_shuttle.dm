@@ -178,7 +178,7 @@ GLOBAL_VAR_INIT(syndicate_elite_shuttle_timeleft, 0)
 	if(GLOB.syndicate_elite_shuttle_moving_to_station || GLOB.syndicate_elite_shuttle_moving_to_mothership) return 0
 	else return 1
 
-/obj/machinery/computer/syndicate_elite_shuttle/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/syndicate_elite_shuttle/attack_ai(mob/user as mob)
 	to_chat(user, "<span class='warning'>Access Denied.</span>")
 	return 1
 
@@ -188,7 +188,7 @@ GLOBAL_VAR_INIT(syndicate_elite_shuttle_timeleft, 0)
 	else
 		return ..()
 
-/obj/machinery/computer/syndicate_elite_shuttle/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/syndicate_elite_shuttle/attack_hand(mob/user as mob)
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Access Denied.</span>")
 		return

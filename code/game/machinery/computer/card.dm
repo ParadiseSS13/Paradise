@@ -75,7 +75,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/proc/is_centcom()
 	return FALSE
 
-/obj/machinery/computer/card/proc/is_authenticated(var/mob/user)
+/obj/machinery/computer/card/proc/is_authenticated(mob/user)
 	if(user.can_admin_interact())
 		return TRUE
 	if(scan)
@@ -292,7 +292,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return TRUE
 	return FALSE
 
-/obj/machinery/computer/card/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/card/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
 /obj/machinery/computer/card/attack_hand(mob/user as mob)

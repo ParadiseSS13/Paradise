@@ -144,7 +144,7 @@
 /obj/machinery/alarm/kitchen_cold_room
 	preset = AALARM_PRESET_COLDROOM
 
-/obj/machinery/alarm/proc/apply_preset(var/no_cycle_after=0)
+/obj/machinery/alarm/proc/apply_preset(no_cycle_after=0)
 	// Propogate settings.
 	for(var/obj/machinery/alarm/AA in alarm_area)
 		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.preset != src.preset)
@@ -961,15 +961,13 @@
 		if(1)
 			if(iscoil(I))
 				var/obj/item/stack/cable_coil/coil = I
-				if(coil.amount < 5)
+				if(coil.get_amount() < 5)
 					to_chat(user, "You need more cable for this!")
 					return
 
 				to_chat(user, "You wire \the [src]!")
 				playsound(get_turf(src), coil.usesound, 50, 1)
-				coil.amount -= 5
-				if(!coil.amount)
-					qdel(coil)
+				coil.use(5)
 
 				buildstage = 2
 				update_icon()

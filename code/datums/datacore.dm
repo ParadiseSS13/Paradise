@@ -345,7 +345,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		locked += L
 	return
 
-/proc/get_id_photo(mob/living/carbon/human/H, var/custom_job = null)
+/proc/get_id_photo(mob/living/carbon/human/H, custom_job = null)
 	var/icon/preview_icon = null
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = H.get_int_organ(/obj/item/organ/internal/eyes)

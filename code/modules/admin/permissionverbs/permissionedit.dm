@@ -51,7 +51,7 @@
 
 	usr << browse(output,"window=editrights;size=600x500")
 
-/datum/admins/proc/log_admin_rank_modification(var/adm_ckey, var/new_rank)
+/datum/admins/proc/log_admin_rank_modification(adm_ckey, new_rank)
 	if(config.admin_legacy_system)	return
 
 	if(!usr.client)
@@ -134,7 +134,7 @@
 			qdel(log_query)
 			to_chat(usr, "<span class='notice'>Admin rank changed.</span>")
 
-/datum/admins/proc/log_admin_permission_modification(var/adm_ckey, var/new_permission)
+/datum/admins/proc/log_admin_permission_modification(adm_ckey, new_permission)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>Admin edit blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to edit admin ranks via advanced proc-call")

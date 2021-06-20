@@ -39,7 +39,7 @@
 	destroy_beacon()
 	return ..()
 
-/obj/machinery/bluespace_beacon/hide(var/intact)
+/obj/machinery/bluespace_beacon/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
 	update_icon()
 

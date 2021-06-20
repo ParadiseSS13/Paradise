@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	return pick(random_items)
 
-/obj/item/uplink/proc/buy(var/datum/uplink_item/UI, var/reference)
+/obj/item/uplink/proc/buy(datum/uplink_item/UI, reference)
 	if(is_jammed)
 		to_chat(usr, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
 		return
@@ -149,7 +149,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 // Checks to see if the value meets the target. Like a frequency being a traitor_frequency, in order to unlock a headset.
 // If true, it accesses trigger() and returns 1. If it fails, it returns false. Use this to see if you need to close the
 // current item's menu.
-/obj/item/uplink/hidden/proc/check_trigger(mob/user, var/value, var/target)
+/obj/item/uplink/hidden/proc/check_trigger(mob/user, value, target)
 	if(is_jammed)
 		to_chat(user, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
 		return

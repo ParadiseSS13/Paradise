@@ -304,7 +304,7 @@
 
 	qdel(src)
 
-/obj/item/grenade/chem_grenade/proc/CreateDefaultTrigger(var/typekey)
+/obj/item/grenade/chem_grenade/proc/CreateDefaultTrigger(typekey)
 	if(ispath(typekey,/obj/item/assembly))
 		nadeassembly = new(src)
 		if(nadeassembly.has_prox_sensors())
@@ -457,7 +457,7 @@
 
 
 /obj/item/grenade/chem_grenade/firefighting
-	payload_name = "fire fighting grenade"
+	payload_name = "fire fighting"
 	desc = "Can help to put out dangerous fires from a distance."
 	stage = READY
 

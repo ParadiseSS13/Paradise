@@ -69,7 +69,6 @@
 	togglelock(user)
 
 /obj/structure/closet/secure_closet/AltClick(mob/user)
-	..()
 	if(Adjacent(user))
 		togglelock(user)
 
@@ -114,7 +113,7 @@
 	else
 		icon_state = icon_opened
 
-/obj/structure/closet/secure_closet/container_resist(var/mob/living/L)
+/obj/structure/closet/secure_closet/container_resist(mob/living/L)
 	var/breakout_time = 2 //2 minutes by default
 	if(opened)
 		if(L.loc == src)

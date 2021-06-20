@@ -6,7 +6,7 @@
 		qdel(W)
 	return null
 
-/mob/living/carbon/human/proc/is_in_hands(var/typepath)
+/mob/living/carbon/human/proc/is_in_hands(typepath)
 	if(istype(l_hand,typepath))
 		return l_hand
 	if(istype(r_hand,typepath))
@@ -307,7 +307,7 @@
 		return FALSE
 	if(istype(I, /obj/item/stack))
 		var/obj/item/stack/S = I
-		if(S.amount == 0)
+		if(!S.get_amount())
 			qdel(I)
 			return FALSE
 	if(put_in_active_hand(I))

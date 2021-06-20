@@ -67,7 +67,7 @@
 		update_icon()
 		return
 
-/obj/item/gun/projectile/attackby(var/obj/item/A as obj, mob/user as mob, params)
+/obj/item/gun/projectile/attackby(obj/item/A as obj, mob/user as mob, params)
 	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))

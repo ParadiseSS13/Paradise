@@ -54,7 +54,7 @@
 
 //Sorts stock parts inside an RPED by their rating.
 //Only use /obj/item/stock_parts/ with this sort proc!
-/proc/cmp_rped_sort(var/obj/item/stock_parts/A, var/obj/item/stock_parts/B)
+/proc/cmp_rped_sort(obj/item/stock_parts/A, obj/item/stock_parts/B)
 	return B.rating - A.rating
 
 /obj/item/stock_parts

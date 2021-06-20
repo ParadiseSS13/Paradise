@@ -1,6 +1,6 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
-/proc/get_uplink_items(var/job = null)
+/proc/get_uplink_items(job = null)
 	var/list/uplink_items = list()
 	var/list/sales_items = list()
 	var/newreference = 1
@@ -82,7 +82,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/refund_path = null // Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
 	var/refund_amount // specified refund amount in case there needs to be a TC penalty for refunds.
 
-/datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/uplink/U)
+/datum/uplink_item/proc/spawn_item(turf/loc, obj/item/uplink/U)
 
 	if(hijack_only && !(usr.mind.special_role == SPECIAL_ROLE_NUKEOPS))//nukies get items that regular traitors only get with hijack. If a hijack-only item is not for nukies, then exclude it via the gamemode list.
 		if(!(locate(/datum/objective/hijack) in usr.mind.objectives))
@@ -103,7 +103,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		desc = replacetext(initial(temp.desc), "\n", "<br>")
 	return desc
 
-/datum/uplink_item/proc/buy(var/obj/item/uplink/hidden/U, var/mob/user)
+/datum/uplink_item/proc/buy(obj/item/uplink/hidden/U, mob/user)
 
 	if(!istype(U))
 		return 0
@@ -864,6 +864,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CQC"
 	item = /obj/item/CQC_manual
 	cost = 13
+	cant_discount = TRUE
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -951,6 +952,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "DSC"
 	item = /obj/item/toy/carpplushie/dehy_carp
 	cost = 2
+
+/datum/uplink_item/stealthy_weapons/combat_plus
+	name = "Combat Gloves Plus"
+	desc = "Combat gloves with installed nanochips that teach you Krav Maga when worn, great as a cheap backup weapon. Warning, the nanochips will override any other fighting styles such as CQC."
+	reference = "CGP"
+	item = /obj/item/clothing/gloves/color/black/krav_maga/combat
+	cost = 5
+	gamemodes = list(/datum/game_mode/nuclear)
 
 // GRENADES AND EXPLOSIVES
 

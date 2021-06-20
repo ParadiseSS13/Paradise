@@ -34,7 +34,7 @@
 
 	return ..()
 
-/obj/machinery/mass_driver/multitool_menu(var/mob/user, var/obj/item/multitool/P)
+/obj/machinery/mass_driver/multitool_menu(mob/user, obj/item/multitool/P)
 	return {"
 	<ul>
 	<li>[format_tag("ID Tag","id_tag","set_id")]</li>
@@ -98,7 +98,7 @@
 	anchored = 0
 	var/build = 0
 
-/obj/machinery/mass_driver_frame/attackby(var/obj/item/W as obj, var/mob/user as mob)
+/obj/machinery/mass_driver_frame/attackby(obj/item/W as obj, mob/user as mob)
 	switch(build)
 		if(0) // Loose frame
 			if(istype(W, /obj/item/wrench))
@@ -126,7 +126,7 @@
 				var/obj/item/stack/cable_coil/C = W
 				to_chat(user, "You start adding cables to \the [src]...")
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(do_after(user, 20 * C.toolspeed, target = src) && (C.amount >= 2) && (build == 2))
+				if(do_after(user, 20 * C.toolspeed, target = src) && (C.get_amount() >= 2) && (build == 2))
 					C.use(2)
 					to_chat(user, "<span class='notice'>You've added cables to \the [src].</span>")
 					build++
@@ -146,7 +146,7 @@
 				var/obj/item/stack/rods/R = W
 				to_chat(user, "You begin to complete \the [src]...")
 				playsound(get_turf(src), R.usesound, 50, 1)
-				if(do_after(user, 20 * R.toolspeed, target = src) && (R.amount >= 2) && (build == 3))
+				if(do_after(user, 20 * R.toolspeed, target = src) && (R.get_amount() >= 2) && (build == 3))
 					R.use(2)
 					to_chat(user, "<span class='notice'>You've added the grille to \the [src].</span>")
 					build++

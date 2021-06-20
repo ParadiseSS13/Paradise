@@ -36,14 +36,14 @@ Note: Must be placed within 3 tiles of the R&D Console
 	decon_mod = T
 
 
-/obj/machinery/r_n_d/destructive_analyzer/proc/ConvertReqString2List(var/list/source_list)
+/obj/machinery/r_n_d/destructive_analyzer/proc/ConvertReqString2List(list/source_list)
 	var/list/temp_list = params2list(source_list)
 	for(var/O in temp_list)
 		temp_list[O] = text2num(temp_list[O])
 	return temp_list
 
 
-/obj/machinery/r_n_d/destructive_analyzer/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/r_n_d/destructive_analyzer/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(shocked)
 		if(shock(user,50))
 			return TRUE

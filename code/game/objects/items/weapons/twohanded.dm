@@ -638,7 +638,7 @@
 /obj/item/twohanded/singularityhammer
 	name = "singularity hammer"
 	desc = "The pinnacle of close combat technology, the hammer harnesses the power of a miniaturized singularity to deal crushing blows."
-	icon_state = "mjollnir0"
+	icon_state = "singulohammer0"
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
 	force = 5
@@ -665,7 +665,7 @@
 		charged++
 
 /obj/item/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "mjollnir[wielded]"
+	icon_state = "singulohammer[wielded]"
 	..()
 
 /obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)

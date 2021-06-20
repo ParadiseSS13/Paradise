@@ -118,7 +118,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 /proc/jobban_unban_client(ckey, rank)
 	jobban_remove("[ckey] - [rank]")
 
-/proc/ban_unban_log_save(var/formatted_log)
+/proc/ban_unban_log_save(formatted_log)
 	text2file(formatted_log,"data/ban_unban_log.txt")
 
 

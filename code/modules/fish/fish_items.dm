@@ -133,7 +133,7 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-/obj/item/fish/shark/attackby(var/obj/item/O, var/mob/user as mob)
+/obj/item/fish/shark/attackby(obj/item/O, mob/user as mob)
 	if(istype(O, /obj/item/wirecutters))
 		to_chat(user, "You rip out the teeth of \the [src.name]!")
 		new /obj/item/fish/toothless_shark(get_turf(src))
@@ -167,7 +167,7 @@
 	desc = "Apparently, catfish don't purr like you might have expected them to. Such a confusing name!"
 	icon_state = "catfish"
 
-/obj/item/fish/catfish/attackby(var/obj/item/O, var/mob/user as mob)
+/obj/item/fish/catfish/attackby(obj/item/O, mob/user as mob)
 	if(is_sharp(O))
 		to_chat(user, "You carefully clean and gut \the [src.name].")
 		new /obj/item/reagent_containers/food/snacks/catfishmeat(get_turf(src))
@@ -186,7 +186,7 @@
 	desc = "The second-favorite food of Space Bears, right behind crew members."
 	icon_state = "salmon"
 
-/obj/item/fish/salmon/attackby(var/obj/item/O, var/mob/user as mob)
+/obj/item/fish/salmon/attackby(obj/item/O, mob/user as mob)
 	if(is_sharp(O))
 		to_chat(user, "You carefully clean and gut \the [src.name].")
 		new /obj/item/reagent_containers/food/snacks/salmonmeat(get_turf(src))
@@ -202,7 +202,7 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-/obj/item/fish/babycarp/attackby(var/obj/item/O, var/mob/user as mob)
+/obj/item/fish/babycarp/attackby(obj/item/O, mob/user as mob)
 	if(is_sharp(O))
 		to_chat(user, "You carefully clean and gut \the [src.name].")
 		new /obj/item/reagent_containers/food/snacks/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.

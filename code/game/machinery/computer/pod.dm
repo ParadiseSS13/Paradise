@@ -48,7 +48,7 @@
 
 	return
 
-/obj/machinery/computer/pod/proc/solo_sync(var/ident_tag)
+/obj/machinery/computer/pod/proc/solo_sync(ident_tag)
 	for(var/obj/machinery/mass_driver/M in GLOB.machines)
 		if(M.z != src.z)	continue
 		if((M.id_tag == ident_tag) && !(ident_tag in synced))
@@ -74,7 +74,7 @@
 	return
 
 
-/obj/machinery/computer/pod/proc/launch_sequence(var/ident_tag)
+/obj/machinery/computer/pod/proc/launch_sequence(ident_tag)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	var/anydriver = 0
@@ -108,12 +108,12 @@
 	return
 
 
-/obj/machinery/computer/pod/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/pod/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
 	return attack_hand(user)
 
 
-/obj/machinery/computer/pod/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/pod/attack_hand(mob/user as mob)
 	if(..())
 		return
 
@@ -272,7 +272,7 @@
 	circuit = /obj/item/circuitboard/syndicatedoor
 	light_color = "#00FFFF"
 
-/obj/machinery/computer/pod/old/syndicate/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/pod/old/syndicate/attack_hand(mob/user as mob)
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Access Denied</span>")
 		return
@@ -290,7 +290,7 @@
 	var/teleporter_dest = 0
 	circuit = /obj/item/circuitboard/pod/deathsquad
 
-/obj/machinery/computer/pod/deathsquad/launch_sequence(var/ident_tag)
+/obj/machinery/computer/pod/deathsquad/launch_sequence(ident_tag)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	var/anydriver = 0
@@ -352,7 +352,7 @@
 	var/id_tag = ""
 
 
-/obj/structure/deathsquad_tele/Bumped(var/atom/movable/AM)
+/obj/structure/deathsquad_tele/Bumped(atom/movable/AM)
 	if(!ztarget)	return ..()
 	var/y = AM.y
 	spawn()

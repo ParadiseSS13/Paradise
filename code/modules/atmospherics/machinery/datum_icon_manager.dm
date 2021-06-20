@@ -6,12 +6,12 @@
 //  atmospherics devices.
 //--------------------------------------------
 
-/proc/pipe_color_lookup(var/color)
+/proc/pipe_color_lookup(color)
 	for(var/C in GLOB.pipe_colors)
 		if(color == GLOB.pipe_colors[C])
 			return "[C]"
 
-/proc/pipe_color_check(var/color)
+/proc/pipe_color_check(color)
 	if(!color)
 		return 1
 	for(var/C in GLOB.pipe_colors)
@@ -37,7 +37,7 @@
 /datum/pipe_icon_manager/New()
 	check_icons()
 
-/datum/pipe_icon_manager/proc/get_atmos_icon(var/device, var/dir, var/color, var/state)
+/datum/pipe_icon_manager/proc/get_atmos_icon(device, dir, color, state)
 	check_icons()
 
 	device = "[device]"

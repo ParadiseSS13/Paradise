@@ -54,7 +54,7 @@
 	visible_message("<span class='notice'>The [src.name] burns out!</span>")
 
 
-/obj/item/flash/proc/flash_recharge(var/mob/user)
+/obj/item/flash/proc/flash_recharge(mob/user)
 	if(prob(times_used * 2))	//if you use it 5 times in a minute it has a 10% chance to break!
 		burn_out()
 		return 0
@@ -85,7 +85,7 @@
 	return TRUE
 
 
-/obj/item/flash/proc/flash_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, targeted = 1)
+/obj/item/flash/proc/flash_carbon(mob/living/carbon/M, mob/user = null, power = 5, targeted = 1)
 	if(user)
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(targeted)
@@ -175,6 +175,12 @@
 /obj/item/flash/cyborg/attack_self(mob/user)
 	..()
 	new /obj/effect/temp_visual/borgflash(get_turf(src))
+
+/obj/item/flash/cyborg/cyborg_recharge(coeff, emagged)
+	if(broken)
+		broken = FALSE
+		times_used = 0
+		icon_state = "flash"
 
 /obj/item/flash/cameraflash
 	name = "camera"
