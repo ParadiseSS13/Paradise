@@ -213,6 +213,7 @@
 	maxHealth = 800
 	force_threshold = 16
 	dodging = TRUE
+	mob_biotypes = MOB_ORGANIC | MOB_EPIC
 	gender = FEMALE //doesn't matter though
 	melee_damage_lower = 45
 	melee_damage_upper = 75
@@ -240,6 +241,8 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
 	//It has so many vars, to enable admins to change its behaviour on the fly. This is also the reason why its statemachine uses a lot of proc calls, so admins can call these manually.
 	can_zombify = FALSE
+	/// The amount of shots the gonarch has when it runs back. If there are more than X available targets, it will only shoot x times, and not attack all available targets.
+	var/gonarch_shots = 4
 	/// The Gonarch Standard Vision Range. As these are altered during the return state of the gonarch, a copy is saved here.
 	var/gonarch_standard_vision_range = 9
 	/// The Gonarch Aggro Vision Range. As these are altered during the return state of the gonarch, a copy is saved here.
@@ -250,9 +253,9 @@
 	var/area/home_nest_area
 	/// The home nest turf is the turf in an area that the Gonarch will walk back towards to find its nest.
 	var/turf/home_nest_turf
-	/// Homesick goes up when the Gonarch is not in its next. This is checked via an Area Check. If it is too high, it will cause the gonarch to go home. And if that turns too high (based on the rampage trigger, it will cause the gonarch to scream, spawn 4 headcrabs and quickly seek a new home.)
-	var/homesick = 0
-	/// The Rampage trigger is the amount of homesick that the gonarch is willing to gather before it goes into the rampage state. Then it will use its stunning scream, spawn 4 headcrabs and quickly seek a new home
+	/// homesick_level goes up when the Gonarch is not in its next. This is checked via an Area Check. If it is too high, it will cause the gonarch to go home. And if that turns too high (based on the rampage trigger, it will cause the gonarch to scream, spawn 4 headcrabs and quickly seek a new home.)
+	var/homesick_level = 0
+	/// The Rampage trigger is the amount of homesick_level that the gonarch is willing to gather before it goes into the rampage state. Then it will use its stunning scream, spawn 4 headcrabs and quickly seek a new home
 	var/gonarch_rampage_trigger = 30
 	/// The current mode its statemachine is in. Currently it has: Rest, Defending, Returning and Newhome (Looking for a new home) as well as Rampage.
 	var/mode = GONARCH_MODE_REST
@@ -264,7 +267,7 @@
 	var/time_last_babies = 0
 	/// The Spawn frequency of the headcrabs. Currently its set to 1 every minute.
 	var/gonarch_headcrab_spawn_frequency = 600
-	/// The Frustration goes up, if the Gonarch makes no progress getting to its home. If it reaches the limit designated it will start to destroy more, but also cause more homesick.
+	/// The Frustration goes up, if the Gonarch makes no progress getting to its home. If it reaches the limit designated it will start to destroy more, but also cause more homesick_level.
 	var/frustration = 0
 	/// The limit of frustration it accepts before starting to destroy more stuff around it.
 	var/frustration_limit = 3
@@ -291,17 +294,19 @@
 	/// Range of the walking home ranged attack
 	var/gonarch_rangeattack_swoop_range = 9
 	/// These are the soundlists of the gonarch. They are created null and will be filled when the gonarch is spawned to save memory and the hidden init proc.
-	var/list/gonarch_soundlist_rampage = null
+	var/list/gonarch_soundlist_rampage
 	/// These are the soundlists of the gonarch. They are created null and will be filled when the gonarch is spawned to save memory and the hidden init proc.
-	var/list/gonarch_soundlist_return = null
+	var/list/gonarch_soundlist_return
 	/// These are the soundlists of the gonarch. They are created null and will be filled when the gonarch is spawned to save memory and the hidden init proc.
-	var/list/gonarch_soundlist_initialise = null
+	var/list/gonarch_soundlist_initialise
 	/// These are the soundlists of the gonarch. They are created null and will be filled when the gonarch is spawned to save memory and the hidden init proc.
-	var/list/gonarch_soundlist_birth = null
+	var/list/gonarch_soundlist_birth
 	/// These are the soundlists of the gonarch. They are created null and will be filled when the gonarch is spawned to save memory and the hidden init proc.
-	var/list/gonarch_soundlist_defend = null
+	var/list/gonarch_soundlist_defend
 	/// Mobs that the gonarch can spawn
 	var/list/gonarch_spawn_list = null
+	/// DEBUG ONLY
+	var/list/debug_gonarch_modeswitches = new/list()
 
 /// We need to adjust it's AI to ensure it never goes into AI_IDLE or AI_Z_IDLE or AI_OFF - To ensure it continues to produce headcrabs and follows its statemachine actions.
 /mob/living/simple_animal/hostile/headcrab/gonarch/consider_wakeup()
@@ -309,7 +314,7 @@
 
 /// We need to adjust it's AI to ensure it never goes into AI_IDLE or AI_Z_IDLE or AI_OFF - To ensure it continues to produce headcrabs and follows its statemachine actions.
 /mob/living/simple_animal/hostile/headcrab/gonarch/AIShouldSleep(var/list/possible_targets)
-    FindTarget(possible_targets, 1)
+    FindTarget(possible_targets, TRUE)
     return FALSE
 
 /mob/living/simple_animal/hostile/headcrab/gonarch/Initialize()
@@ -333,23 +338,23 @@
 	if(home_nest_area == get_area(src) && mode != GONARCH_MODE_DEFENDING)
 		mode_switch(GONARCH_MODE_REST, change_icon = "gonarch_peaceful")
 	else
-		homesick++
+		homesick_level++
 
 	//combat
 	if(target && target != home_nest_turf && mode != GONARCH_MODE_RAMPAGE && mode != GONARCH_MODE_RETURNING) //We do not have a fight while rampage is on or while we return to base.
 		//This check is added at the beginning, to not open with the range attack, but to wait at least one tick before shooting the target. (This ensures no overlapping sounds occur)
-		if(mode == GONARCH_MODE_DEFENDING && world.time > gonarch_rangeattack_lastattack + gonarch_rangeattack_cooldown && istype(target, /mob/living/carbon/)) //We do not want to use acid attacks against mice
+		if(mode == GONARCH_MODE_DEFENDING && world.time > gonarch_rangeattack_lastattack + gonarch_rangeattack_cooldown && iscarbon(target)) //We do not want to use acid attacks against mice
 			shoot_artillery(target)
 		//we are in combat now, guaranteed.
-		//Is our Homesick too high to go rampage and leave?
-		if(homesick >= gonarch_rampage_trigger)
+		//Is our homesick_level too high to go rampage and leave?
+		if(homesick_level >= gonarch_rampage_trigger)
 			mode_switch(GONARCH_MODE_RAMPAGE, gonarch_soundlist_rampage, change_icon = "screech_pose")
 		else
 			mode_switch(GONARCH_MODE_DEFENDING, gonarch_soundlist_defend, change_icon = "gonarch_angry")
 		return
 
 	//out of combat
-	if(homesick >= gonarch_rampage_trigger && mode != GONARCH_MODE_RAMPAGE)
+	if(homesick_level >= gonarch_rampage_trigger && mode != GONARCH_MODE_RAMPAGE)
 		mode_switch(GONARCH_MODE_RAMPAGE, gonarch_soundlist_rampage, change_icon = "screech_pose")
 		return
 	switch(mode)
@@ -380,8 +385,11 @@
 
 /mob/living/simple_animal/hostile/headcrab/gonarch/proc/shoot_swoop()
 	gonarch_rangeattack_swoop_lastattack = world.time
+	var/gonarch_shots_used = 0
 	for(var/mob/living/carbon/C in range(gonarch_rangeattack_swoop_range, src))
-		addtimer(CALLBACK(src, .proc/shoot_projectile, C.loc), rand(5, 35))
+		if(gonarch_shots_used < gonarch_shots)
+			gonarch_shots_used++
+			addtimer(CALLBACK(src, .proc/shoot_projectile, C.loc), rand(5, 35))
 
 /mob/living/simple_animal/hostile/headcrab/gonarch/proc/shoot_projectile(turf/marker, set_angle)
 	if(!isnum(set_angle) && (!marker || marker == loc))
@@ -396,7 +404,8 @@
 
 /obj/item/projectile/gonarch
 	name ="acid bolt"
-	icon_state= "chronobolt"
+	icon = 'icons/mob/gonarch_projectile.dmi'
+	icon_state= "gonarch_shot"
 	damage = 10
 	armour_penetration = 0
 	speed = 2
@@ -404,19 +413,16 @@
 	damage_type = BURN
 	pass_flags = PASSTABLE
 	/// Used to define in what range the splash damage will be applied to.
-	var/splash_range = 1
+	var/splash_range = 2
 
 /obj/item/projectile/gonarch/on_hit(atom/target, blocked = 0)
 	. = ..()
-	if(iscarbon(target))
-		for(var/mob/living/C in range(splash_range, target))
-			if(istype(C, /mob/living/simple_animal/hostile/headcrab))
-				continue
-			C.adjustFireLoss(10)
-			C.adjustToxLoss(10)
-			if(C.reagents)
-				C.reagents.add_reagent("sacid", 10)
-				to_chat(C, "<span class='userdanger'>You have been splashed with acid!</span>")
+	var/datum/reagents/R = new/datum/reagents(10)
+	R.my_atom = target
+	R.add_reagent("sacid" , 10)
+	chem_splash(get_turf(target), splash_range, list(R), 0, 1, FALSE)
+	for(var/mob/living/C in range(splash_range, target))
+		to_chat(C, "<span class='userdanger'>You have been splashed with acid!</span>")
 
 /obj/effect/temp_visual/gonarch_artillery
 	icon = 'icons/mob/actions/actions.dmi'
@@ -425,39 +431,53 @@
 	light_range = 2
 	light_color = "#000000"
 	duration = 9
-
-/obj/effect/temp_visual/gonarch_artillery/ex_act()
-	return
+	var/splash_range = 1
 
 /obj/effect/temp_visual/gonarch_artillery/Initialize(mapload, list/flame_hit)
 	. = ..()
 	INVOKE_ASYNC(src, .proc/fall, flame_hit)
 
+/obj/effect/temp_visual/gonarch_artillery_projectile
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "fireball"
+	name = "fireball"
+	desc = "Get out of the way!"
+	color = "green"
+	layer = FLY_LAYER
+	randomdir = FALSE
+	duration = 9
+	pixel_z = 270
+
+/obj/effect/temp_visual/gonarch_artillery_projectile/Initialize(mapload)
+	. = ..()
+	animate(src, pixel_z = 0, time = duration)
+
 /obj/effect/temp_visual/gonarch_artillery/proc/fall(list/flame_hit)
 	var/turf/T = get_turf(src)
-	playsound(T,'sound/magic/fleshtostone.ogg', 80, TRUE)
-	new /obj/effect/temp_visual/fireball(T)
+	playsound(T, 'sound/magic/fleshtostone.ogg', 80, TRUE)
+	new /obj/effect/temp_visual/gonarch_artillery_projectile(T)
 	sleep(duration)
 	playsound(T, "sound/effects/splat.ogg", 80, TRUE)
-	for(var/mob/living/L in T.contents)
-		if(istype(L, /mob/living/simple_animal/hostile/headcrab))
-			continue
-		if(L.reagents)
-			L.reagents.add_reagent("sacid", 20)
-			to_chat(L, "<span class='userdanger'>You have been splashed with acid!</span>")
-		L.adjustBruteLoss(35)
+	var/datum/reagents/R = new/datum/reagents(20)
+	R.my_atom = src
+	R.add_reagent("sacid" , 20)
+	chem_splash(T, splash_range, list(R), 0, 1, FALSE)
+	for(var/mob/living/C in range(splash_range, src))
+		to_chat(C, "<span class='userdanger'>You have been splashed with acid!</span>")
 
-/mob/living/simple_animal/hostile/headcrab/gonarch/proc/mode_switch(mode_to_switch, sound_to_play, clear_targets = TRUE,  change_icon)
-	if(mode_to_switch && mode_to_switch != mode)
-		mode = mode_to_switch
-		if(clear_targets)
-			LoseTarget()
-		if(sound_to_play)
-			var/sound_picked = pick(sound_to_play)
-			playsound(src, sound_picked, 200, TRUE, 15, pressure_affected = FALSE)
-		if(change_icon)
-			icon_state = change_icon
-			icon_living = change_icon
+/mob/living/simple_animal/hostile/headcrab/gonarch/proc/mode_switch(mode_to_switch, sound_to_play, clear_targets = TRUE, change_icon)
+	debug_gonarch_modeswitches.Add("Current Mode: " + mode + " Mode to Switch: " + mode_to_switch) //TODO: Remove simple debug
+	if(mode_to_switch == mode)
+		return
+	mode = mode_to_switch
+	if(clear_targets)
+		LoseTarget()
+	if(sound_to_play)
+		var/sound_picked = pick(sound_to_play)
+		playsound(src, sound_picked, 200, TRUE, 15, pressure_affected = FALSE)
+	if(change_icon)
+		icon_state = change_icon
+		icon_living = change_icon
 
 /mob/living/simple_animal/hostile/headcrab/gonarch/proc/gonarch_rest()
 	if(get_area(src) == home_nest_area) // If I am home & Everything is calm
@@ -465,12 +485,12 @@
 			aggro_vision_range = gonarch_aggro_vision_range
 			vision_range = gonarch_standard_vision_range
 			speed = gonarch_standard_speed
-		if(homesick)
-			homesick = 0
+		if(homesick_level)
+			homesick_level = 0
 			step_towards(src, home_nest_turf, speed)
 		make_headcrabs() //Its its own proc, so they can be called by admins.
 	else
-		if(homesick >= 5)
+		if(homesick_level >= 5)
 			mode_switch(GONARCH_MODE_RETURNING, gonarch_soundlist_return, change_icon = "gonarch_peaceful")
 
 /mob/living/simple_animal/hostile/headcrab/gonarch/proc/gonarch_return()
@@ -482,7 +502,7 @@
 		frustration++
 		if(frustration > frustration_limit)
 			DestroyPathToTarget()
-			homesick++
+			homesick_level++
 	else
 		frustration = 0
 
@@ -500,7 +520,7 @@
 		if(lightingcount > 1 || gonarch_finding_home_attempts >= gonarch_finding_home_limit_attempts)
 			continue
 		turfs += T
-	if(!turfs.len)
+	if(length(turfs) <= 0)
 		gonarch_nestfind_range += 5
 		gonarch_finding_home_attempts++
 		return
@@ -513,11 +533,11 @@
 	aggro_vision_range = 0
 	vision_range = 0
 	LoseTarget()
-	homesick = 0
+	homesick_level = 0
 	for(var/mob/living/carbon/C in hearers(gonarch_screech_range, src))
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
 		C.Weaken(25)
-		C.MinimumDeafTicks(20)
+		C.AdjustEarDamage(0, 20)
 		C.Stuttering(20)
 		C.Stun(12)
 		C.Jitter(150)
@@ -534,12 +554,15 @@
 	var/chosen_sound = pick(gonarch_soundlist_birth)
 	playsound(src, chosen_sound, 200, TRUE, 8)
 	if(spawn_as_children)
+		RegisterSignal(B, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), .proc/remove_headcrab)
 		LAZYADD(gonarch_children, B)
 		time_last_babies = world.time
 		visible_message("<span class='warning'>[B] crawls out of [src]!</span>")
 
+/mob/living/simple_animal/hostile/headcrab/gonarch/proc/remove_headcrab(mob/living/simple_animal/hostile/headcrab/H)
+	gonarch_children -= H
+
 /mob/living/simple_animal/hostile/headcrab/gonarch/proc/make_headcrabs()
-	listclearnulls(gonarch_children)
 	if(world.time > time_last_babies + gonarch_headcrab_spawn_frequency && length(gonarch_children) < desired_child_count)
 		spawn_headcrabs()
 
@@ -551,7 +574,7 @@
 			L.break_light_tube()
 	for(var/obj/machinery/camera/C in range(camera_range, src))
 		if(C.status && prob(camera_chance))
-			C.toggle_cam(src, 0)
+			C.toggle_cam(src, FALSE)
 
 #undef GONARCH_MODE_REST
 #undef GONARCH_MODE_DEFENDING
