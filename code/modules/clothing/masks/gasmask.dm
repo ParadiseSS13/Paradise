@@ -58,6 +58,9 @@
 		"Grey" = 'icons/mob/species/grey/mask.dmi'
 		)
 
+/obj/item/clothing/mask/gas/explorer/marines
+	name = "military gas mask"
+
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
 	adjustmask(user)
 

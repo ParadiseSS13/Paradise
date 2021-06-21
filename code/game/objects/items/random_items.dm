@@ -267,7 +267,7 @@
 								/mob/living/simple_animal/hostile/creature,/mob/living/simple_animal/hostile/pirate/ranged,
 								/mob/living/simple_animal/hostile/hivebot,/mob/living/simple_animal/hostile/viscerator,/mob/living/simple_animal/hostile/pirate)
 
-		visible_message("<span class='warning'>Something falls out of the [src]!</span>")
+		visible_message("<span class='warning'>Something falls out of [src]!</span>")
 		var/obj/item/grenade/clusterbuster/C = new(src.loc)
 		C.prime()
 		sleep(10)

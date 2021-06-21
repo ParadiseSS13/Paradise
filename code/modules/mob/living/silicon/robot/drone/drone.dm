@@ -239,7 +239,7 @@
 		health = 35
 		stat = CONSCIOUS
 		return
-	health = 35 - (getBruteLoss() + getFireLoss())
+	health = 35 - (getBruteLoss() + getFireLoss() + getOxyLoss())
 	update_stat("updatehealth([reason])")
 
 /mob/living/silicon/robot/drone/death(gibbed)
