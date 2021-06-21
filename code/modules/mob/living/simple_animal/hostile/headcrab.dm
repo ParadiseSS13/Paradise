@@ -335,7 +335,7 @@
 	if(!.)
 		return
 
-	if(home_nest_area == get_area(src) && mode != GONARCH_MODE_DEFENDING)
+	if(home_nest_area == get_area(src) && mode != GONARCH_MODE_DEFENDING && mode != GONARCH_MODE_RAMPAGE)
 		mode_switch(GONARCH_MODE_REST, change_icon = "gonarch_peaceful")
 	else
 		homesick_level++
@@ -386,17 +386,21 @@
 /mob/living/simple_animal/hostile/headcrab/gonarch/proc/shoot_swoop()
 	gonarch_rangeattack_swoop_lastattack = world.time
 	var/gonarch_shots_used = 0
+	var/list/gonarch_potential_targets = new/list()
 	for(var/mob/living/carbon/C in range(gonarch_rangeattack_swoop_range, src))
-		if(gonarch_shots_used < gonarch_shots)
-			gonarch_shots_used++
-			addtimer(CALLBACK(src, .proc/shoot_projectile, C.loc), rand(5, 35))
+		gonarch_potential_targets.Add(C)
+	for(gonarch_shots_used = 0 to gonarch_shots)
+		if(!length(gonarch_potential_targets))
+			return
+		var/picked_target = pick_n_take(gonarch_potential_targets)
+		addtimer(CALLBACK(src, .proc/shoot_projectile, picked_target), rand(5, 35))
 
-/mob/living/simple_animal/hostile/headcrab/gonarch/proc/shoot_projectile(turf/marker, set_angle)
-	if(!isnum(set_angle) && (!marker || marker == loc))
+/mob/living/simple_animal/hostile/headcrab/gonarch/proc/shoot_projectile(mob/picked_target, set_angle)
+	if(!isnum(set_angle) && (!picked_target.loc || picked_target.loc == loc))
 		return
 	var/turf/startloc = get_turf(src)
 	var/obj/item/projectile/P = new /obj/item/projectile/gonarch(startloc)
-	P.preparePixelProjectile(marker, marker, startloc)
+	P.preparePixelProjectile(picked_target.loc, picked_target.loc, startloc)
 	P.firer = src
 	if(target)
 		P.original = target
@@ -420,7 +424,7 @@
 	var/datum/reagents/R = new/datum/reagents(15)
 	R.my_atom = target
 	R.add_reagent("sacid" , 15)
-	chem_splash(get_turf(target), splash_range, list(R), 0, 1, FALSE)
+	chem_splash(get_turf(target), splash_range, list(R), adminlog = FALSE)
 	for(var/mob/living/C in range(splash_range, target))
 		to_chat(C, "<span class='userdanger'>You have been splashed with acid!</span>")
 
@@ -488,7 +492,7 @@
 		if(homesick_level)
 			homesick_level = 0
 			step_towards(src, home_nest_turf, speed)
-		make_headcrabs() //Its its own proc, so they can be called by admins.
+		try_make_headcrabs() //Its its own proc, so they can be called by admins.
 	else
 		if(homesick_level >= 5)
 			mode_switch(GONARCH_MODE_RETURNING, gonarch_soundlist_return, change_icon = "gonarch_peaceful")
@@ -517,13 +521,14 @@
 		if(T.density)
 			continue
 		var/lightingcount = T.get_lumcount(0.5) * 10
-		if(lightingcount > 1 || gonarch_finding_home_attempts >= gonarch_finding_home_limit_attempts)
+		if(lightingcount > 1 && gonarch_finding_home_attempts < gonarch_finding_home_limit_attempts)
 			continue
 		turfs += T
-	if(length(turfs) <= 0)
+	if(!length(turfs))
 		gonarch_nestfind_range += 5
 		gonarch_finding_home_attempts++
 		return
+	gonarch_finding_home_attempts = 0
 	home_nest_turf = pick(turfs)
 	home_nest_area = get_area(home_nest_turf)
 	mode_switch(GONARCH_MODE_RETURNING, gonarch_soundlist_return, change_icon = "gonarch_peaceful")
@@ -541,8 +546,7 @@
 		C.Stuttering(20)
 		C.Stun(12)
 		C.Jitter(150)
-	var/i //Workaround to avoid compiler complaints and use faster for-loops
-	for(i in 1 to 4)
+	for(var/i in 1 to 4)
 		spawn_headcrabs(FALSE)
 	for(var/obj/structure/window/W in view(gonarch_screech_range))
 		W.deconstruct(FALSE)
@@ -560,9 +564,9 @@
 		visible_message("<span class='warning'>[B] crawls out of [src]!</span>")
 
 /mob/living/simple_animal/hostile/headcrab/gonarch/proc/remove_headcrab(mob/living/simple_animal/hostile/headcrab/H)
-	gonarch_children -= H
+	LAZYREMOVE(gonarch_children, H)
 
-/mob/living/simple_animal/hostile/headcrab/gonarch/proc/make_headcrabs()
+/mob/living/simple_animal/hostile/headcrab/gonarch/proc/try_make_headcrabs()
 	if(world.time > time_last_babies + gonarch_headcrab_spawn_frequency && length(gonarch_children) < desired_child_count)
 		spawn_headcrabs()
 
