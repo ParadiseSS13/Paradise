@@ -80,7 +80,7 @@
 /datum/mutation/noprints
 	name = "No Prints"
 	activation_messages = list("Your fingers feel numb.")
-	deactivation_messages = list("your fingers no longer feel numb.")
+	deactivation_messages = list("Your fingers no longer feel numb.")
 	instability = GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_NOFINGERPRINTS)
 
