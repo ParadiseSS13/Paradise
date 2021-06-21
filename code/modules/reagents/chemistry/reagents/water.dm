@@ -57,7 +57,7 @@
 	taste_description = "floor cleaner"
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
-	if(is_cleanable(O))
+	if(O.is_cleanable())
 		var/obj/effect/decal/cleanable/blood/B = O
 		if(!(istype(B) && B.off_floor))
 			qdel(O)
