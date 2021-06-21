@@ -390,7 +390,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ablative armor crate"
 
-/datum/supply_packs/security/armory/laserarmor
+/datum/supply_packs/security/armory/sibyl
 	name = "Sibyl Attachments Crate"
 	contains = list(/obj/item/sibyl_system_mod,
 					/obj/item/sibyl_system_mod,
