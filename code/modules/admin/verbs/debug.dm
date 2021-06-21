@@ -790,7 +790,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	set name = "Display del() Log"
 	set desc = "Display del's log of everything that's passed through it."
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
 		return
 
 	var/list/dellog = list("<B>List of things that have gone through qdel this round</B><BR><BR><ol>")
@@ -822,7 +822,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	set name = "Display Simple del() Log"
 	set desc = "Display a compacted del's log."
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
 		return
 
 	var/dat = "<B>List of things that failed to GC this round</B><BR><BR>"

@@ -254,7 +254,7 @@ log transactions
 		if("balance_statement")
 			if(authenticated_account)
 				if(world.timeofday < lastprint + PRINT_DELAY)
-					to_chat(usr, "<span class='notice'>The [name] flashes an error on its display.</span>")
+					to_chat(usr, "<span class='notice'>[src] flashes an error on its display.</span>")
 					return
 				lastprint = world.timeofday
 				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)

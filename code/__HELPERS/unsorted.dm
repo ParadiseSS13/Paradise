@@ -2072,7 +2072,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return _list
 
 /// Waits at a line of code until X is true
-#define UNTIL(X) while(!(X)) stoplag()
+#define UNTIL(X) while(!(X)) sleep(world.tick_lag)
 
 // Check if the source atom contains another atom
 /atom/proc/contains(atom/location)
