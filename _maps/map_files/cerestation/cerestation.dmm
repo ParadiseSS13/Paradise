@@ -17962,9 +17962,7 @@
 	},
 /area/hydroponics)
 "bgP" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
@@ -17987,6 +17985,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgreen"
@@ -17998,9 +18002,16 @@
 	},
 /obj/machinery/door/airlock/public/glass{
 	name = "Kitchen";
-	req_access_txt = "28"
+	req_access_txt = null;
+	req_one_access_txt = "28;35"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
@@ -18019,18 +18030,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
-	},
-/area/crew_quarters/kitchen)
-"bgX" = (
-/obj/structure/disposalpipe/segment{
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
@@ -18251,18 +18253,6 @@
 	icon_state = "dark"
 	},
 /area/hydroponics)
-"bhF" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
-	},
-/area/crew_quarters/kitchen)
 "bhG" = (
 /obj/effect/landmark/start{
 	name = "Chef"
@@ -18275,12 +18265,6 @@
 "bhH" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/condiment/peppermill,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
@@ -18289,12 +18273,6 @@
 "bhI" = (
 /obj/structure/table,
 /obj/item/book/manual/chef_recipes,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
@@ -18884,10 +18862,6 @@
 /area/hydroponics)
 "bjt" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 8;
-	id_tag = "kitchen"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/eastleft{
 	base_state = "right";
@@ -20180,9 +20154,9 @@
 	pixel_x = -25
 	},
 /obj/machinery/door_control{
-	id = "kitchen";
+	id = "kitchen1";
 	name = "Privacy Shutters";
-	pixel_x = -24
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
@@ -38984,11 +38958,11 @@
 	},
 /area/assembly/chargebay)
 "ciA" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel/white,
 /area/assembly/chargebay)
@@ -49909,6 +49883,10 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
+"cKP" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plasteel/white,
+/area/assembly/chargebay)
 "cKR" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -52847,19 +52825,6 @@
 /area/mine/unexplored{
 	name = "Near Station Asteroids"
 	})
-"cTP" = (
-/obj/machinery/door/window/eastleft{
-	base_state = "right";
-	icon_state = "right";
-	name = "Kitchen";
-	req_access_txt = "28"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 8;
-	id_tag = "kitchen"
-	},
-/turf/simulated/wall,
-/area/crew_quarters/kitchen)
 "cTQ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/northleft{
@@ -54691,6 +54656,13 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/fore/west)
+"dbI" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria";
+	tag = "icon-cafeteria (NORTHEAST)"
+	},
+/area/crew_quarters/kitchen)
 "dcv" = (
 /obj/effect/landmark{
 	name = "carpspawn"
@@ -56478,13 +56450,16 @@
 	},
 /area/security/permabrig)
 "dlC" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/machinery/hydroponics/constructable,
 /obj/structure/disposalpipe/junction{
 	dir = 8;
 	tag = "icon-pipe-j1 (EAST)"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -61133,10 +61108,12 @@
 	dir = 4
 	},
 /obj/effect/baseturf_helper/asteroid/airless,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel{
@@ -61555,19 +61532,6 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
-"ely" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 8;
-	id_tag = "kitchen"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window{
-	name = "Kitchen";
-	req_access_txt = "28"
-	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/kitchen)
 "elJ" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -65208,6 +65172,21 @@
 	icon_state = "darkgreen"
 	},
 /area/hallway/spacebridge/scidock)
+"gFA" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria";
+	tag = "icon-cafeteria (NORTHEAST)"
+	},
+/area/crew_quarters/kitchen)
 "gFI" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -65631,6 +65610,15 @@
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_4)
+"gQb" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria";
+	tag = "icon-cafeteria (NORTHEAST)"
+	},
+/area/crew_quarters/kitchen)
 "gQE" = (
 /obj/item/chair/wood{
 	dir = 4
@@ -70111,17 +70099,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
-"jFB" = (
-/obj/machinery/door_control{
-	id = "kitchen1";
-	name = "Privacy Shutters";
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
-	},
-/area/crew_quarters/kitchen)
 "jFG" = (
 /obj/structure/girder,
 /obj/structure/grille,
@@ -70360,6 +70337,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkgreenfull"
@@ -72582,13 +72563,13 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/computer/cryopod/robot{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -73024,6 +73005,12 @@
 	dir = 4
 	},
 /obj/machinery/cooker/deepfryer,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
@@ -73940,13 +73927,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 1
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=8";
 	dir = 8;
 	location = "Hydroponics"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -74269,6 +74256,16 @@
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel,
 /area/security/main)
+"mcu" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria";
+	tag = "icon-cafeteria (NORTHEAST)"
+	},
+/area/crew_quarters/kitchen)
 "mcI" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -74740,6 +74737,9 @@
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/starboard)
 "mqT" = (
+/obj/machinery/newscaster{
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteyellow"
@@ -74929,6 +74929,20 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/westalt)
+"mxH" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Kitchen";
+	req_access_txt = "28"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "kitchen1"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria";
+	tag = "icon-cafeteria (NORTHEAST)"
+	},
+/area/crew_quarters/kitchen)
 "mxI" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -79796,6 +79810,13 @@
 	icon_state = "dark"
 	},
 /area/security/warden)
+"pzy" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkgreenfull"
+	},
+/area/hydroponics)
 "pzB" = (
 /obj/machinery/door_control{
 	id = "cargoeva";
@@ -80418,10 +80439,13 @@
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
 "pVT" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -88400,14 +88424,6 @@
 /obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
-"vbL" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/hydroponics)
 "vcj" = (
 /obj/machinery/door/airlock/external{
 	name = "Emergency Shuttle Airlock"
@@ -92458,19 +92474,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/permabrig)
-"xBr" = (
-/obj/effect/landmark/start{
-	name = "Chef"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
-	},
-/area/crew_quarters/kitchen)
 "xBB" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -110566,7 +110569,7 @@ bBD
 dcJ
 btd
 rJn
-bAq
+pzy
 jLE
 esf
 esf
@@ -110824,7 +110827,7 @@ bdf
 btd
 tXy
 tPf
-vbL
+pVT
 byo
 byo
 byo
@@ -111339,8 +111342,8 @@ cFe
 baF
 baF
 bgT
-cTP
-ely
+baF
+baF
 bjt
 dbs
 baF
@@ -111412,7 +111415,7 @@ ceA
 acP
 elS
 qbF
-cqw
+cKP
 ciA
 pay
 cjT
@@ -111595,8 +111598,8 @@ jzg
 baF
 bfJ
 bhJ
-bgU
-bhF
+gFA
+bhJ
 bhJ
 bhJ
 bhJ
@@ -111851,9 +111854,9 @@ bbk
 bdX
 baF
 bfK
-bhJ
+dbI
 bgV
-xBr
+bhG
 bhJ
 bhJ
 bhG
@@ -112365,7 +112368,7 @@ bcu
 bdh
 qBz
 beQ
-beQ
+mcu
 dUr
 bhI
 biC
@@ -112622,15 +112625,15 @@ bcv
 bdZ
 baF
 bfN
-bhJ
-bgX
-bhJ
-bhJ
+gQb
+bgU
 bhJ
 bhJ
 bhJ
-jFB
-baF
+bhJ
+bhJ
+bhJ
+mxH
 boJ
 iDw
 brM
