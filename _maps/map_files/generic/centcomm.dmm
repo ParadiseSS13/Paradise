@@ -1450,7 +1450,7 @@
 /turf/simulated/floor/engine/cult,
 /area/wizard_station)
 "fl" = (
-/obj/machinery/cryopod,
+/obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "fm" = (
