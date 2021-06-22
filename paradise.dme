@@ -684,7 +684,6 @@
 #include "code\game\machinery\computer\crew.dm"
 #include "code\game\machinery\computer\depot.dm"
 #include "code\game\machinery\computer\HolodeckControl.dm"
-#include "code\game\machinery\computer\honkputer.dm"
 #include "code\game\machinery\computer\law.dm"
 #include "code\game\machinery\computer\medical.dm"
 #include "code\game\machinery\computer\message.dm"

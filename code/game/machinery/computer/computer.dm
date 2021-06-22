@@ -141,13 +141,12 @@
 					playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 				new /obj/item/shard(drop_location())
 				new /obj/item/shard(drop_location())
-				A.state = 3
-				A.icon_state = "3"
+				A.state = 4
 			else
 				if(user)
 					to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
-				A.state = 4
-				A.icon_state = "4"
+				A.state = 5
+			A.update_icon()
 		for(var/obj/C in src)
 			C.forceMove(loc)
 	qdel(src)
