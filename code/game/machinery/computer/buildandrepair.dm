@@ -408,29 +408,23 @@
 	icon_state = "bananium_board"
 	board_type = "honkcomputer"
 
+/obj/item/circuitboard/supplycomp/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	var/catastasis // Why is it called this
+	var/opposite_catastasis
+	if(contraband_enabled)
+		catastasis = "BROAD"
+		opposite_catastasis = "STANDARD"
+	else
+		catastasis = "STANDARD"
+		opposite_catastasis = "BROAD"
 
-/obj/item/circuitboard/supplycomp/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/multitool))
-		var/catastasis = contraband_enabled
-		var/opposite_catastasis
-		if(catastasis)
-			opposite_catastasis = "STANDARD"
-			catastasis = "BROAD"
-		else
-			opposite_catastasis = "BROAD"
-			catastasis = "STANDARD"
-
-		switch(alert("Current receiver spectrum is set to: [catastasis]", "Multitool-Circuitboard interface", "Switch to [opposite_catastasis]", "Cancel"))
-		//switch( alert("Current receiver spectrum is set to: " {(contraband_enabled) ? ("BROAD") : ("STANDARD")} , "Multitool-Circuitboard interface" , "Switch to " {(contraband_enabled) ? ("STANDARD") : ("BROAD")}, "Cancel") )
-			if("Switch to STANDARD", "Switch to BROAD")
-				contraband_enabled = !contraband_enabled
-
-			if("Cancel")
-				return
-			else
-				to_chat(user, "DERP! BUG! Report this (And what you were doing to cause it) to Agouri")
+	var/choice = alert("Current receiver spectrum is set to: [catastasis]", "Multitool-Circuitboard interface", "Switch to [opposite_catastasis]", "Cancel")
+	if(choice == "Cancel")
 		return
-	return ..()
+
+	contraband_enabled = !contraband_enabled
+	playsound(src, 'sound/effects/pop.ogg', 50)
 
 /obj/item/circuitboard/rdconsole/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
