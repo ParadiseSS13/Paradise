@@ -1108,6 +1108,9 @@
 /area/mine/lobby)
 "fy" = (
 /obj/machinery/light,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel/white,
 /area/mine/lobby)
 "fz" = (
@@ -3735,8 +3738,9 @@
 	},
 /area/mine/eva)
 "Ej" = (
-/obj/machinery/iv_drip,
-/obj/effect/turf_decal/bot,
+/obj/machinery/sleeper{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel/white,
 /area/mine/lobby)
 "Eq" = (
