@@ -211,7 +211,7 @@
 
 ///TRAPS///
 /datum/crafting_recipe/sharktrap
-	name = "sharks tooth trap"
+	name = "sharks teeth trap"
 	result = list(/obj/item/restraints/legcuffs/beartrap/sharktrap)
 	reqs = list(/obj/item/shard/shark_teeth = 1,
 				/obj/item/stack/cable_coil = 5,
