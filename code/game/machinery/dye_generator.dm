@@ -43,7 +43,7 @@
 
 	if(istype(I, /obj/item/hair_dye_bottle))
 		var/obj/item/hair_dye_bottle/HD = I
-		user.visible_message("<span class='notice'>[user] fills the [HD] up with some dye.</span>","<span class='notice'>You fill the [HD] up with some hair dye.</span>")
+		user.visible_message("<span class='notice'>[user] fills [HD] up with some dye.</span>","<span class='notice'>You fill [HD] up with some hair dye.</span>")
 		HD.dye_color = dye_color
 		HD.update_dye_overlay()
 		return
@@ -52,7 +52,7 @@
 //Hair Dye Bottle
 
 /obj/item/hair_dye_bottle
-	name = "Hair Dye Bottle"
+	name = "hair dye bottle"
 	desc = "A refillable bottle used for holding hair dyes of all sorts of colors."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "hairdyebottle"
