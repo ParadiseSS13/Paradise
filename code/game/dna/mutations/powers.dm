@@ -161,7 +161,7 @@
 /datum/mutation/xray
 	name = "X-Ray Vision"
 	activation_messages = list("The walls suddenly disappear.")
-	deactivation_messages = list("the walls around you re-appear.")
+	deactivation_messages = list("The walls around you re-appear.")
 	instability = GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_XRAY_VISION)
 	activation_prob = 15
