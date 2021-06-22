@@ -2055,6 +2055,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						if("Slimecore")
 							UI_style = "Operative"
 						if("Operative")
+							UI_style = "Vaporwave"
+						if("Vaporwave")
 							UI_style = "White"
 						else
 							UI_style = "Midnight"
