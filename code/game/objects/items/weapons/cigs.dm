@@ -56,7 +56,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(M) && M.on_fire)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(M)
-		light("<span class='notice'>[user] coldly lights the [name] with the burning body of [M]. Clearly, [user.p_they()] offer[user.p_s()] the warmest of regards...</span>")
+		light("<span class='notice'>[user] coldly lights [src] with the burning body of [M]. Clearly, [user.p_they()] offer[user.p_s()] the warmest of regards...</span>")
 		return TRUE
 	else
 		return ..()
@@ -68,12 +68,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/catch_fire()
 	if(!lit)
-		light("<span class='warning'>The [name] is lit by the flames!</span>")
+		light("<span class='warning'>[src] is lit by the flames!</span>")
 
 /obj/item/clothing/mask/cigarette/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
-		light("<span class='notice'>[user] casually lights the [name] with [I], what a badass.</span>")
+		light("<span class='notice'>[user] casually lights [src] with [I], what a badass.</span>")
 		user.update_inv_wear_mask()
 		user.update_inv_l_hand()
 		user.update_inv_r_hand()

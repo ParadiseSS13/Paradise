@@ -841,7 +841,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 					C.brute_damage = WC.brute
 					C.electronics_damage = WC.burn
 
-				to_chat(usr, "<span class='notice'>You install the [W.name].</span>")
+				to_chat(usr, "<span class='notice'>You install [W].</span>")
 
 				return
 
@@ -879,6 +879,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			//This will mean that removing and replacing a power cell will repair the mount, but I don't care at this point. ~Z
 			C.brute_damage = 0
 			C.electronics_damage = 0
+			module?.update_cells()
 			diag_hud_set_borgcell()
 
 	else if(istype(W, /obj/item/encryptionkey/) && opened)
@@ -1541,7 +1542,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/deathsquad/bullet_act(obj/item/projectile/P)
 	if(istype(P) && P.is_reflectable && P.starting)
-		visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
+		visible_message("<span class='danger'>[P] gets reflected by [src]!</span>", "<span class='userdanger'>[P] gets reflected by [src]!</span>")
 		P.reflect_back(src)
 		return -1
 	return ..(P)

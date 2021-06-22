@@ -469,14 +469,12 @@
 ////////////////////////////////////////
 
 /obj/mecha/proc/get_armour_facing(relative_dir)
-	switch(relative_dir)
-		if(0) // BACKSTAB!
+	switch(abs(relative_dir))
+		if(180) // BACKSTAB!
 			return facing_modifiers[MECHA_BACK_ARMOUR]
-		if(45, 90, 270, 315)
-			return facing_modifiers[MECHA_SIDE_ARMOUR]
-		if(225, 180, 135)
+		if(0, 45)
 			return facing_modifiers[MECHA_FRONT_ARMOUR]
-	return 1 //always return non-0
+	return facing_modifiers[MECHA_SIDE_ARMOUR] //always return non-0
 
 /obj/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
@@ -513,7 +511,7 @@
 				break
 
 	if(attack_dir)
-		var/facing_modifier = get_armour_facing(dir2angle(attack_dir) - dir2angle(src))
+		var/facing_modifier = get_armour_facing(dir2angle(attack_dir) - dir2angle(dir))
 		booster_damage_modifier /= facing_modifier
 		booster_deflection_modifier *= facing_modifier
 	if(prob(deflect_chance * booster_deflection_modifier))
@@ -792,11 +790,11 @@
 		state = 2
 		to_chat(user, "You close the hatch to the power unit")
 	else
-		// Since having maint protocols available is controllable by the pilot, I see this as a consensual way to remove a pilot without destroying the mech
-		user.visible_message("[user] begins levering out the [pilot_is_mmi() ? "MMI" : "pilot"] from the [src].", "You begin to lever out the [pilot_is_mmi() ? "MMI" : "pilot"] from the [src].")
+		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
+		user.visible_message("<span class='notice'>[user] begins levering out the MMI from [src].</span>", "<span class='notice'>You begin to lever out the MMI from [src].</span>")
 		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-		if(I.use_tool(src, user, 80, volume = I.tool_volume))
-			user.visible_message("<span class='notice'>[user] pries the [pilot_is_mmi() ? "MMI" : "pilot"] out of the [src]!</span>", "<span class='notice'>You finish removing the [pilot_is_mmi() ? "MMI" : "pilot"] from the [src]!</span>")
+		if(I.use_tool(src, user, 80, volume = I.tool_volume) && pilot_is_mmi())
+			user.visible_message("<span class='notice'>[user] pries the MMI out of [src]!</span>", "<span class='notice'>You finish removing the MMI from [src]!</span>")
 			go_out()
 
 /obj/mecha/screwdriver_act(mob/user, obj/item/I)
@@ -1074,7 +1072,7 @@
 		return
 	log_message("[user] tries to move in.")
 	if(occupant)
-		to_chat(user, "<span class='warning'>The [src] is already occupied!</span>")
+		to_chat(user, "<span class='warning'>[src] is already occupied!</span>")
 		log_append_to_last("Permission denied.")
 		return
 	var/passed

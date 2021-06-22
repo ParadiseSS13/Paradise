@@ -33,7 +33,7 @@
 	return ..()
 
 /obj/item/restraints/legcuffs/beartrap/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is sticking [user.p_their()] head in the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is sticking [user.p_their()] head in [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	return BRUTELOSS
 
@@ -72,18 +72,18 @@
 			return
 		user.drop_item()
 		I.forceMove(src)
-		to_chat(user, "<span class='notice'>You sneak the [sig] underneath the pressure plate and connect the trigger wire.</span>")
+		to_chat(user, "<span class='notice'>You sneak [sig] underneath the pressure plate and connect the trigger wire.</span>")
 		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is a remote signaler hooked up to it.</span>"
 	if(istype(I, /obj/item/screwdriver))
 		if(IED)
 			IED.forceMove(get_turf(src))
 			IED = null
-			to_chat(user, "<span class='notice'>You remove the IED from the [src].</span>")
+			to_chat(user, "<span class='notice'>You remove the IED from [src].</span>")
 			return
 		if(sig)
 			sig.forceMove(get_turf(src))
 			sig = null
-			to_chat(user, "<span class='notice'>You remove the signaler from the [src].</span>")
+			to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
 			return
 	..()
 
@@ -129,6 +129,7 @@
 	icon_state = "e_snare"
 	trap_damage = 0
 	flags = DROPDEL
+	breakouttime = 6 SECONDS
 
 /obj/item/restraints/legcuffs/beartrap/energy/New()
 	..()
@@ -192,7 +193,7 @@
 
 /obj/item/restraints/legcuffs/bola/energy/throw_impact(atom/hit_atom)
 	if(iscarbon(hit_atom))
-		var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy/cyborg(get_turf(hit_atom))
+		var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy(get_turf(hit_atom))
 		B.Crossed(hit_atom, null)
 		qdel(src)
 	..()

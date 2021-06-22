@@ -144,6 +144,9 @@ GLOBAL_PROTECT(log_end)
 	rustg_log_write(GLOB.sql_log, "[text][GLOB.log_end]")
 	SEND_TEXT(world.log, text) // Redirect it to DD too
 
+/proc/log_chat_debug(text)
+	rustg_log_write(GLOB.chat_debug_log, "[text][GLOB.log_end]")
+
 // A logging proc that only outputs after setup is done, to
 // help devs test initialization stuff that happens a lot
 /proc/log_after_setup(message)

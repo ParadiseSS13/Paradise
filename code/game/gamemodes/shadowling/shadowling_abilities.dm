@@ -513,7 +513,7 @@
 	target_apc.operating = 0
 	target_apc.update()
 	target_apc.update_icon()
-	target_apc.visible_message("<span class='warning'>The [target_apc] flickers and begins to grow dark.</span>")
+	target_apc.visible_message("<span class='warning'>[target_apc] flickers and begins to grow dark.</span>")
 
 	to_chat(user, "<span class='shadowling'>You dim the APC's screen and carefully begin siphoning its power into the void.</span>")
 	if(!do_after(user, 200, target=target_apc))
@@ -522,7 +522,7 @@
 		target_apc.operating = 1
 		target_apc.update()
 		target_apc.update_icon()
-		target_apc.visible_message("<span class='warning'>The [target_apc] begins glowing brightly!</span>")
+		target_apc.visible_message("<span class='warning'>[target_apc] begins glowing brightly!</span>")
 	else
 		//We did it!
 		to_chat(user, "<span class='shadowling'>You sent the APC's power to the void while overloading all it's lights!</span>")

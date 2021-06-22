@@ -744,11 +744,11 @@
 
 	if(usr == user && opened && !issilicon(user))
 		if(cell)
+			user.visible_message("<span class='warning'>[user.name] removes [cell] from [src]!", "<span class='notice'>You remove [cell].</span>")
 			user.put_in_hands(cell)
 			cell.add_fingerprint(user)
 			cell.update_icon()
 			cell = null
-			user.visible_message("<span class='warning'>[user.name] removes [cell] from [src]!", "You remove the [cell].</span>")
 			charging = FALSE
 			update_icon()
 		return
@@ -1063,7 +1063,7 @@
 				smoke.start()
 				do_sparks(3, 1, src)
 				for(var/mob/M in viewers(src))
-					M.show_message("<span class='danger'>The [name] suddenly lets out a blast of smoke and some sparks!", 3, "<span class='danger'>You hear sizzling electronics.</span>", 2)
+					M.show_message("<span class='danger'>[src] suddenly lets out a blast of smoke and some sparks!", 3, "<span class='danger'>You hear sizzling electronics.</span>", 2)
 
 
 /obj/machinery/power/apc/surplus()
