@@ -71,7 +71,7 @@ SUBSYSTEM_DEF(mapping)
 
 	// World name
 	if(config && config.server_name)
-		world.name = "[config.server_name]: [station_name()]"
+		world.name = "[config.server_name] — [station_name()]"
 	else
 		world.name = station_name()
 

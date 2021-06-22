@@ -140,7 +140,6 @@ window "mainwindow"
 		is-default = true
 		saved-params = "pos;size;is-minimized;is-maximized"
 		on-size = "fitviewport"
-		title = "[RU] SS220 Paradise Main"
 		is-maximized = true
 		icon = 'icons\\paradise.png'
 		macro = "default"
