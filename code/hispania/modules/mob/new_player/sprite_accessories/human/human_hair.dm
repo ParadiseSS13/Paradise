@@ -98,5 +98,9 @@
 	name = "Hime Updo"
 	icon_state = "hime_updo"
 
+/datum/sprite_accessory/hair/hispania/pekora
+	name = "Pekora"
+	icon_state = "pekora"
+
 ///Ume was here :P
 ///Ryzor was here
