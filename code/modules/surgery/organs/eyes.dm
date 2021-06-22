@@ -155,7 +155,7 @@
 
 /obj/item/organ/internal/eyes/cybernetic/thermals/hardened
 	name = "hardened thermal eyes"
-	desc = "These cybernetic eye implants will give you thermal vision. Vertical slit pupil included.This pair has been hardened for special opertaions personnel"
+	desc = "These cybernetic eye implants will give you thermal vision. Vertical slit pupil included. This pair has been hardened for special operations personnel."
 	emp_proof = TRUE
 	origin_tech = "materials=6;programming=5;biotech=6;magnets=6;syndicate=3"
 
