@@ -1173,6 +1173,7 @@
 #include "code\hispania\game\jobs\job_objectives\science.dm"
 #include "code\hispania\game\machinery\constructable_frame.dm"
 #include "code\hispania\game\machinery\doppler_array.dm"
+#include "code\hispania\game\machinery\gashapon.dm"
 #include "code\hispania\game\machinery\jukebox.dm"
 #include "code\hispania\game\machinery\rechargestation.dm"
 #include "code\hispania\game\machinery\vending.dm"

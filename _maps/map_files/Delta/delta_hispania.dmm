@@ -111956,6 +111956,11 @@
 	dir = 8
 	},
 /area/space/nearstation)
+"wDR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/arcade/gashapon,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "wUg" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/computer{
@@ -156353,7 +156358,7 @@ arg
 arZ
 asL
 atQ
-alZ
+wDR
 avp
 ayS
 axv
