@@ -2388,7 +2388,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "yf" = (
-/obj/machinery/computer/monitor{
+/obj/machinery/computer/monitor/secret{
 	name = "Engine Grid Power Monitoring Computer"
 	},
 /obj/structure/cable/yellow,
@@ -4114,7 +4114,7 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/computer/monitor{
+/obj/machinery/computer/monitor/secret{
 	name = "Output Grid Power Monitoring Computer"
 	},
 /turf/simulated/floor/plating,
