@@ -40,7 +40,7 @@
 
 	icon_state = "drone_fab_active"
 	var/elapsed = world.time - time_last_drone
-	drone_progress = round((elapsed / DRONE_BUILD_TIME) * 100)
+	drone_progress = clamp(round((elapsed / DRONE_BUILD_TIME) * 100), 0, 100)
 
 	if(drone_progress >= 100)
 		visible_message("[src] voices a strident beep, indicating a drone chassis is prepared.")

@@ -186,6 +186,6 @@
 		var/transSuccess = D.charge(transaction_amount, linked_account, transaction_purpose, machine_name, D.owner_name)
 		if(transSuccess == TRUE)
 			playsound(src, 'sound/machines/chime.ogg', 50, 1)
-			visible_message("[bicon(src)] The [src] chimes.")
+			visible_message("<span class='notice'>[src] chimes!</span>")
 			transaction_paid = 1
 	//emag?
