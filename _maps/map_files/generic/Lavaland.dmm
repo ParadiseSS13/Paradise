@@ -1540,6 +1540,11 @@
 /area/mine/laborcamp)
 "hE" = (
 /obj/structure/table,
+/obj/item/storage/pill_bottle/happy,
+/obj/item/paper_bin,
+/obj/item/pen{
+	pixel_x = -6
+	},
 /turf/simulated/floor/carpet,
 /area/mine/lobby)
 "hH" = (
@@ -2981,7 +2986,6 @@
 "rV" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/o2,
-/obj/item/storage/pill_bottle/happy,
 /turf/simulated/floor/plasteel/white,
 /area/mine/lobby)
 "rW" = (
@@ -3608,6 +3612,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plating,
 /area/mine/lobby)
 "BD" = (
@@ -4258,6 +4263,7 @@
 /area/mine/laborcamp)
 "MX" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating,
 /area/mine/lobby)
 "MY" = (
@@ -4369,6 +4375,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/lobby)
+"Ot" = (
+/obj/item/implanter/sad_trombone,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Ov" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
@@ -4400,6 +4410,15 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/mining)
+"OS" = (
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen{
+	pixel_x = -6
+	},
+/obj/item/restraints/handcuffs/toy,
+/turf/simulated/floor/carpet,
+/area/mine/lobby)
 "PA" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -4541,29 +4560,11 @@
 /turf/simulated/floor/carpet,
 /area/mine/lobby)
 "RH" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/blood,
-/obj/item/reagent_containers/iv_bag/blood{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/reagent_containers/iv_bag/blood/AMinus,
-/obj/item/reagent_containers/iv_bag/blood/BMinus{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/iv_bag/blood/BPlus{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OPlus{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/structure/closet/crate,
+/obj/item/stack/medical/splint,
+/obj/item/stack/medical/splint,
+/obj/item/stack/medical/splint,
+/obj/item/stack/medical/splint,
 /turf/simulated/floor/plasteel/white,
 /area/mine/lobby)
 "Sk" = (
@@ -17603,7 +17604,7 @@ aj
 aj
 aj
 aj
-aj
+Ot
 aj
 aj
 aj
@@ -18115,7 +18116,7 @@ aj
 ab
 aj
 aj
-ab
+aj
 aj
 aj
 aj
@@ -19426,7 +19427,7 @@ nd
 AY
 et
 hT
-hE
+OS
 et
 lo
 PP
