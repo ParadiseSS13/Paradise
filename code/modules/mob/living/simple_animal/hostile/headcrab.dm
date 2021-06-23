@@ -387,7 +387,7 @@
 	gonarch_rangeattack_swoop_lastattack = world.time
 	var/gonarch_shots_used = 0
 	var/list/gonarch_potential_targets = new/list()
-	for(var/mob/living/carbon/C in range(gonarch_rangeattack_swoop_range, src))
+	for(var/mob/living/carbon/C in view(gonarch_rangeattack_swoop_range, src))
 		gonarch_potential_targets.Add(C)
 	for(gonarch_shots_used = 0 to gonarch_shots)
 		if(!length(gonarch_potential_targets))
@@ -417,7 +417,7 @@
 	damage_type = BURN
 	pass_flags = PASSTABLE
 	/// Used to define in what range the splash damage will be applied to.
-	var/splash_range = 2
+	var/splash_range = 1
 
 /obj/item/projectile/gonarch/on_hit(atom/target, blocked = 0)
 	. = ..()
@@ -462,9 +462,9 @@
 	new /obj/effect/temp_visual/gonarch_artillery_projectile(T)
 	sleep(duration)
 	playsound(T, "sound/effects/splat.ogg", 80, TRUE)
-	var/datum/reagents/R = new/datum/reagents(20)
+	var/datum/reagents/R = new/datum/reagents(35)
 	R.my_atom = src
-	R.add_reagent("sacid" , 20)
+	R.add_reagent("sacid" , 35)
 	chem_splash(T, splash_range, list(R), 0, 1, FALSE)
 	for(var/mob/living/C in range(splash_range, src))
 		to_chat(C, "<span class='userdanger'>You have been splashed with acid!</span>")
@@ -541,10 +541,10 @@
 	homesick_level = 0
 	for(var/mob/living/carbon/C in hearers(gonarch_screech_range, src))
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
-		C.Weaken(25)
+		C.Weaken(6)
 		C.AdjustEarDamage(0, 20)
 		C.Stuttering(20)
-		C.Stun(12)
+		C.Stun(4)
 		C.Jitter(150)
 	for(var/i in 1 to 4)
 		spawn_headcrabs(FALSE)
