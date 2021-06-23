@@ -123,29 +123,6 @@
 				L.apply_damage(trap_damage, BRUTE)
 	..()
 
-/obj/item/restraints/legcuffs/beartrap/energy
-	name = "energy snare"
-	armed = 1
-	icon_state = "e_snare"
-	trap_damage = 0
-	flags = DROPDEL
-	breakouttime = 6 SECONDS
-
-/obj/item/restraints/legcuffs/beartrap/energy/New()
-	..()
-	addtimer(CALLBACK(src, .proc/dissipate), 100)
-
-/obj/item/restraints/legcuffs/beartrap/energy/proc/dissipate()
-	if(!ismob(loc))
-		do_sparks(1, 1, src)
-		qdel(src)
-
-/obj/item/restraints/legcuffs/beartrap/energy/attack_hand(mob/user)
-	Crossed(user) //honk
-
-/obj/item/restraints/legcuffs/beartrap/energy/cyborg
-	breakouttime = 20 // Cyborgs shouldn't have a strong restraint
-
 /obj/item/restraints/legcuffs/bola
 	name = "bola"
 	desc = "A restraining device designed to be thrown at the target. Upon connecting with said target, it will wrap around their legs, making it difficult for them to move quickly."
@@ -189,11 +166,4 @@
 	icon_state = "ebola"
 	hitsound = 'sound/weapons/tase.ogg'
 	w_class = WEIGHT_CLASS_SMALL
-	breakouttime = 60
-
-/obj/item/restraints/legcuffs/bola/energy/throw_impact(atom/hit_atom)
-	if(iscarbon(hit_atom))
-		var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy(get_turf(hit_atom))
-		B.Crossed(hit_atom, null)
-		qdel(src)
-	..()
+	breakouttime = 6 SECONDS

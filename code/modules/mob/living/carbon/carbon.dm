@@ -883,6 +883,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				legcuffed = null
 				toggle_move_intent()
 				update_inv_legcuffed()
+				if(istype(I, /obj/item/restraints/legcuffs/bola/energy))
+					qdel(I)
 				return
 			else
 				unEquip(I)
