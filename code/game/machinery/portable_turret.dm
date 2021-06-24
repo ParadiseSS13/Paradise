@@ -680,7 +680,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(has_cover)
 			popUp()				//pop the turret up if it's not already up.
 		// Set angle
-		set_angle(ATOM_ANGLE(src, target))
+		set_angle(Get_Angle(src, target))
 		shootAt(target)
 		return TRUE
 

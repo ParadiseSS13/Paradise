@@ -1246,10 +1246,6 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 				return 1
 	return 0
 
-
-/proc/get_angle(atom/a, atom/b)
-		return atan2(b.y - a.y, b.x - a.x)
-
 /proc/atan2(x, y)
 	if(!x && !y) return 0
 	return y >= 0 ? arccos(x / sqrt(x * x + y * y)) : -arccos(x / sqrt(x * x + y * y))

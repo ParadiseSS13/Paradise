@@ -236,6 +236,3 @@
 		return round(num--)
 	else
 		return num
-
-/// Calculate the angle between two atoms
-#define ATOM_ANGLE(ATOM_A, ATOM_B) (180 + arctan((ATOM_A.y - ATOM_B.y), (ATOM_A.x - ATOM_B.x)))
