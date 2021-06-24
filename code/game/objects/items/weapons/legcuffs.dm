@@ -131,7 +131,10 @@
 	gender = NEUTER
 	origin_tech = "engineering=3;combat=1"
 	hitsound = 'sound/effects/snap.ogg'
+	///how much it weakens for
 	var/weaken = 0
+	///if it gets deleted when removed
+	var/one_use = FALSE
 
 /obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
 	playsound(loc,'sound/weapons/bolathrow.ogg', 50, TRUE)
@@ -151,6 +154,8 @@
 		to_chat(C, "<span class='userdanger'>[src] ensnares you!</span>")
 		C.Weaken(weaken)
 		playsound(loc, hitsound, 50, TRUE)
+		if(one_use)
+			flags |= DROPDEL
 
 /obj/item/restraints/legcuffs/bola/tactical //traitor variant
 	name = "reinforced bola"
@@ -167,3 +172,4 @@
 	hitsound = 'sound/weapons/tase.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 6 SECONDS
+	one_use = TRUE
