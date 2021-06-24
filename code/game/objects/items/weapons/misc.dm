@@ -98,7 +98,7 @@
 	icon_state = "1"
 
 /obj/item/lightning/afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
-	var/angle = Get_Angle(A, user)
+	var/angle = get_angle(A, user)
 	//to_chat(world, angle)
 	angle = round(angle) + 45
 	if(angle > 180)

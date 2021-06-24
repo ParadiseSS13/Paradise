@@ -43,5 +43,5 @@
 	. = ..()
 	if(target)
 		var/matrix/M = new
-		M.Turn(Get_Angle(src, target))
+		M.Turn(get_angle(src, target))
 		transform = M
