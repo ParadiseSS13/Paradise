@@ -169,7 +169,7 @@
 				S.message = uppertext(S.message)
 				verb = "yells loudly"
 
-		if(span)
+		if(span && (length(S.message) > 0))
 			S.message = "<span class='[span]'>[S.message]</span>"
 	return list("verb" = verb)
 
