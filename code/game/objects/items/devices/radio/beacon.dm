@@ -71,6 +71,19 @@
 		user.drop_item()
 		qdel(src)
 
+/obj/item/radio/beacon/syndicate/power_sink
+	name = "suspicious beacon"
+	desc = "A label on it reads: <i>Warning: Activating this device will send a power sink to your location</i>."
+	var/item_to_teleport = /obj/item/powersink
+
+/obj/item/radio/beacon/syndicate/power_sink/attack_self(mob/user)
+	if(user)
+		to_chat(user, "<span class='notice'>Locked In</span>")
+		new item_to_teleport(user.loc)
+		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
+		user.drop_item()
+		qdel(src)
+
 /obj/item/radio/beacon/syndicate/bomb
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance explosive to your location</i>."
@@ -88,10 +101,6 @@
 /obj/item/radio/beacon/syndicate/bomb/emp
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance EMP explosive to your location</i>."
 	bomb = /obj/machinery/syndicatebomb/emp
-
-/obj/item/radio/beacon/syndicate/bomb/power_sink //Yes it's not a bomb but this code works the way we want
-	desc = "A label on it reads: <i>Warning: Activating this device will send a power sink to your location</i>."
-	bomb = /obj/item/powersink
 
 /obj/item/radio/beacon/engine
 	desc = "A label on it reads: <i>Warning: This device is used for transportation of high-density objects used for high-yield power generation. Stay away!</i>."
