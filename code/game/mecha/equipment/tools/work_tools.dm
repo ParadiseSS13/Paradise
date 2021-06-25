@@ -32,7 +32,7 @@
 		return
 	if(istype(target, /obj))
 		var/obj/O = target
-		if(istype(target, /obj/machinery/power/supermatter_crystal)) //No, you can't pick the SM with this up you moron, did you think you were clever?
+		if(istype(target, /obj/machinery/power/supermatter_crystal)) //No, you can't pick up the SM with this you moron, did you think you were clever?
 			var/obj/machinery/power/supermatter_crystal/SM = target
 			var/obj/mecha/working/ripley/R = chassis
 			if(R.cargo)
