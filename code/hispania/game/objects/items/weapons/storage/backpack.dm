@@ -6,7 +6,7 @@
 
 /obj/item/storage/backpack/welderpack
 	name = "welderpack"
-	desc = "A specialized backpack worn by technicians. It carries a fueltank for quick welder refueling and use. Safety labels tells you that you can't store welding tools inside."
+	desc = "A specialized backpack worn by technicians. It carries a fueltank for quick welder refueling and use."
 	icon = 'icons/hispania/obj/storage/storage.dmi'
 	icon_state = "welderbackpack"
 	item_state = "welderbackpack"
