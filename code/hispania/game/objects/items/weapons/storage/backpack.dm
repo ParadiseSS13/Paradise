@@ -11,7 +11,7 @@
 	icon_state = "welderbackpack"
 	item_state = "welderbackpack"
 	hispania_icon = TRUE
-	var/max_fuel = 300
+	var/max_fuel = 200
 	var/fuel_type = "fuel"
 
 /obj/item/storage/backpack/welderpack/Initialize()
