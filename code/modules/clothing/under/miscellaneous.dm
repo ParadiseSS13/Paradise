@@ -353,10 +353,24 @@
 
 /obj/item/clothing/under/soviet
 	name = "soviet uniform"
-	desc = "For the Motherland!"
+	desc = "A standard U.S.S.P military uniform."
 	icon_state = "soviet"
 	item_state = "soviet"
 	item_color = "soviet"
+
+/obj/item/clothing/under/sovietofficer
+	name = "soviet officer uniform"
+	desc = "A U.S.S.P commanding officer's uniform."
+	icon_state = "sovietofficer"
+	item_state = "sovietofficer"
+	item_color = "sovietofficer"
+
+/obj/item/clothing/under/sovietadmiral
+	name = "soviet admiral uniform"
+	desc = "A U.S.S.P naval admiral's uniform."
+	icon_state = "sovietadmiral"
+	item_state = "sovietadmiral"
+	item_color = "sovietadmiral"
 
 /obj/item/clothing/under/redcoat
 	name = "redcoat uniform"

@@ -248,6 +248,33 @@
 	burst_size = 3
 	fire_delay = 1
 
+//AK-814 Soviet Assault Rifle
+/obj/item/gun/projectile/automatic/ak814
+	name = "AK-814 assault rifle"
+	desc = "A modern AK assault rifle favored by elite Soviet soldiers. Has a rail for adding attachments."
+	icon_state = "ak814"
+	item_state = "ak814"
+	w_class = WEIGHT_CLASS_HUGE
+	origin_tech = "combat=5;materials=3"
+	mag_type = /obj/item/ammo_box/magazine/ak814
+	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	can_suppress = FALSE
+	can_bayonet = TRUE
+	knife_x_offset = 26
+	knife_y_offset = 10
+	burst_size = 2
+	fire_delay = 1
+
+/obj/item/gun/projectile/automatic/ak814/carbine
+	name = "AK-814 assault carbine"
+	desc = "A shortened version of the iconic AK-814 assault rifle for easier concealment."
+	icon_state = "ak814-carbine"
+	item_state = "ak814-carbine"
+	w_class = WEIGHT_CLASS_NORMAL
+	can_bayonet = FALSE
+
 // Bulldog shotgun //
 /obj/item/gun/projectile/automatic/shotgun/bulldog
 	name = "\improper 'Bulldog' Shotgun"
