@@ -79,8 +79,8 @@
 
 	for(var/i in rad_places)
 		var/turf/place = i
-		// if(get_dist(user, place) >= range * 5)	//Rads are easier to see than wires under the floor
-		// 	continue
+		if(range != -1 && get_dist(user, place) >= range)
+			continue
 		var/strength = round(rad_places[i] / 1000, 0.1)
 		var/image/pic = image(loc = place)
 		var/mutable_appearance/MA = new()
@@ -94,7 +94,7 @@
 
 /obj/item/clothing/glasses/meson/engine/proc/show_rads()
 	var/mob/living/carbon/human/user = loc
-	user.show_rads(range)
+	user.show_rads(range * 5) // Rads are easier to see than wires under the floor
 
 /obj/item/clothing/glasses/meson/engine/update_icon()
 	icon_state = "trayson-[mode]"

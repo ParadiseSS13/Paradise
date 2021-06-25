@@ -110,7 +110,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 /mob/dead/observer/process()
 	if(seerads)
-		show_rads(1)
+		show_rads(30)
 	return
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
@@ -398,8 +398,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/verb/toggle_rad_view()
 	set category = "Ghost"
-	set name = "Toggle Radiation View" // "Haunt"
-	set desc = "Toggle viewing radiation ."
+	set name = "Toggle Radiation View"
+	set desc = "Toggle viewing radiation."
 
 	if(!isobserver(src)) // Somehow
 		return
