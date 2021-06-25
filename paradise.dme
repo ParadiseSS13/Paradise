@@ -1219,6 +1219,7 @@
 #include "code\hispania\game\objects\items\weapons\stunbaton.dm"
 #include "code\hispania\game\objects\items\weapons\grenades\custom_grenades.dm"
 #include "code\hispania\game\objects\items\weapons\melee\misc.dm"
+#include "code\hispania\game\objects\items\weapons\storage\backpack.dm"
 #include "code\hispania\game\objects\items\weapons\storage\bags.dm"
 #include "code\hispania\game\objects\items\weapons\storage\belt.dm"
 #include "code\hispania\game\objects\items\weapons\storage\boxes.dm"
