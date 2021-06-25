@@ -89,6 +89,10 @@
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance EMP explosive to your location</i>."
 	bomb = /obj/machinery/syndicatebomb/emp
 
+/obj/item/radio/beacon/syndicate/bomb/power_sink //Yes it's not a bomb but this code works the way we want
+	desc = "A label on it reads: <i>Warning: Activating this device will send a power sink to your location</i>."
+	bomb = /obj/item/powersink
+
 /obj/item/radio/beacon/engine
 	desc = "A label on it reads: <i>Warning: This device is used for transportation of high-density objects used for high-yield power generation. Stay away!</i>."
 	anchored = 1		//Let's not move these around. Some folk might get the idea to use these for assassinations
