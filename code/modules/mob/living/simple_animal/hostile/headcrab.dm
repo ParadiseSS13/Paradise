@@ -207,11 +207,9 @@
 	icon_state = "gonarch_peaceful"
 	icon_living = "gonarch_peaceful"
 	icon_dead = "gonarch_peaceful"
-	flip_on_death = TRUE //until we have a death one
 	pixel_x = -16
 	health = 1200
 	maxHealth = 1200
-	force_threshold = 16
 	dodging = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_EPIC
 	gender = FEMALE //doesn't matter though
@@ -228,6 +226,7 @@
 	armour_penetration = 5
 	attack_sound = 'sound/creatures/gonarch_attack.ogg' //TODO maybe find a better sound. Something slashing maybe.
 	death_sound = 'sound/creatures/gonarch_die.ogg'
+	loot = list(/obj/item/clothing/head/headcrab_hat, /obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	stop_automated_movement_when_pulled = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
@@ -237,12 +236,12 @@
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	pull_force = MOVE_FORCE_EXTREMELY_STRONG
 	mob_size = MOB_SIZE_LARGE
-	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
+	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras otherwise
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
 	//It has so many vars, to enable admins to change its behaviour on the fly. This is also the reason why its statemachine uses a lot of proc calls, so admins can call these manually.
 	can_zombify = FALSE
 	/// The amount of shots the gonarch has when it runs back. If there are more than X available targets, it will only shoot x times, and not attack all available targets.
-	var/gonarch_shots = 4
+	var/gonarch_shots = 2
 	/// The Gonarch Standard Vision Range. As these are altered during the return state of the gonarch, a copy is saved here.
 	var/gonarch_standard_vision_range = 9
 	/// The Gonarch Aggro Vision Range. As these are altered during the return state of the gonarch, a copy is saved here.
@@ -305,8 +304,6 @@
 	var/list/gonarch_soundlist_defend
 	/// Mobs that the gonarch can spawn
 	var/list/gonarch_spawn_list = null
-	/// DEBUG ONLY
-	var/list/debug_gonarch_modeswitches = new/list()
 
 /// We need to adjust it's AI to ensure it never goes into AI_IDLE or AI_Z_IDLE or AI_OFF - To ensure it continues to produce headcrabs and follows its statemachine actions.
 /mob/living/simple_animal/hostile/headcrab/gonarch/consider_wakeup()
@@ -329,6 +326,10 @@
 	home_nest_area = get_area(src)
 	home_nest_turf = get_turf(src)
 	do_gonarch_screech(8, 100, 8, 100)
+
+/mob/living/simple_animal/hostile/headcrab/gonarch/death() //Until we have a deathsprite
+	..()
+	qdel(src)
 
 /mob/living/simple_animal/hostile/headcrab/gonarch/handle_automated_action()
 	. = ..()
@@ -423,7 +424,7 @@
 	. = ..()
 	var/datum/reagents/R = new/datum/reagents(15)
 	R.my_atom = target
-	R.add_reagent("sacid" , 15)
+	R.add_reagent("facid" , 15)
 	chem_splash(get_turf(target), splash_range, list(R), adminlog = FALSE)
 	for(var/mob/living/C in range(splash_range, target))
 		to_chat(C, "<span class='userdanger'>You have been splashed with acid!</span>")
@@ -470,7 +471,6 @@
 		to_chat(C, "<span class='userdanger'>You have been splashed with acid!</span>")
 
 /mob/living/simple_animal/hostile/headcrab/gonarch/proc/mode_switch(mode_to_switch, sound_to_play, clear_targets = TRUE, change_icon)
-	debug_gonarch_modeswitches.Add(mode_to_switch) //TODO: Remove simple debug
 	if(mode_to_switch == mode)
 		return
 	mode = mode_to_switch
@@ -493,6 +493,8 @@
 			homesick_level = 0
 			step_towards(src, home_nest_turf, speed)
 		try_make_headcrabs() //Its its own proc, so they can be called by admins.
+		if(maxHealth > health)
+			health++
 	else
 		if(homesick_level >= 5)
 			mode_switch(GONARCH_MODE_RETURNING, gonarch_soundlist_return, change_icon = "gonarch_peaceful")
@@ -572,13 +574,29 @@
 
 
 /mob/living/simple_animal/hostile/headcrab/gonarch/proc/do_gonarch_screech(light_range, light_chance, camera_range, camera_chance)
-	playsound(src, gonarch_soundlist_initialise, 200, TRUE, 15, pressure_affected = FALSE)
+	playsound(src, gonarch_soundlist_initialise, 200, TRUE, 25, pressure_affected = FALSE)
 	for(var/obj/machinery/light/L in range(light_range, src))
 		if(L.on && prob(light_chance))
 			L.break_light_tube()
 	for(var/obj/machinery/camera/C in range(camera_range, src))
 		if(C.status && prob(camera_chance))
 			C.toggle_cam(src, FALSE)
+
+//Reward for Killing the Gonarch
+/obj/item/clothing/head/headcrab_hat
+	name = "Headcrab Hat"
+	desc = "I killed an old ancient beast and all I got was this lousy hat."
+	blockTracking = TRUE
+	icon_state = "headcrabpod"
+	item_state = "headcrabpod"
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Grey" = 'icons/mob/species/grey/head.dmi'
+		)
+
 
 #undef GONARCH_MODE_REST
 #undef GONARCH_MODE_DEFENDING
