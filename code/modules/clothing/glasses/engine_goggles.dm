@@ -66,8 +66,8 @@
 		if(MODE_RAD)
 			show_rads()
 
-/obj/item/clothing/glasses/meson/engine/proc/show_rads()
-	var/mob/living/carbon/human/user = loc
+/mob/proc/show_rads(range)
+	var/mob/user = src
 	var/list/rad_places = list()
 	for(var/datum/component/radioactive/thing in SSradiation.processing)
 		var/atom/owner = thing.parent
@@ -79,8 +79,8 @@
 
 	for(var/i in rad_places)
 		var/turf/place = i
-		if(get_dist(user, place) >= range * 5)	//Rads are easier to see than wires under the floor
-			continue
+		// if(get_dist(user, place) >= range * 5)	//Rads are easier to see than wires under the floor
+		// 	continue
 		var/strength = round(rad_places[i] / 1000, 0.1)
 		var/image/pic = image(loc = place)
 		var/mutable_appearance/MA = new()
@@ -90,6 +90,11 @@
 		MA.plane = GAME_PLANE
 		pic.appearance = MA
 		flick_overlay(pic, list(user.client), 10)
+
+
+/obj/item/clothing/glasses/meson/engine/proc/show_rads()
+	var/mob/living/carbon/human/user = loc
+	user.show_rads(range)
 
 /obj/item/clothing/glasses/meson/engine/update_icon()
 	icon_state = "trayson-[mode]"

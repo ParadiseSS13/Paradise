@@ -26,6 +26,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = TRUE //is the ghost able to see things humans can't?
 	var/seedarkness = TRUE
+	var/seerads = FALSE     // can the ghost see radiation?
 	var/data_hud_seen = FALSE //this should one of the defines in __DEFINES/hud.dm
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
@@ -87,6 +88,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	//starts ghosts off with all HUDs.
 	toggle_medHUD()
+
+	START_PROCESSING(SSobj, src)
 	..()
 
 /mob/dead/observer/Destroy()
@@ -97,12 +100,18 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
 	. = ..()
 	if(!invisibility)
 		. += "It seems extremely obvious."
+
+/mob/dead/observer/process()
+	if(seerads)
+		show_rads(1)
+	return
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -386,6 +395,21 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else
 		to_chat(usr, "AntagHud Toggled OFF")
 		M.antagHUD = FALSE
+
+/mob/dead/observer/verb/toggle_rad_view()
+	set category = "Ghost"
+	set name = "Toggle Radiation View" // "Haunt"
+	set desc = "Toggle viewing radiation ."
+
+	if(!isobserver(src)) // Somehow
+		return
+
+	if(seerads) //remove old huds
+		to_chat(src, "<span class='notice'>Rad view disabled.</span>")
+		seerads = FALSE
+	else
+		to_chat(src, "<span class='notice'>Rad view enabled.</span>")
+		seerads = TRUE
 
 /mob/dead/observer/verb/set_dnr()
 	set name = "Set DNR"
