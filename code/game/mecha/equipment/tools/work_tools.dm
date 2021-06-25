@@ -40,23 +40,24 @@
 			occupant_message("<span class='userdanger'>You realise in horror what you have done as [chassis] starts warping around you!</span>")
 			chassis.occupant.dust()
 			SM.Bumped(chassis)
-		else
-			if(!O.anchored)
-				if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
-					chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
-					O.anchored = TRUE
-					if(do_after_cooldown(target))
-						cargo_holder.cargo += O
-						O.loc = chassis
-						O.anchored = FALSE
-						occupant_message("<span class='notice'>[target] successfully loaded.</span>")
-						log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
-					else
-						O.anchored = initial(O.anchored)
+			return
+
+		if(!O.anchored)
+			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
+				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
+				O.anchored = TRUE
+				if(do_after_cooldown(target))
+					cargo_holder.cargo += O
+					O.loc = chassis
+					O.anchored = FALSE
+					occupant_message("<span class='notice'>[target] successfully loaded.</span>")
+					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
 				else
-					occupant_message("<span class='warning'>Not enough room in cargo compartment!</span>")
+					O.anchored = initial(O.anchored)
 			else
-				occupant_message("<span class='warning'>[target] is firmly secured!</span>")
+				occupant_message("<span class='warning'>Not enough room in cargo compartment!</span>")
+		else
+			occupant_message("<span class='warning'>[target] is firmly secured!</span>")
 
 	else if(istype(target,/mob/living))
 		var/mob/living/M = target
