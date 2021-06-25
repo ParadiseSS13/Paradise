@@ -44,11 +44,11 @@
 			if(!O.anchored)
 				if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
 					chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
-					O.anchored = 1
+					O.anchored = TRUE
 					if(do_after_cooldown(target))
 						cargo_holder.cargo += O
 						O.loc = chassis
-						O.anchored = 0
+						O.anchored = FALSE
 						occupant_message("<span class='notice'>[target] successfully loaded.</span>")
 						log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
 					else
