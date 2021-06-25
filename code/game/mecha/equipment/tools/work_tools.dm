@@ -30,7 +30,7 @@
 		return
 	if(!cargo_holder)
 		return
-	if(istype(target, /obj))
+	if(isobj(target))
 		var/obj/O = target
 		if(istype(target, /obj/machinery/power/supermatter_crystal)) //No, you can't pick up the SM with this you moron, did you think you were clever?
 			var/obj/machinery/power/supermatter_crystal/SM = target
@@ -59,7 +59,7 @@
 		log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
 		return
 
-	if(istype(target,/mob/living))
+	if(isliving(target))
 		var/mob/living/M = target
 		if(M.stat == DEAD)
 			return
