@@ -131,7 +131,7 @@
 
 /obj/item/weldingtool/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
 	. = ..()
-	if(. && user)
+	if(!. && user)
 		if(progress_flash_divisor == 0)
 			user.flash_eyes(min(light_intensity, 1))
 			progress_flash_divisor = initial(progress_flash_divisor)
