@@ -1,4 +1,57 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id_tag = "SSBtestchamber";
+	name = "Syndicate Test Lab Blast Door"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/testlab)
+"ab" = (
+/obj/machinery/door_control{
+	id = "SSBtestchamber";
+	name = "Blast Door Control"
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_space_base/testlab)
+"ac" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id_tag = "SSBtestchamber";
+	name = "Syndicate Test Lab Blast Door"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/testlab)
 "aj" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plasteel{
@@ -851,6 +904,13 @@
 /obj/machinery/atmospherics/unary/thermomachine/heater,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
+"iK" = (
+/obj/machinery/camera/emp_proof{
+	c_tag = "Test Lab";
+	network = list("SyndicateTestLab")
+	},
+/turf/simulated/floor/engine,
+/area/ruin/unpowered/syndicate_space_base/testlab)
 "ji" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -1191,18 +1251,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/telecomms)
-"mE" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/testlab)
 "mP" = (
 /obj/machinery/power/generator,
 /obj/structure/cable/yellow,
@@ -1861,32 +1909,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
-"un" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/testlab)
 "uq" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -4926,6 +4948,13 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"ZG" = (
+/obj/machinery/computer/security/telescreen{
+	name = "Test Lab Monitor";
+	network = list("SyndicateTestLab")
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_space_base/testlab)
 "ZR" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -6837,8 +6866,8 @@ TD
 TD
 rr
 CM
-TD
-TD
+ZG
+ab
 TD
 CM
 ZR
@@ -6897,13 +6926,13 @@ ia
 ia
 ia
 TD
-un
+aa
 TD
 ia
 ia
 ia
 TD
-mE
+ac
 TD
 AV
 AV
@@ -7456,7 +7485,7 @@ Vl
 Vl
 Vl
 Vl
-Vl
+iK
 Vl
 Vl
 Vl
