@@ -145,6 +145,8 @@
 	else if(our_rpd.mode == RPD_FLIP_MODE)
 		flip()
 	else if(our_rpd.mode == RPD_DELETE_MODE)
+		if(pipe_type == PIPE_CIRCULATOR) //Skip TEG heat circulators, they aren't really pipes
+			return ..()
 		our_rpd.delete_single_pipe(user, src)
 	else
 		return ..()
