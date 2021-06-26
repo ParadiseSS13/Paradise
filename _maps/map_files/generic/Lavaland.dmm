@@ -760,6 +760,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -1544,6 +1545,9 @@
 /obj/item/paper_bin,
 /obj/item/pen{
 	pixel_x = -6
+	},
+/obj/machinery/newscaster{
+	pixel_y = -32
 	},
 /turf/simulated/floor/carpet,
 /area/mine/lobby)
@@ -2846,6 +2850,14 @@
 	icon_state = "brown"
 	},
 /area/mine/lobby)
+"pK" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = 1
+	},
+/turf/simulated/floor/plating,
+/area/mine/lobby)
 "qa" = (
 /obj/structure/chair/comfy{
 	dir = 1
@@ -3179,6 +3191,14 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
+"uN" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = 2
+	},
+/turf/simulated/floor/plating,
+/area/mine/lobby)
 "uW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3491,6 +3511,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/structure/closet/wardrobe/pjs,
 /turf/simulated/floor/carpet,
 /area/mine/lobby)
 "yU" = (
@@ -4038,6 +4059,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/structure/closet/wardrobe/pjs,
 /turf/simulated/floor/carpet,
 /area/mine/lobby)
 "Jb" = (
@@ -4411,12 +4433,10 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/mining)
 "OS" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen{
-	pixel_x = -6
+/obj/machinery/button/windowtint{
+	id = 1;
+	pixel_y = -24
 	},
-/obj/item/restraints/handcuffs/toy,
 /turf/simulated/floor/carpet,
 /area/mine/lobby)
 "PA" = (
@@ -4566,6 +4586,19 @@
 /obj/item/stack/medical/splint,
 /obj/item/stack/medical/splint,
 /turf/simulated/floor/plasteel/white,
+/area/mine/lobby)
+"RT" = (
+/obj/machinery/newscaster{
+	pixel_y = -32
+	},
+/obj/machinery/light/small,
+/obj/structure/table,
+/obj/item/restraints/handcuffs/toy,
+/obj/item/pen{
+	pixel_x = -6
+	},
+/obj/item/paper_bin,
+/turf/simulated/floor/carpet,
 /area/mine/lobby)
 "Sk" = (
 /obj/machinery/door/airlock/external{
@@ -4818,6 +4851,13 @@
 	icon_state = "brown"
 	},
 /area/mine/lobby)
+"Ws" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/washing_machine,
+/turf/simulated/floor/carpet,
+/area/mine/lobby)
 "Wt" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -4902,10 +4942,11 @@
 /turf/simulated/floor/carpet,
 /area/mine/lobby)
 "Xz" = (
-/obj/machinery/newscaster{
-	pixel_y = -32
-	},
 /obj/machinery/light/small,
+/obj/machinery/button/windowtint{
+	id = 2;
+	pixel_y = -24
+	},
 /turf/simulated/floor/carpet,
 /area/mine/lobby)
 "XF" = (
@@ -16599,8 +16640,8 @@ DZ
 EH
 Qm
 et
-er
-er
+uN
+uN
 et
 PP
 et
@@ -18913,7 +18954,7 @@ lN
 nd
 et
 IY
-Xz
+RT
 et
 Oy
 et
@@ -19683,8 +19724,8 @@ mi
 SF
 uZ
 et
-er
-er
+pK
+pK
 et
 et
 et
@@ -21210,7 +21251,7 @@ bg
 bg
 et
 et
-So
+Ws
 Ob
 Ob
 Ob
