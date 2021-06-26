@@ -830,6 +830,7 @@
 	new /obj/item/storage/pill_bottle/sovietstimulants(src)
 	new /obj/item/grenade/plastic/x4/thermite(src)
 	new /obj/item/grenade/plastic/x4/thermite(src)
+	new /obj/item/card/emag(src)
 	new /obj/item/clothing/glasses/night(src)
 	new /obj/item/storage/fancy/cigarettes/cigpack_syndicate(src)
 	new /obj/item/lighter/zippo(src)
