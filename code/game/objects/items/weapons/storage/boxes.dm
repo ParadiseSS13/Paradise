@@ -834,7 +834,7 @@
 	new /obj/item/storage/fancy/cigarettes/cigpack_syndicate(src)
 	new /obj/item/lighter/zippo(src)
 	new /obj/item/reagent_containers/food/pill/initropidril(src)
-	new /obj/item/reagent_containers/food/drinks/vodka(src)
+	new /obj/item/reagent_containers/food/drinks/bottle/vodka(src)
 
 /obj/item/storage/box/clown
 	name = "clown box"
