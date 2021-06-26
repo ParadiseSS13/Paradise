@@ -188,6 +188,9 @@
 	M.regenerate_icons()
 	M.update_body()
 
+	if(!the_bomb)
+		the_bomb = locate(/obj/machinery/nuclearbomb/syndicate) in GLOB.poi_list
+
 	if(the_bomb)
 		synd_mind.store_memory("<B>Syndicate [the_bomb.name] Code</B>: [the_bomb.r_code]")
 		to_chat(synd_mind.current, "The code for \the [the_bomb.name] is: <B>[the_bomb.r_code]</B>")
