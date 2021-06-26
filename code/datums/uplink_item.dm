@@ -1426,7 +1426,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Power Sink"
 	desc = "When screwed to wiring attached to an electric grid, then activated, this large device places excessive load on the grid, causing a stationwide blackout. The sink cannot be carried because of its excessive size. Ordering this sends you a small beacon that will teleport the power sink to your location on activation."
 	reference = "PS"
-	item = /obj/item/powersink
+	item = /obj/item/radio/beacon/syndicate/power_sink
 	cost = 10
 
 /datum/uplink_item/device_tools/singularity_beacon
