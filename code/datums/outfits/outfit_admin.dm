@@ -549,6 +549,7 @@
 	head = /obj/item/clothing/head/sovietsidecap
 	id = /obj/item/card/id
 	shoes = /obj/item/clothing/shoes/combat
+	l_ear = /obj/item/radio/headset/syndicate
 
 /datum/outfit/admin/soviet/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -579,14 +580,12 @@
 	name = "Soviet Conscript"
 
 	gloves = null
-	l_ear = /obj/item/radio/headset/syndicate
-	l_pocket = /obj/item/kitchen/knife/combat
 	r_pocket = /obj/item/flashlight/seclite
 	r_hand = /obj/item/gun/projectile/shotgun/boltaction
 	belt = /obj/item/gun/projectile/revolver/nagant
 
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
+		/obj/item/storage/box/soviet = 1,
 		/obj/item/ammo_box/a762 = 4
 	)
 
@@ -594,15 +593,12 @@
 	name = "Soviet Soldier"
 
 	suit = /obj/item/clothing/suit/sovietcoat
-	gloves = /obj/item/clothing/gloves/combat
-	l_ear = /obj/item/radio/headset/syndicate
 	glasses = /obj/item/clothing/glasses/sunglasses
-	l_pocket = /obj/item/kitchen/knife/combat
 	r_pocket = /obj/item/flashlight/seclite
 	belt = /obj/item/gun/projectile/automatic/pistol/APS
 
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
+		/obj/item/storage/box/soviet = 1,
 		/obj/item/lighter = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_robust = 1,
 		/obj/item/ammo_box/magazine/pistolm9mm = 2
@@ -614,15 +610,13 @@
 	suit = /obj/item/clothing/suit/sovietcoat/officer
 	uniform = /obj/item/clothing/under/sovietofficer
 	head = /obj/item/clothing/head/sovietofficerhat
-	gloves = /obj/item/clothing/gloves/combat
-	l_ear = /obj/item/radio/headset/syndicate
 	glasses = /obj/item/clothing/glasses/sunglasses
 	belt = /obj/item/gun/projectile/revolver/mateba
 	l_pocket = /obj/item/melee/classic_baton/telescopic
 	r_pocket = /obj/item/flashlight/seclite
 
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
+		/obj/item/storage/box/soviet = 1,
 		/obj/item/lighter/zippo = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/ammo_box/a357 = 2
@@ -631,46 +625,38 @@
 /datum/outfit/admin/soviet/marine
 	name = "Soviet Marine"
 
-	head = /obj/item/clothing/head/ushanka
+	head = null
 	suit = /obj/item/clothing/suit/space/hardsuit/soviet
-	gloves = /obj/item/clothing/gloves/combat
-	l_ear = /obj/item/radio/headset/syndicate
 	glasses = /obj/item/clothing/glasses/sunglasses
-	l_pocket = /obj/item/card/emag
-	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi/syndi
 	belt = /obj/item/gun/projectile/automatic/ak814
 	suit_store = /obj/item/gun/projectile/automatic/pistol/APS
 
-
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
-		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/lighter/zippo = 1,
-		/obj/item/grenade/plastic/x4/thermite = 2,
-		/obj/item/kitchen/knife/combat = 1,
+		/obj/item/storage/box/soviet = 1,
+		/obj/item/storage/box/sovietelite = 1,
 		/obj/item/ammo_box/magazine/ak814 = 3,
-		/obj/item/clothing/glasses/night = 1,
-		/obj/item/storage/pill_bottle/sovietstimulants = 1
+		/obj/item/ammo_box/magazine/pistolm9mm = 1,
+		/obj/item/clothing/mask/gas = 1,
+		/obj/item/clothing/head/sovietsidecap = 1
 	)
 
 /datum/outfit/admin/soviet/marine/captain
 	name = "Soviet Marine Captain"
 
 	uniform = /obj/item/clothing/under/sovietofficer
-	head = /obj/item/clothing/head/sovietofficerhat
-	belt = /obj/item/gun/projectile/revolver/mateba
-	suit_store = /obj/item/gun/projectile/automatic/ak814/carbine
+	suit = /obj/item/clothing/suit/space/hardsuit/soviet/commander
+	head = null
+	belt = /obj/item/gun/projectile/automatic/ak814/carbine
+	l_pocket = /obj/item/melee/classic_baton/telescopic
+	suit_store = /obj/item/gun/projectile/revolver/mateba
 
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
-		/obj/item/melee/classic_baton/telescopic = 1,
-		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/lighter/zippo = 1,
-		/obj/item/grenade/plastic/x4/thermite = 2,
-		/obj/item/ammo_box/a357 = 1,
+		/obj/item/storage/box/soviet = 1,
+		/obj/item/storage/box/sovietelite = 1,
 		/obj/item/ammo_box/magazine/ak814 = 3,
-		/obj/item/clothing/glasses/night = 1,
-		/obj/item/storage/pill_bottle/sovietstimulants = 1
+		/obj/item/ammo_box/a357 = 1,
+		/obj/item/clothing/mask/gas = 1,
+		/obj/item/clothing/head/sovietofficerhat = 1
 	)
 
 /datum/outfit/admin/soviet/admiral
@@ -679,22 +665,13 @@
 	uniform = /obj/item/clothing/under/sovietadmiral
 	head = /obj/item/clothing/head/sovietadmiralhat
 	belt = /obj/item/gun/projectile/revolver/mateba
-	gloves = /obj/item/clothing/gloves/combat
-	shoes = /obj/item/clothing/shoes/combat
-	mask = null
 	l_ear = /obj/item/radio/headset/syndicate
-	r_ear = null
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
 	l_pocket = /obj/item/melee/classic_baton/telescopic
-	r_pocket = null
-	suit_store = null
-	l_hand = null
-	r_hand = null
-	pda = null
 
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
-		/obj/item/ammo_box/a357 = 2
+		/obj/item/storage/box/soviet = 1,
+		/obj/item/ammo_box/a357 = 3
 	)
 
 /datum/outfit/admin/solgov_rep

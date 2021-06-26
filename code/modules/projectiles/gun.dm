@@ -35,7 +35,7 @@
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
 	var/list/restricted_species
-	var/bolt_open = 0
+	var/bolt_open = FALSE
 
 	var/spread = 0
 	var/randomspread = 1

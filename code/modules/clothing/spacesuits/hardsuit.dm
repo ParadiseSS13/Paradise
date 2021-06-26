@@ -489,6 +489,20 @@
 	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank/internals,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/soviet
 
+/obj/item/clothing/head/helmet/space/hardsuit/soviet/commander
+	name = "soviet command hardsuit helmet"
+	desc = "A military hardsuit helmet with a red command stripe."
+	icon_state = "hardsuit0-soviet-commander"
+	item_state = "hardsuit0-soviet-commander"
+	item_color = "soviet-commander"
+
+/obj/item/clothing/suit/space/hardsuit/soviet/commander
+	name = "soviet command hardsuit"
+	desc = "A soviet military command hardsuit designed for maximum speed and mobility."
+	icon_state = "hardsuit-soviet-commander"
+	item_state = "hardsuit-soviet-commander"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/soviet/commander
+
 //Medical hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/medical
 	name = "medical hardsuit helmet"
