@@ -80,7 +80,7 @@
 	if(user)
 		to_chat(user, "<span class='notice'>Locked In</span>")
 		new item_to_teleport(user.loc)
-		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
+		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
 		user.drop_item()
 		qdel(src)
 
