@@ -34,8 +34,7 @@
 		var/obj/O = target
 		if(istype(target, /obj/machinery/power/supermatter_crystal)) //No, you can't pick up the SM with this you moron, did you think you were clever?
 			var/obj/mecha/working/ripley/R = chassis
-			if(R.cargo)
-				QDEL_LIST(R.cargo) //We don't want to drop cargo that just spam hits the SM, let's delete it
+			QDEL_LIST(R.cargo) //We don't want to drop cargo that just spam hits the SM, let's delete it
 			occupant_message("<span class='userdanger'>You realise in horror what you have done as [chassis] starts warping around you!</span>")
 			chassis.occupant.dust()
 			target.Bumped(chassis)
@@ -43,19 +42,20 @@
 		if(O.anchored)
 			occupant_message("<span class='warning'>[target] is firmly secured!</span>")
 			return
-		if(cargo_holder.cargo.len >= cargo_holder.cargo_capacity)
+		if(length(cargo_holder.cargo) >= cargo_holder.cargo_capacity)
 			occupant_message("<span class='warning'>Not enough room in cargo compartment!</span>")
 			return
-		chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
+		chassis.visible_message("<span class='notice'>[chassis] lifts [target] and starts to load it into cargo compartment.</span>")
+		var/anchor_state_before_load = O.anchored
 		O.anchored = TRUE
 		if(!do_after_cooldown(target))
-			O.anchored = initial(O.anchored)
+			O.anchored = anchor_state_before_load
 			return
 		cargo_holder.cargo += O
-		O.loc = chassis
+		O.forceMove(chassis)
 		O.anchored = FALSE
-		occupant_message("<span class='notice'>[target] successfully loaded.</span>")
-		log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
+		occupant_message("<span class='notice'>[target] was successfully loaded.</span>")
+		log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - length(cargo_holder.cargo)]")
 		return
 
 	if(isliving(target))
@@ -73,7 +73,7 @@
 			add_attack_logs(chassis.occupant, M, "Squeezed with [src] ([uppertext(chassis.occupant.a_intent)]) ([uppertext(damtype)])")
 			start_cooldown()
 			return
-		step_away(M,chassis)
+		step_away(M, chassis)
 		occupant_message("<span class='notice'>You push [target] out of the way.</span>")
 		chassis.visible_message("<span class='notice'>[chassis] pushes [target] out of the way.</span>")
 
