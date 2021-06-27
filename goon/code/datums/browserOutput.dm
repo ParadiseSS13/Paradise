@@ -20,7 +20,6 @@ var/list/chatResources = list(
 #define MAX_COOKIE_LENGTH 5
 
 /var/savefile/iconCache = new /savefile("data/iconCache.sav")
-/var/chatDebug = file("data/chatDebug.log")
 
 /datum/chatOutput
 	var/client/owner = null
@@ -92,7 +91,10 @@ var/list/chatResources = list(
 			data = doneLoading(arglist(params))
 
 		if("debug")
-			data = debug(arglist(params))
+			if(!length(params))
+				return
+			var/error = params[1]
+			log_chat_debug("Client: [owner.key || owner] triggered JS error: [error][GLOB.log_end]")
 
 		if("ping")
 			data = ping(arglist(params))
@@ -200,10 +202,6 @@ var/list/chatResources = list(
 
 /datum/chatOutput/proc/ping()
 	return "pong"
-
-/datum/chatOutput/proc/debug(error)
-	error = "\[[time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")]\] Client : [owner.key ? owner.key : owner] triggered JS error: [error]"
-	chatDebug << error
 
 /**
   * Sends the lists of code phrases and responses to Goonchat for clientside highlighting

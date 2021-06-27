@@ -194,7 +194,7 @@
 
 /obj/structure/puzzle_element
 	name = "mysterious pillar"
-	desc = "puzzling..."
+	desc = "Puzzling..."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "puzzle_pillar"
 	anchored = FALSE
