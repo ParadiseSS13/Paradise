@@ -1049,7 +1049,7 @@
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a nuclear operative")
 
 			if("tellcode")
-				var/syndicate_nukes = get_nukes_with_codes(station_z_only = TRUE, NT_nukes = FALSE, syndicate_nukes = TRUE)
+				var/syndicate_nukes = get_nukes_with_codes(station_z_only = FALSE, NT_nukes = FALSE, syndicate_nukes = TRUE)
 				for(var/obj/machinery/nuclearbomb/bomb in syndicate_nukes)
 					store_memory("Code to syndicate [bomb.name] in [get_area(bomb).name] is: [bomb.r_code]")
 					to_chat(current, "Code to syndicate [bomb.name] in [get_area(bomb).name] is: <B>[bomb.r_code]</B>")
