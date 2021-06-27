@@ -5,11 +5,7 @@
 		if(0)
 			return
 		if(1)
-			var/nukecode = rand(10000, 99999)
-			for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
-				if(bomb && bomb.r_code)
-					if(is_station_level(bomb.z))
-						bomb.r_code = nukecode
+			var/nanotrasen_nukes = get_nukes_with_codes(station_z_only = TRUE, NT_nukes = TRUE, syndicate_nukes = FALSE)
 
 			interceptname = "Classified [command_name()] Update"
 			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Biohazard Alert.</FONT><HR>"
@@ -18,12 +14,15 @@
 			intercepttext += "Your orders are as follows:<BR>"
 			intercepttext += "1. Secure the Nuclear Authentication Disk.<BR>"
 			intercepttext += "2. Detonate the Nuke located in the Station's Vault.<BR>"
-			intercepttext += "Nuclear Authentication Code: [nukecode] <BR>"
+			for(var/obj/machinery/nuclearbomb/bomb in nanotrasen_nukes)
+				intercepttext += "Nanotrasen [bomb.name] Authentication Code in [get_area(bomb).name] is: [bomb.r_code] <BR>"
 			intercepttext += "Message ends."
 
 			for(var/mob/living/silicon/ai/aiPlayer in GLOB.player_list)
 				if(aiPlayer.client)
-					var/law = "The station is under quarantine. Do not permit anyone to leave. Disregard laws 1-3 if necessary to prevent, by any means necessary, anyone from leaving. The nuclear failsafe must be activated at any cost, the code is: [nukecode]."
+					for(var/obj/machinery/nuclearbomb/bomb in nanotrasen_nukes)
+						aiPlayer.mind.store_memory("Nanotrasen [bomb.name] code is: [bomb.r_code]")
+					var/law = "The station is under quarantine. Do not permit anyone to leave. Disregard all lower laws if necessary to prevent, by any means necessary, anyone from leaving. The nuclear failsafe must be activated at any cost, the nuclear codes are in your notes."
 					aiPlayer.set_zeroth_law(law)
 					to_chat(aiPlayer, "Laws Updated: [law]")
 

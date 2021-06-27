@@ -275,13 +275,12 @@
 	if(src in SSticker.mode.syndicates)
 		. += "<b><font color='red'>OPERATIVE</b></font>|<a href='?src=[UID()];nuclear=clear'>no</a>"
 		. += "<br><a href='?src=[UID()];nuclear=lair'>To shuttle</a>, <a href='?src=[UID()];common=undress'>undress</a>, <a href='?src=[UID()];nuclear=dressup'>dress up</a>."
-		var/code
-		for(var/obj/machinery/nuclearbomb/bombue in GLOB.machines)
-			if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
-				code = bombue.r_code
-				break
-		if(code)
-			. += " Code is [code]. <a href='?src=[UID()];nuclear=tellcode'>tell the code.</a>"
+		var/syndicate_nukes = get_nukes_with_codes(station_z_only = TRUE, NT_nukes = FALSE, syndicate_nukes = TRUE)
+		for(var/obj/machinery/nuclearbomb/bomb in syndicate_nukes)
+			. += "<br>Code to syndicate [bomb.name] in [get_area(bomb).name] is: [bomb.r_code]."
+
+		if(length(syndicate_nukes))
+			. += "<br><a href='?src=[UID()];nuclear=tellcode'>tell the codes.</a>"
 	else
 		. += "<a href='?src=[UID()];nuclear=nuclear'>operative</a>|<b>NO</b>"
 
@@ -1050,16 +1049,13 @@
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a nuclear operative")
 
 			if("tellcode")
-				var/code
-				for(var/obj/machinery/nuclearbomb/bombue in GLOB.machines)
-					if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
-						code = bombue.r_code
-						break
-				if(code)
-					store_memory("<B>Syndicate Nuclear Bomb Code</B>: [code]", 0, 0)
-					to_chat(current, "The nuclear authorization code is: <B>[code]</B>")
-					log_admin("[key_name(usr)] has given [key_name(current)] the nuclear authorization code")
-					message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] the nuclear authorization code")
+				var/syndicate_nukes = get_nukes_with_codes(station_z_only = TRUE, NT_nukes = FALSE, syndicate_nukes = TRUE)
+				for(var/obj/machinery/nuclearbomb/bomb in syndicate_nukes)
+					store_memory("Code to syndicate [bomb.name] in [get_area(bomb).name] is: [bomb.r_code]")
+					to_chat(current, "Code to syndicate [bomb.name] in [get_area(bomb).name] is: <B>[bomb.r_code]</B>")
+				if(length(syndicate_nukes))
+					log_admin("[key_name(usr)] has given [key_name(current)] the nuclear authorization codes")
+					message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] the nuclear authorization codes")
 				else
 					to_chat(usr, "<span class='warning'>No valid nuke found!</span>")
 

@@ -185,7 +185,7 @@
 
 
 
-/datum/admins/proc/makeNukeTeam()
+/datum/admins/proc/makeNukeTeam() // Not implimented anywhere, please test throughly before reimplimenting.
 
 	var/list/mob/candidates = list()
 	var/mob/theghost = null
@@ -238,11 +238,13 @@
 		var/obj/effect/landmark/nuke_spawn = locate("landmark*Nuclear-Bomb")
 		var/obj/effect/landmark/closet_spawn = locate("landmark*Nuclear-Closet")
 
-		var/nuke_code = rand(10000, 99999)
+		var/nukes = get_nukes_with_codes(station_z_only = TRUE, NT_nukes = TRUE, syndicate_nukes = TRUE)
 
 		if(nuke_spawn)
 			var/obj/item/paper/P = new
-			P.info = "Sadly, the Syndicate could not get you a nuclear bomb.  We have, however, acquired the arming code for the station's onboard nuke.  The nuclear authorization code is: <b>[nuke_code]</b>"
+			P.info = "Sadly, the Syndicate could not get you a nuclear bomb.  We have, however, acquired the arming code(s) for the nuke(s) on the station.<br>"
+			for(var/obj/machinery/nuclearbomb/bomb in nukes)
+				P.info += "Code to [bomb.name] in [get_area(bomb).name] is: [bomb.r_code]<br>"
 			P.name = "nuclear bomb code and instructions"
 			P.loc = nuke_spawn.loc
 
@@ -264,8 +266,6 @@
 							var/I = image('icons/mob/mob.dmi', loc = synd_mind_1.current, icon_state = "synd")
 							synd_mind.current.client.images += I
 
-		for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
-			bomb.r_code = nuke_code						// All the nukes are set to this code.
 	return 1
 
 //Abductors

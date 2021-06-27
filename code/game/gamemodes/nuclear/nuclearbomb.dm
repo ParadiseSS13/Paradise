@@ -6,7 +6,7 @@
 #define NUKE_MOBILE 5
 
 GLOBAL_VAR(bomb_set)
-
+GLOBAL_LIST(nukes)
 /obj/machinery/nuclearbomb
 	name = "\improper Nuclear Fission Explosive"
 	desc = "Uh oh. RUN!!!!"
@@ -31,6 +31,7 @@ GLOBAL_VAR(bomb_set)
 	use_power = NO_POWER_USE
 	var/previous_level = ""
 	var/datum/wires/nuclearbomb/wires = null
+	var/id = null
 
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
@@ -41,6 +42,13 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/New()
 	..()
+	var/current_ids = list()
+	for(var/obj/machinery/nuclearbomb/N in GLOB.machines)
+		current_ids += N.id
+	do
+		id = rand(100, 999) // Creates a random id for the nuke
+	while(id in current_ids) // prevents duplicate IDs
+	name = name + " ([id])"
 	r_code = rand(10000, 99999.0) // Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
 	previous_level = get_security_level()
@@ -464,6 +472,21 @@ GLOBAL_VAR(bomb_set)
 	else
 		error("[src] was supposed to be destroyed, but we were unable to locate a blobstart landmark to spawn a new one.")
 	return QDEL_HINT_LETMELIVE // Cancel destruction unless forced.
+
+/proc/get_nukes_with_codes(station_z_only, NT_nukes, syndicate_nukes)
+	var/valid_nukes = list()
+	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+		if(bomb && bomb.r_code && text2num(bomb.r_code))
+			if(station_z_only && !is_station_level(bomb.z))
+				continue
+			if(NT_nukes && !bomb.is_syndicate)
+				valid_nukes += bomb
+				continue
+			if(syndicate_nukes && bomb.is_syndicate)
+				valid_nukes += bomb
+				continue
+
+	return valid_nukes
 
 #undef NUKE_INTACT
 #undef NUKE_COVER_OFF

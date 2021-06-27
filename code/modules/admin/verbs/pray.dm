@@ -80,12 +80,16 @@
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
 /proc/Nuke_request(text , mob/Sender)
-	var/nuke_code = get_nuke_code()
+	var/syndicate_nukes = get_nukes_with_codes(station_z_only = TRUE, NT_nukes = FALSE, syndicate_nukes = TRUE)
+	var/nanotrasen_nukes = get_nukes_with_codes(station_z_only = TRUE, NT_nukes = TRUE, syndicate_nukes = FALSE)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
 	msg = "<span class='adminnotice'><b><font color=orange>NUKE CODE REQUEST: </font>[key_name(Sender)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_CENTCOM_REPLY(Sender,"RPLY")]):</b> [msg]</span>"
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
-			to_chat(X, "<span class='adminnotice'><b>The nuke code is [nuke_code].</b></span>")
+			for(var/obj/machinery/nuclearbomb/bomb in nanotrasen_nukes)
+				to_chat(X, "<span class='adminnotice'><b>Code to nanotrasen [bomb.name] in [get_area(bomb).name] is: [bomb.r_code]</b></span>")
+			for(var/obj/machinery/nuclearbomb/bomb in syndicate_nukes)
+				to_chat(X, "<span class='adminnotice'><b>Code to syndicate [bomb.name] in [get_area(bomb).name] is: [bomb.r_code]</b></span>")
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
