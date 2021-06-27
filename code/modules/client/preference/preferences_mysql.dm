@@ -16,7 +16,8 @@
 					clientfps,
 					atklog,
 					fuid,
-					parallax
+					parallax,
+					2fa_status
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -45,6 +46,7 @@
 		atklog = text2num(query.item[14])
 		fuid = text2num(query.item[15])
 		parallax = text2num(query.item[16])
+		_2fa_status = query.item[17]
 
 	qdel(query)
 
@@ -93,7 +95,8 @@
 					volume_mixer=:volume_mixer,
 					lastchangelog=:lastchangelog,
 					clientfps=:clientfps,
-					parallax=:parallax
+					parallax=:parallax,
+					2fa_status=:_2fa_status
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -111,7 +114,8 @@
 						"lastchangelog" = lastchangelog,
 						"clientfps" = clientfps,
 						"parallax" = parallax,
-						"ckey" = C.ckey
+						"_2fa_status" = _2fa_status,
+						"ckey" = C.ckey,
 					)
 					)
 

@@ -198,7 +198,7 @@
 			return FALSE
 
 		if(R.window_checks && !valid_window_location(usr.loc, usr.dir))
-			to_chat(usr, "<span class='warning'>The [R.title] won't fit here!</span>")
+			to_chat(usr, "<span class='warning'>\The [R.title] won't fit here!</span>")
 			return FALSE
 
 		if(R.one_per_turf && (locate(R.result_type) in usr.drop_location()))

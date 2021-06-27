@@ -51,10 +51,6 @@
 		if(0 to 40)
 			return "<span class='danger'>It looks heavily damaged.</span>"
 
-/obj/structure/falsewall/ratvar_act()
-	new /obj/structure/falsewall/brass(loc)
-	qdel(src)
-
 /obj/structure/falsewall/Destroy()
 	density = 0
 	air_update_turf(1)
