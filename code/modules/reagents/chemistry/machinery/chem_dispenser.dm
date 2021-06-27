@@ -40,7 +40,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()
-	dispensable_reagents = sortList(dispensable_reagents)
+	dispensable_reagents = sortAssoc(dispensable_reagents)
 
 /obj/machinery/chem_dispenser/upgraded/New()
 	..()
@@ -85,7 +85,7 @@
 		"ammonia",
 		"ash",
 		"diethylamine")
-	upgrade_reagents = null
+	upgrade_reagents = list()
 
 /obj/machinery/chem_dispenser/mutagensaltpeter/New()
 	..()
@@ -110,7 +110,7 @@
 		recharge_amount *= C.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		if(M.rating > 3)
-			dispensable_reagents |= upgrade_reagents
+			dispensable_reagents = sortAssoc(mergeLists(dispensable_reagents, upgrade_reagents))
 	powerefficiency = round(newpowereff, 0.01)
 
 /obj/machinery/chem_dispenser/Destroy()
