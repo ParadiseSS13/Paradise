@@ -64,9 +64,12 @@
 	name = "roller bed"
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "down"
+	var/up_state = "up"
+	var/down_state = "down"
 	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1
+	var/folded = /obj/item/roller
 
 /obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/roller_holder))
@@ -78,21 +81,28 @@
 				user_unbuckle_mob(buckled_mobs[1], user)
 		else
 			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
-			new/obj/item/roller(get_turf(src))
+			new folded(get_turf(src))
 			qdel(src)
 	else
 		return ..()
 
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	density = TRUE
-	icon_state = "up"
+	icon_state = up_state
 	M.pixel_y = initial(M.pixel_y)
 
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
 	density = FALSE
-	icon_state = "down"
+	icon_state = down_state
 	M.pixel_x = M.get_standard_pixel_x_offset(M.lying)
 	M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
+
+/obj/structure/bed/roller/holo
+	name = "holo stretcher"
+	icon_state = "holo_extended"
+	up_state = "holo_extended"
+	down_state = "holo_extended"
+	folded = /obj/item/roller/holo
 
 /obj/item/roller
 	name = "roller bed"
@@ -100,9 +110,10 @@
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
 	w_class = WEIGHT_CLASS_BULKY // Can't be put in backpacks.
+	var/extended = /obj/structure/bed/roller
 
 /obj/item/roller/attack_self(mob/user)
-	var/obj/structure/bed/roller/R = new /obj/structure/bed/roller(user.loc)
+	var/obj/structure/bed/roller/R = new extended(user.loc)
 	R.add_fingerprint(user)
 	qdel(src)
 
@@ -114,6 +125,17 @@
 			forceMove(RH)
 			RH.held = src
 
+/obj/item/roller/holo
+	name = "holo stretcher"
+	desc = "A retracted hardlight stretcher that can be carried around."
+	icon_state = "holo_retracted"
+	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "magnets=3;biotech=4;powerstorage=3"
+	extended = /obj/structure/bed/roller/holo
+
+/obj/item/roller/holo/attackby(obj/item/W as obj, mob/user as mob, params)
+	return
+
 /obj/structure/bed/roller/MouseDrop(over_object, src_location, over_location)
 	..()
 	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
@@ -122,7 +144,7 @@
 		if(has_buckled_mobs())
 			return 0
 		usr.visible_message("<span class='notice'>[usr] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
-		new/obj/item/roller(get_turf(src))
+		new folded(get_turf(src))
 		qdel(src)
 
 /obj/item/roller_holder
