@@ -164,9 +164,10 @@
 	if(!user.client)
 		return
 	if(user.s_active != src) // Switching from another container
-		for(var/obj/item/I in src)
-			if(I.on_found(user)) // For mouse traps and such
-				return // If something triggered, don't open the UI
+		if(!isobserver(user)) //Don't want ghosts setting off the fun stuff
+			for(var/obj/item/I in src)
+				if(I.on_found(user)) // For mouse traps and such
+					return // If something triggered, don't open the UI
 	orient2hud(user) // this only needs to happen to make .contents show properly as screen objects.
 	if(user.s_active)
 		user.s_active.hide_from(user) // If there's already an interface open, close it.
