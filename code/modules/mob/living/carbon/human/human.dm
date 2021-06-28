@@ -1262,7 +1262,7 @@
 		//Create a list of body parts which are damaged by burn or brute and save them to apply after new organs are generated. First we just handle external organs.
 		var/bodypart_damages = list()
 		//Loop through all external organs and save the damage states for brute and burn
-		for(var/obj/item/organ/external/E in bodyparts)
+		for(var/obj/item/organ/external/E as anything in bodyparts)
 			if(E.brute_dam == 0 && E.burn_dam == 0 && !(E.status & ORGAN_INT_BLEEDING)) //If there's no damage we don't bother remembering it.
 				continue
 			var/brute = E.brute_dam
@@ -1287,7 +1287,7 @@
 		dna.species.create_organs(src)
 
 		//Apply relevant damages and variables to the new organs.
-		for(var/obj/item/organ/external/E in bodyparts)
+		for(var/obj/item/organ/external/E as anything in bodyparts)
 			for(var/list/part in bodypart_damages)
 				var/obj/item/organ/external/OE = part[1]
 				if((E.type == OE.type)) // Type has to be explicit, as right limbs are a child of left ones etc.
