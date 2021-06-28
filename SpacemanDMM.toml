@@ -12,9 +12,10 @@ use_typepath_names = true
 engine = "auxtools"
 
 [map_renderer]
-force_hide_types = [
-    "/obj/effect/mapping_helpers",
+hide_invisible = [
     "/obj/effect/landmark",
+    "/obj/effect/mapping_helpers",
+	"/obj/effect/spawner/random_barrier",
     "/obj/effect/spawner/random_spawners",
 ]
 
