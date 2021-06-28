@@ -91,7 +91,7 @@
 
 /obj/item/pda/heads/ert
 	default_cartridge = /obj/item/cartridge/centcom
-	detonate = 0
+	detonate = FALSE
 
 /obj/item/pda/heads/ert/engineering
 	icon_state = "pda-engineer"

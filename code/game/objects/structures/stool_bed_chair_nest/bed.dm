@@ -133,7 +133,7 @@
 	origin_tech = "magnets=3;biotech=4;powerstorage=3"
 	extended = /obj/structure/bed/roller/holo
 
-/obj/item/roller/holo/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/roller/holo/attackby(obj/item/W, mob/user, params)
 	return
 
 /obj/structure/bed/roller/MouseDrop(over_object, src_location, over_location)
