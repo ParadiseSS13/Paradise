@@ -13,10 +13,10 @@ engine = "auxtools"
 
 [map_renderer]
 hide_invisible = [
-    "/obj/effect/landmark",
-    "/obj/effect/mapping_helpers",
+	"/obj/effect/landmark",
+	"/obj/effect/mapping_helpers",
 	"/obj/effect/spawner/random_barrier",
-    "/obj/effect/spawner/random_spawners",
+	"/obj/effect/spawner/random_spawners",
 ]
 
 [map_renderer.render_passes]
