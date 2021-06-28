@@ -625,19 +625,21 @@
 /datum/outfit/admin/soviet/marine
 	name = "Soviet Marine"
 
-	head = null
 	suit = /obj/item/clothing/suit/space/hardsuit/soviet
-	glasses = /obj/item/clothing/glasses/sunglasses
-	belt = /obj/item/gun/projectile/automatic/ak814
-	suit_store = /obj/item/gun/projectile/automatic/pistol/APS
+	head = null
+	mask = /obj/item/clothing/mask/gas
+	glasses = /obj/item/clothing/glasses/night
+	belt = /obj/item/storage/belt/military/assault/soviet/full
+	l_pocket = /obj/item/card/emag
+	r_pocket = /obj/item/melee/classic_baton/telescopic
+	suit_store = /obj/item/gun/projectile/automatic/ak814
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
-		/obj/item/storage/box/sovietelite = 1,
-		/obj/item/ammo_box/magazine/ak814 = 3,
+		/obj/item/gun/projectile/automatic/pistol/APS = 1,
 		/obj/item/ammo_box/magazine/pistolm9mm = 1,
-		/obj/item/clothing/mask/gas = 1,
-		/obj/item/clothing/head/sovietsidecap = 1
+		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
+		/obj/item/lighter/zippo = 1
 	)
 
 /datum/outfit/admin/soviet/marine/captain
@@ -645,18 +647,13 @@
 
 	uniform = /obj/item/clothing/under/sovietofficer
 	suit = /obj/item/clothing/suit/space/hardsuit/soviet/commander
-	head = null
-	belt = /obj/item/gun/projectile/automatic/ak814/carbine
-	l_pocket = /obj/item/melee/classic_baton/telescopic
-	suit_store = /obj/item/gun/projectile/revolver/mateba
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
-		/obj/item/storage/box/sovietelite = 1,
-		/obj/item/ammo_box/magazine/ak814 = 3,
-		/obj/item/ammo_box/a357 = 1,
-		/obj/item/clothing/mask/gas = 1,
-		/obj/item/clothing/head/sovietofficerhat = 1
+		/obj/item/gun/projectile/revolver/mateba = 1,
+		/obj/item/ammo_box/a357 = 2,
+		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
+		/obj/item/lighter/zippo = 1
 	)
 
 /datum/outfit/admin/soviet/admiral

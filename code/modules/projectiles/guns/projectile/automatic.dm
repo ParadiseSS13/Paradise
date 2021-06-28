@@ -251,7 +251,7 @@
 //AK-814 Soviet Assault Rifle
 /obj/item/gun/projectile/automatic/ak814
 	name = "\improper AK-814 assault rifle"
-	desc = "A modern AK assault rifle favored by elite Soviet soldiers. Has a rail for adding attachments."
+	desc = "A modern AK assault rifle favored by elite Soviet soldiers."
 	icon_state = "ak814"
 	item_state = "ak814"
 	origin_tech = "combat=5;materials=3"

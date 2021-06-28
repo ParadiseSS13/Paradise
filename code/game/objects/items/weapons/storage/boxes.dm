@@ -816,26 +816,12 @@
 /obj/item/storage/box/soviet/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
-
-/obj/item/storage/box/sovietelite
-	name = "soviet assault kit"
-	icon_state = "russian_flag_box"
-
-/obj/item/storage/box/sovietelite/populate_contents()
-	new /obj/item/paper/soviet_specialassignment(src)
-	new /obj/item/storage/pill_bottle/sovietstimulants(src)
-	new /obj/item/grenade/plastic/x4/thermite(src)
-	new /obj/item/grenade/plastic/x4/thermite(src)
-	new /obj/item/card/emag(src)
-	new /obj/item/clothing/glasses/night(src)
-	new /obj/item/storage/fancy/cigarettes/cigpack_syndicate(src)
-	new /obj/item/lighter/zippo(src)
-	new /obj/item/reagent_containers/food/pill/initropidril(src)
-	new /obj/item/reagent_containers/food/drinks/bottle/vodka(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 
 /obj/item/storage/box/clown
 	name = "clown box"

@@ -653,11 +653,6 @@
 	info = ""
 	footer = "<hr /><p style='font-family:Verdana;'><em>Failure to adhere appropriately to orders that may be contained herein is in violation of Space Law, and punishments may be administered appropriately upon return to Central Command.</em><br /><em>The recipient(s) of this memorandum acknowledge by reading it that they are liable for any and all damages to crew or station that may arise from ignoring suggestions or advice given herein.</em></p>"
 
-/obj/item/paper/soviet_specialassignment
-	name = "paper - Equipment Instructions"
-	info = "<center>Congratulations comrade! <br><br>You have been selected for special assignment by the order of the U.S.S.P Naval Command.<br>To assist in your mission you have been issued additional supplies. Use them wisely!<br><hr></center><br><b>Special Equipment Instructions</b><br><br><br><b>T4 Thermite Adhesive Charge</b><br>Apply adhesive charge to wall to activate. After a short delay, thermite reaction will destroy the surrounding walls.<br><br><b>Combat pills</b><br>These advanced stimulants will increase your speed and combat ability for a short time. Use them at the moment of enemy contact for maximum effect. Remember comrade, speed and surprise are your best ally!<br><br><b>Night Vision goggles</b><br>Enhanced low light vision. Beware flashes.<br><br><b>Initropidril suicide capsule</b><br>In event of unexpected capture, you are expected to perform your duty to the motherland! Your glorious sacrifice for the people of the U.S.S.P will not be forgotten!<br><br><br>"
-	footer = "<hr><center>For our Soviet Motherland!</center><br><br><i>P.S.,<br>I was able to convince quartermaster Koreschenko to include extra vodka rations and cigarettes. Maybe don't open it till the mission is over though, eh? - V.</i>"
-
 /obj/item/paper/evilfax
 	name = "Centcomm Reply"
 	info = ""
