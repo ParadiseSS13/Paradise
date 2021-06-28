@@ -40,8 +40,8 @@
 			return 0
 		if(!affected.is_robotic())
 			return 0
-		if(affected.cannot_amputate)
-			return 0
+		if(affected.limb_flags & CANNOT_DISMEMBER)
+			return FALSE
 		return 1
 
 //to do, moar surgerys or condense down ala manipulate organs.

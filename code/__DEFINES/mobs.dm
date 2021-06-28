@@ -9,6 +9,10 @@
 #define ORGAN_INT_BLEEDING (1 << 5)
 #define ORGAN_DISFIGURED   (1 << 6)
 
+// For limb resistance flags
+#define CANNOT_BREAK		(1 << 0)
+#define CANNOT_DISMEMBER 	(1 << 1)
+
 #define PROCESS_ACCURACY 10
 
 #define DROPLIMB_SHARP 0

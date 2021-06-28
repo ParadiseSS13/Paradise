@@ -26,8 +26,7 @@
 	var/icon/mob_icon
 	var/gendered_icon = 0
 	var/limb_name
-	var/cannot_amputate
-	var/cannot_break
+	var/limb_flags
 	var/s_tone = null
 	var/s_col = null // If this is instantiated, it should be a hex value.
 	var/list/child_icons = list()
@@ -103,12 +102,23 @@
 
 /obj/item/organ/external/New(mob/living/carbon/holder)
 	..()
-	var/mob/living/carbon/human/H = holder
-	icobase = dna.species.icobase
-	if(istype(H))
-		replaced(H)
-		sync_colour_to_human(H)
-	get_icon()
+	if(holder)
+		if(ishuman(holder))
+			var/mob/living/carbon/human/H = holder
+			icobase = H.dna.species.icobase
+			if(istype(H))
+				replaced(H)
+				sync_colour_to_human(H)
+			get_icon()
+
+
+/obj/item/organ/external/proc/add_limb_flags()
+	if(HAS_TRAIT(owner, TRAIT_NO_BONES))
+		limb_flags |= CANNOT_BREAK
+
+	if(HAS_TRAIT(owner, TRAIT_STURDY_LIMBS))
+		limb_flags |= CANNOT_DISMEMBER
+
 
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
@@ -225,7 +235,7 @@
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
-		if(!cannot_amputate && (brute_dam) >= (max_damage))
+		if(!(limb_flags & CANNOT_DISMEMBER) && (brute_dam) >= (max_damage))
 			if(prob(brute / 2))
 				if(sharp)
 					droplimb(0, DROPLIMB_SHARP)
@@ -451,7 +461,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 //Handles dismemberment
 /obj/item/organ/external/proc/droplimb(clean, disintegrate, ignore_children, nodamage)
 
-	if(cannot_amputate || !owner)
+	if(limb_flags & CANNOT_DISMEMBER || !owner)
 		return
 
 	if(!disintegrate)
@@ -600,7 +610,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(is_robotic())
 		return	//ORGAN_BROKEN doesn't have the same meaning for robot limbs
 
-	if((status & ORGAN_BROKEN) || cannot_break)
+	if((status & ORGAN_BROKEN) || (limb_flags & CANNOT_BREAK))
 		return
 	if(owner)
 		owner.visible_message(\
@@ -664,7 +674,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(company && istext(company))
 		set_company(company)
 
-	cannot_break = 1
+	limb_flags |= CANNOT_BREAK
 	get_icon()
 	for(var/obj/item/organ/external/T in children)
 		if((convert_all) || (T.type in convertable_children))

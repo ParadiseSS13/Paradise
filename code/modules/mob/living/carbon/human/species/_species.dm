@@ -202,6 +202,9 @@
 	for(var/name in H.bodyparts_by_name)
 		H.bodyparts |= H.bodyparts_by_name[name]
 
+	for(var/obj/item/organ/external/E as anything in H.bodyparts)
+		E.add_limb_flags()
+
 	for(var/obj/item/organ/external/O in H.bodyparts)
 		O.owner = H
 

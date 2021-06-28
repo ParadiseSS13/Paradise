@@ -1256,6 +1256,8 @@
 			item_flags[I] = I.flags
 			I.flags = 0 // Temporary set the flags to 0
 
+	dna.species.on_species_gain(src)
+
 	if(retain_damage)
 		//Create a list of body parts which are damaged by burn or brute and save them to apply after new organs are generated. First we just handle external organs.
 		var/bodypart_damages = list()
@@ -1357,8 +1359,6 @@
 	body_accessory = null
 
 	dna.real_name = real_name
-
-	dna.species.on_species_gain(src)
 
 	update_sight()
 
