@@ -64,11 +64,11 @@
 	name = "roller bed"
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "down"
-	var/up_state = "up"
-	var/down_state = "down"
 	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1
+	var/up_state = "up"
+	var/down_state = "down"
 	var/folded = /obj/item/roller
 
 /obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
