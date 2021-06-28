@@ -110,7 +110,8 @@
 		recharge_amount *= C.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		if(M.rating > 3)
-			dispensable_reagents = sortAssoc(mergeLists(dispensable_reagents, upgrade_reagents))
+			dispensable_reagents |= upgrade_reagents
+			dispensable_reagents = sortAssoc(dispensable_reagents)
 	powerefficiency = round(newpowereff, 0.01)
 
 /obj/machinery/chem_dispenser/Destroy()
