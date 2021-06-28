@@ -126,6 +126,25 @@
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
 	tastes = list("bread" = 10, "cheese" = 10)
 
+/obj/item/reagent_containers/food/snacks/sliceable/banarnarbread
+	name = "banarnarbread loaf"
+	desc = "A loaf of delicious mah'weyh pleggh at e'ntrath!"
+	icon_state = "banarnarbread"
+	slice_path = /obj/item/reagent_containers/food/snacks/banarnarbreadslice
+	slices_num = 5
+	filling_color = "#6F0000"
+	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	tastes = list("heresy" = 10, "banana" = 10)
+
+/obj/item/reagent_containers/food/snacks/banarnarbreadslice
+	name = "banarnarbread slice"
+	desc = "A slice of delicious mah'weyh pleggh at e'ntrath!"
+	icon_state = "banarnarbreadslice"
+	trash = /obj/item/trash/plate
+	filling_color = "#6F0000"
+	list_reagents = list("nutriment" = 4, "vitamin" = 1)
+	tastes = list("heresy" = 10, "banana" = 10)
+
 
 //////////////////////
 //		Misc		//

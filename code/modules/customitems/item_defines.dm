@@ -34,12 +34,12 @@
 
 /obj/item/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent == INTENT_HARM)
-		user.visible_message("<span class='warning'>[user] stabs [M] with the [src]!</span>", "<span class='warning'>You stab [M] with the [src]!</span>")
-		to_chat(M, "<span class='userdanger'>[user] stabs you with the [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
+		user.visible_message("<span class='warning'>[user] stabs [M] with [src]!</span>", "<span class='warning'>You stab [M] with [src]!</span>")
+		to_chat(M, "<span class='userdanger'>[user] stabs you with [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
 		return
 
 	if(used)
-		to_chat(user, "<span class= 'notice'>The [src] is out of ink.</span>")
+		to_chat(user, "<span class= 'notice'>[src] is out of ink.</span>")
 		return
 
 	if(!istype(M, /mob/living/carbon/human))
@@ -62,10 +62,10 @@
 		return
 
 	if(target == user)
-		to_chat(user, "<span class= 'notice'>You use the [src] to apply a [tattoo_name] to yourself!</span>")
+		to_chat(user, "<span class= 'notice'>You use [src] to apply a [tattoo_name] to yourself!</span>")
 
 	else
-		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with the [src].</span>", "<span class='notice'>You begin to tattoo [target] with the [src]!</span>")
+		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with [src].</span>", "<span class='notice'>You begin to tattoo [target] with [src]!</span>")
 		if(!do_after(user, 30 * toolspeed, target = M))
 			return
 		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
@@ -108,12 +108,12 @@
 			tattoo_g = color2G(ink_color)
 			tattoo_b = color2B(ink_color)
 
-			to_chat(user, "<span class='notice'>You change the color setting on the [src].</span>")
+			to_chat(user, "<span class='notice'>You change the color setting on [src].</span>")
 
 			update_icon()
 
 	else
-		to_chat(user, "<span class='notice'>The [src] is out of ink!</span>")
+		to_chat(user, "<span class='notice'>[src] is out of ink!</span>")
 
 /obj/item/fluff/bird_painter // BirdtTalon: Kahkiri
 	name = "Orb of Onyx"
@@ -292,7 +292,7 @@
 		return
 
 	if(target.change_body_accessory("Jay Wingler Tail"))
-		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
+		to_chat(target, "<span class='notice'>You comb your tail with [src].</span>")
 		used = 1
 
 /obj/item/fluff/desolate_coat_kit //DesolateG: Micheal Smith
@@ -460,7 +460,7 @@
 		var/obj/item/clothing/suit/storage/S = target
 		var/obj/item/clothing/suit/storage/fluff/k3_webbing/webbing = new(get_turf(target))
 		webbing.allowed = S.allowed
-		to_chat(user, "<span class='notice'>You modify the [S] with [src].</span>")
+		to_chat(user, "<span class='notice'>You modify [S] with [src].</span>")
 		H.update_inv_wear_suit()
 		qdel(S)
 		qdel(src)
@@ -578,10 +578,6 @@
 		return
 
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
-
-#undef USED_MOD_HELM
-#undef USED_MOD_SUIT
 
 
 //////////////////////////////////
@@ -961,7 +957,7 @@
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.UpdateButtonIcon()
-		to_chat(user, "You turn the [src]'s lighting system [flavour].")
+		to_chat(user, "You turn [src]'s lighting system [flavour].")
 		user.update_inv_wear_suit()
 
 /obj/item/clothing/suit/hooded/hoodie/fluff/xantholne // Xantholne: Meex Zwichsnicrur
@@ -1491,6 +1487,57 @@
 	displays_id = FALSE
 
 
+/obj/item/fluff/lighty_plasman_modkit // LightFire53: Ikelos
+	name = "plasmaman suit modkit"
+	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
+	icon_state = "modkit"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/fluff/lighty_plasman_modkit/afterattack(atom/target, mob/user, proximity, params)
+	if(!proximity || !ishuman(user) || user.incapacitated() || !isitem(target))
+		return
+	var/mob/living/carbon/human/H = user
+
+	if(istype(target, /obj/item/clothing/head/helmet/space/plasmaman))
+		if(used & USED_MOD_HELM)
+			to_chat(H, "<span class='warning'>The kit's helmet modifier has already been used!</span>")
+			return
+
+		var/obj/item/clothing/head/helmet/space/plasmaman/P = target
+		used |= USED_MOD_HELM
+		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
+		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
+		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
+		if(P == H.head)
+			H.unEquip(P, TRUE, TRUE)
+			H.equip_to_slot(F, slot_head, TRUE)
+			H.update_inv_head()
+		qdel(P)
+
+	else if(istype(target, /obj/item/clothing/under/plasmaman))
+		if(used & USED_MOD_SUIT)
+			to_chat(user, "<span class='warning'>The kit's suit modifier has already been used!</span>")
+			return
+
+		var/obj/item/clothing/under/plasmaman/P = target
+		used |= USED_MOD_SUIT
+		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
+		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
+		P.icon_state = "ikelos_envirosuit"
+		P.item_color = "ikelos_envirosuit"
+		P.icon = 'icons/obj/custom_items.dmi'
+
+		if(P == H.w_uniform)
+			H.update_inv_w_uniform()
+
+	else
+		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
+/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff // LightFire53: Ikelos
+	icon_state = "ikelos_envirohelm" // New item needed because `initial(icon_state)` is used.
+	icon = 'icons/obj/custom_items.dmi'
+
+
 /obj/item/fluff/decemviri_spacepod_kit //Decemviri: Sylus Cain
 	name = "Spacepod mod kit"
 	desc = "a kit on tools and a blueprint detailing how to reconfigure a spacepod"
@@ -1664,3 +1711,6 @@
 	item_color = "kikeridress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	species_restricted = list("Vox")
+
+#undef USED_MOD_HELM
+#undef USED_MOD_SUIT

@@ -56,7 +56,7 @@
 				return
 			L.forceMove(src)
 			locked = L
-			to_chat(user, "<span class='caution'>You insert the GPS device into the [src]'s slot.</span>")
+			to_chat(user, "<span class='caution'>You insert the GPS device into [src]'s slot.</span>")
 	else
 		return ..()
 
@@ -313,7 +313,7 @@
 	name = "teleporter hub"
 	desc = "It's the hub of a teleporting machine."
 	icon_state = "tele0"
-	var/accurate = FALSE
+	var/accurate = 0
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
@@ -353,6 +353,8 @@
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		A += M.rating
 	accurate = A
+	if(accurate >= 3)
+		calibrated = TRUE
 
 /obj/machinery/teleport/hub/proc/link_power_station()
 	if(power_station)
@@ -406,7 +408,8 @@
 			. = do_teleport(M, locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), pick(target_z)), 2, bypass_area_flag = com.area_bypass)
 		else
 			. = do_teleport(M, com.target, bypass_area_flag = com.area_bypass)
-		calibrated = FALSE
+		if(accurate < 3)
+			calibrated = FALSE
 
 /obj/machinery/teleport/hub/update_icon()
 	if(panel_open)

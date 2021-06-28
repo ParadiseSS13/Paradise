@@ -64,11 +64,11 @@ field_generator power level display
 	if(state == FG_WELDED)
 		if(get_dist(src, user) <= 1)//Need to actually touch the thing to turn it on
 			if(active >= FG_CHARGING)
-				to_chat(user, "<span class='warning'>You are unable to turn off the [name] once it is online!</span>")
+				to_chat(user, "<span class='warning'>You are unable to turn off [src] once it is online!</span>")
 				return 1
 			else
-				user.visible_message("[user.name] turns on the [name].", \
-					"<span class='notice'>You turn on the [name].</span>", \
+				user.visible_message("[user] turns on [src].", \
+					"<span class='notice'>You turn on [src].</span>", \
 					"<span class='italics'>You hear heavy droning.</span>")
 				turn_on()
 				investigate_log("<font color='green'>activated</font> by [user.key].","singulo")
@@ -100,7 +100,7 @@ field_generator power level display
 					"<span class='italics'>You hear ratchet.</span>")
 				anchored = 0
 			if(FG_WELDED)
-				to_chat(user, "<span class='warning'>The [name] needs to be unwelded from the floor!</span>")
+				to_chat(user, "<span class='warning'>[src] needs to be unwelded from the floor!</span>")
 	else
 		return ..()
 
@@ -188,7 +188,7 @@ field_generator power level display
 		check_power_level()
 		return 1
 	else
-		visible_message("<span class='danger'>The [name] shuts down!</span>", "<span class='italics'>You hear something shutting down.</span>")
+		visible_message("<span class='danger'>[src] shuts down!</span>", "<span class='italics'>You hear something shutting down.</span>")
 		turn_off()
 		investigate_log("ran out of power and <font color='red'>deactivated</font>","singulo")
 		power = 0

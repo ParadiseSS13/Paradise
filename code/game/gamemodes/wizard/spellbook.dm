@@ -783,7 +783,7 @@
 		owner = user
 		return
 	if(user != owner)
-		to_chat(user, "<span class='warning'>The [name] does not recognize you as it's owner and refuses to open!</span>")
+		to_chat(user, "<span class='warning'>[src] does not recognize you as it's owner and refuses to open!</span>")
 		return
 	user.set_machine(src)
 	var/dat = ""

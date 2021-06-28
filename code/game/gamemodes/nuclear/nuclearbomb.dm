@@ -465,7 +465,7 @@ GLOBAL_VAR(bomb_set)
 			else if(off_station == 2)
 				to_chat(world, "<b>A nuclear device was set off, but the device was not on the station!</b>")
 			else
-				to_chat(world, "<b>The station was destoyed by the nuclear blast!</b>")
+				to_chat(world, "<b>The station was destroyed by the nuclear blast!</b>")
 
 			SSticker.mode.station_was_nuked = (off_station < 2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
 															//kinda shit but I couldn't  get permission to do what I wanted to do.
@@ -483,12 +483,12 @@ GLOBAL_VAR(bomb_set)
 	if(safety == 1)
 		if(!is_syndicate)
 			set_security_level(previous_level)
-		visible_message("<span class='notice'>The [src] quiets down.</span>")
+		visible_message("<span class='notice'>[src] quiets down.</span>")
 		if(!lighthack)
 			if(icon_state == "nuclearbomb2")
 				icon_state = "nuclearbomb1"
 	else
-		visible_message("<span class='notice'>The [src] emits a quiet whirling noise!</span>")
+		visible_message("<span class='notice'>[src] emits a quiet whirling noise!</span>")
 
 //==========DAT FUKKEN DISK===============
 /obj/item/disk/nuclear

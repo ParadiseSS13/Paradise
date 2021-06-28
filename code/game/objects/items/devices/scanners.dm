@@ -132,8 +132,7 @@ REAGENT SCANNER
 	var/BR = H.getBruteLoss() > 50 	? 	"<b>[H.getBruteLoss()]</b>" 	: H.getBruteLoss()
 
 	var/status = "<font color='red'>Dead</font>" // Dead by default to make it simpler
-	var/mob/dead/observer/ghost = H.get_ghost(TRUE)
-	var/DNR = (ghost && !ghost.can_reenter_corpse)
+	var/DNR = !H.ghost_can_reenter() // If the ghost can't reenter
 	if(H.stat == DEAD)
 		if(DNR)
 			status = "<font color='red'>Dead <b>\[DNR]</b></font>"
@@ -823,7 +822,7 @@ REAGENT SCANNER
 
 		if(unknown_body || e.hidden)
 			imp += "Unknown body present:"
-		if(!AN && !open && !infected & !imp)
+		if(!AN && !open && !infected && !imp)
 			AN = "None:"
 		dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
 		dat += "</tr>"

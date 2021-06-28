@@ -115,7 +115,7 @@
 			return 1
 		if(istype(O,/obj/item/stack))
 			var/obj/item/stack/S = O
-			if(S.amount > 1)
+			if(S.get_amount() > 1)
 				var/obj/item/stack/to_add = S.split(user, 1)
 				to_add.forceMove(src)
 				user.visible_message("<span class='notice'>[user] adds one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
@@ -213,7 +213,7 @@
 			dat += {"<B>[display_name]:</B> [R.volume] unit\s<BR>"}
 
 		if(items_counts.len==0 && reagents.reagent_list.len==0)
-			dat = {"<B>The [src] is empty</B><BR>"}
+			dat = {"<B>[src] is empty</B><BR>"}
 		else
 			dat = {"<b>Ingredients:</b><br>[dat]"}
 		dat += {"<HR><BR>\
@@ -394,7 +394,7 @@
 /obj/machinery/kitchen_machine/proc/broke()
 	do_sparks(2, 1, src)
 	icon_state = broken_icon // Make it look all busted up and shit
-	visible_message("<span class='alert'>The [src] breaks!</span>") //Let them know they're stupid
+	visible_message("<span class='alert'>[src] breaks!</span>") //Let them know they're stupid
 	broken = 2 // Make it broken so it can't be used util fixed
 	flags = null //So you can't add condiments
 	operating = 0 // Turn it off again aferwards

@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
+GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 
 /world/New()
 	// IMPORTANT
@@ -248,10 +248,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.world_href_log = "[GLOB.log_directory]/hrefs.log"
 	GLOB.world_runtime_log = "[GLOB.log_directory]/runtime.log"
 	GLOB.world_qdel_log = "[GLOB.log_directory]/qdel.log"
-	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
 	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
 	GLOB.http_log = "[GLOB.log_directory]/http.log"
 	GLOB.sql_log = "[GLOB.log_directory]/sql.log"
+	GLOB.chat_debug_log = "[GLOB.log_directory]/chat_debug.log"
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
@@ -259,6 +259,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	start_log(GLOB.tgui_log)
 	start_log(GLOB.http_log)
 	start_log(GLOB.sql_log)
+	start_log(GLOB.chat_debug_log)
 
 	// This log follows a special format and this path should NOT be used for anything else
 	GLOB.runtime_summary_log = "data/logs/runtime_summary.log"

@@ -251,7 +251,7 @@
 				return
 
 			if(M.brainmob.mind in SSticker.mode.head_revolutionaries)
-				to_chat(user, "<span class='warning'>The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept the [M].</span>")
+				to_chat(user, "<span class='warning'>The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept [M].</span>")
 				return
 
 
