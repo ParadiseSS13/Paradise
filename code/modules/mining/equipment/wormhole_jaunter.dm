@@ -143,6 +143,7 @@
 	addtimer(CALLBACK(src, .proc/create_portal, destination), 5 SECONDS)
 
 /obj/item/wormhole_jaunter/contractor/proc/create_portal(turf/destination)
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	new /obj/effect/portal/redspace/getaway(get_turf(src), get_turf(destination), src, 100)
 	qdel(src)
 
@@ -170,11 +171,7 @@
 	icon_state = "flare-contractor-on"
 	duration = 51 // Needs to be slightly longer then the callback to make the portal
 
-/obj/effect/temp_visual/getaway_flare/New()
-	..()
+/obj/effect/temp_visual/getaway_flare/Initialize()
+	. = ..()
 	playsound(loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
 	set_light(8, l_color = "#FFD165")
-
-/obj/effect/temp_visual/getaway_flare/Destroy()
-	new /obj/effect/decal/cleanable/ash(loc)
-	return ..()
