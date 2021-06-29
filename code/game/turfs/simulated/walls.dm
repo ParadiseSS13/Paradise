@@ -370,7 +370,7 @@
 		return TRUE
 	return FALSE
 
-/turf/simulated/wall/proc/try_decon(obj/item/I, mob/living/user, params)
+/turf/simulated/wall/proc/try_decon(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
 		playsound(src, I.usesound, 100, 1)
