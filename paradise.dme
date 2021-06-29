@@ -1211,6 +1211,7 @@
 #include "code\hispania\game\objects\items\toys\uno.dm"
 #include "code\hispania\game\objects\items\weapons\chronoeraser.dm"
 #include "code\hispania\game\objects\items\weapons\holy_weapons.dm"
+#include "code\hispania\game\objects\items\weapons\legcuffs.dm"
 #include "code\hispania\game\objects\items\weapons\lighters.dm"
 #include "code\hispania\game\objects\items\weapons\manuals.dm"
 #include "code\hispania\game\objects\items\weapons\notes.dm"
