@@ -1073,7 +1073,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			"xeno queen",
 			"eldritch",
 			"ancient machine",
-			"clippy"
+			"clippy",
+			"oracle",
+			"auto",
+			"yotsuba",
+			"aniki"
 			)
 			if(custom_hologram) //insert custom hologram
 				icon_list.Add("custom")
@@ -1092,6 +1096,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo4"))
 					if("clippy")
 						holo_icon = getHologramIcon(icon('icons/hispania/mob/ai.dmi',"clippy"))
+					if("oracle")
+						holo_icon = getHologramIcon(icon('icons/hispania/mob/ai.dmi',"oraculo"))
+					if("auto")
+						holo_icon = getHologramIcon(icon('icons/hispania/mob/ai.dmi',"auto"))
+					if("yotsuba")
+						holo_icon = getHologramIcon(icon('icons/hispania/mob/ai.dmi',"yotsuba"))
+					if("aniki")
+						holo_icon = getHologramIcon(icon('icons/hispania/mob/ai.dmi',"aniki"))
 					if("ancient machine")
 						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
 					if("custom")
