@@ -61,3 +61,9 @@
 	name ="empty canned caviar"
 	icon = 'icons/hispania/obj/trash.dmi'
 	icon_state = "fisheggs"
+
+/obj/item/trash/barcardine
+	name = "barcardine bar wrapper"
+	desc = "An empty wrapper from a barcardine bar. You notice the inside has several medical labels. You're not sure if you care or not about that."
+	icon = 'icons/hispania/obj/trash.dmi'
+	icon_state = "barcardine_trash"
