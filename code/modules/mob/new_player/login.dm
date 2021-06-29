@@ -4,10 +4,7 @@
 	//Overflow rerouting, if set, forces players to be moved to a different server once a player cap is reached. Less rough than a pure kick.
 	if(config.player_overflow_cap && config.overflow_server_url)
 		if(!whitelist_check())
-			var/tally = 0
-			for(var/client/C in GLOB.clients)
-				tally++
-			if(tally > config.player_overflow_cap)
+			if(config.player_overflow_cap == 1 || length(GLOB.clients) > config.player_overflow_cap)
 				src << link(config.overflow_server_url)
 
 	if(GLOB.join_motd)
@@ -50,7 +47,7 @@
 	//Whitelisted people are immune to overflow rerouting.
 	if(config.usewhitelist_database && SSdbcore.IsConnected())
 		var/datum/db_query/find_ticket = SSdbcore.NewQuery(
-			"SELECT ckey FROM [format_table_name("ckey_whitelist")] WHERE ckey=:ckey AND is_valid=true AND port=:port AND date_start<=NOW() AND (NOW()<date_end OR date_end IS NULL)",
+			"SELECT ckey FROM [sqlfdbkdbutil].[format_table_name("ckey_whitelist")] WHERE ckey=:ckey AND is_valid=true AND port=:port AND date_start<=NOW() AND (NOW()<date_end OR date_end IS NULL)",
 			list("ckey" = src.ckey, "port" = "[world.port]")
 		)
 		if(!find_ticket.warn_execute(async = FALSE))
@@ -63,3 +60,4 @@
 		return TRUE
 	else if(config.overflow_whitelist.Find(lowertext(src.ckey)))
 		return TRUE
+	return FALSE

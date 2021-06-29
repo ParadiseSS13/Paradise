@@ -6,6 +6,7 @@
 GLOBAL_REAL_VAR(sqladdress) = "localhost"
 GLOBAL_REAL_VAR(sqlport) = "3306"
 GLOBAL_REAL_VAR(sqlfdbkdb) = "test"
+GLOBAL_REAL_VAR(sqlfdbkdbutil) = "test"
 GLOBAL_REAL_VAR(sqlfdbklogin) = "root"
 GLOBAL_REAL_VAR(sqlfdbkpass) = ""
 GLOBAL_REAL_VAR(sqlfdbktableprefix) = "erro_"

@@ -1048,7 +1048,7 @@
 
 	else if(href_list["noteedits"])
 		var/note_id = text2num(href_list["noteedits"])
-		var/datum/db_query/query_noteedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("notes")] WHERE id=:note_id", list(
+		var/datum/db_query/query_noteedits = SSdbcore.NewQuery("SELECT edits FROM [sqlfdbkdbutil].[format_table_name("notes")] WHERE id=:note_id", list(
 			"note_id" = note_id
 		))
 		if(!query_noteedits.warn_execute())
@@ -1165,7 +1165,7 @@
 
 	else if(href_list["watcheditlog"])
 		var/target_ckey = href_list["watcheditlog"]
-		var/datum/db_query/query_watchedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("watch")] WHERE ckey=:targetkey", list(
+		var/datum/db_query/query_watchedits = SSdbcore.NewQuery("SELECT edits FROM [sqlfdbkdbutil].[format_table_name("watch")] WHERE ckey=:targetkey", list(
 			"targetkey" = target_ckey
 		))
 		if(!query_watchedits.warn_execute())
@@ -2943,7 +2943,7 @@
 	else if(href_list["memoeditlist"])
 		if(!check_rights(R_SERVER)) return
 		var/sql_key = href_list["memoeditlist"]
-		var/datum/db_query/query_memoedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("memo")] WHERE (ckey=:sql_key)", list(
+		var/datum/db_query/query_memoedits = SSdbcore.NewQuery("SELECT edits FROM [sqlfdbkdbutil].[format_table_name("memo")] WHERE (ckey=:sql_key)", list(
 			"sql_key" = sql_key
 		))
 		if(!query_memoedits.warn_execute())

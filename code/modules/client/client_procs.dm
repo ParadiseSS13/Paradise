@@ -792,7 +792,7 @@
 	var/const/adminckey = "CID-Error"
 
 	// Check for notes in the last day - only 1 note per 24 hours
-	var/datum/db_query/query_get_notes = SSdbcore.NewQuery("SELECT id from [format_table_name("notes")] WHERE ckey=:ckey AND adminckey=:adminckey AND timestamp + INTERVAL 1 DAY < NOW()", list(
+	var/datum/db_query/query_get_notes = SSdbcore.NewQuery("SELECT id from [sqlfdbkdbutil].[format_table_name("notes")] WHERE ckey=:ckey AND adminckey=:adminckey AND timestamp + INTERVAL 1 DAY < NOW()", list(
 		"ckey" = ckey,
 		"adminckey" = adminckey
 	))
@@ -805,7 +805,7 @@
 	qdel(query_get_notes)
 
 	// Only add a note if their most recent note isn't from the randomizer blocker, either
-	var/datum/db_query/query_get_note = SSdbcore.NewQuery("SELECT adminckey FROM [format_table_name("notes")] WHERE ckey=:ckey ORDER BY timestamp DESC LIMIT 1", list(
+	var/datum/db_query/query_get_note = SSdbcore.NewQuery("SELECT adminckey FROM [sqlfdbkdbutil].[format_table_name("notes")] WHERE ckey=:ckey ORDER BY timestamp DESC LIMIT 1", list(
 		"ckey" = ckey
 	))
 	if(!query_get_note.warn_execute())

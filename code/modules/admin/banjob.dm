@@ -66,7 +66,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 			return
 
 		//Job permabans
-		var/datum/db_query/permabans = SSdbcore.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_PERMABAN' AND isnull(unbanned)")
+		var/datum/db_query/permabans = SSdbcore.NewQuery("SELECT ckey, job FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE bantype = 'JOB_PERMABAN' AND isnull(unbanned)")
 
 		if(!permabans.warn_execute(async=FALSE))
 			qdel(permabans)
@@ -81,7 +81,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		qdel(permabans)
 
 		// Job tempbans
-		var/datum/db_query/tempbans = SSdbcore.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_TEMPBAN' AND isnull(unbanned) AND expiration_time > Now()")
+		var/datum/db_query/tempbans = SSdbcore.NewQuery("SELECT ckey, job FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE bantype = 'JOB_TEMPBAN' AND isnull(unbanned) AND expiration_time > Now()")
 
 		if(!tempbans.warn_execute(async=FALSE))
 			qdel(tempbans)
@@ -143,7 +143,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		//using the SQL ban system
 		var/is_actually_banned = FALSE
 		var/datum/db_query/select_query = SSdbcore.NewQuery({"
-			SELECT bantime, bantype, reason, job, duration, expiration_time, a_ckey FROM [format_table_name("ban")]
+			SELECT bantime, bantype, reason, job, duration, expiration_time, a_ckey FROM [sqlfdbkdbutil].[format_table_name("ban")]
 			WHERE ckey LIKE :ckey AND ((bantype like 'JOB_TEMPBAN' AND expiration_time > Now()) OR (bantype like 'JOB_PERMABAN')) AND isnull(unbanned)
 			ORDER BY bantime DESC LIMIT 100"},
 			list("ckey" = ckey)
