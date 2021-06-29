@@ -641,8 +641,8 @@
 	icon_state = "singulohammer0"
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
-	force = 15
-	force_unwielded = 15
+	force = 5
+	force_unwielded = 5
 	force_wielded = 40
 	throwforce = 15
 	throw_range = 1
