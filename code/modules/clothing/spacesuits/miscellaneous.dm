@@ -37,33 +37,6 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
-	//Deathsquad space suit, not hardsuits because no flashlight!
-/obj/item/clothing/head/helmet/space/deathsquad
-	name = "deathsquad helmet"
-	desc = "That's not red paint. That's real blood."
-	icon_state = "deathsquad"
-	item_state = "deathsquad"
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	vision_flags = SEE_MOBS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
-	see_in_dark = 8
-	HUDType = MEDHUD
-	strip_delay = 130
-
-/obj/item/clothing/suit/space/deathsquad
-	name = "deathsquad suit"
-	desc = "A heavily armored, advanced space suit that protects against most forms of damage."
-	icon_state = "deathsquad"
-	item_state = "swat_suit"
-	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals,/obj/item/kitchen/knife/combat)
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	strip_delay = 130
-	dog_fashion = /datum/dog_fashion/back/deathsquad
-
 	//NEW SWAT suit
 /obj/item/clothing/suit/space/swat
 	name = "SWAT armor"
@@ -79,25 +52,6 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
-
-/obj/item/clothing/head/helmet/space/deathsquad/beret
-	name = "officer beret"
-	desc = "An armored beret commonly used by special operations officers."
-	icon_state = "beret_officer"
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
-	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
-
-/obj/item/clothing/suit/space/deathsquad/officer
-	name = "officer jacket"
-	desc = "An armored jacket used in special operations."
-	icon_state = "detective"
-	item_state = "det_suit"
-	blood_overlay_type = "coat"
-	flags_inv = 0
-	slowdown = 0
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	w_class = WEIGHT_CLASS_NORMAL
 
 //Space santa outfit suit
 /obj/item/clothing/head/helmet/space/santahat

@@ -94,6 +94,8 @@
 /obj/item/reagent_containers/hypospray/combat/nanites
 	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing."
 	volume = 100
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(5, 10, 15)
 	list_reagents = list("nanites" = 100)
 
 /obj/item/reagent_containers/hypospray/autoinjector

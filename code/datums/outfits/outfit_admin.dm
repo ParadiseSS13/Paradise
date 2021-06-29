@@ -264,8 +264,77 @@
 /datum/outfit/admin/death_commando
 	name = "NT Death Commando"
 
-/datum/outfit/admin/death_commando/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	return H.equip_death_commando()
+	pda = /obj/item/pda/centcom/death_commando
+	id = /obj/item/card/id/death_commando
+	l_ear = /obj/item/radio/headset/ds
+	box = /obj/item/storage/box/responseteam
+	back = /obj/item/storage/backpack/security
+	uniform = /obj/item/clothing/under/color/black/binary
+	shoes = /obj/item/clothing/shoes/magboots/advance
+	gloves = /obj/item/clothing/gloves/combat
+	suit = /obj/item/clothing/suit/space/hardsuit/deathsquad
+	belt = /obj/item/storage/belt/military/assault
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
+	glasses = /obj/item/clothing/glasses/sunglasses
+	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
+	r_pocket = /obj/item/shield/energy
+
+	l_hand = /obj/item/gun/energy/pulse
+
+	backpack_contents = list(
+		/obj/item/storage/box/flashbangs = 1,
+		/obj/item/storage/box/breaching = 1,
+		/obj/item/pinpointer = 1,
+		/obj/item/gun/projectile/revolver/mateba = 1,
+		/obj/item/ammo_box/a357 = 2,
+		/obj/item/grenade/bsa_beacon = 1
+	)
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
+		/obj/item/organ/internal/cyberimp/arm/combat,
+		/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
+		/obj/item/organ/internal/cyberimp/brain/anti_drop
+	)
+
+	implants = list(
+		/obj/item/implant/mindshield
+	)
+
+	var/officer = FALSE
+
+/datum/outfit/admin/death_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/pda/PDA = H.wear_pda
+	if(istype(PDA))
+		PDA.owner = H.real_name
+		if(officer)
+			PDA.ownjob = "Deathsquad Officer"
+		else
+			PDA.ownjob = "Death Commando"
+		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		if(officer)
+			apply_to_card(I, H, get_centcom_access("Deathsquad Officer"), "Deathsquad Officer")
+		else
+			apply_to_card(I, H, get_centcom_access("Death Commando"), "Death Commando")
+		H.sec_hud_set_ID()
+
+/datum/outfit/admin/death_commando/officer
+	name = "NT Deathsquad Officer"
+
+	uniform = /obj/item/clothing/under/rank/centcom_officer/binary
+	r_hand = /obj/item/disk/nuclear/unrestricted
+
+	officer = TRUE
 
 /datum/outfit/admin/pirate
 	name = "Space Pirate"

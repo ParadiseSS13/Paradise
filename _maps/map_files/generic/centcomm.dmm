@@ -4735,11 +4735,10 @@
 	icon_opened = "cabinet_open";
 	icon_state = "cabinet_closed"
 	},
-/obj/item/clothing/head/helmet/space/deathsquad/beret,
 /obj/item/clothing/shoes/combat,
 /obj/item/clothing/under/syndicate/combat,
 /obj/item/clothing/gloves/combat,
-/obj/item/clothing/suit/space/deathsquad/officer,
+/obj/item/clothing/suit/space/hardsuit/deathsquad/officer,
 /obj/item/clothing/under/rank/centcom/captain,
 /obj/item/storage/box/handcuffs,
 /obj/item/storage/box/flashbangs,
@@ -6267,11 +6266,6 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/clothing/head/helmet/space/deathsquad,
-/obj/item/clothing/head/helmet/space/deathsquad/beret{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /turf/simulated/floor/plasteel,
 /area/admin)
 "uL" = (
@@ -6350,8 +6344,8 @@
 /area/admin)
 "uV" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/space/deathsquad,
-/obj/item/clothing/suit/space/deathsquad/officer{
+/obj/item/clothing/suit/space/hardsuit/deathsquad,
+/obj/item/clothing/suit/space/hardsuit/deathsquad/officer{
 	pixel_x = 3;
 	pixel_y = -3
 	},

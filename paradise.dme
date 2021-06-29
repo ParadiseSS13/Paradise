@@ -967,6 +967,7 @@
 #include "code\game\objects\items\weapons\whetstone.dm"
 #include "code\game\objects\items\weapons\grenades\atmosgrenade.dm"
 #include "code\game\objects\items\weapons\grenades\bananade.dm"
+#include "code\game\objects\items\weapons\grenades\bsabeacon.dm"
 #include "code\game\objects\items\weapons\grenades\chem_grenade.dm"
 #include "code\game\objects\items\weapons\grenades\clowngrenade.dm"
 #include "code\game\objects\items\weapons\grenades\clusterbuster.dm"

@@ -815,6 +815,10 @@
 /obj/item/card/id/ert/medic
 	icon_state = "ERT_medical"
 
+/obj/item/card/id/death_commando
+	name = "Death Commando ID"
+	icon_state = "deathsquad"
+
 /obj/item/card/id/golem
 	name = "Free Golem ID"
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."

@@ -255,6 +255,14 @@
 	for(var/I in 1 to 5)
 		new /obj/item/grenade/empgrenade(src)
 
+/obj/item/storage/box/breaching
+	name = "breaching charges"
+	desc = "Contains three T4 thermal breaching charges."
+	icon_state = "flashbang"
+
+/obj/item/storage/box/breaching/populate_contents()
+	for(var/i in 1 to 3)
+		new /obj/item/grenade/plastic/x4/thermite(src)
 
 /obj/item/storage/box/trackimp
 	name = "tracking implant kit"
