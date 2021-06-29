@@ -363,8 +363,6 @@ a {
 /obj/proc/cult_reveal() //Called by cult reveal spell and chaplain's bible
 	return
 
-/obj/proc/is_cleanable() //Called when you want to clean something, and usualy delete it after
-	return FALSE
 
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
