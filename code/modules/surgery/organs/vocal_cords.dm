@@ -112,6 +112,9 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		if(owner.stat)
 			return FALSE
+	if(istype(owner.loc, /obj/effect/dummy/spell_jaunt))
+		to_chat(owner, "<span class='warning'>No one can hear you when you are jaunting, no point in talking now!</span>")
+		return FALSE
 	return TRUE
 
 /datum/action/item_action/organ_action/colossus/Trigger()
@@ -139,12 +142,15 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		return FALSE
 	if(owner.stat)
 		return FALSE
+	if(istype(owner.loc, /obj/effect/dummy/spell_jaunt))
+		to_chat(owner, "<span class='warning'>No one can hear you when you are jaunting, no point in talking now!</span>")
+		return FALSE
 	return TRUE
 
 /obj/item/organ/internal/vocal_cords/colossus/handle_speech(message)
 	spans = "colossus yell" //reset spans, just in case someone gets deculted or the cords change owner
 	if(iscultist(owner))
-		spans += " narsiesmall"
+		spans += "narsiesmall"
 	return "<span class=\"[spans]\">[uppertext(message)]</span>"
 
 /obj/item/organ/internal/vocal_cords/colossus/speak_with(message)

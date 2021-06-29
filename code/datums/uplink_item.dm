@@ -864,6 +864,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CQC"
 	item = /obj/item/CQC_manual
 	cost = 13
+	cant_discount = TRUE
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -951,6 +952,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "DSC"
 	item = /obj/item/toy/carpplushie/dehy_carp
 	cost = 2
+
+/datum/uplink_item/stealthy_weapons/combat_plus
+	name = "Combat Gloves Plus"
+	desc = "Combat gloves with installed nanochips that teach you Krav Maga when worn, great as a cheap backup weapon. Warning, the nanochips will override any other fighting styles such as CQC."
+	reference = "CGP"
+	item = /obj/item/clothing/gloves/color/black/krav_maga/combat
+	cost = 5
+	gamemodes = list(/datum/game_mode/nuclear)
 
 // GRENADES AND EXPLOSIVES
 
@@ -1417,7 +1426,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Power Sink"
 	desc = "When screwed to wiring attached to an electric grid, then activated, this large device places excessive load on the grid, causing a stationwide blackout. The sink cannot be carried because of its excessive size. Ordering this sends you a small beacon that will teleport the power sink to your location on activation."
 	reference = "PS"
-	item = /obj/item/powersink
+	item = /obj/item/radio/beacon/syndicate/power_sink
 	cost = 10
 
 /datum/uplink_item/device_tools/singularity_beacon

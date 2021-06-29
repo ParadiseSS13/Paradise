@@ -129,7 +129,7 @@
 
 /obj/item/clothing/mask/muzzle/safety/shock
 	name = "shock muzzle"
-	desc = "A muzzle designed to prevent biting.  This one is fitted with a behavior correction system."
+	desc = "A muzzle designed to prevent biting. This one is fitted with a behavior correction system."
 	var/obj/item/assembly/trigger = null
 	origin_tech = "materials=1;engineering=1"
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
@@ -147,7 +147,7 @@
 		trigger.master = src
 		trigger.holder = src
 		AddComponent(/datum/component/proximity_monitor)
-		to_chat(user, "<span class='notice'>You attach the [W] to [src].</span>")
+		to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
 		return TRUE
 	else if(istype(W, /obj/item/assembly))
 		to_chat(user, "<span class='notice'>That won't fit in [src]. Perhaps a signaler or voice analyzer would?</span>")
@@ -408,7 +408,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/mask/gas/clown_hat/pennywise
-	name = "Pennywise Mask"
+	name = "\improper Pennywise mask"
 	desc = "It's the eater of worlds, and of children."
 	icon_state = "pennywise_mask"
 	item_state = "pennywise_mask"

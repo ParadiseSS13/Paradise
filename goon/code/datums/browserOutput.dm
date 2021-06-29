@@ -20,7 +20,6 @@ var/list/chatResources = list(
 #define MAX_COOKIE_LENGTH 5
 
 /var/savefile/iconCache = new /savefile("data/iconCache.sav")
-/var/chatDebug = file("data/chatDebug.log")
 
 /datum/chatOutput
 	var/client/owner = null
@@ -92,7 +91,10 @@ var/list/chatResources = list(
 			data = doneLoading(arglist(params))
 
 		if("debug")
-			data = debug(arglist(params))
+			if(!length(params))
+				return
+			var/error = params[1]
+			log_chat_debug("Client: [owner.key || owner] triggered JS error: [error][GLOB.log_end]")
 
 		if("ping")
 			data = ping(arglist(params))
@@ -185,7 +187,7 @@ var/list/chatResources = list(
 				var/list/row = connectionHistory[i]
 				if(!row || row.len < 3 || !(row["ckey"] && row["compid"] && row["ip"]))
 					return
-				if(world.IsBanned(key=row["ckey"], address=row["ip"], computer_id=row["compid"], type=null, check_ipintel=FALSE))
+				if(world.IsBanned(key=row["ckey"], address=row["ip"], computer_id=row["compid"], type=null, check_ipintel=FALSE, check_2fa=FALSE))
 					found = row
 					break
 				CHECK_TICK
@@ -194,16 +196,12 @@ var/list/chatResources = list(
 			if (found.len > 0)
 				message_admins("[key_name(src.owner)] <span class='boldannounce'>has a cookie from a banned account!</span> (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 				log_admin("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
-				new /datum/cookie_record(owner, found["ckey"], found["ip"], found["compid"])
+				new /datum/cookie_record(owner.ckey, found["ckey"], found["ip"], found["compid"])
 
 	cookieSent = 1
 
 /datum/chatOutput/proc/ping()
 	return "pong"
-
-/datum/chatOutput/proc/debug(error)
-	error = "\[[time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")]\] Client : [owner.key ? owner.key : owner] triggered JS error: [error]"
-	chatDebug << error
 
 /**
   * Sends the lists of code phrases and responses to Goonchat for clientside highlighting

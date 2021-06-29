@@ -88,6 +88,13 @@
 				to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
 		..()
 
+/obj/item/ammo_casing/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!BB)
+		C.stored_comms["metal"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
+
 //Boxes of ammo
 /obj/item/ammo_box
 	name = "ammo box (generic)"

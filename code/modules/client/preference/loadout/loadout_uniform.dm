@@ -4,7 +4,7 @@
 	slot = slot_w_uniform
 	sort_category = "Uniforms and Casual Dress"
 
-/datum/gear/uniform/suits
+/datum/gear/uniform/suit
 	subtype_path = /datum/gear/uniform/suit
 
 //there's a lot more colors than I thought there were @_@

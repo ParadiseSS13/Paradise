@@ -65,7 +65,7 @@
 
 		move_the_basket_ball(4 + length(orbiting_balls) * 1.5)
 
-		playsound(loc, 'sound/magic/lightningbolt.ogg', 100, TRUE, extrarange = 30)
+		playsound(loc, 'sound/magic/lightningbolt.ogg', 100, TRUE, extrarange = 30, channel = CHANNEL_ENGINE)
 
 		pixel_x = 0
 		pixel_y = 0
@@ -112,7 +112,7 @@
 		energy_to_lower = energy_to_raise - 20
 		energy_to_raise = energy_to_raise * 1.25
 
-		playsound(src.loc, 'sound/magic/lightning_chargeup.ogg', 100, TRUE, extrarange = 30)
+		playsound(src.loc, 'sound/magic/lightning_chargeup.ogg', 100, TRUE, extrarange = 30, channel = CHANNEL_ENGINE)
 		addtimer(CALLBACK(src, .proc/new_mini_ball), 100)
 
 	else if(energy < energy_to_lower && length(orbiting_balls))
@@ -216,6 +216,7 @@
 										/obj/machinery/gateway,
 										/obj/structure/lattice,
 										/obj/structure/grille,
+										/obj/structure/cable,
 										/obj/machinery/the_singularitygen/tesla,
 										/obj/machinery/constructable_frame/machine_frame))
 
