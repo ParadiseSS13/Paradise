@@ -88,8 +88,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	//starts ghosts off with all HUDs.
 	toggle_medHUD()
-
-	START_PROCESSING(SSobj, src)
 	..()
 
 /mob/dead/observer/Destroy()
@@ -100,7 +98,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
-	STOP_PROCESSING(SSobj, src)
+	if (seerads)
+		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
@@ -406,9 +405,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(seerads) //remove old huds
 		to_chat(src, "<span class='notice'>Rad view disabled.</span>")
 		seerads = FALSE
+		STOP_PROCESSING(SSobj, src)
 	else
 		to_chat(src, "<span class='notice'>Rad view enabled.</span>")
 		seerads = TRUE
+		START_PROCESSING(SSobj, src)
 
 /mob/dead/observer/verb/set_dnr()
 	set name = "Set DNR"
