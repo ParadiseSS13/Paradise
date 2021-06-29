@@ -3072,14 +3072,8 @@
 	},
 /area/mine/lobby)
 "tx" = (
-/obj/machinery/power/terminal{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/mine/lobby)
@@ -3239,6 +3233,12 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp)
+"vF" = (
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/mine/lobby)
 "vI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -3597,6 +3597,7 @@
 "AJ" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -3833,6 +3834,9 @@
 	tag = "icon-wood-broken7"
 	},
 /area/mine/laborcamp)
+"FF" = (
+/turf/simulated/floor/plating,
+/area/mine/lobby)
 "FO" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
@@ -5073,6 +5077,7 @@
 /area/mine/laborcamp)
 "ZV" = (
 /obj/structure/closet/emcloset,
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -16645,7 +16650,7 @@ uN
 et
 PP
 et
-ab
+et
 ab
 ab
 aj
@@ -16901,8 +16906,8 @@ KQ
 Xz
 et
 Op
+vF
 PP
-ab
 ab
 ab
 ab
@@ -17158,8 +17163,8 @@ SM
 RD
 et
 tx
+FF
 et
-ab
 ab
 aj
 aj
@@ -17416,7 +17421,7 @@ hE
 et
 Oy
 et
-aj
+et
 aj
 aj
 aj
