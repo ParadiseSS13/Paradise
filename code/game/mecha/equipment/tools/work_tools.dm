@@ -36,11 +36,7 @@
 			var/obj/mecha/working/ripley/R = chassis
 			QDEL_LIST(R.cargo) //We don't want to drop cargo that just spam hits the SM, let's delete it
 			occupant_message("<span class='userdanger'>You realise in horror what you have done as [chassis] starts warping around you!</span>")
-			if(isAI(chassis.occupant))
-				occupant_message("<span class='userdanger'>Ỹ̷̪̤͙̗͌͑̀͛̈̈́́̽̿̇̑̽̚͝o̷͇͓̹̒̓̈́͊̋̔̆̄̎̈͒̕͠ǔ̸͇́͋̊̉͒̈́r̶̬̻͈͖̱̭̊̉̀̅̚̕͜͜͝ ̴̢̫͎̩̙̭̜̼̩̹̖͍̈́̆̃̈́̕c̴̨̛̗̹̠̦̝̩̤͔̯̥̞͆̾̌͑̅͋̐͝i̴͇͗̈̋̒͋ŗ̷̛͔̤̼͈̥̣́̍͐̀͑́̏̔̀͌̚͜͜ĉ̸̟̲͎̥͕͔̭̯͑̅͠͝u̷̡̨̖͕̜̬̦͙̙̖͎̍̈́̄̇̈́̕i̴̺̊͛̔̿t̸̝͆̇̊͂̄͂͛̾͒r̸̟͎͔̪͕̺̜͐̾̈́y̴̨̞͉̺̜̩̩̘̺̒̉ ̴̡̨͔̗͖̥̺̞̫̳͓̪̠̉͌͛̒̊̀͜į̷̡͔̭͉̤͔͇̫̠͚̖̓̈́͒̇͋̿̀͒͗̔͜ͅş̵͙̤̟̰̦̪̂̽͗ ̶̩̹͚̺̬̤̭̤̬̪͚̣̻̀͒͛͝͝ǫ̶͍͉̤̭̊͐̿͛̈́̃̌̾̊̾͘͠v̵̜̠̤̲̹͙̖̖̯͖̤͛͑͊̂͑̓̑̾̈ë̸̢̝͓̟͕̲̗̝́̈͆̋̀͐̀̂̑̕̕͝͠ŕ̴̙̥̦̣̖̈́̃̀͝l̴̤̲̞̠̣̹͈̫̪͔̫̀̽̐̀̂̀͂̒͐̓̃ȍ̸̤̪̪̫̞͕̻̓̒̅́̓̉̃å̸̧̡̢̨̼̟̹͚͕̟̰̱͋̈́͑͂͒́́̄͘͝ͅͅd̴̨̖͈̑̽͋͗̃̀ẹ̷̹̯̪̥̼͌̃̈́̋̄͂͐̆̌͠d̴͎͖̗̆́̐͌̓̈́́́̈́̋̀̚ ̷̡̡̛̱͖͈̜̬̝͎̦͚̻̦͗̕͝ͅẃ̵͕̮̺̤̻͈̤̆̓̃̇̈́͝i̴̛͕̼͚͉͍͚͚̬͐̎̾͊̂́̃̿̚t̷̢̡̤̯͇͓͈̭̟̓͗ͅh̸̛͔͎́̾͗̔̀͋̒̃̚ ̶̢̠͖̟̭̰͔͓̱̺̙̊͌̀̾͂̚͘d̸̠͕̜͓͍̱̗̲̫̰̜̫̯͛͋͗͛̈́̀̓̄͝͠a̵̛̫̬̭̲͈̐͒͋̄̓̽͛̌͐̿͜͝t̶̝̻̪̘͇̠̦̙̣̊̊̽̎́̈́͒͋͑̐̕̕͝ă̷̢̡̠̮̣̼̻̯͎̦͈̟̳̽ͅ!̵̧͇̙̭͖͈̟̙̖͚̥͆̀</span>") //Glitch text says: Your circuitry is overloaded with data!
-				chassis.occupant.Stun(10)
-			else
-				chassis.occupant.dust()
+			chassis.occupant.dust()
 			target.Bumped(chassis)
 			return
 		if(O.anchored)
