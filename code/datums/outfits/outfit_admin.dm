@@ -295,6 +295,7 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
+		/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible,
 		/obj/item/organ/internal/cyberimp/arm/combat,
 		/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
 		/obj/item/organ/internal/cyberimp/brain/anti_drop

@@ -1,8 +1,8 @@
 /obj/item/grenade/bsa_beacon
 	name = "bluespace artillery targeting beacon"
 	desc = "Summons forth the might of the nanotrasen military."
-	icon_state = "emp"
-	item_state = "emp"
+	icon_state = "bsa"
+	item_state = "bsa"
 	det_time = 10
 	display_timer = FALSE
 	var/count_down_seconds = 10
