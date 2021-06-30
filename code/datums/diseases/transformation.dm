@@ -15,6 +15,7 @@
 	var/list/stage3 = list("You feel utterly plain.")
 	var/list/stage4 = list("You feel white bread.")
 	var/list/stage5 = list("Oh the humanity!")
+	var/transformation_text = null
 	var/new_form = /mob/living/carbon/human
 
 /datum/disease/transformation/stage_act()
@@ -44,6 +45,8 @@
 			return
 		if(affected_mob.notransform)
 			return
+		if(transformation_text)
+			to_chat(affected_mob, transformation_text)
 		affected_mob.notransform = 1
 		affected_mob.canmove = 0
 		affected_mob.icon = null
@@ -243,4 +246,5 @@
 	stage3	= list("<span class='danger'>Your appendages are melting away.</span>", "<span class='danger'>Your limbs begin to lose their shape.</span>")
 	stage4	= list("<span class='danger'>You're ravenous.</span>")
 	stage5	= list("<span class='danger'>You have become a morph.</span>")
+	transformation_text = "<span class='userdanger'>This transformation does NOT make you an antagonist if you were not one already. If you were not an antagonist, you should not eat any steal objectives or the contents of the armory.</span>"
 	new_form = /mob/living/simple_animal/hostile/morph

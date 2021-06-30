@@ -8,6 +8,7 @@
 	health = 35
 	bubble_icon = "machine"
 	pass_flags = PASSTABLE
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	braintype = "Robot"
 	lawupdate = FALSE
 	density = FALSE
@@ -238,7 +239,7 @@
 		health = 35
 		stat = CONSCIOUS
 		return
-	health = 35 - (getBruteLoss() + getFireLoss())
+	health = 35 - (getBruteLoss() + getFireLoss() + getOxyLoss())
 	update_stat("updatehealth([reason])")
 
 /mob/living/silicon/robot/drone/death(gibbed)
@@ -299,11 +300,7 @@
 	if(!player)
 		return
 
-	if(player.mob?.mind)
-		player.mob.mind.transfer_to(src)
-		player.mob.mind.assigned_role = "Drone"
-	else
-		ckey = player.ckey
+	ckey = player.ckey
 
 	to_chat(src, "<b>Systems rebooted</b>. Loading base pattern maintenance protocol... <b>loaded</b>.")
 	full_law_reset()
@@ -360,6 +357,10 @@
 /mob/living/silicon/robot/drone/update_canmove(delay_action_updates = FALSE)
 	. = ..()
 	density = emagged //this is reset every canmove update otherwise
+
+/mob/living/silicon/robot/drone/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
+	..()
+	update_headlamp(TRUE, 0, FALSE)
 
 /mob/living/silicon/robot/drone/flash_eyes(intensity = 1, override_blindness_check = FALSE, affect_silicon = FALSE, visual = FALSE)
 	if(affect_silicon)

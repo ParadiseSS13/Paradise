@@ -279,9 +279,14 @@
 	if(toggle_command_bold)
 		var/job = tcm.sender_job
 		if((job in ert_jobs) || (job in heads) || (job in cc_jobs))
-			for(var/datum/multilingual_say_piece/S in message_pieces)
-				if(S.message)
-					S.message = "<b>[capitalize(S.message)]</b>" // This only capitalizes the first word
+			for(var/I in 1 to length(message_pieces))
+				var/datum/multilingual_say_piece/S = message_pieces[I]
+				if(!S.message)
+					continue
+				if(I == 1 && !istype(S.speaking, /datum/language/noise)) // Capitalise the first section only, unless it's an emote.
+					S.message = "[capitalize(S.message)]"
+				S.message = "<b>[S.message]</b>" // Make everything bolded
+
 
 	// Language Conversion
 	if(setting_language && valid_languages[setting_language])

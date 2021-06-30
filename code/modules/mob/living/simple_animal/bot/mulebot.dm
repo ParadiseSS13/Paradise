@@ -135,7 +135,7 @@
 		emagged = 1
 	if(!open)
 		locked = !locked
-		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the [src]'s controls!</span>")
+		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src]'s controls!</span>")
 	flick("mulebot-emagged", src)
 	playsound(loc, 'sound/effects/sparks1.ogg', 100, 0)
 
