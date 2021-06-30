@@ -549,7 +549,7 @@
 	head = /obj/item/clothing/head/sovietsidecap
 	id = /obj/item/card/id
 	shoes = /obj/item/clothing/shoes/combat
-	l_ear = /obj/item/radio/headset/syndicate
+	l_ear = /obj/item/radio/headset/alt/soviet
 
 /datum/outfit/admin/soviet/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -562,6 +562,9 @@
 		H.real_name = capitalize(pick(GLOB.first_names_russian_female)) + " " + capitalize(pick(GLOB.first_names_russian_female))
 	H.name = H.real_name
 
+	H.add_language("Neo-Russkiya")
+	H.set_default_language(GLOB.all_languages["Neo-Russkiya"])
+
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
@@ -571,7 +574,6 @@
 	name = "Soviet Tourist"
 
 	gloves = null
-	l_ear = /obj/item/radio/headset
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1
 	)
@@ -632,7 +634,8 @@
 	belt = /obj/item/storage/belt/military/assault/soviet/full
 	l_pocket = /obj/item/card/emag
 	r_pocket = /obj/item/melee/classic_baton/telescopic
-	suit_store = /obj/item/gun/projectile/automatic/ak814
+	l_hand = /obj/item/gun/projectile/automatic/ak814
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
