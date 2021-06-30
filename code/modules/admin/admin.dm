@@ -725,7 +725,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_SERVER))
 		return
 
-	GLOB.configuration.general.guest_ban = !(GLOB.configuration?.general.guest_ban)
+	GLOB.configuration.general.guest_ban = !(GLOB.configuration.general.guest_ban)
 	if(GLOB.configuration.general.guest_ban)
 		to_chat(world, "<B>Guests may no longer enter the game.</B>")
 	else

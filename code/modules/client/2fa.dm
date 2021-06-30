@@ -1,6 +1,6 @@
 // This is in its own file as it has so much stuff to contend with
 /client/proc/edit_2fa()
-	if(! GLOB.configuration.system._2fa_auth_host)
+	if(!GLOB.configuration.system._2fa_auth_host)
 		alert(usr, "This server does not have 2FA enabled.")
 		return
 	// Client does not have 2FA enabled. Set it up.
