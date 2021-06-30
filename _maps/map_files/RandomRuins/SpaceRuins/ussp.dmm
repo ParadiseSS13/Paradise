@@ -133,7 +133,7 @@
 	},
 /area/derelict/bridge)
 "av" = (
-/obj/machinery/computer/monitor,
+/obj/machinery/computer/monitor/secret,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -3697,7 +3697,7 @@
 	name = "Derelict Annex"
 	})
 "hD" = (
-/obj/machinery/computer/monitor,
+/obj/machinery/computer/monitor/secret,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 5

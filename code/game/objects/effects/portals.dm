@@ -101,7 +101,9 @@
 
 	if(prob(failchance))
 		icon_state = fail_icon
-		if(!do_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), 3), 0, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to deep space.
+		var/list/target_z = levels_by_trait(SPAWN_RUINS)
+		target_z -= M.z
+		if(!do_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), pick(target_z)), 0, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to deep space.
 			invalid_teleport()
 			return FALSE
 	else

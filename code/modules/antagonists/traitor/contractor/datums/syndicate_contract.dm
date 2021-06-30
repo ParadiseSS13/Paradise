@@ -363,6 +363,9 @@
 		// Greys get to keep their implant
 		if(isgrey(H) && istype(I, /obj/item/organ/internal/cyberimp/brain/speech_translator))
 			continue
+		// IPCs keep this implant, free of charge!
+		if(ismachineperson(H) && istype(I, /obj/item/organ/internal/cyberimp/arm/power_cord))
+			continue
 		// Try removing it
 		I = I.remove(H)
 		if(I)

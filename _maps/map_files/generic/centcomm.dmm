@@ -1406,7 +1406,7 @@
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "fe" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod/offstation/right,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "ff" = (
@@ -1442,7 +1442,7 @@
 /turf/simulated/floor/engine/cult,
 /area/wizard_station)
 "fl" = (
-/obj/machinery/cryopod,
+/obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "fm" = (
@@ -2898,7 +2898,7 @@
 /area/syndicate_mothership)
 "kL" = (
 /obj/structure/table,
-/obj/item/gun/energy/ionrifle,
+/obj/item/gun/energy/ionrifle/carbine,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kM" = (
@@ -4380,11 +4380,6 @@
 	},
 /obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma/space)
-"pt" = (
-/obj/machinery/door/airlock/titanium,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
 /area/shuttle/gamma/space)
 "pu" = (
 /obj/mecha/combat/durand/loaded{
@@ -26694,7 +26689,7 @@ fm
 of
 of
 of
-pt
+pn
 of
 of
 of
