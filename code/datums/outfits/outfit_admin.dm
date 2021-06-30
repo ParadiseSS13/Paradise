@@ -557,9 +557,9 @@
 		return
 
 	if(H.gender == MALE)
-		H.real_name = capitalize(pick(GLOB.first_names_russian_male)) + " " + capitalize(pick(GLOB.last_names_russian_male))
+		H.real_name = "[capitalize(pick(GLOB.first_names_russian_male))]  [capitalize(pick(GLOB.last_names_russian_male))]"
 	else
-		H.real_name = capitalize(pick(GLOB.first_names_russian_female)) + " " + capitalize(pick(GLOB.first_names_russian_female))
+		H.real_name = "[capitalize(pick(GLOB.first_names_russian_female))] [capitalize(pick(GLOB.first_names_russian_female))]"
 	H.name = H.real_name
 
 	H.add_language("Neo-Russkiya")
