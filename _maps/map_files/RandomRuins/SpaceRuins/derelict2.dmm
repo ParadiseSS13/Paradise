@@ -4,9 +4,8 @@
 /area/template_noop)
 "b" = (
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
-	icon_state = "rwindow";
-	dir = 4
+	dir = 4;
+	tag = "icon-rwindow (EAST)"
 	},
 /turf/template_noop,
 /area/space/nearstation)
@@ -16,22 +15,19 @@
 /area/ruin/powered)
 "d" = (
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (WEST)";
-	icon_state = "rwindow";
-	dir = 8
+	dir = 8;
+	tag = "icon-rwindow (WEST)"
 	},
 /turf/template_noop,
 /area/space/nearstation)
 "e" = (
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
-	icon_state = "rwindow";
-	dir = 4
+	dir = 4;
+	tag = "icon-rwindow (EAST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (WEST)";
-	icon_state = "rwindow";
-	dir = 8
+	dir = 8;
+	tag = "icon-rwindow (WEST)"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered)
@@ -45,9 +41,8 @@
 /area/ruin/powered)
 "h" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
@@ -56,9 +51,8 @@
 /area/ruin/powered)
 "j" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
-	icon_state = "bulb1";
-	dir = 4
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
@@ -69,17 +63,15 @@
 "l" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (NORTH)";
-	icon_state = "rwindow";
-	dir = 1
+	dir = 1;
+	tag = "icon-rwindow (NORTH)"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 "m" = (
 /obj/structure/chair{
-	tag = "icon-chair (EAST)";
-	icon_state = "chair";
-	dir = 4
+	dir = 4;
+	tag = "icon-chair (EAST)"
 	},
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel,
@@ -99,26 +91,23 @@
 /area/ruin/powered)
 "o" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
-	icon_state = "chair";
-	dir = 8
+	dir = 8;
+	tag = "icon-chair (WEST)"
 	},
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
 "p" = (
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (NORTH)";
-	icon_state = "rwindow";
-	dir = 1
+	dir = 1;
+	tag = "icon-rwindow (NORTH)"
 	},
 /turf/template_noop,
 /area/space/nearstation)
 "q" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (WEST)";
-	icon_state = "bulb1";
-	dir = 8
+	dir = 8;
+	tag = "icon-bulb1 (WEST)"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)

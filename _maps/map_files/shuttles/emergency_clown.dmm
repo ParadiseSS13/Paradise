@@ -116,9 +116,8 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/chasm,
 /area/shuttle/escape)
@@ -132,9 +131,8 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /obj/item/toy/snappop/phoenix,
 /turf/simulated/floor/plasteel{
@@ -174,14 +172,12 @@
 "aL" = (
 /obj/item/radio/intercom{
 	dir = 4;
-	name = "station intercom (General)";
 	pixel_x = 28
 	},
 /turf/simulated/floor/chasm,
 /area/shuttle/escape)
 "aP" = (
 /obj/docking_port/mobile/emergency{
-	dir = 4;
 	dwidth = 11;
 	height = 13;
 	name = "Snappop(tm)!";
@@ -199,13 +195,11 @@
 "aQ" = (
 /obj/item/radio/intercom{
 	dir = 8;
-	name = "station intercom (General)";
 	pixel_x = -28
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
-	icon_state = "tube1";
-	dir = 8
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
 	},
 /obj/structure/bed,
 /obj/item/bedsheet/rainbow,
@@ -227,9 +221,8 @@
 /obj/item/extinguisher,
 /obj/item/crowbar,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
-	icon_state = "tube1";
-	dir = 8
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
 	},
 /obj/item/multitool/ai_detect,
 /turf/simulated/floor/noslip,
@@ -280,8 +273,7 @@
 "bb" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = null;
-	name = "Escape Shuttle Infirmary";
-	req_access_txt = "0"
+	name = "Escape Shuttle Infirmary"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -315,9 +307,7 @@
 /obj/machinery/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
-	pixel_x = 28;
-	pixel_y = 0;
-	req_access_txt = "0"
+	pixel_x = 28
 	},
 /obj/structure/bed/roller,
 /turf/simulated/floor/noslip,
@@ -328,28 +318,24 @@
 /area/shuttle/escape)
 "bg" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
-	icon_state = "tube1";
-	dir = 4
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bh" = (
 /obj/machinery/status_display{
-	pixel_x = -30;
-	pixel_y = 0
+	pixel_x = -30
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
-	icon_state = "tube1";
-	dir = 8
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bi" = (
 /obj/item/radio/intercom{
 	dir = 4;
-	name = "station intercom (General)";
 	pixel_x = 28
 	},
 /obj/structure/bed/roller,
@@ -370,9 +356,9 @@
 /area/shuttle/escape)
 "bm" = (
 /obj/machinery/sleeper{
-	tag = "icon-sleeper (NORTH)";
+	dir = 1;
 	icon_state = "sleeper";
-	dir = 1
+	tag = "icon-sleeper (NORTH)"
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)

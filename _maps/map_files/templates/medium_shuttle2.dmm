@@ -5,7 +5,6 @@
 "b" = (
 /obj/structure/shuttle/engine/propulsion/burst/left{
 	dir = 8;
-	icon_state = "burst_l";
 	tag = "icon-burst_l (EAST)"
 	},
 /turf/simulated/floor/plating/airless,
@@ -14,14 +13,12 @@
 	})
 "c" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (WEST)";
-	icon_state = "heater";
-	dir = 8
+	dir = 8;
+	tag = "icon-heater (WEST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
-	icon_state = "rwindow";
-	dir = 4
+	dir = 4;
+	tag = "icon-rwindow (EAST)"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered{
@@ -35,7 +32,6 @@
 "f" = (
 /obj/structure/shuttle/engine/propulsion/burst/right{
 	dir = 8;
-	icon_state = "burst_r";
 	tag = "icon-burst_r (EAST)"
 	},
 /turf/simulated/floor/plating/airless,
@@ -57,8 +53,8 @@
 	})
 "k" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -71,8 +67,8 @@
 "n" = (
 /obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -85,8 +81,8 @@
 	})
 "p" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-bluefull";
-	icon_state = "bluefull"
+	icon_state = "bluefull";
+	tag = "icon-bluefull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -99,8 +95,8 @@
 	})
 "r" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -115,21 +111,21 @@
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel{
-	tag = "icon-bluefull";
-	icon_state = "bluefull"
+	icon_state = "bluefull";
+	tag = "icon-bluefull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
 	})
 "v" = (
 /obj/machinery/sleeper{
-	tag = "icon-sleeper (NORTH)";
+	dir = 1;
 	icon_state = "sleeper";
-	dir = 1
+	tag = "icon-sleeper (NORTH)"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-bluefull";
-	icon_state = "bluefull"
+	icon_state = "bluefull";
+	tag = "icon-bluefull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -137,8 +133,8 @@
 "w" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -166,8 +162,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -176,8 +172,8 @@
 /obj/structure/computerframe,
 /obj/item/circuitboard/teleporter,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -186,8 +182,8 @@
 /obj/machinery/teleport/hub,
 /obj/item/hand_tele,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -195,8 +191,8 @@
 "G" = (
 /obj/item/radio/beacon,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -204,8 +200,8 @@
 "H" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -219,8 +215,8 @@
 	},
 /obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -228,8 +224,8 @@
 "K" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -238,8 +234,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/purple,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -247,8 +243,8 @@
 "N" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -257,8 +253,8 @@
 /obj/structure/table,
 /obj/item/storage/belt/utility/full/multitool,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -268,8 +264,8 @@
 /obj/item/storage/toolbox/electrical,
 /obj/item/clothing/gloves/color/yellow,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -279,8 +275,8 @@
 /obj/machinery/recharger,
 /obj/item/gun/energy/laser/retro,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -290,8 +286,8 @@
 /obj/item/clothing/head/helmet/space/eva,
 /obj/item/clothing/suit/space/eva,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -299,8 +295,8 @@
 "U" = (
 /obj/machinery/teleport/station,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -318,8 +314,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-bluefull";
-	icon_state = "bluefull"
+	icon_state = "bluefull";
+	tag = "icon-bluefull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -329,8 +325,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -338,8 +334,8 @@
 "Y" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -347,8 +343,8 @@
 "Z" = (
 /obj/machinery/computer,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"

@@ -26,9 +26,8 @@
 /area/ruin/unpowered)
 "i" = (
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (WEST)";
-	icon_state = "rwindow";
-	dir = 8
+	dir = 8;
+	tag = "icon-rwindow (WEST)"
 	},
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/titanium/blue/airless,
@@ -44,7 +43,6 @@
 "l" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "propulsion";
 	tag = "icon-propulsion (WEST)"
 	},
 /turf/simulated/floor/plating/airless,
@@ -76,9 +74,8 @@
 /area/ruin/unpowered)
 "r" = (
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (WEST)";
-	icon_state = "rwindow";
-	dir = 8
+	dir = 8;
+	tag = "icon-rwindow (WEST)"
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 1

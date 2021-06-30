@@ -29,9 +29,8 @@
 "ak" = (
 /obj/machinery/computer/communications,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
@@ -48,9 +47,8 @@
 	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
@@ -91,9 +89,8 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
@@ -104,9 +101,9 @@
 "aJ" = (
 /obj/machinery/atmospherics/unary/cryo_cell,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (NORTHWEST)";
+	dir = 9;
 	icon_state = "whiteblue";
-	dir = 9
+	tag = "icon-whiteblue (NORTHWEST)"
 	},
 /area/shuttle/escape)
 "aK" = (
@@ -116,9 +113,9 @@
 	},
 /obj/item/wrench,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (NORTH)";
+	dir = 1;
 	icon_state = "whiteblue";
-	dir = 1
+	tag = "icon-whiteblue (NORTH)"
 	},
 /area/shuttle/escape)
 "aL" = (
@@ -126,22 +123,21 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (NORTH)";
+	dir = 1;
 	icon_state = "whiteblue";
-	dir = 1
+	tag = "icon-whiteblue (NORTH)"
 	},
 /area/shuttle/escape)
 "aM" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (NORTHEAST)";
+	dir = 5;
 	icon_state = "whiteblue";
-	dir = 5
+	tag = "icon-whiteblue (NORTHEAST)"
 	},
 /area/shuttle/escape)
 "aN" = (
@@ -158,15 +154,14 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (WEST)";
+	dir = 8;
 	icon_state = "whiteblue";
-	dir = 8
+	tag = "icon-whiteblue (WEST)"
 	},
 /area/shuttle/escape)
 "aR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 9;
-	icon_state = "intact"
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -181,9 +176,7 @@
 /obj/machinery/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
-	pixel_x = 28;
-	pixel_y = 0;
-	req_access_txt = "0"
+	pixel_x = 28
 	},
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel{
@@ -195,15 +188,14 @@
 "aU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (WEST)";
+	dir = 8;
 	icon_state = "whiteblue";
-	dir = 8
+	tag = "icon-whiteblue (WEST)"
 	},
 /area/shuttle/escape)
 "aV" = (
 /obj/item/radio/intercom{
 	dir = 4;
-	name = "station intercom (General)";
 	pixel_x = 28
 	},
 /obj/structure/bed/roller,
@@ -233,9 +225,9 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (SOUTHWEST)";
+	dir = 10;
 	icon_state = "whiteblue";
-	dir = 10
+	tag = "icon-whiteblue (SOUTHWEST)"
 	},
 /area/shuttle/escape)
 "aZ" = (
@@ -258,34 +250,28 @@
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/reagent_containers/glass/beaker/cryoxadone,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whiteblue";
 	tag = "icon-whitehall (WEST)"
 	},
 /area/shuttle/escape)
 "ba" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whiteblue";
 	tag = "icon-whitehall (WEST)"
 	},
 /area/shuttle/escape)
 "bb" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
-	icon_state = "tube1";
-	dir = 4
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
 	},
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (SOUTHEAST)";
+	dir = 6;
 	icon_state = "whiteblue";
-	dir = 6
+	tag = "icon-whiteblue (SOUTHEAST)"
 	},
 /area/shuttle/escape)
 "bc" = (
@@ -316,7 +302,6 @@
 /area/shuttle/escape)
 "bh" = (
 /obj/docking_port/mobile/emergency{
-	dir = 4;
 	dwidth = 11;
 	height = 13;
 	timid = 1;
@@ -339,13 +324,11 @@
 "bj" = (
 /obj/item/radio/intercom{
 	dir = 8;
-	name = "station intercom (General)";
 	pixel_x = -28
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
-	icon_state = "tube1";
-	dir = 8
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -366,9 +349,8 @@
 /area/shuttle/escape)
 "bm" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
-	icon_state = "tube1";
-	dir = 4
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -377,9 +359,8 @@
 /area/shuttle/escape)
 "bn" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
-	icon_state = "tube1";
-	dir = 8
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -424,9 +405,8 @@
 	name = "shuttle turret"
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)

@@ -24,8 +24,7 @@
 "ai" = (
 /obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "0"
+	name = "Emergency Shuttle Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
@@ -80,7 +79,6 @@
 /obj/item/radio/intercom{
 	dir = 4;
 	name = "Station Intercom (General)";
-	pixel_x = 0;
 	pixel_y = 27
 	},
 /obj/structure/chair/comfy/shuttle,
@@ -130,16 +128,14 @@
 "aA" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
-	icon_state = "propulsion";
 	tag = "icon-propulsion (EAST)"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "aB" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (WEST)";
-	icon_state = "heater";
-	dir = 8
+	dir = 8;
+	tag = "icon-heater (WEST)"
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -184,15 +180,13 @@
 /area/shuttle/escape)
 "aI" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (WEST)";
-	icon_state = "heater";
-	dir = 8
+	dir = 8;
+	tag = "icon-heater (WEST)"
 	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
@@ -258,7 +252,6 @@
 /obj/item/clothing/head/hardhat,
 /obj/item/clothing/head/hardhat,
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -293,9 +286,6 @@
 "aS" = (
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = 0;
-	pixel_y = 0;
-	req_access_txt = "0";
 	use_power = 0
 	},
 /turf/simulated/wall/mineral/titanium,
@@ -320,8 +310,7 @@
 /obj/machinery/status_display{
 	dir = 4;
 	layer = 4;
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
@@ -348,8 +337,6 @@
 "bb" = (
 /obj/structure/table,
 /obj/item/radio/intercom{
-	broadcasting = 0;
-	listening = 1;
 	name = "Station Intercom (General)";
 	pixel_y = -28
 	},
@@ -363,15 +350,12 @@
 /obj/structure/table,
 /obj/item/folder/blue,
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 0;
 	pixel_y = -30
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "bd" = (
 /obj/item/radio/intercom{
-	broadcasting = 0;
-	listening = 1;
 	name = "Station Intercom (General)";
 	pixel_y = -28
 	},
@@ -391,7 +375,6 @@
 /obj/item/stack/medical/ointment,
 /obj/item/stack/medical/bruise_pack,
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -414,8 +397,7 @@
 "bl" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = null;
-	name = "Escape Shuttle Infirmary";
-	req_access_txt = "0"
+	name = "Escape Shuttle Infirmary"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
@@ -473,7 +455,6 @@
 "bw" = (
 /obj/machinery/sleeper,
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -533,8 +514,7 @@
 "bF" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bottle/epinephrine{
-	pixel_x = 6;
-	pixel_y = 0
+	pixel_x = 6
 	},
 /obj/item/reagent_containers/glass/bottle/charcoal{
 	pixel_x = -3
@@ -576,7 +556,6 @@
 	pixel_y = 1
 	},
 /obj/item/storage/toolbox/mechanical{
-	pixel_x = 0;
 	pixel_y = -1
 	},
 /obj/item/storage/toolbox/emergency{
@@ -653,8 +632,6 @@
 	pixel_y = 4
 	},
 /obj/item/radio/intercom{
-	broadcasting = 0;
-	listening = 1;
 	name = "Station Intercom (General)";
 	pixel_y = -28
 	},
@@ -696,7 +673,6 @@
 /obj/item/radio/intercom{
 	dir = 4;
 	name = "Station Intercom (General)";
-	pixel_x = 0;
 	pixel_y = -27
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -738,7 +714,6 @@
 /area/shuttle/escape)
 "ca" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 0;
 	pixel_y = -30
 	},
 /obj/machinery/space_heater,
@@ -770,9 +745,7 @@
 	},
 /area/shuttle/escape)
 "cc" = (
-/obj/structure/closet/crate/medical{
-	name = "medical crate"
-	},
+/obj/structure/closet/crate/medical,
 /obj/item/storage/firstaid/regular,
 /obj/item/storage/firstaid/o2{
 	pixel_x = 3;
@@ -799,8 +772,6 @@
 /area/shuttle/escape)
 "cd" = (
 /obj/item/radio/intercom{
-	broadcasting = 0;
-	listening = 1;
 	name = "Station Intercom (General)";
 	pixel_y = -28
 	},
@@ -831,8 +802,7 @@
 	},
 /obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "0"
+	name = "Emergency Shuttle Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
