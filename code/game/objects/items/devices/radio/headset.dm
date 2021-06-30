@@ -110,6 +110,14 @@
 	. = ..()
 	set_frequency(SYND_FREQ)
 
+/obj/item/radio/headset/alt/soviet
+	name = "soviet bowman headset"
+	desc = "A headset linked to the soviet military frequency in this sector. Protects ears from flashbangs."
+	icon_state = "syndie_headset"
+	item_state = "syndie_headset"
+	ks1type = /obj/item/encryptionkey/soviet
+	requires_tcomms = FALSE
+
 /obj/item/radio/headset/binary
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/encryptionkey/binary

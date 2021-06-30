@@ -61,6 +61,11 @@ export const RADIO_CHANNELS = [
     color: '#a52a2a',
   },
   {
+    name: 'Soviet',
+    freq: 1217,
+    color: '#f7941d',
+  },
+  {
     name: 'Red Team',
     freq: 1215,
     color: '#ff4444',
@@ -232,7 +237,7 @@ const GASES = [
     'name': 'Agent B',
     'label': 'Agent B',
     'color': 'purple',
-  },  
+  },
 ];
 
 export const getGasLabel = (gasId, fallbackValue) => {
