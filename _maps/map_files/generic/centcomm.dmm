@@ -599,6 +599,15 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_thunderdomecourt)
+"cv" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	req_access_txt = "31"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
 "cw" = (
 /turf/simulated/floor/holofloor{
 	dir = 1;
@@ -2847,13 +2856,6 @@
 /obj/structure/closet/abductor,
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
-"kB" = (
-/obj/structure/plasticflaps/mining,
-/obj/machinery/conveyor/west{
-	id = "QMLoad3"
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/supply)
 "kD" = (
 /obj/machinery/computer/camera_advanced/abductor{
 	team = 4
@@ -3668,6 +3670,13 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"nm" = (
+/obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor/west{
+	id = "QMLoad3"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
 "no" = (
 /obj/machinery/sleeper{
 	dir = 4
@@ -4260,7 +4269,6 @@
 	name = "Backup Shuttle Dock";
 	width = 8
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "pa" = (
@@ -4349,6 +4357,11 @@
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/grass,
 /area/centcom/specops)
+"pn" = (
+/obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/plating,
+/area/shuttle/gamma/space)
 "po" = (
 /obj/structure/table/reinforced,
 /obj/item/grenade/clusterbuster,
@@ -5468,7 +5481,6 @@
 	name = "centcom bay 2";
 	width = 5
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/transport)
 "tc" = (
@@ -5479,7 +5491,7 @@
 	id_tag = "ferry_away";
 	name = "Ferry Airlock"
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating,
 /area/centcom/ferry)
 "te" = (
@@ -5682,7 +5694,7 @@
 	opacity = 0;
 	req_access_txt = "106"
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating,
 /area/centcom/evac)
 "tF" = (
@@ -9767,6 +9779,13 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/ert,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
+"JW" = (
+/obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor/east{
+	id = "QMLoad4"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
 "Kb" = (
 /obj/machinery/light/spot,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -9924,15 +9943,6 @@
 /obj/item/storage/toolbox/syndicate,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
-"KV" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "specops_away";
-	name = "Shuttle Hatch";
-	req_access_txt = "109"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel,
-/area/centcom/control)
 "KW" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -10244,13 +10254,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
-"MJ" = (
-/obj/structure/plasticflaps/mining,
-/obj/machinery/conveyor/east{
-	id = "QMLoad4"
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/supply)
 "MN" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -10517,15 +10520,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
-"Op" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "31"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/shuttle/supply)
 "Oq" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating/airless,
@@ -12267,6 +12261,15 @@
 	tag = "icon-whiteblue (NORTH)"
 	},
 /area/shuttle/escape)
+"YZ" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "specops_away";
+	name = "Shuttle Hatch";
+	req_access_txt = "109"
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/plasteel,
+/area/centcom/control)
 "Za" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 8;
@@ -25405,7 +25408,7 @@ of
 of
 of
 of
-pt
+pn
 of
 of
 fm
@@ -32895,11 +32898,11 @@ qI
 YM
 YM
 YM
-MJ
-Op
+JW
+cv
 YM
-Op
-kB
+cv
+nm
 YM
 YM
 YM
@@ -34438,7 +34441,7 @@ YM
 YM
 YM
 DK
-Op
+cv
 YM
 tW
 Ji
@@ -39282,7 +39285,7 @@ aN
 aN
 aN
 sq
-KV
+YZ
 sq
 aN
 aN
