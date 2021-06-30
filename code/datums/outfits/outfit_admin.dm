@@ -284,7 +284,7 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/flashbangs = 1,
-		/obj/item/storage/box/breaching = 1,
+		/obj/item/storage/box/door_breching = 1,
 		/obj/item/gun/projectile/revolver/mateba = 1,
 		/obj/item/ammo_box/a357 = 2,
 		/obj/item/grenade/bsa_beacon = 1
