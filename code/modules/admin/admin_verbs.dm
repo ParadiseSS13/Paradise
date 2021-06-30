@@ -130,6 +130,7 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
 	/datum/admins/proc/toggleguests,	/*toggles whether guests can join the current game*/
 	/client/proc/toggle_log_hrefs,
+	/client/proc/toggle_twitch_censor,
 	/client/proc/everyone_random,
 	/datum/admins/proc/toggleAI,
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
@@ -777,6 +778,17 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		else
 			config.log_hrefs = 1
 			to_chat(src, "<b>Started logging hrefs</b>")
+
+/client/proc/toggle_twitch_censor()
+	set name = "Toggle Twitch censor"
+	set category = "Server"
+
+	if(!check_rights(R_SERVER))
+		return
+
+	if(config)
+		config.twitch_censor = !config.twitch_censor
+		to_chat(src, "<b>Twitch censor is [config.twitch_censor ? "enabled" : "disabled"]</b>")
 
 /client/proc/check_ai_laws()
 	set name = "Check AI Laws"

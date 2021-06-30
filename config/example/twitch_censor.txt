@@ -1,0 +1,3 @@
+# Dictinary of patterns that needs to be replaced
+# format:
+# pattern=replacement

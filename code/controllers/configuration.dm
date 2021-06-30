@@ -8,6 +8,9 @@
 
 	var/nudge_script_path = "nudge.py"  // where the nudge.py script is located
 
+	var/twitch_censor = FALSE
+	var/list/twich_censor_list = list()
+
 	var/log_ooc = 0						// log OOC channel
 	var/log_access = 0					// log login/logout
 	var/log_say = 0						// log client say
@@ -837,6 +840,8 @@
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
+		else if(type == "twitch_censor")
+			twich_censor_list[name] = value
 
 		else if(type == "game_options")
 			value = text2num(value)

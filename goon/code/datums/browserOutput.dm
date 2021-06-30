@@ -309,6 +309,10 @@ var/to_chat_src
 		if(findtext(message, "\proper"))
 			message = replacetext(message, "\proper", "")
 
+		if(config.twitch_censor)
+			for(var/char in config.twich_censor_list)
+				message = replacetext(message, char, config.twich_censor_list[char])
+
 		var/client/C
 		if(istype(target, /client))
 			C = target

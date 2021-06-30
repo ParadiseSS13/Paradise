@@ -34,6 +34,8 @@
 
 //Removes a few problematic characters
 /proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#"))
+	if(config && config.twitch_censor)
+		repl_chars += config.twich_censor_list
 	for(var/char in repl_chars)
 		t = replacetext(t, char, repl_chars[char])
 	return t
