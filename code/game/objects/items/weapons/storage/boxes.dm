@@ -811,6 +811,7 @@
 
 /obj/item/storage/box/soviet
 	name = "boxed survival kit"
+	desc = "A standard issue Soviet military survival kit."
 	icon_state = "box_soviet"
 
 /obj/item/storage/box/soviet/populate_contents()

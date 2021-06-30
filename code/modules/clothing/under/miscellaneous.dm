@@ -352,21 +352,21 @@
 	item_color = "piraterags"
 
 /obj/item/clothing/under/soviet
-	name = "soviet uniform"
+	name = "\improper Soviet uniform"
 	desc = "A standard U.S.S.P military uniform."
 	icon_state = "soviet"
 	item_state = "soviet"
 	item_color = "soviet"
 
 /obj/item/clothing/under/sovietofficer
-	name = "soviet officer uniform"
+	name = "\improper Soviet officer uniform"
 	desc = "A U.S.S.P commanding officer's uniform."
 	icon_state = "sovietofficer"
 	item_state = "sovietofficer"
 	item_color = "sovietofficer"
 
 /obj/item/clothing/under/sovietadmiral
-	name = "soviet admiral uniform"
+	name = "\improper Soviet admiral uniform"
 	desc = "A U.S.S.P naval admiral's uniform."
 	icon_state = "sovietadmiral"
 	item_state = "sovietadmiral"

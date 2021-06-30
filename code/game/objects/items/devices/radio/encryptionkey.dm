@@ -44,7 +44,7 @@
 	syndie = TRUE //Signifies that it de-crypts Syndicate transmissions
 
 /obj/item/encryptionkey/soviet
-	name = "soviet encryption key"
+	name = "\improper Soviet encryption key"
 	desc = "An encryption key for a radio headset. To access the Soviet military channel, use :/."
 	icon_state = "sov_cypherkey"
 	channels = list("Soviet" = 1)

@@ -155,19 +155,19 @@
 		to_chat(user, "You lower the ear flaps on the ushanka.")
 
 /obj/item/clothing/head/sovietsidecap
-	name = "soviet side cap"
-	desc = "A simple military cap with a soviet star on the front. What it lacks in protection it makes up for in revolutionary spirit."
+	name = "\improper Soviet side cap"
+	desc = "A simple military cap with a Soviet star on the front. What it lacks in protection it makes up for in revolutionary spirit."
 	icon_state = "sovietsidecap"
 	item_state = "sovietsidecap"
 
 /obj/item/clothing/head/sovietofficerhat
-	name = "soviet officer hat"
+	name = "\improper Soviet officer hat"
 	desc = "A military officer hat designed to stand out so the conscripts know who is in charge."
 	icon_state = "sovietofficerhat"
 	item_state = "sovietofficerhat"
 
 /obj/item/clothing/head/sovietadmiralhat
-	name = "soviet admiral hat"
+	name = "\improper Soviet admiral hat"
 	desc = "This hat clearly belongs to someone very important."
 	icon_state = "sovietadmiralhat"
 	item_state = "sovietadmiralhat"
