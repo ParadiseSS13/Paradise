@@ -1302,7 +1302,7 @@
 	icon_state = "0-4";
 	d2 = 4
 	},
-/obj/machinery/computer/monitor,
+/obj/machinery/computer/monitor/secret,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -5105,7 +5105,7 @@
 /turf/simulated/floor/plating,
 /area/awaycontent/a7)
 "hm" = (
-/obj/machinery/computer/monitor,
+/obj/machinery/computer/monitor/secret,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaycontent/a7)
