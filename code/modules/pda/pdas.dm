@@ -179,9 +179,6 @@
 	if(M)
 		M.m_hidden = 1
 
-/obj/item/pda/centcom/death_commando
-	icon_state = "pda-bartender"
-
 //Some spare PDAs in a box
 /obj/item/storage/box/PDAs
 	name = "spare PDAs"

@@ -264,7 +264,7 @@
 /datum/outfit/admin/death_commando
 	name = "NT Death Commando"
 
-	pda = /obj/item/pda/centcom/death_commando
+	pda = /obj/item/pinpointer
 	id = /obj/item/card/id/death_commando
 	l_ear = /obj/item/radio/headset/ds
 	box = /obj/item/storage/box/responseteam
@@ -285,7 +285,6 @@
 	backpack_contents = list(
 		/obj/item/storage/box/flashbangs = 1,
 		/obj/item/storage/box/breaching = 1,
-		/obj/item/pinpointer = 1,
 		/obj/item/gun/projectile/revolver/mateba = 1,
 		/obj/item/ammo_box/a357 = 2,
 		/obj/item/grenade/bsa_beacon = 1
@@ -311,15 +310,6 @@
 	. = ..()
 	if(visualsOnly)
 		return
-
-	var/obj/item/pda/PDA = H.wear_pda
-	if(istype(PDA))
-		PDA.owner = H.real_name
-		if(officer)
-			PDA.ownjob = "Deathsquad Officer"
-		else
-			PDA.ownjob = "Death Commando"
-		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
