@@ -168,7 +168,7 @@
 		if(href_list["remove"])
 			var/obj/item/W = src[page]
 			usr.put_in_hands(W)
-			to_chat(usr, "<span class='notice'>You remove the [W.name] from the bundle.</span>")
+			to_chat(usr, "<span class='notice'>You remove [W] from the bundle.</span>")
 			if(amount == 1)
 				var/obj/item/paper/P = src[1]
 				usr.unEquip(src)

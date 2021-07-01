@@ -238,7 +238,7 @@
 		usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
 
 /obj/item/pack
-	name = "Card Pack"
+	name = "card pack"
 	desc = "For those with disposable income."
 
 	icon_state = "card_pack"
@@ -249,7 +249,7 @@
 
 
 /obj/item/pack/attack_self(mob/user as mob)
-	user.visible_message("<span class='notice'>[name] rips open the [src]!</span>", "<span class='notice'>You rips open the [src]!</span>")
+	user.visible_message("<span class='notice'>[name] rips open [src]!</span>", "<span class='notice'>You rip open [src]!</span>")
 	var/obj/item/cardhand/H = new(get_turf(user))
 
 	H.cards += cards
@@ -410,8 +410,8 @@
 		if(cards.len)
 			update_icon()
 		if(H.cards.len)
-			usr.visible_message("<span class='notice'>The [usr] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
-		H.loc = get_step(usr,usr.dir)
+			user.visible_message("<span class='notice'>[user] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
+		H.loc = get_step(user, user.dir)
 
 	if(!cards.len)
 		qdel(src)
