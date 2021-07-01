@@ -1,5 +1,6 @@
 /datum/map_template/ruin/lavaland
 	prefix = "_maps/map_files/RandomRuins/LavaRuins/"
+	ci_exclude = /datum/map_template/ruin/lavaland
 
 /datum/map_template/ruin/lavaland/biodome
 	cost = 5
