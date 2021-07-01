@@ -446,7 +446,7 @@
 
 /datum/spellbook_entry/item/warp_cubes
 	name = "Warp Cubes"
-	desc = "Two magic cubes, that when they are twisted in hand, teleports the user to the location of the other cube instantly. Great for silently teleporting to a fixed location, or teleporting you to an apprentince, or vice versa. Do not leave on the wizard den, it will not work."
+	desc = "Two magic cubes, that when they are twisted in hand, teleports the user to the location of the other cube instantly. Great for silently teleporting to a fixed location, or teleporting you to an apprentice, or vice versa. Do not leave on the wizard den, it will not work."
 	item_path = /obj/item/warp_cube/red
 	log_name = "WC"
 	cost = 1
