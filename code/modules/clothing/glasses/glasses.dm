@@ -400,6 +400,7 @@
 	desc = "A see-through blindfold perfect for cheating at games like pin the stunbaton on the clown."
 	icon_state = "blindfold"
 	item_state = "blindfold"
+	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/sunglasses/prescription
 	prescription = 1
