@@ -611,6 +611,14 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/intactemptyship.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/mechtransport.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/turretedoutpost.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/debris1.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/debris2.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/debris3.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/listeningpost.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/oldstation.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/onehalf.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/syndiecakesfactory.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/wizardcrash.dmm",
 
 	### The following ruins are based from past pre-spawned Zlevel content ###
 	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
@@ -631,7 +639,7 @@ active_space_ruins = [
 
 	# The following is a force-spawned ruin consisting mostly of empty space with a shuttle docking port for the free golem shuttle
 	# Disabling it will lead to the free golem shuttle sometimes being stuck on lavaland.
-	"_maps/map_files/RandomRuins/SpaceRuins/golemtarget.dmm"
+	"_maps/map_files/RandomRuins/SpaceRuins/golemtarget.dmm",
 ]
 # List of all ruins that can generate on lavaland
 # Commenting something out in here DISABLES IT FROM SPAWNING
@@ -642,31 +650,32 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_winter.dmm",
 	##RESPAWN
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ash_walker1.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_golem_ship.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hermit.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_seed_vault.dmm",
 	##SIN
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_envy.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_gluttony.dmm",
-	# Greed blacklisted because its reward (dice) has a 1/20 chance of making you a wizard
-	#"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_greed.dmm",
+	# Greed blacklisted on production because its reward (dice) has a 1/20 chance of making you a wizard
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_greed.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pride.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_sloth.dmm",
 	##MEGAFAUNA
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk1.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk2.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk3.dmm",
-	#re-removed 7/24/2020, I ran a month-long test of hierophant Jun-Jul and the staff was still too strong. https://github.com/ParadiseSS13/Paradise/pull/13542
-	#"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm",
+	# Re-removed 7/24/2020, I ran a month-long test of hierophant Jun-Jul and the staff was still too strong. https://github.com/ParadiseSS13/Paradise/pull/13542
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_swarmer_crash.dmm",
 
 	##MISC
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_animal_hospital.dmm",
-	# Cube blacklisted because it contains a wishgranter that gives you hijack on use
-	#"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cube.dmm",
+	# Cube blacklisted on production because it contains a wishgranter that gives you hijack on use
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cube.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cultaltar.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_dead_ratvar.dmm",
-	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_fountain_hell.dmm",
-	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pizza_party.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_fountain_hall.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pizzaparty.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_puzzle.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_random_ripley.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_survivalpod.dmm",

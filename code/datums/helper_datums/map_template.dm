@@ -5,6 +5,8 @@
 	var/mappath = null
 	var/mapfile = null
 	var/loaded = 0 // Times loaded this round
+	/// Do we exclude this from CI checks? If so, set this to the templates pathtype itself to avoid it getting passed down
+	var/ci_exclude = null // DO NOT SET THIS IF YOU DO NOT KNOW WHAT YOU ARE DOING
 
 /datum/map_template/New(path = null, map = null, rename = null)
 	if(path)

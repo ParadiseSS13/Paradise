@@ -4,6 +4,7 @@
 /datum/map_template/ruin/lavaland/biodome
 	cost = 5
 	allow_duplicates = FALSE
+	ci_exclude = /datum/map_template/ruin/lavaland/biodome // This is a parent holder, not a ruin itself
 
 /datum/map_template/ruin/lavaland/biodome/beach
 	name = "Biodome Beach"
@@ -71,6 +72,7 @@
 /datum/map_template/ruin/lavaland/sin
 	cost = 10
 	allow_duplicates = FALSE
+	ci_exclude = /datum/map_template/ruin/lavaland/sin // This is a parent holder, not a ruin itself
 
 /datum/map_template/ruin/lavaland/sin/envy
 	name = "Ruin of Envy"
