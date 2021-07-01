@@ -1,6 +1,5 @@
 // This one test does multiple config things
-///datum/unit_test/config_stanity/Run()
-/client/verb/test_config_sanity()
+/datum/unit_test/config_sanity/Run()
 	// First test the ruins. Space then lava.
 	var/list/config_space_ruins = GLOB.configuration.ruins.active_space_ruins.Copy() // Copy so we dont remove
 	var/list/datum/map_template/ruin/space/game_space_ruins = list()
