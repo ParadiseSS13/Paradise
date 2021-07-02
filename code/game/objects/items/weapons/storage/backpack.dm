@@ -85,6 +85,22 @@
 	var/dist = max((current_size - 2), 1)
 	explosion(loc, dist, (dist * 2), (dist * 4))
 
+/obj/item/storage/backpack/holding/huge_items
+	name = "Bag of Holding (large things)"
+	desc = "A backpack that opens into a localized pocket of Blue Space. This variant can hold huge items, at the cost of capacity"
+	icon_state = "holdingpacklarge"
+	item_state = "holdingpacklarge"
+	max_combined_w_class = 12
+	cant_hold = list(/obj/item/storage/backpack)
+
+/obj/item/storage/backpack/holding/capacity
+	name = "Bag of Holding (many things)"
+	desc = "A backpack that opens into a localized pocket of Blue Space. This variant can hold more items, at the cost of size limitations."
+	icon_state = "holdingpackmany"
+	item_state = "holdingpackmany"
+	max_w_class = WEIGHT_CLASS_NORMAL
+	max_combined_w_class = 30
+
 /obj/item/storage/backpack/santabag
 	name = "Santa's Gift Bag"
 	desc = "Space Santa uses this to deliver toys to all the nice children in space on Christmas! Wow, it's pretty big!"

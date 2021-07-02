@@ -15,10 +15,30 @@
 	name = "Bag of Holding"
 	desc = "A backpack that opens into a localized pocket of Blue Space."
 	id = "bag_holding"
-	req_tech = list("bluespace" = 7, "materials" = 5, "engineering" = 5, "plasmatech" = 6)
+	req_tech = list("bluespace" = 8, "materials" = 5, "engineering" = 5, "plasmatech" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 3000, MAT_DIAMOND = 1500, MAT_URANIUM = 250, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/storage/backpack/holding
+	category = list("Bluespace")
+
+/datum/design/bag_holding_large
+	name = "Bag of Holding (large things)"
+	desc = "A backpack that opens into a localized pocket of Blue Space. This variant can hold huge items, at the cost of capacity"
+	id = "bag_holding_large"
+	req_tech = list("bluespace" = 7, "materials" = 6, "engineering" = 7, "plasmatech" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_GOLD = 3000, MAT_DIAMOND = 1500, MAT_URANIUM = 250, MAT_BLUESPACE = 4000)
+	build_path = /obj/item/storage/backpack/holding/huge_items
+	category = list("Bluespace")
+
+/datum/design/bag_holding_many
+	name = "Bag of Holding (many things)"
+	desc = "A backpack that opens into a localized pocket of Blue Space. This variant can hold more items, at the cost of size limitations."
+	id = "bag_holding_many"
+	req_tech = list("bluespace" = 7, "materials" = 6, "engineering" = 7, "plasmatech" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_GOLD = 3000, MAT_DIAMOND = 1500, MAT_URANIUM = 250, MAT_BLUESPACE = 4000)
+	build_path = /obj/item/storage/backpack/holding/capacity
 	category = list("Bluespace")
 
 /datum/design/bluespace_belt
