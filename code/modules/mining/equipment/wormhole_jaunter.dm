@@ -167,7 +167,7 @@
 	name = "contractor extraction flare"
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flare-contractor-on"
-	duration = 51 // Needs to be slightly longer then the callback to make the portal
+	duration = 5.1 SECONDS // Needs to be slightly longer then the callback to make the portal
 
 /obj/effect/temp_visual/getaway_flare/Initialize()
 	. = ..()
