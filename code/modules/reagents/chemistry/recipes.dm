@@ -60,6 +60,10 @@
 	else
 		new /obj/effect/temp_visual/shockwave(T)
 		playsound(T, 'sound/effects/bang.ogg', 25, 1)
+	// PARADISE EDIT: Allow only a certain amount of atoms to be pulled per unit
+	var/units_per_atom = 5
+	var/atoms_to_move = round(volume / units_per_atom)
+	var/moved_count = 0
 	for(var/atom/movable/X in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
 		if(istype(X, /obj/effect))
 			continue  //stop pulling smoke and hotspots please
@@ -68,3 +72,6 @@
 				X.throw_at(T, 20 + round(volume * 2), 1 + round(volume / 10))
 			else
 				X.throw_at(get_edge_target_turf(T, get_dir(T, X)), 20 + round(volume * 2), 1 + round(volume / 10))
+			moved_count++
+			if(moved_count >= atoms_to_move)
+				break
