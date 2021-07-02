@@ -90,7 +90,7 @@
 	desc = "A backpack that opens into a localized pocket of Blue Space. This variant can hold huge items, at the cost of capacity"
 	icon_state = "holdingpacklarge"
 	item_state = "holdingpacklarge"
-	max_combined_w_class = 12
+	max_combined_w_class = 18
 	cant_hold = list(/obj/item/storage/backpack)
 
 /obj/item/storage/backpack/holding/capacity
