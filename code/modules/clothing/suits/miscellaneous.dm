@@ -1059,3 +1059,115 @@
 	w_class = WEIGHT_CLASS_TINY
 	flags = BLOCKHAIR
 	flags_inv = HIDEGLOVES|HIDEEARS|HIDEFACE
+
+
+// Suragi start
+// Suragi parent
+/obj/item/clothing/suit/storage/suragi_jacket
+	name = "Suragi Jacket"
+	desc = "Smoke one cigarette"
+	icon_state = "suragi_jacket_civ"
+	ignore_suitadjust = 1
+	blood_overlay_type = ""
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/gun/projectile/automatic/pistol,/obj/item/gun/projectile/revolver,/obj/item/gun/projectile/revolver/detective)
+
+// Suragi Children
+/obj/item/clothing/suit/storage/suragi_jacket/civ
+	name = "Suragi Jacket"
+	desc = "Standard issue orange jacket manufactured by Suragi Kit. Extremely durable. This particular one unobtrusively makes you want to dance. How strange."
+	icon_state = "suragi_jacket_civ"
+	item_state = "suragi_jacket_civ"
+	armor = list("melee" = 5, "bullet" = 2, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/sec
+	name = "Security Suragi Jacket"
+	desc = "Standard issue black and red jacket manufactured by Suragi Kit. Extremely durable. Is that a blood stain?"
+	icon_state = "suragi_jacket_sec"
+	item_state = "suragi_jacket_sec"
+	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+
+/obj/item/clothing/suit/storage/suragi_jacket/cargo
+	name = "Cargo Suragi Jacket"
+	desc = "Standard issue gray and yellow jacket manufactured by Suragi Kit. Extremely durable, smells of hard work. And sweat. Especially sweat. Oh god."
+	icon_state = "suragi_jacket_carg"
+	item_state = "suragi_jacket_carg"
+	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/atmos
+	name = "Atmospherics Suragi Jacket"
+	desc = "Standard issue light-blue and yellow jacket manufactured by Suragi Kit. Extremely durable but not fireproof. Or is it?"
+	icon_state = "suragi_jacket_atmos"
+	item_state = "suragi_jacket_atmos"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 5, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/eng
+	name = "Engineering Suragi Jacket"
+	desc = "Standard issue orange and gray jacket manufactured by Suragi Kit. Extremely durable. This one seemingly was scratched by some kind of bird. There are still some red feathers inside."
+	icon_state = "suragi_jacket_eng"
+	item_state = "suragi_jacket_eng"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/botany
+	name = "Botany Suragi Jacket"
+	desc = "Standard issue blue and green jacket manufactured by Suragi Kit. Extremely durable. It smells of ammonia and... duuuuude i dunno hehe"
+	icon_state = "suragi_jacket_botan"
+	item_state = "suragi_jacket_botan"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/medic
+	name = "Medical Suragi Jacket"
+	desc = "Standard issue white and green jacket manufactured by Suragi Kit. Extremely durable and easy to clean. And you will need to clean it A LOT."
+	icon_state = "suragi_jacket_med"
+	item_state = "suragi_jacket_med"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/medsec
+	name = "Medical Security Suragi Jacket"
+	desc = "Standard issue white and red jacket manufactured by Suragi Kit. Extremely durable. Wear this and every single soul will know that you didn't take the Hippocratic Oath."
+	icon_state = "suragi_jacket_brigmed"
+	item_state = "suragi_jacket_brigmed"
+	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/virus
+	name = "Virology Suragi Jacket"
+	desc = "Standard issue green and white jacket manufactured by Suragi Kit. Extremely durable. Congratulations! You are wearing the only one jacket of all Suragi's that doesn't have funny description. What an extremely boring must your profession be."
+	icon_state = "suragi_jacket_virus"
+	item_state = "suragi_jacket_virus"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/chem
+	name = "Chemistry Suragi Jacket"
+	desc = "Standard issue white and orange jacket manufactured by Suragi Kit. Extremely durable. There is a small label attached inside. It says: 'DO NOT HEAT FUCKING OIL GOD FUCKING DAMMIT'"
+	icon_state = "suragi_jacket_chem"
+	item_state = "suragi_jacket_chem"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 5, "acid" = 5)
+
+/obj/item/clothing/suit/storage/suragi_jacket/genetics
+	name = "Genetics Suragi Jacket"
+	desc = "Standard issue white and light-blue jacket manufactured by Suragi Kit. Extremely durable, but not for your kind. Please, take it off before irradiating yourself. It is expensive, you know."
+	icon_state = "suragi_jacket_genet"
+	item_state = "suragi_jacket_genet"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 5, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/robot
+	name = "Robotiscist Suragi Jacket"
+	desc = "Standard issue white and black jacket manufactured by Suragi Kit. Extremely durable. Start the nuclear arms race against security with style."
+	icon_state = "suragi_jacket_robotist"
+	item_state = "suragi_jacket_robotist"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 5,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/sci
+	name = "Science Suragi Jacket"
+	desc = "Standard issue white and black jacket manufactured by Suragi Kit. Extremely durable. This one is particulary interesting. It seems that because of some bluespace anomaly pockets have switched places. Very fascinating and very useless effect."
+	icon_state = "suragi_jacket_scien"
+	item_state = "suragi_jacket_scien"
+	armor = list("melee" = 1, "bullet" = 1, "laser" = 1, "energy" = 1, "bomb" = 1, "bio" = 1, "rad" = 1, "fire" = 1, "acid" = 1)
+
+/obj/item/clothing/suit/storage/suragi_jacket/janitor
+	name = "Janitor Suragi Jacket"
+	desc = "Standard issue purple jacket manufactured by Suragi Kit. Extremely durable and easy to clean. This particular one makes you feel like a pimp."
+	icon_state = "suragi_jacket_jan"
+	item_state = "suragi_jacket_jan"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 3, "rad" = 0, "fire" = 0, "acid" = 3)
+// Suragi end
