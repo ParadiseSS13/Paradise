@@ -145,11 +145,6 @@
 		if(silent || HAS_TRAIT(src, TRAIT_MUTE))
 			S.message = ""
 
-		if(wear_mask)
-			var/speech_verb_when_masked = wear_mask.change_speech_verb()
-			if(speech_verb_when_masked)
-				verb = speech_verb_when_masked
-
 		if(istype(wear_mask, /obj/item/clothing/mask/horsehead))
 			var/obj/item/clothing/mask/horsehead/hoers = wear_mask
 			if(hoers.voicechange)
@@ -172,6 +167,10 @@
 		if(span)
 			S.message = "<span class='[span]'>[S.message]</span>"
 
+	if(wear_mask)
+		var/speech_verb_when_masked = wear_mask.change_speech_verb()
+		if(speech_verb_when_masked)
+			verb = speech_verb_when_masked
 
 	return list("verb" = verb)
 
