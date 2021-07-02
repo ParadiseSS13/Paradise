@@ -320,8 +320,8 @@
 /obj/item/gun/energy/bsg
 	name = "\improper B.S.G"
 	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasen's BSA division."
-	icon_state = "BSG"
-	item_state = "BSG"
+	icon_state = "bsg"
+	item_state = "bsg"
 	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
 	ammo_type = list(/obj/item/ammo_casing/energy/bsg)
 	weapon_weight = WEAPON_HEAVY
@@ -397,13 +397,13 @@
 	. = ..()
 	if(core)
 		if(has_bluespace_crystal)
-			icon_state = "BSG_FINISHED"
+			icon_state = "bsg_finished"
 		else
-			icon_state = "BSG_CORE"
+			icon_state = "bsg_core"
 	else if(has_bluespace_crystal)
-		icon_state = "BSG_CRYSTAL"
+		icon_state = "bsg_crystal"
 	else
-		icon_state = "BSG"
+		icon_state = "bsg"
 
 /obj/item/gun/energy/bsg/emp_act(severity)
 	..()
@@ -420,7 +420,7 @@
 	update_icon()
 
 /obj/item/gun/energy/bsg/prebuilt
-	icon_state = "BSG_FINISHED"
+	icon_state = "bsg_finished"
 	has_bluespace_crystal = TRUE
 
 /obj/item/gun/energy/bsg/prebuilt/Initialize(mapload)
