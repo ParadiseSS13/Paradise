@@ -52,7 +52,7 @@
 
 /obj/item/radio/beacon/emagged
 	syndicate = TRUE
-	emagged = 1
+	emagged = TRUE
 
 // SINGULO BEACON SPAWNER
 /obj/item/radio/beacon/syndicate

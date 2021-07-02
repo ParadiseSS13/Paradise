@@ -131,8 +131,8 @@
 		return
 	if(!destination)
 		var/list/L = get_destinations(user)
-		if(!L.len)
-			to_chat(user, "<span class='notice'>[src] found no beacons in the sector to target.</span>")
+		if(!length(L))
+			to_chat(user, "<span class='warning'>[src] found no beacons in the sector to target.</span>")
 			return
 		destination = pick(L)
 	var/obj/effect/temp_visual/getaway_flare/F = new(get_turf(src))
