@@ -7,7 +7,6 @@
 	max_integrity = 100
 	var/state = 0
 	var/obj/item/circuitboard/circuit = null
-	var/base_mineral = /obj/item/stack/sheet/metal
 
 /obj/structure/computerframe/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -18,7 +17,7 @@
 	deconstruct()
 
 /obj/structure/computerframe/proc/drop_computer_parts()
-	new base_mineral(loc, 5)
+	new /obj/item/stack/sheet/metal(loc, 5)
 	if(circuit)
 		circuit.forceMove(loc)
 		circuit = null

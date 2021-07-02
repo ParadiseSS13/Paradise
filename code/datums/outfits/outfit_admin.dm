@@ -1254,9 +1254,13 @@
 		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
 
 	if(prob(50))
-		backpack_contents.Add(/obj/item/gun/energy/clown = 1)
+		// You have to do it like this to make it work with assoc lists without a runtime.
+		// Trust me.
+		backpack_contents.Add(/obj/item/gun/energy/clown)
+		backpack_contents[/obj/item/gun/energy/clown] = 1 // Amount. Not boolean. Do not TRUE this. You turkey.
 	else
-		backpack_contents.Add(/obj/item/gun/throw/piecannon = 1)
+		backpack_contents.Add(/obj/item/gun/throw/piecannon)
+		backpack_contents[/obj/item/gun/throw/piecannon] = 1
 
 /datum/outfit/admin/honksquad/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
