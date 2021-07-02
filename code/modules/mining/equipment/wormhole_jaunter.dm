@@ -156,11 +156,9 @@
 /obj/item/storage/box/syndie_kit/escape_flare
 	name = "emergency extraction kit"
 
-/obj/item/storage/box/syndie_kit/escape_flare/New()
-	..()
+/obj/item/storage/box/syndie_kit/escape_flare/populate_contents()
 	new /obj/item/wormhole_jaunter/contractor(src)
 	new /obj/item/radio/beacon/emagged(src)
-	return
 
 /obj/effect/portal/redspace/getaway
 	one_use = TRUE
