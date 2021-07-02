@@ -9,6 +9,7 @@ export const COLORS = {
   // Department colors
   department: {
     command: '#526aff',
+    procedure: '#e3027a',
     security: '#CF0000',
     medical: '#009190',
     science: '#993399',

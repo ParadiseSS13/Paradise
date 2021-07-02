@@ -7,6 +7,7 @@
 
 /datum/datacore/proc/get_manifest(monochrome, OOC)
 	var/list/heads = new()
+	var/list/pro = new()
 	var/list/sec = new()
 	var/list/eng = new()
 	var/list/med = new()
@@ -54,6 +55,9 @@
 		if(real_rank in GLOB.command_positions)
 			heads[name] = rank
 			department = 1
+		if((real_rank == "Magistrate") || (real_rank == "Internal Affairs Agent") || (real_rank == "Nanotrasen Representative"))
+			pro[name] = rank
+			department = 1
 		if(real_rank in GLOB.security_positions)
 			sec[name] = rank
 			department = 1
@@ -81,6 +85,11 @@
 		dat += "<tr><th colspan=3>Heads</th></tr>"
 		for(var/name in heads)
 			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[heads[name]]</td><td>[isactive[name]]</td></tr>"
+			even = !even
+	if(pro.len > 0)
+		dat += "<tr><th colspan=3>Procedure</th></tr>"
+		for(var/name in pro)
+			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[pro[name]]</td><td>[isactive[name]]</td></tr>"
 			even = !even
 	if(sec.len > 0)
 		dat += "<tr><th colspan=3>Security</th></tr>"
