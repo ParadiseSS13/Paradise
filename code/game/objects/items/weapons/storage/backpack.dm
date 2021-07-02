@@ -51,12 +51,12 @@
 
 /obj/item/storage/backpack/holding
 	name = "Bag of Holding"
-	desc = "A backpack that opens into a localized pocket of Blue Space."
+	desc = "A large bag that opens into a localized pocket of Blue Space."
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	icon_state = "holdingpack"
 	item_state = "holdingpack"
 	max_w_class = WEIGHT_CLASS_HUGE
-	max_combined_w_class = 35
+	max_combined_w_class = 45
 	resistance_flags = FIRE_PROOF
 	flags_2 = NO_MAT_REDEMPTION_2
 	cant_hold = list(/obj/item/storage/backpack/holding)
@@ -86,16 +86,16 @@
 	explosion(loc, dist, (dist * 2), (dist * 4))
 
 /obj/item/storage/backpack/holding/huge_items
-	name = "Bag of Holding (large things)"
-	desc = "A backpack that opens into a localized pocket of Blue Space. This variant can hold huge items, at the cost of capacity"
+	name = "Duffelbag of Holding"
+	desc = "A backpack that opens into a localized pocket of Blue Space. This variant can hold huge items, at the cost of capacity."
 	icon_state = "holdingpacklarge"
 	item_state = "holdingpacklarge"
 	max_combined_w_class = 18
 	cant_hold = list(/obj/item/storage/backpack)
 
 /obj/item/storage/backpack/holding/capacity
-	name = "Bag of Holding (many things)"
-	desc = "A backpack that opens into a localized pocket of Blue Space. This variant can hold more items, at the cost of size limitations."
+	name = "Satchel of Holding"
+	desc = "A backpack that opens into a localized pocket of Blue Space. This variant can hold more items, at the cost of item size limitations."
 	icon_state = "holdingpackmany"
 	item_state = "holdingpackmany"
 	max_w_class = WEIGHT_CLASS_NORMAL
