@@ -936,7 +936,7 @@
 	if(!emagged)
 		emagged = TRUE
 		if(user)
-			user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>", "<span class='notice'>You emag the [src], disabling its safeties.</span>")
+			user.visible_message("<span class='warning'>Sparks fly out of \the [src]!</span>", "<span class='notice'>You emag \the [src], disabling its safeties.</span>")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return
 
