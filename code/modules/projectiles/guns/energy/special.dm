@@ -344,16 +344,16 @@
 	if(core && has_bluespace_crystal)
 		. += "<span class='notice'>[src] is fully operational!</span>"
 	else if(core)
-		. += "<span class='warning'>It has a flux anomaly core installed, but no bluespace crystal in it.</span>"
+		. += "<span class='warning'>It has a flux anomaly core installed, but no bluespace crystal installed.</span>"
 	else if(has_bluespace_crystal)
-		. += "<span class='warning'>It has a bluespace crystal installed, but no flux anomaly core in it.</span>"
+		. += "<span class='warning'>It has a bluespace crystal installed, but no flux anomaly core installed.</span>"
 	else
 		. += "<span class='warning'>It is missing a flux anomaly core and bluespace crystal to be operational.</span>"
 
 /obj/item/gun/energy/bsg/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
 		if(has_bluespace_crystal)
-			to_chat(user, "<span class='notice'>[src] already has a bluespace crystal in it.</span>")
+			to_chat(user, "<span class='notice'>[src] already has a bluespace crystal installed.</span>")
 			return
 		var/obj/item/stack/S = O
 		if(!loc || !S || S.get_amount() < 1)
@@ -375,7 +375,6 @@
 		O.forceMove(src)
 		core = O
 		update_icon()
-		return
 	else
 		return ..()
 
@@ -424,14 +423,13 @@
 	icon_state = "BSG_FINISHED"
 	has_bluespace_crystal = TRUE
 
-/obj/item/gun/energy/bsg/prebuilt/Initialize(mapload, ...)
+/obj/item/gun/energy/bsg/prebuilt/Initialize(mapload)
 	. = ..()
 	core = new /obj/item/assembly/signaler/anomaly/flux
 	update_icon()
 
 /obj/item/gun/energy/bsg/prebuilt/admin
-	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasen's BSA division. \
-	This is an executive model, and its bluespace crystal will not shatter."
+	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasen's BSA division. This is an executive model, and its bluespace crystal will not shatter."
 	admin_model = TRUE
 
 // Temperature Gun //
