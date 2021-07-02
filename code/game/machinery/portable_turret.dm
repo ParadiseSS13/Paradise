@@ -657,6 +657,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	qdel(flick_holder)
 
 	set_raised_raising(FALSE, FALSE)
+	set_angle(0)
 	update_icon()
 
 /obj/machinery/porta_turret/on_assess_perp(mob/living/carbon/human/perp)
@@ -678,7 +679,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		last_target = target
 		if(has_cover)
 			popUp()				//pop the turret up if it's not already up.
-		setDir(get_dir(src, target))	//even if you can't shoot, follow the target
+		// Set angle
+		set_angle(get_angle(src, target))
 		shootAt(target)
 		return TRUE
 
