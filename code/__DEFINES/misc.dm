@@ -143,7 +143,6 @@
 
 #define MANIFEST_ERROR_NAME		1
 #define MANIFEST_ERROR_COUNT	2
-#define MANIFEST_ERROR_ITEM		4
 
 //Turf wet states
 #define TURF_DRY		0

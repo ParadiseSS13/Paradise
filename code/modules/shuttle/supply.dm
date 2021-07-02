@@ -78,8 +78,6 @@
 			errors |= MANIFEST_ERROR_COUNT
 		if(prob(5))
 			errors |= MANIFEST_ERROR_NAME
-		if(prob(5))
-			errors |= MANIFEST_ERROR_ITEM
 		SO.createObject(T, errors)
 
 	SSshuttle.shoppinglist.Cut()
@@ -130,8 +128,6 @@
 								msg += "Destination station incorrect. "
 							else if(slip.erroneous & MANIFEST_ERROR_COUNT)
 								msg += "Packages incorrectly counted. "
-							else if(slip.erroneous & MANIFEST_ERROR_ITEM)
-								msg += "Package incomplete. "
 							msg += "Points refunded.<br>"
 						else if(!slip.erroneous && !denied) // Approving a proper order awards the relatively tiny points_per_slip
 							SSshuttle.points += SSshuttle.points_per_slip
@@ -143,8 +139,6 @@
 									msg += "Destination station incorrect."
 								else if(slip.erroneous & MANIFEST_ERROR_COUNT)
 									msg += "Packages incorrectly counted."
-								else if(slip.erroneous & MANIFEST_ERROR_ITEM)
-									msg += "We found unshipped items on our dock."
 								msg += "  Be more vigilant.<br>"
 							else
 								pointsEarned = round(SSshuttle.points_per_crate - slip.points)
@@ -345,16 +339,6 @@
 		if(CritCrate.content_mob)
 			var/mob/crittername = CritCrate.content_mob
 			slip.info += "<li>[initial(crittername.name)]</li>"
-
-	if((errors & MANIFEST_ERROR_ITEM))
-		//secure and large crates cannot lose items
-		if(findtext("[object.containertype]", "/secure/") || findtext("[object.containertype]","/largecrate/"))
-			errors &= ~MANIFEST_ERROR_ITEM
-		else
-			var/lostAmt = max(round(Crate.contents.len/10), 1)
-			//lose some of the items
-			while(--lostAmt >= 0)
-				qdel(pick(Crate.contents))
 
 	//manifest finalisation
 	slip.info += "</ul><br>"
