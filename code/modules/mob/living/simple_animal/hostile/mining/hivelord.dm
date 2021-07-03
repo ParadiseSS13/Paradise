@@ -357,7 +357,7 @@
 				l_pocket = pickweight(list(/obj/item/stack/spacecash/c1000 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/cooldown = 1 ))
 		if("Ashwalker")
 			mob_species = /datum/species/unathi/ashwalker
-			uniform = /obj/item/clothing/under/gladiator/ash_walker
+			uniform = /obj/item/clothing/under/ash_walker
 			if(prob(95))
 				head = /obj/item/clothing/head/helmet/gladiator
 			else

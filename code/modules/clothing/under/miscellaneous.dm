@@ -379,8 +379,12 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	resistance_flags = NONE
 
-/obj/item/clothing/under/gladiator/ash_walker
-	desc = "This gladiator uniform appears to be covered in ash and fairly dated."
+/obj/item/clothing/under/ash_walker
+	name = "ash-walker uniform"
+	desc = ""
+	icon_state = "ash"
+	item_state = "ash"
+	item_color = "ash"
 	has_sensor = FALSE
 
 //dress
