@@ -166,6 +166,48 @@
 	icon_on = "gonzozippoon"
 	icon_off = "gonzozippo"
 
+/obj/item/lighter/zippo/cap
+	name = "Captain's zippo"
+	desc = "A limited edition gold Zippo espesially for NT Captains. Looks extremely expensive."
+	icon_state = "zippo_cap"
+	icon_on = "zippo_cap_on"
+	icon_off = "zippo_cap"
+
+/obj/item/lighter/zippo/hop
+	name = "Head of personnel zippo"
+	desc = "A limited edition Zippo for NT Heads. Tries it best to look like captain's."
+	icon_state = "zippo_hop"
+	icon_on = "zippo_hop_on"
+	icon_off = "zippo_hop"
+
+/obj/item/lighter/zippo/hos
+	name = "Head of Security zippo"
+	desc = "A limited edition Zippo for NT Heads. Fuel it with clown's tears."
+	icon_state = "zippo_hos"
+	icon_on = "zippo_hos_on"
+	icon_off = "zippo_hos"
+
+/obj/item/lighter/zippo/cmo
+	name = "Chief Medical Officer zippo"
+	desc = "A limited edition Zippo for NT Heads. Made of hypoallergenic steel."
+	icon_state = "zippo_cmo"
+	icon_on = "zippo_cmo_on"
+	icon_off = "zippo_cmo"
+
+/obj/item/lighter/zippo/ce
+	name = "Chief Engineer zippo"
+	desc = "A limited edition Zippo for NT Heads. Somebody've tried to repair cover with blue tape."
+	icon_state = "zippo_ce"
+	icon_on = "zippo_ce_on"
+	icon_off = "zippo_ce"
+
+/obj/item/lighter/zippo/rd
+	name = "Research Director zippo"
+	desc = "A limited edition Zippo for NT Heads. Uses advanced tech to make fire from plasma."
+	icon_state = "zippo_rd"
+	icon_on = "zippo_rd_on"
+	icon_off = "zippo_rd"
+
 ///////////
 //MATCHES//
 ///////////

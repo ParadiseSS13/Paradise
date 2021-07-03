@@ -36,6 +36,7 @@
 	l_ear = /obj/item/radio/headset/heads/hos/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/hos
+	l_pocket = /obj/item/lighter/zippo/hos
 	suit_store = /obj/item/gun/energy/gun
 	pda = /obj/item/pda/heads/hos
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod

@@ -37,6 +37,7 @@
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/heads/rd
 	id = /obj/item/card/id/rd
+	l_pocket = /obj/item/lighter/zippo/rd
 	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/heads/rd
 	backpack_contents = list(
