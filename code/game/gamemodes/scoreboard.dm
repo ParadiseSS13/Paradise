@@ -152,12 +152,8 @@
 	GLOB.score_crewscore -= messpoints
 	GLOB.score_crewscore -= plaguepoints
 
-	// Show the score - might add "ranks" later
-	to_chat(world, "<b>The crew's final score is:</b>")
-	to_chat(world, "<b><font size='4'>[GLOB.score_crewscore]</font></b>")
-
 	// Generate the score panel
-	var/dat = "<b>Round Statistics and Score</b><br><hr>"
+	var/list/dat = list("<b>Round Statistics and Score</b><br><hr>")
 	if(mode)
 		dat += mode.get_scoreboard_stats()
 
@@ -214,11 +210,14 @@
 		if(NANOTRANSEN_FINEST to INFINITY) score_rating = 							"Nanotrasen's Finest"
 
 	dat += "<b><u>RATING:</u></b> [score_rating]"
-	src << browse(dat, "window=roundstats;size=500x600")
+	GLOB.scoreboard = jointext(dat, "")
 
 	for(var/mob/E in GLOB.player_list)
-		if(E.client && !E.get_preference(PREFTOGGLE_DISABLE_SCOREBOARD))
-			E << browse(dat, "window=roundstats;size=500x600")
+		if(E.client)
+			to_chat(E, "<b>The crew's final score is:</b>")
+			to_chat(E, "<b><font size='4'><a href='?src=[E.UID()];scoreboard=1'>[GLOB.score_crewscore]</a></font></b>")
+			if(!E.get_preference(PREFTOGGLE_DISABLE_SCOREBOARD))
+				E << browse(GLOB.scoreboard, "window=roundstats;size=500x600")
 
 // A recursive function to properly determine the wealthiest escapee
 /datum/controller/subsystem/ticker/proc/get_score_container_worth(atom/C, level=0)

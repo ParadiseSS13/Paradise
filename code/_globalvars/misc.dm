@@ -33,8 +33,9 @@ GLOBAL_VAR_INIT(gravity_is_on, 1) //basically unused, just one admin verb..
 // Recall time limit:  2 hours
 GLOBAL_VAR_INIT(recall_time_limit, 72000) //apparently used for the comm console
 
-//////SCORE STUFF
+//////SCORE STUFF // TODO: Refactor to use less globals
 //Goonstyle scoreboard
+GLOBAL_VAR_INIT(scoreboard, null) // Variable to save the scoreboard string once it's been generated
 GLOBAL_VAR_INIT(score_crewscore, 0) // this is the overall var/score for the whole round
 GLOBAL_VAR_INIT(score_stuffshipped, 0) // how many useful items have cargo shipped out?
 GLOBAL_VAR_INIT(score_stuffharvested, 0) // how many harvests have hydroponics done?
