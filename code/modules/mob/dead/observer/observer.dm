@@ -384,10 +384,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!M.antagHUD)
 		to_chat(usr, "AntagHud Toggled ON")
 		create_log(MISC_LOG, "Enabled AntagHUD")
+		log_game("[key_name(usr)] has enabled AntagHUD.")
 		M.antagHUD = TRUE
 	else
 		to_chat(usr, "AntagHud Toggled OFF")
 		create_log(MISC_LOG, "Disabled AntagHUD")
+		log_game("[key_name(usr)] has disabled AntagHUD.")
 		M.antagHUD = FALSE
 
 /mob/dead/observer/verb/set_dnr()
