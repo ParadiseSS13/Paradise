@@ -138,7 +138,7 @@
 
 
 /datum/gear/suit/suragi_jacket/botany
-	display_name = "Suragi Jacket - Engineering"
+	display_name = "Suragi Jacket - Hydroponics"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/botany
 	allowed_roles = list("Botanist")
 
