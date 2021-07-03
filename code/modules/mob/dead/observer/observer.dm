@@ -372,6 +372,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		M.can_reenter_corpse = FALSE
 		if(M in GLOB.respawnable_list)
 			GLOB.respawnable_list -= M
+
 	if(restricted_use)
 		M.has_enabled_antagHUD = TRUE
 
