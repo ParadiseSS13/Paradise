@@ -9,11 +9,16 @@
 		return 0
 
 /mob/living/update_blurry_effects()
+	var/obj/screen/plane_master/game_world/GW = locate(/obj/screen/plane_master/game_world) in client.screen
+	var/obj/screen/plane_master/floor/F = locate(/obj/screen/plane_master/floor) in client.screen
+
 	if(eyes_blurred())
-		overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
+		GW.add_blur()
+		F.add_blur()
 		return 1
 	else
-		clear_fullscreen("blurry")
+		GW.animate_remove_blur()
+		F.animate_remove_blur()
 		return 0
 
 /mob/living/update_druggy_effects()

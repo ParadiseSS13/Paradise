@@ -1,3 +1,7 @@
+#define BLUR_FILTER_NAME "blur"
+#define AMBIENT_OCCLUSION_FILTER_NAME "ambient_occlusion"
+#define BLUR_ANIMATION_TIME 5
+
 /obj/screen/plane_master
 	screen_loc = "CENTER"
 	icon_state = "blank"
@@ -16,6 +20,17 @@
 //Trust me, you need one. Period. If you don't think you do, you're doing something extremely wrong.
 /obj/screen/plane_master/proc/backdrop(mob/mymob)
 
+/obj/screen/plane_master/proc/add_blur()
+	add_filter(BLUR_FILTER_NAME, 7, gauss_blur_filter(0))
+	transition_filter(BLUR_FILTER_NAME, BLUR_ANIMATION_TIME, list("size" = 1))
+
+/obj/screen/plane_master/proc/animate_remove_blur()
+	transition_filter(BLUR_FILTER_NAME, BLUR_ANIMATION_TIME, list("size" = 0))
+	addtimer(CALLBACK(src, .proc/remove_blur), BLUR_ANIMATION_TIME)
+
+/obj/screen/plane_master/proc/remove_blur()
+	remove_filter(BLUR_FILTER_NAME)
+
 /obj/screen/plane_master/floor
 	name = "floor plane master"
 	plane = FLOOR_PLANE
@@ -31,7 +46,7 @@
 /obj/screen/plane_master/game_world/backdrop(mob/mymob)
 	clear_filters()
 	if(istype(mymob) && mymob.client && mymob.client.prefs && (mymob.client.prefs.toggles & PREFTOGGLE_AMBIENT_OCCLUSION))
-		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
+		add_filter(AMBIENT_OCCLUSION_FILTER_NAME, 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
 
 /obj/screen/plane_master/lighting
 	name = "lighting plane master"
