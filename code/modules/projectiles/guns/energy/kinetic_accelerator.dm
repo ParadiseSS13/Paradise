@@ -275,9 +275,6 @@
 		return ..()
 
 /obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/R)
-	if(..())
-		return
-
 	for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/H in R.module.modules)
 		return install(H, usr)
 
