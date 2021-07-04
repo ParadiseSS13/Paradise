@@ -3,6 +3,7 @@
 	desc = "A box suited for pizzas."
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "pizzabox1"
+	throw_range = 1
 	var/timer = 10 //Adjustable timer
 	var/timer_set = 0
 	var/primed = 0

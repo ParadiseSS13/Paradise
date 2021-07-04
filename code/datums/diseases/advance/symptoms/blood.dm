@@ -18,7 +18,7 @@ Bonus
 	name = "Viral Hematopoiesis"
 	stealth = -2
 	resistance = -2
-	stage_speed = -6
+	stage_speed = -4
 	transmittable = -1
 	level = 5
 	var/check = FALSE

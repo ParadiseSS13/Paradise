@@ -417,7 +417,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A highly illegal compound contained within a compact auto-injector; when injected it makes the user extremely resistant to incapacitation and greatly enhances the body's ability to repair itself."
 	reference = "ST"
 	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
-	cost = 4
+	cost = 5
 	job = list("Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
 
 //Tator Poison Bottles
@@ -844,7 +844,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			will instantly put them in your grasp and silence them, as well as causing rapid suffocation. Does not work on those who do not need to breathe."
 	reference = "GAR"
 	item = /obj/item/twohanded/garrote
-	cost = 6
+	cost = 8
 
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
@@ -1038,7 +1038,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A pizza box with a bomb taped inside of it. The timer needs to be set by opening the box; afterwards, opening the box again will trigger the detonation."
 	reference = "PB"
 	item = /obj/item/pizza_bomb
-	cost = 2
+	cost = 3
 	surplus = 80
 
 /datum/uplink_item/explosives/grenadier
