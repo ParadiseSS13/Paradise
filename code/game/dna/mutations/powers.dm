@@ -1162,9 +1162,8 @@
 	name = "Meson Vision"
 	activation_messages = list("More information seems to reach your eyes...")
 	deactivation_messages = list("The amount of information reaching your eyes fades...")
-	instability = GENE_INSTABILITY_MODERATE
+	instability = GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_MESON_VISION)
-	activation_prob = 33
 
 /datum/mutation/meson_vision/New()
 	..()
