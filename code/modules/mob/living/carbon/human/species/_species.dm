@@ -842,6 +842,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		H.sight |= eyes.vision_flags
 		H.see_in_dark = eyes.see_in_dark
 		H.see_invisible = eyes.see_invisible
+		eyes.flash_protect = initial(eyes.flash_protect)
 		if(!isnull(eyes.lighting_alpha))
 			H.lighting_alpha = eyes.lighting_alpha
 	else
@@ -904,6 +905,14 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	if(HAS_TRAIT(H, TRAIT_XRAY_VISION))
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+
+	if(HAS_TRAIT(H, TRAIT_NIGHT_VISION))
+		H.see_in_dark = max(H.see_in_dark, 8)
+		H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+
+	if(HAS_TRAIT(H, TRAIT_FLASH_PROTECTION))
+		if(eyes)
+			eyes.flash_protect = FLASH_PROTECTION_WELDER
 
 	if(H.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 		H.see_invisible = SEE_INVISIBLE_OBSERVER

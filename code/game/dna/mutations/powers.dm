@@ -1172,9 +1172,47 @@
 /datum/mutation/meson_vision/activate(mob/living/M)
 	..()
 	M.update_sight()
-	M.update_icons()
 
 /datum/mutation/meson_vision/deactivate(mob/living/M)
 	..()
 	M.update_sight()
+
+/datum/mutation/night_vision
+	name = "Night Vision"
+	activation_messages = list("Were the lights always that bright?")
+	deactivation_messages = list("The ambient light level returns to normal...")
+	instability = GENE_INSTABILITY_MODERATE
+	traits_to_add = list(TRAIT_NIGHT_VISION)
+
+/datum/mutation/night_vision/New()
+	..()
+	block = GLOB.nightvisionblock
+
+/datum/mutation/night_vision/activate(mob/living/M)
+	..()
+	M.update_sight()
 	M.update_icons()
+
+/datum/mutation/night_vision/deactivate(mob/living/M)
+	..()
+	M.update_sight()
+	M.update_icons()
+
+/datum/mutation/flash_protection
+	name = "Flash Protection"
+	activation_messages = list("You stop noticing the glare from lights...")
+	deactivation_messages = list("Lights begin glaring again...")
+	instability = GENE_INSTABILITY_MINOR
+	traits_to_add = list(TRAIT_FLASH_PROTECTION)
+
+/datum/mutation/flash_protection/New()
+	..()
+	block = GLOB.noflashblock
+
+/datum/mutation/flash_protection/activate(mob/living/M)
+	..()
+	M.update_sight()
+
+/datum/mutation/flash_protection/deactivate(mob/living/M)
+	..()
+	M.update_sight()

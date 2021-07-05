@@ -30,6 +30,8 @@ GLOBAL_VAR_INIT(noprintsblock, 0)
 GLOBAL_VAR_INIT(shockimmunityblock, 0)
 GLOBAL_VAR_INIT(smallsizeblock, 0)
 GLOBAL_VAR_INIT(mesonblock, 0)
+GLOBAL_VAR_INIT(noflashblock, 0)
+GLOBAL_VAR_INIT(nightvisionblock, 0)
 
 ///////////////////////////////
 // Goon Stuff
