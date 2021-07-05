@@ -158,28 +158,6 @@
 		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH //temporary fix until the problem can be solved.
 		to_chat(M, "<span class='danger'>You suddenly feel very weak.</span>")
 
-/datum/mutation/xray
-	name = "X-Ray Vision"
-	activation_messages = list("The walls suddenly disappear.")
-	deactivation_messages = list("The walls around you re-appear.")
-	instability = GENE_INSTABILITY_MAJOR
-	traits_to_add = list(TRAIT_XRAY_VISION)
-	activation_prob = 15
-
-/datum/mutation/xray/New()
-	..()
-	block = GLOB.xrayblock
-
-/datum/mutation/xray/activate(mob/living/M)
-	..()
-	M.update_sight()
-	M.update_icons() //Apply eyeshine as needed.
-
-/datum/mutation/xray/deactivate(mob/living/M)
-	..()
-	M.update_sight()
-	M.update_icons() //Remove eyeshine as needed.
-
 /datum/mutation/tk
 	name = "Telekenesis"
 	activation_messages = list("You feel smarter.")
@@ -1179,3 +1157,25 @@
 	else
 		H.remoteview_target = null
 		H.reset_perspective()
+
+/datum/mutation/meson_vision
+	name = "Meson Vision"
+	activation_messages = list("More information seems to reach your eyes...")
+	deactivation_messages = list("The amount of information reaching your eyes fades...")
+	instability = GENE_INSTABILITY_MODERATE
+	traits_to_add = list(TRAIT_MESON_VISION)
+	activation_prob = 33
+
+/datum/mutation/meson_vision/New()
+	..()
+	block = GLOB.mesonblock
+
+/datum/mutation/meson_vision/activate(mob/living/M)
+	..()
+	M.update_sight()
+	M.update_icons()
+
+/datum/mutation/meson_vision/deactivate(mob/living/M)
+	..()
+	M.update_sight()
+	M.update_icons()
