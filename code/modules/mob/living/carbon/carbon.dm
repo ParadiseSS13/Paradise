@@ -1184,7 +1184,8 @@ so that different stomachs can handle things in different ways VB*/
 		return
 
 	var/obj/item/organ/internal/eyes/E = get_organ_slot("eyes")
-	E.flash_protect = initial(E.flash_protect)
+	if(E)
+		E.flash_protect = initial(E.flash_protect)
 	see_invisible = initial(see_invisible)
 	see_in_dark = initial(see_in_dark)
 	sight = initial(sight)
