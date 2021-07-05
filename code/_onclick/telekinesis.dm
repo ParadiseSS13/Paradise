@@ -109,7 +109,7 @@
 	if(!host || host != user)
 		qdel(src)
 		return
-	if(!host.dna && HAS_TRAIT(host, TRAIT_TELEKINESIS))
+	if(!host.dna && !HAS_TRAIT(host, TRAIT_TELEKINESIS))
 		qdel(src)
 		return
 	if(isobj(target) && !isturf(target.loc))
