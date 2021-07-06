@@ -331,6 +331,9 @@
 	name = "Lush Grass"
 	icon_state = "grass1"
 	floor_tile = /obj/item/stack/tile/grass
+	footstep = FOOTSTEP_GRASS
+	barefootstep = FOOTSTEP_GRASS
+	clawfootstep = FOOTSTEP_GRASS
 
 /turf/simulated/floor/holofloor/grass/Initialize(mapload)
 	. = ..()

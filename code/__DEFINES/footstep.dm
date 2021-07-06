@@ -21,10 +21,9 @@
 #define FOOTSTEP_MOB_BAREFOOT 2
 #define FOOTSTEP_MOB_HEAVY 3
 #define FOOTSTEP_MOB_SHOE 4
-#define FOOTSTEP_MOB_HUMAN 5 //Warning: Only works on /mob/living/carbon/human
-#define FOOTSTEP_MOB_SLIME 6
-#define FOOTSTEP_OBJ_MACHINE 7
-#define FOOTSTEP_OBJ_ROBOT 8
+#define FOOTSTEP_MOB_SLIME 5
+#define FOOTSTEP_OBJ_MACHINE 6
+#define FOOTSTEP_OBJ_ROBOT 7
 
 /*
 
@@ -136,13 +135,13 @@ GLOBAL_LIST_INIT(clawfootstep, list(
 		'sound/effects/footstep/woodclaw2.ogg',
 		'sound/effects/footstep/woodclaw3.ogg',
 		'sound/effects/footstep/woodclaw2.ogg',
-		'sound/effects/footstep/woodclaw1.ogg'), 90, 1),
+		'sound/effects/footstep/woodclaw1.ogg'), 70, 1),
 	FOOTSTEP_HARD_CLAW = list(list(
 		'sound/effects/footstep/hardclaw1.ogg',
 		'sound/effects/footstep/hardclaw2.ogg',
 		'sound/effects/footstep/hardclaw3.ogg',
 		'sound/effects/footstep/hardclaw4.ogg',
-		'sound/effects/footstep/hardclaw1.ogg'), 90, 1),
+		'sound/effects/footstep/hardclaw1.ogg'), 75, 1),
 	FOOTSTEP_CARPET_BAREFOOT = list(list(
 		'sound/effects/footstep/carpetbarefoot1.ogg',
 		'sound/effects/footstep/carpetbarefoot2.ogg',
