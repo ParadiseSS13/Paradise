@@ -21,6 +21,11 @@
 	footstep_type = footstep_type_
 	sound_vary = vary
 	switch(footstep_type)
+		if(FOOTSTEP_MOB_HUMAN)
+			if(!ishuman(parent))
+				return COMPONENT_INCOMPATIBLE
+			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_humanstep)
+			return
 		if(FOOTSTEP_MOB_BAREFOOT)
 			footstep_sounds = GLOB.barefootstep
 		if(FOOTSTEP_MOB_CLAW)
@@ -39,11 +44,8 @@
 			footstep_sounds = 'sound/effects/tank_treads.ogg'
 			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_simplestep_machine)
 			return
-	if(ishuman(parent))
-		var/mob/living/carbon/human/H = parent
-		RegisterSignal(H, COMSIG_MOVABLE_MOVED, .proc/play_humanstep)
-	else
-		RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_simplestep)
+
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_simplestep)
 
 ///Prepares a footstep. Determines if it should get played. Returns the turf it should get played on. Note that it is always a /turf/simulated/floor (eventually /turf/open)
 /datum/component/footstep/proc/prepare_step()
