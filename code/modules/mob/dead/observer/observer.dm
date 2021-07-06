@@ -360,7 +360,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!client)
 		return
 	var/mob/dead/observer/M = src
-	if(jobban_isbanned(M, "AntagHUD"))
+	if(jobban_isbanned(M, ROLEBAN_AHUD))
 		to_chat(src, "<span class='danger'>You have been banned from using this feature</span>")
 		return
 	if(config.antag_hud_restricted && !M.has_enabled_antagHUD && !check_rights(R_ADMIN|R_MOD,0))

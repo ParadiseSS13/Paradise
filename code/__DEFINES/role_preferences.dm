@@ -45,6 +45,10 @@
 #define ROLE_EVENTMISC			"eventmisc"
 #define ROLE_GHOST				"ghost role"
 
+// Misc jobban categories
+#define ROLEBAN_AHUD			"AntagHUD"
+#define ROLEBAN_RECORDS			"Records"
+
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
 //(in game days played) to play that role
