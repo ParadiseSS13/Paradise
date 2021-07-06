@@ -4826,9 +4826,9 @@
 /area/mine/laborcamp)
 "VA" = (
 /obj/machinery/power/apc{
-	dir = 1;
+	dir = 8;
 	name = "Mining Communications APC";
-	pixel_x = -25
+	pixel_x = -24
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
