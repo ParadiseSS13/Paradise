@@ -1208,11 +1208,3 @@
 /datum/mutation/flash_protection/New()
 	..()
 	block = GLOB.noflashblock
-
-/datum/mutation/flash_protection/activate(mob/living/M)
-	..()
-	M.update_sight()
-
-/datum/mutation/flash_protection/deactivate(mob/living/M)
-	..()
-	M.update_sight()

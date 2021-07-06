@@ -1183,9 +1183,6 @@ so that different stomachs can handle things in different ways VB*/
 		grant_death_vision()
 		return
 
-	var/obj/item/organ/internal/eyes/E = get_organ_slot("eyes")
-	if(E)
-		E.flash_protect = initial(E.flash_protect)
 	see_invisible = initial(see_invisible)
 	see_in_dark = initial(see_in_dark)
 	sight = initial(sight)
@@ -1212,10 +1209,6 @@ so that different stomachs can handle things in different ways VB*/
 	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))
 		see_in_dark = max(see_in_dark, 8)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-
-	if(HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
-		if(E)
-			E.flash_protect = FLASH_PROTECTION_WELDER
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
