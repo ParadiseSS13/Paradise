@@ -21,6 +21,7 @@
 	hunger_drain = 0.11
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 	flesh_color = "#966464"
 	base_color = "#CF4D2F"

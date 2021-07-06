@@ -13,6 +13,7 @@
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
+	footstep_type = FOOTSTEP_MOB_CLAW
 	eyes = "kidan_eyes_s"
 	dietflags = DIET_HERB
 	flesh_color = "#ba7814"
