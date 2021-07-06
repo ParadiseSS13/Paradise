@@ -39,6 +39,7 @@
 #define ROLE_ERT				"emergency response team"
 #define ROLE_NYMPH				"Dionaea"
 #define ROLE_GSPIDER			"giant spider"
+#define ROLE_TSPIDER			"terror spider"
 #define ROLE_DRONE				"drone"
 #define ROLE_DEATHSQUAD			"deathsquad"
 #define ROLE_EVENTMISC			"eventmisc"
