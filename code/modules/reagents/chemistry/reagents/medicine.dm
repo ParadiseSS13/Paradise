@@ -774,8 +774,7 @@
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					M.delayed_gib()
 					return
-				var/mob/dead/observer/ghost = M.get_ghost(TRUE)
-				if(ghost && !ghost.can_reenter_corpse) // DNR or AntagHUD
+				if(!M.ghost_can_reenter())
 					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
 					return
 
