@@ -39,7 +39,7 @@
 /obj/item/attack_tk(mob/user)
 	if(user.stat || !isturf(loc))
 		return
-	if(user.dna && HAS_TRAIT(user, TRAIT_TELEKINESIS) && !user.get_active_hand()) // both should already be true to get here
+	if(HAS_TRAIT(user, TRAIT_TELEKINESIS) && !user.get_active_hand()) // both should already be true to get here
 		var/obj/item/tk_grab/O = new(src)
 		O.form_grab(user, src)
 	else
