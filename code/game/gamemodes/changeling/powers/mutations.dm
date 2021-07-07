@@ -38,7 +38,7 @@
 
 /datum/action/changeling/weapon/sting_action(mob/user)
 	if(!user.drop_item())
-		to_chat(user, "The [user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
+		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return
 	var/obj/item/W = new weapon_type(user, silent)
 	user.put_in_hands(W)
@@ -212,7 +212,7 @@
 			to_chat(loc, "<span class='notice'>You prepare to extend a tentacle.</span>")
 
 /obj/item/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, "<span class='warning'>The [name] is not ready yet.</span>")
+	to_chat(user, "<span class='warning'>[src] is not ready yet.</span>")
 
 /obj/item/gun/magic/tentacle/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide.</span>")

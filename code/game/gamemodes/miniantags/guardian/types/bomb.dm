@@ -63,7 +63,7 @@
 /obj/item/guardian_bomb/proc/detonate(mob/living/user)
 	if(!istype(user))
 		return
-	to_chat(user, "<span class='danger'>The [src] was boobytrapped!</span>")
+	to_chat(user, "<span class='danger'>[src] was boobytrapped!</span>")
 	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)

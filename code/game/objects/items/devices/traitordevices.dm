@@ -162,7 +162,7 @@ effective or pretty fucking useless.
 	return ..()
 
 /obj/item/jammer/attack_self(mob/user)
-	to_chat(user,"<span class='notice'>You [active ? "deactivate" : "activate"] the [src].</span>")
+	to_chat(user, "<span class='notice'>You [active ? "deactivate" : "activate"] [src].</span>")
 	active = !active
 	if(active)
 		GLOB.active_jammers |= src
@@ -170,7 +170,7 @@ effective or pretty fucking useless.
 		GLOB.active_jammers -= src
 
 /obj/item/teleporter
-	name = "Syndicate teleporter"
+	name = "\improper Syndicate teleporter"
 	desc = "A strange syndicate version of a cult veil shifter. Warrenty voided if exposed to EMP."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-tele"
@@ -211,17 +211,17 @@ effective or pretty fucking useless.
 	if(prob(50 / severity))
 		if(istype(loc, /mob/living/carbon/human))
 			var/mob/living/carbon/human/user = loc
-			to_chat(user, "<span class='danger'>The [src] buzzes and activates!</span>")
+			to_chat(user, "<span class='userdanger'>[src] buzzes and activates!</span>")
 			attempt_teleport(user, TRUE)
 		else
-			visible_message("<span class='warning'> The [src] activates and blinks out of existence!</span>")
+			visible_message("<span class='danger'>[src] activates and blinks out of existence!</span>")
 			do_sparks(2, 1, src)
 			qdel(src)
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
 	dir_correction(user)
 	if(!charges)
-		to_chat(user, "<span class='warning'>The [src] is recharging still.</span>")
+		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
 
 	var/mob/living/carbon/C = user
@@ -247,7 +247,7 @@ effective or pretty fucking useless.
 
 	if(found_turf)
 		if(user.loc != mobloc) // No locker / mech / sleeper teleporting, that breaks stuff
-			to_chat(C, "<span class='danger'>The [src] will not work here!</span>")
+			to_chat(C, "<span class='danger'>[src] will not work here!</span>")
 		charges--
 		var/turf/destination = pick(turfs)
 		if(tile_check(destination) || flawless) // Why is there so many bloody floor types
@@ -264,7 +264,7 @@ effective or pretty fucking useless.
 		else // Emp activated? Bag of holding? No saving throw for you
 			get_fragged(user, destination)
 	else
-		to_chat(C, "<span class='danger'>The [src] will not work here!</span>")
+		to_chat(C, "<span class='danger'>[src] will not work here!</span>")
 
 /obj/item/teleporter/proc/tile_check(turf/T)
 	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space))
@@ -273,20 +273,20 @@ effective or pretty fucking useless.
 /obj/item/teleporter/proc/dir_correction(mob/user) //Direction movement, screws with teleport distance and saving throw, and thus must be removed first
 	var/temp_direction = user.dir
 	switch(temp_direction)
-		if(NORTHEAST || SOUTHEAST)
+		if(NORTHEAST, SOUTHEAST)
 			user.dir = EAST
-		if(NORTHWEST || SOUTHWEST)
+		if(NORTHWEST, SOUTHWEST)
 			user.dir = WEST
 
 /obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination, direction = NORTH)
 	var/saving_throw
 	switch(direction)
-		if(NORTH || SOUTH)
+		if(NORTH, SOUTH)
 			if(prob(50))
 				saving_throw = EAST
 			else
 				saving_throw = WEST
-		if(EAST || WEST)
+		if(EAST, WEST)
 			if(prob(50))
 				saving_throw = NORTH
 			else
@@ -345,7 +345,7 @@ effective or pretty fucking useless.
 		M.apply_damage(20, BRUTE)
 		M.Stun(3)
 		M.Weaken(3)
-		to_chat(M, "<span_class='warning'> [user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
+		to_chat(M, "<span_class='warning'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
 
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"

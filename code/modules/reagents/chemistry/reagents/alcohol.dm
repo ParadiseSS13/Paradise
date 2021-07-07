@@ -688,6 +688,25 @@
 		M.bodytemperature = min(330, M.bodytemperature + (20 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
 	return ..()
 
+/datum/reagent/consumable/ethanol/adminfreeze
+	name = "Admin Freeze"
+	id = "adminfreeze"
+	description = "Ultimate Punishment."
+	reagent_state = LIQUID
+	color = "#30F0FF" // rgb: 048, 240, 255
+	dizzy_adj = 4
+	alcohol_perc = 1.5 // oof
+	drink_icon = "adminfreeze"
+	drink_name = "Admin Freeze"
+	drink_desc = "The ultimate punishment."
+	taste_description = "a series of bad decisions"
+
+/datum/reagent/consumable/ethanol/adminfreeze/reaction_mob(mob/living/M, method = REAGENT_INGEST, volume)
+	..()
+	if(method == REAGENT_INGEST)
+		M.apply_status_effect(/datum/status_effect/freon/watcher)
+		M.adjust_bodytemperature(-110)
+
 /datum/reagent/consumable/ethanol/barefoot
 	name = "Barefoot"
 	id = "barefoot"

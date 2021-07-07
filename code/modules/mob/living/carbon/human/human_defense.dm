@@ -25,8 +25,8 @@ emp_act
 				reflected = is_type_in_list(P, safe_list) //And it's safe
 
 		if(reflected)
-			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
-				   "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
+			visible_message("<span class='danger'>[P] gets reflected by [src]!</span>", \
+				   "<span class='userdanger'>[P] gets reflected by [src]!</span>")
 			add_attack_logs(P.firer, src, "hit by [P.type] but got reflected")
 			P.reflect_back(src)
 			return -1
