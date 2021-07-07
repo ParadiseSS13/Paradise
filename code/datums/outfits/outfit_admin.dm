@@ -84,7 +84,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/syndie
 	r_pocket = /obj/item/radio/uplink/nuclear
 	l_pocket = /obj/item/pinpointer/advpinpointer
-	l_hand = /obj/item/tank/jetpack/oxygen/harness
+	l_hand = /obj/item/tank/internals/oxygen/red
 
 	backpack_contents = list(
 		/obj/item/storage/box/survival_syndi = 1,
@@ -1223,3 +1223,68 @@
 	var/obj/item/radio/headset/R = H.l_ear
 	if(istype(R))
 		R.flags |= NODROP
+
+/datum/outfit/admin/honksquad
+	name = "Honksquad"
+
+	uniform = /obj/item/clothing/under/rank/clown
+	mask = /obj/item/clothing/mask/gas/clown_hat
+	back = /obj/item/storage/backpack/clown
+	id = /obj/item/card/id/clown
+
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1,
+		/obj/item/bikehorn = 1,
+		/obj/item/stamp/clown = 1,
+		/obj/item/toy/crayon/rainbow = 1,
+		/obj/item/reagent_containers/spray/waterflower = 1,
+		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
+	)
+
+	shoes = /obj/item/clothing/shoes/clown_shoes
+	suit = /obj/item/clothing/suit/storage/det_suit
+	pda = /obj/item/pda/clown
+	l_ear = /obj/item/radio/headset
+	r_pocket = /obj/item/reagent_containers/food/pill/patch/jestosterone
+
+/datum/outfit/admin/honksquad/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.gender == FEMALE)
+		uniform = /obj/item/clothing/under/rank/clown/sexy
+		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
+
+	if(prob(50))
+		// You have to do it like this to make it work with assoc lists without a runtime.
+		// Trust me.
+		backpack_contents.Add(/obj/item/gun/energy/clown)
+		backpack_contents[/obj/item/gun/energy/clown] = 1 // Amount. Not boolean. Do not TRUE this. You turkey.
+	else
+		backpack_contents.Add(/obj/item/gun/throw/piecannon)
+		backpack_contents[/obj/item/gun/throw/piecannon] = 1
+
+/datum/outfit/admin/honksquad/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	// Setup their clumsy gene
+	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
+	H.check_mutations = TRUE
+
+	// Setup their headset
+	var/obj/item/radio/R = H.l_ear
+	if(istype(R))
+		R.set_frequency(DTH_FREQ) // Clowns can be part of "special operations"
+
+	// And their PDA
+	var/obj/item/pda/P = H.wear_pda
+	if(istype(P))
+		P.owner = H.real_name
+		P.ownjob = "Clown"
+		P.name = "PDA-[H.real_name] ([P.ownjob])"
+
+	// And their ID
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, list(ACCESS_CLOWN), "Clown")
+	H.sec_hud_set_ID()
