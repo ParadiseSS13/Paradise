@@ -1,6 +1,3 @@
-/datum/event/wallrot/setup()
-	endWhen = rand(1, 300)
-
 /datum/event/wallrot/start()
 	INVOKE_ASYNC(src, .proc/spawn_wallrot)
 
