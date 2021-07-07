@@ -34,7 +34,7 @@
 	icon = 'icons/obj/supermatter.dmi'
 	icon_state = "darkmatter_shard"
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
@@ -335,9 +335,22 @@
 	return
 
 /obj/machinery/power/supermatter_shard/attackby(obj/item/W as obj, mob/living/user as mob, params)
-	if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
+	if(istype(W,/obj/item/wrench)) //allows wrench/unwrench shards
+		if(!anchored)
+			anchored = !anchored
+			WRENCH_ANCHOR_MESSAGE
+			playsound(src.loc,W.usesound, 75, 1)
+			consume_wrench(W)
+			user.visible_message("<span class='danger'>As [user] tighten bolts of \the [src] with \a [W] the tool disappears</span>")
+		else if (anchored)
+			anchored = !anchored
+			WRENCH_UNANCHOR_MESSAGE
+			playsound(src.loc,W.usesound, 75, 1)
+			consume_wrench(W)
+			user.visible_message("<span class='danger'>As [user] loosen bolts of \the [src] with \a [W] the tool disappears</span>")
+	else if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
 		return
-	if(user.drop_item(W))
+	else if(user.drop_item(W))
 		Consume(W)
 		user.visible_message("<span class='danger'>As [user] touches \the [src] with \a [W], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch \the [src] with \the [W], and everything suddenly goes silent.\"</span>\n<span class='notice'>\The [W] flashes into dust as you flinch away from \the [src].</span>",\
@@ -377,6 +390,8 @@
 	power += 200
 	supermatter_zap()
 
+/obj/machinery/power/supermatter_shard/proc/consume_wrench(atom/movable/AM)
+	qdel(AM) //destroys wrench when anchored\unanchored supermatter
 
 	//Some poor sod got eaten, go ahead and irradiate people nearby.
 	for(var/mob/living/L in range(10))
