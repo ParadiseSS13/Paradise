@@ -15,9 +15,6 @@
 /turf/simulated/floor/indestructible/narsie_act()
 	return
 
-/turf/simulated/floor/indestructible/ratvar_act(force, ignore_mobs)
-	return
-
 /turf/simulated/floor/indestructible/burn_down()
 	return
 

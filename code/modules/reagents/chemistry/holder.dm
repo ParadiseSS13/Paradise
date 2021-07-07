@@ -458,7 +458,7 @@
 						ME2.Uses--
 						if(ME2.Uses <= 0) // give the notification that the slime core is dead
 							for(var/mob/living/M in seen)
-								to_chat(M, "<span class='notice'>[bicon(my_atom)] The [my_atom]'s power is consumed in the reaction.</span>")
+								to_chat(M, "<span class='notice'>[bicon(my_atom)] [my_atom]'s power is consumed in the reaction.</span>")
 								ME2.name = "used slime extract"
 								ME2.desc = "This extract has been used up."
 

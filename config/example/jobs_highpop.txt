@@ -5,30 +5,30 @@ Chief Engineer=1
 Research Director=1
 Chief Medical Officer=1
 
-Station Engineer=5
-Roboticist=1
+Station Engineer=6
+Roboticist=2
 
-Medical Doctor=5
+Medical Doctor=6
 Geneticist=2
 Virologist=1
 
-Scientist=3
+Scientist=7
 Chemist=2
 
 Bartender=1
 Botanist=2
 Chef=1
-Janitor=1
+Janitor=2
 Quartermaster=1
 Shaft Miner=6
 
 Warden=1
 Detective=1
-Security Officer=7
+Security Officer=8
 
 Assistant=-1
 Atmospheric Technician=4
-Cargo Technician=3
+Cargo Technician=4
 Chaplain=1
 Lawyer=2
 Librarian=1

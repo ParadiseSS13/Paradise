@@ -540,7 +540,7 @@
 			to_chat(user, "<span class='notice'>You load [src] with [I].</span>")
 			I.loc = src
 		else
-			to_chat(user, "<span class='warning'>The [I] wont fit! The [src] can only hold up to [max_beakers] containers.</span>")
+			to_chat(user, "<span class='warning'>[I] won't fit! [src] can only hold up to [max_beakers] containers.</span>")
 			return
 	else
 		return ..()

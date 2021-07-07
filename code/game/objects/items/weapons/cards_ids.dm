@@ -363,7 +363,7 @@
 
 /obj/item/card/id/syndicate/attack_self(mob/user as mob)
 	if(!src.registered_name)
-		var/t = reject_bad_name(input(user, "What name would you like to use on this card?", "Agent Card name", ishuman(user) ? user.real_name : user.name))
+		var/t = reject_bad_name(input(user, "What name would you like to use on this card?", "Agent Card name", ishuman(user) ? user.real_name : user.name), TRUE)
 		if(!t)
 			to_chat(user, "<span class='warning'>Invalid name.</span>")
 			return

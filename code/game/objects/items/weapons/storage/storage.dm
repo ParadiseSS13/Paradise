@@ -163,7 +163,7 @@
 /obj/item/storage/proc/show_to(mob/user)
 	if(!user.client)
 		return
-	if(user.s_active != src) // Switching from another container
+	if(user.s_active != src && !isobserver(user))
 		for(var/obj/item/I in src)
 			if(I.on_found(user)) // For mouse traps and such
 				return // If something triggered, don't open the UI

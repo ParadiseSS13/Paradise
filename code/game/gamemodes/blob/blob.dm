@@ -15,7 +15,6 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	recommended_enemies = 1
 	restricted_jobs = list("Cyborg", "AI")
 
-	var/declared = 0
 	var/burst = 0
 
 	var/cores_to_spawn = 1
@@ -75,8 +74,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	log_game("[key_name(blob)] has been selected as a Blob")
 	greet_blob(blobmind)
 	to_chat(blob, "<span class='userdanger'>You feel very tired and bloated!  You don't have long before you burst!</span>")
-	spawn(600)
-		burst_blob(blobmind)
+	addtimer(CALLBACK(src, .proc/burst_blob, blobmind), 60 SECONDS)
 	return 1
 
 /datum/game_mode/blob/proc/make_blobs(count)
@@ -103,6 +101,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	to_chat(blob.current, "<b>Find a good location to spawn the core and then take control and overwhelm the station!</b>")
 	to_chat(blob.current, "<b>When you have found a location, wait until you spawn; this will happen automatically and you cannot speed up the process.</b>")
 	to_chat(blob.current, "<b>If you go outside of the station level, or in space, then you will die; make sure your location has lots of ground to cover.</b>")
+	to_chat(blob.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Blob)</span>")
 	SEND_SOUND(blob.current, sound('sound/magic/mutate.ogg'))
 	return
 
@@ -127,8 +126,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 				if(!warned)
 					to_chat(C, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
 					message_admins("[key_name_admin(C)] was in space when the blobs burst, and will die if [C.p_they()] [C.p_do()] not return to the station.")
-					spawn(300)
-						burst_blob(blob, 1)
+					addtimer(CALLBACK(src, .proc/burst_blob, blob, 1), 30 SECONDS)
 				else
 					burst++
 					log_admin("[key_name(C)] was in space when attempting to burst as a blob.")
@@ -172,33 +170,22 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 		show_message("<span class='userdanger'>You feel like you are about to burst.</span>")
 
-		sleep(wait_time / 2)
-
-		burst_blobs()
-
-		// Stage 0
-		sleep(wait_time)
-		stage(0)
+		addtimer(CALLBACK(src, .proc/burst_blobs), (wait_time / 2))
 
 		// Stage 1
-		sleep(wait_time)
-		stage(1)
+		addtimer(CALLBACK(src, .proc/stage, 1), (wait_time * 2 + wait_time / 2))
 
 		// Stage 2
-		sleep(30000)
-		stage(2)
+		addtimer(CALLBACK(src, .proc/stage, 2), 50 MINUTES)
 
 	return ..()
 
 /datum/game_mode/blob/proc/stage(stage)
 	switch(stage)
-		if(0)
-			send_intercept(1)
-			declared = 1
 		if(1)
 			GLOB.event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 		if(2)
-			send_intercept(2)
+			send_intercept(1)
 
 /datum/game_mode/proc/update_blob_icons_added(datum/mind/mob_mind)
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_BLOB]
