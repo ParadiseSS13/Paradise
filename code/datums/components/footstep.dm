@@ -99,15 +99,12 @@
 		return
 	var/mob/living/carbon/human/H = parent
 
-	var/step_type = null
-	var/list/step_sounds = null
+	var/step_type = H.dna.species.footstep_type
 
 	if((H.wear_suit?.body_parts_covered | H.w_uniform?.body_parts_covered | H.shoes?.body_parts_covered) & FEET)
 		step_type = FOOTSTEP_MOB_SHOE // Feet are covered
-	else
-		step_type = H.dna.species.footstep_type
 
-	step_sounds = get_step_sounds(step_type)
+	var/list/step_sounds = get_step_sounds(step_type)
 	var/turf_footstep = get_turf_sound(T, step_type)
 
 	playsound(T,
