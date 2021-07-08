@@ -1,0 +1,33 @@
+name: Запрос фичи
+description: Предложить идею по улучшению сборки
+title: "Feat: "
+labels: [enhancement, triage]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Проблема
+      description: Четко и понятно опишите в чем заключается проблема. Можно приложить скриншоты.
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Решение
+      description: Опишите ваше решение проблемы. Можно приложить скриншоты.
+    validations:
+      required: true
+  - type: textarea
+    id: pros
+    attributes:
+      label: Плюсы
+      description: Опишите возможные плюсы решения.
+    validations:
+      required: true
+  - type: textarea
+    id: cons
+    attributes:
+      label: Минусы
+      description: Опишите возможные минусы решения.
+    validations:
+      required: true
