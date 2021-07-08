@@ -4,6 +4,13 @@ title: "Bug: "
 labels: [bug, triage]
 body:
   - type: textarea
+    id: ckey
+    attributes:
+      label: Ckey
+      description: Ваш ckey в byond
+    validations:
+      required: true
+  - type: textarea
     id: bug_description
     attributes:
       label: Описание бага
