@@ -1,5 +1,7 @@
 name: Баг
 description: Сообщить об ошибке
+title: "Bug: "
+labels: [bug, triage]
 body:
   - type: textarea
     id: bug_description
