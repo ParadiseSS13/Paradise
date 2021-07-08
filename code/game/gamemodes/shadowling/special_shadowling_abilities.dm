@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				H.visible_message("<span class='warning'>[H]'s things suddenly slip off. They hunch over and vomit up a copious amount of purple goo which begins to shape around them!</span>", \
 									"<span class='shadowling'>You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you.</span>")
 
-				for(var/obj/item/I in H.contents - (H.bodyparts | H.internal_organs)) //drops all items except organs
+				for(var/obj/item/I in H.contents)
 					H.unEquip(I)
 
 				sleep(50)
@@ -99,7 +99,6 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				sleep(10)
 				to_chat(H, "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>")
 				H.ExtinguishMob()
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/enthrall(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/glare(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/veil(null))
@@ -123,10 +122,13 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	include_user = 1
 	action_icon_state = "ascend"
 
+/obj/effect/proc_holder/spell/targeted/shadowling_ascend/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
+	if(!shadowling_check(user))
+		return FALSE
+	return ..()
+
 /obj/effect/proc_holder/spell/targeted/shadowling_ascend/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/H = user
-	if(!shadowling_check(H))
-		return
 	for(H in targets)
 		var/hatch_or_no = alert(H,"It is time to ascend. Are you sure about this?",,"Yes","No")
 		switch(hatch_or_no)

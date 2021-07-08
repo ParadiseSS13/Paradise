@@ -91,13 +91,21 @@
 	O.job = "Cyborg"
 
 	if(O.mind && O.mind.assigned_role == "Cyborg")
-		if(O.mind.role_alt_title == "Robot")
-			O.mmi = new /obj/item/mmi/robotic_brain(O)
-			if(O.mmi.brainmob)
-				O.mmi.brainmob.name = O.name
-		else
-			O.mmi = new /obj/item/mmi(O)
-		O.mmi.transfer_identity(src) //Does not transfer key/client.
+		var/obj/item/mmi/new_mmi
+		switch(O.mind.role_alt_title)
+			if("Robot")
+				new_mmi = new /obj/item/mmi/robotic_brain(O)
+				if(new_mmi.brainmob)
+					new_mmi.brainmob.name = O.name
+			if("Cyborg")
+				new_mmi = new /obj/item/mmi(O)
+			else
+				// This should never happen, but oh well
+				new_mmi = new /obj/item/mmi(O)
+		new_mmi.transfer_identity(src) //Does not transfer key/client.
+		// Replace the MMI.
+		QDEL_NULL(O.mmi)
+		O.mmi = new_mmi
 
 	O.update_pipe_vision()
 
@@ -234,7 +242,7 @@
 	qdel(src)
 
 
-/mob/living/carbon/human/proc/paize(var/name)
+/mob/living/carbon/human/proc/paize(name)
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
@@ -260,7 +268,7 @@
 	pai.update_pipe_vision()
 	qdel(src)
 
-/mob/proc/safe_respawn(var/MP)
+/mob/proc/safe_respawn(MP)
 	if(!MP)
 		return 0
 

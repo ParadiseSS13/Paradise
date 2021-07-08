@@ -21,7 +21,7 @@
 	var/weapon_type
 	var/weapon_name_simple
 
-/datum/action/changeling/weapon/try_to_sting(var/mob/user, var/mob/target)
+/datum/action/changeling/weapon/try_to_sting(mob/user, mob/target)
 	if(istype(user.l_hand, weapon_type)) //Not the nicest way to do it, but eh
 		qdel(user.l_hand)
 		if(!silent)
@@ -36,9 +36,9 @@
 		return
 	..(user, target)
 
-/datum/action/changeling/weapon/sting_action(var/mob/user)
+/datum/action/changeling/weapon/sting_action(mob/user)
 	if(!user.drop_item())
-		to_chat(user, "The [user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
+		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return
 	var/obj/item/W = new weapon_type(user, silent)
 	user.put_in_hands(W)
@@ -60,7 +60,7 @@
 	var/recharge_slowdown = 0
 	var/blood_on_castoff = 0
 
-/datum/action/changeling/suit/try_to_sting(var/mob/user, var/mob/target)
+/datum/action/changeling/suit/try_to_sting(mob/user, mob/target)
 	var/datum/changeling/changeling = user.mind.changeling
 	if(!ishuman(user) || !changeling)
 		return
@@ -84,7 +84,7 @@
 		return
 	..(H, target)
 
-/datum/action/changeling/suit/sting_action(var/mob/living/carbon/human/user)
+/datum/action/changeling/suit/sting_action(mob/living/carbon/human/user)
 	if(!user.unEquip(user.wear_suit))
 		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
 		return
@@ -173,8 +173,11 @@
 	name = "Tentacle"
 	desc = "We ready a tentacle to grab items or victims with. Costs 10 chemicals."
 	helptext = "We can use it once to retrieve a distant item. If used on living creatures, the effect depends on the intent: \
-	Help will simply drag them closer, Disarm will grab whatever they are holding instead of them, Grab will put the victim in our hold after catching it, \
-	and Harm will stun it, and stab it if we are also holding a sharp weapon. Cannot be used while in lesser form."
+	Help will drag the target closer. \
+	Disarm will grab whatever the target is holding. \
+	Grab will put the target in our grip after we catch it. \
+	Harm will drag the target closer and stab it if we are holding a sharp weapon in our other hand. \
+	Cannot be used while in our lesser form."
 	button_icon_state = "tentacle"
 	chemical_cost = 10
 	dna_cost = 2
@@ -209,7 +212,7 @@
 			to_chat(loc, "<span class='notice'>You prepare to extend a tentacle.</span>")
 
 /obj/item/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, "<span class='warning'>The [name] is not ready yet.</span>")
+	to_chat(user, "<span class='warning'>[src] is not ready yet.</span>")
 
 /obj/item/gun/magic/tentacle/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -358,7 +361,7 @@
 	weapon_type = /obj/item/shield/changeling
 	weapon_name_simple = "shield"
 
-/datum/action/changeling/weapon/shield/sting_action(var/mob/user)
+/datum/action/changeling/weapon/shield/sting_action(mob/user)
 	var/datum/changeling/changeling = user.mind.changeling //So we can read the absorbedcount.
 	if(!changeling)
 		return

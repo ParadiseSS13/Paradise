@@ -9,14 +9,13 @@
 	return ishuman(M)
 
 /datum/mutation/monkey/activate(mob/living/carbon/human/H)
+	..()
 	if(!istype(H))
 		return
 	if(issmall(H))
 		return
 	for(var/obj/item/W in H)
-		if(istype(W,/obj/item/organ))
-			continue
-		if(istype(W,/obj/item/implant))
+		if(istype(W, /obj/item/implant))
 			continue
 		H.unEquip(W)
 
@@ -44,6 +43,7 @@
 	return H
 
 /datum/mutation/monkey/deactivate(mob/living/carbon/human/H)
+	..()
 	if(!istype(H))
 		return
 	if(!issmall(H))
@@ -51,9 +51,7 @@
 	for(var/obj/item/W in H)
 		if(W == H.w_uniform) // will be torn
 			continue
-		if(istype(W,/obj/item/organ))
-			continue
-		if(istype(W,/obj/item/implant))
+		if(istype(W, /obj/item/implant))
 			continue
 		H.unEquip(W)
 	H.regenerate_icons()

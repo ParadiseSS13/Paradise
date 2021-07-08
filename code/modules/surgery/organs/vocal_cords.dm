@@ -112,6 +112,9 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		if(owner.stat)
 			return FALSE
+	if(istype(owner.loc, /obj/effect/dummy/spell_jaunt))
+		to_chat(owner, "<span class='warning'>No one can hear you when you are jaunting, no point in talking now!</span>")
+		return FALSE
 	return TRUE
 
 /datum/action/item_action/organ_action/colossus/Trigger()
@@ -139,12 +142,15 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		return FALSE
 	if(owner.stat)
 		return FALSE
+	if(istype(owner.loc, /obj/effect/dummy/spell_jaunt))
+		to_chat(owner, "<span class='warning'>No one can hear you when you are jaunting, no point in talking now!</span>")
+		return FALSE
 	return TRUE
 
 /obj/item/organ/internal/vocal_cords/colossus/handle_speech(message)
 	spans = "colossus yell" //reset spans, just in case someone gets deculted or the cords change owner
 	if(iscultist(owner))
-		spans += " narsiesmall"
+		spans += "narsiesmall"
 	return "<span class=\"[spans]\">[uppertext(message)]</span>"
 
 /obj/item/organ/internal/vocal_cords/colossus/speak_with(message)
@@ -182,18 +188,16 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	if(iscultist(owner))
 		power_multiplier *= 2
 
+	//It's magic, they are a wizard.
+	if(iswizard(owner))
+		power_multiplier *= 2.5
+
 	//Try to check if the speaker specified a name or a job to focus on
 	var/list/specific_listeners = list()
 	var/found_string = null
 
 	for(var/V in listeners)
 		var/mob/living/L = V
-		if(L.mind && L.mind.devilinfo && findtext(message, L.mind.devilinfo.truename))
-			var/start = findtext(message, L.mind.devilinfo.truename)
-			listeners = list(L) //let's be honest you're never going to find two devils with the same name
-			power_multiplier *= 5 //if you're a devil and god himself addressed you, you fucked up
-			//Cut out the name so it doesn't trigger commands
-			message = copytext(message, 0, start)+copytext(message, start + length(L.mind.devilinfo.truename), length(message) + 1)
 		if(findtext(message, L.real_name) == 1)
 			specific_listeners += L //focus on those with the specified name
 			//Cut out the name so it doesn't trigger commands
@@ -483,3 +487,10 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 	message_admins("[key_name_admin(owner)] has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].")
 	log_game("[key_name(owner)] has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].")
+
+/obj/item/organ/internal/vocal_cords/colossus/wizard
+	desc = "They carry the voice of an ancient god. This one is enchanted to implant it into yourself when used in hand"
+
+/obj/item/organ/internal/vocal_cords/colossus/wizard/attack_self(mob/living/user)
+	user.drop_item()
+	insert(user)

@@ -50,17 +50,6 @@
 
 		// Flash
 		if(flash)
-			if(M.weakeyes)
-				M.visible_message("<span class='disarm'><b>[M]</b> screams and collapses!</span>")
-				to_chat(M, "<span class='userdanger'><font size=3>AAAAGH!</font></span>")
-				M.Weaken(15) //hella stunned
-				M.Stun(15)
-				if(ishuman(M))
-					M.emote("scream")
-					var/mob/living/carbon/human/H = M
-					var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-					if(E)
-						E.receive_damage(8, TRUE)
 			if(M.flash_eyes(affect_silicon = TRUE))
 				M.Stun(stun_amount)
 				M.Weaken(stun_amount)

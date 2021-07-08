@@ -248,6 +248,7 @@
 		owner.announce_objectives()
 	if(should_give_codewords)
 		give_codewords()
+	to_chat(owner.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Traitor)</span>")
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
@@ -361,7 +362,7 @@
 	return 1
 
 
-/datum/antagonist/traitor/proc/assign_exchange_role(var/datum/mind/owner)
+/datum/antagonist/traitor/proc/assign_exchange_role(datum/mind/owner)
 	//set faction
 	var/faction = "red"
 	if(owner == SSticker.mode.exchange_blue)

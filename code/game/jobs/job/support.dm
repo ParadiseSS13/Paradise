@@ -272,6 +272,8 @@
 		/obj/item/instrument/bikehorn = 1
 	)
 
+	implants = list(/obj/item/implant/sad_trombone)
+
 	backpack = /obj/item/storage/backpack/clown
 	satchel = /obj/item/storage/backpack/clown
 	dufflebag = /obj/item/storage/backpack/duffel/clown

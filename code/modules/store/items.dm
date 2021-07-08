@@ -7,7 +7,7 @@
 	var/typepath=/obj/item/storage/box
 	var/cost=0
 
-/datum/storeitem/proc/deliver(var/mob/usr)
+/datum/storeitem/proc/deliver(mob/usr)
 	if(!istype(typepath,/obj/item/storage))
 		var/obj/item/storage/box/box=new(usr.loc)
 		new typepath(box)

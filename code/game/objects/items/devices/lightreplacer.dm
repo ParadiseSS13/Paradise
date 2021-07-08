@@ -179,7 +179,7 @@
 		playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	return new_bulbs
 
-/obj/item/lightreplacer/proc/Charge(var/mob/user)
+/obj/item/lightreplacer/proc/Charge(mob/user)
 	charge += 1
 	if(charge > 3)
 		AddUses(1)
@@ -261,6 +261,10 @@
 
 /obj/item/lightreplacer/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return
+
+/obj/item/lightreplacer/cyborg/cyborg_recharge(coeff, emagged)
+	for(var/I in 1 to coeff)
+		Charge()
 
 #undef LIGHT_OK
 #undef LIGHT_EMPTY

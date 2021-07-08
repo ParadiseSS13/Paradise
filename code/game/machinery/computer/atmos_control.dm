@@ -28,7 +28,7 @@
 /obj/machinery/air_sensor/update_icon()
 	icon_state = "gsensor[on]"
 
-/obj/machinery/air_sensor/multitool_menu(var/mob/user, var/obj/item/multitool/P)
+/obj/machinery/air_sensor/multitool_menu(mob/user, obj/item/multitool/P)
 	return {"
 	<b>Main</b>
 	<ul>
@@ -43,7 +43,7 @@
 		<li>Monitor Carbon Dioxide Concentration: <a href="?src=[UID()];toggle_out_flag=32">[output&32 ? "Yes" : "No"]</a>
 	</ul>"}
 
-/obj/machinery/air_sensor/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
+/obj/machinery/air_sensor/multitool_topic(mob/user, list/href_list, obj/O)
 	. = ..()
 	if(.)
 		return .
@@ -59,19 +59,16 @@
 		return TRUE
 	if("toggle_bolts" in href_list)
 		bolts = !bolts
-		if(bolts)
-			visible_message("You hear a quite click as the [src] bolts to the floor", "You hear a quite click")
-		else
-			visible_message("You hear a quite click as the [src]'s floor bolts raise", "You hear a quite click")
+		visible_message("<span class='notice'>You hear a quiet click as [src][bolts ? " bolts to the floor" : "'s bolts raise"].</span>", "<span class='notice>You hear a quiet click.</span>")
 		return TRUE
 
-/obj/machinery/air_sensor/attackby(var/obj/item/W as obj, var/mob/user as mob)
+/obj/machinery/air_sensor/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
 	if(istype(W, /obj/item/wrench))
 		if(bolts)
-			to_chat(usr, "The [src] is bolted to the floor! You can't detach it like this.")
+			to_chat(usr, "[src] is bolted to the floor! You can't detach it like this.")
 			return 1
 		playsound(loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")

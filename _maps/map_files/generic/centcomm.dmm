@@ -25,8 +25,7 @@
 /area/syndicate_mothership)
 "ai" = (
 /obj/item/radio/intercom/syndicate{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -35,7 +34,6 @@
 /obj/item/clothing/under/dress/dress_saloon,
 /obj/item/clothing/head/hairflower,
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "cult";
 	tag = "icon-cult"
 	},
@@ -50,7 +48,6 @@
 /obj/effect/landmark/costume/random,
 /obj/structure/rack/holorack,
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "cult";
 	tag = "icon-cult"
 	},
@@ -68,7 +65,6 @@
 /obj/structure/chair/stool/holostool,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "asteroid";
 	tag = "icon-asteroid"
 	},
@@ -85,7 +81,6 @@
 /area/space)
 "ar" = (
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon = 'icons/turf/floors/plating.dmi';
 	icon_state = "asteroid";
 	tag = "icon-asteroid"
@@ -109,7 +104,6 @@
 /obj/structure/table/holotable/wood,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "asteroid";
 	tag = "icon-asteroid"
 	},
@@ -191,7 +185,6 @@
 "aL" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon = 'icons/turf/floors/plating.dmi';
 	icon_state = "asteroid";
 	tag = "icon-asteroid"
@@ -210,7 +203,6 @@
 /area/space)
 "aO" = (
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "cult";
 	tag = "icon-cult"
 	},
@@ -268,7 +260,6 @@
 "aX" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon = 'icons/turf/floors/plating.dmi';
 	icon_state = "asteroid";
 	tag = "icon-asteroid"
@@ -277,7 +268,6 @@
 "aY" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "asteroid";
 	tag = "icon-asteroid"
 	},
@@ -301,7 +291,6 @@
 "bb" = (
 /obj/structure/table/holotable/wood,
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "grimy";
 	tag = "icon-grimy"
 	},
@@ -316,7 +305,6 @@
 /area/holodeck/source_meetinghall)
 "bd" = (
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon = 'icons/turf/floors/plating.dmi';
 	icon_state = "asteroid7";
 	tag = "icon-asteroid7"
@@ -516,7 +504,6 @@
 /area/space)
 "bX" = (
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "green"
 	},
 /area/holodeck/source_emptycourt)
@@ -570,7 +557,6 @@
 /area/holodeck/source_snowfield)
 "cm" = (
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "grimy";
 	tag = "icon-grimy"
 	},
@@ -704,8 +690,7 @@
 /area/centcom/evac)
 "cI" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "propulsion"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/specops)
@@ -763,7 +748,6 @@
 "cW" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -773,7 +757,6 @@
 /obj/machinery/kitchen_machine/microwave/upgraded,
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel/freezer,
@@ -833,7 +816,6 @@
 /obj/item/camera,
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel{
@@ -855,7 +837,6 @@
 "di" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/beach/away/sand,
@@ -880,14 +861,12 @@
 	id_tag = "vox_southeast_lock";
 	locked = 1;
 	req_access_txt = "152";
-	req_one_access = null;
-	req_one_access_txt = "0"
+	req_one_access = null
 	},
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/vox)
 "dp" = (
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "red"
 	},
 /area/holodeck/source_basketball)
@@ -1027,16 +1006,13 @@
 "dQ" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/ninja/outpost)
 "dR" = (
 /obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 0
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel/freezer,
 /area/ninja/holding)
 "dS" = (
@@ -1131,7 +1107,6 @@
 /area/syndicate_mothership)
 "el" = (
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "green"
 	},
 /area/holodeck/source_basketball)
@@ -1166,15 +1141,6 @@
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
-"eq" = (
-/obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/syndicate_mothership)
 "eu" = (
 /obj/structure/chair/stool,
 /obj/machinery/computer/security/telescreen{
@@ -1237,8 +1203,7 @@
 	req_access_txt = "150"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5;
-	icon_state = "intact"
+	dir = 5
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -1252,14 +1217,12 @@
 "eG" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion";
 	tag = "icon-propulsion (NORTH)"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_elite)
 "eH" = (
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "green"
 	},
 /area/holodeck/source_boxingcourt)
@@ -1333,7 +1296,6 @@
 "eT" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /obj/machinery/computer/syndicate_depot/teleporter,
@@ -1369,7 +1331,6 @@
 /obj/machinery/door_control{
 	id = "syndicate_sit_1";
 	name = "Blast Doors";
-	pixel_x = 0;
 	pixel_y = -23;
 	req_access_txt = "150"
 	},
@@ -1409,7 +1370,6 @@
 	},
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/engine,
@@ -1454,7 +1414,7 @@
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "fe" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod/offstation/right,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "ff" = (
@@ -1490,7 +1450,7 @@
 /turf/simulated/floor/engine/cult,
 /area/wizard_station)
 "fl" = (
-/obj/machinery/cryopod,
+/obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "fm" = (
@@ -1512,7 +1472,6 @@
 /obj/machinery/vending/magivend,
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/engine/cult,
@@ -1566,8 +1525,7 @@
 	width = 9
 	},
 /obj/machinery/door/airlock/titanium/glass{
-	id_tag = "s_docking_airlock";
-	req_one_access_txt = "0"
+	id_tag = "s_docking_airlock"
 	},
 /obj/docking_port/stationary{
 	dir = 8;
@@ -1640,8 +1598,6 @@
 /area/ninja/holding)
 "fL" = (
 /obj/machinery/computer/cryopod{
-	density = 0;
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
@@ -1696,14 +1652,11 @@
 /area/holodeck/source_thunderdomecourt)
 "fU" = (
 /obj/structure/table/wood,
-/obj/machinery/recharger{
-	pixel_y = 0
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/engine/cult,
 /area/wizard_station)
 "fV" = (
 /obj/machinery/power/apc{
-	dir = 2;
 	name = "Gamma Armory APC";
 	pixel_y = -24
 	},
@@ -1712,8 +1665,7 @@
 	icon_state = "0-4"
 	},
 /obj/structure/sign/securearea{
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /obj/machinery/suit_storage_unit/gamma,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -1721,7 +1673,6 @@
 "fW" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/engine/cult,
@@ -1743,7 +1694,6 @@
 "ga" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1751,7 +1701,6 @@
 "gb" = (
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1778,7 +1727,6 @@
 "gg" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2004,7 +1952,6 @@
 /area/space)
 "hd" = (
 /obj/docking_port/stationary/transit{
-	dir = 1;
 	dwidth = 1;
 	height = 4;
 	id = "pod1_transit";
@@ -2029,7 +1976,6 @@
 /area/syndicate_mothership)
 "hh" = (
 /obj/docking_port/stationary/transit{
-	dir = 1;
 	dwidth = 1;
 	height = 4;
 	id = "pod2_transit";
@@ -2041,7 +1987,6 @@
 "hi" = (
 /obj/docking_port/stationary{
 	area_type = /area/syndicate_mothership;
-	dir = 1;
 	dwidth = 11;
 	height = 18;
 	id = "emergency_syndicate";
@@ -2174,8 +2119,7 @@
 /area/shuttle/syndicate)
 "ic" = (
 /obj/structure/closet/fireaxecabinet{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /obj/machinery/light{
 	dir = 1;
@@ -2189,7 +2133,6 @@
 /area/shuttle/escape)
 "id" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "browncorner"
 	},
 /area/shuttle/escape)
@@ -2217,7 +2160,6 @@
 /area/syndicate_mothership)
 "ij" = (
 /obj/item/radio/intercom/syndicate{
-	pixel_x = 0;
 	pixel_y = 25
 	},
 /obj/item/twohanded/required/kirbyplants,
@@ -2316,16 +2258,13 @@
 	},
 /obj/structure/sink{
 	dir = 4;
-	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
+	pixel_x = 11
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "iB" = (
 /obj/machinery/light{
-	dir = 8;
-	icon_state = "tube1"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -2563,7 +2502,6 @@
 "jq" = (
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /obj/structure/closet/syndicate/sst,
@@ -2586,7 +2524,6 @@
 "jt" = (
 /obj/machinery/light/small{
 	dir = 4;
-	icon_state = "bulb1";
 	tag = "icon-bulb1 (EAST)"
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -2605,7 +2542,6 @@
 "jw" = (
 /obj/machinery/light/small{
 	dir = 8;
-	icon_state = "bulb1";
 	tag = "icon-bulb1 (WEST)"
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -2702,13 +2638,11 @@
 /area/syndicate_mothership)
 "jH" = (
 /obj/machinery/door/window{
-	dir = 4;
 	name = "Infirmary";
 	req_access_txt = "150"
 	},
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -2727,7 +2661,6 @@
 /area/syndicate_mothership)
 "jM" = (
 /obj/machinery/door/window{
-	dir = 4;
 	name = "Uplink Management Control";
 	req_access_txt = "151"
 	},
@@ -2859,20 +2792,17 @@
 /area/shuttle/assault_pod)
 "kn" = (
 /obj/machinery/sleeper/syndie{
-	dir = 2;
-	icon_state = "sleeper_s-open"
+	dir = 2
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kp" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /obj/machinery/sleeper/syndie{
-	dir = 2;
-	icon_state = "sleeper_s-open"
+	dir = 2
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2881,8 +2811,7 @@
 /area/syndicate_mothership)
 "ks" = (
 /obj/machinery/light{
-	dir = 8;
-	icon_state = "tube1"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2965,14 +2894,13 @@
 /obj/item/storage/fancy/crayons,
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kL" = (
 /obj/structure/table,
-/obj/item/gun/energy/ionrifle,
+/obj/item/gun/energy/ionrifle/carbine,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kM" = (
@@ -3041,7 +2969,6 @@
 /obj/structure/closet/secure_closet/personal,
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/carpet,
@@ -3166,7 +3093,6 @@
 /obj/structure/reagent_dispensers/beerkeg,
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel{
@@ -3188,7 +3114,6 @@
 "lv" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel/freezer,
@@ -3248,7 +3173,6 @@
 /obj/structure/chair/stool,
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/plasteel{
@@ -3382,7 +3306,6 @@
 "me" = (
 /obj/structure/table,
 /obj/machinery/processor{
-	pixel_x = 0;
 	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel{
@@ -3392,7 +3315,6 @@
 "mf" = (
 /obj/machinery/camera{
 	c_tag = "CentComm Special Ops. Mass Drivers";
-	dir = 2;
 	network = list("ERT","CentComm")
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -3425,7 +3347,6 @@
 "mj" = (
 /obj/machinery/camera{
 	c_tag = "CentComm Special Ops. Assault Armor Storage";
-	dir = 2;
 	network = list("ERT","CentComm")
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -3448,7 +3369,6 @@
 /obj/structure/table,
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/plasteel{
@@ -3465,7 +3385,6 @@
 "mn" = (
 /obj/machinery/mass_driver{
 	dir = 8;
-	drive_range = 50;
 	id_tag = "ASSAULT3";
 	name = "gravpult"
 	},
@@ -3553,7 +3472,6 @@
 "mB" = (
 /obj/machinery/mass_driver{
 	dir = 8;
-	drive_range = 50;
 	id_tag = "ASSAULT2";
 	name = "gravpult"
 	},
@@ -3656,7 +3574,6 @@
 /obj/machinery/sleeper/upgraded,
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/carpet,
@@ -3753,7 +3670,6 @@
 "nl" = (
 /obj/machinery/mass_driver{
 	dir = 8;
-	drive_range = 50;
 	id_tag = "ASSAULT1";
 	name = "gravpult"
 	},
@@ -3772,8 +3688,7 @@
 /area/syndicate_mothership)
 "nr" = (
 /obj/item/radio/intercom/syndicate{
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -3802,7 +3717,6 @@
 /obj/item/card/id/centcom,
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /obj/item/door_remote/centcomm,
@@ -3957,7 +3871,6 @@
 "nN" = (
 /obj/machinery/mass_driver{
 	dir = 8;
-	drive_range = 50;
 	id_tag = "ASSAULT0";
 	name = "gravpult"
 	},
@@ -3975,8 +3888,7 @@
 /area/centcom/specops)
 "nP" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
-	dir = 8;
-	icon_state = "recharge_port"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -4050,7 +3962,6 @@
 "ol" = (
 /obj/machinery/camera{
 	c_tag = "CentComm Special Ops. Bathroom";
-	dir = 2;
 	network = list("ERT","CentComm")
 	},
 /obj/structure/table/reinforced,
@@ -4095,7 +4006,6 @@
 	ailock = 1;
 	check_synth = 1;
 	name = "Gamma Turret Control Panel";
-	pixel_x = 0;
 	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
@@ -4118,7 +4028,6 @@
 /obj/item/storage/box/cups,
 /obj/machinery/camera{
 	c_tag = "CentComm Special Ops. Ready Room North";
-	dir = 2;
 	network = list("ERT","CentComm")
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -4144,7 +4053,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "CentComm Special Ops. Starting Room";
-	dir = 2;
 	network = list("ERT","CentComm")
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -4178,14 +4086,11 @@
 /obj/item/gun/projectile/shotgun/automatic/combat,
 /obj/item/gun/projectile/shotgun/automatic/combat,
 /obj/machinery/status_display{
-	density = 0;
 	layer = 4;
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -4197,7 +4102,6 @@
 /obj/item/gun/energy/sniperrifle,
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /obj/machinery/ai_status_display{
@@ -4361,8 +4265,7 @@
 /area/shuttle/escape)
 "pa" = (
 /obj/structure/sign/securearea{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
@@ -4461,8 +4364,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /obj/machinery/mech_bay_recharge_port/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -4475,19 +4377,12 @@
 /obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
-"pt" = (
-/obj/machinery/door/airlock/titanium{
-	req_access_txt = "0"
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/gamma/space)
 "pu" = (
 /obj/mecha/combat/marauder/ares/loaded,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
@@ -4545,7 +4440,6 @@
 "pK" = (
 /obj/machinery/camera{
 	c_tag = "CentComm Special Ops. Bathroom";
-	dir = 2;
 	network = list("ERT","CentComm")
 	},
 /turf/simulated/floor/plasteel/freezer,
@@ -4553,15 +4447,13 @@
 "pL" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Bathroom";
-	opacity = 1;
-	req_access_txt = "0"
+	opacity = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "pN" = (
 /obj/machinery/door_control{
 	desc = "A remote control switch to block view of the singularity.";
-	icon_state = "doorctrl0";
 	id = "GRAVPULTS";
 	name = "Gravity Catapults";
 	pixel_x = -6;
@@ -4570,7 +4462,6 @@
 	},
 /obj/machinery/door_control{
 	desc = "A remote control switch to block view of the singularity.";
-	icon_state = "doorctrl0";
 	id = "ASSAULT";
 	name = "Mech Storage";
 	pixel_x = 6;
@@ -4579,7 +4470,6 @@
 	},
 /obj/machinery/door_control{
 	desc = "A remote control switch to block view of the singularity.";
-	icon_state = "doorctrl0";
 	id = "CCTELE";
 	name = "Teleporter Access";
 	pixel_x = -6;
@@ -4610,8 +4500,7 @@
 "pR" = (
 /obj/machinery/computer/station_alert,
 /obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -4637,7 +4526,6 @@
 "pW" = (
 /obj/machinery/newscaster{
 	layer = 3.3;
-	pixel_x = 0;
 	pixel_y = -27
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -4645,7 +4533,6 @@
 "pX" = (
 /obj/machinery/door_control{
 	desc = "A remote control switch to connect the ready room to the rest of Centcom.";
-	icon_state = "doorctrl0";
 	id = "SPECOPS";
 	name = "Ready Room";
 	pixel_x = -6;
@@ -4654,7 +4541,6 @@
 	},
 /obj/machinery/door_control{
 	desc = "A remote control switch to block view of the singularity.";
-	icon_state = "doorctrl0";
 	id = "specopsoffice";
 	name = "Privacy Shutters";
 	pixel_x = 6;
@@ -4663,7 +4549,6 @@
 	},
 /obj/machinery/door_control{
 	desc = "A remote control switch to block view of the singularity.";
-	icon_state = "doorctrl0";
 	id = "CCGAMMA";
 	name = "Gamma Lockdown";
 	pixel_x = -6;
@@ -4685,14 +4570,11 @@
 "qb" = (
 /obj/structure/sink{
 	dir = 4;
-	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
+	pixel_x = 11
 	},
 /obj/structure/mirror{
 	dir = 4;
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/centcom/specops)
@@ -4775,8 +4657,7 @@
 "qu" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Bathroom";
-	opacity = 1;
-	req_access_txt = "0"
+	opacity = 1
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/centcom/specops)
@@ -4805,8 +4686,7 @@
 "qy" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Unit 4";
-	opacity = 1;
-	req_access_txt = "0"
+	opacity = 1
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/centcom/bathroom)
@@ -4837,7 +4717,6 @@
 "qC" = (
 /obj/machinery/shower{
 	dir = 4;
-	icon_state = "shower";
 	pixel_x = 5;
 	tag = "icon-shower (EAST)"
 	},
@@ -4847,7 +4726,6 @@
 "qD" = (
 /obj/machinery/shower{
 	dir = 8;
-	icon_state = "shower";
 	pixel_x = -5;
 	tag = "icon-shower (WEST)"
 	},
@@ -4956,7 +4834,6 @@
 /obj/structure/table,
 /obj/machinery/door_control{
 	desc = "A remote control switch for port-side blast doors.";
-	icon_state = "doorctrl0";
 	id = "CentComPort";
 	name = "Security Doors";
 	pixel_y = -4;
@@ -5011,8 +4888,7 @@
 "re" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Unit 3";
-	opacity = 1;
-	req_access_txt = "0"
+	opacity = 1
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/centcom/bathroom)
@@ -5047,9 +4923,7 @@
 "rl" = (
 /obj/structure/sink{
 	dir = 4;
-	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
+	pixel_x = 11
 	},
 /obj/structure/mirror{
 	pixel_x = 32
@@ -5076,8 +4950,7 @@
 "ro" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Unit 2";
-	opacity = 1;
-	req_access_txt = "0"
+	opacity = 1
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/centcom/bathroom)
@@ -5126,8 +4999,7 @@
 "rx" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Bathroom";
-	opacity = 1;
-	req_access_txt = "0"
+	opacity = 1
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/centcom/evac)
@@ -5156,8 +5028,7 @@
 "rD" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Unit 1";
-	opacity = 1;
-	req_access_txt = "0"
+	opacity = 1
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/centcom/bathroom)
@@ -5176,8 +5047,7 @@
 	icon_state = "door_locked";
 	id_tag = "emergency_away";
 	name = "Arrival Airlock";
-	req_access = null;
-	req_access_txt = "0"
+	req_access = null
 	},
 /turf/simulated/floor/plating,
 /area/centcom/evac)
@@ -5191,7 +5061,6 @@
 "rJ" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion";
 	tag = "icon-propulsion (NORTH)"
 	},
 /turf/simulated/floor/plating/airless,
@@ -5217,7 +5086,6 @@
 /area/centcom/evac)
 "rO" = (
 /obj/docking_port/stationary{
-	dir = 1;
 	dwidth = 1;
 	height = 4;
 	id = "pod1_away";
@@ -5228,7 +5096,6 @@
 /area/space)
 "rP" = (
 /obj/docking_port/stationary{
-	dir = 1;
 	dwidth = 1;
 	height = 4;
 	id = "pod2_away";
@@ -5241,7 +5108,6 @@
 /obj/structure/window/reinforced,
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
-	icon_state = "heater";
 	tag = "icon-heater (NORTH)"
 	},
 /turf/simulated/floor/plating/airless,
@@ -5254,14 +5120,12 @@
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
 	icon_state = "space";
 	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_x = 0
+	name = "EXTERNAL AIRLOCK"
 	},
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/evac)
 "rW" = (
 /obj/docking_port/mobile/emergency{
-	dir = 4;
 	dwidth = 11;
 	height = 18;
 	width = 29
@@ -5306,8 +5170,7 @@
 "sc" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular{
-	pixel_x = 2;
-	pixel_y = 0
+	pixel_x = 2
 	},
 /obj/item/storage/firstaid/regular{
 	pixel_x = -2;
@@ -5327,18 +5190,14 @@
 "sg" = (
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = -30;
-	pixel_y = 0;
-	req_access_txt = "0"
+	pixel_x = -30
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/centcom/evac)
 "si" = (
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = 30;
-	pixel_y = 0;
-	req_access_txt = "0"
+	pixel_x = 30
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/centcom/evac)
@@ -5379,8 +5238,7 @@
 /area/centcom/evac)
 "st" = (
 /obj/structure/closet/secure_closet/bar{
-	req_access = null;
-	req_access_txt = "0"
+	req_access = null
 	},
 /turf/simulated/floor/wood,
 /area/centcom/evac)
@@ -5396,8 +5254,7 @@
 "sx" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Rest Area";
-	opacity = 1;
-	req_access_txt = "0"
+	opacity = 1
 	},
 /turf/simulated/floor/wood,
 /area/centcom/evac)
@@ -5405,7 +5262,6 @@
 /obj/machinery/computer/secure_data,
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -5427,9 +5283,7 @@
 /area/centcom/evac)
 "sC" = (
 /obj/machinery/door/window/northright{
-	base_state = "right";
 	dir = 4;
-	icon_state = "right";
 	name = "Security Desk";
 	req_access_txt = "104"
 	},
@@ -5487,8 +5341,7 @@
 /area/centcom/evac)
 "sL" = (
 /obj/machinery/door/airlock/hatch{
-	name = "Infirmary";
-	req_access_txt = "0"
+	name = "Infirmary"
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/centcom/evac)
@@ -5518,25 +5371,21 @@
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
 	icon_state = "space";
 	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_x = 0
+	name = "EXTERNAL AIRLOCK"
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/ferry)
 "sR" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Medical Treatment Post";
-	opacity = 1;
-	req_access_txt = "0"
+	opacity = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "sS" = (
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = -30;
-	pixel_y = 0;
-	req_access_txt = "0"
+	pixel_x = -30
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/centcom/evac)
@@ -5548,7 +5397,6 @@
 /area/tdome/tdomeobserve)
 "sU" = (
 /obj/structure/table{
-	dir = 2;
 	icon_state = "tabledir"
 	},
 /obj/item/reagent_containers/food/drinks/cans/cola,
@@ -5627,8 +5475,7 @@
 "td" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "ferry_away";
-	name = "Ferry Airlock";
-	req_access_txt = "0"
+	name = "Ferry Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/ferry)
@@ -5674,9 +5521,7 @@
 "tk" = (
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = 30;
-	pixel_y = 0;
-	req_access_txt = "0"
+	pixel_x = 30
 	},
 /obj/machinery/vending/snack,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -5708,8 +5553,7 @@
 /area/centcom/evac)
 "tp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 9;
-	icon_state = "intact"
+	dir = 9
 	},
 /turf/simulated/floor/plasteel/white,
 /area/centcom/evac)
@@ -5783,16 +5627,9 @@
 /area/centcom/evac)
 "tx" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 0;
-	pixel_y = 0
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/reagent_containers/glass/beaker/cryoxadone,
+/obj/item/reagent_containers/glass/beaker/cryoxadone,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whiteblue";
 	tag = "icon-whitehall (WEST)"
 	},
@@ -5806,7 +5643,6 @@
 	name = "Canister: \[O2] (CRYO)"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whiteblue";
 	tag = "icon-whitehall (WEST)"
 	},
@@ -5829,7 +5665,6 @@
 /obj/item/storage/firstaid/adv,
 /obj/item/storage/firstaid/brute,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whiteblue";
 	tag = "icon-whitehall (WEST)"
 	},
@@ -6047,11 +5882,9 @@
 /obj/structure/table,
 /obj/machinery/door_control{
 	desc = "A remote control switch for port-side blast doors.";
-	icon_state = "doorctrl0";
 	id = "thunderdome";
 	name = "Main Blast Doors";
 	pixel_x = -3;
-	pixel_y = 0;
 	req_access_txt = "104"
 	},
 /turf/simulated/floor/plasteel{
@@ -6068,7 +5901,6 @@
 /area/tdome/tdomeadmin)
 "uc" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "greencorner"
 	},
 /area/centcom/control)
@@ -6108,10 +5940,8 @@
 /obj/structure/table,
 /obj/machinery/door_control{
 	desc = "A remote control switch for port-side blast doors.";
-	icon_state = "doorctrl0";
 	id = "thunderdomehea";
 	name = "Ranged Gear";
-	pixel_x = 0;
 	pixel_y = 5;
 	req_access_txt = "104"
 	},
@@ -6124,10 +5954,8 @@
 /obj/structure/table,
 /obj/machinery/door_control{
 	desc = "A remote control switch for port-side blast doors.";
-	icon_state = "doorctrl0";
 	id = "thunderdomeaxe";
 	name = "Specialist Supply";
-	pixel_x = 0;
 	pixel_y = 5;
 	req_access_txt = "104"
 	},
@@ -6137,10 +5965,8 @@
 /obj/structure/table,
 /obj/machinery/door_control{
 	desc = "A remote control switch for port-side blast doors.";
-	icon_state = "doorctrl0";
 	id = "thunderdomegen";
 	name = "General Equiptment";
-	pixel_x = 0;
 	pixel_y = 5;
 	req_access_txt = "104"
 	},
@@ -6182,7 +6008,6 @@
 "uq" = (
 /obj/machinery/camera{
 	c_tag = "CentComm Special Ops. Bathroom";
-	dir = 2;
 	network = list("ERT","CentComm")
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -6725,15 +6550,13 @@
 /area/admin)
 "vN" = (
 /obj/machinery/door/airlock/hatch{
-	name = "Clothing Storage";
-	req_access_txt = "0"
+	name = "Clothing Storage"
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
 "vO" = (
 /obj/machinery/door/airlock/hatch{
-	name = "Mecha Room";
-	req_access_txt = "0"
+	name = "Mecha Room"
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -6783,8 +6606,7 @@
 /area/admin)
 "wc" = (
 /obj/machinery/door/airlock/hatch{
-	name = "External Airlock";
-	req_access_txt = "0"
+	name = "External Airlock"
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -6824,8 +6646,7 @@
 /area/space)
 "wl" = (
 /obj/machinery/door/airlock/hatch{
-	name = "Armory";
-	req_access_txt = "0"
+	name = "Armory"
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -7033,8 +6854,7 @@
 	opacity = 0
 	},
 /obj/machinery/door/airlock/hatch{
-	name = "Chem Lab";
-	req_access_txt = "0"
+	name = "Chem Lab"
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
@@ -7085,7 +6905,6 @@
 "wM" = (
 /obj/structure/mirror{
 	dir = 4;
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
@@ -7113,11 +6932,9 @@
 /obj/item/gun/energy/pulse/pistol,
 /obj/machinery/door_control{
 	desc = "A remote control switch to lock down the admin lab.";
-	icon_state = "doorctrl0";
 	id = "ADMINCHEMLOCKDOWN";
 	name = "Lockdown";
-	pixel_y = 24;
-	req_access_txt = "0"
+	pixel_y = 24
 	},
 /turf/simulated/floor/carpet,
 /area/admin)
@@ -7244,8 +7061,7 @@
 "xl" = (
 /obj/structure/table,
 /obj/machinery/door/window/southleft{
-	name = "security checkpoint";
-	req_access_txt = "0"
+	name = "security checkpoint"
 	},
 /turf/simulated/floor/carpet,
 /area/admin)
@@ -7297,8 +7113,7 @@
 /area/admin)
 "xr" = (
 /obj/machinery/door/airlock/hatch{
-	name = "Tool Storage";
-	req_access_txt = "0"
+	name = "Tool Storage"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
@@ -7367,8 +7182,7 @@
 /obj/structure/table,
 /obj/item/grenade/syndieminibomb{
 	pixel_x = 4;
-	pixel_y = 2;
-	pixel_z = 0
+	pixel_y = 2
 	},
 /obj/item/grenade/syndieminibomb{
 	pixel_x = -1
@@ -7377,9 +7191,7 @@
 /area/admin)
 "xE" = (
 /obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 0
-	},
+/obj/machinery/recharger,
 /obj/item/toy/cards/deck/syndicate/black,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
@@ -7405,8 +7217,7 @@
 	},
 /obj/machinery/door/airlock/hatch{
 	desc = "Uh oh.";
-	name = "Operating Theater";
-	req_access_txt = "0"
+	name = "Operating Theater"
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
@@ -7422,8 +7233,7 @@
 "xO" = (
 /obj/machinery/door/airlock/hatch{
 	desc = "You've heard rumors of the horrors that go on within this lab.";
-	name = "Laboratory (DANGER!)";
-	req_access_txt = "0"
+	name = "Laboratory (DANGER!)"
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -7481,10 +7291,7 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/item/card/id{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/card/id,
 /obj/item/card/id/admin{
 	pixel_x = 3;
 	pixel_y = 3
@@ -7527,8 +7334,7 @@
 /area/admin)
 "yl" = (
 /obj/machinery/door/airlock/public/glass{
-	name = "Computer Hub";
-	req_access_txt = "0"
+	name = "Computer Hub"
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -7549,8 +7355,7 @@
 "yn" = (
 /obj/machinery/door/airlock/hatch{
 	desc = "For all your shady business needs";
-	name = "Gambling Den";
-	req_access_txt = "0"
+	name = "Gambling Den"
 	},
 /turf/simulated/floor/wood,
 /area/admin)
@@ -7581,8 +7386,7 @@
 /area/centcom/evac)
 "yw" = (
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/trader_station/sol)
@@ -7697,11 +7501,8 @@
 /obj/structure/table,
 /obj/machinery/door_control{
 	desc = "A remote control switch to lock down external access to the admin room.";
-	icon_state = "doorctrl0";
 	id = "ADMINLOCKDOWN";
-	name = "Lockdown";
-	pixel_y = 0;
-	req_access_txt = "0"
+	name = "Lockdown"
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -7712,9 +7513,7 @@
 /area/centcom/evac)
 "yX" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_y = 0
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/centcom/evac)
 "yY" = (
@@ -7746,15 +7545,13 @@
 "zd" = (
 /obj/machinery/door/airlock/hatch{
 	desc = "Danger: May contain robustness";
-	name = "Dojo";
-	req_access_txt = "0"
+	name = "Dojo"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "ze" = (
 /obj/machinery/door/airlock/public/glass{
-	name = "Shuttle Bay";
-	req_access_txt = "0"
+	name = "Shuttle Bay"
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -7898,8 +7695,7 @@
 	id_tag = "vox_northwest_lock";
 	locked = 1;
 	req_access_txt = "152";
-	req_one_access = null;
-	req_one_access_txt = "0"
+	req_one_access = null
 	},
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/vox)
@@ -7929,14 +7725,12 @@
 "zM" = (
 /obj/machinery/door/window{
 	dir = 1;
-	name = "Suit Storage";
-	req_access_txt = "0"
+	name = "Suit Storage"
 	},
 /turf/simulated/floor/engine,
 /area/admin)
 "zN" = (
 /obj/machinery/door/poddoor/shutters{
-	dir = 4;
 	id_tag = "commandcenter";
 	name = "Privacy Shutters"
 	},
@@ -7948,8 +7742,7 @@
 /area/centcom/evac)
 "zP" = (
 /obj/machinery/door/airlock{
-	name = "Toilet";
-	req_access_txt = "0"
+	name = "Toilet"
 	},
 /turf/simulated/floor/plasteel,
 /area/trader_station/sol)
@@ -7974,8 +7767,7 @@
 	id_tag = "vox_northeast_lock";
 	locked = 1;
 	req_access_txt = "152";
-	req_one_access = null;
-	req_one_access_txt = "0"
+	req_one_access = null
 	},
 /obj/docking_port/mobile{
 	dir = 2;
@@ -8069,9 +7861,7 @@
 	},
 /obj/structure/sink{
 	dir = 4;
-	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
+	pixel_x = 11
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
@@ -8102,8 +7892,7 @@
 /obj/machinery/door/window{
 	dir = 8;
 	name = "Toilet";
-	opacity = 1;
-	req_access_txt = "0"
+	opacity = 1
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
@@ -8114,7 +7903,6 @@
 /obj/structure/window/reinforced,
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
-	icon_state = "heater";
 	tag = "icon-heater (NORTH)"
 	},
 /turf/simulated/floor/plating/airless,
@@ -8176,8 +7964,7 @@
 /area/admin)
 "AI" = (
 /obj/machinery/door/airlock/hatch{
-	name = "Teleporter Access";
-	req_access_txt = "0"
+	name = "Teleporter Access"
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -8280,7 +8067,6 @@
 "AY" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /obj/machinery/pdapainter,
@@ -8290,7 +8076,6 @@
 /obj/structure/table,
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /obj/item/storage/backpack/satchel,
@@ -8300,7 +8085,6 @@
 "Ba" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /obj/machinery/vending/tool,
@@ -8390,8 +8174,7 @@
 /area/syndicate_mothership)
 "Bt" = (
 /obj/structure/chair/comfy/red{
-	dir = 1;
-	icon_state = "comfychair"
+	dir = 1
 	},
 /obj/effect/landmark{
 	name = "Syndicate Officer"
@@ -8631,7 +8414,6 @@
 	frequency = 1331;
 	icon_state = "door_locked";
 	id_tag = "synd_outer";
-	locked = 0;
 	name = "Ship External Access";
 	req_access = null;
 	req_access_txt = "150"
@@ -8743,7 +8525,6 @@
 "CO" = (
 /obj/machinery/door/window{
 	base_state = "right";
-	dir = 4;
 	icon_state = "right";
 	name = "Equipment Room";
 	req_access_txt = "150"
@@ -8766,7 +8547,6 @@
 /obj/item/clothing/gloves/color/latex/nitrile,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
@@ -8777,8 +8557,7 @@
 	id_tag = "vox_southwest_lock";
 	locked = 1;
 	req_access_txt = "152";
-	req_one_access = null;
-	req_one_access_txt = "0"
+	req_one_access = null
 	},
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/vox)
@@ -8831,8 +8610,7 @@
 	req_access_txt = "101"
 	},
 /obj/machinery/light{
-	dir = 8;
-	icon_state = "tube1"
+	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -8890,7 +8668,6 @@
 	frequency = 1441;
 	id_tag = "syndicate_jail_airlock_control";
 	name = "Syndicate Jail Access Controller";
-	pixel_x = 0;
 	pixel_y = 24;
 	req_access_txt = "150";
 	tag_exterior_door = "syndicate_jail_airlock_external";
@@ -8903,7 +8680,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
@@ -8925,7 +8701,6 @@
 "DP" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/donksoft,
@@ -8986,7 +8761,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "green"
 	},
 /area/holodeck/source_basketball)
@@ -9081,7 +8855,6 @@
 "EM" = (
 /obj/item/radio/intercom{
 	dir = 8;
-	name = "station intercom (General)";
 	pixel_x = -28
 	},
 /obj/machinery/recharge_station,
@@ -9178,7 +8951,6 @@
 /area/shuttle/administration)
 "Fc" = (
 /obj/machinery/door/window{
-	dir = 4;
 	name = "Equipment Room";
 	req_access_txt = "150"
 	},
@@ -9267,9 +9039,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 0
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
 "Fr" = (
@@ -9305,7 +9075,6 @@
 /obj/item/stock_parts/cell/high,
 /obj/machinery/light/small{
 	dir = 8;
-	icon_state = "bulb1";
 	tag = "icon-bulb1 (WEST)"
 	},
 /turf/simulated/floor/plasteel{
@@ -9327,7 +9096,6 @@
 "FG" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -9424,8 +9192,7 @@
 	master_tag = "synd_airlock";
 	name = "interior access button";
 	pixel_x = 25;
-	pixel_y = 25;
-	req_access_txt = "0"
+	pixel_y = 25
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -9465,12 +9232,10 @@
 "GL" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light{
-	dir = 8;
-	icon_state = "tube1"
+	dir = 8
 	},
 /obj/item/reagent_containers/food/drinks/mug/med,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
@@ -9526,8 +9291,7 @@
 	dir = 8
 	},
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9565,7 +9329,6 @@
 /area/shuttle/syndicate)
 "Hp" = (
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "rampbottom";
 	tag = "icon-rampbottom"
 	},
@@ -9640,7 +9403,6 @@
 "HN" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -9683,8 +9445,7 @@
 /area/tdome)
 "Ic" = (
 /obj/machinery/light{
-	dir = 8;
-	icon_state = "tube1"
+	dir = 8
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -9711,8 +9472,7 @@
 "Ij" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -9761,7 +9521,6 @@
 	name = "Bolt Cell Doors";
 	normaldoorcontrol = 1;
 	pixel_x = 6;
-	pixel_y = 0;
 	req_access_txt = "150";
 	specialfunctions = 4
 	},
@@ -9770,7 +9529,6 @@
 	name = "Bolt Jail Door";
 	normaldoorcontrol = 1;
 	pixel_x = -5;
-	pixel_y = 0;
 	req_access_txt = "150";
 	specialfunctions = 4
 	},
@@ -9781,7 +9539,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "asteroid7";
 	tag = "icon-asteroid7"
 	},
@@ -9824,7 +9581,6 @@
 /obj/item/clothing/under/color/green,
 /obj/item/holo/esword/green,
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "green"
 	},
 /area/holodeck/source_thunderdomecourt)
@@ -9832,8 +9588,7 @@
 /obj/structure/table,
 /obj/item/grenade/syndieminibomb{
 	pixel_x = 4;
-	pixel_y = 2;
-	pixel_z = 0
+	pixel_y = 2
 	},
 /obj/item/grenade/syndieminibomb{
 	pixel_x = -1
@@ -9846,9 +9601,7 @@
 	},
 /obj/structure/sink{
 	dir = 4;
-	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
+	pixel_x = 11
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -9919,7 +9672,6 @@
 "Jn" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -9951,7 +9703,6 @@
 /area/shuttle/escape)
 "Jx" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
@@ -10053,9 +9804,7 @@
 /area/vox_station)
 "Kw" = (
 /obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 0
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "Kx" = (
@@ -10065,7 +9814,6 @@
 "Ky" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
-	dir = 4;
 	icon_state = "open";
 	id_tag = "adminshuttleshutters";
 	name = "Blast Shutters";
@@ -10098,7 +9846,6 @@
 "KF" = (
 /obj/item/radio/intercom{
 	dir = 8;
-	name = "station intercom (General)";
 	pixel_x = -28
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -10128,7 +9875,6 @@
 "KM" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -10143,7 +9889,6 @@
 	},
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /obj/structure/chair/comfy/shuttle,
@@ -10224,7 +9969,6 @@
 "Li" = (
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -10232,7 +9976,6 @@
 "Lj" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -10246,7 +9989,6 @@
 "Lm" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
-	dir = 4;
 	icon_state = "open";
 	id_tag = "voxshutters";
 	name = "Blast Shutters";
@@ -10299,7 +10041,6 @@
 /obj/item/storage/box/handcuffs,
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -10327,7 +10068,6 @@
 /obj/item/storage/backpack/medic,
 /obj/item/storage/belt/medical,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
@@ -10408,7 +10148,6 @@
 	id = "syndicate_elite";
 	name = "Blast Doors";
 	pixel_x = -25;
-	pixel_y = 0;
 	req_access_txt = "150"
 	},
 /obj/machinery/door/poddoor{
@@ -10463,7 +10202,6 @@
 "MB" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -10494,8 +10232,7 @@
 "MI" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light{
-	dir = 8;
-	icon_state = "tube1"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -10548,7 +10285,6 @@
 "Nb" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -10567,7 +10303,6 @@
 /obj/machinery/clonepod/upgraded,
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -10594,7 +10329,6 @@
 "Nv" = (
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -10623,8 +10357,7 @@
 /area/shuttle/escape)
 "NB" = (
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/vox)
@@ -10697,8 +10430,7 @@
 	dir = 4
 	},
 /obj/structure/shuttle/engine/heater{
-	dir = 8;
-	icon_state = "heater"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/specops)
@@ -10708,7 +10440,6 @@
 "NY" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -10801,16 +10532,14 @@
 "Oy" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = null;
-	name = "Escape Shuttle Infirmary";
-	req_access_txt = "0"
+	name = "Escape Shuttle Infirmary"
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "Oz" = (
 /obj/machinery/light{
-	dir = 8;
-	icon_state = "tube1"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -10904,7 +10633,6 @@
 "Pl" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /obj/machinery/suit_storage_unit/syndicate/secure,
@@ -10940,8 +10668,7 @@
 /area/shuttle/administration)
 "PD" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "propulsion"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/trade/sol)
@@ -10963,7 +10690,6 @@
 /obj/item/tank/internals/nitrogen,
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
@@ -11041,7 +10767,6 @@
 	},
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
@@ -11129,8 +10854,7 @@
 "QD" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = null;
-	name = "Escape Shuttle Infirmary";
-	req_access_txt = "0"
+	name = "Escape Shuttle Infirmary"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -11152,8 +10876,7 @@
 /area/shuttle/escape)
 "QH" = (
 /obj/structure/reagent_dispensers/fueltank/chem{
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11167,8 +10890,10 @@
 "QK" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
@@ -11183,7 +10908,6 @@
 /area/syndicate_mothership/jail)
 "QQ" = (
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon = 'icons/turf/floors/plating.dmi';
 	icon_state = "asteroid6";
 	tag = "icon-asteroid6"
@@ -11191,7 +10915,6 @@
 /area/holodeck/source_desert)
 "QR" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 2;
 	frequency = 1331;
 	id_tag = "synd_pump"
 	},
@@ -11236,7 +10959,6 @@
 "Re" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /obj/machinery/sleeper/syndie{
@@ -11254,7 +10976,6 @@
 /obj/structure/window/reinforced,
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
-	icon_state = "heater";
 	tag = "icon-heater (NORTH)"
 	},
 /turf/simulated/floor/plating/airless,
@@ -11280,7 +11001,6 @@
 "Rn" = (
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /obj/machinery/door_control{
@@ -11288,16 +11008,14 @@
 	layer = 3;
 	name = "Loading Doors";
 	pixel_x = 24;
-	pixel_y = 8;
-	req_access_txt = "0"
+	pixel_y = 8
 	},
 /obj/machinery/door_control{
 	id = "QMLoaddoor";
 	layer = 3;
 	name = "Loading Doors";
 	pixel_x = 24;
-	pixel_y = -8;
-	req_access_txt = "0"
+	pixel_y = -8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
@@ -11350,7 +11068,6 @@
 "RF" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion";
 	tag = "icon-propulsion (NORTH)"
 	},
 /turf/simulated/floor/plating/airless,
@@ -11437,8 +11154,7 @@
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
 	icon_state = "space";
 	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_x = 0
+	name = "EXTERNAL AIRLOCK"
 	},
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate)
@@ -11448,7 +11164,6 @@
 "Sp" = (
 /obj/item/flag/med,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
@@ -11471,9 +11186,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Sv" = (
-/obj/machinery/atmospherics/unary/tank/air{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/tank/air,
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate)
 "Sy" = (
@@ -11499,7 +11212,6 @@
 "SH" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -11541,7 +11253,6 @@
 /obj/item/clothing/head/helmet/riot/knight/blue,
 /obj/item/holo/claymore/blue,
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "blue"
 	},
 /area/holodeck/source_knightarena)
@@ -11619,8 +11330,7 @@
 	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
 	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -11654,7 +11364,6 @@
 "TQ" = (
 /obj/structure/holowindow,
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "asteroid7";
 	tag = "icon-asteroid7"
 	},
@@ -11742,7 +11451,6 @@
 /area/shuttle/syndicate)
 "Uv" = (
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon = 'icons/turf/floors/plating.dmi';
 	icon_state = "asteroid5";
 	tag = "icon-asteroid5"
@@ -11754,9 +11462,7 @@
 /area/shuttle/syndicate)
 "Uy" = (
 /obj/structure/table/holotable,
-/obj/machinery/readybutton{
-	pixel_y = 0
-	},
+/obj/machinery/readybutton,
 /turf/simulated/floor/holofloor{
 	dir = 6;
 	icon_state = "green"
@@ -11777,7 +11483,6 @@
 "UC" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /obj/structure/window/reinforced,
@@ -11789,7 +11494,6 @@
 "UD" = (
 /obj/machinery/door/window{
 	base_state = "right";
-	dir = 4;
 	icon_state = "right";
 	name = "Infirmary";
 	req_access_txt = "150"
@@ -11854,7 +11558,6 @@
 "Va" = (
 /obj/machinery/camera{
 	c_tag = "CentComm Special Ops. Shuttle";
-	dir = 2;
 	network = list("ERT","CentComm")
 	},
 /obj/structure/chair/comfy/shuttle,
@@ -11881,7 +11584,6 @@
 	},
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -12026,7 +11728,6 @@
 /area/shuttle/syndicate)
 "VZ" = (
 /turf/simulated/floor/holofloor{
-	dir = 2;
 	icon_state = "asteroid7";
 	tag = "icon-asteroid7"
 	},
@@ -12067,7 +11768,6 @@
 "Wh" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
-	req_access_txt = "0";
 	req_one_access_txt = "2;19"
 	},
 /turf/simulated/floor/plasteel{
@@ -12108,7 +11808,6 @@
 "Wp" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /obj/structure/chair/comfy/shuttle,
@@ -12149,7 +11848,6 @@
 "WL" = (
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -12196,7 +11894,6 @@
 "Xi" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /obj/machinery/door_control{
@@ -12204,16 +11901,14 @@
 	name = "Blast door control";
 	pixel_x = -5;
 	pixel_y = 35;
-	req_access = list(101);
-	req_access_txt = "0"
+	req_access = list(101)
 	},
 /obj/machinery/door_control{
 	id = "adminshuttleshutters";
 	name = "Shutter control";
 	pixel_x = 5;
 	pixel_y = 35;
-	req_access = list(101);
-	req_access_txt = "0"
+	req_access = list(101)
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -12272,7 +11967,6 @@
 	id = "syndicate_sit_1";
 	name = "Blast Doors";
 	pixel_x = -25;
-	pixel_y = 0;
 	req_access_txt = "150"
 	},
 /obj/structure/fans/tiny,
@@ -12313,7 +12007,6 @@
 "XC" = (
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -12321,7 +12014,6 @@
 "XG" = (
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
@@ -12331,7 +12023,6 @@
 "XJ" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /obj/machinery/access_button{
@@ -12385,7 +12076,6 @@
 /area/shuttle/vox)
 "Ya" = (
 /obj/machinery/atm{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -12395,9 +12085,7 @@
 /area/shuttle/trade/sol)
 "Yc" = (
 /obj/structure/table/holotable,
-/obj/machinery/readybutton{
-	pixel_y = 0
-	},
+/obj/machinery/readybutton,
 /turf/simulated/floor/holofloor{
 	dir = 9;
 	icon_state = "red"
@@ -12437,7 +12125,6 @@
 "Yl" = (
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -12543,7 +12230,6 @@
 "Za" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 8;
-	icon_state = "heater";
 	tag = "icon-heater (WEST)"
 	},
 /obj/structure/window/plasmareinforced{
@@ -12574,7 +12260,6 @@
 "Zi" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
@@ -12604,7 +12289,6 @@
 	},
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/plating/nitrogen,
@@ -12643,7 +12327,6 @@
 	},
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/plating/nitrogen,
@@ -12660,7 +12343,6 @@
 "ZK" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -26967,7 +26649,7 @@ fm
 of
 of
 of
-pt
+pn
 of
 of
 of
@@ -56465,7 +56147,7 @@ aN
 Yi
 ik
 hn
-eq
+hD
 iL
 ex
 hn

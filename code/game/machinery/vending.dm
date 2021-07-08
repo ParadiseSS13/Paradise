@@ -290,7 +290,7 @@
 			return
 		I.forceMove(src)
 		coin = I
-		to_chat(user, "<span class='notice'>You insert [I] into the [src]</span>")
+		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 		SStgui.update_uis(src)
 		return
 	if(refill_canister && istype(I, refill_canister))
@@ -806,11 +806,9 @@
 /obj/machinery/vending/power_change()
 	if(powered())
 		stat &= ~NOPOWER
-		update_icon()
 	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
-			update_icon()
+		stat |= NOPOWER
+	update_icon()
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(!(stat & BROKEN))
@@ -1583,6 +1581,7 @@
 	products = list(/obj/item/storage/bag/tray = 8,
 					/obj/item/kitchen/utensil/fork = 6,
 					/obj/item/trash/plate = 20,
+					/obj/item/trash/bowl = 20,
 					/obj/item/kitchen/knife = 3,
 					/obj/item/kitchen/rollingpin = 2,
 					/obj/item/kitchen/sushimat = 3,

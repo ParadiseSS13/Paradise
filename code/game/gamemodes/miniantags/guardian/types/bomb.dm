@@ -42,7 +42,7 @@
 	var/mob/living/spawner
 
 
-/obj/item/guardian_bomb/proc/disguise(var/obj/A)
+/obj/item/guardian_bomb/proc/disguise(obj/A)
 	A.forceMove(src)
 	stored_obj = A
 	opacity = A.opacity
@@ -60,10 +60,10 @@
 		to_chat(spawner, "<span class='danger'>Failure! Your trap on [stored_obj] didn't catch anyone this time.</span>")
 	qdel(src)
 
-/obj/item/guardian_bomb/proc/detonate(var/mob/living/user)
+/obj/item/guardian_bomb/proc/detonate(mob/living/user)
 	if(!istype(user))
 		return
-	to_chat(user, "<span class='danger'>The [src] was boobytrapped!</span>")
+	to_chat(user, "<span class='danger'>[src] was boobytrapped!</span>")
 	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)

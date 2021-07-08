@@ -2,7 +2,7 @@ GLOBAL_VAR(CMinutes)
 GLOBAL_DATUM(banlist_savefile, /savefile)
 GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 
-/proc/CheckBan(var/ckey, var/id, var/address)
+/proc/CheckBan(ckey, id, address)
 	if(!GLOB.banlist_savefile)		// if banlist_savefile cannot be located for some reason
 		LoadBans()		// try to load the bans
 		if(!GLOB.banlist_savefile)	// uh oh, can't find bans!
@@ -138,7 +138,6 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 		log_admin("Ban Expired: [key]")
 		message_admins("Ban Expired: [key]")
 	else
-		ban_unban_log_save("[key_name_admin(usr)] unbanned [key]")
 		log_admin("[key_name_admin(usr)] unbanned [key]")
 		message_admins("[key_name_admin(usr)] unbanned: [key]")
 		usr.client.holder.DB_ban_unban( ckey(key), BANTYPE_ANY_FULLBAN)

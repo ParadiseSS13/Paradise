@@ -252,8 +252,6 @@
 		for(var/obj/item/I in H)
 			if(istype(I, /obj/item/implant))
 				continue
-			if(istype(I, /obj/item/organ))
-				continue
 			qdel(I)
 
 	H.equipOutfit(selected_outfit)

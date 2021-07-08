@@ -138,14 +138,12 @@
 		volume_rate = between(0, number, air_contents.volume)
 
 	if(signal.data["status"])
-		spawn(2)
-			broadcast_status()
+		broadcast_status()
 		return //do not update_icon
 
 		//log_admin("DEBUG \[[world.timeofday]\]: outlet_injector/receive_signal: unknown command \"[signal.data["command"]]\"\n[signal.debug_print()]")
 		//return
-	spawn(2)
-		broadcast_status()
+	broadcast_status()
 	update_icon()
 
 	/*hide(var/i) //to make the little pipe section invisible, the icon changes.
@@ -159,7 +157,7 @@
 			on = 0
 		return*/
 
-/obj/machinery/atmospherics/unary/outlet_injector/multitool_menu(var/mob/user,var/obj/item/multitool/P)
+/obj/machinery/atmospherics/unary/outlet_injector/multitool_menu(mob/user, obj/item/multitool/P)
 	return {"
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
@@ -180,5 +178,5 @@
 /obj/machinery/atmospherics/unary/outlet_injector/interact(mob/user as mob)
 	update_multitool_menu(user)
 
-/obj/machinery/atmospherics/unary/outlet_injector/hide(var/i)
+/obj/machinery/atmospherics/unary/outlet_injector/hide(i)
 	update_underlays()

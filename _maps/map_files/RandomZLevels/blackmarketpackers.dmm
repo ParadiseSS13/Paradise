@@ -2536,7 +2536,7 @@
 	icon_state = "0-4";
 	d2 = 4
 	},
-/obj/machinery/computer/monitor,
+/obj/machinery/computer/monitor/secret,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Aft)

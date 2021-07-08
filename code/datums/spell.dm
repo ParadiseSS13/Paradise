@@ -38,7 +38,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	spell.remove_ranged_ability(spell.ranged_ability_user)
 	return ..()
 
-/obj/effect/proc_holder/proc/add_ranged_ability(mob/user, var/msg)
+/obj/effect/proc_holder/proc/add_ranged_ability(mob/user, msg)
 	if(!user || !user.client)
 		return
 	if(user.ranged_ability && user.ranged_ability != src)
@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(C && ranged_mousepointer && C.mouse_pointer_icon == ranged_mousepointer)
 		C.mouse_pointer_icon = initial(C.mouse_pointer_icon)
 
-/obj/effect/proc_holder/proc/remove_ranged_ability(mob/user, var/msg)
+/obj/effect/proc_holder/proc/remove_ranged_ability(mob/user, msg)
 	if(!user || (user.ranged_ability && user.ranged_ability != src)) //To avoid removing the wrong ability
 		return
 	user.ranged_ability = null

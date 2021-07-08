@@ -288,6 +288,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		if(!user.unEquip(src, silent = TRUE))
 			return 0
 
+	if(flags & ABSTRACT)
+		return 0
+
 	else
 		if(isliving(loc))
 			return 0
@@ -389,7 +392,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 /obj/item/proc/refill(mob/user, atom/A, amount)
 	return FALSE
 
-/obj/item/proc/talk_into(mob/M, var/text, var/channel=null)
+/obj/item/proc/talk_into(mob/M, text, channel=null)
 	return
 
 /// Called when a mob drops an item.
@@ -505,7 +508,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 /obj/item/proc/ui_action_click(mob/user, actiontype)
 	attack_self(user)
 
-/obj/item/proc/IsReflect(var/def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
+/obj/item/proc/IsReflect(def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
 	return 0
 
 /obj/item/proc/get_loc_turf()
@@ -728,3 +731,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(flags & SLOT_PDA)
 		owner.update_inv_wear_pda()
 
+/// Called on cyborg items that need special charging behavior. Override as needed for specific items.
+/obj/item/proc/cyborg_recharge(coeff = 1, emagged = FALSE)
+	return

@@ -89,7 +89,7 @@
 			animate(decal, alpha = 10, time = 20)
 			QDEL_IN(decal, 25)
 
-/obj/machinery/poolcontroller/proc/handleTemp(var/mob/M)
+/obj/machinery/poolcontroller/proc/handleTemp(mob/M)
 	if(!M || isAIEye(M) || issilicon(M) || isobserver(M) || M.stat == DEAD)
 		return
 	M.water_act(100, temperature, src)//leave temp at 0, we handle it in the switch. oh wait
@@ -108,7 +108,7 @@
 		if(FRIGID) //YOU'RE AS COLD AS ICE
 			to_chat(M, "<span class='danger'>The water is freezing!</span>")
 
-/obj/machinery/poolcontroller/proc/handleDrowning(var/mob/living/carbon/human/drownee)
+/obj/machinery/poolcontroller/proc/handleDrowning(mob/living/carbon/human/drownee)
 	if(!drownee)
 		return
 

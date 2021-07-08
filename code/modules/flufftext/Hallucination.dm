@@ -184,7 +184,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	image_icon = 'icons/mob/alien.dmi'
 	image_state = "alienh_pounce"
 
-/obj/effect/hallucination/simple/xeno/New(loc,var/mob/living/carbon/T)
+/obj/effect/hallucination/simple/xeno/New(loc, mob/living/carbon/T)
 	..()
 	name = "alien hunter ([rand(1, 1000)])"
 
@@ -735,7 +735,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 
 /obj/effect/hallucination/whispers
 
-/obj/effect/hallucination/whispers/New(loc,var/mob/living/carbon/T)
+/obj/effect/hallucination/whispers/New(loc, mob/living/carbon/T)
 	. = ..()
 	target = T
 	var/speak_messages = list("I'm watching you...","[target.name]!","Get out!","Kchck-Chkck? Kchchck!","Did you hear that?","What did you do ?","Why?","Give me that!","Honk!","HELP!!", "EI NATH!!", "RUN!!", "Kill me!","O bidai nabora se'sma!")
@@ -771,7 +771,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 
 /obj/effect/hallucination/message
 
-/obj/effect/hallucination/message/New(loc,var/mob/living/carbon/T)
+/obj/effect/hallucination/message/New(loc, mob/living/carbon/T)
 	. = ..()
 	target = T
 	var/chosen = pick("<span class='userdanger'>The light burns you!</span>",

@@ -25,16 +25,30 @@
 	update_icon()
 
 /obj/item/melee/baton/loaded/Initialize(mapload) //this one starts with a cell pre-installed.
-	if(isrobot(loc.loc)) // First loc would be the module
+	link_new_cell()
+	return ..()
+
+/obj/item/melee/baton/Destroy()
+	if(cell?.loc == src)
+		QDEL_NULL(cell)
+	return ..()
+
+/**
+ * Updates the linked power cell on the baton.
+ *
+ * If the baton is held by a cyborg, link it to their internal cell.
+ * Else, spawn a new cell and use that instead.
+ * Arguments:
+ * * unlink - If TRUE, sets the `cell` variable to `null` rather than linking it to a new one.
+ */
+/obj/item/melee/baton/proc/link_new_cell(unlink = FALSE)
+	if(unlink)
+		cell = null
+	else if(isrobot(loc.loc)) // First loc is the module
 		var/mob/living/silicon/robot/R = loc.loc
 		cell = R.cell
 	else
 		cell = new(src)
-	return ..()
-
-/obj/item/melee/baton/Destroy()
-	QDEL_NULL(cell)
-	return ..()
 
 /obj/item/melee/baton/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -76,6 +90,10 @@
 	if(!cell)
 		return
 	cell.use(amount)
+	if(cell.rigged)
+		cell = null
+		turned_on = FALSE
+		update_icon()
 	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 		turned_on = FALSE
 		update_icon()

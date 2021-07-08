@@ -591,15 +591,18 @@
 	reagent_state = LIQUID
 	color = "#21170E"
 	taste_description = "tea"
+	harmless = TRUE
 
 /datum/reagent/consumable/mugwort/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && M.mind)
-		if(M.mind.special_role == SPECIAL_ROLE_WIZARD)
-			update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(ishuman(M) && M.mind?.special_role == SPECIAL_ROLE_WIZARD)
+		update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		for(var/datum/reagent/R in M.reagents.reagent_list)
+			if(!R.harmless)
+				M.reagents.remove_reagent(R.id, 5) // purge those meme chems
 	return ..() | update_flags
 
 /datum/reagent/consumable/porktonium
@@ -791,6 +794,21 @@
 	color = "#B4641B"
 	taste_description = "gravy"
 
+/datum/reagent/consumable/wasabi
+	name = "Wasabi"
+	id = "wasabi"
+	description = "A pungent green paste often served with sushi. Consuming too much causes an uncomfortable burning sensation in the nostrils."
+	reagent_state = LIQUID
+	color = "#80942F"
+	taste_description = "pungency"
+
+/datum/reagent/consumable/wasabi/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST)
+		if(volume <= 1)
+			to_chat(M, "<span class='notice'>Your nostrils tingle briefly.</span>")
+		else
+			to_chat(M, "<span class='warning'>Your nostrils burn uncomfortably!</span>")
+			M.adjustFireLoss(1)
 
 ///Food Related, but non-nutritious
 

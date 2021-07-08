@@ -28,7 +28,6 @@
 		"eyes" =     /obj/item/organ/internal/eyes/luminescent_crystal, //Standard darksight of 2.
 		"strange crystal" = /obj/item/organ/internal/nucleation/strange_crystal
 		)
-	vision_organ = /obj/item/organ/internal/eyes/luminescent_crystal
 
 /datum/species/nucleation/on_species_gain(mob/living/carbon/human/H)
 	..()
