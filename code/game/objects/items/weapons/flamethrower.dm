@@ -68,7 +68,15 @@
 	. = ..()
 	if(flag)
 		return // too close
-	if(user && user.get_active_hand() == src) // Make sure our user is still holding us
+	if(!user)
+		return
+	if(user.mind?.martial_art?.no_guns)
+		to_chat(user, "<span class='warning'>[user.mind.martial_art.no_guns_message]</span>")
+		return
+	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
+		to_chat(user, "<span class='warning'>Your meaty finger is far too large for the trigger guard!</span>")
+		return
+	if(user.get_active_hand() == src) // Make sure our user is still holding us
 		var/turf/target_turf = get_turf(target)
 		if(target_turf)
 			var/turflist = getline(user, target_turf)
