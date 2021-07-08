@@ -14,6 +14,7 @@ SUBSYSTEM_DEF(radio)
 	"Special Ops" 	= DTH_FREQ,
 	"Syndicate" 	= SYND_FREQ,
 	"SyndTeam" 		= SYNDTEAM_FREQ,
+	"Soviet"		= SOV_FREQ,
 	"Supply" 		= SUP_FREQ,
 	"Service" 		= SRV_FREQ,
 	"AI Private"	= AI_FREQ,
@@ -53,6 +54,8 @@ SUBSYSTEM_DEF(radio)
 			return "srvradio"
 		if(PROC_FREQ)
 			return "proradio"
+		if(SOV_FREQ)
+			return "sovradio"
 
 	// If the above switch somehow failed. And it needs the SSradio. part otherwise it fails to compile
 	if(frequency in DEPT_FREQS)

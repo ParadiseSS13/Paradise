@@ -18,6 +18,7 @@
 
 #define SYND_FREQ 1213
 #define SYNDTEAM_FREQ 1244
+#define SOV_FREQ 1217 //Soviet
 #define DTH_FREQ 1341 //Special Operations
 #define AI_FREQ 1343
 #define ERT_FREQ 1345
