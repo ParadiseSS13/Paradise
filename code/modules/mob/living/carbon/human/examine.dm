@@ -398,7 +398,7 @@
 	if(print_flavor_text() && !skipface)
 		if(get_organ("head"))
 			var/obj/item/organ/external/head/H = get_organ("head")
-			if(!H.disfigured)
+			if(!(H.status & ORGAN_DISFIGURED))
 				msg += "[print_flavor_text()]\n"
 
 	msg += "*---------*</span>"

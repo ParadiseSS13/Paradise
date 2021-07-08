@@ -34,11 +34,11 @@
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
-			return 0
+			return FALSE
 
-		if(affected.internal_bleeding)
-			return 1
-		return 0
+		if(affected.status & ORGAN_INT_BLEEDING)
+			return TRUE
+		return FALSE
 
 /datum/surgery/debridement/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -72,9 +72,10 @@
 /datum/surgery_step/fix_vein/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!affected)
-		return 0
+		return FALSE
 
-	return affected.internal_bleeding
+	if(affected.status & ORGAN_INT_BLEEDING)
+		return TRUE
 
 /datum/surgery_step/fix_vein/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -88,7 +89,7 @@
 	user.visible_message("<span class='notice'> [user] has patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>", \
 		"<span class='notice'> You have patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>")
 
-	affected.internal_bleeding = FALSE
+	affected.fix_internal_bleeding()
 	if(ishuman(user) && prob(40))
 		var/mob/living/carbon/human/U = user
 		U.bloody_hands(target, 0)

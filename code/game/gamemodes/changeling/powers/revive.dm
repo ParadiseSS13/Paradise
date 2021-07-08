@@ -42,7 +42,7 @@
 			O.germ_level = 0
 			QDEL_NULL(O.hidden)
 			O.open = 0
-			O.internal_bleeding = FALSE
+			O.fix_internal_bleeding()
 			O.perma_injury = 0
 			O.status = 0
 			O.trace_chemicals.Cut()
