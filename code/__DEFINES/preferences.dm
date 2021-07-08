@@ -55,8 +55,9 @@
 // Yes I know this being an "enable to disable" is misleading, but it avoids having to tweak all existing pref entries
 #define PREFTOGGLE_2_REVERB_DISABLE	512
 #define PREFTOGGLE_2_FORCE_WHITE_RUNECHAT	1024
+#define PREFTOGGLE_2_SIMPLE_STAT_PANEL	2048
 
-#define TOGGLES_2_TOTAL 			2047 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_2_TOTAL 			4095 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_EMOTE_BUBBLE)
 
@@ -94,7 +95,7 @@
 #define EXP_TYPE_SERVICE		"Service"
 #define EXP_TYPE_WHITELIST		"Whitelist"
 
-#define EXP_DEPT_TYPE_LIST		list(EXP_TYPE_SERVICE, EXP_TYPE_MEDICAL, EXP_TYPE_ENGINEERING, EXP_TYPE_SCIENCE, EXP_TYPE_SECURITY, EXP_TYPE_COMMAND, EXP_TYPE_SILICON, EXP_TYPE_SPECIAL)
+#define EXP_DEPT_TYPE_LIST		list(EXP_TYPE_SUPPLY, EXP_TYPE_SERVICE, EXP_TYPE_MEDICAL, EXP_TYPE_ENGINEERING, EXP_TYPE_SCIENCE, EXP_TYPE_SECURITY, EXP_TYPE_COMMAND, EXP_TYPE_SILICON, EXP_TYPE_SPECIAL, EXP_TYPE_GHOST)
 
 // Defines just for parallax because its levels make storing it in the regular prefs a pain in the ass
 // These dont need to be bitflags because there isnt going to be more than one at a time of these active
@@ -104,3 +105,12 @@
 #define PARALLAX_MED			4
 #define PARALLAX_HIGH			8
 #define PARALLAX_INSANE			16
+
+// 2FA Defines. These are the same as the schema DB enums //
+
+/// Client has 2FA disabled
+#define _2FA_DISABLED "DISABLED"
+/// Client will be prompted for 2FA on IP changes
+#define _2FA_ENABLED_IP "ENABLED_IP"
+/// Client will be prompted for 2FA always
+#define _2FA_ENABLED_ALWAYS "ENABLED_ALWAYS"

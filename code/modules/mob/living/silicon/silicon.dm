@@ -288,13 +288,7 @@
 
 // this function displays the stations manifest in a separate window
 /mob/living/silicon/proc/show_station_manifest()
-	var/dat
-	dat += "<h4>Crew Manifest</h4>"
-	if(GLOB.data_core)
-		dat += GLOB.data_core.get_manifest(1) // make it monochrome
-	dat += "<br>"
-	src << browse(dat, "window=airoster")
-	onclose(src, "airoster")
+	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.not_incapacitated_state)
 
 /mob/living/silicon/assess_threat() //Secbots won't hunt silicon units
 	return -10
@@ -373,4 +367,3 @@
 /////////////////////////////////// EAR DAMAGE ////////////////////////////////////
 /mob/living/silicon/can_hear()
 	. = TRUE
-

@@ -161,7 +161,7 @@
 	name = "syndicate suit storage unit"
 	suit_type		= /obj/item/clothing/suit/space/hardsuit/syndi
 	mask_type		= /obj/item/clothing/mask/gas/syndicate
-	storage_type	= /obj/item/tank/jetpack/oxygen/harness
+	storage_type	= /obj/item/tank/internals/oxygen/red
 	req_access = list(ACCESS_SYNDICATE)
 	safeties = FALSE	//in a syndicate base, everything can be used as a murder weapon at a moment's notice.
 
@@ -315,7 +315,7 @@
 		if(store_item(I, user))
 			update_icon()
 			SStgui.update_uis(src)
-			to_chat(user, "<span class='notice'>You load the [I] into the storage compartment.</span>")
+			to_chat(user, "<span class='notice'>You load [I] into the storage compartment.</span>")
 		else
 			to_chat(user, "<span class='warning'>You can't fit [I] into [src]!</span>")
 		return
@@ -382,10 +382,10 @@
 		return
 	var/mob/living/target = A
 	if(!state_open)
-		to_chat(user, "<span class='warning'>The [src]'s doors are shut!</span>")
+		to_chat(user, "<span class='warning'>[src]'s doors are shut!</span>")
 		return
 	if(!is_operational())
-		to_chat(user, "<span class='warning'>The [src] is not operational!</span>")
+		to_chat(user, "<span class='warning'>[src] is not operational!</span>")
 		return
 	if(occupant || helmet || suit || storage)
 		to_chat(user, "<span class='warning'>It's too cluttered inside to fit in!</span>")

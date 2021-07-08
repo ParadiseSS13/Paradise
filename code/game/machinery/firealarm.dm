@@ -69,7 +69,7 @@ FIRE ALARM
 	if(!emagged)
 		emagged = TRUE
 		if(user)
-			user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>",
+			user.visible_message("<span class='warning'>Sparks fly out of [src]!</span>",
 								"<span class='notice'>You emag [src], disabling its thermal sensors.</span>")
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
 
@@ -98,9 +98,8 @@ FIRE ALARM
 			if(istype(I, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/coil = I
 				if(!coil.use(5))
-					to_chat(user, "<span class='warning'>You cut the wires!</span>")
+					to_chat(user, "<span class='warning'>You need a total of five cables to wire [src]!</span>")
 					return
-
 				buildstage = FIRE_ALARM_READY
 				playsound(get_turf(src), I.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You wire [src]!</span>")

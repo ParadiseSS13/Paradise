@@ -52,7 +52,7 @@
 		else
 			. += "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>"
 	else
-		. += "<span class='notice'>There are a pair of <b>bolts</b> in the defib unit housing securing the [src] to the wall.<span>"
+		. += "<span class='notice'>There are a pair of <b>bolts</b> in the defibrillator unit housing, securing [src] to the wall.<span>"
 
 /obj/machinery/defibrillator_mount/process()
 	if(defib && defib.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
@@ -117,7 +117,7 @@
 /obj/machinery/defibrillator_mount/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(defib)
-		to_chat(user, "<span class='warning'>The [defib] is blocking access to the bolts!</span>")
+		to_chat(user, "<span class='warning'>[defib] is blocking access to the bolts!</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

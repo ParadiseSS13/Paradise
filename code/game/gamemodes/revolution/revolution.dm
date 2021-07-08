@@ -110,6 +110,7 @@
 		to_chat(rev_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
 		obj_count++
+	to_chat(rev_mind.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Revolution)</span>")
 
 /////////////////////////////////////////////////////////////////////////////////
 //This are equips the rev heads with their gear, and makes the clown not clumsy//
