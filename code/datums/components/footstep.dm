@@ -25,7 +25,7 @@
 			if(!ishuman(parent))
 				return COMPONENT_INCOMPATIBLE
 			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_humanstep)
-			return
+			return // Humans don't get past here
 		if(FOOTSTEP_MOB_BAREFOOT)
 			footstep_sounds = GLOB.barefootstep
 		if(FOOTSTEP_MOB_CLAW)
@@ -81,14 +81,29 @@
 	var/turf/simulated/floor/T = prepare_step()
 	if(!T)
 		return
+
+	// Single set sound file
 	if(isfile(footstep_sounds) || istext(footstep_sounds))
-		playsound(T, footstep_sounds, volume, falloff_distance = 1, vary = sound_vary)
+		playsound(T, footstep_sounds, volume, sound_vary)
 		return
+
+	// Turf-dependent sound file
 	var/turf_footstep = get_turf_sound(T, footstep_type)
 	if(!turf_footstep)
 		return
-	playsound(T, pick(footstep_sounds[turf_footstep][1]), footstep_sounds[turf_footstep][2] * volume, TRUE, footstep_sounds[turf_footstep][3] + e_range, falloff_distance = 1, vary = sound_vary)
+	playsound(T,
+		pick(footstep_sounds[turf_footstep][1]),	// Sound
+		footstep_sounds[turf_footstep][2] * volume, // Volume
+		sound_vary,									// Pitch variation
+		footstep_sounds[turf_footstep][3] + e_range // Range
+	)
 
+/**
+ * Plays a footstep sound for /human mobs, based on species and footwear.
+ *
+ * If the mob is wearing shoes then a shoe sound is played, if they're barefoot then the sound will be set by their [/datum/species/var/footstep_type] variable.
+ * In both cases the final sound is based on the turf they're walking over. (Metal, wood, carpet, etc.)
+ */
 /datum/component/footstep/proc/play_humanstep()
 	SIGNAL_HANDLER
 
@@ -104,14 +119,17 @@
 	if((H.wear_suit?.body_parts_covered | H.w_uniform?.body_parts_covered | H.shoes?.body_parts_covered) & FEET)
 		step_type = FOOTSTEP_MOB_SHOE // Feet are covered
 
+	// Barefoot, claws, shoes, etc.
 	var/list/step_sounds = get_step_sounds(step_type)
+	// Metal, wood, carpet, etc.
 	var/turf_footstep = get_turf_sound(T, step_type)
 
 	playsound(T,
-		pick(step_sounds[turf_footstep][1]),
-		step_sounds[turf_footstep][2] * volume,
-		TRUE,
-		step_sounds[turf_footstep][3] + e_range, falloff_distance = 1, vary = sound_vary)
+		pick(step_sounds[turf_footstep][1]),	// Sound
+		step_sounds[turf_footstep][2] * volume, // Volume
+		sound_vary,								// Pitch variation
+		step_sounds[turf_footstep][3] + e_range // Range
+	)
 
 
 ///Prepares a footstep for machine walking
@@ -121,7 +139,7 @@
 	var/turf/simulated/floor/T = get_turf(parent)
 	if(!istype(T))
 		return
-	playsound(T, footstep_sounds, 50, falloff_distance = 1, vary = sound_vary)
+	playsound(T, footstep_sounds, 50, sound_vary)
 
 /datum/component/footstep/proc/get_step_sounds(step_type)
 	switch(step_type)
