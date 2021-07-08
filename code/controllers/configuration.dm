@@ -759,7 +759,7 @@
 				if("discord_webhooks_admin_role_id")
 					discord_admin_role_id = "[value]" // This MUST be a string because BYOND doesnt like massive integers
 				if("discord_webhooks_mentor_role_id")
-					discord_mentor_role_id = "[value]"
+					discord_mentor_role_id = "[value]" // Same here. This MUST be a string because BYOND doesnt like massive integers
 				if("discord_webhooks_main_url")
 					discord_main_webhook_urls = splittext(value, "|")
 				if("discord_webhooks_admin_url")
