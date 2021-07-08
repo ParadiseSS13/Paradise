@@ -3,7 +3,7 @@ description: Сообщить об ошибке
 title: "Bug: "
 labels: [bug, triage]
 body:
-  - type: textarea
+  - type: input
     id: ckey
     attributes:
       label: Ckey
