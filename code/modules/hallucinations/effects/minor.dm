@@ -37,7 +37,10 @@
 	var/list/turfs = list()
 	for(var/turf/T in range(world.view, target))
 		turfs += T
-	. = ..(mapload, target, pick(turfs))
+	if(length(turfs))
+		. = ..(mapload, target, pick(turfs))
+	else
+		. = ..(mapload, target)
 
 /**
   * # Hallucination - Bolts
