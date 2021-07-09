@@ -371,28 +371,25 @@
 	return FALSE
 
 /turf/simulated/wall/proc/try_decon(obj/item/I, mob/user, params)
+	var/cutting = FALSE
+	var/speed = 10 //Time to cut down the wall, plasmacutter is faster
 	if(istype(I, /obj/item/gun/energy/plasmacutter))
-		to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
-		playsound(src, I.usesound, 100, 1)
-		if(do_after(user, I.toolspeed * 6 SECONDS, target = src))
-			cut_down(I, user)
-			return TRUE
-	if(istype(I, /obj/item/melee/energy))
+		cutting = TRUE
+		speed = 6
+	else if(istype(I, /obj/item/melee/energy))
 		var/obj/item/melee/energy/O = I
-		if(O.can_cut_walls && O.active)
-			to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
-			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
-			if(do_after(user, O.toolspeed * 10 SECONDS, target = src))
-				cut_down(I, user)
-				return TRUE
-	if(istype(I, /obj/item/twohanded/dualsaber))
+		cutting = O.can_cut_walls && O.active
+	else if(istype(I, /obj/item/twohanded/dualsaber))
 		var/obj/item/twohanded/dualsaber/O = I
-		if(O.wielded && !O.toy)
-			to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
-			playsound(src, 'sound/items/welder.ogg', 100, 1)
-			if(do_after(user, O.toolspeed * 10 SECONDS, target = src))
-				cut_down(I, user)
-				return TRUE
+		cutting = O.wielded && !O.toy
+	if(!cutting)
+		return FALSE
+
+	to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
+	playsound(src, 'sound/items/welder.ogg', 100, TRUE)
+	if(do_after(user, I.toolspeed * speed SECONDS, target = src))
+		cut_down(I, user)
+		return TRUE
 	return FALSE
 
 /turf/simulated/wall/proc/cut_down(obj/item/I, mob/living/user, params)
