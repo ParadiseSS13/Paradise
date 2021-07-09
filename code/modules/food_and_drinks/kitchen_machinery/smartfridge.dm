@@ -145,7 +145,7 @@
 		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
 		SStgui.update_uis(src)
 		update_icon()
-	else if(istype(O, /obj/item/storage/bag))
+	else if(istype(O, /obj/item/storage/bag) || istype(O, /obj/item/storage/box))
 		var/obj/item/storage/bag/P = O
 		var/items_loaded = 0
 		for(var/obj/G in P.contents)
