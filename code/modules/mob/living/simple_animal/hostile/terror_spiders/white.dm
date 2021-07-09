@@ -20,7 +20,6 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 15
 	spider_tier = TS_TIER_2
-	move_resist = MOVE_FORCE_STRONG
 	web_type = /obj/structure/spider/terrorweb/white
 
 
