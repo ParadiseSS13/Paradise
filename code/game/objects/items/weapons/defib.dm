@@ -260,7 +260,6 @@
 		paddles.unwield()
 		toggle_paddles()
 		update_icon()
-		return
 
 /obj/item/defibrillator/compact/advanced/loaded/Initialize(mapload)
 	. = ..()
@@ -269,22 +268,18 @@
 
 /obj/item/defibrillator/compact/advanced/emag_act(mob/user)
 	if(world.time > next_emag_message)
-		to_chat(user, "<span class='warning'>You try to silently disable [src]'s safety protocols with the card but it rejects your attempt. Uh oh...")
-		atom_say("Warning: Unauthorised software modification is not advised and might result in the warranty becoming void.")
-		playsound(get_turf(src), 'sound/machines/defib_saftyon.ogg', 50)
+		to_chat(user, "<span class='warning'>You try to silently disable [src]'s safety protocols with the card but it rejects your attempt. Uh oh...</span>")
+		atom_say("Warning: Unauthorised software modification is not advised and may result in the warranty becoming void.")
+		playsound(src, 'sound/machines/defib_saftyon.ogg', 50)
 		next_emag_message = world.time + 1 MINUTES
 	else
-		to_chat(user, "<span class='warning'>You try to silently disable [src]'s safety protocols with the card but nothing happens.")
+		to_chat(user, "<span class='warning'>You try to silently disable [src]'s safety protocols with the card but nothing happens.</span>")
 
 /obj/item/defibrillator/compact/advanced/emp_act(severity)
 	if(world.time > next_emp_message)
 		atom_say("Warning: Electromagnetic pulse detected. Integrated shielding prevented all potential hardware damage.")
-		playsound(get_turf(src), 'sound/machines/defib_saftyon.ogg', 50)
+		playsound(src, 'sound/machines/defib_saftyon.ogg', 50)
 		next_emp_message = world.time + 5 SECONDS
-	else
-		return
-
-
 
 /obj/item/defibrillator/compact/advanced/attackby(obj/item/W, mob/user, params)
 	if(W == paddles)

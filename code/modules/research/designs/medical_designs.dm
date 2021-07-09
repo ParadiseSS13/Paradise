@@ -74,7 +74,7 @@
 
 /datum/design/compact_defib
 	name = "Compact Defibrillator"
-	desc = "A belt-mounted defibrillator that can be rapidly deployed."
+	desc = "A belt-mounted defibrillator for rapid deployment."
 	id = "compact_defib"
 	req_tech = list("materials" = 7, "biotech" = 7, "powerstorage" = 6)
 	build_type = PROTOLATHE
