@@ -72,7 +72,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 /mob/living/carbon/proc/hallucinate(obj/effect/hallucination/H)
 	ASSERT(ispath(H))
 	if(ckey)
-		add_attack_logs(null, src, "Received hallucination [H]")
+		add_attack_logs(null, src, "Received hallucination [H]", ATKLOG_ALL)
 	return new H(get_turf(src), src)
 
 /**
