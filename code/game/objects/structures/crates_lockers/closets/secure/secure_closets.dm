@@ -69,6 +69,8 @@
 	togglelock(user)
 
 /obj/structure/closet/secure_closet/AltClick(mob/user)
+	if(opened)
+		return ..()
 	if(Adjacent(user))
 		togglelock(user)
 
@@ -78,7 +80,7 @@
 		locked = FALSE
 		icon_state = icon_off
 		flick(icon_broken, src)
-		to_chat(user, "<span class='notice'>You break the lock on \the [src].</span>")
+		to_chat(user, "<span class='notice'>You break the lock on [src].</span>")
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)
 	add_fingerprint(user)
