@@ -122,7 +122,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					for(var/obj/machinery/light/L in A)
 						L.on = FALSE
 						L.update()
-				addtimer(CALLBACK(src, .proc/epsilon_process), 15 SECONDS)
+				addtimer(CALLBACK(GLOBAL_PROC, .proc/epsilon_process), 15 SECONDS)
 
 			if(SEC_LEVEL_DELTA)
 				GLOB.security_announcement_up.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!", new_sound = sound('sound/effects/deltaalarm.ogg'))
