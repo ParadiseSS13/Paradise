@@ -233,7 +233,7 @@
 			if(!excited_group)
 				var/datum/excited_group/EG = new
 				EG.add_turf(src)
-			air.share(G, atmos_adjacent_turfs_amount)
+			air.share(G, 0)
 			LAST_SHARE_CHECK
 
 	air.react()
