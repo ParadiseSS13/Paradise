@@ -1052,8 +1052,7 @@
 	icon_state = "door_locked";
 	id_tag = "vox_southeast_lock";
 	locked = 1;
-	req_access_txt = "152";
-	req_one_access = null
+	req_access_txt = "152"
 	},
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/vox)
@@ -1090,8 +1089,7 @@
 	},
 /obj/item/radio/intercom{
 	desc = "Talk smack through this.";
-	pixel_x = -32;
-	syndie = null
+	pixel_x = -32
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/control)
@@ -1330,7 +1328,6 @@
 /area/ninja/holding)
 "ef" = (
 /obj/machinery/door/poddoor{
-	id = null;
 	id_tag = "thunderdome";
 	name = "Thunderdome Blast Door"
 	},
@@ -1502,7 +1499,6 @@
 	id_tag = "synd_inner";
 	locked = 1;
 	name = "Ship External Access";
-	req_access = null;
 	req_access_txt = "150"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -1627,7 +1623,6 @@
 	height = 5;
 	id = "sit";
 	name = "SIT shuttle";
-	roundstart_move = null;
 	width = 11
 	},
 /obj/structure/fans/tiny,
@@ -1709,7 +1704,6 @@
 	height = 5;
 	id = "sst";
 	name = "SST shuttle";
-	roundstart_move = null;
 	width = 11
 	},
 /obj/structure/fans/tiny,
@@ -1825,7 +1819,6 @@
 	height = 11;
 	id = "trade_sol";
 	name = "sol trade shuttle";
-	roundstart_move = null;
 	width = 9
 	},
 /obj/machinery/door/airlock/titanium/glass{
@@ -4182,7 +4175,7 @@
 /obj/machinery/door/airlock/titanium,
 /obj/docking_port/mobile/emergency/backup{
 	dwidth = 9;
-	roundstart_move = null
+	
 	},
 /obj/docking_port/stationary{
 	dir = 4;
@@ -4657,7 +4650,6 @@
 	height = 11;
 	id = "specops";
 	name = "ert shuttle";
-	roundstart_move = null;
 	width = 5
 	},
 /obj/structure/fans/tiny,
@@ -4795,7 +4787,6 @@
 /area/centcom/specops)
 "rS" = (
 /obj/machinery/door/poddoor{
-	id = null;
 	id_tag = "thunderdomehea";
 	name = "Heavy Supply"
 	},
@@ -4862,7 +4853,6 @@
 "se" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
-	id = null;
 	id_tag = "CC";
 	name = "Thunderdome Access Shutters"
 	},
@@ -4979,7 +4969,6 @@
 	height = 12;
 	id = "ferry";
 	name = "ferry shuttle";
-	roundstart_move = null;
 	width = 5
 	},
 /obj/docking_port/stationary{
@@ -5097,7 +5086,6 @@
 	height = 15;
 	id = "admin";
 	name = "administration shuttle";
-	roundstart_move = null;
 	timid = 1;
 	width = 18
 	},
@@ -5815,8 +5803,7 @@
 "vU" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom{
-	desc = "Talk smack through this.";
-	syndie = null
+	desc = "Talk smack through this."
 	},
 /obj/machinery/door/window/brigdoor{
 	base_state = "rightsecure";
@@ -6162,7 +6149,7 @@
 /obj/item/radio/intercom{
 	desc = "Talk smack through this.";
 	pixel_x = 28;
-	syndie = null
+	
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7080,8 +7067,7 @@
 	icon_state = "door_locked";
 	id_tag = "vox_northwest_lock";
 	locked = 1;
-	req_access_txt = "152";
-	req_one_access = null
+	req_access_txt = "152"
 	},
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/vox)
@@ -7130,8 +7116,7 @@
 	icon_state = "door_locked";
 	id_tag = "vox_northeast_lock";
 	locked = 1;
-	req_access_txt = "152";
-	req_one_access = null
+	req_access_txt = "152"
 	},
 /obj/docking_port/mobile{
 	dir = 2;
@@ -7139,7 +7124,6 @@
 	height = 18;
 	id = "skipjack";
 	name = "Vox Skipjack";
-	roundstart_move = null;
 	width = 19
 	},
 /obj/docking_port/stationary{
@@ -7800,7 +7784,6 @@
 	icon_state = "door_locked";
 	id_tag = "synd_outer";
 	name = "Ship External Access";
-	req_access = null;
 	req_access_txt = "150"
 	},
 /obj/machinery/door/poddoor{
@@ -7824,7 +7807,6 @@
 	height = 22;
 	id = "syndicate";
 	name = "syndicate infiltrator";
-	roundstart_move = null;
 	width = 18
 	},
 /obj/docking_port/stationary{
@@ -7843,8 +7825,7 @@
 "Ce" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom{
-	desc = "Talk smack through this.";
-	syndie = null
+	desc = "Talk smack through this."
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/control)
@@ -8103,8 +8084,7 @@
 	icon_state = "door_locked";
 	id_tag = "vox_southwest_lock";
 	locked = 1;
-	req_access_txt = "152";
-	req_one_access = null
+	req_access_txt = "152"
 	},
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/vox)
@@ -8134,7 +8114,6 @@
 /area/centcom/control)
 "Dc" = (
 /obj/machinery/door/poddoor/shutters{
-	id = null;
 	id_tag = "SpecopsFerry";
 	name = "Special Operations Ferry Hangar"
 	},
@@ -10300,7 +10279,6 @@
 /area/shuttle/vox)
 "JA" = (
 /obj/machinery/door/poddoor{
-	id = null;
 	id_tag = "QMLoaddoor";
 	name = "Supply Dock Loading Door"
 	},
@@ -11259,7 +11237,6 @@
 /area/shuttle/syndicate_elite)
 "Mr" = (
 /obj/machinery/door/poddoor{
-	id = null;
 	id_tag = "QMLoaddoor2";
 	name = "Supply Dock Loading Door"
 	},
@@ -11952,7 +11929,6 @@
 /area/tdome/tdomeadmin)
 "Oy" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Escape Shuttle Infirmary"
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -12509,7 +12485,6 @@
 /area/centcom/specops)
 "Ql" = (
 /obj/machinery/door/poddoor{
-	id = null;
 	id_tag = "thunderdome";
 	name = "Thunderdome Blast Door"
 	},
@@ -12619,7 +12594,6 @@
 /area/centcom/specops)
 "QD" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Escape Shuttle Infirmary"
 	},
 /turf/simulated/floor/plasteel{
@@ -13386,8 +13360,7 @@
 	dir = 2
 	},
 /obj/item/radio/intercom{
-	desc = "Talk smack through this.";
-	syndie = null
+	desc = "Talk smack through this."
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/control)
@@ -13551,7 +13524,6 @@
 /area/syndicate_mothership)
 "Tx" = (
 /obj/machinery/door/poddoor/shutters{
-	id = null;
 	id_tag = "secdepartment";
 	name = "Security Wing Shutters"
 	},
@@ -13668,7 +13640,6 @@
 "TP" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/shutters{
-	id = null;
 	id_tag = "secdepartment";
 	name = "Security Wing Shutters"
 	},
@@ -14194,7 +14165,6 @@
 /area/centcom/specops)
 "VC" = (
 /obj/machinery/door/poddoor{
-	id = null;
 	id_tag = "QMLoaddoor";
 	name = "Supply Dock Loading Door"
 	},
@@ -15008,7 +14978,6 @@
 /area/tdome/tdomeadmin)
 "XP" = (
 /obj/machinery/door/poddoor{
-	id = null;
 	id_tag = "thunderdomegen";
 	name = "General Supply"
 	},
@@ -61184,7 +61153,7 @@ aN
 aN
 aN
 aN
-aa
+aN
 aN
 aN
 aN
