@@ -1091,7 +1091,7 @@
 /obj/item/radio/intercom{
 	desc = "Talk smack through this.";
 	pixel_x = -32;
-	syndie = 1
+	syndie = null
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/control)
@@ -1330,7 +1330,8 @@
 /area/ninja/holding)
 "ef" = (
 /obj/machinery/door/poddoor{
-	id = "thunderdome";
+	id = null;
+	id_tag = "thunderdome";
 	name = "Thunderdome Blast Door"
 	},
 /obj/effect/turf_decal/loading_area{
@@ -4794,7 +4795,8 @@
 /area/centcom/specops)
 "rS" = (
 /obj/machinery/door/poddoor{
-	id = "thunderdomehea";
+	id = null;
+	id_tag = "thunderdomehea";
 	name = "Heavy Supply"
 	},
 /turf/simulated/floor/plating,
@@ -4860,7 +4862,8 @@
 "se" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
-	id = "CC";
+	id = null;
+	id_tag = "CC";
 	name = "Thunderdome Access Shutters"
 	},
 /obj/effect/turf_decal/delivery,
@@ -5813,7 +5816,7 @@
 /obj/structure/table/wood,
 /obj/item/radio/intercom{
 	desc = "Talk smack through this.";
-	syndie = 1
+	syndie = null
 	},
 /obj/machinery/door/window/brigdoor{
 	base_state = "rightsecure";
@@ -6159,7 +6162,7 @@
 /obj/item/radio/intercom{
 	desc = "Talk smack through this.";
 	pixel_x = 28;
-	syndie = 1
+	syndie = null
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7841,7 +7844,7 @@
 /obj/structure/table/wood,
 /obj/item/radio/intercom{
 	desc = "Talk smack through this.";
-	syndie = 1
+	syndie = null
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/control)
@@ -8131,7 +8134,8 @@
 /area/centcom/control)
 "Dc" = (
 /obj/machinery/door/poddoor/shutters{
-	id = "SpecopsFerry";
+	id = null;
+	id_tag = "SpecopsFerry";
 	name = "Special Operations Ferry Hangar"
 	},
 /turf/simulated/floor/plasteel{
@@ -10296,7 +10300,8 @@
 /area/shuttle/vox)
 "JA" = (
 /obj/machinery/door/poddoor{
-	id = "XCCQMLoaddoor";
+	id = null;
+	id_tag = "QMLoaddoor";
 	name = "Supply Dock Loading Door"
 	},
 /obj/machinery/conveyor{
@@ -11254,7 +11259,8 @@
 /area/shuttle/syndicate_elite)
 "Mr" = (
 /obj/machinery/door/poddoor{
-	id = "XCCQMLoaddoor2";
+	id = null;
+	id_tag = "QMLoaddoor2";
 	name = "Supply Dock Loading Door"
 	},
 /obj/machinery/conveyor{
@@ -12503,7 +12509,8 @@
 /area/centcom/specops)
 "Ql" = (
 /obj/machinery/door/poddoor{
-	id = "thunderdome";
+	id = null;
+	id_tag = "thunderdome";
 	name = "Thunderdome Blast Door"
 	},
 /obj/effect/turf_decal/loading_area{
@@ -12794,14 +12801,14 @@
 /area/shuttle/syndicate)
 "Rf" = (
 /obj/machinery/door_control{
-	id = "XCCQMLoaddoor";
+	id = "QMLoaddoor";
 	layer = 4;
 	name = "Loading Doors";
 	pixel_x = -27;
 	pixel_y = -5
 	},
 /obj/machinery/door_control{
-	id = "XCCQMLoaddoor2";
+	id = "QMLoaddoor2";
 	layer = 4;
 	name = "Loading Doors";
 	pixel_x = -27;
@@ -13380,7 +13387,7 @@
 	},
 /obj/item/radio/intercom{
 	desc = "Talk smack through this.";
-	syndie = 1
+	syndie = null
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/control)
@@ -13544,7 +13551,8 @@
 /area/syndicate_mothership)
 "Tx" = (
 /obj/machinery/door/poddoor/shutters{
-	id = "secdepartment";
+	id = null;
+	id_tag = "secdepartment";
 	name = "Security Wing Shutters"
 	},
 /obj/effect/turf_decal/delivery,
@@ -13660,7 +13668,8 @@
 "TP" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/shutters{
-	id = "secdepartment";
+	id = null;
+	id_tag = "secdepartment";
 	name = "Security Wing Shutters"
 	},
 /turf/simulated/floor/plasteel{
@@ -14185,7 +14194,8 @@
 /area/centcom/specops)
 "VC" = (
 /obj/machinery/door/poddoor{
-	id = "XCCQMLoaddoor";
+	id = null;
+	id_tag = "QMLoaddoor";
 	name = "Supply Dock Loading Door"
 	},
 /obj/machinery/conveyor{
@@ -14998,7 +15008,8 @@
 /area/tdome/tdomeadmin)
 "XP" = (
 /obj/machinery/door/poddoor{
-	id = "thunderdomegen";
+	id = null;
+	id_tag = "thunderdomegen";
 	name = "General Supply"
 	},
 /turf/simulated/floor/plating,
@@ -61173,7 +61184,7 @@ aN
 aN
 aN
 aN
-aN
+aa
 aN
 aN
 aN
