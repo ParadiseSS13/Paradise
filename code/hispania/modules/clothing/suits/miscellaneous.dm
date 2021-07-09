@@ -45,3 +45,4 @@
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	hispania_icon = TRUE
+	species_restricted = list("Human", "Slime", "Machine", "Kidan", "Skrell", "Diona" )

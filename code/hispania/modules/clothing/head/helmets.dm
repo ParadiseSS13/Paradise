@@ -17,3 +17,4 @@
 	item_state = "chungus"
 	flags = BLOCKHAIR
 	hispania_icon = TRUE
+	species_restricted = list("Human", "Slime", "Machine", "Kidan", "Skrell", "Diona" )
