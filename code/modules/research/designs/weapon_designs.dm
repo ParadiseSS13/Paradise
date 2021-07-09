@@ -272,7 +272,7 @@
 
 /datum/design/bsg
 	name = "Blue Space Gun"
-	desc = "A heavy hitting energy cannon, that fires destructive bluespace blasts with a decient area of effect."
+	desc = "A heavy hitting energy cannon, that fires destructive bluespace blasts with a decent area of effect."
 	id = "bsg"
 	req_tech = list("combat" = 7, "materials" = 7, "magnets" = 7, "powerstorage" = 7, "bluespace" = 7)
 	build_type = PROTOLATHE
