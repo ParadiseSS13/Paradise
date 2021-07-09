@@ -62,6 +62,13 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					GLOB.security_announcement_up.Announce("There is an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!")
 				else
 					GLOB.security_announcement_down.Announce("The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!")
+					for(var/area/A in world)
+						if(!is_station_level(A.z))
+							continue
+						A.delta_alarm = FALSE
+						A.epsilon_alarm = FALSE
+						for(var/obj/machinery/light/L in A)
+							L.update()
 				GLOB.security_level = SEC_LEVEL_RED
 
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in GLOB.airlocks
@@ -102,15 +109,20 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 						FA.update_icon()
 
 			if(SEC_LEVEL_EPSILON)
-				GLOB.security_announcement_up.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.","Attention! Epsilon security level activated!", new_sound = sound('sound/effects/purge_siren.ogg'))
-				GLOB.security_level = SEC_LEVEL_EPSILON
-
-				post_status("alert", "epsilonalert")
-
-				for(var/obj/machinery/firealarm/FA in GLOB.machines)
-					if(is_station_contact(FA.z))
-						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
+				var/sound/S = sound('sound/effects/powerloss.ogg')
+				for(var/mob/M in GLOB.player_list)
+					var/turf/T = get_turf(M)
+					if(!M.client || !is_station_level(T.z))
+						continue
+					SEND_SOUND(M, S)
+				for(var/area/A in world)
+					if(!is_station_level(A.z))
+						continue
+					A.epsilon_alarm = TRUE
+					for(var/obj/machinery/light/L in A)
+						L.on = FALSE
+						L.update()
+				addtimer(CALLBACK(src, .proc/epsilon_process), 15 SECONDS)
 
 			if(SEC_LEVEL_DELTA)
 				GLOB.security_announcement_up.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!", new_sound = sound('sound/effects/deltaalarm.ogg'))
@@ -122,6 +134,12 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
+				for(var/area/A in world)
+					if(!is_station_level(A.z))
+						continue
+					A.delta_alarm = TRUE
+					for(var/obj/machinery/light/L in A)
+						L.set_light(L.brightness_range, 0.5, L.bulb_emergency_colour)
 
 		SSnightshift.check_nightshift(TRUE)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
@@ -188,3 +206,25 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			return "<font color='blueviolet'>Epsilon</font>"
 		if(SEC_LEVEL_DELTA)
 			return "<font color='orangered'>Delta</font>"
+
+/**
+  * Call the announcement, set all station lights to emergency mode
+  *
+  * This is its own proc so it can be called with a timer.
+  */
+/proc/epsilon_process()
+	GLOB.security_announcement_up.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.", "Attention! Epsilon security level activated!", new_sound = sound('sound/effects/purge_siren.ogg'))
+	GLOB.security_level = SEC_LEVEL_EPSILON
+
+	post_status("alert", "epsilonalert")
+
+	for(var/obj/machinery/firealarm/FA in GLOB.machines)
+		if(is_station_contact(FA.z))
+			FA.overlays.Cut()
+			FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
+	for(var/area/A in world)
+		if(!is_station_level(A.z))
+			continue
+		for(var/obj/machinery/light/L in A)
+			L.on = TRUE
+			L.set_light(L.brightness_range, 0.5, L.bulb_emergency_colour)
