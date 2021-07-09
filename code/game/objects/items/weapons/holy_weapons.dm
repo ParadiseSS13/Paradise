@@ -561,7 +561,6 @@
 /obj/item/nullrod/missionary_staff
 	name = "holy staff"
 	desc = "It has a mysterious, protective aura."
-	description_antag = "This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. Activate the staff while wearing robes to link, then aim the staff at your victim to try and convert them."
 	reskinned = TRUE
 	reskin_selectable = FALSE
 	icon_state = "godstaff-red"
