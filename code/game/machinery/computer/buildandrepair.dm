@@ -7,7 +7,6 @@
 	max_integrity = 100
 	var/state = 0
 	var/obj/item/circuitboard/circuit = null
-	var/base_mineral = /obj/item/stack/sheet/metal
 
 /obj/structure/computerframe/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -18,7 +17,7 @@
 	deconstruct()
 
 /obj/structure/computerframe/proc/drop_computer_parts()
-	new base_mineral(loc, 5)
+	new /obj/item/stack/sheet/metal(loc, 5)
 	if(circuit)
 		circuit.forceMove(loc)
 		circuit = null
@@ -357,14 +356,6 @@
 	build_path = /obj/machinery/computer/turbine_computer
 	origin_tech = "programming=4;engineering=4;powerstorage=4"
 
-/obj/item/circuitboard/HONKputer
-	name = "Circuit board (HONKputer)"
-	build_path = /obj/machinery/computer/HONKputer
-	origin_tech = "programming=2"
-	icon = 'icons/obj/machines/HONKputer.dmi'
-	icon_state = "bananium_board"
-	board_type = "honkcomputer"
-
 
 /obj/item/circuitboard/supplycomp/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I,/obj/item/multitool))
@@ -552,116 +543,3 @@
 	if(I.use_tool(src, user, 50, volume = I.tool_volume) && !state)
 		to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
 		deconstruct(TRUE)
-
-
-
-/obj/structure/computerframe/HONKputer
-	name = "Bananium Computer-frame"
-	icon = 'icons/obj/machines/HONKputer.dmi'
-	base_mineral = /obj/item/stack/sheet/mineral/bananium
-
-/obj/structure/computerframe/HONKputer/attackby(obj/item/P as obj, mob/user as mob, params)
-	switch(state)
-		if(0)
-			if(istype(P, /obj/item/wrench))
-				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20, target = src))
-					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
-					anchored = 1
-					state = 1
-		if(1)
-			if(istype(P, /obj/item/wrench))
-				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20 * P.toolspeed, target = src))
-					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
-					anchored = 0
-					state = 0
-			if(istype(P, /obj/item/circuitboard) && !circuit)
-				var/obj/item/circuitboard/B = P
-				if(B.board_type == "honkcomputer")
-					playsound(loc, P.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
-					icon_state = "1"
-					circuit = P
-					user.drop_item()
-					P.loc = src
-				else
-					to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
-			if(istype(P, /obj/item/screwdriver) && circuit)
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
-				state = 2
-				icon_state = "2"
-			if(istype(P, /obj/item/crowbar) && circuit)
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
-				state = 1
-				icon_state = "0"
-				circuit.loc = loc
-				circuit = null
-			return
-		if(2)
-			if(istype(P, /obj/item/screwdriver) && circuit)
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
-				state = 1
-				icon_state = "1"
-			if(istype(P, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/C = P
-				if(C.get_amount() >= 5)
-					playsound(loc, C.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
-					if(do_after(user, 20 * C.toolspeed, target = src))
-						if(state == 2 && C.get_amount() >= 5 && C.use(5))
-							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
-							state = 3
-							icon_state = "3"
-						else
-							to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
-							return
-				else
-					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
-			return
-		if(3)
-			if(istype(P, /obj/item/wirecutters))
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the cables.</span>")
-				state = 2
-				icon_state = "2"
-				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
-				A.amount = 5
-
-			if(istype(P, /obj/item/stack/sheet/glass))
-				var/obj/item/stack/sheet/glass/G = P
-				if(G.get_amount() >= 2)
-					playsound(loc, G.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
-					if(do_after(user, 20 * G.toolspeed, target = src))
-						if(state == 3 && G.get_amount() >= 2 && G.use(2))
-							to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
-							state = 4
-							icon_state = "4"
-						else
-							to_chat(user, "<span class='warning'>At some point during construction you lost some glass. Make sure you have two sheets before trying again.</span>")
-							return
-				else
-					to_chat(user, "<span class='warning'>You need two sheets of glass for this.</span>")
-			return
-		if(4)
-			if(istype(P, /obj/item/crowbar))
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
-				state = 3
-				icon_state = "3"
-				new /obj/item/stack/sheet/glass(loc, 2)
-			if(istype(P, /obj/item/screwdriver))
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
-				var/B = new circuit.build_path (loc)
-				if(circuit.powernet) B:powernet = circuit.powernet
-				if(circuit.id) B:id = circuit.id
-				if(circuit.records) B:records = circuit.records
-				if(circuit.frequency) B:frequency = circuit.frequency
-				qdel(src)
-			return
-	return ..()
