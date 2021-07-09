@@ -7,8 +7,7 @@
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -159,7 +158,6 @@
 	specialfunctions = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "brown"
 	},
 /area/ruin/unpowered/syndicate_space_base/cargo)
@@ -241,8 +239,7 @@
 /area/ruin/unpowered/syndicate_space_base/virology)
 "cB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5;
-	level = 1
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -263,8 +260,7 @@
 "cD" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4;
-	initialize_directions = 11;
-	level = 2
+	initialize_directions = 11
 	},
 /obj/machinery/meter,
 /turf/simulated/floor/plating,
@@ -289,8 +285,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5;
-	level = 1
+	dir = 5
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
@@ -327,8 +322,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	level = 1
+	initialize_directions = 11
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -477,7 +471,6 @@
 /obj/machinery/kitchen_machine/microwave,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
@@ -678,8 +671,7 @@
 "gZ" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -716,8 +708,7 @@
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "hq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -769,8 +760,7 @@
 "hR" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plasteel{
@@ -785,8 +775,7 @@
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -798,8 +787,7 @@
 "hX" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	level = 1
+	initialize_directions = 11
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -853,7 +841,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
@@ -1006,8 +993,7 @@
 "jS" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4;
-	initialize_directions = 11;
-	level = 2
+	initialize_directions = 11
 	},
 /obj/machinery/meter,
 /turf/simulated/floor/plasteel{
@@ -1135,7 +1121,6 @@
 /obj/machinery/optable,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whiteblue";
 	tag = "icon-whitehall (WEST)"
 	},
@@ -1209,7 +1194,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
-	d1 = 0;
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -1261,7 +1245,6 @@
 "mX" = (
 /obj/structure/sink{
 	dir = 4;
-	icon_state = "sink";
 	pixel_x = 10
 	},
 /turf/simulated/floor/plasteel{
@@ -1299,7 +1282,6 @@
 	},
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
@@ -1339,7 +1321,6 @@
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "ny" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whitegreen";
 	tag = "icon-whitehall (WEST)"
 	},
@@ -1397,8 +1378,7 @@
 "ob" = (
 /obj/machinery/door/airlock/hatch/syndicate,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1416,8 +1396,7 @@
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1476,8 +1455,7 @@
 	tag = "90Curve"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/cargo)
@@ -1514,7 +1492,6 @@
 /obj/machinery/light,
 /obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
@@ -1526,26 +1503,13 @@
 /area/ruin/unpowered/syndicate_space_base/bar)
 "pA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/engineering)
-"pG" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "pI" = (
 /obj/structure/table/reinforced,
 /obj/item/retractor,
@@ -1587,7 +1551,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/operating,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whiteblue";
 	tag = "icon-whitehall (WEST)"
 	},
@@ -1610,8 +1573,7 @@
 "qN" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	level = 1
+	initialize_directions = 11
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -1666,8 +1628,7 @@
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1701,8 +1662,7 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "rK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1751,13 +1711,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
-"sw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/turf/simulated/floor/engine,
-/area/ruin/unpowered/syndicate_space_base/testlab)
 "sz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/navbeacon/invisible{
@@ -1796,8 +1749,7 @@
 /area/ruin/unpowered/syndicate_space_base/telecomms)
 "tf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -1845,8 +1797,7 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6;
-	level = 1
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1944,7 +1895,6 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "uJ" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
@@ -1970,13 +1920,11 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	level = 1
+	initialize_directions = 11
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 11;
-	level = 1
+	initialize_directions = 11
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
@@ -2010,7 +1958,6 @@
 "vk" = (
 /obj/machinery/kitchen_machine/grill,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
@@ -2131,8 +2078,7 @@
 "wc" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 11;
-	level = 1
+	initialize_directions = 11
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -2236,6 +2182,12 @@
 	icon_state = "white"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
+"wD" = (
+/obj/machinery/computer/arcade,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
 "wJ" = (
 /obj/structure/window/plasmareinforced{
 	dir = 1
@@ -2243,8 +2195,7 @@
 /obj/effect/turf_decal/caution/red,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4;
-	initialize_directions = 11;
-	level = 2
+	initialize_directions = 11
 	},
 /obj/machinery/meter,
 /turf/simulated/floor/plasteel{
@@ -2255,15 +2206,13 @@
 /obj/item/kitchen/rollingpin,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "wX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -2371,8 +2320,7 @@
 /area/ruin/unpowered/syndicate_space_base/main)
 "xN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -2618,8 +2566,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -2690,8 +2637,7 @@
 /area/ruin/unpowered/syndicate_space_base/main)
 "Ce" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2712,7 +2658,6 @@
 	},
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
@@ -2776,8 +2721,7 @@
 "Dp" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	level = 1
+	initialize_directions = 11
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -2807,7 +2751,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
@@ -2856,7 +2799,6 @@
 /obj/item/clothing/gloves/combat,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkred"
 	},
 /area/ruin/unpowered/syndicate_space_base/cargo)
@@ -2870,8 +2812,7 @@
 /area/ruin/unpowered/syndicate_space_base/virology)
 "El" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2894,7 +2835,6 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow{
-	d1 = 0;
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -2990,7 +2930,6 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "EX" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbluecorners"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
@@ -3050,7 +2989,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
@@ -3125,8 +3063,7 @@
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3161,7 +3098,6 @@
 "Go" = (
 /obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
@@ -3179,8 +3115,7 @@
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "GJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -5;
@@ -3229,8 +3164,7 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "GY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -3267,7 +3201,6 @@
 "HB" = (
 /obj/structure/sink{
 	dir = 8;
-	icon_state = "sink";
 	pixel_x = -12;
 	pixel_y = 2
 	},
@@ -3343,8 +3276,7 @@
 /area/ruin/unpowered/syndicate_space_base/bar)
 "Iv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/cargo)
@@ -3563,7 +3495,6 @@
 /obj/machinery/processor,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
@@ -3663,7 +3594,6 @@
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
@@ -3688,7 +3618,6 @@
 	shock_proof = 1
 	},
 /obj/structure/cable/yellow{
-	d1 = 0;
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -3715,8 +3644,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	level = 1
+	initialize_directions = 11
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -3809,8 +3737,7 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Mi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -3983,8 +3910,7 @@
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -3996,7 +3922,6 @@
 "Ot" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkred"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
@@ -4126,8 +4051,7 @@
 "QO" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -4294,8 +4218,7 @@
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "SQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -4359,8 +4282,7 @@
 "Tl" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4;
-	initialize_directions = 11;
-	level = 2
+	initialize_directions = 11
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -4458,8 +4380,7 @@
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "Us" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -4573,14 +4494,12 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "VQ" = (
 /obj/machinery/shower{
 	dir = 8;
-	icon_state = "shower";
 	tag = "icon-shower (WEST)"
 	},
 /obj/item/soap/syndie,
@@ -4605,7 +4524,6 @@
 "Wi" = (
 /obj/machinery/kitchen_machine/candy_maker,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
@@ -4632,8 +4550,6 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Wz" = (
 /obj/structure/sign/lifestar{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
 	name = "Medbay"
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -4644,7 +4560,6 @@
 	},
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
@@ -4742,8 +4657,7 @@
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "Ya" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -4753,8 +4667,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 11;
-	level = 1
+	initialize_directions = 11
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -6733,7 +6646,7 @@ El
 uk
 uk
 yz
-pG
+ZB
 uk
 uk
 uk
@@ -7054,7 +6967,7 @@ TD
 Rn
 Vl
 Vl
-sw
+Ri
 Vc
 Vl
 Vl
@@ -7116,7 +7029,7 @@ TD
 Vl
 Vl
 Vl
-sw
+Ri
 Vc
 Vl
 Vl
@@ -7178,7 +7091,7 @@ TD
 Vl
 Vl
 Vl
-sw
+Ri
 Vc
 Vl
 Vl
@@ -7240,7 +7153,7 @@ TD
 Vl
 Vl
 Vl
-sw
+Ri
 Vc
 Vl
 Vl
@@ -7348,7 +7261,7 @@ yZ
 qF
 qF
 Em
-ss
+wD
 WG
 WG
 aj

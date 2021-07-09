@@ -551,7 +551,7 @@
 /obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
 	if(component_id == "KA modkits")
 		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/D in src)
-			D.attackby(W, user)
+			D.crowbar_act(user, W)
 		return TRUE
 	return ..()
 
