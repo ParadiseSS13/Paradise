@@ -84,7 +84,7 @@
 					traitorcount += 1
 					continue
 				if(ishuman(player) || isAI(player))
-					if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
+					if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, ROLE_SYNDICATE))
 						possible_traitors += player.mind
 		for(var/datum/mind/player in possible_traitors)
 			for(var/job in restricted_jobs)
@@ -144,7 +144,7 @@
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		return
 	//message_admins("Late Join Check")
-	if(character.client && (ROLE_TRAITOR in character.client.prefs.be_special) && !character.client.skip_antag && !jobban_isbanned(character, ROLE_TRAITOR) && !jobban_isbanned(character, "Syndicate"))
+	if(character.client && (ROLE_TRAITOR in character.client.prefs.be_special) && !character.client.skip_antag && !jobban_isbanned(character, ROLE_TRAITOR) && !jobban_isbanned(character, ROLE_SYNDICATE))
 		//message_admins("Late Joiner has Be Syndicate")
 		//message_admins("Checking number of players")
 		var/playercount = 0

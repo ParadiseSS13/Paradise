@@ -27,7 +27,7 @@
 
 /datum/admins/proc/CandCheck(role = null, mob/living/carbon/human/M, datum/game_mode/temp = null)
   // You pass in ROLE define (optional), the applicant, and the gamemode, and it will return true / false depending on whether the applicant qualify for the candidacy in question
-	if(jobban_isbanned(M, "Syndicate"))
+	if(jobban_isbanned(M, ROLE_SYNDICATE))
 		return FALSE
 	if(M.stat || !M.mind || M.mind.special_role || M.mind.offstation_role)
 		return FALSE
@@ -199,7 +199,7 @@
 
 	for(var/mob/G in GLOB.respawnable_list)
 		if(istype(G) && G.client && (ROLE_OPERATIVE in G.client.prefs.be_special))
-			if(!jobban_isbanned(G, "operative") && !jobban_isbanned(G, "Syndicate"))
+			if(!jobban_isbanned(G, ROLE_OPERATIVE) && !jobban_isbanned(G, ROLE_SYNDICATE))
 				if(player_old_enough_antag(G.client,ROLE_OPERATIVE))
 					spawn(0)
 						switch(alert(G,"Do you wish to be considered for a nuke team being sent in?","Please answer in 30 seconds!","Yes","No"))
@@ -316,7 +316,7 @@
 
 		//Generates a list of commandos from active ghosts. Then the user picks which characters to respawn as the commandos.
 		for(var/mob/G in GLOB.respawnable_list)
-			if(!jobban_isbanned(G, "Syndicate"))
+			if(!jobban_isbanned(G, ROLE_SYNDICATE))
 				spawn(0)
 					switch(alert(G,"Do you wish to be considered for an elite syndicate strike team being sent in?","Please answer in 30 seconds!","Yes","No"))
 						if("Yes")
@@ -427,7 +427,7 @@
 	for(var/mob/G in GLOB.respawnable_list)
 		if(istype(G) && G.client && (ROLE_RAIDER in G.client.prefs.be_special))
 			if(player_old_enough_antag(G.client,ROLE_RAIDER))
-				if(!jobban_isbanned(G, "raider") && !jobban_isbanned(G, "Syndicate"))
+				if(!jobban_isbanned(G, ROLE_RAIDER) && !jobban_isbanned(G, ROLE_SYNDICATE))
 					spawn(0)
 						switch(alert(G,"Do you wish to be considered for a vox raiding party arriving on the station?","Please answer in 30 seconds!","Yes","No"))
 							if("Yes")

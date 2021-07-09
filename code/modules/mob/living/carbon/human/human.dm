@@ -1163,6 +1163,10 @@
 	set src in view(1)
 	var/self = 0
 
+	if (!ishuman(src))
+		to_chat(usr, "<span class='notice'>You do not know how to check someone's pulse!</span>")
+		return
+
 	if(usr.stat == 1 || usr.restrained() || !isliving(usr) || usr.is_dead()) return
 
 	if(usr == src)
@@ -1192,8 +1196,10 @@
 
 /mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE, keep_flavor_text = FALSE)
 	if(include_species_change)
-		set_species(new_dna.species.type, retain_damage = TRUE)
+		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE)
 	dna = new_dna.Clone()
+	if (include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
+		dna.species.on_species_gain(src)
 	real_name = new_dna.real_name
 	domutcheck(src, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 	if(!keep_flavor_text)
@@ -1205,7 +1211,7 @@
 	sec_hud_set_ID()
 
 
-/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE)
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, transformation = FALSE)
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
 			return
@@ -1362,7 +1368,8 @@
 
 	dna.real_name = real_name
 
-	dna.species.on_species_gain(src)
+	if (!transformation) //Distinguish between creating a mob and switching species
+		dna.species.on_species_gain(src)
 
 	update_sight()
 
@@ -1737,7 +1744,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
 		if(HAS_TRAIT(src, TRAIT_CHUNKYFINGERS))
-			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
+			to_chat(src, "<span class='warning'>Your meaty finger is far too large for the trigger guard!</span>")
 			return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry

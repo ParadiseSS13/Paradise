@@ -362,7 +362,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</td><td width='405px' height='200px' valign='top'>"
 			dat += "<h2>Occupation Choices</h2>"
 			dat += "<a href='?_src_=prefs;preference=job;task=menu'>Set Occupation Preferences</a><br>"
-			if(jobban_isbanned(user, "Records"))
+			if(jobban_isbanned(user, ROLEBAN_RECORDS))
 				dat += "<b>You are banned from using character records.</b><br>"
 			else
 				dat += "<a href=\"byond://?_src_=prefs;preference=records;record=1\">Character Records</a><br>"
@@ -495,7 +495,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='300px' height='300px' valign='top'>"
 			dat += "<h2>Special Role Settings</h2>"
-			if(jobban_isbanned(user, "Syndicate"))
+			if(jobban_isbanned(user, ROLE_SYNDICATE))
 				dat += "<b>You are banned from special roles.</b>"
 				be_special = list()
 			else
