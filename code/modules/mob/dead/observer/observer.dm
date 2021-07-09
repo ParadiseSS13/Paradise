@@ -360,20 +360,21 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!client)
 		return
 	var/mob/dead/observer/M = src
-	if(jobban_isbanned(M, "AntagHUD"))
+	if(jobban_isbanned(M, ROLEBAN_AHUD))
 		to_chat(src, "<span class='danger'>You have been banned from using this feature</span>")
 		return
-	if(config.antag_hud_restricted && !M.has_enabled_antagHUD && !check_rights(R_ADMIN|R_MOD,0))
-		var/response = alert(src, "If you turn this on, you will not be able to take any part in the round.","Are you sure you want to turn this feature on?","Yes","No")
-		if(response == "No") return
-		M.can_reenter_corpse = 0
+
+	var/restricted_use = (!M.has_enabled_antagHUD && !check_rights(R_ADMIN|R_MOD, FALSE)) // Admins can freely toggle it
+	if(config.antag_hud_restricted && restricted_use)
+		var/response = alert(src, "If you turn this on, you will not be able to take any part in the round.", "Are you sure you want to turn this feature on?", "Yes", "No")
+		if(response == "No")
+			return
+		M.can_reenter_corpse = FALSE
 		if(M in GLOB.respawnable_list)
 			GLOB.respawnable_list -= M
-	if(!M.has_enabled_antagHUD && !check_rights(R_ADMIN|R_MOD,0))
-		M.has_enabled_antagHUD = 1
 
-	//var/datum/atom_hud/A = huds[DATA_HUD_SECURITY_ADVANCED]
-	//var/adding_hud = (usr in A.hudusers) ? 0 : 1
+	if(restricted_use)
+		M.has_enabled_antagHUD = TRUE
 
 	for(var/datum/atom_hud/antag/H in (GLOB.huds))
 		if(!M.antagHUD)
@@ -382,9 +383,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			H.remove_hud_from(usr)
 	if(!M.antagHUD)
 		to_chat(usr, "AntagHud Toggled ON")
+		create_log(MISC_LOG, "Enabled AntagHUD")
+		log_game("[key_name(usr)] has enabled AntagHUD.")
 		M.antagHUD = TRUE
 	else
 		to_chat(usr, "AntagHud Toggled OFF")
+		create_log(MISC_LOG, "Disabled AntagHUD")
+		log_game("[key_name(usr)] has disabled AntagHUD.")
 		M.antagHUD = FALSE
 
 /mob/dead/observer/verb/set_dnr()
@@ -407,6 +412,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/choice = alert(src, "If you enable this, your body will be unrevivable for the remainder of the round.", "Are you sure?", "Yes", "No")
 	if(choice == "Yes")
 		to_chat(src, "<span class='boldnotice'>Do Not Revive state enabled.</span>")
+		create_log(MISC_LOG, "DNR Enabled")
 		can_reenter_corpse = FALSE
 		if(!QDELETED(mind.current)) // Could change while they're choosing
 			mind.current.med_hud_set_status()

@@ -28,6 +28,7 @@
 		/datum/rep_purchase/item/pinpointer,
 		/datum/rep_purchase/item/baton,
 		/datum/rep_purchase/item/fulton,
+		/datum/rep_purchase/item/flare,
 		/datum/rep_purchase/blackout,
 		/datum/rep_purchase/item/zippo,
 		/datum/rep_purchase/item/balloon,

@@ -17,6 +17,8 @@
 	var/selfcharge = 0
 	var/charge_tick = 0
 	var/charge_delay = 4
+	/// Do you want the gun to fit into a turret, defaults to true, used for if a energy gun is too strong to be in a turret, or does not make sense to be in one.
+	var/can_fit_in_turrets = TRUE
 
 /obj/item/gun/energy/emp_act(severity)
 	cell.use(round(cell.charge / severity))

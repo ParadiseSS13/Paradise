@@ -313,7 +313,7 @@
 	name = "teleporter hub"
 	desc = "It's the hub of a teleporting machine."
 	icon_state = "tele0"
-	var/accurate = FALSE
+	var/accurate = 0
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
@@ -353,6 +353,8 @@
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		A += M.rating
 	accurate = A
+	if(accurate >= 3)
+		calibrated = TRUE
 
 /obj/machinery/teleport/hub/proc/link_power_station()
 	if(power_station)
@@ -401,12 +403,13 @@
 		if(!calibrated && com.cc_beacon)
 			visible_message("<span class='alert'>Cannot lock on target. Please calibrate the teleporter before attempting long range teleportation.</span>")
 		else if(!calibrated && prob(25 - ((accurate) * 10)) && !com.cc_beacon) //oh dear a problem
-			var/list/target_z = levels_by_trait(REACHABLE)
+			var/list/target_z = levels_by_trait(SPAWN_RUINS)
 			target_z -= M.z //Where to sir? Anywhere but here.
 			. = do_teleport(M, locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), pick(target_z)), 2, bypass_area_flag = com.area_bypass)
 		else
 			. = do_teleport(M, com.target, bypass_area_flag = com.area_bypass)
-		calibrated = FALSE
+		if(accurate < 3)
+			calibrated = FALSE
 
 /obj/machinery/teleport/hub/update_icon()
 	if(panel_open)
