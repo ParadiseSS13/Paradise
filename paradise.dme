@@ -1508,7 +1508,6 @@
 #include "code\modules\events\wormholes.dm"
 #include "code\modules\events\wizard\ghost.dm"
 #include "code\modules\examine\examine.dm"
-#include "code\modules\examine\descriptions\structures.dm"
 #include "code\modules\examine\descriptions\turfs.dm"
 #include "code\modules\examine\descriptions\weapons.dm"
 #include "code\modules\fish\fish_eggs.dm"
