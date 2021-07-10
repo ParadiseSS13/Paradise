@@ -115,7 +115,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					if(!M.client || !is_station_level(T.z))
 						continue
 					SEND_SOUND(M, S)
-				for(var/area/A in world)
+				for(var/area/A in GLOB.all_areas)
 					if(!is_station_level(A.z))
 						continue
 					A.epsilon_alarm = TRUE
@@ -134,7 +134,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
-				for(var/area/A in world)
+				for(var/area/A in GLOB.all_areas)
 					if(!is_station_level(A.z))
 						continue
 					A.delta_alarm = TRUE
@@ -222,7 +222,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		if(is_station_contact(FA.z))
 			FA.overlays.Cut()
 			FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
-	for(var/area/A in world)
+	for(var/area/A in GLOB.all_areas)
 		if(!is_station_level(A.z))
 			continue
 		for(var/obj/machinery/light/L in A)
