@@ -120,7 +120,10 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					for(var/obj/machinery/light/L in A)
 						L.on = FALSE
 						L.update()
+				addtimer(CALLBACK(GLOBAL_PROC, .proc/set_emergency_lighting), 5 SECONDS)
 				addtimer(CALLBACK(GLOBAL_PROC, .proc/epsilon_process), 15 SECONDS)
+				SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
+				return
 
 			if(SEC_LEVEL_DELTA)
 				GLOB.security_announcement_up.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!", new_sound = sound('sound/effects/deltaalarm.ogg'))
@@ -132,12 +135,9 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
-				for(var/area/A as anything in GLOB.all_areas)
-					if(!is_station_level(A.z))
-						continue
-					A.emergency_mode = TRUE
-					for(var/obj/machinery/light/L in A)
-						L.set_light(L.brightness_range, 0.5, L.bulb_emergency_colour)
+				set_emergency_lighting()
+				SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
+				return
 
 		SSnightshift.check_nightshift(TRUE)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
@@ -205,24 +205,19 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		if(SEC_LEVEL_DELTA)
 			return "<font color='orangered'>Delta</font>"
 
-/**
-  * Call the announcement, set all station lights to emergency mode.
-  *
-  * This is its own proc so it can be called with a timer.
-  */
-/proc/epsilon_process()
-	GLOB.security_announcement_up.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.", "Attention! Epsilon security level activated!", new_sound = sound('sound/effects/purge_siren.ogg'))
-	GLOB.security_level = SEC_LEVEL_EPSILON
-
-	post_status("alert", "epsilonalert")
-
-	for(var/obj/machinery/firealarm/FA in GLOB.machines)
-		if(is_station_contact(FA.z))
-			FA.overlays.Cut()
-			FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
+/proc/set_emergency_lighting()
 	for(var/area/A as anything in GLOB.all_areas)
 		if(!is_station_level(A.z))
 			continue
 		for(var/obj/machinery/light/L in A)
 			L.on = TRUE
 			L.set_light(L.brightness_range, 0.5, L.bulb_emergency_colour)
+
+/proc/epsilon_process()
+	GLOB.security_announcement_up.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.", "Attention! Epsilon security level activated!", new_sound = sound('sound/effects/purge_siren.ogg'))
+	GLOB.security_level = SEC_LEVEL_EPSILON
+	post_status("alert", "epsilonalert")
+	for(var/obj/machinery/firealarm/FA in GLOB.machines)
+		if(is_station_contact(FA.z))
+			FA.overlays.Cut()
+			FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
