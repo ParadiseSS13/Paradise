@@ -90,7 +90,7 @@
 			if(cyborg_slots > 0)
 				slots_list += "cyborg: [cyborg_slots]"
 			var/slot_text = english_list(slots_list)
-			notify_ghosts("A [ert_type] ERT is being dispatched. Open positions: [slot_text]")
+			notify_ghosts("An ERT is being dispatched. Open positions: [slot_text]")
 			message_admins("[key_name_admin(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]", 1)
 			log_admin("[key_name(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]")
 			GLOB.event_announcement.Announce("Attention, [station_name()]. We are attempting to assemble an ERT. Standby.", "ERT Protocol Activated")
