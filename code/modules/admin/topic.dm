@@ -951,7 +951,7 @@
 						continue
 			if(msg)
 				ryzorbot("notify", "unjobban=[key_name(usr)]&[key_name(M)]&[msg]")
-				SSdiscord.send2discord_simple(DISCORD_WEBHOOK_NOTES, "[key_name_admin(usr)] removió el jobban de [key_name_admin(M)] como [msg] fue removido, la razón de este era: \n[msg]")
+				SSdiscord.send2discord_simple(DISCORD_WEBHOOK_NOTES, "[key_name_admin(usr)] removió el jobban de [key_name_admin(M)] como [msg]")
 				message_admins("<span class='notice'>[key_name_admin(usr)] unbanned [key_name_admin(M)] from [msg]</span>", 1)
 				to_chat(M, "<span class='warning'><big><b>You have been un-jobbanned by [usr.client.ckey] from [msg].</b></big></span>")
 				href_list["jobban2"] = 1 // lets it fall through and refresh
