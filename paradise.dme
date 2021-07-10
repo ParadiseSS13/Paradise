@@ -1508,7 +1508,6 @@
 #include "code\modules\events\wormholes.dm"
 #include "code\modules\events\wizard\ghost.dm"
 #include "code\modules\examine\examine.dm"
-#include "code\modules\examine\descriptions\medical.dm"
 #include "code\modules\examine\descriptions\mobs.dm"
 #include "code\modules\examine\descriptions\stacks.dm"
 #include "code\modules\examine\descriptions\structures.dm"
