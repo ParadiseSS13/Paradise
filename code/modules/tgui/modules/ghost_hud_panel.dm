@@ -19,7 +19,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 /datum/ui_module/ghost_hud_panel/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.observer_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "GhostHudPanel", name, 250, 165, master_ui, state)
+		ui = new(user, src, ui_key, "GhostHudPanel", name, 250, 171, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
