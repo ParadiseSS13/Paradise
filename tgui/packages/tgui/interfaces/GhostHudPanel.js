@@ -11,7 +11,7 @@ export const GhostHudPanel = (props, context) => {
     ahud,
   } = data;
   return (
-    <Window resizable theme="nologo">
+    <Window theme="nologo">
       <Window.Content>
         <Section >
           <HudEntry label="Medical" type="medical" is_active={medical} />
