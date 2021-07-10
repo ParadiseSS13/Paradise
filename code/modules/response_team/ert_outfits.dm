@@ -61,6 +61,7 @@
 	belt = /obj/item/gun/energy/gun
 
 	backpack_contents = list(
+		/obj/item/aiModule/ert,
 		/obj/item/clothing/head/helmet/ert/command = 1,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/storage/lockbox/mindshield = 1,
@@ -80,6 +81,7 @@
 	belt = /obj/item/gun/energy/gun/blueshield/pdw9
 
 	backpack_contents = list(
+		/obj/item/aiModule/ert,
 		/obj/item/camera_bug/ert = 1,
 		/obj/item/door_remote/omni = 1,
 		/obj/item/restraints/handcuffs = 1,
@@ -100,6 +102,7 @@
 	belt = /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 
 	backpack_contents = list(
+		/obj/item/aiModule/ert,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/storage/lockbox/mindshield = 1,
 		/obj/item/camera_bug/ert = 1,
