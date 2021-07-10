@@ -348,6 +348,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/choice = alert(src, "If you enable this, your body will be unrevivable for the remainder of the round.", "Are you sure?", "Yes", "No")
 	if(choice == "Yes")
 		to_chat(src, "<span class='boldnotice'>Do Not Revive state enabled.</span>")
+		create_log(MISC_LOG, "DNR Enabled")
 		can_reenter_corpse = FALSE
 		if(!QDELETED(mind.current)) // Could change while they're choosing
 			mind.current.med_hud_set_status()

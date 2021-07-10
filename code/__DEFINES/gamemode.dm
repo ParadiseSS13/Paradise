@@ -32,7 +32,6 @@
 #define SPECIAL_ROLE_FREE_GOLEM "Free Golem"
 #define SPECIAL_ROLE_GOLEM "Golem"
 #define SPECIAL_ROLE_HEAD_REV "Head Revolutionary"
-#define SPECIAL_ROLE_HONKSQUAD "Honksquad"
 #define SPECIAL_ROLE_REV "Revolutionary"
 #define SPECIAL_ROLE_MORPH "Morph"
 #define SPECIAL_ROLE_MULTIVERSE "Multiverse Traveller"

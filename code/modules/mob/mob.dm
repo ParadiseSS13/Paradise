@@ -890,7 +890,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(href_list["flavor_change"])
 		update_flavor_text()
 
-	return
+	if(href_list["scoreboard"])
+		usr << browse(GLOB.scoreboard, "window=roundstats;size=500x600")
 
 // The src mob is trying to strip an item from someone
 // Defined in living.dm
