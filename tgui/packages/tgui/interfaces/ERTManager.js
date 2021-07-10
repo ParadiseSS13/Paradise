@@ -33,29 +33,6 @@ export const ERTManager = (props, context) => {
                   ? "purple"
                   : ""}
                 onClick={() => act('ert_type', { ert_type: "Gamma" })} />
-              <br />
-              <Button
-                content="SolGov"
-                color={data.ert_type === "SolGov"
-                  ? "red"
-                  : ""}
-                onClick={() => { act('ert_type', { ert_type: "SolGov" });
-                  act('set_med', { set_med: "0" });
-                  act('set_eng', { set_eng: "0" });
-                  act('set_par', { set_par: "0" });
-                  act('set_jan', { set_jan: "0" });
-                }} />
-              <Button
-                content="SolGov Specops"
-                color={data.ert_type === "SolGov Specops"
-                  ? "purple"
-                  : ""}
-                onClick={() => { act('ert_type', { ert_type: "SolGov Specops" });
-                  act('set_med', { set_med: "0" });
-                  act('set_eng', { set_eng: "0" });
-                  act('set_par', { set_par: "0" });
-                  act('set_jan', { set_jan: "0" });
-                }} />
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -82,7 +59,6 @@ export const ERTManager = (props, context) => {
             <LabeledList.Item label="Medical">
               {slotOptions.map((a, i) => (
                 <Button
-                  disabled={data.ert_type === "SolGov" || data.ert_type === "SolGov Specops"}
                   key={"med" + a}
                   selected={data.med === a}
                   content={a}
@@ -95,7 +71,6 @@ export const ERTManager = (props, context) => {
             <LabeledList.Item label="Engineering">
               {slotOptions.map((a, i) => (
                 <Button
-                  disabled={data.ert_type === "SolGov" || data.ert_type === "SolGov Specops"}
                   key={"eng" + a}
                   selected={data.eng === a}
                   content={a}
@@ -108,7 +83,6 @@ export const ERTManager = (props, context) => {
             <LabeledList.Item label="Paranormal">
               {slotOptions.map((a, i) => (
                 <Button
-                  disabled={data.ert_type === "SolGov" || data.ert_type === "SolGov Specops"}
                   key={"par" + a}
                   selected={data.par === a}
                   content={a}
@@ -121,7 +95,6 @@ export const ERTManager = (props, context) => {
             <LabeledList.Item label="Janitor">
               {slotOptions.map((a, i) => (
                 <Button
-                  disabled={data.ert_type === "SolGov" || data.ert_type === "SolGov Specops"}
                   key={"jan" + a}
                   selected={data.jan === a}
                   content={a}

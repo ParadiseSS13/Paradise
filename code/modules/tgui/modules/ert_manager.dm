@@ -12,7 +12,7 @@
 /datum/ui_module/ert_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ERTManager", name, 350, 450, master_ui, state)
+		ui = new(user, src, ui_key, "ERTManager", name, 350, 430, master_ui, state)
 		ui.autoupdate = TRUE
 		ui.open()
 
@@ -70,10 +70,6 @@
 					D = new /datum/response_team/red
 				if("Gamma")
 					D = new /datum/response_team/gamma
-				if("SolGov")
-					D = new /datum/response_team/solgov
-				if("SolGov Specops")
-					D = new /datum/response_team/solgovspecops
 				else
 					to_chat(usr, "<span class='userdanger'>Invalid ERT type.</span>")
 					return
