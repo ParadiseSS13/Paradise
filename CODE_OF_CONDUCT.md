@@ -12,13 +12,13 @@ Under no circumstances are users to be attacked for their ideas or contributions
 
 "Merge-nagging" or similar behaviour is not acceptable. Comments of this nature will result in warnings or an outright ban from the repository depending on general behaviour.
 
-If you exhibit behaviour that's considered to be a net-negative to the community (offensive commentary, repeat violations, constant nagging, personal attacks, etc.), you may be banned from other Paradise services (discord, forums, server, wiki, etc.)
+If you exhibit behaviour that's considered to be a net-negative to the community (offensive commentary, repeat violations, constant nagging, personal attacks, etc.), you may be banned from other Paradise services (Discord, forums, server, wiki, etc.)
 
 Maintainers reserve the right to permanently revoke access from the repository if your behaviour is considered to be a net negative.
 
 ### PR Approval/Objection Info
 
-Heads of Staff and Maintainers have the final say on Pull Requests. While thumbs ratios are generally taken into account, they do not dictate whether or not a PR will be merged.
+Heads of Staff and Maintainers have the final say on Pull Requests. While thumbsup/thumbsdown reaction ratios are generally taken into account, they do not dictate whether or not a PR will be merged.
 
 After a twenty four hour minimum waiting period, Pull Requests can be merged once they receive approval from both a Head of Staff and a Maintainer. An exception is made for refactors and fixes, which may be merged at a Maintainer's discretion with no waiting period.
 
