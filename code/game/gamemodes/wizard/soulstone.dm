@@ -262,7 +262,8 @@
 	switch(choice)
 		if("FORCE")
 			var/mob/living/T = target
-			if(T.client && T.ghost_can_reenter()) // Haven't DC'd or ahudded
+			T.grab_ghost(FALSE) // If they haven't DC'd or ahudded, put them back in their body
+			if(T.client) // If there's someone in the body
 				init_shade(T, user)
 			else // Poll ghosts
 				to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
@@ -365,7 +366,7 @@
 	qdel(SS)
 
 /proc/make_new_construct(mob/living/simple_animal/hostile/construct/c_type, mob/target, mob/user, cult_override = FALSE)
-	if(jobban_isbanned(target, "cultist"))
+	if(jobban_isbanned(target, ROLE_CULTIST))
 		return
 	var/mob/living/simple_animal/hostile/construct/C = new c_type(get_turf(target))
 	C.faction |= "\ref[user]"

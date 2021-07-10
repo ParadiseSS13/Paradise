@@ -1201,12 +1201,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				var/floor_only = TRUE
 				for(var/A in tile)
 					if(istype(A, /obj/effect))
-						if(is_cleanable(A))
-							var/obj/effect/decal/cleanable/blood/B = A
+						var/obj/effect/E = A
+						if(E.is_cleanable())
+							var/obj/effect/decal/cleanable/blood/B = E
 							if(istype(B) && B.off_floor)
 								floor_only = FALSE
 							else
-								qdel(A)
+								qdel(E)
 					else if(istype(A, /obj/item))
 						var/obj/item/cleaned_item = A
 						cleaned_item.clean_blood()
