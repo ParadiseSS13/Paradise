@@ -47,6 +47,9 @@
 
 	connect_types = list(1,2) //connects to regular and supply pipes
 
+/obj/machinery/atmospherics/unary/vent_pump/detailed_examine()
+	return "This pumps the contents of the attached pipe out into the atmosphere, if needed. It can be controlled from an Air Alarm."
+
 /obj/machinery/atmospherics/unary/vent_pump/on
 	on = 1
 	icon_state = "map_vent_out"
