@@ -1,3 +1,6 @@
+
+#define USE_COOLDOWN 2 SECONDS
+
 /obj/item/hailer
 	name = "hailer"
 	desc = "Used by obese officers to save their breath for running."
@@ -6,12 +9,11 @@
 	item_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
 	w_class = WEIGHT_CLASS_TINY
 	flags = CONDUCT
-
+	var/next_use_time
 	var/spamcheck = 0
-	var/emagged = 0
 
 /obj/item/hailer/attack_self(mob/living/carbon/user as mob)
-	if(spamcheck)
+	if(world.time < next_use_time)
 		return
 
 	if(emagged)
@@ -21,11 +23,11 @@
 		playsound(get_turf(src), 'sound/voice/halt.ogg', 100, 1, vary = 0)
 		user.visible_message("<span class='warning'>[user]'s [name] rasps, \"Halt! Security!\"</span>")
 
-	spamcheck = 1
-	spawn(20)
-		spamcheck = 0
+	next_use_time = world.time + USE_COOLDOWN
 
 /obj/item/hailer/emag_act(user as mob)
 	if(!emagged)
 		to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
 		emagged = 1
+
+#undef USE_COOLDOWN

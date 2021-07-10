@@ -27,8 +27,6 @@
 	var/teleporting = FALSE
 	/// How much power does each teleport use?
 	var/chargecost = 1000
-	/// Is emagged?
-	var/emagged = FALSE
 
 /obj/item/rcs/get_cell()
 	return rcell

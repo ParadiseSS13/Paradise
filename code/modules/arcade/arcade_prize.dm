@@ -18,7 +18,7 @@
 	if(opening)
 		return
 	opening = 1
-	playsound(src.loc, 'sound/items/bubblewrap.ogg', 30, 1, extrarange = -4, falloff = 10)
+	playsound(loc, 'sound/items/bubblewrap.ogg', 30, TRUE)
 	icon_state = "prizeconfetti"
 	src.color = pick(GLOB.random_color_list)
 	var/prize_inside = pick(possible_contents)
@@ -69,7 +69,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = 9999	//Dang that's a lot of tickets
 
-/obj/item/stack/tickets/New(var/loc, var/amount=null)
+/obj/item/stack/tickets/New(loc, amount=null)
 	..()
 	update_icon()
 

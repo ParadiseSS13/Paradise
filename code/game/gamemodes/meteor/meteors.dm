@@ -18,18 +18,18 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 ///////////////////////////////
 //Meteor spawning global procs
 ///////////////////////////////
-/proc/spawn_meteors(var/number = 10, var/list/meteortypes)
+/proc/spawn_meteors(number = 10, list/meteortypes)
 	for(var/i = 0; i < number; i++)
 		spawn_meteor(meteortypes)
 
-/proc/spawn_meteor(var/list/meteortypes)
+/proc/spawn_meteor(list/meteortypes)
 	var/turf/pickedstart
 	var/turf/pickedgoal
 	var/max_i = 10//number of tries to spawn meteor.
 	while(!istype(pickedstart, /turf/space))
 		var/startSide = pick(GLOB.cardinal)
-		pickedstart = spaceDebrisStartLoc(startSide, 1)
-		pickedgoal = spaceDebrisFinishLoc(startSide, 1)
+		pickedstart = spaceDebrisStartLoc(startSide, level_name_to_num(MAIN_STATION))
+		pickedgoal = spaceDebrisFinishLoc(startSide, level_name_to_num(MAIN_STATION))
 		max_i--
 		if(max_i<=0)
 			return
@@ -136,7 +136,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 /obj/effect/meteor/CanPass(atom/movable/mover, turf/target, height=0)
 	return istype(mover, /obj/effect/meteor) ? 1 : ..()
 
-/obj/effect/meteor/proc/ram_turf(var/turf/T)
+/obj/effect/meteor/proc/ram_turf(turf/T)
 	//first bust whatever is in the turf
 	for(var/atom/A in T)
 		if(A != src)
@@ -170,7 +170,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 		var/obj/item/O = new meteordrop(get_turf(src))
 		O.throw_at(dest, 5, 10)
 
-/obj/effect/meteor/proc/meteor_effect(var/sound=1)
+/obj/effect/meteor/proc/meteor_effect(sound=1)
 	if(sound)
 		var/sound/meteor_sound = sound(meteorsound)
 		var/random_frequency = get_rand_frequency()
@@ -245,8 +245,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	..(heavy)
 	explosion(src.loc, 0, 0, 4, 3, 0)
 	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
-	for(var/mob/living/L in view(5, src))
-		L.apply_effect(40, IRRADIATE)
+	radiation_pulse(src, 500)
 
 //Station buster Tunguska
 /obj/effect/meteor/tunguska

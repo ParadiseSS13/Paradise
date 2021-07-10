@@ -1,14 +1,16 @@
-GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
+GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 
 /world/New()
 	// IMPORTANT
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
 	// This is BAD.
 
+	// Right off the bat
+	enable_auxtools_debugger()
+
 	//temporary file used to record errors with loading config and the database, moved to log directory once logging is set up
 	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = GLOB.sql_log = "data/logs/config_error.log"
 	load_configuration()
-	enable_debugger() // Enable the extools debugger
 
 	// Right off the bat, load up the DB
 	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
@@ -20,16 +22,18 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	// This needs to happen early, otherwise people can get a null species, nuking their character
 	makeDatumRefLists()
 
-	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
+	InitTGS() // creates a new TGS object
 	log_world("World loaded at [time_stamp()]")
-	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
+	log_world("[length(GLOB.vars) - length(GLOB.gvars_datum_in_built_vars)] global variables")
 	GLOB.revision_info.log_info()
-	load_admins(run_async=FALSE) // This better happen early on.
+	load_admins(run_async = FALSE) // This better happen early on.
 
 	#ifdef UNIT_TESTS
 	log_world("Unit Tests Are Enabled!")
 	#endif
 
+	if(!fexists("config/config.txt") || !fexists("config/game_options.txt"))
+		stack_trace("The game config files have not been properly set! Please copy ALL files from '/config/example' into the parent folder, '/config'.")
 
 	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
@@ -42,7 +46,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 	startup_procs() // Call procs that need to occur on startup (Generate lists, load MOTD, etc)
 
-	src.update_status()
+	update_status()
 
 	GLOB.space_manager.initialize() //Before the MC starts up
 
@@ -55,7 +59,10 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	HandleTestRun()
 	#endif
 
-	return
+
+/world/proc/InitTGS()
+	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
+	GLOB.revision_info.load_tgs_info() // Loads git and TM info from TGS itself
 
 // This is basically a replacement for hook/startup. Please dont shove random bullshit here
 // If it doesnt need to happen IMMEDIATELY on world load, make a subsystem for it
@@ -135,11 +142,11 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	return
 	#endif
 
-	// If we had an update or pending TM, set a 60 second timeout
+	// If the server has been gracefully shutdown in TGS, have a 60 seconds grace period for SQL updates and stuff
 	var/secs_before_auto_reconnect = 10
-	if(GLOB.pending_server_update)
+	if(GLOB.slower_restart)
 		secs_before_auto_reconnect = 60
-		to_chat(world, "<span class='boldannounce'>Reboot will take a little longer, due to pending updates.</span>")
+		server_announce_global("Reboot will take a little longer due to pending backend changes.")
 
 	// Send the reboot banner to all players
 	for(var/client/C in GLOB.clients)
@@ -168,7 +175,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			GLOB.master_mode = Lines[1]
 			log_game("Saved mode is '[GLOB.master_mode]'")
 
-/world/proc/save_mode(var/the_mode)
+/world/proc/save_mode(the_mode)
 	var/F = file("data/mode.txt")
 	fdel(F)
 	F << the_mode
@@ -183,6 +190,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	config.load("config/game_options.txt","game_options")
 	config.loadsql("config/dbconfig.txt")
 	config.loadoverflowwhitelist("config/ofwhitelist.txt")
+	config.load_rank_colour_map()
 	// apply some settings from config..
 
 /world/proc/update_status()
@@ -240,10 +248,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.world_href_log = "[GLOB.log_directory]/hrefs.log"
 	GLOB.world_runtime_log = "[GLOB.log_directory]/runtime.log"
 	GLOB.world_qdel_log = "[GLOB.log_directory]/qdel.log"
-	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
 	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
 	GLOB.http_log = "[GLOB.log_directory]/http.log"
 	GLOB.sql_log = "[GLOB.log_directory]/sql.log"
+	GLOB.chat_debug_log = "[GLOB.log_directory]/chat_debug.log"
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
@@ -251,6 +259,12 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	start_log(GLOB.tgui_log)
 	start_log(GLOB.http_log)
 	start_log(GLOB.sql_log)
+	start_log(GLOB.chat_debug_log)
+
+	#ifdef REFERENCE_TRACKING
+	GLOB.gc_log = "[GLOB.log_directory]/gc_debug.log"
+	start_log(GLOB.gc_log)
+	#endif
 
 	// This log follows a special format and this path should NOT be used for anything else
 	GLOB.runtime_summary_log = "data/logs/runtime_summary.log"
@@ -268,14 +282,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	fdel(F)
 	F << GLOB.log_directory
 
-// Proc to enable the extools debugger, which allows breakpoints, live var checking, and many other useful tools
-// The DLL is injected into the env by visual studio code. If not running VSCode, the proc will not call the initialization
-/world/proc/enable_debugger()
-    var/dll = world.GetConfig("env", "EXTOOLS_DLL")
-    if (dll)
-        call(dll, "debug_initialize")()
-
-
 /world/Del()
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
+	disable_auxtools_debugger() // Disables the debugger if running. See above comment
 	..()

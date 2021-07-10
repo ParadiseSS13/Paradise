@@ -19,7 +19,7 @@
 	pixel_x = rand(0, 16) - 8
 	pixel_y = rand(0, 8) - 8
 	if(is_mining_level(z))
-		GLOB.score_oremined++ //When ore spawns, increment score.  Only include ore spawned on mining level (No Clown Planet)
+		SSticker.score.score_ore_mined++ //When ore spawns, increment score.  Only include ore spawned on mining level (No Clown Planet)
 
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -261,7 +261,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	else
 		..()
 
-/obj/item/twohanded/required/gibtonite/bullet_act(var/obj/item/projectile/P)
+/obj/item/twohanded/required/gibtonite/bullet_act(obj/item/projectile/P)
 	GibtoniteReaction(P.firer)
 	..()
 

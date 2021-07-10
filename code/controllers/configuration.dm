@@ -166,11 +166,6 @@
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
 
-	var/list/station_levels = list(1)				// Defines which Z-levels the station exists on.
-	var/list/admin_levels= list(2)					// Defines which Z-levels which are for admin functionality, for example including such areas as Central Command and the Syndicate Shuttle
-	var/list/contact_levels = list(1, 5)			// Defines which Z-levels which, for example, a Code Red announcement may affect
-	var/list/player_levels = list(1, 3, 4, 5, 6, 7)	// Defines all Z-levels a character can typically reach
-
 	var/const/minutes_to_ticks = 60 * 10
 	// Event settings
 	var/expected_round_length = 60 * 2 * minutes_to_ticks // 2 hours
@@ -276,6 +271,15 @@
 
 	/// Max amount of CIDs that one ckey can have attached to them before they trip a warning
 	var/max_client_cid_history = 3
+
+	/// Enable auto profiler of rounds
+	var/auto_profile = FALSE
+
+	// Enable map voting
+	var/map_voting_enabled = FALSE
+
+	// 2FA auth host
+	var/_2fa_auth_host = null
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -770,6 +774,12 @@
 					centcom_ban_db_url = value
 				if("max_client_cid_history")
 					max_client_cid_history = text2num(value)
+				if("enable_auto_profiler")
+					auto_profile = TRUE
+				if("enable_map_voting")
+					map_voting_enabled = TRUE
+				if("2fa_host")
+					_2fa_auth_host = value
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
@@ -925,3 +935,34 @@
 			runnable_modes[M] = probabilities[M.config_tag]
 //			to_chat(world, "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]")
 	return runnable_modes
+
+/datum/configuration/proc/load_rank_colour_map()
+	var/list/lines = file2list("config/rank_colours.txt")
+
+	for(var/line in lines)
+		// Skip newlines
+		if(!length(line))
+			continue
+		// Skip comments
+		if(line[1] == "#")
+			continue
+
+		//Split the line at every " - "
+		var/list/split_holder = splittext(line, " - ")
+		if(!length(split_holder))
+			continue
+
+		// Rank is before the " - "
+		var/rank = split_holder[1]
+		if(!rank)
+			continue
+
+		// Color is after the " - "
+		var/colour = ""
+		if(length(split_holder) >= 2)
+			colour = split_holder[2]
+
+		if(rank && colour)
+			GLOB.rank_colour_map[rank] = colour
+		else
+			stack_trace("Invalid colour for rank '[rank]' in config/rank_colours.txt")

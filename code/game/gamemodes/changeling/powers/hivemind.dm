@@ -7,7 +7,7 @@
 	chemical_cost = -1
 	needs_button = FALSE
 
-/datum/action/changeling/hivemind_comms/on_purchase(var/mob/user)
+/datum/action/changeling/hivemind_comms/on_purchase(mob/user)
 	..()
 	var/datum/changeling/changeling=user.mind.changeling
 	changeling.changeling_speak = 1

@@ -18,4 +18,3 @@
 	y_offset = -10
 	resistance_flags = INDESTRUCTIBLE
 	flags = NODECONSTRUCT
-	access_derelict = TRUE

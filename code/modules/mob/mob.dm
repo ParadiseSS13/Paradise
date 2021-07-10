@@ -30,6 +30,8 @@
 		GLOB.alive_mob_list += src
 	set_focus(src)
 	prepare_huds()
+	runechat_msg_location = src
+	update_runechat_msg_location()
 	. = ..()
 
 /atom/proc/prepare_huds()
@@ -101,7 +103,7 @@
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 
-/mob/visible_message(var/message, var/self_message, var/blind_message)
+/mob/visible_message(message, self_message, blind_message)
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
@@ -114,7 +116,7 @@
 // Use for objects performing visible actions
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/atom/proc/visible_message(var/message, var/blind_message)
+/atom/proc/visible_message(message, blind_message)
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(!M.client)
 			continue
@@ -215,7 +217,7 @@
 //This is a SAFE proc. Use this instead of equip_to_slot()!
 //set del_on_fail to have it delete W if it fails to equip
 //set disable_warning to disable the 'you are unable to equip that' warning.
-/mob/proc/equip_to_slot_if_possible(obj/item/W, slot, del_on_fail = 0, disable_warning = 0)
+/mob/proc/equip_to_slot_if_possible(obj/item/W, slot, del_on_fail = FALSE, disable_warning = FALSE, initial = FALSE)
 	if(!istype(W)) return 0
 
 	if(!W.mob_can_equip(src, slot, disable_warning))
@@ -227,24 +229,24 @@
 
 		return 0
 
-	equip_to_slot(W, slot) //This proc should not ever fail.
+	equip_to_slot(W, slot, initial) //This proc should not ever fail.
 	return 1
 
 //This is an UNSAFE proc. It merely handles the actual job of equipping. All the checks on whether you can or can't eqip need to be done before! Use mob_can_equip() for that task.
 //In most cases you will want to use equip_to_slot_if_possible()
-/mob/proc/equip_to_slot(obj/item/W, slot)
+/mob/proc/equip_to_slot(obj/item/W, slot, initial = FALSE)
 	return
 
 //This is just a commonly used configuration for the equip_to_slot_if_possible() proc, used to equip people when the rounds tarts and when events happen and such.
-/mob/proc/equip_to_slot_or_del(obj/item/W as obj, slot)
-	return equip_to_slot_if_possible(W, slot, TRUE, TRUE)
+/mob/proc/equip_to_slot_or_del(obj/item/W, slot, initial = FALSE)
+	return equip_to_slot_if_possible(W, slot, TRUE, TRUE, initial)
 
 // Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
 // Used in job equipping so shit doesn't pile up at the start loc.
-/mob/living/carbon/human/proc/equip_or_collect(var/obj/item/W, var/slot)
+/mob/living/carbon/human/proc/equip_or_collect(obj/item/W, slot, initial = FALSE)
 	if(W.mob_can_equip(src, slot, 1))
 		//Mob can equip.  Equip it.
-		equip_to_slot_or_del(W, slot)
+		equip_to_slot_or_del(W, slot, initial)
 	else
 		//Mob can't equip it.  Put it their backpack or toss it on the floor
 		if(istype(back, /obj/item/storage))
@@ -438,8 +440,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if(slot_flags & SLOT_DENYPOCKET)
-					return
 				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_POCKET) )
 					return 1
 			if(slot_r_store)
@@ -448,8 +448,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				if(!H.w_uniform)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
-					return 0
-				if(slot_flags & SLOT_DENYPOCKET)
 					return 0
 				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_POCKET) )
 					return 1
@@ -581,8 +579,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -752,7 +750,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 		flavor_text = msg
 
-/mob/proc/print_flavor_text(var/shrink = TRUE)
+/mob/proc/print_flavor_text(shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 40 || !shrink)
@@ -911,7 +909,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(href_list["flavor_change"])
 		update_flavor_text()
 
-	return
+	if(href_list["scoreboard"])
+		usr << browse(GLOB.scoreboard, "window=roundstats;size=500x600")
 
 // The src mob is trying to strip an item from someone
 // Defined in living.dm
@@ -984,6 +983,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	statpanel("Status") // We only want alt-clicked turfs to come before Status
 	stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
+	stat(null, "Map: [SSmapping.map_datum.fluff_name]")
+	if(SSmapping.next_map)
+		stat(null, "Next Map: [SSmapping.next_map.fluff_name]")
 
 	if(mob_spell_list && mob_spell_list.len)
 		for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
@@ -1017,8 +1019,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
 
-	if(client && client.statpanel == "Status" && SSticker)
-		show_stat_station_time()
+	if(client?.statpanel == "Status")
+		if(SSticker)
+			show_stat_station_time()
+		stat(null, "Players Connected: [length(GLOB.clients)]")
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
@@ -1047,7 +1051,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				statpanel_things += A
 			statpanel(listed_turf.name, null, statpanel_things)
 
-/mob/proc/add_spell_to_statpanel(var/obj/effect/proc_holder/spell/S)
+/mob/proc/add_spell_to_statpanel(obj/effect/proc_holder/spell/S)
 	switch(S.charge_type)
 		if("recharge")
 			statpanel(S.panel,"[S.charge_counter/10.0]/[S.charge_max/10]",S)
@@ -1067,7 +1071,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(restrained())					return 0
 	return 1
 
-/mob/proc/fall(var/forced)
+/mob/proc/fall(forced)
 	drop_l_hand()
 	drop_r_hand()
 
@@ -1364,6 +1368,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/spin(spintime, speed)
 	set waitfor = 0
+	if(!spintime || !speed || spintime > 100)
+		CRASH("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
 	var/D = dir
 	while(spintime >= speed)
 		sleep(speed)
@@ -1443,22 +1449,22 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/set_nutrition(change)
 	nutrition = max(0, change)
 
-/mob/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
+/mob/clean_blood(radiation_clean = FALSE, clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	. = ..()
 	if(bloody_hands && clean_hands)
 		bloody_hands = 0
 		update_inv_gloves()
 	if(l_hand)
-		if(l_hand.clean_blood())
+		if(l_hand.clean_blood(radiation_clean))
 			update_inv_l_hand()
 	if(r_hand)
-		if(r_hand.clean_blood())
+		if(r_hand.clean_blood(radiation_clean))
 			update_inv_r_hand()
 	if(back)
-		if(back.clean_blood())
+		if(back.clean_blood(radiation_clean))
 			update_inv_back()
 	if(wear_mask && clean_mask)
-		if(wear_mask.clean_blood())
+		if(wear_mask.clean_blood(radiation_clean))
 			update_inv_wear_mask()
 	if(clean_feet)
 		feet_blood_color = null
@@ -1468,3 +1474,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		update_inv_shoes()
 	update_icons()	//apply the now updated overlays to the mob
 
+/**
+ * Updates the mob's runechat maptext display location.
+ */
+/mob/proc/update_runechat_msg_location()
+	return

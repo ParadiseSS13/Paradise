@@ -3,6 +3,7 @@
 	desc = "And boom goes the weasel."
 	icon_state = "explosive"
 	origin_tech = "materials=2;combat=3;biotech=4;syndicate=4"
+	actions_types = list(/datum/action/item_action/hands_free/activate/always)
 	var/weak = 2
 	var/medium = 0.8
 	var/heavy = 0.4
@@ -135,6 +136,7 @@
 	desc = "An alarm which monitors host vital signs, transmitting a radio message and dusting the corpse on death."
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
+	actions_types = list(/datum/action/item_action/hands_free/activate/always)
 
 /obj/item/implant/dust/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>

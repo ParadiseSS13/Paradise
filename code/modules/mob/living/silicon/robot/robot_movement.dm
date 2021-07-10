@@ -1,4 +1,4 @@
-/mob/living/silicon/robot/Process_Spacemove(var/movement_dir = 0)
+/mob/living/silicon/robot/Process_Spacemove(movement_dir = 0)
 	if(ionpulse())
 		return 1
 	if(..())

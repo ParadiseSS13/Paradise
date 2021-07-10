@@ -18,7 +18,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	handle_removal_from_round()
 
 	// Ghost the current player and disallow them to return to the body
-	ghostize(FALSE)
+	ghostize()
 	// Delete the old AI shell
 	qdel(src)
 

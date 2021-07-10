@@ -113,7 +113,7 @@
 		if("eye_color")
 			if(can_change(APPEARANCE_EYE_COLOR))
 				var/obj/item/organ/internal/eyes/eyes_organ = owner.get_int_organ(/obj/item/organ/internal/eyes)
-				var/new_eyes = input("Please select eye color.", "Eye Color", eyes_organ.eye_colour) as color|null
+				var/new_eyes = input("Please select eye color.", "Eye Color", eyes_organ.eye_color) as color|null
 				if(new_eyes && (!..()) && owner.change_eye_color(new_eyes))
 					update_dna()
 

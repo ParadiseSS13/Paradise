@@ -298,7 +298,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 				if(issilicon(player))
 					continue
 				if(get_area(player) == A)
-					if(player.real_name != owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/shuttle/floor4))
+					if(player.real_name != owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/floor/mineral/plastitanium/red/brig))
 						return 0
 
 	for(var/mob/living/player in GLOB.player_list) //Make sure at least one of you is onboard
@@ -307,7 +307,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 				if(issilicon(player))
 					continue
 				if(get_area(player) == A)
-					if(player.real_name == owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/shuttle/floor4))
+					if(player.real_name == owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/floor/mineral/plastitanium/red/brig))
 						return 1
 	return 0
 
@@ -317,11 +317,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/block/check_completion()
 	if(!istype(owner.current, /mob/living/silicon))
-		return 0
+		return FALSE
+	if(SSticker.mode.station_was_nuked)
+		return TRUE
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
-		return 0
+		return FALSE
 	if(!owner.current)
-		return 0
+		return FALSE
 
 	var/area/A = SSshuttle.emergency.areaInstance
 
@@ -331,9 +333,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 		if(player.mind && player.stat != DEAD)
 			if(get_area(player) == A)
-				return 0 // If there are any other organic mobs on the shuttle, you failed the objective.
+				return FALSE // If there are any other organic mobs on the shuttle, you failed the objective.
 
-	return 1
+	return TRUE
 
 /datum/objective/escape
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
@@ -355,7 +357,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(!location)
 		return 0
 
-	if(istype(location, /turf/simulated/shuttle/floor4) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig)) // Fails traitors if they are in the shuttle brig -- Polymorph
+	if(istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig)) // Fails traitors if they are in the shuttle brig -- Polymorph
 		return 0
 
 	if(location.onCentcom() || location.onSyndieBase())
@@ -372,7 +374,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && possible_target.current.client)
 			var/mob/living/carbon/human/H = possible_target.current
-			if(!(NO_DNA in H.dna.species.species_traits))
+			if(!HAS_TRAIT(H, TRAIT_GENELESS))
 				possible_targets += possible_target
 	var/found_target
 	if(length(possible_targets) > 0)
@@ -431,14 +433,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/theft_area
 
 /datum/objective/steal/proc/get_location()
-	if(steal_target.location_override)
-		return steal_target.location_override
-	var/list/obj/item/steal_candidates = get_all_of_type(steal_target.typepath, subtypes = TRUE)
-	for(var/obj/item/candidate in steal_candidates)
-		if(!is_admin_level(candidate.loc.z))
-			theft_area = get_area(candidate.loc)
-			return "[theft_area]"
-	return "an unknown area"
+	return steal_target.location_override || "an unknown area"
 
 /datum/objective/steal/set_target(new_target)
 	steal_target = new_target
@@ -453,23 +448,21 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			explanation_text += "It may also be in the possession of the [jointext(steal_target.protected_jobs, ", ")]."
 
 /datum/objective/steal/find_target()
-	var/loop=50
+	var/potential = GLOB.potential_theft_objectives.Copy()
 	var/found_target
-	while(!found_target && loop > 0)
-		loop--
-		var/thefttype = pick(GLOB.potential_theft_objectives)
+	while(!found_target && length(potential))
+		var/thefttype = pick_n_take(potential)
 		var/datum/theft_objective/O = new thefttype
 		if(owner.assigned_role in O.protected_jobs)
 			continue
 		if(O in owner.targets)
 			continue
-		if(O.flags & 2)
+		if(O.flags & 2) // THEFT_FLAG_UNIQUE
 			continue
 		found_target = O
 
 	set_target(found_target)
 	return found_target
-
 
 /datum/objective/steal/proc/select_target()
 	var/list/possible_items_all = GLOB.potential_theft_objectives+"custom"
@@ -510,7 +503,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/steal/exchange
 	martyr_compatible = 0
 
-/datum/objective/steal/exchange/proc/set_faction(var/faction,var/otheragent)
+/datum/objective/steal/exchange/proc/set_faction(faction, otheragent)
 	target = otheragent
 	var/datum/theft_objective/unique/targetinfo
 	if(faction == "red")
@@ -521,7 +514,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	steal_target = targetinfo
 
 /datum/objective/steal/exchange/backstab
-/datum/objective/steal/exchange/backstab/set_faction(var/faction)
+/datum/objective/steal/exchange/backstab/set_faction(faction)
 	var/datum/theft_objective/unique/targetinfo
 	if(faction == "red")
 		targetinfo = new /datum/theft_objective/unique/docs_red
@@ -556,7 +549,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/absorb
-/datum/objective/absorb/proc/gen_amount_goal(var/lowbound = 4, var/highbound = 6)
+/datum/objective/absorb/proc/gen_amount_goal(lowbound = 4, highbound = 6)
 	target_amount = rand (lowbound,highbound)
 	if(SSticker)
 		var/n_p = 1 //autowin
@@ -568,7 +561,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 					n_p++
 		else if(SSticker.current_state == GAME_STATE_PLAYING)
 			for(var/mob/living/carbon/human/P in GLOB.player_list)
-				if(NO_DNA in P.dna.species.species_traits)
+				if(HAS_TRAIT(P, TRAIT_GENELESS))
 					continue
 				if(P.client && !(P.mind in SSticker.mode.changelings) && P.mind!=owner)
 					n_p++

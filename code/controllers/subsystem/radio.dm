@@ -26,7 +26,7 @@ SUBSYSTEM_DEF(radio)
 	var/list/datum/radio_frequency/frequencies = list()
 
 // This is fucking disgusting and needs to die
-/datum/controller/subsystem/radio/proc/frequency_span_class(var/frequency)
+/datum/controller/subsystem/radio/proc/frequency_span_class(frequency)
 	// Antags!
 	if(frequency in ANTAG_FREQS)
 		return "syndradio"
@@ -62,7 +62,7 @@ SUBSYSTEM_DEF(radio)
 	return "radio"
 
 
-/datum/controller/subsystem/radio/proc/add_object(obj/device as obj, var/new_frequency as num, var/filter = null as text|null)
+/datum/controller/subsystem/radio/proc/add_object(obj/device as obj, new_frequency as num, filter = null as text|null)
 	var/f_text = num2text(new_frequency)
 	var/datum/radio_frequency/frequency = frequencies[f_text]
 
@@ -87,7 +87,7 @@ SUBSYSTEM_DEF(radio)
 
 	return 1
 
-/datum/controller/subsystem/radio/proc/return_frequency(var/new_frequency as num)
+/datum/controller/subsystem/radio/proc/return_frequency(new_frequency as num)
 	var/f_text = num2text(new_frequency)
 	var/datum/radio_frequency/frequency = frequencies[f_text]
 

@@ -13,10 +13,10 @@
 		return
 	if(H.dna.GetSEState(GLOB.chameleonblock))
 		H.dna.SetSEState(GLOB.chameleonblock, 0)
-		genemutcheck(H, GLOB.chameleonblock, null, MUTCHK_FORCED)
+		singlemutcheck(H, GLOB.chameleonblock, MUTCHK_FORCED)
 	else
 		H.dna.SetSEState(GLOB.chameleonblock, 1)
-		genemutcheck(H, GLOB.chameleonblock, null, MUTCHK_FORCED)
+		singlemutcheck(H, GLOB.chameleonblock, MUTCHK_FORCED)
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
@@ -25,5 +25,5 @@
 	var/mob/living/carbon/C = user
 	if(C.dna.GetSEState(GLOB.chameleonblock))
 		C.dna.SetSEState(GLOB.chameleonblock, 0)
-		genemutcheck(C, GLOB.chameleonblock, null, MUTCHK_FORCED)
+		singlemutcheck(C, GLOB.chameleonblock, MUTCHK_FORCED)
 	..()

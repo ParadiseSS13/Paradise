@@ -12,10 +12,10 @@
 
 	var/safety = 1
 
-/obj/machinery/computer/robotics/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/robotics/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/robotics/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/robotics/attack_hand(mob/user as mob)
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
@@ -225,5 +225,6 @@
 			log_game("[key_name(usr)] emagged [key_name(R)] using robotic console!")
 			message_admins("<span class='notice'>[key_name_admin(usr)] emagged [key_name_admin(R)] using robotic console!</span>")
 			R.emagged = TRUE
+			R.module.rebuild_modules()
 			to_chat(R, "<span class='notice'>Failsafe protocols overriden. New tools available.</span>")
 			. = TRUE

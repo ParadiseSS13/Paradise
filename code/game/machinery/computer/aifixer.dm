@@ -21,10 +21,10 @@
 	else
 		return ..()
 
-/obj/machinery/computer/aifixer/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/aifixer/attack_ai(mob/user as mob)
 	ui_interact(user)
 
-/obj/machinery/computer/aifixer/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/aifixer/attack_hand(mob/user as mob)
 	ui_interact(user)
 
 /obj/machinery/computer/aifixer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -107,7 +107,7 @@
 		else
 			overlays += image(icon,"ai-fixer-empty",overlay_layer)
 
-/obj/machinery/computer/aifixer/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/aicard/card)
+/obj/machinery/computer/aifixer/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(!..())
 		return
 	//Downloading AI from card to terminal.

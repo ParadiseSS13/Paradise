@@ -8,7 +8,7 @@
 	icon_state = "burst_l";
 	tag = "icon-burst_l (EAST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
@@ -23,26 +23,12 @@
 	icon_state = "rwindow";
 	dir = 4
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
 "d" = (
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (EAST)";
-	icon_state = "wall3";
-	dir = 4
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"e" = (
-/turf/space,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (NORTHEAST)";
-	icon_state = "wall3";
-	dir = 5
-	},
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
@@ -52,22 +38,12 @@
 	icon_state = "burst_r";
 	tag = "icon-burst_r (EAST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
 "g" = (
-/turf/simulated/shuttle/wall,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (SOUTHEAST)";
-	icon_state = "wall3";
-	dir = 6
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"h" = (
-/turf/simulated/shuttle/wall,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
@@ -79,26 +55,7 @@
 /area/ruin/powered{
 	name = "Shuttle"
 	})
-"j" = (
-/turf/space,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (NORTHWEST)";
-	icon_state = "wall3";
-	dir = 9
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
 "k" = (
-/turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"l" = (
-/obj/machinery/door/airlock/external,
 /turf/simulated/floor/plasteel{
 	tag = "icon-dark";
 	icon_state = "dark"
@@ -148,16 +105,6 @@
 /area/ruin/powered{
 	name = "Shuttle"
 	})
-"s" = (
-/turf/space,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (SOUTHWEST)";
-	icon_state = "wall3";
-	dir = 10
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
 "t" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
@@ -197,7 +144,7 @@
 	name = "Shuttle"
 	})
 "x" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/ruin/powered{
 	name = "Shuttle"
@@ -214,13 +161,6 @@
 /area/ruin/powered{
 	name = "Shuttle"
 	})
-"A" = (
-/obj/structure/grille,
-/obj/structure/shuttle/window,
-/turf/simulated/floor/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
 "B" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -228,16 +168,6 @@
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteyellowfull";
 	icon_state = "whiteyellowfull"
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"C" = (
-/turf/simulated/shuttle/wall,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (NORTHEAST)";
-	icon_state = "wall3";
-	dir = 5
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -262,16 +192,6 @@
 /area/ruin/powered{
 	name = "Shuttle"
 	})
-"F" = (
-/turf/space,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (SOUTHEAST)";
-	icon_state = "wall3";
-	dir = 6
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
 "G" = (
 /obj/item/radio/beacon,
 /turf/simulated/floor/plasteel{
@@ -291,12 +211,7 @@
 	name = "Shuttle"
 	})
 "I" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-diagonalWall (SOUTHEAST)";
-	icon_state = "diagonalWall";
-	dir = 6
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/space)
 "J" = (
 /obj/machinery/light{
@@ -319,14 +234,6 @@
 /area/ruin/powered{
 	name = "Shuttle"
 	})
-"L" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-diagonalWall (NORTHWEST)";
-	icon_state = "diagonalWall";
-	dir = 9
-	},
-/area/space)
 "M" = (
 /obj/structure/bed,
 /obj/item/bedsheet/purple,
@@ -363,26 +270,6 @@
 /turf/simulated/floor/plasteel{
 	tag = "icon-dark";
 	icon_state = "dark"
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"Q" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-diagonalWall (SOUTHEAST)";
-	icon_state = "diagonalWall";
-	dir = 6
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"R" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-diagonalWall (NORTHWEST)";
-	icon_state = "diagonalWall";
-	dir = 9
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -515,15 +402,15 @@ a
 (4,1,1) = {"
 b
 f
-j
 d
 d
-s
+d
+d
 a
-j
 d
 d
-s
+d
+d
 b
 f
 "}
@@ -533,10 +420,10 @@ c
 d
 d
 g
-h
+g
 y
-h
-C
+g
+g
 d
 d
 c
@@ -546,21 +433,21 @@ c
 d
 d
 g
-h
-h
+g
+g
 z
 m
 t
-h
-h
-C
+g
+g
+g
 d
 d
 "}
 (7,1,1) = {"
 d
 d
-h
+g
 i
 m
 m
@@ -568,28 +455,28 @@ m
 m
 m
 o
-h
+g
 d
 d
 "}
 (8,1,1) = {"
 d
 g
-h
+g
 n
-h
-h
-h
-h
-h
+g
+g
+g
+g
+g
 n
-h
-C
+g
+g
 d
 "}
 (9,1,1) = {"
 d
-h
+g
 T
 k
 k
@@ -599,12 +486,12 @@ E
 k
 k
 N
-h
+g
 d
 "}
 (10,1,1) = {"
-e
-h
+d
+g
 T
 k
 k
@@ -614,96 +501,96 @@ G
 k
 k
 N
-h
-F
+g
+d
 "}
 (11,1,1) = {"
 a
-h
-h
-h
+g
+g
+g
 n
-h
+g
 n
-h
+g
 n
-h
-h
-h
+g
+g
+g
 a
 "}
 (12,1,1) = {"
 a
 I
-h
+g
 J
 k
-h
+g
 k
-h
+g
 k
 K
-h
-L
+g
+I
 a
 "}
 (13,1,1) = {"
 a
 a
-h
+g
 H
 k
-h
+g
 V
-h
+g
 k
 k
-h
+g
 a
 a
 "}
 (14,1,1) = {"
 a
 a
-h
-h
+g
+g
 n
-h
-h
-h
+g
+g
+g
 n
-h
-h
+g
+g
 a
 a
 "}
 (15,1,1) = {"
 a
 a
-l
+y
 k
 k
-h
-h
-h
+g
+g
+g
 k
 k
-l
+y
 a
 a
 "}
 (16,1,1) = {"
 a
 a
-h
-h
+g
+g
 n
-h
-h
-h
+g
+g
+g
 n
-h
-h
+g
+g
 a
 a
 "}
@@ -711,14 +598,14 @@ a
 a
 a
 I
-h
+g
 k
 k
 k
 k
 k
-h
-L
+g
+I
 a
 a
 "}
@@ -726,13 +613,13 @@ a
 a
 a
 a
-h
+g
 n
-h
-h
-h
+g
+g
+g
 n
-h
+g
 a
 a
 a
@@ -741,13 +628,13 @@ a
 a
 a
 a
-h
+g
 W
 u
-A
+x
 M
 K
-h
+g
 a
 a
 a
@@ -756,13 +643,13 @@ a
 a
 a
 a
-h
+g
 p
 v
-A
+x
 M
 k
-h
+g
 a
 a
 a
@@ -771,13 +658,13 @@ a
 a
 a
 a
-h
+g
 n
-h
-h
-h
+g
+g
+g
 n
-h
+g
 a
 a
 a
@@ -786,13 +673,13 @@ a
 a
 a
 a
-h
+g
 k
 N
-A
+x
 P
 k
-h
+g
 a
 a
 a
@@ -801,13 +688,13 @@ a
 a
 a
 a
-h
+g
 k
 N
-A
+x
 O
 k
-h
+g
 a
 a
 a
@@ -816,13 +703,13 @@ a
 a
 a
 a
-h
+g
 q
-h
-h
-h
+g
+g
+g
 q
-h
+g
 a
 a
 a
@@ -831,13 +718,13 @@ a
 a
 a
 a
-h
+g
 X
 r
 B
 r
 Y
-h
+g
 a
 a
 a
@@ -846,13 +733,13 @@ a
 a
 a
 a
-h
+g
 r
 S
 Z
 w
 r
-h
+g
 a
 a
 a
@@ -861,13 +748,13 @@ a
 a
 a
 a
-Q
-h
+g
+g
 x
 x
 x
-h
-R
+g
+g
 a
 a
 a
@@ -877,11 +764,11 @@ a
 a
 a
 a
-h
+g
 a
 a
 a
-h
+g
 a
 a
 a

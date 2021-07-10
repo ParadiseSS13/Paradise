@@ -443,12 +443,29 @@
 	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/adminfreeze
+	name = "Admin Freeze"
+	id = "adminfreeze"
+	result = "adminfreeze"
+	required_reagents = list("neurotoxin" = 1, "toxinsspecial" = 1, "fernet" = 1, "moonshine" = 1, "morphine" = 1)
+	min_temp = T0C + 100
+	result_amount = 5
+	mix_sound = 'sound/effects/adminhelp.ogg'
+
 /datum/chemical_reaction/barefoot
 	name = "Barefoot"
 	id = "barefoot"
 	result = "barefoot"
 	required_reagents = list("berryjuice" = 1, "cream" = 1, "vermouth" = 1)
 	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/daquiri
+	name = "Daiquiri"
+	id = "daiquiri"
+	result = "daiquiri"
+	required_reagents = list("limejuice" = 1, "sugar" = 1, "rum" = 2, "ice" = 1)
+	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 

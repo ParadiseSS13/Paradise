@@ -44,14 +44,13 @@
 	if(prob(50))
 		empulse(src, 4, 10)
 	else
-		for(var/mob/living/M in range(10, loc))
-			M.apply_effect(rand(5, 25), IRRADIATE)
+		radiation_pulse(get_turf(src), 500, 2)
 
 /obj/structure/fusionreactor/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>The [src] is too well secured to the floor.</span>")
+	to_chat(user, "<span class='notice'>[src] is too well secured to the floor.</span>")
 
 /obj/structure/fusionreactor/proc/overload(containment_failure = FALSE, skip_qdel = FALSE)
 	if(has_overloaded)

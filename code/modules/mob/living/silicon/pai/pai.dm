@@ -73,7 +73,7 @@
 	var/custom_sprite = 0
 	var/slowdown = 0
 
-/mob/living/silicon/pai/New(var/obj/item/paicard)
+/mob/living/silicon/pai/New(obj/item/paicard)
 	loc = paicard
 	card = paicard
 	if(card)
@@ -459,7 +459,7 @@
 
 	. += msg
 
-/mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/pai/bullet_act(obj/item/projectile/Proj)
 	..(Proj)
 	if(stat != 2)
 		spawn(1)
@@ -529,3 +529,9 @@
 	flashlight_on = FALSE
 	set_light(0)
 	card.set_light(0)
+
+/mob/living/silicon/pai/update_runechat_msg_location()
+	if(istype(loc, /obj/item/paicard))
+		runechat_msg_location = loc
+	else
+		runechat_msg_location = src

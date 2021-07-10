@@ -34,9 +34,7 @@
 	. = ..(user, P)
 	if(.)
 		user.show_message("<span class='notice'>Virus sent!</span>", 1)
-		var/datum/data/pda/app/M = P.find_program(/datum/data/pda/app/messenger)
-		if(M)
-			M.notify_silent = 1
+		P.silent = TRUE
 		P.ttone = "silence"
 
 

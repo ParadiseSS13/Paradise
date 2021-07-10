@@ -115,7 +115,7 @@
 			if(world.timeofday > (R.last_addiction_dose + ADDICTION_SPEEDUP_TIME)) // 2.5 minutes
 				addiction_removal_chance = 10
 			if(prob(addiction_removal_chance))
-				to_chat(occupant, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
+				to_chat(occupant, "<span class='boldnotice'>You no longer feel reliant on [R.name]!</span>")
 				occupant.reagents.addiction_list.Remove(R)
 				qdel(R)
 

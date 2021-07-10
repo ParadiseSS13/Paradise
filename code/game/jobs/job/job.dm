@@ -190,7 +190,7 @@
 					continue
 
 				if(G.slot)
-					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
+					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot, TRUE))
 						to_chat(H, "<span class='notice'>Equipping you with [gear]!</span>")
 					else
 						gear_leftovers += G
@@ -225,7 +225,7 @@
 			to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
 			qdel(G)
 
-		qdel(gear_leftovers)
+		gear_leftovers.Cut()
 
 	return 1
 

@@ -4,6 +4,8 @@
 	anchored = 1
 	density = 1
 	layer = BELOW_OBJ_LAYER
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	var/state = GIRDER_NORMAL
 	var/girderpasschance = 20 // percentage chance that a projectile passes through the girder.
 	max_integrity = 200

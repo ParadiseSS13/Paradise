@@ -185,7 +185,7 @@
 	var/patientStatus // Tell the computer what to say based on the status of the patient on the table.
 	var/isNewPatient = (table.patient != currentPatient) //Is this a new Patient?
 
-	if(table.patient.stat == DEAD || table.patient.status_flags & FAKEDEATH)
+	if(table.patient.stat == DEAD || HAS_TRAIT(table.patient, TRAIT_FAKEDEATH))
 		patientStatus = "Dead"
 	else if(table.patient.stat == CONSCIOUS)
 		patientStatus = "Awake"

@@ -33,7 +33,7 @@
 		return 1
 	return 0
 
-/obj/item/implant/mindshield/removed(mob/target, var/silent = 0)
+/obj/item/implant/mindshield/removed(mob/target, silent = 0)
 	if(..())
 		if(target.stat != DEAD && !silent)
 			to_chat(target, "<span class='boldnotice'>You feel a sense of liberation as Nanotrasen's grip on your mind fades away.</span>")

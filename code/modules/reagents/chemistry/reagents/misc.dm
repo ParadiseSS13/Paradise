@@ -117,11 +117,6 @@
 	color = "#D0D0D0" // rgb: 208, 208, 208
 	taste_description = "sub-par bling"
 
-/datum/reagent/silver/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(M.has_bane(BANE_SILVER))
-		M.reagents.add_reagent("toxin", volume)
-	. = ..()
-
 /datum/reagent/aluminum
 	name = "Aluminum"
 	id = "aluminum"
@@ -168,11 +163,6 @@
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.8
 	return ..()
-
-/datum/reagent/iron/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(M.has_bane(BANE_IRON) && holder && holder.chem_temp < 150) //If the target is weak to cold iron, then poison them.
-		M.reagents.add_reagent("toxin", volume)
-	..()
 
 //foam
 /datum/reagent/fluorosurfactant
@@ -452,7 +442,7 @@
 	if(!istype(C))
 		return
 	if(C.mind)
-		if(C.mind.assigned_role == "Clown" || C.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
+		if(C.mind.assigned_role == "Clown")
 			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
 		else if(C.mind.assigned_role == "Mime")
 			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
@@ -460,8 +450,8 @@
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
 			C.AdjustDizzy(volume)
-	ADD_TRAIT(C, TRAIT_JESTER, id)
-	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE)
+	ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
+	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
 	C.AddElement(/datum/element/waddling)
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
@@ -470,7 +460,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		M.emote("giggle")
-	if(M?.mind.assigned_role == "Clown" || M?.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
+	if(M?.mind.assigned_role == "Clown")
 		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
 	else
 		M.AdjustDizzy(10, 0, 500)
@@ -496,7 +486,7 @@
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
 	..()
-	REMOVE_TRAIT(M, TRAIT_JESTER, id)
+	REMOVE_TRAIT(M, TRAIT_COMIC_SANS, id)
 	qdel(M.GetComponent(/datum/component/squeak))
 	M.RemoveElement(/datum/element/waddling)
 

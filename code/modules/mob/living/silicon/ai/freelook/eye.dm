@@ -16,6 +16,8 @@
 	var/relay_speech = FALSE
 	var/use_static = TRUE
 	var/static_visibility_range = 16
+	// Decides if it is shown by AI Detector or not
+	var/ai_detector_visible = TRUE
 
 
 // Use this when setting the aiEye's location.
@@ -74,7 +76,7 @@
 // This will move the AIEye. It will also cause lights near the eye to light up, if toggled.
 // This is handled in the proc below this one.
 
-/client/proc/AIMove(n, direct, var/mob/living/silicon/ai/user)
+/client/proc/AIMove(n, direct, mob/living/silicon/ai/user)
 
 	var/initial = initial(user.sprint)
 	var/max_sprint = 50

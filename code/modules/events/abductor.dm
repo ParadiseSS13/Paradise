@@ -1,12 +1,12 @@
 /datum/event/abductor
 
 /datum/event/abductor/start()
-	//spawn abductor team
-	processing = 0 //so it won't fire again in next tick
+	INVOKE_ASYNC(src, .proc/try_makeAbductorTeam)
+
+/datum/event/abductor/proc/try_makeAbductorTeam()
 	if(!makeAbductorTeam())
 		message_admins("Abductor event failed to find players. Retrying in 30s.")
-		spawn(300)
-			makeAbductorTeam()
+		addtimer(CALLBACK(src, .proc/makeAbductorTeam), 30 SECONDS)
 
 /datum/event/abductor/proc/makeAbductorTeam()
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for an Abductor Team?", ROLE_ABDUCTOR, TRUE)
@@ -46,7 +46,6 @@
 
 		if(SSticker.mode.config_tag != "abduction")
 			SSticker.mode.abductors |= temp.abductors
-		processing = 1 //So it will get gc'd
 		return 1
 	else
 		return 0

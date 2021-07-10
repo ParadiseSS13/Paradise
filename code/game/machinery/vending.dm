@@ -290,7 +290,7 @@
 			return
 		I.forceMove(src)
 		coin = I
-		to_chat(user, "<span class='notice'>You insert [I] into the [src]</span>")
+		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 		SStgui.update_uis(src)
 		return
 	if(refill_canister && istype(I, refill_canister))
@@ -510,6 +510,10 @@
 	if(ishuman(user))
 		H = user
 		C = H.get_idcard(TRUE)
+		if(!C && istype(H.wear_pda, /obj/item/pda))
+			var/obj/item/pda/P = H.wear_pda
+			if(istype(P.id, /obj/item/card/id))
+				C = P.id
 		var/obj/item/stack/spacecash/S = H.get_active_hand()
 		if(istype(S))
 			data["userMoney"] = S.amount
@@ -802,11 +806,9 @@
 /obj/machinery/vending/power_change()
 	if(powered())
 		stat &= ~NOPOWER
-		update_icon()
 	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
-			update_icon()
+		stat |= NOPOWER
+	update_icon()
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(!(stat & BROKEN))
@@ -1359,6 +1361,7 @@
 					/obj/item/seeds/grass = 3,
 					/obj/item/seeds/lemon = 3,
 					/obj/item/seeds/lime = 3,
+					/obj/item/seeds/mint = 3,
 					/obj/item/seeds/onion = 3,
 					/obj/item/seeds/orange = 3,
 					/obj/item/seeds/peanuts = 3,
@@ -1575,15 +1578,22 @@
 	desc = "A kitchen and restaurant equipment vendor."
 	ads_list = list("Mm, food stuffs!","Food and food accessories.","Get your plates!","You like forks?","I like forks.","Woo, utensils.","You don't really need these...")
 	icon_state = "dinnerware"
-	products = list(/obj/item/storage/bag/tray = 8,/obj/item/kitchen/utensil/fork = 6,
-					/obj/item/kitchen/knife = 3,/obj/item/kitchen/rollingpin = 2,
+	products = list(/obj/item/storage/bag/tray = 8,
+					/obj/item/kitchen/utensil/fork = 6,
+					/obj/item/trash/plate = 20,
+					/obj/item/trash/bowl = 20,
+					/obj/item/kitchen/knife = 3,
+					/obj/item/kitchen/rollingpin = 2,
 					/obj/item/kitchen/sushimat = 3,
-					/obj/item/reagent_containers/food/drinks/drinkingglass = 8, /obj/item/clothing/suit/chef/classic = 2, /obj/item/storage/belt/chef = 2,
+					/obj/item/reagent_containers/food/drinks/drinkingglass = 8,
+					/obj/item/clothing/suit/chef/classic = 2,
+					/obj/item/storage/belt/chef = 2,
 					/obj/item/reagent_containers/food/condiment/pack/ketchup = 5,
 					/obj/item/reagent_containers/food/condiment/pack/hotsauce = 5,
 					/obj/item/reagent_containers/food/condiment/saltshaker =5,
 					/obj/item/reagent_containers/food/condiment/peppermill =5,
-					/obj/item/whetstone = 2, /obj/item/mixing_bowl = 10,
+					/obj/item/whetstone = 2,
+					/obj/item/mixing_bowl = 10,
 					/obj/item/kitchen/mould/bear = 1, /obj/item/kitchen/mould/worm = 1,
 					/obj/item/kitchen/mould/bean = 1, /obj/item/kitchen/mould/ball = 1,
 					/obj/item/kitchen/mould/cane = 1, /obj/item/kitchen/mould/cash = 1,
@@ -1638,7 +1648,7 @@
 	icon_state = "engivend"
 	icon_deny = "engivend-deny"
 	req_one_access_txt = "11;24" // Engineers and atmos techs can use this
-	products = list(/obj/item/clothing/glasses/meson = 2,/obj/item/multitool = 4,/obj/item/airlock_electronics = 10,/obj/item/firelock_electronics = 10,/obj/item/firealarm_electronics = 10,/obj/item/apc_electronics = 10,/obj/item/airalarm_electronics = 10,/obj/item/stock_parts/cell/high = 10,/obj/item/camera_assembly = 10)
+	products = list(/obj/item/clothing/glasses/meson/engine = 2,/obj/item/multitool = 4, /obj/item/geiger_counter = 5, /obj/item/airlock_electronics = 10,/obj/item/firelock_electronics = 10,/obj/item/firealarm_electronics = 10,/obj/item/apc_electronics = 10,/obj/item/airalarm_electronics = 10,/obj/item/stock_parts/cell/high = 10,/obj/item/camera_assembly = 10)
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
 	premium = list(/obj/item/storage/belt/utility = 3)
 	refill_canister = /obj/item/vending_refill/engivend
@@ -1659,7 +1669,7 @@
 	icon_deny = "engi-deny"
 	req_access_txt = "11"
 	products = list(/obj/item/clothing/under/rank/chief_engineer = 4,/obj/item/clothing/under/rank/engineer = 4,/obj/item/clothing/shoes/workboots = 4,/obj/item/clothing/head/hardhat = 4,
-					/obj/item/storage/belt/utility = 4,/obj/item/clothing/glasses/meson = 4,/obj/item/clothing/gloves/color/yellow = 4, /obj/item/screwdriver = 12,
+					/obj/item/storage/belt/utility = 4,/obj/item/clothing/glasses/meson/engine = 4,/obj/item/clothing/gloves/color/yellow = 4, /obj/item/screwdriver = 12,
 					/obj/item/crowbar = 12,/obj/item/wirecutters = 12,/obj/item/multitool = 12,/obj/item/wrench = 12,/obj/item/t_scanner = 12,
 					/obj/item/stack/cable_coil/heavyduty = 8, /obj/item/stock_parts/cell = 8, /obj/item/weldingtool = 8,/obj/item/clothing/head/welding = 8,
 					/obj/item/light/tube = 10,/obj/item/clothing/suit/fire = 4, /obj/item/stock_parts/scanning_module = 5,/obj/item/stock_parts/micro_laser = 5,
@@ -1683,7 +1693,7 @@
 	req_access_txt = "29"
 	products = list(/obj/item/clothing/suit/storage/labcoat = 4,/obj/item/clothing/under/rank/roboticist = 4,/obj/item/stack/cable_coil = 4,/obj/item/flash = 4,
 					/obj/item/stock_parts/cell/high = 12, /obj/item/assembly/prox_sensor = 3,/obj/item/assembly/signaler = 3,/obj/item/healthanalyzer = 3,
-					/obj/item/scalpel = 2,/obj/item/circular_saw = 2,/obj/item/tank/anesthetic = 2,/obj/item/clothing/mask/breath/medical = 5,
+					/obj/item/scalpel = 2,/obj/item/circular_saw = 2,/obj/item/tank/internals/anesthetic = 2,/obj/item/clothing/mask/breath/medical = 5,
 					/obj/item/screwdriver = 5,/obj/item/crowbar = 5)
 	refill_canister = /obj/item/vending_refill/robotics
 
@@ -1707,7 +1717,7 @@
 					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
 	contraband = list(/obj/item/kitchen/knife = 6,
 					  /obj/item/reagent_containers/food/drinks/coffee = 12,
-					  /obj/item/tank/emergency_oxygen = 6,
+					  /obj/item/tank/internals/emergency_oxygen = 6,
 					  /obj/item/clothing/mask/breath = 6)
 	refill_canister = /obj/item/vending_refill/sustenance
 

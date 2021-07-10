@@ -33,38 +33,39 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 	trader_objectives = forge_trader_objectives()
 
-	spawn()
-		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a Sol Trader?", ROLE_TRADER, TRUE)
-		var/index = 1
-		while(spawn_count > 0 && candidates.len > 0)
-			if(index > spawnlocs.len)
-				index = 1
+	INVOKE_ASYNC(src, .proc/spawn_traders, spawnlocs)
 
-			var/turf/picked_loc = spawnlocs[index]
-			index++
-			var/mob/C = pick_n_take(candidates)
-			spawn_count--
-			if(C)
-				GLOB.respawnable_list -= C.client
-				var/mob/living/carbon/human/M = new /mob/living/carbon/human(picked_loc)
-				M.ckey = C.ckey // must be before equipOutfit, or that will runtime due to lack of mind
-				M.equipOutfit(/datum/outfit/admin/sol_trader)
-				M.dna.species.after_equip_job(null, M)
-				M.mind.objectives += trader_objectives
-				M.mind.offstation_role = TRUE
-				greet_trader(M)
-				success_spawn = 1
-		if(success_spawn)
-			GLOB.event_announcement.Announce("A trading shuttle from Jupiter Station has been granted docking permission at [station_name()] arrivals port 4.", "Trader Shuttle Docking Request Accepted")
-		else
-			GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
+/datum/event/traders/proc/spawn_traders(list/spawnlocs)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a Sol Trader?", ROLE_TRADER, TRUE)
+	var/index = 1
+	while(spawn_count > 0 && length(candidates))
+		if(index > length(spawnlocs))
+			index = 1
 
-/datum/event/traders/proc/greet_trader(var/mob/living/carbon/human/M)
+		var/turf/picked_loc = spawnlocs[index]
+		index++
+		var/mob/C = pick_n_take(candidates)
+		spawn_count--
+		if(C)
+			GLOB.respawnable_list -= C.client
+			var/mob/living/carbon/human/M = new /mob/living/carbon/human(picked_loc)
+			M.ckey = C.ckey // must be before equipOutfit, or that will runtime due to lack of mind
+			M.equipOutfit(/datum/outfit/admin/sol_trader)
+			M.dna.species.after_equip_job(null, M)
+			M.mind.objectives += trader_objectives
+			M.mind.offstation_role = TRUE
+			greet_trader(M)
+			success_spawn = TRUE
+	if(success_spawn)
+		GLOB.event_announcement.Announce("A trading shuttle from Jupiter Station has been granted docking permission at [station_name()] arrivals port 4.", "Trader Shuttle Docking Request Accepted")
+	else
+		GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
+
+/datum/event/traders/proc/greet_trader(mob/living/carbon/human/M)
 	to_chat(M, "<span class='boldnotice'>You are a trader!</span>")
 	to_chat(M, "<span class='notice'>You are currently docked at [get_area(M)].</span>")
 	to_chat(M, "<span class='notice'>You are about to trade with [station_name()].</span>")
-	spawn(25)
-		show_objectives(M.mind)
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/show_objectives, M.mind), 25)
 
 /datum/event/traders/proc/forge_trader_objectives()
 	var/list/objs = list()

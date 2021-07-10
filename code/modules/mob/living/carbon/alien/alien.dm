@@ -42,7 +42,7 @@
 		return default_language
 	return GLOB.all_languages["Xenomorph"]
 
-/mob/living/carbon/alien/say_quote(var/message, var/datum/language/speaking = null)
+/mob/living/carbon/alien/say_quote(message, datum/language/speaking = null)
 	var/verb = "hisses"
 	var/ending = copytext(message, length(message))
 
@@ -69,7 +69,7 @@
 /mob/living/carbon/alien/check_eye_prot()
 	return 2
 
-/mob/living/carbon/alien/handle_environment(var/datum/gas_mixture/environment)
+/mob/living/carbon/alien/handle_environment(datum/gas_mixture/environment)
 
 	if(!environment)
 		return
@@ -152,7 +152,7 @@
 	update_sight()
 
 
-/mob/living/carbon/alien/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
+/mob/living/carbon/alien/assess_threat(mob/living/simple_animal/bot/secbot/judgebot, lasercolor)
 	if(judgebot.emagged == 2)
 		return 10 //Everyone is a criminal!
 	var/threatcount = 0
@@ -193,7 +193,7 @@ Des: Gives the client of the alien an image on each infected mob.
 /mob/living/carbon/alien/proc/AddInfectionImages()
 	if(client)
 		for(var/mob/living/C in GLOB.mob_list)
-			if(C.status_flags & XENO_HOST)
+			if(HAS_TRAIT(C, TRAIT_XENO_HOST))
 				var/obj/item/organ/internal/body_egg/alien_embryo/A = C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
 				if(A)
 					var/I = image('icons/mob/alien.dmi', loc = C, icon_state = "infected[A.stage]")
@@ -217,40 +217,14 @@ Des: Removes all infected images from the alien.
 
 /mob/living/carbon/alien/proc/updatePlasmaDisplay()
 	if(hud_used) //clientless aliens
-		hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font color='magenta'>[getPlasma()]</font></div>"
+		hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font face='Small Fonts' color='magenta'>[getPlasma()]</font></div>"
+		hud_used.alien_plasma_display.maptext_x = -3
 
 /mob/living/carbon/alien/larva/updatePlasmaDisplay()
 	return
 
 /mob/living/carbon/alien/can_use_vents()
 	return
-
-/mob/living/carbon/alien/handle_footstep(turf/T)
-	if(..())
-		if(T.footstep_sounds && T.footstep_sounds["xeno"])
-			var/S = pick(T.footstep_sounds["xeno"])
-			if(S)
-				if(m_intent == MOVE_INTENT_RUN)
-					if(!(step_count % 2)) //every other turf makes a sound
-						return 0
-
-				var/range = -(world.view - 2)
-				range -= 0.666 //-(7 - 2) = (-5) = -5 | -5 - (0.666) = -5.666 | (7 + -5.666) = 1.334 | 1.334 * 3 = 4.002 | range(4.002) = range(4)
-				var/volume = 5
-
-				if(m_intent == MOVE_INTENT_WALK)
-					return 0 //silent when walking
-
-				if(buckled || lying || throwing)
-					return 0 //people flying, lying down or sitting do not step
-
-				if(!has_gravity(src))
-					if(step_count % 3) //this basically says, every three moves make a noise
-						return 0       //1st - none, 1%3==1, 2nd - none, 2%3==2, 3rd - noise, 3%3==0
-
-				playsound(T, S, volume, 1, range)
-				return 1
-	return 0
 
 /mob/living/carbon/alien/getTrail()
 	if(getBruteLoss() < 200)
@@ -278,15 +252,6 @@ Des: Removes all infected images from the alien.
 		var/atom/A = client.eye
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
-
-	for(var/obj/item/organ/internal/cyberimp/eyes/E in internal_organs)
-		sight |= E.vision_flags
-		if(E.see_in_dark)
-			see_in_dark = max(see_in_dark, E.see_in_dark)
-		if(E.see_invisible)
-			see_invisible = min(see_invisible, E.see_invisible)
-		if(!isnull(E.lighting_alpha))
-			lighting_alpha = min(lighting_alpha, E.lighting_alpha)
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()

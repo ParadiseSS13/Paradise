@@ -15,7 +15,7 @@
 	if(.) //not dead
 
 		if(check_mutations)
-			domutcheck(src,null)
+			domutcheck(src)
 			update_mutations()
 			check_mutations = FALSE
 
@@ -70,7 +70,7 @@
 		if(A.fast_despawn)
 			force_cryo_human(src)
 
-/mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
+/mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	..()
 	var/pressure_difference = abs( pressure - ONE_ATMOSPHERE )
 
@@ -101,7 +101,7 @@
 
 	else
 		//blindness
-		if(BLINDNESS in mutations) // Disabled-blind, doesn't get better on its own
+		if(HAS_TRAIT(src, TRAIT_BLIND)) // Disabled-blind, doesn't get better on its own
 
 		else if(eye_blind)		       // Blindness, heals slowly over time
 			AdjustEyeBlind(-1)
@@ -170,11 +170,10 @@
 					emote("drool")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	for(var/datum/dna/gene/gene in GLOB.dna_genes)
-		if(!gene.block)
-			continue
-		if(gene.is_active(src))
-			gene.OnMobLife(src)
+	for(var/mutation_type in active_mutations)
+		var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
+		mutation.on_life(src)
+
 	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
@@ -193,64 +192,8 @@
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
 
-	if(!(RADIMMUNE in dna.species.species_traits))
-		if(radiation)
-			radiation = clamp(radiation, 0, 200)
-
-			var/autopsy_damage = 0
-			switch(radiation)
-				if(1 to 49)
-					radiation = max(radiation-1, 0)
-					if(prob(25))
-						adjustToxLoss(1)
-						adjustFireLoss(1)
-						autopsy_damage = 2
-
-				if(50 to 74)
-					radiation = max(radiation-2, 0)
-					adjustToxLoss(1)
-					adjustFireLoss(1)
-					autopsy_damage = 2
-					if(prob(5))
-						radiation = max(radiation-5, 0)
-						Weaken(3)
-						to_chat(src, "<span class='danger'>You feel weak.</span>")
-						emote("collapse")
-
-				if(75 to 100)
-					radiation = max(radiation-2, 0)
-					adjustToxLoss(2)
-					adjustFireLoss(2)
-					autopsy_damage = 4
-					if(prob(2))
-						to_chat(src, "<span class='danger'>You mutate!</span>")
-						randmutb(src)
-						domutcheck(src, null)
-
-				if(101 to 150)
-					radiation = max(radiation-3, 0)
-					adjustToxLoss(2)
-					adjustFireLoss(3)
-					autopsy_damage = 5
-					if(prob(4))
-						to_chat(src, "<span class='danger'>You mutate!</span>")
-						randmutb(src)
-						domutcheck(src, null)
-
-				if(151 to INFINITY)
-					radiation = max(radiation-3, 0)
-					adjustToxLoss(2)
-					adjustFireLoss(3)
-					autopsy_damage = 5
-					if(prob(6))
-						to_chat(src, "<span class='danger'>You mutate!</span>")
-						randmutb(src)
-						domutcheck(src, null)
-
-			if(autopsy_damage)
-				var/obj/item/organ/external/chest/chest = get_organ("chest")
-				if(chest)
-					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
+	if(!dna || !dna.species.handle_mutations_and_radiation(src))
+		..()
 
 /mob/living/carbon/human/breathe()
 	if(!dna.species.breathe(src))
@@ -263,7 +206,7 @@
 	if(!L || L && (L.status & ORGAN_DEAD))
 		if(health >= HEALTH_THRESHOLD_CRIT)
 			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
-		else if(!(NOCRITDAMAGE in dna.species.species_traits))
+		else if(!HAS_TRAIT(src, TRAIT_NOCRITDAMAGE))
 			adjustOxyLoss(HUMAN_MAX_OXYLOSS)
 
 		if(dna.species)
@@ -340,7 +283,7 @@
 	if(bodytemperature > dna.species.heat_level_1)
 		//Body temperature is too hot.
 		if(status_flags & GODMODE)	return 1	//godmode
-		var/mult = dna.species.heatmod
+		var/mult = dna.species.heatmod * physiology.heat_mod
 
 		if(bodytemperature >= dna.species.heat_level_1 && bodytemperature <= dna.species.heat_level_2)
 			throw_alert("temp", /obj/screen/alert/hot, 1)
@@ -357,12 +300,12 @@
 
 	else if(bodytemperature < dna.species.cold_level_1)
 		if(status_flags & GODMODE)
-			return 1
+			return TRUE
 		if(stat == DEAD)
-			return 1
+			return TRUE
 
-		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-			var/mult = dna.species.coldmod
+		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell) && !(HAS_TRAIT(src, TRAIT_RESISTCOLD)))
+			var/mult = dna.species.coldmod * physiology.cold_mod
 			if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
 				throw_alert("temp", /obj/screen/alert/cold, 1)
 				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, updating_health = TRUE, used_weapon = "Low Body Temperature")
@@ -385,8 +328,8 @@
 	if(status_flags & GODMODE)	return 1	//godmode
 
 	if(adjusted_pressure >= dna.species.hazard_high_pressure)
-		if(!(HEATRES in mutations))
-			var/pressure_damage = min( ( (adjusted_pressure / dna.species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
+		if(!HAS_TRAIT(src, TRAIT_RESISTHIGHPRESSURE))
+			var/pressure_damage = min(((adjusted_pressure / dna.species.hazard_high_pressure) - 1) * PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE) * physiology.pressure_mod
 			take_overall_damage(brute=pressure_damage, updating_health = TRUE, used_weapon = "High Pressure")
 			throw_alert("pressure", /obj/screen/alert/highpressure, 2)
 		else
@@ -398,10 +341,10 @@
 	else if(adjusted_pressure >= dna.species.hazard_low_pressure)
 		throw_alert("pressure", /obj/screen/alert/lowpressure, 1)
 	else
-		if(COLDRES in mutations)
+		if(HAS_TRAIT(src, TRAIT_RESISTLOWPRESSURE))
 			clear_alert("pressure")
 		else
-			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, updating_health = TRUE, used_weapon = "Low Pressure")
+			take_overall_damage(brute = LOW_PRESSURE_DAMAGE * physiology.pressure_mod, updating_health = TRUE, used_weapon = "Low Pressure")
 			throw_alert("pressure", /obj/screen/alert/lowpressure, 2)
 
 
@@ -410,7 +353,7 @@
 	. = ..()
 	if(!.)
 		return
-	if(HEATRES in mutations)
+	if(HAS_TRAIT(src, TRAIT_NOFIRE))
 		return
 	var/thermal_protection = get_thermal_protection()
 
@@ -422,6 +365,9 @@
 		bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
 
 /mob/living/carbon/human/proc/get_thermal_protection()
+	if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
+		return FIRE_IMMUNITY_MAX_TEMP_PROTECT
+
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
 	if(wear_suit)
 		if(wear_suit.max_heat_protection_temperature >= FIRE_SUIT_MAX_TEMP_PROTECT)
@@ -473,7 +419,7 @@
 
 /mob/living/carbon/human/proc/get_heat_protection(temperature) //Temperature is the temperature you're being exposed to.
 
-	if(HEATRES in mutations)
+	if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
 		return 1
 
 	var/thermal_protection_flags = get_heat_protection_flags(temperature)
@@ -534,7 +480,7 @@
 
 /mob/living/carbon/human/proc/get_cold_protection(temperature)
 
-	if(COLDRES in mutations)
+	if(HAS_TRAIT(src, TRAIT_RESISTCOLD))
 		return 1 //Fully protected from the cold.
 
 	temperature = max(temperature, TCMB) //There is an occasional bug where the temperature is miscalculated in areas with a small amount of gas on them, so this is necessary to ensure that that bug does not affect this calculation. Space's temperature is 2.7K and most suits that are intended to protect against any cold, protect down to 2.0K.
@@ -592,12 +538,12 @@
 	if(status_flags & GODMODE)
 		return 0	//godmode
 
-	if(!(NO_HUNGER in dna.species.species_traits))
-		if(FAT in mutations)
+	if(!HAS_TRAIT(src, TRAIT_NOHUNGER))
+		if(HAS_TRAIT(src, TRAIT_FAT))
 			if(overeatduration < 100)
 				becomeSlim()
 		else
-			if(overeatduration > 500 && !(NO_OBESITY in dna.species.species_traits))
+			if(overeatduration > 500 && !HAS_TRAIT(src, TRAIT_NOFAT))
 				becomeFat()
 
 		// nutrition decrease
@@ -612,6 +558,7 @@
 				if(prob(round(-satiety/40)))
 					Jitter(5)
 				hunger_rate = 3 * hunger_drain
+			hunger_rate *= physiology.hunger_mod
 			adjust_nutrition(-hunger_rate)
 
 		if(nutrition > NUTRITION_LEVEL_FULL)
@@ -620,8 +567,8 @@
 
 		else
 			if(overeatduration > 1)
-				if(OBESITY in mutations)
-					overeatduration -= 1 // Those with obesity gene take twice as long to unfat
+				if(HAS_TRAIT(src, TRAIT_SLOWDIGESTION))
+					overeatduration -= 1 // Those with slow digestion trait, it takes longer to lose weight
 				else
 					overeatduration -= 2
 
@@ -645,26 +592,7 @@
 				to_chat(src, "<span class='notice'>You no longer feel vigorous.</span>")
 			metabolism_efficiency = 1
 
-	if(drowsyness)
-		AdjustDrowsy(-1)
-		EyeBlurry(2)
-		if(prob(5))
-			AdjustSleeping(1)
-			Paralyse(5)
 
-	if(confused)
-		AdjustConfused(-1)
-	// decrement dizziness counter, clamped to 0
-	if(resting)
-		if(dizziness)
-			AdjustDizzy(-15)
-		if(jitteriness)
-			AdjustJitter(-15)
-	else
-		if(dizziness)
-			AdjustDizzy(-3)
-		if(jitteriness)
-			AdjustJitter(-3)
 
 	if(NO_INTORGANS in dna.species.species_traits)
 		return
@@ -682,7 +610,7 @@
 	var/collapse_start = 75
 	var/braindamage_start = 120
 	var/alcohol_strength = drunk
-	var/sober_str =! (SOBER in mutations) ? 1 : 2
+	var/sober_str = !HAS_TRAIT(src, TRAIT_ALCOHOL_TOLERANCE) ? 1 : 2
 
 	alcohol_strength /= sober_str
 
@@ -856,7 +784,7 @@
 				healthdoll.cached_healthdoll_overlays = new_overlays
 
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
-	if(NO_HUNGER in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return
 	if(mind?.vampire && (mind in SSticker.mode.vampires)) //Vampires
 		switch(nutrition)
@@ -919,7 +847,7 @@
 		mind.changeling.regenerate(src)
 		if(hud_used)
 			hud_used.lingchemdisplay.invisibility = 0
-			hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"
+			hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"
 	else
 		if(hud_used)
 			hud_used.lingchemdisplay.invisibility = 101
@@ -943,7 +871,7 @@
 	if(blood_volume <= BLOOD_VOLUME_BAD)//how much blood do we have
 		temp = PULSE_THREADY	//not enough :(
 
-	if(status_flags & FAKEDEATH)
+	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		temp = PULSE_NONE		//pretend that we're dead. unlike actual death, can be inflienced by meds
 
 	for(var/datum/reagent/R in reagents.reagent_list)
@@ -968,7 +896,7 @@
 /mob/living/carbon/human/proc/handle_decay()
 	var/decaytime = world.time - timeofdeath
 
-	if(NO_DECAY in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NODECAY))
 		return
 
 	if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay
@@ -999,7 +927,7 @@
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))
 				continue
-			if(NO_BREATHE in H.dna.species.species_traits)
+			if(HAS_TRAIT(H, TRAIT_NOBREATH))
 				continue //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
 			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
