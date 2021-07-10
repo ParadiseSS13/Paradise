@@ -10805,6 +10805,14 @@
 	icon_state = "dark"
 	},
 /area/centcom/control)
+"JT" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/holofloor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid";
+	tag = "icon-asteroid"
+	},
+/area/holodeck/source_desert)
 "JU" = (
 /obj/structure/holowindow{
 	dir = 1
@@ -13258,6 +13266,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/control)
 "Rj" = (
+/obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/holofloor/grass,
 /area/holodeck/source_picnicarea)
 "Rk" = (
@@ -71019,7 +71028,7 @@ ar
 ar
 ar
 ar
-ar
+JT
 cd
 ch
 ch
@@ -71527,7 +71536,7 @@ af
 QQ
 ar
 ar
-ar
+JT
 ar
 ar
 bd
@@ -72044,7 +72053,7 @@ ar
 ar
 ar
 Uv
-ar
+JT
 ar
 bd
 aL
