@@ -392,13 +392,13 @@
 		if(!check_rights(R_ADMIN))
 			return
 		var/list/possible_targets = list()
-		for(var/datum/mind/possible_target in SSticker.minds)
+		for(var/datum/mind/possible_target as anything in SSticker.minds)
 			if((possible_target != src) && ishuman(possible_target.current))
 				possible_targets += possible_target.current
 
 		possible_targets = sortAtom(possible_targets)
 		var/mob/living/carbon/human/new_target = input("Select new VIP:", "Objective target") as null|anything in possible_targets
-		if(!new_target)
+		if(QDELETED(new_target))
 			return
 		SSticker.mode.change_vip_target(new_target.mind)
 		// Update the existing objectives
@@ -408,7 +408,6 @@
 			var/datum/objective/O = thing
 			O.on_target_loss()
 		check_antagonists()
-		return
 
 	else if(href_list["simplemake"])
 		if(!check_rights(R_SPAWN))	return

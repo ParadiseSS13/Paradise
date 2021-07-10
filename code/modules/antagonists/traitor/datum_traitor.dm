@@ -192,8 +192,7 @@
 /datum/antagonist/traitor/proc/forge_single_human_objective()
 	var/objective_type
 	if(prob(50))
-		var/list/active_ais = active_ais()
-		if(length(active_ais) && prob(100 / length(GLOB.player_list)))
+		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
 			objective_type = /datum/objective/destroy
 		else if(prob(5))
 			objective_type = /datum/objective/debrain

@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	// We warned you.
 	GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(loc)
 	GLOB.global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight")
-	control_disabled = TRUE // Ensure the AI is not chosen again as target
+	control_disabled = TRUE // Ensure the AI is not chosen again as target. See active_ais()
 	//Update any existing objectives involving this mob and their job
 	handle_removal_from_round()
 

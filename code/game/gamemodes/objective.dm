@@ -29,7 +29,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/proc/on_target_loss()
 	if(owner?.current)
 		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/alarm4.ogg', 100, FALSE, pressure_affected = FALSE)
+		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
 	target = null
 	var/datum/mind/old_owner = owner
 	if(!find_target())
@@ -62,7 +62,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_EVENT
 
 /**
- * Finds a target for the objective and returns it. Will also call set_target
+ * Finds a target for the objective and returns it. Will also always call set_target with this target.
+ * If no target is found then it will call set_target with null as parameter
  */
 /datum/objective/proc/find_target()
 	var/list/possible_targets = list()
@@ -78,7 +79,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /**
  * Sets the target of the objective. Sets the explanation_text value as well to match the target
- * new_target - Target that will be used as new target
+ * * new_target - Target that will be used as new target
  */
 /datum/objective/proc/set_target(new_target)
 	target = new_target
@@ -126,6 +127,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		SSticker.mode.change_vip_target(..())
 	else
 		if(SSticker.mode.VIP_target == owner)
+			set_target(null)
 			return null // Can't target yourself
 		set_target(SSticker.mode.VIP_target)
 
@@ -253,6 +255,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		SSticker.mode.change_vip_target(..())
 	else
 		if(SSticker.mode.VIP_target == owner)
+			set_target(null)
 			return null // Can't target yourself
 		set_target(SSticker.mode.VIP_target)
 
@@ -369,18 +372,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/escape/escape_with_identity
 	var/target_real_name // Has to be stored because the target's real_name can change over the course of the round
 
-/datum/objective/escape/escape_with_identity/find_target()
-	var/list/possible_targets = list() //Copypasta because NO_DNA races, yay for snowflakes.
-	for(var/datum/mind/possible_target in SSticker.minds)
-		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && possible_target.current.client)
-			var/mob/living/carbon/human/H = possible_target.current
-			if(!HAS_TRAIT(H, TRAIT_GENELESS))
-				possible_targets += possible_target
-	var/found_target
-	if(length(possible_targets) > 0)
-		found_target = pick(possible_targets)
-	set_target(found_target)
-	return found_target
+/datum/objective/escape/escape_with_identity/is_invalid_target(datum/mind/possible_target)
+	return ..() || HAS_TRAIT(possible_target.current, TRAIT_GENELESS)
 
 /datum/objective/escape/escape_with_identity/set_explaination_text()
 	if(target && target.current)
@@ -441,11 +434,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal/set_explaination_text()
 	if(!steal_target)
-		explanation_text = "Free Objective."
-	else
-		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
-		if(length(steal_target.protected_jobs))
-			explanation_text += "It may also be in the possession of the [jointext(steal_target.protected_jobs, ", ")]."
+		..()
+		return
+
+	explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
+	if(length(steal_target.protected_jobs))
+		explanation_text += "It may also be in the possession of the [jointext(steal_target.protected_jobs, ", ")]."
 
 /datum/objective/steal/find_target()
 	var/potential = GLOB.potential_theft_objectives.Copy()
@@ -457,7 +451,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			continue
 		if(O in owner.targets)
 			continue
-		if(O.flags & 2) // THEFT_FLAG_UNIQUE
+		if(O.flags & THEFT_FLAG_UNIQUE)
 			continue
 		found_target = O
 

@@ -138,7 +138,7 @@
 		traitorcheckloop()
 
 /datum/game_mode/traitor/autotraitor/handle_player_removal(mob/M)
-	possible_traitors.Remove(M)
+	possible_traitors -= M
 
 /datum/game_mode/traitor/autotraitor/latespawn(mob/living/carbon/human/character)
 	..()

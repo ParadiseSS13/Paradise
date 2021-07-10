@@ -20,6 +20,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	typecache_datum_blacklist = typecacheof(typecache_datum_blacklist)
 
 /datum/antagonist/Destroy()
+	assigned_targets.Cut()
 	GLOB.antagonists -= src
 	if(owner)
 		LAZYREMOVE(owner.antag_datums, src)
@@ -60,8 +61,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 /**
  * Tries to create a new objective
  * Will return the objective if it succeeds. Will return null if it fails
- * type - The objective type that will be made
- * target_override - Target that will be used by the objective. Default is null meaning it'll be decided by the objective.find_target
+ * * type - The objective type that will be made
+ * * target_override - Target that will be used by the objective. Default is null meaning it'll be decided by the objective.find_target
  */
 /datum/antagonist/proc/create_objective(type, target_override = null)
 	var/datum/objective/O = new type()
@@ -75,7 +76,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		qdel(O)	// Actually delete the objective else stray references will remain
 		return null
 	else if(target)							// Is the target a real one and not null? If so, add it to our list of targets to avoid duplicate targets
-		assigned_targets.Add(target_text)	// This logic is applied to all traitor objectives including steal objectives
+		assigned_targets += target_text		// This logic is applied to all traitor objectives including steal objectives
 	add_objective(O)
 	return O
 
@@ -113,7 +114,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 		owner.current.key = C.key
 
 /datum/antagonist/proc/on_removal()
-	assigned_targets.Cut()
 	remove_innate_effects()
 	if(owner)
 		LAZYREMOVE(owner.antag_datums, src)
