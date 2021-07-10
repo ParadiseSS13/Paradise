@@ -65,8 +65,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					for(var/area/A in world)
 						if(!is_station_level(A.z))
 							continue
-						A.delta_alarm = FALSE
-						A.epsilon_alarm = FALSE
+						A.emergency_mode = FALSE
 						for(var/obj/machinery/light/L in A)
 							L.update()
 				GLOB.security_level = SEC_LEVEL_RED
@@ -118,7 +117,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				for(var/area/A in GLOB.all_areas)
 					if(!is_station_level(A.z))
 						continue
-					A.epsilon_alarm = TRUE
+					A.emergency_mode = TRUE
 					for(var/obj/machinery/light/L in A)
 						L.on = FALSE
 						L.update()
@@ -137,7 +136,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				for(var/area/A in GLOB.all_areas)
 					if(!is_station_level(A.z))
 						continue
-					A.delta_alarm = TRUE
+					A.emergency_mode = TRUE
 					for(var/obj/machinery/light/L in A)
 						L.set_light(L.brightness_range, 0.5, L.bulb_emergency_colour)
 
@@ -208,7 +207,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			return "<font color='orangered'>Delta</font>"
 
 /**
-  * Call the announcement, set all station lights to emergency mode
+  * Call the announcement, set all station lights to emergency mode.
   *
   * This is its own proc so it can be called with a timer.
   */

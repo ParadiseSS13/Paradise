@@ -1,7 +1,6 @@
 /area
 	var/fire = null
-	var/delta_alarm = FALSE
-	var/epsilon_alarm = FALSE
+	var/emergency_mode = FALSE //When true, fire alarms cannot unset emergency lighting.
 	var/atmosalm = ATMOS_ALARM_NONE
 	var/poweralm = TRUE
 	var/report_alerts = TRUE // Should atmos alerts notify the AI/computers
@@ -362,7 +361,7 @@
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
 	for(var/obj/machinery/light/L in src)
-		if(delta_alarm || epsilon_alarm) //The lights stay red until the crisis is resolved
+		if(emergency_mode) //The lights stay red until the crisis is resolved
 			return
 		L.update()
 
