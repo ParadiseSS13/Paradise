@@ -616,3 +616,6 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 					/obj/item/reagent_containers/food/snacks/proteinbar = 100,
 					/obj/item/reagent_containers/glass/beaker/waterbottle = 30
 					)
+
+/obj/machinery/vending/snack
+	hispa_premium = list(/obj/item/reagent_containers/food/snacks/choco_mre/barcardine = 1)

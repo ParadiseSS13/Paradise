@@ -508,7 +508,6 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 
 	if(++D.warns >= MAX_WARNS)					//uh ohhhh...you'reee iiiiin trouuuubble O:)
-		ban_unban_log_save("[ckey] warned [warned_ckey], resulting in a [AUTOBANTIME] minute autoban.")
 		if(C)
 			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)] resulting in a [AUTOBANTIME] minute ban")
 			log_admin("[key_name(src)] has warned [key_name(C)] resulting in a [AUTOBANTIME] minute ban")

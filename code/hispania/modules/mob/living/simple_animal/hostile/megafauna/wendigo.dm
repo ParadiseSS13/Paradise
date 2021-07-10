@@ -29,7 +29,7 @@
 	melee_damage_lower = 40
 	melee_damage_upper = 40
 	vision_range = 9
-	aggro_vision_range = 18 // man-eating for a reason
+	aggro_vision_range = 10 // man-eating for a reason weird shit
 	speed = 6
 	move_to_delay = 6
 	rapid_melee = 8
@@ -53,7 +53,7 @@
 	var/stomp_range = 1
 	var/stored_move_dirs = 0
 	var/can_move = TRUE
-	var/scream_cooldown_time = 10 SECONDS
+	var/scream_cooldown_time = 20 SECONDS
 	COOLDOWN_DECLARE(scream_cooldown)
 
 /obj/item/gps/internal/wendigo
@@ -259,7 +259,7 @@
 				SLEEP_CHECK_DEATH(6 - WENDIGO_ENRAGED * 2)
 		if("Spiral")
 			var/shots_spiral = WENDIGO_SPIRAL_SHOTCOUNT
-			var/angle_to_target = Get_Angle(src, target)
+			var/angle_to_target = get_angle(src, target)
 			var/spiral_direction = pick(-1, 1)
 			for(var/shot in 1 to shots_spiral)
 				var/shots_per_tick = 5 - WENDIGO_ENRAGED * 3

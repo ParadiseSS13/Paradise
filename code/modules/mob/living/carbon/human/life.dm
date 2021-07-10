@@ -302,11 +302,11 @@
 
 	else if(bodytemperature < dna.species.cold_level_1)
 		if(status_flags & GODMODE)
-			return 1
+			return TRUE
 		if(stat == DEAD)
-			return 1
+			return TRUE
 
-		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell) && !(HAS_TRAIT(src, TRAIT_RESISTCOLD)))
 			var/mult = dna.species.coldmod * physiology.cold_mod
 			if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
 				throw_alert("temp", /obj/screen/alert/cold, 1)

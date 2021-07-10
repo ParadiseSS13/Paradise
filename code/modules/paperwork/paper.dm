@@ -405,7 +405,7 @@
 				src.loc = get_turf(h_user)
 				if(h_user.client)	h_user.client.screen -= src
 				h_user.put_in_hands(B)
-		to_chat(user, "<span class='notice'>You clip the [P.name] to [(src.name == "paper") ? "the paper" : src.name].</span>")
+		to_chat(user, "<span class='notice'>You clip [P] to [(src.name == "paper") ? "the paper" : src.name].</span>")
 		src.loc = B
 		P.loc = B
 		B.amount++

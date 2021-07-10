@@ -59,7 +59,7 @@
 	if(over_object == usr && (in_range(src, usr) || usr.contents.Find(src)))
 		if(!ishuman(usr) || opened || length(contents))
 			return FALSE
-		visible_message("[usr] folds up the [name]")
+		visible_message("<span class='notice'>[usr] folds up [src].</span>")
 		new item_path(get_turf(src))
 		qdel(src)
 

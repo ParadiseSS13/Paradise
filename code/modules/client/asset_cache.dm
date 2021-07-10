@@ -200,7 +200,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"large_stamp-magistrate.png"= 'icons/paper_icons/large_stamp-magistrate.png',
 		"talisman.png"              = 'icons/paper_icons/talisman.png',
 		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png',
-		"syndielogo.png"		='icons/paper_icons/syndielogo.png'
+		"syndielogo.png"		='icons/paper_icons/syndielogo.png',
+		"pogfish.png"                = 'icons/hispania/paper_icons/pogfish.png',
 	)
 
 /datum/asset/simple/chess

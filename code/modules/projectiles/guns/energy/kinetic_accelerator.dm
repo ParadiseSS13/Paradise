@@ -6,7 +6,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
 	cell_type = /obj/item/stock_parts/cell/emproof
 	needs_permit = 0
-	unique_rename = 1
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
 	weapon_weight = WEAPON_LIGHT
 	can_flashlight = 1
@@ -276,7 +275,7 @@
 		return ..()
 
 /obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/R)
-	if(..())
+	if(!..())
 		return
 
 	for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/H in R.module.modules)

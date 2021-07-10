@@ -227,6 +227,8 @@
 			return 'icons/mob/screen_operative.dmi'
 		if("White")
 			return 'icons/mob/screen_white.dmi'
+		if("Vaporwave")
+			return 'icons/hispania/mob/screen_vaporwave.dmi'
 		else
 			return 'icons/mob/screen_midnight.dmi'
 

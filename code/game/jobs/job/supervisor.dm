@@ -101,8 +101,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 		/obj/item/storage/box/ids = 1,
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
-
-	implants = list()
+	implants = list(/obj/item/implant/mindshield)
 
 
 

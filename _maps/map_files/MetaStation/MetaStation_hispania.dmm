@@ -82787,6 +82787,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
+"mzQ" = (
+/obj/machinery/arcade/gashapon,
+/turf/simulated/floor/carpet/arcade,
+/area/crew_quarters/fitness{
+	name = "\improper Arcade"
+	})
 "mAa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -122627,7 +122633,7 @@ aaa
 aaa
 aaa
 aij
-akk
+mzQ
 apV
 akk
 aij
