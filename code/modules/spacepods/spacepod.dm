@@ -257,7 +257,7 @@
 	deal_damage(15)
 	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
 	to_chat(user, "<span class='warning'>You slash at [src]!</span>")
-	visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
+	visible_message("<span class='warning'>[user] slashes at [src]'s armor!</span>")
 
 /obj/spacepod/proc/deal_damage(damage)
 	var/oldhealth = health
@@ -391,22 +391,22 @@
 	else if(istype(W, /obj/item/lock_buster))
 		var/obj/item/lock_buster/L = W
 		if(L.on && equipment_system.lock_system)
-			user.visible_message(user, "<span class='warning'>[user] is drilling through the [src]'s lock!</span>",
-				"<span class='notice'>You start drilling through the [src]'s lock!</span>")
+			user.visible_message(user, "<span class='warning'>[user] is drilling through [src]'s lock!</span>",
+				"<span class='notice'>You start drilling through [src]'s lock!</span>")
 			if(do_after(user, 100 * W.toolspeed, target = src))
 				QDEL_NULL(equipment_system.lock_system)
 				unlocked = TRUE
-				user.visible_message(user, "<span class='warning'>[user] has destroyed the [src]'s lock!</span>",
-					"<span class='notice'>You destroy the [src]'s lock!</span>")
+				user.visible_message(user, "<span class='warning'>[user] has destroyed [src]'s lock!</span>",
+					"<span class='notice'>You destroy [src]'s lock!</span>")
 			else
-				user.visible_message(user, "<span class='warning'>[user] fails to break through the [src]'s lock!</span>",
-				"<span class='notice'>You were unable to break through the [src]'s lock!</span>")
+				user.visible_message(user, "<span class='warning'>[user] fails to break through [src]'s lock!</span>",
+				"<span class='notice'>You were unable to break through [src]'s lock!</span>")
 			return
 		if(L.on && unlocked == FALSE) //The buster is on, we don't have a lock system, and the pod is still somehow locked, unlocking.
 			unlocked = TRUE
 			user.visible_message(user, "<span class='notice'>[user] repairs [src]'s doors with [L].</span>",
 				"<span class='notice'>You repair [src]'s doors with [L].</span>")
-		to_chat(user, "<span class='notice'>Turn the [L] on first.</span>")
+		to_chat(user, "<span class='notice'>Turn [L] on first.</span>")
 		return
 
 	else if(cargo_hold.storage_slots > 0 && !hatch_open && unlocked) // must be the last option as all items not listed prior will be stored
@@ -471,7 +471,7 @@
 			target = passengers[1]
 
 		if(target && istype(target))
-			src.visible_message("<span class='warning'>[user] is trying to rip the door open and pull [target] out of the [src]!</span>",
+			src.visible_message("<span class='warning'>[user] is trying to rip the door open and pull [target] out of [src]!</span>",
 				"<span class='warning'>You see [user] outside the door trying to rip it open!</span>")
 			if(do_after(user, 50, target = src))
 				target.Stun(1)
@@ -479,11 +479,11 @@
 					eject_pilot()
 				else
 					eject_passenger(target)
-				target.visible_message("<span class='warning'>[user] flings the door open and tears [target] out of the [src]</span>",
-					"<span class='warning'>The door flies open and you are thrown out of the [src] and to the ground!</span>")
+				target.visible_message("<span class='warning'>[user] flings the door open and tears [target] out of [src]</span>",
+					"<span class='warning'>The door flies open and you are thrown out of [src] and to the ground!</span>")
 				return
 			target.visible_message("<span class='warning'>[user] was unable to get the door open!</span>",
-					"<span class='warning'>You manage to keep [user] out of the [src]!</span>")
+					"<span class='warning'>You manage to keep [user] out of [src]!</span>")
 
 	if(!hatch_open)
 		if(cargo_hold.storage_slots > 0)
@@ -867,9 +867,9 @@
 	occupant_sanity_check()
 
 	if(usr.restrained())
-		to_chat(usr, "<span class='notice'>You attempt to stumble out of the [src]. This will take two minutes.</span>")
+		to_chat(usr, "<span class='notice'>You attempt to stumble out of [src]. This will take two minutes.</span>")
 		if(pilot)
-			to_chat(pilot, "<span class='warning'>[usr] is trying to escape the [src].</span>")
+			to_chat(pilot, "<span class='warning'>[usr] is trying to escape [src].</span>")
 		if(!do_after(usr, 1200, target = src))
 			return
 
@@ -1016,7 +1016,7 @@
 		else
 			to_chat(user, "<span class='notice'>You fail to find anything of value.</span>")
 	else
-		to_chat(user, "<span class='notice'>You decide against searching the [src]</span>")
+		to_chat(user, "<span class='notice'>You decide against searching [src]</span>")
 
 /obj/spacepod/proc/enter_after(delay as num, mob/user as mob, numticks = 5)
 	var/delayfraction = delay/numticks

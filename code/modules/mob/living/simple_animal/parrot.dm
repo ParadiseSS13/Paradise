@@ -137,10 +137,10 @@
 
 	var/dat = {"<table>"}
 
-	dat += "<tr><td><B>Headset:</B></td><td><A href='?src=[UID()];[ears?"remove_inv":"add_inv"]=ears'>[(ears && !(ears.flags&ABSTRACT)) ? ears : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Headset:</B></td><td><A href='?src=[UID()];[ears?"remove_inv":"add_inv"]=ears'>[(ears && !(ears.flags&ABSTRACT)) ? html_encode(ears) : "<font color=grey>Empty</font>"]</A></td></tr>"
 	if(can_collar)
 		dat += "<tr><td>&nbsp;</td></tr>"
-		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[pcollar ? "remove_inv" : "add_inv"]=collar'>[(pcollar && !(pcollar.flags&ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[pcollar ? "remove_inv" : "add_inv"]=collar'>[(pcollar && !(pcollar.flags&ABSTRACT)) ? html_encode(pcollar) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -562,7 +562,9 @@
 	if(held_item)
 		to_chat(src, "<span class='warning'>You are already holding [held_item]</span>")
 		return 1
-
+	if(istype(loc, /obj/machinery/disposal) || istype(loc, /obj/structure/disposalholder))
+		to_chat(src, "<span class='warning'>You are inside a disposal chute!</span>")
+		return 1
 	for(var/obj/item/I in view(1, src))
 		//Make sure we're not already holding it and it's small enough
 		if(I.loc != src && I.w_class <= WEIGHT_CLASS_SMALL)

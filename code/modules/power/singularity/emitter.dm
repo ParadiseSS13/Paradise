@@ -197,7 +197,7 @@
 	else
 		state = EMITTER_NEEDS_WRENCH
 		anchored = FALSE
-		user.visible_message("<span class='notice'>[user] unsecures [src] reinforcing bolts from the floor.</span>",
+		user.visible_message("<span class='notice'>[user] unsecures [src]'s reinforcing bolts from the floor.</span>",
 			"<span class='notice'>You undo the external reinforcing bolts.</span>",
 			"<span class='notice'>You hear a ratchet.</span>")
 	playsound(src, I.usesound, I.tool_volume, TRUE)

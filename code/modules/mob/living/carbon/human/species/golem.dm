@@ -392,8 +392,8 @@
 	if(!(P.original == H && P.firer == H))
 		if(P.flag == "bullet" || P.flag == "bomb")
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, 1)
-			H.visible_message("<span class='danger'>The [P.name] sinks harmlessly in [H]'s sandy body!</span>", \
-			"<span class='userdanger'>The [P.name] sinks harmlessly in [H]'s sandy body!</span>")
+			H.visible_message("<span class='danger'>[P] sinks harmlessly in [H]'s sandy body!</span>", \
+			"<span class='userdanger'>[P] sinks harmlessly in [H]'s sandy body!</span>")
 			return FALSE
 	return TRUE
 
@@ -425,8 +425,8 @@
 /datum/species/golem/glass/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H)) //self-shots don't reflect
 		if(P.is_reflectable)
-			H.visible_message("<span class='danger'>The [P.name] gets reflected by [H]'s glass skin!</span>", \
-			"<span class='userdanger'>The [P.name] gets reflected by [H]'s glass skin!</span>")
+			H.visible_message("<span class='danger'>[P] gets reflected by [H]'s glass skin!</span>", \
+			"<span class='userdanger'>[P] gets reflected by [H]'s glass skin!</span>")
 
 			P.reflect_back(H)
 

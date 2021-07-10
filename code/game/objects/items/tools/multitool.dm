@@ -24,7 +24,6 @@
 	toolspeed = 1
 	tool_behaviour = TOOL_MULTITOOL
 	hitsound = 'sound/weapons/tap.ogg'
-	var/shows_wire_information = FALSE // shows what a wire does if set to TRUE
 	var/obj/machinery/buffer // simple machine buffer for device linkage
 
 /obj/item/multitool/proc/IsBufferA(typepath)
@@ -95,7 +94,10 @@
 /obj/item/multitool/ai_detect/admin
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors. Has a strange tag that says 'Grief in Safety'" //What else should I say for a meme item?
 	track_delay = 5
-	shows_wire_information = TRUE
+
+/obj/item/multitool/ai_detect/admin/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
 
 /obj/item/multitool/ai_detect/admin/multitool_detect()
 	var/turf/our_turf = get_turf(src)
@@ -112,6 +114,12 @@
 	desc = "Optimised and stripped-down version of a regular multitool."
 	toolspeed = 0.5
 
+/obj/item/multitool/cyborg/drone
+
+/obj/item/multitool/cyborg/drone/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT) // Drones are linked to the station
+
 /obj/item/multitool/abductor
 	name = "alien multitool"
 	desc = "An omni-technological interface."
@@ -119,4 +127,7 @@
 	icon_state = "multitool"
 	toolspeed = 0.1
 	origin_tech = "magnets=5;engineering=5;abductor=3"
-	shows_wire_information = TRUE
+
+/obj/item/multitool/abductor/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)

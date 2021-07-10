@@ -2785,7 +2785,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/computer/monitor,
+/obj/machinery/computer/monitor/secret,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},

@@ -275,6 +275,9 @@
 
 /obj/machinery/shower/Destroy()
 	QDEL_NULL(soundloop)
+	var/obj/effect/mist/mist = locate() in loc
+	if(!QDELETED(mist))
+		QDEL_IN(mist, 25 SECONDS)
 	return ..()
 
 //add heat controls? when emagged, you can freeze to death in it?
