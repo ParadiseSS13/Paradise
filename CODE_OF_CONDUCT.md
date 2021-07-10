@@ -1,6 +1,6 @@
 # Important
 
-The Paradise GitHub is not exempt from community and server rules, especially rules 0, 1, and 4. An inability to abide by the rules on the GitHub will result in disciplinary action up to, or including, a repository ban.
+The Paradise GitHub is not exempt from Paradise Station community and server rules, especially rules 0, 1, and 4. An inability to abide by the rules on the GitHub will result in disciplinary action up to, or including, a repository ban.
 
 ## General Expectations
 
@@ -18,7 +18,7 @@ Maintainers reserve the right to permanently revoke access from the repository i
 
 ### PR Approval/Objection Info
 
-Heads of Staff and Maintainers have final say on Pull Requests. While thumbs ratios are generally taken into account, they do not dictate whether or not a PR will be merged.
+Heads of Staff and Maintainers have the final say on Pull Requests. While thumbs ratios are generally taken into account, they do not dictate whether or not a PR will be merged.
 
 After a twenty four hour minimum waiting period, Pull Requests can be merged once they receive approval from both a Head of Staff and a Maintainer. An exception is made for refactors and fixes, which may be merged at a Maintainer's discretion with no waiting period.
 
