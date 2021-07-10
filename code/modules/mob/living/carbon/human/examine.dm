@@ -217,14 +217,14 @@
 				if(E.is_robotic())
 					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a robotic [E.name]!\n"
 
-				if(E.status & ORGAN_SPLINTED)
+				else if((E.status & ORGAN_BURNT) && (E.status & ORGAN_SPLINTED))
+					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a horrifying burn and a splint on [p_their()] [E.name]!\n"
+
+				else if(E.status & ORGAN_SPLINTED)
 					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a splint on [p_their()] [E.name]!\n"
 
-				if(E.status & ORGAN_BURNT)
+				else if(E.status & ORGAN_BURNT)
 					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a horrifying burn on [p_their()] [E.name]!\n"
-
-				if((E.status & ORGAN_BURNT) && (E.status & ORGAN_SPLINTED))
-					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a horrifying burn and a splint on [p_their()] [E.name]!\n"
 
 			if(E.open)
 				if(E.is_robotic())
