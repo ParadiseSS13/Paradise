@@ -899,6 +899,7 @@
 							msg += ", [job]"
 					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
 					ryzorbot("notify", "jobban=[key_name(usr)]&[key_name(M)]&[msg]&true&[mins]", "[reason]")
+					SSdiscord.send2discord_simple(DISCORD_WEBHOOK_BANS, "[key_name(usr)] jobbaneo a [key_name_admin(M)] de [msg] por: \n[reason] \nEste jobban será removido en [mins] minutos")
 					message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes</span>", 1)
 					to_chat(M, "<span class='warning'><big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big></span>")
 					to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
@@ -918,6 +919,7 @@
 							else		msg += ", [job]"
 						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
 						ryzorbot("notify", "jobban=[key_name(usr)]&[key_name(M)]&[msg]&false&", "[reason]")
+						SSdiscord.send2discord_simple(DISCORD_WEBHOOK_BANS, "[key_name_admin(usr)] jobbaneo a [key_name_admin(M)] de [msg] por: \n[reason] \nEste jobban no será removido automaticamente y debe ser apelado de ser posible.")
 						message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg]</span>", 1)
 						to_chat(M, "<span class='warning'><big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big></span>")
 						to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
@@ -949,6 +951,7 @@
 						continue
 			if(msg)
 				ryzorbot("notify", "unjobban=[key_name(usr)]&[key_name(M)]&[msg]")
+				SSdiscord.send2discord_simple(DISCORD_WEBHOOK_NOTES, "[key_name_admin(usr)] removió el jobban de [key_name_admin(M)] como [msg]")
 				message_admins("<span class='notice'>[key_name_admin(usr)] unbanned [key_name_admin(M)] from [msg]</span>", 1)
 				to_chat(M, "<span class='warning'><big><b>You have been un-jobbanned by [usr.client.ckey] from [msg].</b></big></span>")
 				href_list["jobban2"] = 1 // lets it fall through and refresh
@@ -1077,6 +1080,7 @@
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.</span>")
 				ryzorbot("notify", "addban=[key_name(usr)]&[M.ckey]&This will be removed in [mins] minutes.","[reason]")
+				SSdiscord.send2discord_simple(DISCORD_WEBHOOK_BANS, "[key_name(usr)] baneó a [M.ckey] por: \n[reason] \nEste ban será removido en [mins] minutos")
 				to_chat(world, "<b><span class='info'>El jugador <span class='warning'>[M.ckey]</span> fue baneado.</span></b><p><span class='rose'>[reason]</span></p>")
 
 				qdel(M.client)
@@ -1096,6 +1100,7 @@
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.</span>")
 				ryzorbot("notify", "addban=[key_name(usr)]&[M.ckey]&This ban does not expire automatically and must be appealed.","[reason]")
+				SSdiscord.send2discord_simple(DISCORD_WEBHOOK_BANS, "[key_name(usr)] baneó a [M.ckey] por: \n[reason] \nEste ban no es temporal y debe ser apelado de ser posible.")
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
 				to_chat(world, "<b><span class='info'>El jugador <span class='warning'>[M.ckey]</span> fue baneado.</span></b><p><span class='rose'>[reason]</span></p>")
 				del(M.client)

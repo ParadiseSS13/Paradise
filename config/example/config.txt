@@ -457,6 +457,14 @@ BYOND_ACCOUNT_AGE_THRESHOLD 3
 ## IF YOU ARE DISABLING THIS COMMENT IT OUT ENTIRELY, DONT LEAVE IT BLANK
 #DISCORD_WEBHOOKS_NEWROUND_ROLE_ID
 
+## Webhook URLs for the bans discord webhook, Separate multiple URLs with a | (EG: https://url1|https://url2), esta es una variable de hispania
+## IF YOU ARE DISABLING THIS COMMENT IT OUT ENTIRELY, DONT LEAVE IT BLANK
+#DISCORD_WEBHOOKS_BANS_URL
+
+## Webhook URLs for the notes discord webhook, Separate multiple URLs with a | (EG: https://url1|https://url2), esta es una variable de hispania
+## IF YOU ARE DISABLING THIS COMMENT IT OUT ENTIRELY, DONT LEAVE IT BLANK
+#DISCORD_WEBHOOKS_NOTES_URL
+
 ## Webhook URLs for the main discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
 #DISCORD_WEBHOOKS_MAIN_URL
 
