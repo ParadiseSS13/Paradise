@@ -184,8 +184,6 @@
 /turf/simulated/floor/holofloor/grass,
 /area/holodeck/source_picnicarea)
 "aG" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -297,14 +295,6 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_emptycourt)
-"aX" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/turf/simulated/floor/holofloor{
-	icon = 'icons/turf/floors/plating.dmi';
-	icon_state = "asteroid";
-	tag = "icon-asteroid"
-	},
-/area/holodeck/source_desert)
 "aY" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/holofloor{
@@ -465,7 +455,8 @@
 "bw" = (
 /obj/machinery/computer/shuttle/labor,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/gamma)
 "bx" = (
@@ -496,7 +487,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
 "bC" = (
@@ -617,7 +609,7 @@
 	},
 /area/holodeck/source_knightarena)
 "bU" = (
-/obj/structure/mirror{
+/obj/structure/mirror/magic{
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -637,7 +629,6 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
 "bZ" = (
-/obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/grassybush,
@@ -738,7 +729,8 @@
 	pixel_y = -6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 9;
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "cq" = (
@@ -841,6 +833,12 @@
 /obj/structure/table,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"cI" = (
+/obj/structure/table/wood/poker,
+/obj/item/clothing/mask/cigarette/cigar/havana,
+/obj/item/reagent_containers/food/drinks/bottle/cognac,
+/turf/simulated/floor/wood,
+/area/tdome/tdomeobserve)
 "cJ" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -1041,7 +1039,7 @@
 /obj/item/clipboard,
 /obj/item/radio/headset/centcom,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
 "dn" = (
@@ -1114,6 +1112,11 @@
 /obj/item/crowbar/red,
 /obj/item/crowbar/power,
 /obj/item/storage/belt/security,
+/obj/machinery/camera{
+	c_tag = "CentComm Brig South";
+	dir = 1;
+	network = list("CentComm")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -1172,6 +1175,23 @@
 	},
 /turf/space,
 /area/space)
+"dE" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Supply Loading South";
+	dir = 1;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
+/area/centcom/suppy)
+"dF" = (
+/obj/item/flag/command,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/centcom/control)
 "dG" = (
 /turf/simulated/floor/holofloor{
 	dir = 1;
@@ -1330,19 +1350,7 @@
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
-"ef" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdome";
-	name = "Thunderdome Blast Door"
-	},
-/obj/effect/turf_decal/loading_area{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/tdome/arena)
 "eg" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/genericbush,
@@ -1413,9 +1421,7 @@
 	},
 /area/centcom/suppy)
 "er" = (
-/obj/machinery/computer/med_data{
-	dir = 4
-	},
+/obj/machinery/computer/med_data,
 /turf/simulated/floor/wood,
 /area/centcom/control)
 "es" = (
@@ -1655,9 +1661,7 @@
 	pixel_x = 6;
 	pixel_y = 12
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "eY" = (
 /obj/effect/decal/warning_stripes/yellow,
@@ -2023,10 +2027,18 @@
 "gj" = (
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
+"gk" = (
+/turf/simulated/floor/wood,
+/area/tdome/tdomeobserve)
 "gl" = (
 /obj/item/flag/wiz,
 /turf/simulated/floor/engine/cult,
 /area/wizard_station)
+"gn" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/beer/upgraded,
+/turf/simulated/floor/wood,
+/area/centcom/evac)
 "go" = (
 /obj/structure/chair{
 	dir = 4
@@ -2087,14 +2099,6 @@
 /obj/structure/showcase,
 /turf/simulated/floor/wood,
 /area/wizard_station)
-"gz" = (
-/obj/machinery/computer/security{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/control)
 "gA" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2124,6 +2128,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/control)
+"gF" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Thunderdome Lobby";
+	dir = 1;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/tdomeobserve)
 "gG" = (
 /mob/living/carbon/human/monkey,
 /turf/simulated/floor/wood,
@@ -2193,6 +2207,19 @@
 /obj/item/beach_ball,
 /turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
+"gT" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "CentComm Supply Lobby";
+	dir = 1;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/control)
 "gU" = (
 /obj/effect/decal/cleanable/molten_object,
 /turf/simulated/floor/grass,
@@ -2238,9 +2265,8 @@
 /turf/space/transit,
 /area/space)
 "hb" = (
-/obj/machinery/door/airlock/centcom{
+/obj/machinery/door/airlock/vault{
 	name = "Prison Cell";
-	opacity = 1;
 	req_access_txt = "104"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2273,6 +2299,12 @@
 /obj/item/clothing/head/collectable/paper,
 /turf/simulated/floor/beach/away/coastline,
 /area/ninja/holding)
+"hg" = (
+/obj/structure/table/wood/poker,
+/obj/item/toy/cards/deck/black,
+/obj/item/lighter/zippo/nt_rep,
+/turf/simulated/floor/wood,
+/area/tdome/tdomeobserve)
 "hh" = (
 /obj/docking_port/stationary/transit{
 	dwidth = 1;
@@ -2303,7 +2335,7 @@
 "hk" = (
 /obj/structure/bed,
 /obj/item/bedsheet/black,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "hl" = (
 /obj/machinery/door/airlock/external{
@@ -2320,7 +2352,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
 "hn" = (
@@ -2348,13 +2381,6 @@
 /obj/structure/rack,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
-"hu" = (
-/obj/machinery/door/airlock/centcom{
-	name = "Administrative Office";
-	req_access_txt = "109"
-	},
-/turf/simulated/floor/carpet,
-/area/centcom/specops)
 "hv" = (
 /turf/simulated/floor/beach/away/water,
 /area/ninja/holding)
@@ -2404,6 +2430,11 @@
 /area/ninja/holding)
 "hH" = (
 /obj/structure/filingcabinet/chestdrawer,
+/obj/machinery/camera{
+	c_tag = "CentComm Supply Shuttle Control";
+	dir = 1;
+	network = list("CentComm")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -2434,7 +2465,8 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "hM" = (
@@ -2471,7 +2503,8 @@
 "hS" = (
 /obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/gamma)
 "hT" = (
@@ -2799,7 +2832,8 @@
 "jb" = (
 /obj/machinery/computer/shuttle/ferry,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "jc" = (
@@ -3130,8 +3164,6 @@
 	},
 /area/syndicate_mothership)
 "kc" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -3217,8 +3249,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kq" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -3228,6 +3258,15 @@
 "kr" = (
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
+"ks" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Diplomatic Office";
+	req_access_txt = "109"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "kt" = (
 /obj/machinery/abductor/experiment{
 	team = 4
@@ -3425,6 +3464,14 @@
 	icon_state = "alien2"
 	},
 /area/abductor_ship)
+"lq" = (
+/obj/machinery/door/airlock/silver{
+	name = "Toilet"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/tdome/tdomeobserve)
 "ls" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood,
@@ -3525,6 +3572,12 @@
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
+"lZ" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/centcom/gamma)
 "ma" = (
 /obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
@@ -3536,6 +3589,12 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
+"md" = (
+/obj/structure/chair/sofa{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/tdome/tdomeobserve)
 "me" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom)
@@ -3547,8 +3606,8 @@
 /area/centcom/specops)
 "mi" = (
 /obj/machinery/recharge_station/upgraded,
-/turf/simulated/floor/plasteel/dark{
-	dir = 1;
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "vault"
 	},
 /area/centcom/specops)
@@ -3568,9 +3627,21 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"mq" = (
+/obj/item/flag/command,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "mr" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/trader_station/sol)
+"ms" = (
+/obj/structure/table/wood/poker,
+/obj/item/clothing/mask/cigarette/cigar/havana,
+/turf/simulated/floor/wood,
+/area/tdome/tdomeobserve)
 "mt" = (
 /obj/effect/landmark{
 	name = "Syndicate-Infiltrator";
@@ -3578,12 +3649,29 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
+"mu" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/machinery/camera{
+	c_tag = "CentComm Customs";
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/control)
 "mv" = (
 /obj/machinery/light/spot,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "my" = (
 /obj/structure/filingcabinet/filingcabinet,
+/obj/machinery/camera{
+	c_tag = "CentComm BSA Control";
+	dir = 1;
+	network = list("CentComm")
+	},
 /turf/simulated/floor/carpet,
 /area/centcom/control)
 "mz" = (
@@ -3650,6 +3738,14 @@
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
+"mK" = (
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/centcom/control)
 "mM" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -3664,14 +3760,12 @@
 /area/centcom/control)
 "mP" = (
 /obj/machinery/computer/pod/deathsquad,
-/turf/simulated/floor/plasteel/dark{
-	dir = 1;
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "vault"
 	},
 /area/centcom/specops)
 "mQ" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/palebush,
@@ -3694,12 +3788,35 @@
 	pixel_x = 4.5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
+"mT" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "CentComm Arrivals West";
+	dir = 4;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/centcom/evac)
 "mU" = (
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"mW" = (
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "vault"
+	},
+/area/tdome/tdomeadmin)
 "mX" = (
 /obj/structure/flora/ausbushes/fernybush,
 /turf/simulated/floor/grass,
@@ -3770,10 +3887,22 @@
 /obj/structure/chair{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "CentComm Administrative Shuttles";
+	dir = 8;
+	network = list("CentComm")
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
+"no" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/centcom/control)
 "np" = (
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
@@ -3969,8 +4098,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "nV" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/genericbush,
@@ -3981,9 +4108,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "nX" = (
-/obj/machinery/computer/secure_data{
-	dir = 8
-	},
+/obj/machinery/computer/secure_data,
 /obj/machinery/door_control{
 	id = "CCcustoms1";
 	layer = 3;
@@ -4029,6 +4154,25 @@
 "og" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
+"oh" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Administrative Office";
+	dir = 1;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/carpet,
+/area/centcom/specops)
+"ol" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Arrivals South";
+	dir = 8;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/centcom/evac)
 "on" = (
 /turf/simulated/floor/light,
 /area/centcom/specops)
@@ -4040,6 +4184,14 @@
 /obj/machinery/light/spot,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
+"ot" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Court Office";
+	dir = 1;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/wood,
+/area/centcom/control)
 "ou" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
@@ -4150,18 +4302,29 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
-"oL" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/fernybush,
-/turf/simulated/floor/grass,
-/area/centcom/control)
 "oM" = (
 /obj/machinery/computer/shuttle/mining,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 9;
+	icon_state = "darkred"
 	},
 /area/centcom/gamma)
+"oO" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind,
+/turf/simulated/floor/wood,
+/area/centcom/evac)
+"oT" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Arrivals East";
+	dir = 4;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/centcom/evac)
 "oW" = (
 /obj/structure/closet/secure_closet/guncabinet,
 /obj/item/gun/energy/gun/nuclear,
@@ -4169,6 +4332,12 @@
 /obj/item/gun/energy/gun/nuclear,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
+"oX" = (
+/obj/item/flag/cargo,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/control)
 "oY" = (
 /obj/machinery/door/airlock/titanium,
 /obj/docking_port/mobile/emergency/backup{
@@ -4190,6 +4359,16 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
+"pb" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Cryo Storage";
+	dir = 1;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "pc" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/space)
@@ -4197,9 +4376,7 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -32
 	},
-/obj/machinery/computer/supplycomp{
-	dir = 1
-	},
+/obj/machinery/computer/supplycomp,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -4299,6 +4476,11 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
+"pv" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "vault"
+	},
+/area/tdome/tdomeadmin)
 "py" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/centcom{
@@ -4406,6 +4588,16 @@
 	icon_state = "darkred"
 	},
 /area/centcom/evac)
+"pW" = (
+/obj/structure/chair,
+/obj/machinery/camera{
+	c_tag = "CentComm Thunderdome Observation";
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/tdomeobserve)
 "pY" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -4440,7 +4632,8 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "qg" = (
@@ -4463,39 +4656,24 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
 "qj" = (
-/obj/item/reagent_containers/glass/bottle/epinephrine{
-	pixel_x = 6
+/obj/item/circular_saw,
+/obj/item/hemostat{
+	pixel_x = -4
 	},
-/obj/item/reagent_containers/glass/bottle/epinephrine{
-	pixel_x = -3;
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/syringe/epinephrine{
-	pixel_x = 3;
-	pixel_y = -2
-	},
-/obj/item/reagent_containers/syringe/epinephrine{
-	pixel_x = 4;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/syringe/epinephrine{
-	pixel_x = -2;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/syringe/epinephrine{
-	pixel_x = 2;
-	pixel_y = 8
-	},
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/mask/surgical,
 /obj/structure/table/reinforced,
+/obj/item/scalpel/laser/manager,
+/obj/item/surgicaldrill,
+/obj/item/bonegel,
+/obj/item/FixOVein,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue";
 	tag = "icon-whiteblue"
 	},
 /area/centcom/control)
 "ql" = (
-/obj/machinery/computer/security/mining{
-	dir = 4
-	},
+/obj/machinery/computer/security/mining,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellow"
@@ -4587,12 +4765,6 @@
 /obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/plating,
 /area/syndicate_mothership)
-"qH" = (
-/obj/structure/closet/crate/secure/bin,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/control)
 "qI" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/suppy)
@@ -4614,6 +4786,9 @@
 	icon_state = "dark"
 	},
 /area/centcom/control)
+"qU" = (
+/turf/simulated/floor/carpet/black,
+/area/centcom/specops)
 "qV" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -4688,7 +4863,7 @@
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
 "rm" = (
@@ -4708,25 +4883,20 @@
 /turf/space/transit/horizontal,
 /area/space)
 "rr" = (
-/obj/item/scalpel{
-	pixel_y = 12
+/obj/machinery/portable_atmospherics/canister/oxygen{
+	name = "Canister: \[O2] (CRYO)"
 	},
-/obj/item/circular_saw,
-/obj/item/retractor{
-	pixel_x = 4
-	},
-/obj/item/hemostat{
-	pixel_x = -4
-	},
-/obj/item/clothing/gloves/color/latex,
-/obj/item/clothing/mask/surgical,
-/obj/structure/table/reinforced,
+/obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue";
 	tag = "icon-whiteblue (NORTHWEST)"
 	},
 /area/centcom/control)
+"ru" = (
+/obj/machinery/computer/arcade,
+/turf/simulated/floor/wood,
+/area/tdome/tdomeobserve)
 "ry" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -4735,11 +4905,17 @@
 /area/centcom/evac)
 "rA" = (
 /obj/machinery/teleport/station,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
 /area/centcom/specops)
 "rB" = (
 /obj/machinery/computer/teleporter,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
 /area/centcom/specops)
 "rC" = (
 /obj/item/trash/sosjerky,
@@ -4748,6 +4924,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/control)
+"rD" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Arrivals Security Backroom";
+	dir = 1;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/evac)
 "rE" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/start)
@@ -4778,6 +4964,14 @@
 "rM" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/tdome/tdomeobserve)
+"rO" = (
+/obj/structure/closet/secure_closet/brig{
+	name = "prisoner locker"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/control)
 "rQ" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
@@ -4831,9 +5025,7 @@
 	},
 /area/tdome/tdomeobserve)
 "rY" = (
-/obj/machinery/computer/med_data{
-	dir = 8
-	},
+/obj/machinery/computer/med_data,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = 24
@@ -4846,7 +5038,6 @@
 /area/centcom/control)
 "sd" = (
 /obj/machinery/igniter/on,
-/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -4864,7 +5055,6 @@
 	},
 /area/centcom/control)
 "sl" = (
-/obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/grassybush,
@@ -4906,9 +5096,20 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/centcom/control)
+"sv" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Thunderdome Access South";
+	dir = 1;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "vault"
+	},
+/area/tdome/tdomeadmin)
 "sw" = (
 /obj/machinery/door/airlock/centcom{
-	name = "CentCom Customs";
+	name = "CentCom Bridge";
 	req_access_txt = "109"
 	},
 /turf/simulated/floor/wood,
@@ -4929,11 +5130,15 @@
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "sB" = (
-/obj/machinery/computer/card/centcom{
-	dir = 8
-	},
+/obj/machinery/computer/card/centcom,
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"sC" = (
+/obj/structure/chair/sofa/right{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/tdome/tdomeobserve)
 "sE" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -4952,13 +5157,19 @@
 	icon_state = "darkgreen"
 	},
 /area/centcom/control)
+"sU" = (
+/obj/structure/table/wood/poker,
+/obj/item/deck/cards,
+/turf/simulated/floor/wood,
+/area/tdome/tdomeobserve)
 "sX" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/specops)
 "sY" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "tb" = (
@@ -4991,10 +5202,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/control)
-"te" = (
-/obj/structure/sign/directions/medical,
-/turf/simulated/wall/indestructible/riveted,
-/area/centcom/control)
 "th" = (
 /obj/effect/landmark{
 	name = "Marauder Exit"
@@ -5005,9 +5212,8 @@
 /turf/simulated/floor/plating/airless,
 /area/centcom/specops)
 "tj" = (
-/obj/machinery/computer/operating{
-	dir = 4
-	},
+/obj/item/surgical_drapes,
+/obj/machinery/optable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue";
@@ -5021,8 +5227,9 @@
 	},
 /area/centcom/suppy)
 "tq" = (
-/obj/item/defibrillator/loaded,
-/obj/structure/table/reinforced,
+/obj/machinery/computer/operating{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue";
@@ -5041,10 +5248,25 @@
 	icon_state = "dark"
 	},
 /area/centcom/control)
+"ty" = (
+/obj/structure/chair/sofa/left{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/tdome/tdomeobserve)
+"tA" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Administrative Quarters";
+	dir = 1;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/carpet/black,
+/area/centcom/specops)
 "tB" = (
 /obj/machinery/computer/shuttle/admin,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "tC" = (
@@ -5130,6 +5352,11 @@
 	icon_state = "green"
 	},
 /area/tdome/arena)
+"tN" = (
+/obj/structure/barricade/sandbags,
+/obj/effect/turf_decal/bot,
+/turf/simulated/floor/plasteel,
+/area/tdome/arena)
 "tQ" = (
 /obj/docking_port/stationary/transit{
 	dir = 8;
@@ -5181,6 +5408,14 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/arena)
+"tX" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Thunderdome Lounge";
+	dir = 8;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/wood,
+/area/tdome/tdomeobserve)
 "tY" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "admin_away";
@@ -5193,6 +5428,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"ub" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/camera{
+	c_tag = "CentComm Court North";
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/control)
 "uc" = (
 /obj/item/hand_labeler,
 /obj/structure/table,
@@ -5236,6 +5481,15 @@
 	},
 /turf/space/transit/horizontal,
 /area/space)
+"uo" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -24
+	},
+/obj/structure/filingcabinet/security,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/control)
 "ur" = (
 /turf/simulated/wall/indestructible/syndicate,
 /area/admin)
@@ -5253,13 +5507,6 @@
 "uu" = (
 /turf/simulated/wall/indestructible/opsglass,
 /area/admin)
-"ux" = (
-/obj/machinery/vending/cola,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/tdome/tdomeobserve)
 "uB" = (
 /obj/structure/table/reinforced,
 /obj/item/wrench,
@@ -5368,9 +5615,17 @@
 /obj/item/storage/backpack/duffel/syndie/med,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"uO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/centcom/control)
 "uS" = (
 /obj/machinery/computer/security{
-	dir = 1
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5401,14 +5656,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
-"uX" = (
-/obj/machinery/computer/secure_data{
-	dir = 4
+"uW" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Arrivals Bar";
+	network = list("CentComm")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/control)
+/turf/simulated/floor/wood,
+/area/centcom/evac)
 "uY" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/chameleon{
@@ -5468,14 +5722,22 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "vd" = (
-/obj/machinery/computer/supplycomp{
-	dir = 4
-	},
+/obj/machinery/computer/supplycomp,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellow"
 	},
 /area/centcom/suppy)
+"vf" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Mech Bay";
+	dir = 8;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "vg" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/armor/bulletproof{
@@ -5784,14 +6046,13 @@
 	color = "#596479";
 	dir = 1
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "vQ" = (
-/obj/machinery/computer/shuttle/white_ship{
-	dir = 4
-	},
+/obj/machinery/computer/shuttle/white_ship,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/centcom/gamma)
 "vR" = (
@@ -5922,9 +6183,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "wm" = (
-/obj/machinery/computer/crew{
-	dir = 4
-	},
+/obj/machinery/computer/crew,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "wn" = (
@@ -5971,7 +6230,7 @@
 /area/admin)
 "wq" = (
 /obj/machinery/computer/security{
-	dir = 1
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
@@ -5981,7 +6240,8 @@
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 9;
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
 "ws" = (
@@ -6155,9 +6415,7 @@
 /turf/space/transit/horizontal,
 /area/space)
 "wG" = (
-/obj/machinery/computer/station_alert{
-	dir = 8
-	},
+/obj/machinery/computer/station_alert,
 /obj/item/radio/intercom{
 	desc = "Talk smack through this.";
 	pixel_x = 28
@@ -6495,12 +6753,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
-"xz" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/fernybush,
-/turf/simulated/floor/grass,
-/area/tdome/tdomeobserve)
 "xA" = (
 /obj/structure/rack,
 /obj/item/twohanded/knighthammer{
@@ -6580,7 +6832,6 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "xK" = (
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/fernybush,
 /turf/simulated/floor/plating/asteroid,
@@ -6601,6 +6852,18 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/carpet,
 /area/centcom/control)
+"xN" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12
+	},
+/obj/structure/mirror{
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/space)
 "xO" = (
 /obj/machinery/door/airlock/hatch{
 	desc = "You've heard rumors of the horrors that go on within this lab.";
@@ -6689,7 +6952,6 @@
 /turf/simulated/floor/plasteel,
 /area/trader_station/sol)
 "yf" = (
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/fernybush,
 /turf/simulated/floor/grass,
@@ -6757,14 +7019,6 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss,
 /turf/simulated/floor/wood,
 /area/admin)
-"yu" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/palebush,
-/turf/simulated/floor/plating/asteroid,
-/area/tdome/tdomeobserve)
 "yv" = (
 /obj/machinery/computer/station_alert,
 /turf/simulated/floor/wood,
@@ -6905,6 +7159,7 @@
 	id_tag = "CCcustoms2";
 	name = "CC Customs 2 Shutters"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6927,6 +7182,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/trader_station/sol)
+"zk" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/space)
 "zl" = (
 /obj/item/storage/toolbox/syndicate{
 	desc = "A powerful relic many men worked long and hard to keep safe and away from the forces of evil.";
@@ -6986,6 +7249,13 @@
 	icon_state = "dark"
 	},
 /area/centcom/control)
+"zq" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "zs" = (
 /obj/effect/spawner/lootdrop/trade_sol/largeitem,
 /turf/simulated/floor/mineral/titanium,
@@ -7148,6 +7418,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
+"zW" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/centcom/evac)
 "zX" = (
 /obj/structure/table/reinforced,
 /obj/item/wrench,
@@ -7235,7 +7514,6 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
 "An" = (
-/obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/window/reinforced,
 /turf/simulated/floor/grass,
@@ -7510,6 +7788,18 @@
 /obj/item/storage/backpack/medic,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
+"Bj" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box,
+/obj/machinery/camera{
+	c_tag = "CentComm Court Observation";
+	dir = 1;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/control)
 "Bm" = (
 /obj/structure/table,
 /obj/item/storage/backpack/science,
@@ -7712,7 +8002,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
 "BQ" = (
@@ -7892,11 +8182,10 @@
 /obj/machinery/newscaster{
 	pixel_x = 32
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "Cr" = (
 /obj/structure/flora/ausbushes/fernybush,
-/obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/grass,
 /area/tdome/tdomeobserve)
 "Cu" = (
@@ -7909,7 +8198,6 @@
 /area/centcom/control)
 "Cv" = (
 /obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "Cw" = (
@@ -7952,6 +8240,11 @@
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
+/obj/machinery/camera{
+	c_tag = "CentComm Court Lobby";
+	dir = 1;
+	network = list("CentComm")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7968,7 +8261,7 @@
 /area/syndicate_mothership/jail)
 "CE" = (
 /obj/machinery/computer/security{
-	dir = 1
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
 /obj/machinery/newscaster{
 	pixel_y = -32
@@ -8039,6 +8332,16 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
+"CQ" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Supply Loading North";
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkyellow"
+	},
+/area/centcom/suppy)
 "CR" = (
 /turf/simulated/floor/holofloor{
 	dir = 8;
@@ -8088,7 +8391,7 @@
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/vox)
 "CY" = (
-/obj/machinery/sleeper{
+/obj/machinery/sleeper/upgraded{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -8102,14 +8405,6 @@
 /obj/item/folder/white,
 /obj/item/pen/blue,
 /turf/simulated/floor/wood,
-/area/centcom/control)
-"Db" = (
-/obj/machinery/computer/security{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
 /area/centcom/control)
 "Dc" = (
 /obj/machinery/door/poddoor/shutters{
@@ -8171,6 +8466,7 @@
 	id_tag = "CCcustoms1";
 	name = "CC Customs 1 Shutters"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "Dn" = (
@@ -8225,7 +8521,8 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "darkred"
 	},
 /area/centcom/gamma)
 "Du" = (
@@ -8376,7 +8673,8 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "DN" = (
@@ -8385,7 +8683,7 @@
 /obj/item/restraints/handcuffs,
 /obj/item/flash,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
 "DP" = (
@@ -8398,8 +8696,6 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
 "DQ" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -8455,6 +8751,10 @@
 /area/shuttle/escape)
 "Eb" = (
 /obj/machinery/computer/message_monitor,
+/obj/machinery/camera{
+	c_tag = "CentComm Bridge";
+	network = list("CentComm")
+	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
 "Ec" = (
@@ -8475,6 +8775,15 @@
 /obj/machinery/newscaster,
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/control)
+"Eh" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "Ei" = (
 /obj/structure/holohoop{
 	dir = 1
@@ -8912,13 +9221,6 @@
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/vox)
-"Fn" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "17"
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
 "Fo" = (
 /obj/structure/closet/crate/internals,
 /obj/item/tank/internals/oxygen/red,
@@ -9133,6 +9435,7 @@
 	id_tag = "SPECOPS";
 	name = "Nanotrasen Asset Protection"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9157,7 +9460,7 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
 "FX" = (
@@ -9188,7 +9491,8 @@
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
 "Gd" = (
@@ -9235,11 +9539,10 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
 "Gj" = (
-/obj/machinery/computer/shuttle/ferry{
-	dir = 4
-	},
+/obj/machinery/computer/shuttle/ferry,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/centcom/gamma)
 "Gk" = (
@@ -9288,7 +9591,7 @@
 	dir = 4;
 	pixel_x = -24
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "Gp" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -9308,7 +9611,8 @@
 	},
 /obj/item/storage/firstaid/adv,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "Gr" = (
@@ -9470,7 +9774,7 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkred"
 	},
 /area/centcom/gamma)
 "GT" = (
@@ -9521,13 +9825,14 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "GZ" = (
+/obj/machinery/computer/shuttle/ert,
 /obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the Special Ops team.";
-	name = "Spec Ops Monitor";
+	desc = "Used for watching the Special Ops.";
+	name = "Special Ops. Monitor";
 	network = list("ERT");
+	pixel_x = null;
 	pixel_y = 30
 	},
-/obj/machinery/computer/shuttle/ert,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
 "Ha" = (
@@ -9664,9 +9969,7 @@
 /obj/item/flashlight/lamp,
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "HE" = (
 /obj/machinery/door/airlock/external{
@@ -9681,14 +9984,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/space)
+/area/centcom/specops)
 "HF" = (
 /obj/machinery/newscaster{
 	pixel_y = -32
 	},
-/obj/machinery/computer/med_data{
-	dir = 1
-	},
+/obj/machinery/computer/med_data,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9783,9 +10084,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/supply)
 "HX" = (
-/obj/machinery/computer/secure_data{
-	dir = 8
-	},
+/obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9794,13 +10093,18 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/chef/classic,
 /obj/item/kitchen/rollingpin,
+/obj/machinery/camera{
+	c_tag = "CentComm Thunderdome Kitchen";
+	dir = 4;
+	network = list("CentComm")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
 /area/tdome/tdomeobserve)
 "Ic" = (
 /obj/item/storage/firstaid/fire,
-/obj/item/storage/firstaid/regular{
+/obj/item/storage/firstaid/adv{
 	pixel_x = 2;
 	pixel_y = 3
 	},
@@ -9822,6 +10126,11 @@
 	pixel_y = 3
 	},
 /obj/structure/table/reinforced,
+/obj/machinery/camera{
+	c_tag = "CentComm Medbay";
+	dir = 1;
+	network = list("CentComm")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue";
@@ -9846,6 +10155,11 @@
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/camera{
+	c_tag = "CentComm Asset Protection Shuttle Dock";
+	dir = 1;
+	network = list("CentComm")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -9919,6 +10233,7 @@
 /area/centcom/specops)
 "Iu" = (
 /obj/effect/turf_decal/bot,
+/obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 "Iv" = (
@@ -9962,11 +10277,6 @@
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/wood,
 /area/centcom/control)
-"Iy" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/lavendergrass,
-/turf/simulated/floor/grass,
-/area/tdome/tdomeobserve)
 "Iz" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel/dark,
@@ -10004,7 +10314,7 @@
 /obj/machinery/light_switch{
 	pixel_x = -24
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "ID" = (
 /obj/structure/reagent_dispensers/watertank/high,
@@ -10069,14 +10379,13 @@
 	},
 /area/holodeck/source_thunderdomecourt)
 "IL" = (
-/obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/window/reinforced,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "IN" = (
 /obj/machinery/computer/security{
-	dir = 8
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -10104,6 +10413,10 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"IQ" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/wood,
+/area/tdome/tdomeobserve)
 "IR" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -10179,14 +10492,10 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
-"Je" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/fernybush,
-/turf/simulated/floor/plating/asteroid,
-/area/centcom/control)
 "Jf" = (
-/obj/machinery/computer/security,
+/obj/machinery/computer/security{
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "Jg" = (
@@ -10222,6 +10531,14 @@
 	icon_state = "darkred"
 	},
 /area/centcom/control)
+"Jl" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkred"
+	},
+/area/centcom/specops)
 "Jm" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating/airless,
@@ -10287,8 +10604,6 @@
 	},
 /area/centcom/control)
 "Ju" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/genericbush,
@@ -10313,6 +10628,13 @@
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
+"Jy" = (
+/obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor/east{
+	id = "QMLoad4"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
 "Jz" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -10447,7 +10769,7 @@
 /area/centcom/suppy)
 "JO" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
@@ -10529,6 +10851,11 @@
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/soda{
 	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "CentComm Thunderdome Bar";
+	dir = 8;
+	network = list("CentComm")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -10688,6 +11015,13 @@
 	icon_state = "darkgreen"
 	},
 /area/centcom/control)
+"KH" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Court Central";
+	network = list("CentComm")
+	},
+/turf/simulated/floor/wood,
+/area/centcom/control)
 "KI" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -10789,12 +11123,8 @@
 	},
 /area/centcom/specops)
 "KV" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/palebush,
-/turf/simulated/floor/plating/asteroid,
+/obj/structure/chair/sofa,
+/turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
 "KW" = (
 /obj/machinery/light/small{
@@ -10861,14 +11191,12 @@
 	},
 /area/centcom/control)
 "Lh" = (
-/obj/machinery/computer/emergency_shuttle{
-	dir = 1
-	},
+/obj/machinery/computer/emergency_shuttle,
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkred"
 	},
 /area/centcom/gamma)
 "Li" = (
@@ -10937,6 +11265,11 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/machinery/camera{
+	c_tag = "CentComm Arrivals Security";
+	dir = 1;
+	network = list("CentComm")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -10989,7 +11322,7 @@
 "LA" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "LB" = (
 /obj/structure/table,
@@ -11075,9 +11408,7 @@
 	},
 /area/holodeck/source_knightarena)
 "LM" = (
-/obj/machinery/computer/crew{
-	dir = 4
-	},
+/obj/machinery/computer/crew,
 /turf/simulated/floor/wood,
 /area/centcom/control)
 "LO" = (
@@ -11088,7 +11419,7 @@
 /area/shuttle/administration)
 "LP" = (
 /obj/machinery/door/airlock/centcom{
-	name = "CentCom Ferry Dock";
+	name = "CentCom BSA Control";
 	req_access_txt = "144"
 	},
 /turf/simulated/floor/plasteel{
@@ -11157,11 +11488,14 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Ma" = (
-/obj/machinery/computer/communications{
-	dir = 1
+/obj/machinery/computer/communications,
+/obj/machinery/camera{
+	c_tag = "CentComm Gamma Lobby";
+	dir = 1;
+	network = list("CentComm")
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkred"
 	},
 /area/centcom/gamma)
 "Mb" = (
@@ -11193,6 +11527,12 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"Me" = (
+/obj/item/flag/med,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/control)
 "Mf" = (
 /obj/structure/rack,
 /obj/item/clothing/accessory/storage/black_vest,
@@ -11236,6 +11576,12 @@
 	},
 /turf/space,
 /area/space)
+"Mm" = (
+/obj/structure/chair/comfy/brown{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/centcom/specops)
 "Mn" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light{
@@ -11252,8 +11598,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "Mp" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/pointybush,
@@ -11318,9 +11662,7 @@
 /obj/item/folder/red,
 /obj/item/restraints/handcuffs,
 /obj/item/flash,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "Mw" = (
 /obj/structure/window/reinforced{
@@ -11336,7 +11678,7 @@
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
 "My" = (
@@ -11371,7 +11713,6 @@
 /area/shuttle/trade/sol)
 "MC" = (
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "MD" = (
@@ -11400,6 +11741,17 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate)
+"MI" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Asset Protection Ready Room";
+	dir = 1;
+	network = list("ERT","CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "MJ" = (
 /obj/structure/flora/ausbushes/grassybush,
 /turf/simulated/floor/grass,
@@ -11415,7 +11767,7 @@
 /area/tdome/tdomeobserve)
 "MM" = (
 /obj/machinery/computer/card/centcom,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "MN" = (
 /obj/structure/window/reinforced{
@@ -11446,13 +11798,6 @@
 	tag = "icon-asteroid1 (EAST)"
 	},
 /area/holodeck/source_desert)
-"MS" = (
-/obj/machinery/vending/snack,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/tdome/tdomeobserve)
 "MT" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11536,6 +11881,17 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"Nh" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/camera{
+	c_tag = "CentComm Thunderdome Access North";
+	dir = 4;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/tdomeobserve)
 "Ni" = (
 /obj/structure/chair{
 	dir = 8
@@ -11589,6 +11945,12 @@
 	icon_state = "darkredfull"
 	},
 /area/centcom/control)
+"Nq" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkred"
+	},
+/area/centcom/gamma)
 "Nr" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -11600,7 +11962,6 @@
 	},
 /area/centcom/suppy)
 "Nt" = (
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/fernybush,
 /turf/simulated/floor/grass,
@@ -11638,7 +11999,6 @@
 /area/centcom/control)
 "Nx" = (
 /obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/window/full/shuttle,
@@ -11679,6 +12039,12 @@
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
+"NF" = (
+/obj/effect/landmark{
+	name = "tdome1"
+	},
+/turf/simulated/floor/plating,
+/area/tdome/arena)
 "NG" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/landmark{
@@ -11744,6 +12110,14 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/specops)
+"NQ" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Arrivals Center";
+	dir = 1;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel,
+/area/centcom/evac)
 "NR" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
 /obj/item/reagent_containers/food/snacks/grown/banana,
@@ -11860,6 +12234,10 @@
 	pixel_x = -24;
 	pixel_y = 24
 	},
+/obj/machinery/camera{
+	c_tag = "CentComm Brig Lobby";
+	network = list("CentComm")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11924,7 +12302,8 @@
 /obj/item/radio,
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 9;
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
 "Oo" = (
@@ -11937,9 +12316,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/control)
 "Op" = (
-/obj/machinery/computer/crew{
-	dir = 4
-	},
+/obj/machinery/computer/crew,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11972,8 +12349,6 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "Ox" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/fernybush,
 /turf/simulated/floor/plating/asteroid,
 /area/tdome/tdomeadmin)
@@ -12006,7 +12381,7 @@
 	network = list("ERT")
 	},
 /obj/structure/table/reinforced,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "OE" = (
 /obj/structure/closet/syndicate/personal,
@@ -12042,6 +12417,7 @@
 	},
 /area/centcom/control)
 "OM" = (
+/obj/structure/chair/office/dark,
 /obj/item/cardboard_cutout{
 	desc = "They seem to be ignoring you... Typical.";
 	icon_state = "cutout_ntsec";
@@ -12053,7 +12429,7 @@
 /area/centcom/evac)
 "ON" = (
 /obj/machinery/computer/security{
-	dir = 8
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
 /obj/machinery/newscaster{
 	pixel_x = 32
@@ -12109,8 +12485,11 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
 "Pa" = (
-/obj/machinery/computer/crew{
-	dir = 1
+/obj/machinery/computer/crew,
+/obj/machinery/camera{
+	c_tag = "CentComm Thunderdome Checkpoint East";
+	dir = 1;
+	network = list("CentComm")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -12120,7 +12499,7 @@
 "Pb" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/centcom{
-	name = "CentCom Special Operations";
+	name = "CentCom Asset Protection";
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/plasteel{
@@ -12128,7 +12507,6 @@
 	},
 /area/centcom/specops)
 "Pc" = (
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/fernybush,
 /turf/simulated/floor/grass,
@@ -12276,9 +12654,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/control)
 "Pw" = (
-/obj/machinery/computer/card/centcom{
-	dir = 1
-	},
+/obj/machinery/computer/card/centcom,
 /obj/machinery/door_control{
 	id = "CCcustoms1";
 	layer = 3.5;
@@ -12317,7 +12693,7 @@
 "PA" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/centcom{
-	name = "CentCom Special Operations";
+	name = "CentCom Asset Protection";
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/plasteel{
@@ -12383,14 +12759,14 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
 "PI" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/vacuum,
 /turf/simulated/floor/plating,
-/area/space)
+/area/centcom/specops)
 "PK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -12403,7 +12779,8 @@
 /obj/structure/closet/secure_closet/guncabinet,
 /obj/item/gun/energy/bsg/prebuilt,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 10;
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "PM" = (
@@ -12429,8 +12806,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "PQ" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/fernybush,
 /turf/simulated/floor/plating/asteroid,
 /area/tdome/tdomeobserve)
@@ -12446,7 +12821,8 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "PS" = (
@@ -12474,14 +12850,6 @@
 /obj/machinery/computer/shuttle/sit,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
-"PW" = (
-/obj/machinery/computer/communications{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "PX" = (
 /obj/item/radio/intercom{
 	dir = 4;
@@ -12501,6 +12869,17 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"Qc" = (
+/obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor/west{
+	id = "QMLoad3"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
+"Qd" = (
+/obj/structure/chair/sofa/right,
+/turf/simulated/floor/wood,
+/area/tdome/tdomeobserve)
 "Qe" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
@@ -12546,9 +12925,6 @@
 	id_tag = "thunderdome";
 	name = "Thunderdome Blast Door"
 	},
-/obj/effect/turf_decal/loading_area{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/tdome/arena)
 "Qm" = (
@@ -12560,8 +12936,11 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "Qn" = (
-/obj/machinery/computer/secure_data{
-	dir = 1
+/obj/machinery/computer/secure_data,
+/obj/machinery/camera{
+	c_tag = "CentComm Thunderdome Checkpoint West";
+	dir = 1;
+	network = list("CentComm")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -12819,6 +13198,10 @@
 "Rd" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/lockbox/mindshield,
+/obj/machinery/camera{
+	c_tag = "CentComm Brig North";
+	network = list("CentComm")
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "Re" = (
@@ -12846,9 +13229,7 @@
 	pixel_x = -27;
 	pixel_y = 5
 	},
-/obj/machinery/computer/supplycomp{
-	dir = 4
-	},
+/obj/machinery/computer/supplycomp,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -12877,7 +13258,6 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/control)
 "Rj" = (
-/obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/holofloor/grass,
 /area/holodeck/source_picnicarea)
 "Rk" = (
@@ -12957,12 +13337,6 @@
 	dir = 4;
 	icon_state = "darkred"
 	},
-/area/centcom/control)
-"Ru" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/fernybush,
-/turf/simulated/floor/plating/asteroid,
 /area/centcom/control)
 "Rw" = (
 /obj/structure/table/reinforced,
@@ -13098,8 +13472,7 @@
 /turf/simulated/floor/beach/sand,
 /area/holodeck/source_beach)
 "RV" = (
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
+/obj/machinery/atmospherics/unary/cryo_cell/upgraded,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue";
@@ -13178,7 +13551,7 @@
 "Si" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
 "Sj" = (
@@ -13192,6 +13565,12 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"Sk" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/centcom/gamma)
 "Sl" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -13211,7 +13590,7 @@
 	},
 /obj/item/radio/headset/centcom,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkred"
 	},
 /area/centcom/gamma)
 "Sn" = (
@@ -13265,6 +13644,12 @@
 /obj/machinery/atmospherics/unary/tank/air,
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate)
+"Sx" = (
+/obj/item/flag/sec,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/control)
 "Sy" = (
 /obj/machinery/porta_turret/syndicate{
 	dir = 10
@@ -13347,6 +13732,20 @@
 	dir = 8;
 	tag = "icon-tube1 (WEST)"
 	},
+/obj/machinery/door_control{
+	id = "QMLoaddoor4";
+	layer = 3;
+	name = "Loading Doors";
+	pixel_x = -24;
+	pixel_y = 8
+	},
+/obj/machinery/door_control{
+	id = "QMLoaddoor3";
+	layer = 3;
+	name = "Loading Doors";
+	pixel_x = -24;
+	pixel_y = -8
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
 "SI" = (
@@ -13398,9 +13797,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/supply)
 "SQ" = (
-/obj/machinery/computer/communications{
-	dir = 8
-	},
+/obj/machinery/computer/communications,
 /turf/simulated/floor/wood,
 /area/centcom/control)
 "SR" = (
@@ -13491,7 +13888,6 @@
 /area/centcom/specops)
 "Tc" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
@@ -13500,8 +13896,16 @@
 	admin_usage = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
 /area/centcom/specops)
+"Th" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/space)
 "Tk" = (
 /obj/structure/holowindow,
 /turf/simulated/floor/holofloor,
@@ -13548,7 +13952,7 @@
 	name = "WARNING: EXTERNAL AIRLOCK"
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/centcom/specops)
 "Ts" = (
 /obj/machinery/door/window/brigdoor{
 	base_state = "rightsecure";
@@ -13598,7 +14002,7 @@
 /area/holodeck/source_thunderdomecourt)
 "TA" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
@@ -13653,6 +14057,17 @@
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
+	},
+/area/centcom/specops)
+"TL" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/camera{
+	c_tag = "CentComm Diplomatic Office";
+	dir = 1;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
 /area/centcom/specops)
 "TM" = (
@@ -13713,7 +14128,6 @@
 /area/centcom/specops)
 "TT" = (
 /obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sunnybush,
 /obj/structure/window/full/shuttle,
@@ -13774,7 +14188,6 @@
 /area/centcom/specops)
 "Ua" = (
 /obj/machinery/igniter/on,
-/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -13797,6 +14210,10 @@
 /obj/structure/table,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"Uh" = (
+/obj/structure/chair/sofa/left,
+/turf/simulated/floor/wood,
+/area/tdome/tdomeobserve)
 "Ui" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
@@ -13962,9 +14379,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "UE" = (
-/obj/machinery/computer/security/mining{
-	dir = 8
-	},
+/obj/machinery/computer/security/mining,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -14040,6 +14455,10 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_thunderdomecourt)
+"UX" = (
+/obj/machinery/vending/snack,
+/turf/simulated/floor/wood,
+/area/tdome/tdomeobserve)
 "UZ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -14057,6 +14476,12 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
+"Vb" = (
+/obj/effect/landmark{
+	name = "tdome2"
+	},
+/turf/simulated/floor/plating,
+/area/tdome/arena)
 "Vc" = (
 /obj/structure/closet/crate/medical,
 /obj/item/reagent_containers/glass/bottle/morphine,
@@ -14092,7 +14517,6 @@
 	},
 /area/shuttle/escape)
 "Vf" = (
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/fernybush,
 /turf/simulated/floor/plating/asteroid,
@@ -14174,8 +14598,6 @@
 	},
 /area/centcom/suppy)
 "Vv" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/genericbush,
@@ -14186,7 +14608,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
 "Vx" = (
-/obj/machinery/sleeper,
+/obj/machinery/sleeper/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue";
 	tag = "icon-whiteblue"
@@ -14219,6 +14641,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/space)
+"VD" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Supply Office";
+	dir = 1;
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
+/area/centcom/suppy)
 "VF" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
@@ -14229,8 +14661,16 @@
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
 "VG" = (
-/obj/machinery/optable,
-/obj/item/surgical_drapes,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/obj/item/reagent_containers/iv_bag/blood/AMinus,
+/obj/item/reagent_containers/iv_bag/blood/APlus,
+/obj/item/reagent_containers/iv_bag/blood/BMinus,
+/obj/item/reagent_containers/iv_bag/blood/BPlus,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/OPlus,
+/obj/structure/closet/crate/freezer,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue";
@@ -14304,8 +14744,6 @@
 	},
 /area/shuttle/escape)
 "VT" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/palebush,
@@ -14316,8 +14754,6 @@
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate)
 "VV" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -14347,6 +14783,15 @@
 	tag = "icon-asteroid7"
 	},
 /area/holodeck/source_knightarena)
+"Wa" = (
+/obj/structure/mirror/magic{
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "Wb" = (
 /obj/item/clothing/head/collectable/petehat{
 	desc = "It smells faintly of reptile.";
@@ -14468,9 +14913,7 @@
 	},
 /area/centcom/control)
 "Wv" = (
-/obj/machinery/computer/supplycomp{
-	dir = 8
-	},
+/obj/machinery/computer/supplycomp,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellow"
@@ -14486,7 +14929,8 @@
 /obj/item/stamp,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 10;
+	icon_state = "darkred"
 	},
 /area/centcom/gamma)
 "Wx" = (
@@ -14545,9 +14989,7 @@
 	},
 /area/centcom/evac)
 "WE" = (
-/obj/machinery/computer/security/mining{
-	dir = 1
-	},
+/obj/machinery/computer/security/mining,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -14620,14 +15062,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
-"WM" = (
-/obj/machinery/computer/secure_data{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/control)
 "WN" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -14673,11 +15107,20 @@
 	},
 /area/shuttle/escape)
 "WS" = (
+/obj/structure/bed/roller,
+/obj/machinery/iv_drip,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue";
 	tag = "icon-whiteblue"
 	},
 /area/centcom/control)
+"WU" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/wood,
+/area/tdome/tdomeobserve)
 "WV" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/lockbox/mindshield{
@@ -14685,8 +15128,13 @@
 	pixel_y = 3
 	},
 /obj/item/storage/box/emps,
+/obj/machinery/camera{
+	c_tag = "CentComm Asset Protection Teleporter Room";
+	dir = 1;
+	network = list("ERT","CentComm")
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "WX" = (
@@ -14751,7 +15199,8 @@
 /obj/item/wrench,
 /obj/item/clothing/mask/gas,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/gamma)
 "Xg" = (
@@ -14859,6 +15308,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
+"Xr" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/centcom/specops)
 "Xs" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
@@ -14882,6 +15337,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate_sit)
+"Xu" = (
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the Thunderdome.";
+	name = "Thunderdome Telescreen";
+	network = list("Thunderdome")
+	},
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "vault"
+	},
+/area/tdome/tdomeadmin)
 "Xv" = (
 /obj/structure/chair{
 	dir = 1
@@ -14914,11 +15381,10 @@
 /obj/item/storage/secure/briefcase,
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
 "XA" = (
-/obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/grassybush,
@@ -15033,7 +15499,7 @@
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
 "XP" = (
@@ -15044,8 +15510,6 @@
 /turf/simulated/floor/plating,
 /area/tdome/arena)
 "XQ" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/genericbush,
@@ -15102,7 +15566,8 @@
 	},
 /obj/item/storage/box/flashbangs,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "Ya" = (
@@ -15131,6 +15596,18 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_thunderdomecourt)
+"Ye" = (
+/obj/structure/closet/secure_closet/brig{
+	name = "prisoner locker"
+	},
+/obj/machinery/camera{
+	c_tag = "CentComm Brig Central";
+	network = list("CentComm")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/control)
 "Yf" = (
 /obj/machinery/vending/coffee,
 /obj/machinery/light/spot,
@@ -15316,7 +15793,7 @@
 "YG" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkred"
 	},
 /area/centcom/gamma)
 "YH" = (
@@ -15546,7 +16023,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "Zp" = (
@@ -15662,8 +16139,13 @@
 	req_access_txt = "102"
 	},
 /obj/structure/table/reinforced,
+/obj/machinery/camera{
+	c_tag = "CentComm Thunderdome Administration";
+	dir = 1;
+	network = list("CentComm")
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
 "ZH" = (
@@ -15755,21 +16237,12 @@
 	},
 /area/holodeck/source_emptycourt)
 "ZS" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/pointybush,
 /turf/simulated/floor/grass,
 /area/tdome/tdomeobserve)
-"ZV" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "14"
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
 "ZW" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -31864,15 +32337,15 @@ kY
 kY
 kY
 LP
-CJ
+Sk
 CJ
 CJ
 YG
 JX
 aN
-pc
+ow
 HE
-pc
+ow
 aN
 sX
 sX
@@ -32121,7 +32594,7 @@ kY
 kY
 kY
 LP
-CJ
+Sk
 CJ
 CJ
 GS
@@ -32378,9 +32851,9 @@ Ep
 mN
 my
 JX
-CJ
-CJ
-CJ
+Nq
+lZ
+lZ
 Dt
 XI
 Rr
@@ -32393,7 +32866,7 @@ sX
 tI
 tI
 tI
-tI
+vf
 tI
 tI
 tI
@@ -32903,21 +33376,21 @@ tI
 tI
 dC
 LK
-tI
-tI
-tI
-tI
-tI
-tI
-tI
-tI
-tI
-tI
-tI
-tI
-tI
-tI
-tI
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
 tY
 PN
 Du
@@ -33417,19 +33890,19 @@ TH
 PK
 TV
 sX
-WF
+zq
 hL
 sY
 hL
-WF
+zq
 mP
 mi
 mi
 mi
 nn
-nn
-nn
-WF
+Eh
+Eh
+zq
 tI
 tI
 ow
@@ -34448,7 +34921,7 @@ YY
 tI
 GM
 ZA
-PW
+HQ
 tI
 WK
 sX
@@ -34667,19 +35140,19 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aN
 aN
 aN
@@ -34924,20 +35397,20 @@ aN
 aN
 aN
 aN
-aN
+aa
 YM
 YM
 YM
+Jy
+ou
+YM
+ou
+Qc
 YM
 YM
 YM
-YM
-YM
-YM
-YM
-YM
-aN
-aN
+aa
+aa
 aN
 aN
 aN
@@ -35181,7 +35654,7 @@ aN
 aN
 aN
 aN
-aN
+aa
 YM
 XH
 XH
@@ -35194,7 +35667,7 @@ XH
 XH
 YM
 SP
-aN
+aa
 aN
 aN
 aN
@@ -35211,7 +35684,7 @@ EQ
 EQ
 WF
 TS
-qp
+mq
 tI
 HB
 bS
@@ -35438,7 +35911,7 @@ aN
 aN
 aN
 aN
-aN
+aa
 YM
 XH
 XH
@@ -35451,7 +35924,7 @@ XH
 XH
 Gd
 HW
-aN
+aa
 aN
 aN
 aN
@@ -35467,7 +35940,7 @@ Bq
 Bq
 EQ
 tI
-WG
+ks
 qp
 tI
 HB
@@ -35695,7 +36168,7 @@ aN
 aN
 aN
 aN
-aN
+aa
 YM
 FG
 XH
@@ -35708,7 +36181,7 @@ XH
 OZ
 Gd
 HW
-aN
+aa
 aN
 aN
 aN
@@ -35723,9 +36196,9 @@ HD
 eX
 Mv
 EQ
-WF
+TL
 kB
-qp
+mq
 tI
 HB
 bS
@@ -35741,7 +36214,7 @@ WQ
 rQ
 Jd
 pD
-pD
+oh
 sX
 aN
 aN
@@ -35952,7 +36425,7 @@ aN
 aN
 aN
 aN
-aN
+aa
 YM
 XH
 XH
@@ -35965,7 +36438,7 @@ XH
 XH
 Gd
 HW
-aN
+pc
 aN
 aN
 aN
@@ -35976,9 +36449,9 @@ aN
 aN
 aN
 sX
-pD
-Hc
-pD
+qU
+Mm
+qU
 EQ
 YJ
 sX
@@ -36209,7 +36682,7 @@ aN
 aN
 aN
 aN
-aN
+aa
 YM
 XH
 XH
@@ -36222,7 +36695,7 @@ XH
 XH
 YM
 Ex
-aN
+pc
 aN
 aN
 aN
@@ -36243,22 +36716,22 @@ qp
 tI
 HB
 sX
-qp
+Wa
 EB
 yN
 yN
 yN
 EB
-HB
+MI
 sX
 Nc
-hu
+WG
 sX
 sX
 sX
 sX
-aN
-aN
+aa
+aa
 pp
 Gx
 Gx
@@ -36466,7 +36939,7 @@ aN
 aN
 aN
 aN
-aN
+pc
 YM
 YM
 YM
@@ -36479,7 +36952,7 @@ YM
 YM
 YM
 aN
-aN
+pc
 aN
 aN
 aN
@@ -36500,7 +36973,7 @@ qp
 tI
 HB
 sX
-qp
+Wa
 tI
 EB
 EB
@@ -36509,14 +36982,14 @@ tI
 HB
 sX
 EZ
-pD
+qU
 IC
 Go
 LA
 sX
-aN
-aN
-pp
+Th
+xN
+lq
 LW
 dn
 YF
@@ -36534,7 +37007,7 @@ xw
 gh
 xw
 xw
-SV
+sv
 Sg
 GI
 Sg
@@ -36723,7 +37196,7 @@ aN
 aN
 aN
 aN
-aN
+pc
 aN
 aN
 Pu
@@ -36735,11 +37208,11 @@ VC
 pc
 aN
 aN
+qI
+qI
 Pu
 Pu
 pS
-qI
-qI
 qI
 aN
 aN
@@ -36767,12 +37240,12 @@ MX
 sX
 pF
 vP
-pD
-pD
+qU
+qU
 hk
 sX
-aN
-aN
+zk
+Th
 pp
 QP
 QP
@@ -36980,7 +37453,7 @@ aN
 aN
 aN
 aN
-aN
+pc
 aN
 aN
 Ks
@@ -36992,7 +37465,7 @@ JQ
 LU
 aN
 aN
-Pu
+qI
 UH
 vd
 ql
@@ -37023,9 +37496,9 @@ tI
 Wx
 sX
 gN
-pD
-pD
-pD
+qU
+qU
+tA
 pp
 pp
 pp
@@ -37263,7 +37736,7 @@ aN
 sX
 FS
 FS
-qx
+pb
 sX
 Hn
 Hn
@@ -37284,11 +37757,11 @@ bU
 WF
 Ag
 pp
-Iy
+MJ
 SX
 Ym
 Wr
-cR
+Nh
 Wr
 Wr
 Wr
@@ -37529,11 +38002,11 @@ tI
 HB
 sX
 cp
+Xr
 tI
 tI
 tI
-tI
-tI
+Xr
 PL
 sX
 sX
@@ -37813,9 +38286,9 @@ pp
 pp
 pp
 MD
+Vb
 MD
-MD
-MD
+Vb
 MD
 rS
 tU
@@ -38055,7 +38528,7 @@ aN
 aN
 aN
 pp
-xz
+Cr
 SX
 Wr
 Wr
@@ -38071,7 +38544,7 @@ Gk
 pp
 VR
 MD
-MD
+Vb
 MD
 MD
 rS
@@ -38287,7 +38760,7 @@ SO
 Ao
 Ao
 Ao
-pH
+VD
 sX
 FS
 FS
@@ -38305,7 +38778,7 @@ Te
 rA
 rB
 PR
-hL
+Jl
 sX
 aN
 aN
@@ -38327,9 +38800,9 @@ Eu
 WO
 pp
 MD
+Vb
 MD
-MD
-MD
+Vb
 MD
 rS
 tU
@@ -38533,7 +39006,7 @@ Ao
 fl
 Ao
 Ao
-pH
+dE
 qI
 qr
 nE
@@ -38780,7 +39253,7 @@ aN
 aN
 aN
 qI
-SO
+CQ
 Ao
 Ao
 fl
@@ -38819,13 +39292,13 @@ Ju
 sq
 sq
 sq
-oL
+mX
 Se
 Ur
 mX
 Nt
 su
-ux
+Xh
 Wr
 Wr
 Wr
@@ -39082,7 +39555,7 @@ su
 su
 su
 sq
-MS
+OX
 Wr
 Wr
 Wr
@@ -39322,11 +39795,11 @@ qI
 pC
 YZ
 YZ
+dF
 Fh
 Fh
 Fh
-Fh
-Fh
+dF
 YZ
 YZ
 pC
@@ -39335,7 +39808,7 @@ su
 sq
 hI
 LT
-YZ
+Sx
 YL
 IJ
 sq
@@ -39353,13 +39826,13 @@ qe
 hp
 HV
 rM
+bK
 jc
 jc
 jc
 jc
 jc
-jc
-jc
+bK
 GK
 bA
 hj
@@ -39612,13 +40085,13 @@ HV
 rM
 Iu
 bK
-bK
 jc
-bK
+jc
+jc
 bK
 Iu
 GK
-bA
+mW
 hj
 hj
 DN
@@ -39868,11 +40341,11 @@ hp
 Ps
 rM
 jc
+tN
 jc
 jc
 jc
-jc
-jc
+tN
 jc
 GK
 Gb
@@ -40080,15 +40553,15 @@ mQ
 su
 Cj
 qN
-YZ
+oX
 es
 Eq
 es
 qN
 YZ
-qH
+oX
 sq
-oL
+mX
 sq
 YZ
 rm
@@ -40132,7 +40605,7 @@ jc
 jc
 jc
 GK
-bA
+mW
 hj
 hj
 mS
@@ -40343,11 +40816,11 @@ YZ
 YZ
 YZ
 YZ
-gE
+gT
 sq
 sq
 sq
-YZ
+oX
 rm
 sq
 WH
@@ -40392,7 +40865,7 @@ GK
 bA
 hj
 hj
-hj
+pv
 xT
 Vv
 Sg
@@ -40628,13 +41101,13 @@ HV
 Wr
 Wr
 Wr
-Wr
+gF
 pp
 Wr
 Wr
 Wr
 pp
-HV
+pW
 hp
 HV
 rM
@@ -40646,7 +41119,7 @@ jc
 jc
 jc
 GK
-Gb
+Xu
 hj
 hj
 rh
@@ -41106,7 +41579,7 @@ aN
 sq
 iO
 nA
-YZ
+pC
 YZ
 YZ
 YZ
@@ -41375,7 +41848,7 @@ gE
 sq
 sq
 sq
-YZ
+Sx
 rm
 sq
 Eb
@@ -41420,7 +41893,7 @@ GK
 bA
 hj
 hj
-hj
+pv
 xT
 Vv
 Sg
@@ -41618,13 +42091,13 @@ aN
 aN
 aN
 sq
-Ru
+Yj
 su
 RA
 Cu
 Cu
 YZ
-pC
+Sx
 YZ
 Cu
 Cu
@@ -41674,7 +42147,7 @@ jc
 jc
 jc
 GK
-bA
+mW
 hj
 hj
 PH
@@ -41924,11 +42397,11 @@ hp
 Ps
 rM
 jc
+tN
 jc
 jc
 jc
-jc
-jc
+tN
 jc
 GK
 Gb
@@ -42182,13 +42655,13 @@ HV
 rM
 Iu
 bK
-bK
 jc
-bK
+jc
+jc
 bK
 Iu
 GK
-bA
+mW
 hj
 hj
 Mx
@@ -42414,13 +42887,13 @@ KG
 YZ
 YZ
 pC
-te
+sq
 su
 sq
 tw
 Ws
 YZ
-YZ
+Me
 HO
 sq
 pp
@@ -42437,13 +42910,13 @@ HV
 hp
 HV
 rM
+bK
 jc
 jc
 jc
 jc
 jc
-jc
-jc
+bK
 GK
 bA
 hj
@@ -42680,11 +43153,11 @@ YZ
 OV
 su
 sq
-Xh
-Wr
-Wr
-Wr
-Ym
+IQ
+gk
+gk
+gk
+WU
 pp
 In
 Af
@@ -42937,11 +43410,11 @@ YZ
 su
 bZ
 su
-OX
-Wr
-Wr
-Wr
-Wr
+UX
+gk
+gk
+gk
+gk
 pp
 XE
 Af
@@ -42952,11 +43425,11 @@ QZ
 QZ
 pp
 pp
-ef
-ef
-ef
-ef
-ef
+Ql
+Ql
+Ql
+Ql
+Ql
 Sg
 Sg
 Sg
@@ -43151,7 +43624,7 @@ su
 Np
 su
 su
-YZ
+rO
 YZ
 YZ
 su
@@ -43195,10 +43668,10 @@ sq
 sq
 sq
 pp
-SX
-pp
-Wr
-Wr
+Qd
+hg
+sC
+gk
 pp
 Ux
 Af
@@ -43408,7 +43881,7 @@ bQ
 Fh
 JY
 su
-YZ
+rO
 YZ
 YZ
 su
@@ -43429,7 +43902,7 @@ YZ
 su
 bZ
 su
-hK
+uo
 YZ
 YZ
 RQ
@@ -43449,13 +43922,13 @@ mQ
 su
 YZ
 sq
-Je
+RK
 mQ
 pp
 KV
-SX
-Wr
-Wr
+ms
+md
+gk
 Tv
 CL
 Af
@@ -43467,9 +43940,9 @@ Af
 Ut
 pp
 MD
+NF
 MD
-MD
-MD
+NF
 MD
 rS
 tV
@@ -43665,7 +44138,7 @@ PC
 PC
 NO
 OV
-YZ
+Ye
 YZ
 YZ
 OV
@@ -43684,7 +44157,7 @@ OV
 kg
 YZ
 su
-Ru
+Yj
 su
 xP
 YZ
@@ -43698,21 +44171,21 @@ tR
 rG
 Eg
 RV
-yc
+no
 yc
 qj
 su
-Je
+RK
 su
 YZ
 sq
 su
 su
 pp
-yu
-SX
-Wr
-Wr
+KV
+cI
+md
+gk
 pp
 TG
 Af
@@ -43725,7 +44198,7 @@ Jq
 pp
 iR
 MD
-MD
+NF
 MD
 MD
 rS
@@ -43922,7 +44395,7 @@ Rt
 JG
 JY
 su
-YZ
+rO
 YZ
 YZ
 su
@@ -43936,17 +44409,17 @@ OV
 hz
 YZ
 Lo
-WM
+HX
 su
 kg
 YZ
 su
 bZ
 su
-hI
+Sx
 YZ
-uX
-Db
+HX
+uS
 su
 Ys
 tR
@@ -43954,22 +44427,22 @@ tR
 tR
 rG
 su
-RV
-yc
+mK
+uO
 yc
 CY
 su
 bZ
 su
 YZ
-sq
+YZ
 Xj
 CC
 pp
-SX
-pp
-Wr
-Wr
+Uh
+sU
+ty
+gk
 pp
 pp
 CS
@@ -43981,9 +44454,9 @@ Tv
 pp
 pp
 MD
+NF
 MD
-MD
-MD
+NF
 MD
 rS
 tV
@@ -44179,7 +44652,7 @@ su
 Np
 su
 su
-YZ
+rO
 YZ
 YZ
 su
@@ -44200,7 +44673,7 @@ YZ
 sq
 Yj
 OV
-Ws
+mu
 YZ
 YZ
 Lo
@@ -44219,17 +44692,17 @@ sq
 su
 sq
 YZ
-NU
+YZ
 YZ
 YZ
 CA
-Wr
-CA
-Wr
-Wr
-Wr
-Wr
-Wr
+gk
+gk
+gk
+gk
+gk
+gk
+gk
 pp
 aN
 aN
@@ -44455,7 +44928,7 @@ Qx
 JS
 YZ
 su
-Je
+RK
 su
 zX
 YZ
@@ -44473,20 +44946,20 @@ yc
 yc
 Vx
 su
-Ru
+Yj
 su
 YZ
-sq
+YZ
 ID
 VW
 pp
-Zz
-pp
-Ym
-Wr
-Wr
-Wr
-Wr
+WU
+gk
+tX
+gk
+ru
+ru
+WU
 pp
 aN
 aN
@@ -44974,7 +45447,7 @@ sq
 Nu
 YZ
 HX
-gz
+uS
 su
 Nk
 tR
@@ -44987,7 +45460,7 @@ EH
 VX
 Ie
 su
-Ru
+Yj
 su
 YZ
 sq
@@ -45499,7 +45972,7 @@ wK
 XA
 xd
 Au
-DD
+Au
 Au
 Au
 Au
@@ -45999,7 +46472,7 @@ hJ
 sq
 eg
 DQ
-wK
+xd
 iQ
 Kg
 GW
@@ -46008,7 +46481,7 @@ GW
 iQ
 iQ
 iQ
-GW
+mT
 GW
 GW
 Kg
@@ -46244,7 +46717,7 @@ mU
 zF
 SL
 gu
-mU
+ot
 OV
 LV
 lu
@@ -46256,7 +46729,7 @@ NV
 sq
 DQ
 eg
-wK
+xd
 wN
 wN
 wN
@@ -46531,7 +47004,7 @@ xd
 eg
 wK
 Wq
-Au
+rD
 wK
 aN
 aN
@@ -48042,7 +48515,7 @@ FY
 mU
 Pv
 xM
-mU
+KH
 kY
 QF
 ZJ
@@ -48061,16 +48534,16 @@ sp
 ss
 sr
 sr
-ss
-xd
-qM
+sr
+Ta
+wN
 wN
 wN
 wN
 wN
 WC
 YS
-YE
+zW
 Au
 OM
 hW
@@ -48295,7 +48768,7 @@ aN
 aN
 aN
 sq
-pC
+ub
 mU
 DS
 vU
@@ -48308,19 +48781,19 @@ NU
 YZ
 kY
 kY
-HH
+Bj
 sq
 wK
 xd
-wK
+gn
 sr
 sA
 ss
 sr
+sr
 ss
-Km
 xd
-ry
+qM
 wN
 Xv
 VJ
@@ -48570,19 +49043,19 @@ sq
 DQ
 eg
 wK
-wK
-wK
+uW
+oO
+ss
+sr
+ss
+Km
 xd
-xd
-wK
-wK
-wK
 ry
 wN
 Xv
 VJ
 wN
-wN
+NQ
 wK
 xd
 wK
@@ -48826,15 +49299,15 @@ Kz
 sq
 eg
 DQ
-MA
-UB
-QS
-QS
-QS
-QS
-QS
-rf
-qJ
+wK
+wK
+wK
+xd
+xd
+wK
+wK
+wK
+ry
 wN
 Xv
 VJ
@@ -49083,15 +49556,15 @@ Yo
 sq
 DQ
 eg
-xd
-ry
-wN
-wN
-wN
-wN
-wN
-wN
-wN
+MA
+UB
+QS
+QS
+QS
+QS
+QS
+oT
+qJ
 wN
 wN
 wN
@@ -49340,7 +49813,7 @@ Kz
 sq
 DQ
 eg
-wK
+xd
 OR
 wN
 wN
@@ -49597,7 +50070,7 @@ am
 sq
 DQ
 eg
-wK
+xd
 ZW
 wN
 wN
@@ -49876,7 +50349,7 @@ CK
 ah
 qZ
 qZ
-qZ
+ol
 qZ
 qZ
 qZ
@@ -50133,10 +50606,10 @@ wK
 wK
 wK
 wK
-wK
-wK
-wK
-wK
+xd
+xd
+xd
+xd
 wK
 wK
 aN
@@ -53985,7 +54458,7 @@ Ef
 cP
 Jx
 XG
-ZV
+Ui
 TY
 DW
 aN
@@ -54242,7 +54715,7 @@ Ef
 cP
 Jx
 PX
-Fn
+Ui
 TY
 DW
 aN
@@ -70546,7 +71019,7 @@ ar
 ar
 ar
 ar
-aX
+ar
 cd
 ch
 ch
@@ -71054,7 +71527,7 @@ af
 QQ
 ar
 ar
-aX
+ar
 ar
 ar
 bd
@@ -71571,7 +72044,7 @@ ar
 ar
 ar
 Uv
-aX
+ar
 ar
 bd
 aL
