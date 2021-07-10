@@ -12775,6 +12775,10 @@
 /obj/structure/sign/vacuum,
 /turf/simulated/floor/plating,
 /area/centcom/specops)
+"PJ" = (
+/obj/effect/landmark/shuttle_import,
+/turf/space,
+/area/space)
 "PK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -21016,7 +21020,7 @@ aN
 aN
 aN
 aN
-aN
+PJ
 aN
 aN
 aN
@@ -35162,7 +35166,7 @@ aa
 aa
 aa
 aa
-aN
+aa
 aN
 aN
 aN
@@ -35418,7 +35422,7 @@ Qc
 YM
 YM
 YM
-aa
+aN
 aa
 aN
 aN
