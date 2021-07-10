@@ -22,7 +22,7 @@ Heads of Staff and Maintainers have the final say on Pull Requests. While thumbs
 
 After a twenty four hour minimum waiting period, Pull Requests can be merged once they receive approval from both a Head of Staff and a Maintainer. An exception is made for refactors and fixes, which may be merged at a Maintainer's discretion with no waiting period.
 
-Heads of Staff and Maintainers are not obligated to publicly state their objections to a Pull Request. Attacking or berating either of these roles over an objection will not be tolerated. Additionally, whining over the closure of a PR, the existence of an objection, or similar behaviour, will not be tolerated.
+While normally provided, Heads of Staff and Maintainers are not obligated to publicly state their objections to a Pull Request. Attacking or berating either of these roles over an objection will not be tolerated. Additionally, whining over the closure of a PR, the existence of an objection, or similar behaviour, will not be tolerated.
 
 ### PR Expectations
 
