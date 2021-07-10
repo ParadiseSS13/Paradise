@@ -108,12 +108,11 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 						FA.update_icon()
 
 			if(SEC_LEVEL_EPSILON)
-				var/sound/S = sound('sound/effects/powerloss.ogg')
 				for(var/mob/M in GLOB.player_list)
 					var/turf/T = get_turf(M)
 					if(!M.client || !is_station_level(T.z))
 						continue
-					SEND_SOUND(M, S)
+					SEND_SOUND(M, sound('sound/effects/powerloss.ogg'))
 				for(var/area/A in GLOB.all_areas)
 					if(!is_station_level(A.z))
 						continue
