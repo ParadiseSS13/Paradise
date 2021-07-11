@@ -789,7 +789,7 @@
 					discord_mentor_webhook_urls = splittext(value, "|")
 				if("discord_webhooks_bans_url")
 					discord_bans_webhook_urls = splittext(value, "|") // Variable de hispania
-				if("discord_webhook_notes_url")
+				if("discord_webhooks_notes_url")
 					discord_notes_webhook_urls = splittext(value, "|") // Variable de hispania
 				if("discord_forward_all_ahelps")
 					discord_forward_all_ahelps = TRUE
