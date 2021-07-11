@@ -836,7 +836,7 @@
 		apply_to_card(I, H, get_all_accesses(), "Space Explorer")
 
 /datum/outfit/admin/hardsuit
-	name = "Hardsuit Generic"
+	name = "Hardsuit - Generic"
 	back = /obj/item/tank/jetpack/oxygen
 	mask = /obj/item/clothing/mask/breath
 	shoes = /obj/item/clothing/shoes/magboots
@@ -857,34 +857,34 @@
 		apply_to_card(I, H, get_all_accesses(), "Hardsuit Tester")
 
 /datum/outfit/admin/hardsuit/engineer
-	name = "Engineer Hardsuit"
+	name = "Hardsuit - Engineer"
 	suit = /obj/item/clothing/suit/space/hardsuit/engine
 
 /datum/outfit/admin/hardsuit/ce
-	name = "CE Hardsuit"
+	name = "Hardsuit - CE"
 	suit = /obj/item/clothing/suit/space/hardsuit/engine/elite
 	shoes = /obj/item/clothing/shoes/magboots/advance
 
 /datum/outfit/admin/hardsuit/mining
-	name = "Mining Hardsuit"
+	name = "Hardsuit - Mining"
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
 
 /datum/outfit/admin/hardsuit/syndi
-	name = "Syndi Hardsuit"
+	name = "Hardsuit - Syndi"
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	shoes = /obj/item/clothing/shoes/magboots/syndie
 
 /datum/outfit/admin/hardsuit/wizard
-	name = "Wizard Hardsuit"
+	name = "Hardsuit - Wizard"
 	suit = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
 	shoes = /obj/item/clothing/shoes/magboots
 
 /datum/outfit/admin/hardsuit/medical
-	name = "Medical Hardsuit"
+	name = "Hardsuit - Medical"
 	suit = /obj/item/clothing/suit/space/hardsuit/medical
 
 /datum/outfit/admin/hardsuit/atmos
-	name = "Atmos Hardsuit"
+	name = "Hardsuit - Atmos"
 	suit = /obj/item/clothing/suit/space/hardsuit/engine/atmos
 
 
@@ -1146,20 +1146,20 @@
 		apply_to_card(I, H, get_all_accesses(), "Wizard")
 
 /datum/outfit/admin/wizard/red
-	name = "Red Wizard"
+	name = "Wizard - Red Wizard"
 
 	suit = /obj/item/clothing/suit/wizrobe/red
 	head = /obj/item/clothing/head/wizard/red
 
 /datum/outfit/admin/wizard/marisa
-	name = "Marisa Wizard"
+	name = "Wizard - Marisa Wizard"
 
 	suit = /obj/item/clothing/suit/wizrobe/marisa
 	shoes = /obj/item/clothing/shoes/sandal/marisa
 	head = /obj/item/clothing/head/wizard/marisa
 
 /datum/outfit/admin/wizard/arch
-	name = "Arch Wizard"
+	name = "Wizard - Arch Wizard"
 
 	suit = /obj/item/clothing/suit/wizrobe/magusred
 	head = /obj/item/clothing/head/wizard/magus
