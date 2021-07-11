@@ -214,8 +214,8 @@
 			return FALSE
 
 		if(R.time)
-			to_chat(usr, "<span class='notice'>Building [R.title] ...</span>")
-			if(!do_after(usr, R.time, target = src.loc))
+			to_chat(usr, "<span class='notice'>Building [R.title]...</span>")
+			if(!do_after(usr, R.time, target = loc))
 				return 0
 
 		if(get_amount() < R.req_amount * multiplier)
