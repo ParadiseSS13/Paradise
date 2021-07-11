@@ -261,6 +261,11 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	start_log(GLOB.sql_log)
 	start_log(GLOB.chat_debug_log)
 
+	#ifdef REFERENCE_TRACKING
+	GLOB.gc_log = "[GLOB.log_directory]/gc_debug.log"
+	start_log(GLOB.gc_log)
+	#endif
+
 	// This log follows a special format and this path should NOT be used for anything else
 	GLOB.runtime_summary_log = "data/logs/runtime_summary.log"
 	if(fexists(GLOB.runtime_summary_log))

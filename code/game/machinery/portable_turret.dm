@@ -657,6 +657,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	qdel(flick_holder)
 
 	set_raised_raising(FALSE, FALSE)
+	set_angle(0)
 	update_icon()
 
 /obj/machinery/porta_turret/on_assess_perp(mob/living/carbon/human/perp)
@@ -678,7 +679,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		last_target = target
 		if(has_cover)
 			popUp()				//pop the turret up if it's not already up.
-		setDir(get_dir(src, target))	//even if you can't shoot, follow the target
+		// Set angle
+		set_angle(get_angle(src, target))
 		shootAt(target)
 		return TRUE
 
@@ -841,6 +843,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				var/obj/item/gun/energy/E = I //typecasts the item to an energy gun
 				if(!user.unEquip(I))
 					to_chat(user, "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
+					return
+				if(!E.can_fit_in_turrets)
+					to_chat(user, "<span class='notice'>[I] will not operate correctly in [src].</span>")
 					return
 				installation = I.type //installation becomes I.type
 				gun_charge = E.cell.charge //the gun's charge is stored in gun_charge

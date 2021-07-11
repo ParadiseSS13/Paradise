@@ -19,7 +19,7 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 	new/datum/stack_recipe/window("fulltile window", /obj/structure/window/full/basic, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
 	new/datum/stack_recipe("fishbowl", /obj/machinery/fishtank/bowl, 1, time = 10), \
 	new/datum/stack_recipe("fish tank", /obj/machinery/fishtank/tank, 3, time = 20, on_floor = TRUE), \
-	new/datum/stack_recipe("wall aquariam", /obj/machinery/fishtank/wall, 4, time = 40, on_floor = TRUE) \
+	new/datum/stack_recipe("wall aquarium", /obj/machinery/fishtank/wall, 4, time = 40, on_floor = TRUE) \
 ))
 
 /obj/item/stack/sheet/glass
@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 			to_chat(user, "<b>There is not enough wire in this coil. You need 5 lengths.</b>")
 			return
 		CC.use(5)
-		to_chat(user, "<span class='notice'>You attach wire to the [name].</span>")
+		to_chat(user, "<span class='notice'>You attach wire to [src].</span>")
 		new /obj/item/stack/light_w(user.loc)
 		use(1)
 	else if( istype(W, /obj/item/stack/rods) )
