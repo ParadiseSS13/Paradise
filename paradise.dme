@@ -2456,6 +2456,7 @@
 #include "code\modules\tgui\modules\generic_crew_manifest.dm"
 #include "code\modules\tgui\modules\law_manager.dm"
 #include "code\modules\tgui\modules\power_monitor.dm"
+#include "code\modules\tgui\modules\robot_self_diagnosis.dm"
 #include "code\modules\tgui\modules\volume_mixer.dm"
 #include "code\modules\tgui\plugins\login.dm"
 #include "code\modules\tgui\plugins\modal.dm"

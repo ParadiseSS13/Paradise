@@ -4,6 +4,7 @@
 	var/datum/ui_module/crew_monitor/crew_monitor
 	var/datum/ui_module/law_manager/law_manager
 	var/datum/ui_module/power_monitor/digital/power_monitor
+	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
 
 /mob/living/silicon
 	var/list/silicon_subsystems = list(
@@ -18,8 +19,15 @@
 		/mob/living/silicon/proc/subsystem_power_monitor
 	)
 
+/mob/living/silicon/robot
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_law_manager,
+		/mob/living/silicon/robot/proc/self_diagnosis
+	)
+
 /mob/living/silicon/robot/drone
 	silicon_subsystems = list(
+		/mob/living/silicon/robot/proc/self_diagnosis,
 		/mob/living/silicon/proc/subsystem_law_manager,
 		/mob/living/silicon/proc/subsystem_power_monitor
 	)
@@ -32,6 +40,7 @@
 	crew_monitor 	= new(src)
 	law_manager		= new(src)
 	power_monitor	= new(src)
+	self_diagnosis  = new(src)
 
 /********************
 *	Atmos Control	*
@@ -68,3 +77,11 @@
 
 	power_monitor.ui_interact(usr, state = GLOB.self_state)
 
+/mob/living/silicon/robot/proc/self_diagnosis()
+	set category = "Robot Commands"
+	set name = "Self Diagnosis"
+
+	if(!is_component_functioning("diagnosis unit"))
+		to_chat(src, "<span class='warning'>Your self-diagnosis component isn't functioning.</span>")
+
+	self_diagnosis.ui_interact(src)
