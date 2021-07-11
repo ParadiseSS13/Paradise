@@ -464,9 +464,6 @@
 		if(H.r_store)
 			H.r_store.screen_loc = ui_storage2
 			H.client.screen += H.r_store
-		if(H.neck)
-			H.neck.screen_loc = ui_neck
-			H.client.screen += H.neck
 
 	else
 		if(H.s_store)
@@ -483,8 +480,6 @@
 			H.l_store.screen_loc = null
 		if(H.r_store)
 			H.r_store.screen_loc = null
-		if(H.neck)
-			H.neck.screen_loc = null
 
 	if(hud_version != HUD_STYLE_NOHUD)
 		if(H.r_hand)

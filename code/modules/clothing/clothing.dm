@@ -799,4 +799,3 @@ BLIND     // can't see anything
 	body_parts_covered = UPPER_TORSO
 	slot_flags = SLOT_NECK
 	strip_delay = 40
-

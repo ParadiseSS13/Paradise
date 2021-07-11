@@ -145,9 +145,6 @@
 		wear_mask_update(I, toggle_off = FALSE)
 		sec_hud_set_ID()
 		update_inv_wear_mask()
-	else if(I == neck)
-		neck = null
-		update_inv_neck()
 	else if(I == wear_id)
 		wear_id = null
 		sec_hud_set_ID()

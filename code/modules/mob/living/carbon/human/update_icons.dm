@@ -965,7 +965,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			client.screen += neck
 
 		if(neck.icon_override)
-			neck.icon_state = "[neck.icon_state]"
 			overlays_standing[NECK_LAYER] = mutable_appearance(neck.icon_override, "[neck.icon_state]", layer = -NECK_LAYER)
 		else if(neck.sprite_sheets && neck.sprite_sheets[dna.species.name])
 			overlays_standing[NECK_LAYER] = mutable_appearance(neck.sprite_sheets[dna.species.name], "[neck.icon_state]", layer = -NECK_LAYER)
