@@ -43,7 +43,7 @@
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
-
+	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering

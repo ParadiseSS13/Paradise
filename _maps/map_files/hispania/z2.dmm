@@ -5662,7 +5662,7 @@
 /turf/space,
 /area/space)
 "sP" = (
-/obj/machinery/computer/HONKputer,
+/obj/machinery/computer,
 /turf/simulated/floor/carpet,
 /area/centcom/bar)
 "sQ" = (

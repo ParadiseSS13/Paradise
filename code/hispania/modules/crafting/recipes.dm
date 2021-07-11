@@ -208,3 +208,15 @@
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/spraycan)
 	category = CAT_MISC
+
+///TRAPS///
+/datum/crafting_recipe/sharktrap
+	name = "sharks teeth trap"
+	result = list(/obj/item/restraints/legcuffs/beartrap/sharktrap)
+	reqs = list(/obj/item/shard/shark_teeth = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/assembly/prox_sensor = 1,
+				/obj/item/stack/rods = 10)
+	time = 30
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON

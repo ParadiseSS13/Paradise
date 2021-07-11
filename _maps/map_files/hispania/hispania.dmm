@@ -17259,6 +17259,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
+/obj/machinery/arcade/gashapon,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "aGR" = (

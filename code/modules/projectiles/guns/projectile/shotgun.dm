@@ -116,7 +116,7 @@
 			return
 		else
 			afterattack(user, user)
-			user.visible_message("The [src] goes click!", "<span class='notice'>The [src] you are holding goes click.</span>")
+			user.visible_message("[src] goes click!", "<span class='notice'>[src] you are holding goes click.</span>")
 	if(magazine.ammo_count())	//Spill the mag onto the floor
 		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
 		while(get_ammo(0) > 0)
@@ -159,7 +159,7 @@
 			return
 		else
 			afterattack(user, user)
-			user.visible_message("The [src] goes click!", "<span class='notice'>The [src] you are holding goes click.</span>")
+			user.visible_message("[src] goes click!", "<span class='notice'>[src] you are holding goes click.</span>")
 	if(magazine.ammo_count())	//Spill the mag onto the floor
 		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
 		while(get_ammo() > 0)

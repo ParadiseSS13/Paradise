@@ -468,7 +468,7 @@
 		occupant_message("Syringe loaded.")
 		update_equip_info()
 		return 1
-	occupant_message("The [src] syringe chamber is full.")
+	occupant_message("[src] syringe chamber is full.")
 	return 0
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/analyze_reagents(atom/A)
@@ -483,7 +483,7 @@
 		if(R.can_synth && add_known_reagent(R.id, R.name))
 			occupant_message("Reagent analyzed, identified as [R.name] and added to database.")
 			send_byjax(chassis.occupant,"msyringegun.browser","reagents_form",get_reagents_form())
-	occupant_message("Analyzis complete.")
+	occupant_message("Analysis complete.")
 	return 1
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/add_known_reagent(r_id,r_name)

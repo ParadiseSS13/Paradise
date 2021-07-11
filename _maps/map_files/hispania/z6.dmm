@@ -5848,7 +5848,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
 "mW" = (
-/obj/structure/computerframe/HONKputer,
+/obj/structure/computerframe,
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
 "mX" = (
