@@ -4,7 +4,7 @@
  * Shown as blue text in the Examine tab.
  */
 /atom/proc/detailed_examine()
-	return ""
+	return null
 
 /**
  * Used for showing a more detailed description to antags in the 'Examine' after examining the atom.
@@ -12,7 +12,7 @@
  * Shown as red text in the Examine tab.
  */
 /atom/proc/detailed_examine_antag()
-	return ""
+	return null
 
 /**
  * Used for showing flavour text in the 'Examine' tab after examining the atom.
@@ -20,7 +20,7 @@
  * Shown as green text in the Examine tab. The custom flavour text of `/mob` subtypes override this.
  */
 /atom/proc/detailed_examine_fluff()
-	return ""
+	return null
 
 /mob/detailed_examine_fluff()
 	if(flavor_text) //Get flavor text for the green text.
