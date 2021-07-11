@@ -159,7 +159,7 @@
 	if(H.wear_mask)
 		H.wear_mask.add_fingerprint(H, 1)
 	if(H.neck)
-		H.wear_pda.add_fingerprint(H, 1)
+		H.neck.add_fingerprint(H, 1)
 	if(H.head)
 		H.head.add_fingerprint(H, 1)
 	if(H.shoes)
