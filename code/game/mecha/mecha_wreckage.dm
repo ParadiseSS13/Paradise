@@ -59,7 +59,7 @@
 		user.visible_message("<span class='notice'>[user] pries [S] from [src].</span>", "<span class='notice'>You pry [S] from [src].</span>")
 		crowbar_salvage -= S
 		return
-	to_chat(user, "<span class='notice'>You don't see anything that can be cut with [I]!</span>")
+	to_chat(user, "<span class='notice'>You don't see anything that can be pried with [I]!</span>")
 
 /obj/structure/mecha_wreckage/welder_act(mob/user, obj/item/I)
 	. = TRUE

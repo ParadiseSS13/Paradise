@@ -50,6 +50,10 @@
 /obj/item/radio/beacon/bacon/proc/digest_delay()
 	QDEL_IN(src, 600)
 
+/obj/item/radio/beacon/emagged
+	syndicate = TRUE
+	emagged = TRUE
+
 // SINGULO BEACON SPAWNER
 /obj/item/radio/beacon/syndicate
 	name = "suspicious beacon"
@@ -68,6 +72,18 @@
 		to_chat(user, "<span class='notice'>Locked In</span>")
 		new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
+		user.drop_item()
+		qdel(src)
+
+/obj/item/radio/beacon/syndicate/power_sink
+	name = "suspicious beacon"
+	desc = "A label on it reads: <i>Warning: Activating this device will send a power sink to your location</i>."
+
+/obj/item/radio/beacon/syndicate/power_sink/attack_self(mob/user)
+	if(user)
+		to_chat(user, "<span class='notice'>Locked In</span>")
+		new /obj/item/powersink(user.loc)
+		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
 		user.drop_item()
 		qdel(src)
 

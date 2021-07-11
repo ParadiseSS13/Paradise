@@ -72,13 +72,6 @@
 /obj/structure/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
 
-/obj/structure/window/ratvar_act()
-	if(!fulltile)
-		new/obj/structure/window/reinforced/clockwork(get_turf(src), dir)
-	else
-		new/obj/structure/window/reinforced/clockwork/fulltile(get_turf(src))
-	qdel(src)
-
 /obj/structure/window/rpd_act()
 	return
 
@@ -243,6 +236,7 @@
 			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/check_state_and_anchored, state, anchored)))
 				return
 			anchored = !anchored
+			air_update_turf(TRUE)
 			update_nearby_icons()
 			to_chat(user, "<span class='notice'>You [anchored ? "fasten the frame to":"unfasten the frame from"] the floor.</span>")
 
@@ -397,7 +391,8 @@
 	return TRUE
 
 /obj/structure/window/AltClick(mob/user)
-
+	if(fulltile) // Can't rotate these.
+		return ..()
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
@@ -415,7 +410,7 @@
 	if(!valid_window_location(loc, target_dir))
 		target_dir = turn(dir, 90)
 	if(!valid_window_location(loc, target_dir))
-		to_chat(user, "<span class='warning'>There is no room to rotate the [src]</span>")
+		to_chat(user, "<span class='warning'>There is no room to rotate [src].</span>")
 		return FALSE
 
 	setDir(target_dir)
@@ -724,10 +719,6 @@
 		E.setDir(direct)
 		made_glow = TRUE
 	..()
-
-/obj/structure/window/reinforced/clockwork/ratvar_act()
-	obj_integrity = max_integrity
-	update_nearby_icons()
 
 /obj/structure/window/reinforced/clockwork/narsie_act()
 	take_damage(rand(25, 75), BRUTE)

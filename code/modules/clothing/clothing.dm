@@ -457,10 +457,10 @@ BLIND     // can't see anything
 	if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
 		if(M.matchignite()) // Match isn't lit, but isn't burnt.
-			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike the [M] on the bottom of [src] to light it.</span>")
+			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike [M] on the bottom of [src] to light it.</span>")
 			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
 		else
-			user.visible_message("<span class='warning'>[user] crushes the [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush the [M] into the bottom of [src], extinguishing it.</span>")
+			user.visible_message("<span class='warning'>[user] crushes [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush [M] into the bottom of [src], extinguishing it.</span>")
 			M.dropped()
 		return
 
@@ -486,8 +486,8 @@ BLIND     // can't see anything
 
 //Suit
 /obj/item/clothing/suit
-	icon = 'icons/obj/clothing/suits.dmi'
 	name = "suit"
+	icon = 'icons/obj/clothing/suits.dmi'
 	var/fire_resist = T0C+100
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -573,7 +573,7 @@ BLIND     // can't see anything
 //Note: Everything in modules/clothing/spacesuits should have the entire suit grouped together.
 //      Meaning the the suit is defined directly after the corrisponding helmet. Just like below!
 /obj/item/clothing/head/helmet/space
-	name = "Space helmet"
+	name = "space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
 	w_class = WEIGHT_CLASS_NORMAL
@@ -596,7 +596,7 @@ BLIND     // can't see anything
 
 
 /obj/item/clothing/suit/space
-	name = "Space suit"
+	name = "space suit"
 	desc = "A suit that protects against low pressure environments. Has a big 13 on the back."
 	icon_state = "space"
 	item_state = "s_suit"
@@ -618,7 +618,9 @@ BLIND     // can't see anything
 	resistance_flags = NONE
 	hide_tail_by_species = null
 	species_restricted = list("exclude","Wryn")
-
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 //Under clothing
 /obj/item/clothing/under

@@ -410,3 +410,11 @@ datum/tech/robotics
 	. = ..()
 	var/datum/design/golem_shell/G = new
 	blueprint = G
+
+/datum/research/autolathe/syndicate/New()
+	// Used by syndi autolathe in syndie space base ruin. Removes methods of contacting main station.
+	. = ..()
+	known_designs -= "intercom_electronics"
+	known_designs -= "radio_headset"
+	known_designs -= "bounced_radio"
+	known_designs -= "newscaster_frame"

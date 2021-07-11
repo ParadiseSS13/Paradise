@@ -80,7 +80,7 @@
 /datum/mutation/noprints
 	name = "No Prints"
 	activation_messages = list("Your fingers feel numb.")
-	deactivation_messages = list("your fingers no longer feel numb.")
+	deactivation_messages = list("Your fingers no longer feel numb.")
 	instability = GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_NOFINGERPRINTS)
 
@@ -161,7 +161,7 @@
 /datum/mutation/xray
 	name = "X-Ray Vision"
 	activation_messages = list("The walls suddenly disappear.")
-	deactivation_messages = list("the walls around you re-appear.")
+	deactivation_messages = list("The walls around you re-appear.")
 	instability = GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_XRAY_VISION)
 	activation_prob = 15
@@ -185,6 +185,7 @@
 	activation_messages = list("You feel smarter.")
 	deactivation_messages = list("You feel dumber.")
 	instability = GENE_INSTABILITY_MAJOR
+	traits_to_add = list(TRAIT_TELEKINESIS)
 	activation_prob = 15
 
 /datum/mutation/tk/New()

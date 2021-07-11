@@ -14,6 +14,7 @@ GLOBAL_LIST_INIT(assigned_mutation_blocks, new(DNA_SE_LENGTH))
 // Used to determine what each block means (admin hax and species stuff on /vg/, mostly)
 GLOBAL_LIST_INIT(assigned_blocks, new(DNA_SE_LENGTH))
 
+/// Assoc list. Key = type of the mutation, value = the mutation
 GLOBAL_LIST_EMPTY(dna_mutations)
 
 GLOBAL_LIST_EMPTY(good_blocks)

@@ -1,7 +1,7 @@
 /obj/machinery/r_n_d/server
 	name = "R&D Server"
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "server"
+	icon_state = "RD-server"
 	var/datum/research/files
 	var/health = 100
 	var/list/id_with_upload = list()		//List of R&D consoles with upload to server access.
@@ -43,6 +43,16 @@
 	for(var/obj/item/stock_parts/SP in src)
 		tot_rating += SP.rating
 	heat_gen /= max(1, tot_rating)
+
+/obj/machinery/r_n_d/server/update_icon()
+	if(stat & NOPOWER)
+		icon_state = "[initial(icon_state)]-off"
+		return
+	icon_state = "[initial(icon_state)]-on"
+
+/obj/machinery/r_n_d/server/power_change()
+	. = ..()
+	update_icon()
 
 /obj/machinery/r_n_d/server/proc/initialize_serv()
 	if(!files)
@@ -137,7 +147,7 @@
 		shock(user,50)
 
 	if(istype(O, /obj/item/screwdriver))
-		default_deconstruction_screwdriver(user, "server_o", "server", O)
+		default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", O)
 		return 1
 
 	if(exchange_parts(user, O))

@@ -134,18 +134,26 @@ GLOBAL_PROTECT(log_end)
 /proc/log_href(text)
 	rustg_log_write(GLOB.world_href_log, "HREF: [html_decode(text)][GLOB.log_end]")
 
-/proc/log_asset(text)
-	rustg_log_write(GLOB.world_asset_log, "ASSET: [text][GLOB.log_end]")
-
 /proc/log_runtime_summary(text)
 	rustg_log_write(GLOB.runtime_summary_log, "[text][GLOB.log_end]")
 
 /proc/log_tgui(text)
 	rustg_log_write(GLOB.tgui_log, "[text][GLOB.log_end]")
 
+#ifdef REFERENCE_TRACKING
+/proc/log_gc(text)
+	rustg_log_write(GLOB.gc_log, "[text][GLOB.log_end]")
+	for(var/client/C in GLOB.admins)
+		if(check_rights(R_DEBUG, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
+			to_chat(C, "GC DEBUG: [text]")
+#endif
+
 /proc/log_sql(text)
 	rustg_log_write(GLOB.sql_log, "[text][GLOB.log_end]")
 	SEND_TEXT(world.log, text) // Redirect it to DD too
+
+/proc/log_chat_debug(text)
+	rustg_log_write(GLOB.chat_debug_log, "[text][GLOB.log_end]")
 
 // A logging proc that only outputs after setup is done, to
 // help devs test initialization stuff that happens a lot
