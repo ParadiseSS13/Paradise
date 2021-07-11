@@ -9,7 +9,7 @@ LINEN BINS
 	desc = "A surprisingly soft linen bedsheet."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "sheet"
-	item_state = "bedsheet"
+	item_state = "sheet"
 	layer = 4.0
 	throwforce = 1
 	throw_speed = 1
@@ -17,7 +17,7 @@ LINEN BINS
 	w_class = WEIGHT_CLASS_TINY
 	item_color = "white"
 	resistance_flags = FLAMMABLE
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_NECK
 
 	dog_fashion = /datum/dog_fashion/head/ghost
 	var/list/dream_messages = list("white")

@@ -125,6 +125,7 @@
 #define SLOT_TWOEARS	(1<<12)
 #define SLOT_PDA		(1<<13)
 #define SLOT_TIE		(1<<14)
+#define SLOT_NECK		(1<<15)
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1
