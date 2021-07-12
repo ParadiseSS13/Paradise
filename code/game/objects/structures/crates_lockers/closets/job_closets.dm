@@ -97,6 +97,7 @@
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/under/rank/janitor(src)
+	new /obj/item/clothing/neck/cloak/janitor(src)
 	new /obj/item/cartridge/janitor(src)
 
 /*

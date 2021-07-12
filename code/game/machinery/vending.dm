@@ -1889,9 +1889,9 @@
 					/obj/item/storage/belt/fannypack = 1,
 					/obj/item/storage/belt/fannypack/blue = 1,
 					/obj/item/storage/belt/fannypack/red = 1,
-					/obj/item/clothing/suit/mantle = 2,
-					/obj/item/clothing/suit/mantle/old = 1,
-					/obj/item/clothing/suit/mantle/regal = 2)
+					/obj/item/clothing/neck/mantle = 2,
+					/obj/item/clothing/neck/mantle/old = 1,
+					/obj/item/clothing/neck/mantle/regal = 2)
 
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
 					  /obj/item/clothing/mask/balaclava = 1,

@@ -90,6 +90,7 @@
 		EQUIPMENT("Soap", 							/obj/item/soap/nanotrasen, 											200),
 		EQUIPMENT("Space Cash", 					/obj/item/stack/spacecash/c1000, 									2000),
 		EQUIPMENT("Whiskey", 						/obj/item/reagent_containers/food/drinks/bottle/whiskey, 			100),
+		EQUIPMENT("Miner's Cloak", 					/obj/item/clothing/neck/cloak/mining, 								10000),
 	)
 	prize_list["Extra"] = list() // Used in child vendors
 

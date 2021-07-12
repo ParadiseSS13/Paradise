@@ -25,17 +25,15 @@
 	name = "chief engineer's cloak"
 	desc = "Worn by the leader of both Atmosia and Delamistan, wielder of unlimited power."
 	icon_state = "cecloak"
-	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/neck/cloak/chief_engineer/white
 	name = "chief engineer's cloak"
 	desc = "Worn by the leader of both Atmosia and Delamistan, wielder of unlimited power. This one is white."
 	icon_state = "cecloak_white"
-	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/neck/cloak/research_director
 	name = "research director's cloak"
-	desc = "Worn by the leader of Scientopia, the greatest thaumaturgist and researcher of the galaxy."
+	desc = "Worn by the leader of Scientopia, the greatest thaumaturgist and researcher of rapid unexpected self disassembly."
 	icon_state = "rdcloak"
 
 /obj/item/clothing/neck/cloak/captain
@@ -52,25 +50,27 @@
 	desc = "Worn by the Head of Personnel. It smells faintly of bureaucracy."
 	icon_state = "hopcloak"
 
-/obj/item/clothing/neck/cloak/gaming
-	name = "holographic gamer's cloak"
-	desc = "Worn by the most skilled professional gamers on the station, this legendary cloak is only attainable by achieving true gaming enlightenment. This status symbol represents the awesome might of a being of focus, commitment, and sheer fucking will. Something casual gamers will never begin to understand."
-	icon_state = "gamercloak"
-
 /obj/item/clothing/neck/cloak/janitor
 	name = "holographic janitor's cloak"
 	desc = "Worn by the most skilled custodians, or the ones that got their hands on it first."
 	icon_state = "cleanercloak"
 
+/obj/item/clothing/neck/cloak/healer
+	name = "holographic healer's cloak"
+	desc = "Worn by the best and most skilled healers, the handlers of hyposprays, pills, auto-menders and first-aid kits."
+	icon_state = "healercloak"
 
-//The ones below need to find a source of how to actually obtain them//
-/obj/item/clothing/neck/cloak/mining
-	name = "holographic miner's cloak"
-	desc = "Worn by the most skilled miners, this legendary cloak is only attainable by achieving true mineral enlightenment. This status symbol represents a being who has forgotten more about rocks than most miners will ever know, a being who has moved mountains and filled valleys."
-	icon_state = "minercloak"
+/obj/item/clothing/neck/cloak/gaming //Prize counter
+	name = "holographic gamer's cloak"
+	desc = "Worn by the most skilled professional gamers on the station, this legendary cloak is only attainable by achieving true gaming enlightenment. This status symbol represents the awesome might of a being of focus, commitment, and sheer fucking will. Something casual gamers will never begin to understand."
+	icon_state = "gamercloak"
 
 /obj/item/clothing/neck/cloak/rainbow
 	name = "holographic rainbow cloak"
 	desc = "A holographic cloak capable of rapidly changing colors."
 	icon_state = "rainbowcloak"
 
+/obj/item/clothing/neck/cloak/mining //Mining equipment vendor
+	name = "holographic miner's cloak"
+	desc = "Worn by the most skilled miners, this legendary cloak is only attainable by achieving true mineral enlightenment. This status symbol represents a being who has forgotten more about rocks than most miners will ever know, a being who has moved mountains and filled valleys."
+	icon_state = "minercloak"

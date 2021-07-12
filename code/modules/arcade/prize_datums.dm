@@ -329,6 +329,18 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/clothing/gloves/fingerless/rapid/headpat
 	cost = 150
 
+/datum/prize_item/rainbowcloak
+	name = "Rainbow Cloak"
+	desc = "WOW! Colors!"
+	typepath = /obj/item/clothing/neck/cloak/rainbow
+	cost = 500
+
+/datum/prize_item/gamercloak
+	name = "Gamer's Cloak"
+	desc = "Are you REALLY a gamer without this cloak?"
+	typepath = /obj/item/clothing/neck/cloak/gaming
+	cost = 1337
+
 /datum/prize_item/bike
 	name = "Awesome Bike!"
 	desc = "WOAH."
