@@ -3,17 +3,23 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/space)
 "ab" = (
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "snow"
+	},
 /area/syndicate_mothership)
 "ac" = (
 /obj/structure/flora/grass/brown,
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "snow"
+	},
 /area/syndicate_mothership)
 "ae" = (
 /obj/structure/flora/tree/pine{
 	pixel_x = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "snow"
+	},
 /area/syndicate_mothership)
 "af" = (
 /obj/structure/window/reinforced,
@@ -21,7 +27,9 @@
 /area/space)
 "ag" = (
 /obj/item/toy/figure/syndie,
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "snow"
+	},
 /area/syndicate_mothership)
 "ah" = (
 /obj/machinery/computer/arcade,
@@ -34,7 +42,9 @@
 /obj/item/radio/intercom/syndicate{
 	pixel_x = 32
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "aj" = (
 /obj/structure/rack/holorack,
@@ -523,11 +533,13 @@
 /area/holodeck/source_knightarena)
 "bJ" = (
 /obj/structure/flora/bush,
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "snow"
+	},
 /area/syndicate_mothership)
 "bK" = (
 /obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible,
 /area/tdome/arena)
 "bL" = (
 /obj/docking_port/stationary/transit{
@@ -895,7 +907,9 @@
 	dir = 1;
 	tag = "icon-tube1 (NORTH)"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/ninja/outpost)
 "cX" = (
 /obj/structure/table,
@@ -904,20 +918,28 @@
 	dir = 1;
 	tag = "icon-tube1 (NORTH)"
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/ninja/holding)
 "cY" = (
 /obj/structure/closet/secure_closet/bar{
 	req_access_txt = "25"
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/ninja/holding)
 "cZ" = (
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/ninja/holding)
 "da" = (
 /obj/structure/reagent_dispensers/beerkeg,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/ninja/holding)
 "db" = (
 /obj/structure/table,
@@ -937,22 +959,28 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/ninja/holding)
 "dc" = (
 /obj/machinery/vending/boozeomat,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/ninja/holding)
 "dd" = (
 /obj/structure/rack,
 /obj/item/kitchen/knife/ritual,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/wizard_station)
 "de" = (
 /obj/structure/rack,
 /obj/item/toy/sword,
 /obj/item/gun/projectile/revolver/capgun,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
@@ -963,19 +991,19 @@
 	dir = 1;
 	tag = "icon-tube1 (NORTH)"
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
 "dg" = (
 /obj/machinery/computer/arcade,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
 "dh" = (
 /obj/machinery/prize_counter,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
@@ -984,7 +1012,10 @@
 	dir = 1;
 	tag = "icon-tube1 (NORTH)"
 	},
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/plasteel/indestructible{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "desert"
+	},
 /area/ninja/holding)
 "dj" = (
 /turf/simulated/floor/holofloor{
@@ -1096,7 +1127,9 @@
 "dw" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave/upgraded,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/ninja/holding)
 "dx" = (
 /obj/structure/table,
@@ -1104,16 +1137,18 @@
 	pixel_x = 4;
 	pixel_y = 6
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/ninja/holding)
 "dy" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
 "dz" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
@@ -1221,41 +1256,46 @@
 "dP" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ninja/outpost)
-"dQ" = (
-/obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
-	},
-/turf/simulated/floor/plasteel/grimy,
-/area/ninja/outpost)
 "dR" = (
 /obj/structure/table,
 /obj/machinery/recharger,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/ninja/holding)
 "dS" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/shaker,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/ninja/holding)
 "dT" = (
 /obj/structure/table,
 /obj/item/lighter/zippo,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/ninja/holding)
 "dU" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/ninja/holding)
 "dV" = (
 /obj/structure/table,
 /obj/item/dice/d20,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/ninja/holding)
 "dW" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cans/cola,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/ninja/holding)
 "dX" = (
 /obj/docking_port/stationary/transit{
@@ -1311,16 +1351,21 @@
 	},
 /obj/item/clothing/under/suit_jacket,
 /obj/item/clothing/suit/wcoat,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
 "ee" = (
 /obj/structure/chair/stool/bar,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
+"ef" = (
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership/jail)
 "eg" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/brflowers,
@@ -1329,7 +1374,9 @@
 /area/centcom/evac)
 "eh" = (
 /obj/structure/flora/tree/pine,
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "snow"
+	},
 /area/syndicate_mothership)
 "ei" = (
 /turf/space,
@@ -1339,7 +1386,9 @@
 	id_tag = "sit_away";
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "ek" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -1364,14 +1413,14 @@
 /obj/effect/landmark{
 	name = "Syndicate-Spawn"
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
 "eo" = (
 /obj/structure/rack,
 /obj/item/storage/fancy/crayons,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
@@ -1411,7 +1460,7 @@
 	name = "Entertainment monitor";
 	pixel_y = -30
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
@@ -1429,18 +1478,22 @@
 /area/ninja/holding)
 "ex" = (
 /obj/item/flag/syndi,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
 "ey" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/syndicate_mothership)
 "ez" = (
 /obj/item/radio/intercom/syndicate{
 	pixel_x = -28
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/syndicate_mothership)
 "eB" = (
 /turf/simulated/floor/holofloor{
@@ -1534,13 +1587,13 @@
 /area/holodeck/source_thunderdomecourt)
 "eO" = (
 /obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
 "eP" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
@@ -1550,7 +1603,7 @@
 "eR" = (
 /obj/structure/chair/stool,
 /obj/machinery/light/spot,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
@@ -1569,7 +1622,9 @@
 	tag = "icon-tube1 (NORTH)"
 	},
 /obj/machinery/computer/syndicate_depot/teleporter,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "eU" = (
 /turf/simulated/wall/indestructible/opsglass,
@@ -1626,7 +1681,7 @@
 /area/centcom/specops)
 "eY" = (
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
@@ -1635,13 +1690,17 @@
 	id_tag = "sst_away";
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "fa" = (
 /obj/effect/landmark{
 	name = "Syndicate-Spawn"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/syndicate_mothership)
 "fb" = (
 /obj/effect/landmark{
@@ -1651,7 +1710,9 @@
 	dir = 8;
 	tag = "icon-tube1 (WEST)"
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "engine"
+	},
 /area/ninja/holding)
 "fc" = (
 /obj/machinery/door/airlock/external{
@@ -1689,7 +1750,9 @@
 /area/shuttle/syndicate_elite)
 "fd" = (
 /obj/item/flag/syndi,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/syndicate_mothership)
 "ff" = (
 /turf/simulated/wall/indestructible/wood,
@@ -1699,20 +1762,26 @@
 /area/ninja/holding)
 "fi" = (
 /obj/machinery/computer/shuttle/syndicate/recall,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/syndicate_mothership)
 "fj" = (
 /obj/structure/bookcase{
 	name = "Forbidden Knowledge"
 	},
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "fk" = (
 /obj/structure/bookcase{
 	name = "Forbidden Knowledge"
 	},
 /obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "fl" = (
 /obj/effect/turf_decal/bot,
@@ -1726,14 +1795,20 @@
 "fn" = (
 /obj/machinery/computer/library/checkout,
 /obj/structure/table/wood,
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "fo" = (
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "fp" = (
 /obj/machinery/vending/snack/free,
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "fq" = (
 /obj/machinery/vending/magivend,
@@ -1741,7 +1816,9 @@
 	dir = 1;
 	tag = "icon-tube1 (NORTH)"
 	},
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "fr" = (
 /obj/structure/closet{
@@ -1759,27 +1836,37 @@
 /obj/item/clothing/suit/wizrobe,
 /obj/item/clothing/shoes/sandal,
 /obj/item/clothing/shoes/sandal,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "carpet"
+	},
 /area/wizard_station)
 "fs" = (
 /obj/structure/bed,
 /obj/item/bedsheet/wiz,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "carpet"
+	},
 /area/wizard_station)
 "ft" = (
 /obj/structure/mirror/magic{
 	pixel_y = 28
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "carpet"
+	},
 /area/wizard_station)
 "fu" = (
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/ninja/outpost)
 "fv" = (
 /obj/structure/ninjatele{
 	pixel_y = 25
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/ninja/outpost)
 "fw" = (
 /obj/docking_port/mobile{
@@ -1804,7 +1891,9 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
 "fx" = (
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "carpet"
+	},
 /area/wizard_station)
 "fy" = (
 /obj/machinery/pdapainter,
@@ -1814,30 +1903,40 @@
 /obj/effect/landmark/start{
 	name = "wizard"
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "carpet"
+	},
 /area/wizard_station)
 "fA" = (
 /obj/structure/bookcase{
 	name = "bookcase (Tactics)"
 	},
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "fB" = (
 /obj/item/radio/intercom/syndicate{
 	pixel_x = 28
 	},
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "fC" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "carpet"
+	},
 /area/wizard_station)
 "fD" = (
 /obj/structure/table/wood,
 /obj/effect/landmark{
 	name = "Teleport-Scroll"
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "carpet"
+	},
 /area/wizard_station)
 "fE" = (
 /obj/structure/closet/crate/secure/bin,
@@ -1846,20 +1945,31 @@
 	},
 /area/centcom/control)
 "fH" = (
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/plasteel/indestructible{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "desert"
+	},
 /area/ninja/holding)
 "fI" = (
 /obj/effect/overlay/palmtree_r,
 /obj/effect/overlay/coconut,
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/plasteel/indestructible{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "desert"
+	},
 /area/ninja/holding)
 "fJ" = (
 /obj/structure/chair/comfy/purp,
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "fK" = (
 /obj/effect/overlay/palmtree_l,
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/plasteel/indestructible{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "desert"
+	},
 /area/ninja/holding)
 "fL" = (
 /obj/machinery/computer/cryopod{
@@ -1869,19 +1979,25 @@
 /area/trader_station/sol)
 "fQ" = (
 /obj/structure/bookcase,
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "fR" = (
 /obj/structure/chair/comfy/purp{
 	dir = 4
 	},
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "fS" = (
 /obj/structure/table/wood,
 /obj/item/dice/d20,
 /obj/item/dice,
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "fT" = (
 /turf/simulated/floor/holofloor{
@@ -1892,7 +2008,9 @@
 "fU" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger,
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "fV" = (
 /obj/machinery/power/apc{
@@ -1913,17 +2031,23 @@
 	dir = 8;
 	tag = "icon-tube1 (WEST)"
 	},
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "fX" = (
 /obj/structure/table/wood,
 /obj/item/stack/spacecash,
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "fY" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/mugwort,
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "fZ" = (
 /obj/machinery/cryopod/right,
@@ -1934,14 +2058,18 @@
 	dir = 8;
 	tag = "icon-tube1 (WEST)"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "gb" = (
 /obj/machinery/light/spot{
 	dir = 4;
 	tag = "icon-tube1 (EAST)"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "gd" = (
 /obj/structure/rack,
@@ -1951,7 +2079,9 @@
 /obj/item/clothing/suit/wizrobe/magusred,
 /obj/item/clothing/head/wizard/magus,
 /obj/item/twohanded/staff,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/wizard_station)
 "ge" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -1962,7 +2092,10 @@
 /area/centcom/specops)
 "gf" = (
 /obj/item/camera,
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/plasteel/indestructible{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "desert"
+	},
 /area/ninja/holding)
 "gg" = (
 /obj/machinery/light/spot{
@@ -1984,17 +2117,23 @@
 /area/tdome/tdomeadmin)
 "gi" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "plating"
+	},
 /area/syndicate_mothership)
 "gj" = (
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "plating"
+	},
 /area/syndicate_mothership)
 "gk" = (
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
 "gl" = (
 /obj/item/flag/wiz,
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "gn" = (
 /obj/structure/table,
@@ -2014,7 +2153,9 @@
 /area/wizard_station)
 "gq" = (
 /obj/item/trash/raisins,
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "gr" = (
 /obj/item/beach_ball,
@@ -2043,30 +2184,40 @@
 "gv" = (
 /obj/structure/table/reinforced,
 /obj/structure/kitchenspike,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/wizard_station)
 "gw" = (
 /obj/structure/showcase,
 /obj/structure/window/reinforced/clockwork{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/wizard_station)
 "gx" = (
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "plating"
+	},
 /area/syndicate_mothership)
 "gy" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/showcase,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/wizard_station)
 "gA" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/machinery/sleeper/upgraded,
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/ninja/outpost)
 "gB" = (
 /obj/machinery/vending/snack/free,
@@ -2076,11 +2227,15 @@
 	},
 /area/centcom/specops)
 "gC" = (
-/turf/simulated/floor/grass,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "grass1"
+	},
 /area/wizard_station)
 "gD" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "grass1"
+	},
 /area/wizard_station)
 "gE" = (
 /obj/structure/chair{
@@ -2102,7 +2257,9 @@
 /area/tdome/tdomeobserve)
 "gG" = (
 /mob/living/carbon/human/monkey,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/wizard_station)
 "gH" = (
 /obj/docking_port/stationary/transit{
@@ -2117,7 +2274,9 @@
 /area/space)
 "gI" = (
 /obj/machinery/vending/syndisnack,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "gK" = (
 /obj/item/beach_ball/holoball,
@@ -2127,7 +2286,9 @@
 /mob/living/simple_animal/hostile/creature{
 	name = "Experiment 35b"
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "grass1"
+	},
 /area/wizard_station)
 "gM" = (
 /obj/structure/reagent_dispensers/peppertank{
@@ -2160,14 +2321,16 @@
 /obj/effect/landmark{
 	name = "ninjastart"
 	},
-/turf/simulated/floor/plasteel/grimy,
-/area/ninja/outpost)
-"gQ" = (
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/ninja/outpost)
 "gS" = (
 /obj/item/beach_ball,
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/plasteel/indestructible{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "desert"
+	},
 /area/ninja/holding)
 "gT" = (
 /obj/structure/chair{
@@ -2184,12 +2347,16 @@
 /area/centcom/control)
 "gU" = (
 /obj/effect/decal/cleanable/molten_object,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "grass1"
+	},
 /area/wizard_station)
 "gV" = (
 /obj/item/trash/chips,
 /obj/machinery/light/spot,
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "gW" = (
 /obj/structure/rack,
@@ -2197,11 +2364,15 @@
 /obj/structure/window/reinforced/clockwork{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/wizard_station)
 "gY" = (
 /obj/machinery/vending/syndicigs,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "gZ" = (
 /obj/docking_port/stationary/transit{
@@ -2257,11 +2428,17 @@
 /turf/space/transit,
 /area/space)
 "he" = (
-/turf/simulated/floor/beach/away/coastline,
+/turf/simulated/floor/plasteel/indestructible{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "beach"
+	},
 /area/ninja/holding)
 "hf" = (
 /obj/item/clothing/head/collectable/paper,
-/turf/simulated/floor/beach/away/coastline,
+/turf/simulated/floor/plasteel/indestructible{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "beach"
+	},
 /area/ninja/holding)
 "hg" = (
 /obj/structure/table/wood/poker,
@@ -2289,7 +2466,9 @@
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/airless;
 	width = 29
 	},
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "snow"
+	},
 /area/syndicate_mothership)
 "hj" = (
 /turf/simulated/floor/plasteel{
@@ -2306,7 +2485,7 @@
 	id_tag = "syndicate_away";
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
@@ -2321,7 +2500,7 @@
 	},
 /area/tdome/tdomeadmin)
 "hn" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
@@ -2332,7 +2511,9 @@
 /area/tdome/tdomeobserve)
 "hq" = (
 /obj/item/disk/plantgene,
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "snow"
+	},
 /area/syndicate_mothership)
 "hr" = (
 /obj/structure/chair/comfy,
@@ -2352,15 +2533,23 @@
 /turf/simulated/floor/plating/asteroid,
 /area/centcom/control)
 "hv" = (
-/turf/simulated/floor/beach/away/water,
+/turf/simulated/floor/plasteel/indestructible{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "seashallow"
+	},
 /area/ninja/holding)
 "hw" = (
 /obj/machinery/light/spot,
-/turf/simulated/floor/beach/away/water,
+/turf/simulated/floor/plasteel/indestructible{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "seashallow"
+	},
 /area/ninja/holding)
 "hx" = (
 /obj/effect/decal/warning_stripes/southwestcorner,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "plating"
+	},
 /area/syndicate_mothership)
 "hz" = (
 /obj/structure/table/reinforced,
@@ -2380,7 +2569,9 @@
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Shuttle Dock"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "hC" = (
 /obj/effect/spawner/window/reinforced,
@@ -2396,7 +2587,9 @@
 /obj/effect/landmark{
 	name = "Holding Facility"
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "engine"
+	},
 /area/ninja/holding)
 "hH" = (
 /obj/structure/filingcabinet/chestdrawer,
@@ -2449,11 +2642,15 @@
 /obj/structure/sign/double/map/left{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "hO" = (
 /obj/machinery/washing_machine,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "hP" = (
 /obj/machinery/computer/communications,
@@ -2463,7 +2660,9 @@
 /obj/structure/table,
 /obj/item/storage/fancy/crayons,
 /obj/item/storage/fancy/crayons,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/syndicate_mothership)
 "hR" = (
 /obj/machinery/bodyscanner,
@@ -2521,7 +2720,9 @@
 /area/shuttle/escape)
 "ie" = (
 /obj/machinery/washing_machine,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/syndicate_mothership)
 "if" = (
 /turf/simulated/floor/plasteel{
@@ -2543,7 +2744,7 @@
 /area/wizard_station)
 "ii" = (
 /obj/machinery/computer/shuttle/syndicate/recall,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
@@ -2552,19 +2753,19 @@
 	pixel_y = 25
 	},
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
 "ik" = (
 /obj/machinery/vending/syndicigs,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
 "il" = (
 /obj/machinery/vending/syndisnack,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
@@ -2572,7 +2773,9 @@
 /obj/structure/urinal{
 	pixel_y = 28
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/syndicate_mothership)
 "in" = (
 /obj/item/mop,
@@ -2580,11 +2783,15 @@
 	pixel_x = 28
 	},
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/syndicate_mothership)
 "ip" = (
 /obj/machinery/light/spot,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "iq" = (
 /obj/structure/flora/ausbushes/fullgrass,
@@ -2600,13 +2807,15 @@
 /area/centcom/evac)
 "is" = (
 /mob/living/simple_animal/pet/dog/fox/Syndifox,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
 "iu" = (
 /obj/effect/decal/warning_stripes/southeast,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "plating"
+	},
 /area/syndicate_mothership)
 "iv" = (
 /turf/simulated/wall/mineral/plastitanium,
@@ -2617,14 +2826,20 @@
 /obj/item/clothing/head/helmet/space/plasmaman/wizard,
 /obj/item/clothing/mask/breath,
 /obj/item/tank/internals/plasmaman/belt/full,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/wizard_station)
 "ix" = (
 /obj/machinery/sleeper/syndie,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "iy" = (
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/syndicate_mothership)
 "iz" = (
 /obj/machinery/door/airlock/centcom{
@@ -2632,8 +2847,8 @@
 	opacity = 1;
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
 	},
 /area/syndicate_mothership)
 "iA" = (
@@ -2644,13 +2859,15 @@
 	dir = 4;
 	pixel_x = 11
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/syndicate_mothership)
 "iC" = (
 /obj/structure/table/wood,
 /obj/item/pizzabox,
 /obj/item/paicard/syndicate,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
@@ -2660,13 +2877,15 @@
 	pixel_x = -2;
 	pixel_y = 5
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
 "iE" = (
 /obj/structure/closet/syndicate/sst,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "iF" = (
 /obj/structure/toilet{
@@ -2681,11 +2900,15 @@
 	opacity = 1;
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/syndicate_mothership)
 "iG" = (
 /obj/effect/decal/warning_stripes/southwest,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "plating"
+	},
 /area/syndicate_mothership)
 "iH" = (
 /obj/structure/window/reinforced{
@@ -2698,11 +2921,13 @@
 /area/shuttle/syndicate)
 "iI" = (
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "plating"
+	},
 /area/syndicate_mothership)
 "iL" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
@@ -2716,7 +2941,7 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
@@ -2726,7 +2951,7 @@
 	pixel_x = -5;
 	pixel_y = 5
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
@@ -2757,14 +2982,18 @@
 	network = list("Thunderdome");
 	pixel_x = 12
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/tdome/arena)
 "iS" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
 "iT" = (
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "plating"
+	},
 /area/syndicate_mothership)
 "iU" = (
 /obj/machinery/vending/snack,
@@ -2772,18 +3001,17 @@
 	icon_state = "dark"
 	},
 /area/centcom/control)
-"iV" = (
-/turf/simulated/floor/plating,
-/area/syndicate_mothership)
 "iW" = (
 /obj/machinery/door/airlock/external{
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "plating"
+	},
 /area/syndicate_mothership)
 "iY" = (
 /mob/living/simple_animal/pet/cat/Syndi,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
@@ -2792,7 +3020,7 @@
 	id_tag = "syndicate_away";
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible,
 /area/syndicate_mothership)
 "ja" = (
 /obj/structure/table/wood,
@@ -2811,17 +3039,19 @@
 	},
 /area/centcom/specops)
 "jc" = (
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible,
 /area/tdome/arena)
 "je" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/wizard_station)
 "jf" = (
 /obj/structure/chair/stool/bar,
 /obj/effect/landmark{
 	name = "Syndicate-Spawn"
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
@@ -2834,7 +3064,7 @@
 	req_access_txt = "151"
 	},
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
@@ -2842,7 +3072,9 @@
 /obj/structure/sign/double/map/right{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "ji" = (
 /obj/machinery/door_control{
@@ -2852,7 +3084,9 @@
 	pixel_y = -2;
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "jj" = (
 /obj/machinery/computer/shuttle/syndicate/drop_pod,
@@ -2860,7 +3094,9 @@
 /area/shuttle/assault_pod)
 "jk" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/syndicate_mothership)
 "jl" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -2870,17 +3106,23 @@
 /obj/structure/table/wood,
 /obj/item/storage/box/drinkingglasses,
 /obj/item/reagent_containers/food/drinks/bottle/rum,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/syndicate_mothership)
 "jn" = (
 /obj/structure/table/wood,
 /obj/item/syndicatedetonator,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/syndicate_mothership)
 "jo" = (
 /obj/structure/table/wood,
 /obj/item/toy/nuke,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/syndicate_mothership)
 "jq" = (
 /obj/machinery/light/spot{
@@ -2888,12 +3130,16 @@
 	tag = "icon-tube1 (EAST)"
 	},
 /obj/structure/closet/syndicate/sst,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "js" = (
 /obj/structure/table/reinforced,
 /obj/item/syndicatedetonator,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "jt" = (
 /obj/machinery/light/small{
@@ -2907,11 +3153,15 @@
 /area/shuttle/assault_pod)
 "ju" = (
 /obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "plating"
+	},
 /area/syndicate_mothership)
 "jv" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "plating"
+	},
 /area/syndicate_mothership)
 "jw" = (
 /obj/machinery/light/small{
@@ -2925,11 +3175,15 @@
 /area/shuttle/assault_pod)
 "jx" = (
 /obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "plating"
+	},
 /area/syndicate_mothership)
 "jy" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "plating"
+	},
 /area/syndicate_mothership)
 "jA" = (
 /obj/docking_port/stationary/transit{
@@ -2950,14 +3204,18 @@
 	name = "\improper FOURTH WALL";
 	pixel_x = -32
 	},
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "snow"
+	},
 /area/syndicate_mothership)
 "jC" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "sit_tele";
 	name = "Teleporter"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "jD" = (
 /obj/structure/table/reinforced,
@@ -2972,7 +3230,9 @@
 /obj/item/healthupgrade{
 	pixel_x = 6
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "jE" = (
 /obj/structure/rack,
@@ -2980,7 +3240,9 @@
 /obj/item/clothing/shoes/sandal/marisa,
 /obj/item/clothing/head/wizard/marisa,
 /obj/item/twohanded/staff/broom,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/wizard_station)
 "jF" = (
 /obj/structure/table/reinforced,
@@ -2992,7 +3254,9 @@
 	pixel_y = -1
 	},
 /obj/item/multitool,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "jG" = (
 /obj/machinery/light/spot,
@@ -3004,7 +3268,9 @@
 	pixel_y = 4
 	},
 /obj/item/radio/beacon/syndicate/bomb,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "jH" = (
 /obj/machinery/door/window{
@@ -3022,7 +3288,9 @@
 /area/adminconstruction)
 "jJ" = (
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "plating"
+	},
 /area/syndicate_mothership)
 "jL" = (
 /obj/effect/turf_decal/delivery,
@@ -3039,7 +3307,9 @@
 	name = "Uplink Management Control";
 	req_access_txt = "151"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/syndicate_mothership)
 "jN" = (
 /obj/structure/table/wood,
@@ -3067,7 +3337,9 @@
 	},
 /obj/structure/rack/skeletal_bar/right,
 /obj/item/reagent_containers/food/drinks/bottle/gin,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/syndicate_mothership)
 "jP" = (
 /turf/simulated/wall/indestructible/abductor{
@@ -3137,7 +3409,7 @@
 	name = "Equipment Room";
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
@@ -3152,11 +3424,15 @@
 /obj/structure/rack,
 /obj/item/tank/internals/emergency_oxygen/double/vox,
 /obj/item/clothing/mask/breath/vox,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/wizard_station)
 "kf" = (
 /obj/machinery/light/spot,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/wizard_station)
 "kg" = (
 /obj/effect/turf_decal/stripes/line{
@@ -3181,18 +3457,24 @@
 	},
 /area/centcom/control)
 "kj" = (
-/turf/simulated/floor/plasteel/stairs/old,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "stairs-old"
+	},
 /area/syndicate_mothership)
 "kk" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "sst_tele";
 	name = "Teleporter"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "kl" = (
 /obj/machinery/vending/tool,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "km" = (
 /obj/machinery/door/airlock/centcom{
@@ -3208,7 +3490,9 @@
 /obj/machinery/sleeper/syndie{
 	dir = 2
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "ko" = (
 /turf/simulated/floor/plasteel{
@@ -3224,7 +3508,9 @@
 /obj/machinery/sleeper/syndie{
 	dir = 2
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "kq" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -3326,7 +3612,9 @@
 /area/abductor_ship)
 "kJ" = (
 /obj/structure/closet/syndicate/personal,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "kK" = (
 /obj/structure/table,
@@ -3335,12 +3623,16 @@
 	dir = 1;
 	tag = "icon-tube1 (NORTH)"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "kL" = (
 /obj/structure/table,
 /obj/item/gun/energy/ionrifle/carbine,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "kM" = (
 /turf/simulated/wall/indestructible/abductor{
@@ -3389,7 +3681,9 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "kU" = (
 /turf/simulated/wall/indestructible/abductor{
@@ -3407,7 +3701,9 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "li" = (
 /turf/simulated/wall/indestructible/abductor{
@@ -3448,7 +3744,9 @@
 /area/tdome/tdomeobserve)
 "ls" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/wizard_station)
 "lu" = (
 /obj/structure/table/wood,
@@ -3627,7 +3925,9 @@
 	name = "Syndicate-Infiltrator";
 	tag = "Commando"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "mu" = (
 /obj/structure/table/reinforced,
@@ -3697,7 +3997,9 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "mG" = (
 /obj/machinery/access_button{
@@ -3708,7 +4010,9 @@
 	pixel_y = 24;
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "mH" = (
 /obj/structure/table,
@@ -3809,6 +4113,17 @@
 /obj/structure/flora/ausbushes/fernybush,
 /turf/simulated/floor/grass,
 /area/centcom/control)
+"na" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	damage_deflection = 75;
+	id_tag = "syndicate_jail_cell";
+	locked = 1;
+	name = "Syndicate Jail Cell"
+	},
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership/jail)
 "nb" = (
 /obj/machinery/bsa/full/admin{
 	pixel_y = -22
@@ -3900,13 +4215,17 @@
 /area/centcom/control)
 "nq" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "nr" = (
 /obj/item/radio/intercom/syndicate{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "ns" = (
 /obj/machinery/door_control{
@@ -3916,7 +4235,9 @@
 	pixel_y = -2;
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "nt" = (
 /obj/structure/mirror{
@@ -3926,7 +4247,9 @@
 	name = "Syndicate-Infiltrator";
 	tag = "Commando"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "nv" = (
 /obj/structure/table/reinforced,
@@ -3937,7 +4260,9 @@
 	pixel_x = -9;
 	pixel_y = 10
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "nx" = (
 /obj/machinery/door/airlock/hatch/syndicate/command,
@@ -3955,7 +4280,9 @@
 	id_tag = "commandcenter";
 	name = "Privacy Shutters"
 	},
-/turf/simulated/wall/indestructible/opsglass,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "nD" = (
 /obj/structure/sign/directions/engineering{
@@ -4057,7 +4384,9 @@
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "nQ" = (
 /obj/structure/chair/office/dark,
@@ -4078,7 +4407,9 @@
 "nS" = (
 /obj/mecha/combat/marauder/mauler/loaded,
 /obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "nV" = (
 /obj/structure/flora/ausbushes/fullgrass,
@@ -4088,7 +4419,9 @@
 /area/centcom/specops)
 "nW" = (
 /obj/effect/decal/warning_stripes/blue,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "nX" = (
 /obj/machinery/computer/secure_data,
@@ -4121,7 +4454,9 @@
 	name = "Syndicate-Infiltrator-Leader";
 	tag = "Commando"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "od" = (
 /turf/simulated/wall/mineral/titanium,
@@ -4156,6 +4491,11 @@
 	icon_state = "green"
 	},
 /area/centcom/evac)
+"om" = (
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership)
 "on" = (
 /turf/simulated/floor/light,
 /area/centcom/specops)
@@ -4493,7 +4833,7 @@
 	},
 /area/centcom/control)
 "pz" = (
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible,
 /area/syndicate_mothership)
 "pC" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -4749,12 +5089,11 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/suppy)
-"qF" = (
-/turf/simulated/floor/mech_bay_recharge_floor,
-/area/syndicate_mothership)
 "qG" = (
 /obj/machinery/computer/mech_bay_power_console,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "qI" = (
 /turf/simulated/wall/indestructible/riveted,
@@ -4966,7 +5305,9 @@
 	id_tag = "thunderdomehea";
 	name = "Heavy Supply"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/tdome/arena)
 "rT" = (
 /obj/structure/table/reinforced,
@@ -5015,7 +5356,7 @@
 /area/centcom/control)
 "sd" = (
 /obj/machinery/igniter/on,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	dir = 8;
 	icon_state = "red"
 	},
@@ -5031,6 +5372,14 @@
 	icon_state = "dark"
 	},
 /area/centcom/control)
+"sg" = (
+/obj/machinery/door/airlock/hatch{
+	name = "Armory"
+	},
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
+/area/admin)
 "sl" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ywflowers,
@@ -5343,7 +5692,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
 "tK" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	dir = 8;
 	icon_state = "red"
 	},
@@ -5356,7 +5705,7 @@
 	},
 /area/centcom/specops)
 "tM" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	dir = 4;
 	icon_state = "green"
 	},
@@ -5364,7 +5713,7 @@
 "tN" = (
 /obj/structure/barricade/sandbags,
 /obj/effect/turf_decal/bot,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible,
 /area/tdome/arena)
 "tQ" = (
 /obj/docking_port/stationary/transit{
@@ -5387,7 +5736,7 @@
 	network = list("Thunderdome");
 	pixel_x = 10
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible,
 /area/tdome/arena)
 "tU" = (
 /obj/structure/rack,
@@ -5401,7 +5750,9 @@
 	pixel_x = 3;
 	pixel_y = -30
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/tdome/arena)
 "tV" = (
 /obj/structure/rack,
@@ -5415,7 +5766,9 @@
 	pixel_x = 3;
 	pixel_y = -30
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/tdome/arena)
 "tX" = (
 /obj/machinery/camera{
@@ -5558,7 +5911,9 @@
 /obj/item/clothing/head/bandana,
 /obj/item/clothing/head/ushanka,
 /obj/item/clothing/head/helmet/roman/legionaire,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "uI" = (
 /obj/structure/rack,
@@ -5572,7 +5927,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "uJ" = (
 /obj/structure/rack,
@@ -5580,7 +5937,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "uK" = (
 /obj/structure/rack,
@@ -5593,7 +5952,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "uL" = (
 /obj/structure/rack,
@@ -5606,7 +5967,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "uM" = (
 /obj/structure/rack,
@@ -5619,7 +5982,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "uN" = (
 /obj/structure/rack,
@@ -5629,7 +5994,9 @@
 /obj/item/storage/backpack/duffel/science,
 /obj/item/storage/backpack/duffel/syndie/ammo,
 /obj/item/storage/backpack/duffel/syndie/med,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "uO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -5648,7 +6015,9 @@
 	},
 /area/centcom/control)
 "uT" = (
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "uU" = (
 /obj/structure/rack,
@@ -5661,7 +6030,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "uV" = (
 /obj/structure/rack,
@@ -5670,7 +6041,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "uW" = (
 /obj/machinery/camera{
@@ -5690,7 +6063,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "uZ" = (
 /obj/structure/rack,
@@ -5700,7 +6075,9 @@
 	},
 /obj/item/clothing/glasses/hud/health/sunglasses,
 /obj/item/clothing/glasses/hud/security/sunglasses,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vb" = (
 /obj/structure/rack,
@@ -5713,7 +6090,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vc" = (
 /obj/structure/rack,
@@ -5735,7 +6114,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vd" = (
 /obj/machinery/computer/supplycomp,
@@ -5765,7 +6146,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vj" = (
 /obj/structure/rack,
@@ -5778,7 +6161,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vk" = (
 /obj/structure/rack,
@@ -5791,15 +6176,21 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vl" = (
 /obj/mecha/combat/marauder/loaded,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vm" = (
 /obj/mecha/combat/marauder/seraph/loaded,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vn" = (
 /obj/structure/cable{
@@ -5807,11 +6198,15 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/mech_bay_recharge_port/upgraded,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vo" = (
 /obj/mecha/combat/honker/loaded,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vp" = (
 /obj/machinery/computer/mech_bay_power_console,
@@ -5819,7 +6214,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vq" = (
 /obj/structure/chair/comfy/shuttle{
@@ -5842,7 +6239,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vu" = (
 /turf/simulated/wall/indestructible/fakedoor{
@@ -5860,7 +6259,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vy" = (
 /obj/structure/rack,
@@ -5873,7 +6274,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vz" = (
 /obj/structure/rack,
@@ -5895,7 +6298,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vA" = (
 /obj/structure/rack,
@@ -5908,7 +6313,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vB" = (
 /obj/item/mecha_parts/mecha_equipment/cable_layer,
@@ -5917,7 +6324,9 @@
 /obj/item/mecha_parts/mecha_equipment/rcd,
 /obj/item/mecha_parts/mecha_equipment/extinguisher,
 /obj/structure/closet/crate,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vC" = (
 /obj/structure/table/wood,
@@ -5952,7 +6361,9 @@
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vE" = (
 /obj/structure/rack,
@@ -5966,25 +6377,35 @@
 	pixel_y = -3
 	},
 /obj/item/storage/belt/champion/wrestling,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vF" = (
 /obj/mecha/combat/marauder/mauler/loaded,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vG" = (
 /obj/mecha/combat/gygax/dark/loaded,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vH" = (
 /obj/structure/mecha_wreckage/phazon,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vI" = (
 /obj/structure/mirror{
 	pixel_y = -30
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vJ" = (
 /obj/structure/rack,
@@ -5997,7 +6418,9 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vK" = (
 /obj/structure/rack,
@@ -6030,7 +6453,9 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vM" = (
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser,
@@ -6043,19 +6468,25 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang,
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot,
 /obj/structure/closet/crate,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vN" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Clothing Storage"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vO" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Mecha Room"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "vP" = (
 /obj/structure/chair/comfy/brown{
@@ -6110,7 +6541,9 @@
 /area/centcom/suppy)
 "vW" = (
 /obj/machinery/chem_master,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "vX" = (
 /obj/structure/table,
@@ -6119,21 +6552,29 @@
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/reagent_containers/glass/beaker/bluespace,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "vY" = (
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "vZ" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "wa" = (
 /obj/structure/table,
 /obj/item/storage/pill_bottle/random_drug_bottle,
 /obj/item/reagent_containers/glass/bottle/adminordrazine,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "wb" = (
 /obj/machinery/door/airlock/external,
@@ -6144,31 +6585,41 @@
 	name = "Security Doors";
 	opacity = 0
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "wc" = (
 /obj/machinery/door/airlock/hatch{
 	name = "External Airlock"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "wd" = (
 /obj/machinery/chem_dispenser{
 	desc = "It appears Fox is doing more fruit chemistry today!";
 	hackedcheck = 1
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "we" = (
 /turf/space,
 /area/centcom/specops)
 "wi" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "wj" = (
 /obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "wk" = (
 /obj/docking_port/stationary/transit{
@@ -6194,7 +6645,9 @@
 /area/centcom/control)
 "wn" = (
 /obj/machinery/chem_heater,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "wo" = (
 /obj/machinery/door_control{
@@ -6232,7 +6685,9 @@
 /obj/item/ammo_casing/shotgun/dart,
 /obj/item/ammo_casing/shotgun/dart,
 /obj/item/ammo_casing/shotgun/dart,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "wq" = (
 /obj/machinery/computer/security{
@@ -6269,7 +6724,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "wt" = (
 /obj/structure/rack,
@@ -6284,7 +6741,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "wu" = (
 /obj/structure/rack,
@@ -6299,7 +6758,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "wv" = (
 /obj/structure/rack,
@@ -6314,11 +6775,15 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "ww" = (
 /obj/machinery/vending/liberationstation,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "wx" = (
 /obj/structure/rack,
@@ -6329,7 +6794,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "wy" = (
 /obj/structure/rack,
@@ -6344,7 +6811,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "wz" = (
 /obj/structure/table,
@@ -6355,7 +6824,9 @@
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange,
 /obj/item/reagent_containers/food/snacks/grown/corn,
 /obj/item/reagent_containers/food/snacks/grown/mushroom/amanita,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "wA" = (
 /obj/structure/table,
@@ -6365,7 +6836,9 @@
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/storage/box/autoinjectors,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "wB" = (
 /obj/structure/table,
@@ -6382,7 +6855,9 @@
 /obj/item/grenade/chem_grenade/large,
 /obj/item/grenade/chem_grenade/large,
 /obj/item/grenade/chem_grenade/large,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "wC" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6409,7 +6884,9 @@
 /obj/item/assembly/prox_sensor,
 /obj/item/assembly/prox_sensor,
 /obj/item/assembly/prox_sensor,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "wE" = (
 /obj/docking_port/stationary/transit{
@@ -6442,7 +6919,9 @@
 /obj/machinery/door/airlock/hatch{
 	name = "Chem Lab"
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "wI" = (
 /obj/structure/rack,
@@ -6455,7 +6934,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "wJ" = (
 /obj/structure/rack,
@@ -6474,7 +6955,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "wK" = (
 /turf/simulated/wall/indestructible/riveted,
@@ -6486,21 +6969,27 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "wM" = (
 /obj/structure/mirror{
 	dir = 4;
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "wN" = (
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "wO" = (
 /obj/machinery/optable,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "wP" = (
 /obj/structure/table,
@@ -6508,10 +6997,14 @@
 /obj/item/shard,
 /obj/item/kitchen/knife,
 /obj/item/storage/firstaid/tactical,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "wQ" = (
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "carpet"
+	},
 /area/admin)
 "wR" = (
 /obj/structure/table,
@@ -6522,12 +7015,16 @@
 	name = "Lockdown";
 	pixel_y = 24
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "carpet"
+	},
 /area/admin)
 "wS" = (
 /obj/machinery/computer/secure_data,
 /obj/item/paper/sop,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "carpet"
+	},
 /area/admin)
 "wT" = (
 /obj/structure/rack,
@@ -6536,7 +7033,9 @@
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "wU" = (
 /obj/machinery/conveyor_switch/oneway{
@@ -6549,26 +7048,36 @@
 /area/centcom/suppy)
 "wV" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "wW" = (
 /obj/structure/table,
 /obj/item/stack/cable_coil,
 /obj/item/stack/rods,
 /obj/item/pen,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "wX" = (
 /obj/structure/chair/office/dark,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "carpet"
+	},
 /area/admin)
 "wY" = (
 /obj/machinery/computer/communications,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "carpet"
+	},
 /area/admin)
 "wZ" = (
 /obj/machinery/computer/med_data,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "carpet"
+	},
 /area/admin)
 "xa" = (
 /obj/structure/rack,
@@ -6577,7 +7086,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "xb" = (
 /obj/structure/rack,
@@ -6586,7 +7097,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "xc" = (
 /obj/structure/rack,
@@ -6595,7 +7108,9 @@
 	pixel_y = -3
 	},
 /obj/item/katana,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "xd" = (
 /obj/effect/spawner/window/reinforced,
@@ -6611,22 +7126,30 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "xf" = (
 /obj/structure/table,
 /obj/random/toolbox,
 /obj/random/bomb_supply,
 /obj/machinery/syndicatebomb/badmin/clown,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "xg" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "xh" = (
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "xi" = (
 /obj/structure/table,
@@ -6634,14 +7157,18 @@
 /obj/item/rcd_ammo,
 /obj/item/rcd_ammo,
 /obj/item/storage/pill_bottle/random_drug_bottle,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "xj" = (
 /obj/structure/table,
 /obj/item/scalpel,
 /obj/item/bonesetter,
 /obj/item/bonegel,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "xk" = (
 /obj/structure/table,
@@ -6651,27 +7178,35 @@
 /obj/item/storage/box/mousetraps,
 /obj/item/storage/fancy/cigarettes,
 /obj/item/pen,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "xl" = (
 /obj/structure/table,
 /obj/machinery/door/window/southleft{
 	name = "security checkpoint"
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "carpet"
+	},
 /area/admin)
 "xm" = (
 /obj/structure/table,
 /obj/structure/window/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "carpet"
+	},
 /area/admin)
 "xn" = (
 /obj/structure/table,
 /obj/structure/window/reinforced,
 /obj/machinery/recharger,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "carpet"
+	},
 /area/admin)
 "xo" = (
 /obj/structure/rack,
@@ -6683,7 +7218,9 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "xp" = (
 /obj/machinery/recharger/wallcharger{
@@ -6695,7 +7232,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "xq" = (
 /obj/structure/table,
@@ -6704,24 +7243,32 @@
 /obj/item/clothing/under/rebeloutfit,
 /obj/item/clothing/suit/poncho/ponchoshame,
 /obj/item/clothing/head/sombrero/shamebrero,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "xr" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Tool Storage"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "xs" = (
 /obj/structure/table,
 /obj/item/FixOVein,
 /obj/item/retractor,
 /obj/item/cautery,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "xt" = (
 /obj/structure/kitchenspike,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "xu" = (
 /obj/item/clipboard,
@@ -6749,7 +7296,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "xy" = (
 /obj/structure/rack,
@@ -6758,7 +7307,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "xA" = (
 /obj/structure/rack,
@@ -6771,7 +7322,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "xB" = (
 /obj/machinery/recharger/wallcharger{
@@ -6783,14 +7336,18 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "xC" = (
 /obj/structure/table,
 /obj/random/tool,
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/pinpointer/advpinpointer,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "xD" = (
 /obj/structure/table,
@@ -6801,25 +7358,33 @@
 /obj/item/grenade/syndieminibomb{
 	pixel_x = -1
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "xE" = (
 /obj/structure/table,
 /obj/machinery/recharger,
 /obj/item/toy/cards/deck/syndicate/black,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "xF" = (
 /obj/structure/table,
 /obj/item/surgicaldrill,
 /obj/item/stack/medical/bruise_pack/advanced,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "xG" = (
 /obj/structure/table,
 /obj/item/hemostat,
 /obj/item/circular_saw,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "xH" = (
 /obj/machinery/door/poddoor{
@@ -6833,10 +7398,14 @@
 	desc = "Uh oh.";
 	name = "Operating Theater"
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/admin)
 "xJ" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/admin)
 "xK" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -6844,8 +7413,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/tdome/tdomeadmin)
 "xL" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "neutralfull"
 	},
 /area/adminconstruction)
@@ -6876,7 +7444,9 @@
 	desc = "You've heard rumors of the horrors that go on within this lab.";
 	name = "Laboratory (DANGER!)"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "xP" = (
 /obj/structure/filingcabinet/medical,
@@ -6896,24 +7466,32 @@
 /area/tdome/tdomeadmin)
 "xU" = (
 /obj/machinery/computer/crew,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "xV" = (
 /obj/machinery/computer/supplycomp/public,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "xW" = (
 /obj/machinery/computer/rdservercontrol{
 	badmin = 1;
 	name = "Master R&amp;D Server Controller"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "xX" = (
 /obj/machinery/computer/security{
 	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "xY" = (
 /obj/structure/table,
@@ -6926,11 +7504,15 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "ya" = (
 /obj/machinery/r_n_d/server/centcom,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "yb" = (
 /obj/structure/table,
@@ -6943,7 +7525,9 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "yc" = (
 /turf/simulated/floor/plasteel{
@@ -6952,7 +7536,9 @@
 /area/centcom/control)
 "yd" = (
 /obj/structure/chair/comfy/black,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/admin)
 "ye" = (
 /obj/machinery/computer/shuttle/trade/sol,
@@ -6969,17 +7555,23 @@
 /area/trader_station/sol)
 "yi" = (
 /obj/machinery/computer/card/centcom,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "yj" = (
 /obj/machinery/computer/card,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "yk" = (
 /obj/structure/chair/comfy/black{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "yl" = (
 /obj/machinery/door/airlock/public/glass{
@@ -6992,30 +7584,40 @@
 	name = "Security Doors";
 	opacity = 0
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "ym" = (
 /obj/effect/landmark{
 	name = "aroomwarp";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "yn" = (
 /obj/machinery/door/airlock/hatch{
 	desc = "For all your shady business needs";
 	name = "Gambling Den"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/admin)
 "yo" = (
 /obj/structure/table/wood,
 /obj/item/toy/cards/deck/syndicate,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/admin)
 "yp" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/admin)
 "yr" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -7024,7 +7626,9 @@
 "ys" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/admin)
 "yv" = (
 /obj/machinery/computer/station_alert,
@@ -7045,17 +7649,23 @@
 /obj/structure/chair/comfy/black{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "yA" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/admin)
 "yB" = (
 /obj/structure/table/wood,
 /obj/item/lighter/zippo/engraved,
 /obj/item/storage/fancy/cigarettes/dromedaryco,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/admin)
 "yD" = (
 /obj/machinery/door/airlock/external{
@@ -7069,7 +7679,7 @@
 	id_tag = "nukeop_ready";
 	name = "Shuttle Dock Door"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible,
 /area/syndicate_mothership)
 "yF" = (
 /turf/simulated/floor/plasteel,
@@ -7082,11 +7692,15 @@
 /area/trader_station/sol)
 "yJ" = (
 /obj/machinery/computer/communications,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "yK" = (
 /obj/structure/chair/comfy/black,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "yN" = (
 /obj/structure/chair/office/dark{
@@ -7110,22 +7724,30 @@
 /area/trader_station/sol)
 "yP" = (
 /obj/machinery/computer/atmos_alert,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "yR" = (
 /obj/machinery/computer/message_monitor,
 /obj/item/paper/monitorkey,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "yS" = (
 /obj/machinery/computer/account_database{
 	name = "Admin Accounts Database"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "yU" = (
 /obj/machinery/computer/secure_data,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "yV" = (
 /obj/structure/table,
@@ -7134,7 +7756,9 @@
 	id = "ADMINLOCKDOWN";
 	name = "Lockdown"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "yX" = (
 /obj/structure/window/reinforced,
@@ -7144,7 +7768,9 @@
 "za" = (
 /obj/structure/table,
 /obj/item/gun/projectile/automatic/pistol,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "zb" = (
 /obj/structure/table,
@@ -7152,24 +7778,40 @@
 /obj/item/reagent_containers/food/drinks/cans/adminbooze,
 /obj/item/reagent_containers/food/drinks/cans/badminbrew,
 /obj/item/reagent_containers/food/drinks/cans/madminmalt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
+"zc" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership/jail)
 "zd" = (
 /obj/machinery/door/airlock/hatch{
 	desc = "Danger: May contain robustness";
 	name = "Dojo"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "ze" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Shuttle Bay"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "zf" = (
 /obj/structure/showcase,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "zg" = (
 /obj/machinery/door/poddoor/preopen{
@@ -7221,7 +7863,9 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "zm" = (
 /obj/structure/window/reinforced{
@@ -7232,7 +7876,9 @@
 	},
 /obj/item/grenade/clusterbuster/smoke,
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "zn" = (
 /obj/machinery/door/airlock/external{
@@ -7299,7 +7945,9 @@
 /obj/structure/window/reinforced,
 /obj/structure/table/wood,
 /obj/item/sleeping_carp_scroll,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "zw" = (
 /obj/structure/window/reinforced{
@@ -7308,7 +7956,9 @@
 /obj/structure/window/reinforced,
 /obj/structure/table/wood,
 /obj/item/twohanded/bostaff,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "zy" = (
 /obj/structure/table/wood,
@@ -7320,13 +7970,17 @@
 /obj/structure/ninjatele{
 	pixel_x = -28
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "zA" = (
 /obj/structure/ninjatele{
 	pixel_x = 28
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "zB" = (
 /obj/structure/closet/emcloset,
@@ -7369,11 +8023,15 @@
 /obj/structure/toilet{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "zJ" = (
 /obj/structure/bed,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "zK" = (
 /obj/effect/decal/cleanable/fungus,
@@ -7381,14 +8039,18 @@
 /area/admin)
 "zL" = (
 /obj/item/flag/syndi,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "zM" = (
 /obj/machinery/door/window{
 	dir = 1;
 	name = "Suit Storage"
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "engine"
+	},
 /area/admin)
 "zN" = (
 /obj/machinery/door/poddoor/shutters{
@@ -7434,7 +8096,9 @@
 	name = "Cell B";
 	req_access_txt = "101"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "zW" = (
 /obj/structure/chair/office/dark{
@@ -7456,7 +8120,9 @@
 /area/centcom/control)
 "zY" = (
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "zZ" = (
 /obj/structure/urinal{
@@ -7473,16 +8139,22 @@
 /area/trader_station/sol)
 "Ac" = (
 /obj/machinery/iv_drip,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "Ad" = (
 /obj/machinery/vending/medical,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "Ae" = (
 /obj/structure/chair,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "Af" = (
 /turf/simulated/floor/plasteel{
@@ -7498,18 +8170,24 @@
 "Ah" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/straight_jacket,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "Ai" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/handcuffs,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "Aj" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/glasses/sunglasses/blindfold,
 /obj/item/clothing/mask/muzzle,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "Ak" = (
 /obj/machinery/door/airlock/centcom{
@@ -7541,7 +8219,7 @@
 	},
 /area/centcom/suppy)
 "Ap" = (
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor,
 /area/shuttle/syndicate_elite)
 "Aq" = (
 /obj/machinery/door/window/brigdoor{
@@ -7567,14 +8245,18 @@
 	desc = "Uh oh. You'd better hope you aren't going in here!";
 	name = "Prisoner Treatment"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "At" = (
 /obj/machinery/door/airlock/hatch{
 	desc = "Uh oh. You'd better hope you aren't going in here!";
 	name = "Detainment"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "Au" = (
 /turf/simulated/floor/plasteel{
@@ -7608,34 +8290,46 @@
 /obj/item/melee/classic_baton/telescopic,
 /obj/item/paper/Court,
 /obj/item/pen,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "Az" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/mousetraps,
 /obj/item/storage/box/trackimp,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "AA" = (
 /obj/structure/table/reinforced,
 /obj/item/scalpel,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "AB" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/grenades,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "AC" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/flashbangs,
 /obj/item/storage/box/flashes,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "AD" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/teargas,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "AE" = (
 /obj/machinery/door/window{
@@ -7643,20 +8337,26 @@
 	name = "Cell A";
 	req_access_txt = "101"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "AF" = (
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "AG" = (
 /obj/structure/toilet{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/admin)
 "AH" = (
 /obj/machinery/vending/snack,
@@ -7676,13 +8376,17 @@
 	name = "Security Doors";
 	opacity = 0
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "AJ" = (
 /obj/structure/rack,
 /obj/item/tank/jetpack/oxygen,
 /obj/item/tank/jetpack/oxygen,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "AK" = (
 /obj/structure/rack,
@@ -7692,7 +8396,9 @@
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/head/helmet/space,
 /obj/item/clothing/head/helmet/space,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "AL" = (
 /obj/structure/rack,
@@ -7701,55 +8407,75 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "AO" = (
 /obj/structure/table,
 /obj/random/powercell,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "AP" = (
 /obj/structure/table,
 /obj/random/tool,
 /obj/random/bomb_supply,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "AQ" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "AR" = (
 /obj/structure/table,
 /obj/random/technology_scanner,
 /obj/random/tech_supply,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "AS" = (
 /obj/machinery/computer/teleporter,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "AT" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/yellow,
 /obj/random/bomb_supply,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "AU" = (
 /obj/machinery/teleport/hub/upgraded{
 	admin_usage = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "AV" = (
 /obj/machinery/teleport/station,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "AW" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/electrical,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "neutralfull"
+	},
 /area/admin)
 "AX" = (
 /obj/machinery/door/poddoor/impassable{
@@ -7764,7 +8490,9 @@
 	tag = "icon-tube1 (WEST)"
 	},
 /obj/machinery/pdapainter,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "AZ" = (
 /obj/structure/table,
@@ -7774,7 +8502,9 @@
 	},
 /obj/item/storage/backpack/satchel,
 /obj/item/storage/backpack/satchel,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "Ba" = (
 /obj/machinery/light/spot{
@@ -7782,17 +8512,23 @@
 	tag = "icon-tube1 (WEST)"
 	},
 /obj/machinery/vending/tool,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "Bd" = (
 /obj/machinery/vending/coffee/free,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "Be" = (
 /obj/structure/table,
 /obj/item/storage/backpack/industrial,
 /obj/item/storage/backpack/industrial,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "Bg" = (
 /obj/structure/table/wood,
@@ -7803,7 +8539,9 @@
 /obj/structure/table,
 /obj/item/storage/backpack/medic,
 /obj/item/storage/backpack/medic,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "Bj" = (
 /obj/structure/table/wood,
@@ -7825,11 +8563,13 @@
 /obj/structure/table,
 /obj/item/storage/backpack/science,
 /obj/item/storage/backpack/science,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "Bn" = (
 /obj/machinery/door/airlock/hatch/syndicate,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
@@ -7877,7 +8617,9 @@
 /area/syndicate_mothership)
 "Bw" = (
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "Bx" = (
 /obj/structure/chair/stool,
@@ -7885,7 +8627,9 @@
 	name = "Syndicate-Commando";
 	tag = "Commando"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "By" = (
 /obj/machinery/computer/shuttle/syndicate{
@@ -7924,13 +8668,17 @@
 	id_tag = "sst_mechbay";
 	name = "Mech Bay"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BD" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Holding Cell"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BE" = (
 /obj/structure/rack,
@@ -7938,19 +8686,25 @@
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BF" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "sst_armory";
 	name = "Armory"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BG" = (
 /obj/mecha/combat/gygax/dark/loaded,
 /obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BH" = (
 /obj/structure/rack,
@@ -7964,7 +8718,9 @@
 /obj/item/ammo_box/magazine/smgm45,
 /obj/item/gun/projectile/automatic/c20r,
 /obj/item/gun/projectile/automatic/c20r,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BI" = (
 /obj/structure/rack,
@@ -7973,13 +8729,17 @@
 /obj/item/ammo_box/magazine/sniper_rounds/penetrator,
 /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage,
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BJ" = (
 /obj/structure/rack,
 /obj/item/gun/medbeam,
 /obj/item/clothing/glasses/hud/health/night,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BK" = (
 /obj/structure/rack,
@@ -7989,11 +8749,15 @@
 /obj/item/ammo_casing/rocket,
 /obj/item/ammo_casing/rocket,
 /obj/item/gun/rocketlauncher,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BL" = (
 /obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BM" = (
 /obj/machinery/door/airlock/hatch/syndicate{
@@ -8002,7 +8766,9 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "sit_ready"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BN" = (
 /obj/machinery/door/airlock/hatch/syndicate{
@@ -8011,12 +8777,16 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "sst_ready"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BO" = (
 /obj/machinery/bluespace_beacon/syndicate/infiltrator,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BP" = (
 /obj/structure/table/wood,
@@ -8028,71 +8798,95 @@
 /area/tdome/tdomeadmin)
 "BQ" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BS" = (
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BT" = (
 /obj/machinery/door/window/northleft{
 	name = "cell door";
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BU" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/machinery/computer/arcade/orion_trail,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BV" = (
 /obj/structure/chair,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BW" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BX" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen/red,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BY" = (
 /obj/structure/bed,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "BZ" = (
 /obj/structure/closet/secure_closet{
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "Ca" = (
 /obj/machinery/door/window/northleft{
 	name = "Out";
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "Cb" = (
 /obj/machinery/door/window/northright{
 	name = "In";
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "Cc" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "nukeop_base"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "Cd" = (
 /obj/machinery/door/airlock/external{
@@ -8147,7 +8941,9 @@
 /area/centcom/control)
 "Cf" = (
 /obj/structure/kitchenspike,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "Ch" = (
 /obj/structure/table,
@@ -8196,6 +8992,15 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_thunderdomecourt)
+"Cn" = (
+/obj/machinery/door/airlock/hatch/syndicate/command,
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "commandcenter"
+	},
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership)
 "Cp" = (
 /obj/item/paper_bin,
 /obj/item/pen,
@@ -8275,7 +9080,9 @@
 /area/centcom/control)
 "CD" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "CE" = (
 /obj/machinery/computer/security{
@@ -8639,7 +9446,9 @@
 	tag_exterior_door = "syndicate_jail_airlock_external";
 	tag_interior_door = "syndicate_jail_airlock_internal"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "DH" = (
 /obj/machinery/sleeper{
@@ -8734,14 +9543,13 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
-"DX" = (
-/turf/simulated/floor/mech_bay_recharge_floor,
-/area/admin)
 "DY" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Torture Room"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "DZ" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
@@ -9265,6 +10073,15 @@
 /obj/machinery/light/spot,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
+"Fv" = (
+/obj/machinery/light/spot{
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
+	},
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership)
 "Fw" = (
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	frequency = 1331;
@@ -9750,6 +10567,12 @@
 /obj/item/organ/internal/brain,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
+"GR" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership/jail)
 "GS" = (
 /obj/structure/closet/crate/secure/bin,
 /turf/simulated/floor/plasteel{
@@ -9822,7 +10645,9 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "engine"
+	},
 /area/admin)
 "Hc" = (
 /obj/structure/chair/comfy/brown{
@@ -9836,15 +10661,21 @@
 "Hg" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/space/space_ninja,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "engine"
+	},
 /area/admin)
 "Hh" = (
-/turf/simulated/floor/engine,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "engine"
+	},
 /area/admin)
 "Hi" = (
 /obj/structure/rack,
 /obj/item/clothing/head/helmet/space/space_ninja,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "engine"
+	},
 /area/admin)
 "Hj" = (
 /obj/machinery/door/poddoor/impassable{
@@ -9902,21 +10733,33 @@
 "Hr" = (
 /turf/simulated/wall/indestructible/syndicate,
 /area/syndicate_mothership/jail)
+"Ht" = (
+/obj/structure/bed,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership/jail)
 "Hu" = (
 /obj/structure/rack,
 /obj/item/clothing/gloves/space_ninja,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "engine"
+	},
 /area/admin)
 "Hv" = (
 /obj/structure/rack,
 /obj/item/katana/energy,
 /obj/item/clothing/mask/gas/space_ninja,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "engine"
+	},
 /area/admin)
 "Hw" = (
 /obj/structure/rack,
 /obj/item/clothing/shoes/space_ninja,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "engine"
+	},
 /area/admin)
 "Hx" = (
 /obj/structure/chair/comfy/shuttle{
@@ -10011,7 +10854,9 @@
 	dir = 1;
 	tag = "icon-tube1 (NORTH)"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "HO" = (
 /obj/structure/table/reinforced,
@@ -10045,7 +10890,9 @@
 /area/centcom/control)
 "HU" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "HV" = (
 /obj/structure/chair,
@@ -10070,6 +10917,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/tdomeadmin)
+"HZ" = (
+/obj/effect/landmark{
+	name = "syndieprisonwarp"
+	},
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership/jail)
 "Ia" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/chef/classic,
@@ -10126,7 +10981,7 @@
 	network = list("Thunderdome");
 	pixel_x = 10
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible,
 /area/tdome/arena)
 "Ih" = (
 /obj/structure/closet/emcloset,
@@ -10154,7 +11009,9 @@
 /obj/item/clothing/suit/armor/tdome/red,
 /obj/item/clothing/head/helmet/thunderdome,
 /obj/item/melee/energy/sword/saber/red,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/tdome/arena)
 "Il" = (
 /obj/machinery/computer/communications,
@@ -10186,7 +11043,9 @@
 /obj/item/clothing/suit/armor/tdome/green,
 /obj/item/clothing/head/helmet/thunderdome,
 /obj/item/melee/energy/sword/saber/green,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/tdome/arena)
 "Iq" = (
 /obj/structure/table/reinforced,
@@ -10216,7 +11075,7 @@
 "Iu" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/barricade/sandbags,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/indestructible,
 /area/tdome/arena)
 "Iv" = (
 /obj/structure/table/wood,
@@ -10261,7 +11120,9 @@
 /area/centcom/control)
 "Iz" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "IA" = (
 /obj/structure/table/wood,
@@ -10281,7 +11142,9 @@
 	req_access_txt = "150";
 	specialfunctions = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "IB" = (
 /obj/structure/table/wood,
@@ -10642,11 +11505,17 @@
 	pixel_y = -10
 	},
 /obj/item/clothing/glasses/sunglasses,
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/plasteel/indestructible{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "desert"
+	},
 /area/ninja/holding)
 "JD" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/plasteel/indestructible{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "desert"
+	},
 /area/ninja/holding)
 "JE" = (
 /obj/machinery/sleeper/upgraded{
@@ -10966,7 +11835,9 @@
 "KB" = (
 /obj/structure/table/wood,
 /obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "KC" = (
 /obj/machinery/access_button{
@@ -11563,7 +12434,9 @@
 /obj/item/surgicaldrill{
 	pixel_y = 5
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "Mp" = (
 /obj/structure/flora/ausbushes/fullgrass,
@@ -11685,7 +12558,9 @@
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "MD" = (
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/tdome/arena)
 "ME" = (
 /obj/structure/chair/stool/bar,
@@ -11778,7 +12653,9 @@
 /obj/item/storage/fancy/crayons,
 /obj/structure/table,
 /obj/item/storage/fancy/crayons,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/syndicate_mothership)
 "MX" = (
 /obj/structure/extinguisher_cabinet{
@@ -11939,7 +12816,9 @@
 	dir = 4;
 	tag = "icon-tube1 (EAST)"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "Nw" = (
 /obj/structure/table/wood,
@@ -11994,14 +12873,18 @@
 /obj/effect/landmark{
 	name = "tdome1"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/tdome/arena)
 "NG" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/landmark{
 	name = "syndieprisonwarp"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "NH" = (
 /obj/structure/chair/office/dark{
@@ -12156,6 +13039,12 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"Oa" = (
+/obj/machinery/light/spot,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership)
 "Od" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome Backstage"
@@ -12239,7 +13128,9 @@
 	locked = 1;
 	name = "Syndicate Jail Internal Airlock"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "On" = (
 /obj/item/radio{
@@ -12293,12 +13184,16 @@
 	locked = 1;
 	name = "Syndicate Jail External Airlock"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership)
 "Ov" = (
 /obj/structure/kitchenspike,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "Ow" = (
 /obj/machinery/iv_drip,
@@ -12357,7 +13252,9 @@
 "OH" = (
 /obj/item/soap/syndie,
 /obj/structure/mopbucket,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "freezerfloor"
+	},
 /area/syndicate_mothership)
 "OK" = (
 /obj/structure/table/reinforced,
@@ -12562,7 +13459,9 @@
 /area/shuttle/escape)
 "Pr" = (
 /obj/structure/chair/office/dark,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "Ps" = (
 /obj/machinery/computer/security/telescreen{
@@ -12869,7 +13768,9 @@
 	id_tag = "thunderdome";
 	name = "Thunderdome Blast Door"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/tdome/arena)
 "Qm" = (
 /obj/machinery/door/window{
@@ -12915,7 +13816,10 @@
 /area/centcom/evac)
 "Qt" = (
 /obj/machinery/poolcontroller/invisible,
-/turf/simulated/floor/beach/away/water,
+/turf/simulated/floor/plasteel/indestructible{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "seashallow"
+	},
 /area/ninja/holding)
 "Qu" = (
 /obj/effect/decal/cleanable/blood,
@@ -12923,7 +13827,9 @@
 /area/syndicate_mothership/jail)
 "Qv" = (
 /obj/machinery/door/window/westleft,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "Qw" = (
 /obj/structure/table,
@@ -13036,7 +13942,9 @@
 /obj/item/clothing/mask/muzzle{
 	pixel_y = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "QM" = (
 /obj/machinery/light_switch{
@@ -13677,7 +14585,9 @@
 	locked = 1;
 	name = "Syndicate Jail"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "SJ" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -13723,7 +14633,9 @@
 /turf/simulated/floor/wood,
 /area/centcom/control)
 "SR" = (
-/turf/simulated/floor/greengrid,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "gcircuit"
+	},
 /area/tdome/arena)
 "SS" = (
 /obj/structure/table/wood,
@@ -13894,7 +14806,9 @@
 /area/tdome/tdomeobserve)
 "Tw" = (
 /obj/structure/statue/uranium/nuke,
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "snow"
+	},
 /area/syndicate_mothership)
 "Tx" = (
 /obj/machinery/door/poddoor/impassable{
@@ -14103,7 +15017,7 @@
 /area/centcom/specops)
 "Ua" = (
 /obj/machinery/igniter/on,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	dir = 4;
 	icon_state = "green"
 	},
@@ -14396,7 +15310,9 @@
 /obj/effect/landmark{
 	name = "tdome2"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/tdome/arena)
 "Vc" = (
 /obj/structure/closet/crate/medical,
@@ -14464,7 +15380,9 @@
 "Vm" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/donkpockets,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "Vn" = (
 /obj/item/storage/firstaid/o2,
@@ -14623,7 +15541,9 @@
 /obj/structure/chair/comfy/purp{
 	dir = 1
 	},
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "cult"
+	},
 /area/wizard_station)
 "VP" = (
 /obj/machinery/computer/card,
@@ -14641,7 +15561,9 @@
 	network = list("Thunderdome");
 	pixel_x = 11
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/tdome/arena)
 "VS" = (
 /obj/machinery/computer/atmos_alert,
@@ -15192,7 +16114,9 @@
 	frequency = 1449;
 	pixel_x = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "Xr" = (
 /turf/simulated/floor/plasteel{
@@ -15340,7 +16264,9 @@
 	pixel_y = -8;
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 "XK" = (
 /obj/structure/chair/comfy/shuttle{
@@ -15392,7 +16318,9 @@
 	id_tag = "thunderdomegen";
 	name = "General Supply"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/tdome/arena)
 "XQ" = (
 /obj/structure/flora/ausbushes/fullgrass,
@@ -15710,7 +16638,9 @@
 	id = "tdomeflash";
 	name = "Thunderdome Flash"
 	},
-/turf/simulated/floor/greengrid,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "gcircuit"
+	},
 /area/tdome/arena)
 "YQ" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
@@ -15994,7 +16924,9 @@
 	},
 /obj/structure/rack/skeletal_bar/left,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
 /area/syndicate_mothership)
 "ZC" = (
 /obj/structure/window/reinforced,
@@ -16129,7 +17061,7 @@
 /area/centcom/evac)
 "ZX" = (
 /obj/item/paper/syndimemo,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/indestructible{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
@@ -16139,7 +17071,9 @@
 /area/centcom/specops)
 "ZZ" = (
 /obj/structure/closet/secure_closet/contractor,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "darkfull"
+	},
 /area/syndicate_mothership/jail)
 
 (1,1,1) = {"
@@ -51872,7 +52806,7 @@ aN
 aN
 aN
 ff
-dQ
+cW
 gP
 ff
 aN
@@ -52130,7 +53064,7 @@ ff
 cV
 ff
 gA
-gQ
+fu
 ff
 aN
 aN
@@ -58621,8 +59555,8 @@ hn
 hn
 kb
 kj
-kr
-kr
+om
+om
 kJ
 Yi
 aN
@@ -58878,8 +59812,8 @@ hn
 hn
 hn
 kj
-kr
-kr
+om
+om
 kJ
 Yi
 aN
@@ -59135,8 +60069,8 @@ iW
 eU
 Yi
 BQ
-kr
-kr
+om
+om
 kJ
 Yi
 aN
@@ -59388,12 +60322,12 @@ iy
 Yi
 Yi
 eU
-iV
+gj
 eU
 Yi
-qF
-kr
-kr
+om
+om
+om
 kJ
 Yi
 aN
@@ -59645,12 +60579,12 @@ iF
 Yi
 Yi
 eU
-iV
+gj
 eU
 Yi
 qG
-kr
-kr
+om
+om
 kJ
 Yi
 aN
@@ -59902,11 +60836,11 @@ Yi
 Yi
 Yi
 eU
-iV
+gj
 eU
 Yi
 kl
-kr
+om
 BW
 kL
 Yi
@@ -60159,7 +61093,7 @@ Yi
 Yi
 Yi
 eU
-iV
+gj
 eU
 Yi
 Yi
@@ -60403,8 +61337,8 @@ Bd
 gY
 gI
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -60416,7 +61350,7 @@ gj
 gj
 gj
 eU
-iV
+gj
 eU
 gj
 gj
@@ -60646,22 +61580,22 @@ Sq
 PU
 GA
 Yi
-kr
+om
 Yi
 kp
-kr
-kr
-kr
-kr
-kr
-kr
-kr
-kr
-kr
-mv
+om
+om
+om
+om
+om
+om
+om
+om
+om
+Oa
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -60903,22 +61837,22 @@ Mi
 Mi
 Xs
 Yi
-kr
+om
 hA
-kr
-kr
-kr
+om
+om
+om
 nq
 nq
-kr
-kr
-kr
-kr
-kr
-kr
+om
+om
+om
+om
+om
+om
 BM
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -61160,22 +62094,22 @@ Sq
 JH
 GA
 Yi
-mv
+Oa
 Yi
 kK
-kr
-kr
+om
+om
 nq
 ob
-kr
-kr
-kr
-kr
-kr
-mv
+om
+om
+om
+om
+om
+Oa
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -61417,22 +62351,22 @@ GA
 GA
 GA
 Yi
-kr
+om
 Yi
 hO
-kr
-kr
+om
+om
 gb
 ai
 lg
-kr
+om
 AZ
 Be
 Bh
 Bm
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -61674,7 +62608,7 @@ Yi
 Yi
 Yi
 Yi
-kr
+om
 Yi
 Yi
 oA
@@ -61688,8 +62622,8 @@ Yi
 Yi
 Yi
 Yi
-gg
-kr
+Fv
+om
 Yi
 aN
 aN
@@ -61928,10 +62862,10 @@ ab
 Yi
 hN
 ji
-kr
+om
 ga
-kr
-kr
+om
+om
 Yi
 nF
 oz
@@ -61939,14 +62873,14 @@ kr
 Br
 By
 Yi
-gg
-kr
+Fv
+om
 BT
 BV
 BX
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -62184,11 +63118,11 @@ ab
 ab
 Yi
 jh
-kr
-kr
+om
+om
 ai
-kr
-kr
+om
+om
 Yi
 nI
 kr
@@ -62202,8 +63136,8 @@ BU
 BW
 BY
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -62459,8 +63393,8 @@ Yi
 Yi
 Yi
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -62711,13 +63645,13 @@ Bu
 kr
 Yi
 zL
-kr
+om
 ga
-kr
-kr
-kr
-kr
-kr
+om
+om
+om
+om
+om
 Yi
 aN
 aN
@@ -62959,22 +63893,22 @@ ae
 ab
 Yi
 eT
-kr
-nx
+om
+Cn
 kr
 kr
 Bg
 Bt
 kr
-nx
-kr
-kr
-kr
-kr
-kr
-kr
-kr
-kr
+Cn
+om
+om
+om
+om
+om
+om
+om
+om
 Yi
 aN
 aN
@@ -63225,13 +64159,13 @@ Bv
 kr
 Yi
 zL
-kr
+om
 gb
-kr
-kr
-kr
-kr
-kr
+om
+om
+om
+om
+om
 Yi
 aN
 aN
@@ -63487,8 +64421,8 @@ Yi
 Yi
 Yi
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -63726,11 +64660,11 @@ ab
 ab
 Yi
 hN
-kr
-kr
+om
+om
 nr
-kr
-kr
+om
+om
 Yi
 nM
 kr
@@ -63744,8 +64678,8 @@ BI
 BJ
 BK
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -63984,10 +64918,10 @@ ab
 Yi
 jh
 ns
-kr
+om
 gb
-kr
-kr
+om
+om
 Yi
 nL
 oz
@@ -63995,14 +64929,14 @@ kr
 kr
 BA
 Yi
-gg
+Fv
 gb
-kr
-kr
-kr
+om
+om
+om
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -64244,7 +65178,7 @@ Yi
 Yi
 Yi
 Yi
-kr
+om
 Yi
 Yi
 zN
@@ -64258,8 +65192,8 @@ Yi
 Yi
 Yi
 Yi
-gg
-kr
+Fv
+om
 Yi
 aN
 aN
@@ -64501,22 +65435,22 @@ So
 So
 gj
 Yi
-kr
+om
 Yi
 zL
-kr
-kr
+om
+om
 ga
 nr
-kr
-kr
+om
+om
 Ba
 Bd
 gY
 gI
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -64758,22 +65692,22 @@ GD
 So
 So
 Yi
-mv
+Oa
 Yi
-gg
-kr
-kr
-kr
+Fv
+om
+om
+om
 Bx
 Bx
 Bx
-kr
-kr
-kr
-mv
+om
+om
+om
+Oa
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -65015,22 +65949,22 @@ ci
 Mq
 Ap
 Yi
-kr
+om
 hA
-kr
-kr
-kr
-kr
+om
+om
+om
+om
 Bw
 js
 Bw
-kr
-kr
-kr
-kr
+om
+om
+om
+om
 BN
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -65272,22 +66206,22 @@ UJ
 So
 So
 Yi
-kr
+om
 Yi
-gg
-kr
-kr
-kr
+Fv
+om
+om
+om
 Bx
 Bx
 Bx
-kr
-kr
-kr
+om
+om
+om
 jG
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -65536,15 +66470,15 @@ ix
 iE
 jq
 iE
-kr
+om
 iE
 jq
 iE
 jD
 jF
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -65800,8 +66734,8 @@ Yi
 Yi
 Yi
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -66046,19 +66980,19 @@ ac
 ab
 Yi
 nv
-kr
-kr
+om
+om
 ga
-kr
-kr
-kr
+om
+om
+om
 ga
-kr
-kr
+om
+om
 BL
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -66303,19 +67237,19 @@ eh
 ab
 Yi
 nS
-kr
+om
 nS
-kr
+om
 nS
-kr
+om
 BG
-kr
+om
 BG
-kr
+om
 BG
 Yi
 mG
-mv
+Oa
 Yi
 aN
 aN
@@ -66560,15 +67494,15 @@ Nd
 Nd
 Yi
 nP
-kr
+om
 nP
-kr
+om
 nP
-kr
+om
 nP
-kr
+om
 nP
-kr
+om
 nP
 Yi
 Ot
@@ -66828,8 +67762,8 @@ Yi
 Yi
 Yi
 Yi
-kr
-kr
+om
+om
 Yi
 aN
 aN
@@ -67086,7 +68020,7 @@ aN
 aN
 Yi
 DG
-mv
+Oa
 Yi
 aN
 aN
@@ -67597,10 +68531,10 @@ aN
 aN
 aN
 Hr
-WA
+ef
 XJ
-WA
-WA
+ef
+ef
 ZZ
 Hr
 Mo
@@ -67854,15 +68788,15 @@ aN
 aN
 aN
 Hr
-WA
-WA
-WA
-WA
-WA
+ef
+ef
+ef
+ef
+ef
 Hr
-WA
-Qu
-WA
+ef
+GR
+ef
 Hr
 aN
 aN
@@ -68115,10 +69049,10 @@ CD
 Qv
 CD
 CD
-WA
+ef
 DY
-WA
-WA
+ef
+ef
 mF
 Hr
 aN
@@ -68369,14 +69303,14 @@ aN
 aN
 Hr
 Vm
-WA
+ef
 Pr
 CD
-WA
+ef
 Hr
 HU
-WA
-Qu
+ef
+GR
 Hr
 aN
 aN
@@ -68626,14 +69560,14 @@ aN
 aN
 Hr
 KB
-WA
+ef
 Nv
 IA
-WA
+ef
 Hr
 Ov
 Cf
-Gu
+Ht
 Hr
 aN
 aN
@@ -69141,13 +70075,13 @@ aN
 Hr
 Gu
 MG
-Yx
-WA
-WA
-WA
-Yx
-MG
-Gu
+na
+ef
+ef
+ef
+na
+HZ
+Ht
 Hr
 aN
 aN
@@ -69399,12 +70333,12 @@ Hr
 ED
 Qu
 NW
-WA
-WA
-WA
+ef
+ef
+ef
 NW
-WA
-ED
+ef
+zc
 Hr
 aN
 aN
@@ -69657,7 +70591,7 @@ Hr
 NW
 NW
 HN
-WA
+ef
 ip
 NW
 NW
@@ -69913,12 +70847,12 @@ Hr
 Gu
 MG
 Yx
-WA
-WA
-WA
-Yx
+ef
+ef
+ef
+na
 NG
-Gu
+Ht
 Hr
 aN
 aN
@@ -70170,12 +71104,12 @@ Hr
 ED
 WA
 NW
-WA
-WA
-WA
+ef
+ef
+ef
 NW
-WA
-ED
+ef
+zc
 Hr
 aN
 aN
@@ -70428,7 +71362,7 @@ Hr
 NW
 NW
 HN
-WA
+ef
 ip
 NW
 NW
@@ -70681,15 +71615,15 @@ aN
 aN
 aN
 Hr
-Gu
-MG
-Yx
-Qu
-WA
-WA
-Yx
-MG
-Gu
+Ht
+HZ
+na
+GR
+ef
+ef
+na
+HZ
+Ht
 Hr
 aN
 aN
@@ -70938,15 +71872,15 @@ aN
 aN
 aN
 Hr
-ED
-WA
+zc
+ef
 NW
-WA
+ef
 Iz
-WA
+ef
 NW
-WA
-ED
+ef
+zc
 Hr
 aN
 aN
@@ -73411,7 +74345,7 @@ uT
 ur
 ur
 uu
-wl
+sg
 ur
 ur
 xr
@@ -74172,7 +75106,7 @@ aN
 aN
 aN
 ur
-DX
+uT
 uT
 uT
 uT

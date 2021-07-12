@@ -25,6 +25,31 @@
 /turf/simulated/floor/plasteel/airless/indestructible/ex_act(severity)
 	return
 
+/turf/simulated/floor/plasteel/indestructible //Thunderdome or other areas that should not be broken
+	name = "floor"
+	baseturf = /turf/simulated/floor/plasteel/indestructible
+
+/turf/simulated/floor/plasteel/indestructible/ChangeTurf()
+	return
+
+/turf/simulated/floor/plasteel/indestructible/ReplaceWithLattice()
+	return
+
+/turf/simulated/floor/plasteel/indestructible/break_tile_to_plating()
+	return
+
+/turf/simulated/floor/plasteel/indestructible/break_tile()
+	return
+
+/turf/simulated/floor/plasteel/indestructible/crowbar_act()
+	return
+
+/turf/simulated/floor/plasteel/indestructible/attackby()
+	return
+
+/turf/simulated/floor/plasteel/indestructible/ex_act(severity)
+	return
+
 /turf/simulated/floor/plasteel/goonplaque
 	icon_state = "plaque"
 	name = "Commemorative Plaque"
