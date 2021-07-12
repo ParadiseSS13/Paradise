@@ -29,7 +29,7 @@
 	name = "floor"
 	baseturf = /turf/simulated/floor/plasteel/indestructible
 
-/turf/simulated/floor/plasteel/indestructible/ChangeTurf()
+/turf/simulated/floor/plasteel/indestructible/ChangeTurf(defer_change, keep_icon, ignore_air)
 	return
 
 /turf/simulated/floor/plasteel/indestructible/ReplaceWithLattice()
