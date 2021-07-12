@@ -213,15 +213,16 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 	icon_state = SSticker.cultdat?.pylon_icon_state
-	blacklisted_turfs = typecacheof(list(
-		/turf/simulated/floor/engine/cult,
-		/turf/space,
-		/turf/simulated/wall/indestructible,
-		/turf/simulated/floor/plating/lava,
-		/turf/simulated/floor/chasm,
-		/turf/simulated/wall/cult,
-		/turf/simulated/wall/cult/artificer
-	))
+	if(!blacklisted_turfs)
+		blacklisted_turfs = typecacheof(list(
+			/turf/simulated/floor/engine/cult,
+			/turf/space,
+			/turf/simulated/wall/indestructible,
+			/turf/simulated/floor/plating/lava,
+			/turf/simulated/floor/chasm,
+			/turf/simulated/wall/cult,
+			/turf/simulated/wall/cult/artificer
+		))
 
 /obj/structure/cult/functional/pylon/attack_hand(mob/living/user)//override as it should not create anything
 	return
