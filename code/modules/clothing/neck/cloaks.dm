@@ -1,35 +1,41 @@
 //Cloaks. No, not THAT kind of cloak.
 
 /obj/item/clothing/neck/cloak
-	name = "brown cloak"
-	desc = "It's a cape that can be worn around your neck."
-	icon_state = "qmcloak"
+	name = "gray cloak"
+	desc = "It's a cape that can be worn around your neck in a pretty dull color."
+	icon_state = "cloak"
 	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = UPPER_TORSO|ARMS
 
-/obj/item/clothing/neck/cloak/hos
+/obj/item/clothing/neck/cloak/head_of_security
 	name = "head of security's cloak"
-	desc = "Worn by Securistan, ruling the station with an iron fist."
+	desc = "Worn by the leader of Brigston, ruling the station with an iron fist."
 	icon_state = "hoscloak"
 
-/obj/item/clothing/neck/cloak/qm
+/obj/item/clothing/neck/cloak/quartermaster
 	name = "quartermaster's cloak"
-	desc = "Worn by Cargonia, supplying the station with the necessary tools for survival."
+	desc = "Worn by the God-emperor of Cargonia, supplying the station with the necessary tools for survival."
 
-/obj/item/clothing/neck/cloak/cmo
+/obj/item/clothing/neck/cloak/chief_medical_officer
 	name = "chief medical officer's cloak"
-	desc = "Worn by Meditopia, the valiant men and women keeping pestilence at bay."
+	desc = "Worn by the leader of Medistan, the valiant men and women keeping pestilence at bay."
 	icon_state = "cmocloak"
 
-/obj/item/clothing/neck/cloak/ce
+/obj/item/clothing/neck/cloak/chief_engineer
 	name = "chief engineer's cloak"
-	desc = "Worn by Engitopia, wielders of an unlimited power."
+	desc = "Worn by the leader of both Atmosia and Delamistan, wielder of unlimited power."
 	icon_state = "cecloak"
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/neck/cloak/rd
+/obj/item/clothing/neck/cloak/chief_engineer/white
+	name = "chief engineer's cloak"
+	desc = "Worn by the leader of both Atmosia and Delamistan, wielder of unlimited power. This one is white."
+	icon_state = "cecloak_white"
+	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/neck/cloak/research_director
 	name = "research director's cloak"
-	desc = "Worn by Sciencia, thaumaturges and researchers of the universe."
+	desc = "Worn by the leader of Scientopia, the greatest thaumaturgist and researcher of the galaxy."
 	icon_state = "rdcloak"
 
 /obj/item/clothing/neck/cloak/captain
@@ -37,7 +43,11 @@
 	desc = "Worn by the supreme leader of Space Station 13."
 	icon_state = "capcloak"
 
-/obj/item/clothing/neck/cloak/hop
+/obj/item/clothing/neck/cloak/captain/Initialize(mapload)
+	. = ..()
+	desc = "Worn by the supreme leader of [station_name()]."
+
+/obj/item/clothing/neck/cloak/head_of_personnel
 	name = "head of personnel's cloak"
 	desc = "Worn by the Head of Personnel. It smells faintly of bureaucracy."
 	icon_state = "hopcloak"
@@ -61,6 +71,6 @@
 
 /obj/item/clothing/neck/cloak/rainbow
 	name = "holographic rainbow cloak"
-	desc = "Worn by the wisest of veteran employees, this legendary cloak is only attainable by maintaining a living employment agreement with Nanotrasen for over <b>five thousand hours</b>. This status symbol represents a being is better than you in nearly every quantifiable way, simple as that."
+	desc = "A holographic cloak capable of rapidly changing colors."
 	icon_state = "rainbowcloak"
 
