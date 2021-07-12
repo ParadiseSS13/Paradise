@@ -347,6 +347,8 @@
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
 	for(var/obj/machinery/light/L in src)
+		L.fire_mode = TRUE
+		L.on = FALSE
 		L.update()
 
 /**
@@ -363,6 +365,8 @@
 	for(var/obj/machinery/light/L in src)
 		if(emergency_mode) //The lights stay red until the crisis is resolved
 			return
+		L.fire_mode = FALSE
+		L.on = TRUE
 		L.update()
 
 /area/proc/updateicon()
