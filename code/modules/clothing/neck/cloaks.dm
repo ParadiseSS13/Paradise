@@ -15,6 +15,7 @@
 /obj/item/clothing/neck/cloak/quartermaster
 	name = "quartermaster's cloak"
 	desc = "Worn by the God-emperor of Cargonia, supplying the station with the necessary tools for survival."
+	icon_state = "qmcloak"
 
 /obj/item/clothing/neck/cloak/chief_medical_officer
 	name = "chief medical officer's cloak"
