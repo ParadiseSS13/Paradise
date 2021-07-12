@@ -14,8 +14,8 @@ SUBSYSTEM_DEF(acid)
 	..("P:[length(processing)]")
 
 /datum/controller/subsystem/acid/Initialize(start_timeofday)
-	. = ..()
 	acid_overlay = mutable_appearance('icons/effects/effects.dmi', "acid")
+	return ..()
 
 /datum/controller/subsystem/acid/fire(resumed = 0)
 	if(!resumed)
