@@ -21,6 +21,14 @@
 	var/maxcopies = 10	//how many copies can be copied at once- idea shamelessly stolen from bs12's copier!
 	var/mob/living/ass = null
 
+	//So that they shut down if too much is printed
+	/// Current static number of items printed
+	var/static/items_printed = 0
+	/// Maximum static number of items printed
+	var/static/max_items = 300
+	/// If max_items is reached, have admins been notified
+	var/static/copier_shutdown_logged = FALSE
+
 /obj/machinery/photocopier/attack_ai(mob/user)
 	return attack_hand(user)
 
@@ -68,14 +76,14 @@
 			if(toner <= 0)
 				break
 
-			if(GLOB.copier_items_printed >= GLOB.copier_max_items) //global vars defined in misc.dm
+			if(items_printed >= max_items)
 				if(prob(10))
 					visible_message("<span class='warning'>The printer screen reads \"PC LOAD LETTER\".</span>")
 				else
 					visible_message("<span class='warning'>The printer screen reads \"PHOTOCOPIER NETWORK OFFLINE, PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
-				if(!GLOB.copier_items_printed_logged)
-					message_admins("Photocopier cap of [GLOB.copier_max_items] papers reached, all photocopiers are now disabled. This may be the cause of any lag.")
-					GLOB.copier_items_printed_logged = TRUE
+				if(!copier_shutdown_logged)
+					message_admins("Photocopier cap of [max_items] papers reached, all photocopiers are now disabled. This may be the cause of any lag.")
+					copier_shutdown_logged = TRUE
 				break
 
 			if(istype(copyitem, /obj/item/paper))
@@ -99,7 +107,7 @@
 			else
 				to_chat(usr, "<span class='warning'>\The [copyitem] can't be copied by \the [src].</span>")
 				break
-			GLOB.copier_items_printed++
+			items_printed++
 			use_power(active_power_usage)
 		updateUsrDialog()
 	else if(href_list["remove"])
