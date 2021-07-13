@@ -9,17 +9,11 @@
 		return 0
 
 /mob/living/update_blurry_effects()
-	var/obj/screen/plane_master/game_world/GW = locate(/obj/screen/plane_master/game_world) in client.screen
-	var/obj/screen/plane_master/floor/F = locate(/obj/screen/plane_master/floor) in client.screen
-
-	if(eyes_blurred())
-		GW.add_blur()
-		F.add_blur()
-		return 1
+	var/atom/movable/plane_master_controller/game_plane_master_controller = hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+	if(eye_blurry)
+		game_plane_master_controller.add_filter("eye_blur", 1, gauss_blur_filter(clamp(eye_blurry * EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER, 0.6, MAX_EYE_BLURRY_FILTER_SIZE)))
 	else
-		GW.animate_remove_blur()
-		F.animate_remove_blur()
-		return 0
+		game_plane_master_controller.remove_filter("eye_blur")
 
 /mob/living/update_druggy_effects()
 	if(druggy)
