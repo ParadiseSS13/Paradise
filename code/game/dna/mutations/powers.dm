@@ -185,6 +185,7 @@
 	activation_messages = list("You feel smarter.")
 	deactivation_messages = list("You feel dumber.")
 	instability = GENE_INSTABILITY_MAJOR
+	traits_to_add = list(TRAIT_TELEKINESIS)
 	activation_prob = 15
 
 /datum/mutation/tk/New()

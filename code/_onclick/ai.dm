@@ -215,11 +215,3 @@
 	if(!ai_control_check(user))
 		return
 	toggle_light(user)
-
-// AI-CONTROLLED SLIP GENERATOR IN AI CORE
-
-/obj/machinery/ai_slipper/AICtrlClick(mob/living/silicon/ai/user) //Turns liquid dispenser on or off
-	ToggleOn()
-
-/obj/machinery/ai_slipper/AIAltClick() //Dispenses liquid if on
-	Activate()
