@@ -44,6 +44,7 @@
 #define ROLE_DEATHSQUAD			"deathsquad"
 #define ROLE_EVENTMISC			"eventmisc"
 #define ROLE_GHOST				"ghost role"
+#define ROLE_MOSQUITO			"giant mosquito"
 
 // Misc jobban categories
 #define ROLEBAN_AHUD			"AntagHUD"
@@ -58,6 +59,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_CHANGELING = /datum/game_mode/changeling, 		// Changeling
 	ROLE_BORER, 										// Cortical borer
 	ROLE_CULTIST = /datum/game_mode/cult, 				// Cultist
+	ROLE_MOSQUITO,										// Giant mosquito
 	ROLE_GSPIDER, 										// Giant spider
 	ROLE_GUARDIAN, 										// Guardian
 	ROLE_MORPH, 										// Morph
