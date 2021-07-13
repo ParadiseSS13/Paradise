@@ -47,6 +47,7 @@
 
 	var/damage_msg = "<span class='warning'>You feel an intense pain</span>"
 	var/broken_description
+	var/burn_description
 
 	var/open = 0  // If the body part has an open incision from surgery
 	var/sabotaged = 0 //If a prosthetic limb is emagged, it will detonate when it fails.
@@ -224,6 +225,8 @@
 
 	// See if bones need to break
 	check_fracture(brute)
+	//see if burns need to be applied
+	check_severe_burn(burn)
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
@@ -288,6 +291,7 @@ This function completely restores a damaged organ to perfect condition.
 /obj/item/organ/external/rejuvenate()
 	damage_state = "00"
 	surgeryize()
+	fix_severe_burn()
 	if(is_robotic())	//Robotic organs stay robotic.
 		status = ORGAN_ROBOT
 	else
@@ -403,6 +407,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(config.bones_can_break && brute_dam > min_broken_damage && !is_robotic())
 		if(prob(damage_inflicted))
 			fracture()
+
+/obj/item/organ/external/proc/check_severe_burn(damage_inflicted)
+	if(config.bones_can_break && burn_dam > min_broken_damage && !is_robotic())
+		if(prob(damage_inflicted))
+			severe_burn()
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
 	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
@@ -638,8 +647,37 @@ Note that amputating the affected organ does in fact remove the infection from t
 		owner.handle_splints()
 	return TRUE
 
+/obj/item/organ/external/proc/severe_burn()
+	if(status & ORGAN_BURNT || is_robotic() || ((NO_SEVERE_BURN) in owner.dna.species.species_traits))
+		return
+	if(owner)
+		owner.visible_message(
+			"<span class='warning'>You hear a quiet sizzling sound coming from [owner]'s [name].</span>",
+			"<span class='danger'>Your [name] blisters. The skin sloughs off to reveal a horrible burn!</span>",
+			"You hear a slight sizzle.")
+		playsound(owner, 'sound/effects/sizzle.ogg', 150, 1)
+		if(!HAS_TRAIT(owner, TRAIT_NOPAIN))
+			owner.emote("scream")
+	status |= ORGAN_BURNT
+	burn_description = "third-degree burn"
+	perma_injury = burn_dam
+	burn_mod *= BURN_WOUND_DAMAGE_MOD
+	brute_mod *= BURN_WOUND_DAMAGE_MOD
+
+/obj/item/organ/external/proc/fix_severe_burn()
+	if(is_robotic())
+		return
+
+	if(!(status & ORGAN_BURNT))
+		return
+	status &= ~ORGAN_BURNT
+	brute_mod /= BURN_WOUND_DAMAGE_MOD
+	burn_mod /= BURN_WOUND_DAMAGE_MOD
+	perma_injury = 0
+
 /obj/item/organ/external/robotize(company, make_tough = 0, convert_all = 1)
 	..()
+	fix_severe_burn() // your skin is being replaced by metal
 	//robot limbs take reduced damage
 	if(!make_tough)
 		brute_mod = 0.66
@@ -650,11 +688,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// Robot parts also lack bones
 	// This is so surgery isn't kaput, let's see how this does
 	encased = null
-
 	if(company && istext(company))
 		set_company(company)
-
-	cannot_break = 1
+	cannot_break = TRUE
 	get_icon()
 	for(var/obj/item/organ/external/T in children)
 		if((convert_all) || (T.type in convertable_children))

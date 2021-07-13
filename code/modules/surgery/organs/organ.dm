@@ -228,6 +228,7 @@
 /obj/item/organ/proc/robotize(make_tough) //Being used to make robutt hearts, etc
 	status &= ~ORGAN_BROKEN
 	status &= ~ORGAN_SPLINTED
+	status &= ~ORGAN_BURNT
 	status |= ORGAN_ROBOT
 
 /obj/item/organ/proc/remove(mob/living/user, special = 0)

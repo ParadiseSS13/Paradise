@@ -125,7 +125,7 @@
 	if(!affected)
 		return 0
 
-	if(!(affected.status & ORGAN_DEAD))
+	if(!(affected.status & ORGAN_DEAD) && !(affected.status & ORGAN_BURNT))
 		return 0
 	return 1
 
@@ -141,6 +141,7 @@
 	user.visible_message("<span class='notice'> [user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>", \
 		"<span class='notice'> You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>")
 	affected.open = 3
+	affected.fix_severe_burn()
 
 	return 1
 

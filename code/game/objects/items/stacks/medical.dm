@@ -207,8 +207,13 @@
 
 			H.UpdateDamageIcon()
 			use(1)
+			affecting.status |= ORGAN_SALVED
+			addtimer(CALLBACK(affecting, /obj/item/organ/external/.proc/remove_ointment), 200 SECONDS)
 		else
 			to_chat(user, "<span class='warning'>[affecting] is cut open, you'll need more than some ointment!</span>")
+
+/obj/item/organ/external/proc/remove_ointment() //deointmenterized
+	status &= ~ORGAN_SALVED
 
 
 /obj/item/stack/medical/ointment/advanced
