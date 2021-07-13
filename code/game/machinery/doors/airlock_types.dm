@@ -459,23 +459,6 @@
 					"<span class='warning'>You hear welding.</span>")
 	update_icon()
 
-
-//////////////////////////////////
-/*
-	Shuttle Airlocks
-*/
-
-/obj/machinery/door/airlock/shuttle
-	name = "shuttle airlock"
-	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
-	assemblytype = /obj/structure/door_assembly/door_assembly_shuttle
-	paintable = FALSE
-
-/obj/machinery/door/airlock/shuttle/glass
-	opacity = 0
-	glass = TRUE
-
 /obj/machinery/door/airlock/abductor
 	name = "alien airlock"
 	desc = "With humanity's current technological level, it could take years to hack this advanced airlock... or maybe we should give a screwdriver a try?"
@@ -548,6 +531,9 @@
 			L.Weaken(2)
 			L.throw_at(throwtarget, 5, 1,src)
 		return FALSE
+
+/obj/machinery/door/airlock/cult/screwdriver_act(mob/user, obj/item/I)
+	return
 
 /obj/machinery/door/airlock/cult/cult_conceal()
 	icon = stealth_icon

@@ -15,9 +15,6 @@
 /turf/simulated/floor/indestructible/narsie_act()
 	return
 
-/turf/simulated/floor/indestructible/ratvar_act(force, ignore_mobs)
-	return
-
 /turf/simulated/floor/indestructible/burn_down()
 	return
 
@@ -46,6 +43,10 @@
 	nitrogen = 23
 	temperature = 300
 	planetary_atmos = TRUE
+	footstep = FOOTSTEP_LAVA
+	barefootstep = FOOTSTEP_LAVA
+	clawfootstep = FOOTSTEP_LAVA
+	heavyfootstep = FOOTSTEP_LAVA
 
 /turf/simulated/floor/indestructible/necropolis/Initialize(mapload)
 	. = ..()

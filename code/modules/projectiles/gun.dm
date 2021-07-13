@@ -40,7 +40,7 @@
 	var/randomspread = 1
 
 	var/unique_rename = TRUE //allows renaming with a pen
-	var/unique_reskin = TRUE //allows one-time reskinning
+	var/unique_reskin = FALSE //allows one-time reskinning
 	var/current_skin = null //the skin choice if we had a reskin
 	var/list/options = list()
 
@@ -119,7 +119,7 @@
 	var/muzzle_strength = chambered.muzzle_flash_strength
 	var/muzzle_flash_time = 0.2 SECONDS
 	if(suppressed)
-		playsound(user, fire_sound, 10, 1)
+		playsound(user, fire_sound, 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 		muzzle_range *= 0.5
 		muzzle_strength *= 0.2
 		muzzle_flash_time *= 0.5
@@ -172,7 +172,7 @@
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check)
 		if(istype(user))
-			if((CLUMSY in user.mutations) && prob(40))
+			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
 				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
 				var/shot_leg = pick("l_foot", "r_foot")
 				process_fire(user, user, 0, params, zone_override = shot_leg)
@@ -291,7 +291,7 @@
 		else
 			return ..()
 
-/obj/item/gun/attack_obj(obj/O, mob/user)
+/obj/item/gun/attack_obj(obj/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		if(bayonet)
 			O.attackby(bayonet, user)

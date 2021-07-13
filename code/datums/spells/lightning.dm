@@ -88,7 +88,7 @@
 	var/mob/living/current = target
 	if(bounces < 1)
 		if(damaging)
-			current.electrocute_act(bolt_energy, "Lightning Bolt", safety = TRUE)
+			current.electrocute_act(bolt_energy, "Lightning Bolt", flags = SHOCK_NOGLOVES)
 		else
 			current.AdjustJitter(1000) //High numbers for violent convulsions
 			current.do_jitter_animation(current.jitteriness)
@@ -99,7 +99,7 @@
 		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 	else
 		if(damaging)
-			current.electrocute_act(bolt_energy, "Lightning Bolt", safety = TRUE)
+			current.electrocute_act(bolt_energy, "Lightning Bolt", flags = SHOCK_NOGLOVES)
 		else
 			current.AdjustJitter(1000) //High numbers for violent convulsions
 			current.do_jitter_animation(current.jitteriness)

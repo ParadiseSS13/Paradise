@@ -179,7 +179,7 @@
 	icon_state = "mixer0"
 
 //Prints a nice virus release form. Props to Urbanliner for the layout
-/obj/machinery/computer/pandemic/proc/print_form(var/datum/disease/advance/D, mob/living/user)
+/obj/machinery/computer/pandemic/proc/print_form(datum/disease/advance/D, mob/living/user)
 	D = GLOB.archive_diseases[D.GetDiseaseID()]
 	if(!(printing) && D)
 		var/reason = input(user,"Enter a reason for the release", "Write", null) as message

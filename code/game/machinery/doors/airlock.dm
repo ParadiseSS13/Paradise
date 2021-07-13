@@ -192,7 +192,7 @@ About the new airlock wires panel:
 			else
 				return
 		else if(user.hallucination > 50 && prob(10) && !operating)
-			if(user.electrocute_act(50, src, 1, illusion = TRUE)) // We'll just go with a flat 50 damage, instead of doing powernet checks
+			if(user.electrocute_act(50, src, flags = SHOCK_ILLUSION)) // We'll just go with a flat 50 damage, instead of doing powernet checks
 				return
 	..(user)
 
@@ -1285,6 +1285,7 @@ About the new airlock wires panel:
 		sleep(6)
 		if(QDELETED(src))
 			return
+		electronics = new /obj/item/airlock_electronics/destroyed()
 		operating = FALSE
 		if(!open())
 			update_icon(AIRLOCK_CLOSED, 1)
@@ -1406,9 +1407,6 @@ About the new airlock wires panel:
 			ae = electronics
 			electronics = null
 			ae.forceMove(loc)
-		if(emagged)
-			ae.icon_state = "door_electronics_smoked"
-			operating = 0
 	qdel(src)
 
 /obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock

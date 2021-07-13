@@ -14,6 +14,8 @@
 		pda.overlays += image('icons/obj/pda.dmi', "pda-light")
 	else
 		pda.overlays -= image('icons/obj/pda.dmi', "pda-light")
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 /datum/data/pda/utility/honk
 	name = "Honk Synthesizer"
@@ -39,6 +41,8 @@
 				M.open()
 			else
 				M.close()
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 /datum/data/pda/utility/scanmode/medical
 	base_name = "Med Scanner"

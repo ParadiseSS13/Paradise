@@ -122,7 +122,7 @@
 	message_admins("<span class='boldnotice'>GlobalNarrate: [key_name_admin(usr)]: [msg]<BR></span>", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Global Narrate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_direct_narrate(var/mob/M)	// Targetted narrate -- TLE
+/client/proc/cmd_admin_direct_narrate(mob/M)	// Targetted narrate -- TLE
 	set category = null
 	set name = "Direct Narrate"
 
@@ -498,11 +498,16 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!ckey)
 		var/list/candidates = list()
 		for(var/mob/M in GLOB.player_list)
-			if(M.stat != DEAD)		continue	//we are not dead!
-			if(!(ROLE_ALIEN in M.client.prefs.be_special))	continue	//we don't want to be an alium
-			if(jobban_isbanned(M, "alien") || jobban_isbanned(M, "Syndicate")) continue //we are jobbanned
-			if(M.client.is_afk())	continue	//we are afk
-			if(M.mind && M.mind.current && M.mind.current.stat != DEAD)	continue	//we have a live body we are tied to
+			if(M.stat != DEAD)
+				continue //we are not dead!
+			if(!(ROLE_ALIEN in M.client.prefs.be_special))
+				continue //we don't want to be an alium
+			if(jobban_isbanned(M, ROLE_ALIEN) || jobban_isbanned(M, ROLE_SYNDICATE))
+				continue //we are jobbanned
+			if(M.client.is_afk())
+				continue //we are afk
+			if(M.mind && M.mind.current && M.mind.current.stat != DEAD)
+				continue //we have a live body we are tied to
 			candidates += M.ckey
 		if(candidates.len)
 			ckey = input("Pick the player you want to respawn as a xeno.", "Suitable Candidates") as null|anything in candidates
@@ -526,7 +531,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	return 1
 
 
-/client/proc/get_ghosts(var/notify = 0,var/what = 2)
+/client/proc/get_ghosts(notify = 0, what = 2)
 	// what = 1, return ghosts ass list.
 	// what = 2, return mob list
 

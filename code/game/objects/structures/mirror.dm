@@ -147,10 +147,10 @@
 			if(voice_mutation)
 				if(H.dna.GetSEState(voice_mutation))
 					H.dna.SetSEState(voice_mutation, FALSE)
-					genemutcheck(H, voice_mutation, null, MUTCHK_FORCED)
+					singlemutcheck(H, voice_mutation, MUTCHK_FORCED)
 				else
 					H.dna.SetSEState(voice_mutation, TRUE)
-					genemutcheck(H, voice_mutation, null, MUTCHK_FORCED)
+					singlemutcheck(H, voice_mutation, MUTCHK_FORCED)
 
 			if(voice_choice)
 				curse(user)

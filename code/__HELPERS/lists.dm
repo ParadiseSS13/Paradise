@@ -39,7 +39,7 @@
 
 
 //Returns a list in plain english as a string
-/proc/english_list(var/list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "" )
+/proc/english_list(list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "" )
 	var/total = input.len
 	if(!total)
 		return "[nothing_text]"
@@ -60,7 +60,7 @@
 		return "[output][and_text][input[index]]"
 
 //Returns list element or null. Should prevent "index out of bounds" error.
-/proc/listgetindex(var/list/list,index)
+/proc/listgetindex(list/list, index)
 	if(istype(list) && list.len)
 		if(isnum(index))
 			if(InRange(index,1,list.len))
@@ -158,7 +158,7 @@
  * If skiprep = 1, repeated elements are treated as one.
  * If either of arguments is not a list, returns null
  */
-/proc/difflist(var/list/first, var/list/second, var/skiprep=0)
+/proc/difflist(list/first, list/second, skiprep=0)
 	if(!islist(first) || !islist(second))
 		return
 	var/list/result = new
@@ -176,7 +176,7 @@
  * If skipref = 1, repeated elements are treated as one.
  * If either of arguments is not a list, returns null
  */
-/proc/uniquemergelist(var/list/first, var/list/second, var/skiprep=0)
+/proc/uniquemergelist(list/first, list/second, skiprep=0)
 	if(!islist(first) || !islist(second))
 		return
 	var/list/result = new
@@ -236,7 +236,7 @@
 	return output
 
 //Randomize: Return the list in a random order
-/proc/shuffle(var/list/L)
+/proc/shuffle(list/L)
 	if(!L)
 		return
 	L = L.Copy()
@@ -247,20 +247,20 @@
 	return L
 
 //Return a list with no duplicate entries
-/proc/uniquelist(var/list/L)
+/proc/uniquelist(list/L)
 	. = list()
 	for(var/i in L)
 		. |= i
 
 //Mergesort: divides up the list into halves to begin the sort
-/proc/sortKey(var/list/client/L, var/order = 1)
+/proc/sortKey(list/client/L, order = 1)
 	if(isnull(L) || L.len < 2)
 		return L
 	var/middle = L.len / 2 + 1
 	return mergeKey(sortKey(L.Copy(0,middle)), sortKey(L.Copy(middle)), order)
 
 //Mergsort: does the actual sorting and returns the results back to sortAtom
-/proc/mergeKey(var/list/client/L, var/list/client/R, var/order = 1)
+/proc/mergeKey(list/client/L, list/client/R, order = 1)
 	var/Li=1
 	var/Ri=1
 	var/list/result = new()
@@ -277,7 +277,7 @@
 	return (result + R.Copy(Ri, 0))
 
 //Mergesort: divides up the list into halves to begin the sort
-/proc/sortAtom(var/list/atom/L, var/order = 1)
+/proc/sortAtom(list/atom/L, order = 1)
 	listclearnulls(L)
 	if(isnull(L) || L.len < 2)
 		return L
@@ -285,7 +285,7 @@
 	return mergeAtoms(sortAtom(L.Copy(0,middle)), sortAtom(L.Copy(middle)), order)
 
 //Mergsort: does the actual sorting and returns the results back to sortAtom
-/proc/mergeAtoms(var/list/atom/L, var/list/atom/R, var/order = 1)
+/proc/mergeAtoms(list/atom/L, list/atom/R, order = 1)
 	if(!L || !R) return 0
 	var/Li=1
 	var/Ri=1
@@ -306,7 +306,7 @@
 
 
 //Mergesort: Specifically for record datums in a list.
-/proc/sortRecord(var/list/datum/data/record/L, var/field = "name", var/order = 1)
+/proc/sortRecord(list/datum/data/record/L, field = "name", order = 1)
 	if(isnull(L))
 		return list()
 	if(L.len < 2)
@@ -315,7 +315,7 @@
 	return mergeRecordLists(sortRecord(L.Copy(0, middle), field, order), sortRecord(L.Copy(middle), field, order), field, order)
 
 //Mergsort: does the actual sorting and returns the results back to sortRecord
-/proc/mergeRecordLists(var/list/datum/data/record/L, var/list/datum/data/record/R, var/field = "name", var/order = 1)
+/proc/mergeRecordLists(list/datum/data/record/L, list/datum/data/record/R, field = "name", order = 1)
 	var/Li=1
 	var/Ri=1
 	var/list/result = new()
@@ -342,20 +342,20 @@
 
 
 //Mergesort: any value in a list
-/proc/sortList(var/list/L)
+/proc/sortList(list/L)
 	if(L.len < 2)
 		return L
 	var/middle = L.len / 2 + 1 // Copy is first,second-1
 	return mergeLists(sortList(L.Copy(0,middle)), sortList(L.Copy(middle))) //second parameter null = to end of list
 
 //Mergsorge: uses sortAssoc() but uses the var's name specifically. This should probably be using mergeAtom() instead
-/proc/sortNames(var/list/L)
+/proc/sortNames(list/L)
 	var/list/Q = new()
 	for(var/atom/x in L)
 		Q[x.name] = x
 	return sortAssoc(Q)
 
-/proc/mergeLists(var/list/L, var/list/R)
+/proc/mergeLists(list/L, list/R)
 	var/Li=1
 	var/Ri=1
 	var/list/result = new()
@@ -371,13 +371,13 @@
 
 
 // List of lists, sorts by element[key] - for things like crew monitoring computer sorting records by name.
-/proc/sortByKey(var/list/L, var/key)
+/proc/sortByKey(list/L, key)
 	if(L.len < 2)
 		return L
 	var/middle = L.len / 2 + 1
 	return mergeKeyedLists(sortByKey(L.Copy(0, middle), key), sortByKey(L.Copy(middle), key), key)
 
-/proc/mergeKeyedLists(var/list/L, var/list/R, var/key)
+/proc/mergeKeyedLists(list/L, list/R, key)
 	var/Li=1
 	var/Ri=1
 	var/list/result = new()
@@ -396,13 +396,13 @@
 
 
 //Mergesort: any value in a list, preserves key=value structure
-/proc/sortAssoc(var/list/L)
+/proc/sortAssoc(list/L)
 	if(L.len < 2)
 		return L
 	var/middle = L.len / 2 + 1 // Copy is first,second-1
 	return mergeAssoc(sortAssoc(L.Copy(0,middle)), sortAssoc(L.Copy(middle))) //second parameter null = to end of list
 
-/proc/mergeAssoc(var/list/L, var/list/R)
+/proc/mergeAssoc(list/L, list/R)
 	var/Li=1
 	var/Ri=1
 	var/list/result = new()
@@ -434,7 +434,7 @@
 	return r
 
 // Returns the key based on the index
-/proc/get_key_by_index(var/list/L, var/index)
+/proc/get_key_by_index(list/L, index)
 	var/i = 1
 	for(var/key in L)
 		if(index == i)
@@ -442,7 +442,7 @@
 		i++
 	return null
 
-/proc/count_by_type(var/list/L, type)
+/proc/count_by_type(list/L, type)
 	var/i = 0
 	for(var/T in L)
 		if(istype(T, type))
@@ -450,7 +450,7 @@
 	return i
 
 //Don't use this on lists larger than half a dozen or so
-/proc/insertion_sort_numeric_list_ascending(var/list/L)
+/proc/insertion_sort_numeric_list_ascending(list/L)
 	//log_world("ascending len input: [L.len]")
 	var/list/out = list(pop(L))
 	for(var/entry in L)
@@ -467,7 +467,7 @@
 	//log_world("	output: [out.len]")
 	return out
 
-/proc/insertion_sort_numeric_list_descending(var/list/L)
+/proc/insertion_sort_numeric_list_descending(list/L)
 	//log_world("descending len input: [L.len]")
 	var/list/out = insertion_sort_numeric_list_ascending(L)
 	//log_world("	output: [out.len]")
@@ -483,13 +483,13 @@
 		if(islist(.[i]))
 			.[i] = .(.[i])
 
-/proc/dd_sortedObjectList(var/list/L, var/cache=list())
+/proc/dd_sortedObjectList(list/L, list/cache = list())
 	if(L.len < 2)
 		return L
 	var/middle = L.len / 2 + 1 // Copy is first,second-1
 	return dd_mergeObjectList(dd_sortedObjectList(L.Copy(0,middle), cache), dd_sortedObjectList(L.Copy(middle), cache), cache) //second parameter null = to end of list
 
-/proc/dd_mergeObjectList(var/list/L, var/list/R, var/list/cache)
+/proc/dd_mergeObjectList(list/L, list/R, list/cache)
 	var/Li=1
 	var/Ri=1
 	var/list/result = new()
@@ -514,7 +514,7 @@
 	return (result + R.Copy(Ri, 0))
 
 // Insert an object into a sorted list, preserving sortedness
-/proc/dd_insertObjectList(var/list/L, var/O)
+/proc/dd_insertObjectList(list/L, O)
 	var/min = 1
 	var/max = L.len
 	var/Oval = O:dd_SortValue()
@@ -658,7 +658,7 @@ proc/dd_sortedObjectList(list/incoming)
 	var/case_sensitive = 1
 	return dd_sortedtextlist(incoming, case_sensitive)
 
-/proc/subtypesof(var/path) //Returns a list containing all subtypes of the given path, but not the given path itself.
+/proc/subtypesof(path) //Returns a list containing all subtypes of the given path, but not the given path itself.
 	if(!path || !ispath(path))
 		CRASH("Invalid path, failed to fetch subtypes of \"[path]\".")
 	return (typesof(path) - path)

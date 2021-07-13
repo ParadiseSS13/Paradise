@@ -150,16 +150,16 @@
 	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 	if(!ishuman(usr)) //Make sure they're a mob that has dna
-		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into the [src].</span>")
+		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into [src].</span>")
 		return
 	if(occupant)
-		to_chat(usr, "<span class='boldnotice'>The [src] is already occupied!</span>")
+		to_chat(usr, "<span class='boldnotice'>[src] is already occupied!</span>")
 		return
 	if(usr.abiotic())
 		to_chat(usr, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
 		return
 	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into the [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
+		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
 		return
 	usr.stop_pulling()
 	usr.forceMove(src)
@@ -188,7 +188,7 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The [src] is already occupied!</span>")
+		to_chat(user, "<span class='boldnotice'>[src] is already occupied!</span>")
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
@@ -200,9 +200,9 @@
 		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
 		return
 	if(L == user)
-		visible_message("[user] climbs into the [src].")
+		visible_message("<span class='notice'>[user] climbs into [src].</span>")
 	else
-		visible_message("[user] puts [L.name] into the [src].")
+		visible_message("<span class='notice'>[user] puts [L.name] into [src].</span>")
 	put_in(L)
 	if(user.pulling == L)
 		user.stop_pulling()
@@ -235,7 +235,7 @@
 			to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
 			return
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>will not fit into the [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
+			to_chat(user, "<span class='warning'>[G] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
 			return
 		if(panel_open)
 			to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
@@ -312,10 +312,8 @@
 	if(!occupant)
 		return TRUE
 
-	if(ishuman(occupant))
-		var/mob/living/carbon/human/H = occupant
-		if(NO_DNA in H.dna.species.species_traits)
-			return TRUE
+	if(HAS_TRAIT(occupant, TRAIT_GENELESS))
+		return TRUE
 
 	var/radiation_protection = occupant.run_armor_check(null, "rad")
 	if(radiation_protection > NEGATE_MUTATION_THRESHOLD)
@@ -473,7 +471,7 @@
 		occupantData["name"] = connected.occupant.dna.real_name
 		occupantData["stat"] = connected.occupant.stat
 		occupantData["isViableSubject"] = 1
-		if((NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !connected.occupant.dna || (NO_DNA in connected.occupant.dna.species.species_traits))
+		if((HAS_TRAIT(connected.occupant, TRAIT_BADDNA) && connected.scan_level < 3) || !connected.occupant.dna || HAS_TRAIT(connected.occupant, TRAIT_GENELESS))
 			occupantData["isViableSubject"] = 0
 		occupantData["health"] = connected.occupant.health
 		occupantData["maxHealth"] = connected.occupant.maxHealth
@@ -604,7 +602,7 @@
 
 				if(prob(20 + radiation_intensity))
 					randmutb(connected.occupant)
-					domutcheck(connected.occupant, connected)
+					domutcheck(connected.occupant)
 				else
 					randmuti(connected.occupant)
 					connected.occupant.UpdateAppearance()
@@ -659,7 +657,7 @@
 
 					//testing("Irradiated SE block [real_SE_block]:[selected_se_subblock] ([original_block] now [block]) [(real_SE_block!=selected_se_block) ? "(SHIFTED)":""]!")
 					connected.occupant.dna.SetSESubBlock(real_SE_block, selected_se_subblock, block)
-					domutcheck(connected.occupant, connected)
+					domutcheck(connected.occupant)
 				else
 					var/radiation = (((radiation_intensity * 2) + radiation_duration) / connected.damage_coeff)
 					connected.occupant.apply_effect(radiation, IRRADIATE)
@@ -670,7 +668,7 @@
 					if(prob(80 - radiation_duration))
 						//testing("Random bad mut!")
 						randmutb(connected.occupant)
-						domutcheck(connected.occupant, connected)
+						domutcheck(connected.occupant)
 					else
 						randmuti(connected.occupant)
 						//testing("Random identity mut!")
@@ -723,7 +721,7 @@
 				if("changeLabel")
 					ui_modal_input(src, "changeBufferLabel", "Please enter the new buffer label:", null, list("id" = bufferId), buffer.name, UI_MODAL_INPUT_MAX_LENGTH_NAME)
 				if("transfer")
-					if(!connected.occupant || (NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !connected.occupant.dna)
+					if(!connected.occupant || (HAS_TRAIT(connected.occupant, TRAIT_BADDNA) && connected.scan_level < 3) || !connected.occupant.dna)
 						return
 
 					irradiating = 2
@@ -752,7 +750,7 @@
 					else if(buf.types & DNA2_BUF_SE)
 						connected.occupant.dna.SE = buf.dna.SE.Copy()
 						connected.occupant.dna.UpdateSE()
-						domutcheck(connected.occupant, connected)
+						domutcheck(connected.occupant)
 				if("createInjector")
 					if(!injector_ready)
 						return

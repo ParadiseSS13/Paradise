@@ -121,7 +121,7 @@ Variable Breakdown (For Mappers):
 	mapGeneratorModule
 		mother - INTERNAL, do not touch
 		spawnableAtoms - A list of typepaths and their probability to spawn, eg: spawnableAtoms = list(/obj/structure/flora/tree/pine = 30)
-		spawnableTurfs - A list of typepaths and their probability to spawn, eg: spawnableTurfs = list(/turf/unsimulated/floor/grass = 100)
+		spawnableTurfs - A list of typepaths and their probability to spawn, eg: spawnableTurfs = list(/turf/simulated/floor/grass = 100)
 		clusterMax - The max range to check for something being "too close" for this atom/turf to spawn, the true value is random between clusterMin and clusterMax
 		clusterMin - The min range to check for something being "too close" for this atom/turf to spawn, the true value is random between clusterMin and clusterMax
 		clusterCheckFlags - A Bitfield that controls how the cluster checks work, All based on clusterMin and clusterMax guides

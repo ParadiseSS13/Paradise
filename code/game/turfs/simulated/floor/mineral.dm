@@ -144,6 +144,11 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig
 	name = "brig floor"
 
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen
+	oxygen = 0
+	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
+
 //BANANIUM
 /turf/simulated/floor/mineral/bananium
 	name = "bananium floor"
@@ -200,8 +205,10 @@
 	name = "silent floor"
 	icon_state = "tranquillite"
 	floor_tile = /obj/item/stack/tile/mineral/tranquillite
-	shoe_running_volume = 0
-	shoe_walking_volume = 0
+	footstep = null
+	barefootstep = null
+	clawfootstep = null
+	heavyfootstep = null
 
 //DIAMOND
 /turf/simulated/floor/mineral/diamond

@@ -22,7 +22,7 @@
 	name = "black wizard hat"
 	desc = "Strange-looking black hat-wear that most certainly belongs to a real skeleton. Spooky."
 	icon_state = "blackwizard"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/black_wizard
 
 /obj/item/clothing/head/wizard/clown
 	name = "purple wizard hat"
@@ -55,17 +55,17 @@
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
 
 /obj/item/clothing/head/wizard/marisa
-	name = "Witch Hat"
+	name = "witch hat"
 	desc = "Strange-looking hat-wear, makes you want to cast fireballs."
 	icon_state = "marisa"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/wizard/marisa
 
 /obj/item/clothing/head/wizard/magus
-	name = "Magus Helm"
+	name = "magus helm"
 	desc = "A mysterious helmet that hums with an unearthly power"
 	icon_state = "magus"
 	item_state = "magus"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/wizard/magus
 
 /obj/item/clothing/head/wizard/amp
 	name = "psychic amplifier"
@@ -119,19 +119,19 @@
 		)
 
 /obj/item/clothing/suit/wizrobe/marisa
-	name = "Witch Robe"
+	name = "witch robe"
 	desc = "Magic is all about the spell power, ZE!"
 	icon_state = "marisa"
 	item_state = "marisarobe"
 
 /obj/item/clothing/suit/wizrobe/magusblue
-	name = "Magus Robe"
+	name = "magus robe"
 	desc = "A set of armoured robes that seem to radiate a dark power"
 	icon_state = "magusblue"
 	item_state = "magusblue"
 
 /obj/item/clothing/suit/wizrobe/magusred
-	name = "Magus Robe"
+	name = "magus robe"
 	desc = "A set of armoured robes that seem to radiate a dark power"
 	icon_state = "magusred"
 	item_state = "magusred"
@@ -154,7 +154,7 @@
 	magical = FALSE
 
 /obj/item/clothing/head/wizard/marisa/fake
-	name = "Witch Hat"
+	name = "witch hat"
 	desc = "Strange-looking hat-wear, makes you want to cast fireballs."
 	icon_state = "marisa"
 	gas_transfer_coefficient = 1
@@ -164,7 +164,7 @@
 	magical = FALSE
 
 /obj/item/clothing/suit/wizrobe/marisa/fake
-	name = "Witch Robe"
+	name = "witch robe"
 	desc = "Magic is all about the spell power, ZE!"
 	icon_state = "marisa"
 	item_state = "marisarobe"
@@ -177,7 +177,7 @@
 //Shielded Armour
 
 /obj/item/clothing/suit/space/hardsuit/shielded/wizard
-	name = "battlemage armour"
+	name = "battlemage armor"
 	desc = "Not all wizards are afraid of getting up close and personal. Not spaceproof despite its appearance."
 	icon_state = "hardsuit-wiz"
 	item_state = "wiz_hardsuit"

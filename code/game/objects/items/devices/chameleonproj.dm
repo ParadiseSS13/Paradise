@@ -19,6 +19,7 @@
 	var/saved_underlays = null
 
 /obj/item/chameleon/dropped()
+	..()
 	disrupt()
 
 /obj/item/chameleon/equipped()
@@ -65,7 +66,7 @@
 		spawn(8)
 			qdel(T)
 
-/obj/item/chameleon/proc/disrupt(var/delete_dummy = 1)
+/obj/item/chameleon/proc/disrupt(delete_dummy = 1)
 	if(active_dummy)
 		do_sparks(5, 0, src)
 		eject_all()
@@ -90,7 +91,7 @@
 	var/can_move = 1
 	var/obj/item/chameleon/master = null
 
-/obj/effect/dummy/chameleon/proc/activate(var/obj/O, var/mob/M, new_icon, new_iconstate, new_overlays, new_underlays, var/obj/item/chameleon/C)
+/obj/effect/dummy/chameleon/proc/activate(obj/O, mob/M, new_icon, new_iconstate, new_overlays, new_underlays, obj/item/chameleon/C)
 	name = O.name
 	desc = O.desc
 	icon = new_icon
@@ -134,7 +135,7 @@
 	..()
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/relaymove(var/mob/user, direction)
+/obj/effect/dummy/chameleon/relaymove(mob/user, direction)
 	if(istype(loc, /turf/space) || !direction)
 		return //No magical space movement!
 

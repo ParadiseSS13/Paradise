@@ -2,17 +2,8 @@
 "aa" = (
 /turf/space,
 /area/space)
-"ab" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	dir = 8;
-	icon_state = "diagonalWall3"
-	},
-/area/shuttle/administration)
 "ac" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/administration)
 "ad" = (
 /obj/machinery/door/airlock/external{
@@ -21,9 +12,7 @@
 	req_access_txt = "101"
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/plating,
 /area/shuttle/administration)
 "ae" = (
 /obj/machinery/door/airlock/external{
@@ -42,49 +31,26 @@
 	width = 18
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"af" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	dir = 1;
-	icon_state = "diagonalWall3"
-	},
+/turf/simulated/floor/plating,
 /area/shuttle/administration)
 "ag" = (
 /obj/machinery/vending/boozeomat,
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ah" = (
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/beer,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ai" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/drinkingglasses,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aj" = (
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/soda,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"ak" = (
-/turf/simulated/shuttle/wall{
-	dir = 4;
-	icon_state = "wall3"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "al" = (
 /obj/machinery/door_control{
@@ -97,38 +63,28 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "am" = (
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "an" = (
 /obj/machinery/cell_charger,
 /obj/structure/table,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ao" = (
 /obj/item/storage/toolbox/mechanical,
 /obj/item/multitool,
 /obj/structure/table,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ap" = (
 /obj/structure/table,
 /obj/machinery/recharger{
 	pixel_y = 4
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aq" = (
 /obj/machinery/light/spot{
@@ -136,9 +92,7 @@
 	icon_state = "tube1";
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ar" = (
 /obj/machinery/door/poddoor/preopen{
@@ -152,9 +106,7 @@
 	opacity = 1;
 	req_access_txt = "101"
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "as" = (
 /obj/machinery/light/spot{
@@ -162,9 +114,7 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "at" = (
 /obj/item/stack/sheet/metal,
@@ -173,43 +123,31 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "au" = (
 /obj/machinery/mecha_part_fabricator/upgraded,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "av" = (
 /obj/machinery/kitchen_machine/microwave/upgraded,
 /obj/structure/table,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aw" = (
 /obj/machinery/door/window/northright{
 	name = "bar"
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ax" = (
 /obj/structure/table,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ay" = (
 /obj/item/ashtray/glass,
 /obj/structure/table,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "az" = (
 /obj/item/storage/fancy/cigarettes/dromedaryco,
@@ -217,9 +155,7 @@
 	pixel_x = 5
 	},
 /obj/structure/table,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aA" = (
 /obj/machinery/door_control{
@@ -228,9 +164,7 @@
 	pixel_x = -30;
 	req_access_txt = "101"
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aB" = (
 /obj/machinery/door/airlock/centcom{
@@ -239,9 +173,7 @@
 	opacity = 1;
 	req_access_txt = "101"
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aC" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -249,7 +181,7 @@
 	icon_state = "propulsion_l";
 	tag = "icon-propulsion_l (EAST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
 "aD" = (
 /obj/structure/shuttle/engine/heater{
@@ -261,45 +193,33 @@
 	color = "#FF0000";
 	dir = 4
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
 "aE" = (
 /obj/structure/chair/stool/bar,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aF" = (
 /obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aG" = (
 /obj/structure/reagent_dispensers/watertank,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aH" = (
 /obj/machinery/recharge_station/upgraded,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aI" = (
 /obj/machinery/autolathe/upgraded{
 	hacked = 1
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aJ" = (
 /obj/structure/dispenser,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aK" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -307,63 +227,36 @@
 	icon_state = "propulsion_r";
 	tag = "icon-propulsion_r (EAST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
 "aL" = (
 /obj/machinery/door/airlock/public/glass,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"aM" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	dir = 4;
-	icon_state = "diagonalWall3"
-	},
-/area/shuttle/administration)
-"aN" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "diagonalWall3"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aO" = (
 /obj/machinery/vending/snack,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aP" = (
 /obj/machinery/vending/cola,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aQ" = (
 /obj/machinery/vending/coffee,
 /obj/machinery/light/spot,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aR" = (
 /obj/machinery/vending/cigarette,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aS" = (
 /obj/machinery/computer/card,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aT" = (
 /obj/machinery/computer/communications,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aU" = (
 /obj/machinery/door/poddoor/shutters{
@@ -374,13 +267,7 @@
 	name = "Blast Shutters";
 	opacity = 0
 	},
-/obj/structure/grille,
-/obj/structure/shuttle/window{
-	tag = "icon-window5_end (WEST)";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	dir = 8
-	},
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "aV" = (
@@ -411,9 +298,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aW" = (
 /obj/structure/chair/comfy/black{
@@ -422,47 +307,21 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aX" = (
 /obj/machinery/computer/shuttle/admin{
 	name = "NTV Argos shuttle console"
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"aY" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 4;
-	icon_state = "open";
-	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/obj/structure/grille,
-/obj/structure/shuttle/window{
-	dir = 4;
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_mid";
-	tag = "icon-window5 (EAST)"
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aZ" = (
 /obj/machinery/dna_scannernew/upgraded,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "ba" = (
 /obj/machinery/computer/cloning,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bb" = (
 /obj/machinery/clonepod/upgraded,
@@ -471,15 +330,11 @@
 	icon_state = "tube1";
 	dir = 1
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bc" = (
 /obj/machinery/computer/scan_consolenew,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bd" = (
 /obj/machinery/door/airlock/centcom{
@@ -488,40 +343,16 @@
 	opacity = 1;
 	req_access_txt = "101"
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "be" = (
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin{
 	name = "NTV Argos shuttle navigation computer"
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"bf" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 4;
-	icon_state = "open";
-	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/obj/structure/grille,
-/obj/structure/shuttle/window{
-	tag = "icon-window5_end (EAST)";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	dir = 4
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "bg" = (
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bh" = (
 /obj/machinery/door/airlock/centcom{
@@ -530,24 +361,18 @@
 	opacity = 1;
 	req_access_txt = "101"
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bi" = (
 /obj/machinery/bodyscanner,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bk" = (
 /obj/structure/window/plasmareinforced{
 	color = "#FF0000";
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "bl" = (
 /obj/machinery/light/spot{
@@ -558,29 +383,21 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "bm" = (
 /obj/machinery/sleeper/upgraded{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bn" = (
 /obj/machinery/chem_master,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bo" = (
 /obj/machinery/chem_dispenser,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bp" = (
 /obj/machinery/door/airlock/centcom{
@@ -589,32 +406,24 @@
 	opacity = 1;
 	req_access_txt = "104"
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "bq" = (
 /obj/machinery/door/window/brigdoor/westleft{
 	color = "#d70000";
 	req_access_txt = "104"
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "br" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "bs" = (
 /obj/machinery/iv_drip,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bt" = (
 /obj/machinery/light/spot{
@@ -622,9 +431,7 @@
 	icon_state = "tube1";
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bu" = (
 /obj/structure/table,
@@ -634,9 +441,7 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "bv" = (
 /obj/structure/window/plasmareinforced{
@@ -646,17 +451,13 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "bw" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "bx" = (
 /obj/structure/table,
@@ -669,34 +470,24 @@
 /obj/item/scalpel,
 /obj/item/retractor,
 /obj/item/FixOVein,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "by" = (
 /obj/machinery/optable,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bz" = (
 /obj/machinery/vending/medical,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bA" = (
 /obj/machinery/light,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "bB" = (
 /obj/structure/table,
 /obj/item/storage/lockbox/mindshield,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "bC" = (
 /obj/structure/table,
@@ -705,24 +496,25 @@
 	pixel_y = 3
 	},
 /obj/item/storage/box/trackimp,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"vg" = (
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/administration)
 
 (1,1,1) = {"
 aa
 aa
 aa
-ab
+vg
 aC
 aK
-aN
+vg
 aa
-ab
+vg
 aC
 aK
-aN
+vg
 aa
 aa
 aa
@@ -733,17 +525,17 @@ aa
 (2,1,1) = {"
 aa
 aa
-ab
-ac
+vg
+vg
 aD
 aD
-ac
-ac
-ac
+vg
+vg
+vg
 aD
 aD
-ac
-aN
+vg
+vg
 aa
 aa
 aa
@@ -751,121 +543,121 @@ aa
 aa
 "}
 (3,1,1) = {"
-aa
-ab
-ac
+vg
+vg
+vg
 av
 am
 am
 aO
-ac
+vg
 aZ
 bg
 bg
 bm
-ac
-aN
+vg
+vg
 aa
 aa
 aa
 aa
 "}
 (4,1,1) = {"
-ab
+vg
 ag
 am
 aw
 am
 am
 aP
-ac
+vg
 ba
 bg
 bg
 bg
 bs
-ac
-aN
+vg
+vg
 aa
 aa
 aa
 "}
 (5,1,1) = {"
-ac
+vg
 ah
 am
 ax
 aE
 am
 aQ
-ac
+vg
 bb
 bg
 bg
 bg
 bg
 bx
-ac
+vg
 aa
 aa
 aa
 "}
 (6,1,1) = {"
-ac
+vg
 ai
 am
 ay
 aE
 am
 aR
-ac
+vg
 aZ
 bg
 bi
 bn
 bg
 by
-ac
+vg
 aa
 aa
 aa
 "}
 (7,1,1) = {"
-ac
+vg
 aj
 aq
 az
 aE
 am
 am
-ac
+vg
 bc
 bg
 bg
 bo
 bt
 bz
-ac
+vg
 aa
 aa
 aa
 "}
 (8,1,1) = {"
-ac
-ak
-ak
-ak
-ak
+vg
+vg
+vg
+vg
+vg
 aL
-ak
-ak
-ak
+vg
+vg
+vg
 bh
-ak
-ak
-ak
-ak
-ac
+vg
+vg
+vg
+vg
+vg
 aa
 aa
 aa
@@ -885,7 +677,7 @@ am
 am
 am
 am
-ac
+vg
 aa
 aa
 aa
@@ -905,126 +697,126 @@ am
 am
 am
 bA
-ac
+vg
 aa
 aa
 aa
 "}
 (11,1,1) = {"
-ac
-ak
-ak
+vg
+vg
+vg
 aB
-ak
-ak
-ak
+vg
+vg
+vg
 bd
-ak
-ak
-ak
+vg
+vg
+vg
 bp
-ak
-ak
-ac
+vg
+vg
+vg
 aa
 aa
 aa
 "}
 (12,1,1) = {"
-ac
+vg
 an
 as
 am
 aF
-ac
+vg
 aS
 am
 am
-ac
+vg
 am
 am
 bu
 bB
-ac
+vg
 aa
 aa
 aa
 "}
 (13,1,1) = {"
-ac
+vg
 ao
 am
 am
 aG
-ac
+vg
 aV
 aW
 aW
-ac
+vg
 am
 am
 am
 bC
-ac
+vg
 aa
 aa
 aa
 "}
 (14,1,1) = {"
-ac
+vg
 ap
 am
 am
 aH
-ac
+vg
 aT
 aX
 be
-ac
+vg
 am
 am
 am
 am
-ac
+vg
 aa
 aa
 aa
 "}
 (15,1,1) = {"
-af
-ac
+vg
+vg
 at
 am
 am
-ac
+vg
 aU
-aY
-bf
-ac
+aU
+aU
+vg
 bk
 bq
 bv
 ac
-aM
+vg
 aa
 aa
 aa
 "}
 (16,1,1) = {"
 aa
-ac
+vg
 au
 am
 aI
-ac
+vg
 aa
 aa
 aa
-ac
+vg
 am
 am
 bw
-ac
+vg
 aa
 aa
 aa
@@ -1032,19 +824,19 @@ aa
 "}
 (17,1,1) = {"
 aa
-af
-ac
+vg
+vg
 aq
 aJ
-ac
+vg
 aa
 aa
 aa
-ac
+vg
 bl
 br
-ac
-aM
+vg
+vg
 aa
 aa
 aa
@@ -1053,17 +845,17 @@ aa
 (18,1,1) = {"
 aa
 aa
-af
-ak
-ak
-aM
+vg
+vg
+vg
+vg
 aa
 aa
 aa
-af
-ak
-ak
-aM
+vg
+vg
+vg
+vg
 aa
 aa
 aa

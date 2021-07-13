@@ -198,7 +198,7 @@
 	var/icon/mob
 	dog_fashion = /datum/dog_fashion/head/kitty
 
-/obj/item/clothing/head/kitty/update_icon(var/mob/living/carbon/human/user)
+/obj/item/clothing/head/kitty/update_icon(mob/living/carbon/human/user)
 	if(!istype(user)) return
 	var/obj/item/organ/external/head/head_organ = user.get_organ("head")
 
@@ -210,7 +210,7 @@
 
 	icon_override = mob
 
-/obj/item/clothing/head/kitty/equipped(var/mob/M, slot)
+/obj/item/clothing/head/kitty/equipped(mob/M, slot)
 	. = ..()
 	if(ishuman(M) && slot == slot_head)
 		update_icon(M)
@@ -221,7 +221,7 @@
 	desc = "A pair of mouse ears. Squeak!"
 	icon_state = "mousey"
 
-/obj/item/clothing/head/kitty/mouse/update_icon(var/mob/living/carbon/human/user)
+/obj/item/clothing/head/kitty/mouse/update_icon(mob/living/carbon/human/user)
 	if(!istype(user)) return
 	var/obj/item/organ/external/head/head_organ = user.get_organ("head")
 	mob = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "mousey")

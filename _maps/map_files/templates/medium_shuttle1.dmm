@@ -8,7 +8,7 @@
 	icon_state = "burst_l";
 	tag = "icon-burst_l (EAST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
@@ -23,40 +23,17 @@
 	icon_state = "rwindow";
 	dir = 4
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
 "d" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-wall3";
-	icon_state = "wall3"
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"e" = (
-/turf/space,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (NORTHEAST)";
-	icon_state = "wall3";
-	dir = 5
-	},
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
 "f" = (
-/turf/simulated/shuttle/wall,
-/turf/simulated/shuttle/wall{
-	tag = "icon-wall3 (SOUTHEAST)";
-	icon_state = "wall3";
-	dir = 6
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"g" = (
-/turf/simulated/shuttle/wall,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
@@ -159,7 +136,7 @@
 	name = "Shuttle"
 	})
 "t" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/ruin/powered{
 	name = "Shuttle"
@@ -170,15 +147,6 @@
 /turf/simulated/floor/plasteel{
 	tag = "icon-dark";
 	icon_state = "dark"
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"v" = (
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-window1";
-	icon_state = "window1"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -194,51 +162,13 @@
 /area/ruin/powered{
 	name = "Shuttle"
 	})
-"x" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-diagonalWall (NORTHWEST)";
-	icon_state = "diagonalWall";
-	dir = 9
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"y" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-wall";
-	icon_state = "wall"
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
 "z" = (
 /obj/structure/shuttle/engine/propulsion/burst/right{
 	dir = 8;
 	icon_state = "burst_r";
 	tag = "icon-burst_r (EAST)"
 	},
-/turf/simulated/shuttle/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"A" = (
-/turf/simulated/shuttle/wall,
-/turf/simulated/shuttle/wall{
-	tag = "icon-wall3 (NORTHEAST)";
-	icon_state = "wall3";
-	dir = 5
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"B" = (
-/turf/space,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (SOUTHEAST)";
-	icon_state = "wall3";
-	dir = 6
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
@@ -277,16 +207,6 @@
 /turf/simulated/floor/plasteel{
 	tag = "icon-dark";
 	icon_state = "dark"
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"G" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-diagonalWall (SOUTHEAST)";
-	icon_state = "diagonalWall";
-	dir = 6
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -405,12 +325,7 @@
 	name = "Shuttle"
 	})
 "T" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-diagonalWall (SOUTHEAST)";
-	icon_state = "diagonalWall";
-	dir = 6
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/space)
 "U" = (
 /obj/structure/table/reinforced,
@@ -430,11 +345,11 @@ a
 a
 a
 a
-g
+f
 h
-g
+f
 h
-g
+f
 a
 a
 a
@@ -447,11 +362,11 @@ a
 a
 a
 a
-g
+f
 o
 o
 o
-g
+f
 a
 a
 a
@@ -462,15 +377,15 @@ a
 a
 a
 a
-g
-g
-g
+f
+f
+f
 p
-g
+f
 p
-g
-g
-y
+f
+f
+f
 a
 a
 a
@@ -479,15 +394,15 @@ a
 b
 b
 b
-g
+f
 N
-g
+f
 O
 o
 P
-g
+f
 Q
-g
+f
 z
 z
 z
@@ -496,7 +411,7 @@ z
 c
 c
 c
-g
+f
 j
 k
 o
@@ -504,7 +419,7 @@ i
 o
 p
 j
-g
+f
 c
 c
 c
@@ -513,40 +428,40 @@ c
 d
 d
 f
-g
+f
 k
-g
-g
-g
-g
-g
+f
+f
+f
+f
+f
 k
-g
-A
+f
+f
 d
 d
 "}
 (7,1,1) = {"
 d
 d
-g
+f
 l
 j
-g
+f
 n
 n
 n
-g
+f
 j
 j
-g
+f
 d
 d
 "}
 (8,1,1) = {"
 d
 d
-g
+f
 C
 S
 k
@@ -556,41 +471,41 @@ j
 k
 j
 D
-g
+f
 d
-B
+d
 "}
 (9,1,1) = {"
-e
 d
-g
+d
+f
 u
 j
-g
+f
 j
 w
 j
-g
+f
 R
 j
-g
-B
+f
+d
 a
 "}
 (10,1,1) = {"
 a
-e
-g
-g
-g
-g
+d
+f
+f
+f
+f
 k
-g
+f
 k
-g
-g
-g
-g
+f
+f
+f
+f
 a
 a
 "}
@@ -602,7 +517,7 @@ j
 k
 j
 j
-v
+t
 j
 j
 k
@@ -616,13 +531,13 @@ a
 a
 h
 j
-g
+f
 E
 j
-v
+t
 j
 F
-g
+f
 j
 h
 a
@@ -631,17 +546,17 @@ a
 (13,1,1) = {"
 a
 a
-g
-g
-g
-g
+f
+f
+f
+f
 k
-g
+f
 k
-g
-g
-g
-g
+f
+f
+f
+f
 a
 a
 "}
@@ -649,16 +564,16 @@ a
 a
 a
 T
-g
-g
+f
+f
 m
 q
-v
+t
 j
 I
-g
-g
-x
+f
+f
+f
 a
 a
 "}
@@ -666,15 +581,15 @@ a
 a
 a
 a
-G
-g
+f
+f
 H
 q
-v
+t
 j
 I
-g
-x
+f
+f
 a
 a
 a
@@ -684,13 +599,13 @@ a
 a
 a
 a
-g
-g
+f
+f
 k
-g
+f
 k
-g
-g
+f
+f
 a
 a
 a
@@ -701,13 +616,13 @@ a
 a
 a
 a
-g
+f
 J
 j
-g
+f
 j
 j
-g
+f
 a
 a
 a
@@ -718,13 +633,13 @@ a
 a
 a
 a
-g
+f
 K
 j
-g
+f
 j
 w
-g
+f
 a
 a
 a
@@ -735,13 +650,13 @@ a
 a
 a
 a
-g
-g
+f
+f
 k
-g
+f
 k
-g
-g
+f
+f
 a
 a
 a
@@ -752,13 +667,13 @@ a
 a
 a
 a
-G
-g
+f
+f
 r
 r
 r
-g
-x
+f
+f
 a
 a
 a
@@ -770,11 +685,11 @@ a
 a
 a
 a
-g
+f
 r
 L
 r
-g
+f
 a
 a
 a
@@ -787,11 +702,11 @@ a
 a
 a
 a
-g
+f
 U
 M
 s
-g
+f
 a
 a
 a
@@ -804,11 +719,11 @@ a
 a
 a
 a
-G
+f
 t
 t
 t
-x
+f
 a
 a
 a

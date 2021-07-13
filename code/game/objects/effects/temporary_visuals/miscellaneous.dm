@@ -83,7 +83,7 @@
 
 /obj/effect/temp_visual/dir_setting/wraith
 	name = "blood"
-	icon = 'icons/mob/mob.dmi'
+	icon = 'icons/mob/cult.dmi'
 	icon_state = "phase_shift2"
 	duration = 12
 
@@ -354,3 +354,12 @@
 /obj/effect/temp_visual/impact_effect/ion
 	icon_state = "shieldsparkles"
 	duration = 6
+
+/obj/effect/temp_visual/bsg_kaboom
+	name = "bluespace explosion"
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "explosionfast"
+	color = "blue"
+	pixel_x = -32
+	pixel_y = -32
+	duration = 42

@@ -440,7 +440,7 @@
 	if(!is_station_level(z))
 		return
 
-	var/msg = "Now available in [get_area_name(src, TRUE) || "Unknown"]:"
+	var/list/msg = list("Now available in [get_area_name(src, TRUE) || "Unknown"]:")
 	var/mats_in_stock = list()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/MAT in materials.materials)
@@ -448,7 +448,7 @@
 		var/mineral_amount = M.amount / MINERAL_MATERIAL_AMOUNT
 		if(mineral_amount)
 			mats_in_stock += M.id
-		msg += "[capitalize(M.name)]: [mineral_amount] sheets"
+			msg.Add("[capitalize(M.name)]: [mineral_amount] sheets")
 
 	// No point sending a message if we're dry
 	if(!length(mats_in_stock))

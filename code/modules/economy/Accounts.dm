@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 //the current ingame time (hh:mm:ss) can be obtained by calling:
 //station_time_timestamp("hh:mm:ss")
 
-/proc/create_account(var/new_owner_name = "Default user", var/starting_funds = 0, var/obj/machinery/computer/account_database/source_db)
+/proc/create_account(new_owner_name = "Default user", starting_funds = 0, obj/machinery/computer/account_database/source_db)
 
 	//create a new account
 	var/datum/money_account/M = new()
@@ -148,18 +148,18 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 	return 0
 
 //this returns the first account datum that matches the supplied accnum/pin combination, it returns null if the combination did not match any account
-/proc/attempt_account_access(var/attempt_account_number, var/attempt_pin_number, var/security_level_passed = 0,var/pin_needed=1)
+/proc/attempt_account_access(attempt_account_number, attempt_pin_number, security_level_passed = 0, pin_needed=1)
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == attempt_account_number)
 			if( D.security_level <= security_level_passed && (!D.security_level || D.remote_access_pin == attempt_pin_number || !pin_needed) )
 				return D
 
-/obj/machinery/computer/account_database/proc/get_account(var/account_number)
+/obj/machinery/computer/account_database/proc/get_account(account_number)
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == account_number)
 			return D
 
-/proc/attempt_account_access_nosec(var/attempt_account_number)
+/proc/attempt_account_access_nosec(attempt_account_number)
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == attempt_account_number)
 			return D

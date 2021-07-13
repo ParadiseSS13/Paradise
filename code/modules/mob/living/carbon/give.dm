@@ -1,4 +1,4 @@
-/mob/living/carbon/verb/give(var/mob/living/carbon/target in oview(1))
+/mob/living/carbon/verb/give(mob/living/carbon/target in oview(1))
 	set category = "IC"
 	set name = "Give"
 
@@ -8,7 +8,7 @@
 
 	if(target.incapacitated() || usr.incapacitated() || target.client == null)
 		return
-	
+
 	var/obj/item/I = get_active_hand()
 
 	if(!I)

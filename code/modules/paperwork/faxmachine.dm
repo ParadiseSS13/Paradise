@@ -226,7 +226,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(.)
 		add_fingerprint(usr)
 
-/obj/machinery/photocopier/faxmachine/proc/scan(var/obj/item/card/id/card = null)
+/obj/machinery/photocopier/faxmachine/proc/scan(obj/item/card/id/card = null)
 	if(scan) // Card is in machine
 		if(ishuman(usr))
 			scan.forceMove(get_turf(src))
@@ -266,7 +266,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	else
 		to_chat(usr, "There is nothing to remove from [src].")
 
-/obj/machinery/photocopier/faxmachine/proc/sendfax(var/destination,var/mob/sender)
+/obj/machinery/photocopier/faxmachine/proc/sendfax(destination, mob/sender)
 	use_power(active_power_usage)
 	var/success = 0
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
@@ -286,7 +286,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	else
 		visible_message("[src] beeps, \"Error transmitting message.\"")
 
-/obj/machinery/photocopier/faxmachine/proc/receivefax(var/obj/item/incoming)
+/obj/machinery/photocopier/faxmachine/proc/receivefax(obj/item/incoming)
 	if(stat & (BROKEN|NOPOWER))
 		return FALSE
 
@@ -312,7 +312,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	use_power(active_power_usage)
 	return TRUE
 
-/obj/machinery/photocopier/faxmachine/proc/send_admin_fax(var/mob/sender, var/destination)
+/obj/machinery/photocopier/faxmachine/proc/send_admin_fax(mob/sender, destination)
 	use_power(active_power_usage)
 
 	if(!(istype(copyitem, /obj/item/paper) || istype(copyitem, /obj/item/paper_bundle) || istype(copyitem, /obj/item/photo)))
@@ -344,13 +344,14 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return 0
 	return round((sendcooldown - world.time) / 10)
 
-/obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/faxtype, var/obj/item/sent, font_colour="#9A04D1")
+/obj/machinery/photocopier/faxmachine/proc/message_admins(mob/sender, faxname, faxtype, obj/item/sent, font_colour="#9A04D1")
 	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<A HREF='?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : "CentcommReply"]=[sender.UID()]'>RADIO</A>) (<a href='?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<A HREF='?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</A>) ([ADMIN_BSA(sender,"BSA")]) (<A HREF='?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	var/fax_sound = sound('sound/effects/adminhelp.ogg')
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))
 			to_chat(C, msg)
 			if(C.prefs.sound & SOUND_ADMINHELP)
-				C << 'sound/effects/adminhelp.ogg'
+				SEND_SOUND(C, fax_sound)
 
 /obj/machinery/photocopier/faxmachine/proc/become_mimic()
 	if(scan)

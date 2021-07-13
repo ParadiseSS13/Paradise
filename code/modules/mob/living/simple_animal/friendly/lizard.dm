@@ -22,6 +22,7 @@
 	can_hide = 1
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
 	can_collar = 1
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST | MOB_REPTILE
 	gold_core_spawnable = FRIENDLY_SPAWN
 
 /mob/living/simple_animal/lizard/decompile_act(obj/item/matter_decompiler/C, mob/user)
