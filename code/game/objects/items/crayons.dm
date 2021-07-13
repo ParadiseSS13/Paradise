@@ -174,6 +174,11 @@
 			colourName = "purple"
 	..()
 
+/obj/item/toy/crayon/black
+	icon_state = "crayonblack"
+	colour = "#000000"
+	colourName = "black"
+
 /obj/item/toy/crayon/white
 	icon_state = "crayonwhite"
 	colour = "#FFFFFF"
@@ -232,23 +237,23 @@
 //Spraycan stuff
 
 /obj/item/toy/crayon/spraycan
-	icon_state = "spraycan_cap"
+	name = "\improper Nanotrasen-brand Rapid Paint Applicator"
 	desc = "A metallic container containing tasty paint."
+	icon_state = "spraycan_cap"
 	var/capped = 1
 	instant = 1
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 
 /obj/item/toy/crayon/spraycan/New()
 	..()
-	name = "Nanotrasen-brand Rapid Paint Applicator"
 	update_icon()
 
 /obj/item/toy/crayon/spraycan/attack_self(mob/living/user as mob)
 	var/choice = input(user,"Spraycan options") in list("Toggle Cap","Change Drawing","Change Color")
 	switch(choice)
 		if("Toggle Cap")
-			to_chat(user, "<span class='notice'>You [capped ? "Remove" : "Replace"] the cap of the [src]</span>")
-			capped = capped ? 0 : 1
+			to_chat(user, "<span class='notice'>You [capped ? "remove" : "replace"] the cap of [src].</span>")
+			capped = !capped
 			icon_state = "spraycan[capped ? "_cap" : ""]"
 			update_icon()
 		if("Change Drawing")

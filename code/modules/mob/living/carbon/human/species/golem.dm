@@ -4,7 +4,7 @@
 
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 
-	species_traits = list(NO_BLOOD)
+	species_traits = list(NO_BLOOD, NO_HAIR)
 	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN)
 	inherent_biotypes = MOB_HUMANOID | MOB_MINERAL
 	dies_at_threshold = TRUE
@@ -392,8 +392,8 @@
 	if(!(P.original == H && P.firer == H))
 		if(P.flag == "bullet" || P.flag == "bomb")
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, 1)
-			H.visible_message("<span class='danger'>The [P.name] sinks harmlessly in [H]'s sandy body!</span>", \
-			"<span class='userdanger'>The [P.name] sinks harmlessly in [H]'s sandy body!</span>")
+			H.visible_message("<span class='danger'>[P] sinks harmlessly in [H]'s sandy body!</span>", \
+			"<span class='userdanger'>[P] sinks harmlessly in [H]'s sandy body!</span>")
 			return FALSE
 	return TRUE
 
@@ -425,8 +425,8 @@
 /datum/species/golem/glass/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H)) //self-shots don't reflect
 		if(P.is_reflectable)
-			H.visible_message("<span class='danger'>The [P.name] gets reflected by [H]'s glass skin!</span>", \
-			"<span class='userdanger'>The [P.name] gets reflected by [H]'s glass skin!</span>")
+			H.visible_message("<span class='danger'>[P] gets reflected by [H]'s glass skin!</span>", \
+			"<span class='userdanger'>[P] gets reflected by [H]'s glass skin!</span>")
 
 			P.reflect_back(H)
 

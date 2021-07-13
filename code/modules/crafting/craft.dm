@@ -245,7 +245,7 @@
 				var/obj/item/stack/SD
 				while(amt > 0)
 					S = locate(A) in surroundings
-					if(S.amount >= amt)
+					if(S.get_amount() >= amt)
 						if(!locate(S.type) in Deletion)
 							SD = new S.type()
 							Deletion += SD

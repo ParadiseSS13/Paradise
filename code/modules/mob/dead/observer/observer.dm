@@ -360,20 +360,21 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!client)
 		return
 	var/mob/dead/observer/M = src
-	if(jobban_isbanned(M, "AntagHUD"))
+	if(jobban_isbanned(M, ROLEBAN_AHUD))
 		to_chat(src, "<span class='danger'>You have been banned from using this feature</span>")
 		return
-	if(config.antag_hud_restricted && !M.has_enabled_antagHUD && !check_rights(R_ADMIN|R_MOD,0))
-		var/response = alert(src, "If you turn this on, you will not be able to take any part in the round.","Are you sure you want to turn this feature on?","Yes","No")
-		if(response == "No") return
-		M.can_reenter_corpse = 0
+
+	var/restricted_use = (!M.has_enabled_antagHUD && !check_rights(R_ADMIN|R_MOD, FALSE)) // Admins can freely toggle it
+	if(config.antag_hud_restricted && restricted_use)
+		var/response = alert(src, "If you turn this on, you will not be able to take any part in the round.", "Are you sure you want to turn this feature on?", "Yes", "No")
+		if(response == "No")
+			return
+		M.can_reenter_corpse = FALSE
 		if(M in GLOB.respawnable_list)
 			GLOB.respawnable_list -= M
-	if(!M.has_enabled_antagHUD && !check_rights(R_ADMIN|R_MOD,0))
-		M.has_enabled_antagHUD = 1
 
-	//var/datum/atom_hud/A = huds[DATA_HUD_SECURITY_ADVANCED]
-	//var/adding_hud = (usr in A.hudusers) ? 0 : 1
+	if(restricted_use)
+		M.has_enabled_antagHUD = TRUE
 
 	for(var/datum/atom_hud/antag/H in (GLOB.huds))
 		if(!M.antagHUD)
@@ -382,10 +383,39 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			H.remove_hud_from(usr)
 	if(!M.antagHUD)
 		to_chat(usr, "AntagHud Toggled ON")
+		create_log(MISC_LOG, "Enabled AntagHUD")
+		log_game("[key_name(usr)] has enabled AntagHUD.")
 		M.antagHUD = TRUE
 	else
 		to_chat(usr, "AntagHud Toggled OFF")
+		create_log(MISC_LOG, "Disabled AntagHUD")
+		log_game("[key_name(usr)] has disabled AntagHUD.")
 		M.antagHUD = FALSE
+
+/mob/dead/observer/verb/set_dnr()
+	set name = "Set DNR"
+	set category = "Ghost"
+	set desc = "Prevent your character from being revived."
+
+	if(!isobserver(src)) // Somehow
+		return
+	if(!can_reenter_corpse)
+		to_chat(src, "<span class='warning'>You are already set to DNR!</span>")
+		return
+	if(!mind || QDELETED(mind.current))
+		to_chat(src, "<span class='warning'>You have no body.</span>")
+		return
+	if(mind.current.stat != DEAD)
+		to_chat(src, "<span class='warning'>Your body is still alive!</span>")
+		return
+
+	var/choice = alert(src, "If you enable this, your body will be unrevivable for the remainder of the round.", "Are you sure?", "Yes", "No")
+	if(choice == "Yes")
+		to_chat(src, "<span class='boldnotice'>Do Not Revive state enabled.</span>")
+		create_log(MISC_LOG, "DNR Enabled")
+		can_reenter_corpse = FALSE
+		if(!QDELETED(mind.current)) // Could change while they're choosing
+			mind.current.med_hud_set_status()
 
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"
@@ -578,12 +608,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
 	set category = "Ghost"
-
-	var/dat
-	dat += "<h4>Crew Manifest</h4>"
-	dat += GLOB.data_core.get_manifest(OOC = TRUE)
-
-	src << browse(dat, "window=manifest;size=370x420;can_close=1")
+	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.observer_state)
 
 //this is called when a ghost is drag clicked to something.
 /mob/dead/observer/MouseDrop(atom/over)
@@ -697,6 +722,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			see_invisible = SEE_INVISIBLE_LIVING
 
 	updateghostimages()
+
+/mob/dead/observer/can_see_reagents()
+	return TRUE
 
 /proc/updateallghostimages()
 	for(var/mob/dead/observer/O in GLOB.player_list)

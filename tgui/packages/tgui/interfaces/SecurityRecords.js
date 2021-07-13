@@ -47,8 +47,6 @@ export const SecurityRecords = (properties, context) => {
     if (currentPage === 1) {
       body = <SecurityRecordsPageList />;
     } else if (currentPage === 2) {
-      body = <SecurityRecordsPageMaintenance />;
-    } else if (currentPage === 3) {
       body = <SecurityRecordsPageView />;
     }
   }
@@ -82,15 +80,9 @@ const SecurityRecordsNavigation = (properties, context) => {
         <Icon name="list" />
         List Records
       </Tabs.Tab>
-      <Tabs.Tab
-        selected={currentPage === 2}
-        onClick={() => act('page', { page: 2 })}>
-        <Icon name="wrench" />
-        Record Maintenance
-      </Tabs.Tab>
-      {(currentPage === 3 && general && !general.empty) && (
+      {(currentPage === 2 && general && !general.empty) && (
         <Tabs.Tab
-          selected={currentPage === 3}>
+          selected={currentPage === 2}>
           <Icon name="file" />
           Record: {general.fields[0].value}
         </Tabs.Tab>
@@ -216,40 +208,6 @@ const SecurityRecordsActions = (properties, context) => {
         />
       </FlexItem>
     </Flex>
-  );
-};
-
-const SecurityRecordsPageMaintenance = (properties, context) => {
-  const { act } = useBackend(context);
-  return (
-    <Box>
-      <Button
-        disabled
-        icon="download"
-        content="Backup to Disk"
-        tooltip="This feature is not available."
-        tooltipPosition="right"
-      /><br />
-      <Button
-        disabled
-        icon="upload"
-        content="Upload from Disk"
-        tooltip="This feature is not available."
-        tooltipPosition="right"
-        my="0.5rem"
-      /><br />
-      <Button.Confirm
-        icon="trash"
-        content="Delete All Security Records"
-        onClick={() => act('delete_security_all')}
-        mb="0.5rem"
-      /><br />
-      <Button.Confirm
-        icon="trash"
-        content="Delete All Cell Logs"
-        onClick={() => act('delete_cell_logs')}
-      />
-    </Box>
   );
 };
 

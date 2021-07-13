@@ -52,12 +52,12 @@
 	icon_state = "waffles"
 
 /obj/item/trash/plate
-	name = "Plate"
+	name = "plate"
 	icon_state = "plate"
 	resistance_flags = NONE
 
 /obj/item/trash/snack_bowl
-	name = "Snack bowl"
+	name = "snack bowl"
 	icon_state	= "snack_bowl"
 
 /obj/item/trash/fried_vox

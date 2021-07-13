@@ -7975,7 +7975,7 @@
 	icon_state = "0-4";
 	d2 = 4
 	},
-/obj/machinery/computer/monitor{
+/obj/machinery/computer/monitor/secret{
 	name = "primary power monitoring console"
 	},
 /obj/structure/sign/nosmoking_2{
@@ -10652,7 +10652,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/UO71/outside)
 "vV" = (
-/obj/machinery/computer/monitor,
+/obj/machinery/computer/monitor/secret,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/bridge)
 "vW" = (
@@ -11805,7 +11805,7 @@
 	},
 /area/awaymission/UO71/eng)
 "yc" = (
-/obj/machinery/computer/monitor{
+/obj/machinery/computer/monitor/secret{
 	name = "primary power monitoring console"
 	},
 /obj/structure/cable,

@@ -92,7 +92,7 @@
 		. += "The charge meter reads [round(percent() )]%."
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of the [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return FIRELOSS
 
 /obj/item/stock_parts/cell/attackby(obj/item/W, mob/user, params)
@@ -354,3 +354,9 @@
 	desc = "A standard ninja-suit power cell."
 	maxcharge = 10000
 	materials = list(MAT_GLASS = 60)
+
+/obj/item/stock_parts/cell/bsg
+	name = "\improper B.S.G power cell"
+	desc = "A high capacity, slow charging cell for the B.S.G."
+	maxcharge = 40000
+	chargerate = 2600 // about 30 seconds to charge with a default recharger

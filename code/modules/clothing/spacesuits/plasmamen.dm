@@ -147,7 +147,7 @@
 	item_state = "scientist_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/rd
-	name = "research director plasma envirosuit helmet"
+	name = "research director's plasma envirosuit helmet"
 	desc = "A plasmaman envirohelmet designed for the research director."
 	icon_state = "rd_envirohelm"
 	item_state = "rd_envirohelm"
@@ -209,7 +209,7 @@
 	item_state = "chef_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/librarian
-	name = "librarian's plasma envirosuit helmet"
+	name = "librarian plasma envirosuit helmet"
 	desc = "A slight modification on a traditional voidsuit helmet, this helmet was Nanotrasen's first solution to the *logistical problems* that come with employing plasmamen. Despite their limitations, these helmets still see use by historian and old-styled plasmamen alike."
 	icon_state = "prototype_envirohelm"
 	item_state = "prototype_envirohelm"
@@ -243,19 +243,19 @@
 	visor_icon = "clown_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/hop
-	name = "head of personnel envirosuit helmet"
+	name = "head of personnel's envirosuit helmet"
 	desc = "A plasmaman envirohelm that reeks of bureaucracy."
 	icon_state = "hop_envirohelm"
 	item_state = "hop_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/captain
-	name = "captain envirosuit helmet"
+	name = "captain's envirosuit helmet"
 	desc = "A plasmaman envirohelm designed with the insignia and markings befitting a captain."
 	icon_state = "cap_envirohelm"
 	item_state = "cap_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/blueshield
-	name = "blueshield envirosuit helmet"
+	name = "blueshield's envirosuit helmet"
 	desc = "A plasmaman envirohelm designed for the blueshield."
 	icon_state = "bs_envirohelm"
 	item_state = "bs_envirohelm"
