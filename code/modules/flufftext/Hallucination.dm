@@ -872,7 +872,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 				if(14)
 					to_chat(src, "<h1 class='alert'>Priority Announcement</h1>")
 					to_chat(src, "<br><br><span class='alert'>The Emergency Shuttle has docked with the station. You have 3 minutes to board the Emergency Shuttle.</span><br><br>")
-					playsound_local(null, 'sound/AI/shuttledock.ogg', 100)
+					playsound_local(null, 'sound/AI/eshuttle_dock.ogg', 100)
 				if(15)
 					playsound_local(null, 'sound/items/welder.ogg', 15, 1)
 					sleep(105)
