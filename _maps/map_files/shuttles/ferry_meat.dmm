@@ -5,7 +5,6 @@
 "b" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
-	icon_state = "propulsion";
 	tag = "icon-propulsion (EAST)"
 	},
 /turf/simulated/wall/mineral/titanium,
@@ -19,9 +18,8 @@
 /area/shuttle/transport)
 "h" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -58,9 +56,8 @@
 /area/shuttle/transport)
 "l" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /obj/machinery/gibber,
 /turf/simulated/floor/plasteel{
@@ -81,9 +78,8 @@
 /area/shuttle/transport)
 "o" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel{

@@ -509,7 +509,6 @@
 "TM" = (
 /obj/structure/chair/office/dark{
 	dir = 4;
-	icon_state = "officechair_dark";
 	tag = "icon-officechair_dark (EAST)"
 	},
 /turf/simulated/floor/plasteel,

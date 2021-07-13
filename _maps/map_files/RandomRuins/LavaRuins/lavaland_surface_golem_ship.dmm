@@ -28,7 +28,6 @@
 /area/shuttle/freegolem)
 "h" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater";
 	dir = 4
 	},
 /obj/structure/window/reinforced{
@@ -170,7 +169,6 @@
 "D" = (
 /obj/machinery/light,
 /obj/structure/chair/comfy/purp{
-	icon_state = "comfychair";
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/purple,

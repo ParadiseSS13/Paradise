@@ -7,9 +7,8 @@
 /area/space/nearstation)
 "c" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (NORTH)";
-	icon_state = "heater";
-	dir = 1
+	dir = 1;
+	tag = "icon-heater (NORTH)"
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
@@ -107,9 +106,8 @@
 /area/space/nearstation)
 "A" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (EAST)";
-	icon_state = "heater";
-	dir = 4
+	dir = 4;
+	tag = "icon-heater (EAST)"
 	},
 /obj/structure/window/reinforced{
 	dir = 8

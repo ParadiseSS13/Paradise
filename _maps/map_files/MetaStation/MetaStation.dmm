@@ -24717,9 +24717,7 @@
 "bcc" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bcd" = (
 /obj/machinery/light_switch{
 	pixel_x = 28
@@ -27141,9 +27139,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bha" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -27324,9 +27320,7 @@
 /area/janitor)
 "bht" = (
 /turf/simulated/wall,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bhu" = (
 /obj/machinery/door/airlock{
 	name = "Central Emergency Storage"
@@ -27338,9 +27332,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bhv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -27590,9 +27582,7 @@
 /obj/item/wrench,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bic" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -28056,9 +28046,7 @@
 "bjc" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bjd" = (
 /obj/structure/rack,
 /obj/item/stack/packageWrap{
@@ -28092,9 +28080,7 @@
 /area/quartermaster/storage)
 "bje" = (
 /turf/simulated/wall/r_wall,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bjf" = (
 /obj/item/stamp{
 	pixel_x = -3;
@@ -28982,9 +28968,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bkQ" = (
 /obj/item/flashlight{
 	pixel_x = 1;
@@ -29005,9 +28989,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bkS" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -29930,9 +29912,7 @@
 "bmF" = (
 /obj/item/tank/internals/air,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bmG" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -30027,9 +30007,7 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bmP" = (
 /obj/machinery/light_switch{
 	pixel_x = 27
@@ -30844,15 +30822,11 @@
 "boy" = (
 /obj/item/storage/box/lights/mixed,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "boz" = (
 /obj/item/clothing/mask/gas,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "boB" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -31666,9 +31640,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bpV" = (
 /obj/machinery/computer/crew,
 /turf/simulated/floor/plasteel{
@@ -31749,9 +31721,7 @@
 "bqe" = (
 /obj/item/extinguisher,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bqf" = (
 /obj/machinery/computer/station_alert,
 /turf/simulated/floor/plasteel{
@@ -32646,18 +32616,14 @@
 "brS" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "brT" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "brU" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/west,
@@ -33589,9 +33555,7 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "btQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -34027,9 +33991,7 @@
 /obj/item/radio/off,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "buC" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
@@ -34520,9 +34482,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bvo" = (
 /obj/machinery/status_display{
 	layer = 4;
@@ -36474,9 +36434,7 @@
 	req_one_access_txt = "20;12"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "byF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -38706,9 +38664,7 @@
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bDl" = (
 /obj/machinery/door/airlock/command{
 	name = "Emergency Escape";
@@ -40939,9 +40895,7 @@
 	req_one_access_txt = "20;12"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bHL" = (
 /obj/machinery/light{
 	dir = 8
@@ -42300,9 +42254,7 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bKw" = (
 /obj/item/flashlight/lamp/green{
 	pixel_x = 1;
@@ -43688,9 +43640,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bNp" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -45035,9 +44985,7 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bQh" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/machinery/firealarm{
@@ -46051,9 +45999,7 @@
 	},
 /obj/item/cigbutt,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bSq" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -46474,9 +46420,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bTd" = (
 /obj/structure/chair/wood/wings{
 	dir = 1
@@ -46941,9 +46885,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bTW" = (
 /obj/item/radio/intercom{
 	dir = 8;
@@ -47123,9 +47065,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "bUz" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -47135,9 +47075,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "bUA" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -47318,9 +47256,7 @@
 "bUR" = (
 /obj/machinery/door/airlock/welded,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bUS" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -47544,9 +47480,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "bVk" = (
 /obj/machinery/power/apc{
 	cell_type = 10000;
@@ -47565,15 +47499,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "bVl" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "bVm" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -47637,9 +47567,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/item/cigbutt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bVs" = (
 /obj/structure/table,
 /obj/machinery/door_control{
@@ -47756,9 +47684,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "bVD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -47795,9 +47721,7 @@
 "bVG" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "bVI" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/light{
@@ -47805,9 +47729,7 @@
 	in_use = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bVL" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -47941,9 +47863,7 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/trash/tapetrash,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bVY" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -47983,15 +47903,11 @@
 /obj/item/clothing/suit/storage/labcoat/mad,
 /obj/item/clothing/glasses/science,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bWa" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bWb" = (
 /obj/machinery/keycard_auth{
 	pixel_x = -24
@@ -48064,9 +47980,7 @@
 	})
 "bWl" = (
 /turf/simulated/wall/rust,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bWm" = (
 /obj/structure/rack,
 /obj/item/storage/box,
@@ -48152,9 +48066,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bWz" = (
 /obj/machinery/alarm{
 	dir = 8;
@@ -48668,26 +48580,20 @@
 "bXC" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bXD" = (
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bXE" = (
 /obj/structure/table,
 /obj/item/reagent_containers/syringe,
 /obj/item/storage/pill_bottle/random_drug_bottle,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bXF" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-14";
@@ -48697,9 +48603,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "bXG" = (
 /obj/item/reagent_containers/iv_bag,
 /obj/item/reagent_containers/iv_bag/salglu,
@@ -48707,9 +48611,7 @@
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bXH" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -49033,15 +48935,11 @@
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bYq" = (
 /obj/item/mounted/frame/apc_frame,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bYr" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -49307,9 +49205,7 @@
 /obj/structure/bed,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bYR" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -49579,9 +49475,7 @@
 	req_one_access_txt = "12;17"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "bZt" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "greencorner"
@@ -49759,9 +49653,7 @@
 "bZO" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bZP" = (
 /turf/simulated/wall,
 /area/maintenance/portsolar)
@@ -49792,9 +49684,7 @@
 /area/maintenance/portsolar)
 "bZU" = (
 /turf/simulated/wall,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "bZW" = (
 /obj/machinery/newscaster{
 	pixel_x = -32
@@ -50274,9 +50164,7 @@
 	},
 /obj/item/clothing/accessory/stethoscope,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "caX" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -50464,9 +50352,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cbs" = (
 /obj/structure/rack,
 /obj/item/weldingtool,
@@ -50475,9 +50361,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cbt" = (
 /obj/machinery/reagentgrinder,
 /obj/structure/table/glass,
@@ -50487,9 +50371,7 @@
 "cbu" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cbv" = (
 /obj/machinery/chem_master/condimaster{
 	name = "BrewMaster 4000";
@@ -50508,9 +50390,7 @@
 /obj/item/wirecutters,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cbx" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -50945,9 +50825,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ccu" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -50981,9 +50859,7 @@
 	name = "blobstart"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ccz" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -51510,9 +51386,7 @@
 /obj/structure/closet,
 /obj/item/flashlight,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cdI" = (
 /obj/structure/closet/secure_closet/hydroponics,
 /obj/structure/extinguisher_cabinet{
@@ -51527,15 +51401,11 @@
 /obj/structure/table,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cdK" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cdM" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
@@ -51552,16 +51422,12 @@
 "cdN" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cdO" = (
 /obj/structure/girder,
 /obj/structure/grille,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cdP" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -51733,9 +51599,7 @@
 	req_one_access_txt = "12;7;35;8;47"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cel" = (
 /obj/machinery/door/airlock/medical{
 	name = "Paramedic"
@@ -51753,9 +51617,7 @@
 "cem" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cen" = (
 /obj/machinery/camera/autoname{
 	dir = 4
@@ -51827,9 +51689,7 @@
 "ceu" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cev" = (
 /obj/structure/closet/secure_closet/hydroponics,
 /obj/item/storage/backpack/satchel_hyd,
@@ -51908,15 +51768,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ceE" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ceF" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
 /turf/simulated/floor/plasteel{
@@ -51981,9 +51837,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ceO" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -51992,9 +51846,7 @@
 	},
 /obj/item/poster/random_contraband,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ceP" = (
 /obj/machinery/seed_extractor,
 /obj/effect/decal/warning_stripes/northwest,
@@ -52047,14 +51899,10 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ceU" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ceV" = (
 /obj/machinery/computer/mech_bay_power_console,
 /obj/structure/cable/yellow{
@@ -52062,9 +51910,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/bluegrid,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ceW" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
@@ -52116,9 +51962,7 @@
 	req_one_access_txt = "12;5;39;25;28"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cfa" = (
 /obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
@@ -52138,15 +51982,11 @@
 /obj/item/clothing/mask/surgical,
 /obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cfc" = (
 /obj/item/cigbutt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cfd" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
@@ -52290,9 +52130,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cfn" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -52340,9 +52178,7 @@
 	pixel_y = 6
 	},
 /turf/simulated/wall,
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cfs" = (
 /obj/structure/closet/secure_closet/medical3,
 /obj/structure/sign/nosmoking_2{
@@ -52358,18 +52194,14 @@
 "cft" = (
 /obj/structure/sign/science,
 /turf/simulated/wall,
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cfu" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall";
 	tag = "icon-whitehall (WEST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cfv" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -52382,14 +52214,10 @@
 	icon_state = "whitehall";
 	tag = "icon-whitehall (WEST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cfw" = (
 /turf/simulated/wall,
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cfx" = (
 /obj/effect/landmark/start{
 	name = "Paramedic"
@@ -52469,9 +52297,7 @@
 "cfE" = (
 /obj/machinery/constructable_frame,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cfF" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
@@ -52613,9 +52439,7 @@
 	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cfV" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -52623,14 +52447,10 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/bluegrid,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cfW" = (
 /turf/simulated/floor/bluegrid,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cfX" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -52640,21 +52460,15 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cfY" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cfZ" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cga" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -52662,17 +52476,13 @@
 /obj/structure/mopbucket,
 /obj/item/mop,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cgb" = (
 /obj/item/storage/toolbox/emergency,
 /obj/item/hand_labeler,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cgc" = (
 /obj/machinery/atmospherics/trinary/mixer{
 	node1_concentration = 0.8;
@@ -52732,9 +52542,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "cgi" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -52866,9 +52674,7 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cgv" = (
 /obj/structure/table/wood,
 /obj/item/folder,
@@ -52908,9 +52714,7 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cgA" = (
 /obj/structure/table,
 /obj/item/paper/pamphlet,
@@ -52918,9 +52722,7 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cgB" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
@@ -52930,18 +52732,14 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cgE" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cgF" = (
 /obj/structure/table,
 /obj/item/stack/cable_coil,
@@ -52959,9 +52757,7 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cgG" = (
 /obj/structure/table,
 /obj/item/stack/sheet/glass,
@@ -52974,9 +52770,7 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cgH" = (
 /obj/structure/girder,
 /obj/structure/grille,
@@ -53379,32 +53173,24 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "chx" = (
 /obj/structure/closet,
 /obj/item/clothing/accessory/stethoscope,
 /obj/item/hemostat,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "chy" = (
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "chz" = (
 /obj/structure/closet/crate,
 /obj/item/coin/silver,
 /obj/item/flashlight,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "chA" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -53416,9 +53202,7 @@
 	sortType = 9
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "chB" = (
 /obj/item/cigbutt,
 /obj/structure/disposalpipe/segment{
@@ -53427,9 +53211,7 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "chC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -53438,9 +53220,7 @@
 	req_one_access_txt = "12;5"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "chD" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -53546,9 +53326,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "chQ" = (
 /obj/machinery/light{
 	dir = 1
@@ -53583,9 +53361,7 @@
 	},
 /obj/machinery/light_construct,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "chT" = (
 /obj/structure/noticeboard{
 	pixel_y = 32
@@ -53681,16 +53457,12 @@
 	icon_state = "whitehall";
 	tag = "icon-whitehall (WEST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cic" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cie" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -53698,9 +53470,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cig" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -53712,9 +53482,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cij" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -53760,9 +53528,7 @@
 	name = "maint grille or trash spawner"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cio" = (
 /obj/machinery/vending/hydroseeds{
 	slogan_delay = 700
@@ -53851,9 +53617,7 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ciy" = (
 /obj/item/stack/sheet/cardboard,
 /obj/effect/decal/cleanable/dirt,
@@ -53873,9 +53637,7 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ciA" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
@@ -54008,9 +53770,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ciL" = (
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
@@ -54257,9 +54017,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cjh" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -54272,9 +54030,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cjj" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -54294,9 +54050,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cjl" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -54305,9 +54059,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cjm" = (
 /obj/structure/sign/directions/evac{
 	pixel_y = 6
@@ -54317,18 +54069,14 @@
 "cjn" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cjo" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cjp" = (
 /obj/effect/landmark{
 	name = "xeno_spawn";
@@ -54336,9 +54084,7 @@
 	},
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cjq" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8;
@@ -54365,9 +54111,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cjs" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -54380,9 +54124,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cjt" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -54401,9 +54143,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cjv" = (
 /obj/effect/landmark/start{
 	name = "Cargo Technician"
@@ -54585,9 +54325,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cjM" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -54604,9 +54342,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cjN" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -54622,9 +54358,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cjO" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -54859,9 +54593,7 @@
 	icon_state = "whitepurplefull";
 	tag = "icon-whitehall (WEST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "ckt" = (
 /obj/machinery/camera{
 	c_tag = "Medbay Break Room";
@@ -54895,9 +54627,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ckw" = (
 /obj/structure/girder,
 /obj/structure/grille,
@@ -54907,9 +54637,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ckx" = (
 /obj/structure/table,
 /obj/item/stack/medical/bruise_pack,
@@ -54946,9 +54674,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ckB" = (
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
@@ -54968,15 +54694,11 @@
 	name = "maint grille or trash spawner"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ckD" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ckE" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -54989,9 +54711,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "ckF" = (
 /obj/item/storage/firstaid/regular{
 	pixel_x = 3;
@@ -55025,9 +54745,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ckI" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = null;
@@ -55048,9 +54766,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ckK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -55139,9 +54855,7 @@
 "ckP" = (
 /obj/item/healthanalyzer,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ckQ" = (
 /obj/structure/chair{
 	dir = 4
@@ -55192,9 +54906,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "ckY" = (
 /obj/structure/table,
 /obj/item/paicard,
@@ -55205,9 +54917,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "ckZ" = (
 /obj/structure/table,
 /obj/item/stock_parts/cell/potato,
@@ -55215,9 +54925,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cla" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -55226,9 +54934,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "clb" = (
 /obj/structure/disposalpipe/junction{
 	dir = 4;
@@ -55237,9 +54943,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "clc" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -55257,9 +54961,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cld" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -55270,9 +54972,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cle" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -55351,9 +55051,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cll" = (
 /obj/item/wrench,
 /obj/item/clothing/suit/apron,
@@ -55381,17 +55079,13 @@
 	icon_state = "whitepurplefull";
 	tag = "icon-whitehall (WEST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cln" = (
 /obj/structure/closet,
 /obj/item/flashlight,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "clo" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -55406,9 +55100,7 @@
 	name = "maint grille or trash spawner"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "clp" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/window/reinforced,
@@ -55480,9 +55172,7 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cly" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -55546,9 +55236,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "clH" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -55576,9 +55264,7 @@
 	req_access_txt = "13"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "clK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -55606,9 +55292,7 @@
 "clN" = (
 /obj/item/storage/box,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "clO" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -55618,9 +55302,7 @@
 "clP" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "clQ" = (
 /obj/effect/landmark/start{
 	name = "Coroner"
@@ -55651,9 +55333,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "clU" = (
 /obj/structure/table,
 /obj/item/folder/white,
@@ -55663,9 +55343,7 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "clV" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -55793,9 +55471,7 @@
 "cmi" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cmj" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/white,
@@ -55908,23 +55584,17 @@
 	pixel_y = 28
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cmz" = (
 /turf/simulated/wall/r_wall,
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cmA" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Research Maintenance";
 	req_access_txt = "7"
 	},
 /turf/simulated/floor/plating,
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cmB" = (
 /turf/simulated/wall/r_wall,
 /area/toxins/explab)
@@ -56019,9 +55689,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cmK" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/visible/green,
@@ -56084,9 +55752,7 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cmS" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -56098,9 +55764,7 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cmT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -56128,9 +55792,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cmZ" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -56142,9 +55804,7 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cna" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -56232,9 +55892,7 @@
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cnj" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -56414,9 +56072,7 @@
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cnz" = (
 /obj/structure/chair/office/light{
 	dir = 1;
@@ -56451,9 +56107,7 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cnB" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
@@ -56490,9 +56144,7 @@
 	dir = 4;
 	icon_state = "whitehall"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cnG" = (
 /obj/structure/sign/double/map/right{
 	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
@@ -56509,9 +56161,7 @@
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cnH" = (
 /obj/item/storage/toolbox/emergency,
 /obj/item/radio/intercom{
@@ -56529,9 +56179,7 @@
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cnJ" = (
 /obj/machinery/light/small,
 /obj/machinery/computer/security/telescreen{
@@ -56587,9 +56235,7 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cnP" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -56725,9 +56371,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "coe" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -56742,9 +56386,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cof" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -56759,9 +56401,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cog" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -56772,9 +56412,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "coh" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -56786,9 +56424,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "coi" = (
 /obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
@@ -56977,9 +56613,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/wood,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cox" = (
 /obj/structure/table,
 /obj/machinery/door/window/northright{
@@ -57054,9 +56688,7 @@
 "coD" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "coE" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -57184,9 +56816,7 @@
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "coU" = (
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
@@ -57194,9 +56824,7 @@
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "coV" = (
 /obj/machinery/alarm{
 	dir = 8;
@@ -57207,9 +56835,7 @@
 	dir = 4;
 	icon_state = "whitehall"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "coW" = (
 /mob/living/simple_animal/pet/dog/pug{
 	name = "Pugley IV";
@@ -57414,9 +57040,7 @@
 "cpu" = (
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/wood,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cpv" = (
 /obj/structure/sink/kitchen{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
@@ -57427,9 +57051,7 @@
 	icon_state = "wood-broken3";
 	tag = "icon-wood-broken3"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cpw" = (
 /obj/structure/rack,
 /obj/item/reagent_containers/food/drinks/bottle/vodka{
@@ -57442,9 +57064,7 @@
 	},
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /turf/simulated/floor/wood,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cpx" = (
 /obj/machinery/door_control{
 	desc = "A remote control switch for the medbay foyer.";
@@ -57461,9 +57081,7 @@
 "cpy" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/wood,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cpz" = (
 /obj/machinery/door_control{
 	id = "acutesep";
@@ -57480,9 +57098,7 @@
 "cpA" = (
 /obj/machinery/computer/arcade,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cpB" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -57695,9 +57311,7 @@
 	pixel_y = 2
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cpT" = (
 /obj/structure/chair/stool,
 /obj/machinery/newscaster{
@@ -57708,9 +57322,7 @@
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cpU" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/plasteel{
@@ -57859,9 +57471,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cqj" = (
 /obj/machinery/door/window/northleft{
 	dir = 4;
@@ -57911,9 +57521,7 @@
 /obj/item/storage/toolbox/emergency,
 /obj/item/clothing/mask/gas,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cqp" = (
 /obj/machinery/light/small,
 /obj/item/stock_parts/cell/high{
@@ -57921,9 +57529,7 @@
 	maxcharge = 15000
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cqq" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -57933,9 +57539,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/item/flashlight,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cqr" = (
 /obj/machinery/atmospherics/binary/pump{
 	on = 1
@@ -57972,9 +57576,7 @@
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cqv" = (
 /obj/machinery/computer/rdconsole/core,
 /obj/machinery/alarm{
@@ -57994,9 +57596,7 @@
 	dir = 4;
 	icon_state = "whitehall"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cqB" = (
 /obj/machinery/light{
 	dir = 4
@@ -58010,24 +57610,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cqC" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/cobweb,
 /obj/item/shard,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cqE" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cqF" = (
 /obj/structure/sink/kitchen{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
@@ -58037,9 +57631,7 @@
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cqG" = (
 /obj/item/reagent_containers/glass/bottle/toxin{
 	pixel_x = 4;
@@ -58051,9 +57643,7 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cqH" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/drinkingglass{
@@ -58073,9 +57663,7 @@
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/syringe,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cqI" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 1;
@@ -58230,22 +57818,16 @@
 	req_access_txt = "25"
 	},
 /turf/simulated/floor/wood,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cqZ" = (
 /turf/simulated/floor/wood,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cra" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7";
 	tag = "icon-wood-broken7"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "crb" = (
 /obj/item/reagent_containers/glass/rag,
 /obj/structure/table/wood,
@@ -58253,17 +57835,13 @@
 	icon_state = "wood-broken4";
 	tag = "icon-wood-broken4"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "crc" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5";
 	tag = "icon-wood-broken5"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "crd" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel{
@@ -58390,9 +57968,7 @@
 	pixel_x = 30
 	},
 /turf/simulated/floor/wood,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "crz" = (
 /obj/machinery/recharger/wallcharger{
 	pixel_x = -22
@@ -58465,9 +58041,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "crG" = (
 /obj/structure/closet/secure_closet/medical3,
 /turf/simulated/floor/plasteel{
@@ -58509,9 +58083,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "crK" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/warning_stripes/east,
@@ -58549,9 +58121,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "crP" = (
 /obj/structure/sign/chemistry{
 	pixel_y = -32
@@ -58569,18 +58139,14 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "crR" = (
 /obj/structure/closet/crate,
 /obj/item/assembly/infra,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "crS" = (
 /obj/structure/plasticflaps{
 	opacity = 1
@@ -58591,9 +58157,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "crT" = (
 /obj/machinery/camera{
 	c_tag = "Research and Development";
@@ -58618,9 +58182,7 @@
 /area/toxins/lab)
 "crU" = (
 /turf/simulated/wall/r_wall,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "crV" = (
 /obj/item/retractor,
 /obj/item/cautery,
@@ -58655,9 +58217,7 @@
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "crY" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -58672,9 +58232,7 @@
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "crZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -58687,9 +58245,7 @@
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "csa" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -58711,9 +58267,7 @@
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "csb" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -58723,9 +58277,7 @@
 	dir = 4;
 	icon_state = "whitehall"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "csc" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'HIGH VOLTAGE'";
@@ -58810,9 +58362,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "csh" = (
 /obj/machinery/door/airlock/maintenance{
 	icon_state = "door_closed";
@@ -58826,9 +58376,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "csi" = (
 /obj/item/stack/sheet/glass{
 	amount = 50;
@@ -58856,26 +58404,20 @@
 	dir = 10
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "csk" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/apron,
 /obj/item/clothing/mask/surgical,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "csl" = (
 /obj/machinery/chem_master/condimaster{
 	name = "CondiMaster Neo";
 	pixel_x = -4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "csm" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow,
@@ -58898,9 +58440,7 @@
 /obj/item/stack/packageWrap,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cso" = (
 /obj/structure/lattice,
 /obj/structure/disposalpipe/segment,
@@ -58946,15 +58486,11 @@
 	},
 /obj/item/reagent_containers/dropper,
 /turf/simulated/floor/wood,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "csw" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "csx" = (
 /obj/machinery/light,
 /obj/machinery/door_control{
@@ -58982,9 +58518,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "csz" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Experimentation Lab Maintenance";
@@ -59394,9 +58928,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "csZ" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -59413,9 +58945,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cta" = (
 /obj/machinery/door/window/westleft{
 	dir = 2;
@@ -59424,9 +58954,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ctb" = (
 /obj/machinery/door/airlock{
 	name = "Research Emergency Storage";
@@ -59439,9 +58967,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "ctc" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
@@ -59457,9 +58983,7 @@
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cte" = (
 /turf/simulated/wall,
 /area/toxins/explab)
@@ -59473,9 +58997,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "ctg" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -59503,9 +59025,7 @@
 /obj/item/storage/box/lights/mixed,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ctl" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -59515,9 +59035,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ctm" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -59531,9 +59049,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ctn" = (
 /obj/machinery/door/airlock/public/glass{
 	autoclose = 0;
@@ -59572,15 +59088,11 @@
 /obj/item/clothing/mask/surgical,
 /obj/item/clothing/mask/surgical,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ctr" = (
 /obj/machinery/chem_heater,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cts" = (
 /obj/structure/lattice,
 /obj/structure/disposalpipe/segment{
@@ -59613,34 +59125,26 @@
 /obj/item/reagent_containers/food/drinks/cans/beer,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cty" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken";
 	tag = "icon-wood-broken"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ctz" = (
 /obj/structure/mineral_door/wood{
 	name = "The Gobbetting Barmaid"
 	},
 /turf/simulated/floor/wood,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ctE" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "ctH" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -59893,9 +59397,7 @@
 	dir = 9;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cum" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -59909,9 +59411,7 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cun" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -59921,9 +59421,7 @@
 	dir = 1;
 	icon_state = "whitepurplecorner"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cuo" = (
 /obj/structure/sign/nosmoking_2{
 	pixel_y = 32
@@ -59935,9 +59433,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cup" = (
 /obj/machinery/light{
 	dir = 1
@@ -59945,9 +59441,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cuq" = (
 /obj/structure/table,
 /obj/structure/disposalpipe/segment,
@@ -59973,17 +59467,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cus" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitehall"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cut" = (
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
@@ -59993,9 +59483,7 @@
 	dir = 4;
 	icon_state = "whitepurplecorner"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cuu" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -60004,17 +59492,13 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cuv" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cuw" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-10";
@@ -60024,9 +59508,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cux" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
@@ -60107,9 +59589,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cuF" = (
 /obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
@@ -60131,21 +59611,15 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cuH" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cuI" = (
 /obj/structure/bed,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cuJ" = (
 /obj/structure/mineral_door/wood{
 	name = "The Gobbetting Barmaid"
@@ -60154,9 +59628,7 @@
 	icon_state = "wood-broken6";
 	tag = "icon-wood-broken6"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cuL" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -60245,9 +59717,7 @@
 "cuV" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cuX" = (
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
@@ -60503,9 +59973,7 @@
 	dir = 8;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cvw" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -60526,9 +59994,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cvx" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -60545,9 +60011,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cvy" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -60568,9 +60032,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cvz" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -60586,9 +60048,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cvA" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -60609,9 +60069,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cvC" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -60637,9 +60095,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cvD" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -60658,9 +60114,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cvE" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -60682,9 +60136,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cvF" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -60700,9 +60152,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cvH" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -60721,9 +60171,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cvI" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -60749,9 +60197,7 @@
 	dir = 4;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cvJ" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
@@ -60888,18 +60334,14 @@
 /obj/structure/barricade/wooden,
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cvW" = (
 /obj/effect/landmark{
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cvX" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 29
@@ -60909,33 +60351,25 @@
 	dir = 10;
 	icon_state = "whitehall"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cvY" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cvZ" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7";
 	tag = "icon-wood-broken7"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cwa" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6";
 	tag = "icon-wood-broken6"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cwb" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp/green,
@@ -60963,9 +60397,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cwe" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -61060,9 +60492,7 @@
 "cwt" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cwv" = (
 /obj/structure/sign/chemistry{
 	pixel_x = -32
@@ -61083,9 +60513,7 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cwx" = (
 /obj/structure/table,
 /obj/item/folder/white,
@@ -61175,9 +60603,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cwG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -61186,9 +60612,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cwH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -61209,9 +60633,7 @@
 /obj/item/stack/medical/ointment,
 /obj/item/clothing/glasses/hud/health,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cwJ" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
@@ -61230,9 +60652,7 @@
 	dir = 1;
 	icon_state = "whitepurplecorner"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cwL" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -61241,17 +60661,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cwM" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cwO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -61260,9 +60676,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cwP" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -61275,9 +60689,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cwQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -61288,9 +60700,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cwR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -61299,9 +60709,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cwS" = (
 /obj/machinery/camera{
 	c_tag = "Research Division Hallway - Starboard";
@@ -61311,24 +60719,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cwT" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cwV" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cwW" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -61342,9 +60744,7 @@
 	dir = 6;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cwY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/status_display{
@@ -61392,39 +60792,29 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cxf" = (
 /obj/structure/bed/roller,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cxj" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cxk" = (
 /obj/item/toy/cards/deck,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cxl" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken4";
 	tag = "icon-wood-broken4"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cxm" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -61500,9 +60890,7 @@
 /obj/structure/table/wood,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cxA" = (
 /obj/machinery/chem_heater,
 /obj/machinery/camera{
@@ -61693,9 +61081,7 @@
 	dir = 5;
 	icon_state = "whitehall"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cxP" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -61708,18 +61094,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cxQ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cxR" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/white,
@@ -61837,9 +61219,7 @@
 /obj/structure/bed/roller,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cyd" = (
 /obj/structure/table,
 /obj/structure/bedsheetbin{
@@ -61847,56 +61227,42 @@
 	},
 /obj/item/clothing/mask/muzzle,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cye" = (
 /obj/structure/table,
 /obj/item/restraints/handcuffs/cable/white,
 /obj/item/gun/syringe,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cyf" = (
 /obj/structure/rack,
 /obj/item/hatchet,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cyg" = (
 /obj/machinery/iv_drip,
 /obj/item/roller,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cyh" = (
 /obj/structure/rack,
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/gas,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cyi" = (
 /obj/machinery/light_construct/small,
 /obj/item/toy/cards/deck,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cyj" = (
 /obj/item/dice/d20,
 /obj/item/dice,
 /obj/structure/table/wood,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cyk" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/maintenance{
@@ -61917,9 +61283,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cyn" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8
@@ -62083,9 +61447,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cyF" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -62147,9 +61509,7 @@
 	name = "Aft Emergency Storage"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cyO" = (
 /obj/structure/closet/radiation,
 /obj/effect/decal/warning_stripes/north,
@@ -62168,9 +61528,7 @@
 	req_one_access_txt = "7;47;29;12"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cyR" = (
 /obj/structure/closet/secure_closet/scientist,
 /obj/effect/decal/warning_stripes/north,
@@ -62188,16 +61546,12 @@
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cyU" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cyV" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -62207,9 +61561,7 @@
 	req_one_access_txt = "7;47;29"
 	},
 /turf/simulated/floor/plating,
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cyW" = (
 /obj/structure/disposalpipe/junction{
 	dir = 8;
@@ -62219,9 +61571,7 @@
 	dir = 4;
 	icon_state = "whitehall"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cyX" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -62238,9 +61588,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "czc" = (
 /obj/machinery/computer/aifixer,
 /obj/machinery/requests_console{
@@ -62264,9 +61612,7 @@
 /obj/machinery/vending/assist,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cze" = (
 /obj/structure/displaycase/labcage,
 /obj/machinery/light/small{
@@ -62293,9 +61639,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "czg" = (
 /obj/structure/table/glass,
 /obj/machinery/photocopier/faxmachine{
@@ -62617,9 +61961,7 @@
 "czI" = (
 /obj/structure/sign/directions/evac,
 /turf/simulated/wall,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "czJ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -62635,9 +61977,7 @@
 /obj/structure/closet/firecloset,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "czL" = (
 /obj/item/tank/internals/air,
 /obj/item/tank/internals/air,
@@ -62646,9 +61986,7 @@
 /obj/machinery/space_heater,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "czM" = (
 /turf/simulated/wall/r_wall,
 /area/toxins/misc_lab{
@@ -62671,9 +62009,7 @@
 	dir = 6;
 	icon_state = "whitehall"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "czP" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -62684,9 +62020,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "czR" = (
 /obj/machinery/door_control{
 	id = "xeno_blastdoor";
@@ -62766,9 +62100,7 @@
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "czX" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/structure/cable/yellow{
@@ -62786,18 +62118,14 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "czZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cAa" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/alarm{
@@ -62828,9 +62156,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cAd" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -62844,17 +62170,13 @@
 	dir = 9
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cAe" = (
 /obj/structure/closet,
 /obj/item/storage/toolbox/emergency,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cAf" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -62881,9 +62203,7 @@
 /obj/item/flashlight,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cAh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -63067,9 +62387,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cAx" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -63105,18 +62423,14 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cAz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cAA" = (
 /obj/machinery/alarm{
 	dir = 8;
@@ -63140,24 +62454,18 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/item/wrench,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cAD" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/item/storage/box/lights/mixed,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cAE" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cAF" = (
 /obj/machinery/reagentgrinder,
 /obj/structure/cable/yellow{
@@ -63200,16 +62508,12 @@
 	dir = 5;
 	icon_state = "whitehall"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cAK" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cAL" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -63705,9 +63009,7 @@
 	dir = 4;
 	icon_state = "whitehall"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cBP" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -63732,9 +63034,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cBQ" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -63754,9 +63054,7 @@
 	dir = 4;
 	icon_state = "whiteblue"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cBR" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -63869,9 +63167,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cBY" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
 /obj/item/radio/intercom{
@@ -64378,9 +63674,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cCP" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -64393,9 +63687,7 @@
 	dir = 4;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cCQ" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
@@ -64432,9 +63724,7 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cCV" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/alarm{
@@ -64516,9 +63806,7 @@
 	req_one_access_txt = "8;12"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cDb" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
@@ -64606,9 +63894,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cDk" = (
 /obj/structure/closet/crate,
 /obj/item/crowbar/red,
@@ -64622,9 +63908,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cDl" = (
 /obj/machinery/atmospherics/unary/cryo_cell,
 /obj/effect/decal/warning_stripes/northeast,
@@ -64646,9 +63930,7 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cDq" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -64760,9 +64042,7 @@
 /obj/item/wrench,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cDC" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -64845,9 +64125,7 @@
 	dir = 6;
 	icon_state = "whitehall"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cDK" = (
 /obj/machinery/power/apc{
 	name = "RD Office APC";
@@ -64882,9 +64160,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cDN" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
@@ -64930,9 +64206,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cDS" = (
 /obj/structure/sign/lifestar,
 /turf/simulated/wall,
@@ -64948,9 +64222,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cDU" = (
 /turf/simulated/wall,
 /area/medical/medbay3{
@@ -64967,9 +64239,7 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cDY" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -65196,9 +64466,7 @@
 "cEB" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cEC" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/fungus,
@@ -65268,9 +64536,7 @@
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cEM" = (
 /obj/machinery/door/airlock/research{
 	name = "Toxins Space Access";
@@ -65278,9 +64544,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cEN" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -65431,9 +64695,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cFc" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -65448,9 +64710,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cFd" = (
 /turf/simulated/wall,
 /area/medical/medbreak)
@@ -65459,9 +64719,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cFf" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -65598,9 +64856,7 @@
 	dir = 8;
 	icon_state = "whitepurplecorner"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cFv" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -65691,9 +64947,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cFH" = (
 /turf/simulated/wall,
 /area/toxins/mixing{
@@ -65795,30 +65049,22 @@
 /obj/item/clothing/mask/gas,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cFR" = (
 /obj/item/latexballon,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cFS" = (
 /obj/item/clothing/suit/ianshirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cFT" = (
 /obj/structure/rack,
 /obj/item/clothing/glasses/sunglasses,
 /obj/item/flashlight/pen,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cFU" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -65910,9 +65156,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cGh" = (
 /obj/structure/closet/secure_closet/personal/patient,
 /obj/machinery/alarm{
@@ -66177,9 +65421,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cGD" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -66196,9 +65438,7 @@
 	dir = 4;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cGF" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/effect/decal/warning_stripes/south,
@@ -66435,9 +65675,7 @@
 	name = "maint grille or trash spawner"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cHa" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -66730,9 +65968,7 @@
 	dir = 4;
 	icon_state = "whitepurplecorner"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cHy" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -66961,9 +66197,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cHU" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'BOMB RANGE";
@@ -66974,9 +66208,7 @@
 "cHV" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cHW" = (
 /obj/structure/window/reinforced,
 /obj/item/target,
@@ -67012,9 +66244,7 @@
 /obj/item/cigbutt,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cIc" = (
 /obj/structure/chair,
 /obj/effect/decal/warning_stripes/northeast,
@@ -67133,9 +66363,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "cIk" = (
 /obj/structure/urinal{
 	pixel_y = 29
@@ -67254,9 +66482,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cIA" = (
 /obj/machinery/light{
 	dir = 8
@@ -67727,9 +66953,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cJs" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall/r_wall,
@@ -67813,9 +67037,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cJz" = (
 /obj/structure/closet/bombcloset,
 /obj/effect/decal/warning_stripes/north,
@@ -67970,9 +67192,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cJT" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -67981,9 +67201,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "cJU" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -68239,9 +67457,7 @@
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cKD" = (
 /obj/machinery/computer/operating,
 /obj/structure/cable/yellow{
@@ -68276,9 +67492,7 @@
 "cKG" = (
 /obj/structure/closet/wardrobe/grey,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cKH" = (
 /obj/item/circular_saw,
 /obj/item/FixOVein,
@@ -68442,9 +67656,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cKW" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -68665,9 +67877,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cLt" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -68683,9 +67893,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cLu" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -68694,9 +67902,7 @@
 	dir = 8;
 	icon_state = "whitehall"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cLv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -68758,9 +67964,7 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cLA" = (
 /obj/effect/landmark/start{
 	name = "Roboticist"
@@ -68774,9 +67978,7 @@
 "cLB" = (
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cLC" = (
 /obj/structure/closet,
 /obj/item/assembly/prox_sensor{
@@ -68788,9 +67990,7 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cLD" = (
 /obj/structure/chair{
 	dir = 4
@@ -68961,16 +68161,12 @@
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cLV" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/beaker/large,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cLX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -69151,9 +68347,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cMq" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -69163,9 +68357,7 @@
 	dir = 10;
 	icon_state = "whitehall"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cMr" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
@@ -69233,9 +68425,7 @@
 /obj/structure/closet/crate,
 /obj/item/clothing/mask/gas,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cMy" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -69651,9 +68841,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cMZ" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
@@ -69662,9 +68850,7 @@
 	dir = 9;
 	icon_state = "whitehall"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cNa" = (
 /obj/structure/table,
 /obj/machinery/light/small{
@@ -69678,9 +68864,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cNb" = (
 /obj/structure/table,
 /obj/item/retractor,
@@ -69695,9 +68879,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cNc" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -69770,9 +68952,7 @@
 	dir = 8;
 	icon_state = "whitepurplecorner"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cNk" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -69789,9 +68969,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cNm" = (
 /obj/machinery/atmospherics/pipe/simple/insulated,
 /turf/simulated/wall/r_wall,
@@ -69991,17 +69169,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cNP" = (
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cNQ" = (
 /obj/machinery/computer/rdconsole/robotics,
 /obj/machinery/requests_console{
@@ -70024,9 +69198,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cNS" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
@@ -70063,9 +69235,7 @@
 	req_one_access_txt = "12;5;39;6"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cNW" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -70134,9 +69304,7 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cOa" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
@@ -70193,9 +69361,7 @@
 	dir = 8;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cOg" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -70216,9 +69382,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cOh" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -70229,9 +69393,7 @@
 	dir = 4;
 	icon_state = "whiteblue"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cOi" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
@@ -70286,9 +69448,7 @@
 "cOm" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cOn" = (
 /obj/machinery/r_n_d/server/robotics,
 /turf/simulated/floor/bluegrid{
@@ -70361,9 +69521,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cOt" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -70378,9 +69536,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cOu" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -70399,9 +69555,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cOw" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -70412,16 +69566,12 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cOx" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cOy" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -70572,9 +69722,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cOL" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -70601,9 +69749,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cON" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "escape"
@@ -70705,9 +69851,7 @@
 	dir = 8;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cPb" = (
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
@@ -70720,9 +69864,7 @@
 	dir = 4;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cPc" = (
 /turf/simulated/wall,
 /area/toxins/server{
@@ -70814,9 +69956,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cPm" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -70980,9 +70120,7 @@
 	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cPG" = (
 /obj/structure/rack{
 	dir = 8;
@@ -70996,9 +70134,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cPH" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
@@ -71176,9 +70312,7 @@
 "cPT" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cPU" = (
 /obj/structure/cable/yellow{
 	d2 = 8;
@@ -71216,9 +70350,7 @@
 	dir = 8;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cPZ" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -71359,9 +70491,7 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cQk" = (
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
@@ -71377,9 +70507,7 @@
 	name = "3maintenance loot spawner"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cQn" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -71502,9 +70630,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cQy" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -71517,9 +70643,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cQz" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -71561,9 +70685,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cQF" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -71575,9 +70697,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cQG" = (
 /obj/structure/rack,
 /obj/item/crowbar/red,
@@ -71600,26 +70720,20 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cQI" = (
 /obj/structure/closet,
 /obj/item/clothing/glasses/science,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cQJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cQK" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
@@ -71637,9 +70751,7 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cQM" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -71708,9 +70820,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cQR" = (
 /obj/machinery/power/apc{
 	cell_type = 5000;
@@ -71748,9 +70858,7 @@
 "cQU" = (
 /obj/item/storage/box/lights/mixed,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cQV" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -71762,9 +70870,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cQW" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/starboardsolar)
@@ -71854,9 +70960,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cRj" = (
 /obj/machinery/door/airlock/centcom{
 	icon = 'icons/obj/doors/airlocks/station/maintenance.dmi';
@@ -71874,9 +70978,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cRl" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -71889,9 +70991,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cRm" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -71908,9 +71008,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cRn" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/warning_stripes/north,
@@ -71922,9 +71020,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cRp" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-11";
@@ -71958,9 +71054,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cRt" = (
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit{
@@ -72086,9 +71180,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cRE" = (
 /obj/machinery/camera{
 	c_tag = "Medbay Surgery 1 North"
@@ -72129,9 +71221,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cRI" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -72148,9 +71238,7 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cRJ" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -72177,9 +71265,7 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cRK" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -72238,9 +71324,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cRQ" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -72258,9 +71342,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cRS" = (
 /obj/structure/cable/yellow{
 	d2 = 8;
@@ -72434,9 +71516,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cSj" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -72446,9 +71526,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cSk" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -72476,9 +71554,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cSn" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -72502,9 +71578,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cSo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -72529,9 +71603,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cSr" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -72566,9 +71638,7 @@
 	req_one_access_txt = "7;12;47"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cSu" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xeno_blastdoor";
@@ -72578,9 +71648,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cSv" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-11";
@@ -72837,9 +71905,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cSX" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -72871,9 +71937,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cSZ" = (
 /obj/structure/table/glass,
 /obj/item/paper_bin{
@@ -72897,9 +71961,7 @@
 /obj/machinery/space_heater,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cTc" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -72918,9 +71980,7 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cTe" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -73046,9 +72106,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cTp" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -73223,9 +72281,7 @@
 	name = "maint grille or trash spawner"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cTH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -73287,9 +72343,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cTO" = (
 /obj/structure/chair{
 	dir = 4
@@ -73806,16 +72860,12 @@
 "cUK" = (
 /obj/item/seeds/berry,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cUL" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cUN" = (
 /obj/machinery/alarm{
 	dir = 1;
@@ -73951,9 +73001,7 @@
 /obj/machinery/biogenerator,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cVf" = (
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/flora/ausbushes/fullgrass,
@@ -73978,9 +73026,7 @@
 /obj/item/seeds/grass,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cVi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -73996,9 +73042,7 @@
 /obj/item/seeds/glowshroom,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cVk" = (
 /turf/simulated/wall,
 /area/hallway/secondary/exit{
@@ -74056,26 +73100,20 @@
 /obj/item/seeds/carrot,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cVp" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/plant_analyzer,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cVq" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/glowshroom,
 /obj/item/seeds/corn,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cVr" = (
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
@@ -74203,9 +73241,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "cVL" = (
 /obj/structure/closet/coffin,
 /obj/machinery/light/small{
@@ -74466,9 +73502,7 @@
 "cWq" = (
 /obj/structure/chair,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cWs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -74607,9 +73641,7 @@
 	name = "2maintenance loot spawner"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cWK" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -74986,9 +74018,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cXz" = (
 /obj/machinery/smartfridge/secure/extract,
 /turf/simulated/floor/plasteel{
@@ -75414,9 +74444,7 @@
 /obj/item/seeds/glowshroom,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cYr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -75461,9 +74489,7 @@
 /obj/item/seeds/ambrosia,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cYx" = (
 /obj/structure/chair{
 	dir = 1
@@ -75770,16 +74796,12 @@
 /obj/structure/table/wood,
 /obj/machinery/bottler,
 /turf/simulated/floor/wood,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cZh" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/wood,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cZi" = (
 /obj/machinery/camera{
 	c_tag = "Dormitories - Fore";
@@ -75846,9 +74868,7 @@
 	icon_state = "whitegreen";
 	tag = "icon-whitehall (WEST)"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cZr" = (
 /turf/simulated/wall,
 /area/toxins/xenobiology{
@@ -75892,9 +74912,7 @@
 	icon_state = "whitegreen";
 	tag = "icon-whitehall (WEST)"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cZw" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -75911,9 +74929,7 @@
 	dir = 4;
 	icon_state = "whitegreen"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cZy" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -76009,9 +75025,7 @@
 /obj/item/cultivator,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cZK" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -76045,9 +75059,7 @@
 /obj/item/seeds/watermelon,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "cZO" = (
 /obj/machinery/door/airlock/medical{
 	name = "Psych Office";
@@ -76129,9 +75141,7 @@
 /obj/item/seeds/berry,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "daa" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -76227,9 +75237,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "dap" = (
 /obj/item/radio/beacon,
 /obj/effect/decal/warning_stripes/north,
@@ -76361,9 +75369,7 @@
 	icon_state = "whitegreen";
 	tag = "icon-whitehall (WEST)"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "day" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -76378,9 +75384,7 @@
 	icon_state = "whitegreen";
 	tag = "icon-whitehall (WEST)"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "daF" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'HIGH VOLTAGE'";
@@ -76435,9 +75439,7 @@
 	dir = 4;
 	icon_state = "whitegreen"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "daN" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -76687,9 +75689,7 @@
 	icon_state = "whitegreen";
 	tag = "icon-whitehall (WEST)"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "dbw" = (
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
@@ -76736,9 +75736,7 @@
 	dir = 4;
 	icon_state = "whitegreen"
 	},
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "dbz" = (
 /obj/structure/sink{
 	dir = 8;
@@ -77707,18 +76705,14 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "deh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	icon_state = "pipe-c"
 	},
 /turf/simulated/wall,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "dei" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/wood,
@@ -77746,9 +76740,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "del" = (
 /obj/item/candle,
 /obj/structure/table/wood,
@@ -77914,9 +76906,7 @@
 	pixel_y = -8
 	},
 /turf/simulated/wall,
-/area/maintenance/maintcentral{
-	name = "Central Maintenance"
-	})
+/area/maintenance/maintcentral)
 "deG" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -78119,9 +77109,7 @@
 /obj/effect/decal/warning_stripes/northeastcorner,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "dfj" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/north,
@@ -78693,9 +77681,7 @@
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "dgD" = (
 /obj/machinery/camera{
 	c_tag = "Quartermaster's Office";
@@ -78740,9 +77726,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "dgH" = (
 /obj/structure/closet/l3closet,
 /obj/effect/decal/warning_stripes/southeast,
@@ -78800,9 +77784,7 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "dhi" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
@@ -78882,9 +77864,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "dhr" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -78908,24 +77888,18 @@
 	dir = 10
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "dhu" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "dhw" = (
 /obj/structure/closet/crate,
 /obj/item/clothing/gloves/color/fyellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "dhx" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -79008,25 +77982,19 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "dhF" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "storage room";
 	req_access = "12"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "dhG" = (
 /obj/item/seeds/watermelon,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "dhI" = (
 /mob/living/simple_animal/bot/cleanbot{
 	name = "Mopfficer Sweepsky";
@@ -79212,9 +78180,7 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "dFD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -79341,9 +78307,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "dWX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -79413,9 +78377,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "ebM" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -79845,9 +78807,7 @@
 	dir = 8;
 	icon_state = "whitepurple"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "fwO" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "specops_home";
@@ -80145,9 +79105,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "gnZ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -80638,9 +79596,7 @@
 	name = "maint grille or trash spawner"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "hLH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -80666,9 +79622,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "hNy" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -80954,9 +79908,7 @@
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "iEd" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -81069,9 +80021,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "iUs" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -81114,9 +80064,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "jbk" = (
 /obj/structure/reflector/double{
 	anchored = 1;
@@ -81714,9 +80662,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "len" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/engine,
@@ -82872,9 +81818,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "peO" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/machinery/atmospherics/binary/pump{
@@ -82974,9 +81918,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "pue" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -83073,9 +82015,7 @@
 "pMx" = (
 /obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "pMS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -83146,9 +82086,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "pRy" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/camera,
@@ -83247,9 +82185,7 @@
 "qbl" = (
 /obj/effect/spawner/airlock,
 /turf/simulated/wall,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "qbE" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -83325,9 +82261,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "qob" = (
 /obj/structure/closet/emcloset,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -83428,9 +82362,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "qHi" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -83840,9 +82772,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "rIq" = (
 /obj/structure/table,
 /obj/item/clothing/mask/breath{
@@ -83986,9 +82916,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "say" = (
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -84108,9 +83036,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "svR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -84228,9 +83154,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "sVC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -84293,9 +83217,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "tgE" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
@@ -84527,9 +83449,7 @@
 /obj/effect/spawner/window/reinforced,
 /obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "tYS" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -84539,9 +83459,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "tYX" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -84702,9 +83620,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft{
-	name = "Aft Maintenance"
-	})
+/area/maintenance/aft)
 "uBN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
@@ -85317,9 +84233,7 @@
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/medical/research)
 "wzo" = (
 /obj/item/flashlight/lantern{
 	pixel_y = 7

@@ -251,9 +251,8 @@
 /area/ruin/powered)
 "Q" = (
 /obj/machinery/shower{
-	tag = "icon-shower (WEST)";
-	icon_state = "shower";
-	dir = 8
+	dir = 8;
+	tag = "icon-shower (WEST)"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -266,9 +265,8 @@
 /area/ruin/powered)
 "S" = (
 /obj/structure/toilet{
-	tag = "icon-toilet00 (WEST)";
-	icon_state = "toilet00";
-	dir = 8
+	dir = 8;
+	tag = "icon-toilet00 (WEST)"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"

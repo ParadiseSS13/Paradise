@@ -7,9 +7,8 @@
 /area/shuttle/supply)
 "f" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
@@ -31,33 +30,29 @@
 /area/shuttle/supply)
 "i" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
-	icon_state = "tube1";
-	dir = 8
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
 "j" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
-	icon_state = "tube1";
-	dir = 4
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
 	},
 /obj/machinery/door_control{
 	id = "QMLoaddoor2";
 	layer = 3;
 	name = "Loading Doors";
 	pixel_x = 24;
-	pixel_y = 8;
-	req_access_txt = "0"
+	pixel_y = 8
 	},
 /obj/machinery/door_control{
 	id = "QMLoaddoor";
 	layer = 3;
 	name = "Loading Doors";
 	pixel_x = 24;
-	pixel_y = -8;
-	req_access_txt = "0"
+	pixel_y = -8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
@@ -96,8 +91,8 @@
 /area/space)
 "w" = (
 /obj/structure/shuttle/engine/propulsion{
-	tag = "icon-burst_l";
-	icon_state = "burst_l"
+	icon_state = "burst_l";
+	tag = "icon-burst_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/supply)
@@ -107,8 +102,8 @@
 /area/shuttle/supply)
 "y" = (
 /obj/structure/shuttle/engine/propulsion{
-	tag = "icon-burst_r";
-	icon_state = "burst_r"
+	icon_state = "burst_r";
+	tag = "icon-burst_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/supply)

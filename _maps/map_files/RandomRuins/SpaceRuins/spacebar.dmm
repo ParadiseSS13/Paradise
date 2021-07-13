@@ -252,9 +252,8 @@
 	})
 "aU" = (
 /obj/structure/chair{
-	tag = "icon-chair (EAST)";
-	icon_state = "chair";
-	dir = 4
+	dir = 4;
+	tag = "icon-chair (EAST)"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered{
@@ -268,9 +267,8 @@
 	})
 "aW" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
-	icon_state = "chair";
-	dir = 8
+	dir = 8;
+	tag = "icon-chair (WEST)"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered{
@@ -278,7 +276,6 @@
 	})
 "aX" = (
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -349,7 +346,6 @@
 "bh" = (
 /obj/structure/sink{
 	dir = 4;
-	icon_state = "sink";
 	pixel_x = 11
 	},
 /obj/structure/mirror{
@@ -362,7 +358,6 @@
 "bi" = (
 /obj/structure/table/wood,
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,

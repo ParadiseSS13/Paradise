@@ -113,7 +113,6 @@
 "aj" = (
 /obj/structure/closet/cardboard,
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 8
 	},
 /obj/item/flashlight/flare,
@@ -173,8 +172,7 @@
 "ao" = (
 /obj/structure/closet/cardboard,
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /obj/item/ammo_box/c9mm,
 /obj/item/ammo_box/c9mm,
@@ -234,7 +232,6 @@
 	},
 /obj/structure/sink{
 	dir = 4;
-	icon_state = "sink";
 	pixel_x = 11
 	},
 /turf/simulated/floor/plasteel{
@@ -340,14 +337,14 @@
 "aH" = (
 /obj/machinery/vending/clothing,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken";
-	icon_state = "wood-broken"
+	icon_state = "wood-broken";
+	tag = "icon-wood-broken"
 	},
 /area/ruin/unpowered)
 "aI" = (
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken2";
-	icon_state = "wood-broken2"
+	icon_state = "wood-broken2";
+	tag = "icon-wood-broken2"
 	},
 /area/ruin/unpowered)
 "aJ" = (
@@ -389,7 +386,6 @@
 "aO" = (
 /obj/structure/closet/radiation,
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -402,16 +398,15 @@
 /obj/item/reagent_containers/food/drinks/cans/cola,
 /obj/item/reagent_containers/food/drinks/cans/cola,
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "aQ" = (
 /obj/structure/closet/wardrobe/pink,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken2";
-	icon_state = "wood-broken2"
+	icon_state = "wood-broken2";
+	tag = "icon-wood-broken2"
 	},
 /area/ruin/unpowered)
 "aR" = (
@@ -420,8 +415,8 @@
 "aS" = (
 /obj/structure/bed,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken";
-	icon_state = "wood-broken"
+	icon_state = "wood-broken";
+	tag = "icon-wood-broken"
 	},
 /area/ruin/unpowered)
 "aT" = (
@@ -473,15 +468,15 @@
 /area/ruin/unpowered)
 "aZ" = (
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken";
-	icon_state = "wood-broken"
+	icon_state = "wood-broken";
+	tag = "icon-wood-broken"
 	},
 /area/ruin/unpowered)
 "ba" = (
 /obj/structure/bed,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken2";
-	icon_state = "wood-broken2"
+	icon_state = "wood-broken2";
+	tag = "icon-wood-broken2"
 	},
 /area/ruin/unpowered)
 "bb" = (
@@ -517,15 +512,14 @@
 /area/ruin/unpowered)
 "bf" = (
 /obj/structure/closet/fireaxecabinet{
-	tag = "icon-fireaxe0130";
 	icon_state = "fireaxe0130";
-	pixel_y = 28
+	pixel_y = 28;
+	tag = "icon-fireaxe0130"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "bg" = (
 /obj/machinery/sleeper{
-	icon_state = "sleeper-open";
 	dir = 4
 	},
 /obj/machinery/light/small{
@@ -548,7 +542,6 @@
 /area/ruin/unpowered)
 "bj" = (
 /obj/machinery/sleeper{
-	icon_state = "sleeper-open";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -591,8 +584,8 @@
 /area/ruin/unpowered)
 "br" = (
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/machinery/power/port_gen/pacman,
 /turf/simulated/floor/plasteel,
@@ -635,7 +628,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/power/terminal{
-	icon_state = "term";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -648,30 +640,30 @@
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
-	tag = "icon-bar";
-	icon_state = "bar"
+	icon_state = "bar";
+	tag = "icon-bar"
 	},
 /area/ruin/unpowered)
 "bB" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-bar";
-	icon_state = "bar"
+	icon_state = "bar";
+	tag = "icon-bar"
 	},
 /area/ruin/unpowered)
 "bC" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel{
-	tag = "icon-bar";
-	icon_state = "bar"
+	icon_state = "bar";
+	tag = "icon-bar"
 	},
 /area/ruin/unpowered)
 "bD" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/beans,
 /turf/simulated/floor/plasteel{
-	tag = "icon-bar";
-	icon_state = "bar"
+	icon_state = "bar";
+	tag = "icon-bar"
 	},
 /area/ruin/unpowered)
 "bE" = (
@@ -679,8 +671,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-bar";
-	icon_state = "bar"
+	icon_state = "bar";
+	tag = "icon-bar"
 	},
 /area/ruin/unpowered)
 "bF" = (
@@ -690,13 +682,13 @@
 "bG" = (
 /obj/machinery/power/apc/noalarm{
 	dir = 8;
-	name = "Bunker APC";
 	keep_preset_name = 1;
+	name = "Bunker APC";
 	pixel_x = -24
 	},
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -726,23 +718,23 @@
 /obj/structure/table,
 /obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel{
-	tag = "icon-bar";
-	icon_state = "bar"
+	icon_state = "bar";
+	tag = "icon-bar"
 	},
 /area/ruin/unpowered)
 "bL" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	tag = "icon-bar";
-	icon_state = "bar"
+	icon_state = "bar";
+	tag = "icon-bar"
 	},
 /area/ruin/unpowered)
 "bM" = (
 /obj/structure/table,
 /obj/item/kitchen/utensil/fork,
 /turf/simulated/floor/plasteel{
-	tag = "icon-bar";
-	icon_state = "bar"
+	icon_state = "bar";
+	tag = "icon-bar"
 	},
 /area/ruin/unpowered)
 "bN" = (
@@ -755,9 +747,8 @@
 /area/ruin/unpowered)
 "bP" = (
 /obj/structure/chair/office/dark{
-	tag = "icon-officechair_dark (EAST)";
-	icon_state = "officechair_dark";
-	dir = 4
+	dir = 4;
+	tag = "icon-officechair_dark (EAST)"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -768,15 +759,15 @@
 "bR" = (
 /obj/machinery/smartfridge,
 /turf/simulated/floor/plasteel{
-	tag = "icon-bar";
-	icon_state = "bar"
+	icon_state = "bar";
+	tag = "icon-bar"
 	},
 /area/ruin/unpowered)
 "bS" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	tag = "icon-bar";
-	icon_state = "bar"
+	icon_state = "bar";
+	tag = "icon-bar"
 	},
 /area/ruin/unpowered)
 "bT" = (

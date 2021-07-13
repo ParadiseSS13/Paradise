@@ -14,8 +14,8 @@
 /area/awaymission/wwvault)
 "ae" = (
 /turf/simulated/floor{
-	tag = "icon-cultdamage5";
-	icon_state = "cultdamage5"
+	icon_state = "cultdamage5";
+	tag = "icon-cultdamage5"
 	},
 /area/awaymission/wwvault)
 "af" = (
@@ -24,8 +24,8 @@
 /area/awaymission/wwvault)
 "ag" = (
 /turf/simulated/floor{
-	tag = "icon-bcircuitoff";
-	icon_state = "bcircuitoff"
+	icon_state = "bcircuitoff";
+	tag = "icon-bcircuitoff"
 	},
 /area/awaymission/wwvault)
 "ah" = (
@@ -41,14 +41,14 @@
 /area/awaymission/wwvault)
 "aj" = (
 /turf/simulated/floor{
-	tag = "icon-cultdamage3";
-	icon_state = "cultdamage3"
+	icon_state = "cultdamage3";
+	tag = "icon-cultdamage3"
 	},
 /area/awaymission/wwvault)
 "ak" = (
 /turf/simulated/floor{
-	tag = "icon-cultdamage6";
-	icon_state = "cultdamage6"
+	icon_state = "cultdamage6";
+	tag = "icon-cultdamage6"
 	},
 /area/awaymission/wwvault)
 "al" = (
@@ -58,8 +58,8 @@
 "am" = (
 /mob/living/simple_animal/hostile/faithless,
 /turf/simulated/floor{
-	tag = "icon-bcircuitoff";
-	icon_state = "bcircuitoff"
+	icon_state = "bcircuitoff";
+	tag = "icon-bcircuitoff"
 	},
 /area/awaymission/wwvault)
 "an" = (
@@ -72,22 +72,22 @@
 /area/awaymission/wwvault)
 "ao" = (
 /turf/simulated/floor{
-	tag = "icon-gcircuitoff";
-	icon_state = "gcircuitoff"
+	icon_state = "gcircuitoff";
+	tag = "icon-gcircuitoff"
 	},
 /area/awaymission/wwvault)
 "ap" = (
 /obj/machinery/wish_granter_dark,
 /turf/simulated/floor{
-	tag = "icon-gcircuitoff";
-	icon_state = "gcircuitoff"
+	icon_state = "gcircuitoff";
+	tag = "icon-gcircuitoff"
 	},
 /area/awaymission/wwvault)
 "aq" = (
 /obj/structure/cult/pylon,
 /turf/simulated/floor{
-	tag = "icon-gcircuitoff";
-	icon_state = "gcircuitoff"
+	icon_state = "gcircuitoff";
+	tag = "icon-gcircuitoff"
 	},
 /area/awaymission/wwvault)
 "ar" = (
@@ -95,8 +95,8 @@
 	dir = 9
 	},
 /turf/simulated/floor{
-	tag = "icon-gcircuitoff";
-	icon_state = "gcircuitoff"
+	icon_state = "gcircuitoff";
+	tag = "icon-gcircuitoff"
 	},
 /area/awaymission/wwvault)
 "as" = (
@@ -104,8 +104,8 @@
 	dir = 5
 	},
 /turf/simulated/floor{
-	tag = "icon-gcircuitoff";
-	icon_state = "gcircuitoff"
+	icon_state = "gcircuitoff";
+	tag = "icon-gcircuitoff"
 	},
 /area/awaymission/wwvault)
 "at" = (
@@ -113,8 +113,8 @@
 	dir = 1
 	},
 /turf/simulated/floor{
-	tag = "icon-gcircuitoff";
-	icon_state = "gcircuitoff"
+	icon_state = "gcircuitoff";
+	tag = "icon-gcircuitoff"
 	},
 /area/awaymission/wwvault)
 "au" = (
@@ -122,8 +122,8 @@
 	dir = 8
 	},
 /turf/simulated/floor{
-	tag = "icon-gcircuitoff";
-	icon_state = "gcircuitoff"
+	icon_state = "gcircuitoff";
+	tag = "icon-gcircuitoff"
 	},
 /area/awaymission/wwvault)
 "av" = (
@@ -131,8 +131,8 @@
 	dir = 4
 	},
 /turf/simulated/floor{
-	tag = "icon-gcircuitoff";
-	icon_state = "gcircuitoff"
+	icon_state = "gcircuitoff";
+	tag = "icon-gcircuitoff"
 	},
 /area/awaymission/wwvault)
 "aw" = (
@@ -140,8 +140,8 @@
 	calibrated = 0
 	},
 /turf/simulated/floor{
-	tag = "icon-gcircuitoff";
-	icon_state = "gcircuitoff"
+	icon_state = "gcircuitoff";
+	tag = "icon-gcircuitoff"
 	},
 /area/awaymission/wwvault)
 "ax" = (
@@ -149,8 +149,8 @@
 	dir = 10
 	},
 /turf/simulated/floor{
-	tag = "icon-gcircuitoff";
-	icon_state = "gcircuitoff"
+	icon_state = "gcircuitoff";
+	tag = "icon-gcircuitoff"
 	},
 /area/awaymission/wwvault)
 "ay" = (
@@ -158,35 +158,35 @@
 	dir = 6
 	},
 /turf/simulated/floor{
-	tag = "icon-gcircuitoff";
-	icon_state = "gcircuitoff"
+	icon_state = "gcircuitoff";
+	tag = "icon-gcircuitoff"
 	},
 /area/awaymission/wwvault)
 "az" = (
 /obj/machinery/gateway,
 /turf/simulated/floor{
-	tag = "icon-gcircuitoff";
-	icon_state = "gcircuitoff"
+	icon_state = "gcircuitoff";
+	tag = "icon-gcircuitoff"
 	},
 /area/awaymission/wwvault)
 "aA" = (
 /obj/effect/meatgrinder,
 /turf/simulated/floor{
-	tag = "icon-gcircuitoff";
-	icon_state = "gcircuitoff"
+	icon_state = "gcircuitoff";
+	tag = "icon-gcircuitoff"
 	},
 /area/awaymission/wwvault)
 "aB" = (
 /obj/structure/cult/pylon,
 /turf/simulated/floor{
-	tag = "icon-bcircuitoff";
-	icon_state = "bcircuitoff"
+	icon_state = "bcircuitoff";
+	tag = "icon-bcircuitoff"
 	},
 /area/awaymission/wwvault)
 "aC" = (
 /turf/simulated/floor{
-	tag = "icon-cultdamage2";
-	icon_state = "cultdamage2"
+	icon_state = "cultdamage2";
+	tag = "icon-cultdamage2"
 	},
 /area/awaymission/wwvault)
 "aD" = (
@@ -222,8 +222,8 @@
 "aI" = (
 /obj/machinery/power/smes/magical,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -342,8 +342,8 @@
 /area/awaymission/wwmines)
 "bd" = (
 /obj/effect/decal/cleanable/blood/gibs/body{
-	tag = "icon-gibup1";
-	icon_state = "gibup1"
+	icon_state = "gibup1";
+	tag = "icon-gibup1"
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wwmines)
@@ -419,32 +419,32 @@
 /area/awaymission/wwmines)
 "bv" = (
 /obj/effect/decal/cleanable/blood/gibs/body{
-	tag = "icon-gibup1";
-	icon_state = "gibup1"
+	icon_state = "gibup1";
+	tag = "icon-gibup1"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "bw" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow";
-	icon_state = "fwindow"
+	icon_state = "fwindow";
+	tag = "icon-fwindow"
 	},
 /turf/space,
 /area/space/nearstation)
 "bx" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow";
-	icon_state = "fwindow"
+	icon_state = "fwindow";
+	tag = "icon-fwindow"
 	},
 /turf/space,
 /area/space/nearstation)
 "by" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "bz" = (
@@ -453,9 +453,9 @@
 /area/awaymission/wwmines)
 "bA" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "bB" = (
@@ -472,9 +472,9 @@
 "bE" = (
 /mob/living/simple_animal/hostile/syndicate/ranged/wildwest,
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "bF" = (
@@ -496,36 +496,32 @@
 "bI" = (
 /obj/structure/table/wood,
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /obj/item/gun/projectile/automatic/pistol,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "bJ" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
 "bK" = (
 /obj/structure/table/wood,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "bL" = (
 /obj/structure/table/wood,
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /obj/item/kitchen/knife/butcher,
 /turf/simulated/floor/wood,
@@ -541,47 +537,44 @@
 "bO" = (
 /obj/structure/table/wood,
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "bP" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "bQ" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "bR" = (
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "bS" = (
 /obj/item/book/manual/chef_recipes,
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "bT" = (
@@ -592,29 +585,29 @@
 /obj/item/reagent_containers/food/snacks/meat/syntiflesh,
 /obj/item/reagent_containers/food/snacks/meat/syntiflesh,
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "bU" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /turf/space,
 /area/space/nearstation)
 "bV" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow";
-	icon_state = "fwindow"
+	icon_state = "fwindow";
+	tag = "icon-fwindow"
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -624,32 +617,32 @@
 /area/awaymission/wwgov)
 "bW" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow";
-	icon_state = "fwindow"
+	icon_state = "fwindow";
+	tag = "icon-fwindow"
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
 "bX" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow";
-	icon_state = "fwindow"
+	icon_state = "fwindow";
+	tag = "icon-fwindow"
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
@@ -663,22 +656,21 @@
 /area/awaymission/wwmines)
 "ca" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /turf/space,
 /area/space/nearstation)
 "cb" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (WEST)";
-	icon_state = "bulb1";
-	dir = 8
+	dir = 8;
+	tag = "icon-bulb1 (WEST)"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "cc" = (
@@ -686,21 +678,20 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "cd" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
-	icon_state = "bulb1";
-	dir = 4
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "ce" = (
@@ -708,9 +699,9 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "cf" = (
@@ -731,9 +722,9 @@
 /area/awaymission/wwmines)
 "cj" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /turf/space,
 /area/space/nearstation)
@@ -742,20 +733,20 @@
 /area/awaymission/wwgov)
 "cl" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
@@ -764,14 +755,14 @@
 /area/awaymission/wwgov)
 "cn" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -781,14 +772,14 @@
 /area/awaymission/wwgov)
 "co" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -801,9 +792,9 @@
 "cq" = (
 /obj/effect/mob_spawn/human/cook,
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "cr" = (
@@ -820,14 +811,14 @@
 /area/awaymission/wwgov)
 "cu" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -851,9 +842,9 @@
 	name = "Planer Saul's Journal: Page 4"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "cz" = (
@@ -868,9 +859,8 @@
 /area/awaymission/wwgov)
 "cB" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (WEST)";
-	icon_state = "bulb1";
-	dir = 8
+	dir = 8;
+	tag = "icon-bulb1 (WEST)"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
@@ -880,25 +870,23 @@
 /area/awaymission/wwgov)
 "cD" = (
 /obj/structure/bookcase{
-	tag = "icon-book-5";
-	icon_state = "book-5"
+	icon_state = "book-5";
+	tag = "icon-book-5"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwgov)
 "cE" = (
 /obj/item/storage/bag/money,
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwgov)
 "cF" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwgov)
@@ -907,9 +895,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wwgov)
 "cH" = (
-/obj/effect/mob_spawn/human/corpse/syndicatecommando{
-	mob_name = "Syndicate Commando"
-	},
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
 /turf/simulated/floor/carpet,
 /area/awaymission/wwgov)
 "cI" = (
@@ -936,8 +922,8 @@
 /area/awaymission/wwgov)
 "cN" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_bleft";
-	icon_state = "stage_bleft"
+	icon_state = "stage_bleft";
+	tag = "icon-stage_bleft"
 	},
 /area/awaymission/wwgov)
 "cO" = (
@@ -950,35 +936,34 @@
 "cP" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_bleft";
-	icon_state = "stage_bleft"
+	icon_state = "stage_bleft";
+	tag = "icon-stage_bleft"
 	},
 /area/awaymission/wwgov)
 "cQ" = (
 /obj/machinery/kitchen_machine/microwave,
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_bleft";
-	icon_state = "stage_bleft"
+	icon_state = "stage_bleft";
+	tag = "icon-stage_bleft"
 	},
 /area/awaymission/wwgov)
 "cR" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_bleft";
-	icon_state = "stage_bleft"
+	icon_state = "stage_bleft";
+	tag = "icon-stage_bleft"
 	},
 /area/awaymission/wwgov)
 "cS" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /turf/space,
 /area/space/nearstation)
@@ -1013,27 +998,26 @@
 /area/awaymission/wwgov)
 "cY" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
-	icon_state = "bulb1";
-	dir = 4
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "cZ" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow";
-	icon_state = "fwindow"
+	icon_state = "fwindow";
+	tag = "icon-fwindow"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
@@ -1048,25 +1032,22 @@
 "dc" = (
 /obj/item/storage/toolbox/electrical,
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (WEST)";
-	icon_state = "bulb1";
-	dir = 8
+	dir = 8;
+	tag = "icon-bulb1 (WEST)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwgov)
 "dd" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
-	icon_state = "bulb1";
-	dir = 4
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwgov)
 "de" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (WEST)";
-	icon_state = "bulb1";
-	dir = 8
+	dir = 8;
+	tag = "icon-bulb1 (WEST)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwgov)
@@ -1078,45 +1059,42 @@
 /area/space/nearstation)
 "dg" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (WEST)";
-	icon_state = "bulb1";
-	dir = 8
+	dir = 8;
+	tag = "icon-bulb1 (WEST)"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_bleft";
-	icon_state = "stage_bleft"
+	icon_state = "stage_bleft";
+	tag = "icon-stage_bleft"
 	},
 /area/awaymission/wwgov)
 "dh" = (
 /mob/living/simple_animal/hostile/creature,
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_bleft";
-	icon_state = "stage_bleft"
+	icon_state = "stage_bleft";
+	tag = "icon-stage_bleft"
 	},
 /area/awaymission/wwgov)
 "di" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
-	icon_state = "bulb1";
-	dir = 4
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_bleft";
-	icon_state = "stage_bleft"
+	icon_state = "stage_bleft";
+	tag = "icon-stage_bleft"
 	},
 /area/awaymission/wwgov)
 "dj" = (
 /obj/structure/bookcase{
-	tag = "icon-book-5";
-	icon_state = "book-5"
+	icon_state = "book-5";
+	tag = "icon-book-5"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "dk" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
@@ -1132,17 +1110,15 @@
 "dn" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
-	icon_state = "bulb1";
-	dir = 4
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "do" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (WEST)";
-	icon_state = "bulb1";
-	dir = 8
+	dir = 8;
+	tag = "icon-bulb1 (WEST)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
@@ -1161,19 +1137,19 @@
 /area/awaymission/wwmines)
 "ds" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow";
-	icon_state = "fwindow"
+	icon_state = "fwindow";
+	tag = "icon-fwindow"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
@@ -1183,14 +1159,14 @@
 /area/awaymission/wwgov)
 "du" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -1212,22 +1188,22 @@
 "dx" = (
 /obj/item/reagent_containers/food/snacks/monkeysdelight,
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_bleft";
-	icon_state = "stage_bleft"
+	icon_state = "stage_bleft";
+	tag = "icon-stage_bleft"
 	},
 /area/awaymission/wwgov)
 "dy" = (
 /obj/item/reagent_containers/food/snacks/soup/stew,
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_bleft";
-	icon_state = "stage_bleft"
+	icon_state = "stage_bleft";
+	tag = "icon-stage_bleft"
 	},
 /area/awaymission/wwgov)
 "dz" = (
 /obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_bleft";
-	icon_state = "stage_bleft"
+	icon_state = "stage_bleft";
+	tag = "icon-stage_bleft"
 	},
 /area/awaymission/wwgov)
 "dA" = (
@@ -1251,9 +1227,8 @@
 	dir = 4
 	},
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (WEST)";
-	icon_state = "bulb1";
-	dir = 8
+	dir = 8;
+	tag = "icon-bulb1 (WEST)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
@@ -1262,28 +1237,27 @@
 	dir = 8
 	},
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
-	icon_state = "bulb1";
-	dir = 4
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "dG" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
@@ -1293,28 +1267,26 @@
 /area/awaymission/wwmines)
 "dI" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (WEST)";
-	icon_state = "bulb1";
-	dir = 8
+	dir = 8;
+	tag = "icon-bulb1 (WEST)"
 	},
 /mob/living/simple_animal/hostile/creature,
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_bleft";
-	icon_state = "stage_bleft"
+	icon_state = "stage_bleft";
+	tag = "icon-stage_bleft"
 	},
 /area/awaymission/wwgov)
 "dJ" = (
 /obj/item/kitchen/rollingpin,
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_bleft";
-	icon_state = "stage_bleft"
+	icon_state = "stage_bleft";
+	tag = "icon-stage_bleft"
 	},
 /area/awaymission/wwgov)
 "dK" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wwmines)
@@ -1328,16 +1300,14 @@
 "dM" = (
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/plating/ironsand{
-	tag = "icon-ironsand1";
-	icon_state = "ironsand1"
+	tag = "icon-ironsand1"
 	},
 /area/awaymission/wwmines)
 "dN" = (
 /obj/structure/mineral_door/wood,
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/simulated/floor/plating/ironsand{
-	tag = "icon-ironsand1";
-	icon_state = "ironsand1"
+	tag = "icon-ironsand1"
 	},
 /area/awaymission/wwmines)
 "dO" = (
@@ -1354,15 +1324,15 @@
 "dQ" = (
 /obj/item/reagent_containers/food/drinks/bottle/wine,
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_bleft";
-	icon_state = "stage_bleft"
+	icon_state = "stage_bleft";
+	tag = "icon-stage_bleft"
 	},
 /area/awaymission/wwgov)
 "dR" = (
 /obj/item/reagent_containers/food/drinks/bottle/patron,
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_bleft";
-	icon_state = "stage_bleft"
+	icon_state = "stage_bleft";
+	tag = "icon-stage_bleft"
 	},
 /area/awaymission/wwgov)
 "dS" = (
@@ -1372,8 +1342,8 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_bleft";
-	icon_state = "stage_bleft"
+	icon_state = "stage_bleft";
+	tag = "icon-stage_bleft"
 	},
 /area/awaymission/wwgov)
 "dT" = (
@@ -1392,9 +1362,8 @@
 /area/awaymission/wwmines)
 "dW" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wwgov)
@@ -1408,50 +1377,50 @@
 /area/awaymission/wwgov)
 "dZ" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow";
-	icon_state = "fwindow"
+	icon_state = "fwindow";
+	tag = "icon-fwindow"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
 "ea" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow";
-	icon_state = "fwindow"
+	icon_state = "fwindow";
+	tag = "icon-fwindow"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
 "eb" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow";
-	icon_state = "fwindow"
+	icon_state = "fwindow";
+	tag = "icon-fwindow"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
@@ -1459,8 +1428,8 @@
 /obj/structure/toilet,
 /mob/living/simple_animal/hostile/creature,
 /turf/simulated/floor/plasteel{
-	tag = "icon-white";
-	icon_state = "white"
+	icon_state = "white";
+	tag = "icon-white"
 	},
 /area/awaymission/wwgov)
 "ed" = (
@@ -1469,18 +1438,17 @@
 /area/awaymission/wwgov)
 "ee" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wwgov)
 "ef" = (
 /obj/structure/largecrate,
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
@@ -1492,27 +1460,25 @@
 /area/awaymission/wwgov)
 "eh" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "ei" = (
 /obj/machinery/washing_machine,
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (WEST)";
-	icon_state = "bulb1";
-	dir = 8
+	dir = 8;
+	tag = "icon-bulb1 (WEST)"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "ej" = (
@@ -1528,8 +1494,8 @@
 /area/awaymission/wwmines)
 "em" = (
 /obj/effect/decal/cleanable/blood/gibs/body{
-	tag = "icon-gibdown1";
-	icon_state = "gibdown1"
+	icon_state = "gibdown1";
+	tag = "icon-gibdown1"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
@@ -1541,8 +1507,8 @@
 /area/awaymission/wwmines)
 "eo" = (
 /obj/effect/decal/cleanable/blood/gibs/body{
-	tag = "icon-gibdown1";
-	icon_state = "gibdown1"
+	icon_state = "gibdown1";
+	tag = "icon-gibdown1"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
@@ -1571,23 +1537,22 @@
 /area/awaymission/wwmines)
 "eu" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (WEST)";
-	icon_state = "bulb1";
-	dir = 8
+	dir = 8;
+	tag = "icon-bulb1 (WEST)"
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wwmines)
 "ev" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -1595,36 +1560,35 @@
 "ew" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
 "ex" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow";
-	icon_state = "fwindow"
+	icon_state = "fwindow";
+	tag = "icon-fwindow"
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
 "ey" = (
 /obj/machinery/shower{
-	tag = "icon-shower (EAST)";
-	icon_state = "shower";
-	dir = 4
+	dir = 4;
+	tag = "icon-shower (EAST)"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "ez" = (
@@ -1643,29 +1607,28 @@
 "eC" = (
 /obj/item/soap/syndie,
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "eD" = (
 /obj/machinery/shower{
-	tag = "icon-shower (WEST)";
-	icon_state = "shower";
-	dir = 8
+	dir = 8;
+	tag = "icon-shower (WEST)"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "eE" = (
 /obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "eF" = (
@@ -1696,44 +1659,44 @@
 /area/awaymission/wwmines)
 "eL" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /turf/space,
 /area/space/nearstation)
 "eM" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /turf/space,
 /area/space/nearstation)
 "eN" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow";
-	icon_state = "fwindow"
+	icon_state = "fwindow";
+	tag = "icon-fwindow"
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
 "eO" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1742,27 +1705,27 @@
 /area/space/nearstation)
 "eP" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /turf/space,
 /area/space/nearstation)
 "eQ" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -1773,14 +1736,14 @@
 /area/awaymission/wwrefine)
 "eS" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -1788,9 +1751,9 @@
 "eT" = (
 /obj/effect/mine/gas/plasma,
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "eU" = (
@@ -1801,9 +1764,9 @@
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "eW" = (
@@ -1846,14 +1809,14 @@
 /area/awaymission/wwmines)
 "fd" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -1872,9 +1835,9 @@
 "fg" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "fh" = (
@@ -1894,8 +1857,8 @@
 /area/awaymission/wwmines)
 "fj" = (
 /obj/effect/decal/cleanable/blood/gibs/body{
-	tag = "icon-gibdown1";
-	icon_state = "gibdown1"
+	icon_state = "gibdown1";
+	tag = "icon-gibdown1"
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wwmines)
@@ -1906,9 +1869,9 @@
 "fl" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
+	dir = 5;
 	icon_state = "cafeteria";
-	dir = 5
+	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/awaymission/wwmines)
 "fm" = (
@@ -1937,20 +1900,20 @@
 /area/awaymission/wwmines)
 "fq" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
@@ -1975,13 +1938,12 @@
 /area/awaymission/wwrefine)
 "fv" = (
 /obj/effect/decal/cleanable/blood/gibs/body{
-	tag = "icon-gibdown1";
-	icon_state = "gibdown1"
+	icon_state = "gibdown1";
+	tag = "icon-gibdown1"
 	},
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (WEST)";
-	icon_state = "bulb1";
-	dir = 8
+	dir = 8;
+	tag = "icon-bulb1 (WEST)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
@@ -1995,15 +1957,13 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/gibs/body{
-	tag = "icon-gibdown1";
-	icon_state = "gibdown1"
+	icon_state = "gibdown1";
+	tag = "icon-gibdown1"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
 "fy" = (
-/obj/effect/mob_spawn/human/corpse/syndicatecommando{
-	mob_name = "Syndicate Commando"
-	},
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
 /turf/simulated/floor/grass,
 /area/awaymission/wwgov)
 "fz" = (
@@ -2013,9 +1973,8 @@
 	icon_state = "cabinet_closed"
 	},
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
@@ -2052,28 +2011,28 @@
 "fG" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
 "fH" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -2091,15 +2050,15 @@
 "fK" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
@@ -2111,8 +2070,8 @@
 /area/awaymission/wwmines)
 "fM" = (
 /obj/effect/decal/cleanable/blood/gibs/body{
-	tag = "icon-gibup1";
-	icon_state = "gibup1"
+	icon_state = "gibup1";
+	tag = "icon-gibup1"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
@@ -2130,9 +2089,8 @@
 /area/awaymission/wwmines)
 "fQ" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2188,9 +2146,8 @@
 "fZ" = (
 /obj/machinery/vending/cola,
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2207,14 +2164,14 @@
 "gb" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -2222,16 +2179,15 @@
 "gc" = (
 /obj/structure/sink,
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "gd" = (
 /obj/effect/decal/cleanable/blood/gibs/body{
-	tag = "icon-gibdown1";
-	icon_state = "gibdown1"
+	icon_state = "gibdown1";
+	tag = "icon-gibdown1"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2248,14 +2204,14 @@
 "gf" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (EAST)";
+	dir = 4;
 	icon_state = "fwindow";
-	dir = 4
+	tag = "icon-fwindow (EAST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -2269,9 +2225,8 @@
 /area/awaymission/wwmines)
 "gh" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
-	icon_state = "bulb1";
-	dir = 4
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2297,8 +2252,8 @@
 /area/awaymission/wwgov)
 "gl" = (
 /obj/effect/decal/cleanable/blood/gibs/body{
-	tag = "icon-gibdown1";
-	icon_state = "gibdown1"
+	icon_state = "gibdown1";
+	tag = "icon-gibdown1"
 	},
 /turf/simulated/wall/mineral/sandstone,
 /area/awaymission/wwmines)
@@ -2325,20 +2280,20 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow";
-	icon_state = "fwindow"
+	icon_state = "fwindow";
+	tag = "icon-fwindow"
 	},
 /turf/space,
 /area/space/nearstation)
 "gp" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow";
-	icon_state = "fwindow"
+	icon_state = "fwindow";
+	tag = "icon-fwindow"
 	},
 /turf/space,
 /area/space/nearstation)
@@ -2354,16 +2309,15 @@
 	dir = 4
 	},
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (WEST)";
-	icon_state = "bulb1";
-	dir = 8
+	dir = 8;
+	tag = "icon-bulb1 (WEST)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "gu" = (
 /obj/effect/decal/cleanable/blood/gibs/body{
-	tag = "icon-gibup1";
-	icon_state = "gibup1"
+	icon_state = "gibup1";
+	tag = "icon-gibup1"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2372,9 +2326,9 @@
 /area/awaymission/wwmines)
 "gv" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/wwgov)
@@ -2386,14 +2340,14 @@
 /area/awaymission/wwrefine)
 "gx" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/wwgov)
@@ -2402,9 +2356,9 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (NORTH)";
+	dir = 1;
 	icon_state = "fwindow";
-	dir = 1
+	tag = "icon-fwindow (NORTH)"
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/wwgov)
@@ -2416,9 +2370,9 @@
 /area/awaymission/wwmines)
 "gA" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/lattice,
 /turf/space,
@@ -2436,9 +2390,9 @@
 /area/awaymission/wwmines)
 "gE" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/wwgov)
@@ -2451,8 +2405,8 @@
 /area/awaymission/wwmines)
 "gH" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow";
-	icon_state = "fwindow"
+	icon_state = "fwindow";
+	tag = "icon-fwindow"
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/wwgov)
@@ -2461,16 +2415,16 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow";
-	icon_state = "fwindow"
+	icon_state = "fwindow";
+	tag = "icon-fwindow"
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/wwgov)
 "gJ" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /turf/simulated/floor/plasteel,
 /area/space/nearstation)
@@ -2490,9 +2444,8 @@
 "gM" = (
 /obj/machinery/photocopier,
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (NORTH)";
-	icon_state = "bulb1";
-	dir = 1
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
@@ -2518,15 +2471,15 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood/gibs/body{
-	tag = "icon-gibdown1";
-	icon_state = "gibdown1"
+	icon_state = "gibdown1";
+	tag = "icon-gibdown1"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "gR" = (
 /obj/effect/decal/cleanable/blood/gibs/body{
-	tag = "icon-gibup1";
-	icon_state = "gibup1"
+	icon_state = "gibup1";
+	tag = "icon-gibup1"
 	},
 /obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
@@ -2548,9 +2501,9 @@
 /area/awaymission/wwgov)
 "he" = (
 /obj/structure/window/reinforced{
-	tag = "icon-fwindow (WEST)";
+	dir = 8;
 	icon_state = "fwindow";
-	dir = 8
+	tag = "icon-fwindow (WEST)"
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/grass,

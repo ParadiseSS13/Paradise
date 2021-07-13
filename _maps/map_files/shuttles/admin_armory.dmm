@@ -19,7 +19,6 @@
 /obj/machinery/vending/security,
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -111,7 +110,6 @@
 "fF" = (
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -148,7 +146,6 @@
 /obj/structure/closet/emcloset,
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -194,15 +191,13 @@
 /obj/structure/chair,
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "pK" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "propulsion"
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
@@ -221,7 +216,6 @@
 	},
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /obj/machinery/door_control{
@@ -287,8 +281,7 @@
 /area/shuttle/administration)
 "uW" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 4;
-	icon_state = "heater"
+	dir = 4
 	},
 /obj/structure/window/plasmareinforced{
 	dir = 8
@@ -312,7 +305,6 @@
 "vA" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -341,7 +333,6 @@
 "wH" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -387,7 +378,6 @@
 	},
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -851,7 +841,6 @@
 	},
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /obj/item/clothing/mask/breath{
@@ -923,7 +912,6 @@
 	},
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
