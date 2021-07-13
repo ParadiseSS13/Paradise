@@ -22,10 +22,6 @@ if grep -P 'step_[xy]' _maps/**/*.dmm;	then
     echo "ERROR: step_x/step_y variables detected in maps, please remove them."
     st=1
 fi;
-if grep -P '^/area/.+[\{]' _maps/**/*.dmm;	then
-    echo "ERROR: Varedited /area path use detected in maps, please replace with proper paths."
-    st=1
-fi;
 
 if grep -P '^/[\w/]\S+\(.*(var/|, ?var/.*).*\)' code/**/*.dm; then
     echo "ERROR: Changed files contains proc argument starting with 'var/'"
