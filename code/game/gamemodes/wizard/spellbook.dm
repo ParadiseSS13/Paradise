@@ -446,7 +446,7 @@
 
 /datum/spellbook_entry/item/warp_cubes
 	name = "Warp Cubes"
-	desc = "Two magic cubes, that when they are twisted in hand, teleports the user to the location of the other cube instantly. Great for silently teleporting to a fixed location, or teleporting you to an appretnance, or vice versa. Do not leave on the wizard den, it will not work."
+	desc = "Two magic cubes, that when they are twisted in hand, teleports the user to the location of the other cube instantly. Great for silently teleporting to a fixed location, or teleporting you to an apprentice, or vice versa. Do not leave on the wizard den, it will not work."
 	item_path = /obj/item/warp_cube/red
 	log_name = "WC"
 	cost = 1
@@ -479,7 +479,7 @@
 
 /datum/spellbook_entry/item/singularity_hammer
 	name = "Singularity Hammer"
-	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everthing nearby to the point of impact."
+	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everything nearby to the point of impact."
 	item_path = /obj/item/twohanded/singularityhammer
 	log_name = "SI"
 	category = "Weapons and Armors"

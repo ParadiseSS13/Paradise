@@ -404,7 +404,7 @@
 			tile.water_act(100, convertHeat(), src)
 			tile.clean_blood(radiation_clean = TRUE)
 			for(var/obj/effect/E in tile)
-				if(is_cleanable(E))
+				if(E.is_cleanable())
 					qdel(E)
 		for(var/A in loc)
 			wash(A)

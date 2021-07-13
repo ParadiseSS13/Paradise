@@ -142,6 +142,8 @@
 /obj/item/rpd/proc/delete_all_pipes(mob/user, turf/T) //Delete all pipes on a turf
 	var/eaten
 	for(var/obj/item/pipe/P in T)
+		if(P.pipe_type == PIPE_CIRCULATOR) //Skip TEG heat circulators, they aren't really pipes
+			continue
 		QDEL_NULL(P)
 		eaten = TRUE
 	for(var/obj/item/pipe_gsensor/G in T)

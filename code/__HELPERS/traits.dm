@@ -119,6 +119,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_XENO_HOST			"xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
 #define TRAIT_SHOCKIMMUNE		"shock_immunity"
 #define TRAIT_TESLA_SHOCKIMMUNE	"tesla_shock_immunity"
+#define TRAIT_TELEKINESIS 		"telekinesis"
 #define TRAIT_RESISTHEAT		"resist_heat"
 #define TRAIT_RESISTHEATHANDS	"resist_heat_handsonly" //For when you want to be able to touch hot things, but still want fire to be an issue.
 #define TRAIT_RESISTCOLD		"resist_cold"
