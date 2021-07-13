@@ -55,6 +55,7 @@
   * * owner - The mob that owns this overlay, only this mob will be able to view it
   * * italics - Should we use italics or not
   * * lifespan - The lifespan of the message in deciseconds
+  * * symbol - The symbol type of the message
   */
 /datum/chatmessage/New(text, atom/target, mob/owner, italics, size, lifespan = CHAT_MESSAGE_LIFESPAN, symbol)
 	. = ..()
@@ -93,6 +94,8 @@
   * * radio_speech - Fancy shmancy radio icon represents that we use radio
   * * lifespan - The lifespan of the message in deciseconds
   * * italics - Just copy and paste, sir
+  * * size - Size of the message
+  * * symbol - The symbol type of the message
   */
 /datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, lifespan, italics, size, symbol)
 	// Register client who owns this message
@@ -191,8 +194,9 @@
   * * raw_message - The text content of the message
   * * italics - Vacuum and other things
   * * size - Size of the message
+  * * symbol - The symbol type of the message
   */
-/mob/proc/create_chat_message(atom/movable/speaker, raw_message, italics=FALSE, size, symbol)
+/mob/proc/create_chat_message(atom/movable/speaker, raw_message, italics = FALSE, size, symbol)
 
 	if(isobserver(src))
 		return
