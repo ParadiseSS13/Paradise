@@ -489,3 +489,6 @@
 
 /// Send to the mentor Discord webhook
 #define DISCORD_WEBHOOK_MENTOR "MENTOR"
+
+// Runechat symbol types
+#define RUNECHAT_SYMBOL_EMOTE 1
