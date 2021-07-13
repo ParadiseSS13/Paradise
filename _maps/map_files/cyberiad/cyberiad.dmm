@@ -6,20 +6,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"aac" = (
-/obj/machinery/autolathe,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "rdlab2";
-	name = "Research and Development Lab Shutters";
-	opacity = 0
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/lab)
 "aaQ" = (
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
@@ -138980,7 +138966,7 @@ bLW
 bIp
 bPB
 bIp
-aac
+bTe
 bqb
 ctv
 bYj
