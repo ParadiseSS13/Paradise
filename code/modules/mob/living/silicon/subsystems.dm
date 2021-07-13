@@ -4,7 +4,6 @@
 	var/datum/ui_module/crew_monitor/crew_monitor
 	var/datum/ui_module/law_manager/law_manager
 	var/datum/ui_module/power_monitor/digital/power_monitor
-	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
 
 /mob/living/silicon
 	var/list/silicon_subsystems = list(
@@ -20,9 +19,10 @@
 	)
 
 /mob/living/silicon/robot
+	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
 	silicon_subsystems = list(
-		/mob/living/silicon/proc/subsystem_law_manager,
-		/mob/living/silicon/robot/proc/self_diagnosis
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager
 	)
 
 /mob/living/silicon/robot/drone
@@ -40,6 +40,9 @@
 	crew_monitor 	= new(src)
 	law_manager		= new(src)
 	power_monitor	= new(src)
+
+/mob/living/silicon/robot/init_subsystems()
+	. = ..()
 	self_diagnosis  = new(src)
 
 /********************
@@ -83,5 +86,6 @@
 
 	if(!is_component_functioning("diagnosis unit"))
 		to_chat(src, "<span class='warning'>Your self-diagnosis component isn't functioning.</span>")
+		return
 
 	self_diagnosis.ui_interact(src)

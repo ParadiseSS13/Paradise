@@ -18,16 +18,12 @@ export const RobotSelfDiagnosis = (props, context) => {
       return "bad";
     }
   };
-  const getStatusColor = status => {
-    return status ? "good" : "bad";
-  };
   return (
     <Window>
       <Window.Content scrollable>
         {component_data.map((entry, i) => (
           <Section
             key={i}
-            open
             title={capitalize(entry.name)}>
             {entry.installed <= 0 ? (
               <NoticeBox
@@ -39,7 +35,7 @@ export const RobotSelfDiagnosis = (props, context) => {
                 }}>
                 <Flex height="100%">
                   <Flex.Item
-                    grow="1"
+                    grow={1}
                     textAlign="center"
                     align="center"
                     color="#e8e8e8">
@@ -49,7 +45,7 @@ export const RobotSelfDiagnosis = (props, context) => {
               </NoticeBox>
             ) : (
               <Flex>
-                <Flex.Item width="75%">
+                <Flex.Item width="72%">
                   <LabeledList>
                     <LabeledList.Item
                       label="Brute Damage"
@@ -57,22 +53,22 @@ export const RobotSelfDiagnosis = (props, context) => {
                       {entry.brute_damage}
                     </LabeledList.Item>
                     <LabeledList.Item
-                      label="Electronics Damage"
+                      label="Burn Damage"
                       color={getDamageColor(entry.electronic_damage, entry.max_damage)}>
                       {entry.electronic_damage}
                     </LabeledList.Item>
                   </LabeledList>
                 </Flex.Item>
-                <Flex.Item width="43%">
+                <Flex.Item width="50%">
                   <LabeledList>
                     <LabeledList.Item
                       label="Powered"
-                      color={getStatusColor(entry.powered, entry.max_damage)}>
+                      color={entry.powered ? "good" : "bad"}>
                       {entry.powered ? "Yes" : "No"}
                     </LabeledList.Item>
                     <LabeledList.Item
                       label="Enabled"
-                      color={getStatusColor(entry.status, entry.max_damage)}>
+                      color={entry.status ? "good" : "bad"}>
                       {entry.status ? "Yes" : "No" }
                     </LabeledList.Item>
                   </LabeledList>
