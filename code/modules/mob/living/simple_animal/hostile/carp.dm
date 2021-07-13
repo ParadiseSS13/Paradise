@@ -148,14 +148,14 @@
 	var/regen_cooldown = 0
 
 	// Just in case
-	var/static/list/first_names = list()
-	var/static/list/last_names = list()
+	var/static/list/first_names
+	var/static/list/last_names
 
 /mob/living/simple_animal/hostile/carp/megacarp/Initialize()
 	. = ..()
 	if(!first_names || !last_names)
-		first_names = file2list("strings/names/megacarp1.txt")
-		last_names = file2list("strings/names/megacarp2.txt")
+		first_names = file2list("config/names/megacarp1.txt")
+		last_names = file2list("config/names/megacarp2.txt")
 
 	name = "[pick(first_names)] [pick(last_names)]"
 	melee_damage_lower += rand(2, 10)
