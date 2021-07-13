@@ -320,8 +320,7 @@
 "ax" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "darkred";
-	tag = "icon-darkred (NORTHWEST)"
+	icon_state = "darkred"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -336,8 +335,7 @@
 "az" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkredcorners";
-	tag = "icon-darkredcorners (NORTH)"
+	icon_state = "darkredcorners"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -346,8 +344,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "darkred";
-	tag = "icon-darkred (NORTHEAST)"
+	icon_state = "darkred"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -355,8 +352,7 @@
 "aB" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkredcorners";
-	tag = "icon-darkredcorners (EAST)"
+	icon_state = "darkredcorners"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -404,8 +400,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkredcorners";
-	tag = "icon-darkredcorners (NORTH)"
+	icon_state = "darkredcorners"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -607,8 +602,7 @@
 "aU" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "darkredcorners";
-	tag = "icon-darkredcorners (WEST)"
+	icon_state = "darkredcorners"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -639,8 +633,7 @@
 	})
 "aX" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkredcorners";
-	tag = "icon-darkredcorners"
+	icon_state = "darkredcorners"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -721,8 +714,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "darkred";
-	tag = "icon-darkred (SOUTHWEST)"
+	icon_state = "darkred"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -743,8 +735,7 @@
 "bg" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "darkred";
-	tag = "icon-darkred (SOUTHEAST)"
+	icon_state = "darkred"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -752,8 +743,7 @@
 "bh" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkredcorners";
-	tag = "icon-darkredcorners"
+	icon_state = "darkredcorners"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -1827,8 +1817,7 @@
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "wood";
-	name = "floor";
-	tag = "icon-warningcorner (NORTH)"
+	name = "floor"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -1902,8 +1891,7 @@
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "wood";
-	name = "floor";
-	tag = "icon-warningcorner (NORTH)"
+	name = "floor"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -1913,8 +1901,7 @@
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "wood";
-	name = "floor";
-	tag = "icon-warningcorner (NORTH)"
+	name = "floor"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -1994,8 +1981,7 @@
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "wood";
-	name = "floor";
-	tag = "icon-warningcorner (NORTH)"
+	name = "floor"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -2007,8 +1993,7 @@
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "wood";
-	name = "floor";
-	tag = "icon-warningcorner (NORTH)"
+	name = "floor"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -2100,8 +2085,7 @@
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "wood";
-	name = "floor";
-	tag = "icon-warningcorner (NORTH)"
+	name = "floor"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -2124,8 +2108,7 @@
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "wood";
-	name = "floor";
-	tag = "icon-warningcorner (NORTH)"
+	name = "floor"
 	},
 /area/awaycontent/a4{
 	name = "Syndicate Outpost"
@@ -4784,8 +4767,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -4809,8 +4791,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -4923,8 +4904,7 @@
 "hC" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -4933,8 +4913,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -5054,8 +5033,7 @@
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -5195,8 +5173,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -5209,8 +5186,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -5227,8 +5203,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -5240,8 +5215,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -5443,8 +5417,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -5628,8 +5601,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -5640,8 +5612,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -5652,8 +5623,7 @@
 /obj/item/laser_pointer,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -5674,8 +5644,7 @@
 	},
 /obj/machinery/shower{
 	dir = 4;
-	name = "emergency shower";
-	tag = "icon-shower (EAST)"
+	name = "emergency shower"
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel{
@@ -5769,8 +5738,7 @@
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -5799,8 +5767,7 @@
 "iY" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -5810,8 +5777,7 @@
 /obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -5957,8 +5923,7 @@
 /obj/effect/decal/cleanable/flour,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -5972,8 +5937,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -6011,8 +5975,7 @@
 /obj/item/clothing/gloves/color/latex,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -6033,8 +5996,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -6081,8 +6043,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "purple";
-	tag = "icon-purple (NORTHWEST)"
+	icon_state = "purple"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -6090,8 +6051,7 @@
 "jz" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "purple";
-	tag = "icon-purple (NORTHEAST)"
+	icon_state = "purple"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -6269,8 +6229,7 @@
 /obj/item/reagent_containers/food/drinks/shaker,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -6283,8 +6242,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -6293,8 +6251,7 @@
 /obj/machinery/vending/dinnerware,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -6346,8 +6303,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -6365,8 +6321,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -6429,8 +6384,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -6491,8 +6445,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -6554,8 +6507,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -6566,8 +6518,7 @@
 /obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -6581,8 +6532,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -6591,8 +6541,7 @@
 /obj/effect/decal/cleanable/plant_smudge,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -6610,8 +6559,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -6713,8 +6661,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "purple";
-	tag = "icon-purple (NORTH)"
+	icon_state = "purple"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -6859,8 +6806,7 @@
 /obj/item/reagent_containers/food/snacks/badrecipe,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -7053,8 +6999,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -7231,8 +7176,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -7292,8 +7236,7 @@
 "lF" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "burst_r";
-	tag = "icon-burst_r (WEST)"
+	icon_state = "burst_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaycontent/a1{
@@ -7335,16 +7278,14 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "purplecorner";
-	tag = "icon-purplecorner (NORTH)"
+	icon_state = "purplecorner"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
 	})
 "lK" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 4;
-	tag = "icon-heater (EAST)"
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -7529,8 +7470,7 @@
 "mg" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "burst_l";
-	tag = "icon-burst_l (WEST)"
+	icon_state = "burst_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaycontent/a1{
@@ -8683,8 +8623,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"

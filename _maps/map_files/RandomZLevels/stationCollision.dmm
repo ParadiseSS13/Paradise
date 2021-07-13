@@ -163,8 +163,7 @@
 "aI" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
-	icon_state = "burst_l";
-	tag = "icon-burst_l (EAST)"
+	icon_state = "burst_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/syndishuttle)
@@ -188,8 +187,7 @@
 /area/awaymission/northblock)
 "aP" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 8;
-	tag = "icon-heater (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/syndishuttle)
@@ -275,14 +273,12 @@
 "bj" = (
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
-	icon_state = "bluecorner";
-	tag = "icon-bluecorner (WEST)"
+	icon_state = "bluecorner"
 	},
 /area/awaymission/northblock)
 "bk" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "bluecorner";
-	tag = "icon-bluecorner"
+	icon_state = "bluecorner"
 	},
 /area/awaymission/northblock)
 "bl" = (
@@ -294,8 +290,7 @@
 "bm" = (
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
-	icon_state = "blue";
-	tag = "icon-blue (WEST)"
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "bn" = (
@@ -310,8 +305,7 @@
 /area/awaymission/syndishuttle)
 "bq" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 8;
-	tag = "icon-heater (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/syndishuttle)
@@ -330,8 +324,7 @@
 "bu" = (
 /turf/simulated/floor/plasteel/airless{
 	dir = 6;
-	icon_state = "blue";
-	tag = "icon-blue (SOUTHEAST)"
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "bv" = (
@@ -353,22 +346,19 @@
 "bz" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "bluecorner";
-	tag = "icon-bluecorner"
+	icon_state = "bluecorner"
 	},
 /area/awaymission/northblock)
 "bA" = (
 /turf/simulated/floor/plasteel/airless{
 	dir = 10;
-	icon_state = "blue";
-	tag = "icon-blue (SOUTHWEST)"
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "bB" = (
 /turf/simulated/floor/plasteel/airless{
 	dir = 9;
-	icon_state = "blue";
-	tag = "icon-blue (NORTHWEST)"
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "bC" = (
@@ -382,8 +372,7 @@
 "bD" = (
 /turf/simulated/floor/plasteel/airless{
 	dir = 1;
-	icon_state = "blue";
-	tag = "icon-blue (NORTH)"
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "bF" = (
@@ -492,16 +481,14 @@
 /area/awaymission/research)
 "bV" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/syndishuttle)
 "bX" = (
 /turf/simulated/floor/plasteel/airless{
 	dir = 5;
-	icon_state = "blue";
-	tag = "icon-blue (NORTHEAST)"
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "bY" = (
@@ -693,15 +680,13 @@
 "cy" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
-	icon_state = "burst_l";
-	tag = "icon-burst_l (EAST)"
+	icon_state = "burst_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/research)
 "cz" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 8;
-	tag = "icon-heater (WEST)"
+	dir = 8
 	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -774,8 +759,7 @@
 /area/awaymission/research)
 "cK" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 8;
-	tag = "icon-heater (WEST)"
+	dir = 8
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -913,8 +897,7 @@
 /area/awaymission/northblock)
 "db" = (
 /obj/machinery/shower{
-	dir = 4;
-	tag = "icon-shower (EAST)"
+	dir = 4
 	},
 /obj/structure/window/reinforced/tinted,
 /turf/simulated/floor/plasteel,
@@ -1107,8 +1090,7 @@
 	},
 /turf/simulated/floor/plasteel/airless{
 	dir = 4;
-	icon_state = "blue";
-	tag = "icon-blue (EAST)"
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "dx" = (
@@ -1138,8 +1120,7 @@
 	},
 /turf/simulated/floor/plasteel/airless{
 	dir = 4;
-	icon_state = "blue";
-	tag = "icon-blue (EAST)"
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "dA" = (
@@ -1155,8 +1136,7 @@
 "dB" = (
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = -10;
-	tag = "icon-shower (EAST)"
+	pixel_y = -10
 	},
 /obj/structure/window/reinforced/tinted{
 	dir = 1
@@ -1257,8 +1237,7 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel/airless{
 	dir = 4;
-	icon_state = "bluecorner";
-	tag = "icon-bluecorner (EAST)"
+	icon_state = "bluecorner"
 	},
 /area/awaymission/northblock)
 "dN" = (
@@ -1278,23 +1257,20 @@
 /obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
 	dir = 9;
-	icon_state = "blue";
-	tag = "icon-blue (NORTHWEST)"
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "dP" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel/airless{
 	dir = 1;
-	icon_state = "blue";
-	tag = "icon-blue (NORTH)"
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "dQ" = (
 /turf/simulated/floor/plasteel/airless{
 	dir = 4;
-	icon_state = "bluecorner";
-	tag = "icon-bluecorner (EAST)"
+	icon_state = "bluecorner"
 	},
 /area/awaymission/northblock)
 "dR" = (
@@ -1390,24 +1366,21 @@
 	},
 /turf/simulated/floor/plasteel/airless{
 	dir = 1;
-	icon_state = "blue";
-	tag = "icon-blue (NORTH)"
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "ee" = (
 /obj/machinery/computer/crew,
 /turf/simulated/floor/plasteel/airless{
 	dir = 4;
-	icon_state = "bluecorner";
-	tag = "icon-bluecorner (EAST)"
+	icon_state = "bluecorner"
 	},
 /area/awaymission/northblock)
 "ef" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel/airless{
 	dir = 1;
-	icon_state = "blue";
-	tag = "icon-blue (NORTH)"
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "eg" = (
@@ -1608,8 +1581,7 @@
 /area/awaymission/research)
 "eH" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 8;
-	tag = "icon-heater (WEST)"
+	dir = 8
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -3073,8 +3045,7 @@
 /area/awaymission/arrivalblock)
 "jd" = (
 /obj/structure/shuttle/engine/propulsion{
-	icon_state = "propulsion_r";
-	tag = "icon-propulsion_r"
+	icon_state = "propulsion_r"
 	},
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
@@ -3088,16 +3059,13 @@
 /area/awaymission/arrivalblock)
 "jg" = (
 /obj/structure/shuttle/engine/propulsion{
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l"
+	icon_state = "propulsion_l"
 	},
 /obj/structure/shuttle/engine/propulsion{
-	icon_state = "burst_l";
-	tag = "icon-burst_l"
+	icon_state = "burst_l"
 	},
 /obj/structure/shuttle/engine/propulsion{
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l"
+	icon_state = "propulsion_l"
 	},
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
@@ -3553,8 +3521,7 @@
 "kA" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (NORTH)"
+	icon_state = "propulsion_l"
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
@@ -3562,8 +3529,7 @@
 "kB" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_r";
-	tag = "icon-propulsion_r (NORTH)"
+	icon_state = "propulsion_r"
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
@@ -3675,8 +3641,7 @@
 "kR" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitehall";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whitehall"
 	},
 /area/awaymission/southblock)
 "kS" = (
@@ -3773,8 +3738,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitehall";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whitehall"
 	},
 /area/awaymission/southblock)
 "li" = (
@@ -4072,8 +4036,7 @@
 "JP" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
-	icon_state = "burst_l";
-	tag = "icon-burst_l (EAST)"
+	icon_state = "burst_l"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/syndishuttle)

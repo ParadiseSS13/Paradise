@@ -11,30 +11,26 @@
 "ad" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_r";
-	tag = "icon-propulsion_r (NORTH)"
+	icon_state = "propulsion_r"
 	},
 /turf/space,
 /area/awaymission/spacebattle/syndicate2)
 "ae" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	tag = "icon-propulsion (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate2)
 "af" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (NORTH)"
+	icon_state = "propulsion_l"
 	},
 /turf/space,
 /area/awaymission/spacebattle/syndicate2)
 "ai" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
+	dir = 1
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
@@ -98,23 +94,20 @@
 "aw" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_r";
-	tag = "icon-propulsion_r (NORTH)"
+	icon_state = "propulsion_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate3)
 "ax" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	tag = "icon-propulsion (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate3)
 "ay" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (NORTH)"
+	icon_state = "propulsion_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate3)
@@ -125,8 +118,7 @@
 /area/awaymission/spacebattle/syndicate2)
 "aC" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
+	dir = 1
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
@@ -168,23 +160,20 @@
 "aP" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_r";
-	tag = "icon-propulsion_r (NORTH)"
+	icon_state = "propulsion_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate1)
 "aQ" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	tag = "icon-propulsion (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate1)
 "aR" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (NORTH)"
+	icon_state = "propulsion_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate1)
@@ -194,8 +183,7 @@
 /area/awaymission/spacebattle/syndicate3)
 "aW" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
+	dir = 1
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
@@ -203,8 +191,7 @@
 "aX" = (
 /obj/structure/window/reinforced,
 /obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -214,8 +201,7 @@
 "aY" = (
 /obj/structure/window/reinforced,
 /obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -346,8 +332,7 @@
 "bF" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_r";
-	tag = "icon-propulsion_r (NORTH)"
+	icon_state = "propulsion_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/cruiser)
@@ -358,16 +343,14 @@
 "bH" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (NORTH)"
+	icon_state = "propulsion_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/cruiser)
 "bK" = (
 /obj/structure/window/reinforced,
 /obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -380,8 +363,7 @@
 "bM" = (
 /obj/structure/window/reinforced,
 /obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -406,15 +388,13 @@
 "bU" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "burst_l";
-	tag = "icon-burst_l (EAST)"
+	icon_state = "burst_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/cruiser)
 "bV" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 8;
-	tag = "icon-heater (WEST)"
+	dir = 8
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -441,8 +421,7 @@
 /area/awaymission/spacebattle/cruiser)
 "cc" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	tag = "icon-propulsion (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/cruiser)
@@ -455,8 +434,7 @@
 	density = 0;
 	icon_state = "open";
 	id_tag = "spacebattlepod";
-	name = "Front Hull Door";
-	tag = "icon-pdoor0"
+	name = "Front Hull Door"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/cruiser)
@@ -689,8 +667,7 @@
 "dc" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "propulsion_r";
-	tag = "icon-propulsion_r (EAST)"
+	icon_state = "propulsion_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/cruiser)
@@ -745,8 +722,7 @@
 	density = 0;
 	icon_state = "open";
 	id_tag = "spacebattlepod2";
-	name = "Front Hull Door";
-	tag = "icon-pdoor0"
+	name = "Front Hull Door"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/cruiser)
@@ -1040,8 +1016,7 @@
 "eC" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	icon_state = "bluefull";
-	tag = "icon-bluefull"
+	icon_state = "bluefull"
 	},
 /area/awaymission/spacebattle/cruiser)
 "eE" = (
@@ -1081,8 +1056,7 @@
 "eN" = (
 /obj/machinery/computer/med_data,
 /turf/simulated/floor/plasteel{
-	icon_state = "bluefull";
-	tag = "icon-bluefull"
+	icon_state = "bluefull"
 	},
 /area/awaymission/spacebattle/cruiser)
 "eP" = (
@@ -1135,8 +1109,7 @@
 "eX" = (
 /obj/machinery/computer/crew,
 /turf/simulated/floor/plasteel{
-	icon_state = "bluefull";
-	tag = "icon-bluefull"
+	icon_state = "bluefull"
 	},
 /area/awaymission/spacebattle/cruiser)
 "eY" = (
@@ -1279,8 +1252,7 @@
 "ft" = (
 /obj/machinery/computer/shuttle,
 /turf/simulated/floor/plasteel{
-	icon_state = "bluefull";
-	tag = "icon-bluefull"
+	icon_state = "bluefull"
 	},
 /area/awaymission/spacebattle/cruiser)
 "fu" = (
@@ -1358,8 +1330,7 @@
 "fN" = (
 /obj/machinery/computer/communications,
 /turf/simulated/floor/plasteel{
-	icon_state = "bluefull";
-	tag = "icon-bluefull"
+	icon_state = "bluefull"
 	},
 /area/awaymission/spacebattle/cruiser)
 "ga" = (
@@ -1473,15 +1444,13 @@
 "gI" = (
 /obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
-	icon_state = "bluefull";
-	tag = "icon-bluefull"
+	icon_state = "bluefull"
 	},
 /area/awaymission/spacebattle/cruiser)
 "gJ" = (
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel{
-	icon_state = "bluefull";
-	tag = "icon-bluefull"
+	icon_state = "bluefull"
 	},
 /area/awaymission/spacebattle/cruiser)
 "gK" = (
@@ -1595,8 +1564,7 @@
 /area/awaymission/spacebattle/syndicate7)
 "hg" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 4;
-	tag = "icon-heater (EAST)"
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1606,8 +1574,7 @@
 "hh" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (WEST)"
+	icon_state = "propulsion_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate7)
@@ -1708,8 +1675,7 @@
 /area/awaymission/spacebattle/syndicate7)
 "hO" = (
 /obj/machinery/shower{
-	dir = 4;
-	tag = "icon-shower (EAST)"
+	dir = 4
 	},
 /obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
@@ -1723,8 +1689,7 @@
 /area/awaymission/spacebattle/cruiser)
 "hQ" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -1764,8 +1729,7 @@
 /area/awaymission/spacebattle/cruiser)
 "hY" = (
 /obj/machinery/shower{
-	dir = 4;
-	tag = "icon-shower (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -1773,8 +1737,7 @@
 /area/awaymission/spacebattle/cruiser)
 "hZ" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/item/soap,
 /turf/simulated/floor/plasteel{
@@ -1982,8 +1945,7 @@
 /area/awaymission/spacebattle/secret)
 "je" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "alienvault";
-	tag = "icon-alienvault"
+	icon_state = "alienvault"
 	},
 /area/awaymission/spacebattle/secret)
 "jf" = (
@@ -1993,32 +1955,28 @@
 "zS" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (WEST)"
+	icon_state = "propulsion_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "Jj" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (NORTH)"
+	icon_state = "propulsion_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate2)
 "Jw" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_r";
-	tag = "icon-propulsion_r (NORTH)"
+	icon_state = "propulsion_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate2)
 "YV" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
-	icon_state = "burst_r";
-	tag = "icon-burst_r (EAST)"
+	icon_state = "burst_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/cruiser)

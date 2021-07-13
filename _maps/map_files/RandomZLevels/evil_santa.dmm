@@ -99,9 +99,7 @@
 	},
 /area/awaymission/challenge/main)
 "aq" = (
-/obj/structure/mineral_door/wood{
-	tag = "icon-wood"
-	},
+/obj/structure/mineral_door/wood,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/main)
@@ -249,8 +247,7 @@
 "aN" = (
 /obj/structure/inflatable/door,
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_plating = "asteroid";
@@ -381,9 +378,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/challenge/main)
 "bq" = (
-/obj/structure/mineral_door/wood{
-	tag = "icon-wood"
-	},
+/obj/structure/mineral_door/wood,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/wood,
 /area/awaymission/challenge/main)

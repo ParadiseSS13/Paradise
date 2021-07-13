@@ -302,8 +302,7 @@
 "aQ" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "yellowfull";
-	tag = "icon-yellowfull (WEST)"
+	icon_state = "yellowfull"
 	},
 /area/awaymission/example)
 "aR" = (
@@ -492,8 +491,7 @@
 "bo" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "stage_stairs";
-	tag = "icon-stage_stairs (WEST)"
+	icon_state = "stage_stairs"
 	},
 /area/awaymission/example)
 "bp" = (
@@ -659,8 +657,7 @@
 /area/awaymission/example)
 "bJ" = (
 /obj/structure/chair/wood{
-	dir = 4;
-	tag = "icon-wooden_chair (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -668,8 +665,7 @@
 /area/awaymission/example)
 "bK" = (
 /obj/structure/chair/wood{
-	dir = 8;
-	tag = "icon-wooden_chair (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -693,8 +689,7 @@
 /area/awaymission/example)
 "bN" = (
 /obj/structure/chair/wood{
-	dir = 1;
-	tag = "icon-wooden_chair (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -870,8 +865,7 @@
 	name = "awaystart"
 	},
 /obj/machinery/light_construct/small{
-	dir = 8;
-	tag = "icon-bulb-construct-stage1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)

@@ -252,8 +252,7 @@
 	})
 "aU" = (
 /obj/structure/chair{
-	dir = 4;
-	tag = "icon-chair (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered{
@@ -267,8 +266,7 @@
 	})
 "aW" = (
 /obj/structure/chair{
-	dir = 8;
-	tag = "icon-chair (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered{

@@ -102,8 +102,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
@@ -131,8 +130,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
@@ -214,8 +212,7 @@
 	pixel_x = -28
 	},
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/item/flag/cult,
 /turf/simulated/floor/engine/cult,
@@ -233,8 +230,7 @@
 	pixel_x = 28
 	},
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
@@ -265,8 +261,7 @@
 /obj/item/extinguisher,
 /obj/item/crowbar,
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
@@ -326,8 +321,7 @@
 /area/shuttle/escape)
 "bb" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
@@ -353,8 +347,7 @@
 "bg" = (
 /obj/machinery/sleeper{
 	dir = 1;
-	icon_state = "sleeper";
-	tag = "icon-sleeper (NORTH)"
+	icon_state = "sleeper"
 	},
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/engine/cult,

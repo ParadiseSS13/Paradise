@@ -4,8 +4,7 @@
 /area/space)
 "b" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	tag = "icon-propulsion (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered{
@@ -18,8 +17,7 @@
 	})
 "d" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered{
@@ -54,8 +52,7 @@
 	})
 "n" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered{
@@ -63,8 +60,7 @@
 	})
 "o" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 8;
-	tag = "icon-heater (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered{
@@ -78,8 +74,7 @@
 	})
 "q" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 4;
-	tag = "icon-heater (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered{
@@ -87,8 +82,7 @@
 	})
 "r" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	tag = "icon-propulsion (WEST)"
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered{
@@ -103,16 +97,14 @@
 "v" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteyellowfull";
-	tag = "icon-whiteyellowfull"
+	icon_state = "whiteyellowfull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
 	})
 "w" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteyellowfull";
-	tag = "icon-whiteyellowfull"
+	icon_state = "whiteyellowfull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -122,8 +114,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteyellowfull";
-	tag = "icon-whiteyellowfull"
+	icon_state = "whiteyellowfull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -131,16 +122,14 @@
 "z" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel{
-	icon_state = "bluefull";
-	tag = "icon-bluefull"
+	icon_state = "bluefull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
 	})
 "A" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
+	icon_state = "dark"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -153,8 +142,7 @@
 	})
 "D" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "bluefull";
-	tag = "icon-bluefull"
+	icon_state = "bluefull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"
@@ -163,8 +151,7 @@
 /obj/structure/table,
 /obj/item/storage/firstaid,
 /turf/simulated/floor/plasteel{
-	icon_state = "bluefull";
-	tag = "icon-bluefull"
+	icon_state = "bluefull"
 	},
 /area/ruin/powered{
 	name = "Shuttle"

@@ -77,14 +77,12 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	tag = "icon-white"
+	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
 "am" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	tag = "icon-white"
+	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
 "an" = (
@@ -95,8 +93,7 @@
 	},
 /obj/item/storage/firstaid/fire,
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	tag = "icon-white"
+	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
 "ao" = (
@@ -171,8 +168,7 @@
 "aA" = (
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	tag = "icon-white"
+	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
 "aB" = (
@@ -186,8 +182,7 @@
 	},
 /obj/item/storage/firstaid,
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	tag = "icon-white"
+	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
 "aC" = (
@@ -231,8 +226,7 @@
 "aJ" = (
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	tag = "icon-white"
+	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
 "aK" = (
@@ -243,8 +237,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	tag = "icon-white"
+	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
 "aL" = (
@@ -377,8 +370,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	tag = "icon-white"
+	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
 "aW" = (
@@ -416,8 +408,7 @@
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	tag = "icon-white"
+	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
 "aZ" = (
@@ -469,8 +460,7 @@
 /area/ruin/onehalf/hallway)
 "be" = (
 /obj/structure/disposalpipe/broken{
-	dir = 4;
-	tag = "icon-pipe-b (EAST)"
+	dir = 4
 	},
 /obj/item/stack/cable_coil/cut{
 	amount = 2;
@@ -493,8 +483,7 @@
 /area/ruin/onehalf/hallway)
 "bg" = (
 /obj/structure/disposalpipe/junction{
-	dir = 4;
-	tag = "icon-pipe-j1 (EAST)"
+	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -524,8 +513,7 @@
 /area/ruin/onehalf/hallway)
 "bi" = (
 /obj/structure/disposalpipe/broken{
-	dir = 4;
-	tag = "icon-pipe-b (EAST)"
+	dir = 4
 	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
@@ -807,8 +795,7 @@
 /area/ruin/onehalf/hallway)
 "bZ" = (
 /obj/structure/disposalpipe/junction{
-	dir = 1;
-	tag = "icon-pipe-j1 (NORTH)"
+	dir = 1
 	},
 /obj/item/shard,
 /obj/effect/landmark/damageturf,
@@ -903,8 +890,7 @@
 	dir = 4
 	},
 /obj/item/shard{
-	icon_state = "small";
-	tag = "icon-small"
+	icon_state = "small"
 	},
 /turf/template_noop,
 /area/space/nearstation)
@@ -931,8 +917,7 @@
 /area/ruin/onehalf/bridge)
 "cq" = (
 /obj/structure/chair{
-	dir = 8;
-	tag = "icon-chair (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/bridge)
@@ -941,8 +926,7 @@
 /area/ruin/onehalf/bridge)
 "cs" = (
 /obj/structure/chair{
-	dir = 1;
-	tag = "icon-chair (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/bridge)
@@ -1000,8 +984,7 @@
 "cy" = (
 /obj/structure/lattice,
 /obj/item/shard{
-	icon_state = "medium";
-	tag = "icon-medium"
+	icon_state = "medium"
 	},
 /turf/template_noop,
 /area/ruin/onehalf/hallway)
@@ -1067,12 +1050,10 @@
 "cH" = (
 /obj/structure/lattice,
 /obj/structure/disposalpipe/broken{
-	dir = 1;
-	tag = "icon-pipe-b (NORTH)"
+	dir = 1
 	},
 /obj/structure/disposalpipe/broken{
-	dir = 8;
-	tag = "icon-pipe-b (WEST)"
+	dir = 8
 	},
 /turf/template_noop,
 /area/ruin/onehalf/hallway)
@@ -1113,8 +1094,7 @@
 /area/ruin/onehalf/bridge)
 "cN" = (
 /obj/structure/chair/comfy/black{
-	dir = 4;
-	tag = "icon-comfychair (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/bridge)
@@ -1321,8 +1301,7 @@
 	tag = ""
 	},
 /obj/item/shard{
-	icon_state = "medium";
-	tag = "icon-medium"
+	icon_state = "medium"
 	},
 /turf/template_noop,
 /area/space/nearstation)

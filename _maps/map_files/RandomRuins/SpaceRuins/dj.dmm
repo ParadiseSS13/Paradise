@@ -401,8 +401,7 @@
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/djstation)
 "aS" = (
@@ -745,8 +744,7 @@
 "bI" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
-	dir = 4;
-	tag = "icon-shower (EAST)"
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{

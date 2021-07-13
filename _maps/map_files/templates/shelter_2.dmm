@@ -27,8 +27,7 @@
 /area/survivalpod)
 "g" = (
 /obj/structure/sign/mining/survival{
-	dir = 1;
-	tag = "icon-survival (NORTH)"
+	dir = 1
 	},
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
@@ -140,8 +139,7 @@
 /area/survivalpod)
 "x" = (
 /obj/structure/sign/mining/survival{
-	dir = 4;
-	tag = "icon-survival (EAST)"
+	dir = 4
 	},
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)

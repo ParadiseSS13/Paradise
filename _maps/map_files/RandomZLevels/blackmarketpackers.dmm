@@ -314,8 +314,7 @@
 /area/awaymission/BMPship/Fore)
 "bR" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/awaymission/BMPship/Fore)
 "bS" = (
@@ -399,16 +398,14 @@
 /obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "carpetside";
-	tag = "icon-carpetside (NORTH)"
+	icon_state = "carpetside"
 	},
 /area/awaymission/BMPship/Fore)
 "ci" = (
 /obj/machinery/door/airlock/silver,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "carpetside";
-	tag = "icon-carpetside (NORTH)"
+	icon_state = "carpetside"
 	},
 /area/awaymission/BMPship/Fore)
 "cl" = (
@@ -480,8 +477,7 @@
 /area/awaymission/BMPship/Gate)
 "cB" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "carpet";
-	tag = "icon-carpet"
+	icon_state = "carpet"
 	},
 /area/awaymission/BMPship/Fore)
 "cC" = (
@@ -499,8 +495,7 @@
 	req_access = ""
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "carpet";
-	tag = "icon-carpet"
+	icon_state = "carpet"
 	},
 /area/awaymission/BMPship/Fore)
 "cD" = (
@@ -519,8 +514,7 @@
 "cF" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "green";
-	tag = "icon-green (WEST)"
+	icon_state = "green"
 	},
 /area/awaymission/BMPship/Midship)
 "cG" = (
@@ -557,8 +551,7 @@
 "cK" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "green";
-	tag = "icon-green (EAST)"
+	icon_state = "green"
 	},
 /area/awaymission/BMPship/Midship)
 "cM" = (
@@ -570,8 +563,7 @@
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Midship)
 "cO" = (
@@ -579,8 +571,7 @@
 /obj/item/kitchen/knife/butcher,
 /obj/item/reagent_containers/food/snacks/meat,
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Midship)
 "cP" = (
@@ -592,16 +583,14 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Midship)
 "cQ" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Midship)
 "cR" = (
@@ -640,15 +629,13 @@
 "cW" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet15-13";
-	tag = "icon-carpet15-13 (EAST)"
+	icon_state = "carpet15-13"
 	},
 /area/awaymission/BMPship/Fore)
 "cX" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet15-7";
-	tag = "icon-carpet15-7 (EAST)"
+	icon_state = "carpet15-7"
 	},
 /area/awaymission/BMPship/Fore)
 "cY" = (
@@ -660,8 +647,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet15-7";
-	tag = "icon-carpet15-7 (EAST)"
+	icon_state = "carpet15-7"
 	},
 /area/awaymission/BMPship/Fore)
 "cZ" = (
@@ -672,8 +658,7 @@
 /area/awaymission/BMPship/Midship)
 "db" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Midship)
 "dc" = (
@@ -684,8 +669,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Midship)
 "dg" = (
@@ -697,8 +681,7 @@
 "dh" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet15-14";
-	tag = "icon-carpet15-14 (EAST)"
+	icon_state = "carpet15-14"
 	},
 /area/awaymission/BMPship/Fore)
 "di" = (
@@ -745,8 +728,7 @@
 "dp" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet15-11";
-	tag = "icon-carpet15-11 (EAST)"
+	icon_state = "carpet15-11"
 	},
 /area/awaymission/BMPship/Fore)
 "dq" = (
@@ -760,8 +742,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "carpet";
-	tag = "icon-carpet"
+	icon_state = "carpet"
 	},
 /area/awaymission/BMPship/Fore)
 "ds" = (
@@ -773,8 +754,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet15-11";
-	tag = "icon-carpet15-11 (EAST)"
+	icon_state = "carpet15-11"
 	},
 /area/awaymission/BMPship/Fore)
 "dt" = (
@@ -789,15 +769,13 @@
 	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Midship)
 "dv" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Midship)
 "dw" = (
@@ -806,8 +784,7 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Midship)
 "dx" = (
@@ -819,8 +796,7 @@
 "dy" = (
 /obj/machinery/door/window,
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Midship)
 "dz" = (
@@ -896,8 +872,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet6-0";
-	tag = "icon-carpet6-0 (EAST)"
+	icon_state = "carpet6-0"
 	},
 /area/awaymission/BMPship/Fore)
 "dI" = (
@@ -906,16 +881,14 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet14-8";
-	tag = "icon-carpet14-8 (EAST)"
+	icon_state = "carpet14-8"
 	},
 /area/awaymission/BMPship/Fore)
 "dJ" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet14-2";
-	tag = "icon-carpet14-2 (EAST)"
+	icon_state = "carpet14-2"
 	},
 /area/awaymission/BMPship/Fore)
 "dK" = (
@@ -926,43 +899,37 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "carpet";
-	tag = "icon-carpet"
+	icon_state = "carpet"
 	},
 /area/awaymission/BMPship/Fore)
 "dL" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet10-0";
-	tag = "icon-carpet10-0 (EAST)"
+	icon_state = "carpet10-0"
 	},
 /area/awaymission/BMPship/Fore)
 "dM" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "green";
-	tag = "icon-green (SOUTHWEST)"
+	icon_state = "green"
 	},
 /area/awaymission/BMPship/Midship)
 "dN" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "green";
-	tag = "icon-green"
+	icon_state = "green"
 	},
 /area/awaymission/BMPship/Midship)
 "dO" = (
 /obj/machinery/seed_extractor,
 /obj/item/seeds/plump/walkingmushroom,
 /turf/simulated/floor/plasteel{
-	icon_state = "green";
-	tag = "icon-green"
+	icon_state = "green"
 	},
 /area/awaymission/BMPship/Midship)
 "dP" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "green";
-	tag = "icon-green (SOUTHEAST)"
+	icon_state = "green"
 	},
 /area/awaymission/BMPship/Midship)
 "dR" = (
@@ -1083,8 +1050,7 @@
 /area/awaymission/BMPship/Aft)
 "eb" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 4;
-	tag = "icon-heater (EAST)"
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1093,8 +1059,7 @@
 /area/awaymission/BMPship/Aft)
 "ec" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	tag = "icon-propulsion (WEST)"
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Aft)
@@ -1105,8 +1070,7 @@
 "ee" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet15-15";
-	tag = "icon-carpet15-15 (EAST)"
+	icon_state = "carpet15-15"
 	},
 /area/awaymission/BMPship/Fore)
 "ef" = (
@@ -1114,23 +1078,20 @@
 /obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet5-0";
-	tag = "icon-carpet5-0 (EAST)"
+	icon_state = "carpet5-0"
 	},
 /area/awaymission/BMPship/Fore)
 "eg" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet13-4";
-	tag = "icon-carpet13-4 (EAST)"
+	icon_state = "carpet13-4"
 	},
 /area/awaymission/BMPship/Fore)
 "eh" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet13-1";
-	tag = "icon-carpet13-1 (EAST)"
+	icon_state = "carpet13-1"
 	},
 /area/awaymission/BMPship/Fore)
 "ei" = (
@@ -1145,15 +1106,13 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet";
-	tag = "icon-carpet (EAST)"
+	icon_state = "carpet"
 	},
 /area/awaymission/BMPship/Fore)
 "ej" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet9-0";
-	tag = "icon-carpet9-0 (EAST)"
+	icon_state = "carpet9-0"
 	},
 /area/awaymission/BMPship/Fore)
 "ek" = (
@@ -1254,8 +1213,7 @@
 /obj/item/shard,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "carpetside";
-	tag = "icon-carpetside (NORTHEAST)"
+	icon_state = "carpetside"
 	},
 /area/awaymission/BMPship/Fore)
 "ew" = (
@@ -1264,8 +1222,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "carpetside";
-	tag = "icon-carpetside (NORTHWEST)"
+	icon_state = "carpetside"
 	},
 /area/awaymission/BMPship/Fore)
 "ex" = (
@@ -1282,8 +1239,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "carpet";
-	tag = "icon-carpet"
+	icon_state = "carpet"
 	},
 /area/awaymission/BMPship/Fore)
 "ey" = (
@@ -1307,8 +1263,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpetside";
-	tag = "icon-carpetside (EAST)"
+	icon_state = "carpetside"
 	},
 /area/awaymission/BMPship/Midship)
 "eC" = (
@@ -1513,16 +1468,14 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet11-12";
-	tag = "icon-carpet11-12 (EAST)"
+	icon_state = "carpet11-12"
 	},
 /area/awaymission/BMPship/Fore)
 "eW" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet7-3";
-	tag = "icon-carpet7-3 (EAST)"
+	icon_state = "carpet7-3"
 	},
 /area/awaymission/BMPship/Fore)
 "eX" = (
@@ -1531,8 +1484,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet15-14";
-	tag = "icon-carpet15-14 (EAST)"
+	icon_state = "carpet15-14"
 	},
 /area/awaymission/BMPship/Fore)
 "fa" = (
@@ -1650,8 +1602,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet15-13";
-	tag = "icon-carpet15-13 (EAST)"
+	icon_state = "carpet15-13"
 	},
 /area/awaymission/BMPship/Fore)
 "fs" = (
@@ -1669,8 +1620,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet15-7";
-	tag = "icon-carpet15-7 (EAST)"
+	icon_state = "carpet15-7"
 	},
 /area/awaymission/BMPship/Fore)
 "fu" = (
@@ -1682,8 +1632,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet15-15";
-	tag = "icon-carpet15-15 (EAST)"
+	icon_state = "carpet15-15"
 	},
 /area/awaymission/BMPship/Fore)
 "fv" = (
@@ -1695,8 +1644,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet15-7";
-	tag = "icon-carpet15-7 (EAST)"
+	icon_state = "carpet15-7"
 	},
 /area/awaymission/BMPship/Fore)
 "fw" = (
@@ -1783,15 +1731,13 @@
 "fE" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "carpetside";
-	tag = "icon-carpetside (SOUTHEAST)"
+	icon_state = "carpetside"
 	},
 /area/awaymission/BMPship/Fore)
 "fF" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "carpetside";
-	tag = "icon-carpetside (SOUTHWEST)"
+	icon_state = "carpetside"
 	},
 /area/awaymission/BMPship/Fore)
 "fG" = (
@@ -1809,16 +1755,14 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet15-11";
-	tag = "icon-carpet15-11 (EAST)"
+	icon_state = "carpet15-11"
 	},
 /area/awaymission/BMPship/Fore)
 "fJ" = (
 /obj/machinery/door/airlock/silver,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpetside";
-	tag = "icon-carpetside (EAST)"
+	icon_state = "carpetside"
 	},
 /area/awaymission/BMPship/Midship)
 "fK" = (
@@ -1926,8 +1870,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet15-15";
-	tag = "icon-carpet15-15 (EAST)"
+	icon_state = "carpet15-15"
 	},
 /area/awaymission/BMPship/Fore)
 "fW" = (
@@ -1949,16 +1892,14 @@
 /obj/structure/closet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet";
-	tag = "icon-carpet (EAST)"
+	icon_state = "carpet"
 	},
 /area/awaymission/BMPship/Fore)
 "fZ" = (
 /obj/structure/closet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "carpet15-15";
-	tag = "icon-carpet15-15 (EAST)"
+	icon_state = "carpet15-15"
 	},
 /area/awaymission/BMPship/Fore)
 "ga" = (
@@ -2000,8 +1941,7 @@
 "gh" = (
 /obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel{
-	icon_state = "carpetside";
-	tag = "icon-carpetside"
+	icon_state = "carpetside"
 	},
 /area/awaymission/BMPship/Fore)
 "gi" = (
@@ -2013,8 +1953,7 @@
 	},
 /obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel{
-	icon_state = "carpetside";
-	tag = "icon-carpetside"
+	icon_state = "carpetside"
 	},
 /area/awaymission/BMPship/Fore)
 "gk" = (
