@@ -24,7 +24,7 @@ if grep -P 'step_[xy]' _maps/**/*.dmm;	then
 fi;
 
 if grep -P '^/[\w/]\S+\(.*(var/|, ?var/.*).*\)' code/**/*.dm; then
-    echo "ERROR: Changed files contains proc argument starting with 'var/'"
+    echo "ERROR: Changed files contains proc arguments with implicit 'var/', please remove them."
     st=1
 fi;
 if grep -P '^/*var/' code/**/*.dm; then
