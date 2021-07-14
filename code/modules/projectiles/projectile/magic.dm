@@ -129,11 +129,9 @@
 	. = ..()
 	var/atom/T = target.loc
 	if(isturf(target) && target.density)
-		if(!(istype(target, /turf/simulated/wall/indestructible)))
-			CreateDoor(target)
+		CreateDoor(target)
 	else if(isturf(T) && T.density)
-		if(!(istype(T, /turf/simulated/wall/indestructible)))
-			CreateDoor(T)
+		CreateDoor(T)
 	else if(istype(target, /obj/machinery/door))
 		OpenDoor(target)
 	else if(istype(target, /obj/structure/closet))
