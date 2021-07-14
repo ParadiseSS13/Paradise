@@ -140,6 +140,7 @@
 	if (T && AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
 
+	QDEL_LIST(actions)
 	return ..()
 
 /mob/living/simple_animal/handle_atom_del(atom/A)

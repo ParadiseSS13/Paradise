@@ -20,6 +20,7 @@
 			AA.viewers -= src
 		viewing_alternate_appearances = null
 	LAssailant = null
+	runechat_msg_location = null
 	return ..()
 
 /mob/Initialize(mapload)
