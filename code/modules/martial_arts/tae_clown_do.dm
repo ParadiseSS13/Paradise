@@ -72,3 +72,4 @@
 	if(ismob(target))
 		var/mob/living/M = target
 		M.Weaken(2)
+		playsound(src, 'sound/misc/slip.ogg', 50, 1)

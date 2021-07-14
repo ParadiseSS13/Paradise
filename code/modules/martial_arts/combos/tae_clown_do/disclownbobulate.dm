@@ -9,7 +9,7 @@
 		target.visible_message("<span class='warning'>[user] annoying claps [user.p_their()] hands directly in [target]'s ear!</span>",
 							"<span class='userdanger'>[user] annoying claps [user.p_their()] hands in your ear!</span>")
 		playsound(target.loc, 'sound/items/airhorn.ogg', 50, TRUE, -1)
-		target.AdjustEarDamage(30)
+		target.AdjustEarDamage(30, 5)
 		target.Stuttering(10)
 		target.AdjustConfused(8)
 		target.Jitter(10)
