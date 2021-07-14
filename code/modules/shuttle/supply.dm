@@ -35,8 +35,10 @@
 	. = ..()
 	if(.)	return .
 
-	buy()
-	sell()
+	if(SSshuttle.supply.getDockedId() == "supply_home")
+		buy()
+	if(SSshuttle.supply.getDockedId() == "supply_away")
+		sell()
 
 /obj/docking_port/mobile/supply/proc/buy()
 	if(!is_station_level(z))		//we only buy when we are -at- the station
@@ -151,6 +153,7 @@
 								SSshuttle.points += pointsEarned
 								msg += "<span class='bad'>[pointsEarned]</span>: Station denied package [slip.ordernumber]. Our records show no fault on our part.<br>"
 						find_slip = 0
+					qdel(slip)
 					continue
 
 				// Sell plasma
@@ -207,6 +210,7 @@
 						SSshuttle.discoveredPlants[S.type] = S.potency
 						msg += "<span class='good'>[S.rarity]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
 						SSshuttle.points += S.rarity // That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
+				qdel(thing)
 		qdel(MA)
 		SSshuttle.sold_atoms += "."
 
