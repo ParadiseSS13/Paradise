@@ -53,6 +53,18 @@ body:
       description: Укажите версию клиента, на которой произошёл баг. Указана в клиенте BYOND в меню 'About BYOND...'.
     validations:
       required: true
+  - type: dropdown
+    id: server_name
+    attributes:
+      label: Название сервера
+      description: Укажите название сервера на котором произошел баг (MAIN, EX...)
+      options:
+        - MAIN
+        - EX
+        - WL
+        - PRIME
+    validations:
+      required: true
   - type: input
     id: server_time
     attributes:
