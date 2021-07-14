@@ -1467,20 +1467,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
  * Show an overlay of radiation levels on radioactive objects.
  */
 /mob/proc/show_rads(range)
-	var/list/rad_places = list()
-	for(var/datum/component/radioactive/thing in SSradiation.processing)
-		var/atom/owner = thing.parent
-		var/turf/place = get_turf(owner)
-		if(rad_places[place])
-			rad_places[place] += thing.strength
-		else
-			rad_places[place] = thing.strength
-
-	for(var/i in rad_places)
-		var/turf/place = i
-		if(get_dist(src, place) >= range)
+	for(var/turf/place in range(range, src))
+		var/rads = SSradiation.get_turf_radiation(place)
+		if (rads < RAD_BACKGROUND_RADIATION)
 			continue
-		var/strength = round(rad_places[i] / 1000, 0.1)
+
+		var/strength = round(rads / 1000, 0.1)
 		var/image/pic = image(loc = place)
 		var/mutable_appearance/MA = new()
 		MA.maptext = MAPTEXT("[strength]k")
