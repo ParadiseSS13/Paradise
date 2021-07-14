@@ -335,22 +335,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 
-/mob/dead/observer/verb/toggle_rad_view()
-	set category = "Ghost"
-	set name = "Toggle Radiation View"
-	set desc = "Toggle viewing radiation."
-
-	if(!isobserver(src)) // Somehow
-		return
-
-	if(seerads) //remove old huds
-		to_chat(src, "<span class='notice'>Rad view disabled.</span>")
-		seerads = FALSE
-		STOP_PROCESSING(SSobj, src)
-	else
-		to_chat(src, "<span class='notice'>Rad view enabled.</span>")
+/mob/dead/observer/proc/set_radiation_view(enabled)
+	if (enabled)
 		seerads = TRUE
 		START_PROCESSING(SSobj, src)
+	else
+		seerads = FALSE
+		STOP_PROCESSING(SSobj, src)
 
 /mob/dead/observer/verb/set_dnr()
 	set name = "Set DNR"
