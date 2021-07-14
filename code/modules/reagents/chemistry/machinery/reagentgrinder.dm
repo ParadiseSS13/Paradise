@@ -30,7 +30,7 @@
 			/obj/item/stack/sheet/mineral/tranquillite = list("nothing" = 20),
 			/obj/item/stack/sheet/mineral/silver = list("silver" = 20),
 			/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
-			/obj/item/grown/nettle/basic = list("sacid" = 0),
+			/obj/item/grown/nettle/basic = list("wasabi" = 0),
 			/obj/item/grown/nettle/death = list("facid" = 0, "sacid" = 0),
 			/obj/item/grown/novaflower = list("capsaicin" = 0, "condensedcapsaicin" = 0),
 
@@ -246,7 +246,7 @@
 
 		if(!operating)
 				for (var/obj/item/O in holdingitems)
-						processing_chamber += "\A [O.name]<BR>"
+						processing_chamber += "\A [html_encode(O.name)]<BR>"
 
 				if (!processing_chamber)
 						is_chamber_empty = 1

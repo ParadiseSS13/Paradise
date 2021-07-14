@@ -64,7 +64,7 @@
 /obj/item/mmi/robotic_brain/proc/check_observer(mob/dead/observer/O)
 	if(cannotPossess(O))
 		return FALSE
-	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
+	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O, "nonhumandept"))
 		return FALSE
 	if(!O.can_reenter_corpse)
 		return FALSE
@@ -160,7 +160,7 @@
 	if(cannotPossess(O))
 		to_chat(O, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return
-	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
+	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O, "nonhumandept"))
 		to_chat(O, "<span class='warning'>You are job banned from this role.</span>")
 		return
 	to_chat(O, "<span class='notice'>You've been added to the list of ghosts that may become this [src].  Click again to unvolunteer.</span>")
@@ -204,8 +204,8 @@
 	brainmob = new(src)
 	brainmob.name = "[pick(list("PBU", "HIU", "SINA", "ARMA", "OSI"))]-[rand(100, 999)]"
 	brainmob.real_name = brainmob.name
-	brainmob.forceMove(src)
 	brainmob.container = src
+	brainmob.forceMove(src)
 	brainmob.stat = CONSCIOUS
 	brainmob.SetSilence(0)
 	brainmob.dna = new(brainmob)

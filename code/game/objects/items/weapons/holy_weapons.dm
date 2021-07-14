@@ -366,6 +366,15 @@
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
 
+/obj/item/nullrod/armblade/mining
+	flags = NODROP
+	reskin_selectable = FALSE //So 2 of the same nullrod doesnt show up.
+
+/obj/item/nullrod/armblade/mining/pickup(mob/living/user)
+	..()
+	flags += ABSTRACT
+	return FALSE
+
 /obj/item/nullrod/carp
 	name = "carp-sie plushie"
 	desc = "An adorable stuffed toy that resembles the god of all carp. The teeth look pretty sharp. Activate it to recieve the blessing of Carp-Sie."
@@ -471,7 +480,7 @@
 
 			if(target.mind)
 				if(iscultist(target))
-					SSticker.mode.remove_cultist(target.mind) // This proc will handle message generation.
+					SSticker.mode.remove_cultist(target.mind, TRUE, TRUE) // This proc will handle message generation.
 					praying = FALSE
 					return
 

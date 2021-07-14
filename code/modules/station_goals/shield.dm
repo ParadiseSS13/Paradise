@@ -35,7 +35,7 @@
 	return coverage.len
 
 /obj/item/circuitboard/computer/sat_control
-	name = "Satellite Network Control (Computer Board)"
+	board_name = "Satellite Network Control"
 	build_path = /obj/machinery/computer/sat_control
 	origin_tech = "engineering=3"
 
@@ -126,7 +126,7 @@
 			to_chat(user, "<span class='warning'>You can only activate satellites which are in space.</span>")
 		return FALSE
 	if(user)
-		to_chat(user, "<span class='notice'>You [active ? "deactivate": "activate"] the [src]</span>")
+		to_chat(user, "<span class='notice'>You [active ? "deactivate": "activate"] [src]</span>")
 	active = !active
 	if(active)
 		animate(src, pixel_y = 2, time = 10, loop = -1)
