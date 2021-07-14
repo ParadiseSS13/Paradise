@@ -202,7 +202,7 @@
 		H.ha_style = "None"
 	update_head_accessory()
 
-/mob/living/carbon/human/proc/change_eye_color(colour = "#000000", update_dna = TRUE)
+/mob/living/carbon/human/proc/change_eye_color(colour = "#000000", update_dna = 1)
 	// Update the main DNA datum, then sync the change across the organs
 	var/obj/item/organ/internal/eyes/eyes_organ = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes_organ)
@@ -215,16 +215,10 @@
 
 	if(update_dna)
 		update_dna()
-	sync_organ_dna(assimilate = FALSE)
+	sync_organ_dna(assimilate=0)
 	update_eyes()
 	update_body()
-	return TRUE
-
-/mob/living/carbon/human/proc/get_eye_color()
-	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
-	if(E)
-		return E.eye_color
-	return FALSE
+	return 1
 
 /mob/living/carbon/human/proc/change_hair_color(colour = "#000000", secondary)
 	var/obj/item/organ/external/head/H = get_organ("head")

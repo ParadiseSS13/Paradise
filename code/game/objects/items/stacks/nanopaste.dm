@@ -63,16 +63,3 @@
 				to_chat(user, "<span class='notice'>Nothing to fix here.</span>")
 		else
 			to_chat(user, "<span class='notice'>[src] won't work on that.</span>")
-
-/obj/item/stack/nanopaste/cyborg
-	energy_type = /datum/robot_energy_storage/medical/nanopaste
-	is_cyborg = TRUE
-
-/obj/item/stack/nanopaste/cyborg/attack(mob/living/M, mob/user)
-	if(get_amount() <= 0)
-		to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [name]!</span>")
-	else
-		return ..()
-
-/obj/item/stack/nanopaste/cyborg/syndicate
-	energy_type = /datum/robot_energy_storage/medical/nanopaste/syndicate

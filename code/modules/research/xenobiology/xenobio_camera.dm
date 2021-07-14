@@ -4,8 +4,6 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "camera_target"
 	var/allowed_area = null
-	// The Xenobio Console does not trigger the AI Detector
-	ai_detector_visible = FALSE
 
 /mob/camera/aiEye/remote/xenobio/New(loc)
 	var/area/A = get_area(loc)
@@ -178,7 +176,7 @@
 	if(istype(M.buffer, /obj/machinery/monkey_recycler))
 		connected_recycler = M.buffer
 		connected_recycler.connected += src
-		to_chat(user, "<span class='notice'>You link [src] to the recycler stored in [M]'s buffer.</span>")
+		to_chat(user, "<span class='notice'>You link [src] to the recycler stored in the [M]'s buffer.</span>")
 
 /datum/action/innate/slime_place
 	name = "Place Slimes"

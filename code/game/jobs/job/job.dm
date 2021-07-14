@@ -225,7 +225,7 @@
 			to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
 			qdel(G)
 
-		gear_leftovers.Cut()
+		qdel(gear_leftovers)
 
 	return 1
 

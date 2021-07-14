@@ -122,12 +122,12 @@
 	icon_state = "too_much_oxy"
 
 /obj/screen/alert/not_enough_nitro
-    name = "Choking (No N2)"
+    name = "Choking (No N)"
     desc = "You're not getting enough nitrogen. Find some good air before you pass out!"
     icon_state = "not_enough_nitro"
 
 /obj/screen/alert/too_much_nitro
-    name = "Choking (N2)"
+    name = "Choking (N)"
     desc = "There's too much nitrogen in the air, and you're breathing it in! Find some good air before you pass out!"
     icon_state = "too_much_nitro"
 

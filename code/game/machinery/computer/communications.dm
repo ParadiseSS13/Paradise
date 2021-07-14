@@ -147,7 +147,7 @@
 				message_cooldown = world.time + 600 //One minute
 
 		if("callshuttle")
-			var/input = input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.") as null|message
+			var/input = clean_input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","")
 			if(!input || ..() || !is_authenticated(usr))
 				return
 			call_shuttle_proc(usr, input)
@@ -410,7 +410,7 @@
 	else
 		menu_state=value
 
-/proc/call_shuttle_proc(mob/user, reason, sanitized = FALSE)
+/proc/call_shuttle_proc(mob/user, reason)
 	if(GLOB.sent_strike_team == 1)
 		to_chat(user, "<span class='warning'>Central Command will not allow the shuttle to be called. Consider all contracts terminated.</span>")
 		return
@@ -426,9 +426,6 @@
 	if(SSticker.mode.name == "blob")
 		to_chat(user, "<span class='warning'>Under directive 7-10, [station_name()] is quarantined until further notice.</span>")
 		return
-
-	if(!sanitized)
-		reason = trim_strip_html_properly(reason, allow_lines = TRUE)
 
 	SSshuttle.requestEvac(user, reason)
 	log_game("[key_name(user)] has called the shuttle.")

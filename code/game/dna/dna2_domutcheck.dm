@@ -3,8 +3,7 @@
 // M: Mob to mess with
 // flags: See below, bitfield.
 /proc/domutcheck(mob/living/M, flags = 0)
-	for(var/mutation_type in GLOB.dna_mutations)
-		var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
+	for(var/datum/mutation/mutation in GLOB.dna_mutations)
 		if(!M || !M.dna)
 			return
 		if(!mutation.block)
@@ -33,7 +32,7 @@
 	var/mutation_active = M.dna.GetSEState(mutation.block)
 
 	// Sanity checks, don't skip.
-	if(mutation_active && !mutation.can_activate(M, flags))
+	if(!mutation.can_activate(M, flags) && mutation_active)
 		//testing("[M] - Failed to activate [gene.name] (can_activate fail).")
 		return FALSE
 
@@ -47,7 +46,11 @@
 		if(mutation_active)
 			//testing("[gene.name] activated!")
 			mutation.activate(M)
+			if(M)
+				M.active_mutations |= mutation.type
 		// If Gene is NOT active:
 		else
 			//testing("[gene.name] deactivated!")
 			mutation.deactivate(M)
+			if(M)
+				M.active_mutations -= mutation.type

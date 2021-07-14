@@ -532,9 +532,6 @@
 			L.throw_at(throwtarget, 5, 1,src)
 		return FALSE
 
-/obj/machinery/door/airlock/cult/screwdriver_act(mob/user, obj/item/I)
-	return
-
 /obj/machinery/door/airlock/cult/cult_conceal()
 	icon = stealth_icon
 	overlays_file = stealth_overlays

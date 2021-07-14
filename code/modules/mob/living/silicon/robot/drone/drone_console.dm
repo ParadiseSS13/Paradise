@@ -114,8 +114,7 @@
 			var/mob/living/silicon/robot/drone/D = locateUID(params["uid"])
 			if(D)
 				to_chat(usr, "<span class='warning'>You issue a kill command for the unfortunate drone.</span>")
-				if(D != usr) // Don't need to bug admins about a suicide
-					message_admins("[key_name_admin(usr)] issued kill order for drone [key_name_admin(D)] from control console.")
+				message_admins("[key_name_admin(usr)] issued kill order for drone [key_name_admin(D)] from control console.")
 				log_game("[key_name(usr)] issued kill order for [key_name(D)] from control console.")
 				D.shut_down()
 

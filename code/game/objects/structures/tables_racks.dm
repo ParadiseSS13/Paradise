@@ -84,6 +84,10 @@
 	new /obj/structure/table/wood(loc)
 	qdel(src)
 
+/obj/structure/table/ratvar_act()
+	new /obj/structure/table/reinforced/brass(loc)
+	qdel(src)
+
 /obj/structure/table/do_climb(mob/living/user)
 	. = ..()
 	item_placed(user)
@@ -108,27 +112,25 @@
 
 /obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
-		return TRUE
+		return 1
 	if(istype(mover,/obj/item/projectile))
 		return (check_cover(mover,target))
 	if(ismob(mover))
 		var/mob/M = mover
 		if(M.flying)
-			return TRUE
+			return 1
 	if(istype(mover) && mover.checkpass(PASSTABLE))
-		return TRUE
+		return 1
 	if(mover.throwing)
-		return TRUE
+		return 1
 	if(length(get_atoms_of_type(get_turf(mover), /obj/structure/table) - mover))
-		var/obj/structure/table/T = locate(/obj/structure/table) in get_turf(mover)
-		if(!T.flipped)
-			return TRUE
+		return 1
 	if(flipped)
 		if(get_dir(loc, target) == dir)
 			return !density
 		else
-			return TRUE
-	return FALSE
+			return 1
+	return 0
 
 /obj/structure/table/CanAStarPass(ID, dir, caller)
 	. = !density
@@ -569,6 +571,9 @@
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
 
+/obj/structure/table/reinforced/brass/ratvar_act()
+	obj_integrity = max_integrity
+
 /obj/structure/table/tray
 	name = "surgical tray"
 	desc = "A small metal tray with wheels."
@@ -630,6 +635,9 @@
 	return 0
 
 /obj/structure/table/tray/narsie_act()
+	return 0
+
+/obj/structure/table/tray/ratvar_act()
 	return 0
 
 /*

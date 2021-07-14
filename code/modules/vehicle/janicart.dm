@@ -49,9 +49,9 @@
 		var/turf/tile = loc
 		if(isturf(tile))
 			tile.clean_blood()
-			for(var/obj/effect/E in tile)
-				if(E.is_cleanable())
-					qdel(E)
+			for(var/A in tile)
+				if(is_cleanable(A))
+					qdel(A)
 
 
 

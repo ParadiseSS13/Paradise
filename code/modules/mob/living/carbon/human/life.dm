@@ -170,10 +170,11 @@
 					emote("drool")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	for(var/mutation_type in active_mutations)
-		var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
-		mutation.on_life(src)
-
+	for(var/datum/mutation/mutation in GLOB.dna_mutations)
+		if(!mutation.block)
+			continue
+		if(mutation.is_active(src))
+			mutation.on_life(src)
 	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
@@ -300,11 +301,11 @@
 
 	else if(bodytemperature < dna.species.cold_level_1)
 		if(status_flags & GODMODE)
-			return TRUE
+			return 1
 		if(stat == DEAD)
-			return TRUE
+			return 1
 
-		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell) && !(HAS_TRAIT(src, TRAIT_RESISTCOLD)))
+		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 			var/mult = dna.species.coldmod * physiology.cold_mod
 			if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
 				throw_alert("temp", /obj/screen/alert/cold, 1)
@@ -365,9 +366,6 @@
 		bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
 
 /mob/living/carbon/human/proc/get_thermal_protection()
-	if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
-		return FIRE_IMMUNITY_MAX_TEMP_PROTECT
-
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
 	if(wear_suit)
 		if(wear_suit.max_heat_protection_temperature >= FIRE_SUIT_MAX_TEMP_PROTECT)
@@ -592,7 +590,26 @@
 				to_chat(src, "<span class='notice'>You no longer feel vigorous.</span>")
 			metabolism_efficiency = 1
 
+	if(drowsyness)
+		AdjustDrowsy(-1)
+		EyeBlurry(2)
+		if(prob(5))
+			AdjustSleeping(1)
+			Paralyse(5)
 
+	if(confused)
+		AdjustConfused(-1)
+	// decrement dizziness counter, clamped to 0
+	if(resting)
+		if(dizziness)
+			AdjustDizzy(-15)
+		if(jitteriness)
+			AdjustJitter(-15)
+	else
+		if(dizziness)
+			AdjustDizzy(-3)
+		if(jitteriness)
+			AdjustJitter(-3)
 
 	if(NO_INTORGANS in dna.species.species_traits)
 		return
@@ -746,12 +763,12 @@
 		if(healths)
 			var/health_amount = get_perceived_trauma()
 			if(..(health_amount)) //not dead
-				switch(health_hud_override)
-					if(HEALTH_HUD_OVERRIDE_CRIT)
+				switch(hal_screwyhud)
+					if(SCREWYHUD_CRIT)
 						healths.icon_state = "health6"
-					if(HEALTH_HUD_OVERRIDE_DEAD)
+					if(SCREWYHUD_DEAD)
 						healths.icon_state = "health7"
-					if(HEALTH_HUD_OVERRIDE_HEALTHY)
+					if(SCREWYHUD_HEALTHY)
 						healths.icon_state = "health0"
 
 		if(healthdoll)

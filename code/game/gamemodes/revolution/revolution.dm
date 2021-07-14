@@ -110,7 +110,6 @@
 		to_chat(rev_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
 		obj_count++
-	to_chat(rev_mind.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Revolution)</span>")
 
 /////////////////////////////////////////////////////////////////////////////////
 //This are equips the rev heads with their gear, and makes the clown not clumsy//
@@ -370,45 +369,44 @@
 		text += "<br>"
 		to_chat(world, text)
 
-/datum/game_mode/revolution/set_scoreboard_vars()
-	var/datum/scoreboard/scoreboard = SSticker.score
+/datum/game_mode/revolution/set_scoreboard_gvars()
 	var/foecount = 0
-
 	for(var/datum/mind/M in SSticker.mode.head_revolutionaries)
 		foecount++
 		if(!M || !M.current)
-			scoreboard.score_ops_killed++
+			GLOB.score_opkilled++
 			continue
 
 		if(M.current.stat == DEAD)
-			scoreboard.score_ops_killed++
+			GLOB.score_opkilled++
 
 		else if(M.current.restrained())
-			scoreboard.score_arrested++
+			GLOB.score_arrested++
 
-	if(foecount == scoreboard.score_arrested)
-		scoreboard.all_arrested = TRUE
+	if(foecount == GLOB.score_arrested)
+		GLOB.score_allarrested = 1
 
-	for(var/I in GLOB.human_list)
-		var/mob/living/carbon/human/H = I
-		if(H.stat == DEAD && H.mind?.assigned_role)
-			if(H.mind.assigned_role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
-				scoreboard.score_dead_command++
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/player = thing
+		if(player.mind)
+			var/role = player.mind.assigned_role
+			if(role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
+				if(player.stat == DEAD)
+					GLOB.score_deadcommand++
 
 
-	var/arrestpoints = scoreboard.score_arrested * 1000
-	var/killpoints = scoreboard.score_ops_killed * 500
-	var/comdeadpts = scoreboard.score_dead_command * 500
-	if(scoreboard.score_greentext)
-		scoreboard.crewscore -= 10000
+	var/arrestpoints = GLOB.score_arrested * 1000
+	var/killpoints = GLOB.score_opkilled * 500
+	var/comdeadpts = GLOB.score_deadcommand * 500
+	if(GLOB.score_traitorswon)
+		GLOB.score_crewscore -= 10000
 
-	scoreboard.crewscore += arrestpoints
-	scoreboard.crewscore += killpoints
-	scoreboard.crewscore -= comdeadpts
+	GLOB.score_crewscore += arrestpoints
+	GLOB.score_crewscore += killpoints
+	GLOB.score_crewscore -= comdeadpts
 
 
 /datum/game_mode/revolution/get_scoreboard_stats()
-	var/datum/scoreboard/scoreboard = SSticker.score
 	var/foecount = 0
 	var/comcount = 0
 	var/revcount = 0
@@ -445,12 +443,12 @@
 	dat += "<b>Number of Surviving Loyal Crew:</b> [loycount]<br>"
 
 	dat += "<br>"
-	dat += "<b>Revolution Heads Arrested:</b> [scoreboard.score_arrested] ([scoreboard.score_arrested * 1000] Points)<br>"
-	dat += "<b>All Revolution Heads Arrested:</b> [scoreboard.all_arrested ? "Yes" : "No"] (Score tripled)<br>"
+	dat += "<b>Revolution Heads Arrested:</b> [GLOB.score_arrested] ([GLOB.score_arrested * 1000] Points)<br>"
+	dat += "<b>All Revolution Heads Arrested:</b> [GLOB.score_allarrested ? "Yes" : "No"] (Score tripled)<br>"
 
-	dat += "<b>Revolution Heads Slain:</b> [scoreboard.score_ops_killed] ([scoreboard.score_ops_killed * 500] Points)<br>"
-	dat += "<b>Command Staff Slain:</b> [scoreboard.score_dead_command] (-[scoreboard.score_dead_command * 500] Points)<br>"
-	dat += "<b>Revolution Successful:</b> [scoreboard.score_greentext ? "Yes" : "No"] (-[scoreboard.score_greentext * 10000] Points)<br>"
+	dat += "<b>Revolution Heads Slain:</b> [GLOB.score_opkilled] ([GLOB.score_opkilled * 500] Points)<br>"
+	dat += "<b>Command Staff Slain:</b> [GLOB.score_deadcommand] (-[GLOB.score_deadcommand * 500] Points)<br>"
+	dat += "<b>Revolution Successful:</b> [GLOB.score_traitorswon ? "Yes" : "No"] (-[GLOB.score_traitorswon * 10000] Points)<br>"
 	dat += "<HR>"
 
 	return dat

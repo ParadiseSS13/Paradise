@@ -30,6 +30,7 @@
 	web_type = /obj/structure/spider/terrorweb/purple
 	ai_spins_webs = FALSE
 	gender = MALE
+	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/death(gibbed)
 	if(can_die() && !hasdied && spider_uo71)

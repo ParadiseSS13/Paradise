@@ -132,7 +132,7 @@
 /area/ruin/powered/beach)
 "ax" = (
 /obj/machinery/disco/immobile,
-/turf/simulated/floor/light,
+/turf/simulated/floor/light/colour_cycle,
 /area/ruin/powered/beach)
 "ay" = (
 /obj/machinery/door/airlock/sandstone{

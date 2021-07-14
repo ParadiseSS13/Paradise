@@ -316,8 +316,7 @@
 	var/mob/living/carbon/C = user
 	if(C.pulling)
 		var/atom/movable/pulled = C.pulling
-		var/turf/turf_behind = get_turf(get_step(T, turn(C.dir, 180)))
-		pulled.forceMove(turf_behind)
+		pulled.forceMove(T)
 		. = pulled
 
 /obj/item/cult_shift/attack_self(mob/user)
@@ -325,7 +324,7 @@
 		to_chat(user, "<span class='warning'>[src] is dull and unmoving in your hands.</span>")
 		return
 	if(!iscultist(user))
-		user.unEquip(src, TRUE)
+		user.unEquip(src, 1)
 		step(src, pick(GLOB.alldirs))
 		to_chat(user, "<span class='warning'>[src] flickers out of your hands, too eager to move!</span>")
 		return
@@ -333,31 +332,36 @@
 	var/outer_tele_radius = 9
 
 	var/mob/living/carbon/C = user
-	var/list/turfs = list()
-	for(var/turf/T in orange(user, outer_tele_radius))
+	var/turf/mobloc = get_turf(C)
+	var/list/turfs = new/list()
+	for(var/turf/T in range(user, outer_tele_radius))
 		if(!is_teleport_allowed(T.z))
 			break
-		if(get_dir(C, T) != C.dir) // This seems like a very bad way to do this
+		if(get_dir(C, T) != C.dir)
 			continue
-		if(isspaceturf(T))
+		if(T == mobloc)
+			continue
+		if(istype(T, /turf/space))
 			continue
 		if(T.x > world.maxx-outer_tele_radius || T.x < outer_tele_radius)
 			continue	//putting them at the edge is dumb
 		if(T.y > world.maxy-outer_tele_radius || T.y < outer_tele_radius)
 			continue
+
 		turfs += T
 
-	if(length(turfs))
+	if(turfs)
 		uses--
-		var/turf/mobloc = get_turf(C)
 		var/turf/destination = pick(turfs)
 		if(uses <= 0)
-			icon_state = "shifter_drained"
-		playsound(src, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			icon_state ="shifter_drained"
+		playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
 
-		handle_teleport_grab(destination, C)
+		var/atom/movable/pulled = handle_teleport_grab(destination, C)
 		C.forceMove(destination)
+		if(pulled)
+			C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
 
 		new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
 		playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

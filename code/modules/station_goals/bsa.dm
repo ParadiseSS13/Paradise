@@ -225,7 +225,7 @@
 	last_fire_time = world.time / 10
 
 /obj/item/circuitboard/machine/bsa/back
-	board_name = "Bluespace Artillery Generator"
+	name = "Bluespace Artillery Generator (Machine Board)"
 	build_path = /obj/machinery/bsa/back
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
@@ -233,7 +233,7 @@
 							/obj/item/stack/cable_coil = 2)
 
 /obj/item/circuitboard/machine/bsa/middle
-	board_name = "Bluespace Artillery Fusor"
+	name = "Bluespace Artillery Fusor (Machine Board)"
 	build_path = /obj/machinery/bsa/middle
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
@@ -241,7 +241,7 @@
 							/obj/item/stack/cable_coil = 2)
 
 /obj/item/circuitboard/machine/bsa/front
-	board_name = "Bluespace Artillery Bore"
+	name = "Bluespace Artillery Bore (Machine Board)"
 	build_path = /obj/machinery/bsa/front
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
@@ -249,7 +249,7 @@
 							/obj/item/stack/cable_coil = 2)
 
 /obj/item/circuitboard/computer/bsa_control
-	board_name = "Bluespace Artillery Controls"
+	name = "Bluespace Artillery Controls (Computer Board)"
 	build_path = /obj/machinery/computer/bsa_control
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 

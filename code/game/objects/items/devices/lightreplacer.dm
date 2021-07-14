@@ -262,10 +262,6 @@
 /obj/item/lightreplacer/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return
 
-/obj/item/lightreplacer/cyborg/cyborg_recharge(coeff, emagged)
-	for(var/I in 1 to coeff)
-		Charge()
-
 #undef LIGHT_OK
 #undef LIGHT_EMPTY
 #undef LIGHT_BROKEN

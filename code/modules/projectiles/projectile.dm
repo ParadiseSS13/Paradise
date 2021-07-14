@@ -60,9 +60,6 @@
 
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary
 
-	/// For when you want your projectile to have a chain coming out of the gun
-	var/chain = null
-
 /obj/item/projectile/New()
 	permutated = list()
 	return ..()
@@ -242,7 +239,7 @@
 			if((!current || loc == current))
 				current = locate(clamp(x + xo, 1, world.maxx), clamp(y + yo, 1, world.maxy), z)
 			if(isnull(Angle))
-				Angle = round(get_angle(src, current))
+				Angle = round(Get_Angle(src, current))
 			if(spread)
 				Angle += (rand() - 0.5) * spread
 			var/matrix/M = new

@@ -49,7 +49,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone
 	name = "Summon Soulstone"
-	desc = "This spell reaches into Redspace, summoning one of the legendary fragments across time and space"
+	desc = "This spell reaches into Nar'Sie's realm, summoning one of the legendary fragments across time and space"
 	action_icon_state = "summonsoulstone"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
@@ -68,7 +68,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/pylon
 	name = "Cult Pylon"
-	desc = "This spell conjures a fragile crystal from Redspace. Makes for a convenient light source."
+	desc = "This spell conjures a fragile crystal from Nar'Sie's realm. Makes for a convenient light source."
 	action_icon_state = "pylon"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
@@ -118,12 +118,7 @@
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/do_jaunt(mob/living/target)
 	target.set_light(0)
 	..()
-	if(isconstruct(target))
-		var/mob/living/simple_animal/hostile/construct/C = target
-		if(C.holy)
-			C.set_light(3, 5, LIGHT_COLOR_DARK_BLUE)
-		else
-			C.set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
+	target.set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/jaunt_steam(mobloc)
 	return

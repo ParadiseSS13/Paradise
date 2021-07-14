@@ -17,7 +17,7 @@
 	var/tint = 0
 	var/flash_protect = FLASH_PROTECTION_NONE
 	var/see_invisible = SEE_INVISIBLE_LIVING
-	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
+	var/lighting_alpha
 
 /obj/item/organ/internal/eyes/proc/update_colour()
 	dna.write_eyes_attributes(src)

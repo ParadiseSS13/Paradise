@@ -75,7 +75,7 @@
 		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 			if(!C.can_use())
 				continue
-			if(length(C.network & networks))
+			if(C.network&networks)
 				camera_location = get_turf(C)
 				break
 		if(camera_location)
@@ -101,8 +101,6 @@
 
 /mob/camera/aiEye/remote
 	name = "Inactive Camera Eye"
-	// Abductors dont trigger the Ai Detector
-	ai_detector_visible = FALSE
 	var/sprint = 10
 	var/cooldown = 0
 	var/acceleration = 1

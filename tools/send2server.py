@@ -1,6 +1,3 @@
-#
-# This is now deprecated as of 2021-05-15
-#
 # Script to send world/Topic announcements to a server via automated tooling
 # Author: AffectedArc07
 # Takes a message as command line argument

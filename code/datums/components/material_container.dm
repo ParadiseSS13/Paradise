@@ -130,13 +130,13 @@
 
 /datum/component/material_container/proc/insert_stack(obj/item/stack/S, amt, multiplier = 1)
 	if(isnull(amt))
-		amt = S.get_amount()
+		amt = S.amount
 
 	if(amt <= 0)
 		return FALSE
 
-	if(amt > S.get_amount())
-		amt = S.get_amount()
+	if(amt > S.amount)
+		amt = S.amount
 
 	var/material_amt = get_item_material_amount(S)
 	if(!material_amt)

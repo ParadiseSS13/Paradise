@@ -7,7 +7,6 @@
 		opacity = FALSE
 		anchored = 1
 		resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-		flags_2 = RAD_NO_CONTAMINATE_2
 		max_integrity = 200
 
 /obj/machinery/shield/New()
@@ -126,7 +125,7 @@
 	return visible
 
 /obj/machinery/shieldgen
-	name = "emergency shield projector"
+	name = "Emergency shield projector"
 	desc = "Used to seal minor hull breaches."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shieldoff"
@@ -160,12 +159,7 @@
 	for(var/turf/target_tile in range(2, src))
 		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
 			if(malfunction && prob(33) || !malfunction)
-				var/obj/machinery/shield/new_shield = new(target_tile)
-				RegisterSignal(new_shield, COMSIG_PARENT_QDELETING, .proc/remove_shield) // Ensures they properly GC
-				deployed_shields += new_shield
-
-/obj/machinery/shieldgen/proc/remove_shield(obj/machinery/shield/S)
-	deployed_shields -= S
+				deployed_shields += new /obj/machinery/shield(target_tile)
 
 /obj/machinery/shieldgen/proc/shields_down()
 	if(!active)
@@ -174,12 +168,15 @@
 	active = 0
 	update_icon()
 
-	QDEL_LIST(deployed_shields)
+	for(var/obj/machinery/shield/shield_tile in deployed_shields)
+		qdel(shield_tile)
 
 /obj/machinery/shieldgen/process()
 	if(malfunction && active)
-		if(length(deployed_shields) && prob(5))
-			qdel(pick_n_take(deployed_shields))
+		if(deployed_shields.len && prob(5))
+			qdel(pick(deployed_shields))
+
+	return
 
 /obj/machinery/shieldgen/proc/checkhp()
 	if(health <= 30)
@@ -253,7 +250,7 @@
 			health = max_health
 			malfunction = TRUE
 			playsound(loc, coil.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You repair [src]!</span>")
+			to_chat(user, "<span class='notice'>You repair the [src]!</span>")
 			update_icon()
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
@@ -409,7 +406,7 @@
 		active = 2
 	if(active >= 1)
 		if(power == 0)
-			visible_message("<span class='warning'>[name] shuts down due to lack of power!</span>", \
+			visible_message("<span class='warning'>The [name] shuts down due to lack of power!</span>", \
 				"You hear heavy droning fade out")
 			icon_state = "Shield_Gen"
 			active = 0

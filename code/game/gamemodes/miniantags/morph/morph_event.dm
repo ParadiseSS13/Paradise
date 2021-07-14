@@ -26,7 +26,6 @@
 		player_mind.special_role = SPECIAL_ROLE_MORPH
 		SSticker.mode.traitors |= player_mind
 		to_chat(S, S.playstyle_string)
-		to_chat(S, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Morph)</span>")
 		SEND_SOUND(S, sound('sound/magic/mutate.ogg'))
 		message_admins("[key_of_morph] has been made into morph by an event.")
 		log_game("[key_of_morph] was spawned as a morph by an event.")

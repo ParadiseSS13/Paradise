@@ -3,19 +3,14 @@
 	desc = "..."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "watertank"
-	density = TRUE
-	anchored = TRUE
+	density = 1
+	anchored = 0
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
 	max_integrity = 300
-	/// How much this dispenser can hold (In units)
-	var/tank_volume = 1000
-	/// The ID of the reagent that the dispenser uses
-	var/reagent_id = "water"
-	/// The last person to rig this fuel tank - Stored with the object. Only the last person matters for investigation
-	var/lastrigger = ""
-	/// Can this tank be unwrenched
-	var/can_be_unwrenched = TRUE
+	var/tank_volume = 1000 //In units, how much the dispenser can hold
+	var/reagent_id = "water" //The ID of the reagent that the dispenser uses
+	var/lastrigger = "" // The last person to rig this fuel tank - Stored with the object. Only the last person matter for investigation
 
 /obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
@@ -32,19 +27,6 @@
 	. = ..()
 	create_reagents(tank_volume)
 	reagents.add_reagent(reagent_id, tank_volume)
-
-/obj/structure/reagent_dispensers/wrench_act(mob/user, obj/item/I)
-	if(!can_be_unwrenched)
-		return
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	default_unfasten_wrench(user, I)
-
-/obj/structure/reagent_dispensers/examine(mob/user)
-	. = ..()
-	if(can_be_unwrenched)
-		. += "<span class='notice'>The wheels look like they can be <b>[anchored ? "unlocked" : "locked in place"]</b> with a <b>wrench</b>."
 
 /obj/structure/reagent_dispensers/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -224,8 +206,8 @@
 	name = "pepper spray refiller"
 	desc = "Contains condensed capsaicin for use in law \"enforcement.\""
 	icon_state = "pepper"
-	density = FALSE
-	can_be_unwrenched = FALSE
+	anchored = 1
+	density = 0
 	reagent_id = "condensedcapsaicin"
 
 /obj/structure/reagent_dispensers/water_cooler
@@ -233,6 +215,7 @@
 	desc = "A machine that dispenses liquid to drink."
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "water_cooler"
+	anchored = 1
 	tank_volume = 500
 	reagent_id = "water"
 	var/paper_cups = 25 //Paper cups left from the cooler
@@ -250,6 +233,12 @@
 	var/obj/item/reagent_containers/food/drinks/sillycup/S = new(get_turf(src))
 	user.put_in_hands(S)
 	paper_cups--
+
+/obj/structure/reagent_dispensers/water_cooler/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, I, 40)
 
 /obj/structure/reagent_dispensers/beerkeg
 	name = "beer keg"
@@ -274,22 +263,22 @@
 	name = "virus food dispenser"
 	desc = "A dispenser of low-potency virus mutagenic."
 	icon_state = "virus_food"
-	can_be_unwrenched = FALSE
-	density = FALSE
+	anchored = 1
+	density = 0
 	reagent_id = "virusfood"
 
 /obj/structure/reagent_dispensers/spacecleanertank
 	name = "space cleaner refiller"
 	desc = "Refills space cleaner bottles."
 	icon_state = "cleaner"
-	can_be_unwrenched = FALSE
-	density = FALSE
+	anchored = 1
+	density = 0
 	tank_volume = 5000
 	reagent_id = "cleaner"
 
 /obj/structure/reagent_dispensers/fueltank/chem
 	icon_state = "fuel_chem"
-	can_be_unwrenched = FALSE
-	density = FALSE
-	accepts_rig = FALSE
+	anchored = 1
+	density = 0
+	accepts_rig = 0
 	tank_volume = 1000

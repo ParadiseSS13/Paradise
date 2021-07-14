@@ -30,38 +30,38 @@
 					return
 				return custom_emote(m_type, message)
 		if("bounce")
-			message = "<B>[src]</B> bounces in place."
+			message = "<B>The [src.name]</B> bounces in place."
 			m_type = 1
 
 		if("custom")
 			return custom_emote(m_type, message)
 
 		if("jiggle")
-			message = "<B>[src]</B> jiggles!"
+			message = "<B>The [src.name]</B> jiggles!"
 			m_type = 1
 
 		if("light")
-			message = "<B>[src]</B> lights up for a bit, then stops."
+			message = "<B>The [src.name]</B> lights up for a bit, then stops."
 			m_type = 1
 
 		if("moan")
-			message = "<B>[src]</B> moans."
+			message = "<B>The [src.name]</B> moans."
 			m_type = 2
 
 		if("shiver")
-			message = "<B>[src]</B> shivers."
+			message = "<B>The [src.name]</B> shivers."
 			m_type = 2
 
 		if("sway")
-			message = "<B>[src]</B> sways around dizzily."
+			message = "<B>The [src.name]</B> sways around dizzily."
 			m_type = 1
 
 		if("twitch")
-			message = "<B>[src]</B> twitches."
+			message = "<B>The [src.name]</B> twitches."
 			m_type = 1
 
 		if("vibrate")
-			message = "<B>[src]</B> vibrates!"
+			message = "<B>The [src.name]</B> vibrates!"
 			m_type = 1
 
 		if("noface") //mfw I have no face

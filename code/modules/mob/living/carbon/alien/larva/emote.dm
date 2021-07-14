@@ -37,73 +37,73 @@
 				m_type = 2
 		if("scratch")
 			if(!src.restrained())
-				message = "<B>[src]</B> scratches."
+				message = "<B>The [src.name]</B> scratches."
 				m_type = 1
 		if("whimper")
 			if(!muzzled)
-				message = "<B>[src]</B> whimpers."
+				message = "<B>The [src.name]</B> whimpers."
 				m_type = 2
 //		if("roar")
 //			if(!muzzled)
-//				message = "<B>[src]</B> roars." Commenting out since larva shouldn't roar /N
+//				message = "<B>The [src.name]</B> roars." Commenting out since larva shouldn't roar /N
 //				m_type = 2
 		if("tail")
-			message = "<B>[src]</B> waves its tail."
+			message = "<B>The [src.name]</B> waves its tail."
 			m_type = 1
 		if("gasp")
-			message = "<B>[src]</B> gasps."
+			message = "<B>The [src.name]</B> gasps."
 			m_type = 2
 		if("shiver")
-			message = "<B>[src]</B> shivers."
+			message = "<B>The [src.name]</B> shivers."
 			m_type = 2
 		if("drool")
-			message = "<B>[src]</B> drools."
+			message = "<B>The [src.name]</B> drools."
 			m_type = 1
 		if("scretch")
 			if(!muzzled)
-				message = "<B>[src]</B> scretches."
+				message = "<B>The [src.name]</B> scretches."
 				m_type = 2
 		if("choke")
-			message = "<B>[src]</B> chokes."
+			message = "<B>The [src.name]</B> chokes."
 			m_type = 2
 		if("moan")
-			message = "<B>[src]</B> moans!"
+			message = "<B>The [src.name]</B> moans!"
 			m_type = 2
 		if("nod")
-			message = "<B>[src]</B> nods its head."
+			message = "<B>The [src.name]</B> nods its head."
 			m_type = 1
 //		if("sit")
-//			message = "<B>[src]</B> sits down." //Larvan can't sit down, /N
+//			message = "<B>The [src.name]</B> sits down." //Larvan can't sit down, /N
 //			m_type = 1
 		if("sway")
-			message = "<B>[src]</B> sways around dizzily."
+			message = "<B>The [src.name]</B> sways around dizzily."
 			m_type = 1
 		if("sulk")
-			message = "<B>[src]</B> sulks down sadly."
+			message = "<B>The [src.name]</B> sulks down sadly."
 			m_type = 1
 		if("twitch")
-			message = "<B>[src]</B> twitches violently."
+			message = "<B>The [src.name]</B> twitches violently."
 			m_type = 1
 		if("dance")
 			if(!src.restrained())
-				message = "<B>[src]</B> dances around happily."
+				message = "<B>The [src.name]</B> dances around happily."
 				m_type = 1
 		if("roll")
 			if(!src.restrained())
-				message = "<B>[src]</B> rolls."
+				message = "<B>The [src.name]</B> rolls."
 				m_type = 1
 		if("shake")
-			message = "<B>[src]</B> shakes its head."
+			message = "<B>The [src.name]</B> shakes its head."
 			m_type = 1
 		if("gnarl")
 			if(!muzzled)
-				message = "<B>[src]</B> gnarls and shows its teeth.."
+				message = "<B>The [src.name]</B> gnarls and shows its teeth.."
 				m_type = 2
 		if("jump")
-			message = "<B>[src]</B> jumps!"
+			message = "<B>The [src.name]</B> jumps!"
 			m_type = 1
 		if("hiss_")
-			message = "<B>[src]</B> hisses softly."
+			message = "<B>The [src.name]</B> hisses softly."
 			m_type = 1
 		if("collapse")
 			Paralyse(2)

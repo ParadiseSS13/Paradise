@@ -18,6 +18,10 @@
 	},
 /turf/simulated/floor/beach/away/water/deep/sand_floor,
 /area/awaymission/undersea)
+"af" = (
+/obj/structure/constructshell,
+/turf/simulated/floor/beach/away/water/deep/wood_floor,
+/area/awaymission/undersea)
 "ag" = (
 /obj/structure/chair/wood/wings,
 /turf/simulated/floor/beach/away/water/deep/wood_floor,
@@ -46308,7 +46312,7 @@ ad
 ad
 ad
 ah
-ah
+af
 ah
 ah
 ar
@@ -46819,7 +46823,7 @@ av
 av
 ad
 ad
-ah
+af
 ah
 ah
 ah
@@ -48104,7 +48108,7 @@ av
 av
 ad
 ad
-ah
+af
 ah
 ah
 ah
@@ -48621,7 +48625,7 @@ ad
 ad
 ad
 ah
-ah
+af
 ah
 ah
 ah

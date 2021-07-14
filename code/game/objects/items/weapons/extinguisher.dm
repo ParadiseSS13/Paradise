@@ -180,6 +180,3 @@
 					sleep(2)
 	else
 		return ..()
-
-/obj/item/extinguisher/cyborg_recharge(coeff, emagged)
-	reagents.check_and_add("water", max_water, 5 * coeff)

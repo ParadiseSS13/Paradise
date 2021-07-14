@@ -249,8 +249,6 @@
 /obj/machinery/power/port_gen/pacman/proc/overheat()
 	overheating++
 	if(overheating > 60)
-		message_admins("Pacman overheated at [ADMIN_JMP(loc)]. Last touched by: [fingerprintslast ? "[fingerprintslast]" : "*null*"].")
-		log_game("Pacman overheated at [COORD(loc)]. Last touched by: [fingerprintslast ? "[fingerprintslast]" : "*null*"].")
 		explode()
 
 /obj/machinery/power/port_gen/pacman/explode()
@@ -279,9 +277,9 @@
 		var/obj/item/stack/addstack = O
 		var/amount = min((max_sheets - sheets), addstack.amount)
 		if(amount < 1)
-			to_chat(user, "<span class='notice'>[src] is full!</span>")
+			to_chat(user, "<span class='notice'>The [src.name] is full!</span>")
 			return
-		to_chat(user, "<span class='notice'>You add [amount] sheet\s to [src].</span>")
+		to_chat(user, "<span class='notice'>You add [amount] sheet\s to the [src.name].</span>")
 		sheets += amount
 		addstack.use(amount)
 		SStgui.update_uis(src)

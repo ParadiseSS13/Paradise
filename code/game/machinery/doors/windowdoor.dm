@@ -195,6 +195,11 @@
 /obj/machinery/door/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
 
+/obj/machinery/door/window/ratvar_act()
+	var/obj/machinery/door/window/clockwork/C = new(loc, dir)
+	C.name = name
+	qdel(src)
+
 /obj/machinery/door/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > T0C + (reinf ? 1600 : 800))
@@ -352,6 +357,9 @@
 /obj/machinery/door/window/clockwork/emp_act(severity)
 	if(prob(80/severity))
 		open()
+
+/obj/machinery/door/window/clockwork/ratvar_act()
+	obj_integrity = max_integrity
 
 /obj/machinery/door/window/clockwork/hasPower()
 	return TRUE //yup that's power all right

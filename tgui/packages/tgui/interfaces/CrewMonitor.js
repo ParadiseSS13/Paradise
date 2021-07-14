@@ -6,12 +6,9 @@ import { TableCell } from '../components/Table';
 import { COLORS } from '../constants.js';
 import { Window } from "../layouts";
 
-const getStatText = (cm, critThreshold) => {
+const getStatText = cm => {
   if (cm.dead) {
     return "Deceased";
-  }
-  if (parseInt(cm.health, 10) <= critThreshold) { // Critical
-    return "Critical";
   }
   if (parseInt(cm.stat, 10) === 1) { // Unconscious
     return "Unconscious";
@@ -19,15 +16,12 @@ const getStatText = (cm, critThreshold) => {
   return "Living";
 };
 
-const getStatColor = (cm, critThreshold) => {
+const getStatColor = cm => {
   if (cm.dead) {
     return "red";
   }
-  if (parseInt(cm.health, 10) <= critThreshold) { // Critical
-    return "orange";
-  }
   if (parseInt(cm.stat, 10) === 1) { // Unconscious
-    return "blue";
+    return "orange";
   }
   return "green";
 };
@@ -109,8 +103,8 @@ const CrewMonitorDataView = (_properties, context) => {
             </TableCell>
             <TableCell>
               <Box inline
-                color={getStatColor(cm, data.critThreshold)}>
-                {getStatText(cm, data.critThreshold)}
+                color={getStatColor(cm)}>
+                {getStatText(cm)}
               </Box>
               {cm.sensor_type >= 2 ? (
                 <Box inline>
@@ -175,7 +169,7 @@ const CrewMonitorMapView = (_properties, context) => {
             zoom={zoom}
             icon="circle"
             tooltip={cm.name + " (" + cm.assignment + ")"}
-            color={getStatColor(cm, data.critThreshold)}
+            color={getStatColor(cm)}
           />
         ))}
       </NanoMap>

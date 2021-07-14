@@ -147,7 +147,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	for(var/datum/objective/objective in changeling.objectives)
 		to_chat(changeling.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
-	to_chat(changeling.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Changeling)</span>")
 	return
 
 /datum/game_mode/proc/remove_changeling(datum/mind/changeling_mind)
