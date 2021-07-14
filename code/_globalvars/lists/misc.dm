@@ -30,7 +30,8 @@ GLOBAL_LIST_INIT(restricted_camera_networks, list(
 	"UO45",
 	"UO45R",
 	"UO71",
-	"Xeno"
+	"Xeno",
+	"SyndicateTestLab"
 	)) //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
 
 GLOBAL_LIST_INIT(ruin_landmarks, list())
@@ -53,5 +54,8 @@ GLOBAL_LIST_INIT(cooking_recipe_types, list(
 GLOBAL_LIST_INIT(cooking_recipes, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
 GLOBAL_LIST_INIT(cooking_ingredients, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
 GLOBAL_LIST_INIT(cooking_reagents, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
+
+/// Associative list of admin rank to colour. Set in config/rank_colours.txt
+GLOBAL_LIST_EMPTY(rank_colour_map)
 
 #define EGG_LAYING_MESSAGES list("lays an egg.", "squats down and croons.", "begins making a huge racket.", "begins clucking raucously.")

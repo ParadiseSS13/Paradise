@@ -128,25 +128,25 @@
 
 /obj/machinery/gibber/proc/move_into_gibber(mob/user, mob/living/victim)
 	if(occupant)
-		to_chat(user, "<span class='danger'>The [src] is full, empty it first!</span>")
+		to_chat(user, "<span class='danger'>[src] is full, empty it first!</span>")
 		return
 
 	if(operating)
-		to_chat(user, "<span class='danger'>The [src] is locked and running, wait for it to finish.</span>")
+		to_chat(user, "<span class='danger'>[src] is locked and running, wait for it to finish.</span>")
 		return
 
 	if(!ishuman(victim))
-		to_chat(user, "<span class='danger'>This is not suitable for the [src]!</span>")
+		to_chat(user, "<span class='danger'>This is not suitable for [src]!</span>")
 		return
 
 	if(victim.abiotic(1))
 		to_chat(user, "<span class='danger'>Subject may not have abiotic items on.</span>")
 		return
 
-	user.visible_message("<span class='danger'>[user] starts to put [victim] into the [src]!</span>")
+	user.visible_message("<span class='danger'>[user] starts to put [victim] into [src]!</span>")
 	add_fingerprint(user)
 	if(do_after(user, 30, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
-		user.visible_message("<span class='danger'>[user] stuffs [victim] into the [src]!</span>")
+		user.visible_message("<span class='danger'>[user] stuffs [victim] into [src]!</span>")
 
 		victim.forceMove(src)
 		occupant = victim

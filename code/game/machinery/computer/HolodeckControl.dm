@@ -234,7 +234,7 @@
 
 	if(!silent)
 		var/obj/oldobj = obj
-		visible_message("The [oldobj.name] fades away!")
+		visible_message("[oldobj] fades away!")
 	qdel(obj)
 
 /obj/machinery/computer/HolodeckControl/proc/checkInteg(area/A)
@@ -505,12 +505,12 @@
 			return
 		G.affecting.loc = src.loc
 		G.affecting.Weaken(5)
-		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into the [src]!</span>")
+		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into [src]!</span>")
 		qdel(W)
 		return
 	else if(istype(W, /obj/item) && get_dist(src,user)<2)
 		user.drop_item(src)
-		visible_message("<span class='notice'>[user] dunks [W] into the [src]!</span>")
+		visible_message("<span class='notice'>[user] dunks [W] into [src]!</span>")
 		return
 
 /obj/structure/holohoop/CanPass(atom/movable/mover, turf/target, height=0)

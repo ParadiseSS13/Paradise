@@ -16,7 +16,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
 	resistance_flags = FIRE_PROOF
-	materials = list(MAT_METAL=70, MAT_GLASS=30)
+	materials = list(MAT_METAL = 70, MAT_GLASS = 20)
 	origin_tech = "engineering=1;plasmatech=1"
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 1
@@ -51,6 +51,13 @@
 /obj/item/weldingtool/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return FIRELOSS
+
+/obj/item/weldingtool/can_enter_storage(obj/item/storage/S, mob/user)
+	if(tool_enabled)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		return FALSE
+	else
+		return TRUE
 
 /obj/item/weldingtool/process()
 	if(tool_enabled)
@@ -131,7 +138,7 @@
 
 /obj/item/weldingtool/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
 	. = ..()
-	if(. && user)
+	if(!. && user)
 		if(progress_flash_divisor == 0)
 			user.flash_eyes(min(light_intensity, 1))
 			progress_flash_divisor = initial(progress_flash_divisor)
@@ -177,6 +184,9 @@
 	update_torch()
 	..()
 
+/obj/item/weldingtool/cyborg_recharge(coeff, emagged)
+	if(reagents.check_and_add("fuel", maximum_fuel, 2 * coeff))
+		update_icon()
 
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"
