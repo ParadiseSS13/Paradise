@@ -45,7 +45,7 @@
 	if(HAS_TRAIT(src, TRAIT_LASEREYES) && a_intent == INTENT_HARM)
 		LaserEyes(A)
 
-	if(dna.GetSEState(GLOB.teleblock))
+	if(HAS_TRAIT(src, TRAIT_TELEKINESIS))
 		A.attack_tk(src)
 
 	if(isturf(A) && get_dist(src, A) <= 1)

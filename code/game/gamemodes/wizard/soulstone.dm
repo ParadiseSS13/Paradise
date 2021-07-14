@@ -95,6 +95,10 @@
 		to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your fellow's soul.\"</span>")
 		return ..()
 
+	if(M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT)
+		to_chat(user, "<span class='warning'>This being's soul seems worthless. Not even the stone will absorb it.</span>")
+		return ..()
+
 	if(optional)
 		if(!M.ckey)
 			to_chat(user, "<span class='warning'>They have no soul!</span>")
@@ -253,17 +257,18 @@
 		return ..()
 
 ////////////////////////////Proc for moving soul in and out off stone//////////////////////////////////////
-
+// this whole proc is pain
 /obj/item/soulstone/proc/transfer_soul(choice, target, mob/user)
 	switch(choice)
 		if("FORCE")
 			var/mob/living/T = target
-			if(T.client != null)
+			T.grab_ghost(FALSE) // If they haven't DC'd or ahudded, put them back in their body
+			if(T.client) // If there's someone in the body
 				init_shade(T, user)
-			else
+			else // Poll ghosts
 				to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
 				T.Paralyse(20)
-				if(!get_cult_ghost(T, user))
+				if(!get_cult_ghost(T, user, TRUE))
 					T.dust() //If we can't get a ghost, kill the sacrifice anyway.
 
 		if("VICTIM")
@@ -276,7 +281,7 @@
 				else
 					if(T.client == null)
 						to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
-						get_cult_ghost(T, user)
+						get_cult_ghost(T, user, get_new_player = !T.ghost_can_reenter())
 					else
 						if(length(contents))
 							to_chat(user, "<span class='danger'>Capture failed!</span> The soul stone is full! Use or free an existing soul to make room.")
@@ -312,9 +317,9 @@
 											"Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
 											"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
 			/// Custom construct icons for different cults
-			var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("juggernaut")),
-											"Wraith" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("wraith")),
-											"Artificer" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("builder")))
+			var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/cult.dmi', icon_state = SSticker.cultdat.get_icon("juggernaut")),
+											"Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = SSticker.cultdat.get_icon("wraith")),
+											"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = SSticker.cultdat.get_icon("builder")))
 
 			if(shade)
 				var/construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, .proc/radial_check, user), require_near = TRUE)
@@ -323,6 +328,7 @@
 					var/mob/living/simple_animal/hostile/construct/C = new picked_class(shell.loc)
 					C.init_construct(shade, src, shell)
 					to_chat(C, C.playstyle_string)
+					to_chat(C, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Construct)</span>")
 			else
 				to_chat(user, "<span class='danger'>Creation failed!</span>: The soul stone is empty! Go kill someone!")
 
@@ -339,13 +345,11 @@
 	if(shade.mind)
 		shade.mind.transfer_to(src)
 	if(SS.purified)
-		set_light(3, 5, LIGHT_COLOR_DARK_BLUE)
-		name = "Holy [name]"
-		real_name = "Holy [real_name]"
-
+		make_holy()
 		// Replace regular soulstone summoning with purified soulstones
-		RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
-		AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy)
+		if(is_type_in_list(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone, mob_spell_list))
+			RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
+			AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy)
 
 	else if(iscultist(src)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new
@@ -362,7 +366,7 @@
 	qdel(SS)
 
 /proc/make_new_construct(mob/living/simple_animal/hostile/construct/c_type, mob/target, mob/user, cult_override = FALSE)
-	if(jobban_isbanned(target, "cultist"))
+	if(jobban_isbanned(target, ROLE_CULTIST))
 		return
 	var/mob/living/simple_animal/hostile/construct/C = new c_type(get_turf(target))
 	C.faction |= "\ref[user]"
@@ -414,13 +418,14 @@
 		return /mob/living/simple_animal/shade/holy
 	return /mob/living/simple_animal/shade/cult
 
-/obj/item/soulstone/proc/get_cult_ghost(mob/living/M, mob/user)
+/obj/item/soulstone/proc/get_cult_ghost(mob/living/M, mob/user, get_new_player = FALSE)
 	var/mob/dead/observer/chosen_ghost
 
-	for(var/mob/dead/observer/ghost in GLOB.player_list) // We put them back in their body
-		if(ghost.mind && ghost.mind.current == M && ghost.client)
-			chosen_ghost = ghost
-			break
+	if(!get_new_player)
+		for(var/mob/dead/observer/ghost in GLOB.player_list) // We put them back in their body
+			if(ghost.mind && ghost.mind.current == M && ghost.client)
+				chosen_ghost = ghost
+				break
 
 	if(!chosen_ghost) // Failing that, we grab a ghost
 		var/list/consenting_candidates

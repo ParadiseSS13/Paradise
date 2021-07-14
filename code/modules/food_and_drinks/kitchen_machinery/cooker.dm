@@ -67,7 +67,7 @@
 /obj/machinery/cooker/proc/burn_food(mob/user, obj/item/reagent_containers/props)
 	var/obj/item/reagent_containers/food/snacks/badrecipe/burnt = new(get_turf(src))
 	setRegents(props, burnt)
-	to_chat(user, "<span class='warning'>You smell burning coming from the [src]!</span>")
+	to_chat(user, "<span class='warning'>You smell burning coming from [src]!</span>")
 	var/datum/effect_system/smoke_spread/bad/smoke = new    // burning things makes smoke!
 	smoke.set_up(5, 0, src)
 	smoke.start()
@@ -75,7 +75,7 @@
 		var/turf/location = get_turf(src)
 		var/obj/effect/decal/cleanable/liquid_fuel/oil = new(location)
 		oil.name = "fat"
-		oil.desc = "uh oh, looks like some fat from the [src]"
+		oil.desc = "Uh oh, looks like some fat from [src]!"
 		oil.loc = location
 		location.hotspot_expose(700, 50, 1)
 		//TODO have a chance of setting the tile on fire

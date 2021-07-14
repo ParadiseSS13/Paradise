@@ -156,7 +156,7 @@
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue
-					if(iswallturf(T) && NewTerrainWalls)
+					if(iswallturf(T) && NewTerrainWalls && !istype(T, /turf/simulated/wall/indestructible))
 						T.ChangeTurf(NewTerrainWalls)
 						continue
 				if(istype(Stuff, /obj/structure/chair) && NewTerrainChairs)
@@ -232,8 +232,20 @@
 /obj/machinery/anomalous_crystal/helpers/attack_ghost(mob/dead/observer/user)
 	..()
 	if(ready_to_deploy)
+		if(!istype(user)) // No revs allowed
+			return
+		if(cannotPossess(user))
+			to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			return
+		if(!user.can_reenter_corpse)
+			to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
+			return
 		var/be_helper = alert("Become a Lightgeist? (Warning, You can no longer be cloned!)",,"Yes","No")
 		if(be_helper == "No")
+			return
+		if(!loc || QDELETED(src) || QDELETED(user))
+			if(user)
+				to_chat(user, "<span class='warning'>[src] is no longer usable!</span>")
 			return
 		var/mob/living/simple_animal/hostile/lightgeist/W = new /mob/living/simple_animal/hostile/lightgeist(get_turf(loc))
 		W.key = user.key
