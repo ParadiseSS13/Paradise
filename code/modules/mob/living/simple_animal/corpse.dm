@@ -9,7 +9,7 @@
 	outfit = /datum/outfit/syndicatesoldiercorpse
 
 /datum/outfit/syndicatesoldiercorpse
-	name = "Corpse of a Syndicate Operative"
+	name = "Syndicate Operative Corpse"
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/combat
@@ -31,7 +31,7 @@
 	outfit = /datum/outfit/syndicatecommandocorpse
 
 /datum/outfit/syndicatecommandocorpse
-	name = "Corpse of a Syndicate Commando"
+	name = "Syndicate Commando Corpse"
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	shoes = /obj/item/clothing/shoes/combat
@@ -59,7 +59,7 @@
 	outfit = /datum/outfit/piratecorpse
 
 /datum/outfit/piratecorpse
-	name = "Corpse of a Pirate"
+	name = "Pirate Corpse"
 	uniform = /obj/item/clothing/under/pirate
 	shoes = /obj/item/clothing/shoes/jackboots
 	glasses = /obj/item/clothing/glasses/eyepatch
@@ -72,7 +72,7 @@
 	outfit = /datum/outfit/piratecorpse/ranged
 
 /datum/outfit/piratecorpse/ranged
-	name = "Corpse of a Pirate Gunner"
+	name = "Pirate Gunner Corpse"
 	suit = /obj/item/clothing/suit/pirate_black
 	head = /obj/item/clothing/head/pirate
 
@@ -85,7 +85,7 @@
 	outfit = /datum/outfit/russiancorpse
 
 /datum/outfit/russiancorpse
-	name = "Corpse of a Russian"
+	name = "Russian Corpse"
 	uniform = /obj/item/clothing/under/soviet
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/bearpelt
@@ -95,12 +95,12 @@
 	outfit = /datum/outfit/russiancorpse/ranged
 
 /datum/outfit/russiancorpse/ranged
-	name = "Corpse of a Ranged Russian"
+	name = "Ranged Russian Corpse"
 	head = /obj/item/clothing/head/ushanka
 
 
 /obj/effect/mob_spawn/human/corpse/wizard
-	name = "Corpse of a Space Wizard"
+	name = "Space Wizard Corpse"
 	outfit = /datum/outfit/wizardcorpse
 
 /obj/effect/mob_spawn/human/corpse/clownoff/Initialize(mapload)
@@ -108,7 +108,7 @@
 	. = ..()
 
 /datum/outfit/wizardcorpse
-	name = "Corpse of a Space Wizard"
+	name = "Space Wizard Corpse"
 	uniform = /obj/item/clothing/under/color/lightpurple
 	suit = /obj/item/clothing/suit/wizrobe
 	shoes = /obj/item/clothing/shoes/sandal

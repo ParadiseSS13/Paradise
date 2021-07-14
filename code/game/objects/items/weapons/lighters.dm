@@ -29,13 +29,6 @@
 	else
 		turn_off_lighter(user)
 
-/obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
-	if(lit)
-		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
-		return FALSE
-	else
-		return TRUE
-
 /obj/item/lighter/proc/turn_on_lighter(mob/living/user)
 	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY
@@ -89,9 +82,9 @@
 			cig.attackby(src, user)
 		else
 			if(istype(src, /obj/item/lighter/zippo))
-				cig.light("<span class='rose'>[user] whips [src] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with.</span>")
+				cig.light("<span class='rose'>[user] whips the [name] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with.</span>")
 			else
-				cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
+				cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights the [cig.name].</span>")
 			M.update_inv_wear_mask()
 	else
 		..()
@@ -233,13 +226,6 @@
 /obj/item/match/dropped(mob/user)
 	matchburnout()
 	. = ..()
-
-/obj/item/match/can_enter_storage(obj/item/storage/S, mob/user)
-	if(lit)
-		to_chat(user, "<span class='warning'>[S] can't hold [initial(name)] while it's lit!</span>") // initial(name) so it doesn't say "lit" twice in a row
-		return FALSE
-	else
-		return TRUE
 
 /obj/item/match/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!isliving(M))

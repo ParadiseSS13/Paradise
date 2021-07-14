@@ -61,8 +61,6 @@ SUBSYSTEM_DEF(ticker)
 	var/end_state = "undefined"
 	/// Time the real reboot kicks in
 	var/real_reboot_time = 0
-	/// Datum used to generate the end of round scoreboard.
-	var/datum/scoreboard/score = null
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
@@ -138,7 +136,6 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()
-	score = new()
 
 	// Create and announce mode
 	if(GLOB.master_mode == "secret")
@@ -485,8 +482,7 @@ SUBSYSTEM_DEF(ticker)
 		if(findtext("[handler]","auto_declare_completion_"))
 			call(mode, handler)()
 
-	// Display the scoreboard window
-	score.scoreboard()
+	scoreboard()
 
 	// Declare the completion of the station goals
 	mode.declare_station_goal_completion()

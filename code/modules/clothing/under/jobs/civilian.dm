@@ -73,7 +73,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.mind && H.mind.assigned_role == "Clown")
-			SSticker.score.score_clown_abuse++
+			GLOB.score_clownabuse++
 	return ..()
 
 /obj/item/clothing/under/rank/clown/sexy

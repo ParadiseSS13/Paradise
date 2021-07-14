@@ -197,7 +197,7 @@
 		"fancy" = user.client.prefs.toggles2 & PREFTOGGLE_2_FANCYUI,
 		"observer" = isobserver(user),
 		"window" = window_id,
-		"map" = SSmapping.map_datum.technical_name,
+		"map" = (GLOB.using_map && GLOB.using_map.name) ? GLOB.using_map.name : "Unknown",
 		"ref" = "[src.UID()]"
 	)
 

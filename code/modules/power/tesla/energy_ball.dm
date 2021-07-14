@@ -216,7 +216,6 @@
 										/obj/machinery/gateway,
 										/obj/structure/lattice,
 										/obj/structure/grille,
-										/obj/structure/cable,
 										/obj/machinery/the_singularitygen/tesla,
 										/obj/machinery/constructable_frame/machine_frame))
 

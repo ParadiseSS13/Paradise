@@ -45,7 +45,7 @@
 	// Components
 	component_parts = list()
 	var/obj/item/circuitboard/smartfridge/board = new(null)
-	board.set_type(null, type)
+	board.set_type(type)
 	component_parts += board
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()

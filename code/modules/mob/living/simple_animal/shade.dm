@@ -2,7 +2,7 @@
 	name = "Shade"
 	real_name = "Shade"
 	desc = "A bound spirit"
-	icon = 'icons/mob/cult.dmi'
+	icon = 'icons/mob/mob.dmi'
 	icon_state = "shade"
 	icon_living = "shade"
 	icon_dead = "shade_dead"
@@ -34,10 +34,6 @@
 	deathmessage = "lets out a contented sigh as their form unwinds."
 	var/holy = FALSE
 
-/mob/living/simple_animal/shade/cult/Initialize(mapload)
-	. = ..()
-	icon_state = SSticker.cultdat?.shade_icon_state
-
 /mob/living/simple_animal/shade/death(gibbed)
 	. = ..()
 	SSticker.mode.remove_cultist(mind, FALSE)
@@ -51,6 +47,11 @@
 
 /mob/living/simple_animal/shade/Process_Spacemove()
 	return TRUE
+
+
+/mob/living/simple_animal/shade/cult/Initialize(mapload)
+	. = ..()
+	icon_state = SSticker.cultdat?.shade_icon_state
 
 /mob/living/simple_animal/shade/holy
 	holy = TRUE

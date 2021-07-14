@@ -117,13 +117,13 @@
 
 	if(C && !QDELETED(src))
 		var/mob/camera/blob/B = new(loc)
-		B.is_offspring = is_offspring
 		B.key = C.key
 		B.blob_core = src
 		overmind = B
 		color = overmind.blob_reagent_datum.color
 		if(B.mind && !B.mind.special_role)
 			B.mind.make_Overmind()
+		B.is_offspring = is_offspring
 
 /obj/structure/blob/core/proc/lateblobtimer()
 	addtimer(CALLBACK(src, .proc/lateblobcheck), 50)

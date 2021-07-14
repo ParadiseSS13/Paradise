@@ -14,7 +14,7 @@
 			return 0
 	else if(istype(used_atom, /obj/item/stack))
 		var/obj/item/stack/S = used_atom
-		if(S.get_amount() < STANDARD_STACK_AMOUNT)
+		if(S.amount < STANDARD_STACK_AMOUNT)
 			to_chat(user, ("There's not enough material in this stack."))
 			return 0
 		else
@@ -35,7 +35,7 @@
 			return 0
 	else if(istype(used_atom, /obj/item/stack))
 		var/obj/item/stack/S = used_atom
-		if(S.get_amount() < STANDARD_STACK_AMOUNT)
+		if(S.amount < STANDARD_STACK_AMOUNT)
 			to_chat(user, ("There's not enough material in this stack."))
 			return 0
 		else

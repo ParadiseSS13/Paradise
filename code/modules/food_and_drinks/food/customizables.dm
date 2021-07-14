@@ -1,42 +1,42 @@
-#define MAKE_CUSTOM_FOOD(snack_to_add, user, type) \
-do {\
-	var/obj/item/reagent_containers/food/snacks/customizable/custom_snack = new type(get_turf(user));\
-	custom_snack.add_ingredient(snack_to_add, user); \
-	user.put_in_active_hand(custom_snack); \
-	qdel(src);\
-} while(FALSE)
-
 /obj/item/reagent_containers/food/snacks/breadslice/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/food/snacks) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/reagent_containers/food/snacks/customizable/sandwich)
+		var/obj/item/reagent_containers/food/snacks/customizable/sandwich/S = new(get_turf(user))
+		S.attackby(W,user, params)
+		qdel(src)
 	else
 		..()
 
 /obj/item/reagent_containers/food/snacks/bun/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/food/snacks) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/reagent_containers/food/snacks/customizable/burger)
+		var/obj/item/reagent_containers/food/snacks/customizable/burger/S = new(get_turf(user))
+		S.attackby(W,user, params)
+		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/sliceable/flatdough/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/food/snacks) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/reagent_containers/food/snacks/customizable/pizza)
+		var/obj/item/reagent_containers/food/snacks/customizable/pizza/S = new(get_turf(user))
+		S.attackby(W,user, params)
+		qdel(src)
 	else
 		..()
 
 
 /obj/item/reagent_containers/food/snacks/boiledspaghetti/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/food/snacks) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/reagent_containers/food/snacks/customizable/pasta)
+		var/obj/item/reagent_containers/food/snacks/customizable/pasta/S = new(get_turf(user))
+		S.attackby(W,user, params)
+		qdel(src)
 	else
 		..()
 
 
 /obj/item/trash/plate/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/food/snacks) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/reagent_containers/food/snacks/customizable/fullycustom)
+		var/obj/item/reagent_containers/food/snacks/customizable/fullycustom/S = new(get_turf(user))
+		S.attackby(W,user, params)
+		qdel(src)
 	else
 		..()
-
-#undef MAKE_CUSTOM_FOOD
 
 /obj/item/trash/bowl
 	name = "bowl"
@@ -58,6 +58,7 @@ do {\
 	icon_state = "breadslice"
 	baseicon = "sandwichcustom"
 	basename = "sandwich"
+	toptype = new /obj/item/reagent_containers/food/snacks/breadslice()
 
 
 
@@ -69,23 +70,15 @@ do {\
 	var/baseicon = "sandwichcustom"
 	var/basename = "sandwichcustom"
 	bitesize = 4
-	/// Do we have a top?
-	var/top = TRUE
-	/// The image of the top
-	var/image/top_image
+	var/top = 1	//Do we have a top?
+	var/obj/item/toptype
 	var/snack_overlays = 1	//Do we stack?
 //	var/offsetstuff = 1 //Do we offset the overlays?
-	var/ingredient_limit = 40
+	var/sandwich_limit = 40
 	var/fullycustom = 0
 	trash = /obj/item/trash/plate
 	var/list/ingredients = list()
 	list_reagents = list("nutriment" = 8)
-
-/obj/item/reagent_containers/food/snacks/customizable/Initialize(mapload)
-	. = ..()
-	if(top)
-		top_image = new(icon, "[baseicon]_top")
-		add_overlay(top_image)
 
 /obj/item/reagent_containers/food/snacks/customizable/pizza
 	name = "personal pizza"
@@ -310,7 +303,7 @@ do {\
 	basename = "on a plate"
 	snack_overlays = 0
 	top = 0
-	ingredient_limit = 20
+	sandwich_limit = 20
 	fullycustom = 1
 
 /obj/item/reagent_containers/food/snacks/customizable/soup
@@ -328,101 +321,70 @@ do {\
 /obj/item/reagent_containers/food/snacks/customizable/burger
 	name = "burger bun"
 	desc = "A bun for a burger. Delicious."
-	icon_state = "burgercustom"
+	icon_state = "burger"
 	baseicon = "burgercustom"
 	basename = "burger"
+	toptype = new /obj/item/reagent_containers/food/snacks/bun()
 	tastes = list("bun" = 4)
 
-
 /obj/item/reagent_containers/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/reagent_containers/food/snacks))
-		to_chat(user, "<span class='warning'>[I] isn't exactly something that you would want to eat.</span>")
-		return
-
-	add_ingredient(I, user)
-
-/**
- * Tries to add one ingredient and it's ingredients, if any and applicable, to this snack
- *
- * Arguments:
- * * snack - The ingredient that will be added
- */
-/obj/item/reagent_containers/food/snacks/customizable/proc/add_ingredient(obj/item/reagent_containers/food/snacks/snack, mob/user)
-	if(length(ingredients) > ingredient_limit)
+	if(contents.len > sandwich_limit)
 		to_chat(user, "<span class='warning'>If you put anything else in or on [src] it's going to make a mess.</span>")
 		return
-
-	// Fully custom snacks don't add the ingredients. So no need to check
-	if(!fullycustom && istype(snack, /obj/item/reagent_containers/food/snacks/customizable))
-		var/obj/item/reagent_containers/food/snacks/customizable/origin = snack
-		if(length(ingredients) + length(origin.ingredients) > ingredient_limit)
-			to_chat(user, "<span class='warning'>Merging [snack] and [src] together is going to make a mess.</span>")
-			return
-
-	if(!user.unEquip(snack))
-		to_chat(user, "<span class='warning'>[snack] is stuck to your hand!</span>")
+	if(!istype(I, /obj/item/reagent_containers/food/snacks))
+		to_chat(user, "\The [I] isn't exactly something that you would want to eat.")
 		return
-
-	to_chat(user, "<span class='notice'>You add [snack] to [src].</span>")
-	snack.reagents.trans_to(src, snack.reagents.total_volume)
-
-	var/list/added_ingredients = list(snack)
-
-	// Only merge when it is not fullycustom. Else it looks weird
-	if(!fullycustom && istype(snack, /obj/item/reagent_containers/food/snacks/customizable))
-		var/obj/item/reagent_containers/food/snacks/customizable/origin = snack
-		added_ingredients += origin.ingredients
-		origin.ingredients.Cut()
-		origin.name = initial(origin.name) // Reset the name for the examine text
-
-	cooktype[basename] = TRUE
-	snack.forceMove(src)
-	add_ingredients(added_ingredients)
-
+	to_chat(user, "<span class='notice'>You add [I] to [src].</span>")
+	if(istype(I,  /obj/item/reagent_containers/))
+		var/obj/item/reagent_containers/F = I
+		F.reagents.trans_to(src, F.reagents.total_volume)
+	if(istype(I, /obj/item/reagent_containers/food/snacks/customizable))
+		var/obj/item/reagent_containers/food/snacks/customizable/origin = I
+		ingredients += origin.ingredients
+	user.drop_item()
+	cooktype[basename] = 1
+	I.loc = src
+	if(!istype(I, toptype))
+		ingredients += I
+	updateicon()
 	name = newname()
 
-/**
- * Adds a list of ingredients to the existing snack. Updates the overlays as well
- *
- * Arguments:
- * * new_ingredients - The new ingredients to be added
- */
-/obj/item/reagent_containers/food/snacks/customizable/proc/add_ingredients(list/new_ingredients)
-	cut_overlay(top_image) // Remove the top image so we can change it again
 
-	var/ingredient_num = length(ingredients)
-	ingredients += new_ingredients
-	for(var/obj/item/reagent_containers/food/snacks/food as anything in new_ingredients)
-		ingredient_num++
-		var/image/ingredient_image
+/obj/item/reagent_containers/food/snacks/customizable/proc/updateicon()
+	overlays = 0
+	var/i=0
+	for(var/obj/item/O in ingredients)
+		i++
 		if(!fullycustom)
-			ingredient_image = new(icon, "[baseicon]_filling")
-			if(!food.filling_color == "#FFFFFF")
-				ingredient_image.color = food.filling_color
+			var/image/I = new(icon, "[baseicon]_filling")
+			if(istype(O, /obj/item/reagent_containers/food/snacks))
+				var/obj/item/reagent_containers/food/snacks/food = O
+				if(!food.filling_color == "#FFFFFF")
+					I.color = food.filling_color
+				else
+					I.color = pick("#FF0000","#0000FF","#008000","#FFFF00")
 			else
-				ingredient_image.color = pick("#FF0000", "#0000FF", "#008000", "#FFFF00")
+				I.color = pick("#FF0000","#0000FF","#008000","#FFFF00")
 			if(snack_overlays)
-				ingredient_image.pixel_x = rand(2) - 1
-				ingredient_image.pixel_y = ingredient_num * 2 + 1
+				I.pixel_x = pick(list(-1,0,1))
+				I.pixel_y = (i*2)+1
+			overlays += I
 		else
-			ingredient_image = new(food.icon, food.icon_state)
-			ingredient_image.pixel_x = rand(2) - 1
-			ingredient_image.pixel_y = rand(2) - 1
-			add_overlay(food.overlays)
+			var/image/F = new(O.icon, O.icon_state)
+			F.pixel_x = pick(list(-1,0,1))
+			F.pixel_y = pick(list(-1,0,1))
+			overlays += F
+			overlays += O.overlays
 
-		add_overlay(ingredient_image)
-
-	if(top_image)
-		top_image.pixel_x = rand(2) - 1
-		top_image.pixel_y = ingredient_num * 2 + 1
-		add_overlay(top_image)
-
+	if(top)
+		var/image/T = new(icon, "[baseicon]_top")
+		T.pixel_x = pick(list(-1,0,1))
+		T.pixel_y = (ingredients.len * 2)+1
+		overlays += T
 
 /obj/item/reagent_containers/food/snacks/customizable/Destroy()
 	QDEL_LIST(ingredients)
-	qdel(top_image)
 	return ..()
-
 
 /obj/item/reagent_containers/food/snacks/customizable/examine(mob/user)
 	. = ..()

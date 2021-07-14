@@ -56,9 +56,6 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 		d2 = temp
 	update_icon()
 
-/obj/structure/shuttle/engine/shuttleRotate(rotation, params)
-	setDir(angle2dir(rotation+dir2angle(dir)))
-
 //Fixes dpdir on shuttle rotation
 /obj/structure/disposalpipe/shuttleRotate(rotation, params)
 	. = ..()

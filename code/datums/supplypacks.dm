@@ -572,10 +572,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "electrical maintenance crate"
 
 /datum/supply_packs/vending/engivend
-	name = "Engineering Vendor Supply Crate"
-	cost = 20
-	contains = list(/obj/item/vending_refill/engivend,
-					/obj/item/vending_refill/youtool)
+	name = "EngiVend Supply Crate"
+	cost = 15
+	contains = list(/obj/item/vending_refill/engivend)
 	containername = "engineering supply crate"
 
 /datum/supply_packs/engineering/powergamermitts
@@ -936,14 +935,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "surgery crate"
 	access = ACCESS_MEDICAL
 
-/datum/supply_packs/medical/gloves
-	name = "Nitrile Glove Crate"
-	contains = list(/obj/item/clothing/gloves/color/latex/nitrile,
-					/obj/item/clothing/gloves/color/latex/nitrile,
-					/obj/item/clothing/gloves/color/latex/nitrile,
-					/obj/item/clothing/gloves/color/latex/nitrile)
-	cost = 50
-	containername = "nitrile glove crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////

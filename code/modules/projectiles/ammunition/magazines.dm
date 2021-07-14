@@ -375,10 +375,6 @@
 	max_ammo = 30
 	multiple_sprites = 2
 
-/obj/item/ammo_box/magazine/m556/arg
-	name = "ARG magazine (5.56mm)"
-	icon_state = "arg"
-
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g slugs)"
 	desc = "A drum magazine."

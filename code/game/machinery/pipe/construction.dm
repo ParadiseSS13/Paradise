@@ -145,8 +145,6 @@
 	else if(our_rpd.mode == RPD_FLIP_MODE)
 		flip()
 	else if(our_rpd.mode == RPD_DELETE_MODE)
-		if(pipe_type == PIPE_CIRCULATOR) //Skip TEG heat circulators, they aren't really pipes
-			return ..()
 		our_rpd.delete_single_pipe(user, src)
 	else
 		return ..()
@@ -501,10 +499,12 @@
 			P.on_construction(dir, pipe_dir, color)
 
 	user.visible_message( \
-		"<span class='notice'>[user] fastens [src].</span>",
-		"<span class='notice'>You fasten [src].</span>",
-		"<span class='notice'>You hear a ratchet.</span>")
+		"[user] fastens the [src].", \
+		"<span class='notice'>You have fastened the [src].</span>", \
+		"You hear ratchet.")
 	qdel(src)	// remove the pipe item
+
+	return
 
 /obj/item/pipe_meter
 	name = "meter"

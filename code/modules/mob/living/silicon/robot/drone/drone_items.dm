@@ -179,6 +179,62 @@
 		to_chat(user, "<span class='warning'>Nothing on \the [T] is useful to you.</span>")
 	return
 
+//PRETTIER TOOL LIST.
+/mob/living/silicon/robot/drone/installed_modules()
+
+	if(weapon_lock)
+		to_chat(src, "<span class='warning'>Weapon lock active, unable to use modules! Count:[weaponlock_time]</span>")
+		return
+
+	if(!module)
+		module = new /obj/item/robot_module/drone(src)
+
+	var/dat = "<HEAD><TITLE>Drone modules</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
+	dat += {"<A HREF='?src=[UID()];mach_close=robotmod'>Close</A>
+	<BR>
+	<BR>
+	<B>Activated Modules</B>
+	<BR>
+	Module 1: [module_state_1 ? "<A HREF=?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<A>" : "No Module"]<BR>
+	Module 2: [module_state_2 ? "<A HREF=?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<A>" : "No Module"]<BR>
+	Module 3: [module_state_3 ? "<A HREF=?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<A>" : "No Module"]<BR>
+	<BR>
+	<B>Installed Modules</B><BR><BR>"}
+
+
+	var/tools = "<B>Tools and devices</B><BR>"
+	var/resources = "<BR><B>Resources</B><BR>"
+
+	for(var/O in module.modules)
+
+		var/module_string = ""
+
+		if(!O)
+			module_string += text("<B>Resource depleted</B><BR>")
+		else if(activated(O))
+			module_string += text("[O]: <B>Activated</B><BR>")
+		else
+			module_string += text("[O]: <A HREF=?src=[UID()];act=\ref[O]>Activate</A><BR>")
+
+		if((istype(O,/obj/item) || istype(O,/obj/item)) && !(istype(O,/obj/item/stack/cable_coil)))
+			tools += module_string
+		else
+			resources += module_string
+
+	dat += tools
+
+	if(emagged)
+		if(!module.emag)
+			dat += text("<B>Resource depleted</B><BR>")
+		else if(activated(module.emag))
+			dat += text("[module.emag]: <B>Activated</B><BR>")
+		else
+			dat += text("[module.emag]: <A HREF=?src=[UID()];act=\ref[module.emag]>Activate</A><BR>")
+
+	dat += resources
+
+	src << browse(dat, "window=robotmod&can_close=0")
+
 //Putting the decompiler here to avoid doing list checks every tick.
 /mob/living/silicon/robot/drone/use_power()
 

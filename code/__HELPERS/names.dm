@@ -15,9 +15,9 @@ GLOBAL_VAR(church_name)
 
 	return name
 
-// TODO: Remove this. Its always gonna be NAS Trurl
+GLOBAL_VAR(command_name)
 /proc/command_name()
-	return "NAS Trurl"
+	return GLOB.using_map.dock_name
 
 GLOBAL_VAR(religion_name)
 /proc/religion_name()
@@ -31,8 +31,11 @@ GLOBAL_VAR(religion_name)
 
 	return capitalize(name)
 
+/proc/system_name()
+	return GLOB.using_map.starsys_name
+
 /proc/station_name()
-	return SSmapping.map_datum.fluff_name
+	return GLOB.using_map.station_name
 
 /proc/new_station_name()
 	var/random = rand(1,5)

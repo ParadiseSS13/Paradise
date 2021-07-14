@@ -88,14 +88,6 @@
 	name = "Glider IPC Screen"
 	icon_state = "gol_glider"
 
-/datum/sprite_accessory/hair/ipc/ipc_screen_smoking
-	name = "Smoking IPC Screen"
-	icon_state = "smoking"
-
-/datum/sprite_accessory/hair/ipc/ipc_screen_test
-	name = "Test IPC Screen"
-	icon_state = "test"
-
 /datum/sprite_accessory/hair/ipc/hesphiastos_alt_off
 	name = "Dark Hesphiastos Screen"
 	icon_state = "off"

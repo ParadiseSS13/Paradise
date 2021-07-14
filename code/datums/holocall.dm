@@ -4,7 +4,6 @@
 	. = ..()
 	var/obj/machinery/hologram/holopad/H = origin
 	H.move_hologram(eye_user, loc)
-	ai_detector_visible = FALSE // Holocalls dont trigger the Ai Detector
 
 //this datum manages it's own references
 

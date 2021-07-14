@@ -110,12 +110,14 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	point_value = 2
 
 /obj/item/stack/sheet/metal/cyborg
-	energy_type = /datum/robot_energy_storage/metal
-	is_cyborg = TRUE
 	materials = list()
 
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
+
+/obj/item/stack/sheet/metal/ratvar_act()
+	new /obj/item/stack/tile/brass(loc, amount)
+	qdel(src)
 
 /obj/item/stack/sheet/metal/narsie_act()
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
@@ -159,10 +161,6 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 /obj/item/stack/sheet/plasteel/New(loc, amount=null)
 	recipes = GLOB.plasteel_recipes
 	return ..()
-
-/obj/item/stack/sheet/wood/cyborg
-	energy_type = /datum/robot_energy_storage/wood
-	is_cyborg = TRUE
 
 /*
  * Wood
@@ -373,6 +371,10 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
 /obj/item/stack/sheet/runed_metal/New()
 	. = ..()
 	icon_state = SSticker.cultdat?.runed_metal_icon_state
+
+/obj/item/stack/sheet/runed_metal/ratvar_act()
+	new /obj/item/stack/tile/brass(loc, amount)
+	qdel(src)
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
 	if(!iscultist(user))

@@ -17,7 +17,7 @@
 
 	if(is_ventcrawling(src)) // To stop drones interacting with anything while ventcrawling
 		return
-	if(stat == DEAD || lockcharge || IsWeakened() || stunned || paralysis || low_power_mode)
+	if(stat == DEAD)
 		return
 
 	var/list/modifiers = params2list(params)
@@ -168,6 +168,16 @@
 
 /obj/machinery/power/apc/BorgCtrlClick(mob/living/silicon/robot/user) // turns off/on APCs. Forwards to AI code.
 	AICtrlClick(user)
+
+
+// AI SLIPPER
+
+/obj/machinery/ai_slipper/BorgCtrlClick(mob/living/silicon/robot/user) //Turns liquid dispenser on or off
+	ToggleOn()
+
+/obj/machinery/ai_slipper/BorgAltClick(mob/living/silicon/robot/user) //Dispenses liquid if on
+	Activate()
+
 
 // TURRETCONTROL
 

@@ -114,8 +114,7 @@
 					dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
 				dat+= "<hr><div style='float:left;'><a href='?src=[UID()];prev_page=1'>Previous Page</a></div>"
 			else
-				// No trailing punctuation so that it's easy to copy and paste the address
-				dat += "We're sorry to break your immersion, but there has been an error with the newscaster. Please report this error, along with any more information you have, to [config.githuburl]/issues/new?template=bug_report.md"
+				dat += "i'm sorry to break your immersion. This shit's bugged. Report this bug to Agouri, polyxenitopalidou@gmail.com"
 
 		dat += "<br><hr><div align='center'>[curr_page+1]</div>"
 		human_user << browse(dat, "window=newspaper_main;size=300x400")

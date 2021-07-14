@@ -49,7 +49,6 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 
 		if(C.sensor_mode >= SUIT_SENSOR_VITAL)
 			crewmemberData["stat"] = H.stat
-			crewmemberData["health"] = H.health
 			crewmemberData["oxy"] = round(H.getOxyLoss(), 1)
 			crewmemberData["tox"] = round(H.getToxLoss(), 1)
 			crewmemberData["fire"] = round(H.getFireLoss(), 1)

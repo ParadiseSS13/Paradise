@@ -9,15 +9,13 @@
 #define UNIT_TESTS
 #endif
 
-/***** All toggles for the GC ref finder *****/
+#ifdef TESTING
+//#define GC_FAILURE_HARD_LOOKUP	//makes paths that fail to GC call find_references before del'ing.
+									//implies FIND_REF_NO_CHECK_TICK
 
-// #define REFERENCE_TRACKING		// Uncomment to enable ref finding
+//#define FIND_REF_NO_CHECK_TICK	//Sets world.loop_checks to false and prevents find references from sleeping
 
-// #define GC_FAILURE_HARD_LOOKUP	//makes paths that fail to GC call find_references before del'ing.
-
-// #define FIND_REF_NO_CHECK_TICK	//Sets world.loop_checks to false and prevents find references from sleeping
-
-/***** End toggles for the GC ref finder *****/
+#endif
 
 #define IS_MODE_COMPILED(MODE) (ispath(text2path("/datum/game_mode/"+(MODE))))
 

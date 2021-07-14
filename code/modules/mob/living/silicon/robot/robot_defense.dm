@@ -47,7 +47,6 @@
 			var/datum/robot_component/C = components["power cell"]
 			C.installed = 0
 			C.uninstall()
-			module?.update_cells(TRUE)
 			diag_hud_set_borgcell()
 
 	if(!opened)

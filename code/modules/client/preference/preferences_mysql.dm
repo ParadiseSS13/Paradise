@@ -16,8 +16,7 @@
 					clientfps,
 					atklog,
 					fuid,
-					parallax,
-					2fa_status
+					parallax
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -46,7 +45,6 @@
 		atklog = text2num(query.item[14])
 		fuid = text2num(query.item[15])
 		parallax = text2num(query.item[16])
-		_2fa_status = query.item[17]
 
 	qdel(query)
 
@@ -95,8 +93,7 @@
 					volume_mixer=:volume_mixer,
 					lastchangelog=:lastchangelog,
 					clientfps=:clientfps,
-					parallax=:parallax,
-					2fa_status=:_2fa_status
+					parallax=:parallax
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -114,8 +111,7 @@
 						"lastchangelog" = lastchangelog,
 						"clientfps" = clientfps,
 						"parallax" = parallax,
-						"_2fa_status" = _2fa_status,
-						"ckey" = C.ckey,
+						"ckey" = C.ckey
 					)
 					)
 
@@ -444,7 +440,7 @@
 													"f_style" = f_style,
 													"markingstyleslist" = markingstyleslist,
 													"ha_style" = ha_style,
-													"alt_head" = (alt_head ? alt_head : ""), // This it intentional. It wont work without it!
+													"alt_head" = alt_head || "",
 													"e_colour" = e_colour,
 													"underwear" = underwear,
 													"undershirt" = undershirt,

@@ -152,9 +152,11 @@
 				verb = pick("whinnies", "neighs", "says")
 
 		if(dna)
-			for(var/mutation_type in active_mutations)
-				var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
-				S.message = mutation.on_say(src, S.message)
+			for(var/datum/mutation/mutation in GLOB.dna_mutations)
+				if(!mutation.block)
+					continue
+				if(mutation.is_active(src))
+					S.message = mutation.on_say(src, S.message)
 
 		var/braindam = getBrainLoss()
 		if(braindam >= 60)
