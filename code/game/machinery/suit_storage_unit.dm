@@ -103,8 +103,8 @@
 	
 /obj/machinery/suit_storage_unit/security/hos
 	name = "Head of Security's suit storage unit"
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/security/hos
-	mask_type	= /obj/item/clothing/mask/gas/sechailer/hos
+	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
+	mask_type = /obj/item/clothing/mask/gas/sechailer/hos
 	req_access = list(ACCESS_HOS)
 	
 /obj/machinery/suit_storage_unit/security/hos/secure
