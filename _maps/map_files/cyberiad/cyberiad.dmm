@@ -34240,12 +34240,6 @@
 	in_use = 1
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/requests_console{
-	department = "Medbay";
-	departmentType = 1;
-	name = "Medbay Requests Console";
-	pixel_y = 30
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -44225,17 +44219,6 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -4
 	},
-/obj/structure/sign/directions/medical{
-	dir = 4;
-	pixel_y = -25
-	},
-/obj/structure/sign/directions/cargo{
-	dir = 8;
-	pixel_y = -32
-	},
-/obj/structure/sign/directions/engineering{
-	pixel_y = -39
-	},
 /turf/simulated/wall,
 /area/medical/chemistry)
 "bQU" = (
@@ -45298,6 +45281,12 @@
 "bSS" = (
 /obj/machinery/camera{
 	c_tag = "Medbay Corridor Center"
+	},
+/obj/machinery/requests_console{
+	department = "Medbay";
+	departmentType = 1;
+	name = "Medbay Requests Console";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -115573,7 +115562,7 @@ chc
 chc
 chc
 cpk
-cJZ
+csD
 csD
 ctX
 cvB
