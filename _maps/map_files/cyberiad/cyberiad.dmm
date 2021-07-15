@@ -84016,10 +84016,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"emt" = (
-/obj/machinery/floodlight,
-/turf/simulated/floor/plating,
-/area/storage/secure)
 "erU" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -84591,6 +84587,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
+"jhr" = (
+/obj/machinery/field/generator,
+/obj/effect/decal/warning_stripes/southeastcorner,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "jnm" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -84624,6 +84625,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"jvj" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/floodlight,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "jyO" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
@@ -84974,13 +84980,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible/red,
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
-"mGW" = (
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "blue"
-	},
-/area/hallway/primary/starboard/west)
 "mTX" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -85019,6 +85018,13 @@
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/engine/supermatter)
+"nmF" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "blue"
+	},
+/area/hallway/primary/starboard/west)
 "nqX" = (
 /obj/structure/table,
 /obj/item/paper{
@@ -85209,6 +85215,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/supermatter)
+"pug" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/suit_storage_unit/engine,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "pwU" = (
 /obj/effect/landmark/battle_mob_point,
 /turf/simulated/floor/engine,
@@ -85372,11 +85383,6 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
-"qJv" = (
-/obj/effect/decal/warning_stripes/west,
-/obj/machinery/suit_storage_unit/engine,
-/turf/simulated/floor/plating,
-/area/storage/secure)
 "qOo" = (
 /obj/structure/chair{
 	dir = 4
@@ -85384,11 +85390,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
-"qTk" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/machinery/floodlight,
-/turf/simulated/floor/plating,
-/area/storage/secure)
 "qUv" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/space,
@@ -85521,6 +85522,10 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"suz" = (
+/obj/structure/lattice,
+/turf/simulated/wall/r_wall,
+/area/storage/secure)
 "sHt" = (
 /turf/simulated/floor/engine,
 /area/holodeck/alphadeck)
@@ -85886,11 +85891,6 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
-"wBU" = (
-/obj/machinery/field/generator,
-/obj/effect/decal/warning_stripes/southeastcorner,
-/turf/simulated/floor/plating,
-/area/storage/secure)
 "wEY" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -85917,6 +85917,10 @@
 /obj/machinery/status_display,
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
+"wHf" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "wQr" = (
 /obj/machinery/light,
 /turf/simulated/floor/plating,
@@ -110924,9 +110928,9 @@ ddG
 dcN
 djs
 diK
-emt
-emt
-dar
+wHf
+wHf
+suz
 dhf
 rlX
 dhf
@@ -111176,13 +111180,13 @@ cNB
 pzr
 cZw
 dar
-wBU
+jhr
 cPk
 cQj
 cQJ
 cQJ
-qTk
-qTk
+jvj
+jvj
 dar
 djb
 djb
@@ -111697,7 +111701,7 @@ dcr
 dcP
 dcP
 dcP
-dar
+suz
 djb
 djb
 djb
@@ -111952,8 +111956,8 @@ cYr
 dcP
 daK
 dtw
-qJv
-qJv
+pug
+pug
 dar
 djb
 djb
@@ -122944,7 +122948,7 @@ bdT
 bdT
 bAk
 bHy
-mGW
+nmF
 bNe
 aVI
 bDj
