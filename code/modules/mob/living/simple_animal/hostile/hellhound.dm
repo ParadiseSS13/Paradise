@@ -34,6 +34,7 @@
 	var/smoke_lastuse = 0
 	var/smoke_freq = 300 // 30 seconds
 	var/datum/action/innate/demon/whisper/whisper_action
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/hostile/hellhound/New()
 	. = ..()

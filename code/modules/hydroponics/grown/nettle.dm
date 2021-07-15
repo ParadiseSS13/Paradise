@@ -11,7 +11,7 @@
 	growthstages = 5
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/plant_type/weed_hardy)
 	mutatelist = list(/obj/item/seeds/nettle/death)
-	reagents_add = list("sacid" = 0.5)
+	reagents_add = list("wasabi" = 0.15)
 
 /obj/item/seeds/nettle/death
 	name = "pack of death-nettle seeds"
@@ -44,18 +44,18 @@
 	attack_verb = list("stung")
 
 /obj/item/grown/nettle/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is eating some of the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is eating some of [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS|TOXLOSS
 
 /obj/item/grown/nettle/pickup(mob/living/user)
 	..()
 	if(!ishuman(user))
-		return TRUE
+		return FALSE
 	var/mob/living/carbon/human/H = user
 	if(H.gloves)
-		return TRUE
+		return FALSE
 	if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
-		return TRUE
+		return FALSE
 	var/organ = ((H.hand ? "l_":"r_") + "arm")
 	var/obj/item/organ/external/affecting = H.get_organ(organ)
 	if(affecting)

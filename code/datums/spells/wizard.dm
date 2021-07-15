@@ -374,7 +374,7 @@
 
 	for(var/am in thrownatoms)
 		var/atom/movable/AM = am
-		if(AM == user || AM.anchored)
+		if(AM == user || AM.anchored || AM.move_resist == INFINITY)
 			continue
 
 		throwtarget = get_edge_target_turf(user, get_dir(user, get_step_away(AM, user)))

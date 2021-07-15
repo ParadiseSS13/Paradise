@@ -73,7 +73,7 @@
 	else
 		. += "<span class='notice'>You don't know how to read.</span>"
 
-/obj/item/paper/proc/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
+/obj/item/paper/proc/show_content(mob/user, forceshow = 0, forcestars = 0, infolinks = 0, view = 1)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
 	assets.send(user)
 
@@ -125,7 +125,7 @@
 				spam_flag = 0
 	return
 
-/obj/item/paper/attack_ai(var/mob/living/silicon/ai/user as mob)
+/obj/item/paper/attack_ai(mob/living/silicon/ai/user as mob)
 	var/dist
 	if(istype(user) && user.current) //is AI
 		dist = get_dist(src, user.current)
@@ -163,7 +163,52 @@
 	else
 		return ..()
 
-/obj/item/paper/proc/addtofield(var/id, var/text, var/links = 0)
+/obj/item/paper/attack_animal(mob/living/simple_animal/M)
+	if(!isdog(M)) // Only dogs can eat homework.
+		return
+	var/mob/living/simple_animal/pet/dog/D = M
+	D.changeNext_move(CLICK_CD_MELEE)
+	if(world.time < D.last_eaten + 30 SECONDS)
+		to_chat(D, "<span class='warning'>You are too full to try eating [src] now.</span>")
+		return
+
+	D.visible_message("<span class='warning'>[D] starts chewing the corner of [src]!</span>",
+		"<span class='notice'>You start chewing the corner of [src].</span>",
+		"<span class='warning'>You hear a quiet gnawing, and the sound of paper rustling.</span>")
+	playsound(src, 'sound/effects/pageturn2.ogg', 100, TRUE)
+	if(!do_after(D, 10 SECONDS, FALSE, src))
+		return
+
+	if(world.time < D.last_eaten + 30 SECONDS) // Check again to prevent eating multiple papers at once.
+		to_chat(D, "<span class='warning'>You are too full to try eating [src] now.</span>")
+		return
+	D.last_eaten = world.time
+
+	// 90% chance of a crumpled paper with illegible text.
+	if(prob(90))
+		var/message_ending = "."
+		var/obj/item/paper/crumpled/P = new(loc)
+		P.name = name
+		if(info) // Something written on the paper.
+			/*var/new_text = strip_html_properly(info, MAX_PAPER_MESSAGE_LEN, TRUE) // Don't want HTML stuff getting gibberished.
+			P.info = Gibberish(new_text, 100)*/
+			P.info = "<i>Whatever was once written here has been made completely illegible by a combination of chew marks and saliva.</i>"
+			message_ending = ", the drool making it an unreadable mess!"
+		P.update_icon()
+		qdel(src)
+
+		D.visible_message("<span class='warning'>[D] finishes eating [src][message_ending]</span>",
+			"<span class='notice'>You finish eating [src][message_ending]</span>")
+		D.emote("bark")
+
+	// 10% chance of the paper just being eaten entirely.
+	else
+		D.visible_message("<span class='warning'>[D] swallows [src] whole!</span>", "<span class='notice'>You swallow [src] whole. Tasty!</span>")
+		playsound(D, 'sound/items/eatfood.ogg', 50, TRUE)
+		qdel(src)
+
+
+/obj/item/paper/proc/addtofield(id, text, links = 0)
 	if(id > MAX_PAPER_FIELDS)
 		return
 
@@ -220,7 +265,7 @@
 	update_icon()
 
 
-/obj/item/paper/proc/parsepencode(var/t, var/obj/item/pen/P, mob/user as mob)
+/obj/item/paper/proc/parsepencode(t, obj/item/pen/P, mob/user as mob)
 	t = pencode_to_html(html_encode(t), usr, P, TRUE, TRUE, TRUE, deffont, signfont, crayonfont)
 	return t
 
@@ -360,7 +405,7 @@
 				src.loc = get_turf(h_user)
 				if(h_user.client)	h_user.client.screen -= src
 				h_user.put_in_hands(B)
-		to_chat(user, "<span class='notice'>You clip the [P.name] to [(src.name == "paper") ? "the paper" : src.name].</span>")
+		to_chat(user, "<span class='notice'>You clip [P] to [(src.name == "paper") ? "the paper" : src.name].</span>")
 		src.loc = B
 		P.loc = B
 		B.amount++
@@ -414,7 +459,7 @@
 	if(!(resistance_flags & FIRE_PROOF))
 		info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
 
-/obj/item/paper/proc/stamp(var/obj/item/stamp/S)
+/obj/item/paper/proc/stamp(obj/item/stamp/S)
 	stamps += (!stamps || stamps == "" ? "<HR>" : "") + "<img src=large_[S.icon_state].png>"
 
 	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
@@ -487,7 +532,8 @@
 	icon_state = "scrap"
 
 /obj/item/paper/crumpled/update_icon()
-	return
+	if(info)
+		icon_state = "scrap_words"
 
 /obj/item/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"
@@ -591,10 +637,6 @@
 	name = "paper- 'Note'"
 	info = "The call has gone out! Our ancestral home has been rediscovered! Not a small patch of land, but a true clown nation, a true Clown Planet! We're on our way home at last!"
 
-/obj/item/paper/crumpled
-	name = "paper scrap"
-	icon_state = "scrap"
-
 /obj/item/paper/syndicate
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='syndielogo.png' width='220' height='135' /></p><hr />"
@@ -611,13 +653,6 @@
 	info = ""
 	footer = "<hr /><p style='font-family:Verdana;'><em>Failure to adhere appropriately to orders that may be contained herein is in violation of Space Law, and punishments may be administered appropriately upon return to Central Command.</em><br /><em>The recipient(s) of this memorandum acknowledge by reading it that they are liable for any and all damages to crew or station that may arise from ignoring suggestions or advice given herein.</em></p>"
 
-
-/obj/item/paper/crumpled/update_icon()
-	return
-
-/obj/item/paper/crumpled/bloody
-	icon_state = "scrap_bloodied"
-
 /obj/item/paper/evilfax
 	name = "Centcomm Reply"
 	info = ""
@@ -628,7 +663,7 @@
 	var/activate_on_timeout = 0
 	var/faxmachineid = null
 
-/obj/item/paper/evilfax/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
+/obj/item/paper/evilfax/show_content(mob/user, forceshow = 0, forcestars = 0, infolinks = 0, view = 1)
 	if(user == mytarget)
 		if(istype(user, /mob/living/carbon))
 			var/mob/living/carbon/C = user
@@ -671,7 +706,7 @@
 	else
 		countdown--
 
-/obj/item/paper/evilfax/proc/evilpaper_specialaction(var/mob/living/carbon/target)
+/obj/item/paper/evilfax/proc/evilpaper_specialaction(mob/living/carbon/target)
 	spawn(30)
 		if(istype(target, /mob/living/carbon))
 			var/obj/machinery/photocopier/faxmachine/fax = locateUID(faxmachineid)

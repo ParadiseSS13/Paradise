@@ -99,10 +99,7 @@
 	},
 /area/awaymission/challenge/main)
 "aq" = (
-/obj/structure/mineral_door/wood{
-	tag = "icon-wood";
-	icon_state = "wood"
-	},
+/obj/structure/mineral_door/wood,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/main)
@@ -250,8 +247,6 @@
 "aN" = (
 /obj/structure/inflatable/door,
 /obj/effect/decal/snow/clean/edge{
-	tag = "icon-snow_corner (NORTH)";
-	icon_state = "snow_corner";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -296,8 +291,7 @@
 /area/awaymission/challenge/main)
 "aY" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
+	icon_state = "cafeteria"
 	},
 /area/awaymission/challenge/main)
 "aZ" = (
@@ -341,8 +335,7 @@
 "bf" = (
 /mob/living/simple_animal/hostile/winter/santa/stage_1,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
+	icon_state = "cafeteria"
 	},
 /area/awaymission/challenge/main)
 "bj" = (
@@ -385,10 +378,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/challenge/main)
 "bq" = (
-/obj/structure/mineral_door/wood{
-	tag = "icon-wood";
-	icon_state = "wood"
-	},
+/obj/structure/mineral_door/wood,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/wood,
 /area/awaymission/challenge/main)
@@ -421,7 +411,6 @@
 /area/awaymission/challenge/main)
 "bx" = (
 /obj/machinery/porta_turret/syndicate/interior{
-	density = 0;
 	desc = "Winterized interior defense turret chambered for .45 rounds and mounted on a wall. Designed to down intruders without damaging the hull.";
 	faction = "winter";
 	name = "wall mounted machine gun turret (.45)";
@@ -471,8 +460,7 @@
 /obj/structure/fans/tiny,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
+	icon_state = "cafeteria"
 	},
 /area/awaymission/challenge/main)
 "bF" = (
@@ -505,8 +493,7 @@
 	id = "challenge";
 	name = "Gateway Lockdown";
 	pixel_x = -4;
-	pixel_y = 26;
-	req_access_txt = "0"
+	pixel_y = 26
 	},
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel,
@@ -587,8 +574,8 @@
 "bX" = (
 /obj/machinery/power/smes/magical,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/challenge/main)
@@ -606,8 +593,7 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 4;
 	name = "Worn-out APC";
-	pixel_x = 24;
-	pixel_y = 0
+	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/challenge/main)
@@ -624,8 +610,7 @@
 "cb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/start)
@@ -656,12 +641,11 @@
 /area/awaymission/challenge/main)
 "ch" = (
 /obj/machinery/power/terminal{
-	icon_state = "term";
 	dir = 1
 	},
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/challenge/main)
@@ -679,8 +663,7 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 4;
 	name = "Worn-out APC";
-	pixel_x = 24;
-	pixel_y = 0
+	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/challenge/start)
@@ -690,8 +673,7 @@
 /area/awaymission/challenge/start)
 "ck" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/start)
@@ -787,8 +769,7 @@
 	id = "challenge";
 	name = "Gateway Lockdown";
 	pixel_x = -4;
-	pixel_y = 26;
-	req_access_txt = "0"
+	pixel_y = 26
 	},
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plasteel,

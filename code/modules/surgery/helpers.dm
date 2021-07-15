@@ -1,4 +1,4 @@
-/proc/attempt_initiate_surgery(obj/item/I, mob/living/M, mob/user, var/override )
+/proc/attempt_initiate_surgery(obj/item/I, mob/living/M, mob/user, override)
 	if(istype(M))
 		var/mob/living/carbon/human/H
 		var/obj/item/organ/external/affecting
@@ -10,6 +10,9 @@
 								/obj/item/lighter = 60,			\
 								/obj/item/weldingtool = 30
 								)
+
+		if(M == user)
+			return // no self surgery
 
 		if(istype(M, /mob/living/carbon/human))
 			H = M

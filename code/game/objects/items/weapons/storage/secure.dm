@@ -31,6 +31,10 @@
 	if(in_range(user, src))
 		. += "The service panel is [open ? "open" : "closed"]."
 
+/obj/item/storage/secure/populate_contents()
+	new /obj/item/paper(src)
+	new /obj/item/pen(src)
+
 /obj/item/storage/secure/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(locked)
 		if((istype(W, /obj/item/melee/energy/blade)) && (!emagged))
@@ -192,11 +196,6 @@
 	max_combined_w_class = 21
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 
-/obj/item/storage/secure/briefcase/New()
-	..()
-	handle_item_insertion(new /obj/item/paper, 1)
-	handle_item_insertion(new /obj/item/pen, 1)
-
 /obj/item/storage/secure/briefcase/attack_hand(mob/user as mob)
 	if((loc == user) && (locked == 1))
 		to_chat(usr, "<span class='warning'>[src] is locked and cannot be opened!</span>")
@@ -218,10 +217,10 @@
 /obj/item/storage/secure/briefcase/syndie
 	force = 15
 
-/obj/item/storage/secure/briefcase/syndie/New()
+/obj/item/storage/secure/briefcase/syndie/populate_contents()
 	..()
-	for(var/i = 0, i < storage_slots - 2, i++)
-		handle_item_insertion(new /obj/item/stack/spacecash/c1000, 1)
+	for(var/I in 1 to 5)
+		new /obj/item/stack/spacecash/c1000(src)
 
 // -----------------------------
 //        Secure Safe
@@ -240,11 +239,6 @@
 	anchored = 1
 	density = 0
 	cant_hold = list(/obj/item/storage/secure/briefcase)
-
-/obj/item/storage/secure/safe/New()
-	..()
-	handle_item_insertion(new /obj/item/paper, 1)
-	handle_item_insertion(new /obj/item/pen, 1)
 
 /obj/item/storage/secure/safe/attack_hand(mob/user as mob)
 	return attack_self(user)

@@ -51,8 +51,7 @@
 	desc = "To be applied to the head repeatedly."
 	icon_state ="bible"
 
-/obj/item/storage/bible/booze/New()
-	..()
+/obj/item/storage/bible/booze/populate_contents()
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 	new /obj/item/stack/spacecash(src)
@@ -85,7 +84,7 @@
 		return
 
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>The [src] slips out of your hand and hits your head.</span>")
+		to_chat(user, "<span class='warning'>[src] slips out of your hand and hits your head.</span>")
 		user.take_organ_damage(10)
 		user.Paralyse(20)
 		return

@@ -2,10 +2,7 @@
 	name = "artistic toolbox"
 	desc = "A metal container designed to hold various tools. This variety holds art supplies."
 	icon_state = "green"
-	item_state = "toolbox_green"
-	icon = 'icons/goonstation/objects/objects.dmi'
-	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
+	item_state = "artistic_toolbox"
 
 /obj/item/storage/toolbox/green/memetic
 	name = "artistic toolbox"

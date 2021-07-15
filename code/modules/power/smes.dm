@@ -149,12 +149,12 @@
 			return
 
 		var/obj/item/stack/cable_coil/C = I
-		if(C.amount < 10)
+		if(C.get_amount() < 10)
 			to_chat(user, "<span class='alert'>You need more wires.</span>")
 			return
 
 		if(user.loc == loc)
-			to_chat(user, "<span class='warning'>You must not be on the same tile as the [src].</span>")
+			to_chat(user, "<span class='warning'>You must not be on the same tile as [src].</span>")
 			return
 
 		//Direction the terminal will face to
@@ -173,7 +173,7 @@
 				to_chat(user, "<span class='warning'>You must remove the floor plating first.</span>")
 				return
 
-		to_chat(user, "<span class='notice'>You start adding cable to the [src].</span>")
+		to_chat(user, "<span class='notice'>You start adding cable to [src].</span>")
 		playsound(loc, C.usesound, 50, 1)
 
 		if(do_after(user, 50, target = src))
@@ -429,7 +429,7 @@
 	if(is_station_level(src.z))
 		if(prob(1)) //explosion
 			for(var/mob/M in viewers(src))
-				M.show_message("<span class='warning'>The [src.name] is making strange noises!</span>", 3, "<span class='warning'>You hear sizzling electronics.</span>", 2)
+				M.show_message("<span class='warning'>[src] is making strange noises!</span>", 3, "<span class='warning'>You hear sizzling electronics.</span>", 2)
 			sleep(10*pick(4,5,6,7,10,14))
 			var/datum/effect_system/smoke_spread/smoke = new
 			smoke.set_up(3, 0, src.loc)
@@ -451,12 +451,12 @@
 			smoke.start()
 
 
-/obj/machinery/power/smes/proc/inputting(var/do_input)
+/obj/machinery/power/smes/proc/inputting(do_input)
 	input_attempt = do_input
 	if(!input_attempt)
 		inputting = 0
 
-/obj/machinery/power/smes/proc/outputting(var/do_output)
+/obj/machinery/power/smes/proc/outputting(do_output)
 	output_attempt = do_output
 	if(!output_attempt)
 		outputting = 0

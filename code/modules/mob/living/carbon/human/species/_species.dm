@@ -17,7 +17,6 @@
 	var/tail                     // Name of tail image in species effects icon file.
 	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
-	var/silent_steps = 0          // Stops step noises
 
 	var/cold_level_1 = 260  // Cold damage level 1 below this point.
 	var/cold_level_2 = 200  // Cold damage level 2 below this point.
@@ -61,6 +60,9 @@
 
 	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
+
+	///Sounds to override barefeet walking
+	var/list/special_step_sounds
 
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
@@ -149,7 +151,7 @@
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes
 		)
-	var/vision_organ              // If set, this organ is required for vision. Defaults to "eyes" if the species has them.
+	var/vision_organ = /obj/item/organ/internal/eyes // If set, this organ is required for vision.
 	var/list/has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest),
 		"groin" =  list("path" = /obj/item/organ/external/groin),
@@ -170,10 +172,6 @@
 	var/speciesbox
 
 /datum/species/New()
-	//If the species has eyes, they are the default vision organ
-	if(!vision_organ && has_organ["eyes"])
-		vision_organ = /obj/item/organ/internal/eyes
-
 	unarmed = new unarmed_type()
 
 /datum/species/proc/get_random_name(gender)
@@ -273,7 +271,7 @@
 			. += hungry/50
 		if(HAS_TRAIT(H, TRAIT_FAT))
 			. += (1.5 - flight)
-		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
+		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !(HAS_TRAIT(H, TRAIT_RESISTCOLD)))
 			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
 
 	return .
@@ -809,7 +807,7 @@
 
 	if(radiation > RAD_MOB_HAIRLOSS)
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		if(!head_organ)
+		if(!head_organ || (NO_HAIR in species_traits))
 			return
 		if(prob(15) && head_organ.h_style != "Bald")
 			to_chat(H, "<span class='danger'>Your hair starts to fall out in clumps...</span>")
@@ -844,7 +842,8 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		H.sight |= eyes.vision_flags
 		H.see_in_dark = eyes.see_in_dark
 		H.see_invisible = eyes.see_invisible
-		H.lighting_alpha = eyes.lighting_alpha
+		if(!isnull(eyes.lighting_alpha))
+			H.lighting_alpha = eyes.lighting_alpha
 	else
 		H.see_in_dark = initial(H.see_in_dark)
 		H.see_invisible = initial(H.see_invisible)
@@ -863,15 +862,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		else if(H.mind.vampire.get_ability(/datum/vampire_passive/vision))
 			H.sight |= SEE_MOBS
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-
-	for(var/obj/item/organ/internal/cyberimp/eyes/E in H.internal_organs)
-		H.sight |= E.vision_flags
-		if(E.see_in_dark)
-			H.see_in_dark = max(H.see_in_dark, E.see_in_dark)
-		if(E.see_invisible)
-			H.see_invisible = min(H.see_invisible, E.see_invisible)
-		if(E.lighting_alpha)
-			H.lighting_alpha = min(H.lighting_alpha, E.lighting_alpha)
 
 	// my glasses, I can't see without my glasses
 	if(H.glasses)
@@ -903,9 +893,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 		if(!isnull(H.vision_type.lighting_alpha))
 			H.lighting_alpha = min(H.vision_type.lighting_alpha, H.lighting_alpha)
-
-		if(H.vision_type.light_sensitive)
-			H.weakeyes = TRUE
 
 	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
 		H.sight |= (SEE_MOBS)

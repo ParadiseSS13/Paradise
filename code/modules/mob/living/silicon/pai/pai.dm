@@ -73,7 +73,7 @@
 	var/custom_sprite = 0
 	var/slowdown = 0
 
-/mob/living/silicon/pai/New(var/obj/item/paicard)
+/mob/living/silicon/pai/New(obj/item/paicard)
 	loc = paicard
 	card = paicard
 	if(card)
@@ -459,7 +459,7 @@
 
 	. += msg
 
-/mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/pai/bullet_act(obj/item/projectile/Proj)
 	..(Proj)
 	if(stat != 2)
 		spawn(1)

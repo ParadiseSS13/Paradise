@@ -272,6 +272,9 @@
 		if( istype(W,/obj/item/clothing/gloves/furgloves ) )
 			to_chat(user, "This item does not fit.")
 			return
+		if(istype(W, /obj/item/clothing/gloves/color/black/krav_maga/sec))
+			to_chat(user, "<span class='warning'>Washing these gloves would fry the electronics!</span>")
+			return
 		if(W.flags & NODROP) //if "can't drop" item
 			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in the washing machine!</span>")
 			return
@@ -306,7 +309,7 @@
 			crayon = null
 			state = 1
 		if(5)
-			to_chat(user, "<span class='warning'>The [src] is busy.</span>")
+			to_chat(user, "<span class='warning'>[src] is busy.</span>")
 		if(6)
 			state = 7
 		if(7)

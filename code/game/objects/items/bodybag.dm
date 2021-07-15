@@ -21,7 +21,10 @@
 	icon_opened = "bodybag_open"
 	density = FALSE
 	integrity_failure = 0
-	sound = 'sound/items/zip.ogg'
+	open_sound = 'sound/items/zip.ogg'
+	close_sound = 'sound/items/zip.ogg'
+	open_sound_volume = 15
+	close_sound_volume = 15
 	var/item_path = /obj/item/bodybag
 
 
@@ -56,7 +59,7 @@
 	if(over_object == usr && (in_range(src, usr) || usr.contents.Find(src)))
 		if(!ishuman(usr) || opened || length(contents))
 			return FALSE
-		visible_message("[usr] folds up the [name]")
+		visible_message("<span class='notice'>[usr] folds up [src].</span>")
 		new item_path(get_turf(src))
 		qdel(src)
 

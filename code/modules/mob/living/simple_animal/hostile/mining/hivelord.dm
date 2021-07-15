@@ -384,6 +384,8 @@
 				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(list( 1 = 3, 2 = 2, 3 = 1)))
 			if(prob(10))
 				l_pocket = pickweight(list(/obj/item/bikehorn/golden = 3, /obj/item/bikehorn/airhorn= 1 ))
+			if(prob(10))
+				r_pocket = /obj/item/implanter/sad_trombone
 		if("Golem")
 			mob_species = pick(list(/datum/species/golem/adamantine, /datum/species/golem/plasma, /datum/species/golem/diamond, /datum/species/golem/gold, /datum/species/golem/silver, /datum/species/golem/plasteel, /datum/species/golem/titanium, /datum/species/golem/plastitanium))
 			if(prob(30))
@@ -417,11 +419,13 @@
 			back = /obj/item/tank/internals/oxygen
 			mask = /obj/item/clothing/mask/breath
 		if("Cultist")
-			uniform = /obj/item/clothing/under/roman
-			suit = /obj/item/clothing/suit/hooded/cultrobes
-			suit_store = /obj/item/tome
-			r_pocket = /obj/item/restraints/legcuffs/bola/cult
+			uniform = /obj/item/clothing/under/color/black
+			back = /obj/item/storage/backpack/cultpack
+			suit = /obj/item/clothing/suit/hooded/cultrobes/alt
+			if(prob(40))
+				suit_store = /obj/item/melee/cultblade
 			l_pocket = /obj/item/melee/cultblade/dagger
-			glasses =  /obj/item/clothing/glasses/hud/health/night
-			backpack_contents = list(/obj/item/reagent_containers/food/drinks/bottle/unholywater = 1, /obj/item/cult_shift = 1, /obj/item/flashlight/flare = 1, /obj/item/stack/sheet/runed_metal = 15)
+			if(prob(60))
+				r_pocket = /obj/item/reagent_containers/food/drinks/bottle/unholywater
+			backpack_contents = list(/obj/item/tome = 1, /obj/item/restraints/legcuffs/bola/cult = 1, /obj/item/stack/sheet/runed_metal = 15)
 	. = ..()

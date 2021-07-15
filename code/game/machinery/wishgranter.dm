@@ -57,7 +57,7 @@
 		to_chat(user, "<span class='warning'>You feel a dark stirring inside of the Wish Granter, something you want nothing of. Your instincts are better than any man's.</warning>")
 		return TRUE
 
-	if(is_special_character(user) || jobban_isbanned(user, ROLE_TRAITOR) || jobban_isbanned(user, "Syndicate"))
+	if(is_special_character(user) || jobban_isbanned(user, ROLE_TRAITOR) || jobban_isbanned(user, ROLE_SYNDICATE))
 		to_chat(user, "<span class='warning'>Something instinctual makes you pull away.</span>")
 		return TRUE
 	

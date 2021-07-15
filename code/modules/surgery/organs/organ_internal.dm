@@ -13,7 +13,7 @@
 	if(istype(holder))
 		insert(holder)
 
-/obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, var/dont_remove_slot = 0)
+/obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
 		return
 
@@ -83,7 +83,7 @@
 		if(2)
 			receive_damage(7, 1)
 
-/obj/item/organ/internal/replaced(var/mob/living/carbon/human/target)
+/obj/item/organ/internal/replaced(mob/living/carbon/human/target)
     insert(target)
 
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user)

@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	var/path = /obj/item/book // Type path of the book to generate
 	var/flagged = 0
 
-/datum/cachedbook/proc/LoadFromRow(var/list/row)
+/datum/cachedbook/proc/LoadFromRow(list/row)
 	id = row["id"]
 	author = row["author"]
 	title = row["title"]

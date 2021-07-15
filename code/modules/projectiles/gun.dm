@@ -40,7 +40,7 @@
 	var/randomspread = 1
 
 	var/unique_rename = TRUE //allows renaming with a pen
-	var/unique_reskin = TRUE //allows one-time reskinning
+	var/unique_reskin = FALSE //allows one-time reskinning
 	var/current_skin = null //the skin choice if we had a reskin
 	var/list/options = list()
 
@@ -291,7 +291,7 @@
 		else
 			return ..()
 
-/obj/item/gun/attack_obj(obj/O, mob/user)
+/obj/item/gun/attack_obj(obj/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		if(bayonet)
 			O.attackby(bayonet, user)

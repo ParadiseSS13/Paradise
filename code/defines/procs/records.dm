@@ -25,7 +25,7 @@
 	qdel(dummy)
 	return G
 
-/proc/CreateSecurityRecord(var/name as text, var/id as text)
+/proc/CreateSecurityRecord(name as text, id as text)
 	var/datum/data/record/R = new /datum/data/record()
 	R.fields["name"] = name
 	R.fields["id"] = id

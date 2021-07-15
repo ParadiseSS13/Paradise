@@ -13,16 +13,11 @@
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
 	heatmod = 1.5
 
-	silent_steps = 1
-	grant_vision_toggle = 0
-
 	has_organ = list(
 		"brain" =    /obj/item/organ/internal/brain,
-		"eyes" =     /obj/item/organ/internal/eyes)
+		"eyes" =     /obj/item/organ/internal/eyes/night_vision/nightmare)
 
 /datum/species/shadow/ling/handle_life(mob/living/carbon/human/H)
-	if(!H.weakeyes)
-		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
 	var/light_amount = 0
 	if(isturf(H.loc))
 		var/turf/T = H.loc
@@ -64,8 +59,6 @@
 	heatmod = 1.1
 
 /datum/species/shadow/ling/lesser/handle_life(mob/living/carbon/human/H)
-	if(!H.weakeyes)
-		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
 	var/light_amount = 0
 	if(isturf(H.loc))
 		var/turf/T = H.loc

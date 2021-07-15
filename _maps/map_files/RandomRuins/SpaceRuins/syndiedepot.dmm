@@ -736,8 +736,7 @@
 /area/syndicate_depot/core)
 "ce" = (
 /obj/machinery/light/small{
-	dir = 4;
-	tag = "icon-bulb1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)

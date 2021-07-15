@@ -171,30 +171,39 @@
 		icon_state = "stickyweb2"
 
 /obj/structure/spider/terrorweb/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
-		return 1
+	if(isterrorspider(mover))
+		return TRUE
 	if(istype(mover, /obj/item/projectile/terrorqueenspit))
-		return 1
+		return TRUE
 	if(isliving(mover))
 		var/mob/living/M = mover
 		if(M.lying)
-			return 1
-		if(prob(80))
-			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
-			M.Stun(4) // 8 seconds.
-			M.Weaken(4) // 8 seconds.
-			if(iscarbon(mover))
-				var/mob/living/carbon/C = mover
-				web_special_ability(C)
-				spawn(70)
-					if(C.loc == loc)
-						qdel(src)
-			return 1
-		else
-			return 0
+			return TRUE
+		return prob(80)
 	if(istype(mover, /obj/item/projectile))
 		return prob(20)
 	return ..()
+
+/obj/structure/spider/terrorweb/Crossed(atom/movable/AM, oldloc)
+	..()
+	if(isliving(AM) && !isterrorspider(AM))
+		var/mob/living/M = AM
+		to_chat(M, "<span class='userdanger'>You get stuck in [src] for a moment.</span>")
+		M.Stun(4) // 8 seconds.
+		M.Weaken(4) // 8 seconds.
+		if(iscarbon(M))
+			web_special_ability(M)
+			addtimer(CALLBACK(src, .proc/after_carbon_crossed, M), 0.7 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+
+/**
+  * Called some time after a carbon mob crossed the terror web.
+  *
+  * Arguments:
+  * * C - The carbon mob.
+  */
+/obj/structure/spider/terrorweb/proc/after_carbon_crossed(mob/living/carbon/C)
+	if(!QDELETED(C) && C.loc == loc)
+		qdel(src)
 
 /obj/structure/spider/terrorweb/bullet_act(obj/item/projectile/Proj)
 	if(Proj.damage_type != BRUTE && Proj.damage_type != BURN)

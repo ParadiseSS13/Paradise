@@ -50,7 +50,7 @@
 	var/chargesa = 1
 	var/insistinga = 0
 
-/obj/machinery/wish_granter_dark/attack_hand(var/mob/living/carbon/human/user as mob)
+/obj/machinery/wish_granter_dark/attack_hand(mob/living/carbon/human/user as mob)
 	usr.set_machine(src)
 
 	if(chargesa <= 0)
@@ -129,13 +129,10 @@
 /obj/effect/meatgrinder
 	name = "Meat Grinder"
 	desc = "What is that thing?"
-	density = 1
-	anchored = 1
-	layer = 3
+	density = TRUE
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blobpod"
-	var/triggerproc = "triggerrad1" //name of the proc thats called when the mine is triggered
-	var/triggered = 0
+	var/triggered = FALSE
 
 /obj/effect/meatgrinder/Crossed(AM as mob|obj, oldloc)
 	Bumped(AM)
@@ -145,10 +142,9 @@
 	if(triggered) return
 
 	if(istype(M, /mob/living/carbon/human))
-		for(var/mob/O in viewers(world.view, src.loc))
-			to_chat(O, "<font color='red'>[M] triggered the [bicon(src)] [src]</font>")
-		triggered = 1
-		call(src,triggerproc)(M)
+		visible_message("<span class='danger'>[M] triggers [src]!</span>")
+		triggered = TRUE
+		triggerrad1(M)
 
 /obj/effect/meatgrinder/proc/triggerrad1(mob)
 	for(var/mob/O in viewers(world.view, src.loc))

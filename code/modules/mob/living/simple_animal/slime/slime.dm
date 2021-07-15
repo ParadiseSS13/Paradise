@@ -32,6 +32,8 @@
 	// for the sake of cleanliness, though, here they are.
 	status_flags = CANPARALYSE | CANPUSH
 
+	footstep_type = FOOTSTEP_MOB_SLIME
+
 	var/cores = 1 // the number of /obj/item/slime_extract's the slime has left inside
 	var/mutation_chance = 30 // Chance of mutating, should be between 25 and 35
 

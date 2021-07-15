@@ -30,8 +30,6 @@
 		for(var/obj/item/I in H)
 			if(istype(I, /obj/item/implant))
 				continue
-			if(istype(I, /obj/item/organ))
-				continue
 			qdel(I)
 
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/kilt(H), slot_w_uniform)

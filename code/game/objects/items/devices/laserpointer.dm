@@ -52,25 +52,25 @@
 			user.drop_item()
 			W.loc = src
 			diode = W
-			to_chat(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
+			to_chat(user, "<span class='notice'>You install [diode] in [src].</span>")
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
 
 	else if(istype(W, /obj/item/screwdriver))
 		if(diode)
-			to_chat(user, "<span class='notice'>You remove the [diode.name] from the [src].</span>")
+			to_chat(user, "<span class='notice'>You remove [diode] from [src].</span>")
 			diode.loc = get_turf(src.loc)
 			diode = null
 			return
 		..()
 	return
 
-/obj/item/laser_pointer/afterattack(var/atom/target, var/mob/living/user, flag, params)
+/obj/item/laser_pointer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)	//we're placing the object on a table or in backpack
 		return
 	laser_act(target, user, params)
 
-/obj/item/laser_pointer/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
+/obj/item/laser_pointer/proc/laser_act(atom/target, mob/living/user, params)
 	if( !(user in (viewers(7,target))) )
 		return
 	if(!diode)
@@ -108,8 +108,6 @@
 			//20% chance to actually hit the eyes
 			if(prob(effectchance * diode.rating) && C.flash_eyes(severity))
 				outmsg = "<span class='notice'>You blind [C] by shining [src] in [C.p_their()] eyes.</span>"
-				if(C.weakeyes)
-					C.Stun(1)
 			else
 				outmsg = "<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>"
 
