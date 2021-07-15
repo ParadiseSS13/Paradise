@@ -23656,9 +23656,6 @@
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
-"baf" = (
-/turf/simulated/floor/plating,
-/area/gateway)
 "bag" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -111308,7 +111305,7 @@ aRM
 aEl
 aVD
 aPi
-baf
+aPi
 aSA
 aSA
 aSA
@@ -111828,7 +111825,7 @@ aRw
 aRw
 aRw
 bml
-aSA
+aRw
 aRw
 aRw
 djZ
