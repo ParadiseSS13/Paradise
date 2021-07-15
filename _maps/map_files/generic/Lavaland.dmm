@@ -4713,7 +4713,7 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/toy/figure/assistant,
+/obj/item/toy/figure/crew/assistant,
 /obj/machinery/light/small{
 	dir = 4
 	},

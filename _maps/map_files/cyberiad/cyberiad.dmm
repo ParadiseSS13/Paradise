@@ -9425,7 +9425,7 @@
 	},
 /area/maintenance/fsmaint)
 "avc" = (
-/obj/item/toy/figure/secofficer,
+/obj/item/toy/figure/crew/secofficer,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -10260,7 +10260,7 @@
 /area/maintenance/fsmaint)
 "awE" = (
 /obj/structure/table,
-/obj/item/toy/griffin,
+/obj/item/toy/figure/griffin,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "awF" = (
@@ -11016,12 +11016,12 @@
 /area/maintenance/fsmaint)
 "ayf" = (
 /obj/structure/table,
-/obj/item/toy/figure/hos,
+/obj/item/toy/figure/crew/hos,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "ayg" = (
 /obj/structure/table,
-/obj/item/toy/owl,
+/obj/item/toy/figure/owl,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "ayh" = (
@@ -14672,7 +14672,7 @@
 /area/maintenance/auxsolarport)
 "aFU" = (
 /obj/structure/table,
-/obj/item/toy/figure/detective,
+/obj/item/toy/figure/crew/detective,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -45458,7 +45458,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-/obj/item/toy/figure/captain,
+/obj/item/toy/figure/crew/captain,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain/bedroom)
