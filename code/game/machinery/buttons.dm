@@ -24,7 +24,7 @@
 /obj/machinery/button/indestructible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-/obj/machinery/driver_button/New(turf/loc, var/w_dir=null)
+/obj/machinery/driver_button/New(turf/loc, w_dir=null)
 	..()
 	switch(w_dir)
 		if(NORTH)
@@ -81,7 +81,7 @@
 
 	return ..()
 
-/obj/machinery/driver_button/multitool_menu(var/mob/user, var/obj/item/multitool/P)
+/obj/machinery/driver_button/multitool_menu(mob/user, obj/item/multitool/P)
 	return {"
 	<ul>
 	<li><b>ID Tag:</b> [format_tag("ID Tag","id_tag","set_id")]</li>
@@ -147,7 +147,7 @@
 	icon_state = "launcherbtt"
 	active = 0
 
-/obj/machinery/driver_button/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
+/obj/machinery/driver_button/multitool_topic(mob/user, list/href_list, obj/O)
 	..()
 	if("toggle_logic" in href_list)
 		logic_connect = !logic_connect

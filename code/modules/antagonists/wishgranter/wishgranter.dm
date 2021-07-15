@@ -23,56 +23,56 @@
 		return
 	H.ignore_gene_stability = TRUE
 	H.dna.SetSEState(GLOB.hulkblock, TRUE)
-	genemutcheck(H, GLOB.hulkblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.hulkblock, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.xrayblock, TRUE)
-	genemutcheck(H, GLOB.xrayblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.xrayblock, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.fireblock, TRUE)
-	genemutcheck(H, GLOB.fireblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.fireblock, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.coldblock, TRUE)
-	genemutcheck(H, GLOB.coldblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.coldblock, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.teleblock, TRUE)
-	genemutcheck(H, GLOB.teleblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.teleblock, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.increaserunblock, TRUE)
-	genemutcheck(H, GLOB.increaserunblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.increaserunblock, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.breathlessblock, TRUE)
-	genemutcheck(H, GLOB.breathlessblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.breathlessblock, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.regenerateblock, TRUE)
-	genemutcheck(H, GLOB.regenerateblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.regenerateblock, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.shockimmunityblock, TRUE)
-	genemutcheck(H, GLOB.shockimmunityblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.shockimmunityblock, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.smallsizeblock, TRUE)
-	genemutcheck(H, GLOB.smallsizeblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.smallsizeblock, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.soberblock, TRUE)
-	genemutcheck(H, GLOB.soberblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.soberblock, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.psyresistblock, TRUE)
-	genemutcheck(H, GLOB.psyresistblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.psyresistblock, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.shadowblock, TRUE)
-	genemutcheck(H, GLOB.shadowblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.shadowblock, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.cryoblock, TRUE)
-	genemutcheck(H, GLOB.cryoblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.cryoblock, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.eatblock, TRUE)
-	genemutcheck(H, GLOB.eatblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.eatblock, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.jumpblock, TRUE)
-	genemutcheck(H, GLOB.jumpblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.immolateblock, TRUE)
-	genemutcheck(H, GLOB.immolateblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.immolateblock, MUTCHK_FORCED)
 
-	H.mutations.Add(LASER)
+	ADD_TRAIT(H, TRAIT_LASEREYES, "wishgranter")
 	H.update_mutations()
 	H.update_body()

@@ -98,7 +98,7 @@
 	req_tech = list("toxins" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL=500, MAT_GLASS=100)
-	build_path = /obj/item/tank/emergency_oxygen/empty
+	build_path = /obj/item/tank/internals/emergency_oxygen/empty
 	category = list("Miscellaneous")
 
 /datum/design/extended_oxygen
@@ -108,7 +108,7 @@
 	req_tech = list("toxins" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL=800, MAT_GLASS=100)
-	build_path = /obj/item/tank/emergency_oxygen/engi/empty
+	build_path = /obj/item/tank/internals/emergency_oxygen/engi/empty
 	category = list("Miscellaneous")
 
 /datum/design/double_oxygen
@@ -118,7 +118,7 @@
 	req_tech = list("toxins" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL=1500, MAT_GLASS=200)
-	build_path = /obj/item/tank/emergency_oxygen/double/empty
+	build_path = /obj/item/tank/internals/emergency_oxygen/double/empty
 	category = list("Miscellaneous")
 
 /datum/design/oxygen_tank
@@ -128,5 +128,5 @@
 	req_tech = list("toxins" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL=3000, MAT_GLASS=500)
-	build_path = /obj/item/tank/oxygen/empty
+	build_path = /obj/item/tank/internals/oxygen/empty
 	category = list("Miscellaneous")

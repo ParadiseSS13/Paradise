@@ -3,20 +3,19 @@
 	desc = "A gravitational singularity."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "singularity_s1"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	layer = MASSIVE_OBJ_LAYER
 	light_range = 6
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	var/current_size = 1
 	var/allowed_size = 1
-	var/contained = 1 //Are we going to move around?
 	var/energy = 100 //How strong are we?
 	var/dissipate = 1 //Do we lose energy over time?
 	var/dissipate_delay = 10
 	var/dissipate_track = 0
 	var/dissipate_strength = 1 //How much energy do we lose?
-	var/move_self = 1 //Do we move on our own?
+	var/move_self = TRUE //Do we move on our own?
 	var/grav_pull = 4 //How many tiles out do we pull?
 	move_resist = INFINITY	//no, you don't get to push the singulo. Not even you OP wizard gateway statues
 	var/consume_range = 0 //How many tiles out do we eat
@@ -28,12 +27,13 @@
 	allow_spin = 0
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
-/obj/singularity/New(loc, var/starting_energy = 50, var/temp = 0)
+/obj/singularity/Initialize(mapload, starting_energy = 50)
+	. = ..()
 	//CARN: admin-alert for chuckle-fuckery.
 	admin_investigate_setup()
 
-	src.energy = starting_energy
-	..()
+	energy = starting_energy
+
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	GLOB.singularities += src
@@ -116,7 +116,7 @@
 		//  it might mean we are stuck in a corner somewere. So move around to try to expand.
 		move()
 	if(current_size >= STAGE_TWO)
-		radiation_pulse(src, min(5000, (energy * 4.5) + 1000), RAD_DISTANCE_COEFFICIENT * 0.5)
+		radiation_pulse(src, min(5000, (energy * 4.5) + 1000), RAD_DISTANCE_COEFFICIENT * 0.1)
 		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
 			event()
 	eat()
@@ -412,12 +412,12 @@
 				if(istype(H.glasses, /obj/item/clothing/glasses/meson))
 					var/obj/item/clothing/glasses/meson/MS = H.glasses
 					if(MS.vision_flags == SEE_TURFS)
-						to_chat(H, "<span class='notice'>You look directly into the [src.name], good thing you had your protective eyewear on!</span>")
+						to_chat(H, "<span class='notice'>You look directly into [src], good thing you had your protective eyewear on!</span>")
 						return
 
 		M.apply_effect(3, STUN)
-		M.visible_message("<span class='danger'>[M] stares blankly at the [src.name]!</span>", \
-						"<span class='userdanger'>You look directly into the [src.name] and feel weak.</span>")
+		M.visible_message("<span class='danger'>[M] stares blankly at [src]!</span>", \
+						"<span class='userdanger'>You look directly into [src] and feel weak.</span>")
 	return
 
 

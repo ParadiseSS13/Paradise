@@ -7,6 +7,7 @@
 	icon_aggro = "Hivelord_alert"
 	icon_dead = "Hivelord_dead"
 	icon_gib = "syndicate_gib"
+	mob_biotypes = MOB_ORGANIC
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	move_to_delay = 14
 	ranged = 1
@@ -160,6 +161,7 @@
 	icon_aggro = "legion"
 	icon_dead = "legion"
 	icon_gib = "syndicate_gib"
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	mouse_opacity = MOUSE_OPACITY_ICON
 	obj_damage = 60
 	melee_damage_lower = 15
@@ -250,7 +252,7 @@
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
 	visible_message("<span class='warning'>[name] burrows into the flesh of [H]!</span>")
 	var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/L
-	if((DWARF in H.mutations)) //dwarf legions aren't just fluff!
+	if(HAS_TRAIT(H, TRAIT_DWARF)) //dwarf legions aren't just fluff!
 		L = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(H.loc)
 	else
 		L = new(H.loc)
@@ -328,9 +330,8 @@
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H)
 	. = ..()
-	H.dna.SetSEState(GLOB.smallsizeblock, 1, 1)
-	H.mutations.Add(DWARF)
-	genemutcheck(H, GLOB.smallsizeblock, null, MUTCHK_FORCED)
+	H.dna.SetSEState(GLOB.smallsizeblock, TRUE, TRUE)
+	singlemutcheck(H, GLOB.smallsizeblock, MUTCHK_FORCED)
 	H.update_mutations()
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize(mapload)
@@ -344,7 +345,7 @@
 			else if(prob(10))
 				belt = pickweight(list(/obj/item/pickaxe = 8, /obj/item/pickaxe/mini = 4, /obj/item/pickaxe/silver = 2, /obj/item/pickaxe/diamond = 1))
 			else
-				belt = /obj/item/tank/emergency_oxygen/engi
+				belt = /obj/item/tank/internals/emergency_oxygen/engi
 			if(mob_species != /datum/species/unathi)
 				shoes = /obj/item/clothing/shoes/workboots/mining
 			gloves = /obj/item/clothing/gloves/color/black
@@ -383,6 +384,8 @@
 				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(list( 1 = 3, 2 = 2, 3 = 1)))
 			if(prob(10))
 				l_pocket = pickweight(list(/obj/item/bikehorn/golden = 3, /obj/item/bikehorn/airhorn= 1 ))
+			if(prob(10))
+				r_pocket = /obj/item/implanter/sad_trombone
 		if("Golem")
 			mob_species = pick(list(/datum/species/golem/adamantine, /datum/species/golem/plasma, /datum/species/golem/diamond, /datum/species/golem/gold, /datum/species/golem/silver, /datum/species/golem/plasteel, /datum/species/golem/titanium, /datum/species/golem/plastitanium))
 			if(prob(30))
@@ -402,7 +405,7 @@
 			suit = /obj/item/clothing/suit/armor/riot/knight
 			back = /obj/item/shield/riot/buckler
 			belt = /obj/item/nullrod/claymore
-			r_pocket = /obj/item/tank/emergency_oxygen
+			r_pocket = /obj/item/tank/internals/emergency_oxygen
 			mask = /obj/item/clothing/mask/breath
 		if("Operative")
 			id_job = "Operative"
@@ -413,14 +416,16 @@
 			shoes = /obj/item/clothing/shoes/black
 			suit = /obj/item/clothing/suit/storage/labcoat
 			glasses = /obj/item/clothing/glasses/sunglasses/blindfold
-			back = /obj/item/tank/oxygen
+			back = /obj/item/tank/internals/oxygen
 			mask = /obj/item/clothing/mask/breath
 		if("Cultist")
-			uniform = /obj/item/clothing/under/roman
-			suit = /obj/item/clothing/suit/hooded/cultrobes
-			suit_store = /obj/item/tome
-			r_pocket = /obj/item/restraints/legcuffs/bola/cult
+			uniform = /obj/item/clothing/under/color/black
+			back = /obj/item/storage/backpack/cultpack
+			suit = /obj/item/clothing/suit/hooded/cultrobes/alt
+			if(prob(40))
+				suit_store = /obj/item/melee/cultblade
 			l_pocket = /obj/item/melee/cultblade/dagger
-			glasses =  /obj/item/clothing/glasses/hud/health/night
-			backpack_contents = list(/obj/item/reagent_containers/food/drinks/bottle/unholywater = 1, /obj/item/cult_shift = 1, /obj/item/flashlight/flare = 1, /obj/item/stack/sheet/runed_metal = 15)
+			if(prob(60))
+				r_pocket = /obj/item/reagent_containers/food/drinks/bottle/unholywater
+			backpack_contents = list(/obj/item/tome = 1, /obj/item/restraints/legcuffs/bola/cult = 1, /obj/item/stack/sheet/runed_metal = 15)
 	. = ..()

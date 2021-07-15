@@ -102,3 +102,16 @@
 
 		if("clear_all")
 			selected_accesses = list()
+
+/obj/item/airlock_electronics/destroyed
+	name = "burned-out airlock electronics"
+	icon_state = "door_electronics_smoked"
+
+/obj/item/airlock_electronics/destroyed/attack_self(mob/user)
+	return
+
+/obj/item/airlock_electronics/destroyed/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["metal"] += 1
+	C.stored_comms["glass"] += 1
+	qdel(src)
+	return TRUE

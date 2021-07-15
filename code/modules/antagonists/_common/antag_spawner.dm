@@ -285,4 +285,4 @@
 	M.mind.objectives += KillDaCrew
 	to_chat(M, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
 	to_chat(M, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
-	M << 'sound/magic/mutate.ogg'
+	SEND_SOUND(M, sound('sound/magic/mutate.ogg'))

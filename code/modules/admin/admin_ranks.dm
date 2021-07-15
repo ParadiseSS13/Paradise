@@ -117,7 +117,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 			load_admins()
 			return
 
-		var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, rank, level, flags FROM [format_table_name("admin")]")
+		var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, admin_rank, level, flags FROM [format_table_name("admin")]")
 		if(!query.warn_execute(async=run_async))
 			qdel(query)
 			return

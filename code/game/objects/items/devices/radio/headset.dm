@@ -103,10 +103,10 @@
 /obj/item/radio/headset/syndicate/alt/syndteam
 	ks1type = /obj/item/encryptionkey/syndteam
 
-/obj/item/radio/headset/syndicate/alt/lavaland
-	name = "syndicate lavaland headset"
+/obj/item/radio/headset/syndicate/alt/nocommon
+	name = "syndicate researcher headset"
 
-/obj/item/radio/headset/syndicate/alt/lavaland/New()
+/obj/item/radio/headset/syndicate/alt/nocommon/New()
 	. = ..()
 	set_frequency(SYND_FREQ)
 
@@ -127,6 +127,10 @@
 	flags = EARBANGPROTECT
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
+
+/obj/item/radio/headset/headset_sec/alt/brig_phys
+	name = "brig physician bowman headset"
+	ks1type = /obj/item/encryptionkey/headset_med
 
 /obj/item/radio/headset/headset_iaa
 	name = "internal affairs bowman headset"
@@ -186,14 +190,14 @@
 	ks2type = /obj/item/encryptionkey/heads/captain
 
 /obj/item/radio/headset/heads/captain/alt
-	name = "\proper the captain's bowman headset"
+	name = "captain's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
 /obj/item/radio/headset/heads/rd
-	name = "Research Director's headset"
+	name = "research director's headset"
 	desc = "Headset of the researching God."
 	icon_state = "com_headset"
 	item_state = "headset"
@@ -207,7 +211,7 @@
 	ks2type = /obj/item/encryptionkey/heads/hos
 
 /obj/item/radio/headset/heads/hos/alt
-	name = "\proper the head of security's bowman headset"
+	name = "head of security's bowman headset"
 	desc = "The headset of the man in charge of keeping order and protecting the station. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
@@ -268,7 +272,7 @@
 	ks2type = /obj/item/encryptionkey/heads/magistrate
 
 /obj/item/radio/headset/heads/magistrate/alt
-	name = "\proper magistrate's bowman headset"
+	name = "magistrate's bowman headset"
 	desc = "The headset of the Magistrate. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
@@ -282,7 +286,7 @@
 	ks2type = /obj/item/encryptionkey/heads/blueshield
 
 /obj/item/radio/headset/heads/blueshield/alt
-	name = "\proper blueshield's bowman headset"
+	name = "blueshield's bowman headset"
 	desc = "The headset of the Blueshield. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
@@ -310,7 +314,7 @@
 	instant = TRUE
 
 /obj/item/radio/headset/centcom
-	name = "\proper centcom officer's bowman headset"
+	name = "centcom officer's bowman headset"
 	desc = "The headset of final authority. Protects ears from flashbangs. Can transmit even if telecomms are down."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"

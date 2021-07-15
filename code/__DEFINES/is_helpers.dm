@@ -22,7 +22,7 @@
 
 #define iseffect(A) (istype(A, /obj/effect))
 
-#define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
+#define isclothing(A) (istype(A, /obj/item/clothing))
 
 #define is_pen(W) (istype(W, /obj/item/pen))
 
@@ -50,8 +50,6 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isspaceturf(A) istype(A, /turf/space)
 
 #define isfloorturf(A) istype(A, /turf/simulated/floor)
-
-#define isunsimulatedturf(A) istype(A, /turf/unsimulated)
 
 #define iswallturf(A) istype(A, /turf/simulated/wall)
 

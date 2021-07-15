@@ -132,7 +132,7 @@
 
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
-/atom/movable/proc/setLoc(var/T, var/teleported=0)
+/atom/movable/proc/setLoc(T, teleported=0)
 	loc = T
 
 /atom/movable/Move(atom/newloc, direct = 0, movetime)
@@ -300,6 +300,7 @@
 	if(client)
 		reset_perspective(destination)
 	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
+	update_runechat_msg_location()
 
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
@@ -307,7 +308,7 @@
 //Return 0 to have src start/keep drifting in a no-grav area and 1 to stop/not start drifting
 //Mobs should return 1 if they should be able to move of their own volition, see client/Move() in mob_movement.dm
 //movement_dir == 0 when stopping or any dir when trying to move
-/atom/movable/proc/Process_Spacemove(var/movement_dir = 0)
+/atom/movable/proc/Process_Spacemove(movement_dir = 0)
 	if(has_gravity(src))
 		return 1
 
@@ -511,20 +512,26 @@
 		return //don't do an animation if attacking self
 	var/pixel_x_diff = 0
 	var/pixel_y_diff = 0
+	var/turn_dir = 1
 
 	var/direction = get_dir(src, A)
 	if(direction & NORTH)
 		pixel_y_diff = 8
+		turn_dir = prob(50) ? -1 : 1
 	else if(direction & SOUTH)
 		pixel_y_diff = -8
+		turn_dir = prob(50) ? -1 : 1
 
 	if(direction & EAST)
 		pixel_x_diff = 8
 	else if(direction & WEST)
 		pixel_x_diff = -8
+		turn_dir = -1
 
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, time = 2)
+	var/matrix/initial_transform = matrix(transform)
+	var/matrix/rotated_transform = transform.Turn(5 * turn_dir)
+	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform = rotated_transform, time = 0.1 SECONDS, easing = CUBIC_EASING)
+	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform = initial_transform, time = 0.2 SECONDS, easing = SINE_EASING)
 
 /atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item)
 	var/image/I
@@ -563,14 +570,17 @@
 		if(M.client && M.client.prefs.toggles2 & PREFTOGGLE_2_ITEMATTACK)
 			viewing |= M.client
 
-	flick_overlay(I, viewing, 5) // 5 ticks/half a second
+	I.appearance_flags |= RESET_TRANSFORM | KEEP_APART
+	flick_overlay(I, viewing, 7) // 7 ticks/half a second
 
 	// And animate the attack!
 	var/t_color = "#ffffff"
-	if(ismob(src) &&  ismob(A) && (!used_item))
+	if(ismob(src) && ismob(A) && !used_item)
 		var/mob/M = src
 		t_color = M.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
-	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3, color = t_color)
+	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 0.3 SECONDS, color = t_color)
+	animate(time = 0.1 SECONDS)
+	animate(alpha = 0, time = 0.3 SECONDS, easing = CIRCULAR_EASING | EASE_OUT)
 
 /atom/movable/proc/portal_destroyed(obj/effect/portal/P)
 	return

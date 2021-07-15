@@ -1,4 +1,4 @@
-/proc/GetOppositeDir(var/dir)
+/proc/GetOppositeDir(dir)
 	switch(dir)
 		if(NORTH)     return SOUTH
 		if(SOUTH)     return NORTH
@@ -46,7 +46,7 @@
 
 	return pick(valid_picks)
 
-/proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
+/proc/random_hair_style(gender, species = "Human", datum/robolimb/robohead)
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
 	for(var/hairstyle in GLOB.hair_styles_public_list)
@@ -75,7 +75,7 @@
 
 	return h_style
 
-/proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
+/proc/random_facial_hair_style(gender, species = "Human", datum/robolimb/robohead)
 	var/f_style = "Shaved"
 	var/list/valid_facial_hairstyles = list()
 	for(var/facialhairstyle in GLOB.facial_hair_styles_list)
@@ -119,7 +119,7 @@
 
 	return ha_style
 
-/proc/random_marking_style(var/location = "body", species = "Human", var/datum/robolimb/robohead, var/body_accessory, var/alt_head)
+/proc/random_marking_style(location = "body", species = "Human", datum/robolimb/robohead, body_accessory, alt_head)
 	var/m_style = "None"
 	var/list/valid_markings = list()
 	for(var/marking in GLOB.marking_styles_list)
@@ -570,7 +570,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		log_admin("[key_name(usr)] attempted to use a mouse macro: [verbused] [params]")
 		message_admins("[key_name_admin(usr)] attempted to use a mouse macro: [verbused] [html_encode(params)]")
 	if(client.next_mouse_macro_warning < world.time) // Warn occasionally
-		usr << 'sound/misc/sadtrombone.ogg'
+		SEND_SOUND(usr, sound('sound/misc/sadtrombone.ogg'))
 		client.next_mouse_macro_warning = world.time + 600
 /mob/verb/ClickSubstitute(params as command_text)
 	set hidden = 1

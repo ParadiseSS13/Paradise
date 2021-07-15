@@ -193,7 +193,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 					reset_message(TRUE)
 
 		if("writeAnnouncement")
-			var/new_message = sanitize(input("Write your message:", "Awaiting Input", ""))
+			var/new_message = input("Write your message:", "Awaiting Input", message) as message|null
 			if(new_message)
 				message = new_message
 			else
@@ -202,7 +202,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("sendAnnouncement")
 			if(!announcementConsole)
 				return
-			announcement.Announce(message, msg_sanitized = TRUE)
+			announcement.Announce(message)
 			reset_message(TRUE)
 
 		if("department")
@@ -235,7 +235,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 					radiochannel = "AI Private"
 				else if(recipient == "Cargo Bay")
 					radiochannel = "Supply"
-				message_log += "Message sent to [recipient] at [station_time_timestamp()] - [message]"
+				message_log.Add(list(list("Message sent to [recipient] at [station_time_timestamp()]", "[message]")))
 				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
 			else
 				atom_say("No server detected!")
@@ -273,7 +273,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				atom_say("[error_message]")
 				return
 			print_label(ship_tag_name, ship_tag_index)
-			shipping_log += "Shipping Label printed for [ship_tag_name] - [msgVerified]"
+			shipping_log.Add(list(list("Shipping Label printed for [ship_tag_name]", "[msgVerified]"))) // List in a list for passing into TGUI
 			reset_message(TRUE)
 
 		//Handle silencing the console
@@ -343,9 +343,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	switch(priority)
 		if(RQ_HIGHPRIORITY) // High
-			message_log += "High Priority - From: [linkedSender] - [message]"
+			message_log.Add(list(list("High Priority - From: [linkedSender]") + message)) // List in a list for passing into TGUI
 		else // Normal
-			message_log += "From: [linkedSender] - [message]"
+			message_log.Add(list(list("From: [linkedSender]") + message)) // List in a list for passing into TGUI
 	set_light(2)
 
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)

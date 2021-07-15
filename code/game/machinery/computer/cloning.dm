@@ -372,7 +372,7 @@
 
 	src.add_fingerprint(usr)
 
-/obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob, var/scan_brain = 0)
+/obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob, scan_brain = 0)
 	if(stat & NOPOWER)
 		return
 	if(scanner.stat & (NOPOWER|BROKEN))
@@ -392,7 +392,7 @@
 	if(subject.get_int_organ(/obj/item/organ/internal/brain))
 		var/obj/item/organ/internal/brain/Brn = subject.get_int_organ(/obj/item/organ/internal/brain)
 		if(istype(Brn))
-			if(NO_SCAN in Brn.dna.species.species_traits)
+			if(NO_CLONESCAN in Brn.dna.species.species_traits)
 				set_scan_temp("[Brn.dna.species.name_plural] are not scannable.", "bad")
 				SStgui.update_uis(src)
 				return
@@ -408,7 +408,7 @@
 		set_scan_temp("Subject's brain is not responding. Further attempts after a short delay may succeed.", "bad")
 		SStgui.update_uis(src)
 		return
-	if((NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
+	if(HAS_TRAIT(subject, TRAIT_BADDNA) && src.scanner.scan_level < 2)
 		set_scan_temp("Subject has incompatible genetic mutations.", "bad")
 		SStgui.update_uis(src)
 		return
@@ -432,7 +432,7 @@
 		var/obj/item/organ/B = subject.get_int_organ(/obj/item/organ/internal/brain)
 		B.dna.check_integrity()
 		R.dna=B.dna.Clone()
-		if(NO_SCAN in R.dna.species.species_traits)
+		if(NO_CLONESCAN in R.dna.species.species_traits)
 			extra_info = "Proper genetic interface not found, defaulting to genetic data of the body."
 			R.dna.species = new subject.dna.species.type
 		R.id= copytext(md5(B.dna.real_name), 2, 6)
@@ -459,7 +459,7 @@
 	SStgui.update_uis(src)
 
 //Find a specific record by key.
-/obj/machinery/computer/cloning/proc/find_record(var/find_key)
+/obj/machinery/computer/cloning/proc/find_record(find_key)
 	var/selected_record = null
 	for(var/datum/dna2/record/R in src.records)
 		if(R.ckey == find_key)

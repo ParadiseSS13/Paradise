@@ -62,7 +62,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_DARKBLUE
 
-/obj/item/projectile/beam/pulse/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
 	if(istype(target,/turf/)||istype(target,/obj/structure/))
 		target.ex_act(2)
 	..()
@@ -140,7 +140,7 @@
 	damage = 8
 	icon_state = "scatterlaser"
 
-/obj/item/projectile/beam/immolator/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/beam/immolator/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(istype(target, /mob/living/carbon))
 		var/mob/living/carbon/M = target

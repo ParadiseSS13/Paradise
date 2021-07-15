@@ -3,11 +3,13 @@
 	config_tag = "traitorvamp"
 	traitors_possible = 3 //hard limit on traitors if scaling is turned off
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer")
-	restricted_jobs = list("AI", "Cyborg")
+	restricted_jobs = list("Cyborg")
+	secondary_restricted_jobs = list("AI")
 	required_players = 10
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
-	var/protected_species_vampire = list("Machine")
+	secondary_enemies_scaling = 0.025
+	secondary_protected_species = list("Machine")
 
 /datum/game_mode/traitor/vampire/announce()
 	to_chat(world, "<B>The current game mode is - Traitor+Vampire!</B>")
@@ -19,20 +21,26 @@
 		restricted_jobs += protected_jobs
 
 	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
+	secondary_enemies = CEILING((secondary_enemies_scaling * num_players()), 1)
 
 	for(var/mob/new_player/player in GLOB.player_list)
-		if((player.mind in possible_vampires) && (player.client.prefs.species in protected_species_vampire))
+		if((player.mind in possible_vampires) && (player.client.prefs.species in secondary_protected_species))
 			possible_vampires -= player.mind
 
 	if(possible_vampires.len > 0)
-		var/datum/mind/vampire = pick(possible_vampires)
-		vampires += vampire
-		modePlayer += vampires
-		var/datum/mindslaves/slaved = new()
-		slaved.masters += vampire
-		vampire.som = slaved //we MIGT want to mindslave someone
-		vampire.restricted_roles = restricted_jobs
-		vampire.special_role = SPECIAL_ROLE_VAMPIRE
+		for(var/I in possible_vampires)
+			if(length(vampires) >= secondary_enemies)
+				break
+			var/datum/mind/vampire = pick(possible_vampires)
+			vampires += vampire
+			modePlayer += vampires
+			possible_vampires -= vampire
+			var/datum/mindslaves/slaved = new()
+			slaved.masters += vampire
+			vampire.som = slaved //we MIGHT want to mindslave someone
+			vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
+			vampire.special_role = SPECIAL_ROLE_VAMPIRE
+
 		..()
 		return 1
 	else

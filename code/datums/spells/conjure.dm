@@ -13,7 +13,7 @@
 	var/list/newVars = list() //vars of the summoned objects will be replaced with those where they meet
 	//should have format of list("emagged" = 1,"name" = "Wizard's Justicebot"), for example
 	var/delay = 1//Go Go Gadget Inheritance
-	
+
 	var/cast_sound = 'sound/items/welder.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/cast(list/targets,mob/living/user = usr)
@@ -32,9 +32,6 @@
 			if(summon_ignore_prev_spawn_points)
 				targets -= spawn_place
 			if(ispath(summoned_object_type,/turf))
-				if(istype(get_turf(user),/turf/simulated/shuttle))
-					to_chat(user, "<span class='warning'>You can't build things on shuttles!</span>")
-					break
 				var/turf/O = spawn_place
 				var/N = summoned_object_type
 				O.ChangeTurf(N)
@@ -47,9 +44,7 @@
 				summoned_object.admin_spawned = TRUE
 
 				if(summon_lifespan)
-					spawn(summon_lifespan)
-						if(summoned_object)
-							qdel(summoned_object)
+					QDEL_IN(summoned_object, summon_lifespan)
 	else
 		switch(charge_type)
 			if("recharge")

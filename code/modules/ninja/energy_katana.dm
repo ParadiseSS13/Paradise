@@ -21,7 +21,7 @@
 	if(proximity_flag && user.mind.special_role == "Ninja" && !cooldown && isobj(target))
 		cooldown = 1
 		spark_system.start()
-		playsound(user, "sparks", 50, 1)
+		playsound(user, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		playsound(user, 'sound/weapons/blade1.ogg', 50, 1)
 		user.visible_message("<span class='danger'>[user] masterfully slices [target]!</span>", "<span class='notice'>You masterfully slice [target]!</span>")
 		target.emag_act(user)
@@ -39,14 +39,14 @@
 	..()*/
 
 
-/obj/item/katana/energy/proc/returnToOwner(var/mob/living/carbon/human/user, var/doSpark = 1, var/caught = 0)
+/obj/item/katana/energy/proc/returnToOwner(mob/living/carbon/human/user, doSpark = 1, caught = 0)
 	if(!istype(user))
 		return
 	loc = get_turf(src)
 
 	if(doSpark)
 		spark_system.start()
-		playsound(get_turf(src), "sparks", 50, 1)
+		playsound(get_turf(src), "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 	var/msg = ""
 

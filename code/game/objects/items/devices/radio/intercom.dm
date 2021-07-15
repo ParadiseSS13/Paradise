@@ -132,7 +132,7 @@
 		return
 	else if(iscoil(W) && buildstage == 1)
 		var/obj/item/stack/cable_coil/coil = W
-		if(coil.amount < 5)
+		if(coil.get_amount() < 5)
 			to_chat(user, "<span class='warning'>You need more cable for this!</span>")
 			return
 		if(do_after(user, 10 * coil.toolspeed, target = src) && buildstage == 1)

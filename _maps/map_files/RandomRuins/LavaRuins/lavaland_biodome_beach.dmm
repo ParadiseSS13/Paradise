@@ -132,7 +132,7 @@
 /area/ruin/powered/beach)
 "ax" = (
 /obj/machinery/disco/immobile,
-/turf/simulated/floor/light/colour_cycle,
+/turf/simulated/floor/light,
 /area/ruin/powered/beach)
 "ay" = (
 /obj/machinery/door/airlock/sandstone{
@@ -178,7 +178,7 @@
 /area/ruin/powered/beach)
 "aJ" = (
 /obj/structure/closet/crate,
-/obj/item/tank/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
 /obj/item/trash/candy,
 /obj/effect/turf_decal/sand,
 /obj/item/toy/figure/crew/bartender,
@@ -406,7 +406,7 @@
 /area/ruin/powered/beach)
 "cR" = (
 /obj/structure/table/wood,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /obj/item/pickaxe,
 /obj/item/clothing/mask/gas,
 /turf/simulated/floor/pod,

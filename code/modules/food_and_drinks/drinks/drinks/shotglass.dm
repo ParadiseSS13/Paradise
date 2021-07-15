@@ -72,7 +72,7 @@
 	return
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack(mob/living/carbon/human/user)
-	if((CLUMSY in user.mutations) && prob(50) && (resistance_flags & ON_FIRE))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && (resistance_flags & ON_FIRE))
 		clumsilyDrink(user)
 	else
 		..()
@@ -89,7 +89,7 @@
 	..()
 	if(!(resistance_flags & ON_FIRE))
 		return
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		clumsilyDrink(user)
 	else
 		user.visible_message("<span class = 'notice'>[user] places [user.p_their()] hand over [src] to put it out!</span>", "<span class = 'notice'>You use your hand to extinguish [src]!</span>")
@@ -98,7 +98,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/MouseDrop(mob/living/carbon/human/user)
 	if(!ishuman(user))
 		return
-	if((CLUMSY in user.mutations) && prob(50) && (resistance_flags & ON_FIRE))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && (resistance_flags & ON_FIRE))
 		clumsilyDrink(user)
 	else
 		..()

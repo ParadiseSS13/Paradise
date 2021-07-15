@@ -63,7 +63,7 @@
 		M.set_multitool_buffer(user, src)
 	else
 		linked_pad = M.buffer
-		to_chat(user, "<span class='notice'>You link the [src] to the one in the [I.name]'s buffer.</span>")
+		to_chat(user, "<span class='notice'>You link [src] to the one in [I]'s buffer.</span>")
 
 /obj/machinery/quantumpad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -132,9 +132,9 @@
 			linked_pad.sparks()
 
 			flick("qpad-beam", src)
-			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
 			flick("qpad-beam", linked_pad)
-			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 			var/tele_success = TRUE
 			for(var/atom/movable/ROI in get_turf(src))
 				// if is anchored, don't let through

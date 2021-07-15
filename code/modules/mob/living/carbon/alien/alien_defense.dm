@@ -42,7 +42,10 @@ In all, this is a lot like the monkey code. /N
 
 	switch(M.a_intent)
 		if(INTENT_HELP)
-			help_shake_act(M)
+			if(M.on_fire)
+				pat_out(M)
+			else
+				help_shake_act(M)
 		if(INTENT_GRAB)
 			grabbedby(M)
 		if(INTENT_HARM)

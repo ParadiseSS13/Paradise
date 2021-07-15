@@ -18,7 +18,7 @@
 
 GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY_ENGINEER,SUPPLY_MEDICAL,SUPPLY_SCIENCE,SUPPLY_ORGANIC,SUPPLY_MATERIALS,SUPPLY_MISC,SUPPLY_VEND))
 
-/proc/get_supply_group_name(var/cat)
+/proc/get_supply_group_name(cat)
 	switch(cat)
 		if(SUPPLY_EMERGENCY)
 			return "Emergency"
@@ -89,11 +89,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/mob/living/simple_animal/bot/floorbot,
 					/mob/living/simple_animal/bot/medbot,
 					/mob/living/simple_animal/bot/medbot,
-					/obj/item/tank/air,
-					/obj/item/tank/air,
-					/obj/item/tank/air,
-					/obj/item/tank/air,
-					/obj/item/tank/air,
+					/obj/item/tank/internals/air,
+					/obj/item/tank/internals/air,
+					/obj/item/tank/internals/air,
+					/obj/item/tank/internals/air,
+					/obj/item/tank/internals/air,
 					/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
@@ -111,9 +111,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
-					/obj/item/tank/air,
-					/obj/item/tank/air,
-					/obj/item/tank/air)
+					/obj/item/tank/internals/air,
+					/obj/item/tank/internals/air,
+					/obj/item/tank/internals/air)
 	cost = 10
 	containername = "internals crate"
 
@@ -125,8 +125,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/mask/gas,
 					/obj/item/flashlight,
 					/obj/item/flashlight,
-					/obj/item/tank/oxygen/red,
-					/obj/item/tank/oxygen/red,
+					/obj/item/tank/internals/oxygen/red,
+					/obj/item/tank/internals/oxygen/red,
 					/obj/item/extinguisher,
 					/obj/item/extinguisher,
 					/obj/item/clothing/head/hardhat/red,
@@ -159,8 +159,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Vox Life Support Supplies"
 	contains = list(/obj/item/clothing/mask/breath/vox,
 					/obj/item/clothing/mask/breath/vox,
-					/obj/item/tank/emergency_oxygen/vox,
-					/obj/item/tank/emergency_oxygen/vox)
+					/obj/item/tank/internals/emergency_oxygen/double/vox,
+					/obj/item/tank/internals/emergency_oxygen/double/vox)
 	cost = 50
 	containertype = /obj/structure/closet/crate/medical
 	containername = "vox life support supplies crate"
@@ -169,8 +169,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Plasmaman Supply Kit"
 	contains = list(/obj/item/clothing/under/plasmaman,
 					/obj/item/clothing/under/plasmaman,
-					/obj/item/tank/plasma/plasmaman/belt/full,
-					/obj/item/tank/plasma/plasmaman/belt/full,
+					/obj/item/tank/internals/plasmaman/belt/full,
+					/obj/item/tank/internals/plasmaman/belt/full,
 					/obj/item/clothing/mask/breath,
 					/obj/item/clothing/mask/breath,
 					/obj/item/clothing/head/helmet/space/plasmaman,
@@ -447,9 +447,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/eweapons
 	name = "Incendiary Weapons Crate"
 	contains = list(/obj/item/flamethrower/full,
-					/obj/item/tank/plasma,
-					/obj/item/tank/plasma,
-					/obj/item/tank/plasma,
+					/obj/item/tank/internals/plasma,
+					/obj/item/tank/internals/plasma,
+					/obj/item/tank/internals/plasma,
 					/obj/item/grenade/chem_grenade/incendiary,
 					/obj/item/grenade/chem_grenade/incendiary,
 					/obj/item/grenade/chem_grenade/incendiary)
@@ -572,9 +572,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "electrical maintenance crate"
 
 /datum/supply_packs/vending/engivend
-	name = "EngiVend Supply Crate"
-	cost = 15
-	contains = list(/obj/item/vending_refill/engivend)
+	name = "Engineering Vendor Supply Crate"
+	cost = 20
+	contains = list(/obj/item/vending_refill/engivend,
+					/obj/item/vending_refill/youtool)
 	containername = "engineering supply crate"
 
 /datum/supply_packs/engineering/powergamermitts
@@ -922,7 +923,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/cautery,
 					/obj/item/surgicaldrill,
 					/obj/item/clothing/mask/breath/medical,
-					/obj/item/tank/anesthetic,
+					/obj/item/tank/internals/anesthetic,
 					/obj/item/FixOVein,
 					/obj/item/hemostat,
 					/obj/item/scalpel,
@@ -935,6 +936,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "surgery crate"
 	access = ACCESS_MEDICAL
 
+/datum/supply_packs/medical/gloves
+	name = "Nitrile Glove Crate"
+	contains = list(/obj/item/clothing/gloves/color/latex/nitrile,
+					/obj/item/clothing/gloves/color/latex/nitrile,
+					/obj/item/clothing/gloves/color/latex/nitrile,
+					/obj/item/clothing/gloves/color/latex/nitrile)
+	cost = 50
+	containername = "nitrile glove crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
@@ -979,9 +988,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/science/plasma
 	name = "Plasma Assembly Crate"
-	contains = list(/obj/item/tank/plasma,
-					/obj/item/tank/plasma,
-					/obj/item/tank/plasma,
+	contains = list(/obj/item/tank/internals/plasma,
+					/obj/item/tank/internals/plasma,
+					/obj/item/tank/internals/plasma,
 					/obj/item/assembly/igniter,
 					/obj/item/assembly/igniter,
 					/obj/item/assembly/igniter,

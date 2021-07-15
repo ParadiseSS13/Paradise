@@ -60,7 +60,7 @@
 			if(prob(prob))
 				M.dna.SetSEValue(i, rand(1, 4095), 1)
 		M.dna.UpdateSE()
-		domutcheck(M, null)
+		domutcheck(M)
 
 // I haven't yet figured out what the fuck this is supposed to do.
 /proc/miniscramble(input, rs, rd)
@@ -213,7 +213,7 @@
 
 // This proc gives the DNA info for eye color to the given eyes
 /datum/dna/proc/write_eyes_attributes(obj/item/organ/internal/eyes/eyes_organ)
-	eyes_organ.eye_colour = rgb(eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_R, 255), eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_G, 255), eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_B, 255))
+	eyes_organ.eye_color = rgb(eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_R, 255), eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_G, 255), eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_B, 255))
 
 /*
 	TRAIT CHANGING PROCS
@@ -223,9 +223,9 @@
 		// In absence of eyes, possibly randomize the eye color DNA?
 		return
 
-	SetUIValueRange(DNA_UI_EYES_R,	color2R(eyes_organ.eye_colour),	255, 1)
-	SetUIValueRange(DNA_UI_EYES_G,	color2G(eyes_organ.eye_colour),	255, 1)
-	SetUIValueRange(DNA_UI_EYES_B,	color2B(eyes_organ.eye_colour),	255, 1)
+	SetUIValueRange(DNA_UI_EYES_R,	color2R(eyes_organ.eye_color),	255, 1)
+	SetUIValueRange(DNA_UI_EYES_G,	color2G(eyes_organ.eye_color),	255, 1)
+	SetUIValueRange(DNA_UI_EYES_B,	color2B(eyes_organ.eye_color),	255, 1)
 
 /datum/dna/proc/head_traits_to_dna(obj/item/organ/external/head/head_organ)
 	if(!head_organ)

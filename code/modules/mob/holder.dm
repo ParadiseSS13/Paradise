@@ -29,19 +29,19 @@
 	for(var/mob/M in src.contents)
 		M.attackby(W,user, params)
 
-/obj/item/holder/proc/show_message(var/message, var/m_type)
+/obj/item/holder/proc/show_message(message, m_type)
 	for(var/mob/living/M in contents)
 		M.show_message(message,m_type)
 
-/obj/item/holder/emp_act(var/intensity)
+/obj/item/holder/emp_act(intensity)
 	for(var/mob/living/M in contents)
 		M.emp_act(intensity)
 
-/obj/item/holder/ex_act(var/intensity)
+/obj/item/holder/ex_act(intensity)
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
 
-/obj/item/holder/container_resist(var/mob/living/L)
+/obj/item/holder/container_resist(mob/living/L)
 	var/mob/M = src.loc                      //Get our mob holder (if any).
 
 	if(istype(M))
@@ -63,7 +63,7 @@
 //Mob procs and vars for scooping up
 /mob/living/var/holder_type
 
-/mob/living/proc/get_scooped(var/mob/living/carbon/grabber)
+/mob/living/proc/get_scooped(mob/living/carbon/grabber)
 	if(!holder_type)	return
 
 	var/obj/item/holder/H = new holder_type(loc)

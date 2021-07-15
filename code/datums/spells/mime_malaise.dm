@@ -50,5 +50,5 @@
 		equip_to_slot_if_possible(new /obj/item/clothing/under/mime/nodrop, slot_w_uniform, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/suit/suspenders/nodrop, slot_wear_suit, TRUE, TRUE)
 		dna.SetSEState(GLOB.muteblock , TRUE, TRUE)
-		genemutcheck(src, GLOB.muteblock , null, MUTCHK_FORCED)
+		singlemutcheck(src, GLOB.muteblock, MUTCHK_FORCED)
 		dna.default_blocks.Add(GLOB.muteblock)

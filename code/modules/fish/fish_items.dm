@@ -26,7 +26,7 @@
 	throw_range = 7
 
 /obj/item/fish_net/suicide_act(mob/user)			//"A tiny net is a death sentence: it's a net and it's tiny!" https://www.youtube.com/watch?v=FCI9Y4VGCVw
-	to_chat(viewers(user), "<span class='warning'>[user] places the [src.name] on top of [user.p_their()] head, [user.p_their()] fingers tangled in the netting! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	visible_message("<span class='suicide'>[user] places [src] on top of [user.p_their()] head, [user.p_their()] fingers tangled in the netting! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return OXYLOSS
 
 /obj/item/fishfood
@@ -52,7 +52,7 @@
 	attack_verb = list("scrubbed", "brushed", "scraped")
 
 /obj/item/tank_brush/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='warning'>[user] is vigorously scrubbing [user.p_them()]self raw with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	visible_message("<span class='suicide'>[user] is vigorously scrubbing [user.p_them()]self raw with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/storage/bag/fish
@@ -133,7 +133,7 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-/obj/item/fish/shark/attackby(var/obj/item/O, var/mob/user as mob)
+/obj/item/fish/shark/attackby(obj/item/O, mob/user as mob)
 	if(istype(O, /obj/item/wirecutters))
 		to_chat(user, "You rip out the teeth of \the [src.name]!")
 		new /obj/item/fish/toothless_shark(get_turf(src))
@@ -167,7 +167,7 @@
 	desc = "Apparently, catfish don't purr like you might have expected them to. Such a confusing name!"
 	icon_state = "catfish"
 
-/obj/item/fish/catfish/attackby(var/obj/item/O, var/mob/user as mob)
+/obj/item/fish/catfish/attackby(obj/item/O, mob/user as mob)
 	if(is_sharp(O))
 		to_chat(user, "You carefully clean and gut \the [src.name].")
 		new /obj/item/reagent_containers/food/snacks/catfishmeat(get_turf(src))
@@ -186,7 +186,7 @@
 	desc = "The second-favorite food of Space Bears, right behind crew members."
 	icon_state = "salmon"
 
-/obj/item/fish/salmon/attackby(var/obj/item/O, var/mob/user as mob)
+/obj/item/fish/salmon/attackby(obj/item/O, mob/user as mob)
 	if(is_sharp(O))
 		to_chat(user, "You carefully clean and gut \the [src.name].")
 		new /obj/item/reagent_containers/food/snacks/salmonmeat(get_turf(src))
@@ -202,7 +202,7 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-/obj/item/fish/babycarp/attackby(var/obj/item/O, var/mob/user as mob)
+/obj/item/fish/babycarp/attackby(obj/item/O, mob/user as mob)
 	if(is_sharp(O))
 		to_chat(user, "You carefully clean and gut \the [src.name].")
 		new /obj/item/reagent_containers/food/snacks/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.

@@ -6,7 +6,7 @@
 /datum/element/rad_insulation/Attach(datum/target, _amount = RAD_MEDIUM_INSULATION, protects = TRUE, contamination_proof = TRUE)
 	. = ..()
 	if(!isatom(target))
-		return COMPONENT_INCOMPATIBLE
+		return ELEMENT_INCOMPATIBLE
 
 	if(protects) // Does this protect things in its contents from being affected?
 		RegisterSignal(target, COMSIG_ATOM_RAD_PROBE, .proc/rad_probe_react)

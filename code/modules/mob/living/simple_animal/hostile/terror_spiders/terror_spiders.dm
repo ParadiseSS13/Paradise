@@ -25,6 +25,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	icon_living = "terror_red"
 	icon_dead = "terror_red_dead"
 
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
+
 	// Health
 	maxHealth = 120
 	health = 120
@@ -38,6 +40,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 	// Movement
 	pass_flags = PASSTABLE
+	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	turns_per_move = 3 // number of turns before AI-controlled spiders wander around. No effect on actual player or AI movement speed!
 	move_to_delay = 6
 	// AI spider speed at chasing down targets. Higher numbers mean slower speed. Divide 20 (server tick rate / second) by this to get tiles/sec.
@@ -158,7 +161,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	// DEBUG OPTIONS & COMMANDS
 	var/spider_growinstantly = FALSE // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
 	var/spider_debug = FALSE
-
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: SHARED ATTACK CODE -----------------------
@@ -317,7 +320,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(stat == DEAD) // Can't use if(.) for this due to the fact it can sometimes return FALSE even when mob is alive.
 		if(prob(2))
 			// 2% chance every cycle to decompose
-			visible_message("<span class='notice'>\The dead body of the [src] decomposes!</span>")
+			visible_message("<span class='notice'>The dead body of [src] decomposes!</span>")
 			gib()
 	else
 		if(degenerate)
@@ -398,7 +401,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		to_chat(src, "<span class='warning'>Your type of spider is not strong enough to force open doors.</span>")
 	else
 		visible_message("<span class='danger'>[src] forces the door!</span>")
-		playsound(src.loc, "sparks", 100, 1)
+		playsound(src.loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(D.density)
 			D.open(TRUE)
 		else

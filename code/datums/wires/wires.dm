@@ -105,7 +105,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-		if(eyes && (COLOURBLIND in H.mutations)) // Check if the human has colorblindness.
+		if(eyes && HAS_TRAIT(H, TRAIT_COLORBLIND)) // Check if the human has colorblindness.
 			replace_colors = eyes.replace_colours // Get the colorblind replacement colors list.
 
 	var/list/wires_list = list()
@@ -209,7 +209,7 @@
 /**
  * Proc called to determine if the user can see wire define information, such as "Contraband", "Door Bolts", etc.
  *
- * If the user is an admin, or has a multitool which reveals wire information in their active hand, the proc returns TRUE.
+ * If the user is an admin, or has an item which reveals wire information in their active hand, the proc returns TRUE.
  *
  * Arguments:
  * * user - the mob who is interacting with the wires.
@@ -217,10 +217,9 @@
 /datum/wires/proc/can_see_wire_info(mob/user)
 	if(user.can_admin_interact())
 		return TRUE
-	else if(istype(user.get_active_hand(), /obj/item/multitool))
-		var/obj/item/multitool/M = user.get_active_hand()
-		if(M.shows_wire_information)
-			return TRUE
+	var/obj/item/held_item = user.get_active_hand()
+	if(istype(held_item) && HAS_TRAIT(held_item, TRAIT_SHOW_WIRE_INFO))
+		return TRUE
 	return FALSE
 
 /**

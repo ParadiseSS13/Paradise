@@ -118,8 +118,11 @@
 	//		null if object handles breathing logic for lifeform
 	//		datum/air_group to tell lifeform to process using that breath return
 	//DEFAULT: Take air from turf to give to have mob process
+
 	if(breath_request > 0)
-		return remove_air(breath_request)
+		var/datum/gas_mixture/environment = return_air()
+		var/breath_percentage = BREATH_VOLUME / environment.return_volume()
+		return remove_air(environment.total_moles() * breath_percentage)
 	else
 		return null
 
@@ -359,6 +362,7 @@ a {
 
 /obj/proc/cult_reveal() //Called by cult reveal spell and chaplain's bible
 	return
+
 
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.

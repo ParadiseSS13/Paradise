@@ -45,7 +45,7 @@
 	// Components
 	component_parts = list()
 	var/obj/item/circuitboard/smartfridge/board = new(null)
-	board.set_type(type)
+	board.set_type(null, type)
 	component_parts += board
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
@@ -133,7 +133,7 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/smartfridge/attackby(obj/item/O, var/mob/user)
+/obj/machinery/smartfridge/attackby(obj/item/O, mob/user)
 	if(exchange_parts(user, O))
 		SStgui.update_uis(src)
 		return

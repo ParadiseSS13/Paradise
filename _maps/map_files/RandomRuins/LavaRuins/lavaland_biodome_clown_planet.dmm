@@ -961,7 +961,7 @@
 /area/ruin/powered/clownplanet)
 "by" = (
 /obj/structure/table/glass,
-/obj/item/gun/magic/staff/slipping,
+/obj/item/gun/magic/wand/slipping,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/clownplanet)
 "bB" = (

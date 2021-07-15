@@ -36,35 +36,6 @@
 	var/mob/living/carbon/U = usr
 	U.unset_sting()
 
-/obj/screen/devil
-	invisibility = INVISIBILITY_ABSTRACT
-
-/obj/screen/devil/soul_counter
-	icon = 'icons/mob/screen_gen.dmi'
-	name = "souls owned"
-	icon_state = "Devil-6"
-	screen_loc = ui_devilsouldisplay
-
-/obj/screen/devil/soul_counter/proc/update_counter(souls = 0)
-	invisibility = 0
-	maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#FF0000'>[souls]</font></div>"
-	switch(souls)
-		if(0,null)
-			icon_state = "Devil-1"
-		if(1,2)
-			icon_state = "Devil-2"
-		if(3 to 5)
-			icon_state = "Devil-3"
-		if(6 to 8)
-			icon_state = "Devil-4"
-		if(9 to INFINITY)
-			icon_state = "Devil-5"
-		else
-			icon_state = "Devil-6"
-
-/obj/screen/devil/soul_counter/proc/clear()
-	invisibility = INVISIBILITY_ABSTRACT
-
 /obj/screen/ling/chems
 	name = "chemical storage"
 	icon_state = "power_display"
@@ -85,7 +56,7 @@
 /datum/hud/human
 	var/hud_alpha = 255
 
-/datum/hud/human/New(mob/living/carbon/human/owner, var/ui_style = 'icons/mob/screen_white.dmi', var/ui_color = "#ffffff", var/ui_alpha = 255)
+/datum/hud/human/New(mob/living/carbon/human/owner, ui_style = 'icons/mob/screen_white.dmi', ui_color = "#ffffff", ui_alpha = 255)
 	..()
 	owner.overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
 
@@ -371,9 +342,6 @@
 
 	lingstingdisplay = new /obj/screen/ling/sting()
 	infodisplay += lingstingdisplay
-
-	devilsouldisplay = new /obj/screen/devil/soul_counter
-	infodisplay += devilsouldisplay
 
 	zone_select =  new /obj/screen/zone_sel()
 	zone_select.color = ui_color

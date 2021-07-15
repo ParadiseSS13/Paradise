@@ -70,7 +70,7 @@
 		if(M.buffer && istype(M.buffer, /obj/machinery/telepad))
 			telepad = M.buffer
 			M.buffer = null
-			to_chat(user, "<span class = 'caution'>You upload the data from the [W.name]'s buffer.</span>")
+			to_chat(user, "<span class='notice'>You upload the data from [M]'s buffer.</span>")
 			updateUsrDialog()
 	else
 		return ..()
@@ -225,7 +225,7 @@
 				dest = target
 
 			flick("pad-beam", telepad)
-			playsound(telepad.loc, 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			playsound(telepad.loc, 'sound/weapons/emitter2.ogg', 25, TRUE)
 			for(var/atom/movable/ROI in source)
 				// if is anchored, don't let through
 				if(ROI.anchored)

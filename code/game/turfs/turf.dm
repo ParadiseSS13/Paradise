@@ -35,10 +35,6 @@
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
 
-	var/list/footstep_sounds
-	var/shoe_running_volume = 50
-	var/shoe_walking_volume = 20
-
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
@@ -81,11 +77,8 @@
 			qdel(A)
 		return
 	// Adds the adjacent turfs to the current atmos processing
-	for(var/direction in GLOB.cardinal)
-		if(atmos_adjacent_turfs & direction)
-			var/turf/simulated/T = get_step(src, direction)
-			if(istype(T))
-				SSair.add_to_active(T)
+	for(var/turf/simulated/T in atmos_adjacent_turfs)
+		SSair.add_to_active(T)
 	SSair.remove_from_active(src)
 	visibilityChanged()
 	QDEL_LIST(blueprint_data)
@@ -154,10 +147,16 @@
 		return FALSE
 
 	//Finally, check objects/mobs to block entry that are not on the border
+	var/atom/movable/tompost_bump
+	var/top_layer = FALSE
 	for(var/atom/movable/obstacle in large_dense)
 		if(!obstacle.CanPass(mover, mover.loc, 1) && (forget != obstacle))
-			mover.Bump(obstacle, TRUE)
-			return FALSE
+			if(obstacle.layer > top_layer)
+				tompost_bump = obstacle
+				top_layer = obstacle.layer
+	if(tompost_bump)
+		mover.Bump(tompost_bump, TRUE)
+		return FALSE
 	return TRUE //Nothing found to block so return success!
 
 /turf/Entered(atom/movable/M, atom/OL, ignoreRest = FALSE)
@@ -180,7 +179,7 @@
 // override for space turfs, since they should never hide anything
 /turf/space/levelupdate()
 	for(var/obj/O in src)
-		if(O.level == 1)
+		if(O.level == 1 && O.initialized) // Only do this if the object has initialized
 			O.hide(FALSE)
 
 // Removes all signs of lattice on the pos of the turf -Donkieyo
@@ -331,6 +330,20 @@
 /turf/proc/Bless()
 	flags |= NOJAUNT
 
+/turf/proc/clean(floor_only)
+	for(var/obj/effect/decal/cleanable/C in src)
+		var/obj/effect/decal/cleanable/blood/B = C
+		if(istype(B) && B.off_floor)
+			floor_only = FALSE
+		else
+			qdel(C)
+	color = initial(color)
+	if(floor_only)
+		clean_blood()
+
+	for(var/mob/living/simple_animal/slime/M in src)
+		M.adjustToxLoss(rand(5, 10))
+
 // Defined here to avoid runtimes
 /turf/proc/MakeDry(wet_setting = TURF_WET_WATER)
 	return
@@ -349,7 +362,7 @@
 
 // Returns the surrounding cardinal turfs with open links
 // Including through doors openable with the ID
-/turf/proc/CardinalTurfsWithAccess(var/obj/item/card/id/ID)
+/turf/proc/CardinalTurfsWithAccess(obj/item/card/id/ID)
 	var/list/L = new()
 	var/turf/simulated/T
 
@@ -404,7 +417,7 @@
 				L.Add(T)
 	return L
 
-// check for all turfs, including unsimulated ones
+// check for all turfs, including space ones
 /turf/proc/AdjacentTurfsSpace(obj/item/card/id/ID = null, list/closed)//check access if one is passed
 	var/list/L = new()
 	var/turf/T
@@ -508,15 +521,6 @@
 
 /turf/proc/can_lay_cable()
 	return can_have_cabling() & !intact
-
-/turf/ratvar_act(force, ignore_mobs, probability = 40)
-	. = (prob(probability) || force)
-	for(var/I in src)
-		var/atom/A = I
-		if(ignore_mobs && ismob(A))
-			continue
-		if(ismob(A) || .)
-			A.ratvar_act()
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon

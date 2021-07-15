@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	max_integrity = 350
 	integrity_failure = 80
 	rad_insulation = RAD_EXTREME_INSULATION
-	var/obj/item/tank/plasma/loaded_tank = null
+	var/obj/item/tank/internals/plasma/loaded_tank = null
 	var/stored_energy = 0
 	var/active = FALSE
 	var/locked = FALSE
@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 /obj/machinery/power/rad_collector/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/analyzer) && loaded_tank)
 		atmosanalyzer_scan(loaded_tank.air_contents, user)
-	else if(istype(I, /obj/item/tank/plasma))
+	else if(istype(I, /obj/item/tank/internals/plasma))
 		if(!anchored)
 			to_chat(user, "<span class='warning'>[src] needs to be secured to the floor first.</span>")
 			return TRUE
@@ -119,7 +119,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 /obj/machinery/power/rad_collector/proc/eject()
 	locked = FALSE
-	var/obj/item/tank/plasma/Z = loaded_tank
+	var/obj/item/tank/internals/plasma/Z = loaded_tank
 	if(!Z)
 		return
 	Z.forceMove(drop_location())
