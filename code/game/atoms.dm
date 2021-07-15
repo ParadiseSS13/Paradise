@@ -413,6 +413,9 @@
 /atom/proc/emag_act()
 	return
 
+/atom/proc/unemag()
+	return
+
 /**
  * Respond to a radioactive wave hitting this atom
  *
@@ -941,9 +944,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/narsie_act()
 	return
 
-/atom/proc/ratvar_act()
-	return
-
 /**
  * Respond to an electric bolt action on our item
  *
@@ -1072,7 +1072,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	Returning TRUE here will override the above proc's result.
 */
 /atom/proc/CanAStarPassTo(ID, dir, obj/destination)
-	return TRUE
+	return FALSE
 
 /** Call this when you want to present a renaming prompt to the user.
 
@@ -1139,3 +1139,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		else
 			name = "[prefix][t]"
 	return t
+
+/atom/proc/set_angle(degrees)
+	var/matrix/M = matrix()
+	M.Turn(degrees)
+	// If we aint 0, make it NN transform
+	if(degrees)
+		appearance_flags |= PIXEL_SCALE
+	transform = M

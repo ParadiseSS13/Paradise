@@ -21,7 +21,7 @@
 	roundstart = FALSE
 	important_info = "Follow your objectives, do not make the station inhospitable or try and kill crew."
 	flavour_text = "You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate."
-	description = {" Your goal is to create more of yourself by consuming the station. Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful. Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.
+	description = {"Your goal is to create more of yourself by consuming the station. Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful. Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.
 	Objectives:
 	1. Consume resources and replicate until there are no more resources left.
 	2. Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable.
@@ -112,6 +112,7 @@
 	to_chat(src, "1. Consume resources and replicate until there are no more resources left.")
 	to_chat(src, "2. Ensure that the station is fit for invasion at a later date, do not perform actions that would render it dangerous or inhospitable.")
 	to_chat(src, "3. Biological and sentient resources will be harvested at a later date, do not harm them.")
+	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Swarmer)</span>")
 
 /mob/living/simple_animal/hostile/swarmer/New()
 	..()
@@ -328,6 +329,14 @@
 	return FALSE
 
 /obj/machinery/portable_atmospherics/canister/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
+	return FALSE
+
+/obj/structure/fans/tiny/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
+	return FALSE
+
+/obj/structure/holosign/barrier/atmos/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
 	return FALSE
 
