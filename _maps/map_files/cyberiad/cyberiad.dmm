@@ -25289,16 +25289,18 @@
 	},
 /area/hallway/primary/central/north)
 "bdw" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
-	},
 /obj/item/flag/nt,
-/obj/machinery/power/apc{
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = 25
+	},
+/obj/structure/sign/directions/science{
+	dir = 4;
+	pixel_y = 32
+	},
+/obj/structure/sign/directions/security{
 	dir = 1;
-	name = "north bump";
-	pixel_y = 24
+	pixel_y = 39
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -26842,13 +26844,17 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/sign/directions/evac{
+/obj/structure/sign/directions/cargo{
 	dir = 4;
-	pixel_y = 24
+	pixel_y = 25
 	},
-/obj/structure/sign/directions/medical{
+/obj/structure/sign/directions/bridge{
 	dir = 4;
 	pixel_y = 32
+	},
+/obj/structure/sign/directions/security{
+	dir = 4;
+	pixel_y = 39
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -27142,12 +27148,6 @@
 	},
 /area/hallway/primary/central/nw)
 "bgW" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "L11"
 	},
@@ -28069,6 +28069,11 @@
 	},
 /area/ai_monitored/storage/eva)
 "biO" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	desc = "";
 	icon_state = "L13"
@@ -28783,6 +28788,17 @@
 	icon_state = "4-8";
 	tag = ""
 	},
+/obj/structure/sign/directions/cargo{
+	pixel_y = -39
+	},
+/obj/structure/sign/directions/bridge{
+	dir = 4;
+	pixel_y = -32
+	},
+/obj/structure/sign/directions/security{
+	dir = 4;
+	pixel_y = -25
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
 "bkr" = (
@@ -28913,23 +28929,20 @@
 	},
 /area/hallway/primary/central/north)
 "bkC" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+/obj/machinery/door/firedoor,
+/obj/structure/sign/directions/engineering{
+	pixel_y = -39
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+/obj/structure/sign/directions/science{
+	dir = 4;
+	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = -25
 	},
-/area/hallway/primary/central/north)
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central/east)
 "bkD" = (
 /obj/item/stack/rods{
 	amount = 10
@@ -30146,12 +30159,6 @@
 	},
 /area/hallway/primary/central/north)
 "bni" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -30183,6 +30190,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	desc = "";
@@ -31212,6 +31224,11 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -35528,18 +35545,12 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
 "bzc" = (
-/obj/structure/sign/directions/evac{
-	dir = 4
-	},
-/obj/structure/sign/directions/medical{
+/obj/machinery/status_display{
 	dir = 4;
-	pixel_y = 7
+	pixel_y = -32
 	},
-/obj/structure/sign/directions/science{
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/crew_quarters/bar)
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/starboard/east)
 "bzd" = (
 /turf/simulated/floor/plasteel{
 	desc = "\"This is a plaque in honour of those who died in the great space lube airlock incident.\" Scratched in beneath that is a crude image of a clown and a spaceman. The spaceman is slipping. The clown is laughing.";
@@ -36005,6 +36016,18 @@
 /area/hallway/primary/central/east)
 "bAg" = (
 /obj/machinery/door/firedoor,
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_y = 25
+	},
+/obj/structure/sign/directions/bridge{
+	dir = 1;
+	pixel_y = 32
+	},
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_y = 39
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/east)
 "bAh" = (
@@ -38006,10 +38029,6 @@
 /turf/simulated/wall,
 /area/quartermaster/storage)
 "bFn" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -38018,6 +38037,17 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/sign/directions/science{
+	pixel_y = 25
+	},
+/obj/structure/sign/directions/medical{
+	dir = 8;
+	pixel_y = 32
+	},
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_y = 39
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
@@ -38602,11 +38632,22 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bGt" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/area/medical/reception)
+/obj/structure/sign/directions/engineering{
+	pixel_y = -39
+	},
+/obj/structure/sign/directions/cargo{
+	dir = 8;
+	pixel_y = -32
+	},
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = -25
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central/south)
 "bGu" = (
 /obj/machinery/computer/rdconsole/robotics,
 /obj/machinery/alarm{
@@ -52911,18 +52952,6 @@
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"che" = (
-/obj/structure/sign/directions/engineering,
-/obj/structure/sign/directions/science{
-	dir = 4;
-	pixel_y = -7
-	},
-/obj/structure/sign/directions/medical{
-	dir = 4;
-	pixel_y = 7
-	},
-/turf/simulated/wall,
-/area/janitor)
 "chf" = (
 /turf/simulated/wall,
 /area/maintenance/asmaint)
@@ -77104,13 +77133,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
-"dco" = (
-/obj/structure/sign/directions/security{
-	dir = 1;
-	pixel_y = 7
-	},
-/turf/simulated/wall,
-/area/crew_quarters/mrchangs)
 "dcp" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -79858,6 +79880,15 @@
 /area/space/nearstation)
 "dje" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 24
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "blue"
@@ -115424,11 +115455,11 @@ aDN
 aDN
 aDN
 aDN
-dco
+aDN
 bdw
 bgW
 bni
-bkC
+bkz
 kwt
 aYf
 aYg
@@ -115457,8 +115488,8 @@ bFC
 bFC
 cex
 cgj
-cfv
-che
+bGt
+chc
 chc
 chc
 chc
@@ -119549,10 +119580,10 @@ bsN
 aUS
 bsN
 aUS
-bzc
+aUS
 bAg
 bHr
-bAg
+bkC
 bEp
 bEp
 bEp
@@ -122640,7 +122671,7 @@ bDb
 bEp
 aVx
 bDg
-bGt
+bNz
 bJP
 bEo
 bEo
@@ -129575,7 +129606,7 @@ bau
 bau
 bFn
 bHI
-bwv
+bzc
 bEA
 bEA
 bIa
