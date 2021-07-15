@@ -85104,6 +85104,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"ocz" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/suit_storage_unit/engine,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "omz" = (
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
@@ -85816,6 +85821,11 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"vSw" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/floodlight,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "vUG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -85907,12 +85917,6 @@
 /obj/machinery/floodlight,
 /turf/simulated/floor/plating,
 /area/storage/secure)
-"wMG" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
-	},
-/area/medical/reception)
 "wQr" = (
 /obj/machinery/light,
 /turf/simulated/floor/plating,
@@ -85995,6 +85999,10 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"xBj" = (
+/obj/structure/lattice,
+/turf/simulated/wall/r_wall,
+/area/storage/secure)
 "xGn" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/structure/cable{
@@ -110664,8 +110672,8 @@ dar
 dar
 dar
 dar
-aaa
-aaa
+dar
+dar
 aaa
 aab
 aaa
@@ -110920,9 +110928,9 @@ ddG
 dcN
 djs
 diK
-dar
-aab
-aab
+wHf
+wHf
+xBj
 dhf
 rlX
 dhf
@@ -111177,9 +111185,9 @@ cPk
 cQj
 cQJ
 cQJ
+vSw
+vSw
 dar
-aaa
-aaa
 djb
 djb
 djb
@@ -111434,9 +111442,9 @@ cYq
 pUZ
 dcP
 dcP
+dcP
+dcP
 dar
-aaa
-aaa
 djb
 djb
 djb
@@ -111691,9 +111699,9 @@ cYs
 cZG
 dcr
 dcP
-dar
-aab
-aab
+dcP
+dcP
+xBj
 djb
 djb
 djb
@@ -111948,9 +111956,9 @@ cYr
 dcP
 daK
 dtw
+ocz
+ocz
 dar
-aaa
-aaa
 djb
 djb
 djb
@@ -122435,7 +122443,7 @@ bOF
 bLB
 bNr
 bPm
-wMG
+bNz
 can
 crA
 bZJ
