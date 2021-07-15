@@ -3,21 +3,22 @@ import { NoticeBox, Flex, LabeledList, Section } from "../components";
 import { Window } from "../layouts";
 import { capitalize } from 'common/string';
 
+const getDamageColor = (damage, maxDamage) => {
+  let damageRatio = damage / maxDamage;
+  if (damageRatio <= 0.20) {
+    return "good";
+  }
+  else if (damageRatio <= 0.50) {
+    return "average";
+  }
+  else {
+    return "bad";
+  }
+};
+
 export const RobotSelfDiagnosis = (props, context) => {
   const { data } = useBackend(context);
   const { component_data } = data;
-  const getDamageColor = (damage, maxDamage) => {
-    let damageRatio = damage / maxDamage;
-    if (damageRatio <= 0.20) {
-      return "good";
-    }
-    else if (damageRatio <= 0.50) {
-      return "average";
-    }
-    else {
-      return "bad";
-    }
-  };
   return (
     <Window>
       <Window.Content scrollable>
