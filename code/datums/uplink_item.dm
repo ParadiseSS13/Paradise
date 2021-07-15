@@ -1017,6 +1017,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 11
 	surplus = 0
 	cant_discount = TRUE
+	hijack_only = TRUE
 
 /datum/uplink_item/explosives/emp_bomb
 	name = "EMP bomb"

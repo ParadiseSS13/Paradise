@@ -145,7 +145,6 @@
 /area/ruin/space/ancientstation/hivebot)
 "ay" = (
 /obj/structure/shuttle/engine/large{
-	icon_state = "large_engine";
 	dir = 4
 	},
 /turf/simulated/wall,
@@ -257,8 +256,8 @@
 "aO" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "arrivalcorner";
-	dir = 1
+	dir = 1;
+	icon_state = "arrivalcorner"
 	},
 /area/ruin/space/ancientstation/comm)
 "aP" = (
@@ -412,8 +411,8 @@
 	name = "Broken Computer"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "blue";
-	dir = 8
+	dir = 8;
+	icon_state = "blue"
 	},
 /area/ruin/space/ancientstation/comm)
 "bj" = (
@@ -423,8 +422,8 @@
 	name = "Broken Computer"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "blue";
-	dir = 4
+	dir = 4;
+	icon_state = "blue"
 	},
 /area/ruin/space/ancientstation/comm)
 "bk" = (
@@ -436,8 +435,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "blue";
-	dir = 8
+	dir = 8;
+	icon_state = "blue"
 	},
 /area/ruin/space/ancientstation/comm)
 "bl" = (
@@ -688,7 +687,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/arrow{
-	icon_state = "4";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -921,7 +919,6 @@
 /area/template_noop)
 "cD" = (
 /obj/structure/cable/yellow{
-	d1 = 0;
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -965,7 +962,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "cJ" = (
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1116,8 +1112,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "blue";
-	dir = 10
+	dir = 10;
+	icon_state = "blue"
 	},
 /area/ruin/space/ancientstation/comm)
 "dd" = (
@@ -1208,7 +1204,6 @@
 "dp" = (
 /obj/machinery/power/solar,
 /obj/structure/cable/yellow{
-	d1 = 0;
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -1219,7 +1214,6 @@
 	dir = 8
 	},
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1372,8 +1366,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
-	icon_state = "blue";
-	dir = 10
+	dir = 10;
+	icon_state = "blue"
 	},
 /area/ruin/space/ancientstation/comm)
 "dM" = (
@@ -1470,9 +1464,9 @@
 /area/ruin/space/ancientstation)
 "dX" = (
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	pixel_y = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc{
@@ -1495,8 +1489,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 1
+	dir = 1;
+	icon_state = "red"
 	},
 /area/ruin/space/ancientstation/sec)
 "ea" = (
@@ -1557,7 +1551,6 @@
 /area/ruin/space/ancientstation/rnd)
 "eg" = (
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1597,8 +1590,8 @@
 /obj/machinery/recharger,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 5
+	dir = 5;
+	icon_state = "red"
 	},
 /area/ruin/space/ancientstation/sec)
 "em" = (
@@ -1741,7 +1734,6 @@
 /area/ruin/space/ancientstation/engi)
 "eD" = (
 /obj/structure/cable/yellow{
-	d1 = 0;
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -1753,9 +1745,9 @@
 /area/ruin/space/ancientstation/engi)
 "eE" = (
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	pixel_y = 1
 	},
 /obj/machinery/power/smes/engineering{
 	charge = 0
@@ -1792,8 +1784,8 @@
 "eI" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "redcorner";
-	dir = 4
+	dir = 4;
+	icon_state = "redcorner"
 	},
 /area/ruin/space/ancientstation/sec)
 "eJ" = (
@@ -1822,7 +1814,6 @@
 /area/template_noop)
 "eL" = (
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1835,8 +1826,8 @@
 	report_danger_level = 0
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "blue";
-	dir = 4
+	dir = 4;
+	icon_state = "blue"
 	},
 /area/ruin/space/ancientstation/comm)
 "eM" = (
@@ -1870,8 +1861,8 @@
 "eR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 1
+	dir = 1;
+	icon_state = "red"
 	},
 /area/ruin/space/ancientstation/sec)
 "eS" = (
@@ -1993,8 +1984,8 @@
 /obj/item/book/manual/security_space_law,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 5
+	dir = 5;
+	icon_state = "red"
 	},
 /area/ruin/space/ancientstation/sec)
 "fh" = (
@@ -2065,7 +2056,6 @@
 /area/ruin/space/ancientstation/rnd)
 "fp" = (
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2377,8 +2367,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellow";
-	dir = 5
+	dir = 5;
+	icon_state = "yellow"
 	},
 /area/ruin/space/ancientstation/engi)
 "fQ" = (
@@ -2576,22 +2566,21 @@
 "ge" = (
 /obj/structure/table,
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	pixel_y = 1
 	},
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "Charlie Security APC";
 	pixel_x = -24;
 	report_power_alarm = 0;
-	shock_proof = 0;
 	start_charge = 0
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 9
+	dir = 9;
+	icon_state = "red"
 	},
 /area/ruin/space/ancientstation/sec)
 "gf" = (
@@ -2712,8 +2701,8 @@
 /obj/item/flash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 4
+	dir = 4;
+	icon_state = "red"
 	},
 /area/ruin/space/ancientstation/sec)
 "gw" = (
@@ -2842,8 +2831,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 4
+	dir = 4;
+	icon_state = "red"
 	},
 /area/ruin/space/ancientstation/sec)
 "gO" = (
@@ -2874,8 +2863,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "redcorner";
-	dir = 1
+	dir = 1;
+	icon_state = "redcorner"
 	},
 /area/ruin/space/ancientstation/sec)
 "gR" = (
@@ -2907,7 +2896,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "gU" = (
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2990,8 +2978,8 @@
 "he" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 4
+	dir = 4;
+	icon_state = "red"
 	},
 /area/ruin/space/ancientstation/sec)
 "hf" = (
@@ -3012,7 +3000,6 @@
 "hh" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whitecorner"
 	},
 /area/ruin/space/ancientstation/rnd)
@@ -3077,8 +3064,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellow";
-	dir = 8
+	dir = 8;
+	icon_state = "yellow"
 	},
 /area/ruin/space/ancientstation/engi)
 "hp" = (
@@ -3239,15 +3226,15 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellow";
-	dir = 8
+	dir = 8;
+	icon_state = "yellow"
 	},
 /area/ruin/space/ancientstation)
 "hD" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "green";
-	dir = 8
+	dir = 8;
+	icon_state = "green"
 	},
 /area/ruin/space/ancientstation/hydroponics)
 "hE" = (
@@ -3267,16 +3254,16 @@
 "hF" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "green";
-	dir = 4
+	dir = 4;
+	icon_state = "green"
 	},
 /area/ruin/space/ancientstation/hydroponics)
 "hG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "cautioncorner";
-	dir = 4
+	dir = 4;
+	icon_state = "cautioncorner"
 	},
 /area/ruin/space/ancientstation/engi)
 "hH" = (
@@ -3323,8 +3310,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 4
+	dir = 4;
+	icon_state = "red"
 	},
 /area/ruin/space/ancientstation/sec)
 "hL" = (
@@ -3348,8 +3335,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "green";
-	dir = 8
+	dir = 8;
+	icon_state = "green"
 	},
 /area/ruin/space/ancientstation/hydroponics)
 "hN" = (
@@ -3499,9 +3486,9 @@
 /area/ruin/space/ancientstation/kitchen)
 "id" = (
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	pixel_y = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc{
@@ -3591,7 +3578,6 @@
 /area/ruin/space/ancientstation/rnd)
 "im" = (
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3618,7 +3604,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 0;
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -3627,9 +3612,9 @@
 /area/ruin/space/ancientstation/engi)
 "ir" = (
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	pixel_y = 1
 	},
 /obj/machinery/power/smes/engineering{
 	charge = 0
@@ -3669,7 +3654,6 @@
 /area/ruin/space/ancientstation)
 "iw" = (
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4111,8 +4095,7 @@
 	req_access_txt = "271"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 2
+	icon_state = "whitehall"
 	},
 /area/ruin/space/ancientstation/proto)
 "jv" = (
@@ -4123,8 +4106,7 @@
 	req_access_txt = "271"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 2
+	icon_state = "whitehall"
 	},
 /area/ruin/space/ancientstation/proto)
 "jw" = (
@@ -4202,7 +4184,6 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc{
-	dir = 2;
 	name = "Charlie Kitchen APC";
 	pixel_y = -24;
 	report_power_alarm = 0;
@@ -4380,7 +4361,6 @@
 "jY" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /obj/item/paper/fluff/ruins/oldstation/protosing,
@@ -4560,7 +4540,6 @@
 "kt" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /obj/item/paper/fluff/ruins/oldstation/protogun,
@@ -4669,7 +4648,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/arrow{
-	icon_state = "4";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -4907,13 +4885,12 @@
 "lj" = (
 /obj/machinery/alarm{
 	dir = 1;
-	icon_state = "alarm0";
 	pixel_y = -22
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "greencorner";
-	dir = 8
+	dir = 8;
+	icon_state = "greencorner"
 	},
 /area/ruin/space/ancientstation/hydroponics)
 "lk" = (
@@ -4922,8 +4899,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "green";
-	dir = 4
+	dir = 4;
+	icon_state = "green"
 	},
 /area/ruin/space/ancientstation/hydroponics)
 "ll" = (
@@ -4938,8 +4915,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 4
+	dir = 4;
+	icon_state = "red"
 	},
 /area/ruin/space/ancientstation/sec)
 "ln" = (
@@ -4961,8 +4938,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 4
+	dir = 4;
+	icon_state = "red"
 	},
 /area/ruin/space/ancientstation/sec)
 "lp" = (
@@ -4973,7 +4950,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "yellowcorner"
 	},
 /area/ruin/space/ancientstation/engi)
@@ -5009,8 +4985,8 @@
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "yellow";
-	dir = 8
+	dir = 8;
+	icon_state = "yellow"
 	},
 /area/ruin/space/ancientstation/engi)
 "lt" = (
@@ -5047,8 +5023,8 @@
 /obj/item/storage/backpack/old,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 4
+	dir = 4;
+	icon_state = "red"
 	},
 /area/ruin/space/ancientstation/sec)
 "lw" = (
@@ -5168,7 +5144,6 @@
 "lG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "redcorner"
 	},
 /area/ruin/space/ancientstation/sec)
@@ -5185,8 +5160,8 @@
 /obj/item/clothing/mask/gas,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 6
+	dir = 6;
+	icon_state = "red"
 	},
 /area/ruin/space/ancientstation/sec)
 "lJ" = (
@@ -5220,8 +5195,8 @@
 /obj/item/clothing/head/helmet/old,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 6
+	dir = 6;
+	icon_state = "red"
 	},
 /area/ruin/space/ancientstation/sec)
 "lN" = (
