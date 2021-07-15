@@ -113,6 +113,7 @@
 			updateUsrDialog()
 		else if(check_ass())
 			to_chat(ass, "<span class='notice'>You feel a slight pressure on your ass.</span>")
+			atom_say("Attention: Unable to remove large object!")
 			updateUsrDialog()
 	else if(href_list["min"])
 		if(copies > 1)
@@ -240,6 +241,7 @@
 	var/icon/temp_img
 	if(!check_ass()) //You have to be sitting on the copier and either be a xeno or a human without clothes on.
 		return
+	atom_say("Attention: Posterior Placed on Printing Plaque!")
 	if(emagged)
 		if(ishuman(ass))
 			var/mob/living/carbon/human/H = ass
@@ -314,7 +316,6 @@
 			toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)
-	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.
 	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || target == ass)
 		return
 	src.add_fingerprint(user)
@@ -332,7 +333,7 @@
 		copyitem = null
 	updateUsrDialog()
 
-/obj/machinery/photocopier/proc/check_ass() //I'm not sure wether I made this proc because it's good form or because of the name.
+/obj/machinery/photocopier/proc/check_ass() //I'm not sure whether I made this proc because it's good form or because of the name.
 	if(!ass)
 		return 0
 	if(ass.loc != src.loc)
@@ -341,7 +342,6 @@
 		return 0
 	else
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
-		atom_say("Attention: Posterior Placed on Printing Plaque!")
 		return 1
 
 /obj/machinery/photocopier/emag_act(user as mob)

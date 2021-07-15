@@ -9,6 +9,7 @@
 	action_background_icon_state = "bg_vampire"
 	var/required_blood = 0
 	var/gain_desc = null
+	var/deduct_blood_on_cast = TRUE  //Do we want to take the blood when this is cast, or at a later point?
 
 /obj/effect/proc_holder/spell/vampire/New()
 	..()
@@ -99,6 +100,8 @@
 	var/datum/vampire/vampire = usr.mind.vampire
 
 	if(required_blood <= vampire.bloodusable)
+		if(!deduct_blood_on_cast) //don't take the blood yet if this is false!
+			return
 		vampire.bloodusable -= required_blood
 	else
 		// stop!!
@@ -288,8 +291,10 @@
 	gain_desc = "You have gained the Enthrall ability which at a heavy blood cost allows you to enslave a human that is not loyal to any other for a random period of time."
 	action_icon_state = "vampire_enthrall"
 	required_blood = 300
+	deduct_blood_on_cast = FALSE
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/cast(list/targets, mob/user = usr)
+	var/datum/vampire/vampire = user.mind.vampire
 	for(var/mob/living/target in targets)
 		user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
 		to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
@@ -299,6 +304,7 @@
 		if(do_mob(user, target, 50))
 			if(can_enthrall(user, target))
 				handle_enthrall(user, target)
+				vampire.bloodusable -= required_blood //we take the blood after enthralling, not before
 			else
 				revert_cast(user)
 				to_chat(user, "<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>")
@@ -418,7 +424,7 @@
 	name = "Mist Form (30)"
 	desc = "You take on the form of mist for a short period of time."
 	gain_desc = "You have gained the Mist Form ability which allows you to take on the form of mist for a short period and pass over any obstacle in your path."
-	action_icon_state = "jaunt"
+	action_icon_state = "mist"
 	charge_max = 600
 	required_blood = 30
 	centcom_cancast = 0
@@ -430,28 +436,23 @@
 		var/originalloc = get_turf(user.loc)
 		var/obj/effect/dummy/spell_jaunt/holder = new /obj/effect/dummy/spell_jaunt(originalloc)
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(originalloc)
-		animation.name = "water"
+		animation.name = "blood"
 		animation.density = 0
 		animation.anchored = 1
 		animation.icon = 'icons/mob/mob.dmi'
-		animation.icon_state = "liquify"
+		animation.icon_state = "empty"
 		animation.layer = 5
 		animation.master = holder
 		U.ExtinguishMob()
-		flick("liquify", animation)
+		flick("mist", animation)
 		user.forceMove(holder)
 		user.client.eye = holder
-		var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()
-		steam.set_up(10, 0, originalloc)
-		steam.start()
 		sleep(jaunt_duration)
 		var/mobloc = get_turf(user.loc)
 		animation.loc = mobloc
-		steam.location = mobloc
-		steam.start()
 		user.canmove = 0
 		sleep(20)
-		flick("reappear",animation)
+		flick("mist_reappear", animation)
 		sleep(5)
 		if(!user.Move(mobloc))
 			for(var/direction in list(1,2,4,8,5,6,9,10))
@@ -470,7 +471,7 @@
 	name = "Shadowstep (30)"
 	desc = "Vanish into the shadows."
 	gain_desc = "You have gained the ability to shadowstep, which makes you disappear into nearby shadows at the cost of blood."
-	action_icon_state = "blink"
+	action_icon_state = "shadowblink"
 	charge_max = 20
 	required_blood = 30
 	centcom_cancast = 0

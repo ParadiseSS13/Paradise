@@ -28,5 +28,5 @@
 	return TRUE
 
 /obj/item/mounted/frame/apc_frame/do_build(turf/on_wall, mob/user)
-	new /obj/machinery/power/apc(get_turf(src), get_dir(user, on_wall), 1)
+	new /obj/machinery/power/apc(get_turf(src), get_dir(user, on_wall), TRUE)
 	qdel(src)

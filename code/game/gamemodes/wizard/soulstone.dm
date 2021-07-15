@@ -257,17 +257,18 @@
 		return ..()
 
 ////////////////////////////Proc for moving soul in and out off stone//////////////////////////////////////
-
+// this whole proc is pain
 /obj/item/soulstone/proc/transfer_soul(choice, target, mob/user)
 	switch(choice)
 		if("FORCE")
 			var/mob/living/T = target
-			if(T.client != null)
+			T.grab_ghost(FALSE) // If they haven't DC'd or ahudded, put them back in their body
+			if(T.client) // If there's someone in the body
 				init_shade(T, user)
-			else
+			else // Poll ghosts
 				to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
 				T.Paralyse(20)
-				if(!get_cult_ghost(T, user))
+				if(!get_cult_ghost(T, user, TRUE))
 					T.dust() //If we can't get a ghost, kill the sacrifice anyway.
 
 		if("VICTIM")
@@ -280,7 +281,7 @@
 				else
 					if(T.client == null)
 						to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
-						get_cult_ghost(T, user)
+						get_cult_ghost(T, user, get_new_player = !T.ghost_can_reenter())
 					else
 						if(length(contents))
 							to_chat(user, "<span class='danger'>Capture failed!</span> The soul stone is full! Use or free an existing soul to make room.")
@@ -365,7 +366,7 @@
 	qdel(SS)
 
 /proc/make_new_construct(mob/living/simple_animal/hostile/construct/c_type, mob/target, mob/user, cult_override = FALSE)
-	if(jobban_isbanned(target, "cultist"))
+	if(jobban_isbanned(target, ROLE_CULTIST))
 		return
 	var/mob/living/simple_animal/hostile/construct/C = new c_type(get_turf(target))
 	C.faction |= "\ref[user]"
@@ -417,13 +418,14 @@
 		return /mob/living/simple_animal/shade/holy
 	return /mob/living/simple_animal/shade/cult
 
-/obj/item/soulstone/proc/get_cult_ghost(mob/living/M, mob/user)
+/obj/item/soulstone/proc/get_cult_ghost(mob/living/M, mob/user, get_new_player = FALSE)
 	var/mob/dead/observer/chosen_ghost
 
-	for(var/mob/dead/observer/ghost in GLOB.player_list) // We put them back in their body
-		if(ghost.mind && ghost.mind.current == M && ghost.client)
-			chosen_ghost = ghost
-			break
+	if(!get_new_player)
+		for(var/mob/dead/observer/ghost in GLOB.player_list) // We put them back in their body
+			if(ghost.mind && ghost.mind.current == M && ghost.client)
+				chosen_ghost = ghost
+				break
 
 	if(!chosen_ghost) // Failing that, we grab a ghost
 		var/list/consenting_candidates

@@ -28,7 +28,6 @@
 /area/shuttle/freegolem)
 "h" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater";
 	dir = 4
 	},
 /obj/structure/window/reinforced{
@@ -105,8 +104,7 @@
 	name = "statue of the Liberator"
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
@@ -153,8 +151,7 @@
 /area/shuttle/freegolem)
 "C" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+	dir = 4
 	},
 /obj/structure/table/wood,
 /obj/item/bedsheet/rd/royal_cape{
@@ -172,7 +169,6 @@
 "D" = (
 /obj/machinery/light,
 /obj/structure/chair/comfy/purp{
-	icon_state = "comfychair";
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/purple,

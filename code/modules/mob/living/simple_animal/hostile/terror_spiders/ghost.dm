@@ -28,8 +28,8 @@
 		error_on_humanize = "Dead spiders are not player-controllable."
 	else if(!(user in GLOB.respawnable_list))
 		error_on_humanize = "You are not able to rejoin the round."
-	if(jobban_isbanned(user, "Syndicate") || jobban_isbanned(user, "alien"))
-		to_chat(user,"You are jobbanned from role of syndicate and/or alien lifeform.")
+	if(jobban_isbanned(user, ROLE_SYNDICATE) || jobban_isbanned(user, ROLE_TSPIDER))
+		to_chat(user, "<span class='warning'>You are jobbanned from role of syndicate and/or terror spider.</span>")
 		return
 	if(error_on_humanize == "")
 		var/spider_ask = alert(humanize_prompt, "Join as Terror Spider?", "Yes", "No")

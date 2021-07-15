@@ -114,6 +114,10 @@
 	machine_name = "Robco Tool Maker"
 	icon_state = "refill_engi"
 
+/obj/item/vending_refill/youtool
+	machine_name = "YouTool"
+	icon_state = "refill_engi"
+
 /obj/item/vending_refill/engivend
 	machine_name = "Engi-Vend"
 	icon_state = "refill_engi"
