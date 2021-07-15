@@ -85109,6 +85109,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
 /turf/simulated/wall/r_wall,
 /area/tcommsat/chamber)
+"oQa" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "blue"
+	},
+/area/hallway/primary/starboard/west)
 "oQe" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/hatch{
@@ -120319,7 +120326,7 @@ aVG
 aUS
 cMK
 bHy
-bAk
+bDa
 bEp
 aTV
 bDf
@@ -122889,7 +122896,7 @@ bdT
 bdT
 bAk
 bHy
-bDb
+oQa
 bNe
 aVI
 bDj
