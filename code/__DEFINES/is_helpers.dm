@@ -61,6 +61,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
 
+#define is_ancient_rock(A) (istype(A, /turf/simulated/mineral/ancient))
+
 //Mobs
 #define isliving(A) (istype(A, /mob/living))
 
@@ -91,4 +93,3 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isclient(A) istype(A, /client)
 #define isradio(A) istype(A, /obj/item/radio)
 #define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
-

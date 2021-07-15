@@ -166,6 +166,10 @@
 			src = M
 			M.levelupdate()
 
+/turf/simulated/mineral/ancient
+	name = "ancient rock"
+	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
+
 /turf/simulated/mineral/random/high_chance
 	icon_state = "rock_highchance"
 	mineralChance = 25

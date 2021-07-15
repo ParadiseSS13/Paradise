@@ -34,6 +34,7 @@
 	power_light = FALSE
 	outdoors = TRUE
 	ambientsounds = MINING_SOUNDS
+	sound_environment = SOUND_AREA_ASTEROID
 	flags = NONE
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS

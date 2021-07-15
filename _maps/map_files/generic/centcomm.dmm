@@ -574,6 +574,7 @@
 	name = "Shuttle Hatch";
 	req_access_txt = "31"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/supply)
 "cw" = (
@@ -3604,6 +3605,13 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"nm" = (
+/obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor/west{
+	id = "QMLoad3"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
 "no" = (
 /obj/machinery/sleeper{
 	dir = 4
@@ -4109,6 +4117,7 @@
 	opacity = 1;
 	req_access_txt = "114"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4282,6 +4291,7 @@
 /area/centcom/specops)
 "pn" = (
 /obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating,
 /area/shuttle/gamma/space)
 "po" = (
@@ -5406,6 +5416,7 @@
 	id_tag = "ferry_away";
 	name = "Ferry Airlock"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating,
 /area/centcom/ferry)
 "te" = (
@@ -5596,6 +5607,7 @@
 	opacity = 0;
 	req_access_txt = "106"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating,
 /area/centcom/evac)
 "tF" = (
@@ -5770,6 +5782,7 @@
 	name = "supply centcom";
 	width = 12
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/supply)
 "tX" = (
@@ -9657,6 +9670,13 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/ert,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
+"JW" = (
+/obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor/east{
+	id = "QMLoad4"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
 "Kb" = (
 /obj/machinery/light/spot,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -11077,6 +11097,20 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
+/obj/machinery/door_control{
+	id = "QMLoaddoor4";
+	layer = 3;
+	name = "Loading Doors";
+	pixel_x = -24;
+	pixel_y = 8
+	},
+/obj/machinery/door_control{
+	id = "QMLoaddoor3";
+	layer = 3;
+	name = "Loading Doors";
+	pixel_x = -24;
+	pixel_y = -8
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
 "SI" = (
@@ -11520,10 +11554,12 @@
 /area/centcom/specops)
 "VD" = (
 /obj/effect/decal/warning_stripes/southwest,
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "VE" = (
 /obj/effect/decal/warning_stripes/southeast,
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "VH" = (
@@ -12070,6 +12106,15 @@
 	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
+"YZ" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "specops_away";
+	name = "Shuttle Hatch";
+	req_access_txt = "109"
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/plasteel,
+/area/centcom/control)
 "Za" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 8
@@ -32694,11 +32739,11 @@ qI
 YM
 YM
 YM
+JW
+cv
 YM
-YM
-YM
-YM
-YM
+cv
+nm
 YM
 YM
 YM
@@ -39081,7 +39126,7 @@ aN
 aN
 aN
 sq
-oX
+YZ
 sq
 aN
 aN
