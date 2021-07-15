@@ -32,7 +32,6 @@ PROCESSING_SUBSYSTEM_DEF(radiation)
 	// turf_rad_cache is the state in the current loop, and may not be 100% representative
 	// until processing is complete.
 	// prev_rad_cache is the fully evaluated radiation state cache from the previous tick.
-	var/has_refreshed_cache = FALSE
 	var/list/turf_rad_cache = list()
 	var/list/prev_rad_cache = list()
 
