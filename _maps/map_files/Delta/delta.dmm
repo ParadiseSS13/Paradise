@@ -1801,7 +1801,7 @@
 "ajD" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/toy/figure/assistant,
+/obj/item/toy/figure/crew/assistant,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "ajF" = (
@@ -6509,7 +6509,7 @@
 /area/maintenance/fsmaint)
 "avr" = (
 /obj/structure/table/wood,
-/obj/item/toy/figure/wizard,
+/obj/item/toy/figure/crew/wizard,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -8191,7 +8191,7 @@
 "ayn" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/toy/figure/janitor,
+/obj/item/toy/figure/crew/janitor,
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
@@ -12391,7 +12391,7 @@
 "aGE" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/item/toy/figure/bartender,
+/obj/item/toy/figure/crew/bartender,
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
@@ -16218,7 +16218,7 @@
 	},
 /obj/structure/table,
 /obj/item/clipboard,
-/obj/item/toy/figure/syndie,
+/obj/item/toy/figure/crew/syndie,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -17268,7 +17268,7 @@
 "aPS" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/item/toy/figure/clown,
+/obj/item/toy/figure/crew/clown,
 /turf/simulated/floor/plasteel{
 	icon_state = "redbluefull"
 	},
@@ -19193,7 +19193,7 @@
 "aTz" = (
 /obj/structure/table,
 /obj/item/clipboard,
-/obj/item/toy/figure/qm,
+/obj/item/toy/figure/crew/qm,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -20648,7 +20648,7 @@
 "aWb" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/item/toy/figure/mime,
+/obj/item/toy/figure/crew/mime,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -23497,7 +23497,7 @@
 "baZ" = (
 /obj/structure/table,
 /obj/item/clipboard,
-/obj/item/toy/figure/cargotech,
+/obj/item/toy/figure/crew/cargotech,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -25689,7 +25689,7 @@
 	},
 /obj/structure/table,
 /obj/item/clipboard,
-/obj/item/toy/figure/miner,
+/obj/item/toy/figure/crew/miner,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -28
@@ -26683,7 +26683,7 @@
 "bhB" = (
 /obj/structure/table/glass,
 /obj/item/clipboard,
-/obj/item/toy/figure/botanist,
+/obj/item/toy/figure/crew/botanist,
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
@@ -28744,7 +28744,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/toy/figure/chef,
+/obj/item/toy/figure/crew/chef,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
@@ -30078,7 +30078,7 @@
 "bnZ" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/toy/figure/atmos,
+/obj/item/toy/figure/crew/atmos,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 4
@@ -33622,7 +33622,7 @@
 "buk" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/item/toy/figure/hos,
+/obj/item/toy/figure/crew/hos,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -41429,7 +41429,7 @@
 "bHJ" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/item/toy/figure/detective,
+/obj/item/toy/figure/crew/detective,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
@@ -42313,7 +42313,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/item/toy/figure/captain,
+/obj/item/toy/figure/crew/captain,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -46151,7 +46151,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/toy/figure/ce,
+/obj/item/toy/figure/crew/ce,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -46746,7 +46746,7 @@
 	dir = 8
 	},
 /obj/item/clipboard,
-/obj/item/toy/figure/warden,
+/obj/item/toy/figure/crew/warden,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -50936,7 +50936,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/light,
 /obj/item/clipboard,
-/obj/item/toy/figure/borg,
+/obj/item/toy/figure/crew/borg,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -52345,7 +52345,7 @@
 "caH" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/item/toy/figure/lawyer,
+/obj/item/toy/figure/crew/lawyer,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -53273,7 +53273,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-/obj/item/toy/figure/captain,
+/obj/item/toy/figure/crew/captain,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -54021,7 +54021,7 @@
 	dir = 1
 	},
 /obj/item/clipboard,
-/obj/item/toy/figure/hop,
+/obj/item/toy/figure/crew/hop,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -54428,7 +54428,7 @@
 	pixel_x = -32
 	},
 /obj/item/clipboard,
-/obj/item/toy/figure/secofficer,
+/obj/item/toy/figure/crew/secofficer,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -58316,7 +58316,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/item/toy/figure/ian,
+/obj/item/toy/figure/crew/ian,
 /obj/item/radio/intercom{
 	dir = 4;
 	pixel_x = 28
@@ -58829,7 +58829,7 @@
 "cmO" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/toy/figure/engineer,
+/obj/item/toy/figure/crew/engineer,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -61100,7 +61100,7 @@
 	pixel_x = 24
 	},
 /obj/item/clipboard,
-/obj/item/toy/figure/librarian,
+/obj/item/toy/figure/crew/librarian,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -66661,7 +66661,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/item/toy/figure/dsquad,
+/obj/item/toy/figure/crew/dsquad,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -77297,7 +77297,7 @@
 "cVF" = (
 /obj/structure/table/glass,
 /obj/item/clipboard,
-/obj/item/toy/figure/chemist,
+/obj/item/toy/figure/crew/chemist,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreencorner"
@@ -78826,7 +78826,7 @@
 /obj/structure/table/glass,
 /obj/machinery/light/small,
 /obj/item/clipboard,
-/obj/item/toy/figure/md,
+/obj/item/toy/figure/crew/md,
 /obj/machinery/camera{
 	c_tag = "Medbay Front Desk";
 	dir = 1;
@@ -79846,7 +79846,7 @@
 "daK" = (
 /obj/structure/table,
 /obj/item/clipboard,
-/obj/item/toy/figure/scientist,
+/obj/item/toy/figure/crew/scientist,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
@@ -86974,7 +86974,7 @@
 	pixel_y = -2
 	},
 /obj/item/clipboard,
-/obj/item/toy/figure/rd,
+/obj/item/toy/figure/crew/rd,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
@@ -89999,7 +89999,7 @@
 "duf" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/toy/figure/roboticist,
+/obj/item/toy/figure/crew/roboticist,
 /obj/machinery/door_control{
 	id = "robodesk";
 	name = "Robotics Desk Shutters";
@@ -90123,7 +90123,7 @@
 	pixel_x = -32
 	},
 /obj/item/clipboard,
-/obj/item/toy/figure/cmo,
+/obj/item/toy/figure/crew/cmo,
 /turf/simulated/floor/plasteel,
 /area/medical/cmo)
 "dus" = (
@@ -96909,7 +96909,7 @@
 	},
 /obj/structure/table/glass,
 /obj/item/clipboard,
-/obj/item/toy/figure/virologist,
+/obj/item/toy/figure/crew/virologist,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreencorner"
@@ -103477,7 +103477,7 @@
 "dUO" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/item/toy/figure/chaplain,
+/obj/item/toy/figure/crew/chaplain,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -28
@@ -104869,7 +104869,7 @@
 "dYb" = (
 /obj/structure/table/glass,
 /obj/item/clipboard,
-/obj/item/toy/figure/geneticist,
+/obj/item/toy/figure/crew/geneticist,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
