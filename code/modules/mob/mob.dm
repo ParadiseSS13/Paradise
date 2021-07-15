@@ -598,7 +598,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	if(next_move >= world.time)
 		return
-	if(!isturf(loc) || istype(A, /obj/effect/temp_visual/point))
+	if(!isturf(loc) || istype(A, /obj/effect/temp_visual/point) || istype(A, /obj/effect/hallucination))
 		return FALSE
 
 	var/tile = get_turf(A)
@@ -1327,6 +1327,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
 
 	.["Make 2spooky"] = "?_src_=vars;make_skeleton=[UID()]"
+	.["Hallucinate"] = "?_src_=vars;hallucinate=[UID()]"
 
 	.["Assume Direct Control"] = "?_src_=vars;direct_control=[UID()]"
 	.["Offer Control to Ghosts"] = "?_src_=vars;offer_control=[UID()]"
