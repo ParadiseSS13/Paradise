@@ -761,6 +761,16 @@
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
+"tG" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	normalspeed = 0;
+	req_access_txt = "63"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
 "xD" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/iv_bag/blood/random,
@@ -1065,7 +1075,7 @@ an
 an
 an
 an
-aE
+tG
 ba
 ba
 ba
@@ -1096,7 +1106,7 @@ an
 an
 an
 an
-aE
+tG
 ba
 ba
 ba

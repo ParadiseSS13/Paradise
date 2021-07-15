@@ -101314,8 +101314,8 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	name = "Security Checkpoint";
-	req_access_txt = "1"
+	name = "Holding Area";
+	req_access_txt = "63"
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
