@@ -111,8 +111,7 @@
 "av" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "aT" = (
@@ -163,8 +162,7 @@
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "bw" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "bO" = (
@@ -179,8 +177,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreenfull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitegreenfull"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "bT" = (
@@ -233,8 +230,7 @@
 "cs" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "cB" = (
@@ -301,8 +297,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHEAST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "cO" = (
@@ -336,8 +331,7 @@
 /obj/item/reagent_containers/glass/beaker/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (NORTHEAST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "di" = (
@@ -463,16 +457,14 @@
 "eV" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "fb" = (
 /obj/machinery/kitchen_machine/microwave,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "fe" = (
@@ -500,8 +492,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (NORTHWEST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "fu" = (
@@ -511,8 +502,7 @@
 /obj/machinery/chem_master,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (SOUTHWEST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "fx" = (
@@ -594,8 +584,7 @@
 "gg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreenfull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitegreenfull"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "gh" = (
@@ -658,8 +647,7 @@
 /obj/item/reagent_containers/iv_bag/blood/OMinus,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "gY" = (
@@ -702,8 +690,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (NORTHEAST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "hq" = (
@@ -841,8 +828,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "ir" = (
@@ -927,8 +913,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreenfull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitegreenfull"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "jt" = (
@@ -943,8 +928,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "jy" = (
@@ -1039,8 +1023,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "ku" = (
@@ -1095,8 +1078,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "kY" = (
@@ -1121,8 +1103,7 @@
 /obj/machinery/optable,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "lr" = (
@@ -1134,8 +1115,7 @@
 "lu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "lv" = (
@@ -1164,16 +1144,14 @@
 "ly" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "lB" = (
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "lM" = (
@@ -1210,8 +1188,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (NORTHEAST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "mi" = (
@@ -1282,8 +1259,7 @@
 	},
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "nj" = (
@@ -1321,8 +1297,7 @@
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "ny" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreen";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "nA" = (
@@ -1371,8 +1346,7 @@
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "ob" = (
@@ -1443,8 +1417,7 @@
 /obj/structure/window/basic,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "oO" = (
@@ -1518,8 +1491,7 @@
 /obj/item/cautery,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "pK" = (
@@ -1551,8 +1523,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/operating,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "qv" = (
@@ -1586,8 +1557,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreenfull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitegreenfull"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "qT" = (
@@ -1814,8 +1784,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "tL" = (
@@ -1828,8 +1797,7 @@
 "tQ" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (WEST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "tW" = (
@@ -1895,8 +1863,7 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "uJ" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "uL" = (
@@ -1907,8 +1874,7 @@
 /obj/item/storage/box/monkeycubes/syndicate,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "uN" = (
@@ -1945,8 +1911,7 @@
 /obj/machinery/monkey_recycler,
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (SOUTHEAST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "ve" = (
@@ -1958,8 +1923,7 @@
 "vk" = (
 /obj/machinery/kitchen_machine/grill,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "vn" = (
@@ -2047,8 +2011,7 @@
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitepurplefull";
-	tag = "icon-whitepurple (WEST)"
+	icon_state = "whitepurplefull"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "vM" = (
@@ -2105,8 +2068,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "wh" = (
@@ -2127,8 +2089,7 @@
 "wj" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitepurplefull";
-	tag = "icon-whitepurple (WEST)"
+	icon_state = "whitepurplefull"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "wn" = (
@@ -2206,8 +2167,7 @@
 /obj/item/kitchen/rollingpin,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "wX" = (
@@ -2257,8 +2217,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHWEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "xo" = (
@@ -2347,8 +2306,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreenfull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitegreenfull"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "yz" = (
@@ -2416,8 +2374,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "zm" = (
@@ -2488,8 +2445,7 @@
 /obj/item/clothing/glasses/science,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitepurplefull";
-	tag = "icon-whitepurple (WEST)"
+	icon_state = "whitepurplefull"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "AB" = (
@@ -2505,8 +2461,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (NORTHWEST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "AI" = (
@@ -2532,8 +2487,7 @@
 /obj/item/storage/box/beakers/bluespace,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (NORTH)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "AJ" = (
@@ -2601,8 +2555,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "BN" = (
@@ -2658,8 +2611,7 @@
 	},
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "Cr" = (
@@ -2670,8 +2622,7 @@
 "Cv" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (SOUTHWEST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "CG" = (
@@ -2806,8 +2757,7 @@
 /obj/machinery/computer/pandemic,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "El" = (
@@ -2850,8 +2800,7 @@
 /obj/item/stock_parts/cell/high/plus,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "EI" = (
@@ -2882,8 +2831,7 @@
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "EO" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreenfull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitegreenfull"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "EP" = (
@@ -2946,8 +2894,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "Fe" = (
@@ -2962,8 +2909,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "Fi" = (
@@ -3002,8 +2948,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (EAST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "Fs" = (
@@ -3028,8 +2973,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (WEST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "FQ" = (
@@ -3091,15 +3035,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (SOUTHWEST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "Go" = (
 /obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "Gq" = (
@@ -3214,8 +3156,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (WEST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "HL" = (
@@ -3339,8 +3280,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "Ji" = (
@@ -3453,8 +3393,7 @@
 /obj/machinery/chem_heater,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (EAST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "Ko" = (
@@ -3479,8 +3418,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "Kv" = (
@@ -3495,8 +3433,7 @@
 /obj/machinery/processor,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "Kx" = (
@@ -3594,8 +3531,7 @@
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "Lk" = (
@@ -3769,8 +3705,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitepurplefull";
-	tag = "icon-whitepurple (WEST)"
+	icon_state = "whitepurplefull"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "Mq" = (
@@ -3783,8 +3718,7 @@
 /obj/item/clothing/accessory/stethoscope,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "Ms" = (
@@ -3859,8 +3793,7 @@
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "NT" = (
@@ -3975,8 +3908,7 @@
 /obj/machinery/vending/medical/syndicate_access,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "PH" = (
@@ -3986,8 +3918,7 @@
 /obj/machinery/chem_dispenser/upgraded,
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (SOUTHEAST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "PI" = (
@@ -4028,8 +3959,7 @@
 /obj/item/tank/internals/anesthetic,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "Qr" = (
@@ -4106,8 +4036,7 @@
 /obj/item/FixOVein,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "RC" = (
@@ -4194,8 +4123,7 @@
 /obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (EAST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "SI" = (
@@ -4499,8 +4427,7 @@
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "VQ" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/item/soap/syndie,
 /obj/machinery/light/small{
@@ -4524,8 +4451,7 @@
 "Wi" = (
 /obj/machinery/kitchen_machine/candy_maker,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "Wl" = (
@@ -4541,8 +4467,7 @@
 /obj/machinery/sleeper/syndie,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "Wr" = (
@@ -4560,8 +4485,7 @@
 	},
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "WG" = (
@@ -4579,8 +4503,7 @@
 /obj/structure/window/basic,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "Xa" = (
@@ -4651,8 +4574,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (EAST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "Ya" = (

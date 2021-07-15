@@ -26,7 +26,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = TRUE //is the ghost able to see things humans can't?
 	var/seedarkness = TRUE
-	var/data_hud_seen = FALSE //this should one of the defines in __DEFINES/hud.dm
+	/// Defines from __DEFINES/hud.dm go here based on which huds the ghost has activated.
+	var/list/data_hud_seen = list()
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
 	var/datum/orbit_menu/orbit_menu
@@ -86,7 +87,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	real_name = name
 
 	//starts ghosts off with all HUDs.
-	toggle_medHUD()
+	toggle_all_huds_on()
 	..()
 
 /mob/dead/observer/Destroy()
@@ -162,8 +163,6 @@ Works together with spawning an observer, noted above.
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
 		ghost.key = key
-		if(!(ghost.client && ghost.client.holder) && !config.antag_hud_allowed)    // For new ghosts we remove the verb from even showing up if it's not allowed.
-			ghost.verbs -= /mob/dead/observer/verb/toggle_antagHUD  // Poor guys, don't know what they are missing!
 		return ghost
 
 /*
@@ -310,87 +309,24 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
 	var/datum/atom_hud/H = GLOB.huds[hud_index]
 	H.add_hud_to(src)
+	data_hud_seen |= hud_index
 
 /mob/dead/observer/proc/remove_the_hud(hud_index) //remove old huds
 	var/datum/atom_hud/H = GLOB.huds[hud_index]
 	H.remove_hud_from(src)
+	data_hud_seen -= hud_index
 
-/mob/dead/observer/verb/toggle_medHUD()
+/mob/dead/observer/verb/open_hud_panel()
 	set category = "Ghost"
-	set name = "Toggle All/Sec/Med/Diag HUDs"
-	set desc = "Toggles the HUDs."
+	set name = "Ghost HUD Panel"
 	if(!client)
 		return
+	GLOB.ghost_hud_panel.ui_interact(src)
 
-	switch(data_hud_seen) //give new huds
-		if(FALSE)
-			data_hud_seen = DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED
-			show_me_the_hud(DATA_HUD_DIAGNOSTIC)
-			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
-			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
-			to_chat(src, "<span class='notice'>All HUDs enabled.</span>")
-		if(DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)
-			data_hud_seen = DATA_HUD_SECURITY_ADVANCED
-			remove_the_hud(DATA_HUD_DIAGNOSTIC)
-			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
-			to_chat(src, "<span class='notice'>Security HUD set.</span>")
-		if(DATA_HUD_SECURITY_ADVANCED)
-			data_hud_seen = DATA_HUD_MEDICAL_ADVANCED
-			remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
-			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
-			to_chat(src, "<span class='notice'>Medical HUD set.</span>")
-		if(DATA_HUD_MEDICAL_ADVANCED)
-			data_hud_seen = DATA_HUD_DIAGNOSTIC
-			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
-			show_me_the_hud(DATA_HUD_DIAGNOSTIC)
-			to_chat(src, "<span class='notice'>Diagnostic HUD set.</span>")
-		else
-			data_hud_seen = FALSE
-			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
-			to_chat(src, "<span class='notice'>HUDs disabled.</span>")
-
-
-/mob/dead/observer/verb/toggle_antagHUD()
-	set category = "Ghost"
-	set name = "Toggle AntagHUD"
-	set desc = "Toggles AntagHUD allowing you to see who is the antagonist"
-	if(!config.antag_hud_allowed && !client.holder)
-		to_chat(src, "<span class='warning'>Admins have disabled this for this round.</span>")
-		return
-	if(!client)
-		return
-	var/mob/dead/observer/M = src
-	if(jobban_isbanned(M, ROLEBAN_AHUD))
-		to_chat(src, "<span class='danger'>You have been banned from using this feature</span>")
-		return
-
-	var/restricted_use = (!M.has_enabled_antagHUD && !check_rights(R_ADMIN|R_MOD, FALSE)) // Admins can freely toggle it
-	if(config.antag_hud_restricted && restricted_use)
-		var/response = alert(src, "If you turn this on, you will not be able to take any part in the round.", "Are you sure you want to turn this feature on?", "Yes", "No")
-		if(response == "No")
-			return
-		M.can_reenter_corpse = FALSE
-		if(M in GLOB.respawnable_list)
-			GLOB.respawnable_list -= M
-
-	if(restricted_use)
-		M.has_enabled_antagHUD = TRUE
-
-	for(var/datum/atom_hud/antag/H in (GLOB.huds))
-		if(!M.antagHUD)
-			H.add_hud_to(usr)
-		else
-			H.remove_hud_from(usr)
-	if(!M.antagHUD)
-		to_chat(usr, "AntagHud Toggled ON")
-		create_log(MISC_LOG, "Enabled AntagHUD")
-		log_game("[key_name(usr)] has enabled AntagHUD.")
-		M.antagHUD = TRUE
-	else
-		to_chat(usr, "AntagHud Toggled OFF")
-		create_log(MISC_LOG, "Disabled AntagHUD")
-		log_game("[key_name(usr)] has disabled AntagHUD.")
-		M.antagHUD = FALSE
+/mob/dead/observer/proc/toggle_all_huds_on()
+	show_me_the_hud(DATA_HUD_DIAGNOSTIC)
+	show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
+	show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 
 /mob/dead/observer/verb/set_dnr()
 	set name = "Set DNR"
