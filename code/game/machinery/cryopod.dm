@@ -257,7 +257,7 @@
 		/obj/item/clothing/gloves/color/black/forensics
 		/obj/item/rcd
 		/obj/item/rpd
-		/obj/item/gun/projectile/revolver/detective
+		/obj/item/gun/projectile/revolver/detective,
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
