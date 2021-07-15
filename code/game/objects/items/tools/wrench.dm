@@ -11,6 +11,8 @@
 	usesound = 'sound/items/ratchet.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=150)
+	drop_sound = 'sound/items/handling/wrench_drop.ogg'
+	pickup_sound =  'sound/items/handling/wrench_pickup.ogg'
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 	toolspeed = 1

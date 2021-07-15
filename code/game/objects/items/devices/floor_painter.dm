@@ -27,7 +27,7 @@
 		"whitered", "whiteredcorner", "whiteredfull", "whiteyellow", "whiteyellowcorner", "whiteyellowfull", "yellow",
 		"yellowcorner", "yellowcornersiding", "yellowsiding")
 
-/obj/item/floor_painter/afterattack(var/atom/A, var/mob/user, proximity, params)
+/obj/item/floor_painter/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)
 		return
 
@@ -46,7 +46,7 @@
 	F.icon_regular_floor = floor_state
 	F.dir = floor_dir
 
-/obj/item/floor_painter/attack_self(var/mob/user)
+/obj/item/floor_painter/attack_self(mob/user)
 	if(!user)
 		return 0
 	user.set_machine(src)

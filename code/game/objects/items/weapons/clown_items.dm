@@ -25,7 +25,7 @@
 
 /obj/item/bikehorn/Initialize()
 	. = ..()
-	AddComponent(/datum/component/squeak, honk_sounds, 50)
+	AddComponent(/datum/component/squeak, honk_sounds, 50, falloff_exponent = 20) //die off quick please
 
 /obj/item/bikehorn/airhorn
 	name = "air horn"

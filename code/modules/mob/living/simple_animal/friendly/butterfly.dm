@@ -19,6 +19,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = 2
 	mob_size = MOB_SIZE_TINY
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 

@@ -4,12 +4,12 @@
 /obj/item/toy/random
 	name = "Random Toy"
 
-/obj/item/toy/random/New()
+/obj/item/toy/random/Initialize(mapload)
 	..()
-	var/list/types = list(/obj/item/gun/projectile/shotgun/toy/crossbow, /obj/item/toy/balloon,/obj/item/toy/spinningtoy,/obj/item/reagent_containers/spray/waterflower) + subtypesof(/obj/item/toy/prize)
+	var/list/types = list(/obj/item/gun/projectile/shotgun/toy/crossbow, /obj/item/toy/balloon,/obj/item/toy/spinningtoy,/obj/item/reagent_containers/spray/waterflower) + subtypesof(/obj/item/toy/figure/mech)
 	var/T = pick(types)
 	new T(loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 // -------------------------------------
 //	Random cleanables, clearly this makes sense
@@ -238,6 +238,10 @@
 	icon_opened = "cabinetdetective_open"
 	icon_broken = "cabinetdetective_broken"
 	icon_off = "cabinetdetective_broken"
+	open_sound = 'sound/machines/wooden_closet_open.ogg'
+	close_sound = 'sound/machines/wooden_closet_close.ogg'
+	open_sound_volume = 25
+	close_sound_volume = 50
 
 /obj/structure/closet/secure_closet/random_drinks/populate_contents()
 	for(var/i in 1 to 5)
@@ -263,7 +267,7 @@
 								/mob/living/simple_animal/hostile/creature,/mob/living/simple_animal/hostile/pirate/ranged,
 								/mob/living/simple_animal/hostile/hivebot,/mob/living/simple_animal/hostile/viscerator,/mob/living/simple_animal/hostile/pirate)
 
-		visible_message("<span class='warning'>Something falls out of the [src]!</span>")
+		visible_message("<span class='warning'>Something falls out of [src]!</span>")
 		var/obj/item/grenade/clusterbuster/C = new(src.loc)
 		C.prime()
 		sleep(10)

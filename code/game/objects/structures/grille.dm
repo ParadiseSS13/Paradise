@@ -55,13 +55,6 @@
 	if(!anchored)
 		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
 
-/obj/structure/grille/ratvar_act()
-	if(broken)
-		new /obj/structure/grille/ratvar/broken(loc)
-	else
-		new /obj/structure/grille/ratvar(loc)
-	qdel(src)
-
 /obj/structure/grille/Bumped(atom/user)
 	if(ismob(user))
 		if(!(shockcooldown <= world.time))
@@ -117,27 +110,28 @@
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSGRILLE)
 
-/obj/structure/grille/attackby(obj/item/W, mob/user, params)
+/obj/structure/grille/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
-	if(istype(W, /obj/item/stack/rods) && broken)
-		var/obj/item/stack/rods/R = W
-		if(!shock(user, 90))
-			user.visible_message("<span class='notice'>[user] rebuilds the broken grille.</span>", \
-								 "<span class='notice'>You rebuild the broken grille.</span>")
-			new grille_type(loc)
-			R.use(1)
-			qdel(src)
-			return
+	if(istype(I, /obj/item/stack/rods) && broken)
+		repair(user, I)
 
 //window placing begin
-	else if(is_glass_sheet(W))
-		build_window(W, user)
+	else if(is_glass_sheet(I))
+		build_window(I, user)
 		return
 //window placing end
 
-	else if(istype(W, /obj/item/shard) || !shock(user, 70))
+	else if(istype(I, /obj/item/shard) || !shock(user, 70))
 		return ..()
+
+/obj/structure/grille/proc/repair(mob/user, obj/item/stack/rods/R)
+	if(R.get_amount() >= 1)
+		user.visible_message("<span class='notice'>[user] rebuilds the broken grille.</span>",
+			"<span class='notice'>You rebuild the broken grille.</span>")
+		new grille_type(loc)
+		R.use(1)
+		qdel(src)
 
 /obj/structure/grille/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -190,7 +184,7 @@
 		W.update_nearby_icons()
 		W.state = WINDOW_OUT_OF_FRAME
 		S.use(2)
-		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
+		to_chat(user, "<span class='notice'>You place [W] on [src].</span>")
 
 
 /obj/structure/grille/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -288,9 +282,6 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-
-/obj/structure/grille/ratvar/ratvar_act()
-	return
 
 /obj/structure/grille/ratvar/broken
 	icon_state = "brokenratvargrille"

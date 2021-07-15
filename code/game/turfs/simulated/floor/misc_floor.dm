@@ -42,6 +42,10 @@
 /turf/simulated/floor/beach
 	name = "beach"
 	icon = 'icons/misc/beach.dmi'
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
@@ -49,26 +53,47 @@
 /turf/simulated/floor/beach/sand
 	name = "sand"
 	icon_state = "sand"
+	baseturf = /turf/simulated/floor/beach/sand
 
 /turf/simulated/floor/beach/coastline
 	name = "coastline"
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "sandwater"
+	baseturf = /turf/simulated/floor/beach/coastline
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
 
 /turf/simulated/floor/beach/coastline_t
 	name = "coastline"
 	desc = "Tide's high tonight. Charge your batons."
 	icon_state = "sandwater_t"
+	baseturf = /turf/simulated/floor/beach/coastline_t
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
 
 /turf/simulated/floor/beach/coastline_b
 	name = "coastline"
 	icon_state = "sandwater_b"
+	baseturf = /turf/simulated/floor/beach/coastline_b
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
 
 /turf/simulated/floor/beach/water // TODO - Refactor water so they share the same parent type - Or alternatively component something like that
 	name = "water"
 	icon_state = "water"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/obj/machinery/poolcontroller/linkedcontroller = null
+	baseturf = /turf/simulated/floor/beach/water
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
 
 /turf/simulated/floor/beach/water/Initialize(mapload)
 	. = ..()
@@ -150,11 +175,6 @@
 	if(uses_overlay && realappearence)
 		QDEL_NULL(realappearence)
 	return ..()
-
-/turf/simulated/floor/clockwork/ReplaceWithLattice()
-	. = ..()
-	for(var/obj/structure/lattice/L in src)
-		L.ratvar_act()
 
 /turf/simulated/floor/clockwork/crowbar_act(mob/user, obj/item/I)
 	. = TRUE

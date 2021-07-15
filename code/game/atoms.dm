@@ -413,6 +413,9 @@
 /atom/proc/emag_act()
 	return
 
+/atom/proc/unemag()
+	return
+
 /**
  * Respond to a radioactive wave hitting this atom
  *
@@ -575,7 +578,7 @@
 		add_fibers(M)
 
 		//He has no prints!
-		if(FINGERPRINTS in M.mutations)
+		if(HAS_TRAIT(M, TRAIT_NOFINGERPRINTS))
 			if(fingerprintslast != M.key)
 				fingerprintshidden += "(Has no fingerprints) Real name: [M.real_name], Key: [M.key]"
 				fingerprintslast = M.key
@@ -941,9 +944,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/narsie_act()
 	return
 
-/atom/proc/ratvar_act()
-	return
-
 /**
  * Respond to an electric bolt action on our item
  *
@@ -1066,6 +1066,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			color = C
 			return
 
+/*
+	Checks whether this atom can traverse the destination object when used as source for AStar.
+	This should only be used as an override to /obj/proc/CanAStarPass. Aka don't use this unless you can't change the object's proc.
+	Returning TRUE here will override the above proc's result.
+*/
+/atom/proc/CanAStarPassTo(ID, dir, obj/destination)
+	return FALSE
 
 /** Call this when you want to present a renaming prompt to the user.
 
@@ -1132,3 +1139,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		else
 			name = "[prefix][t]"
 	return t
+
+/atom/proc/set_angle(degrees)
+	var/matrix/M = matrix()
+	M.Turn(degrees)
+	// If we aint 0, make it NN transform
+	if(degrees)
+		appearance_flags |= PIXEL_SCALE
+	transform = M

@@ -27,6 +27,7 @@
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/radio/headset/heads/captain/alt(src)
+	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/gloves/color/captain(src)
 	new /obj/item/storage/belt/rapier(src)
 	new /obj/item/gun/energy/gun(src)
@@ -50,6 +51,7 @@
 	new /obj/item/clothing/head/hopcap(src)
 	new /obj/item/cartridge/hop(src)
 	new /obj/item/radio/headset/heads/hop(src)
+	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/storage/box/ids(src)
 	new /obj/item/storage/box/PDAs(src)
 	new /obj/item/clothing/suit/armor/vest(src)
@@ -218,7 +220,7 @@
 	new /obj/item/clothing/suit/storage/brigdoc(src)
 	new /obj/item/clothing/under/rank/security/brigphys(src)
 	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/radio/headset/headset_sec/alt(src)
+	new /obj/item/radio/headset/headset_sec/alt/brig_phys(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
 
 
@@ -272,6 +274,7 @@
 	new /obj/item/paicard(src)
 	new /obj/item/flash(src)
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
+	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/gloves/color/white(src)
 	new /obj/item/clothing/shoes/centcom(src)
 	new /obj/item/clothing/under/lawyer/oldman(src)
@@ -323,6 +326,8 @@
 	icon_off = "cabinetdetective_broken"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
+	open_sound = 'sound/machines/wooden_closet_open.ogg'
+	close_sound = 'sound/machines/wooden_closet_close.ogg'
 
 /obj/structure/closet/secure_closet/detective/populate_contents()
 	new /obj/item/clothing/under/det(src)

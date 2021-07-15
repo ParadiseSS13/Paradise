@@ -13,7 +13,7 @@
 	throw_range = 0
 	throw_speed = 0
 
-/obj/item/melee/touch_attack/New(var/spell)
+/obj/item/melee/touch_attack/New(spell)
 	attached_spell = spell
 	..()
 

@@ -51,7 +51,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(!H.gloves && !(PIERCEIMMUNE in H.dna.species.species_traits))
+		if(!H.gloves && !HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 			if(affecting.is_robotic())
 				return

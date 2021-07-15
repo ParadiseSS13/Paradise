@@ -27,8 +27,6 @@
 	var/obj/screen/move_intent
 	var/obj/screen/module_store_icon
 
-	var/obj/screen/devil/soul_counter/devilsouldisplay
-
 	var/list/static_inventory = list()		//the screen objects which are static
 	var/list/toggleable_inventory = list()	//the screen objects which can be hidden
 	var/list/hotkeybuttons = list()			//the buttons that can be used via hotkeys
@@ -89,7 +87,6 @@
 	alien_plasma_display = null
 	vampire_blood_display = null
 	nightvisionicon = null
-	devilsouldisplay = null
 
 	QDEL_LIST_ASSOC_VAL(plane_masters)
 

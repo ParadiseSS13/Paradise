@@ -7,7 +7,7 @@ SAFE CODES
 */
 
 #define DRILL_SPARK_CHANCE 15
-#define DRILL_TIME 300 SECONDS
+#define DRILL_TIME 120 SECONDS
 #define SOUND_CHANCE 10
 
 GLOBAL_LIST_EMPTY(safes)
@@ -402,7 +402,7 @@ GLOBAL_LIST_EMPTY(safes)
 	for(var/safe in GLOB.safes)
 		var/obj/structure/safe/S = safe
 		if(owner in S.known_by)
-			info += "<br> The combination for the safe located in the [get_area(S).name] is: [S.get_combination()]<br>"
+			info += "<br> The combination for the safe located in the [get_area_name(S, TRUE)] is: [S.get_combination()]<br>"
 			info_links = info
 			update_icon()
 

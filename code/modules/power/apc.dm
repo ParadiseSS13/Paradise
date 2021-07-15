@@ -105,6 +105,8 @@
 	var/global/list/status_overlays_environ
 	var/indestructible = 0 // If set, prevents aliens from destroying it
 	var/keep_preset_name = 0
+	/// Was this APC built instead of already existing? Used for malfhack to keep borgs from building apcs in space
+	var/constructed = FALSE
 
 	var/report_power_alarm = TRUE
 
@@ -171,14 +173,13 @@
 		operating = 0
 		name = "[area.name] APC"
 		stat |= MAINT
+		constructed = TRUE
 		update_icon()
 		addtimer(CALLBACK(src, .proc/update), 5)
 
 /obj/machinery/power/apc/Destroy()
 	SStgui.close_uis(wires)
 	GLOB.apcs -= src
-	if(malfai && operating)
-		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	area.power_light = 0
 	area.power_equip = 0
 	area.power_environ = 0
@@ -731,11 +732,11 @@
 
 	if(usr == user && opened && !issilicon(user))
 		if(cell)
+			user.visible_message("<span class='warning'>[user.name] removes [cell] from [src]!", "<span class='notice'>You remove [cell].</span>")
 			user.put_in_hands(cell)
 			cell.add_fingerprint(user)
 			cell.update_icon()
 			cell = null
-			user.visible_message("<span class='warning'>[user.name] removes [cell] from [src]!", "You remove the [cell].</span>")
 			charging = FALSE
 			update_icon()
 		return
@@ -854,7 +855,7 @@
 //			to_chat(world, "[area.power_equip]")
 	area.power_change()
 
-/obj/machinery/power/apc/proc/can_use(var/mob/user, var/loud = 0) //used by attack_hand() and Topic()
+/obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
 	if(user.can_admin_interact())
 		return 1
 
@@ -973,6 +974,9 @@
 	if(malf.malfhacking)
 		to_chat(malf, "You are already hacking an APC.")
 		return
+	if(constructed)
+		to_chat(malf, "<span class='warning'>This APC was only recently constructed, and is not fully linked to station systems. Hacking it would be pointless.</span>")
+		return
 	to_chat(malf, "Beginning override of APC systems. This takes some time, and you cannot perform other actions during the process.")
 	malf.malfhack = src
 	malf.malfhacking = addtimer(CALLBACK(malf, /mob/living/silicon/ai/.proc/malfhacked, src), 600, TIMER_STOPPABLE)
@@ -1050,7 +1054,7 @@
 				smoke.start()
 				do_sparks(3, 1, src)
 				for(var/mob/M in viewers(src))
-					M.show_message("<span class='danger'>The [name] suddenly lets out a blast of smoke and some sparks!", 3, "<span class='danger'>You hear sizzling electronics.</span>", 2)
+					M.show_message("<span class='danger'>[src] suddenly lets out a blast of smoke and some sparks!", 3, "<span class='danger'>You hear sizzling electronics.</span>", 2)
 
 
 /obj/machinery/power/apc/surplus()
@@ -1255,7 +1259,7 @@
 			picked_light.flicker()
 
 
-/obj/machinery/power/apc/proc/autoset(var/val, var/on)
+/obj/machinery/power/apc/proc/autoset(val, on)
 	if(on==0)
 		if(val==2)			// if on, return off
 			return 0
@@ -1357,8 +1361,20 @@
 		aidisabled = FALSE
 		updateDialog()
 
-#undef APC_UPDATE_ICON_COOLDOWN
+/obj/machinery/power/apc/proc/repair_apc()
+	if(wires)
+		wires.repair()
+	if(!operating)
+		toggle_breaker()
+	if(shorted)
+		shorted = FALSE
 
+/obj/machinery/power/apc/proc/recharge_apc()
+	var/obj/item/stock_parts/cell/C = get_cell()
+	if(C)
+		C.charge = C.maxcharge
+
+#undef APC_UPDATE_ICON_COOLDOWN
 #undef APC_EXTERNAL_POWER_NOTCONNECTED
 #undef APC_EXTERNAL_POWER_NOENERGY
 #undef APC_EXTERNAL_POWER_GOOD

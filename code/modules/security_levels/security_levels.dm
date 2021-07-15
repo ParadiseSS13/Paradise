@@ -10,7 +10,7 @@ GLOBAL_VAR_INIT(security_level, 0)
 GLOBAL_DATUM_INIT(security_announcement_up, /datum/announcement/priority/security, new(do_log = 0, do_newscast = 0, new_sound = sound('sound/misc/notice1.ogg')))
 GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/security, new(do_log = 0, do_newscast = 0))
 
-/proc/set_security_level(var/level)
+/proc/set_security_level(level)
 	switch(level)
 		if("green")
 			level = SEC_LEVEL_GREEN
@@ -144,7 +144,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		if(SEC_LEVEL_DELTA)
 			return "delta"
 
-/proc/num2seclevel(var/num)
+/proc/num2seclevel(num)
 	switch(num)
 		if(SEC_LEVEL_GREEN)
 			return "green"
@@ -159,7 +159,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		if(SEC_LEVEL_DELTA)
 			return "delta"
 
-/proc/seclevel2num(var/seclevel)
+/proc/seclevel2num(seclevel)
 	switch( lowertext(seclevel) )
 		if("green")
 			return SEC_LEVEL_GREEN
@@ -173,3 +173,18 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			return SEC_LEVEL_EPSILON
 		if("delta")
 			return SEC_LEVEL_DELTA
+
+/proc/get_security_level_colors()
+	switch(GLOB.security_level)
+		if(SEC_LEVEL_GREEN)
+			return "<font color='limegreen'>Green</font>"
+		if(SEC_LEVEL_BLUE)
+			return "<font color='dodgerblue'>Blue</font>"
+		if(SEC_LEVEL_RED)
+			return "<font color='red'>Red</font>"
+		if(SEC_LEVEL_GAMMA)
+			return "<font color='gold'>Gamma</font>"
+		if(SEC_LEVEL_EPSILON)
+			return "<font color='blueviolet'>Epsilon</font>"
+		if(SEC_LEVEL_DELTA)
+			return "<font color='orangered'>Delta</font>"

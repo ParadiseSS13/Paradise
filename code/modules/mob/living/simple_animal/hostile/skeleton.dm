@@ -4,6 +4,7 @@
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "skeleton"
 	icon_living = "skeleton"
+	mob_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	turns_per_move = 5
 	speak_emote = list("rattles")
 	emote_see = list("rattles")

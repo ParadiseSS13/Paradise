@@ -38,7 +38,7 @@
 	new /obj/item/door_remote/chief_engineer(src)
 	new /obj/item/rpd(src)
 	new /obj/item/reagent_containers/food/drinks/mug/ce(src)
-	new /obj/item/organ/internal/cyberimp/eyes/meson(src)
+	new /obj/item/organ/internal/eyes/cybernetic/meson(src)
 	new /obj/item/clothing/accessory/medal/engineering(src)
 	new /obj/item/holosign_creator/atmos(src)
 

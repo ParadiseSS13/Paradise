@@ -15,7 +15,7 @@
 
 	light_color = LIGHT_COLOR_DARKRED
 
-/obj/machinery/computer/prisoner/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/prisoner/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
 /obj/machinery/computer/prisoner/New()
@@ -26,7 +26,7 @@
  	GLOB.prisoncomputer_list -= src
  	return ..()
 
-/obj/machinery/computer/prisoner/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/prisoner/attack_hand(mob/user as mob)
 	if(..())
 		return 1
 	user.set_machine(src)

@@ -95,7 +95,7 @@
 		new /obj/item/pipe_gsensor(loc)
 	return TRUE
 
-/obj/machinery/pipedispenser/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
+/obj/machinery/pipedispenser/attackby(obj/item/W as obj, mob/user as mob, params)
 	add_fingerprint(usr)
 	if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor))
 		to_chat(usr, "<span class='notice'>You put [W] back to [src].</span>")
@@ -138,7 +138,7 @@
 	icon_state = "pipe_d"
 
 //Allow you to drag-drop disposal pipes into it
-/obj/machinery/pipedispenser/disposal/MouseDrop_T(var/obj/structure/disposalconstruct/pipe, mob/usr)
+/obj/machinery/pipedispenser/disposal/MouseDrop_T(obj/structure/disposalconstruct/pipe, mob/usr)
 	if(usr.incapacitated())
 		return
 
