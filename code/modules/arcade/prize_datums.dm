@@ -32,7 +32,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item
 	var/name = "Prize"
 	var/desc = "This shouldn't show up..."
-	var/typepath = /obj/item/toy/figure/mechball
+	var/typepath = /obj/item/toy/figure/prize_ball
 	var/cost = 0
 
 //////////////////////////////////////
@@ -140,7 +140,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/therapy_doll
 	name = "Random Therapy Doll"
 	desc = "A therapeutic doll for relieving stress without being charged with assault."
-	typepath = /obj/item/toy/figure/mechball/therapy
+	typepath = /obj/item/toy/figure/prize_ball/therapy
 	cost = 60
 
 /datum/prize_item/minigibber
@@ -158,25 +158,25 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/plushie
 	name = "Random Plushie"
 	desc = "A colorful plush toy."
-	typepath = /obj/item/toy/figure/mechball/plushie
+	typepath = /obj/item/toy/figure/prize_ball/plushie
 	cost = 75
 
 /datum/prize_item/carp_plushie
 	name = "Random Carp Plushie"
 	desc = "A colorful fish-shaped plush toy."
-	typepath = /obj/item/toy/figure/mechball/carp_plushie
+	typepath = /obj/item/toy/figure/prize_ball/carp_plushie
 	cost = 75
 
 /datum/prize_item/mech_toy
 	name = "Random Mecha"
 	desc = "A random mecha figure, collect all 11!"
-	typepath = /obj/item/toy/figure/mechball/mech
+	typepath = /obj/item/toy/figure/prize_ball/mech
 	cost = 75
 
 /datum/prize_item/action_figure
 	name = "Random Action Figure"
 	desc = "A random action figure, collect them all!"
-	typepath = /obj/item/toy/figure/mechball/figure
+	typepath = /obj/item/toy/figure/prize_ball/figure
 	cost = 75
 
 /datum/prize_item/AI

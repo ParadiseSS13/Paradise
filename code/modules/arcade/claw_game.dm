@@ -53,10 +53,10 @@ GLOBAL_VAR(claw_game_html)
 	icon_state = "clawmachine[machine_image]_win"
 	if(prob(bonus_prize_chance))	//double prize mania!
 		atom_say("DOUBLE PRIZE!")
-		new /obj/item/toy/figure/mechball(get_turf(src))
+		new /obj/item/toy/figure/prize_ball(get_turf(src))
 	else
 		atom_say("WINNER!")
-	new /obj/item/toy/figure/mechball(get_turf(src))
+	new /obj/item/toy/figure/prize_ball(get_turf(src))
 	playsound(loc, 'sound/arcade/win.ogg', 50, TRUE)
 	addtimer(CALLBACK(src, .proc/update_icon), 10)
 
