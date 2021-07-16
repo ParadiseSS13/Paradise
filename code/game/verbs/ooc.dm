@@ -32,6 +32,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!msg)
 		msg = typing_input(src.mob, "", "ooc \"text\"")
 
+	var/discord_msg = "[msg]"
 	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
 	if(!msg)
 		return
@@ -91,7 +92,6 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 						display_name = "[holder.fakekey]/([key])"
 					else
 						display_name = holder.fakekey
-			var/discord_msg = "[msg]"
 			if(!config.disable_ooc_emoji)
 				msg = "<span class='emoji_enabled'>[msg]</span>"
 
