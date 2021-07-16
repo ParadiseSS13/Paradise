@@ -33,3 +33,15 @@
 /obj/machinery/door/poddoor/shutters/radiation/close()
 	. = ..()
 	rad_insulation = RAD_EXTREME_INSULATION
+
+/obj/machinery/door/poddoor/shutters/rusted
+	name = "rusted shutter"
+	desc = "Heavy duty shutters that have been warped and corroded by the elements. They would not last long against repeated application of brute force."
+	armor = list("melee" = 10, "bullet" = 5, "laser" = 15, "energy" = 15, "bomb" = 0, "bio" = 50, "rad" = 100, "fire" = 50, "acid" = 25)
+	damage_deflection = 0
+	max_integrity = 300
+	icon_state = "rusted_closed"
+	anim_opening = "rusted_opening"
+	anim_closing = "rusted_closing"
+	icon_state_opened = "rusted_open"
+	icon_state_closed = "rusted_closed"
