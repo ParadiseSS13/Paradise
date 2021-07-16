@@ -18,6 +18,8 @@
 	light_power = 2
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+	///Is the energy weapon able to cut down walls?
+	var/can_cut_walls = TRUE
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
 	var/nemesis_faction = FALSE
@@ -269,6 +271,7 @@
 	sharp = TRUE
 	faction_bonus_force = 30
 	nemesis_factions = list("mining", "boss")
+	can_cut_walls = FALSE //not really an energy weapon
 	var/transform_cooldown
 	var/swiping = FALSE
 

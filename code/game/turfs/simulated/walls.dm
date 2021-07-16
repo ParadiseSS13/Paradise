@@ -371,17 +371,31 @@
 	return FALSE
 
 /turf/simulated/wall/proc/try_decon(obj/item/I, mob/user, params)
+	var/cutting = FALSE
+	var/speed = 10 //Time to cut down the wall, plasmacutter is faster
 	if(istype(I, /obj/item/gun/energy/plasmacutter))
-		to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
-		playsound(src, I.usesound, 100, 1)
+		cutting = TRUE
+		speed = 6
+	else if(istype(I, /obj/item/melee/energy))
+		var/obj/item/melee/energy/O = I
+		cutting = O.can_cut_walls && O.active
+	else if(istype(I, /obj/item/twohanded/dualsaber))
+		var/obj/item/twohanded/dualsaber/O = I
+		cutting = O.wielded && !O.toy
+	if(!cutting)
+		return FALSE
 
-		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 120 * I.toolspeed : 60 * I.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
-			dismantle_wall()
-			visible_message("<span class='warning'>[user] slices apart [src]!</span>", "<span class='warning'>You hear metal being sliced apart.</span>")
-			return TRUE
-
+	to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
+	playsound(src, 'sound/items/welder.ogg', 100, TRUE)
+	if(do_after(user, I.toolspeed * speed SECONDS, target = src))
+		cut_down(I, user)
+		return TRUE
 	return FALSE
+
+/turf/simulated/wall/proc/cut_down(obj/item/I, mob/living/user, params)
+	to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
+	dismantle_wall()
+	visible_message("<span class='warning'>[user] slices apart [src] with [I]!</span>", "<span class='warning'>You hear metal being sliced apart.</span>")
 
 /turf/simulated/wall/proc/try_destroy(obj/item/I, mob/user, params)
 	var/isdiamond = istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) // snowflake bullshit

@@ -284,6 +284,7 @@
 	needs_permit = TRUE
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+	var/toy = FALSE //Is this a toy?
 
 /obj/item/twohanded/dualsaber/New()
 	..()
