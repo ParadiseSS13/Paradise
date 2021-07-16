@@ -729,7 +729,7 @@
 	category = list("hacked", "Security")
 
 /datum/design/shotgun_slug
-	name = "Shotgun Slug"
+	name = "Shotgun AP Slug"
 	id = "shotgun_slug"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 4000)
