@@ -270,6 +270,9 @@
 	/// Webhook URLs for the notes webhook
 	var/list/discord_notes_webhook_urls = list() // Toma el valor del archivo config.txt, esta es una variable hispania, TotoMC was here
 
+	/// Webhook URLs for the OOC webhook
+	var/list/discord_ooc_webhook_urls = list() // Toma el valor del archivo config.tx, esta es una variable hispania, TotoMC was here
+
 	/// Do we want to forward all adminhelps to the discord or just ahelps when admins are offline.
 	/// (This does not mean all ahelps are pinged, only ahelps sent when staff are offline get the ping, regardless of this setting)
 	var/discord_forward_all_ahelps = FALSE
@@ -791,6 +794,8 @@
 					discord_bans_webhook_urls = splittext(value, "|") // Variable de hispania
 				if("discord_webhooks_notes_url")
 					discord_notes_webhook_urls = splittext(value, "|") // Variable de hispania
+				if("discord_webhooks_ooc_url")
+					discord_ooc_webhook_urls = splittext(value, "|") // Variable de hispania
 				if("discord_forward_all_ahelps")
 					discord_forward_all_ahelps = TRUE
 				// End discord stuff
