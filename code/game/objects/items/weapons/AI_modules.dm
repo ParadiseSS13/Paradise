@@ -313,6 +313,13 @@ AI MODULES
 	origin_tech = "programming=4"
 	laws = new/datum/ai_laws/antimov()
 
+/******************** ERT Override ******************/
+/obj/item/aiModule/ert // Applies ERT laws
+	name = "\improper ERT override AI module"
+	desc = "An ERT override AI module: 'Reconfigures the AI's core laws.'"
+	origin_tech = "programming=5"
+	laws = new/datum/ai_laws/ert_override
+
 /******************** Freeform Core ******************/
 /obj/item/aiModule/freeformcore // Slightly more dynamic freeform module -- TLE
 	name = "\improper 'Freeform' core AI module"
