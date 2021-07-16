@@ -190,6 +190,8 @@
 		items += glasses
 	if(gloves)
 		items += gloves
+	if(neck)
+		items += neck
 	if(shoes)
 		items += shoes
 	if(wear_id)

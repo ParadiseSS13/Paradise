@@ -67,6 +67,13 @@
 		else
 			msg += "[p_they(TRUE)] [p_are()] wearing [bicon(head)] \a [head] on [p_their()] head.\n"
 
+	//neck
+	if(neck && !(neck.flags & ABSTRACT))
+		if(neck.blood_DNA)
+			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(neck)] [neck.gender==PLURAL?"some":"a"] [neck.blood_color != "#030303" ? "blood-stained":"oil-stained"] [neck.name] around [p_their()] neck!</span>\n"
+		else
+			msg += "[p_they(TRUE)] [p_are()] wearing [bicon(neck)] \a [neck] around [p_their()] neck.\n"
+
 	//suit/armour
 	if(wear_suit && !(wear_suit.flags & ABSTRACT))
 		if(wear_suit.blood_DNA)
