@@ -756,6 +756,12 @@
 				suspicion = "last touched by [AM.fingerprintslast]"
 			message_admins("[src] has consumed [AM], [suspicion] [ADMIN_JMP(src)].")
 			investigate_log("has consumed [AM] - [suspicion].", "supermatter")
+			if(istype(AM, /obj/machinery/power/supermatter_crystal))
+				power += 5000//releases A LOT of power
+				matter_power += 500000
+				damage += 180//drops the integrety by 20%
+				AM.visible_message("<span class='danger'>[AM] smacks into [src], rapidly flashing blasts of pure energy. The energy inside [src] undergoes superradiance scattering!</span>", null,\
+				"<span class='italics'>You hear a loud crack as a wave of heat washes over you.</span>")
 		qdel(AM)
 	if(!iseffect(AM) && power_changes)
 		matter_power += 200
