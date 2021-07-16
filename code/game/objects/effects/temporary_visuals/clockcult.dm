@@ -43,14 +43,14 @@
 
 /obj/effect/temp_visual/ratvar/window
 	icon_state = "ratvarwindowglow"
-	layer = ABOVE_OBJ_LAYER
+	layer = ABOVE_WINDOW_LAYER
 
 /obj/effect/temp_visual/ratvar/window/single
 	icon_state = "ratvarwindowglow_s"
 
 /obj/effect/temp_visual/ratvar/gear
 	icon_state = "ratvargearglow"
-	layer = BELOW_OBJ_LAYER
+	layer = ABOVE_OBJ_LAYER
 
 /obj/effect/temp_visual/ratvar/grille
 	icon_state = "ratvargrilleglow"

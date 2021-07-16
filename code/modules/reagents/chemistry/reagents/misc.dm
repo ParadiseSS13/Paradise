@@ -133,13 +133,19 @@
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_description = "a CPU"
 
-
 /datum/reagent/copper
 	name = "Copper"
 	id = "copper"
 	description = "A highly ductile metal."
 	color = "#6E3B08" // rgb: 110, 59, 8
 	taste_description = "copper"
+
+/datum/reagent/copper/reaction_obj(obj/O, volume)
+	if(istype(O, /obj/item/stack/sheet/metal))
+		var/obj/item/stack/sheet/metal/M = O
+		volume = round(min(volume, M.amount), 1)
+		new /obj/item/stack/tile/brass(get_turf(M), volume)
+		M.use(volume)
 
 /datum/reagent/chromium
 	name = "Chromium"

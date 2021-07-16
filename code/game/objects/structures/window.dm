@@ -702,21 +702,17 @@
 	reinf = FALSE
 	var/made_glow = FALSE
 
-/obj/structure/window/reinforced/clockwork/Initialize(mapload, direct)
-	. = ..()
-	if(fulltile)
-		made_glow = TRUE
-	if(fulltile)
-		new /obj/effect/temp_visual/ratvar/window(get_turf(src))
-
 /obj/structure/window/reinforced/clockwork/spawnDebris(location)
 	. = list()
 	. += new /obj/item/stack/tile/brass(location, (fulltile ? 2 : 1))
 
 /obj/structure/window/reinforced/clockwork/setDir(direct)
 	if(!made_glow)
-		var/obj/effect/E = new /obj/effect/temp_visual/ratvar/window/single(get_turf(src))
-		E.setDir(direct)
+		if(fulltile)
+			new /obj/effect/temp_visual/ratvar/window(get_turf(src))
+		else
+			var/obj/effect/E = new /obj/effect/temp_visual/ratvar/window/single(get_turf(src))
+			E.setDir(direct)
 		made_glow = TRUE
 	..()
 

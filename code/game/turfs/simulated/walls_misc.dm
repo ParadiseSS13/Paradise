@@ -52,9 +52,8 @@
 	hardness = 10
 	slicing_duration = 80
 	sheet_type = /obj/item/stack/tile/brass
-	sheet_amount = 1
+	sheet_amount = 2
 	girder_type = /obj/structure/clockwork/wall_gear
-	baseturf = /turf/simulated/floor/clockwork/reebe
 	var/heated
 	var/obj/effect/clockwork/overlay/wall/realappearance
 
@@ -77,25 +76,6 @@
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 
-/turf/simulated/wall/clockwork/dismantle_wall(devastated=0, explode=0)
-	if(devastated)
-		devastate_wall()
-		ChangeTurf(baseturf)
-	else
-		playsound(src, 'sound/items/welder.ogg', 100, 1)
-		var/newgirder = break_wall()
-		if(newgirder) //maybe we want a gear!
-			transfer_fingerprints_to(newgirder)
-		ChangeTurf(baseturf)
-
-	for(var/obj/O in src) //Eject contents!
-		if(istype(O, /obj/structure/sign/poster))
-			var/obj/structure/sign/poster/P = O
-			P.roll_and_drop(src)
-		else
-			O.forceMove(src)
-	return TRUE
-
 /turf/simulated/wall/clockwork/devastate_wall()
 	for(var/i in 1 to 2)
 		new/obj/item/clockwork/alloy_shards/large(src)
@@ -116,4 +96,3 @@
 	if(heated)
 		to_chat(M.occupant, "<span class='userdanger'>The wall's intense heat completely reflects your [M.name]'s attack!</span>")
 		M.take_damage(20, BURN)
-
