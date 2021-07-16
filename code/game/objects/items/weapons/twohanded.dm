@@ -643,13 +643,13 @@
 	slot_flags = SLOT_BACK
 	force = 5
 	force_unwielded = 5
-	force_wielded = 20
+	force_wielded = 40
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	var/charged = 5
+	var/charged = 2
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
 
 /obj/item/twohanded/singularityhammer/New()
@@ -661,7 +661,7 @@
 	return ..()
 
 /obj/item/twohanded/singularityhammer/process()
-	if(charged < 5)
+	if(charged < 2)
 		charged++
 
 /obj/item/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
@@ -684,7 +684,7 @@
 				var/obj/item/clothing/shoes/magboots/M = H.shoes
 				if(M.magpulse)
 					continue
-			H.apply_effect(1, WEAKEN, 0)
+			H.Weaken(2)
 			step_towards(H, pull)
 			step_towards(H, pull)
 			step_towards(H, pull)
@@ -693,7 +693,7 @@
 	if(!proximity)
 		return
 	if(wielded)
-		if(charged == 5)
+		if(charged == 2)
 			charged = 0
 			if(isliving(A))
 				var/mob/living/Z = A
