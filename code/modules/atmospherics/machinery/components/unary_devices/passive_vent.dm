@@ -23,6 +23,10 @@
 	if(!node)
 		return 0
 
+	var/turf/T = loc
+	if(T.density) //No, you should not be able to get free air from walls
+		return
+
 	var/datum/gas_mixture/environment = loc.return_air()
 
 	var/pressure_delta = air_contents.return_pressure() - environment.return_pressure()

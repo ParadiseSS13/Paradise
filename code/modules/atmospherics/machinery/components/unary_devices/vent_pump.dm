@@ -128,6 +128,9 @@
 	..()
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
+	var/turf/T = loc
+	if(T.density) //No, you should not be able to get free air from walls
+		return
 	if(!node)
 		on = FALSE
 	//broadcast_status() // from now air alarm/control computer should request update purposely --rastaf0
