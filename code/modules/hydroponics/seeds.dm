@@ -10,6 +10,7 @@
 	var/plantname = "Plants"		// Name of plant when planted.
 	var/product						// A type path. The thing that is created when the plant is harvested.
 	var/species = ""				// Used to update icons. Should match the name in the sprites unless all icon_* are overriden.
+	var/variant = ""				// Can be set by players with a pen to help remember what a modified plant does.
 
 	var/growing_icon = 'icons/obj/hydroponics/growing.dmi' //the file that stores the sprites of the growing plant from this seed.
 	var/icon_grow					// Used to override grow icon (default is "[species]-grow"). You can use one grow icon for multiple closely related plants with it.
@@ -83,11 +84,13 @@
 	S.potency = potency
 	S.weed_rate = weed_rate
 	S.weed_chance = weed_chance
+	S.variant = variant
 	S.genes = list()
 	for(var/g in genes)
 		var/datum/plant_gene/G = g
 		S.genes += G.Copy()
 	S.reagents_add = reagents_add.Copy() // Faster than grabbing the list from genes.
+	S.apply_variant_name()
 	return S
 
 /obj/item/seeds/proc/get_gene(typepath)
@@ -324,9 +327,25 @@
 			to_chat(user, "<span class='notice'>[text]</span>")
 
 		return
+	if (istype(O, /obj/item/pen))
+		var/V = sanitize(stripped_input(user, "Choose variant name:", "Plant Variant Naming", variant, MAX_MESSAGE_LEN))
+		if (!Adjacent(user)) //prevent remote naming of seeds
+			return
+		if (V == "" && variant != "")
+			user.show_message("You remove the variant designation from the [plantname].")
+		else if(V != "")
+			user.show_message("You designate the [plantname] as the [V] variant.")
+		variant = V
+		apply_variant_name()
 	..() // Fallthrough to item/attackby() so that bags can pick seeds up
 
-
+/obj/item/seeds/proc/apply_variant_name()
+	var/P = findtext(name, "-")
+	var/V = (variant == "") ? "" : (" - " + variant)
+	if (P != 0)
+		name = copytext(name, 1, P - 1) + V
+	else
+		name += V
 
 
 
