@@ -28,24 +28,24 @@
 			admin = 1
 
 	//Guest Checking
-	if(!GLOB.guests_allowed && IsGuestKey(key))
+	if(GLOB.configuration.general.guest_ban && IsGuestKey(key))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Guests not allowed")
 		// message_admins("<span class='notice'>Failed Login: [key] - Guests not allowed</span>")
 		INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_BANNED)
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
 
 	//check if the IP address is a known proxy/vpn, and the user is not whitelisted
-	if(check_ipintel && config.ipintel_email && config.ipintel_whitelist && ipintel_is_banned(key, address))
+	if(check_ipintel && GLOB.configuration.ipintel.contact_email && GLOB.configuration.ipintel.whitelist_mode && ipintel_is_banned(key, address))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Proxy/VPN")
 		var/mistakemessage = ""
-		if(config.banappeals)
-			mistakemessage = "\nIf you have to use one, request whitelisting at:  [config.banappeals]"
+		if(GLOB.configuration.url.banappeals_url)
+			mistakemessage = "\nIf you have to use one, request whitelisting at:  [GLOB.configuration.url.banappeals_url]"
 		INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_IPINTEL)
 		return list("reason"="using proxy or vpn", "desc"="\nReason: Proxies/VPNs are not allowed here. [mistakemessage]")
 
 
 	// If 2FA is enabled, makes sure they were authed within the last minute
-	if(check_2fa && config._2fa_auth_host)
+	if(check_2fa && GLOB.configuration.system._2fa_auth_host)
 		// First see if they exist at all
 		var/datum/db_query/check_query = SSdbcore.NewQuery("SELECT 2fa_status, ip FROM [format_table_name("player")] WHERE ckey=:ckey", list("ckey" = ckey(key)))
 
@@ -87,7 +87,7 @@
 
 			qdel(verify_query)
 
-	if(config.ban_legacy_system)
+	if(!GLOB.configuration.general.use_database_bans)
 		//Ban Checking
 		. = CheckBan(ckey(key), computer_id, address)
 		if(.)
@@ -159,8 +159,8 @@
 				expires = " The ban is for [duration] minutes and expires on [expiration] (server time)."
 			else
 				var/appealmessage = ""
-				if(config.banappeals)
-					appealmessage = " You may appeal it at <a href='[config.banappeals]'>[config.banappeals]</a>."
+				if(GLOB.configuration.url.banappeals_url)
+					appealmessage = " You may appeal it at <a href='[GLOB.configuration.url.banappeals_url]'>[GLOB.configuration.url.banappeals_url]</a>."
 				expires = " This ban does not expire automatically and must be appealed.[appealmessage]"
 
 			var/desc = "\nReason: You, or another user of this computer or connection ([pckey]) is banned from playing here. The ban reason is:\n[reason]\nThis ban was applied by [ackey] on [bantime][ban_round_id ? " (Round [ban_round_id])" : ""].[expires]"

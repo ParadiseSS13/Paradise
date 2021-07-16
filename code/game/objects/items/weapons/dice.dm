@@ -179,12 +179,11 @@
 		addtimer(CALLBACK(src, .proc/boom, user, result), 4 SECONDS)
 
 /obj/item/dice/d20/e20/proc/boom(mob/user, result)
-	var/capped = FALSE
+	var/capped = TRUE
 	var/actual_result = result
-	if(result != 20)
-		capped = TRUE
-		result = min(result, GLOB.max_ex_light_range) // Apply the bombcap
-	else // Rolled a nat 20, screw the bombcap
+	// Rolled a nat 20, screw the bombcap
+	if(result == 20)
+		capped = FALSE
 		result = 24
 
 	var/turf/epicenter = get_turf(src)

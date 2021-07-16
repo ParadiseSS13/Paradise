@@ -122,11 +122,12 @@
 
 
 	//Logs all hrefs
-	if(config && config.log_hrefs)
+	if(GLOB.configuration.logging.href_logging)
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
 	if(href_list["karmashop"])
-		if(config.disable_karma)
+		if(!GLOB.configuration.general.enable_karma)
+			to_chat(src, "Karma is disabled on this server.")
 			return
 
 		switch(href_list["karmashop"])
@@ -218,7 +219,7 @@
 			to_chat(src, "<span class='danger'>You are sending messages to quickly. Please wait [wait_time] [wait_time == 1 ? "second" : "seconds"] before sending another message.</span>")
 			return 1
 		last_message_time = world.time
-	if(config.automute_on && !check_rights(R_ADMIN, 0) && last_message == message)
+	if(GLOB.configuration.general.enable_auto_mute && !check_rights(R_ADMIN, 0) && last_message == message)
 		last_message_count++
 		if(last_message_count >= SPAM_TRIGGER_AUTOMUTE)
 			to_chat(src, "<span class='danger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>")
@@ -259,7 +260,7 @@
 		return null
 	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
 		version_blocked = TRUE
-	if(byond_build < config.minimum_client_build)
+	if(byond_build < GLOB.configuration.general.minimum_client_build)
 		version_blocked = TRUE
 
 	var/show_update_prompt = FALSE
@@ -274,7 +275,7 @@
 	GLOB.directory[ckey] = src
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
-	if(!config.disable_localhost_admin)
+	if(GLOB.configuration.admin.enable_localhost_autoadmin)
 		if(is_connecting_from_localhost())
 			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
 	holder = GLOB.admin_datums[ckey]
@@ -305,10 +306,6 @@
 
 	spawn() // Goonchat does some non-instant checks in start()
 		chatOutput.start()
-
-	if( (world.address == address || !address) && !GLOB.host )
-		GLOB.host = key
-		world.update_status()
 
 	if(holder)
 		on_holder_add()
@@ -383,7 +380,7 @@
 			playercount += 1
 
 	// Update the state of the panic bunker based on current playercount
-	var/threshold = config.panic_bunker_threshold
+	var/threshold = GLOB.configuration.general.panic_bunker_threshold
 
 	if((playercount > threshold) && (GLOB.panic_bunker_enabled == FALSE))
 		GLOB.panic_bunker_enabled = TRUE
@@ -466,7 +463,7 @@
 
 /client/proc/donor_loadout_points()
 	if(donator_level > 0 && prefs)
-		prefs.max_gear_slots = config.max_loadout_points + 5
+		prefs.max_gear_slots = GLOB.configuration.general.base_loadout_points + 5
 
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
@@ -568,8 +565,9 @@
 		//New player!! Need to insert all the stuff
 
 		// Check new peeps for panic bunker
+		// AA TODO: Move this to world.IsBanned()
 		if(GLOB.panic_bunker_enabled)
-			var/threshold = config.panic_bunker_threshold
+			var/threshold = GLOB.configuration.general.panic_bunker_threshold
 			src << "Server is not accepting connections from never-before-seen players until player count is less than [threshold]. Please try again later."
 			qdel(src)
 			return // Dont insert or they can just go in again
@@ -593,10 +591,10 @@
 
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
-	if(config.ipintel_email)
-		if(config.ipintel_maxplaytime && config.use_exp_tracking)
+	if(GLOB.configuration.ipintel.enabled)
+		if(GLOB.configuration.ipintel.playtime_ignore_threshold && GLOB.configuration.jobs.enable_exp_tracking)
 			var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
-			if(living_hours >= config.ipintel_maxplaytime)
+			if(living_hours >= GLOB.configuration.ipintel.playtime_ignore_threshold)
 				return
 
 		if(is_connecting_from_localhost())
@@ -612,14 +610,15 @@
 		verify_ip_intel()
 
 /client/proc/verify_ip_intel()
-	if(ip_intel >= config.ipintel_rating_bad)
-		var/detailsurl = config.ipintel_detailsurl ? "(<a href='[config.ipintel_detailsurl][address]'>IP Info</a>)" : ""
-		if(config.ipintel_whitelist)
+	if(ip_intel >= GLOB.configuration.ipintel.bad_rating)
+		var/detailsurl = GLOB.configuration.ipintel.details_url ? "(<a href='[GLOB.configuration.ipintel.details_url][address]'>IP Info</a>)" : ""
+		if(GLOB.configuration.ipintel.whitelist_mode)
+			// AA TODO: move this check to world.IsBanned()
 			spawn(40) // This is necessary because without it, they won't see the message, and addtimer cannot be used because the timer system may not have initialized yet
 				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]</span>")
 				var/blockmsg = "<B>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</B>"
-				if(config.banappeals)
-					blockmsg += "\nIf you are not actually using a proxy/VPN, or have no choice but to use one, request whitelisting at: [config.banappeals]"
+				if(GLOB.configuration.url.banappeals_url)
+					blockmsg += "\nIf you are not actually using a proxy/VPN, or have no choice but to use one, request whitelisting at: [GLOB.configuration.url.banappeals_url]"
 				to_chat(src, blockmsg)
 				qdel(src)
 		else
@@ -627,9 +626,9 @@
 
 
 /client/proc/check_forum_link()
-	if(!config.forum_link_url || !prefs || prefs.fuid)
+	if(!GLOB.configuration.url.forum_link_url || !prefs || prefs.fuid)
 		return
-	if(config.use_exp_tracking)
+	if(GLOB.configuration.jobs.enable_exp_tracking)
 		var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
 		if(living_hours < 20)
 			return
@@ -663,7 +662,7 @@
 	return tokenstr
 
 /client/proc/link_forum_account(fromban)
-	if(!config.forum_link_url)
+	if(!GLOB.configuration.url.forum_link_url)
 		return
 	if(IsGuestKey(key))
 		to_chat(src, "Guest keys cannot be linked.")
@@ -689,7 +688,7 @@
 	if(!tokenid)
 		to_chat(src, "link_forum_account: unable to create token")
 		return
-	var/url = "[config.forum_link_url][tokenid]"
+	var/url = "[GLOB.configuration.url.forum_link_url][tokenid]"
 	if(fromban)
 		url += "&fwd=appeal"
 		to_chat(src, {"Now opening a window to verify your information with the forums, so that you can appeal your ban. If the window does not load, please copy/paste this link: <a href="[url]">[url]</a>"})
@@ -709,7 +708,7 @@
 	if(connection != "seeker")					//Invalid connection type.
 		return null
 	topic = params2list(topic)
-	if(!config.check_randomizer)
+	if(!GLOB.configuration.general.enabled_cid_randomiser_buster)
 		return
 	// Stash o' ckeys
 	var/static/cidcheck = list()
@@ -842,8 +841,8 @@
 //Send resources to the client.
 /client/proc/send_resources()
 	// Change the way they should download resources.
-	if(config.resource_urls)
-		preload_rsc = pick(config.resource_urls)
+	if(length(GLOB.configuration.url.rsc_urls))
+		preload_rsc = pick(GLOB.configuration.url.rsc_urls)
 	else
 		preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 	// Most assets are now handled through global_cache.dm
@@ -949,7 +948,7 @@
 	void.UpdateGreed(actualview[1],actualview[2])
 
 /client/proc/send_ssd_warning(mob/M)
-	if(!config.ssd_warning)
+	if(!GLOB.configuration.general.ssd_warning)
 		return FALSE
 	if(ssd_warning_acknowledged)
 		return FALSE
@@ -1102,7 +1101,7 @@
 	qdel(query_age)
 
 	// Notify admins on new clients connecting, if the byond account age is less than a config value
-	if(notify && (byondacc_age < config.byond_account_age_threshold))
+	if(notify && (byondacc_age < GLOB.configuration.general.byond_account_age_threshold))
 		message_admins("[key] has just connected for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 /client/proc/show_update_notice()
@@ -1149,7 +1148,7 @@
   */
 /client/proc/cid_count_check()
 	// If the config is 0, disable this
-	if(config.max_client_cid_history == 0)
+	if(GLOB.configuration.general.max_client_cid_history == 0)
 		return
 
 	// If we have no DB, dont even bother
@@ -1169,7 +1168,7 @@
 		cidcount = query_cidcheck.item[1]
 	qdel(query_cidcheck)
 
-	if(cidcount > config.max_client_cid_history)
+	if(cidcount > GLOB.configuration.general.max_client_cid_history)
 		// Check their notes for CID tracking in the past
 		var/has_note = FALSE
 		var/note_text = ""

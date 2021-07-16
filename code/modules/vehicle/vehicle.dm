@@ -160,7 +160,7 @@
 		unbuckle_mob(user)
 		return
 
-	var/delay = (last_move_diagonal? 2 : 1) * (vehicle_move_delay + config.human_delay)
+	var/delay = (last_move_diagonal? 2 : 1) * (vehicle_move_delay + GLOB.configuration.movement.human_delay)
 	if(world.time < last_vehicle_move + delay)
 		return
 	last_vehicle_move = world.time

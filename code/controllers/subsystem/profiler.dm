@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(profiler)
 	..("F:[round(fetch_cost, 1)]ms | W:[round(write_cost, 1)]ms")
 
 /datum/controller/subsystem/profiler/Initialize()
-	if(!config.auto_profile)
+	if(!GLOB.configuration.general.enable_auto_profiler)
 		StopProfiling() //Stop the early start profiler if we dont want it on in the config
 		flags |= SS_NO_FIRE
 	return ..()
@@ -22,7 +22,7 @@ SUBSYSTEM_DEF(profiler)
 	DumpFile()
 
 /datum/controller/subsystem/profiler/Shutdown()
-	if(config.auto_profile)
+	if(GLOB.configuration.general.enable_auto_profiler)
 		DumpFile()
 	return ..()
 

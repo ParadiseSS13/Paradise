@@ -6,7 +6,7 @@ SUBSYSTEM_DEF(statistics)
 
 
 /datum/controller/subsystem/statistics/Initialize(start_timeofday)
-	if(!config.sql_enabled)
+	if(!SSdbcore.IsConnected())
 		flags |= SS_NO_FIRE // Disable firing if SQL is disabled
 	return ..()
 

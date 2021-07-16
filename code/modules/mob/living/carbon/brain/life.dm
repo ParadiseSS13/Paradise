@@ -13,7 +13,7 @@
 /mob/living/carbon/brain/Life()
 	. = ..()
 	if(.)
-		if(!container && (world.time - timeofhostdeath) > config.revival_brain_life)
+		if(!container && (world.time - timeofhostdeath) > GLOB.configuration.general.revival_brain_life)
 			death()
 
 /mob/living/carbon/brain/breathe()

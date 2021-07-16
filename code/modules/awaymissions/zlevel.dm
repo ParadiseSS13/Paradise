@@ -1,5 +1,3 @@
-GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away_mission_config.txt"))
-
 // Call this before you remove the last dirt on a z level - that way, all objects
 // will have proper atmos and other important enviro things
 /proc/late_setup_level(turfs, smoothTurfs)
@@ -37,39 +35,6 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 		for(var/otherthing in T)
 			qdel(otherthing)
 		T.ChangeTurf(T.baseturf)
-
-/proc/generateMapList(filename)
-	var/list/potentialMaps = list()
-	var/list/Lines = file2list(filename)
-
-	if(!Lines.len)
-		return
-	for(var/t in Lines)
-		if(!t)
-			continue
-
-		t = trim(t)
-		if(length(t) == 0)
-			continue
-		else if(copytext(t, 1, 2) == "#")
-			continue
-
-		var/pos = findtext(t, " ")
-		var/name = null
-
-		if(pos)
-			name = lowertext(copytext(t, 1, pos))
-
-		else
-			name = lowertext(t)
-
-		if(!name)
-			continue
-
-		potentialMaps.Add(t)
-
-	return potentialMaps
-
 
 /datum/map_template/ruin/proc/try_to_place(z,allowed_areas)
 	var/sanity = PLACEMENT_TRIES

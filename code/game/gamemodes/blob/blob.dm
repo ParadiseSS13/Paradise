@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	to_chat(blob.current, "<b>Find a good location to spawn the core and then take control and overwhelm the station!</b>")
 	to_chat(blob.current, "<b>When you have found a location, wait until you spawn; this will happen automatically and you cannot speed up the process.</b>")
 	to_chat(blob.current, "<b>If you go outside of the station level, or in space, then you will die; make sure your location has lots of ground to cover.</b>")
-	to_chat(blob.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Blob)</span>")
+	to_chat(blob.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Blob)</span>")
 	SEND_SOUND(blob.current, sound('sound/magic/mutate.ogg'))
 	return
 

@@ -332,7 +332,7 @@
 	. = speed
 	if(forced_look)
 		. += 3
-	. += config.animal_delay
+	. += GLOB.configuration.movement.animal_delay
 
 /mob/living/simple_animal/Stat()
 	..()

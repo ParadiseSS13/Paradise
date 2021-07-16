@@ -45,15 +45,15 @@
 		var/light = -1
 		var/flash = -1
 
-		// Clamp all values to MAX_EXPLOSION_RANGE
+		// We dont need to clamp here. It gets clamped inside explosion()
 		if(round(amount/12) > 0)
-			devastation = min (GLOB.max_ex_devastation_range, devastation + round(amount/12))
+			devastation += round(amount/12)
 
 		if(round(amount/6) > 0)
-			heavy = min (GLOB.max_ex_heavy_range, heavy + round(amount/6))
+			heavy += round(amount/6)
 
 		if(round(amount/3) > 0)
-			light = min (GLOB.max_ex_light_range, light + round(amount/3))
+			light += round(amount/3)
 
 		if(flashing && flashing_factor)
 			flash += (round(amount/4) * flashing_factor)

@@ -6,7 +6,7 @@
 		return
 
 	if(istype(O,/obj/singularity))
-		if(config.forbid_singulo_possession)
+		if(GLOB.configuration.general.forbid_singulo_possession) // I love how this needs to exist
 			to_chat(usr, "It is forbidden to possess singularities.")
 			return
 

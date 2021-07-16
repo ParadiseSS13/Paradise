@@ -54,8 +54,8 @@
 		adminckey = ckey(adminckey)
 
 	if(!server)
-		if(config && config.server_name)
-			server = config.server_name
+		if(GLOB.configuration.general.server_name)
+			server = GLOB.configuration.general.server_name
 
 	// Force cast this to 1/0 incase someone tries to feed bad data
 	automated = !!automated

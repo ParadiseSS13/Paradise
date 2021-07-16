@@ -837,7 +837,7 @@
 		to_chat(src, "You are a brain slug that worms its way into the head of its victim. Use stealth, persuasion and your powers of mind control to keep you, your host and your eventual spawn safe and warm.")
 		to_chat(src, "Sugar nullifies your abilities, avoid it at all costs!")
 		to_chat(src, "You can speak to your fellow borers by prefixing your messages with ':bo'. Check out your Borer tab to see your abilities.")
-		to_chat(src, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Cortical_Borer)</span>")
+		to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cortical_Borer)</span>")
 
 /proc/create_borer_mind(key)
 	var/datum/mind/M = new /datum/mind(key)

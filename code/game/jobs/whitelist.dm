@@ -1,29 +1,6 @@
-#define WHITELISTFILE "data/whitelist.txt"
-
-GLOBAL_LIST_EMPTY(whitelist)
-
-/proc/init_whitelists()
-	if(config.usewhitelist)
-		load_whitelist()
-	if(config.usealienwhitelist)
-		load_alienwhitelist()
-
-/proc/load_whitelist()
-	GLOB.whitelist = file2list(WHITELISTFILE)
-	if(!GLOB.whitelist.len)
-		GLOB.whitelist = null
-/*
-/proc/check_whitelist(mob/M, rank)
-	if(!whitelist)
-		return 0
-	return ("[M.ckey]" in whitelist)
-*/
-
 /proc/is_job_whitelisted(mob/M, rank)
 	if(guest_jobbans(rank))
-		if(!config.usewhitelist)
-			return TRUE
-		if(config.disable_karma)
+		if(!GLOB.configuration.general.enable_karma)
 			return TRUE
 		if(check_rights(R_ADMIN, 0, M))
 			return TRUE
@@ -55,30 +32,13 @@ GLOBAL_LIST_EMPTY(whitelist)
 	else
 		return TRUE
 
-
-
-
-GLOBAL_LIST_EMPTY(alien_whitelist)
-
-/proc/load_alienwhitelist()
-	var/text = file2text("config/alienwhitelist.txt")
-	if(!text)
-		log_config("Failed to load config/alienwhitelist.txt\n")
-	else
-		GLOB.alien_whitelist = splittext(text, "\n")
-
-//todo: admin aliens
 /proc/is_alien_whitelisted(mob/M, species)
-	if(!config.usealienwhitelist)
-		return TRUE
-	if(config.disable_karma)
+	if(!GLOB.configuration.general.enable_karma)
 		return TRUE
 	if(species == "human" || species == "Human")
 		return TRUE
 	if(check_rights(R_ADMIN, 0))
 		return TRUE
-	if(!GLOB.alien_whitelist)
-		return FALSE
 	if(!SSdbcore.IsConnected())
 		return FALSE
 	else
@@ -104,14 +64,3 @@ GLOBAL_LIST_EMPTY(alien_whitelist)
 				break
 
 		qdel(species_read)
-/*
-	if(M && species)
-		for(var/s in alien_whitelist)
-			if(findtext(s,"[M.ckey] - [species]"))
-				return 1
-			if(findtext(s,"[M.ckey] - All"))
-				return 1
-*/
-
-
-#undef WHITELISTFILE
