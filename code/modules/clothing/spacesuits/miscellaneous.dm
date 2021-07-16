@@ -1,42 +1,3 @@
-	//Captain's space suit, not hardsuits because no flashlight!
-/obj/item/clothing/head/helmet/space/capspace
-	name = "captain's space helmet"
-	icon_state = "capspace"
-	item_state = "capspacehelmet"
-	desc = "A special helmet designed for only the most fashionable of military figureheads."
-	flags_inv = HIDEFACE
-	permeability_coefficient = 0.01
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 50, "energy" = 25, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
-	species_restricted = list("exclude", "Wryn")
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Grey" = 'icons/mob/species/grey/helmet.dmi'
-		)
-
-/obj/item/clothing/head/helmet/space/capspace/equipped(mob/living/carbon/human/user, slot)
-	if(ishuman(user) && slot == slot_head)
-		if(isvox(user))
-			if(flags & BLOCKHAIR)
-				flags &= ~BLOCKHAIR
-		else
-			if((initial(flags) & BLOCKHAIR) && !(flags & BLOCKHAIR))
-				flags |= BLOCKHAIR
-
-/obj/item/clothing/suit/space/captain
-	name = "captain's space suit"
-	desc = "A bulky, heavy-duty piece of exclusive Nanotrasen armor. YOU are in charge!"
-	icon_state = "caparmor"
-	item_state = "capspacesuit"
-	w_class = WEIGHT_CLASS_BULKY
-	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 50, "energy" = 25, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
-	species_restricted = list("exclude", "Wryn")
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
-
 	//Deathsquad space suit, not hardsuits because no flashlight!
 /obj/item/clothing/head/helmet/space/deathsquad
 	name = "deathsquad helmet"
@@ -155,48 +116,6 @@
 	armor = list("melee" = 30, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 60, "acid" = 75)
 	strip_delay = 40
 	put_on_delay = 20
-
-//Paramedic EVA suit
-/obj/item/clothing/head/helmet/space/eva/paramedic
-	name = "paramedic EVA helmet"
-	desc = "A brand new paramedic EVA helmet. It seems to mold to your head shape. Used for retrieving bodies in space."
-	icon_state = "paramedic-eva-helmet"
-	item_state = "paramedic-eva-helmet"
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
-	species_restricted = list("exclude", "Wryn")
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Grey" = 'icons/mob/species/grey/helmet.dmi',
-		"Skrell" = 'icons/mob/species/skrell/helmet.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
-		"Drask" = 'icons/mob/species/drask/helmet.dmi',
-		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
-		)
-	sprite_sheets_obj = list(
-		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi'
-		)
-
-/obj/item/clothing/suit/space/eva/paramedic
-	name = "paramedic EVA suit"
-	icon_state = "paramedic-eva"
-	item_state = "paramedic-eva"
-	desc = "A brand new paramedic EVA suit. The nitrile seems a bit too thin to be space proof. Used for retrieving bodies in space."
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
-	species_restricted = list("exclude", "Wryn")
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Skrell" = 'icons/mob/species/skrell/suit.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
-		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
-		)
-	sprite_sheets_obj = list(
-		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi'
-		)
 
 /obj/item/clothing/suit/space/eva
 	name = "EVA suit"

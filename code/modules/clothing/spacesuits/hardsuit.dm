@@ -711,3 +711,64 @@
 	item_state = "syndie_helm"
 	item_color = "syndi"
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 15, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+
+	// Captain's shiny special hardsuit
+/obj/item/clothing/head/helmet/space/hardsuit/captain
+	name = "captain's hardsuit helmet"
+	icon_state = "hardsuit0-captain"
+	item_state = "capspacehelmet"
+	item_color = "captain"
+	desc = "A special helmet designed for only the most fashionable of military figureheads."
+	flags_inv = HIDEFACE
+	permeability_coefficient = 0.01
+	armor = list("melee" = 40, "bullet" = 50, "laser" = 50, "energy" = 25, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+	species_restricted = list("exclude", "Wryn")
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		)
+
+	sprite_sheets_obj = list() // Lacks species specific objects
+
+/obj/item/clothing/suit/space/hardsuit/captain
+	name = "captain's hardsuit"
+	desc = "A bulky, heavy-duty piece of exclusive Nanotrasen armor. YOU are in charge!"
+	icon_state = "caparmor"
+	item_state = "capspacesuit"
+	w_class = WEIGHT_CLASS_BULKY
+	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs)
+	armor = list("melee" = 40, "bullet" = 50, "laser" = 50, "energy" = 25, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/captain
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+	sprite_sheets_obj = list() // Lacks species specific objects
+
+	//Paramedic hardsuit
+/obj/item/clothing/head/helmet/space/hardsuit/paramedic
+	name = "paramedic hardsuit helmet"
+	desc = "A paramedic hardsuit helmet, used for retrieving bodies in space. It seems to reassemble to your head shape."
+	icon_state = "hardsuit0-paramedic"
+	item_state = "paramedic-eva-helmet"
+	item_color = "paramedic"
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+
+	sprite_sheets_obj = list() // Lacks species specific objects
+
+/obj/item/clothing/suit/space/hardsuit/paramedic
+	name = "paramedic hardsuit"
+	icon_state = "paramedic-eva"
+	item_state = "paramedic-eva"
+	desc = "A paramedic hardsuit, used for retrieving bodies in space. For a space proof suit, the nitrile is worryingly thin. "
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	species_restricted = list("exclude", "Wryn")
+
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/paramedic
+
+	sprite_sheets_obj = list(
+		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi'
+		) // Limited species specific objects
