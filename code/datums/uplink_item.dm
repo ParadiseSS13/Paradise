@@ -180,6 +180,17 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/shoes/magboots/clown
 	cost = 3
 	job = list("Clown")
+/datum/uplink_item/jobspecific/tae_clown_do
+	name = "Scroll of Tae Clown Do"
+	desc = "This scroll contains the secrets of Tae Clown Do. You will become a master of honk-to-hand combat, \
+			you will also be able the channel your comedic energy into a honkdouken. \
+			Unable to be understood by vampire and changeling agents."
+	reference = "CD"
+	item = /obj/item/tae_clown_do_scroll
+	cost = 13
+	refundable = TRUE
+	cant_discount = TRUE
+	job = list("Clown")
 
 /datum/uplink_item/jobspecific/trick_revolver
 	name = "Trick Revolver"

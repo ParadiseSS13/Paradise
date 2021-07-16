@@ -271,6 +271,36 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
+/obj/item/tae_clown_do_scroll
+	name = "scroll of tae clown do"
+	desc = "A scroll filled with hilarious markings. They seem to be depictions of some sort of silly martial art."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "clownscroll"
+
+/obj/item/tae_clown_do_scroll/attack_self(mob/living/carbon/human/user)
+	if(!istype(user))
+		return
+	//Prevents changelings and vampires from being able to learn it
+	if(user.mind?.changeling) //Changelings
+		to_chat(user, "<span class='warning'>We try multiple times, but are unable to focus on the contents of the scroll because we repeatedly burst out in laughter!</span>")
+		return
+	if(user.mind?.vampire) //Vampires
+		to_chat(user, "<span class='warning'>Your antiquated sense of humour prevents you from being able to understand the art of Tae Clown Do!</span>")
+		return
+
+	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Tae Clown Do! \
+					Your honk-to-hand combat has become much more effective, and you are now able to produce honkdoukens. \
+					You can learn more about your newfound art by using the Recall Teachings verb in the Tae Clown Do tab.</span>")
+
+
+	var/datum/martial_art/tae_clown_do/TaeClownDo = new()
+	TaeClownDo.teach(user)
+	user.drop_item()
+	visible_message("<span class='warning'>[src] loses its luster and instantaneously transforms into a banana peel.</span>")
+	new /obj/item/grown/bananapeel(get_turf(src))
+	qdel(src)
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/fireball/honkdouken) // This gives you the Honkdouken spell! BLAST WITH IMPUNITY!
+
 /obj/item/CQC_manual
 	name = "old manual"
 	desc = "A small, black manual. There are drawn instructions of tactical hand-to-hand combat."
