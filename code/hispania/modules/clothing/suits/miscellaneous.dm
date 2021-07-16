@@ -35,3 +35,14 @@
 		return FALSE
 	if (prob(hit_reflect_chance))
 		return TRUE
+
+/obj/item/clothing/suit/big_chungus
+	name = "funny rabbit suit"
+	desc = "This large suit of armour, resembling a grotesquely obese form of the iconic Bugs Bunny is clearly miles above most modern body protection; still wouldn't wear it over your dead dignity."
+	icon = 'icons/hispania/mob/suit.dmi'
+	icon_state = "chungus"
+	item_state = "chungus"
+	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
+	flags_inv = HIDESHOES|HIDEJUMPSUIT
+	hispania_icon = TRUE
+	species_restricted = list("Human", "Slime", "Machine", "Kidan", "Skrell", "Diona" )

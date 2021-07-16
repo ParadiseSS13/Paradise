@@ -257,6 +257,7 @@
 					/obj/item/clothing/under/bluehawaiianshirt = 52,
 					/obj/item/clothing/under/orangehawaiianshirt = 52,
 					/obj/item/clothing/under/tourist_suit = 50)
+	hispa_premium = list(/obj/item/clothing/suit/big_chungus = 1, /obj/item/clothing/head/big_chungus = 1)
 
 //este vending es gratis en paradise
 /obj/machinery/vending/hatdispenser

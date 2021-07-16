@@ -82532,7 +82532,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/autosurgeon,
+/obj/item/autosurgeon/organ,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/tsf)
 "dvn" = (
