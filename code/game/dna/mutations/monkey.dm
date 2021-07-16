@@ -26,6 +26,10 @@
 	H.invisibility = 101
 	var/has_primitive_form = H.dna.species.primitive_form // cache this
 	if(has_primitive_form)
+		if(ispath(has_primitive_form, /mob/living/simple_animal)) // Simple animal form
+			var/mob/living/simple_animal/S = simple_transformation(H, has_primitive_form)
+			return S
+
 		H.set_species(has_primitive_form)
 
 	new /obj/effect/temp_visual/monkeyify(H.loc)
@@ -79,3 +83,11 @@
 	to_chat(H, "<B>You are now a [H.dna.species.name].</B>")
 
 	return H
+
+/datum/mutation/monkey/proc/simple_transformation(mob/living/carbon/human/user, mob/living/simple_animal/new_species)
+	var/mob/living/simple_animal/S = new new_species(get_turf(user))
+	if(user.mind)
+		user.mind.transfer_to(S)
+	QDEL_NULL(user.internal_organs_slot[BRAIN])
+	user.gib()
+	return S
