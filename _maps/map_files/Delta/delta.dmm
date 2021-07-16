@@ -33187,12 +33187,12 @@
 /turf/simulated/wall/r_wall,
 /area/security/nuke_storage)
 "btR" = (
-/obj/machinery/suit_storage_unit/security,
 /obj/item/radio/intercom{
 	pixel_x = -6;
 	pixel_y = -28
 	},
 /obj/effect/decal/warning_stripes/northeast,
+/obj/machinery/suit_storage_unit/security/hos,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

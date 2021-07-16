@@ -2219,7 +2219,7 @@
 	pixel_x = 27;
 	pixel_y = 29
 	},
-/obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/suit_storage_unit/security/hos,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
