@@ -12,6 +12,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	bubble_icon = "robot"
 	universal_understand = 1
 	deathgasp_on_death = TRUE
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 
 	var/sight_mode = 0
 	var/custom_name = ""

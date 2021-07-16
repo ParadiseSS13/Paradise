@@ -2,6 +2,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items.dmi'
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers

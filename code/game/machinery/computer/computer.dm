@@ -14,9 +14,10 @@
 	var/processing = 0
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
-	var/light_range_on = 2
-	var/light_power_on = 1
+	var/light_range_on = 1
+	var/light_power_on = 0.7
 	var/overlay_layer
+	var/emissive_alpha = 128
 	/// Are we in the middle of a flicker event?
 	var/flickering = FALSE
 	/// Are we forcing the icon to be represented in a no-power state?
@@ -73,19 +74,17 @@
 	flickering = FALSE
 
 /obj/machinery/computer/update_icon()
-	overlays.Cut()
-	if((stat & NOPOWER) || force_no_power_icon_state)
-		if(icon_keyboard)
-			overlays += image(icon,"[icon_keyboard]_off",overlay_layer)
+	if(stat & NOPOWER)
+		. += "[icon_keyboard]_off"
 		return
+	. += icon_keyboard
 
+	// This whole block lets screens ignore lighting and be visible even in the darkest room
+	var/overlay_state = icon_screen
 	if(stat & BROKEN)
-		overlays += image(icon,"[icon_state]_broken",overlay_layer)
-	else
-		overlays += image(icon,icon_screen,overlay_layer)
-
-	if(icon_keyboard)
-		overlays += image(icon, icon_keyboard ,overlay_layer)
+		overlay_state = "[icon_state]_broken"
+	SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, plane, dir)
+	SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, EMISSIVE_PLANE, dir, emissive_alpha)
 
 
 /obj/machinery/computer/power_change()

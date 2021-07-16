@@ -48,6 +48,9 @@
 	var/list/remove_overlays // a very temporary list of overlays to remove
 	var/list/add_overlays // a very temporary list of overlays to add
 
+	///vis overlays managed by SSvis_overlays to automaticaly turn them like other overlays
+	var/list/managed_vis_overlays
+
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
 

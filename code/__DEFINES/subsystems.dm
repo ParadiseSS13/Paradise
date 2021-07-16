@@ -46,13 +46,14 @@
 // The numbers just define the ordering, they are meaningless otherwise.
 #define INIT_ORDER_PROFILER	101
 #define INIT_ORDER_TITLE 100 // Load this quickly so people dont see a blank lobby screen
-#define INIT_ORDER_GARBAGE 21
-#define INIT_ORDER_DBCORE 20
-#define INIT_ORDER_BLACKBOX 19
-#define INIT_ORDER_CLEANUP 18
-#define INIT_ORDER_INPUT 17
-#define INIT_ORDER_SOUNDS 16
-#define INIT_ORDER_INSTRUMENTS 15
+#define INIT_ORDER_GARBAGE 22
+#define INIT_ORDER_DBCORE 21
+#define INIT_ORDER_BLACKBOX 20
+#define INIT_ORDER_CLEANUP 19
+#define INIT_ORDER_INPUT 18
+#define INIT_ORDER_SOUNDS 17
+#define INIT_ORDER_INSTRUMENTS 16
+#define INIT_ORDER_VIS 15
 #define INIT_ORDER_RESEARCH 14
 #define INIT_ORDER_EVENTS 13
 #define INIT_ORDER_JOBS 12
@@ -95,6 +96,7 @@
 #define FIRE_PRIORITY_TICKETS		10
 #define FIRE_PRIORITY_RESEARCH		10
 #define FIRE_PRIORITY_AMBIENCE		10
+#define FIRE_PRIORITY_VIS 			10
 #define FIRE_PRIORITY_GARBAGE		15
 #define FIRE_PRIORITY_WET_FLOORS	20
 #define FIRE_PRIORITY_AIR			20

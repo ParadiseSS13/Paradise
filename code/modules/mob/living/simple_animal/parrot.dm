@@ -33,6 +33,7 @@
 	icon_dead = "parrot_dead"
 	pass_flags = PASSTABLE
 	can_collar = TRUE
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 
 	var/list/clean_speak = list(
 		"Hi",
