@@ -46,6 +46,7 @@
 	if(!hl3_release_date)
 		return
 	strength -= strength / hl3_release_date
+	SSradiation.update_rad_cache(src)
 	if(strength <= RAD_BACKGROUND_RADIATION)
 		qdel(src)
 		return PROCESS_KILL

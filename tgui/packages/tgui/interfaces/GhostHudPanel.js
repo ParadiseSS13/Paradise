@@ -8,6 +8,7 @@ export const GhostHudPanel = (props, context) => {
     security,
     medical,
     diagnostic,
+    radioactivity,
     ahud,
   } = data;
   return (
@@ -17,6 +18,8 @@ export const GhostHudPanel = (props, context) => {
           <HudEntry label="Medical" type="medical" is_active={medical} />
           <HudEntry label="Security" type="security" is_active={security} />
           <HudEntry label="Diagnostic" type="diagnostic" is_active={diagnostic} />
+          <Divider />
+          <HudEntry label="Radioactivity" type="radioactivity" is_active={radioactivity} act_on={"rads_on"} act_off={"rads_off"} />
           <Divider />
           <HudEntry label="Antag HUD" is_active={ahud} act_on={"ahud_on"} act_off={"ahud_off"} />
         </Section>
