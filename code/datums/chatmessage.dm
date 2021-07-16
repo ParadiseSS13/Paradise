@@ -55,8 +55,9 @@
   * * owner - The mob that owns this overlay, only this mob will be able to view it
   * * italics - Should we use italics or not
   * * lifespan - The lifespan of the message in deciseconds
+  * * symbol - The symbol type of the message
   */
-/datum/chatmessage/New(text, atom/target, mob/owner, italics, size, lifespan = CHAT_MESSAGE_LIFESPAN)
+/datum/chatmessage/New(text, atom/target, mob/owner, italics, size, lifespan = CHAT_MESSAGE_LIFESPAN, symbol)
 	. = ..()
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
@@ -64,7 +65,7 @@
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
 		return
-	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner, lifespan, italics, size)
+	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner, lifespan, italics, size, symbol)
 
 /datum/chatmessage/Destroy()
 	if (owned_by)
@@ -93,8 +94,10 @@
   * * radio_speech - Fancy shmancy radio icon represents that we use radio
   * * lifespan - The lifespan of the message in deciseconds
   * * italics - Just copy and paste, sir
+  * * size - Size of the message
+  * * symbol - The symbol type of the message
   */
-/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, lifespan, italics, size)
+/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, lifespan, italics, size, symbol)
 	// Register client who owns this message
 	owned_by = owner.client
 	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, .proc/on_parent_qdel)
@@ -123,9 +126,17 @@
 
 	var/output_color = sanitize_color(target.get_runechat_color()) // Get_runechat_color can be overriden on atoms to display a specific one (Example: Humans having their hair colour as runechat colour)
 
+	// Symbol for special runechats (emote)
+	switch(symbol)
+		if(RUNECHAT_SYMBOL_EMOTE)
+			symbol = "<span style='font-size: 9px; color: #3399FF;'>*</span> "
+			size = size || "small"
+		else
+			symbol = null
+
 	// Approximate text height
 	var/static/regex/html_metachars = new(@"&[A-Za-z]{1,7};", "g")
-	var/complete_text = "<span class='center maptext[size ? " [size]" : ""]' style='[italics ? "font-style: italic; " : ""]color: [output_color]'>[text]</span>"
+	var/complete_text = "<span class='center maptext[size ? " [size]" : ""]' style='[italics ? "font-style: italic; " : ""]color: [output_color]'>[symbol][text]</span>"
 	var/mheight = WXH_TO_HEIGHT(owned_by.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
 	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
 
@@ -183,15 +194,16 @@
   * * raw_message - The text content of the message
   * * italics - Vacuum and other things
   * * size - Size of the message
+  * * symbol - The symbol type of the message
   */
-/mob/proc/create_chat_message(atom/movable/speaker, raw_message, italics=FALSE, size)
+/mob/proc/create_chat_message(atom/movable/speaker, raw_message, italics = FALSE, size, symbol)
 
 	if(isobserver(src))
 		return
 
 
 	// Display visual above source
-	new /datum/chatmessage(raw_message, speaker, src, italics, size)
+	new /datum/chatmessage(raw_message, speaker, src, italics, size, CHAT_MESSAGE_LIFESPAN, symbol)
 
 
 // Tweak these defines to change the available color ranges

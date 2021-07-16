@@ -494,3 +494,6 @@
 #define HALLUCINATE_MINOR 1
 #define HALLUCINATE_MODERATE 2
 #define HALLUCINATE_MAJOR 3
+
+// Runechat symbol types
+#define RUNECHAT_SYMBOL_EMOTE 1
