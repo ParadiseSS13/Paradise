@@ -716,6 +716,8 @@
 		/obj/item/soap,
 		/obj/item/t_scanner,
 		/obj/item/rpd,
+		/obj/item/analyzer,
+		/obj/item/areaeditor/blueprints/cyborg/drone,
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
