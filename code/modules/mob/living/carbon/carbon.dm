@@ -19,6 +19,7 @@
 		B.leave_host()
 		qdel(B)
 	GLOB.carbon_list -= src
+	remove_ventcrawl()
 	return ..()
 
 /mob/living/carbon/handle_atom_del(atom/A)
@@ -415,7 +416,8 @@
 	dna = newDNA
 
 
-GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
+GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber, /obj/machinery/atmospherics/unary/passive_vent))
+GLOBAL_LIST_EMPTY(ventcrawlers) // List of all mobs currently ventcrawling for purpose of updating their visual pipes when pipes are changed
 
 /mob/living/handle_ventcrawl(atom/clicked_on) // -- TLE -- Merged by Carn
 	if(!Adjacent(clicked_on))
@@ -449,64 +451,50 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(!C.check_clothing(src))//return values confuse me right now
 				return
 
-	var/obj/machinery/atmospherics/unary/vent_found
+	var/obj/machinery/atmospherics/entrance_found = clicked_on
 
-	if(clicked_on)
-		vent_found = clicked_on
-		if(!istype(vent_found) || !vent_found.can_crawl_through())
-			vent_found = null
+	if(!(is_type_in_list(entrance_found, GLOB.ventcrawl_machinery)) && !(istype(entrance_found, /obj/machinery/atmospherics) && entrance_found.check_open()))
+		entrance_found = null
 
-
-	if(!vent_found)
-		for(var/obj/machinery/atmospherics/machine in range(1,src))
-			if(is_type_in_list(machine, GLOB.ventcrawl_machinery) && machine.can_crawl_through())
-				vent_found = machine
-				break
-
-	if(vent_found)
-		if(vent_found.parent && (vent_found.parent.members.len || vent_found.parent.other_atmosmch))
-			visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
-							"<span class='notice'>You begin climbing into the ventilation system...</span>")
-
-			if(!do_after(src, 45, target = src))
-				return
-
-			if(has_buckled_mobs())
-				to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
-				return
-
-			if(buckled)
-				to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
-				return
-
-			if(!client)
-				return
-
-			if(iscarbon(src) && contents.len && ventcrawlerlocal < 2)//It must have atleast been 1 to get this far
-				for(var/obj/item/I in contents)
-					var/failed = 0
-					if(istype(I, /obj/item/implant))
-						continue
-					if(I.flags & ABSTRACT)
-						continue
-					else
-						failed++
-
-					if(failed)
-						to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
-						return
-
-			visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
-			src.loc = vent_found
-			add_ventcrawl(vent_found)
-
-	else
+	if(!entrance_found)
 		to_chat(src, "<span class='warning'>This ventilation duct is not connected to anything!</span>")
+		return
+
+	var/datum/pipeline/P = entrance_found.returnPipenet()
+	if(P && (length(P.members) || P.other_atmosmch))
+		if(!try_crawl_in(entrance_found))
+			return
+
+		if(has_buckled_mobs())
+			to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
+			return
+
+		if(buckled)
+			to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
+			return
+
+		if(!client)
+			return
+
+		if(iscarbon(src) && length(contents) && ventcrawlerlocal < 2)//It must have atleast been 1 to get this far
+			for(var/obj/item/I in contents)
+				if(istype(I, /obj/item/implant))
+					continue
+				if(I.flags & ABSTRACT)
+					continue
+				else
+					to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
+					return
+
+		show_ventcrawl(entrance_found)
+		loc = entrance_found // This can not be a forcemove. It will break the ventcrawl UI
+		add_ventcrawl(entrance_found)
 
 
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
 	if(!istype(starting_machine) || !starting_machine.returnPipenet() || !starting_machine.can_see_pipes())
 		return
+	GLOB.ventcrawlers.Add(src)
 	var/datum/pipeline/pipeline = starting_machine.returnPipenet()
 	var/list/totalMembers = list()
 	totalMembers |= pipeline.members
@@ -515,9 +503,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(!A.pipe_image)
 			A.update_pipe_image()
 		pipes_shown += A.pipe_image
-		client.images += A.pipe_image
+		client?.images += A.pipe_image
 
 /mob/living/proc/remove_ventcrawl()
+	GLOB.ventcrawlers.Remove(src)
 	if(client)
 		for(var/image/current_image in pipes_shown)
 			client.images -= current_image
@@ -525,18 +514,46 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	pipes_shown.len = 0
 
+/mob/living/proc/add_to_pipe_vision(obj/machinery/atmospherics/P)
+	if(!P.pipe_image)
+		P.update_pipe_image()
+	pipes_shown += P.pipe_image
+	client?.images += P.pipe_image
+
+/mob/living/proc/remove_from_pipe_vision(obj/machinery/atmospherics/P)
+	if(!P.pipe_image)
+		P.update_pipe_image()
+	pipes_shown -= P.pipe_image
+	client?.images -= P.pipe_image
+
+/mob/living/proc/try_crawl_out(obj/machinery/atmospherics/A)
+	if(A.can_crawl_through())
+		remove_ventcrawl()
+		forceMove(get_turf(A)) //handles exiting
+		visible_message("<span class='notice'>You hear something squeezing through the ducts.</span>", \
+		"<span class='notice'>You climb out the ventilation system.</span>")
+		return TRUE
+	return FALSE
+
+/mob/living/proc/try_crawl_in(obj/machinery/atmospherics/A)
+	if(A.can_crawl_through())
+		visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
+		"<span class='notice'>You begin climbing into the ventilation system...</span>")
+		if(do_after(src, 4.5 SECONDS, target = src))
+			return TRUE
+	return FALSE
+
+/mob/living/proc/show_ventcrawl(obj/machinery/atmospherics/A)
+	visible_message("<span class='boldnotice'>[src] scrambles into the ventilation ducts!</span>", "<span class='notice'>You climb into the ventilation system.</span>")
+
 //OOP
 /atom/proc/update_pipe_vision()
 	return
 
 /mob/living/update_pipe_vision()
-	if(pipes_shown.len)
-		if(!is_ventcrawling(src))
-			remove_ventcrawl()
-	else
-		if(is_ventcrawling(src))
-			add_ventcrawl(loc)
-
+	remove_ventcrawl()
+	if(is_ventcrawling(src))
+		add_ventcrawl(loc)
 
 //Throwing stuff
 

@@ -45,12 +45,14 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/Initialize()
 	. = ..()
 	SSair.atmos_machinery += src
+	add_to_all_pipe_vision()
 
 /obj/machinery/atmospherics/proc/atmos_init()
 	// Updates all pipe overlays and underlays
 	update_underlays()
 
 /obj/machinery/atmospherics/Destroy()
+	remove_from_all_pipe_vision()
 	SSair.atmos_machinery -= src
 	SSair.deferred_pipenet_rebuilds -= src
 	for(var/mob/living/L in src) //ventcrawling is serious business
@@ -271,35 +273,58 @@ Pipelines + Other Objects -> Pipe network
 
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
 	if(target_move)
-		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery) && target_move.can_crawl_through())
-			user.remove_ventcrawl()
-			user.forceMove(target_move.loc) //handles entering and so on
-			user.visible_message("You hear something squeezing through the ducts.", "You climb out the ventilation system.")
+		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery))
+			user.try_crawl_out(target_move)
 		else if(target_move.can_crawl_through())
-			if(returnPipenet() != target_move.returnPipenet())
-				user.update_pipe_vision(target_move)
 			user.loc = target_move
 			user.client.eye = target_move //if we don't do this, Byond only updates the eye every tick - required for smooth movement
+			if(returnPipenet() != target_move.returnPipenet()) // This forces a redraw of the pipes for the ventcrawler
+				user.update_pipe_vision()
 			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
 				user.last_played_vent = world.time
 				playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
 	else
 		if((direction & initialize_directions) || is_type_in_list(src, GLOB.ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
-			user.remove_ventcrawl()
-			user.forceMove(src.loc)
-			user.visible_message("You hear something squeezing through the pipes.", "You climb out the ventilation system.")
-	user.canmove = 0
+			if(do_after(user, 3 SECONDS, target = src))
+				user.remove_ventcrawl()
+				user.forceMove(get_turf(src))
+				user.visible_message("<span class='boldnotice'>You hear something squeezing through the pipes.</span>", "<span class='notice'>You climb out the ventilation system.</span>")
+			else
+				to_chat(user, "<span class='notice'>You stop climbing out of the ventilation system.</span>")
+	user.canmove = FALSE
 	spawn(1)
-		user.canmove = 1
+		user.canmove = TRUE
 
 /obj/machinery/atmospherics/AltClick(mob/living/L)
-	if(is_type_in_list(src, GLOB.ventcrawl_machinery))
+	if(is_type_in_list(src, GLOB.ventcrawl_machinery) || check_open())
 		L.handle_ventcrawl(src)
 		return
 	..()
 
 /obj/machinery/atmospherics/proc/can_crawl_through()
-	return 1
+	return TRUE
+
+/obj/machinery/atmospherics/proc/check_open()
+	for(var/direction in GLOB.cardinal)
+		if((direction & initialize_directions) && !findConnecting(direction)) // Checks if a pipe can connect in a direction, then returns true if there isn't a pipe connected there
+			return TRUE
+	return FALSE
+
+/obj/machinery/atmospherics/proc/update_all_pipe_vision()
+	for(var/V in GLOB.ventcrawlers)
+		var/mob/living/M = V
+		M.remove_from_pipe_vision(src)
+		M.add_to_pipe_vision(src)
+
+/obj/machinery/atmospherics/proc/add_to_all_pipe_vision()
+	for(var/V in GLOB.ventcrawlers)
+		var/mob/living/M = V
+		M.add_to_pipe_vision(src)
+
+/obj/machinery/atmospherics/proc/remove_from_all_pipe_vision()
+	for(var/V in GLOB.ventcrawlers)
+		var/mob/living/M = V
+		M.remove_from_pipe_vision(src)
 
 /obj/machinery/atmospherics/proc/change_color(new_color)
 	//only pass valid pipe colors please ~otherwise your pipe will turn invisible
