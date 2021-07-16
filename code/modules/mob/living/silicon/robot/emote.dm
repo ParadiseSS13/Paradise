@@ -13,6 +13,8 @@
 		//Cooldown-inducing emotes
 		if("law","flip","flips","halt")		//halt is exempt because it's used to stop criminal scum //WHOEVER THOUGHT THAT WAS A GOOD IDEA IS GOING TO GET SHOT.
 			on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
+		if("spin","spins")
+			on_CD = handle_emote_CD(5 SECONDS)
 		//Everything else, including typos of the above emotes
 		else
 			on_CD = 0	//If it doesn't induce the cooldown, we won't check for the cooldown
@@ -157,8 +159,12 @@
 			message = "<B>[src]</B> does a flip!"
 			src.SpinAnimation(5,1)
 
+		if("spin","spins")
+			spin(20, 1)
+			message = "<B>[src]</B> spins!"
+
 		if("help")
-			to_chat(src, "salute, bow-(none)/mob, clap, flap, aflap, twitch, twitches, nod, deathgasp, glare-(none)/mob, stare-(none)/mob, look,\n law, halt")
+			to_chat(src, "salute, bow-(none)/mob, clap, flap, aflap, twitch, twitches, nod, deathgasp, glare-(none)/mob, stare-(none)/mob, look,\n law, halt, flip, spin")
 
 	..()
 
