@@ -849,11 +849,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
 	desc = "This scroll contains the secrets of an ancient martial arts technique. You will master unarmed combat, \
-			deflecting all ranged weapon fire, but you also refuse to use dishonorable ranged weaponry. \
+			deflecting ranged weapon fire when you are in a defensive stance (throw mode). Learning this art means you will also refuse to use dishonorable ranged weaponry. \
 			Unable to be understood by vampire and changeling agents."
 	reference = "SCS"
 	item = /obj/item/sleeping_carp_scroll
-	cost = 17
+	cost = 13
 	excludefrom = list(/datum/game_mode/nuclear)
 	refundable = TRUE
 	cant_discount = TRUE
