@@ -388,6 +388,27 @@
 			SSticker.real_reboot_time = 0 // If they set this at round end, show the "Reboot was cancelled by an admin" message instantly
 		href_list["secretsadmin"] = "check_antagonist"
 
+	else if(href_list["change_vip_target"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/list/possible_targets = list()
+		for(var/datum/mind/possible_target as anything in SSticker.minds)
+			if((possible_target != src) && ishuman(possible_target.current))
+				possible_targets += possible_target.current
+
+		possible_targets = sortAtom(possible_targets)
+		var/mob/living/carbon/human/new_target = input("Select new VIP:", "Objective target") as null|anything in possible_targets
+		if(QDELETED(new_target))
+			return
+		SSticker.mode.change_vip_target(new_target.mind)
+		// Update the existing objectives
+		for(var/thing in GLOB.all_objectives)
+			if(!istype(thing, /datum/objective/protect/vip) && !istype(thing, /datum/objective/assassinate/vip))
+				continue
+			var/datum/objective/O = thing
+			O.on_target_loss()
+		check_antagonists()
+
 	else if(href_list["simplemake"])
 		if(!check_rights(R_SPAWN))	return
 

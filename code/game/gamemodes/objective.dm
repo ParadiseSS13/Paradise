@@ -17,7 +17,24 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/Destroy()
 	GLOB.all_objectives -= src
+	if(owner)
+		owner.objectives -= src
+		owner = null
 	return ..()
+
+/**
+ * Will try to renew the objective to a valid state with another target.
+ * Returns the new found target or null if none were found
+ */
+/datum/objective/proc/on_target_loss()
+	if(owner?.current)
+		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
+	target = null
+	var/datum/mind/old_owner = owner
+	if(!find_target())
+		qdel(src)
+	old_owner?.announce_objectives()
 
 /datum/objective/proc/check_completion()
 	return completed
@@ -29,62 +46,56 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_IS_TARGET
 	if(!ishuman(possible_target.current))
 		return TARGET_INVALID_NOT_HUMAN
-	if(possible_target.current.stat == DEAD)
-		return TARGET_INVALID_DEAD
 	if(!possible_target.key)
 		return TARGET_INVALID_NOCKEY
 	if(possible_target.current)
+		if(possible_target.current.stat == DEAD)
+			return TARGET_INVALID_DEAD
 		var/turf/current_location = get_turf(possible_target.current)
-		if(current_location && !is_level_reachable(current_location.z))
+		if(!current_location || !is_level_reachable(current_location.z))
 			return TARGET_INVALID_UNREACHABLE
+		if(istype(possible_target.current.loc, /obj/machinery/cryopod))
+			return TARGET_INVALID_IS_IN_CRYO
 	if(isgolem(possible_target.current))
 		return TARGET_INVALID_GOLEM
 	if(possible_target.offstation_role)
 		return TARGET_INVALID_EVENT
 
-
+/**
+ * Finds a target for the objective and returns it. Will also always call set_target with this target.
+ * If no target is found then it will call set_target with null as parameter
+ */
 /datum/objective/proc/find_target()
 	var/list/possible_targets = list()
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target))
 			continue
-
 		possible_targets += possible_target
-
-	if(possible_targets.len > 0)
-		target = pick(possible_targets)
-
-/**
-  * Called when the objective's target goes to cryo.
-  */
-/datum/objective/proc/on_target_cryo()
-	if(owner?.current)
-		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
-	target = null
-	INVOKE_ASYNC(src, .proc/post_target_cryo)
+	var/found_target
+	if(length(possible_targets) > 0)
+		found_target = pick(possible_targets)
+	set_target(found_target)
+	return found_target
 
 /**
-  * Called a tick after when the objective's target goes to cryo.
-  */
-/datum/objective/proc/post_target_cryo()
-	find_target()
-	if(!target)
-		GLOB.all_objectives -= src
-		owner?.objectives -= src
-		qdel(src)
-	owner?.announce_objectives()
+ * Sets the target of the objective. Sets the explanation_text value as well to match the target
+ * * new_target - Target that will be used as new target
+ */
+/datum/objective/proc/set_target(new_target)
+	target = new_target
+	set_explaination_text()
+
+/datum/objective/proc/set_explaination_text()
+	explanation_text = "Free Objective"
 
 /datum/objective/assassinate
 	martyr_compatible = 1
 
-/datum/objective/assassinate/find_target()
-	..()
+/datum/objective/assassinate/set_explaination_text()
 	if(target && target.current)
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
 	else
-		explanation_text = "Free Objective"
-	return target
+		..()
 
 /datum/objective/assassinate/check_completion()
 	if(target && target.current)
@@ -97,17 +108,39 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return 0
 	return 1
 
+/datum/objective/assassinate/vip/Destroy()
+	SSticker.mode.protect_target_assassins -= owner
+	return ..()
+
+/datum/objective/assassinate/vip/set_target(new_target)
+	..()
+	if(target && owner)
+		SSticker.mode.protect_target_assassins |= owner
+
+/datum/objective/assassinate/vip/on_target_loss()
+	if(SSticker.mode.VIP_target == target)
+		SSticker.mode.change_vip_target(null)
+	return ..()
+
+/datum/objective/assassinate/vip/find_target()
+	if(!SSticker.mode.VIP_target)
+		SSticker.mode.change_vip_target(..())
+	else
+		if(SSticker.mode.VIP_target == owner)
+			set_target(null)
+			return null // Can't target yourself
+		set_target(SSticker.mode.VIP_target)
+
+	return SSticker.mode.VIP_target
 
 /datum/objective/mutiny
 	martyr_compatible = 1
 
-/datum/objective/mutiny/find_target()
-	..()
+/datum/objective/mutiny/set_explaination_text()
 	if(target && target.current)
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
 	else
-		explanation_text = "Free Objective"
-	return target
+		..()
 
 /datum/objective/mutiny/check_completion()
 	if(target && target.current)
@@ -119,7 +152,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return 0
 	return 1
 
-/datum/objective/mutiny/on_target_cryo()
+/datum/objective/mutiny/on_target_loss()
 	// We don't want revs to get objectives that aren't for heads of staff. Letting
 	// them win or lose based on cryo is silly so we remove the objective.
 	qdel(src)
@@ -127,13 +160,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/maroon
 	martyr_compatible = 1
 
-/datum/objective/maroon/find_target()
-	..()
+/datum/objective/maroon/set_explaination_text()
 	if(target && target.current)
 		explanation_text = "Prevent [target.current.real_name], the [target.assigned_role] from escaping alive."
 	else
-		explanation_text = "Free Objective"
-	return target
+		..()
 
 /datum/objective/maroon/check_completion()
 	if(target && target.current)
@@ -155,14 +186,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/debrain //I want braaaainssss
 	martyr_compatible = 0
 
-/datum/objective/debrain/find_target()
-	..()
+/datum/objective/debrain/set_explaination_text()
 	if(target && target.current)
 		explanation_text = "Steal the brain of [target.current.real_name] the [target.assigned_role]."
 	else
-		explanation_text = "Free Objective"
-	return target
-
+		..()
 
 /datum/objective/debrain/check_completion()
 	if(!target)//If it's a free objective.
@@ -182,13 +210,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/protect //The opposite of killing a dude.
 	martyr_compatible = 1
 
-/datum/objective/protect/find_target()
-	..()
+/datum/objective/protect/set_explaination_text()
 	if(target && target.current)
 		explanation_text = "Protect [target.current.real_name], the [target.assigned_role]."
 	else
-		explanation_text = "Free Objective"
-	return target
+		..()
 
 /datum/objective/protect/check_completion()
 	if(!target) //If it's a free objective.
@@ -202,6 +228,38 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return 0
 		return 1
 	return 0
+
+/datum/objective/protect/vip/Destroy()
+	SSticker.mode.protect_target_protectors -= owner
+	return ..()
+
+
+/datum/objective/protect/vip/on_target_loss()
+	if(SSticker.mode.VIP_target == target)
+		SSticker.mode.change_vip_target(null)
+	return ..()
+
+/datum/objective/protect/vip/set_target(new_target)
+	..()
+	if(target && owner)
+		SSticker.mode.protect_target_protectors |= owner
+
+/datum/objective/protect/vip/set_explaination_text()
+	if(target && target.current)
+		explanation_text = "Protect [target.current.real_name], the [target.assigned_role]. They are believed to be hunted by agents of other companies."
+	else
+		..()
+
+/datum/objective/protect/vip/find_target()
+	if(!SSticker.mode.VIP_target)
+		SSticker.mode.change_vip_target(..())
+	else
+		if(SSticker.mode.VIP_target == owner)
+			set_target(null)
+			return null // Can't target yourself
+		set_target(SSticker.mode.VIP_target)
+
+	return SSticker.mode.VIP_target
 
 /datum/objective/protect/mindslave //subytpe for mindslave implants
 
@@ -314,20 +372,15 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/escape/escape_with_identity
 	var/target_real_name // Has to be stored because the target's real_name can change over the course of the round
 
-/datum/objective/escape/escape_with_identity/find_target()
-	var/list/possible_targets = list() //Copypasta because NO_DNA races, yay for snowflakes.
-	for(var/datum/mind/possible_target in SSticker.minds)
-		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && possible_target.current.client)
-			var/mob/living/carbon/human/H = possible_target.current
-			if(!HAS_TRAIT(H, TRAIT_GENELESS))
-				possible_targets += possible_target
-	if(possible_targets.len > 0)
-		target = pick(possible_targets)
+/datum/objective/escape/escape_with_identity/is_invalid_target(datum/mind/possible_target)
+	return ..() || HAS_TRAIT(possible_target.current, TRAIT_GENELESS)
+
+/datum/objective/escape/escape_with_identity/set_explaination_text()
 	if(target && target.current)
 		target_real_name = target.current.real_name
 		explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing [target.p_their()] identification card."
 	else
-		explanation_text = "Free Objective"
+		..()
 
 /datum/objective/escape/escape_with_identity/check_completion()
 	if(!target_real_name)
@@ -375,24 +428,35 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/steal/proc/get_location()
 	return steal_target.location_override || "an unknown area"
 
+/datum/objective/steal/set_target(new_target)
+	steal_target = new_target
+	set_explaination_text()
+
+/datum/objective/steal/set_explaination_text()
+	if(!steal_target)
+		..()
+		return
+
+	explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
+	if(length(steal_target.protected_jobs))
+		explanation_text += "It may also be in the possession of the [jointext(steal_target.protected_jobs, ", ")]."
+
 /datum/objective/steal/find_target()
 	var/potential = GLOB.potential_theft_objectives.Copy()
-	while(!steal_target && length(potential))
+	var/found_target
+	while(!found_target && length(potential))
 		var/thefttype = pick_n_take(potential)
 		var/datum/theft_objective/O = new thefttype
 		if(owner.assigned_role in O.protected_jobs)
 			continue
 		if(O in owner.targets)
 			continue
-		if(O.flags & 2) // THEFT_FLAG_UNIQUE
+		if(O.flags & THEFT_FLAG_UNIQUE)
 			continue
+		found_target = O
 
-		steal_target = O
-		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
-		if(length(O.protected_jobs))
-			explanation_text += "It may also be in the possession of the [english_list(O.protected_jobs, and_text = " or ")]."
-		return
-	explanation_text = "Free Objective."
+	set_target(found_target)
+	return found_target
 
 /datum/objective/steal/proc/select_target()
 	var/list/possible_items_all = GLOB.potential_theft_objectives+"custom"
@@ -510,16 +574,19 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	martyr_compatible = 1
 	var/target_real_name
 
-/datum/objective/destroy/find_target()
-	var/list/possible_targets = active_ais(1)
-	var/mob/living/silicon/ai/target_ai = pick(possible_targets)
-	target = target_ai.mind
+/datum/objective/destroy/set_explaination_text()
 	if(target && target.current)
 		target_real_name = target.current.real_name
 		explanation_text = "Destroy [target_real_name], the AI."
 	else
-		explanation_text = "Free Objective"
-	return target
+		..()
+
+/datum/objective/destroy/find_target()
+	var/list/possible_targets = active_ais()
+	var/mob/living/silicon/ai/target_ai = safepick(possible_targets)
+	var/found_target = target_ai?.mind
+	set_target(found_target)
+	return found_target
 
 /datum/objective/destroy/check_completion()
 	if(target && target.current)

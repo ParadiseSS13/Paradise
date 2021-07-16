@@ -189,7 +189,7 @@
 		return TARGET_INVALID_BLACKLISTED
 	return ..()
 
-/datum/objective/contract/on_target_cryo()
+/datum/objective/contract/on_target_loss()
 	if(owning_contract.status in list(CONTRACT_STATUS_COMPLETED, CONTRACT_STATUS_FAILED))
 		return
 	// We pick the target ourselves so we don't want the default behaviour.

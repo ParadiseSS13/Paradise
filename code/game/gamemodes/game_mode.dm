@@ -40,6 +40,13 @@
 	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
 
+	/// The one crewmember/VIP that will be fought over by antags
+	var/datum/mind/VIP_target
+	/// Who is going to hunt them
+	var/list/protect_target_assassins = list()
+	/// Who is going to protect them
+	var/list/protect_target_protectors = list()
+
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
 
 /datum/game_mode/proc/announce() //to be calles when round starts
@@ -275,6 +282,11 @@
 							//			recommended_enemies if the number of people with that role set to yes is less than recomended_enemies,
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
+/**
+ * Handles a player being removed from the round by cryoing or something similar
+ */
+/datum/game_mode/proc/handle_player_removal(mob/M)
+	return
 
 /datum/game_mode/proc/latespawn(mob)
 
@@ -524,6 +536,16 @@
 	for(var/V in station_goals)
 		var/datum/station_goal/G = V
 		G.print_result()
+
+/datum/game_mode/proc/change_vip_target(datum/mind/new_target)
+	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_TRAITOR]
+	if(VIP_target)	// Reset the old one
+		antaghud.leave_hud(VIP_target.current)
+		set_antag_hud(VIP_target.current, null)
+	VIP_target = new_target
+	if(new_target)
+		antaghud.join_hud(VIP_target.current)
+		set_antag_hud(new_target.current, "hudvip")
 
 /datum/game_mode/proc/update_eventmisc_icons_added(datum/mind/mob_mind)
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]

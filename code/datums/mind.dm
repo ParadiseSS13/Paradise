@@ -18,6 +18,32 @@
 		However if you want that mind to have any special properties like being a traitor etc you will have to do that
 		yourself.
 */
+#define OBJECTIVE_ASSASSINATE		"assassinate"
+#define OBJECTIVE_BLOOD				"blood"
+#define OBJECTIVE_DEBRAIN			"debrain"
+#define OBJECTIVE_PROTECT			"protect"
+#define OBJECTIVE_PREVENT			"prevent"
+#define OBJECTIVE_BRIG				"brig"
+#define OBJECTIVE_HIJACK			"hijack"
+#define OBJECTIVE_ESCAPE			"escape"
+#define OBJECTIVE_SURVIVE			"survive"
+#define OBJECTIVE_DIE				"die"
+#define OBJECTIVE_STEAL				"steal"
+#define OBJECTIVE_DOWNLOAD			"download"
+#define OBJECTIVE_NUCLEAR			"nuclear"
+#define OBJECTIVE_CAPTURE			"capture"
+#define OBJECTIVE_ABSORB			"absorb"
+#define OBJECTIVE_DESTROY			"destroy"
+#define OBJECTIVE_MAROON			"maroon"
+#define OBJECTIVE_IDENTITY_THEFT	"identity theft"
+#define OBJECTIVE_ASSASSINATE_VIP	"assassinate VIP"
+#define OBJECTIVE_PROTECT_VIP		"protect VIP"
+#define OBJECTIVE_CUSTOM			"custom"
+
+
+#define OBJECTIVE_LIST list(OBJECTIVE_ASSASSINATE, OBJECTIVE_BLOOD, OBJECTIVE_PROTECT, OBJECTIVE_PROTECT, OBJECTIVE_PREVENT, OBJECTIVE_BRIG, OBJECTIVE_HIJACK,\
+							 OBJECTIVE_ESCAPE, OBJECTIVE_SURVIVE, OBJECTIVE_DIE, OBJECTIVE_STEAL, OBJECTIVE_DOWNLOAD, OBJECTIVE_NUCLEAR, OBJECTIVE_CAPTURE, OBJECTIVE_ABSORB, OBJECTIVE_DESTROY, OBJECTIVE_MAROON, OBJECTIVE_IDENTITY_THEFT,\
+							 OBJECTIVE_ASSASSINATE_VIP, OBJECTIVE_PROTECT_VIP, OBJECTIVE_CUSTOM)
 
 /datum/mind
 	var/key
@@ -531,14 +557,14 @@
 			if(!def_value)//If it's a custom objective, it will be an empty string.
 				def_value = "custom"
 
-		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate", "blood", "debrain", "protect", "prevent", "brig", "hijack", "escape", "survive", "steal", "download", "nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
+		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in OBJECTIVE_LIST
 		if(!new_obj_type)
 			return
 
 		var/datum/objective/new_objective = null
 
 		switch(new_obj_type)
-			if("assassinate","protect","debrain", "brig", "maroon")
+			if(OBJECTIVE_ASSASSINATE, OBJECTIVE_PROTECT, OBJECTIVE_PROTECT, OBJECTIVE_BRIG, OBJECTIVE_MAROON)
 				//To determine what to name the objective in explanation text.
 				var/objective_type_capital = uppertext(copytext(new_obj_type, 1,2))//Capitalize first letter.
 				var/objective_type_text = copytext(new_obj_type, 2)//Leave the rest of the text.
@@ -546,7 +572,7 @@
 
 				var/list/possible_targets = list()
 				for(var/datum/mind/possible_target in SSticker.minds)
-					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
+					if((possible_target != src) && ishuman(possible_target.current))
 						possible_targets += possible_target.current
 
 				var/mob/def_target = null
@@ -582,7 +608,7 @@
 					//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
 					new_objective.explanation_text = "[objective_type] [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
 
-			if("destroy")
+			if(OBJECTIVE_DESTROY)
 				var/list/possible_targets = active_ais(1)
 				if(possible_targets.len)
 					var/mob/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
@@ -593,31 +619,31 @@
 				else
 					to_chat(usr, "No active AIs with minds")
 
-			if("prevent")
+			if(OBJECTIVE_PREVENT)
 				new_objective = new /datum/objective/block
 				new_objective.owner = src
 
-			if("hijack")
+			if(OBJECTIVE_HIJACK)
 				new_objective = new /datum/objective/hijack
 				new_objective.owner = src
 
-			if("escape")
+			if(OBJECTIVE_ESCAPE)
 				new_objective = new /datum/objective/escape
 				new_objective.owner = src
 
-			if("survive")
+			if(OBJECTIVE_SURVIVE)
 				new_objective = new /datum/objective/survive
 				new_objective.owner = src
 
-			if("die")
+			if(OBJECTIVE_DIE)
 				new_objective = new /datum/objective/die
 				new_objective.owner = src
 
-			if("nuclear")
+			if(OBJECTIVE_NUCLEAR)
 				new_objective = new /datum/objective/nuclear
 				new_objective.owner = src
 
-			if("steal")
+			if(OBJECTIVE_STEAL)
 				if(!istype(objective, /datum/objective/steal))
 					new_objective = new /datum/objective/steal
 					new_objective.owner = src
@@ -627,7 +653,7 @@
 				if(!steal.select_target())
 					return
 
-			if("download","capture","absorb", "blood")
+			if(OBJECTIVE_DOWNLOAD, OBJECTIVE_CAPTURE, OBJECTIVE_ABSORB, OBJECTIVE_BLOOD)
 				var/def_num
 				if(objective&&objective.type==text2path("/datum/objective/[new_obj_type]"))
 					def_num = objective.target_amount
@@ -637,22 +663,22 @@
 					return
 
 				switch(new_obj_type)
-					if("download")
+					if(OBJECTIVE_DOWNLOAD)
 						new_objective = new /datum/objective/download
 						new_objective.explanation_text = "Download [target_number] research levels."
-					if("capture")
+					if(OBJECTIVE_CAPTURE)
 						new_objective = new /datum/objective/capture
 						new_objective.explanation_text = "Accumulate [target_number] capture points."
-					if("absorb")
+					if(OBJECTIVE_ABSORB)
 						new_objective = new /datum/objective/absorb
 						new_objective.explanation_text = "Absorb [target_number] compatible genomes."
-					if("blood")
+					if(OBJECTIVE_BLOOD)
 						new_objective = new /datum/objective/blood
 						new_objective.explanation_text = "Accumulate at least [target_number] total units of blood."
 				new_objective.owner = src
 				new_objective.target_amount = target_number
 
-			if("identity theft")
+			if(OBJECTIVE_IDENTITY_THEFT)
 				var/list/possible_targets = list()
 				for(var/datum/mind/possible_target in SSticker.minds)
 					if((possible_target != src) && ishuman(possible_target.current))
@@ -670,7 +696,15 @@
 				new_objective.owner = src
 				new_objective.target = new_target
 				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing [targ.current.p_their()] identification card."
-			if("custom")
+			if(OBJECTIVE_ASSASSINATE_VIP)
+				new_objective = new /datum/objective/assassinate/vip
+				new_objective.owner = src
+				new_objective.find_target()
+			if(OBJECTIVE_PROTECT_VIP)
+				new_objective = new /datum/objective/protect/vip
+				new_objective.owner = src
+				new_objective.find_target()
+			if(OBJECTIVE_CUSTOM)
 				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
 				if(!expl)
 					return
@@ -682,7 +716,6 @@
 			return
 
 		if(objective)
-			objectives -= objective
 			qdel(objective)
 			objectives.Insert(objective_pos, new_objective)
 		else
@@ -695,7 +728,6 @@
 		var/datum/objective/objective = locate(href_list["obj_delete"])
 		if(!istype(objective))
 			return
-		objectives -= objective
 
 		log_admin("[key_name(usr)] has removed one of [key_name(current)]'s objectives: [objective]")
 		message_admins("[key_name_admin(usr)] has removed one of [key_name_admin(current)]'s objectives: [objective]")
@@ -1860,3 +1892,28 @@
 	..()
 	mind.assigned_role = "Juggernaut"
 	mind.special_role = SPECIAL_ROLE_CULTIST
+
+
+#undef OBJECTIVE_ASSASSINATE
+#undef OBJECTIVE_BLOOD
+#undef OBJECTIVE_DEBRAIN
+#undef OBJECTIVE_PROTECT
+#undef OBJECTIVE_PREVENT
+#undef OBJECTIVE_BRIG
+#undef OBJECTIVE_HIJACK
+#undef OBJECTIVE_ESCAPE
+#undef OBJECTIVE_SURVIVE
+#undef OBJECTIVE_DIE
+#undef OBJECTIVE_STEAL
+#undef OBJECTIVE_DOWNLOAD
+#undef OBJECTIVE_NUCLEAR
+#undef OBJECTIVE_CAPTURE
+#undef OBJECTIVE_ABSORB
+#undef OBJECTIVE_DESTROY
+#undef OBJECTIVE_MAROON
+#undef OBJECTIVE_IDENTITY_THEFT
+#undef OBJECTIVE_ASSASSINATE_VIP
+#undef OBJECTIVE_PROTECT_VIP
+#undef OBJECTIVE_CUSTOM
+
+#undef OBJECTIVE_LIST
