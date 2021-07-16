@@ -284,14 +284,8 @@ SUBSYSTEM_DEF(air)
 			add_to_active(S)
 
 /datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
-	var/list/active_turfs = src.active_turfs
-
-	// Clear active turfs - faster than removing every single turf in the world
-	// one-by-one, and Initalize_Atmos only ever adds `src` back in.
-	active_turfs.Cut()
-
-	for(var/thing in turfs_to_init)
-		var/turf/T = thing
+	for(var/turf/T as anything in turfs_to_init)
+		remove_from_active(T)
 		if(T.blocks_air)
 			continue
 		T.Initialize_Atmos(times_fired)
