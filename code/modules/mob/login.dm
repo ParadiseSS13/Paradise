@@ -52,9 +52,6 @@
 	if(ckey in GLOB.deadmins)
 		verbs += /client/proc/readmin
 
-	//Clear ability list and update from mob.
-	client.verbs -= GLOB.ability_verbs
-
 	if(abilities)
 		client.verbs |= abilities
 
