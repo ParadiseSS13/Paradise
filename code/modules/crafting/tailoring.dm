@@ -162,3 +162,13 @@
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/kitchen/knife)
 	category = CAT_CLOTHING
+
+/datum/crafting_recipe/voice_modulator
+	name = "Voice Modulator Mask"
+	result = list(/obj/item/clothing/mask/gas/voice_modulator)
+	time = 45
+	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL)
+	reqs = list(/obj/item/clothing/mask/gas = 1,
+				  /obj/item/assembly/voice = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
