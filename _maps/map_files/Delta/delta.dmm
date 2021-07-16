@@ -7228,6 +7228,13 @@
 	},
 /obj/effect/decal/warning_stripes/southwest,
 /obj/effect/decal/warning_stripes/north,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "awE" = (
@@ -7707,15 +7714,16 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/disposalpipe/junction{
+	dir = 8;
+	icon_state = "pipe-j2";
+	tag = null
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/fsmaint)
 "axw" = (
@@ -8440,7 +8448,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/wall/rust,
+/turf/simulated/wall,
 /area/maintenance/fsmaint)
 "ayT" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -8844,9 +8852,13 @@
 	},
 /area/quartermaster/storage)
 "azK" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/disposalpipe/sortjunction{
+	dir = 1;
+	name = "Disposals Maint";
+	sortType = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -104731,6 +104743,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
+"ixB" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/quartermaster/storage)
 "ixV" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/cable{
@@ -106118,6 +106140,24 @@
 /obj/structure/filingcabinet,
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
+"osS" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/maintenance/fsmaint)
 "oBE" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/item/vending_refill/coffee,
@@ -107867,6 +107907,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/security/warden)
+"wXI" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/wall,
+/area/quartermaster/storage)
 "xbS" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -152433,7 +152477,7 @@ asL
 atQ
 alZ
 avp
-ayS
+are
 axv
 ayE
 azK
@@ -152690,10 +152734,10 @@ asM
 atR
 asK
 arW
-awy
-axw
-ayD
-azL
+ayS
+osS
+wXI
+ixB
 aFO
 aBS
 aCN
