@@ -70,13 +70,12 @@
 	name = "Special Operations Officer"
 	jobtype = /datum/job/ntspecops
 	uniform = /obj/item/clothing/under/rank/centcom/captain
-	suit = /obj/item/clothing/suit/space/deathsquad/officer
+	suit = /obj/item/clothing/suit/space/hardsuit/deathsquad/officer
 	back = /obj/item/storage/backpack/ert/security
 	belt = /obj/item/storage/belt/military/assault
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
-	head = /obj/item/clothing/head/helmet/space/deathsquad/beret
 	l_ear = /obj/item/radio/headset/centcom
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/centcom

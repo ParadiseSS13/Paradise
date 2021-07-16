@@ -586,7 +586,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("officer")
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), slot_head)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/beret(M), slot_head)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 				M.equip_to_slot_or_del(new /obj/item/clothing/mask/cigarette/cigar/havana(M), slot_wear_mask)

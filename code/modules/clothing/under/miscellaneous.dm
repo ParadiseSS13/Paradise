@@ -111,6 +111,10 @@
 	item_state = "dg_suit"
 	item_color = "centcom"
 
+/obj/item/clothing/under/rank/centcom_officer/binary
+	sensor_mode = SENSOR_LIVING
+	random_sensor = FALSE
+
 /obj/item/clothing/under/rank/centcom/officer
 	name = "\improper Nanotrasen naval officer's uniform"
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."

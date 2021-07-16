@@ -323,6 +323,16 @@
 	requires_tcomms = FALSE
 	instant = TRUE
 
+/obj/item/radio/headset/ds
+	name = "deathsquad's bowman headset"
+	desc = "The headset of the end. Protects ears from flashbangs. Can transmit even if telecomms are down."
+	flags = EARBANGPROTECT
+	icon_state = "com_headset_alt"
+	item_state = "com_headset_alt"
+	requires_tcomms = FALSE
+	instant = TRUE
+	freqlock = TRUE
+
 /obj/item/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
 	name = "\improper AI subspace transceiver"
 	desc = "Integrated AI radio transceiver."
