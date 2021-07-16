@@ -24,7 +24,7 @@ CREATE TABLE `characters` (
   `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slot` int(2) NOT NULL,
   `OOC_Notes` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `real_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `real_name` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name_is_always_random` tinyint(1) NOT NULL,
   `gender` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   `age` smallint(4) NOT NULL,

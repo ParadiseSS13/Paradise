@@ -18,7 +18,7 @@ FEEDBACK_DATABASE feedback
 ## This value must be set to the version of the paradise schema in use.
 ## If this value does not match, the SQL database will not be loaded and an error will be generated.
 ## Roundstart will be delayed.
-DB_VERSION 24
+DB_VERSION 25
 
 ## Prefix to be added to the name of every table, older databases will require this be set to erro_
 ## If left out defaults to erro_ for legacy reasons, if you want no table prefix, give a blank prefix rather then comment out
