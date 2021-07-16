@@ -50,7 +50,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>The [src] is too well secured to the floor.</span>")
+	to_chat(user, "<span class='notice'>[src] is too well secured to the floor.</span>")
 
 /obj/structure/fusionreactor/proc/overload(containment_failure = FALSE, skip_qdel = FALSE)
 	if(has_overloaded)

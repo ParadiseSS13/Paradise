@@ -742,6 +742,24 @@
 		log_admin("[key_name_admin(usr)] has turned [key_name_admin(H)] into a skeleton")
 		href_list["datumrefresh"] = href_list["make_skeleton"]
 
+	else if(href_list["hallucinate"])
+		if(!check_rights(R_SERVER | R_EVENT))
+			return
+
+		var/mob/living/carbon/C = locateUID(href_list["hallucinate"])
+		if(!istype(C))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon</span>")
+			return
+
+		var/haltype = input(usr, "Select the hallucination type:", "Hallucinate") as null|anything in subtypesof(/obj/effect/hallucination)
+		if(!haltype)
+			return
+
+		C.hallucinate(haltype)
+		message_admins("[key_name(usr)] has given [key_name(C)] the [haltype] hallucination")
+		log_admin("[key_name_admin(usr)] has given [key_name_admin(C)] the [haltype] hallucination")
+		href_list["datumrefresh"] = href_list["hallucinate"]
+
 	else if(href_list["offer_control"])
 		if(!check_rights(R_ADMIN))	return
 

@@ -106,7 +106,7 @@
 			cell.update_icon()
 			cell.loc = get_turf(loc)
 			cell = null
-			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
+			to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
 
 	update_icon()
 	return
@@ -363,7 +363,7 @@
 		if(do_after(user, 30 * toolspeed, target = M)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
 			user.visible_message("<span class='notice'>[user] places [src] on [M.name]'s chest.</span>", "<span class='warning'>You place [src] on [M.name]'s chest.</span>")
 			playsound(get_turf(src), 'sound/machines/defib_charge.ogg', 50, 0)
-			var/mob/dead/observer/ghost = H.get_ghost()
+			var/mob/dead/observer/ghost = H.get_ghost(TRUE)
 			if(ghost && !ghost.client)
 				// In case the ghost's not getting deleted for some reason
 				H.key = ghost.key
@@ -446,10 +446,13 @@
 						else if(total_burn >= 180 || total_brute >= 180)
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
 						else if(ghost)
-							user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
-							to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
-							window_flash(ghost.client)
-							ghost << sound('sound/effects/genetics.ogg')
+							if(!ghost.can_reenter_corpse) // DNR or AntagHUD
+								user.visible_message("<span class='notice'>[defib] buzzes: Resucitation failed: No electrical brain activity detected.</span>")
+							else
+								user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
+								to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+								window_flash(ghost.client)
+								ghost << sound('sound/effects/genetics.ogg')
 						else
 							user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed.</span>")
 						playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)

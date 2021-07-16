@@ -40,6 +40,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 	// Movement
 	pass_flags = PASSTABLE
+	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	turns_per_move = 3 // number of turns before AI-controlled spiders wander around. No effect on actual player or AI movement speed!
 	move_to_delay = 6
 	// AI spider speed at chasing down targets. Higher numbers mean slower speed. Divide 20 (server tick rate / second) by this to get tiles/sec.
@@ -319,7 +320,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(stat == DEAD) // Can't use if(.) for this due to the fact it can sometimes return FALSE even when mob is alive.
 		if(prob(2))
 			// 2% chance every cycle to decompose
-			visible_message("<span class='notice'>\The dead body of the [src] decomposes!</span>")
+			visible_message("<span class='notice'>The dead body of [src] decomposes!</span>")
 			gib()
 	else
 		if(degenerate)

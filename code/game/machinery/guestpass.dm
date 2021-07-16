@@ -39,21 +39,22 @@
 	density = 0
 
 
-	var/obj/item/card/id/giver
+	var/obj/item/card/id/scan
 	var/list/accesses = list()
 	var/giv_name = "NOT SPECIFIED"
 	var/reason = "NOT SPECIFIED"
 	var/duration = 5
+	var/print_cooldown = 0
 
 	var/list/internal_log = list()
-	var/mode = 0  // 0 - making pass, 1 - viewing logs
+	var/mode = FALSE  // FALSE - making pass, TRUE - viewing logs
 
 /obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
-		if(!giver)
+		if(!scan)
 			if(user.drop_item())
 				I.forceMove(src)
-				giver = I
+				scan = I
 				updateUsrDialog()
 		else
 			to_chat(user, "<span class='warning'>There is already ID card inside.</span>")
@@ -61,132 +62,161 @@
 	return ..()
 
 /obj/machinery/computer/guestpass/proc/get_changeable_accesses()
-	return giver.access
+	return scan.access
 
 /obj/machinery/computer/guestpass/attack_ai(mob/user)
 	return attack_hand(user)
 
 
-/obj/machinery/computer/guestpass/attack_hand(mob/user as mob)
+/obj/machinery/computer/guestpass/attack_hand(mob/user)
 	if(..())
 		return
+	ui_interact(user)
 
-	user.set_machine(src)
-	var/dat
+/obj/machinery/computer/guestpass/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "GuestPass",  name, 500, 850, master_ui, state)
+		ui.open()
+		ui.set_autoupdate(FALSE)
 
-	if(mode == 1) //Logs
-		dat += "<h3>Activity log</h3><br>"
-		for(var/entry in internal_log)
-			dat += "[entry]<br><hr>"
-		dat += "<a href='?src=[UID()];action=print'>Print</a><br>"
-		dat += "<a href='?src=[UID()];mode=0'>Back</a><br>"
+/obj/machinery/computer/guestpass/ui_data(mob/user)
+	var/list/data = list()
+	data["showlogs"] = mode
+	data["scan_name"] = scan ? scan.name : FALSE
+	data["issue_log"] = internal_log ? internal_log : list()
+	data["giv_name"] = giv_name
+	data["reason"] = reason
+	data["duration"] = duration
+	if(scan && !(ACCESS_CHANGE_IDS in scan.access))
+		data["grantableList"] = scan ? scan.access : list()
+	data["canprint"] = FALSE
+	if(!scan)
+		data["printmsg"] = "No card inserted."
+	else if(!length(scan.access))
+		data["printmsg"] = "Card has no access."
+	else if(!length(accesses))
+		data["printmsg"] = "No access types selected."
+	else if(print_cooldown > world.time)
+		data["printmsg"] = "Busy for [(round((print_cooldown - world.time) / 10))]s.."
 	else
-		dat += "<h3>Guest pass terminal #[uid]</h3><br>"
-		dat += "<a href='?src=[UID()];mode=1'>View activity log</a><br><br>"
-		dat += "Issuing ID: <a href='?src=[UID()];action=id'>[giver]</a><br>"
-		dat += "Issued to: <a href='?src=[UID()];choice=giv_name'>[giv_name]</a><br>"
-		dat += "Reason:  <a href='?src=[UID()];choice=reason'>[reason]</a><br>"
-		dat += "Duration (minutes):  <a href='?src=[UID()];choice=duration'>[duration] m</a><br>"
-		dat += "Access to areas:<br>"
-		if(giver && giver.access)
-			for(var/A in get_changeable_accesses())
-				var/area = get_access_desc(A)
-				if(A in accesses)
-					area = "<b>[area]</b>"
-				dat += "<a href='?src=[UID()];choice=access;access=[A]'>[area]</a><br>"
-		dat += "<br><a href='?src=[UID()];action=issue'>Issue pass</a><br>"
+		data["printmsg"] = "Print Pass"
+		data["canprint"] = TRUE
 
-	var/datum/browser/popup = new(user, "guestpass", name, 400, 520)
-	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "guestpass")
+	data["selectedAccess"] = accesses ? accesses : list()
+	return data
 
+/obj/machinery/computer/guestpass/ui_static_data(mob/user)
+	var/list/data = list()
+	data["regions"] = get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND)
+	return data
 
-/obj/machinery/computer/guestpass/Topic(href, href_list)
+/obj/machinery/computer/guestpass/ui_act(action, params)
 	if(..())
-		return 1
-	usr.set_machine(src)
-	if(href_list["mode"])
-		mode = text2num(href_list["mode"])
-
-	if(href_list["choice"])
-		switch(href_list["choice"])
-			if("giv_name")
-				var/nam = strip_html_simple(input("Person pass is issued to", "Name", giv_name) as text|null)
-				if(nam)
-					giv_name = nam
-			if("reason")
-				var/reas = strip_html_simple(input("Reason why pass is issued", "Reason", reason) as text|null)
-				if(reas)
-					reason = reas
-			if("duration")
-				var/dur = input("Duration (in minutes) during which pass is valid (up to 30 minutes).", "Duration") as num|null
-				if(dur)
-					if(dur > 0 && dur <= 30)
-						duration = dur
-					else
-						to_chat(usr, "<span class='warning'>Invalid duration.</span>")
-			if("access")
-				var/A = text2num(href_list["access"])
-				if(A in accesses)
-					accesses.Remove(A)
+		return
+	. = TRUE
+	switch(action)
+		if("scan") // insert/remove your ID card
+			if(scan)
+				if(ishuman(usr))
+					scan.forceMove(get_turf(usr))
+					usr.put_in_hands(scan)
+					scan = null
 				else
-					if(giver && giver.access && (A in get_changeable_accesses()))
+					scan.forceMove(get_turf(src))
+					scan = null
+				accesses.Cut()
+			else
+				var/obj/item/I = usr.get_active_hand()
+				if(istype(I, /obj/item/card/id))
+					if(usr.drop_item())
+						I.forceMove(src)
+						scan = I
+		if("mode")
+			mode = !mode
+	if(!scan || !scan.access)
+		return // everything below here requires card auth
+	switch(action)
+		if("giv_name")
+			var/nam = strip_html_simple(input("Person pass is issued to", "Name", giv_name) as text | null)
+			if(nam)
+				giv_name = nam
+		if("reason")
+			var/reas = strip_html_simple(input("Reason why pass is issued", "Reason", reason) as text | null)
+			if(reas)
+				reason = reas
+		if("duration")
+			var/dur = input("Duration (in minutes) during which pass is valid (up to 30 minutes).", "Duration") as num | null
+			if(dur)
+				if(dur > 0 && dur <= 30)
+					duration = dur
+				else
+					to_chat(usr, "<span class='warning'>Invalid duration.</span>")
+		if("print")
+			var/dat = "<h3>Activity log of guest pass terminal #[uid]</h3><br>"
+			for(var/entry in internal_log)
+				dat += "[entry]<br><hr>"
+			var/obj/item/paper/P = new /obj/item/paper(loc)
+			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+			P.name = "activity log"
+			P.info = dat
+		if("issue")
+			if(!length(accesses))
+				return
+			if(print_cooldown > world.time)
+				return
+			var/number = add_zero("[rand(0, 9999)]", 4)
+			var/entry = "\[[station_time()]\] Pass #[number] issued by [scan.registered_name] ([scan.assignment]) to [giv_name]. Reason: [reason]. Grants access to following areas: "
+			for(var/i in 1 to length(accesses))
+				var/A = accesses[i]
+				if(A)
+					var/area = get_access_desc(A)
+					entry += "[i > 1 ? ", [area]" : "[area]"]"
+			var/obj/item/card/id/guest/pass = new(get_turf(src))
+			pass.temp_access = accesses.Copy()
+			pass.registered_name = giv_name
+			pass.expiration_time = world.time + duration MINUTES
+			pass.reason = reason
+			pass.name = "guest pass #[number]"
+			print_cooldown = world.time + 10 SECONDS
+			entry += ". Expires at [station_time_timestamp("hh:mm:ss", pass.expiration_time)]."
+			internal_log += entry
+		if("access")
+			var/A = text2num(params["access"])
+			if(A in accesses)
+				accesses.Remove(A)
+			else if(ACCESS_CHANGE_IDS in scan.access)
+				accesses += A
+			else if(A in get_changeable_accesses())
+				accesses += A
+		if("grant_region")
+			var/region = text2num(params["region"])
+			if(isnull(region))
+				return
+			if(ACCESS_CHANGE_IDS in scan.access)
+				accesses |= get_region_accesses(region)
+			else
+				var/list/new_accesses = get_region_accesses(region)
+				for(var/A in new_accesses)
+					if(A in scan.access)
 						accesses.Add(A)
-	if(href_list["action"])
-		switch(href_list["action"])
-			if("id")
-				if(giver)
-					if(ishuman(usr))
-						giver.loc = usr.loc
-						if(!usr.get_active_hand())
-							usr.put_in_hands(giver)
-						giver = null
-					else
-						giver.loc = src.loc
-						giver = null
-					accesses.Cut()
-				else
-					var/obj/item/I = usr.get_active_hand()
-					if(istype(I, /obj/item/card/id))
-						usr.drop_item()
-						I.loc = src
-						giver = I
-				updateUsrDialog()
-
-			if("print")
-				var/dat = "<h3>Activity log of guest pass terminal #[uid]</h3><br>"
-				for(var/entry in internal_log)
-					dat += "[entry]<br><hr>"
-//				to_chat(usr, "Printing the log, standby...")
-				//sleep(50)
-				var/obj/item/paper/P = new/obj/item/paper( loc )
-				playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-				P.name = "activity log"
-				P.info = dat
-
-			if("issue")
-				if(giver)
-					var/number = add_zero("[rand(0,9999)]", 4)
-					var/entry = "\[[station_time()]\] Pass #[number] issued by [giver.registered_name] ([giver.assignment]) to [giv_name]. Reason: [reason]. Grants access to following areas: "
-					for(var/i=1 to accesses.len)
-						var/A = accesses[i]
-						if(A)
-							var/area = get_access_desc(A)
-							entry += "[i > 1 ? ", [area]" : "[area]"]"
-					entry += ". Expires at [station_time(world.time + duration*10*60)]."
-					internal_log.Add(entry)
-
-					var/obj/item/card/id/guest/pass = new(src.loc)
-					pass.temp_access = accesses.Copy()
-					pass.registered_name = giv_name
-					pass.expiration_time = world.time + duration*10*60
-					pass.reason = reason
-					pass.name = "guest pass #[number]"
-				else
-					to_chat(usr, "<span class='warning'>Cannot issue pass without issuing ID.</span>")
-	updateUsrDialog()
-	return
+		if("deny_region")
+			var/region = text2num(params["region"])
+			if(isnull(region))
+				return
+			accesses -= get_region_accesses(region)
+		if("clear_all")
+			accesses = list()
+		if("grant_all")
+			if(ACCESS_CHANGE_IDS in scan.access)
+				accesses = get_all_accesses()
+			else
+				var/list/new_accesses = get_all_accesses()
+				for(var/A in new_accesses)
+					if(A in scan.access)
+						accesses += A
+	if(.)
+		add_fingerprint(usr)
 
 /obj/machinery/computer/guestpass/hop
 	name = "\improper HoP guest pass terminal"

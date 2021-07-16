@@ -132,7 +132,7 @@
 /area/ruin/powered/beach)
 "ax" = (
 /obj/machinery/disco/immobile,
-/turf/simulated/floor/light/colour_cycle,
+/turf/simulated/floor/light,
 /area/ruin/powered/beach)
 "ay" = (
 /obj/machinery/door/airlock/sandstone{
@@ -181,7 +181,7 @@
 /obj/item/tank/internals/emergency_oxygen,
 /obj/item/trash/candy,
 /obj/effect/turf_decal/sand,
-/obj/item/toy/figure/bartender,
+/obj/item/toy/figure/crew/bartender,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "aK" = (

@@ -560,8 +560,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -598,7 +598,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	if(next_move >= world.time)
 		return
-	if(!isturf(loc) || istype(A, /obj/effect/temp_visual/point))
+	if(!isturf(loc) || istype(A, /obj/effect/temp_visual/point) || istype(A, /obj/effect/hallucination))
 		return FALSE
 
 	var/tile = get_turf(A)
@@ -890,7 +890,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(href_list["flavor_change"])
 		update_flavor_text()
 
-	return
+	if(href_list["scoreboard"])
+		usr << browse(GLOB.scoreboard, "window=roundstats;size=500x600")
 
 // The src mob is trying to strip an item from someone
 // Defined in living.dm
@@ -963,6 +964,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	statpanel("Status") // We only want alt-clicked turfs to come before Status
 	stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
+	stat(null, "Map: [SSmapping.map_datum.fluff_name]")
+	if(SSmapping.next_map)
+		stat(null, "Next Map: [SSmapping.next_map.fluff_name]")
 
 	if(mob_spell_list && mob_spell_list.len)
 		for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
@@ -1323,6 +1327,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
 
 	.["Make 2spooky"] = "?_src_=vars;make_skeleton=[UID()]"
+	.["Hallucinate"] = "?_src_=vars;hallucinate=[UID()]"
 
 	.["Assume Direct Control"] = "?_src_=vars;direct_control=[UID()]"
 	.["Offer Control to Ghosts"] = "?_src_=vars;offer_control=[UID()]"

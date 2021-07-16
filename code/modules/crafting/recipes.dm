@@ -361,6 +361,13 @@
 				/obj/item/bikehorn)
 	category = CAT_MISC
 
+/datum/crafting_recipe/sad_trombone
+	name = "Sad trombone"
+	result = list(/obj/item/instrument/trombone/sad)
+	time = 20
+	reqs = list(/obj/item/stack/sheet/mineral/bananium = 5)
+	category = CAT_MISC
+
 /datum/crafting_recipe/blackcarpet
 	name = "Black Carpet"
 	result = list(/obj/item/stack/tile/carpet/black)

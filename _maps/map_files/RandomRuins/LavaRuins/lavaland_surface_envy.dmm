@@ -13,10 +13,10 @@
 /area/ruin/unpowered/misc_lavaruin)
 "e" = (
 /obj/structure/mirror{
+	broken = 1;
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
-	pixel_x = -28;
-	broken = 1
+	pixel_x = -28
 	},
 /obj/item/clothing/suit/bloated_human,
 /obj/effect/decal/cleanable/blood,
@@ -25,20 +25,20 @@
 /area/ruin/unpowered/misc_lavaruin)
 "f" = (
 /obj/structure/mirror{
+	broken = 1;
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
-	pixel_x = 28;
-	broken = 1
+	pixel_x = 28
 	},
 /turf/simulated/floor/plating/burnt,
 /area/ruin/unpowered/misc_lavaruin)
 "g" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/structure/mirror{
+	broken = 1;
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
-	pixel_x = -28;
-	broken = 1
+	pixel_x = -28
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
@@ -55,29 +55,29 @@
 /area/ruin/unpowered/misc_lavaruin)
 "k" = (
 /obj/structure/mirror{
+	broken = 1;
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
-	pixel_y = 28;
-	broken = 1
+	pixel_y = 28
 	},
 /obj/item/kitchen/knife/envy,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
 "l" = (
 /obj/structure/mirror{
+	broken = 1;
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
-	pixel_x = 28;
-	broken = 1
+	pixel_x = 28
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
 "m" = (
 /obj/structure/mirror{
+	broken = 1;
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
-	pixel_x = -28;
-	broken = 1
+	pixel_x = -28
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
@@ -86,10 +86,10 @@
 /area/ruin/unpowered/misc_lavaruin)
 "o" = (
 /obj/structure/mirror{
+	broken = 1;
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
-	pixel_x = -28;
-	broken = 1
+	pixel_x = -28
 	},
 /turf/simulated/floor/plating/damaged,
 /area/ruin/unpowered/misc_lavaruin)
