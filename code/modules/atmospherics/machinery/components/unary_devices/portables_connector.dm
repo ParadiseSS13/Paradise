@@ -10,8 +10,6 @@
 
 	var/obj/machinery/portable_atmospherics/connected_device
 
-	var/on = 0
-
 /obj/machinery/atmospherics/unary/portables_connector/Destroy()
 	if(connected_device)
 		connected_device.disconnect()

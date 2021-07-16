@@ -21,50 +21,30 @@ Thus, the two variables affect pump operation are set in New():
 
 	can_unwrench = 1
 
-	var/on = 0
-	var/target_pressure = ONE_ATMOSPHERE
+	target_pressure = ONE_ATMOSPHERE
 
 	var/id = null
 
+// So we can CtrlClick without triggering the anchored message.
+/obj/machinery/atmospherics/binary/pump/can_be_pulled(user, grab_state, force, show_message)
+	return FALSE
+
 /obj/machinery/atmospherics/binary/pump/CtrlClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!in_range(src, user) && !issilicon(usr))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
-		return
-	toggle()
+	if(can_use_shortcut(user))
+		toggle(user)
 	return ..()
 
-/obj/machinery/atmospherics/binary/pump/AICtrlClick()
-	toggle()
+/obj/machinery/atmospherics/binary/pump/AICtrlClick(mob/living/silicon/user)
+	toggle(user)
 	return ..()
 
 /obj/machinery/atmospherics/binary/pump/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!in_range(src, user) && !issilicon(usr))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
-		return
-	set_max()
-	return
+	if(can_use_shortcut(user))
+		set_max(user)
 
 /obj/machinery/atmospherics/binary/pump/AIAltClick()
 	set_max()
 	return ..()
-
-/obj/machinery/atmospherics/binary/pump/proc/toggle()
-	if(powered())
-		on = !on
-		update_icon()
-
-/obj/machinery/atmospherics/binary/pump/proc/set_max()
-	if(powered())
-		target_pressure = MAX_OUTPUT_PRESSURE
-		update_icon()
 
 /obj/machinery/atmospherics/binary/pump/Destroy()
 	if(SSradio)

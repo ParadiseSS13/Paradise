@@ -20,7 +20,6 @@
 
 	var/list/turf/simulated/adjacent_turfs = list()
 
-	var/on = 0
 	var/scrubbing = 1 //0 = siphoning, 1 = scrubbing
 	var/scrub_O2 = 0
 	var/scrub_N2 = 0

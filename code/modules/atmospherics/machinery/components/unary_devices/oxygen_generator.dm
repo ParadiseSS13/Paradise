@@ -9,8 +9,6 @@
 	dir = SOUTH
 	initialize_directions = SOUTH
 
-	var/on = 0
-
 	var/oxygen_content = 10
 
 /obj/machinery/atmospherics/unary/oxygen_generator/update_icon()
