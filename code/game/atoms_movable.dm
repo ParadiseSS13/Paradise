@@ -3,7 +3,7 @@
 	appearance_flags = TILE_BOUND
 	glide_size = 8 // Default, adjusted when mobs move based on their movement delays
 	var/last_move = null
-	var/anchored = 0
+	var/anchored = FALSE
 	var/move_resist = MOVE_RESIST_DEFAULT
 	var/move_force = MOVE_FORCE_DEFAULT
 	var/pull_force = PULL_FORCE_DEFAULT
@@ -13,13 +13,15 @@
 	var/datum/thrownthing/throwing = null
 	var/throw_speed = 2 //How many tiles to move per ds when being thrown. Float values are fully supported
 	var/throw_range = 7
-	var/no_spin = 0
-	var/no_spin_thrown = 0
-	var/moved_recently = 0
+	var/no_spin = FALSE
+	var/no_spin_thrown = FALSE
+	var/moved_recently = FALSE
 	var/mob/pulledby = null
 	var/atom/movable/pulling
+	/// Face towards the atom while pulling it
+	var/face_while_pulling = FALSE
 	var/throwforce = 0
-	var/canmove = 1
+	var/canmove = TRUE
 
 	var/inertia_dir = 0
 	var/atom/inertia_last_loc
