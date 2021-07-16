@@ -178,37 +178,12 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/clothing/ears/earmuffs
 	category = list("initial", "Miscellaneous")
-
-/datum/design/pipe_painter
-	name = "Pipe Painter"
-	id = "pipe_painter"
+/datum/design/painter
+	name = "Modular Painter"
+	id = "mod_painter"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000)
-	build_path = /obj/item/pipe_painter
-	category = list("initial", "Miscellaneous")
-
-/datum/design/window_painter
-	name = "Window Painter"
-	id = "window_painter"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000)
-	build_path = /obj/item/pipe_painter/window_painter
-	category = list("initial", "Miscellaneous")
-
-/datum/design/floorpainter
-	name = "Floor painter"
-	id = "floor_painter"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 150, MAT_GLASS = 125)
-	build_path = /obj/item/floor_painter
-	category = list("initial", "Miscellaneous")
-
-/datum/design/airlock_painter
-	name = "Airlock painter"
-	id = "airlock_painter"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
-	build_path = /obj/item/airlock_painter
+	build_path = /obj/item/painter
 	category = list("initial", "Miscellaneous")
 
 /datum/design/metal

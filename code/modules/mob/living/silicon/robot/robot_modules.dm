@@ -385,7 +385,7 @@
 		/obj/item/holosign_creator/engineering,
 		/obj/item/gripper,
 		/obj/item/matter_decompiler,
-		/obj/item/floor_painter,
+		/obj/item/painter,
 		/obj/item/areaeditor/blueprints/cyborg,
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,

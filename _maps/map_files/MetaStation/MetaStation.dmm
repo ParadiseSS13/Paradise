@@ -63352,7 +63352,7 @@
 	},
 /obj/structure/rack,
 /obj/effect/decal/warning_stripes/south,
-/obj/item/pipe_painter,
+/obj/item/painter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cDe" = (

@@ -41,7 +41,7 @@
 		atmosanalyzer_scan(parent.air, user)
 		return
 
-	if(istype(W,/obj/item/pipe_painter))
+	if(istype(W, /obj/item/painter))
 		return
 
 	return ..()
