@@ -23,14 +23,14 @@
 	butt_sprite = "kidan"
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/kidan,
-		"lungs" =    /obj/item/organ/internal/lungs/kidan,
-		"liver" =    /obj/item/organ/internal/liver/kidan,
-		"kidneys" =  /obj/item/organ/internal/kidneys/kidan,
-		"brain" =    /obj/item/organ/internal/brain/kidan,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/kidan, //Default darksight of 2.
-		"lantern" =  /obj/item/organ/internal/lantern
+		ORGAN_HEART	   = /obj/item/organ/internal/heart/kidan,
+		ORGAN_LUNGS	   = /obj/item/organ/internal/lungs/kidan,
+		ORGAN_LIVER	   = /obj/item/organ/internal/liver/kidan,
+		ORGAN_KIDNEYS  = /obj/item/organ/internal/kidneys/kidan,
+		ORGAN_BRAIN	   = /obj/item/organ/internal/brain/kidan,
+		ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		ORGAN_EYES	   = /obj/item/organ/internal/eyes/kidan, //Default darksight of 2.
+		"lantern"	   = /obj/item/organ/internal/lantern
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)

@@ -46,24 +46,24 @@
 	butt_sprite = "machine"
 
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
+		ORGAN_BRAIN = /obj/item/organ/internal/brain/mmi_holder/posibrain,
+		ORGAN_EYES  = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
 		"cell" = /obj/item/organ/internal/cell,
-		"eyes" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
 		"charger" = /obj/item/organ/internal/cyberimp/arm/power_cord
 		)
 	mutantears = /obj/item/organ/internal/ears/microphone
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest/ipc),
-		"groin" =  list("path" = /obj/item/organ/external/groin/ipc),
-		"head" =   list("path" = /obj/item/organ/external/head/ipc),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm/ipc),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/ipc),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg/ipc),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/ipc),
-		"l_hand" = list("path" = /obj/item/organ/external/hand/ipc),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right/ipc),
-		"l_foot" = list("path" = /obj/item/organ/external/foot/ipc),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right/ipc)
+		ORGAN_CHEST  = list("path" = /obj/item/organ/external/chest/ipc),
+		ORGAN_GROIN  = list("path" = /obj/item/organ/external/groin/ipc),
+		ORGAN_HEAD	 = list("path" = /obj/item/organ/external/head/ipc),
+		ORGAN_ARM_L  = list("path" = /obj/item/organ/external/arm/ipc),
+		ORGAN_ARM_R  = list("path" = /obj/item/organ/external/arm/right/ipc),
+		ORGAN_LEG_L  = list("path" = /obj/item/organ/external/leg/ipc),
+		ORGAN_LEG_R  = list("path" = /obj/item/organ/external/leg/right/ipc),
+		ORGAN_HAND_L = list("path" = /obj/item/organ/external/hand/ipc),
+		ORGAN_HAND_R = list("path" = /obj/item/organ/external/hand/right/ipc),
+		ORGAN_FOOT_L = list("path" = /obj/item/organ/external/foot/ipc),
+		ORGAN_FOOT_R = list("path" = /obj/item/organ/external/foot/right/ipc)
 		)
 
 	suicide_messages = list(

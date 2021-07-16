@@ -6,11 +6,11 @@
 	default_language = "Abductor Mindlink"
 	eyes = "blank_eyes"
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"liver" =    /obj/item/organ/internal/liver,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain/abductor,
-		"eyes" =     /obj/item/organ/internal/eyes/abductor //3 darksight.
+		ORGAN_HEART	  = /obj/item/organ/internal/heart,
+		ORGAN_LIVER	  = /obj/item/organ/internal/liver,
+		ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys,
+		ORGAN_BRAIN	  = /obj/item/organ/internal/brain/abductor,
+		ORGAN_EYES	  = /obj/item/organ/internal/eyes/abductor //3 darksight.
 		)
 
 	species_traits = list(NO_BLOOD, NO_HAIR)

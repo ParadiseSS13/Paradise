@@ -29,13 +29,13 @@
 	scream_verb = "yelps"
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/vulpkanin,
-		"lungs" =    /obj/item/organ/internal/lungs/vulpkanin,
-		"liver" =    /obj/item/organ/internal/liver/vulpkanin,
-		"kidneys" =  /obj/item/organ/internal/kidneys/vulpkanin,
-		"brain" =    /obj/item/organ/internal/brain/vulpkanin,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin /*Most Vulpkanin see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
+		ORGAN_HEART	   = /obj/item/organ/internal/heart/vulpkanin,
+		ORGAN_LUNGS	   = /obj/item/organ/internal/lungs/vulpkanin,
+		ORGAN_LIVER	   = /obj/item/organ/internal/liver/vulpkanin,
+		ORGAN_KIDNEYS  = /obj/item/organ/internal/kidneys/vulpkanin,
+		ORGAN_BRAIN	   = /obj/item/organ/internal/brain/vulpkanin,
+		ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		ORGAN_EYES	   = /obj/item/organ/internal/eyes/vulpkanin /*Most Vulpkanin see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
 															   unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
 		)
 

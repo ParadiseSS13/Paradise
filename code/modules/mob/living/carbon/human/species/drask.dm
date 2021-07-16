@@ -54,11 +54,11 @@
 	butt_sprite = "drask"
 
 	has_organ = list(
-		"heart" =      				/obj/item/organ/internal/heart/drask,
-		"lungs" =     				/obj/item/organ/internal/lungs/drask,
-		"metabolic strainer" =      /obj/item/organ/internal/liver/drask,
-		"eyes" =     				/obj/item/organ/internal/eyes/drask, //5 darksight.
-		"brain" =  					/obj/item/organ/internal/brain/drask
+		ORGAN_HEART = /obj/item/organ/internal/heart/drask,
+		ORGAN_LUNGS = /obj/item/organ/internal/lungs/drask,
+		ORGAN_LIVER = /obj/item/organ/internal/liver/drask,
+		ORGAN_BRAIN = /obj/item/organ/internal/brain/drask,
+		ORGAN_EYES  = /obj/item/organ/internal/eyes/drask //5 darksight.
 		)
 
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)

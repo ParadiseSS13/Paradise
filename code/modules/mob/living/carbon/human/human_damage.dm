@@ -23,7 +23,7 @@
 	if(status_flags & GODMODE)
 		return STATUS_UPDATE_NONE	//godmode
 
-	if(dna.species && dna.species.has_organ["brain"])
+	if(dna.species && dna.species.has_organ[ORGAN_BRAIN])
 		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			if(dna.species && amount > 0)
@@ -41,7 +41,7 @@
 	if(status_flags & GODMODE)
 		return STATUS_UPDATE_NONE	//godmode
 
-	if(dna.species && dna.species.has_organ["brain"])
+	if(dna.species && dna.species.has_organ[ORGAN_BRAIN])
 		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			if(dna.species && amount > 0)
@@ -59,7 +59,7 @@
 	if(status_flags & GODMODE)
 		return 0	//godmode
 
-	if(dna.species && dna.species.has_organ["brain"])
+	if(dna.species && dna.species.has_organ[ORGAN_BRAIN])
 		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			return min(sponge.damage,maxHealth*2)

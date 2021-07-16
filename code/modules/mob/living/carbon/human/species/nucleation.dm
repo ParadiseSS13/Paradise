@@ -13,6 +13,7 @@
 	language = "Sol Common"
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
+	brain_mod = 0 // at least they've got this going for them
 	species_traits = list(LIPS, IS_WHITELISTED, NO_BLOOD, NO_CLONESCAN)
 	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RADIMMUNE, TRAIT_NOPAIN)
 	dies_at_threshold = TRUE
@@ -23,9 +24,9 @@
 
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"crystallized brain" =    /obj/item/organ/internal/brain/crystal,
-		"eyes" =     /obj/item/organ/internal/eyes/luminescent_crystal, //Standard darksight of 2.
+		ORGAN_HEART = /obj/item/organ/internal/heart,
+		ORGAN_BRAIN = /obj/item/organ/internal/brain/crystal,
+		ORGAN_EYES  = /obj/item/organ/internal/eyes/luminescent_crystal, //Standard darksight of 2.
 		"strange crystal" = /obj/item/organ/internal/nucleation/strange_crystal
 		)
 

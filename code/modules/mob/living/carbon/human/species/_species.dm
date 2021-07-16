@@ -143,27 +143,27 @@
 
                               // Determines the organs that the species spawns with and
 	var/list/has_organ = list(    // which required-organ checks are conducted.
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
-		"liver" =    /obj/item/organ/internal/liver,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes
+		ORGAN_HEART	   = /obj/item/organ/internal/heart,
+		ORGAN_LUNGS	   = /obj/item/organ/internal/lungs,
+		ORGAN_LIVER	   = /obj/item/organ/internal/liver,
+		ORGAN_KIDNEYS  = /obj/item/organ/internal/kidneys,
+		ORGAN_BRAIN	   = /obj/item/organ/internal/brain,
+		ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		ORGAN_EYES	   = /obj/item/organ/internal/eyes
 		)
 	var/vision_organ = /obj/item/organ/internal/eyes // If set, this organ is required for vision.
 	var/list/has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest),
-		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right))
+		ORGAN_CHEST  = list("path" = /obj/item/organ/external/chest),
+		ORGAN_GROIN  = list("path" = /obj/item/organ/external/groin),
+		ORGAN_HEAD	 = list("path" = /obj/item/organ/external/head),
+		ORGAN_ARM_L  = list("path" = /obj/item/organ/external/arm),
+		ORGAN_ARM_R  = list("path" = /obj/item/organ/external/arm/right),
+		ORGAN_LEG_L  = list("path" = /obj/item/organ/external/leg),
+		ORGAN_LEG_R  = list("path" = /obj/item/organ/external/leg/right),
+		ORGAN_HAND_L = list("path" = /obj/item/organ/external/hand),
+		ORGAN_HAND_R = list("path" = /obj/item/organ/external/hand/right),
+		ORGAN_FOOT_L = list("path" = /obj/item/organ/external/foot),
+		ORGAN_FOOT_R = list("path" = /obj/item/organ/external/foot/right))
 
 	// Mutant pieces
 	var/obj/item/organ/internal/ears/mutantears = /obj/item/organ/internal/ears

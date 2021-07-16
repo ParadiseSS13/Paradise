@@ -145,7 +145,7 @@
 					if(itemUser.put_in_l_hand(newRod))
 						to_chat(itemUser, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
 					else
-						if(!itemUser.has_organ("l_arm"))
+						if(!itemUser.has_organ(ORGAN_ARM_L))
 							new /obj/item/organ/external/arm(itemUser)
 						new /obj/item/organ/external/hand(itemUser)
 						itemUser.update_body()
@@ -156,7 +156,7 @@
 					if(itemUser.put_in_r_hand(newRod))
 						to_chat(itemUser, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
 					else
-						if(!itemUser.has_organ("r_arm"))
+						if(!itemUser.has_organ(ORGAN_ARM_R))
 							new /obj/item/organ/external/arm/right(itemUser)
 						new /obj/item/organ/external/hand/right(itemUser)
 						itemUser.update_body()

@@ -13,10 +13,6 @@
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
 	heatmod = 1.5
 
-	has_organ = list(
-		"brain" =    /obj/item/organ/internal/brain,
-		"eyes" =     /obj/item/organ/internal/eyes/night_vision/nightmare)
-
 /datum/species/shadow/ling/handle_life(mob/living/carbon/human/H)
 	var/light_amount = 0
 	if(isturf(H.loc))

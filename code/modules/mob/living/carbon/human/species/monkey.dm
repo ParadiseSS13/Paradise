@@ -73,13 +73,13 @@
 	tail = "farwatail"
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/tajaran,
-		"lungs" =    /obj/item/organ/internal/lungs/tajaran,
-		"liver" =    /obj/item/organ/internal/liver/tajaran,
-		"kidneys" =  /obj/item/organ/internal/kidneys/tajaran,
-		"brain" =    /obj/item/organ/internal/brain/tajaran,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/tajaran/farwa //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		ORGAN_HEART	   = /obj/item/organ/internal/heart/tajaran,
+		ORGAN_LUNGS	   = /obj/item/organ/internal/lungs/tajaran,
+		ORGAN_LIVER	   = /obj/item/organ/internal/liver/tajaran,
+		ORGAN_KIDNEYS  = /obj/item/organ/internal/kidneys/tajaran,
+		ORGAN_BRAIN	   = /obj/item/organ/internal/brain/tajaran,
+		ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		ORGAN_EYES	   = /obj/item/organ/internal/eyes/tajaran/farwa //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		)
 
 
@@ -96,13 +96,13 @@
 	tail = "wolpintail"
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/vulpkanin,
-		"lungs" =    /obj/item/organ/internal/lungs/vulpkanin,
-		"liver" =    /obj/item/organ/internal/liver/vulpkanin,
-		"kidneys" =  /obj/item/organ/internal/kidneys/vulpkanin,
-		"brain" =    /obj/item/organ/internal/brain/vulpkanin,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin/wolpin //Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		ORGAN_HEART	   = /obj/item/organ/internal/heart/vulpkanin,
+		ORGAN_LUNGS	   = /obj/item/organ/internal/lungs/vulpkanin,
+		ORGAN_LIVER	   = /obj/item/organ/internal/liver/vulpkanin,
+		ORGAN_KIDNEYS  = /obj/item/organ/internal/kidneys/vulpkanin,
+		ORGAN_BRAIN	   = /obj/item/organ/internal/brain/vulpkanin,
+		ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		ORGAN_EYES	   = /obj/item/organ/internal/eyes/vulpkanin/wolpin //Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		)
 
 
@@ -122,13 +122,13 @@
 	inherent_traits = list(TRAIT_NOEXAMINE, TRAIT_NOFAT, TRAIT_WATERBREATH)
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/skrell,
-		"lungs" =    /obj/item/organ/internal/lungs/skrell,
-		"liver" =    /obj/item/organ/internal/liver/skrell,
-		"kidneys" =  /obj/item/organ/internal/kidneys/skrell,
-		"brain" =    /obj/item/organ/internal/brain/skrell,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/skrell //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		ORGAN_HEART	   = /obj/item/organ/internal/heart/skrell,
+		ORGAN_LUNGS	   = /obj/item/organ/internal/lungs/skrell,
+		ORGAN_LIVER	   = /obj/item/organ/internal/liver/skrell,
+		ORGAN_KIDNEYS  = /obj/item/organ/internal/kidneys/skrell,
+		ORGAN_BRAIN	   = /obj/item/organ/internal/brain/skrell,
+		ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		ORGAN_EYES	   = /obj/item/organ/internal/eyes/skrell
 		)
 
 /datum/species/monkey/unathi
@@ -147,11 +147,11 @@
 	bodyflags = HAS_TAIL
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/unathi,
-		"lungs" =    /obj/item/organ/internal/lungs/unathi,
-		"liver" =    /obj/item/organ/internal/liver/unathi,
-		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
-		"brain" =    /obj/item/organ/internal/brain/unathi,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/unathi
+		ORGAN_HEART	   = /obj/item/organ/internal/heart/unathi,
+		ORGAN_LUNGS	   = /obj/item/organ/internal/lungs/unathi,
+		ORGAN_LIVER	   = /obj/item/organ/internal/liver/unathi,
+		ORGAN_KIDNEYS  = /obj/item/organ/internal/kidneys/unathi,
+		ORGAN_BRAIN	   = /obj/item/organ/internal/brain/unathi,
+		ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		ORGAN_EYES	   = /obj/item/organ/internal/eyes/unathi
 		)
