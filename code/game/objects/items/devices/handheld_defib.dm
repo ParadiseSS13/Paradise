@@ -11,6 +11,15 @@
 	var/cooldown = FALSE
 	var/charge_time = 100
 
+/obj/item/handheld_defibrillator/compact
+	name = "compact handheld defibrillator"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/handheld_defibrillator/compact/syndicate
+	icon_state = "syndidefib-on"
+	item_state = "syndidefib"
+	icon_base = "syndidefib"
+
 /obj/item/handheld_defibrillator/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE

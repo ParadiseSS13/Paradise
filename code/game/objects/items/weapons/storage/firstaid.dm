@@ -178,15 +178,16 @@
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
 	treatment_tox = "charcoal"
-	req_one_access =list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 	med_bot_skin = "bezerk"
 	syndicate_aligned = TRUE
 
 /obj/item/storage/firstaid/tactical/populate_contents()
 	new /obj/item/reagent_containers/hypospray/combat(src)
 	new /obj/item/reagent_containers/applicator/dual/syndi(src) // Because you ain't got no time to look at what damage dey taking yo
-	new /obj/item/defibrillator/compact/combat/loaded(src)
 	new /obj/item/clothing/glasses/hud/health/night(src)
+	new /obj/item/handheld_defibrillator/compact/syndicate(src)
+	new /obj/item/healthanalyzer/advanced(src)
 
 /obj/item/storage/firstaid/tactical/empty/populate_contents()
 	return
