@@ -1461,7 +1461,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return
 
 GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
-	/area/chapel)))
+	/area/chapel
+)))
 
 /mob/proc/holy_check()
 	if(!is_type_in_typecache(loc.loc, GLOB.holy_areas))
