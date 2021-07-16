@@ -1620,6 +1620,7 @@
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
+/obj/machinery/suit_storage_unit/gamma,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "fW" = (
@@ -3547,6 +3548,12 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/grass,
 /area/centcom/control)
+"nb" = (
+/obj/machinery/autolathe/upgraded/gamma,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma/space)
 "nc" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Gamma Armory";
@@ -4076,18 +4083,12 @@
 /area/centcom/gamma)
 "oJ" = (
 /obj/structure/closet/secure_closet/guncabinet,
-/obj/item/ammo_box/magazine/m10mm,
-/obj/item/ammo_box/magazine/m10mm,
-/obj/item/ammo_box/magazine/m10mm,
-/obj/item/gun/projectile/automatic/pistol{
-	name = "pistol"
-	},
-/obj/item/gun/projectile/automatic/pistol{
-	name = "pistol"
-	},
-/obj/item/gun/projectile/automatic/pistol{
-	name = "pistol"
-	},
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/proto,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "oN" = (
@@ -4258,14 +4259,6 @@
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/grass,
 /area/centcom/specops)
-"pk" = (
-/obj/structure/closet/secure_closet/guncabinet,
-/obj/item/ammo_casing/rocket,
-/obj/item/ammo_casing/rocket,
-/obj/item/ammo_casing/rocket,
-/obj/item/gun/rocketlauncher,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma/space)
 "pl" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -4317,9 +4310,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "pu" = (
-/obj/mecha/combat/durand/loaded{
-	operation_req_access = list(1)
-	},
+/obj/mecha/combat/marauder/ares/loaded,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -4527,6 +4518,11 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"qf" = (
+/obj/structure/closet/secure_closet/guncabinet,
+/obj/item/gun/medbeam,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma/space)
 "qh" = (
 /obj/structure/holowindow,
 /turf/simulated/floor/holofloor{
@@ -9964,6 +9960,12 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_knightarena)
+"LN" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_x = -24
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma/space)
 "LO" = (
 /obj/machinery/autolathe/upgraded{
 	hacked = 1
@@ -25459,8 +25461,8 @@ th
 fm
 of
 oB
-pf
-pf
+LN
+nb
 pf
 fV
 of
@@ -25717,7 +25719,7 @@ fm
 of
 oJ
 pf
-pk
+po
 pf
 pq
 of
@@ -25974,7 +25976,7 @@ fm
 of
 oW
 pf
-po
+qf
 pf
 pu
 of

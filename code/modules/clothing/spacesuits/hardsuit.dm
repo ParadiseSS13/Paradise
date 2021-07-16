@@ -711,3 +711,24 @@
 	item_state = "syndie_helm"
 	item_color = "syndi"
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 15, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+
+
+//////Security Version (Gamma armory only)
+
+/obj/item/clothing/suit/space/hardsuit/shielded/gamma
+	name = "shielded security hardsuit"
+	desc = "A more advanced version of the normal security hardsuit. Comes with built in energy shielding."
+	icon_state = "hardsuit-sec"
+	item_state = "sec-hardsuit"
+	armor = list("melee" = 35, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75)
+	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/gamma
+
+/obj/item/clothing/head/helmet/space/hardsuit/shielded/gamma
+	name = "shielded security hardsuit helmet"
+	desc = "A more advanced version of the normal security hardsuit helmet. Comes with built in energy shielding."
+	icon_state = "hardsuit0-sec"
+	item_state = "sec_helm"
+	item_color = "sec"
+	armor = list("melee" = 35, "bullet" = 15, "laser" = 30,"energy" = 10, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75)
+
