@@ -8,6 +8,7 @@
 		spellremove(src)
 	mobspellremove(src)
 	QDEL_LIST(viruses)
+	QDEL_LIST(actions)
 	ghostize()
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	for(var/I in tkgrabbed_objects)
@@ -20,6 +21,7 @@
 			AA.viewers -= src
 		viewing_alternate_appearances = null
 	LAssailant = null
+	runechat_msg_location = null
 	return ..()
 
 /mob/Initialize(mapload)
