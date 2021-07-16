@@ -29,6 +29,14 @@
 		a_right.holder = null
 	return ..()
 
+/obj/item/assembly_holder/proc/on_attach(atom/A)
+	if(has_prox_sensors())
+		TransferComponent(A, /datum/component/proximity_monitor)
+
+/obj/item/assembly_holder/proc/on_detach(atom/A)
+	if(has_prox_sensors())
+		A.TransferComponent(src, /datum/component/proximity_monitor)
+
 /obj/item/assembly_holder/attach(obj/item/D, obj/item/D2, mob/user)
 	if(!D || !D2)
 		return FALSE
@@ -47,11 +55,11 @@
 			user.remove_from_mob(A2)
 		A2.forceMove(src)
 	A1.holder = src
+	A1.on_attach()
 	A2.holder = src
+	A2.on_attach()
 	a_left = A1
 	a_right = A2
-	if(has_prox_sensors())
-		AddComponent(/datum/component/proximity_monitor)
 	name = "[A1.name]-[A2.name] assembly"
 	update_icon()
 	return TRUE
@@ -182,11 +190,9 @@
 		if(!T)
 			return FALSE
 		if(a_left)
-			a_left.holder = null
-			a_left.loc = T
+			a_left.on_detach()
 		if(a_right)
-			a_right.holder = null
-			a_right.loc = T
+			a_right.on_detach()
 		qdel(src)
 
 

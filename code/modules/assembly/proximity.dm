@@ -15,7 +15,16 @@
 
 /obj/item/assembly/prox_sensor/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
+	AddComponent(/datum/component/proximity_monitor, _always_active = TRUE)
+
+/obj/item/assembly/prox_sensor/on_attach()
+	. = ..()
+	TransferComponent(holder, /datum/component/proximity_monitor)
+
+//Call this when detaching it from a device. handles any special functions that need to be updated ex post facto
+/obj/item/assembly/prox_sensor/on_detach()
+	holder.TransferComponent(src, /datum/component/proximity_monitor)
+	return ..()
 
 /obj/item/assembly/prox_sensor/describe()
 	if(timing)
