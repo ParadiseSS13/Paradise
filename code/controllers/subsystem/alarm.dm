@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(alarm)
 	name = "Alarm"
 	flags = SS_NO_INIT | SS_NO_FIRE
-	var/list/alarms = list("Motion" = list(), "Fire" = list(), "Atmosphere" = list(), "Power" = list(), "Camera" = list(), "Burglar" = list())
+	var/list/alarms = list("Motion" = list(), "Fire" = list(), "Atmosphere" = list(), "Power" = list(), "Burglar" = list())
 
 /datum/controller/subsystem/alarm/proc/triggerAlarm(class, area/A, list/O, obj/alarmsource)
 	var/list/L = alarms[class]

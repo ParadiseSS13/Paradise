@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = 0
 	//var/list/laws = list()
-	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Camera", "Burglar")
+	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Burglar")
 	var/viewalerts = 0
 	var/icon/holo_icon//Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.

@@ -66,7 +66,6 @@
 	if(istype(A))
 		A.motioncameras -= src
 	area_motion = null
-	cancelCameraAlarm()
 	cancelAlarm()
 	return ..()
 
@@ -86,7 +85,6 @@
 			var/thisemp = emped //Take note of which EMP this proc is for
 			spawn(900)
 				if(!QDELETED(src))
-					triggerCameraAlarm() //camera alarm triggers even if multiple EMPs are in effect.
 					if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
 						network = previous_network
 						stat &= ~EMPED
@@ -94,9 +92,6 @@
 						if(can_use())
 							GLOB.cameranet.addCamera(src)
 						emped = 0 //Resets the consecutive EMP count
-						spawn(100)
-							if(!QDELETED(src))
-								cancelCameraAlarm()
 			for(var/mob/M in GLOB.player_list)
 				if(M.client && M.client.eye == src)
 					M.unset_machine()
@@ -229,7 +224,6 @@
 
 /obj/machinery/camera/obj_break(damage_flag)
 	if(status && !(flags & NODECONSTRUCT))
-		triggerCameraAlarm()
 		toggle_cam(null, FALSE)
 		wires.cut_all()
 
@@ -275,10 +269,6 @@
 	var/change_msg = "deactivates"
 	if(status)
 		change_msg = "reactivates"
-		triggerCameraAlarm()
-		spawn(100)
-			if(!QDELETED(src))
-				cancelCameraAlarm()
 	if(displaymessage)
 		if(user)
 			visible_message("<span class='danger'>[user] [change_msg] [src]!</span>")
@@ -297,14 +287,6 @@
 			O.unset_machine()
 			O.reset_perspective(null)
 			to_chat(O, "The screen bursts into static.")
-
-/obj/machinery/camera/proc/triggerCameraAlarm()
-	alarm_on = TRUE
-	SSalarm.triggerAlarm("Camera", get_area(src), list(UID()), src)
-
-/obj/machinery/camera/proc/cancelCameraAlarm()
-	alarm_on = FALSE
-	SSalarm.cancelAlarm("Camera", get_area(src), src)
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)
