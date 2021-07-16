@@ -930,3 +930,12 @@
 	materials = list(MAT_METAL = 40000)
 	build_path = /obj/item/golem_shell
 	category = list("Imported")
+
+/datum/design/miniature_power_cell
+	name = "Light Fixture Battery"
+	desc = "A tiny power cell used by emergency lighting."
+	id = "miniature_power_cell"
+	build_type = AUTOLATHE
+	materials = list(MAT_GLASS = 20)
+	build_path = /obj/item/stock_parts/cell/emergency_light
+	category = list("initial", "Electronics")

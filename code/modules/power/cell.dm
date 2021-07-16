@@ -360,3 +360,16 @@
 	desc = "A high capacity, slow charging cell for the B.S.G."
 	maxcharge = 40000
 	chargerate = 2600 // about 30 seconds to charge with a default recharger
+
+/obj/item/stock_parts/cell/emergency_light
+	name = "miniature power cell"
+	desc = "A tiny power cell with a very low power capacity. Used in light fixtures to power them in the event of an outage."
+	maxcharge = 120 //Emergency lights use 0.2 W per tick, meaning ~10 minutes of emergency power from a cell
+	materials = list(MAT_GLASS = 20)
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/stock_parts/cell/emergency_light/Initialize()
+	. = ..()
+	var/area/A = get_area(src)
+	if(!A.lightswitch || !A.light_power)
+		charge = 0 //For naturally depowered areas, we start with no power
