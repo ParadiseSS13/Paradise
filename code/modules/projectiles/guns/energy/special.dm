@@ -110,6 +110,14 @@
 	max_mod_capacity = 0
 	empty_state = null
 
+/obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine()
+	return "This is an energy weapon. To fire the weapon, have your gun mode set to 'fire', \
+			then click where you want to fire."
+
+/obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine_antag()
+	return "This is a stealthy weapon which fires poisoned bolts at your target. When it hits someone, they will suffer a stun effect, in \
+			addition to toxins. The energy crossbow recharges itself slowly, and can be concealed in your pocket or bag."
+
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
 	desc = "A reverse engineered weapon using syndicate technology."
@@ -316,6 +324,10 @@
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = 1
+
+/obj/item/gun/energy/sniperrifle/detailed_examine()
+	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. To recharge this weapon, use a weapon recharger. \
+			To use the scope, use the appropriate verb in the object tab."
 
 /obj/item/gun/energy/bsg
 	name = "\improper B.S.G"

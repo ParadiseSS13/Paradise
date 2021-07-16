@@ -68,6 +68,10 @@
 	if(rotting)
 		. += "<span class='warning'>There is fungus growing on [src].</span>"
 
+/turf/simulated/wall/detailed_examine()
+	return "You can deconstruct this by welding it, and then wrenching the girder.<br>\
+			You can build a wall by using metal sheets and making a girder, then adding more metal or plasteel."
+
 /turf/simulated/wall/proc/update_icon()
 	if(!damage_overlays[1]) //list hasn't been populated
 		generate_overlays()

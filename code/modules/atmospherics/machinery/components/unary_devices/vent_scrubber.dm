@@ -51,6 +51,10 @@
 		assign_uid()
 		id_tag = num2text(uid)
 
+/obj/machinery/atmospherics/unary/vent_scrubber/detailed_examine()
+	return "This filters the atmosphere of harmful gas. Filtered gas goes to the pipes connected to it, typically a scrubber pipe. \
+			It can be controlled from an Air Alarm. It can be configured to drain all air rapidly with a 'panic syphon' from an air alarm."
+
 /obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
 	if(initial_loc && frequency == ATMOS_VENTSCRUB)
 		initial_loc.air_scrub_info -= id_tag

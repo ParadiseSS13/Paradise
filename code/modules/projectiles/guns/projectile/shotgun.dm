@@ -18,6 +18,10 @@
 	var/recentpump = 0 // to prevent spammage
 	weapon_weight = WEAPON_HEAVY
 
+/obj/item/gun/projectile/shotgun/detailed_examine()
+	return "This is a ballistic weapon. After firing, you will need to pump the gun, by clicking on the gun in your hand. To reload, load more shotgun \
+			shells into the gun."
+
 /obj/item/gun/projectile/shotgun/attackby(obj/item/A, mob/user, params)
 	. = ..()
 	if(.)
@@ -305,6 +309,10 @@
 // Automatic Shotguns//
 
 /obj/item/gun/projectile/shotgun/automatic
+
+/obj/item/gun/projectile/shotgun/automatic/detailed_examine()
+	return "This is a ballistic weapon. After firing, it will automatically cycle the next shell. To reload, load more shotgun \
+			shells into the gun."
 
 /obj/item/gun/projectile/shotgun/automatic/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	..()

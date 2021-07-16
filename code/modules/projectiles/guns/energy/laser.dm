@@ -35,6 +35,9 @@
 	selfcharge = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/item/gun/energy/laser/captain/detailed_examine()
+	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. Unlike most weapons, this weapon recharges itself."
+
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
 	icon_state = "lasercannon"

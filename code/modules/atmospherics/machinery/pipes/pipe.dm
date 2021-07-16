@@ -36,6 +36,12 @@
 		qdel(parent)
 	parent = null
 
+/obj/machinery/atmospherics/pipe/detailed_examine()
+	return "This pipe, and all other pipes, can be connected or disconnected by a wrench. The internal pressure of the pipe must \
+			be below 300 kPa to do this. More pipes can be obtained from the pipe dispenser.<br> \
+			Most pipes and atmospheric devices can be connected or disconnected with a wrench. The pipe's pressure must not be too high, \
+			or if it is a device, it must be turned off first."
+
 /obj/machinery/atmospherics/pipe/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/analyzer))
 		atmosanalyzer_scan(parent.air, user)

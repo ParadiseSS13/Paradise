@@ -26,6 +26,9 @@ Thus, the two variables affect pump operation are set in New():
 
 	var/id = null
 
+/obj/machinery/atmospherics/binary/pump/detailed_examine()
+	return "This moves gas from one pipe to another. A higher target pressure demands more energy. The side with the red end is the output."
+
 /obj/machinery/atmospherics/binary/pump/CtrlClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")

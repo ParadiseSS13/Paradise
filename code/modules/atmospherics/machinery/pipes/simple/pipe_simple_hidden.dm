@@ -12,6 +12,10 @@
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers/detailed_examine()
+	return "This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe."
+
 /obj/machinery/atmospherics/pipe/simple/hidden/supply
 	name = "Air supply pipe"
 	desc = "A one meter section of supply pipe"
@@ -21,11 +25,18 @@
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
 
+/obj/machinery/atmospherics/pipe/simple/hidden/supply/detailed_examine()
+	return "This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe."
+
 /obj/machinery/atmospherics/pipe/simple/hidden/universal
 	name="Universal pipe adapter"
 	desc = "An adapter for regular, supply and scrubbers pipes"
 	connect_types = list(1,2,3)
 	icon_state = "map_universal"
+
+/obj/machinery/atmospherics/pipe/simple/hidden/universal/detailed_examine()
+	return "This allows you to connect 'normal' pipes, red 'scrubber' pipes, and blue 'supply' pipes."
 
 /obj/machinery/atmospherics/pipe/simple/hidden/universal/update_icon(safety = 0)
 	..()
