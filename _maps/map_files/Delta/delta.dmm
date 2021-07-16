@@ -7228,6 +7228,13 @@
 	},
 /obj/effect/decal/warning_stripes/southwest,
 /obj/effect/decal/warning_stripes/north,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "awE" = (
