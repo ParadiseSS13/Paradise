@@ -118,6 +118,11 @@
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
+		if("rattle", "rattles")
+			if(isskeleton(src) || isplasmaman(src)) //Only Plasmamen and Skeletons can rattle.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
 
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
@@ -133,7 +138,7 @@
 			on_CD = handle_emote_CD()
 		if("clap", "claps")
 			on_CD = handle_emote_CD()
-		if("kiss", "kisses", "slap", "slaps")
+		if("slap", "slaps")
 			on_CD = handle_emote_CD(3 SECONDS)
 		//Everything else, including typos of the above emotes
 		else
@@ -268,6 +273,12 @@
 			message = "<B>[src]</B> emits a negative blip[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/machines/synth_no.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
+
+		if("rattle", "rattles")
+			var/M = handle_emote_param(param)
+
+			message = "<b>[src]</b> rattles [p_their()] bones[M ? " at [M]" : ""]."
+			m_type = 1
 
 		if("wag", "wags")
 			if(body_accessory)
@@ -505,17 +516,10 @@
 			m_type = 1
 
 		if("kiss", "kisses")
-			var/kiss_type = /obj/item/kisser
+			var/M = handle_emote_param(param)
 
-			if(HAS_TRAIT(src, TRAIT_KISS_OF_DEATH))
-				kiss_type = /obj/item/kisser/death
-
-			var/obj/item/kiss_blower = new kiss_type(src)
-			if(put_in_hands(kiss_blower))
-				to_chat(src, "<span class='notice'>You ready your kiss-blowing hand.</span>")
-			else
-				qdel(kiss_blower)
-				to_chat(src, "<span class='warning'>You're incapable of blowing a kiss in your current state.</span>")
+			message = "<B>[src]</B> blows a kiss[M ? " at [M]" : ""]."
+			m_type = 1
 
 		if("blush", "blushes")
 			message = "<B>[src]</B> blushes."
@@ -966,6 +970,10 @@
 					emotelist += "\n<u>Vox specific emotes</u> :- wag(s), swag(s), quill(s)"
 				if("Vulpkanin")
 					emotelist += "\n<u>Vulpkanin specific emotes</u> :- wag(s), swag(s), growl(s)-none/mob, howl(s)-none/mob"
+				if("Plasmaman")
+					emotelist += "\n<u>Plasmaman specific emotes</u> :- rattle(s)-none/mob"
+				if("Skeleton")
+					emotelist += "\n<u>Skeleton specific emotes</u> :- rattle(s)-none/mob"
 
 			if(ismachineperson(src))
 				emotelist += "\n<u>Machine specific emotes</u> :- beep(s)-none/mob, buzz(es)-none/mob, no-none/mob, ping(s)-none/mob, yes-none/mob, buzz2-none/mob"

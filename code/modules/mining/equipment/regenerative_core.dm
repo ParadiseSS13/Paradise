@@ -15,7 +15,7 @@
 		return ..()
 
 	C.preserved()
-	to_chat(user, "<span class='notice'>You inject the [M] with the stabilizer. It will no longer go inert.</span>")
+	to_chat(user, "<span class='notice'>You inject [M] with the stabilizer. It will no longer go inert.</span>")
 	qdel(src)
 
 /************************Hivelord core*******************/

@@ -88,7 +88,7 @@
 	if(!S)
 		S = new spell_type()
 	var/dat =""
-	dat += "<b>[initial(S.name)]</b>"
+	dat += "<b>[name]</b>"
 	if(S.charge_type == "recharge")
 		dat += " Cooldown:[S.charge_max/10]"
 	dat += " Cost:[cost]<br>"
@@ -172,18 +172,6 @@
 	log_name = "IG"
 	category = "Offensive"
 
-/datum/spellbook_entry/sacred_flame
-	name = "Sacred Flame"
-	spell_type = /obj/effect/proc_holder/spell/targeted/sacred_flame
-	cost = 1
-	log_name = "SF"
-	refundable = 0 //You get fire immunity out of it, no.
-
-/datum/spellbook_entry/sacred_flame/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
-	..()
-	user.dna.SetSEState(GLOB.coldblock, 1)
-	singlemutcheck(user, GLOB.coldblock, MUTCHK_FORCED)
-
 //Defensive
 /datum/spellbook_entry/disabletech
 	name = "Disable Tech"
@@ -238,6 +226,25 @@
 	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
 	log_name = "TS"
 	category = "Defensive"
+
+/datum/spellbook_entry/sacred_flame
+	name = "Sacred Flame and Fire Immunity"
+	spell_type = /obj/effect/proc_holder/spell/targeted/sacred_flame
+	cost = 1
+	log_name = "SF"
+	category = "Defensive"
+
+/datum/spellbook_entry/sacred_flame/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
+	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
+	ADD_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
+	ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
+	return ..()
+
+/datum/spellbook_entry/sacred_flame/Refund(mob/living/carbon/human/user, obj/item/spellbook/book)
+	to_chat(user, "<span class='warning'>You no longer feel fireproof.</span>")
+	REMOVE_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
+	REMOVE_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
+	return ..()
 
 //Mobility
 /datum/spellbook_entry/knock
@@ -431,7 +438,7 @@
 	category = "Artefacts"
 
 /datum/spellbook_entry/item/voice_of_god
-	name = "Voice of god"
+	name = "Voice of God"
 	desc = "A magical vocal cord that can be used to yell out with the voice of a god, be it to harm, help, or confuse the target."
 	item_path = /obj/item/organ/internal/vocal_cords/colossus/wizard
 	log_name = "VG"
@@ -439,7 +446,7 @@
 
 /datum/spellbook_entry/item/warp_cubes
 	name = "Warp Cubes"
-	desc = "Two magic cubes, that when they are twisted in hand, teleports the user to the location of the other cube instantly. Great for silently teleporting to a fixed location, or teleporting you to an appretnance, or vice versa. Do not leave on the wizard den, it will not work."
+	desc = "Two magic cubes, that when they are twisted in hand, teleports the user to the location of the other cube instantly. Great for silently teleporting to a fixed location, or teleporting you to an apprentice, or vice versa. Do not leave on the wizard den, it will not work."
 	item_path = /obj/item/warp_cube/red
 	log_name = "WC"
 	cost = 1
@@ -472,7 +479,7 @@
 
 /datum/spellbook_entry/item/singularity_hammer
 	name = "Singularity Hammer"
-	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everthing nearby to the point of impact."
+	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everything nearby to the point of impact."
 	item_path = /obj/item/twohanded/singularityhammer
 	log_name = "SI"
 	category = "Weapons and Armors"
@@ -776,7 +783,7 @@
 		owner = user
 		return
 	if(user != owner)
-		to_chat(user, "<span class='warning'>The [name] does not recognize you as it's owner and refuses to open!</span>")
+		to_chat(user, "<span class='warning'>[src] does not recognize you as it's owner and refuses to open!</span>")
 		return
 	user.set_machine(src)
 	var/dat = ""

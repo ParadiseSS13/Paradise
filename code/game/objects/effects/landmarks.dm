@@ -164,10 +164,9 @@
 	new /obj/item/clothing/shoes/jackboots(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/nyangirl/New()
+/obj/effect/landmark/costume/schoolgirl/New()
 	. = ..()
 	new /obj/item/clothing/under/schoolgirl(src.loc)
-	new /obj/item/clothing/head/kitty(src.loc)
 	qdel(src)
 
 /obj/effect/landmark/costume/maid/New()

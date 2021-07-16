@@ -9,7 +9,7 @@
 	blood_color = "#FFFFFF"
 	flesh_color = "#E6E6C6"
 
-	species_traits = list(NO_BLOOD)
+	species_traits = list(NO_BLOOD, NO_HAIR)
 	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOHUNGER, TRAIT_XENO_IMMUNE)
 	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	tox_mod = 0

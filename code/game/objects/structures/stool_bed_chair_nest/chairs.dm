@@ -24,11 +24,6 @@
 		W.setDir(dir)
 		qdel(src)
 
-/obj/structure/chair/ratvar_act()
-	var/obj/structure/chair/brass/B = new(get_turf(src))
-	B.setDir(dir)
-	qdel(src)
-
 /obj/structure/chair/Move(atom/newloc, direct)
 	..()
 	handle_rotation()
@@ -440,9 +435,6 @@
 	turns++
 	if(turns >= 8)
 		STOP_PROCESSING(SSfastprocess, src)
-
-/obj/structure/chair/brass/ratvar_act()
-	return
 
 /obj/structure/chair/brass/AltClick(mob/living/user)
 	turns = 0

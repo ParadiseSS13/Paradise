@@ -309,7 +309,7 @@
 			crayon = null
 			state = 1
 		if(5)
-			to_chat(user, "<span class='warning'>The [src] is busy.</span>")
+			to_chat(user, "<span class='warning'>[src] is busy.</span>")
 		if(6)
 			state = 7
 		if(7)

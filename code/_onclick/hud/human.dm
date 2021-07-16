@@ -376,7 +376,7 @@
 	for(var/obj/screen/craft/crafting in static_inventory)
 		if(!S.can_craft)
 			crafting.invisibility = INVISIBILITY_ABSTRACT
-			H.handcrafting.close(H)
+			H.handcrafting?.close(H)
 		else
 			crafting.invisibility = initial(crafting.invisibility)
 

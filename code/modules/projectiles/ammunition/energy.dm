@@ -125,9 +125,10 @@
 	fire_sound = 'sound/weapons/pulse3.ogg'
 
 /obj/item/ammo_casing/energy/mindflayer
-	projectile_type = /obj/item/projectile/beam/mindflayer
-	select_name = "MINDFUCK"
-	fire_sound = 'sound/weapons/laser.ogg'
+	projectile_type = /obj/item/projectile/energy/mindflayer
+	muzzle_flash_color = LIGHT_COLOR_PURPLE
+	select_name = "mindflayer"
+	fire_sound = 'sound/weapons/pulse3.ogg'
 
 /obj/item/ammo_casing/energy/flora
 	fire_sound = 'sound/effects/stealthoff.ogg'
@@ -269,6 +270,16 @@
 	fire_sound = 'sound/weapons/marauder.ogg'
 	delay = 50
 	select_name = "snipe"
+
+/obj/item/ammo_casing/energy/bsg
+	projectile_type = /obj/item/projectile/energy/bsg
+	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+	fire_sound = 'sound/weapons/wave.ogg'
+	e_cost = 10000
+	select_name = "the experimental setting"
+	delay = 10 SECONDS //Looooooong cooldown
 
 /obj/item/ammo_casing/energy/teleport
 	projectile_type = /obj/item/projectile/energy/teleport

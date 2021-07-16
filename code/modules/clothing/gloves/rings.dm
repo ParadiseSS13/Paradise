@@ -29,13 +29,13 @@
 	if(istype(I, /obj/item/stack/sheet/mineral/diamond))
 		var/obj/item/stack/sheet/mineral/diamond/D = I
 		if(stud)
-			to_chat(usr, "<span class='notice'>The [src] already has a gem.</span>")
+			to_chat(usr, "<span class='notice'>[src] already has a gem.</span>")
 		else
 			if(D.amount >= 1)
 				D.use(1)
 				stud = 1
 				update_icon()
-				to_chat(usr, "<span class='notice'>You socket the diamond into the [src].</span>")
+				to_chat(usr, "<span class='notice'>You socket the diamond into [src].</span>")
 
 // s'pensive
 /obj/item/clothing/gloves/ring/silver

@@ -30,7 +30,7 @@
 		/obj/item/reagent_containers/food/snacks/tatortot,
 		/obj/item/storage/box/fakesyndiesuit,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
-		/obj/item/toy/figure/syndie,
+		/obj/item/toy/figure/crew/syndie,
 		/obj/item/toy/nuke,
 		/obj/item/toy/plushie/nukeplushie,
 		/obj/item/toy/sword,
@@ -301,7 +301,7 @@
 	else if(!ismob(contract.target.current))
 		invalidate()
 		return
-	U.message_holder("Extraction signal received, agent. [GLOB.using_map.full_name]'s bluespace transport jamming systems have been sabotaged. "\
+	U.message_holder("Extraction signal received, agent. [SSmapping.map_datum.fluff_name]'s bluespace transport jamming systems have been sabotaged. "\
 			 	   + "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
 	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), null, 0)
@@ -362,6 +362,9 @@
 	for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
 		// Greys get to keep their implant
 		if(isgrey(H) && istype(I, /obj/item/organ/internal/cyberimp/brain/speech_translator))
+			continue
+		// IPCs keep this implant, free of charge!
+		if(ismachineperson(H) && istype(I, /obj/item/organ/internal/cyberimp/arm/power_cord))
 			continue
 		// Try removing it
 		I = I.remove(H)
@@ -528,7 +531,7 @@
 	var/datum/feed_message/FM = new
 	FM.author = "Nyx Daily"
 	FM.admin_locked = TRUE
-	FM.body = "Suspected Syndicate activity was reported in the system. Rumours have surfaced about a [R?.fields["rank"] || M?.mind.assigned_role || DEFAULT_RANK] aboard the [GLOB.using_map.full_name] being the victim of a kidnapping.\n\n" +\
+	FM.body = "Suspected Syndicate activity was reported in the system. Rumours have surfaced about a [R?.fields["rank"] || M?.mind.assigned_role || DEFAULT_RANK] aboard the [SSmapping.map_datum.fluff_name] being the victim of a kidnapping.\n\n" +\
 				"A reliable source said the following: There was a note with the victim's initials which were \"[initials]\" and a scribble saying \"[fluff_message]\""
 	GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(FM)
 
@@ -539,7 +542,7 @@
 		var/datum/feed_message/FM2 = new
 		FM2.author = "Nyx Daily"
 		FM2.admin_locked = TRUE
-		FM2.body = "Nanotrasen's Asset Management board has resigned today after a series of kidnappings aboard the [GLOB.using_map.full_name]." +\
+		FM2.body = "Nanotrasen's Asset Management board has resigned today after a series of kidnappings aboard the [SSmapping.map_datum.fluff_name]." +\
 					"One former member of the board was heard saying: \"I can't do this anymore. How does a single shift on this cursed station manage to cost us over ten million Credits in ransom payments? Is there no security aboard?!\""
 		GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(FM2)
 

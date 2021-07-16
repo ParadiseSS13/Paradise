@@ -192,5 +192,10 @@
 	desc = "A pair of broken zipties."
 	icon_state = "cuff_white_used"
 
+/obj/item/restraints/handcuffs/cable/zipties/used/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["glass"] += 1
+	qdel(src)
+	return TRUE
+
 /obj/item/restraints/handcuffs/cable/zipties/used/attack()
 	return

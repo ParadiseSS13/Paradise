@@ -20,6 +20,7 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
+	species_traits = list(NO_HAIR)
 	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
 	clothing_flags = HAS_SOCKS
