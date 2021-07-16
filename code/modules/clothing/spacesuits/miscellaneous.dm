@@ -87,6 +87,11 @@
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
 
+/obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
+	name = "\improper Trans-Solar Federation commander's beret"
+	desc = "A camouflaged beret adorned with the star of the Trans-Solar Federation, worn by generals of the Trans-Solar Federation."
+	icon_state = "solgovceliteberet"
+
 /obj/item/clothing/suit/space/deathsquad/officer
 	name = "officer jacket"
 	desc = "An armored jacket used in special operations."
@@ -98,6 +103,12 @@
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/clothing/suit/space/deathsquad/officer/solgov
+	name = "\improper Trans-Solar Federation commander's jacket"
+	icon_state = "solgovcommander"
+	item_state = "solgovcommander"
+
 
 //Space santa outfit suit
 /obj/item/clothing/head/helmet/space/santahat
