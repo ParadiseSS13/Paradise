@@ -222,7 +222,7 @@
 	anchored = TRUE
 
 /obj/effect/decal/cleanable/insectguts
-	name = "cockroach guts"
+	name = "bug guts"
 	desc = "One bug squashed. Four more will rise in its place."
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "xfloor1"
