@@ -34,11 +34,11 @@ Difficulty: Very Hard
 	friendly = "stares down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("roars")
-	armour_penetration = 40
-	melee_damage_lower = 40
-	melee_damage_upper = 40
-	speed = 10
-	move_to_delay = 10
+	armour_penetration = 10
+	melee_damage_lower = 50
+	melee_damage_upper = 50
+	speed = 6
+	move_to_delay = 6
 	ranged = TRUE
 	pixel_x = -32
 	del_on_death = TRUE
@@ -123,6 +123,8 @@ Difficulty: Very Hard
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.mind && H.mind.martial_art && prob(H.mind.martial_art.deflection_chance))
+			return TRUE
+		if(H.mind && is_species(H, /datum/species/golem/sand))
 			return TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
