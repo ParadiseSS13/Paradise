@@ -27,6 +27,8 @@ SUBSYSTEM_DEF(discord)
 			webhook_urls = config.discord_bans_webhook_urls
 		if(DISCORD_WEBHOOK_NOTES)
 			webhook_urls = config.discord_notes_webhook_urls
+		if(DISCORD_WEBHOOK_OOC)
+			webhook_urls = config.discord_ooc_webhook_urls
 
 	var/datum/discord_webhook_payload/dwp = new()
 	dwp.webhook_content = content

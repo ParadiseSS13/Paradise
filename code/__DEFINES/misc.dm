@@ -495,3 +495,6 @@
 
 /// Send to the notes Discord webhook
 #define DISCORD_WEBHOOK_NOTES "NOTES"
+
+/// Send to the OOC Discord webhook
+#define DISCORD_WEBHOOK_OOC "OOC"

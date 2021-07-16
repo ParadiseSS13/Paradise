@@ -474,6 +474,10 @@ BYOND_ACCOUNT_AGE_THRESHOLD 3
 ## IF YOU ARE DISABLING THIS COMMENT IT OUT ENTIRELY, DONT LEAVE IT BLANK
 #DISCORD_WEBHOOKS_NOTES_URL
 
+## Webhook URLs for the mentor discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
+## IF YOU ARE DISABLING THIS COMMENT IT OUT ENTIRELY, DONT LEAVE IT BLANK
+#DISCORD_WEBHOOKS_OOC_URL
+
 ## Uncomment to send all ahelps to discord. If the line is commented, only ahelps made when no admins are online will be forwarded
 ## Ahelps forwarded when staff are online will never have the role ping, regardless of the setting above
 #DISCORD_FORWARD_ALL_AHELPS

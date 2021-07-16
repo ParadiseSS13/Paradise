@@ -91,12 +91,12 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 						display_name = "[holder.fakekey]/([key])"
 					else
 						display_name = holder.fakekey
-
+			var/discord_msg = "[msg]"
 			if(!config.disable_ooc_emoji)
 				msg = "<span class='emoji_enabled'>[msg]</span>"
 
 			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
-
+			SSdiscord.send2discord_simple(DISCORD_WEBHOOK_OOC, "**OOC** | [display_name]: [discord_msg]")
 /proc/toggle_ooc()
 	config.ooc_allowed = ( !config.ooc_allowed )
 	if(config.ooc_allowed)
