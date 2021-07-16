@@ -1,6 +1,7 @@
-// stored_energy += (pulse_strength - RAD_COLLECTOR_EFFICIENCY) * RAD_COLLECTOR_COEFFICIENT
-#define RAD_COLLECTOR_EFFICIENCY 80 	// radiation needs to be over this amount to get power
-#define RAD_COLLECTOR_COEFFICIENT 100
+// stored_energy += (pulse_strength - RAD_COLLECTOR_THRESHOLD) * RAD_COLLECTOR_POWER_FACTOR
+#define RAD_COLLECTOR_THRESHOLD 80 	// radiation needs to be over this amount to get power
+#define RAD_COLLECTOR_POWER_FACTOR 300	//this scales the maximum theoretical power of the collector
+#define RAD_COLLECTOR_EFFICIENCY 50	//how many moles of plasma will get you halfway closer to maximum power
 #define RAD_COLLECTOR_STORED_OUT 0.04	// (this * 100)% of stored power outputted per tick. Doesn't actualy change output total, lower numbers just means collectors output for longer in absence of a source
 #define RAD_COLLECTOR_OUTPUT min(stored_energy, (stored_energy * RAD_COLLECTOR_STORED_OUT) + 1000) //Produces at least 1000 watts if it has more than that stored
 
@@ -133,8 +134,8 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 /obj/machinery/power/rad_collector/rad_act(amount)
 	. = ..()
-	if(loaded_tank && active && amount > RAD_COLLECTOR_EFFICIENCY)
-		stored_energy += (amount - RAD_COLLECTOR_EFFICIENCY) * RAD_COLLECTOR_COEFFICIENT
+	if(loaded_tank && active && amount > RAD_COLLECTOR_THRESHOLD)
+		stored_energy += (amount - RAD_COLLECTOR_THRESHOLD) * RAD_COLLECTOR_POWER_FACTOR * (1 - (2 ** -(loaded_tank.air_contents.toxins / RAD_COLLECTOR_EFFICIENCY))) //scary math makes more plasma logarithmically approach a limit
 
 
 /obj/machinery/power/rad_collector/proc/update_icons()
@@ -157,7 +158,8 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		flick("ca_deactive", src)
 	update_icons()
 
+#undef RAD_COLLECTOR_THRESHOLD
+#undef RAD_COLLECTOR_POWER_FACTOR
 #undef RAD_COLLECTOR_EFFICIENCY
-#undef RAD_COLLECTOR_COEFFICIENT
 #undef RAD_COLLECTOR_STORED_OUT
 #undef RAD_COLLECTOR_OUTPUT
