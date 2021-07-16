@@ -79,8 +79,6 @@
 				ADD_TRAIT(user, TRAIT_LASEREYES, "ww_wishgranter")
 				user.dna.SetSEState(GLOB.fireblock, TRUE)
 				singlemutcheck(user, GLOB.fireblock, MUTCHK_FORCED)
-				user.dna.SetSEState(GLOB.xrayblock, TRUE)
-				singlemutcheck(user, GLOB.xrayblock, MUTCHK_FORCED)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(!isshadowperson(human))
