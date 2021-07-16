@@ -104,7 +104,7 @@
 	var/turf/T = get_turf(holder.my_atom)
 	if(!T)
 		return
-	goonchem_vortex(T, 0, created_volume)
+	goonchem_vortex(T, FALSE, created_volume)
 
 /datum/chemical_reaction/sorium_explosion/sorium
 	name = "sorium_vortex"
@@ -133,7 +133,7 @@
 	var/turf/simulated/T = get_turf(holder.my_atom)
 	if(!T)
 		return
-	goonchem_vortex(T, 1, created_volume)
+	goonchem_vortex(T, TRUE, created_volume)
 
 /datum/chemical_reaction/ldm_implosion/liquid_dark_matter
 	name = "LDM Vortex"

@@ -25,8 +25,8 @@ emp_act
 				reflected = is_type_in_list(P, safe_list) //And it's safe
 
 		if(reflected)
-			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
-				   "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
+			visible_message("<span class='danger'>[P] gets reflected by [src]!</span>", \
+				   "<span class='userdanger'>[P] gets reflected by [src]!</span>")
 			add_attack_logs(P.firer, src, "hit by [P.type] but got reflected")
 			P.reflect_back(src)
 			return -1
@@ -354,11 +354,12 @@ emp_act
 			if(prob(min(acidpwr * acid_volume / 10, 90))) //Applies disfigurement
 				head_organ.receive_damage(acidity, 2 * acidity)
 				emote("scream")
-				head_organ.h_style = "Bald"
-				head_organ.f_style = "Shaved"
-				update_hair()
-				update_fhair()
 				head_organ.disfigure()
+				if(!(NO_HAIR in dna.species.species_traits))
+					head_organ.h_style = "Bald"
+					head_organ.f_style = "Shaved"
+					update_hair()
+					update_fhair()
 
 		UpdateDamageIcon()
 

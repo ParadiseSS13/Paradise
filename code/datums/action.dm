@@ -383,6 +383,9 @@
 /datum/action/item_action/hands_free/activate
 	name = "Activate"
 
+/datum/action/item_action/hands_free/activate/always
+    check_flags = null
+
 /datum/action/item_action/toggle_research_scanner
 	name = "Toggle Research Scanner"
 	button_icon_state = "scan_mode"
@@ -426,6 +429,7 @@
 	desc = "Activates the jump boot's internal propulsion system, allowing the user to dash over 4-wide gaps."
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "jetboot"
+	use_itemicon = FALSE
 
 ///prset for organ actions
 /datum/action/item_action/organ_action

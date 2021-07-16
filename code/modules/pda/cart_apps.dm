@@ -148,7 +148,7 @@
 
 	. = TRUE
 
-	if(!pda.silent)
+	if(pda && !pda.silent)
 		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 	switch(action)
