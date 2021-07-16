@@ -123,6 +123,8 @@
 	return ..()
 
 /datum/action/innate/cult/blood_spell/Activate()
+	if(owner.holy_check())
+		return
 	if(magic_path) // If this spell flows from the hand
 		if(!hand_magic) // If you don't already have the spell active
 			hand_magic = new magic_path(owner, src)
@@ -178,6 +180,8 @@
 	..()
 
 /datum/action/innate/cult/blood_spell/emp/Activate()
+	if(owner.holy_check())
+		return
 	owner.visible_message("<span class='warning'>[owner]'s body flashes a bright blue!</span>", \
 						 "<span class='cultitalic'>You speak the cursed words, channeling an electromagnetic pulse from your body.</span>")
 	owner.emp_act(2)
@@ -279,6 +283,8 @@
 	if(ranged_ability_user.incapacitated() || !iscultist(user))
 		user.ranged_ability.remove_ranged_ability(user)
 		return
+	if(user.holy_check())
+		return
 	var/turf/T = get_turf(ranged_ability_user)
 	if(!isturf(T))
 		return FALSE
@@ -305,6 +311,8 @@
 	var/revealing = FALSE //if it reveals or not
 
 /datum/action/innate/cult/blood_spell/veiling/Activate()
+	if(owner.holy_check())
+		return
 	if(!revealing) // Hiding stuff
 		owner.visible_message("<span class='warning'>Thin grey dust falls from [owner]'s hand!</span>", \
 		"<span class='cultitalic'>You invoke the veiling spell, hiding nearby runes and cult structures.</span>")
@@ -425,6 +433,8 @@
 	var/mob/living/L = target
 	if(iscultist(target))
 		return
+	if(user.holy_check())
+		return
 	user.visible_message("<span class='warning'>[user] holds up [user.p_their()] hand, which explodes in a flash of red light!</span>", \
 							"<span class='cultitalic'>You attempt to stun [L] with the spell!</span>")
 
@@ -461,6 +471,8 @@
 	invocation = "Sas'so c'arta forbici!"
 
 /obj/item/melee/blood_magic/teleport/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(user.holy_check())
+		return
 	var/list/potential_runes = list()
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
@@ -526,6 +538,8 @@
 	color = "#000000" // black
 
 /obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(user.holy_check())
+		return
 	if(iscarbon(target) && proximity)
 		var/mob/living/carbon/C = target
 		if(C.canBeHandcuffed() || C.get_arm_ignore())
@@ -584,6 +598,8 @@
 	Airlocks into brittle runed airlocks after a delay (harm intent)"}
 
 /obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(user.holy_check())
+		return
 	if(proximity_flag)
 		if(channeling)
 			to_chat(user, "<span class='cultitalic'>You are already invoking twisted construction!</span>")
@@ -638,6 +654,8 @@
 	color = "#33cc33" // green
 
 /obj/item/melee/blood_magic/armor/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(user.holy_check())
+		return
 	if(iscarbon(target) && proximity)
 		uses--
 		var/mob/living/carbon/C = target
@@ -661,6 +679,8 @@
 	has_source = FALSE //special, only availible for a blood cost.
 
 /obj/item/melee/blood_magic/empower/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(user.holy_check())
+		return
 	if(proximity_flag)
 
 		// Shielded suit
@@ -708,6 +728,8 @@
 
 // This should really be split into multiple procs
 /obj/item/melee/blood_magic/manipulator/afterattack(atom/target, mob/living/carbon/human/user, proximity)
+	if(user.holy_check())
+		return
 	if(proximity)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
@@ -848,6 +870,8 @@
 			uses += max(1, temp)
 
 /obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
+	if(user.holy_check())
+		return
 	var/list/options = list("Blood Orb (50)" = image(icon = 'icons/obj/cult.dmi', icon_state = "summoning_orb"),
 							"Blood Recharge (75)" = image(icon = 'icons/mob/actions/actions_cult.dmi', icon_state = "blood_charge"),
 							"Blood Spear (150)" = image(icon = 'icons/mob/actions/actions_cult.dmi', icon_state = "bloodspear"),

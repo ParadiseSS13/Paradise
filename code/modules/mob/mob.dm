@@ -1461,3 +1461,31 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
  */
 /mob/proc/update_runechat_msg_location()
 	return
+
+GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
+	/area/chapel
+)))
+
+/mob/proc/holy_check()
+	if(!is_type_in_typecache(loc.loc, GLOB.holy_areas))
+		return FALSE
+
+	if(!mind)
+		return FALSE
+
+	//Allows fullpower vampires to bypass holy areas
+	var/datum/vampire/vampire = mind.vampire
+	if(vampire && vampire.get_ability(/datum/vampire_passive/full))
+		return FALSE
+
+	//Allows cult to bypass holy areas once they summon
+	var/datum/game_mode/gamemode = SSticker.mode
+	if(iscultist(src) && gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
+		return FALSE
+
+	//Execption for Holy Constructs
+	if(isconstruct(src) && !iscultist(src))
+		return FALSE
+
+	to_chat(src, "<span class='warning'>Your powers are useless on this holy ground.</span>")
+	return TRUE

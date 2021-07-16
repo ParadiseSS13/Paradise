@@ -308,6 +308,11 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 		var/mob/living/L = usr
 		return L.resist()
 
+//Constructs
+/obj/screen/alert/holy_fire
+	name = "Holy Fire"
+	desc = "Your body is crumbling from the holy energies. Get out."
+	icon_state = "fire"
 
 //ALIENS
 

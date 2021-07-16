@@ -142,6 +142,8 @@ fail_invoke() is called when the rune fails, via not enough people around or oth
 structure_check() searches for nearby cultist structures required for the invocation. Proper structures are pylons, forges, archives, and altars.
 */
 /obj/effect/rune/proc/can_invoke(mob/living/user)
+	if(user.holy_check())
+		return
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
 	var/list/chanters = list() //people who will actually chant the rune when passed to invoke()
