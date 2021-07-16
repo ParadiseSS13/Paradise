@@ -791,3 +791,11 @@
 	var/mylevel = rand(7, 9)
 	origin_tech = "[mytech]=[mylevel]"
 	name = "research notes - [mytech] [mylevel]"
+
+/obj/item/paper/ds
+	name = "Spec. Ops Manual"
+	icon_state = "pamphlet-ds"
+
+/obj/item/paper/ds/update_icon() // Prevents transformation into normal paper
+	..()
+	icon_state = initial(icon_state)

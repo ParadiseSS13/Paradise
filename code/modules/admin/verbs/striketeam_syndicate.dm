@@ -35,14 +35,9 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	var/syndicate_commando_number = SYNDICATE_COMMANDOS_POSSIBLE //for selecting a leader
 	var/is_leader = TRUE // set to FALSE after leader is spawned
 
-	// Find the nuclear auth code
-	var/nuke_code
-	var/temp_code
-	for(var/obj/machinery/nuclearbomb/N in GLOB.machines)
-		temp_code = text2num(N.r_code)
-		if(temp_code)//if it's actually a number. It won't convert any non-numericals.
-			nuke_code = N.r_code
-			break
+	// Find the nukes with codes
+	var/syndicate_nukes = get_nukes_with_codes(station_z_only = FALSE, NT_nukes = FALSE, syndicate_nukes = TRUE)
+	var/nanotrasen_nukes = get_nukes_with_codes(station_z_only = FALSE, NT_nukes = TRUE, syndicate_nukes = FALSE)
 
 	// Find ghosts willing to be SST
 	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_commando")
@@ -81,8 +76,10 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 			new_syndicate_commando.update_action_buttons_icon()
 
 			//So they don't forget their code or mission.
-			if(nuke_code)
-				new_syndicate_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code]</span>.")
+			for(var/obj/machinery/nuclearbomb/bomb in syndicate_nukes)
+				new_syndicate_commando.mind.store_memory("Syndicate [bomb.name] code is: [bomb.r_code]")
+			for(var/obj/machinery/nuclearbomb/bomb in nanotrasen_nukes)
+				new_syndicate_commando.mind.store_memory("Nanotrasen [bomb.name] code is: [bomb.r_code]")
 			new_syndicate_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input]</span>.")
 
 			to_chat(new_syndicate_commando, "<span class='notice'>You are an Elite Syndicate [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of the Syndicate. \nYour current mission is: <span class='userdanger'>[input]</span></span>")

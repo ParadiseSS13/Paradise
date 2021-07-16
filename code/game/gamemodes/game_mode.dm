@@ -427,13 +427,6 @@
 /proc/get_roletext(role)
 	return role
 
-/proc/get_nuke_code()
-	var/nukecode = "ERROR"
-	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
-		if(bomb && bomb.r_code && is_station_level(bomb.z))
-			nukecode = bomb.r_code
-	return nukecode
-
 /datum/game_mode/proc/replace_jobbanned_player(mob/living/M, role_type)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [role_type]?", role_type, FALSE, 10 SECONDS)
 	var/mob/dead/observer/theghost = null
