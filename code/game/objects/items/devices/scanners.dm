@@ -264,6 +264,9 @@ REAGENT SCANNER
 	else
 		to_chat(user, "<span class='notice'>Subject's genes are stable.</span>")
 
+	if(HAS_TRAIT(H, TRAIT_HUSK))
+		to_chat(user, "<span class='danger'>Subject is husked. Application of synthflesh is recommended.</span>")
+
 /obj/item/healthanalyzer/attack_self(mob/user)
 	toggle_mode()
 
