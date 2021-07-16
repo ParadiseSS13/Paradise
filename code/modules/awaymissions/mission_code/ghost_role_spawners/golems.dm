@@ -124,6 +124,13 @@
 	if(.)
 		return
 	if(isgolem(user) && can_transfer)
+		var/datum/species/golem/g = user.dna.species
+		if(g.owner)
+			has_owner = TRUE
+			owner = g.owner
+		else
+			has_owner = FALSE
+			owner = null
 		var/transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)",,"Yes","No")
 		if(transfer_choice != "Yes")
 			return
@@ -144,9 +151,17 @@
 			return
 		if(QDELETED(src) || uses <= 0 || user.stat >= 1 || QDELETED(I))
 			return
-		if(istype(src, /obj/effect/mob_spawn/human/golem/servant))
+		if(istype(src, /obj/effect/mob_spawn/human/golem/servant) && !isgolem(user))
 			has_owner = FALSE
-		flavour_text = null	
+		if(isgolem(user) && can_transfer)
+			var/datum/species/golem/g = user.dna.species
+			if(g.owner)
+				has_owner = TRUE
+				owner = g.owner
+			else
+				has_owner = FALSE
+				owner = null
+		flavour_text = null
 		user.visible_message("<span class='notice'>As [user] applies the potion on the golem shell, a faint light leaves them, moving to [src] and animating it!</span>",
 		"<span class='notice'>You apply the potion to [src], feeling your mind leave your body!</span>")
 		message_admins("[key_name(user)] used [I] to transfer their mind into [src]")
