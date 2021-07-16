@@ -48,6 +48,8 @@
 	if(brute_damage + electronics_damage >= max_damage)
 		destroy()
 
+	SStgui.update_uis(owner.self_diagnosis)
+
 /datum/robot_component/proc/heal_damage(brute, electronics, updating_health = TRUE)
 	if(installed != 1)
 		// If it's not installed, can't repair it.
@@ -59,6 +61,8 @@
 	brute_damage = max(0, brute_damage - brute)
 	electronics_damage = max(0, electronics_damage - electronics)
 
+	SStgui.update_uis(owner.self_diagnosis)
+
 /datum/robot_component/proc/is_powered()
 	return (installed == 1) && (brute_damage + electronics_damage < max_damage) && (powered)
 
@@ -67,6 +71,8 @@
 		powered = 0
 		return
 	powered = 1
+
+	SStgui.update_uis(owner.self_diagnosis)
 
 /datum/robot_component/proc/disable()
 	if(!component_disabled)
@@ -84,6 +90,8 @@
 		go_online()
 	else
 		go_offline()
+
+	SStgui.update_uis(owner.self_diagnosis)
 
 /datum/robot_component/proc/go_online()
 	return
