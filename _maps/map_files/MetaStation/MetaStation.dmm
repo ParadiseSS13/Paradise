@@ -53561,14 +53561,11 @@
 	},
 /area/atmos)
 "ciX" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
 /obj/machinery/light{
 	dir = 1;
 	on = 1
 	},
+/obj/structure/closet/crate/freezer/iv_storage,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -58845,14 +58842,10 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/explab)
 "ctT" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
+/obj/structure/closet/crate/freezer/iv_storage,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -60113,12 +60106,6 @@
 /area/maintenance/incinerator)
 "cwC" = (
 /obj/structure/table,
-/obj/item/reagent_containers/iv_bag/blood/AMinus,
-/obj/item/reagent_containers/iv_bag/blood/APlus,
-/obj/item/reagent_containers/iv_bag/blood/BMinus,
-/obj/item/reagent_containers/iv_bag/blood/BPlus,
-/obj/item/reagent_containers/iv_bag/blood/OPlus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -24
@@ -64689,15 +64676,9 @@
 /area/medical/genetics_cloning)
 "cGi" = (
 /obj/structure/table,
-/obj/item/reagent_containers/iv_bag/blood/AMinus,
-/obj/item/reagent_containers/iv_bag/blood/APlus,
-/obj/item/reagent_containers/iv_bag/blood/BMinus,
-/obj/item/reagent_containers/iv_bag/blood/BPlus,
-/obj/item/reagent_containers/iv_bag/blood/OPlus,
 /obj/machinery/alarm{
 	pixel_y = 23
 	},
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
@@ -66927,14 +66908,10 @@
 	name = "\improper Toxins Lab"
 	})
 "cKz" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
+/obj/structure/closet/crate/freezer/iv_storage,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -82963,14 +82940,11 @@
 	name = "\improper Auxiliary Restrooms"
 	})
 "umT" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
 /obj/machinery/light{
 	dir = 1;
 	on = 1
 	},
+/obj/structure/closet/crate/freezer/iv_storage,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
