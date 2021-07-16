@@ -81,6 +81,9 @@
 					<b>Create Weather</b><BR>
 					<A href='?src=[UID()];secretsfun=weatherashstorm'>Weather - Ash Storm</A>&nbsp;&nbsp;
 					<BR>
+					<b>Reinforce Station</b><BR>
+					<A href='?src=[UID()];secretsfun=gammashuttle'>Move the Gamma Armory</A>&nbsp;&nbsp;
+					<BR>
 					</center>"}
 
 		if(2)

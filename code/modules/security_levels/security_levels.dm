@@ -77,21 +77,14 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
 
 			if(SEC_LEVEL_GAMMA)
-				GLOB.security_announcement_up.Announce("Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location. The station's Gamma armory has been unlocked and is ready for use.","Attention! Gamma security level activated!", new_sound = sound('sound/effects/new_siren.ogg'))
+				GLOB.security_announcement_up.Announce("Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location.", "Attention! Gamma security level activated!", sound('sound/effects/new_siren.ogg'))
 				GLOB.security_level = SEC_LEVEL_GAMMA
-
-				move_gamma_ship()
 
 				if(GLOB.security_level < SEC_LEVEL_RED)
 					for(var/obj/machinery/door/airlock/highsecurity/red/R in GLOB.airlocks)
 						if(is_station_level(R.z))
 							R.locked = 0
 							R.update_icon()
-
-				for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
-					if(is_station_level(H.z))
-						H.locked = 0
-						H.update_icon()
 
 				post_status("alert", "gammaalert")
 
