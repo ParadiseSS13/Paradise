@@ -25,7 +25,7 @@
 	return ..()
 
 /obj/item/mop/proc/clean(turf/simulated/A)
-	if(reagents.has_reagent("water", 1) || reagents.has_reagent("cleaner", 1) || reagents.has_reagent("holywater", 1))
+	if(reagents.has_reagent(/datum/reagent/water, 1) || reagents.has_reagent(/datum/reagent/space_cleaner, 1) || reagents.has_reagent(/datum/reagent/holywater, 1))
 		A.clean_blood()
 		for(var/obj/effect/O in A)
 			if(O.is_cleanable())
@@ -66,7 +66,7 @@
 	J.update_icon()
 
 /obj/item/mop/wash(mob/user, atom/source)
-	reagents.add_reagent("water", 5)
+	reagents.add_reagent(/datum/reagent/water, 5)
 	to_chat(user, "<span class='notice'>You wet [src] in [source].</span>")
 	playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 	return 1
@@ -84,7 +84,7 @@
 	mopspeed = 20
 	var/refill_enabled = TRUE //Self-refill toggle for when a janitor decides to mop with something other than water.
 	var/refill_rate = 1 //Rate per process() tick mop refills itself
-	var/refill_reagent = "water" //Determins what reagent to use for refilling, just in case someone wanted to make a HOLY MOP OF PURGING
+	var/refill_reagent = /datum/reagent/water //Determins what reagent to use for refilling, just in case someone wanted to make a HOLY MOP OF PURGING
 
 /obj/item/mop/advanced/New()
 	..()

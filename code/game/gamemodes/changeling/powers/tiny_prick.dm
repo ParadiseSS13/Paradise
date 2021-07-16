@@ -202,7 +202,7 @@
 /datum/action/changeling/sting/cryo/sting_action(mob/user, mob/target)
 	add_attack_logs(user, target, "Cryo sting (changeling)")
 	if(target.reagents)
-		target.reagents.add_reagent("frostoil", 30)
-		target.reagents.add_reagent("ice", 30)
+		target.reagents.add_reagent(/datum/reagent/consumable/frostoil, 30)
+		target.reagents.add_reagent(/datum/reagent/consumable/drink/cold/ice, 30)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

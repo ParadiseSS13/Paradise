@@ -30,7 +30,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/lastHolder = null
 	var/smoketime = 150
 	var/chem_volume = 60
-	var/list/list_reagents = list("nicotine" = 40)
+	var/list/list_reagents = list(/datum/reagent/nicotine = 40)
 	var/first_puff = TRUE // the first puff is a bit more reagents ingested
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
@@ -145,18 +145,18 @@ LIGHTERS ARE IN LIGHTERS.DM
 		hitsound = 'sound/items/welder.ogg'
 		damtype = "fire"
 		force = 4
-		if(reagents.get_reagent_amount("plasma")) // the plasma explodes when exposed to fire
+		if(reagents.get_reagent_amount(/datum/reagent/plasma)) // the plasma explodes when exposed to fire
 			var/datum/effect_system/reagents_explosion/e = new()
-			e.set_up(round(reagents.get_reagent_amount("plasma") / 2.5, 1), get_turf(src), 0, 0)
+			e.set_up(round(reagents.get_reagent_amount(/datum/reagent/plasma) / 2.5, 1), get_turf(src), 0, 0)
 			e.start()
 			if(ismob(loc))
 				var/mob/M = loc
 				M.unEquip(src, 1)
 			qdel(src)
 			return
-		if(reagents.get_reagent_amount("fuel")) // the fuel explodes, too, but much less violently
+		if(reagents.get_reagent_amount(/datum/reagent/fuel)) // the fuel explodes, too, but much less violently
 			var/datum/effect_system/reagents_explosion/e = new()
-			e.set_up(round(reagents.get_reagent_amount("fuel") / 5, 1), get_turf(src), 0, 0)
+			e.set_up(round(reagents.get_reagent_amount(/datum/reagent/fuel) / 5, 1), get_turf(src), 0, 0)
 			e.start()
 			if(ismob(loc))
 				var/mob/M = loc
@@ -227,25 +227,25 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 
 /obj/item/clothing/mask/cigarette/menthol
-	list_reagents = list("nicotine" = 40, "menthol" = 20)
+	list_reagents = list(/datum/reagent/nicotine = 40, /datum/reagent/medicine/menthol = 20)
 
 /obj/item/clothing/mask/cigarette/random
 
 /obj/item/clothing/mask/cigarette/random/New()
-	list_reagents = list("nicotine" = 40, pick("fuel","saltpetre","synaptizine","green_vomit","potass_iodide","msg","lexorin","mannitol","spaceacillin","cryoxadone","holywater","tea","egg","haloperidol","mutagen","omnizine","carpet","aranesp","cryostylane","chocolate","bilk","cheese","rum","blood","charcoal","coffee","ectoplasm","space_drugs","milk","mutadone","antihol","teporone","insulin","salbutamol","toxin") = 20)
+	list_reagents = list(/datum/reagent/nicotine = 40, pick(/datum/reagent/fuel, /datum/reagent/saltpetre,/datum/reagent/medicine/synaptizine, /datum/reagent/greenvomit, /datum/reagent/medicine/potass_iodide, /datum/reagent/msg, /datum/reagent/lexorin, /datum/reagent/medicine/mannitol, /datum/reagent/medicine/spaceacillin,/datum/reagent/medicine/cryoxadone, /datum/reagent/holywater, /datum/reagent/consumable/drink/tea, /datum/reagent/consumable/egg, /datum/reagent/medicine/haloperidol, /datum/reagent/mutagen, /datum/reagent/medicine/omnizine, /datum/reagent/carpet, /datum/reagent/aranesp, /datum/reagent/cryostylane, /datum/reagent/consumable/chocolate, /datum/reagent/consumable/ethanol/bilk, /datum/reagent/consumable/cheese, /datum/reagent/consumable/ethanol/rum, /datum/reagent/blood, /datum/reagent/medicine/charcoal, /datum/reagent/consumable/drink/coffee, /datum/reagent/ectoplasm, /datum/reagent/space_drugs, /datum/reagent/consumable/drink/milk, /datum/reagent/medicine/mutadone, /datum/reagent/medicine/antihol, /datum/reagent/medicine/teporone, /datum/reagent/medicine/insulin, /datum/reagent/medicine/salbutamol, /datum/reagent/toxin) = 20)
 	..()
-
+#error fix
 /obj/item/clothing/mask/cigarette/syndicate
-	list_reagents = list("nicotine" = 40, "omnizine" = 20)
+	list_reagents = list(/datum/reagent/nicotine = 40, /datum/reagent/medicine/omnizine = 20)
 
 /obj/item/clothing/mask/cigarette/medical_marijuana
-	list_reagents = list("thc" = 40, "cbd" = 20)
+	list_reagents = list(/datum/reagent/thc = 40, /datum/reagent/cbd = 20)
 
 /obj/item/clothing/mask/cigarette/robustgold
-	list_reagents = list("nicotine" = 40, "gold" = 1)
+	list_reagents = list(/datum/reagent/nicotine = 40, /datum/reagent/gold = 1)
 
 /obj/item/clothing/mask/cigarette/shadyjims
-	list_reagents = list("nicotine" = 40, "lipolicide" = 7.5, "ammonia" = 2, "atrazine" = 1, "toxin" = 1.5)
+	list_reagents = list(/datum/reagent/nicotine = 40, /datum/reagent/lipolicide = 7.5, /datum/reagent/ammonia = 2, /datum/reagent/glyphosate/atrazine = 1, /datum/reagent/toxin = 1.5)
 
 /obj/item/clothing/mask/cigarette/rollie
 	name = "rollie"
@@ -288,7 +288,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	item_state = "cigaroff"
 	smoketime = 300
 	chem_volume = 120
-	list_reagents = list("nicotine" = 120)
+	list_reagents = list(/datum/reagent/nicotine = 120)
 
 /obj/item/clothing/mask/cigarette/cigar/cohiba
 	name = "Cohiba Robusto Cigar"
@@ -305,7 +305,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_off = "cigar2off"
 	smoketime = 450
 	chem_volume = 180
-	list_reagents = list("nicotine" = 180)
+	list_reagents = list(/datum/reagent/nicotine = 180)
 
 /obj/item/cigbutt
 	name = "cigarette butt"
@@ -353,7 +353,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_off = "pipeoff"
 	smoketime = 500
 	chem_volume = 200
-	list_reagents = list("nicotine" = 200)
+	list_reagents = list(/datum/reagent/nicotine = 200)
 
 /obj/item/clothing/mask/cigarette/pipe/light(flavor_text = null)
 	if(!lit)
@@ -392,7 +392,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	if(smoketime <= 0)
 		to_chat(user, "<span class='notice'>You refill the pipe with tobacco.</span>")
-		reagents.add_reagent("nicotine", chem_volume)
+		reagents.add_reagent(/datum/reagent/nicotine, chem_volume)
 		smoketime = initial(smoketime)
 		first_puff = TRUE
 

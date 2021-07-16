@@ -84,7 +84,7 @@
 /obj/item/reagent_containers/food/snacks/shrimp/New()
 	..()
 	desc = pick("Anyway, like I was sayin', shrimp is the fruit of the sea.", "You can barbecue it, boil it, broil it, bake it, saute it.")
-	reagents.add_reagent("protein", 1)
+	reagents.add_reagent(/datum/reagent/consumable/nutriment/protein, 1)
 	src.bitesize = 1
 
 /obj/item/reagent_containers/food/snacks/feederfish
@@ -96,7 +96,7 @@
 
 /obj/item/reagent_containers/food/snacks/shrimp/New()
 	..()
-	reagents.add_reagent("protein", 1)
+	reagents.add_reagent(/datum/reagent/consumable/nutriment/protein, 1)
 	src.bitesize = 1
 
 /obj/item/fish

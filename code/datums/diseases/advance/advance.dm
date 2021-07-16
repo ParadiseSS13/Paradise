@@ -10,10 +10,10 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 // The order goes from easy to cure to hard to cure.
 GLOBAL_LIST_INIT(advance_cures, list(
-									"sodiumchloride", "sugar", "orangejuice",
-									"spaceacillin", "salglu_solution", "ethanol",
-									"teporone", "diphenhydramine", "lipolicide",
-									"silver", "gold"
+									/datum/reagent/consumable/sodiumchloride, /datum/reagent/consumable/sugar, /datum/reagent/consumable/drink/orangejuice,
+									/datum/reagent/medicine/spaceacillin, /datum/reagent/medicine/salglu_solution, /datum/reagent/consumable/ethanol,
+									/datum/reagent/medicine/teporone, /datum/reagent/medicine/diphenhydramine, /datum/reagent/lipolicide,
+									/datum/reagent/silver, /datum/reagent/gold
 ))
 
 /*

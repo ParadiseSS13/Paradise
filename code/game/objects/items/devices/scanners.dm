@@ -235,6 +235,7 @@ REAGENT SCANNER
 		var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
 		var/blood_type = H.dna.blood_type
 		if(blood_id != "blood")//special blood substance
+#error fix
 			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 			if(R)
 				blood_type = R.name
@@ -757,17 +758,17 @@ REAGENT SCANNER
 	dat += "[extra_font]\tBlood Level %: [blood_percent] ([target.blood_volume] units)</font><br>"
 
 	if(target.reagents)
-		dat += "Epinephrine units: [target.reagents.get_reagent_amount("Epinephrine")] units<BR>"
-		dat += "Ether: [target.reagents.get_reagent_amount("ether")] units<BR>"
+		dat += "Epinephrine units: [target.reagents.get_reagent_amount(/datum/reagent/medicine/epinephrine)] units<BR>"
+		dat += "Ether: [target.reagents.get_reagent_amount(/datum/reagent/medicine/ether)] units<BR>"
 
-		extra_font = (target.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>")
-		dat += "[extra_font]\tSilver Sulfadiazine: [target.reagents.get_reagent_amount("silver_sulfadiazine")]</font><br>"
+		extra_font = (target.reagents.get_reagent_amount(/datum/reagent/medicine/silver_sulfadiazine) < 30 ? "<font color='black'>" : "<font color='red'>")
+		dat += "[extra_font]\tSilver Sulfadiazine: [target.reagents.get_reagent_amount(/datum/reagent/medicine/silver_sulfadiazine)]</font><br>"
 
-		extra_font = (target.reagents.get_reagent_amount("styptic_powder") < 30 ? "<font color='black'>" : "<font color='red'>")
-		dat += "[extra_font]\tStyptic Powder: [target.reagents.get_reagent_amount("styptic_powder")] units<BR>"
+		extra_font = (target.reagents.get_reagent_amount(/datum/reagent/medicine/styptic_powder) < 30 ? "<font color='black'>" : "<font color='red'>")
+		dat += "[extra_font]\tStyptic Powder: [target.reagents.get_reagent_amount(/datum/reagent/medicine/styptic_powder)] units<BR>"
 
-		extra_font = (target.reagents.get_reagent_amount("salbutamol") < 30 ? "<font color='black'>" : "<font color='red'>")
-		dat += "[extra_font]\tSalbutamol: [target.reagents.get_reagent_amount("salbutamol")] units<BR>"
+		extra_font = (target.reagents.get_reagent_amount(/datum/reagent/medicine/salbutamol) < 30 ? "<font color='black'>" : "<font color='red'>")
+		dat += "[extra_font]\tSalbutamol: [target.reagents.get_reagent_amount(/datum/reagent/medicine/salbutamol)] units<BR>"
 
 	dat += "<hr><table border='1'>"
 	dat += "<tr>"

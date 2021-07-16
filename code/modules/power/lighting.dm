@@ -812,7 +812,7 @@
 		if(!length(S.reagents.reagent_list))
 			return
 
-		if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
+		if(S.reagents.has_reagent(/datum/reagent/plasma, 5) || S.reagents.has_reagent(/datum/reagent/plasma_dust, 5))
 			to_chat(user, "<span class='danger'>You inject the solution into [src], rigging it to explode!</span>")
 			log_admin("LOG: [key_name(user)] injected a light with plasma, rigging it to explode.")
 			message_admins("LOG: [key_name_admin(user)] injected a light with plasma, rigging it to explode.")

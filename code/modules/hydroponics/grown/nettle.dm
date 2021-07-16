@@ -11,7 +11,7 @@
 	growthstages = 5
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/plant_type/weed_hardy)
 	mutatelist = list(/obj/item/seeds/nettle/death)
-	reagents_add = list("wasabi" = 0.15)
+	reagents_add = list(/datum/reagent/consumable/wasabi = 0.15)
 
 /obj/item/seeds/nettle/death
 	name = "pack of death-nettle seeds"
@@ -25,7 +25,7 @@
 	yield = 2
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/plant_type/weed_hardy, /datum/plant_gene/trait/stinging)
 	mutatelist = list()
-	reagents_add = list("facid" = 0.5, "sacid" = 0.5)
+	reagents_add = list(/datum/reagent/acid/facid = 0.5, /datum/reagent/acid = 0.5)
 	rarity = 20
 
 /obj/item/grown/nettle //abstract type

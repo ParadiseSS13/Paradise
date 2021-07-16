@@ -176,7 +176,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 
 /obj/effect/decal/cleanable/blood/gibs/core
 	random_icon_states = list("gibmid1", "gibmid2", "gibmid3")
-	scoop_reagents = list("liquidgibs" = 5)
+	scoop_reagents = list(/datum/reagent/liquidgibs = 5)
 
 
 /obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...

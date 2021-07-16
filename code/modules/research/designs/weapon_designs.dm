@@ -20,7 +20,7 @@
 	req_tech = list("combat" = 5, "materials" = 5, "biotech" = 6, "plasmatech" = 7)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 5000,MAT_URANIUM = 10000)
-	reagents_list = list("mutagen" = 40)
+	reagents_list = list(/datum/reagent/mutagen = 40)
 	build_path = /obj/item/gun/energy/decloner
 	locked = 1
 	category = list("Weapons")
@@ -43,7 +43,7 @@
 	req_tech = list("materials" = 2, "biotech" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 500)
-	reagents_list = list("radium" = 20)
+	reagents_list = list(/datum/reagent/radium = 20)
 	build_path = /obj/item/gun/energy/floragun
 	category = list("Weapons")
 

@@ -8,4 +8,4 @@
 
 /obj/structure/reagent_dispensers/water_cooler/pizzaparty
 	name = "punch cooler"
-	reagent_id = "bacchus_blessing"
+	reagent_id = /datum/reagent/consumable/ethanol/bacchus_blessing

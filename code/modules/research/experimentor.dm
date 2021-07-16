@@ -309,7 +309,7 @@
 			new /obj/item/stack/sheet/mineral/plasma(get_turf(pick(oview(1,src))))
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message("<span class='danger'>[src] destroys [exp_on], leaking dangerous gas!</span>")
-			chosenchem = pick("carbon","radium","toxin","condensedcapsaicin","psilocybin","space_drugs","ethanol","beepskysmash")
+			chosenchem = pick(/datum/reagent/carbon, /datum/reagent/radium, /datum/reagent/toxin, /datum/reagent/consumable/condensedcapsaicin, /datum/reagent/psilocybin, /datum/reagent/space_drugs, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/ethanol/beepsky_smash)
 			var/datum/reagents/R = new/datum/reagents(15)
 			R.my_atom = src
 			R.add_reagent(chosenchem , 15)
@@ -322,7 +322,7 @@
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message("<span class='danger'>[src]'s chemical chamber has sprung a leak!</span>")
-			chosenchem = pick("mutationtoxin","nanomachines","sacid")
+			chosenchem = pick(/datum/reagent/slimetoxin, /datum/reagent/nanomachines, /datum/reagent/acid)
 			var/datum/reagents/R = new/datum/reagents(15)
 			R.my_atom = src
 			R.add_reagent(chosenchem , 15)
@@ -349,7 +349,7 @@
 			visible_message("<span class='warning'>[src]'s emergency coolant system gives off a small ding!</span>")
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 			var/obj/item/reagent_containers/food/drinks/coffee/C = new /obj/item/reagent_containers/food/drinks/coffee(get_turf(pick(oview(1,src))))
-			chosenchem = pick("plasma","capsaicin","ethanol")
+			chosenchem = pick(/datum/reagent/plasma, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/ethanol)
 			C.reagents.remove_any(25)
 			C.reagents.add_reagent(chosenchem , 50)
 			C.name = "Cup of Suspicious Liquid"
@@ -401,7 +401,7 @@
 			visible_message("<span class='warning'>[src]'s emergency coolant system gives off a small ding!</span>")
 			var/obj/item/reagent_containers/food/drinks/coffee/C = new /obj/item/reagent_containers/food/drinks/coffee(get_turf(pick(oview(1,src))))
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1) //Ding! Your death coffee is ready!
-			chosenchem = pick("uranium","frostoil","ephedrine")
+			chosenchem = pick(/datum/reagent/uranium, /datum/reagent/consumable/frostoil, /datum/reagent/medicine/ephedrine)
 			C.reagents.remove_any(25)
 			C.reagents.add_reagent(chosenchem , 50)
 			C.name = "Cup of Suspicious Liquid"
@@ -411,7 +411,7 @@
 			visible_message("<span class='danger'>[src] malfunctions, shattering [exp_on] and releasing a dangerous cloud of coolant!</span>")
 			var/datum/reagents/R = new/datum/reagents(15)
 			R.my_atom = src
-			R.add_reagent("frostoil" , 15)
+			R.add_reagent(/datum/reagent/consumable/frostoil , 15)
 			investigate_log("Experimentor has released frostoil gas.", "experimentor")
 			var/datum/effect_system/smoke_spread/chem/smoke = new
 			smoke.set_up(R, src, TRUE)

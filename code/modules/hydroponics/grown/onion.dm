@@ -13,7 +13,7 @@
 	growthstages = 3
 	weed_chance = 3
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
-	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.1)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.1)
 	mutatelist = list(/obj/item/seeds/onion/red)
 
 /obj/item/reagent_containers/food/snacks/grown/onion
@@ -38,7 +38,7 @@
 	weed_chance = 1
 	product = /obj/item/reagent_containers/food/snacks/grown/onion/red
 	mutatelist = list()
-	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.1, "onionjuice" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.1, /datum/reagent/consumable/onion = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/onion/red
 	seed = /obj/item/seeds/onion/red
@@ -55,7 +55,7 @@
 	name = "onion slices"
 	desc = "Rings, not for wearing."
 	icon_state = "onionslice"
-	list_reagents = list("plantmatter" = 5, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/plantmatter = 5, /datum/reagent/consumable/nutriment/vitamin = 2)
 	filling_color = "#C0C9A0"
 	tastes = list("onion" = 1, "pungentness" = 1)
 	gender = PLURAL
@@ -67,4 +67,4 @@
 	icon_state = "onionslice_red"
 	filling_color = "#C29ACF"
 	tastes = list("red onion" = 1, "pungentness" = 3)
-	list_reagents = list("plantmatter" = 5, "vitamin" = 2, "onionjuice" = 2.5)
+	list_reagents = list(/datum/reagent/consumable/nutriment/plantmatter = 5, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/consumable/onion = 2.5)

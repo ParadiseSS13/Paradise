@@ -11,7 +11,7 @@
 	potency = 15
 	icon_dead = "wheat-dead"
 	mutatelist = list(/obj/item/seeds/wheat/oat, /obj/item/seeds/wheat/meat)
-	reagents_add = list("plantmatter" = 0.04)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.04)
 
 /obj/item/reagent_containers/food/snacks/grown/wheat
 	seed = /obj/item/seeds/wheat
@@ -22,7 +22,7 @@
 	filling_color = "#F0E68C"
 	tastes = list("wheat" = 1)
 	bitesize_mod = 2
-	distill_reagent = "beer"
+	distill_reagent = /datum/reagent/consumable/ethanol/beer
 
 // Oat
 /obj/item/seeds/wheat/oat
@@ -43,7 +43,7 @@
 	filling_color = "#556B2F"
 	tastes = list("oat" = 1)
 	bitesize_mod = 2
-	distill_reagent = "ale"
+	distill_reagent = /datum/reagent/consumable/ethanol/ale
 
 // Rice
 /obj/item/seeds/wheat/rice
@@ -65,7 +65,7 @@
 	filling_color = "#FAFAD2"
 	bitesize_mod = 2
 	tastes = list("rice" = 1)
-	distill_reagent = "sake"
+	distill_reagent = /datum/reagent/consumable/ethanol/sake
 
 //Meatwheat - grows into synthetic meat
 /obj/item/seeds/wheat/meat
@@ -76,7 +76,7 @@
 	plantname = "Meatwheat"
 	product = /obj/item/reagent_containers/food/snacks/grown/meatwheat
 	mutatelist = list()
-	reagents_add = list("protein" = 0.04)
+	reagents_add = list(/datum/reagent/consumable/nutriment/protein = 0.04)
 
 /obj/item/reagent_containers/food/snacks/grown/meatwheat
 	name = "meatwheat"

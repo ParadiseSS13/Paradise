@@ -15,7 +15,7 @@
 /obj/machinery/snow_machine/New()
 	..()
 	create_reagents(300) //Makes 100 snow tiles!
-	reagents.add_reagent("water", 300) //But any reagent will do
+	reagents.add_reagent(/datum/reagent/water, 300) //But any reagent will do
 	reagents.flags |= REAGENT_NOREACT //Because a) this doesn't need to process and b) this way we can use any reagents without needing to worry about explosions and shit
 	container_type = REFILLABLE
 	component_parts = list()

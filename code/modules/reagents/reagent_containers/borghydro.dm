@@ -16,14 +16,14 @@
 	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
 
 	var/list/datum/reagents/reagent_list = list()
-	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone")
+	var/list/reagent_ids = list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/spaceacillin, /datum/reagent/medicine/charcoal, /datum/reagent/medicine/hydrocodone)
 	//var/list/reagent_ids = list("salbutamol", "silver_sulfadiazine", "styptic_powder", "charcoal", "epinephrine", "spaceacillin", "hydrocodone")
 
 /obj/item/reagent_containers/borghypo/surgeon
-	reagent_ids = list("styptic_powder", "epinephrine", "salbutamol")
+	reagent_ids = list(/datum/reagent/medicine/styptic_powder, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/salbutamol)
 
 /obj/item/reagent_containers/borghypo/crisis
-	reagent_ids = list("salglu_solution", "epinephrine", "sal_acid")
+	reagent_ids = list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/sal_acid)
 
 /obj/item/reagent_containers/borghypo/syndicate
 	name = "syndicate cyborg hypospray"
@@ -31,7 +31,7 @@
 	icon_state = "borghypo_s"
 	charge_cost = 20
 	recharge_time = 2
-	reagent_ids = list("syndicate_nanites", "potass_iodide", "hydrocodone")
+	reagent_ids = list(/datum/reagent/medicine/syndicate_nanites, /datum/reagent/medicine/potass_iodide, /datum/reagent/medicine/hydrocodone)
 	bypass_protection = 1
 
 /obj/item/reagent_containers/borghypo/New()
@@ -127,6 +127,6 @@
 /obj/item/reagent_containers/borghypo/basic
 	name = "Basic Medical Hypospray"
 	desc = "A very basic medical hypospray, capable of providing simple medical treatment in emergencies."
-	reagent_ids = list("salglu_solution", "epinephrine")
+	reagent_ids = list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/epinephrine)
 
 #undef BORGHYPO_REFILL_VALUE

@@ -2073,9 +2073,9 @@
 				to_chat(M,"<span class='userdanger'>You feel invigorated!</span>")
 				logmsg = "a moderate heal."
 			if("Heal Over Time")
-				H.reagents.add_reagent("salglu_solution", 30)
-				H.reagents.add_reagent("salbutamol", 20)
-				H.reagents.add_reagent("spaceacillin", 20)
+				H.reagents.add_reagent(/datum/reagent/medicine/salglu_solution, 30)
+				H.reagents.add_reagent(/datum/reagent/medicine/salbutamol, 20)
+				H.reagents.add_reagent(/datum/reagent/medicine/spaceacillin, 20)
 				logmsg = "a heal over time."
 			if("Permanent Regeneration")
 				H.dna.SetSEState(GLOB.regenerateblock, 1)
@@ -2218,8 +2218,8 @@
 				H.Hallucinate(1000)
 				logmsg = "hallucinations."
 			if("Cold")
-				H.reagents.add_reagent("frostoil", 40)
-				H.reagents.add_reagent("ice", 40)
+				H.reagents.add_reagent(/datum/reagent/consumable/frostoil, 40)
+				H.reagents.add_reagent(/datum/reagent/consumable/drink/cold/ice, 40)
 				logmsg = "cold."
 			if("Hunger")
 				H.set_nutrition(NUTRITION_LEVEL_CURSED)
@@ -2230,7 +2230,7 @@
 				logmsg = "cluwned."
 			if("Mutagen Cookie")
 				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
-				evilcookie.reagents.add_reagent("mutagen", 10)
+				evilcookie.reagents.add_reagent(/datum/reagent/mutagen, 10)
 				evilcookie.desc = "It has a faint green glow."
 				evilcookie.bitesize = 100
 				evilcookie.flags = NODROP | DROPDEL
@@ -2239,7 +2239,7 @@
 				logmsg = "a mutagen cookie."
 			if("Hellwater Cookie")
 				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
-				evilcookie.reagents.add_reagent("hell_water", 25)
+				evilcookie.reagents.add_reagent(/datum/reagent/hellwater, 25)
 				evilcookie.desc = "Sulphur-flavored."
 				evilcookie.bitesize = 100
 				evilcookie.flags = NODROP | DROPDEL

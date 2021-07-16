@@ -18,36 +18,36 @@
 	var/list/blend_items = list (
 
 			//Sheets
-			/obj/item/stack/sheet/mineral/plasma = list("plasma_dust" = 20),
-			/obj/item/stack/sheet/metal = list("iron" = 20),
-			/obj/item/stack/rods = list("iron" = 10),
-			/obj/item/stack/sheet/plasteel = list("iron" = 20, "plasma_dust" = 20),
-			/obj/item/stack/sheet/wood = list("carbon" = 20),
-			/obj/item/stack/sheet/glass = list("silicon" = 20),
-			/obj/item/stack/sheet/rglass = list("silicon" = 20, "iron" = 20),
-			/obj/item/stack/sheet/mineral/uranium = list("uranium" = 20),
-			/obj/item/stack/sheet/mineral/bananium = list("banana" = 20),
-			/obj/item/stack/sheet/mineral/tranquillite = list("nothing" = 20),
-			/obj/item/stack/sheet/mineral/silver = list("silver" = 20),
-			/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
-			/obj/item/grown/nettle/basic = list("wasabi" = 0),
-			/obj/item/grown/nettle/death = list("facid" = 0, "sacid" = 0),
-			/obj/item/grown/novaflower = list("capsaicin" = 0, "condensedcapsaicin" = 0),
+			/obj/item/stack/sheet/mineral/plasma = list(/datum/reagent/plasma_dust = 20),
+			/obj/item/stack/sheet/metal = list(/datum/reagent/iron = 20),
+			/obj/item/stack/rods = list(/datum/reagent/iron = 10),
+			/obj/item/stack/sheet/plasteel = list(/datum/reagent/iron = 20, /datum/reagent/plasma_dust = 20),
+			/obj/item/stack/sheet/wood = list(/datum/reagent/carbon = 20),
+			/obj/item/stack/sheet/glass = list(/datum/reagent/silicon = 20),
+			/obj/item/stack/sheet/rglass = list(/datum/reagent/silicon = 20, /datum/reagent/iron = 20),
+			/obj/item/stack/sheet/mineral/uranium = list(/datum/reagent/uranium = 20),
+			/obj/item/stack/sheet/mineral/bananium = list(/datum/reagent/consumable/drink/banana = 20),
+			/obj/item/stack/sheet/mineral/tranquillite = list(/datum/reagent/consumable/drink/nothing = 20),
+			/obj/item/stack/sheet/mineral/silver = list(/datum/reagent/silver = 20),
+			/obj/item/stack/sheet/mineral/gold = list(/datum/reagent/gold = 20),
+			/obj/item/grown/nettle/basic = list(/datum/reagent/consumable/wasabi = 0),
+			/obj/item/grown/nettle/death = list(/datum/reagent/acid/facid = 0, /datum/reagent/acid = 0),
+			/obj/item/grown/novaflower = list(/datum/reagent/consumable/capsaicin = 0, /datum/reagent/consumable/condensedcapsaicin = 0),
 
 			//Blender Stuff
-			/obj/item/reagent_containers/food/snacks/grown/tomato = list("ketchup" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/wheat = list("flour" = -5),
-			/obj/item/reagent_containers/food/snacks/grown/oat = list("flour" = -5),
-			/obj/item/reagent_containers/food/snacks/grown/cherries = list("cherryjelly" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/bluecherries = list("bluecherryjelly" = 0),
-			/obj/item/reagent_containers/food/snacks/egg = list("egg" = -5),
-			/obj/item/reagent_containers/food/snacks/grown/rice = list("rice" = -5),
+			/obj/item/reagent_containers/food/snacks/grown/tomato = list(/datum/reagent/consumable/ketchup = 0),
+			/obj/item/reagent_containers/food/snacks/grown/wheat = list(/datum/reagent/consumable/flour = -5),
+			/obj/item/reagent_containers/food/snacks/grown/oat = list(/datum/reagent/consumable/flour = -5),
+			/obj/item/reagent_containers/food/snacks/grown/cherries = list(/datum/reagent/consumable/cherryjelly = 0),
+			/obj/item/reagent_containers/food/snacks/grown/bluecherries = list(/datum/reagent/consumable/bluecherryjelly = 0),
+			/obj/item/reagent_containers/food/snacks/egg = list(/datum/reagent/consumable/egg = -5),
+			/obj/item/reagent_containers/food/snacks/grown/rice = list(/datum/reagent/consumable/rice = -5),
 
 			//Grinder stuff, but only if dry
-			/obj/item/reagent_containers/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/coffee = list("coffeepowder" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/tea/astra = list("teapowder" = 0, "salglu_solution" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/tea = list("teapowder" = 0),
+			/obj/item/reagent_containers/food/snacks/grown/coffee/robusta = list(/datum/reagent/toxin/coffeepowder = 0, /datum/reagent/medicine/morphine = 0),
+			/obj/item/reagent_containers/food/snacks/grown/coffee = list(/datum/reagent/toxin/coffeepowder = 0),
+			/obj/item/reagent_containers/food/snacks/grown/tea/astra = list(/datum/reagent/toxin/teapowder = 0, /datum/reagent/medicine/salglu_solution = 0),
+			/obj/item/reagent_containers/food/snacks/grown/tea = list(/datum/reagent/toxin/teapowder = 0),
 
 
 			//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
@@ -59,33 +59,33 @@
 	var/list/juice_items = list (
 
 			//Juicer Stuff
-			/obj/item/reagent_containers/food/snacks/grown/soybeans = list("soymilk" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/corn = list("corn_starch" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/tomato = list("tomatojuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/carrot = list("carrotjuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/berries = list("berryjuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/banana = list("banana" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/potato = list("potato" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/citrus/lemon = list("lemonjuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/citrus/orange = list("orangejuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/citrus/lime = list("limejuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/watermelon = list("watermelonjuice" = 0),
-			/obj/item/reagent_containers/food/snacks/watermelonslice = list("watermelonjuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/berries/poison = list("poisonberryjuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/pumpkin = list("pumpkinjuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/blumpkin = list("blumpkinjuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/apple = list("applejuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/grapes = list("grapejuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/grapes/green = list("grapejuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/pineapple = list("pineapplejuice" = 0)
+			/obj/item/reagent_containers/food/snacks/grown/soybeans = list(/datum/reagent/consumable/drink/milk/soymilk = 0),
+			/obj/item/reagent_containers/food/snacks/grown/corn = list(/datum/reagent/consumable/corn_starch = 0),
+			/obj/item/reagent_containers/food/snacks/grown/tomato = list(/datum/reagent/consumable/drink/tomatojuice = 0),
+			/obj/item/reagent_containers/food/snacks/grown/carrot = list(/datum/reagent/consumable/drink/carrotjuice = 0),
+			/obj/item/reagent_containers/food/snacks/grown/berries = list(/datum/reagent/consumable/drink/berryjuice = 0),
+			/obj/item/reagent_containers/food/snacks/grown/banana = list(/datum/reagent/consumable/drink/banana = 0),
+			/obj/item/reagent_containers/food/snacks/grown/potato = list(/datum/reagent/consumable/drink/potato_juice = 0),
+			/obj/item/reagent_containers/food/snacks/grown/citrus/lemon = list(/datum/reagent/consumable/drink/lemonjuice = 0),
+			/obj/item/reagent_containers/food/snacks/grown/citrus/orange = list(/datum/reagent/consumable/drink/orangejuice = 0),
+			/obj/item/reagent_containers/food/snacks/grown/citrus/lime = list(/datum/reagent/consumable/drink/limejuice = 0),
+			/obj/item/reagent_containers/food/snacks/grown/watermelon = list(/datum/reagent/consumable/drink/watermelonjuice = 0),
+			/obj/item/reagent_containers/food/snacks/watermelonslice = list(/datum/reagent/consumable/drink/watermelonjuice = 0),
+			/obj/item/reagent_containers/food/snacks/grown/berries/poison = list(/datum/reagent/consumable/drink/poisonberryjuice = 0),
+			/obj/item/reagent_containers/food/snacks/grown/pumpkin = list(/datum/reagent/consumable/drink/pumpkinjuice = 0),
+			/obj/item/reagent_containers/food/snacks/grown/blumpkin = list(/datum/reagent/consumable/drink/blumpkinjuice = 0),
+			/obj/item/reagent_containers/food/snacks/grown/apple = list(/datum/reagent/consumable/applejuice = 0),
+			/obj/item/reagent_containers/food/snacks/grown/grapes = list(/datum/reagent/consumable/drink/grapejuice = 0),
+			/obj/item/reagent_containers/food/snacks/grown/grapes/green = list(/datum/reagent/consumable/drink/grapejuice = 0),
+			/obj/item/reagent_containers/food/snacks/grown/pineapple = list(/datum/reagent/consumable/drink/pineapplejuice = 0)
 	)
 
 	var/list/dried_items = list(
 			//Grinder stuff, but only if dry,
-			/obj/item/reagent_containers/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/coffee = list("coffeepowder" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/tea/astra = list("teapowder" = 0, "salglu_solution" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/tea = list("teapowder" = 0)
+			/obj/item/reagent_containers/food/snacks/grown/coffee/robusta = list(/datum/reagent/toxin/coffeepowder = 0, /datum/reagent/medicine/morphine = 0),
+			/obj/item/reagent_containers/food/snacks/grown/coffee = list(/datum/reagent/toxin/coffeepowder = 0),
+			/obj/item/reagent_containers/food/snacks/grown/tea/astra = list(/datum/reagent/toxin/teapowder = 0, /datum/reagent/medicine/salglu_solution = 0),
+			/obj/item/reagent_containers/food/snacks/grown/tea = list(/datum/reagent/toxin/teapowder = 0)
 	)
 
 	var/list/holdingitems = list()
@@ -436,20 +436,20 @@
 						var/amount = allowed[r_id]
 						if(amount <= 0)
 								if(amount == 0)
-										if (O.reagents != null && O.reagents.has_reagent("nutriment"))
-												beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment")*efficiency, space))
-												O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
-										if (O.reagents != null && O.reagents.has_reagent("plantmatter"))
-												beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter")*efficiency, space))
-												O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
+										if (O.reagents != null && O.reagents.has_reagent(/datum/reagent/consumable/nutriment))
+												beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment)*efficiency, space))
+												O.reagents.remove_reagent(/datum/reagent/consumable/nutriment, min(O.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment), space))
+										if (O.reagents != null && O.reagents.has_reagent(/datum/reagent/consumable/nutriment/plantmatter))
+												beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment/plantmatter)*efficiency, space))
+												O.reagents.remove_reagent(/datum/reagent/consumable/nutriment/plantmatter, min(O.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment/plantmatter), space))
 								else
-										if (O.reagents != null && O.reagents.has_reagent("nutriment"))
-												beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment")*abs(amount)*efficiency), space))
-												O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
-										if (O.reagents != null && O.reagents.has_reagent("plantmatter"))
-												beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter")*abs(amount)*efficiency), space))
-												O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
-
+										if (O.reagents != null && O.reagents.has_reagent(/datum/reagent/consumable/nutriment))
+												beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment)*abs(amount)*efficiency), space))
+												O.reagents.remove_reagent(/datum/reagent/consumable/nutriment, min(O.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment), space))
+										if (O.reagents != null && O.reagents.has_reagent(/datum/reagent/consumable/nutriment/plantmatter))
+												beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment/plantmatter)*abs(amount)*efficiency), space))
+												O.reagents.remove_reagent(/datum/reagent/consumable/nutriment/plantmatter, min(O.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment/plantmatter), space))
+#error refactor
 
 						else
 								O.reagents.trans_id_to(beaker, r_id, min(amount, space))
@@ -502,7 +502,7 @@
 						var/amount = O.reagents.total_volume
 						O.reagents.trans_to(beaker, min(amount, space))
 				if (O.Uses > 0)
-						beaker.reagents.add_reagent("slimejelly",min(20*efficiency, space))
+						beaker.reagents.add_reagent(/datum/reagent/slimejelly, min(20 * efficiency, space))
 				remove_object(O)
 
 		//Everything else - Transfers reagents from it into beaker

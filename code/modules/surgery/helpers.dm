@@ -118,15 +118,15 @@
 		return 1
 	if(HAS_TRAIT(M, TRAIT_NOPAIN))//if you don't feel pain, you can hold still
 		return 1
-	if(M.reagents.has_reagent("hydrocodone"))//really good pain killer
+	if(M.reagents.has_reagent(/datum/reagent/medicine/hydrocodone))//really good pain killer
 		return 0.99
-	if(M.reagents.has_reagent("morphine"))//Just as effective as Hydrocodone, but has an addiction chance
+	if(M.reagents.has_reagent(/datum/reagent/medicine/morphine))//Just as effective as Hydrocodone, but has an addiction chance
 		return 0.99
 	if(M.drunk >= 80)//really damn drunk
 		return 0.95
 	if(M.drunk >= 40)//pretty drunk
 		return 0.9
-	if(M.reagents.has_reagent("sal_acid")) //it's better than nothing, as far as painkillers go.
+	if(M.reagents.has_reagent(/datum/reagent/medicine/sal_acid)) //it's better than nothing, as far as painkillers go.
 		return 0.85
 	if(M.drunk >= 15)//a little drunk
 		return 0.85

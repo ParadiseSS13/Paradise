@@ -174,7 +174,7 @@
 		return 0
 
 	var/obj/item/reagent_containers/container = tool
-	if(!container.reagents.has_reagent("mitocholide"))
+	if(!container.reagents.has_reagent(/datum/reagent/medicine/mitocholide))
 		user.visible_message("[user] looks at \the [tool] and ponders." , \
 		"You are not sure if \the [tool] contains mitocholide to treat the necrosis.")
 		return 0
@@ -203,7 +203,7 @@
 	var/obj/item/reagent_containers/container = tool
 	var/mitocholide = 0
 
-	if(container.reagents.has_reagent("mitocholide"))
+	if(container.reagents.has_reagent(/datum/reagent/medicine/mitocholide))
 		mitocholide = 1
 
 	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)

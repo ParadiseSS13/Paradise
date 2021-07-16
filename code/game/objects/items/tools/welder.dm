@@ -1,4 +1,4 @@
-#define GET_FUEL reagents.get_reagent_amount("fuel")
+#define GET_FUEL reagents.get_reagent_amount(/datum/reagent/fuel)
 
 /obj/item/weldingtool
 	name = "welding tool"
@@ -36,7 +36,7 @@
 /obj/item/weldingtool/Initialize(mapload)
 	..()
 	create_reagents(maximum_fuel)
-	reagents.add_reagent("fuel", maximum_fuel)
+	reagents.add_reagent(/datum/reagent/fuel, maximum_fuel)
 	update_icon()
 
 /obj/item/weldingtool/Destroy()
@@ -68,7 +68,7 @@
 			remove_fuel(1)
 	if(refills_over_time)
 		if(GET_FUEL < maximum_fuel)
-			reagents.add_reagent("fuel", 1)
+			reagents.add_reagent(/datum/reagent/fuel, 1)
 	..()
 
 /obj/item/weldingtool/attack_self(mob/user)
@@ -146,7 +146,7 @@
 			progress_flash_divisor--
 
 /obj/item/weldingtool/proc/remove_fuel(amount) //NB: doesn't check if we have enough fuel, it just removes however much is left if there's not enough
-	reagents.remove_reagent("fuel", amount * requires_fuel)
+	reagents.remove_reagent(/datum/reagent/fuel, amount * requires_fuel)
 	if(!GET_FUEL)
 		toggle_welder(TRUE)
 
@@ -156,7 +156,7 @@
 	if(GET_FUEL >= maximum_fuel)
 		to_chat(user, "<span class='notice'>[src] is already full!</span>")
 		return
-	var/amount_transferred = A.reagents.trans_id_to(src, "fuel", amount)
+	var/amount_transferred = A.reagents.trans_id_to(src, /datum/reagent/fuel, amount)
 	if(amount_transferred)
 		to_chat(user, "<span class='notice'>You refuel [src] by [amount_transferred] unit\s.</span>")
 		playsound(src, 'sound/effects/refill.ogg', 50, 1)
@@ -185,7 +185,7 @@
 	..()
 
 /obj/item/weldingtool/cyborg_recharge(coeff, emagged)
-	if(reagents.check_and_add("fuel", maximum_fuel, 2 * coeff))
+	if(reagents.check_and_add(/datum/reagent/fuel, maximum_fuel, 2 * coeff))
 		update_icon()
 
 /obj/item/weldingtool/largetank

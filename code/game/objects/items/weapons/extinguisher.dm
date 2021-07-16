@@ -48,7 +48,7 @@
 /obj/item/extinguisher/New()
 	..()
 	create_reagents(max_water)
-	reagents.add_reagent("water", max_water)
+	reagents.add_reagent(/datum/reagent/water, max_water)
 
 /obj/item/extinguisher/attack_self(mob/user as mob)
 	safety = !safety
@@ -182,4 +182,4 @@
 		return ..()
 
 /obj/item/extinguisher/cyborg_recharge(coeff, emagged)
-	reagents.check_and_add("water", max_water, 5 * coeff)
+	reagents.check_and_add(/datum/reagent/water, max_water, 5 * coeff)

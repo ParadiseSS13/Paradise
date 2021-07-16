@@ -129,8 +129,7 @@
 
 /obj/item/reagent_containers/food/snacks/organ/New()
 	..()
-
-	reagents.add_reagent("nutriment", 5)
+	reagents.add_reagent(/datum/reagent/consumable/nutriment, 5)
 
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
@@ -189,7 +188,7 @@
 /obj/item/organ/internal/appendix/prepare_eat()
 	var/obj/S = ..()
 	if(inflamed)
-		S.reagents.add_reagent("????", 5)
+		S.reagents.add_reagent(/datum/reagent/questionmark, 5)
 	return S
 
 //shadowling tumor

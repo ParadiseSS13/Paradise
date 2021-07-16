@@ -295,7 +295,7 @@
 				to_chat(H, "<span class='userdanger'>WHAT THE FUCK IS THAT?!</span>")
 				to_chat(H, "<font face='Comic Sans MS'><i>.KNOH !nuf hcum os si uoy htiw gniyalP .KNOH KNOH KNOH</i></font>")
 				H.playsound_local(src,'sound/hallucinations/im_here1.ogg', 25)
-				H.reagents.add_reagent("lsd", 3)
+				H.reagents.add_reagent(/datum/reagent/lsd, 3)
 				Appear()
 				manifested = FALSE
 				addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Manifest), 2)

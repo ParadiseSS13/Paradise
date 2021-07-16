@@ -8,7 +8,7 @@
 	disease_amount = 0
 	volume = 10
 	amount_per_transfer_from_this = 0
-	list_reagents = list("honey" = 5)
+	list_reagents = list(/datum/reagent/consumable/honey = 5)
 	var/honey_color = ""
 
 /obj/item/reagent_containers/honeycomb/New()

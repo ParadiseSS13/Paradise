@@ -6,7 +6,7 @@
 	spread_flags = SPECIAL
 	cure_text = "Sleep"
 	agent = "Salmonella"
-	cures = list("chicken_soup")
+	cures = list(/datum/reagent/consumable/chicken_soup)
 	cure_chance = 10
 	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = "Nausea, sickness, and vomitting."

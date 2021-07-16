@@ -15,11 +15,11 @@
 	throw_speed = 2
 	throw_range = 8
 	req_one_access =list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
-	var/treatment_brute = "salglu_solution"
-	var/treatment_oxy = "salbutamol"
-	var/treatment_fire = "salglu_solution"
-	var/treatment_tox = "charcoal"
-	var/treatment_virus = "spaceacillin"
+	var/treatment_brute = /datum/reagent/medicine/salglu_solution
+	var/treatment_oxy = /datum/reagent/medicine/salbutamol
+	var/treatment_fire = /datum/reagent/medicine/salglu_solution
+	var/treatment_tox = /datum/reagent/medicine/charcoal
+	var/treatment_virus = /datum/reagent/medicine/spaceacillin
 	var/med_bot_skin = null
 	var/syndicate_aligned = FALSE
 	var/robot_arm // This is for robot construction
@@ -174,10 +174,10 @@
 	icon_state = "bezerk"
 	desc = "I hope you've got insurance."
 	max_w_class = WEIGHT_CLASS_NORMAL
-	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "bicaridine"
-	treatment_fire = "kelotane"
-	treatment_tox = "charcoal"
+	treatment_oxy = /datum/reagent/medicine/perfluorodecalin
+	treatment_brute = /datum/reagent/medicine/bicaridine
+	treatment_fire = /datum/reagent/medicine/kelotane
+	treatment_tox = /datum/reagent/medicine/charcoal
 	req_one_access =list(ACCESS_SYNDICATE)
 	med_bot_skin = "bezerk"
 	syndicate_aligned = TRUE

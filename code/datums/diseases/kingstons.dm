@@ -3,7 +3,7 @@
 	max_stages = 4
 	spread_text = "Airborne"
 	cure_text = "Milk"
-	cures = list("milk")
+	cures = list(/datum/reagent/consumable/drink/milk)
 	cure_chance = 50
 	agent = "Nya Virus"
 	viable_mobtypes = list(/mob/living/carbon/human)
@@ -51,7 +51,7 @@
 	max_stages = 4
 	spread_text = "Airborne"
 	cure_text = "Plasma"
-	cures = list("plasma")
+	cures = list(/datum/reagent/plasma)
 	cure_chance = 50
 	agent = "AMB45DR Bacteria"
 	viable_mobtypes = list(/mob/living/carbon/human)

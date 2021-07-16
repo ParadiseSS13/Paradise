@@ -413,17 +413,17 @@
 		dat += "[extra_font]\tBlood Level %: [blood_percent] ([occupant.blood_volume] units)</font><br>"
 
 		if(occupant.reagents)
-			dat += "Epinephrine units: [occupant.reagents.get_reagent_amount("Epinephrine")] units<BR>"
-			dat += "Ether: [occupant.reagents.get_reagent_amount("ether")] units<BR>"
+			dat += "Epinephrine units: [occupant.reagents.get_reagent_amount(/datum/reagent/medicine/epinephrine)] units<BR>"
+			dat += "Ether: [occupant.reagents.get_reagent_amount(/datum/reagent/medicine/ether)] units<BR>"
 
-			extra_font = (occupant.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tSilver Sulfadiazine: [occupant.reagents.get_reagent_amount("silver_sulfadiazine")]</font><br>"
+			extra_font = (occupant.reagents.get_reagent_amount(/datum/reagent/medicine/silver_sulfadiazine) < 30 ? "<font color='black'>" : "<font color='red'>")
+			dat += "[extra_font]\tSilver Sulfadiazine: [occupant.reagents.get_reagent_amount(/datum/reagent/medicine/silver_sulfadiazine)]</font><br>"
 
-			extra_font = (occupant.reagents.get_reagent_amount("styptic_powder") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tStyptic Powder: [occupant.reagents.get_reagent_amount("styptic_powder")] units<BR>"
+			extra_font = (occupant.reagents.get_reagent_amount(/datum/reagent/medicine/styptic_powder) < 30 ? "<font color='black'>" : "<font color='red'>")
+			dat += "[extra_font]\tStyptic Powder: [occupant.reagents.get_reagent_amount(/datum/reagent/medicine/styptic_powder)] units<BR>"
 
-			extra_font = (occupant.reagents.get_reagent_amount("salbutamol") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tSalbutamol: [occupant.reagents.get_reagent_amount("salbutamol")] units<BR>"
+			extra_font = (occupant.reagents.get_reagent_amount(/datum/reagent/medicine/salbutamol) < 30 ? "<font color='black'>" : "<font color='red'>")
+			dat += "[extra_font]\tSalbutamol: [occupant.reagents.get_reagent_amount(/datum/reagent/medicine/salbutamol)] units<BR>"
 
 		dat += "<hr><table border='1'>"
 		dat += "<tr>"

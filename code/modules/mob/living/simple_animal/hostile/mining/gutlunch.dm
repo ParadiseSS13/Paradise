@@ -102,9 +102,9 @@
 
 /obj/item/udder/gutlunch/generateMilk()
 	if(prob(60))
-		reagents.add_reagent("cream", rand(2, 5))
+		reagents.add_reagent(/datum/reagent/consumable/drink/milk/cream, rand(2, 5))
 	if(prob(45))
-		reagents.add_reagent("salglu_solution", rand(2,5))
+		reagents.add_reagent(/datum/reagent/medicine/salglu_solution, rand(2,5))
 
 
 //Male gutlunch. They're smaller and more colorful!

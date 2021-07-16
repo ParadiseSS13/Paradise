@@ -14,7 +14,7 @@
 	growthstages = 4
 	rarity = 30
 	var/list/mutations = list()
-	reagents_add = list("charcoal" = 0.04, "plantmatter" = 0.02)
+	reagents_add = list(/datum/reagent/medicine/charcoal = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.02)
 
 /obj/item/seeds/kudzu/Copy()
 	var/obj/item/seeds/kudzu/S = ..()
@@ -51,7 +51,7 @@
 /obj/item/seeds/kudzu/on_chem_reaction(datum/reagents/S)
 	var/list/temp_mut_list = list()
 
-	if(S.has_reagent("sterilizine", 5))
+	if(S.has_reagent(/datum/reagent/medicine/sterilizine, 5))
 		for(var/datum/spacevine_mutation/SM in mutations)
 			if(SM.quality == NEGATIVE)
 				temp_mut_list += SM
@@ -59,7 +59,7 @@
 			mutations.Remove(pick(temp_mut_list))
 		temp_mut_list.Cut()
 
-	if(S.has_reagent("fuel", 5))
+	if(S.has_reagent(/datum/reagent/fuel, 5))
 		for(var/datum/spacevine_mutation/SM in mutations)
 			if(SM.quality == POSITIVE)
 				temp_mut_list += SM
@@ -67,7 +67,7 @@
 			mutations.Remove(pick(temp_mut_list))
 		temp_mut_list.Cut()
 
-	if(S.has_reagent("phenol", 5))
+	if(S.has_reagent(/datum/reagent/phenol, 5))
 		for(var/datum/spacevine_mutation/SM in mutations)
 			if(SM.quality == MINOR_NEGATIVE)
 				temp_mut_list += SM
@@ -75,16 +75,16 @@
 			mutations.Remove(pick(temp_mut_list))
 		temp_mut_list.Cut()
 
-	if(S.has_reagent("blood", 15))
+	if(S.has_reagent(/datum/reagent/blood, 15))
 		adjust_production(rand(15, -5))
 
-	if(S.has_reagent("amanitin", 5))
+	if(S.has_reagent(/datum/reagent/amanitin, 5))
 		adjust_production(rand(5, -15))
 
-	if(S.has_reagent("plasma", 5))
+	if(S.has_reagent(/datum/reagent/plasma, 5))
 		adjust_potency(rand(5, -15))
 
-	if(S.has_reagent("holywater", 10))
+	if(S.has_reagent(/datum/reagent/holywater, 10))
 		adjust_potency(rand(15, -5))
 
 

@@ -262,7 +262,7 @@
 	for(var/i=1 to slab_count)
 		var/obj/item/reagent_containers/food/snacks/meat/new_meat = new slab_type(src)
 		new_meat.name = "[slab_name] [new_meat.name]"
-		new_meat.reagents.add_reagent("nutriment", slab_nutrition)
+		new_meat.reagents.add_reagent(/datum/reagent/consumable/nutriment, slab_nutrition)
 
 
 		if(occupant.reagents)

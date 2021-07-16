@@ -19,7 +19,7 @@
 
 /obj/item/organ/internal/body_egg/alien_embryo/prepare_eat()
 	var/obj/S = ..()
-	S.reagents.add_reagent("sacid", 10)
+	S.reagents.add_reagent(/datum/reagent/acid, 10)
 	return S
 
 /obj/item/organ/internal/body_egg/alien_embryo/on_life()

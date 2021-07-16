@@ -116,7 +116,7 @@
 	var/list/carried_reagents	// the IDs of reagents present when the foam was mixed
 	var/metal = 0				// 0=foam, 1=metalfoam, 2=ironfoam
 	var/temperature = T0C
-	var/list/banned_reagents = list("smoke_powder", "fluorosurfactant", "stimulants")
+	var/list/banned_reagents = list(/datum/reagent/smoke_powder, /datum/reagent/fluorosurfactant, /datum/reagent/medicine/stimulants)
 
 /datum/effect_system/foam_spread/set_up(amt=5, loca, datum/reagents/carry = null, metalfoam = 0)
 	amount = min(round(amt/5, 1), 7)
@@ -159,7 +159,7 @@
 					F.reagents.add_reagent(id, min(reagent_volume, 5), null, temperature)
 				F.color = mix_color_from_reagents(F.reagents.reagent_list)
 			else
-				F.reagents.add_reagent("cleaner", 1)
+				F.reagents.add_reagent(/datum/reagent/space_cleaner, 1)
 				F.color = mix_color_from_reagents(F.reagents.reagent_list)
 
 // wall formed by metal foams

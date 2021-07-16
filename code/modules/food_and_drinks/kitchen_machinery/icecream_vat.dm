@@ -42,10 +42,10 @@
 		updateUsrDialog()
 		return
 	if(istype(I, /obj/item/reagent_containers/food/snacks/icecream))
-		if(!I.reagents.has_reagent("sprinkles"))
+		if(!I.reagents.has_reagent(/datum/reagent/consumable/sprinkles))
 			if(I.reagents.total_volume > 29)
 				I.reagents.remove_any(1)
-			I.reagents.add_reagent("sprinkles", 1)
+			I.reagents.add_reagent(/datum/reagent/consumable/sprinkles, 1)
 			I.name += " with sprinkles"
 			I.desc += ". This also has sprinkles."
 		else
@@ -53,9 +53,9 @@
 		return
 	return ..()
 
-
+#error test
 /obj/machinery/icemachine/proc/validexchange(reag)
-	if(reag == "sprinkles" | reag == "cola" | reag == "kahlua" | reag == "dr_gibb" | reag == "vodka" | reag == "space_up" | reag == "rum" | reag == "spacemountainwind" | reag == "gin" | reag == "cream" | reag == "water")
+	if(reag == /datum/reagent/consumable/sprinkles | reag == /datum/reagent/consumable/drink/cold/space_cola | reag == /datum/reagent/consumable/ethanol/kahlua | reag == /datum/reagent/consumable/drink/cold/dr_gibb | reag == /datum/reagent/consumable/ethanol/vodka | reag == /datum/reagent/consumable/drink/cold/space_up | reag == /datum/reagent/consumable/ethanol/rum | reag == /datum/reagent/consumable/drink/cold/spacemountainwind | reag == /datum/reagent/consumable/ethanol/gin | reag == /datum/reagent/consumable/drink/milk/cream | reag == /datum/reagent/water)
 		return 1
 	else
 		if(reagents.total_volume < 500)
@@ -122,34 +122,34 @@
 				var/brand = pick(1,2,3,4)
 				if(brand == 1)
 					if(ID == 2)
-						reagents.add_reagent("cola",5)
+						reagents.add_reagent(/datum/reagent/consumable/drink/cold/space_cola, 5)
 					else
-						reagents.add_reagent("kahlua",5)
+						reagents.add_reagent(/datum/reagent/consumable/ethanol/kahlua, 5)
 				else if(brand == 2)
 					if(ID == 2)
-						reagents.add_reagent("dr_gibb",5)
+						reagents.add_reagent(/datum/reagent/consumable/drink/cold/dr_gibb, 5)
 					else
-						reagents.add_reagent("vodka",5)
+						reagents.add_reagent(/datum/reagent/consumable/ethanol/vodka, 5)
 				else if(brand == 3)
 					if(ID == 2)
-						reagents.add_reagent("space_up",5)
+						reagents.add_reagent(/datum/reagent/consumable/drink/cold/space_up,5)
 					else
-						reagents.add_reagent("rum",5)
+						reagents.add_reagent(/datum/reagent/consumable/ethanol/rum, 5)
 				else if(brand == 4)
 					if(ID == 2)
-						reagents.add_reagent("spacemountainwind",5)
+						reagents.add_reagent(/datum/reagent/consumable/drink/cold/spacemountainwind, 5)
 					else
-						reagents.add_reagent("gin",5)
+						reagents.add_reagent(/datum/reagent/consumable/ethanol/gin, 5)
 			else if(ID == 4)
 				if(reagents.total_volume <= 500 & reagents.total_volume >= 15)
-					reagents.add_reagent("cream",(30 - reagents.total_volume))
+					reagents.add_reagent(/datum/reagent/consumable/drink/milk/cream, (30 - reagents.total_volume))
 				else if(reagents.total_volume <= 15)
-					reagents.add_reagent("cream",(15 - reagents.total_volume))
+					reagents.add_reagent(/datum/reagent/consumable/drink/milk/cream, (15 - reagents.total_volume))
 			else if(ID == 5)
 				if(reagents.total_volume <= 500 & reagents.total_volume >= 15)
-					reagents.add_reagent("water",(30 - reagents.total_volume))
+					reagents.add_reagent(/datum/reagent/water, (30 - reagents.total_volume))
 				else if(reagents.total_volume <= 15)
-					reagents.add_reagent("water",(15 - reagents.total_volume))
+					reagents.add_reagent(/datum/reagent/water, (15 - reagents.total_volume))
 
 	else if(href_list["createcup"])
 		var/name = generate_name(reagents.get_master_reagent_name())

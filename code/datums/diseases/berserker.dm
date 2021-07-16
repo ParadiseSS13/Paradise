@@ -5,7 +5,7 @@
 	spread_text = "Non-Contagious"
 	spread_flags = SPECIAL
 	cure_text = "Anti-Psychotics"
-	cures = list("haloperidol")
+	cures = list(/datum/reagent/medicine/haloperidol)
 	agent = "Jagged Crystals"
 	cure_chance = 10
 	viable_mobtypes = list(/mob/living/carbon/human)
@@ -16,7 +16,7 @@
 
 /datum/disease/berserker/stage_act()
 	..()
-	if(affected_mob.reagents.has_reagent("thc"))
+	if(affected_mob.reagents.has_reagent(/datum/reagent/thc))
 		to_chat(affected_mob, "<span class='notice'>You mellow out.</span>")
 		cure()
 		return

@@ -447,9 +447,9 @@
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-	B1.reagents.add_reagent("aluminum", 30)
-	B2.reagents.add_reagent("fluorosurfactant", 10)
-	B2.reagents.add_reagent("sacid", 10)
+	B1.reagents.add_reagent(/datum/reagent/aluminum, 30)
+	B2.reagents.add_reagent(/datum/reagent/fluorosurfactant, 10)
+	B2.reagents.add_reagent(/datum/reagent/acid, 10)
 
 	beakers += B1
 	beakers += B2
@@ -466,8 +466,8 @@
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-	B1.reagents.add_reagent("firefighting_foam", 30)
-	B2.reagents.add_reagent("firefighting_foam", 30)
+	B1.reagents.add_reagent(/datum/reagent/firefighting_foam, 30)
+	B2.reagents.add_reagent(/datum/reagent/firefighting_foam, 30)
 
 	beakers += B1
 	beakers += B2
@@ -483,9 +483,9 @@
 	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent("phosphorus", 25)
-	B2.reagents.add_reagent("plasma", 25)
-	B2.reagents.add_reagent("sacid", 25)
+	B1.reagents.add_reagent(/datum/reagent/phosphorus, 25)
+	B2.reagents.add_reagent(/datum/reagent/plasma, 25)
+	B2.reagents.add_reagent(/datum/reagent/acid, 25)
 
 
 	beakers += B1
@@ -503,11 +503,11 @@
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-	B1.reagents.add_reagent("atrazine", 30)
-	B1.reagents.add_reagent("potassium", 20)
-	B2.reagents.add_reagent("phosphorus", 20)
-	B2.reagents.add_reagent("sugar", 20)
-	B2.reagents.add_reagent("atrazine", 10)
+	B1.reagents.add_reagent(/datum/reagent/glyphosate/atrazine, 30)
+	B1.reagents.add_reagent(/datum/reagent/potassium, 20)
+	B2.reagents.add_reagent(/datum/reagent/phosphorus, 20)
+	B2.reagents.add_reagent(/datum/reagent/consumable/sugar, 20)
+	B2.reagents.add_reagent(/datum/reagent/glyphosate/atrazine, 10)
 
 	beakers += B1
 	beakers += B2
@@ -524,9 +524,9 @@
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-	B1.reagents.add_reagent("fluorosurfactant", 40)
-	B2.reagents.add_reagent("cleaner", 10)
-	B2.reagents.add_reagent("water", 40) //when you make pre-designed foam reactions that carry the reagents, always add water last
+	B1.reagents.add_reagent(/datum/reagent/fluorosurfactant, 40)
+	B2.reagents.add_reagent(/datum/reagent/space_cleaner, 10)
+	B2.reagents.add_reagent(/datum/reagent/water, 40) //when you make pre-designed foam reactions that carry the reagents, always add water last
 
 	beakers += B1
 	beakers += B2
@@ -543,10 +543,10 @@
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-	B1.reagents.add_reagent("condensedcapsaicin", 25)
-	B1.reagents.add_reagent("potassium", 25)
-	B2.reagents.add_reagent("phosphorus", 25)
-	B2.reagents.add_reagent("sugar", 25)
+	B1.reagents.add_reagent(/datum/reagent/consumable/condensedcapsaicin, 25)
+	B1.reagents.add_reagent(/datum/reagent/potassium, 25)
+	B2.reagents.add_reagent(/datum/reagent/phosphorus, 25)
+	B2.reagents.add_reagent(/datum/reagent/consumable/sugar, 25)
 
 	beakers += B1
 	beakers += B2
@@ -562,11 +562,11 @@
 	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent("facid", 80)
-	B1.reagents.add_reagent("potassium", 20)
-	B2.reagents.add_reagent("phosphorus", 20)
-	B2.reagents.add_reagent("sugar", 20)
-	B2.reagents.add_reagent("facid", 60)
+	B1.reagents.add_reagent(/datum/reagent/acid/facid, 80)
+	B1.reagents.add_reagent(/datum/reagent/potassium, 20)
+	B2.reagents.add_reagent(/datum/reagent/phosphorus, 20)
+	B2.reagents.add_reagent(/datum/reagent/consumable/sugar, 20)
+	B2.reagents.add_reagent(/datum/reagent/acid/facid, 60)
 
 	beakers += B1
 	beakers += B2
@@ -582,10 +582,10 @@
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-	B1.reagents.add_reagent("sarin", 25)
-	B1.reagents.add_reagent("potassium", 25)
-	B2.reagents.add_reagent("phosphorus", 25)
-	B2.reagents.add_reagent("sugar", 25)
+	B1.reagents.add_reagent(/datum/reagent/sarin, 25)
+	B1.reagents.add_reagent(/datum/reagent/potassium, 25)
+	B2.reagents.add_reagent(/datum/reagent/phosphorus, 25)
+	B2.reagents.add_reagent(/datum/reagent/consumable/sugar, 25)
 
 	beakers += B1
 	beakers += B2

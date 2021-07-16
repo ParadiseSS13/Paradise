@@ -1,3 +1,5 @@
+#error TODO
+
 /datum/borer_chem
 	var/chemname
 	var/chemdesc = "This is a chemical"

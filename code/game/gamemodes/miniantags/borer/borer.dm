@@ -253,7 +253,7 @@
 
 		if(!stat && host.stat != DEAD)
 
-			if(host.reagents.has_reagent("sugar"))
+			if(host.reagents.has_reagent(/datum/reagent/consumable/sugar))
 				if(!docile)
 					if(controlling)
 						to_chat(host, "<span class='notice'>You feel the soporific flow of sugar in your host's blood, lulling you into docility.</span>")

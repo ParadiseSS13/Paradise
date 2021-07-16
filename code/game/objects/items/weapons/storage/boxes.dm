@@ -536,7 +536,7 @@
 	desc = "A box intended for experienced bartenders."
 
 /obj/item/storage/box/bartender_rare_ingredients_kit/populate_contents()
-	var/list/reagent_list = list("sacid", "radium", "ether", "methamphetamine", "plasma", "gold", "silver", "capsaicin", "psilocybin")
+	var/list/reagent_list = list(/datum/reagent/acid, /datum/reagent/radium, /datum/reagent/medicine/ether, /datum/reagent/methamphetamine, /datum/reagent/plasma, /datum/reagent/gold, /datum/reagent/silver, /datum/reagent/consumable/capsaicin, /datum/reagent/psilocybin)
 	for(var/reag in reagent_list)
 		var/obj/item/reagent_containers/glass/bottle/B = new(src)
 		B.reagents.add_reagent(reag, 30)
@@ -551,7 +551,7 @@
 	new /obj/item/reagent_containers/food/condiment/enzyme(src)
 	new /obj/item/reagent_containers/food/condiment/pack/hotsauce(src)
 	new /obj/item/kitchen/knife/butcher(src)
-	var/list/reagent_list = list("msg", "triple_citrus", "salglu_solution", "nutriment", "gravy", "honey", "vitfro")
+	var/list/reagent_list = list(/datum/reagent/msg, /datum/reagent/consumable/drink/triple_citrus, /datum/reagent/medicine/salglu_solution, /datum/reagent/consumable/nutriment, /datum/reagent/consumable/gravy, /datum/reagent/consumable/honey, /datum/reagent/consumable/vitfro)
 	for(var/reag in reagent_list)
 		var/obj/item/reagent_containers/glass/bottle/B = new(src)
 		B.reagents.add_reagent(reag, 30)

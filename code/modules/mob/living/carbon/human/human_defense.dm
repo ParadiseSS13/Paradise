@@ -407,7 +407,7 @@ emp_act
 		newmeat.name = real_name + newmeat.name
 		newmeat.subjectname = real_name
 		newmeat.subjectjob = job
-		newmeat.reagents.add_reagent("nutriment", (nutrition / 15) / 3)
+		newmeat.reagents.add_reagent(/datum/reagent/consumable/nutriment, (nutrition / 15) / 3)
 		reagents.trans_to(newmeat, round((reagents.total_volume) / 3, 1))
 		add_mob_blood(src)
 		--meatleft

@@ -9,7 +9,7 @@
 	desc = "We all love tofu."
 	filling_color = "#FFFEE0"
 	bitesize = 3
-	list_reagents = list("plantmatter" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/plantmatter = 2)
 	tastes = list("tofu" = 1)
 
 /obj/item/reagent_containers/food/snacks/fried_tofu
@@ -18,7 +18,7 @@
 	desc = "Proof that even vegetarians crave unhealthy foods."
 	filling_color = "#FFFEE0"
 	bitesize = 3
-	list_reagents = list("plantmatter" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment/plantmatter = 3)
 	tastes = list("tofu" = 1)
 
 /obj/item/reagent_containers/food/snacks/soydope
@@ -27,7 +27,7 @@
 	icon_state = "soydope"
 	trash = /obj/item/trash/plate
 	filling_color = "#C4BF76"
-	list_reagents = list("nutriment" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("soy" = 1)
 
 
@@ -42,7 +42,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/cheesewedge
 	slices_num = 5
 	filling_color = "#FFF700"
-	list_reagents = list("nutriment" = 15, "vitamin" = 5, "cheese" = 20)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 15, /datum/reagent/consumable/nutriment/vitamin = 5, /datum/reagent/consumable/cheese = 20)
 	tastes = list("cheese" = 1)
 
 /obj/item/reagent_containers/food/snacks/cheesewedge
@@ -57,7 +57,7 @@
 	desc = "Some kind of... gooey, messy, gloopy thing. Similar to cheese, but only in the broad sense of the word."
 	icon_state = "weirdcheesewedge"
 	filling_color = "#00FF33"
-	list_reagents = list("mercury" = 5, "lsd" = 5, "ethanol" = 5, "weird_cheese" = 5)
+	list_reagents = list(/datum/reagent/mercury = 5, /datum/reagent/lsd = 5, /datum/reagent/consumable/ethanol = 5, /datum/reagent/consumable/weird_cheese = 5)
 
 
 //////////////////////
@@ -70,7 +70,7 @@
 	icon_state = "hugemushroomslice"
 	filling_color = "#E0D7C5"
 	bitesize = 6
-	list_reagents = list("plantmatter" = 3, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment/plantmatter = 3, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("mushroom" = 1)
 
 /obj/item/reagent_containers/food/snacks/tomatomeat
@@ -79,7 +79,7 @@
 	icon_state = "tomatomeat"
 	filling_color = "#DB0000"
 	bitesize = 6
-	list_reagents = list("protein" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 2)
 	tastes = list("tomato" = 1)
 
 /obj/item/reagent_containers/food/snacks/watermelonslice
@@ -106,7 +106,7 @@
 	desc = "A piece of dough."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "dough"
-	list_reagents = list("nutriment" = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6)
 	tastes = list("dough" = 1)
 
 // Dough + rolling pin = flat dough
@@ -129,7 +129,7 @@
 	icon_state = "flat dough"
 	slice_path = /obj/item/reagent_containers/food/snacks/doughslice
 	slices_num = 3
-	list_reagents = list("nutriment" = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6)
 	tastes = list("dough" = 1)
 
 
@@ -138,7 +138,7 @@
 	desc = "The building block of an impressive dish."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "doughslice"
-	list_reagents = list("nutriment" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
 	tastes = list("dough" = 1)
 
 
@@ -150,7 +150,7 @@
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	desc = "The base for tasty cookies."
 	icon_state = "cookiedough"
-	list_reagents = list("nutriment" = 5, "sugar" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/sugar = 5)
 	tastes = list("dough" = 1, "sugar" = 1)
 
 
@@ -188,7 +188,7 @@
 	desc = "Ready for oven!"
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "unbaked_cookies"
-	list_reagents = list("nutriment" = 5, "sugar" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/sugar = 5)
 
 /obj/item/reagent_containers/food/snacks/rawcookies/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/choc_pile))
@@ -207,7 +207,7 @@
 	desc = "Ready for oven! They have little pieces of chocolate all over them"
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "unbaked_cookies_choco"
-	list_reagents = list("nutriment" = 5, "sugar" = 5, "chocolate" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/sugar = 5, /datum/reagent/consumable/chocolate = 5)
 	tastes = list("dough" = 1, "sugar" = 1, "chocolate" = 1)
 
 //////////////////////
@@ -219,7 +219,7 @@
 	desc = "Such sweet, fattening food."
 	icon_state = "chocolatebar"
 	filling_color = "#7D5F46"
-	list_reagents = list("nutriment" = 2, "sugar" = 2, "cocoa" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/cocoa = 2)
 	tastes = list("chocolate" = 1)
 
 ///Chocolate crumbles/pile
@@ -240,7 +240,7 @@
 	desc = "A pile of pure chocolate pieces."
 	icon_state = "cocoa"
 	filling_color = "#7D5F46"
-	list_reagents = list("chocolate" = 5)
+	list_reagents = list(/datum/reagent/consumable/chocolate = 5)
 	tastes = list("chocolate" = 1)
 
 
@@ -253,5 +253,5 @@
 	desc = "A luminescent blob of what scientists refer to as 'ghost goo'."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "ectoplasm"
-	list_reagents = list("ectoplasm" = 10)
+	list_reagents = list(/datum/reagent/ectoplasm = 10)
 	tastes = list("spookiness" = 1)

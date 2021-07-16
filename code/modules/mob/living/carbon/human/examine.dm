@@ -314,7 +314,7 @@
 	else if(bleed_rate)
 		msg += "<B>[p_they(TRUE)] [p_are()] bleeding!</B>\n"
 
-	if(reagents.has_reagent("teslium"))
+	if(reagents.has_reagent(/datum/reagent/teslium))
 		msg += "[p_they(TRUE)] [p_are()] emitting a gentle blue glow!\n"
 
 	msg += "</span>"

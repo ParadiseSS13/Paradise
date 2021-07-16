@@ -61,14 +61,14 @@
 
 // for /obj/machinery/vending/sovietsoda
 /obj/item/reagent_containers/food/drinks/drinkingglass/soda
-	list_reagents = list("sodawater" = 50)
+	list_reagents = list(/datum/reagent/consumable/drink/cold/sodawater = 50)
 
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/cola
-	list_reagents = list("cola" = 50)
+	list_reagents = list(/datum/reagent/consumable/drink/cold/space_cola = 50)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss
-	list_reagents = list("devilskiss" = 50)
+	list_reagents = list(/datum/reagent/consumable/ethanol/devilskiss = 50)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail
-	list_reagents = list("alliescocktail" = 25, "omnizine" = 25)
+	list_reagents = list(/datum/reagent/consumable/ethanol/alliescocktail = 25, /datum/reagent/medicine/omnizine = 25)

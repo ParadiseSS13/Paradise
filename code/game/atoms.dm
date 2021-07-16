@@ -659,7 +659,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(get_blood_id() != "blood")
 		return
 	return list("ANIMAL DNA" = "Y-")
-
+#error fix
 /mob/living/carbon/get_blood_dna_list()
 	if(get_blood_id() != "blood")
 		return

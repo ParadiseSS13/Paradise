@@ -148,10 +148,10 @@
 		. += (283.222 - bodytemperature) / 10 * 1.75
 
 	if(reagents)
-		if(reagents.has_reagent("morphine")) // morphine slows slimes down
+		if(reagents.has_reagent(/datum/reagent/medicine/morphine)) // morphine slows slimes down
 			. *= 2
 
-		if(reagents.has_reagent("frostoil")) // Frostoil also makes them move VEEERRYYYYY slow
+		if(reagents.has_reagent(/datum/reagent/consumable/frostoil)) // Frostoil also makes them move VEEERRYYYYY slow
 			. *= 5
 
 	if(health <= 0) // if damaged, the slime moves twice as slow

@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	var/obj/effect/countdown/clonepod/countdown
 
-	var/list/brine_types = list("corazone", "perfluorodecalin", "epinephrine", "salglu_solution") //stops heart attacks, heart failure, shock, and keeps their O2 levels normal
+	var/list/brine_types = list(/datum/reagent/medicine/corazone, /datum/reagent/medicine/perfluorodecalin, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/salglu_solution) //stops heart attacks, heart failure, shock, and keeps their O2 levels normal
 	var/list/missing_organs
 	var/organs_number = 0
 

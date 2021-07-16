@@ -22,7 +22,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/orange)
-	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/lime
 	seed = /obj/item/seeds/lime
@@ -49,7 +49,7 @@
 	icon_dead = "lime-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/lime)
-	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange
 	seed = /obj/item/seeds/orange
@@ -58,7 +58,7 @@
 	icon_state = "orange" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	tastes = list("orange" = 1)
 	filling_color = "#FFA500"
-	distill_reagent = "tequilasunrise"
+	distill_reagent = /datum/reagent/consumable/ethanol/tequila_sunrise
 
 // Lemon
 /obj/item/seeds/lemon
@@ -76,14 +76,14 @@
 	icon_dead = "lime-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/firelemon)
-	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/lemon
 	seed = /obj/item/seeds/lemon
 	name = "lemon"
 	desc = "When life gives you lemons, make lemonade."
 	icon_state = "lemon"
-	tastes = list("lemonade" = 1)
+	tastes = list(/datum/reagent/consumable/drink/cold/lemonade = 1)
 	filling_color = "#FFD700"
 
 // Combustible lemon
@@ -101,7 +101,7 @@
 	lifespan = 55
 	endurance = 45
 	yield = 4
-	reagents_add = list("plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon
 	seed = /obj/item/seeds/firelemon

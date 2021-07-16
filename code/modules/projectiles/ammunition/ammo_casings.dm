@@ -297,11 +297,11 @@
 
 /obj/item/ammo_casing/shotgun/dart/bioterror/New()
 	..()
-	reagents.add_reagent("neurotoxin", 6)
-	reagents.add_reagent("spore", 6)
-	reagents.add_reagent("capulettium_plus", 6) //;HELP OPS IN MAINT
-	reagents.add_reagent("coniine", 6)
-	reagents.add_reagent("sodium_thiopental", 6)
+	reagents.add_reagent(/datum/reagent/consumable/ethanol/neurotoxin, 6)
+	reagents.add_reagent(/datum/reagent/spore, 6)
+	reagents.add_reagent(/datum/reagent/capulettium_plus, 6) //;HELP OPS IN MAINT
+	reagents.add_reagent(/datum/reagent/coniine, 6)
+	reagents.add_reagent(/datum/reagent/sodium_thiopental, 6)
 
 /obj/item/ammo_casing/shotgun/tranquilizer
 	name = "tranquilizer darts"

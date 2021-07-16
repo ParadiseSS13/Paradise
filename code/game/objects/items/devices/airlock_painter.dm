@@ -61,7 +61,7 @@
 
 		// make some colorful reagent, and apply it to the lungs
 		L.create_reagents(10)
-		L.reagents.add_reagent("colorful_reagent", 10)
+		L.reagents.add_reagent(/datum/reagent/colorful_reagent, 10)
 		L.reagents.reaction(L, REAGENT_TOUCH, 1)
 
 		user.emote("scream")
@@ -71,7 +71,7 @@
 		// make some vomit under the player, and apply colorful reagent
 		var/obj/effect/decal/cleanable/vomit/V = new(get_turf(user))
 		V.create_reagents(10)
-		V.reagents.add_reagent("colorful_reagent", 10)
+		V.reagents.add_reagent(/datum/reagent/colorful_reagent, 10)
 		V.reagents.reaction(V, REAGENT_TOUCH, 1)
 
 		L.forceMove(get_turf(user))

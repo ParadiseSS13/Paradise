@@ -4,7 +4,7 @@
 	spread_text = "On contact"
 	spread_flags = CONTACT_GENERAL
 	cure_text = "Diphenhydramine & Sulfur"
-	cures = list("diphenhydramine","sulfur")
+	cures = list(/datum/reagent/medicine/diphenhydramine, /datum/reagent/sulfur)
 	agent = "Gravitokinetic Bipotential SADS-"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/monkey)
 	desc = "If left untreated death will occur."

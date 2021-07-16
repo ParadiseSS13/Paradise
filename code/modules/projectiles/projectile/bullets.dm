@@ -263,9 +263,9 @@
 
 /obj/item/projectile/bullet/dart/metalfoam/New()
 	..()
-	reagents.add_reagent("aluminum", 15)
-	reagents.add_reagent("fluorosurfactant", 5)
-	reagents.add_reagent("sacid", 5)
+	reagents.add_reagent(/datum/reagent/aluminum, 15)
+	reagents.add_reagent(/datum/reagent/fluorosurfactant, 5)
+	reagents.add_reagent(/datum/reagent/acid, 5)
 
 //This one is for future syringe guns update
 /obj/item/projectile/bullet/dart/syringe
@@ -277,7 +277,7 @@
 
 /obj/item/projectile/bullet/dart/syringe/tranquilizer/New()
 	..()
-	reagents.add_reagent("haloperidol", 15)
+	reagents.add_reagent(/datum/reagent/medicine/haloperidol, 15)
 
 /obj/item/projectile/bullet/neurotoxin
 	name = "neurotoxin spit"

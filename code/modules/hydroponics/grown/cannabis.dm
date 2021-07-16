@@ -17,7 +17,7 @@
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/cannabis/rainbow,
 						/obj/item/seeds/cannabis/white)
-	reagents_add = list("thc" = 0.15, "cbd" = 0.15)
+	reagents_add = list(/datum/reagent/thc = 0.15, /datum/reagent/cbd = 0.15)
 
 
 /obj/item/seeds/cannabis/rainbow
@@ -29,7 +29,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow
 	mutatelist = list(/obj/item/seeds/cannabis/death,
 						/obj/item/seeds/cannabis/ultimate)
-	reagents_add = list("lsd" = 0.15, "thc" = 0.15, "cbd" = 0.15)
+	reagents_add = list(/datum/reagent/lsd = 0.15, /datum/reagent/thc = 0.15, /datum/reagent/cbd = 0.15)
 	rarity = 40
 
 /obj/item/seeds/cannabis/death
@@ -40,7 +40,7 @@
 	plantname = "Deathweed"
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/death
 	mutatelist = list()
-	reagents_add = list("cyanide" = 0.35, "thc" = 0.15, "cbd" = 0.15)
+	reagents_add = list(/datum/reagent/cyanide = 0.35, /datum/reagent/thc = 0.15, /datum/reagent/cbd = 0.15)
 	rarity = 40
 
 /obj/item/seeds/cannabis/white
@@ -52,7 +52,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/white
 	mutatelist = list(/obj/item/seeds/cannabis/death,
 						/obj/item/seeds/cannabis/ultimate)
-	reagents_add = list("omnizine" = 0.35, "thc" = 0.15, "cbd" = 0.15)
+	reagents_add = list(/datum/reagent/medicine/omnizine = 0.35, /datum/reagent/thc = 0.15, /datum/reagent/cbd = 0.15)
 	rarity = 40
 
 
@@ -64,24 +64,24 @@
 	plantname = "Omega Weed"
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/ultimate
 	mutatelist = list()
-	reagents_add = list("lsd" = 0.05,
-						"suicider" = 0.05,
-						"space_drugs" = 0.05,
-						"mercury" = 0.05,
-						"lithium" = 0.05,
-						"ephedrine" = 0.05,
-						"haloperidol" = 0.05,
-						"methamphetamine" = 0.05,
-						"thc" = 0.05,
-						"cbd" = 0.05,
-						"psilocybin" = 0.05,
-						"hairgrownium" = 0.05,
-						"ectoplasm" = 0.05,
-						"bath_salts" = 0.05,
-						"itching_powder" = 0.05,
-						"crank" = 0.05,
-						"krokodil" = 0.05,
-						"histamine" = 0.05)
+	reagents_add = list(/datum/reagent/lsd = 0.05,
+						/datum/reagent/consumable/ethanol/suicider = 0.05,
+						/datum/reagent/space_drugs = 0.05,
+						/datum/reagent/mercury = 0.05,
+						/datum/reagent/lithium = 0.05,
+						/datum/reagent/medicine/ephedrine = 0.05,
+						/datum/reagent/medicine/haloperidol = 0.05,
+						/datum/reagent/methamphetamine = 0.05,
+						/datum/reagent/thc = 0.05,
+						/datum/reagent/cbd = 0.05,
+						/datum/reagent/psilocybin = 0.05,
+						/datum/reagent/hairgrownium = 0.05,
+						/datum/reagent/ectoplasm = 0.05,
+						/datum/reagent/bath_salts = 0.05,
+						/datum/reagent/itching_powder = 0.05,
+						/datum/reagent/crank = 0.05,
+						/datum/reagent/krokodil = 0.05,
+						/datum/reagent/histamine = 0.05)
 	rarity = 69
 
 

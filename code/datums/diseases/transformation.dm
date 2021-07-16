@@ -77,7 +77,7 @@
 /datum/disease/transformation/jungle_fever
 	name = "Jungle Fever"
 	cure_text = "Bananas"
-	cures = list("banana")
+	cures = list(/datum/reagent/consumable/drink/banana)
 	spread_text = "Monkey Bites"
 	spread_flags = SPECIAL
 	viable_mobtypes = list(/mob/living/carbon/human)
@@ -121,7 +121,7 @@
 
 	name = "Robotic Transformation"
 	cure_text = "An injection of copper."
-	cures = list("copper")
+	cures = list(/datum/reagent/copper)
 	cure_chance = 5
 	agent = "R2D2 Nanomachines"
 	desc = "This disease, actually acute nanomachine infection, converts the victim into a cyborg."
@@ -150,10 +150,9 @@
 
 
 /datum/disease/transformation/xeno
-
 	name = "Xenomorph Transformation"
 	cure_text = "Spaceacillin & Glycerol"
-	cures = list("spaceacillin", "glycerol")
+	cures = list(/datum/reagent/medicine/spaceacillin, /datum/reagent/glycerol)
 	cure_chance = 5
 	agent = "Rip-LEY Alien Microbes"
 	desc = "This disease changes the victim into a xenomorph."
@@ -181,7 +180,7 @@
 /datum/disease/transformation/slime
 	name = "Advanced Mutation Transformation"
 	cure_text = "frost oil"
-	cures = list("frostoil")
+	cures = list(/datum/reagent/consumable/frostoil)
 	cure_chance = 80
 	agent = "Advanced Mutation Toxin"
 	desc = "This highly concentrated extract converts anything into more of itself."
@@ -211,7 +210,7 @@
 /datum/disease/transformation/corgi
 	name = "The Barkening"
 	cure_text = "Death"
-	cures = list("adminordrazine")
+	cures = list(/datum/reagent/medicine/adminordrazine)
 	agent = "Fell Doge Majicks"
 	desc = "This disease transforms the victim into a corgi."
 	visibility_flags = 0
@@ -235,7 +234,7 @@
 /datum/disease/transformation/morph
 	name = "Gluttony's Blessing"
 	cure_text = "nothing"
-	cures = list("adminordrazine")
+	cures = list(/datum/reagent/medicine/adminordrazine)
 	agent = "Gluttony's Blessing"
 	desc = "A 'gift' from somewhere terrible."
 	stage_prob = 20

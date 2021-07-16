@@ -15,7 +15,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ash"
 	anchored = TRUE
-	scoop_reagents = list("ash" = 10)
+	scoop_reagents = list(/datum/reagent/ash = 10)
 	mergeable_decal = FALSE
 
 /obj/effect/decal/cleanable/glass
@@ -55,7 +55,7 @@
 	name = "black powder"
 	mouse_opacity = TRUE
 	no_scoop = TRUE
-	scoop_reagents = list("blackpowder" = 40) // size 2 explosion when activated
+	scoop_reagents = list(/datum/reagent/blackpowder = 40) // size 2 explosion when activated
 
 /obj/effect/decal/cleanable/flour
 	name = "flour"
@@ -139,14 +139,14 @@
 	icon_state = "vomit_1"
 	random_icon_states = list("vomit_1", "vomit_2", "vomit_3", "vomit_4")
 	no_clear = TRUE
-	scoop_reagents = list("vomit" = 5)
+	scoop_reagents = list(/datum/reagent/vomit = 5)
 
 /obj/effect/decal/cleanable/vomit/green
 	name = "green vomit"
 	desc = "It's all gummy. Ew."
 	icon_state = "gvomit_1"
 	random_icon_states = list("gvomit_1", "gvomit_2", "gvomit_3", "gvomit_4")
-	scoop_reagents = list("green_vomit" = 5)
+	scoop_reagents = list(/datum/reagent/greenvomit = 5)
 
 /obj/effect/decal/cleanable/shreds
 	name = "shreds"
@@ -210,7 +210,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "flour"
 	color = "#D5820B"
-	scoop_reagents = list("fungus" = 10)
+	scoop_reagents = list(/datum/reagent/fungus = 10)
 
 /obj/effect/decal/cleanable/confetti //PARTY TIME!
 	name = "confetti"

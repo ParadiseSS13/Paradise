@@ -317,7 +317,7 @@
 				ethanol += alcohol.alcohol_perc * 300
 			ethanol /= R.reagent_list.len
 
-			spaceacillin = R.get_reagent_amount("spaceacillin")
+			spaceacillin = R.get_reagent_amount(/datum/reagent/medicine/spaceacillin)
 
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)

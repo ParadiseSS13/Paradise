@@ -167,35 +167,35 @@
 	name = "space cola"
 	desc = "Cola. in space."
 	icon_state = "cola"
-	list_reagents = list("cola" = 30)
+	list_reagents = list(/datum/reagent/consumable/drink/cold/space_cola = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/beer
 	name = "space beer"
 	desc = "Contains only water, malt and hops."
 	icon_state = "beer"
 	is_glass = 1
-	list_reagents = list("beer" = 30)
+	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/adminbooze
 	name = "admin booze"
 	desc = "Bottled Griffon tears. Drink with caution."
 	icon_state = "adminbooze"
 	is_glass = 1
-	list_reagents = list("adminordrazine" = 5, "capsaicin" = 5, "methamphetamine"= 20, "thirteenloko" = 20)
+	list_reagents = list(/datum/reagent/medicine/adminordrazine = 5, /datum/reagent/consumable/capsaicin = 5, /datum/reagent/methamphetamine = 20, /datum/reagent/consumable/ethanol/thirteenloko = 20)
 
 /obj/item/reagent_containers/food/drinks/cans/madminmalt
 	name = "madmin malt"
 	desc = "Bottled essence of angry admins. Drink with <i>EXTREME</i> caution."
 	icon_state = "madminmalt"
 	is_glass = 1
-	list_reagents = list("hell_water" = 20, "neurotoxin" = 15, "thirteenloko" = 15)
+	list_reagents = list(/datum/reagent/hellwater = 20, /datum/reagent/consumable/ethanol/neurotoxin = 15, /datum/reagent/consumable/ethanol/thirteenloko = 15)
 
 /obj/item/reagent_containers/food/drinks/cans/badminbrew
 	name = "badmin brew"
 	desc = "Bottled trickery and terrible admin work. Probably shouldn't drink this one at all."
 	icon_state = "badminbrew"
 	is_glass = 1
-	list_reagents = list("mutagen" = 25, "charcoal" = 10, "thirteenloko" = 15)
+	list_reagents = list(/datum/reagent/mutagen = 25, /datum/reagent/medicine/charcoal = 10, /datum/reagent/consumable/ethanol/thirteenloko = 15)
 
 /obj/item/reagent_containers/food/drinks/cans/ale
 	name = "Magm-Ale"
@@ -203,74 +203,74 @@
 	icon_state = "alebottle"
 	item_state = "beer"
 	is_glass = 1
-	list_reagents = list("ale" = 30)
+	list_reagents = list(/datum/reagent/consumable/ethanol/ale = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind
 	name = "Space Mountain Wind"
 	desc = "Blows right through you like a space wind."
 	icon_state = "space_mountain_wind"
-	list_reagents = list("spacemountainwind" = 30)
+	list_reagents = list(/datum/reagent/consumable/drink/cold/spacemountainwind = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/thirteenloko
 	name = "Thirteen Loko"
 	desc = "The CMO has advised crew members that consumption of Thirteen Loko may result in seizures, blindness, drunkeness, or even death. Please Drink Responsibly."
 	icon_state = "thirteen_loko"
-	list_reagents = list("thirteenloko" = 25, "psilocybin" = 5)
+	list_reagents = list(/datum/reagent/consumable/ethanol/thirteenloko = 25, /datum/reagent/psilocybin = 5)
 
 /obj/item/reagent_containers/food/drinks/cans/dr_gibb
 	name = "Dr. Gibb"
 	desc = "A delicious mixture of 42 different flavors."
 	icon_state = "dr_gibb"
-	list_reagents = list("dr_gibb" = 30)
+	list_reagents = list(/datum/reagent/consumable/drink/cold/dr_gibb = 30)
 
 
 /obj/item/reagent_containers/food/drinks/cans/starkist
 	name = "Star-kist"
 	desc = "The taste of a star in liquid form. And, a bit of tuna...?"
 	icon_state = "starkist"
-	list_reagents = list("brownstar" = 30)
+	list_reagents = list(/datum/reagent/consumable/drink/cold/brownstar = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/space_up
 	name = "Space-Up"
 	desc = "Tastes like a hull breach in your mouth."
 	icon_state = "space-up"
-	list_reagents = list("space_up" = 30)
+	list_reagents = list(/datum/reagent/consumable/drink/cold/space_up = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/lemon_lime
 	name = "Lemon-Lime"
 	desc = "You wanted ORANGE. It gave you Lemon Lime."
 	icon_state = "lemon-lime"
-	list_reagents = list("lemon_lime" = 30)
+	list_reagents = list(/datum/reagent/consumable/drink/cold/lemon_lime = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/iced_tea
 	name = "Vrisk Serket Iced Tea"
 	desc = "That sweet, refreshing southern earthy flavor. That's where it's from, right? South Earth?"
 	icon_state = "ice_tea_can"
-	list_reagents = list("icetea" = 30)
+	list_reagents = list(/datum/reagent/consumable/drink/tea/icetea = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/grape_juice
 	name = "Grapel Juice"
 	desc = "500 pages of rules of how to appropriately enter into a combat with this juice!"
 	icon_state = "purple_can"
-	list_reagents = list("grapejuice" = 30)
+	list_reagents = list(/datum/reagent/consumable/drink/grapejuice = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/tonic
 	name = "T-Borg's Tonic Water"
 	desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."
 	icon_state = "tonic"
-	list_reagents = list("tonic" = 50)
+	list_reagents = list(/datum/reagent/consumable/drink/cold/tonic = 50)
 
 /obj/item/reagent_containers/food/drinks/cans/sodawater
 	name = "soda water"
 	desc = "A can of soda water. Still water's more refreshing cousin."
 	icon_state = "sodawater"
-	list_reagents = list("sodawater" = 50)
+	list_reagents = list(/datum/reagent/consumable/drink/cold/sodawater = 50)
 
 /obj/item/reagent_containers/food/drinks/cans/synthanol
 	name = "Beep's Classic Synthanol"
 	desc = "A can of IPC booze, however that works."
 	icon_state = "synthanolcan"
-	list_reagents = list("synthanol" = 50)
+	list_reagents = list(/datum/reagent/consumable/ethanol/synthanol = 50)
 
 /obj/item/reagent_containers/food/drinks/cans/bottler
 	name = "generic beverage container"

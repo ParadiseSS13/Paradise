@@ -1,24 +1,24 @@
 GLOBAL_LIST_INIT(chem_t1_reagents, list(
-	"hydrogen", "oxygen", "silicon",
-	"phosphorus", "sulfur", "carbon",
-	"nitrogen", "water"
+	/datum/reagent/hydrogen, /datum/reagent/oxygen, /datum/reagent/silicon,
+	/datum/reagent/phosphorus, /datum/reagent/sulfur, /datum/reagent/carbon,
+	/datum/reagent/nitrogen, /datum/reagent/water
 ))
 
 GLOBAL_LIST_INIT(chem_t2_reagents, list(
-	"lithium", "copper", "mercury",
-	"sodium", "iodine", "bromine"
+	/datum/reagent/lithium, /datum/reagent/copper, /datum/reagent/mercury,
+	/datum/reagent/sodium, /datum/reagent/iodine, /datum/reagent/bromine
 )) // "sugar", "sacid" removed because they are already in roundstart plants
 
 GLOBAL_LIST_INIT(chem_t3_reagents, list(
-	"ethanol", "chlorine", "potassium",
-	"aluminum", "radium", "fluorine",
-	"iron", "fuel",	"silver",
+	/datum/reagent/consumable/ethanol, /datum/reagent/chlorine, /datum/reagent/potassium,
+	/datum/reagent/aluminum, /datum/reagent/radium, /datum/reagent/fluorine,
+	/datum/reagent/iron, /datum/reagent/fuel, /datum/reagent/silver,
 	"stable_plasma"
 ))
 
 GLOBAL_LIST_INIT(chem_t4_reagents, list(
-	"oil", "ash", "acetone",
-	"saltpetre", "ammonia", "diethylamine"
+	/datum/reagent/oil, /datum/reagent/ash, /datum/reagent/acetone,
+	/datum/reagent/saltpetre, /datum/reagent/ammonia, /datum/reagent/diethylamine
 ))
 
 /obj/item/seeds/sample

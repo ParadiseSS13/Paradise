@@ -433,21 +433,21 @@
 	food.name = "stale bread"
 	food.desc = "Looks like your captors care for their prisoners as much as their bread."
 	food.trash = null
-	food.reagents.add_reagent("nutriment", 5) // It may be stale, but it still has to be nutritive enough for the whole duration!
+	food.reagents.add_reagent(/datum/reagent/consumable/nutriment, 5) // It may be stale, but it still has to be nutritive enough for the whole duration!
 	if(prob(10))
 		// Mold adds a bit of spice to it
 		food.name = "moldy bread"
-		food.reagents.add_reagent("fungus", 1)
+		food.reagents.add_reagent(/datum/reagent/fungus, 1)
 
 	var/obj/item/reagent_containers/food/drinks/drinkingglass/drink = new(get_turf(M))
-	drink.reagents.add_reagent("tea", 25) // British coders beware, tea in glasses
+	drink.reagents.add_reagent(/datum/reagent/consumable/drink/tea, 25) // British coders beware, tea in glasses
 
 	temp_objs = list(food, drink)
 
 	// Narrate their kidnapping and torturing experience.
 	if(M.stat != DEAD)
 		// Heal them up - gets them out of crit/soft crit.
-		M.reagents.add_reagent("omnizine", 20)
+		M.reagents.add_reagent(/datum/reagent/medicine/omnizine, 20)
 
 		to_chat(M, "<span class='warning'>You feel strange...</span>")
 		M.Paralyse(30 SECONDS_TO_LIFE_CYCLES)

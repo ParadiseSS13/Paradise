@@ -269,17 +269,17 @@
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 
 /obj/item/reagent_containers/glass/beaker/cryoxadone
-	list_reagents = list("cryoxadone" = 30)
+	list_reagents = list(/datum/reagent/medicine/cryoxadone = 30)
 
 /obj/item/reagent_containers/glass/beaker/sulphuric
-	list_reagents = list("sacid" = 50)
+	list_reagents = list(/datum/reagent/acid = 50)
 
 
 /obj/item/reagent_containers/glass/beaker/slime
-	list_reagents = list("slimejelly" = 50)
+	list_reagents = list(/datum/reagent/slimejelly = 50)
 
 /obj/item/reagent_containers/glass/beaker/drugs/meth
-	list_reagents = list("methamphetamine" = 10)
+	list_reagents = list(/datum/reagent/methamphetamine = 10)
 
 
 /obj/item/reagent_containers/glass/bucket
@@ -330,7 +330,7 @@
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "smallbottle"
 	item_state = "bottle"
-	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
+	list_reagents = list(/datum/reagent/water = 49.5, /datum/reagent/fluorine = 0.5) //see desc, don't think about it too hard
 	materials = list(MAT_GLASS = 0)
 	volume = 50
 	amount_per_transfer_from_this = 10
@@ -342,7 +342,7 @@
 	desc = "A fresh commercial-sized bottle of water."
 	icon_state = "largebottle"
 	materials = list(MAT_GLASS = 0)
-	list_reagents = list("water" = 100)
+	list_reagents = list(/datum/reagent/water = 100)
 	volume = 100
 	amount_per_transfer_from_this = 20
 

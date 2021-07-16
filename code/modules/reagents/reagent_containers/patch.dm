@@ -33,37 +33,37 @@
 	desc = "Helps with brute injuries."
 	icon_state = "bandaid_brute"
 	instant_application = 1
-	list_reagents = list("styptic_powder" = 30)
+	list_reagents = list(/datum/reagent/medicine/styptic_powder = 30)
 
 /obj/item/reagent_containers/food/pill/patch/styptic/small
 	name = "healing mini-patch"
-	list_reagents = list("styptic_powder" = 15)
+	list_reagents = list(/datum/reagent/medicine/styptic_powder = 15)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf
 	name = "burn patch"
 	desc = "Helps with burn injuries."
 	icon_state = "bandaid_burn"
 	instant_application = 1
-	list_reagents = list("silver_sulfadiazine" = 30)
+	list_reagents = list(/datum/reagent/medicine/silver_sulfadiazine = 30)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf/small
 	name = "burn mini-patch"
-	list_reagents = list("silver_sulfadiazine" = 15)
+	list_reagents = list(/datum/reagent/medicine/silver_sulfadiazine = 15)
 
 /obj/item/reagent_containers/food/pill/patch/synthflesh
 	name = "synthflesh patch"
 	desc = "Helps with brute and burn injuries."
 	icon_state = "bandaid_med"
 	instant_application = 1
-	list_reagents = list("synthflesh" = 10)
+	list_reagents = list(/datum/reagent/medicine/synthflesh = 10)
 
 /obj/item/reagent_containers/food/pill/patch/nicotine
 	name = "nicotine patch"
 	desc = "Helps temporarily curb the cravings of nicotine dependency."
-	list_reagents = list("nicotine" = 10)
+	list_reagents = list(/datum/reagent/nicotine = 10)
 
 /obj/item/reagent_containers/food/pill/patch/jestosterone
 	name = "jestosterone patch"
 	desc = "Helps with brute injuries if the affected person is a clown, otherwise inflicts various annoying effects."
 	icon_state = "bandaid_clown"
-	list_reagents = list("jestosterone" = 20)
+	list_reagents = list(/datum/reagent/jestosterone = 20)

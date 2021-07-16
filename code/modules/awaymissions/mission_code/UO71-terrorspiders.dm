@@ -206,7 +206,7 @@
 
 /obj/item/reagent_containers/glass/beaker/terror_black_toxin/New()
 	..()
-	reagents.add_reagent("terror_black_toxin", 50)
+	reagents.add_reagent(/datum/reagent/terror_black_toxin, 50)
 	update_icon()
 
 

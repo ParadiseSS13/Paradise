@@ -1,6 +1,5 @@
 /datum/reagent/medicine/adminordrazine //An OP chemical for admins
 	name = "Adminordrazine"
-	id = "adminordrazine"
 	description = "It's magic. We don't have to explain it."
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
@@ -57,6 +56,5 @@
 
 /datum/reagent/medicine/adminordrazine/nanites
 	name = "Nanites"
-	id = "nanites"
 	description = "Nanomachines that aid in rapid cellular regeneration."
 	taste_description = "nanomachines, son"

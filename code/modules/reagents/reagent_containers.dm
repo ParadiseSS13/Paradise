@@ -36,7 +36,7 @@
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease(0)
 		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808")
-		reagents.add_reagent("blood", disease_amount, data)
+		reagents.add_reagent(/datum/reagent/blood, disease_amount, data)
 	add_initial_reagents()
 
 /obj/item/reagent_containers/proc/add_initial_reagents()
@@ -80,7 +80,7 @@
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
 			return
 		else
-			reagents.add_reagent("water", min(volume - reagents.total_volume, amount_per_transfer_from_this))
+			reagents.add_reagent(/datum/reagent/water, min(volume - reagents.total_volume, amount_per_transfer_from_this))
 			to_chat(user, "<span class='notice'>You fill [src] from [source].</span>")
 			return
 	..()

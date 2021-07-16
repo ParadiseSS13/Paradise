@@ -356,11 +356,11 @@
 // Fluorosulphuric acid spray bottle.
 /obj/item/reagent_containers/spray/cyborg_facid
 	name = "Polyacid spray"
-	list_reagents = list("facid" = 250)
+	list_reagents = list(/datum/reagent/acid/facid = 250)
 
 /obj/item/reagent_containers/spray/cyborg_facid/cyborg_recharge(coeff, emagged)
 	if(emagged)
-		reagents.check_and_add("facid", volume, 2 * coeff)
+		reagents.check_and_add(/datum/reagent/acid/facid, volume, 2 * coeff)
 
 // Engineering cyborg module.
 /obj/item/robot_module/engineering
@@ -445,11 +445,11 @@
 
 /obj/item/reagent_containers/spray/cyborg_lube
 	name = "Lube spray"
-	list_reagents = list("lube" = 250)
+	list_reagents = list(/datum/reagent/lube = 250)
 
 /obj/item/reagent_containers/spray/cyborg_lube/cyborg_recharge(coeff, emagged)
 	if(emagged)
-		reagents.check_and_add("lube", volume, 2 * coeff)
+		reagents.check_and_add(/datum/reagent/lube, volume, 2 * coeff)
 
 // Service cyborg module.
 /obj/item/robot_module/butler
@@ -482,11 +482,11 @@
 // This is a special type of beer given when emagged, one sip and the target falls asleep.
 /obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer
 	name = "Mickey Finn's Special Brew"
-	list_reagents = list("beer2" = 50)
+	list_reagents = list(/datum/reagent/beer2 = 50)
 
 /obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer/cyborg_recharge(coeff, emagged)
 	if(emagged)
-		reagents.check_and_add("beer2", volume, 5)
+		reagents.check_and_add(/datum/reagent/beer2, volume, 5)
 
 /obj/item/robot_module/butler/add_languages(mob/living/silicon/robot/R)
 	//full set of languages

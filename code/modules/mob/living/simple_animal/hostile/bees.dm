@@ -168,7 +168,7 @@
 					beegent.reaction_mob(L, REAGENT_INGEST)
 					L.reagents.add_reagent(beegent.id, rand(1, 5))
 				else
-					L.reagents.add_reagent("spidertoxin", 5)
+					L.reagents.add_reagent(/datum/reagent/spider_venom, 5)
 
 /mob/living/simple_animal/hostile/poison/bees/proc/assign_reagent(datum/reagent/R)
 	if(istype(R))
@@ -272,9 +272,9 @@
 /obj/item/queen_bee/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I
-		if(S.reagents.has_reagent("royal_bee_jelly")) //checked twice, because I really don't want royal bee jelly to be duped
-			if(S.reagents.has_reagent("royal_bee_jelly", 5))
-				S.reagents.remove_reagent("royal_bee_jelly", 5)
+		if(S.reagents.has_reagent(/datum/reagent/royal_bee_jelly)) //checked twice, because I really don't want royal bee jelly to be duped
+			if(S.reagents.has_reagent(/datum/reagent/royal_bee_jelly, 5))
+				S.reagents.remove_reagent(/datum/reagent/royal_bee_jelly, 5)
 				var/obj/item/queen_bee/qb = new(user.drop_location())
 				qb.queen = new(qb)
 				if(queen && queen.beegent)
@@ -326,9 +326,9 @@
 	var/list/master_and_friends = list()
 
 /mob/living/simple_animal/hostile/poison/bees/syndi/New()
-	beegent = GLOB.chemical_reagents_list["facid"] //Prepare to die
+	beegent = GLOB.chemical_reagents_list[/datum/reagent/acid/facid] //Prepare to die
 	..()
-
+#error fix
 /mob/living/simple_animal/hostile/poison/bees/syndi/Destroy()
 	master_and_friends.Cut()
 	return ..()

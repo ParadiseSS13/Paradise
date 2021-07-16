@@ -17,7 +17,7 @@
 	if(owner.life_tick % PROCESS_ACCURACY == 0)
 
 		//High toxins levels are dangerous
-		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("charcoal"))
+		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent(/datum/reagent/medicine/charcoal))
 			//Healthy liver suffers on its own
 			if(damage < min_broken_damage)
 				receive_damage(0.2 * PROCESS_ACCURACY)
@@ -28,7 +28,7 @@
 					O.receive_damage(0.2  * PROCESS_ACCURACY)
 
 		//Detox can heal small amounts of damage
-		if(damage && damage < min_bruised_damage && owner.reagents.has_reagent("charcoal"))
+		if(damage && damage < min_bruised_damage && owner.reagents.has_reagent(/datum/reagent/medicine/charcoal))
 			receive_damage(-0.2 * PROCESS_ACCURACY)
 
 		// Get the effectiveness of the liver.

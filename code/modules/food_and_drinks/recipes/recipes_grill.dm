@@ -23,35 +23,35 @@
 	result = /obj/item/reagent_containers/food/snacks/telebacon
 
 /datum/recipe/grill/friedegg
-	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	reagents = list(/datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/blackpepper = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/egg
 	)
 	result = /obj/item/reagent_containers/food/snacks/friedegg
 
 /datum/recipe/grill/meatsteak
-	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	reagents = list(/datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/blackpepper = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak
 
 /datum/recipe/grill/salmonsteak
-	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	reagents = list(/datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/blackpepper = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/salmonmeat
 	)
 	result = /obj/item/reagent_containers/food/snacks/salmonsteak
 
 /datum/recipe/grill/syntisteak
-	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	reagents = list(/datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/blackpepper = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/syntiflesh
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak
 
 /datum/recipe/grill/waffles
-	reagents = list("sugar" = 10)
+	reagents = list(/datum/reagent/consumable/sugar = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough
@@ -59,7 +59,7 @@
 	result = /obj/item/reagent_containers/food/snacks/waffles
 
 /datum/recipe/grill/rofflewaffles
-	reagents = list("psilocybin" = 5, "sugar" = 10)
+	reagents = list(/datum/reagent/psilocybin = 5, /datum/reagent/consumable/sugar = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
@@ -82,7 +82,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sausage
 
 /datum/recipe/grill/fishfingers
-	reagents = list("flour" = 10)
+	reagents = list(/datum/reagent/consumable/flour = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/egg,
 		/obj/item/reagent_containers/food/snacks/carpmeat,
@@ -91,7 +91,7 @@
 
 /datum/recipe/grill/fishfingers/make_food(obj/container)
 	var/obj/item/reagent_containers/food/snacks/fishfingers/being_cooked = ..()
-	being_cooked.reagents.del_reagent("egg")
+	being_cooked.reagents.del_reagent(/datum/reagent/consumable/egg)
 	return being_cooked
 
 /datum/recipe/grill/cutlet
@@ -110,7 +110,7 @@
 	result = /obj/item/reagent_containers/food/snacks/omelette
 
 /datum/recipe/grill/wingfangchu
-	reagents = list("soysauce" = 5)
+	reagents = list(/datum/reagent/consumable/soysauce = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat
 	)
@@ -149,7 +149,7 @@
 	result = /obj/item/reagent_containers/food/snacks/tofukabob
 
 /datum/recipe/grill/sushi_Tamago
-	reagents = list("sake" = 5)
+	reagents = list(/datum/reagent/consumable/ethanol/sake = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/egg,
 		/obj/item/reagent_containers/food/snacks/boiledrice,
@@ -157,7 +157,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sushi_Tamago
 
 /datum/recipe/grill/sushi_Unagi
-	reagents = list("sake" = 5)
+	reagents = list(/datum/reagent/consumable/ethanol/sake = 5)
 	items = list(
 		/obj/item/fish/electric_eel,
 		/obj/item/reagent_containers/food/snacks/boiledrice,
@@ -242,7 +242,7 @@
 	result = /obj/item/reagent_containers/food/snacks/shrimp_skewer
 
 /datum/recipe/grill/fish_skewer
-	reagents = list("flour" = 10)
+	reagents = list(/datum/reagent/consumable/flour = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/salmonmeat,
 		/obj/item/reagent_containers/food/snacks/salmonmeat,

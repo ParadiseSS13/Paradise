@@ -9,7 +9,7 @@
 	icon_state = "meat"
 	filling_color = "#FF1C1C"
 	bitesize = 3
-	list_reagents = list("protein" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 3)
 	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/W, mob/user, params)
@@ -50,12 +50,12 @@
 /obj/item/reagent_containers/food/snacks/meat/ham
 	name = "ham"
 	desc = "For when you need to go ham."
-	list_reagents = list("protein" = 3, "porktonium" = 10)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 3, /datum/reagent/consumable/porktonium = 10)
 
 /obj/item/reagent_containers/food/snacks/meat/meatwheat
 	name = "meatwheat clump"
 	desc = "This doesn't look like meat, but your standards aren't <i>that</i> high to begin with."
-	list_reagents = list("nutriment" = 3, "vitamin" = 2, "blood" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/blood = 5)
 	filling_color = rgb(150, 0, 0)
 	icon_state = "meatwheat_clump"
 	bitesize = 4
@@ -66,7 +66,7 @@
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "rawcutlet"
 	bitesize = 1
-	list_reagents = list("protein" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 1)
 
 /obj/item/reagent_containers/food/snacks/rawcutlet/attackby(obj/item/W, mob/user, params)
 	if(istype(W,/obj/item/kitchen/knife))
@@ -98,7 +98,7 @@
 	icon_state = "bearmeat"
 	filling_color = "#DB0000"
 	bitesize = 3
-	list_reagents = list("protein" = 12, "morphine" = 5, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 12, /datum/reagent/medicine/morphine = 5, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("meat" = 1, "salmon" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/xenomeat
@@ -107,7 +107,7 @@
 	icon_state = "xenomeat"
 	filling_color = "#43DE18"
 	bitesize = 6
-	list_reagents = list("protein" = 3, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 3, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("meat" = 1, "acid" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spidermeat
@@ -115,7 +115,7 @@
 	desc = "A slab of spider meat. Not very appetizing."
 	icon_state = "spidermeat"
 	bitesize = 3
-	list_reagents = list("protein" = 3, "toxin" = 3, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 3, /datum/reagent/toxin = 3, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("cobwebs" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat
@@ -124,35 +124,35 @@
 	icon_state = "xenomeat"
 	filling_color = "#43DE18"
 	bitesize = 3
-	list_reagents = list("protein" = 3, "toxin" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 3, /datum/reagent/toxin = 3)
 	tastes = list("tough meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg
 	name = "spider leg"
 	desc = "A still twitching leg of a giant spider. You don't really want to eat this, do you?"
 	icon_state = "spiderleg"
-	list_reagents = list("protein" = 2, "toxin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 2, /datum/reagent/toxin = 2)
 	tastes = list("cobwebs" = 1, "creepy motion" = 1)
 
 /obj/item/reagent_containers/food/snacks/raw_bacon
 	name = "raw bacon"
 	desc = "God's gift to man in uncooked form."
 	icon_state = "raw_bacon"
-	list_reagents = list("nutriment" = 1, "porktonium" = 10)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/porktonium = 10)
 	tastes = list("bacon" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spidereggs
 	name = "spider eggs"
 	desc = "A cluster of juicy spider eggs. A great side dish for when you don't care about your health."
 	icon_state = "spidereggs"
-	list_reagents = list("protein" = 2, "toxin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 2, /datum/reagent/toxin = 2)
 	tastes = list("cobwebs" = 1, "spider juice" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goliath
 	name = "goliath meat"
 	desc = "A slab of goliath meat. It's not very edible now, but it cooks great in lava."
 	icon_state = "goliathmeat"
-	list_reagents = list("protein" = 3, "toxin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 3, /datum/reagent/toxin = 5)
 	tastes = list("tough meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goliath/burn()
@@ -171,14 +171,14 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#7A3D11"
 	bitesize = 3
-	list_reagents = list("nutriment" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/bacon
 	name = "bacon"
 	desc = "It looks crispy and tastes amazing! Mmm... Bacon."
 	icon_state = "bacon"
-	list_reagents = list("nutriment" = 4, "porktonium" = 10, "msg" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/porktonium = 10, /datum/reagent/msg = 4)
 	tastes = list("bacon" = 1)
 
 /obj/item/reagent_containers/food/snacks/telebacon
@@ -186,7 +186,7 @@
 	desc = "It tastes a little odd but it's still delicious."
 	icon_state = "bacon"
 	var/obj/item/radio/beacon/bacon/baconbeacon
-	list_reagents = list("nutriment" = 4, "porktonium" = 10)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/porktonium = 10)
 	tastes = list("bacon" = 1)
 
 /obj/item/reagent_containers/food/snacks/telebacon/New()
@@ -204,7 +204,7 @@
 	desc = "A great meal all round."
 	icon_state = "meatball"
 	filling_color = "#DB0000"
-	list_reagents = list("protein" = 4, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 4, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/sausage
@@ -212,7 +212,7 @@
 	desc = "A piece of mixed and cased meat."
 	icon_state = "sausage"
 	filling_color = "#DB0000"
-	list_reagents = list("protein" = 6, "vitamin" = 1, "porktonium" = 10)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 6, /datum/reagent/consumable/nutriment/vitamin = 1, /datum/reagent/consumable/porktonium = 10)
 	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/cutlet
@@ -220,7 +220,7 @@
 	desc = "A tasty meat slice."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "cutlet"
-	list_reagents = list("protein" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 2)
 	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/spidereggsham
@@ -229,7 +229,7 @@
 	icon_state = "spidereggsham"
 	trash = /obj/item/trash/plate
 	bitesize = 4
-	list_reagents = list("nutriment" = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6)
 	tastes = list("cobwebs" = 1, "the colour green" = 1)
 
 /obj/item/reagent_containers/food/snacks/boiledspiderleg
@@ -238,7 +238,7 @@
 	icon_state = "spiderlegcooked"
 	trash = /obj/item/trash/plate
 	bitesize = 3
-	list_reagents = list("nutriment" = 3, "capsaicin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/capsaicin = 2)
 	tastes = list("cobwebs" = 1, "hot peppers" = 1)
 
 /obj/item/reagent_containers/food/snacks/wingfangchu
@@ -247,7 +247,7 @@
 	icon_state = "wingfangchu"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#43DE18"
-	list_reagents = list("nutriment" = 6, "soysauce" = 5, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/soysauce = 5, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("soy" = 1)
 
 /obj/item/reagent_containers/food/snacks/goliath_steak
@@ -256,7 +256,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	icon_state = "goliathsteak"
 	trash = null
-	list_reagents = list("protein" = 6, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/fried_vox
@@ -264,7 +264,7 @@
 	desc = "Bucket of voxxy, yaya!"
 	icon_state = "fried_vox"
 	trash = /obj/item/trash/fried_vox
-	list_reagents = list("nutriment" = 3, "protein" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/protein = 5)
 	tastes = list("quills" = 1, "the shoal" = 1)
 
 //////////////////////
@@ -279,7 +279,7 @@
 	filling_color = "#ADAC7F"
 	var/faction
 	var/datum/species/monkey_type = /datum/species/monkey
-	list_reagents = list("nutriment" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("the jungle" = 1, "bananas" = 1)
 
 /obj/item/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature, source, method = REAGENT_TOUCH)
@@ -343,7 +343,7 @@
 	desc = "An egg!"
 	icon_state = "egg"
 	filling_color = "#FDFFD1"
-	list_reagents = list("protein" = 1, "egg" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 1, /datum/reagent/consumable/egg = 5)
 	tastes = list("egg" = 1)
 
 
@@ -418,7 +418,7 @@
 	icon_state = "friedegg"
 	filling_color = "#FFDF78"
 	bitesize = 1
-	list_reagents = list("nutriment" = 3, "egg" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/egg = 5)
 	tastes = list("egg" = 1, "salt" = 1, "pepper" = 1)
 
 /obj/item/reagent_containers/food/snacks/boiledegg
@@ -426,14 +426,14 @@
 	desc = "A hard boiled egg."
 	icon_state = "egg"
 	filling_color = "#FFFFFF"
-	list_reagents = list("nutriment" = 2, "egg" = 5, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/egg = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
 
 /obj/item/reagent_containers/food/snacks/chocolateegg
 	name = "chocolate egg"
 	desc = "Such sweet, fattening food."
 	icon_state = "chocolateegg"
 	filling_color = "#7D5F46"
-	list_reagents = list("nutriment" = 4, "sugar" = 2, "cocoa" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/cocoa = 2)
 
 /obj/item/reagent_containers/food/snacks/omelette
 	name = "omelette du fromage"
@@ -441,7 +441,7 @@
 	icon_state = "omelette"
 	trash = /obj/item/trash/plate
 	filling_color = "#FFF9A8"
-	list_reagents = list("nutriment" = 8, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 1)
 	bitesize = 1
 	tastes = list("egg" = 1, "cheese" = 1)
 
@@ -450,7 +450,7 @@
 	desc = "There is only one egg on this, how rude."
 	icon_state = "benedict"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "egg" = 3, "vitamin" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/egg = 3, /datum/reagent/consumable/nutriment/vitamin = 4)
 	tastes = list("egg" = 1, "bacon" = 1, "bun" = 1)
 
 
@@ -463,7 +463,7 @@
 	desc = "Not made with actual dogs. Hopefully."
 	icon_state = "hotdog"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "ketchup" = 3, "vitamin" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/ketchup = 3, /datum/reagent/consumable/nutriment/vitamin = 3)
 	tastes = list("bun" = 3, "meat" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatbun
@@ -471,7 +471,7 @@
 	desc = "Has the potential to not be dog."
 	icon_state = "meatbun"
 	bitesize = 6
-	list_reagents = list("nutriment" = 6, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("bun" = 3, "meat" = 2)
 
 /obj/item/reagent_containers/food/snacks/sliceable/turkey
@@ -480,7 +480,7 @@
 	icon_state = "turkey"
 	slice_path = /obj/item/reagent_containers/food/snacks/turkeyslice
 	slices_num = 6
-	list_reagents = list("protein" = 24, "nutriment" = 18, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 24, /datum/reagent/consumable/nutriment = 18, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("turkey" = 2, "stuffing" = 2)
 
 /obj/item/reagent_containers/food/snacks/turkeyslice
@@ -498,7 +498,7 @@
 	icon_state = "appendix"
 	filling_color = "#E00D34"
 	bitesize = 3
-	list_reagents = list("protein" = 4, "vitamin" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 4, /datum/reagent/consumable/nutriment/vitamin = 4)
 
 /obj/item/reagent_containers/food/snacks/appendix
 //yes, this is the same as meat. I might do something different in future
@@ -508,7 +508,7 @@
 	icon_state = "appendix"
 	filling_color = "#E00D34"
 	bitesize = 3
-	list_reagents = list("protein" = 3, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
 
 /obj/item/reagent_containers/food/snacks/appendix/inflamed
 	name = "inflamed appendix"

@@ -11,7 +11,7 @@
 	/// How much this dispenser can hold (In units)
 	var/tank_volume = 1000
 	/// The ID of the reagent that the dispenser uses
-	var/reagent_id = "water"
+	var/reagent_id = /datum/reagent/water
 	/// The last person to rig this fuel tank - Stored with the object. Only the last person matters for investigation
 	var/lastrigger = ""
 	/// Can this tank be unwrenched
@@ -82,14 +82,14 @@
 	name = "oil tank"
 	desc = "A tank of oil, commonly used to by robotics to fix leaking IPCs or just to loosen up those rusted underused parts."
 	icon_state = "oil"
-	reagent_id = "oil"
+	reagent_id = /datum/reagent/oil
 	tank_volume = 3000
 
 /obj/structure/reagent_dispensers/fueltank
 	name = "fuel tank"
 	desc = "A tank full of industrial welding fuel. Do not consume."
 	icon_state = "fuel"
-	reagent_id = "fuel"
+	reagent_id = /datum/reagent/fuel
 	tank_volume = 4000
 	var/obj/item/assembly_holder/rig = null
 	var/accepts_rig = 1
@@ -179,7 +179,7 @@
 
 /obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!reagents.has_reagent("fuel"))
+	if(!reagents.has_reagent(/datum/reagent/fuel))
 		to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")
 		return
 	if(I.tool_enabled && I.use_tool(src, user, volume = I.tool_volume)) //check it's enabled first to prevent duplicate messages when refuelling
@@ -190,7 +190,7 @@
 		investigate_log("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]", INVESTIGATE_BOMB)
 		boom()
 	else
-		I.refill(user, src, reagents.get_reagent_amount("fuel")) //Try dump all fuel into the welder
+		I.refill(user, src, reagents.get_reagent_amount(/datum/reagent/fuel)) //Try dump all fuel into the welder
 
 
 /obj/structure/reagent_dispensers/fueltank/Move()
@@ -226,7 +226,7 @@
 	icon_state = "pepper"
 	density = FALSE
 	can_be_unwrenched = FALSE
-	reagent_id = "condensedcapsaicin"
+	reagent_id = /datum/reagent/consumable/condensedcapsaicin
 
 /obj/structure/reagent_dispensers/water_cooler
 	name = "liquid cooler"
@@ -234,7 +234,6 @@
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "water_cooler"
 	tank_volume = 500
-	reagent_id = "water"
 	var/paper_cups = 25 //Paper cups left from the cooler
 
 /obj/structure/reagent_dispensers/water_cooler/examine(mob/user)
@@ -255,7 +254,7 @@
 	name = "beer keg"
 	desc = "Beer is liquid bread, it's good for you..."
 	icon_state = "beer"
-	reagent_id = "beer"
+	reagent_id = /datum/reagent/consumable/ethanol/beer
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act(obj/structure/blob/B)
 	explosion(loc, 0, 3, 5, 7, 10)
@@ -276,7 +275,7 @@
 	icon_state = "virus_food"
 	can_be_unwrenched = FALSE
 	density = FALSE
-	reagent_id = "virusfood"
+	reagent_id = /datum/reagent/consumable/virus_food
 
 /obj/structure/reagent_dispensers/spacecleanertank
 	name = "space cleaner refiller"
@@ -285,7 +284,7 @@
 	can_be_unwrenched = FALSE
 	density = FALSE
 	tank_volume = 5000
-	reagent_id = "cleaner"
+	reagent_id = /datum/reagent/space_cleaner
 
 /obj/structure/reagent_dispensers/fueltank/chem
 	icon_state = "fuel_chem"

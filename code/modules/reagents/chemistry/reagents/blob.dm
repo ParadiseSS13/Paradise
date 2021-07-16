@@ -16,7 +16,6 @@
 /datum/reagent/blob/ripping_tendrils //does brute and a little stamina damage
 	name = "Ripping Tendrils"
 	description = "Deals High Brute damage, as well as Stamina damage."
-	id = "ripping_tendrils"
 	color = "#7F0000"
 	complementary_color = "#a15656"
 	message_living = ", and you feel your skin ripping and tearing off"
@@ -32,7 +31,6 @@
 /datum/reagent/blob/boiling_oil //sets you on fire, does burn damage
 	name = "Boiling Oil"
 	description = "Deals High Burn damage, and sets the victim aflame."
-	id = "boiling_oil"
 	color = "#B68D00"
 	complementary_color = "#c0a856"
 	message = "The blob splashes you with burning oil"
@@ -49,7 +47,6 @@
 /datum/reagent/blob/envenomed_filaments //toxin, hallucination, and some bonus spore toxin
 	name = "Envenomed Filaments"
 	description = "Deals High Toxin damage, causes Hallucinations, and injects Spores into the bloodstream."
-	id = "envenomed_filaments"
 	color = "#9ACD32"
 	complementary_color = "#b0cd73"
 	message_living = ", and you feel sick and nauseated"
@@ -60,12 +57,11 @@
 		M.apply_damage(0.6*volume, TOX)
 		M.hallucination += 0.6*volume
 		if(M.reagents)
-			M.reagents.add_reagent("spore", 0.4*volume)
+			M.reagents.add_reagent(/datum/reagent/spore, 0.4 * volume)
 
 /datum/reagent/blob/lexorin_jelly //does tons of oxygen damage and a little brute
 	name = "Lexorin Jelly"
 	description = "Deals Medium Brute damage, but massive amounts of Respiration Damage."
-	id = "lexorin_jelly"
 	color = "#00FFC5"
 	complementary_color = "#56ebc9"
 	message_living = ", and your lungs feel heavy and weak"
@@ -81,7 +77,6 @@
 /datum/reagent/blob/kinetic //does semi-random brute damage
 	name = "Kinetic Gelatin"
 	description = "Deals Randomized damage, between 0.33 to 2.33 times the standard amount."
-	id = "kinetic"
 	color = "#FFA500"
 	complementary_color = "#ebb756"
 	message = "The blob pummels you"
@@ -95,7 +90,6 @@
 /datum/reagent/blob/cryogenic_liquid //does low burn damage and stamina damage and cools targets down
 	name = "Cryogenic Liquid"
 	description = "Deals Medium Brute damage, Stamina Damage, and injects Frost Oil into its victims, freezing them to death."
-	id = "cryogenic_liquid"
 	color = "#8BA6E9"
 	complementary_color = "#a8b7df"
 	message = "The blob splashes you with an icy liquid"
@@ -107,12 +101,11 @@
 		M.apply_damage(0.4*volume, BURN)
 		M.adjustStaminaLoss(volume)
 		if(M.reagents)
-			M.reagents.add_reagent("frostoil", 0.4*volume)
+			M.reagents.add_reagent(/datum/reagent/consumable/frostoil, 0.4*volume)
 
 /datum/reagent/blob/b_sorium
 	name = "Sorium"
 	description = "Deals High Brute damage, and sends people flying away."
-	id = "b_sorium"
 	color = "#808000"
 	complementary_color = "#a2a256"
 	message = "The blob slams into you, and sends you flying"
@@ -155,7 +148,6 @@
 /datum/reagent/blob/radioactive_gel
 	name = "Radioactive gel"
 	description = "Deals medium toxin damage and a little brute damage, but irradiates those struck."
-	id = "radioactive_gel"
 	color = "#2476f0"
 	complementary_color = "#24f0f0"
 	message_living = ", and you feel a strange warmth from within"
@@ -166,12 +158,11 @@
 		M.apply_damage(0.3 * volume, TOX)
 		M.apply_damage(0.2 * volume, BRUTE) // lets not have IPC / plasmaman only take 7.5 damage from this
 		if(M.reagents)
-			M.reagents.add_reagent("uranium", 0.3 * volume)
+			M.reagents.add_reagent(/datum/reagent/uranium, 0.3 * volume)
 
 /datum/reagent/blob/teslium_paste
 	name = "Teslium paste"
 	description = "Deals medium burn damage, and shocks those struck over time"
-	id = "teslium_paste"
 	color = "#20324D"
 	complementary_color = "#412968"
 	message_living = ", and you feel a static shock"
@@ -181,11 +172,11 @@
 		volume = ..()
 		M.apply_damage(0.4 * volume, BURN)
 		if(M.reagents)
-			if(M.reagents.has_reagent("blob_teslium") && prob(0.6 * volume))
+			if(M.reagents.has_reagent(/datum/reagent/teslium/blob) && prob(0.6 * volume))
 				M.electrocute_act((0.5 * volume), "the blob's electrical discharge", 1, SHOCK_NOGLOVES)
-				M.reagents.del_reagent("blob_teslium")
+				M.reagents.del_reagent(/datum/reagent/teslium/blob)
 				return //don't add more teslium after you shock it out of someone.
-			M.reagents.add_reagent("blob_teslium", 0.125 * volume)  // a little goes a long way
+			M.reagents.add_reagent(/datum/reagent/teslium/blob, 0.125 * volume)  // a little goes a long way
 
 /datum/reagent/blob/proc/send_message(mob/living/M)
 	var/totalmessage = message

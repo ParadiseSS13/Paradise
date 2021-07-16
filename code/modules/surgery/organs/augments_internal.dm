@@ -322,7 +322,7 @@
 /obj/item/organ/internal/cyberimp/chest/nutriment/emp_act(severity)
 	if(!owner || emp_proof)
 		return
-	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
+	owner.reagents.add_reagent(/datum/reagent/questionmark, poison_amount / severity) //food poisoning
 	to_chat(owner, "<span class='warning'>You feel like your insides are burning.</span>")
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus

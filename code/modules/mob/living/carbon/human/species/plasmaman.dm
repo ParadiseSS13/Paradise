@@ -161,9 +161,9 @@
 			P.Extinguish(H)
 	H.update_fire()
 	..()
-
+#error fix
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "plasma" || R.id == "plasma_dust")
+	if(R.id == /datum/reagent/plasma || R.id == /datum/reagent/plasma_dust)
 		H.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
 		H.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
 		H.adjustPlasma(20)

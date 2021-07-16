@@ -343,7 +343,7 @@
 		H.adjustToxLoss(3) //Deal aditional damage
 		return TRUE
 	return ..()
-
+#error fix
 //Radioactive
 /datum/species/golem/uranium
 	name = "Uranium Golem"

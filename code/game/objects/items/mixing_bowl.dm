@@ -97,9 +97,9 @@
 
 		for(var/datum/reagent/R in reagents.reagent_list)
 			var/display_name = R.name
-			if(R.id == "capsaicin")
+			if(R.id == /datum/reagent/consumable/capsaicin)
 				display_name = "Hotsauce"
-			if(R.id == "frostoil")
+			if(R.id == /datum/reagent/consumable/frostoil)
 				display_name = "Coldsauce"
 			dat += {"<B>[display_name]:</B> [R.volume] unit\s<BR>"}
 
@@ -108,7 +108,7 @@
 		else
 			dat = {"<b>Ingredients:</b><br>[dat]"}
 		dat += {"<HR><BR> <A href='?src=[UID()];action=dispose'>Eject ingredients!</A><BR>"}
-
+#error fix
 	var/datum/browser/popup = new(user, name, name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)
@@ -165,6 +165,6 @@
 			amount += reagents.get_reagent_amount(id)
 	reagents.clear_reagents()
 	var/obj/item/reagent_containers/food/snacks/badrecipe/ffuu = new(get_turf(source))
-	ffuu.reagents.add_reagent("carbon", amount)
-	ffuu.reagents.add_reagent("????", amount/10)
+	ffuu.reagents.add_reagent(/datum/reagent/carbon, amount)
+	ffuu.reagents.add_reagent(/datum/reagent/questionmark, amount/10)
 	make_dirty(75)

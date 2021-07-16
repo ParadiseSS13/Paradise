@@ -164,40 +164,40 @@
 	name = "Robust Coffee"
 	desc = "Careful, the beverage you're about to enjoy is extremely hot."
 	icon_state = "coffee"
-	list_reagents = list("coffee" = 30)
+	list_reagents = list(/datum/reagent/consumable/drink/coffee = 30)
 	resistance_flags = FREEZE_PROOF
 
 /obj/item/reagent_containers/food/drinks/ice
 	name = "ice cup"
 	desc = "Careful, cold ice, do not chew."
 	icon_state = "icecup"
-	list_reagents = list("ice" = 30)
+	list_reagents = list(/datum/reagent/consumable/drink/cold/ice = 30)
 
 /obj/item/reagent_containers/food/drinks/tea
 	name = "Duke Purple tea"
 	desc = "An insult to Duke Purple is an insult to the Space Queen! Any proper gentleman will fight you, if you sully this tea."
 	icon_state = "teacup"
 	item_state = "coffee"
-	list_reagents = list("tea" = 30)
+	list_reagents = list(/datum/reagent/consumable/drink/tea = 30)
 
 /obj/item/reagent_containers/food/drinks/tea/New()
 	..()
 	if(prob(20))
-		reagents.add_reagent("mugwort", 3)
+		reagents.add_reagent(/datum/reagent/consumable/mugwort, 3)
 
 /obj/item/reagent_containers/food/drinks/mugwort
 	name = "mugwort tea"
 	desc = "A bitter herbal tea."
 	icon_state = "manlydorfglass"
 	item_state = "coffee"
-	list_reagents = list("mugwort" = 30)
+	list_reagents = list(/datum/reagent/consumable/mugwort = 30)
 
 /obj/item/reagent_containers/food/drinks/h_chocolate
 	name = "Dutch hot coco"
 	desc = "Made in Space South America."
 	icon_state = "hot_coco"
 	item_state = "coffee"
-	list_reagents = list("hot_coco" = 30, "sugar" = 5)
+	list_reagents = list(/datum/reagent/consumable/hot_coco = 30, /datum/reagent/consumable/sugar = 5)
 	resistance_flags = FREEZE_PROOF
 
 /obj/item/reagent_containers/food/drinks/chocolate
@@ -205,33 +205,33 @@
 	desc = "Made in Space Switzerland."
 	icon_state = "hot_coco"
 	item_state = "coffee"
-	list_reagents = list("hot_coco" = 15, "chocolate" = 6, "water" = 9)
+	list_reagents = list(/datum/reagent/consumable/hot_coco = 15, /datum/reagent/consumable/chocolate = 6, /datum/reagent/water = 9)
 	resistance_flags = FREEZE_PROOF
 
 /obj/item/reagent_containers/food/drinks/weightloss
 	name = "weight-loss shake"
 	desc = "A shake designed to cause weight loss.  The package proudly proclaims that it is 'tapeworm free.'"
 	icon_state = "weightshake"
-	list_reagents = list("lipolicide" = 30, "chocolate" = 5)
+	list_reagents = list(/datum/reagent/lipolicide = 30, /datum/reagent/consumable/chocolate = 5)
 
 /obj/item/reagent_containers/food/drinks/dry_ramen
 	name = "cup ramen"
 	desc = "Just add 10ml of water, self heats! A taste that reminds you of your school years."
 	icon_state = "ramen"
 	item_state = "ramen"
-	list_reagents = list("dry_ramen" = 30)
+	list_reagents = list(/datum/reagent/consumable/dry_ramen = 30)
 
 /obj/item/reagent_containers/food/drinks/dry_ramen/New()
 	..()
 	if(prob(20))
-		reagents.add_reagent("enzyme", 3)
+		reagents.add_reagent(/datum/reagent/consumable/enzyme, 3)
 
 /obj/item/reagent_containers/food/drinks/chicken_soup
 	name = "canned chicken soup"
 	desc = "A delicious and soothing can of chicken noodle soup; just like spessmom used to microwave it."
 	icon_state = "soupcan"
 	item_state = "soupcan"
-	list_reagents = list("chicken_soup" = 30)
+	list_reagents = list(/datum/reagent/consumable/chicken_soup = 30)
 
 /obj/item/reagent_containers/food/drinks/sillycup
 	name = "paper cup"
@@ -282,7 +282,7 @@
 	name = "detective's flask"
 	desc = "The detective's only true friend."
 	icon_state = "detflask"
-	list_reagents = list("whiskey" = 30)
+	list_reagents = list(/datum/reagent/consumable/ethanol/whiskey = 30)
 
 /obj/item/reagent_containers/food/drinks/flask/hand_made
 	name = "handmade flask"
@@ -327,7 +327,7 @@
 	name = "goon from a Blue Toolbox special edition"
 	desc = "Wine from the land down under, where the dingos roam and the roos do wander."
 	icon_state = "goonbag"
-	list_reagents = list("wine" = 70)
+	list_reagents = list(/datum/reagent/consumable/ethanol/wine = 70)
 
 /obj/item/reagent_containers/food/drinks/oilcan
 	name = "oil can"
@@ -337,4 +337,4 @@
 	volume = 100
 
 /obj/item/reagent_containers/food/drinks/oilcan/full
-	list_reagents = list("oil" = 100)
+	list_reagents = list(/datum/reagent/oil = 100)

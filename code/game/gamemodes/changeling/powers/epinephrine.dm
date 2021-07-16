@@ -22,7 +22,7 @@
 	user.SetWeakened(0)
 	user.lying = 0
 	user.update_canmove()
-	user.reagents.add_reagent("synaptizine", 20)
+	user.reagents.add_reagent(/datum/reagent/medicine/synaptizine, 20)
 	user.adjustStaminaLoss(-75)
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))

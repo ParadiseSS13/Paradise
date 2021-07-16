@@ -11,7 +11,7 @@
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#FFD675"
-	list_reagents = list("nutriment" = 20, "oculine" = 10, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/medicine/oculine = 10, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("cake" = 5, "sweetness" = 2, "carrot" = 1)
 
 /obj/item/reagent_containers/food/snacks/carrotcakeslice
@@ -31,7 +31,7 @@
 	slices_num = 5
 	filling_color = "#E6AEDB"
 	bitesize = 3
-	list_reagents = list("protein" = 10, "nutriment" = 10, "mannitol" = 10, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 10, /datum/reagent/consumable/nutriment = 10, /datum/reagent/medicine/mannitol = 10, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("cake" = 5, "sweetness" = 2, "brains" = 1)
 
 /obj/item/reagent_containers/food/snacks/braincakeslice
@@ -50,7 +50,7 @@
 	slices_num = 5
 	filling_color = "#FAF7AF"
 	bitesize = 3
-	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("cake" = 4, "cream cheese" = 3)
 
 /obj/item/reagent_containers/food/snacks/cheesecakeslice
@@ -69,8 +69,8 @@
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#F7EDD5"
-	list_reagents = list("nutriment" = 20, "vitamin" = 5)
-	tastes = list("cake" = 5, "vanilla" = 1, "sweetness" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/consumable/nutriment/vitamin = 5)
+	tastes = list("cake" = 5, /datum/reagent/consumable/vanilla = 1, "sweetness" = 2)
 
 /obj/item/reagent_containers/food/snacks/plaincakeslice
 	name = "vanilla cake slice"
@@ -78,7 +78,7 @@
 	icon_state = "plaincake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#F7EDD5"
-	tastes = list("cake" = 5, "vanilla" = 1, "sweetness" = 2)
+	tastes = list("cake" = 5, /datum/reagent/consumable/vanilla = 1, "sweetness" = 2)
 
 /obj/item/reagent_containers/food/snacks/sliceable/orangecake
 	name = "orange cake"
@@ -88,7 +88,7 @@
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#FADA8E"
-	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("cake" = 5, "sweetness" = 2, "oranges" = 2)
 
 /obj/item/reagent_containers/food/snacks/orangecakeslice
@@ -107,8 +107,8 @@
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#FADA8E"
-	list_reagents = list("nutriment" = 20, "vitamin" = 5)
-	tastes = list("cake" = 5, "sweetness" = 2, "banana" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/consumable/nutriment/vitamin = 5)
+	tastes = list("cake" = 5, "sweetness" = 2, /datum/reagent/consumable/drink/banana = 2)
 
 /obj/item/reagent_containers/food/snacks/bananacakeslice
 	name = "banana cake slice"
@@ -116,7 +116,7 @@
 	icon_state = "bananacake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FADA8E"
-	tastes = list("cake" = 5, "sweetness" = 2, "banana" = 2)
+	tastes = list("cake" = 5, "sweetness" = 2, /datum/reagent/consumable/drink/banana = 2)
 
 /obj/item/reagent_containers/food/snacks/sliceable/limecake
 	name = "lime cake"
@@ -126,7 +126,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/limecakeslice
 	slices_num = 5
 	filling_color = "#CBFA8E"
-	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("cake" = 5, "sweetness" = 2, "unbearable sourness" = 2)
 
 /obj/item/reagent_containers/food/snacks/limecakeslice
@@ -145,7 +145,7 @@
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#FAFA8E"
-	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("cake" = 5, "sweetness" = 2, "sourness" = 2)
 
 /obj/item/reagent_containers/food/snacks/lemoncakeslice
@@ -164,7 +164,7 @@
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#805930"
-	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("cake" = 5, "sweetness" = 1, "chocolate" = 4)
 
 /obj/item/reagent_containers/food/snacks/chocolatecakeslice
@@ -183,7 +183,7 @@
 	slices_num = 5
 	filling_color = "#FFD6D6"
 	bitesize = 3
-	list_reagents = list("nutriment" = 20, "sprinkles" = 10, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/consumable/sprinkles = 10, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("cake" = 5, "sweetness" = 1)
 
 /obj/item/reagent_containers/food/snacks/birthdaycakeslice
@@ -202,7 +202,7 @@
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#EBF5B8"
-	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("cake" = 5, "sweetness" = 1, "apple" = 1)
 
 /obj/item/reagent_containers/food/snacks/applecakeslice
@@ -224,7 +224,7 @@
 	icon_state = "COOKIE!!!"
 	bitesize = 1
 	filling_color = "#DBC94F"
-	list_reagents = list("nutriment" = 1, "sugar" = 3, "hot_coco" = 5 )
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/sugar = 3, /datum/reagent/consumable/hot_coco = 5 )
 	tastes = list("cookie" = 1, "crunchy chocolate" = 1)
 
 /obj/item/reagent_containers/food/snacks/fortunecookie
@@ -232,7 +232,7 @@
 	desc = "A true prophecy in each cookie!"
 	icon_state = "fortune_cookie"
 	filling_color = "#E8E79E"
-	list_reagents = list("nutriment" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3)
 	trash = /obj/item/paper/fortune
 	tastes = list("cookie" = 1)
 
@@ -240,7 +240,7 @@
 	name = "sugar cookie"
 	desc = "Just like your little sister used to make."
 	icon_state = "sugarcookie"
-	list_reagents = list("nutriment" = 1, "sugar" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/sugar = 3)
 	tastes = list("sweetness" = 1)
 
 
@@ -255,7 +255,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#FBFFB8"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "banana" = 5, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/drink/banana = 5, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("pie" = 1)
 
 /obj/item/reagent_containers/food/snacks/pie/throw_impact(atom/hit_atom)
@@ -271,7 +271,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#948051"
 	bitesize = 3
-	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("pie" = 1, "meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/tofupie
@@ -281,7 +281,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#FFFEE0"
 	bitesize = 3
-	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("pie" = 1, "tofu" = 1)
 
 /obj/item/reagent_containers/food/snacks/amanita_pie
@@ -290,7 +290,7 @@
 	icon_state = "amanita_pie"
 	filling_color = "#FFCCCC"
 	bitesize = 4
-	list_reagents = list("nutriment" = 6, "amanitin" = 3, "psilocybin" = 1, "vitamin" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/amanitin = 3, /datum/reagent/psilocybin = 1, /datum/reagent/consumable/nutriment/vitamin = 4)
 	tastes = list("pie" = 1, "mushroom" = 1)
 
 /obj/item/reagent_containers/food/snacks/plump_pie
@@ -299,7 +299,7 @@
 	icon_state = "plump_pie"
 	filling_color = "#B8279B"
 	bitesize = 3
-	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("pie" = 1, "mushroom" = 1)
 
 /obj/item/reagent_containers/food/snacks/plump_pie/New()
@@ -307,7 +307,7 @@
 	if(prob(10))
 		name = "exceptional plump pie"
 		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump pie!" // What
-		reagents.add_reagent("omnizine", 5)
+		reagents.add_reagent(/datum/reagent/medicine/omnizine, 5)
 
 /obj/item/reagent_containers/food/snacks/xemeatpie
 	name = "xeno-pie"
@@ -315,7 +315,7 @@
 	desc = "A delicious meatpie. Probably heretical."
 	trash = /obj/item/trash/plate
 	filling_color = "#43DE18"
-	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("pie" = 1, "meat" = 1, "acid" = 1)
 
 
@@ -325,7 +325,7 @@
 	icon_state = "applepie"
 	filling_color = "#E0EDC5"
 	bitesize = 3
-	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("pie" = 1, "apple" = 1)
 
 
@@ -335,7 +335,7 @@
 	icon_state = "cherrypie"
 	filling_color = "#FF525A"
 	bitesize = 3
-	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("pie" = 1, "cherries" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/pumpkinpie
@@ -346,7 +346,7 @@
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#F5B951"
-	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("pie" = 1, "pumpkin" = 1)
 
 /obj/item/reagent_containers/food/snacks/pumpkinpieslice
@@ -366,7 +366,7 @@
 	desc = "Goes great with Robust Coffee."
 	icon_state = "donut1"
 	bitesize = 5
-	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sugar = 2)
 	var/extra_reagent = null
 	filling_color = "#D2691E"
 	var/randomized_sprinkles = 1
@@ -378,14 +378,14 @@
 	if(randomized_sprinkles && prob(30))
 		icon_state = "donut2"
 		name = "frosted donut"
-		reagents.add_reagent("sprinkles", 2)
+		reagents.add_reagent(/datum/reagent/consumable/sprinkles, 2)
 		donut_sprite_type = "frosted"
 		filling_color = "#FF69B4"
 
 /obj/item/reagent_containers/food/snacks/donut/sprinkles
 	name = "frosted donut"
 	icon_state = "donut2"
-	list_reagents = list("nutriment" = 3, "sugar" = 2, "sprinkles" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/sprinkles = 2)
 	filling_color = "#FF69B4"
 	donut_sprite_type = "frosted"
 	randomized_sprinkles = 0
@@ -398,19 +398,19 @@
 
 /obj/item/reagent_containers/food/snacks/donut/chaos/New()
 	..()
-	extra_reagent = pick("nutriment", "capsaicin", "frostoil", "krokodil", "plasma", "cocoa", "slimejelly", "banana", "berryjuice", "omnizine")
+	extra_reagent = pick(/datum/reagent/consumable/nutriment, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/krokodil, /datum/reagent/plasma, /datum/reagent/consumable/cocoa, /datum/reagent/slimejelly, /datum/reagent/consumable/drink/banana, /datum/reagent/consumable/drink/berryjuice, /datum/reagent/medicine/omnizine)
 	reagents.add_reagent("[extra_reagent]", 3)
 	if(prob(30))
 		icon_state = "donut2"
 		name = "frosted chaos donut"
-		reagents.add_reagent("sprinkles", 2)
+		reagents.add_reagent(/datum/reagent/consumable/sprinkles, 2)
 		filling_color = "#FF69B4"
 
 /obj/item/reagent_containers/food/snacks/donut/jelly
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
-	extra_reagent = "berryjuice"
+	extra_reagent = /datum/reagent/consumable/drink/berryjuice
 	donut_sprite_type = "jelly"
 	tastes = list("jelly" = 1, "donut" = 3)
 
@@ -422,20 +422,20 @@
 		icon_state = "jdonut2"
 		name = "frosted jelly Donut"
 		donut_sprite_type = "frostedjelly"
-		reagents.add_reagent("sprinkles", 2)
+		reagents.add_reagent(/datum/reagent/consumable/sprinkles, 2)
 		filling_color = "#FF69B4"
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
-	extra_reagent = "slimejelly"
+	extra_reagent = /datum/reagent/slimejelly
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/cherryjelly
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
-	extra_reagent = "cherryjelly"
+	extra_reagent = /datum/reagent/consumable/cherryjelly
 
 //////////////////////
 //		Pancakes	//
@@ -447,19 +447,19 @@
 	icon_state = "pancake"
 	filling_color = "#E7D8AB"
 	bitesize = 2
-	list_reagents = list("nutriment" = 3, "sugar" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sugar = 3)
 
 /obj/item/reagent_containers/food/snacks/pancake/berry_pancake
 	name = "berry pancake"
 	desc = "A pancake loaded with berries."
 	icon_state = "berry_pancake"
-	list_reagents = list("nutriment" = 3, "sugar" = 3, "berryjuice" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sugar = 3, /datum/reagent/consumable/drink/berryjuice = 3)
 
 /obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake
 	name = "choc-chip pancake"
 	desc = "A pancake loaded with chocolate chips."
 	icon_state = "choc_chip_pancake"
-	list_reagents = list("nutriment" = 3, "sugar" = 3, "cocoa" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sugar = 3, /datum/reagent/consumable/cocoa = 3)
 
 //////////////////////
 //		Misc		//
@@ -470,7 +470,7 @@
 	desc = "A delicious and spongy little cake."
 	icon_state = "muffin"
 	filling_color = "#E0CF9B"
-	list_reagents = list("nutriment" = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6)
 	tastes = list("muffin" = 1)
 
 /obj/item/reagent_containers/food/snacks/berryclafoutis
@@ -479,7 +479,7 @@
 	icon_state = "berryclafoutis"
 	trash = /obj/item/trash/plate
 	bitesize = 3
-	list_reagents = list("nutriment" = 10, "berryjuice" = 5, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/drink/berryjuice = 5, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("pie" = 1, "blackberries" = 1)
 
 
@@ -488,7 +488,7 @@
 	desc = "A large soft pretzel full of POP! It's all twisted up!"
 	icon_state = "poppypretzel"
 	filling_color = "#916E36"
-	list_reagents = list("nutriment" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	tastes = list("pretzel" = 1)
 
 /obj/item/reagent_containers/food/snacks/plumphelmetbiscuit
@@ -496,7 +496,7 @@
 	desc = "This is a finely-prepared plump helmet biscuit. The ingredients are exceptionally minced plump helmet, and well-minced dwarven wheat flour."
 	icon_state = "phelmbiscuit"
 	filling_color = "#CFB4C4"
-	list_reagents = list("nutriment" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	tastes = list("mushroom" = 1, "biscuit" = 1)
 
 /obj/item/reagent_containers/food/snacks/plumphelmetbiscuit/New()
@@ -504,7 +504,7 @@
 	if(prob(10))
 		name = "exceptional plump helmet biscuit"
 		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump helmet biscuit!" // Is this a reference?
-		reagents.add_reagent("omnizine", 5)
+		reagents.add_reagent(/datum/reagent/medicine/omnizine, 5)
 
 /obj/item/reagent_containers/food/snacks/appletart
 	name = "golden apple streusel tart"
@@ -513,7 +513,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#FFFF00"
 	bitesize = 3
-	list_reagents = list("nutriment" = 8, "gold" = 5, "vitamin" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/gold = 5, /datum/reagent/consumable/nutriment/vitamin = 4)
 	tastes = list("pie" = 1, "apple" = 1, "expensive metal" = 1)
 
 
@@ -523,5 +523,5 @@
 	icon_state = "cracker"
 	bitesize = 1
 	filling_color = "#F5DEB8"
-	list_reagents = list("nutriment" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
 	tastes = list("cracker" = 1)

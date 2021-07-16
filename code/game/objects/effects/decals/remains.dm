@@ -47,6 +47,6 @@
 	var/obj/effect/particle_effect/water/W = new(get_turf(src))
 	W.reagents = R
 	R.my_atom = W
-	R.add_reagent("water", 5)
+	R.add_reagent(/datum/reagent/water, 5)
 	R.reaction(get_turf(src))
 	qdel(src)

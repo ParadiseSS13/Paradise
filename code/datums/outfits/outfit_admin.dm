@@ -947,7 +947,7 @@
 
 	var/obj/item/reagent_containers/R = H.l_hand
 	if(istype(R))
-		R.reagents.add_reagent("water", 70)
+		R.reagents.add_reagent(/datum/reagent/water, 70)
 
 /datum/outfit/admin/survivor
 	name = "Survivor"

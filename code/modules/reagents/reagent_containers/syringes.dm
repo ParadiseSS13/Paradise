@@ -175,63 +175,63 @@
 /obj/item/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"
 	desc = "Contains antiviral agents."
-	list_reagents = list("spaceacillin" = 15)
+	list_reagents = list(/datum/reagent/medicine/spaceacillin = 15)
 
 /obj/item/reagent_containers/syringe/charcoal
 	name = "Syringe (charcoal)"
 	desc = "Contains charcoal - used to treat toxins and damage from toxins."
-	list_reagents = list("charcoal" = 15)
+	list_reagents = list(/datum/reagent/medicine/charcoal = 15)
 
 /obj/item/reagent_containers/syringe/epinephrine
 	name = "Syringe (Epinephrine)"
 	desc = "Contains epinephrine - used to stabilize patients."
-	list_reagents = list("epinephrine" = 15)
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 15)
 
 /obj/item/reagent_containers/syringe/insulin
 	name = "Syringe (insulin)"
 	desc = "Contains insulin - used to treat diabetes."
-	list_reagents = list("insulin" = 15)
+	list_reagents = list(/datum/reagent/medicine/insulin = 15)
 
 /obj/item/reagent_containers/syringe/calomel
 	name = "Syringe (calomel)"
 	desc = "Contains calomel, which be used to purge impurities, but is highly toxic itself."
-	list_reagents = list("calomel" = 15)
+	list_reagents = list(/datum/reagent/medicine/calomel = 15)
 
 /obj/item/reagent_containers/syringe/heparin
 	name = "Syringe (heparin)"
 	desc = "Contains heparin, a blood anticoagulant."
-	list_reagents = list("heparin" = 15)
+	list_reagents = list(/datum/reagent/heparin = 15)
 
 /obj/item/reagent_containers/syringe/bioterror
 	name = "bioterror syringe"
 	desc = "Contains several paralyzing reagents."
-	list_reagents = list("neurotoxin" = 5, "capulettium_plus" = 5, "sodium_thiopental" = 5)
+	list_reagents = list(/datum/reagent/consumable/ethanol/neurotoxin = 5, /datum/reagent/capulettium_plus = 5, /datum/reagent/sodium_thiopental = 5)
 
 /obj/item/reagent_containers/syringe/gluttony
 	name = "Gluttony's Blessing"
 	desc = "A syringe recovered from a dread place. It probably isn't wise to use."
 	amount_per_transfer_from_this = 1
 	volume = 1
-	list_reagents = list("gluttonytoxin" = 1)
+	list_reagents = list(/datum/reagent/gluttonytoxin = 1)
 
 /obj/item/reagent_containers/syringe/capulettium_plus
 	name = "capulettium plus syringe"
 	desc = "For silencing targets. Allows for fake deaths."
-	list_reagents = list("capulettium_plus" = 15)
+	list_reagents = list(/datum/reagent/capulettium_plus = 15)
 
 /obj/item/reagent_containers/syringe/sarin
 	name = "sarin syringe"
 	desc = "A deadly neurotoxin, for killing."
-	list_reagents = list("sarin" = 15)
+	list_reagents = list(/datum/reagent/sarin = 15)
 
 /obj/item/reagent_containers/syringe/pancuronium
 	name = "pancuronium syringe"
 	desc = "A powerful paralyzing poison."
-	list_reagents = list("pancuronium" = 15)
+	list_reagents = list(/datum/reagent/pancuronium = 15)
 
 /obj/item/reagent_containers/syringe/lethal
 	name = "lethal injection syringe"
 	desc = "A syringe used for lethal injections. It can hold up to 50 units."
 	amount_per_transfer_from_this = 50
 	volume = 50
-	list_reagents = list("toxin" = 15, "pancuronium" = 10, "cyanide" = 5, "facid" = 10, "fluorine" = 10)
+	list_reagents = list(/datum/reagent/toxin = 15, /datum/reagent/pancuronium = 10, /datum/reagent/cyanide = 5, /datum/reagent/acid/facid = 10, /datum/reagent/fluorine = 10)

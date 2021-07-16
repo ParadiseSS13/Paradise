@@ -203,7 +203,7 @@
 			if(M.bodytemperature)
 				M.bodytemperature -= 200 //Extreme amount of initial cold
 			if(M.reagents)
-				M.reagents.add_reagent("frostoil", 15) //Half of a cryosting
+				M.reagents.add_reagent(/datum/reagent/consumable/frostoil, 15) //Half of a cryosting
 
 
 /obj/effect/proc_holder/spell/targeted/click/enthrall //Turns a target into the shadowling's slave. This overrides all previous loyalties
@@ -410,7 +410,7 @@
 		var/obj/item/reagent_containers/glass/beaker/large/B = new /obj/item/reagent_containers/glass/beaker/large(target.loc)
 		B.reagents.clear_reagents() //Just in case!
 		B.icon_state = null //Invisible
-		B.reagents.add_reagent("blindness_smoke", 10)
+		B.reagents.add_reagent(/datum/reagent/shadowling_blindness_smoke, 10)
 		var/datum/effect_system/smoke_spread/chem/S = new
 		if(S)
 			S.set_up(B.reagents, B.loc, TRUE)
@@ -419,7 +419,6 @@
 
 /datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls
 	name = "odd black liquid"
-	id = "blindness_smoke"
 	description = "<::ERROR::> CANNOT ANALYZE REAGENT <::ERROR::>"
 	color = "#000000" //Complete black (RGB: 0, 0, 0)
 	metabolization_rate = 100 //lel

@@ -37,11 +37,11 @@
 	var/declare_cooldown = 0 //Prevents spam of critical patient alerts.
 	var/stationary_mode = 0 //If enabled, the Medibot will not move automatically.
 	//Setting which reagents to use to treat what by default. By id.
-	var/treatment_brute = "salglu_solution"
-	var/treatment_oxy = "salbutamol"
-	var/treatment_fire = "salglu_solution"
-	var/treatment_tox = "charcoal"
-	var/treatment_virus = "spaceacillin"
+	var/treatment_brute = /datum/reagent/medicine/salglu_solution
+	var/treatment_oxy = /datum/reagent/medicine/salbutamol
+	var/treatment_fire = /datum/reagent/medicine/salglu_solution
+	var/treatment_tox = /datum/reagent/medicine/charcoal
+	var/treatment_virus = /datum/reagent/medicine/spaceacillin
 	var/treat_virus = 1 //If on, the bot will attempt to treat viral infections, curing them if possible.
 	var/shut_up = 0 //self explanatory :)
 	var/syndicate_aligned = FALSE // Will it only treat operatives?
@@ -72,20 +72,20 @@
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
 	skin = "bezerk"
-	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "bicaridine"
-	treatment_fire = "kelotane"
-	treatment_tox = "charcoal"
+	treatment_oxy = /datum/reagent/medicine/perfluorodecalin
+	treatment_brute = /datum/reagent/medicine/bicaridine
+	treatment_fire = /datum/reagent/medicine/kelotane
+	treatment_tox = /datum/reagent/medicine/charcoal
 
 /mob/living/simple_animal/bot/medbot/syndicate
 	name = "Suspicious Medibot"
 	desc = "You'd better have insurance!"
 	skin = "bezerk"
 	faction = list("syndicate")
-	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "bicaridine"
-	treatment_fire = "kelotane"
-	treatment_tox = "charcoal"
+	treatment_oxy = /datum/reagent/medicine/perfluorodecalin
+	treatment_brute = /datum/reagent/medicine/bicaridine
+	treatment_fire = /datum/reagent/medicine/kelotane
+	treatment_tox = /datum/reagent/medicine/charcoal
 	syndicate_aligned = TRUE
 	bot_core_type = /obj/machinery/bot_core/medbot/syndicate
 	control_freq = BOT_FREQ + 1000 // make it not show up on lists
@@ -470,7 +470,8 @@
 	var/reagent_id = null
 
 	if(emagged == 2) //Emagged! Time to poison everybody.
-		reagent_id = "pancuronium"
+		reagent_id = /datum/reagent/pancuronium
+#error fix
 
 	else
 		if(treat_virus)

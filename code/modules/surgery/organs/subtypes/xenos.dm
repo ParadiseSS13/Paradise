@@ -18,7 +18,7 @@
 
 /obj/item/organ/internal/xenos/prepare_eat()
 	var/obj/S = ..()
-	S.reagents.add_reagent("sacid", 10)
+	S.reagents.add_reagent(/datum/reagent/acid, 10)
 	return S
 
 //XENOMORPH ORGANS
@@ -40,7 +40,7 @@
 
 /obj/item/organ/internal/xenos/plasmavessel/prepare_eat()
 	var/obj/S = ..()
-	S.reagents.add_reagent("plasma", stored_plasma/10)
+	S.reagents.add_reagent(/datum/reagent/plasma, stored_plasma / 10)
 	return S
 
 /obj/item/organ/internal/xenos/plasmavessel/queen

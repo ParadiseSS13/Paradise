@@ -9,7 +9,7 @@
 	icon_state = "brainburger"
 	filling_color = "#F2B6EA"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "prions" = 10, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/prions = 10, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bun" = 4, "brains" = 2)
 
 /obj/item/reagent_containers/food/snacks/ghostburger
@@ -18,7 +18,7 @@
 	icon_state = "ghostburger"
 	filling_color = "#FFF2FF"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bun" = 4, "ectoplasm" = 2)
 
 /obj/item/reagent_containers/food/snacks/human
@@ -31,7 +31,7 @@
 	desc = "A bloody burger."
 	icon_state = "hburger"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bun" = 4, "tender meat" = 2)
 
 /obj/item/reagent_containers/food/snacks/cheeseburger
@@ -39,7 +39,7 @@
 	desc = "The cheese adds a good flavor."
 	icon_state = "cheeseburger"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bun" = 4, "meat" = 1, "cheese" = 1)
 
 /obj/item/reagent_containers/food/snacks/monkeyburger
@@ -48,7 +48,7 @@
 	icon_state = "hburger"
 	filling_color = "#D63C3C"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bun" = 4, "meat" = 1, "the jungle" = 1)
 
 /obj/item/reagent_containers/food/snacks/tofuburger
@@ -57,7 +57,7 @@
 	icon_state = "tofuburger"
 	filling_color = "#FFFEE0"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bun" = 4, "tofu" = 4)
 
 /obj/item/reagent_containers/food/snacks/roburger
@@ -66,7 +66,7 @@
 	icon_state = "roburger"
 	filling_color = "#CCCCCC"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "nanomachines" = 10, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/nanomachines = 10, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
 
 /obj/item/reagent_containers/food/snacks/roburgerbig
@@ -76,7 +76,7 @@
 	filling_color = "#CCCCCC"
 	volume = 120
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "nanomachines" = 70, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/nanomachines = 70, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 2)
 
 /obj/item/reagent_containers/food/snacks/xenoburger
@@ -85,7 +85,7 @@
 	icon_state = "xburger"
 	filling_color = "#43DE18"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bun" = 4, "acid" = 4)
 
 /obj/item/reagent_containers/food/snacks/clownburger
@@ -94,7 +94,7 @@
 	icon_state = "clownburger"
 	filling_color = "#FF00FF"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bun" = 4, "banana" = 1, "magic" = 2)
 
 /obj/item/reagent_containers/food/snacks/mimeburger
@@ -103,7 +103,7 @@
 	icon_state = "mimeburger"
 	filling_color = "#FFFFFF"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bun" = 4, "silence" = 2)
 
 /obj/item/reagent_containers/food/snacks/baseballburger
@@ -112,7 +112,7 @@
 	icon_state = "baseball"
 	filling_color = "#CD853F"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bun" = 4)
 
 /obj/item/reagent_containers/food/snacks/spellburger
@@ -121,7 +121,7 @@
 	icon_state = "spellburger"
 	filling_color = "#D505FF"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bun" = 4, "magic" = 2)
 
 /obj/item/reagent_containers/food/snacks/bigbiteburger
@@ -130,7 +130,7 @@
 	icon_state = "bigbiteburger"
 	filling_color = "#E3D681"
 	bitesize = 3
-	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("bun" = 4, "meat" = 2, "cheese" = 2, "type two diabetes" = 10)
 
 /obj/item/reagent_containers/food/snacks/superbiteburger
@@ -139,7 +139,7 @@
 	icon_state = "superbiteburger"
 	filling_color = "#CCA26A"
 	bitesize = 7
-	list_reagents = list("nutriment" = 40, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 40, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("bun" = 4, "meat" = 2, "cheese" = 2, "type two diabetes" = 10)
 
 /obj/item/reagent_containers/food/snacks/jellyburger
@@ -151,10 +151,10 @@
 	tastes = list("bun" = 4, "jelly" = 2)
 
 /obj/item/reagent_containers/food/snacks/jellyburger/slime
-	list_reagents = list("nutriment" = 6, "slimejelly" = 5, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/slimejelly = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
 
 /obj/item/reagent_containers/food/snacks/jellyburger/cherry
-	list_reagents = list("nutriment" = 6, "cherryjelly" = 5, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/cherryjelly = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
 
 
 //////////////////////
@@ -167,7 +167,7 @@
 	icon_state = "sandwich"
 	trash = /obj/item/trash/plate
 	filling_color = "#D9BE29"
-	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("meat" = 2, "cheese" = 1, "bread" = 2, "lettuce" = 1)
 
 /obj/item/reagent_containers/food/snacks/toastedsandwich
@@ -176,7 +176,7 @@
 	icon_state = "toastedsandwich"
 	trash = /obj/item/trash/plate
 	filling_color = "#D9BE29"
-	list_reagents = list("nutriment" = 6, "carbon" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/carbon = 2)
 	tastes = list("toast" = 1)
 
 /obj/item/reagent_containers/food/snacks/grilledcheese
@@ -185,7 +185,7 @@
 	icon_state = "toastedsandwich"
 	trash = /obj/item/trash/plate
 	filling_color = "#D9BE29"
-	list_reagents = list("nutriment" = 7, "vitamin" = 1) //why make a regualr sandwhich when you can make grilled cheese, with this nutriment value?
+	list_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/nutriment/vitamin = 1) //why make a regualr sandwhich when you can make grilled cheese, with this nutriment value?
 	tastes = list("toast" = 1, "grilled cheese" = 1)
 
 /obj/item/reagent_containers/food/snacks/jellysandwich
@@ -198,21 +198,21 @@
 	tastes = list("toast" = 1, "jelly" = 1)
 
 /obj/item/reagent_containers/food/snacks/jellysandwich/slime
-	list_reagents = list("nutriment" = 2, "slimejelly" = 5, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/slimejelly = 5, /datum/reagent/consumable/nutriment/vitamin = 2)
 
 /obj/item/reagent_containers/food/snacks/jellysandwich/cherry
-	list_reagents = list("nutriment" = 2, "cherryjelly" = 5, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/cherryjelly = 5, /datum/reagent/consumable/nutriment/vitamin = 2)
 
 /obj/item/reagent_containers/food/snacks/notasandwich
 	name = "not-a-sandwich"
 	desc = "Something seems to be wrong with this, you can't quite figure what. Maybe it's his moustache."
 	icon_state = "notasandwich"
-	list_reagents = list("nutriment" = 6, "vitamin" = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 6)
 	tastes = list("nothing suspicious" = 1)
 
 /obj/item/reagent_containers/food/snacks/wrap
 	name = "egg wrap"
 	desc = "The precursor to Pigs in a Blanket."
 	icon_state = "wrap"
-	list_reagents = list("nutriment" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	tastes = list("egg" = 1)

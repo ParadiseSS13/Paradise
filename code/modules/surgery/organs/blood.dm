@@ -72,7 +72,7 @@
 
 		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects naturally decreases
 
-		var/additional_bleed = round(clamp((reagents.get_reagent_amount("heparin") / 10), 0, 2), 1) //Heparin worsens existing bleeding
+		var/additional_bleed = round(clamp((reagents.get_reagent_amount(/datum/reagent/heparin) / 10), 0, 2), 1) //Heparin worsens existing bleeding
 
 		if(internal_bleeding_rate && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
 			bleed_internal(internal_bleeding_rate + additional_bleed)
@@ -153,7 +153,7 @@
 	blood_volume -= amount
 
 	var/list/blood_data = get_blood_data(blood_id)
-
+#error fix
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
 		if(blood_id == C.get_blood_id())//both mobs have the same blood substance
@@ -165,7 +165,7 @@
 							continue
 						C.ForceContractDisease(D)
 				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)))
-					C.reagents.add_reagent("toxin", amount * 0.5)
+					C.reagents.add_reagent(/datum/reagent/toxin, amount * 0.5)
 					return 1
 
 			C.blood_volume = min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_NORMAL)
@@ -184,7 +184,7 @@
 		//set the blood data
 		blood_data["donor"] = src
 		blood_data["viruses"] = list()
-
+#error fix
 		for(var/thing in viruses)
 			var/datum/disease/D = thing
 			blood_data["viruses"] += D.Copy()
@@ -209,11 +209,11 @@
 		blood_data["factions"] = faction
 		blood_data["dna"] = dna.Clone()
 		return blood_data
-	if(blood_id == "slimejelly")
+	if(blood_id == /datum/reagent/slimejelly)
 		var/blood_data = list()
 		blood_data["colour"] = dna.species.blood_color
 		return blood_data
-
+#error todo
 //get the id of the substance this mob use as blood.
 /mob/proc/get_blood_id()
 	return
@@ -258,7 +258,7 @@
 		return
 	if(!T)
 		T = get_turf(src)
-
+#error fix
 	var/list/temp_blood_DNA
 	var/list/b_data = get_blood_data(get_blood_id())
 

@@ -23,7 +23,7 @@
 				if(C in enemies)
 					targets3 += C
 					continue
-			else if(C.reagents.has_reagent("terror_black_toxin",60))
+			else if(C.reagents.has_reagent(/datum/reagent/terror_black_toxin, 60))
 				// only target those dying of black spider venom if they are close, or our enemy
 				if(get_dist(src,C) <= 2 || (C in enemies))
 					targets2 += C

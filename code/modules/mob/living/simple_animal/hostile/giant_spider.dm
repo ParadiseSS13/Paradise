@@ -47,7 +47,7 @@
 		var/mob/living/carbon/C = target
 		var/inject_target = pick("chest", "head")
 		if(C.can_inject(null, FALSE, inject_target, FALSE))
-			C.reagents.add_reagent("spidertoxin", venom_per_bite)
+			C.reagents.add_reagent(/datum/reagent/spider_venom, venom_per_bite)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/get_spacemove_backup()
 	. = ..()

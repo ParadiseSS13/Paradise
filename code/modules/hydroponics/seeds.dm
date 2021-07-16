@@ -170,14 +170,14 @@
 		var/list/data = null
 		if(rid == "blood") // Hack to make blood in plants always O-
 			data = list("blood_type" = "O-")
-		if(rid == "nutriment" || rid == "vitamin" || rid == "protein" || rid == "plantmatter")
+		if(rid == /datum/reagent/consumable/nutriment || rid == /datum/reagent/consumable/nutriment/vitamin || rid == /datum/reagent/consumable/nutriment/protein || rid == /datum/reagent/consumable/nutriment/plantmatter)
 			// apple tastes of apple.
 			if(istype(T, /obj/item/reagent_containers/food/snacks/grown))
 				var/obj/item/reagent_containers/food/snacks/grown/grown_edible = T
 				data = grown_edible.tastes.Copy()
 
 		T.reagents.add_reagent(rid, amount, data)
-
+#error fix
 
 /// Setters procs ///
 /obj/item/seeds/proc/adjust_yield(adjustamt)

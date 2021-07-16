@@ -9,7 +9,6 @@
 
 /datum/reagent/water
 	name = "Water"
-	id = "water"
 	description = "A ubiquitous chemical substance that is composed of hydrogen and oxygen."
 	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
@@ -35,7 +34,6 @@
 
 /datum/reagent/lube
 	name = "Space Lube"
-	id = "lube"
 	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
 	reagent_state = LIQUID
 	color = "#1BB1AB"
@@ -49,7 +47,6 @@
 
 /datum/reagent/space_cleaner
 	name = "Space cleaner"
-	id = "cleaner"
 	description = "A compound used to clean things. Now with 50% more sodium hypochlorite!"
 	reagent_state = LIQUID
 	color = "#61C2C2"
@@ -77,7 +74,6 @@
 /datum/reagent/blood
 	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_colour"="#A10808","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
 	name = "Blood"
-	id = "blood"
 	reagent_state = LIQUID
 	color = "#770000" // rgb: 40, 0, 0
 	metabolization_rate = 5 //fast rate so it disappears fast.
@@ -104,10 +100,10 @@
 		var/mob/living/carbon/C = M
 		if(C.get_blood_id() == "blood")
 			if((!data || !(data["blood_type"] in get_safe_blood(C.dna.blood_type))))
-				C.reagents.add_reagent("toxin", volume * 0.5)
+				C.reagents.add_reagent(/datum/reagent/toxin, volume * 0.5)
 			else
 				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
-
+#error fix
 /datum/reagent/blood/on_new(list/data)
 	if(istype(data))
 		SetViruses(src, data)
@@ -165,7 +161,6 @@
 /datum/reagent/vaccine
 	//data must contain virus type
 	name = "Vaccine"
-	id = "vaccine"
 	color = "#C81040" // rgb: 200, 16, 64
 	taste_description = "antibodies"
 
@@ -183,7 +178,6 @@
 
 /datum/reagent/fishwater
 	name = "Fish Water"
-	id = "fishwater"
 	description = "Smelly water from a fish tank. Gross!"
 	reagent_state = LIQUID
 	color = "#757547"
@@ -203,7 +197,6 @@
 
 /datum/reagent/fishwater/toiletwater
 	name = "Toilet Water"
-	id = "toiletwater"
 	description = "Filthy water scoured from a nasty toilet bowl. Absolutely disgusting."
 	reagent_state = LIQUID
 	color = "#757547"
@@ -214,7 +207,6 @@
 
 /datum/reagent/holywater
 	name = "Water"
-	id = "holywater"
 	description = "A ubiquitous chemical substance that is composed of hydrogen and oxygen."
 	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
@@ -330,7 +322,6 @@
 
 /datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
 	name = "Unholy Water"
-	id = "unholywater"
 	description = "Something that shouldn't exist on this plane of existance."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 	metabolization_rate = 1
@@ -358,7 +349,6 @@
 
 /datum/reagent/hellwater
 	name = "Hell Water"
-	id = "hell_water"
 	description = "YOUR FLESH! IT BURNS!"
 	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
 	metabolization_rate = 1
@@ -376,7 +366,6 @@
 
 /datum/reagent/liquidgibs
 	name = "Liquid gibs"
-	id = "liquidgibs"
 	color = "#FF9966"
 	description = "You don't even want to think about what's in here."
 	reagent_state = LIQUID
@@ -389,7 +378,6 @@
 
 /datum/reagent/lye
 	name = "Lye"
-	id = "lye"
 	description = "Also known as sodium hydroxide."
 	reagent_state = LIQUID
 	color = "#FFFFD6" // very very light yellow
@@ -397,7 +385,6 @@
 
 /datum/reagent/drying_agent
 	name = "Drying agent"
-	id = "drying_agent"
 	description = "Can be used to dry things."
 	reagent_state = LIQUID
 	color = "#A70FFF"

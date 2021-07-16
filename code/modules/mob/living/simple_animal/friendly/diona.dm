@@ -211,10 +211,10 @@
 		if(do_after_once(src, 20, target = G))
 			visible_message("[src] ravenously consumes [G].", "You ravenously devour [G].")
 			playsound(loc, 'sound/items/eatfood.ogg', 30, 0, frequency = 1.5)
-			if(G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter") < 1)
+			if(G.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) + G.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment/plantmatter) < 1)
 				adjust_nutrition(2)
 			else
-				adjust_nutrition((G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter")) * 2)
+				adjust_nutrition((G.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) + G.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment/plantmatter)) * 2)
 			qdel(G)
 
 /mob/living/simple_animal/diona/proc/steal_blood()

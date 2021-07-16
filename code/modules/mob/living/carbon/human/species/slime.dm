@@ -34,7 +34,8 @@
 
 	flesh_color = "#5fe8b1"
 	blood_color = "#0064C8"
-	exotic_blood = "slimejelly"
+	exotic_blood = /datum/reagent/slimejelly
+#error todo
 
 	butt_sprite = "slime"
 	//Has default darksight of 2.

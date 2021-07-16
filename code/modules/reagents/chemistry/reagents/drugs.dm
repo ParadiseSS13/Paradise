@@ -1,6 +1,5 @@
 /datum/reagent/lithium
 	name = "Lithium"
-	id = "lithium"
 	description = "A chemical element."
 	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
@@ -16,7 +15,6 @@
 
 /datum/reagent/lsd
 	name = "Lysergic acid diethylamide"
-	id = "lsd"
 	description = "A highly potent hallucinogenic substance. Far out, maaaan."
 	reagent_state = LIQUID
 	color = "#0000D8"
@@ -30,7 +28,6 @@
 
 /datum/reagent/space_drugs
 	name = "Space drugs"
-	id = "space_drugs"
 	description = "An illegal chemical compound used as drug."
 	reagent_state = LIQUID
 	color = "#9087A2"
@@ -52,7 +49,6 @@
 
 /datum/reagent/psilocybin
 	name = "Psilocybin"
-	id = "psilocybin"
 	description = "A strong psycotropic derived from certain species of mushroom."
 	color = "#E700E7" // rgb: 231, 0, 231
 	taste_description = "visions"
@@ -84,7 +80,6 @@
 
 /datum/reagent/nicotine
 	name = "Nicotine"
-	id = "nicotine"
 	description = "Slightly reduces stun times. If overdosed it will deal toxin and oxygen damage."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
@@ -152,7 +147,6 @@
 
 /datum/reagent/crank
 	name = "Crank"
-	id = "crank"
 	description = "Reduces stun times by about 200%. If overdosed or addicted it will deal significant Toxin, Brute and Brain damage."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
@@ -170,7 +164,7 @@
 		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
 		to_chat(M, "<span class='notice'>You feel great!</span>")
-		M.reagents.add_reagent("methamphetamine", rand(1,2))
+		M.reagents.add_reagent(/datum/reagent/methamphetamine, rand(1,2))
 		M.emote(pick("laugh", "giggle"))
 	if(prob(6))
 		to_chat(M, "<span class='notice'>You feel warm.</span>")
@@ -215,7 +209,7 @@
 			update_flags |= M.Weaken(3, FALSE)
 			M.AdjustConfused(25)
 			M.emote("scream")
-			M.reagents.add_reagent("jagged_crystals", 5)
+			M.reagents.add_reagent(/datum/reagent/jagged_crystals, 5)
 		else if(effect <= 7)
 			M.emote("scream")
 			M.visible_message("<span class='warning'>[M] nervously scratches at [M.p_their()] skin!</span>")
@@ -226,7 +220,6 @@
 
 /datum/reagent/krokodil
 	name = "Krokodil"
-	id = "krokodil"
 	description = "A sketchy homemade opiate, often used by disgruntled Cosmonauts."
 	reagent_state = LIQUID
 	color = "#0264B4"
@@ -299,7 +292,6 @@
 
 /datum/reagent/methamphetamine
 	name = "Methamphetamine"
-	id = "methamphetamine"
 	description = "Reduces stun times by about 300%, speeds the user up, and allows the user to quickly recover stamina while dealing a small amount of Brain damage. If overdosed the subject will move randomly, laugh randomly, drop items and suffer from Toxin and Brain damage. If addicted the subject will constantly jitter and drool, before becoming dizzy and losing motor control and eventually suffer heavy toxin damage."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
@@ -361,7 +353,6 @@
 
 /datum/reagent/bath_salts
 	name = "Bath Salts"
-	id = "bath_salts"
 	description = "Sometimes packaged as a refreshing bathwater additive, these crystals are definitely not for human consumption."
 	reagent_state = SOLID
 	color = "#FAFAFA"
@@ -393,7 +384,7 @@
 	if(check < 20)
 		M.AdjustConfused(10)
 	if(check < 8)
-		M.reagents.add_reagent(pick("methamphetamine", "crank", "neurotoxin"), rand(1,5))
+		M.reagents.add_reagent(pick(/datum/reagent/methamphetamine, /datum/reagent/crank, /datum/reagent/consumable/ethanol/neurotoxin), rand(1,5))
 		M.visible_message("<span class='warning'>[M] scratches at something under [M.p_their()] skin!</span>")
 		update_flags |= M.adjustBruteLoss(5, FALSE)
 	else if(check < 16)
@@ -425,7 +416,7 @@
 			M.AdjustConfused(25)
 			M.Jitter(10)
 			M.emote("scream")
-			M.reagents.add_reagent("jagged_crystals", 5)
+			M.reagents.add_reagent(/datum/reagent/jagged_crystals, 5)
 		else if(effect <= 4)
 			M.visible_message("<span class='danger'>[M]'s eyes dilate!</span>")
 			M.emote("twitch_s")
@@ -433,10 +424,10 @@
 			update_flags |= M.adjustBrainLoss(1, FALSE)
 			update_flags |= M.Stun(3, FALSE)
 			update_flags |= M.EyeBlurry(7, FALSE)
-			M.reagents.add_reagent("jagged_crystals", 5)
+			M.reagents.add_reagent(/datum/reagent/jagged_crystals, 5)
 		else if(effect <= 7)
 			M.emote("faint")
-			M.reagents.add_reagent("jagged_crystals", 5)
+			M.reagents.add_reagent(/datum/reagent/jagged_crystals, 5)
 	else if(severity == 2)
 		if(effect <= 2)
 			M.visible_message("<span class='danger'>[M]'s eyes dilate!</span>")
@@ -444,7 +435,7 @@
 			update_flags |= M.adjustBrainLoss(1, FALSE)
 			update_flags |= M.Stun(3, FALSE)
 			update_flags |= M.EyeBlurry(7, FALSE)
-			M.reagents.add_reagent("jagged_crystals", 5)
+			M.reagents.add_reagent(/datum/reagent/jagged_crystals, 5)
 		else if(effect <= 4)
 			M.visible_message("<span class='danger'>[M] convulses violently and falls to the floor!</span>")
 			M.Jitter(50)
@@ -452,18 +443,17 @@
 			update_flags |= M.adjustBrainLoss(1, FALSE)
 			update_flags |= M.Weaken(8, FALSE)
 			M.emote("gasp")
-			M.reagents.add_reagent("jagged_crystals", 5)
+			M.reagents.add_reagent(/datum/reagent/jagged_crystals, 5)
 		else if(effect <= 7)
 			M.emote("scream")
 			M.visible_message("<span class='danger'>[M] tears at [M.p_their()] own skin!</span>")
 			update_flags |= M.adjustBruteLoss(5, FALSE)
-			M.reagents.add_reagent("jagged_crystals", 5)
+			M.reagents.add_reagent(/datum/reagent/jagged_crystals, 5)
 			M.emote("twitch")
 	return list(effect, update_flags)
 
 /datum/reagent/jenkem
 	name = "Jenkem"
-	id = "jenkem"
 	description = "Jenkem is a prison drug made from fermenting feces in a solution of urine. Extremely disgusting."
 	reagent_state = LIQUID
 	color = "#644600"
@@ -481,7 +471,6 @@
 
 /datum/reagent/aranesp
 	name = "Aranesp"
-	id = "aranesp"
 	description = "An illegal performance enhancing drug. Side effects might include chest pain, seizures, swelling, headache, fever... ... ..."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
@@ -506,7 +495,6 @@
 
 /datum/reagent/thc
 	name = "Tetrahydrocannabinol"
-	id = "thc"
 	description = "A mild psychoactive chemical extracted from the cannabis plant."
 	reagent_state = LIQUID
 	color = "#0FBE0F"
@@ -527,7 +515,6 @@
 
 /datum/reagent/cbd
 	name = "Cannabidiol"
-	id = "cbd"
 	description = "A non-psychoactive phytocannabinoid extracted from the cannabis plant."
 	reagent_state = LIQUID
 	color = "#00e100"
@@ -543,7 +530,7 @@
 		M.AdjustConfused(-5)
 		update_flags |= M.SetWeakened(0, FALSE)
 	if(volume >= 70 && prob(25))
-		if(M.reagents.get_reagent_amount("thc") <= 20)
+		if(M.reagents.get_reagent_amount(/datum/reagent/thc) <= 20)
 			M.Drowsy(10)
 	if(prob(25))
 		update_flags |= M.adjustBruteLoss(-2, FALSE)
@@ -553,7 +540,6 @@
 
 /datum/reagent/fliptonium
 	name = "Fliptonium"
-	id = "fliptonium"
 	description = "Do some flips!"
 	reagent_state = LIQUID
 	color = "#A42964"
@@ -630,7 +616,6 @@
 
 /datum/reagent/rotatium //Rotatium. Fucks up your rotation and is hilarious
 	name = "Rotatium"
-	id = "rotatium"
 	description = "A constantly swirling, oddly colourful fluid. Causes the consumer's sense of direction and hand-eye coordination to become wild."
 	reagent_state = LIQUID
 	color = "#AC88CA" //RGB: 172, 136, 202
@@ -661,7 +646,6 @@
 //Ultra-Lube: Meth
 /datum/reagent/lube/ultra
 	name = "Ultra-Lube"
-	id = "ultralube"
 	description = "Ultra-Lube is an enhanced lubricant which induces effect similar to Methamphetamine in synthetic users by drastically reducing internal friction and increasing cooling capabilities."
 	reagent_state = LIQUID
 	color = "#1BB1FF"
@@ -714,7 +698,6 @@
 //Surge: Krokodil
 /datum/reagent/surge
 	name = "Surge"
-	id = "surge"
 	description = "A sketchy superconducting gel that overloads processors, causing an effect reportedly similar to opiates in synthetic units."
 	reagent_state = LIQUID
 	color = "#6DD16D"

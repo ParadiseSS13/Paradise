@@ -9,7 +9,7 @@
 	icon_state = "eggplantparm"
 	trash = /obj/item/trash/plate
 	filling_color = "#4D2F5E"
-	list_reagents = list("nutriment" = 6, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("eggplant" = 2, "cheese" = 2)
 
 /obj/item/reagent_containers/food/snacks/soylentgreen
@@ -18,7 +18,7 @@
 	icon_state = "soylent_green"
 	trash = /obj/item/trash/waffles
 	filling_color = "#B8E6B5"
-	list_reagents = list("nutriment" = 10, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("waffles" = 7, "people" = 1)
 
 /obj/item/reagent_containers/food/snacks/soylentviridians
@@ -27,7 +27,7 @@
 	icon_state = "soylent_yellow"
 	trash = /obj/item/trash/waffles
 	filling_color = "#E6FA61"
-	list_reagents = list("nutriment" = 10, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("waffles" = 10)
 
 /obj/item/reagent_containers/food/snacks/monkeysdelight
@@ -37,7 +37,7 @@
 	trash = /obj/item/trash/tray
 	filling_color = "#5C3C11"
 	bitesize = 6
-	list_reagents = list("nutriment" = 10, "banana" = 5, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/drink/banana = 5, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("banana" = 1, "the jungle" = 1)
 
 /obj/item/reagent_containers/food/snacks/dionaroast
@@ -46,7 +46,7 @@
 	icon_state = "dionaroast"
 	trash = /obj/item/trash/plate
 	filling_color = "#75754B"
-	list_reagents = list("plantmatter" = 4, "nutriment" = 2, "radium" = 2, "vitamin" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment/plantmatter = 4, /datum/reagent/consumable/nutriment = 2, /datum/reagent/radium = 2, /datum/reagent/consumable/nutriment/vitamin = 4)
 	tastes = list("chewy vegetables" = 1)
 
 /obj/item/reagent_containers/food/snacks/tofurkey
@@ -55,7 +55,7 @@
 	icon_state = "tofurkey"
 	filling_color = "#FFFEE0"
 	bitesize = 3
-	list_reagents = list("nutriment" = 12, "ether" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 12, /datum/reagent/medicine/ether = 3)
 	tastes = list("tofu" = 1)
 
 
@@ -70,7 +70,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
 	bitesize = 3
-	list_reagents = list("nutriment" = 8, "omnizine" = 8, "vitamin" = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/medicine/omnizine = 8, /datum/reagent/consumable/nutriment/vitamin = 6)
 	tastes = list("divinity" = 1, "lettuce" = 1)
 
 /obj/item/reagent_containers/food/snacks/herbsalad
@@ -80,7 +80,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#76B87F"
 	bitesize = 3
-	list_reagents = list("nutriment" = 8, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("lettuce" = 1, "apple" = 1)
 
 /obj/item/reagent_containers/food/snacks/validsalad
@@ -90,7 +90,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#76B87F"
 	bitesize = 3
-	list_reagents = list("nutriment" = 8, "salglu_solution" = 5, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/medicine/salglu_solution = 5, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("fried potato" = 1, "lettuce" = 1, "meat" = 1, "valids" = 1)
 
 
@@ -103,7 +103,7 @@
 	desc = "The food of choice for the seasoned traitor."
 	icon_state = "donkpocket"
 	filling_color = "#DEDEAB"
-	list_reagents = list("nutriment" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4)
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket
@@ -111,18 +111,18 @@
 	desc = "The food of choice for the seasoned traitor."
 	icon_state = "donkpocket"
 	filling_color = "#DEDEAB"
-	list_reagents = list("nutriment" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4)
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket/Post_Consume(mob/living/M)
-	M.reagents.add_reagent("omnizine", 15)
+	M.reagents.add_reagent(/datum/reagent/medicine/omnizine, 15)
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket_weak
 	name = "lukewarm Donk-pocket"
 	desc = "The food of choice for the seasoned traitor. This one is lukewarm."
 	icon_state = "donkpocket"
 	filling_color = "#DEDEAB"
-	list_reagents = list("nutriment" = 4, "weak_omnizine" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/medicine/omnizine_diluted = 3)
 
 /obj/item/reagent_containers/food/snacks/syndidonkpocket
 	name = "Donk-pocket"
@@ -130,15 +130,15 @@
 	icon_state = "donkpocket"
 	filling_color = "#DEDEAB"
 	bitesize = 100 //nom the whole thing at once.
-	list_reagents = list("nutriment" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
 
 /obj/item/reagent_containers/food/snacks/syndidonkpocket/Post_Consume(mob/living/M)
-	M.reagents.add_reagent("omnizine", 15)
-	M.reagents.add_reagent("teporone", 15)
-	M.reagents.add_reagent("synaptizine", 15)
-	M.reagents.add_reagent("salglu_solution", 15)
-	M.reagents.add_reagent("salbutamol", 15)
-	M.reagents.add_reagent("methamphetamine", 15)
+	M.reagents.add_reagent(/datum/reagent/medicine/omnizine, 15)
+	M.reagents.add_reagent(/datum/reagent/medicine/teporone, 15)
+	M.reagents.add_reagent(/datum/reagent/medicine/synaptizine, 15)
+	M.reagents.add_reagent(/datum/reagent/medicine/salglu_solution, 15)
+	M.reagents.add_reagent(/datum/reagent/medicine/salbutamol, 15)
+	M.reagents.add_reagent(/datum/reagent/methamphetamine, 15)
 
 
 //////////////////////
@@ -150,7 +150,7 @@
 	desc = "A boiled red thing."
 	icon_state = "boiledrorocore"
 	bitesize = 3
-	list_reagents = list("slimejelly" = 5)
+	list_reagents = list(/datum/reagent/slimejelly = 5)
 	tastes = list("jelly" = 3)
 
 /obj/item/reagent_containers/food/snacks/popcorn
@@ -161,7 +161,7 @@
 	var/unpopped = 0
 	filling_color = "#FFFAD4"
 	bitesize = 0.1 //this snack is supposed to be eating during looooong time. And this it not dinner food! --rastaf0
-	list_reagents = list("nutriment" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("popcorn" = 3, "butter" = 1)
 
 /obj/item/reagent_containers/food/snacks/popcorn/New()
@@ -181,4 +181,4 @@
 	trash = /obj/item/trash/liquidfood
 	filling_color = "#A8A8A8"
 	bitesize = 4
-	list_reagents = list("nutriment" = 20, "iron" = 3, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/iron = 3, /datum/reagent/consumable/nutriment/vitamin = 2)

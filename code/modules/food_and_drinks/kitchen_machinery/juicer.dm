@@ -12,22 +12,22 @@
 	pass_flags = PASSTABLE
 	var/obj/item/reagent_containers/beaker = null
 	var/global/list/allowed_items = list (
-		/obj/item/reagent_containers/food/snacks/grown/tomato  = "tomatojuice",
-		/obj/item/reagent_containers/food/snacks/grown/carrot  = "carrotjuice",
-		/obj/item/reagent_containers/food/snacks/grown/grapes = "grapejuice",
-		/obj/item/reagent_containers/food/snacks/grown/grapes/green = "grapejuice",
-		/obj/item/reagent_containers/food/snacks/grown/banana  = "banana",
-		/obj/item/reagent_containers/food/snacks/grown/potato = "potato",
-		/obj/item/reagent_containers/food/snacks/grown/citrus/lemon = "lemonjuice",
-		/obj/item/reagent_containers/food/snacks/grown/citrus/orange = "orangejuice",
-		/obj/item/reagent_containers/food/snacks/grown/citrus/lime = "limejuice",
-		/obj/item/reagent_containers/food/snacks/grown/watermelon = "watermelonjuice",
-		/obj/item/reagent_containers/food/snacks/watermelonslice = "watermelonjuice",
-		/obj/item/reagent_containers/food/snacks/grown/berries/poison = "poisonberryjuice",
-		/obj/item/reagent_containers/food/snacks/grown/berries = "berryjuice",
-		/obj/item/reagent_containers/food/snacks/grown/pumpkin = "pumpkinjuice",
-		/obj/item/reagent_containers/food/snacks/grown/blumpkin = "blumpkinjuice",
-		/obj/item/reagent_containers/food/snacks/grown/pineapple = "pineapplejuice"
+		/obj/item/reagent_containers/food/snacks/grown/tomato  = /datum/reagent/consumable/drink/tomatojuice,
+		/obj/item/reagent_containers/food/snacks/grown/carrot  = /datum/reagent/consumable/drink/carrotjuice,
+		/obj/item/reagent_containers/food/snacks/grown/grapes = /datum/reagent/consumable/drink/grapejuice,
+		/obj/item/reagent_containers/food/snacks/grown/grapes/green = /datum/reagent/consumable/drink/grapejuice,
+		/obj/item/reagent_containers/food/snacks/grown/banana  = /datum/reagent/consumable/drink/banana,
+		/obj/item/reagent_containers/food/snacks/grown/potato = /datum/reagent/consumable/drink/potato_juice,
+		/obj/item/reagent_containers/food/snacks/grown/citrus/lemon = /datum/reagent/consumable/drink/lemonjuice,
+		/obj/item/reagent_containers/food/snacks/grown/citrus/orange = /datum/reagent/consumable/drink/orangejuice,
+		/obj/item/reagent_containers/food/snacks/grown/citrus/lime = /datum/reagent/consumable/drink/limejuice,
+		/obj/item/reagent_containers/food/snacks/grown/watermelon = /datum/reagent/consumable/drink/watermelonjuice,
+		/obj/item/reagent_containers/food/snacks/watermelonslice = /datum/reagent/consumable/drink/watermelonjuice,
+		/obj/item/reagent_containers/food/snacks/grown/berries/poison = /datum/reagent/consumable/drink/poisonberryjuice,
+		/obj/item/reagent_containers/food/snacks/grown/berries = /datum/reagent/consumable/drink/berryjuice,
+		/obj/item/reagent_containers/food/snacks/grown/pumpkin = /datum/reagent/consumable/drink/pumpkinjuice,
+		/obj/item/reagent_containers/food/snacks/grown/blumpkin = /datum/reagent/consumable/drink/blumpkinjuice,
+		/obj/item/reagent_containers/food/snacks/grown/pineapple = /datum/reagent/consumable/drink/pineapplejuice
 	)
 
 /obj/machinery/juicer/New()

@@ -9,7 +9,7 @@
 	maturation = 3
 	growthstages = 1
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
-	reagents_add = list("styptic_powder" = 0.1)
+	reagents_add = list(/datum/reagent/medicine/styptic_powder = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/comfrey
 	seed = /obj/item/seeds/comfrey
@@ -36,7 +36,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/aloe
 	yield = 2
 	icon_dead = "ambrosia-dead"
-	reagents_add = list("silver_sulfadiazine" = 0.1)
+	reagents_add = list(/datum/reagent/medicine/silver_sulfadiazine = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/aloe
 	seed = /obj/item/seeds/aloe
@@ -44,7 +44,7 @@
 	desc = "Mash to turn into a poultice."
 	icon_state = "ambrosiavulgaris"
 	color = "#4CC5C7"
-	tastes = list("aloe" = 1)
+	tastes = list(/datum/reagent/consumable/ethanol/aloe = 1)
 	bitesize_mod = 2
 
 /obj/item/reagent_containers/food/snacks/grown/aloe/attack_self(mob/user)
@@ -68,7 +68,7 @@
 	yield = 5
 	growthstages = 3
 	icon_dead = "mint-dead"
-	reagents_add = list("mint" = 0.03, "plantmatter" = 0.03)
+	reagents_add = list(/datum/reagent/consumable/mint = 0.03, /datum/reagent/consumable/nutriment/plantmatter = 0.03)
 
 /obj/item/reagent_containers/food/snacks/grown/mint
 	seed = /obj/item/seeds/mint
@@ -77,4 +77,4 @@
 	icon_state = "mint"
 	tastes = list("mint" = 1)
 	filling_color = "#A7EE9F"
-	distill_reagent = "menthol"
+	distill_reagent = /datum/reagent/medicine/menthol

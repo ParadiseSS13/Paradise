@@ -19,11 +19,11 @@
 	if(activeFor % interval == 0)
 		var/obj/vent = pick_n_take(vents)
 
-		var/list/gunk = list("water","carbon","flour","radium","toxin","cleaner","nutriment","condensedcapsaicin","psilocybin","lube",
-							"atrazine","banana","charcoal","space_drugs","methamphetamine","holywater","ethanol","hot_coco","facid",
-							"blood","morphine","ether","fluorine","mutadone","mutagen","hydrocodone","fuel",
-							"haloperidol","lsd","syndicate_nanites","lipolicide","frostoil","salglu_solution","beepskysmash",
-							"omnizine", "amanitin", "neurotoxin", "synaptizine", "rotatium")
+		var/list/gunk = list(/datum/reagent/water, /datum/reagent/carbon, /datum/reagent/consumable/flour, /datum/reagent/radium, /datum/reagent/toxin, /datum/reagent/space_cleaner, /datum/reagent/consumable/nutriment, /datum/reagent/consumable/condensedcapsaicin, /datum/reagent/psilocybin, /datum/reagent/lube,
+							/datum/reagent/glyphosate/atrazine, /datum/reagent/consumable/drink/banana, /datum/reagent/medicine/charcoal, /datum/reagent/space_drugs, /datum/reagent/methamphetamine, /datum/reagent/holywater, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/hot_coco, /datum/reagent/acid/facid,
+							/datum/reagent/blood, /datum/reagent/medicine/morphine, /datum/reagent/medicine/ether, /datum/reagent/fluorine, /datum/reagent/medicine/mutadone, /datum/reagent/mutagen, /datum/reagent/medicine/hydrocodone, /datum/reagent/fuel,
+							/datum/reagent/medicine/haloperidol, /datum/reagent/lsd, /datum/reagent/medicine/syndicate_nanites, /datum/reagent/lipolicide, /datum/reagent/consumable/frostoil, /datum/reagent/medicine/salglu_solution, /datum/reagent/consumable/ethanol/beepsky_smash,
+							/datum/reagent/medicine/omnizine, /datum/reagent/amanitin, /datum/reagent/consumable/ethanol/neurotoxin, /datum/reagent/medicine/synaptizine, /datum/reagent/rotatium)
 		var/datum/reagents/R = new/datum/reagents(50)
 		R.my_atom = vent
 		R.add_reagent(pick(gunk), 50)

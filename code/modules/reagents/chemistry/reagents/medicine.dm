@@ -1,6 +1,5 @@
 /datum/reagent/medicine
 	name = "Medicine"
-	id = "medicine"
 	taste_description = "bitterness"
 	harmless = TRUE
 
@@ -15,7 +14,6 @@
 
 /datum/reagent/medicine/hydrocodone
 	name = "Hydrocodone"
-	id = "hydrocodone"
 	description = "An extremely effective painkiller; may have long term abuse consequences."
 	reagent_state = LIQUID
 	color = "#C805DC"
@@ -25,7 +23,6 @@
 
 /datum/reagent/medicine/sterilizine
 	name = "Sterilizine"
-	id = "sterilizine"
 	description = "Sterilizes wounds in preparation for surgery."
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
@@ -44,7 +41,6 @@
 
 /datum/reagent/medicine/synaptizine
 	name = "Synaptizine"
-	id = "synaptizine"
 	description = "Synaptizine is used to treat neuroleptic shock. Can be used to help remove disabling symptoms such as paralysis."
 	reagent_state = LIQUID
 	color = "#FA46FA"
@@ -89,7 +85,6 @@
 
 /datum/reagent/medicine/mitocholide
 	name = "Mitocholide"
-	id = "mitocholide"
 	description = "A specialized drug that stimulates the mitochondria of cells to encourage healing of internal organs."
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
@@ -112,7 +107,6 @@
 
 /datum/reagent/medicine/cryoxadone
 	name = "Cryoxadone"
-	id = "cryoxadone"
 	description = "A plasma mixture with almost magical healing powers. Its main limitation is that the targets body temperature must be under 265K for it to metabolise correctly."
 	reagent_state = LIQUID
 	color = "#0000C8" // rgb: 200, 165, 220
@@ -143,7 +137,6 @@
 
 /datum/reagent/medicine/rezadone
 	name = "Rezadone"
-	id = "rezadone"
 	description = "A powder derived from fish toxin, Rezadone can effectively treat genetic damage as well as restoring minor wounds. Overdose will cause intense nausea and minor toxin damage."
 	reagent_state = SOLID
 	color = "#669900" // rgb: 102, 153, 0
@@ -173,7 +166,6 @@
 
 /datum/reagent/medicine/spaceacillin
 	name = "Spaceacillin"
-	id = "spaceacillin"
 	description = "An all-purpose antibiotic agent extracted from space fungus."
 	reagent_state = LIQUID
 	color = "#0AB478"
@@ -205,7 +197,6 @@
 
 /datum/reagent/medicine/silver_sulfadiazine
 	name = "Silver Sulfadiazine"
-	id = "silver_sulfadiazine"
 	description = "This antibacterial compound is used to treat burn victims."
 	reagent_state = LIQUID
 	color = "#F0DC00"
@@ -232,7 +223,6 @@
 
 /datum/reagent/medicine/styptic_powder
 	name = "Styptic Powder"
-	id = "styptic_powder"
 	description = "Styptic (aluminum sulfate) powder helps control bleeding and heal physical wounds."
 	reagent_state = LIQUID
 	color = "#FF9696"
@@ -260,7 +250,6 @@
 
 /datum/reagent/medicine/salglu_solution
 	name = "Saline-Glucose Solution"
-	id = "salglu_solution"
 	description = "This saline and glucose solution can help stabilize critically injured patients and cleanse wounds."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
@@ -282,7 +271,6 @@
 
 /datum/reagent/medicine/synthflesh
 	name = "Synthflesh"
-	id = "synthflesh"
 	description = "A resorbable microfibrillar collagen and protein mixture that can rapidly heal injuries when applied topically."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
@@ -297,7 +285,7 @@
 				to_chat(M, "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>")
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
-				if(HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() < UNHUSK_DAMAGE_THRESHOLD && (H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT))
+				if(HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() < UNHUSK_DAMAGE_THRESHOLD && (H.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh) + volume >= SYNTHFLESH_UNHUSK_AMOUNT))
 					H.cure_husk(BURN)
 					H.visible_message("<span class='nicegreen'>The squishy liquid coats [H]'s burns. [H] looks a lot healthier!") //we're avoiding using the phrases "burnt flesh" and "burnt skin" here because humans could be a skeleton or a golem or something
 	..()
@@ -309,7 +297,6 @@
 
 /datum/reagent/medicine/charcoal
 	name = "Charcoal"
-	id = "charcoal"
 	description = "Activated charcoal helps to absorb toxins."
 	reagent_state = LIQUID
 	color = "#000000"
@@ -326,7 +313,6 @@
 
 /datum/reagent/medicine/omnizine
 	name = "Omnizine"
-	id = "omnizine"
 	description = "Omnizine is a highly potent healing medication that can be used to treat a wide range of injuries."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
@@ -387,7 +373,6 @@
 
 /datum/reagent/medicine/calomel
 	name = "Calomel"
-	id = "calomel"
 	description = "This potent purgative rids the body of impurities. It is highly toxic however and close supervision is required."
 	reagent_state = LIQUID
 	color = "#22AB35"
@@ -408,7 +393,6 @@
 
 /datum/reagent/medicine/potass_iodide
 	name = "Potassium Iodide"
-	id = "potass_iodide"
 	description = "Potassium Iodide is a medicinal drug used to counter the effects of radiation poisoning."
 	reagent_state = LIQUID
 	color = "#B4DCBE"
@@ -421,7 +405,6 @@
 
 /datum/reagent/medicine/pen_acid
 	name = "Pentetic Acid"
-	id = "pen_acid"
 	description = "Pentetic Acid is an aggressive chelation agent. May cause tissue damage. Use with caution."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
@@ -443,7 +426,6 @@
 
 /datum/reagent/medicine/sal_acid
 	name = "Salicylic Acid"
-	id = "sal_acid"
 	description = "This is a is a standard salicylate pain reliever and fever reducer."
 	reagent_state = LIQUID
 	color = "#B54848"
@@ -463,7 +445,6 @@
 
 /datum/reagent/medicine/menthol
 	name = "Menthol"
-	id = "menthol"
 	description = "Menthol relieves burns and aches while providing a cooling sensation."
 	reagent_state = LIQUID
 	color = "#F0F9CA"
@@ -480,7 +461,6 @@
 
 /datum/reagent/medicine/salbutamol
 	name = "Salbutamol"
-	id = "salbutamol"
 	description = "Salbutamol is a common bronchodilation medication for asthmatics. It may help with other breathing problems as well."
 	reagent_state = LIQUID
 	color = "#00FFFF"
@@ -495,7 +475,6 @@
 
 /datum/reagent/medicine/perfluorodecalin
 	name = "Perfluorodecalin"
-	id = "perfluorodecalin"
 	description = "This experimental perfluoronated solvent has applications in liquid breathing and tissue oxygenation. Use with caution."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
@@ -518,7 +497,6 @@
 
 /datum/reagent/medicine/ephedrine
 	name = "Ephedrine"
-	id = "ephedrine"
 	description = "Ephedrine is a plant-derived stimulant."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
@@ -572,7 +550,6 @@
 
 /datum/reagent/medicine/diphenhydramine
 	name = "Diphenhydramine"
-	id = "diphenhydramine"
 	description = "Anti-allergy medication. May cause drowsiness, do not operate heavy machinery while using this."
 	reagent_state = LIQUID
 	color = "#5BCBE1"
@@ -583,8 +560,8 @@
 
 /datum/reagent/medicine/diphenhydramine/on_mob_life(mob/living/M)
 	M.AdjustJitter(-20)
-	M.reagents.remove_reagent("histamine",3)
-	M.reagents.remove_reagent("itching_powder",3)
+	M.reagents.remove_reagent(/datum/reagent/histamine, 3)
+	M.reagents.remove_reagent(/datum/reagent/itching_powder, 3)
 	if(prob(7))
 		M.emote("yawn")
 	if(prob(3))
@@ -595,7 +572,6 @@
 
 /datum/reagent/medicine/morphine
 	name = "Morphine"
-	id = "morphine"
 	description = "A strong but highly addictive opiate painkiller with sedative side effects."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
@@ -622,7 +598,6 @@
 
 /datum/reagent/medicine/oculine
 	name = "Oculine"
-	id = "oculine"
 	description = "Oculine is a saline eye medication with mydriatic and antibiotic effects."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
@@ -652,7 +627,6 @@
 
 /datum/reagent/medicine/atropine
 	name = "Atropine"
-	id = "atropine"
 	description = "Atropine is a potent cardiac resuscitant but it can causes confusion, dizzyness and hyperthermia."
 	reagent_state = LIQUID
 	color = "#000000"
@@ -676,12 +650,11 @@
 		update_flags |= M.adjustFireLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	else if(M.health > -60)
 		update_flags |= M.adjustToxLoss(1, FALSE)
-	M.reagents.remove_reagent("sarin", 20)
+	M.reagents.remove_reagent(/datum/reagent/sarin, 20)
 	return ..() | update_flags
 
 /datum/reagent/medicine/epinephrine
 	name = "Epinephrine"
-	id = "epinephrine"
 	description = "Epinephrine is a potent neurotransmitter, used in medical emergencies to halt anaphylactic shock and prevent cardiac arrest."
 	reagent_state = LIQUID
 	color = "#96B1AE"
@@ -703,7 +676,7 @@
 		update_flags |= M.SetSleeping(0, FALSE)
 	if(prob(5))
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
-	holder.remove_reagent("histamine", 15)
+	holder.remove_reagent(/datum/reagent/histamine, 15)
 	M.AdjustLoseBreath(-1, bound_lower = 3)
 	if(M.getOxyLoss() > 35)
 		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -739,7 +712,6 @@
 
 /datum/reagent/medicine/strange_reagent
 	name = "Strange Reagent"
-	id = "strange_reagent"
 	description = "A glowing green fluid highly reminiscent of nuclear waste."
 	reagent_state = LIQUID
 	color = "#A0E85E"
@@ -807,7 +779,6 @@
 
 /datum/reagent/medicine/mannitol
 	name = "Mannitol"
-	id = "mannitol"
 	description = "Mannitol is a sugar alcohol that can help alleviate cranial swelling."
 	color = "#D1D1F1"
 	taste_description = "sweetness"
@@ -819,7 +790,6 @@
 
 /datum/reagent/medicine/mutadone
 	name = "Mutadone"
-	id = "mutadone"
 	description = "Mutadone is an experimental bromide that can cure genetic abnomalities."
 	color = "#5096C8"
 	taste_description = "cleanliness"
@@ -848,7 +818,6 @@
 
 /datum/reagent/medicine/antihol
 	name = "Antihol"
-	id = "antihol"
 	description = "A medicine which quickly eliminates alcohol in the body."
 	color = "#009CA8"
 	taste_description = "sobriety"
@@ -864,7 +833,6 @@
 
 /datum/reagent/medicine/stimulants
 	name = "Stimulants"
-	id = "stimulants"
 	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
 	color = "#C8A5DC"
 	harmless = FALSE
@@ -901,7 +869,6 @@
 
 /datum/reagent/medicine/stimulative_agent
 	name = "Stimulative Agent"
-	id = "stimulative_agent"
 	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and be less effective for healing stamina."
 	color = "#C8A5DC"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
@@ -937,19 +904,17 @@
 
 /datum/reagent/medicine/insulin
 	name = "Insulin"
-	id = "insulin"
 	description = "A hormone generated by the pancreas responsible for metabolizing carbohydrates and fat in the bloodstream."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	taste_description = "tiredness"
 
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
-	M.reagents.remove_reagent("sugar", 5)
+	M.reagents.remove_reagent(/datum/reagent/consumable/sugar, 5)
 	return ..()
 
 /datum/reagent/heparin
 	name = "Heparin"
-	id = "heparin"
 	description = "An anticoagulant used in heart surgeries, and in the treatment of heart attacks and blood clots."
 	reagent_state = LIQUID
 	color = "#eee6da"
@@ -957,7 +922,7 @@
 	taste_description = "bitterness"
 
 /datum/reagent/heparin/on_mob_life(mob/living/M)
-	M.reagents.remove_reagent("cholesterol", 2)
+	M.reagents.remove_reagent(/datum/reagent/cholesterol, 2)
 	return ..()
 
 /datum/reagent/heparin/overdose_process(mob/living/carbon/M, severity)
@@ -986,7 +951,6 @@
 
 /datum/reagent/medicine/teporone
 	name = "Teporone"
-	id = "teporone"
 	description = "This experimental plasma-based compound seems to regulate body temperature."
 	reagent_state = LIQUID
 	color = "#D782E6"
@@ -1005,12 +969,11 @@
 
 /datum/reagent/medicine/haloperidol
 	name = "Haloperidol"
-	id = "haloperidol"
 	description = "Haloperidol is a powerful antipsychotic and sedative. Will help control psychiatric problems, but may cause brain damage."
 	reagent_state = LIQUID
 	color = "#FFDCFF"
 	taste_description = "stability"
-	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc")
+	var/list/drug_list = list(/datum/reagent/crank, /datum/reagent/methamphetamine, /datum/reagent/space_drugs, /datum/reagent/medicine/synaptizine, /datum/reagent/psilocybin, /datum/reagent/medicine/ephedrine, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/stimulants, /datum/reagent/medicine/stimulative_agent, /datum/reagent/bath_salts, /datum/reagent/lsd, /datum/reagent/thc)
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1031,7 +994,6 @@
 
 /datum/reagent/medicine/ether
 	name = "Ether"
-	id = "ether"
 	description = "A strong anesthetic and sedative."
 	reagent_state = LIQUID
 	color = "#96DEDE"
@@ -1055,7 +1017,6 @@
 
 /datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs
 	name = "Restorative Nanites"
-	id = "syndicate_nanites"
 	description = "Miniature medical robots that swiftly restore bodily damage. May begin to attack their host's cells in high amounts."
 	reagent_state = SOLID
 	color = "#555555"
@@ -1074,7 +1035,6 @@
 
 /datum/reagent/medicine/omnizine_diluted
 	name = "Diluted Omnizine"
-	id = "weak_omnizine"
 	description = "Slowly heals all damage types. A far weaker substitute than actual omnizine."
 	reagent_state = LIQUID
 	color = "#DCDCDC"
@@ -1085,7 +1045,6 @@
 
 /datum/reagent/medicine/omnizine_diluted/godblood
 	name = "Godblood"
-	id = "godblood"
 	description = "Slowly heals all damage types. Has a rather high overdose threshold. Glows with mysterious power."
 	overdose_threshold = 150
 
@@ -1112,7 +1071,6 @@
 //Degreaser: Mild Purgative / Lube Remover
 /datum/reagent/medicine/degreaser
 	name = "Degreaser"
-	id = "degreaser"
 	description = "An industrial degreaser which can be used to clean residual build-up from machinery and surfaces."
 	reagent_state = LIQUID
 	color = "#CC7A00"
@@ -1128,13 +1086,13 @@
 		M.AdjustConfused(-5)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			if(R.id == "ultralube" || R.id == "lube")
+			if(R.id == /datum/reagent/lube/ultra || R.id == /datum/reagent/lube)
 				//Flushes lube and ultra-lube even faster than other chems
 				M.reagents.remove_reagent(R.id, 5)
 			else
 				M.reagents.remove_reagent(R.id,1)
 	return ..() | update_flags
-
+#error fix
 /datum/reagent/medicine/degreaser/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
 		if(T.wet)
@@ -1143,7 +1101,6 @@
 //Liquid Solder: Mannitol
 /datum/reagent/medicine/liquid_solder
 	name = "Liquid Solder"
-	id = "liquid_solder"
 	description = "A solution formulated to clean and repair damaged connections in posibrains while in use."
 	reagent_state = LIQUID
 	color = "#D7B395"
@@ -1160,7 +1117,6 @@
 //Trek-Chems. DO NOT USE THES OUTSIDE OF BOTANY OR FOR VERY SPECIFIC PURPOSES. NEVER GIVE A RECIPE UNDER ANY CIRCUMSTANCES//
 /datum/reagent/medicine/bicaridine
 	name = "Bicaridine"
-	id = "bicaridine"
 	description = "Restores bruising. Overdose causes it instead."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
@@ -1180,7 +1136,6 @@
 
 /datum/reagent/medicine/kelotane
 	name = "Kelotane"
-	id = "kelotane"
 	description = "Restores fire damage. Overdose causes it instead."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
@@ -1201,7 +1156,6 @@
 
 /datum/reagent/medicine/earthsblood //Created by ambrosia gaia plants
 	name = "Earthsblood"
-	id = "earthsblood"
 	description = "Ichor from an extremely powerful plant. Great for restoring wounds, but it's a little heavy on the brain."
 	color = "#FFAF00"
 	overdose_threshold = 25
@@ -1229,7 +1183,6 @@
 
 /datum/reagent/medicine/corazone
 	name = "Corazone"
-	id = "corazone"
 	description = "A medication used to treat pain, fever, and inflammation, along with heart attacks."
 	color = "#F5F5F5"
 	taste_description = "a brief respite"
@@ -1238,14 +1191,13 @@
 
 /datum/reagent/medicine/nanocalcium
 	name = "Nano-Calcium"
-	id = "nanocalcium"
 	description = "Highly advanced nanites equipped with calcium payloads designed to repair bones. Nanomachines son."
 	color = "#9b3401"
 	metabolization_rate = 0.5
 	can_synth = FALSE
 	harmless = FALSE
 	taste_description = "wholeness"
-	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants")
+	var/list/stimulant_list = list(/datum/reagent/methamphetamine, /datum/reagent/crank, /datum/reagent/bath_salts, /datum/reagent/medicine/stimulative_agent, /datum/reagent/medicine/stimulants)
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1285,7 +1237,6 @@
 
 /datum/reagent/medicine/lavaland_extract
 	name = "Lavaland Extract"
-	id = "lavaland_extract"
 	description = "An extract of lavaland atmospheric and mineral elements. Heals the user in small doses, but is extremely toxic otherwise."
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	overdose_threshold = 3 //To prevent people stacking massive amounts of a very strong healing reagent

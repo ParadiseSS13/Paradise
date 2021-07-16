@@ -79,7 +79,7 @@ do {\
 	var/fullycustom = 0
 	trash = /obj/item/trash/plate
 	var/list/ingredients = list()
-	list_reagents = list("nutriment" = 8)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8)
 
 /obj/item/reagent_containers/food/snacks/customizable/Initialize(mapload)
 	. = ..()

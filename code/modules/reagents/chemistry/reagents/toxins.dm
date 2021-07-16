@@ -1,6 +1,5 @@
 /datum/reagent/toxin
 	name = "Toxin"
-	id = "toxin"
 	description = "A Toxic chemical."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
@@ -14,7 +13,6 @@
 
 /datum/reagent/spider_venom
 	name = "Spider venom"
-	id = "spidertoxin"
 	description = "A toxic venom injected by spacefaring arachnids."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
@@ -27,7 +25,6 @@
 
 /datum/reagent/minttoxin
 	name = "Mint Toxin"
-	id = "minttoxin"
 	description = "Useful for dealing with undesirable customers."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
@@ -40,7 +37,7 @@
 
 /datum/reagent/slimejelly
 	name = "Slime Jelly"
-	id = "slimejelly"
+	id = /datum/reagent/slimejelly
 	description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
 	reagent_state = LIQUID
 	color = "#0b8f70" // rgb: 11, 143, 112
@@ -70,7 +67,6 @@
 
 /datum/reagent/slimetoxin
 	name = "Mutation Toxin"
-	id = "mutationtoxin"
 	description = "A corruptive toxin produced by slimes."
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
@@ -90,7 +86,6 @@
 
 /datum/reagent/aslimetoxin
 	name = "Advanced Mutation Toxin"
-	id = "amutationtoxin"
 	description = "An advanced corruptive toxin produced by slimes."
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
@@ -104,7 +99,6 @@
 
 /datum/reagent/mercury
 	name = "Mercury"
-	id = "mercury"
 	description = "A chemical element."
 	reagent_state = LIQUID
 	color = "#484848" // rgb: 72, 72, 72
@@ -120,7 +114,6 @@
 
 /datum/reagent/chlorine
 	name = "Chlorine"
-	id = "chlorine"
 	description = "A chemical element."
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
@@ -135,7 +128,6 @@
 
 /datum/reagent/fluorine
 	name = "Fluorine"
-	id = "fluorine"
 	description = "A highly-reactive chemical element."
 	reagent_state = GAS
 	color = "#6A6054"
@@ -151,7 +143,6 @@
 
 /datum/reagent/radium
 	name = "Radium"
-	id = "radium"
 	description = "Radium is an alkaline earth metal. It is extremely radioactive."
 	reagent_state = SOLID
 	color = "#C7C7C7" // rgb: 199,199,199
@@ -169,7 +160,6 @@
 
 /datum/reagent/mutagen
 	name = "Unstable mutagen"
-	id = "mutagen"
 	description = "Might cause unpredictable mutations. Keep away from children."
 	reagent_state = LIQUID
 	color = "#04DF27"
@@ -198,8 +188,7 @@
 
 /datum/reagent/stable_mutagen
 	name = "Stable mutagen"
-	id = "stable_mutagen"
-	description = "Just the regular, boring sort of mutagenic compound.  Works in a completely predictable manner."
+	description = "Just the regular, boring sort of mutagenic compound. Works in a completely predictable manner."
 	reagent_state = LIQUID
 	color = "#7DFF00"
 	taste_description = "slime"
@@ -233,8 +222,7 @@
 			data = B.data.Copy()
 
 /datum/reagent/uranium
-	name ="Uranium"
-	id = "uranium"
+	name = "Uranium"
 	description = "A silvery-white metallic chemical element in the actinide series, weakly radioactive."
 	reagent_state = SOLID
 	color = "#B8B8C0" // rgb: 184, 184, 192
@@ -252,7 +240,6 @@
 
 /datum/reagent/lexorin
 	name = "Lexorin"
-	id = "lexorin"
 	description = "Lexorin temporarily stops respiration. Causes tissue damage."
 	reagent_state = LIQUID
 	color = "#52685D"
@@ -267,7 +254,6 @@
 
 /datum/reagent/acid
 	name = "Sulphuric acid"
-	id = "sacid"
 	description = "A strong mineral acid with the molecular formula H2SO4."
 	reagent_state = LIQUID
 	color = "#00FF32"
@@ -323,7 +309,6 @@
 
 /datum/reagent/acid/facid
 	name = "Fluorosulfuric Acid"
-	id = "facid"
 	description = "Fluorosulfuric acid is a an extremely corrosive super-acid."
 	color = "#5050FF"
 	acidpwr = 42
@@ -368,7 +353,6 @@
 
 /datum/reagent/acetic_acid
 	name = "acetic acid"
-	id = "acetic_acid"
 	description = "A weak acid that is the main component of vinegar and bad hangovers."
 	color = "#0080ff"
 	reagent_state = LIQUID
@@ -398,7 +382,6 @@
 
 /datum/reagent/carpotoxin
 	name = "Carpotoxin"
-	id = "carpotoxin"
 	description = "A deadly neurotoxin produced by the dreaded spess carp."
 	reagent_state = LIQUID
 	color = "#003333" // rgb: 0, 51, 51
@@ -411,7 +394,6 @@
 
 /datum/reagent/staminatoxin
 	name = "Tirizene"
-	id = "tirizene"
 	description = "A toxin that affects the stamina of a person when injected into the bloodstream."
 	reagent_state = LIQUID
 	color = "#6E2828"
@@ -427,7 +409,6 @@
 
 /datum/reagent/spore
 	name = "Spore Toxin"
-	id = "spore"
 	description = "A natural toxin produced by blob spores that inhibits vision when ingested."
 	color = "#9ACD32"
 	taste_description = "bitterness"
@@ -441,7 +422,6 @@
 
 /datum/reagent/beer2	//disguised as normal beer for use by emagged service borgs
 	name = "Beer"
-	id = "beer2"
 	description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
 	color = "#664300" // rgb: 102, 67, 0
 	metabolization_rate = 0.1 * REAGENTS_METABOLISM
@@ -463,7 +443,6 @@
 
 /datum/reagent/polonium
 	name = "Polonium"
-	id = "polonium"
 	description = "Cause significant Radiation damage over time."
 	reagent_state = LIQUID
 	color = "#CF3600"
@@ -478,7 +457,6 @@
 
 /datum/reagent/histamine
 	name = "Histamine"
-	id = "histamine"
 	description = "Immune-system neurotransmitter. If detected in blood, the subject is likely undergoing an allergic reaction."
 	reagent_state = LIQUID
 	color = "#E7C4C4"
@@ -489,7 +467,7 @@
 /datum/reagent/histamine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //dumping histamine on someone is VERY mean.
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH)
-			M.reagents.add_reagent("histamine",10)
+			M.reagents.add_reagent(/datum/reagent/histamine, 10)
 		else
 			to_chat(M, "<span class='danger'>You feel a burning sensation in your throat...</span>")
 			M.emote("drool")
@@ -556,7 +534,6 @@
 
 /datum/reagent/formaldehyde
 	name = "Formaldehyde"
-	id = "formaldehyde"
 	description = "Formaldehyde is a common industrial chemical and is used to preserve corpses and medical samples. It is highly toxic and irritating."
 	reagent_state = LIQUID
 	color = "#B44B00"
@@ -567,12 +544,11 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(10))
-		M.reagents.add_reagent("histamine",rand(5,15))
+		M.reagents.add_reagent(/datum/reagent/histamine, rand(5, 15))
 	return ..() | update_flags
 
 /datum/reagent/acetaldehyde
 	name = "Acetaldehyde"
-	id = "acetaldehyde"
 	description = "Acetaldehyde is a common industrial chemical. It is a severe irritant."
 	reagent_state = LIQUID
 	color = "#B44B00"
@@ -586,7 +562,6 @@
 
 /datum/reagent/venom
 	name = "Venom"
-	id = "venom"
 	description = "An incredibly potent poison. Origin unknown."
 	reagent_state = LIQUID
 	color = "#CF3600"
@@ -598,7 +573,7 @@
 /datum/reagent/venom/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(25))
-		M.reagents.add_reagent("histamine",rand(5,10))
+		M.reagents.add_reagent(/datum/reagent/histamine, rand(5, 10))
 	if(volume < 20)
 		update_flags |= M.adjustToxLoss(1, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
@@ -614,7 +589,6 @@
 
 /datum/reagent/neurotoxin2
 	name = "Neurotoxin"
-	id = "neurotoxin2"
 	description = "A dangerous toxin that attacks the nervous system."
 	reagent_state = LIQUID
 	color = "#60A584"
@@ -653,7 +627,6 @@
 
 /datum/reagent/cyanide
 	name = "Cyanide"
-	id = "cyanide"
 	description = "A highly toxic chemical with some uses as a building block for other things."
 	reagent_state = LIQUID
 	color = "#CF3600"
@@ -678,7 +651,6 @@
 
 /datum/reagent/itching_powder
 	name = "Itching Powder"
-	id = "itching_powder"
 	description = "An abrasive powder beloved by cruel pranksters."
 	reagent_state = LIQUID
 	color = "#B0B0B0"
@@ -702,7 +674,7 @@
 		to_chat(M, "<span class='danger'>So itchy!</span>")
 		update_flags |= M.adjustBruteLoss(2, FALSE)
 	if(prob(6))
-		M.reagents.add_reagent("histamine", rand(1,3))
+		M.reagents.add_reagent(/datum/reagent/histamine, rand(1, 3))
 	if(prob(2))
 		to_chat(M, "<span class='danger'>AHHHHHH!</span>")
 		update_flags |= M.adjustBruteLoss(5, FALSE)
@@ -714,7 +686,6 @@
 
 /datum/reagent/initropidril
 	name = "Initropidril"
-	id = "initropidril"
 	description = "A highly potent cardiac poison - can kill within minutes."
 	reagent_state = LIQUID
 	color = "#7F10C0"
@@ -746,7 +717,6 @@
 
 /datum/reagent/pancuronium
 	name = "Pancuronium"
-	id = "pancuronium"
 	description = "Pancuronium bromide is a powerful skeletal muscle relaxant."
 	reagent_state = LIQUID
 	color = "#1E4664"
@@ -780,7 +750,6 @@
 
 /datum/reagent/sodium_thiopental
 	name = "Sodium Thiopental"
-	id = "sodium_thiopental"
 	description = "An rapidly-acting barbituate tranquilizer."
 	reagent_state = LIQUID
 	color = "#5F8BE1"
@@ -809,7 +778,6 @@
 
 /datum/reagent/ketamine
 	name = "Ketamine"
-	id = "ketamine"
 	description = "A potent veterinary tranquilizer."
 	reagent_state = LIQUID
 	color = "#646EA0"
@@ -837,7 +805,6 @@
 
 /datum/reagent/sulfonal
 	name = "Sulfonal"
-	id = "sulfonal"
 	description = "Deals some toxin damage, and puts you to sleep after 66 seconds."
 	reagent_state = LIQUID
 	color = "#6BA688"
@@ -865,7 +832,6 @@
 
 /datum/reagent/amanitin
 	name = "Amanitin"
-	id = "amanitin"
 	description = "A toxin produced by certain mushrooms. Very deadly."
 	reagent_state = LIQUID
 	color = "#D9D9D9"
@@ -877,7 +843,6 @@
 
 /datum/reagent/lipolicide
 	name = "Lipolicide"
-	id = "lipolicide"
 	description = "A compound found in many seedy dollar stores in the form of a weight-loss tonic."
 	reagent_state = SOLID
 	color = "#D1DED1"
@@ -902,7 +867,6 @@
 
 /datum/reagent/coniine
 	name = "Coniine"
-	id = "coniine"
 	description = "A neurotoxin that rapidly causes respiratory failure."
 	reagent_state = LIQUID
 	color = "#C2D8CD"
@@ -918,7 +882,6 @@
 
 /datum/reagent/curare
 	name = "Curare"
-	id = "curare"
 	description = "A highly dangerous paralytic poison."
 	reagent_state = LIQUID
 	color = "#191919"
@@ -954,7 +917,6 @@
 
 /datum/reagent/sarin
 	name = "Sarin"
-	id = "sarin"
 	description = "An extremely deadly neurotoxin."
 	reagent_state = LIQUID
 	color = "#C7C7C7"
@@ -1012,7 +974,6 @@
 
 /datum/reagent/glyphosate
 	name = "Glyphosate"
-	id = "glyphosate"
 	description = "A broad-spectrum herbicide that is highly effective at killing all plants."
 	reagent_state = LIQUID
 	color = "#d3cf50"
@@ -1057,7 +1018,6 @@
 
 /datum/reagent/glyphosate/atrazine
 	name = "Atrazine"
-	id = "atrazine"
 	description = "A herbicidal compound used for destroying unwanted plants."
 	reagent_state = LIQUID
 	color = "#773E73" //RGB: 47 24 45
@@ -1066,7 +1026,6 @@
 
 /datum/reagent/pestkiller // To-Do; make this more realistic.
 	name = "Pest Killer"
-	id = "pestkiller"
 	description = "A harmful toxic mixture to kill pests. Do not ingest!"
 	color = "#4B004B" // rgb: 75, 0, 75
 	taste_description = "bitterness"
@@ -1095,7 +1054,6 @@
 
 /datum/reagent/capulettium
 	name = "Capulettium"
-	id = "capulettium"
 	description = "A rare drug that causes the user to appear dead for some time."
 	reagent_state = LIQUID
 	color = "#60A584"
@@ -1126,7 +1084,6 @@
 
 /datum/reagent/capulettium_plus
 	name = "Capulettium Plus"
-	id = "capulettium_plus"
 	description = "A rare and expensive drug that will silence the user and let him appear dead as long as it's in the body. Rest to play dead, stand up to wake up."
 	reagent_state = LIQUID
 	color = "#60A584"
@@ -1148,7 +1105,6 @@
 
 /datum/reagent/toxic_slurry
 	name = "Toxic Slurry"
-	id = "toxic_slurry"
 	description = "A filthy, carcinogenic sludge produced by the Slurrypod plant."
 	reagent_state = LIQUID
 	color = "#00C81E"
@@ -1167,7 +1123,6 @@
 
 /datum/reagent/glowing_slurry
 	name = "Glowing Slurry"
-	id = "glowing_slurry"
 	description = "This is probably not good for you."
 	reagent_state = LIQUID
 	color = "#00FD00"
@@ -1201,7 +1156,6 @@
 
 /datum/reagent/ants
 	name = "Ants"
-	id = "ants"
 	description = "A sample of a lost breed of Space Ants (formicidae bastardium tyrannus), they are well-known for ravaging the living shit out of pretty much anything."
 	reagent_state = SOLID
 	color = "#993333"
@@ -1222,7 +1176,6 @@
 
 /datum/reagent/teslium //Teslium. Causes periodic shocks, and makes shocks against the target much more effective.
 	name = "Teslium"
-	id = "teslium"
 	description = "An unstable, electrically-charged metallic slurry. Increases the conductance of living things."
 	reagent_state = LIQUID
 	color = "#20324D" //RGB: 32, 50, 77
@@ -1265,7 +1218,6 @@
 		chosen_timer = rand(shock_low, shock_high) //It needs to be randomised here for blob teslium, and randoming it here doesn't affect normal
 
 /datum/reagent/teslium/blob //This version has it's shocks much less frequently, while retaining the shock multiplier
-	id = "blob_teslium"
 	shock_low = 10
 	use_chaotic_random = FALSE
 
@@ -1275,7 +1227,6 @@
 
 /datum/reagent/gluttonytoxin
 	name = "Gluttony's Blessing"
-	id = "gluttonytoxin"
 	description = "An advanced corruptive toxin produced by something terrible."
 	reagent_state = LIQUID
 	color = "#5EFF3B" //RGB: 94, 255, 59

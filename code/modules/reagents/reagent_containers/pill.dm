@@ -45,100 +45,100 @@
 	name = "\improper Toxin pill"
 	desc = "Highly toxic."
 	icon_state = "pill21"
-	list_reagents = list("toxin" = 50)
+	list_reagents = list(/datum/reagent/toxin = 50)
 
 /obj/item/reagent_containers/food/pill/initropidril
 	name = "\improper Initropidril pill"
 	desc = "Don't swallow this."
 	icon_state = "pill21"
-	list_reagents = list("initropidril" = 50)
+	list_reagents = list(/datum/reagent/initropidril = 50)
 
 /obj/item/reagent_containers/food/pill/fakedeath
 	name = "fake death pill"
 	desc = "Swallow then rest to appear dead, stand up to wake up. Also mutes the user's voice."
 	icon_state = "pill4"
-	list_reagents = list("capulettium_plus" = 50)
+	list_reagents = list(/datum/reagent/capulettium_plus = 50)
 
 /obj/item/reagent_containers/food/pill/adminordrazine
 	name = "\improper Adminordrazine pill"
 	desc = "It's magic. We don't have to explain it."
 	icon_state = "pill16"
-	list_reagents = list("adminordrazine" = 50)
+	list_reagents = list(/datum/reagent/medicine/adminordrazine = 50)
 
 /obj/item/reagent_containers/food/pill/morphine
 	name = "\improper Morphine pill"
 	desc = "Commonly used to treat insomnia."
 	icon_state = "pill8"
-	list_reagents = list("morphine" = 30)
+	list_reagents = list(/datum/reagent/medicine/morphine = 30)
 
 /obj/item/reagent_containers/food/pill/methamphetamine
 	name = "\improper Methamphetamine pill"
 	desc = "Helps improve the ability to concentrate."
 	icon_state = "pill8"
-	list_reagents = list("methamphetamine" = 5)
+	list_reagents = list(/datum/reagent/methamphetamine = 5)
 
 /obj/item/reagent_containers/food/pill/haloperidol
 	name = "\improper Haloperidol pill"
 	desc = "Haloperidol is an anti-psychotic used to treat psychiatric problems."
 	icon_state = "pill8"
-	list_reagents = list("haloperidol" = 15)
+	list_reagents = list(/datum/reagent/medicine/haloperidol = 15)
 
 /obj/item/reagent_containers/food/pill/happy
 	name = "happy pill"
 	desc = "Happy happy joy joy!"
 	icon_state = "pill18"
-	list_reagents = list("space_drugs" = 15, "sugar" = 15)
+	list_reagents = list(/datum/reagent/space_drugs = 15, /datum/reagent/consumable/sugar = 15)
 
 /obj/item/reagent_containers/food/pill/zoom
 	name = "zoom pill"
 	desc = "Zoooom!"
 	icon_state = "pill18"
-	list_reagents = list("synaptizine" = 5, "methamphetamine" = 5)
+	list_reagents = list(/datum/reagent/medicine/synaptizine = 5, /datum/reagent/methamphetamine = 5)
 
 /obj/item/reagent_containers/food/pill/charcoal
 	name = "\improper Charcoal pill"
 	desc = "Neutralizes many common toxins."
 	icon_state = "pill17"
-	list_reagents = list("charcoal" = 50)
+	list_reagents = list(/datum/reagent/medicine/charcoal = 50)
 
 /obj/item/reagent_containers/food/pill/epinephrine
 	name = "\improper Epinephrine pill"
 	desc = "Used to provide shots of adrenaline."
 	icon_state = "pill6"
-	list_reagents = list("epinephrine" = 50)
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 50)
 
 /obj/item/reagent_containers/food/pill/salicylic
 	name = "\improper Salicylic Acid pill"
 	desc = "Commonly used to treat moderate pain and fevers."
 	icon_state = "pill4"
-	list_reagents = list("sal_acid" = 20)
+	list_reagents = list(/datum/reagent/medicine/sal_acid = 20)
 
 /obj/item/reagent_containers/food/pill/salbutamol
 	name = "\improper Salbutamol pill"
 	desc = "Used to treat respiratory distress."
 	icon_state = "pill8"
-	list_reagents = list("salbutamol" = 20)
+	list_reagents = list(/datum/reagent/medicine/salbutamol = 20)
 
 /obj/item/reagent_containers/food/pill/hydrocodone
 	name = "\improper Hydrocodone pill"
 	desc = "Used to treat extreme pain."
 	icon_state = "pill6"
-	list_reagents = list("hydrocodone" = 15)
+	list_reagents = list(/datum/reagent/medicine/hydrocodone = 15)
 
 /obj/item/reagent_containers/food/pill/calomel
 	name = "\improper Calomel pill"
 	desc = "Can be used to purge impurities, but is highly toxic itself."
 	icon_state = "pill3"
-	list_reagents = list("calomel" = 15)
+	list_reagents = list(/datum/reagent/medicine/calomel = 15)
 
 /obj/item/reagent_containers/food/pill/mutadone
 	name = "\improper Mutadone pill"
 	desc = "Used to cure genetic abnormalities."
 	icon_state = "pill18"
-	list_reagents = list("mutadone" = 20)
+	list_reagents = list(/datum/reagent/medicine/mutadone = 20)
 
 /obj/item/reagent_containers/food/pill/mannitol
 	name = "\improper Mannitol pill"
 	desc = "Used to treat cranial swelling."
 	icon_state = "pill19"
-	list_reagents = list("mannitol" = 20)
+	list_reagents = list(/datum/reagent/medicine/mannitol = 20)

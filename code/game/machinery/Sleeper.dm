@@ -14,8 +14,8 @@
 	dir = WEST
 	var/orient = "LEFT" // "RIGHT" changes the dir suffix to "-r"
 	var/mob/living/carbon/human/occupant = null
-	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
-	var/emergency_chems = list("ephedrine") // Desnowflaking
+	var/possible_chems = list(/datum/reagent/medicine/ephedrine, /datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/charcoal)
+	var/emergency_chems = list(/datum/reagent/medicine/ephedrine) // Desnowflaking
 	var/amounts = list(5, 10)
 	/// Beaker loaded into the sleeper. Used for dialysis.
 	var/obj/item/reagent_containers/glass/beaker = null
@@ -566,8 +566,8 @@
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s-open"
 	base_icon = "sleeper_s"
-	possible_chems = list("epinephrine", "ether", "salbutamol", "styptic_powder", "silver_sulfadiazine")
-	emergency_chems = list("epinephrine")
+	possible_chems = list(/datum/reagent/medicine/epinephrine, /datum/reagent/medicine/ether, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/styptic_powder, /datum/reagent/medicine/silver_sulfadiazine)
+	emergency_chems = list(/datum/reagent/medicine/epinephrine)
 	controls_inside = TRUE
 
 	light_color = LIGHT_COLOR_DARKRED

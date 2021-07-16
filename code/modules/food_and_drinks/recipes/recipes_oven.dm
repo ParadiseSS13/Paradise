@@ -50,7 +50,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread
 
 /datum/recipe/oven/bananabread
-	reagents = list("milk" = 5, "sugar" = 15)
+	reagents = list(/datum/reagent/consumable/drink/milk = 5, /datum/reagent/consumable/sugar = 15)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
@@ -60,7 +60,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/bananabread
 
 /datum/recipe/oven/banarnarbread
-	reagents = list("milk" = 5, "sugar" = 5, "blood" = 5)
+	reagents = list(/datum/reagent/consumable/drink/milk = 5, /datum/reagent/consumable/sugar = 5, /datum/reagent/blood = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
@@ -70,14 +70,14 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/banarnarbread
 
 /datum/recipe/oven/muffin
-	reagents = list("milk" = 5, "sugar" = 5)
+	reagents = list(/datum/reagent/consumable/drink/milk = 5, /datum/reagent/consumable/sugar = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 	)
 	result = /obj/item/reagent_containers/food/snacks/muffin
 
 /datum/recipe/oven/carrotcake
-	reagents = list("milk" = 5, "sugar" = 15)
+	reagents = list(/datum/reagent/consumable/drink/milk = 5, /datum/reagent/consumable/sugar = 15)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
@@ -89,7 +89,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/carrotcake
 
 /datum/recipe/oven/cheesecake
-	reagents = list("milk" = 5, "sugar" = 15)
+	reagents = list(/datum/reagent/consumable/drink/milk = 5, /datum/reagent/consumable/sugar = 15)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
@@ -100,7 +100,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/cheesecake
 
 /datum/recipe/oven/plaincake
-	reagents = list("milk" = 5, "sugar" = 15)
+	reagents = list(/datum/reagent/consumable/drink/milk = 5, /datum/reagent/consumable/sugar = 15)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
@@ -130,7 +130,7 @@
 	result = /obj/item/reagent_containers/food/snacks/xemeatpie
 
 /datum/recipe/oven/pie
-	reagents = list("sugar" = 5)
+	reagents = list(/datum/reagent/consumable/sugar = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
 		/obj/item/reagent_containers/food/snacks/grown/banana
@@ -138,7 +138,7 @@
 	result = /obj/item/reagent_containers/food/snacks/pie
 
 /datum/recipe/oven/cherrypie
-	reagents = list("sugar" = 10)
+	reagents = list(/datum/reagent/consumable/sugar = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
 		/obj/item/reagent_containers/food/snacks/grown/cherries
@@ -197,7 +197,7 @@
 ////
 
 /datum/recipe/oven/fortunecookie
-	reagents = list("sugar" = 5)
+	reagents = list(/datum/reagent/consumable/sugar = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/doughslice,
 		/obj/item/paper,
@@ -308,7 +308,7 @@
 	result = /obj/item/reagent_containers/food/snacks/plump_pie
 
 /datum/recipe/oven/plumphelmetbiscuit
-	reagents = list("water" = 5, "flour" = 5)
+	reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/flour = 5)
 	items = list(/obj/item/reagent_containers/food/snacks/grown/mushroom/plumphelmet)
 	result = /obj/item/reagent_containers/food/snacks/plumphelmetbiscuit
 
@@ -322,7 +322,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/creamcheesebread
 
 /datum/recipe/oven/baguette
-	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	reagents = list(/datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/blackpepper = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
@@ -330,7 +330,7 @@
 	result = /obj/item/reagent_containers/food/snacks/baguette
 
 /datum/recipe/oven/birthdaycake
-	reagents = list("milk" = 5, "sugar" = 5)
+	reagents = list(/datum/reagent/consumable/drink/milk = 5, /datum/reagent/consumable/sugar = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
@@ -348,7 +348,7 @@
 
 /datum/recipe/oven/bread/make_food(obj/container)
 	var/obj/item/reagent_containers/food/snacks/sliceable/bread/being_cooked = ..()
-	being_cooked.reagents.del_reagent("egg")
+	being_cooked.reagents.del_reagent(/datum/reagent/consumable/egg)
 	return being_cooked
 
 /datum/recipe/oven/applepie
@@ -359,7 +359,7 @@
 	result = /obj/item/reagent_containers/food/snacks/applepie
 
 /datum/recipe/oven/applecake
-	reagents = list("milk" = 5, "sugar" = 5)
+	reagents = list(/datum/reagent/consumable/drink/milk = 5, /datum/reagent/consumable/sugar = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
@@ -370,7 +370,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/applecake
 
 /datum/recipe/oven/orangecake
-	reagents = list("milk" = 5)
+	reagents = list(/datum/reagent/consumable/drink/milk = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
@@ -381,7 +381,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/orangecake
 
 /datum/recipe/oven/bananacake
-	reagents = list("milk" = 5)
+	reagents = list(/datum/reagent/consumable/drink/milk = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
@@ -392,7 +392,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/bananacake
 
 /datum/recipe/oven/limecake
-	reagents = list("milk" = 5)
+	reagents = list(/datum/reagent/consumable/drink/milk = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
@@ -403,7 +403,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/limecake
 
 /datum/recipe/oven/lemoncake
-	reagents = list("milk" = 5)
+	reagents = list(/datum/reagent/consumable/drink/milk = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
@@ -414,7 +414,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/lemoncake
 
 /datum/recipe/oven/chocolatecake
-	reagents = list("milk" = 5)
+	reagents = list(/datum/reagent/consumable/drink/milk = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
@@ -425,7 +425,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/chocolatecake
 
 /datum/recipe/oven/braincake
-	reagents = list("milk" = 5)
+	reagents = list(/datum/reagent/consumable/drink/milk = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
@@ -435,7 +435,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/braincake
 
 /datum/recipe/oven/pumpkinpie
-	reagents = list("milk" = 5, "sugar" = 5)
+	reagents = list(/datum/reagent/consumable/drink/milk = 5, /datum/reagent/consumable/sugar = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
 		/obj/item/reagent_containers/food/snacks/grown/pumpkin
@@ -443,7 +443,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pumpkinpie
 
 /datum/recipe/oven/appletart
-	reagents = list("sugar" = 5, "milk" = 5, "flour" = 10)
+	reagents = list(/datum/reagent/consumable/sugar = 5, /datum/reagent/consumable/drink/milk = 5, /datum/reagent/consumable/flour = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/egg,
 		/obj/item/reagent_containers/food/snacks/grown/apple/gold
@@ -452,11 +452,11 @@
 
 /datum/recipe/oven/appletart/make_food(obj/container)
 	var/obj/item/reagent_containers/food/snacks/appletart/being_cooked = ..()
-	being_cooked.reagents.del_reagent("egg")
+	being_cooked.reagents.del_reagent(/datum/reagent/consumable/egg)
 	return being_cooked
 
 /datum/recipe/oven/cracker
-	reagents = list("sodiumchloride" = 1)
+	reagents = list(/datum/reagent/consumable/sodiumchloride = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/doughslice
 	)
@@ -464,7 +464,7 @@
 
 /datum/recipe/oven/sugarcookie/make_food(obj/container)
 	var/obj/item/reagent_containers/food/snacks/sugarcookie/being_cooked = ..()
-	being_cooked.reagents.del_reagent("egg")
+	being_cooked.reagents.del_reagent(/datum/reagent/consumable/egg)
 	return being_cooked
 
 /datum/recipe/oven/flatbread

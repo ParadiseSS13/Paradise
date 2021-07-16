@@ -2,7 +2,7 @@
 	name = "Explosion"
 	id = "explosion_potassium"
 	result = null
-	required_reagents = list("water" = 1, "potassium" = 1)
+	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/potassium = 1)
 	result_amount = 2
 	mix_message = "The mixture explodes!"
 
@@ -16,7 +16,7 @@
 	name = "EMP Pulse"
 	id = "emp_pulse"
 	result = null
-	required_reagents = list("uranium" = 1, "iron" = 1) // Yes, laugh, it's the best recipe I could think of that makes a little bit of sense
+	required_reagents = list(/datum/reagent/uranium = 1, /datum/reagent/iron = 1) // Yes, laugh, it's the best recipe I could think of that makes a little bit of sense
 	result_amount = 2
 
 /datum/chemical_reaction/emp_pulse/on_reaction(datum/reagents/holder, created_volume)
@@ -30,7 +30,7 @@
 	name = "Bee Explosion"
 	id = "beesplosion"
 	result = null
-	required_reagents = list("honey" = 1, "strange_reagent" = 1, "radium" = 1)
+	required_reagents = list(/datum/reagent/consumable/honey = 1, /datum/reagent/medicine/strange_reagent = 1, /datum/reagent/radium = 1)
 	result_amount = 1
 
 /datum/chemical_reaction/beesplosion/on_reaction(datum/reagents/holder, created_volume)
@@ -56,7 +56,7 @@
 /datum/chemical_reaction/nitroglycerin
 	name = "Nitroglycerin"
 	id = "nitroglycerin"
-	required_reagents = list("glycerol" = 1, "facid" = 1, "sacid" = 1)
+	required_reagents = list(/datum/reagent/glycerol = 1, /datum/reagent/acid/facid = 1, /datum/reagent/acid = 1)
 	result_amount = 2
 
 /datum/chemical_reaction/nitroglycerin/on_reaction(datum/reagents/holder, created_volume)
@@ -68,16 +68,16 @@
 /datum/chemical_reaction/stabilizing_agent
 	name = "stabilizing_agent"
 	id = "stabilizing_agent"
-	result = "stabilizing_agent"
-	required_reagents = list("iron" = 1, "oxygen" = 1, "hydrogen" = 1)
+	result = /datum/reagent/stabilizing_agent
+	required_reagents = list(/datum/reagent/iron = 1, /datum/reagent/oxygen = 1, /datum/reagent/hydrogen = 1)
 	result_amount = 2
 	mix_message = "The mixture becomes a yellow liquid!"
 
 /datum/chemical_reaction/clf3
 	name = "Chlorine Trifluoride"
 	id = "clf3"
-	result = "clf3"
-	required_reagents = list("chlorine" = 1, "fluorine" = 3)
+	result = /datum/reagent/clf3
+	required_reagents = list(/datum/reagent/chlorine = 1, /datum/reagent/fluorine = 3)
 	result_amount = 2
 	min_temp = T0C + 150
 
@@ -88,15 +88,15 @@
 /datum/chemical_reaction/sorium
 	name = "Sorium"
 	id = "sorium"
-	result = "sorium"
-	required_reagents = list("mercury" = 1, "carbon" = 1, "nitrogen" = 1, "oxygen" = 1, "stabilizing_agent" = 1)
+	result = /datum/reagent/sorium
+	required_reagents = list(/datum/reagent/mercury = 1, /datum/reagent/carbon = 1, /datum/reagent/nitrogen = 1, /datum/reagent/oxygen = 1, /datum/reagent/stabilizing_agent = 1)
 	result_amount = 4
 	mix_message = "The mixture pops and crackles before settling down."
 
 /datum/chemical_reaction/sorium_explosion
 	name = "Sorium Explosion"
 	id = "sorium_explosion"
-	required_reagents = list("mercury" = 1, "carbon" = 1, "nitrogen" = 1, "oxygen" = 1)
+	required_reagents = list(/datum/reagent/mercury = 1, /datum/reagent/carbon = 1, /datum/reagent/nitrogen = 1, /datum/reagent/oxygen = 1)
 	result_amount = 1
 	mix_message = "The mixture explodes with a big bang."
 
@@ -109,7 +109,7 @@
 /datum/chemical_reaction/sorium_explosion/sorium
 	name = "sorium_vortex"
 	id = "sorium_vortex"
-	required_reagents = list("sorium" = 1)
+	required_reagents = list(/datum/reagent/sorium = 1)
 	min_temp = T0C + 200
 	mix_sound = null
 	mix_message = null
@@ -117,15 +117,15 @@
 /datum/chemical_reaction/liquid_dark_matter
 	name = "Liquid Dark Matter"
 	id = "liquid_dark_matter"
-	result = "liquid_dark_matter"
-	required_reagents = list("plasma" = 1, "radium" = 1, "carbon" = 1, "stabilizing_agent" = 1)
+	result = /datum/reagent/liquid_dark_matter
+	required_reagents = list(/datum/reagent/plasma = 1, /datum/reagent/radium = 1, /datum/reagent/carbon = 1, /datum/reagent/stabilizing_agent = 1)
 	result_amount = 4
 	mix_message = "The mixture begins to glow in a dark purple."
 
 /datum/chemical_reaction/ldm_implosion
 	name = "Implosion"
 	id = "implosion"
-	required_reagents = list("plasma" = 1, "radium" = 1, "carbon" = 1)
+	required_reagents = list(/datum/reagent/plasma = 1, /datum/reagent/radium = 1, /datum/reagent/carbon = 1)
 	result_amount = 1
 	mix_message = "The mixture implodes suddenly."
 
@@ -138,7 +138,7 @@
 /datum/chemical_reaction/ldm_implosion/liquid_dark_matter
 	name = "LDM Vortex"
 	id = "ldm_vortex"
-	required_reagents = list("liquid_dark_matter" = 1)
+	required_reagents = list(/datum/reagent/liquid_dark_matter = 1)
 	min_temp = T0C + 200
 	mix_sound = null
 	mix_message = null
@@ -146,8 +146,8 @@
 /datum/chemical_reaction/blackpowder
 	name = "Black Powder"
 	id = "blackpowder"
-	result = "blackpowder"
-	required_reagents = list("saltpetre" = 1, "charcoal" = 1, "sulfur" = 1)
+	result = /datum/reagent/blackpowder
+	required_reagents = list(/datum/reagent/saltpetre = 1, /datum/reagent/medicine/charcoal = 1, /datum/reagent/sulfur = 1)
 	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
@@ -155,7 +155,7 @@
 	name = "Black Powder Kaboom"
 	id = "blackpowder_explosion"
 	result = null
-	required_reagents = list("blackpowder" = 1)
+	required_reagents = list(/datum/reagent/blackpowder = 1)
 	result_amount = 1
 	min_temp = T0C + 200
 	mix_message = null
@@ -180,8 +180,8 @@
 /datum/chemical_reaction/flash_powder
 	name = "Flash powder"
 	id = "flash_powder"
-	result = "flash_powder"
-	required_reagents = list("aluminum" = 1, "potassium" = 1, "sulfur" = 1, "chlorine" = 1, "stabilizing_agent" = 1)
+	result = /datum/reagent/flash_powder
+	required_reagents = list(/datum/reagent/aluminum = 1, /datum/reagent/potassium = 1, /datum/reagent/sulfur = 1, /datum/reagent/chlorine = 1, /datum/reagent/stabilizing_agent = 1)
 	result_amount = 5
 	mix_message = "The chemicals hiss and fizz briefly before falling still."
 
@@ -189,7 +189,7 @@
 	name = "Flash"
 	id = "flash"
 	result = null
-	required_reagents = list("aluminum" = 1, "potassium" = 1, "sulfur" = 1, "chlorine" = 1)
+	required_reagents = list(/datum/reagent/aluminum = 1, /datum/reagent/potassium = 1, /datum/reagent/sulfur = 1, /datum/reagent/chlorine = 1)
 	mix_message = "The chemicals catch fire, burning brightly and violently!"
 	mix_sound = 'sound/effects/bang.ogg'
 
@@ -203,31 +203,31 @@
 /datum/chemical_reaction/flash/flash_powder
 	name = "flash_powder_flash"
 	id = "flash_powder_flash"
-	required_reagents = list("flash_powder" = 1)
+	required_reagents = list(/datum/reagent/flash_powder = 1)
 	min_temp = T0C + 100
 	mix_message = null
 
 /datum/chemical_reaction/phlogiston
 	name = "Phlogiston"
 	id = "phlogiston"
-	result = "phlogiston"
-	required_reagents = list("phosphorus" = 1, "plasma" = 1, "sacid" = 1, "stabilizing_agent" = 1)
+	result = /datum/reagent/phlogiston
+	required_reagents = list(/datum/reagent/phosphorus = 1, /datum/reagent/plasma = 1, /datum/reagent/acid = 1, /datum/reagent/stabilizing_agent = 1)
 	result_amount = 4
 	mix_message = "The substance becomes sticky and extremely warm."
 
 /datum/chemical_reaction/phlogiston_dust
 	name = "Phlogiston Dust"
 	id = "phlogiston_dust"
-	result = "phlogiston_dust"
-	required_reagents = list("phlogiston" = 1, "charcoal" = 1, "phosphorus" = 1, "sulfur" = 1)
+	result = /datum/reagent/phlogiston/firedust
+	required_reagents = list(/datum/reagent/phlogiston = 1, /datum/reagent/medicine/charcoal = 1, /datum/reagent/phosphorus = 1, /datum/reagent/sulfur = 1)
 	result_amount = 2
 	mix_message = "The substance becomes a pile of burning dust."
 
 /datum/chemical_reaction/phlogiston_fire //This MUST be above the smoke recipe.
 	name = "Phlogiston Fire"
 	id = "phlogiston_fire"
-	result = "phlogiston"
-	required_reagents = list("phosphorus" = 1, "plasma" = 1, "sacid" = 1)
+	result = /datum/reagent/phlogiston
+	required_reagents = list(/datum/reagent/phosphorus = 1, /datum/reagent/plasma = 1, /datum/reagent/acid = 1)
 	mix_message = "The substance erupts into wild flames."
 
 /datum/chemical_reaction/phlogiston_fire/on_reaction(datum/reagents/holder, created_volume)
@@ -237,16 +237,16 @@
 /datum/chemical_reaction/napalm
 	name = "Napalm"
 	id = "napalm"
-	result = "napalm"
-	required_reagents = list("fuel" = 1, "sugar" = 1, "ethanol" = 1)
+	result = /datum/reagent/napalm
+	required_reagents = list(/datum/reagent/fuel = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/consumable/ethanol = 1)
 	result_amount = 3
 	mix_message = "The mixture congeals into a sticky gel."
 
 /datum/chemical_reaction/smoke_powder
 	name = "smoke_powder"
 	id = "smoke_powder"
-	result = "smoke_powder"
-	required_reagents = list("potassium" = 1, "sugar" = 1, "phosphorus" = 1, "stabilizing_agent" = 1)
+	result = /datum/reagent/smoke_powder
+	required_reagents = list(/datum/reagent/potassium = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/phosphorus = 1, /datum/reagent/stabilizing_agent = 1)
 	result_amount = 3
 	mix_message = "The mixture sets into a greyish powder!"
 
@@ -254,10 +254,10 @@
 	name = "smoke"
 	id = "smoke"
 	result = null
-	required_reagents = list("potassium" = 1, "sugar" = 1, "phosphorus" = 1)
+	required_reagents = list(/datum/reagent/potassium = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/phosphorus = 1)
 	result_amount = 1
 	mix_message = "The mixture quickly turns into a pall of smoke!"
-	var/forbidden_reagents = list("sugar", "phosphorus", "potassium", "stimulants") //Do not transfer this stuff through smoke.
+	var/forbidden_reagents = list(/datum/reagent/consumable/sugar, /datum/reagent/phosphorus, /datum/reagent/potassium, /datum/reagent/medicine/stimulants) //Do not transfer this stuff through smoke.
 
 /datum/chemical_reaction/smoke/on_reaction(datum/reagents/holder, created_volume)
 	for(var/f_reagent in forbidden_reagents)
@@ -279,17 +279,17 @@
 /datum/chemical_reaction/smoke/smoke_powder
 	name = "smoke_powder_smoke"
 	id = "smoke_powder_smoke"
-	required_reagents = list("smoke_powder" = 1)
+	required_reagents = list(/datum/reagent/smoke_powder = 1)
 	min_temp = T0C + 100
 	result_amount = 1
-	forbidden_reagents = list("stimulants")
+	forbidden_reagents = list(/datum/reagent/medicine/stimulants)
 	mix_sound = null
 
 /datum/chemical_reaction/sonic_powder
 	name = "sonic_powder"
 	id = "sonic_powder"
-	result = "sonic_powder"
-	required_reagents = list("oxygen" = 1, "cola" = 1, "phosphorus" = 1, "stabilizing_agent" = 1)
+	result = /datum/reagent/sonic_powder
+	required_reagents = list(/datum/reagent/oxygen = 1, /datum/reagent/consumable/drink/cold/space_cola = 1, /datum/reagent/phosphorus = 1, /datum/reagent/stabilizing_agent = 1)
 	result_amount = 2
 	mix_message = "The mixture begins to bubble slighly!"
 
@@ -297,7 +297,7 @@
 	name = "sonic_deafen"
 	id = "sonic_deafen"
 	result = null
-	required_reagents = list("oxygen" = 1, "cola" = 1, "phosphorus" = 1)
+	required_reagents = list(/datum/reagent/oxygen = 1, /datum/reagent/consumable/drink/cold/space_cola = 1, /datum/reagent/phosphorus = 1)
 	mix_message = "The mixture begins to bubble furiously!"
 	mix_sound = 'sound/effects/bang.ogg'
 
@@ -310,30 +310,30 @@
 /datum/chemical_reaction/sonic_deafen/sonic_powder
 	name = "sonic_powder_deafen"
 	id = "sonic_powder_deafen"
-	required_reagents = list("sonic_powder" = 1)
+	required_reagents = list(/datum/reagent/sonic_powder = 1)
 	min_temp = T0C + 100
 	mix_message = null
 
 /datum/chemical_reaction/cryostylane
 	name = "cryostylane"
 	id = "cryostylane"
-	result = "cryostylane"
-	required_reagents = list("water" = 1, "plasma" = 1, "nitrogen" = 1)
+	result = /datum/reagent/cryostylane
+	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/plasma = 1, /datum/reagent/nitrogen = 1)
 	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/pyrosium
 	name = "pyrosium"
 	id = "pyrosium"
-	result = "pyrosium"
-	required_reagents = list("plasma" = 1, "radium" = 1, "phosphorus" = 1)
+	result = /datum/reagent/pyrosium
+	required_reagents = list(/datum/reagent/plasma = 1, /datum/reagent/radium = 1, /datum/reagent/phosphorus = 1)
 	result_amount = 3
 
 /datum/chemical_reaction/azide
 	name = "azide"
 	id = "azide"
 	result = null
-	required_reagents = list("chlorine" = 1, "oxygen" = 1, "nitrogen" = 1, "ammonia" = 1, "sodium" = 1, "silver" = 1)
+	required_reagents = list(/datum/reagent/chlorine = 1, /datum/reagent/oxygen = 1, /datum/reagent/nitrogen = 1, /datum/reagent/ammonia = 1, /datum/reagent/sodium = 1, /datum/reagent/silver = 1)
 	result_amount = 1
 	mix_message = "The substance violently detonates!"
 	mix_sound = 'sound/effects/bang.ogg'
@@ -345,8 +345,8 @@
 /datum/chemical_reaction/firefighting_foam
 	name = "firefighting_foam"
 	id = "firefighting_foam"
-	result = "firefighting_foam"
-	required_reagents = list("carbon" = 1, "chlorine" = 1, "sulfur" = 1)
+	result = /datum/reagent/firefighting_foam
+	required_reagents = list(/datum/reagent/carbon = 1, /datum/reagent/chlorine = 1, /datum/reagent/sulfur = 1)
 	result_amount = 3
 	mix_message = "The mixture bubbles gently."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
@@ -355,7 +355,7 @@
 	name = "clf3_firefighting"
 	id = "clf3_firefighting"
 	result = null
-	required_reagents = list("firefighting_foam" = 1, "clf3" = 1)
+	required_reagents = list(/datum/reagent/firefighting_foam = 1, /datum/reagent/clf3 = 1)
 	result_amount = 1
 	mix_message = "The substance violently detonates!"
 	mix_sound = 'sound/effects/bang.ogg'
@@ -368,7 +368,7 @@
 	name = "shock_explosion"
 	id = "shock_explosion"
 	result = null
-	required_reagents = list("teslium" = 5, "uranium" = 5) //uranium to this so it can't be spammed like no tomorrow without mining help.
+	required_reagents = list(/datum/reagent/teslium = 5, /datum/reagent/uranium = 5) //uranium to this so it can't be spammed like no tomorrow without mining help.
 	result_amount = 1
 	mix_message = "<span class='danger'>The reaction releases an electrical blast!</span>"
 	mix_sound = 'sound/magic/lightningbolt.ogg'
@@ -378,12 +378,12 @@
 	for(var/mob/living/L in view(min(8, round(created_volume * 2)), T))
 		L.Beam(T, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
 		L.electrocute_act(3.5, "electrical blast")
-	holder.del_reagent("teslium") //Clear all remaining Teslium and Uranium, but leave all other reagents untouched.
-	holder.del_reagent("uranium")
+	holder.del_reagent(/datum/reagent/teslium) //Clear all remaining Teslium and Uranium, but leave all other reagents untouched.
+	holder.del_reagent(/datum/reagent/uranium)
 
 /datum/chemical_reaction/thermite
 	name = "Thermite"
 	id = "thermite"
-	result = "thermite"
-	required_reagents = list("aluminum" = 1, "iron" = 1, "oxygen" = 1)
+	result = /datum/reagent/thermite
+	required_reagents = list(/datum/reagent/aluminum = 1, /datum/reagent/iron = 1, /datum/reagent/oxygen = 1)
 	result_amount = 3

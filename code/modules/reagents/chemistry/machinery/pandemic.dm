@@ -97,7 +97,7 @@
 				if(vaccine_type)
 
 					B.name = "[vaccine_name] vaccine bottle"
-					B.reagents.add_reagent("vaccine", 15, list(vaccine_type))
+					B.reagents.add_reagent(/datum/reagent/vaccine, 15, list(vaccine_type))
 					replicator_cooldown(200)
 		else
 			temp_html = "The replicator is not ready yet."
@@ -128,7 +128,7 @@
 			var/list/data = list("viruses"=list(D))
 			B.name = "[name] culture bottle"
 			B.desc = "A small bottle. Contains [D.agent] culture in synthblood medium."
-			B.reagents.add_reagent("blood",20,data)
+			B.reagents.add_reagent(/datum/reagent/blood, 20, data)
 			updateUsrDialog()
 		else
 			temp_html = "The replicator is not ready yet."

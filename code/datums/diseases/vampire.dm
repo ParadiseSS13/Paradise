@@ -5,7 +5,7 @@
 	spread_text = "Non-Contagious"
 	spread_flags = SPECIAL
 	cure_text = "Antibiotics"
-	cures = list("spaceacillin")
+	cures = list(/datum/reagent/medicine/spaceacillin)
 	agent = "Grave Dust"
 	cure_chance = 20
 	viable_mobtypes = list(/mob/living/carbon/human)

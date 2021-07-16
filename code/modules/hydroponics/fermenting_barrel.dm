@@ -34,7 +34,7 @@
 			data["tastes"] = list(G.wine_flavor = 1)
 		else
 			data["tastes"] = list(G.tastes[1] = 1)
-		reagents.add_reagent("fruit_wine", amount, data)
+		reagents.add_reagent(/datum/reagent/consumable/ethanol/fruit_wine, amount, data)
 	qdel(G)
 	playsound(src, 'sound/effects/bubbles.ogg', 50, TRUE)
 

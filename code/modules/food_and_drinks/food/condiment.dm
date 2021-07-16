@@ -15,16 +15,16 @@
 	volume = 50
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
-	 "ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),
-	 "capsaicin" = list("hotsauce", "hotsauce bottle", "You can almost TASTE the stomach ulcers now!"),
-	 "enzyme" = list("enzyme", "universal enzyme bottle", "Used in cooking various dishes"),
-	 "soysauce" = list("soysauce", "soy sauce bottle", "A salty soy-based flavoring"),
-	 "frostoil" = list("coldsauce", "coldsauce bottle", "Leaves the tongue numb in it's passage"),
-	 "sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
-	 "blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
-	 "cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
-	 "wasabi" = list("wasabitube", "wasabi bottle", "A pungent paste commonly served in tiny amounts with sushi. Spicy!"),
-	 "sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"))
+		/datum/reagent/consumable/ketchup = list("ketchup", "ketchup bottle", "You feel more American already."),
+		/datum/reagent/consumable/capsaicin = list("hotsauce", "hotsauce bottle", "You can almost TASTE the stomach ulcers now!"),
+		/datum/reagent/consumable/enzyme = list("enzyme", "universal enzyme bottle", "Used in cooking various dishes"),
+		/datum/reagent/consumable/soysauce = list("soysauce", "soy sauce bottle", "A salty soy-based flavoring"),
+		/datum/reagent/consumable/frostoil = list("coldsauce", "coldsauce bottle", "Leaves the tongue numb in it's passage"),
+		/datum/reagent/consumable/sodiumchloride = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
+		/datum/reagent/consumable/blackpepper = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
+		/datum/reagent/consumable/cornoil = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
+		/datum/reagent/consumable/wasabi = list("wasabitube", "wasabi bottle", "A pungent paste commonly served in tiny amounts with sushi. Spicy!"),
+		/datum/reagent/consumable/sugar = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"))
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
 /obj/item/reagent_containers/food/condiment/attack_self(mob/user)
@@ -112,15 +112,15 @@
 	name = "universal enzyme"
 	desc = "Used in cooking various dishes."
 	icon_state = "enzyme"
-	list_reagents = list("enzyme" = 50)
+	list_reagents = list(/datum/reagent/consumable/enzyme = 50)
 
 /obj/item/reagent_containers/food/condiment/enzyme/cyborg_recharge(coeff, emagged)
-	reagents.check_and_add("enzyme", volume, 2 * coeff) // Only recharge if the current amount of enzyme is under `volume`.
+	reagents.check_and_add(/datum/reagent/consumable/enzyme, volume, 2 * coeff) // Only recharge if the current amount of enzyme is under `volume`.
 
 /obj/item/reagent_containers/food/condiment/sugar
 	name = "sugar bottle"
 	desc = "Tasty spacey sugar!"
-	list_reagents = list("sugar" = 50)
+	list_reagents = list(/datum/reagent/consumable/sugar = 50)
 
 /obj/item/reagent_containers/food/condiment/saltshaker		//Seperate from above since it's a small shaker rather then
 	name = "salt shaker"											//	a large one.
@@ -129,7 +129,7 @@
 	possible_transfer_amounts = list(1,20) //for clown turning the lid off
 	amount_per_transfer_from_this = 1
 	volume = 20
-	list_reagents = list("sodiumchloride" = 20)
+	list_reagents = list(/datum/reagent/consumable/sodiumchloride = 20)
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/saltshaker/suicide_act(mob/user)
@@ -148,7 +148,7 @@
 	possible_transfer_amounts = list(1,20) //for clown turning the lid off
 	amount_per_transfer_from_this = 1
 	volume = 20
-	list_reagents = list("blackpepper" = 20)
+	list_reagents = list(/datum/reagent/consumable/blackpepper = 20)
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/milk
@@ -156,7 +156,7 @@
 	desc = "It's milk. White and nutritious goodness!"
 	icon_state = "milk"
 	item_state = "carton"
-	list_reagents = list("milk" = 50)
+	list_reagents = list(/datum/reagent/consumable/drink/milk = 50)
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/flour
@@ -164,7 +164,7 @@
 	desc = "A big bag of flour. Good for baking!"
 	icon_state = "flour"
 	item_state = "flour"
-	list_reagents = list("flour" = 30)
+	list_reagents = list(/datum/reagent/consumable/flour = 30)
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/soymilk
@@ -172,7 +172,7 @@
 	desc = "It's soy milk. White and nutritious goodness!"
 	icon_state = "soymilk"
 	item_state = "carton"
-	list_reagents = list("soymilk" = 50)
+	list_reagents = list(/datum/reagent/consumable/drink/milk/soymilk = 50)
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/rice
@@ -180,20 +180,20 @@
 	desc = "A big bag of rice. Good for cooking!"
 	icon_state = "rice"
 	item_state = "flour"
-	list_reagents = list("rice" = 30)
+	list_reagents = list(/datum/reagent/consumable/rice = 30)
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/soysauce
 	name = "soy sauce"
 	desc = "A salty soy-based flavoring."
 	icon_state = "soysauce"
-	list_reagents = list("soysauce" = 50)
+	list_reagents = list(/datum/reagent/consumable/soysauce = 50)
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/syndisauce
 	name = "\improper Chef Excellence's Special Sauce"
 	desc = "A potent sauce extracted from the potent amanita mushrooms. Death never tasted quite so delicious."
-	list_reagents = list("amanitin" = 50)
+	list_reagents = list(/datum/reagent/amanitin = 50)
 	possible_states = list()
 
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
@@ -205,8 +205,8 @@
 	volume = 10
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list()
-	possible_states = list("ketchup" = list("condi_ketchup", "Ketchup", "You feel more American already."), "capsaicin" = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"), "soysauce" = list("condi_soysauce", "Soy Sauce", "A salty soy-based flavoring"), "frostoil" = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in it's passage"), "sodiumchloride" = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"), "blackpepper" = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze"), "cornoil" = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"), "sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!"))
-
+	possible_states = list(/datum/reagent/consumable/ketchup = list("condi_ketchup", "Ketchup", "You feel more American already."), /datum/reagent/consumable/capsaicin = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"), /datum/reagent/consumable/soysauce = list("condi_soysauce", "Soy Sauce", "A salty soy-based flavoring"), /datum/reagent/consumable/frostoil = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in it's passage"), /datum/reagent/consumable/sodiumchloride = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"), /datum/reagent/consumable/blackpepper = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze"), /datum/reagent/consumable/cornoil = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"), /datum/reagent/consumable/sugar = list("condi_sugar", "Sugar", "Tasty spacey sugar!"))
+#error fix
 /obj/item/reagent_containers/food/condiment/pack/attack(mob/M, mob/user, def_zone) //Can't feed these to people directly.
 	return
 
@@ -246,10 +246,10 @@
 /obj/item/reagent_containers/food/condiment/pack/ketchup
 	name = "ketchup pack"
 	originalname = "ketchup"
-	list_reagents = list("ketchup" = 10)
+	list_reagents = list(/datum/reagent/consumable/ketchup = 10)
 
 //Hot sauce
 /obj/item/reagent_containers/food/condiment/pack/hotsauce
 	name = "hotsauce pack"
 	originalname = "hotsauce"
-	list_reagents = list("capsaicin" = 10)
+	list_reagents = list(/datum/reagent/consumable/capsaicin = 10)

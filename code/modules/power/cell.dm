@@ -101,7 +101,7 @@
 
 		to_chat(user, "You inject the solution into the power cell.")
 
-		if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
+		if(S.reagents.has_reagent(/datum/reagent/plasma, 5) || S.reagents.has_reagent(/datum/reagent/plasma_dust, 5))
 
 			rigged = TRUE
 

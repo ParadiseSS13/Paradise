@@ -14,7 +14,7 @@
 	icon_dead = "apple-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/apple/gold)
-	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.1)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/apple
 	seed = /obj/item/seeds/apple
@@ -24,13 +24,13 @@
 	filling_color = "#FF4500"
 	bitesize = 100 // Always eat the apple in one bite
 	tastes = list("apple" = 1)
-	distill_reagent = "cider"
+	distill_reagent = /datum/reagent/consumable/ethanol/cider
 
 // Posioned Apple
 /obj/item/seeds/apple/poisoned
 	product = /obj/item/reagent_containers/food/snacks/grown/apple/poisoned
 	mutatelist = list()
-	reagents_add = list("cyanide" = 0.5, "vitamin" = 0.04, "plantmatter" = 0.1)
+	reagents_add = list(/datum/reagent/cyanide = 0.5, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.1)
 	rarity = 50 // Source of cyanide, and hard (almost impossible) to obtain normally.
 
 /obj/item/reagent_containers/food/snacks/grown/apple/poisoned
@@ -47,7 +47,7 @@
 	maturation = 10
 	production = 10
 	mutatelist = list()
-	reagents_add = list("gold" = 0.2, "vitamin" = 0.04, "plantmatter" = 0.1)
+	reagents_add = list(/datum/reagent/gold = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.1)
 	rarity = 40 // Alchemy!
 
 /obj/item/reagent_containers/food/snacks/grown/apple/gold

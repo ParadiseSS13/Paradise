@@ -13,7 +13,7 @@
 	growthstages = 3
 	icon_dead = "tobacco-dead"
 	mutatelist = list(/obj/item/seeds/tobacco/space)
-	reagents_add = list("nicotine" = 0.03, "plantmatter" = 0.03)
+	reagents_add = list(/datum/reagent/nicotine = 0.03, /datum/reagent/consumable/nutriment/plantmatter = 0.03)
 
 /obj/item/reagent_containers/food/snacks/grown/tobacco
 	seed = /obj/item/seeds/tobacco
@@ -22,7 +22,7 @@
 	icon_state = "tobacco_leaves"
 	tastes = list("tobacco" = 1)
 	filling_color = "#008000"
-	distill_reagent = "menthol"
+	distill_reagent = /datum/reagent/medicine/menthol
 
 // Space Tobacco
 /obj/item/seeds/tobacco/space
@@ -33,7 +33,7 @@
 	plantname = "Space Tobacco Plant"
 	product = /obj/item/reagent_containers/food/snacks/grown/tobacco/space
 	mutatelist = list()
-	reagents_add = list("salbutamol" = 0.05, "nicotine" = 0.08, "plantmatter" = 0.03)
+	reagents_add = list(/datum/reagent/medicine/salbutamol = 0.05, /datum/reagent/nicotine = 0.08, /datum/reagent/consumable/nutriment/plantmatter = 0.03)
 	rarity = 20
 
 /obj/item/reagent_containers/food/snacks/grown/tobacco/space

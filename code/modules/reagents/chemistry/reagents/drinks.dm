@@ -1,6 +1,5 @@
 /datum/reagent/consumable/drink/orangejuice
 	name = "Orange juice"
-	id = "orangejuice"
 	description = "Both delicious AND rich in Vitamin C, what more do you need?"
 	color = "#E78108" // rgb: 231, 129, 8
 	drink_icon = "glass_orange"
@@ -16,7 +15,6 @@
 
 /datum/reagent/consumable/drink/tomatojuice
 	name = "Tomato Juice"
-	id = "tomatojuice"
 	description = "Tomatoes made into juice. What a waste of big, juicy tomatoes, huh?"
 	color = "#731008" // rgb: 115, 16, 8
 	drink_icon = "glass_red"
@@ -26,7 +24,6 @@
 
 /datum/reagent/consumable/drink/pineapplejuice
 	name = "Pineapple Juice"
-	id = "pineapplejuice"
 	description = "Pineapples juiced into a liquid. Sweet and sugary."
 	color = "#e5b437"
 	drink_icon = "glass_orange"
@@ -42,7 +39,6 @@
 
 /datum/reagent/consumable/drink/limejuice
 	name = "Lime Juice"
-	id = "limejuice"
 	description = "The sweet-sour juice of limes."
 	color = "#365E30" // rgb: 54, 94, 48
 	drink_icon = "glass_green"
@@ -58,7 +54,6 @@
 
 /datum/reagent/consumable/drink/carrotjuice
 	name = "Carrot juice"
-	id = "carrotjuice"
 	description = "It is just like a carrot but without crunching."
 	color = "#973800" // rgb: 151, 56, 0
 	drink_icon = "carrotjuice"
@@ -80,7 +75,6 @@
 
 /datum/reagent/consumable/drink/doctor_delight
 	name = "The Doctor's Delight"
-	id = "doctorsdelight"
 	description = "A gulp a day keeps the MediBot away. That's probably for the best."
 	reagent_state = LIQUID
 	color = "#FF8CFF" // rgb: 255, 140, 255
@@ -97,7 +91,6 @@
 
 /datum/reagent/consumable/drink/triple_citrus
 	name = "Triple Citrus"
-	id = "triple_citrus"
 	description = "A refreshing mixed drink of orange, lemon and lime juice."
 	reagent_state = LIQUID
 	color = "#23A046"
@@ -112,7 +105,6 @@
 
 /datum/reagent/consumable/drink/berryjuice
 	name = "Berry Juice"
-	id = "berryjuice"
 	description = "A delicious blend of several different kinds of berries."
 	color = "#863333" // rgb: 134, 51, 51
 	drink_icon = "berryjuice"
@@ -122,7 +114,6 @@
 
 /datum/reagent/consumable/drink/poisonberryjuice
 	name = "Poison Berry Juice"
-	id = "poisonberryjuice"
 	description = "A tasty juice blended from various kinds of very deadly and toxic berries."
 	color = "#863353" // rgb: 134, 51, 83
 	drink_icon = "poisonberryjuice"
@@ -137,21 +128,18 @@
 
 /datum/reagent/consumable/applejuice
 	name = "Apple Juice"
-	id = "applejuice"
 	description = "The sweet juice of an apple, fit for all ages."
 	color = "#ECFF56" // rgb: 236, 255, 86
 	taste_description = "apple juice"
 
 /datum/reagent/consumable/drink/watermelonjuice
 	name = "Watermelon Juice"
-	id = "watermelonjuice"
 	description = "Delicious juice made from watermelon."
 	color = "#863333" // rgb: 134, 51, 51
 	taste_description = "watermelon juice"
 
 /datum/reagent/consumable/drink/lemonjuice
 	name = "Lemon Juice"
-	id = "lemonjuice"
 	description = "This juice is VERY sour."
 	color = "#863333" // rgb: 175, 175, 0
 	drink_icon = "lemonglass"
@@ -161,14 +149,12 @@
 
 /datum/reagent/consumable/drink/grapejuice
 	name = "Grape Juice"
-	id = "grapejuice"
 	description = "This juice is known to stain shirts."
 	color = "#993399" // rgb: 153, 51, 153
 	taste_description = "grape juice"
 
 /datum/reagent/consumable/drink/banana
 	name = "Banana Juice"
-	id = "banana"
 	description = "The raw essence of a banana."
 	color = "#863333" // rgb: 175, 175, 0
 	drink_icon = "banana"
@@ -185,7 +171,6 @@
 
 /datum/reagent/consumable/drink/nothing
 	name = "Nothing"
-	id = "nothing"
 	description = "Absolutely nothing."
 	drink_icon = "nothing"
 	drink_name = "Nothing"
@@ -201,7 +186,6 @@
 
 /datum/reagent/consumable/drink/potato_juice
 	name = "Potato Juice"
-	id = "potato"
 	description = "Juice of the potato. Bleh."
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
@@ -212,7 +196,6 @@
 
 /datum/reagent/consumable/drink/milk
 	name = "Milk"
-	id = "milk"
 	description = "An opaque white liquid produced by the mammary glands of mammals."
 	color = "#DFDFDF" // rgb: 223, 223, 223
 	drink_icon = "glass_white"
@@ -224,13 +207,12 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(20))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
-	if(holder.has_reagent("capsaicin"))
-		holder.remove_reagent("capsaicin", 2)
+	if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
+		holder.remove_reagent(/datum/reagent/consumable/capsaicin, 2)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/milk/soymilk
 	name = "Soy Milk"
-	id = "soymilk"
 	description = "An opaque white liquid made from soybeans."
 	color = "#DFDFC7" // rgb: 223, 223, 199
 	drink_name = "Glass of soy milk"
@@ -239,7 +221,6 @@
 
 /datum/reagent/consumable/drink/milk/cream
 	name = "Cream"
-	id = "cream"
 	description = "The fatty, still liquid part of milk. Why don't you mix this with sum scotch, eh?"
 	color = "#DFD7AF" // rgb: 223, 215, 175
 	drink_name = "Glass of cream"
@@ -248,14 +229,12 @@
 
 /datum/reagent/consumable/drink/milk/chocolate_milk
 	name = "Chocolate milk"
-	id ="chocolate_milk"
 	description = "Chocolate-flavored milk, tastes like being a kid again."
 	color = "#85432C"
 	taste_description = "chocolate milk"
 
 /datum/reagent/consumable/drink/hot_coco
 	name = "Hot Chocolate"
-	id = "hot_coco"
 	description = "Made with love! And coco beans."
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16
@@ -267,7 +246,6 @@
 
 /datum/reagent/consumable/drink/coffee
 	name = "Coffee"
-	id = "coffee"
 	description = "Coffee is a brewed drink prepared from roasted seeds, commonly called coffee beans, of the coffee plant."
 	color = "#482000" // rgb: 72, 32, 0
 	nutriment_factor = 0
@@ -288,8 +266,8 @@
 
 /datum/reagent/consumable/drink/coffee/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(holder.has_reagent("frostoil"))
-		holder.remove_reagent("frostoil", 5)
+	if(holder.has_reagent(/datum/reagent/consumable/frostoil))
+		holder.remove_reagent(/datum/reagent/consumable/frostoil, 5)
 	if(prob(50))
 		update_flags |= M.AdjustParalysis(-1, FALSE)
 		update_flags |= M.AdjustStunned(-1, FALSE)
@@ -303,7 +281,6 @@
 
 /datum/reagent/consumable/drink/coffee/icecoffee
 	name = "Iced Coffee"
-	id = "icecoffee"
 	description = "Coffee and ice, refreshing and cool."
 	color = "#102838" // rgb: 16, 40, 56
 	adj_temp_hot = 0
@@ -315,7 +292,6 @@
 
 /datum/reagent/consumable/drink/coffee/soy_latte
 	name = "Soy Latte"
-	id = "soy_latte"
 	description = "A nice and tasty beverage while you are reading your hippie books."
 	color = "#664300" // rgb: 102, 67, 0
 	adj_sleepy = 0
@@ -334,7 +310,6 @@
 
 /datum/reagent/consumable/drink/coffee/cafe_latte
 	name = "Cafe Latte"
-	id = "cafe_latte"
 	description = "A nice, strong and tasty beverage while you are reading."
 	color = "#664300" // rgb: 102, 67, 0
 	adj_sleepy = 0
@@ -353,7 +328,6 @@
 
 /datum/reagent/consumable/drink/coffee/cafe_latte/cafe_mocha
 	name = "Cafe Mocha"
-	id = "cafe_mocha"
 	description = "The perfect blend of coffe, milk, and chocolate."
 	color = "#673629"
 	drink_name = "Cafe Mocha"
@@ -362,7 +336,6 @@
 
 /datum/reagent/consumable/drink/tea
 	name = "Tea"
-	id = "tea"
 	description = "Tasty black tea: It has antioxidants. It's good for you!"
 	color = "#101000" // rgb: 16, 16, 0
 	nutriment_factor = 0
@@ -387,7 +360,6 @@
 
 /datum/reagent/consumable/drink/tea/icetea
 	name = "Iced Tea"
-	id = "icetea"
 	description = "No relation to a certain rap artist/ actor."
 	color = "#104038" // rgb: 16, 64, 56
 	adj_temp_hot = 0
@@ -399,7 +371,6 @@
 
 /datum/reagent/consumable/drink/bananahonk
 	name = "Banana Honk"
-	id = "bananahonk"
 	description = "A drink from Clown Heaven."
 	color = "#664300" // rgb: 102, 67, 0
 	drink_icon = "bananahonkglass"
@@ -416,7 +387,6 @@
 
 /datum/reagent/consumable/drink/silencer
 	name = "Silencer"
-	id = "silencer"
 	description = "A drink from Mime Heaven."
 	color = "#664300" // rgb: 102, 67, 0
 	drink_icon = "silencerglass"
@@ -433,7 +403,6 @@
 
 /datum/reagent/consumable/drink/chocolatepudding
 	name = "Chocolate Pudding"
-	id = "chocolatepudding"
 	description = "A great dessert for chocolate lovers."
 	color = "#800000"
 	nutriment_factor = 4 * REAGENTS_METABOLISM
@@ -444,7 +413,6 @@
 
 /datum/reagent/consumable/drink/vanillapudding
 	name = "Vanilla Pudding"
-	id = "vanillapudding"
 	description = "A great dessert for vanilla lovers."
 	color = "#FAFAD2"
 	nutriment_factor = 4 * REAGENTS_METABOLISM
@@ -455,7 +423,6 @@
 
 /datum/reagent/consumable/drink/cherryshake
 	name = "Cherry Shake"
-	id = "cherryshake"
 	description = "A cherry flavored milkshake."
 	color = "#FFB6C1"
 	nutriment_factor = 4 * REAGENTS_METABOLISM
@@ -466,7 +433,6 @@
 
 /datum/reagent/consumable/drink/bluecherryshake
 	name = "Blue Cherry Shake"
-	id = "bluecherryshake"
 	description = "An exotic milkshake."
 	color = "#00F1FF"
 	nutriment_factor = 4 * REAGENTS_METABOLISM
@@ -477,7 +443,6 @@
 
 /datum/reagent/consumable/drink/pumpkin_latte
 	name = "Pumpkin Latte"
-	id = "pumpkin_latte"
 	description = "A mix of pumpkin juice and coffee."
 	color = "#F4A460"
 	nutriment_factor = 3 * REAGENTS_METABOLISM
@@ -488,7 +453,6 @@
 
 /datum/reagent/consumable/drink/gibbfloats
 	name = "Gibb Floats"
-	id = "gibbfloats"
 	description = "Ice cream on top of a Dr. Gibb glass."
 	color = "#B22222"
 	nutriment_factor = 3 * REAGENTS_METABOLISM
@@ -499,28 +463,24 @@
 
 /datum/reagent/consumable/drink/pumpkinjuice
 	name = "Pumpkin Juice"
-	id = "pumpkinjuice"
 	description = "Juiced from real pumpkin."
 	color = "#FFA500"
 	taste_description = "autumn"
 
 /datum/reagent/consumable/drink/blumpkinjuice
 	name = "Blumpkin Juice"
-	id = "blumpkinjuice"
 	description = "Juiced from real blumpkin."
 	color = "#00BFFF"
 	taste_description = "caustic puke"
 
 /datum/reagent/consumable/drink/grape_soda
 	name = "Grape soda"
-	id = "grapesoda"
 	description = "Beloved of children and teetotalers."
 	color = "#E6CDFF"
 	taste_description = "grape soda"
 
 /datum/reagent/consumable/drink/coco/icecoco
 	name = "Iced Cocoa"
-	id = "icecoco"
 	description = "Hot cocoa and ice, refreshing and cool."
 	color = "#102838" // rgb: 16, 40, 56
 	adj_temp_hot = 0

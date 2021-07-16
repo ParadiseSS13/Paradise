@@ -130,7 +130,7 @@
 		H.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER) //Same as plasma.
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 		return FALSE //Handling reagent removal on our own.
-
+#error fix
 	return ..()
 
 /datum/species/vox/armalis

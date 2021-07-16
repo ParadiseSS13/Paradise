@@ -156,7 +156,7 @@
 // PRE-FILLED IV BAGS BELOW
 
 /obj/item/reagent_containers/iv_bag/salglu
-	list_reagents = list("salglu_solution" = 200)
+	list_reagents = list(/datum/reagent/medicine/salglu_solution = 200)
 
 /obj/item/reagent_containers/iv_bag/salglu/Initialize(mapload)
 	. = ..()
@@ -170,7 +170,7 @@
 	. = ..()
 	if(blood_type != null)
 		name = "[initial(name)] - [blood_type]"
-		reagents.add_reagent("blood", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"resistances"=null,"trace_chem"=null))
+		reagents.add_reagent(/datum/reagent/blood, 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"resistances"=null,"trace_chem"=null))
 		update_icon()
 
 
@@ -197,7 +197,7 @@
 	blood_type = "O-"
 
 /obj/item/reagent_containers/iv_bag/slime
-	list_reagents = list("slimejelly" = 200)
+	list_reagents = list(/datum/reagent/slimejelly = 200)
 
 /obj/item/reagent_containers/iv_bag/slime/Initialize(mapload)
 	. = ..()

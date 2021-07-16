@@ -29,16 +29,16 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/black/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	if(!poisonable)
 		return ..()
-	if(L.reagents.has_reagent("terror_black_toxin", 100))
+	if(L.reagents.has_reagent(/datum/reagent/terror_black_toxin, 100))
 		return ..()
 	var/inject_target = pick("chest", "head")
 	if(L.stunned || L.can_inject(null, FALSE, inject_target, FALSE))
-		L.reagents.add_reagent("terror_black_toxin", 30) // inject our special poison
+		L.reagents.add_reagent(/datum/reagent/terror_black_toxin, 30) // inject our special poison
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 	else
 		visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into [target.p_their()] [inject_target]!</span>")
 	L.attack_animal(src)
-	if(!ckey && (!(target in enemies) || L.reagents.has_reagent("terror_black_toxin", 60)))
+	if(!ckey && (!(target in enemies) || L.reagents.has_reagent(/datum/reagent/terror_black_toxin, 60)))
 		step_away(src, L)
 		step_away(src, L)
 		LoseTarget()
@@ -52,8 +52,8 @@
 
 /obj/structure/spider/terrorweb/black/web_special_ability(mob/living/carbon/C)
 	if(istype(C))
-		if(!C.reagents.has_reagent("terror_black_toxin", 60))
+		if(!C.reagents.has_reagent(/datum/reagent/terror_black_toxin, 60))
 			var/inject_target = pick("chest","head")
 			if(C.can_inject(null, FALSE, inject_target, FALSE))
 				to_chat(C, "<span class='danger'>[src] slices into you!</span>")
-				C.reagents.add_reagent("terror_black_toxin", 30)
+				C.reagents.add_reagent(/datum/reagent/terror_black_toxin, 30)

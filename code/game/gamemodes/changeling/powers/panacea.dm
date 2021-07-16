@@ -28,11 +28,11 @@
 			C.vomit()
 		egg.forceMove(get_turf(user))
 
-	user.reagents.add_reagent("mutadone", 10)
-	user.reagents.add_reagent("potass_iodide", 10)
-	user.reagents.add_reagent("charcoal", 20)
-	user.reagents.add_reagent("antihol", 10)
-	user.reagents.add_reagent("mannitol", 25)
+	user.reagents.add_reagent(/datum/reagent/medicine/mutadone, 10)
+	user.reagents.add_reagent(/datum/reagent/medicine/potass_iodide, 10)
+	user.reagents.add_reagent(/datum/reagent/medicine/charcoal, 20)
+	user.reagents.add_reagent(/datum/reagent/medicine/antihol, 10)
+	user.reagents.add_reagent(/datum/reagent/medicine/mannitol, 25)
 
 	for(var/thing in user.viruses)
 		var/datum/disease/D = thing

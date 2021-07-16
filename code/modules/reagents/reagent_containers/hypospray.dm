@@ -75,10 +75,10 @@
 
 /obj/item/reagent_containers/hypospray/safety/ert
 	name = "medical hypospray (Omnizine)"
-	list_reagents = list("omnizine" = 30)
+	list_reagents = list(/datum/reagent/medicine/omnizine = 30)
 
 /obj/item/reagent_containers/hypospray/CMO
-	list_reagents = list("omnizine" = 30)
+	list_reagents = list(/datum/reagent/medicine/omnizine = 30)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/reagent_containers/hypospray/combat
@@ -89,12 +89,12 @@
 	icon_state = "combat_hypo"
 	volume = 90
 	ignore_flags = 1 // So they can heal their comrades.
-	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 30, /datum/reagent/medicine/omnizine_diluted = 30, /datum/reagent/medicine/salglu_solution = 30)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
 	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing."
 	volume = 100
-	list_reagents = list("nanites" = 100)
+	list_reagents = list(/datum/reagent/medicine/adminordrazine/nanites = 100)
 
 /obj/item/reagent_containers/hypospray/autoinjector
 	name = "emergency autoinjector"
@@ -107,7 +107,7 @@
 	ignore_flags = TRUE //so you can medipen through hardsuits
 	container_type = DRAWABLE
 	flags = null
-	list_reagents = list("epinephrine" = 10)
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/attack(mob/M, mob/user)
 	if(!reagents.total_volume)
@@ -134,7 +134,7 @@
 	name = "teporone autoinjector"
 	desc = "A rapid way to regulate your body's temperature in the event of a hardsuit malfunction."
 	icon_state = "lepopen"
-	list_reagents = list("teporone" = 10)
+	list_reagents = list(/datum/reagent/medicine/teporone = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimpack //goliath kiting
 	name = "stimpack autoinjector"
@@ -142,7 +142,7 @@
 	icon_state = "stimpen"
 	volume = 20
 	amount_per_transfer_from_this = 20
-	list_reagents = list("methamphetamine" = 10, "coffee" = 10)
+	list_reagents = list(/datum/reagent/methamphetamine = 10, /datum/reagent/consumable/drink/coffee = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	name = "Stimulants autoinjector"
@@ -151,7 +151,7 @@
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(50)
 	volume = 50
-	list_reagents = list("stimulants" = 50)
+	list_reagents = list(/datum/reagent/medicine/stimulants = 50)
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival
 	name = "survival medipen"
@@ -159,7 +159,7 @@
 	icon_state = "stimpen"
 	volume = 42
 	amount_per_transfer_from_this = 42
-	list_reagents = list("salbutamol" = 10, "teporone" = 15, "epinephrine" = 10, "lavaland_extract" = 2, "weak_omnizine" = 5) //Short burst of healing, followed by minor healing from the saline
+	list_reagents = list(/datum/reagent/medicine/salbutamol = 10, /datum/reagent/medicine/teporone = 15, /datum/reagent/medicine/epinephrine = 10, /datum/reagent/medicine/lavaland_extract = 2, /datum/reagent/medicine/omnizine_diluted = 5) //Short burst of healing, followed by minor healing from the saline
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	name = "nanocalcium autoinjector"
@@ -168,7 +168,7 @@
 	amount_per_transfer_from_this = 30
 	possible_transfer_amounts = list(30)
 	volume = 30
-	list_reagents = list("nanocalcium" = 30)
+	list_reagents = list(/datum/reagent/medicine/nanocalcium = 30)
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
 	if(..())

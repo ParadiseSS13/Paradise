@@ -206,9 +206,9 @@
 
 		for(var/datum/reagent/R in reagents.reagent_list)
 			var/display_name = R.name
-			if(R.id == "capsaicin")
+			if(R.id == /datum/reagent/consumable/capsaicin)
 				display_name = "Hotsauce"
-			if(R.id == "frostoil")
+			if(R.id == /datum/reagent/consumable/frostoil)
 				display_name = "Coldsauce"
 			dat += {"<B>[display_name]:</B> [R.volume] unit\s<BR>"}
 
@@ -220,7 +220,7 @@
 <A href='?src=[UID()];action=cook'>Turn on!</A><BR>\
 <A href='?src=[UID()];action=dispose'>Eject ingredients!</A><BR>\
 "}
-
+#error fix
 	var/datum/browser/popup = new(user, name, name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)
@@ -318,7 +318,7 @@
 				if(istype(O, /obj/item/mixing_bowl))	//ignore mixing bowls present among the ingredients in our source (only really applies to machine sourced recipes)
 					continue
 				if(O.reagents)
-					O.reagents.del_reagent("nutriment")
+					O.reagents.del_reagent(/datum/reagent/consumable/nutriment)
 					O.reagents.update_total()
 					O.reagents.trans_to(temp_reagents, O.reagents.total_volume, no_react = TRUE) // Don't react with the abstract holder please
 				qdel(O)
@@ -419,8 +419,8 @@
 	reagents.clear_reagents()
 	if(amount)
 		var/obj/item/reagent_containers/food/snacks/badrecipe/ffuu = new(src)
-		ffuu.reagents.add_reagent("carbon", amount)
-		ffuu.reagents.add_reagent("????", amount/10)
+		ffuu.reagents.add_reagent(/datum/reagent/carbon, amount)
+		ffuu.reagents.add_reagent(/datum/reagent/questionmark, amount/10)
 		ffuu.forceMove(get_turf(src))
 
 /obj/machinery/kitchen_machine/Topic(href, href_list)

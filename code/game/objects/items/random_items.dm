@@ -93,7 +93,7 @@
 	..()
 	var/list/possible_drinks = GLOB.drinks.Copy()
 	if(prob(50))
-		possible_drinks += list("pancuronium","lsd","omnizine","blood")
+		possible_drinks += list(/datum/reagent/pancuronium, /datum/reagent/lsd, /datum/reagent/medicine/omnizine, /datum/reagent/blood)
 
 	var/datum/reagent/R = pick(possible_drinks)
 	reagents.add_reagent(R, volume)

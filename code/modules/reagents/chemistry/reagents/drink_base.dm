@@ -1,6 +1,5 @@
 /datum/reagent/consumable/drink
 	name = "Drink"
-	id = "drink"
 	description = "Uh, some kind of drink."
 	reagent_state = LIQUID
 	color = "#E78108" // rgb: 231, 129, 8

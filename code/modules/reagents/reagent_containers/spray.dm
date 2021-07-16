@@ -54,12 +54,12 @@
 	if(reagents.chem_temp > 300 || reagents.chem_temp < 280)	//harmful temperature
 		attack_log_type = ATKLOG_MOST
 
-	if(reagents.reagent_list.len == 1 && reagents.has_reagent("cleaner")) // Only create space cleaner logs if it's burning people from being too hot or cold
+	if(reagents.reagent_list.len == 1 && reagents.has_reagent(/datum/reagent/space_cleaner)) // Only create space cleaner logs if it's burning people from being too hot or cold
 		if(attack_log_type == ATKLOG_ALMOSTALL)
 			return
 
 	//commonly used for griefing or just very annoying and dangerous
-	if(reagents.has_reagent("sacid") || reagents.has_reagent("facid") || reagents.has_reagent("lube"))
+	if(reagents.has_reagent(/datum/reagent/acid) || reagents.has_reagent(/datum/reagent/acid/facid) || reagents.has_reagent(/datum/reagent/lube))
 		attack_log_type = ATKLOG_FEW
 
 	add_attack_logs(user, A, "Used a spray bottle. Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
@@ -110,7 +110,7 @@
 /obj/item/reagent_containers/spray/cleaner
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
-	list_reagents = list("cleaner" = 250)
+	list_reagents = list(/datum/reagent/space_cleaner = 250)
 
 /obj/item/reagent_containers/spray/cleaner/safety
 	desc = "BLAM!-brand non-foaming space cleaner! This spray bottle can only accept space cleaner."
@@ -124,22 +124,22 @@
 				to_chat(loc, "<span class='warning'>[src] identifies and removes a filthy substance.</span>")
 			else
 				visible_message("<span class='warning'>[src] identifies and removes a filthy substance.</span>")
-
+#error fix
 /obj/item/reagent_containers/spray/cleaner/drone
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	volume = 50
-	list_reagents = list("cleaner" = 50)
+	list_reagents = list(/datum/reagent/space_cleaner = 50)
 
 /obj/item/reagent_containers/spray/cleaner/drone/cyborg_recharge(coeff, emagged)
-	reagents.check_and_add("cleaner", volume, 3 * coeff)
+	reagents.check_and_add(/datum/reagent/space_cleaner, volume, 3 * coeff)
 
 //spray tan
 /obj/item/reagent_containers/spray/spraytan
 	name = "spray tan"
 	volume = 50
 	desc = "Gyaro brand spray tan. Do not spray near eyes or other orifices."
-	list_reagents = list("spraytan" = 50)
+	list_reagents = list(/datum/reagent/spraytan = 50)
 
 //pepperspray
 /obj/item/reagent_containers/spray/pepper
@@ -151,7 +151,7 @@
 	volume = 40
 	spray_maxrange = 4
 	amount_per_transfer_from_this = 5
-	list_reagents = list("condensedcapsaicin" = 40)
+	list_reagents = list(/datum/reagent/consumable/condensedcapsaicin = 40)
 
 //water flower
 /obj/item/reagent_containers/spray/waterflower
@@ -162,7 +162,7 @@
 	item_state = "sunflower"
 	amount_per_transfer_from_this = 1
 	volume = 10
-	list_reagents = list("water" = 10)
+	list_reagents = list(/datum/reagent/water = 10)
 
 /obj/item/reagent_containers/spray/waterflower/attack_self(mob/user) //Don't allow changing how much the flower sprays
 	return
@@ -234,4 +234,4 @@
 	icon_state = "plantbgone"
 	item_state = "plantbgone"
 	volume = 100
-	list_reagents = list("glyphosate" = 100)
+	list_reagents = list(/datum/reagent/glyphosate = 100)

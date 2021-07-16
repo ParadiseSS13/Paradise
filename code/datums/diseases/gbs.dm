@@ -4,7 +4,7 @@
 	spread_text = "On contact"
 	spread_flags = CONTACT_GENERAL
 	cure_text = "Diphenhydramine & Sulfur"
-	cures = list("diphenhydramine","sulfur")
+	cures = list(/datum/reagent/medicine/diphenhydramine, /datum/reagent/sulfur)
 	cure_chance = 15//higher chance to cure, since two reagents are required
 	agent = "Gravitokinetic Bipotential SADS+"
 	viable_mobtypes = list(/mob/living/carbon/human)
@@ -44,7 +44,7 @@
 	spread_text = "Non-Contagious"
 	spread_flags = SPECIAL
 	cure_text = "Cryoxadone"
-	cures = list("cryoxadone")
+	cures = list(/datum/reagent/medicine/cryoxadone)
 	cure_chance = 10
 	agent = "gibbis"
 	spread_flags = NON_CONTAGIOUS

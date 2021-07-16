@@ -124,15 +124,15 @@
 
 /obj/item/reagent_containers/applicator/brute
 	name = "brute auto-mender"
-	list_reagents = list("styptic_powder" = 200)
+	list_reagents = list(/datum/reagent/medicine/styptic_powder = 200)
 
 /obj/item/reagent_containers/applicator/burn
 	name = "burn auto-mender"
-	list_reagents = list("silver_sulfadiazine" = 200)
+	list_reagents = list(/datum/reagent/medicine/silver_sulfadiazine = 200)
 
 /obj/item/reagent_containers/applicator/dual
 	name = "dual auto-mender"
-	list_reagents = list("synthflesh" = 200)
+	list_reagents = list(/datum/reagent/medicine/synthflesh = 200)
 
 /obj/item/reagent_containers/applicator/dual/syndi // It magically goes through hardsuits. Don't ask how.
 	ignore_flags = TRUE

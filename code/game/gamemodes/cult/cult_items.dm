@@ -245,7 +245,7 @@
 	desc = "Toxic to nonbelievers; this water renews and reinvigorates the faithful of a cult."
 	icon_state = "holyflask"
 	color = "#333333"
-	list_reagents = list("unholywater" = 40)
+	list_reagents = list(/datum/reagent/fuel/unholywater = 40)
 
 /obj/item/clothing/glasses/hud/health/night/cultblind
 	name = "zealot's blindfold"
@@ -646,7 +646,7 @@
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 			if(H.stat != DEAD)
-				H.reagents.add_reagent("unholywater", 4)
+				H.reagents.add_reagent(/datum/reagent/fuel/unholywater, 4)
 		if(isshade(target) || isconstruct(target))
 			var/mob/living/simple_animal/M = target
 			if(M.health + 5 < M.maxHealth)

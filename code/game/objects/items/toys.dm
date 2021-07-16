@@ -61,7 +61,7 @@
 
 /obj/item/toy/balloon/wash(mob/user, atom/source)
 	if(reagents.total_volume < 10)
-		reagents.add_reagent("water", min(10-reagents.total_volume, 10))
+		reagents.add_reagent(/datum/reagent/water, min(10 - reagents.total_volume, 10))
 		to_chat(user, "<span class='notice'>You fill the balloon from the [source].</span>")
 		desc = "A translucent balloon with some form of liquid sloshing around in it."
 		update_icon()
@@ -73,7 +73,7 @@
 			if(O.reagents.total_volume < 1)
 				to_chat(user, "[O] is empty.")
 			else if(O.reagents.total_volume >= 1)
-				if(O.reagents.has_reagent("facid", 1))
+				if(O.reagents.has_reagent(/datum/reagent/acid/facid, 1))
 					to_chat(user, "The acid chews through the balloon!")
 					O.reagents.reaction(user)
 					qdel(src)
@@ -875,7 +875,7 @@
 	playsound(loc, poof_sound, 20, 1)	// Play the whoosh sound in local area
 	if(iscarbon(M))
 		if(prob(10))
-			M.reagents.add_reagent("hugs", 10)
+			M.reagents.add_reagent(/datum/reagent/hugs, 10)
 	return ..()
 
 /obj/item/toy/plushie/attack_self(mob/user as mob)
