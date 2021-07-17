@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;effect&#x2F;spawner&#x2F;grouped_spawner - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>grouped_spawner <aside>/<a href="obj.html">obj</a>/<a href="obj/effect/spawner/grouped_spawner.html">effect/spawner/grouped_spawner</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/effects/spawners/grouped_spawner.dm#L14">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;effects&#x2F;spawners&#x2F;grouped_spawner.dm 14"/></a></h1>
+
+<p>Can be used to group spawners together so you ensure a certain amount of things are spawned but can be spawned on multiple locations.</p>
+<p>How to use:
+Either place the base grouped_spawner in the map and define the group_id to
+determine which spawners belong to one another.
+Or make a child instance of the grouped_spawner and define the values there.</p>
+<p>When using the base version be sure to define both total_amount and max_per_spawner on
+at least one of the spawners of the group.
+A mismatch between instances of the same group between these values will lead to a runtime.
+So either leave it empty for the rest or have the rest have the same values</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/effect/spawner/grouped_spawner.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/effect/spawner/grouped_spawner.html#var/chosen_spawners">chosen_spawners</a></th><td>Which spawners are chosen to spawn the objects</td></tr>
+            <tr><th><a href="obj/effect/spawner/grouped_spawner.html#var/group_id">group_id</a></th><td>The id of the group this spawner belongs to. If left empty it'll use the type as id. Define this for map instances if you want to link different spawners up or want to use the base version.</td></tr>
+            <tr><th><a href="obj/effect/spawner/grouped_spawner.html#var/max_per_spawner">max_per_spawner</a></th><td>How many will spawn maximum per spawner. Set this in the map edit tool or in a child instance to set it for all the other instances.</td></tr>
+            <tr><th><a href="obj/effect/spawner/grouped_spawner.html#var/max_per_spawner_for_spawners">max_per_spawner_for_spawners</a></th><td>The list which holds the max_per_spawner values for each spawner group</td></tr>
+            <tr><th><a href="obj/effect/spawner/grouped_spawner.html#var/path_to_spawn">path_to_spawn</a></th><td>Which path will be used to spawn.</td></tr>
+            <tr><th><a href="obj/effect/spawner/grouped_spawner.html#var/spawner_groups">spawner_groups</a></th><td>The assoc list of grouped spawners. Key = group_id, value = list of spawners with that key</td></tr>
+            <tr><th><a href="obj/effect/spawner/grouped_spawner.html#var/total_amount">total_amount</a></th><td>How many will spawn. Set this in the map edit tool or in a child instance to set it for all the other instances.</td></tr>
+            <tr><th><a href="obj/effect/spawner/grouped_spawner.html#var/total_amount_for_spawners">total_amount_for_spawners</a></th><td>The list which holds the total_amount values for each spawner group</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/effect/spawner/grouped_spawner.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/effect/spawner/grouped_spawner.html#proc/get_spawn_values">get_spawn_values</a></th><td>Sets the spawn values to the values of the first defined instance of this group_id</td></tr>
+            <tr><th><a href="obj/effect/spawner/grouped_spawner.html#proc/save_spawn_values">save_spawn_values</a></th><td>Saves the spawn values. Will only pick the first defined version of this group_id</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/chosen_spawners"><aside class="declaration">var </aside>chosen_spawners
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/effects/spawners/grouped_spawner.dm#L30">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;effects&#x2F;spawners&#x2F;grouped_spawner.dm 30"/></a></h5>
+        <p>Which spawners are chosen to spawn the objects</p><h5 id="var/group_id"><aside class="declaration">var </aside>group_id
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/effects/spawners/grouped_spawner.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;effects&#x2F;spawners&#x2F;grouped_spawner.dm 25"/></a></h5>
+        <p>The id of the group this spawner belongs to. If left empty it'll use the type as id. Define this for map instances if you want to link different spawners up or want to use the base version.</p><h5 id="var/max_per_spawner"><aside class="declaration">var </aside>max_per_spawner
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/effects/spawners/grouped_spawner.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;effects&#x2F;spawners&#x2F;grouped_spawner.dm 23"/></a></h5>
+        <p>How many will spawn maximum per spawner. Set this in the map edit tool or in a child instance to set it for all the other instances.</p><h5 id="var/max_per_spawner_for_spawners"><aside class="declaration">var </aside>max_per_spawner_for_spawners
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/effects/spawners/grouped_spawner.dm#L36">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;effects&#x2F;spawners&#x2F;grouped_spawner.dm 36"/></a></h5>
+        <p>The list which holds the max_per_spawner values for each spawner group</p><h5 id="var/path_to_spawn"><aside class="declaration">var </aside>path_to_spawn
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/effects/spawners/grouped_spawner.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;effects&#x2F;spawners&#x2F;grouped_spawner.dm 19"/></a></h5>
+        <p>Which path will be used to spawn.</p><h5 id="var/spawner_groups"><aside class="declaration">var </aside>spawner_groups
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/effects/spawners/grouped_spawner.dm#L28">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;effects&#x2F;spawners&#x2F;grouped_spawner.dm 28"/></a></h5>
+        <p>The assoc list of grouped spawners. Key = group_id, value = list of spawners with that key</p><h5 id="var/total_amount"><aside class="declaration">var </aside>total_amount
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/effects/spawners/grouped_spawner.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;effects&#x2F;spawners&#x2F;grouped_spawner.dm 21"/></a></h5>
+        <p>How many will spawn. Set this in the map edit tool or in a child instance to set it for all the other instances.</p><h5 id="var/total_amount_for_spawners"><aside class="declaration">var </aside>total_amount_for_spawners
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/effects/spawners/grouped_spawner.dm#L32">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;effects&#x2F;spawners&#x2F;grouped_spawner.dm 32"/></a></h5>
+        <p>The list which holds the total_amount values for each spawner group</p><h2 id="proc">Proc Details</h2><h5 id="proc/get_spawn_values"><aside class="declaration">proc </aside>get_spawn_values<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/effects/spawners/grouped_spawner.dm#L99">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;effects&#x2F;spawners&#x2F;grouped_spawner.dm 99"/></a></aside>
+        </h5>
+        <p>Sets the spawn values to the values of the first defined instance of this group_id</p><h5 id="proc/save_spawn_values"><aside class="declaration">proc </aside>save_spawn_values<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/effects/spawners/grouped_spawner.dm#L84">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;effects&#x2F;spawners&#x2F;grouped_spawner.dm 84"/></a></aside>
+        </h5>
+        <p>Saves the spawn values. Will only pick the first defined version of this group_id</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

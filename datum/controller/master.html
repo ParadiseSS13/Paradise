@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;controller&#x2F;master - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>master <aside>/<a href="datum.html">datum</a>/<a href="datum/controller.html">controller</a>/<a href="datum/controller/master.html">master</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 17"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/controller/master.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/controller/master.html#var/current_init_stage">current_init_stage</a></th><td>Current init stage</td></tr>
+            <tr><th><a href="datum/controller/master.html#var/current_runlevel">current_runlevel</a></th><td>For scheduling different subsystems for different stages of the round</td></tr>
+            <tr><th><a href="datum/controller/master.html#var/current_ticklimit">current_ticklimit</a></th><td>Current tick limit, assigned before running a subsystem. Used by CHECK_TICK as well so that the procs subsystems call can obey that SS's tick limits</td></tr>
+            <tr><th><a href="datum/controller/master.html#var/initializations_finished_with_no_players_logged_in">initializations_finished_with_no_players_logged_in</a></th><td>Did inits finish with no one logged in</td></tr>
+            <tr><th><a href="datum/controller/master.html#var/iteration">iteration</a></th><td>How many times have we ran</td></tr>
+            <tr><th><a href="datum/controller/master.html#var/last_run">last_run</a></th><td>world.time of last fire, for tracking lag outside of the mc</td></tr>
+            <tr><th><a href="datum/controller/master.html#var/make_runtime">make_runtime</a></th><td>Set this to 1 to debug the MC with a detailed stack trace. Do not set on a production server.</td></tr>
+            <tr><th><a href="datum/controller/master.html#var/map_loading">map_loading</a></th><td>Are we loading in a new map?</td></tr>
+            <tr><th><a href="datum/controller/master.html#var/processing">processing</a></th><td>Are we processing (higher values increase the processing delay by n ticks)</td></tr>
+            <tr><th><a href="datum/controller/master.html#var/queue_head">queue_head</a></th><td>Start of queue linked list</td></tr>
+            <tr><th><a href="datum/controller/master.html#var/queue_priority_count">queue_priority_count</a></th><td>Running total so that we don't have to loop thru the queue each run to split up the tick</td></tr>
+            <tr><th><a href="datum/controller/master.html#var/queue_priority_count_bg">queue_priority_count_bg</a></th><td>Same, but for background subsystems</td></tr>
+            <tr><th><a href="datum/controller/master.html#var/queue_tail">queue_tail</a></th><td>End of queue linked list (used for appending to the list)</td></tr>
+            <tr><th><a href="datum/controller/master.html#var/random_seed">random_seed</a></th><td>Random seed generated for randomness if entropy is required</td></tr>
+            <tr><th><a href="datum/controller/master.html#var/sleep_delta">sleep_delta</a></th><td>How long is the MC sleeping between runs, read only (set by Loop() based off of anti-tick-contention heuristics)</td></tr>
+            <tr><th><a href="datum/controller/master.html#var/sleep_offline_after_initializations">sleep_offline_after_initializations</a></th><td>Do we want to sleep until players log in?</td></tr>
+            <tr><th><a href="datum/controller/master.html#var/subsystems">subsystems</a></th><td>List of subsystems to fire().</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/current_init_stage"><aside class="declaration">var </aside>current_init_stage
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L32">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 32"/></a></h5>
+        <p>Current init stage</p><h5 id="var/current_runlevel"><aside class="declaration">var </aside>current_runlevel
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L63">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 63"/></a></h5>
+        <p>For scheduling different subsystems for different stages of the round</p><h5 id="var/current_ticklimit"><aside class="declaration">var </aside>current_ticklimit
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L75">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 75"/></a></h5>
+        <p>Current tick limit, assigned before running a subsystem. Used by CHECK_TICK as well so that the procs subsystems call can obey that SS's tick limits</p><h5 id="var/initializations_finished_with_no_players_logged_in"><aside class="declaration">var </aside>initializations_finished_with_no_players_logged_in
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L46">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 46"/></a></h5>
+        <p>Did inits finish with no one logged in</p><h5 id="var/iteration"><aside class="declaration">var </aside>iteration
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 23"/></a></h5>
+        <p>How many times have we ran</p><h5 id="var/last_run"><aside class="declaration">var </aside>last_run
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L26">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 26"/></a></h5>
+        <p>world.time of last fire, for tracking lag outside of the mc</p><h5 id="var/make_runtime"><aside class="declaration">var </aside>make_runtime
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L43">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 43"/></a></h5>
+        <p>Set this to 1 to debug the MC with a detailed stack trace. Do not set on a production server.</p><h5 id="var/map_loading"><aside class="declaration">var </aside>map_loading
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L60">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 60"/></a></h5>
+        <p>Are we loading in a new map?</p><h5 id="var/processing"><aside class="declaration">var </aside>processing
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 21"/></a></h5>
+        <p>Are we processing (higher values increase the processing delay by n ticks)</p><h5 id="var/queue_head"><aside class="declaration">var </aside>queue_head
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/controller.html">controller</a>/<a href="datum/controller/subsystem.html">subsystem</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L52">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 52"/></a></h5>
+        <p>Start of queue linked list</p><h5 id="var/queue_priority_count"><aside class="declaration">var </aside>queue_priority_count
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L56">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 56"/></a></h5>
+        <p>Running total so that we don't have to loop thru the queue each run to split up the tick</p><h5 id="var/queue_priority_count_bg"><aside class="declaration">var </aside>queue_priority_count_bg
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L58">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 58"/></a></h5>
+        <p>Same, but for background subsystems</p><h5 id="var/queue_tail"><aside class="declaration">var </aside>queue_tail
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/controller.html">controller</a>/<a href="datum/controller/subsystem.html">subsystem</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L54">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 54"/></a></h5>
+        <p>End of queue linked list (used for appending to the list)</p><h5 id="var/random_seed"><aside class="declaration">var </aside>random_seed
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L72">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 72"/></a></h5>
+        <p>Random seed generated for randomness if entropy is required</p><h5 id="var/sleep_delta"><aside class="declaration">var </aside>sleep_delta
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L40">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 40"/></a></h5>
+        <p>How long is the MC sleeping between runs, read only (set by Loop() based off of anti-tick-contention heuristics)</p><h5 id="var/sleep_offline_after_initializations"><aside class="declaration">var </aside>sleep_offline_after_initializations
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L65">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 65"/></a></h5>
+        <p>Do we want to sleep until players log in?</p><h5 id="var/subsystems"><aside class="declaration">var </aside>subsystems
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 29"/></a></h5>
+        <p>List of subsystems to fire().</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

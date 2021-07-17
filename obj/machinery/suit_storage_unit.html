@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;machinery&#x2F;suit_storage_unit - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>suit_storage_unit <aside>/<a href="obj.html">obj</a>/<a href="obj/machinery.html">machinery</a>/<a href="obj/machinery/suit_storage_unit.html">suit_storage_unit</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/suit_storage_unit.dm#L2">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;suit_storage_unit.dm 2"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/machinery/suit_storage_unit.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/machinery/suit_storage_unit.html#var/occupant_typecache">occupant_typecache</a></th><td>If set, turned into typecache in Initialize, other wise, defaults to mob/living typecache</td></tr>
+            <tr><th><a href="obj/machinery/suit_storage_unit.html#var/req_access">req_access</a></th><td>Access needed to control it, checked only if ID lock is enabled</td></tr>
+            <tr><th><a href="obj/machinery/suit_storage_unit.html#var/safeties">safeties</a></th><td>prevent locking people in there if set to true</td></tr>
+            <tr><th><a href="obj/machinery/suit_storage_unit.html#var/secure">secure</a></th><td>enables ID locking when set to true</td></tr>
+            <tr><th><a href="obj/machinery/suit_storage_unit.html#var/shocked">shocked</a></th><td>Shocks anyone that touches it</td></tr>
+            <tr><th><a href="obj/machinery/suit_storage_unit.html#var/uv">uv</a></th><td>Is true if a uv cleaning cycle is currently running.</td></tr>
+            <tr><th><a href="obj/machinery/suit_storage_unit.html#var/uv_cycles">uv_cycles</a></th><td>How many uv cleaning cycles to do, counts down while cleaning takes place.</td></tr>
+            <tr><th><a href="obj/machinery/suit_storage_unit.html#var/uv_super">uv_super</a></th><td>If set to true, uses much more damaging UV wavelength and fries anything inside.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/machinery/suit_storage_unit.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/machinery/suit_storage_unit.html#proc/store_item">store_item</a></th><td>Tries to store the item into whatever slot it can go, returns true if the item is stored successfully.</td></tr>
+            <tr><th><a href="obj/machinery/suit_storage_unit.html#proc/try_store_item">try_store_item</a></th><td>Tries to store the item, returns true if it's moved successfully, false otherwise (because of nodrop etc)</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/occupant_typecache"><aside class="declaration">var </aside>occupant_typecache
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/suit_storage_unit.dm#L48">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;suit_storage_unit.dm 48"/></a></h5>
+        <p>If set, turned into typecache in Initialize, other wise, defaults to mob/living typecache</p><h5 id="var/req_access">req_access
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/suit_storage_unit.dm#L33">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;suit_storage_unit.dm 33"/></a></h5>
+        <p>Access needed to control it, checked only if ID lock is enabled</p><h5 id="var/safeties"><aside class="declaration">var </aside>safeties
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/suit_storage_unit.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;suit_storage_unit.dm 25"/></a></h5>
+        <p>prevent locking people in there if set to true</p><h5 id="var/secure"><aside class="declaration">var </aside>secure
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/suit_storage_unit.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;suit_storage_unit.dm 29"/></a></h5>
+        <p>enables ID locking when set to true</p><h5 id="var/shocked"><aside class="declaration">var </aside>shocked
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/suit_storage_unit.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;suit_storage_unit.dm 31"/></a></h5>
+        <p>Shocks anyone that touches it</p><h5 id="var/uv"><aside class="declaration">var </aside>uv
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/suit_storage_unit.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;suit_storage_unit.dm 37"/></a></h5>
+        <p>Is true if a uv cleaning cycle is currently running.</p><h5 id="var/uv_cycles"><aside class="declaration">var </aside>uv_cycles
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/suit_storage_unit.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;suit_storage_unit.dm 41"/></a></h5>
+        <p>How many uv cleaning cycles to do, counts down while cleaning takes place.</p><h5 id="var/uv_super"><aside class="declaration">var </aside>uv_super
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/suit_storage_unit.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;suit_storage_unit.dm 39"/></a></h5>
+        <p>If set to true, uses much more damaging UV wavelength and fries anything inside.</p><h2 id="proc">Proc Details</h2><h5 id="proc/store_item"><aside class="declaration">proc </aside>store_item<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/I, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/suit_storage_unit.dm#L347">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;suit_storage_unit.dm 347"/></a></aside>
+        </h5>
+        <p>Tries to store the item into whatever slot it can go, returns true if the item is stored successfully.</p><h5 id="proc/try_store_item"><aside class="declaration">proc </aside>try_store_item<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/I, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/suit_storage_unit.dm#L374">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;suit_storage_unit.dm 374"/></a></aside>
+        </h5>
+        <p>Tries to store the item, returns true if it's moved successfully, false otherwise (because of nodrop etc)</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

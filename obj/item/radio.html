@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;item&#x2F;radio - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>radio <aside>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/radio.html">radio</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/devices/radio/radio.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;devices&#x2F;radio&#x2F;radio.dm 23"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/item/radio.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/item/radio.html#var/broadcasting">broadcasting</a></th><td>Whether the radio will broadcast stuff it hears, out over the radio</td></tr>
+            <tr><th><a href="obj/item/radio.html#var/canhear_range">canhear_range</a></th><td>the range which mobs can hear this radio from</td></tr>
+            <tr><th><a href="obj/item/radio.html#var/channels">channels</a></th><td>see communications.dm for full list. First channes is a &quot;default&quot; for :h</td></tr>
+            <tr><th><a href="obj/item/radio.html#var/disable_timer">disable_timer</a></th><td>How many times this is disabled by EMPs</td></tr>
+            <tr><th><a href="obj/item/radio.html#var/freerange">freerange</a></th><td>Whether the radio can be re-tuned to restricted channels it has no key for</td></tr>
+            <tr><th><a href="obj/item/radio.html#var/freqlock">freqlock</a></th><td>Whether the radio is able to have its primary frequency changed. Used for radios with weird primary frequencies, like DS, syndi, etc</td></tr>
+            <tr><th><a href="obj/item/radio.html#var/has_loudspeaker">has_loudspeaker</a></th><td>Whether loudspeaker can be toggled by the user</td></tr>
+            <tr><th><a href="obj/item/radio.html#var/listening">listening</a></th><td>Whether the radio is currently receiving</td></tr>
+            <tr><th><a href="obj/item/radio.html#var/loudspeaker">loudspeaker</a></th><td>Whether the radio broadcasts to everyone within a few tiles, or not</td></tr>
+            <tr><th><a href="obj/item/radio.html#var/on">on</a></th><td>boolean for radio enabled or not</td></tr>
+            <tr><th><a href="obj/item/radio.html#var/syndiekey">syndiekey</a></th><td>Holder for the syndicate encryption key if present</td></tr>
+            <tr><th><a href="obj/item/radio.html#var/traitor_frequency">traitor_frequency</a></th><td>tune to frequency to unlock traitor supplies</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/broadcasting"><aside class="declaration">var </aside>broadcasting
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/devices/radio/radio.dm#L42">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;devices&#x2F;radio&#x2F;radio.dm 42"/></a></h5>
+        <p>Whether the radio will broadcast stuff it hears, out over the radio</p><h5 id="var/canhear_range"><aside class="declaration">var </aside>canhear_range
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/devices/radio/radio.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;devices&#x2F;radio&#x2F;radio.dm 37"/></a></h5>
+        <p>the range which mobs can hear this radio from</p><h5 id="var/channels"><aside class="declaration">var </aside>channels
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/devices/radio/radio.dm#L56">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;devices&#x2F;radio&#x2F;radio.dm 56"/></a></h5>
+        <p>see communications.dm for full list. First channes is a &quot;default&quot; for :h</p><h5 id="var/disable_timer"><aside class="declaration">var </aside>disable_timer
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/devices/radio/radio.dm#L60">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;devices&#x2F;radio&#x2F;radio.dm 60"/></a></h5>
+        <p>How many times this is disabled by EMPs</p><h5 id="var/freerange"><aside class="declaration">var </aside>freerange
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/devices/radio/radio.dm#L46">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;devices&#x2F;radio&#x2F;radio.dm 46"/></a></h5>
+        <p>Whether the radio can be re-tuned to restricted channels it has no key for</p><h5 id="var/freqlock"><aside class="declaration">var </aside>freqlock
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/devices/radio/radio.dm#L48">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;devices&#x2F;radio&#x2F;radio.dm 48"/></a></h5>
+        <p>Whether the radio is able to have its primary frequency changed. Used for radios with weird primary frequencies, like DS, syndi, etc</p><h5 id="var/has_loudspeaker"><aside class="declaration">var </aside>has_loudspeaker
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/devices/radio/radio.dm#L53">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;devices&#x2F;radio&#x2F;radio.dm 53"/></a></h5>
+        <p>Whether loudspeaker can be toggled by the user</p><h5 id="var/listening"><aside class="declaration">var </aside>listening
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/devices/radio/radio.dm#L44">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;devices&#x2F;radio&#x2F;radio.dm 44"/></a></h5>
+        <p>Whether the radio is currently receiving</p><h5 id="var/loudspeaker"><aside class="declaration">var </aside>loudspeaker
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/devices/radio/radio.dm#L51">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;devices&#x2F;radio&#x2F;radio.dm 51"/></a></h5>
+        <p>Whether the radio broadcasts to everyone within a few tiles, or not</p><h5 id="var/on"><aside class="declaration">var </aside>on
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/devices/radio/radio.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;devices&#x2F;radio&#x2F;radio.dm 31"/></a></h5>
+        <p>boolean for radio enabled or not</p><h5 id="var/syndiekey"><aside class="declaration">var </aside>syndiekey
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/encryptionkey/syndicate</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/devices/radio/radio.dm#L58">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;devices&#x2F;radio&#x2F;radio.dm 58"/></a></h5>
+        <p>Holder for the syndicate encryption key if present</p><h5 id="var/traitor_frequency"><aside class="declaration">var </aside>traitor_frequency
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/devices/radio/radio.dm#L35">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;devices&#x2F;radio&#x2F;radio.dm 35"/></a></h5>
+        <p>tune to frequency to unlock traitor supplies</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

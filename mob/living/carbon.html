@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;mob&#x2F;living&#x2F;carbon - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>carbon <aside>/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/carbon/carbon_defines.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;carbon_defines.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="mob/living/carbon.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="mob/living/carbon.html#var/next_hallucination">next_hallucination</a></th><td>The world.time after which the mob can hallucinate again.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="mob/living/carbon.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="mob/living/carbon.html#proc/dream">dream</a></th><td>DREAMS</td></tr>
+            <tr><th><a href="mob/living/carbon.html#proc/electrocute_act">electrocute_act</a></th><td>Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.</td></tr>
+            <tr><th><a href="mob/living/carbon.html#proc/hallucinate">hallucinate</a></th><td>Spawns an hallucination for the mob.</td></tr>
+            <tr><th><a href="mob/living/carbon.html#proc/handle_hallucinations">handle_hallucinations</a></th><td>Called as part of [/mob/living/proc/handle_status_effects] to handle hallucinations.</td></tr>
+            <tr><th><a href="mob/living/carbon.html#proc/has_virus">has_virus</a></th><td>Whether a virus worthy displaying on the HUD is present.</td></tr>
+            <tr><th><a href="mob/living/carbon.html#proc/immortality">immortality</a></th><td>For the Wishgranter</td></tr>
+            <tr><th><a href="mob/living/carbon.html#proc/is_in_crit">is_in_crit</a></th><td>Medical HUD! Basic mode needs suit sensors on.
+Whether the carbon mob is currently in crit.</td></tr>
+            <tr><th><a href="mob/living/carbon.html#proc/pat_out">pat_out</a></th><td>Handles patting out a fire on someone.</td></tr>
+            <tr><th><a href="mob/living/carbon.html#proc/secondary_shock">secondary_shock</a></th><td>Called slightly after electrocute act to reduce jittering and apply a secondary stun.</td></tr>
+            <tr><th><a href="mob/living/carbon.html#proc/update_suit_sensors">update_suit_sensors</a></th><td>HOOKS</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/next_hallucination"><aside class="declaration">var </aside>next_hallucination
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/carbon/carbon_defines.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;carbon_defines.dm 31"/></a></h5>
+        <p>The world.time after which the mob can hallucinate again.</p><h2 id="proc">Proc Details</h2><h5 id="proc/dream"><aside class="declaration">proc </aside>dream<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/flufftext/Dreaming.dm#L4">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;flufftext&#x2F;Dreaming.dm 4"/></a></aside>
+        </h5>
+        <p>DREAMS</p><h5 id="proc/electrocute_act"><aside class="parent"><a title="/mob/living" href="mob/living.html#proc/electrocute_act">&uarr;</a></aside>electrocute_act<aside>(shock_damage, source, siemens_coeff, flags) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/carbon/carbon.dm#L148">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;carbon.dm 148"/></a></aside>
+        </h5>
+        <p>Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.</p><h5 id="proc/hallucinate"><aside class="declaration">proc </aside>hallucinate<aside>(/<a href="obj.html">obj</a>/<a href="obj/effect/hallucination.html">effect/hallucination</a>/H) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/hallucinations.dm#L72">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;hallucinations.dm 72"/></a></aside>
+        </h5>
+        <p>Spawns an hallucination for the mob.</p>
+<p>Arguments:</p>
+<ul>
+<li>H - The type path of the hallucination to spawn.</li>
+</ul><h5 id="proc/handle_hallucinations"><aside class="declaration">proc </aside>handle_hallucinations<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/hallucinations.dm#L46">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;hallucinations.dm 46"/></a></aside>
+        </h5>
+        <p>Called as part of [/mob/living/proc/handle_status_effects] to handle hallucinations.</p><h5 id="proc/has_virus"><aside class="declaration">proc </aside>has_virus<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/data_huds.dm#L90">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;data_huds.dm 90"/></a></aside>
+        </h5>
+        <p>Whether a virus worthy displaying on the HUD is present.</p><h5 id="proc/immortality"><aside class="declaration">proc </aside>immortality<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/awaymissions/mission_code/wildwest.dm#L158">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;awaymissions&#x2F;mission_code&#x2F;wildwest.dm 158"/></a></aside>
+        </h5>
+        <p>For the Wishgranter</p><h5 id="proc/is_in_crit"><aside class="declaration">proc </aside>is_in_crit<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/data_huds.dm#L75">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;data_huds.dm 75"/></a></aside>
+        </h5>
+        <p>Medical HUD! Basic mode needs suit sensors on.
+Whether the carbon mob is currently in crit.</p><h5 id="proc/pat_out"><aside class="declaration">proc </aside>pat_out<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/target) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/carbon/carbon.dm#L274">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;carbon.dm 274"/></a></aside>
+        </h5>
+        <p>Handles patting out a fire on someone.</p>
+<p>Removes 0.5 fire stacks per pat, with a 30% chance of the user burning their hand if they don't have adequate heat resistance.
+Arguments:</p>
+<ul>
+<li>src - The mob doing the patting</li>
+<li>target - The mob who is currently on fire</li>
+</ul><h5 id="proc/secondary_shock"><aside class="declaration">proc </aside>secondary_shock<aside>(should_stun) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/carbon/carbon.dm#L180">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;carbon.dm 180"/></a></aside>
+        </h5>
+        <p>Called slightly after electrocute act to reduce jittering and apply a secondary stun.</p><h5 id="proc/update_suit_sensors"><aside class="declaration">proc </aside>update_suit_sensors<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/data_huds.dm#L160">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;data_huds.dm 160"/></a></aside>
+        </h5>
+        <p>HOOKS</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

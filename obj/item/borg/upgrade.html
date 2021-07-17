@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;item&#x2F;borg&#x2F;upgrade - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>upgrade <aside>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/borg/upgrade.html">borg/upgrade</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/robot/robot_upgrades.dm#L4">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;robot&#x2F;robot_upgrades.dm 4"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/item/borg/upgrade.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/item/borg/upgrade.html#var/items_to_replace">items_to_replace</a></th><td>A list of items, and their replacements that this upgrade should replace on installation, in the format of <code>item_type_to_replace = replacement_item_type</code>.</td></tr>
+            <tr><th><a href="obj/item/borg/upgrade.html#var/module_type">module_type</a></th><td>The type of module this upgrade is compatible with: Engineering, Medical, etc.</td></tr>
+            <tr><th><a href="obj/item/borg/upgrade.html#var/require_module">require_module</a></th><td>Whether or not the cyborg needs to have a chosen module before they can recieve this upgrade.</td></tr>
+            <tr><th><a href="obj/item/borg/upgrade.html#var/special_rechargables">special_rechargables</a></th><td>A list of replacement items will need to be placed into a cyborg module's <code>special_rechargable</code> list after this upgrade is installed.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/item/borg/upgrade.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/item/borg/upgrade.html#proc/action">action</a></th><td>Called when someone clicks on a borg with an upgrade in their hand.</td></tr>
+            <tr><th><a href="obj/item/borg/upgrade.html#proc/after_install">after_install</a></th><td>Executes code after the module has been installed and the cyborg has been modified in some way.</td></tr>
+            <tr><th><a href="obj/item/borg/upgrade.html#proc/do_install">do_install</a></th><td>Executes code that will modify the cyborg or its module.</td></tr>
+            <tr><th><a href="obj/item/borg/upgrade.html#proc/pre_install_checks">pre_install_checks</a></th><td>Checks if the upgrade is able to be applied to the cyborg, before actually applying it.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/items_to_replace"><aside class="declaration">var </aside>items_to_replace
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/robot/robot_upgrades.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;robot&#x2F;robot_upgrades.dm 15"/></a></h5>
+        <p>A list of items, and their replacements that this upgrade should replace on installation, in the format of <code>item_type_to_replace = replacement_item_type</code>.</p><h5 id="var/module_type"><aside class="declaration">var </aside>module_type
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/robot/robot_upgrades.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;robot&#x2F;robot_upgrades.dm 13"/></a></h5>
+        <p>The type of module this upgrade is compatible with: Engineering, Medical, etc.</p><h5 id="var/require_module"><aside class="declaration">var </aside>require_module
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/robot/robot_upgrades.dm#L11">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;robot&#x2F;robot_upgrades.dm 11"/></a></h5>
+        <p>Whether or not the cyborg needs to have a chosen module before they can recieve this upgrade.</p><h5 id="var/special_rechargables"><aside class="declaration">var </aside>special_rechargables
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/robot/robot_upgrades.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;robot&#x2F;robot_upgrades.dm 17"/></a></h5>
+        <p>A list of replacement items will need to be placed into a cyborg module's <code>special_rechargable</code> list after this upgrade is installed.</p><h2 id="proc">Proc Details</h2><h5 id="proc/action"><aside class="declaration">proc </aside>action<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/silicon.html">silicon</a>/<a href="mob/living/silicon/robot.html">robot</a>/R) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/robot/robot_upgrades.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;robot&#x2F;robot_upgrades.dm 25"/></a></aside>
+        </h5>
+        <p>Called when someone clicks on a borg with an upgrade in their hand.</p>
+<p>Arguments:</p>
+<ul>
+<li>R - the cyborg that was clicked on with an upgrade.</li>
+</ul><h5 id="proc/after_install"><aside class="declaration">proc </aside>after_install<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/silicon.html">silicon</a>/<a href="mob/living/silicon/robot.html">robot</a>/R) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/robot/robot_upgrades.dm#L64">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;robot&#x2F;robot_upgrades.dm 64"/></a></aside>
+        </h5>
+        <p>Executes code after the module has been installed and the cyborg has been modified in some way.</p>
+<p>Arguments:</p>
+<ul>
+<li>R - the cyborg that we've applied the upgrade to.</li>
+</ul><h5 id="proc/do_install"><aside class="declaration">proc </aside>do_install<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/silicon.html">silicon</a>/<a href="mob/living/silicon/robot.html">robot</a>/R) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/robot/robot_upgrades.dm#L55">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;robot&#x2F;robot_upgrades.dm 55"/></a></aside>
+        </h5>
+        <p>Executes code that will modify the cyborg or its module.</p>
+<p>Arguments:</p>
+<ul>
+<li>R - the cyborg we're applying the upgrade to.</li>
+</ul><h5 id="proc/pre_install_checks"><aside class="declaration">proc </aside>pre_install_checks<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/silicon.html">silicon</a>/<a href="mob/living/silicon/robot.html">robot</a>/R) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/robot/robot_upgrades.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;robot&#x2F;robot_upgrades.dm 39"/></a></aside>
+        </h5>
+        <p>Checks if the upgrade is able to be applied to the cyborg, before actually applying it.</p>
+<p>Arguments:</p>
+<ul>
+<li>R - the cyborg that was clicked on with an upgrade.</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

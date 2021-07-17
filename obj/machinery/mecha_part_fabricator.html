@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;machinery&#x2F;mecha_part_fabricator - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Exosuit Fabricator <aside>/<a href="obj.html">obj</a>/<a href="obj/machinery.html">machinery</a>/<a href="obj/machinery/mecha_part_fabricator.html">mecha_part_fabricator</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L11">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 11"/></a></h1>
+
+<p>A machine that allows for the production of exosuits and robotic parts.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/machinery/mecha_part_fabricator.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#var/allowed_design_types">allowed_design_types</a></th><td>Bitflags of design types that can be produced.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#var/being_built">being_built</a></th><td>The design that is being currently being built.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#var/build_end">build_end</a></th><td>The world.time at which the current design build will end.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#var/build_queue">build_queue</a></th><td>The build queue. Lazy list.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#var/build_start">build_start</a></th><td>The world.time at which the current design build started.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#var/categories">categories</a></th><td>List of categories to display in the UI. Designs intended for each respective category need to have the name in <a href="datum/design.html" title="/datum/design">/datum/design/category</a>. Defined in [Initialize()][/atom/proc/Initialize].</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#var/component_coeff">component_coeff</a></th><td>Resource efficiency multiplier. A lower value means less resources consumed. Updated by [CheckParts()][/atom/proc/CheckParts].</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#var/id">id</a></th><td>Unused. Ensures backwards compatibility with some maps.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#var/local_designs">local_designs</a></th><td>Holds the locally known R&amp;D designs.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#var/processing_queue">processing_queue</a></th><td>Whether the queue is currently being processed.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#var/selected_category">selected_category</a></th><td>The currently selected category.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#var/syncing">syncing</a></th><td>Whether a R&amp;D sync is currently in progress.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#var/time_coeff">time_coeff</a></th><td>Production time multiplier. A lower value means faster production. Updated by [CheckParts()][/atom/proc/CheckParts].</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/machinery/mecha_part_fabricator.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#proc/build_design">build_design</a></th><td>Given a design, attempts to build it.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#proc/build_design_timer_finish">build_design_timer_finish</a></th><td>Called when the timer for building a design finishes.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#proc/can_afford_design">can_afford_design</a></th><td>Returns whether the machine contains enough resources to build the given design.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#proc/can_insert_materials">can_insert_materials</a></th><td>Returns whether the machine can accept new materials.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#proc/get_design_build_time">get_design_build_time</a></th><td>Calculates the total build time of a design, applying <a href="obj/machinery/mecha_part_fabricator.html#var/time_coeff" title="/obj/machinery/mecha_part_fabricator">/obj/machinery/mecha_part_fabricator/var/time_coeff</a>.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#proc/get_design_cost">get_design_cost</a></th><td>Calculates the total resource cost of a design, applying <a href="obj/machinery/mecha_part_fabricator.html#var/component_coeff" title="/obj/machinery/mecha_part_fabricator">/obj/machinery/mecha_part_fabricator/var/component_coeff</a>.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#proc/on_material_insert">on_material_insert</a></th><td>Called by <a href="datum/component.html" title="/datum/component">/datum/component/material_container</a> when material sheets are inserted in the machine.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#proc/on_material_insert_timer_finish">on_material_insert_timer_finish</a></th><td>Called when the timer after inserting material sheets finishes.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#proc/process_queue">process_queue</a></th><td>Attempts to build the first item in the queue.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#proc/sync">sync</a></th><td>Syncs the R&amp;D designs from the first <a href="obj/machinery/computer.html" title="/obj/machinery/computer">/obj/machinery/computer/rdconsole</a> in the area.</td></tr>
+            <tr><th><a href="obj/machinery/mecha_part_fabricator.html#proc/sync_timer_finish">sync_timer_finish</a></th><td>Called when the timer for syncing finishes.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/allowed_design_types"><aside class="declaration">var </aside>allowed_design_types
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 23"/></a></h5>
+        <p>Bitflags of design types that can be produced.</p><h5 id="var/being_built"><aside class="declaration">var </aside>being_built
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/design.html">design</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L40">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 40"/></a></h5>
+        <p>The design that is being currently being built.</p><h5 id="var/build_end"><aside class="declaration">var </aside>build_end
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L44">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 44"/></a></h5>
+        <p>The world.time at which the current design build will end.</p><h5 id="var/build_queue"><aside class="declaration">var </aside>build_queue
+            <aside>&ndash; /list/datum/design</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L46">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 46"/></a></h5>
+        <p>The build queue. Lazy list.</p><h5 id="var/build_start"><aside class="declaration">var </aside>build_start
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L42">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 42"/></a></h5>
+        <p>The world.time at which the current design build started.</p><h5 id="var/categories"><aside class="declaration">var </aside>categories
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 25"/></a></h5>
+        <p>List of categories to display in the UI. Designs intended for each respective category need to have the name in <a href="datum/design.html" title="/datum/design">/datum/design/category</a>. Defined in [Initialize()][/atom/proc/Initialize].</p><h5 id="var/component_coeff"><aside class="declaration">var </aside>component_coeff
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L32">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 32"/></a></h5>
+        <p>Resource efficiency multiplier. A lower value means less resources consumed. Updated by [CheckParts()][/atom/proc/CheckParts].</p><h5 id="var/id"><aside class="declaration">var </aside>id
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 27"/></a></h5>
+        <p>Unused. Ensures backwards compatibility with some maps.</p><h5 id="var/local_designs"><aside class="declaration">var </aside>local_designs
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/research.html">research</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L34">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 34"/></a></h5>
+        <p>Holds the locally known R&amp;D designs.</p><h5 id="var/processing_queue"><aside class="declaration">var </aside>processing_queue
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L48">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 48"/></a></h5>
+        <p>Whether the queue is currently being processed.</p><h5 id="var/selected_category"><aside class="declaration">var </aside>selected_category
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L38">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 38"/></a></h5>
+        <p>The currently selected category.</p><h5 id="var/syncing"><aside class="declaration">var </aside>syncing
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L36">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 36"/></a></h5>
+        <p>Whether a R&amp;D sync is currently in progress.</p><h5 id="var/time_coeff"><aside class="declaration">var </aside>time_coeff
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L30">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 30"/></a></h5>
+        <p>Production time multiplier. A lower value means faster production. Updated by [CheckParts()][/atom/proc/CheckParts].</p><h2 id="proc">Proc Details</h2><h5 id="proc/build_design"><aside class="declaration">proc </aside>build_design<aside>(/<a href="datum.html">datum</a>/<a href="datum/design.html">design</a>/D) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L162">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 162"/></a></aside>
+        </h5>
+        <p>Given a design, attempts to build it.</p>
+<p>Arguments:</p>
+<ul>
+<li>D - The design to build.</li>
+</ul><h5 id="proc/build_design_timer_finish"><aside class="declaration">proc </aside>build_design_timer_finish<aside>(/<a href="datum.html">datum</a>/<a href="datum/design.html">design</a>/D, /list/final_cost) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L197">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 197"/></a></aside>
+        </h5>
+        <p>Called when the timer for building a design finishes.</p>
+<p>Arguments:</p>
+<ul>
+<li>D - The design being built.</li>
+<li>final_cost - The materials consumed during the build.</li>
+</ul><h5 id="proc/can_afford_design"><aside class="declaration">proc </aside>can_afford_design<aside>(/<a href="datum.html">datum</a>/<a href="datum/design.html">design</a>/D) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L140">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 140"/></a></aside>
+        </h5>
+        <p>Returns whether the machine contains enough resources to build the given design.</p>
+<p>Arguments:</p>
+<ul>
+<li>D - The design to check.</li>
+</ul><h5 id="proc/can_insert_materials"><aside class="declaration">proc </aside>can_insert_materials<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L268">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 268"/></a></aside>
+        </h5>
+        <p>Returns whether the machine can accept new materials.</p><h5 id="proc/get_design_build_time"><aside class="declaration">proc </aside>get_design_build_time<aside>(/<a href="datum.html">datum</a>/<a href="datum/design.html">design</a>/D, roundto) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L131">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 131"/></a></aside>
+        </h5>
+        <p>Calculates the total build time of a design, applying <a href="obj/machinery/mecha_part_fabricator.html#var/time_coeff" title="/obj/machinery/mecha_part_fabricator">/obj/machinery/mecha_part_fabricator/var/time_coeff</a>.</p>
+<p>Arguments:</p>
+<ul>
+<li>D - The design whose build time to calculate.</li>
+</ul><h5 id="proc/get_design_cost"><aside class="declaration">proc </aside>get_design_cost<aside>(/<a href="datum.html">datum</a>/<a href="datum/design.html">design</a>/D, roundto) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L116">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 116"/></a></aside>
+        </h5>
+        <p>Calculates the total resource cost of a design, applying <a href="obj/machinery/mecha_part_fabricator.html#var/component_coeff" title="/obj/machinery/mecha_part_fabricator">/obj/machinery/mecha_part_fabricator/var/component_coeff</a>.</p>
+<p>Arguments:</p>
+<ul>
+<li>D - The design whose cost to calculate.</li>
+</ul><h5 id="proc/on_material_insert"><aside class="declaration">proc </aside>on_material_insert<aside>(type_inserted, id_inserted, amount_inserted) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L252">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 252"/></a></aside>
+        </h5>
+        <p>Called by <a href="datum/component.html" title="/datum/component">/datum/component/material_container</a> when material sheets are inserted in the machine.</p>
+<p>Arguments:</p>
+<ul>
+<li>type_inserted - The material type.</li>
+<li>id_inserted - The material ID.</li>
+<li>amount_inserted - The amount of sheets inserted.</li>
+</ul><h5 id="proc/on_material_insert_timer_finish"><aside class="declaration">proc </aside>on_material_insert_timer_finish<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L262">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 262"/></a></aside>
+        </h5>
+        <p>Called when the timer after inserting material sheets finishes.</p><h5 id="proc/process_queue"><aside class="declaration">proc </aside>process_queue<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L149">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 149"/></a></aside>
+        </h5>
+        <p>Attempts to build the first item in the queue.</p><h5 id="proc/sync"><aside class="declaration">proc </aside>sync<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L226">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 226"/></a></aside>
+        </h5>
+        <p>Syncs the R&amp;D designs from the first <a href="obj/machinery/computer.html" title="/obj/machinery/computer">/obj/machinery/computer/rdconsole</a> in the area.</p><h5 id="proc/sync_timer_finish"><aside class="declaration">proc </aside>sync_timer_finish<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/mecha/mech_fabricator.dm#L233">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;mecha&#x2F;mech_fabricator.dm 233"/></a></aside>
+        </h5>
+        <p>Called when the timer for syncing finishes.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

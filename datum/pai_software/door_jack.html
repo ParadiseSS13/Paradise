@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;pai_software&#x2F;door_jack - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>door_jack <aside>/<a href="datum.html">datum</a>/<a href="datum/pai_software.html">pai_software</a>/<a href="datum/pai_software/door_jack.html">door_jack</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/pai/software/pai_apps.dm#L283">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;pai&#x2F;software&#x2F;pai_apps.dm 283"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/pai_software/door_jack.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/pai_software/door_jack.html#var/cable">cable</a></th><td>The cable being plugged into a door</td></tr>
+            <tr><th><a href="datum/pai_software/door_jack.html#var/hackdoor">hackdoor</a></th><td>The door being hacked</td></tr>
+            <tr><th><a href="datum/pai_software/door_jack.html#var/hacking">hacking</a></th><td>Are we hacking?</td></tr>
+            <tr><th><a href="datum/pai_software/door_jack.html#var/progress">progress</a></th><td>Progress on hacking the door</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/pai_software/door_jack.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/pai_software/door_jack.html#proc/cleanup_hack">cleanup_hack</a></th><td>Door jack cleanup proc</td></tr>
+            <tr><th><a href="datum/pai_software/door_jack.html#proc/hackloop">hackloop</a></th><td>Door jack hack loop</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/cable"><aside class="declaration">var </aside>cable
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/pai_cable</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/pai/software/pai_apps.dm#L294">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;pai&#x2F;software&#x2F;pai_apps.dm 294"/></a></h5>
+        <p>The cable being plugged into a door</p><h5 id="var/hackdoor"><aside class="declaration">var </aside>hackdoor
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/machinery.html">machinery</a>/<a href="obj/machinery/door.html">door</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/pai/software/pai_apps.dm#L298">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;pai&#x2F;software&#x2F;pai_apps.dm 298"/></a></h5>
+        <p>The door being hacked</p><h5 id="var/hacking"><aside class="declaration">var </aside>hacking
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/pai/software/pai_apps.dm#L292">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;pai&#x2F;software&#x2F;pai_apps.dm 292"/></a></h5>
+        <p>Are we hacking?</p><h5 id="var/progress"><aside class="declaration">var </aside>progress
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/pai/software/pai_apps.dm#L290">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;pai&#x2F;software&#x2F;pai_apps.dm 290"/></a></h5>
+        <p>Progress on hacking the door</p><h2 id="proc">Proc Details</h2><h5 id="proc/cleanup_hack"><aside class="declaration">proc </aside>cleanup_hack<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/pai/software/pai_apps.dm#L360">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;pai&#x2F;software&#x2F;pai_apps.dm 360"/></a></aside>
+        </h5>
+        <p>Door jack cleanup proc</p>
+<p>Self-contained proc for cleaning up failed hack attempts</p><h5 id="proc/hackloop"><aside class="declaration">proc </aside>hackloop<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/pai/software/pai_apps.dm#L338">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;pai&#x2F;software&#x2F;pai_apps.dm 338"/></a></aside>
+        </h5>
+        <p>Door jack hack loop</p>
+<p>Self-contained proc for handling the hacking of a door.
+Invoked asyncly, but will only allow one instance at a time</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

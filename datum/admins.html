@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;admins - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>admins <aside>/<a href="datum.html">datum</a>/<a href="datum/admins.html">admins</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/holder2.dm#L4">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;holder2.dm 4"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Procs</h2><a href="datum/admins.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/admins.html#proc/ccbdb_lookup_callback">ccbdb_lookup_callback</a></th><td>CCBDB Lookup Callback</td></tr>
+            <tr><th><a href="datum/admins.html#proc/create_ccbdb_lookup">create_ccbdb_lookup</a></th><td>CCBDB Lookup Initiator</td></tr>
+            <tr><th><a href="datum/admins.html#proc/modify_traits">modify_traits</a></th><td>Allow admin to add or remove traits of datum</td></tr>
+            <tr><th><a href="datum/admins.html#proc/restart">restart</a></th><td>admins2.dm merge</td></tr>
+            <tr><th><a href="datum/admins.html#proc/show_player_panel">show_player_panel</a></th><td>Panels</td></tr></table><h2 id="proc">Proc Details</h2><h5 id="proc/ccbdb_lookup_callback"><aside class="declaration">proc </aside>ccbdb_lookup_callback<aside>(/<a href="mob.html">mob</a>/user, ckey, /<a href="datum.html">datum</a>/<a href="datum/http_response.html">http_response</a>/response) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/centcom_ban_db.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;centcom_ban_db.dm 37"/></a></aside>
+        </h5>
+        <p>CCBDB Lookup Callback</p>
+<p>Callback assigned in <a href="datum/admins.html#proc/create_ccbdb_lookup" title="/datum/admins">/datum/admins/proc/create_ccbdb_lookup</a> for async operations without a sleep()</p>
+<p>Arguments:</p>
+<ul>
+<li>user - Mob calling the lookup so the UI can be opened</li>
+<li>ckey - Ckey being looked up</li>
+<li>response - <a href="datum/http_response.html" title="/datum/http_response">/datum/http_response</a> passed through from [SShttp]</li>
+</ul><h5 id="proc/create_ccbdb_lookup"><aside class="declaration">proc </aside>create_ccbdb_lookup<aside>(ckey) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/centcom_ban_db.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;centcom_ban_db.dm 15"/></a></aside>
+        </h5>
+        <p>CCBDB Lookup Initiator</p>
+<p>Checks the configuration before invoking the request to the CCBDB server.</p>
+<p>Arguments:</p>
+<ul>
+<li>ckey - ckey to be looked up</li>
+</ul><h5 id="proc/modify_traits"><aside class="declaration">proc </aside>modify_traits<aside>(/<a href="datum.html">datum</a>/D) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/verbs/randomverbs.dm#L1131">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;randomverbs.dm 1131"/></a></aside>
+        </h5>
+        <p>Allow admin to add or remove traits of datum</p><h5 id="proc/restart"><aside class="declaration">proc </aside>restart<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/admin.dm#L359">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;admin.dm 359"/></a></aside>
+        </h5>
+        <p>admins2.dm merge</p><h5 id="proc/show_player_panel"><aside class="declaration">proc </aside>show_player_panel<aside>(/<a href="mob.html">mob</a>/M) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/admin.dm#L73">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;admin.dm 73"/></a></aside>
+        </h5>
+        <p>Panels</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;configuration - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>configuration <aside>/<a href="datum.html">datum</a>/<a href="datum/configuration.html">configuration</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/configuration.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;configuration.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/configuration.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/configuration.html#var/async_sql_query_timeout">async_sql_query_timeout</a></th><td>Timeout (seconds) for async SQL queries</td></tr>
+            <tr><th><a href="datum/configuration.html#var/auto_profile">auto_profile</a></th><td>Enable auto profiler of rounds</td></tr>
+            <tr><th><a href="datum/configuration.html#var/byond_account_age_threshold">byond_account_age_threshold</a></th><td>BYOND account age limit for notifcations of new accounts (Any accounts older than this value will not send notifications on first join)</td></tr>
+            <tr><th><a href="datum/configuration.html#var/centcom_ban_db_url">centcom_ban_db_url</a></th><td>URL for the CentCom Ban DB API</td></tr>
+            <tr><th><a href="datum/configuration.html#var/discord_admin_role_id">discord_admin_role_id</a></th><td>Role ID to be pinged for administrative events</td></tr>
+            <tr><th><a href="datum/configuration.html#var/discord_admin_webhook_urls">discord_admin_webhook_urls</a></th><td>Webhook URLs for the admin webhook</td></tr>
+            <tr><th><a href="datum/configuration.html#var/discord_forward_all_ahelps">discord_forward_all_ahelps</a></th><td>Do we want to forward all adminhelps to the discord or just ahelps when admins are offline.
+(This does not mean all ahelps are pinged, only ahelps sent when staff are offline get the ping, regardless of this setting)</td></tr>
+            <tr><th><a href="datum/configuration.html#var/discord_main_webhook_urls">discord_main_webhook_urls</a></th><td>Webhook URLs for the main public webhook</td></tr>
+            <tr><th><a href="datum/configuration.html#var/discord_mentor_webhook_urls">discord_mentor_webhook_urls</a></th><td>Webhook URLs for the mentor webhook</td></tr>
+            <tr><th><a href="datum/configuration.html#var/discord_webhooks_enabled">discord_webhooks_enabled</a></th><td>Are discord webhooks enabled?</td></tr>
+            <tr><th><a href="datum/configuration.html#var/max_client_cid_history">max_client_cid_history</a></th><td>Max amount of CIDs that one ckey can have attached to them before they trip a warning</td></tr>
+            <tr><th><a href="datum/configuration.html#var/rust_sql_thread_limit">rust_sql_thread_limit</a></th><td>Limit of how many SQL threads can run at once</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/async_sql_query_timeout"><aside class="declaration">var </aside>async_sql_query_timeout
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/configuration.dm#L267">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;configuration.dm 267"/></a></h5>
+        <p>Timeout (seconds) for async SQL queries</p><h5 id="var/auto_profile"><aside class="declaration">var </aside>auto_profile
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/configuration.dm#L276">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;configuration.dm 276"/></a></h5>
+        <p>Enable auto profiler of rounds</p><h5 id="var/byond_account_age_threshold"><aside class="declaration">var </aside>byond_account_age_threshold
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/configuration.dm#L242">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;configuration.dm 242"/></a></h5>
+        <p>BYOND account age limit for notifcations of new accounts (Any accounts older than this value will not send notifications on first join)</p><h5 id="var/centcom_ban_db_url"><aside class="declaration">var </aside>centcom_ban_db_url
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/configuration.dm#L264">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;configuration.dm 264"/></a></h5>
+        <p>URL for the CentCom Ban DB API</p><h5 id="var/discord_admin_role_id"><aside class="declaration">var </aside>discord_admin_role_id
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/configuration.dm#L248">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;configuration.dm 248"/></a></h5>
+        <p>Role ID to be pinged for administrative events</p><h5 id="var/discord_admin_webhook_urls"><aside class="declaration">var </aside>discord_admin_webhook_urls
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/configuration.dm#L254">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;configuration.dm 254"/></a></h5>
+        <p>Webhook URLs for the admin webhook</p><h5 id="var/discord_forward_all_ahelps"><aside class="declaration">var </aside>discord_forward_all_ahelps
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/configuration.dm#L261">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;configuration.dm 261"/></a></h5>
+        <p>Do we want to forward all adminhelps to the discord or just ahelps when admins are offline.
+(This does not mean all ahelps are pinged, only ahelps sent when staff are offline get the ping, regardless of this setting)</p><h5 id="var/discord_main_webhook_urls"><aside class="declaration">var </aside>discord_main_webhook_urls
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/configuration.dm#L251">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;configuration.dm 251"/></a></h5>
+        <p>Webhook URLs for the main public webhook</p><h5 id="var/discord_mentor_webhook_urls"><aside class="declaration">var </aside>discord_mentor_webhook_urls
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/configuration.dm#L257">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;configuration.dm 257"/></a></h5>
+        <p>Webhook URLs for the mentor webhook</p><h5 id="var/discord_webhooks_enabled"><aside class="declaration">var </aside>discord_webhooks_enabled
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/configuration.dm#L245">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;configuration.dm 245"/></a></h5>
+        <p>Are discord webhooks enabled?</p><h5 id="var/max_client_cid_history"><aside class="declaration">var </aside>max_client_cid_history
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/configuration.dm#L273">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;configuration.dm 273"/></a></h5>
+        <p>Max amount of CIDs that one ckey can have attached to them before they trip a warning</p><h5 id="var/rust_sql_thread_limit"><aside class="declaration">var </aside>rust_sql_thread_limit
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/configuration.dm#L270">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;configuration.dm 270"/></a></h5>
+        <p>Limit of how many SQL threads can run at once</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;chatmessage - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Chat Message Overlay <aside>/<a href="datum.html">datum</a>/<a href="datum/chatmessage.html">chatmessage</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/chatmessage.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 29"/></a></h1>
+
+<p>Datum for generating a message overlay on the map</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/chatmessage.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/chatmessage.html#var/approx_lines">approx_lines</a></th><td>Contains the approximate amount of lines for height decay</td></tr>
+            <tr><th><a href="datum/chatmessage.html#var/current_z_idx">current_z_idx</a></th><td>The current index used for adjusting the layer of each sequential chat message such that recent messages will overlay older ones</td></tr>
+            <tr><th><a href="datum/chatmessage.html#var/eol_complete">eol_complete</a></th><td>Contains the time that the EOL for the message will be complete, used for qdel scheduling</td></tr>
+            <tr><th><a href="datum/chatmessage.html#var/message">message</a></th><td>The visual element of the chat messsage</td></tr>
+            <tr><th><a href="datum/chatmessage.html#var/message_loc">message_loc</a></th><td>The location in which the message is appearing</td></tr>
+            <tr><th><a href="datum/chatmessage.html#var/next">next</a></th><td>Contains the reference to the next chatmessage in the bucket, used by runechat subsystem</td></tr>
+            <tr><th><a href="datum/chatmessage.html#var/owned_by">owned_by</a></th><td>The client who heard this message</td></tr>
+            <tr><th><a href="datum/chatmessage.html#var/prev">prev</a></th><td>Contains the reference to the previous chatmessage in the bucket, used by runechat subsystem</td></tr>
+            <tr><th><a href="datum/chatmessage.html#var/scheduled_destruction">scheduled_destruction</a></th><td>Contains the scheduled destruction time, used for scheduling EOL</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/chatmessage.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/chatmessage.html#proc/New">New</a></th><td>Constructs a chat message overlay</td></tr>
+            <tr><th><a href="datum/chatmessage.html#proc/colorize_string">colorize_string</a></th><td>Gets a color for a name, will return the same color for a given string consistently within a round.atom</td></tr>
+            <tr><th><a href="datum/chatmessage.html#proc/end_of_life">end_of_life</a></th><td>Applies final animations to overlay CHAT_MESSAGE_EOL_FADE deciseconds prior to message deletion</td></tr>
+            <tr><th><a href="datum/chatmessage.html#proc/enter_subsystem">enter_subsystem</a></th><td>Enters the runechat subsystem with this chatmessage, inserting it into the end-of-life queue</td></tr>
+            <tr><th><a href="datum/chatmessage.html#proc/generate_image">generate_image</a></th><td>Generates a chat message image representation</td></tr>
+            <tr><th><a href="datum/chatmessage.html#proc/leave_subsystem">leave_subsystem</a></th><td>Removes this chatmessage datum from the runechat subsystem</td></tr>
+            <tr><th><a href="datum/chatmessage.html#proc/on_parent_qdel">on_parent_qdel</a></th><td>Calls qdel on the chatmessage when its parent is deleted, used to register qdel signal</td></tr>
+            <tr><th><a href="datum/chatmessage.html#proc/sanitize_color">sanitize_color</a></th><td>Ensures a colour is bright enough for the system</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/approx_lines"><aside class="declaration">var </aside>approx_lines
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/chatmessage.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 41"/></a></h5>
+        <p>Contains the approximate amount of lines for height decay</p><h5 id="var/current_z_idx"><aside class="declaration">var </aside>current_z_idx
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/chatmessage.dm#L43">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 43"/></a></h5>
+        <p>The current index used for adjusting the layer of each sequential chat message such that recent messages will overlay older ones</p><h5 id="var/eol_complete"><aside class="declaration">var </aside>eol_complete
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/chatmessage.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 39"/></a></h5>
+        <p>Contains the time that the EOL for the message will be complete, used for qdel scheduling</p><h5 id="var/message"><aside class="declaration">var </aside>message
+            <aside>&ndash; /image</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/chatmessage.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 31"/></a></h5>
+        <p>The visual element of the chat messsage</p><h5 id="var/message_loc"><aside class="declaration">var </aside>message_loc
+            <aside>&ndash; /<a href="atom.html">atom</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/chatmessage.dm#L33">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 33"/></a></h5>
+        <p>The location in which the message is appearing</p><h5 id="var/next"><aside class="declaration">var </aside>next
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/chatmessage.html">chatmessage</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/chatmessage.dm#L45">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 45"/></a></h5>
+        <p>Contains the reference to the next chatmessage in the bucket, used by runechat subsystem</p><h5 id="var/owned_by"><aside class="declaration">var </aside>owned_by
+            <aside>&ndash; /<a href="client.html">client</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/chatmessage.dm#L35">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 35"/></a></h5>
+        <p>The client who heard this message</p><h5 id="var/prev"><aside class="declaration">var </aside>prev
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/chatmessage.html">chatmessage</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/chatmessage.dm#L49">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 49"/></a></h5>
+        <p>Contains the reference to the previous chatmessage in the bucket, used by runechat subsystem</p><h5 id="var/scheduled_destruction"><aside class="declaration">var </aside>scheduled_destruction
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/chatmessage.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 37"/></a></h5>
+        <p>Contains the scheduled destruction time, used for scheduling EOL</p><h2 id="proc">Proc Details</h2><h5 id="proc/New">New<aside>(text, /<a href="atom.html">atom</a>/target, /<a href="mob.html">mob</a>/owner, italics, size, lifespan) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/chatmessage.dm#L59">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 59"/></a></aside>
+        </h5>
+        <p>Constructs a chat message overlay</p>
+<p>Arguments:</p>
+<ul>
+<li>text - The text content of the overlay</li>
+<li>target - The target atom to display the overlay at</li>
+<li>owner - The mob that owns this overlay, only this mob will be able to view it</li>
+<li>italics - Should we use italics or not</li>
+<li>lifespan - The lifespan of the message in deciseconds</li>
+</ul><h5 id="proc/colorize_string"><aside class="declaration">proc </aside>colorize_string<aside>(name, sat_shift, lum_shift) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/chatmessage.dm#L213">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 213"/></a></aside>
+        </h5>
+        <p>Gets a color for a name, will return the same color for a given string consistently within a round.atom</p>
+<p>Note that this proc aims to produce pastel-ish colors using the HSL colorspace. These seem to be favorable for displaying on the map.</p>
+<p>Arguments:</p>
+<ul>
+<li>name - The name to generate a color for</li>
+<li>sat_shift - A value between 0 and 1 that will be multiplied against the saturation</li>
+<li>lum_shift - A value between 0 and 1 that will be multiplied against the luminescence</li>
+</ul><h5 id="proc/end_of_life"><aside class="declaration">proc </aside>end_of_life<aside>(fadetime) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/chatmessage.dm#L173">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 173"/></a></aside>
+        </h5>
+        <p>Applies final animations to overlay CHAT_MESSAGE_EOL_FADE deciseconds prior to message deletion</p><h5 id="proc/enter_subsystem"><aside class="declaration">proc </aside>enter_subsystem<aside>(new_sched_destruction) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/runechat.dm#L137">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;runechat.dm 137"/></a></aside>
+        </h5>
+        <p>Enters the runechat subsystem with this chatmessage, inserting it into the end-of-life queue</p>
+<p>This will also account for a chatmessage already being registered, and in which case
+the position will be updated to remove it from the previous location if necessary</p>
+<p>Arguments:</p>
+<ul>
+<li>new_sched_destruction Optional, when provided is used to update an existing message with the new specified time</li>
+</ul><h5 id="proc/generate_image"><aside class="declaration">proc </aside>generate_image<aside>(text, /<a href="atom.html">atom</a>/target, /<a href="mob.html">mob</a>/owner, lifespan, italics, size) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/chatmessage.dm#L97">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 97"/></a></aside>
+        </h5>
+        <p>Generates a chat message image representation</p>
+<p>Arguments:</p>
+<ul>
+<li>text - The text content of the overlay</li>
+<li>target - The target atom to display the overlay at</li>
+<li>owner - The mob that owns this overlay, only this mob will be able to view it</li>
+<li>radio_speech - Fancy shmancy radio icon represents that we use radio</li>
+<li>lifespan - The lifespan of the message in deciseconds</li>
+<li>italics - Just copy and paste, sir</li>
+</ul><h5 id="proc/leave_subsystem"><aside class="declaration">proc </aside>leave_subsystem<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/runechat.dm#L194">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;runechat.dm 194"/></a></aside>
+        </h5>
+        <p>Removes this chatmessage datum from the runechat subsystem</p><h5 id="proc/on_parent_qdel"><aside class="declaration">proc </aside>on_parent_qdel<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/chatmessage.dm#L83">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 83"/></a></aside>
+        </h5>
+        <p>Calls qdel on the chatmessage when its parent is deleted, used to register qdel signal</p><h5 id="proc/sanitize_color"><aside class="declaration">proc </aside>sanitize_color<aside>(color) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/chatmessage.dm#L258">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 258"/></a></aside>
+        </h5>
+        <p>Ensures a colour is bright enough for the system</p>
+<p>This proc is used to brighten parts of a colour up if its too dark, and looks bad</p>
+<p>Arguments:</p>
+<ul>
+<li>hex - Hex colour to be brightened up</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

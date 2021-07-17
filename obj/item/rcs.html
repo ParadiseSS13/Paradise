@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;item&#x2F;rcs - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Rapid Crate Sender (RCS) <aside>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/rcs.html">rcs</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/telesci/rcs.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;telesci&#x2F;rcs.dm 8"/></a></h1>
+
+<p>Used to teleport crates and closets to cargo telepads.</p>
+<p>If emagged, it allows you to teleport crates to a random location, and also teleport yourself while inside a locker.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/item/rcs.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/item/rcs.html#var/chargecost">chargecost</a></th><td>How much power does each teleport use?</td></tr>
+            <tr><th><a href="obj/item/rcs.html#var/pad">pad</a></th><td>Selected telepad</td></tr>
+            <tr><th><a href="obj/item/rcs.html#var/rcell">rcell</a></th><td>Power cell (10000W)</td></tr>
+            <tr><th><a href="obj/item/rcs.html#var/teleporting">teleporting</a></th><td>Currently teleporting something?</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/item/rcs.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/item/rcs.html#proc/attack_self">attack_self</a></th><td>Used to select telepad location.</td></tr>
+            <tr><th><a href="obj/item/rcs.html#proc/random_coords">random_coords</a></th><td>Returns a random location in a z level</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/chargecost"><aside class="declaration">var </aside>chargecost
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/telesci/rcs.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;telesci&#x2F;rcs.dm 29"/></a></h5>
+        <p>How much power does each teleport use?</p><h5 id="var/pad"><aside class="declaration">var </aside>pad
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/machinery.html">machinery</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/telesci/rcs.dm#L24">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;telesci&#x2F;rcs.dm 24"/></a></h5>
+        <p>Selected telepad</p><h5 id="var/rcell"><aside class="declaration">var </aside>rcell
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/stock_parts/cell/high</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/telesci/rcs.dm#L22">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;telesci&#x2F;rcs.dm 22"/></a></h5>
+        <p>Power cell (10000W)</p><h5 id="var/teleporting"><aside class="declaration">var </aside>teleporting
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/telesci/rcs.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;telesci&#x2F;rcs.dm 27"/></a></h5>
+        <p>Currently teleporting something?</p><h2 id="proc">Proc Details</h2><h5 id="proc/attack_self">attack_self<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/telesci/rcs.dm#L49">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;telesci&#x2F;rcs.dm 49"/></a></aside>
+        </h5>
+        <p>Used to select telepad location.</p><h5 id="proc/random_coords"><aside class="declaration">proc </aside>random_coords<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/telesci/rcs.dm#L86">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;telesci&#x2F;rcs.dm 86"/></a></aside>
+        </h5>
+        <p>Returns a random location in a z level</p>
+<p>Defaults to Z level 1, with a 50% chance of being a different one.
+Z levels 1 to 4 are excluded from the alternatives.
+Coordinates are constrained within 50-200 x &amp; y.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

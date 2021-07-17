@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;client - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>client <aside>/<a href="client.html">client</a></aside><aside> inherits /<a href="datum.html">datum</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_onclick/hud/map_popups.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;map_popups.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="client.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="client.html#var/byondacc_age">byondacc_age</a></th><td>Days since the client's BYOND account was created</td></tr>
+            <tr><th><a href="client.html#var/byondacc_date">byondacc_date</a></th><td>Date the client registered their BYOND account on</td></tr>
+            <tr><th><a href="client.html#var/keys_held">keys_held</a></th><td>An assoc list of any keys held currently</td></tr>
+            <tr><th><a href="client.html#var/last_discord_pm_time">last_discord_pm_time</a></th><td>Last world.time that a PM was send to discord by a player</td></tr>
+            <tr><th><a href="client.html#var/next_move_dir_add">next_move_dir_add</a></th><td>These next two vars are to apply movement for keypresses and releases made while move delayed.
+Because discarding that input makes the game less responsive.
+On next move, add this dir to the move that would otherwise be done</td></tr>
+            <tr><th><a href="client.html#var/next_move_dir_sub">next_move_dir_sub</a></th><td>On next move, subtract this dir from the move that would otherwise be done</td></tr>
+            <tr><th><a href="client.html#var/received_discord_pm">received_discord_pm</a></th><td>Last world/time that a PM was sent to the player by an admin</td></tr>
+            <tr><th><a href="client.html#var/screen_maps">screen_maps</a></th><td>Assoc list with all the active maps - when a screen obj is added to
+a map, it's put in here as well.</td></tr>
+            <tr><th><a href="client.html#var/seen_messages">seen_messages</a></th><td>Messages currently seen by this client</td></tr>
+            <tr><th><a href="client.html#var/topiclimiter">topiclimiter</a></th><td>Used for limiting the rate of topic sends by the client to avoid abuse</td></tr>
+            <tr><th><a href="client.html#var/tos_consent">tos_consent</a></th><td>Has the client accepted the TOS about data collection and other stuff</td></tr>
+            <tr><th><a href="client.html#var/version_blocked">version_blocked</a></th><td>If true, client cannot ready up, late join, or observe. Used for players with EXTREMELY old byond versions.</td></tr>
+            <tr><th><a href="client.html#var/watchlisted">watchlisted</a></th><td>Is the client watchlisted</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="client.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="client.html#proc/Process_Grab">Process_Grab</a></th><td>Process_Grab()
+Called by client/Move()
+Checks to see if you are being grabbed and if so attemps to break it</td></tr>
+            <tr><th><a href="client.html#proc/Process_Incorpmove">Process_Incorpmove</a></th><td>Process_Incorpmove
+Called by client/Move()
+Allows mobs to run though walls</td></tr>
+            <tr><th><a href="client.html#proc/check_tos_consent">check_tos_consent</a></th><td>Checks if the client has accepted TOS</td></tr>
+            <tr><th><a href="client.html#proc/cid_count_check">cid_count_check</a></th><td>Checks if the client has more than a configured amount of CIDs tied to them in the past</td></tr>
+            <tr><th><a href="client.html#proc/clear_all_maps">clear_all_maps</a></th><td>Clears all the maps of registered screen objects.</td></tr>
+            <tr><th><a href="client.html#proc/clear_map">clear_map</a></th><td>Clears the map of registered screen objects.</td></tr>
+            <tr><th><a href="client.html#proc/close_popup">close_popup</a></th><td>Closes a popup.</td></tr>
+            <tr><th><a href="client.html#proc/create_eventmob_for">create_eventmob_for</a></th><td>new ban stuff
+new ban stuff
+<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>WARNING!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>**
+The jobban stuff looks mangled and disgusting
+But it looks beautiful in-game
+-Nodrak
+**<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>WARNING!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></td></tr>
+            <tr><th><a href="client.html#proc/create_popup">create_popup</a></th><td>Creates a popup window with a basic map element in it, without any
+further initialization.</td></tr>
+            <tr><th><a href="client.html#proc/deactivate_darkmode">deactivate_darkmode</a></th><td>BUTTONS
+UI ELEMENTS</td></tr>
+            <tr><th><a href="client.html#proc/generate_clickcatcher">generate_clickcatcher</a></th><td>BUTTONS
+UI ELEMENTS
+NOTIFY USER</td></tr>
+            <tr><th><a href="client.html#proc/get_byond_account_date">get_byond_account_date</a></th><td>Sets the clients BYOND date up properly</td></tr>
+            <tr><th><a href="client.html#proc/handle_popup_close">handle_popup_close</a></th><td>When the popup closes in any way (player or proc call) it calls this.</td></tr>
+            <tr><th><a href="client.html#proc/keyUp">keyUp</a></th><td>Check if the key is short enough to even be a real key</td></tr>
+            <tr><th><a href="client.html#proc/register_map_obj">register_map_obj</a></th><td>Registers screen obj with the client, which makes it visible on the
+assigned map, and becomes a part of the assigned map's lifecycle.</td></tr>
+            <tr><th><a href="client.html#proc/retrieve_byondacc_data">retrieve_byondacc_data</a></th><td>Retrieves the BYOND accounts data from the BYOND servers</td></tr>
+            <tr><th><a href="client.html#proc/setup_popup">setup_popup</a></th><td>Create the popup, and get it ready for generic use by giving
+it a background.</td></tr>
+            <tr><th><a href="client.html#proc/uiclose">uiclose</a></th><td>verb</td></tr>
+            <tr><th><a href="client.html#proc/uid_log">uid_log</a></th><td>Opens a lof of UIDs</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/byondacc_age"><aside class="declaration">var </aside>byondacc_age
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/client/client_defines.dm#L99">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client_defines.dm 99"/></a></h5>
+        <p>Days since the client's BYOND account was created</p><h5 id="var/byondacc_date"><aside class="declaration">var </aside>byondacc_date
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/client/client_defines.dm#L97">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client_defines.dm 97"/></a></h5>
+        <p>Date the client registered their BYOND account on</p><h5 id="var/keys_held"><aside class="declaration">var </aside>keys_held
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/keybindings/setup.dm#L3">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;keybindings&#x2F;setup.dm 3"/></a></h5>
+        <p>An assoc list of any keys held currently</p><h5 id="var/last_discord_pm_time"><aside class="declaration">var </aside>last_discord_pm_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/client/client_defines.dm#L104">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client_defines.dm 104"/></a></h5>
+        <p>Last world.time that a PM was send to discord by a player</p><h5 id="var/next_move_dir_add"><aside class="declaration">var </aside>next_move_dir_add
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/keybindings/setup.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;keybindings&#x2F;setup.dm 7"/></a></h5>
+        <p>These next two vars are to apply movement for keypresses and releases made while move delayed.
+Because discarding that input makes the game less responsive.
+On next move, add this dir to the move that would otherwise be done</p><h5 id="var/next_move_dir_sub"><aside class="declaration">var </aside>next_move_dir_sub
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/keybindings/setup.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;keybindings&#x2F;setup.dm 13"/></a></h5>
+        <p>On next move, subtract this dir from the move that would otherwise be done</p><h5 id="var/received_discord_pm"><aside class="declaration">var </aside>received_discord_pm
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/client/client_defines.dm#L107">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client_defines.dm 107"/></a></h5>
+        <p>Last world/time that a PM was sent to the player by an admin</p><h5 id="var/screen_maps"><aside class="declaration">var </aside>screen_maps
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_onclick/hud/map_popups.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;map_popups.dm 8"/></a></h5>
+        <p>Assoc list with all the active maps - when a screen obj is added to
+a map, it's put in here as well.</p>
+<p>Format: list(<mapname> = list(/obj/screen))</p><h5 id="var/seen_messages"><aside class="declaration">var </aside>seen_messages
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/client/client_defines.dm#L88">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client_defines.dm 88"/></a></h5>
+        <p>Messages currently seen by this client</p><h5 id="var/topiclimiter"><aside class="declaration">var </aside>topiclimiter
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/client/client_defines.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client_defines.dm 41"/></a></h5>
+        <p>Used for limiting the rate of topic sends by the client to avoid abuse</p><h5 id="var/tos_consent"><aside class="declaration">var </aside>tos_consent
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/client/client_defines.dm#L110">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client_defines.dm 110"/></a></h5>
+        <p>Has the client accepted the TOS about data collection and other stuff</p><h5 id="var/version_blocked"><aside class="declaration">var </aside>version_blocked
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/client/client_defines.dm#L94">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client_defines.dm 94"/></a></h5>
+        <p>If true, client cannot ready up, late join, or observe. Used for players with EXTREMELY old byond versions.</p><h5 id="var/watchlisted"><aside class="declaration">var </aside>watchlisted
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/client/client_defines.dm#L113">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client_defines.dm 113"/></a></h5>
+        <p>Is the client watchlisted</p><h2 id="proc">Proc Details</h2><h5 id="proc/Process_Grab"><aside class="declaration">proc </aside>Process_Grab<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/mob_movement.dm#L201">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_movement.dm 201"/></a></aside>
+        </h5>
+        <p>Process_Grab()
+Called by client/Move()
+Checks to see if you are being grabbed and if so attemps to break it</p><h5 id="proc/Process_Incorpmove"><aside class="declaration">proc </aside>Process_Incorpmove<aside>(direct) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/mob_movement.dm#L242">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_movement.dm 242"/></a></aside>
+        </h5>
+        <p>Process_Incorpmove
+Called by client/Move()
+Allows mobs to run though walls</p><h5 id="proc/check_tos_consent"><aside class="declaration">proc </aside>check_tos_consent<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/client/client_procs.dm#L1117">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client_procs.dm 1117"/></a></aside>
+        </h5>
+        <p>Checks if the client has accepted TOS</p>
+<p>Runs some checks against vars and the DB to see if the client has accepted TOS.
+Returns TRUE or FALSE if they have or have not</p><h5 id="proc/cid_count_check"><aside class="declaration">proc </aside>cid_count_check<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/client/client_procs.dm#L1150">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client_procs.dm 1150"/></a></aside>
+        </h5>
+        <p>Checks if the client has more than a configured amount of CIDs tied to them in the past</p><h5 id="proc/clear_all_maps"><aside class="declaration">proc </aside>clear_all_maps<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_onclick/hud/map_popups.dm#L104">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;map_popups.dm 104"/></a></aside>
+        </h5>
+        <p>Clears all the maps of registered screen objects.</p><h5 id="proc/clear_map"><aside class="declaration">proc </aside>clear_map<aside>(map_name) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_onclick/hud/map_popups.dm#L92">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;map_popups.dm 92"/></a></aside>
+        </h5>
+        <p>Clears the map of registered screen objects.</p>
+<p>Not really needed most of the time, as the client's screen list gets reset
+on relog. any of the buttons are going to get caught by garbage collection
+anyway. they're effectively qdel'd.</p><h5 id="proc/close_popup"><aside class="declaration">proc </aside>close_popup<aside>(popup) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_onclick/hud/map_popups.dm#L161">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;map_popups.dm 161"/></a></aside>
+        </h5>
+        <p>Closes a popup.</p><h5 id="proc/create_eventmob_for"><aside class="declaration">proc </aside>create_eventmob_for<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/H, killthem) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/topic.dm#L3551">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;topic.dm 3551"/></a></aside>
+        </h5>
+        <p>new ban stuff
+new ban stuff
+<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>WARNING!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>**
+The jobban stuff looks mangled and disgusting
+But it looks beautiful in-game
+-Nodrak
+**<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>WARNING!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><h5 id="proc/create_popup"><aside class="declaration">proc </aside>create_popup<aside>(name, ratiox, ratioy) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_onclick/hud/map_popups.dm#L116">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;map_popups.dm 116"/></a></aside>
+        </h5>
+        <p>Creates a popup window with a basic map element in it, without any
+further initialization.</p>
+<p>Ratio is how many pixels by how many pixels (keep it simple).</p>
+<p>Returns a map name.</p><h5 id="proc/deactivate_darkmode"><aside class="declaration">proc </aside>deactivate_darkmode<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/client/client_procs.dm#L909">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client_procs.dm 909"/></a></aside>
+        </h5>
+        <p>BUTTONS
+UI ELEMENTS</p><h5 id="proc/generate_clickcatcher"><aside class="declaration">proc </aside>generate_clickcatcher<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/client/client_procs.dm#L941">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client_procs.dm 941"/></a></aside>
+        </h5>
+        <p>BUTTONS
+UI ELEMENTS
+NOTIFY USER</p><h5 id="proc/get_byond_account_date"><aside class="declaration">proc </aside>get_byond_account_date<aside>(notify) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/client/client_procs.dm#L1055">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client_procs.dm 1055"/></a></aside>
+        </h5>
+        <p>Sets the clients BYOND date up properly</p>
+<p>If the client does not have a saved BYOND account creation date, retrieve it from the website
+If they do have a saved date, use that from the DB, because this value will never change
+Arguments:</p>
+<ul>
+<li>notify - Do we notify admins of this new accounts date</li>
+</ul><h5 id="proc/handle_popup_close"><aside class="declaration">verb </aside>handle_popup_close<aside>(window_id) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_onclick/hud/map_popups.dm#L168">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;map_popups.dm 168"/></a></aside>
+        </h5>
+        <p>When the popup closes in any way (player or proc call) it calls this.</p><h5 id="proc/keyUp"><aside class="declaration">verb </aside>keyUp<aside>(_key) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/keybindings/bindings_client.dm#L78">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;keybindings&#x2F;bindings_client.dm 78"/></a></aside>
+        </h5>
+        <p>Check if the key is short enough to even be a real key</p><h5 id="proc/register_map_obj"><aside class="declaration">proc </aside>register_map_obj<aside>(/<a href="obj.html">obj</a>/<a href="obj/screen.html">screen</a>/screen_obj) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_onclick/hud/map_popups.dm#L73">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;map_popups.dm 73"/></a></aside>
+        </h5>
+        <p>Registers screen obj with the client, which makes it visible on the
+assigned map, and becomes a part of the assigned map's lifecycle.</p><h5 id="proc/retrieve_byondacc_data"><aside class="declaration">proc </aside>retrieve_byondacc_data<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/client/client_procs.dm#L1001">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client_procs.dm 1001"/></a></aside>
+        </h5>
+        <p>Retrieves the BYOND accounts data from the BYOND servers</p>
+<p>Makes a web request to byond.com to retrieve the details for the BYOND account associated with the clients ckey.
+Returns the data in a parsed, associative list</p><h5 id="proc/setup_popup"><aside class="declaration">proc </aside>setup_popup<aside>(popup_name, width, height, tilesize, bg_icon) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_onclick/hud/map_popups.dm#L140">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;map_popups.dm 140"/></a></aside>
+        </h5>
+        <p>Create the popup, and get it ready for generic use by giving
+it a background.</p>
+<p>Width and height are multiplied by 64 by default.</p><h5 id="proc/uiclose"><aside class="declaration">verb </aside>uiclose<aside>(uid) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/external.dm#L135">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 135"/></a></aside>
+        </h5>
+        <p>verb</p>
+<p>Called by UIs when they are closed.
+Must be a verb so winset() can call it.</p>
+<ul>
+<li>uid - The UI that was closed.</li>
+</ul><h5 id="proc/uid_log"><aside class="declaration">proc </aside>uid_log<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/unique_ids.dm#L64">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;unique_ids.dm 64"/></a></aside>
+        </h5>
+        <p>Opens a lof of UIDs</p>
+<p>In-round ability to view what has created a UID, and how many times a UID for that path has been declared</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

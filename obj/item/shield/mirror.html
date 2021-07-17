@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;item&#x2F;shield&#x2F;mirror - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>mirror <aside>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/shield/mirror.html">shield/mirror</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/cult/cult_items.dm#L404">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;cult&#x2F;cult_items.dm 404"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/item/shield/mirror.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/item/shield/mirror.html#var/ballistic_threshold">ballistic_threshold</a></th><td>Shatter threshold for Ballistic weapons</td></tr>
+            <tr><th><a href="obj/item/shield/mirror.html#var/energy_threshold">energy_threshold</a></th><td>Shatter threshold for Energy weapons</td></tr>
+            <tr><th><a href="obj/item/shield/mirror.html#var/illusions">illusions</a></th><td>The number of clone illusions remaining</td></tr>
+            <tr><th><a href="obj/item/shield/mirror.html#var/reflect_chance">reflect_chance</a></th><td>Chance that energy projectiles will be reflected</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/item/shield/mirror.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/item/shield/mirror.html#proc/hit_reaction">hit_reaction</a></th><td>Reflect/Block/Shatter proc.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/ballistic_threshold"><aside class="declaration">var </aside>ballistic_threshold
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/cult/cult_items.dm#L423">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;cult&#x2F;cult_items.dm 423"/></a></h5>
+        <p>Shatter threshold for Ballistic weapons</p><h5 id="var/energy_threshold"><aside class="declaration">var </aside>energy_threshold
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/cult/cult_items.dm#L425">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;cult&#x2F;cult_items.dm 425"/></a></h5>
+        <p>Shatter threshold for Energy weapons</p><h5 id="var/illusions"><aside class="declaration">var </aside>illusions
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/cult/cult_items.dm#L419">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;cult&#x2F;cult_items.dm 419"/></a></h5>
+        <p>The number of clone illusions remaining</p><h5 id="var/reflect_chance"><aside class="declaration">var </aside>reflect_chance
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/cult/cult_items.dm#L417">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;cult&#x2F;cult_items.dm 417"/></a></h5>
+        <p>Chance that energy projectiles will be reflected</p><h2 id="proc">Proc Details</h2><h5 id="proc/hit_reaction">hit_reaction<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/owner, /<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/hitby, attack_text, final_block_chance, damage, attack_type) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/cult/cult_items.dm#L441">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;cult&#x2F;cult_items.dm 441"/></a></aside>
+        </h5>
+        <p>Reflect/Block/Shatter proc.</p>
+<p>Projectiles:
+If you have been hit by a projectile, the 'threshold' will be set depending on the damage type.
+By default, energy weapons have a 70% chance of being reflected, so you're going to want to use ballistics against mirror shields. (Reflection is calculated beforehand in <a href="mob/living/carbon/human.html" title="/mob/living/carbon/human">/mob/living/carbon/human/bullet_act</a>)
+For every point of damage above the threshold, the shield will have a 3% chance to shatter. (Up to a maximum of 75%)
+If a ballistic projectile doesn't shatter the shield, it will move on to the melee section.</p>
+<p>Melee and blocked projectiles:
+Melee attacks and bullets have a 50|50 chance of being blocked by the mirror shield. (Based on the 'block_chance' variable)
+If they are blocked, and the shield has an illusion charge, an illusion will be spawned at src.
+The illusion has a 60% chance to be hostile and attack non-cultists, and a 40% chance to just run away from the user.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

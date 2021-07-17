@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;objective&#x2F;contract - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Contract Objective <aside>/<a href="datum.html">datum</a>/<a href="datum/objective.html">objective</a>/<a href="datum/objective/contract.html">contract</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/objective_contract.dm#L6">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;objective_contract.dm 6"/></a></h1>
+
+<p>Describes the target to kidnap and the extraction area of a <a href="datum/syndicate_contract.html" title="/datum/syndicate_contract">/datum/syndicate_contract</a>.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/objective/contract.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/objective/contract.html#var/candidate_zones">candidate_zones</a></th><td>Associated lazy list of areas the contractor can pick from and extract the kidnapee there.
+Structure: EXTRACTION_DIFFICULTY_(EASY|MEDIUM|HARD) =&gt; /area</td></tr>
+            <tr><th><a href="datum/objective/contract.html#var/chosen_difficulty">chosen_difficulty</a></th><td>The contract's difficulty. Determines the reward on completion.</td></tr>
+            <tr><th><a href="datum/objective/contract.html#var/extraction_zone">extraction_zone</a></th><td>The designated area where the kidnapee must be extracted to complete the objective.</td></tr>
+            <tr><th><a href="datum/objective/contract.html#var/forbidden_jobs">forbidden_jobs</a></th><td>Jobs that cannot be the kidnapping target.</td></tr>
+            <tr><th><a href="datum/objective/contract.html#var/name_fixer">name_fixer</a></th><td>Name fixer regex because area names have rogue characters sometimes.</td></tr>
+            <tr><th><a href="datum/objective/contract.html#var/owning_contract">owning_contract</a></th><td>The owning <a href="datum.html" title="/datum">/datum/syndicatce_contract</a>.</td></tr>
+            <tr><th><a href="datum/objective/contract.html#var/possible_zone_names">possible_zone_names</a></th><td>Static whitelist of area names that can be used as an extraction zone, structured by difficulty.
+An area's difficulty should be measured in how crowded it generally is, how out of the way it is and so on.
+Outdoor or invalid areas are filtered out.
+Structure: EXTRACTION_DIFFICULTY_(EASY|MEDIUM|HARD) =&gt; list(<area name>)</td></tr>
+            <tr><th><a href="datum/objective/contract.html#var/possible_zones">possible_zones</a></th><td>Static list that is basically <a href="datum/objective/contract.html#var/possible_zone_names" title="/datum/objective/contract">/datum/objective/contract/var/possible_zone_names</a> but with area names replaced by /area objects if available.</td></tr>
+            <tr><th><a href="datum/objective/contract.html#var/target_blacklist">target_blacklist</a></th><td>List of people who cannot be selected as contract target.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/objective/contract.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/objective/contract.html#proc/can_start_extraction_process">can_start_extraction_process</a></th><td>Returns whether the extraction process can be started.</td></tr>
+            <tr><th><a href="datum/objective/contract.html#proc/choose_difficulty">choose_difficulty</a></th><td>Updates the objective's information with the given difficulty.</td></tr>
+            <tr><th><a href="datum/objective/contract.html#proc/pick_candidate_zone">pick_candidate_zone</a></th><td>Assigns a randomly selected zone to the contract's selectable zone at the given difficulty.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/candidate_zones"><aside class="declaration">var </aside>candidate_zones
+            <aside>&ndash; /list/area</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/objective_contract.dm#L147">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;objective_contract.dm 147"/></a></h5>
+        <p>Associated lazy list of areas the contractor can pick from and extract the kidnapee there.
+Structure: EXTRACTION_DIFFICULTY_(EASY|MEDIUM|HARD) =&gt; /area</p><h5 id="var/chosen_difficulty"><aside class="declaration">var </aside>chosen_difficulty
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/objective_contract.dm#L144">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;objective_contract.dm 144"/></a></h5>
+        <p>The contract's difficulty. Determines the reward on completion.</p><h5 id="var/extraction_zone"><aside class="declaration">var </aside>extraction_zone
+            <aside>&ndash; /<a href="area.html">area</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/objective_contract.dm#L142">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;objective_contract.dm 142"/></a></h5>
+        <p>The designated area where the kidnapee must be extracted to complete the objective.</p><h5 id="var/forbidden_jobs"><aside class="declaration">var </aside>forbidden_jobs
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/objective_contract.dm#L9">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;objective_contract.dm 9"/></a></h5>
+        <p>Jobs that cannot be the kidnapping target.</p><h5 id="var/name_fixer"><aside class="declaration">var </aside>name_fixer
+            <aside>&ndash; /static/regex</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/objective_contract.dm#L155">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;objective_contract.dm 155"/></a></h5>
+        <p>Name fixer regex because area names have rogue characters sometimes.</p><h5 id="var/owning_contract"><aside class="declaration">var </aside>owning_contract
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/syndicate_contract.html">syndicate_contract</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/objective_contract.dm#L153">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;objective_contract.dm 153"/></a></h5>
+        <p>The owning <a href="datum.html" title="/datum">/datum/syndicatce_contract</a>.</p><h5 id="var/possible_zone_names"><aside class="declaration">var </aside>possible_zone_names
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/objective_contract.dm#L16">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;objective_contract.dm 16"/></a></h5>
+        <p>Static whitelist of area names that can be used as an extraction zone, structured by difficulty.
+An area's difficulty should be measured in how crowded it generally is, how out of the way it is and so on.
+Outdoor or invalid areas are filtered out.
+Structure: EXTRACTION_DIFFICULTY_(EASY|MEDIUM|HARD) =&gt; list(<area name>)</p><h5 id="var/possible_zones"><aside class="declaration">var </aside>possible_zones
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/objective_contract.dm#L151">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;objective_contract.dm 151"/></a></h5>
+        <p>Static list that is basically <a href="datum/objective/contract.html#var/possible_zone_names" title="/datum/objective/contract">/datum/objective/contract/var/possible_zone_names</a> but with area names replaced by /area objects if available.</p><h5 id="var/target_blacklist"><aside class="declaration">var </aside>target_blacklist
+            <aside>&ndash; /list/datum/mind</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/objective_contract.dm#L149">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;objective_contract.dm 149"/></a></h5>
+        <p>List of people who cannot be selected as contract target.</p><h2 id="proc">Proc Details</h2><h5 id="proc/can_start_extraction_process"><aside class="declaration">proc </aside>can_start_extraction_process<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/M, /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/target) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/objective_contract.dm#L234">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;objective_contract.dm 234"/></a></aside>
+        </h5>
+        <p>Returns whether the extraction process can be started.</p>
+<p>Arguments:</p>
+<ul>
+<li>M - The contractor.</li>
+<li>target - The target.</li>
+</ul><h5 id="proc/choose_difficulty"><aside class="declaration">proc </aside>choose_difficulty<aside>(difficulty, /<a href="datum.html">datum</a>/<a href="datum/syndicate_contract.html">syndicate_contract</a>/S) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/objective_contract.dm#L216">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;objective_contract.dm 216"/></a></aside>
+        </h5>
+        <p>Updates the objective's information with the given difficulty.</p>
+<p>Arguments:</p>
+<ul>
+<li>difficulty - The chosen difficulty.</li>
+<li>S - The parent <a href="datum/syndicate_contract.html" title="/datum/syndicate_contract">/datum/syndicate_contract</a>.</li>
+</ul><h5 id="proc/pick_candidate_zone"><aside class="declaration">proc </aside>pick_candidate_zone<aside>(difficulty) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/objective_contract.dm#L204">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;objective_contract.dm 204"/></a></aside>
+        </h5>
+        <p>Assigns a randomly selected zone to the contract's selectable zone at the given difficulty.</p>
+<p>Arguments:</p>
+<ul>
+<li>difficulty - The difficulty to assign.</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

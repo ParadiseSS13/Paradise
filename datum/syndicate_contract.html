@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;syndicate_contract - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Syndicate Contract <aside>/<a href="datum.html">datum</a>/<a href="datum/syndicate_contract.html">syndicate_contract</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 15"/></a></h1>
+
+<p>Describes a contract that can be completed by a Contractor.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/syndicate_contract.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/chosen_difficulty">chosen_difficulty</a></th><td>The selected difficulty.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/completed_time">completed_time</a></th><td>Formatted station time at which the contract was completed, if applicable.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/contract">contract</a></th><td>The <a href="datum/objective/contract.html" title="/datum/objective/contract">/datum/objective/contract</a> associated to this contract.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/credits_base">credits_base</a></th><td>The base credits reward upon completion. Multiplied by the two lower bounds below.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/dead_extraction">dead_extraction</a></th><td>Whether the contract was completed with the victim being dead on extraction.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/extraction_cooldown">extraction_cooldown</a></th><td>Cooldown before making another extraction request in deciseconds.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/extraction_deadline">extraction_deadline</a></th><td>The world.time at which the current extraction fulton will vanish and another extraction can be requested.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/extraction_flare">extraction_flare</a></th><td>The flare indicating the extraction point.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/extraction_portal">extraction_portal</a></th><td>The extraction portal.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/extraction_timer_handle">extraction_timer_handle</a></th><td>Deadline reached timer handle. Deletes the portal and tells the agent to call extraction again.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/fail_reason">fail_reason</a></th><td>Visual reason as to why the contract failed, if applicable.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/fluff_message">fluff_message</a></th><td>Fluff message explaining why the kidnapee is the target.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/nt_am_board_resigned">nt_am_board_resigned</a></th><td>Whether the additional fluff story from any contractor completing all of their contracts was made already or not.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/owning_hub">owning_hub</a></th><td>The owning contractor hub.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/portal_duration">portal_duration</a></th><td>How long an extraction portal remains before going away. Should be less than <a href="datum/syndicate_contract.html#var/extraction_cooldown" title="/datum/syndicate_contract">/datum/syndicate_contract/var/extraction_cooldown</a>.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/prison_time">prison_time</a></th><td>How long a target remains in the Syndicate jail.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/prisoner_timer_handle">prisoner_timer_handle</a></th><td>Prisoner jail timer handle. On completion, returns the prisoner back to station.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/reward_credits">reward_credits</a></th><td>Amount of credits the contractor will receive upon completion.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/reward_tc">reward_tc</a></th><td>Amount of telecrystals the contract will receive upon completion, depending on the chosen difficulty.
+Structure: EXTRACTION_DIFFICULTY_(EASY|MEDIUM|HARD) =&gt; number</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/souvenirs">souvenirs</a></th><td>List of items a target can get randomly after their return.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/status">status</a></th><td>Current contract status.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/target_name">target_name</a></th><td>Name of the target to display on the UI.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/target_photo">target_photo</a></th><td>The target's photo to display on the UI.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/temp_objs">temp_objs</a></th><td>Temporary objects that are available to the kidnapee during their time in jail. These are deleted when the victim is returned.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#var/victim_belongings">victim_belongings</a></th><td>The kidnapee's belongings. Set upon extraction by the contractor.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/syndicate_contract.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#proc/clean_up">clean_up</a></th><td>Cleans up the contract.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#proc/complete">complete</a></th><td>Marks the contract as completed and gives the rewards to the contractor.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#proc/deadline_reached">deadline_reached</a></th><td>Called when the extraction window closes.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#proc/fail">fail</a></th><td>Marks the contract as failed and stops it.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#proc/generate">generate</a></th><td>Fills the contract with valid data to be used.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#proc/handle_target_experience">handle_target_experience</a></th><td>Handles the target's experience from extraction.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#proc/handle_target_return">handle_target_return</a></th><td>Handles the target's return to station.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#proc/initiate">initiate</a></th><td>Begins the contract if possible.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#proc/invalidate">invalidate</a></th><td>Marks the contract as invalid and effectively cancels it for later use.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#proc/notify_completion">notify_completion</a></th><td>Notifies the uplink's holder that a contract has been completed.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#proc/open_extraction_portal">open_extraction_portal</a></th><td>Opens the extraction portal.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#proc/start_extraction_process">start_extraction_process</a></th><td>Initiates the extraction process if conditions are met.</td></tr>
+            <tr><th><a href="datum/syndicate_contract.html#proc/target_received">target_received</a></th><td>Called when a contract target has been extracted through the portal.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/chosen_difficulty"><aside class="declaration">var </aside>chosen_difficulty
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L62">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 62"/></a></h5>
+        <p>The selected difficulty.</p><h5 id="var/completed_time"><aside class="declaration">var </aside>completed_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L56">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 56"/></a></h5>
+        <p>Formatted station time at which the contract was completed, if applicable.</p><h5 id="var/contract"><aside class="declaration">var </aside>contract
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/objective.html">objective</a>/<a href="datum/objective/contract.html">contract</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L52">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 52"/></a></h5>
+        <p>The <a href="datum/objective/contract.html" title="/datum/objective/contract">/datum/objective/contract</a> associated to this contract.</p><h5 id="var/credits_base"><aside class="declaration">var </aside>credits_base
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L40">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 40"/></a></h5>
+        <p>The base credits reward upon completion. Multiplied by the two lower bounds below.</p><h5 id="var/dead_extraction"><aside class="declaration">var </aside>dead_extraction
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L58">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 58"/></a></h5>
+        <p>Whether the contract was completed with the victim being dead on extraction.</p><h5 id="var/extraction_cooldown"><aside class="declaration">var </aside>extraction_cooldown
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 18"/></a></h5>
+        <p>Cooldown before making another extraction request in deciseconds.</p><h5 id="var/extraction_deadline"><aside class="declaration">var </aside>extraction_deadline
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L68">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 68"/></a></h5>
+        <p>The world.time at which the current extraction fulton will vanish and another extraction can be requested.</p><h5 id="var/extraction_flare"><aside class="declaration">var </aside>extraction_flare
+            <aside>&ndash; /<a href="obj.html">obj</a>/effect/contractor_flare</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L64">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 64"/></a></h5>
+        <p>The flare indicating the extraction point.</p><h5 id="var/extraction_portal"><aside class="declaration">var </aside>extraction_portal
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/effect/portal/redspace/contractor.html">effect/portal/redspace/contractor</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L66">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 66"/></a></h5>
+        <p>The extraction portal.</p><h5 id="var/extraction_timer_handle"><aside class="declaration">var </aside>extraction_timer_handle
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L85">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 85"/></a></h5>
+        <p>Deadline reached timer handle. Deletes the portal and tells the agent to call extraction again.</p><h5 id="var/fail_reason"><aside class="declaration">var </aside>fail_reason
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L60">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 60"/></a></h5>
+        <p>Visual reason as to why the contract failed, if applicable.</p><h5 id="var/fluff_message"><aside class="declaration">var </aside>fluff_message
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L72">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 72"/></a></h5>
+        <p>Fluff message explaining why the kidnapee is the target.</p><h5 id="var/nt_am_board_resigned"><aside class="declaration">var </aside>nt_am_board_resigned
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L89">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 89"/></a></h5>
+        <p>Whether the additional fluff story from any contractor completing all of their contracts was made already or not.</p><h5 id="var/owning_hub"><aside class="declaration">var </aside>owning_hub
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/contractor_hub.html">contractor_hub</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L50">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 50"/></a></h5>
+        <p>The owning contractor hub.</p><h5 id="var/portal_duration"><aside class="declaration">var </aside>portal_duration
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 20"/></a></h5>
+        <p>How long an extraction portal remains before going away. Should be less than <a href="datum/syndicate_contract.html#var/extraction_cooldown" title="/datum/syndicate_contract">/datum/syndicate_contract/var/extraction_cooldown</a>.</p><h5 id="var/prison_time"><aside class="declaration">var </aside>prison_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L22">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 22"/></a></h5>
+        <p>How long a target remains in the Syndicate jail.</p><h5 id="var/prisoner_timer_handle"><aside class="declaration">var </aside>prisoner_timer_handle
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L87">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 87"/></a></h5>
+        <p>Prisoner jail timer handle. On completion, returns the prisoner back to station.</p><h5 id="var/reward_credits"><aside class="declaration">var </aside>reward_credits
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L79">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 79"/></a></h5>
+        <p>Amount of credits the contractor will receive upon completion.</p><h5 id="var/reward_tc"><aside class="declaration">var </aside>reward_tc
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L77">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 77"/></a></h5>
+        <p>Amount of telecrystals the contract will receive upon completion, depending on the chosen difficulty.
+Structure: EXTRACTION_DIFFICULTY_(EASY|MEDIUM|HARD) =&gt; number</p><h5 id="var/souvenirs"><aside class="declaration">var </aside>souvenirs
+            <aside>&ndash; /list/obj/item</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L24">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 24"/></a></h5>
+        <p>List of items a target can get randomly after their return.</p><h5 id="var/status"><aside class="declaration">var </aside>status
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L54">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 54"/></a></h5>
+        <p>Current contract status.</p><h5 id="var/target_name"><aside class="declaration">var </aside>target_name
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L70">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 70"/></a></h5>
+        <p>Name of the target to display on the UI.</p><h5 id="var/target_photo"><aside class="declaration">var </aside>target_photo
+            <aside>&ndash; /image</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L74">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 74"/></a></h5>
+        <p>The target's photo to display on the UI.</p><h5 id="var/temp_objs"><aside class="declaration">var </aside>temp_objs
+            <aside>&ndash; /list/obj</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L83">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 83"/></a></h5>
+        <p>Temporary objects that are available to the kidnapee during their time in jail. These are deleted when the victim is returned.</p><h5 id="var/victim_belongings"><aside class="declaration">var </aside>victim_belongings
+            <aside>&ndash; /list/obj/item</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L81">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 81"/></a></h5>
+        <p>The kidnapee's belongings. Set upon extraction by the contractor.</p><h2 id="proc">Proc Details</h2><h5 id="proc/clean_up"><aside class="declaration">proc </aside>clean_up<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L567">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 567"/></a></aside>
+        </h5>
+        <p>Cleans up the contract.</p><h5 id="proc/complete"><aside class="declaration">proc </aside>complete<aside>(target_dead) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L189">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 189"/></a></aside>
+        </h5>
+        <p>Marks the contract as completed and gives the rewards to the contractor.</p>
+<p>Arguments:</p>
+<ul>
+<li>target_dead - Whether the target was extracted dead.</li>
+</ul><h5 id="proc/deadline_reached"><aside class="declaration">proc </aside>deadline_reached<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L559">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 559"/></a></aside>
+        </h5>
+        <p>Called when the extraction window closes.</p><h5 id="proc/fail"><aside class="declaration">proc </aside>fail<aside>(reason) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L240">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 240"/></a></aside>
+        </h5>
+        <p>Marks the contract as failed and stops it.</p>
+<p>Arguments:</p>
+<ul>
+<li>difficulty - The visual reason as to why the contract failed.</li>
+</ul><h5 id="proc/generate"><aside class="declaration">proc </aside>generate<aside>(target_override) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L115">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 115"/></a></aside>
+        </h5>
+        <p>Fills the contract with valid data to be used.</p><h5 id="proc/handle_target_experience"><aside class="declaration">proc </aside>handle_target_experience<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/M, /<a href="obj.html">obj</a>/<a href="obj/effect/portal/redspace/contractor.html">effect/portal/redspace/contractor</a>/P) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L349">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 349"/></a></aside>
+        </h5>
+        <p>Handles the target's experience from extraction.</p>
+<p>Arguments:</p>
+<ul>
+<li>M - The target mob.</li>
+<li>P - The extraction portal.</li>
+</ul><h5 id="proc/handle_target_return"><aside class="declaration">proc </aside>handle_target_return<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/M) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L480">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 480"/></a></aside>
+        </h5>
+        <p>Handles the target's return to station.</p>
+<p>Arguments:</p>
+<ul>
+<li>M - The target mob.</li>
+</ul><h5 id="proc/initiate"><aside class="declaration">proc </aside>initiate<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/M, difficulty) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L165">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 165"/></a></aside>
+        </h5>
+        <p>Begins the contract if possible.</p>
+<p>Arguments:</p>
+<ul>
+<li>M - The contractor.</li>
+<li>difficulty - The chosen difficulty level.</li>
+</ul><h5 id="proc/invalidate"><aside class="declaration">proc </aside>invalidate<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L206">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 206"/></a></aside>
+        </h5>
+        <p>Marks the contract as invalid and effectively cancels it for later use.</p><h5 id="proc/notify_completion"><aside class="declaration">proc </aside>notify_completion<aside>(tc, creds, target_dead) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L335">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 335"/></a></aside>
+        </h5>
+        <p>Notifies the uplink's holder that a contract has been completed.</p>
+<p>Arguments:</p>
+<ul>
+<li>tc - How many telecrystals they have received.</li>
+<li>creds - How many credits they have received.</li>
+<li>target_dead - Whether the target was extracted dead.</li>
+</ul><h5 id="proc/open_extraction_portal"><aside class="declaration">proc </aside>open_extraction_portal<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/contractor_uplink.html">contractor_uplink</a>/U, /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/M, /<a href="obj.html">obj</a>/effect/contractor_flare/F) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L294">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 294"/></a></aside>
+        </h5>
+        <p>Opens the extraction portal.</p>
+<p>Arguments:</p>
+<ul>
+<li>U - The uplink.</li>
+<li>M - The contractor.</li>
+<li>F - The flare.</li>
+</ul><h5 id="proc/start_extraction_process"><aside class="declaration">proc </aside>start_extraction_process<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/contractor_uplink.html">contractor_uplink</a>/U, /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/M) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L258">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 258"/></a></aside>
+        </h5>
+        <p>Initiates the extraction process if conditions are met.</p>
+<p>Arguments:</p>
+<ul>
+<li>M - The contractor.</li>
+</ul><h5 id="proc/target_received"><aside class="declaration">proc </aside>target_received<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/M, /<a href="obj.html">obj</a>/<a href="obj/effect/portal/redspace/contractor.html">effect/portal/redspace/contractor</a>/P) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/antagonists/traitor/contractor/datums/syndicate_contract.dm#L321">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;syndicate_contract.dm 321"/></a></aside>
+        </h5>
+        <p>Called when a contract target has been extracted through the portal.</p>
+<p>Arguments:</p>
+<ul>
+<li>M - The target mob.</li>
+<li>P - The extraction portal.</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

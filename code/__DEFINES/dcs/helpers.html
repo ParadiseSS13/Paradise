@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>code&#x2F;__DEFINES&#x2F;dcs&#x2F;helpers.dm - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h2>code/__DEFINES/dcs/helpers.dm 
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__DEFINES/dcs/helpers.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;helpers.dm"/></a></h2><a href="code/__DEFINES/dcs/helpers.html#define">Jump To Define Details</a>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/__DEFINES/dcs/helpers.html#define/SEND_SIGNAL">SEND_SIGNAL</a></th><td>Used to trigger signals and call procs registered for that signal
+The datum hosting the signal is automaticaly added as the first argument
+Returns a bitfield gathered from all registered procs
+Arguments given here are packaged in a list and given to _SendSignal</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/helpers.html#define/SIGNAL_HANDLER">SIGNAL_HANDLER</a></th><td>Signifies that this proc is used to handle signals.
+Every proc you pass to RegisterSignal must have this.</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/helpers.html#define/SIGNAL_HANDLER_DOES_SLEEP">SIGNAL_HANDLER_DOES_SLEEP</a></th><td>Signifies that this proc is used to handle signals, but also sleeps.
+Do not use this for new work.</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/helpers.html#define/AddElement">AddElement</a></th><td>A wrapper for _AddElement that allows us to pretend we're using normal named arguments</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/helpers.html#define/RemoveElement">RemoveElement</a></th><td>A wrapper for _RemoveElement that allows us to pretend we're using normal named arguments</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/helpers.html#define/AddComponent">AddComponent</a></th><td>A wrapper for _AddComponent that allows us to pretend we're using normal named arguments</td></tr></table><h3 id="define">Define Details</h3>
+<h5 id="define/AddComponent"><aside class="declaration">#define </aside>AddComponent
+            <aside>(arguments ...)</aside>
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__DEFINES/dcs/helpers.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;helpers.dm 23"/></a>
+    </h5>
+    <p>A wrapper for _AddComponent that allows us to pretend we're using normal named arguments</p><h5 id="define/AddElement"><aside class="declaration">#define </aside>AddElement
+            <aside>(arguments ...)</aside>
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__DEFINES/dcs/helpers.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;helpers.dm 18"/></a>
+    </h5>
+    <p>A wrapper for _AddElement that allows us to pretend we're using normal named arguments</p><h5 id="define/RemoveElement"><aside class="declaration">#define </aside>RemoveElement
+            <aside>(arguments ...)</aside>
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__DEFINES/dcs/helpers.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;helpers.dm 20"/></a>
+    </h5>
+    <p>A wrapper for _RemoveElement that allows us to pretend we're using normal named arguments</p><h5 id="define/SEND_SIGNAL"><aside class="declaration">#define </aside>SEND_SIGNAL
+            <aside>(target, sigtype, arguments ...)</aside>
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__DEFINES/dcs/helpers.dm#L5">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;helpers.dm 5"/></a>
+    </h5>
+    <p>Used to trigger signals and call procs registered for that signal
+The datum hosting the signal is automaticaly added as the first argument
+Returns a bitfield gathered from all registered procs
+Arguments given here are packaged in a list and given to _SendSignal</p><h5 id="define/SIGNAL_HANDLER"><aside class="declaration">#define </aside>SIGNAL_HANDLER
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__DEFINES/dcs/helpers.dm#L11">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;helpers.dm 11"/></a>
+    </h5>
+    <p>Signifies that this proc is used to handle signals.
+Every proc you pass to RegisterSignal must have this.</p><h5 id="define/SIGNAL_HANDLER_DOES_SLEEP"><aside class="declaration">#define </aside>SIGNAL_HANDLER_DOES_SLEEP
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__DEFINES/dcs/helpers.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;helpers.dm 15"/></a>
+    </h5>
+    <p>Signifies that this proc is used to handle signals, but also sleeps.
+Do not use this for new work.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

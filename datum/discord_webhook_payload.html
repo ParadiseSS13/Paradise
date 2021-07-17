@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;discord_webhook_payload - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Discord Webhook Payload <aside>/<a href="datum.html">datum</a>/<a href="datum/discord_webhook_payload.html">discord_webhook_payload</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/discord.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;discord.dm 15"/></a></h1>
+
+<p>Holder datum for discord webhook POST send data</p>
+<p>Holds all information that a webhook would need,
+as well as a method to serialize the entire thing into JSON.
+See https://discord.com/developers/docs/resources/webhook#execute-webhook-jsonform-params</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/discord_webhook_payload.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/discord_webhook_payload.html#var/embeds">embeds</a></th><td>List of all embed objects in the message</td></tr>
+            <tr><th><a href="datum/discord_webhook_payload.html#var/webhook_content">webhook_content</a></th><td>Content of the webhook message</td></tr>
+            <tr><th><a href="datum/discord_webhook_payload.html#var/webhook_name">webhook_name</a></th><td>Name the webhook user should post as</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/discord_webhook_payload.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/discord_webhook_payload.html#proc/serialize2json">serialize2json</a></th><td>Webhook Serializer</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/embeds"><aside class="declaration">var </aside>embeds
+            <aside>&ndash; /list/datum/discord_embed</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/discord.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;discord.dm 23"/></a></h5>
+        <p>List of all embed objects in the message</p><h5 id="var/webhook_content"><aside class="declaration">var </aside>webhook_content
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/discord.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;discord.dm 19"/></a></h5>
+        <p>Content of the webhook message</p><h5 id="var/webhook_name"><aside class="declaration">var </aside>webhook_name
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/discord.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;discord.dm 17"/></a></h5>
+        <p>Name the webhook user should post as</p><h2 id="proc">Proc Details</h2><h5 id="proc/serialize2json"><aside class="declaration">proc </aside>serialize2json<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/discord.dm#L32">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;discord.dm 32"/></a></aside>
+        </h5>
+        <p>Webhook Serializer</p>
+<p>Converts the DM webhook object into JSON for a POST request.
+Not called serialize() because thats a proc at the /datum level already</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

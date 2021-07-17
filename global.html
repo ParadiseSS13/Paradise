@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>(global) - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>(global)
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/(unknown)">
+        <img src="git.png" width="16" height="16" title="(unknown)"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="global.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="global.html#var/Failsafe">Failsafe</a></th><td>Failsafe</td></tr>
+            <tr><th><a href="global.html#var/Master">Master</a></th><td>StonedMC</td></tr>
+            <tr><th><a href="global.html#var/SSambience">SSambience</a></th><td>The subsystem used to play ambience to users every now and then, makes them real excited.</td></tr>
+            <tr><th><a href="global.html#var/SScleanup">SScleanup</a></th><td></td></tr>
+            <tr><th><a href="global.html#var/SSpersistent_data">SSpersistent_data</a></th><td></td></tr>
+            <tr><th><a href="global.html#var/SSrunechat">SSrunechat</a></th><td></td></tr>
+            <tr><th><a href="global.html#var/SStgui">SStgui</a></th><td>tgui subsystem</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="global.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="global.html#proc/CreateBans">CreateBans</a></th><td>DEBUG</td></tr>
+            <tr><th><a href="global.html#proc/RoundDiagBar">RoundDiagBar</a></th><td>Diagnostic HUDs!</td></tr>
+            <tr><th><a href="global.html#proc/bang">bang</a></th><td>Creates a flashing effect that blinds and deafens mobs within range</td></tr>
+            <tr><th><a href="global.html#proc/broadcast_message">broadcast_message</a></th><td>Message Broadcast Proc</td></tr>
+            <tr><th><a href="global.html#proc/check_active_security_force">check_active_security_force</a></th><td></td></tr>
+            <tr><th><a href="global.html#proc/client2rankcolour">client2rankcolour</a></th><td>Proc to generate a &quot;rank colour&quot; from a client</td></tr>
+            <tr><th><a href="global.html#proc/fire_flash_log">fire_flash_log</a></th><td>Flashfire is a proc used to log fire causing chemical reactions.</td></tr>
+            <tr><th><a href="global.html#proc/get_all_linked_levels_zpos">get_all_linked_levels_zpos</a></th><td>Proc to get a list of all the linked-together Z-Levels</td></tr>
+            <tr><th><a href="global.html#proc/get_allowed_instrument_ids">get_allowed_instrument_ids</a></th><td>Get all non admin_only instruments as a list of text ids.</td></tr>
+            <tr><th><a href="global.html#proc/get_atoms_of_type">get_atoms_of_type</a></th><td>Returns a list of atoms in a location of a given type. Can be refined to look for pixel-shift.</td></tr>
+            <tr><th><a href="global.html#proc/get_bbox_of_atoms">get_bbox_of_atoms</a></th><td>Get a bounding box of a list of atoms.</td></tr>
+            <tr><th><a href="global.html#proc/get_channel_name">get_channel_name</a></th><td>Returns the clean name of an audio channel.</td></tr>
+            <tr><th><a href="global.html#proc/get_rad_contents">get_rad_contents</a></th><td>A special GetAllContents that doesn't search past things with rad insulation
+Components which return COMPONENT_BLOCK_RADIATION prevent further searching into that object's contents. The object itself will get returned still.
+The ignore list makes those objects never return at all</td></tr>
+            <tr><th><a href="global.html#proc/get_valid_vent_spawns">get_valid_vent_spawns</a></th><td>Returns a list of vents that can be used as a potential spawn if they meet the criteria set by the arguments</td></tr>
+            <tr><th><a href="global.html#proc/getline">getline</a></th><td>Gets the turfs which are between the two given atoms. Including their positions
+Only works for atoms on the same Z level which is not 0. So an atom located in a non turf won't work
+Arguments:</td></tr>
+            <tr><th><a href="global.html#proc/goonchem_vortex">goonchem_vortex</a></th><td>Throws or pulls objects to/from a chem reaction</td></tr>
+            <tr><th><a href="global.html#proc/is_bad_connection">is_bad_connection</a></th><td>Connection checker</td></tr>
+            <tr><th><a href="global.html#proc/is_special_character">is_special_character</a></th><td>ADMIN HELPER PROCS</td></tr>
+            <tr><th><a href="global.html#proc/locateUID">locateUID</a></th><td>Locates a datum based off of the UID</td></tr>
+            <tr><th><a href="global.html#proc/makeDatumRefLists">makeDatumRefLists</a></th><td>Initial Building</td></tr>
+            <tr><th><a href="global.html#proc/make_associative">make_associative</a></th><td>A proc for turning a list into an associative list.</td></tr>
+            <tr><th><a href="global.html#proc/message_adminTicket">message_adminTicket</a></th><td></td></tr>
+            <tr><th><a href="global.html#proc/message_mentorTicket">message_mentorTicket</a></th><td></td></tr>
+            <tr><th><a href="global.html#proc/setupcult">setupcult</a></th><td>.</td></tr>
+            <tr><th><a href="global.html#proc/shake_camera">shake_camera</a></th><td>Shake the camera of the person viewing the mob SO REAL!</td></tr>
+            <tr><th><a href="global.html#proc/start_watch">start_watch</a></th><td>Returns &quot;watch handle&quot; (really just a timestamp :V)</td></tr>
+            <tr><th><a href="global.html#proc/stop_watch">stop_watch</a></th><td>Returns number of seconds elapsed.
+@param wh number The &quot;Watch Handle&quot; from start_watch(). (timestamp)</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/Failsafe"><aside class="declaration">var </aside>Failsafe
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/controller.html">controller</a>/failsafe</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/failsafe.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;failsafe.dm 7"/></a></h5>
+        <p>Failsafe</p>
+<p>Pretty much pokes the MC to make sure it's still alive.</p><h5 id="var/Master"><aside class="declaration">var </aside>Master
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/controller.html">controller</a>/<a href="datum/controller/master.html">master</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/master.dm#L11">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 11"/></a></h5>
+        <p>StonedMC</p>
+<p>Designed to properly split up a given tick among subsystems
+Note: if you read parts of this code and think &quot;why is it doing it that way&quot;
+Odds are, there is a reason</p><h5 id="var/SSambience"><aside class="declaration">var </aside>SSambience
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/controller.html">controller</a>/<a href="datum/controller/subsystem.html">subsystem</a>/<a href="datum/controller/subsystem/ambience.html">ambience</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ambience.dm#L2">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ambience.dm 2"/></a></h5>
+        <p>The subsystem used to play ambience to users every now and then, makes them real excited.</p><h5 id="var/SScleanup"><aside class="declaration">var </aside>SScleanup
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/controller.html">controller</a>/<a href="datum/controller/subsystem.html">subsystem</a>/<a href="datum/controller/subsystem/cleanup.html">cleanup</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/cleanup.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;cleanup.dm 13"/></a></h5>
+        <h1 id="cleanup-subsystem">Cleanup Subsystem</h1>
+<p>For now, all it does is periodically clean the supplied global lists of any null values they may contain.</p>
+<p>Why is this important?</p>
+<p>Sometimes, these lists can gain nulls due to errors.
+For example, when a dead player trasitions from the <code>dead_mob_list</code> to the <code>alive_mob_list</code>, a null value may get stuck in the dead mob list.
+This can cause issues when other code tries to do things with the values in the list, but are instead met with null values.
+These problems are incredibly hard to track down and fix, so this subsystem is a solution to that.</p><h5 id="var/SSpersistent_data"><aside class="declaration">var </aside>SSpersistent_data
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/controller.html">controller</a>/<a href="datum/controller/subsystem.html">subsystem</a>/<a href="datum/controller/subsystem/persistent_data.html">persistent_data</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/persistent_data.dm#L10">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;persistent_data.dm 10"/></a></h5>
+        <h1 id="persistent-data-subsystem">Persistent Data Subsystem</h1>
+<p>Provides a centralised handler for persistent data reading and writing.
+The subsystem does not do any actual spawning itself, as this focuses on objects and mobs
+Should anything that is turf persistence related added in, that can be chucked into this SS
+Its quite a simple subsystem. For now, anyways.</p><h5 id="var/SSrunechat"><aside class="declaration">var </aside>SSrunechat
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/controller.html">controller</a>/<a href="datum/controller/subsystem.html">subsystem</a>/<a href="datum/controller/subsystem/runechat.html">runechat</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/runechat.dm#L24">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;runechat.dm 24"/></a></h5>
+        <h1 id="runechat-subsystem">Runechat Subsystem</h1>
+<p>Maintains a timer-like system to handle destruction of runechat messages. Much of this code is modeled
+after or adapted from the timer subsystem. Made by Bobbahbrown of /tg/station13</p>
+<p>Note that this has the same structure for storing and queueing messages as the timer subsystem does
+for handling timers: the bucket_list is a list of chatmessage datums, each of which are the head
+of a circularly linked list. Any given index in bucket_list could be null, representing an empty bucket.</p>
+<p>AA Note:
+One of the primary reasons for this is because each chatmessage has a timer attached to it, which is extra load on the GC
+At 150 population, the GC literally cannot keep up with processing 368,000 runechats and 368,000 extra timers in a 1 hour 30 minute round
+This also makes performance profiling a lot easier.</p><h5 id="var/SStgui"><aside class="declaration">var </aside>SStgui
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/controller.html">controller</a>/<a href="datum/controller/subsystem.html">subsystem</a>/<a href="datum/controller/subsystem/tgui.html">tgui</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tgui.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tgui.dm 8"/></a></h5>
+        <p>tgui subsystem</p>
+<p>Contains all tgui state and subsystem code.</p><h2 id="proc">Proc Details</h2><h5 id="proc/CreateBans"><aside class="declaration">proc </aside>CreateBans<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/NewBan.dm#L195">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;NewBan.dm 195"/></a></aside>
+        </h5>
+        <p>DEBUG</p><h5 id="proc/RoundDiagBar"><aside class="declaration">proc </aside>RoundDiagBar<aside>(value) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/data_huds.dm#L281">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;data_huds.dm 281"/></a></aside>
+        </h5>
+        <p>Diagnostic HUDs!</p><h5 id="proc/bang"><aside class="declaration">proc </aside>bang<aside>(/<a href="turf.html">turf</a>/T, /<a href="atom.html">atom</a>/A, range, flash, bang) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/grenades/flashbang.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;grenades&#x2F;flashbang.dm 39"/></a></aside>
+        </h5>
+        <p>Creates a flashing effect that blinds and deafens mobs within range</p>
+<p>Arguments:</p>
+<ul>
+<li>T - The turf to flash</li>
+<li>A - The flashing atom</li>
+<li>range - The range in tiles of the flash</li>
+<li>flash - Whether to flash (blind)</li>
+<li>bang - Whether to bang (deafen)</li>
+</ul><h5 id="proc/broadcast_message"><aside class="declaration">proc </aside>broadcast_message<aside>(/<a href="datum.html">datum</a>/<a href="datum/tcomms_message.html">tcomms_message</a>/tcm) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/tcomms/_base.dm#L266">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 266"/></a></aside>
+        </h5>
+        <p>Message Broadcast Proc</p>
+<p>This big fat disaster is responsible for sending the message out to all headsets and radios on the station
+It is absolutely disgusting, but used to take about 20 arguments before I slimmed it down to just one
+Arguments:</p>
+<ul>
+<li>tcm - The tcomms message datum</li>
+</ul><h5 id="proc/check_active_security_force"><aside class="declaration">proc </aside>check_active_security_force<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/mobs.dm#L639">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;mobs.dm 639"/></a></aside>
+        </h5>
+        <ul>
+<li>checks the security force on station and returns a list of numbers, of the form:</li>
+<li>total, active, dead, antag</li>
+<li>where active is defined as conscious (STAT = 0) and not an antag</li>
+</ul><h5 id="proc/client2rankcolour"><aside class="declaration">proc </aside>client2rankcolour<aside>(/<a href="client.html">client</a>/C) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/text.dm#L720">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;text.dm 720"/></a></aside>
+        </h5>
+        <p>Proc to generate a &quot;rank colour&quot; from a client</p>
+<p>This takes the client and looks at various factors in order, such as patreon status, staff rank, and more
+Arguments:</p>
+<ul>
+<li>C - The client were looking up</li>
+</ul><h5 id="proc/fire_flash_log"><aside class="declaration">proc </aside>fire_flash_log<aside>(/<a href="datum.html">datum</a>/<a href="datum/reagents.html">reagents</a>/holder, name) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/reagents/chemistry/reagents.dm#L108">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;reagents&#x2F;chemistry&#x2F;reagents.dm 108"/></a></aside>
+        </h5>
+        <p>Flashfire is a proc used to log fire causing chemical reactions.</p>
+<p>Call this whenever you have a chemical reaction that makes fire flashes.
+Arguments:</p>
+<ul>
+<li>holder: the beaker that the reagent is in</li>
+<li>name: name of the reagent / reaction</li>
+</ul><h5 id="proc/get_all_linked_levels_zpos"><aside class="declaration">proc </aside>get_all_linked_levels_zpos<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/space_management/level_traits.dm#L71">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;space_management&#x2F;level_traits.dm 71"/></a></aside>
+        </h5>
+        <p>Proc to get a list of all the linked-together Z-Levels</p>
+<p>Returns a list of zlevel numbers which can be accessed from travelling space naturally</p><h5 id="proc/get_allowed_instrument_ids"><aside class="declaration">proc </aside>get_allowed_instrument_ids<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/instruments/_instrument_data.dm#L4">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;instruments&#x2F;_instrument_data.dm 4"/></a></aside>
+        </h5>
+        <p>Get all non admin_only instruments as a list of text ids.</p><h5 id="proc/get_atoms_of_type"><aside class="declaration">proc </aside>get_atoms_of_type<aside>(/<a href="atom.html">atom</a>/loc, type, check_shift, shift_x, shift_y) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/unsorted.dm#L1996">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;unsorted.dm 1996"/></a></aside>
+        </h5>
+        <p>Returns a list of atoms in a location of a given type. Can be refined to look for pixel-shift.</p>
+<p>Arguments:</p>
+<ul>
+<li>loc - The atom to look in.</li>
+<li>type - The type to look for.</li>
+<li>check_shift - If true, will exclude atoms whose pixel_x/pixel_y do not match shift_x/shift_y.</li>
+<li>shift_x - If check_shift is true, atoms whose pixel_x is different to this will be excluded.</li>
+<li>shift_y - If check_shift is true, atoms whose pixel_y is different to this will be excluded.</li>
+</ul><h5 id="proc/get_bbox_of_atoms"><aside class="declaration">proc </aside>get_bbox_of_atoms<aside>(/list/atoms) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/game.dm#L541">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;game.dm 541"/></a></aside>
+        </h5>
+        <p>Get a bounding box of a list of atoms.</p>
+<p>Arguments:</p>
+<ul>
+<li>atoms - List of atoms. Can accept output of view() and range() procs.</li>
+</ul>
+<p>Returns: list(x1, y1, x2, y2)</p><h5 id="proc/get_channel_name"><aside class="declaration">proc </aside>get_channel_name<aside>(channel) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/unsorted.dm#L2100">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;unsorted.dm 2100"/></a></aside>
+        </h5>
+        <p>Returns the clean name of an audio channel.</p>
+<p>Arguments:</p>
+<ul>
+<li>channel - The channel number.</li>
+</ul><h5 id="proc/get_rad_contents"><aside class="declaration">proc </aside>get_rad_contents<aside>(/<a href="atom.html">atom</a>/location) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/radiation.dm#L6">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;radiation.dm 6"/></a></aside>
+        </h5>
+        <p>A special GetAllContents that doesn't search past things with rad insulation
+Components which return COMPONENT_BLOCK_RADIATION prevent further searching into that object's contents. The object itself will get returned still.
+The ignore list makes those objects never return at all</p><h5 id="proc/get_valid_vent_spawns"><aside class="declaration">proc </aside>get_valid_vent_spawns<aside>(unwelded_only, exclude_mobs_nearby, nearby_mobs_range, exclude_visible_by_mobs, min_network_size, station_levels_only, z_level) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/game.dm#L489">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;game.dm 489"/></a></aside>
+        </h5>
+        <p>Returns a list of vents that can be used as a potential spawn if they meet the criteria set by the arguments</p>
+<p>Will not include parent-less vents to the returned list.
+Arguments:</p>
+<ul>
+<li>unwelded_only - Whether the list should only include vents that are unwelded</li>
+<li>exclude_mobs_nearby - Whether to exclude vents that are near living mobs regardless of visibility</li>
+<li>nearby_mobs_range - The range at which to look for living mobs around the vent for the above argument</li>
+<li>exclude_visible_by_mobs - Whether to exclude vents that are visible to any living mob</li>
+<li>min_network_size - The minimum length (non-inclusive) of the vent's parent network. A smaller number means vents in small networks (Security, Virology) will appear in the list</li>
+<li>station_levels_only - Whether to only consider vents that are in a Z-level with a STATION_LEVEL trait</li>
+<li>z_level - The Z-level number to look for vents in. Defaults to all</li>
+</ul><h5 id="proc/getline"><aside class="declaration">proc </aside>getline<aside>(/<a href="atom.html">atom</a>/M, /<a href="atom.html">atom</a>/N) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/unsorted.dm#L180">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;unsorted.dm 180"/></a></aside>
+        </h5>
+        <p>Gets the turfs which are between the two given atoms. Including their positions
+Only works for atoms on the same Z level which is not 0. So an atom located in a non turf won't work
+Arguments:</p>
+<ul>
+<li>M - The source atom</li>
+<li>N - The target atom</li>
+</ul><h5 id="proc/goonchem_vortex"><aside class="declaration">proc </aside>goonchem_vortex<aside>(/<a href="turf.html">turf</a>/T, pull, volume, ignore_volume) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/reagents/chemistry/recipes.dm#L67">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;reagents&#x2F;chemistry&#x2F;recipes.dm 67"/></a></aside>
+        </h5>
+        <p>Throws or pulls objects to/from a chem reaction</p>
+<p>Scales the amount of objects thrown with the volume, unless ignore_volume is TRUE</p>
+<p>Arguments:</p>
+<ul>
+<li>T - The turf to use as the throw from/to point</li>
+<li>pull - Do we want to pull objects towards T (TRUE) or push them away from it (FALSE)</li>
+<li>volume - The volume of reagents. Used to scale the effect is ignore_volume = FALSE</li>
+<li>ignore_volume - Do we want to ignore the volume of reagents and just throw regardless</li>
+</ul><h5 id="proc/is_bad_connection"><aside class="declaration">proc </aside>is_bad_connection<aside>(old_freq, new_freq) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/tcomms/_base.dm#L236">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 236"/></a></aside>
+        </h5>
+        <p>Connection checker</p>
+<p>Checks the connection frequency against the intended frequency for the message
+NOTE: I barely know what on earth this does, but it works and it scares me
+Arguments:</p>
+<ul>
+<li>old_freq - Frequency of the connection</li>
+<li>new_freq - Frequency of the message</li>
+</ul><h5 id="proc/is_special_character"><aside class="declaration">proc </aside>is_special_character<aside>(/<a href="mob.html">mob</a>/M) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/admin.dm#L627">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;admin.dm 627"/></a></aside>
+        </h5>
+        <p>ADMIN HELPER PROCS</p><h5 id="proc/locateUID"><aside class="declaration">proc </aside>locateUID<aside>(uid) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/unique_ids.dm#L44">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;unique_ids.dm 44"/></a></aside>
+        </h5>
+        <p>Locates a datum based off of the UID</p>
+<p>Replacement for locate() which takes a UID instead of a ref
+Returns the datum, if found</p><h5 id="proc/makeDatumRefLists"><aside class="declaration">proc </aside>makeDatumRefLists<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/global_lists.dm#L6">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;global_lists.dm 6"/></a></aside>
+        </h5>
+        <p>Initial Building</p><h5 id="proc/make_associative"><aside class="declaration">proc </aside>make_associative<aside>(/list/flat_list) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/lists.dm#L839">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;lists.dm 839"/></a></aside>
+        </h5>
+        <p>A proc for turning a list into an associative list.</p>
+<p>A simple proc for turning all things in a list into an associative list, instead
+Each item in the list will have an associative value of TRUE</p>
+<p>Arguments:</p>
+<ul>
+<li>flat_list - the list that it passes to make associative</li>
+</ul><h5 id="proc/message_adminTicket"><aside class="declaration">proc </aside>message_adminTicket<aside>(msg, important) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/admin.dm#L30">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;admin.dm 30"/></a></aside>
+        </h5>
+        <ul>
+<li>Sends a message to the staff able to see admin tickets</li>
+<li>Arguments:</li>
+<li>msg - The message being send</li>
+<li>important - If the message is important. If TRUE it will ignore the CHAT_NO_TICKETLOGS preferences,
+send a sound and flash the window. Defaults to FALSE</li>
+</ul><h5 id="proc/message_mentorTicket"><aside class="declaration">proc </aside>message_mentorTicket<aside>(msg, important) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/admin.dm#L47">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;admin.dm 47"/></a></aside>
+        </h5>
+        <ul>
+<li>Sends a message to the staff able to see mentor tickets</li>
+<li>Arguments:</li>
+<li>msg - The message being send</li>
+<li>important - If the message is important. If TRUE it will ignore the CHAT_NO_TICKETLOGS preferences,
+send a sound and flash the window. Defaults to FALSE</li>
+</ul><h5 id="proc/setupcult"><aside class="declaration">proc </aside>setupcult<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/setupgame.dm#L139">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;setupgame.dm 139"/></a></aside>
+        </h5>
+        <p>.</p><h5 id="proc/shake_camera"><aside class="declaration">proc </aside>shake_camera<aside>(/<a href="mob.html">mob</a>/M, duration, strength) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/mob_helpers.dm#L315">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_helpers.dm 315"/></a></aside>
+        </h5>
+        <p>Shake the camera of the person viewing the mob SO REAL!</p><h5 id="proc/start_watch"><aside class="declaration">proc </aside>start_watch<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/time.dm#L83">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;time.dm 83"/></a></aside>
+        </h5>
+        <p>Returns &quot;watch handle&quot; (really just a timestamp :V)</p><h5 id="proc/stop_watch"><aside class="declaration">proc </aside>stop_watch<aside>(wh) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/time.dm#L90">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;time.dm 90"/></a></aside>
+        </h5>
+        <p>Returns number of seconds elapsed.
+@param wh number The &quot;Watch Handle&quot; from start_watch(). (timestamp)</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

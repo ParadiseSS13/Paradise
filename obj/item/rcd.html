@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;item&#x2F;rcd - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>rcd <aside>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/rcd.html">rcd</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 13"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/item/rcd.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/item/rcd.html#var/allowed_targets">allowed_targets</a></th><td>A list of valid atoms that RCDs can target. Clicking on an atom with an RCD which is not in this list, will do nothing.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#var/canRwall">canRwall</a></th><td>If the RCD can deconstruct reinforced walls.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#var/door_accesses_list">door_accesses_list</a></th><td>An associative list containing all station accesses. Includes their name and access number. For use with the UI.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#var/door_name">door_name</a></th><td>The name that newly build airlocks will receive.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#var/door_type">door_type</a></th><td>The current airlock type that will be build.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#var/door_types_ui_list">door_types_ui_list</a></th><td>An associative list containing an airlock's name, type path, and image. For use with the UI.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#var/locked">locked</a></th><td>Is the RCD's airlock access selection menu locked?</td></tr>
+            <tr><th><a href="obj/item/rcd.html#var/matter">matter</a></th><td>The current amount of matter stored.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#var/max_matter">max_matter</a></th><td>The max amount of matter that can be stored.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#var/mode">mode</a></th><td>The RCD's current build mode.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#var/one_access">one_access</a></th><td>If this is TRUE, any airlocks that gets built will require only ONE of the checked accesses. If FALSE, it will require ALL of them.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#var/rcd_door_types">rcd_door_types</a></th><td>An associative list of airlock type paths as keys, and their names as values.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#var/selected_accesses">selected_accesses</a></th><td>A list of access numbers which have been checked off by the user in the UI.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#var/spark_system">spark_system</a></th><td>The spark system used to create sparks when the user interacts with the RCD.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#var/ui_tab">ui_tab</a></th><td>Which airlock tab the UI is currently set to display.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/item/rcd.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/item/rcd.html#proc/checkResource">checkResource</a></th><td>Called in each of the four build modes before an object gets build. Makes sure there is enough matter to build the object.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#proc/check_menu">check_menu</a></th><td>Runs a series of pre-checks before opening the radial menu to the user.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#proc/detonate_pulse">detonate_pulse</a></th><td>Called from malf AI's &quot;detonate RCD&quot; ability.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#proc/detonate_pulse_explode">detonate_pulse_explode</a></th><td>Called in <code>/obj/item/rcd/proc/detonate_pulse()</code> via callback.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#proc/get_airlock_image">get_airlock_image</a></th><td>Creates and returns a base64 icon of the given <code>airlock_type</code>.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#proc/mode_airlock">mode_airlock</a></th><td>Called in <code>afterattack()</code> if <code>mode</code> is set to <code>MODE_AIRLOCK</code>.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#proc/mode_decon">mode_decon</a></th><td>Called in <code>afterattack()</code> if <code>mode</code> is set to <code>MODE_DECON</code>.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#proc/mode_turf">mode_turf</a></th><td>Called in <code>afterattack()</code> if <code>mode</code> is set to <code>MODE_TURF</code>.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#proc/mode_window">mode_window</a></th><td>Called in <code>afterattack()</code> if <code>mode</code> is set to <code>MODE_WINDOW</code>.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#proc/radial_menu">radial_menu</a></th><td>Creates and displays a radial menu to a user when they trigger the <code>attack_self</code> of the RCD.</td></tr>
+            <tr><th><a href="obj/item/rcd.html#proc/ui_act_modal">ui_act_modal</a></th><td>Called in ui_act() to process modal actions</td></tr>
+            <tr><th><a href="obj/item/rcd.html#proc/useResource">useResource</a></th><td>Called in each of the four build modes after an object is successfully built.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/allowed_targets"><aside class="declaration">var </aside>allowed_targets
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L55">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 55"/></a></h5>
+        <p>A list of valid atoms that RCDs can target. Clicking on an atom with an RCD which is not in this list, will do nothing.</p><h5 id="var/canRwall"><aside class="declaration">var </aside>canRwall
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 41"/></a></h5>
+        <p>If the RCD can deconstruct reinforced walls.</p><h5 id="var/door_accesses_list"><aside class="declaration">var </aside>door_accesses_list
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L61">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 61"/></a></h5>
+        <p>An associative list containing all station accesses. Includes their name and access number. For use with the UI.</p><h5 id="var/door_name"><aside class="declaration">var </aside>door_name
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L47">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 47"/></a></h5>
+        <p>The name that newly build airlocks will receive.</p><h5 id="var/door_type"><aside class="declaration">var </aside>door_type
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L45">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 45"/></a></h5>
+        <p>The current airlock type that will be build.</p><h5 id="var/door_types_ui_list"><aside class="declaration">var </aside>door_types_ui_list
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L59">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 59"/></a></h5>
+        <p>An associative list containing an airlock's name, type path, and image. For use with the UI.</p><h5 id="var/locked"><aside class="declaration">var </aside>locked
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L43">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 43"/></a></h5>
+        <p>Is the RCD's airlock access selection menu locked?</p><h5 id="var/matter"><aside class="declaration">var </aside>matter
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L35">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 35"/></a></h5>
+        <p>The current amount of matter stored.</p><h5 id="var/max_matter"><aside class="declaration">var </aside>max_matter
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 37"/></a></h5>
+        <p>The max amount of matter that can be stored.</p><h5 id="var/mode"><aside class="declaration">var </aside>mode
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 39"/></a></h5>
+        <p>The RCD's current build mode.</p><h5 id="var/one_access"><aside class="declaration">var </aside>one_access
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L49">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 49"/></a></h5>
+        <p>If this is TRUE, any airlocks that gets built will require only ONE of the checked accesses. If FALSE, it will require ALL of them.</p><h5 id="var/rcd_door_types"><aside class="declaration">var </aside>rcd_door_types
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L57">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 57"/></a></h5>
+        <p>An associative list of airlock type paths as keys, and their names as values.</p><h5 id="var/selected_accesses"><aside class="declaration">var </aside>selected_accesses
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L53">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 53"/></a></h5>
+        <p>A list of access numbers which have been checked off by the user in the UI.</p><h5 id="var/spark_system"><aside class="declaration">var </aside>spark_system
+            <aside>&ndash; /<a href="datum.html">datum</a>/effect_system/spark_spread</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L33">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 33"/></a></h5>
+        <p>The spark system used to create sparks when the user interacts with the RCD.</p><h5 id="var/ui_tab"><aside class="declaration">var </aside>ui_tab
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L51">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 51"/></a></h5>
+        <p>Which airlock tab the UI is currently set to display.</p><h2 id="proc">Proc Details</h2><h5 id="proc/checkResource"><aside class="declaration">proc </aside>checkResource<aside>(amount, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L581">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 581"/></a></aside>
+        </h5>
+        <p>Called in each of the four build modes before an object gets build. Makes sure there is enough matter to build the object.</p>
+<p>Arguments:</p>
+<ul>
+<li>amount - an amount of matter to check for</li>
+</ul><h5 id="proc/check_menu"><aside class="declaration">proc </aside>check_menu<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L147">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 147"/></a></aside>
+        </h5>
+        <p>Runs a series of pre-checks before opening the radial menu to the user.</p>
+<p>Arguments:</p>
+<ul>
+<li>user - the mob trying to open the radial menu.</li>
+</ul><h5 id="proc/detonate_pulse"><aside class="declaration">proc </aside>detonate_pulse<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L609">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 609"/></a></aside>
+        </h5>
+        <p>Called from malf AI's &quot;detonate RCD&quot; ability.</p>
+<p>Creates a delayed explosion centered around the RCD.</p><h5 id="proc/detonate_pulse_explode"><aside class="declaration">proc </aside>detonate_pulse_explode<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L617">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 617"/></a></aside>
+        </h5>
+        <p>Called in <code>/obj/item/rcd/proc/detonate_pulse()</code> via callback.</p><h5 id="proc/get_airlock_image"><aside class="declaration">proc </aside>get_airlock_image<aside>(airlock_type) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L132">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 132"/></a></aside>
+        </h5>
+        <p>Creates and returns a base64 icon of the given <code>airlock_type</code>.</p>
+<p>This is used for airlock icon previews in the UI.</p>
+<p>Arugments:</p>
+<ul>
+<li>airlock_type - an airlock typepath.</li>
+</ul><h5 id="proc/mode_airlock"><aside class="declaration">proc </aside>mode_airlock<aside>(/<a href="atom.html">atom</a>/A, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L390">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 390"/></a></aside>
+        </h5>
+        <p>Called in <code>afterattack()</code> if <code>mode</code> is set to <code>MODE_AIRLOCK</code>.</p>
+<p>Creates an <code>door_type</code> airlock at the given location <code>A</code>, and assigns it accesses from <code>selected_accesses</code>.</p>
+<p>Arguments:</p>
+<ul>
+<li>A - the location we're trying to build at.</li>
+<li>user - the mob using the RCD.</li>
+</ul><h5 id="proc/mode_decon"><aside class="declaration">proc </aside>mode_decon<aside>(/<a href="atom.html">atom</a>/A, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L427">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 427"/></a></aside>
+        </h5>
+        <p>Called in <code>afterattack()</code> if <code>mode</code> is set to <code>MODE_DECON</code>.</p>
+<p>Deconstrcts the target atom <code>A</code>.
+Valid atoms are: basic walls, reinforced walls (if <code>canRwall</code> is <code>TRUE</code>), airlocks, and windows.</p>
+<p>Arguments:</p>
+<ul>
+<li>A - the location we're trying to build at.</li>
+<li>user - the mob using the RCD.</li>
+</ul><h5 id="proc/mode_turf"><aside class="declaration">proc </aside>mode_turf<aside>(/<a href="atom.html">atom</a>/A, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L350">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 350"/></a></aside>
+        </h5>
+        <p>Called in <code>afterattack()</code> if <code>mode</code> is set to <code>MODE_TURF</code>.</p>
+<p>Creates either a plating, or a wall, depending on the turf that already exists at the location.</p>
+<p>Arguments:</p>
+<ul>
+<li>A - the location we're trying to build at.</li>
+<li>user - the mob using the RCD.</li>
+</ul><h5 id="proc/mode_window"><aside class="declaration">proc </aside>mode_window<aside>(/<a href="atom.html">atom</a>/A, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L509">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 509"/></a></aside>
+        </h5>
+        <p>Called in <code>afterattack()</code> if <code>mode</code> is set to <code>MODE_WINDOW</code>.</p>
+<p>Constructs a grille and 4 reinforced window panes at the given location <code>A</code>.</p>
+<p>Arguments:</p>
+<ul>
+<li>A - the location we're trying to build at.</li>
+<li>user - the mob using the RCD.</li>
+</ul><h5 id="proc/radial_menu"><aside class="declaration">proc </aside>radial_menu<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L179">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 179"/></a></aside>
+        </h5>
+        <p>Creates and displays a radial menu to a user when they trigger the <code>attack_self</code> of the RCD.</p>
+<p>Arguments:</p>
+<ul>
+<li>user - the mob trying to open the RCD radial.</li>
+</ul><h5 id="proc/ui_act_modal"><aside class="declaration">proc </aside>ui_act_modal<aside>(action, /list/params) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L328">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 328"/></a></aside>
+        </h5>
+        <p>Called in ui_act() to process modal actions</p>
+<p>Arguments:</p>
+<ul>
+<li>action - The action passed by tgui</li>
+<li>params - The params passed by tgui</li>
+</ul><h5 id="proc/useResource"><aside class="declaration">proc </aside>useResource<aside>(amount, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/RCD.dm#L568">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;RCD.dm 568"/></a></aside>
+        </h5>
+        <p>Called in each of the four build modes after an object is successfully built.</p>
+<p>Subtracts the amount of matter used from <code>matter</code>.</p>
+<p>Arguments:</p>
+<ul>
+<li>amount - the amount of matter that was used.</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

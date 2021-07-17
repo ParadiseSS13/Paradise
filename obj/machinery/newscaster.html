@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;machinery&#x2F;newscaster - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Newscaster <aside>/<a href="obj.html">obj</a>/<a href="obj/machinery.html">machinery</a>/<a href="obj/machinery/newscaster.html">newscaster</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 17"/></a></h1>
+
+<p>For all of the crew's news need. Includes reading, submitting and printing stories.</p>
+<p>Includes a security variant which can be used to issue wanted notices, censor channels and stories.
+Allows full access when aghosting.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/machinery/newscaster.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#var/alert">alert</a></th><td>Whether the newscaster has new stories or not.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#var/is_printing">is_printing</a></th><td>Whether the newscaster is currently printing a newspaper or not.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#var/is_security">is_security</a></th><td>Whether the newscaster can be used to make wanted issues or not.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#var/is_silent">is_silent</a></th><td>Whether the unit is silent or not.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#var/jobblacklist">jobblacklist</a></th><td>Static list of jobs that shouldn't be advertised if a position is available.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#var/last_views">last_views</a></th><td>Static, lazy list containing a user's last view time per channel.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#var/paper_remaining">paper_remaining</a></th><td>The amount of newspapers the newscaster can print.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#var/photo">photo</a></th><td>The currently attached photo.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#var/scanned_user">scanned_user</a></th><td>The name of the mob currently using the newscaster.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#var/screen">screen</a></th><td>The current screen index in the UI.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#var/temp_notice">temp_notice</a></th><td>The current temporary notice.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#var/unit_number">unit_number</a></th><td>The newcaster's index among all newscasters (GLOB.allNewscasters).</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#var/viewing_channel">viewing_channel</a></th><td>The currently viewed channel.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/machinery/newscaster.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#proc/alert_news">alert_news</a></th><td>Makes the newscaster say a message and change its icon state for a while.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#proc/alert_timer_finish">alert_timer_finish</a></th><td>Called when the timer following a call to <a href="obj/machinery/newscaster.html#proc/alert_news" title="/obj/machinery/newscaster">/obj/machinery/newscaster/proc/alert_news</a> finishes.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#proc/can_scan">can_scan</a></th><td>Returns whether the machine's <a href="obj/machinery/newscaster.html#var/scanned_user" title="/obj/machinery/newscaster">/obj/machinery/newscaster/var/scanned_user</a> should update on interact.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#proc/eject_photo">eject_photo</a></th><td>Ejects the photo currently held by the machine if there is one.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#proc/eject_photo_verb">eject_photo_verb</a></th><td>Ejects the currently loaded photo if there is one.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#proc/get_message_data">get_message_data</a></th><td>Returns a <a href="datum/feed_message.html" title="/datum/feed_message">/datum/feed_message</a> in a format that can be used as TGUI data.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#proc/get_scanned_user">get_scanned_user</a></th><td>Tries to obtain a mob's name and security access based on their ID.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#proc/print_newspaper">print_newspaper</a></th><td>Tries to print a newspaper with all of the content so far.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#proc/print_newspaper_finish">print_newspaper_finish</a></th><td>Called when the timer following a call to <a href="obj/machinery/newscaster.html#proc/print_newspaper" title="/obj/machinery/newscaster">/obj/machinery/newscaster/proc/print_newspaper</a> finishes.</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#proc/set_temp">set_temp</a></th><td>Sets a temporary message to display to the user</td></tr>
+            <tr><th><a href="obj/machinery/newscaster.html#proc/ui_act_modal">ui_act_modal</a></th><td>Called in ui_act() to process modal actions</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/alert"><aside class="declaration">var </aside>alert
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L33">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 33"/></a></h5>
+        <p>Whether the newscaster has new stories or not.</p><h5 id="var/is_printing"><aside class="declaration">var </aside>is_printing
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L47">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 47"/></a></h5>
+        <p>Whether the newscaster is currently printing a newspaper or not.</p><h5 id="var/is_security"><aside class="declaration">var </aside>is_security
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 31"/></a></h5>
+        <p>Whether the newscaster can be used to make wanted issues or not.</p><h5 id="var/is_silent"><aside class="declaration">var </aside>is_silent
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L43">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 43"/></a></h5>
+        <p>Whether the unit is silent or not.</p><h5 id="var/jobblacklist"><aside class="declaration">var </aside>jobblacklist
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L49">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 49"/></a></h5>
+        <p>Static list of jobs that shouldn't be advertised if a position is available.</p><h5 id="var/last_views"><aside class="declaration">var </aside>last_views
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L53">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 53"/></a></h5>
+        <p>Static, lazy list containing a user's last view time per channel.</p><h5 id="var/paper_remaining"><aside class="declaration">var </aside>paper_remaining
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 29"/></a></h5>
+        <p>The amount of newspapers the newscaster can print.</p><h5 id="var/photo"><aside class="declaration">var </aside>photo
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/photo</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 39"/></a></h5>
+        <p>The currently attached photo.</p><h5 id="var/scanned_user"><aside class="declaration">var </aside>scanned_user
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 37"/></a></h5>
+        <p>The name of the mob currently using the newscaster.</p><h5 id="var/screen"><aside class="declaration">var </aside>screen
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 27"/></a></h5>
+        <p>The current screen index in the UI.</p><h5 id="var/temp_notice"><aside class="declaration">var </aside>temp_notice
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L45">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 45"/></a></h5>
+        <p>The current temporary notice.</p><h5 id="var/unit_number"><aside class="declaration">var </aside>unit_number
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L35">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 35"/></a></h5>
+        <p>The newcaster's index among all newscasters (GLOB.allNewscasters).</p><h5 id="var/viewing_channel"><aside class="declaration">var </aside>viewing_channel
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/feed_channel.html">feed_channel</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 41"/></a></h5>
+        <p>The currently viewed channel.</p><h2 id="proc">Proc Details</h2><h5 id="proc/alert_news"><aside class="declaration">proc </aside>alert_news<aside>(announcement, wanted_notice) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L678">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 678"/></a></aside>
+        </h5>
+        <p>Makes the newscaster say a message and change its icon state for a while.</p>
+<p>Arguments:</p>
+<ul>
+<li>announcement - The message to say</li>
+<li>wanted_notice - Whether the alert is a wanted notice notification (overrides announcement)</li>
+</ul><h5 id="proc/alert_timer_finish"><aside class="declaration">proc </aside>alert_timer_finish<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L697">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 697"/></a></aside>
+        </h5>
+        <p>Called when the timer following a call to <a href="obj/machinery/newscaster.html#proc/alert_news" title="/obj/machinery/newscaster">/obj/machinery/newscaster/proc/alert_news</a> finishes.</p><h5 id="proc/can_scan"><aside class="declaration">proc </aside>can_scan<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L637">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 637"/></a></aside>
+        </h5>
+        <p>Returns whether the machine's <a href="obj/machinery/newscaster.html#var/scanned_user" title="/obj/machinery/newscaster">/obj/machinery/newscaster/var/scanned_user</a> should update on interact.</p>
+<p>Arguments:</p>
+<ul>
+<li>user - The user to check</li>
+</ul><h5 id="proc/eject_photo"><aside class="declaration">proc </aside>eject_photo<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L580">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 580"/></a></aside>
+        </h5>
+        <p>Ejects the photo currently held by the machine if there is one.</p>
+<p>Arguments:</p>
+<ul>
+<li>user - The user to try to give the photo to.</li>
+</ul><h5 id="proc/eject_photo_verb"><aside class="declaration">verb </aside>eject_photo_verb<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L704">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 704"/></a></aside>
+        </h5>
+        <p>Ejects the currently loaded photo if there is one.</p><h5 id="proc/get_message_data"><aside class="declaration">proc </aside>get_message_data<aside>(/<a href="datum.html">datum</a>/<a href="datum/feed_message.html">feed_message</a>/FM, /<a href="mob.html">mob</a>/M) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L313">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 313"/></a></aside>
+        </h5>
+        <p>Returns a <a href="datum/feed_message.html" title="/datum/feed_message">/datum/feed_message</a> in a format that can be used as TGUI data.</p>
+<p>Arguments:</p>
+<ul>
+<li>FM - The story to send</li>
+<li>M - Optional. The user to send the story's photo to if it exists</li>
+</ul><h5 id="proc/get_scanned_user"><aside class="declaration">proc </aside>get_scanned_user<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L611">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 611"/></a></aside>
+        </h5>
+        <p>Tries to obtain a mob's name and security access based on their ID.</p>
+<p>Arguments:</p>
+<ul>
+<li>user - The user</li>
+</ul><h5 id="proc/print_newspaper"><aside class="declaration">proc </aside>print_newspaper<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L645">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 645"/></a></aside>
+        </h5>
+        <p>Tries to print a newspaper with all of the content so far.</p><h5 id="proc/print_newspaper_finish"><aside class="declaration">proc </aside>print_newspaper_finish<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L659">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 659"/></a></aside>
+        </h5>
+        <p>Called when the timer following a call to <a href="obj/machinery/newscaster.html#proc/print_newspaper" title="/obj/machinery/newscaster">/obj/machinery/newscaster/proc/print_newspaper</a> finishes.</p><h5 id="proc/set_temp"><aside class="declaration">proc </aside>set_temp<aside>(text, style, update_now) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L600">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 600"/></a></aside>
+        </h5>
+        <p>Sets a temporary message to display to the user</p>
+<p>Arguments:</p>
+<ul>
+<li>text - Text to display, null/empty to clear the message from the UI</li>
+<li>style - The style of the message: (color name), info, success, warning, danger</li>
+</ul><h5 id="proc/ui_act_modal"><aside class="declaration">proc </aside>ui_act_modal<aside>(action, /list/params) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/obj/newscaster.dm#L441">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;obj&#x2F;newscaster.dm 441"/></a></aside>
+        </h5>
+        <p>Called in ui_act() to process modal actions</p>
+<p>Arguments:</p>
+<ul>
+<li>action - The action passed by tgui</li>
+<li>params - The params passed by tgui</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

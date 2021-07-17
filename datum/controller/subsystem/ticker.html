@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;controller&#x2F;subsystem&#x2F;ticker - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>ticker <aside>/<a href="datum.html">datum</a>/<a href="datum/controller.html">controller</a>/<a href="datum/controller/subsystem.html">subsystem</a>/<a href="datum/controller/subsystem/ticker.html">ticker</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/controller/subsystem/ticker.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/Bible_deity_name">Bible_deity_name</a></th><td>Name of the bible deity</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/Bible_icon_state">Bible_icon_state</a></th><td>icon_state the chaplain has chosen for his bible</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/Bible_item_state">Bible_item_state</a></th><td>item_state the chaplain has chosen for his bible</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/Bible_name">Bible_name</a></th><td>Name of the bible</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/cinematic">cinematic</a></th><td>Used for station explosion cinematic</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/cultdat">cultdat</a></th><td>Cult data. Here instead of cult for adminbus purposes</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/current_state">current_state</a></th><td>Current status of the game. See code__DEFINES\game.dm</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/delay_end">delay_end</a></th><td>If set to TRUE, the round will not restart on it's own</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/end_state">end_state</a></th><td>Server end state (Did we end properly or reboot or nuke or what)</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/force_ending">force_ending</a></th><td>Do we want to force-end as soon as we can</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/force_start">force_start</a></th><td>Do we want to force-start as soon as we can</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/hide_mode">hide_mode</a></th><td>Leave here at FALSE ! setup() will take care of it when needed for Secret mode -walter0o</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/login_music">login_music</a></th><td>The current pick of lobby music played in the lobby</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/minds">minds</a></th><td>List of all minds in the game. Used for objective tracking</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/mode">mode</a></th><td>Our current game mode</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/mode_result">mode_result</a></th><td>Gamemode result (For things like shadowlings or nukies which can end multiple ways)</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/next_autotransfer">next_autotransfer</a></th><td>Holder for inital autotransfer vote timer</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/pregame_timeleft">pregame_timeleft</a></th><td>This is used for calculations for the statpanel</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/random_players">random_players</a></th><td>If set to nonzero, ALL players who latejoin or declare-ready join will have random appearances/genders</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/real_reboot_time">real_reboot_time</a></th><td>Time the real reboot kicks in</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/restart_timeout">restart_timeout</a></th><td>Default timeout for if world.Reboot() doesnt have a time specified</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/round_end_announced">round_end_announced</a></th><td>Spam Prevention. Announce round end only once.</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/round_start_time">round_start_time</a></th><td>Time the world started, relative to world.time</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/score">score</a></th><td>Datum used to generate the end of round scoreboard.</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/selected_tip">selected_tip</a></th><td>What will be the tip of the round?</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/ticker_going">ticker_going</a></th><td>Is the ticker currently processing? If FALSE, roundstart is delayed</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/tipped">tipped</a></th><td>Did we broadcast the tip of the round yet?</td></tr>
+            <tr><th><a href="datum/controller/subsystem/ticker.html#var/triai">triai</a></th><td>Global holder for triple AI mode</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/Bible_deity_name"><aside class="declaration">var </aside>Bible_deity_name
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L35">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 35"/></a></h5>
+        <p>Name of the bible deity</p><h5 id="var/Bible_icon_state"><aside class="declaration">var </aside>Bible_icon_state
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 29"/></a></h5>
+        <p>icon_state the chaplain has chosen for his bible</p><h5 id="var/Bible_item_state"><aside class="declaration">var </aside>Bible_item_state
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 31"/></a></h5>
+        <p>item_state the chaplain has chosen for his bible</p><h5 id="var/Bible_name"><aside class="declaration">var </aside>Bible_name
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L33">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 33"/></a></h5>
+        <p>Name of the bible</p><h5 id="var/cinematic"><aside class="declaration">var </aside>cinematic
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/screen.html">screen</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L53">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 53"/></a></h5>
+        <p>Used for station explosion cinematic</p><h5 id="var/cultdat"><aside class="declaration">var </aside>cultdat
+            <aside>&ndash; /<a href="datum.html">datum</a>/cult_info</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 37"/></a></h5>
+        <p>Cult data. Here instead of cult for adminbus purposes</p><h5 id="var/current_state"><aside class="declaration">var </aside>current_state
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 15"/></a></h5>
+        <p>Current status of the game. See code__DEFINES\game.dm</p><h5 id="var/delay_end"><aside class="declaration">var </aside>delay_end
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L47">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 47"/></a></h5>
+        <p>If set to TRUE, the round will not restart on it's own</p><h5 id="var/end_state"><aside class="declaration">var </aside>end_state
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L61">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 61"/></a></h5>
+        <p>Server end state (Did we end properly or reboot or nuke or what)</p><h5 id="var/force_ending"><aside class="declaration">var </aside>force_ending
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 19"/></a></h5>
+        <p>Do we want to force-end as soon as we can</p><h5 id="var/force_start"><aside class="declaration">var </aside>force_start
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 17"/></a></h5>
+        <p>Do we want to force-start as soon as we can</p><h5 id="var/hide_mode"><aside class="declaration">var </aside>hide_mode
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 21"/></a></h5>
+        <p>Leave here at FALSE ! setup() will take care of it when needed for Secret mode -walter0o</p><h5 id="var/login_music"><aside class="declaration">var </aside>login_music
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 25"/></a></h5>
+        <p>The current pick of lobby music played in the lobby</p><h5 id="var/minds"><aside class="declaration">var </aside>minds
+            <aside>&ndash; /list/datum/mind</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 27"/></a></h5>
+        <p>List of all minds in the game. Used for objective tracking</p><h5 id="var/mode"><aside class="declaration">var </aside>mode
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/game_mode.html">game_mode</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 23"/></a></h5>
+        <p>Our current game mode</p><h5 id="var/mode_result"><aside class="declaration">var </aside>mode_result
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L59">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 59"/></a></h5>
+        <p>Gamemode result (For things like shadowlings or nukies which can end multiple ways)</p><h5 id="var/next_autotransfer"><aside class="declaration">var </aside>next_autotransfer
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L51">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 51"/></a></h5>
+        <p>Holder for inital autotransfer vote timer</p><h5 id="var/pregame_timeleft"><aside class="declaration">var </aside>pregame_timeleft
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L45">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 45"/></a></h5>
+        <p>This is used for calculations for the statpanel</p><h5 id="var/random_players"><aside class="declaration">var </aside>random_players
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 39"/></a></h5>
+        <p>If set to nonzero, ALL players who latejoin or declare-ready join will have random appearances/genders</p><h5 id="var/real_reboot_time"><aside class="declaration">var </aside>real_reboot_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L63">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 63"/></a></h5>
+        <p>Time the real reboot kicks in</p><h5 id="var/restart_timeout"><aside class="declaration">var </aside>restart_timeout
+            <aside>&ndash; /const</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 13"/></a></h5>
+        <p>Default timeout for if world.Reboot() doesnt have a time specified</p><h5 id="var/round_end_announced"><aside class="declaration">var </aside>round_end_announced
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L55">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 55"/></a></h5>
+        <p>Spam Prevention. Announce round end only once.</p><h5 id="var/round_start_time"><aside class="declaration">var </aside>round_start_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L11">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 11"/></a></h5>
+        <p>Time the world started, relative to world.time</p><h5 id="var/score"><aside class="declaration">var </aside>score
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/scoreboard.html">scoreboard</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L65">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 65"/></a></h5>
+        <p>Datum used to generate the end of round scoreboard.</p><h5 id="var/selected_tip"><aside class="declaration">var </aside>selected_tip
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L43">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 43"/></a></h5>
+        <p>What will be the tip of the round?</p><h5 id="var/ticker_going"><aside class="declaration">var </aside>ticker_going
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L57">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 57"/></a></h5>
+        <p>Is the ticker currently processing? If FALSE, roundstart is delayed</p><h5 id="var/tipped"><aside class="declaration">var </aside>tipped
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 41"/></a></h5>
+        <p>Did we broadcast the tip of the round yet?</p><h5 id="var/triai"><aside class="declaration">var </aside>triai
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/ticker.dm#L49">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;ticker.dm 49"/></a></h5>
+        <p>Global holder for triple AI mode</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

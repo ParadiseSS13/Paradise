@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;db_query - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>db_query <aside>/<a href="datum.html">datum</a>/<a href="datum/db_query.html">db_query</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L311">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 311"/></a></h1>
+
+<p>Datum based handler for all database queries</p>
+<p>Holds information regarding inputs, status, and outputs</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/db_query.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/db_query.html#var/affected">affected</a></th><td>How many rows were affected by the query</td></tr>
+            <tr><th><a href="datum/db_query.html#var/arguments">arguments</a></th><td>An associative list of parameters to be substituted into the statement</td></tr>
+            <tr><th><a href="datum/db_query.html#var/connection">connection</a></th><td>The connection being used with this query</td></tr>
+            <tr><th><a href="datum/db_query.html#var/in_progress">in_progress</a></th><td>Is the query currently in progress</td></tr>
+            <tr><th><a href="datum/db_query.html#var/item">item</a></th><td>List of data values populated by NextRow()</td></tr>
+            <tr><th><a href="datum/db_query.html#var/last_activity">last_activity</a></th><td>What was our last activity</td></tr>
+            <tr><th><a href="datum/db_query.html#var/last_activity_time">last_activity_time</a></th><td>When was our last activity</td></tr>
+            <tr><th><a href="datum/db_query.html#var/last_error">last_error</a></th><td>What was our last error, if any</td></tr>
+            <tr><th><a href="datum/db_query.html#var/last_insert_id">last_insert_id</a></th><td>ID of the last inserted row</td></tr>
+            <tr><th><a href="datum/db_query.html#var/next_row_to_take">next_row_to_take</a></th><td>Counter of the next row to take</td></tr>
+            <tr><th><a href="datum/db_query.html#var/rows">rows</a></th><td>List of all rows returned</td></tr>
+            <tr><th><a href="datum/db_query.html#var/sql">sql</a></th><td>The SQL statement being executed with :parameter placeholders</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/db_query.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/db_query.html#proc/Activity">Activity</a></th><td>Activity Update Handler</td></tr>
+            <tr><th><a href="datum/db_query.html#proc/Execute">Execute</a></th><td>Main Execution Handler</td></tr>
+            <tr><th><a href="datum/db_query.html#proc/NextRow">NextRow</a></th><td>Proc to get the next row in a DB query</td></tr>
+            <tr><th><a href="datum/db_query.html#proc/run_query">run_query</a></th><td>Actual Query Runner</td></tr>
+            <tr><th><a href="datum/db_query.html#proc/warn_execute">warn_execute</a></th><td>Wrapped for warning on execution</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/affected"><aside class="declaration">var </aside>affected
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L336">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 336"/></a></h5>
+        <p>How many rows were affected by the query</p><h5 id="var/arguments"><aside class="declaration">var </aside>arguments
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L318">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 318"/></a></h5>
+        <p>An associative list of parameters to be substituted into the statement</p><h5 id="var/connection"><aside class="declaration">var </aside>connection
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L314">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 314"/></a></h5>
+        <p>The connection being used with this query</p><h5 id="var/in_progress"><aside class="declaration">var </aside>in_progress
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L322">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 322"/></a></h5>
+        <p>Is the query currently in progress</p><h5 id="var/item"><aside class="declaration">var </aside>item
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L343">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 343"/></a></h5>
+        <p>List of data values populated by NextRow()</p><h5 id="var/last_activity"><aside class="declaration">var </aside>last_activity
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L326">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 326"/></a></h5>
+        <p>What was our last activity</p><h5 id="var/last_activity_time"><aside class="declaration">var </aside>last_activity_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L328">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 328"/></a></h5>
+        <p>When was our last activity</p><h5 id="var/last_error"><aside class="declaration">var </aside>last_error
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L324">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 324"/></a></h5>
+        <p>What was our last error, if any</p><h5 id="var/last_insert_id"><aside class="declaration">var </aside>last_insert_id
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L338">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 338"/></a></h5>
+        <p>ID of the last inserted row</p><h5 id="var/next_row_to_take"><aside class="declaration">var </aside>next_row_to_take
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L334">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 334"/></a></h5>
+        <p>Counter of the next row to take</p><h5 id="var/rows"><aside class="declaration">var </aside>rows
+            <aside>&ndash; /list/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L332">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 332"/></a></h5>
+        <p>List of all rows returned</p><h5 id="var/sql"><aside class="declaration">var </aside>sql
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L316">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 316"/></a></h5>
+        <p>The SQL statement being executed with :parameter placeholders</p><h2 id="proc">Proc Details</h2><h5 id="proc/Activity"><aside class="declaration">proc </aside>Activity<aside>(activity) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L371">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 371"/></a></aside>
+        </h5>
+        <p>Activity Update Handler</p>
+<p>Sets the last activity text to the argument input, as well as updating the activity time</p>
+<p>Arguments:</p>
+<ul>
+<li>activity - Last activity text</li>
+</ul><h5 id="proc/Execute"><aside class="declaration">proc </aside>Execute<aside>(async, log_error) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L401">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 401"/></a></aside>
+        </h5>
+        <p>Main Execution Handler</p>
+<p>Invoked by [warn_execute()]
+This handles query error logging, as well as invoking the actual runner
+Arguments:</p>
+<ul>
+<li>async - Are we running this query asynchronously</li>
+<li>log_error - Do we want to log errors this creates? Disable this if you are running sensitive queries where you dont want errors logged in plain text (EG: Auth token stuff)</li>
+</ul><h5 id="proc/NextRow"><aside class="declaration">proc </aside>NextRow<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L472">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 472"/></a></aside>
+        </h5>
+        <p>Proc to get the next row in a DB query</p>
+<p>Cycles <code>item</code> to the next row in the DB query, if multiple were fetched</p><h5 id="proc/run_query"><aside class="declaration">proc </aside>run_query<aside>(async) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L433">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 433"/></a></aside>
+        </h5>
+        <p>Actual Query Runner</p>
+<p>This does the main query with the database and the rust calls themselves</p>
+<p>Arguments:</p>
+<ul>
+<li>async - Are we running this query asynchronously</li>
+</ul><h5 id="proc/warn_execute"><aside class="declaration">proc </aside>warn_execute<aside>(async, log_error) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/dbcore.dm#L384">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;dbcore.dm 384"/></a></aside>
+        </h5>
+        <p>Wrapped for warning on execution</p>
+<p>You should use this proc when running the SQL statement. It will auto inform the user and the online admins if a query fails</p>
+<p>Arguments:</p>
+<ul>
+<li>async - Are we running this query asynchronously</li>
+<li>log_error - Do we want to log errors this creates? Disable this if you are running sensitive queries where you dont want errors logged in plain text (EG: Auth token stuff)</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

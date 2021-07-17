@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;game_mode - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>game_mode <aside>/<a href="datum.html">datum</a>/<a href="datum/game_mode.html">game_mode</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/game_mode.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;game_mode.dm 13"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/game_mode.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/game_mode.html#var/ascend_number">ascend_number</a></th><td>How many crew need to be converted to ascend</td></tr>
+            <tr><th><a href="datum/game_mode.html#var/ascend_percent">ascend_percent</a></th><td>Used for the CentComm announcement at ascension</td></tr>
+            <tr><th><a href="datum/game_mode.html#var/cult">cult</a></th><td>A list of all minds currently in the cult</td></tr>
+            <tr><th><a href="datum/game_mode.html#var/cult_ascendant">cult_ascendant</a></th><td>Does the cult have halos</td></tr>
+            <tr><th><a href="datum/game_mode.html#var/cult_risen">cult_risen</a></th><td>Does the cult have glowing eyes</td></tr>
+            <tr><th><a href="datum/game_mode.html#var/rise_number">rise_number</a></th><td>How many crew need to be converted to rise</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/game_mode.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/game_mode.html#proc/can_start">can_start</a></th><td>can_start()
+Checks to see if the game can be setup and ran with the current number of players or whatnot.</td></tr>
+            <tr><th><a href="datum/game_mode.html#proc/cult_threshold_check">cult_threshold_check</a></th><td>Decides at the start of the round how many conversions are needed to rise/ascend.</td></tr>
+            <tr><th><a href="datum/game_mode.html#proc/get_cultists">get_cultists</a></th><td>Returns the current number of cultists and constructs.</td></tr>
+            <tr><th><a href="datum/game_mode.html#proc/post_setup">post_setup</a></th><td>post_setup()
+Everyone should now be on the station and have their normal gear.  This is the place to give the special roles extra things</td></tr>
+            <tr><th><a href="datum/game_mode.html#proc/pre_setup">pre_setup</a></th><td>pre_setup()
+Attempts to select players for special roles the mode might have.</td></tr>
+            <tr><th><a href="datum/game_mode.html#proc/process">process</a></th><td>process()
+Called by the gameticker</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/ascend_number"><aside class="declaration">var </aside>ascend_number
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/cult/cult.dm#L14">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;cult&#x2F;cult.dm 14"/></a></h5>
+        <p>How many crew need to be converted to ascend</p><h5 id="var/ascend_percent"><aside class="declaration">var </aside>ascend_percent
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/cult/cult.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;cult&#x2F;cult.dm 18"/></a></h5>
+        <p>Used for the CentComm announcement at ascension</p><h5 id="var/cult"><aside class="declaration">var </aside>cult
+            <aside>&ndash; /list/datum/mind</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/cult/cult.dm#L5">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;cult&#x2F;cult.dm 5"/></a></h5>
+        <p>A list of all minds currently in the cult</p><h5 id="var/cult_ascendant"><aside class="declaration">var </aside>cult_ascendant
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/cult/cult.dm#L10">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;cult&#x2F;cult.dm 10"/></a></h5>
+        <p>Does the cult have halos</p><h5 id="var/cult_risen"><aside class="declaration">var </aside>cult_risen
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/cult/cult.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;cult&#x2F;cult.dm 8"/></a></h5>
+        <p>Does the cult have glowing eyes</p><h5 id="var/rise_number"><aside class="declaration">var </aside>rise_number
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/cult/cult.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;cult&#x2F;cult.dm 12"/></a></h5>
+        <p>How many crew need to be converted to rise</p><h2 id="proc">Proc Details</h2><h5 id="proc/can_start"><aside class="declaration">proc </aside>can_start<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/game_mode.dm#L51">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;game_mode.dm 51"/></a></aside>
+        </h5>
+        <p>can_start()
+Checks to see if the game can be setup and ran with the current number of players or whatnot.</p><h5 id="proc/cult_threshold_check"><aside class="declaration">proc </aside>cult_threshold_check<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/cult/cult.dm#L214">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;cult&#x2F;cult.dm 214"/></a></aside>
+        </h5>
+        <p>Decides at the start of the round how many conversions are needed to rise/ascend.</p>
+<p>The number is decided by (Percentage * (Players - Cultists)), so for example at 110 players it would be 11 conversions for rise. (0.1 * (110 - 4))
+These values change based on population because 20 cultists are MUCH more powerful if there's only 50 players, compared to 120.</p>
+<p>Below 100 players, <a href="code/__DEFINES/cult.html#define/CULT_RISEN_LOW" title="CULT_RISEN_LOW">CULT_RISEN_LOW</a> and <a href="code/__DEFINES/cult.html#define/CULT_ASCENDANT_LOW" title="CULT_ASCENDANT_LOW">CULT_ASCENDANT_LOW</a> are used.
+Above 100 players, <a href="code/__DEFINES/cult.html#define/CULT_RISEN_HIGH" title="CULT_RISEN_HIGH">CULT_RISEN_HIGH</a> and <a href="code/__DEFINES/cult.html#define/CULT_ASCENDANT_HIGH" title="CULT_ASCENDANT_HIGH">CULT_ASCENDANT_HIGH</a> are used.</p><h5 id="proc/get_cultists"><aside class="declaration">proc </aside>get_cultists<aside>(separate) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/cult/cult.dm#L235">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;cult&#x2F;cult.dm 235"/></a></aside>
+        </h5>
+        <p>Returns the current number of cultists and constructs.</p>
+<p>Returns the number of cultists and constructs in a list ([1] = Cultists, [2] = Constructs), or as one combined number.</p>
+<ul>
+<li>separate - Should the number be returned as a list with two separate values (Humans and Constructs) or as one number.</li>
+</ul><h5 id="proc/post_setup"><aside class="declaration">proc </aside>post_setup<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/game_mode.dm#L75">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;game_mode.dm 75"/></a></aside>
+        </h5>
+        <p>post_setup()
+Everyone should now be on the station and have their normal gear.  This is the place to give the special roles extra things</p><h5 id="proc/pre_setup"><aside class="declaration">proc </aside>pre_setup<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/game_mode.dm#L68">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;game_mode.dm 68"/></a></aside>
+        </h5>
+        <p>pre_setup()
+Attempts to select players for special roles the mode might have.</p><h5 id="proc/process">process<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/game_mode.dm#L89">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;game_mode.dm 89"/></a></aside>
+        </h5>
+        <p>process()
+Called by the gameticker</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

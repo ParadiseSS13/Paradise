@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;event_meta - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>event_meta <aside>/<a href="datum.html">datum</a>/<a href="datum/event_meta.html">event_meta</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/events/event.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;events&#x2F;event.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/event_meta.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/event_meta.html#var/enabled">enabled</a></th><td>Whether or not the event is available for random selection at all.</td></tr>
+            <tr><th><a href="datum/event_meta.html#var/max_weight">max_weight</a></th><td>The maximum weight that this event will have.</td></tr>
+            <tr><th><a href="datum/event_meta.html#var/min_weight">min_weight</a></th><td>The minimum weight that this event will have. Only used if non-zero.</td></tr>
+            <tr><th><a href="datum/event_meta.html#var/one_shot">one_shot</a></th><td>If true, then the event will not be re-added to the list of available events</td></tr>
+            <tr><th><a href="datum/event_meta.html#var/role_weights">role_weights</a></th><td>A list of roles that add weight to the event</td></tr>
+            <tr><th><a href="datum/event_meta.html#var/severity">severity</a></th><td>the current severity of this event</td></tr>
+            <tr><th><a href="datum/event_meta.html#var/weight">weight</a></th><td>The base weight of this event. A zero means it may never fire, but see get_weight()</td></tr>
+            <tr><th><a href="datum/event_meta.html#var/weight_mod">weight_mod</a></th><td>A modifier applied to all event weights (role and base), respects min and max</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/enabled"><aside class="declaration">var </aside>enabled
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/events/event.dm#L4">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;events&#x2F;event.dm 4"/></a></h5>
+        <p>Whether or not the event is available for random selection at all.</p><h5 id="var/max_weight"><aside class="declaration">var </aside>max_weight
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/events/event.dm#L10">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;events&#x2F;event.dm 10"/></a></h5>
+        <p>The maximum weight that this event will have.</p><h5 id="var/min_weight"><aside class="declaration">var </aside>min_weight
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/events/event.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;events&#x2F;event.dm 8"/></a></h5>
+        <p>The minimum weight that this event will have. Only used if non-zero.</p><h5 id="var/one_shot"><aside class="declaration">var </aside>one_shot
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/events/event.dm#L14">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;events&#x2F;event.dm 14"/></a></h5>
+        <p>If true, then the event will not be re-added to the list of available events</p><h5 id="var/role_weights"><aside class="declaration">var </aside>role_weights
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/events/event.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;events&#x2F;event.dm 18"/></a></h5>
+        <p>A list of roles that add weight to the event</p><h5 id="var/severity"><aside class="declaration">var </aside>severity
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/events/event.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;events&#x2F;event.dm 12"/></a></h5>
+        <p>the current severity of this event</p><h5 id="var/weight"><aside class="declaration">var </aside>weight
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/events/event.dm#L6">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;events&#x2F;event.dm 6"/></a></h5>
+        <p>The base weight of this event. A zero means it may never fire, but see get_weight()</p><h5 id="var/weight_mod"><aside class="declaration">var </aside>weight_mod
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/events/event.dm#L16">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;events&#x2F;event.dm 16"/></a></h5>
+        <p>A modifier applied to all event weights (role and base), respects min and max</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

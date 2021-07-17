@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;wires - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>wires <aside>/<a href="datum.html">datum</a>/<a href="datum/wires.html">wires</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L2">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 2"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/wires.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/wires.html#var/assemblies">assemblies</a></th><td>An associative list of signalers attached to the wires. The wire color is the key, and the signaler object reference is the value.</td></tr>
+            <tr><th><a href="datum/wires.html#var/colors">colors</a></th><td>An associative list with the wire color as the key, and the wire define as the value.</td></tr>
+            <tr><th><a href="datum/wires.html#var/cut_wires">cut_wires</a></th><td>A list of all cut wires. The same values that can go into <code>wires</code> will get added and removed from this list.</td></tr>
+            <tr><th><a href="datum/wires.html#var/holder">holder</a></th><td>The atom the wires belong too. For example: an airlock.</td></tr>
+            <tr><th><a href="datum/wires.html#var/holder_type">holder_type</a></th><td>The holder type; used to make sure that the holder is the correct type.</td></tr>
+            <tr><th><a href="datum/wires.html#var/proper_name">proper_name</a></th><td>The display name for the TGUI window. For example, given the var is &quot;APC&quot;...
+When the TGUI window is opened, &quot;wires&quot; will be appended to it's title, and it would become &quot;APC wires&quot;.</td></tr>
+            <tr><th><a href="datum/wires.html#var/randomize">randomize</a></th><td>TRUE if the wires will be different every time a new wire datum is created.</td></tr>
+            <tr><th><a href="datum/wires.html#var/window_x">window_x</a></th><td>The width of the wire TGUI window.</td></tr>
+            <tr><th><a href="datum/wires.html#var/window_y">window_y</a></th><td>The height of the wire TGUI window. Will get longer as needed, based on the <code>wire_count</code>.</td></tr>
+            <tr><th><a href="datum/wires.html#var/wire_count">wire_count</a></th><td>The total number of wires that our holder atom has.</td></tr>
+            <tr><th><a href="datum/wires.html#var/wires">wires</a></th><td>A list of all wires. For a list of valid wires defines that can go here, see <code>code/__DEFINES/wires.dm</code></td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/wires.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/wires.html#proc/Interact">Interact</a></th><td>Proc called when the user attempts to interact with wires UI.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/add_duds">add_duds</a></th><td>Adds in dud wires, which do nothing when cut/pulsed.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/attach_assembly">attach_assembly</a></th><td>Proc called when a mob tries to attach a signaler to a wire.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/can_see_wire_info">can_see_wire_info</a></th><td>Proc called to determine if the user can see wire define information, such as &quot;Contraband&quot;, &quot;Door Bolts&quot;, etc.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/cut">cut</a></th><td>Cut or mend a wire. Calls <code>on_cut()</code>.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/cut_all">cut_all</a></th><td>Cuts all wires.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/cut_color">cut_color</a></th><td>Cut the wire which corresponds with the passed in color.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/cut_random">cut_random</a></th><td>Cuts a random wire.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/detach_assembly">detach_assembly</a></th><td>Proc called when a mob tries to detach a signaler from a wire.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/get_attached">get_attached</a></th><td>Gets the signaler attached to the given wire color, if there is one.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/get_status">get_status</a></th><td>Base proc, intended to be overwritten. Put wire information you'll see at the botton of the TGUI window here, such as &quot;The red light is blinking&quot;.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/get_wire">get_wire</a></th><td>Gets the wire associated with the color passed in.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/interactable">interactable</a></th><td>Base proc, intended to be overriden. Wire datum specific checks you want to run before the TGUI is shown to the user should go here.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/is_all_cut">is_all_cut</a></th><td>Determines if all of the wires are cut. Returns TRUE they're all cut, FALSE otherwise.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/is_attached">is_attached</a></th><td>Checks if the given wire has a signaler on it.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/is_color_cut">is_color_cut</a></th><td>Determines if the wire associated with the passed in color, is cut or not. Returns TRUE if it's cut, FALSE otherwise.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/is_cut">is_cut</a></th><td>Determines if the passed in wire is cut or not. Returns TRUE if it's cut, FALSE otherwise.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/is_dud">is_dud</a></th><td>Determines if the passed in wire is a dud or not. Returns TRUE if the wire is a dud, FALSE otherwise.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/is_dud_color">is_dud_color</a></th><td>Returns TRUE if the wire that corresponds to the passed in color is a dud. FALSE otherwise.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/on_cut">on_cut</a></th><td>Proc called when any wire is cut.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/on_pulse">on_pulse</a></th><td>Proc called when any wire is pulsed.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/pulse">pulse</a></th><td>Pulses the given wire. Calls <code>on_pulse()</code>.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/pulse_assembly">pulse_assembly</a></th><td>Proc called when an attached signaler receives a signal.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/pulse_color">pulse_color</a></th><td>Pulses the wire associated with the given color.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/randomize">randomize</a></th><td>Randomly generates a new set of wires. and corresponding colors from the given pool. Assigns the information as an associative list, to <code>colors</code>.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/repair">repair</a></th><td>Repairs all cut wires.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/shuffle_wires">shuffle_wires</a></th><td>Clears the <code>colors</code> list, and randomizes it to a new set of color-to-wire relations.</td></tr>
+            <tr><th><a href="datum/wires.html#proc/ui_host">ui_host</a></th><td>Users will be interacting with our holder object and not the wire datum directly, therefore we need to return the holder.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/assemblies"><aside class="declaration">var </aside>assemblies
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 21"/></a></h5>
+        <p>An associative list of signalers attached to the wires. The wire color is the key, and the signaler object reference is the value.</p><h5 id="var/colors"><aside class="declaration">var </aside>colors
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 19"/></a></h5>
+        <p>An associative list with the wire color as the key, and the wire define as the value.</p><h5 id="var/cut_wires"><aside class="declaration">var </aside>cut_wires
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 17"/></a></h5>
+        <p>A list of all cut wires. The same values that can go into <code>wires</code> will get added and removed from this list.</p><h5 id="var/holder"><aside class="declaration">var </aside>holder
+            <aside>&ndash; /<a href="atom.html">atom</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L6">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 6"/></a></h5>
+        <p>The atom the wires belong too. For example: an airlock.</p><h5 id="var/holder_type"><aside class="declaration">var </aside>holder_type
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 8"/></a></h5>
+        <p>The holder type; used to make sure that the holder is the correct type.</p><h5 id="var/proper_name"><aside class="declaration">var </aside>proper_name
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L11">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 11"/></a></h5>
+        <p>The display name for the TGUI window. For example, given the var is &quot;APC&quot;...
+When the TGUI window is opened, &quot;wires&quot; will be appended to it's title, and it would become &quot;APC wires&quot;.</p><h5 id="var/randomize"><aside class="declaration">var </aside>randomize
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L4">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 4"/></a></h5>
+        <p>TRUE if the wires will be different every time a new wire datum is created.</p><h5 id="var/window_x"><aside class="declaration">var </aside>window_x
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 23"/></a></h5>
+        <p>The width of the wire TGUI window.</p><h5 id="var/window_y"><aside class="declaration">var </aside>window_y
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 25"/></a></h5>
+        <p>The height of the wire TGUI window. Will get longer as needed, based on the <code>wire_count</code>.</p><h5 id="var/wire_count"><aside class="declaration">var </aside>wire_count
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 13"/></a></h5>
+        <p>The total number of wires that our holder atom has.</p><h5 id="var/wires"><aside class="declaration">var </aside>wires
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 15"/></a></h5>
+        <p>A list of all wires. For a list of valid wires defines that can go here, see <code>code/__DEFINES/wires.dm</code></p><h2 id="proc">Proc Details</h2><h5 id="proc/Interact"><aside class="declaration">proc </aside>Interact<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L81">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 81"/></a></aside>
+        </h5>
+        <p>Proc called when the user attempts to interact with wires UI.</p>
+<p>Checks if the user exists, is a mob, the wires are attached to something (<code>holder</code>) and makes sure <code>interactable(user)</code> returns TRUE.
+If all the checks succeed, open the TGUI interface for the user.</p>
+<p>Arugments:</p>
+<ul>
+<li>user - the mob trying to interact with the wires.</li>
+</ul><h5 id="proc/add_duds"><aside class="declaration">proc </aside>add_duds<aside>(duds) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L250">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 250"/></a></aside>
+        </h5>
+        <p>Adds in dud wires, which do nothing when cut/pulsed.</p>
+<p>Arguments:</p>
+<ul>
+<li>duds - the amount of dud wires to generate.</li>
+</ul><h5 id="proc/attach_assembly"><aside class="declaration">proc </aside>attach_assembly<aside>(color, /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/assembly/signaler/S) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L413">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 413"/></a></aside>
+        </h5>
+        <p>Proc called when a mob tries to attach a signaler to a wire.</p>
+<p>Makes sure that <code>S</code> is actually a signaler and that something is not already attached to the wire.
+Adds the signaler to the <code>assemblies</code> list as a value, with the <code>color</code> as a the key.</p>
+<p>Arguments:</p>
+<ul>
+<li>color - the wire color.</li>
+<li>S - the signaler that a mob is trying to attach.</li>
+</ul><h5 id="proc/can_see_wire_info"><aside class="declaration">proc </aside>can_see_wire_info<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L217">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 217"/></a></aside>
+        </h5>
+        <p>Proc called to determine if the user can see wire define information, such as &quot;Contraband&quot;, &quot;Door Bolts&quot;, etc.</p>
+<p>If the user is an admin, or has an item which reveals wire information in their active hand, the proc returns TRUE.</p>
+<p>Arguments:</p>
+<ul>
+<li>user - the mob who is interacting with the wires.</li>
+</ul><h5 id="proc/cut"><aside class="declaration">proc </aside>cut<aside>(wire) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L314">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 314"/></a></aside>
+        </h5>
+        <p>Cut or mend a wire. Calls <code>on_cut()</code>.</p>
+<p>Arugments:</p>
+<ul>
+<li>wire - a wire define, NOT a color. For example <code>WIRE_ELECTRIFY</code>.</li>
+</ul><h5 id="proc/cut_all"><aside class="declaration">proc </aside>cut_all<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L340">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 340"/></a></aside>
+        </h5>
+        <p>Cuts all wires.</p><h5 id="proc/cut_color"><aside class="declaration">proc </aside>cut_color<aside>(color) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L328">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 328"/></a></aside>
+        </h5>
+        <p>Cut the wire which corresponds with the passed in color.</p>
+<p>Arugments:</p>
+<ul>
+<li>color - a wire color.</li>
+</ul><h5 id="proc/cut_random"><aside class="declaration">proc </aside>cut_random<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L334">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 334"/></a></aside>
+        </h5>
+        <p>Cuts a random wire.</p><h5 id="proc/detach_assembly"><aside class="declaration">proc </aside>detach_assembly<aside>(color) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L428">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 428"/></a></aside>
+        </h5>
+        <p>Proc called when a mob tries to detach a signaler from a wire.</p>
+<p>First checks if there is a signaler on the wire. If so, removes the signaler, and clears it from <code>assemblies</code> list.</p>
+<p>Arguments:</p>
+<ul>
+<li>color - the wire color.</li>
+</ul><h5 id="proc/get_attached"><aside class="declaration">proc </aside>get_attached<aside>(color) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L442">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 442"/></a></aside>
+        </h5>
+        <p>Gets the signaler attached to the given wire color, if there is one.</p>
+<p>Arguments:</p>
+<ul>
+<li>color - the wire color.</li>
+</ul><h5 id="proc/get_status"><aside class="declaration">proc </aside>get_status<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L228">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 228"/></a></aside>
+        </h5>
+        <p>Base proc, intended to be overwritten. Put wire information you'll see at the botton of the TGUI window here, such as &quot;The red light is blinking&quot;.</p><h5 id="proc/get_wire"><aside class="declaration">proc </aside>get_wire<aside>(color) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L281">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 281"/></a></aside>
+        </h5>
+        <p>Gets the wire associated with the color passed in.</p>
+<p>Arugments:</p>
+<ul>
+<li>color - a wire color.</li>
+</ul><h5 id="proc/interactable"><aside class="declaration">proc </aside>interactable<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L88">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 88"/></a></aside>
+        </h5>
+        <p>Base proc, intended to be overriden. Wire datum specific checks you want to run before the TGUI is shown to the user should go here.</p><h5 id="proc/is_all_cut"><aside class="declaration">proc </aside>is_all_cut<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L305">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 305"/></a></aside>
+        </h5>
+        <p>Determines if all of the wires are cut. Returns TRUE they're all cut, FALSE otherwise.</p><h5 id="proc/is_attached"><aside class="declaration">proc </aside>is_attached<aside>(color) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L453">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 453"/></a></aside>
+        </h5>
+        <p>Checks if the given wire has a signaler on it.</p>
+<p>Arguments:</p>
+<ul>
+<li>color - the wire color.</li>
+</ul><h5 id="proc/is_color_cut"><aside class="declaration">proc </aside>is_color_cut<aside>(color) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L299">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 299"/></a></aside>
+        </h5>
+        <p>Determines if the wire associated with the passed in color, is cut or not. Returns TRUE if it's cut, FALSE otherwise.</p>
+<p>Arugments:</p>
+<ul>
+<li>wire - a wire color.</li>
+</ul><h5 id="proc/is_cut"><aside class="declaration">proc </aside>is_cut<aside>(wire) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L290">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 290"/></a></aside>
+        </h5>
+        <p>Determines if the passed in wire is cut or not. Returns TRUE if it's cut, FALSE otherwise.</p>
+<p>Arugments:</p>
+<ul>
+<li>wire - a wire define, NOT a color. For example <code>WIRE_ELECTRIFY</code>.</li>
+</ul><h5 id="proc/is_dud"><aside class="declaration">proc </aside>is_dud<aside>(wire) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L263">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 263"/></a></aside>
+        </h5>
+        <p>Determines if the passed in wire is a dud or not. Returns TRUE if the wire is a dud, FALSE otherwise.</p>
+<p>Arugments:</p>
+<ul>
+<li>wire - a wire define, NOT a color. For example <code>WIRE_ELECTRIFY</code>.</li>
+</ul><h5 id="proc/is_dud_color"><aside class="declaration">proc </aside>is_dud_color<aside>(color) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L272">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 272"/></a></aside>
+        </h5>
+        <p>Returns TRUE if the wire that corresponds to the passed in color is a dud. FALSE otherwise.</p>
+<p>Arugments:</p>
+<ul>
+<li>color - a wire color.</li>
+</ul><h5 id="proc/on_cut"><aside class="declaration">proc </aside>on_cut<aside>(wire, mend) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L354">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 354"/></a></aside>
+        </h5>
+        <p>Proc called when any wire is cut.</p>
+<p>Base proc, intended to be overriden.
+Place an behavior you want to happen when certain wires are cut, into this proc.</p>
+<p>Arugments:</p>
+<ul>
+<li>wire - a wire define, NOT color. For example 'WIRE_ELECTRIFY'.</li>
+<li>mend - TRUE if we're mending the wire. FALSE if we're cutting.</li>
+</ul><h5 id="proc/on_pulse"><aside class="declaration">proc </aside>on_pulse<aside>(wire) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L386">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 386"/></a></aside>
+        </h5>
+        <p>Proc called when any wire is pulsed.</p>
+<p>Base proc, intended to be overriden.
+Place behavior you want to happen when certain wires are pulsed, into this proc.</p>
+<p>Arugments:</p>
+<ul>
+<li>wire - a wire define, NOT color. For example 'WIRE_ELECTRIFY'.</li>
+</ul><h5 id="proc/pulse"><aside class="declaration">proc </aside>pulse<aside>(wire) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L363">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 363"/></a></aside>
+        </h5>
+        <p>Pulses the given wire. Calls <code>on_pulse()</code>.</p>
+<p>Arugments:</p>
+<ul>
+<li>wire - a wire define, NOT a color. For example <code>WIRE_ELECTRIFY</code>.</li>
+</ul><h5 id="proc/pulse_assembly"><aside class="declaration">proc </aside>pulse_assembly<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/assembly/signaler/S) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L397">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 397"/></a></aside>
+        </h5>
+        <p>Proc called when an attached signaler receives a signal.</p>
+<p>Searches through the <code>assemblies</code> list for the wire that the signaler is attached to. Pulses the wire when it's found.</p>
+<p>Arugments:</p>
+<ul>
+<li>S - the attached signaler receiving the signal.</li>
+</ul><h5 id="proc/pulse_color"><aside class="declaration">proc </aside>pulse_color<aside>(color) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L374">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 374"/></a></aside>
+        </h5>
+        <p>Pulses the wire associated with the given color.</p>
+<p>Arugments:</p>
+<ul>
+<li>wire - a wire color.</li>
+</ul><h5 id="proc/randomize"><aside class="declaration">proc </aside>randomize<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L65">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 65"/></a></aside>
+        </h5>
+        <p>Randomly generates a new set of wires. and corresponding colors from the given pool. Assigns the information as an associative list, to <code>colors</code>.</p>
+<p>In the <code>colors</code> list, the name of the color is the key, and the wire is the value.
+For example: <code>colors[&quot;red&quot;] = WIRE_ELECTRIFY</code>. This will look like <code>list(&quot;red&quot; = WIRE_ELECTRIFY)</code> internally.</p><h5 id="proc/repair"><aside class="declaration">proc </aside>repair<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L241">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 241"/></a></aside>
+        </h5>
+        <p>Repairs all cut wires.</p><h5 id="proc/shuffle_wires"><aside class="declaration">proc </aside>shuffle_wires<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L234">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 234"/></a></aside>
+        </h5>
+        <p>Clears the <code>colors</code> list, and randomizes it to a new set of color-to-wire relations.</p><h5 id="proc/ui_host"><aside class="parent"><a title="/datum" href="datum.html#proc/ui_host">&uarr;</a></aside>ui_host<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/wires/wires.dm#L92">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wires&#x2F;wires.dm 92"/></a></aside>
+        </h5>
+        <p>Users will be interacting with our holder object and not the wire datum directly, therefore we need to return the holder.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

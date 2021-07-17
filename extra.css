@@ -1,0 +1,42 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+h1 aside, h2 aside, h3 aside, h4 aside, h5 aside {
+    display: inline;
+    font-weight: normal;
+    font-size: smaller;
+}
+
+aside.declaration, aside.parent {
+    display: inline-block;
+    position: relative;
+    text-align: right;
+    width: 100px;
+    margin-right: -100px;
+    right: 105px;
+}
+
+aside.declaration {
+    font-style: italic;
+}
+
+.expander {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    text-align: right;
+    width: 50px;
+    margin-right: -50px;
+    right: 53px;
+}
+
+ul {
+    padding-left: 40px !important;
+}

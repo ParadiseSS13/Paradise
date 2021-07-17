@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;effect&#x2F;abstract&#x2F;proximity_checker - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Proximity checker abstract object <aside>/<a href="obj.html">obj</a>/<a href="obj/effect/abstract/proximity_checker.html">effect/abstract/proximity_checker</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/proximity_monitor.dm#L78">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;proximity_monitor.dm 78"/></a></h1>
+
+<p>Inteded for use with the proximity checker component (/datum/component/proximity_monitor).
+Whenever a movable atom crosses this object, it calls <code>HasProximity()</code> on the object which is listening for proximity (<code>hasprox_receiver</code>).</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/effect/abstract/proximity_checker.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/effect/abstract/proximity_checker.html#var/active">active</a></th><td>Whether or not the proximity checker is listening for things crossing it.</td></tr>
+            <tr><th><a href="obj/effect/abstract/proximity_checker.html#var/hasprox_receiver">hasprox_receiver</a></th><td>The linked atom which has the proximity_monitor component, and will recieve the <code>HasProximity()</code> calls.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/effect/abstract/proximity_checker.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/effect/abstract/proximity_checker.html#proc/Crossed">Crossed</a></th><td>Something crossed over the proximity_checker. Notify the <code>hasprox_receiver</code> it has proximity with something. Only fires if the checker is <code>active</code>.</td></tr>
+            <tr><th><a href="obj/effect/abstract/proximity_checker.html#proc/HandleMove">HandleMove</a></th><td>Moves the proximity_checker 1 tile in the <code>Dir</code> direction.</td></tr>
+            <tr><th><a href="obj/effect/abstract/proximity_checker.html#proc/OnParentDeletion">OnParentDeletion</a></th><td>Called when the <code>hasprox_receiver</code> receives the <code>COMSIG_PARENT_QDELETING</code> signal. When the receiver is deleted, so is this object.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/active"><aside class="declaration">var </aside>active
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/proximity_monitor.dm#L81">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;proximity_monitor.dm 81"/></a></h5>
+        <p>Whether or not the proximity checker is listening for things crossing it.</p><h5 id="var/hasprox_receiver"><aside class="declaration">var </aside>hasprox_receiver
+            <aside>&ndash; /<a href="atom.html">atom</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/proximity_monitor.dm#L86">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;proximity_monitor.dm 86"/></a></h5>
+        <p>The linked atom which has the proximity_monitor component, and will recieve the <code>HasProximity()</code> calls.</p><h2 id="proc">Proc Details</h2><h5 id="proc/Crossed">Crossed<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/AM, oldloc) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/proximity_monitor.dm#L114">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;proximity_monitor.dm 114"/></a></aside>
+        </h5>
+        <p>Something crossed over the proximity_checker. Notify the <code>hasprox_receiver</code> it has proximity with something. Only fires if the checker is <code>active</code>.</p><h5 id="proc/HandleMove"><aside class="declaration">proc </aside>HandleMove<aside>(/<a href="datum.html">datum</a>/source, /<a href="atom.html">atom</a>/OldLoc, Dir, forced) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/proximity_monitor.dm#L132">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;proximity_monitor.dm 132"/></a></aside>
+        </h5>
+        <p>Moves the proximity_checker 1 tile in the <code>Dir</code> direction.</p>
+<p>If <code>Dir</code> is null it will be recentered around the receiver via the <code>recenter_prox_checkers()</code> proc.
+If the new location of the receiver is NOT a turf, set <code>active</code> to FALSE, so that it does not receive proximity calls.
+If the new location of the receiver IS a turf, set <code>active</code> to TRUE, so that it can receive proximity calls again.</p>
+<p>Arguments:</p>
+<ul>
+<li>source - this will be the <code>hasprox_receiver</code></li>
+<li>OldLoc - the location the <code>hasprox_receiver</code> just moved from</li>
+<li>Dir - the direction the <code>hasprox_receiver</code> just moved in</li>
+<li>forced - if we were forced to move</li>
+</ul><h5 id="proc/OnParentDeletion"><aside class="declaration">proc </aside>OnParentDeletion<aside>(/<a href="datum.html">datum</a>/source, force) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/proximity_monitor.dm#L108">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;proximity_monitor.dm 108"/></a></aside>
+        </h5>
+        <p>Called when the <code>hasprox_receiver</code> receives the <code>COMSIG_PARENT_QDELETING</code> signal. When the receiver is deleted, so is this object.</p>
+<p>Arugments:</p>
+<ul>
+<li>source - this will be the <code>hasprox_receiver</code></li>
+<li>force - the force flag taken from the qdel proc currently running on <code>hasprox_receiver</code></li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

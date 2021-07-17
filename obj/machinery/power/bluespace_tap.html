@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;machinery&#x2F;power&#x2F;bluespace_tap - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Bluespace Harvester <aside>/<a href="obj.html">obj</a>/<a href="obj/machinery.html">machinery</a>/<a href="obj/machinery/power/bluespace_tap.html">power/bluespace_tap</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L185">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 185"/></a></h1>
+
+<p>A station goal that consumes enormous amounts of power to generate (mostly fluff) rewards</p>
+<p>A machine that takes power each tick, generates points based on it
+and lets you spend those points on rewards. A certain amount of points
+has to be generated for the station goal to count as completed.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/machinery/power/bluespace_tap.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#var/actual_power_usage">actual_power_usage</a></th><td>How much power the machine needs per processing tick at the current level.</td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#var/base_points">base_points</a></th><td>Amount of points to give per mining level</td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#var/desired_level">desired_level</a></th><td>The machine you WANT the machine to mine at. It will try to match this.</td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#var/fillers">fillers</a></th><td>For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.</td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#var/input_level">input_level</a></th><td>The level the machine is currently mining at. 0 means off</td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#var/max_level">max_level</a></th><td>Max power input level, I don't expect this to be ever reached</td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#var/points">points</a></th><td>Available mining points</td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#var/power_needs">power_needs</a></th><td>Correspond to power required for a mining level, first entry for level 1, etc.</td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#var/product_list">product_list</a></th><td>list of possible products</td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#var/safe_levels">safe_levels</a></th><td>How high the machine can be run before it starts having a chance for dimension breaches.</td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#var/total_points">total_points</a></th><td>The total points earned by this machine so far, for tracking station goal and highscore</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/machinery/power/bluespace_tap.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#proc/attack_hand">attack_hand</a></th><td>A list of lists, each inner list equals a datum</td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#proc/decrease_level">decrease_level</a></th><td>Decreases the desired mining level</td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#proc/get_power_use">get_power_use</a></th><td>Gets the amount of power at a set input level</td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#proc/increase_level">increase_level</a></th><td>Increases the desired mining level</td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#proc/produce">produce</a></th><td>Produces the product with the desired key and increases product cost accordingly</td></tr>
+            <tr><th><a href="obj/machinery/power/bluespace_tap.html#proc/set_level">set_level</a></th><td>Sets the desired mining level</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/actual_power_usage"><aside class="declaration">var </aside>actual_power_usage
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L222">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 222"/></a></h5>
+        <p>How much power the machine needs per processing tick at the current level.</p><h5 id="var/base_points"><aside class="declaration">var </aside>base_points
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L230">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 230"/></a></h5>
+        <p>Amount of points to give per mining level</p><h5 id="var/desired_level"><aside class="declaration">var </aside>desired_level
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L216">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 216"/></a></h5>
+        <p>The machine you WANT the machine to mine at. It will try to match this.</p><h5 id="var/fillers"><aside class="declaration">var </aside>fillers
+            <aside>&ndash; /list/obj/structure</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L193">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 193"/></a></h5>
+        <p>For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.</p><h5 id="var/input_level"><aside class="declaration">var </aside>input_level
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L214">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 214"/></a></h5>
+        <p>The level the machine is currently mining at. 0 means off</p><h5 id="var/max_level"><aside class="declaration">var </aside>max_level
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L228">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 228"/></a></h5>
+        <p>Max power input level, I don't expect this to be ever reached</p><h5 id="var/points"><aside class="declaration">var </aside>points
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L218">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 218"/></a></h5>
+        <p>Available mining points</p><h5 id="var/power_needs"><aside class="declaration">var </aside>power_needs
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L200">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 200"/></a></h5>
+        <p>Correspond to power required for a mining level, first entry for level 1, etc.</p><h5 id="var/product_list"><aside class="declaration">var </aside>product_list
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L206">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 206"/></a></h5>
+        <p>list of possible products</p><h5 id="var/safe_levels"><aside class="declaration">var </aside>safe_levels
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L232">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 232"/></a></h5>
+        <p>How high the machine can be run before it starts having a chance for dimension breaches.</p><h5 id="var/total_points"><aside class="declaration">var </aside>total_points
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L220">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 220"/></a></h5>
+        <p>The total points earned by this machine so far, for tracking station goal and highscore</p><h2 id="proc">Proc Details</h2><h5 id="proc/attack_hand">attack_hand<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L365">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 365"/></a></aside>
+        </h5>
+        <p>A list of lists, each inner list equals a datum</p><h5 id="proc/decrease_level"><aside class="declaration">proc </aside>decrease_level<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L280">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 280"/></a></aside>
+        </h5>
+        <p>Decreases the desired mining level</p>
+<p>Decreases the desired mining level, that
+the machine tries to reach if there
+is enough power for it. Note that it does
+NOT decrease the actual mining level directly.</p><h5 id="proc/get_power_use"><aside class="declaration">proc </aside>get_power_use<aside>(i_level) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L308">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 308"/></a></aside>
+        </h5>
+        <p>Gets the amount of power at a set input level</p>
+<p>Gets the amount of power (in W) a set input level needs.
+Note that this is not necessarily the current power use.</p>
+<ul>
+<li>i_level - The hypothetical input level for which we want to know the power use.</li>
+</ul><h5 id="proc/increase_level"><aside class="declaration">proc </aside>increase_level<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L269">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 269"/></a></aside>
+        </h5>
+        <p>Increases the desired mining level</p>
+<p>Increases the desired mining level, that
+the machine tries to reach if there
+is enough power for it. Note that it does
+NOT increase the actual mining level directly.</p><h5 id="proc/produce"><aside class="declaration">proc </aside>produce<aside>(key) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L378">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 378"/></a></aside>
+        </h5>
+        <p>Produces the product with the desired key and increases product cost accordingly</p><h5 id="proc/set_level"><aside class="declaration">proc </aside>set_level<aside>(t_level) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/station_goals/bluespace_tap.dm#L294">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;station_goals&#x2F;bluespace_tap.dm 294"/></a></aside>
+        </h5>
+        <p>Sets the desired mining level</p>
+<p>Sets the desired mining level, that
+the machine tries to reach if there
+is enough power for it. Note that it does
+NOT change the actual mining level directly.
+Arguments:</p>
+<ul>
+<li>t_level - The level we try to set it at, between 0 and max_level</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

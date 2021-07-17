@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;controller&#x2F;subsystem&#x2F;tickets - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>tickets <aside>/<a href="datum.html">datum</a>/<a href="datum/controller.html">controller</a>/<a href="datum/controller/subsystem.html">subsystem</a>/<a href="datum/controller/subsystem/tickets.html">tickets</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tickets/tickets.dm#L16">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tickets&#x2F;tickets.dm 16"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/controller/subsystem/tickets.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/controller/subsystem/tickets.html#var/anchor_link_extra">anchor_link_extra</a></th><td>Text that will be added to the anchor link</td></tr>
+            <tr><th><a href="datum/controller/subsystem/tickets.html#var/other_ticket_name">other_ticket_name</a></th><td>The name of the other ticket type to convert to</td></tr>
+            <tr><th><a href="datum/controller/subsystem/tickets.html#var/other_ticket_permission">other_ticket_permission</a></th><td>Which permission to look for when seeing if there is staff available for the other ticket type</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/controller/subsystem/tickets.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/controller/subsystem/tickets.html#proc/makeUrlMessage">makeUrlMessage</a></th><td>Will add the URLs usable by staff to the message and return it
+Arguments:
+C - The client who send the message
+msg - The raw message
+ticketNum - Which ticket number the ticket has</td></tr>
+            <tr><th><a href="datum/controller/subsystem/tickets.html#proc/message_staff">message_staff</a></th><td></td></tr>
+            <tr><th><a href="datum/controller/subsystem/tickets.html#proc/newHelpRequest">newHelpRequest</a></th><td>Will either make a new ticket using the given text or will add the text to an existing ticket.
+Staff will get a message
+Arguments:
+C - The client who requests help
+text - The text the client send</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/anchor_link_extra"><aside class="declaration">var </aside>anchor_link_extra
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tickets/tickets.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tickets&#x2F;tickets.dm 31"/></a></h5>
+        <p>Text that will be added to the anchor link</p><h5 id="var/other_ticket_name"><aside class="declaration">var </aside>other_ticket_name
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tickets/tickets.dm#L36">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tickets&#x2F;tickets.dm 36"/></a></h5>
+        <p>The name of the other ticket type to convert to</p><h5 id="var/other_ticket_permission"><aside class="declaration">var </aside>other_ticket_permission
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tickets/tickets.dm#L38">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tickets&#x2F;tickets.dm 38"/></a></h5>
+        <p>Which permission to look for when seeing if there is staff available for the other ticket type</p><h2 id="proc">Proc Details</h2><h5 id="proc/makeUrlMessage"><aside class="declaration">proc </aside>makeUrlMessage<aside>(/<a href="client.html">client</a>/C, msg, ticketNum) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tickets/tickets.dm#L116">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tickets&#x2F;tickets.dm 116"/></a></aside>
+        </h5>
+        <p>Will add the URLs usable by staff to the message and return it
+Arguments:
+C - The client who send the message
+msg - The raw message
+ticketNum - Which ticket number the ticket has</p><h5 id="proc/message_staff"><aside class="declaration">proc </aside>message_staff<aside>(msg, prefix_type, important) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tickets/tickets.dm#L517">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tickets&#x2F;tickets.dm 517"/></a></aside>
+        </h5>
+        <ul>
+<li>Sends a message to the designated staff</li>
+<li>Arguments:</li>
+<li>msg - The message being send</li>
+<li>alt - If an alternative prefix should be used or not. Defaults to TICKET_STAFF_MESSAGE_PREFIX</li>
+<li>important - If the message is important. If TRUE it will ignore the CHAT_NO_TICKETLOGS preferences,
+send a sound and flash the window. Defaults to FALSE</li>
+</ul><h5 id="proc/newHelpRequest"><aside class="declaration">proc </aside>newHelpRequest<aside>(/<a href="client.html">client</a>/C, text) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tickets/tickets.dm#L95">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tickets&#x2F;tickets.dm 95"/></a></aside>
+        </h5>
+        <p>Will either make a new ticket using the given text or will add the text to an existing ticket.
+Staff will get a message
+Arguments:
+C - The client who requests help
+text - The text the client send</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;machinery&#x2F;computer&#x2F;teleporter - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>teleporter <aside>/<a href="obj.html">obj</a>/<a href="obj/machinery.html">machinery</a>/<a href="obj/machinery/computer.html">computer</a>/<a href="obj/machinery/computer/teleporter.html">teleporter</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/teleporter.dm#L5">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;teleporter.dm 5"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/machinery/computer/teleporter.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/machinery/computer/teleporter.html#var/calibrating">calibrating</a></th><td>Whether calibration is in progress or not. Calibration prevents changes.</td></tr>
+            <tr><th><a href="obj/machinery/computer/teleporter.html#var/locked">locked</a></th><td>A GPS with a locked destination</td></tr>
+            <tr><th><a href="obj/machinery/computer/teleporter.html#var/power_station">power_station</a></th><td>The power station that's connected to the console</td></tr>
+            <tr><th><a href="obj/machinery/computer/teleporter.html#var/regime">regime</a></th><td>Switches mode between teleporter, gate and gps</td></tr>
+            <tr><th><a href="obj/machinery/computer/teleporter.html#var/target">target</a></th><td>The target turf of the teleporter</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/machinery/computer/teleporter.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/machinery/computer/teleporter.html#proc/calibrateCallback">calibrateCallback</a></th><td>Calibrates the hub. Helper function of ui_act</td></tr>
+            <tr><th><a href="obj/machinery/computer/teleporter.html#proc/eject">eject</a></th><td>Helper function of ui_act</td></tr>
+            <tr><th><a href="obj/machinery/computer/teleporter.html#proc/gate_helper">gate_helper</a></th><td>Helper function of ui_act.</td></tr>
+            <tr><th><a href="obj/machinery/computer/teleporter.html#proc/resetPowerstation">resetPowerstation</a></th><td>Resets the connected powerstation to initial values. Helper function of ui_act</td></tr>
+            <tr><th><a href="obj/machinery/computer/teleporter.html#proc/targets_gate">targets_gate</a></th><td>Creates a list of viable targets for the gate. Helper function of ui_data</td></tr>
+            <tr><th><a href="obj/machinery/computer/teleporter.html#proc/targets_teleport">targets_teleport</a></th><td>Creates a list of viable targets for the teleport. Helper function of ui_data</td></tr>
+            <tr><th><a href="obj/machinery/computer/teleporter.html#proc/teleport_helper">teleport_helper</a></th><td>Helper function of ui_act.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/calibrating"><aside class="declaration">var </aside>calibrating
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/teleporter.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;teleporter.dm 19"/></a></h5>
+        <p>Whether calibration is in progress or not. Calibration prevents changes.</p><h5 id="var/locked"><aside class="declaration">var </aside>locked
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/gps.html">gps</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/teleporter.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;teleporter.dm 12"/></a></h5>
+        <p>A GPS with a locked destination</p><h5 id="var/power_station"><aside class="declaration">var </aside>power_station
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/machinery.html">machinery</a>/<a href="obj/machinery/teleport.html">teleport</a>/station</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/teleporter.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;teleporter.dm 17"/></a></h5>
+        <p>The power station that's connected to the console</p><h5 id="var/regime"><aside class="declaration">var </aside>regime
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/teleporter.dm#L14">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;teleporter.dm 14"/></a></h5>
+        <p>Switches mode between teleporter, gate and gps</p><h5 id="var/target"><aside class="declaration">var </aside>target
+            <aside>&ndash; /<a href="turf.html">turf</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/teleporter.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;teleporter.dm 21"/></a></h5>
+        <p>The target turf of the teleporter</p><h2 id="proc">Proc Details</h2><h5 id="proc/calibrateCallback"><aside class="declaration">proc </aside>calibrateCallback<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/teleporter.dm#L166">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;teleporter.dm 166"/></a></aside>
+        </h5>
+        <p>Calibrates the hub. Helper function of ui_act</p><h5 id="proc/eject"><aside class="declaration">proc </aside>eject<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/teleporter.dm#L186">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;teleporter.dm 186"/></a></aside>
+        </h5>
+        <p>Helper function of ui_act</p>
+<p>Triggered when ejecting a gps device. Sets the gps to the ground and resets the console</p><h5 id="proc/gate_helper"><aside class="declaration">proc </aside>gate_helper<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/teleporter.dm#L287">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;teleporter.dm 287"/></a></aside>
+        </h5>
+        <p>Helper function of ui_act.</p>
+<p>Called after selecting a target for the teleporter in the UI.</p><h5 id="proc/resetPowerstation"><aside class="declaration">proc </aside>resetPowerstation<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/teleporter.dm#L157">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;teleporter.dm 157"/></a></aside>
+        </h5>
+        <p>Resets the connected powerstation to initial values. Helper function of ui_act</p><h5 id="proc/targets_gate"><aside class="declaration">proc </aside>targets_gate<aside>(/<a href="mob.html">mob</a>/users) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/teleporter.dm#L244">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;teleporter.dm 244"/></a></aside>
+        </h5>
+        <p>Creates a list of viable targets for the gate. Helper function of ui_data</p><h5 id="proc/targets_teleport"><aside class="declaration">proc </aside>targets_teleport<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/teleporter.dm#L195">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;teleporter.dm 195"/></a></aside>
+        </h5>
+        <p>Creates a list of viable targets for the teleport. Helper function of ui_data</p><h5 id="proc/teleport_helper"><aside class="declaration">proc </aside>teleport_helper<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/teleporter.dm#L273">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;teleporter.dm 273"/></a></aside>
+        </h5>
+        <p>Helper function of ui_act.</p>
+<p>Called after selecting a target for the gate in the UI. Sets area_bypass and cc_beacon.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

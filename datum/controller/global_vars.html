@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;controller&#x2F;global_vars - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>global_vars <aside>/<a href="datum.html">datum</a>/<a href="datum/controller.html">controller</a>/<a href="datum/controller/global_vars.html">global_vars</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/globals.dm#L3">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;globals.dm 3"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/controller/global_vars.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/AdminProcCallCount">AdminProcCallCount</a></th><td>How many procs have been called</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/AdminProcCallSpamPrevention">AdminProcCallSpamPrevention</a></th><td>List to handle proc call spam prevention</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/AdminProcCaller">AdminProcCaller</a></th><td>Who is currently calling procs</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/LastAdminCalledProc">LastAdminCalledProc</a></th><td>Last proc called</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/LastAdminCalledTarget">LastAdminCalledTarget</a></th><td>Last target to have a proc called on it</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/LastAdminCalledTargetUID">LastAdminCalledTargetUID</a></th><td>UID of the admin who last called</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/PDAs">PDAs</a></th><td>Global list of all PDAs in the world</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/acid_overlay">acid_overlay</a></th><td>ACID</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/admin_state">admin_state</a></th><td>tgui state: admin_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/allNewscasters">allNewscasters</a></th><td>Global list that contains all existing newscasters in the world.</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/always_state">always_state</a></th><td>tgui state: always_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/centcomm_store">centcomm_store</a></th><td></td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/conscious_state">conscious_state</a></th><td>tgui state: conscious_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/contained_state">contained_state</a></th><td>tgui state: contained_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/deep_inventory_state">deep_inventory_state</a></th><td>tgui state: deep_inventory_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/default_state">default_state</a></th><td>tgui state: default_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/dna_activity_bounds">dna_activity_bounds</a></th><td>DNA 2: The Spaghetti Strikes Back</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/dna_mutations">dna_mutations</a></th><td>Assoc list. Key = type of the mutation, value = the mutation</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/frozen_atom_list">frozen_atom_list</a></th><td>Freeze Mob/Mech Verb -- Ported from NSS Pheonix (Unbound Travels)//////</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/ghost_hud_panel">ghost_hud_panel</a></th><td>Stores an instance of <a href="datum/ui_module/ghost_hud_panel.html" title="/datum/ui_module/ghost_hud_panel">/datum/ui_module/ghost_hud_panel</a> so that ghosts can use this to open their HUD panel.</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/gravity_generators">gravity_generators</a></th><td>Global list of all active gravity generators. Keyed by the Z level</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/hands_state">hands_state</a></th><td>tgui state: hands_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/huds">huds</a></th><td>GLOBAL HUD LIST</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/human_adjacent_state">human_adjacent_state</a></th><td>tgui state: human_adjacent_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/inventory_state">inventory_state</a></th><td>tgui state: inventory_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/marker_beacon_colors">marker_beacon_colors</a></th><td>Marker Beacons</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/multiverse">multiverse</a></th><td>Multiverse Blade</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/news_network">news_network</a></th><td>The feed network singleton. Contains all channels (which contain all stories).</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/next_unique_datum_id">next_unique_datum_id</a></th><td>The next UID to be used (Increments by 1 for each UID)</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/not_incapacitated_state">not_incapacitated_state</a></th><td>tgui state: not_incapacitated_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/not_incapacitated_turf_state">not_incapacitated_turf_state</a></th><td>tgui state: not_incapacitated_turf_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/notcontained_state">notcontained_state</a></th><td>tgui state: notcontained_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/observer_state">observer_state</a></th><td>tgui state: observer_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/physical_state">physical_state</a></th><td>tgui state: physical_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/rank_colour_map">rank_colour_map</a></th><td>Associative list of admin rank to colour. Set in config/rank_colours.txt</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/self_state">self_state</a></th><td>tgui state: self_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/slower_restart">slower_restart</a></th><td>Will our restart be slower?</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tcomms_machines">tcomms_machines</a></th><td>Global list for all telecomms machines in the world</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/trait_name_map">trait_name_map</a></th><td>value -&gt; trait name, generated on use from trait_by_type global</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/ui_logins">ui_logins</a></th><td>tgui login</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/ui_modals">ui_modals</a></th><td>ui modals</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/uid_log">uid_log</a></th><td>Log of all UIDs created in the round. Assoc list with type as key and amount as value</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/wire_color_directory">wire_color_directory</a></th><td>List of wire colors for each object type of that round. One for airlocks, one for vendors, etc.</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/world_topic_handlers">world_topic_handlers</a></th><td>List of all world topic handler datums. Populated inside makeDatumRefLists()</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/world_topic_spam_prevention_handlers">world_topic_spam_prevention_handlers</a></th><td>List of all world topic spam prevention handlers. See code/modules/world_topic/_spam_prevention_handler.dm</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/z_state">z_state</a></th><td>tgui state: z_state</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/AdminProcCallCount"><aside class="declaration">var </aside>AdminProcCallCount
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/verbs/debug.dm#L105">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;debug.dm 105"/></a></h5>
+        <p>How many procs have been called</p><h5 id="var/AdminProcCallSpamPrevention"><aside class="declaration">var </aside>AdminProcCallSpamPrevention
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/verbs/debug.dm#L117">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;debug.dm 117"/></a></h5>
+        <p>List to handle proc call spam prevention</p><h5 id="var/AdminProcCaller"><aside class="declaration">var </aside>AdminProcCaller
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/verbs/debug.dm#L102">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;debug.dm 102"/></a></h5>
+        <p>Who is currently calling procs</p><h5 id="var/LastAdminCalledProc"><aside class="declaration">var </aside>LastAdminCalledProc
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/verbs/debug.dm#L114">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;debug.dm 114"/></a></h5>
+        <p>Last proc called</p><h5 id="var/LastAdminCalledTarget"><aside class="declaration">var </aside>LastAdminCalledTarget
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/verbs/debug.dm#L111">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;debug.dm 111"/></a></h5>
+        <p>Last target to have a proc called on it</p><h5 id="var/LastAdminCalledTargetUID"><aside class="declaration">var </aside>LastAdminCalledTargetUID
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/verbs/debug.dm#L108">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;debug.dm 108"/></a></h5>
+        <p>UID of the admin who last called</p><h5 id="var/PDAs"><aside class="declaration">var </aside>PDAs
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/pda/PDA.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;pda&#x2F;PDA.dm 7"/></a></h5>
+        <p>Global list of all PDAs in the world</p><h5 id="var/acid_overlay"><aside class="declaration">var </aside>acid_overlay
+            <aside>&ndash; /static/mutable_appearance</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/obj_defense.dm#L166">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;obj_defense.dm 166"/></a></h5>
+        <p>ACID</p><h5 id="var/admin_state"><aside class="declaration">var </aside>admin_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/admin_state</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states/admin.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;admin.dm 7"/></a></h5>
+        <p>tgui state: admin_state</p>
+<p>Checks that the user is an admin, end-of-story.</p><h5 id="var/allNewscasters"><aside class="declaration">var </aside>allNewscasters
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/defines.dm#L5">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;defines.dm 5"/></a></h5>
+        <p>Global list that contains all existing newscasters in the world.</p><h5 id="var/always_state"><aside class="declaration">var </aside>always_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/always_state</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states/always.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;always.dm 7"/></a></h5>
+        <p>tgui state: always_state</p>
+<p>Always grants the user STATUS_INTERACTIVE. Period.</p><h5 id="var/centcomm_store"><aside class="declaration">var </aside>centcomm_store
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/store</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/store/store.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;store&#x2F;store.dm 19"/></a></h5>
+        <ul>
+<li>/vg/station In-Game Store *</li>
+</ul>
+<p>By Nexypoo</p>
+<p>The idea is to give people who do their jobs a reward.</p>
+<p>Ideally, these items should be cosmetic in nature to avoid fucking up round balance.
+People joining the round get between $100 and $500.  Keep this in mind.</p>
+<p>Money should not persist between rounds, although a &quot;bank&quot; system to voluntarily store
+money between rounds might be cool.  It'd need to be a bit volatile:  perhaps completing
+job objectives = good stock market, shitty job objective completion = shitty economy.</p>
+<p>Goal for now is to get the store itself working, however.</p><h5 id="var/conscious_state"><aside class="declaration">var </aside>conscious_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/conscious_state</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states/conscious.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;conscious.dm 7"/></a></h5>
+        <p>tgui state: conscious_state</p>
+<p>Only checks if the user is conscious.</p><h5 id="var/contained_state"><aside class="declaration">var </aside>contained_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/contained_state</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states/contained.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;contained.dm 7"/></a></h5>
+        <p>tgui state: contained_state</p>
+<p>Checks that the user is inside the src_object.</p><h5 id="var/deep_inventory_state"><aside class="declaration">var </aside>deep_inventory_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/deep_inventory_state</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states/deep_inventory.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;deep_inventory.dm 7"/></a></h5>
+        <p>tgui state: deep_inventory_state</p>
+<p>Checks that the src_object is in the user's deep (backpack, box, toolbox, etc) inventory.</p><h5 id="var/default_state"><aside class="declaration">var </aside>default_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/default</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states/default.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;default.dm 7"/></a></h5>
+        <p>tgui state: default_state</p>
+<p>Checks a number of things -- mostly physical distance for humans and view for robots.</p><h5 id="var/dna_activity_bounds"><aside class="declaration">var </aside>dna_activity_bounds
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/dna/dna2.dm#L11">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;dna&#x2F;dna2.dm 11"/></a></h5>
+        <p>DNA 2: The Spaghetti Strikes Back</p>
+<p>@author N3X15 <a href="mailto:nexisentertainment@gmail.com">nexisentertainment@gmail.com</a></p><h5 id="var/dna_mutations"><aside class="declaration">var </aside>dna_mutations
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/dna/dna2.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;dna&#x2F;dna2.dm 18"/></a></h5>
+        <p>Assoc list. Key = type of the mutation, value = the mutation</p><h5 id="var/frozen_atom_list"><aside class="declaration">var </aside>frozen_atom_list
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/verbs/freeze.dm#L9">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;freeze.dm 9"/></a></h5>
+        <p>Freeze Mob/Mech Verb -- Ported from NSS Pheonix (Unbound Travels)//////</p>
+<p>Allows admin's to right click on any mob/mech and freeze them in place.</p><h5 id="var/ghost_hud_panel"><aside class="declaration">var </aside>ghost_hud_panel
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_module/ghost_hud_panel.html">ui_module/ghost_hud_panel</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/modules/ghost_hud_panel.dm#L3">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;modules&#x2F;ghost_hud_panel.dm 3"/></a></h5>
+        <p>Stores an instance of <a href="datum/ui_module/ghost_hud_panel.html" title="/datum/ui_module/ghost_hud_panel">/datum/ui_module/ghost_hud_panel</a> so that ghosts can use this to open their HUD panel.</p><h5 id="var/gravity_generators"><aside class="declaration">var </aside>gravity_generators
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/gravitygenerator.dm#L2">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;gravitygenerator.dm 2"/></a></h5>
+        <p>Global list of all active gravity generators. Keyed by the Z level</p><h5 id="var/hands_state"><aside class="declaration">var </aside>hands_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/hands_state</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states/hands.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;hands.dm 7"/></a></h5>
+        <p>tgui state: hands_state</p>
+<p>Checks that the src_object is in the user's hands.</p><h5 id="var/huds"><aside class="declaration">var </aside>huds
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/hud.dm#L5">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;hud.dm 5"/></a></h5>
+        <p>GLOBAL HUD LIST</p><h5 id="var/human_adjacent_state"><aside class="declaration">var </aside>human_adjacent_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/human_adjacent_state</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states/human_adjacent.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;human_adjacent.dm 8"/></a></h5>
+        <p>tgui state: human_adjacent_state</p>
+<p>In addition to default checks, only allows interaction for a
+human adjacent user.</p><h5 id="var/inventory_state"><aside class="declaration">var </aside>inventory_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/inventory_state</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states/inventory.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;inventory.dm 7"/></a></h5>
+        <p>tgui state: inventory_state</p>
+<p>Checks that the src_object is in the user's top-level (hand, ear, pocket, belt, etc) inventory.</p><h5 id="var/marker_beacon_colors"><aside class="declaration">var </aside>marker_beacon_colors
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mining/equipment/marker_beacons.dm#L2">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mining&#x2F;equipment&#x2F;marker_beacons.dm 2"/></a></h5>
+        <p>Marker Beacons</p><h5 id="var/multiverse"><aside class="declaration">var </aside>multiverse
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/wizard/artefact.dm#L261">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;wizard&#x2F;artefact.dm 261"/></a></h5>
+        <p>Multiverse Blade</p><h5 id="var/news_network"><aside class="declaration">var </aside>news_network
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/feed_network.html">feed_network</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/newscaster/defines.dm#L3">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;newscaster&#x2F;defines.dm 3"/></a></h5>
+        <p>The feed network singleton. Contains all channels (which contain all stories).</p><h5 id="var/next_unique_datum_id"><aside class="declaration">var </aside>next_unique_datum_id
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/unique_ids.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;unique_ids.dm 18"/></a></h5>
+        <p>The next UID to be used (Increments by 1 for each UID)</p><h5 id="var/not_incapacitated_state"><aside class="declaration">var </aside>not_incapacitated_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/not_incapacitated_state</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states/not_incapacitated.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;not_incapacitated.dm 7"/></a></h5>
+        <p>tgui state: not_incapacitated_state</p>
+<p>Checks that the user isn't incapacitated</p><h5 id="var/not_incapacitated_turf_state"><aside class="declaration">var </aside>not_incapacitated_turf_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/not_incapacitated_state</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states/not_incapacitated.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;not_incapacitated.dm 15"/></a></h5>
+        <p>tgui state: not_incapacitated_turf_state</p>
+<p>Checks that the user isn't incapacitated and that their loc is a turf</p><h5 id="var/notcontained_state"><aside class="declaration">var </aside>notcontained_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/notcontained_state</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states/notcontained.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;notcontained.dm 7"/></a></h5>
+        <p>tgui state: notcontained_state</p>
+<p>Checks that the user is not inside src_object, and then makes the default checks.</p><h5 id="var/observer_state"><aside class="declaration">var </aside>observer_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/observer_state</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states/observer.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;observer.dm 7"/></a></h5>
+        <p>tgui state: observer_state</p>
+<p>Checks that the user is an observer/ghost.</p><h5 id="var/physical_state"><aside class="declaration">var </aside>physical_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/physical</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states/physical.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;physical.dm 7"/></a></h5>
+        <p>tgui state: physical_state</p>
+<p>Short-circuits the default state to only check physical distance.</p><h5 id="var/rank_colour_map"><aside class="declaration">var </aside>rank_colour_map
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_globalvars/lists/misc.dm#L59">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_globalvars&#x2F;lists&#x2F;misc.dm 59"/></a></h5>
+        <p>Associative list of admin rank to colour. Set in config/rank_colours.txt</p><h5 id="var/self_state"><aside class="declaration">var </aside>self_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/self_state</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states/self.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;self.dm 7"/></a></h5>
+        <p>tgui state: self_state</p>
+<p>Only checks that the user and src_object are the same.</p><h5 id="var/slower_restart"><aside class="declaration">var </aside>slower_restart
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/tgs_event_handler.dm#L2">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tgs_event_handler.dm 2"/></a></h5>
+        <p>Will our restart be slower?</p><h5 id="var/tcomms_machines"><aside class="declaration">var </aside>tcomms_machines
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/machinery/tcomms/_base.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 20"/></a></h5>
+        <p>Global list for all telecomms machines in the world</p><h5 id="var/trait_name_map"><aside class="declaration">var </aside>trait_name_map
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_globalvars/traits.dm#L68">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_globalvars&#x2F;traits.dm 68"/></a></h5>
+        <p>value -&gt; trait name, generated on use from trait_by_type global</p><h5 id="var/ui_logins"><aside class="declaration">var </aside>ui_logins
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/plugins/login.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;plugins&#x2F;login.dm 19"/></a></h5>
+        <p>tgui login</p>
+<p>Allows the handling of logins using IDs within tgui.</p>
+<p>Two key procs:</p>
+<ul>
+<li><a href="obj.html#proc/ui_login_act" title="/obj">/obj/proc/ui_login_act</a> - Call in your ui_act() proc to catch any login actions and handle them.</li>
+<li><a href="obj.html#proc/ui_login_data" title="/obj">/obj/proc/ui_login_data</a> - Call in your ui_data() proc to pass login info.</li>
+</ul>
+<p>How to use (DM side):</p>
+<ol>
+<li>Call <a href="obj.html#proc/ui_login_act" title="/obj">/obj/proc/ui_login_act</a> at the start of your ui_act() proc</li>
+<li>Call <a href="obj.html#proc/ui_login_data" title="/obj">/obj/proc/ui_login_data</a> in your ui_data() proc while passing the data list</li>
+<li>In your object, call <a href="obj.html#proc/ui_login_get" title="/obj">/obj/proc/ui_login_get</a> to get the current login state.</li>
+<li>Optional: call <a href="obj.html#proc/ui_login_attackby" title="/obj">/obj/proc/ui_login_attackby</a> in your attackby() to make the login process easier.</li>
+</ol>
+<p>How to use (JS side): Use the <LoginScreen /> and <LoginInfo /> interfaces.</p><h5 id="var/ui_modals"><aside class="declaration">var </aside>ui_modals
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/plugins/modal.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;plugins&#x2F;modal.dm 7"/></a></h5>
+        <p>ui modals</p>
+<p>Allows creation of modals within tgui.</p><h5 id="var/uid_log"><aside class="declaration">var </aside>uid_log
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/unique_ids.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;unique_ids.dm 20"/></a></h5>
+        <p>Log of all UIDs created in the round. Assoc list with type as key and amount as value</p><h5 id="var/wire_color_directory"><aside class="declaration">var </aside>wire_color_directory
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_globalvars/lists/objects.dm#L57">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_globalvars&#x2F;lists&#x2F;objects.dm 57"/></a></h5>
+        <p>List of wire colors for each object type of that round. One for airlocks, one for vendors, etc.</p><h5 id="var/world_topic_handlers"><aside class="declaration">var </aside>world_topic_handlers
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/world.dm#L79">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;world.dm 79"/></a></h5>
+        <p>List of all world topic handler datums. Populated inside makeDatumRefLists()</p><h5 id="var/world_topic_spam_prevention_handlers"><aside class="declaration">var </aside>world_topic_spam_prevention_handlers
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/world.dm#L77">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;world.dm 77"/></a></h5>
+        <p>List of all world topic spam prevention handlers. See code/modules/world_topic/_spam_prevention_handler.dm</p><h5 id="var/z_state"><aside class="declaration">var </aside>z_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/z_state</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states/zlevel.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;zlevel.dm 7"/></a></h5>
+        <p>tgui state: z_state</p>
+<p>Only checks that the Z-level of the user and src_object are the same.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

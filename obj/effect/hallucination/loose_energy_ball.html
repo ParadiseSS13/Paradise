@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;effect&#x2F;hallucination&#x2F;loose_energy_ball - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Hallucination - Loose Energy Ball <aside>/<a href="obj.html">obj</a>/<a href="obj/effect/hallucination.html">effect/hallucination</a>/<a href="obj/effect/hallucination/loose_energy_ball.html">loose_energy_ball</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/effects/major.dm#L197">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;effects&#x2F;major.dm 197"/></a></h1>
+
+<p>A progressive hallucination that begins with intermittent explosions, before displaying an energy ball that shocks the target.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/effect/hallucination/loose_energy_ball.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/effect/hallucination/loose_energy_ball.html#var/length_phase_1">length_phase_1</a></th><td>Length of phase 1 in deciseconds.</td></tr>
+            <tr><th><a href="obj/effect/hallucination/loose_energy_ball.html#var/length_phase_2">length_phase_2</a></th><td>Length of phase 2 in deciseconds.</td></tr>
+            <tr><th><a href="obj/effect/hallucination/loose_energy_ball.html#var/length_phase_3">length_phase_3</a></th><td>Length of phase 3 in deciseconds.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/effect/hallucination/loose_energy_ball.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/effect/hallucination/loose_energy_ball.html#proc/phase_1">phase_1</a></th><td>First phase of the hallucination: intermittent, far-away explosion sounds.</td></tr>
+            <tr><th><a href="obj/effect/hallucination/loose_energy_ball.html#proc/phase_2">phase_2</a></th><td>Second phase of the hallucination: closer explosions and zap sounds from a random direction.</td></tr>
+            <tr><th><a href="obj/effect/hallucination/loose_energy_ball.html#proc/phase_3">phase_3</a></th><td>Third and final phase of the hallucination: an energy ball that approaches the target before shocking it.</td></tr>
+            <tr><th><a href="obj/effect/hallucination/loose_energy_ball.html#proc/phase_3_inner">phase_3_inner</a></th><td>Called during phase 3 to approach the energy ball towards the target.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/length_phase_1"><aside class="declaration">var </aside>length_phase_1
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/effects/major.dm#L200">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;effects&#x2F;major.dm 200"/></a></h5>
+        <p>Length of phase 1 in deciseconds.</p><h5 id="var/length_phase_2"><aside class="declaration">var </aside>length_phase_2
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/effects/major.dm#L202">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;effects&#x2F;major.dm 202"/></a></h5>
+        <p>Length of phase 2 in deciseconds.</p><h5 id="var/length_phase_3"><aside class="declaration">var </aside>length_phase_3
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/effects/major.dm#L204">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;effects&#x2F;major.dm 204"/></a></h5>
+        <p>Length of phase 3 in deciseconds.</p><h2 id="proc">Proc Details</h2><h5 id="proc/phase_1"><aside class="declaration">proc </aside>phase_1<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/effects/major.dm#L215">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;effects&#x2F;major.dm 215"/></a></aside>
+        </h5>
+        <p>First phase of the hallucination: intermittent, far-away explosion sounds.</p><h5 id="proc/phase_2"><aside class="declaration">proc </aside>phase_2<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/effects/major.dm#L222">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;effects&#x2F;major.dm 222"/></a></aside>
+        </h5>
+        <p>Second phase of the hallucination: closer explosions and zap sounds from a random direction.</p><h5 id="proc/phase_3"><aside class="declaration">proc </aside>phase_3<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/effects/major.dm#L232">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;effects&#x2F;major.dm 232"/></a></aside>
+        </h5>
+        <p>Third and final phase of the hallucination: an energy ball that approaches the target before shocking it.</p><h5 id="proc/phase_3_inner"><aside class="declaration">proc </aside>phase_3_inner<aside>(/image/ball, distance, step) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/effects/major.dm#L251">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;effects&#x2F;major.dm 251"/></a></aside>
+        </h5>
+        <p>Called during phase 3 to approach the energy ball towards the target.</p>
+<p>Arguments:</p>
+<ul>
+<li>ball - The energy ball image.</li>
+<li>distance - The remaining distance.</li>
+<li>step - The current step.</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

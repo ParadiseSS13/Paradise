@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;item&#x2F;melee&#x2F;classic_baton - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Police Baton <aside>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/melee/classic_baton.html">melee/classic_baton</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/batons.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;batons.dm 8"/></a></h1>
+
+<p>Knocks down the hit mob when not on harm intent and when <a href="obj/item/melee/classic_baton.html" title="/obj/item/melee/classic_baton">/obj/item/melee/classic_baton/on</a> is TRUE</p>
+<p>A non-lethal attack has a cooldown to avoid spamming</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/item/melee/classic_baton.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/item/melee/classic_baton.html#var/affect_silicon">affect_silicon</a></th><td>Whether the baton can stun silicon mobs</td></tr>
+            <tr><th><a href="obj/item/melee/classic_baton.html#var/cooldown">cooldown</a></th><td>Cooldown in deciseconds between two knockdowns</td></tr>
+            <tr><th><a href="obj/item/melee/classic_baton.html#var/on">on</a></th><td>Whether the baton is toggled on (to allow attacking)</td></tr>
+            <tr><th><a href="obj/item/melee/classic_baton.html#var/on_cooldown">on_cooldown</a></th><td>Whether the baton is on cooldown</td></tr>
+            <tr><th><a href="obj/item/melee/classic_baton.html#var/stun_sound">stun_sound</a></th><td>Sound to play when knocking someone down</td></tr>
+            <tr><th><a href="obj/item/melee/classic_baton.html#var/stun_time">stun_time</a></th><td>The stun time (in life cycles) for non-silicons</td></tr>
+            <tr><th><a href="obj/item/melee/classic_baton.html#var/stun_time_silicon">stun_time_silicon</a></th><td>The stun time (in life cycles) for silicons</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/item/melee/classic_baton.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/item/melee/classic_baton.html#proc/cooldown_finished">cooldown_finished</a></th><td>Called some time after a non-lethal attack</td></tr>
+            <tr><th><a href="obj/item/melee/classic_baton.html#proc/on_non_silicon_stun">on_non_silicon_stun</a></th><td>Called when a non-silicon has been stunned.</td></tr>
+            <tr><th><a href="obj/item/melee/classic_baton.html#proc/on_silicon_stun">on_silicon_stun</a></th><td>Called when a silicon has been stunned.</td></tr>
+            <tr><th><a href="obj/item/melee/classic_baton.html#proc/stun">stun</a></th><td>Called when a target is about to be hit non-lethally.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/affect_silicon"><aside class="declaration">var </aside>affect_silicon
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/batons.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;batons.dm 18"/></a></h5>
+        <p>Whether the baton can stun silicon mobs</p><h5 id="var/cooldown"><aside class="declaration">var </aside>cooldown
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/batons.dm#L24">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;batons.dm 24"/></a></h5>
+        <p>Cooldown in deciseconds between two knockdowns</p><h5 id="var/on"><aside class="declaration">var </aside>on
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/batons.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;batons.dm 31"/></a></h5>
+        <p>Whether the baton is toggled on (to allow attacking)</p><h5 id="var/on_cooldown"><aside class="declaration">var </aside>on_cooldown
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/batons.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;batons.dm 29"/></a></h5>
+        <p>Whether the baton is on cooldown</p><h5 id="var/stun_sound"><aside class="declaration">var </aside>stun_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/batons.dm#L26">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;batons.dm 26"/></a></h5>
+        <p>Sound to play when knocking someone down</p><h5 id="var/stun_time"><aside class="declaration">var </aside>stun_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/batons.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;batons.dm 20"/></a></h5>
+        <p>The stun time (in life cycles) for non-silicons</p><h5 id="var/stun_time_silicon"><aside class="declaration">var </aside>stun_time_silicon
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/batons.dm#L22">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;batons.dm 22"/></a></h5>
+        <p>The stun time (in life cycles) for silicons</p><h2 id="proc">Proc Details</h2><h5 id="proc/cooldown_finished"><aside class="declaration">proc </aside>cooldown_finished<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/batons.dm#L116">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;batons.dm 116"/></a></aside>
+        </h5>
+        <p>Called some time after a non-lethal attack</p><h5 id="proc/on_non_silicon_stun"><aside class="declaration">proc </aside>on_non_silicon_stun<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/target, /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/batons.dm#L110">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;batons.dm 110"/></a></aside>
+        </h5>
+        <p>Called when a non-silicon has been stunned.</p>
+<p>Arguments:</p>
+<ul>
+<li>target - The hit mob</li>
+<li>user - The attacking user</li>
+</ul><h5 id="proc/on_silicon_stun"><aside class="declaration">proc </aside>on_silicon_stun<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/silicon.html">silicon</a>/target, /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/batons.dm#L99">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;batons.dm 99"/></a></aside>
+        </h5>
+        <p>Called when a silicon has been stunned.</p>
+<p>Arguments:</p>
+<ul>
+<li>target - The hit mob</li>
+<li>user - The attacking user</li>
+</ul><h5 id="proc/stun"><aside class="declaration">proc </aside>stun<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/target, /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/batons.dm#L65">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;batons.dm 65"/></a></aside>
+        </h5>
+        <p>Called when a target is about to be hit non-lethally.</p>
+<p>Arguments:</p>
+<ul>
+<li>target - The mob about to be hit</li>
+<li>user - The attacking user</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

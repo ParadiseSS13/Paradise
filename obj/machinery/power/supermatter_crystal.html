@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;machinery&#x2F;power&#x2F;supermatter_crystal - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>supermatter_crystal <aside>/<a href="obj.html">obj</a>/<a href="obj/machinery.html">machinery</a>/<a href="obj/machinery/power/supermatter_crystal.html">power/supermatter_crystal</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/examine/descriptions/engineering.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;examine&#x2F;descriptions&#x2F;engineering.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/machinery/power/supermatter_crystal.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/bullet_energy">bullet_energy</a></th><td>How much the bullets damage should be multiplied by when it is added to the internal variables</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/combined_gas">combined_gas</a></th><td>The last air sample's total molar count, will always be above or equal to 0</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/countdown">countdown</a></th><td>An effect we show to admins and ghosts the percentage of delam we're at</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/damage">damage</a></th><td>The amount of damage we have currently</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/damage_archived">damage_archived</a></th><td>The damage we had before this cycle. Used to limit the damage we can take each cycle, and for safe_alert</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/damage_penalty_point">damage_penalty_point</a></th><td>When we pass this amount of damage we start shooting bolts</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/dynamic_heat_modifier">dynamic_heat_modifier</a></th><td>Affects the amount of o2 and plasma the sm outputs, along with the heat it makes.</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/dynamic_heat_resistance">dynamic_heat_resistance</a></th><td>Affects the amount of damage and minimum point at which the sm takes heat damage</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/emergency_alert">emergency_alert</a></th><td>The alert we send when we've reached emergency_point</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/emergency_point">emergency_point</a></th><td>The point at which we start sending messages to the common channel</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/explosion_point">explosion_point</a></th><td>The point at which we delam</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/explosion_power">explosion_power</a></th><td>A scaling value that affects the severity of explosions.</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/final_countdown">final_countdown</a></th><td>Are we exploding?</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/gas_change_rate">gas_change_rate</a></th><td>Determines the rate of positve change in gas comp values</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/gasefficency">gasefficency</a></th><td>The portion of the gasmix we're on that we should remove</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/gasmix_power_ratio">gasmix_power_ratio</a></th><td>Affects the power gain the sm experiances from heat</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/global_supermatter_id">global_supermatter_id</a></th><td>The amount of supermatters that have been created this round</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/hallucination_power">hallucination_power</a></th><td>How much hallucination should we produce per unit of power?</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/has_been_powered">has_been_powered</a></th><td>Boolean used for logging if we've been powered</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/has_reached_emergency">has_reached_emergency</a></th><td>Boolean used for logging if we've passed the emergency point</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/is_main_engine">is_main_engine</a></th><td>Used to track if we can give out the sm sliver stealing objective</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/last_accent_sound">last_accent_sound</a></th><td>cooldown tracker for accent sounds</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/lastwarning">lastwarning</a></th><td>Time in 1/10th of seconds since the last sent warning</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/matter_power">matter_power</a></th><td>Takes the energy throwing things into the sm generates and slowly turns it into actual power</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/mole_heat_penalty">mole_heat_penalty</a></th><td>Used to increase or lessen the amount of damage the sm takes from heat based on molar counts.</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/moveable">moveable</a></th><td>Can it be moved?</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/power">power</a></th><td>Refered to as eer on the moniter. This value effects gas output, heat, damage, and radiation.</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/power_changes">power_changes</a></th><td>Disables power changes</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/power_transmission_bonus">power_transmission_bonus</a></th><td>Affects the amount of radiation the sm makes. We multiply this with power to find the rads.</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/powerloss_dynamic_scaling">powerloss_dynamic_scaling</a></th><td>Based on co2 percentage, slowly moves between 0 and 1. We use it to calc the powerloss_inhibitor</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/powerloss_inhibitor">powerloss_inhibitor</a></th><td>Uses powerloss_dynamic_scaling and combined_gas to lessen the effects of our powerloss functions</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/processes">processes</a></th><td>Disables the sm's proccessing totally.</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/produces_gas">produces_gas</a></th><td>Disables the production of gas, and pretty much any handling of it we do.</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/radio">radio</a></th><td>Our internal radio</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/safe_alert">safe_alert</a></th><td>Our &quot;Shit is no longer fucked&quot; message. We send it when damage is less then damage_archived</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/soundloop">soundloop</a></th><td>Our soundloop</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/supermatter_id">supermatter_id</a></th><td>The id of our supermatter</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/takes_damage">takes_damage</a></th><td>Disables all methods of taking damage</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/warning_alert">warning_alert</a></th><td>The alert we send when we've reached warning_point</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/warning_point">warning_point</a></th><td>The point at which we should start sending messeges about the damage to the engi channels.</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/zap_cutoff">zap_cutoff</a></th><td>The cutoff for a bolt jumping, grows with heat, lowers with higher mol count,</td></tr>
+            <tr><th><a href="obj/machinery/power/supermatter_crystal.html#var/zap_icon">zap_icon</a></th><td>Tracks the bolt color we are using</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/bullet_energy"><aside class="declaration">var </aside>bullet_energy
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L160">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 160"/></a></h5>
+        <p>How much the bullets damage should be multiplied by when it is added to the internal variables</p><h5 id="var/combined_gas"><aside class="declaration">var </aside>combined_gas
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L140">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 140"/></a></h5>
+        <p>The last air sample's total molar count, will always be above or equal to 0</p><h5 id="var/countdown"><aside class="declaration">var </aside>countdown
+            <aside>&ndash; /<a href="obj.html">obj</a>/effect/countdown/supermatter</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L173">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 173"/></a></h5>
+        <p>An effect we show to admins and ghosts the percentage of delam we're at</p><h5 id="var/damage"><aside class="declaration">var </aside>damage
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L106">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 106"/></a></h5>
+        <p>The amount of damage we have currently</p><h5 id="var/damage_archived"><aside class="declaration">var </aside>damage_archived
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L108">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 108"/></a></h5>
+        <p>The damage we had before this cycle. Used to limit the damage we can take each cycle, and for safe_alert</p><h5 id="var/damage_penalty_point"><aside class="declaration">var </aside>damage_penalty_point
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L122">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 122"/></a></h5>
+        <p>When we pass this amount of damage we start shooting bolts</p><h5 id="var/dynamic_heat_modifier"><aside class="declaration">var </aside>dynamic_heat_modifier
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L144">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 144"/></a></h5>
+        <p>Affects the amount of o2 and plasma the sm outputs, along with the heat it makes.</p><h5 id="var/dynamic_heat_resistance"><aside class="declaration">var </aside>dynamic_heat_resistance
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L146">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 146"/></a></h5>
+        <p>Affects the amount of damage and minimum point at which the sm takes heat damage</p><h5 id="var/emergency_alert"><aside class="declaration">var </aside>emergency_alert
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L118">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 118"/></a></h5>
+        <p>The alert we send when we've reached emergency_point</p><h5 id="var/emergency_point"><aside class="declaration">var </aside>emergency_point
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L116">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 116"/></a></h5>
+        <p>The point at which we start sending messages to the common channel</p><h5 id="var/explosion_point"><aside class="declaration">var </aside>explosion_point
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L120">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 120"/></a></h5>
+        <p>The point at which we delam</p><h5 id="var/explosion_power"><aside class="declaration">var </aside>explosion_power
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L125">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 125"/></a></h5>
+        <p>A scaling value that affects the severity of explosions.</p><h5 id="var/final_countdown"><aside class="declaration">var </aside>final_countdown
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L103">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 103"/></a></h5>
+        <p>Are we exploding?</p><h5 id="var/gas_change_rate"><aside class="declaration">var </aside>gas_change_rate
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L131">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 131"/></a></h5>
+        <p>Determines the rate of positve change in gas comp values</p><h5 id="var/gasefficency"><aside class="declaration">var </aside>gasefficency
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L100">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 100"/></a></h5>
+        <p>The portion of the gasmix we're on that we should remove</p><h5 id="var/gasmix_power_ratio"><aside class="declaration">var </aside>gasmix_power_ratio
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L142">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 142"/></a></h5>
+        <p>Affects the power gain the sm experiances from heat</p><h5 id="var/global_supermatter_id"><aside class="declaration">var </aside>global_supermatter_id
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L96">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 96"/></a></h5>
+        <p>The amount of supermatters that have been created this round</p><h5 id="var/hallucination_power"><aside class="declaration">var </aside>hallucination_power
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L162">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 162"/></a></h5>
+        <p>How much hallucination should we produce per unit of power?</p><h5 id="var/has_been_powered"><aside class="declaration">var </aside>has_been_powered
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L168">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 168"/></a></h5>
+        <p>Boolean used for logging if we've been powered</p><h5 id="var/has_reached_emergency"><aside class="declaration">var </aside>has_reached_emergency
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L170">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 170"/></a></h5>
+        <p>Boolean used for logging if we've passed the emergency point</p><h5 id="var/is_main_engine"><aside class="declaration">var </aside>is_main_engine
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L176">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 176"/></a></h5>
+        <p>Used to track if we can give out the sm sliver stealing objective</p><h5 id="var/last_accent_sound"><aside class="declaration">var </aside>last_accent_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L183">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 183"/></a></h5>
+        <p>cooldown tracker for accent sounds</p><h5 id="var/lastwarning"><aside class="declaration">var </aside>lastwarning
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L127">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 127"/></a></h5>
+        <p>Time in 1/10th of seconds since the last sent warning</p><h5 id="var/matter_power"><aside class="declaration">var </aside>matter_power
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L156">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 156"/></a></h5>
+        <p>Takes the energy throwing things into the sm generates and slowly turns it into actual power</p><h5 id="var/mole_heat_penalty"><aside class="declaration">var </aside>mole_heat_penalty
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L154">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 154"/></a></h5>
+        <p>Used to increase or lessen the amount of damage the sm takes from heat based on molar counts.</p><h5 id="var/moveable"><aside class="declaration">var </aside>moveable
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L180">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 180"/></a></h5>
+        <p>Can it be moved?</p><h5 id="var/power"><aside class="declaration">var </aside>power
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L129">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 129"/></a></h5>
+        <p>Refered to as eer on the moniter. This value effects gas output, heat, damage, and radiation.</p><h5 id="var/power_changes"><aside class="declaration">var </aside>power_changes
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L191">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 191"/></a></h5>
+        <p>Disables power changes</p><h5 id="var/power_transmission_bonus"><aside class="declaration">var </aside>power_transmission_bonus
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L152">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 152"/></a></h5>
+        <p>Affects the amount of radiation the sm makes. We multiply this with power to find the rads.</p><h5 id="var/powerloss_dynamic_scaling"><aside class="declaration">var </aside>powerloss_dynamic_scaling
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L150">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 150"/></a></h5>
+        <p>Based on co2 percentage, slowly moves between 0 and 1. We use it to calc the powerloss_inhibitor</p><h5 id="var/powerloss_inhibitor"><aside class="declaration">var </aside>powerloss_inhibitor
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L148">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 148"/></a></h5>
+        <p>Uses powerloss_dynamic_scaling and combined_gas to lessen the effects of our powerloss functions</p><h5 id="var/processes"><aside class="declaration">var </aside>processes
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L193">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 193"/></a></h5>
+        <p>Disables the sm's proccessing totally.</p><h5 id="var/produces_gas"><aside class="declaration">var </aside>produces_gas
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L189">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 189"/></a></h5>
+        <p>Disables the production of gas, and pretty much any handling of it we do.</p><h5 id="var/radio"><aside class="declaration">var </aside>radio
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/radio.html">radio</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L165">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 165"/></a></h5>
+        <p>Our internal radio</p><h5 id="var/safe_alert"><aside class="declaration">var </aside>safe_alert
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L110">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 110"/></a></h5>
+        <p>Our &quot;Shit is no longer fucked&quot; message. We send it when damage is less then damage_archived</p><h5 id="var/soundloop"><aside class="declaration">var </aside>soundloop
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/looping_sound.html">looping_sound</a>/supermatter</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L178">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 178"/></a></h5>
+        <p>Our soundloop</p><h5 id="var/supermatter_id"><aside class="declaration">var </aside>supermatter_id
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L94">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 94"/></a></h5>
+        <p>The id of our supermatter</p><h5 id="var/takes_damage"><aside class="declaration">var </aside>takes_damage
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L187">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 187"/></a></h5>
+        <p>Disables all methods of taking damage</p><h5 id="var/warning_alert"><aside class="declaration">var </aside>warning_alert
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L114">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 114"/></a></h5>
+        <p>The alert we send when we've reached warning_point</p><h5 id="var/warning_point"><aside class="declaration">var </aside>warning_point
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L112">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 112"/></a></h5>
+        <p>The point at which we should start sending messeges about the damage to the engi channels.</p><h5 id="var/zap_cutoff"><aside class="declaration">var </aside>zap_cutoff
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L158">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 158"/></a></h5>
+        <p>The cutoff for a bolt jumping, grows with heat, lowers with higher mol count,</p><h5 id="var/zap_icon"><aside class="declaration">var </aside>zap_icon
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/supermatter/supermatter.dm#L98">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;supermatter&#x2F;supermatter.dm 98"/></a></h5>
+        <p>Tracks the bolt color we are using</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

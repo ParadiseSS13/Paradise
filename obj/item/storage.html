@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;item&#x2F;storage - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>storage <aside>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/storage.html">storage</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 8"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/item/storage.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/item/storage.html#var/allow_quick_empty">allow_quick_empty</a></th><td>Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.</td></tr>
+            <tr><th><a href="obj/item/storage.html#var/allow_quick_gather">allow_quick_gather</a></th><td>Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.</td></tr>
+            <tr><th><a href="obj/item/storage.html#var/can_hold">can_hold</a></th><td>List of objects which this item can store (if set, it can't store anything else)</td></tr>
+            <tr><th><a href="obj/item/storage.html#var/cant_hold">cant_hold</a></th><td>List of objects which this item can't store (in effect only if can_hold isn't set)</td></tr>
+            <tr><th><a href="obj/item/storage.html#var/display_contents_with_number">display_contents_with_number</a></th><td>Set this to make the storage item group contents of the same type and display them as a number.</td></tr>
+            <tr><th><a href="obj/item/storage.html#var/foldable">foldable</a></th><td>What kind of <a href="obj/item/stack.html" title="/obj/item/stack">/obj/item/stack</a> can this be folded into. (e.g. Boxes and cardboard)</td></tr>
+            <tr><th><a href="obj/item/storage.html#var/foldable_amt">foldable_amt</a></th><td>How much of the stack item do you get.</td></tr>
+            <tr><th><a href="obj/item/storage.html#var/max_combined_w_class">max_combined_w_class</a></th><td>The sum of the w_classes of all the items in this storage item.</td></tr>
+            <tr><th><a href="obj/item/storage.html#var/max_w_class">max_w_class</a></th><td>Max size of objects that this object can store (in effect only if can_hold isn't set)</td></tr>
+            <tr><th><a href="obj/item/storage.html#var/pickup_all_on_tile">pickup_all_on_tile</a></th><td>Pick up one item at a time or everything on the tile</td></tr>
+            <tr><th><a href="obj/item/storage.html#var/silent">silent</a></th><td>No message on putting items in.</td></tr>
+            <tr><th><a href="obj/item/storage.html#var/storage_slots">storage_slots</a></th><td>The number of storage slots in this container.</td></tr>
+            <tr><th><a href="obj/item/storage.html#var/use_sound">use_sound</a></th><td>Sound played when used. <code>null</code> for no sound.</td></tr>
+            <tr><th><a href="obj/item/storage.html#var/use_to_pickup">use_to_pickup</a></th><td>Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/item/storage.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/item/storage.html#proc/can_be_inserted">can_be_inserted</a></th><td>Checks whether <code>I</code> can be inserted into the container.</td></tr>
+            <tr><th><a href="obj/item/storage.html#proc/handle_item_insertion">handle_item_insertion</a></th><td>Handles items being inserted into a storage container.</td></tr>
+            <tr><th><a href="obj/item/storage.html#proc/hide_from">hide_from</a></th><td>Hides the current container interface from <code>user</code>.</td></tr>
+            <tr><th><a href="obj/item/storage.html#proc/orient_objs">orient_objs</a></th><td>Draws the inventory and places the items on it using custom positions.</td></tr>
+            <tr><th><a href="obj/item/storage.html#proc/populate_contents">populate_contents</a></th><td>Populates the container with items</td></tr>
+            <tr><th><a href="obj/item/storage.html#proc/remove_from_storage">remove_from_storage</a></th><td>Handles the removal of an item from a storage container.</td></tr>
+            <tr><th><a href="obj/item/storage.html#proc/return_inv">return_inv</a></th><td>Loops through any nested containers inside <code>src</code>, and returns a list of everything inside them.</td></tr>
+            <tr><th><a href="obj/item/storage.html#proc/show_to">show_to</a></th><td>Shows <code>user</code> the contents of <code>src</code>, and activates any mouse trap style triggers.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/allow_quick_empty"><aside class="declaration">var </aside>allow_quick_empty
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L32">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 32"/></a></h5>
+        <p>Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.</p><h5 id="var/allow_quick_gather"><aside class="declaration">var </aside>allow_quick_gather
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L34">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 34"/></a></h5>
+        <p>Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.</p><h5 id="var/can_hold"><aside class="declaration">var </aside>can_hold
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 15"/></a></h5>
+        <p>List of objects which this item can store (if set, it can't store anything else)</p><h5 id="var/cant_hold"><aside class="declaration">var </aside>cant_hold
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 17"/></a></h5>
+        <p>List of objects which this item can't store (in effect only if can_hold isn't set)</p><h5 id="var/display_contents_with_number"><aside class="declaration">var </aside>display_contents_with_number
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L30">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 30"/></a></h5>
+        <p>Set this to make the storage item group contents of the same type and display them as a number.</p><h5 id="var/foldable"><aside class="declaration">var </aside>foldable
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 41"/></a></h5>
+        <p>What kind of <a href="obj/item/stack.html" title="/obj/item/stack">/obj/item/stack</a> can this be folded into. (e.g. Boxes and cardboard)</p><h5 id="var/foldable_amt"><aside class="declaration">var </aside>foldable_amt
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L43">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 43"/></a></h5>
+        <p>How much of the stack item do you get.</p><h5 id="var/max_combined_w_class"><aside class="declaration">var </aside>max_combined_w_class
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 21"/></a></h5>
+        <p>The sum of the w_classes of all the items in this storage item.</p><h5 id="var/max_w_class"><aside class="declaration">var </aside>max_w_class
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 19"/></a></h5>
+        <p>Max size of objects that this object can store (in effect only if can_hold isn't set)</p><h5 id="var/pickup_all_on_tile"><aside class="declaration">var </aside>pickup_all_on_tile
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L36">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 36"/></a></h5>
+        <p>Pick up one item at a time or everything on the tile</p><h5 id="var/silent"><aside class="declaration">var </aside>silent
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 13"/></a></h5>
+        <p>No message on putting items in.</p><h5 id="var/storage_slots"><aside class="declaration">var </aside>storage_slots
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 23"/></a></h5>
+        <p>The number of storage slots in this container.</p><h5 id="var/use_sound"><aside class="declaration">var </aside>use_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L38">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 38"/></a></h5>
+        <p>Sound played when used. <code>null</code> for no sound.</p><h5 id="var/use_to_pickup"><aside class="declaration">var </aside>use_to_pickup
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L28">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 28"/></a></h5>
+        <p>Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.</p><h2 id="proc">Proc Details</h2><h5 id="proc/can_be_inserted"><aside class="declaration">proc </aside>can_be_inserted<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/I, stop_messages) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L306">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 306"/></a></aside>
+        </h5>
+        <p>Checks whether <code>I</code> can be inserted into the container.</p>
+<p>Returns <code>TRUE</code> if it can, and <code>FALSE</code> if it can't.
+Arguments:</p>
+<ul>
+<li>obj/item/I - The item to insert</li>
+<li>stop_messages - Don't display a warning message if the item can't be inserted</li>
+</ul><h5 id="proc/handle_item_insertion"><aside class="declaration">proc </aside>handle_item_insertion<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/I, prevent_warning) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L366">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 366"/></a></aside>
+        </h5>
+        <p>Handles items being inserted into a storage container.</p>
+<p>This doesn't perform any checks of whether an item can be inserted. That's done by <a href="obj/item/storage.html#proc/can_be_inserted" title="/obj/item/storage">/obj/item/storage/proc/can_be_inserted</a>
+Arguments:</p>
+<ul>
+<li>obj/item/I - The item to be inserted</li>
+<li>prevent_warning - Stop the insertion message being displayed. Intended for cases when you are inserting multiple items at once.</li>
+</ul><h5 id="proc/hide_from"><aside class="declaration">proc </aside>hide_from<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L184">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 184"/></a></aside>
+        </h5>
+        <p>Hides the current container interface from <code>user</code>.</p><h5 id="proc/orient_objs"><aside class="declaration">proc </aside>orient_objs<aside>(tx, ty, mx, my) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L213">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 213"/></a></aside>
+        </h5>
+        <p>Draws the inventory and places the items on it using custom positions.</p>
+<p><code>tx</code> and <code>ty</code> are the upper left tile.
+<code>mx</code> and <code>my</code> are the bottom right tile.</p>
+<p>The numbers are calculated from the bottom left, with the bottom left being <code>1,1</code>.</p><h5 id="proc/populate_contents"><aside class="declaration">proc </aside>populate_contents<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L539">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 539"/></a></aside>
+        </h5>
+        <p>Populates the container with items</p>
+<p>Override with whatever you want to put in the container</p><h5 id="proc/remove_from_storage"><aside class="declaration">proc </aside>remove_from_storage<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/I, /<a href="atom.html">atom</a>/new_location) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L407">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 407"/></a></aside>
+        </h5>
+        <p>Handles the removal of an item from a storage container.</p>
+<p>Arguments:</p>
+<ul>
+<li>obj/item/I - The item to be removed</li>
+<li>atom/new_location - The location to send the item to.</li>
+</ul><h5 id="proc/return_inv"><aside class="declaration">proc </aside>return_inv<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L145">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 145"/></a></aside>
+        </h5>
+        <p>Loops through any nested containers inside <code>src</code>, and returns a list of everything inside them.</p>
+<p>Currently checks for storage containers, gifts containing storage containers, and folders.</p><h5 id="proc/show_to"><aside class="declaration">proc </aside>show_to<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/items/weapons/storage/storage.dm#L163">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;weapons&#x2F;storage&#x2F;storage.dm 163"/></a></aside>
+        </h5>
+        <p>Shows <code>user</code> the contents of <code>src</code>, and activates any mouse trap style triggers.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

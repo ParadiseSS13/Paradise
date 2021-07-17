@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;area - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>area <aside>/<a href="area.html">area</a></aside><aside> inherits /<a href="atom.html">atom</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/area/areas.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="area.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="area.html#var/is_haunted">is_haunted</a></th><td>&quot;Haunted&quot; areas such as the morgue and chapel are easier to boo. Because flavor.</td></tr>
+            <tr><th><a href="area.html#var/max_ambience_cooldown">max_ambience_cooldown</a></th><td>Used to decide what the maximum time between ambience is</td></tr>
+            <tr><th><a href="area.html#var/min_ambience_cooldown">min_ambience_cooldown</a></th><td>Used to decide what the minimum time between ambience is</td></tr>
+            <tr><th><a href="area.html#var/sound_environment">sound_environment</a></th><td>Used to decide what kind of reverb the area makes sound have</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="area.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="area.html#proc/ModifyFiredoors">ModifyFiredoors</a></th><td>Try to close all the firedoors in the area</td></tr>
+            <tr><th><a href="area.html#proc/atmosalert">atmosalert</a></th><td>Generate an atmospheric alert for this area</td></tr>
+            <tr><th><a href="area.html#proc/burglaralert">burglaralert</a></th><td>Raise a burglar alert for this area</td></tr>
+            <tr><th><a href="area.html#proc/close_and_lock_door">close_and_lock_door</a></th><td>Close and lock a door passed into this proc</td></tr>
+            <tr><th><a href="area.html#proc/firealert">firealert</a></th><td>Generate a firealarm alert for this area</td></tr>
+            <tr><th><a href="area.html#proc/firereset">firereset</a></th><td>Reset the firealarm alert for this area</td></tr>
+            <tr><th><a href="area.html#proc/power_change">power_change</a></th><td>Called when the area power status changes</td></tr>
+            <tr><th><a href="area.html#proc/poweralert">poweralert</a></th><td>Generate a power alert for this area</td></tr>
+            <tr><th><a href="area.html#proc/process">process</a></th><td>If 100 ticks has elapsed, toggle all the firedoors closed again</td></tr>
+            <tr><th><a href="area.html#proc/set_fire_alarm_effect">set_fire_alarm_effect</a></th><td>Trigger the fire alarm visual affects in an area</td></tr>
+            <tr><th><a href="area.html#proc/unset_fire_alarm_effects">unset_fire_alarm_effects</a></th><td>unset the fire alarm visual affects in an area</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/is_haunted"><aside class="declaration">var </aside>is_haunted
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/area/areas.dm#L69">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 69"/></a></h5>
+        <p>&quot;Haunted&quot; areas such as the morgue and chapel are easier to boo. Because flavor.</p><h5 id="var/max_ambience_cooldown"><aside class="declaration">var </aside>max_ambience_cooldown
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/area/areas.dm#L76">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 76"/></a></h5>
+        <p>Used to decide what the maximum time between ambience is</p><h5 id="var/min_ambience_cooldown"><aside class="declaration">var </aside>min_ambience_cooldown
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/area/areas.dm#L74">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 74"/></a></h5>
+        <p>Used to decide what the minimum time between ambience is</p><h5 id="var/sound_environment"><aside class="declaration">var </aside>sound_environment
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/area/areas.dm#L71">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 71"/></a></h5>
+        <p>Used to decide what kind of reverb the area makes sound have</p><h2 id="proc">Proc Details</h2><h5 id="proc/ModifyFiredoors"><aside class="declaration">proc </aside>ModifyFiredoors<aside>(opening) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/area/areas.dm#L228">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 228"/></a></aside>
+        </h5>
+        <p>Try to close all the firedoors in the area</p><h5 id="proc/atmosalert"><aside class="declaration">proc </aside>atmosalert<aside>(danger_level, /<a href="obj.html">obj</a>/source) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/area/areas.dm#L201">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 201"/></a></aside>
+        </h5>
+        <p>Generate an atmospheric alert for this area</p>
+<p>Sends to all ai players, alert consoles, drones and alarm monitor programs in the world</p><h5 id="proc/burglaralert"><aside class="declaration">proc </aside>burglaralert<aside>(/<a href="obj.html">obj</a>/trigger) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/area/areas.dm#L323">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 323"/></a></aside>
+        </h5>
+        <p>Raise a burglar alert for this area</p>
+<p>Close and locks all doors in the area and alerts silicon mobs of a break in</p>
+<p>Alarm auto resets after 600 ticks</p><h5 id="proc/close_and_lock_door"><aside class="declaration">proc </aside>close_and_lock_door<aside>(/<a href="obj.html">obj</a>/<a href="obj/machinery.html">machinery</a>/<a href="obj/machinery/door.html">door</a>/DOOR) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/area/areas.dm#L310">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 310"/></a></aside>
+        </h5>
+        <p>Close and lock a door passed into this proc</p>
+<p>Does this need to exist on area? probably not</p><h5 id="proc/firealert"><aside class="declaration">proc </aside>firealert<aside>(/<a href="obj.html">obj</a>/source) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/area/areas.dm#L253">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 253"/></a></aside>
+        </h5>
+        <p>Generate a firealarm alert for this area</p>
+<p>Sends to all ai players, alert consoles, drones and alarm monitor programs in the world</p>
+<p>Also starts the area processing on SSobj</p><h5 id="proc/firereset"><aside class="declaration">proc </aside>firereset<aside>(/<a href="obj.html">obj</a>/source) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/area/areas.dm#L281">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 281"/></a></aside>
+        </h5>
+        <p>Reset the firealarm alert for this area</p>
+<p>resets the alert sent to all ai players, alert consoles, drones and alarm monitor programs
+in the world</p>
+<p>Also cycles the icons of all firealarms and deregisters the area from processing on SSOBJ</p><h5 id="proc/power_change"><aside class="declaration">proc </aside>power_change<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/area/areas.dm#L408">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 408"/></a></aside>
+        </h5>
+        <p>Called when the area power status changes</p>
+<p>Updates the area icon, calls power change on all machines in the area, and sends the <code>COMSIG_AREA_POWER_CHANGE</code> signal.</p><h5 id="proc/poweralert"><aside class="declaration">proc </aside>poweralert<aside>(state, /<a href="obj.html">obj</a>/source) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/area/areas.dm#L179">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 179"/></a></aside>
+        </h5>
+        <p>Generate a power alert for this area</p>
+<p>Sends to all ai players, alert consoles, drones and alarm monitor programs in the world</p><h5 id="proc/process">process<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/area/areas.dm#L301">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 301"/></a></aside>
+        </h5>
+        <p>If 100 ticks has elapsed, toggle all the firedoors closed again</p><h5 id="proc/set_fire_alarm_effect"><aside class="declaration">proc </aside>set_fire_alarm_effect<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/area/areas.dm#L342">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 342"/></a></aside>
+        </h5>
+        <p>Trigger the fire alarm visual affects in an area</p>
+<p>Updates the fire light on fire alarms in the area and sets all lights to emergency mode</p><h5 id="proc/unset_fire_alarm_effects"><aside class="declaration">proc </aside>unset_fire_alarm_effects<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/area/areas.dm#L356">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 356"/></a></aside>
+        </h5>
+        <p>unset the fire alarm visual affects in an area</p>
+<p>Updates the fire light on fire alarms in the area and sets all lights to emergency mode</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

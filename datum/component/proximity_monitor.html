@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;component&#x2F;proximity_monitor - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Proximity monitor component <aside>/<a href="datum.html">datum</a>/<a href="datum/component.html">component</a>/<a href="datum/component/proximity_monitor.html">proximity_monitor</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/proximity_monitor.dm#L9">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;proximity_monitor.dm 9"/></a></h1>
+
+<p>Attaching this component to an atom means that the atom will be able to detect mobs/objs moving within a 1 tile of it.</p>
+<p>The component creates several <code>obj/effect/abstract/proximity_checker</code> objects, which follow the parent atom around, always making sure it's at the center.
+When something crosses one of these <code>proximiy_checker</code>s, the parent has the <code>HasProximity()</code> proc called on it, with the crossing mob/obj as the argument.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/component/proximity_monitor.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/component/proximity_monitor.html#var/proximity_checkers">proximity_checkers</a></th><td>A list of currently created <code>/obj/effect/abstract/proximity_checker</code>s in use with this component.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/component/proximity_monitor.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/component/proximity_monitor.html#proc/HandleMove">HandleMove</a></th><td>Called when the <code>parent</code> receives the <code>COMSIG_MOVABLE_MOVED</code> signal, which occurs when it <code>Move()</code>s</td></tr>
+            <tr><th><a href="datum/component/proximity_monitor.html#proc/create_prox_checkers">create_prox_checkers</a></th><td>Called in Initialize(). Generates a set of <code>/obj/effect/abstract/proximity_checker</code> objects around the parent, and registers signals to them.</td></tr>
+            <tr><th><a href="datum/component/proximity_monitor.html#proc/recenter_prox_checkers">recenter_prox_checkers</a></th><td>Re-centers all of the parent's <code>proximity_checker</code>s around its current location.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/proximity_checkers"><aside class="declaration">var </aside>proximity_checkers
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/proximity_monitor.dm#L14">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;proximity_monitor.dm 14"/></a></h5>
+        <p>A list of currently created <code>/obj/effect/abstract/proximity_checker</code>s in use with this component.</p><h2 id="proc">Proc Details</h2><h5 id="proc/HandleMove"><aside class="declaration">proc </aside>HandleMove<aside>(/<a href="datum.html">datum</a>/source, /<a href="atom.html">atom</a>/OldLoc, Dir, forced) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/proximity_monitor.dm#L48">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;proximity_monitor.dm 48"/></a></aside>
+        </h5>
+        <p>Called when the <code>parent</code> receives the <code>COMSIG_MOVABLE_MOVED</code> signal, which occurs when it <code>Move()</code>s</p>
+<p>Code is only ran when there is no <code>Dir</code>, which occurs when the parent is teleported, gets placed into a storage item, dropped, or picked up.
+Normal movement, for example moving 1 tile to the west, is handled by the <code>proximity_checker</code> objects.</p>
+<p>Arguments:</p>
+<ul>
+<li>source - this will be the <code>parent</code></li>
+<li>OldLoc - the location the parent just moved from</li>
+<li>Dir - the direction the parent just moved in</li>
+<li>forced - if we were forced to move</li>
+</ul><h5 id="proc/create_prox_checkers"><aside class="declaration">proc </aside>create_prox_checkers<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/proximity_monitor.dm#L55">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;proximity_monitor.dm 55"/></a></aside>
+        </h5>
+        <p>Called in Initialize(). Generates a set of <code>/obj/effect/abstract/proximity_checker</code> objects around the parent, and registers signals to them.</p><h5 id="proc/recenter_prox_checkers"><aside class="declaration">proc </aside>recenter_prox_checkers<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/proximity_monitor.dm#L66">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;proximity_monitor.dm 66"/></a></aside>
+        </h5>
+        <p>Re-centers all of the parent's <code>proximity_checker</code>s around its current location.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

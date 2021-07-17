@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;controller&#x2F;subsystem&#x2F;tgui - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>tgui <aside>/<a href="datum.html">datum</a>/<a href="datum/controller.html">controller</a>/<a href="datum/controller/subsystem.html">subsystem</a>/<a href="datum/controller/subsystem/tgui.html">tgui</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tgui.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tgui.dm 8"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Procs</h2><a href="datum/controller/subsystem/tgui.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/controller/subsystem/tgui.html#proc/close_all_uis">close_all_uis</a></th><td>private</td></tr>
+            <tr><th><a href="datum/controller/subsystem/tgui.html#proc/close_uis">close_uis</a></th><td>private</td></tr>
+            <tr><th><a href="datum/controller/subsystem/tgui.html#proc/close_user_uis">close_user_uis</a></th><td>private</td></tr>
+            <tr><th><a href="datum/controller/subsystem/tgui.html#proc/get_open_ui">get_open_ui</a></th><td>private</td></tr>
+            <tr><th><a href="datum/controller/subsystem/tgui.html#proc/on_close">on_close</a></th><td>private</td></tr>
+            <tr><th><a href="datum/controller/subsystem/tgui.html#proc/on_logout">on_logout</a></th><td>private</td></tr>
+            <tr><th><a href="datum/controller/subsystem/tgui.html#proc/on_open">on_open</a></th><td>private</td></tr>
+            <tr><th><a href="datum/controller/subsystem/tgui.html#proc/on_transfer">on_transfer</a></th><td>private</td></tr>
+            <tr><th><a href="datum/controller/subsystem/tgui.html#proc/try_update_ui">try_update_ui</a></th><td>public</td></tr>
+            <tr><th><a href="datum/controller/subsystem/tgui.html#proc/update_uis">update_uis</a></th><td>private</td></tr>
+            <tr><th><a href="datum/controller/subsystem/tgui.html#proc/update_user_uis">update_user_uis</a></th><td>private</td></tr></table><h2 id="proc">Proc Details</h2><h5 id="proc/close_all_uis"><aside class="declaration">proc </aside>close_all_uis<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tgui.dm#L145">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tgui.dm 145"/></a></aside>
+        </h5>
+        <p>private</p>
+<p>Close <em>ALL</em> UIs
+Returns the number of UIs closed.</p><h5 id="proc/close_uis"><aside class="declaration">proc </aside>close_uis<aside>(/<a href="datum.html">datum</a>/src_object) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tgui.dm#L124">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tgui.dm 124"/></a></aside>
+        </h5>
+        <p>private</p>
+<p>Close all UIs attached to src_object.
+Returns the number of UIs closed.</p>
+<ul>
+<li>datum/src_objectThe object/datum which owns the UIs.</li>
+</ul><h5 id="proc/close_user_uis"><aside class="declaration">proc </aside>close_user_uis<aside>(/<a href="mob.html">mob</a>/user, /<a href="datum.html">datum</a>/src_object, ui_key) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tgui.dm#L186">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tgui.dm 186"/></a></aside>
+        </h5>
+        <p>private</p>
+<p>Close all UIs belonging to a user.
+Returns the number of UIs closed.</p>
+<ul>
+<li>mob/user - The mob who opened/is using the UI. (REQUIRED)</li>
+<li>datum/src_object - If provided, only close UIs belonging this src_object. (OPTIONAL)</li>
+<li>ui_key - If provided, only close UIs with this UI key. (OPTIONAL)</li>
+</ul><h5 id="proc/get_open_ui"><aside class="declaration">proc </aside>get_open_ui<aside>(/<a href="mob.html">mob</a>/user, /<a href="datum.html">datum</a>/src_object, ui_key) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tgui.dm#L82">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tgui.dm 82"/></a></aside>
+        </h5>
+        <p>private</p>
+<p>Get an open UI given a user, src_object, and ui_key.
+Returns the found UI.</p>
+<ul>
+<li>mob/user - The mob who opened/is using the UI. (REQUIRED)</li>
+<li>datum/src_object - The object/datum which owns the UI. (REQUIRED)</li>
+<li>ui_key - The ui_key of the UI. (REQUIRED)</li>
+</ul><h5 id="proc/on_close"><aside class="declaration">proc </aside>on_close<aside>(/<a href="datum.html">datum</a>/<a href="datum/tgui.html">tgui</a>/ui) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tgui.dm#L225">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tgui.dm 225"/></a></aside>
+        </h5>
+        <p>private</p>
+<p>Remove a UI from the list of open UIs.
+Returns TRUE if removed, and FALSE if not.</p>
+<ul>
+<li>datum/tgui/ui - The UI to be removed.</li>
+</ul><h5 id="proc/on_logout"><aside class="declaration">proc </aside>on_logout<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tgui.dm#L254">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tgui.dm 254"/></a></aside>
+        </h5>
+        <p>private</p>
+<p>Handle client logout, by closing all their UIs.
+Returns the number of UIs closed.</p>
+<ul>
+<li>mob/user - The mob which logged out.</li>
+</ul><h5 id="proc/on_open"><aside class="declaration">proc </aside>on_open<aside>(/<a href="datum.html">datum</a>/<a href="datum/tgui.html">tgui</a>/ui) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tgui.dm#L204">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tgui.dm 204"/></a></aside>
+        </h5>
+        <p>private</p>
+<p>Add a UI to the list of open UIs.</p>
+<ul>
+<li>datum/tgui/ui - The UI to be added.</li>
+</ul><h5 id="proc/on_transfer"><aside class="declaration">proc </aside>on_transfer<aside>(/<a href="mob.html">mob</a>/source, /<a href="mob.html">mob</a>/target) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tgui.dm#L266">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tgui.dm 266"/></a></aside>
+        </h5>
+        <p>private</p>
+<p>Handle clients switching mobs, by transferring their UIs.
+Returns TRUE if the UIs were transferred, and FALSE if not.</p>
+<ul>
+<li>mob/source - The client's original mob.</li>
+<li>mob/target - The client's new mob.</li>
+</ul><h5 id="proc/try_update_ui"><aside class="declaration">proc </aside>try_update_ui<aside>(/<a href="mob.html">mob</a>/user, /<a href="datum.html">datum</a>/src_object, ui_key, /<a href="datum.html">datum</a>/<a href="datum/tgui.html">tgui</a>/ui, force_open) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tgui.dm#L58">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tgui.dm 58"/></a></aside>
+        </h5>
+        <p>public</p>
+<p>Get an open UI given a user, src_object, and ui_key and try to update it with data.
+Returns the found UI.</p>
+<ul>
+<li>mob/user - The mob who opened/is using the UI. (REQUIRED)</li>
+<li>datum/src_object - The object/datum which owns the UI. (REQUIRED)</li>
+<li>ui_key - The ui_key of the UI. (REQUIRED)</li>
+<li>datum/tgui/ui - The UI to be updated, if it exists. (OPTIONAL)</li>
+<li>force_open - If the UI should be re-opened instead of updated. (OPTIONAL)</li>
+</ul><h5 id="proc/update_uis"><aside class="declaration">proc </aside>update_uis<aside>(/<a href="datum.html">datum</a>/src_object) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tgui.dm#L103">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tgui.dm 103"/></a></aside>
+        </h5>
+        <p>private</p>
+<p>Update all UIs attached to src_object.
+Returns the number of UIs updated.</p>
+<ul>
+<li>datum/src_object - The object/datum which owns the UIs.</li>
+</ul><h5 id="proc/update_user_uis"><aside class="declaration">proc </aside>update_user_uis<aside>(/<a href="mob.html">mob</a>/user, /<a href="datum.html">datum</a>/src_object, ui_key) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/controllers/subsystem/tgui.dm#L165">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tgui.dm 165"/></a></aside>
+        </h5>
+        <p>private</p>
+<p>Update all UIs belonging to a user.
+Returns the number of UIs updated.</p>
+<ul>
+<li>mob/user - The mob who opened/is using the UI. (REQUIRED)</li>
+<li>datum/src_object - If provided, only update UIs belonging this src_object. (OPTIONAL)</li>
+<li>ui_key - If provided, only update UIs with this UI key. (OPTIONAL)</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

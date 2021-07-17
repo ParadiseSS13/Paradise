@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;species - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>species <aside>/<a href="datum.html">datum</a>/<a href="datum/species.html">species</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/autohiss.dm#L26">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;autohiss.dm 26"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/species.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/species.html#var/armor">armor</a></th><td>Percentage modifier for overall defense of the race, or less defense, if it's negative.</td></tr>
+            <tr><th><a href="datum/species.html#var/inherent_biotypes">inherent_biotypes</a></th><td>bitfield of biotypes the mob belongs to.</td></tr>
+            <tr><th><a href="datum/species.html#var/inherent_traits">inherent_traits</a></th><td>Generic traits tied to having the species.</td></tr>
+            <tr><th><a href="datum/species.html#var/special_step_sounds">special_step_sounds</a></th><td>Sounds to override barefeet walking</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/species.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/species.html#proc/get_species_runechat_color">get_species_runechat_color</a></th><td>Species-specific runechat colour handler</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/armor"><aside class="declaration">var </aside>armor
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/carbon/human/species/_species.dm#L54">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;human&#x2F;species&#x2F;_species.dm 54"/></a></h5>
+        <p>Percentage modifier for overall defense of the race, or less defense, if it's negative.</p><h5 id="var/inherent_biotypes"><aside class="declaration">var </aside>inherent_biotypes
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/carbon/human/species/_species.dm#L91">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;human&#x2F;species&#x2F;_species.dm 91"/></a></h5>
+        <p>bitfield of biotypes the mob belongs to.</p><h5 id="var/inherent_traits"><aside class="declaration">var </aside>inherent_traits
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/carbon/human/species/_species.dm#L71">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;human&#x2F;species&#x2F;_species.dm 71"/></a></h5>
+        <p>Generic traits tied to having the species.</p><h5 id="var/special_step_sounds"><aside class="declaration">var </aside>special_step_sounds
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/carbon/human/species/_species.dm#L65">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;human&#x2F;species&#x2F;_species.dm 65"/></a></h5>
+        <p>Sounds to override barefeet walking</p><h2 id="proc">Proc Details</h2><h5 id="proc/get_species_runechat_color"><aside class="declaration">proc </aside>get_species_runechat_color<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/H) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/carbon/human/species/_species.dm#L946">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;human&#x2F;species&#x2F;_species.dm 946"/></a></aside>
+        </h5>
+        <p>Species-specific runechat colour handler</p>
+<p>Checks the species datum flags and returns the appropriate colour
+Can be overridden on subtypes to short-circuit these checks (Example: Grey colour is eye colour)
+Arguments:</p>
+<ul>
+<li>H - The human who this DNA belongs to</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;item&#x2F;robot_module - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>robot_module <aside>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/robot_module.html">robot_module</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/item/robot_module.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/item/robot_module.html#var/basic_modules">basic_modules</a></th><td>A list of module-specific, non-emag modules the borg will gain when this module is chosen.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#var/channels">channels</a></th><td>Radio channels the module owner has access to.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#var/custom_removals">custom_removals</a></th><td>Special items that are able to be removed from the robot owner via crowbar.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#var/emag_modules">emag_modules</a></th><td>A list of modules the robot gets when emagged.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#var/module_actions">module_actions</a></th><td>Special actions this module will gain when chosen such as meson vision, or thermal vision.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#var/module_type">module_type</a></th><td>For icon usage.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#var/modules">modules</a></th><td>A list of all currently usable and created modules the robot currently has access too.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#var/special_rechargables">special_rechargables</a></th><td>A list of modules that require special recharge handling. Examples include things like flashes, sprays and welding tools.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#var/storages">storages</a></th><td>A list of all &quot;energy stacks&quot;, i.e metal, glass, brute kits, splints, etc.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#var/subsystems">subsystems</a></th><td>Available tools given in the verb tab such as a crew monitor, or power monitor.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/item/robot_module.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/item/robot_module.html#proc/add_languages">add_languages</a></th><td>Adds all of the languages this module is suppose to know and/or speak.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#proc/add_module">add_module</a></th><td>Adds the item <code>I</code> to our <code>modules</code> list, and sets up an <code>/datum/robot_energy_storage</code> if its a stack.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#proc/add_subsystems_and_actions">add_subsystems_and_actions</a></th><td>Adds anything in <code>subsystems</code> to the robot's verbs, and grants any actions that are in <code>module_actions</code>.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#proc/get_or_create_estorage">get_or_create_estorage</a></th><td>Returns a <code>robot_energy_strage</code> datum of type <code>storage_type</code>. If one already exists, it returns that one, otherwise it create a new one.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#proc/rebuild_modules">rebuild_modules</a></th><td>Builds the usable module list from the modules we have in <code>basic_modules</code> and <code>emag_modules</code></td></tr>
+            <tr><th><a href="obj/item/robot_module.html#proc/recharge_consumables">recharge_consumables</a></th><td>Handles the recharging of all borg stack items and any items which are in the <code>special_rechargables</code> list.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#proc/remove_item_from_lists">remove_item_from_lists</a></th><td>Searches through the various module lists for the given <code>item_type</code>, deletes and removes the item from all supplied lists, if the item is found.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#proc/remove_subsystems_and_actions">remove_subsystems_and_actions</a></th><td>Removes any verbs from the robot that are in <code>subsystems</code>, and removes any actions that are in <code>module_actions</code>.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#proc/unemag">unemag</a></th><td>Called when the robot owner of this module has the <code>unemag()</code> proc called on them, which is only via admin means.</td></tr>
+            <tr><th><a href="obj/item/robot_module.html#proc/update_cells">update_cells</a></th><td>Called when the robot owner of this module has their power cell replaced.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/basic_modules"><aside class="declaration">var </aside>basic_modules
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 12"/></a></h5>
+        <p>A list of module-specific, non-emag modules the borg will gain when this module is chosen.</p><h5 id="var/channels"><aside class="declaration">var </aside>channels
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L24">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 24"/></a></h5>
+        <p>Radio channels the module owner has access to.</p><h5 id="var/custom_removals"><aside class="declaration">var </aside>custom_removals
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L26">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 26"/></a></h5>
+        <p>Special items that are able to be removed from the robot owner via crowbar.</p><h5 id="var/emag_modules"><aside class="declaration">var </aside>emag_modules
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L14">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 14"/></a></h5>
+        <p>A list of modules the robot gets when emagged.</p><h5 id="var/module_actions"><aside class="declaration">var </aside>module_actions
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 20"/></a></h5>
+        <p>Special actions this module will gain when chosen such as meson vision, or thermal vision.</p><h5 id="var/module_type"><aside class="declaration">var </aside>module_type
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L28">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 28"/></a></h5>
+        <p>For icon usage.</p><h5 id="var/modules"><aside class="declaration">var </aside>modules
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L10">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 10"/></a></h5>
+        <p>A list of all currently usable and created modules the robot currently has access too.</p><h5 id="var/special_rechargables"><aside class="declaration">var </aside>special_rechargables
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L16">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 16"/></a></h5>
+        <p>A list of modules that require special recharge handling. Examples include things like flashes, sprays and welding tools.</p><h5 id="var/storages"><aside class="declaration">var </aside>storages
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 18"/></a></h5>
+        <p>A list of all &quot;energy stacks&quot;, i.e metal, glass, brute kits, splints, etc.</p><h5 id="var/subsystems"><aside class="declaration">var </aside>subsystems
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L22">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 22"/></a></h5>
+        <p>Available tools given in the verb tab such as a crew monitor, or power monitor.</p><h2 id="proc">Proc Details</h2><h5 id="proc/add_languages"><aside class="declaration">proc </aside>add_languages<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/silicon.html">silicon</a>/<a href="mob/living/silicon/robot.html">robot</a>/R) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L226">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 226"/></a></aside>
+        </h5>
+        <p>Adds all of the languages this module is suppose to know and/or speak.</p>
+<p>Arugments:</p>
+<ul>
+<li>R - the owner of this module.</li>
+</ul><h5 id="proc/add_module"><aside class="declaration">proc </aside>add_module<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/I, requires_rebuild) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L130">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 130"/></a></aside>
+        </h5>
+        <p>Adds the item <code>I</code> to our <code>modules</code> list, and sets up an <code>/datum/robot_energy_storage</code> if its a stack.</p>
+<p>Arugments:</p>
+<ul>
+<li>I - the item to add to our modules.</li>
+<li>requires_rebuild - if adding this item requires <code>rebuild_modules()</code> to be called.</li>
+</ul><h5 id="proc/add_subsystems_and_actions"><aside class="declaration">proc </aside>add_subsystems_and_actions<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/silicon.html">silicon</a>/<a href="mob/living/silicon/robot.html">robot</a>/R) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L246">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 246"/></a></aside>
+        </h5>
+        <p>Adds anything in <code>subsystems</code> to the robot's verbs, and grants any actions that are in <code>module_actions</code>.</p><h5 id="proc/get_or_create_estorage"><aside class="declaration">proc </aside>get_or_create_estorage<aside>(storage_type) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L116">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 116"/></a></aside>
+        </h5>
+        <p>Returns a <code>robot_energy_strage</code> datum of type <code>storage_type</code>. If one already exists, it returns that one, otherwise it create a new one.</p>
+<p>Arguments:</p>
+<ul>
+<li>storage_type - the subtype of <code>datum/robot_energy_storage</code> to fetch or create.</li>
+</ul><h5 id="proc/rebuild_modules"><aside class="declaration">proc </aside>rebuild_modules<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L160">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 160"/></a></aside>
+        </h5>
+        <p>Builds the usable module list from the modules we have in <code>basic_modules</code> and <code>emag_modules</code></p><h5 id="proc/recharge_consumables"><aside class="declaration">proc </aside>recharge_consumables<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/silicon.html">silicon</a>/<a href="mob/living/silicon/robot.html">robot</a>/R, coeff) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L183">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 183"/></a></aside>
+        </h5>
+        <p>Handles the recharging of all borg stack items and any items which are in the <code>special_rechargables</code> list.</p>
+<p>Arguments:</p>
+<ul>
+<li>R - the owner of this module.</li>
+<li>coeff - a coefficient which can be used to modify the recharge rate of consumables.</li>
+</ul><h5 id="proc/remove_item_from_lists"><aside class="declaration">proc </aside>remove_item_from_lists<aside>(item_or_item_type) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L87">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 87"/></a></aside>
+        </h5>
+        <p>Searches through the various module lists for the given <code>item_type</code>, deletes and removes the item from all supplied lists, if the item is found.</p>
+<p>NOTE: be careful with using this proc, as it irreversibly removes entries from a borg's module list.
+This is safe to do with upgrades because the only way to revert upgrades currently is either to rebuild the borg or use a reset module, which allows the lists to regenerate.</p>
+<p>Arugments:</p>
+<ul>
+<li>item_type - the type of item to search for. Also accepts objects themselves.</li>
+</ul><h5 id="proc/remove_subsystems_and_actions"><aside class="declaration">proc </aside>remove_subsystems_and_actions<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/silicon.html">silicon</a>/<a href="mob/living/silicon/robot.html">robot</a>/R) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L254">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 254"/></a></aside>
+        </h5>
+        <p>Removes any verbs from the robot that are in <code>subsystems</code>, and removes any actions that are in <code>module_actions</code>.</p><h5 id="proc/unemag">unemag<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L206">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 206"/></a></aside>
+        </h5>
+        <p>Called when the robot owner of this module has the <code>unemag()</code> proc called on them, which is only via admin means.</p>
+<p>Deletes this module's emag items, and recreates them.</p><h5 id="proc/update_cells"><aside class="declaration">proc </aside>update_cells<aside>(unlink_cell) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L198">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 198"/></a></aside>
+        </h5>
+        <p>Called when the robot owner of this module has their power cell replaced.</p>
+<p>Changes the linked power cell for module items to the newly inserted cell, or to <code>null</code>.
+Arguments:</p>
+<ul>
+<li>unlink_cell - If TRUE, set the item's power cell variable to <code>null</code> rather than linking it to a new one.</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

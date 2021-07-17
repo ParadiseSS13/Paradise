@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;robot_energy_storage - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>robot_energy_storage <aside>/<a href="datum.html">datum</a>/<a href="datum/robot_energy_storage.html">robot_energy_storage</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L759">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 759"/></a></h1>
+
+<pre><code># The robot_energy_storage datum
+</code></pre>
+<p>Used to handle robot stack items, such as metal, wood, nanopaste, etc.</p>
+<pre><code>To make things simple, the default `cost` of using 1 item from a borg stack, is 1.
+So then for example, when we have a `max_energy` of 50, the borg can use 50 of that item before it runs out.
+
+The `recharge_rate` will be affected by the charge rate of a borg recharger, depending on the level of parts. By default it is 1.
+This amount will be given every 2 seconds. So at round start, rechargers will give 1 energy back every 2 seconds, to each stack the borg has.
+</code></pre><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/robot_energy_storage.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/robot_energy_storage.html#var/energy">energy</a></th><td>Current amount of energy.</td></tr>
+            <tr><th><a href="datum/robot_energy_storage.html#var/max_energy">max_energy</a></th><td>The max amount of energy the stack can hold at once.</td></tr>
+            <tr><th><a href="datum/robot_energy_storage.html#var/name">name</a></th><td>The name of the energy storage.</td></tr>
+            <tr><th><a href="datum/robot_energy_storage.html#var/recharge_rate">recharge_rate</a></th><td>The amount of energy the stack will regain while charging.</td></tr>
+            <tr><th><a href="datum/robot_energy_storage.html#var/statpanel_name">statpanel_name</a></th><td>The name that will be displayed in the status panel.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/robot_energy_storage.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/robot_energy_storage.html#proc/add_charge">add_charge</a></th><td>Called whenever the cyborg is recharging and gains charge on its stack, or when clicking on other same-type stacks in the world.</td></tr>
+            <tr><th><a href="datum/robot_energy_storage.html#proc/use_charge">use_charge</a></th><td>Called whenever the cyborg uses one of its stacks. Subtract the amount used from this datum's <code>energy</code> variable.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/energy"><aside class="declaration">var </aside>energy
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L771">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 771"/></a></h5>
+        <p>Current amount of energy.</p><h5 id="var/max_energy"><aside class="declaration">var </aside>max_energy
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L765">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 765"/></a></h5>
+        <p>The max amount of energy the stack can hold at once.</p><h5 id="var/name"><aside class="declaration">var </aside>name
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L761">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 761"/></a></h5>
+        <p>The name of the energy storage.</p><h5 id="var/recharge_rate"><aside class="declaration">var </aside>recharge_rate
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L767">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 767"/></a></h5>
+        <p>The amount of energy the stack will regain while charging.</p><h5 id="var/statpanel_name"><aside class="declaration">var </aside>statpanel_name
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L763">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 763"/></a></h5>
+        <p>The name that will be displayed in the status panel.</p><h2 id="proc">Proc Details</h2><h5 id="proc/add_charge"><aside class="declaration">proc </aside>add_charge<aside>(amount) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L796">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 796"/></a></aside>
+        </h5>
+        <p>Called whenever the cyborg is recharging and gains charge on its stack, or when clicking on other same-type stacks in the world.</p>
+<p>Arguments:</p>
+<ul>
+<li>amount - the number to add to the <code>energy</code> var.</li>
+</ul><h5 id="proc/use_charge"><aside class="declaration">proc </aside>use_charge<aside>(amount) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/silicon/robot/robot_modules.dm#L783">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 783"/></a></aside>
+        </h5>
+        <p>Called whenever the cyborg uses one of its stacks. Subtract the amount used from this datum's <code>energy</code> variable.</p>
+<p>Arguments:</p>
+<ul>
+<li>amount - the number to subtract from the <code>energy</code> var.</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

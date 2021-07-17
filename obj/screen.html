@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;screen - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>screen <aside>/<a href="obj.html">obj</a>/<a href="obj/screen.html">screen</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_onclick/hud/map_popups.dm#L10">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;map_popups.dm 10"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/screen.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/screen.html#var/assigned_map">assigned_map</a></th><td>Map name assigned to this object.
+Automatically set by /client/proc/add_obj_to_map.</td></tr>
+            <tr><th><a href="obj/screen.html#var/del_on_map_removal">del_on_map_removal</a></th><td>Mark this object as garbage-collectible after you clean the map
+it was registered on.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/screen.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/screen.html#proc/fill_rect">fill_rect</a></th><td>Sets screen_loc to fill a rectangular area of the map.</td></tr>
+            <tr><th><a href="obj/screen.html#proc/set_position">set_position</a></th><td>Sets screen_loc of this screen object, in form of point coordinates,
+with optional pixel offset (px, py).</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/assigned_map"><aside class="declaration">var </aside>assigned_map
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_onclick/hud/map_popups.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;map_popups.dm 15"/></a></h5>
+        <p>Map name assigned to this object.
+Automatically set by /client/proc/add_obj_to_map.</p><h5 id="var/del_on_map_removal"><aside class="declaration">var </aside>del_on_map_removal
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_onclick/hud/map_popups.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;map_popups.dm 23"/></a></h5>
+        <p>Mark this object as garbage-collectible after you clean the map
+it was registered on.</p>
+<p>This could probably be changed to be a proc, for conditional removal.
+But for now, this works.</p><h2 id="proc">Proc Details</h2><h5 id="proc/fill_rect"><aside class="declaration">proc </aside>fill_rect<aside>(x1, y1, x2, y2) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_onclick/hud/map_popups.dm#L63">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;map_popups.dm 63"/></a></aside>
+        </h5>
+        <p>Sets screen_loc to fill a rectangular area of the map.</p>
+<p>If applicable, &quot;assigned_map&quot; has to be assigned before this proc call.</p><h5 id="proc/set_position"><aside class="declaration">proc </aside>set_position<aside>(x, y, px, py) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/_onclick/hud/map_popups.dm#L52">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;map_popups.dm 52"/></a></aside>
+        </h5>
+        <p>Sets screen_loc of this screen object, in form of point coordinates,
+with optional pixel offset (px, py).</p>
+<p>If applicable, &quot;assigned_map&quot; has to be assigned before this proc call.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

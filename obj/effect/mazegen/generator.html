@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;effect&#x2F;mazegen&#x2F;generator - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>generator <aside>/<a href="obj.html">obj</a>/<a href="obj/effect/mazegen/generator.html">effect/mazegen/generator</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/maze_generation/maze_generator.dm#L26">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;maze_generation&#x2F;maze_generator.dm 26"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/effect/mazegen/generator.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/effect/mazegen/generator.html#var/helper_modules">helper_modules</a></th><td>List of all helper modules being used in this maze</td></tr>
+            <tr><th><a href="obj/effect/mazegen/generator.html#var/loot_modules">loot_modules</a></th><td>List of all loot modules being used in this maze</td></tr>
+            <tr><th><a href="obj/effect/mazegen/generator.html#var/mheight">mheight</a></th><td>Maze height</td></tr>
+            <tr><th><a href="obj/effect/mazegen/generator.html#var/mwidth">mwidth</a></th><td>Maze width</td></tr>
+            <tr><th><a href="obj/effect/mazegen/generator.html#var/potential_loot_spots">potential_loot_spots</a></th><td>Potential loot spots</td></tr>
+            <tr><th><a href="obj/effect/mazegen/generator.html#var/turf_list">turf_list</a></th><td>List of turfs to iterate in total</td></tr>
+            <tr><th><a href="obj/effect/mazegen/generator.html#var/working_stack">working_stack</a></th><td>&quot;Stack&quot; structure to be used while iterating</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/helper_modules"><aside class="declaration">var </aside>helper_modules
+            <aside>&ndash; /list/obj/effect/mazegen/module_helper</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/maze_generation/maze_generator.dm#L35">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;maze_generation&#x2F;maze_generator.dm 35"/></a></h5>
+        <p>List of all helper modules being used in this maze</p><h5 id="var/loot_modules"><aside class="declaration">var </aside>loot_modules
+            <aside>&ndash; /list/obj/effect/mazegen/module_loot</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/maze_generation/maze_generator.dm#L33">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;maze_generation&#x2F;maze_generator.dm 33"/></a></h5>
+        <p>List of all loot modules being used in this maze</p><h5 id="var/mheight"><aside class="declaration">var </aside>mheight
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/maze_generation/maze_generator.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;maze_generation&#x2F;maze_generator.dm 41"/></a></h5>
+        <p>Maze height</p><h5 id="var/mwidth"><aside class="declaration">var </aside>mwidth
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/maze_generation/maze_generator.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;maze_generation&#x2F;maze_generator.dm 39"/></a></h5>
+        <p>Maze width</p><h5 id="var/potential_loot_spots"><aside class="declaration">var </aside>potential_loot_spots
+            <aside>&ndash; /list/turf</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/maze_generation/maze_generator.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;maze_generation&#x2F;maze_generator.dm 37"/></a></h5>
+        <p>Potential loot spots</p><h5 id="var/turf_list"><aside class="declaration">var </aside>turf_list
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/maze_generation/maze_generator.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;maze_generation&#x2F;maze_generator.dm 29"/></a></h5>
+        <p>List of turfs to iterate in total</p><h5 id="var/working_stack"><aside class="declaration">var </aside>working_stack
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/maze_generation/maze_generator.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;maze_generation&#x2F;maze_generator.dm 31"/></a></h5>
+        <p>&quot;Stack&quot; structure to be used while iterating</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

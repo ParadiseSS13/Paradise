@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;machinery&#x2F;light - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Light fixture <aside>/<a href="obj.html">obj</a>/<a href="obj/machinery.html">machinery</a>/<a href="obj/machinery/light.html">light</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L161">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 161"/></a></h1>
+
+<p>The standard light tube fixture</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/machinery/light.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/brightness_color">brightness_color</a></th><td>Light colour when on</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/brightness_power">brightness_power</a></th><td>Light intensity</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/brightness_range">brightness_range</a></th><td>Light range (Also used in power calculation)</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/bulb_emergency_colour">bulb_emergency_colour</a></th><td>The colour of the light while it's in emergency mode</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/fitting">fitting</a></th><td>Type of light bulb that goes into the fixture</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/flickering">flickering</a></th><td>Is the light currently flickering?</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/light_type">light_type</a></th><td>Item type of the light bulb</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/lightmaterials">lightmaterials</a></th><td>Materials the light is made of</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/nightshift_allowed">nightshift_allowed</a></th><td>Allowed to be switched to night shift mode?</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/nightshift_enabled">nightshift_enabled</a></th><td>Currently in night shift mode?</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/nightshift_light_color">nightshift_light_color</a></th><td>The colour of the light while it's in night shift mode</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/nightshift_light_power">nightshift_light_power</a></th><td>Light intensity when in night shift mode</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/nightshift_light_range">nightshift_light_range</a></th><td>Light range when in night shift mode</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/on">on</a></th><td>Is the light on or off?</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/power_state">power_state</a></th><td>If the light state has changed since the last 'update()', also update the power requirements</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/rigged">rigged</a></th><td>Is the light rigged to explode?</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/static_power_used">static_power_used</a></th><td>How much power does it use?</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/status">status</a></th><td>Light fixture status (LIGHT_OK | LIGHT_EMPTY | LIGHT_BURNED | LIGHT_BROKEN)</td></tr>
+            <tr><th><a href="obj/machinery/light.html#var/switchcount">switchcount</a></th><td>How many times has the light been switched on/off? (This is used to calc the probability the light burns out)</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/machinery/light.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/machinery/light.html#proc/flicker_event">flicker_event</a></th><td>Flicker routine for the light.
+Called by invoke_async so the parent proc can return immediately.</td></tr>
+            <tr><th><a href="obj/machinery/light.html#proc/update">update</a></th><td>Updates the light's properties</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/brightness_color"><aside class="declaration">var </aside>brightness_color
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L185">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 185"/></a></h5>
+        <p>Light colour when on</p><h5 id="var/brightness_power"><aside class="declaration">var </aside>brightness_power
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L183">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 183"/></a></h5>
+        <p>Light intensity</p><h5 id="var/brightness_range"><aside class="declaration">var </aside>brightness_range
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L181">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 181"/></a></h5>
+        <p>Light range (Also used in power calculation)</p><h5 id="var/bulb_emergency_colour"><aside class="declaration">var </aside>bulb_emergency_colour
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L213">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 213"/></a></h5>
+        <p>The colour of the light while it's in emergency mode</p><h5 id="var/fitting"><aside class="declaration">var </aside>fitting
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L194">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 194"/></a></h5>
+        <p>Type of light bulb that goes into the fixture</p><h5 id="var/flickering"><aside class="declaration">var </aside>flickering
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L189">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 189"/></a></h5>
+        <p>Is the light currently flickering?</p><h5 id="var/light_type"><aside class="declaration">var </aside>light_type
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L192">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 192"/></a></h5>
+        <p>Item type of the light bulb</p><h5 id="var/lightmaterials"><aside class="declaration">var </aside>lightmaterials
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L200">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 200"/></a></h5>
+        <p>Materials the light is made of</p><h5 id="var/nightshift_allowed"><aside class="declaration">var </aside>nightshift_allowed
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L205">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 205"/></a></h5>
+        <p>Allowed to be switched to night shift mode?</p><h5 id="var/nightshift_enabled"><aside class="declaration">var </aside>nightshift_enabled
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L203">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 203"/></a></h5>
+        <p>Currently in night shift mode?</p><h5 id="var/nightshift_light_color"><aside class="declaration">var </aside>nightshift_light_color
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L211">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 211"/></a></h5>
+        <p>The colour of the light while it's in night shift mode</p><h5 id="var/nightshift_light_power"><aside class="declaration">var </aside>nightshift_light_power
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L209">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 209"/></a></h5>
+        <p>Light intensity when in night shift mode</p><h5 id="var/nightshift_light_range"><aside class="declaration">var </aside>nightshift_light_range
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L207">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 207"/></a></h5>
+        <p>Light range when in night shift mode</p><h5 id="var/on"><aside class="declaration">var </aside>on
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L175">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 175"/></a></h5>
+        <p>Is the light on or off?</p><h5 id="var/power_state"><aside class="declaration">var </aside>power_state
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L177">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 177"/></a></h5>
+        <p>If the light state has changed since the last 'update()', also update the power requirements</p><h5 id="var/rigged"><aside class="declaration">var </aside>rigged
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L198">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 198"/></a></h5>
+        <p>Is the light rigged to explode?</p><h5 id="var/static_power_used"><aside class="declaration">var </aside>static_power_used
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L179">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 179"/></a></h5>
+        <p>How much power does it use?</p><h5 id="var/status"><aside class="declaration">var </aside>status
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L187">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 187"/></a></h5>
+        <p>Light fixture status (LIGHT_OK | LIGHT_EMPTY | LIGHT_BURNED | LIGHT_BROKEN)</p><h5 id="var/switchcount"><aside class="declaration">var </aside>switchcount
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L196">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 196"/></a></h5>
+        <p>How many times has the light been switched on/off? (This is used to calc the probability the light burns out)</p><h2 id="proc">Proc Details</h2><h5 id="proc/flicker_event"><aside class="declaration">proc </aside>flicker_event<aside>(amount) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L535">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 535"/></a></aside>
+        </h5>
+        <p>Flicker routine for the light.
+Called by invoke_async so the parent proc can return immediately.</p><h5 id="proc/update"><aside class="declaration">proc </aside>update<aside>(trigger) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/lighting.dm#L300">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;lighting.dm 300"/></a></aside>
+        </h5>
+        <p>Updates the light's properties</p>
+<p>Updates the icon_state, luminosity, colour, and power usage of the light.
+Also handles rigged light bulbs exploding.
+Arguments:</p>
+<ul>
+<li>trigger - Should this update make the light explode/burn out? (Defaults to TRUE)</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

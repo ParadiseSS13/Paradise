@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;world_topic_spam_prevention_handler - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>world_topic_spam_prevention_handler <aside>/<a href="datum.html">datum</a>/<a href="datum/world_topic_spam_prevention_handler.html">world_topic_spam_prevention_handler</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/world_topic/_spam_prevention_handler.dm#L4">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;world_topic&#x2F;_spam_prevention_handler.dm 4"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/world_topic_spam_prevention_handler.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/world_topic_spam_prevention_handler.html#var/last_request">last_request</a></th><td>Time of last request</td></tr>
+            <tr><th><a href="datum/world_topic_spam_prevention_handler.html#var/locked_out">locked_out</a></th><td>Is this IP currently locked out</td></tr>
+            <tr><th><a href="datum/world_topic_spam_prevention_handler.html#var/strikes">strikes</a></th><td>Amount of strikes. [WORLD_TOPIC_STRIKES_THRESHOLD] strikes is a lockout of [WORLD_TOPIC_LOCKOUT_TIME]</td></tr>
+            <tr><th><a href="datum/world_topic_spam_prevention_handler.html#var/unlock_time">unlock_time</a></th><td>Unlock time</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/world_topic_spam_prevention_handler.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/world_topic_spam_prevention_handler.html#proc/check_lockout">check_lockout</a></th><td>Lockout handler</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/last_request"><aside class="declaration">var </aside>last_request
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/world_topic/_spam_prevention_handler.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;world_topic&#x2F;_spam_prevention_handler.dm 8"/></a></h5>
+        <p>Time of last request</p><h5 id="var/locked_out"><aside class="declaration">var </aside>locked_out
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/world_topic/_spam_prevention_handler.dm#L10">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;world_topic&#x2F;_spam_prevention_handler.dm 10"/></a></h5>
+        <p>Is this IP currently locked out</p><h5 id="var/strikes"><aside class="declaration">var </aside>strikes
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/world_topic/_spam_prevention_handler.dm#L6">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;world_topic&#x2F;_spam_prevention_handler.dm 6"/></a></h5>
+        <p>Amount of strikes. [WORLD_TOPIC_STRIKES_THRESHOLD] strikes is a lockout of [WORLD_TOPIC_LOCKOUT_TIME]</p><h5 id="var/unlock_time"><aside class="declaration">var </aside>unlock_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/world_topic/_spam_prevention_handler.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;world_topic&#x2F;_spam_prevention_handler.dm 12"/></a></h5>
+        <p>Unlock time</p><h2 id="proc">Proc Details</h2><h5 id="proc/check_lockout"><aside class="declaration">proc </aside>check_lockout<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/world_topic/_spam_prevention_handler.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;world_topic&#x2F;_spam_prevention_handler.dm 20"/></a></aside>
+        </h5>
+        <p>Lockout handler</p>
+<p>Updates strikes and timers of the most recent client to topic the server
+including any relevant detail</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

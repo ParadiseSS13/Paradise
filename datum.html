@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>datum <aside>/<a href="datum.html">datum</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/datum.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;datum.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum.html#var/status_traits">status_traits</a></th><td>Status traits attached to this datum</td></tr>
+            <tr><th><a href="datum.html#var/tgui_shared_states">tgui_shared_states</a></th><td>global</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum.html#proc/CanProcCall">CanProcCall</a></th><td>Proc to check if a datum allows proc calls on it</td></tr>
+            <tr><th><a href="datum.html#proc/GetComponent">GetComponent</a></th><td>Return any component assigned to this datum of the given type</td></tr>
+            <tr><th><a href="datum.html#proc/GetComponents">GetComponents</a></th><td>Get all components of a given type that are attached to this datum</td></tr>
+            <tr><th><a href="datum.html#proc/GetExactComponent">GetExactComponent</a></th><td>Return any component assigned to this datum of the exact given type</td></tr>
+            <tr><th><a href="datum.html#proc/LoadComponent">LoadComponent</a></th><td>Get existing component of type, or create it and return a reference to it</td></tr>
+            <tr><th><a href="datum.html#proc/RegisterSignal">RegisterSignal</a></th><td>Register to listen for a signal from the passed in target</td></tr>
+            <tr><th><a href="datum.html#proc/TakeComponent">TakeComponent</a></th><td>Transfer this component to another parent</td></tr>
+            <tr><th><a href="datum.html#proc/TransferComponents">TransferComponents</a></th><td>Transfer all components to target</td></tr>
+            <tr><th><a href="datum.html#proc/UID">UID</a></th><td>Gets or creates the UID of a datum</td></tr>
+            <tr><th><a href="datum.html#proc/UnregisterSignal">UnregisterSignal</a></th><td>Stop listening to a given signal from target</td></tr>
+            <tr><th><a href="datum.html#proc/_AddComponent">_AddComponent</a></th><td>Creates an instance of <code>new_type</code> in the datum and attaches to it as parent</td></tr>
+            <tr><th><a href="datum.html#proc/_AddElement">_AddElement</a></th><td>Finds the singleton for the element type given and attaches it to src</td></tr>
+            <tr><th><a href="datum.html#proc/_RemoveElement">_RemoveElement</a></th><td>Finds the singleton for the element type given and detaches it from src
+You only need additional arguments beyond the type if you're using <a href="code/__DEFINES/dcs/flags.html#define/ELEMENT_BESPOKE" title="ELEMENT_BESPOKE">ELEMENT_BESPOKE</a></td></tr>
+            <tr><th><a href="datum.html#proc/_SendSignal">_SendSignal</a></th><td>Internal proc to handle most all of the signaling procedure</td></tr>
+            <tr><th><a href="datum.html#proc/ui_act">ui_act</a></th><td>public</td></tr>
+            <tr><th><a href="datum.html#proc/ui_base_html">ui_base_html</a></th><td></td></tr>
+            <tr><th><a href="datum.html#proc/ui_close">ui_close</a></th><td>public</td></tr>
+            <tr><th><a href="datum.html#proc/ui_data">ui_data</a></th><td>public</td></tr>
+            <tr><th><a href="datum.html#proc/ui_host">ui_host</a></th><td>private</td></tr>
+            <tr><th><a href="datum.html#proc/ui_interact">ui_interact</a></th><td>tgui external</td></tr>
+            <tr><th><a href="datum.html#proc/ui_modal_act">ui_modal_act</a></th><td>Call this from a proc that is called in ui_act() to process modal actions</td></tr>
+            <tr><th><a href="datum.html#proc/ui_modal_answer">ui_modal_answer</a></th><td>Calls the source's currently assigned modal's (if there is one) on_answer() proc. Private.</td></tr>
+            <tr><th><a href="datum.html#proc/ui_modal_bento">ui_modal_bento</a></th><td>Opens a bento input UI modal</td></tr>
+            <tr><th><a href="datum.html#proc/ui_modal_boolean">ui_modal_boolean</a></th><td>Opens a yes/no UI modal</td></tr>
+            <tr><th><a href="datum.html#proc/ui_modal_choice">ui_modal_choice</a></th><td>Opens a dropdown input UI modal</td></tr>
+            <tr><th><a href="datum.html#proc/ui_modal_clear">ui_modal_clear</a></th><td>Clears the current modal for a given datum</td></tr>
+            <tr><th><a href="datum.html#proc/ui_modal_data">ui_modal_data</a></th><td>Call this from ui_data() to return modal information if needed</td></tr>
+            <tr><th><a href="datum.html#proc/ui_modal_input">ui_modal_input</a></th><td>Opens a text input UI modal</td></tr>
+            <tr><th><a href="datum.html#proc/ui_modal_message">ui_modal_message</a></th><td>Opens a message UI modal</td></tr>
+            <tr><th><a href="datum.html#proc/ui_modal_new">ui_modal_new</a></th><td>Registers a given modal to a source. Private.</td></tr>
+            <tr><th><a href="datum.html#proc/ui_modal_preprocess_answer">ui_modal_preprocess_answer</a></th><td>Passes an answer from JS through the modal's proc.</td></tr>
+            <tr><th><a href="datum.html#proc/ui_static_data">ui_static_data</a></th><td>public</td></tr>
+            <tr><th><a href="datum.html#proc/ui_status">ui_status</a></th><td>tgui states</td></tr>
+            <tr><th><a href="datum.html#proc/update_static_data">update_static_data</a></th><td>public</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/status_traits"><aside class="declaration">var </aside>status_traits
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/datum.dm#L6">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;datum.dm 6"/></a></h5>
+        <p>Status traits attached to this datum</p><h5 id="var/tgui_shared_states"><aside class="declaration">var </aside>tgui_shared_states
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/external.dm#L111">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 111"/></a></h5>
+        <p>global</p>
+<p>Associative list of JSON-encoded shared states that were set by
+tgui clients.</p><h2 id="proc">Proc Details</h2><h5 id="proc/CanProcCall"><aside class="declaration">proc </aside>CanProcCall<aside>(procname) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/datumvars.dm#L9">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;datumvars.dm 9"/></a></aside>
+        </h5>
+        <p>Proc to check if a datum allows proc calls on it</p>
+<p>Returns TRUE if you can call a proc on the datum, FALSE if you cant</p><h5 id="proc/GetComponent"><aside class="declaration">proc </aside>GetComponent<aside>(/<a href="datum.html">datum</a>/<a href="datum/component.html">component</a>/c_type) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/_component.dm#L335">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 335"/></a></aside>
+        </h5>
+        <p>Return any component assigned to this datum of the given type</p>
+<p>This will throw an error if it's possible to have more than one component of that type on the parent</p>
+<p>Arguments:</p>
+<ul>
+<li>datum/component/c_type The typepath of the component you want to get a reference to</li>
+</ul><h5 id="proc/GetComponents"><aside class="declaration">proc </aside>GetComponents<aside>(c_type) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/_component.dm#L376">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 376"/></a></aside>
+        </h5>
+        <p>Get all components of a given type that are attached to this datum</p>
+<p>Arguments:</p>
+<ul>
+<li>c_type The component type path</li>
+</ul><h5 id="proc/GetExactComponent"><aside class="declaration">proc </aside>GetExactComponent<aside>(/<a href="datum.html">datum</a>/<a href="datum/component.html">component</a>/c_type) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/_component.dm#L355">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 355"/></a></aside>
+        </h5>
+        <p>Return any component assigned to this datum of the exact given type</p>
+<p>This will throw an error if it's possible to have more than one component of that type on the parent</p>
+<p>Arguments:</p>
+<ul>
+<li>datum/component/c_type The typepath of the component you want to get a reference to</li>
+</ul><h5 id="proc/LoadComponent"><aside class="declaration">proc </aside>LoadComponent<aside>(component_type, ...) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/_component.dm#L470">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 470"/></a></aside>
+        </h5>
+        <p>Get existing component of type, or create it and return a reference to it</p>
+<p>Use this if the item needs to exist at the time of this call, but may not have been created before now</p>
+<p>Arguments:</p>
+<ul>
+<li>component_type The typepath of the component to create or return</li>
+<li>... additional arguments to be passed when creating the component if it does not exist</li>
+</ul><h5 id="proc/RegisterSignal"><aside class="declaration">proc </aside>RegisterSignal<aside>(/<a href="datum.html">datum</a>/target, sig_type_or_types, proctype, override) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/_component.dm#L175">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 175"/></a></aside>
+        </h5>
+        <p>Register to listen for a signal from the passed in target</p>
+<p>This sets up a listening relationship such that when the target object emits a signal
+the source datum this proc is called upon, will recieve a callback to the given proctype
+Return values from procs registered must be a bitfield</p>
+<p>Arguments:</p>
+<ul>
+<li>datum/target The target to listen for signals from</li>
+<li>sig_type_or_types Either a string signal name, or a list of signal names (strings)</li>
+<li>proctype The proc to call back when the signal is emitted</li>
+<li>override If a previous registration exists you must explicitly set this</li>
+</ul><h5 id="proc/TakeComponent"><aside class="declaration">proc </aside>TakeComponent<aside>(/<a href="datum.html">datum</a>/<a href="datum/component.html">component</a>/target) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/_component.dm#L495">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 495"/></a></aside>
+        </h5>
+        <p>Transfer this component to another parent</p>
+<p>Component is taken from source datum</p>
+<p>Arguments:</p>
+<ul>
+<li>datum/component/target Target datum to transfer to</li>
+</ul><h5 id="proc/TransferComponents"><aside class="declaration">proc </aside>TransferComponents<aside>(/<a href="datum.html">datum</a>/target) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/_component.dm#L519">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 519"/></a></aside>
+        </h5>
+        <p>Transfer all components to target</p>
+<p>All components from source datum are taken</p>
+<p>Arguments:</p>
+<ul>
+<li>/datum/target the target to move the components to</li>
+</ul><h5 id="proc/UID"><aside class="declaration">proc </aside>UID<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/__HELPERS/unique_ids.dm#L28">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;unique_ids.dm 28"/></a></aside>
+        </h5>
+        <p>Gets or creates the UID of a datum</p>
+<p>BYOND refs are recycled, so this system prevents that. If a datum does not have a UID when this proc is ran, one will be created
+Returns the UID of the datum</p><h5 id="proc/UnregisterSignal"><aside class="declaration">proc </aside>UnregisterSignal<aside>(/<a href="datum.html">datum</a>/target, sig_type_or_types) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/_component.dm#L218">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 218"/></a></aside>
+        </h5>
+        <p>Stop listening to a given signal from target</p>
+<p>Breaks the relationship between target and source datum, removing the callback when the signal fires</p>
+<p>Doesn't care if a registration exists or not</p>
+<p>Arguments:</p>
+<ul>
+<li>datum/target Datum to stop listening to signals from</li>
+<li>sig_typeor_types Signal string key or list of signal keys to stop listening to specifically</li>
+</ul><h5 id="proc/_AddComponent"><aside class="declaration">proc </aside>_AddComponent<aside>(/list/raw_args) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/_component.dm#L395">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 395"/></a></aside>
+        </h5>
+        <p>Creates an instance of <code>new_type</code> in the datum and attaches to it as parent</p>
+<p>Sends the <a href="code/__DEFINES/dcs/signals.html#define/COMSIG_COMPONENT_ADDED" title="COMSIG_COMPONENT_ADDED">COMSIG_COMPONENT_ADDED</a> signal to the datum</p>
+<p>Returns the component that was created. Or the old component in a dupe situation where <a href="code/__DEFINES/dcs/flags.html#define/COMPONENT_DUPE_UNIQUE" title="COMPONENT_DUPE_UNIQUE">COMPONENT_DUPE_UNIQUE</a> was set</p>
+<p>If this tries to add a component to an incompatible type, the component will be deleted and the result will be <code>null</code>. This is very unperformant, try not to do it</p>
+<p>Properly handles duplicate situations based on the <code>dupe_mode</code> var</p><h5 id="proc/_AddElement"><aside class="declaration">proc </aside>_AddElement<aside>(/list/arguments) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/elements/_element.dm#L43">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;elements&#x2F;_element.dm 43"/></a></aside>
+        </h5>
+        <p>Finds the singleton for the element type given and attaches it to src</p><h5 id="proc/_RemoveElement"><aside class="declaration">proc </aside>_RemoveElement<aside>(/list/arguments) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/elements/_element.dm#L53">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;elements&#x2F;_element.dm 53"/></a></aside>
+        </h5>
+        <p>Finds the singleton for the element type given and detaches it from src
+You only need additional arguments beyond the type if you're using <a href="code/__DEFINES/dcs/flags.html#define/ELEMENT_BESPOKE" title="ELEMENT_BESPOKE">ELEMENT_BESPOKE</a></p><h5 id="proc/_SendSignal"><aside class="declaration">proc </aside>_SendSignal<aside>(sigtype, /list/arguments) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/datums/components/_component.dm#L310">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 310"/></a></aside>
+        </h5>
+        <p>Internal proc to handle most all of the signaling procedure</p>
+<p>Will runtime if used on datums with an empty component list</p>
+<p>Use the <a href="code/__DEFINES/dcs/helpers.html#define/SEND_SIGNAL" title="SEND_SIGNAL">SEND_SIGNAL</a> define instead</p><h5 id="proc/ui_act"><aside class="declaration">proc </aside>ui_act<aside>(action, /list/params, /<a href="datum.html">datum</a>/<a href="datum/tgui.html">tgui</a>/ui, /<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/state) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/external.dm#L74">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 74"/></a></aside>
+        </h5>
+        <p>public</p>
+<p>Called on a UI when the UI receieves a href.
+Think of this as Topic().
+Returns TRUE if the UI should be updated, and FALSE if not.</p>
+<ul>
+<li>action - The action/button that has been invoked by the user.</li>
+<li>list/params - A list of parameters attached to the button.</li>
+</ul><h5 id="proc/ui_base_html"><aside class="declaration">proc </aside>ui_base_html<aside>(html) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/external.dm#L92">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 92"/></a></aside>
+        </h5>
+        <ul>
+<li>
+<p>public</p>
+</li>
+<li>
+<p>Called on an object when a tgui object is being created, allowing you to</p>
+</li>
+<li>
+<p>customise the html</p>
+</li>
+<li>
+<p>For example: inserting a custom stylesheet that you need in the head</p>
+</li>
+<li>
+<p>For this purpose, some tags are available in the html, to be parsed out
+^ with replacetext</p>
+</li>
+<li>
+<p>(customheadhtml) - Additions to the head tag</p>
+</li>
+<li>
+<ul>
+<li>html - The html base text.</li>
+</ul>
+</li>
+</ul><h5 id="proc/ui_close"><aside class="declaration">proc </aside>ui_close<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/external.dm#L125">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 125"/></a></aside>
+        </h5>
+        <p>public</p>
+<p>Called on a UI's object when the UI is closed, not to be confused with
+client/verb/uiclose(), which closes the ui window</p><h5 id="proc/ui_data"><aside class="declaration">proc </aside>ui_data<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/external.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 31"/></a></aside>
+        </h5>
+        <p>public</p>
+<p>Data to be sent to the UI.
+This must be implemented for a UI to work.</p>
+<ul>
+<li>mob/user - The mob interacting with the UI.</li>
+</ul><h5 id="proc/ui_host"><aside class="declaration">proc </aside>ui_host<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/external.dm#L102">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 102"/></a></aside>
+        </h5>
+        <p>private</p>
+<p>The UI's host object (usually src_object).
+This allows modules/datums to have the UI attached to them,
+and be a part of another object.</p><h5 id="proc/ui_interact"><aside class="declaration">proc </aside>ui_interact<aside>(/<a href="mob.html">mob</a>/user, ui_key, /<a href="datum.html">datum</a>/<a href="datum/tgui.html">tgui</a>/ui, force_open, /<a href="datum.html">datum</a>/<a href="datum/tgui.html">tgui</a>/master_ui, /<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/state) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/external.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 20"/></a></aside>
+        </h5>
+        <p>tgui external</p>
+<p>Contains all external tgui declarations.</p>
+<p>public</p>
+<p>Used to open and update UIs.
+If this proc is not implemented properly, the UI will not update correctly.</p>
+<ul>
+<li>mob/user - The mob who opened/is using the UI. (REQUIRED)</li>
+<li>ui_key - The ui_key of the UI. (OPTIONAL)</li>
+<li>datum/tgui/ui - The UI to be updated, if it exists. (OPTIONAL)</li>
+<li>force_open - If the UI should be re-opened instead of updated. (OPTIONAL)</li>
+<li>datum/tgui/master_ui - The parent UI. (OPTIONAL)</li>
+<li>datum/ui_state/state - The state used to determine status. (OPTIONAL)</li>
+</ul><h5 id="proc/ui_modal_act"><aside class="declaration">proc </aside>ui_modal_act<aside>(/<a href="datum.html">datum</a>/source, action, params) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/plugins/modal.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;plugins&#x2F;modal.dm 20"/></a></aside>
+        </h5>
+        <p>Call this from a proc that is called in ui_act() to process modal actions</p>
+<p>Example: /obj/machinery/chem_master/proc/ui_act_modal
+You can then switch based on the return value and show different
+modals depending on the answer.
+Arguments:</p>
+<ul>
+<li>source - The source datum</li>
+<li>action - The called action</li>
+<li>params - The params to the action</li>
+</ul><h5 id="proc/ui_modal_answer"><aside class="declaration">proc </aside>ui_modal_answer<aside>(/<a href="datum.html">datum</a>/source, id, answer) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/plugins/modal.dm#L201">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;plugins&#x2F;modal.dm 201"/></a></aside>
+        </h5>
+        <p>Calls the source's currently assigned modal's (if there is one) on_answer() proc. Private.</p>
+<p>Arguments:</p>
+<ul>
+<li>source - The source datum</li>
+<li>id - The ID of the modal</li>
+<li>answer - The provided answer</li>
+</ul><h5 id="proc/ui_modal_bento"><aside class="declaration">proc </aside>ui_modal_bento<aside>(/<a href="datum.html">datum</a>/source, id, text, delegate, arguments, value, choices) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/plugins/modal.dm#L143">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;plugins&#x2F;modal.dm 143"/></a></aside>
+        </h5>
+        <p>Opens a bento input UI modal</p>
+<p>Internally checks if the answer is in the list of choices.
+Arguments:</p>
+<ul>
+<li>source - The source datum</li>
+<li>id - The ID of the modal</li>
+<li>text - The text to display above the answers</li>
+<li>delegate - The proc to call when submitted</li>
+<li>arguments - List of arguments passed to and from JS (mostly useful for chaining modals)</li>
+<li>value - The default value of the bento</li>
+<li>choices - The list of available choices in the bento</li>
+</ul><h5 id="proc/ui_modal_boolean"><aside class="declaration">proc </aside>ui_modal_boolean<aside>(/<a href="datum.html">datum</a>/source, id, text, delegate, delegate_no, arguments, yes_text, no_text) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/plugins/modal.dm#L162">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;plugins&#x2F;modal.dm 162"/></a></aside>
+        </h5>
+        <p>Opens a yes/no UI modal</p>
+<p>Arguments:</p>
+<ul>
+<li>source - The source datum</li>
+<li>id - The ID of the modal</li>
+<li>text - The text to display above the answers</li>
+<li>delegate - The proc to call when &quot;Yes&quot; is pressed</li>
+<li>delegate_no - The proc to call when &quot;No&quot; is pressed</li>
+<li>arguments - List of arguments passed to and from JS (mostly useful for chaining modals)</li>
+<li>yes_text - The text to show in the &quot;Yes&quot; button</li>
+<li>no_text - The text to show in the &quot;No&quot; button</li>
+</ul><h5 id="proc/ui_modal_choice"><aside class="declaration">proc </aside>ui_modal_choice<aside>(/<a href="datum.html">datum</a>/source, id, text, delegate, arguments, value, choices) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/plugins/modal.dm#L124">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;plugins&#x2F;modal.dm 124"/></a></aside>
+        </h5>
+        <p>Opens a dropdown input UI modal</p>
+<p>Internally checks if the answer is in the list of choices.
+Arguments:</p>
+<ul>
+<li>source - The source datum</li>
+<li>id - The ID of the modal</li>
+<li>text - The text to display above the answers</li>
+<li>delegate - The proc to call when submitted</li>
+<li>arguments - List of arguments passed to and from JS (mostly useful for chaining modals)</li>
+<li>value - The default value of the dropdown</li>
+<li>choices - The list of available choices in the dropdown</li>
+</ul><h5 id="proc/ui_modal_clear"><aside class="declaration">proc </aside>ui_modal_clear<aside>(/<a href="datum.html">datum</a>/source) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/plugins/modal.dm#L59">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;plugins&#x2F;modal.dm 59"/></a></aside>
+        </h5>
+        <p>Clears the current modal for a given datum</p>
+<p>Arguments:</p>
+<ul>
+<li>source - The source datum</li>
+</ul><h5 id="proc/ui_modal_data"><aside class="declaration">proc </aside>ui_modal_data<aside>(/<a href="datum.html">datum</a>/source) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/plugins/modal.dm#L44">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;plugins&#x2F;modal.dm 44"/></a></aside>
+        </h5>
+        <p>Call this from ui_data() to return modal information if needed</p>
+<p>Arguments:</p>
+<ul>
+<li>source - The source datum</li>
+</ul><h5 id="proc/ui_modal_input"><aside class="declaration">proc </aside>ui_modal_input<aside>(/<a href="datum.html">datum</a>/source, id, text, delegate, arguments, value, max_length) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/plugins/modal.dm#L104">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;plugins&#x2F;modal.dm 104"/></a></aside>
+        </h5>
+        <p>Opens a text input UI modal</p>
+<p>Arguments:</p>
+<ul>
+<li>source - The source datum</li>
+<li>id - The ID of the modal</li>
+<li>text - The text to display above the answers</li>
+<li>delegate - The proc to call when submitted</li>
+<li>arguments - List of arguments passed to and from JS (mostly useful for chaining modals)</li>
+<li>value - The default value of the input</li>
+<li>max_length - The maximum char length of the input</li>
+</ul><h5 id="proc/ui_modal_message"><aside class="declaration">proc </aside>ui_modal_message<aside>(/<a href="datum.html">datum</a>/source, id, text, delegate, arguments) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/plugins/modal.dm#L86">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;plugins&#x2F;modal.dm 86"/></a></aside>
+        </h5>
+        <p>Opens a message UI modal</p>
+<p>Arguments:</p>
+<ul>
+<li>source - The source datum</li>
+<li>id - The ID of the modal</li>
+<li>text - The text to display above the answers</li>
+<li>delegate - The proc to call when closed</li>
+<li>arguments - List of arguments passed to and from JS (mostly useful for chaining modals)</li>
+</ul><h5 id="proc/ui_modal_new"><aside class="declaration">proc </aside>ui_modal_new<aside>(/<a href="datum.html">datum</a>/source, /<a href="datum.html">datum</a>/<a href="datum/ui_modal.html">ui_modal</a>/modal, replace_previous, instant_update) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/plugins/modal.dm#L177">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;plugins&#x2F;modal.dm 177"/></a></aside>
+        </h5>
+        <p>Registers a given modal to a source. Private.</p>
+<p>Arguments:</p>
+<ul>
+<li>source - The source datum</li>
+<li>modal - The datum/ui_modal to register</li>
+<li>replace_previous - Whether any modal currently assigned to source should be replaced</li>
+<li>instant_update - Whether the changes should reflect immediately</li>
+</ul><h5 id="proc/ui_modal_preprocess_answer"><aside class="declaration">proc </aside>ui_modal_preprocess_answer<aside>(/<a href="datum.html">datum</a>/source, answer) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/plugins/modal.dm#L219">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;plugins&#x2F;modal.dm 219"/></a></aside>
+        </h5>
+        <p>Passes an answer from JS through the modal's proc.</p>
+<p>Used namely for cutting the text short if it's longer
+than an input modal's max_length.
+Arguments:</p>
+<ul>
+<li>source - The source datum</li>
+<li>answer - The provided answer</li>
+</ul><h5 id="proc/ui_static_data"><aside class="declaration">proc </aside>ui_static_data<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/external.dm#L45">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 45"/></a></aside>
+        </h5>
+        <p>public</p>
+<p>Static Data to be sent to the UI.
+Static data differs from normal data in that it's large data that should be sent infrequently
+This is implemented optionally for heavy uis that would be sending a lot of redundant data
+frequently.
+Gets squished into one object on the frontend side, but the static part is cached.</p>
+<ul>
+<li>mob/user - The mob interacting with the UI.</li>
+</ul><h5 id="proc/ui_status"><aside class="declaration">proc </aside>ui_status<aside>(/<a href="mob.html">mob</a>/user, /<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/state) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states.dm 18"/></a></aside>
+        </h5>
+        <p>tgui states</p>
+<p>Base state and helpers for states. Just does some sanity checks, implement a state for in-depth checks.</p>
+<p>public</p>
+<p>Checks the UI state for a mob.</p>
+<p>required user mob The mob who opened/is using the UI.
+required state datum/ui_state The state to check.</p>
+<p>return UI_state The state of the UI.</p><h5 id="proc/update_static_data"><aside class="declaration">proc </aside>update_static_data<aside>(/<a href="mob.html">mob</a>/user, /<a href="datum.html">datum</a>/<a href="datum/tgui.html">tgui</a>/ui, ui_key) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/external.dm#L57">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 57"/></a></aside>
+        </h5>
+        <p>public</p>
+<p>Forces an update on static data. Should be done manually whenever something happens to change static data.</p>
+<ul>
+<li>mob/user - The mob currently interacting with the UI. (REQUIRED)</li>
+<li>datum/tgui/ui - UI to be updated (OPTIONAL)</li>
+<li>ui_key - Key of the UI to be updated. (OPTIONAL)</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

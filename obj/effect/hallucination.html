@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;effect&#x2F;hallucination - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Hallucination <aside>/<a href="obj.html">obj</a>/<a href="obj/effect/hallucination.html">effect/hallucination</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/hallucinations.dm#L83">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;hallucinations.dm 83"/></a></h1>
+
+<p>Base object for hallucinations. Contains basic behaviour to display an icon only to the target.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/effect/hallucination.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/effect/hallucination.html#var/duration">duration</a></th><td>Duration in deciseconds. Can also be a list with the form [lower bound, upper bound] for a random duration.</td></tr>
+            <tr><th><a href="obj/effect/hallucination.html#var/hallucination_icon">hallucination_icon</a></th><td>Hallucination icon.</td></tr>
+            <tr><th><a href="obj/effect/hallucination.html#var/hallucination_icon_state">hallucination_icon_state</a></th><td>Hallucination icon state.</td></tr>
+            <tr><th><a href="obj/effect/hallucination.html#var/hallucination_layer">hallucination_layer</a></th><td>Hallucination layer.</td></tr>
+            <tr><th><a href="obj/effect/hallucination.html#var/hallucination_override">hallucination_override</a></th><td>Hallucination override.</td></tr>
+            <tr><th><a href="obj/effect/hallucination.html#var/images">images</a></th><td>Lazy list of images created as part of the hallucination. Cleared on destruction.</td></tr>
+            <tr><th><a href="obj/effect/hallucination.html#var/target">target</a></th><td>The mob that sees this hallucination.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/effect/hallucination.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/effect/hallucination.html#proc/add_icon">add_icon</a></th><td>Adds an image to the hallucination. Cleared on destruction.</td></tr>
+            <tr><th><a href="obj/effect/hallucination.html#proc/clear_icon">clear_icon</a></th><td>Clears an image from the hallucination.</td></tr>
+            <tr><th><a href="obj/effect/hallucination.html#proc/clear_icon_in">clear_icon_in</a></th><td>Clears an image from the hallucination after a delay.</td></tr>
+            <tr><th><a href="obj/effect/hallucination.html#proc/clear_icons">clear_icons</a></th><td>Clears all images from the hallucination.</td></tr>
+            <tr><th><a href="obj/effect/hallucination.html#proc/play_sound_in">play_sound_in</a></th><td>Plays a sound to the target only.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/duration"><aside class="declaration">var </aside>duration
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/hallucinations.dm#L87">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;hallucinations.dm 87"/></a></h5>
+        <p>Duration in deciseconds. Can also be a list with the form [lower bound, upper bound] for a random duration.</p><h5 id="var/hallucination_icon"><aside class="declaration">var </aside>hallucination_icon
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/hallucinations.dm#L89">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;hallucinations.dm 89"/></a></h5>
+        <p>Hallucination icon.</p><h5 id="var/hallucination_icon_state"><aside class="declaration">var </aside>hallucination_icon_state
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/hallucinations.dm#L91">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;hallucinations.dm 91"/></a></h5>
+        <p>Hallucination icon state.</p><h5 id="var/hallucination_layer"><aside class="declaration">var </aside>hallucination_layer
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/hallucinations.dm#L95">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;hallucinations.dm 95"/></a></h5>
+        <p>Hallucination layer.</p><h5 id="var/hallucination_override"><aside class="declaration">var </aside>hallucination_override
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/hallucinations.dm#L93">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;hallucinations.dm 93"/></a></h5>
+        <p>Hallucination override.</p><h5 id="var/images"><aside class="declaration">var </aside>images
+            <aside>&ndash; /list/image</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/hallucinations.dm#L99">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;hallucinations.dm 99"/></a></h5>
+        <p>Lazy list of images created as part of the hallucination. Cleared on destruction.</p><h5 id="var/target"><aside class="declaration">var </aside>target
+            <aside>&ndash; /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/hallucinations.dm#L97">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;hallucinations.dm 97"/></a></h5>
+        <p>The mob that sees this hallucination.</p><h2 id="proc">Proc Details</h2><h5 id="proc/add_icon"><aside class="declaration">proc </aside>add_icon<aside>(/image/I) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/hallucinations.dm#L140">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;hallucinations.dm 140"/></a></aside>
+        </h5>
+        <p>Adds an image to the hallucination. Cleared on destruction.</p>
+<p>Arguments:</p>
+<ul>
+<li>I - The image to add.</li>
+</ul><h5 id="proc/clear_icon"><aside class="declaration">proc </aside>clear_icon<aside>(/image/I) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/hallucinations.dm#L150">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;hallucinations.dm 150"/></a></aside>
+        </h5>
+        <p>Clears an image from the hallucination.</p>
+<p>Arguments:</p>
+<ul>
+<li>I - The image to clear.</li>
+</ul><h5 id="proc/clear_icon_in"><aside class="declaration">proc </aside>clear_icon_in<aside>(/image/I, delay) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/hallucinations.dm#L162">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;hallucinations.dm 162"/></a></aside>
+        </h5>
+        <p>Clears an image from the hallucination after a delay.</p>
+<p>Arguments:</p>
+<ul>
+<li>I - The image to clear.</li>
+<li>delay - Delay in deciseconds.</li>
+</ul><h5 id="proc/clear_icons"><aside class="declaration">proc </aside>clear_icons<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/hallucinations.dm#L168">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;hallucinations.dm 168"/></a></aside>
+        </h5>
+        <p>Clears all images from the hallucination.</p><h5 id="proc/play_sound_in"><aside class="declaration">proc </aside>play_sound_in<aside>(time, /<a href="turf.html">turf</a>/source, snd, volume, vary, frequency) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/hallucinations/hallucinations.dm#L185">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;hallucinations&#x2F;hallucinations.dm 185"/></a></aside>
+        </h5>
+        <p>Plays a sound to the target only.</p>
+<p>Arguments:</p>
+<ul>
+<li>time - Deciseconds before the sound plays.</li>
+<li>source - The turf to play the sound from. Optional.</li>
+<li>snd - The sound file to play.</li>
+<li>volume - The sound volume.</li>
+<li>vary - Whether to randomize the sound's pitch.</li>
+<li>frequency - The sound's pitch.</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

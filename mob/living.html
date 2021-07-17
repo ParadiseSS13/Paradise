@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;mob&#x2F;living - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>living <aside>/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/verbs/freeze.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;freeze.dm 27"/></a></h1>
+
+<p>mob freeze procs</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="mob/living.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="mob/living.html#var/admin_prev_sleeping">admin_prev_sleeping</a></th><td>Used for keeping track of previous sleeping value with admin freeze.</td></tr>
+            <tr><th><a href="mob/living.html#var/frozen">frozen</a></th><td>Used for preventing attacks on admin-frozen mobs.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="mob/living.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="mob/living.html#proc/IsFrozen">IsFrozen</a></th><td>FROZEN</td></tr>
+            <tr><th><a href="mob/living.html#proc/add_stun_absorption">add_stun_absorption</a></th><td>STUN ABSORPTION</td></tr>
+            <tr><th><a href="mob/living.html#proc/electrocute_act">electrocute_act</a></th><td>As the name suggests, this should be called to apply electric shocks.</td></tr>
+            <tr><th><a href="mob/living.html#proc/grant_guardian_actions">grant_guardian_actions</a></th><td>Grants all existing <code>/datum/action/guardian</code> type actions to the src mob.</td></tr>
+            <tr><th><a href="mob/living.html#proc/handle_fire">handle_fire</a></th><td>Burns a mob and slowly puts the fires out. Returns TRUE if the mob is on fire</td></tr>
+            <tr><th><a href="mob/living.html#proc/remove_guardian_actions">remove_guardian_actions</a></th><td>Removes all <code>/datum/action/guardian</code> type actions from the src mob.</td></tr>
+            <tr><th><a href="mob/living.html#proc/shared_living_ui_distance">shared_living_ui_distance</a></th><td>public</td></tr>
+            <tr><th><a href="mob/living.html#proc/transfer_blood_to">transfer_blood_to</a></th><td>BLOOD TRANSFERS</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/admin_prev_sleeping"><aside class="declaration">var </aside>admin_prev_sleeping
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/verbs/freeze.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;freeze.dm 31"/></a></h5>
+        <p>Used for keeping track of previous sleeping value with admin freeze.</p><h5 id="var/frozen"><aside class="declaration">var </aside>frozen
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/admin/verbs/freeze.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;freeze.dm 29"/></a></h5>
+        <p>Used for preventing attacks on admin-frozen mobs.</p><h2 id="proc">Proc Details</h2><h5 id="proc/IsFrozen"><aside class="declaration">proc </aside>IsFrozen<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/status_procs.dm#L495">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;status_procs.dm 495"/></a></aside>
+        </h5>
+        <p>FROZEN</p><h5 id="proc/add_stun_absorption"><aside class="declaration">proc </aside>add_stun_absorption<aside>(key, duration, priority, message, self_message, examine_message) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/status_procs.dm#L500">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;status_procs.dm 500"/></a></aside>
+        </h5>
+        <p>STUN ABSORPTION</p><h5 id="proc/electrocute_act"><aside class="declaration">proc </aside>electrocute_act<aside>(shock_damage, source, siemens_coeff, flags) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/living_defense.dm#L59">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;living_defense.dm 59"/></a></aside>
+        </h5>
+        <p>As the name suggests, this should be called to apply electric shocks.</p><h5 id="proc/grant_guardian_actions"><aside class="declaration">proc </aside>grant_guardian_actions<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/simple_animal.html">simple_animal</a>/<a href="mob/living/simple_animal/hostile.html">hostile</a>/guardian/G) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/miniantags/guardian/host_actions.dm#L114">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;miniantags&#x2F;guardian&#x2F;host_actions.dm 114"/></a></aside>
+        </h5>
+        <p>Grants all existing <code>/datum/action/guardian</code> type actions to the src mob.</p>
+<p>Called whenever the host gains their gauardian.</p><h5 id="proc/handle_fire"><aside class="declaration">proc </aside>handle_fire<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/mob/living/living_defense.dm#L191">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;living_defense.dm 191"/></a></aside>
+        </h5>
+        <p>Burns a mob and slowly puts the fires out. Returns TRUE if the mob is on fire</p><h5 id="proc/remove_guardian_actions"><aside class="declaration">proc </aside>remove_guardian_actions<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/gamemodes/miniantags/guardian/host_actions.dm#L126">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;miniantags&#x2F;guardian&#x2F;host_actions.dm 126"/></a></aside>
+        </h5>
+        <p>Removes all <code>/datum/action/guardian</code> type actions from the src mob.</p>
+<p>Called whenever the host loses their guardian.</p><h5 id="proc/shared_living_ui_distance"><aside class="declaration">proc </aside>shared_living_ui_distance<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/src_object, viewcheck) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/tgui/states.dm#L102">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states.dm 102"/></a></aside>
+        </h5>
+        <p>public</p>
+<p>Distance versus interaction check.</p>
+<p>required src_object atom/movable The object which owns the UI.</p>
+<p>return UI_state The state of the UI.</p><h5 id="proc/transfer_blood_to"><aside class="declaration">proc </aside>transfer_blood_to<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/AM, amount, forced) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/surgery/organs/blood.dm#L140">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;surgery&#x2F;organs&#x2F;blood.dm 140"/></a></aside>
+        </h5>
+        <p>BLOOD TRANSFERS</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

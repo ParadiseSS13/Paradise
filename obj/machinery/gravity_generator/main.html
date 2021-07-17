@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;machinery&#x2F;gravity_generator&#x2F;main - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>main <aside>/<a href="obj.html">obj</a>/<a href="obj/machinery.html">machinery</a>/<a href="obj/machinery/gravity_generator/main.html">gravity_generator/main</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/gravitygenerator.dm#L98">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;gravitygenerator.dm 98"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/machinery/gravity_generator/main.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/machinery/gravity_generator/main.html#var/breaker_on">breaker_on</a></th><td>Is the breaker switch turned on</td></tr>
+            <tr><th><a href="obj/machinery/gravity_generator/main.html#var/charge_count">charge_count</a></th><td>Charge percentage</td></tr>
+            <tr><th><a href="obj/machinery/gravity_generator/main.html#var/charging_state">charging_state</a></th><td>Charging state (Idle, Charging, Discharging)</td></tr>
+            <tr><th><a href="obj/machinery/gravity_generator/main.html#var/middle">middle</a></th><td>The central part of the structure</td></tr>
+            <tr><th><a href="obj/machinery/gravity_generator/main.html#var/on">on</a></th><td>Is the generator producing gravity</td></tr>
+            <tr><th><a href="obj/machinery/gravity_generator/main.html#var/parts">parts</a></th><td>Generator parts on adjacent tiles</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/machinery/gravity_generator/main.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/machinery/gravity_generator/main.html#proc/set_gravity">set_gravity</a></th><td>Set the state of gravity on the z-level.</td></tr>
+            <tr><th><a href="obj/machinery/gravity_generator/main.html#proc/set_power">set_power</a></th><td>Set the charging state based on external power and the breaker state.</td></tr>
+            <tr><th><a href="obj/machinery/gravity_generator/main.html#proc/shake_everyone">shake_everyone</a></th><td>Shake everyone on the z level and play an alarm to let them know that gravity was enagaged/disenagaged.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/breaker_on"><aside class="declaration">var </aside>breaker_on
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/gravitygenerator.dm#L108">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;gravitygenerator.dm 108"/></a></h5>
+        <p>Is the breaker switch turned on</p><h5 id="var/charge_count"><aside class="declaration">var </aside>charge_count
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/gravitygenerator.dm#L116">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;gravitygenerator.dm 116"/></a></h5>
+        <p>Charge percentage</p><h5 id="var/charging_state"><aside class="declaration">var </aside>charging_state
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/gravitygenerator.dm#L114">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;gravitygenerator.dm 114"/></a></h5>
+        <p>Charging state (Idle, Charging, Discharging)</p><h5 id="var/middle"><aside class="declaration">var </aside>middle
+            <aside>&ndash; /<a href="obj.html">obj</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/gravitygenerator.dm#L112">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;gravitygenerator.dm 112"/></a></h5>
+        <p>The central part of the structure</p><h5 id="var/on"><aside class="declaration">var </aside>on
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/gravitygenerator.dm#L106">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;gravitygenerator.dm 106"/></a></h5>
+        <p>Is the generator producing gravity</p><h5 id="var/parts"><aside class="declaration">var </aside>parts
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/gravitygenerator.dm#L110">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;gravitygenerator.dm 110"/></a></h5>
+        <p>Generator parts on adjacent tiles</p><h2 id="proc">Proc Details</h2><h5 id="proc/set_gravity"><aside class="declaration">proc </aside>set_gravity<aside>(gravity) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/gravitygenerator.dm#L313">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;gravitygenerator.dm 313"/></a></aside>
+        </h5>
+        <p>Set the state of gravity on the z-level.</p>
+<ul>
+<li>enable - <code>TRUE</code> to enable gravity, <code>FALSE</code> to disable gravity</li>
+</ul><h5 id="proc/set_power"><aside class="declaration">proc </aside>set_power<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/gravitygenerator.dm#L299">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;gravitygenerator.dm 299"/></a></aside>
+        </h5>
+        <p>Set the charging state based on external power and the breaker state.</p><h5 id="proc/shake_everyone"><aside class="declaration">proc </aside>shake_everyone<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/modules/power/gravitygenerator.dm#L396">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;gravitygenerator.dm 396"/></a></aside>
+        </h5>
+        <p>Shake everyone on the z level and play an alarm to let them know that gravity was enagaged/disenagaged.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

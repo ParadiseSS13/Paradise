@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;structure&#x2F;safe - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Safe <aside>/<a href="obj.html">obj</a>/<a href="obj/structure/safe.html">structure/safe</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 20"/></a></h1>
+
+<p>A locked container that can only be opened by entering a combination through a dial.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/structure/safe.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/current_tumbler_index">current_tumbler_index</a></th><td>The index in the tumblers list of the tumbler dial position that needs to be hit.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/dial">dial</a></th><td>The position the dial is pointing to.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/drill">drill</a></th><td>The currently placed thermal drill, if any.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/drill_overlay">drill_overlay</a></th><td>The drill overlay image to display during the drilling process.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/drill_start_time">drill_start_time</a></th><td>The world.time at which drilling started.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/drill_timer">drill_timer</a></th><td>The [/proc/addtimer] handle for the current thermal drill.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/drill_x_offset">drill_x_offset</a></th><td>The X pixel offset for the drilling progress bar.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/drill_y_offset">drill_y_offset</a></th><td>The Y pixel offset for the drilling progress bar.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/known_by">known_by</a></th><td>Used by <a href="obj/item.html" title="/obj/item">/obj/item/paper/safe_code</a> to tell the codes through a paper spawned on map load.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/locked">locked</a></th><td>Whether the safe is locked or not.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/maxspace">maxspace</a></th><td>The maximum combined w_class of stuff in the safe.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/number_of_tumblers">number_of_tumblers</a></th><td>The amount of tumblers that will be generated.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/open">open</a></th><td>Whether the safe is open or not.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/progress_bar">progress_bar</a></th><td>The progress bar image to display during the drilling process.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/space">space</a></th><td>The combined w_class of everything in the safe.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/time_to_drill">time_to_drill</a></th><td>Drill duration of the current thermal drill.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#var/tumblers">tumblers</a></th><td>The list of tumbler dial positions that need to be hit.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/structure/safe.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/structure/safe.html#proc/check_unlocked">check_unlocked</a></th><td>Called every dial turn to determine whether the safe should unlock or not.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#proc/drill_open">drill_open</a></th><td>Called when the current thermal drill has finished drilling.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#proc/get_combination">get_combination</a></th><td>Returns the combination to unlock the safe as text.</td></tr>
+            <tr><th><a href="obj/structure/safe.html#proc/notify_user">notify_user</a></th><td>Called every dial turn to provide feedback if possible.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/current_tumbler_index"><aside class="declaration">var </aside>current_tumbler_index
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L43">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 43"/></a></h5>
+        <p>The index in the tumblers list of the tumbler dial position that needs to be hit.</p><h5 id="var/dial"><aside class="declaration">var </aside>dial
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 39"/></a></h5>
+        <p>The position the dial is pointing to.</p><h5 id="var/drill"><aside class="declaration">var </aside>drill
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/thermal_drill</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L48">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 48"/></a></h5>
+        <p>The currently placed thermal drill, if any.</p><h5 id="var/drill_overlay"><aside class="declaration">var </aside>drill_overlay
+            <aside>&ndash; /image</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L56">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 56"/></a></h5>
+        <p>The drill overlay image to display during the drilling process.</p><h5 id="var/drill_start_time"><aside class="declaration">var </aside>drill_start_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L54">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 54"/></a></h5>
+        <p>The world.time at which drilling started.</p><h5 id="var/drill_timer"><aside class="declaration">var </aside>drill_timer
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L50">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 50"/></a></h5>
+        <p>The [/proc/addtimer] handle for the current thermal drill.</p><h5 id="var/drill_x_offset"><aside class="declaration">var </aside>drill_x_offset
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L60">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 60"/></a></h5>
+        <p>The X pixel offset for the drilling progress bar.</p><h5 id="var/drill_y_offset"><aside class="declaration">var </aside>drill_y_offset
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L62">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 62"/></a></h5>
+        <p>The Y pixel offset for the drilling progress bar.</p><h5 id="var/known_by"><aside class="declaration">var </aside>known_by
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L64">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 64"/></a></h5>
+        <p>Used by <a href="obj/item.html" title="/obj/item">/obj/item/paper/safe_code</a> to tell the codes through a paper spawned on map load.</p><h5 id="var/locked"><aside class="declaration">var </aside>locked
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 37"/></a></h5>
+        <p>Whether the safe is locked or not.</p><h5 id="var/maxspace"><aside class="declaration">var </aside>maxspace
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L30">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 30"/></a></h5>
+        <p>The maximum combined w_class of stuff in the safe.</p><h5 id="var/number_of_tumblers"><aside class="declaration">var </aside>number_of_tumblers
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L32">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 32"/></a></h5>
+        <p>The amount of tumblers that will be generated.</p><h5 id="var/open"><aside class="declaration">var </aside>open
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L35">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 35"/></a></h5>
+        <p>Whether the safe is open or not.</p><h5 id="var/progress_bar"><aside class="declaration">var </aside>progress_bar
+            <aside>&ndash; /image</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L58">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 58"/></a></h5>
+        <p>The progress bar image to display during the drilling process.</p><h5 id="var/space"><aside class="declaration">var </aside>space
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L45">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 45"/></a></h5>
+        <p>The combined w_class of everything in the safe.</p><h5 id="var/time_to_drill"><aside class="declaration">var </aside>time_to_drill
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L52">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 52"/></a></h5>
+        <p>Drill duration of the current thermal drill.</p><h5 id="var/tumblers"><aside class="declaration">var </aside>tumblers
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 41"/></a></h5>
+        <p>The list of tumbler dial positions that need to be hit.</p><h2 id="proc">Proc Details</h2><h5 id="proc/check_unlocked"><aside class="declaration">proc </aside>check_unlocked<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L318">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 318"/></a></aside>
+        </h5>
+        <p>Called every dial turn to determine whether the safe should unlock or not.</p><h5 id="proc/drill_open"><aside class="declaration">proc </aside>drill_open<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L347">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 347"/></a></aside>
+        </h5>
+        <p>Called when the current thermal drill has finished drilling.</p><h5 id="proc/get_combination"><aside class="declaration">proc </aside>get_combination<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L341">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 341"/></a></aside>
+        </h5>
+        <p>Returns the combination to unlock the safe as text.</p><h5 id="proc/notify_user"><aside class="declaration">proc </aside>notify_user<aside>(user, canhear, sounds, total_ticks, current_tick) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/09a27707fabd4b6b9e14bc260ba6b70f08858ebc/code/game/objects/structures/safe.dm#L329">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;structures&#x2F;safe.dm 329"/></a></aside>
+        </h5>
+        <p>Called every dial turn to provide feedback if possible.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ParadiseSS13/Paradise/tree/09a27707fabd4b6b9e14bc260ba6b70f08858ebc">09a2770</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
