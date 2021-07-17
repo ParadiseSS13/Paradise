@@ -332,9 +332,9 @@
 		if(!Adjacent(user)) //prevent remote naming of seeds
 			return
 		if(V == "" && variant != "")
-			user.show_message("You remove the variant designation from the [plantname].")
+			user.show_message("<span class='info'>You remove the variant designation from the [plantname].</span>")
 		else if(V != "")
-			user.show_message("You designate the [plantname] as the [V] variant.")
+			user.show_message("<span class='info'>You designate the [plantname] as the [V] variant.</span>")
 		variant = V
 		apply_variant_name()
 	..() // Fallthrough to item/attackby() so that bags can pick seeds up
