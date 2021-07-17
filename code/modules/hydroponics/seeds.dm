@@ -320,18 +320,18 @@
 	return
 
 /obj/item/seeds/attackby(obj/item/O, mob/user, params)
-	if (istype(O, /obj/item/plant_analyzer))
+	if(istype(O, /obj/item/plant_analyzer))
 		to_chat(user, "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>.</span>")
 		var/text = get_analyzer_text()
 		if(text)
 			to_chat(user, "<span class='notice'>[text]</span>")
 
 		return
-	if (istype(O, /obj/item/pen))
+	if(istype(O, /obj/item/pen))
 		var/V = sanitize(stripped_input(user, "Choose variant name:", "Plant Variant Naming", variant, MAX_MESSAGE_LEN))
-		if (!Adjacent(user)) //prevent remote naming of seeds
+		if(!Adjacent(user)) //prevent remote naming of seeds
 			return
-		if (V == "" && variant != "")
+		if(V == "" && variant != "")
 			user.show_message("You remove the variant designation from the [plantname].")
 		else if(V != "")
 			user.show_message("You designate the [plantname] as the [V] variant.")
