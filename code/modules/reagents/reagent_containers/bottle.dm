@@ -255,7 +255,7 @@
 
 /obj/item/reagent_containers/glass/bottle/traitor/New()
 	..()
-	reagents.add_reagent(pick_list("chemistry_tools.json", "traitor_poison_bottle"), 40)
+	reagents.add_reagent(text2path(pick_list("chemistry_tools.json", "traitor_poison_bottle")), 40)
 
 /obj/item/reagent_containers/glass/bottle/plasma
 	name = "plasma dust bottle"

@@ -3752,11 +3752,6 @@
 	icon_state = "dark"
 	},
 /area/derelict/crew_quarters)
-"hU" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/derelict/crew_quarters)
 "hV" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -7749,9 +7744,7 @@
 /obj/item/trash/gum,
 /obj/item/trash/tapetrash,
 /obj/item/trash/pistachios,
-/obj/item/reagent_containers/syringe/charcoal{
-	list_reagents = list("charcoal" = 13, "salmonella" = 2)
-	},
+/obj/item/reagent_containers/syringe/charcoal/old,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -14690,16 +14683,16 @@ go
 gV
 hn
 aV
-hU
-hU
+pC
+pC
 hT
 jf
-hU
+pC
 kC
 ll
-hU
-hU
-hU
+pC
+pC
+pC
 hT
 bm
 ng
@@ -14783,16 +14776,16 @@ gW
 gH
 hH
 hT
-hU
+pC
 iL
 eD
 jI
 kD
 lm
 eD
-hU
-hU
-hU
+pC
+pC
+pC
 mQ
 ng
 ng

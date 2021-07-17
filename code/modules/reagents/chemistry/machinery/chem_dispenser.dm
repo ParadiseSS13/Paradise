@@ -216,11 +216,11 @@
 			if(!beaker || !amount)
 				return
 			var/datum/reagents/R = beaker.reagents
-			var/path = params["reagent"]
+			var/reagent = text2path(params["reagent"])
 			if(amount > 0)
-				R.remove_reagent(path, amount)
+				R.remove_reagent(reagent, amount)
 			else if(amount == -1) //Isolate instead
-				R.isolate_reagent(path)
+				R.isolate_reagent(reagent)
 		if("ejectBeaker")
 			if(!beaker)
 				return
