@@ -230,6 +230,10 @@
 		var/can_insert = disk && disk.gene && disk.gene.can_add(seed)
 		var/can_extract = disk && !disk.read_only
 
+		dat += "<div class='line'><h3>Variant</h3></div><div class='statusDisplay'><table>"
+		dat += "<tr><td width='260px'>[(seed.variant == "") ? "None" : seed.variant]</td>"
+		dat += "<td><a href='?src=[UID()];variant=1'>Edit</a></td></tr></table></div>"
+
 		dat += "<div class='line'><h3>Core Genes</h3></div><div class='statusDisplay'><table>"
 		for(var/a in core_genes)
 			var/datum/plant_gene/G = a
@@ -391,6 +395,14 @@
 	else if(href_list["abort"])
 		operation = ""
 		target = null
+	else if(href_list["variant"])
+		if(!seed)
+			return
+		var/V = sanitize(stripped_input(usr, "Choose variant name:", "Plant Variant Naming", seed.variant, MAX_MESSAGE_LEN))
+		if((!Adjacent(usr)) || (!seed))
+			return
+		seed.variant = V
+		seed.apply_variant_name()
 
 	interact(usr)
 
