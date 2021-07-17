@@ -233,7 +233,8 @@
 		dat += "<div class='line'><h3>Variant</h3></div><div class='statusDisplay'><table>"
 		dat += "<tr><td width='260px'>[(seed.variant == "") ? "None" : seed.variant]</td>"
 		dat += "<td><a href='?src=[UID()];set_v=1'>Edit</a></td>"
-		dat += "<td><a href='?src=[UID()];del_v=1'>Remove</a></td>"
+		if(seed.variant != "")
+			dat += "<td><a href='?src=[UID()];del_v=1'>Remove</a></td>"
 		dat += "</tr></table></div>"
 
 		dat += "<div class='line'><h3>Core Genes</h3></div><div class='statusDisplay'><table>"
