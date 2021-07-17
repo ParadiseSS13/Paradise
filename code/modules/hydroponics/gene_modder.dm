@@ -232,7 +232,9 @@
 
 		dat += "<div class='line'><h3>Variant</h3></div><div class='statusDisplay'><table>"
 		dat += "<tr><td width='260px'>[(seed.variant == "") ? "None" : seed.variant]</td>"
-		dat += "<td><a href='?src=[UID()];variant=1'>Edit</a></td></tr></table></div>"
+		dat += "<td><a href='?src=[UID()];set_v=1'>Edit</a></td>"
+		dat += "<td><a href='?src=[UID()];del_v=1'>Remove</a></td>"
+		dat += "</tr></table></div>"
 
 		dat += "<div class='line'><h3>Core Genes</h3></div><div class='statusDisplay'><table>"
 		for(var/a in core_genes)
@@ -395,13 +397,18 @@
 	else if(href_list["abort"])
 		operation = ""
 		target = null
-	else if(href_list["variant"])
+	else if(href_list["set_v"])
 		if(!seed)
 			return
 		var/V = sanitize(stripped_input(usr, "Choose variant name:", "Plant Variant Naming", seed.variant, MAX_MESSAGE_LEN))
 		if((!Adjacent(usr)) || (!seed))
 			return
 		seed.variant = V
+		seed.apply_variant_name()
+	else if(href_list["del_v"])
+		if(!seed)
+			return
+		seed.variant = ""
 		seed.apply_variant_name()
 
 	interact(usr)
