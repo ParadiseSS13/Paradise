@@ -340,10 +340,10 @@
 	..() // Fallthrough to item/attackby() so that bags can pick seeds up
 
 /obj/item/seeds/proc/apply_variant_name()
-	var/P = findtext(name, "-")
-	var/V = (variant == "") ? "" : (" - " + variant)
+	var/P = findtext(name, "\[")
+	var/V = (variant == "") ? "" : (" \[" + variant + "]") // If we have a non-empty variant add it to the name
 	if (P != 0)
-		name = copytext(name, 1, P - 1) + V
+		name = copytext(name, 1, P - 1) + V // If there was already a variant in the name remove it
 	else
 		name += V
 
