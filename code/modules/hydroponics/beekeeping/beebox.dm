@@ -97,8 +97,8 @@
 			if(honeycombs.len < get_max_honeycomb())
 				bee_resources = max(bee_resources-BEE_RESOURCE_HONEYCOMB_COST, 0)
 				var/obj/item/reagent_containers/honeycomb/HC = new(src)
-				if(queen_bee.beegent)
-					HC.set_reagent(queen_bee.beegent)
+				if(queen_bee.beeagent)
+					HC.set_reagent(queen_bee.beeagent)
 				honeycombs += HC
 
 		if(bees.len < get_max_bees())
@@ -110,7 +110,7 @@
 					bee_resources = max(bee_resources - BEE_RESOURCE_NEW_BEE_COST, 0)
 				var/mob/living/simple_animal/hostile/poison/bees/B = new(get_turf(src))
 				B.beehome = src
-				B.assign_reagent(queen_bee.beegent)
+				B.assign_reagent(queen_bee.beeagent)
 				bees += B
 
 
@@ -166,7 +166,7 @@
 			return
 
 		var/obj/item/queen_bee/qb = I
-		if(!qb.queen.beegent || (qb.queen.beegent && qb.queen.beegent.can_synth))
+		if(!qb.queen.beeagent || (qb.queen.beeagent && qb.queen.beeagent.can_synth))
 			if(!user.unEquip(qb))
 				return
 			qb.queen.forceMove(src)

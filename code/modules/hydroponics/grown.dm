@@ -93,9 +93,9 @@
 			msg += seed.get_analyzer_text()
 		var/reag_txt = ""
 		if(seed)
-			for(var/reagent_id in seed.reagents_add)
-				var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
-				var/amt = reagents.get_reagent_amount(reagent_id)
+			for(var/reagent in seed.reagents_add)
+				var/datum/reagent/R = GLOB.chemical_reagents_list[reagent]
+				var/amt = reagents.get_reagent_amount(R.type)
 				reag_txt += "\n<span class='info'>- [R.name]: [amt]</span>"
 
 		if(reag_txt)

@@ -52,8 +52,8 @@
 			to_chat(user, "<span class='notice'>This [I] already has sprinkles.</span>")
 		return
 	return ..()
-#error test
-/obj/machinery/icemachine/proc/validexchange(reag)
+
+/obj/machinery/icemachine/proc/validexchange(reag) //TODO: test this
 	var/list/valid_reagents = list(
 		/datum/reagent/consumable/sprinkles,
 		/datum/reagent/consumable/drink/cold/space_cola,

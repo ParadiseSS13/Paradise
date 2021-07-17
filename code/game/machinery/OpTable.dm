@@ -12,7 +12,7 @@
 	var/obj/machinery/computer/operating/computer
 	buckle_lying = -1
 	var/no_icon_updates = FALSE //set this to TRUE if you don't want the icons ever changing
-	var/list/injected_reagents = list()
+	var/list/injected_reagents
 	var/reagent_target_amount = 1
 	var/inject_amount = 1
 
@@ -83,7 +83,7 @@
 		for(var/mob/living/carbon/C in get_turf(src))
 			var/datum/reagents/R = C.reagents
 			for(var/chemical in injected_reagents)
-				R.check_and_add(chemical,reagent_target_amount,inject_amount)
+				R.check_and_add(chemical, reagent_target_amount,inject_amount)
 
 /obj/machinery/optable/proc/take_patient(mob/living/carbon/new_patient, mob/living/carbon/user)
 	if(new_patient == user)

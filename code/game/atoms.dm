@@ -876,7 +876,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 	if(!isspaceturf(src))
 		var/type = green ? /obj/effect/decal/cleanable/vomit/green : /obj/effect/decal/cleanable/vomit
-		var/vomit_reagent = green ? "green_vomit" : "vomit"
+		var/vomit_reagent = green ? /datum/reagent/greenvomit : /datum/reagent/vomit
 		for(var/obj/effect/decal/cleanable/vomit/V in get_turf(src))
 			if(V.type == type)
 				V.reagents.add_reagent(vomit_reagent, 5)

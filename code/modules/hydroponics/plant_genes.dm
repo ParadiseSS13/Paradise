@@ -100,31 +100,31 @@
 // Reagent genes store reagent ID and reagent ratio. Amount of reagent in the plant = 1 + (potency * rate)
 /datum/plant_gene/reagent
 	name = "Nutriment"
-	var/reagent_id = /datum/reagent/consumable/nutriment
+	var/reagent = /datum/reagent/consumable/nutriment
 	var/rate = 0.04
-	#error refactor
+// TODO: TEST
 
 /datum/plant_gene/reagent/get_name()
-	return "[name] production [rate*100]%"
+	return "[name] production [rate * 100]%"
 
-/datum/plant_gene/reagent/proc/set_reagent(reag_id)
-	reagent_id = reag_id
+/datum/plant_gene/reagent/proc/set_reagent(reag)
+	reagent = reag
 	name = "UNKNOWN"
 
-	var/datum/reagent/R = GLOB.chemical_reagents_list[reag_id]
-	if(R && R.id == reagent_id)
+	var/datum/reagent/R = GLOB.chemical_reagents_list[reag]
+	if(R)
 		name = R.name
 
-/datum/plant_gene/reagent/New(reag_id = null, reag_rate = 0)
+/datum/plant_gene/reagent/New(reag = null, reag_rate = 0)
 	..()
-	if(reag_id && reag_rate)
-		set_reagent(reag_id)
+	if(reag && reag_rate)
+		set_reagent(reag)
 		rate = reag_rate
 
 /datum/plant_gene/reagent/Copy()
 	var/datum/plant_gene/reagent/G = ..()
 	G.name = name
-	G.reagent_id = reagent_id
+	G.reagent = reagent
 	G.rate = rate
 	return G
 
@@ -132,7 +132,7 @@
 	if(!..())
 		return FALSE
 	for(var/datum/plant_gene/reagent/R in S.genes)
-		if(R.reagent_id == reagent_id)
+		if(R.reagent == reagent)
 			return FALSE
 	return TRUE
 

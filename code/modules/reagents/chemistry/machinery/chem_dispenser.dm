@@ -19,7 +19,9 @@
 	var/image/icon_beaker = null //cached overlay
 	var/list/dispensable_reagents = list(/datum/reagent/hydrogen, /datum/reagent/lithium, /datum/reagent/carbon, /datum/reagent/nitrogen, /datum/reagent/oxygen, /datum/reagent/fluorine,
 	/datum/reagent/sodium, /datum/reagent/aluminum, /datum/reagent/silicon, /datum/reagent/phosphorus, /datum/reagent/sulfur, /datum/reagent/chlorine, /datum/reagent/potassium, /datum/reagent/iron,
-	/datum/reagent/copper, /datum/reagent/mercury, /datum/reagent/plasma, /datum/reagent/radium, /datum/reagent/water, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sugar, /datum/reagent/iodine, /datum/reagent/bromine, /datum/reagent/silver, /datum/reagent/chromium)
+	/datum/reagent/copper, /datum/reagent/mercury, /datum/reagent/plasma, /datum/reagent/radium, /datum/reagent/water, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sugar,
+	/datum/reagent/iodine, /datum/reagent/bromine, /datum/reagent/silver, /datum/reagent/chromium)
+
 	var/list/upgrade_reagents = list(/datum/reagent/oil, /datum/reagent/ash, /datum/reagent/acetone, /datum/reagent/saltpetre, /datum/reagent/ammonia, /datum/reagent/diethylamine, /datum/reagent/fuel)
 	var/list/hacked_reagents = list(/datum/reagent/toxin)
 	var/hack_message = "You disable the safety safeguards, enabling the \"Mad Scientist\" mode."
@@ -192,9 +194,10 @@
 		if("amount")
 			amount = clamp(round(text2num(params["amount"]), 1), 0, 50) // round to nearest 1 and clamp to 0 - 50
 		if("dispense")
-			if(!is_operational() || QDELETED(cell))
+			if(!is_operational() || QDELETED(cell) || !beaker)
 				return
-			if(!beaker || !(params["reagent"] in dispensable_reagents))
+			var/reagent = text2path(params["reagent"])
+			if(!(reagent in dispensable_reagents))
 				return
 			var/datum/reagents/R = beaker.reagents
 			var/free = R.maximum_volume - R.total_volume
@@ -202,7 +205,7 @@
 			if(!cell.use(actual / powerefficiency))
 				atom_say("Not enough energy to complete operation!")
 				return
-			R.add_reagent(params["reagent"], actual)
+			R.add_reagent(reagent, actual)
 			overlays.Cut()
 			if(!icon_beaker)
 				icon_beaker = mutable_appearance('icons/obj/chemical.dmi', "disp_beaker") //randomize beaker overlay position.
@@ -324,10 +327,15 @@
 	name = "soda fountain"
 	desc = "A drink fabricating machine, capable of producing many sugary drinks with just one touch."
 	ui_title = "Soda Dispens-o-matic"
-	dispensable_reagents = list(/datum/reagent/water, /datum/reagent/consumable/drink/cold/ice, /datum/reagent/consumable/drink/milk, /datum/reagent/consumable/drink/milk/soymilk, /datum/reagent/consumable/drink/coffee, /datum/reagent/consumable/drink/tea, /datum/reagent/consumable/hot_coco, /datum/reagent/consumable/drink/cold/space_cola, /datum/reagent/consumable/drink/cold/spacemountainwind, /datum/reagent/consumable/drink/cold/dr_gibb, /datum/reagent/consumable/drink/cold/space_up,
-	/datum/reagent/consumable/drink/cold/tonic, /datum/reagent/consumable/drink/cold/sodawater, /datum/reagent/consumable/drink/cold/lemon_lime, /datum/reagent/consumable/drink/grapejuice, /datum/reagent/consumable/sugar, /datum/reagent/consumable/drink/orangejuice, /datum/reagent/consumable/drink/lemonjuice, /datum/reagent/consumable/drink/limejuice, /datum/reagent/consumable/drink/tomatojuice, /datum/reagent/consumable/drink/banana,
+	dispensable_reagents = list(/datum/reagent/water, /datum/reagent/consumable/drink/cold/ice, /datum/reagent/consumable/drink/milk, /datum/reagent/consumable/drink/milk/soymilk,
+	/datum/reagent/consumable/drink/coffee, /datum/reagent/consumable/drink/tea, /datum/reagent/consumable/hot_coco, /datum/reagent/consumable/drink/cold/space_cola,
+	/datum/reagent/consumable/drink/cold/spacemountainwind, /datum/reagent/consumable/drink/cold/dr_gibb, /datum/reagent/consumable/drink/cold/space_up, /datum/reagent/consumable/drink/cold/tonic,
+	/datum/reagent/consumable/drink/cold/sodawater, /datum/reagent/consumable/drink/cold/lemon_lime, /datum/reagent/consumable/drink/grapejuice, /datum/reagent/consumable/sugar,
+	/datum/reagent/consumable/drink/orangejuice, /datum/reagent/consumable/drink/lemonjuice, /datum/reagent/consumable/drink/limejuice, /datum/reagent/consumable/drink/tomatojuice, /datum/reagent/consumable/drink/banana,
 	/datum/reagent/consumable/drink/watermelonjuice, /datum/reagent/consumable/drink/carrotjuice, /datum/reagent/consumable/drink/potato_juice, /datum/reagent/consumable/drink/berryjuice)
-	upgrade_reagents = list(/datum/reagent/consumable/drink/bananahonk, /datum/reagent/consumable/drink/cold/milkshake, /datum/reagent/consumable/drink/coffee/cafe_latte, /datum/reagent/consumable/drink/coffee/cafe_latte/cafe_mocha, /datum/reagent/consumable/drink/triple_citrus, "icecoffe", /datum/reagent/consumable/drink/tea/icetea)
+
+	upgrade_reagents = list(/datum/reagent/consumable/drink/bananahonk, /datum/reagent/consumable/drink/cold/milkshake, /datum/reagent/consumable/drink/coffee/cafe_latte,
+	/datum/reagent/consumable/drink/coffee/cafe_latte/cafe_mocha, /datum/reagent/consumable/drink/triple_citrus, /datum/reagent/consumable/drink/coffee/icecoffee, /datum/reagent/consumable/drink/tea/icetea)
 	hacked_reagents = list(/datum/reagent/consumable/ethanol/thirteenloko)
 	hack_message = "You change the mode from 'McNano' to 'Pizza King'."
 	unhack_message = "You change the mode from 'Pizza King' to 'McNano'."
@@ -362,9 +370,17 @@
 	name = "booze dispenser"
 	ui_title = "Booze Portal 9001"
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
-	dispensable_reagents = list(/datum/reagent/consumable/drink/cold/ice, /datum/reagent/consumable/drink/milk/cream, /datum/reagent/consumable/ethanol/cider, /datum/reagent/consumable/ethanol/beer, /datum/reagent/consumable/ethanol/kahlua, /datum/reagent/consumable/ethanol/whiskey, /datum/reagent/consumable/ethanol/wine, /datum/reagent/consumable/ethanol/vodka, /datum/reagent/consumable/ethanol/gin, /datum/reagent/consumable/ethanol/rum, /datum/reagent/consumable/ethanol/tequila, /datum/reagent/consumable/ethanol/vermouth, /datum/reagent/consumable/ethanol/cognac, /datum/reagent/consumable/ethanol/ale, /datum/reagent/consumable/ethanol/mead, /datum/reagent/consumable/ethanol/synthanol)
-	upgrade_reagents = list(/datum/reagent/consumable/ethanol/iced_beer, /datum/reagent/consumable/ethanol/irish_cream, /datum/reagent/consumable/ethanol/manhattan, /datum/reagent/medicine/antihol, /datum/reagent/consumable/ethanol/synthanol/synthignon, /datum/reagent/consumable/ethanol/brave_bull)
-	hacked_reagents = list(/datum/reagent/consumable/ethanol/goldschlager, /datum/reagent/consumable/ethanol/patron, /datum/reagent/consumable/ethanol/absinthe, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/drink/nothing, /datum/reagent/consumable/ethanol/sake)
+	dispensable_reagents = list(/datum/reagent/consumable/drink/cold/ice, /datum/reagent/consumable/drink/milk/cream, /datum/reagent/consumable/ethanol/cider,
+	/datum/reagent/consumable/ethanol/beer, /datum/reagent/consumable/ethanol/kahlua, /datum/reagent/consumable/ethanol/whiskey, /datum/reagent/consumable/ethanol/wine,
+	/datum/reagent/consumable/ethanol/vodka, /datum/reagent/consumable/ethanol/gin, /datum/reagent/consumable/ethanol/rum, /datum/reagent/consumable/ethanol/tequila,
+	/datum/reagent/consumable/ethanol/vermouth, /datum/reagent/consumable/ethanol/cognac, /datum/reagent/consumable/ethanol/ale, /datum/reagent/consumable/ethanol/mead, /datum/reagent/consumable/ethanol/synthanol)
+
+	upgrade_reagents = list(/datum/reagent/consumable/ethanol/iced_beer, /datum/reagent/consumable/ethanol/irish_cream, /datum/reagent/consumable/ethanol/manhattan,
+	/datum/reagent/medicine/antihol, /datum/reagent/consumable/ethanol/synthanol/synthignon, /datum/reagent/consumable/ethanol/brave_bull)
+
+	hacked_reagents = list(/datum/reagent/consumable/ethanol/goldschlager, /datum/reagent/consumable/ethanol/patron, /datum/reagent/consumable/ethanol/absinthe,
+	/datum/reagent/consumable/ethanol, /datum/reagent/consumable/drink/nothing, /datum/reagent/consumable/ethanol/sake)
+
 	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
 	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
 	is_drink = TRUE
@@ -406,7 +422,8 @@
 	var/is_drink = FALSE
 	var/list/dispensable_reagents = list(/datum/reagent/hydrogen, /datum/reagent/lithium, /datum/reagent/carbon, /datum/reagent/nitrogen, /datum/reagent/oxygen, /datum/reagent/fluorine,
 	/datum/reagent/sodium, /datum/reagent/aluminum, /datum/reagent/silicon, /datum/reagent/phosphorus, /datum/reagent/sulfur, /datum/reagent/chlorine, /datum/reagent/potassium, /datum/reagent/iron,
-	/datum/reagent/copper, /datum/reagent/mercury, /datum/reagent/plasma, /datum/reagent/radium, /datum/reagent/water, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sugar, /datum/reagent/iodine, /datum/reagent/bromine, /datum/reagent/silver, /datum/reagent/chromium)
+	/datum/reagent/copper, /datum/reagent/mercury, /datum/reagent/plasma, /datum/reagent/radium, /datum/reagent/water, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sugar,
+	/datum/reagent/iodine, /datum/reagent/bromine, /datum/reagent/silver, /datum/reagent/chromium)
 	var/current_reagent = null
 	var/efficiency = 0.2
 	var/recharge_rate = 1 // Keep this as an integer
@@ -580,17 +597,23 @@
 	item_state = "handheld_booze"
 	icon_state = "handheld_booze"
 	is_drink = TRUE
-	dispensable_reagents = list(/datum/reagent/consumable/drink/cold/ice, /datum/reagent/consumable/drink/milk/cream, /datum/reagent/consumable/ethanol/cider, /datum/reagent/consumable/ethanol/beer, /datum/reagent/consumable/ethanol/kahlua, /datum/reagent/consumable/ethanol/whiskey, /datum/reagent/consumable/ethanol/wine, /datum/reagent/consumable/ethanol/vodka, /datum/reagent/consumable/ethanol/gin, /datum/reagent/consumable/ethanol/rum, /datum/reagent/consumable/ethanol/tequila,
-	 /datum/reagent/consumable/ethanol/vermouth, /datum/reagent/consumable/ethanol/cognac, /datum/reagent/consumable/ethanol/ale, /datum/reagent/consumable/ethanol/mead, /datum/reagent/consumable/ethanol/synthanol)
+	dispensable_reagents = list(/datum/reagent/consumable/drink/cold/ice, /datum/reagent/consumable/drink/milk/cream, /datum/reagent/consumable/ethanol/cider,
+	/datum/reagent/consumable/ethanol/beer, /datum/reagent/consumable/ethanol/kahlua, /datum/reagent/consumable/ethanol/whiskey, /datum/reagent/consumable/ethanol/wine, /datum/reagent/consumable/ethanol/vodka,
+	/datum/reagent/consumable/ethanol/gin, /datum/reagent/consumable/ethanol/rum, /datum/reagent/consumable/ethanol/tequila, /datum/reagent/consumable/ethanol/vermouth, /datum/reagent/consumable/ethanol/cognac,
+	/datum/reagent/consumable/ethanol/ale, /datum/reagent/consumable/ethanol/mead, /datum/reagent/consumable/ethanol/synthanol)
 
 /obj/item/handheld_chem_dispenser/soda
 	name = "handheld soda fountain"
 	item_state = "handheld_soda"
 	icon_state = "handheld_soda"
 	is_drink = TRUE
-	dispensable_reagents = list(/datum/reagent/water, /datum/reagent/consumable/drink/cold/ice, /datum/reagent/consumable/drink/milk, /datum/reagent/consumable/drink/milk/soymilk, /datum/reagent/consumable/drink/coffee, /datum/reagent/consumable/drink/tea, /datum/reagent/consumable/hot_coco, /datum/reagent/consumable/drink/cold/space_cola, /datum/reagent/consumable/drink/cold/spacemountainwind, /datum/reagent/consumable/drink/cold/dr_gibb, /datum/reagent/consumable/drink/cold/space_up,
-	/datum/reagent/consumable/drink/cold/tonic, /datum/reagent/consumable/drink/cold/sodawater, /datum/reagent/consumable/drink/cold/lemon_lime, /datum/reagent/consumable/drink/grapejuice, /datum/reagent/consumable/sugar, /datum/reagent/consumable/drink/orangejuice, /datum/reagent/consumable/drink/lemonjuice, /datum/reagent/consumable/drink/limejuice, /datum/reagent/consumable/drink/tomatojuice, /datum/reagent/consumable/drink/banana,
-	/datum/reagent/consumable/drink/watermelonjuice, /datum/reagent/consumable/drink/carrotjuice, /datum/reagent/consumable/drink/potato_juice, /datum/reagent/consumable/drink/berryjuice)
+	dispensable_reagents = list(/datum/reagent/water, /datum/reagent/consumable/drink/cold/ice, /datum/reagent/consumable/drink/milk, /datum/reagent/consumable/drink/milk/soymilk,
+	/datum/reagent/consumable/drink/coffee, /datum/reagent/consumable/drink/tea, /datum/reagent/consumable/hot_coco, /datum/reagent/consumable/drink/cold/space_cola,
+	/datum/reagent/consumable/drink/cold/spacemountainwind, /datum/reagent/consumable/drink/cold/dr_gibb, /datum/reagent/consumable/drink/cold/space_up,
+	/datum/reagent/consumable/drink/cold/tonic, /datum/reagent/consumable/drink/cold/sodawater, /datum/reagent/consumable/drink/cold/lemon_lime, /datum/reagent/consumable/drink/grapejuice,
+	/datum/reagent/consumable/sugar, /datum/reagent/consumable/drink/orangejuice, /datum/reagent/consumable/drink/lemonjuice, /datum/reagent/consumable/drink/limejuice,
+	/datum/reagent/consumable/drink/tomatojuice, /datum/reagent/consumable/drink/banana, /datum/reagent/consumable/drink/watermelonjuice, /datum/reagent/consumable/drink/carrotjuice,
+	/datum/reagent/consumable/drink/potato_juice, /datum/reagent/consumable/drink/berryjuice)
 
 /obj/item/handheld_chem_dispenser/botanical
 	name = "handheld botanical chemical dispenser"

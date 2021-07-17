@@ -516,7 +516,7 @@
 		return
 	var/amount = synth_speed / processed_reagents.len
 	for(var/reagent in processed_reagents)
-		reagents.add_reagent(reagent,amount)
+		reagents.add_reagent(reagent, amount)
 		chassis.use_power(energy_drain)
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw

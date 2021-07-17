@@ -10,8 +10,8 @@
 	max_integrity = 300
 	/// How much this dispenser can hold (In units)
 	var/tank_volume = 1000
-	/// The ID of the reagent that the dispenser uses
-	var/reagent_id = /datum/reagent/water
+	/// The path of the reagent that the dispenser uses
+	var/reagent_path = /datum/reagent/water
 	/// The last person to rig this fuel tank - Stored with the object. Only the last person matters for investigation
 	var/lastrigger = ""
 	/// Can this tank be unwrenched
@@ -31,7 +31,7 @@
 /obj/structure/reagent_dispensers/Initialize(mapload)
 	. = ..()
 	create_reagents(tank_volume)
-	reagents.add_reagent(reagent_id, tank_volume)
+	reagents.add_reagent(reagent_path, tank_volume)
 
 /obj/structure/reagent_dispensers/wrench_act(mob/user, obj/item/I)
 	if(!can_be_unwrenched)
@@ -82,14 +82,14 @@
 	name = "oil tank"
 	desc = "A tank of oil, commonly used to by robotics to fix leaking IPCs or just to loosen up those rusted underused parts."
 	icon_state = "oil"
-	reagent_id = /datum/reagent/oil
+	reagent_path = /datum/reagent/oil
 	tank_volume = 3000
 
 /obj/structure/reagent_dispensers/fueltank
 	name = "fuel tank"
 	desc = "A tank full of industrial welding fuel. Do not consume."
 	icon_state = "fuel"
-	reagent_id = /datum/reagent/fuel
+	reagent_path = /datum/reagent/fuel
 	tank_volume = 4000
 	var/obj/item/assembly_holder/rig = null
 	var/accepts_rig = 1
@@ -226,7 +226,7 @@
 	icon_state = "pepper"
 	density = FALSE
 	can_be_unwrenched = FALSE
-	reagent_id = /datum/reagent/consumable/condensedcapsaicin
+	reagent_path = /datum/reagent/consumable/condensedcapsaicin
 
 /obj/structure/reagent_dispensers/water_cooler
 	name = "liquid cooler"
@@ -254,7 +254,7 @@
 	name = "beer keg"
 	desc = "Beer is liquid bread, it's good for you..."
 	icon_state = "beer"
-	reagent_id = /datum/reagent/consumable/ethanol/beer
+	reagent_path = /datum/reagent/consumable/ethanol/beer
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act(obj/structure/blob/B)
 	explosion(loc, 0, 3, 5, 7, 10)
@@ -275,7 +275,7 @@
 	icon_state = "virus_food"
 	can_be_unwrenched = FALSE
 	density = FALSE
-	reagent_id = /datum/reagent/consumable/virus_food
+	reagent_path = /datum/reagent/consumable/virus_food
 
 /obj/structure/reagent_dispensers/spacecleanertank
 	name = "space cleaner refiller"
@@ -284,7 +284,7 @@
 	can_be_unwrenched = FALSE
 	density = FALSE
 	tank_volume = 5000
-	reagent_id = /datum/reagent/space_cleaner
+	reagent_path = /datum/reagent/space_cleaner
 
 /obj/structure/reagent_dispensers/fueltank/chem
 	icon_state = "fuel_chem"

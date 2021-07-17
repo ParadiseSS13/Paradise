@@ -309,7 +309,8 @@
 			new /obj/item/stack/sheet/mineral/plasma(get_turf(pick(oview(1,src))))
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message("<span class='danger'>[src] destroys [exp_on], leaking dangerous gas!</span>")
-			chosenchem = pick(/datum/reagent/carbon, /datum/reagent/radium, /datum/reagent/toxin, /datum/reagent/consumable/condensedcapsaicin, /datum/reagent/psilocybin, /datum/reagent/space_drugs, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/ethanol/beepsky_smash)
+			chosenchem = pick(/datum/reagent/carbon, /datum/reagent/radium, /datum/reagent/toxin, /datum/reagent/consumable/condensedcapsaicin,
+				/datum/reagent/psilocybin, /datum/reagent/space_drugs, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/ethanol/beepsky_smash)
 			var/datum/reagents/R = new/datum/reagents(15)
 			R.my_atom = src
 			R.add_reagent(chosenchem , 15)

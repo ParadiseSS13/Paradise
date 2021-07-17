@@ -102,10 +102,11 @@
 		var/mob/living/carbon/M =	AM
 		if(M.slip("foam", 5, 2))
 			if(reagents)
-				for(var/reagent_id in reagents.reagent_list)
-					var/amount = M.reagents.get_reagent_amount(reagent_id)
+				for(var/reagent in reagents.reagent_list)
+					var/datum/reagent/R = reagent
+					var/amount = M.reagents.get_reagent_amount(R.type)
 					if(amount < 25)
-						M.reagents.add_reagent(reagent_id, min(round(amount / 2), 15))
+						M.reagents.add_reagent(R.type, min(round(amount / 2), 15))
 				if(reagents.total_volume)
 					var/fraction = 5 / reagents.total_volume
 					reagents.reaction(M, REAGENT_TOUCH, fraction)
@@ -113,7 +114,7 @@
 /datum/effect_system/foam_spread
 	effect_type = /obj/effect/particle_effect/foam
 	var/amount = 5				// the size of the foam spread.
-	var/list/carried_reagents	// the IDs of reagents present when the foam was mixed
+	var/list/carried_reagents	// the paths of reagents present when the foam was mixed
 	var/metal = 0				// 0=foam, 1=metalfoam, 2=ironfoam
 	var/temperature = T0C
 	var/list/banned_reagents = list(/datum/reagent/smoke_powder, /datum/reagent/fluorosurfactant, /datum/reagent/medicine/stimulants)
@@ -152,11 +153,11 @@
 			F.create_reagents(25)
 
 			if(carried_reagents)
-				for(var/id in carried_reagents)
-					if(banned_reagents.Find("[id]"))
+				for(var/reagent in carried_reagents)
+					if(reagent in banned_reagents)
 						continue
-					var/datum/reagent/reagent_volume = carried_reagents[id]
-					F.reagents.add_reagent(id, min(reagent_volume, 5), null, temperature)
+					var/datum/reagent/reagent_volume = carried_reagents[reagent]
+					F.reagents.add_reagent(reagent, min(reagent_volume, 5), null, temperature)
 				F.color = mix_color_from_reagents(F.reagents.reagent_list)
 			else
 				F.reagents.add_reagent(/datum/reagent/space_cleaner, 1)

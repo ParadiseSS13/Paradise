@@ -49,11 +49,12 @@
 	..()
 	var/list/possible_chems = GLOB.chemical_reagents_list.Copy()
 	possible_chems -= GLOB.blocked_chems.Copy()
-	var/datum/reagent/R = pick(possible_chems)
-	if(GLOB.rare_chemicals.Find(R))
+	var/R = pick(possible_chems)
+
+	if(R in GLOB.rare_chemicals)
 		reagents.add_reagent(R, 10)
 	else
-		reagents.add_reagent(R, rand(2, 3)*10)
+		reagents.add_reagent(R, rand(20, 30))
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
 
@@ -80,7 +81,7 @@
 /obj/item/reagent_containers/glass/bottle/random_base_chem/New()
 	..()
 	var/datum/reagent/R = pick(GLOB.base_chemicals)
-	reagents.add_reagent(R, rand(2, 6)*5)
+	reagents.add_reagent(R, rand(10, 30))
 	name = "unlabelled bottle"
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
@@ -112,12 +113,12 @@
 	if(R in GLOB.rare_chemicals)
 		reagents.add_reagent(R, 10)
 	else
-		reagents.add_reagent(R, rand(3, 10)*10)
+		reagents.add_reagent(R, rand(30, 100))
 	name = "unlabelled bottle"
 	icon_state = pick("alco-white","alco-green","alco-blue","alco-clear","alco-red")
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
-	qdel(src)
+	qdel(src) //what
 
 /obj/item/storage/pill_bottle/random_meds
 	name = "unlabelled pillbottle"
@@ -131,13 +132,13 @@
 		var/list/possible_medicines = GLOB.standard_medicines.Copy()
 		if(prob(50))
 			possible_medicines += GLOB.rare_medicines.Copy()
-		var/datum/reagent/R = pick(possible_medicines)
+		var/R = pick(possible_medicines)
 		var/obj/item/reagent_containers/food/pill/P = new(src)
 
-		if(GLOB.rare_medicines.Find(R))
+		if(R in GLOB.rare_medicines)
 			P.reagents.add_reagent(R, 10)
 		else
-			P.reagents.add_reagent(R, rand(2, 5)*10)
+			P.reagents.add_reagent(R, rand(20, 50))
 		if(labelled)
 			P.name = "[R] Pill"
 			P.desc = "A pill containing [R]."

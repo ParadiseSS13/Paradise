@@ -58,7 +58,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	//Other
 	var/list/viable_mobtypes = list() //typepaths of viable mobs
 	var/mob/living/carbon/affected_mob = null
-	var/list/cures = list() //list of cures if the disease has the CURABLE flag, these are reagent ids
+	var/list/cures = list() //list of cures if the disease has the CURABLE flag, these are reagent paths
 	var/infectivity = 65
 	var/cure_chance = 8
 	var/carrier = FALSE //If our host is only a carrier
@@ -105,8 +105,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		return 0
 
 	. = cures.len
-	for(var/C_id in cures)
-		if(!affected_mob.reagents.has_reagent(C_id))
+	for(var/C in cures)
+		if(!affected_mob.reagents.has_reagent(C))
 			.--
 	if(!. || (needs_all_cures && . < cures.len))
 		return 0

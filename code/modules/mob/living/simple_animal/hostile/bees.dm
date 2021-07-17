@@ -45,7 +45,7 @@
 	minbodytemp = 0
 	del_on_death = TRUE
 
-	var/datum/reagent/beegent = null //hehe, beegent
+	var/datum/reagent/beeagent = null //hehe, beeagent
 	var/obj/structure/beebox/beehome = null
 	var/idle = 0
 	var/isqueen = FALSE
@@ -64,7 +64,7 @@
 	AddComponent(/datum/component/swarming)
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()
-	beegent = null
+	beeagent = null
 	if(beehome)
 		if(beehome.bees)
 			beehome.bees.Remove(src)
@@ -104,8 +104,8 @@
 	overlays.Cut()
 
 	var/col = BEE_DEFAULT_COLOUR
-	if(beegent && beegent.color)
-		col = beegent.color
+	if(beeagent && beeagent.color)
+		col = beeagent.color
 
 	var/image/base
 	if(!bee_icons["[icon_base]_base"])
@@ -164,15 +164,15 @@
 		if(. && isliving(target) && (!client || a_intent == INTENT_HARM))
 			var/mob/living/L = target
 			if(L.reagents)
-				if(beegent)
-					beegent.reaction_mob(L, REAGENT_INGEST)
-					L.reagents.add_reagent(beegent.type, rand(1, 5))
+				if(beeagent)
+					beeagent.reaction_mob(L, REAGENT_INGEST)
+					L.reagents.add_reagent(beeagent.type, rand(1, 5))
 				else
 					L.reagents.add_reagent(/datum/reagent/spider_venom, 5)
 
 /mob/living/simple_animal/hostile/poison/bees/proc/assign_reagent(datum/reagent/R)
 	if(istype(R))
-		beegent = R
+		beeagent = R
 		name = "[initial(name)] ([R.name])"
 		generate_bee_visuals()
 
@@ -242,10 +242,10 @@
 //leave pollination for the peasent bees
 /mob/living/simple_animal/hostile/poison/bees/queen/AttackingTarget()
 	. = ..()
-	if(. && beegent && isliving(target))
+	if(. && beeagent && isliving(target))
 		var/mob/living/L = target
-		beegent.reaction_mob(L, REAGENT_TOUCH)
-		L.reagents.add_reagent(beegent.type, rand(1, 5))
+		beeagent.reaction_mob(L, REAGENT_TOUCH)
+		L.reagents.add_reagent(beeagent.type, rand(1, 5))
 
 //PEASENT BEES
 /mob/living/simple_animal/hostile/poison/bees/queen/pollinate()
@@ -254,7 +254,7 @@
 /mob/living/simple_animal/hostile/poison/bees/proc/reagent_incompatible(mob/living/simple_animal/hostile/poison/bees/B)
 	if(!B)
 		return FALSE
-	if(B.beegent && beegent && B.beegent.type != beegent.type || B.beegent && !beegent || !B.beegent && beegent)
+	if(B.beeagent && beeagent && B.beeagent.type != beeagent.type || B.beeagent && !beeagent || !B.beeagent && beeagent)
 		return TRUE
 	return FALSE
 
@@ -277,8 +277,8 @@
 				S.reagents.remove_reagent(/datum/reagent/royal_bee_jelly, 5)
 				var/obj/item/queen_bee/qb = new(user.drop_location())
 				qb.queen = new(qb)
-				if(queen && queen.beegent)
-					qb.queen.assign_reagent(queen.beegent) //Bees use the global singleton instances of reagents, so we don't need to worry about one bee being deleted and her copies losing their reagents.
+				if(queen && queen.beeagent)
+					qb.queen.assign_reagent(queen.beeagent) //Bees use the global singleton instances of reagents, so we don't need to worry about one bee being deleted and her copies losing their reagents.
 				user.put_in_active_hand(qb)
 				user.visible_message("<span class='notice'>[user] injects [src] with royal bee jelly, causing it to split into two bees, MORE BEES!</span>","<span class ='warning'>You inject [src] with royal bee jelly, causing it to split into two bees, MORE BEES!</span>")
 			else
@@ -326,7 +326,7 @@
 	var/list/master_and_friends = list()
 
 /mob/living/simple_animal/hostile/poison/bees/syndi/New()
-	beegent = GLOB.chemical_reagents_list[/datum/reagent/acid/facid] //Prepare to die
+	beeagent = GLOB.chemical_reagents_list[/datum/reagent/acid/facid] //Prepare to die
 	..()
 
 /mob/living/simple_animal/hostile/poison/bees/syndi/Destroy()

@@ -8,7 +8,7 @@ GLOBAL_LIST_INIT(standard_chemicals, list(/datum/reagent/slimejelly, /datum/reag
 								/datum/reagent/nitrogen, /datum/reagent/hydrogen, /datum/reagent/potassium, /datum/reagent/mercury, /datum/reagent/sulfur, /datum/reagent/carbon, /datum/reagent/chlorine,
 								/datum/reagent/fluorine, /datum/reagent/sodium, /datum/reagent/phosphorus, /datum/reagent/lithium, /datum/reagent/consumable/sugar, /datum/reagent/acid, /datum/reagent/acid/facid,
 								/datum/reagent/glycerol, /datum/reagent/radium, /datum/reagent/medicine/mutadone, /datum/reagent/thermite, /datum/reagent/mutagen, /datum/reagent/consumable/virus_food, /datum/reagent/iron,
-								/datum/reagent/gold, "silver", /datum/reagent/uranium, /datum/reagent/aluminum, /datum/reagent/silicon, /datum/reagent/fuel, /datum/reagent/space_cleaner, /datum/reagent/glyphosate/atrazine,
+								/datum/reagent/gold, /datum/reagent/silver, /datum/reagent/uranium, /datum/reagent/aluminum, /datum/reagent/silicon, /datum/reagent/fuel, /datum/reagent/space_cleaner, /datum/reagent/glyphosate/atrazine,
 								/datum/reagent/plasma, /datum/reagent/medicine/teporone, /datum/reagent/lexorin, /datum/reagent/medicine/silver_sulfadiazine, /datum/reagent/medicine/salbutamol,
 								/datum/reagent/medicine/perfluorodecalin, /datum/reagent/medicine/omnizine, /datum/reagent/medicine/synaptizine, /datum/reagent/medicine/haloperidol, /datum/reagent/medicine/potass_iodide,
 								/datum/reagent/medicine/pen_acid, /datum/reagent/medicine/mannitol, /datum/reagent/medicine/oculine, /datum/reagent/medicine/styptic_powder, /datum/reagent/methamphetamine,
@@ -52,13 +52,13 @@ GLOBAL_LIST_INIT(liver_toxins, list(/datum/reagent/toxin, /datum/reagent/plasma,
 //Random chem blacklist
 GLOBAL_LIST_INIT(blocked_chems, list(/datum/reagent/polonium, /datum/reagent/initropidril, /datum/reagent/concentrated_initro,
 							/datum/reagent/sodium_thiopental, /datum/reagent/ketamine, /datum/reagent/coniine,
-							/datum/reagent/medicine/adminordrazine, /datum/reagent/medicine/adminordrazine/nanites, "hellwater",
+							/datum/reagent/medicine/adminordrazine, /datum/reagent/medicine/adminordrazine/nanites, /datum/reagent/hellwater,
 							/datum/reagent/slimetoxin, /datum/reagent/aslimetoxin, /datum/reagent/venom,
 							/datum/reagent/spore, /datum/reagent/medicine/stimulants, /datum/reagent/medicine/stimulative_agent,
 							/datum/reagent/medicine/syndicate_nanites, /datum/reagent/blob/ripping_tendrils, /datum/reagent/blob/boiling_oil,
 							/datum/reagent/blob/envenomed_filaments, /datum/reagent/blob/lexorin_jelly, /datum/reagent/blob/kinetic,
-							/datum/reagent/blob/cryogenic_liquid, "dark_matter", /datum/reagent/blob/b_sorium,
-							"reagent", "life", /datum/reagent/consumable/ethanol/dragons_breath, /datum/reagent/medicine/nanocalcium))
+							/datum/reagent/blob/cryogenic_liquid, /datum/reagent/liquid_dark_matter, /datum/reagent/blob/b_sorium,
+							/datum/reagent/blob, /datum/reagent/consumable/ethanol/dragons_breath, /datum/reagent/medicine/nanocalcium))
 
 GLOBAL_LIST_INIT(safe_chem_list, list(/datum/reagent/medicine/antihol, /datum/reagent/medicine/charcoal, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/insulin, /datum/reagent/medicine/teporone, /datum/reagent/medicine/silver_sulfadiazine, /datum/reagent/medicine/salbutamol,
 									  /datum/reagent/medicine/omnizine, /datum/reagent/medicine/stimulants, /datum/reagent/medicine/synaptizine, /datum/reagent/medicine/potass_iodide, /datum/reagent/medicine/oculine, /datum/reagent/medicine/mannitol, /datum/reagent/medicine/styptic_powder,

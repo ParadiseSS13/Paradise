@@ -124,12 +124,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if("plastic")
 				return_name = "Plastic"
 		return return_name
-	//else //TODO
-	//	for(var/R in GLOB.chemical_reagents_list)
-	//		var/datum/reagent/rt = R
-	//		if(rt.id == ID)
-	//			return rt.name
-#error fix
+	else
+		var/datum/reagent/reagent = GLOB.chemical_reagents_list[ID]
+		if(reagent)
+			return reagent.name
+// TODO: Test
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
 	for(var/obj/machinery/r_n_d/D in range(3,src))

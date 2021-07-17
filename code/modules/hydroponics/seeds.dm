@@ -65,8 +65,8 @@
 				genes -= p
 				genes += new p
 
-		for(var/reag_id in reagents_add)
-			genes += new /datum/plant_gene/reagent(reag_id, reagents_add[reag_id])
+		for(var/reagent in reagents_add)
+			genes += new /datum/plant_gene/reagent(reagent, reagents_add[reagent])
 
 /obj/item/seeds/Destroy()
 	QDEL_LIST(genes)
@@ -96,7 +96,7 @@
 /obj/item/seeds/proc/reagents_from_genes()
 	reagents_add = list()
 	for(var/datum/plant_gene/reagent/R in genes)
-		reagents_add[R.reagent_id] = R.rate
+		reagents_add[R.reagent] = R.rate
 
 /obj/item/seeds/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0)
 	adjust_lifespan(rand(-lifemut,lifemut))
@@ -376,7 +376,7 @@
 		else
 			qdel(R)
 	reagents_from_genes()
-#error fix probably
+
 /obj/item/seeds/proc/add_random_traits(lower = 0, upper = 2)
 	var/amount_random_traits = rand(lower, upper)
 	for(var/i in 1 to amount_random_traits)

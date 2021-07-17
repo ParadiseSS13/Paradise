@@ -192,7 +192,7 @@
 	name = "Bottle of Nothing"
 	desc = "A bottle filled with nothing."
 	icon_state = "bottleofnothing"
-	list_reagents = list(nothing = 100)
+	list_reagents = list(/datum/reagent/consumable/drink/nothing = 100)
 
 /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana
 	name = "Jolly Jug"

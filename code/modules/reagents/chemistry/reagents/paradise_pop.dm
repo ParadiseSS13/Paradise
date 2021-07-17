@@ -134,6 +134,7 @@
 		shake_camera(M, 3, 1)
 	if(prob(5))
 		var/amount = rand(1, 5)
-		var/mineral = pick(/datum/reagent/copper, /datum/reagent/iron, /datum/reagent/gold, /datum/reagent/carbon, /datum/reagent/silver, /datum/reagent/aluminum, /datum/reagent/silicon, /datum/reagent/consumable/sodiumchloride, /datum/reagent/plasma)
+		var/mineral = pick(/datum/reagent/copper, /datum/reagent/iron, /datum/reagent/gold, /datum/reagent/carbon, /datum/reagent/silver,
+			/datum/reagent/aluminum, /datum/reagent/silicon, /datum/reagent/consumable/sodiumchloride, /datum/reagent/plasma)
 		M.reagents.add_reagent(mineral, amount)
 	return ..()

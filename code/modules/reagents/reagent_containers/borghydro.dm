@@ -16,14 +16,13 @@
 	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
 
 	var/list/datum/reagents/reagent_list = list()
-	var/list/reagent_ids = list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/spaceacillin, /datum/reagent/medicine/charcoal, /datum/reagent/medicine/hydrocodone)
-	//var/list/reagent_ids = list("salbutamol", "silver_sulfadiazine", "styptic_powder", "charcoal", "epinephrine", "spaceacillin", "hydrocodone")
+	var/list/reagents_types = list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/spaceacillin, /datum/reagent/medicine/charcoal, /datum/reagent/medicine/hydrocodone)
 
 /obj/item/reagent_containers/borghypo/surgeon
-	reagent_ids = list(/datum/reagent/medicine/styptic_powder, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/salbutamol)
+	reagents_types = list(/datum/reagent/medicine/styptic_powder, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/salbutamol)
 
 /obj/item/reagent_containers/borghypo/crisis
-	reagent_ids = list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/sal_acid)
+	reagents_types = list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/sal_acid)
 
 /obj/item/reagent_containers/borghypo/syndicate
 	name = "syndicate cyborg hypospray"
@@ -31,13 +30,13 @@
 	icon_state = "borghypo_s"
 	charge_cost = 20
 	recharge_time = 2
-	reagent_ids = list(/datum/reagent/medicine/syndicate_nanites, /datum/reagent/medicine/potass_iodide, /datum/reagent/medicine/hydrocodone)
+	reagents_types = list(/datum/reagent/medicine/syndicate_nanites, /datum/reagent/medicine/potass_iodide, /datum/reagent/medicine/hydrocodone)
 	bypass_protection = 1
 
 /obj/item/reagent_containers/borghypo/New()
 	..()
-	for(var/R in reagent_ids)
-		add_reagent(R)
+	for(var/R in reagents_types)
+		add_hypo_reagent(R)
 
 	START_PROCESSING(SSobj, src)
 
@@ -55,17 +54,17 @@
 		var/mob/living/silicon/robot/R = loc
 		if(R && R.cell)
 			var/datum/reagents/RG = reagent_list[mode]
-			if(!refill_borghypo(RG, reagent_ids[mode], R)) 	//If the storage is not full recharge reagents and drain power.
+			if(!refill_borghypo(RG, reagents_types[mode], R)) 	//If the storage is not full recharge reagents and drain power.
 				for(var/i in 1 to reagent_list.len)     	//if active mode is full loop through the list and fill the first one that is not full
 					RG = reagent_list[i]
-					if(refill_borghypo(RG, reagent_ids[i], R))
+					if(refill_borghypo(RG, reagents_types[i], R))
 						break
 	//update_icon()
 	return TRUE
 
 // Use this to add more chemicals for the borghypo to produce.
-/obj/item/reagent_containers/borghypo/proc/add_reagent(reagent)
-	reagent_ids |= reagent
+/obj/item/reagent_containers/borghypo/proc/add_hypo_reagent(reagent)
+	reagents_types |= reagent
 	var/datum/reagents/RG = new(30)
 	RG.my_atom = src
 	reagent_list += RG
@@ -73,9 +72,9 @@
 	var/datum/reagents/R = reagent_list[reagent_list.len]
 	R.add_reagent(reagent, 30)
 
-/obj/item/reagent_containers/borghypo/proc/refill_borghypo(datum/reagents/RG, reagent_id, mob/living/silicon/robot/R)
+/obj/item/reagent_containers/borghypo/proc/refill_borghypo(datum/reagents/RG, reagent, mob/living/silicon/robot/R)
 	if(RG.total_volume < RG.maximum_volume)
-		RG.add_reagent(reagent_id, BORGHYPO_REFILL_VALUE)
+		RG.add_reagent(reagent, BORGHYPO_REFILL_VALUE)
 		R.cell.use(charge_cost)
 		return TRUE
 	return FALSE
@@ -91,9 +90,9 @@
 		to_chat(user, "<span class='notice'>You inject [M] with the injector.</span>")
 		to_chat(M, "<span class='notice'>You feel a tiny prick!</span>")
 
-		R.add_reagent(M)
+		R.add_reagent(M) // TODO: Test
 		if(M.reagents)
-			var/datum/reagent/injected = GLOB.chemical_reagents_list[reagent_ids[mode]]
+			var/datum/reagent/injected = GLOB.chemical_reagents_list[reagents_types[mode]]
 			var/contained = injected.name
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
 			add_attack_logs(user, M, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
@@ -106,7 +105,7 @@
 		mode = 1
 
 	charge_tick = 0 //Prevents wasted chems/cell charge if you're cycling through modes.
-	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]
+	var/datum/reagent/R = GLOB.chemical_reagents_list[reagents_types[mode]]
 	to_chat(user, "<span class='notice'>Synthesizer is now producing '[R.name]'.</span>")
 	return
 
@@ -127,6 +126,6 @@
 /obj/item/reagent_containers/borghypo/basic
 	name = "Basic Medical Hypospray"
 	desc = "A very basic medical hypospray, capable of providing simple medical treatment in emergencies."
-	reagent_ids = list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/epinephrine)
+	reagents_types = list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/epinephrine)
 
 #undef BORGHYPO_REFILL_VALUE

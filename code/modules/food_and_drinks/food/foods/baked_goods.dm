@@ -398,7 +398,8 @@
 
 /obj/item/reagent_containers/food/snacks/donut/chaos/New()
 	..()
-	extra_reagent = pick(/datum/reagent/consumable/nutriment, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/krokodil, /datum/reagent/plasma, /datum/reagent/consumable/cocoa, /datum/reagent/slimejelly, /datum/reagent/consumable/drink/banana, /datum/reagent/consumable/drink/berryjuice, /datum/reagent/medicine/omnizine)
+	extra_reagent = pick(/datum/reagent/consumable/nutriment, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/krokodil,
+		/datum/reagent/plasma, /datum/reagent/consumable/cocoa, /datum/reagent/slimejelly, /datum/reagent/consumable/drink/banana, /datum/reagent/consumable/drink/berryjuice, /datum/reagent/medicine/omnizine)
 	reagents.add_reagent("[extra_reagent]", 3)
 	if(prob(30))
 		icon_state = "donut2"
