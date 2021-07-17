@@ -230,13 +230,6 @@
 		var/can_insert = disk && disk.gene && disk.gene.can_add(seed)
 		var/can_extract = disk && !disk.read_only
 
-		dat += "<div class='line'><h3>Variant</h3></div><div class='statusDisplay'><table>"
-		dat += "<tr><td width='260px'>[(seed.variant == "") ? "None" : seed.variant]</td>"
-		dat += "<td><a href='?src=[UID()];set_v=1'>Edit</a></td>"
-		if(seed.variant != "")
-			dat += "<td><a href='?src=[UID()];del_v=1'>Remove</a></td>"
-		dat += "</tr></table></div>"
-
 		dat += "<div class='line'><h3>Core Genes</h3></div><div class='statusDisplay'><table>"
 		for(var/a in core_genes)
 			var/datum/plant_gene/G = a
@@ -284,6 +277,13 @@
 			if(can_insert && istype(disk.gene, /datum/plant_gene/trait))
 				dat += "<a href='?src=[UID()];op=insert'>Insert: [disk.gene.get_name()]</a>"
 			dat += "</div>"
+
+		dat += "<div class='line'><h3>Variant</h3></div><div class='statusDisplay'><table>"
+		dat += "<tr><td width='260px'>[(seed.variant == "") ? "None" : seed.variant]</td>"
+		dat += "<td><a href='?src=[UID()];set_v=1'>Edit</a></td>"
+		if(seed.variant != "")
+			dat += "<td><a href='?src=[UID()];del_v=1'>Remove</a></td>"
+		dat += "</tr></table></div>"
 	else
 		dat += "<br>No sample found.<br><span class='highlight'>Please, insert a plant sample to use this device.</span>"
 	popup.set_content(dat)
