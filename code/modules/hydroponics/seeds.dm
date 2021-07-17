@@ -164,20 +164,19 @@
 	if(!T.reagents)
 		CRASH("[T] has no reagents.")
 
-	for(var/rid in reagents_add)
-		var/amount = 1 + round(potency * reagents_add[rid], 1)
+	for(var/reagent in reagents_add)
+		var/amount = 1 + round(potency * reagents_add[reagent], 1)
 
 		var/list/data = null
-		if(rid == "blood") // Hack to make blood in plants always O-
+		if(reagent == /datum/reagent/blood) // Hack to make blood in plants always O-
 			data = list("blood_type" = "O-")
-		if(rid == /datum/reagent/consumable/nutriment || rid == /datum/reagent/consumable/nutriment/vitamin || rid == /datum/reagent/consumable/nutriment/protein || rid == /datum/reagent/consumable/nutriment/plantmatter)
+		if(reagent == /datum/reagent/consumable/nutriment || reagent == /datum/reagent/consumable/nutriment/vitamin || reagent == /datum/reagent/consumable/nutriment/protein || reagent == /datum/reagent/consumable/nutriment/plantmatter)
 			// apple tastes of apple.
 			if(istype(T, /obj/item/reagent_containers/food/snacks/grown))
 				var/obj/item/reagent_containers/food/snacks/grown/grown_edible = T
 				data = grown_edible.tastes.Copy()
 
-		T.reagents.add_reagent(rid, amount, data)
-#error fix
+		T.reagents.add_reagent(reagent, amount, data)
 
 /// Setters procs ///
 /obj/item/seeds/proc/adjust_yield(adjustamt)
@@ -371,13 +370,13 @@
 	var/amount_random_reagents = rand(lower, upper)
 	for(var/i in 1 to amount_random_reagents)
 		var/random_amount = rand(4, 15) * 0.01 // this must be multiplied by 0.01, otherwise, it will not properly associate
-		var/datum/plant_gene/reagent/R = new(get_random_reagent_id(), random_amount)
+		var/datum/plant_gene/reagent/R = new(get_random_reagent_type(), random_amount)
 		if(R.can_add(src))
 			genes += R
 		else
 			qdel(R)
 	reagents_from_genes()
-
+#error fix probably
 /obj/item/seeds/proc/add_random_traits(lower = 0, upper = 2)
 	var/amount_random_traits = rand(lower, upper)
 	for(var/i in 1 to amount_random_traits)

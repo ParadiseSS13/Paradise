@@ -102,7 +102,7 @@ const ChemDispenserChemicals = (properties, context) => {
               align="flex-start"
               content={c.title}
               onClick={() => act('dispense', {
-                reagent: c.id,
+                reagent: c.type,
               })}
             />
           </Flex.Item>
@@ -152,7 +152,7 @@ const ChemDispenserBeaker = (properties, context) => {
               content="Isolate"
               icon="compress-arrows-alt"
               onClick={() => act('remove', {
-                reagent: chemical.id,
+                reagent: chemical.type,
                 amount: -1,
               })}
             />
@@ -161,7 +161,7 @@ const ChemDispenserBeaker = (properties, context) => {
                 key={i}
                 content={a}
                 onClick={() => act('remove', {
-                  reagent: chemical.id,
+                  reagent: chemical.type,
                   amount: a,
                 })}
               />
@@ -169,7 +169,7 @@ const ChemDispenserBeaker = (properties, context) => {
             <Button
               content="ALL"
               onClick={() => act('remove', {
-                reagent: chemical.id,
+                reagent: chemical.type,
                 amount: chemical.volume,
               })}
             />

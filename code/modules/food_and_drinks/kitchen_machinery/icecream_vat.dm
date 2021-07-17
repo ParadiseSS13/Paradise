@@ -52,16 +52,28 @@
 			to_chat(user, "<span class='notice'>This [I] already has sprinkles.</span>")
 		return
 	return ..()
-
 #error test
 /obj/machinery/icemachine/proc/validexchange(reag)
-	if(reag == /datum/reagent/consumable/sprinkles | reag == /datum/reagent/consumable/drink/cold/space_cola | reag == /datum/reagent/consumable/ethanol/kahlua | reag == /datum/reagent/consumable/drink/cold/dr_gibb | reag == /datum/reagent/consumable/ethanol/vodka | reag == /datum/reagent/consumable/drink/cold/space_up | reag == /datum/reagent/consumable/ethanol/rum | reag == /datum/reagent/consumable/drink/cold/spacemountainwind | reag == /datum/reagent/consumable/ethanol/gin | reag == /datum/reagent/consumable/drink/milk/cream | reag == /datum/reagent/water)
-		return 1
+	var/list/valid_reagents = list(
+		/datum/reagent/consumable/sprinkles,
+		/datum/reagent/consumable/drink/cold/space_cola,
+		/datum/reagent/consumable/ethanol/kahlua,
+		/datum/reagent/consumable/drink/cold/dr_gibb,
+		/datum/reagent/consumable/ethanol/vodka,
+		/datum/reagent/consumable/drink/cold/space_up,
+		/datum/reagent/consumable/ethanol/rum,
+		/datum/reagent/consumable/drink/cold/spacemountainwind,
+		/datum/reagent/consumable/ethanol/gin,
+		/datum/reagent/consumable/drink/milk/cream,
+		/datum/reagent/water)
+
+	if(reag in valid_reagents)
+		return TRUE
 	else
 		if(reagents.total_volume < 500)
 			to_chat(usr, "<span class='notice'>[src] vibrates for a moment, apparently accepting the unknown liquid.</span>")
 			playsound(loc, 'sound/machines/twobeep.ogg', 10, 1)
-		return 1
+		return TRUE
 
 
 /obj/machinery/icemachine/Topic(href, href_list)
@@ -84,22 +96,22 @@
 
 	if(href_list["add"])
 		if(href_list["amount"])
-			var/id = href_list["add"]
+			var/path = href_list["add"]
 			var/amount = text2num(href_list["amount"])
-			if(validexchange(id))
-				R.trans_id_to(src, id, amount)
+			if(validexchange(path))
+				R.trans_reagent_to(src, path, amount)
 
 	else if(href_list["remove"])
 		if(href_list["amount"])
-			var/id = href_list["remove"]
+			var/path = href_list["remove"]
 			var/amount = text2num(href_list["amount"])
 			if(beaker == null)
-				reagents.remove_reagent(id,amount)
+				reagents.remove_reagent(path, amount)
 			else
-				if(validexchange(id))
-					reagents.trans_id_to(A, id, amount)
+				if(validexchange(path))
+					reagents.trans_reagent_to(A, path, amount)
 				else
-					reagents.remove_reagent(id,amount)
+					reagents.remove_reagent(path, amount)
 
 	else if(href_list["main"])
 		attack_hand(usr)
@@ -209,20 +221,20 @@
 		dat += "The container has:<BR>"
 		for(var/datum/reagent/G in R.reagent_list)
 			dat += "[G.volume] unit(s) of [G.name] | "
-			dat += "<A href='?src=[UID()];add=[G.id];amount=5'>(5)</A> "
-			dat += "<A href='?src=[UID()];add=[G.id];amount=10'>(10)</A> "
-			dat += "<A href='?src=[UID()];add=[G.id];amount=15'>(15)</A> "
-			dat += "<A href='?src=[UID()];add=[G.id];amount=[G.volume]'>(All)</A>"
+			dat += "<A href='?src=[UID()];add=[G.type];amount=5'>(5)</A> "
+			dat += "<A href='?src=[UID()];add=[G.type];amount=10'>(10)</A> "
+			dat += "<A href='?src=[UID()];add=[G.type];amount=15'>(15)</A> "
+			dat += "<A href='?src=[UID()];add=[G.type];amount=[G.volume]'>(All)</A>"
 			dat += "<BR>"
 	else if(container == 2)
 		dat += "<BR>The Cream-Master has:<BR>"
 		if(reagents.total_volume)
 			for(var/datum/reagent/N in reagents.reagent_list)
 				dat += "[N.volume] unit(s) of [N.name] | "
-				dat += "<A href='?src=[UID()];remove=[N.id];amount=5'>(5)</A> "
-				dat += "<A href='?src=[UID()];remove=[N.id];amount=10'>(10)</A> "
-				dat += "<A href='?src=[UID()];remove=[N.id];amount=15'>(15)</A> "
-				dat += "<A href='?src=[UID()];remove=[N.id];amount=[N.volume]'>(All)</A>"
+				dat += "<A href='?src=[UID()];remove=[N.type];amount=5'>(5)</A> "
+				dat += "<A href='?src=[UID()];remove=[N.type];amount=10'>(10)</A> "
+				dat += "<A href='?src=[UID()];remove=[N.type];amount=15'>(15)</A> "
+				dat += "<A href='?src=[UID()];remove=[N.type];amount=[N.volume]'>(All)</A>"
 				dat += "<BR>"
 	else
 		dat += "<BR>SOMEONE ENTERED AN INVALID REAGENT CONTAINER; QUICK, BUG REPORT!<BR>"

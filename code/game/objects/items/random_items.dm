@@ -64,11 +64,11 @@
 
 /obj/item/reagent_containers/glass/bottle/random_chem/New()
 	..()
-	var/R = get_random_reagent_id()
-	if(GLOB.rare_chemicals.Find(R))
+	var/R = get_random_reagent_type()
+	if(R in GLOB.rare_chemicals)
 		reagents.add_reagent(R, 10)
 	else
-		reagents.add_reagent(R, rand(2, 3)*10)
+		reagents.add_reagent(R, rand(2, 3) * 10)
 	name = "unlabelled bottle"
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
@@ -108,9 +108,8 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/random_reagent/New()
 	..()
-
-	var/R = get_random_reagent_id()
-	if(GLOB.rare_chemicals.Find(R))
+	var/R = get_random_reagent_type()
+	if(R in GLOB.rare_chemicals)
 		reagents.add_reagent(R, 10)
 	else
 		reagents.add_reagent(R, rand(3, 10)*10)

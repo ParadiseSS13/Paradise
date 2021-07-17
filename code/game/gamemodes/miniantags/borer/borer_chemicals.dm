@@ -1,53 +1,51 @@
-#error TODO
-
 /datum/borer_chem
-	var/chemname
+	var/chemtype
 	var/chemdesc = "This is a chemical"
 	var/chemuse = 30
 	var/quantity = 10
 
 /datum/borer_chem/capulettium_plus
-	chemname = "capulettium_plus"
+	chemtype = /datum/reagent/capulettium_plus
 	chemdesc = "Silences and masks pulse."
 
 /datum/borer_chem/charcoal
-	chemname = "charcoal"
+	chemtype = /datum/reagent/medicine/charcoal
 	chemdesc = "Slowly heals toxin damage, also slowly removes other chemicals."
 
 /datum/borer_chem/epinephrine
-	chemname = "epinephrine"
+	chemtype = /datum/reagent/medicine/epinephrine
 	chemdesc = "Stabilizes critical condition and slowly heals suffocation damage."
 
 /datum/borer_chem/fliptonium
-	chemname = "fliptonium"
+	chemtype = /datum/reagent/fliptonium
 	chemdesc = "Causes uncontrollable flipping."
 	chemuse = 50
 
 /datum/borer_chem/hydrocodone
-	chemname = "hydrocodone"
+	chemtype = /datum/reagent/medicine/hydrocodone
 	chemdesc = "An extremely strong painkiller."
 
 /datum/borer_chem/mannitol
-	chemname = "mannitol"
+	chemtype = /datum/reagent/medicine/mannitol
 	chemdesc = "Heals brain damage."
 
 /datum/borer_chem/methamphetamine
-	chemname = "methamphetamine"
+	chemtype = /datum/reagent/methamphetamine
 	chemdesc = "Reduces stun times and increases stamina. Deals small amounts of brain damage."
 	chemuse = 50
 
 /datum/borer_chem/mitocholide
-	chemname = "mitocholide"
+	chemtype = /datum/reagent/medicine/mitocholide
 	chemdesc = "Heals internal organ damage."
 
 /datum/borer_chem/salbutamol
-	chemname = "salbutamol"
+	chemtype = /datum/reagent/medicine/salbutamol
 	chemdesc = "Heals suffocation damage."
 
 /datum/borer_chem/salglu_solution
-	chemname = "salglu_solution"
+	chemtype = /datum/reagent/medicine/salglu_solution
 	chemdesc = "Slowly heals brute and burn damage, also slowly restores blood."
 
 /datum/borer_chem/spaceacillin
-	chemname = "spaceacillin"
+	chemtype = /datum/reagent/medicine/spaceacillin
 	chemdesc = "Slows progression of diseases and fights infections."

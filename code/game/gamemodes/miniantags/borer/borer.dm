@@ -398,9 +398,9 @@
 
 	content += "<table>"
 
-	for(var/datum in typesof(/datum/borer_chem))
-		var/datum/borer_chem/C = datum
-		var/cname = initial(C.chemname)
+	for(var/I in typesof(/datum/borer_chem))
+		var/datum/borer_chem/C = I
+		var/cname = initial(C.chemtype)
 		var/datum/reagent/R = GLOB.chemical_reagents_list[cname]
 		if(cname)
 			content += "<tr><td><a class='chem-select' href='?_src_=[UID()];src=[UID()];borer_use_chem=[cname]'>[R.name] ([initial(C.chemuse)])</a><p>[initial(C.chemdesc)]</p></td></tr>"
@@ -427,21 +427,21 @@
 		var/topic_chem = href_list["borer_use_chem"]
 		var/datum/borer_chem/C = null
 
-		for(var/datum in typesof(/datum/borer_chem))
-			var/datum/borer_chem/test = datum
-			if(initial(test.chemname) == topic_chem)
+		for(var/I in typesof(/datum/borer_chem))
+			var/datum/borer_chem/test = I
+			if(initial(test.chemtype) == topic_chem)
 				C = new test()
 				break
 
 		if(!C || !host || controlling || !src || stat)
 			return
-		var/datum/reagent/R = GLOB.chemical_reagents_list[C.chemname]
+		var/datum/reagent/R = GLOB.chemical_reagents_list[C.chemtype]
 		if(chemicals < C.chemuse)
 			to_chat(src, "<span class='boldnotice'>You need [C.chemuse] chemicals stored to secrete [R.name]!</span>")
 			return
 
 		to_chat(src, "<span class='userdanger'>You squirt a measure of [R.name] from your reservoirs into [host]'s bloodstream.</span>")
-		host.reagents.add_reagent(C.chemname, C.quantity)
+		host.reagents.add_reagent(C.chemtype, C.quantity)
 		chemicals -= C.chemuse
 		log_game("[key_name(src)] has injected [R.name] into their host [host]/([host.ckey])")
 

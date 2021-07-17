@@ -194,11 +194,11 @@
 	if(!R || !patient || !SG || !(SG in chassis.equipment))
 		return 0
 	var/to_inject = min(R.volume, inject_amount)
-	if(to_inject && patient.reagents.get_reagent_amount(R.id) + to_inject <= inject_amount*2)
+	if(to_inject && patient.reagents.get_reagent_amount(R.type) + to_inject <= inject_amount*2)
 		occupant_message("Injecting [patient] with [to_inject] units of [R.name].")
 		log_message("Injecting [patient] with [to_inject] units of [R.name].")
 		add_attack_logs(chassis.occupant, patient, "Injected with [name] containing [R], transferred [to_inject] units", R.harmless ? ATKLOG_ALMOSTALL : null)
-		SG.reagents.trans_id_to(patient,R.id,to_inject)
+		SG.reagents.trans_reagent_to(patient, R.type, to_inject)
 		update_equip_info()
 	return
 
@@ -334,7 +334,7 @@
 				if(M.can_inject(originaloccupant, TRUE, original_target_zone))
 					if(mechsyringe.reagents)
 						for(var/datum/reagent/A in mechsyringe.reagents.reagent_list)
-							R += A.id + " ("
+							R += A.type + " ("
 							R += num2text(A.volume) + "),"
 					add_attack_logs(originaloccupant, M, "Shot with [src] containing [R], transferred [mechsyringe.reagents.total_volume] units")
 					mechsyringe.reagents.reaction(M, REAGENT_INGEST)
@@ -444,7 +444,7 @@
 	var/output
 	for(var/datum/reagent/R in reagents.reagent_list)
 		if(R.volume > 0)
-			output += "[R]: [round(R.volume,0.001)] - <a href=\"?src=[UID()];purge_reagent=[R.id]\">Purge Reagent</a><br />"
+			output += "[R]: [round(R.volume,0.001)] - <a href=\"?src=[UID()];purge_reagent=[R.type]\">Purge Reagent</a><br />"
 	if(output)
 		output += "Total: [round(reagents.total_volume,0.001)]/[reagents.maximum_volume] - <a href=\"?src=[UID()];purge_all=1\">Purge All</a>"
 	return output || "None"
@@ -480,16 +480,16 @@
 		return 0
 	occupant_message("Analyzing reagents...")
 	for(var/datum/reagent/R in A.reagents.reagent_list)
-		if(R.can_synth && add_known_reagent(R.id, R.name))
+		if(R.can_synth && add_known_reagent(R.type, R.name))
 			occupant_message("Reagent analyzed, identified as [R.name] and added to database.")
 			send_byjax(chassis.occupant,"msyringegun.browser","reagents_form",get_reagents_form())
 	occupant_message("Analysis complete.")
 	return 1
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/add_known_reagent(r_id,r_name)
-	if(!(r_id in known_reagents))
-		known_reagents += r_id
-		known_reagents[r_id] = r_name
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/add_known_reagent(r_type, r_name)
+	if(!(r_type in known_reagents))
+		known_reagents += r_type
+		known_reagents[r_type] = r_name
 		return 1
 	return 0
 

@@ -37,11 +37,10 @@
 		if(S.reagents && S.reagents.total_volume)
 			to_chat(user, "<span class='notice'>You inject [src] with [S].</span>")
 			for(var/datum/reagent/A in S.reagents.reagent_list)
-				if(A.id == "blood")
+				if(A.type == /datum/reagent/blood)
 					if(!(A.data["donor"] in blood_list))
 						blood_list += A.data["donor"]
-				#error change this
-				if(A.id == "strange_reagent")		//RELOAD THE BEES (1 bee per 1 unit, max 15 bees)
+				if(A.type == /datum/reagent/medicine/strange_reagent) //RELOAD THE BEES (1 bee per 1 unit, max 15 bees)
 					if(bees_left < 15)
 						bees_left = min(15, round((bees_left + A.volume), 1))	//No partial bees, max 15 bees in case at any given time
 						to_chat(user, "<span class='warning'>The buzzing inside the briefcase intensifies as new bees form inside.</span>")

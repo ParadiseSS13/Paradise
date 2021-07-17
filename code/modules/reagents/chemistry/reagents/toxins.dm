@@ -37,7 +37,6 @@
 
 /datum/reagent/slimejelly
 	name = "Slime Jelly"
-	id = /datum/reagent/slimejelly
 	description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
 	reagent_state = LIQUID
 	color = "#0b8f70" // rgb: 11, 143, 112

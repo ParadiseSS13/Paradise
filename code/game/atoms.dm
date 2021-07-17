@@ -656,12 +656,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 //returns the mob's dna info as a list, to be inserted in an object's blood_DNA list
 /mob/living/proc/get_blood_dna_list()
-	if(get_blood_id() != "blood")
+	if(get_blood_path() != /datum/reagent/blood)
 		return
 	return list("ANIMAL DNA" = "Y-")
-#error fix
+
 /mob/living/carbon/get_blood_dna_list()
-	if(get_blood_id() != "blood")
+	if(get_blood_path() != /datum/reagent/blood)
 		return
 	var/list/blood_dna = list()
 	if(dna)
@@ -682,7 +682,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /obj/effect/decal/cleanable/blood/splatter/transfer_mob_blood_dna(mob/living/L)
 	..(L)
-	var/list/b_data = L.get_blood_data(L.get_blood_id())
+	var/list/b_data = L.get_blood_data(L.get_blood_path())
 	if(b_data)
 		basecolor = b_data["blood_color"]
 	else
@@ -691,7 +691,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/L)
 	..(L)
-	var/list/b_data = L.get_blood_data(L.get_blood_id())
+	var/list/b_data = L.get_blood_data(L.get_blood_path())
 	if(b_data)
 		basecolor = b_data["blood_color"]
 	else
@@ -713,7 +713,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!blood_dna)
 		return FALSE
 	var/bloodcolor = "#A10808"
-	var/list/b_data = M.get_blood_data(M.get_blood_id())
+	var/list/b_data = M.get_blood_data(M.get_blood_path())
 	if(b_data)
 		bloodcolor = b_data["blood_color"]
 

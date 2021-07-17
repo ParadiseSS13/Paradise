@@ -314,13 +314,13 @@
 	update_flags |= M.AdjustWeakened(-2.5, FALSE)
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
 	update_flags |= M.SetSleeping(0, FALSE)
-	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
+	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, type)
 	if(prob(50))
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/methamphetamine/on_mob_delete(mob/living/M)
-	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, type)
 	..()
 
 /datum/reagent/methamphetamine/overdose_process(mob/living/M, severity)
@@ -668,7 +668,7 @@
 	update_flags |= M.AdjustStunned(-2, FALSE)
 	update_flags |= M.AdjustWeakened(-2, FALSE)
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
-	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
+	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, type)
 	M.Jitter(3)
 	update_flags |= M.adjustBrainLoss(0.5, FALSE)
 	if(prob(5))
@@ -676,7 +676,7 @@
 	return ..() | update_flags
 
 /datum/reagent/lube/ultra/on_mob_delete(mob/living/M)
-	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, type)
 	..()
 
 /datum/reagent/lube/ultra/overdose_process(mob/living/M, severity)

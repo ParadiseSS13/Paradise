@@ -166,7 +166,7 @@
 			if(L.reagents)
 				if(beegent)
 					beegent.reaction_mob(L, REAGENT_INGEST)
-					L.reagents.add_reagent(beegent.id, rand(1, 5))
+					L.reagents.add_reagent(beegent.type, rand(1, 5))
 				else
 					L.reagents.add_reagent(/datum/reagent/spider_venom, 5)
 
@@ -245,7 +245,7 @@
 	if(. && beegent && isliving(target))
 		var/mob/living/L = target
 		beegent.reaction_mob(L, REAGENT_TOUCH)
-		L.reagents.add_reagent(beegent.id, rand(1, 5))
+		L.reagents.add_reagent(beegent.type, rand(1, 5))
 
 //PEASENT BEES
 /mob/living/simple_animal/hostile/poison/bees/queen/pollinate()
@@ -254,7 +254,7 @@
 /mob/living/simple_animal/hostile/poison/bees/proc/reagent_incompatible(mob/living/simple_animal/hostile/poison/bees/B)
 	if(!B)
 		return FALSE
-	if(B.beegent && beegent && B.beegent.id != beegent.id || B.beegent && !beegent || !B.beegent && beegent)
+	if(B.beegent && beegent && B.beegent.type != beegent.type || B.beegent && !beegent || !B.beegent && beegent)
 		return TRUE
 	return FALSE
 
@@ -284,9 +284,9 @@
 			else
 				to_chat(user, "<span class='warning'>You don't have enough royal bee jelly to split a bee in two!</span>")
 		else
-			var/datum/reagent/R = GLOB.chemical_reagents_list[S.reagents.get_master_reagent_id()]
-			if(R && S.reagents.has_reagent(R.id, 5))
-				S.reagents.remove_reagent(R.id, 5)
+			var/datum/reagent/R = S.reagents.get_master_reagent()
+			if(R && S.reagents.has_reagent(R.type, 5))
+				S.reagents.remove_reagent(R.type, 5)
 				queen.assign_reagent(R)
 				user.visible_message("<span class='warning'>[user] injects [src]'s genome with [R.name], mutating its DNA!</span>", "<span class='warning'>You inject [src]'s genome with [R.name], mutating its DNA!</span>")
 				name = queen.name
@@ -328,7 +328,7 @@
 /mob/living/simple_animal/hostile/poison/bees/syndi/New()
 	beegent = GLOB.chemical_reagents_list[/datum/reagent/acid/facid] //Prepare to die
 	..()
-#error fix
+
 /mob/living/simple_animal/hostile/poison/bees/syndi/Destroy()
 	master_and_friends.Cut()
 	return ..()

@@ -22,32 +22,34 @@
 		temperature_max = temperature_maximum
 	//I dislike having these here but map-objects are initialised before world/New() is called. >_>
 	if(!GLOB.chemical_reagents_list)
-		//Chemical Reagents - Initialises all /datum/reagent into a list indexed by reagent id
+		//Chemical Reagents - Initialises all /datum/reagent into a list indexed by reagent path
 		var/paths = subtypesof(/datum/reagent)
 		GLOB.chemical_reagents_list = list()
 		for(var/path in paths)
 			var/datum/reagent/D = new path()
-			GLOB.chemical_reagents_list[D.id] = D
+			GLOB.chemical_reagents_list[path] = D
+
 	if(!GLOB.chemical_reactions_list)
 		//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
 		// It is filtered into multiple lists within a list.
 		// For example:
-		// chemical_reaction_list["plasma"] is a list of all reactions relating to plasma
+		// chemical_reaction_list[/datum/reagent/plasma] is a list of all reactions relating to plasma
 
 		var/paths = subtypesof(/datum/chemical_reaction)
 		GLOB.chemical_reactions_list = list()
 
 		for(var/path in paths)
-
 			var/datum/chemical_reaction/D = new path()
-			var/list/reaction_ids = list()
+			var/list/reactions = list()
 
-			if(D && length(D.required_reagents))
-				for(var/reaction in D.required_reagents)
-					reaction_ids += reaction
+			if(!D || !length(D.required_reagents)) // Skip impossible reactions
+				continue
 
-			// Create filters based on each reagent id in the required reagents list
-			for(var/id in reaction_ids)
+			for(var/reagent in D.required_reagents)
+				reactions += reagent
+
+			// Create filters based on each reagent path in the required reagents list
+			for(var/id in reactions)
 				if(!GLOB.chemical_reactions_list[id])
 					GLOB.chemical_reactions_list[id] = list()
 				GLOB.chemical_reactions_list[id] += D
@@ -60,9 +62,7 @@
 
 	current_list_element = rand(1, length(cached_reagents))
 
-	while(total_transfered != amount)
-		if(total_transfered >= amount)
-			break
+	while(total_transfered < amount)
 		if(total_volume <= 0 || !length(cached_reagents))
 			break
 
@@ -70,7 +70,7 @@
 			current_list_element = 1
 		var/datum/reagent/current_reagent = cached_reagents[current_list_element]
 
-		remove_reagent(current_reagent.id, min(1, amount - total_transfered))
+		remove_reagent(current_reagent, min(1, amount - total_transfered))
 
 		current_list_element++
 		total_transfered++
@@ -84,7 +84,7 @@
 		var/part = amount / total_volume
 		for(var/A in reagent_list)
 			var/datum/reagent/R = A
-			remove_reagent(R.id, R.volume * part)
+			remove_reagent(R, R.volume * part)
 
 		update_total()
 		handle_reactions()
@@ -112,17 +112,17 @@
 
 	return name
 
-/// Get the id of the reagent there is the most of in this holder
-/datum/reagents/proc/get_master_reagent_id()
-	var/the_id
+/// Get the typepath of the reagent there is the most of in this holder
+/datum/reagents/proc/get_master_reagent_type()
+	var/master
 	var/max_volume = 0
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(R.volume > max_volume)
 			max_volume = R.volume
-			the_id = R.id
+			master = R.type
 
-	return the_id
+	return master
 
 /datum/reagents/proc/trans_to(target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE) //if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
 	if(!target)
@@ -155,8 +155,8 @@
 		if(preserve_data)
 			trans_data = copy_data(current_reagent)
 
-		R.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data, chem_temp, no_react = TRUE)
-		remove_reagent(current_reagent.id, current_reagent_transfer)
+		R.add_reagent(current_reagent, (current_reagent_transfer * multiplier), trans_data, chem_temp, no_react = TRUE)
+		remove_reagent(current_reagent, current_reagent_transfer)
 
 	update_total()
 	R.update_total()
@@ -179,7 +179,7 @@
 		var/current_reagent_transfer = current_reagent.volume * part
 		if(preserve_data)
 			trans_data = copy_data(current_reagent)
-		R.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data)
+		R.add_reagent(current_reagent, (current_reagent_transfer * multiplier), trans_data)
 
 	update_total()
 	R.update_total()
@@ -212,7 +212,7 @@
 
 	handle_reactions()
 
-/datum/reagents/proc/trans_id_to(obj/target, reagent, amount = 1, preserve_data = TRUE) //Not sure why this proc didn't exist before. It does now! /N
+/datum/reagents/proc/trans_reagent_to(obj/target, reagent, amount = 1, preserve_data = TRUE) //Not sure why this proc didn't exist before. It does now! /N
 	if(!target)
 		return
 	if(!target.reagents || total_volume <= 0 || !get_reagent_amount(reagent))
@@ -225,11 +225,11 @@
 	var/trans_data = null
 	for(var/A in reagent_list)
 		var/datum/reagent/current_reagent = A
-		if(current_reagent.id == reagent)
+		if(current_reagent.type == reagent)
 			if(preserve_data)
 				trans_data = copy_data(current_reagent)
-			R.add_reagent(current_reagent.id, amount, trans_data, chem_temp)
-			remove_reagent(current_reagent.id, amount, TRUE)
+			R.add_reagent(current_reagent, amount, trans_data, chem_temp)
+			remove_reagent(current_reagent, amount, TRUE)
 			break
 
 	update_total()
@@ -277,12 +277,12 @@
 			//If the mob can't process it, remove the reagent at it's normal rate without doing any addictions, overdoses, or on_mob_life() for the reagent
 			if(!can_process)
 				if(!species_handled)
-					R.holder.remove_reagent(R.id, R.metabolization_rate)
+					R.holder.remove_reagent(R, R.metabolization_rate)
 				continue
 		//We'll assume that non-human mobs lack the ability to process synthetic-oriented reagents (adjust this if we need to change that assumption)
 		else
 			if(R.process_flags == SYNTHETIC)
-				R.holder.remove_reagent(R.id, R.metabolization_rate)
+				R.holder.remove_reagent(R, R.metabolization_rate)
 				continue
 		//If you got this far, that means we can process whatever reagent this iteration is for. Handle things normally from here.
 		if(M && R)
@@ -356,7 +356,7 @@
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(R.overdosed)
-			od_chems.Add(R.id)
+			od_chems += (R)
 	return od_chems
 
 /datum/reagents/proc/set_reacting(react = TRUE)
@@ -386,7 +386,7 @@
 		reaction_occured = FALSE
 		for(var/A in reagent_list) // Usually a small list
 			var/datum/reagent/R = A
-			for(var/reaction in GLOB.chemical_reactions_list[R.id]) // Was a big list but now it should be smaller since we filtered it with our reagent id
+			for(var/reaction in GLOB.chemical_reactions_list[R.type]) // Was a big list but now it should be smaller since we filtered it with our reagent type
 				if(!reaction)
 					continue
 
@@ -476,15 +476,15 @@
 /datum/reagents/proc/isolate_reagent(reagent)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(R.id != reagent)
-			del_reagent(R.id)
+		if(R.type != reagent)
+			del_reagent(R)
 			update_total()
 
 /datum/reagents/proc/del_reagent(reagent)
 	var/list/cached_reagents = reagent_list
 	for(var/A in cached_reagents)
 		var/datum/reagent/R = A
-		if(R.id == reagent)
+		if(R.type == reagent)
 			if(isliving(my_atom))
 				var/mob/living/M = my_atom
 				R.on_mob_delete(M)
@@ -501,7 +501,7 @@
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(R.volume < 0.1)
-			del_reagent(R.id)
+			del_reagent(R)
 		else
 			total_volume += R.volume
 	return FALSE
@@ -509,7 +509,7 @@
 /datum/reagents/proc/clear_reagents()
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		del_reagent(R.id)
+		del_reagent(R)
 	return FALSE
 
 /datum/reagents/proc/reaction_check(mob/living/M, datum/reagent/R)
@@ -588,7 +588,7 @@
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)
 
-/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = T20C, no_react = FALSE)
+/datum/reagents/proc/add_reagent(reagent, amount, list/data = null, reagtemp = T20C, no_react = FALSE)
 	if(!isnum(amount))
 		return TRUE
 	update_total()
@@ -600,7 +600,7 @@
 	var/list/cached_reagents = reagent_list
 	for(var/A in cached_reagents)
 		var/datum/reagent/R = A
-		if(R.id == reagent)
+		if(R.type == reagent)
 			R.volume += amount
 			update_total()
 			if(my_atom)
@@ -611,9 +611,8 @@
 				handle_reactions()
 			return FALSE
 
-	var/datum/reagent/D = GLOB.chemical_reagents_list[reagent]
+	var/datum/reagent/D = GLOB.chemical_reagents_list[reagent] // todo test this
 	if(D)
-
 		var/datum/reagent/R = new D.type()
 		cached_reagents += R
 		R.holder = src
@@ -642,13 +641,13 @@
 		add_reagent(reagent, add)
 		return TRUE
 
-/datum/reagents/proc/remove_reagent(reagent, amount, safety) //Added a safety check for the trans_id_to
+/datum/reagents/proc/remove_reagent(reagent, amount, safety) //Added a safety check for the trans_reagent_to
 	if(!isnum(amount))
 		return TRUE
 
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(R.id == reagent)
+		if(R.type == reagent)
 			R.volume -= amount
 			update_total()
 			if(!safety) //So it does not handle reactions when it need not to
@@ -661,7 +660,7 @@
 /datum/reagents/proc/has_reagent(reagent, amount = -1)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(R.id == reagent)
+		if(R.type == reagent)
 			if(!amount)
 				return R
 			else
@@ -674,7 +673,7 @@
 /datum/reagents/proc/get_reagent_amount(reagent)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(R.id == reagent)
+		if(R.type == reagent)
 			return R.volume
 	return FALSE
 
@@ -688,7 +687,7 @@
 	return res
 
 /datum/reagents/proc/get_reagent(type)
-	. = locate(type) in reagent_list
+	return locate(type) in reagent_list
 
 /datum/reagents/proc/remove_all_type(reagent_type, amount, strict = FALSE, safety = TRUE) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
 	if(!isnum(amount))
@@ -709,21 +708,11 @@
 		// We found a match, proceed to remove the reagent.	Keep looping, we might find other reagents of the same type.
 		if(matches)
 			// Have our other proc handle removement
-			has_removed_reagent = remove_reagent(R.id, amount, safety)
+			has_removed_reagent = remove_reagent(R.type, amount, safety)
 
 	return has_removed_reagent
 
 // Admin logging.
-/datum/reagents/proc/get_reagent_ids(and_amount = FALSE)
-	var/list/stuff = list()
-	for(var/A in reagent_list)
-		var/datum/reagent/R = A
-		if(and_amount)
-			stuff += "[get_reagent_amount(R.id)]U of [R.id]"
-		else
-			stuff += R.id
-	return english_list(stuff)
-
 /datum/reagents/proc/log_list()
 	var/list/cached_reagents = reagent_list
 	if(!length(cached_reagents))
@@ -731,8 +720,8 @@
 	var/list/data = list()
 	for(var/A in cached_reagents) //no reagents will be left behind
 		var/datum/reagent/R = A
-		data += "[R.id] ([round(R.volume, 0.1)]u)"
-		//Using IDs because SOME chemicals (I'm looking at you, chlorhydrate-beer) have the same names as other chemicals.
+		data += "[R.type] ([round(R.volume, 0.1)]u)"
+		//Using types because SOME chemicals (I'm looking at you, chlorhydrate-beer) have the same names as other chemicals.
 	return english_list(data)
 
 //helper for attack logs, tells you if all reagents are harmless or not. returns true if harmless.
@@ -744,16 +733,16 @@
 	return TRUE
 
 //two helper functions to preserve data across reactions (needed for xenoarch)
-/datum/reagents/proc/get_data(reagent_id)
+/datum/reagents/proc/get_data(reagent)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(R.id == reagent_id)
+		if(R.type == reagent)
 			return R.data
 
-/datum/reagents/proc/set_data(reagent_id, new_data)
+/datum/reagents/proc/set_data(reagent, new_data)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(R.id == reagent_id)
+		if(R.type == reagent)
 			R.data = new_data
 
 /datum/reagents/proc/copy_data(datum/reagent/current_reagent)
@@ -837,24 +826,15 @@
 	reagents = new /datum/reagents(max_vol, temperature_minimum, temperature_maximum)
 	reagents.my_atom = src
 
-/proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents
+/proc/get_random_reagent_type()	// Returns a random reagent ID minus blacklisted reagents
 	var/static/list/random_reagents = list()
 	if(!length(random_reagents))
-		for(var/thing  in subtypesof(/datum/reagent))
-			var/datum/reagent/R = thing
-			if(initial(R.can_synth))
-				random_reagents += initial(R.id)
+		for(var/thing in GLOB.chemical_reagents_list)
+			var/datum/reagent/R = GLOB.chemical_reagents_list[thing]
+			if(R.can_synth)
+				random_reagents += R.type
 	var/picked_reagent = pick(random_reagents)
 	return picked_reagent
-
-/datum/reagents/proc/get_reagent_from_id(id)
-	var/datum/reagent/result = null
-	for(var/A in reagent_list)
-		var/datum/reagent/R = A
-		if(R.id == id)
-			result = R
-			break
-	return result
 
 /datum/reagents/proc/holder_full()
 	if(total_volume >= maximum_volume)

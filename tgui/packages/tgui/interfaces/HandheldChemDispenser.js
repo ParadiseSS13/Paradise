@@ -131,13 +131,13 @@ const HandheldChemDispenserChemicals = (properties, context) => {
               icon="arrow-circle-down"
               overflow="hidden"
               textOverflow="ellipsis"
-              selected={current_reagent === c.id}
+              selected={current_reagent === c.type}
               width="100%"
               height="100%"
               align="flex-start"
               content={c.title}
               onClick={() => act('dispense', {
-                reagent: c.id,
+                reagent: c.type,
               })}
             />
           </Flex.Item>

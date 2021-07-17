@@ -118,13 +118,13 @@
 /obj/item/reagent_containers/spray/cleaner/safety/on_reagent_change()
 	for(var/filth in reagents.reagent_list)
 		var/datum/reagent/R = filth
-		if(R.id != "cleaner") //all chems other than space cleaner are filthy.
-			reagents.del_reagent(R.id)
+		if(R.type != /datum/reagent/space_cleaner) //all chems other than space cleaner are filthy.
+			reagents.del_reagent(R.type)
 			if(ismob(loc))
 				to_chat(loc, "<span class='warning'>[src] identifies and removes a filthy substance.</span>")
 			else
 				visible_message("<span class='warning'>[src] identifies and removes a filthy substance.</span>")
-#error fix
+
 /obj/item/reagent_containers/spray/cleaner/drone
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"

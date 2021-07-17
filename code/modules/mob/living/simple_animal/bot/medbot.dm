@@ -75,7 +75,6 @@
 	treatment_oxy = /datum/reagent/medicine/perfluorodecalin
 	treatment_brute = /datum/reagent/medicine/bicaridine
 	treatment_fire = /datum/reagent/medicine/kelotane
-	treatment_tox = /datum/reagent/medicine/charcoal
 
 /mob/living/simple_animal/bot/medbot/syndicate
 	name = "Suspicious Medibot"
@@ -85,7 +84,6 @@
 	treatment_oxy = /datum/reagent/medicine/perfluorodecalin
 	treatment_brute = /datum/reagent/medicine/bicaridine
 	treatment_fire = /datum/reagent/medicine/kelotane
-	treatment_tox = /datum/reagent/medicine/charcoal
 	syndicate_aligned = TRUE
 	bot_core_type = /obj/machinery/bot_core/medbot/syndicate
 	control_freq = BOT_FREQ + 1000 // make it not show up on lists
@@ -399,9 +397,9 @@
 		return 0
 
 	//If they're injured, we're using a beaker, and don't have one of our WONDERCHEMS.
-	if((reagent_glass) && (use_beaker) && ((C.getBruteLoss() >= heal_threshold) || (C.getToxLoss() >= heal_threshold) || (C.getToxLoss() >= heal_threshold) || (C.getOxyLoss() >= (heal_threshold + 15))))
+	if(reagent_glass && use_beaker && ((C.getBruteLoss() >= heal_threshold) || (C.getToxLoss() >= heal_threshold) || (C.getToxLoss() >= heal_threshold) || (C.getOxyLoss() >= (heal_threshold + 15))))
 		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-			if(!C.reagents.has_reagent(R.id))
+			if(!C.reagents.has_reagent(R.type))
 				return 1
 
 	//They're injured enough for it!
@@ -467,52 +465,50 @@
 		soft_reset()
 		return
 
-	var/reagent_id = null
+	var/reagent = null
 
 	if(emagged == 2) //Emagged! Time to poison everybody.
-		reagent_id = /datum/reagent/pancuronium
-#error fix
-
+		reagent = /datum/reagent/pancuronium
 	else
 		if(treat_virus)
-			var/virus = 0
+			var/virus = FALSE
 			for(var/thing in C.viruses)
 				var/datum/disease/D = thing
 				//detectable virus
 				if((!(D.visibility_flags & HIDDEN_SCANNER)) || (!(D.visibility_flags & HIDDEN_PANDEMIC)))
-					if(D.severity != NONTHREAT)      //virus is harmful
+					if(D.severity != NONTHREAT) //virus is harmful
 						if((D.stage > 1) || (D.spread_flags & AIRBORNE))
-							virus = 1
+							virus = TRUE
 
-			if(!reagent_id && (virus))
+			if(!reagent && virus)
 				if(!C.reagents.has_reagent(treatment_virus))
-					reagent_id = treatment_virus
+					reagent = treatment_virus
 
-		if(!reagent_id && (C.getBruteLoss() >= heal_threshold))
+		if(!reagent && (C.getBruteLoss() >= heal_threshold))
 			if(!C.reagents.has_reagent(treatment_brute))
-				reagent_id = treatment_brute
+				reagent = treatment_brute
 
-		if(!reagent_id && (C.getOxyLoss() >= (15 + heal_threshold)))
+		if(!reagent && (C.getOxyLoss() >= (15 + heal_threshold)))
 			if(!C.reagents.has_reagent(treatment_oxy))
-				reagent_id = treatment_oxy
+				reagent = treatment_oxy
 
-		if(!reagent_id && (C.getFireLoss() >= heal_threshold))
+		if(!reagent && (C.getFireLoss() >= heal_threshold))
 			if(!C.reagents.has_reagent(treatment_fire))
-				reagent_id = treatment_fire
+				reagent = treatment_fire
 
-		if(!reagent_id && (C.getToxLoss() >= heal_threshold))
+		if(!reagent && (C.getToxLoss() >= heal_threshold))
 			if(!C.reagents.has_reagent(treatment_tox))
-				reagent_id = treatment_tox
+				reagent = treatment_tox
 
 		//If the patient is injured but doesn't have our special reagent in them then we should give it to them first
-		if(reagent_id && use_beaker && reagent_glass && reagent_glass.reagents.total_volume)
+		if(reagent && use_beaker && reagent_glass?.reagents.total_volume)
 			for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-				if(!C.reagents.has_reagent(R.id))
-					reagent_id = R.id
+				if(!C.reagents.has_reagent(R.type))
+					reagent = R.type
 					inject_beaker = TRUE
 					break
 
-	if(!reagent_id) //If they don't need any of that they're probably cured!
+	if(!reagent) //If they don't need any of that they're probably cured!
 		var/list/messagevoice = list("All patched up!" = 'sound/voice/mpatchedup.ogg', "An apple a day keeps me away." = 'sound/voice/mapple.ogg', "Feel better soon!" = 'sound/voice/mfeelbetter.ogg')
 		var/message = pick(messagevoice)
 		speak(message)
@@ -520,10 +516,10 @@
 		bot_reset()
 		return
 	else
-		if(!emagged && check_overdose(patient,reagent_id,injection_amount))
+		if(!emagged && check_overdose(patient, reagent, injection_amount))
 			soft_reset()
 			return
-		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
+		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>",
 			"<span class='userdanger'>[src] is trying to inject you!</span>")
 
 		spawn(30)//replace with do mob
@@ -534,23 +530,20 @@
 						reagent_glass.reagents.reaction(patient, REAGENT_INGEST, fraction)
 						reagent_glass.reagents.trans_to(patient, injection_amount) //Inject from beaker instead.
 				else
-					patient.reagents.add_reagent(reagent_id,injection_amount)
-				C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
+					patient.reagents.add_reagent(reagent, injection_amount)
+				C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>",
 					"<span class='userdanger'>[src] injects you with its syringe!</span>")
 			else
 				visible_message("[src] retracts its syringe.")
 			update_icon()
 			soft_reset()
-			return
 
-	reagent_id = null
-	return
 
-/mob/living/simple_animal/bot/medbot/proc/check_overdose(mob/living/carbon/patient,reagent_id,injection_amount)
-	var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
+/mob/living/simple_animal/bot/medbot/proc/check_overdose(mob/living/carbon/patient, reagent, injection_amount)
+	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent]
 	if(!R.overdose_threshold)
 		return 0
-	var/current_volume = patient.reagents.get_reagent_amount(reagent_id)
+	var/current_volume = patient.reagents.get_reagent_amount(reagent)
 	if(current_volume + injection_amount > R.overdose_threshold)
 		return 1
 	return 0

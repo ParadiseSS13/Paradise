@@ -124,11 +124,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if("plastic")
 				return_name = "Plastic"
 		return return_name
-	else
-		for(var/R in subtypesof(/datum/reagent))
-			var/datum/reagent/rt = R
-			if(initial(rt.id) == ID)
-				return initial(rt.name)
+	//else //TODO
+	//	for(var/R in GLOB.chemical_reagents_list)
+	//		var/datum/reagent/rt = R
+	//		if(rt.id == ID)
+	//			return rt.name
+#error fix
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
 	for(var/obj/machinery/r_n_d/D in range(3,src))
@@ -611,7 +612,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("disposeI")  //Causes the circuit imprinter to dispose of a single reagent (all of it)
 			if(linked_imprinter)
-				linked_imprinter.reagents.del_reagent(params["id"])
+				linked_imprinter.reagents.del_reagent(params["type"]) // TODO TEST THIS
 
 		if("disposeallI") //Causes the circuit imprinter to dispose of all it's reagents.
 			if(linked_imprinter)
@@ -619,7 +620,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("disposeP")  //Causes the protolathe to dispose of a single reagent (all of it)
 			if(linked_lathe)
-				linked_lathe.reagents.del_reagent(params["id"])
+				linked_lathe.reagents.del_reagent(params["type"])
 
 		if("disposeallP") //Causes the protolathe to dispose of all it's reagents.
 			if(linked_lathe)
@@ -772,7 +773,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			loaded_chemicals[++loaded_chemicals.len] = loaded_chemical
 			loaded_chemical["name"] = R.name
 			loaded_chemical["volume"] = R.volume
-			loaded_chemical["id"] = R.id
+			loaded_chemical["type"] = R.type
 
 
 /obj/machinery/computer/rdconsole/proc/can_copy_design(datum/design/D)

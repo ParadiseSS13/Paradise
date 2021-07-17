@@ -123,9 +123,8 @@
 
 	// Create the reagents to put into the air
 	create_reagents(8)
-#error fix
-	if(overmind && overmind.blob_reagent_datum)
-		reagents.add_reagent(overmind.blob_reagent_datum.id, 8)
+	if(overmind?.blob_reagent_datum)
+		reagents.add_reagent(overmind.blob_reagent_datum.type, 8)
 	else
 		reagents.add_reagent(/datum/reagent/spore, 8)
 

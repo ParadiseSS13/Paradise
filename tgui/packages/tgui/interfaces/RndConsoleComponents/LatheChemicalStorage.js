@@ -22,14 +22,14 @@ export const LatheChemicalStorage = (properties, context) => {
         }} />
 
       <LabeledList>
-        {loaded_chemicals.map(({ volume, name, id }) => (
-          <LabeledList.Item label={`* ${volume} of ${name}`} key={id}>
+        {loaded_chemicals.map(({ volume, name, type }) => (
+          <LabeledList.Item label={`* ${volume} of ${name}`} key={type}>
             <Button
               content="Purge"
               icon="trash"
               onClick={() => {
                 const action = lathe ? 'disposeP' : 'disposeI';
-                act(action, { id });
+                act(action, { type });
               }} />
           </LabeledList.Item>
         ))}

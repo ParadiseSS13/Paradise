@@ -315,7 +315,6 @@
 
 /datum/reagent/consumable/hot_coco
 	name = "Hot Chocolate"
-	id = "hot_coco"
 	description = "Made with love! And cocoa beans."
 	reagent_state = LIQUID
 	nutriment_factor = 2 * REAGENTS_METABOLISM
@@ -568,7 +567,7 @@
 		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		for(var/datum/reagent/R in M.reagents.reagent_list)
 			if(!R.harmless)
-				M.reagents.remove_reagent(R.id, 5) // purge those meme chems
+				M.reagents.remove_reagent(R.type, 5) // purge those meme chems
 	return ..() | update_flags
 
 /datum/reagent/consumable/porktonium

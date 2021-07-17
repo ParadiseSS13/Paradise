@@ -230,7 +230,7 @@
 				to_chat(display_to, "<span class='danger'>Error: the suit cannot perform this function. Out of [href_list["name"]].</span>")
 			else
 				reagents.reaction(U, 2)
-				reagents.trans_id_to(U, href_list["tag"], href_list["tag"]=="nutriment"?5:a_transfer)//Nutriment is a special case since it's very potent. Shouldn't influence actual refill amounts or anything.
+				reagents.trans_reagent_to(U, href_list["tag"], href_list["tag"]=="nutriment"?5:a_transfer)//Nutriment is a special case since it's very potent. Shouldn't influence actual refill amounts or anything.
 				to_chat(display_to, "Injecting...")
 				to_chat(U, "You feel a tiny prick and a sudden rush of substance in to your veins.")
 

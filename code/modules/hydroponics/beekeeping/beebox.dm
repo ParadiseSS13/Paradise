@@ -70,7 +70,7 @@
 	. = ..()
 	var/datum/reagent/R = null
 	if(random_reagent)
-		R = GLOB.chemical_reagents_list[get_random_reagent_id()]
+		R = GLOB.chemical_reagents_list[get_random_reagent_type()]
 
 	queen_bee = new(src)
 	queen_bee.beehome = src
@@ -98,7 +98,7 @@
 				bee_resources = max(bee_resources-BEE_RESOURCE_HONEYCOMB_COST, 0)
 				var/obj/item/reagent_containers/honeycomb/HC = new(src)
 				if(queen_bee.beegent)
-					HC.set_reagent(queen_bee.beegent.id)
+					HC.set_reagent(queen_bee.beegent)
 				honeycombs += HC
 
 		if(bees.len < get_max_bees())

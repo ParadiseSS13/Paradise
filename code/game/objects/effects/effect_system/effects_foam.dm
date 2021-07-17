@@ -79,7 +79,7 @@
 			F.create_reagents(25)
 			if(reagents)
 				for(var/datum/reagent/R in reagents.reagent_list)
-					F.reagents.add_reagent(R.id, min(R.volume, 5), R.data, reagents.chem_temp)
+					F.reagents.add_reagent(R.type, min(R.volume, 5), R.data, reagents.chem_temp)
 				F.color = mix_color_from_reagents(reagents.reagent_list)
 
 // foam disolves when heated
@@ -135,7 +135,7 @@
 
 	if(carry && !metal)
 		for(var/datum/reagent/R in carry.reagent_list)
-			carried_reagents[R.id] = R.volume
+			carried_reagents[R.type] = R.volume
 
 /datum/effect_system/foam_spread/start()
 	spawn(0)

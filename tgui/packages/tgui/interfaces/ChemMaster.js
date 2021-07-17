@@ -139,7 +139,7 @@ const ChemMasterBeaker = (props, context) => {
                   content={am}
                   mb="0"
                   onClick={() => act('add', {
-                    id: chemical.id,
+                    type: chemical.type,
                     amount: am,
                   })}
                 />)
@@ -148,7 +148,7 @@ const ChemMasterBeaker = (props, context) => {
                 content="All"
                 mb="0"
                 onClick={() => act('add', {
-                  id: chemical.id,
+                  type: chemical.type,
                   amount: chemical.volume,
                 })}
               />
@@ -156,7 +156,7 @@ const ChemMasterBeaker = (props, context) => {
                 content="Custom.."
                 mb="0"
                 onClick={() => modalOpen(context, 'addcustom', {
-                  id: chemical.id,
+                  type: chemical.type,
                 })}
               />
             </Box>
@@ -213,7 +213,7 @@ const ChemMasterBuffer = (props, context) => {
                   content={am}
                   mb="0"
                   onClick={() => act('remove', {
-                    id: chemical.id,
+                    type: chemical.type,
                     amount: am,
                   })}
                 />)
@@ -222,7 +222,7 @@ const ChemMasterBuffer = (props, context) => {
                 content="All"
                 mb="0"
                 onClick={() => act('remove', {
-                  id: chemical.id,
+                  type: chemical.type,
                   amount: chemical.volume,
                 })}
               />
@@ -230,7 +230,7 @@ const ChemMasterBuffer = (props, context) => {
                 content="Custom.."
                 mb="0"
                 onClick={() => modalOpen(context, 'removecustom', {
-                  id: chemical.id,
+                  type: chemical.type,
                 })}
               />
             </Box>

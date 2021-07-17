@@ -19,17 +19,16 @@
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
 
 /obj/item/reagent_containers/food/snacks/add_initial_reagents()
-	if(tastes && tastes.len)
+	if(length(tastes))
 		if(list_reagents)
-			for(var/rid in list_reagents)
-				var/amount = list_reagents[rid]
-				if(rid == /datum/reagent/consumable/nutriment || rid == /datum/reagent/consumable/nutriment/vitamin || rid == /datum/reagent/consumable/nutriment/protein || rid == /datum/reagent/consumable/nutriment/plantmatter)
-					reagents.add_reagent(rid, amount, tastes.Copy())
+			for(var/reagent in list_reagents)
+				var/amount = list_reagents[reagent]
+				if(reagent == /datum/reagent/consumable/nutriment || reagent == /datum/reagent/consumable/nutriment/vitamin || reagent == /datum/reagent/consumable/nutriment/protein || reagent == /datum/reagent/consumable/nutriment/plantmatter)
+					reagents.add_reagent(reagent, amount, tastes.Copy())
 				else
-					reagents.add_reagent(rid, amount)
+					reagents.add_reagent(reagent, amount)
 	else
 		..()
-#error fix
 
 //Placeholder for effect that trigger on eating that aren't tied to reagents.
 /obj/item/reagent_containers/food/snacks/proc/On_Consume(mob/M, mob/user)
@@ -37,8 +36,8 @@
 		return
 	if(!reagents.total_volume)
 		if(M == user)
-			to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
-		user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
+			to_chat(user, "<span class='notice'>You finish eating [src].</span>")
+		user.visible_message("<span class='notice'>[M] finishes eating [src].</span>")
 		user.unEquip(src)	//so icons update :[
 		Post_Consume(M)
 		var/obj/item/trash_item = generate_trash(usr)
@@ -261,7 +260,7 @@
 //	the bites. No more contained reagents = no more bites.
 
 //Here is an example of the new formatting for anyone who wants to add more food items.
-///obj/item/reagent_containers/food/snacks/xenoburger			//Identification path for the object.
+///obj/item/reagent_containers/food/snacks/xenoburger					//Identification path for the object.
 //	name = "Xenoburger"													//Name that displays in the UI.
 //	desc = "Smells caustic. Tastes like heresy."						//Duh
 //	icon_state = "xburger"												//Refers to an icon in food/food.dmi

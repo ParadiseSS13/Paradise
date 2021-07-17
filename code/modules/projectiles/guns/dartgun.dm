@@ -173,7 +173,7 @@
 					var/R
 					if(D.reagents)
 						for(var/datum/reagent/A in D.reagents.reagent_list)
-							R += A.id + " ("
+							R += A.type + " ("
 							R += num2text(A.volume) + "),"
 
 					add_attack_logs(user, M, "Shot with dartgun containing [R]")

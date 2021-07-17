@@ -310,7 +310,7 @@
 	mind_control_duration = 1200
 
 /obj/item/organ/internal/heart/gland/chem/activate()
-	owner.reagents.add_reagent(get_random_reagent_id(), 2)
+	owner.reagents.add_reagent(get_random_reagent_type(), 2)
 	owner.adjustToxLoss(-2)
 	..()
 

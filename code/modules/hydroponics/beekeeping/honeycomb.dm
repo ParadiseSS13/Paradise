@@ -31,12 +31,11 @@
 	overlays += honey
 
 
-/obj/item/reagent_containers/honeycomb/proc/set_reagent(reagent)
-	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent]
+/obj/item/reagent_containers/honeycomb/proc/set_reagent(datum/reagent/R)
 	if(istype(R))
 		name = "honeycomb ([R.name])"
 		honey_color = R.color
-		reagents.add_reagent(R.id,5)
+		reagents.add_reagent(R.type, 5)
 	else
 		honey_color = ""
 	update_icon()

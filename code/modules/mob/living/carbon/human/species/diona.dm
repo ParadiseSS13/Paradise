@@ -78,11 +78,11 @@
 	H.clear_alert("nolight")
 
 /datum/species/diona/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "glyphosate" || R.id == "atrazine")
+	if(R.type == /datum/reagent/glyphosate || R.type == /datum/reagent/glyphosate/atrazine)
 		H.adjustToxLoss(3) //Deal aditional damage
 		return TRUE
 	return ..()
-#error fix
+
 /datum/species/diona/handle_life(mob/living/carbon/human/H)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	var/is_vamp = H.mind?.vampire != null

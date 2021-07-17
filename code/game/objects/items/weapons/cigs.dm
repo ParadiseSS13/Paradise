@@ -206,7 +206,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
 			var/mob/living/carbon/C = loc
 			for(var/datum/reagent/R in reagents.reagent_list)
-				reagents.trans_id_to(C, R.id, first_puff ? 1 : max(REAGENTS_METABOLISM / reagents.reagent_list.len, 0.1)) //transfer at least .1 of each chem
+				reagents.trans_reagent_to(C, R.type, first_puff ? 1 : max(REAGENTS_METABOLISM / reagents.reagent_list.len, 0.1)) //transfer at least .1 of each chem
 			first_puff = FALSE
 			if(!reagents.total_volume) // There were reagents, but now they're gone
 				to_chat(C, "<span class='notice'>Your [name] loses its flavor.</span>")
@@ -231,10 +231,17 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/random
 
-/obj/item/clothing/mask/cigarette/random/New()
-	list_reagents = list(/datum/reagent/nicotine = 40, pick(/datum/reagent/fuel, /datum/reagent/saltpetre,/datum/reagent/medicine/synaptizine, /datum/reagent/greenvomit, /datum/reagent/medicine/potass_iodide, /datum/reagent/msg, /datum/reagent/lexorin, /datum/reagent/medicine/mannitol, /datum/reagent/medicine/spaceacillin,/datum/reagent/medicine/cryoxadone, /datum/reagent/holywater, /datum/reagent/consumable/drink/tea, /datum/reagent/consumable/egg, /datum/reagent/medicine/haloperidol, /datum/reagent/mutagen, /datum/reagent/medicine/omnizine, /datum/reagent/carpet, /datum/reagent/aranesp, /datum/reagent/cryostylane, /datum/reagent/consumable/chocolate, /datum/reagent/consumable/ethanol/bilk, /datum/reagent/consumable/cheese, /datum/reagent/consumable/ethanol/rum, /datum/reagent/blood, /datum/reagent/medicine/charcoal, /datum/reagent/consumable/drink/coffee, /datum/reagent/ectoplasm, /datum/reagent/space_drugs, /datum/reagent/consumable/drink/milk, /datum/reagent/medicine/mutadone, /datum/reagent/medicine/antihol, /datum/reagent/medicine/teporone, /datum/reagent/medicine/insulin, /datum/reagent/medicine/salbutamol, /datum/reagent/toxin) = 20)
+/obj/item/clothing/mask/cigarette/random/New() // this is ridiculous
+	list_reagents = list(/datum/reagent/nicotine = 40, pick(/datum/reagent/fuel, /datum/reagent/saltpetre,/datum/reagent/medicine/synaptizine,
+		/datum/reagent/greenvomit, /datum/reagent/medicine/potass_iodide, /datum/reagent/msg, /datum/reagent/lexorin, /datum/reagent/medicine/mannitol,
+		/datum/reagent/medicine/spaceacillin,/datum/reagent/medicine/cryoxadone, /datum/reagent/holywater, /datum/reagent/consumable/drink/tea,
+		/datum/reagent/consumable/egg, /datum/reagent/medicine/haloperidol, /datum/reagent/mutagen, /datum/reagent/medicine/omnizine,
+		/datum/reagent/carpet, /datum/reagent/aranesp, /datum/reagent/cryostylane, /datum/reagent/consumable/chocolate, /datum/reagent/consumable/ethanol/bilk,
+		/datum/reagent/consumable/cheese, /datum/reagent/consumable/ethanol/rum, /datum/reagent/blood, /datum/reagent/medicine/charcoal,
+		/datum/reagent/consumable/drink/coffee, /datum/reagent/ectoplasm, /datum/reagent/space_drugs, /datum/reagent/consumable/drink/milk, /datum/reagent/medicine/mutadone,
+		/datum/reagent/medicine/antihol, /datum/reagent/medicine/teporone, /datum/reagent/medicine/insulin, /datum/reagent/medicine/salbutamol, /datum/reagent/toxin) = 20)
 	..()
-#error fix
+
 /obj/item/clothing/mask/cigarette/syndicate
 	list_reagents = list(/datum/reagent/nicotine = 40, /datum/reagent/medicine/omnizine = 20)
 

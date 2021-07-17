@@ -9,7 +9,7 @@
 
 	handle_addiction(M, total_depletion_rate)
 	sate_addiction(M)
-	holder.remove_reagent(id, total_depletion_rate) //medicine reagents stay longer if you have a better metabolism
+	holder.remove_reagent(type, total_depletion_rate) //medicine reagents stay longer if you have a better metabolism
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/medicine/hydrocodone
@@ -308,7 +308,7 @@
 	if(prob(50))
 		for(var/datum/reagent/R in M.reagents.reagent_list)
 			if(R != src)
-				M.reagents.remove_reagent(R.id,1)
+				M.reagents.remove_reagent(R.type, 1)
 	return ..() | update_flags
 
 /datum/reagent/medicine/omnizine
@@ -384,7 +384,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.id,5)
+			M.reagents.remove_reagent(R.type, 5)
 	if(M.health > 20)
 		update_flags |= M.adjustToxLoss(5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(6))
@@ -415,7 +415,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.id,4)
+			M.reagents.remove_reagent(R.type, 4)
 	M.radiation = max(0, M.radiation-70)
 	if(prob(75))
 		update_flags |= M.adjustToxLoss(-4*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -878,7 +878,7 @@
 
 /datum/reagent/medicine/stimulative_agent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
+	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, type)
 	if(M.health < 50 && M.health > 0)
 		update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -891,7 +891,7 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/M)
-	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, type)
 	..()
 
 /datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M, severity)
@@ -973,14 +973,16 @@
 	reagent_state = LIQUID
 	color = "#FFDCFF"
 	taste_description = "stability"
-	var/list/drug_list = list(/datum/reagent/crank, /datum/reagent/methamphetamine, /datum/reagent/space_drugs, /datum/reagent/medicine/synaptizine, /datum/reagent/psilocybin, /datum/reagent/medicine/ephedrine, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/stimulants, /datum/reagent/medicine/stimulative_agent, /datum/reagent/bath_salts, /datum/reagent/lsd, /datum/reagent/thc)
+	var/list/drug_list = list(/datum/reagent/crank, /datum/reagent/methamphetamine, /datum/reagent/space_drugs, /datum/reagent/medicine/synaptizine,
+		/datum/reagent/psilocybin, /datum/reagent/medicine/ephedrine, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/stimulants,
+		/datum/reagent/medicine/stimulative_agent, /datum/reagent/bath_salts, /datum/reagent/lsd, /datum/reagent/thc)
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	for(var/I in M.reagents.reagent_list)
 		var/datum/reagent/R = I
-		if(drug_list.Find(R.id))
-			M.reagents.remove_reagent(R.id, 5)
+		if(R.type in drug_list)
+			M.reagents.remove_reagent(R.type, 5)
 	update_flags |= M.AdjustDruggy(-5, FALSE)
 	M.AdjustHallucinate(-5)
 	M.AdjustJitter(-5)
@@ -1086,13 +1088,13 @@
 		M.AdjustConfused(-5)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			if(R.id == /datum/reagent/lube/ultra || R.id == /datum/reagent/lube)
+			if(istype(R, /datum/reagent/lube))
 				//Flushes lube and ultra-lube even faster than other chems
-				M.reagents.remove_reagent(R.id, 5)
+				M.reagents.remove_reagent(R.type, 5)
 			else
-				M.reagents.remove_reagent(R.id,1)
+				M.reagents.remove_reagent(R.type, 1)
 	return ..() | update_flags
-#error fix
+
 /datum/reagent/medicine/degreaser/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
 		if(T.wet)
@@ -1204,7 +1206,7 @@
 	var/has_stimulant = FALSE
 	for(var/I in M.reagents.reagent_list)
 		var/datum/reagent/R = I
-		if(stimulant_list.Find(R.id))
+		if(R.type in stimulant_list)
 			has_stimulant = TRUE
 	switch(current_cycle)
 		if(1 to 19)

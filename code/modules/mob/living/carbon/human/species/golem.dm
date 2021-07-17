@@ -339,11 +339,11 @@
 	..()
 
 /datum/species/golem/wood/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "glyphosate" || R.id == "atrazine")
+	if(R.type == /datum/reagent/glyphosate || R.type == /datum/reagent/glyphosate/atrazine)
 		H.adjustToxLoss(3) //Deal aditional damage
 		return TRUE
 	return ..()
-#error fix
+
 //Radioactive
 /datum/species/golem/uranium
 	name = "Uranium Golem"

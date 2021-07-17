@@ -15,7 +15,7 @@
 		return
 	var/radius = min(max(0, volume / size_divisor), 8)
 	fireflash_sm(T, radius, rand(temp_fire - temp_deviance, temp_fire + temp_deviance), 500)
-	fire_flash_log(holder, id)
+	fire_flash_log(holder, type)
 
 /datum/reagent/phlogiston/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(holder.chem_temp <= T0C - 50)
@@ -54,9 +54,9 @@
 	if(exposed_temperature > T0C + 100)
 		var/radius = min(max(0, volume * 0.15), 8)
 		fireflash_sm(get_turf(holder.my_atom), radius, rand(3000, 6000), 500)
-		fire_flash_log(holder, id)
+		fire_flash_log(holder, type)
 		if(holder)
-			holder.del_reagent(id)
+			holder.del_reagent(type)
 
 /datum/reagent/napalm/reaction_turf(turf/T, volume)
 	if(isspaceturf(T))
@@ -106,7 +106,7 @@
 	if(exposed_temperature > combustion_temp)
 		if(volume < 1)
 			if(holder)
-				holder.del_reagent(id)
+				holder.del_reagent(type)
 			return
 		var/turf/T = get_turf(holder.my_atom)
 		var/radius = min(max(min_radius, volume * volume_radius_multiplier + volume_radius_modifier), max_radius)
@@ -114,13 +114,13 @@
 		if(holder && volume >= explosion_threshold)
 			if(holder.my_atom)
 				holder.my_atom.visible_message("<span class='danger'>[holder.my_atom] explodes!</span>")
-				message_admins("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
-				log_game("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
+				message_admins("Fuel explosion ([holder.my_atom], reagent type: [type]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
+				log_game("Fuel explosion ([holder.my_atom], reagent type: [type]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
 				holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
 			var/boomrange = min(max(min_explosion_radius, round(volume * volume_explosion_radius_multiplier + volume_explosion_radius_modifier)), max_explosion_radius)
 			explosion(T, -1, -1, boomrange, 1)
 		if(holder)
-			holder.del_reagent(id)
+			holder.del_reagent(type)
 
 /datum/reagent/fuel/reaction_turf(turf/T, volume) //Don't spill the fuel, or you'll regret it
 	if(isspaceturf(T))
@@ -145,9 +145,9 @@
 /datum/reagent/plasma/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
 		fireflash(get_turf(holder.my_atom), min(max(0, volume / 10), 8))
-		fire_flash_log(holder, id)
+		fire_flash_log(holder, type)
 		if(holder)
-			holder.del_reagent(id)
+			holder.del_reagent(type)
 
 /datum/reagent/plasma/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -184,12 +184,9 @@
 		return
 
 	if(exposed_temperature >= T0C + 100)
-		var/datum/reagents/Holder = holder
-		var/Id = id
-		var/Volume = volume
-		fire_flash_log(holder, id)
-		Holder.del_reagent(Id)
-		fireflash_sm(S, 0, rand(20000, 25000) + Volume * 2500, 0, 0, 1)
+		fire_flash_log(holder, type)
+		holder.del_reagent(type)
+		fireflash_sm(S, 0, rand(20000, 25000) + volume * 2500, 0, 0, 1)
 
 /datum/reagent/thermite/reaction_turf(turf/simulated/S, volume)
 	if(istype(S))
@@ -233,7 +230,7 @@
 		return
 	var/radius = min((volume - 3) * 0.15, 3)
 	fireflash_sm(T, radius, 4500 + volume * 500, 350)
-	fire_flash_log(holder, id)
+	fire_flash_log(holder, type)
 
 /datum/reagent/clf3/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH || method == REAGENT_INGEST)
@@ -421,9 +418,9 @@
 /datum/reagent/plasma_dust/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
 		fireflash(get_turf(holder.my_atom), min(max(0, volume / 10), 8))
-		fire_flash_log(holder, id)
+		fire_flash_log(holder, type)
 		if(holder)
-			holder.del_reagent(id)
+			holder.del_reagent(type)
 
 /datum/reagent/plasma_dust/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

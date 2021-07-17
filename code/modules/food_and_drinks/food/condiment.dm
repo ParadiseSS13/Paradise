@@ -88,7 +88,7 @@
 	if(!possible_states.len)
 		return
 	if(reagents.reagent_list.len > 0)
-		var/main_reagent = reagents.get_master_reagent_id()
+		var/main_reagent = reagents.get_master_reagent_type()
 		if(main_reagent in possible_states)
 			var/list/temp_list = possible_states[main_reagent]
 			icon_state = temp_list[1]
@@ -205,8 +205,16 @@
 	volume = 10
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list()
-	possible_states = list(/datum/reagent/consumable/ketchup = list("condi_ketchup", "Ketchup", "You feel more American already."), /datum/reagent/consumable/capsaicin = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"), /datum/reagent/consumable/soysauce = list("condi_soysauce", "Soy Sauce", "A salty soy-based flavoring"), /datum/reagent/consumable/frostoil = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in it's passage"), /datum/reagent/consumable/sodiumchloride = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"), /datum/reagent/consumable/blackpepper = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze"), /datum/reagent/consumable/cornoil = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"), /datum/reagent/consumable/sugar = list("condi_sugar", "Sugar", "Tasty spacey sugar!"))
-#error fix
+	possible_states = list(
+		/datum/reagent/consumable/ketchup = list("condi_ketchup", "Ketchup", "You feel more American already."),
+		/datum/reagent/consumable/capsaicin = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"),
+		/datum/reagent/consumable/soysauce = list("condi_soysauce", "Soy Sauce", "A salty soy-based flavoring"),
+		/datum/reagent/consumable/frostoil = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in it's passage"),
+		/datum/reagent/consumable/sodiumchloride = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"),
+		/datum/reagent/consumable/blackpepper = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze"),
+		/datum/reagent/consumable/cornoil = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"),
+		/datum/reagent/consumable/sugar = list("condi_sugar", "Sugar", "Tasty spacey sugar!"))
+
 /obj/item/reagent_containers/food/condiment/pack/attack(mob/M, mob/user, def_zone) //Can't feed these to people directly.
 	return
 
@@ -230,7 +238,7 @@
 
 /obj/item/reagent_containers/food/condiment/pack/on_reagent_change()
 	if(reagents.reagent_list.len > 0)
-		var/main_reagent = reagents.get_master_reagent_id()
+		var/main_reagent = reagents.get_master_reagent_type()
 		if(main_reagent in possible_states)
 			var/list/temp_list = possible_states[main_reagent]
 			icon_state = temp_list[1]

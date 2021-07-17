@@ -127,7 +127,7 @@
 		if(!O.reagents)
 			return 1
 		for(var/datum/reagent/R in O.reagents.reagent_list)
-			if(!(R.id in GLOB.cooking_reagents[recipe_type]))
+			if(!(R.type in GLOB.cooking_reagents[recipe_type]))
 				to_chat(user, "<span class='alert'>Your [O] contains components unsuitable for cookery.</span>")
 				return 1
 		//G.reagents.trans_to(src,G.amount_per_transfer_from_this)
@@ -206,9 +206,9 @@
 
 		for(var/datum/reagent/R in reagents.reagent_list)
 			var/display_name = R.name
-			if(R.id == /datum/reagent/consumable/capsaicin)
+			if(R.type == /datum/reagent/consumable/capsaicin)
 				display_name = "Hotsauce"
-			if(R.id == /datum/reagent/consumable/frostoil)
+			if(R.type == /datum/reagent/consumable/frostoil)
 				display_name = "Coldsauce"
 			dat += {"<B>[display_name]:</B> [R.volume] unit\s<BR>"}
 
@@ -220,7 +220,7 @@
 <A href='?src=[UID()];action=cook'>Turn on!</A><BR>\
 <A href='?src=[UID()];action=dispose'>Eject ingredients!</A><BR>\
 "}
-#error fix
+
 	var/datum/browser/popup = new(user, name, name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)
@@ -408,14 +408,14 @@
 	for(var/obj/O in contents)
 		amount++
 		if(O.reagents)	//this is reagents in inserted objects (like chems in produce)
-			var/id = O.reagents.get_master_reagent_id()
-			if(id)
-				amount+=O.reagents.get_reagent_amount(id)
+			var/path = O.reagents.get_master_reagent_type()
+			if(path)
+				amount+=O.reagents.get_reagent_amount(path)
 		qdel(O)
 	if(reagents && reagents.total_volume)	//this is directly-added reagents (like water added directly into the machine)
-		var/id = reagents.get_master_reagent_id()
-		if(id)
-			amount += reagents.get_reagent_amount(id)
+		var/path = reagents.get_master_reagent_type()
+		if(path)
+			amount += reagents.get_reagent_amount(path)
 	reagents.clear_reagents()
 	if(amount)
 		var/obj/item/reagent_containers/food/snacks/badrecipe/ffuu = new(src)

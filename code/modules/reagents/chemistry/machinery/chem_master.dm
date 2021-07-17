@@ -204,20 +204,20 @@
 	var/datum/reagents/R = beaker.reagents
 	switch(action)
 		if("add")
-			var/id = params["id"]
+			var/path = params["type"]
 			var/amount = text2num(params["amount"])
-			if(!id || !amount)
+			if(!path || !amount)
 				return
-			R.trans_id_to(src, id, amount)
+			R.trans_reagent_to(src, path, amount)
 		if("remove")
-			var/id = params["id"]
+			var/path = params["type"]
 			var/amount = text2num(params["amount"])
-			if(!id || !amount)
+			if(!path || !amount)
 				return
 			if(mode)
-				reagents.trans_id_to(beaker, id, amount)
+				reagents.trans_reagent_to(beaker, path, amount)
 			else
-				reagents.remove_reagent(id, amount)
+				reagents.remove_reagent(path, amount)
 		if("eject")
 			if(!beaker)
 				return
@@ -270,11 +270,11 @@
 		var/list/beaker_reagents_list = list()
 		data["beaker_reagents"] = beaker_reagents_list
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beaker_reagents_list[++beaker_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
+			beaker_reagents_list[++beaker_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "type" = R.type, "description" = R.description)
 		var/list/buffer_reagents_list = list()
 		data["buffer_reagents"] = buffer_reagents_list
 		for(var/datum/reagent/R in reagents.reagent_list)
-			buffer_reagents_list[++buffer_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
+			buffer_reagents_list[++buffer_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "type" = R.type, "description" = R.description)
 	else
 		data["beaker_reagents"] = list()
 		data["buffer_reagents"] = list()
@@ -420,7 +420,7 @@
 					var/amount = isgoodnumber(text2num(answer))
 					if(!amount || !arguments["id"])
 						return
-					ui_act("add", list("id" = arguments["id"], "amount" = amount), ui, state)
+					ui_act("add", list("id" = arguments["id"], "amount" = amount), ui, state)// TODO TEST
 				if("removecustom")
 					var/amount = isgoodnumber(text2num(answer))
 					if(!amount || !arguments["id"])
@@ -539,7 +539,7 @@
 /obj/machinery/chem_master/proc/chemical_safety_check(datum/reagents/R)
 	var/all_safe = TRUE
 	for(var/datum/reagent/A in R.reagent_list)
-		if(!GLOB.safe_chem_list.Find(A.id))
+		if(!(A.type in GLOB.safe_chem_list))
 			all_safe = FALSE
 	return all_safe
 

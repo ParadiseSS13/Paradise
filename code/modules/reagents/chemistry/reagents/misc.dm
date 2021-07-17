@@ -186,13 +186,13 @@
 		var/turf/T = get_turf(holder.my_atom)
 		holder.my_atom.visible_message("<b>The oil burns!</b>")
 		fireflash(T, min(max(0, volume / 40), 8))
-		fire_flash_log(holder, id)
+		fire_flash_log(holder, type)
 		var/datum/effect_system/smoke_spread/bad/BS = new
 		BS.set_up(1, 0, T)
 		BS.start()
 		if(holder)
 			holder.add_reagent(/datum/reagent/ash, round(volume * 0.5))
-			holder.del_reagent(id)
+			holder.del_reagent(type)
 
 /datum/reagent/oil/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
@@ -417,7 +417,7 @@
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
 			C.AdjustDizzy(volume)
-	ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
+	ADD_TRAIT(C, TRAIT_COMIC_SANS, type)
 	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
 	C.AddElement(/datum/element/waddling)
 
@@ -453,7 +453,7 @@
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
 	..()
-	REMOVE_TRAIT(M, TRAIT_COMIC_SANS, id)
+	REMOVE_TRAIT(M, TRAIT_COMIC_SANS, type)
 	qdel(M.GetComponent(/datum/component/squeak))
 	M.RemoveElement(/datum/element/waddling)
 
@@ -508,10 +508,10 @@
 
 /datum/reagent/pax/on_mob_add(mob/living/M)
 	..()
-	ADD_TRAIT(M, TRAIT_PACIFISM, id)
+	ADD_TRAIT(M, TRAIT_PACIFISM, type)
 
 /datum/reagent/pax/on_mob_delete(mob/living/M)
-	REMOVE_TRAIT(M, TRAIT_PACIFISM, id)
+	REMOVE_TRAIT(M, TRAIT_PACIFISM, type)
 	..()
 
 /datum/reagent/toxin/coffeepowder

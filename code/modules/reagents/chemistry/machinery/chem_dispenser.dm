@@ -151,7 +151,6 @@
 
 /obj/machinery/chem_dispenser/ui_data(mob/user)
 	var/list/data = list()
-
 	data["glass"] = is_drink
 	data["amount"] = amount
 	data["energy"] = cell.charge ? cell.charge * powerefficiency : "0" //To prevent NaN in the UI.
@@ -162,7 +161,7 @@
 	var/beakerCurrentVolume = 0
 	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "id"=R.id, "volume" = R.volume))) // list in a list because Byond merges the first list...
+			beakerContents.Add(list(list("name" = R.name, "type" = R.type, "volume" = R.volume))) // list in a list because Byond merges the first list...
 			beakerCurrentVolume += R.volume
 	data["beakerContents"] = beakerContents
 
@@ -177,7 +176,7 @@
 	for(var/re in dispensable_reagents)
 		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
 		if(temp)
-			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("dispense" = temp.id)))) // list in a list because Byond merges the first list...
+			chemicals.Add(list(list("title" = temp.name, "type" = temp.type, "commands" = list("dispense" = temp.type)))) // list in a list because Byond merges the first list...
 	data["chemicals"] = chemicals
 
 	return data
@@ -195,7 +194,7 @@
 		if("dispense")
 			if(!is_operational() || QDELETED(cell))
 				return
-			if(!beaker || !dispensable_reagents.Find(params["reagent"]))
+			if(!beaker || !(params["reagent"] in dispensable_reagents))
 				return
 			var/datum/reagents/R = beaker.reagents
 			var/free = R.maximum_volume - R.total_volume
@@ -214,11 +213,11 @@
 			if(!beaker || !amount)
 				return
 			var/datum/reagents/R = beaker.reagents
-			var/id = params["reagent"]
+			var/path = params["reagent"]
 			if(amount > 0)
-				R.remove_reagent(id, amount)
+				R.remove_reagent(path, amount)
 			else if(amount == -1) //Isolate instead
-				R.isolate_reagent(id)
+				R.isolate_reagent(path)
 		if("ejectBeaker")
 			if(!beaker)
 				return
@@ -482,7 +481,7 @@
 	for(var/re in dispensable_reagents)
 		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
 		if(temp)
-			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("dispense" = temp.id)))) // list in a list because Byond merges the first list...
+			chemicals.Add(list(list("title" = temp.name, "type" = temp.type, "commands" = list("dispense" = temp.type)))) // list in a list because Byond merges the first list...
 	data["chemicals"] = chemicals
 
 

@@ -40,9 +40,9 @@
 	else
 		playsound(location,'sound/creatures/bee.ogg', 100, 1)
 		var/list/beeagents = list()
-		for(var/X in holder.reagent_list)
-			var/datum/reagent/R = X
-			if(R.id in required_reagents)
+		for(var/A in holder.reagent_list)
+			var/datum/reagent/R = A
+			if(R.type in required_reagents)
 				continue
 			if(!R.can_synth)
 				continue

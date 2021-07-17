@@ -95,7 +95,7 @@
 	if(!(NO_BLOOD in dna.species.species_traits))
 		..()
 		if(dna.species.exotic_blood)
-			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
+			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_path()]
 			if(istype(R) && isturf(loc))
 				if(EXOTIC_COLOR in dna.species.species_traits)
 					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
@@ -118,7 +118,7 @@
 	if(!(NO_BLOOD in dna.species.species_traits))
 		.=..()
 		if(dna.species.exotic_blood && .) // Do we have exotic blood, and have we left any on the ground?
-			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
+			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_path()]
 			if(istype(R) && isturf(loc))
 				if(EXOTIC_COLOR in dna.species.species_traits)
 					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
@@ -146,18 +146,18 @@
 	if(blood_volume < amount)
 		amount = blood_volume
 
-	var/blood_id = get_blood_id()
-	if(!blood_id)
+	var/blood_path = get_blood_path()
+	if(!blood_path)
 		return 0
 
 	blood_volume -= amount
 
-	var/list/blood_data = get_blood_data(blood_id)
-#error fix
+	var/list/blood_data = get_blood_data(blood_path)
+
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
-		if(blood_id == C.get_blood_id())//both mobs have the same blood substance
-			if(blood_id == "blood") //normal blood
+		if(blood_path == C.get_blood_path())//both mobs have the same blood substance
+			if(blood_path == /datum/reagent/blood) //normal blood
 				if(blood_data["viruses"])
 					for(var/thing in blood_data["viruses"])
 						var/datum/disease/D = thing
@@ -171,20 +171,19 @@
 			C.blood_volume = min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_NORMAL)
 			return 1
 
-	AM.reagents.add_reagent(blood_id, amount, blood_data, bodytemperature)
+	AM.reagents.add_reagent(blood_path, amount, blood_data, bodytemperature)
 	return 1
 
 
-/mob/living/proc/get_blood_data(blood_id)
+/mob/living/proc/get_blood_data(blood_path)
 	return
 
-/mob/living/carbon/human/get_blood_data(blood_id)
-	if(blood_id == "blood") //actual blood reagent
+/mob/living/carbon/human/get_blood_data(blood_path)
+	if(blood_path == /datum/reagent/blood) //actual blood reagent
 		var/blood_data = list()
 		//set the blood data
 		blood_data["donor"] = src
 		blood_data["viruses"] = list()
-#error fix
 		for(var/thing in viruses)
 			var/datum/disease/D = thing
 			blood_data["viruses"] += D.Copy()
@@ -194,7 +193,7 @@
 			blood_data["resistances"] = resistances.Copy()
 		var/list/temp_chem = list()
 		for(var/datum/reagent/R in reagents.reagent_list)
-			temp_chem[R.id] = R.volume
+			temp_chem[R.type] = R.volume
 		blood_data["trace_chem"] = list2params(temp_chem)
 		if(mind)
 			blood_data["mind"] = mind
@@ -209,25 +208,25 @@
 		blood_data["factions"] = faction
 		blood_data["dna"] = dna.Clone()
 		return blood_data
-	if(blood_id == /datum/reagent/slimejelly)
+	if(blood_path == /datum/reagent/slimejelly)
 		var/blood_data = list()
 		blood_data["colour"] = dna.species.blood_color
 		return blood_data
-#error todo
-//get the id of the substance this mob use as blood.
-/mob/proc/get_blood_id()
+
+//get the typepath of the substance this mob use as blood.
+/mob/proc/get_blood_path()
 	return
 
-/mob/living/simple_animal/get_blood_id()
+/mob/living/simple_animal/get_blood_path()
 	if(blood_volume)
-		return "blood"
+		return /datum/reagent/blood
 
-/mob/living/carbon/human/get_blood_id()
+/mob/living/carbon/human/get_blood_path()
 	if(dna.species.exotic_blood)//some races may bleed water..or kethcup..
 		return dna.species.exotic_blood
 	else if((NO_BLOOD in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_HUSK))
 		return
-	return "blood"
+	return /datum/reagent/blood
 
 // This is has more potential uses, and is probably faster than the old proc.
 /proc/get_safe_blood(bloodtype)
@@ -254,13 +253,14 @@
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
-	if(get_blood_id() != "blood")//is it blood or welding fuel?
+	var/blood_path = get_blood_path()
+	if(blood_path != /datum/reagent/blood)//is it blood or welding fuel?
 		return
 	if(!T)
 		T = get_turf(src)
-#error fix
+
 	var/list/temp_blood_DNA
-	var/list/b_data = get_blood_data(get_blood_id())
+	var/list/b_data = get_blood_data(blood_path)
 
 	if(small_drip)
 		// Only a certain number of drips (or one large splatter) can be on a given turf.

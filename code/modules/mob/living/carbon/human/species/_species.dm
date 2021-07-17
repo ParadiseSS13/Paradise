@@ -322,9 +322,9 @@
 // Return 0 if it shouldn't deplete and do its normal effect
 // Other return values will cause weird badness
 /datum/species/proc/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == exotic_blood)
+	if(R.type == exotic_blood)
 		H.blood_volume = min(H.blood_volume + round(R.volume, 0.1), BLOOD_VOLUME_NORMAL)
-		H.reagents.del_reagent(R.id)
+		H.reagents.del_reagent(R.type)
 		return FALSE
 	return TRUE
 

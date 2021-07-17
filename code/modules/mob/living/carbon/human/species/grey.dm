@@ -81,14 +81,14 @@
 				to_chat(H, "<span class='notice'>A speech translator implant has been installed due to your role on the station.</span>")
 
 /datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "sacid" || R.id == "facid")
-		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+	if(R.type == /datum/reagent/acid || R.type == /datum/reagent/acid/facid)
+		H.reagents.remove_reagent(R.type, REAGENTS_METABOLISM)
 		return FALSE
-	if(R.id == "water")
+	if(R.type == /datum/reagent/water)
 		H.adjustFireLoss(1)
 		return TRUE
 	return ..()
-#error fix
+
 /datum/species/grey/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 	return E.eye_color

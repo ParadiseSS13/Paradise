@@ -161,13 +161,13 @@
 			P.Extinguish(H)
 	H.update_fire()
 	..()
-#error fix
+
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == /datum/reagent/plasma || R.id == /datum/reagent/plasma_dust)
-		H.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
-		H.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
+	if(R.type == /datum/reagent/plasma || R.type == /datum/reagent/plasma_dust)
+		H.adjustBruteLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER)
+		H.adjustFireLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER)
 		H.adjustPlasma(20)
-		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+		H.reagents.remove_reagent(R.type, REAGENTS_METABOLISM)
 		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
 
 	return ..()

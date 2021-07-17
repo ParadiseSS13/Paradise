@@ -69,7 +69,7 @@
 		return
 	if(!powered())
 		return
-	if(!reagents.has_reagent(reagents.get_master_reagent_id(), 3))
+	if(!reagents.has_reagent(reagents.get_master_reagent_type(), 3))
 		return //This means you don't need to top it up constantly to keep the nice snowclouds going
 	var/turf/T = get_turf(src)
 	if(isspaceturf(T) || T.density) //If the snowmachine is on a dense tile or in space, then it shouldn't be able to produce any snow and so will turn off
@@ -121,7 +121,7 @@
 			return
 	if(locate(/obj/effect/snowcloud, T)) //Ice to see you
 		return
-	if(infinite_snow || !reagents.remove_reagent(reagents.get_master_reagent_id(), 3))
+	if(infinite_snow || !reagents.remove_reagent(reagents.get_master_reagent_type(), 3))
 		new /obj/effect/snowcloud(T, src)
 		power_used_this_cycle += 1000
 		return TRUE

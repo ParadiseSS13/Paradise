@@ -229,20 +229,20 @@
 			var/injectable = occupant ? 1 : 0
 			var/overdosing = 0
 			var/caution = 0 // To make things clear that you're coming close to an overdose
-			if(crisis && !(temp.id in emergency_chems))
+			if(crisis && !(temp.type in emergency_chems))
 				injectable = 0
 
 			if(occupant && occupant.reagents)
-				reagent_amount = occupant.reagents.get_reagent_amount(temp.id)
+				reagent_amount = occupant.reagents.get_reagent_amount(temp.type)
 				// If they're mashing the highest concentration, they get one warning
 				if(temp.overdose_threshold && reagent_amount + 10 > temp.overdose_threshold)
 					caution = 1
-				if(temp.id in occupant.reagents.overdose_list())
+				if(temp.type in occupant.reagents.overdose_list())
 					overdosing = 1
 
 			pretty_amount = round(reagent_amount, 0.05)
 
-			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("chemical" = temp.id), "occ_amount" = reagent_amount, "pretty_amount" = pretty_amount, "injectable" = injectable, "overdosing" = overdosing, "od_warning" = caution)))
+			chemicals += (list(list("title" = temp.name, "type" = temp.type, "commands" = list("chemical" = temp.type), "occ_amount" = reagent_amount, "pretty_amount" = pretty_amount, "injectable" = injectable, "overdosing" = overdosing, "od_warning" = caution)))
 	data["chemicals"] = chemicals
 	return data
 
@@ -265,7 +265,7 @@
 			if(occupant.stat == DEAD)
 				to_chat(usr, "<span class='danger'>This person has no life to preserve anymore. Take [occupant.p_them()] to a department capable of reanimating them.</span>")
 				return
-			var/chemical = params["chemid"]
+			var/chemical = params["chemtype"]
 			var/amount = text2num(params["amount"])
 			if(!length(chemical) || amount <= 0)
 				return

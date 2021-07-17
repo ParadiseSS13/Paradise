@@ -49,7 +49,7 @@
 			var/amount = round(volume * (1 - block), 0.1)
 			if(M.reagents)
 				if(amount >= 1)
-					M.reagents.add_reagent(id, amount)
+					M.reagents.add_reagent(type, amount)
 
 		if(method == REAGENT_INGEST) //Yes, even Xenos can get addicted to drugs.
 			var/can_become_addicted = M.reagents.reaction_check(M, src)
@@ -71,13 +71,13 @@
 	handle_addiction(M, total_depletion_rate)
 	sate_addiction(M)
 
-	holder.remove_reagent(id, total_depletion_rate) //By default it slowly disappears.
+	holder.remove_reagent(type, total_depletion_rate) //By default it slowly disappears.
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/handle_addiction(mob/living/M, consumption_rate)
 	if(addiction_chance && !is_type_in_list(src, M.reagents.addiction_list))
-		M.reagents.addiction_threshold_accumulated[id] += consumption_rate
-		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[id]
+		M.reagents.addiction_threshold_accumulated[type] += consumption_rate
+		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[type]
 
 		if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
 			to_chat(M, "<span class='danger'>You suddenly feel invigorated and guilty...</span>")
@@ -233,7 +233,7 @@
 	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating) //no messing with changeling's fake death
 		return
 	M.emote("deathgasp")
-	ADD_TRAIT(M, TRAIT_FAKEDEATH, id)
+	ADD_TRAIT(M, TRAIT_FAKEDEATH, type)
 	M.updatehealth("fakedeath reagent")
 
 /datum/reagent/proc/fakerevive(mob/living/M)
@@ -243,7 +243,7 @@
 		return
 	if(M.resting)
 		M.StopResting()
-	REMOVE_TRAIT(M, TRAIT_FAKEDEATH, id)
+	REMOVE_TRAIT(M, TRAIT_FAKEDEATH, type)
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()
 	M.updatehealth("fakedeath reagent end")

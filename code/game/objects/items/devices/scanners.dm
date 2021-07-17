@@ -228,19 +228,18 @@ REAGENT SCANNER
 		if(e.internal_bleeding)
 			to_chat(user, "<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>")
 			break
-	var/blood_id = H.get_blood_id()
-	if(blood_id)
+	var/blood_path = H.get_blood_path()
+	if(blood_path)
 		if(H.bleed_rate)
 			to_chat(user, "<span class='danger'>Subject is bleeding!</span>")
-		var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
+		var/blood_percent = round((H.blood_volume / BLOOD_VOLUME_NORMAL) * 100)
 		var/blood_type = H.dna.blood_type
-		if(blood_id != "blood")//special blood substance
-#error fix
-			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
+		if(blood_path != /datum/reagent/blood)//special blood substance
+			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_path]
 			if(R)
 				blood_type = R.name
 			else
-				blood_type = blood_id
+				blood_type = blood_path
 		if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
 			to_chat(user, "<span class='danger'>LOW blood level [blood_percent] %, [H.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>")
 		else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
@@ -480,7 +479,7 @@ REAGENT SCANNER
 		if(O.reagents.reagent_list.len > 0)
 			var/one_percent = O.reagents.total_volume / 100
 			for(var/datum/reagent/R in O.reagents.reagent_list)
-				if(R.id != "blood")
+				if(R.type != /datum/reagent/blood)
 					dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
 				else
 					blood_type = R.data["blood_type"]

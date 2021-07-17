@@ -98,12 +98,12 @@
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == "blood")
+		if(C.get_blood_path() == /datum/reagent/blood)
 			if((!data || !(data["blood_type"] in get_safe_blood(C.dna.blood_type))))
 				C.reagents.add_reagent(/datum/reagent/toxin, volume * 0.5)
 			else
 				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
-#error fix
+
 /datum/reagent/blood/on_new(list/data)
 	if(istype(data))
 		SetViruses(src, data)
@@ -240,14 +240,14 @@
 		M.AdjustConfused(3)
 		if(isvampirethrall(M))
 			SSticker.mode.remove_vampire_mind(M.mind)
-			holder.remove_reagent(id, volume)
+			holder.remove_reagent(type, volume)
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
 			return
 		if(iscultist(M))
 			SSticker.mode.remove_cultist(M.mind, TRUE, TRUE)
-			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
+			holder.remove_reagent(type, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
@@ -263,10 +263,10 @@
 			M.mind.vampire.adjust_nullification(5, 2)
 			M.mind.vampire.bloodusable = max(M.mind.vampire.bloodusable - 3,0)
 			if(M.mind.vampire.bloodusable)
-				V.vomit(0,1)
+				V.vomit(0, TRUE)
 			else
-				holder.remove_reagent(id, volume)
-				V.vomit(0,0)
+				holder.remove_reagent(type, volume)
+				V.vomit(0, FALSE)
 				return
 		else
 			switch(current_cycle)

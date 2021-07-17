@@ -102,7 +102,7 @@
 	name = "Nutriment"
 	var/reagent_id = /datum/reagent/consumable/nutriment
 	var/rate = 0.04
-	#error fix
+	#error refactor
 
 /datum/plant_gene/reagent/get_name()
 	return "[name] production [rate*100]%"

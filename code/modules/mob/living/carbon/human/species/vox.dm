@@ -126,11 +126,10 @@
 		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 
 /datum/species/vox/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "oxygen") //Armalis are above such petty things.
-		H.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER) //Same as plasma.
-		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+	if(R.type == /datum/reagent/oxygen)
+		H.adjustToxLoss(1 * REAGENTS_EFFECT_MULTIPLIER) //Same as plasma.
+		H.reagents.remove_reagent(R.type, REAGENTS_METABOLISM)
 		return FALSE //Handling reagent removal on our own.
-#error fix
 	return ..()
 
 /datum/species/vox/armalis

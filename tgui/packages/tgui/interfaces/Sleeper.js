@@ -286,7 +286,7 @@ const SleeperChemicals = (props, context) => {
                     mb="0"
                     height="19px"
                     onClick={() => act('chemical', {
-                      chemid: chem.id,
+                      chemtype: chem.type,
                       amount: a,
                     })}
                   />
