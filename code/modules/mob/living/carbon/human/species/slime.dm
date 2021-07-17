@@ -191,6 +191,7 @@
 		H.UpdateDamageIcon()
 		H.adjust_nutrition(-SLIMEPERSON_HUNGERCOST)
 		H.visible_message("<span class='notice'>[H] finishes regrowing [H.p_their()] missing [new_limb]!</span>", "<span class='notice'>You finish regrowing your [limb_select]</span>")
+		new_limb.add_limb_flags()
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to regrow a limb!</span>")
 
