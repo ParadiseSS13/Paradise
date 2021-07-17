@@ -32,6 +32,11 @@
 	for(var/i in total_antagonists)
 		log_game("[i]s[total_antagonists[i]].")
 
+	//log antags and their objectives
+	for(var/datum/mind/Mind in SSticker.minds)
+		log_antag_objectives(Mind)
+
+
 	// Score Calculation and Display
 
 	// Who is alive/dead, who escaped
