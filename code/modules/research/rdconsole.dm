@@ -128,7 +128,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/datum/reagent/reagent = GLOB.chemical_reagents_list[ID]
 		if(reagent)
 			return reagent.name
-// TODO: Test
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
 	for(var/obj/machinery/r_n_d/D in range(3,src))
@@ -611,7 +610,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("disposeI")  //Causes the circuit imprinter to dispose of a single reagent (all of it)
 			if(linked_imprinter)
-				linked_imprinter.reagents.del_reagent(params["type"]) // TODO TEST THIS
+				linked_imprinter.reagents.del_reagent(text2path(params["type"]))
 
 		if("disposeallI") //Causes the circuit imprinter to dispose of all it's reagents.
 			if(linked_imprinter)
@@ -619,7 +618,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("disposeP")  //Causes the protolathe to dispose of a single reagent (all of it)
 			if(linked_lathe)
-				linked_lathe.reagents.del_reagent(params["type"])
+				linked_lathe.reagents.del_reagent(text2path(params["type"]))
 
 		if("disposeallP") //Causes the protolathe to dispose of all it's reagents.
 			if(linked_lathe)

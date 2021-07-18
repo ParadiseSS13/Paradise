@@ -140,8 +140,9 @@
 		else
 			P.reagents.add_reagent(R, rand(20, 50))
 		if(labelled)
-			P.name = "[R] Pill"
-			P.desc = "A pill containing [R]."
+			var/datum/reagent/reagent = GLOB.chemical_reagents_list[R]
+			P.name = "[reagent.name] Pill"
+			P.desc = "A pill containing [reagent.name]."
 		else
 			P.name = "Unlabelled Pill"
 			P.desc = "Something about this pill entices you to try it, against your better judgement."

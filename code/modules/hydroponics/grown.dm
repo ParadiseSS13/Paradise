@@ -94,8 +94,8 @@
 		var/reag_txt = ""
 		if(seed)
 			for(var/reagent in seed.reagents_add)
+				var/amt = reagents.get_reagent_amount(reagent)
 				var/datum/reagent/R = GLOB.chemical_reagents_list[reagent]
-				var/amt = reagents.get_reagent_amount(R.type)
 				reag_txt += "\n<span class='info'>- [R.name]: [amt]</span>"
 
 		if(reag_txt)

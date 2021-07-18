@@ -67,7 +67,6 @@
 					continue
 				dat += "<li><a href='byond://?src=[UID()];choice=Inject;name=[R.name];tag=[R.id]'><img src=sos_2.png> Inject [R.name]: [(reagents.get_reagent_amount(R.id)-(R.id=="radium"?(a_boost*a_transfer):0))/(R.id=="nutriment"?5:a_transfer)] left</a></li>"
 			dat += "</ul>"
-			#error fix
 		if(1)
 			dat += "<h4><img src=sos_5.png> Atmospheric Scan:</h4>"//Headers don't need breaks. They are automatically placed.
 			var/turf/T = get_turf(U.loc)
@@ -230,7 +229,7 @@
 				to_chat(display_to, "<span class='danger'>Error: the suit cannot perform this function. Out of [href_list["name"]].</span>")
 			else
 				reagents.reaction(U, 2)
-				reagents.trans_reagent_to(U, href_list["tag"], href_list["tag"]=="nutriment"?5:a_transfer)//Nutriment is a special case since it's very potent. Shouldn't influence actual refill amounts or anything.
+				reagents.trans_id_to(U, href_list["tag"], href_list["tag"]=="nutriment"?5:a_transfer)//Nutriment is a special case since it's very potent. Shouldn't influence actual refill amounts or anything.
 				to_chat(display_to, "Injecting...")
 				to_chat(U, "You feel a tiny prick and a sudden rush of substance in to your veins.")
 

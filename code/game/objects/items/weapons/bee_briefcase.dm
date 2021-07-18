@@ -40,7 +40,7 @@
 				if(A.type == /datum/reagent/blood)
 					if(!(A.data["donor"] in blood_list))
 						blood_list += A.data["donor"]
-				if(A.type == /datum/reagent/medicine/strange_reagent) //RELOAD THE BEES (1 bee per 1 unit, max 15 bees)
+				else if(A.type == /datum/reagent/medicine/strange_reagent) //RELOAD THE BEES (1 bee per 1 unit, max 15 bees)
 					if(bees_left < 15)
 						bees_left = min(15, round((bees_left + A.volume), 1))	//No partial bees, max 15 bees in case at any given time
 						to_chat(user, "<span class='warning'>The buzzing inside the briefcase intensifies as new bees form inside.</span>")

@@ -254,7 +254,7 @@
 /mob/living/simple_animal/hostile/poison/bees/proc/reagent_incompatible(mob/living/simple_animal/hostile/poison/bees/B)
 	if(!B)
 		return FALSE
-	if(B.beeagent && beeagent && B.beeagent.type != beeagent.type || B.beeagent && !beeagent || !B.beeagent && beeagent)
+	if((B.beeagent && beeagent && B.beeagent.type != beeagent.type) || (B.beeagent && !beeagent || !B.beeagent && beeagent))
 		return TRUE
 	return FALSE
 

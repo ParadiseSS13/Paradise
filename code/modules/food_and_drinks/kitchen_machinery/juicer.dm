@@ -11,12 +11,12 @@
 	active_power_usage = 100
 	pass_flags = PASSTABLE
 	var/obj/item/reagent_containers/beaker = null
-	var/global/list/allowed_items = list (
+	var/static/list/allowed_items = list(
 		/obj/item/reagent_containers/food/snacks/grown/tomato = /datum/reagent/consumable/drink/tomatojuice,
 		/obj/item/reagent_containers/food/snacks/grown/carrot = /datum/reagent/consumable/drink/carrotjuice,
 		/obj/item/reagent_containers/food/snacks/grown/grapes = /datum/reagent/consumable/drink/grapejuice,
 		/obj/item/reagent_containers/food/snacks/grown/grapes/green = /datum/reagent/consumable/drink/grapejuice,
-		/obj/item/reagent_containers/food/snacks/grown/banana  = /datum/reagent/consumable/drink/banana,
+		/obj/item/reagent_containers/food/snacks/grown/banana = /datum/reagent/consumable/drink/banana,
 		/obj/item/reagent_containers/food/snacks/grown/potato = /datum/reagent/consumable/drink/potato_juice,
 		/obj/item/reagent_containers/food/snacks/grown/citrus/lemon = /datum/reagent/consumable/drink/lemonjuice,
 		/obj/item/reagent_containers/food/snacks/grown/citrus/orange = /datum/reagent/consumable/drink/orangejuice,
@@ -139,11 +139,6 @@
 	beaker = null
 	update_icon()
 
-/obj/machinery/juicer/proc/get_juice_reagent(obj/item/reagent_containers/food/snacks/grown/O)
-	for(var/I in allowed_items)
-		if(istype(O, I))
-			return allowed_items[I]
-
 /obj/machinery/juicer/proc/get_juice_amount(obj/item/reagent_containers/food/snacks/grown/O)
 	if(!istype(O) || !O.seed)
 		return 5
@@ -160,8 +155,9 @@
 		return
 	playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
 	for(var/obj/item/reagent_containers/food/snacks/O in contents)
-		var/juice_reagent = get_juice_reagent(O)
-		beaker.reagents.add_reagent(juice_reagent, get_juice_amount(O))
+		var/juice_reagent = allowed_items[O.type]
+		if(juice_reagent)
+			beaker.reagents.add_reagent(juice_reagent, get_juice_amount(O))
 		qdel(O)
 		if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break

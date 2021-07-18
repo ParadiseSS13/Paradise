@@ -134,7 +134,7 @@
 	slices_num = 5
 	filling_color = "#6F0000"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/consumable/nutriment/vitamin = 5)
-	tastes = list("heresy" = 10, /datum/reagent/consumable/drink/banana = 10)
+	tastes = list("heresy" = 10, "banana" = 10)
 
 /obj/item/reagent_containers/food/snacks/banarnarbreadslice
 	name = "banarnarbread slice"
@@ -143,7 +143,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#6F0000"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 1)
-	tastes = list("heresy" = 10, /datum/reagent/consumable/drink/banana = 10)
+	tastes = list("heresy" = 10, "banana" = 10)
 
 
 //////////////////////

@@ -179,7 +179,7 @@
 		var/current_reagent_transfer = current_reagent.volume * part
 		if(preserve_data)
 			trans_data = copy_data(current_reagent)
-		R.add_reagent(current_reagent, (current_reagent_transfer * multiplier), trans_data)
+		R.add_reagent(current_reagent.type, (current_reagent_transfer * multiplier), trans_data)
 
 	update_total()
 	R.update_total()
@@ -615,7 +615,7 @@
 				handle_reactions()
 			return FALSE
 
-	var/datum/reagent/D = GLOB.chemical_reagents_list[reagent] // todo test this
+	var/datum/reagent/D = GLOB.chemical_reagents_list[reagent]
 	if(D)
 		var/datum/reagent/R = new D.type()
 		cached_reagents += R

@@ -70,7 +70,7 @@
 	bitesize = 3
 	filling_color = "#F7EDD5"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/consumable/nutriment/vitamin = 5)
-	tastes = list("cake" = 5, /datum/reagent/consumable/vanilla = 1, "sweetness" = 2)
+	tastes = list("cake" = 5, "vanilla" = 1, "sweetness" = 2)
 
 /obj/item/reagent_containers/food/snacks/plaincakeslice
 	name = "vanilla cake slice"
@@ -108,7 +108,7 @@
 	bitesize = 3
 	filling_color = "#FADA8E"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/consumable/nutriment/vitamin = 5)
-	tastes = list("cake" = 5, "sweetness" = 2, /datum/reagent/consumable/drink/banana = 2)
+	tastes = list("cake" = 5, "sweetness" = 2, "banana" = 2)
 
 /obj/item/reagent_containers/food/snacks/bananacakeslice
 	name = "banana cake slice"
@@ -400,7 +400,7 @@
 	..()
 	extra_reagent = pick(/datum/reagent/consumable/nutriment, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/krokodil,
 		/datum/reagent/plasma, /datum/reagent/consumable/cocoa, /datum/reagent/slimejelly, /datum/reagent/consumable/drink/banana, /datum/reagent/consumable/drink/berryjuice, /datum/reagent/medicine/omnizine)
-	reagents.add_reagent("[extra_reagent]", 3)
+	reagents.add_reagent(extra_reagent, 3)
 	if(prob(30))
 		icon_state = "donut2"
 		name = "frosted chaos donut"

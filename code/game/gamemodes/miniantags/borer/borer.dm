@@ -400,10 +400,10 @@
 
 	for(var/I in typesof(/datum/borer_chem))
 		var/datum/borer_chem/C = I
-		var/cname = initial(C.chemtype)
-		var/datum/reagent/R = GLOB.chemical_reagents_list[cname]
-		if(cname)
-			content += "<tr><td><a class='chem-select' href='?_src_=[UID()];src=[UID()];borer_use_chem=[cname]'>[R.name] ([initial(C.chemuse)])</a><p>[initial(C.chemdesc)]</p></td></tr>"
+		var/ctype = initial(C.chemtype)
+		var/datum/reagent/R = GLOB.chemical_reagents_list[ctype]
+		if(ctype)
+			content += "<tr><td><a class='chem-select' href='?_src_=[UID()];src=[UID()];borer_use_chem=[ctype]'>[R.name] ([initial(C.chemuse)])</a><p>[initial(C.chemdesc)]</p></td></tr>"
 
 	content += "</table>"
 
@@ -424,13 +424,11 @@
 		if(!istype(src, /mob/living/simple_animal/borer))
 			return
 
-		var/topic_chem = href_list["borer_use_chem"]
 		var/datum/borer_chem/C = null
-
 		for(var/I in typesof(/datum/borer_chem))
-			var/datum/borer_chem/test = I
-			if(initial(test.chemtype) == topic_chem)
-				C = new test()
+			var/datum/borer_chem/chem = I
+			if(initial(chem.chemtype) == href_list["borer_use_chem"])
+				C = new chem()
 				break
 
 		if(!C || !host || controlling || !src || stat)

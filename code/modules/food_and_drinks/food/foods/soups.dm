@@ -72,7 +72,7 @@
 	..()
 	extra_reagent = pick(/datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/medicine/omnizine, /datum/reagent/consumable/drink/banana,
 		/datum/reagent/blood, /datum/reagent/slimejelly, /datum/reagent/toxin, /datum/reagent/consumable/drink/banana, /datum/reagent/carbon, /datum/reagent/medicine/oculine)
-	reagents.add_reagent("[extra_reagent]", 5)
+	reagents.add_reagent(extra_reagent, 5)
 
 /obj/item/reagent_containers/food/snacks/soup/wishsoup
 	name = "wish soup"

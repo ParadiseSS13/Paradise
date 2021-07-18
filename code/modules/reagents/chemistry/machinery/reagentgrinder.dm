@@ -379,7 +379,7 @@
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
 	operating = TRUE
 	updateUsrDialog()
-	addtimer(CALLBACK(.proc/stop_shaking), 5 SECONDS)
+	addtimer(CALLBACK(src, .proc/stop_shaking), 5 SECONDS)
 
 	//Snacks
 	for(var/obj/item/reagent_containers/food/snacks/O in holdingitems)
@@ -411,7 +411,7 @@
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
 	operating = TRUE
 	updateUsrDialog()
-	addtimer(CALLBACK(.proc/stop_shaking), 6 SECONDS) //return to its spot after shaking
+	addtimer(CALLBACK(src, .proc/stop_shaking), 6 SECONDS) //return to its spot after shaking
 
 
 	for(var/item in holdingitems)
@@ -457,7 +457,7 @@
 				remove_object(O)
 
 		//Sheets
-		if(istype(item, /obj/item/stack/sheet))
+		else if(istype(item, /obj/item/stack/sheet))
 			var/obj/item/stack/sheet/O = item
 			if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 				break
@@ -479,7 +479,7 @@
 					break
 
 		//Plants
-		if(istype(item, /obj/item/grown))
+		else if(istype(item, /obj/item/grown))
 			var/obj/item/grown/O = item
 			if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 				break
@@ -502,20 +502,20 @@
 			remove_object(O)
 
 		//Slime Extracts
-		if(istype(item, /obj/item/slime_extract))
+		else if(istype(item, /obj/item/slime_extract))
 			var/obj/item/slime_extract/O = item
 			if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 				break
 
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
-			if(O.reagents)
+			if(O.reagents && length(O.reagents.reagent_list))
 				O.reagents.trans_to(beaker, min(O.reagents.total_volume, space))
 			if(O.Uses > 0)
 				beaker.reagents.add_reagent(/datum/reagent/slimejelly, min(20 * efficiency, space))
 			remove_object(O)
 
 		//Everything else - Transfers reagents from it into beaker
-		if(istype(item, /obj/item/reagent_containers))
+		else if(istype(item, /obj/item/reagent_containers))
 			var/obj/item/reagent_containers/O = item
 			if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 				break
