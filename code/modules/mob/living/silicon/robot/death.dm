@@ -31,6 +31,7 @@
 	canmove = 0
 	icon = null
 	invisibility = 101
+	dust_animation()
 	if(mmi)
 		qdel(mmi)	//Delete the MMI first so that it won't go popping out.
 	GLOB.dead_mob_list -= src

@@ -2180,7 +2180,6 @@
 			ptypes += "Crew Traitor"
 			ptypes += "Floor Cluwne"
 			ptypes += "Shamebrero"
-			ptypes += "Dust"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
@@ -2203,6 +2202,9 @@
 			if("Gib")
 				M.gib(FALSE)
 				logmsg = "gibbed."
+			if("Dust")
+				M.dust()
+				logmsg = "dust"
 
 			// These smiting types are only valid for ishuman() mobs
 			if("Brain Damage")
@@ -2292,9 +2294,6 @@
 				var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
 				H.equip_to_slot_or_del(S, slot_head)
 				logmsg = "shamebrero"
-			if("Dust")
-				H.dust()
-				logmsg = "dust"
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
 			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")
