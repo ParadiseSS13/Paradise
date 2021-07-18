@@ -341,12 +341,13 @@
 	..() // Fallthrough to item/attackby() so that bags can pick seeds up
 
 /obj/item/seeds/proc/apply_variant_name()
-	var/P = findtext(name, "\[")
 	var/V = (variant == "") ? "" : (" \[" + variant + "]") // If we have a non-empty variant add it to the name
-	if (P != 0)
-		name = copytext(name, 1, P - 1) + V // If there was already a variant in the name remove it
-	else
-		name += V
+	var/N = initial(name)
+	if(copytext(name, 1, 13) == "experimental") // Don't delete 'experimental'
+		N = "experimental " + N
+	name = N + V
+	if(GetComponent(/datum/component/label))
+		GetComponent(/datum/component/label).apply_label() // Don't delete labels
 
 
 
