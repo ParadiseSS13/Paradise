@@ -2165,7 +2165,7 @@
 		if(!istype(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>")
 			return
-		var/ptypes = list("Lightning bolt", "Fire Death", "Gib")
+		var/ptypes = list("Lightning bolt", "Fire Death", "Gib", "Dust")
 		if(ishuman(M))
 			H = M
 			ptypes += "Brain Damage"
