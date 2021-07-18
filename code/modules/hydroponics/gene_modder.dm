@@ -401,7 +401,7 @@
 	else if(href_list["set_v"])
 		if(!seed)
 			return
-		var/V = sanitize(stripped_input(usr, "Choose variant name:", "Plant Variant Naming", seed.variant, MAX_MESSAGE_LEN))
+		var/V = sanitize(stripped_input(usr, "Choose variant name:", "Plant Variant Naming", seed.variant, 64))
 		if((!Adjacent(usr)) || (!seed))
 			return
 		seed.variant = V

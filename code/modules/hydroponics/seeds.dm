@@ -328,7 +328,7 @@
 
 		return
 	if(istype(O, /obj/item/pen))
-		var/V = sanitize(stripped_input(user, "Choose variant name:", "Plant Variant Naming", variant, MAX_MESSAGE_LEN))
+		var/V = sanitize(stripped_input(user, "Choose variant name:", "Plant Variant Naming", variant, 64))
 		if(!Adjacent(user)) //prevent remote naming of seeds
 			return
 		if(V == "" && variant != "")
