@@ -225,9 +225,8 @@ REAGENT SCANNER
 			to_chat(user, "<span class='warning'>Bone fractures detected. Advanced scanner required for location.</span>")
 			break
 	for(var/obj/item/organ/external/e in H.bodyparts)
-		if(e.internal_bleeding)
-			to_chat(user, "<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>")
-			break
+		if(e.arterial_bleeding)
+			to_chat(user, "<span class='warning'>Torn artery detected in [e.name]. Surgical intervention recommended.</span>")
 	var/blood_id = H.get_blood_id()
 	if(blood_id)
 		if(H.bleed_rate)
@@ -786,10 +785,10 @@ REAGENT SCANNER
 		var/imp = ""
 		var/bled = ""
 		var/splint = ""
-		var/internal_bleeding = ""
+		var/arterial_bleeding = ""
 		var/lung_ruptured = ""
-		if(e.internal_bleeding)
-			internal_bleeding = "<br>Internal bleeding"
+		if(e.arterial_bleeding)
+			arterial_bleeding = "<br>Torn Artery"
 		if(istype(e, /obj/item/organ/external/chest) && target.is_lung_ruptured())
 			lung_ruptured = "Lung ruptured:"
 		if(e.status & ORGAN_SPLINTED)
@@ -824,7 +823,7 @@ REAGENT SCANNER
 			imp += "Unknown body present:"
 		if(!AN && !open && !infected && !imp)
 			AN = "None:"
-		dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
+		dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][arterial_bleeding][lung_ruptured]</td>"
 		dat += "</tr>"
 	for(var/obj/item/organ/internal/i in target.internal_organs)
 		var/mech = i.desc

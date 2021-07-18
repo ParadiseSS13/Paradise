@@ -48,7 +48,7 @@
 				death()
 
 		var/temp_bleed = 0
-		var/internal_bleeding_rate = 0
+		var/additional_bleed = round(clamp((reagents.get_reagent_amount("heparin") / 10), 0, 2), 1) //Heparin worsens existing bleeding
 		//Bleeding out
 		for(var/X in bodyparts)
 			var/obj/item/organ/external/BP = X
@@ -67,18 +67,54 @@
 			if(BP.open)
 				temp_bleed += 0.5
 
-			if(BP.internal_bleeding)
-				internal_bleeding_rate += 0.5
-
+			if(BP.arterial_bleeding && !bleedsuppress && !(HAS_TRAIT(src, TRAIT_FAKEDEATH) || src.stat >= DEAD))
+				if(world.time >= next_blood_squirt)
+					var/turf/sprayloc = get_turf(src)
+					blood_squirt(BP.arterial_bleeding_severity, sprayloc)
+					playsound(get_turf(src), 'sound/effects/artery.ogg', 75, 0)
+					visible_message("<span class='danger'>Blood squirts from [src]'s [BP.artery_name]</span>!", \
+									"<span class='userdanger'>Blood squirts from my [BP.artery_name]!</span>")
+				else
+					bleed(BP.arterial_bleeding_severity)
 		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects naturally decreases
-
-		var/additional_bleed = round(clamp((reagents.get_reagent_amount("heparin") / 10), 0, 2), 1) //Heparin worsens existing bleeding
-
-		if(internal_bleeding_rate && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
-			bleed_internal(internal_bleeding_rate + additional_bleed)
 
 		if(bleed_rate && !bleedsuppress && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
 			bleed(bleed_rate + additional_bleed)
+
+/mob/living/carbon/human/proc/blood_squirt(amt, turf/sprayloc, spray_distance = 2)
+	if(amt <= 0 || !istype(sprayloc))
+		return
+	var/spray_dir = pick(GLOB.alldirs)
+	amt = CEILING(amt/spray_distance, 1)
+	INVOKE_ASYNC(src, .proc/do_squirt, amt, spray_dir, spray_distance)
+
+/mob/living/carbon/human/proc/do_squirt(amt, spray_dir, spray_distance)
+	bleed(amt)
+	var/turf/sprayloc = get_turf(src)
+	for(var/i = 1 to spray_distance)
+		sprayloc = get_step(sprayloc, spray_dir)
+		if(!istype(sprayloc) || sprayloc.density)
+			break
+		var/hit_mob = FALSE
+		for(var/thing in sprayloc)
+			var/atom/A = thing
+			if(!A.simulated)
+				continue
+			if(ishuman(A))
+				var/mob/living/carbon/human/H = A
+				if(!H.lying)
+					H.bloody_body(src)
+					H.bloody_hands(src)
+					to_chat(H, "<span class='danger'>You are hit by a spray of blood!</span>")
+					hit_mob = TRUE
+
+			if(hit_mob || !A.CanPass(src, sprayloc))
+				break
+
+		add_splatter_floor(sprayloc, FALSE, spraydir = spray_dir)
+		if(hit_mob)
+			return
+		sleep(1)
 
 //Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/proc/bleed(amt)
@@ -174,7 +210,6 @@
 	AM.reagents.add_reagent(blood_id, amount, blood_data, bodytemperature)
 	return 1
 
-
 /mob/living/proc/get_blood_data(blood_id)
 	return
 
@@ -253,7 +288,7 @@
 			return list("O-", "O+")
 
 //to add a splatter of blood or other mob liquid.
-/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, spraydir = 0)
 	if(get_blood_id() != "blood")//is it blood or welding fuel?
 		return
 	if(!T)
@@ -298,16 +333,19 @@
 		B.blood_DNA |= temp_blood_DNA
 	B.pixel_x = (shift_x)
 	B.pixel_y = (shift_y)
-	B.update_icon()
 	if(shift_x || shift_y)
 		B.off_floor = TRUE
 		B.layer = BELOW_MOB_LAYER //So the blood lands ontop of things like posters, windows, etc.
+	if(spraydir)
+		B.icon_state = "squirt"
+		B.dir = spraydir
+	B.update_icon()
 
-/mob/living/carbon/human/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/carbon/human/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, spraydir = 0)
 	if(!(NO_BLOOD in dna.species.species_traits))
 		..()
 
-/mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, spraydir = 0)
 	if(!T)
 		T = get_turf(src)
 
@@ -326,7 +364,7 @@
 		B.off_floor = TRUE
 		B.layer = BELOW_MOB_LAYER
 
-/mob/living/silicon/robot/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/silicon/robot/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, spraydir = 0)
 	if(!T)
 		T = get_turf(src)
 

@@ -297,8 +297,8 @@
 			if(istype(E, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
 				organData["lungRuptured"] = TRUE
 
-			if(E.internal_bleeding)
-				organData["internalBleeding"] = TRUE
+			if(E.arterial_bleeding)
+				organData["arterialBleeding"] = TRUE
 
 			extOrganData.Add(list(organData))
 
@@ -443,10 +443,10 @@
 			var/imp = ""
 			var/bled = ""
 			var/splint = ""
-			var/internal_bleeding = ""
+			var/arterial_bleeding = ""
 			var/lung_ruptured = ""
-			if(e.internal_bleeding)
-				internal_bleeding = "<br>Internal bleeding"
+			if(e.arterial_bleeding)
+				arterial_bleeding = "<br>Torn Artery"
 			if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
 				lung_ruptured = "Lung ruptured:"
 			if(e.status & ORGAN_SPLINTED)
@@ -483,7 +483,7 @@
 				imp += "Unknown body present:"
 			if(!AN && !open && !infected && !imp)
 				AN = "None:"
-			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
+			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][arterial_bleeding][lung_ruptured][dead]</td>"
 			dat += "</tr>"
 		for(var/obj/item/organ/internal/i in occupant.internal_organs)
 			var/mech = i.desc

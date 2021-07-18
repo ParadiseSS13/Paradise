@@ -54,7 +54,11 @@
 
 	var/obj/item/hidden = null
 	var/list/embedded_objects = list()
-	var/internal_bleeding = FALSE
+
+	var/artery_name = "artery"
+	var/arterial_bleeding = FALSE
+	var/arterial_bleeding_severity = 3
+
 	var/amputation_point // Descriptive string used in amputation.
 	var/can_grasp
 	var/can_stand
@@ -181,7 +185,7 @@
 	if((brute_dam + burn_dam + brute + burn) < max_damage)
 		brute_dam += brute
 		burn_dam += burn
-		check_for_internal_bleeding(brute)
+		check_for_arterial_bleeding(brute, sharp)
 	else
 		//If we can't inflict the full amount of damage, spread the damage in other ways
 		//How much damage can we actually cause?
@@ -195,7 +199,7 @@
 				can_inflict = max(0, can_inflict - brute)
 				//How much brute damage is left to inflict
 				brute = max(0, brute - temp)
-				check_for_internal_bleeding(brute)
+				check_for_arterial_bleeding(brute, sharp)
 
 			if(burn > 0 && can_inflict)
 				//Inflict all burn damage we can
@@ -297,7 +301,7 @@ This function completely restores a damaged organ to perfect condition.
 	brute_dam = 0
 	burn_dam = 0
 	open = 0 //Closing all wounds.
-	internal_bleeding = FALSE
+	arterial_bleeding = FALSE
 	disfigured = FALSE
 
 	// handle internal organs
@@ -404,13 +408,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(prob(damage_inflicted))
 			fracture()
 
-/obj/item/organ/external/proc/check_for_internal_bleeding(damage)
+/obj/item/organ/external/proc/check_for_arterial_bleeding(damage, sharp = FALSE)
 	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
 		return
 	var/local_damage = brute_dam + damage
-	if(damage > 15 && local_damage > 30 && prob(damage) && !is_robotic())
-		internal_bleeding = TRUE
-		owner.custom_pain("You feel something rip in your [name]!")
+	//Sharp weapons are way better at severing arteries
+	var/damage_multiplier = 1
+	if(!sharp)
+		damage_multiplier *= 0.75
+	if((damage * damage_multiplier) >= 15 && local_damage >= 30 && prob(damage) && !is_robotic())
+		arterial_bleeding = TRUE
+		owner.custom_pain("You feel an artery rip in your [name]!")
 
 // new damage icon system
 // returns just the brute/burn damage code

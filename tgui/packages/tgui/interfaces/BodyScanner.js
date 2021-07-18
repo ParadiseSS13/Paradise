@@ -284,7 +284,7 @@ const BodyScannerMainOrgansExternal = props => {
             <Table.Cell
               color={
                 !!o.status.dead && "bad"
-                || ((!!o.internalBleeding || !!o.lungRuptured || !!o.status.broken || !!o.open || o.germ_level > 100) && "average")
+                || ((!!o.arterialBleeding || !!o.lungRuptured || !!o.status.broken || !!o.open || o.germ_level > 100) && "average")
                 || (!!o.status.robotic && "label")
               }
               width="33%">
@@ -329,7 +329,7 @@ const BodyScannerMainOrgansExternal = props => {
               pt={i > 0 && "calc(0.5rem + 2px)"}>
               <Box color="average" display="inline">
                 {reduceOrganStatus([
-                  !!o.internalBleeding && "Internal bleeding",
+                  !!o.arterialBleeding && "Torn Artery",
                   !!o.lungRuptured && "Ruptured lung",
                   !!o.status.broken && o.status.broken,
                   germStatus(o.germ_level),

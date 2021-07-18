@@ -1279,13 +1279,13 @@
 		var/bodypart_damages = list()
 		//Loop through all external organs and save the damage states for brute and burn
 		for(var/obj/item/organ/external/E in bodyparts)
-			if(E.brute_dam == 0 && E.burn_dam == 0 && E.internal_bleeding == FALSE) //If there's no damage we don't bother remembering it.
+			if(E.brute_dam == 0 && E.burn_dam == 0 && E.arterial_bleeding == FALSE) //If there's no damage we don't bother remembering it.
 				continue
 			var/brute = E.brute_dam
 			var/burn = E.burn_dam
-			var/IB = E.internal_bleeding
+			var/artery = E.arterial_bleeding
 			var/obj/item/organ/external/OE = new E.type()
-			var/stats = list(OE, brute, burn, IB)
+			var/stats = list(OE, brute, burn, artery)
 			bodypart_damages += list(stats)
 
 		//Now we do the same for internal organs via the same proceedure.
@@ -1307,13 +1307,13 @@
 			var/obj/item/organ/external/E = B
 			for(var/list/part in bodypart_damages)
 				var/obj/item/organ/external/OE = part[1]
-				if((E.type == OE.type)) // Type has to be explicit, as right limbs are a child of left ones etc.
+				if(E.type == OE.type) // Type has to be explicit, as right limbs are a child of left ones etc.
 					var/brute = part[2]
 					var/burn = part[3]
-					var/IB = part[4]
+					var/artery = part[4]
 					//Deal the damage to the new organ and then delete the entry to prevent duplicate checks
 					E.receive_damage(brute, burn, ignore_resists = TRUE)
-					E.internal_bleeding = IB
+					E.arterial_bleeding = artery
 					qdel(part)
 
 		for(var/O in internal_organs)

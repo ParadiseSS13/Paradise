@@ -226,6 +226,9 @@
 				else
 					msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] has an open incision!</b>\n"
 
+			if(E.arterial_bleeding)
+				msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] has a torn [E.artery_name]!</b>\n"
+
 			for(var/obj/item/I in E.embedded_objects)
 				msg += "<B>[p_they(TRUE)] [p_have()] \a [bicon(I)] [I] embedded in [p_their()] [E.name]!</B>\n"
 

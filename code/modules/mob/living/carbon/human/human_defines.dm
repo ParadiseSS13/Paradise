@@ -72,3 +72,5 @@
 
 	var/list/splinted_limbs = list() //limbs we know are splinted
 	var/original_eye_color = "#000000"
+
+	var/tmp/next_blood_squirt = 0

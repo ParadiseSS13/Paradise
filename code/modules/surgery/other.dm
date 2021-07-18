@@ -9,8 +9,10 @@
 	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
 
 /datum/surgery/bleeding
-	name = "Internal Bleeding"
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_vein,/datum/surgery_step/generic/cauterize)
+	name = "Arterial Repair"
+	steps = list(/datum/surgery_step/generic/cut_open,
+				/datum/surgery_step/fix_vein,
+				/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
 
 /datum/surgery/debridement
@@ -36,7 +38,7 @@
 		if(!affected)
 			return 0
 
-		if(affected.internal_bleeding)
+		if(affected.arterial_bleeding)
 			return 1
 		return 0
 
@@ -59,8 +61,9 @@
 	return 0
 
 /datum/surgery_step/fix_vein
-	name = "mend internal bleeding"
+	name = "mend arterial bleeding"
 	allowed_tools = list(
+	/obj/item/stack/medical/bruise_pack/advanced=100, \
 	/obj/item/FixOVein = 100, \
 	/obj/item/stack/cable_coil = 90
 	)
@@ -74,21 +77,21 @@
 	if(!affected)
 		return 0
 
-	return affected.internal_bleeding
+	return affected.arterial_bleeding
 
 /datum/surgery_step/fix_vein/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] starts patching the damaged vein in [target]'s [affected.name] with \the [tool]." , \
-	"You start patching the damaged vein in [target]'s [affected.name] with \the [tool].")
+	user.visible_message("[user] starts patching the damaged artery in [target]'s [affected.name] with \the [tool]." , \
+	"You start patching the damaged artery in [target]'s [affected.name] with \the [tool].")
 	target.custom_pain("The pain in [affected.name] is unbearable!")
 	..()
 
 /datum/surgery_step/fix_vein/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] has patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'> You have patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>")
+	user.visible_message("<span class='notice'> [user] has patched the damaged artery in [target]'s [affected.name] with \the [tool].</span>", \
+		"<span class='notice'> You have patched the damaged artery in [target]'s [affected.name] with \the [tool].</span>")
 
-	affected.internal_bleeding = FALSE
+	affected.arterial_bleeding = FALSE
 	if(ishuman(user) && prob(40))
 		var/mob/living/carbon/human/U = user
 		U.bloody_hands(target, 0)
