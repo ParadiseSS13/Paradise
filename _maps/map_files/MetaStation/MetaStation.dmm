@@ -1055,7 +1055,7 @@
 	},
 /area/security/permabrig)
 "adU" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/vending/coffee/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -1099,6 +1099,10 @@
 	},
 /area/security/podbay)
 "aea" = (
+/obj/machinery/camera{
+	c_tag = Prisoner Education Chamber;
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "warndark"
@@ -1454,13 +1458,8 @@
 	pixel_y = 2
 	},
 /obj/machinery/alarm{
-	desc = "This particular atmos control unit appears to have no access restrictions.";
 	dir = 4;
-	locked = 0;
-	name = "all-access air alarm";
-	pixel_x = -24;
-	req_access = "0";
-	req_one_access = "0"
+	pixel_x = -22
 	},
 /obj/machinery/door_control{
 	id = "SecJusticeChamber";
@@ -2455,7 +2454,9 @@
 	},
 /area/security/hos)
 "ahb" = (
-/obj/machinery/computer/security,
+/obj/machinery/computer/security{
+	network = list("SS13","Research Outpost","Mining Outpost")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2632,10 +2633,7 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/item/wrench,
 /turf/simulated/floor/plasteel{
@@ -3192,6 +3190,7 @@
 /obj/item/grenade/barrier,
 /obj/item/grenade/barrier,
 /obj/item/grenade/barrier,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -3258,9 +3257,8 @@
 /area/security/permabrig)
 "aiA" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -4;
-	pixel_y = 10
+/obj/item/paper_bin/nanotrasen{
+	pixel_y = 8
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -4273,9 +4271,6 @@
 	},
 /obj/item/clothing/head/beret/sec,
 /obj/item/clothing/suit/jacket/pilot,
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -4347,7 +4342,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "akJ" = (
-/obj/machinery/computer/security,
+/obj/machinery/computer/security{
+	network = list("SS13","Research Outpost","Mining Outpost")
+	},
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching Prison Wing holding areas.";
 	name = "Prison Monitor";
@@ -4411,6 +4408,10 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -22
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -8484,8 +8485,7 @@
 /area/security/main)
 "atC" = (
 /obj/structure/table,
-/obj/item/folder/red,
-/obj/item/storage/fancy/cigarettes,
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "atD" = (
@@ -8920,6 +8920,7 @@
 "auF" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
+	id_tag = "laborcamp_home";
 	locked = 1;
 	name = "Labor Camp Shuttle Airlock";
 	req_access_txt = "2"
@@ -9177,7 +9178,9 @@
 	},
 /area/security/brig)
 "avd" = (
-/obj/machinery/computer/security,
+/obj/machinery/computer/security{
+	network = list("SS13","Research Outpost","Mining Outpost")
+	},
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -9833,6 +9836,10 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -22
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -10885,10 +10892,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "ayy" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "ayz" = (
@@ -12183,6 +12187,7 @@
 "aBB" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
+	id_tag = "laborcamp_home";
 	locked = 1;
 	name = "Labor Camp Shuttle Airlock";
 	req_access_txt = "2"
@@ -18756,10 +18761,7 @@
 	})
 "aPk" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/item/wirecutters,
 /obj/item/weldingtool,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -21924,9 +21926,8 @@
 	pixel_y = -26
 	},
 /obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -4;
-	pixel_y = 10
+/obj/item/paper_bin/nanotrasen{
+	pixel_y = 8
 	},
 /obj/item/pen/multi,
 /turf/simulated/floor/wood,
@@ -22228,10 +22229,7 @@
 	},
 /area/quartermaster/qm)
 "aWS" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 2;
 	name = "2maintenance loot spawner"
@@ -22720,10 +22718,7 @@
 	name = "Arrivals"
 	})
 "aYb" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
@@ -22745,10 +22740,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aYj" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -27571,7 +27563,9 @@
 	name = "Station Intercom (General)";
 	pixel_y = 20
 	},
-/obj/machinery/computer/security,
+/obj/machinery/computer/security{
+	network = list("SS13","Research Outpost","Mining Outpost")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -30747,6 +30741,9 @@
 /obj/item/paper/safe_code{
 	owner = "captain"
 	},
+/obj/item/paper_bin/nanotrasen{
+	pixel_y = 8
+	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
@@ -31919,11 +31916,14 @@
 	},
 /area/turret_protected/ai)
 "bqY" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SE"
+/obj/machinery/door_control{
+	id = "armoryshutter";
+	name = "Armory Shutter";
+	pixel_x = -7;
+	pixel_y = 8
 	},
-/turf/space,
-/area/space/nearstation)
+/turf/simulated/wall/r_wall,
+/area/security/armoury)
 "bqZ" = (
 /obj/machinery/ai_slipper{
 	icon_state = "motion0"
@@ -32442,10 +32442,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/incinerator)
 "brX" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -32644,6 +32641,9 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"bsr" = (
+/turf/simulated/wall/r_wall,
+/area/space)
 "bss" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -34882,8 +34882,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/paper_bin{
-	pixel_x = -2;
+/obj/item/paper_bin/nanotrasen{
 	pixel_y = 8
 	},
 /obj/structure/table/glass,
@@ -34985,7 +34984,6 @@
 	})
 "bwt" = (
 /obj/structure/table/wood,
-/obj/item/stamp/captain,
 /obj/machinery/computer/security/wooden_tv,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
@@ -36116,9 +36114,8 @@
 /obj/structure/closet/fireaxecabinet{
 	pixel_y = -32
 	},
-/obj/item/paper_bin{
-	pixel_x = -4;
-	pixel_y = 10
+/obj/item/paper_bin/nanotrasen{
+	pixel_y = 8
 	},
 /obj/item/pen{
 	pixel_y = 3
@@ -36176,9 +36173,8 @@
 	})
 "byD" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -4;
-	pixel_y = 10
+/obj/item/paper_bin/nanotrasen{
+	pixel_y = 8
 	},
 /obj/item/pen{
 	pixel_x = -3;
@@ -38757,9 +38753,8 @@
 /area/library)
 "bDQ" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -4;
-	pixel_y = 10
+/obj/item/paper_bin/nanotrasen{
+	pixel_y = 8
 	},
 /obj/item/pen{
 	pixel_x = -3;
@@ -41763,12 +41758,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"bKc" = (
-/obj/machinery/atmospherics/pipe/manifold/visible/yellow{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/atmos)
 "bKd" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 6
@@ -44688,10 +44677,7 @@
 	name = "E.V.A. Storage"
 	})
 "bQi" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/item/stack/sheet/rglass{
 	amount = 50
 	},
@@ -44997,9 +44983,8 @@
 	},
 /area/medical/cmo)
 "bQW" = (
-/obj/item/paper_bin{
-	pixel_x = 1;
-	pixel_y = 9
+/obj/item/paper_bin/nanotrasen{
+	pixel_y = 8
 	},
 /obj/item/pen{
 	pixel_x = -3;
@@ -45025,10 +45010,7 @@
 	},
 /area/crew_quarters/hor)
 "bQX" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/item/crowbar,
 /obj/item/storage/toolbox/emergency,
 /obj/item/radio/off,
@@ -45307,10 +45289,7 @@
 	name = "Port Maintenance"
 	})
 "bRE" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 3;
 	name = "3maintenance loot spawner"
@@ -45584,10 +45563,7 @@
 /turf/simulated/floor/wood,
 /area/ntrep)
 "bSh" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -2;
 	pixel_y = -1
@@ -46276,10 +46252,7 @@
 	},
 /area/hallway/primary/fore)
 "bTr" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/item/rack_parts,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -47002,7 +46975,9 @@
 /area/blueshield)
 "bUY" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin,
+/obj/item/paper_bin/nanotrasen{
+	pixel_y = 8
+	},
 /obj/item/pen/blue,
 /obj/item/folder/blue{
 	pixel_x = 4;
@@ -47864,7 +47839,9 @@
 /area/ntrep)
 "bWO" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin,
+/obj/item/paper_bin/nanotrasen{
+	pixel_y = 8
+	},
 /obj/item/flashlight/lamp/green{
 	pixel_x = -5;
 	pixel_y = 12
@@ -51616,9 +51593,8 @@
 /area/maintenance/aft)
 "cfd" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = -4;
-	pixel_y = 10
+/obj/item/paper_bin/nanotrasen{
+	pixel_y = 8
 	},
 /obj/item/pen{
 	pixel_x = -3;
@@ -51707,9 +51683,8 @@
 	},
 /obj/item/storage/secure/briefcase,
 /obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 4
+/obj/item/paper_bin/nanotrasen{
+	pixel_y = 8
 	},
 /obj/item/pen{
 	pixel_x = -3;
@@ -51759,9 +51734,8 @@
 /area/maintenance/aft)
 "cfn" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = 1;
-	pixel_y = 9
+/obj/item/paper_bin/nanotrasen{
+	pixel_y = 8
 	},
 /obj/item/pen{
 	pixel_x = -3;
@@ -52697,10 +52671,7 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "chn" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/item/storage/box/donkpockets,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -55312,13 +55283,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"cmN" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 9
-	},
-/turf/space,
-/area/space/nearstation)
 "cmO" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -55855,9 +55819,8 @@
 /area/maintenance/starboard)
 "cnS" = (
 /obj/structure/table/glass,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 5
+/obj/item/paper_bin/nanotrasen{
+	pixel_y = 8
 	},
 /obj/item/pen,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -56365,10 +56328,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "coN" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/item/cane,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/warning_stripes/north,
@@ -59950,10 +59910,7 @@
 	},
 /area/toxins/explab)
 "cwd" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
@@ -76277,7 +76234,9 @@
 	name = "\improper Secure Lab"
 	})
 "deC" = (
-/obj/machinery/computer/security,
+/obj/machinery/computer/security{
+	network = list("SS13","Research Outpost","Mining Outpost")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -110888,7 +110847,7 @@ ahU
 aiM
 ajK
 ajZ
-agA
+bqY
 akL
 alU
 aln
@@ -113452,7 +113411,7 @@ aaa
 aaa
 abq
 aaa
-aaa
+bsr
 agC
 agC
 agF
@@ -127155,7 +127114,7 @@ chk
 ciE
 ckj
 chR
-cmN
+ktv
 bGL
 bGL
 bGL
@@ -127392,7 +127351,7 @@ bCT
 bEW
 sVC
 bIo
-bKc
+chl
 bMd
 bNa
 bPz
@@ -128414,7 +128373,7 @@ anq
 bsJ
 bwv
 aaa
-bqY
+buL
 bAY
 bCM
 bHe
