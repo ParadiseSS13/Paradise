@@ -2632,10 +2632,7 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/item/wrench,
 /turf/simulated/floor/plasteel{
@@ -9582,8 +9579,9 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "avW" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Supply Bay Bridge Access"
+/obj/machinery/door/airlock/maintenance{
+	name = "Supply Bay Bridge Access";
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
@@ -10885,10 +10883,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "ayy" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "ayz" = (
@@ -13873,8 +13868,10 @@
 /area/space)
 "aEJ" = (
 /obj/machinery/door/airlock/external{
+	id_tag = "mining_home";
 	locked = 1;
-	name = "Mining Dock Airlock"
+	name = "Mining Dock Airlock";
+	req_access_txt = "48"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -13888,6 +13885,7 @@
 	})
 "aEL" = (
 /obj/machinery/door/airlock/mining/glass{
+	id_tag = "mining_home";
 	locked = 1;
 	name = "Mining Dock";
 	req_access_txt = "48"
@@ -14509,6 +14507,9 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock{
 	name = "\improper Mining Office"
@@ -15797,6 +15798,9 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock{
 	name = "\improper Mining Office"
@@ -16447,6 +16451,9 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -18454,7 +18461,7 @@
 /area/construction)
 "aOp" = (
 /obj/machinery/door/poddoor{
-	id_tag = "QMLoaddoor";
+	id_tag = "QMLoaddoor2";
 	name = "supply dock loading door"
 	},
 /obj/machinery/conveyor/east{
@@ -18756,10 +18763,7 @@
 	})
 "aPk" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/item/wirecutters,
 /obj/item/weldingtool,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -22228,10 +22232,7 @@
 	},
 /area/quartermaster/qm)
 "aWS" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 2;
 	name = "2maintenance loot spawner"
@@ -22720,10 +22721,7 @@
 	name = "Arrivals"
 	})
 "aYb" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
@@ -22745,10 +22743,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aYj" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -23227,6 +23222,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/sortjunction{
+	name = "CE Office";
 	sortType = 5
 	},
 /obj/structure/cable{
@@ -23380,6 +23376,9 @@
 /area/turret_protected/ai_upload)
 "aZy" = (
 /obj/item/flag/cargo,
+/obj/machinery/status_display/supply_display{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -25377,7 +25376,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "bdT" = (
-/obj/machinery/status_display,
+/obj/machinery/status_display/supply_display,
 /turf/simulated/wall,
 /area/quartermaster/storage)
 "bdU" = (
@@ -26733,7 +26732,7 @@
 	})
 "bgC" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/telepad,
+/obj/machinery/telepad_cargo,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -27918,7 +27917,7 @@
 	},
 /area/quartermaster/office)
 "bjg" = (
-/obj/machinery/status_display{
+/obj/machinery/status_display/supply_display{
 	pixel_y = 32
 	},
 /obj/structure/table,
@@ -28713,7 +28712,7 @@
 	},
 /area/hallway/primary/central)
 "bkK" = (
-/obj/machinery/status_display{
+/obj/machinery/status_display/supply_display{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -32442,10 +32441,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/incinerator)
 "brX" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -32744,7 +32740,10 @@
 /turf/simulated/floor/plating,
 /area/janitor)
 "bsF" = (
-/obj/structure/disposalpipe/sortjunction,
+/obj/structure/disposalpipe/sortjunction{
+	name = "Engineering";
+	sortType = 4
+	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
@@ -33884,12 +33883,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
-"buL" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SE"
-	},
-/turf/space,
-/area/space/nearstation)
 "buM" = (
 /obj/structure/transit_tube{
 	icon_state = "D-NW"
@@ -44688,10 +44681,7 @@
 	name = "E.V.A. Storage"
 	})
 "bQi" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/item/stack/sheet/rglass{
 	amount = 50
 	},
@@ -45025,10 +45015,7 @@
 	},
 /area/crew_quarters/hor)
 "bQX" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/item/crowbar,
 /obj/item/storage/toolbox/emergency,
 /obj/item/radio/off,
@@ -45307,10 +45294,7 @@
 	name = "Port Maintenance"
 	})
 "bRE" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 3;
 	name = "3maintenance loot spawner"
@@ -45584,10 +45568,7 @@
 /turf/simulated/floor/wood,
 /area/ntrep)
 "bSh" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -2;
 	pixel_y = -1
@@ -46276,10 +46257,7 @@
 	},
 /area/hallway/primary/fore)
 "bTr" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/item/rack_parts,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -52679,12 +52657,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"chl" = (
-/obj/machinery/atmospherics/pipe/manifold/visible/yellow{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/atmos)
 "chm" = (
 /obj/machinery/light,
 /obj/machinery/power/apc{
@@ -52697,10 +52669,7 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "chn" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/item/storage/box/donkpockets,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -56365,10 +56334,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "coN" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/item/cane,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/warning_stripes/north,
@@ -59950,10 +59916,7 @@
 	},
 /area/toxins/explab)
 "cwd" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
@@ -79064,6 +79027,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock{
 	name = "\improper Mining Office"
@@ -79766,13 +79732,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/turf/space,
-/area/space/nearstation)
-"ktv" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 9
-	},
 /turf/space,
 /area/space/nearstation)
 "ktX" = (
@@ -82500,6 +82459,14 @@
 	},
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
+	})
+"sJw" = (
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/miningdock{
+	name = "\improper Mining Office"
 	})
 "sLs" = (
 /obj/structure/cable/yellow{
@@ -101403,7 +101370,7 @@ aFF
 aEK
 aGf
 aHs
-aEK
+sJw
 aKd
 ayK
 afl
@@ -127922,7 +127889,7 @@ bRg
 bRg
 bRg
 bRg
-chl
+bKc
 ciW
 ckl
 cij
@@ -128940,7 +128907,7 @@ cmL
 nMx
 cmL
 kto
-ktv
+cmN
 bIu
 abq
 bMj
@@ -130724,7 +130691,7 @@ cmL
 cmL
 cmL
 cmL
-ktv
+cmN
 bwL
 aaa
 abq
@@ -134322,7 +134289,7 @@ aaa
 aaa
 aaa
 abq
-buL
+bqY
 bwW
 bxk
 aaa
