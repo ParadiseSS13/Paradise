@@ -1100,7 +1100,7 @@
 /area/security/podbay)
 "aea" = (
 /obj/machinery/camera{
-	c_tag = Prisoner Education Chamber;
+	c_tag = "Prisoner Education Chamber";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
