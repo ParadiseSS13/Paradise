@@ -29,7 +29,6 @@
 		return FALSE
 	notransform = 1
 	canmove = 0
-	icon = null
 	invisibility = 101
 	dust_animation()
 	if(mmi)
