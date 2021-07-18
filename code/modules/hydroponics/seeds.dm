@@ -337,6 +337,7 @@
 			user.show_message("<span class='info'>You designate the [plantname] as the [V] variant.</span>")
 		variant = V
 		apply_variant_name()
+		return
 	..() // Fallthrough to item/attackby() so that bags can pick seeds up
 
 /obj/item/seeds/proc/apply_variant_name()
