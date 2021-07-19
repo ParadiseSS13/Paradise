@@ -24,7 +24,7 @@ emp_act
 			var/list/safe_list = list(/obj/item/projectile/beam/lasertag, /obj/item/projectile/beam/practice)
 			if(is_type_in_list(P, safe_list)) //And it's safe
 				visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
-				   "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")		
+				   "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
 				P.reflect_back(src)
 				return -1 // complete projectile permutation
 
@@ -542,21 +542,6 @@ emp_act
 	if(w_uniform)
 		w_uniform.add_mob_blood(source)
 		update_inv_w_uniform()
-
-/mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
-	if(user.a_intent == INTENT_HARM)
-		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
-			return FALSE
-		var/hulk_verb = pick("smash", "pummel")
-		if(check_shields(user, 15, "the [hulk_verb]ing"))
-			return
-		..(user, TRUE)
-		playsound(loc, user.dna.species.unarmed.attack_sound, 25, 1, -1)
-		var/message = "[user] has [hulk_verb]ed [src]!"
-		visible_message("<span class='danger'>[message]</span>", "<span class='userdanger'>[message]</span>")
-		adjustBruteLoss(15)
-		return TRUE
 
 /mob/living/carbon/human/attack_hand(mob/user)
 	if(..())	//to allow surgery to return properly.

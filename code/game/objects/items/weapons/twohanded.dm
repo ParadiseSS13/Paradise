@@ -297,10 +297,6 @@
 	..()
 
 /obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
-	if(HULK in user.mutations)
-		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally close it!</span>")
-		unwield()
-		return
 	..()
 	if((CLUMSY in user.mutations) && (wielded) && prob(40))
 		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
@@ -320,11 +316,6 @@
 	if(wielded)
 		return ..()
 	return FALSE
-
-/obj/item/twohanded/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
-	if(wielded)
-		to_chat(user, "<span class='warning'>You can't pick up such a dangerous item with your meaty hands without losing fingers, better not to!</span>")
-		return TRUE
 
 /obj/item/twohanded/dualsaber/green
 	blade_color = "green"

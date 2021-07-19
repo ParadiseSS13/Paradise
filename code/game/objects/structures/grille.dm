@@ -73,15 +73,6 @@
 	if(. && !QDELETED(src) && !shock(user, 70))
 		take_damage(rand(5,10), BRUTE, "melee", 1)
 
-/obj/structure/grille/hulk_damage()
-	return 60
-
-/obj/structure/grille/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
-	if(user.a_intent == INTENT_HARM)
-		if(!shock(user, 70))
-			..(user, TRUE)
-		return TRUE
-
 /obj/structure/grille/attack_hand(mob/living/user)
 	. = ..()
 	if(.)

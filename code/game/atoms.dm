@@ -200,13 +200,6 @@
 /atom/proc/mech_melee_attack(obj/mecha/M)
 	return
 
-/atom/proc/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
-	SEND_SIGNAL(src, COMSIG_ATOM_HULK_ATTACK, user)
-	if(does_attack_animation)
-		user.changeNext_move(CLICK_CD_MELEE)
-		add_attack_logs(user, src, "Punched with hulk powers")
-		user.do_attack_animation(src, ATTACK_EFFECT_SMASH)
-
 /atom/proc/CheckParts(list/parts_list)
 	for(var/A in parts_list)
 		if(istype(A, /datum/reagent))

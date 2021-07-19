@@ -12,10 +12,6 @@
 	if(proximity && istype(G) && G.Touch(A, 1))
 		return
 
-	if(HULK in mutations)
-		if(proximity) //no telekinetic hulk attack
-			if(A.attack_hulk(src))
-				return
 
 	if(buckled && isstructure(buckled))
 		var/obj/structure/S = buckled

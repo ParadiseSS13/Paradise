@@ -31,13 +31,6 @@
 	patient = null
 	return ..()
 
-/obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
-	if(user.a_intent == INTENT_HARM)
-		..(user, TRUE)
-		visible_message("<span class='warning'>[user] destroys the operating table!</span>")
-		qdel(src)
-		return TRUE
-
 /obj/machinery/optable/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
 		return TRUE

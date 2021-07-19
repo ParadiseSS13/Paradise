@@ -569,15 +569,6 @@
 		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
 		return TRUE
 
-/obj/mecha/hulk_damage()
-	return 15
-
-/obj/mecha/attack_hulk(mob/living/carbon/human/user)
-	. = ..()
-	if(.)
-		log_message("Attack by hulk. Attacker - [user].", 1)
-		add_attack_logs(user, OCCUPANT_LOGGING, "Hulk punched mech [src]")
-
 /obj/mecha/blob_act(obj/structure/blob/B)
 	log_message("Attack by blob. Attacker - [B].")
 	take_damage(30, BRUTE, "melee", 0, get_dir(src, B))

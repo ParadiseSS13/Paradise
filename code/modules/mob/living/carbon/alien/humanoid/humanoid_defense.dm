@@ -1,22 +1,3 @@
-/mob/living/carbon/alien/humanoid/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
-	if(user.a_intent == INTENT_HARM)
-		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
-			return FALSE
-		..(user, TRUE)
-		adjustBruteLoss(15)
-		var/hitverb = "punched"
-		if(mob_size < MOB_SIZE_LARGE)
-			Paralyse(1)
-			spawn(0)
-				step_away(src, user, 15)
-				sleep(1)
-				step_away(src, user, 15)
-			hitverb = "slammed"
-		playsound(loc, "punch", 25, 1, -1)
-		visible_message("<span class='danger'>[user] has [hitverb] [src]!</span>", "<span class='userdanger'>[user] has [hitverb] [src]!</span>")
-		return TRUE
-
 /mob/living/carbon/alien/humanoid/attack_hand(mob/living/carbon/human/M)
 	if(..())
 		switch(M.a_intent)

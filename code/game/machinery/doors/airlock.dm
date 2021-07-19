@@ -715,6 +715,11 @@ About the new airlock wires panel:
 	if(isElectrified())
 		shock(user, 100)
 
+/obj/machinery/door/airlock/attack_animal(mob/user)
+	if(istype(user, /mob/living/simple_animal/hulk))
+		var/mob/living/simple_animal/hulk/H = user
+		H.attack_hulk(src)
+
 /obj/machinery/door/airlock/attack_hand(mob/user)
 	if(shock_user(user, 100))
 		return

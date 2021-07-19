@@ -620,9 +620,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 /obj/item/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	return
 
-/obj/item/attack_hulk(mob/living/carbon/human/user)
-	return FALSE
-
 /obj/item/attack_animal(mob/living/simple_animal/M)
 	if(can_be_hit)
 		return ..()

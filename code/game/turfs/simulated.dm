@@ -103,6 +103,14 @@
 
 				if(TURF_WET_PERMAFROST) // Permafrost
 					M.slip("the frosted floor", 0, 5, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
+	var/mob/living/simple_animal/hulk/Hulk = A
+	if(istype(A, /mob/living/simple_animal/hulk))
+		if(!Hulk.lying)
+			playsound(src,'sound/effects/hulk_step.ogg', CHANNEL_BUZZ)
+	if (istype(A, /mob/living/simple_animal/hulk/clown_hulk))
+		if(!Hulk.lying)
+			playsound(src, pick('sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg'), CHANNEL_BUZZ)
+
 
 /turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
 	. = ..()

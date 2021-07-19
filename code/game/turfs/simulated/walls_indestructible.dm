@@ -36,9 +36,6 @@
 /turf/simulated/wall/indestructible/attack_hand(mob/user)
 	return
 
-/turf/simulated/wall/indestructible/attack_hulk(mob/user, does_attack_animation = FALSE)
-	return
-
 /turf/simulated/wall/indestructible/attack_animal(mob/living/simple_animal/M)
 	return
 

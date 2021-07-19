@@ -175,11 +175,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	add_fingerprint(user)
 	playsound(src, 'sound/effects/glassknock.ogg', 50, 1)
 
-/obj/structure/window/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(!can_be_reached(user))
-		return 1
-	. = ..()
-
 /obj/structure/window/attack_hand(mob/user)
 	if(!can_be_reached(user))
 		return

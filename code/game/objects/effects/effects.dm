@@ -12,9 +12,6 @@
 /obj/effect/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	return
 
-/obj/effect/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
-	return FALSE
-
 /obj/effect/singularity_act()
 	qdel(src)
 	return FALSE
