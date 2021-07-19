@@ -483,16 +483,15 @@
 		/obj/item/reagent_containers/spray/cleaner = 1,
 		/obj/item/storage/bag/trash = 1,
 		/obj/item/storage/box/lights/mixed = 1,
-		/obj/item/holosign_creator = 1,
-		/obj/item/flashlight = 1)
+		/obj/item/melee/flyswatter = 1)
 
 /datum/outfit/job/centcom/response_team/janitorial/amber
 	name = "RT Janitor (Amber)"
 	suit = /obj/item/clothing/suit/armor/vest/ert/janitor
 	head = /obj/item/clothing/head/helmet/ert/janitor
 	glasses = /obj/item/clothing/glasses/sunglasses
-
-	r_hand = /obj/item/gun/energy/disabler
+	r_pocket = /obj/item/flashlight
+	suit_store = /obj/item/gun/energy/disabler
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/advmop)
@@ -503,7 +502,7 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 
 	r_pocket = /obj/item/scythe/tele
-	l_pocket = /obj/item/gun/energy/gun/mini
+	suit_store = /obj/item/gun/energy/gun/mini
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/janitorial,
@@ -515,18 +514,20 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor/gamma
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	suit_store = /obj/item/gun/energy/gun
-	l_pocket = /obj/item/grenade/clusterbuster/cleaner
 	r_pocket = /obj/item/scythe/tele
 	shoes = /obj/item/clothing/shoes/magboots/advance
 
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/antiweed = 2,
+		/obj/item/grenade/clusterbuster/cleaner = 1,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/storage/bag/trash/bluespace = 1,
-		/obj/item/reagent_containers/spray/cleaner = 1
+		/obj/item/reagent_containers/spray/cleaner = 1,
+		/obj/item/melee/flyswatter = 1
 	)
 
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/obj/item/organ/internal/cyberimp/arm/advmop,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	)
