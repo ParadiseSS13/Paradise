@@ -130,6 +130,9 @@ To draw a rune, use a ritual dagger.
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)
 
+/obj/effect/rune/is_cleanable()
+	return TRUE
+
 
 /*
 There are a few different procs each rune runs through when a cultist activates it.
@@ -990,6 +993,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/narsie/cult_conceal() //can't hide this, and you wouldn't want to
 	return
+
+/obj/effect/rune/narsie/is_cleanable() //No, you can't just yeet a cleaning grenade to remove it.
+	return FALSE
 
 /obj/effect/rune/narsie/invoke(list/invokers)
 	if(used)
