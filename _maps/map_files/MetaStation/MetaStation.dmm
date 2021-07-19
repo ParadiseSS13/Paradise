@@ -1483,12 +1483,11 @@
 	pixel_y = 36;
 	req_access_txt = "1"
 	},
-/obj/machinery/ignition_switch{
+/obj/machinery/flasher_button{
 	id = "justiceflash";
 	name = "Justice Flash Control";
 	pixel_x = -38;
-	pixel_y = 36;
-	req_access_txt = "1"
+	pixel_y = 36
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3333,18 +3332,6 @@
 	icon_state = "redcorner"
 	},
 /area/security/permabrig)
-"aiH" = (
-/obj/machinery/light,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
-	},
-/area/security/permabrig)
 "aiI" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -3357,6 +3344,7 @@
 "aiJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -3601,7 +3589,6 @@
 	pixel_x = -26
 	},
 /obj/structure/rack,
-/obj/item/storage/fancy,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -31920,7 +31907,8 @@
 	id = "armoryshutter";
 	name = "Armory Shutter";
 	pixel_x = -7;
-	pixel_y = 8
+	pixel_y = 8;
+	req_access_txt = "3"
 	},
 /turf/simulated/wall/r_wall,
 /area/security/armoury)
@@ -32641,9 +32629,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"bsr" = (
-/turf/simulated/wall/r_wall,
-/area/space)
 "bss" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -108788,7 +108773,7 @@ afB
 agx
 acN
 ahP
-aiH
+aiB
 ajf
 ajT
 akG
@@ -113411,7 +113396,7 @@ aaa
 aaa
 abq
 aaa
-bsr
+agC
 agC
 agC
 agF
