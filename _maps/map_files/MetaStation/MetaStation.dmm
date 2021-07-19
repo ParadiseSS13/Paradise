@@ -73659,9 +73659,10 @@
 	})
 "cYf" = (
 /obj/machinery/door/airlock/external{
+	hackProof = 1;
 	id_tag = "emergency_home";
 	locked = 1;
-	name = "Departure Lounge Airlock"
+	name = "Escape Airlock"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
