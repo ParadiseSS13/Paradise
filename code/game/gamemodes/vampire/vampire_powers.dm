@@ -269,9 +269,15 @@
 			var/mob/living/carbon/human/H = C
 			if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 				continue
+			if(H.check_ear_prot() >= HEARING_PROTECTION_MINOR)
+				to_chat(C, "<span class='warning'><font size='3'><b>You hear a dull shriek and instinctively cover your ears!</font></b></span>")
+				C.Confused(10)
+				C.Stuttering(10)
+				C.Jitter(50)
+				continue
 		if(!affects(C))
 			continue
-		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
+		to_chat(C, "<span class='warning'><font size='3'><b>You hear an ear piercing shriek and your senses dull!</font></b></span>")
 		C.Weaken(4)
 		C.AdjustEarDamage(0, 20)
 		C.Stuttering(20)
@@ -279,6 +285,8 @@
 		C.Jitter(150)
 	for(var/obj/structure/window/W in view(4))
 		W.deconstruct(FALSE)
+	for(var/obj/machinery/light/L in view(6))
+		L.deconstruct(FALSE)
 	playsound(user.loc, 'sound/effects/creepyshriek.ogg', 100, 1)
 
 
