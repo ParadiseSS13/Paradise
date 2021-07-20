@@ -73427,8 +73427,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/item/airlock_painter,
-/obj/item/airlock_painter{
+/obj/item/painter,
+/obj/item/painter{
 	pixel_x = -4;
 	pixel_y = 4
 	},
@@ -83763,7 +83763,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dtk" = (
-/obj/item/pipe_painter,
+/obj/item/painter,
 /obj/item/clothing/ears/earmuffs{
 	pixel_y = 6
 	},
@@ -85274,8 +85274,8 @@
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
-/obj/item/pipe_painter,
-/obj/item/pipe_painter,
+/obj/item/painter,
+/obj/item/painter,
 /obj/item/clothing/glasses/welding,
 /obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel,

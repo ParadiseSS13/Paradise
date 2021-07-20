@@ -39731,7 +39731,7 @@
 /area/storage/tech)
 "bFm" = (
 /obj/structure/rack,
-/obj/item/floor_painter,
+/obj/item/painter,
 /obj/item/toner,
 /obj/machinery/status_display{
 	pixel_x = -32
