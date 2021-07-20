@@ -489,9 +489,9 @@ in the SQL/updates folder.
     
 * StrongDMM
   * When using StrongDMM, the following options **MUST** be enabled to avoid file bloat. They can be found under `File > Preferences > Save Options` in SDMM.
-    * Sanitize Variables - Removes variables that are declared on the map, but are the same as default. (For example: A standard floor turf that has dir = 2 declared on the map will have that variable deleted as it is redundant.)
-    * Clean Unused Keys - Removes content tile keys that are no longer used on the map, usually leftover keys from deletions or edits.
     * Map save format: This **MUST** be set to **TGM** if you do not want to run map merger. Enabling this setting means SDMM will automatically map merge, letting you skip manual merging.
+    * Sanitize Variables - Removes variables that are declared on the map, but are the same as default. (For example: A standard floor turf that has `dir = 2` declared on the map will have that variable deleted as it is redundant.)
+    * Clean Unused Keys - Removes content tile keys that are no longer used on the map, usually leftover keys from deletions or edits.
 
 * Variable Editing (Var-edits)
   * While var-editing an item within the editor is perfectly fine, it is preferred that when you are changing the base behavior of an item (how it functions) that you make a new subtype of that item within the code, especially if you plan to use the item in multiple locations on the same map, or across multiple maps. This makes it easier to make corrections as needed to all instances of the item at one time as opposed to having to find each instance of it and change them all individually.
@@ -519,7 +519,7 @@ in the SQL/updates folder.
     * Intercoms should be set to frequency 145.9, and be speaker ON Microphone OFF. This is so radio signals can reach people even without headsets on. Larger room will require more than one at a time.
     * Exceptions can be made to security camera placement for certain rooms, such as the execution room. Larger rooms may require more than one security camera. All security cameras should have a descriptive name that makes it easy to find on a camera console.
     * Fire alarms should not be placed next to expected heat sources.
-    * Use the following "on" subtype of vents and scrubbers as opposed to var-editing: ```/obj/machinery/atmospherics/unary/vent_scrubber/on``` and ```/obj/machinery/atmospherics/unary/vent_pump/on```
+    * Use the following "on" subtype of vents and scrubbers as opposed to var-editing: `/obj/machinery/atmospherics/unary/vent_scrubber/on` and `/obj/machinery/atmospherics/unary/vent_pump/on`
   * Head of staff officers should contain a requests console.
   * Firelocks should be used at area boundaries over doors and windows. Firelocks can also be used to break up hallways at reasonable intervals.
     * Double firelocks are to be avoided unless absolutely necessary.
@@ -535,12 +535,9 @@ in the SQL/updates folder.
   * Engine areas, or areas with a high probability of receiving explosions, should use reinforced flooring if appropriate.
   * External areas, or areas where depressurisation is expected and normal, should use airless turf variants to prevent additional atmospherics load.
   * Edits in mapping tools should generally be possible to replicate in-game. For this reason, avoid stacking multiple structures on the same tile (i.e. placing a light and an APC on the same wall.)
-
-
+  * Code should be modular where possible; if you are working on a new addition, then strongly consider putting it in its own file unless it makes sense to put it with similar ones (i.e. a new tool would go in the "tools.dm" file)
 
 ### Other Notes
-* Code should be modular where possible; if you are working on a new addition, then strongly consider putting it in its own file unless it makes sense to put it with similar ones (i.e. a new tool would go in the "tools.dm" file)
-
 * Bloated code may be necessary to add a certain feature, which means there has to be a judgement over whether the feature is worth having or not. You can help make this decision easier by making sure your code is modular.
 
 * You are expected to help maintain the code that you add, meaning that if there is a problem then you are likely to be approached in order to fix any issues, runtimes, or bugs.
