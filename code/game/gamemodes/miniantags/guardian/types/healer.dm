@@ -94,7 +94,7 @@
 			F.icon = 'icons/turf/floors.dmi'
 			F.name = "bluespace recieving pad"
 			F.desc = "A recieving zone for bluespace teleportations. Building a wall over it should disable it."
-			F.icon_state = "light_on-w"
+			F.icon_state = "light_on"
 			to_chat(src, "<span class='danger'>Beacon placed! You may now warp targets to it, including your user, via Alt+Click. </span>")
 			if(beacon)
 				beacon.ChangeTurf(/turf/simulated/floor/plating)
