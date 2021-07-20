@@ -31316,8 +31316,7 @@
 	},
 /obj/structure/disposalpipe/junction{
 	dir = 4;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2 (EAST)"
+	icon_state = "pipe-j2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -42943,8 +42942,7 @@
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/bridge/meeting_room)
 "bKP" = (
@@ -42995,8 +42993,7 @@
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/captain)
 "bKY" = (
@@ -44026,8 +44023,7 @@
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/bridge/meeting_room)
 "bMW" = (
@@ -44081,8 +44077,7 @@
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/captain)
 "bNc" = (
@@ -44901,8 +44896,7 @@
 /obj/machinery/computer/account_database,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/bridge/meeting_room)
 "bON" = (
@@ -44980,8 +44974,7 @@
 /mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/captain)
 "bOV" = (
@@ -49673,8 +49666,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
 "bWQ" = (
@@ -49686,8 +49678,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
 "bWR" = (
@@ -50320,8 +50311,7 @@
 /obj/machinery/computer/card,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
 "bYr" = (
@@ -51156,8 +51146,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
 "bZY" = (
@@ -51581,8 +51570,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
 "caS" = (
@@ -52133,8 +52121,7 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
 "cbT" = (
@@ -53013,8 +53000,7 @@
 /obj/machinery/computer/supplycomp,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
 "cdF" = (
@@ -53924,8 +53910,7 @@
 /obj/machinery/computer/security/mining,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
 "cfD" = (
@@ -54601,8 +54586,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
 "chg" = (
@@ -56424,8 +56408,7 @@
 "ckJ" = (
 /obj/structure/disposalpipe/junction{
 	dir = 1;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2"
+	icon_state = "pipe-j2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -57232,8 +57215,7 @@
 	},
 /obj/structure/disposalpipe/junction{
 	dir = 4;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2 (EAST)"
+	icon_state = "pipe-j2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -57257,8 +57239,7 @@
 	},
 /obj/structure/disposalpipe/junction{
 	dir = 4;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2 (EAST)"
+	icon_state = "pipe-j2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -59123,8 +59104,7 @@
 	},
 /obj/structure/disposalpipe/junction{
 	dir = 4;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2 (EAST)"
+	icon_state = "pipe-j2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -59312,8 +59292,7 @@
 	},
 /obj/structure/disposalpipe/junction{
 	dir = 1;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2"
+	icon_state = "pipe-j2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
@@ -68338,8 +68317,7 @@
 /area/hallway/primary/central)
 "cHC" = (
 /obj/structure/disposalpipe/junction{
-	dir = 4;
-	tag = "icon-pipe-j1 (EAST)"
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -68388,8 +68366,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
 	name = "Research Junction";
-	sortType = 20;
-	tag = "icon-pipe-j1s (EAST)"
+	sortType = 20
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -68496,8 +68473,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
 	name = "CMO's Junction";
-	sortType = 20;
-	tag = "icon-pipe-j1s (EAST)"
+	sortType = 20
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -68511,8 +68487,7 @@
 /area/hallway/primary/central)
 "cHP" = (
 /obj/structure/disposalpipe/junction{
-	dir = 4;
-	tag = "icon-pipe-j1 (EAST)"
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
