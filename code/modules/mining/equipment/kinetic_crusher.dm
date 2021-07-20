@@ -443,4 +443,4 @@
 		new /obj/effect/temp_visual/hierophant/wall/crusher(otherT, user)
 
 /obj/effect/temp_visual/hierophant/wall/crusher
-	duration = 15
+	duration = 1.5 SECONDS
