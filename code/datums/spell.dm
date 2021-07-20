@@ -503,8 +503,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		revert_cast(user)
 		return FALSE
 
-	perform(targets, user = user, make_attack_logs = create_logs)
 	remove_ranged_ability(user)
+	perform(targets, user = user, make_attack_logs = create_logs)
 	return TRUE
 
 /* Checks if a target is valid

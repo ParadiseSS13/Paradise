@@ -192,8 +192,6 @@
 				client.prefs.real_name = random_name(client.prefs.gender,client.prefs.species)
 			observer.real_name = client.prefs.real_name
 			observer.name = observer.real_name
-			if(!client.holder && !config.antag_hud_allowed)           // For new ghosts we remove the verb from even showing up if it's not allowed.
-				observer.verbs -= /mob/dead/observer/verb/toggle_antagHUD        // Poor guys, don't know what they are missing!
 			observer.key = key
 			QDEL_NULL(mind)
 			GLOB.respawnable_list += observer

@@ -50,6 +50,10 @@
 /obj/item/radio/beacon/bacon/proc/digest_delay()
 	QDEL_IN(src, 600)
 
+/obj/item/radio/beacon/emagged
+	syndicate = TRUE
+	emagged = TRUE
+
 // SINGULO BEACON SPAWNER
 /obj/item/radio/beacon/syndicate
 	name = "suspicious beacon"

@@ -82,6 +82,7 @@
 /turf/simulated/mineral/proc/gets_drilled()
 	if(mineralType && (mineralAmt > 0))
 		new mineralType(src, mineralAmt)
+		SSticker.score?.score_ore_mined++
 		SSblackbox.record_feedback("tally", "ore_mined", mineralAmt, mineralType)
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)
