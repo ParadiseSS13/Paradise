@@ -483,9 +483,8 @@ in the SQL/updates folder.
 ### Mapping Standards
 * Map Merge
   * The following guideline for map merging applies to people who are **NOT** using StrongDMM, please see the StrongDMM section if you are.
-  * You **MUST** run Map Merge prior to opening your PR when updating existing maps to minimize the change differences (even when using third party mapping programs such as FastDMM.)
-    * Failure to run Map Merge on a map after using third party mapping programs (such as FastDMM) greatly increases the risk of the map's key dictionary
-    becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
+    * You **MUST** run Map Merge prior to opening your PR when updating existing maps to minimize the change differences (even when using third party mapping programs such as FastDMM.)
+    * Failure to run Map Merge on a map after using third party mapping programs (such as FastDMM) greatly increases the risk of the map's key dictionary becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
     
 * StrongDMM
   * When using StrongDMM, the following options **MUST** be enabled to avoid file bloat. They can be found under `File > Preferences > Save Options` in SDMM.
