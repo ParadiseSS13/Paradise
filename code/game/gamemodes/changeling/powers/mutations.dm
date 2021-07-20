@@ -243,7 +243,6 @@
 	damage_type = BRUTE
 	range = 8
 	hitsound = 'sound/weapons/thudswoosh.ogg'
-	var/chain
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
 
 /obj/item/projectile/tentacle/New(obj/item/ammo_casing/magic/tentacle/tentacle_casing)
