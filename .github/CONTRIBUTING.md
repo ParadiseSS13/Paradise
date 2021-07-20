@@ -489,7 +489,7 @@ in the SQL/updates folder.
     
 * StrongDMM
   * When using StrongDMM, the following options **MUST** be enabled to avoid file bloat. They can be found under `File > Preferences > Save Options` in SDMM.
-    * Map save format: This **MUST** be set to **TGM** if you do not want to run map merger. Enabling this setting means SDMM will automatically map merge, letting you skip manual merging.
+    * Map save format: This **MUST** be set to **TGM** if you do not want to run Map Merge. Enabling this setting means SDMM will automatically map merge, letting you skip manual merging.
     * Sanitize Variables - Removes variables that are declared on the map, but are the same as default. (For example: A standard floor turf that has `dir = 2` declared on the map will have that variable deleted as it is redundant.)
     * Clean Unused Keys - Removes content tile keys that are no longer used on the map, usually leftover keys from deletions or edits.
 
