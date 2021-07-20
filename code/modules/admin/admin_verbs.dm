@@ -167,7 +167,12 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/toggle_medal_disable,
 	/client/proc/uid_log,
 	/client/proc/visualise_active_turfs,
-	/client/proc/reestablish_db_connection
+	/client/proc/reestablish_db_connection,
+	#ifdef REFERENCE_TRACKING
+	/datum/proc/find_refs,
+	/datum/proc/qdel_then_find_references,
+	/datum/proc/qdel_then_if_fail_find_references,
+	#endif
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,

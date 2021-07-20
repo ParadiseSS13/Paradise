@@ -404,6 +404,10 @@
 /mob/living/carbon/proc/tintcheck()
 	return 0
 
+/mob/living/carbon/proc/create_dna()
+	if(!dna)
+		dna = new()
+
 /mob/living/carbon/proc/getDNA()
 	return dna
 
@@ -1042,7 +1046,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(!forceFed(toEat, user, fullness))
 			return 0
 	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
-	GLOB.score_foodeaten++
+	SSticker.score.score_food_eaten++
 	return 1
 
 /mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
