@@ -385,7 +385,7 @@
 		/obj/item/holosign_creator/engineering,
 		/obj/item/gripper,
 		/obj/item/matter_decompiler,
-		/obj/item/floor_painter,
+		/obj/item/painter,
 		/obj/item/areaeditor/blueprints/cyborg,
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
@@ -416,7 +416,11 @@
 		/obj/item/clothing/mask/gas/sechailer/cyborg
 	)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
-	special_rechargables = list(/obj/item/melee/baton/loaded, /obj/item/gun/energy/disabler/cyborg)
+	special_rechargables = list(
+		/obj/item/melee/baton/loaded,
+		/obj/item/gun/energy/disabler/cyborg,
+		/obj/item/gun/energy/laser/cyborg
+	)
 
 /obj/item/robot_module/security/update_cells(unlink_cell = FALSE)
 	var/obj/item/melee/baton/B = locate(/obj/item/melee/baton/loaded) in modules

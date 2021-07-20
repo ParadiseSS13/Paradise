@@ -28983,18 +28983,15 @@
 	},
 /area/hallway/primary/central/ne)
 "bkG" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
-	},
-/area/hallway/primary/central/ne)
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central/north)
 "bkH" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -30227,15 +30224,17 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
 "bno" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/hallway/primary/central/north)
 "bnq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -73428,8 +73427,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/item/airlock_painter,
-/obj/item/airlock_painter{
+/obj/item/painter,
+/obj/item/painter{
 	pixel_x = -4;
 	pixel_y = 4
 	},
@@ -80471,6 +80470,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 25
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "dkm" = (
@@ -80487,7 +80487,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
 "dko" = (
@@ -83764,7 +83763,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dtk" = (
-/obj/item/pipe_painter,
+/obj/item/painter,
 /obj/item/clothing/ears/earmuffs{
 	pixel_y = 6
 	},
@@ -85275,8 +85274,8 @@
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
-/obj/item/pipe_painter,
-/obj/item/pipe_painter,
+/obj/item/painter,
+/obj/item/painter,
 /obj/item/clothing/glasses/welding,
 /obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel,
@@ -116191,8 +116190,8 @@ cUi
 dhp
 aDN
 dkl
-bna
-bkz
+bkG
+bno
 bma
 boh
 bpB
@@ -116705,8 +116704,8 @@ bez
 dhq
 aDN
 dkn
-bno
-bkG
+bnn
+bkF
 bmi
 aaa
 bmc
