@@ -102,7 +102,7 @@ Note: Must be placed west/left of and R&D console to function.
 			default_deconstruction_crowbar(user, O)
 			return 1
 		else
-			to_chat(user, "<span class='warning'>You can't load the [src.name] while it's opened.</span>")
+			to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
 			return 1
 	if(O.is_open_container())
 		return FALSE

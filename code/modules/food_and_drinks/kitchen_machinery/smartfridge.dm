@@ -35,10 +35,6 @@
 	var/datum/wires/smartfridge/wires
 	/// Typecache of accepted item types, init it in [/obj/machinery/smartfridge/Initialize].
 	var/list/accepted_items_typecache
-	/// Associative list (/obj/item => /number) representing the items the fridge should initially contain.
-	var/list/starting_items
-	/// The type of the circuitboard dropped on deconstruction. This is how to avoid getting subtypes into the board.
-	var/board_type = /obj/machinery/smartfridge
 
 /obj/machinery/smartfridge/Initialize(mapload)
 	. = ..()
@@ -48,12 +44,8 @@
 	reagents.set_reacting(FALSE)
 	// Components
 	component_parts = list()
-
 	var/obj/item/circuitboard/smartfridge/board = new(null)
-	if(board_type)
-		board.set_type(board_type)
-	else
-		board.set_type(type)
+	board.set_type(null, type)
 	component_parts += board
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
@@ -62,14 +54,6 @@
 		wires = new/datum/wires/smartfridge/secure(src)
 	else
 		wires = new/datum/wires/smartfridge(src)
-	//Add starting items
-	if(starting_items)
-		for(var/typekey in starting_items)
-			var/amount = starting_items[typekey] || 1
-			while(amount--)
-				var/obj/item/I = new typekey(src)
-				item_quants[I.name] += 1
-		update_icon()
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/reagent_containers/food/snacks/grown,
@@ -387,91 +371,12 @@
 	desc = "When you need seeds fast!"
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "seeds"
-	board_type = /obj/machinery/smartfridge/seeds
 
 /obj/machinery/smartfridge/seeds/Initialize(mapload)
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/seeds
 	))
-
-/**
-  * # Circuit Boards Storage
-  *
-  * Circuit variant of the [Smart Fridge][/obj/machinery/smartfridge].
-  *
-  */
-/obj/machinery/smartfridge/secure/circuits
-	name = "\improper Circuit Board Storage"
-	desc = "A storage unit for circuits."
-	icon_state = "circuits"
-	visible_contents = TRUE
-	board_type = /obj/machinery/smartfridge/secure/circuits
-
-/obj/machinery/smartfridge/secure/circuits/Initialize(mapload)
-	. = ..()
-	accepted_items_typecache = typecacheof(list(
-		/obj/item/aiModule,
-		/obj/item/circuitboard
-	))
-
-/obj/machinery/smartfridge/secure/circuits/update_icon()
-	var/prefix = initial(icon_state)
-	if(stat & (BROKEN|NOPOWER))
-		icon_state = "[prefix]-off"
-	else if(visible_contents)
-		switch(length(contents))
-			if(0)
-				icon_state = "[prefix]"
-			if(1 to 2)
-				icon_state = "[prefix]1"
-			if(3 to 5)
-				icon_state = "[prefix]2"
-			if(6 to INFINITY)
-				icon_state = "[prefix]3"
-	else
-		icon_state = "[prefix]"
-
-/obj/machinery/smartfridge/secure/circuits/aiupload
-	name = "\improper AI Laws Storage"
-	desc = "A storage unit filled with circuits to be uploaded to an Artificial Intelligence."
-	board_type = /obj/machinery/smartfridge/secure/circuits/aiupload
-
-/obj/machinery/smartfridge/secure/circuits/aiupload/Initialize(mapload)
-	. = ..()
-	req_access_txt = "[ACCESS_AI_UPLOAD]"
-
-/obj/machinery/smartfridge/secure/circuits/aiupload/experimental
-	name = "\improper Experimental Laws Storage"
-	starting_items = list(
-		/obj/item/aiModule/cctv = 1,
-		/obj/item/aiModule/hippocratic = 1,
-		/obj/item/aiModule/maintain = 1,
-		/obj/item/aiModule/paladin = 1,
-		/obj/item/aiModule/peacekeeper = 1,
-		/obj/item/aiModule/quarantine = 1,
-		/obj/item/aiModule/robocop = 1
-	)
-
-/obj/machinery/smartfridge/secure/circuits/aiupload/experimental/Initialize(mapload)
-	. = ..()
-	req_access_txt = "[ACCESS_RD]"
-
-/obj/machinery/smartfridge/secure/circuits/aiupload/highrisk
-	name = "\improper High-Risk Laws Storage"
-	starting_items = list(
-		/obj/item/aiModule/freeform = 1,
-		/obj/item/aiModule/freeformcore = 1,
-		/obj/item/aiModule/nanotrasen_aggressive = 1,
-		/obj/item/aiModule/oneCrewMember = 1,
-		/obj/item/aiModule/protectStation = 1,
-		/obj/item/aiModule/purge = 1,
-		/obj/item/aiModule/tyrant = 1
-	)
-
-/obj/machinery/smartfridge/secure/circuits/aiupload/highrisk/Initialize(mapload)
-	. = ..()
-	req_access_txt = "[ACCESS_CAPTAIN]"
 
 /**
   * # Refrigerated Medicine Storage
@@ -482,7 +387,6 @@
 	name = "\improper Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
-	board_type = /obj/machinery/smartfridge/medbay
 
 /obj/machinery/smartfridge/medbay/Initialize(mapload)
 	. = ..()
@@ -502,7 +406,6 @@
 /obj/machinery/smartfridge/secure/extract
 	name = "\improper Slime Extract Storage"
 	desc = "A refrigerated storage unit for slime extracts"
-	board_type = /obj/machinery/smartfridge/secure/extract
 
 /obj/machinery/smartfridge/secure/extract/Initialize(mapload)
 	. = ..()
@@ -521,7 +424,6 @@
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
 	req_one_access_txt = "5;33"
-	board_type = /obj/machinery/smartfridge/secure/medbay
 
 /obj/machinery/smartfridge/secure/medbay/Initialize(mapload)
 	. = ..()
@@ -542,11 +444,21 @@
 	name = "\improper Smart Chemical Storage"
 	desc = "A refrigerated storage unit for medicine and chemical storage."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
-	board_type = /obj/machinery/smartfridge/secure/chemistry
+	/// Associative list (/obj/item => /number) representing the items the fridge should initially contain.
+	var/list/spawn_meds
 
 /obj/machinery/smartfridge/secure/chemistry/Initialize(mapload)
 	. = ..()
 	req_access_txt = "[ACCESS_CHEMISTRY]"
+	// Spawn initial chemicals
+	if(mapload)
+		LAZYINITLIST(spawn_meds)
+		for(var/typekey in spawn_meds)
+			var/amount = spawn_meds[typekey] || 1
+			while(amount--)
+				var/obj/item/I = new typekey(src)
+				item_quants[I.name] += 1
+		update_icon()
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/storage/pill_bottle,
@@ -562,7 +474,7 @@
 	// I exist!
 
 /obj/machinery/smartfridge/secure/chemistry/preloaded/Initialize(mapload)
-	starting_items = list(
+	spawn_meds = list(
 		/obj/item/reagent_containers/food/pill/epinephrine = 12,
 		/obj/item/reagent_containers/food/pill/charcoal = 5,
 		/obj/item/reagent_containers/glass/bottle/epinephrine = 1,
@@ -593,7 +505,6 @@
 	icon_state = "disktoaster"
 	pass_flags = PASSTABLE
 	visible_contents = FALSE
-	board_type = /obj/machinery/smartfridge/disks
 
 /obj/machinery/smartfridge/disks/Initialize(mapload)
 	. = ..()
@@ -605,14 +516,21 @@
   * # Smart Virus Storage
   *
   * Secure, Virology variant of the [Smart Chemical Storage][/obj/machinery/smartfridge/secure/chemistry].
-  *
+  * Comes with some items.
   */
 /obj/machinery/smartfridge/secure/chemistry/virology
 	name = "\improper Smart Virus Storage"
 	desc = "A refrigerated storage unit for volatile sample storage."
-	board_type = /obj/machinery/smartfridge/secure/chemistry/virology
 
 /obj/machinery/smartfridge/secure/chemistry/virology/Initialize(mapload)
+	spawn_meds = list(
+		/obj/item/reagent_containers/syringe/antiviral = 4,
+		/obj/item/reagent_containers/glass/bottle/cold = 1,
+		/obj/item/reagent_containers/glass/bottle/flu_virion = 1,
+		/obj/item/reagent_containers/glass/bottle/mutagen = 1,
+		/obj/item/reagent_containers/glass/bottle/plasma = 1,
+		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1
+	)
 	. = ..()
 	req_access_txt = "[ACCESS_VIROLOGY]"
 	accepted_items_typecache = typecacheof(list(
@@ -630,13 +548,14 @@
 	// I exist!
 
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/Initialize(mapload)
-	starting_items = list(
+	spawn_meds = list(
 		/obj/item/reagent_containers/syringe/antiviral = 4,
 		/obj/item/reagent_containers/glass/bottle/cold = 1,
 		/obj/item/reagent_containers/glass/bottle/flu_virion = 1,
 		/obj/item/reagent_containers/glass/bottle/mutagen = 1,
 		/obj/item/reagent_containers/glass/bottle/plasma = 1,
-		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1
+		/obj/item/reagent_containers/glass/bottle/reagent/synaptizine = 1,
+		/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde = 1
 	)
 	. = ..()
 
@@ -649,15 +568,6 @@
 	req_access_txt = null
 
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate/Initialize(mapload)
-	starting_items = list(
-		/obj/item/reagent_containers/syringe/antiviral = 4,
-		/obj/item/reagent_containers/glass/bottle/cold = 1,
-		/obj/item/reagent_containers/glass/bottle/flu_virion = 1,
-		/obj/item/reagent_containers/glass/bottle/mutagen = 1,
-		/obj/item/reagent_containers/glass/bottle/plasma = 1,
-		/obj/item/reagent_containers/glass/bottle/reagent/synaptizine = 1,
-		/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde = 1
-	)
 	. = ..()
 	req_access = list(ACCESS_SYNDICATE)
 
@@ -669,7 +579,6 @@
 /obj/machinery/smartfridge/drinks
 	name = "\improper Drink Showcase"
 	desc = "A refrigerated storage unit for tasty tasty alcohol."
-	board_type = /obj/machinery/smartfridge/drinks
 
 /obj/machinery/smartfridge/drinks/Initialize(mapload)
 	. = ..()

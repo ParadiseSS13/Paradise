@@ -71,7 +71,7 @@
 	if(istype(O, /obj/item/reagent_containers/glass) || istype(O, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		if(O.reagents)
 			if(O.reagents.total_volume < 1)
-				to_chat(user, "The [O] is empty.")
+				to_chat(user, "[O] is empty.")
 			else if(O.reagents.total_volume >= 1)
 				if(O.reagents.has_reagent("facid", 1))
 					to_chat(user, "The acid chews through the balloon!")
@@ -86,7 +86,7 @@
 
 /obj/item/toy/balloon/throw_impact(atom/hit_atom)
 	if(reagents.total_volume >= 1)
-		visible_message("<span class='warning'>The [src] bursts!</span>","You hear a pop and a splash.")
+		visible_message("<span class='warning'>[src] bursts!</span>","You hear a pop and a splash.")
 		reagents.reaction(get_turf(hit_atom))
 		for(var/atom/A in get_turf(hit_atom))
 			reagents.reaction(A)
@@ -256,7 +256,7 @@
 	..()
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(src.loc)
-	visible_message("<span class='warning'>The [name] explodes!</span>","<span class='warning'>You hear a bang!</span>")
+	visible_message("<span class='warning'>[src] explodes!</span>","<span class='warning'>You hear a bang!</span>")
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
@@ -309,96 +309,6 @@
 /obj/effect/decal/cleanable/ash/snappop_phoenix/proc/respawn()
 	new /obj/item/toy/snappop/phoenix(get_turf(src))
 	qdel(src)
-
-
-/*
- * Mech prizes
- */
-/obj/item/toy/prize
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "ripleytoy"
-	var/cooldown = 0
-
-//all credit to skasi for toy mech fun ideas
-/obj/item/toy/prize/attack_self(mob/user as mob)
-	if(cooldown < world.time - 8)
-		to_chat(user, "<span class='notice'>You play with [src].</span>")
-		playsound(user, 'sound/mecha/mechstep.ogg', 20, 1)
-		cooldown = world.time
-
-/obj/item/toy/prize/attack_hand(mob/user as mob)
-	if(loc == user)
-		if(cooldown < world.time - 8)
-			to_chat(user, "<span class='notice'>You play with [src].</span>")
-			playsound(user, 'sound/mecha/mechturn.ogg', 20, 1)
-			cooldown = world.time
-			return
-	..()
-
-/obj/random/mech
-	name = "Random Mech Prize"
-	desc = "This is a random prize"
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "ripleytoy"
-
-/obj/random/mech/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/prize)) //exclude the base type.
-
-/obj/item/toy/prize/ripley
-	name = "toy ripley"
-	desc = "Mini-Mecha action figure! Collect them all! 1/11. This one is a ripley, a mining and engineering mecha."
-
-/obj/item/toy/prize/fireripley
-	name = "toy firefighting ripley"
-	desc = "Mini-Mecha action figure! Collect them all! 2/11. This one is a firefighter ripley, a fireproof mining and engineering mecha."
-	icon_state = "fireripleytoy"
-
-/obj/item/toy/prize/deathripley
-	name = "toy deathsquad ripley"
-	desc = "Mini-Mecha action figure! Collect them all! 3/11. This one is the black ripley used by the hero of DeathSquad, that TV drama about loose-cannon ERT officers!"
-	icon_state = "deathripleytoy"
-
-/obj/item/toy/prize/gygax
-	name = "toy gygax"
-	desc = "Mini-Mecha action figure! Collect them all! 4/11. This one is the speedy gygax combat mecha. Zoom zoom, pew pew!"
-	icon_state = "gygaxtoy"
-
-/obj/item/toy/prize/durand
-	name = "toy durand"
-	desc = "Mini-Mecha action figure! Collect them all! 5/11. This one is the heavy durand combat mecha. Stomp stomp!"
-	icon_state = "durandprize"
-
-/obj/item/toy/prize/honk
-	name = "toy H.O.N.K."
-	desc = "Mini-Mecha action figure! Collect them all! 6/11. This one is the infamous H.O.N.K mech!"
-	icon_state = "honkprize"
-
-/obj/item/toy/prize/marauder
-	name = "toy marauder"
-	desc = "Mini-Mecha action figure! Collect them all! 7/11. This one is the powerful marauder combat mecha! Run for cover!"
-	icon_state = "marauderprize"
-
-/obj/item/toy/prize/seraph
-	name = "toy seraph"
-	desc = "Mini-Mecha action figure! Collect them all! 8/11. This one is the powerful seraph combat mecha! Someone's in trouble!"
-	icon_state = "seraphprize"
-
-/obj/item/toy/prize/mauler
-	name = "toy mauler"
-	desc = "Mini-Mecha action figure! Collect them all! 9/11. This one is the deadly mauler combat mecha! Look out!"
-	icon_state = "maulerprize"
-
-/obj/item/toy/prize/odysseus
-	name = "toy odysseus"
-	desc = "Mini-Mecha action figure! Collect them all! 10/11. This one is the spindly, syringe-firing odysseus medical mecha."
-	icon_state = "odysseusprize"
-
-/obj/item/toy/prize/phazon
-	name = "toy phazon"
-	desc = "Mini-Mecha action figure! Collect them all! 11/11. This one is the mysterious Phazon combat mecha! Nobody's safe!"
-	icon_state = "phazonprize"
-
-
 
 /*
 || A Deck of Cards for playing various games of chance ||
@@ -970,7 +880,7 @@
 
 /obj/item/toy/plushie/attack_self(mob/user as mob)
 	var/cuddle_verb = pick("hugs","cuddles","snugs")
-	user.visible_message("<span class='notice'>[user] [cuddle_verb] the [src].</span>")
+	user.visible_message("<span class='notice'>[user] [cuddle_verb] [src].</span>")
 	playsound(get_turf(src), poof_sound, 50, 1, -1)
 	return ..()
 
@@ -1242,48 +1152,10 @@
 			user.loc.visible_message("<span class='danger'>[bicon(src)] [message]</span>")
 			sleep(10)
 
-/obj/item/toy/owl
-	name = "owl action figure"
-	desc = "An action figure modeled after 'The Owl', defender of justice."
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "owlprize"
-	w_class = WEIGHT_CLASS_SMALL
-	var/cooldown = 0
-
-/obj/item/toy/owl/attack_self(mob/user)
-	if(!cooldown) //for the sanity of everyone
-		var/message = pick("You won't get away this time, Griffin!", "Stop right there, criminal!", "Hoot! Hoot!", "I am the night!")
-		to_chat(user, "<span class='notice'>You pull the string on the [src].</span>")
-		playsound(user, 'sound/creatures/hoot.ogg', 25, 1)
-		visible_message("<span class='danger'>[bicon(src)] [message]</span>")
-		cooldown = 1
-		spawn(30) cooldown = 0
-		return
-	..()
-
-/obj/item/toy/griffin
-	name = "griffin action figure"
-	desc = "An action figure modeled after 'The Griffin', criminal mastermind."
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "griffinprize"
-	w_class = WEIGHT_CLASS_SMALL
-	var/cooldown = 0
-
-/obj/item/toy/griffin/attack_self(mob/user)
-	if(!cooldown) //for the sanity of everyone
-		var/message = pick("You can't stop me, Owl!", "My plan is flawless! The vault is mine!", "Caaaawwww!", "You will never catch me!")
-		to_chat(user, "<span class='notice'>You pull the string on the [src].</span>")
-		playsound(user, 'sound/creatures/caw.ogg', 25, 1)
-		visible_message("<span class='danger'>[bicon(src)] [message]</span>")
-		cooldown = 1
-		spawn(30) cooldown = 0
-		return
-	..()
-
 // DND Character minis. Use the naming convention (type)character for the icon states.
 /obj/item/toy/character
 	icon = 'icons/obj/toy.dmi'
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_TINY
 	pixel_z = 5
 
 /obj/item/toy/character/alien
@@ -1391,35 +1263,6 @@
 		else
 			to_chat(user, "<span class='warning'>You stop feeding \the [O] into \the [src]'s mini-input.</span>")
 	else ..()
-
-/*
- * Xenomorph action figure
- */
-
-/obj/item/toy/toy_xeno
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "toy_xeno"
-	name = "xenomorph action figure"
-	desc = "MEGA presents the new Xenos Isolated action figure! Comes complete with realistic sounds! Pull back string to use."
-	w_class = WEIGHT_CLASS_SMALL
-	bubble_icon = "alien"
-	var/cooldown = 0
-
-/obj/item/toy/toy_xeno/attack_self(mob/user)
-	if(cooldown <= world.time)
-		cooldown = (world.time + 50) //5 second cooldown
-		user.visible_message("<span class='notice'>[user] pulls back the string on [src].</span>")
-		icon_state = "[initial(icon_state)]_used"
-		sleep(5)
-		atom_say("Hiss!")
-		var/list/possible_sounds = list('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg')
-		playsound(get_turf(src), pick(possible_sounds), 50, 1)
-		spawn(45)
-			if(src)
-				icon_state = "[initial(icon_state)]"
-	else
-		to_chat(user, "<span class='warning'>The string on [src] hasn't rewound all the way!</span>")
-		return
 
 /obj/item/toy/russian_revolver
 	name = "russian revolver"
@@ -1562,7 +1405,7 @@
 	icon_state = "nuketoy"
 
 /obj/random/figure/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/figure))
+	return pick(subtypesof(/obj/item/toy/figure/crew))
 
 
 /obj/item/toy/figure
@@ -1570,241 +1413,380 @@
 	desc = "A \"Space Life\" brand... wait, what the hell is this thing?"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoy"
+	w_class = WEIGHT_CLASS_TINY
 	var/cooldown = 0
+	var/cooldown_time = 3 SECONDS
+
+/obj/item/toy/figure/attack_self(mob/user)
+	..()
+	if(cooldown < world.time)
+		cooldown = world.time + cooldown_time
+		activate(user)
+	else
+		on_cooldown(user)
+
+/obj/item/toy/figure/proc/activate(mob/user)
+	return
+
+/obj/item/toy/figure/proc/on_cooldown(mob/user)
+	return
+
+/obj/item/toy/figure/crew
 	var/toysay = "What the fuck did you do?"
 
-/obj/item/toy/figure/New()
-	..()
-	desc = "A \"Space Life\" brand [name]"
+/obj/item/toy/figure/crew/activate(mob/user)
+	atom_say(toysay)
+	playsound(user, 'sound/machines/click.ogg', 20, TRUE)
 
-/obj/item/toy/figure/attack_self(mob/user as mob)
-	if(cooldown < world.time)
-		cooldown = (world.time + 30) //3 second cooldown
-		user.visible_message("<span class='notice'>[bicon(src)] The [src] says \"[toysay]\".</span>")
-		playsound(user, 'sound/machines/click.ogg', 20, 1)
-
-/obj/item/toy/figure/cmo
-	name = "Chief Medical Officer action figure"
+/obj/item/toy/figure/crew/cmo
+	name = "\improper Chief Medical Officer action figure"
 	desc = "The ever-suffering CMO, from Space Life's SS12 figurine collection."
 	icon_state = "cmo"
 	toysay = "Suit sensors!"
 
-/obj/item/toy/figure/assistant
-	name = "Assistant action figure"
+/obj/item/toy/figure/crew/assistant
+	name = "\improper Assistant action figure"
 	desc = "The faceless, hairless scourge of the station, from Space Life's SS12 figurine collection."
 	icon_state = "assistant"
 	toysay = "Grey tide station wide!"
 
-/obj/item/toy/figure/atmos
-	name = "Atmospheric Technician action figure"
+/obj/item/toy/figure/crew/atmos
+	name = "\improper Atmospheric Technician action figure"
 	desc = "The faithful atmospheric technician, from Space Life's SS12 figurine collection."
 	icon_state = "atmos"
 	toysay = "Glory to Atmosia!"
 
-/obj/item/toy/figure/bartender
-	name = "Bartender action figure"
+/obj/item/toy/figure/crew/bartender
+	name = "\improper Bartender action figure"
 	desc = "The suave bartender, from Space Life's SS12 figurine collection."
 	icon_state = "bartender"
 	toysay = "Wheres my monkey?"
 
-/obj/item/toy/figure/borg
-	name = "Cyborg action figure"
+/obj/item/toy/figure/crew/borg
+	name = "\improper Cyborg action figure"
 	desc = "The iron-willed cyborg, from Space Life's SS12 figurine collection."
 	icon_state = "borg"
 	toysay = "I. LIVE. AGAIN."
 
-/obj/item/toy/figure/botanist
-	name = "Botanist action figure"
+/obj/item/toy/figure/crew/botanist
+	name = "\improper Botanist action figure"
 	desc = "The drug-addicted botanist, from Space Life's SS12 figurine collection."
 	icon_state = "botanist"
 	toysay = "Dude, I see colors..."
 
-/obj/item/toy/figure/captain
-	name = "Captain action figure"
+/obj/item/toy/figure/crew/captain
+	name = "\improper Captain action figure"
 	desc = "The inept captain, from Space Life's SS12 figurine collection."
 	icon_state = "captain"
 	toysay = "Crew, the Nuke Disk is safely up my ass."
 
-/obj/item/toy/figure/cargotech
-	name = "Cargo Technician action figure"
+/obj/item/toy/figure/crew/cargotech
+	name = "\improper Cargo Technician action figure"
 	desc = "The hard-working cargo tech, from Space Life's SS12 figurine collection."
 	icon_state = "cargotech"
 	toysay = "For Cargonia!"
 
-/obj/item/toy/figure/ce
-	name = "Chief Engineer action figure"
+/obj/item/toy/figure/crew/ce
+	name = "\improper Chief Engineer action figure"
 	desc = "The expert Chief Engineer, from Space Life's SS12 figurine collection."
 	icon_state = "ce"
 	toysay = "Wire the solars!"
 
-/obj/item/toy/figure/chaplain
-	name = "Chaplain action figure"
+/obj/item/toy/figure/crew/chaplain
+	name = "\improper Chaplain action figure"
 	desc = "The obsessed Chaplain, from Space Life's SS12 figurine collection."
 	icon_state = "chaplain"
 	toysay = "Gods make me a killing machine please!"
 
-/obj/item/toy/figure/chef
-	name = "Chef action figure"
+/obj/item/toy/figure/crew/chef
+	name = "\improper Chef action figure"
 	desc = "The cannibalistic chef, from Space Life's SS12 figurine collection."
 	icon_state = "chef"
 	toysay = "I swear it's not human meat."
 
-/obj/item/toy/figure/chemist
-	name = "Chemist action figure"
+/obj/item/toy/figure/crew/chemist
+	name = "\improper Chemist action figure"
 	desc = "The legally dubious Chemist, from Space Life's SS12 figurine collection."
 	icon_state = "chemist"
 	toysay = "Get your pills!"
 
-/obj/item/toy/figure/clown
-	name = "Clown action figure"
+/obj/item/toy/figure/crew/clown
+	name = "\improper Clown action figure"
 	desc = "The mischevious Clown, from Space Life's SS12 figurine collection."
 	icon_state = "clown"
 	toysay = "Honk!"
 
-/obj/item/toy/figure/ian
-	name = "Ian action figure"
+/obj/item/toy/figure/crew/ian
+	name = "\improper Ian action figure"
 	desc = "The adorable corgi, from Space Life's SS12 figurine collection."
 	icon_state = "ian"
 	toysay = "Arf!"
 
-/obj/item/toy/figure/detective
-	name = "Detective action figure"
+/obj/item/toy/figure/crew/detective
+	name = "\improper Detective action figure"
 	desc = "The clever detective, from Space Life's SS12 figurine collection."
 	icon_state = "detective"
 	toysay = "This airlock has grey jumpsuit and insulated glove fibers on it."
 
-/obj/item/toy/figure/dsquad
-	name = "Death Squad Officer action figure"
+/obj/item/toy/figure/crew/dsquad
+	name = "\improper Death Squad Officer action figure"
 	desc = "It's a member of the DeathSquad, a TV drama where loose-cannon ERT officers face up against the threats of the galaxy! It's from Space Life's special edition SS12 figurine collection."
 	icon_state = "dsquad"
 	toysay = "Eliminate all threats!"
 
-/obj/item/toy/figure/engineer
-	name = "Engineer action figure"
+/obj/item/toy/figure/crew/engineer
+	name = "\improper Engineer action figure"
 	desc = "The frantic engineer, from Space Life's SS12 figurine collection."
 	icon_state = "engineer"
 	toysay = "Oh god, the singularity is loose!"
 
-/obj/item/toy/figure/geneticist
-	name = "Geneticist action figure"
+/obj/item/toy/figure/crew/geneticist
+	name = "\improper Geneticist action figure"
 	desc = "The balding geneticist, from Space Life's SS12 figurine collection."
 	icon_state = "geneticist"
 	toysay = "I'm not qualified for this job."
 
-/obj/item/toy/figure/hop
-	name = "Head of Personnel action figure"
+/obj/item/toy/figure/crew/hop
+	name = "\improper Head of Personnel action figure"
 	desc = "The officious Head of Personnel, from Space Life's SS12 figurine collection."
 	icon_state = "hop"
 	toysay = "Papers, please!"
 
-/obj/item/toy/figure/hos
-	name = "Head of Security action figure"
+/obj/item/toy/figure/crew/hos
+	name = "\improper Head of Security action figure"
 	desc = "The bloodlust-filled Head of Security, from Space Life's SS12 figurine collection."
 	icon_state = "hos"
 	toysay = "Space law? What?"
 
-/obj/item/toy/figure/qm
-	name = "Quartermaster action figure"
+/obj/item/toy/figure/crew/qm
+	name = "\improper Quartermaster action figure"
 	desc = "The nationalistic Quartermaster, from Space Life's SS12 figurine collection."
 	icon_state = "qm"
 	toysay = "Hail Cargonia!"
 
-/obj/item/toy/figure/janitor
-	name = "Janitor action figure"
+/obj/item/toy/figure/crew/janitor
+	name = "\improper Janitor action figure"
 	desc = "The water-using Janitor, from Space Life's SS12 figurine collection."
 	icon_state = "janitor"
 	toysay = "Look at the signs, you idiot."
 
-/obj/item/toy/figure/lawyer
-	name = "Internal Affairs Agent action figure"
+/obj/item/toy/figure/crew/lawyer
+	name = "\improper Internal Affairs Agent action figure"
 	desc = "The unappreciated Internal Affairs Agent, from Space Life's SS12 figurine collection."
 	icon_state = "lawyer"
 	toysay = "Standard Operating Procedure says they're guilty! Hacking is proof they're an Enemy of the Corporation!"
 
-/obj/item/toy/figure/librarian
-	name = "Librarian action figure"
+/obj/item/toy/figure/crew/librarian
+	name = "\improper Librarian action figure"
 	desc = "The quiet Librarian, from Space Life's SS12 figurine collection."
 	icon_state = "librarian"
 	toysay = "One day while..."
 
-/obj/item/toy/figure/md
-	name = "Medical Doctor action figure"
+/obj/item/toy/figure/crew/md
+	name = "\improper Medical Doctor action figure"
 	desc = "The stressed-out doctor, from Space Life's SS12 figurine collection."
 	icon_state = "md"
 	toysay = "The patient is already dead!"
 
-/obj/item/toy/figure/mime
-	name = "Mime action figure"
+/obj/item/toy/figure/crew/mime
+	name = "\improper Mime action figure"
 	desc = "... from Space Life's SS12 figurine collection."
 	icon_state = "mime"
 	toysay = "..."
 
-/obj/item/toy/figure/miner
-	name = "Shaft Miner action figure"
+/obj/item/toy/figure/crew/miner
+	name = "\improper Shaft Miner action figure"
 	desc = "The gun-toting Shaft Miner, from Space Life's SS12 figurine collection."
 	icon_state = "miner"
 	toysay = "Oh god it's eating my intestines!"
 
-/obj/item/toy/figure/ninja
-	name = "Ninja action figure"
+/obj/item/toy/figure/crew/ninja
+	name = "\improper Ninja action figure"
 	desc = "It's the mysterious ninja! It's from Space Life's special edition SS12 figurine collection."
 	icon_state = "ninja"
 	toysay = "Oh god! Stop shooting, I'm friendly!"
 
-/obj/item/toy/figure/wizard
-	name = "Wizard action figure"
+/obj/item/toy/figure/crew/wizard
+	name = "\improper Wizard action figure"
 	desc = "It's the deadly, spell-slinging wizard! It's from Space Life's special edition SS12 figurine collection."
 	icon_state = "wizard"
 	toysay = "Ei Nath!"
 
-/obj/item/toy/figure/rd
-	name = "Research Director action figure"
+/obj/item/toy/figure/crew/rd
+	name = "\improper Research Director action figure"
 	desc = "The ambitious RD, from Space Life's SS12 figurine collection."
 	icon_state = "rd"
 	toysay = "Blowing all of the borgs!"
 
-/obj/item/toy/figure/roboticist
-	name = "Roboticist action figure"
+/obj/item/toy/figure/crew/roboticist
+	name = "\improper Roboticist action figure"
 	desc = "The skillful Roboticist, from Space Life's SS12 figurine collection."
 	icon_state = "roboticist"
 	toysay = "He asked to be borged!"
 
-/obj/item/toy/figure/scientist
-	name = "Scientist action figure"
+/obj/item/toy/figure/crew/scientist
+	name = "\improper Scientist action figure"
 	desc = "The mad Scientist, from Space Life's SS12 figurine collection."
 	icon_state = "scientist"
 	toysay = "Someone else must have made those bombs!"
 
-/obj/item/toy/figure/syndie
-	name = "Nuclear Operative action figure"
+/obj/item/toy/figure/crew/syndie
+	name = "\improper Nuclear Operative action figure"
 	desc = "It's the red-suited Nuclear Operative! It's from Space Life's special edition SS12 figurine collection."
 	icon_state = "syndie"
 	toysay = "Get that fucking disk!"
 
-/obj/item/toy/figure/secofficer
-	name = "Security Officer action figure"
+/obj/item/toy/figure/crew/secofficer
+	name = "\improper Security Officer action figure"
 	desc = "The power-tripping Security Officer, from Space Life's SS12 figurine collection."
 	icon_state = "secofficer"
 	toysay = "I am the law!"
 
-/obj/item/toy/figure/virologist
-	name = "Virologist action figure"
+/obj/item/toy/figure/crew/virologist
+	name = "\improper Virologist action figure"
 	desc = "The pandemic-starting Virologist, from Space Life's SS12 figurine collection."
 	icon_state = "virologist"
 	toysay = "It's not my virus!"
 
-/obj/item/toy/figure/warden
-	name = "Warden action figure"
+/obj/item/toy/figure/crew/warden
+	name = "\improper Warden action figure"
 	desc = "The amnesiac Warden, from Space Life's SS12 figurine collection."
 	icon_state = "warden"
 	toysay = "Execute him for breaking in!"
+
+/*
+ * Xenomorph action figure
+ */
+
+/obj/item/toy/figure/xeno
+	name = "\improper Xenomorph action figure"
+	desc = "MEGA presents the new Xenos Isolated action figure! Comes complete with realistic sounds! Pull back string to use."
+	icon_state = "toy_xeno"
+	bubble_icon = "alien"
+	cooldown_time = 5 SECONDS
+
+
+/obj/item/toy/figure/xeno/activate(mob/user)
+	user.visible_message("<span class='notice'>[user] pulls back the string on [src].</span>")
+	icon_state = "[initial(icon_state)]_used"
+	addtimer(CALLBACK(src, .proc/hiss), 0.5 SECONDS)
+
+/obj/item/toy/figure/xeno/proc/hiss()
+	atom_say("Hiss!")
+	playsound(src, get_sfx("hiss"), 50, TRUE)
+	addtimer(CALLBACK(src, .proc/reset_icon), 4.5 SECONDS)
+
+/obj/item/toy/figure/xeno/proc/reset_icon()
+	icon_state = "[initial(icon_state)]"
+
+/obj/item/toy/figure/xeno/on_cooldown(mob/user)
+	to_chat(user, "<span class='warning'>The string on [src] hasn't rewound all the way!</span>")
+
+/obj/item/toy/figure/owl
+	name = "\improper Owl action figure"
+	desc = "An action figure modeled after 'The Owl', defender of justice."
+	icon_state = "owlprize"
+
+/obj/item/toy/figure/owl/activate(mob/user)
+	var/message = pick("You won't get away this time, Griffin!", "Stop right there, criminal!", "Hoot! Hoot!", "I am the night!")
+	to_chat(user, "<span class='notice'>You pull the string on [src].</span>")
+	playsound(src, 'sound/creatures/hoot.ogg', 25, TRUE)
+	atom_say("<span class='danger'>[message]</span>")
+
+/obj/item/toy/figure/griffin
+	name = "\improper Griffin action figure"
+	desc = "An action figure modeled after 'The Griffin', criminal mastermind."
+	icon_state = "griffinprize"
+
+
+/obj/item/toy/figure/griffin/activate(mob/user)
+	var/message = pick("You can't stop me, Owl!", "My plan is flawless! The vault is mine!", "Caaaawwww!", "You will never catch me!")
+	to_chat(user, "<span class='notice'>You pull the string on [src].</span>")
+	playsound(src, 'sound/creatures/caw.ogg', 25, TRUE)
+	atom_say("<span class='danger'>[message]</span>")
+
+/*
+ * Mech prizes
+ */
+/obj/item/toy/figure/mech
+	icon_state = "ripleytoy"
+	cooldown_time = 8
+
+//all credit to skasi for toy mech fun ideas
+/obj/item/toy/figure/mech/activate(mob/user)
+	to_chat(user, "<span class='notice'>You play with [src].</span>")
+	playsound(src, 'sound/mecha/mechstep.ogg', 20, TRUE)
+
+/obj/random/mech
+	name = "Random Mech Prize"
+	desc = "This is a random prize"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "ripleytoy"
+
+/obj/random/mech/item_to_spawn()
+	return pick(subtypesof(/obj/item/toy/figure/mech)) //exclude the base type.
+
+/obj/item/toy/figure/mech/ripley
+	name = "toy Ripley"
+	desc = "Mini-Mecha action figure! Collect them all! 1/11. This one is a ripley, a mining and engineering mecha."
+
+/obj/item/toy/figure/mech/fireripley
+	name = "toy Firefighting Ripley"
+	desc = "Mini-Mecha action figure! Collect them all! 2/11. This one is a firefighter ripley, a fireproof mining and engineering mecha."
+	icon_state = "fireripleytoy"
+
+/obj/item/toy/figure/mech/deathripley
+	name = "toy Death Squad Ripley"
+	desc = "Mini-Mecha action figure! Collect them all! 3/11. This one is the black ripley used by the hero of DeathSquad, that TV drama about loose-cannon ERT officers!"
+	icon_state = "deathripleytoy"
+
+/obj/item/toy/figure/mech/gygax
+	name = "toy Gygax"
+	desc = "Mini-Mecha action figure! Collect them all! 4/11. This one is the speedy gygax combat mecha. Zoom zoom, pew pew!"
+	icon_state = "gygaxtoy"
+
+/obj/item/toy/figure/mech/durand
+	name = "toy Durand"
+	desc = "Mini-Mecha action figure! Collect them all! 5/11. This one is the heavy durand combat mecha. Stomp stomp!"
+	icon_state = "durandprize"
+
+/obj/item/toy/figure/mech/honk
+	name = "toy H.O.N.K."
+	desc = "Mini-Mecha action figure! Collect them all! 6/11. This one is the infamous H.O.N.K mech!"
+	icon_state = "honkprize"
+
+/obj/item/toy/figure/mech/marauder
+	name = "toy Marauder"
+	desc = "Mini-Mecha action figure! Collect them all! 7/11. This one is the powerful marauder combat mecha! Run for cover!"
+	icon_state = "marauderprize"
+
+/obj/item/toy/figure/mech/seraph
+	name = "toy Seraph"
+	desc = "Mini-Mecha action figure! Collect them all! 8/11. This one is the powerful seraph combat mecha! Someone's in trouble!"
+	icon_state = "seraphprize"
+
+/obj/item/toy/figure/mech/mauler
+	name = "toy Mauler"
+	desc = "Mini-Mecha action figure! Collect them all! 9/11. This one is the deadly mauler combat mecha! Look out!"
+	icon_state = "maulerprize"
+
+/obj/item/toy/figure/mech/odysseus
+	name = "toy Odysseus"
+	desc = "Mini-Mecha action figure! Collect them all! 10/11. This one is the spindly, syringe-firing odysseus medical mecha."
+	icon_state = "odysseusprize"
+
+/obj/item/toy/figure/mech/phazon
+	name = "toy Phazon"
+	desc = "Mini-Mecha action figure! Collect them all! 11/11. This one is the mysterious Phazon combat mecha! Nobody's safe!"
+	icon_state = "phazonprize"
+
 
 //////////////////////////////////////////////////////
 //				Magic 8-Ball / Conch				//
 //////////////////////////////////////////////////////
 
 /obj/item/toy/eight_ball
-	name = "Magic 8-Ball"
+	name = "\improper Magic 8-Ball"
 	desc = "Mystical! Magical! Ages 8+!"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "eight-ball"
@@ -1816,13 +1798,13 @@
 	if(!cooldown)
 		var/answer = pick(possible_answers)
 		user.visible_message("<span class='notice'>[user] focuses on [user.p_their()] question and [use_action]...</span>")
-		user.visible_message("<span class='notice'>[bicon(src)] The [src] says \"[answer]\"</span>")
+		user.visible_message("<span class='notice'>[bicon(src)] [src] says \"[answer]\"</span>")
 		spawn(30)
 			cooldown = 0
 		return
 
 /obj/item/toy/eight_ball/conch
-	name = "Magic Conch Shell"
+	name = "\improper Magic Conch Shell"
 	desc = "All hail the Magic Conch!"
 	icon_state = "conch"
 	use_action = "pulls the string"

@@ -91,10 +91,6 @@
 	new /obj/structure/table_frame/wood(loc)
 	qdel(src)
 
-/obj/structure/table_frame/ratvar_act()
-	new /obj/structure/table_frame/brass(loc)
-	qdel(src)
-
 /*
  * Wooden Frames
  */
