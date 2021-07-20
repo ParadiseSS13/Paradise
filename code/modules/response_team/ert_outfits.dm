@@ -512,7 +512,7 @@
 /datum/outfit/job/centcom/response_team/janitorial/gamma
 	name = "RT Janitor (Gamma)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor/gamma
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	glasses = /obj/item/clothing/glasses/night
 	suit_store = /obj/item/gun/energy/gun
 	r_pocket = /obj/item/scythe/tele
 	shoes = /obj/item/clothing/shoes/magboots/advance
