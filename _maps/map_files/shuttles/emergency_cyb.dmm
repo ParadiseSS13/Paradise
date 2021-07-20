@@ -337,7 +337,7 @@
 "be" = (
 /obj/machinery/door/airlock/titanium/glass{
 	name = "Emergency Airlock Access";
-	req_one_access_txt = "2;19"
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -367,7 +367,7 @@
 "bj" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access_txt = "2"
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -473,7 +473,7 @@
 "bC" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
-	req_one_access_txt = "2;19"
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;

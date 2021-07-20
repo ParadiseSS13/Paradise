@@ -20,7 +20,7 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/space)
 "ag" = (
-/obj/item/toy/figure/syndie,
+/obj/item/toy/figure/crew/syndie,
 /turf/simulated/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
 "ai" = (
@@ -9310,7 +9310,7 @@
 "HP" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access_txt = "2"
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -10333,7 +10333,7 @@
 "Of" = (
 /obj/machinery/door/airlock/titanium/glass{
 	name = "Emergency Airlock Access";
-	req_one_access_txt = "2;19"
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -11621,7 +11621,7 @@
 "Wh" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
-	req_one_access_txt = "2;19"
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;

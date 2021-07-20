@@ -2219,7 +2219,7 @@
 	pixel_x = 27;
 	pixel_y = 29
 	},
-/obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/suit_storage_unit/security/hos,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -24428,7 +24428,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/toy/figure/cargotech,
+/obj/item/toy/figure/crew/cargotech,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -30265,7 +30265,7 @@
 	})
 "bnL" = (
 /obj/structure/table,
-/obj/item/toy/figure/clown,
+/obj/item/toy/figure/crew/clown,
 /obj/item/reagent_containers/food/snacks/baguette,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -35946,7 +35946,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-/obj/item/toy/figure/captain,
+/obj/item/toy/figure/crew/captain,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
@@ -46649,7 +46649,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bUp" = (
-/obj/item/toy/figure/mime,
+/obj/item/toy/figure/crew/mime,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -48134,7 +48134,7 @@
 /area/crew_quarters/theatre)
 "bXq" = (
 /obj/machinery/light/small,
-/obj/item/toy/prize/honk{
+/obj/item/toy/figure/mech/honk{
 	pixel_y = 12
 	},
 /obj/structure/table/wood,
@@ -53561,14 +53561,11 @@
 	},
 /area/atmos)
 "ciX" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
 /obj/machinery/light{
 	dir = 1;
 	on = 1
 	},
+/obj/structure/closet/crate/freezer/iv_storage,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -58845,14 +58842,10 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/explab)
 "ctT" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
+/obj/structure/closet/crate/freezer/iv_storage,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -60113,12 +60106,6 @@
 /area/maintenance/incinerator)
 "cwC" = (
 /obj/structure/table,
-/obj/item/reagent_containers/iv_bag/blood/AMinus,
-/obj/item/reagent_containers/iv_bag/blood/APlus,
-/obj/item/reagent_containers/iv_bag/blood/BMinus,
-/obj/item/reagent_containers/iv_bag/blood/BPlus,
-/obj/item/reagent_containers/iv_bag/blood/OPlus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -24
@@ -64689,15 +64676,9 @@
 /area/medical/genetics_cloning)
 "cGi" = (
 /obj/structure/table,
-/obj/item/reagent_containers/iv_bag/blood/AMinus,
-/obj/item/reagent_containers/iv_bag/blood/APlus,
-/obj/item/reagent_containers/iv_bag/blood/BMinus,
-/obj/item/reagent_containers/iv_bag/blood/BPlus,
-/obj/item/reagent_containers/iv_bag/blood/OPlus,
 /obj/machinery/alarm{
 	pixel_y = 23
 	},
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
@@ -66927,14 +66908,10 @@
 	name = "\improper Toxins Lab"
 	})
 "cKz" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
+/obj/structure/closet/crate/freezer/iv_storage,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -82963,14 +82940,11 @@
 	name = "\improper Auxiliary Restrooms"
 	})
 "umT" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
 /obj/machinery/light{
 	dir = 1;
 	on = 1
 	},
+/obj/structure/closet/crate/freezer/iv_storage,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"

@@ -155,7 +155,7 @@
 "aI" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access_txt = "2"
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)

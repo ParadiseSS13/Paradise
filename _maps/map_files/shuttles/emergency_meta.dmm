@@ -386,7 +386,7 @@
 "bj" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig";
-	req_access_txt = "2"
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
