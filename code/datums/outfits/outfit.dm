@@ -111,6 +111,8 @@
 
 		for(var/path in backpack_contents)
 			var/number = backpack_contents[path]
+			if(!number)
+				number = 1
 			for(var/i in 1 to number)
 				H.equip_or_collect(new path(H), slot_in_backpack)
 

@@ -127,11 +127,13 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			continue
 		if(M == src)
 			continue
+		if(M.get_preference(PREFTOGGLE_DISABLE_KARMA))
+			continue
 		if(!isobserver(src) && isNonCrewAntag(M))
 			continue // Don't include special roles for non-observers, because players use it to meta
 		karma_list += M
 
-	if(!karma_list.len)
+	if(!length(karma_list))
 		to_chat(usr, "<span class='warning'>There's no-one to spend your karma on.</span>")
 		return
 

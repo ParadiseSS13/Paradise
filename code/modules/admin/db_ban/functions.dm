@@ -414,6 +414,7 @@
 	qdel(query_update)
 
 	message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban.")
+	log_admin("[key_name(usr)] has lifted [pckey]'s ban.")
 	flag_account_for_forum_sync(pckey)
 
 
