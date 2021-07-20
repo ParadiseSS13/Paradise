@@ -534,9 +534,8 @@ in the SQL/updates folder.
   * Engine areas, or areas with a high probability of receiving explosions, should use reinforced flooring if appropriate.
   * External areas, or areas where depressurisation is expected and normal, should use airless turf variants to prevent additional atmospherics load.
   * Edits in mapping tools should generally be possible to replicate in-game. For this reason, avoid stacking multiple structures on the same tile (i.e. placing a light and an APC on the same wall.)
-  * Code should be modular where possible; if you are working on a new addition, then strongly consider putting it in its own file unless it makes sense to put it with similar ones (i.e. a new tool would go in the "tools.dm" file)
-
 ### Other Notes
+* Code should be modular where possible; if you are working on a new addition, then strongly consider putting it in its own file unless it makes sense to put it with similar ones (i.e. a new tool would go in the "tools.dm" file)
 * Bloated code may be necessary to add a certain feature, which means there has to be a judgement over whether the feature is worth having or not. You can help make this decision easier by making sure your code is modular.
 
 * You are expected to help maintain the code that you add, meaning that if there is a problem then you are likely to be approached in order to fix any issues, runtimes, or bugs.
