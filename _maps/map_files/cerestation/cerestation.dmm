@@ -3362,7 +3362,7 @@
 /area/crew_quarters/captain)
 "aqc" = (
 /obj/structure/table/wood,
-/obj/item/toy/figure/captain,
+/obj/item/toy/figure/crew/captain,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "aqd" = (
@@ -36814,7 +36814,7 @@
 /area/hallway/spacebridge/dockmed)
 "cch" = (
 /obj/structure/table,
-/obj/item/toy/figure/clown,
+/obj/item/toy/figure/crew/clown,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -53686,13 +53686,6 @@
 	slowdown = -0.3
 	},
 /area/hallway/spacebridge/engmed)
-"cWR" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 5
-	},
-/turf/space,
-/area/space/nearstation)
 "cWT" = (
 /turf/simulated/wall/r_wall,
 /area/hallway/spacebridge/engmed)
@@ -59330,7 +59323,7 @@
 "dzH" = (
 /obj/structure/table/glass,
 /obj/item/clipboard,
-/obj/item/toy/figure/virologist,
+/obj/item/toy/figure/crew/virologist,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
@@ -60604,7 +60597,7 @@
 	known_by = list("captain")
 	},
 /obj/item/lighter/zippo/nt_rep,
-/obj/item/toy/figure/captain,
+/obj/item/toy/figure/crew/captain,
 /obj/item/gun/projectile/revolver/russian,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 /turf/simulated/floor/wood,
@@ -64736,14 +64729,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
-"gyQ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
-	},
-/area/medical/medbay)
 "gzl" = (
 /obj/machinery/poolcontroller{
 	pixel_y = -25;
@@ -104437,7 +104422,7 @@ cdb
 rNK
 rNK
 biI
-cWR
+eVf
 cqk
 cqj
 crj
@@ -104950,7 +104935,7 @@ ccW
 cdb
 biK
 bnQ
-cWR
+eVf
 dcG
 cqk
 cql
@@ -105464,7 +105449,7 @@ ccW
 cdb
 biK
 bnQ
-cWR
+eVf
 dcG
 cqk
 cqm
@@ -125433,7 +125418,7 @@ dcG
 biI
 eVf
 biI
-cWR
+eVf
 biI
 eVf
 bhd
@@ -129031,9 +129016,9 @@ bhQ
 dcG
 biI
 bnQ
-cWR
+eVf
 biI
-cWR
+eVf
 bhd
 hVj
 bsd
@@ -146512,7 +146497,7 @@ bnj
 bij
 byY
 dAf
-gyQ
+kDr
 btX
 bvJ
 bwR
