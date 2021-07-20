@@ -123,7 +123,7 @@ const AirStatus = (props, context) => {
                 selected={air.thermostat_state}
                 icon="power-off"
                 onClick={
-                  () => act('thermostat_state', { val: (air.thermostat_state === 1 ? 0 : 1) })
+                  () => act('thermostat_state')
                 } />
             </Box>
           </LabeledList.Item>

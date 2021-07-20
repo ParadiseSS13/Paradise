@@ -339,6 +339,7 @@
 
 			if(target_temperature < MIN_TEMPERATURE)
 				target_temperature = MIN_TEMPERATURE
+
 			if(thermostat_state == TRUE)
 				var/heat_capacity = gas.heat_capacity()
 				var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
@@ -355,7 +356,7 @@
 
 				if(abs(environment.temperature - target_temperature) <= 0.5)
 					regulating_temperature = FALSE
-					visible_message("\The [src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
+					visible_message("[src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
 
 			environment.merge(gas)
 
@@ -934,7 +935,7 @@
 				target_temperature = input_temperature
 
 		if("thermostat_state")
-			thermostat_state = text2num(params["val"])
+			thermostat_state = !thermostat_state
 
 /obj/machinery/alarm/emag_act(mob/user)
 	if(!emagged)
