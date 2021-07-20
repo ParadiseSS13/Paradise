@@ -190,11 +190,11 @@
 	return output
 
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/inject_reagent(datum/reagent/R,obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/SG)
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/inject_reagent(datum/reagent/R, obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/SG)
 	if(!R || !patient || !SG || !(SG in chassis.equipment))
 		return 0
 	var/to_inject = min(R.volume, inject_amount)
-	if(to_inject && patient.reagents.get_reagent_amount(R.type) + to_inject <= inject_amount*2)
+	if(to_inject && patient.reagents.get_reagent_amount(R.type) + to_inject <= inject_amount * 2)
 		occupant_message("Injecting [patient] with [to_inject] units of [R.name].")
 		log_message("Injecting [patient] with [to_inject] units of [R.name].")
 		add_attack_logs(chassis.occupant, patient, "Injected with [name] containing [R], transferred [to_inject] units", R.harmless ? ATKLOG_ALMOSTALL : null)

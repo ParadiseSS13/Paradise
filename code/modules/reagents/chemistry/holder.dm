@@ -213,14 +213,13 @@
 	handle_reactions()
 
 /datum/reagents/proc/trans_reagent_to(obj/target, reagent, amount = 1, preserve_data = TRUE) //Not sure why this proc didn't exist before. It does now! /N
-	if(!target)
-		return
-	if(!target.reagents || total_volume <= 0 || !get_reagent_amount(reagent))
+	var/real_amount = get_reagent_amount(reagent)
+	if(!target || !target.reagents || total_volume <= 0 || !real_amount)
 		return
 
 	var/datum/reagents/R = target.reagents
-	if(get_reagent_amount(reagent) < amount)
-		amount = get_reagent_amount(reagent)
+	if(real_amount < amount)
+		amount = real_amount
 	amount = min(amount, R.maximum_volume - R.total_volume)
 	var/trans_data = null
 	for(var/A in reagent_list)
@@ -650,6 +649,8 @@
 		CRASH("remove_reagent() called with a non-path `reagent`. reagent: [reagent]")
 	if(!isnum(amount))
 		CRASH("remove_reagent() called with a non-number `amount`. amount: [amount]")
+	if(amount <= 0)
+		return
 
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A

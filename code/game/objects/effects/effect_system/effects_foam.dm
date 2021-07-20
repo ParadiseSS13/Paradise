@@ -158,10 +158,9 @@
 						continue
 					var/datum/reagent/reagent_volume = carried_reagents[reagent]
 					F.reagents.add_reagent(reagent, min(reagent_volume, 5), null, temperature)
-				F.color = mix_color_from_reagents(F.reagents.reagent_list)
 			else
 				F.reagents.add_reagent(/datum/reagent/space_cleaner, 1)
-				F.color = mix_color_from_reagents(F.reagents.reagent_list)
+			F.color = mix_color_from_reagents(F.reagents.reagent_list)
 
 // wall formed by metal foams
 // dense and opaque, but easy to break

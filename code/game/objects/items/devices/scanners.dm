@@ -239,7 +239,7 @@ REAGENT SCANNER
 			if(R)
 				blood_type = R.name
 			else
-				blood_type = blood_path
+				blood_type = "Unknown"
 		if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
 			to_chat(user, "<span class='danger'>LOW blood level [blood_percent] %, [H.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>")
 		else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
@@ -475,14 +475,13 @@ REAGENT SCANNER
 
 	if(!isnull(O.reagents))
 		var/dat = ""
-		var/blood_type = ""
 		if(O.reagents.reagent_list.len > 0)
 			var/one_percent = O.reagents.total_volume / 100
 			for(var/datum/reagent/R in O.reagents.reagent_list)
 				if(R.type != /datum/reagent/blood)
 					dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
 				else
-					blood_type = R.data["blood_type"]
+					var/blood_type = R.data["blood_type"]
 					dat += "<br>[TAB]<span class='notice'>[R][blood_type ? " [blood_type]" : ""][details ? ": [R.volume / one_percent]%" : ""]</span>"
 		if(dat)
 			to_chat(user, "<span class='notice'>Chemicals found: [dat]</span>")

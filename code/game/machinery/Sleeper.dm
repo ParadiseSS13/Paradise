@@ -265,9 +265,9 @@
 			if(occupant.stat == DEAD)
 				to_chat(usr, "<span class='danger'>This person has no life to preserve anymore. Take [occupant.p_them()] to a department capable of reanimating them.</span>")
 				return
-			var/chemical = params["chemtype"]
+			var/chemical = text2path(params["chemtype"])
 			var/amount = text2num(params["amount"])
-			if(!length(chemical) || amount <= 0)
+			if(!chemical || amount <= 0)
 				return
 			if(occupant.health > min_health || (chemical in emergency_chems))
 				inject_chemical(usr, chemical, amount)
