@@ -265,6 +265,8 @@
 	for(var/mob/living/carbon/C in hearers(4))
 		if(C == user)
 			continue
+		if(!affects(C))
+			continue
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
 			if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
@@ -275,8 +277,6 @@
 				C.Stuttering(10)
 				C.Jitter(50)
 				continue
-		if(!affects(C))
-			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear an ear piercing shriek and your senses dull!</font></b></span>")
 		C.Weaken(4)
 		C.AdjustEarDamage(0, 20)
