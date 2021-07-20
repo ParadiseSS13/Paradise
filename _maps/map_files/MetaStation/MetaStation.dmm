@@ -431,9 +431,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -1242,8 +1239,8 @@
 	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkredfull"
+	dir = 9;
+	icon_state = "warndark"
 	},
 /area/security/permabrig)
 "aey" = (
@@ -1287,8 +1284,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkredfull"
+	dir = 9;
+	icon_state = "warndark"
 	},
 /area/security/permabrig)
 "aeA" = (
@@ -4391,15 +4388,13 @@
 	pixel_x = -26;
 	pixel_y = 28
 	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -22
 	},
+/obj/structure/table/reinforced,
+/obj/item/radio,
+/obj/item/flashlight,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4850,15 +4845,15 @@
 	},
 /area/security/main)
 "alE" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
 /obj/machinery/light_switch{
 	name = "light switch ";
 	pixel_y = -22
 	},
 /obj/structure/table/reinforced,
 /obj/item/book/manual/security_space_law,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4885,18 +4880,39 @@
 	},
 /area/security/main)
 "alI" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Security Pods";
+	req_access_txt = "71"
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/security/podbay)
 "alK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5130,14 +5146,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
-"amo" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fore)
 "amq" = (
 /obj/structure/table,
 /obj/item/restraints/handcuffs,
@@ -5359,47 +5367,32 @@
 	},
 /area/security/main)
 "amI" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	name = "Security Pods";
-	req_access_txt = "71"
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/machinery/light/small{
+	dir = 1
 	},
-/area/security/podbay)
+/turf/simulated/floor/plating,
+/area/maintenance/fore)
 "amJ" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -5415,21 +5408,20 @@
 /turf/simulated/floor/plating,
 /area/security/warden)
 "amL" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 3;
+	name = "3maintenance loot spawner"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
 	},
-/area/security/podbay)
+/turf/simulated/floor/plating,
+/area/maintenance/fore)
 "amM" = (
 /obj/machinery/computer/secure_data,
 /obj/structure/cable/yellow{
@@ -5490,14 +5482,20 @@
 	},
 /area/security/main)
 "amV" = (
-/obj/structure/table/reinforced,
-/obj/item/spacepod_key{
-	id = 100000
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
 	},
-/area/security/podbay)
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fore)
 "amW" = (
 /obj/machinery/light{
 	dir = 1
@@ -5519,16 +5517,13 @@
 	name = "\improper Recreation Area"
 	})
 "amX" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = -4;
-	pixel_y = 10
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/obj/item/pen,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/podbay)
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/maintenance/fore)
 "amZ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -8487,9 +8482,6 @@
 /obj/item/storage/secure/briefcase,
 /turf/simulated/floor/plasteel,
 /area/security/main)
-"atF" = (
-/turf/simulated/wall/r_wall,
-/area/maintenance/fore)
 "atG" = (
 /obj/structure/table,
 /obj/item/folder/red,
@@ -9692,19 +9684,6 @@
 	icon_state = "dark"
 	},
 /area/security/brig)
-"awl" = (
-/obj/structure/table,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/maintenance/fore)
-"awm" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/maintenance/fore)
 "awn" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -9727,8 +9706,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "awp" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/r_wall,
 /area/maintenance/fore)
 "awq" = (
 /obj/structure/cable/yellow{
@@ -46078,12 +46056,11 @@
 	},
 /area/medical/paramedic)
 "bTf" = (
-/obj/structure/table/reinforced,
-/obj/item/flashlight,
-/obj/item/radio,
-/obj/machinery/camera{
-	c_tag = "Engineering Equipment East";
-	dir = 8
+/obj/machinery/computer/security{
+	network = list("SS13","Research Outpost","Mining Outpost")
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -46094,6 +46071,12 @@
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
+	},
+/obj/effect/landmark/start{
+	name = "Security Pod Pilot"
+	},
+/obj/structure/chair/office/dark{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -76219,8 +76202,15 @@
 	name = "\improper Secure Lab"
 	})
 "deC" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = -4;
+	pixel_y = 10
+	},
+/obj/item/pen,
+/obj/machinery/camera{
+	c_tag = "Engineering Equipment East";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -76267,11 +76257,9 @@
 /turf/simulated/wall,
 /area/maintenance/maintcentral)
 "deG" = (
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
-/obj/effect/landmark/start{
-	name = "Security Pod Pilot"
+/obj/structure/table/reinforced,
+/obj/item/spacepod_key{
+	id = 100000
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -76357,6 +76345,17 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -80392,15 +80391,6 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
-"msg" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/podbay)
 "myY" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -82410,7 +82400,7 @@
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
 	id = "whiteship_cerebron";
-	name = "North of Cerebron"
+	name = "South of Cerebron"
 	},
 /turf/space,
 /area/space)
@@ -83711,8 +83701,15 @@
 	name = "Medbay Storage"
 	})
 "xbe" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -83910,13 +83907,13 @@
 	},
 /area/chapel/main)
 "xXW" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -112009,7 +112006,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+sDC
 aaa
 aaa
 aaa
@@ -115953,7 +115950,7 @@ aaa
 aaa
 aaa
 aaa
-sDC
+aaa
 aaa
 aaa
 aaa
@@ -115974,8 +115971,8 @@ aid
 aid
 aid
 alI
-amI
 aid
+atK
 atK
 atK
 apF
@@ -116231,14 +116228,14 @@ afr
 akC
 akO
 alK
-amL
 aid
 alq
 alq
 alq
 alq
 alq
-atK
+alq
+alq
 awd
 awJ
 atK
@@ -116488,15 +116485,15 @@ mcY
 poJ
 xXW
 xbe
-msg
 aid
 alq
 alq
 alq
 alq
 alq
-atF
-awl
+alq
+alq
+awp
 arR
 amO
 avl
@@ -116506,7 +116503,7 @@ aze
 aAx
 aCA
 akD
-aEg
+amL
 alW
 ajg
 aBI
@@ -116744,7 +116741,6 @@ xOM
 agj
 azE
 bPL
-azE
 alE
 aid
 alq
@@ -116752,9 +116748,10 @@ alq
 alq
 alq
 alq
-atF
-alW
-azL
+alq
+alq
+awp
+amI
 amO
 avm
 awG
@@ -116763,7 +116760,7 @@ aze
 aBG
 aAy
 akD
-aEg
+amV
 caj
 ajg
 aKW
@@ -117002,15 +116999,15 @@ afr
 aBK
 bTg
 deG
-amV
 aid
 alq
 alq
 alq
 alq
 alq
-atF
-amo
+alq
+alq
+awp
 azL
 amO
 avn
@@ -117020,7 +117017,7 @@ aze
 aAz
 aze
 akD
-aEg
+amX
 alW
 ajg
 aId
@@ -117259,14 +117256,14 @@ aid
 ays
 bTf
 deC
-amX
 aid
 alq
 alq
 alq
 alq
 alq
-atF
+alq
+alq
 awp
 dFD
 amO
@@ -117517,14 +117514,14 @@ aid
 aid
 aid
 aid
-aid
 alq
 alq
 alq
 alq
 alq
-atF
-awm
+alq
+alq
+awp
 asA
 ayG
 ayG
@@ -117773,15 +117770,15 @@ aaa
 abq
 abq
 abq
-abq
-aid
+aWA
+bre
 anQ
 anQ
 apI
 anQ
 anQ
 anQ
-avv
+anQ
 asu
 avv
 avv
@@ -131608,7 +131605,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+vgQ
 aaa
 aaa
 aaa
