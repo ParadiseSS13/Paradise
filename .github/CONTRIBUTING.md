@@ -513,10 +513,11 @@ in the SQL/updates folder.
 
   * Decals are to be used sparingly. Good map design does not require warning tape around everything. Decal overuse contributes to maptick slowdown.
   * Every **area** should contain only one APC and air alarm.
-    * Critical infrastructure rooms, such as the engine, should be given an APC with a larger power cell.
+    * Critical infrastructure rooms (such as the engine, arrivals, and medbay areas) should be given an APC with a larger power cell.
   * Every **room** should contain at least one fire alarm, air vent and scrubber, light switch, station intercom, and security camera.
     * Intercoms should be set to frequency 145.9, and be speaker ON Microphone OFF. This is so radio signals can reach people even without headsets on. Larger room will require more than one at a time.
     * Exceptions can be made to security camera placement for certain rooms, such as the execution room. Larger rooms may require more than one security camera. All security cameras should have a descriptive name that makes it easy to find on a camera console.
+      * A good example would be the template [Department name] - [Area], so Brig - Cell 1, or Medbay - Treatment Center. Consistency is key to good camera naming.
     * Fire alarms should not be placed next to expected heat sources.
     * Use the following "on" subtype of vents and scrubbers as opposed to var-editing: `/obj/machinery/atmospherics/unary/vent_scrubber/on` and `/obj/machinery/atmospherics/unary/vent_pump/on`
   * Head of staff officers should contain a requests console.
