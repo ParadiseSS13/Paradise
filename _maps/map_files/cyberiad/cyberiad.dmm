@@ -30374,7 +30374,6 @@
 	},
 /area/crew_quarters/kitchen)
 "boh" = (
-/obj/machinery/computer/brigcells,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellowcorners"
