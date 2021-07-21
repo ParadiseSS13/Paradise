@@ -113,6 +113,7 @@
 	new /obj/item/clothing/head/HoS/beret(src)
 	new /obj/item/clothing/suit/mantle/armor(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
+	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/storage/lockbox/mindshield(src)
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/holosign_creator/security(src)
