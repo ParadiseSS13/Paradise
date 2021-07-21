@@ -28,7 +28,7 @@
 	icon_state = "cecloak"
 
 /obj/item/clothing/neck/cloak/chief_engineer/white
-	name = "chief engineer's cloak"
+	name = "chief engineer's white cloak"
 	desc = "Worn by the leader of both Atmosia and Delamistan, wielder of unlimited power. This one is white."
 	icon_state = "cecloak_white"
 
