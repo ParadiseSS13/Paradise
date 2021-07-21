@@ -286,7 +286,7 @@
 	for(var/obj/structure/window/W in view(4))
 		W.deconstruct(FALSE)
 	for(var/obj/machinery/light/L in view(6))
-		L.deconstruct(FALSE)
+		L.break_light_tube()
 	playsound(user.loc, 'sound/effects/creepyshriek.ogg', 100, 1)
 
 
