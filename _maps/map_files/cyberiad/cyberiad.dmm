@@ -21609,23 +21609,17 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1;
-	initialize_directions = 11
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -34486,6 +34480,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42741,13 +42740,12 @@
 	},
 /area/medical/reception)
 "bOE" = (
-/obj/machinery/porta_turret,
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/structure/table,
+/obj/item/aiModule/reset,
+/turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bOF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -42769,7 +42767,10 @@
 	},
 /area/medical/chemistry)
 "bOH" = (
-/obj/machinery/computer/aiupload,
+/obj/machinery/light_switch{
+	pixel_y = 27
+	},
+/obj/machinery/computer/borgupload,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -42799,31 +42800,17 @@
 	},
 /area/crew_quarters/captain/bedroom)
 "bOM" = (
-/obj/machinery/porta_turret,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/structure/table,
+/obj/item/aiModule/nanotrasen,
+/turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bON" = (
 /turf/simulated/wall,
 /area/crew_quarters/captain)
-"bOO" = (
-/obj/machinery/camera/motion{
-	c_tag = "AI Upload Chamber"
-	},
-/obj/machinery/light_switch{
-	pixel_y = 27
-	},
-/obj/machinery/computer/borgupload,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/turret_protected/ai_upload)
 "bOP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -45135,24 +45122,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/medbay2)
-"bTi" = (
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	dir = 1;
-	name = "north bump Important Area";
-	pixel_y = 24
-	},
-/obj/structure/table,
-/obj/item/phone{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai_upload)
 "bTj" = (
 /obj/structure/safe/floor{
 	known_by = list("captain")
@@ -45687,10 +45656,20 @@
 	},
 /area/medical/surgery1)
 "bUv" = (
+/obj/machinery/power/apc{
+	cell_type = 5000;
+	dir = 1;
+	name = "north bump Important Area";
+	pixel_y = 24
+	},
+/obj/structure/table,
+/obj/item/phone{
+	pixel_x = -3;
+	pixel_y = 3
+	},
 /obj/structure/cable{
-	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2"
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
@@ -45699,8 +45678,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "bUz" = (
+/obj/machinery/computer/aiupload,
+/obj/machinery/camera{
+	c_tag = "AI Upload Chamber"
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/turret_protected/ai_upload)
 "bUA" = (
@@ -47160,7 +47144,9 @@
 /obj/item/aiModule/corp,
 /obj/item/aiModule/paladin,
 /obj/item/aiModule/robocop,
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/turret_protected/ai_upload)
 "bXu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -84224,7 +84210,9 @@
 /obj/item/aiModule/oneCrewMember,
 /obj/item/aiModule/purge,
 /obj/item/aiModule/antimov,
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/turret_protected/ai_upload)
 "kcS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -84795,14 +84783,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"oSM" = (
-/obj/structure/table,
-/obj/item/aiModule/protectStation,
-/obj/item/aiModule/nanotrasen,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai_upload)
 "paA" = (
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/engine,
@@ -85674,13 +85654,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"xKj" = (
-/obj/structure/table,
-/obj/item/aiModule/reset,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai_upload)
 "xOn" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
@@ -113632,7 +113605,7 @@ aaa
 aaa
 aaa
 aaa
-ybR
+aaa
 ybR
 ybR
 ybR
@@ -113888,9 +113861,9 @@ bxm
 bxm
 aaa
 aaa
+aaa
 ybR
 ybR
-xKj
 rLf
 nIF
 bXt
@@ -114145,9 +114118,9 @@ bFD
 bxm
 aaa
 aaa
+aaa
 ybR
 bOE
-cbi
 bSf
 cbi
 lmm
@@ -114402,8 +114375,8 @@ bFE
 bxm
 aaa
 aaa
+aaa
 ybR
-bOH
 bUz
 bSh
 cbi
@@ -114659,8 +114632,8 @@ bFN
 bxm
 aaa
 aaa
+aaa
 ybR
-bTi
 bUv
 bVj
 bVO
@@ -114916,9 +114889,9 @@ fAv
 bxm
 aaa
 aaa
+aaa
 ybR
-bOO
-bUz
+bOH
 bSl
 cbi
 mvf
@@ -115173,9 +115146,9 @@ bFP
 bxm
 aaa
 aaa
+aaa
 ybR
 bOM
-cbi
 bSk
 cbi
 hul
@@ -115430,9 +115403,9 @@ bxm
 bxm
 aaa
 aaa
+aaa
 ybR
 ybR
-oSM
 kCQ
 pzH
 kcl
@@ -115688,7 +115661,7 @@ aaa
 aaa
 aaa
 aaa
-ybR
+aaa
 ybR
 ybR
 ybR
