@@ -36357,6 +36357,8 @@
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "bBu" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/effect/decal/warning_stripes/white/hollow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -36788,6 +36790,8 @@
 	},
 /area/hallway/primary/central/west)
 "bCG" = (
+/obj/structure/dispenser/oxygen,
+/obj/effect/decal/warning_stripes/white/hollow,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -37137,7 +37141,15 @@
 	},
 /area/hallway/primary/starboard/east)
 "bDs" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/tank/jetpack/carbondioxide,
+/obj/item/clothing/shoes/magboots{
+	pixel_x = -3;
+	pixel_y = -3
+	},
 /obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -38868,21 +38880,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
-"bHg" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/tank/jetpack/carbondioxide,
-/obj/item/clothing/shoes/magboots{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/effect/decal/warning_stripes/white/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ai_monitored/storage/eva)
 "bHh" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -83494,7 +83491,15 @@
 /turf/space,
 /area/space/nearstation)
 "ekf" = (
-/obj/structure/dispenser/oxygen,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/tank/jetpack/carbondioxide,
+/obj/item/clothing/shoes/magboots{
+	pixel_x = -3;
+	pixel_y = -3
+	},
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/structure/cable{
 	d1 = 4;
@@ -84301,27 +84306,17 @@
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "kwt" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
-/obj/item/tank/jetpack/carbondioxide,
-/obj/item/clothing/shoes/magboots{
-	pixel_x = -3;
-	pixel_y = -3
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/obj/effect/decal/warning_stripes/white/hollow,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -111691,7 +111686,7 @@ bAA
 bLa
 byH
 bJH
-bHg
+bJH
 kwt
 bJH
 jiT
