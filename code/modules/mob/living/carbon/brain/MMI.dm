@@ -261,7 +261,7 @@
 	origin_tech = "biotech=4;programming=4;syndicate=2"
 	syndiemmi = TRUE
 
-/obj/item/mmi/syndie/attack_self(mob/user as mob)
+/obj/item/mmi/syndie/attack_self(mob/user)
 	if(ishuman(user) && !mindslave_master)
 		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
 		mindslave_master = user
@@ -269,13 +269,13 @@
 	else
 		..()
 
-/obj/item/mmi/syndie/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/item/mmi/syndie/attackby(obj/item/O, mob/user, params)
 	if(ishuman(user) && !mindslave_master && istype(O,/obj/item/organ/internal/brain))
 		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
 		mindslave_master = user
 	..()
 
-/obj/item/mmi/syndie/become_occupied(/new_icon)
+/obj/item/mmi/syndie/become_occupied(new_icon)
 	..()
 	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave) //Overrides any previous mindslaving
 	if(mindslave_master)
@@ -297,7 +297,7 @@
 	else //edgecase/adminfuckery handling, shouldn't happen
 		to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will. You are now loyal to the Syndicate! Assist Syndicate Agents to the best of your abilities.</span>")
 
-/obj/item/mmi/syndie/dropbrain(/turf/dropspot)
+/obj/item/mmi/syndie/dropbrain(turf/dropspot)
 	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave)
 	to_chat(brainmob, "<span class='userdanger'>You are no longer a mindslave: You have complete and free control of your own faculties once more!</span>")
 	..()
