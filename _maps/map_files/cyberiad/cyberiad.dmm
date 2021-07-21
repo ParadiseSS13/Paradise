@@ -30374,6 +30374,7 @@
 	},
 /area/crew_quarters/kitchen)
 "boh" = (
+/obj/machinery/computer/brigcells,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellowcorners"
@@ -31640,7 +31641,7 @@
 	},
 /area/bridge)
 "bqV" = (
-/obj/machinery/computer/shuttle/mining,
+/obj/machinery/computer/brigcells,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -33683,7 +33684,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkblue"
 	},
 /area/bridge)
 "bvW" = (
@@ -34489,7 +34490,6 @@
 	dir = 1;
 	initialize_directions = 11
 	},
-/obj/machinery/hologram/holopad,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -36012,8 +36012,25 @@
 	},
 /area/hallway/primary/central/nw)
 "bAC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/landmark{
+	name = "Marauder Entry"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 1;
 	icon_state = "darkbluecorners"
 	},
 /area/bridge)
@@ -36026,7 +36043,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/item/radio/beacon,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36664,6 +36681,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/radio/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -40668,6 +40686,7 @@
 /obj/item/paper_bin/nanotrasen,
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
+	dir = 10;
 	icon_state = "darkblue"
 	},
 /area/bridge)
@@ -41458,7 +41477,27 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bMM" = (
-/turf/simulated/wall,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/landmark{
+	name = "Marauder Entry"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkbluecorners"
+	},
 /area/bridge)
 "bMN" = (
 /obj/machinery/newscaster/security_unit{
@@ -83198,7 +83237,6 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "etX" = (
-/obj/machinery/light/small,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -83219,6 +83257,11 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
+"eBm" = (
+/obj/machinery/light/small,
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plating,
+/area/maintenance/maintcentral)
 "eDi" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
@@ -83308,6 +83351,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
+"eZo" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluecorners"
+	},
+/area/bridge)
 "fdg" = (
 /obj/structure/reflector/single{
 	anchored = 1;
@@ -83743,6 +83792,10 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
+"ivK" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plating,
+/area/maintenance/maintcentral)
 "izn" = (
 /obj/machinery/atmospherics/unary/passive_vent{
 	dir = 1
@@ -83873,9 +83926,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "jqu" = (
@@ -84310,6 +84360,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"lMu" = (
+/obj/structure/closet/wardrobe/black,
+/turf/simulated/floor/plating,
+/area/maintenance/maintcentral)
 "lQS" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
@@ -85347,6 +85401,10 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
+"uvW" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/simulated/floor/plating,
+/area/maintenance/maintcentral)
 "uxy" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -85440,6 +85498,9 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/table/wood,
 /obj/item/toy/figure/crew/captain,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "ven" = (
@@ -85657,6 +85718,17 @@
 /obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/engine/engineering)
+"wRG" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/maintcentral)
 "wVD" = (
 /obj/effect/landmark/start{
 	name = "Shaft Miner"
@@ -111402,7 +111474,7 @@ bwe
 bBe
 bMs
 bOj
-bMv
+eBm
 ccX
 bJO
 bXp
@@ -112173,7 +112245,7 @@ pWm
 srU
 jiT
 bOq
-bMv
+oVn
 ccX
 bUq
 bVa
@@ -112686,7 +112758,7 @@ uUx
 bKJ
 srf
 jiT
-bOq
+wRG
 bMv
 bTd
 bUr
@@ -112933,7 +113005,7 @@ bmc
 bqQ
 bvC
 bxn
-bAC
+bxt
 bCw
 bDS
 bDS
@@ -113190,7 +113262,7 @@ bmc
 bqP
 bsw
 bxr
-bvX
+bxt
 bMs
 byN
 bzS
@@ -113448,18 +113520,18 @@ bqR
 boa
 bxu
 bvV
-bMM
-nfE
-nfE
-nfE
-nfE
-nfE
-bxm
+bMs
+bMs
+bMs
+bMs
+bMs
+bMs
+jiT
 jiT
 jiT
 bMv
 vxA
-bMv
+uvW
 mIe
 bMv
 kzc
@@ -113704,7 +113776,7 @@ bpB
 bqS
 boh
 bxr
-bvX
+eZo
 bLb
 nfE
 bBw
@@ -113970,7 +114042,7 @@ bIL
 ven
 bxm
 bxm
-bMv
+ivK
 bMv
 vJG
 thT
@@ -114474,7 +114546,7 @@ aaa
 bpw
 bqU
 bsA
-bxO
+bAC
 bvX
 bxt
 bEa
@@ -114486,7 +114558,7 @@ bFE
 bxm
 htv
 bMv
-bMv
+lMu
 thT
 bUz
 bSh
@@ -114988,7 +115060,7 @@ aaa
 bpw
 bqV
 bor
-bxO
+bMM
 bvX
 bxt
 bEa
@@ -116018,13 +116090,13 @@ bqY
 bsF
 bxZ
 bvY
-bmc
-nfE
-nfE
-nfE
-nfE
-bxm
-bxm
+bxv
+bON
+bON
+bON
+bON
+bxv
+bxv
 bMI
 bMv
 odB
