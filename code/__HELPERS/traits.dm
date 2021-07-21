@@ -42,12 +42,12 @@
 				SOURCES = list(sources); \
 			} \
 \
-			for(var/SOURCE in TARGET_TRAITS[trait]) { \
-				if((!SOURCES && (SOURCE != ROUNDSTART_TRAIT)) || (SOURCE in SOURCES)) { \
+			for(var/TRAIT_SOURCE in TARGET_TRAITS[trait]) { \
+				if((!SOURCES && (TRAIT_SOURCE != ROUNDSTART_TRAIT)) || (TRAIT_SOURCE in SOURCES)) { \
 					if(length(TARGET_TRAITS[trait]) == 1) { \
 						SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(trait), trait); \
 					} \
-					LAZYREMOVEASSOC(TARGET_TRAITS, trait, SOURCE); \
+					LAZYREMOVEASSOC(TARGET_TRAITS, trait, TRAIT_SOURCE); \
 				} \
 			} \
 		} \
@@ -74,8 +74,8 @@
 				if(!length(TARGET_TRAITS[TRAIT])) { \
 					TARGET_TRAITS -= TRAIT; \
 					SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(TRAIT), TRAIT); \
-					} \
 				} \
+			} \
 			if(!length(TARGET_TRAITS)) { \
 				target.status_traits = null; \
 			} \
@@ -103,8 +103,8 @@
 				if(!length(TARGET_TRAITS[TRAIT])) { \
 					TARGET_TRAITS -= TRAIT; \
 					SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(TRAIT)); \
-					} \
 				} \
+			} \
 			if(!length(TARGET_TRAITS)) { \
 				target.status_traits = null; \
 			} \
