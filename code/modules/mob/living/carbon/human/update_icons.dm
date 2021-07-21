@@ -572,7 +572,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		standing.alpha = w_uniform.alpha
 		standing.color = w_uniform.color
 		overlays_standing[UNIFORM_LAYER] = standing
-	else if (!dna.species.nojumpsuit)
+	else if(!dna.species.nojumpsuit)
 		var/list/uniform_slots = list()
 		var/obj/item/organ/external/L = get_organ(BODY_ZONE_L_LEG)
 		if(!(L?.status & ORGAN_ROBOT))
@@ -587,7 +587,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			uniform_slots += belt
 
 		// Automatically drop anything in store / id / belt if you're not wearing a uniform.	//CHECK IF NECESARRY
-		for(var/obj/item/thing in uniform_slots)				// whoever made this
+		for(var/obj/item/thing in uniform_slots)												// whoever made this
 			if(thing)																			// you're a piece of fucking garbage
 				unEquip(thing)																	// why the fuck would you goddamn do this motherfucking shit
 				if(client)																		// INVENTORY CODE IN FUCKING ICON CODE
