@@ -175,8 +175,8 @@
 #define GLOVES_LAYER			28
 #define EARS_LAYER				27
 #define SUIT_LAYER				26
-#define NECK_LAYER				25
-#define BELT_LAYER				24	//Possible make this an overlay of somethign required to wear a belt?
+#define BELT_LAYER				25	//Possible make this an overlay of somethign required to wear a belt?
+#define NECK_LAYER				24
 #define SUIT_STORE_LAYER		23
 #define BACK_LAYER				22
 #define HEAD_ACCESSORY_LAYER	21
