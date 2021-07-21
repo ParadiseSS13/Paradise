@@ -157,8 +157,7 @@
 	if(reagents && reagents.reagent_list)
 		var/reagent_note = "REAGENTS:"
 		for(var/datum/reagent/R in reagents.reagent_list)
-			reagent_note += R.type + " ("
-			reagent_note += num2text(R.volume) + ") "
+			reagent_note += " [R.type] ([R.volume])"
 		additional_log_text = "[additional_log_text] (containing [reagent_note])"
 
 	if(!log_override && firer && !alwayslog)

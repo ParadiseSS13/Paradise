@@ -102,14 +102,13 @@
 	name = "Nutriment"
 	var/reagent = /datum/reagent/consumable/nutriment
 	var/rate = 0.04
-// TODO: TEST
 
 /datum/plant_gene/reagent/get_name()
 	return "[name] production [rate * 100]%"
 
 /datum/plant_gene/reagent/proc/set_reagent(reag)
 	reagent = reag
-	name = "UNKNOWN"
+	name = "ERROR" // So that it's obvious something broke
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reag]
 	if(R)

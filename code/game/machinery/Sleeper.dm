@@ -116,7 +116,7 @@
 				addiction_removal_chance = 10
 			if(prob(addiction_removal_chance))
 				to_chat(occupant, "<span class='boldnotice'>You no longer feel reliant on [R.name]!</span>")
-				occupant.reagents.addiction_list.Remove(R)
+				occupant.reagents.addiction_list -= R
 				qdel(R)
 
 	updateDialog()

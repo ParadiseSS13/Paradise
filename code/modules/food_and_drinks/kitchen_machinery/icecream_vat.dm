@@ -15,7 +15,7 @@
 
 
 /obj/machinery/icemachine/proc/generate_name(reagent_name)
-	var/name_prefix = pick("Mr.","Mrs.","Super","Happy","Whippy")
+	var/name_prefix = pick("Mr.", "Mrs.", "Super", "Happy", "Whippy")
 	var/name_suffix = pick(" Whippy "," Slappy "," Creamy "," Dippy "," Swirly "," Swirl ")
 	var/cone_name = null	//Heart failure prevention.
 	cone_name += name_prefix
@@ -53,7 +53,7 @@
 		return
 	return ..()
 
-/obj/machinery/icemachine/proc/validexchange(reag) //TODO: test this
+/obj/machinery/icemachine/proc/validexchange(reag)
 	var/list/valid_reagents = list(
 		/datum/reagent/consumable/sprinkles,
 		/datum/reagent/consumable/drink/cold/space_cola,
@@ -77,7 +77,8 @@
 
 
 /obj/machinery/icemachine/Topic(href, href_list)
-	if(..()) return
+	if(..())
+		return
 
 	add_fingerprint(usr)
 	usr.set_machine(src)
@@ -87,29 +88,22 @@
 		usr.unset_machine()
 		return
 
-	var/obj/item/reagent_containers/glass/A = null
-	var/datum/reagents/R = null
-
-	if(beaker)
-		A = beaker
-		R = A.reagents
-
 	if(href_list["add"])
 		if(href_list["amount"])
-			var/path = href_list["add"]
+			var/path = text2path(href_list["add"])
 			var/amount = text2num(href_list["amount"])
 			if(validexchange(path))
-				R.trans_reagent_to(src, path, amount)
+				beaker.reagents.trans_reagent_to(src, path, amount)
 
 	else if(href_list["remove"])
 		if(href_list["amount"])
-			var/path = href_list["remove"]
+			var/path = text2path(href_list["remove"])
 			var/amount = text2num(href_list["amount"])
 			if(beaker == null)
 				reagents.remove_reagent(path, amount)
 			else
 				if(validexchange(path))
-					reagents.trans_reagent_to(A, path, amount)
+					reagents.trans_reagent_to(beaker, path, amount)
 				else
 					reagents.remove_reagent(path, amount)
 
@@ -118,10 +112,9 @@
 		return
 
 	else if(href_list["eject"])
-		if(beaker)
-			A.forceMove(loc)
-			beaker = null
-			reagents.trans_to(A,reagents.total_volume)
+		beaker.forceMove(loc)
+		reagents.trans_to(beaker, reagents.total_volume)
+		beaker = null
 
 	else if(href_list["synthcond"])
 		if(href_list["type"])
@@ -164,28 +157,24 @@
 					reagents.add_reagent(/datum/reagent/water, (15 - reagents.total_volume))
 
 	else if(href_list["createcup"])
+		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcup/C = new(loc)
 		var/name = generate_name(reagents.get_master_reagent_name())
-		name += " Chocolate Cone"
-		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcup/C
-		C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamcup(loc)
-		C.name = "[name]"
+		C.name = "[name] Chocolate Cone"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
-		reagents.trans_to(C,30)
-		if(reagents)
+		reagents.trans_to(C, 30)
+		if(length(reagents.reagent_list))
 			reagents.clear_reagents()
 		C.update_icon()
 
 	else if(href_list["createcone"])
+		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcone/C = new(loc)
 		var/name = generate_name(reagents.get_master_reagent_name())
-		name += " Cone"
-		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcone/C
-		C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamcone(loc)
-		C.name = "[name]"
+		C.name = "[name] Cone"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
-		reagents.trans_to(C,15)
-		if(reagents)
+		reagents.trans_to(C, 15)
+		if(length(reagents.reagent_list))
 			reagents.clear_reagents()
 		C.update_icon()
 	updateUsrDialog()
@@ -260,7 +249,7 @@
 			dat += show_reagents(1)
 		dat += show_reagents(2)
 		dat += show_toppings()
-	var/datum/browser/popup = new(user, "cream_master","Cream-Master Deluxe", 700, 400, src)
+	var/datum/browser/popup = new(user, "cream_master", "Cream-Master Deluxe", 700, 400, src)
 	popup.set_content(dat)
 	popup.open()
 

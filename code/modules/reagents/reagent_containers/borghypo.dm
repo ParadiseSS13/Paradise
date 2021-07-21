@@ -15,7 +15,7 @@
 	var/recharge_time = 5 //Time it takes for shots to recharge (in seconds)
 	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
 
-	var/list/datum/reagents/reagent_list = list()
+	var/list/reagent_list = list()
 	var/list/reagents_types = list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/spaceacillin, /datum/reagent/medicine/charcoal, /datum/reagent/medicine/hydrocodone)
 
 /obj/item/reagent_containers/borghypo/surgeon
@@ -54,8 +54,8 @@
 		var/mob/living/silicon/robot/R = loc
 		if(R && R.cell)
 			var/datum/reagents/RG = reagent_list[mode]
-			if(!refill_borghypo(RG, reagents_types[mode], R)) 	//If the storage is not full recharge reagents and drain power.
-				for(var/i in 1 to reagent_list.len)     	//if active mode is full loop through the list and fill the first one that is not full
+			if(!refill_borghypo(RG, reagents_types[mode], R))	//If the storage is not full recharge reagents and drain power.
+				for(var/i in 1 to reagent_list.len)				//if active mode is full loop through the list and fill the first one that is not full
 					RG = reagent_list[i]
 					if(refill_borghypo(RG, reagents_types[i], R))
 						break
@@ -65,12 +65,11 @@
 // Use this to add more chemicals for the borghypo to produce.
 /obj/item/reagent_containers/borghypo/proc/add_hypo_reagent(reagent)
 	reagents_types |= reagent
-	var/datum/reagents/RG = new(30)
+	var/datum/reagents/RG = new(30) // Create a new `/datum/reagents` instance for the chem
 	RG.my_atom = src
 	reagent_list += RG
 
-	var/datum/reagents/R = reagent_list[reagent_list.len]
-	R.add_reagent(reagent, 30)
+	RG.add_reagent(reagent, 30)
 
 /obj/item/reagent_containers/borghypo/proc/refill_borghypo(datum/reagents/RG, reagent, mob/living/silicon/robot/R)
 	if(RG.total_volume < RG.maximum_volume)
@@ -90,7 +89,6 @@
 		to_chat(user, "<span class='notice'>You inject [M] with the injector.</span>")
 		to_chat(M, "<span class='notice'>You feel a tiny prick!</span>")
 
-		R.add_reagent(M) // TODO: Test
 		if(M.reagents)
 			var/datum/reagent/injected = GLOB.chemical_reagents_list[reagents_types[mode]]
 			var/contained = injected.name
@@ -101,7 +99,7 @@
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
 	playsound(loc, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
 	mode++
-	if(mode > reagent_list.len)
+	if(mode > length(reagent_list))
 		mode = 1
 
 	charge_tick = 0 //Prevents wasted chems/cell charge if you're cycling through modes.

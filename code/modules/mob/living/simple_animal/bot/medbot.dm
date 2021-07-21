@@ -525,7 +525,7 @@
 		spawn(30)//replace with do mob
 			if((get_dist(src, patient) <= 1) && on && assess_patient(patient))
 				if(inject_beaker)
-					if(use_beaker && reagent_glass && reagent_glass.reagents.total_volume)
+					if(use_beaker && reagent_glass?.reagents.total_volume)
 						var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
 						reagent_glass.reagents.reaction(patient, REAGENT_INGEST, fraction)
 						reagent_glass.reagents.trans_to(patient, injection_amount) //Inject from beaker instead.

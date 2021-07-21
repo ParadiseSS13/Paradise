@@ -204,13 +204,13 @@
 	var/datum/reagents/R = beaker.reagents
 	switch(action)
 		if("add")
-			var/path = params["type"]
+			var/path = text2path(params["type"])
 			var/amount = text2num(params["amount"])
 			if(!path || !amount)
 				return
 			R.trans_reagent_to(src, path, amount)
 		if("remove")
-			var/path = params["type"]
+			var/path = text2path(params["type"])
 			var/amount = text2num(params["amount"])
 			if(!path || !amount)
 				return
@@ -418,14 +418,14 @@
 						loaded_pill_bottle.cut_overlays()
 				if("addcustom")
 					var/amount = isgoodnumber(text2num(answer))
-					if(!amount || !arguments["id"])
+					if(!amount || !arguments["type"])
 						return
-					ui_act("add", list("id" = arguments["id"], "amount" = amount), ui, state)// TODO TEST
+					ui_act("add", list("type" = arguments["type"], "amount" = amount), ui, state)
 				if("removecustom")
 					var/amount = isgoodnumber(text2num(answer))
-					if(!amount || !arguments["id"])
+					if(!amount || !arguments["type"])
 						return
-					ui_act("remove", list("id" = arguments["id"], "amount" = amount), ui, state)
+					ui_act("remove", list("type" = arguments["type"], "amount" = amount), ui, state)
 				if("create_condi_pack")
 					if(!condi || !reagents.total_volume)
 						return

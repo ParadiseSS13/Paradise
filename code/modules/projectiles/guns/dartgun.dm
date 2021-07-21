@@ -173,10 +173,9 @@
 					var/R
 					if(D.reagents)
 						for(var/datum/reagent/A in D.reagents.reagent_list)
-							R += A.type + " ("
-							R += num2text(A.volume) + "),"
+							R += "[A.type] ([A.volume]), "
 
-					add_attack_logs(user, M, "Shot with dartgun containing [R]")
+					add_attack_logs(user, M, "Shot with dartgun containing [R]transferred [D.reagents.total_volume] units.")
 
 					if(D.reagents)
 						D.reagents.trans_to(M, 15)
@@ -241,31 +240,33 @@
 	return 0
 
 /obj/item/gun/dartgun/Topic(href, href_list)
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 	if(href_list["stop_mix"])
 		var/index = text2num(href_list["stop_mix"])
-		if(index <= beakers.len)
+		if(index <= length(beakers))
 			for(var/obj/item/M in mixing)
 				if(M == beakers[index])
 					mixing -= M
 					break
+
 	else if(href_list["mix"])
 		var/index = text2num(href_list["mix"])
-		if(index <= beakers.len)
-			mixing += beakers[index]
+		if(index <= length(beakers))
+			mixing |= beakers[index]
+
 	else if(href_list["eject"])
 		var/index = text2num(href_list["eject"])
-		if(index <= beakers.len)
+		if(index <= length(beakers))
 			if(beakers[index])
 				var/obj/item/reagent_containers/glass/beaker/B = beakers[index]
 				to_chat(usr, "<span class='notice'>You remove [B] from [src].</span>")
 				mixing -= B
 				beakers -= B
 				B.forceMove(get_turf(src))
+
 	else if(href_list["eject_cart"])
 		remove_cartridge()
-	src.updateUsrDialog()
-	return
+	updateUsrDialog()
 
 /obj/item/gun/dartgun/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
 	if(cartridge)

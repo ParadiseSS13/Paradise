@@ -910,28 +910,29 @@
 				A.create_reagents(amount)
 
 		if(A.reagents)
-			var/chosen_id
+			var/chosen_reagent
 			var/list/reagent_options = sortAssoc(GLOB.chemical_reagents_list)
-			switch(alert(usr, "Choose a method.", "Add Reagents", "Enter ID", "Choose ID"))
-				if("Enter ID")
-					var/valid_id
-					while(!valid_id)
-						chosen_id = stripped_input(usr, "Enter the ID of the reagent you want to add.")
-						if(!chosen_id) //Get me out of here!
+			switch(alert(usr, "Choose a method.", "Add Reagents", "Enter Typepath", "Choose Reagent"))
+				if("Enter Typepath")
+					var/valid_path = FALSE
+					while(!valid_path)
+						chosen_reagent = text2path(stripped_input(usr, "Enter the typepath of the reagent you want to add."))
+						if(!chosen_reagent) //Get me out of here!
 							break
-						for(var/ID in reagent_options)
-							if(ID == chosen_id)
-								valid_id = 1
-						if(!valid_id)
+						for(var/reagent in reagent_options)
+							if(reagent == chosen_reagent)
+								valid_path = TRUE
+								break
+						if(!valid_path)
 							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
-				if("Choose ID")
-					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in reagent_options
-			if(chosen_id)
+				if("Choose Reagent")
+					chosen_reagent = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in reagent_options
+			if(chosen_reagent)
 				var/amount = input(usr, "Choose the amount to add.", "Choose the amount.", A.reagents.maximum_volume) as num
 				if(amount)
-					A.reagents.add_reagent(chosen_id, amount)
-					log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]")
-					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]</span>")
+					A.reagents.add_reagent(chosen_reagent, amount)
+					log_admin("[key_name(usr)] has added [amount] units of [chosen_reagent] to \the [A]")
+					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_reagent] to \the [A]</span>")
 
 	else if(href_list["explode"])
 		if(!check_rights(R_DEBUG|R_EVENT))	return

@@ -43,6 +43,7 @@
 			var/list/reactions = list()
 
 			if(!D || !length(D.required_reagents)) // Skip impossible reactions
+				stack_trace("Invalid chemical reaction: [subtype]")
 				continue
 
 			for(var/reagent in D.required_reagents)
@@ -70,7 +71,7 @@
 			current_list_element = 1
 		var/datum/reagent/current_reagent = cached_reagents[current_list_element]
 
-		remove_reagent(current_reagent, min(1, amount - total_transfered))
+		remove_reagent(current_reagent.type, min(1, amount - total_transfered))
 
 		current_list_element++
 		total_transfered++
@@ -318,7 +319,7 @@
 						update_flags |= R.addiction_act_stage5(M)
 			if(prob(20) && (world.timeofday > (R.last_addiction_dose + ADDICTION_TIME))) //Each addiction lasts 8 minutes before it can end
 				to_chat(M, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
-				addiction_list.Remove(R)
+				addiction_list -= R
 				qdel(R)
 
 	if(update_flags & STATUS_UPDATE_HEALTH)
@@ -351,11 +352,11 @@
 		R.on_mob_death(M)
 
 /datum/reagents/proc/overdose_list()
-	var/od_chems[0]
+	var/list/od_chems = list()
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(R.overdosed)
-			od_chems += (R)
+			od_chems += (R.type)
 	return od_chems
 
 /datum/reagents/proc/set_reacting(react = TRUE)
