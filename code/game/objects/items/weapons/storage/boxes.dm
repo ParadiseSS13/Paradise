@@ -886,7 +886,7 @@
 	icon_state = "flashbang"
 
 /obj/item/storage/box/breaching/populate_contents()
-	for(var/i in 1 to 3)
+	for(var/I in 1 to 3)
 		new /obj/item/grenade/plastic/x4/thermite(src)
 
 /obj/item/storage/box/mindshield
