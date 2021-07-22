@@ -37991,16 +37991,16 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bFD" = (
-/obj/machinery/camera{
-	c_tag = "Bridge Conference Room";
-	dir = 1
-	},
 /obj/machinery/vending/coffee,
 /obj/machinery/light,
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "bFE" = (
 /obj/machinery/vending/cigarette,
+/obj/machinery/camera{
+	c_tag = "Bridge Conference Room";
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "bFG" = (
@@ -47750,6 +47750,10 @@
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = -32
+	},
+/obj/machinery/camera{
+	c_tag = "EVA";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -84157,6 +84161,10 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "AI Upload Access";
+	dir = 1
+	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "kCQ" = (
@@ -85038,13 +85046,6 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "rkG" = (
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Head of Personnel's Desk";
-	departmentType = 5;
-	name = "Head of Personnel Requests Console";
-	pixel_y = -30
-	},
 /obj/machinery/camera{
 	c_tag = "Head of Personnel's Office";
 	dir = 1
@@ -85185,6 +85186,13 @@
 /area/crew_quarters/heads)
 "srU" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Head of Personnel's Desk";
+	departmentType = 5;
+	name = "Head of Personnel Requests Console";
+	pixel_y = -30
+	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
 "sud" = (
