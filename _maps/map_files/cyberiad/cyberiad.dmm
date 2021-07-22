@@ -26104,18 +26104,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "bfg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering{
 	name = "Gravity Generator";
 	req_one_access_txt = "10;30"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowfull"
@@ -29454,11 +29449,6 @@
 /turf/simulated/wall/r_wall,
 /area/bridge)
 "bmd" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -30236,11 +30226,6 @@
 "bnR" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
 "bnS" = (
@@ -30251,22 +30236,16 @@
 /turf/simulated/floor/plating,
 /area/storage/tools)
 "bnU" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door_control{
+	desc = "A remote control-switch for the engineering security doors.";
+	id = "teledoormain";
+	name = "Teleport Shutters Control";
+	pixel_x = -25;
+	req_access_txt = "17;75"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
-	},
-/area/hallway/primary/central/nw)
+/turf/simulated/floor/plasteel,
+/area/teleporter)
 "bnV" = (
 /turf/simulated/wall/r_wall,
 /area/hallway/primary/central/ne)
@@ -47830,7 +47809,7 @@
 /turf/simulated/floor/plating,
 /area/teleporter)
 "bZb" = (
-/obj/machinery/teleport/hub,
+/obj/machinery/computer/teleporter,
 /turf/simulated/floor/plating,
 /area/teleporter)
 "bZc" = (
@@ -49170,7 +49149,7 @@
 	},
 /area/medical/research)
 "cbl" = (
-/obj/machinery/computer/teleporter,
+/obj/machinery/teleport/hub,
 /turf/simulated/floor/plating,
 /area/teleporter)
 "cbm" = (
@@ -50905,6 +50884,7 @@
 /obj/machinery/alarm{
 	pixel_y = 23
 	},
+/obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
 "ceD" = (
@@ -50923,9 +50903,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "ceF" = (
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
 "ceG" = (
@@ -75507,12 +75485,6 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -83220,6 +83192,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"eoW" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "teledoormain";
+	name = "Teleport Access"
+	},
+/turf/simulated/floor/plating,
+/area/teleporter)
 "erU" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -84002,6 +83982,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
+"jMq" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
+/obj/effect/decal/warning_stripes/northwestcorner,
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central/south)
 "jMw" = (
 /obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/mineral/titanium,
@@ -112483,7 +112471,7 @@ das
 bfg
 bmd
 bnR
-bnU
+bkv
 bmb
 aaa
 bmc
@@ -116619,9 +116607,9 @@ bUD
 bSi
 bVP
 bXx
-bXl
+bnU
 cbl
-bSi
+eoW
 ceF
 cgj
 cjl
@@ -116879,7 +116867,7 @@ bXw
 bXl
 bZa
 bSi
-ccl
+jMq
 cfx
 cfy
 chc
