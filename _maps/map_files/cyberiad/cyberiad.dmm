@@ -35131,7 +35131,7 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 9;
 	icon_state = "blue"
 	},
 /area/crew_quarters/heads)
@@ -35140,14 +35140,20 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_y = 32
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
 /area/crew_quarters/heads)
 "byL" = (
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 30
 	},
-/obj/structure/table,
-/turf/simulated/floor/carpet,
+/obj/machinery/computer/account_database,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
 /area/crew_quarters/heads)
 "byM" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -35165,7 +35171,7 @@
 /obj/structure/bed/dogbed/ian,
 /mob/living/simple_animal/pet/dog/corgi/Ian,
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 5;
 	icon_state = "blue"
 	},
 /area/crew_quarters/heads)
@@ -36190,7 +36196,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bBe" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
@@ -36333,12 +36338,15 @@
 /area/security/vacantoffice)
 "bBu" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bBv" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
 /area/crew_quarters/heads)
 "bBw" = (
 /obj/machinery/slot_machine,
@@ -36355,7 +36363,7 @@
 	},
 /area/crew_quarters/heads)
 "bBy" = (
-/obj/machinery/computer/account_database,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "bBz" = (
@@ -36660,6 +36668,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/item/radio/beacon,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -36761,9 +36770,6 @@
 "bCH" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
-	},
-/obj/structure/chair/office/dark{
-	dir = 1
 	},
 /obj/machinery/newscaster{
 	pixel_x = -32
@@ -37289,7 +37295,10 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bDS" = (
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
 /area/crew_quarters/heads)
 "bDT" = (
 /obj/effect/spawner/window/reinforced,
@@ -37664,7 +37673,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bEW" = (
 /obj/machinery/door/airlock{
@@ -38019,7 +38028,7 @@
 /obj/effect/landmark/start{
 	name = "Head of Personnel"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
 "bFJ" = (
 /obj/structure/disposalpipe/segment,
@@ -39981,15 +39990,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
-"bJI" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/heads)
 "bJJ" = (
 /obj/machinery/computer/crew,
 /turf/simulated/floor/plasteel{
@@ -40497,7 +40497,7 @@
 /obj/item/book/manual/sop_supply,
 /obj/item/book/manual/sop_command,
 /obj/item/paper_bin/nanotrasen,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
 "bKK" = (
 /obj/structure/cable{
@@ -40509,7 +40509,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
 "bKL" = (
 /obj/structure/chair/comfy/brown{
@@ -47799,6 +47799,7 @@
 	dir = 4;
 	pixel_x = 24
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -50630,7 +50631,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "cdZ" = (
 /obj/effect/spawner/window/reinforced,
@@ -51729,7 +51730,7 @@
 /area/toxins/server)
 "cge" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "cgf" = (
 /obj/machinery/computer/rdservercontrol,
@@ -83471,7 +83472,7 @@
 /area/crew_quarters/dorms)
 "fSy" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "fWP" = (
 /obj/machinery/atmospherics/pipe/simple/visible/red{
@@ -83918,7 +83919,7 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
+	dir = 4;
 	icon_state = "blue"
 	},
 /area/crew_quarters/heads)
@@ -83939,6 +83940,7 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -84468,10 +84470,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "blue"
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
 "mDC" = (
 /obj/machinery/computer/guestpass/hop{
@@ -84493,7 +84492,7 @@
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
+	dir = 8;
 	icon_state = "blue"
 	},
 /area/crew_quarters/heads)
@@ -84905,7 +84904,7 @@
 	},
 /area/storage/secure)
 "pWm" = (
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
 "pZO" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -85051,10 +85050,7 @@
 	dir = 1
 	},
 /obj/machinery/photocopier,
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "blue"
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
 "rlm" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
@@ -85185,17 +85181,11 @@
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Head of Personnel's Office"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "blue"
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
 "srU" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "blue"
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
 "sud" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -85431,7 +85421,7 @@
 /obj/item/pen/multi,
 /obj/item/pen/multi,
 /obj/item/megaphone,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
 "uVt" = (
 /obj/structure/cable{
@@ -85447,6 +85437,9 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"uYC" = (
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/heads)
 "uZx" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -112739,7 +112732,7 @@ bwc
 bMs
 bBv
 cdY
-bDS
+uYC
 fpc
 uUx
 bKJ
@@ -112995,10 +112988,10 @@ bxn
 bxt
 bCw
 bDS
-bDS
+uYC
 fSy
 wps
-bJI
+mCk
 bKK
 mCk
 bMH
