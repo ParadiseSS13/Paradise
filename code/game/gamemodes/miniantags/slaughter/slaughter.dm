@@ -168,6 +168,8 @@
 			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
 			qdel(src)
 			return
+		if(QDELETED(src)) // Just in case
+			return
 		var/mob/M = pick(demon_candidates)
 		var/mob/living/simple_animal/slaughter/cult/S = src
 		if(!M || !M.client)
