@@ -905,7 +905,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/reagent_containers/iv_bag/blood/BPlus,
 					/obj/item/reagent_containers/iv_bag/blood/BMinus,
 					/obj/item/reagent_containers/iv_bag/blood/OPlus,
-					/obj/item/reagent_containers/iv_bag/blood/OMinus)
+					/obj/item/reagent_containers/iv_bag/blood/OMinus,
+					/obj/item/reagent_containers/iv_bag/slime)
 	cost = 35
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "blood pack crate"
