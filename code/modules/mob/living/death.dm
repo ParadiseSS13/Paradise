@@ -67,7 +67,7 @@
 	if(mind && suiciding)
 		mind.suicided = TRUE
 	reset_perspective(null)
-	clear_fullscreens()
+	hud_used?.reload_fullscreen()
 	update_sight()
 	update_action_buttons_icon()
 
