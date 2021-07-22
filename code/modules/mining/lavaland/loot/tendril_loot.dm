@@ -247,7 +247,7 @@
 
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 		icon_state = "lantern"
-		wisp.orbit(user, 20)
+		INVOKE_ASYNC(wisp, /atom/movable/.proc/orbit, user, 20)
 		set_light(0)
 
 		user.update_sight()
