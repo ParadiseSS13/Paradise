@@ -153,10 +153,14 @@
 	resistance_flags = FLAMMABLE
 	var/static/list/no_wrap = list(/obj/item/smallDelivery, /obj/structure/bigDelivery, /obj/item/evidencebag, /obj/structure/closet/body_bag, /obj/item/twohanded/required)
 
-/obj/item/stack/packageWrap/afterattack(obj/target as obj, mob/user as mob, proximity)
-	if(!proximity) return
-	if(!istype(target))	//this really shouldn't be necessary (but it is).	-Pete
+/obj/item/stack/packageWrap/pre_attackby(atom/A, mob/living/user, params)
+	. = ..()
+	if(!in_range(A, user))
 		return
+	if(!isobj(A))
+		return
+	var/obj/target = A
+
 	if(is_type_in_list(target, no_wrap))
 		return
 	if(target.anchored)
@@ -166,62 +170,62 @@
 
 	if(istype(target, /obj/item) && !(istype(target, /obj/item/storage) && !istype(target,/obj/item/storage/box) && !istype(target, /obj/item/shippingPackage)))
 		var/obj/item/O = target
-		if(use(1))
-			var/obj/item/smallDelivery/P = new /obj/item/smallDelivery(get_turf(O.loc))	//Aaannd wrap it up!
-			if(!istype(O.loc, /turf))
-				if(user.client)
-					user.client.screen -= O
-			P.wrapped = O
-			O.loc = P
-			var/i = round(O.w_class)
-			if(i in list(1,2,3,4,5))
-				P.icon_state = "deliverycrate[i]"
-				P.w_class = i
-			P.add_fingerprint(usr)
-			O.add_fingerprint(usr)
-			add_fingerprint(usr)
-		else
-			return
+		if(!use(1))
+			return FALSE
+		var/obj/item/smallDelivery/P = new /obj/item/smallDelivery(get_turf(O.loc)) //Aaannd wrap it up!
+		if(!istype(O.loc, /turf))
+			if(user.client)
+				user.client.screen -= O
+		P.wrapped = O
+		O.loc = P
+		var/i = round(O.w_class)
+		if(i in list(1,2,3,4,5))
+			P.icon_state = "deliverycrate[i]"
+			P.w_class = i
+		P.add_fingerprint(user)
+		O.add_fingerprint(user)
+		add_fingerprint(user)
+
 	else if(istype(target, /obj/structure/closet/crate))
 		var/obj/structure/closet/crate/O = target
 		if(O.opened)
 			return
-		if(amount >= 3 && do_after_once(user, 15, target = target))
-			if(O.opened || !use(3))
-				return
-			var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
-			P.icon_state = "deliverycrate"
-			P.wrapped = O
-			O.loc = P
-		else
-			to_chat(user, "<span class='notice'>You need more paper.</span>")
-			return
-	else if(istype (target, /obj/structure/closet))
+		if(amount < 3)
+			to_chat(user, "<span class='warning'>You need more paper.</span>")
+			return FALSE
+		if(!do_after_once(user, 15, target = target) || O.opened || !use(3))
+			return FALSE
+		var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
+		P.icon_state = "deliverycrate"
+		P.wrapped = O
+		O.loc = P
+
+	else if(istype(target, /obj/structure/closet))
 		var/obj/structure/closet/O = target
 		if(O.opened)
 			return
-		if(amount >= 3 && do_after_once(user, 15, target = target))
-			if(O.opened || !use(3))
-				return
-			var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
-			P.wrapped = O
-			P.init_welded = O.welded
-			O.welded = 1
-			O.loc = P
-		else
-			to_chat(user, "<span class='notice'>You need more paper.</span>")
-			return
+		if(amount < 3)
+			to_chat(user, "<span class='warning'>You need more paper.</span>")
+			return FALSE
+		if(!do_after_once(user, 15, target = target) || O.opened || !use(3))
+			return FALSE
+		var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
+		P.wrapped = O
+		P.init_welded = O.welded
+		O.welded = TRUE
+		O.loc = P
 	else
 		to_chat(user, "<span class='notice'>The object you are trying to wrap is unsuitable for the sorting machinery.</span>")
-		return
+		return FALSE
 
 	user.visible_message("<span class='notice'>[user] wraps [target].</span>")
 	user.create_attack_log("<font color='blue'>Has used [name] on [target]</font>")
 	add_attack_logs(user, target, "used [name]", ATKLOG_ALL)
 
-	if(amount <= 0 && !src.loc) //if we used our last wrapping paper, drop a cardboard tube
-		new /obj/item/c_tube( get_turf(user) )
-	return
+	if(amount <= 0 && QDELETED(src)) //if we used our last wrapping paper, drop a cardboard tube
+		var/obj/item/c_tube/T = new(get_turf(user))
+		user.put_in_active_hand(T)
+	return FALSE
 
 /obj/item/destTagger
 	name = "destination tagger"
