@@ -106,11 +106,11 @@
 	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/I = D.get_active_hand()
 	if(prob(60) && D.unEquip(I))
-		if(!(QDELETED(I)) && !(ABSTRACT & I.flags))
+		if(!(QDELETED(I) || (ABSTRACT & I.flags)))
 			A.put_in_hands(I)
-			D.visible_message("<span class='danger'>[A] has disarmed [D]!</span>", \
-								"<span class='userdanger'>[A] has disarmed [D]!</span>")
-			playsound(D, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		D.visible_message("<span class='danger'>[A] has disarmed [D]!</span>", \
+							"<span class='userdanger'>[A] has disarmed [D]!</span>")
+		playsound(D, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	else
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", \
 							"<span class='userdanger'>[A] attempted to disarm [D]!</span>")
