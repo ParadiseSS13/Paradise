@@ -1144,6 +1144,7 @@
 #include "code\hispania\controllers\fullscreen.dm"
 #include "code\hispania\controllers\subsystem\processing\quirks.dm"
 #include "code\hispania\datums\autofiresystem.dm"
+#include "code\hispania\datums\datumvars.dm"
 #include "code\hispania\datums\discord.dm"
 #include "code\hispania\datums\supplypacks.dm"
 #include "code\hispania\datums\uplink_item.dm"
