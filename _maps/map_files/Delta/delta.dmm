@@ -32321,7 +32321,6 @@
 /obj/machinery/door_control{
 	id = "bridge blast north";
 	name = "North Bridge Blast Door Control";
-	pixel_x = 6;
 	pixel_y = 32;
 	req_access_txt = "19"
 	},
@@ -35120,7 +35119,6 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -35140,7 +35138,7 @@
 /area/bridge)
 "bxv" = (
 /obj/machinery/computer/atmos_alert,
-/obj/machinery/computer/station_alert,
+/obj/machinery/computer/atmos_alert,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellow"
@@ -35962,12 +35960,6 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/machinery/door_control{
-	id = "bridge blast west";
-	name = "West Bridge Blast Door Control";
-	pixel_x = -26;
-	req_access_txt = "19"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36762,7 +36754,7 @@
 /obj/machinery/computer/security/mining,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkpurple"
+	icon_state = "darkbrown"
 	},
 /area/bridge)
 "bAx" = (
@@ -36775,7 +36767,7 @@
 /obj/machinery/computer/supplycomp,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkyellow"
+	icon_state = "darkbrown"
 	},
 /area/bridge)
 "bAy" = (
@@ -36843,7 +36835,7 @@
 /obj/machinery/computer/shuttle/mining,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkpurple"
+	icon_state = "darkbrown"
 	},
 /area/bridge)
 "bAE" = (
@@ -37979,6 +37971,13 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
+/obj/machinery/door_control{
+	id = "bridge blast west";
+	name = "West Bridge Blast Door Control";
+	pixel_x = null;
+	pixel_y = 24;
+	req_access_txt = "19"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -38209,13 +38208,20 @@
 	dir = 1;
 	initialize_directions = 11
 	},
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
+/obj/machinery/door_control{
+	id = "bridge blast east";
+	name = "East Bridge Blast Door Control";
+	pixel_x = null;
+	pixel_y = 24;
+	req_access_txt = "19"
+	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -40080,6 +40086,9 @@
 /obj/item/storage/toolbox/emergency,
 /obj/item/wrench,
 /obj/machinery/light/small,
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -41019,6 +41028,7 @@
 "bHo" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkbluefull"
@@ -41094,6 +41104,7 @@
 	dir = 4
 	},
 /obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/bridge)
 "bHv" = (
@@ -41103,6 +41114,7 @@
 "bHw" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkbluefull"
@@ -42037,7 +42049,7 @@
 	},
 /area/bridge/meeting_room)
 "bJh" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/turret_protected/ai_upload)
 "bJi" = (
 /obj/structure/cable{
@@ -44873,6 +44885,7 @@
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
+/obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
 "bOK" = (
@@ -46099,6 +46112,7 @@
 	},
 /obj/item/paper_bin,
 /obj/item/melee/chainofcommand,
+/obj/item/pen,
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/captain)
 "bQQ" = (
@@ -47253,7 +47267,7 @@
 /area/crew_quarters/heads/hop)
 "bSF" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/crew_quarters/captain/bedroom)
 "bSG" = (
 /obj/structure/disposalpipe/segment,
@@ -64330,6 +64344,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/assembly/showroom)
 "czR" = (
@@ -65861,6 +65876,7 @@
 	pixel_x = 8;
 	pixel_y = -24
 	},
+/obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "cCX" = (
@@ -103510,6 +103526,9 @@
 	icon_state = "vault"
 	},
 /area/security/securearmoury)
+"eIB" = (
+/turf/simulated/wall,
+/area/blueshield)
 "eLI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -104310,6 +104329,9 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"hkI" = (
+/turf/simulated/wall/r_wall,
+/area/civilian/barber)
 "hmC" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
@@ -105054,6 +105076,9 @@
 	icon_state = "dark"
 	},
 /area/ai_monitored/storage/eva)
+"kUY" = (
+/turf/simulated/wall,
+/area/crew_quarters/captain)
 "kVM" = (
 /obj/structure/disposalpipe/trunk,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -105845,6 +105870,9 @@
 	icon_state = "red"
 	},
 /area/security/seceqstorage)
+"nOe" = (
+/turf/simulated/wall,
+/area/ntrep)
 "nPe" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -144407,7 +144435,7 @@ bOG
 bMP
 bOG
 bQG
-bSE
+ciB
 caQ
 bWQ
 bYq
@@ -144664,7 +144692,7 @@ bKH
 bMO
 bOF
 bKN
-bSE
+ciB
 bUQ
 bWR
 bYr
@@ -144921,7 +144949,7 @@ bKK
 bMR
 bOI
 bQH
-bSE
+ciB
 bUR
 bZY
 bYs
@@ -145178,7 +145206,7 @@ bKH
 bMQ
 bOF
 bKN
-bSE
+ciB
 bUS
 bWT
 cbT
@@ -145692,7 +145720,7 @@ bKN
 bMT
 bOK
 bKM
-bSE
+ciB
 bUU
 bWV
 bYu
@@ -145948,17 +145976,17 @@ bJg
 bKN
 bMU
 bKN
-bHj
-bSE
-bSE
-bSE
-bSE
-bSE
-bSE
-bSE
-bSE
-bSE
-bSE
+bHk
+ciB
+ciB
+ciB
+ciB
+ciB
+ciB
+ciB
+ciB
+ciB
+ciB
 bSE
 bSE
 bSE
@@ -146201,15 +146229,15 @@ bCl
 byU
 bFD
 bHk
-bHj
+bHk
 bKO
 bMV
 bOM
-bHj
+bHk
 aaa
 abj
 aaa
-bYv
+nOe
 cab
 cbW
 cdI
@@ -146219,7 +146247,7 @@ ciF
 bYv
 aaa
 aaa
-bHj
+bHk
 cpV
 cry
 csK
@@ -146466,7 +146494,7 @@ bJh
 bJh
 bJh
 aaa
-bYv
+nOe
 cac
 cbY
 cdK
@@ -146723,7 +146751,7 @@ bQK
 bSH
 bJh
 abj
-bYv
+nOe
 cad
 cbX
 cdJ
@@ -146731,9 +146759,9 @@ cfG
 chl
 ciH
 bYv
-bHj
-bHj
-bHj
+bHk
+bHk
+bHk
 cpX
 crB
 bHj
@@ -146980,7 +147008,7 @@ bMY
 bSI
 bJh
 aaa
-bYv
+nOe
 cae
 cbZ
 cdL
@@ -147237,11 +147265,11 @@ bMX
 bMX
 bJh
 aaa
-bYv
-bYv
-bYv
-bYv
-bYv
+nOe
+nOe
+nOe
+nOe
+nOe
 bYv
 ciJ
 bYv
@@ -148013,7 +148041,7 @@ cah
 ccc
 cdO
 cfL
-chp
+hkI
 ciM
 cfR
 ciT
@@ -148265,11 +148293,11 @@ bMX
 bMX
 bJh
 aaa
-bYx
-bYx
-bYx
-bYx
-bYx
+eIB
+eIB
+eIB
+eIB
+eIB
 bYx
 ciN
 bYx
@@ -148522,7 +148550,7 @@ bMY
 bSM
 bJh
 aaa
-bYx
+eIB
 cai
 ccd
 cdP
@@ -148779,7 +148807,7 @@ bQN
 bSN
 bJh
 abj
-bYx
+eIB
 caj
 cce
 cdQ
@@ -148787,9 +148815,9 @@ cfN
 chr
 ciP
 bYx
-bHj
-bHj
-bHj
+bHk
+bHk
+bHk
 cqe
 crJ
 bHj
@@ -149036,7 +149064,7 @@ bJh
 bJh
 bJh
 aaa
-bYx
+eIB
 cak
 ccf
 cdR
@@ -149284,16 +149312,16 @@ bAC
 bCl
 byU
 bFy
-bHx
-bHx
+kUY
+kUY
 bKX
 bNb
 bOU
-bHx
+kUY
 aaa
 abj
 aaa
-bYx
+eIB
 cal
 ccg
 cdS
@@ -149303,7 +149331,7 @@ ciR
 bYx
 aaa
 aaa
-bHj
+bHk
 cqg
 crP
 csV
@@ -149541,22 +149569,22 @@ bAD
 bCw
 byU
 bFN
-bHx
+kUY
 bJj
 bLc
 bLc
 bOV
-bHx
-bHx
-bHx
-bHx
-bST
-bST
+kUY
+kUY
+kUY
+kUY
+bYD
+bYD
 bSF
-bST
-bST
-cht
-cht
+bYD
+bYD
+ciS
+ciS
 cht
 cht
 cht
@@ -149798,7 +149826,7 @@ bAE
 bCx
 byU
 bFO
-bHx
+kUY
 bJk
 bKZ
 bLc
@@ -149806,12 +149834,12 @@ bLc
 bQO
 bSO
 bUV
-bHx
+kUY
 bYy
 cam
 cch
 cdT
-bST
+bYD
 cgQ
 cgQ
 cky
@@ -150068,7 +150096,7 @@ bYz
 can
 cci
 cdU
-bST
+bYD
 cgQ
 cgQ
 ckz
@@ -150312,7 +150340,7 @@ bAF
 bCz
 bEm
 bFy
-bHx
+kUY
 bJm
 bLb
 bNe
@@ -150320,12 +150348,12 @@ bLc
 bQP
 bSP
 bUW
-bHx
+kUY
 bYA
 cao
 ccj
 cdV
-bST
+bYD
 chv
 ciS
 ckA
@@ -150569,7 +150597,7 @@ bAG
 bCl
 byU
 bFQ
-bHx
+kUY
 bJn
 bJd
 bNe
@@ -150577,7 +150605,7 @@ bLc
 bQR
 bSR
 bUY
-bHx
+kUY
 cbz
 cap
 cck
@@ -150826,7 +150854,7 @@ bAt
 bCl
 byU
 bFx
-bHx
+kUY
 bJo
 bLd
 bNf
@@ -150834,12 +150862,12 @@ bLc
 bQS
 bSS
 bUZ
-bHx
+kUY
 cfa
 caq
 ccl
 cdX
-bST
+bYD
 chx
 ciS
 ckC
@@ -151088,15 +151116,15 @@ bJp
 bLe
 bNg
 bPa
-bHx
-bST
-bST
-bST
+kUY
+bYD
+bYD
+bYD
 bYD
 car
 ccm
 cdY
-bST
+bYD
 chy
 ciU
 cjY
@@ -151346,14 +151374,14 @@ bLf
 bLf
 bLc
 bQT
-bST
+bYD
 bVa
 bWY
 bYE
 cas
 ccn
 cdZ
-bST
+bYD
 chz
 ciS
 ckD
@@ -151603,14 +151631,14 @@ bLg
 bNh
 bPb
 bQU
-bST
+bYD
 bVb
 bWZ
 bYD
 cat
 cco
 cea
-bST
+bYD
 chA
 ciS
 ckF
