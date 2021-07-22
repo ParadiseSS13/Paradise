@@ -116,7 +116,7 @@
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("[question]?", poll_time = 10 SECONDS, min_hours = minhours, source = M)
 	var/mob/dead/observer/theghost = null
 
-	if(LAZYLEN(candidates))
+	if(length(candidates))
 		if(QDELETED(M))
 			return
 		theghost = pick(candidates)
