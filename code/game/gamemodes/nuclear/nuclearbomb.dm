@@ -390,7 +390,7 @@ GLOBAL_VAR(bomb_set)
 				to_chat(usr, "<span class='notice'>The safety is still on.</span>")
 				return
 			if(!core)
-				to_chat(usr, "<span class='danger'>The [src]'s screen blinks red! There is no plutonium core in the [src]!</span>")
+				to_chat(usr, "<span class='danger'>[src]'s screen blinks red! There is no plutonium core in [src]!</span>")
 				return
 			timing = !(timing)
 			if(timing)
