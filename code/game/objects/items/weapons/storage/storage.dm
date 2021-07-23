@@ -191,7 +191,7 @@
 	user.client.screen += closer
 	user.client.screen += contents
 	user.s_active = src
-	LAZYOR(mobs_viewing, user)
+	LAZYADDOR(mobs_viewing, user)
 
 /**
   * Hides the current container interface from `user`.

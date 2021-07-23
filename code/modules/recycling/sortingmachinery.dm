@@ -153,7 +153,7 @@
 	resistance_flags = FLAMMABLE
 	var/static/list/no_wrap = list(/obj/item/smallDelivery, /obj/structure/bigDelivery, /obj/item/evidencebag, /obj/structure/closet/body_bag, /obj/item/twohanded/required)
 
-/obj/item/stack/packageWrap/pre_attackby(atom/A, mob/living/user, params)
+/obj/item/stack/packageWrap/pre_attack(atom/A, mob/living/user, params)
 	. = ..()
 	if(!in_range(A, user))
 		return
@@ -173,7 +173,7 @@
 		if(!use(1))
 			return FALSE
 		var/obj/item/smallDelivery/P = new /obj/item/smallDelivery(get_turf(O.loc)) //Aaannd wrap it up!
-		if(!istype(O.loc, /turf))
+		if(!isturf(O.loc))
 			if(user.client)
 				user.client.screen -= O
 		P.wrapped = O
@@ -187,33 +187,18 @@
 		add_fingerprint(user)
 
 	else if(istype(target, /obj/structure/closet/crate))
-		var/obj/structure/closet/crate/O = target
-		if(O.opened)
-			return
-		if(amount < 3)
-			to_chat(user, "<span class='warning'>You need more paper.</span>")
+		var/obj/structure/bigDelivery/D = wrap_closet(target, user)
+		if(!D)
 			return FALSE
-		if(!do_after_once(user, 15, target = target) || O.opened || !use(3))
-			return FALSE
-		var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
-		P.icon_state = "deliverycrate"
-		P.wrapped = O
-		O.loc = P
+		D.icon_state = "deliverycrate"
 
 	else if(istype(target, /obj/structure/closet))
-		var/obj/structure/closet/O = target
-		if(O.opened)
-			return
-		if(amount < 3)
-			to_chat(user, "<span class='warning'>You need more paper.</span>")
+		var/obj/structure/closet/C = target
+		var/obj/structure/bigDelivery/D = wrap_closet(target, user)
+		if(!D)
 			return FALSE
-		if(!do_after_once(user, 15, target = target) || O.opened || !use(3))
-			return FALSE
-		var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
-		P.wrapped = O
-		P.init_welded = O.welded
-		O.welded = TRUE
-		O.loc = P
+		D.init_welded = C.welded
+		C.welded = TRUE
 	else
 		to_chat(user, "<span class='notice'>The object you are trying to wrap is unsuitable for the sorting machinery.</span>")
 		return FALSE
@@ -226,6 +211,20 @@
 		var/obj/item/c_tube/T = new(get_turf(user))
 		user.put_in_active_hand(T)
 	return FALSE
+
+// Separate proc to avoid copy pasting the code twice
+/obj/item/stack/packageWrap/proc/wrap_closet(obj/structure/closet/C, mob/user)
+	if(C.opened)
+		return
+	if(amount < 3)
+		to_chat(user, "<span class='warning'>You need more paper.</span>")
+		return
+	if(!do_after_once(user, 1.5 SECONDS, target = C) || C.opened || !use(3)) // Checking these again since it's after a delay
+		return
+	var/obj/structure/bigDelivery/P = new(get_turf(C))
+	P.wrapped = C
+	C.loc = P
+	return P
 
 /obj/item/destTagger
 	name = "destination tagger"
