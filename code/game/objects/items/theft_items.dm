@@ -57,13 +57,12 @@
 
 /obj/item/nuke_core_container/proc/load(obj/item/nuke_core/plutonium/new_core, mob/user)
 	if(core || !istype(new_core))
-		return FALSE
+		return
 	new_core.forceMove(src)
 	core = new_core
 	icon_state = "core_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
 	addtimer(CALLBACK(src, .proc/seal), 10 SECONDS)
-	return TRUE
 
 /obj/item/nuke_core_container/proc/seal()
 	if(!QDELETED(core))
@@ -82,16 +81,6 @@
 		return
 	else
 		load(core, user)
-
-//snowflake screwdriver, works as a key to start nuke theft, traitor only
-/obj/item/screwdriver/nuke
-	name = "screwdriver"
-	desc = "A screwdriver with an ultra thin tip that's carefully designed to boost screwing speed."
-	icon = 'icons/obj/nuke_tools.dmi'
-	icon_state = "screwdriver_nuke"
-	item_state = "screwdriver_nuke"
-	toolspeed = 0.5
-	random_color = FALSE
 
 /obj/item/paper/guides/antag/nuke_instructions
 	info = "How to break into a Nanotrasen nuclear device and remove its plutonium core:<br>\
@@ -131,9 +120,9 @@
 /obj/item/nuke_core/supermatter_sliver/can_be_pulled(user) // no drag memes
 	return FALSE
 
-/obj/item/nuke_core/supermatter_sliver/attackby(obj/item/W, mob/living/user, params)
-	if(istype(W, /obj/item/retractor/supermatter))
-		var/obj/item/retractor/supermatter/tongs = W
+/obj/item/nuke_core/supermatter_sliver/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/retractor/supermatter))
+		var/obj/item/retractor/supermatter/tongs = I
 		if(tongs.sliver)
 			to_chat(user, "<span class='warning'>[tongs] are already holding a supermatter sliver!</span>")
 			return FALSE
@@ -142,13 +131,13 @@
 		tongs.icon_state = "supermatter_tongs_loaded"
 		tongs.item_state = "supermatter_tongs_loaded"
 		to_chat(user, "<span class='notice'>You carefully pick up [src] with [tongs].</span>")
-	else if(istype(W, /obj/item/scalpel/supermatter) || istype(W, /obj/item/nuke_core_container/supermatter)) // we don't want it to dust
+	else if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter)) // we don't want it to dust
 		return
 	else
-		to_chat(user, "<span class='danger'>As it touches [src], both [src] and [W] burst into dust!</span>")
+		to_chat(user, "<span class='danger'>As it touches [src], both [src] and [I] burst into dust!</span>")
 		radiation_pulse(user, 100)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
-		qdel(W)
+		qdel(I)
 		qdel(src)
 
 /obj/item/nuke_core/supermatter_sliver/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -193,18 +182,17 @@
 	QDEL_NULL(sliver)
 	return ..()
 
-/obj/item/nuke_core_container/supermatter/load(obj/item/retractor/supermatter/T, mob/user)
-	if(!istype(T) || !T.sliver)
-		return FALSE
-	T.sliver.forceMove(src)
-	sliver = T.sliver
-	T.sliver = null
-	T.icon_state = "supermatter_tongs"
-	T.item_state = "supermatter_tongs"
+/obj/item/nuke_core_container/supermatter/load(obj/item/retractor/supermatter/I, mob/user)
+	if(!istype(I) || !I.sliver)
+		return
+	I.sliver.forceMove(src)
+	sliver = I.sliver
+	I.sliver = null
+	I.icon_state = "supermatter_tongs"
+	I.item_state = "supermatter_tongs"
 	icon_state = "supermatter_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
 	addtimer(CALLBACK(src, .proc/seal), 10 SECONDS)
-	return TRUE
 
 /obj/item/nuke_core_container/supermatter/seal()
 	if(!QDELETED(sliver))
@@ -229,11 +217,11 @@
 	toolspeed = 0.5
 	damtype = BURN
 	usesound = 'sound/weapons/bladeslice.ogg'
-	var/usesLeft
+	var/uses_left
 
 /obj/item/scalpel/supermatter/Initialize()
 	. = ..()
-	usesLeft = rand(2, 4)
+	uses_left = rand(2, 4)
 
 /obj/item/retractor/supermatter
 	name = "supermatter extraction tongs"

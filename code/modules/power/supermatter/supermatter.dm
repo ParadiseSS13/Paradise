@@ -717,12 +717,12 @@
 		var/obj/item/scalpel/supermatter/scalpel = I
 		to_chat(user, "<span class='notice'>You carefully begin to scrape [src] with [I]...</span>")
 		if(I.use_tool(src, user, 10 SECONDS, volume = 100))
-			if(scalpel.usesLeft)
-				to_chat(user, "<span class='danger'>You extract a sliver from [src]. [src] begins to react violently!</span>")
+			if(scalpel.uses_left)
+				to_chat(user, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
 				new /obj/item/nuke_core/supermatter_sliver(drop_location())
 				matter_power += 800
-				scalpel.usesLeft--
-				if(!scalpel.usesLeft)
+				scalpel.uses_left--
+				if(!scalpel.uses_left)
 					to_chat(user, "<span class='notice'>A tiny piece of [I] falls off, rendering it useless!</span>")
 			else
 				to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")

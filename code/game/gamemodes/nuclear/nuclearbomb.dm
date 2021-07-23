@@ -29,13 +29,13 @@ GLOBAL_VAR(bomb_set)
 	var/yes_code = FALSE
 	var/safety = TRUE
 	var/obj/item/disk/nuclear/auth = null
-	var/removal_stage = NUKE_INTACT
 	var/obj/item/nuke_core/plutonium/core = null
 	var/lastentered
 	var/is_syndicate = FALSE
 	use_power = NO_POWER_USE
 	var/previous_level = ""
 	var/datum/wires/nuclearbomb/wires = null
+	var/removal_stage = NUKE_INTACT
 	///The same state removal stage is, until someone opens the panel of the nuke. This way we can have someone open the front of the nuke, while keeping track of where in the world we are on the anchoring bolts.
 	var/anchor_stage = NUKE_INTACT
 	///This is so that we can check if the internal components are sealed up properly when the outer hatch is closed.
@@ -252,21 +252,18 @@ GLOBAL_VAR(bomb_set)
 	attack_hand(user)
 
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
-	if(panel_open)
-		if(removal_stage == NUKE_CORE_FULLY_EXPOSED && core)
-			if(timing) //removing the core is less risk then cutting wires, and doesnt take long, so we should not let crew do it while the nuke is armed. You can however get to it, without the special screwdriver, if you put the NAD in.
-				to_chat(user, "<span class='warning'>[core] won't budge, metal clamps keep it in!</span>")
-				return
-			user.visible_message("<span class='notice'>[user] starts to pull [core] out of [src]!</span>", "<span class='notice'>You start to pull [core] out of [src]!</span>")
-			if(do_after(user, 5 SECONDS, target = src))
-				user.visible_message("<span class='notice'>[user] pulls [core] out of [src]!</span>", "<span class='notice'>You pull [core] out of [src]! Might want to put it somewhere safe.</span>")
-				core.forceMove(loc)
-				core = null
-
-		else
-			wires.Interact(user)
-	else
-		ui_interact(user)
+	if(!panel_open)
+		return ui_interact(user)
+	if(removal_stage != NUKE_CORE_FULLY_EXPOSED || !core)
+		return wires.Interact(user)
+	if(timing) //removing the core is less risk then cutting wires, and doesnt take long, so we should not let crew do it while the nuke is armed. You can however get to it, without the special screwdriver, if you put the NAD in.
+		to_chat(user, "<span class='warning'>[core] won't budge, metal clamps keep it in!</span>")
+		return
+	user.visible_message("<span class='notice'>[user] starts to pull [core] out of [src]!</span>", "<span class='notice'>You start to pull [core] out of [src]!</span>")
+	if(do_after(user, 5 SECONDS, target = src))
+		user.visible_message("<span class='notice'>[user] pulls [core] out of [src]!</span>", "<span class='notice'>You pull [core] out of [src]! Might want to put it somewhere safe.</span>")
+		core.forceMove(loc)
+		core = null
 
 /obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
