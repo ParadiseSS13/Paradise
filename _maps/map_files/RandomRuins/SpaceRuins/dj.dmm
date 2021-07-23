@@ -160,8 +160,8 @@
 	},
 /obj/machinery/tcomms/relay/ruskie,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/djstation)
 "av" = (
@@ -282,16 +282,16 @@
 /area/djstation)
 "aG" = (
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/magical{
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
 	name = "power storage unit"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/djstation)
 "aH" = (
@@ -342,8 +342,8 @@
 /area/djstation)
 "aM" = (
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 0;
@@ -398,13 +398,10 @@
 /turf/simulated/floor/plating,
 /area/djstation)
 "aR" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "0"
-	},
+/obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/djstation)
 "aS" = (
@@ -467,8 +464,8 @@
 	},
 /obj/structure/table,
 /obj/item/paper/djstation{
-	name = "communications update";
-	info = "Station has stopped responding to my reports for about the past month. I assume Vostok just has his knickers in a twist.<br><br>Hell, not my problem. Got all the vodka and cigarettes I need to last me a year."
+	info = "Station has stopped responding to my reports for about the past month. I assume Vostok just has his knickers in a twist.<br><br>Hell, not my problem. Got all the vodka and cigarettes I need to last me a year.";
+	name = "communications update"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -661,20 +658,19 @@
 /obj/structure/table,
 /obj/item/radio/intercom/pirate,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkblue"
 	},
 /area/djstation)
 "by" = (
 /obj/structure/table,
 /obj/item/paper/djstation{
+	info = "<B>Welcome new owner!</B><BR><BR>You have purchased the latest in listening equipment. The telecommunication setup we created is the best in listening to common and private radio fequencies. Here is a step by step guide to start listening in on those saucy radio channels:<br><ol><li>Equip yourself with a multi-tool</li><li>Use the multitool on each machine, that is the broadcaster, receiver and the relay.</li><li>Turn all the machines on, it has already been configured for you to listen on.</li></ol> Simple as that. Now to listen to the private channels, you'll have to configure the intercoms, located on the front desk. Here is a list of frequencies for you to listen on.<br><ul><li>145.7 - Common Channel</li><li>144.7 - Private AI Channel</li><li>135.9 - Security Channel</li><li>135.7 - Engineering Channel</li><li>135.5 - Medical Channel</li><li>135.3 - Command Channel</li><li>135.1 - Science Channel</li><li>134.7 - Supply Channel</li>";
 	pixel_x = 5;
-	pixel_y = 17;
-	info = "<B>Welcome new owner!</B><BR><BR>You have purchased the latest in listening equipment. The telecommunication setup we created is the best in listening to common and private radio fequencies. Here is a step by step guide to start listening in on those saucy radio channels:<br><ol><li>Equip yourself with a multi-tool</li><li>Use the multitool on each machine, that is the broadcaster, receiver and the relay.</li><li>Turn all the machines on, it has already been configured for you to listen on.</li></ol> Simple as that. Now to listen to the private channels, you'll have to configure the intercoms, located on the front desk. Here is a list of frequencies for you to listen on.<br><ul><li>145.7 - Common Channel</li><li>144.7 - Private AI Channel</li><li>135.9 - Security Channel</li><li>135.7 - Engineering Channel</li><li>135.5 - Medical Channel</li><li>135.3 - Command Channel</li><li>135.1 - Science Channel</li><li>134.7 - Supply Channel</li>"
+	pixel_y = 17
 	},
 /obj/item/phone{
-	name = "spin-dial phone";
 	desc = "An old Russian phone. The dial tone is still humming.";
+	name = "spin-dial phone";
 	pixel_x = 1;
 	pixel_y = 1
 	},
@@ -711,17 +707,14 @@
 	},
 /area/djstation)
 "bD" = (
-/obj/machinery/sleeper{
-	dir = 8
-	},
+/obj/machinery/sleeper,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/djstation)
 "bE" = (
 /obj/machinery/door/airlock{
-	name = "Restroom";
-	req_access_txt = "0"
+	name = "Restroom"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -735,7 +728,6 @@
 /area/djstation)
 "bG" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkblue"
 	},
 /area/djstation)
@@ -752,8 +744,6 @@
 "bI" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
-	tag = "icon-shower (EAST)";
-	icon_state = "shower";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -786,8 +776,7 @@
 	master_tag = "dj_station_airlock";
 	name = "interior access button";
 	pixel_x = 25;
-	pixel_y = -25;
-	req_access_txt = "0"
+	pixel_y = -25
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -800,8 +789,8 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/door/window/westleft,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 1
+	dir = 1;
+	icon_state = "vault"
 	},
 /area/djstation)
 "bO" = (
@@ -815,7 +804,6 @@
 	pixel_x = -32
 	},
 /obj/structure/sink{
-	icon_state = "sink";
 	dir = 8;
 	pixel_x = -12;
 	pixel_y = 2
@@ -866,8 +854,7 @@
 	id_tag = "dj_station_inner";
 	locked = 1;
 	name = "DJ Station Interior Access";
-	req_access = null;
-	req_access_txt = "0"
+	req_access = null
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
@@ -888,7 +875,6 @@
 	frequency = 1479;
 	id_tag = "dj_station_airlock";
 	pixel_x = -25;
-	req_access_txt = "0";
 	tag_airpump = "dj_station_pump";
 	tag_chamber_sensor = "dj_station_sensor";
 	tag_exterior_door = "dj_station_outer";
@@ -906,8 +892,7 @@
 	id_tag = "dj_station_outer";
 	locked = 1;
 	name = "DJ Station External Access";
-	req_access = null;
-	req_access_txt = "0"
+	req_access = null
 	},
 /turf/simulated/floor/plating,
 /area/djstation)
@@ -921,8 +906,7 @@
 	master_tag = "dj_station_airlock";
 	name = "exterior access button";
 	pixel_x = 23;
-	pixel_y = 35;
-	req_access_txt = "0"
+	pixel_y = 35
 	},
 /turf/template_noop,
 /area/djstation)

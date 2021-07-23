@@ -111,8 +111,8 @@
 
 	var/move_on_shuttle = 1 // Can move on the shuttle.
 
-
-	var/has_enabled_antagHUD = 0  // Whether antagHUD was ever enabled. Not a true boolean - sometimes it is set to 2, because reasons.
+	/// Whether antagHUD has been enabled previously.
+	var/has_enabled_antagHUD = FALSE
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
 	var/can_change_intents = 1 //all mobs can change intents by default.
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
@@ -174,6 +174,7 @@
 
 	var/stance_damage = 0 //Whether this mob's ability to stand has been affected
 
+	/// List of the active mutation types
 	var/list/active_mutations = list()
 
 	var/last_movement = -100 // Last world.time the mob actually moved of its own accord.
@@ -198,5 +199,7 @@
 
 	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
 
+	/// Overrides the health HUD element state if set.
+	var/health_hud_override = HEALTH_HUD_OVERRIDE_NONE
 	/// The location our runechat message should appear. Should be src by default.
 	var/atom/runechat_msg_location

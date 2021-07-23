@@ -101,7 +101,7 @@
 		overlays += image('icons/obj/power.dmi', icon_state = "solar_panel-b", layer = FLY_LAYER)
 	else
 		overlays += image('icons/obj/power.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
-		src.dir = angle2dir(adir)
+		set_angle(adir)
 	return
 
 //calculates the fraction of the sunlight that the panel recieves
@@ -220,7 +220,7 @@
 		if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass))
 			var/obj/item/stack/sheet/S = W
 			if(S.use(2))
-				glass_type = W.type
+				glass_type = S.merge_type
 				playsound(loc, S.usesound, 50, 1)
 				user.visible_message("[user] places the glass on the solar assembly.", "<span class='notice'>You place the glass on the solar assembly.</span>")
 				if(tracker)
@@ -298,7 +298,7 @@
 	if(autostart)
 		search_for_connected()
 		if(connected_tracker && track == TRACKER_AUTO)
-			connected_tracker.set_angle(SSsun.angle)
+			connected_tracker.modify_angle(SSsun.angle)
 		set_panels(cdir)
 
 /obj/machinery/power/solar_control/Destroy()
@@ -338,7 +338,7 @@
 		return
 
 	if(track == TRACKER_AUTO && connected_tracker) // auto-tracking
-		connected_tracker.set_angle(SSsun.angle)
+		connected_tracker.modify_angle(SSsun.angle)
 		set_panels(cdir)
 	updateDialog()
 
@@ -410,7 +410,7 @@
 			track = text2num(params["track"])
 			if(track == TRACKER_AUTO)
 				if(connected_tracker)
-					connected_tracker.set_angle(SSsun.angle)
+					connected_tracker.modify_angle(SSsun.angle)
 					set_panels(cdir)
 			else if(track == TRACKER_TIMED)
 				targetdir = cdir
@@ -420,7 +420,7 @@
 		if("refresh")
 			search_for_connected()
 			if(connected_tracker && track == TRACKER_AUTO)
-				connected_tracker.set_angle(SSsun.angle)
+				connected_tracker.modify_angle(SSsun.angle)
 			set_panels(cdir)
 
 /obj/machinery/power/solar_control/attackby(obj/item/I, mob/user, params)

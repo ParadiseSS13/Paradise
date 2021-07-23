@@ -178,7 +178,7 @@
 	qdel(AM)
 
 	if(AM && !QDELETED(AM))	//It's indestructible
-		visible_message("<span class='boldwarning'>[src] spits out the [AM]!</span>")
+		visible_message("<span class='boldwarning'>[src] spits out [AM]!</span>")
 		AM.alpha = oldalpha
 		AM.color = oldcolor
 		AM.transform = oldtransform
