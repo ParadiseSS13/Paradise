@@ -148,7 +148,7 @@ GLOBAL_VAR(bomb_set)
 			START_PROCESSING(SSobj, core)
 	if(removal_stage == NUKE_UNWRENCHED)
 		user.visible_message("[user] begins lifting [src] off of the anchors.", "You begin lifting the device off the anchors...")
-		if(!I.use_tool(src, user, 80, volume = I.tool_volume) || removal_stage != NUKE_UNWRENCHED)
+		if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume) || removal_stage != NUKE_UNWRENCHED)
 			return
 		user.visible_message("[user] crowbars [src] off of the anchors. It can now be moved.", "You jam the crowbar under the nuclear device and lift it off its anchors. You can now move it!")
 		anchored = FALSE
@@ -227,13 +227,14 @@ GLOBAL_VAR(bomb_set)
 		removal_stage = NUKE_COVER_OFF
 	if(removal_stage == NUKE_CORE_PANEL_UNWELDED)
 		user.visible_message("<span class='notice'>[user] starts welding [src]'s inner core plate...</span>", "<span class='notice'>You start welding [src]'s inner core plate...</span>")
-		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_CORE_PANEL_UNWELDED)
+		if(!I.use_tool(src, user, 4 SECONDS, 5, volume = I.tool_volume) || removal_stage != NUKE_CORE_PANEL_UNWELDED)
 			return
 		user.visible_message("<span class='notice'>[user] finishes welding [src]'s inner core plate...</span>", "<span class='notice'>You finish welding [src]'s inner core plate...</span>")
 		removal_stage = NUKE_CORE_PANEL_EXPOSED
+
 	else if(removal_stage == NUKE_CORE_PANEL_EXPOSED)
 		user.visible_message("<span class='notice'>[user] starts unwelding [src]'s inner core plate...</span>", "<span class='notice'>You start unwelding [src]'s inner core plate...</span>")
-		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_CORE_PANEL_EXPOSED)
+		if(!I.use_tool(src, user, 4 SECONDS, 5, volume = I.tool_volume) || removal_stage != NUKE_CORE_PANEL_EXPOSED)
 			return
 		user.visible_message("<span class='notice'>[user] finishes unwelding [src]'s inner core plate...</span>", "<span class='notice'>You finish unwelding [src]'s inner core plate...</span>")
 		removal_stage = NUKE_CORE_PANEL_UNWELDED
@@ -257,7 +258,7 @@ GLOBAL_VAR(bomb_set)
 				to_chat(user, "<span class='warning'>[core] won't budge, metal clamps keep it in!</span>")
 				return
 			user.visible_message("<span class='notice'>[user] starts to pull [core] out of [src]!</span>", "<span class='notice'>You start to pull [core] out of [src]!</span>")
-			if(do_after(user, 50, target = src))
+			if(do_after(user, 5 SECONDS, target = src))
 				user.visible_message("<span class='notice'>[user] pulls [core] out of [src]!</span>", "<span class='notice'>You pull [core] out of [src]! Might want to put it somewhere safe.</span>")
 				core.forceMove(loc)
 				core = null
