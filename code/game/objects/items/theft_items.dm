@@ -31,7 +31,7 @@
 		return ..()
 
 /obj/item/nuke_core/process()
-	if(cooldown < world.time - 60)
+	if(cooldown < world.time - 6 SECONDS)
 		cooldown = world.time
 		flick(pulseicon, src)
 		radiation_pulse(src, 400, 2)
@@ -55,11 +55,11 @@
 	QDEL_NULL(core)
 	return ..()
 
-/obj/item/nuke_core_container/proc/load(obj/item/nuke_core/plutonium/ncore, mob/user)
-	if(core || !istype(ncore))
+/obj/item/nuke_core_container/proc/load(obj/item/nuke_core/plutonium/new_core, mob/user)
+	if(core || !istype(new_core))
 		return FALSE
-	ncore.forceMove(src)
-	core = ncore
+	new_core.forceMove(src)
+	core = new_core
 	icon_state = "core_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
 	addtimer(CALLBACK(src, .proc/seal), 10 SECONDS)

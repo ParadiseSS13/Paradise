@@ -254,11 +254,11 @@ GLOBAL_VAR(bomb_set)
 	if(panel_open)
 		if(removal_stage == NUKE_CORE_FULLY_EXPOSED && core)
 			if(timing) //removing the core is less risk then cutting wires, and doesnt take long, so we should not let crew do it while the nuke is armed. You can however get to it, without the special screwdriver, if you put the NAD in.
-				to_chat(user, "<span class='warning'>The [core] won't budge, metal clamps keep it in!</span>")
+				to_chat(user, "<span class='warning'>[core] won't budge, metal clamps keep it in!</span>")
 				return
-			user.visible_message("<span class='notice'>[user] starts to pull [core] out of the [src]!</span>", "<span class='notice'>You start to pull [core] out of the [src]!</span>")
+			user.visible_message("<span class='notice'>[user] starts to pull [core] out of [src]!</span>", "<span class='notice'>You start to pull [core] out of [src]!</span>")
 			if(do_after(user, 50, target = src))
-				user.visible_message("<span class='notice'>[user] pulls [core] out of the [src]!</span>", "<span class='notice'>You pull [core] out of the [src]! Might want to put it somewhere safe.</span>")
+				user.visible_message("<span class='notice'>[user] pulls [core] out of [src]!</span>", "<span class='notice'>You pull [core] out of [src]! Might want to put it somewhere safe.</span>")
 				core.forceMove(loc)
 				core = null
 

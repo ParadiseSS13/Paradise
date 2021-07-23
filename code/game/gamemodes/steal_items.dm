@@ -145,7 +145,8 @@
 	typepath = /obj/item/nuke_core/supermatter_sliver
 	protected_jobs = list("Chief Engineer", "Engineer", "Atmospheric Technician") //Unlike other steal objectives, all jobs in the department have easy access, and would not be noticed at all stealing this
 	location_override = "Engineering. You can use the box and instructions provided to harvest the sliver."
-	special_equipment =/obj/item/storage/box/syndie_kit/supermatter
+	special_equipment = /obj/item/storage/box/syndie_kit/supermatter
+
 /datum/theft_objective/plutonium_core
 	name = "the plutonium core from the stations nuclear device"
 	typepath = /obj/item/nuke_core/plutonium

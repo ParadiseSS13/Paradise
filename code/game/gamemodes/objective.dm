@@ -449,6 +449,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	else
 		to_chat(mob, "<span class='userdanger'>Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
 		message_admins("[ADMIN_LOOKUPFLW(mob)] Failed to spawn with their [item_path] theft kit.")
+		qdel(I)
 
 /datum/objective/steal/exchange
 	martyr_compatible = 0
