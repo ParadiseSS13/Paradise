@@ -689,18 +689,25 @@
 	clean_speak = list(
 		"Poly wanna cracker!",
 		"Check the crystal, you chucklefucks!",
-		"Check the tesla, you shits!",
 		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
 		"Wire the solars, you lazy bums!",
 		"WHO TOOK THE DAMN HARDSUITS?",
 		"OH GOD ITS ABOUT TO DELAMINATE CALL THE SHUTTLE",
 		"Why are there so many atmos alerts?",
-		"OH GOD WHY WOULD YOU PUT CARBON-DIOXIDE IN THE SM?",
+		"OH GOD WHY WOULD YOU PUT PLASMA IN THE SM?",
 		"Remember to lock the emitters!",
 		"Stop goofing off and repair the goddam station!",
 		"The supermatter is not your friend!",
 		"What were the wires again?",
-		"Goddam emaggers!"
+		"Goddam emaggers!",
+		"Why is nobody watching the engine?",
+		"Maybe the SM would produce more power if we fed it some clowns.",
+		"Everyone else dusted when they touched the SM, but I am sure you will be different.",
+		"I asked the mime if they turned off the scrubbers, but they didn't say a word.",
+		"This engine setup meets all safety requirements.",
+		"Chief Engineers are the SM's natural diet.",
+		"Don't eat the forbidden nacho!",
+		"Is the engine meant to be making that noise?",
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
@@ -708,6 +715,7 @@
 /mob/living/simple_animal/parrot/Poly/New()
 	ears = new /obj/item/radio/headset/headset_eng(src)
 	available_channels = list(":e")
+	clean_speak += "Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(75, 99)]%" // Has to be here cause of the `rand()`.
 	..()
 
 /mob/living/simple_animal/parrot/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)

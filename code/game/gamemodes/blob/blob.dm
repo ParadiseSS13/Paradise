@@ -57,7 +57,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 /datum/game_mode/blob/proc/get_blob_candidates()
 	var/list/candidates = list()
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(!player.stat && player.mind && !player.client.skip_antag && !player.mind.special_role && !jobban_isbanned(player, "Syndicate") && (ROLE_BLOB in player.client.prefs.be_special))
+		if(!player.stat && player.mind && !player.client.skip_antag && !player.mind.special_role && !jobban_isbanned(player, ROLE_SYNDICATE) && (ROLE_BLOB in player.client.prefs.be_special))
 			candidates += player
 	return candidates
 
