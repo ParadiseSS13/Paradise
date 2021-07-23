@@ -36,9 +36,9 @@ GLOBAL_VAR(bomb_set)
 	use_power = NO_POWER_USE
 	var/previous_level = ""
 	var/datum/wires/nuclearbomb/wires = null
-	///The same state removal stage is, until someone opens the panel of the nuke. This way. we can have someone open the front of the nuke, while keep track of where in the world we are on the anchoring bolts.
+	///The same state removal stage is, until someone opens the panel of the nuke. This way we can have someone open the front of the nuke, while keeping track of where in the world we are on the anchoring bolts.
 	var/anchor_stage = NUKE_INTACT
-	///This is so we can check if the internal components are sealed up propperly, when the outer hatch is closed.
+	///This is so that we can check if the internal components are sealed up properly when the outer hatch is closed.
 	var/core_stage = NUKE_CORE_EVERYTHING_FINE
 
 /obj/machinery/nuclearbomb/syndicate
@@ -50,7 +50,7 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/Initialize()
 	. = ..()
-	r_code = rand(10000, 99999.0) // Creates a random code upon object spawn.
+	r_code = rand(10000, 99999) // Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
 	previous_level = get_security_level()
 	GLOB.poi_list |= src
@@ -86,7 +86,7 @@ GLOBAL_VAR(bomb_set)
 			to_chat(user, "<span class='notice'>You need to deploy [src] first.</span>")
 		return
 	if(istype(O, /obj/item/stack/sheet/mineral/titanium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, target = src))
 			var/obj/item/stack/S = O
 			if(!loc || !S || S.get_amount() < 5)
 				return
@@ -98,7 +98,7 @@ GLOBAL_VAR(bomb_set)
 			return
 	if(istype(O, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
 		var/obj/item/stack/S = O
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, target = src))
 			if(!loc || !S || S.get_amount() < 5)
 				return
 			S.use(5)
@@ -106,7 +106,7 @@ GLOBAL_VAR(bomb_set)
 			removal_stage = NUKE_CORE_EVERYTHING_FINE
 			return
 	if(istype(O, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, target = src))
 			if(!user.unEquip(O))
 				to_chat(user, "<span class='notice'>The [O] is stuck to your hand!</span>")
 				return
@@ -130,15 +130,16 @@ GLOBAL_VAR(bomb_set)
 		user.visible_message("[user] forces open the bolt covers on [src].", "You force open the bolt covers.")
 		removal_stage = NUKE_COVER_OPEN
 	if(removal_stage == NUKE_CORE_EVERYTHING_FINE)
-		user.visible_message("<span class='notice'>[user] starts removing [src]'s outer core plate...</span>", "<span class='notice'>You start removing [src]'s outer plate...</span>")
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || removal_stage != NUKE_CORE_EVERYTHING_FINE)
+		user.visible_message("<span class='notice'>[user] starts removing [src]'s outer core plate...</span>", "<span class='notice'>You start removing [src]'s outer core plate...</span>")
+		if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || removal_stage != NUKE_CORE_EVERYTHING_FINE)
 			return
 		user.visible_message("<span class='notice'>[user] finishes removing [src]'s outer core plate.</span>", "<span class='notice'>You finish removing [src]'s outer core plate.</span>")
 		new /obj/item/stack/sheet/metal(loc, 5)
 		removal_stage = NUKE_CORE_PANEL_EXPOSED
+
 	if(removal_stage == NUKE_CORE_PANEL_UNWELDED)
-		user.visible_message("<span class='notice'>[user] starts removing [src]'s inner core plate...</span>", "<span class='notice'>You start removing [src]'s inner plate...</span>")
-		if(!I.use_tool(src, user, 80, volume = I.tool_volume) || removal_stage != NUKE_CORE_PANEL_UNWELDED)
+		user.visible_message("<span class='notice'>[user] starts removing [src]'s inner core plate...</span>", "<span class='notice'>You start removing [src]'s inner core plate...</span>")
+		if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume) || removal_stage != NUKE_CORE_PANEL_UNWELDED)
 			return
 		user.visible_message("<span class='notice'>[user] finishes removing [src]'s inner core plate.</span>", "<span class='notice'>You remove [src]'s inner core plate. You can see the core's green glow!</span>")
 		removal_stage = NUKE_CORE_FULLY_EXPOSED
