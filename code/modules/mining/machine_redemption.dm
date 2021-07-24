@@ -60,7 +60,7 @@
 	..()
 	ore_buffer = list()
 	// Components
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, .proc/on_material_insert))
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, .proc/on_material_insert), TRUE)
 	files = new /datum/research/smelter(src)
 	// Stock parts
 	component_parts = list()
@@ -192,24 +192,32 @@
 		message_sent = TRUE
 
 // Interactions
-/obj/machinery/mineral/ore_redemption/attackby(obj/item/W, mob/user, params)
-	if(exchange_parts(user, W))
+/obj/machinery/mineral/ore_redemption/attackby(obj/item/I, mob/user, params)
+	if(exchange_parts(user, I))
 		return
 	if(!powered())
 		return ..()
 
-	if(istype(W, /obj/item/card/id))
+	if(istype(I, /obj/item/card/id))
 		try_insert_id(user)
 		return
-	else if(istype(W, /obj/item/disk/design_disk))
+
+	else if(istype(I, /obj/item/stack/ore))
+		var/obj/item/stack/ore/O = I
+		to_chat(user, "<span class='notice'>You insert [O.amount] [O.singular_name]\s into [src].</span>")
+		smelt_ore(O)
+		SStgui.update_uis(src) // This is needed
+		return
+
+	else if(istype(I, /obj/item/disk/design_disk))
 		if(!user.drop_item())
 			return
-		W.forceMove(src)
-		inserted_disk = W
+		I.forceMove(src)
+		inserted_disk = I
 		SStgui.update_uis(src)
 		interact(user)
-		user.visible_message("<span class='notice'>[user] inserts [W] into [src].</span>", \
-						 	 "<span class='notice'>You insert [W] into [src].</span>")
+		user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>",
+						 	 "<span class='notice'>You insert [I] into [src].</span>")
 		return
 	return ..()
 
