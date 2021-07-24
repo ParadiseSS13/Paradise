@@ -36,15 +36,13 @@ Thus, the two variables affect pump operation are set in New():
 
 /obj/machinery/atmospherics/binary/volume_pump/AICtrlClick(mob/living/silicon/user)
 	toggle(user)
-	return ..()
 
 /obj/machinery/atmospherics/binary/volume_pump/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
 		set_max(user)
 
-/obj/machinery/atmospherics/binary/volume_pump/AIAltClick()
-	set_max()
-	return ..()
+/obj/machinery/atmospherics/binary/volume_pump/AIAltClick(mob/living/silicon/user)
+	set_max(user)
 
 /obj/machinery/atmospherics/binary/volume_pump/Destroy()
 	if(SSradio)

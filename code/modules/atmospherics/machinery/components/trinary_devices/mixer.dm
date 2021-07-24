@@ -23,15 +23,13 @@
 
 /obj/machinery/atmospherics/trinary/mixer/AICtrlClick(mob/living/silicon/user)
 	toggle(user)
-	return ..()
 
 /obj/machinery/atmospherics/trinary/mixer/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
 		set_max(user)
 
-/obj/machinery/atmospherics/trinary/mixer/AIAltClick()
-	set_max()
-	return ..()
+/obj/machinery/atmospherics/trinary/mixer/AIAltClick(mob/living/silicon/user)
+	set_max(user)
 
 /obj/machinery/atmospherics/trinary/mixer/flipped
 	icon_state = "mmap"

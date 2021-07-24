@@ -366,9 +366,10 @@ Pipelines + Other Objects -> Pipe network
  * * user - the mob who is toggling the machine.
  */
 /obj/machinery/atmospherics/proc/toggle(mob/living/user)
-	if(powered())
-		on = !on
-		update_icon()
+	if(!powered())
+		return
+	on = !on
+	update_icon()
 	if(user)
 		to_chat(user, "<span class='notice'>You toggle [src] [on ? "on" : "off"].</span>")
 
@@ -381,8 +382,9 @@ Pipelines + Other Objects -> Pipe network
  * * user - the mob who is setting the output pressure to maximum.
  */
 /obj/machinery/atmospherics/proc/set_max(mob/living/user)
-	if(powered())
-		target_pressure = MAX_OUTPUT_PRESSURE
-		update_icon()
+	if(!powered())
+		return
+	target_pressure = MAX_OUTPUT_PRESSURE
+	update_icon()
 	if(user)
 		to_chat(user, "<span class='notice'>You set the target pressure of [src] to maximum.</span>")

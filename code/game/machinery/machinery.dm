@@ -658,11 +658,11 @@ Class Procs:
  * * user - the mob who is trying to interact with the machine.
  */
 /obj/machinery/proc/can_use_shortcut(mob/living/user)
-	if(!ishuman(user) && !issilicon(user))
-		return FALSE
-	if(!in_range(src, user) && !issilicon(user))
-		return FALSE
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return FALSE
-	return TRUE
+	if(ishuman(user) && in_range(src, user))
+		return TRUE
+	if(issilicon(user))
+		return TRUE
+	return FALSE

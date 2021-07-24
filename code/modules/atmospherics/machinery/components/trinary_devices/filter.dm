@@ -42,15 +42,13 @@
 
 /obj/machinery/atmospherics/trinary/filter/AICtrlClick(mob/living/silicon/user)
 	toggle(user)
-	return ..()
 
 /obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
 		set_max(user)
 
-/obj/machinery/atmospherics/trinary/filter/AIAltClick()
-	set_max()
-	return ..()
+/obj/machinery/atmospherics/trinary/filter/AIAltClick(mob/living/silicon/user)
+	set_max(user)
 
 /obj/machinery/atmospherics/trinary/filter/Destroy()
 	if(SSradio)
