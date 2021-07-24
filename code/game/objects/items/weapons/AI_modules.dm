@@ -22,7 +22,7 @@ AI MODULES
 	materials = list(MAT_GOLD=50)
 	var/datum/ai_laws/laws = null
 
-/obj/item/aiModule/Initialize()
+/obj/item/aiModule/Initialize(mapload)
 	. = ..()
 	if(laws)
 		desc += "<br>"
