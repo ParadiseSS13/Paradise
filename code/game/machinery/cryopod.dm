@@ -604,7 +604,7 @@
 	to_chat(E, "<span class='notice'>[on_enter_occupant_message]</span>")
 	to_chat(E, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 	occupant = E
-	name = "[name] ([occupant.name])"
+	name = "cryogenic freezer ([occupant.name])"
 	time_entered = world.time
 	if(findtext("[E.key]","@",1,2))
 		var/FT = replacetext(E.key, "@", "")
@@ -708,6 +708,8 @@
 		icon_state = "[base_icon_state]-r"
 	else
 		icon_state = base_icon_state
+
+	name = initial(name)
 
 	return
 
