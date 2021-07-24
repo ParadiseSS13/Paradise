@@ -36,18 +36,17 @@
 #define REMOVE_TRAIT(target, trait, sources) \
 	do { \
 		if(target.status_traits && target.status_traits[trait]) { \
-			var/list/TARGET_TRAITS = target.status_traits; \
 			var/list/SOURCES = sources; \
 			if(sources && !islist(sources)) { \
 				SOURCES = list(sources); \
 			} \
 \
-			for(var/TRAIT_SOURCE in TARGET_TRAITS[trait]) { \
+			for(var/TRAIT_SOURCE in target.status_traits[trait]) { \
 				if((!SOURCES && (TRAIT_SOURCE != ROUNDSTART_TRAIT)) || (TRAIT_SOURCE in SOURCES)) { \
-					if(length(TARGET_TRAITS[trait]) == 1) { \
+					if(length(target.status_traits[trait]) == 1) { \
 						SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(trait), trait); \
 					} \
-					LAZYREMOVEASSOC(TARGET_TRAITS, trait, TRAIT_SOURCE); \
+					LAZYREMOVEASSOC(target.status_traits, trait, TRAIT_SOURCE); \
 				} \
 			} \
 		} \
@@ -63,20 +62,19 @@
 #define REMOVE_TRAITS_NOT_IN(target, sources) \
 	do { \
 		if(target.status_traits) { \
-			var/list/TARGET_TRAITS = target.status_traits; \
 			var/list/SOURCES = sources; \
 			if(!islist(sources)) { \
 				SOURCES = list(sources); \
 			} \
 \
-			for(var/TRAIT in TARGET_TRAITS) { \
-				TARGET_TRAITS[TRAIT] &= SOURCES; \
-				if(!length(TARGET_TRAITS[TRAIT])) { \
-					TARGET_TRAITS -= TRAIT; \
+			for(var/TRAIT in target.status_traits) { \
+				target.status_traits[TRAIT] &= SOURCES; \
+				if(!length(target.status_traits[TRAIT])) { \
+					target.status_traits -= TRAIT; \
 					SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(TRAIT), TRAIT); \
 				} \
 			} \
-			if(!length(TARGET_TRAITS)) { \
+			if(!length(target.status_traits)) { \
 				target.status_traits = null; \
 			} \
 		} \
@@ -92,20 +90,19 @@
 #define REMOVE_TRAITS_IN(target, sources) \
 	do { \
 		if(target.status_traits) { \
-			var/list/TARGET_TRAITS = target.status_traits; \
 			var/list/SOURCES = sources; \
 			if(!islist(sources)) { \
 				SOURCES = list(sources); \
 			} \
 \
-			for(var/TRAIT in TARGET_TRAITS) { \
-				TARGET_TRAITS[TRAIT] -= SOURCES; \
-				if(!length(TARGET_TRAITS[TRAIT])) { \
-					TARGET_TRAITS -= TRAIT; \
+			for(var/TRAIT in target.status_traits) { \
+				target.status_traits[TRAIT] -= SOURCES; \
+				if(!length(target.status_traits[TRAIT])) { \
+					target.status_traits -= TRAIT; \
 					SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(TRAIT)); \
 				} \
 			} \
-			if(!length(TARGET_TRAITS)) { \
+			if(!length(target.status_traits)) { \
 				target.status_traits = null; \
 			} \
 		} \
