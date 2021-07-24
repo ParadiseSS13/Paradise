@@ -60,8 +60,6 @@
 	else
 		verbs -= /obj/item/storage/verb/toggle_gathering_mode
 
-	RegisterSignal(src, COMSIG_ITEM_EQUIPPED, .proc/update_viewers)
-
 	populate_contents()
 
 	boxes = new /obj/screen/storage()
@@ -197,6 +195,7 @@
   * Hides the current container interface from `user`.
   */
 /obj/item/storage/proc/hide_from(mob/user)
+	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too
 	if(!user.client)
 		return
 	user.client.screen -= boxes
@@ -204,19 +203,16 @@
 	user.client.screen -= contents
 	if(user.s_active == src)
 		user.s_active = null
-	LAZYREMOVE(mobs_viewing, user)
 
 /**
   * Checks all mobs currently viewing the storage inventory, and hides it if they shouldn't be able to see it.
   */
 /obj/item/storage/proc/update_viewers()
-	SIGNAL_HANDLER
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M
 		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)))
 			continue
-		if(M.client)
-			hide_from(M)
+		hide_from(M)
 
 /obj/item/storage/proc/open(mob/user)
 	if(use_sound)
@@ -532,6 +528,10 @@
 			if(M.s_active == src)
 				close(M)
 	add_fingerprint(user)
+
+/obj/item/storage/equipped(mob/user, slot, initial)
+	. = ..()
+	update_viewers()
 
 /obj/item/storage/attack_ghost(mob/user)
 	if(isobserver(user))
