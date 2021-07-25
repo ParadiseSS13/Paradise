@@ -259,8 +259,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/greet()
 	to_chat(owner.current, "<span class='userdanger'>You are a [special_role]!</span>")
 	announce_datum_objectives()
-	if(wiki_page_name)
-		to_chat(owner.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name])</span>")
 
 /**
  * Displays a message to the antag mob while the datum is being deleted, i.e. "Your powers are gone and you're no longer a vampire!"
