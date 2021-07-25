@@ -40,11 +40,11 @@ SUBSYSTEM_DEF(mapping)
 	loadLavaland()
 
 	// Pick a random away mission.
-	if(!config.disable_away_missions)
+	if(GLOB.configuration.gateway.enable_away_mission)
 		load_away_mission()
 
 	// Seed space ruins
-	if(!config.disable_space_ruins)
+	if(GLOB.configuration.ruins.enable_space_ruins)
 		handleRuins()
 
 	// Makes a blank space level for the sake of randomness
@@ -57,12 +57,12 @@ SUBSYSTEM_DEF(mapping)
 	// Spawn Lavaland ruins and rivers.
 	log_startup_progress("Populating lavaland...")
 	var/lavaland_setup_timer = start_watch()
-	seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
+	seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
 	spawn_rivers(list(level_name_to_num(MINING)))
 	log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
 
 	// Now we make a list of areas for teleport locs
-	// TOOD: Make these locs into lists on the SS itself, not globs
+	// AA TODO: Make these locs into lists on the SS itself, not globs
 	for(var/area/AR in world)
 		if(AR.no_teleportlocs)
 			continue
@@ -84,8 +84,8 @@ SUBSYSTEM_DEF(mapping)
 	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
 
 	// World name
-	if(config && config.server_name)
-		world.name = "[config.server_name]: [station_name()]"
+	if(GLOB.configuration.general.server_name)
+		world.name = "[GLOB.configuration.general.server_name]: [station_name()]"
 	else
 		world.name = station_name()
 
@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(mapping)
 	// load in extra levels of space ruins
 	var/load_zlevels_timer = start_watch()
 	log_startup_progress("Creating random space levels...")
-	var/num_extra_space = rand(config.extra_space_ruin_levels_min, config.extra_space_ruin_levels_max)
+	var/num_extra_space = rand(GLOB.configuration.ruins.extra_levels_min, GLOB.configuration.ruins.extra_levels_max)
 	for(var/i in 1 to num_extra_space)
 		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
 	log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
@@ -230,11 +230,11 @@ SUBSYSTEM_DEF(mapping)
 	if(length(GLOB.awaydestinations))
 		return
 
-	if(GLOB.potentialRandomZlevels && length(GLOB.potentialRandomZlevels))
+	if(length(GLOB.configuration.gateway.enabled_away_missions))
 		var/watch = start_watch()
 		log_startup_progress("Loading away mission...")
 
-		var/map = pick(GLOB.potentialRandomZlevels)
+		var/map = pick(GLOB.configuration.gateway.enabled_away_missions)
 		var/file = file(map)
 		if(isfile(file))
 			var/zlev = GLOB.space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL,BLOCK_TELEPORT))

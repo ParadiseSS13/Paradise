@@ -18,6 +18,7 @@
 	range = 0
 	summon_type = list(/turf/simulated/floor/engine/cult)
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/wall
 	name = "Summon Cult Wall"
@@ -32,6 +33,7 @@
 	range = 0
 	summon_type = list(/turf/simulated/wall/cult/artificer) //we don't want artificer-based runed metal farms
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/wall/reinforced
 	name = "Greater Construction"
@@ -43,6 +45,7 @@
 	invocation_type = "none"
 	range = 0
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	delay = 50
 
 	summon_type = list(/turf/simulated/wall/r_wall)
@@ -58,6 +61,7 @@
 	invocation = "none"
 	invocation_type = "none"
 	range = 0
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
 	summon_type = list(/obj/item/soulstone)
 
@@ -77,6 +81,7 @@
 	invocation = "none"
 	invocation_type = "none"
 	range = 0
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
 	summon_type = list(/obj/structure/cult/functional/pylon)
 
@@ -92,6 +97,7 @@
 	invocation = "none"
 	invocation_type = "none"
 	range = 0
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	summon_type = list(/obj/effect/forcefield/cult)
 	summon_lifespan = 200
 
@@ -111,6 +117,7 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	jaunt_in_time = 12
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out
@@ -137,6 +144,7 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	proj_lifespan = 10
 	max_targets = 6
 
@@ -150,6 +158,7 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	range = -1
 	include_user = 1
 	cooldown_min = 20 //25 deciseconds reduction per rank

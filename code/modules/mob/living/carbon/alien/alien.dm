@@ -126,7 +126,7 @@
 
 /mob/living/carbon/alien/movement_delay()
 	. = ..()
-	. += move_delay_add + config.alien_delay //move_delay_add is used to slow aliens with stuns
+	. += move_delay_add + GLOB.configuration.movement.alien_delay //move_delay_add is used to slow aliens with stuns
 
 /mob/living/carbon/alien/getDNA()
 	return null
