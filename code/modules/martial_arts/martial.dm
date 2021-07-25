@@ -6,9 +6,9 @@
 	var/streak = ""
 	var/max_streak_length = 6
 	var/temporary = FALSE
-	/// The permanent style
+	/// The permanent style.
 	var/datum/martial_art/base = null
-	/// Chance to deflect projectiles while on throw mode
+	/// Chance to deflect projectiles while on throw mode.
 	var/deflection_chance = 0
 	/// Can it reflect projectiles in a random direction?
 	var/reroute_deflection = FALSE
@@ -20,16 +20,16 @@
 	/// Message to tell the style user if they try and use a gun while no_guns = TRUE (DISHONORABRU!)
 	var/no_guns_message = ""
 
-	/// If the martial art has it's own explaination verb
+	/// If the martial art has it's own explaination verb.
 	var/has_explaination_verb = FALSE
 
-	/// What combos can the user do? List of combo types
+	/// What combos can the user do? List of combo types.
 	var/list/combos = list()
-	/// What combos are currently (possibly) being performed
+	/// What combos are currently (possibly) being performed.
 	var/list/datum/martial_art/current_combos = list()
 	/// When the last hit happened
 	var/last_hit = 0
-	/// If the user is preparing a martial arts stance
+	/// If the user is preparing a martial arts stance.
 	var/in_stance = FALSE
 
 /datum/martial_art/New()
