@@ -17,8 +17,8 @@
 "ad" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -194,8 +194,8 @@
 /obj/item/bodybag,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -271,8 +271,8 @@
 /area/ruin/powered/animal_hospital)
 "aJ" = (
 /turf/simulated/floor/plasteel/grimy{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -655,24 +655,24 @@
 /area/ruin/powered/animal_hospital)
 "bL" = (
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
 "bM" = (
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
 "bO" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -743,8 +743,8 @@
 	dir = 6
 	},
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -753,8 +753,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -763,8 +763,8 @@
 	dir = 10
 	},
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -773,16 +773,16 @@
 	dir = 1
 	},
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
 "cb" = (
 /obj/machinery/atmospherics/binary/valve,
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -861,8 +861,8 @@
 "cn" = (
 /obj/machinery/light,
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -932,8 +932,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -964,8 +964,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -975,8 +975,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
