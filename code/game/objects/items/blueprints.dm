@@ -40,7 +40,7 @@
 	if(..())
 		return
 	if(href_list["create_area"])
-		if(get_area_type()==AREA_SPACE && !read_only)
+		if(get_area_type()==AREA_SPACE && !read_only) // Never trust user input
 			create_area()
 
 
