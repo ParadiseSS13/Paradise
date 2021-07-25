@@ -266,11 +266,11 @@ SUBSYSTEM_DEF(changelog)
 				usr.client.github()
 	// Takes a PR number as argument
 	if(href_list["openPR"])
-		if(config.githuburl)
+		if(GLOB.configuration.url.github_url)
 			if(alert("This will open PR #[href_list["openPR"]] in your browser. Are you sure?",,"Yes","No")=="No")
 				return
 			// If the github URL in the config has a trailing slash, it doesnt matter here, thankfully github accepts having a double slash: https://github.com/org/repo//pull/1
-			var/url = "[config.githuburl]/pull/[href_list["openPR"]]"
+			var/url = "[GLOB.configuration.url.github_url]/pull/[href_list["openPR"]]"
 			usr << link(url)
 		else
 			to_chat(usr, "<span class='danger'>The GitHub URL is not set in the server configuration. PRs cannot be opened from changelog view. Please inform the server host.</span>")
