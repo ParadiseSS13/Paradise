@@ -43881,14 +43881,7 @@
 	},
 /area/turret_protected/ai_upload)
 "bNa" = (
-/obj/item/aiModule/protectStation{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/aiModule/nanotrasen{
-	pixel_x = 2;
-	pixel_y = -2
-	},
+/obj/item/aiModule/nanotrasen,
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -44735,7 +44728,7 @@
 /turf/simulated/wall/r_wall,
 /area/turret_protected/ai_upload)
 "bOO" = (
-/obj/item/aiModule/quarantine,
+/obj/item/aiModule/crewsimov,
 /obj/structure/table/glass,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -44771,7 +44764,7 @@
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bOS" = (
-/obj/item/aiModule/freeform,
+/obj/item/aiModule/corp,
 /obj/structure/table/glass,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -47099,25 +47092,7 @@
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/heads/hop)
 "bSH" = (
-/obj/machinery/door/window{
-	base_state = "right";
-	icon_state = "right";
-	name = "Core Modules";
-	req_access_txt = "20"
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/item/aiModule/crewsimov,
-/obj/item/aiModule/freeformcore,
-/obj/item/aiModule/corp,
-/obj/item/aiModule/paladin,
-/obj/item/aiModule/robocop,
-/obj/structure/table/glass,
+/obj/machinery/smartfridge/secure/circuits/aiupload/experimental,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bSI" = (
@@ -47161,23 +47136,7 @@
 	},
 /area/turret_protected/ai_upload)
 "bSN" = (
-/obj/machinery/door/window{
-	dir = 8;
-	name = "High-Risk Modules";
-	req_access_txt = "20"
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/item/aiModule/oxygen,
-/obj/item/aiModule/oneCrewMember,
-/obj/item/aiModule/purge,
-/obj/item/aiModule/antimov,
-/obj/structure/table/glass,
+/obj/machinery/smartfridge/secure/circuits/aiupload/highrisk,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bSO" = (
@@ -99669,7 +99628,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/obj/machinery/smartfridge/secure/chemistry/virology,
+/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/medical/virology)
