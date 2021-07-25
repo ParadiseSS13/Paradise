@@ -35916,7 +35916,7 @@
 /area/bridge/meeting_room)
 "bzT" = (
 /obj/structure/table,
-/obj/item/aiModule/quarantine,
+/obj/item/aiModule/crewsimov,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36954,25 +36954,7 @@
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
 "bCH" = (
-/obj/structure/table,
-/obj/machinery/door/window{
-	base_state = "right";
-	icon_state = "right";
-	name = "Core Modules";
-	req_access_txt = "20"
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/item/aiModule/crewsimov,
-/obj/item/aiModule/freeformcore,
-/obj/item/aiModule/corp,
-/obj/item/aiModule/paladin,
-/obj/item/aiModule/robocop,
+/obj/machinery/smartfridge/secure/circuits/aiupload/experimental,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bCI" = (
@@ -37572,7 +37554,6 @@
 /area/turret_protected/ai_upload)
 "bEb" = (
 /obj/structure/table,
-/obj/item/aiModule/protectStation,
 /obj/item/aiModule/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -37943,7 +37924,7 @@
 /area/maintenance/port)
 "bFe" = (
 /obj/structure/table,
-/obj/item/aiModule/freeform,
+/obj/item/aiModule/corp,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39781,23 +39762,7 @@
 	},
 /area/turret_protected/ai_upload)
 "bIM" = (
-/obj/structure/table,
-/obj/machinery/door/window{
-	dir = 8;
-	name = "High-Risk Modules";
-	req_access_txt = "20"
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/item/aiModule/oxygen,
-/obj/item/aiModule/oneCrewMember,
-/obj/item/aiModule/purge,
-/obj/item/aiModule/antimov,
+/obj/machinery/smartfridge/secure/circuits/aiupload/highrisk,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bIN" = (
@@ -57498,7 +57463,7 @@
 	},
 /area/medical/virology)
 "cpM" = (
-/obj/machinery/smartfridge/secure/chemistry/virology,
+/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"
