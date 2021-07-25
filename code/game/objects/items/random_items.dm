@@ -4,12 +4,12 @@
 /obj/item/toy/random
 	name = "Random Toy"
 
-/obj/item/toy/random/New()
+/obj/item/toy/random/Initialize(mapload)
 	..()
-	var/list/types = list(/obj/item/gun/projectile/shotgun/toy/crossbow, /obj/item/toy/balloon,/obj/item/toy/spinningtoy,/obj/item/reagent_containers/spray/waterflower) + subtypesof(/obj/item/toy/prize)
+	var/list/types = list(/obj/item/gun/projectile/shotgun/toy/crossbow, /obj/item/toy/balloon,/obj/item/toy/spinningtoy,/obj/item/reagent_containers/spray/waterflower) + subtypesof(/obj/item/toy/figure/mech)
 	var/T = pick(types)
 	new T(loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 // -------------------------------------
 //	Random cleanables, clearly this makes sense

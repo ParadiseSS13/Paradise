@@ -15,7 +15,7 @@
 
 /datum/game_mode/traitor/autotraitor/pre_setup()
 
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs
 
 	possible_traitors = get_players_for_role(ROLE_TRAITOR)
@@ -35,7 +35,7 @@
 	if(!possible_traitors.len)
 		return 0
 
-	if(config.traitor_scaling)
+	if(GLOB.configuration.gamemode.traitor_scaling)
 		num_traitors = max_traitors - 1 + prob(traitor_prob)
 		log_game("Number of traitors: [num_traitors]")
 		message_admins("Players counted: [num_players]  Number of traitors chosen: [num_traitors]")

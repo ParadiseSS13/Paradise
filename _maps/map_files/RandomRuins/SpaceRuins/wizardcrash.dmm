@@ -17,7 +17,6 @@
 	icon_state = "small"
 	},
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
 	icon_state = "wood-broken3"
 	},
 /area/ruin/unpowered)
@@ -27,13 +26,11 @@
 "af" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
 	icon_state = "wood-broken3"
 	},
 /area/ruin/unpowered)
 "ag" = (
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken7";
 	icon_state = "wood-broken7"
 	},
 /area/ruin/unpowered)
@@ -44,7 +41,6 @@
 	},
 /obj/item/shard,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
 	icon_state = "wood-broken3"
 	},
 /area/ruin/unpowered)
@@ -105,7 +101,6 @@
 	in_use = 1
 	},
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
 	icon_state = "wood-broken3"
 	},
 /area/ruin/unpowered)
@@ -140,7 +135,6 @@
 /area/ruin/unpowered)
 "ax" = (
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
 	icon_state = "wood-broken3"
 	},
 /area/ruin/unpowered)
@@ -156,7 +150,6 @@
 /area/ruin/unpowered)
 "aA" = (
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken6";
 	icon_state = "wood-broken6"
 	},
 /area/ruin/unpowered)
@@ -185,7 +178,6 @@
 "aF" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken6";
 	icon_state = "wood-broken6"
 	},
 /area/ruin/unpowered)
@@ -261,7 +253,6 @@
 /area/ruin/unpowered)
 "aT" = (
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /obj/structure/reagent_dispensers/oil,
@@ -280,7 +271,6 @@
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken6";
 	icon_state = "wood-broken6"
 	},
 /area/ruin/unpowered)
@@ -502,8 +492,7 @@
 /area/ruin/unpowered)
 "bJ" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/unpowered)

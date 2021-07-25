@@ -192,24 +192,25 @@
 		message_sent = TRUE
 
 // Interactions
-/obj/machinery/mineral/ore_redemption/attackby(obj/item/W, mob/user, params)
-	if(exchange_parts(user, W))
+/obj/machinery/mineral/ore_redemption/attackby(obj/item/I, mob/user, params)
+	if(exchange_parts(user, I))
 		return
 	if(!powered())
 		return ..()
 
-	if(istype(W, /obj/item/card/id))
+	if(istype(I, /obj/item/card/id))
 		try_insert_id(user)
 		return
-	else if(istype(W, /obj/item/disk/design_disk))
+
+	else if(istype(I, /obj/item/disk/design_disk))
 		if(!user.drop_item())
 			return
-		W.forceMove(src)
-		inserted_disk = W
+		I.forceMove(src)
+		inserted_disk = I
 		SStgui.update_uis(src)
 		interact(user)
-		user.visible_message("<span class='notice'>[user] inserts [W] into [src].</span>", \
-						 	 "<span class='notice'>You insert [W] into [src].</span>")
+		user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>",
+						 	 "<span class='notice'>You insert [I] into [src].</span>")
 		return
 	return ..()
 
@@ -387,8 +388,7 @@
   */
 /obj/machinery/mineral/ore_redemption/proc/smelt_ore(obj/item/stack/ore/O)
 	// Award points if the ore actually smelts to something
-	if(O.refined_type)
-		points += O.points * point_upgrade * O.amount
+	give_points(O.type, O.amount)
 	// Insert materials
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/amount_compatible = materials.get_item_material_amount(O)
@@ -397,6 +397,17 @@
 	// Delete the stack
 	ore_buffer -= O
 	qdel(O)
+
+/**
+  * Adds a set number of mining points, based on the ore points, the ore amount, and the ORM upgrade state.
+  *
+  * Arguments:
+  * * ore_path - The typepath of the inserted ore.
+  * * ore_amount - The amount of ore which has been inserted.
+  */
+/obj/machinery/mineral/ore_redemption/proc/give_points(obj/item/stack/ore/ore_path, ore_amount)
+	if(initial(ore_path.refined_type))
+		points += initial(ore_path.points) * point_upgrade * ore_amount
 
 /**
   * Returns the amount of alloy sheets that can be produced from the given design.
@@ -495,6 +506,7 @@
   * * inserted - The amount of material inserted.
   */
 /obj/machinery/mineral/ore_redemption/proc/on_material_insert(inserted_type, last_inserted_id, inserted)
+	give_points(inserted_type, inserted)
 	SStgui.update_uis(src)
 
 #undef BASE_POINT_MULT

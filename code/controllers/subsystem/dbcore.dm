@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(dbcore)
 // This is in Initialize() so that its actually seen in chat
 /datum/controller/subsystem/dbcore/Initialize()
 	if(!schema_valid)
-		to_chat(world, "<span class='boldannounce'>Database schema ([sql_version]) doesn't match the latest schema version ([SQL_VERSION]). Roundstart has been delayed.</span>")
+		to_chat(world, "<span class='boldannounce'>Database schema ([GLOB.configuration.database.version]) doesn't match the latest schema version ([SQL_VERSION]). Roundstart has been delayed.</span>")
 
 	return ..()
 
@@ -66,7 +66,7 @@ SUBSYSTEM_DEF(dbcore)
 	if(IsConnected())
 		return TRUE
 
-	if(!config.sql_enabled)
+	if(!GLOB.configuration.database.enabled)
 		return FALSE
 
 	if(failed_connection_timeout <= world.time) //it's been more than 5 seconds since we failed to connect, reset the counter
@@ -77,14 +77,14 @@ SUBSYSTEM_DEF(dbcore)
 		return FALSE
 
 	var/result = json_decode(rustg_sql_connect_pool(json_encode(list(
-		"host" = sqladdress,
-		"port" = text2num(sqlport),
-		"user" = sqlfdbklogin,
-		"pass" = sqlfdbkpass,
-		"db_name" = sqlfdbkdb,
-		"read_timeout" = config.async_sql_query_timeout,
-		"write_timeout" = config.async_sql_query_timeout,
-		"max_threads" = config.rust_sql_thread_limit,
+		"host" = GLOB.configuration.database.address,
+		"port" = GLOB.configuration.database.port,
+		"user" = GLOB.configuration.database.username,
+		"pass" = GLOB.configuration.database.password,
+		"db_name" = GLOB.configuration.database.db,
+		"read_timeout" = GLOB.configuration.database.async_query_timeout,
+		"write_timeout" = GLOB.configuration.database.async_query_timeout,
+		"max_threads" = GLOB.configuration.database.async_thread_limit,
 	))))
 	. = (result["status"] == "ok")
 	if(.)
@@ -102,11 +102,11 @@ SUBSYSTEM_DEF(dbcore)
   * If it is a valid version, the DB will then connect.
   */
 /datum/controller/subsystem/dbcore/proc/CheckSchemaVersion()
-	if(config.sql_enabled)
+	if(GLOB.configuration.database.enabled)
 		// The unit tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running unit tests
 		#ifndef UNIT_TESTS
-		if(config.sql_enabled && sql_version != SQL_VERSION)
-			config.sql_enabled = FALSE
+		if(GLOB.configuration.database.enabled && GLOB.configuration.database.version != SQL_VERSION)
+			GLOB.configuration.database.enabled = FALSE
 			schema_valid = FALSE
 			SSticker.ticker_going = FALSE
 			SEND_TEXT(world.log, "Database connection failed: Invalid SQL Versions")
@@ -206,7 +206,7 @@ SUBSYSTEM_DEF(dbcore)
   * Does a few sanity checks, then asks the DLL if we are properly connected
   */
 /datum/controller/subsystem/dbcore/proc/IsConnected()
-	if(!config.sql_enabled)
+	if(!GLOB.configuration.database.enabled)
 		return FALSE
 	if(!schema_valid)
 		return FALSE
@@ -222,7 +222,7 @@ SUBSYSTEM_DEF(dbcore)
   * Will always report "Database disabled by configuration" if the DB is disabled.
   */
 /datum/controller/subsystem/dbcore/proc/ErrorMsg()
-	if(!config.sql_enabled)
+	if(!GLOB.configuration.database.enabled)
 		return "Database disabled by configuration"
 	return last_error
 
@@ -492,7 +492,7 @@ SUBSYSTEM_DEF(dbcore)
 /client/proc/reestablish_db_connection()
 	set category = "Debug"
 	set name = "Reestablish DB Connection"
-	if(!config.sql_enabled)
+	if(!GLOB.configuration.database.enabled)
 		to_chat(usr, "<span class='warning'>The Database is not enabled in the server configuration!</span>")
 		return
 
