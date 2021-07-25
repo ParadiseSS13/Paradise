@@ -2301,9 +2301,9 @@
 	else if(href_list["cryossd"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/mob/living/M= locateUID(href_list["cryossd"])
+		var/mob/living/M = locateUID(href_list["cryossd"])
 		if(!ishuman(M) && !issilicon(M))
-			to_chat(usr, "<span class='warning'>This can only be used on humans and silicons</span>")
+			to_chat(usr, "<span class='warning'>This can only be used on humans and silicons.</span>")
 			return
 		if(!href_list["cryoafk"] && !isLivingSSD(M))
 			to_chat(usr, "<span class='warning'>This can only be used on living, SSD players.</span>")
