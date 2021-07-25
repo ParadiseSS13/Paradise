@@ -4,6 +4,7 @@
 	icon_state = "blueprints"
 	attack_verb = list("attacked", "bapped", "hit")
 	var/fluffnotice = "Nobody's gonna read this stuff!"
+	var/read_only = FALSE
 
 	var/const/AREA_ERRNONE = 0
 	var/const/AREA_STATION = 1
@@ -39,7 +40,7 @@
 	if(..())
 		return
 	if(href_list["create_area"])
-		if(get_area_type()==AREA_SPACE)
+		if(get_area_type()==AREA_SPACE && !read_only)
 			create_area()
 
 
@@ -107,7 +108,8 @@
 	var/area/A = get_area()
 	if(get_area_type() == AREA_STATION)
 		. += "<p>According to [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
-		. += "<p>You may <a href='?src=[UID()];edit_area=1'> move an amendment</a> to the drawing.</p>"
+		if(!read_only)
+			. += "<p>You may <a href='?src=[UID()];edit_area=1'> move an amendment</a> to the drawing.</p>"
 	if(!viewing)
 		. += "<p><a href='?src=[UID()];view_blueprints=1'>View structural data</a></p>"
 	else
@@ -122,7 +124,7 @@
 /obj/item/areaeditor/blueprints/Topic(href, href_list)
 	..()
 	if(href_list["edit_area"])
-		if(get_area_type()!=AREA_STATION)
+		if(get_area_type() != AREA_STATION || read_only) // Never trust user input
 			return
 		edit_area()
 	if(href_list["view_blueprints"])
@@ -189,6 +191,8 @@
 /obj/item/areaeditor/proc/create_area()
 	var/area_created = FALSE
 	var/res = detect_room(get_turf(usr))
+	if(read_only) // Sanity checks are good
+		return
 	if(!istype(res,/list))
 		switch(res)
 			if(ROOM_ERR_SPACE)
@@ -237,6 +241,8 @@
 	var/area/A = get_area()
 	var/prevname = "[sanitize(A.name)]"
 	var/str = trim(stripped_input(usr,"New area name:", "Blueprint Editing", prevname, MAX_NAME_LEN))
+	if(read_only) // Sanity checks are good
+		return
 	if(!str || !length(str) || str==prevname) //cancel
 		return
 	if(length(str) > 50)
@@ -342,5 +348,6 @@
 
 /obj/item/areaeditor/blueprints/cyborg/drone
 	fluffnotice = "Intellectual Property of Nanotrasen. For use in maintence drones only. Wipe from memory upon storage."
+	read_only = TRUE
 
 /obj/item/areaeditor/blueprints/ce
