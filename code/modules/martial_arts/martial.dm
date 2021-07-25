@@ -15,9 +15,9 @@
 	///Chance to block melee attacks using items while on throw mode.
 	var/block_chance = 0
 	var/help_verb = null
-	///set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
+	/// Set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
 	var/no_guns = FALSE
-	///message to tell the style user if they try and use a gun while no_guns = TRUE (DISHONORABRU!)
+	/// Message to tell the style user if they try and use a gun while no_guns = TRUE (DISHONORABRU!)
 	var/no_guns_message = ""
 
 	/// If the martial art has it's own explaination verb

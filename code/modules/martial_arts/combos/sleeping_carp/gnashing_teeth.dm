@@ -5,14 +5,14 @@
 
 /datum/martial_combo/sleeping_carp/gnashing_teeth/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
-	var/atk_verb = pick("precisely kick", "brutally chop", "cleanly hit", "viciously slam")
-	target.visible_message("<span class='danger'>[user] [atk_verb]s [target]!</span>",
-					"<span class='userdanger'>[user] [atk_verb]s you!</span>")
+	var/atk_verb = pick("precisely kicks", "brutally chops", "cleanly hits", "viciously slams")
+	target.visible_message("<span class='danger'>[user] [atk_verb] [target]!</span>",
+					"<span class='userdanger'>[user] [atk_verb] you!</span>")
 	playsound(get_turf(target), 'sound/weapons/punch1.ogg', 35, TRUE, -1)
-	add_attack_logs(user, target, "Melee attacked with martial-art [MA] :  Gnashing Teeth", ATKLOG_ALL)
+	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Gnashing Teeth", ATKLOG_ALL)
 	target.apply_damage(20, BRUTE)
 	if(target.health >= 0)
 		user.say(pick("HUAH!", "HYA!", "CHOO!", "WUO!", "KYA!", "HUH!", "HIYOH!", "CARP STRIKE!", "CARP BITE!"))
 	else
-		user.say(pick("BANZAIII!", "KIYAAAA!", "OMAE WA MOU SHINDEIRU!", "YOU CAN'T SEE ME!", "MY TIME IS NOW!", "COWABUNGA")) // COWABUNGA
+		user.say(pick("BANZAIII!", "KIYAAAA!", "OMAE WA MOU SHINDEIRU!", "YOU CAN'T SEE ME!", "MY TIME IS NOW!", "COWABUNGA!")) // COWABUNGA
 	return MARTIAL_COMBO_DONE

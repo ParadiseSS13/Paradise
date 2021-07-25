@@ -22,7 +22,7 @@
 	var/atk_verb = pick("punches", "kicks", "chops", "hits", "slams")
 	D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>",
 					  "<span class='userdanger'>[A] [atk_verb] you!</span>")
-	D.apply_damage(rand(10,15), BRUTE)
+	D.apply_damage(rand(10, 15), BRUTE)
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)
 	return TRUE
@@ -46,4 +46,4 @@
 	to_chat(user, "<b><i>In addition, by having your throw mode on when being shot at, you enter an active defensive mode where you will block and deflect all projectiles fired at you!</i></b>")
 
 /datum/martial_art/the_sleeping_carp/try_deflect(mob/user)
-	return ..() && user.in_throw_mode // in case an admin wants to var edit carp to have less deflection chance
+	return user.in_throw_mode && ..() // in case an admin wants to var edit carp to have less deflection chance
