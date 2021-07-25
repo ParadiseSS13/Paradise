@@ -59,15 +59,6 @@
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
-/proc/HONK_announce(text, mob/Sender)
-	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
-	msg = "<span class='boldnotice'><font color=pink>HONK: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<A HREF='?_src_=holder;HONKReply=[Sender.UID()]'>RPLY</A>):</span> [msg]"
-	for(var/client/X in GLOB.admins)
-		if(R_EVENT & X.holder.rights)
-			to_chat(X, msg)
-			if(X.prefs.sound & SOUND_ADMINHELP)
-				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
-
 /proc/ERT_Announce(text, mob/Sender, repeat_warning)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
 	msg = "<span class='adminnotice'><b><font color=orange>ERT REQUEST: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<A HREF='?_src_=holder;ErtReply=[Sender.UID()]'>RESPOND</A>):</b> [msg]</span>"

@@ -287,19 +287,19 @@
 				if(null,"") return
 				if("*New Rank*")
 					new_rank = input("Please input a new rank", "New custom rank", null, null) as null|text
-					if(config.admin_legacy_system)
+					if(!GLOB.configuration.admin.use_database_admins)
 						new_rank = ckeyEx(new_rank)
 					if(!new_rank)
 						to_chat(usr, "<font color='red'>Error: Topic 'editrights': Invalid rank</font>")
 						return
-					if(config.admin_legacy_system)
+					if(!GLOB.configuration.admin.use_database_admins)
 						if(GLOB.admin_ranks.len)
 							if(new_rank in GLOB.admin_ranks)
 								rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
 							else
 								GLOB.admin_ranks[new_rank] = 0			//add the new rank to admin_ranks
 				else
-					if(config.admin_legacy_system)
+					if(!GLOB.configuration.admin.use_database_admins)
 						new_rank = ckeyEx(new_rank)
 						rights = GLOB.admin_ranks[new_rank]				//we input an existing rank, use its rights
 
@@ -487,7 +487,6 @@
 				if(!reason)	return
 
 		log_admin("[key_name(usr)] edited [banned_key]'s ban. Reason: [reason] Duration: [duration]")
-		ban_unban_log_save("[key_name(usr)] edited [banned_key]'s ban. Reason: [reason] Duration: [duration]")
 		message_admins("<span class='notice'>[key_name_admin(usr)] edited [banned_key]'s ban. Reason: [reason] Duration: [duration]</span>", 1)
 		GLOB.banlist_savefile.cd = "/base/[banfolder]"
 		to_chat(GLOB.banlist_savefile["reason"], reason)
@@ -519,7 +518,6 @@
 				return	*/
 			switch(alert("Reason: '[banreason]' Remove appearance ban?","Please Confirm","Yes","No"))
 				if("Yes")
-					ban_unban_log_save("[key_name(usr)] removed [key_name(M)]'s appearance ban")
 					log_admin("[key_name(usr)] removed [key_name(M)]'s appearance ban")
 					DB_ban_unban(M.ckey, BANTYPE_APPEARANCE)
 					appearance_unban(M)
@@ -532,7 +530,6 @@
 				if(!reason)
 					return
 				M = admin_ban_mobsearch(M, ban_ckey_param, usr)
-				ban_unban_log_save("[key_name(usr)] appearance banned [key_name(M)]. reason: [reason]")
 				log_admin("[key_name(usr)] appearance banned [key_name(M)]. \nReason: [reason]")
 				DB_ban_record(BANTYPE_APPEARANCE, M, -1, reason)
 				appearance_fullban(M, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
@@ -541,8 +538,8 @@
 				to_chat(M, "<span class='warning'><big><b>You have been appearance banned by [usr.client.ckey].</b></big></span>")
 				to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
 				to_chat(M, "<span class='warning'>Appearance ban can be lifted only upon request.</span>")
-				if(config.banappeals)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
+				if(GLOB.configuration.url.banappeals_url)
+					to_chat(M, "<span class='warning'>To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
 			if("No")
@@ -880,7 +877,7 @@
 		if(notbannedlist.len) //at least 1 unbanned job exists in joblist so we have stuff to ban.
 			switch(alert("Temporary Ban of [M.ckey]?",,"Yes","No", "Cancel"))
 				if("Yes")
-					if(config.ban_legacy_system)
+					if(!GLOB.configuration.general.use_database_bans)
 						to_chat(usr, "<span class='warning'>Your server is using the legacy banning system, which does not support temporary job bans. Consider upgrading. Aborting ban.</span>")
 						return
 					var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
@@ -893,7 +890,6 @@
 					var/msg
 					M = admin_ban_mobsearch(M, ban_ckey_param, usr)
 					for(var/job in notbannedlist)
-						ban_unban_log_save("[key_name(usr)] temp-jobbanned [key_name(M)] from [job] for [mins] minutes. reason: [reason]")
 						log_admin("[key_name(usr)] temp-jobbanned [key_name(M)] from [job] for [mins] minutes")
 						DB_ban_record(BANTYPE_JOB_TEMP, M, mins, reason, job)
 						jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]") //Legacy banning does not support temporary jobbans.
@@ -914,7 +910,6 @@
 						var/msg
 						M = admin_ban_mobsearch(M, ban_ckey_param, usr)
 						for(var/job in notbannedlist)
-							ban_unban_log_save("[key_name(usr)] perma-jobbanned [key_name(M)] from [job]. reason: [reason]")
 							log_admin("[key_name(usr)] perma-banned [key_name(M)] from [job]")
 							DB_ban_record(BANTYPE_JOB_PERMA, M, -1, reason, job)
 							jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
@@ -933,7 +928,7 @@
 		//Unbanning joblist
 		//all jobs in joblist are banned already OR we didn't give a reason (implying they shouldn't be banned)
 		if(joblist.len) //at least 1 banned job exists in joblist so we have stuff to unban.
-			if(!config.ban_legacy_system)
+			if(GLOB.configuration.general.use_database_bans)
 				to_chat(usr, "<span class='warning'>Unfortunately, database based unbanning cannot be done through this panel</span>")
 				DB_ban_panel(M.ckey)
 				return
@@ -943,7 +938,6 @@
 				if(!reason) continue //skip if it isn't jobbanned anyway
 				switch(alert("Job: '[job]' Reason: '[reason]' Un-jobban?","Please Confirm","Yes","No"))
 					if("Yes")
-						ban_unban_log_save("[key_name(usr)] unjobbanned [key_name(M)] from [job]")
 						log_admin("[key_name(usr)] unbanned [key_name(M)] from [job]")
 						DB_ban_unban(M.ckey, BANTYPE_JOB_PERMA, job)
 						jobban_unban(M, job)
@@ -1008,8 +1002,8 @@
 
 	else if(href_list["webtools"])
 		var/target_ckey = href_list["webtools"]
-		if(config.forum_playerinfo_url)
-			var/url_to_open = config.forum_playerinfo_url + target_ckey
+		if(GLOB.configuration.url.forum_playerinfo_url)
+			var/url_to_open = "[GLOB.configuration.url.forum_playerinfo_url][target_ckey]"
 			if(alert("Open [url_to_open]",,"Yes","No")=="Yes")
 				usr.client << link(url_to_open)
 
@@ -1068,14 +1062,13 @@
 					return
 				M = admin_ban_mobsearch(M, ban_ckey_param, usr)
 				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 1, mins)
-				ban_unban_log_save("[usr.client.ckey] has banned [M.ckey]. - Reason: [reason] - This will be removed in [mins] minutes.")
 				to_chat(M, "<span class='warning'><big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big></span>")
 				to_chat(M, "<span class='warning'>This is a temporary ban, it will be removed in [mins] minutes.</span>")
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
 				if(M.client)
 					M.client.link_forum_account(TRUE)
-				if(config.banappeals)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
+				if(GLOB.configuration.url.banappeals_url)
+					to_chat(M, "<span class='warning'>To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
@@ -1091,11 +1084,10 @@
 				to_chat(M, "<span class='warning'>This ban does not expire automatically and must be appealed.</span>")
 				if(M.client)
 					M.client.link_forum_account(TRUE)
-				if(config.banappeals)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
+				if(GLOB.configuration.url.banappeals_url)
+					to_chat(M, "<span class='warning'>To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
-				ban_unban_log_save("[usr.client.ckey] has permabanned [M.ckey]. - Reason: [reason] - This ban does not expire automatically and must be appealed.")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.</span>")
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
@@ -1171,8 +1163,8 @@
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
 		var/dat = {"<b>What mode do you wish to play?</b><hr>"}
-		for(var/mode in config.modes)
-			dat += {"<A href='?src=[UID()];c_mode2=[mode]'>[config.mode_names[mode]]</A><br>"}
+		for(var/mode in GLOB.configuration.gamemode.gamemodes)
+			dat += {"<A href='?src=[UID()];c_mode2=[mode]'>[GLOB.configuration.gamemode.gamemode_names[mode]]</A><br>"}
 		dat += {"<A href='?src=[UID()];c_mode2=secret'>Secret</A><br>"}
 		dat += {"<A href='?src=[UID()];c_mode2=random'>Random</A><br>"}
 		dat += {"Now: [GLOB.master_mode]"}
@@ -1186,8 +1178,8 @@
 		if(GLOB.master_mode != "secret")
 			return alert(usr, "The game mode has to be secret!", null, null, null, null)
 		var/dat = {"<b>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</b><hr>"}
-		for(var/mode in config.modes)
-			dat += {"<A href='?src=[UID()];f_secret2=[mode]'>[config.mode_names[mode]]</A><br>"}
+		for(var/mode in GLOB.configuration.gamemode.gamemodes)
+			dat += {"<A href='?src=[UID()];f_secret2=[mode]'>[GLOB.configuration.gamemode.gamemode_names[mode]]</A><br>"}
 		dat += {"<A href='?src=[UID()];f_secret2=secret'>Random (default)</A><br>"}
 		dat += {"Now: [GLOB.secret_force_mode]"}
 		usr << browse(dat, "window=f_secret")
@@ -2894,9 +2886,6 @@
 					spawn(0)
 						H.corgize()
 				ok = 1
-			if("honksquad")
-				if(usr.client.honksquad())
-					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - HONKsquad")
 			if("striketeam")
 				if(usr.client.strike_team())
 					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Deathsquad")
@@ -3019,21 +3008,16 @@
 			if("togglebombcap")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Bomb Cap")
 
-				var/newBombCap = input(usr,"What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be between 4 and 128)", "New Bomb Cap", GLOB.max_ex_light_range) as num|null
+				var/newBombCap = input(usr,"What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be between 4 and 128)", "New Bomb Cap", GLOB.configuration.general.bomb_cap) as num|null
 				if(newBombCap < 4)
 					return
 				if(newBombCap > 128)
 					newBombCap = 128
 
-				GLOB.max_ex_devastation_range = round(newBombCap/4)
-				GLOB.max_ex_heavy_range = round(newBombCap/2)
-				GLOB.max_ex_light_range = newBombCap
-				//I don't know why these are their own variables, but fuck it, they are.
-				GLOB.max_ex_flash_range = newBombCap
-				GLOB.max_ex_flame_range = newBombCap
+				GLOB.configuration.general.bomb_cap = newBombCap
 
-				message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]</span>")
-				log_admin("[key_name(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]")
+				message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [GLOB.configuration.general.bomb_cap / 4], [GLOB.configuration.general.bomb_cap / 2], [GLOB.configuration.general.bomb_cap]</span>")
+				log_admin("[key_name(usr)] changed the bomb cap to [GLOB.configuration.general.bomb_cap / 4], [GLOB.configuration.general.bomb_cap / 2], [GLOB.configuration.general.bomb_cap]")
 
 			if("flicklights")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Flicker Lights")
@@ -3310,7 +3294,7 @@
 				var/val = alert(usr, "What do you want to set night shift to? This will override the automatic system until set to automatic again.", "Night Shift", "On", "Off", "Automatic")
 				switch(val)
 					if("Automatic")
-						if(config.enable_night_shifts)
+						if(GLOB.configuration.general.enable_night_shifts)
 							SSnightshift.can_fire = TRUE
 							SSnightshift.fire()
 						else
