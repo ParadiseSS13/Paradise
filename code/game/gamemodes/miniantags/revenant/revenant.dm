@@ -234,6 +234,8 @@
 /mob/living/simple_animal/revenant/proc/castcheck(essence_cost)
 	if(!src)
 		return
+	if(holy_check(src))
+		return
 	var/turf/T = get_turf(src)
 	if(istype(T, /turf/simulated/wall))
 		to_chat(src, "<span class='revenwarning'>You cannot use abilities from inside of a wall.</span>")
