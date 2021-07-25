@@ -1,11 +1,11 @@
 //Cloaks. No, not THAT kind of cloak.
 
 /obj/item/clothing/neck/cloak
-	name = "gray cloak"
-	desc = "It's a cape that can be worn around your neck in a pretty dull color."
+	name = "grey cloak"
+	desc = "It's a cloak that can be worn around your neck in a pretty dull color."
 	icon_state = "cloak"
 	w_class = WEIGHT_CLASS_SMALL
-	body_parts_covered = UPPER_TORSO|ARMS
+	body_parts_covered = UPPER_TORSO | ARMS
 
 /obj/item/clothing/neck/cloak/head_of_security
 	name = "head of security's cloak"
@@ -52,6 +52,6 @@
 	icon_state = "hopcloak"
 
 /obj/item/clothing/neck/cloak/healer
-	name = "holographic healer's cloak"
+	name = "healer's cloak"
 	desc = "Worn by the best and most skilled healers, the handlers of hyposprays, pills, auto-menders and first-aid kits."
 	icon_state = "healercloak"
