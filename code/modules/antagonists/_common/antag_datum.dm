@@ -35,6 +35,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/clown_gain_text = "You are no longer clumsy."
 	/// If the owner is a clown, this text will be displayed to them when they lose this datum.
 	var/clown_removal_text = "You are clumsy again."
+	/// The url page name for this antagonist, appended to the end of the wiki url in the form of: [GLOB.configuration.url.wiki_url]/index.php/[wiki_page]
+	var/wiki_page
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -171,9 +173,15 @@ GLOBAL_LIST_EMPTY(antagonists)
 	return TRUE
 
 /**
+ * Give the antagonist their objectives. Base proc, override as needed.
+ */
+/datum/antagonist/proc/give_objectives()
+	return
+
+/**
  * Announces all objectives of this datum, and only this datum.
  */
-/datum/antagonist/proc/announce_datum_objectives()
+/datum/antagonist/proc/announce_objectives()
 	if(!length(objectives))
 		return FALSE
 	to_chat(owner.current, "<span class='notice'>Your current objectives:</span>")
@@ -187,10 +195,14 @@ GLOBAL_LIST_EMPTY(antagonists)
  * Proc called when the datum is given to a mind.
  */
 /datum/antagonist/proc/on_gain()
+	owner.special_role = special_role
+	if(give_objectives)
+		give_objectives()
 	if(!silent)
 		greet()
-	owner.special_role = special_role
+		announce_objectives()
 	apply_innate_effects()
+	finalize_antag()
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, .proc/replace_banned_player)
 	return TRUE
@@ -258,7 +270,6 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/greet()
 	to_chat(owner.current, "<span class='userdanger'>You are a [special_role]!</span>")
-	announce_datum_objectives()
 
 /**
  * Displays a message to the antag mob while the datum is being deleted, i.e. "Your powers are gone and you're no longer a vampire!"
@@ -279,6 +290,16 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/get_team()
 	return
+
+/**
+ * Give the antag any final information or items.
+ *
+ * By default, it shows the the player the wiki page for this specific antag.
+ */
+/datum/antagonist/proc/finalize_antag()
+	if(!wiki_page)
+		return
+	to_chat(owner.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page])</span>")
 
 //Individual roundend report
 /datum/antagonist/proc/roundend_report()

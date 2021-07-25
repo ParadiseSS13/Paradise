@@ -15,7 +15,9 @@
 	var/greet_text
 
 /datum/antagonist/mindslave/New(datum/mind/_master, _greet_text)
-	ASSERT(_master)
+	if(!_master)
+		stack_trace("[type] created without a master.")
+		qdel(src)
 	master = _master
 	greet_text = _greet_text
 	return ..()
@@ -60,7 +62,6 @@
 	else // Default greeting text if nothing is given.
 		to_chat(mindslave, "<span class='biggerdanger'><B>You are now completely loyal to [master.current.name]!</B> \
 							You must lay down your life to protect [master.current.p_them()] and assist in [master.current.p_their()] goals at any cost.</span>")
-	announce_datum_objectives()
 
 /datum/antagonist/mindslave/farewell()
 	to_chat(owner.current, "<span class='biggerdanger'>You are no longer a mindslave of [master.current]!</span>")

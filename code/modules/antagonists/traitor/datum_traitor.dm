@@ -10,6 +10,7 @@
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	clown_gain_text = "Your syndicate training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
+	wiki_page = "Traitor"
 	/// Should the traitor get codewords?
 	var/give_codewords = TRUE
 	/// Should we give the traitor their uplink?
@@ -25,16 +26,7 @@
 
 	SSticker.mode.traitors |= owner
 	assigned_targets = list()
-
-	if(give_objectives)
-		if(isAI(owner))
-			forge_ai_objectives()
-		else
-			forge_human_objectives()
-	. = ..()
-	if(give_codewords)
-		give_codewords()
-	finalize_traitor()
+	return ..()
 
 /datum/antagonist/traitor/on_removal()
 	// Remove all associated malf AI abilities.
@@ -67,6 +59,12 @@
 	else
 		antag_hud_name = is_contractor ? "hudcontractor" : "hudsyndicate"
 	return ..()
+
+/datum/antagonist/traitor/give_objectives()
+	if(isAI(owner))
+		forge_ai_objectives()
+	else
+		forge_human_objectives()
 
 /**
  * Create and assign a full set of randomized human traitor objectives.
@@ -197,7 +195,9 @@
 /**
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.
  */
-/datum/antagonist/traitor/proc/finalize_traitor()
+/datum/antagonist/traitor/finalize_antag()
+	if(give_codewords)
+		give_codewords()
 	if(isAI(owner.current))
 		add_law_zero()
 		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
@@ -207,7 +207,7 @@
 		if(give_uplink)
 			give_uplink()
 		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
-	to_chat(owner.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Traitor)</span>")
+	return ..()
 
 /**
  * Notify the traitor of their codewords and write them to `antag_memory` (notes).
