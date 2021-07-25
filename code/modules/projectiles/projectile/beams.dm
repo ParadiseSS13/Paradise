@@ -142,7 +142,7 @@
 
 /obj/item/projectile/beam/immolator/on_hit(atom/target, blocked = 0)
 	. = ..()
-	if(isliving(target)
+	if(isliving(target))
 		var/mob/living/M = target
 		M.adjust_fire_stacks(1)
 		M.IgniteMob()
