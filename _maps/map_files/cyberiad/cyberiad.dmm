@@ -35668,7 +35668,6 @@
 	},
 /area/crew_quarters/heads)
 "bzT" = (
-/obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -35681,10 +35680,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/bridge)
-"bzU" = (
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_x = -32
@@ -56666,7 +56661,7 @@
 	},
 /area/medical/virology)
 "cpM" = (
-/obj/machinery/smartfridge/secure/chemistry/virology,
+/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"
