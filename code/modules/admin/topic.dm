@@ -2302,7 +2302,8 @@
 		if(!check_rights(R_ADMIN))
 			return
 		var/mob/living/M = locateUID(href_list["cryossd"])
-		if(!ishuman(M) && !issilicon(M))
+		var/human = ishuman(M)
+		if(!human && !issilicon(M))
 			to_chat(usr, "<span class='warning'>This can only be used on humans and silicons.</span>")
 			return
 		if(!href_list["cryoafk"] && !isLivingSSD(M))
@@ -2314,7 +2315,7 @@
 		if(istype(M.loc, /obj/machinery/cryopod))
 			var/obj/machinery/cryopod/P = M.loc
 			P.despawn_occupant()
-			if(ishuman(M))
+			if(human)
 				var/mob/living/carbon/human/H = M
 				log_admin("[key_name(usr)] despawned [H.job] [H] in cryo.")
 				message_admins("[key_name_admin(usr)] despawned [H.job] [H] in cryo.")
@@ -2322,7 +2323,7 @@
 				log_admin("[key_name(usr)] despawned [M] in cryo.")
 				message_admins("[key_name_admin(usr)] despawned [M] in cryo.")
 		else if(cryo_ssd(M))
-			if(ishuman(M))
+			if(human)
 				var/mob/living/carbon/human/H = M
 				log_admin("[key_name(usr)] sent [H.job] [H] to cryo.")
 				message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")

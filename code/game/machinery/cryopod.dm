@@ -777,12 +777,10 @@
 		O.force_eject_occupant(person_to_cryo)
 	var/list/free_cryopods = list()
 	for(var/obj/machinery/cryopod/P in GLOB.machines)
-		if(ishuman(person_to_cryo))
-			if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
-				free_cryopods += P
-		else
-			if(!P.occupant && istype(P, /obj/machinery/cryopod/robot))
-				free_cryopods += P
+		if(P.occupant)
+			continue
+		if((ishuman(person_to_cryo) && istype(get_area(P), /area/crew_quarters/sleep)) || istype(P, /obj/machinery/cryopod/robot))
+			free_cryopods += P
 	var/obj/machinery/cryopod/target_cryopod = null
 	if(free_cryopods.len)
 		target_cryopod = safepick(free_cryopods)
