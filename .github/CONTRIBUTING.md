@@ -11,14 +11,17 @@ refer to the [Issue Report](#issues) section, as well as the
 If you comment on an active pull request or issue report, make sure your comment is
 concise and to the point. Comments on issue reports or pull requests should be relevant
 and friendly, not attacks on the author or adages about something minimally relevant.
-If you believe an issue report is not a "bug", please report it to the Maintainers, or
-point out specifically and concisely your reasoning in a comment on the issue report.
+If you believe an issue report is not a "bug", please point out specifically and concisely your reasoning in a comment on the issue itself.
+
+#### Guidelines:
+ * Comments on Pull Requests and Issues should remain relevant to the subject in question and not derail discussions.
+ * Under no circumstances are users to be attacked for their ideas or contributions. All participants on a given PR or issue are expected to be civil. Failure to do so will result  in disciplinary action.<br>
+ For more details, see the [Code of Conduct](../CODE_OF_CONDUCT.md).
 
 ## Issues
 The Issues section is not a place to request features, or ask for things to be changed
 because you think they should be that way; The Issues section is specifically for
-reporting bugs in the code. Refer to the [Issue Template](ISSUE_TEMPLATE.md) for the exact format that your Issue
-should be in.
+reporting bugs in the code.
 
 #### Guidelines:
  * Issue reports should be as detailed as possible, and if applicable, should include
@@ -68,7 +71,7 @@ actual development.
     /:cl:
     ```
     ```
-    :cl: N3X15
+    :cl: UsernameHere
     spellcheck: Fixes some misspelled words under Using Changelog
     /:cl:
     ```
@@ -113,7 +116,7 @@ datum
         code
 ```
 
-The use of this is not allowed in this project *unless the majority of the file is already relatively pathed* as it makes finding definitions via full text searching next to impossible. The only exception is the variables of an object may be nested to the object, but must not nest further.
+The use of this format is **not** allowed in this project, as it makes finding definitions via full text searching next to impossible. The only exception is the variables of an object may be nested to the object, but must not nest further.
 
 The previous code made compliant:
 
@@ -226,7 +229,7 @@ You must use tabs to indent your code, NOT SPACES.
 (You may use spaces to align something, but you should tab to the block level first, then add the remaining spaces.)
 
 ### No hacky code
-Hacky code, such as adding specific checks (ex: `istype(src, /obj/whatever)`), is highly discouraged and only allowed when there is ***no*** other option. (Protip: 'I couldn't immediately think of a proper way so thus there must be no other option' is not gonna cut it here! If you can't think of anything else, say that outright and admit that you need help with it. Maintainers exist for exactly that reason.)
+Hacky code, such as adding specific checks (ex: `istype(src, /obj/whatever)`), is highly discouraged and only allowed when there is ***no*** other option. (Protip: 'I couldn't immediately think of a proper way so thus there must be no other option' is not gonna cut it here! If you can't think of anything else, say that outright and admit that you need help with it. Maintainers, PR Reviewers, and other contributors who can help you exist for exactly that reason.)
 
 You can avoid hacky code by using object-oriented methodologies, such as overriding a function (called "procs" in DM) or sectioning code into functions and
 then overriding them as required.
@@ -243,7 +246,7 @@ First, read the comments in [this BYOND thread](http://www.byond.com/forum/?post
 
 There are two key points here:
 
-1) Defining a list in the variable's definition calls a hidden proc - init. If you have to define a list at startup, do so in `New()` (or preferably `Initialize()`) and avoid the overhead of a second call (`Init()` and then `New()`)
+1) Defining a list in the variable's definition calls a hidden proc - init. If you have to define a list at startup, do so in `New()` (or preferably `Initialize()`) and avoid the overhead of a second call (`init()` and then `New()`)
 
 2) It also consumes more memory to the point where the list is actually required, even if the object in question may never use it!
 
