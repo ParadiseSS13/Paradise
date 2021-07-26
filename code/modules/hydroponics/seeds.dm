@@ -328,10 +328,13 @@
 
 		return
 	if(istype(O, /obj/item/pen))
-		var/V = sanitize(stripped_input(user, "Choose variant name:", "Plant Variant Naming", variant, 64))
-		if(!Adjacent(user)) //prevent remote naming of seeds
+		var/V = input(user, "Choose variant name:", "Plant Variant Naming", variant) as text|null
+		if(!Adjacent(user))
 			return
-		if(V == "" && variant != "")
+		if(isnull(V))
+			return
+		V = copytext(sanitize(html_encode(trim(V))), 1, 64)
+		if((V == "") && (variant != ""))
 			user.show_message("<span class='info'>You remove the variant designation from the [plantname].</span>")
 		else if(V != "")
 			user.show_message("<span class='info'>You designate the [plantname] as the [V] variant.</span>")

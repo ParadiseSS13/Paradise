@@ -401,13 +401,17 @@
 	else if(href_list["set_v"])
 		if(!seed)
 			return
-		var/V = sanitize(stripped_input(usr, "Choose variant name:", "Plant Variant Naming", seed.variant, 64))
-		if((!Adjacent(usr)) || (!seed))
+		var/V = input(usr, "Choose variant name:", "Plant Variant Naming", seed.variant) as text|null
+		if(!issilicon(usr) && !Adjacent(usr))
 			return
-		seed.variant = V
+		if(isnull(V))
+			return
+		seed.variant = copytext(sanitize(html_encode(trim(V))), 1, 64)
 		seed.apply_variant_name()
 	else if(href_list["del_v"])
 		if(!seed)
+			return
+		if(!issilicon(usr) && !Adjacent(usr))
 			return
 		seed.variant = ""
 		seed.apply_variant_name()
