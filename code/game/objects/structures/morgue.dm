@@ -123,6 +123,9 @@
 	update()
 	return
 
+/obj/structure/morgue/attack_ai(mob/user)
+	attack_hand(user)
+
 /obj/structure/morgue/attackby(P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/pen))
 		var/t = rename_interactive(user, P)
