@@ -58,8 +58,8 @@ actual development.
 
 #### Using Changelog
  * The tags able to be used in the changelog are: `add/soundadd/imageadd`, `del/sounddel/imagedel`, `tweak`, `fix`, `wip`, `spellcheck`, and `experiment`.
- * Without specifying a name it will default to using your GitHub name.
- Some examples include:
+ * Without specifying a name it will default to using your GitHub name. Some examples include:
+
     ```
     :cl:
     add: The ability to change the color of wires
@@ -299,6 +299,7 @@ This is clearer and enhances readability of your code! Get used to doing it!
   (eg: `if(count <= 10)` not `if(10 >= count)`)
 * All control statements must be spaced as `if()`, with the brackets touching the keyword.
 * All control statements must not contain code on the same line as the statement.
+
   ```DM
   //Bad
   if(x) return
@@ -370,6 +371,7 @@ This prevents nesting levels from getting deeper then they need to be.
 * Bitwise AND `&`
   * Should be written as `bitfield & bitflag` NEVER `bitflag & bitfield`, both are valid, but the latter is confusing and nonstandard.
 * Associated lists declarations must have their key value quoted if it's a string
+
     ```DM
     //Bad
     list(a = "b")
@@ -380,6 +382,7 @@ This prevents nesting levels from getting deeper then they need to be.
 
 #### Bitflags
 * We prefer using bitshift operators instead of directly typing out the value. I.E:
+
     ```
     #define MACRO_ONE (1<<0)
     #define MACRO_TWO (1<<1)
@@ -402,6 +405,7 @@ This prevents nesting levels from getting deeper then they need to be.
 ### Legacy Code
 SS13 has a lot of legacy code that's never been updated. Here are some examples of common legacy trends which are no longer acceptable:
   * To display messages to all mobs that can view `user`, you should use `visible_message()`.
+
     ```DM
     //Bad
     for(var/mob/M in viewers(user))
@@ -412,6 +416,7 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
     ```
   * You should not use color macros (`\red, \blue, \green, \black`) to color text,
   instead, you should use span classes. `<span class='warning'>Red text</span>`, `<span class='notice'>Blue text</span>`.
+
     ```
     //Bad
     to_chat(user, "\red Red text \black Black text")
@@ -421,6 +426,7 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
     ```
   * To use variables in strings, you should **never** use the `text()` operator, use
    embedded expressions directly in the string.
+
     ```DM
     //Bad
     to_chat(user, text("[] is leaking []!", name, liquid_type))
@@ -431,6 +437,7 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
  * To reference a variable/proc on the src object, you should **not** use
    `src.var`/`src.proc()`. The `src.` in these cases is implied, so you should just use
    `var`/`proc()`.
+
    ```DM
    //Bad
    var/user = src.interactor
@@ -446,6 +453,7 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 * Player input must always be escaped safely, we recommend you use `stripped_input()` in all cases where you would use input. Essentially, just always treat input from players as inherently malicious and design with that use case in mind.
 
 * Calls to the database must be escaped properly - use proper parameters (values starting with a :). You can then replace these with a list of parameters, and these will be properly escaped during the query, and prevent any SQL injection.
+
   ```DM
   //Bad
   var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey='[target_ckey]'")
