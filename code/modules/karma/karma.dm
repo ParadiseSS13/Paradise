@@ -16,7 +16,7 @@
 		return
 
 	var/datum/db_query/log_query = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("karma")] (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time)
+		INSERT INTO karma (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time)
 		VALUES (:sname, :skey, :rname, :rkey, :rrole, :rspecial, :sip, Now())"}, list(
 			"sname" = spender.name,
 			"skey" = spender.ckey,
@@ -33,7 +33,7 @@
 
 	qdel(log_query)
 
-	var/datum/db_query/select_spender = SSdbcore.NewQuery("SELECT id, karma FROM [format_table_name("karmatotals")] WHERE byondkey=:rkey", list(
+	var/datum/db_query/select_spender = SSdbcore.NewQuery("SELECT id, karma FROM karmatotals WHERE byondkey=:rkey", list(
 		"rkey" = receiver.ckey
 	))
 
@@ -52,7 +52,7 @@
 	if(karma == null)
 		karma = 1
 
-		var/datum/db_query/insert_query = SSdbcore.NewQuery("INSERT INTO [format_table_name("karmatotals")] (byondkey, karma) VALUES (:rkey, :karma)", list(
+		var/datum/db_query/insert_query = SSdbcore.NewQuery("INSERT INTO karmatotals (byondkey, karma) VALUES (:rkey, :karma)", list(
 			"rkey" = receiver.ckey,
 			"karma" = karma
 		))
@@ -62,7 +62,7 @@
 		qdel(insert_query)
 	else
 		karma++
-		var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("karmatotals")] SET karma=:karma WHERE id=:id", list(
+		var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE karmatotals SET karma=:karma WHERE id=:id", list(
 			"karma" = karma,
 			"id" = id
 		))
@@ -197,7 +197,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		to_chat(usr, "<span class='warning'>Unable to connect to karma database. Please try again later.<br></span>")
 		return
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT karma, karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey=:ckey", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT karma, karmaspent FROM karmatotals WHERE byondkey=:ckey", list(
 		"ckey" = ckey
 	))
 	if(!query.warn_execute())
@@ -225,7 +225,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	karmashopmenu()
 
 /client/proc/karmashopmenu()
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, job, species FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, job, species FROM whitelist WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
 	if(!query.warn_execute())
@@ -383,7 +383,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		karmashopmenu()
 
 /client/proc/DB_job_unlock(job, cost)
-	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT ckey, job FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
+	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT ckey, job FROM whitelist WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
 	if(!select_query.warn_execute())
@@ -398,7 +398,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 	qdel(select_query)
 	if(!dbckey)
-		var/datum/db_query/insert_query = SSdbcore.NewQuery("INSERT INTO [format_table_name("whitelist")] (ckey, job) VALUES (:ckey, :job)", list(
+		var/datum/db_query/insert_query = SSdbcore.NewQuery("INSERT INTO whitelist (ckey, job) VALUES (:ckey, :job)", list(
 			"ckey" = ckey,
 			"job" = job
 		))
@@ -417,7 +417,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		if(!(job in joblist))
 			joblist += job
 			var/newjoblist = jointext(joblist,",")
-			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("whitelist")] SET job=:newjoblist WHERE ckey=:ckey", list(
+			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE whitelist SET job=:newjoblist WHERE ckey=:ckey", list(
 				"newjoblist" = newjoblist,
 				"ckey" = ckey
 			))
@@ -434,7 +434,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			return
 
 /client/proc/DB_species_unlock(species, cost)
-	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT ckey, species FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
+	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT ckey, species FROM whitelist WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
 	if(!select_query.warn_execute())
@@ -448,7 +448,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		dbspecies = select_query.item[2]
 	qdel(select_query)
 	if(!dbckey)
-		var/datum/db_query/insert_query = SSdbcore.NewQuery("INSERT INTO [format_table_name("whitelist")] (ckey, species) VALUES (:ckey, :species)", list(
+		var/datum/db_query/insert_query = SSdbcore.NewQuery("INSERT INTO whitelist (ckey, species) VALUES (:ckey, :species)", list(
 			"ckey" = ckey,
 			"species" = species
 		))
@@ -466,7 +466,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		if(!(species in specieslist))
 			specieslist += species
 			var/newspecieslist = jointext(specieslist,",")
-			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("whitelist")] SET species=:newspecieslist WHERE ckey=:ckey", list(
+			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE whitelist SET species=:newspecieslist WHERE ckey=:ckey", list(
 				"newspecieslist" = newspecieslist,
 				"ckey" = ckey
 			))
@@ -483,7 +483,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			return
 
 /client/proc/karmacharge(cost, refund = FALSE)
-	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey=:ckey", list(
+	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT karmaspent FROM karmatotals WHERE byondkey=:ckey", list(
 		"ckey" = ckey
 	))
 	if(!select_query.warn_execute())
@@ -496,7 +496,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			spent -= cost
 		else
 			spent += cost
-		var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("karmatotals")] SET karmaspent=:spent WHERE byondkey=:ckey", list(
+		var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE karmatotals SET karmaspent=:spent WHERE byondkey=:ckey", list(
 			"spent" = spent,
 			"ckey" = ckey
 		))
@@ -522,7 +522,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			to_chat(usr, "<span class='warning'>That job is not refundable.</span>")
 			return
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, job, species FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, job, species FROM whitelist WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
 	if(!query.warn_execute())
@@ -545,10 +545,10 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		switch(type)
 			if("job")
 				typelist = splittext(dbjob,",")
-				statement = "UPDATE [format_table_name("whitelist")] SET job=:newtypelist WHERE ckey=:ckey"
+				statement = "UPDATE whitelist SET job=:newtypelist WHERE ckey=:ckey"
 			if("species")
 				typelist = splittext(dbspecies,",")
-				statement = "UPDATE [format_table_name("whitelist")] SET species=:newtypelist WHERE ckey=:ckey"
+				statement = "UPDATE whitelist SET species=:newtypelist WHERE ckey=:ckey"
 			else
 				to_chat(usr, "<span class='warning'>Type [type] is not a valid column.</span>")
 
@@ -574,7 +574,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		to_chat(usr, "<span class='warning'>Your ckey ([dbckey]) was not found.</span>")
 
 /client/proc/checkpurchased(name = null) // If the first parameter is null, return a full list of purchases
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, job, species FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, job, species FROM whitelist WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
 	if(!query.warn_execute())

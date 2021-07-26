@@ -47,7 +47,7 @@
 	// If 2FA is enabled, makes sure they were authed within the last minute
 	if(check_2fa && GLOB.configuration.system._2fa_auth_host)
 		// First see if they exist at all
-		var/datum/db_query/check_query = SSdbcore.NewQuery("SELECT 2fa_status, ip FROM [format_table_name("player")] WHERE ckey=:ckey", list("ckey" = ckey(key)))
+		var/datum/db_query/check_query = SSdbcore.NewQuery("SELECT 2fa_status, ip FROM player WHERE ckey=:ckey", list("ckey" = ckey(key)))
 
 		if(!check_query.warn_execute())
 			message_admins("Failed to do a DB 2FA check for [key]. You have been warned.")
@@ -71,7 +71,7 @@
 		// Have it set to always check, or their IP is different
 		if(_2fa_enabled && (always_check || (address != last_ip)))
 			// They have 2FA enabled, lets make sure they have authed within the last minute
-			var/datum/db_query/verify_query = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("2fa_secrets")] WHERE (last_time BETWEEN NOW() - INTERVAL 1 MINUTE AND NOW()) AND ckey=:ckey LIMIT 1", list(
+			var/datum/db_query/verify_query = SSdbcore.NewQuery("SELECT ckey FROM 2fa_secrets WHERE (last_time BETWEEN NOW() - INTERVAL 1 MINUTE AND NOW()) AND ckey=:ckey LIMIT 1", list(
 				"ckey" = ckey(key)
 			))
 
@@ -120,7 +120,7 @@
 			sql_query_params["cid"] = computer_id
 
 		var/datum/db_query/query = SSdbcore.NewQuery({"
-		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype, ban_round_id FROM [format_table_name("ban")]
+		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype, ban_round_id FROM ban
 		WHERE (ckey=:ckeytext [ipquery] [cidquery]) AND (bantype = 'PERMABAN' OR bantype = 'ADMIN_PERMABAN'
 		OR ((bantype = 'TEMPBAN' OR bantype = 'ADMIN_TEMPBAN') AND expiration_time > Now())) AND isnull(unbanned)"}, sql_query_params)
 

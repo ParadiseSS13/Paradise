@@ -37,7 +37,7 @@
 		if(SSdbcore.IsConnected())
 			var/datum/db_query/query_get_ip_intel = SSdbcore.NewQuery({"
 				SELECT date, intel, TIMESTAMPDIFF(MINUTE,date,NOW())
-				FROM [format_table_name("ipintel")]
+				FROM ipintel
 				WHERE
 					ip = INET_ATON(:ip)
 					AND ((
@@ -73,7 +73,7 @@
 		SSipintel.cache[ip] = res
 		if(SSdbcore.IsConnected())
 			var/datum/db_query/query_add_ip_intel = SSdbcore.NewQuery({"
-				INSERT INTO [format_table_name("ipintel")] (ip, intel) VALUES (INET_ATON(:ip), :intel)
+				INSERT INTO ipintel (ip, intel) VALUES (INET_ATON(:ip), :intel)
 				ON DUPLICATE KEY UPDATE intel = VALUES(intel), date = NOW()"},
 				list(
 					"ip" = ip,
@@ -171,7 +171,7 @@
 		log_debug("ipintel_badip_check reports misconfigured ipintel_save_bad directive")
 		return FALSE
 	var/datum/db_query/query_get_ip_intel = SSdbcore.NewQuery({"
-		SELECT * FROM [format_table_name("ipintel")] WHERE ip = INET_ATON(:target_ip)
+		SELECT * FROM ipintel WHERE ip = INET_ATON(:target_ip)
 		AND intel >= :rating_bad AND (date + INTERVAL :valid_hours HOUR) > NOW()"},
 		list(
 			"target_ip" = target_ip,
@@ -192,7 +192,7 @@
 /proc/vpn_whitelist_check(target_ckey)
 	if(!GLOB.configuration.ipintel.whitelist_mode)
 		return FALSE
-	var/datum/db_query/query_whitelist_check = SSdbcore.NewQuery("SELECT * FROM [format_table_name("vpn_whitelist")] WHERE ckey=:ckey", list(
+	var/datum/db_query/query_whitelist_check = SSdbcore.NewQuery("SELECT * FROM vpn_whitelist WHERE ckey=:ckey", list(
 		"ckey" = target_ckey
 	))
 	if(!query_whitelist_check.warn_execute())
@@ -208,7 +208,7 @@
 	var/reason_string = input(usr, "Enter link to the URL of their whitelist request on the forum.","Reason required") as message|null
 	if(!reason_string)
 		return FALSE
-	var/datum/db_query/query_whitelist_add = SSdbcore.NewQuery("INSERT INTO [format_table_name("vpn_whitelist")] (ckey,reason) VALUES (:targetckey, :reason)", list(
+	var/datum/db_query/query_whitelist_add = SSdbcore.NewQuery("INSERT INTO vpn_whitelist (ckey,reason) VALUES (:targetckey, :reason)", list(
 		"targetckey" = target_ckey,
 		"reason" = reason_string
 	))
@@ -219,7 +219,7 @@
 	return TRUE
 
 /proc/vpn_whitelist_remove(target_ckey)
-	var/datum/db_query/query_whitelist_remove = SSdbcore.NewQuery("DELETE FROM [format_table_name("vpn_whitelist")] WHERE ckey=:targetckey", list(
+	var/datum/db_query/query_whitelist_remove = SSdbcore.NewQuery("DELETE FROM vpn_whitelist WHERE ckey=:targetckey", list(
 		"targetckey" = target_ckey
 	))
 	if(!query_whitelist_remove.warn_execute())
