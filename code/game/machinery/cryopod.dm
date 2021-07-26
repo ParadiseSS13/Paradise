@@ -346,7 +346,7 @@
 
 
 /obj/machinery/cryopod/proc/handle_contents(obj/item/I)
-	if(I.contents.len) //Make sure we catch anything not handled by qdel() on the items.
+	if(length(I.contents)) //Make sure we catch anything not handled by qdel() on the items.
 		if(should_preserve_item(I) != CRYO_DESTROY) // Don't remove the contents of things that need preservation
 			return
 		for(var/obj/item/O in I.contents)
