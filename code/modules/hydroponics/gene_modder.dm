@@ -402,16 +402,12 @@
 		if(!seed)
 			return
 		var/V = input(usr, "Choose variant name:", "Plant Variant Naming", seed.variant) as text|null
-		if(!issilicon(usr) && !Adjacent(usr))
-			return
-		if(isnull(V))
+		if(!issilicon(usr) && !Adjacent(usr) || isnull(V) || !seed)
 			return
 		seed.variant = copytext(sanitize(html_encode(trim(V))), 1, 64)
 		seed.apply_variant_name()
 	else if(href_list["del_v"])
 		if(!seed)
-			return
-		if(!issilicon(usr) && !Adjacent(usr))
 			return
 		seed.variant = ""
 		seed.apply_variant_name()
