@@ -27,7 +27,7 @@
 	var/list/combos = list()
 	/// What combos are currently (possibly) being performed.
 	var/list/datum/martial_art/current_combos = list()
-	/// When the last hit happened
+	/// When the last hit happened.
 	var/last_hit = 0
 	/// If the user is preparing a martial arts stance.
 	var/in_stance = FALSE
