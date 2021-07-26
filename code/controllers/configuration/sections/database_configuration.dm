@@ -25,7 +25,6 @@
 	#ifdef UNIT_TESTS
 
 	enabled = TRUE
-	table_prefix = ""
 	// This needs to happen in the CI environment to ensure the example SQL version gets updated.
 	CONFIG_LOAD_NUM(version, data["sql_version"])
 
