@@ -396,6 +396,7 @@
 #include "code\datums\keybindings\_keybinding.dm"
 #include "code\datums\keybindings\admin.dm"
 #include "code\datums\keybindings\carbon.dm"
+#include "code\datums\keybindings\client.dm"
 #include "code\datums\keybindings\human.dm"
 #include "code\datums\keybindings\living.dm"
 #include "code\datums\keybindings\mob.dm"

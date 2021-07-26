@@ -9,5 +9,5 @@ GLOBAL_LIST_INIT(keybindings_groups, list(
 	"Silicon" = KB_CATEGORY_SILICON,
 	"Robot" = KB_CATEGORY_ROBOT,
 	"Admin" = KB_CATEGORY_ADMIN,
-	// "Other" = KB_CATEGORY_UNSORTED,
+	"Other" = KB_CATEGORY_UNSORTED,
 ))
