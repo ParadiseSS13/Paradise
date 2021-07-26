@@ -181,7 +181,7 @@
 			itemUser.adjustStaminaLoss(-1.5)
 			itemUser.adjustBrainLoss(-1.5)
 			itemUser.adjustCloneLoss(-0.5) //Becasue apparently clone damage is the bastion of all health
-		if(heal_points < (max_heal_points))
+		if(heal_points < max_heal_points)
 			heal_points = min(heal_points += 3, max_heal_points)
 		//Heal all those around you, unbiased
 		for(var/mob/living/L in view(7, owner))
