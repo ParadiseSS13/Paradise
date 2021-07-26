@@ -8,9 +8,9 @@
 	var/atk_verb = pick("precisely kicks", "brutally chops", "cleanly hits", "viciously slams")
 	target.visible_message("<span class='danger'>[user] [atk_verb] [target]!</span>",
 					"<span class='userdanger'>[user] [atk_verb] you!</span>")
-	playsound(get_turf(target), 'sound/weapons/punch1.ogg', 35, TRUE, -1)
+	playsound(get_turf(target), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Gnashing Teeth", ATKLOG_ALL)
-	target.apply_damage(20, BRUTE)
+	target.apply_damage(20, BRUTE, user.zone_selected)
 	if(target.health >= 0)
 		user.say(pick("HUAH!", "HYA!", "CHOO!", "WUO!", "KYA!", "HUH!", "HIYOH!", "CARP STRIKE!", "CARP BITE!"))
 	else
