@@ -251,17 +251,40 @@
 					"<span class='notice'>You pat [src] on the head.</span>",\
 					)
 				else
-
-					M.visible_message(\
-					"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
-					"<span class='notice'>You hug [src].</span>",\
-					)
-					if(ishuman(src))
-						var/mob/living/carbon/human/H = src
-						if(H.wear_suit)
-							H.wear_suit.add_fingerprint(M)
-						else if(H.w_uniform)
-							H.w_uniform.add_fingerprint(M)
+					if(M.zone_selected == "r_arm")
+						M.visible_message(\
+						"<span class='notice'>[M] [src] gives you a handshake.</span>",\
+						"<span class='notice'>You shakes [src] hand.</span>",\
+						)
+					else
+						if(M.zone_selected == "l_arm")
+							M.visible_message(\
+							"<span class='notice'>[M] [src] gives you a handshake.</span>",\
+							"<span class='notice'>You shakes [src] hand.</span>",\
+							)
+						else
+							if(M.zone_selected == "l_hand")
+								M.visible_message(\
+								"<span class='notice'>[M] [src] gives you a handshake.</span>",\
+								"<span class='notice'>You shake [src] hand.</span>",\
+								)
+							else
+								if(M.zone_selected == "r_hand")
+									M.visible_message(\
+									"<span class='notice'>[M] [src] gives you a handshake.</span>",\
+									"<span class='notice'>You shakes [src] hand.</span>",\
+									)
+								else
+									M.visible_message(\
+									"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
+									"<span class='notice'>[M] You hug [src].</span>",\
+									)
+									if(ishuman(src))
+										var/mob/living/carbon/human/H = src
+										if(H.wear_suit)
+											H.wear_suit.add_fingerprint(M)
+										else if(H.w_uniform)
+											H.w_uniform.add_fingerprint(M)
 
 /**
   * Handles patting out a fire on someone.
