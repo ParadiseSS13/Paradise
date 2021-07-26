@@ -486,11 +486,11 @@
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
-/datum/language/terrorspider/broadcast(mob/living/speaker, message)
-	if(istype(speaker, /mob/living/simple_animal/hostile/poison/terror_spider))
+/datum/language/terrorspider/broadcast(mob/living/speaker, message, speaker_mask)
+	if(isterrorspider(speaker))
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = speaker
 		if(T.spider_tier >= 3 || istype(T, /mob/living/simple_animal/hostile/poison/terror_spider/white)) //I think whites are important enough for this, but it can be changed. Defines not global, 3 must be used.
-			..(speaker,"<font size=3><b>[message]</b></font>")
+			..(speaker, "<font size=3><b>[message]</b></font>")
 			return
 	..(speaker, message)
 
