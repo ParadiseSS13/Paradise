@@ -30,6 +30,10 @@
 	if(id && !id_tag)//I'm not dealing with any more merge conflicts
 		id_tag = id
 
+/obj/machinery/atmospherics/unary/outlet_injector/detailed_examine()
+	return "Outputs the pipe's gas into the atmosphere, similar to an air vent. It can be controlled by a nearby atmospherics computer. \
+			A green light on it means it is on."
+
 /obj/machinery/atmospherics/unary/outlet_injector/Destroy()
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
