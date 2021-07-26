@@ -111,7 +111,7 @@
 /datum/gear/suit/secbomberjacket
 	display_name = "security bomber jacket"
 	path = /obj/item/clothing/suit/jacket/pilot
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/suit/ianshirt
 	display_name = "Ian Shirt"
