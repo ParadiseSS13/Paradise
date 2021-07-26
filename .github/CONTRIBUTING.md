@@ -59,7 +59,7 @@ actual development.
 #### Using Changelog
  * The tags able to be used in the changelog are: `add/soundadd/imageadd`, `del/sounddel/imagedel`, `tweak`, `fix`, `wip`, `spellcheck`, and `experiment`.
  * Without specifying a name it will default to using your GitHub name.
- Some examples
+ Some examples include:
     ```
     :cl:
     add: The ability to change the color of wires
@@ -208,10 +208,10 @@ if the original datum has been deleted - BYOND recycles the references.
 
 UID's are actually unique; they work off of a global counter and are not recycled. Each datum has one assigned to it when it's created, which can be
 accessed by `[datum.UID()]`. You can use this as a snap-in replacement for `\ref` by changing any `locate(ref)` calls in your code to `locateUID(ref)`.
-Usage of this system is mandatory for any /Topic( calls, and will produce errors in Dream Daemon if it's not used.
+Usage of this system is mandatory for any `Topic()` calls, and will produce errors in Dream Daemon if it's not used.
 ```DM
 //Bad
-"<a href='?src=\ref[src];'Link!</a>"
+"<a href='?src=\ref[src];'>Link!</a>"
 
 //Good
 "<a href='?src=[UID()];'>Link!</a>"
@@ -252,7 +252,7 @@ Remember: although this tradeoff makes sense in many cases, it doesn't cover the
 ### Prefer `Initialize()` over `New()` for atoms
 Our game controller is pretty good at handling long operations and lag, but it can't control what happens when the map is loaded, which calls `New()` for all atoms on the map. If you're creating a new atom, use the `Initialize()` proc to do what you would normally do in `New()`. This cuts down on the number of proc calls needed when the world is loaded.
 
-While we normally encourage (and in some cases, even require) bringing out of date code up to date when you make unrelated changes near the out of date code, that is not the case for `New()` -> `Initialize()` conversions. These systems are generally more dependant on parent and children procs, so unrelated random conversions of existing things can cause bugs that take months to figure out.
+While we normally encourage (and in some cases, even require) bringing out of date code up to date when you make unrelated changes near the out of date code, that is not the case for `New()` -> `Initialize()` conversions. These systems are generally more dependent on parent and children procs, so unrelated random conversions of existing things can cause bugs that take months to figure out.
 
 ### No implicit `var/`
 When you declare a parameter in a proc, the `var/` is implicit. Do not include any implicit `var/` when declaring a variable.
@@ -312,7 +312,7 @@ This is clearer and enhances readability of your code! Get used to doing it!
 Due to the use of "Goonchat", Paradise requires a special syntax for outputting text messages to players. Instead of `mob << "message"`,
 you must use `to_chat(mob, "message")`. Failure to do so will lead to your code not working.
 
-### Use early return
+### Use early returns
 Do not enclose a proc in an if-block when returning on a condition is more feasible.
 
 This is bad:
@@ -336,9 +336,9 @@ This is good:
 ````
 This prevents nesting levels from getting deeper then they need to be.
 
-### Uses `addtimer()` instead of `sleep()` or `spawn()`
+### Use `addtimer()` instead of `sleep()` or `spawn()`
 If you need to call a proc after a set amount of time, use `addtimer()` instead of `spawn()` / `sleep()` where feasible.
-Although it is more complex, it is more  performant and unlike spawn() or sleep(), it can be cancelled.
+Although it is more complex, it is more performant and unlike `spawn()` or `sleep()`, it can be cancelled.
 For more details, see https://github.com/tgstation/tgstation/pull/22933.
 
 Look for code examples on how to properly use it.
@@ -444,7 +444,7 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 
 ### Develop Secure Code
 
-* Player input must always be escaped safely, we recommend you use stripped_input in all cases where you would use input. Essentially, just always treat input from players as inherently malicious and design with that use case in mind.
+* Player input must always be escaped safely, we recommend you use `stripped_input()` in all cases where you would use input. Essentially, just always treat input from players as inherently malicious and design with that use case in mind.
 
 * Calls to the database must be escaped properly - use proper parameters (values starting with a :). You can then replace these with a list of parameters, and these will be properly escaped during the query, and prevent any SQL injection.
   ```DM
