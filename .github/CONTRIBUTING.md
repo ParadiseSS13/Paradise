@@ -309,8 +309,7 @@ This is clearer and enhances readability of your code! Get used to doing it!
   ```
 
 ### Player Output
-Due to the use of "Goonchat", Paradise requires a special syntax for outputting text messages to players. Instead of `mob << "message"`,
-you must use `to_chat(mob, "message")`. Failure to do so will lead to your code not working.
+Due to the use of "Goonchat", Paradise requires a special syntax for outputting text messages to players. Instead of `mob << "message"`, you must use `to_chat(mob, "message")`. Failure to do so will lead to your code not working.
 
 ### Use early returns
 Do not enclose a proc in an if-block when returning on a condition is more feasible.
@@ -338,19 +337,19 @@ This prevents nesting levels from getting deeper then they need to be.
 
 ### Use `addtimer()` instead of `sleep()` or `spawn()`
 If you need to call a proc after a set amount of time, use `addtimer()` instead of `spawn()` / `sleep()` where feasible.
-Although it is more complex, it is more performant and unlike `spawn()` or `sleep()`, it can be cancelled.
+Though more complex, this method has greater performance. Additionally, unlike `spawn()` or `sleep()`, it can be cancelled.
 For more details, see https://github.com/tgstation/tgstation/pull/22933.
 
 Look for code examples on how to properly use it.
 ```DM
 //Bad
-/datum/datum1/proc/proc1(procsource)
+/datum/datum1/proc/proc1(target)
     spawn(5 SECONDS)
-    procsource.dothing(arg1, arg2, arg3)
+    target.dothing(arg1, arg2, arg3)
 
 //Good
-/datum/datum1/proc/proc1(procsource)
-    addtimer(CALLBACK(procsource, .proc/dothing, arg1, arg2, arg3), 5 SECONDS)
+/datum/datum1/proc/proc1(target)
+    addtimer(CALLBACK(target, .proc/dothing, arg1, arg2, arg3), 5 SECONDS)
 ```
 This prevents nesting levels from getting deeper then they need to be.
 
