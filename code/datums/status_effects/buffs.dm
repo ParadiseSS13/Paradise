@@ -183,7 +183,7 @@
 			itemUser.adjustCloneLoss(-0.5) //Becasue apparently clone damage is the bastion of all health
 		//Heal all those around you, unbiased
 		if(heal_points < (max_heal_points))
-			heal_points = min((heal_points += 3), max_heal_points)
+			heal_points = min(heal_points += 3, max_heal_points)
 		for(var/mob/living/L in view(7, owner))
 			if(heal_points <= 0)
 				break
