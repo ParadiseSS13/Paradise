@@ -112,7 +112,7 @@
 	to_chat(src, "1. Consume resources and replicate until there are no more resources left.")
 	to_chat(src, "2. Ensure that the station is fit for invasion at a later date, do not perform actions that would render it dangerous or inhospitable.")
 	to_chat(src, "3. Biological and sentient resources will be harvested at a later date, do not harm them.")
-	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Swarmer)</span>")
+	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Swarmer)</span>")
 
 /mob/living/simple_animal/hostile/swarmer/New()
 	..()
@@ -329,6 +329,14 @@
 	return FALSE
 
 /obj/machinery/portable_atmospherics/canister/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
+	return FALSE
+
+/obj/structure/fans/tiny/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
+	return FALSE
+
+/obj/structure/holosign/barrier/atmos/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
 	return FALSE
 

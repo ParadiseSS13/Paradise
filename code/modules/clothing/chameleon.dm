@@ -509,8 +509,8 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/storage/belt/chameleon
-	name = "toolbelt"
-	desc = "Holds tools."
+	name = "tool-belt"
+	desc = "Can hold various tools."
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/storage/belt/chameleon/Initialize(mapload)

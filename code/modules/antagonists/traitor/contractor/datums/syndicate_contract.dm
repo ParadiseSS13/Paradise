@@ -30,7 +30,7 @@
 		/obj/item/reagent_containers/food/snacks/tatortot,
 		/obj/item/storage/box/fakesyndiesuit,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
-		/obj/item/toy/figure/syndie,
+		/obj/item/toy/figure/crew/syndie,
 		/obj/item/toy/nuke,
 		/obj/item/toy/plushie/nukeplushie,
 		/obj/item/toy/sword,
@@ -362,6 +362,9 @@
 	for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
 		// Greys get to keep their implant
 		if(isgrey(H) && istype(I, /obj/item/organ/internal/cyberimp/brain/speech_translator))
+			continue
+		// IPCs keep this implant, free of charge!
+		if(ismachineperson(H) && istype(I, /obj/item/organ/internal/cyberimp/arm/power_cord))
 			continue
 		// Try removing it
 		I = I.remove(H)

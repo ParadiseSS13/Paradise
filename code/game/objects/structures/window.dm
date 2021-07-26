@@ -410,7 +410,7 @@
 	if(!valid_window_location(loc, target_dir))
 		target_dir = turn(dir, 90)
 	if(!valid_window_location(loc, target_dir))
-		to_chat(user, "<span class='warning'>There is no room to rotate the [src]</span>")
+		to_chat(user, "<span class='warning'>There is no room to rotate [src].</span>")
 		return FALSE
 
 	setDir(target_dir)

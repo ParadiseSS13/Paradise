@@ -61,7 +61,7 @@
 	player_logged++
 	if(istype(loc, /obj/machinery/cryopod))
 		return
-	if(config.auto_cryo_ssd_mins && (player_logged >= (config.auto_cryo_ssd_mins * 30)) && player_logged % 30 == 0)
+	if(GLOB.configuration.afk.ssd_auto_cryo_minutes && (player_logged >= (GLOB.configuration.afk.ssd_auto_cryo_minutes * 30)) && player_logged % 30 == 0)
 		var/turf/T = get_turf(src)
 		if(!is_station_level(T.z))
 			return
@@ -300,11 +300,11 @@
 
 	else if(bodytemperature < dna.species.cold_level_1)
 		if(status_flags & GODMODE)
-			return 1
+			return TRUE
 		if(stat == DEAD)
-			return 1
+			return TRUE
 
-		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell) && !(HAS_TRAIT(src, TRAIT_RESISTCOLD)))
 			var/mult = dna.species.coldmod * physiology.cold_mod
 			if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
 				throw_alert("temp", /obj/screen/alert/cold, 1)
@@ -746,12 +746,12 @@
 		if(healths)
 			var/health_amount = get_perceived_trauma()
 			if(..(health_amount)) //not dead
-				switch(hal_screwyhud)
-					if(SCREWYHUD_CRIT)
+				switch(health_hud_override)
+					if(HEALTH_HUD_OVERRIDE_CRIT)
 						healths.icon_state = "health6"
-					if(SCREWYHUD_DEAD)
+					if(HEALTH_HUD_OVERRIDE_DEAD)
 						healths.icon_state = "health7"
-					if(SCREWYHUD_HEALTHY)
+					if(HEALTH_HUD_OVERRIDE_HEALTHY)
 						healths.icon_state = "health0"
 
 		if(healthdoll)

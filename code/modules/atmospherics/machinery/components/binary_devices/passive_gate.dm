@@ -14,6 +14,9 @@
 
 	var/id = null
 
+/obj/machinery/atmospherics/binary/passive_gate/detailed_examine()
+	return "This is a one-way regulator, allowing gas to flow only at a specific pressure and flow rate. If the light is green, it is flowing."
+
 /obj/machinery/atmospherics/binary/passive_gate/atmos_init()
 	..()
 	if(frequency)

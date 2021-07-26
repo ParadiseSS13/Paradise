@@ -16,6 +16,9 @@
 	..()
 	initialize_directions = dir
 
+/obj/machinery/atmospherics/pipe/cap/detailed_examine()
+	return "This is a cosmetic attachment, as pipes currently do not spill their contents into the air."
+
 /obj/machinery/atmospherics/pipe/cap/hide(i)
 	if(level == 1 && istype(loc, /turf/simulated))
 		invisibility = i ? INVISIBILITY_MAXIMUM : 0

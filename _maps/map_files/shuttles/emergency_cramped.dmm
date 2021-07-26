@@ -80,8 +80,6 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
-	icon_state = "tube1";
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -118,14 +116,12 @@
 /area/shuttle/escape)
 "B" = (
 /obj/structure/shuttle/engine/propulsion{
-	tag = "icon-burst_l";
 	icon_state = "burst_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "C" = (
 /obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion_r";
 	icon_state = "propulsion_r"
 	},
 /turf/simulated/floor/plating/airless,

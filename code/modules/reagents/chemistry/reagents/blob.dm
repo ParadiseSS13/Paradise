@@ -181,11 +181,11 @@
 		volume = ..()
 		M.apply_damage(0.4 * volume, BURN)
 		if(M.reagents)
-			if(M.reagents.has_reagent("teslium") && prob(0.6 * volume))
+			if(M.reagents.has_reagent("blob_teslium") && prob(0.6 * volume))
 				M.electrocute_act((0.5 * volume), "the blob's electrical discharge", 1, SHOCK_NOGLOVES)
-				M.reagents.del_reagent("teslium")
+				M.reagents.del_reagent("blob_teslium")
 				return //don't add more teslium after you shock it out of someone.
-			M.reagents.add_reagent("teslium", 0.125 * volume)  // a little goes a long way
+			M.reagents.add_reagent("blob_teslium", 0.125 * volume)  // a little goes a long way
 
 /datum/reagent/blob/proc/send_message(mob/living/M)
 	var/totalmessage = message
