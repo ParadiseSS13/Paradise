@@ -350,7 +350,6 @@
 		/obj/item/roller/holo = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/bodyanalyzer = 1,
-		/obj/item/healthupgrade = 1,
 		/obj/item/handheld_defibrillator = 1,
 		/obj/item/storage/pill_bottle/painkillers = 1
 	)
