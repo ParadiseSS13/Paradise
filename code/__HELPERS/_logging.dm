@@ -28,11 +28,12 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_admin(text)
 	GLOB.admin_log.Add(text)
-	if(config.log_admin)
+	if(GLOB.configuration.logging.admin_logging)
 		rustg_log_write(GLOB.world_game_log, "ADMIN: [text][GLOB.log_end]")
 
 /proc/log_debug(text)
-	if(config.log_debug)
+	// This has presence checks as this may be called before GLOB has loaded
+	if(GLOB?.configuration?.logging.debug_logging)
 		rustg_log_write(GLOB.world_game_log, "DEBUG: [text][GLOB.log_end]")
 
 	for(var/client/C in GLOB.admins)
@@ -40,80 +41,80 @@ GLOBAL_PROTECT(log_end)
 			to_chat(C, "DEBUG: [text]")
 
 /proc/log_game(text)
-	if(config.log_game)
+	if(GLOB.configuration.logging.game_logging)
 		rustg_log_write(GLOB.world_game_log, "GAME: [text][GLOB.log_end]")
 
 /proc/log_vote(text)
-	if(config.log_vote)
+	if(GLOB.configuration.logging.vote_logging)
 		rustg_log_write(GLOB.world_game_log, "VOTE: [text][GLOB.log_end]")
 
 /proc/log_access_in(client/new_client)
-	if(config.log_access)
+	if(GLOB.configuration.logging.access_logging)
 		var/message = "[key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version]"
 		rustg_log_write(GLOB.world_game_log, "ACCESS IN: [message][GLOB.log_end]")
 
 /proc/log_access_out(mob/last_mob)
-	if(config.log_access)
+	if(GLOB.configuration.logging.access_logging)
 		var/message = "[key_name(last_mob)] - IP:[last_mob.lastKnownIP] - CID:[last_mob.computer_id] - BYOND Logged Out"
 		rustg_log_write(GLOB.world_game_log, "ACCESS OUT: [message][GLOB.log_end]")
 
 /proc/log_say(text, mob/speaker)
-	if(config.log_say)
+	if(GLOB.configuration.logging.say_logging)
 		rustg_log_write(GLOB.world_game_log, "SAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_whisper(text, mob/speaker)
-	if(config.log_whisper)
+	if(GLOB.configuration.logging.whisper_logging)
 		rustg_log_write(GLOB.world_game_log, "WHISPER: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_ooc(text, client/user)
-	if(config.log_ooc)
+	if(GLOB.configuration.logging.ooc_logging)
 		rustg_log_write(GLOB.world_game_log, "OOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_aooc(text, client/user)
-	if(config.log_ooc)
+	if(GLOB.configuration.logging.ooc_logging)
 		rustg_log_write(GLOB.world_game_log, "AOOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_looc(text, client/user)
-	if(config.log_ooc)
+	if(GLOB.configuration.logging.ooc_logging)
 		rustg_log_write(GLOB.world_game_log, "LOOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_emote(text, mob/speaker)
-	if(config.log_emote)
+	if(GLOB.configuration.logging.emote_logging)
 		rustg_log_write(GLOB.world_game_log, "EMOTE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_attack(attacker, defender, message)
-	if(config.log_attack)
+	if(GLOB.configuration.logging.attack_logging)
 		rustg_log_write(GLOB.world_game_log, "ATTACK: [attacker] against [defender]: [message][GLOB.log_end]") //Seperate attack logs? Why?
 
 /proc/log_adminsay(text, mob/speaker)
-	if(config.log_adminchat)
+	if(GLOB.configuration.logging.adminchat_logging)
 		rustg_log_write(GLOB.world_game_log, "ADMINSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_qdel(text)
 	rustg_log_write(GLOB.world_qdel_log, "QDEL: [text][GLOB.log_end]")
 
 /proc/log_mentorsay(text, mob/speaker)
-	if(config.log_adminchat)
+	if(GLOB.configuration.logging.adminchat_logging)
 		rustg_log_write(GLOB.world_game_log, "MENTORSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_ghostsay(text, mob/speaker)
-	if(config.log_say)
+	if(GLOB.configuration.logging.say_logging)
 		rustg_log_write(GLOB.world_game_log, "DEADCHAT: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_ghostemote(text, mob/speaker)
-	if(config.log_emote)
+	if(GLOB.configuration.logging.emote_logging)
 		rustg_log_write(GLOB.world_game_log, "DEADEMOTE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_adminwarn(text)
-	if(config.log_adminwarn)
+	if(GLOB.configuration.logging.admin_warning_logging)
 		rustg_log_write(GLOB.world_game_log, "ADMINWARN: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_pda(text, mob/speaker)
-	if(config.log_pda)
+	if(GLOB.configuration.logging.pda_logging)
 		rustg_log_write(GLOB.world_game_log, "PDA: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_chat(text, mob/speaker)
-	if(config.log_pda)
+	if(GLOB.configuration.logging.pda_logging)
 		rustg_log_write(GLOB.world_game_log, "CHAT: [speaker.simple_info_line()] [html_decode(text)][GLOB.log_end]")
 
 /proc/log_misc(text)
@@ -121,7 +122,8 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_world(text)
 	SEND_TEXT(world.log, text)
-	if(config && config.log_world_output)
+	// This has to be presence checked as log_world() is used before world/New().
+	if(GLOB?.configuration?.logging.world_logging)
 		rustg_log_write(GLOB.world_game_log, "WORLD: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_runtime_txt(text) // different from /tg/'s log_runtime because our error handler has a log_runtime proc already that does other stuff

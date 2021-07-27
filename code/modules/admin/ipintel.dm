@@ -1,3 +1,4 @@
+// AA TODO: Make these procs part of SSipintel
 /datum/ipintel
 	var/ip
 	var/intel = 0
@@ -14,18 +15,18 @@
 	. = FALSE
 	if(intel < 0)
 		return
-	if(intel <= config.ipintel_rating_bad)
-		if(world.realtime < cacherealtime + (config.ipintel_save_good HOURS))
+	if(intel <= GLOB.configuration.ipintel.bad_rating)
+		if(world.realtime < cacherealtime + (GLOB.configuration.ipintel.hours_save_good HOURS))
 			return TRUE
 	else
-		if(world.realtime < cacherealtime + (config.ipintel_save_bad HOURS))
+		if(world.realtime < cacherealtime + (GLOB.configuration.ipintel.hours_save_bad HOURS))
 			return TRUE
 
 /proc/get_ip_intel(ip, bypasscache = FALSE, updatecache = TRUE)
 	var/datum/ipintel/res = new()
 	res.ip = ip
 	. = res
-	if(!ip || !config.ipintel_email || !SSipintel.enabled)
+	if(!ip || !GLOB.configuration.ipintel.contact_email || !GLOB.configuration.ipintel.enabled || !SSipintel.enabled)
 		return
 	if(!bypasscache)
 		var/datum/ipintel/cachedintel = SSipintel.cache[ip]
@@ -36,7 +37,7 @@
 		if(SSdbcore.IsConnected())
 			var/datum/db_query/query_get_ip_intel = SSdbcore.NewQuery({"
 				SELECT date, intel, TIMESTAMPDIFF(MINUTE,date,NOW())
-				FROM [format_table_name("ipintel")]
+				FROM ipintel
 				WHERE
 					ip = INET_ATON(:ip)
 					AND ((
@@ -50,9 +51,9 @@
 					))
 				"}, list(
 					"ip" = ip,
-					"rating_bad" = config.ipintel_rating_bad,
-					"save_good" = config.ipintel_save_good,
-					"save_bad" = config.ipintel_save_bad,
+					"rating_bad" = GLOB.configuration.ipintel.bad_rating,
+					"save_good" = GLOB.configuration.ipintel.hours_save_good,
+					"save_bad" = GLOB.configuration.ipintel.hours_save_bad,
 				))
 			if(!query_get_ip_intel.warn_execute())
 				qdel(query_get_ip_intel)
@@ -72,7 +73,7 @@
 		SSipintel.cache[ip] = res
 		if(SSdbcore.IsConnected())
 			var/datum/db_query/query_add_ip_intel = SSdbcore.NewQuery({"
-				INSERT INTO [format_table_name("ipintel")] (ip, intel) VALUES (INET_ATON(:ip), :intel)
+				INSERT INTO ipintel (ip, intel) VALUES (INET_ATON(:ip), :intel)
 				ON DUPLICATE KEY UPDATE intel = VALUES(intel), date = NOW()"},
 				list(
 					"ip" = ip,
@@ -93,7 +94,7 @@
 		return
 
 	// Do not refactor this to use SShttp, because that requires the subsystem to be firing for requests to be made, and this will be triggered before the MC has finished loading
-	var/list/http[] = world.Export("http://[config.ipintel_domain]/check.php?ip=[ip]&contact=[config.ipintel_email]&format=json&flags=b")
+	var/list/http[] = world.Export("http://[GLOB.configuration.ipintel.ipintel_domain]/check.php?ip=[ip]&contact=[GLOB.configuration.ipintel.contact_email]&format=json&flags=b")
 
 	if(http)
 		var/status = text2num(http["STATUS"])
@@ -146,9 +147,11 @@
 
 
 /proc/ipintel_is_banned(t_ckey, t_ip)
-	if(!config.ipintel_email)
+	if(!GLOB.configuration.ipintel.contact_email)
 		return FALSE
-	if(!config.ipintel_whitelist)
+	if(!GLOB.configuration.ipintel.enabled)
+		return FALSE
+	if(!GLOB.configuration.ipintel.whitelist_mode)
 		return FALSE
 	if(!SSdbcore.IsConnected())
 		return FALSE
@@ -159,16 +162,16 @@
 	return TRUE
 
 /proc/ipintel_badip_check(target_ip)
-	var/rating_bad = config.ipintel_rating_bad
+	var/rating_bad = GLOB.configuration.ipintel.bad_rating
 	if(!rating_bad)
 		log_debug("ipintel_badip_check reports misconfigured rating_bad directive")
 		return FALSE
-	var/valid_hours = config.ipintel_save_bad
+	var/valid_hours = GLOB.configuration.ipintel.hours_save_bad
 	if(!valid_hours)
 		log_debug("ipintel_badip_check reports misconfigured ipintel_save_bad directive")
 		return FALSE
 	var/datum/db_query/query_get_ip_intel = SSdbcore.NewQuery({"
-		SELECT * FROM [format_table_name("ipintel")] WHERE ip = INET_ATON(:target_ip)
+		SELECT * FROM ipintel WHERE ip = INET_ATON(:target_ip)
 		AND intel >= :rating_bad AND (date + INTERVAL :valid_hours HOUR) > NOW()"},
 		list(
 			"target_ip" = target_ip,
@@ -187,9 +190,9 @@
 	return TRUE
 
 /proc/vpn_whitelist_check(target_ckey)
-	if(!config.ipintel_whitelist)
+	if(!GLOB.configuration.ipintel.whitelist_mode)
 		return FALSE
-	var/datum/db_query/query_whitelist_check = SSdbcore.NewQuery("SELECT * FROM [format_table_name("vpn_whitelist")] WHERE ckey=:ckey", list(
+	var/datum/db_query/query_whitelist_check = SSdbcore.NewQuery("SELECT * FROM vpn_whitelist WHERE ckey=:ckey", list(
 		"ckey" = target_ckey
 	))
 	if(!query_whitelist_check.warn_execute())
@@ -205,7 +208,7 @@
 	var/reason_string = input(usr, "Enter link to the URL of their whitelist request on the forum.","Reason required") as message|null
 	if(!reason_string)
 		return FALSE
-	var/datum/db_query/query_whitelist_add = SSdbcore.NewQuery("INSERT INTO [format_table_name("vpn_whitelist")] (ckey,reason) VALUES (:targetckey, :reason)", list(
+	var/datum/db_query/query_whitelist_add = SSdbcore.NewQuery("INSERT INTO vpn_whitelist (ckey,reason) VALUES (:targetckey, :reason)", list(
 		"targetckey" = target_ckey,
 		"reason" = reason_string
 	))
@@ -216,7 +219,7 @@
 	return TRUE
 
 /proc/vpn_whitelist_remove(target_ckey)
-	var/datum/db_query/query_whitelist_remove = SSdbcore.NewQuery("DELETE FROM [format_table_name("vpn_whitelist")] WHERE ckey=:targetckey", list(
+	var/datum/db_query/query_whitelist_remove = SSdbcore.NewQuery("DELETE FROM vpn_whitelist WHERE ckey=:targetckey", list(
 		"targetckey" = target_ckey
 	))
 	if(!query_whitelist_remove.warn_execute())

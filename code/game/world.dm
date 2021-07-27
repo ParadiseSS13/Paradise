@@ -8,9 +8,19 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 	// Right off the bat
 	enable_auxtools_debugger()
 
+	// Do sanity checks to ensure RUST actually exists
+	if(!fexists(RUST_G))
+		DIRECT_OUTPUT(world.log, "ERROR: RUSTG was not found and is required for the game to function. Server will now exit.")
+		del(world)
+
+	var/rustg_version = rustg_get_version()
+	if(rustg_version != RUST_G_VERSION)
+		DIRECT_OUTPUT(world.log, "ERROR: RUSTG version mismatch. Library is [rustg_version], code wants [RUST_G_VERSION]. Server will now exit.")
+		del(world)
+
 	//temporary file used to record errors with loading config and the database, moved to log directory once logging is set up
 	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = GLOB.sql_log = "data/logs/config_error.log"
-	load_configuration()
+	GLOB.configuration.load_configuration()
 
 	// Right off the bat, load up the DB
 	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
@@ -18,6 +28,7 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 
 	// Setup all log paths and stamp them with startups, including round IDs
 	SetupLogs()
+	load_files() // Loads up the MOTD (Welcome message players see when joining the server), TOS and gamemode
 
 	// This needs to happen early, otherwise people can get a null species, nuking their character
 	makeDatumRefLists()
@@ -32,15 +43,8 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 	log_world("Unit Tests Are Enabled!")
 	#endif
 
-	if(!fexists("config/config.txt") || !fexists("config/game_options.txt"))
-		stack_trace("The game config files have not been properly set! Please copy ALL files from '/config/example' into the parent folder, '/config'.")
-
 	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
-
-	if(config && config.server_name != null && config.server_suffix && world.port > 0)
-		// dumb and hardcoded but I don't care~
-		config.server_name += " #[(world.port % 1000) / 100]"
 
 	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
 
@@ -69,8 +73,6 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 /world/proc/startup_procs()
 	LoadBans() // Load up who is banned and who isnt. DONT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
 	jobban_loadbanfile() // Load up jobbans. Again, DO NOT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
-	load_motd() // Loads up the MOTD (Welcome message players see when joining the server)
-	load_mode() // Loads up the gamemode
 	investigate_reset() // This is part of the admin investigate system. PLEASE DONT SS THIS EITHER
 
 /// List of all world topic spam prevention handlers. See code/modules/world_topic/_spam_prevention_handler.dm
@@ -122,10 +124,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		// Now handle a reboot
-		if(config && config.shutdown_on_reboot)
+		if(GLOB.configuration.system.shutdown_on_reboot)
 			sleep(0)
-			if(GLOB.shutdown_shell_command)
-				shell(GLOB.shutdown_shell_command)
+			if(GLOB.configuration.system.shutdown_shell_command)
+				shell(GLOB.configuration.system.shutdown_shell_command)
 			del(world)
 			TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying
 			return
@@ -151,15 +153,15 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	// Send the reboot banner to all players
 	for(var/client/C in GLOB.clients)
 		C << output(list2params(list(secs_before_auto_reconnect)), "browseroutput:reboot")
-		if(config.server) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
-			C << link("byond://[config.server]")
+		if(GLOB.configuration.url.server_url) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+			C << link("byond://[GLOB.configuration.url.server_url]")
 
 	// And begin the real shutdown
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
-	if(config && config.shutdown_on_reboot)
+	if(GLOB.configuration.system.shutdown_on_reboot)
 		sleep(0)
-		if(GLOB.shutdown_shell_command)
-			shell(GLOB.shutdown_shell_command)
+		if(GLOB.configuration.system.shutdown_shell_command)
+			shell(GLOB.configuration.system.shutdown_shell_command)
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		del(world)
 		TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying
@@ -180,39 +182,26 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	fdel(F)
 	F << the_mode
 
-/world/proc/load_motd()
+/world/proc/load_files()
 	GLOB.join_motd = file2text("config/motd.txt")
 	GLOB.join_tos = file2text("config/tos.txt")
-
-/proc/load_configuration()
-	config = new /datum/configuration()
-	config.load("config/config.txt")
-	config.load("config/game_options.txt","game_options")
-	config.loadsql("config/dbconfig.txt")
-	config.loadoverflowwhitelist("config/ofwhitelist.txt")
-	config.load_rank_colour_map()
-	// apply some settings from config..
+	load_mode()
 
 /world/proc/update_status()
 	status = get_status_text()
 
-/proc/get_world_status_text()
-	return world.get_status_text()
-
 /world/proc/get_status_text()
 	var/s = ""
 
-	if(config && config.server_name)
-		s += "<b>[config.server_name]</b> &#8212; "
+	if(GLOB.configuration.general.server_name)
+		s += "<b>[GLOB.configuration.general.server_name]</b> &#8212; "
 	s += "<b>[station_name()]</b> "
-	if(config && config.githuburl)
-		s+= "([GLOB.game_version])"
 
-	if(config && config.server_tag_line)
-		s += "<br>[config.server_tag_line]"
+	if(GLOB.configuration.general.server_tag_line)
+		s += "<br>[GLOB.configuration.general.server_tag_line]"
 
 	if(SSticker && ROUND_TIME > 0)
-		s += "<br>[round(ROUND_TIME / 36000)]:[add_zero(num2text(ROUND_TIME / 600 % 60), 2)], " + capitalize(get_security_level())
+		s += "<br>[round(ROUND_TIME / 36000)]:[add_zero(num2text(ROUND_TIME / 600 % 60), 2)], [capitalize(get_security_level())]"
 	else
 		s += "<br><b>STARTING</b>"
 
@@ -222,16 +211,16 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(!GLOB.enter_allowed)
 		features += "closed"
 
-	if(config && config.server_extra_features)
-		features += config.server_extra_features
+	if(GLOB.configuration.general.server_features)
+		features += GLOB.configuration.general.server_features
 
-	if(config && config.allow_vote_mode)
+	if(GLOB.configuration.vote.allow_restart_votes)
 		features += "vote"
 
-	if(config && config.wikiurl)
-		features += "<a href=\"[config.wikiurl]\">Wiki</a>"
+	if(GLOB.configuration.url.wiki_url)
+		features += "<a href=\"[GLOB.configuration.url.wiki_url]\">Wiki</a>"
 
-	if(GLOB.abandon_allowed)
+	if(GLOB.configuration.general.respawn_enabled)
 		features += "respawn"
 
 	if(features)

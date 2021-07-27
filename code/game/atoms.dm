@@ -460,7 +460,7 @@
 		filters += filter(arglist(arguments))
 	UNSETEMPTY(filter_data)
 
-/atom/proc/transition_filter(name, time, list/new_params, easing, loop)
+/atom/proc/transition_filter(name, time, list/new_params, easing = LINEAR_EASING, loop = 1)
 	var/filter = get_filter(name)
 	if(!filter)
 		return

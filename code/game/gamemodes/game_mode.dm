@@ -54,7 +54,7 @@
 		if((player.client)&&(player.ready))
 			playerC++
 
-	if(!config.enable_gamemode_player_limit || (playerC >= required_players))
+	if(!GLOB.configuration.gamemode.enable_gamemode_player_limit || (playerC >= required_players))
 		return 1
 	return 0
 
@@ -92,7 +92,7 @@
 // I wonder what this could do guessing by the name
 /datum/game_mode/proc/set_mode_in_db()
 	if(SSticker?.mode && SSdbcore.IsConnected())
-		var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery("UPDATE [format_table_name("round")] SET game_mode=:gm WHERE id=:rid", list(
+		var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery("UPDATE round SET game_mode=:gm WHERE id=:rid", list(
 			"gm" = SSticker.mode.name,
 			"rid" = GLOB.round_id
 		))
