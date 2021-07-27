@@ -5,15 +5,11 @@
 /datum/event/meteor_wave/goreop/setup()
 	waves = 3
 
+/datum/event/meteor_wave/goreop/get_meteor_count()
+	return 5
 
-/datum/event/meteor_wave/goreop/tick()
-	if(waves && activeFor >= next_meteor)
-		spawn() spawn_meteors(5, GLOB.meteors_ops)
-		next_meteor += rand(15, 30)
-		waves--
-		endWhen = (waves ? next_meteor + 1 : activeFor + 15)
-
-
+/datum/event/meteor_wave/goreop/get_meteors()
+	return GLOB.meteors_ops
 
 /datum/event/meteor_wave/goreop/end()
 	GLOB.event_announcement.Announce("All MeteorOps are dead. Major Station Victory.", "MeteorOps")

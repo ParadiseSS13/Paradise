@@ -7,6 +7,10 @@
 	var/already_opened = 0
 	var/content_mob = null
 	var/amount = 1
+	open_sound = 'sound/machines/wooden_closet_open.ogg'
+	close_sound = 'sound/machines/wooden_closet_close.ogg'
+	open_sound_volume = 25
+	close_sound_volume = 50
 
 /obj/structure/closet/critter/can_open()
 	if(welded)
@@ -35,10 +39,9 @@
 	name = "corgi crate"
 	content_mob = /mob/living/simple_animal/pet/dog/corgi
 
-/obj/structure/closet/critter/corgi/New()
+/obj/structure/closet/critter/corgi/populate_contents()
 	if(prob(50))
 		content_mob = /mob/living/simple_animal/pet/dog/corgi/Lisa
-	..()
 
 /obj/structure/closet/critter/cow
 	name = "cow crate"
@@ -60,18 +63,16 @@
 	name = "chicken crate"
 	content_mob = /mob/living/simple_animal/chick
 
-/obj/structure/closet/critter/chick/New()
+/obj/structure/closet/critter/chick/populate_contents()
 	amount = rand(1, 3)
-	..()
 
 /obj/structure/closet/critter/cat
 	name = "cat crate"
 	content_mob = /mob/living/simple_animal/pet/cat
 
-/obj/structure/closet/critter/cat/New()
+/obj/structure/closet/critter/cat/populate_contents()
 	if(prob(50))
 		content_mob = /mob/living/simple_animal/pet/cat/Proc
-	..()
 
 /obj/structure/closet/critter/pug
 	name = "pug crate"

@@ -39,8 +39,8 @@
 	var/spread = 0
 	var/randomspread = 1
 
-	var/unique_rename = 0 //allows renaming with a pen
-	var/unique_reskin = 0 //allows one-time reskinning
+	var/unique_rename = TRUE //allows renaming with a pen
+	var/unique_reskin = FALSE //allows one-time reskinning
 	var/current_skin = null //the skin choice if we had a reskin
 	var/list/options = list()
 
@@ -99,6 +99,9 @@
 	else if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
 
+/obj/item/gun/detailed_examine() // Truly detailed
+	return "This is a gun."
+
 /obj/item/gun/proc/process_chamber()
 	return 0
 
@@ -119,7 +122,7 @@
 	var/muzzle_strength = chambered.muzzle_flash_strength
 	var/muzzle_flash_time = 0.2 SECONDS
 	if(suppressed)
-		playsound(user, fire_sound, 10, 1)
+		playsound(user, fire_sound, 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 		muzzle_range *= 0.5
 		muzzle_strength *= 0.2
 		muzzle_flash_time *= 0.5
@@ -172,7 +175,7 @@
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check)
 		if(istype(user))
-			if((CLUMSY in user.mutations) && prob(40))
+			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
 				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
 				var/shot_leg = pick("l_foot", "r_foot")
 				process_fire(user, user, 0, params, zone_override = shot_leg)
@@ -282,7 +285,7 @@
 			user.update_inv_l_hand()
 		else
 			user.update_inv_r_hand()
-	feedback_add_details("gun_fired","[type]")
+	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
 /obj/item/gun/attack(mob/M, mob/user)
 	if(user.a_intent == INTENT_HARM) //Flogging
@@ -291,7 +294,7 @@
 		else
 			return ..()
 
-/obj/item/gun/attack_obj(obj/O, mob/user)
+/obj/item/gun/attack_obj(obj/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		if(bayonet)
 			O.attackby(bayonet, user)
@@ -318,7 +321,9 @@
 
 	if(unique_rename)
 		if(istype(I, /obj/item/pen))
-			rename_gun(user)
+			var/t = rename_interactive(user, I, use_prefix = FALSE)
+			if(!isnull(t))
+				to_chat(user, "<span class='notice'>You name the gun [name]. Say hello to your new friend.</span>")
 	if(istype(I, /obj/item/kitchen/knife))
 		var/obj/item/kitchen/knife/K = I
 		if(!can_bayonet || !K.bayonet || bayonet) //ensure the gun has an attachment point available, and that the knife is compatible with it.
@@ -426,13 +431,6 @@
 		current_skin = options[choice]
 		to_chat(M, "Your gun is now skinned as [choice]. Say hello to your new friend.")
 		update_icon()
-
-/obj/item/gun/proc/rename_gun(mob/M)
-	var/input = stripped_input(M,"What do you want to name the gun?", ,"", MAX_NAME_LEN)
-	if(src && input && !M.stat && in_range(M,src) && !M.restrained() && M.canmove)
-		name = input
-		to_chat(M, "You name the gun [input]. Say hello to your new friend.")
-		return
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params)
 	if(!ishuman(user) || !ishuman(target))

@@ -8,8 +8,8 @@
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
 #define MIN_CLIENT_VERSION	513		// Minimum byond major version required to play.
 									//I would just like the code ready should it ever need to be used.
-#define SUGGESTED_CLIENT_VERSION	513		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
-#define SUGGESTED_CLIENT_BUILD	1536		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
+#define SUGGESTED_CLIENT_VERSION	513		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1542
+#define SUGGESTED_CLIENT_BUILD	1542		// only integers (e.g: 1542, 1543) are useful here. This is the part AFTER the ".", IE 1542 out of 513.1542
 
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
@@ -122,11 +122,12 @@
 
 
 	//Logs all hrefs
-	if(config && config.log_hrefs)
+	if(GLOB.configuration.logging.href_logging)
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
 	if(href_list["karmashop"])
-		if(config.disable_karma)
+		if(!GLOB.configuration.general.enable_karma)
+			to_chat(src, "Karma is disabled on this server.")
 			return
 
 		switch(href_list["karmashop"])
@@ -188,76 +189,10 @@
 		if("prefs")		return prefs.process_link(usr,href_list)
 		if("vars")		return view_var_Topic(href,href_list,hsrc)
 
-	//Polls and shit
-	if(href_list["showpoll"])
-		handle_player_polling()
-		return
-	if(href_list["createpollwindow"])
-		create_poll_window()
-		return
-	if(href_list["createpoll"])
-		create_poll_function(href_list)
-		return
-	if(href_list["pollid"])
-		var/pollid = href_list["pollid"]
-		if(istext(pollid))
-			pollid = text2num(pollid)
-		if(isnum(pollid))
-			poll_player(pollid)
-		return
-	if(href_list["pollresults"])
-		var/pollid = href_list["pollresults"]
-		if(istext(pollid))
-			pollid = text2num(pollid)
-		if(isnum(pollid))
-			poll_results(pollid)
-	if(href_list["votepollid"] && href_list["votetype"])
-		if(!can_vote())
-			return // No voting.
-		var/pollid = text2num(href_list["votepollid"])
-		var/votetype = href_list["votetype"]
-		switch(votetype)
-			if("OPTION")
-				var/optionid = text2num(href_list["voteoptionid"])
-				vote_on_poll(pollid, optionid)
-			if("TEXT")
-				var/replytext = href_list["replytext"]
-				log_text_poll_reply(pollid, replytext)
-			if("NUMVAL")
-				var/id_min = text2num(href_list["minid"])
-				var/id_max = text2num(href_list["maxid"])
-
-				if( (id_max - id_min) > 100 )	//Basic exploit prevention
-					to_chat(usr, "The option ID difference is too big. Please contact administration or the database admin.")
-					return
-
-				for(var/optionid = id_min; optionid <= id_max; optionid++)
-					if(!isnull(href_list["o[optionid]"]))	//Test if this optionid was replied to
-						var/rating
-						if(href_list["o[optionid]"] == "abstain")
-							rating = null
-						else
-							rating = text2num(href_list["o[optionid]"])
-							if(!isnum(rating))
-								return
-
-						vote_on_numval_poll(pollid, optionid, rating)
-			if("MULTICHOICE")
-				var/id_min = text2num(href_list["minoptionid"])
-				var/id_max = text2num(href_list["maxoptionid"])
-
-				if( (id_max - id_min) > 100 )	//Basic exploit prevention
-					to_chat(usr, "The option ID difference is too big. Please contact administration or the database admin.")
-					return
-
-				for(var/optionid = id_min; optionid <= id_max; optionid++)
-					if(!isnull(href_list["option_[optionid]"]))	//Test if this optionid was selected
-						vote_on_poll(pollid, optionid, 1)
-		src << browse(null, "window=playerpoll")
-		handle_player_polling()
 	if(href_list["ssdwarning"])
 		ssd_warning_acknowledged = TRUE
 		to_chat(src, "<span class='notice'>SSD warning acknowledged.</span>")
+		return
 	if(href_list["link_forum_account"])
 		link_forum_account()
 		return // prevents a recursive loop where the ..() 5 lines after this makes the proc endlessly re-call itself
@@ -277,14 +212,14 @@
 /client/proc/setDir(newdir)
 	dir = newdir
 
-/client/proc/handle_spam_prevention(var/message, var/mute_type, var/throttle = 0)
+/client/proc/handle_spam_prevention(message, mute_type, throttle = 0)
 	if(throttle)
 		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
 			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
 			to_chat(src, "<span class='danger'>You are sending messages to quickly. Please wait [wait_time] [wait_time == 1 ? "second" : "seconds"] before sending another message.</span>")
 			return 1
 		last_message_time = world.time
-	if(config.automute_on && !check_rights(R_ADMIN, 0) && last_message == message)
+	if(GLOB.configuration.general.enable_auto_mute && !check_rights(R_ADMIN, 0) && last_message == message)
 		last_message_count++
 		if(last_message_count >= SPAM_TRIGGER_AUTOMUTE)
 			to_chat(src, "<span class='danger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>")
@@ -325,7 +260,7 @@
 		return null
 	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
 		version_blocked = TRUE
-	if(byond_build < config.minimum_client_build)
+	if(byond_build < GLOB.configuration.general.minimum_client_build)
 		version_blocked = TRUE
 
 	var/show_update_prompt = FALSE
@@ -337,12 +272,10 @@
 
 	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
 
-
-	GLOB.clients += src
 	GLOB.directory[ckey] = src
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
-	if(!config.disable_localhost_admin)
+	if(GLOB.configuration.admin.enable_localhost_autoadmin)
 		if(is_connecting_from_localhost())
 			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
 	holder = GLOB.admin_datums[ckey]
@@ -362,17 +295,23 @@
 	if(world.byond_version >= 511 && byond_version >= 511 && prefs.clientfps)
 		fps = prefs.clientfps
 
+	// Check if the client has or has not accepted TOS
+	check_tos_consent()
+
+	// This has to go here to avoid issues
+	// If you sleep past this point, you will get SSinput errors as well as goonchat errors
+	// DO NOT STUFF RANDOM SQL QUERIES BELOW THIS POINT WITHOUT USING `INVOKE_ASYNC()` OR SIMILAR
+	// YOU WILL BREAK STUFF. SERIOUSLY. -aa07
+	GLOB.clients += src
+
 	spawn() // Goonchat does some non-instant checks in start()
 		chatOutput.start()
-
-	if( (world.address == address || !address) && !GLOB.host )
-		GLOB.host = key
-		world.update_status()
 
 	if(holder)
 		on_holder_add()
 		add_admin_verbs()
-		admin_memo_output("Show", 0, 1)
+		// Must be async because any sleeps (happen in sql queries) will break connectings clients
+		INVOKE_ASYNC(src, .proc/admin_memo_output, "Show", FALSE, TRUE)
 
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
 	// (but turn them off first, since sometimes BYOND doesn't turn them on properly otherwise)
@@ -382,7 +321,6 @@
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 	log_client_to_db(tdata)
-
 	. = ..()	//calls mob.Login()
 
 
@@ -406,11 +344,9 @@
 
 
 	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA) // activates if karma is disabled
-		if(establish_db_connection())
-			to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
+		to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
 	else
-		if(establish_db_connection())
-			to_chat(src,"<span class='notice'>You have enabled karma gains.")
+		to_chat(src,"<span class='notice'>You have enabled karma gains.")
 
 	generate_clickcatcher()
 	apply_clickcatcher()
@@ -429,6 +365,8 @@
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
 
+	update_ambience_pref()
+
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
@@ -442,7 +380,7 @@
 			playercount += 1
 
 	// Update the state of the panic bunker based on current playercount
-	var/threshold = config.panic_bunker_threshold
+	var/threshold = GLOB.configuration.general.panic_bunker_threshold
 
 	if((playercount > threshold) && (GLOB.panic_bunker_enabled == FALSE))
 		GLOB.panic_bunker_enabled = TRUE
@@ -451,6 +389,13 @@
 	if((playercount < threshold) && (GLOB.panic_bunker_enabled == TRUE))
 		GLOB.panic_bunker_enabled = FALSE
 		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
+
+	// Tell clients about active testmerges
+	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
+		to_chat(src, GLOB.revision_info.get_testmerge_chatmessage(TRUE))
+
+	INVOKE_ASYNC(src, .proc/cid_count_check)
+
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
@@ -473,20 +418,22 @@
 		GLOB.admins -= src
 	GLOB.directory -= ckey
 	GLOB.clients -= src
+	QDEL_NULL(chatOutput)
 	if(movingmob)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
+	SSambience.ambience_listening_clients -= src
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
 
 /client/proc/donator_check()
+	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
 	if(IsGuestKey(key))
 		return
 
-	establish_db_connection()
-	if(!GLOB.dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
 		return
 
 	if(check_rights(R_ADMIN, 0, mob)) // Yes, the mob is required, regardless of other examples in this file, it won't work otherwise
@@ -495,33 +442,44 @@
 		return
 
 	//Donator stuff.
-	var/DBQuery/query_donor_select = GLOB.dbcon.NewQuery("SELECT ckey, tier, active FROM `[format_table_name("donators")]` WHERE ckey = '[ckey]'")
-	query_donor_select.Execute()
+	var/datum/db_query/query_donor_select = SSdbcore.NewQuery("SELECT ckey, tier, active FROM donators WHERE ckey=:ckey", list(
+		"ckey" = ckey
+	))
+
+	if(!query_donor_select.warn_execute())
+		qdel(query_donor_select)
+		return
+
 	while(query_donor_select.NextRow())
 		if(!text2num(query_donor_select.item[3]))
 			// Inactive donator.
 			donator_level = 0
+			qdel(query_donor_select)
 			return
 		donator_level = text2num(query_donor_select.item[2])
 		donor_loadout_points()
 		break
+	qdel(query_donor_select)
 
 /client/proc/donor_loadout_points()
 	if(donator_level > 0 && prefs)
-		prefs.max_gear_slots = config.max_loadout_points + 5
+		prefs.max_gear_slots = GLOB.configuration.general.base_loadout_points + 5
 
 /client/proc/log_client_to_db(connectiontopic)
+	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
 	if(IsGuestKey(key))
 		return
 
-
-	establish_db_connection()
-	if(!GLOB.dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
 		return
 
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM player WHERE ckey=:ckey", list(
+		"ckey" = ckey
+	))
+	if(!query.warn_execute())
+		qdel(query)
+		return
 
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
-	query.Execute()
 	var/sql_id = 0
 	player_age = 0	// New players won't have an entry so knowing we have a connection we set this to zero to be updated if there is a record.
 	while(query.NextRow())
@@ -529,22 +487,33 @@
 		player_age = text2num(query.item[2])
 		break
 
-
-	var/DBQuery/query_ip = GLOB.dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ip = '[address]'")
-	query_ip.Execute()
+	qdel(query)
+	var/datum/db_query/query_ip = SSdbcore.NewQuery("SELECT ckey FROM player WHERE ip=:address", list(
+		"address" = address
+	))
+	if(!query_ip.warn_execute())
+		qdel(query_ip)
+		return
 	related_accounts_ip = list()
 	while(query_ip.NextRow())
 		if(ckey != query_ip.item[1])
 			related_accounts_ip.Add("[query_ip.item[1]]")
 
+	qdel(query_ip)
 
-	var/DBQuery/query_cid = GLOB.dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE computerid = '[computer_id]'")
-	query_cid.Execute()
+	var/datum/db_query/query_cid = SSdbcore.NewQuery("SELECT ckey FROM player WHERE computerid=:cid", list(
+		"cid" = computer_id
+	))
+	if(!query_cid.warn_execute())
+		qdel(query_cid)
+		return
+
 	related_accounts_cid = list()
 	while(query_cid.NextRow())
 		if(ckey != query_cid.item[1])
 			related_accounts_cid.Add("[query_cid.item[1]]")
 
+	qdel(query_cid)
 
 	var/admin_rank = "Player"
 	if(holder)
@@ -564,6 +533,7 @@
 	if(watchreason)
 		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
 		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
+		watchlisted = TRUE
 
 
 	//Just the standard check to see if it's actually a number
@@ -573,49 +543,58 @@
 		if(!isnum(sql_id))
 			return
 
-	var/sql_ip = sanitizeSQL(address)
-	var/sql_computerid = sanitizeSQL(computer_id)
-	var/sql_admin_rank = sanitizeSQL(admin_rank)
-
-
 	if(sql_id)
+		var/client_address = address
+		if(!client_address) // Localhost can sometimes have no address set
+			client_address = "127.0.0.1"
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
-		var/DBQuery/query_update = GLOB.dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastseen = Now(), ip = '[sql_ip]', computerid = '[sql_computerid]', lastadminrank = '[sql_admin_rank]' WHERE id = [sql_id]")
-		if(!query_update.Execute())
-			var/err = query_update.ErrorMsg()
-			log_game("SQL ERROR during log_client_to_db (update). Error : \[[err]\]\n")
-			message_admins("SQL ERROR during log_client_to_db (update). Error : \[[err]\]\n")
+		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE player SET lastseen = Now(), ip=:sql_ip, computerid=:sql_cid, lastadminrank=:sql_ar WHERE id=:sql_id", list(
+			"sql_ip" = client_address,
+			"sql_cid" = computer_id,
+			"sql_ar" = admin_rank,
+			"sql_id" = sql_id
+		))
+
+		if(!query_update.warn_execute())
+			qdel(query_update)
+			return
+		qdel(query_update)
 		// After the regular update
 		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, FALSE) // Async to avoid other procs in the client chain being delayed by a web request
 	else
 		//New player!! Need to insert all the stuff
 
 		// Check new peeps for panic bunker
+		// AA TODO: Move this to world.IsBanned()
 		if(GLOB.panic_bunker_enabled)
-			var/threshold = config.panic_bunker_threshold
+			var/threshold = GLOB.configuration.general.panic_bunker_threshold
 			src << "Server is not accepting connections from never-before-seen players until player count is less than [threshold]. Please try again later."
 			qdel(src)
 			return // Dont insert or they can just go in again
 
-		var/DBQuery/query_insert = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
-		if(!query_insert.Execute())
-			var/err = query_insert.ErrorMsg()
-			log_game("SQL ERROR during log_client_to_db (insert). Error : \[[err]\]\n")
-			message_admins("SQL ERROR during log_client_to_db (insert). Error : \[[err]\]\n")
+		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO player (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
+			"ckey" = ckey,
+			"ip" = address,
+			"cid" = computer_id,
+			"rank" = admin_rank
+		))
+		if(!query_insert.warn_execute())
+			qdel(query_insert)
+			return
+		qdel(query_insert)
 		// This is their first connection instance, so TRUE here to nofiy admins
 		// This needs to happen here to ensure they actually have a row to update
 		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, TRUE) // Async to avoid other procs in the client chain being delayed by a web request
 
 	// Log player connections to DB
-	var/DBQuery/query_accesslog = GLOB.dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`,`ckey`,`ip`,`computerid`) VALUES(Now(),'[ckey]','[sql_ip]','[sql_computerid]');")
-	query_accesslog.Execute()
+	INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey, address, computer_id, CONNECTION_TYPE_ESTABLISHED)
 
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
-	if(config.ipintel_email)
-		if(config.ipintel_maxplaytime && config.use_exp_tracking)
+	if(GLOB.configuration.ipintel.enabled)
+		if(GLOB.configuration.ipintel.playtime_ignore_threshold && GLOB.configuration.jobs.enable_exp_tracking)
 			var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
-			if(living_hours >= config.ipintel_maxplaytime)
+			if(living_hours >= GLOB.configuration.ipintel.playtime_ignore_threshold)
 				return
 
 		if(is_connecting_from_localhost())
@@ -631,14 +610,15 @@
 		verify_ip_intel()
 
 /client/proc/verify_ip_intel()
-	if(ip_intel >= config.ipintel_rating_bad)
-		var/detailsurl = config.ipintel_detailsurl ? "(<a href='[config.ipintel_detailsurl][address]'>IP Info</a>)" : ""
-		if(config.ipintel_whitelist)
+	if(ip_intel >= GLOB.configuration.ipintel.bad_rating)
+		var/detailsurl = GLOB.configuration.ipintel.details_url ? "(<a href='[GLOB.configuration.ipintel.details_url][address]'>IP Info</a>)" : ""
+		if(GLOB.configuration.ipintel.whitelist_mode)
+			// AA TODO: move this check to world.IsBanned()
 			spawn(40) // This is necessary because without it, they won't see the message, and addtimer cannot be used because the timer system may not have initialized yet
 				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]</span>")
 				var/blockmsg = "<B>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</B>"
-				if(config.banappeals)
-					blockmsg += "\nIf you are not actually using a proxy/VPN, or have no choice but to use one, request whitelisting at: [config.banappeals]"
+				if(GLOB.configuration.url.banappeals_url)
+					blockmsg += "\nIf you are not actually using a proxy/VPN, or have no choice but to use one, request whitelisting at: [GLOB.configuration.url.banappeals_url]"
 				to_chat(src, blockmsg)
 				qdel(src)
 		else
@@ -646,29 +626,43 @@
 
 
 /client/proc/check_forum_link()
-	if(!config.forum_link_url || !prefs || prefs.fuid)
+	if(!GLOB.configuration.url.forum_link_url || !prefs || prefs.fuid)
 		return
-	if(config.use_exp_tracking)
+	if(GLOB.configuration.jobs.enable_exp_tracking)
 		var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
 		if(living_hours < 20)
 			return
 	to_chat(src, "<B>You have no verified forum account. <a href='?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
 
 /client/proc/create_oauth_token()
-	var/DBQuery/query_find_token = GLOB.dbcon.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey = '[ckey]' limit 1")
-	if(!query_find_token.Execute())
-		log_debug("create_oauth_token: failed db read")
+	var/datum/db_query/query_find_token = SSdbcore.NewQuery("SELECT token FROM oauth_tokens WHERE ckey=:ckey limit 1", list(
+		"ckey" = ckey
+	))
+	// These queries have log_error=FALSE to avoid auth tokens being in plaintext logs
+	if(!query_find_token.warn_execute(log_error=FALSE))
+		qdel(query_find_token)
 		return
 	if(query_find_token.NextRow())
-		return query_find_token.item[1]
+		var/tkn = query_find_token.item[1]
+		qdel(query_find_token)
+		return tkn
+	qdel(query_find_token)
+
 	var/tokenstr = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
-	var/DBQuery/query_insert_token = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("oauth_tokens")] (ckey, token) VALUES('[ckey]','[tokenstr]')")
-	if(!query_insert_token.Execute())
+
+	var/datum/db_query/query_insert_token = SSdbcore.NewQuery("INSERT INTO oauth_tokens (ckey, token) VALUES(:ckey, :tokenstr)", list(
+		"ckey" = ckey,
+		"tokenstr" = tokenstr,
+	))
+	// These queries have log_error=FALSE to avoid auth tokens being in plaintext logs
+	if(!query_insert_token.warn_execute(log_error=FALSE))
+		qdel(query_insert_token)
 		return
+	qdel(query_insert_token)
 	return tokenstr
 
 /client/proc/link_forum_account(fromban)
-	if(!config.forum_link_url)
+	if(!GLOB.configuration.url.forum_link_url)
 		return
 	if(IsGuestKey(key))
 		to_chat(src, "Guest keys cannot be linked.")
@@ -677,20 +671,24 @@
 		if(!fromban)
 			to_chat(src, "Your forum account is already set.")
 		return
-	var/DBQuery/query_find_link = GLOB.dbcon.NewQuery("SELECT fuid FROM [format_table_name("player")] WHERE ckey = '[ckey]' limit 1")
-	if(!query_find_link.Execute())
-		log_debug("link_forum_account: failed db read")
+	var/datum/db_query/query_find_link = SSdbcore.NewQuery("SELECT fuid FROM player WHERE ckey=:ckey LIMIT 1", list(
+		"ckey" = ckey
+	))
+	if(!query_find_link.warn_execute())
+		qdel(query_find_link)
 		return
 	if(query_find_link.NextRow())
 		if(query_find_link.item[1])
 			if(!fromban)
-				to_chat(src, "Your forum account is already set. (" + query_find_link.item[1] + ")")
+				to_chat(src, "Your forum account is already set. ([query_find_link.item[1]])")
+			qdel(query_find_link)
 			return
+	qdel(query_find_link)
 	var/tokenid = create_oauth_token()
 	if(!tokenid)
 		to_chat(src, "link_forum_account: unable to create token")
 		return
-	var/url = "[config.forum_link_url][tokenid]"
+	var/url = "[GLOB.configuration.url.forum_link_url][tokenid]"
 	if(fromban)
 		url += "&fwd=appeal"
 		to_chat(src, {"Now opening a window to verify your information with the forums, so that you can appeal your ban. If the window does not load, please copy/paste this link: <a href="[url]">[url]</a>"})
@@ -705,11 +703,12 @@
 
 // Returns true if a randomizer is being used
 /client/proc/check_randomizer(topic)
+	set waitfor = FALSE // Yes I know this is already called from an async proc but someone may change that without thinking properly
 	. = FALSE
 	if(connection != "seeker")					//Invalid connection type.
 		return null
 	topic = params2list(topic)
-	if(!config.check_randomizer)
+	if(!GLOB.configuration.general.enabled_cid_randomiser_buster)
 		return
 	// Stash o' ckeys
 	var/static/cidcheck = list()
@@ -721,12 +720,17 @@
 	var/oldcid = cidcheck[ckey]
 
 	if(!oldcid)
-		var/DBQuery/query_cidcheck = GLOB.dbcon.NewQuery("SELECT computerid FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
-		query_cidcheck.Execute()
+		var/datum/db_query/query_cidcheck = SSdbcore.NewQuery("SELECT computerid FROM player WHERE ckey=:ckey", list(
+			"ckey" = ckey
+		))
+		if(!query_cidcheck.warn_execute())
+			qdel(query_cidcheck)
+			return
 
 		var/lastcid = computer_id
 		if(query_cidcheck.NextRow())
 			lastcid = query_cidcheck.item[1]
+		qdel(query_cidcheck)
 
 		if(computer_id != lastcid)
 			// Their current CID does not match what the DB says - OFF WITH THEIR HEAD
@@ -786,23 +790,30 @@
 	var/const/adminckey = "CID-Error"
 
 	// Check for notes in the last day - only 1 note per 24 hours
-	var/DBQuery/query_get_notes = GLOB.dbcon.NewQuery("SELECT id from [format_table_name("notes")] WHERE ckey = '[ckey]' AND adminckey = '[adminckey]' AND timestamp + INTERVAL 1 DAY < NOW()")
-	if(!query_get_notes.Execute())
-		var/err = query_get_notes.ErrorMsg()
-		log_game("SQL ERROR obtaining id from notes table. Error : \[[err]\]\n")
+	var/datum/db_query/query_get_notes = SSdbcore.NewQuery("SELECT id from notes WHERE ckey=:ckey AND adminckey=:adminckey AND timestamp + INTERVAL 1 DAY < NOW()", list(
+		"ckey" = ckey,
+		"adminckey" = adminckey
+	))
+	if(!query_get_notes.warn_execute())
+		qdel(query_get_notes)
 		return
 	if(query_get_notes.NextRow())
+		qdel(query_get_notes)
 		return
+	qdel(query_get_notes)
 
 	// Only add a note if their most recent note isn't from the randomizer blocker, either
-	query_get_notes = GLOB.dbcon.NewQuery("SELECT adminckey FROM [format_table_name("notes")] WHERE ckey = '[ckey]' ORDER BY timestamp DESC LIMIT 1")
-	if(!query_get_notes.Execute())
-		var/err = query_get_notes.ErrorMsg()
-		log_game("SQL ERROR obtaining adminckey from notes table. Error : \[[err]\]\n")
+	var/datum/db_query/query_get_note = SSdbcore.NewQuery("SELECT adminckey FROM notes WHERE ckey=:ckey ORDER BY timestamp DESC LIMIT 1", list(
+		"ckey" = ckey
+	))
+	if(!query_get_note.warn_execute())
+		qdel(query_get_note)
 		return
-	if(query_get_notes.NextRow())
-		if(query_get_notes.item[1] == adminckey)
+	if(query_get_note.NextRow())
+		if(query_get_note.item[1] == adminckey)
+			qdel(query_get_note)
 			return
+	qdel(query_get_note)
 	add_note(ckey, "Detected as using a cid randomizer.", null, adminckey, logged = 0)
 
 /client/proc/cid_check_reconnect()
@@ -830,8 +841,8 @@
 //Send resources to the client.
 /client/proc/send_resources()
 	// Change the way they should download resources.
-	if(config.resource_urls)
-		preload_rsc = pick(config.resource_urls)
+	if(length(GLOB.configuration.url.rsc_urls))
+		preload_rsc = pick(GLOB.configuration.url.rsc_urls)
 	else
 		preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 	// Most assets are now handled through global_cache.dm
@@ -937,7 +948,7 @@
 	void.UpdateGreed(actualview[1],actualview[2])
 
 /client/proc/send_ssd_warning(mob/M)
-	if(!config.ssd_warning)
+	if(!GLOB.configuration.general.ssd_warning)
 		return FALSE
 	if(ssd_warning_acknowledged)
 		return FALSE
@@ -1022,13 +1033,13 @@
 				// Main return is here
 				return parsed_data
 			catch
-				message_admins("Error parsing byond.com data for [ckey]. Please inform maintainers.")
+				log_debug("Error parsing byond.com data for [ckey]. Please inform maintainers.")
 				return null
 		else
-			message_admins("Error retrieving data from byond.com for [ckey]. Invalid status code (Expected: 200 | Got: [status]).")
+			log_debug("Error retrieving data from byond.com for [ckey]. Invalid status code (Expected: 200 | Got: [status]).")
 			return null
 	else
-		message_admins("Failed to retrieve data from byond.com for [ckey]. Connection failed.")
+		log_debug("Failed to retrieve data from byond.com for [ckey]. Connection failed.")
 		return null
 
 
@@ -1040,19 +1051,20 @@
   * Arguments:
   * * notify - Do we notify admins of this new accounts date
   */
-
 /client/proc/get_byond_account_date(notify = FALSE)
 	// First we see if the client has a saved date in the DB
-	var/sql_ckey = sanitizeSQL(ckey)
-	var/DBQuery/query_date = GLOB.dbcon.NewQuery("SELECT byond_date, DATEDIFF(Now(), byond_date) FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
-	if(!query_date.Execute())
-		var/err = query_date.ErrorMsg()
-		log_game("SQL ERROR during get_byond_account_date (Line 1047). Error: \[[err]\]\n")
-		message_admins("SQL ERROR during get_byond_account_date (Line 1047). Error: \[[err]\]\n")
+	var/datum/db_query/query_date = SSdbcore.NewQuery("SELECT byond_date, DATEDIFF(Now(), byond_date) FROM player WHERE ckey=:ckey", list(
+		"ckey" = ckey
+	))
+	if(!query_date.warn_execute())
+		qdel(query_date)
+		return
 
 	while(query_date.NextRow())
 		byondacc_date = query_date.item[1]
 		byondacc_age = max(text2num(query_date.item[2]), 0) // Ensure account isnt negative days old
+
+	qdel(query_date)
 
 	// They have a date, lets bail
 	if(byondacc_date)
@@ -1061,35 +1073,161 @@
 	// They dont have a date, lets grab one
 	var/list/byond_data = retrieve_byondacc_data()
 	if(isnull(byond_data) || !(byond_data["general"]["joined"]))
-		message_admins("Failed to retrieve an account creation date for [ckey].")
+		log_debug("Failed to retrieve an account creation date for [ckey].")
 		return
 
 	byondacc_date = byond_data["general"]["joined"]
 
 	// Now save it
-	var/sql_date = sanitizeSQL(byondacc_date) // Yes, this is top level paranoia
-	var/DBQuery/query_update = GLOB.dbcon.NewQuery("UPDATE [format_table_name("player")] SET byond_date = '[sql_date]' WHERE ckey = '[sql_ckey]'")
-	if(!query_update.Execute())
-		var/err = query_update.ErrorMsg()
-		log_game("SQL ERROR during get_byond_account_date (Line 1071). Error: \[[err]\]\n")
-		message_admins("SQL ERROR during get_byond_account_date (Line 1071). Error: \[[err]\]\n")
+	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE player SET byond_date=:date WHERE ckey=:ckey", list(
+		"date" = byondacc_date,
+		"ckey" = ckey
+	))
+	if(!query_update.warn_execute())
+		qdel(query_update)
+		return
+	qdel(query_update)
 
 	// Now retrieve the age again because BYOND doesnt have native methods for this
-	var/DBQuery/query_age = GLOB.dbcon.NewQuery("SELECT DATEDIFF(Now(), byond_date) FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
-	if(!query_age.Execute())
-		var/err = query_age.ErrorMsg()
-		log_game("SQL ERROR during get_byond_account_date (Line 1078). Error: \[[err]\]\n")
-		message_admins("SQL ERROR during get_byond_account_date (Line 1078). Error: \[[err]\]\n")
+	var/datum/db_query/query_age = SSdbcore.NewQuery("SELECT DATEDIFF(Now(), byond_date) FROM player WHERE ckey=:ckey", list(
+		"ckey" = ckey
+	))
+	if(!query_age.warn_execute())
+		qdel(query_age)
+		return
 
 	while(query_age.NextRow())
 		byondacc_age = max(text2num(query_age.item[1]), 0) // Ensure account isnt negative days old
+	qdel(query_age)
 
 	// Notify admins on new clients connecting, if the byond account age is less than a config value
-	if(notify && (byondacc_age < config.byond_account_age_threshold))
+	if(notify && (byondacc_age < GLOB.configuration.general.byond_account_age_threshold))
 		message_admins("[key] has just connected for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 /client/proc/show_update_notice()
 	to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>byond.com</a> before playing. You can also update via the BYOND launcher application.</span>")
+
+/**
+  * Checks if the client has accepted TOS
+  *
+  * Runs some checks against vars and the DB to see if the client has accepted TOS.
+  * Returns TRUE or FALSE if they have or have not
+  */
+/client/proc/check_tos_consent()
+	// If there is no TOS, auto accept
+	if(!GLOB.join_tos)
+		tos_consent = TRUE
+		return TRUE
+
+	// If theres no DB, assume yes
+	if(!SSdbcore.IsConnected())
+		tos_consent = TRUE
+		return TRUE
+
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey FROM privacy WHERE ckey=:ckey AND consent=1", list(
+		"ckey" = ckey
+	))
+	if(!query.warn_execute())
+		qdel(query)
+		// If our query failed, just assume yes
+		tos_consent = TRUE
+		return TRUE
+
+	// If we returned a row, they accepted
+	while(query.NextRow())
+		qdel(query)
+		tos_consent = TRUE
+		return TRUE
+
+	qdel(query)
+	// If we are here, they have not accepted, and need to read it
+	return FALSE
+
+/**
+  * Checks if the client has more than a configured amount of CIDs tied to them in the past
+  */
+/client/proc/cid_count_check()
+	// If the config is 0, disable this
+	if(GLOB.configuration.general.max_client_cid_history == 0)
+		return
+
+	// If we have no DB, dont even bother
+	if(!SSdbcore.IsConnected())
+		return
+
+	// Now query how many cids they have
+	var/datum/db_query/query_cidcheck = SSdbcore.NewQuery("SELECT COUNT(DISTINCT computerID) FROM connection_log WHERE ckey=:ckey", list(
+		"ckey" = ckey
+	))
+	if(!query_cidcheck.warn_execute())
+		qdel(query_cidcheck)
+		return
+
+	var/cidcount = 0
+	if(query_cidcheck.NextRow())
+		cidcount = query_cidcheck.item[1]
+	qdel(query_cidcheck)
+
+	if(cidcount > GLOB.configuration.general.max_client_cid_history)
+		// Check their notes for CID tracking in the past
+		var/has_note = FALSE
+		var/note_text = ""
+		var/datum/db_query/query_find_track_note = SSdbcore.NewQuery("SELECT notetext FROM notes WHERE ckey=:ckey AND adminckey=:ackey", list(
+			"ckey" = ckey,
+			"ackey" = CIDTRACKING_PSUEDO_CKEY
+		))
+		if(!query_find_track_note.warn_execute())
+			qdel(query_find_track_note)
+			return
+		if(query_find_track_note.NextRow())
+			note_text = query_find_track_note.item[1] // Grab existing note text
+			has_note = TRUE
+		qdel(query_find_track_note)
+
+
+		if(has_note) // They have a note. Update it.
+			var/new_text = "Connected on the date of this note with unique CID #[cidcount]"
+			// Only update the note if the text is different. Otherwise it bumps the timestamp when it shouldnt
+			if(note_text != new_text)
+				var/datum/db_query/query_update_track_note = SSdbcore.NewQuery("UPDATE notes SET notetext=:notetext, timestamp=NOW(), round_id=:rid WHERE ckey=:ckey AND adminckey=:ackey", list(
+					"notetext" = new_text,
+					"ckey" = ckey,
+					"ackey" = CIDTRACKING_PSUEDO_CKEY,
+					"rid" = GLOB.round_id
+				))
+				if(!query_update_track_note.warn_execute())
+					qdel(query_update_track_note)
+					return
+				qdel(query_update_track_note)
+
+		else // They dont have a note. Make one.
+			// NOT logged because its automatic and will spam logs otherwise
+			// Also right checking must be disabled because its a psuedockey, not a real one
+			add_note(ckey, "Connected on the date of this note with unique CID #[cidcount]", adminckey = CIDTRACKING_PSUEDO_CKEY, logged = FALSE, checkrights = FALSE, automated = TRUE)
+
+		var/show_warning = TRUE
+		// Check if they have a note that matches the warning suppressor
+		var/datum/db_query/query_find_note = SSdbcore.NewQuery("SELECT id FROM notes WHERE ckey=:ckey AND notetext=:notetext", list(
+			"ckey" = ckey,
+			"notetext" = CIDWARNING_SUPPRESSED_NOTETEXT
+		))
+		if(!query_find_note.warn_execute())
+			qdel(query_find_note)
+			return
+		if(query_find_note.NextRow())
+			show_warning = FALSE
+		qdel(query_find_note)
+
+		if(show_warning)
+			message_admins("<font color='red'>[ckey] has just connected and has a history of [cidcount] different CIDs.</font> (<a href='?_src_=holder;webtools=[ckey]'>WebInfo</a>) (<a href='?_src_=holder;suppresscidwarning=[ckey]'>Suppress Warning</a>)")
+
+/client/proc/update_ambience_pref()
+	if(prefs.sound & SOUND_AMBIENCE)
+		if(SSambience.ambience_listening_clients[src] > world.time)
+			return // If already properly set we don't want to reset the timer.
+		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
+	else
+		SSambience.ambience_listening_clients -= src
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

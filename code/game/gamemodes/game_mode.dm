@@ -20,11 +20,15 @@
 	var/explosion_in_progress = 0 //sit back and relax
 	var/list/datum/mind/modePlayer = new
 	var/list/restricted_jobs = list()	// Jobs it doesn't make sense to be.  I.E chaplain or AI cultist
+	var/list/secondary_restricted_jobs = list() // Same as above, but for secondary antagonists
 	var/list/protected_jobs = list()	// Jobs that can't be traitors
 	var/list/protected_species = list() // Species that can't be traitors
+	var/list/secondary_protected_species = list() // Same as above, but for secondary antagonists
 	var/required_players = 0
 	var/required_enemies = 0
 	var/recommended_enemies = 0
+	var/secondary_enemies = 0
+	var/secondary_enemies_scaling = 0 // Scaling rate of secondary enemies
 	var/newscaster_announcements = null
 	var/ert_disabled = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
@@ -50,7 +54,7 @@
 		if((player.client)&&(player.ready))
 			playerC++
 
-	if(!config.enable_gamemode_player_limit || (playerC >= required_players))
+	if(!GLOB.configuration.gamemode.enable_gamemode_player_limit || (playerC >= required_players))
 		return 1
 	return 0
 
@@ -73,12 +77,8 @@
 	spawn (ROUNDSTART_LOGOUT_REPORT_TIME)
 		display_roundstart_logout_report()
 
-	feedback_set_details("round_start","[time2text(world.realtime)]")
-	if(SSticker && SSticker.mode)
-		feedback_set_details("game_mode","[SSticker.mode]")
-//	if(revdata)
-//		feedback_set_details("revision","[revdata.revision]")
-	feedback_set_details("server_ip","[world.internet_address]:[world.port]")
+	INVOKE_ASYNC(src, .proc/set_mode_in_db) // Async query, dont bother slowing roundstart
+
 	generate_station_goals()
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
@@ -88,6 +88,17 @@
 ///Called by the gameticker
 /datum/game_mode/process()
 	return 0
+
+// I wonder what this could do guessing by the name
+/datum/game_mode/proc/set_mode_in_db()
+	if(SSticker?.mode && SSdbcore.IsConnected())
+		var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery("UPDATE round SET game_mode=:gm WHERE id=:rid", list(
+			"gm" = SSticker.mode.name,
+			"rid" = GLOB.round_id
+		))
+		// We dont do anything with output. Dont bother wrapping with if()
+		query_round_game_mode.warn_execute()
+		qdel(query_round_game_mode)
 
 //Called by the gameticker
 /datum/game_mode/proc/process_job_tasks()
@@ -186,28 +197,28 @@
 			if(isobserver(M))
 				ghosts++
 
-	if(clients > 0)
-		feedback_set("round_end_clients",clients)
-	if(ghosts > 0)
-		feedback_set("round_end_ghosts",ghosts)
-	if(surviving_humans > 0)
-		feedback_set("survived_human",surviving_humans)
-	if(surviving_total > 0)
-		feedback_set("survived_total",surviving_total)
-	if(escaped_humans > 0)
-		feedback_set("escaped_human",escaped_humans)
-	if(escaped_total > 0)
-		feedback_set("escaped_total",escaped_total)
-	if(escaped_on_shuttle > 0)
-		feedback_set("escaped_on_shuttle",escaped_on_shuttle)
-	if(escaped_on_pod_1 > 0)
-		feedback_set("escaped_on_pod_1",escaped_on_pod_1)
-	if(escaped_on_pod_2 > 0)
-		feedback_set("escaped_on_pod_2",escaped_on_pod_2)
-	if(escaped_on_pod_3 > 0)
-		feedback_set("escaped_on_pod_3",escaped_on_pod_3)
-	if(escaped_on_pod_5 > 0)
-		feedback_set("escaped_on_pod_5",escaped_on_pod_5)
+	if(clients)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", clients, list("clients"))
+	if(ghosts)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", ghosts, list("ghosts"))
+	if(surviving_humans)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", surviving_humans, list("survivors", "human"))
+	if(surviving_total)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", surviving_total, list("survivors", "total"))
+	if(escaped_humans)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_humans, list("escapees", "human"))
+	if(escaped_total)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_total, list("escapees", "total"))
+	if(escaped_on_shuttle)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_shuttle, list("escapees", "on_shuttle"))
+	if(escaped_on_pod_1)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_1, list("escapees", "on_pod_1"))
+	if(escaped_on_pod_2)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_2, list("escapees", "on_pod_2"))
+	if(escaped_on_pod_3)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_3, list("escapees", "on_pod_3"))
+	if(escaped_on_pod_5)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_5, list("escapees", "on_pod_5"))
 
 	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts.")
 	return 0
@@ -216,7 +227,7 @@
 /datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
 	return 0
 
-/datum/game_mode/proc/get_players_for_role(var/role, override_jobbans=0)
+/datum/game_mode/proc/get_players_for_role(role, override_jobbans=0)
 	var/list/players = list()
 	var/list/candidates = list()
 	//var/list/drafted = list()
@@ -227,7 +238,7 @@
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.client && player.ready && player.has_valid_preferences())
-			if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext))
+			if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, roletext))
 				if(player_old_enough_antag(player.client,role))
 					players += player
 
@@ -265,10 +276,10 @@
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
 
-/datum/game_mode/proc/latespawn(var/mob)
+/datum/game_mode/proc/latespawn(mob)
 
 /*
-/datum/game_mode/proc/check_player_role_pref(var/role, var/mob/player)
+/datum/game_mode/proc/check_player_role_pref(role, mob/player)
 	if(player.preferences.be_special & role)
 		return 1
 	return 0
@@ -395,7 +406,7 @@
 			to_chat(M, msg)
 
 //Announces objectives/generic antag text.
-/proc/show_generic_antag_text(var/datum/mind/player)
+/proc/show_generic_antag_text(datum/mind/player)
 	if(player.current)
 		to_chat(player.current, "You are an antagonist! <font color=blue>Within the rules,</font> \
 		try to act as an opposing force to the crew. Further RP and try to make sure \
@@ -404,7 +415,7 @@
 		Think through your actions and make the roleplay immersive! <b>Please remember all \
 		rules aside from those without explicit exceptions apply to antagonists.</b>")
 
-/proc/show_objectives(var/datum/mind/player)
+/proc/show_objectives(datum/mind/player)
 	if(!player || !player.current) return
 
 	var/obj_count = 1
@@ -413,7 +424,7 @@
 		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 
-/proc/get_roletext(var/role)
+/proc/get_roletext(role)
 	return role
 
 /proc/get_nuke_code()

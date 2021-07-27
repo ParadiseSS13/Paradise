@@ -1,24 +1,16 @@
 /obj/structure/closet/crate/necropolis/bubblegum
 	name = "bubblegum chest"
 
-/obj/structure/closet/crate/necropolis/bubblegum/New()
-	..()
+/obj/structure/closet/crate/necropolis/bubblegum/populate_contents()
 	new /obj/item/clothing/suit/space/hostile_environment(src)
 	new /obj/item/clothing/head/helmet/space/hostile_environment(src)
-	var/loot = rand(1,3)
-	switch(loot)
-		if(1)
-			new /obj/item/mayhem(src)
-		if(2)
-			new /obj/item/blood_contract(src)
-		if(3)
-			new /obj/item/gun/magic/staff/spellblade(src)
+	new /obj/item/gun/magic/staff/spellblade(src)
 
 /obj/structure/closet/crate/necropolis/bubblegum/crusher
 	name = "bloody bubblegum chest"
 
-/obj/structure/closet/crate/necropolis/bubblegum/crusher/New()
-	..()
+/obj/structure/closet/crate/necropolis/bubblegum/crusher/populate_contents()
+	. = ..()
 	new /obj/item/crusher_trophy/demon_claws(src)
 
 // Mayhem

@@ -7,6 +7,7 @@
 		opacity = FALSE
 		anchored = 1
 		resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+		flags_2 = RAD_NO_CONTAMINATE_2
 		max_integrity = 200
 
 /obj/machinery/shield/New()
@@ -81,9 +82,18 @@
 	layer = ABOVE_MOB_LAYER
 
 /obj/machinery/shield/cult/barrier
-	density = FALSE //toggled on right away by the parent rune
+	density = FALSE
 	/// The rune that created the shield itself. Used to delete the rune when the shield is destroyed.
 	var/obj/effect/rune/parent_rune
+
+/obj/machinery/shield/cult/barrier/Initialize()
+	. = ..()
+	invisibility = INVISIBILITY_MAXIMUM
+
+/obj/machinery/shield/cult/barrier/Destroy()
+	if(parent_rune && !QDELETED(parent_rune))
+		QDEL_NULL(parent_rune)
+	return ..()
 
 /obj/machinery/shield/cult/barrier/attack_hand(mob/living/user)
 	parent_rune.attack_hand(user)
@@ -94,11 +104,6 @@
 	else
 		..()
 
-/obj/machinery/shield/cult/barrier/Destroy()
-	if(parent_rune && !QDELETED(parent_rune))
-		QDEL_NULL(parent_rune)
-	return ..()
-
 /**
 * Turns the shield on and off.
 *
@@ -107,16 +112,21 @@
 * The barrier itself is not intended to interact with the conceal runes cult spell for balance purposes.
 */
 /obj/machinery/shield/cult/barrier/proc/Toggle()
+	var/visible
 	if(!density) // Currently invisible
 		density = TRUE // Turn visible
 		invisibility = initial(invisibility)
+		visible = TRUE
 	else // Currently visible
 		density = FALSE // Turn invisible
 		invisibility = INVISIBILITY_MAXIMUM
+		visible = FALSE
+
 	air_update_turf(1)
+	return visible
 
 /obj/machinery/shieldgen
-	name = "Emergency shield projector"
+	name = "emergency shield projector"
 	desc = "Used to seal minor hull breaches."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shieldoff"
@@ -150,7 +160,12 @@
 	for(var/turf/target_tile in range(2, src))
 		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
 			if(malfunction && prob(33) || !malfunction)
-				deployed_shields += new /obj/machinery/shield(target_tile)
+				var/obj/machinery/shield/new_shield = new(target_tile)
+				RegisterSignal(new_shield, COMSIG_PARENT_QDELETING, .proc/remove_shield) // Ensures they properly GC
+				deployed_shields += new_shield
+
+/obj/machinery/shieldgen/proc/remove_shield(obj/machinery/shield/S)
+	deployed_shields -= S
 
 /obj/machinery/shieldgen/proc/shields_down()
 	if(!active)
@@ -159,15 +174,12 @@
 	active = 0
 	update_icon()
 
-	for(var/obj/machinery/shield/shield_tile in deployed_shields)
-		qdel(shield_tile)
+	QDEL_LIST(deployed_shields)
 
 /obj/machinery/shieldgen/process()
 	if(malfunction && active)
-		if(deployed_shields.len && prob(5))
-			qdel(pick(deployed_shields))
-
-	return
+		if(length(deployed_shields) && prob(5))
+			qdel(pick_n_take(deployed_shields))
 
 /obj/machinery/shieldgen/proc/checkhp()
 	if(health <= 30)
@@ -241,7 +253,7 @@
 			health = max_health
 			malfunction = TRUE
 			playsound(loc, coil.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You repair the [src]!</span>")
+			to_chat(user, "<span class='notice'>You repair [src]!</span>")
 			update_icon()
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
@@ -397,7 +409,7 @@
 		active = 2
 	if(active >= 1)
 		if(power == 0)
-			visible_message("<span class='warning'>The [name] shuts down due to lack of power!</span>", \
+			visible_message("<span class='warning'>[name] shuts down due to lack of power!</span>", \
 				"You hear heavy droning fade out")
 			icon_state = "Shield_Gen"
 			active = 0
@@ -664,6 +676,6 @@
 	phaseout()
 	return ..()
 
-/obj/machinery/shieldwall/syndicate/hitby(AM as mob|obj)
+/obj/machinery/shieldwall/syndicate/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	phaseout()
 	return ..()

@@ -17,7 +17,7 @@
 		if(!isclient(C))
 			return
 
-		C << 'sound/effects/adminhelp.ogg'
+		SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 
 		to_chat(C, "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
 		to_chat(C, "<font color='red'><b>Your admin help was rejected.</b></font>")
@@ -108,6 +108,10 @@
 		var/banjob = href_list["dbbanaddjob"]
 		var/banreason = href_list["dbbanreason"]
 
+		var/job_ban = FALSE
+		var/multi_job = FALSE
+		var/list/jobs_to_ban = list()
+
 		banckey = ckey(banckey)
 
 		switch(bantype)
@@ -127,10 +131,12 @@
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and job)</span>")
 					return
 				banduration = null
+				job_ban = TRUE
 			if(BANTYPE_JOB_TEMP)
 				if(!banckey || !banreason || !banjob || !banduration)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and job)</span>")
 					return
+				job_ban = TRUE
 			if(BANTYPE_APPEARANCE)
 				if(!banckey || !banreason)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey and reason)</span>")
@@ -151,11 +157,11 @@
 
 		var/mob/playermob
 
-		for(var/mob/M in GLOB.player_list)
-			if(M.ckey == banckey)
-				playermob = M
-				break
-
+		if("autopopulate" in href_list)
+			for(var/mob/M in GLOB.player_list)
+				if(M.ckey == banckey)
+					playermob = M
+					break
 
 		banreason = "(MANUAL BAN) "+banreason
 
@@ -167,7 +173,68 @@
 		else
 			message_admins("Ban process: A mob matching [playermob.ckey] was found at location [playermob.x], [playermob.y], [playermob.z]. Custom IP and computer id fields replaced with the IP and computer id from the located mob")
 
-		DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid )
+		if(job_ban)
+			if(banjob in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","supportdept","nonhumandept"))
+				multi_job = TRUE
+				switch(banjob)
+					if("commanddept")
+						for(var/jobPos in GLOB.command_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("securitydept")
+						for(var/jobPos in GLOB.security_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("engineeringdept")
+						for(var/jobPos in GLOB.engineering_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("medicaldept")
+						for(var/jobPos in GLOB.medical_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("sciencedept")
+						for(var/jobPos in GLOB.science_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("supportdept")
+						for(var/jobPos in GLOB.support_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("nonhumandept")
+						jobs_to_ban += "pAI"
+						for(var/jobPos in GLOB.nonhuman_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+
+		// If the job ban is for multiple jobs in one group (IE: Command), iterate through jobs and ban each individually
+		if(multi_job)
+			//Create a list of unbanned jobs within joblist
+			var/list/notbannedlist = list()
+			for(var/job in jobs_to_ban)
+				if(!jobban_isbanned_ckey(banckey, job))
+					notbannedlist += job
+
+			for(var/job in notbannedlist)
+				DB_ban_record(bantype, playermob, banduration, banreason, job, null, banckey, banip, bancid)
+
+		// Otherwise, do it normally
+		else
+			DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid)
 
 
 	else if(href_list["editrights"])
@@ -220,19 +287,19 @@
 				if(null,"") return
 				if("*New Rank*")
 					new_rank = input("Please input a new rank", "New custom rank", null, null) as null|text
-					if(config.admin_legacy_system)
+					if(!GLOB.configuration.admin.use_database_admins)
 						new_rank = ckeyEx(new_rank)
 					if(!new_rank)
 						to_chat(usr, "<font color='red'>Error: Topic 'editrights': Invalid rank</font>")
 						return
-					if(config.admin_legacy_system)
+					if(!GLOB.configuration.admin.use_database_admins)
 						if(GLOB.admin_ranks.len)
 							if(new_rank in GLOB.admin_ranks)
 								rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
 							else
 								GLOB.admin_ranks[new_rank] = 0			//add the new rank to admin_ranks
 				else
-					if(config.admin_legacy_system)
+					if(!GLOB.configuration.admin.use_database_admins)
 						new_rank = ckeyEx(new_rank)
 						rights = GLOB.admin_ranks[new_rank]				//we input an existing rank, use its rights
 
@@ -317,6 +384,8 @@
 		SSticker.delay_end = !SSticker.delay_end
 		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		message_admins("<span class='notice'>[key_name_admin(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].</span>", 1)
+		if(SSticker.delay_end)
+			SSticker.real_reboot_time = 0 // If they set this at round end, show the "Reboot was cancelled by an admin" message instantly
 		href_list["secretsadmin"] = "check_antagonist"
 
 	else if(href_list["simplemake"])
@@ -418,7 +487,6 @@
 				if(!reason)	return
 
 		log_admin("[key_name(usr)] edited [banned_key]'s ban. Reason: [reason] Duration: [duration]")
-		ban_unban_log_save("[key_name(usr)] edited [banned_key]'s ban. Reason: [reason] Duration: [duration]")
 		message_admins("<span class='notice'>[key_name_admin(usr)] edited [banned_key]'s ban. Reason: [reason] Duration: [duration]</span>", 1)
 		GLOB.banlist_savefile.cd = "/base/[banfolder]"
 		to_chat(GLOB.banlist_savefile["reason"], reason)
@@ -426,7 +494,6 @@
 		to_chat(GLOB.banlist_savefile["minutes"], minutes)
 		to_chat(GLOB.banlist_savefile["bannedby"], usr.ckey)
 		GLOB.banlist_savefile.cd = "/base"
-		feedback_inc("ban_edit",1)
 		unbanpanel()
 
 	/////////////////////////////////////new ban stuff
@@ -451,9 +518,7 @@
 				return	*/
 			switch(alert("Reason: '[banreason]' Remove appearance ban?","Please Confirm","Yes","No"))
 				if("Yes")
-					ban_unban_log_save("[key_name(usr)] removed [key_name(M)]'s appearance ban")
 					log_admin("[key_name(usr)] removed [key_name(M)]'s appearance ban")
-					feedback_inc("ban_appearance_unban", 1)
 					DB_ban_unban(M.ckey, BANTYPE_APPEARANCE)
 					appearance_unban(M)
 					message_admins("<span class='notice'>[key_name_admin(usr)] removed [key_name_admin(M)]'s appearance ban</span>", 1)
@@ -465,9 +530,7 @@
 				if(!reason)
 					return
 				M = admin_ban_mobsearch(M, ban_ckey_param, usr)
-				ban_unban_log_save("[key_name(usr)] appearance banned [key_name(M)]. reason: [reason]")
 				log_admin("[key_name(usr)] appearance banned [key_name(M)]. \nReason: [reason]")
-				feedback_inc("ban_appearance",1)
 				DB_ban_record(BANTYPE_APPEARANCE, M, -1, reason)
 				appearance_fullban(M, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
 				add_note(M.ckey, "Appearance banned - [reason]", null, usr.ckey, 0)
@@ -475,8 +538,8 @@
 				to_chat(M, "<span class='warning'><big><b>You have been appearance banned by [usr.client.ckey].</b></big></span>")
 				to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
 				to_chat(M, "<span class='warning'>Appearance ban can be lifted only upon request.</span>")
-				if(config.banappeals)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
+				if(GLOB.configuration.url.banappeals_url)
+					to_chat(M, "<span class='warning'>To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
 			if("No")
@@ -814,7 +877,7 @@
 		if(notbannedlist.len) //at least 1 unbanned job exists in joblist so we have stuff to ban.
 			switch(alert("Temporary Ban of [M.ckey]?",,"Yes","No", "Cancel"))
 				if("Yes")
-					if(config.ban_legacy_system)
+					if(!GLOB.configuration.general.use_database_bans)
 						to_chat(usr, "<span class='warning'>Your server is using the legacy banning system, which does not support temporary job bans. Consider upgrading. Aborting ban.</span>")
 						return
 					var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
@@ -827,11 +890,8 @@
 					var/msg
 					M = admin_ban_mobsearch(M, ban_ckey_param, usr)
 					for(var/job in notbannedlist)
-						ban_unban_log_save("[key_name(usr)] temp-jobbanned [key_name(M)] from [job] for [mins] minutes. reason: [reason]")
 						log_admin("[key_name(usr)] temp-jobbanned [key_name(M)] from [job] for [mins] minutes")
-						feedback_inc("ban_job_tmp",1)
 						DB_ban_record(BANTYPE_JOB_TEMP, M, mins, reason, job)
-						feedback_add_details("ban_job_tmp","- [job]")
 						jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]") //Legacy banning does not support temporary jobbans.
 						if(!msg)
 							msg = job
@@ -850,11 +910,8 @@
 						var/msg
 						M = admin_ban_mobsearch(M, ban_ckey_param, usr)
 						for(var/job in notbannedlist)
-							ban_unban_log_save("[key_name(usr)] perma-jobbanned [key_name(M)] from [job]. reason: [reason]")
 							log_admin("[key_name(usr)] perma-banned [key_name(M)] from [job]")
-							feedback_inc("ban_job",1)
 							DB_ban_record(BANTYPE_JOB_PERMA, M, -1, reason, job)
-							feedback_add_details("ban_job","- [job]")
 							jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
 							if(!msg)	msg = job
 							else		msg += ", [job]"
@@ -871,7 +928,7 @@
 		//Unbanning joblist
 		//all jobs in joblist are banned already OR we didn't give a reason (implying they shouldn't be banned)
 		if(joblist.len) //at least 1 banned job exists in joblist so we have stuff to unban.
-			if(!config.ban_legacy_system)
+			if(GLOB.configuration.general.use_database_bans)
 				to_chat(usr, "<span class='warning'>Unfortunately, database based unbanning cannot be done through this panel</span>")
 				DB_ban_panel(M.ckey)
 				return
@@ -881,11 +938,8 @@
 				if(!reason) continue //skip if it isn't jobbanned anyway
 				switch(alert("Job: '[job]' Reason: '[reason]' Un-jobban?","Please Confirm","Yes","No"))
 					if("Yes")
-						ban_unban_log_save("[key_name(usr)] unjobbanned [key_name(M)] from [job]")
 						log_admin("[key_name(usr)] unbanned [key_name(M)] from [job]")
 						DB_ban_unban(M.ckey, BANTYPE_JOB_PERMA, job)
-						feedback_inc("ban_job_unban",1)
-						feedback_add_details("ban_job_unban","- [job]")
 						jobban_unban(M, job)
 						if(!msg)	msg = job
 						else		msg += ", [job]"
@@ -948,8 +1002,8 @@
 
 	else if(href_list["webtools"])
 		var/target_ckey = href_list["webtools"]
-		if(config.forum_playerinfo_url)
-			var/url_to_open = config.forum_playerinfo_url + target_ckey
+		if(GLOB.configuration.url.forum_playerinfo_url)
+			var/url_to_open = "[GLOB.configuration.url.forum_playerinfo_url][target_ckey]"
 			if(alert("Open [url_to_open]",,"Yes","No")=="Yes")
 				usr.client << link(url_to_open)
 
@@ -962,15 +1016,17 @@
 		show_note(index = target)
 
 	else if(href_list["noteedits"])
-		var/note_id = sanitizeSQL("[href_list["noteedits"]]")
-		var/DBQuery/query_noteedits = GLOB.dbcon.NewQuery("SELECT edits FROM [format_table_name("notes")] WHERE id = '[note_id]'")
-		if(!query_noteedits.Execute())
-			var/err = query_noteedits.ErrorMsg()
-			log_game("SQL ERROR obtaining edits from notes table. Error : \[[err]\]\n")
+		var/note_id = text2num(href_list["noteedits"])
+		var/datum/db_query/query_noteedits = SSdbcore.NewQuery("SELECT edits FROM notes WHERE id=:note_id", list(
+			"note_id" = note_id
+		))
+		if(!query_noteedits.warn_execute())
+			qdel(query_noteedits)
 			return
 		if(query_noteedits.NextRow())
 			var/edit_log = query_noteedits.item[1]
 			usr << browse(edit_log,"window=noteedits")
+		qdel(query_noteedits)
 
 	else if(href_list["removejobban"])
 		if(!check_rights(R_BAN))	return
@@ -1006,16 +1062,13 @@
 					return
 				M = admin_ban_mobsearch(M, ban_ckey_param, usr)
 				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 1, mins)
-				ban_unban_log_save("[usr.client.ckey] has banned [M.ckey]. - Reason: [reason] - This will be removed in [mins] minutes.")
 				to_chat(M, "<span class='warning'><big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big></span>")
 				to_chat(M, "<span class='warning'>This is a temporary ban, it will be removed in [mins] minutes.</span>")
-				feedback_inc("ban_tmp",1)
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
-				feedback_inc("ban_tmp_mins",mins)
 				if(M.client)
 					M.client.link_forum_account(TRUE)
-				if(config.banappeals)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
+				if(GLOB.configuration.url.banappeals_url)
+					to_chat(M, "<span class='warning'>To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
@@ -1031,14 +1084,12 @@
 				to_chat(M, "<span class='warning'>This ban does not expire automatically and must be appealed.</span>")
 				if(M.client)
 					M.client.link_forum_account(TRUE)
-				if(config.banappeals)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
+				if(GLOB.configuration.url.banappeals_url)
+					to_chat(M, "<span class='warning'>To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
-				ban_unban_log_save("[usr.client.ckey] has permabanned [M.ckey]. - Reason: [reason] - This ban does not expire automatically and must be appealed.")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.</span>")
-				feedback_inc("ban_perma",1)
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
 
 				qdel(M.client)
@@ -1080,15 +1131,17 @@
 		usr.client.watchlist_show()
 
 	else if(href_list["watcheditlog"])
-		var/target_ckey = sanitizeSQL("[href_list["watcheditlog"]]")
-		var/DBQuery/query_watchedits = GLOB.dbcon.NewQuery("SELECT edits FROM [format_table_name("watch")] WHERE ckey = '[target_ckey]'")
-		if(!query_watchedits.Execute())
-			var/err = query_watchedits.ErrorMsg()
-			log_game("SQL ERROR obtaining edits from watch table. Error : \[[err]\]\n")
+		var/target_ckey = href_list["watcheditlog"]
+		var/datum/db_query/query_watchedits = SSdbcore.NewQuery("SELECT edits FROM watch WHERE ckey=:targetkey", list(
+			"targetkey" = target_ckey
+		))
+		if(!query_watchedits.warn_execute())
+			qdel(query_watchedits)
 			return
 		if(query_watchedits.NextRow())
 			var/edit_log = query_watchedits.item[1]
 			usr << browse(edit_log,"window=watchedits")
+		qdel(query_watchedits)
 
 	else if(href_list["mute"])
 		if(!check_rights(R_ADMIN|R_MOD))
@@ -1110,8 +1163,8 @@
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
 		var/dat = {"<b>What mode do you wish to play?</b><hr>"}
-		for(var/mode in config.modes)
-			dat += {"<A href='?src=[UID()];c_mode2=[mode]'>[config.mode_names[mode]]</A><br>"}
+		for(var/mode in GLOB.configuration.gamemode.gamemodes)
+			dat += {"<A href='?src=[UID()];c_mode2=[mode]'>[GLOB.configuration.gamemode.gamemode_names[mode]]</A><br>"}
 		dat += {"<A href='?src=[UID()];c_mode2=secret'>Secret</A><br>"}
 		dat += {"<A href='?src=[UID()];c_mode2=random'>Random</A><br>"}
 		dat += {"Now: [GLOB.master_mode]"}
@@ -1125,8 +1178,8 @@
 		if(GLOB.master_mode != "secret")
 			return alert(usr, "The game mode has to be secret!", null, null, null, null)
 		var/dat = {"<b>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</b><hr>"}
-		for(var/mode in config.modes)
-			dat += {"<A href='?src=[UID()];f_secret2=[mode]'>[config.mode_names[mode]]</A><br>"}
+		for(var/mode in GLOB.configuration.gamemode.gamemodes)
+			dat += {"<A href='?src=[UID()];f_secret2=[mode]'>[GLOB.configuration.gamemode.gamemode_names[mode]]</A><br>"}
 		dat += {"<A href='?src=[UID()];f_secret2=secret'>Random (default)</A><br>"}
 		dat += {"Now: [GLOB.secret_force_mode]"}
 		usr << browse(dat, "window=f_secret")
@@ -1814,14 +1867,16 @@
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
 
 	else if(href_list["adminplayerobservecoodjump"])
-		if(!check_rights(R_ADMIN))	return
+		var/client/C = usr.client
+		if(!isobserver(usr))
+			if(!check_rights(R_ADMIN)) // Need to be admin to aghost
+				return
+			C.admin_ghost()
 
 		var/x = text2num(href_list["X"])
 		var/y = text2num(href_list["Y"])
 		var/z = text2num(href_list["Z"])
 
-		var/client/C = usr.client
-		if(!isobserver(usr))	C.admin_ghost()
 		sleep(2)
 		C.jumptocoord(x,y,z)
 
@@ -1858,7 +1913,7 @@
 			H.update_inv_l_hand()
 		log_admin("[key_name(H)] got their cookie, spawned by [key_name(src.owner)]")
 		message_admins("[key_name_admin(H)] got [H.p_their()] cookie, spawned by [key_name_admin(src.owner)]")
-		feedback_inc("admin_cookies_spawned",1)
+		SSblackbox.record_feedback("amount", "admin_cookies_spawned", 1)
 		to_chat(H, "<span class='notice'>Your prayers have been answered!! You received the <b>best cookie</b>!</span>")
 
 	else if(href_list["BlueSpaceArtillery"])
@@ -2024,15 +2079,15 @@
 				logmsg = "a heal over time."
 			if("Permanent Regeneration")
 				H.dna.SetSEState(GLOB.regenerateblock, 1)
-				genemutcheck(H, GLOB.regenerateblock,  null, MUTCHK_FORCED)
+				singlemutcheck(H, GLOB.regenerateblock, MUTCHK_FORCED)
 				H.update_mutations()
 				H.gene_stability = 100
 				logmsg = "permanent regeneration."
 			if("Super Powers")
-				var/list/default_genes = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
-				for(var/gene in default_genes)
-					H.dna.SetSEState(gene, 1)
-					genemutcheck(H, gene,  null, MUTCHK_FORCED)
+				var/list/default_mutations = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
+				for(var/mutation in default_mutations)
+					H.dna.SetSEState(mutation, 1)
+					singlemutcheck(H, mutation, MUTCHK_FORCED)
 					H.update_mutations()
 				H.gene_stability = 100
 				logmsg = "superpowers."
@@ -2110,7 +2165,7 @@
 		if(!istype(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>")
 			return
-		var/ptypes = list("Lightning bolt", "Fire Death", "Gib")
+		var/ptypes = list("Lightning bolt", "Fire Death", "Gib", "Dust")
 		if(ishuman(M))
 			H = M
 			ptypes += "Brain Damage"
@@ -2125,7 +2180,6 @@
 			ptypes += "Crew Traitor"
 			ptypes += "Floor Cluwne"
 			ptypes += "Shamebrero"
-			ptypes += "Dust"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
@@ -2133,7 +2187,7 @@
 		switch(punishment)
 			// These smiting types are valid for all living mobs
 			if("Lightning bolt")
-				M.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
+				M.electrocute_act(5, "Lightning Bolt", flags = SHOCK_NOGLOVES)
 				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 				M.adjustFireLoss(75)
 				M.Weaken(5)
@@ -2148,6 +2202,9 @@
 			if("Gib")
 				M.gib(FALSE)
 				logmsg = "gibbed."
+			if("Dust")
+				M.dust()
+				logmsg = "dust"
 
 			// These smiting types are only valid for ishuman() mobs
 			if("Brain Damage")
@@ -2171,7 +2228,7 @@
 				logmsg = "starvation."
 			if("Cluwne")
 				H.makeCluwne()
-				H.mutations |= NOCLONE
+				ADD_TRAIT(H, TRAIT_BADDNA, "smiting")
 				logmsg = "cluwned."
 			if("Mutagen Cookie")
 				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
@@ -2192,7 +2249,7 @@
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
 				logmsg = "a hellwater cookie."
 			if("Hunter")
-				H.mutations |= NOCLONE
+				ADD_TRAIT(H, TRAIT_BADDNA, "smiting")
 				usr.client.create_eventmob_for(H, 1)
 				logmsg = "hunter."
 			if("Crew Traitor")
@@ -2237,9 +2294,6 @@
 				var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
 				H.equip_to_slot_or_del(S, slot_head)
 				logmsg = "shamebrero"
-			if("Dust")
-				H.dust()
-				logmsg = "dust"
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
 			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")
@@ -2263,7 +2317,7 @@
 			message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
 			if(href_list["cryoafk"]) // Warn them if they are send to storage and are AFK
 				to_chat(H, "<span class='danger'>The admins have moved you to cryo storage for being AFK. Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
-				SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
+				SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
 				if(H.client)
 					window_flash(H.client)
 	else if(href_list["FaxReplyTemplate"])
@@ -2278,7 +2332,7 @@
 		P.name = "Central Command - paper"
 		var/stypes = list("Handle it yourselves!","Illegible fax","Fax not signed","Not Right Now","You are wasting our time", "Keep up the good work", "ERT Instructions")
 		var/stype = input(src.owner, "Which type of standard reply do you wish to send to [H]?","Choose your paperwork", "") as null|anything in stypes
-		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><b>Nanotrasen Science Station [GLOB.using_map.station_short]</b></font><BR><BR><BR><font size='4'>NAS Trurl Communications Department Report</font></center><BR><BR>"
+		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><b>[SSmapping.map_datum.fluff_name]</b></font><BR><BR><BR><font size='4'>NAS Trurl Communications Department Report</font></center><BR><BR>"
 		if(stype == "Handle it yourselves!")
 			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention.<BR><BR><i><small>This is an automatic message.</small>"
 		else if(stype == "Illegible fax")
@@ -2567,7 +2621,7 @@
 		fax_panel(usr)
 
 	else if(href_list["getplaytimewindow"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_ADMIN | R_MOD | R_MENTOR))
 			return
 		var/mob/M = locateUID(href_list["getplaytimewindow"])
 		if(!istype(M, /mob))
@@ -2747,7 +2801,7 @@
 									if(R.module)
 										R.module.modules += I
 										I.loc = R.module
-										R.module.rebuild()
+										R.module.rebuild_modules()
 										R.activate_module(I)
 										R.module.fix_modules()
 
@@ -2784,15 +2838,17 @@
 
 	else if(href_list["memoeditlist"])
 		if(!check_rights(R_SERVER)) return
-		var/sql_key = sanitizeSQL("[href_list["memoeditlist"]]")
-		var/DBQuery/query_memoedits = GLOB.dbcon.NewQuery("SELECT edits FROM [format_table_name("memo")] WHERE (ckey = '[sql_key]')")
-		if(!query_memoedits.Execute())
-			var/err = query_memoedits.ErrorMsg()
-			log_game("SQL ERROR obtaining edits from memo table. Error : \[[err]\]\n")
+		var/sql_key = href_list["memoeditlist"]
+		var/datum/db_query/query_memoedits = SSdbcore.NewQuery("SELECT edits FROM memo WHERE (ckey=:sql_key)", list(
+			"sql_key" = sql_key
+		))
+		if(!query_memoedits.warn_execute())
+			qdel(query_memoedits)
 			return
 		if(query_memoedits.NextRow())
 			var/edit_log = query_memoedits.item[1]
 			usr << browse(edit_log,"window=memoeditlist")
+		qdel(query_memoedits)
 
 	else if(href_list["secretsfun"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
@@ -2800,64 +2856,50 @@
 		var/ok = 0
 		switch(href_list["secretsfun"])
 			if("sec_clothes")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SC")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove 'internal' clothing")
 				for(var/obj/item/clothing/under/O in world)
 					qdel(O)
 				ok = 1
 			if("sec_all_clothes")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SAC")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove ALL clothing")
 				for(var/obj/item/clothing/O in world)
 					qdel(O)
 				ok = 1
 			if("sec_classic1")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SC1")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove firesuits, grilles, and pods")
 				for(var/obj/item/clothing/suit/fire/O in world)
 					qdel(O)
 				for(var/obj/structure/grille/O in world)
 					qdel(O)
 			if("monkey")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","M")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Monkeyize All Humans")
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
 					spawn(0)
 						H.monkeyize()
 				ok = 1
 			if("corgi")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","M")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Corgize All Humans")
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
 					spawn(0)
 						H.corgize()
 				ok = 1
-			if("honksquad")
-				if(usr.client.honksquad())
-					feedback_inc("admin_secrets_fun_used",1)
-					feedback_add_details("admin_secrets_fun_used","HONK")
 			if("striketeam")
 				if(usr.client.strike_team())
-					feedback_inc("admin_secrets_fun_used",1)
-					feedback_add_details("admin_secrets_fun_used","Strike")
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Deathsquad")
 			if("striketeam_syndicate")
 				if(usr.client.syndicate_strike_team())
-					feedback_inc("admin_secrets_fun_used",1)
-					feedback_add_details("admin_secrets_fun_used","Strike")
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Syndie Strike Team")
 			if("infiltrators_syndicate")
 				if(usr.client.syndicate_infiltration_team())
-					feedback_inc("admin_secrets_fun_used",1)
-					feedback_add_details("admin_secrets_fun_used","SyndieInfiltrationTeam")
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Syndicate Infiltration Team")
 			if("gimmickteam")
 				if(usr.client.gimmick_team())
-					feedback_inc("admin_secrets_fun_used",1)
-					feedback_add_details("admin_secrets_fun_used","GimmickTeam")
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Gimmick Team")
 			if("tripleAI")
 				usr.client.triple_ai()
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","TriAI")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
 			if("gravity")
 				if(!(SSticker && SSticker.mode))
 					to_chat(usr, "<span class='warning'>Please wait until the game starts! Not sure how it will work otherwise.</span>")
@@ -2865,8 +2907,7 @@
 				GLOB.gravity_is_on = !GLOB.gravity_is_on
 				for(var/area/A in world)
 					A.gravitychange(GLOB.gravity_is_on,A)
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","Grav")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Gravity")
 				if(GLOB.gravity_is_on)
 					log_admin("[key_name(usr)] toggled gravity on.", 1)
 					message_admins("<span class='notice'>[key_name_admin(usr)] toggled gravity on.</span>", 1)
@@ -2877,29 +2918,37 @@
 					GLOB.event_announcement.Announce("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
 
 			if("power")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","P")
-				log_admin("[key_name(usr)] made all areas powered", 1)
-				message_admins("<span class='notice'>[key_name_admin(usr)] made all areas powered</span>", 1)
-				power_restore()
+				switch(alert("What Would You Like to Do?", "Make All Areas Powered", "Power all APCs", "Repair all APCs", "Repair and Power APCs")) //Alert notification in this code for standarization purposes
+					if("Power all APCs")
+						power_restore(TRUE, 0)
+						SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power all APCs")
+						log_and_message_admins("<span class='notice'>[key_name_admin(usr)] powered all APCs</span>", 1)
+					if("Repair all APCs")
+						power_restore(TRUE, 1)
+						SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Repair all APCs")
+						log_and_message_admins("<span class='notice'>[key_name_admin(usr)] repaired all APCs</span>", 1)
+					if("Repair and Power APCs")
+						power_restore(TRUE, 2)
+						SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Repair and Power all APCs")
+						log_and_message_admins("<span class='notice'>[key_name_admin(usr)] repaired and powered all APCs</span>", 1)
 			if("unpower")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","UP")
-				log_admin("[key_name(usr)] made all areas unpowered", 1)
-				message_admins("<span class='notice'>[key_name_admin(usr)] made all areas unpowered</span>", 1)
-				power_failure()
+				if(alert("What Would You Like to Do?", "Make All Areas Unpowered", "Depower all APCs", "Short out APCs") == "Depower all APCs")
+					depower_apcs()
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Depower all APCs")
+					log_and_message_admins("<span class='notice'>[key_name_admin(usr)] made all areas unpowered</span>", 1)
+				else
+					power_failure()
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Short out APCs")
+					log_and_message_admins("<span class='notice'>[key_name_admin(usr)] has shorted APCs</span>", 1)
 			if("quickpower")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","QP")
-				log_admin("[key_name(usr)] made all SMESs powered", 1)
-				message_admins("<span class='notice'>[key_name_admin(usr)] made all SMESs powered</span>", 1)
 				power_restore_quick()
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
+				log_and_message_admins("<span class='notice'>[key_name(usr)] made all SMESs powered</span>", 1)
 			if("prisonwarp")
 				if(!SSticker)
 					alert("The game hasn't started yet!", null, null, null, null, null)
 					return
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","PW")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Prison Warp")
 				message_admins("<span class='notice'>[key_name_admin(usr)] teleported all players to the prison station.</span>", 1)
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
@@ -2918,9 +2967,6 @@
 					if(!security)
 						//strip their stuff before they teleport into a cell :downs:
 						for(var/obj/item/W in H)
-							if(istype(W, /obj/item/organ/external))
-								continue
-								//don't strip organs
 							H.unEquip(W)
 							if(H.client)
 								H.client.screen -= W
@@ -2944,8 +2990,7 @@
 				var/objective = sanitize(copytext(input("Enter an objective"),1,MAX_MESSAGE_LEN))
 				if(!objective)
 					return
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","TA([objective])")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Traitor All ([objective])")
 
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					if(H.stat == 2 || !H.client || !H.mind) continue
@@ -2960,28 +3005,21 @@
 				log_admin("[key_name(usr)] used everyone is a traitor secret. Objective is [objective]")
 
 			if("togglebombcap")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","BC")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Bomb Cap")
 
-				var/newBombCap = input(usr,"What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be between 4 and 128)", "New Bomb Cap", GLOB.max_ex_light_range) as num|null
+				var/newBombCap = input(usr,"What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be between 4 and 128)", "New Bomb Cap", GLOB.configuration.general.bomb_cap) as num|null
 				if(newBombCap < 4)
 					return
 				if(newBombCap > 128)
 					newBombCap = 128
 
-				GLOB.max_ex_devastation_range = round(newBombCap/4)
-				GLOB.max_ex_heavy_range = round(newBombCap/2)
-				GLOB.max_ex_light_range = newBombCap
-				//I don't know why these are their own variables, but fuck it, they are.
-				GLOB.max_ex_flash_range = newBombCap
-				GLOB.max_ex_flame_range = newBombCap
+				GLOB.configuration.general.bomb_cap = newBombCap
 
-				message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]</span>")
-				log_admin("[key_name(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]")
+				message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [GLOB.configuration.general.bomb_cap / 4], [GLOB.configuration.general.bomb_cap / 2], [GLOB.configuration.general.bomb_cap]</span>")
+				log_admin("[key_name(usr)] changed the bomb cap to [GLOB.configuration.general.bomb_cap / 4], [GLOB.configuration.general.bomb_cap / 2], [GLOB.configuration.general.bomb_cap]")
 
 			if("flicklights")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","FL")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Flicker Lights")
 				while(!usr.stat)
 //knock yourself out to stop the ghosts
 					for(var/mob/M in GLOB.player_list)
@@ -3011,58 +3049,50 @@
 					if(M.stat != 2)
 						M.show_message(text("<span class='notice'>The chilling wind suddenly stops...</span>"), 1)
 			if("lightout")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","LO")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Lights Out")
 				message_admins("[key_name_admin(usr)] has broke a lot of lights", 1)
 				var/datum/event/electrical_storm/E = new /datum/event/electrical_storm
 				E.lightsoutAmount = 2
 			if("blackout")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","BO")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Black Out")
 				message_admins("[key_name_admin(usr)] broke all lights", 1)
 				for(var/obj/machinery/light/L in GLOB.machines)
 					L.break_light_tube()
 			if("whiteout")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","WO")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fix All Lights")
 				message_admins("[key_name_admin(usr)] fixed all lights", 1)
 				for(var/obj/machinery/light/L in GLOB.machines)
 					L.fix()
 					L.switchcount = 0
 			if("floorlava")
-				feedback_inc("admin_secrets_fun_used", 1)
-				feedback_add_details("admin_secrets_fun_used", "LF")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor")
 				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
 				if(sure == "No")
 					return
 				SSweather.run_weather(/datum/weather/floor_is_lava)
 				message_admins("[key_name_admin(usr)] made the floor lava")
 			if("fakelava")
-				feedback_inc("admin_secrets_fun_used", 1)
-				feedback_add_details("admin_secrets_fun_used", "LZ")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor Fake")
 				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
 				if(sure == "No")
 					return
 				SSweather.run_weather(/datum/weather/floor_is_lava/fake)
 				message_admins("[key_name_admin(usr)] made aesthetic lava on the floor")
 			if("weatherashstorm")
-				feedback_inc("admin_secrets_fun_used", 1)
-				feedback_add_details("admin_secrets_fun_used", "WA")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Weather Ash Storm")
 				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
 				if(sure == "No")
 					return
 				SSweather.run_weather(/datum/weather/ash_storm)
 				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining level")
 			if("stupify")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","RET")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Mass Braindamage")
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					to_chat(H, "<span class='danger'>You suddenly feel stupid.</span>")
 					H.setBrainLoss(60)
 				message_admins("[key_name_admin(usr)] made everybody stupid")
 			if("fakeguns")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","FG")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fake Guns")
 				for(var/obj/item/W in world)
 					if(istype(W, /obj/item/clothing) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
 						continue
@@ -3070,9 +3100,8 @@
 					W.icon_state = "revolver"
 					W.item_state = "gun"
 				message_admins("[key_name_admin(usr)] made every item look like a gun")
-			if("schoolgirl")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SG")
+			if("schoolgirl") // nyaa~ How much are you paying attention in reviews?
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				for(var/obj/item/clothing/under/W in world)
 					W.icon_state = "schoolgirl"
 					W.item_state = "w_suit"
@@ -3080,34 +3109,28 @@
 				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
 				world << sound('sound/AI/animes.ogg')
 			if("eagles")//SCRAW
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","EgL")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Egalitarian Station")
 				for(var/obj/machinery/door/airlock/W in GLOB.airlocks)
 					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
 				GLOB.event_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
 			if("onlyone")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","OO")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One")
 				usr.client.only_one()
 //				message_admins("[key_name_admin(usr)] has triggered HIGHLANDER")
 			if("onlyme")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","OM")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only Me")
 				usr.client.only_me()
 			if("onlyoneteam")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","OOT")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One Team")
 				usr.client.only_one_team()
 //				message_admins("[key_name_admin(usr)] has triggered ")
 			if("rolldice")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","ROL")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Roll The Dice")
 				usr.client.roll_dices()
 			if("guns")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SG")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Summon Guns")
 				var/survivor_probability = 0
 				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
 					if("Some Antags")
@@ -3117,8 +3140,7 @@
 
 				rightandwrong(SUMMON_GUNS, usr, survivor_probability)
 			if("magic")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SM")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Summon Magic")
 				var/survivor_probability = 0
 				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
 					if("Some Antags")
@@ -3175,25 +3197,28 @@
 				set_security_level(5)
 				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Delta.</span>", 1)
 			if("moveminingshuttle")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","ShM")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Mining Shuttle")
 				if(!SSshuttle.toggleShuttle("mining","mining_home","mining_away"))
 					message_admins("[key_name_admin(usr)] moved mining shuttle")
 					log_admin("[key_name(usr)] moved the mining shuttle")
 
 			if("movelaborshuttle")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","ShL")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Labor Shuttle")
 				if(!SSshuttle.toggleShuttle("laborcamp","laborcamp_home","laborcamp_away"))
 					message_admins("[key_name_admin(usr)] moved labor shuttle")
 					log_admin("[key_name(usr)] moved the labor shuttle")
 
 			if("moveferry")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","ShF")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send CentComm Ferry")
 				if(!SSshuttle.toggleShuttle("ferry","ferry_home","ferry_away"))
 					message_admins("[key_name_admin(usr)] moved the centcom ferry")
 					log_admin("[key_name(usr)] moved the centcom ferry")
+					
+			if("gammashuttle")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Gamma Armory")
+				message_admins("[key_name_admin(usr)] moved the gamma armory")
+				log_admin("[key_name(usr)] moved the gamma armory")
+				move_gamma_ship()
 
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")
@@ -3274,7 +3299,7 @@
 				var/val = alert(usr, "What do you want to set night shift to? This will override the automatic system until set to automatic again.", "Night Shift", "On", "Off", "Automatic")
 				switch(val)
 					if("Automatic")
-						if(config.enable_night_shifts)
+						if(GLOB.configuration.general.enable_night_shifts)
 							SSnightshift.can_fire = TRUE
 							SSnightshift.fire()
 						else
@@ -3370,13 +3395,14 @@
 
 	// Library stuff
 	else if(href_list["library_book_id"])
-		var/isbn = sanitizeSQL(href_list["library_book_id"])
+		var/isbn = text2num(href_list["library_book_id"])
 
 		if(href_list["view_library_book"])
-			var/DBQuery/query_view_book = GLOB.dbcon.NewQuery("SELECT content, title FROM [format_table_name("library")] WHERE id=[isbn]")
-			if(!query_view_book.Execute())
-				var/err = query_view_book.ErrorMsg()
-				log_game("SQL ERROR viewing book. Error : \[[err]\]\n")
+			var/datum/db_query/query_view_book = SSdbcore.NewQuery("SELECT content, title FROM library WHERE id=:isbn", list(
+				"isbn" = isbn
+			))
+			if(!query_view_book.warn_execute())
+				qdel(query_view_book)
 				return
 
 			var/content = ""
@@ -3393,27 +3419,32 @@
 			popup.set_content(dat)
 			popup.open(0)
 
+			qdel(query_view_book)
 			log_admin("[key_name(usr)] has viewed the book [isbn].")
 			message_admins("[key_name_admin(usr)] has viewed the book [isbn].")
 			return
 
 		else if(href_list["unflag_library_book"])
-			var/DBQuery/query_unflag_book = GLOB.dbcon.NewQuery("UPDATE [format_table_name("library")] SET flagged = 0 WHERE id=[isbn]")
-			if(!query_unflag_book.Execute())
-				var/err = query_unflag_book.ErrorMsg()
-				log_game("SQL ERROR unflagging book. Error : \[[err]\]\n")
+			var/datum/db_query/query_unflag_book = SSdbcore.NewQuery("UPDATE library SET flagged = 0 WHERE id=:isbn", list(
+				"isbn" = isbn
+			))
+			if(!query_unflag_book.warn_execute())
+				qdel(query_unflag_book)
 				return
 
+			qdel(query_unflag_book)
 			log_admin("[key_name(usr)] has unflagged the book [isbn].")
 			message_admins("[key_name_admin(usr)] has unflagged the book [isbn].")
 
 		else if(href_list["delete_library_book"])
-			var/DBQuery/query_delbook = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[isbn]")
-			if(!query_delbook.Execute())
-				var/err = query_delbook.ErrorMsg()
-				log_game("SQL ERROR deleting book. Error : \[[err]\]\n")
+			var/datum/db_query/query_delbook = SSdbcore.NewQuery("DELETE FROM library WHERE id=:isbn", list(
+				"isbn" = isbn
+			))
+			if(!query_delbook.warn_execute())
+				qdel(query_delbook)
 				return
 
+			qdel(query_delbook)
 			log_admin("[key_name(usr)] has deleted the book [isbn].")
 			message_admins("[key_name_admin(usr)] has deleted the book [isbn].")
 
@@ -3446,9 +3477,78 @@
 		if(!check_rights(R_ADMIN))
 			return
 		create_ccbdb_lookup(href_list["open_ccbdb"])
+	else if(href_list["slowquery"])
+		if(!check_rights(R_ADMIN))
+			return
+		message_admins("[key_name_admin(usr)] started responding to a query hang report") // So multiple admins dont try file the same report
+		var/answer = href_list["slowquery"]
+		if(answer == "yes")
+			log_sql("[usr.key] | Reported a server hang")
+			if(alert(usr, "Had you just pressed any admin buttons which could lag the server?", "Query server hang report", "Yes", "No") == "Yes")
+				var/response = input(usr,"What were you just doing?","Query server hang report") as null|text
+				if(response)
+					log_sql("[usr.key] | [response]")
+		else if(answer == "no")
+			log_sql("[usr.key] | Reported no server hang. Please investigate")
+	else if(href_list["suppresscidwarning"])
+		if(!check_rights(R_ADMIN))
+			return
+		add_note(href_list["suppresscidwarning"], CIDWARNING_SUPPRESSED_NOTETEXT, show_after = FALSE)
+	else if(href_list["viewkarma"])
+		if(!check_rights(R_ADMIN))
+			return
 
+		var/target_ckey = href_list["viewkarma"]
 
-/client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
+		var/total_karma = 0
+		var/spent_karma = 0
+		var/unlocked_jobs = ""
+		var/unlocked_species = ""
+		// Get their totals
+		var/datum/db_query/query_get_totals = SSdbcore.NewQuery("SELECT karma, karmaspent FROM karmatotals WHERE byondkey=:ckey", list(
+			"ckey" = target_ckey
+		))
+		if(!query_get_totals.warn_execute())
+			qdel(query_get_totals)
+			return
+		// Even if there aint a row, we can still assume the defaults of 0 above
+		if(query_get_totals.NextRow())
+			total_karma = query_get_totals.item[1]
+			spent_karma = query_get_totals.item[2]
+
+		qdel(query_get_totals)
+
+		// Now get their unlocks
+		var/datum/db_query/query_get_unlocks = SSdbcore.NewQuery("SELECT job, species FROM whitelist WHERE ckey=:ckey", list(
+			"ckey" = target_ckey
+		))
+		if(!query_get_unlocks.warn_execute())
+			qdel(query_get_unlocks)
+			return
+		if(query_get_unlocks.NextRow())
+			unlocked_jobs = query_get_unlocks.item[1]
+			unlocked_species = query_get_unlocks.item[2]
+
+		qdel(query_get_unlocks)
+
+		// Pack it into a dat
+		var/dat = {"
+		<ul>
+		<li>Total Karma: [total_karma]</li>
+		<li>Spent Karma: [spent_karma]</li>
+		<li>Available Karma: [total_karma - spent_karma]</li>
+		<li>Unlocked Jobs: [unlocked_jobs]</li>
+		<li>Unlocked Species: [unlocked_species]</li>
+		</ul>
+		"}
+
+		var/datum/browser/popup = new(usr, "view_karma", "Karma stats for [target_ckey]", 600, 300)
+		popup.set_content(dat)
+		popup.open(FALSE)
+	else if(href_list["who_advanced"])
+		usr.client.who_advanced()
+
+/client/proc/create_eventmob_for(mob/living/carbon/human/H, killthem = 0)
 	if(!check_rights(R_EVENT))
 		return
 	var/admin_outfits = subtypesof(/datum/outfit/admin)
@@ -3508,7 +3608,7 @@
 	tatorhud.join_hud(hunter_mob)
 	set_antag_hud(hunter_mob, "hudsyndicate")
 
-/proc/admin_jump_link(var/atom/target)
+/proc/admin_jump_link(atom/target)
 	if(!target) return
 	// The way admin jump links handle their src is weirdly inconsistent...
 

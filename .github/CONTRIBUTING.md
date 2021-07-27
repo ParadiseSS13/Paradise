@@ -354,12 +354,11 @@ This prevents nesting levels from getting deeper then they need to be.
 #### Spacing
 * Operators that should be separated by spaces
   * Boolean and logic operators like &&, || <, >, ==, etc (but not !)
-  * Bitwise AND &
+  * Bitwise AND & and OR |
   * Argument separator operators like , (and ; when used in a forloop)
   * Assignment operators like = or += or the like
   * Math operators like +, -, /, or \*
 * Operators that should not be separated by spaces
-  * Bitwise OR |
   * Access operators like . and :
   * Parentheses ()
   * logical not !
@@ -439,7 +438,18 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 
 * Player input must always be escaped safely, we recommend you use stripped_input in all cases where you would use input. Essentially, just always treat input from players as inherently malicious and design with that use case in mind
 
-* Calls to the database must be escaped properly - use sanitizeSQL to escape text based database entries from players or admins, and isnum() for number based database entries from players or admins.
+* Calls to the database must be escaped properly - use proper parameters (values starting with a :). You can then replace these with a list of parameters, and these will be properly escaped during the query, and prevent any SQL injection.
+	* Good:
+	```dm
+		var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey=:target_ckey", list(
+			"target_ckey" = target_ckey
+		)) // Note the use of parameters on the above line and :target_ckey in the query
+	```
+
+	* Bad:
+	```dm
+		var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey='[target_ckey]'")
+	```
 
 * All calls to topics must be checked for correctness. Topic href calls can be easily faked by clients, so you should ensure that the call is valid for the state the item is in. Do not rely on the UI code to provide only valid topic calls, because it won't.
 
@@ -457,18 +467,30 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 ### SQL
 * Do not use the shorthand sql insert format (where no column names are specified) because it unnecessarily breaks all queries on minor column changes and prevents using these tables for tracking outside related info such as in a connected site/forum.
 
+* Use parameters for queries (Mentioned above in) [###Develop Secure Code](###Develop Secure Code)
+
+* Always check your queries for success with if(!query.warn_execute()). By using this standard format, you can ensure the correct log messages are used
+
+* Always qdel() your queries after you are done with them, this cleans up the results and helps things run smoother
+
 * All changes to the database's layout(schema) must be specified in the database changelog in SQL, as well as reflected in the schema files
 
-* Any time the schema is changed the `DB_MAJOR_VERSION` defines must be incremented, as well as the example config, with an appropriate conversion kit placed
+* Any time the schema is changed the `SQL_VERSION` defines must be incremented, as well as the example config, with an appropriate conversion kit placed
 in the SQL/updates folder.
 
 * Queries must never specify the database, be it in code, or in text files in the repo.
 
 ### Mapping Standards
 * Map Merge
-  * You MUST run Map Merge prior to opening your PR when updating existing maps to minimize the change differences (even when using third party mapping programs such as FastDMM.)
-    * Failure to run Map Merge on a map after using third party mapping programs (such as FastDMM) greatly increases the risk of the map's key dictionary
-    becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
+  * The following guideline for map merging applies to people who are **NOT** using StrongDMM, please see the StrongDMM section if you are.
+    * You **MUST** run Map Merge prior to opening your PR when updating existing maps to minimize the change differences (even when using third party mapping programs such as FastDMM.)
+    * Failure to run Map Merge on a map after using third party mapping programs (such as FastDMM) greatly increases the risk of the map's key dictionary becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
+    
+* StrongDMM
+  * When using StrongDMM, the following options **MUST** be enabled to avoid file bloat. They can be found under `File > Preferences > Save Options` in SDMM.
+    * Map save format: This **MUST** be set to **TGM** if you do not want to run Map Merge. Enabling this setting means SDMM will automatically map merge, letting you skip manual merging.
+    * Sanitize Variables - Removes variables that are declared on the map, but are the same as default. (For example: A standard floor turf that has `dir = 2` declared on the map will have that variable deleted as it is redundant.)
+    * Clean Unused Keys - Removes content tile keys that are no longer used on the map, usually leftover keys from deletions or edits.
 
 * Variable Editing (Var-edits)
   * While var-editing an item within the editor is perfectly fine, it is preferred that when you are changing the base behavior of an item (how it functions) that you make a new subtype of that item within the code, especially if you plan to use the item in multiple locations on the same map, or across multiple maps. This makes it easier to make corrections as needed to all instances of the item at one time as opposed to having to find each instance of it and change them all individually.
@@ -476,9 +498,45 @@ in the SQL/updates folder.
   * Please attempt to clean out any dirty variables that may be contained within items you alter through var-editing. For example, due to how DM functions, changing the `pixel_x` variable from 23 to 0 will leave a dirty record in the map's code of `pixel_x = 0`. Likewise this can happen when changing an item's icon to something else and then back. This can lead to some issues where an item's icon has changed within the code, but becomes broken on the map due to it still attempting to use the old entry.
   * Areas should not be var-edited on a map to change it's name or attributes. All areas of a single type and it's altered instances are considered the same area within the code, and editing their variables on a map can lead to issues with powernets and event subsystems which are difficult to debug.
 
+* If you are making non-minor edits to an area or room, (non-minor being anything more than moving a few objects or fixing small bugs) then you should ensure the entire area/room meets these standards.
+
+* When making a change to an area or room, follow these guidelines:
+  * Unless absolutely necessary, do not run pipes (including disposals) under wall turfs.
+  * NEVER run cables under wall turfs.
+  * Keep floor turf variations to a minimum. Generally, more than 3 floor turf types in one room is bad design.
+  * Run air pipes together where possible. The first example below is to be avoided, the second is optimal:
+  
+    ![image](https://user-images.githubusercontent.com/12197162/120011088-d22c7400-bfd5-11eb-867f-7b137ac5b1b2.png) ![image](https://user-images.githubusercontent.com/12197162/120011126-dfe1f980-bfd5-11eb-96b2-c83238a9cdcf.png)
+  * Pipe layouts should be logical and predictable, easy to understand at a glance. Always avoid complex layouts like in this example: 
+    
+    ![image](https://user-images.githubusercontent.com/12197162/120619480-ecda6f00-c453-11eb-9d9f-abf0d1a99c34.png)
+
+  * Decals are to be used sparingly. Good map design does not require warning tape around everything. Decal overuse contributes to maptick slowdown.
+  * Every **area** should contain only one APC and air alarm.
+    * Critical infrastructure rooms (such as the engine, arrivals, and medbay areas) should be given an APC with a larger power cell.
+  * Every **room** should contain at least one fire alarm, air vent and scrubber, light switch, station intercom, and security camera.
+    * Intercoms should be set to frequency 145.9, and be speaker ON Microphone OFF. This is so radio signals can reach people even without headsets on. Larger room will require more than one at a time.
+    * Exceptions can be made to security camera placement for certain rooms, such as the execution room. Larger rooms may require more than one security camera. All security cameras should have a descriptive name that makes it easy to find on a camera console.
+      * A good example would be the template [Department name] - [Area], so Brig - Cell 1, or Medbay - Treatment Center. Consistency is key to good camera naming.
+    * Fire alarms should not be placed next to expected heat sources.
+    * Use the following "on" subtype of vents and scrubbers as opposed to var-editing: `/obj/machinery/atmospherics/unary/vent_scrubber/on` and `/obj/machinery/atmospherics/unary/vent_pump/on`
+  * Head of staff officers should contain a requests console.
+  * Firelocks should be used at area boundaries over doors and windows. Firelocks can also be used to break up hallways at reasonable intervals.
+    * Double firelocks are to be avoided unless absolutely necessary.
+    * Maintenance access doors should not have firelocks placed over them.
+  * Windows to secure areas or external areas should be reinforced. Windows in engine areas should be reinforced plasma glass.
+    * Windows in high security areas, such as the brig, bridge, and head of staff offices, should be electrified by placing a wire node under the window.
+  * Lights are to be used sparingly, they draw a significant amount of power.
+  * Ensure door and windoor access is correctly set, these are handled by the variables `req_access_txt` and `req_one_access_txt`. Public doors should have both of these values as `"0"`. For a list of access values, see [`code\__DEFINES\access.dm`](code/__DEFINES/access.dm).
+    * Always use numerical values encased in quotes for these variables. Multiple access values can be defined by separating them with a `;`, for example: `"28;31"` for kitchen AND cargo access.
+    * req_access_txt requires ALL LISTED ACCESSES to open the door, while req_one_access_txt lets anyone with ONE OF THE LISTED ACCESSES open the door.
+  * Departments should be connected to maintenance through a back or side door. This lets players escape and allows antags to break in.
+    * If this is not possible, departments should have extra entry and exit points.
+  * Engine areas, or areas with a high probability of receiving explosions, should use reinforced flooring if appropriate.
+  * External areas, or areas where depressurisation is expected and normal, should use airless turf variants to prevent additional atmospherics load.
+  * Edits in mapping tools should generally be possible to replicate in-game. For this reason, avoid stacking multiple structures on the same tile (i.e. placing a light and an APC on the same wall.)
 ### Other Notes
 * Code should be modular where possible; if you are working on a new addition, then strongly consider putting it in its own file unless it makes sense to put it with similar ones (i.e. a new tool would go in the "tools.dm" file)
-
 * Bloated code may be necessary to add a certain feature, which means there has to be a judgement over whether the feature is worth having or not. You can help make this decision easier by making sure your code is modular.
 
 * You are expected to help maintain the code that you add, meaning that if there is a problem then you are likely to be approached in order to fix any issues, runtimes, or bugs.

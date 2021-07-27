@@ -51,7 +51,7 @@
 	spawn(0)
 		current_beam.Start()
 
-	feedback_add_details("gun_fired","[type]")
+	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
 /obj/item/gun/medbeam/process()
 	var/source = loc
@@ -92,17 +92,17 @@
 				return 0
 		for(var/obj/effect/ebeam/medical/B in turf)// Don't cross the str-beams!
 			if(B.owner != current_beam)
-				turf.visible_message("<span class='boldwarning'>The medbeams cross and EXPLODE!</span>")
+				turf.visible_message("<span class='userdanger'>The medbeams cross and EXPLODE!</span>")
 				explosion(B.loc,0,3,5,8)
 				qdel(dummy)
 				return 0
 	qdel(dummy)
 	return 1
 
-/obj/item/gun/medbeam/proc/on_beam_hit(var/mob/living/target)
+/obj/item/gun/medbeam/proc/on_beam_hit(mob/living/target)
 	return
 
-/obj/item/gun/medbeam/proc/on_beam_tick(var/mob/living/target)
+/obj/item/gun/medbeam/proc/on_beam_tick(mob/living/target)
 	target.adjustBruteLoss(-4)
 	target.adjustFireLoss(-4)
 	if(ishuman(target))
@@ -111,7 +111,7 @@
 			if(prob(10))
 				E.mend_fracture()
 
-/obj/item/gun/medbeam/proc/on_beam_release(var/mob/living/target)
+/obj/item/gun/medbeam/proc/on_beam_release(mob/living/target)
 	return
 
 /obj/effect/ebeam/medical

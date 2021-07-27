@@ -25,6 +25,9 @@
 /obj/effect/acid_act()
 	return
 
+/obj/effect/proc/is_cleanable() //Called when you want to clean something, and usualy delete it after
+	return FALSE
+
 /obj/effect/mech_melee_attack(obj/mecha/M)
 	return 0
 
@@ -67,9 +70,6 @@
 	return
 
 /obj/effect/abstract/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	return
-
-/obj/effect/abstract/tesla_act(power)
 	return
 
 /obj/effect/abstract/singularity_act()

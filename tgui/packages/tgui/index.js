@@ -28,6 +28,7 @@ import './styles/themes/retro.scss';
 import './styles/themes/safe.scss';
 import './styles/themes/security.scss';
 import './styles/themes/syndicate.scss';
+import './styles/themes/nologo.scss';
 
 
 

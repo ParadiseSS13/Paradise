@@ -61,13 +61,9 @@
 		update_blind_effects()
 		update_sight()
 		updatehealth("update revive")
+		hud_used?.reload_fullscreen()
 
-	for(var/s in ownedSoullinks)
-		var/datum/soullink/S = s
-		S.ownerRevives(src)
-	for(var/s in sharedSoullinks)
-		var/datum/soullink/S = s
-		S.sharerRevives(src)
+	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, updating)
 
 	if(mind)
 		for(var/S in mind.spell_list)

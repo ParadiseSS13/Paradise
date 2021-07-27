@@ -47,7 +47,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centerstation/Initialize()
 	..()
 	update_icon()
-	wait = world.time + config.gateway_delay
+	wait = world.time + GLOB.configuration.gateway.away_mission_delay
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/gateway/centerstation/LateInitialize()
@@ -279,7 +279,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		if(M.client)
 			M.client.move_delay = max(world.time + 5, M.client.move_delay)
 
-/obj/machinery/gateway/centeraway/proc/exilecheck(var/mob/living/carbon/M)
+/obj/machinery/gateway/centeraway/proc/exilecheck(mob/living/carbon/M)
 	for(var/obj/item/implant/exile/E in M)//Checking that there is an exile implant in the contents
 		if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
 			to_chat(M, "<span class='notice'>The station gate has detected your exile implant and is blocking your entry.</span>")

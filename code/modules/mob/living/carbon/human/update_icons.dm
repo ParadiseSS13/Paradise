@@ -172,9 +172,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/husk_color_mod = rgb(96, 88, 80)
 	var/hulk_color_mod = rgb(48, 224, 40)
 
-	var/husk = (HUSK in mutations)
-	var/hulk = (HULK in mutations)
-	var/skeleton = (SKELETON in mutations)
+	var/husk = HAS_TRAIT(src, TRAIT_HUSK)
+	var/hulk = HAS_TRAIT(src, TRAIT_HULK)
+	var/skeleton = HAS_TRAIT(src, TRAIT_SKELETONIZED)
 
 	if(dna.species && dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 		dna.species.updatespeciescolor(src)
@@ -450,20 +450,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(gender == FEMALE)
 		g = "f"
 	// DNA2 - Drawing underlays.
-	for(var/datum/dna/gene/gene in GLOB.dna_genes)
-		if(!gene.block)
-			continue
-		if(gene.is_active(src))
-			var/underlay = gene.OnDrawUnderlays(src, g)
-			if(underlay)
-				standing.underlays += underlay
-				add_image = 1
-	for(var/mut in mutations)
-		switch(mut)
-			if(LASER)
-				standing.overlays += "lasereyes_s"
-				add_image = 1
-	if((COLDRES in mutations) && (HEATRES in mutations))
+	for(var/mutation_type in active_mutations)
+		var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
+		var/underlay = mutation.on_draw_underlays(src, g)
+		if(underlay)
+			standing.underlays += underlay
+			add_image = TRUE
+
+	if(HAS_TRAIT(src, TRAIT_LASEREYES))
+		standing.overlays += "lasereyes_s"
+		add_image = 1
+	if(dna.GetSEState(GLOB.fireblock) && dna.GetSEState(GLOB.coldblock))
 		standing.underlays -= "cold_s"
 		standing.underlays -= "fire_s"
 		standing.underlays += "coldfire_s"
@@ -475,7 +472,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/proc/update_mutantrace()
 //BS12 EDIT
-	var/skel = (SKELETON in mutations)
+	var/skel = HAS_TRAIT(src, TRAIT_SKELETONIZED)
 	if(skel)
 		skeleton = 'icons/mob/human_races/r_skeleton.dmi'
 	else
@@ -575,9 +572,22 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		standing.alpha = w_uniform.alpha
 		standing.color = w_uniform.color
 		overlays_standing[UNIFORM_LAYER] = standing
-	else
+	else if(!dna.species.nojumpsuit)
+		var/list/uniform_slots = list()
+		var/obj/item/organ/external/L = get_organ(BODY_ZONE_L_LEG)
+		if(!(L?.status & ORGAN_ROBOT))
+			uniform_slots += l_store
+		var/obj/item/organ/external/R = get_organ(BODY_ZONE_R_LEG)
+		if(!(R?.status & ORGAN_ROBOT))
+			uniform_slots += r_store
+		var/obj/item/organ/external/C = get_organ(BODY_ZONE_CHEST)
+		if(!(C?.status & ORGAN_ROBOT))
+			uniform_slots += wear_id
+			uniform_slots += wear_pda
+			uniform_slots += belt
+
 		// Automatically drop anything in store / id / belt if you're not wearing a uniform.	//CHECK IF NECESARRY
-		for(var/obj/item/thing in list(r_store, l_store, wear_id, wear_pda, belt))				// whoever made this
+		for(var/obj/item/thing in uniform_slots)												// whoever made this
 			if(thing)																			// you're a piece of fucking garbage
 				unEquip(thing)																	// why the fuck would you goddamn do this motherfucking shit
 				if(client)																		// INVENTORY CODE IN FUCKING ICON CODE
@@ -926,6 +936,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(wear_mask && (istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
 		if(!(slot_wear_mask in check_obscured_slots()))
 			var/obj/item/organ/external/head/head_organ = get_organ("head")
+			if(!head_organ)
+				return // Nothing to update here
 			var/datum/sprite_accessory/alt_heads/alternate_head
 			if(head_organ.alt_head && head_organ.alt_head != "None")
 				alternate_head = GLOB.alt_heads_list[head_organ.alt_head]
@@ -1298,9 +1310,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	return out
 
 /mob/living/carbon/human/proc/generate_icon_render_key()
-	var/husk = (HUSK in mutations)
-	var/hulk = (HULK in mutations)
-	var/skeleton = (SKELETON in mutations)
+	var/husk = HAS_TRAIT(src, TRAIT_HUSK)
+	var/hulk = HAS_TRAIT(src, TRAIT_HULK)
+	var/skeleton = HAS_TRAIT(src, TRAIT_SKELETONIZED)
 	var/g = dna.GetUITriState(DNA_UI_GENDER)
 	if(g == DNA_GENDER_PLURAL)
 		g = DNA_GENDER_FEMALE
@@ -1309,7 +1321,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
-		. += "[eyes.eye_colour]"
+		. += "[eyes.eye_color]"
 	else
 		. += "#000000"
 

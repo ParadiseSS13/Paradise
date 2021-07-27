@@ -8,14 +8,14 @@
 #define INVESTIGATE_DIR "data/investigate/"
 
 //SYSTEM
-/proc/investigate_subject2file(var/subject)
+/proc/investigate_subject2file(subject)
 	return file("[INVESTIGATE_DIR][subject].html")
 
 /proc/investigate_reset()
 	if(fdel(INVESTIGATE_DIR))	return 1
 	return 0
 
-/atom/proc/investigate_log(var/message, var/subject)
+/atom/proc/investigate_log(message, subject)
 	if(!message)	return
 	var/F = investigate_subject2file(subject)
 	if(!F)	return
@@ -43,7 +43,7 @@
 			watchlist_show()
 
 		if("hrefs")				//persistant logs and stuff
-			if(config && config.log_hrefs)
+			if(GLOB.configuration.logging.href_logging)
 				if(GLOB.world_href_log)
 					src << browse(file(GLOB.world_href_log), "window=investigate[subject];size=800x300")
 				else

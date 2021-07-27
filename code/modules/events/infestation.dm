@@ -80,20 +80,17 @@
 			spawn_types = list(/obj/structure/spider/spiderling)
 			max_number = 3
 			vermstring = "spiders"
+	var/amount_to_spawn = rand(2, max_number)
+	while(length(turfs) && amount_to_spawn > 0)
+		var/turf/simulated/floor/T = pick_n_take(turfs)
+		amount_to_spawn--
 
-	spawn(0)
-		var/num = rand(2,max_number)
-		while(turfs.len > 0 && num > 0)
-			var/turf/simulated/floor/T = pick(turfs)
-			turfs.Remove(T)
-			num--
-
-			if(vermin == VERM_SPIDERS)
-				var/obj/structure/spider/spiderling/S = new(T)
-				S.amount_grown = -1
-			else
-				var/spawn_type = pick(spawn_types)
-				new spawn_type(T)
+		if(vermin == VERM_SPIDERS)
+			var/obj/structure/spider/spiderling/S = new(T)
+			S.amount_grown = -1
+		else
+			var/spawn_type = pick(spawn_types)
+			new spawn_type(T)
 
 
 /datum/event/infestation/announce()

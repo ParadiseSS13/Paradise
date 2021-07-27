@@ -8,7 +8,7 @@
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
 	var/fire_sound = null						//What sound should play when this ammo is fired
-	var/drop_sound = "casingdrop"               //What sound should play when this ammo hits the ground
+	var/casing_drop_sound = "casingdrop"               //What sound should play when this ammo hits the ground
 	var/caliber = null							//Which kind of guns it can be loaded into
 	var/projectile_type = null					//The bullet type to create when New() is called
 	var/obj/item/projectile/BB = null 			//The loaded bullet
@@ -87,6 +87,13 @@
 			else
 				to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
 		..()
+
+/obj/item/ammo_casing/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!BB)
+		C.stored_comms["metal"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
 
 //Boxes of ammo
 /obj/item/ammo_box

@@ -11,30 +11,30 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_DRONE = 10, // High, because they're like mini engineering cyborgs that can ignore the AI, ventcrawl, and respawn themselves
 
 	// SOLO ANTAGS
-	ROLE_TRAITOR = 3,
-	ROLE_CHANGELING = 3,
-	ROLE_WIZARD = 3,
-	ROLE_VAMPIRE = 3,
-	ROLE_BLOB = 3,
+	ROLE_TRAITOR = 5,
+	ROLE_CHANGELING = 5,
+	ROLE_WIZARD = 20,
+	ROLE_VAMPIRE = 5,
+	ROLE_BLOB = 20,
 	ROLE_REVENANT = 3,
 	ROLE_BORER = 3,
-	ROLE_NINJA = 3,
-	ROLE_MORPH = 3,
-	ROLE_DEMON = 3,
+	ROLE_NINJA = 20,
+	ROLE_MORPH = 5,
+	ROLE_DEMON = 5,
 
 	// DUO ANTAGS
-	ROLE_GUARDIAN = 5,
+	ROLE_GUARDIAN = 20,
 	ROLE_GSPIDER = 5,
 
 	// TEAM ANTAGS
 	// Higher numbers here, because they require more experience to be played correctly
-	ROLE_SHADOWLING = 10,
+	ROLE_SHADOWLING = 20,
 	ROLE_REV = 10,
-	ROLE_OPERATIVE = 10,
-	ROLE_CULTIST = 10,
+	ROLE_OPERATIVE = 20,
+	ROLE_CULTIST = 20,
 	ROLE_RAIDER = 10,
 	ROLE_ALIEN = 10,
-	ROLE_ABDUCTOR = 10,
+	ROLE_ABDUCTOR = 20,
 ))
 
 // Client Verbs
@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	set category = "Special Verbs"
 	set name = "Check my playtime"
 
-	if(!config.use_exp_tracking)
+	if(!GLOB.configuration.jobs.enable_exp_tracking)
 		to_chat(src, "<span class='warning'>Playtime tracking is not enabled.</span>")
 		return
 
@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	src << browse(msg, "window=Player_playtime_check")
 
 
-/datum/admins/proc/cmd_mentor_show_exp_panel(var/client/C)
+/datum/admins/proc/cmd_mentor_show_exp_panel(client/C)
 	if(!C)
 		to_chat(usr, "ERROR: Client not found.")
 		return
@@ -105,9 +105,9 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		return 0
 	if(!role)
 		return 0
-	if(!config.use_exp_restrictions)
+	if(!GLOB.configuration.jobs.enable_exp_restrictions)
 		return 0
-	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, C.mob))
+	if(GLOB.configuration.jobs.enable_exp_admin_bypass && check_rights(R_ADMIN, 0, C.mob))
 		return 0
 	var/list/play_records = params2list(C.prefs.exp)
 	var/isexempt = text2num(play_records[EXP_TYPE_EXEMPT])
@@ -128,9 +128,9 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		return 0
 	if(!exp_requirements || !exp_type)
 		return 0
-	if(!config.use_exp_restrictions)
+	if(!GLOB.configuration.jobs.enable_exp_restrictions)
 		return 0
-	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, C.mob))
+	if(GLOB.configuration.jobs.enable_exp_admin_bypass && check_rights(R_ADMIN, 0, C.mob))
 		return 0
 	var/list/play_records = params2list(C.prefs.exp)
 	var/isexempt = text2num(play_records[EXP_TYPE_EXEMPT])
@@ -156,7 +156,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		return "[src] has no client."
 
 /client/proc/get_exp_report()
-	if(!config.use_exp_tracking)
+	if(!GLOB.configuration.jobs.enable_exp_tracking)
 		return "Tracking is disabled in the server configuration file."
 	var/list/play_records = params2list(prefs.exp)
 	if(!play_records.len)
@@ -174,10 +174,10 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 				return_text += "<LI>Exempt (all jobs auto-unlocked)</LI>"
 			else if(exp_data[EXP_TYPE_LIVING] > 0)
 				return_text += "<LI>[dep]: [get_exp_format(exp_data[dep])]</LI>"
-	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, mob))
+	if(GLOB.configuration.jobs.enable_exp_admin_bypass && check_rights(R_ADMIN, 0, mob))
 		return_text += "<LI>Admin</LI>"
 	return_text += "</UL>"
-	if(config.use_exp_restrictions)
+	if(GLOB.configuration.jobs.enable_exp_restrictions)
 		var/list/jobs_locked = list()
 		var/list/jobs_unlocked = list()
 		for(var/datum/job/job in SSjobs.occupations)
@@ -197,10 +197,10 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 			return_text += "</LI></UL>"
 	return return_text
 
-/client/proc/get_exp_type(var/etype)
+/client/proc/get_exp_type(etype)
 	return get_exp_format(get_exp_type_num(etype))
 
-/client/proc/get_exp_type_num(var/etype)
+/client/proc/get_exp_type_num(etype)
 	var/list/play_records = params2list(prefs.exp)
 	return text2num(play_records[etype])
 
@@ -216,7 +216,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	return result_text.Join("")
 
 
-/proc/get_exp_format(var/expnum)
+/proc/get_exp_format(expnum)
 	if(expnum > 60)
 		return num2text(round(expnum / 60)) + "h"
 	else if(expnum > 0)
@@ -224,79 +224,3 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	else
 		return "none"
 
-/proc/update_exp(mins = 0, ann = 0)
-	if(!GLOB.dbcon.IsConnected())
-		return
-	for(var/client/L in GLOB.clients)
-		if(L.inactivity >= (10 MINUTES))
-			continue
-		L.update_exp_client(mins, ann)
-		CHECK_TICK
-
-/client/proc/update_exp_client(minutes = 0, announce_changes = 0)
-	if(!src || !ckey || !GLOB.dbcon.IsConnected())
-		return
-	var/DBQuery/exp_read = GLOB.dbcon.NewQuery("SELECT exp FROM [format_table_name("player")] WHERE ckey='[ckey]'")
-	if(!exp_read.Execute())
-		var/err = exp_read.ErrorMsg()
-		log_game("SQL ERROR during exp_update_client read. Error : \[[err]\]\n")
-		message_admins("SQL ERROR during exp_update_client read. Error : \[[err]\]\n")
-		return
-	var/list/read_records = list()
-	var/hasread = 0
-	while(exp_read.NextRow())
-		read_records = params2list(exp_read.item[1])
-		hasread = 1
-	if(!hasread)
-		return
-	var/list/play_records = list()
-	for(var/rtype in GLOB.exp_jobsmap)
-		if(text2num(read_records[rtype]))
-			play_records[rtype] = text2num(read_records[rtype])
-		else
-			play_records[rtype] = 0
-	var/myrole
-	if(mob.mind)
-		if(mob.mind.playtime_role)
-			myrole = mob.mind.playtime_role
-		else if(mob.mind.assigned_role)
-			myrole = mob.mind.assigned_role
-	var/added_living = 0
-	var/added_ghost = 0
-	if(mob.stat == CONSCIOUS && myrole)
-		play_records[EXP_TYPE_LIVING] += minutes
-		added_living += minutes
-		if(announce_changes)
-			to_chat(mob,"<span class='notice'>You got: [minutes] Living EXP!")
-		for(var/category in GLOB.exp_jobsmap)
-			if(GLOB.exp_jobsmap[category]["titles"])
-				if(myrole in GLOB.exp_jobsmap[category]["titles"])
-					play_records[category] += minutes
-					if(announce_changes)
-						to_chat(mob,"<span class='notice'>You got: [minutes] [category] EXP!")
-		if(mob.mind.special_role)
-			play_records[EXP_TYPE_SPECIAL] += minutes
-			if(announce_changes)
-				to_chat(mob,"<span class='notice'>You got: [minutes] Special EXP!")
-	else if(isobserver(mob))
-		play_records[EXP_TYPE_GHOST] += minutes
-		added_ghost += minutes
-		if(announce_changes)
-			to_chat(mob,"<span class='notice'>You got: [minutes] Ghost EXP!")
-	else
-		return
-	var/new_exp = list2params(play_records)
-	prefs.exp = new_exp
-	new_exp = sanitizeSQL(new_exp)
-	var/DBQuery/update_query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("player")] SET exp = '[new_exp]',lastseen = Now() WHERE ckey='[ckey]'")
-	if(!update_query.Execute())
-		var/err = update_query.ErrorMsg()
-		log_game("SQL ERROR during exp_update_client write 1. Error : \[[err]\]\n")
-		message_admins("SQL ERROR during exp_update_client write 1. Error : \[[err]\]\n")
-		return
-	var/DBQuery/update_query_history = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("playtime_history")] (ckey, date, time_living, time_ghost) VALUES ('[ckey]',CURDATE(),[added_living],[added_ghost]) ON DUPLICATE KEY UPDATE time_living=time_living+VALUES(time_living),time_ghost=time_ghost+VALUES(time_ghost)")
-	if(!update_query_history.Execute())
-		var/err = update_query_history.ErrorMsg()
-		log_game("SQL ERROR during exp_update_client write 2. Error : \[[err]\]\n")
-		message_admins("SQL ERROR during exp_update_client write 2. Error : \[[err]\]\n")
-		return

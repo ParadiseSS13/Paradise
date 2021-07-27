@@ -31,8 +31,8 @@
 	. = ..()
 	. += "<span class='notice'>Alt-click to rotate it clockwise.</span>"
 
-/obj/structure/windoor_assembly/New(loc, set_dir)
-	..()
+/obj/structure/windoor_assembly/Initialize(mapload, set_dir)
+	. = ..()
 	if(set_dir)
 		dir = set_dir
 	ini_dir = dir
@@ -131,7 +131,7 @@
 
 		if("02")
 			//Adding airlock electronics for access. Step 6 complete.
-			if(istype(W, /obj/item/airlock_electronics))
+			if(istype(W, /obj/item/airlock_electronics) && !istype(W, /obj/item/airlock_electronics/destroyed))
 				playsound(loc, W.usesound, 100, 1)
 				user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly...")
 				user.drop_item()
@@ -148,12 +148,9 @@
 					W.forceMove(loc)
 
 			else if(istype(W, /obj/item/pen))
-				var/t = stripped_input(user, "Enter the name for the door.", name, created_name,MAX_NAME_LEN)
-				if(!t)
-					return
-				if(!in_range(src, usr) && loc != usr)
-					return
-				created_name = t
+				var/t = rename_interactive(user, W)
+				if(!isnull(t))
+					created_name = t
 				return
 			else
 				return ..()

@@ -77,7 +77,7 @@
 	wizhud.leave_hud(wiz_mind.current)
 	set_antag_hud(wiz_mind.current, null)
 
-/datum/game_mode/proc/forge_wizard_objectives(var/datum/mind/wizard)
+/datum/game_mode/proc/forge_wizard_objectives(datum/mind/wizard)
 	var/datum/objective/wizchaos/wiz_objective = new
 	wiz_objective.owner = wizard
 	wizard.objectives += wiz_objective
@@ -98,7 +98,7 @@
 	if(wizard_mob.mind)
 		wizard_mob.mind.name = newname
 
-/datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
+/datum/game_mode/proc/greet_wizard(datum/mind/wizard, you_are=1)
 	addtimer(CALLBACK(wizard.current, /mob/.proc/playsound_local, null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
 	if(you_are)
 		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
@@ -108,17 +108,8 @@
 	for(var/datum/objective/objective in wizard.objectives)
 		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
+	to_chat(wizard.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Wizard)</span>")
 	return
-
-/*/datum/game_mode/proc/learn_basic_spells(mob/living/carbon/human/wizard_mob)
-	if(!istype(wizard_mob))
-		return
-	if(!config.feature_object_spell_system)
-		wizard_mob.verbs += /client/proc/jaunt
-		wizard_mob.mind.special_verbs += /client/proc/jaunt
-	else
-		wizard_mob.spell_list += new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(usr)
-*/
 
 /datum/game_mode/proc/equip_wizard(mob/living/carbon/human/wizard_mob)
 	if(!istype(wizard_mob))
@@ -198,9 +189,9 @@
 		finished = 1
 		return 1
 
-/datum/game_mode/wizard/declare_completion(var/ragin = 0)
+/datum/game_mode/wizard/declare_completion(ragin = 0)
 	if(finished && !ragin)
-		feedback_set_details("round_end_result","wizard loss - wizard killed")
+		SSticker.mode_result = "wizard loss - wizard killed"
 		to_chat(world, "<span class='warning'><FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
 	..()
 	return 1
@@ -228,19 +219,19 @@
 			for(var/datum/objective/objective in wizard.objectives)
 				if(objective.check_completion())
 					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
-					feedback_add_details("wizard_objective","[objective.type]|SUCCESS")
+					SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
 					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
-					feedback_add_details("wizard_objective","[objective.type]|FAIL")
+					SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "FAIL"))
 					wizardwin = 0
 				count++
 
 			if(wizard.current && wizard.current.stat!=DEAD && wizardwin)
 				text += "<br><font color='green'><B>The wizard was successful!</B></font>"
-				feedback_add_details("wizard_success","SUCCESS")
+				SSblackbox.record_feedback("tally", "wizard_success", 1, "SUCCESS")
 			else
 				text += "<br><font color='red'><B>The wizard has failed!</B></font>"
-				feedback_add_details("wizard_success","FAIL")
+				SSblackbox.record_feedback("tally", "wizard_success", 1, "FAIL")
 			if(wizard.spell_list)
 				text += "<br><B>[wizard.name] used the following spells: </B>"
 				var/i = 1

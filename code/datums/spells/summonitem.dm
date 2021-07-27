@@ -12,7 +12,8 @@
 	include_user = 1
 
 	var/obj/marked_item
-
+	/// List of objects which will result in the spell stopping with the recursion search
+	var/static/list/blacklisted_summons = list(/obj/machinery/computer/cryopod = TRUE, /obj/machinery/atmospherics = TRUE, /obj/structure/disposalholder = TRUE, /obj/machinery/disposal = TRUE)
 	action_icon_state = "summons"
 
 /obj/effect/proc_holder/spell/targeted/summonitem/cast(list/targets, mob/user = usr)
@@ -79,7 +80,7 @@
 							var/obj/item/organ/external/part = X
 							if(item_to_retrieve in part.embedded_objects)
 								part.embedded_objects -= item_to_retrieve
-								to_chat(C, "<span class='warning'>The [item_to_retrieve] that was embedded in your [part] has mysteriously vanished. How fortunate!</span>")
+								to_chat(C, "<span class='warning'>\The [item_to_retrieve] that was embedded in your [part] has mysteriously vanished. How fortunate!</span>")
 								if(!C.has_embedded_objects())
 									C.clear_alert("embeddedobject")
 								break
@@ -89,7 +90,7 @@
 						var/obj/machinery/portable_atmospherics/P = item_to_retrieve.loc
 						P.disconnect()
 						P.update_icon()
-					if(istype(item_to_retrieve.loc, /obj/structure/disposalholder) || istype(item_to_retrieve.loc, /obj/machinery/disposal))//fixes the breaking of disposals. No more bluespace connected disposal bins!
+					if(is_type_in_typecache(item_to_retrieve.loc, blacklisted_summons))
 						break
 					item_to_retrieve = item_to_retrieve.loc
 
@@ -98,7 +99,7 @@
 			if(!item_to_retrieve)
 				return
 
-			item_to_retrieve.loc.visible_message("<span class='warning'>The [item_to_retrieve.name] suddenly disappears!</span>")
+			item_to_retrieve.loc.visible_message("<span class='warning'>\The [item_to_retrieve] suddenly disappears!</span>")
 
 
 			if(target.hand) //left active hand
@@ -111,10 +112,10 @@
 						butterfingers = 1
 			if(butterfingers)
 				item_to_retrieve.loc = target.loc
-				item_to_retrieve.loc.visible_message("<span class='caution'>The [item_to_retrieve.name] suddenly appears!</span>")
+				item_to_retrieve.loc.visible_message("<span class='caution'>\The [item_to_retrieve] suddenly appears!</span>")
 				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
 			else
-				item_to_retrieve.loc.visible_message("<span class='caution'>The [item_to_retrieve.name] suddenly appears in [target]'s hand!</span>")
+				item_to_retrieve.loc.visible_message("<span class='caution'>\The [item_to_retrieve] suddenly appears in [target]'s hand!</span>")
 				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
 
 		if(message)

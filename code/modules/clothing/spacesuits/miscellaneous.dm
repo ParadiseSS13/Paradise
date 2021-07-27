@@ -29,7 +29,7 @@
 	icon_state = "caparmor"
 	item_state = "capspacesuit"
 	w_class = WEIGHT_CLASS_BULKY
-	allowed = list(/obj/item/tank, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
+	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 50, "energy" = 25, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 	species_restricted = list("exclude", "Wryn")
 
@@ -57,7 +57,7 @@
 	desc = "A heavily armored, advanced space suit that protects against most forms of damage."
 	icon_state = "deathsquad"
 	item_state = "swat_suit"
-	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank,/obj/item/kitchen/knife/combat)
+	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals,/obj/item/kitchen/knife/combat)
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -70,7 +70,7 @@
 	desc = "Space-proof tactical SWAT armor."
 	icon_state = "heavy"
 	item_state = "swat_suit"
-	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank,/obj/item/kitchen/knife/combat)
+	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals,/obj/item/kitchen/knife/combat)
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 30, "bomb" = 50, "bio" = 90, "rad" = 20, "fire" = 100, "acid" = 100)
 	strip_delay = 120
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -81,7 +81,7 @@
 		)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
-	name = "officer's beret"
+	name = "officer beret"
 	desc = "An armored beret commonly used by special operations officers."
 	icon_state = "beret_officer"
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
@@ -150,7 +150,7 @@
 	icon_state = "pirate"
 	item_state = "pirate"
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank)
+	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
 	slowdown = 0
 	armor = list("melee" = 30, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 60, "acid" = 75)
 	strip_delay = 40
@@ -158,7 +158,7 @@
 
 //Paramedic EVA suit
 /obj/item/clothing/head/helmet/space/eva/paramedic
-	name = "Paramedic EVA helmet"
+	name = "paramedic EVA helmet"
 	desc = "A brand new paramedic EVA helmet. It seems to mold to your head shape. Used for retrieving bodies in space."
 	icon_state = "paramedic-eva-helmet"
 	item_state = "paramedic-eva-helmet"
@@ -179,7 +179,7 @@
 		)
 
 /obj/item/clothing/suit/space/eva/paramedic
-	name = "Paramedic EVA suit"
+	name = "paramedic EVA suit"
 	icon_state = "paramedic-eva"
 	item_state = "paramedic-eva"
 	desc = "A brand new paramedic EVA suit. The nitrile seems a bit too thin to be space proof. Used for retrieving bodies in space."
@@ -242,7 +242,7 @@
 
 //Mime's Hardsuit
 /obj/item/clothing/head/helmet/space/eva/mime
-	name = "mime eva helmet"
+	name = "mime EVA helmet"
 //	icon = 'spaceciv.dmi'
 	desc = ". . ."
 	icon_state = "spacemimehelmet"
@@ -253,7 +253,7 @@
 	sprite_sheets_obj = null
 
 /obj/item/clothing/suit/space/eva/mime
-	name = "mime eva suit"
+	name = "mime EVA suit"
 //	icon = 'spaceciv.dmi'
 	desc = ". . ."
 	icon_state = "spacemime_suit"
@@ -264,7 +264,7 @@
 	sprite_sheets_obj = null
 
 /obj/item/clothing/head/helmet/space/eva/clown
-	name = "clown eva helmet"
+	name = "clown EVA helmet"
 //	icon = 'spaceciv.dmi'
 	desc = "An EVA helmet specifically designed for the clown. SPESSHONK!"
 	icon_state = "clownhelmet"
@@ -275,7 +275,7 @@
 	sprite_sheets_obj = null
 
 /obj/item/clothing/suit/space/eva/clown
-	name = "clown eva suit"
+	name = "clown EVA suit"
 //	icon = 'spaceciv.dmi'
 	desc = "An EVA suit specifically designed for the clown. SPESSHONK!"
 	icon_state = "spaceclown_suit"

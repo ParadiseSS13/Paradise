@@ -94,7 +94,7 @@
 	smoke.set_up(amount, 0, drop_location())
 	smoke.start()
 
-/obj/item/dice/d20/fate/proc/effect(var/mob/living/carbon/human/user, roll)
+/obj/item/dice/d20/fate/proc/effect(mob/living/carbon/human/user, roll)
 	var/turf/T = get_turf(src)
 	switch(roll)
 		if(1)
@@ -114,7 +114,7 @@
 			//Destroy Equipment
 			T.visible_message("<span class='userdanger'>Everything [user] is holding and wearing disappears!</span>")
 			for(var/obj/item/I in user)
-				if(istype(I, /obj/item/implant) || istype(I, /obj/item/organ))
+				if(istype(I, /obj/item/implant))
 					continue
 				qdel(I)
 		if(5)
@@ -217,9 +217,8 @@
 		if(19)
 			//Instrinct Resistance
 			T.visible_message("<span class='userdanger'>[user] looks very robust!</span>")
-			var/datum/species/S = user.dna.species
-			S.brute_mod *= 0.5
-			S.burn_mod *= 0.5
+			user.physiology.brute_mod *= 0.5
+			user.physiology.burn_mod *= 0.5
 
 		if(20)
 			//Free wizard!

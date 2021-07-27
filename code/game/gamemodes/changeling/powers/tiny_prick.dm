@@ -37,7 +37,7 @@
 	if(mind && mind.changeling && mind.changeling.chosen_sting)
 		mind.changeling.chosen_sting.unset_sting(src)
 
-/datum/action/changeling/sting/can_sting(var/mob/user, var/mob/target)
+/datum/action/changeling/sting/can_sting(mob/user, mob/target)
 	if(!..())
 		return
 	if(!user.mind.changeling.chosen_sting)
@@ -57,7 +57,7 @@
 		return
 	return 1
 
-/datum/action/changeling/sting/sting_feedback(var/mob/user, var/mob/target)
+/datum/action/changeling/sting/sting_feedback(mob/user, mob/target)
 	if(!target)
 		return
 	to_chat(user, "<span class='notice'>We stealthily sting [target.name].</span>")
@@ -91,20 +91,20 @@
 		return
 	..()
 
-/datum/action/changeling/sting/transformation/can_sting(var/mob/user, var/mob/target)
+/datum/action/changeling/sting/transformation/can_sting(mob/user, mob/target)
 	if(!..())
 		return
-	if((HUSK in target.mutations) || (!ishuman(target)))
+	if(HAS_TRAIT(target, TRAIT_HUSK) || !ishuman(target) || (NOTRANSSTING in target.dna.species.species_traits))
 		to_chat(user, "<span class='warning'>Our sting appears ineffective against its DNA.</span>")
 		return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(NO_DNA in H.dna.species.species_traits)
+		if(HAS_TRAIT(H, TRAIT_GENELESS))
 			to_chat(user, "<span class='warning'>This won't work on a creature without DNA.</span>")
 			return FALSE
 	return TRUE
 
-/datum/action/changeling/sting/transformation/sting_action(var/mob/user, var/mob/target)
+/datum/action/changeling/sting/transformation/sting_action(mob/user, mob/target)
 	add_attack_logs(user, target, "Transformation sting (changeling) (new identity is [selected_dna.real_name])")
 	if(issmall(target))
 		to_chat(user, "<span class='notice'>Our genes cry out as we sting [target.name]!</span>")
@@ -117,7 +117,7 @@
 
 	spawn(10)
 		transform_dna(target,selected_dna)//target is always human so no problem here
-	feedback_add_details("changeling_powers","TS")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 /datum/action/changeling/sting/extract_dna
@@ -129,15 +129,15 @@
 	chemical_cost = 25
 	dna_cost = 0
 
-/datum/action/changeling/sting/extract_dna/can_sting(var/mob/user, var/mob/target)
+/datum/action/changeling/sting/extract_dna/can_sting(mob/user, mob/target)
 	if(..())
 		return user.mind.changeling.can_absorb_dna(user, target)
 
-/datum/action/changeling/sting/extract_dna/sting_action(var/mob/user, var/mob/living/carbon/human/target)
+/datum/action/changeling/sting/extract_dna/sting_action(mob/user, mob/living/carbon/human/target)
 	add_attack_logs(user, target, "Extraction sting (changeling)")
 	if(!(user.mind.changeling.has_dna(target.dna)))
 		user.mind.changeling.absorb_dna(target, user)
-	feedback_add_details("changeling_powers","ED")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
 /datum/action/changeling/sting/mute
@@ -149,10 +149,10 @@
 	chemical_cost = 20
 	dna_cost = 2
 
-/datum/action/changeling/sting/mute/sting_action(var/mob/user, var/mob/living/carbon/target)
+/datum/action/changeling/sting/mute/sting_action(mob/user, mob/living/carbon/target)
 	add_attack_logs(user, target, "Mute sting (changeling)")
 	target.AdjustSilence(30)
-	feedback_add_details("changeling_powers","MS")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
 /datum/action/changeling/sting/blind
@@ -164,13 +164,13 @@
 	chemical_cost = 25
 	dna_cost = 1
 
-/datum/action/changeling/sting/blind/sting_action(var/mob/living/user, var/mob/living/target)
+/datum/action/changeling/sting/blind/sting_action(mob/living/user, mob/living/target)
 	add_attack_logs(user, target, "Blind sting (changeling)")
 	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
-	target.BecomeNearsighted()
+	target.become_nearsighted(EYE_DAMAGE)
 	target.EyeBlind(20)
 	target.EyeBlurry(40)
-	feedback_add_details("changeling_powers","BS")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
 /datum/action/changeling/sting/LSD
@@ -182,12 +182,12 @@
 	chemical_cost = 10
 	dna_cost = 1
 
-/datum/action/changeling/sting/LSD/sting_action(var/mob/user, var/mob/living/carbon/target)
+/datum/action/changeling/sting/LSD/sting_action(mob/user, mob/living/carbon/target)
 	add_attack_logs(user, target, "LSD sting (changeling)")
 	spawn(rand(300,600))
 		if(target)
 			target.Hallucinate(400)
-	feedback_add_details("changeling_powers","HS")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
 /datum/action/changeling/sting/cryo //Enable when mob cooling is fixed so that frostoil actually makes you cold, instead of mostly just hungry.
@@ -199,10 +199,10 @@
 	chemical_cost = 15
 	dna_cost = 2
 
-/datum/action/changeling/sting/cryo/sting_action(var/mob/user, var/mob/target)
+/datum/action/changeling/sting/cryo/sting_action(mob/user, mob/target)
 	add_attack_logs(user, target, "Cryo sting (changeling)")
 	if(target.reagents)
 		target.reagents.add_reagent("frostoil", 30)
 		target.reagents.add_reagent("ice", 30)
-	feedback_add_details("changeling_powers","CS")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

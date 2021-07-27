@@ -27,11 +27,15 @@
 /datum/action/innate/cult/comm/proc/cultist_commune(mob/living/user, message)
 	if(!user || !message)
 		return
+
+	if(user.holy_check())
+		return
+
 	if(!user.can_speak())
 		to_chat(user, "<span class='warning'>You can't speak!</span>")
 		return
 
-	if((MUTE in user.mutations) || user.mind.miming) //Under vow of silence/mute?
+	if(HAS_TRAIT(user, TRAIT_MUTE) || user.mind.miming) //Under vow of silence/mute?
 		user.visible_message("<span class='notice'>[user] appears to whisper to themselves.</span>",
 		"<span class='notice'>You begin to whisper to yourself.</span>") //Make them do *something* abnormal.
 		sleep(10)

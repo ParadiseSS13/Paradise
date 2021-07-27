@@ -4,6 +4,8 @@
 	anchored = 1
 	density = 1
 	layer = BELOW_OBJ_LAYER
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	var/state = GIRDER_NORMAL
 	var/girderpasschance = 20 // percentage chance that a projectile passes through the girder.
 	max_integrity = 200
@@ -25,6 +27,11 @@
 			. += "<span class='notice'>The bolts are <i>loosened</i>, but the <b>screws</b> are holding [src] together.</span>"
 		if(GIRDER_DISASSEMBLED)
 			. += "<span class='notice'>[src] is disassembled! You probably shouldn't be able to see this examine message.</span>"
+
+/obj/structre/girder/detailed_examine()
+	return "Use metal sheets on this to build a normal wall. Adding plasteel instead will make a reinforced wall.<br>\
+			A false wall can be made by using a crowbar on this girder, and then adding metal or plasteel.<br>\
+			You can dismantle the girder with a wrench."
 
 /obj/structure/girder/proc/refundMetal(metalAmount) //refunds metal used in construction when deconstructed
 	for(var/i=0;i < metalAmount;i++)
@@ -403,6 +410,9 @@
 	girderpasschance = 0
 	max_integrity = 350
 
+/obj/structure/girder/reinforced/detailed_examine()
+	return "Add another sheet of plasteel to finish."
+
 /obj/structure/girder/cult
 	name = "runed girder"
 	desc = "Framework made of a strange and shockingly cold metal. It doesn't seem to have any bolts."
@@ -412,7 +422,7 @@
 	metalUsed = 1
 	metal_type = /obj/item/stack/sheet/runed_metal
 
-/obj/structure/girder/cult/New()
+/obj/structure/girder/cult/Initialize(mapload)
 	. = ..()
 	icon_state = SSticker.cultdat?.cult_girder_icon_state
 

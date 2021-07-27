@@ -6,6 +6,7 @@
 	icon_living = "syndicate"
 	icon_dead = "syndicate_dead" // Does not actually exist. del_on_death.
 	icon_gib = "syndicate_gib" // Does not actually exist. del_on_death.
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes the"
@@ -27,6 +28,7 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier)
 	del_on_death = 1
 	sentience_type = SENTIENCE_OTHER
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 ///////////////Sword and shield////////////
 
@@ -43,12 +45,12 @@
 	var/melee_block_chance = 20
 	var/ranged_block_chance = 35
 
-/mob/living/simple_animal/hostile/syndicate/melee/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/mob/living/simple_animal/hostile/syndicate/melee/attackby(obj/item/O as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	if(O.force)
 		if(prob(melee_block_chance))
-			visible_message("<span class='boldwarning'>[src] blocks the [O] with its shield! </span>")
+			visible_message("<span class='boldwarning'>[src] blocks [O] with its shield! </span>")
 		else
 			var/damage = O.force
 			if(O.damtype == STAMINA)
@@ -57,14 +59,14 @@
 				visible_message("<span class='boldwarning'>[src] is unharmed by [O]!</span>")
 				return
 			adjustHealth(damage)
-			visible_message("<span class='boldwarning'>[src] has been attacked with the [O] by [user]. </span>")
+			visible_message("<span class='boldwarning'>[src] has been attacked with [O] by [user]. </span>")
 		playsound(loc, O.hitsound, 25, 1, -1)
 	else
 		to_chat(usr, "<span class='warning'>This weapon is ineffective, it does no damage.</span>")
-		visible_message("<span class='warning'>[user] gently taps [src] with the [O]. </span>")
+		visible_message("<span class='warning'>[user] gently taps [src] with [O]. </span>")
 
 
-/mob/living/simple_animal/hostile/syndicate/melee/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)
 		return
 	if(prob(ranged_block_chance))
@@ -102,11 +104,10 @@
 	var/shield_key = FALSE
 	var/turf/spawn_turf
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/New()
-	..()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/Initialize(mapload)
+	. = ..()
 	name = "[name] [pick(GLOB.last_names)]"
-	// Do not attempt to move this code to Initialize() or LateInitialize(). Doing so with other objects has caused bugs in the past, because assigning "depotarea" may not work there.
-	depotarea = areaMaster
+	depotarea = get_area(src)
 	spawn_turf = get_turf(src)
 
 
@@ -186,11 +187,11 @@
 	else
 		scan_cycles++
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/AIShouldSleep(var/list/possible_targets)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/AIShouldSleep(list/possible_targets)
 	FindTarget(possible_targets, 1)
 	return FALSE
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/proc/raise_alert(var/reason)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/proc/raise_alert(reason)
 	if(istype(depotarea) && (!raised_alert || seen_revived_enemy) && !depotarea.used_self_destruct)
 		raised_alert = TRUE
 		say("Intruder!")
@@ -299,7 +300,7 @@
 	wander = 0
 	alert_on_spacing = FALSE
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
 
@@ -313,7 +314,7 @@
 	speed = 1
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
 
-/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
 
@@ -337,7 +338,7 @@
 	speed = 1
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/gun/projectile/automatic/c20r)
 
-/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib
@@ -351,6 +352,7 @@
 	icon_living = "viscerator_attack"
 	pass_flags = PASSTABLE | PASSMOB
 	a_intent = INTENT_HARM
+	mob_biotypes = MOB_ROBOTIC
 	health = 15
 	maxHealth = 15
 	obj_damage = 0

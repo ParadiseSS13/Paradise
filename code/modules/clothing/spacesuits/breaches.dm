@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(breach_burn_descriptors, list(
 		descriptor = GLOB.breach_brute_descriptors[class]
 
 //Repair a certain amount of brute or burn damage to the suit.
-/obj/item/clothing/suit/space/proc/repair_breaches(var/damtype, var/amount, var/mob/user)
+/obj/item/clothing/suit/space/proc/repair_breaches(damtype, amount, mob/user)
 
 	if(!can_breach || !breaches || !breaches.len || !damage)
 		to_chat(user, "There are no breaches to repair on \the [src].")
@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(breach_burn_descriptors, list(
 	user.visible_message("<b>[user]</b> patches some of the damage on \the [src].")
 	calc_breach_damage()
 
-/obj/item/clothing/suit/space/proc/create_breaches(var/damtype, var/amount)
+/obj/item/clothing/suit/space/proc/create_breaches(damtype, amount)
 
 	if(!can_breach || !amount)
 		return

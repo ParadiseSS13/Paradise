@@ -80,8 +80,7 @@
 	if(powered())
 		stat &= ~NOPOWER
 	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
+		stat |= NOPOWER
 	update_icon()
 
 /obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
@@ -89,7 +88,7 @@
 		return
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't use the [name] while it's panel is opened!</span>")
+		to_chat(user, "<span class='warning'>You can't use [src] while it's panel is opened!</span>")
 		return TRUE
 
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
@@ -338,7 +337,7 @@
 							COLOR_MAROON = "Brown"
 						)
 					var/current = pill_bottle_wrappers[loaded_pill_bottle.wrapper_color] || "Default"
-					ui_modal_choice(src, id, "Please select a pill bottle wrapper:", null, arguments, current, pill_bottle_wrappers)
+					ui_modal_choice(src, id, "Please select a wrapper color:", null, arguments, current, pill_bottle_wrappers)
 				if("addcustom")
 					if(!beaker || !beaker.reagents.total_volume)
 						return

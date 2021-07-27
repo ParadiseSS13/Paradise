@@ -29,7 +29,7 @@
 		to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
 		return
 
-	if((CLUMSY in user.mutations) && prob(50) && (!ignoresClumsy))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && (!ignoresClumsy))
 		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
 		apply_cuffs(user, user)
 		return
@@ -54,10 +54,7 @@
 		if(do_mob(user, C, 30))
 			apply_cuffs(C, user, remove_src)
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-			if(istype(src, /obj/item/restraints/handcuffs/cable))
-				feedback_add_details("handcuffs", "C")
-			else
-				feedback_add_details("handcuffs", "H")
+			SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 
 			add_attack_logs(user, C, "Handcuffed ([src])")
 		else
@@ -148,7 +145,7 @@
 	desc = "Use this to keep prisoners in line. Or you know, your significant other."
 	icon_state = "pinkcuffs"
 
-/obj/item/restraints/handcuffs/cable/attackby(var/obj/item/I, mob/user as mob, params)
+/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user as mob, params)
 	..()
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
@@ -194,6 +191,11 @@
 /obj/item/restraints/handcuffs/cable/zipties/used
 	desc = "A pair of broken zipties."
 	icon_state = "cuff_white_used"
+
+/obj/item/restraints/handcuffs/cable/zipties/used/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["glass"] += 1
+	qdel(src)
+	return TRUE
 
 /obj/item/restraints/handcuffs/cable/zipties/used/attack()
 	return

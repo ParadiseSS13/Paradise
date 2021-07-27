@@ -13,7 +13,8 @@
 	language = "Sol Common"
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
-	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_SCAN, RADIMMUNE)
+	species_traits = list(LIPS, IS_WHITELISTED, NO_BLOOD, NO_CLONESCAN)
+	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RADIMMUNE, TRAIT_NOPAIN)
 	dies_at_threshold = TRUE
 	dietflags = DIET_OMNI		//still human at their core, so they maintain their eating habits and diet
 
@@ -27,7 +28,6 @@
 		"eyes" =     /obj/item/organ/internal/eyes/luminescent_crystal, //Standard darksight of 2.
 		"strange crystal" = /obj/item/organ/internal/nucleation/strange_crystal
 		)
-	vision_organ = /obj/item/organ/internal/eyes/luminescent_crystal
 
 /datum/species/nucleation/on_species_gain(mob/living/carbon/human/H)
 	..()

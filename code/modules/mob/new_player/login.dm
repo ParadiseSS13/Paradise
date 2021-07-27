@@ -26,33 +26,17 @@
 
 	new_player_panel()
 
-	spawn(30)
-		// Annoy the player with polls.
-		establish_db_connection()
-		if(GLOB.dbcon.IsConnected() && client && client.can_vote())
-			var/isadmin = 0
-			if(client && client.holder)
-				isadmin = 1
-			var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = \"[ckey]\") AND id NOT IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = \"[ckey]\")")
-			query.Execute()
-			var/newpoll = 0
-			while(query.NextRow())
-				newpoll = 1
-				break
-			if(newpoll)
-				client.handle_player_polling()
-
 	if(ckey in GLOB.deadmins)
 		verbs += /client/proc/readmin
 	spawn(40)
 		if(client)
 			client.playtitlemusic()
 
-	if(config.player_overflow_cap && config.overflow_server_url) //Overflow rerouting, if set, forces players to be moved to a different server once a player cap is reached. Less rough than a pure kick.
-		if(src.client.holder)	return //admins are immune to overflow rerouting
-		if(config.overflow_whitelist.Find(lowertext(src.ckey)))	return //Whitelisted people are immune to overflow rerouting.
-		var/tally = 0
-		for(var/client/C in GLOB.clients)
-			tally++
-		if(tally > config.player_overflow_cap)
-			src << link(config.overflow_server_url)
+	//Overflow rerouting, if set, forces players to be moved to a different server once a player cap is reached. Less rough than a pure kick.
+	if(GLOB.configuration.overflow.reroute_cap && GLOB.configuration.overflow.overflow_server_location)
+		if(client.holder)
+			return //admins are immune to overflow rerouting
+		if(ckey in GLOB.configuration.overflow.overflow_whitelist)
+			return //Whitelisted people are immune to overflow rerouting.
+		if(length(GLOB.clients) > GLOB.configuration.overflow.reroute_cap)
+			src << link(GLOB.configuration.overflow.overflow_server_location)

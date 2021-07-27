@@ -139,7 +139,7 @@
 	var/spawn_path = /mob/living/simple_animal/cow //defaulty cows to prevent unintentional narsies
 	var/spawn_amt_left = 20
 
-/obj/effect/rend/New(loc, var/spawn_type, var/spawn_amt, var/desc)
+/obj/effect/rend/New(loc, spawn_type, spawn_amt, desc)
 	..()
 	src.spawn_path = spawn_type
 	src.spawn_amt_left = spawn_amt
@@ -212,6 +212,37 @@
 	damtype = BURN
 	force = 15
 	hitsound = 'sound/items/welder2.ogg'
+	var/mob/current_owner
+
+/obj/item/scrying/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/scrying/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	current_owner = null
+	return ..()
+
+/obj/item/scrying/process()
+	var/mob/holder = get(loc, /mob)
+	if(current_owner && current_owner != holder)
+
+		to_chat(current_owner, "<span class='notice'>Your otherworldly vision fades...</span>")
+
+		REMOVE_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
+		current_owner.update_sight()
+		current_owner.update_icons()
+
+		current_owner = null
+
+	if(!current_owner && holder)
+		current_owner = holder
+
+		to_chat(current_owner, "<span class='notice'>You can see...everything!</span>")
+
+		ADD_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
+		current_owner.update_sight()
+		current_owner.update_icons()
 
 /obj/item/scrying/attack_self(mob/user as mob)
 	to_chat(user, "<span class='notice'> You can see...everything!</span>")
@@ -254,7 +285,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/multisword/attack(mob/living/M as mob, mob/living/user as mob)  //to prevent accidental friendly fire or out and out grief.
 	if(M.real_name == user.real_name)
-		to_chat(user, "<span class='warning'>The [src] detects benevolent energies in your target and redirects your attack!</span>")
+		to_chat(user, "<span class='warning'>[src] detects benevolent energies in your target and redirects your attack!</span>")
 		return
 	..()
 
@@ -313,7 +344,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		to_chat(user, "<span class='warning'><B>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies.</span>")
 
 
-/obj/item/multisword/proc/spawn_copy(var/client/C, var/turf/T, mob/user)
+/obj/item/multisword/proc/spawn_copy(client/C, turf/T, mob/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
 	if(duplicate_self)
 		user.client.prefs.copy_to(M)
@@ -334,7 +365,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(duplicate_self)
 		M.dna = user.dna.Clone()
 		M.UpdateAppearance()
-		domutcheck(M, null)
+		domutcheck(M)
 	M.update_body()
 	M.update_hair()
 	M.update_fhair()
@@ -359,7 +390,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		log_game("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.")
 
-/obj/item/multisword/proc/equip_copy(var/mob/living/carbon/human/M)
+/obj/item/multisword/proc/equip_copy(mob/living/carbon/human/M)
 
 	var/obj/item/multisword/sword = new sword_type
 	sword.assigned = assigned
@@ -787,8 +818,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 			GiveHint(target)
 		else if(istype(I,/obj/item/bikehorn))
 			to_chat(target, "<span class='userdanger'>HONK</span>")
-			target << 'sound/items/airhorn.ogg'
-			target.MinimumDeafTicks(3)
+			SEND_SOUND(target, sound('sound/items/airhorn.ogg'))
+			target.AdjustEarDamage(0, 3)
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
 		return
@@ -817,7 +848,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		if(link)
 			target = null
 			link.loc = get_turf(src)
-			to_chat(user, "<span class='notice'>You remove the [link] from the doll.</span>")
+			to_chat(user, "<span class='notice'>You remove [link] from the doll.</span>")
 			link = null
 			update_targets()
 			return

@@ -136,7 +136,7 @@
 	if(l_arm && r_arm)
 		if(l_leg && r_leg)
 			if(chest && head)
-				feedback_inc("cyborg_frames_built",1)
+				SSblackbox.record_feedback("amount", "cyborg_frames_built", 1)
 				return 1
 	return 0
 
@@ -226,7 +226,7 @@
 				to_chat(user, "<span class='warning'>Sticking an empty [M] into the frame would sort of defeat the purpose.</span>")
 				return
 
-			if(jobban_isbanned(M.brainmob, "Cyborg") || jobban_isbanned(M.brainmob,"nonhumandept"))
+			if(jobban_isbanned(M.brainmob, "Cyborg") || jobban_isbanned(M.brainmob, "nonhumandept"))
 				to_chat(user, "<span class='warning'>This [W] is not fit to serve as a cyborg!</span>")
 				return
 
@@ -251,7 +251,7 @@
 				return
 
 			if(M.brainmob.mind in SSticker.mode.head_revolutionaries)
-				to_chat(user, "<span class='warning'>The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept the [M].</span>")
+				to_chat(user, "<span class='warning'>The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept [M].</span>")
 				return
 
 
@@ -307,7 +307,7 @@
 			O.mmi = W
 			O.Namepick()
 
-			feedback_inc("cyborg_birth",1)
+			SSblackbox.record_feedback("amount", "cyborg_birth", 1)
 
 			forceMove(O)
 			O.robot_suit = src

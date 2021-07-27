@@ -17,8 +17,9 @@
 	if(heavy_range > light_range)
 		light_range = heavy_range
 
+	var/emp_sound = sound('sound/effects/empulse.ogg')
 	for(var/mob/M in range(heavy_range, epicenter))
-		M << 'sound/effects/empulse.ogg'
+		SEND_SOUND(M, emp_sound)
 	for(var/atom/T in range(light_range, epicenter))
 		if(cause == "cult" && iscultist(T))
 			continue

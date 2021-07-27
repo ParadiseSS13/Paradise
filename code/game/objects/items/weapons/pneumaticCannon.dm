@@ -12,7 +12,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
 	var/maxWeightClass = 20 //The max weight of items that can fit into the cannon
 	var/loadedWeightClass = 0 //The weight of items currently in the cannon
-	var/obj/item/tank/tank = null //The gas tank that is drawn from to fire things
+	var/obj/item/tank/internals/tank = null //The gas tank that is drawn from to fire things
 	var/gasPerThrow = 3 //How much gas is drawn from a tank's pressure to fire
 	var/list/loadedItems = list() //The items loaded into the cannon that will be fired out
 	var/pressureSetting = 1 //How powerful the cannon is - higher pressure = more gas but more powerful throws
@@ -34,8 +34,8 @@
 
 /obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/tank/) && !tank)
-		if(istype(W, /obj/item/tank/emergency_oxygen))
+	if(istype(W, /obj/item/tank/internals/) && !tank)
+		if(istype(W, /obj/item/tank/internals/emergency_oxygen))
 			to_chat(user, "<span class='warning'>\The [W] is too small for \the [src].</span>")
 			return
 		updateTank(W, 0, user)
@@ -88,7 +88,7 @@
 	Fire(user, target)
 
 
-/obj/item/pneumatic_cannon/proc/Fire(var/mob/living/carbon/human/user, var/atom/target)
+/obj/item/pneumatic_cannon/proc/Fire(mob/living/carbon/human/user, atom/target)
 	if(!istype(user) && !target)
 		return
 	var/discharge = 0
@@ -101,7 +101,7 @@
 	if(tank && !tank.air_contents.remove(gasPerThrow * pressureSetting))
 		to_chat(user, "<span class='warning'>\The [src] lets out a weak hiss and doesn't react!</span>")
 		return
-	if(user && (CLUMSY in user.mutations) && prob(75))
+	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(75))
 		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [src], causing it to go off!</span>", "<span class='userdanger'>[src] slips out of your hands and goes off!</span>")
 		user.drop_item()
 		if(prob(10))
@@ -137,7 +137,7 @@
 
 /datum/crafting_recipe/improvised_pneumatic_cannon //Pretty easy to obtain but
 	name = "Pneumatic Cannon"
-	result = /obj/item/pneumatic_cannon/ghetto
+	result = list(/obj/item/pneumatic_cannon/ghetto)
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	reqs = list(/obj/item/stack/sheet/metal = 4,
 				/obj/item/stack/packageWrap = 8,

@@ -124,14 +124,6 @@
 	noglass = TRUE
 	material_type = /obj/item/stack/sheet/plasteel
 
-/obj/structure/door_assembly/door_assembly_shuttle
-	name = "shuttle airlock assembly"
-	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
-	base_name = "shuttle airlock"
-	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
-	airlock_type = /obj/machinery/door/airlock/shuttle
-	glass_type = /obj/machinery/door/airlock/shuttle/glass
-
 /obj/structure/door_assembly/multi_tile
 	name = "large airlock assembly"
 	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
@@ -143,14 +135,14 @@
 	glass_type = /obj/machinery/door/airlock/multi_tile/glass
 	material_amt = 8
 
-/obj/structure/door_assembly/multi_tile/New()
+/obj/structure/door_assembly/multi_tile/Initialize(mapload)
+	. = ..()
 	if(dir in list(EAST, WEST))
 		bound_width = width * world.icon_size
 		bound_height = world.icon_size
 	else
 		bound_width = world.icon_size
 		bound_height = width * world.icon_size
-	..()
 
 /obj/structure/door_assembly/multi_tile/Move()
 	. = ..()
@@ -169,7 +161,7 @@
 	airlock_type = /obj/machinery/door/airlock/cult
 	glass_type = /obj/machinery/door/airlock/cult/glass
 
-/obj/structure/door_assembly/door_assembly_cult/New()
+/obj/structure/door_assembly/door_assembly_cult/Initialize(mapload)
 	. = ..()
 	icon = SSticker.cultdat?.airlock_runed_icon_file
 	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
@@ -181,7 +173,7 @@
 	airlock_type = /obj/machinery/door/airlock/cult/unruned
 	glass_type = /obj/machinery/door/airlock/cult/unruned/glass
 
-/obj/structure/door_assembly/door_assembly_cult/unruned/New()
+/obj/structure/door_assembly/door_assembly_cult/unruned/Initialize(mapload)
 	. = ..()
 	icon = SSticker.cultdat?.airlock_unruned_icon_file
 	overlays_file = SSticker.cultdat?.airlock_unruned_overlays_file

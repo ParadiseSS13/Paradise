@@ -22,7 +22,6 @@
 //Middle left indicators
 #define ui_lingchemdisplay "WEST:6,CENTER-1:15"
 #define ui_lingstingdisplay "WEST:6,CENTER-3:11"
-#define ui_devilsouldisplay "WEST:6,CENTER-1:15"
 
 //Lower center, persistant menu
 #define ui_sstore1 "CENTER-5:10,SOUTH:5"
@@ -153,8 +152,6 @@
 #define ui_ai_take_picture "SOUTH:6,WEST+12"
 #define ui_ai_view_images "SOUTH:6,WEST+13"
 #define ui_ai_sensor "SOUTH:6,WEST+14"
-#define ui_ai_multicam "SOUTH+1:6,WEST+13"
-#define ui_ai_add_multicam "SOUTH+1:6,WEST+14"
 
 // Bots
 #define ui_bot_radio "EAST-1:28,SOUTH:7"

@@ -34,7 +34,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			return
 	var/tctext = input(src, "How much TC do you want to give each team member? Suggested: 20-30. They cannot trade TC.") as num
 	var/tcamount = text2num(tctext)
-	tcamount = between(0, tcamount, 1000)
+	tcamount = clamp(tcamount, 0, 1000)
 	if(GLOB.sent_syndicate_infiltration_team == 1)
 		if(alert("A Syndicate Infiltration Team has already been sent. Sure you want to send another?",,"Yes","No")=="No")
 			return
@@ -115,7 +115,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			break
 	message_admins("[key_name_admin(src)] has spawned a Syndicate Infiltration Team.", 1)
 	log_admin("[key_name(src)] used Spawn Syndicate Infiltration Team.")
-	feedback_add_details("admin_verb","SPAWNSIT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn SIT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 // ---------------------------------------------------------------------------------------------------------
 
@@ -133,7 +133,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	new_syndicate_infiltrator.mind_initialize()
 	new_syndicate_infiltrator.mind.assigned_role = "Syndicate Infiltrator"
 	new_syndicate_infiltrator.mind.special_role = "Syndicate Infiltrator"
-	new_syndicate_infiltrator.mind.offstation_role = TRUE //they can flee to z2 so make them inelligible as antag targets
+	new_syndicate_infiltrator.mind.offstation_role = TRUE //they can flee to the syndicate base on the admin level so make them inelligible as antag targets
 	SSticker.mode.traitors |= new_syndicate_infiltrator.mind //Adds them to extra antag list
 	new_syndicate_infiltrator.equip_syndicate_infiltrator(syndicate_leader_selected, uplink_tc, is_mgmt)
 	return new_syndicate_infiltrator

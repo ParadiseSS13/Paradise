@@ -32,7 +32,7 @@
 
 /obj/item/twohanded/proc/unwield(mob/living/carbon/user)
 	if(!wielded || !user)
-		return
+		return FALSE
 	wielded = FALSE
 	force = force_unwielded
 	if(sharp_when_wielded)
@@ -55,18 +55,22 @@
 	var/obj/item/twohanded/offhand/O = user.get_inactive_hand()
 	if(O && istype(O))
 		O.unwield()
+	return TRUE
 
 /obj/item/twohanded/proc/wield(mob/living/carbon/user)
 	if(wielded)
-		return
+		return FALSE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.dna.species.is_small)
 			to_chat(user, "<span class='warning'>It's too heavy for you to wield fully.</span>")
-			return
+			return FALSE
 	if(user.get_inactive_hand())
 		to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
-		return
+		return FALSE
+	if(!user.has_both_hands())
+		to_chat(user, "<span class='warning'>You need both hands to wield this!</span>")
+		return FALSE
 	wielded = TRUE
 	force = force_wielded
 	if(sharp_when_wielded)
@@ -77,15 +81,16 @@
 		user.update_inv_r_hand()
 		user.update_inv_l_hand()
 	if(isrobot(user))
-		to_chat(user, "<span class='notice'>You dedicate your module to [name].</span>")
+		to_chat(user, "<span class='notice'>You dedicate your module to [src].</span>")
 	else
-		to_chat(user, "<span class='notice'>You grab the [name] with both hands.</span>")
+		to_chat(user, "<span class='notice'>You grab [src] with both hands.</span>")
 	if(wieldsound)
 		playsound(loc, wieldsound, 50, 1)
 	var/obj/item/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
 	O.name = "[name] - offhand"
-	O.desc = "Your second grip on the [name]"
+	O.desc = "Your second grip on [src]"
 	user.put_in_inactive_hand(O)
+	return TRUE
 
 /obj/item/twohanded/dropped(mob/user)
 	..()
@@ -295,13 +300,13 @@
 	..()
 
 /obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
-	if(HULK in user.mutations)
+	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally close it!</span>")
 		unwield()
 		return
 	..()
-	if((CLUMSY in user.mutations) && (wielded) && prob(40))
-		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && (wielded) && prob(40))
+		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
 		user.take_organ_damage(20, 25)
 		return
 	if((wielded) && prob(50))
@@ -337,7 +342,9 @@
 	blade_color = "blue"
 
 /obj/item/twohanded/dualsaber/unwield()
-	..()
+	. = ..()
+	if(!.)
+		return
 	hitsound = "swing_hit"
 	w_class = initial(w_class)
 
@@ -346,10 +353,12 @@
 		return TRUE
 
 /obj/item/twohanded/dualsaber/wield(mob/living/carbon/M) //Specific wield () hulk checks due to reflection chance for balance issues and switches hitsounds.
-	if(HULK in M.mutations)
+	if(HAS_TRAIT(M, TRAIT_HULK))
 		to_chat(M, "<span class='warning'>You lack the grace to wield this!</span>")
 		return
-	..()
+	. = ..()
+	if(!.)
+		return
 	hitsound = 'sound/weapons/blade1.ogg'
 	w_class = w_class_on
 
@@ -616,29 +625,31 @@
 		return ..()
 
 /obj/item/twohanded/chainsaw/wield() //you can't disarm an active chainsaw, you crazy person.
-	..()
-	flags |= NODROP
+	. = ..()
+	if(.)
+		flags |= NODROP
 
 /obj/item/twohanded/chainsaw/unwield()
-	..()
-	flags &= ~NODROP
+	. = ..()
+	if(.)
+		flags &= ~NODROP
 
 // SINGULOHAMMER
 /obj/item/twohanded/singularityhammer
 	name = "singularity hammer"
 	desc = "The pinnacle of close combat technology, the hammer harnesses the power of a miniaturized singularity to deal crushing blows."
-	icon_state = "mjollnir0"
+	icon_state = "singulohammer0"
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
 	force = 5
 	force_unwielded = 5
-	force_wielded = 20
+	force_wielded = 40
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	var/charged = 5
+	var/charged = 2
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
 
 /obj/item/twohanded/singularityhammer/New()
@@ -650,15 +661,17 @@
 	return ..()
 
 /obj/item/twohanded/singularityhammer/process()
-	if(charged < 5)
+	if(charged < 2)
 		charged++
 
 /obj/item/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "mjollnir[wielded]"
+	icon_state = "singulohammer[wielded]"
 	..()
 
 /obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)
 	for(var/atom/movable/X in orange(5, pull))
+		if(X.move_resist == INFINITY)
+			continue
 		if(X == wielder)
 			continue
 		if((X) && (!X.anchored) && (!ishuman(X)))
@@ -671,7 +684,7 @@
 				var/obj/item/clothing/shoes/magboots/M = H.shoes
 				if(M.magpulse)
 					continue
-			H.apply_effect(1, WEAKEN, 0)
+			H.Weaken(2)
 			step_towards(H, pull)
 			step_towards(H, pull)
 			step_towards(H, pull)
@@ -680,7 +693,7 @@
 	if(!proximity)
 		return
 	if(wielded)
-		if(charged == 5)
+		if(charged == 2)
 			charged = 0
 			if(isliving(A))
 				var/mob/living/Z = A
@@ -706,9 +719,9 @@
 
 /obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
 	do_sparks(5, 1, target.loc)
-	target.visible_message("<span class='danger'>[target.name] was shocked by the [name]!</span>", \
-		"<span class='userdanger'>You feel a powerful shock course through your body sending you flying!</span>", \
-		"<span class='italics'>You hear a heavy electrical crack!</span>")
+	target.visible_message("<span class='danger'>[target] was shocked by [src]!</span>",
+		"<span class='userdanger'>You feel a powerful shock course through your body sending you flying!</span>",
+		"<span class='danger'>You hear a heavy electrical crack!</span>")
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, 200, 4)
 
@@ -717,7 +730,7 @@
 	if(wielded)
 		//if(charged == 5)
 		//charged = 0
-		playsound(loc, "sparks", 50, 1)
+		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(isliving(M))
 			M.Stun(3)
 			shock(M)
@@ -772,15 +785,15 @@
 		if(isliving(A))
 			var/mob/living/Z = A
 			if(Z.health >= 1)
-				Z.visible_message("<span class='danger'>[Z.name] was sent flying by a blow from the [name]!</span>", \
-					"<span class='userdanger'>You feel a powerful blow connect with your body and send you flying!</span>", \
+				Z.visible_message("<span class='danger'>[Z.name] was sent flying by a blow from [src]!</span>",
+					"<span class='userdanger'>You feel a powerful blow connect with your body and send you flying!</span>",
 					"<span class='danger'>You hear something heavy impact flesh!.</span>")
 				var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
 				Z.throw_at(throw_target, 200, 4)
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 			else if(wielded && Z.health < 1)
-				Z.visible_message("<span class='danger'>[Z.name] was blown to pieces by the power of [name]!</span>", \
-					"<span class='userdanger'>You feel a powerful blow rip you apart!</span>", \
+				Z.visible_message("<span class='danger'>[Z.name] was blown to pieces by the power of [src]!</span>",
+					"<span class='userdanger'>You feel a powerful blow rip you apart!</span>",
 					"<span class='danger'>You hear a heavy impact and the sound of ripping flesh!.</span>")
 				Z.gib()
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
@@ -795,76 +808,3 @@
 				Z.ex_act(2)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-
-/obj/item/twohanded/pitchfork
-	icon_state = "pitchfork0"
-	name = "pitchfork"
-	desc = "A simple tool used for moving hay."
-	force = 7
-	throwforce = 15
-	w_class = WEIGHT_CLASS_BULKY
-	force_unwielded = 7
-	force_wielded = 15
-	attack_verb = list("attacked", "impaled", "pierced")
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
-	resistance_flags = FIRE_PROOF
-
-/obj/item/twohanded/pitchfork/demonic
-	name = "demonic pitchfork"
-	desc = "A red pitchfork, it looks like the work of the devil."
-	force = 19
-	throwforce = 24
-	force_unwielded = 19
-	force_wielded = 25
-
-/obj/item/twohanded/pitchfork/demonic/greater
-	force = 24
-	throwforce = 50
-	force_unwielded = 24
-	force_wielded = 34
-
-/obj/item/twohanded/pitchfork/demonic/ascended
-	force = 100
-	throwforce = 100
-	force_unwielded = 100
-	force_wielded = 500000 // Kills you DEAD.
-
-/obj/item/twohanded/pitchfork/update_icon()
-	icon_state = "pitchfork[wielded]"
-
-/obj/item/twohanded/pitchfork/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] impales \himself in \his abdomen with [src]! It looks like \he's trying to commit suicide...</span>")
-	return BRUTELOSS
-
-/obj/item/twohanded/pitchfork/demonic/pickup(mob/user)
-	. = ..()
-	if(istype(user, /mob/living))
-		var/mob/living/U = user
-		if(U.mind && !U.mind.devilinfo && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
-			U.visible_message("<span class='warning'>As [U] picks [src] up, [U]'s arms briefly catch fire.</span>", \
-				"<span class='warning'>\"As you pick up the [src] your arms ignite, reminding you of all your past sins.\"</span>")
-			if(ishuman(U))
-				var/mob/living/carbon/human/H = U
-				H.apply_damage(rand(force/2, force), BURN, pick("l_arm", "r_arm"))
-			else
-				U.adjustFireLoss(rand(force/2,force))
-
-/obj/item/twohanded/pitchfork/demonic/attack(mob/target, mob/living/carbon/human/user)
-	if(user.mind && !user.mind.devilinfo && (user.mind.soulOwner != user.mind))
-		to_chat(user, "<span class ='warning'>The [src] burns in your hands.</span>")
-		user.apply_damage(rand(force/2, force), BURN, pick("l_arm", "r_arm"))
-	..()
-
-// It's no fun being the lord of all hell if you can't get out of a simple room
-/obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity)
-	if(!proximity || !wielded)
-		return
-	if(istype(target, /turf/simulated/wall))
-		var/turf/simulated/wall/W = target
-		user.visible_message("<span class='danger'>[user] blasts \the [target] with \the [src]!</span>")
-		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
-		W.devastate_wall(TRUE)
-		return 1
-	..()

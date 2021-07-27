@@ -25,9 +25,7 @@
 	icon_state = "mixed"
 	icon_closed = "mixed"
 
-/obj/structure/closet/wardrobe/miner/New()
-	..()
-	contents = list()
+/obj/structure/closet/wardrobe/miner/populate_contents()
 	new /obj/item/storage/backpack/duffel(src)
 	new /obj/item/storage/backpack/explorer(src)
 	new /obj/item/storage/backpack/satchel/explorer(src)
@@ -51,8 +49,7 @@
 	icon_off = "miningsecoff"
 	req_access = list(ACCESS_MINING)
 
-/obj/structure/closet/secure_closet/miner/New()
-	..()
+/obj/structure/closet/secure_closet/miner/populate_contents()
 	new /obj/item/stack/sheet/mineral/sandbags(src, 5)
 	new /obj/item/storage/box/emptysandbags(src)
 	new /obj/item/shovel(src)

@@ -19,7 +19,7 @@
 	. = ..()
 	. += "<span class='notice'>Use a multitool to lock/unlock it.</span>"
 
-/obj/structure/closet/fireaxecabinet/attackby(var/obj/item/O as obj, var/mob/living/user as mob)  //Marker -Agouri
+/obj/structure/closet/fireaxecabinet/attackby(obj/item/O as obj, mob/living/user as mob)  //Marker -Agouri
 	if(isrobot(user) || locked)
 		if(istype(O, /obj/item/multitool))
 			to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
@@ -102,7 +102,7 @@
 	if(localopened)
 		if(fireaxe)
 			user.put_in_hands(fireaxe)
-			to_chat(user, "<span class='notice'>You take \the [fireaxe] from the [src].</span>")
+			to_chat(user, "<span class='notice'>You take \the [fireaxe] from [src].</span>")
 			fireaxe = null
 
 			add_fingerprint(user)
@@ -157,12 +157,12 @@
 	if(localopened)
 		if(fireaxe)
 			usr.put_in_hands(fireaxe)
-			to_chat(usr, "<span class='notice'>You take \the [fireaxe] from the [src].</span>")
+			to_chat(usr, "<span class='notice'>You take \the [fireaxe] from [src].</span>")
 			fireaxe = null
 		else
-			to_chat(usr, "<span class='notice'>The [src] is empty.</span>")
+			to_chat(usr, "<span class='notice'>[src] is empty.</span>")
 	else
-		to_chat(usr, "<span class='notice'>The [src] is closed.</span>")
+		to_chat(usr, "<span class='notice'>[src] is closed.</span>")
 	update_icon()
 
 /obj/structure/closet/fireaxecabinet/attack_ai(mob/user as mob)

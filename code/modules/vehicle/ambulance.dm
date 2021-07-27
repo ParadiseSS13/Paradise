@@ -63,7 +63,7 @@
 
 /obj/item/key/ambulance
 	name = "ambulance key"
-	desc = "A keyring with a small steel key, and tag with a red cross on it."
+	desc = "A keyring with a small steel key, and tag with a green cross on it."
 	icon_state = "keydoc"
 
 
@@ -92,7 +92,7 @@
 		bed = null
 	. = ..()
 	if(bed && get_dist(oldloc, loc) <= 2)
-		bed.Move(oldloc, get_dir(bed, oldloc), (last_move_diagonal? 2 : 1) * (vehicle_move_delay + config.human_delay))
+		bed.Move(oldloc, get_dir(bed, oldloc), (last_move_diagonal? 2 : 1) * (vehicle_move_delay + GLOB.configuration.movement.human_delay))
 		bed.dir = Dir
 		if(bed.has_buckled_mobs())
 			for(var/m in bed.buckled_mobs)

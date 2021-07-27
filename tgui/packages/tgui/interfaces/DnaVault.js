@@ -6,13 +6,12 @@ export const DnaVault = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     completed,
-    used,
   } = data;
   return (
     <Window>
       <Window.Content>
         <DnaVaultDataBase />
-        {!!(completed && !used) && (
+        {!!completed && (
           <GeneTherapySelection />
         )}
       </Window.Content>
@@ -78,6 +77,7 @@ const GeneTherapySelection = (props, context) => {
   const {
     choiceA,
     choiceB,
+    used,
   } = data;
   return (
     <Section title="Personal Gene Therapy">
@@ -87,28 +87,37 @@ const GeneTherapySelection = (props, context) => {
         mb={1}>
         Applicable Gene Therapy Treatments
       </Box>
-      <Grid>
-        <Grid.Column>
-          <Button
-            fluid
-            bold
-            content={choiceA}
-            textAlign="center"
-            onClick={() => act('gene', {
-              choice: choiceA,
-            })} />
-        </Grid.Column>
-        <Grid.Column>
-          <Button
-            fluid
-            bold
-            content={choiceB}
-            textAlign="center"
-            onClick={() => act('gene', {
-              choice: choiceB,
-            })} />
-        </Grid.Column>
-      </Grid>
+      {(!used && (
+        <Grid>
+          <Grid.Column>
+            <Button
+              fluid
+              bold
+              content={choiceA}
+              textAlign="center"
+              onClick={() => act('gene', {
+                choice: choiceA,
+              })} />
+          </Grid.Column>
+          <Grid.Column>
+            <Button
+              fluid
+              bold
+              content={choiceB}
+              textAlign="center"
+              onClick={() => act('gene', {
+                choice: choiceB,
+              })} />
+          </Grid.Column>
+        </Grid>
+      )) || (
+        <Box
+          bold
+          textAlign="center"
+          mb={1}>
+          Users DNA deemed unstable. Unable to provide more upgrades.
+        </Box>
+      )}
     </Section>
   );
 };

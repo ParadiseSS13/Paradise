@@ -7,6 +7,7 @@
 	icon_living = "kangaroo"
 	icon_dead = "kangaroo_dead"
 	icon_gib = "kangaroo_dead"
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	turns_per_move = 8
 	response_help = "pets"
 	emote_hear = list("bark")
@@ -22,6 +23,7 @@
 	speed = -1 // '-1' converts to 1.5 total move delay, or 6.6 tiles/sec movespeed
 	var/attack_cycles = 0
 	var/attack_cycles_max = 3
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/kangaroo/New()
 	. = ..()

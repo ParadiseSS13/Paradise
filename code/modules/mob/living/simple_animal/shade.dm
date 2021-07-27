@@ -2,10 +2,11 @@
 	name = "Shade"
 	real_name = "Shade"
 	desc = "A bound spirit"
-	icon = 'icons/mob/mob.dmi'
+	icon = 'icons/mob/cult.dmi'
 	icon_state = "shade"
 	icon_living = "shade"
 	icon_dead = "shade_dead"
+	mob_biotypes = MOB_SPIRIT
 	maxHealth = 50
 	health = 50
 	speak_emote = list("hisses")
@@ -23,6 +24,7 @@
 	stop_automated_movement = TRUE
 	status_flags = 0
 	pull_force = 0
+	see_invisible = SEE_INVISIBLE_HIDDEN_RUNES
 	universal_speak = TRUE
 	faction = list("cult")
 	status_flags = CANPUSH
@@ -31,6 +33,10 @@
 	del_on_death = TRUE
 	deathmessage = "lets out a contented sigh as their form unwinds."
 	var/holy = FALSE
+
+/mob/living/simple_animal/shade/cult/Initialize(mapload)
+	. = ..()
+	icon_state = SSticker.cultdat?.shade_icon_state
 
 /mob/living/simple_animal/shade/death(gibbed)
 	. = ..()
@@ -46,11 +52,6 @@
 /mob/living/simple_animal/shade/Process_Spacemove()
 	return TRUE
 
-
-/mob/living/simple_animal/shade/cult/Initialize(mapload)
-	. = ..()
-	icon_state = SSticker.cultdat?.shade_icon_state
-
 /mob/living/simple_animal/shade/holy
 	holy = TRUE
 	icon_state = "shade_angelic"
@@ -61,3 +62,9 @@
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()
 	status_flags |= GODMODE
+
+/mob/living/simple_animal/shade/update_runechat_msg_location()
+	if(istype(loc, /obj/item/soulstone))
+		runechat_msg_location = loc
+	else
+		runechat_msg_location = src

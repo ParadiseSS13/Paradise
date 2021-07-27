@@ -294,7 +294,7 @@ here's what you need (note that you'll probably be forced to clean your shit up
 upon code review):
 
 ```dm
-/obj/copypasta/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = default_state) // Remember to use the appropriate state.
+/obj/copypasta/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state) // Remember to use the appropriate state.
   ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
   if(!ui)
     ui = new(user, src, ui_key, "copypasta", name, 300, 300, master_ui, state)

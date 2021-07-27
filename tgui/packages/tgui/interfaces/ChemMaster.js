@@ -376,16 +376,16 @@ const ChemMasterCustomization = (props, context) => {
   const { act, data } = useBackend(context);
   if (!data.loaded_pill_bottle) {
     return (
-      <Section title="Pill Bottle Customization">
+      <Section title="Container Customization">
         <Box color="label">
-          None loaded.
+          No pill bottle or patch pack loaded.
         </Box>
       </Section>
     );
   }
 
   return (
-    <Section title="Pill Bottle Customization">
+    <Section title="Container Customization">
       <Button
         disabled={!data.loaded_pill_bottle}
         icon="eject"

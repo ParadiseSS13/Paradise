@@ -34,7 +34,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		if(!C || C.sensor_mode == SUIT_SENSOR_OFF || !C.has_sensor)
 			continue
 		var/turf/pos = get_turf(C)
-		if(!T || pos.z != T.z)
+		if(!istype(pos) || !T || pos.z != T.z)
 			continue
 		var/list/crewmemberData = list("dead"=0, "oxy"=-1, "tox"=-1, "fire"=-1, "brute"=-1, "area"="", "x"=-1, "y"=-1, "ref" = "\ref[H]")
 
@@ -49,6 +49,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 
 		if(C.sensor_mode >= SUIT_SENSOR_VITAL)
 			crewmemberData["stat"] = H.stat
+			crewmemberData["health"] = H.health
 			crewmemberData["oxy"] = round(H.getOxyLoss(), 1)
 			crewmemberData["tox"] = round(H.getToxLoss(), 1)
 			crewmemberData["fire"] = round(H.getFireLoss(), 1)

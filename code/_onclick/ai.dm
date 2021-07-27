@@ -32,14 +32,6 @@
 		return
 	changeNext_click(1)
 
-	if(multicam_on)
-		var/turf/T = get_turf(A)
-		if(T)
-			for(var/obj/screen/movable/pic_in_pic/ai/P in T.vis_locs)
-				if(P.ai == src)
-					P.Click(params)
-					break
-
 	if(control_disabled || stat)
 		return
 
@@ -223,11 +215,3 @@
 	if(!ai_control_check(user))
 		return
 	toggle_light(user)
-
-// AI-CONTROLLED SLIP GENERATOR IN AI CORE
-
-/obj/machinery/ai_slipper/AICtrlClick(mob/living/silicon/ai/user) //Turns liquid dispenser on or off
-	ToggleOn()
-
-/obj/machinery/ai_slipper/AIAltClick() //Dispenses liquid if on
-	Activate()

@@ -6,7 +6,7 @@
 		return
 
 	if(istype(O,/obj/singularity))
-		if(config.forbid_singulo_possession)
+		if(GLOB.configuration.general.forbid_singulo_possession) // I love how this needs to exist
 			to_chat(usr, "It is forbidden to possess singularities.")
 			return
 
@@ -31,7 +31,7 @@
 	usr.name = O.name
 	usr.client.eye = O
 	usr.control_object = O
-	feedback_add_details("admin_verb","PO") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Possess Object") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /proc/release(obj/O as obj in world)
 	set name = "Release Obj"
@@ -52,4 +52,4 @@
 	usr.loc = O.loc // Appear where the object you were controlling is -- TLE
 	usr.client.eye = usr
 	usr.control_object = null
-	feedback_add_details("admin_verb","RO") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Release Object") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

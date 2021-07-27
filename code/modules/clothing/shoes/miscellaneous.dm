@@ -22,16 +22,16 @@
 	flags = NOSLIP
 
 /obj/item/clothing/shoes/sandal
-	desc = "A pair of rather plain, wooden sandals."
 	name = "sandals"
+	desc = "A pair of rather plain, wooden sandals."
 	icon_state = "wizard"
 	strip_delay = 50
 	put_on_delay = 50
 	magical = TRUE
 
 /obj/item/clothing/shoes/sandal/marisa
-	desc = "A pair of magic, black shoes."
 	name = "magic shoes"
+	desc = "A pair of magic, black shoes."
 	icon_state = "black"
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
 
@@ -41,8 +41,8 @@
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
 
 /obj/item/clothing/shoes/galoshes
-	desc = "A pair of yellow rubber boots, designed to prevent slipping on wet surfaces."
 	name = "galoshes"
+	desc = "A pair of yellow rubber boots, designed to prevent slipping on wet surfaces."
 	icon_state = "galoshes"
 	permeability_coefficient = 0.05
 	flags = NOSLIP
@@ -57,21 +57,29 @@
 	desc = "A pair of purple rubber boots, designed to prevent slipping on wet surfaces while also drying them."
 	icon_state = "galoshes_dry"
 
-/obj/item/clothing/shoes/galoshes/dry/step_action()
+/obj/item/clothing/shoes/galoshes/dry/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, .proc/on_step)
+
+/obj/item/clothing/shoes/galoshes/dry/proc/on_step()
+	SIGNAL_HANDLER
+
 	var/turf/simulated/t_loc = get_turf(src)
 	if(istype(t_loc) && t_loc.wet)
 		t_loc.MakeDry(TURF_WET_WATER)
 
 /obj/item/clothing/shoes/clown_shoes
-	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
 	name = "clown shoes"
+	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
 	icon_state = "clown"
 	item_state = "clown_shoes"
 	slowdown = SHOES_SLOWDOWN+1
 	item_color = "clown"
-	var/footstep = 1	//used for squeeks whilst walking
-	shoe_sound = "clownstep"
 	var/enabled_waddle = TRUE
+
+/obj/item/clothing/shoes/clown_shoes/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
 
 /obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot)
 	. = ..()
@@ -113,8 +121,6 @@
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE
-	var/footstep = 1
-	shoe_sound = "jackboot"
 
 /obj/item/clothing/shoes/jackboots/jacksandals
 	name = "jacksandals"
@@ -208,24 +214,14 @@
 	item_color = "noble_boot"
 	item_state = "noble_boot"
 
-/obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/tape_roll) && !silence_steps)
-		var/obj/item/stack/tape_roll/TR = I
-		if((!silence_steps || shoe_sound) && TR.use(4))
-			silence_steps = TRUE
-			shoe_sound = null
-			to_chat(user, "You tape the soles of [src] to silence your footsteps.")
-	else
-		return ..()
-
 /obj/item/clothing/shoes/sandal/white
-	name = "White Sandals"
+	name = "white sandals"
 	desc = "Medical sandals that nerds wear."
 	icon_state = "medsandal"
 	item_color = "medsandal"
 
 /obj/item/clothing/shoes/sandal/fancy
-	name = "Fancy Sandals"
+	name = "fancy sandals"
 	desc = "FANCY!!."
 	icon_state = "fancysandal"
 	item_color = "fancysandal"
@@ -241,7 +237,10 @@
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = NODROP
-	shoe_sound = "clownstep"
+
+/obj/item/clothing/shoes/cursedclown/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
 
 /obj/item/clothing/shoes/singery
 	name = "yellow performer's boots"
@@ -311,7 +310,6 @@
  	icon_state = "clothwrap"
  	item_state = "clothwrap"
  	force = 0
- 	silence_steps = TRUE
  	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/shoes/bhop
@@ -328,6 +326,10 @@
 	var/jumpspeed = 3
 	var/recharging_rate = 60 //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
+
+/obj/item/clothing/shoes/bhop/item_action_slot_check(slot)
+	if(slot == slot_shoes)
+		return TRUE
 
 /obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)
 	if(!isliving(user))
@@ -351,4 +353,7 @@
 	desc = "These shoes are made for quacking, and thats just what they'll do."
 	icon_state = "ducky"
 	item_state = "ducky"
-	shoe_sound = "sound/items/squeaktoy.ogg"
+
+/obj/item/clothing/shoes/ducky/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/items/squeaktoy.ogg' = 1), 50, falloff_exponent = 20) //die off quick please

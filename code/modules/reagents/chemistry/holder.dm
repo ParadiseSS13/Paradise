@@ -439,7 +439,7 @@
 
 					var/created_volume = C.result_amount*multiplier
 					if(C.result)
-						feedback_add_details("chemical_reaction","[C.result]|[C.result_amount*multiplier]")
+						SSblackbox.record_feedback("tally", "chemical_reaction", C.result_amount * multiplier, C.result)
 						multiplier = max(multiplier, 1) //this shouldnt happen ...
 						add_reagent(C.result, C.result_amount*multiplier)
 						set_data(C.result, preserved_data)
@@ -458,7 +458,7 @@
 						ME2.Uses--
 						if(ME2.Uses <= 0) // give the notification that the slime core is dead
 							for(var/mob/living/M in seen)
-								to_chat(M, "<span class='notice'>[bicon(my_atom)] The [my_atom]'s power is consumed in the reaction.</span>")
+								to_chat(M, "<span class='notice'>[bicon(my_atom)] [my_atom]'s power is consumed in the reaction.</span>")
 								ME2.name = "used slime extract"
 								ME2.desc = "This extract has been used up."
 

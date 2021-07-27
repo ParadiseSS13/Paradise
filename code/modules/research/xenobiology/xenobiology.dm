@@ -13,7 +13,10 @@
 	throw_speed = 3
 	throw_range = 6
 	origin_tech = "biotech=3"
-	var/Uses = 1 // uses before it goes inert
+	/// Uses before it goes inert
+	var/Uses = 1
+	/// The mob who last injected the extract with plasma, water or blood. Used for logging.
+	var/mob/living/injector_mob
 
 /obj/item/slime_extract/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/slimepotion/enhancer))
@@ -23,6 +26,8 @@
 		to_chat(user, "<span class='notice'>You apply the enhancer to the slime extract. It may now be reused one more time.</span>")
 		Uses++
 		qdel(O)
+	if(istype(O, /obj/item/reagent_containers/syringe))
+		injector_mob = user
 	..()
 
 /obj/item/slime_extract/New()
@@ -183,7 +188,7 @@
 		return
 	if(being_used || !ismob(M))
 		return
-	if(!isanimal(M) || M.ckey) //only works on animals that aren't player controlled
+	if(!isanimal(M) || M.mind) //only works on animals that aren't player controlled
 		to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
 		return ..()
 	if(M.stat)
@@ -370,7 +375,7 @@
 
 	if(istype(O, /obj/vehicle))
 		var/obj/vehicle/V = O
-		var/vehicle_speed_mod = config.run_speed
+		var/vehicle_speed_mod = GLOB.configuration.movement.base_run_speed
 		if(V.vehicle_move_delay <= vehicle_speed_mod)
 			to_chat(user, "<span class='warning'>[V] can't be made any faster!</span>")
 			return ..()

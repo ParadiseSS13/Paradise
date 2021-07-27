@@ -3,7 +3,6 @@
 	var/spawning = 0	//Referenced when you want to delete the new_player later on in the code.
 	var/totalPlayers = 0		 //Player counts for the Lobby tab
 	var/totalPlayersReady = 0
-	var/tos_consent = FALSE
 	universal_speak = 1
 
 	invisibility = 101
@@ -23,27 +22,11 @@
 /mob/new_player/verb/new_player_panel()
 	set src = usr
 
-	if(handle_tos_consent())
+	if(client.tos_consent)
 		new_player_panel_proc()
+	else
+		privacy_consent()
 
-/mob/new_player/proc/handle_tos_consent()
-	if(!GLOB.join_tos)
-		tos_consent = TRUE
-		return TRUE
-
-	establish_db_connection()
-	if(!GLOB.dbcon.IsConnected())
-		tos_consent = TRUE
-		return TRUE
-
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("privacy")] WHERE ckey='[src.ckey]' AND consent=1")
-	query.Execute()
-	while(query.NextRow())
-		tos_consent = TRUE
-		return TRUE
-
-	privacy_consent()
-	return FALSE
 
 /mob/new_player/proc/privacy_consent()
 	src << browse(null, "window=playersetup")
@@ -84,25 +67,6 @@
 
 	if(GLOB.join_tos)
 		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
-
-	if(!IsGuestKey(src.key))
-		establish_db_connection()
-
-		if(GLOB.dbcon.IsConnected() && client.can_vote())
-			var/isadmin = 0
-			if(src.client && src.client.holder)
-				isadmin = 1
-			var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = \"[ckey]\") AND id NOT IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = \"[ckey]\")")
-			query.Execute()
-			var/newpoll = 0
-			while(query.NextRow())
-				newpoll = 1
-				break
-
-			if(newpoll)
-				output += "<p><b><a href='byond://?showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
-			else
-				output += "<p><a href='byond://?showpoll=1'>Show Player Polls</A></p>"
 
 	output += "</center>"
 
@@ -151,25 +115,33 @@
 		return FALSE
 
 	if(href_list["consent_signed"])
-		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = GLOB.dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 1)")
-		query.Execute()
+		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO privacy (ckey, datetime, consent) VALUES (:ckey, Now(), 1)", list(
+			"ckey" = ckey
+		))
+		// If the query fails we dont want them permenantly stuck on being unable to accept TOS
+		query.warn_execute()
+		qdel(query)
 		src << browse(null, "window=privacy_consent")
-		tos_consent = 1
+		client.tos_consent = TRUE
+		// Now they have accepted TOS, we can log data
+		client.chatOutput.sendClientData()
 		new_player_panel_proc()
 	if(href_list["consent_rejected"])
-		tos_consent = 0
+		client.tos_consent = FALSE
 		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = GLOB.dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 0)")
-		query.Execute()
+		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO privacy (ckey, datetime, consent) VALUES (:ckey, Now(), 0)", list(
+			"ckey" = ckey
+		))
+		// If the query fails we dont want them permenantly stuck on being unable to accept TOS
+		query.warn_execute()
+		qdel(query)
 
 	if(href_list["show_preferences"])
 		client.prefs.ShowChoices(src)
 		return TRUE
 
 	if(href_list["ready"])
-		if(!tos_consent)
+		if(!client.tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return FALSE
 		if(client.version_blocked)
@@ -187,7 +159,7 @@
 		new_player_panel_proc()
 
 	if(href_list["observe"])
-		if(!tos_consent)
+		if(!client.tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return FALSE
 		if(client.version_blocked)
@@ -220,19 +192,18 @@
 				client.prefs.real_name = random_name(client.prefs.gender,client.prefs.species)
 			observer.real_name = client.prefs.real_name
 			observer.name = observer.real_name
-			if(!client.holder && !config.antag_hud_allowed)           // For new ghosts we remove the verb from even showing up if it's not allowed.
-				observer.verbs -= /mob/dead/observer/verb/toggle_antagHUD        // Poor guys, don't know what they are missing!
 			observer.key = key
 			QDEL_NULL(mind)
 			GLOB.respawnable_list += observer
 			qdel(src)
-			return 1
+			return TRUE
+		return FALSE
 	if(href_list["tos"])
 		privacy_consent()
 		return FALSE
 
 	if(href_list["late_join"])
-		if(!tos_consent)
+		if(!client.tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return FALSE
 		if(client.version_blocked)
@@ -243,7 +214,7 @@
 			return
 		if(client.prefs.species in GLOB.whitelisted_species)
 
-			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
+			if(!is_alien_whitelisted(src, client.prefs.species))
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
 				return FALSE
 
@@ -262,7 +233,7 @@
 			client.prefs.load_random_character_slot(client)
 
 		if(client.prefs.species in GLOB.whitelisted_species)
-			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
+			if(!is_alien_whitelisted(src, client.prefs.species))
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
 				return FALSE
 
@@ -286,14 +257,14 @@
 	if(job.available_in_playtime(client))
 		return 0
 
-	if(config.assistantlimit)
+	if(GLOB.configuration.jobs.assistant_limit)
 		if(job.title == "Civilian")
 			var/count = 0
 			var/datum/job/officer = SSjobs.GetJob("Security Officer")
 			var/datum/job/warden = SSjobs.GetJob("Warden")
 			var/datum/job/hos = SSjobs.GetJob("Head of Security")
 			count += (officer.current_positions + warden.current_positions + hos.current_positions)
-			if(job.current_positions > (config.assistantratio * count))
+			if(job.current_positions > (GLOB.configuration.jobs.assistant_security_ratio * count))
 				if(count >= 5) // if theres more than 5 security on the station just let assistants join regardless, they should be able to handle the tide
 					return 1
 				return 0
@@ -320,7 +291,7 @@
 	else
 		return 0
 
-/mob/new_player/proc/AttemptLateSpawn(rank,var/spawning_at)
+/mob/new_player/proc/AttemptLateSpawn(rank, spawning_at)
 	if(src != usr)
 		return 0
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
@@ -411,11 +382,12 @@
 	qdel(src)
 
 
-/mob/new_player/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank, var/join_message)
+/mob/new_player/proc/AnnounceArrival(mob/living/carbon/human/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
-			ailist += A
+			if(A.announce_arrivals)
+				ailist += A
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
@@ -427,8 +399,15 @@
 					arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
 					arrivalmessage = replacetext(arrivalmessage,"$species",character.dna.species.name)
 					arrivalmessage = replacetext(arrivalmessage,"$age",num2text(character.age))
-					arrivalmessage = replacetext(arrivalmessage,"$gender",character.gender == FEMALE ? "Female" : "Male")
-					announcer.say(";[arrivalmessage]")
+					// Account for genderless mobs
+					var/target_gender = "genderless"
+					switch(character.gender)
+						if(MALE)
+							target_gender = "male"
+						if(FEMALE)
+							target_gender = "female"
+					arrivalmessage = replacetext(arrivalmessage,"$gender",target_gender)
+					announcer.say(";[arrivalmessage]", ignore_languages = TRUE)
 		else
 			if(character.mind)
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
@@ -443,7 +422,7 @@
 			if(employmentCabinet.populated)
 				employmentCabinet.addFile(employee)
 
-/mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
+/mob/new_player/proc/AnnounceCyborg(mob/living/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
@@ -453,7 +432,7 @@
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"]."
-					announcer.say(";[arrivalmessage]")
+					announcer.say(";[arrivalmessage]", ignore_languages = TRUE)
 		else
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
@@ -468,6 +447,7 @@
 
 	var/dat = "<html><body><center>"
 	dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
+	dat += "<b>The station alert level is: [get_security_level_colors()]</b><br>"
 
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"
@@ -604,11 +584,7 @@
 		client.prefs.language = "None"
 
 /mob/new_player/proc/ViewManifest()
-	var/dat = "<html><body>"
-	dat += "<h4>Crew Manifest</h4>"
-	dat += GLOB.data_core.get_manifest(OOC = 1)
-
-	src << browse(dat, "window=manifest;size=370x420;can_close=1")
+	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.always_state)
 
 /mob/new_player/Move()
 	return 0
@@ -627,7 +603,7 @@
 
 /mob/new_player/proc/is_species_whitelisted(datum/species/S)
 	if(!S) return 1
-	return is_alien_whitelisted(src, S.name) || !config.usealienwhitelist || !(IS_WHITELISTED in S.species_traits)
+	return is_alien_whitelisted(src, S.name) || !(IS_WHITELISTED in S.species_traits)
 
 /mob/new_player/get_gender()
 	if(!client || !client.prefs) ..()

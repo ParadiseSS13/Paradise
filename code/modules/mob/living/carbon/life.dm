@@ -47,7 +47,7 @@
 	else
 		if(istype(loc, /obj/))
 			var/obj/location_as_object = loc
-			location_as_object.handle_internal_lifeform(src,0)
+			location_as_object.handle_internal_lifeform(src, 0)
 
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe()
@@ -81,7 +81,7 @@
 
 			if(isobj(loc)) //Breathe from loc as object
 				var/obj/loc_as_obj = loc
-				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_MOLES)
+				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME)
 
 			else if(isturf(loc)) //Breathe from loc as turf
 				var/breath_moles = 0
@@ -92,7 +92,7 @@
 		else //Breathe from loc as obj again
 			if(istype(loc, /obj/))
 				var/obj/loc_as_obj = loc
-				loc_as_obj.handle_internal_lifeform(src,0)
+				loc_as_obj.handle_internal_lifeform(src, 0)
 
 	check_breath(breath)
 
@@ -226,29 +226,9 @@
 	return
 
 /mob/living/carbon/handle_mutations_and_radiation()
-	if(radiation)
-
-		switch(radiation)
-			if(0 to 50)
-				radiation--
-				if(prob(25))
-					adjustToxLoss(1)
-					updatehealth("handle mutations and radiation(0-50)")
-
-			if(50 to 75)
-				radiation -= 2
-				adjustToxLoss(1)
-				if(prob(5))
-					radiation -= 5
-				updatehealth("handle mutations and radiation(50-75)")
-
-			if(75 to 100)
-				radiation -= 3
-				adjustToxLoss(3)
-				updatehealth("handle mutations and radiation(75-100)")
-
-		radiation = clamp(radiation, 0, 100)
-
+	radiation -= min(radiation, RAD_LOSS_PER_TICK)
+	if(radiation > RAD_MOB_SAFE)
+		adjustToxLoss(log(radiation - RAD_MOB_SAFE) * RAD_TOX_COEFFICIENT)
 
 /mob/living/carbon/handle_chemicals_in_body()
 	reagents.metabolize(src)
@@ -335,8 +315,7 @@
 		AdjustJitter(-restingpwr)
 
 	if(hallucination)
-		spawn handle_hallucinations()
-
+		handle_hallucinations()
 		AdjustHallucinate(-2)
 
 	// Keep SSD people asleep
@@ -367,7 +346,7 @@
 		if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
 			adjustBruteLoss(-1 * comfort, FALSE)
 			adjustFireLoss(-1 * comfort)
-		if(prob(10) && health && hal_screwyhud != SCREWYHUD_CRIT)
+		if(prob(10) && health && health_hud_override != HEALTH_HUD_OVERRIDE_CRIT)
 			emote("snore")
 
 	return sleeping

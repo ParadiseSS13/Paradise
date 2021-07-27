@@ -18,4 +18,4 @@
 		message_admins("[key_name_admin(usr)] has set the component rating of [M] to [new_rating]")
 		log_admin("[key_name(usr)] has set the component rating of [M] to [new_rating]")
 
-	feedback_add_details("admin_verb","MU") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Machine Upgrade") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

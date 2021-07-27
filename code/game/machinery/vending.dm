@@ -101,16 +101,24 @@
 	var/force_no_power_icon_state = FALSE
 
 /obj/machinery/vending/Initialize(mapload)
+	. = ..()
 	var/build_inv = FALSE
 	if(!refill_canister)
 		build_inv = TRUE
-	. = ..()
+	else
+		component_parts = list()
+		var/obj/item/circuitboard/vendor/V = new
+		V.set_type(replacetext(name, "\improper", ""))
+		component_parts += V
+		component_parts += new refill_canister
+		RefreshParts()
+
 	wires = new(src)
 	if(build_inv) //non-constructable vending machine
 		build_inventory(products, product_records)
 		build_inventory(contraband, hidden_records)
 		build_inventory(premium, coin_records)
-	for (var/datum/data/vending_product/R in (product_records + coin_records + hidden_records))
+	for(var/datum/data/vending_product/R in (product_records + coin_records + hidden_records))
 		var/obj/item/I = R.product_path
 		var/pp = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")
 		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state)))]"
@@ -290,7 +298,7 @@
 			return
 		I.forceMove(src)
 		coin = I
-		to_chat(user, "<span class='notice'>You insert [I] into the [src]</span>")
+		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 		SStgui.update_uis(src)
 		return
 	if(refill_canister && istype(I, refill_canister))
@@ -510,6 +518,10 @@
 	if(ishuman(user))
 		H = user
 		C = H.get_idcard(TRUE)
+		if(!C && istype(H.wear_pda, /obj/item/pda))
+			var/obj/item/pda/P = H.wear_pda
+			if(istype(P.id, /obj/item/card/id))
+				C = P.id
 		var/obj/item/stack/spacecash/S = H.get_active_hand()
 		if(istype(S))
 			data["userMoney"] = S.amount
@@ -802,11 +814,9 @@
 /obj/machinery/vending/power_change()
 	if(powered())
 		stat &= ~NOPOWER
-		update_icon()
 	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
-			update_icon()
+		stat |= NOPOWER
+	update_icon()
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(!(stat & BROKEN))
@@ -885,14 +895,6 @@
 	ads_list = list("Only the finest!","Have some tools.","The most robust equipment.","The finest gear in space!")
 	refill_canister = /obj/item/vending_refill/assist
 
-/obj/machinery/vending/assist/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/assist(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/boozeomat
 	name = "\improper Booze-O-Mat"
@@ -922,7 +924,8 @@
 					/obj/item/reagent_containers/food/drinks/drinkingglass = 30,
 					/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass = 30,
 					/obj/item/reagent_containers/food/drinks/ice = 9)
-	contraband = list(/obj/item/reagent_containers/food/drinks/tea = 10)
+	contraband = list(/obj/item/reagent_containers/food/drinks/tea = 10,
+					  /obj/item/reagent_containers/food/drinks/bottle/fernet = 5)
 	vend_delay = 15
 	slogan_list = list("I hope nobody asks me for a bloody cup o' tea...","Alcohol is humanity's friend. Would you abandon a friend?","Quite delighted to serve you!","Is nobody thirsty on this station?")
 	ads_list = list("Drink up!","Booze is good for you!","Alcohol is humanity's best friend.","Quite delighted to serve you!","Care for a nice, cold beer?","Nothing cures you like booze!","Have a sip!","Have a drink!","Have a beer!","Beer is good for you!","Only the finest alcohol!","Best quality booze since 2053!","Award-winning wine!","Maximum alcohol!","Man loves beer.","A toast for progress!")
@@ -930,15 +933,6 @@
 
 /obj/machinery/vending/boozeomat/syndicate_access
 	req_access = list(ACCESS_SYNDICATE)
-
-/obj/machinery/vending/boozeomat/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/boozeomat(null)
-	RefreshParts()
-	return ..()
 
 
 /obj/machinery/vending/coffee
@@ -960,15 +954,6 @@
 
 /obj/machinery/vending/coffee/free
 	prices = list()
-
-/obj/machinery/vending/coffee/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/coffee(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/coffee/item_slot_check(mob/user, obj/item/I)
 	if(!(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks)))
@@ -1026,14 +1011,6 @@
 /obj/machinery/vending/snack/free
 	prices = list()
 
-/obj/machinery/vending/snack/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/snack(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/chinese
 	name = "\improper Mr. Chang"
@@ -1049,14 +1026,6 @@
 /obj/machinery/vending/chinese/free
 	prices = list()
 
-/obj/machinery/vending/chinese/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/chinese(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/cola
 	name = "\improper Robust Softdrinks"
@@ -1075,15 +1044,6 @@
 
 /obj/machinery/vending/cola/free
 	prices = list()
-
-/obj/machinery/vending/cola/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/cola(null)
-	RefreshParts()
-	return ..()
 
 
 /obj/machinery/vending/cart
@@ -1104,14 +1064,6 @@
 /obj/machinery/vending/cart/free
 	prices = list()
 
-/obj/machinery/vending/cart/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/cart(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/liberationstation
 	name = "\improper Liberation Station"
@@ -1158,6 +1110,7 @@
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 
+
 /obj/machinery/vending/cigarette
 	name = "cigarette machine"
 	desc = "If you want to get cancer, might as well do it in style."
@@ -1187,6 +1140,7 @@
 /obj/machinery/vending/cigarette/syndicate/free
 	prices = list()
 
+
 /obj/machinery/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
 	name = "\improper ShadyCigs Ultra"
 	desc = "Now with extra premium products!"
@@ -1205,14 +1159,6 @@
 				   /obj/item/lighter/zippo = 3)
 	prices = list()
 
-/obj/machinery/vending/cigarette/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/cigarette(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/medical
 	name = "\improper NanoMed Plus"
@@ -1229,9 +1175,9 @@
 					/obj/item/reagent_containers/syringe/insulin = 6, /obj/item/reagent_containers/syringe/calomel = 10, /obj/item/reagent_containers/syringe/heparin = 4, /obj/item/reagent_containers/hypospray/autoinjector = 5, /obj/item/reagent_containers/food/pill/salbutamol = 10,
 					/obj/item/reagent_containers/food/pill/mannitol = 10, /obj/item/reagent_containers/food/pill/mutadone = 5, /obj/item/stack/medical/bruise_pack/advanced = 4, /obj/item/stack/medical/ointment/advanced = 4, /obj/item/stack/medical/bruise_pack = 4,
 					/obj/item/stack/medical/splint = 4, /obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/dropper = 4, /obj/item/healthanalyzer = 4,
-					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2, /obj/item/reagent_containers/iv_bag/slime = 1)
+					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
 
@@ -1239,14 +1185,6 @@
 	name = "\improper SyndiMed Plus"
 	req_access = list(ACCESS_SYNDICATE)
 
-/obj/machinery/vending/medical/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/medical(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/plasmaresearch
 	name = "\improper Toximate 3000"
@@ -1254,6 +1192,7 @@
 	products = list(/obj/item/assembly/prox_sensor = 8, /obj/item/assembly/igniter = 8, /obj/item/assembly/signaler = 8,
 					/obj/item/wirecutters = 1, /obj/item/assembly/timer = 8)
 	contraband = list(/obj/item/flashlight = 5, /obj/item/assembly/voice = 3, /obj/item/assembly/health = 3, /obj/item/assembly/infra = 3)
+
 
 /obj/machinery/vending/wallmed
 	name = "\improper NanoMed"
@@ -1264,18 +1203,10 @@
 	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
 	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallmed
 
-/obj/machinery/vending/wallmed/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/wallmed(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/wallmed/syndicate
 	name = "\improper SyndiMed Plus"
@@ -1286,6 +1217,7 @@
 	req_access_txt = "150"
 	products = list(/obj/item/stack/medical/bruise_pack = 2,/obj/item/stack/medical/ointment = 2,/obj/item/reagent_containers/hypospray/autoinjector = 4,/obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4,/obj/item/reagent_containers/syringe/antiviral = 4,/obj/item/reagent_containers/food/pill/tox = 1)
+
 
 /obj/machinery/vending/security
 	name = "\improper SecTech"
@@ -1300,14 +1232,6 @@
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
 	refill_canister = /obj/item/vending_refill/security
 
-/obj/machinery/vending/security/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/security(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/hydronutrients
 	name = "\improper NutriMax"
@@ -1321,14 +1245,6 @@
 	contraband = list(/obj/item/reagent_containers/glass/bottle/ammonia = 10,/obj/item/reagent_containers/glass/bottle/diethylamine = 5)
 	refill_canister = /obj/item/vending_refill/hydronutrients
 
-/obj/machinery/vending/hydronutrients/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/hydronutrients(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/hydroseeds
 	name = "\improper MegaSeed Servitor"
@@ -1358,6 +1274,7 @@
 					/obj/item/seeds/grass = 3,
 					/obj/item/seeds/lemon = 3,
 					/obj/item/seeds/lime = 3,
+					/obj/item/seeds/mint = 3,
 					/obj/item/seeds/onion = 3,
 					/obj/item/seeds/orange = 3,
 					/obj/item/seeds/peanuts = 3,
@@ -1390,14 +1307,6 @@
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
 	refill_canister = /obj/item/vending_refill/hydroseeds
 
-/obj/machinery/vending/hydroseeds/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/hydroseeds(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/magivend
 	name = "\improper MagiVend"
@@ -1424,6 +1333,7 @@
 	contraband = list(/obj/item/reagent_containers/glass/bottle/wizarditis = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
+
 
 /obj/machinery/vending/autodrobe
 	name = "\improper AutoDrobe"
@@ -1560,29 +1470,28 @@
 				   /obj/item/clothing/head/cuban_hat = 1)
 	refill_canister = /obj/item/vending_refill/autodrobe
 
-/obj/machinery/vending/autodrobe/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/autodrobe(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/dinnerware
 	name = "\improper Plasteel Chef's Dinnerware Vendor"
 	desc = "A kitchen and restaurant equipment vendor."
 	ads_list = list("Mm, food stuffs!","Food and food accessories.","Get your plates!","You like forks?","I like forks.","Woo, utensils.","You don't really need these...")
 	icon_state = "dinnerware"
-	products = list(/obj/item/storage/bag/tray = 8,/obj/item/kitchen/utensil/fork = 6,
-					/obj/item/kitchen/knife = 3,/obj/item/kitchen/rollingpin = 2,
+	products = list(/obj/item/storage/bag/tray = 8,
+					/obj/item/kitchen/utensil/fork = 6,
+					/obj/item/trash/plate = 20,
+					/obj/item/trash/bowl = 20,
+					/obj/item/kitchen/knife = 3,
+					/obj/item/kitchen/rollingpin = 2,
 					/obj/item/kitchen/sushimat = 3,
-					/obj/item/reagent_containers/food/drinks/drinkingglass = 8, /obj/item/clothing/suit/chef/classic = 2, /obj/item/storage/belt/chef = 2,
+					/obj/item/reagent_containers/food/drinks/drinkingglass = 8,
+					/obj/item/clothing/suit/chef/classic = 2,
+					/obj/item/storage/belt/chef = 2,
 					/obj/item/reagent_containers/food/condiment/pack/ketchup = 5,
 					/obj/item/reagent_containers/food/condiment/pack/hotsauce = 5,
 					/obj/item/reagent_containers/food/condiment/saltshaker =5,
 					/obj/item/reagent_containers/food/condiment/peppermill =5,
-					/obj/item/whetstone = 2, /obj/item/mixing_bowl = 10,
+					/obj/item/whetstone = 2,
+					/obj/item/mixing_bowl = 10,
 					/obj/item/kitchen/mould/bear = 1, /obj/item/kitchen/mould/worm = 1,
 					/obj/item/kitchen/mould/bean = 1, /obj/item/kitchen/mould/ball = 1,
 					/obj/item/kitchen/mould/cane = 1, /obj/item/kitchen/mould/cash = 1,
@@ -1591,14 +1500,6 @@
 	contraband = list(/obj/item/kitchen/rollingpin = 2, /obj/item/kitchen/knife/butcher = 2)
 	refill_canister = /obj/item/vending_refill/dinnerware
 
-/obj/machinery/vending/dinnerware/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/dinnerware(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/sovietsoda
 	name = "\improper BODA"
@@ -1610,14 +1511,6 @@
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/sovietsoda
 
-/obj/machinery/vending/sovietsoda/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/sovietsoda(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/tool
 	name = "\improper YouTool"
@@ -1628,8 +1521,10 @@
 					/obj/item/wrench = 5,/obj/item/analyzer = 5,/obj/item/t_scanner = 5,/obj/item/screwdriver = 5)
 	contraband = list(/obj/item/weldingtool/hugetank = 2,/obj/item/clothing/gloves/color/fyellow = 2)
 	premium = list(/obj/item/clothing/gloves/color/yellow = 1)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	refill_canister = /obj/item/vending_refill/youtool
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
+
 
 /obj/machinery/vending/engivend
 	name = "\improper Engi-Vend"
@@ -1637,19 +1532,11 @@
 	icon_state = "engivend"
 	icon_deny = "engivend-deny"
 	req_one_access_txt = "11;24" // Engineers and atmos techs can use this
-	products = list(/obj/item/clothing/glasses/meson = 2,/obj/item/multitool = 4,/obj/item/airlock_electronics = 10,/obj/item/firelock_electronics = 10,/obj/item/firealarm_electronics = 10,/obj/item/apc_electronics = 10,/obj/item/airalarm_electronics = 10,/obj/item/stock_parts/cell/high = 10,/obj/item/camera_assembly = 10)
+	products = list(/obj/item/clothing/glasses/meson/engine = 2,/obj/item/multitool = 4, /obj/item/geiger_counter = 5, /obj/item/airlock_electronics = 10,/obj/item/firelock_electronics = 10,/obj/item/firealarm_electronics = 10,/obj/item/apc_electronics = 10,/obj/item/airalarm_electronics = 10,/obj/item/stock_parts/cell/high = 10,/obj/item/camera_assembly = 10)
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
 	premium = list(/obj/item/storage/belt/utility = 3)
 	refill_canister = /obj/item/vending_refill/engivend
 
-/obj/machinery/vending/engivend/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/engivend(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/engineering
 	name = "\improper Robco Tool Maker"
@@ -1658,21 +1545,13 @@
 	icon_deny = "engi-deny"
 	req_access_txt = "11"
 	products = list(/obj/item/clothing/under/rank/chief_engineer = 4,/obj/item/clothing/under/rank/engineer = 4,/obj/item/clothing/shoes/workboots = 4,/obj/item/clothing/head/hardhat = 4,
-					/obj/item/storage/belt/utility = 4,/obj/item/clothing/glasses/meson = 4,/obj/item/clothing/gloves/color/yellow = 4, /obj/item/screwdriver = 12,
+					/obj/item/storage/belt/utility = 4,/obj/item/clothing/glasses/meson/engine = 4,/obj/item/clothing/gloves/color/yellow = 4, /obj/item/screwdriver = 12,
 					/obj/item/crowbar = 12,/obj/item/wirecutters = 12,/obj/item/multitool = 12,/obj/item/wrench = 12,/obj/item/t_scanner = 12,
 					/obj/item/stack/cable_coil/heavyduty = 8, /obj/item/stock_parts/cell = 8, /obj/item/weldingtool = 8,/obj/item/clothing/head/welding = 8,
 					/obj/item/light/tube = 10,/obj/item/clothing/suit/fire = 4, /obj/item/stock_parts/scanning_module = 5,/obj/item/stock_parts/micro_laser = 5,
 					/obj/item/stock_parts/matter_bin = 5,/obj/item/stock_parts/manipulator = 5)
 	refill_canister = /obj/item/vending_refill/engineering
 
-/obj/machinery/vending/engineering/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/engineering(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/robotics
 	name = "\improper Robotech Deluxe"
@@ -1682,18 +1561,10 @@
 	req_access_txt = "29"
 	products = list(/obj/item/clothing/suit/storage/labcoat = 4,/obj/item/clothing/under/rank/roboticist = 4,/obj/item/stack/cable_coil = 4,/obj/item/flash = 4,
 					/obj/item/stock_parts/cell/high = 12, /obj/item/assembly/prox_sensor = 3,/obj/item/assembly/signaler = 3,/obj/item/healthanalyzer = 3,
-					/obj/item/scalpel = 2,/obj/item/circular_saw = 2,/obj/item/tank/anesthetic = 2,/obj/item/clothing/mask/breath/medical = 5,
+					/obj/item/scalpel = 2,/obj/item/circular_saw = 2,/obj/item/tank/internals/anesthetic = 2,/obj/item/clothing/mask/breath/medical = 5,
 					/obj/item/screwdriver = 5,/obj/item/crowbar = 5)
 	refill_canister = /obj/item/vending_refill/robotics
 
-/obj/machinery/vending/robotics/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/robotics(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/sustenance
 	name = "\improper Sustenance Vendor"
@@ -1706,18 +1577,10 @@
 					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
 	contraband = list(/obj/item/kitchen/knife = 6,
 					  /obj/item/reagent_containers/food/drinks/coffee = 12,
-					  /obj/item/tank/emergency_oxygen = 6,
+					  /obj/item/tank/internals/emergency_oxygen = 6,
 					  /obj/item/clothing/mask/breath = 6)
 	refill_canister = /obj/item/vending_refill/sustenance
 
-/obj/machinery/vending/sustenance/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/sustenance(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/hatdispenser
 	name = "\improper Hatlord 9000"
@@ -1734,14 +1597,6 @@
 	premium = list(/obj/item/clothing/head/soft/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/hatdispenser
 
-/obj/machinery/vending/hatdispenser/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/hatdispenser(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/suitdispenser
 	name = "\improper Suitlord 9000"
@@ -1755,14 +1610,6 @@
 	premium = list(/obj/item/clothing/under/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/suitdispenser
 
-/obj/machinery/vending/suitdispenser/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/suitdispenser(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/shoedispenser
 	name = "\improper Shoelord 9000"
@@ -1774,14 +1621,6 @@
 	premium = list(/obj/item/clothing/shoes/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/shoedispenser
 
-/obj/machinery/vending/shoedispenser/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/shoedispenser(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/syndicigs
 	name = "\improper Suspicious Cigarette Machine"
@@ -1792,6 +1631,7 @@
 	icon_state = "cigs"
 	products = list(/obj/item/storage/fancy/cigarettes/syndicate = 10,/obj/item/lighter/random = 5)
 
+
 /obj/machinery/vending/syndisnack
 	name = "\improper Getmore Chocolate Corp"
 	desc = "A modified snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars"
@@ -1800,6 +1640,7 @@
 	icon_state = "snack"
 	products = list(/obj/item/reagent_containers/food/snacks/chips =6,/obj/item/reagent_containers/food/snacks/sosjerky = 6,
 					/obj/item/reagent_containers/food/snacks/syndicake = 6, /obj/item/reagent_containers/food/snacks/cheesiehonkers = 6)
+
 
 //don't forget to change the refill size if you change the machine's contents!
 /obj/machinery/vending/clothing
@@ -1896,14 +1737,6 @@
 
 	refill_canister = /obj/item/vending_refill/clothing
 
-/obj/machinery/vending/clothing/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/clothing(null)
-	RefreshParts()
-	return ..()
 
 /obj/machinery/vending/artvend
 	name = "\improper ArtVend"
@@ -1919,6 +1752,7 @@
 	/obj/item/pen/red = 5)
 	contraband = list(/obj/item/toy/crayon/mime = 1,/obj/item/toy/crayon/rainbow = 1)
 	premium = list(/obj/item/poster/random_contraband = 5)
+
 
 /obj/machinery/vending/crittercare
 	name = "\improper CritterCare"
@@ -1944,11 +1778,3 @@
 /obj/machinery/vending/crittercare/free
 	prices = list()
 
-/obj/machinery/vending/crittercare/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/crittercare(null)
-	RefreshParts()
-	return ..()

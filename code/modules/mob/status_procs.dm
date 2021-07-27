@@ -58,10 +58,6 @@
 /mob/proc/AdjustEarDamage()
 	return
 
-/mob/proc/MinimumDeafTicks()
-	return
-
-
 /mob/proc/EyeBlind()
 	return
 

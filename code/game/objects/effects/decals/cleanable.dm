@@ -53,6 +53,9 @@
 /obj/effect/decal/cleanable/proc/can_bloodcrawl_in()
 	return FALSE
 
+/obj/effect/decal/cleanable/is_cleanable()
+	return TRUE
+
 /obj/effect/decal/cleanable/Initialize(mapload)
 	. = ..()
 	if(loc && isturf(loc))

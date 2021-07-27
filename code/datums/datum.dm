@@ -7,11 +7,10 @@
 	var/list/comp_lookup
 	var/list/list/datum/callback/signal_procs
 	var/signal_enabled = FALSE
-	var/datum_flags = NONE
 	var/var_edited = FALSE //Warranty void if seal is broken
 	var/tmp/unique_datum_id = null
 
-#ifdef TESTING
+#ifdef REFERENCE_TRACKING
 	var/running_find_references
 	var/last_find_references = 0
 #endif

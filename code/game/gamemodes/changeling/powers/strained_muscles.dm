@@ -12,12 +12,12 @@
 	var/stacks = 0 //Increments every 5 seconds; damage increases over time
 	var/enabled = 0 //Whether or not you are a hedgehog
 
-/datum/action/changeling/strained_muscles/sting_action(var/mob/living/carbon/user)
+/datum/action/changeling/strained_muscles/sting_action(mob/living/carbon/user)
 	enabled = !enabled
 	if(enabled)
 		to_chat(user, "<span class='notice'>Our muscles tense and strengthen.</span>")
 	else
-		user.status_flags &= ~GOTTAGOFAST
+		REMOVE_TRAIT(user, TRAIT_GOTTAGOFAST, "changeling")
 		to_chat(user, "<span class='notice'>Our muscles relax.</span>")
 		if(stacks >= 10)
 			to_chat(user, "<span class='danger'>We collapse in exhaustion.</span>")
@@ -25,11 +25,11 @@
 			user.emote("gasp")
 
 	while(enabled)
-		user.status_flags |= GOTTAGOFAST
+		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "changeling")
 		if(user.stat || user.staminaloss >= 90)
 			enabled = 0 //Let's use something exact instead of !enabled where we can.
 			to_chat(user, "<span class='notice'>Our muscles relax without the energy to strengthen them.</span>")
-			user.status_flags &= ~GOTTAGOFAST
+			REMOVE_TRAIT(user, TRAIT_GOTTAGOFAST, "changeling")
 			user.Weaken(2)
 			user.emote("gasp")
 			break
@@ -48,5 +48,5 @@
 			stacks--
 		sleep(20)
 
-	feedback_add_details("changeling_powers","SANIC")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

@@ -25,7 +25,7 @@
 	pressure_resistance = 2
 
 /obj/item/pen/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit sudoku.</span>")
+	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit sudoku.</span>")
 	return BRUTELOSS
 
 /obj/item/pen/blue
@@ -64,7 +64,7 @@
 	var/pen_color_iconstate = "pencolor"
 	var/pen_color_shift = 3
 
-/obj/item/pen/multi/New()
+/obj/item/pen/multi/Initialize(mapload)
 	..()
 	update_icon()
 
@@ -104,21 +104,6 @@
 	icon_state = "fountainpen"
 	pen_color_shift = 0
 
-/obj/item/pen/attack(mob/living/M, mob/user)
-	if(!istype(M))
-		return
-
-	if(!force)
-		if(M.can_inject(user, TRUE))
-			to_chat(user, "<span class='warning'>You stab [M] with the pen.</span>")
-//			to_chat(M, "<span class='danger'>You feel a tiny prick!</span>")
-			. = 1
-
-		add_attack_logs(user, M, "Stabbed with [src]")
-
-	else
-		. = ..()
-
 /*
  * Sleepypens
  */
@@ -128,18 +113,23 @@
 
 
 /obj/item/pen/sleepy/attack(mob/living/M, mob/user)
-	if(!istype(M))	return
+	if(!istype(M))
+		return
 
-	if(..())
-		if(reagents.total_volume)
-			if(M.reagents)
-				reagents.trans_to(M, 50)
+	if(!M.can_inject(user, TRUE))
+		return
+	var/transfered = 0
+	if(reagents.total_volume && M.reagents)
+		transfered = reagents.trans_to(M, 50)
+	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
+	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered.")
+	return TRUE
 
 
-/obj/item/pen/sleepy/New()
+/obj/item/pen/sleepy/Initialize(mapload)
+	. = ..()
 	create_reagents(100)
 	reagents.add_reagent("ketamine", 100)
-	..()
 
 
 /*
@@ -147,7 +137,6 @@
  */
 /obj/item/pen/edagger
 	origin_tech = "combat=3;syndicate=1"
-	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut") //these wont show up if the pen is off
 	var/on = 0
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
@@ -159,6 +148,7 @@
 		sharp = 0
 		w_class = initial(w_class)
 		name = initial(name)
+		attack_verb = list()
 		hitsound = initial(hitsound)
 		embed_chance = initial(embed_chance)
 		throwforce = initial(throwforce)
@@ -171,6 +161,7 @@
 		sharp = 1
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
+		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 		hitsound = 'sound/weapons/blade1.ogg'
 		embed_chance = 100 //rule of cool
 		throwforce = 35

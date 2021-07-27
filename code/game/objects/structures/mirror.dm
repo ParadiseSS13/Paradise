@@ -10,8 +10,8 @@
 	integrity_failure = 100
 	var/list/ui_users = list()
 
-/obj/structure/mirror/New(turf/T, newdir = SOUTH, building = FALSE)
-	..()
+/obj/structure/mirror/Initialize(mapload, newdir = SOUTH, building = FALSE)
+	. = ..()
 	if(building)
 		switch(newdir)
 			if(NORTH)
@@ -114,12 +114,9 @@
 
 		if("Body")
 			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
-			if(config.usealienwhitelist)
-				for(var/Spec in GLOB.whitelisted_species)
-					if(is_alien_whitelisted(H, Spec))
-						race_list += Spec
-			else
-				race_list += GLOB.whitelisted_species
+			for(var/species in GLOB.whitelisted_species)
+				if(is_alien_whitelisted(H, species))
+					race_list += species
 
 			var/datum/ui_module/appearance_changer/AC = ui_users[user]
 			if(!AC)
@@ -147,10 +144,10 @@
 			if(voice_mutation)
 				if(H.dna.GetSEState(voice_mutation))
 					H.dna.SetSEState(voice_mutation, FALSE)
-					genemutcheck(H, voice_mutation, null, MUTCHK_FORCED)
+					singlemutcheck(H, voice_mutation, MUTCHK_FORCED)
 				else
 					H.dna.SetSEState(voice_mutation, TRUE)
-					genemutcheck(H, voice_mutation, null, MUTCHK_FORCED)
+					singlemutcheck(H, voice_mutation, MUTCHK_FORCED)
 
 			if(voice_choice)
 				curse(user)

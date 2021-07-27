@@ -139,12 +139,6 @@
 #define FACING_EACHOTHER										2
 #define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR	3 //Do I win the most informative but also most stupid define award?
 
-//unmagic-strings for types of polls
-#define POLLTYPE_OPTION		"OPTION"
-#define POLLTYPE_TEXT		"TEXT"
-#define POLLTYPE_RATING		"NUMVAL"
-#define POLLTYPE_MULTI		"MULTICHOICE"
-
 #define MIDNIGHT_ROLLOVER	864000 //number of deciseconds in a day
 
 #define MANIFEST_ERROR_NAME		1
@@ -315,7 +309,7 @@
 #define ROUND_TIME (SSticker.round_start_time ? (world.time - SSticker.round_start_time) : 0)
 
 // Macro that returns true if it's too early in a round to freely ghost out
-#define TOO_EARLY_TO_GHOST (config && (ROUND_TIME < (config.round_abandon_penalty_period)))
+#define TOO_EARLY_TO_GHOST (ROUND_TIME < GLOB.configuration.general.cryo_penalty_period)
 
 // Used by radios to indicate that they have sent a message via something other than subspace
 #define RADIO_CONNECTION_FAIL 0
@@ -369,7 +363,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 14
+#define SQL_VERSION 25
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -435,8 +429,8 @@
 //Explosive wall groups
 #define EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE "syndicate_base"
 
-// Filters
-#define FILTER_AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")
+/// Prepares a text to be used for maptext. Use this so it doesn't look hideous.
+#define MAPTEXT(text) {"<span class='maptext'>[##text]</span>"}
 
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15
@@ -492,3 +486,8 @@
 
 /// Send to the mentor Discord webhook
 #define DISCORD_WEBHOOK_MENTOR "MENTOR"
+
+// Hallucination severities
+#define HALLUCINATE_MINOR 1
+#define HALLUCINATE_MODERATE 2
+#define HALLUCINATE_MAJOR 3

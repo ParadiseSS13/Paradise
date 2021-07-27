@@ -19,7 +19,7 @@
 	set category = "Object"
 	set src in range(0)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.incapacitated())
 		return
 	var/default = null
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
@@ -29,10 +29,10 @@
 		amount_per_transfer_from_this = N
 
 /obj/item/reagent_containers/New()
+	create_reagents(volume, temperature_min, temperature_max)
 	..()
 	if(!possible_transfer_amounts)
 		verbs -= /obj/item/reagent_containers/verb/set_APTFT
-	create_reagents(volume, temperature_min, temperature_max)
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease(0)
 		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808")

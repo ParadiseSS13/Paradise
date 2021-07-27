@@ -7,7 +7,10 @@
 	baseturf = /turf/simulated/floor/plating/asteroid
 	icon_state = "asteroid"
 	icon_plating = "asteroid"
-	footstep_sounds = list()
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	var/environment_type = "asteroid"
 	var/turf_type = /turf/simulated/floor/plating/asteroid //Because caves do whacky shit to revert to normal
 	var/floor_variance = 20 //probability floor has a different icon state
@@ -85,7 +88,7 @@
 
 	else if(istype(I, /obj/item/storage/bag/ore))
 		var/obj/item/storage/bag/ore/S = I
-		if(S.collection_mode == 1)
+		if(S.pickup_all_on_tile)
 			for(var/obj/item/stack/ore/O in contents)
 				O.attackby(I, user)
 				return

@@ -169,7 +169,6 @@
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
-/obj/item/malf_upgrade,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "aB" = (
@@ -270,7 +269,6 @@
 /area/ruin/unpowered/ash_walkers)
 "aO" = (
 /obj/structure/stone_tile/surrounding/cracked{
-	icon_state = "cracked_surrounding1";
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -1000,7 +998,6 @@
 /area/ruin/unpowered/ash_walkers)
 "cA" = (
 /obj/structure/stone_tile/slab/cracked{
-	icon_state = "cracked_slab1";
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,

@@ -28,7 +28,7 @@
 //return 1 if the implant injects
 //return -1 if the implant fails to inject
 //return 0 if there is no room for implant
-/obj/item/implant/proc/implant(var/mob/source, var/mob/user)
+/obj/item/implant/proc/implant(mob/source, mob/user)
 	var/obj/item/implant/imp_e = locate(src.type) in source
 	if(!allow_multiple && imp_e && imp_e != src)
 		if(imp_e.uses < initial(imp_e.uses)*2)
@@ -58,7 +58,7 @@
 
 	return 1
 
-/obj/item/implant/proc/removed(var/mob/source)
+/obj/item/implant/proc/removed(mob/source)
 	src.loc = null
 	imp_in = null
 	implanted = 0

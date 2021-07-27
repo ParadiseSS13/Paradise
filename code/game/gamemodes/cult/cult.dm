@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	to_chat(world, "<B>Some crewmembers are attempting to start a cult!<BR>\nCultists - complete your objectives. Convert crewmembers to your cause by using the offer rune. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with holy water reverts them to whatever CentComm-allowed faith they had.</B>")
 
 /datum/game_mode/cult/pre_setup()
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs
 
 	var/list/cultists_possible = get_players_for_role(ROLE_CULTIST)
@@ -81,67 +81,28 @@ GLOBAL_LIST_EMPTY(all_cults)
 	cult_objs.setup()
 
 	for(var/datum/mind/cult_mind in cult)
-		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
+		SEND_SOUND(cult_mind.current, sound('sound/ambience/antag/bloodcult.ogg'))
 		to_chat(cult_mind.current, CULT_GREETING)
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
+		var/datum/objective/servecult/obj = new
+		obj.owner = cult_mind
+		cult_mind.objectives += obj
 
 		if(cult_mind.assigned_role == "Clown")
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
-			cult_mind.current.mutations.Remove(CLUMSY)
+			cult_mind.current.dna.SetSEState(GLOB.clumsyblock, FALSE)
+			singlemutcheck(cult_mind.current, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
 
 		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
 		cult_objs.study(cult_mind.current)
+		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
 	cult_threshold_check()
 	addtimer(CALLBACK(src, .proc/cult_threshold_check), 2 MINUTES) // Check again in 2 minutes for latejoiners
 	..()
-
-/**
-  * Decides at the start of the round how many conversions are needed to rise/ascend.
-  *
-  * The number is decided by (Percentage * (Players - Cultists)), so for example at 110 players it would be 11 conversions for rise. (0.1 * (110 - 4))
-  * These values change based on population because 20 cultists are MUCH more powerful if there's only 50 players, compared to 120.
-  *
-  * Below 100 players, [CULT_RISEN_LOW] and [CULT_ASCENDANT_LOW] are used.
-  * Above 100 players, [CULT_RISEN_HIGH] and [CULT_ASCENDANT_HIGH] are used.
-  */
-/datum/game_mode/proc/cult_threshold_check()
-	var/players = length(GLOB.player_list)
-	var/cultists = get_cultists() // Don't count the starting cultists towards the number of needed conversions
-	if(players >= CULT_POPULATION_THRESHOLD)
-		// Highpop
-		ascend_percent = CULT_ASCENDANT_HIGH
-		rise_number = round(CULT_RISEN_HIGH * (players - cultists))
-		ascend_number = round(CULT_ASCENDANT_HIGH * (players - cultists))
-	else
-		// Lowpop
-		ascend_percent = CULT_ASCENDANT_LOW
-		rise_number = round(CULT_RISEN_LOW * (players - cultists))
-		ascend_number = round(CULT_ASCENDANT_LOW * (players - cultists))
-
-/**
-  * Returns the current number of cultists and constructs.
-  *
-  * Returns the number of cultists and constructs in a list ([1] = Cultists, [2] = Constructs), or as one combined number.
-  *
-  * * separate - Should the number be returned in two separate values (Humans and Constructs) or as one?
-  */
-/datum/game_mode/proc/get_cultists(separate = FALSE)
-	var/cultists = 0
-	var/constructs = 0
-	for(var/I in cult)
-		var/datum/mind/M = I
-		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
-			cultists++
-		else if(isconstruct(M.current))
-			constructs++
-	if(separate)
-		return list(cultists, constructs)
-	else
-		return cultists + constructs
 
 /datum/game_mode/proc/equip_cultist(mob/living/carbon/human/H, metal = TRUE)
 	if(!istype(H))
@@ -171,6 +132,10 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(!istype(cult_mind))
 		return FALSE
 
+	if(!ascend_percent) // If the rise/ascend thresholds haven't been set (non-cult rounds)
+		cult_objs.setup()
+		cult_threshold_check()
+
 	if(!(cult_mind in cult))
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"
@@ -178,10 +143,11 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 		if(cult_mind.assigned_role == "Clown")
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
-			cult_mind.current.mutations.Remove(CLUMSY)
+			cult_mind.current.dna.SetSEState(GLOB.clumsyblock, FALSE)
+			singlemutcheck(cult_mind.current, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
-		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
+		SEND_SOUND(cult_mind.current, sound('sound/ambience/antag/bloodcult.ogg'))
 		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
 		cult_mind.current.create_log(CONVERSION_LOG, "converted to the cult")
 
@@ -201,8 +167,84 @@ GLOBAL_LIST_EMPTY(all_cults)
 				ascend(cult_mind.current)
 		check_cult_size()
 		cult_objs.study(cult_mind.current)
+		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
 		return TRUE
 
+/datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE)
+	if(!(cult_mind in cult)) // Not actually a cultist in the first place
+		return
+
+	var/mob/cultist = cult_mind.current
+	cult -= cult_mind
+	cultist.faction -= "cult"
+	cult_mind.special_role = null
+	for(var/datum/objective/servecult/S in cult_mind.objectives)
+		cult_mind.objectives -= S
+		qdel(S)
+	for(var/datum/action/innate/cult/C in cultist.actions)
+		qdel(C)
+	update_cult_icons_removed(cult_mind)
+
+	if(ishuman(cultist))
+		var/mob/living/carbon/human/H = cultist
+		REMOVE_TRAIT(H, CULT_EYES, null)
+		H.change_eye_color(H.original_eye_color, FALSE)
+		H.update_eyes()
+		H.remove_overlay(HALO_LAYER)
+		H.update_body()
+		if(remove_gear) // No flagellants robe for non-cultists
+			for(var/I in H.contents)
+				if(is_type_in_list(I, CULT_CLOTHING))
+					H.unEquip(I)
+	check_cult_size()
+	if(show_message)
+		cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
+		"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
+
+
+/**
+  * Decides at the start of the round how many conversions are needed to rise/ascend.
+  *
+  * The number is decided by (Percentage * (Players - Cultists)), so for example at 110 players it would be 11 conversions for rise. (0.1 * (110 - 4))
+  * These values change based on population because 20 cultists are MUCH more powerful if there's only 50 players, compared to 120.
+  *
+  * Below 100 players, [CULT_RISEN_LOW] and [CULT_ASCENDANT_LOW] are used.
+  * Above 100 players, [CULT_RISEN_HIGH] and [CULT_ASCENDANT_HIGH] are used.
+  */
+/datum/game_mode/proc/cult_threshold_check()
+	var/players = length(GLOB.player_list)
+	var/cultists = get_cultists() // Don't count the starting cultists towards the number of needed conversions
+	if(players >= CULT_POPULATION_THRESHOLD)
+		// Highpop
+		ascend_percent = CULT_ASCENDANT_HIGH
+		rise_number = round(CULT_RISEN_HIGH * (players - cultists))
+		ascend_number = round(CULT_ASCENDANT_HIGH * (players - cultists))
+	else
+		// Lowpop
+		ascend_percent = CULT_ASCENDANT_LOW
+		rise_number = round(CULT_RISEN_LOW * (players - cultists))
+		ascend_number = round(CULT_ASCENDANT_LOW * (players - cultists))
+
+/**
+  * Returns the current number of cultists and constructs.
+  *
+  * Returns the number of cultists and constructs in a list ([1] = Cultists, [2] = Constructs), or as one combined number.
+  *
+  * * separate - Should the number be returned as a list with two separate values (Humans and Constructs) or as one number.
+  */
+/datum/game_mode/proc/get_cultists(separate = FALSE)
+	var/cultists = 0
+	var/constructs = 0
+	for(var/I in cult)
+		var/datum/mind/M = I
+		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+			cultists++
+		else if(isconstruct(M.current))
+			constructs++
+	if(separate)
+		return list(cultists, constructs)
+	else
+		return cultists + constructs
 
 /datum/game_mode/proc/check_cult_size()
 	if(cult_ascendant)
@@ -214,7 +256,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		for(var/datum/mind/M in cult)
 			if(!M.current || !ishuman(M.current))
 				continue
-			SEND_SOUND(M.current, 'sound/hallucinations/i_see_you2.ogg')
+			SEND_SOUND(M.current, sound('sound/hallucinations/i_see_you2.ogg'))
 			to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
 			addtimer(CALLBACK(src, .proc/rise, M.current), 20 SECONDS)
 
@@ -223,7 +265,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		for(var/datum/mind/M in cult)
 			if(!M.current || !ishuman(M.current))
 				continue
-			SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
+			SEND_SOUND(M.current, sound('sound/hallucinations/im_here1.ogg'))
 			to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
 			addtimer(CALLBACK(src, .proc/ascend, M.current), 20 SECONDS)
 		GLOB.command_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
@@ -232,6 +274,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/proc/rise(cultist)
 	if(ishuman(cultist) && iscultist(cultist))
 		var/mob/living/carbon/human/H = cultist
+		if(!H.original_eye_color)
+			H.original_eye_color = H.get_eye_color()
 		H.change_eye_color(BLOODCULT_EYE, FALSE)
 		H.update_eyes()
 		ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
@@ -242,29 +286,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 		var/mob/living/carbon/human/H = cultist
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 		H.update_halo_layer()
-
-
-/datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE)
-	if(cult_mind in cult)
-		var/mob/cultist = cult_mind.current
-		cult -= cult_mind
-		cultist.faction -= "cult"
-		cult_mind.special_role = null
-		for(var/datum/action/innate/cult/C in cultist.actions)
-			qdel(C)
-		update_cult_icons_removed(cult_mind)
-
-		if(ishuman(cultist))
-			var/mob/living/carbon/human/H = cultist
-			REMOVE_TRAIT(H, CULT_EYES, null)
-			H.change_eye_color(H.original_eye_color, FALSE)
-			H.update_eyes()
-			H.remove_overlay(HALO_LAYER)
-			H.update_body()
-		check_cult_size()
-		if(show_message)
-			cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
-			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
@@ -294,13 +315,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 /datum/game_mode/cult/declare_completion()
 	if(cult_objs.cult_status == NARSIE_HAS_RISEN)
-		feedback_set_details("round_end_result","cult win - cult win")
+		SSticker.mode_result = "cult win - cult win"
 		to_chat(world, "<span class='danger'> <FONT size = 3>The cult wins! It has succeeded in summoning [SSticker.cultdat.entity_name]!</FONT></span>")
 	else if(cult_objs.cult_status == NARSIE_HAS_FALLEN)
-		feedback_set_details("round_end_result","cult draw - narsie died, nobody wins")
+		SSticker.mode_result = "cult draw - narsie died, nobody wins"
 		to_chat(world, "<span class='danger'> <FONT size = 3>Nobody wins! [SSticker.cultdat.entity_name] was summoned, but banished!</FONT></span>")
 	else
-		feedback_set_details("round_end_result","cult loss - staff stopped the cult")
+		SSticker.mode_result = "cult loss - staff stopped the cult"
 		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")
 
 	var/endtext

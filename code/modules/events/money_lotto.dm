@@ -17,9 +17,9 @@
 	newMsg.author = "Nanotrasen Editor"
 	newMsg.admin_locked = TRUE
 
-	newMsg.body = "Nyx Daily wishes to congratulate <b>[winner_name]</b> for recieving the Nyx Stellar Slam Lottery, and receiving the out of this world sum of [winner_sum] credits!"
+	newMsg.body = "Nyx Daily wishes to congratulate [winner_name] for recieving the Nyx Stellar Slam Lottery, and receiving the out of this world sum of [winner_sum] credits!"
 	if(!deposit_success)
-		newMsg.body += "<br>Unfortunately, we were unable to verify the account details provided, so we were unable to transfer the money. Send a cheque containing the sum of $500 to ND 'Stellar Slam' office on the Nyx gateway containing updated details, and your winnings'll be re-sent within the month."
+		newMsg.body += "Unfortunately, we were unable to verify the account details provided, so we were unable to transfer the money. Send a cheque containing the sum of $500 to ND 'Stellar Slam' office on the Nyx gateway containing updated details, and your winnings'll be re-sent within the month."
 
 	GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(newMsg)
 	for(var/nc in GLOB.allNewscasters)

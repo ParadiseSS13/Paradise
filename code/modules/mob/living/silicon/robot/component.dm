@@ -48,6 +48,8 @@
 	if(brute_damage + electronics_damage >= max_damage)
 		destroy()
 
+	SStgui.update_uis(owner.self_diagnosis)
+
 /datum/robot_component/proc/heal_damage(brute, electronics, updating_health = TRUE)
 	if(installed != 1)
 		// If it's not installed, can't repair it.
@@ -59,6 +61,8 @@
 	brute_damage = max(0, brute_damage - brute)
 	electronics_damage = max(0, electronics_damage - electronics)
 
+	SStgui.update_uis(owner.self_diagnosis)
+
 /datum/robot_component/proc/is_powered()
 	return (installed == 1) && (brute_damage + electronics_damage < max_damage) && (powered)
 
@@ -67,6 +71,8 @@
 		powered = 0
 		return
 	powered = 1
+
+	SStgui.update_uis(owner.self_diagnosis)
 
 /datum/robot_component/proc/disable()
 	if(!component_disabled)
@@ -84,6 +90,8 @@
 		go_online()
 	else
 		go_offline()
+
+	SStgui.update_uis(owner.self_diagnosis)
 
 /datum/robot_component/proc/go_online()
 	return
@@ -169,7 +177,7 @@
 		D.enable()
 
 // Returns component by it's string name
-/mob/living/silicon/robot/proc/get_component(var/component_name)
+/mob/living/silicon/robot/proc/get_component(component_name)
 	var/datum/robot_component/C = components[component_name]
 	return C
 
@@ -230,7 +238,7 @@
 	var/mode = 1
 
 /obj/item/robotanalyzer/attack(mob/living/M as mob, mob/living/user as mob)
-	if(( (CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))
+	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message("<span class='warning'>[user] has analyzed the floor's vitals!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
 		to_chat(user, "<span class='notice'>Analyzing Results for The floor:\n\t Overall Status: Healthy</span>")
 		to_chat(user, "<span class='notice'>\t Damage Specifics: [0]-[0]-[0]-[0]</span>")

@@ -8,7 +8,7 @@
 /obj/item/projectile/forcebolt/strong
 	name = "force bolt"
 
-/obj/item/projectile/forcebolt/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/forcebolt/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(blocked < 100)
 		var/obj/T = target

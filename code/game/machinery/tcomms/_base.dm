@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 /obj/machinery/tcomms
 	name = "Telecommunications Device"
 	desc = "Someone forgot to say what this thingy does. Please yell at a coder"
-	icon = 'icons/obj/tcomms.dmi'
+	icon = 'icons/obj/machines/telecomms.dmi'
 	icon_state = "error"
 	density = TRUE
 	anchored = TRUE
@@ -85,10 +85,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 /obj/machinery/tcomms/update_icon()
 	. = ..()
 	// Show the off sprite if were inactive, ion'd or unpowered
-	if(!active || (stat & NOPOWER) || ion)
-		icon_state = "[initial(icon_state)]_off"
-	else
-		icon_state = initial(icon_state)
+	var/functioning = (active && !(stat & NOPOWER) && !ion)
+	icon_state = "[initial(icon_state)][panel_open ? "_o" : null][functioning ? null : "_off"]"
 
 
 // Attack overrides. These are needed so the UIs can be opened up //
@@ -366,55 +364,14 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	  /* --- Some miscellaneous variables to format the string output --- */
 		var/freq_text = get_frequency_name(display_freq)
 
-		var/part_b_extra = ""
-		var/part_a = "<span class='[SSradio.frequency_span_class(display_freq)]'><b>\[[freq_text]\][part_b_extra]</b> <span class='name'>" // goes in the actual output
+		var/part_a = "<span class='[SSradio.frequency_span_class(display_freq)]'><b>\[[freq_text]\]</b> <span class='name'>" // goes in the actual output
 
 		// --- Some more pre-message formatting ---
 		var/part_b = "</span> <span class='message'>" // Tweaked for security headsets -- TLE
-		var/part_c = "</span></span>"
-
-
-		// --- Filter the message; place it in quotes apply a verb ---
-		var/quotedmsg = null
-		if(tcm.sender)
-			quotedmsg = "[tcm.sender.say_quote(multilingual_to_message(tcm.message_pieces))], \"[multilingual_to_message(tcm.message_pieces)]\""
-		else
-			quotedmsg = "says, \"[multilingual_to_message(tcm.message_pieces)]\""
 
 		// --- This following recording is intended for research and feedback in the use of department radio channels ---
 
-		var/part_blackbox_b = "</span><b> \[[freq_text]\]</b> <span class='message'>" // Tweaked for security headsets -- TLE
-		var/blackbox_msg = "[part_a][tcm.sender_name][part_blackbox_b][quotedmsg][part_c]"
-		//var/blackbox_admin_msg = "[part_a][M.name] (Real name: [M.real_name])[part_blackbox_b][quotedmsg][part_c]"
-
-		//BR.messages_admin += blackbox_admin_msg
-		if(istype(GLOB.blackbox))
-			switch(display_freq)
-				if(PUB_FREQ)
-					GLOB.blackbox.msg_common += blackbox_msg
-				if(SCI_FREQ)
-					GLOB.blackbox.msg_science += blackbox_msg
-				if(COMM_FREQ)
-					GLOB.blackbox.msg_command += blackbox_msg
-				if(MED_FREQ)
-					GLOB.blackbox.msg_medical += blackbox_msg
-				if(ENG_FREQ)
-					GLOB.blackbox.msg_engineering += blackbox_msg
-				if(SEC_FREQ)
-					GLOB.blackbox.msg_security += blackbox_msg
-				if(DTH_FREQ)
-					GLOB.blackbox.msg_deathsquad += blackbox_msg
-				if(SYND_FREQ)
-					GLOB.blackbox.msg_syndicate += blackbox_msg
-				if(SYNDTEAM_FREQ)
-					GLOB.blackbox.msg_syndteam += blackbox_msg
-				if(SUP_FREQ)
-					GLOB.blackbox.msg_cargo += blackbox_msg
-				if(SRV_FREQ)
-					GLOB.blackbox.msg_service += blackbox_msg
-				else
-					GLOB.blackbox.messages += blackbox_msg
-		//End of research and feedback code.
+		SSblackbox.LogBroadcast(display_freq)
 
 	 /* ###### Send the message ###### */
 

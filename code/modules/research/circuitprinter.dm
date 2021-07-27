@@ -63,7 +63,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	T = clamp(T, 1, 4)
 	efficiency_coeff = 1 / (2 ** (T - 1))
 
-/obj/machinery/r_n_d/circuit_imprinter/check_mat(datum/design/being_built, var/M)
+/obj/machinery/r_n_d/circuit_imprinter/check_mat(datum/design/being_built, M)
 	var/list/all_materials = being_built.reagents_list + being_built.materials
 
 	var/A = materials.amount(M)
@@ -72,7 +72,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	return round(A / max(1, (all_materials[M] * efficiency_coeff)))
 
-/obj/machinery/r_n_d/circuit_imprinter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/r_n_d/circuit_imprinter/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(shocked)
 		if(shock(user,50))
 			return TRUE
@@ -95,7 +95,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			default_deconstruction_crowbar(user, O)
 			return
 		else
-			to_chat(user, "<span class='warning'>You can't load the [src.name] while it's opened.</span>")
+			to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
 			return
 	if(O.is_open_container())
 		return FALSE

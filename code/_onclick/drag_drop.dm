@@ -6,12 +6,13 @@
 	almost anything into a trash can.
 */
 /atom/MouseDrop(atom/over)
-	if(!usr || !over) return
-	if(!Adjacent(usr) || !over.Adjacent(usr)) return // should stop you from dragging through windows
+	if(!usr || !over)
+		return
+	if(!(istype(over, /obj/screen) || (loc && loc == over.loc)))
+		if(!Adjacent(usr) || !over.Adjacent(usr)) // should stop you from dragging through windows
+			return
 
-	spawn(0)
-		over.MouseDrop_T(src,usr)
-	return
+	INVOKE_ASYNC(over, .proc/MouseDrop_T, src, usr)
 
 // recieve a mousedrop
 /atom/proc/MouseDrop_T(atom/dropping, mob/user)

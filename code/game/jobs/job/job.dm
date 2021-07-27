@@ -85,10 +85,11 @@
 		announce(H)
 
 /datum/job/proc/get_access()
-	if(!config)	//Needed for robots.
+	if(!GLOB?.configuration?.jobs)	//Needed for robots.
+		// AA TODO: Remove this once mulebots and stuff use Initialize()
 		return src.minimal_access.Copy()
 
-	if(config.jobs_have_minimal_access)
+	if(GLOB.configuration.jobs.jobs_have_minimal_access)
 		return src.minimal_access.Copy()
 	else
 		return src.access.Copy()
@@ -103,7 +104,7 @@
 /datum/job/proc/available_in_days(client/C)
 	if(!C)
 		return 0
-	if(!config.use_age_restriction_for_jobs)
+	if(!GLOB.configuration.jobs.restrict_jobs_on_account_age)
 		return 0
 	if(!isnum(C.player_age))
 		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
@@ -190,7 +191,7 @@
 					continue
 
 				if(G.slot)
-					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
+					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot, TRUE))
 						to_chat(H, "<span class='notice'>Equipping you with [gear]!</span>")
 					else
 						gear_leftovers += G
@@ -225,7 +226,7 @@
 			to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
 			qdel(G)
 
-		qdel(gear_leftovers)
+		gear_leftovers.Cut()
 
 	return 1
 
