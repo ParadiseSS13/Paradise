@@ -94,6 +94,17 @@
 /mob/living/simple_animal/hostile/construct/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return FALSE
 
+/mob/living/simple_animal/hostile/construct/Life(seconds, times_fired)
+	if(holy_check(src))
+		throw_alert("holy_fire", /obj/screen/alert/holy_fire, override = TRUE)
+		visible_message("<span class='danger'>[src] slowly crumbles to dust in this holy place!</span>", \
+			"<span class='danger'>Your shell burns as you crumble to dust in this holy place!</span>")
+		playsound(loc, 'sound/items/welder.ogg', 150, TRUE)
+		adjustBruteLoss(maxHealth/8)
+	else
+		clear_alert("holy_fire", clear_override = TRUE)
+	return ..()
+
 /////////////////Juggernaut///////////////
 
 
@@ -133,8 +144,8 @@
 		if(prob(reflectchance))
 			if((P.damage_type == BRUTE || P.damage_type == BURN))
 				adjustBruteLoss(P.damage * 0.5)
-			visible_message("<span class='danger'>The [P.name] gets reflected by [src]'s shell!</span>", \
-							"<span class='userdanger'>The [P.name] gets reflected by [src]'s shell!</span>")
+			visible_message("<span class='danger'>[P] gets reflected by [src]'s shell!</span>", \
+							"<span class='userdanger'>[P] gets reflected by [src]'s shell!</span>")
 
 			P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
 

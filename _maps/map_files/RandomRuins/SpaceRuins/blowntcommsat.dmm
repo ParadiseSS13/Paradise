@@ -54,15 +54,14 @@
 /area/ruin/tcommsat)
 "an" = (
 /obj/machinery/power/apc{
-	cell_type = 2500;
 	dir = 1;
 	name = "Worn-out APC";
 	pixel_x = 1;
 	pixel_y = 26
 	},
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/tcommsat)
@@ -114,8 +113,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/tcommsat)

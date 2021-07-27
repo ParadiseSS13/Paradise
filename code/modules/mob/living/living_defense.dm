@@ -71,8 +71,8 @@
 		take_overall_damage(0, shock_damage, TRUE, used_weapon = "Electrocution")
 		if(shock_damage > 200)
 			visible_message(
-				"<span class='danger'>[src] was arc flashed by the [source]!</span>",
-				"<span class='userdanger'>The [source] arc flashes and electrocutes you!</span>",
+				"<span class='danger'>[src] was arc flashed by \the [source]!</span>",
+				"<span class='userdanger'>\The [source] arc flashes and electrocutes you!</span>",
 				"<span class='italics'>You hear a lightning-like crack!</span>")
 			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
 			explosion(loc, -1, 0, 2, 2)

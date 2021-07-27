@@ -429,6 +429,7 @@
 	desc = "Activates the jump boot's internal propulsion system, allowing the user to dash over 4-wide gaps."
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "jetboot"
+	use_itemicon = FALSE
 
 ///prset for organ actions
 /datum/action/item_action/organ_action

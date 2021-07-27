@@ -368,7 +368,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 					//question(O.client)
 
 /datum/paiController/proc/check_recruit(mob/dead/observer/O)
-	if(jobban_isbanned(O, ROLE_PAI) || jobban_isbanned(O,"nonhumandept"))
+	if(jobban_isbanned(O, ROLE_PAI) || jobban_isbanned(O, "nonhumandept"))
 		return 0
 	if(!player_old_enough_antag(O.client,ROLE_PAI))
 		return 0
