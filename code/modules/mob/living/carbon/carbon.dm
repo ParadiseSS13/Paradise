@@ -253,7 +253,7 @@
 				else
 					if(M.zone_selected == ("r_arm" || "r_hand" || "l_arm" || "l_hand"))
 						M.visible_message(\
-						"<span class='notice'>[M] [src] shakes your hand.</span>",\
+						"<span class='notice'>[M] shake [src] hand.</span>",\
 						"<span class='notice'>You shake hands with [src].</span>",\
 						)
 					else
