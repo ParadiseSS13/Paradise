@@ -15,8 +15,8 @@
 "e" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -24,8 +24,8 @@
 /obj/structure/table/wood,
 /obj/item/storage/box/cups,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -33,16 +33,16 @@
 /obj/structure/reagent_dispensers/water_cooler/pizzaparty,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "h" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -50,8 +50,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -59,8 +59,8 @@
 /obj/item/reagent_containers/food/snacks/mushroompizzaslice,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -69,8 +69,8 @@
 /obj/effect/spawner/lootdrop/pizzaparty,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -83,8 +83,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -92,8 +92,8 @@
 /obj/item/chair/wood/wings,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -101,8 +101,8 @@
 /obj/structure/glowshroom/single,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -110,8 +110,8 @@
 /obj/item/trash/plate,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -119,8 +119,8 @@
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -128,8 +128,8 @@
 /obj/item/chair/wood/wings,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -141,15 +141,15 @@
 	name = "party hat"
 	},
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "s" = (
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -157,16 +157,16 @@
 /obj/structure/chair/wood/wings,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "u" = (
 /obj/structure/glowshroom/single,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -179,8 +179,8 @@
 /obj/item/kitchen/utensil/fork,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -188,8 +188,8 @@
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/pizzaparty,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -197,8 +197,8 @@
 /obj/structure/table/wood,
 /obj/item/trash/plate,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -207,8 +207,8 @@
 /obj/structure/glowshroom/single,
 /obj/item/a_gift,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -217,16 +217,16 @@
 /obj/item/trash/plate,
 /obj/item/kitchen/utensil/fork,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "B" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -236,8 +236,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -246,8 +246,8 @@
 /obj/item/reagent_containers/food/snacks/margheritaslice,
 /obj/item/trash/plate,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -255,8 +255,8 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/meatpizzaslice,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -264,24 +264,24 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/sliceable/birthdaycake,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "G" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "H" = (
 /obj/item/chair/wood/wings,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -289,8 +289,8 @@
 /obj/item/kitchen/utensil/fork,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -298,8 +298,8 @@
 /obj/structure/glowshroom/single,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -310,8 +310,8 @@
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -319,8 +319,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -328,8 +328,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/a_gift,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -342,8 +342,8 @@
 /obj/item/kitchen/knife,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -353,15 +353,15 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "Q" = (
 /turf/simulated/floor/plating{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)

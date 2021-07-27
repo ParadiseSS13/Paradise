@@ -1,6 +1,4 @@
-# Updates DB from 24 to 25 -dearmochi
-# Adds support for hair gradient
-ALTER TABLE `characters` ADD COLUMN `hair_gradient` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL;
-ALTER TABLE `characters` ADD COLUMN `hair_gradient_offset` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0,0';
-ALTER TABLE `characters` ADD COLUMN `hair_gradient_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000';
-ALTER TABLE `characters` ADD COLUMN `hair_gradient_alpha` tinyint(3) UNSIGNED NOT NULL DEFAULT '255'
+# Updates the DB from 24 to 25 -SabreML
+# Increases the maximum length of `real_name` from 45 to 55 in the `characters` table.
+
+ALTER TABLE `characters` MODIFY COLUMN `real_name` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL

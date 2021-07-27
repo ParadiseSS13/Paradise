@@ -19,7 +19,7 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 	new/datum/stack_recipe/window("fulltile window", /obj/structure/window/full/basic, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
 	new/datum/stack_recipe("fishbowl", /obj/machinery/fishtank/bowl, 1, time = 10), \
 	new/datum/stack_recipe("fish tank", /obj/machinery/fishtank/tank, 3, time = 20, on_floor = TRUE), \
-	new/datum/stack_recipe("wall aquariam", /obj/machinery/fishtank/wall, 4, time = 40, on_floor = TRUE) \
+	new/datum/stack_recipe("wall aquarium", /obj/machinery/fishtank/wall, 4, time = 40, on_floor = TRUE) \
 ))
 
 /obj/item/stack/sheet/glass
@@ -36,6 +36,9 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/glass
 	point_value = 1
 
+/obj/item/stack/sheet/glass/detailed_examine()
+	return "Use in your hand to build a window. Can be upgraded to reinforced glass by adding metal rods, which are made from metal sheets."
+
 /obj/item/stack/sheet/glass/fifty
 	amount = 50
 
@@ -43,6 +46,10 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 	energy_type = /datum/robot_energy_storage/glass
 	is_cyborg = TRUE
 	materials = list()
+
+/obj/item/stack/sheet/glass/cyborg/detailed_examine()
+	return "Use in your hand to build a window. Can be upgraded to reinforced glass by adding metal rods, which are made from metal sheets.<br>\
+			As a synthetic, you can acquire more sheets of glass by recharging."
 
 /obj/item/stack/sheet/glass/New(loc, amount)
 	recipes = GLOB.glass_recipes
@@ -56,7 +63,7 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 			to_chat(user, "<b>There is not enough wire in this coil. You need 5 lengths.</b>")
 			return
 		CC.use(5)
-		to_chat(user, "<span class='notice'>You attach wire to the [name].</span>")
+		to_chat(user, "<span class='notice'>You attach wire to [src].</span>")
 		new /obj/item/stack/light_w(user.loc)
 		use(1)
 	else if( istype(W, /obj/item/stack/rods) )
@@ -103,6 +110,9 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	recipes = GLOB.reinforced_glass_recipes
 	..()
 
+/obj/item/stack/sheet/rglass/detailed_examine()
+	return "Use in your hand to build a window. Reinforced glass is much stronger against damage."
+
 GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	new/datum/stack_recipe/window("directional window", /obj/structure/window/plasmabasic, time = 0, on_floor = TRUE, window_checks = TRUE), \
 	new/datum/stack_recipe/window("fulltile window", /obj/structure/window/full/plasmabasic, 2, time = 0, on_floor = TRUE, window_checks = TRUE) \
@@ -112,6 +122,10 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	energy_type = /datum/robot_energy_storage/rglass
 	is_cyborg = TRUE
 	materials = list()
+
+/obj/item/stack/sheet/rglass/cyborg/detailed_examine()
+	return "Use in your hand to build a window. Reinforced glass is much stronger against damage.<br>\
+			As a synthetic, you can gain more reinforced glass by recharging."
 
 /obj/item/stack/sheet/plasmaglass
 	name = "plasma glass"

@@ -173,7 +173,7 @@
 /obj/item/pizzabox/attack_hand(mob/user)
 	if(open && pizza)
 		user.put_in_hands(pizza)
-		to_chat(user, "<span class='warning'>You take the [pizza] out of the [src].</span>")
+		to_chat(user, "<span class='warning'>You take [pizza] out of [src].</span>")
 		pizza = null
 		update_icon()
 		return
@@ -215,11 +215,11 @@
 				boxes.Add(boxestoadd)
 				box.update_icon()
 				update_icon()
-				to_chat(user, "<span class='warning'>You put the [box] ontop of the [src]!</span>")
+				to_chat(user, "<span class='warning'>You put [box] on top of [src]!</span>")
 			else
 				to_chat(user, "<span class='warning'>The stack is too high!</span>")
 		else
-			to_chat(user, "<span class='warning'>Close the [box] first!</span>")
+			to_chat(user, "<span class='warning'>Close [box] first!</span>")
 		return
 
 	if(istype(I, /obj/item/reagent_containers/food/snacks/sliceable/pizza/)) // Long ass fucking object name
@@ -230,9 +230,9 @@
 
 			update_icon()
 
-			to_chat(user, "<span class='warning'>You put the [I] in the [src]!</span>")
+			to_chat(user, "<span class='warning'>You put [I] in [src]!</span>")
 		else
-			to_chat(user, "<span class='warning'>You try to push the [I] through the lid but it doesn't work!</span>")
+			to_chat(user, "<span class='warning'>You try to push [I] through the lid but it doesn't work!</span>")
 		return
 
 	if(istype(I, /obj/item/pen/))
