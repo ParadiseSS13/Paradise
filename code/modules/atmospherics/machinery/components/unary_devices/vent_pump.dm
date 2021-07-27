@@ -20,7 +20,6 @@
 
 	req_one_access_txt = "24;10"
 
-	var/on = 0
 	var/pump_direction = 1 //0 = siphoning, 1 = releasing
 
 	var/external_pressure_bound = EXTERNAL_PRESSURE_BOUND
