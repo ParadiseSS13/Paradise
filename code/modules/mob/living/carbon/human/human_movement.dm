@@ -1,7 +1,7 @@
 /mob/living/carbon/human/movement_delay()
 	. = 0
 	. += ..()
-	. += config.human_delay
+	. += GLOB.configuration.movement.human_delay
 	. += dna.species.movement_delay(src)
 
 /mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
