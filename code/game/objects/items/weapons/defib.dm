@@ -251,7 +251,7 @@
 	paddle_type = /obj/item/twohanded/shockpaddles/advanced
 	combat = TRUE
 	safety = TRUE
-	heart_attack = TRUE //Only used here
+	heart_attack = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Objective item, better not have it destroyed.
 
 	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
@@ -377,7 +377,7 @@
 			H.Weaken(5)
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
-			if(!H.undergoing_cardiac_arrest() && (prob(10) || (defib.combat && !defib.heart_attack))) // Your heart explodes.
+			if(!H.undergoing_cardiac_arrest() && (prob(10) || (defib.combat && !defib.heart_attack) || prob(10) && (defib.combat && defib.heart_attack))) // Your heart explodes.
 				H.set_heartattack(TRUE)
 			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 			add_attack_logs(user, M, "Stunned with [src]")
