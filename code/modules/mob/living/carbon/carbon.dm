@@ -259,7 +259,7 @@
 					else
 						M.visible_message(\
 						"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
-						"<span class='notice'>[M] You hug [src].</span>",\
+						"<span class='notice'>You hug [src].</span>",\
 						)
 						if(ishuman(src))
 							var/mob/living/carbon/human/H = src
