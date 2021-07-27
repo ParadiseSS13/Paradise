@@ -251,7 +251,7 @@
 					"<span class='notice'>You pat [src] on the head.</span>",\
 					)
 				else
-					if(M.zone_selected == ("r_arm" || "r_hand" || "l_arm" || "l_hand"))
+					if(M.zone_selected in list("r_arm", "r_hand", "l_arm", "l_hand"))
 						M.visible_message(\
 						"<span class='notice'>[M] shake [src] hand.</span>",\
 						"<span class='notice'>You shake hands with [src].</span>",\
