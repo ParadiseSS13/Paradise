@@ -82,12 +82,13 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		return TRUE
 
 	stage = min(stage, max_stages)
-	if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
-		discovered = TRUE
-		affected_mob.med_hud_set_status()
+
 	if(!cure)
 		if(prob(stage_prob))
 			stage = min(stage + 1,max_stages)
+			if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
+				discovered = TRUE
+				affected_mob.med_hud_set_status()
 	else
 		if(prob(cure_chance))
 			stage = max(stage - 1, 1)
