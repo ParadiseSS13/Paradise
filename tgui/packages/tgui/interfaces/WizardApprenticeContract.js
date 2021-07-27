@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Box, LabeledList, Section, Divider, Fragment } from '../components';
+import { Button, Box, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 export const WizardApprenticeContract = (props, context) => {

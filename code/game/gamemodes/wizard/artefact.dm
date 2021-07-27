@@ -35,7 +35,7 @@
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [H.real_name]?", ROLE_WIZARD, TRUE, source = source)
 
-	if(candidates.len)
+	if(length(candidates))
 		var/mob/C = pick(candidates)
 		new /obj/effect/particle_effect/smoke(H.loc)
 		var/mob/living/carbon/human/M = new/mob/living/carbon/human(H.loc)
