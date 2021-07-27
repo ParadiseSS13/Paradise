@@ -159,7 +159,7 @@
 	taste_description = "the colour blue and regret"
 
 /datum/reagent/radium/on_mob_life(mob/living/M)
-	if(M.radiation < 80)
+	if(M.radiation < 800)
 		M.apply_effect(4, IRRADIATE)
 	return ..()
 
