@@ -1200,7 +1200,8 @@
 
 /obj/mecha/Exited(atom/movable/M, atom/newloc)
 	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
-		go_out(1, newloc)
+		if(!isAI(occupant)) //This causes carded AIS to gib, so we do not want this to be called during carding.
+			go_out(1, newloc)
 
 /obj/mecha/proc/go_out(forced, atom/newloc = loc)
 	if(!occupant)
@@ -1507,7 +1508,7 @@
 		if(internal_tank)
 			WR.crowbar_salvage += internal_tank
 			internal_tank.forceMove(WR)
-			cell = null
+			internal_tank = null
 	. = ..()
 
 /obj/mecha/CtrlClick(mob/living/L)

@@ -971,6 +971,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambientsounds = HOLY_SOUNDS
 	is_haunted = TRUE
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
+	valid_territory = FALSE
 
 /area/chapel/main
 	name = "\improper Chapel"
@@ -1543,6 +1544,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/vacantoffice2
 	name = "\improper Vacant Office"
 	icon_state = "security"
+	
+/area/security/permasolitary
+	name = "Solitary Confinement"
+	icon_state = "solitary"
 
 /area/quartermaster
 	name = "\improper Quartermasters"

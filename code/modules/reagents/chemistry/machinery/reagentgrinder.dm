@@ -246,7 +246,7 @@
 
 		if(!operating)
 				for (var/obj/item/O in holdingitems)
-						processing_chamber += "\A [O.name]<BR>"
+						processing_chamber += "\A [html_encode(O.name)]<BR>"
 
 				if (!processing_chamber)
 						is_chamber_empty = 1

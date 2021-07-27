@@ -743,3 +743,11 @@
 ///SSalarm signals
 #define COMSIG_TRIGGERED_ALARM "ssalarm_triggered"
 #define COMSIG_CANCELLED_ALARM "ssalarm_cancelled"
+
+// /obj/machinery/door signals
+#define COMSIG_DOOR_OPEN "door_open"
+#define COMSIG_DOOR_CLOSE "door_close"
+
+// /obj/machinery/door/airlock signals
+#define COMSIG_AIRLOCK_OPEN "airlock_open"
+#define COMSIG_AIRLOCK_CLOSE "airlock_close"
