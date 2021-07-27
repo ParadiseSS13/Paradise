@@ -23,6 +23,7 @@
 	var/obj/item/stock_parts/cell/high/cell = null
 	var/safety = TRUE //if you can zap people with the defibs on harm mode
 	var/combat = FALSE //can we revive through space suits?
+	var/heart_attack = FALSE //can it give instant heart attacks when zapped on harm intent with combat?
 	var/base_icon_state = "defibpaddles"
 	var/obj/item/twohanded/shockpaddles/paddle_type = /obj/item/twohanded/shockpaddles
 
@@ -244,16 +245,16 @@
 
 /obj/item/defibrillator/compact/advanced
 	name = "advanced compact defibrillator"
-	desc = "A belt-mounted state-of-the-art defibrillator that can be rapidly deployed in all environments. Uses an experimental self-charging cell, meaning that it will (probably) never stop working. Can be used to defibrillate through space suits. It is impossible to hack or damage."
-	icon_state = "defibadvanced"
-	item_state = "defibadvanced"
+	desc = "A belt-mounted state-of-the-art defibrillator that can be rapidly deployed in all environments. Uses an experimental self-charging cell, meaning that it will (probably) never stop working. Can be used to defibrillate through space suits. It is impossible to damage."
+	icon_state = "defibnt"
+	item_state = "defibnt"
 	paddle_type = /obj/item/twohanded/shockpaddles/advanced
 	combat = TRUE
 	safety = TRUE
+	heart_attack = TRUE //Only used here
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Objective item, better not have it destroyed.
 
-	var/next_emag_message //to prevent spam from the emagging message on the advanced defibrillator
-	var/next_emp_message //same as above, but for EMPs
+	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
 
 /obj/item/defibrillator/compact/advanced/attackby(obj/item/W, mob/user, params)
 	if(W == paddles)
@@ -265,15 +266,6 @@
 	. = ..()
 	cell = new /obj/item/stock_parts/cell/bluespace/charging(src)
 	update_icon()
-
-/obj/item/defibrillator/compact/advanced/emag_act(mob/user)
-	if(world.time > next_emag_message)
-		to_chat(user, "<span class='warning'>You try to silently disable [src]'s safety protocols with the card but it rejects your attempt. Uh oh...</span>")
-		atom_say("Warning: Unauthorised software modification is not advised and may result in the warranty becoming void.")
-		playsound(src, 'sound/machines/defib_saftyon.ogg', 50)
-		next_emag_message = world.time + 1 MINUTES
-	else
-		to_chat(user, "<span class='warning'>You try to silently disable [src]'s safety protocols with the card but nothing happens.</span>")
 
 /obj/item/defibrillator/compact/advanced/emp_act(severity)
 	if(world.time > next_emp_message)
@@ -385,7 +377,7 @@
 			H.Weaken(5)
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
-			if(!H.undergoing_cardiac_arrest() && (prob(10) || defib.combat)) // Your heart explodes.
+			if(!H.undergoing_cardiac_arrest() && (prob(10) || (defib.combat && !defib.heart_attack))) // Your heart explodes.
 				H.set_heartattack(TRUE)
 			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 			add_attack_logs(user, M, "Stunned with [src]")
