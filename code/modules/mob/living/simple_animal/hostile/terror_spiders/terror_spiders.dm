@@ -137,6 +137,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/killcount = 0
 	var/busy = 0 // leave this alone!
 	var/spider_tier = TS_TIER_1 // 1 for red,gray,green. 2 for purple,black,white, 3 for prince, mother. 4 for queen
+	var/loudspeaker = FALSE // Does this terror speak loudly on the terror hivemind?
 	var/hasdied = 0
 	var/list/spider_special_drops = list()
 	var/attackstep = 0
