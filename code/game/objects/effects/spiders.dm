@@ -172,27 +172,27 @@
 	if(isturf(loc))
 		amount_grown += rand(0,2)
 		if(amount_grown >= 100)
-			if(SSmobs.giant_spiders <= SPIDER_HARD_CAP)
-				if(!grow_as)
-					grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
-				var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
-				SSmobs.giant_spiders++
-				S.faction = faction.Copy()
-				S.master_commander = master_commander
-				if(player_spiders && !selecting_player)
-					selecting_player = 1
-					spawn()
-						var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_GSPIDER, TRUE, source = S)
-
-						if(candidates.len)
-							var/mob/C = pick(candidates)
-							if(C)
-								S.key = C.key
-								if(S.master_commander)
-									to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
+			if(SSmobs.giant_spiders > SPIDER_HARD_CAP)
 				qdel(src)
-			else
-				Destroy()
+				return
+			if(!grow_as)
+				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
+			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
+			SSmobs.giant_spiders++
+			S.faction = faction.Copy()
+			S.master_commander = master_commander
+			if(player_spiders && !selecting_player)
+				selecting_player = 1
+				spawn()
+					var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_GSPIDER, TRUE, source = S)
+
+					if(candidates.len)
+						var/mob/C = pick(candidates)
+						if(C)
+							S.key = C.key
+							if(S.master_commander)
+								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
+			qdel(src)
 
 /obj/structure/spider/spiderling/proc/random_skitter()
 	var/list/available_turfs = list()
