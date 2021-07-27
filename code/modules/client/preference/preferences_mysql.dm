@@ -18,7 +18,7 @@
 					fuid,
 					parallax,
 					2fa_status
-					FROM [format_table_name("player")]
+					FROM player
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
 					))
@@ -80,7 +80,7 @@
 		deltimer(volume_mixer_saving)
 		volume_mixer_saving = null
 
-	var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE [format_table_name("player")]
+	var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE player
 				SET
 					ooccolor=:ooccolour,
 					UI_style=:ui_style,
@@ -133,7 +133,7 @@
 	slot = sanitize_integer(slot, 1, max_save_slots, initial(default_slot))
 	if(slot != default_slot)
 		default_slot = slot
-		var/datum/db_query/firstquery = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET default_slot=:slot WHERE ckey=:ckey", list(
+		var/datum/db_query/firstquery = SSdbcore.NewQuery("UPDATE player SET default_slot=:slot WHERE ckey=:ckey", list(
 			"slot" = slot,
 			"ckey" = C.ckey
 		))
@@ -200,7 +200,7 @@
 					hair_gradient_offset,
 					hair_gradient_colour,
 					hair_gradient_alpha
-				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
+				 	FROM characters WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
 						 "slot" = slot
 					 ))
@@ -377,7 +377,7 @@
 	if(!isemptylist(loadout_gear))
 		gearlist = list2params(loadout_gear)
 
-	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
+	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM characters WHERE ckey=:ckey ORDER BY slot", list(
 		"ckey" = C.ckey
 	))
 	if(!firstquery.warn_execute())
@@ -385,7 +385,7 @@
 		return
 	while(firstquery.NextRow())
 		if(text2num(firstquery.item[1]) == default_slot)
-			var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE [format_table_name("characters")]
+			var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE characters
 											SET
 												OOC_Notes=:metadata,
 												real_name=:real_name,
@@ -518,7 +518,7 @@
 	qdel(firstquery)
 
 	var/datum/db_query/query = SSdbcore.NewQuery({"
-					INSERT INTO [format_table_name("characters")] (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender,
+					INSERT INTO characters (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender,
 											age, species, language,
 											hair_colour, secondary_hair_colour,
 											facial_hair_colour, secondary_facial_hair_colour,
@@ -640,7 +640,7 @@
 	return 1
 
 /datum/preferences/proc/load_random_character_slot(client/C)
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM characters WHERE ckey=:ckey ORDER BY slot", list(
 		"ckey" = C.ckey
 	))
 	var/list/saves = list()
@@ -662,7 +662,7 @@
 /datum/preferences/proc/clear_character_slot(client/C)
 	. = FALSE
 	// Is there a character in that slot?
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM characters WHERE ckey=:ckey AND slot=:slot", list(
 		"ckey" = C.ckey,
 		"slot" = default_slot
 	))
@@ -677,7 +677,7 @@
 
 	qdel(query)
 
-	var/datum/db_query/delete_query = SSdbcore.NewQuery("DELETE FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot", list(
+	var/datum/db_query/delete_query = SSdbcore.NewQuery("DELETE FROM characters WHERE ckey=:ckey AND slot=:slot", list(
 		"ckey" = C.ckey,
 		"slot" = default_slot
 	))
@@ -698,7 +698,7 @@
 	volume_mixer_saving = null
 
 	var/datum/db_query/update_query = SSdbcore.NewQuery(
-		"UPDATE [format_table_name("player")] SET volume_mixer=:volume_mixer WHERE ckey=:ckey",
+		"UPDATE player SET volume_mixer=:volume_mixer WHERE ckey=:ckey",
 		list(
 			"volume_mixer" = serialize_volume_mixer(volume_mixer),
 			"ckey" = parent.ckey

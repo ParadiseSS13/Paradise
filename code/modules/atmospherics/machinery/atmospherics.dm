@@ -20,7 +20,10 @@ Pipelines + Other Objects -> Pipe network
 	on_blueprints = TRUE
 	var/nodealert = 0
 	var/can_unwrench = 0
-
+	/// If the machine is currently operating or not.
+	var/on = FALSE
+	/// The amount of pressure the machine wants to operate at.
+	var/target_pressure = 0
 	var/connect_types[] = list(1) //1=regular, 2=supply, 3=scrubber
 	var/connected_to = 1 //same as above, currently not used for anything
 	var/icon_connect_type = "" //"-supply" or "-scrubbers"
@@ -353,3 +356,35 @@ Pipelines + Other Objects -> Pipe network
 //Used for certain children of obj/machinery/atmospherics to not show pipe vision when mob is inside it.
 /obj/machinery/atmospherics/proc/can_see_pipes()
 	return TRUE
+
+/**
+ * Turns the machine either on, or off. If this is done by a user, display a message to them.
+ *
+ * NOTE: Only applies to atmospherics machines which can be toggled on or off, such as pumps, or other devices.
+ *
+ * Arguments:
+ * * user - the mob who is toggling the machine.
+ */
+/obj/machinery/atmospherics/proc/toggle(mob/living/user)
+	if(!powered())
+		return
+	on = !on
+	update_icon()
+	if(user)
+		to_chat(user, "<span class='notice'>You toggle [src] [on ? "on" : "off"].</span>")
+
+/**
+ * Maxes the output pressure of the machine. If this is done by a user, display a message to them.
+ *
+ * NOTE: Only applies to atmospherics machines which allow a `target_pressure` to be set, such as pumps, or other devices.
+ *
+ * Arguments:
+ * * user - the mob who is setting the output pressure to maximum.
+ */
+/obj/machinery/atmospherics/proc/set_max(mob/living/user)
+	if(!powered())
+		return
+	target_pressure = MAX_OUTPUT_PRESSURE
+	update_icon()
+	if(user)
+		to_chat(user, "<span class='notice'>You set the target pressure of [src] to maximum.</span>")

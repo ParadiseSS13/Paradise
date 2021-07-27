@@ -70,6 +70,7 @@
 	name = "roller bed"
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "down"
+	face_while_pulling = FALSE
 	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1

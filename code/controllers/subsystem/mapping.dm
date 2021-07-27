@@ -128,7 +128,7 @@ SUBSYSTEM_DEF(mapping)
 	if(!SSdbcore.IsConnected())
 		return
 	var/datum/db_query/query_set_map = SSdbcore.NewQuery(
-		"UPDATE [format_table_name("round")] SET start_datetime=NOW(), map_name=:mapname, station_name=:stationname WHERE id=:round_id",
+		"UPDATE round SET start_datetime=NOW(), map_name=:mapname, station_name=:stationname WHERE id=:round_id",
 		list("mapname" = map_datum.technical_name, "stationname" = map_datum.fluff_name, "round_id" = GLOB.round_id)
 	)
 	query_set_map.Execute(async = FALSE) // This happens during a time of intense server lag, so should be non-async

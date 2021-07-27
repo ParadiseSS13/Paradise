@@ -9,8 +9,7 @@
 
 	can_unwrench = 1
 
-	var/on = 0
-	var/target_pressure = ONE_ATMOSPHERE
+	target_pressure = ONE_ATMOSPHERE
 
 	var/id = null
 
@@ -103,9 +102,9 @@
 		on = !on
 
 	if("set_output_pressure" in signal.data)
-		target_pressure = between(
-			0,
+		target_pressure = clamp(
 			text2num(signal.data["set_output_pressure"]),
+			0,
 			ONE_ATMOSPHERE*50
 		)
 
@@ -173,11 +172,6 @@
 			. = TRUE
 	if(.)
 		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
-
-/obj/machinery/atmospherics/binary/passive_gate/proc/toggle()
-	if(powered())
-		on = !on
-		update_icon()
 
 /obj/machinery/atmospherics/binary/passive_gate/attackby(obj/item/W, mob/user, params)
 	if(!istype(W, /obj/item/wrench))

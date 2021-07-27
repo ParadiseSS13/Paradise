@@ -146,13 +146,11 @@ sql_address = "127.0.0.1"
 # SQL server port
 sql_port = 3306
 # SQL server database name
-sql_database = "feedback" # TODO: Convert into `paradise_db`
-# SQL server table prefix, if applicable. SET TO EMPTY STRING IF NOT.
-sql_table_prefix = "" # TODO: Deprecate table prefixes
+sql_database = "paradise_gamedb"
 # SQL server username
 sql_username = "root"
 # SQL server password
-sql_password = "please use something secure in a prod environment"
+sql_password = "please use something secure in a production environment"
 # Time in seconds for async queries to time out
 async_query_timeout = 10
 # How many threads is the async SQL engine allowed to open. 50 is normal. Trust me.
