@@ -21,7 +21,7 @@
 	var/mob/living/simple_animal/SA = pick(potential)
 	var/mob/SG = pick(candidates)
 
-	var/sentience_report = "<font size=3><b>[command_name()] Medium-Priority Update</b></font>"
+	var/sentience_report = "<font size=3><b>NAS Trurl Medium-Priority Update</b></font>"
 
 	var/data = pick("scans from our long-range sensors", "our sophisticated probabilistic models", "our omnipotence", "the communications traffic on your station", "energy emissions we detected", "\[REDACTED\]", "Steve")
 	var/pets = pick("animals", "pets", "simple animals", "lesser lifeforms", "\[REDACTED\]")
@@ -40,7 +40,7 @@
 	SA.health = SA.maxHealth
 	SA.del_on_death = FALSE
 	greet_sentient(SA)
-	print_command_report(sentience_report, "[command_name()] Update", FALSE)
+	print_command_report(sentience_report, "NAS Trurl Update", FALSE)
 
 /datum/event/sentience/proc/greet_sentient(mob/living/carbon/human/M)
 	to_chat(M, "<span class='userdanger'>Hello world!</span>")
