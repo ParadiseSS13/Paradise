@@ -37,6 +37,8 @@
 	var/action_buttons_hidden = FALSE
 
 	var/list/obj/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
+	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
+	var/list/atom/movable/plane_master_controller/plane_master_controllers = list()
 
 /mob/proc/create_mob_hud()
 	if(client && !hud_used)
@@ -52,6 +54,10 @@
 		var/obj/screen/plane_master/instance = new mytype()
 		plane_masters["[instance.plane]"] = instance
 		instance.backdrop(mymob)
+
+	for(var/mytype in subtypesof(/atom/movable/plane_master_controller))
+		var/atom/movable/plane_master_controller/controller_instance = new mytype(src)
+		plane_master_controllers[controller_instance.name] = controller_instance
 
 /datum/hud/Destroy()
 	if(mymob.hud_used == src)
@@ -89,6 +95,7 @@
 	nightvisionicon = null
 
 	QDEL_LIST_ASSOC_VAL(plane_masters)
+	QDEL_LIST_ASSOC_VAL(plane_master_controllers)
 
 	mymob = null
 	return ..()
