@@ -139,12 +139,22 @@
 	update_controls()
 
 /mob/living/simple_animal/bot/New()
+	/*
+		HEY! LISTEN!
+
+		I see you're poking the the bot/New() proc
+		Assuming you are converting this to Initialize() [yay], please see my note in
+		code\game\jobs\job\job.dm | /datum/job/proc/get_access()
+
+		Theres a useless check that bugs me but needs to exist because these things New()
+		-AA07
+	*/
 	..()
 	GLOB.bots_list += src
 	icon_living = icon_state
 	icon_dead = icon_state
 	access_card = new /obj/item/card/id(src)
-//This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
+	//This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	access_card.access += ACCESS_ROBOTICS
 	set_custom_texts()
 	Radio = new/obj/item/radio/headset/bot(src)

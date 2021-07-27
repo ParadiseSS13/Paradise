@@ -5,6 +5,9 @@
 	icon_state = "folded_wall"
 	w_class = WEIGHT_CLASS_NORMAL
 
+/obj/item/inflatable/detailed_examine()
+	return "Inflate by using it in your hand. The inflatable barrier will inflate on your tile. To deflate it, use the 'deflate' verb."
+
 /obj/item/inflatable/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
 	to_chat(user, "<span class='notice'>You inflate [src].</span>")
@@ -24,6 +27,9 @@
 	icon_state = "wall"
 	var/torn = /obj/item/inflatable/torn
 	var/intact = /obj/item/inflatable
+
+/obj/structure/inflatable/detailed_examine()
+	return "To remove these safely, use the 'deflate' verb. Hitting these with any objects will probably puncture and break it forever."
 
 /obj/structure/inflatable/Initialize(location)
 	..()
@@ -103,6 +109,10 @@
 
 	var/state = 0 //closed, 1 == open
 	var/isSwitchingStates = 0
+
+/obj/structure/inflatable/door/detailed_examine()
+	return "Click the door to open or close it. It only stops air while closed.<br>\
+			To remove these safely, use the 'deflate' verb. Hitting these with any objects will probably puncture and break it forever."
 
 /obj/structure/inflatable/door/attack_ai(mob/user as mob) //those aren't machinery, they're just big fucking slabs of a mineral
 	if(isAI(user)) //so the AI can't open it

@@ -52,7 +52,8 @@
 	usr << browse(output,"window=editrights;size=600x500")
 
 /datum/admins/proc/log_admin_rank_modification(adm_ckey, new_rank)
-	if(config.admin_legacy_system)	return
+	if(!GLOB.configuration.admin.use_database_admins)
+		return
 
 	if(!usr.client)
 		return
@@ -140,7 +141,7 @@
 		message_admins("[key_name(usr)] attempted to edit admin ranks via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to edit admin ranks via advanced proc-call")
 		return
-	if(config.admin_legacy_system)
+	if(!GLOB.configuration.admin.use_database_admins)
 		return
 
 	if(!usr.client)
