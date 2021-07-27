@@ -299,6 +299,9 @@
 	rating = 6
 	chargerate = 30000
 
+/obj/item/stock_parts/cell/infinite/use()
+	return TRUE
+
 /obj/item/stock_parts/cell/infinite/abductor
 	name = "void core"
 	desc = "An alien power cell that produces energy seemingly out of nowhere."
