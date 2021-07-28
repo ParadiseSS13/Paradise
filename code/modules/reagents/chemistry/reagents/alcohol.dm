@@ -1460,15 +1460,15 @@
 	remove_nutrition = 1
 
 /datum/reagent/consumable/ethanol/gimlet
-    name = "Gimlet"
-    id = "gimlet"
-    description = "A sharp cocktail dating back to the 19th century. Gin and lime, nothing else."
-    color = "#DEF8AB" // rgb (222, 248, 171)
-    alcohol_perc = 0.3
-    drink_icon = "gimlet"
-    drink_name = "Gimlet"
-    drink_desc = "There are debates on whether this drink should be half gin and half lime, or three parts gin and one part lime. All you know is, it's alcohol."
-    taste_description = "sharpness"
+	name = "Gimlet"
+	id = "gimlet"
+	description = "A sharp cocktail dating back to the 19th century. Gin and lime, nothing else."
+	color = "#DEF8AB" // rgb (222, 248, 171)
+	alcohol_perc = 0.3
+	drink_icon = "gimlet"
+	drink_name = "Gimlet"
+	drink_desc = "There are debates on whether this drink should be half gin and half lime, or three parts gin and one part lime. All you know is, it's alcohol."
+	taste_description = "sharpness"
 
 /datum/reagent/consumable/ethanol/sidecar
     name = "Sidecar"
