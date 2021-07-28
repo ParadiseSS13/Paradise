@@ -27,7 +27,7 @@
 		var/entered_code = input(usr, "Please enter a code from your auth app. Failure to enter the code correctly will abort 2FA setup.", "2FA Validation")
 		if(!entered_code)
 			// Cleanup so they can start again
-			var/datum/db_query/dbq = SSdbcore.NewQuery("DELETE FROM [format_table_name("2fa_secrets")] WHERE ckey=:ckey", list("ckey" = ckey))
+			var/datum/db_query/dbq = SSdbcore.NewQuery("DELETE FROM 2fa_secrets WHERE ckey=:ckey", list("ckey" = ckey))
 			dbq.warn_execute()
 			alert(usr, "2FA Setup aborted!")
 			B.close()
@@ -42,7 +42,7 @@
 
 		if(vr.status_code != 200)
 			// Cleanup so they can start again
-			var/datum/db_query/dbq = SSdbcore.NewQuery("DELETE FROM [format_table_name("2fa_secrets")] WHERE ckey=:ckey", list("ckey" = ckey))
+			var/datum/db_query/dbq = SSdbcore.NewQuery("DELETE FROM 2fa_secrets WHERE ckey=:ckey", list("ckey" = ckey))
 			dbq.warn_execute()
 
 			// See if its unauthorised. I used 400 for that dont at me
@@ -101,7 +101,7 @@
 				return
 
 			// If we are here, they authed properly
-			var/datum/db_query/dbq = SSdbcore.NewQuery("DELETE FROM [format_table_name("2fa_secrets")] WHERE ckey=:ckey", list("ckey" = ckey))
+			var/datum/db_query/dbq = SSdbcore.NewQuery("DELETE FROM 2fa_secrets WHERE ckey=:ckey", list("ckey" = ckey))
 			dbq.warn_execute()
 			prefs._2fa_status = _2FA_DISABLED
 			prefs.save_preferences(src)

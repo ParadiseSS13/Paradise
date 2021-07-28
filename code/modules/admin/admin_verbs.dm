@@ -691,7 +691,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			return
 
 		var/datum/db_query/rank_read = SSdbcore.NewQuery(
-			"SELECT admin_rank FROM [format_table_name("admin")] WHERE ckey=:ckey",
+			"SELECT admin_rank FROM admin WHERE ckey=:ckey",
 			list("ckey" = ckey)
 		)
 
@@ -717,7 +717,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 				return
 
 			var/datum/db_query/admin_read = SSdbcore.NewQuery(
-				"SELECT ckey, admin_rank, flags FROM [format_table_name("admin")] WHERE ckey=:ckey",
+				"SELECT ckey, admin_rank, flags FROM admin WHERE ckey=:ckey",
 				list("ckey" = ckey)
 			)
 

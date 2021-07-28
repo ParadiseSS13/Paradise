@@ -1017,7 +1017,7 @@
 
 	else if(href_list["noteedits"])
 		var/note_id = text2num(href_list["noteedits"])
-		var/datum/db_query/query_noteedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("notes")] WHERE id=:note_id", list(
+		var/datum/db_query/query_noteedits = SSdbcore.NewQuery("SELECT edits FROM notes WHERE id=:note_id", list(
 			"note_id" = note_id
 		))
 		if(!query_noteedits.warn_execute())
@@ -1132,7 +1132,7 @@
 
 	else if(href_list["watcheditlog"])
 		var/target_ckey = href_list["watcheditlog"]
-		var/datum/db_query/query_watchedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("watch")] WHERE ckey=:targetkey", list(
+		var/datum/db_query/query_watchedits = SSdbcore.NewQuery("SELECT edits FROM watch WHERE ckey=:targetkey", list(
 			"targetkey" = target_ckey
 		))
 		if(!query_watchedits.warn_execute())
@@ -2509,7 +2509,7 @@
 			if("Central Command")
 				stamptype = "icon"
 				stampvalue = "cent"
-				sendername = command_name()
+				sendername = "NAS Trurl"
 			if("Syndicate")
 				stamptype = "icon"
 				stampvalue = "syndicate"
@@ -2839,7 +2839,7 @@
 	else if(href_list["memoeditlist"])
 		if(!check_rights(R_SERVER)) return
 		var/sql_key = href_list["memoeditlist"]
-		var/datum/db_query/query_memoedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("memo")] WHERE (ckey=:sql_key)", list(
+		var/datum/db_query/query_memoedits = SSdbcore.NewQuery("SELECT edits FROM memo WHERE (ckey=:sql_key)", list(
 			"sql_key" = sql_key
 		))
 		if(!query_memoedits.warn_execute())
@@ -3213,7 +3213,7 @@
 				if(!SSshuttle.toggleShuttle("ferry","ferry_home","ferry_away"))
 					message_admins("[key_name_admin(usr)] moved the centcom ferry")
 					log_admin("[key_name(usr)] moved the centcom ferry")
-					
+
 			if("gammashuttle")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Gamma Armory")
 				message_admins("[key_name_admin(usr)] moved the gamma armory")
@@ -3378,7 +3378,7 @@
 			if(!newname)
 				return
 			G.name = newname
-			var/description = input("Enter [command_name()] message contents:") as message|null
+			var/description = input("Enter NAS Trurl message contents:") as message|null
 			if(!description)
 				return
 			G.report_message = description
@@ -3398,7 +3398,7 @@
 		var/isbn = text2num(href_list["library_book_id"])
 
 		if(href_list["view_library_book"])
-			var/datum/db_query/query_view_book = SSdbcore.NewQuery("SELECT content, title FROM [format_table_name("library")] WHERE id=:isbn", list(
+			var/datum/db_query/query_view_book = SSdbcore.NewQuery("SELECT content, title FROM library WHERE id=:isbn", list(
 				"isbn" = isbn
 			))
 			if(!query_view_book.warn_execute())
@@ -3425,7 +3425,7 @@
 			return
 
 		else if(href_list["unflag_library_book"])
-			var/datum/db_query/query_unflag_book = SSdbcore.NewQuery("UPDATE [format_table_name("library")] SET flagged = 0 WHERE id=:isbn", list(
+			var/datum/db_query/query_unflag_book = SSdbcore.NewQuery("UPDATE library SET flagged = 0 WHERE id=:isbn", list(
 				"isbn" = isbn
 			))
 			if(!query_unflag_book.warn_execute())
@@ -3437,7 +3437,7 @@
 			message_admins("[key_name_admin(usr)] has unflagged the book [isbn].")
 
 		else if(href_list["delete_library_book"])
-			var/datum/db_query/query_delbook = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=:isbn", list(
+			var/datum/db_query/query_delbook = SSdbcore.NewQuery("DELETE FROM library WHERE id=:isbn", list(
 				"isbn" = isbn
 			))
 			if(!query_delbook.warn_execute())
@@ -3505,7 +3505,7 @@
 		var/unlocked_jobs = ""
 		var/unlocked_species = ""
 		// Get their totals
-		var/datum/db_query/query_get_totals = SSdbcore.NewQuery("SELECT karma, karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey=:ckey", list(
+		var/datum/db_query/query_get_totals = SSdbcore.NewQuery("SELECT karma, karmaspent FROM karmatotals WHERE byondkey=:ckey", list(
 			"ckey" = target_ckey
 		))
 		if(!query_get_totals.warn_execute())
@@ -3519,7 +3519,7 @@
 		qdel(query_get_totals)
 
 		// Now get their unlocks
-		var/datum/db_query/query_get_unlocks = SSdbcore.NewQuery("SELECT job, species FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
+		var/datum/db_query/query_get_unlocks = SSdbcore.NewQuery("SELECT job, species FROM whitelist WHERE ckey=:ckey", list(
 			"ckey" = target_ckey
 		))
 		if(!query_get_unlocks.warn_execute())
