@@ -39,7 +39,7 @@
 /obj/item/attack_tk(mob/user)
 	if(user.stat || !isturf(loc))
 		return
-	if(user.dna?.GetSEState(GLOB.teleblock) && !user.get_active_hand()) // both should already be true to get here
+	if(HAS_TRAIT(user, TRAIT_TELEKINESIS) && !user.get_active_hand()) // both should already be true to get here
 		var/obj/item/tk_grab/O = new(src)
 		O.form_grab(user, src)
 	else
@@ -109,7 +109,7 @@
 	if(!host || host != user)
 		qdel(src)
 		return
-	if(!host.dna?.GetSEState(GLOB.teleblock))
+	if(!HAS_TRAIT(host, TRAIT_TELEKINESIS))
 		qdel(src)
 		return
 	if(isobj(target) && !isturf(target.loc))
@@ -139,6 +139,12 @@
 
 
 	else
+		if(focus.buckled_mobs)
+			to_chat(user, "<span class='notice'>This object is too heavy to move with something buckled to it!</span>")
+			return
+		if(length(focus.client_mobs_in_contents))
+			to_chat(user, "<span class='notice'>This object is too heavy to move with something inside of it!</span>")
+			return
 		apply_focus_overlay()
 		focus.throw_at(target, 10, 1, user)
 		last_throw = world.time

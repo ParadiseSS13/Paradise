@@ -25,13 +25,13 @@
 			if(istype(S,/obj/effect/proc_holder/spell/targeted/lichdom) && S != src)
 				return ..()
 	if(existence_stops_round_end)
-		config.continuous_rounds = 0
+		GLOB.configuration.gamemode.disable_certain_round_early_end = FALSE
 	return ..()
 
 /obj/effect/proc_holder/spell/targeted/lichdom/cast(list/targets, mob/user = usr)
-	if(!config.continuous_rounds)
-		existence_stops_round_end = 1
-		config.continuous_rounds = 1
+	if(!GLOB.configuration.gamemode.disable_certain_round_early_end)
+		existence_stops_round_end = TRUE
+		GLOB.configuration.gamemode.disable_certain_round_early_end = TRUE
 
 	for(var/mob/M in targets)
 		var/list/hand_items = list()
@@ -95,7 +95,7 @@
 				if((ABSTRACT in item.flags) || (NODROP in item.flags))
 					continue
 				marked_item = item
-				to_chat(M, "<span class='warning'>You begin to focus your very being into the [item.name]...</span>")
+				to_chat(M, "<span class='warning'>You begin to focus your very being into [item]...</span>")
 				break
 
 			if(!marked_item)
@@ -104,7 +104,7 @@
 
 			spawn(50)
 				if(marked_item.loc != M) //I changed my mind I don't want to put my soul in a cheeseburger!
-					to_chat(M, "<span class='warning'>Your soul snaps back to your body as you drop the [marked_item.name]!</span>")
+					to_chat(M, "<span class='warning'>Your soul snaps back to your body as you drop [marked_item]!</span>")
 					marked_item = null
 					return
 				name = "RISE!"
