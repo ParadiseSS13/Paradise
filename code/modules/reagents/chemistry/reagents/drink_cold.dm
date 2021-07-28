@@ -179,11 +179,11 @@
 	return ..()
 
 /datum/reagent/consumable/drink/cold/arnold_palmer
-    name = "Arnold Palmer"
-    id = "arnold_palmer"
-    description = "A wholesome mixture of lemonade and iced tea."
-    color = "#8B5427" // rgb: 139, 84, 39
-    drink_icon = "arnoldpalmer"
-    drink_name = "Arnold Palmer"
+	name = "Arnold Palmer"
+	id = "arnold_palmer"
+	description = "A wholesome mixture of lemonade and iced tea."
+	color = "#8B5427" // rgb: 139, 84, 39
+	drink_icon = "arnoldpalmer"
+	drink_name = "Arnold Palmer"
 	drink_desc = "A wholesome mixture of lemonade and iced tea... looks like somebody didn't stir this one very well."
-    taste_description = "sweet and fizzy"
+	taste_description = "sweet and fizzy"
