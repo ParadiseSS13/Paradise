@@ -1482,15 +1482,15 @@
 	taste_description = "smooth cognac and tart citrus"
 
 /datum/reagent/consumable/ethanol/whiskey_sour
-    name = "Whiskey Sour"
-    id = "whiskeysour"
-    description = "A tantalizing mixture of whiskey, sugar, lemon juice...and egg whites?"
-    color = "#E4D629" // rgb (228, 214, 41)
-    alcohol_perc = 0.6
-    drink_icon = "whiskeysour"
-    drink_name = "Whiskey Sour"
-    drink_desc = "Lemon and whiskey, with a cute foamy head!"
-    taste_description = "warm whiskey and sweetness"
+	name = "Whiskey Sour"
+	id = "whiskeysour"
+	description = "A tantalizing mixture of whiskey, sugar, lemon juice...and egg whites?"
+	color = "#E4D629" // rgb (228, 214, 41)
+	alcohol_perc = 0.6
+	drink_icon = "whiskeysour"
+	drink_name = "Whiskey Sour"
+	drink_desc = "Lemon and whiskey, with a cute foamy head!"
+	taste_description = "warm whiskey and sweetness"
 
 /datum/reagent/consumable/ethanol/mint_julep
 	name = "Mint Julep"
