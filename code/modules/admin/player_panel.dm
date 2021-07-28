@@ -418,7 +418,7 @@
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-					dat += "<td><A href='?priv_msg=[M.client?.ckey]'>PM</A></td>"
+					dat += "<td><A href='?priv_msg=[M.client?.ckey]'>PM</A> [ADMIN_FLW(M, "FLW")]</td>"
 				else
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"
