@@ -197,7 +197,7 @@
 				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
 			return FALSE
 
-		if(R.window_checks && !valid_window_location(usr.loc, usr.dir))
+		if(R.window_checks && !valid_window_location(get_turf(src), usr.dir))
 			to_chat(usr, "<span class='warning'>\The [R.title] won't fit here!</span>")
 			return FALSE
 
