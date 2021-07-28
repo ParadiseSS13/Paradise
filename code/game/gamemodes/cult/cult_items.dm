@@ -31,6 +31,9 @@
 		item_state = SSticker.cultdat.sword_icon
 	..()
 
+/obj/item/melee/cultblade/detailed_examine()
+	return "This blade is a powerful weapon, capable of severing limbs easily, if they are targeted. Nonbelievers are unable to use this weapon."
+
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
 		user.Weaken(5)

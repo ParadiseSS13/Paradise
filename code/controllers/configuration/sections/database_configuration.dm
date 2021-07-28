@@ -14,9 +14,7 @@
 	/// SQL password
 	var/password = "root" // Dont do this in prod. Please......
 	/// Database name
-	var/db = "feedback" // AA TODO: Rename to paradise_gamedb
-	/// Table prefix
-	var/table_prefix = "erro_" // AA TODO: Remove table prefixes
+	var/db = "paradise_gamedb"
 	/// Time in seconds for async queries to time out
 	var/async_query_timeout = 10
 	/// Thread limit for async queries
@@ -27,7 +25,6 @@
 	#ifdef UNIT_TESTS
 
 	enabled = TRUE
-	table_prefix = ""
 	// This needs to happen in the CI environment to ensure the example SQL version gets updated.
 	CONFIG_LOAD_NUM(version, data["sql_version"])
 
@@ -41,7 +38,6 @@
 	CONFIG_LOAD_STR(username, data["sql_username"])
 	CONFIG_LOAD_STR(password, data["sql_password"])
 	CONFIG_LOAD_STR(db, data["sql_database"])
-	CONFIG_LOAD_STR(table_prefix, data["sql_table_prefix"])
 	CONFIG_LOAD_NUM(async_query_timeout, data["async_query_timeout"])
 	CONFIG_LOAD_NUM(async_thread_limit, data["async_thread_limit"])
 	#endif

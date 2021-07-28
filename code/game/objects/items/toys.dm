@@ -1358,9 +1358,14 @@
 	. += "Has [fake_bullets] round\s remaining."
 	. += "[fake_bullets] of those are live rounds."
 
+/obj/item/toy/russian_revolver/trick_revolver/detailed_examine() //oh no
+	return "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo. The description \
+			will tell you what caliber you need."
+
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
 	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
 	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
+
 /*
  * Rubber Chainsaw
  */

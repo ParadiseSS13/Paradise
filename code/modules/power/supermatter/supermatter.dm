@@ -224,6 +224,23 @@
 	if(!immune && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 		. += "<span class='danger'>You get headaches just from looking at it.</span>"
 
+/obj/machinery/power/supermatter_crystal/detailed_examine()
+	return "When energized by a laser (or something hitting it), it emits radiation and heat. If the heat reaches above 7000 kelvin, it will send an alert and start taking damage. \
+			After integrity falls to zero percent, it will delaminate, causing a massive explosion, station-wide radiation spikes, and hallucinations. \
+			Supermatter reacts badly to oxygen in the atmosphere. It'll also heat up really quick if it is in vacuum.<br>\
+			<br>\
+			Supermatter cores are extremely dangerous to be close to, and requires protection to handle properly. The protection you will need is:<br>\
+			Optical meson scanners on your eyes, to prevent hallucinations when looking at the supermatter.<br>\
+			Radiation helmet and suit, as the supermatter is radioactive.<br>\
+			<br>\
+			Touching the supermatter will result in *instant death*, with no corpse left behind! You can drag the supermatter, but anything else will kill you. \
+			It is advised to obtain a genetic backup before trying to drag it."
+
+/obj/machinery/power/supermatter_crystal/detailed_examine_antag()
+	return "Exposing the supermatter to oxygen or vacuum will cause it to start rapidly heating up. Sabotaging the supermatter and making it explode will \
+			cause a period of lag as the explosion is processed by the server, as well as irradiating the entire station and causing hallucinations to happen. \
+			Wearing radiation equipment will protect you from most of the delamination effects sans explosion."
+
 /obj/machinery/power/supermatter_crystal/proc/get_status()
 	var/turf/T = get_turf(src)
 	if(!T)
@@ -756,6 +773,12 @@
 				suspicion = "last touched by [AM.fingerprintslast]"
 			message_admins("[src] has consumed [AM], [suspicion] [ADMIN_JMP(src)].")
 			investigate_log("has consumed [AM] - [suspicion].", "supermatter")
+			if(istype(AM, /obj/machinery/power/supermatter_crystal))
+				power += 5000//releases A LOT of power
+				matter_power += 500000
+				damage += 180//drops the integrety by 20%
+				AM.visible_message("<span class='danger'>[AM] smacks into [src], rapidly flashing blasts of pure energy. The energy inside [src] undergoes superradiance scattering!</span>", null,\
+				"<span class='italics'>You hear a loud crack as a wave of heat washes over you.</span>")
 		qdel(AM)
 	if(!iseffect(AM) && power_changes)
 		matter_power += 200

@@ -269,3 +269,14 @@
 	locked = TRUE
 	access_requirement = list(ACCESS_RD)
 	category = list("Weapons")
+
+/datum/design/bsg
+	name = "Blue Space Gun"
+	desc = "A heavy hitting energy cannon, that fires destructive bluespace blasts with a decent area of effect."
+	id = "bsg"
+	req_tech = list("combat" = 7, "materials" = 7, "magnets" = 7, "powerstorage" = 7, "bluespace" = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000,  MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000) // Big gun, big cost
+	build_path = /obj/item/gun/energy/bsg
+	locked = TRUE
+	category = list("Weapons")

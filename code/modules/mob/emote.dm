@@ -90,6 +90,8 @@
 						M.show_message(message, m_type)
 
 				O.show_message(message, m_type)
+				if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+					O.create_chat_message(src, input, symbol = RUNECHAT_SYMBOL_EMOTE)
 
 		// Type 2 (Audible) emotes are sent to anyone in hear range
 		// of the *LOCATION* -- this is important for pAIs to be heard

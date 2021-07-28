@@ -11,6 +11,15 @@
 	var/mob/living/carbon/human/occupant
 	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
 
+/obj/machinery/bodyscanner/detailed_examine()
+	return "The advanced scanner detects and reports internal injuries such as bone fractures, internal bleeding, and organ damage. \
+			This is useful if you are about to perform surgery.<br>\
+			<br>\
+			Click your target with Grab intent, then click on the scanner to place them in it. Click the red terminal to operate. \
+			Right-click the scanner and click 'Eject Occupant' to remove them. You can enter the scanner yourself in a similar way, using the 'Enter Body Scanner' \
+			verb."
+
+
 /obj/machinery/bodyscanner/Destroy()
 	go_out()
 	return ..()

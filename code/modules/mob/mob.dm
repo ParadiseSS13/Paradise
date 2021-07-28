@@ -8,6 +8,7 @@
 		spellremove(src)
 	mobspellremove(src)
 	QDEL_LIST(viruses)
+	QDEL_LIST(actions)
 	ghostize()
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	for(var/I in tkgrabbed_objects)
@@ -20,6 +21,7 @@
 			AA.viewers -= src
 		viewing_alternate_appearances = null
 	LAssailant = null
+	runechat_msg_location = null
 	return ..()
 
 /mob/Initialize(mapload)
@@ -1352,20 +1354,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set waitfor = 0
 	if(!spintime || !speed || spintime > 100)
 		CRASH("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
-	var/D = dir
-	while(spintime >= speed)
+	var/end_time = world.time + spintime
+	var/spin_dir = prob(50)
+	while(world.time <= end_time)
 		sleep(speed)
-		switch(D)
-			if(NORTH)
-				D = EAST
-			if(SOUTH)
-				D = WEST
-			if(EAST)
-				D = SOUTH
-			if(WEST)
-				D = NORTH
-		setDir(D)
-		spintime -= speed
+		if(spin_dir)
+			dir = turn(dir, 90)
+		else
+			dir = turn(dir, -90)
 
 /mob/proc/is_literate()
 	return FALSE

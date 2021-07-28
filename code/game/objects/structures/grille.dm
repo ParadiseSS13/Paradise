@@ -21,6 +21,10 @@
 	var/shockcooldown = 0
 	var/my_shockcooldown = 1 SECONDS
 
+/obj/structure/grille/detailed_examine()
+	return "A powered and knotted wire underneath this will cause the grille to shock anyone not wearing insulated gloves.<br>\
+			Wirecutters will turn the grille into metal rods instantly. Grilles are made with metal rods."
+
 /obj/structure/grille/fence
 	var/width = 3
 

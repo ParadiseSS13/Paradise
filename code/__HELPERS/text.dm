@@ -8,10 +8,6 @@
  *			Misc
  */
 
-
-/proc/format_table_name(table as text)
-	return GLOB.configuration.database.table_prefix + table
-
 /*
  * Text sanitization
  */
