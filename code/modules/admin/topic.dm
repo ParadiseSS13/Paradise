@@ -2509,7 +2509,7 @@
 			if("Central Command")
 				stamptype = "icon"
 				stampvalue = "cent"
-				sendername = command_name()
+				sendername = "NAS Trurl"
 			if("Syndicate")
 				stamptype = "icon"
 				stampvalue = "syndicate"
@@ -3213,7 +3213,7 @@
 				if(!SSshuttle.toggleShuttle("ferry","ferry_home","ferry_away"))
 					message_admins("[key_name_admin(usr)] moved the centcom ferry")
 					log_admin("[key_name(usr)] moved the centcom ferry")
-					
+
 			if("gammashuttle")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Gamma Armory")
 				message_admins("[key_name_admin(usr)] moved the gamma armory")
@@ -3378,7 +3378,7 @@
 			if(!newname)
 				return
 			G.name = newname
-			var/description = input("Enter [command_name()] message contents:") as message|null
+			var/description = input("Enter NAS Trurl message contents:") as message|null
 			if(!description)
 				return
 			G.report_message = description
