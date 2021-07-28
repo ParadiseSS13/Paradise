@@ -1188,7 +1188,6 @@ so that different stomachs can handle things in different ways VB*/
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
 
-
 	if(client.eye != src)
 		var/atom/A = client.eye
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
@@ -1203,7 +1202,7 @@ so that different stomachs can handle things in different ways VB*/
 		see_in_dark = max(see_in_dark, 8)
 
 	if(HAS_TRAIT(src, TRAIT_MESON_VISION))
-		sight |= (SEE_TURFS)
+		sight |= SEE_TURFS
 		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
 
 	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))

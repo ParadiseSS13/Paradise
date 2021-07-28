@@ -895,7 +895,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			H.lighting_alpha = min(H.vision_type.lighting_alpha, H.lighting_alpha)
 
 	if(HAS_TRAIT(H, TRAIT_MESON_VISION))
-		H.sight |= (SEE_TURFS)
+		H.sight |= SEE_TURFS
 		H.lighting_alpha = min(H.lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
 
 	if(HAS_TRAIT(H, TRAIT_THERMAL_VISION))

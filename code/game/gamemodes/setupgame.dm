@@ -48,9 +48,9 @@
 	GLOB.twitchblock        = getAssignedBlock("TWITCH",        numsToAssign)
 	GLOB.nervousblock       = getAssignedBlock("NERVOUS",       numsToAssign)
 	GLOB.wingdingsblock     = getAssignedBlock("WINGDINGS",     numsToAssign)
-	GLOB.mesonblock			= getAssignedBlock("MESONS",     numsToAssign, good=1)
-	GLOB.noflashblock		= getAssignedBlock("NOFLASH",     numsToAssign, DNA_HARDER_BOUNDS, good=1)
-	GLOB.nightvisionblock	= getAssignedBlock("NIGHTVISION",     numsToAssign, DNA_HARDER_BOUNDS, good=1)
+	GLOB.mesonblock			= getAssignedBlock("MESONS",        numsToAssign, good=1)
+	GLOB.noflashblock		= getAssignedBlock("NOFLASH",       numsToAssign, DNA_HARDER_BOUNDS, good=1)
+	GLOB.nightvisionblock	= getAssignedBlock("NIGHTVISION",   numsToAssign, DNA_HARDER_BOUNDS, good=1)
 
 
 	// Bay muts
