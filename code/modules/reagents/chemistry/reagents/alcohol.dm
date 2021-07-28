@@ -1471,15 +1471,15 @@
 	taste_description = "sharpness"
 
 /datum/reagent/consumable/ethanol/sidecar
-    name = "Sidecar"
-    id = "sidecar"
-    description = "A citrus cocktail of cognac, lemon and orange."
-    color = "#D7A61E" // rgb (215, 166, 30)
-    alcohol_perc = 0.4
-    drink_icon = "sidecar"
-    drink_name = "Sidecar"
-    drink_desc = "You can smell the citrus from here!"
-    taste_description = "smooth cognac and tart citrus"
+	name = "Sidecar"
+	id = "sidecar"
+	description = "A citrus cocktail of cognac, lemon and orange."
+	color = "#D7A61E" // rgb (215, 166, 30)
+	alcohol_perc = 0.4
+	drink_icon = "sidecar"
+	drink_name = "Sidecar"
+	drink_desc = "You can smell the citrus from here!"
+	taste_description = "smooth cognac and tart citrus"
 
 /datum/reagent/consumable/ethanol/whiskey_sour
     name = "Whiskey Sour"
