@@ -363,4 +363,4 @@
 	set desc = "Toggles seeing item outlines on hover."
 	prefs.toggles2 ^= PREFTOGGLE_2_SEE_ITEM_OUTLINES
 	prefs.save_preferences(src)
-	to_chat(usr, "You will [(prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES) ? "no longer" : "now"] see item outlines on hover.")
+	to_chat(usr, "You will [(prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES) ? "now" : "no longer"] see item outlines on hover.")
