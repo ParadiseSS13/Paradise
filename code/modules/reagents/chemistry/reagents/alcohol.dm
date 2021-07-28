@@ -1484,7 +1484,7 @@
 /datum/reagent/consumable/ethanol/whiskey_sour
 	name = "Whiskey Sour"
 	id = "whiskeysour"
-	description = "A tantalizing mixture of whiskey, sugar, lemon juice...and egg whites?"
+	description = "A tantalizing mixture of whiskey, sugar, lemon juice... and egg whites?"
 	color = "#E4D629" // rgb (228, 214, 41)
 	alcohol_perc = 0.6
 	drink_icon = "whiskeysour"
