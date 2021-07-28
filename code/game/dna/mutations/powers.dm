@@ -1191,12 +1191,16 @@
 /datum/mutation/night_vision/activate(mob/living/M)
 	..()
 	M.update_sight()
-	M.update_icons()
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.update_misc_effects()
 
 /datum/mutation/night_vision/deactivate(mob/living/M)
 	..()
 	M.update_sight()
-	M.update_icons()
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.update_misc_effects()
 
 /datum/mutation/flash_protection
 	name = "Flash Protection"
