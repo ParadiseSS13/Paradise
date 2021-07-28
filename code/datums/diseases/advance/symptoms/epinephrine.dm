@@ -30,7 +30,8 @@ Bonus
 	if(prob(SYMPTOM_ACTIVATION_PROB * 5))
 		switch(A.stage)
 			if(5)
-				to_chat(M, "<span class='notice'>[pick("Your body feels tough.", "You are feeling on edge.")]</span>")
+				if(prob(10))
+					to_chat(M, "<span class='notice'>[pick("Your body feels tough.", "You are feeling on edge.")]</span>")
 				check = TRUE
 	if(check == TRUE && M.health <= HEALTH_THRESHOLD_CRIT)
 		M.reagents.add_reagent("epinephrine", 0.6)
