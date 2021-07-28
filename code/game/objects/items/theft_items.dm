@@ -45,7 +45,7 @@
 //nuke core box, for carrying the core
 /obj/item/nuke_core_container
 	name = "nuke core container"
-	desc = "Solid container for radioactive objects."
+	desc = "A solid container for radioactive objects."
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "core_container_empty"
 	item_state = "metal"

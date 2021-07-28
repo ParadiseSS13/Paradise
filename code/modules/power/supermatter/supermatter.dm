@@ -723,7 +723,7 @@
 				matter_power += 800
 				scalpel.uses_left--
 				if(!scalpel.uses_left)
-					to_chat(user, "<span class='notice'>A tiny piece of [I] falls off, rendering it useless!</span>")
+					to_chat(user, "<span class='boldwarning'>A tiny piece of [I] falls off, rendering it useless!</span>")
 			else
 				to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
 	else if(user.drop_item())
