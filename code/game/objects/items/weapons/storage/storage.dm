@@ -59,9 +59,6 @@
 
 	populate_contents()
 
-	for(var/obj/item/L in return_inv()) //marks all items in storage as being such
-		L.in_storage = TRUE
-
 	boxes = new /obj/screen/storage()
 	boxes.name = "storage"
 	boxes.master = src
