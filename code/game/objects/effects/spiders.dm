@@ -69,18 +69,20 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/spider/eggcluster/process()
-	if(SSmobs.giant_spiders <= SPIDER_SOFT_CAP) //eggs gonna chill out until there is less spiders
-		amount_grown += rand(0, 2)
+	if(SSmobs.giant_spiders > SPIDER_SOFT_CAP) //eggs gonna chill out until there is less spiders
+		return
 
-		if(amount_grown >= 100)
-			var/num = rand(3, 12)
-			for(var/i in 1 to num)
-				var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)
-				S.faction = faction.Copy()
-				S.master_commander = master_commander
-				if(player_spiders)
-					S.player_spiders = TRUE
-			qdel(src)
+	amount_grown += rand(0, 2)
+
+	if(amount_grown >= 100)
+		var/num = rand(3, 12)
+		for(var/i in 1 to num)
+			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)
+			S.faction = faction.Copy()
+			S.master_commander = master_commander
+			if(player_spiders)
+				S.player_spiders = TRUE
+		qdel(src)
 
 /obj/structure/spider/spiderling
 	name = "spiderling"
