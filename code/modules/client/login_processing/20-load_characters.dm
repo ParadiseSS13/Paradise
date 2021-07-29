@@ -1,7 +1,3 @@
-// AA TODO:
-// - split character out of the prefs datum
-// - make this load **ALL CHARACTERS**
-// - make a post_load() op for stuff
 /datum/client_login_processor/load_characters
 	priority = 20
 
