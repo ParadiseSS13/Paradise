@@ -93,7 +93,7 @@
 			return TRUE
 
 		if(pulledby == L && a_intent != INTENT_HELP) //prevents boosting the person pulling you, but you can still move through them on help intent
-			return 1
+			return TRUE
 
 		if(L.pulling)
 			if(ismob(L.pulling))
