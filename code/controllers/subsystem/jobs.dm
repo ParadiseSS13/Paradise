@@ -740,7 +740,7 @@ SUBSYSTEM_DEF(jobs)
 			continue // If a client logs out in the middle of this
 
 		var/datum/db_query/exp_read = SSdbcore.NewQuery(
-			"SELECT exp FROM [format_table_name("player")] WHERE ckey=:ckey",
+			"SELECT exp FROM player WHERE ckey=:ckey",
 			list("ckey" = C.ckey)
 		)
 
@@ -824,7 +824,7 @@ SUBSYSTEM_DEF(jobs)
 		C.prefs.exp = new_exp
 
 		var/datum/db_query/update_query = SSdbcore.NewQuery(
-			"UPDATE [format_table_name("player")] SET exp =:newexp, lastseen=NOW() WHERE ckey=:ckey",
+			"UPDATE player SET exp =:newexp, lastseen=NOW() WHERE ckey=:ckey",
 			list(
 				"newexp" = new_exp,
 				"ckey" = C.ckey
@@ -834,7 +834,7 @@ SUBSYSTEM_DEF(jobs)
 		player_update_queries += update_query
 
 		var/datum/db_query/update_query_history = SSdbcore.NewQuery({"
-			INSERT INTO [format_table_name("playtime_history")] (ckey, date, time_living, time_ghost)
+			INSERT INTO playtime_history (ckey, date, time_living, time_ghost)
 			VALUES (:ckey, CURDATE(), :addedliving, :addedghost)
 			ON DUPLICATE KEY UPDATE time_living=time_living + VALUES(time_living), time_ghost=time_ghost + VALUES(time_ghost)"},
 			list(

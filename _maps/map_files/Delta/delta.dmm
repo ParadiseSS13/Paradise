@@ -36123,7 +36123,7 @@
 	dir = 1
 	},
 /obj/structure/closet/secure_closet/brig{
-	id = "Cell 4";
+	id = "Cell 2";
 	name = "Cell 2 Locker"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -36223,11 +36223,6 @@
 	},
 /area/security/brig)
 "bzp" = (
-/obj/machinery/door_timer/cell_4{
-	id = "Cell 3";
-	layer = 4;
-	name = "Cell 3"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -36978,7 +36973,7 @@
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
-	id = "Cell 4";
+	id = "Cell 2";
 	name = "Cell 2";
 	req_access_txt = "2"
 	},
@@ -38421,7 +38416,7 @@
 	dir = 1
 	},
 /obj/machinery/flasher{
-	id = "Cell 4";
+	id = "Cell 2";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -38439,13 +38434,10 @@
 /area/security/brig)
 "bCQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door_timer/cell_4{
-	dir = 8;
-	layer = 4;
-	name = "Cell 2";
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door_timer/cell_2{
 	pixel_x = -32
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -40245,7 +40237,7 @@
 	dir = 1
 	},
 /obj/structure/closet/secure_closet/brig{
-	id = "Cell 5";
+	id = "Cell 1";
 	name = "Cell 1 Locker"
 	},
 /obj/item/radio/intercom{
@@ -41429,7 +41421,7 @@
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
-	id = "Cell 5";
+	id = "Cell 1";
 	name = "Cell 1";
 	req_access_txt = "2"
 	},
@@ -42279,7 +42271,7 @@
 	dir = 1
 	},
 /obj/machinery/flasher{
-	id = "Cell 5";
+	id = "Cell 1";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -51432,16 +51424,14 @@
 	},
 /area/security/brig)
 "caP" = (
-/obj/machinery/door_timer/cell_4{
-	id = "Cell 5";
-	layer = 4;
-	name = "Cell 5"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
+	},
+/obj/machinery/door_timer/cell_5{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -52590,8 +52580,8 @@
 	c_tag = "Brig Cell 4"
 	},
 /obj/structure/closet/secure_closet/brig{
-	id = "Cell 4";
-	name = "Cell 4 Locker"
+	id = "Cell 5";
+	name = "Cell 5 Locker"
 	},
 /turf/simulated/floor/plating,
 /area/security/brig)
@@ -54239,6 +54229,10 @@
 /obj/machinery/treadmill_monitor{
 	id = "Cell 4";
 	pixel_y = -32
+	},
+/obj/machinery/flasher{
+	id = "Cell 5";
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
@@ -103979,13 +103973,10 @@
 /area/security/permasolitary)
 "gDv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door_timer/cell_5{
-	dir = 8;
-	layer = 4;
-	name = "Cell 1";
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door_timer/cell_1{
 	pixel_x = -32
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -107066,6 +107057,26 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/range)
+"uiw" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door_timer/cell_3{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/security/brig)
 "ujH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -107256,8 +107267,8 @@
 /area/crew_quarters/theatre)
 "uYc" = (
 /obj/structure/closet/secure_closet/brig{
-	id = "Cell 2";
-	name = "Cell 2 Locker"
+	id = "Cell 3";
+	name = "Cell 3 Locker"
 	},
 /obj/machinery/camera{
 	c_tag = "Brig Cell 2"
@@ -107426,7 +107437,7 @@
 /area/security/permasolitary)
 "vvQ" = (
 /obj/machinery/door_timer/cell_4{
-	layer = 4
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -107855,10 +107866,6 @@
 /area/medical/surgery1)
 "xIo" = (
 /obj/structure/bed,
-/obj/machinery/flasher{
-	id = "Cell 5";
-	pixel_y = -28
-	},
 /obj/item/radio/intercom{
 	dir = 8;
 	pixel_y = -28
@@ -160827,7 +160834,7 @@ bkj
 bvr
 bsL
 biv
-bzn
+uiw
 bAV
 uYc
 bEy

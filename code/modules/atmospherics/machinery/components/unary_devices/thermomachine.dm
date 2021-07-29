@@ -10,9 +10,6 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
 	layer = OBJ_LAYER
 
-	///Check if the device should be on or off
-	var/on = FALSE
-
 	var/icon_state_off = "freezer"
 	var/icon_state_on = "freezer_1"
 	var/icon_state_open = "freezer-o"
@@ -39,6 +36,11 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 	update_icon()
+
+/obj/machinery/atmospherics/unary/thermomachine/detailed_examine()
+	return "Cools or heats the gas of the pipe it is connected to. It uses massive amounts of electricity while on. \
+			It can be upgraded by replacing the capacitors, manipulators, and matter bins. It can be deconstructed by screwing the maintenance panel open with a \
+			screwdriver, and then using a crowbar."
 
 /obj/machinery/atmospherics/unary/thermomachine/proc/swap_function()
 	cooling = !cooling

@@ -89,17 +89,20 @@
 					/mob/living/simple_animal/hostile/poison/bees/,
 					/mob/living/simple_animal/butterfly,
 					/mob/living/simple_animal/cockroach,
-					/obj/item/queen_bee
-	))
+					/obj/item/queen_bee))
+	strong_against -= /mob/living/simple_animal/hostile/poison/bees/syndi // Syndi-bees have special anti-flyswatter tech installed
 
-/obj/item/melee/flyswatter/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/melee/flyswatter/attack(mob/living/M, mob/living/user, def_zone)
 	. = ..()
-	if(proximity_flag)
-		if(is_type_in_typecache(target, strong_against))
-			new /obj/effect/decal/cleanable/insectguts(target.drop_location())
-			to_chat(user, "<span class='warning'>You easily splat [target].</span>")
-			if(istype(target, /mob/living/))
-				var/mob/living/bug = target
-				bug.death(1)
-			else
-				qdel(target)
+	if(!.)
+		return
+	if(is_type_in_typecache(M, strong_against))
+		new /obj/effect/decal/cleanable/insectguts(M.drop_location())
+		user.visible_message("<span class='warning'>[user] splats [M] with [src].</span>",
+			"<span class='warning'>You splat [M] with [src].</span>",
+			"<span class='warning'>You hear a splat.</span>")
+		if(isliving(M))
+			var/mob/living/bug = M
+			bug.death(TRUE)
+		if(!QDELETED(M))
+			qdel(M)

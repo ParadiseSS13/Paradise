@@ -224,6 +224,23 @@
 	if(!immune && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 		. += "<span class='danger'>You get headaches just from looking at it.</span>"
 
+/obj/machinery/power/supermatter_crystal/detailed_examine()
+	return "When energized by a laser (or something hitting it), it emits radiation and heat. If the heat reaches above 7000 kelvin, it will send an alert and start taking damage. \
+			After integrity falls to zero percent, it will delaminate, causing a massive explosion, station-wide radiation spikes, and hallucinations. \
+			Supermatter reacts badly to oxygen in the atmosphere. It'll also heat up really quick if it is in vacuum.<br>\
+			<br>\
+			Supermatter cores are extremely dangerous to be close to, and requires protection to handle properly. The protection you will need is:<br>\
+			Optical meson scanners on your eyes, to prevent hallucinations when looking at the supermatter.<br>\
+			Radiation helmet and suit, as the supermatter is radioactive.<br>\
+			<br>\
+			Touching the supermatter will result in *instant death*, with no corpse left behind! You can drag the supermatter, but anything else will kill you. \
+			It is advised to obtain a genetic backup before trying to drag it."
+
+/obj/machinery/power/supermatter_crystal/detailed_examine_antag()
+	return "Exposing the supermatter to oxygen or vacuum will cause it to start rapidly heating up. Sabotaging the supermatter and making it explode will \
+			cause a period of lag as the explosion is processed by the server, as well as irradiating the entire station and causing hallucinations to happen. \
+			Wearing radiation equipment will protect you from most of the delamination effects sans explosion."
+
 /obj/machinery/power/supermatter_crystal/proc/get_status()
 	var/turf/T = get_turf(src)
 	if(!T)
@@ -312,7 +329,7 @@
 				//Hilariously enough, running into a closet should make you get hit the hardest.
 				var/mob/living/carbon/human/H = mob
 				H.hallucination += max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1))))
-			var/rads = (DETONATION_RADS * (sqrt(1 / (get_dist(L, src) + 1)) * sqrt(power / 5))) / (RAD_DOSAGE_MULTIPLIER * 0.25)
+			var/rads = DETONATION_RADS * sqrt(1 / (get_dist(L, src) + 1))
 			L.rad_act(rads)
 
 	var/turf/T = get_turf(src)
@@ -525,7 +542,7 @@
 			l.hallucination += power * hallucination_power * D
 			l.hallucination = clamp(l.hallucination, 0, 200)
 	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
-		var/rads = ((power / 10) * sqrt( 1 / max(get_dist(l, src), 1) )) / RAD_DOSAGE_MULTIPLIER //RAD_DOSAGE_MULTIPLIER is used so that the SM doesn't absolutely murder you with rads
+		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src), 1) )
 		l.rad_act(rads)
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.

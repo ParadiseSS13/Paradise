@@ -11,6 +11,7 @@
 	max_integrity = 250
 	integrity_failure = 25
 	buckle_offset = 0
+	face_while_pulling = FALSE
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
