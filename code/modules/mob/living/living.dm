@@ -92,6 +92,9 @@
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 			return TRUE
 
+		if(pulledby == L && a_intent != INTENT_HELP) //prevents boosting the person pulling you, but you can still move through them on help intent
+			return TRUE
+
 		if(L.pulling)
 			if(ismob(L.pulling))
 				var/mob/P = L.pulling
