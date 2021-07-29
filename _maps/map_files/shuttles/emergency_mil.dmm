@@ -93,13 +93,12 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aI" = (
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "aJ" = (
 /obj/machinery/atmospherics/unary/cryo_cell,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whiteblue"
+/turf/simulated/floor/plasteel/white/blue/edge{
+	dir = 9
 	},
 /area/shuttle/escape)
 "aK" = (
@@ -108,9 +107,8 @@
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/item/wrench,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
+/turf/simulated/floor/plasteel/white/blue/edge{
+	dir = 1
 	},
 /area/shuttle/escape)
 "aL" = (
@@ -120,16 +118,14 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
+/turf/simulated/floor/plasteel/white/blue/edge{
+	dir = 1
 	},
 /area/shuttle/escape)
 "aM" = (
 /obj/machinery/sleeper,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteblue"
+/turf/simulated/floor/plasteel/white/blue/edge{
+	dir = 5
 	},
 /area/shuttle/escape)
 "aN" = (
@@ -145,23 +141,18 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whiteblue"
+/turf/simulated/floor/plasteel/white/blue/edge{
+	dir = 8
 	},
 /area/shuttle/escape)
 "aR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aS" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aT" = (
 /obj/machinery/vending/wallmed{
@@ -170,16 +161,14 @@
 	pixel_x = 28
 	},
 /obj/machinery/sleeper,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+/turf/simulated/floor/plasteel/white/blue/edge{
+	dir = 4
 	},
 /area/shuttle/escape)
 "aU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whiteblue"
+/turf/simulated/floor/plasteel/white/blue/edge{
+	dir = 8
 	},
 /area/shuttle/escape)
 "aV" = (
@@ -188,9 +177,8 @@
 	pixel_x = 28
 	},
 /obj/structure/bed/roller,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+/turf/simulated/floor/plasteel/white/blue/edge{
+	dir = 4
 	},
 /area/shuttle/escape)
 "aW" = (
@@ -212,9 +200,8 @@
 /obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whiteblue"
+/turf/simulated/floor/plasteel/white/blue/edge{
+	dir = 10
 	},
 /area/shuttle/escape)
 "aZ" = (
@@ -238,23 +225,18 @@
 	pixel_y = 3
 	},
 /obj/item/reagent_containers/glass/beaker/cryoxadone,
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
+/turf/simulated/floor/plasteel/white/blue/edge,
 /area/shuttle/escape)
 "ba" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
+/turf/simulated/floor/plasteel/white/blue/edge,
 /area/shuttle/escape)
 "bb" = (
 /obj/machinery/light/spot{
 	dir = 4
 	},
 /obj/structure/bed/roller,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whiteblue"
+/turf/simulated/floor/plasteel/white/blue/edge{
+	dir = 6
 	},
 /area/shuttle/escape)
 "bc" = (
@@ -273,7 +255,7 @@
 	name = "Escape Shuttle Cockpit";
 	req_access_txt = "19"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bg" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -302,7 +284,7 @@
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bj" = (
 /obj/item/radio/intercom{
@@ -315,19 +297,19 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bk" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bl" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bm" = (
 /obj/machinery/light/spot{
@@ -336,7 +318,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bn" = (
 /obj/machinery/light/spot{
@@ -345,15 +327,15 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "br" = (
 /mob/living/simple_animal/bot/secbot,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bs" = (
 /obj/machinery/recharge_station,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bu" = (
 /obj/structure/window/reinforced{

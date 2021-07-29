@@ -245,30 +245,22 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/ruin/powered)
 "Q" = (
 /obj/machinery/shower{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/ruin/powered)
 "R" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/ruin/powered)
 "S" = (
 /obj/structure/toilet{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/ruin/powered)
 "Y" = (
 /obj/item/gps/ruin,

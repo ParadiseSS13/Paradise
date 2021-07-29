@@ -118,23 +118,20 @@
 /area/derelict/bridge)
 "at" = (
 /obj/structure/closet/crate/can,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 9
 	},
 /area/derelict/bridge)
 "au" = (
 /obj/machinery/computer/atmos_alert,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 1
 	},
 /area/derelict/bridge)
 "av" = (
 /obj/machinery/computer/monitor/secret,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 1
 	},
 /area/derelict/bridge)
 "aw" = (
@@ -143,9 +140,8 @@
 	id = "rusbridge";
 	name = "Bridge Shutters"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 9
 	},
 /area/derelict/bridge)
 "ax" = (
@@ -156,9 +152,8 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 1
 	},
 /area/derelict/bridge)
 "ay" = (
@@ -167,9 +162,8 @@
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
 	name = "decrepit computer"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 1
 	},
 /area/derelict/bridge)
 "az" = (
@@ -183,24 +177,21 @@
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
 	name = "decrepit computer"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 1
 	},
 /area/derelict/bridge)
 "aA" = (
 /obj/structure/table/reinforced,
 /obj/item/ashtray/bronze,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 5
 	},
 /area/derelict/bridge)
 "aB" = (
 /obj/machinery/computer/crew,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 1
 	},
 /area/derelict/bridge)
 "aC" = (
@@ -209,17 +200,15 @@
 	name = "decrepit computer"
 	},
 /obj/item/shard,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 1
 	},
 /area/derelict/bridge)
 "aD" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 5
 	},
 /area/derelict/bridge)
 "aE" = (
@@ -228,9 +217,7 @@
 /area/derelict/bridge)
 "aF" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "aG" = (
 /obj/structure/safe/floor,
@@ -250,38 +237,29 @@
 	icon_state = "docs_generic";
 	name = "USSP//NOFORN//TOP SECRET"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "aH" = (
 /obj/structure/coatrack,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "aI" = (
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 8
 	},
 /area/derelict/bridge)
 "aJ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/bridge)
 "aK" = (
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/bridge)
 "aL" = (
 /obj/structure/table/reinforced,
@@ -289,18 +267,15 @@
 	desc = "An old Russian phone. The dial tone is still humming.";
 	name = "spin-dial phone"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 8
 	},
 /area/derelict/bridge)
 "aM" = (
 /obj/structure/chair/comfy/red{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/bridge)
 "aN" = (
 /obj/effect/landmark/damageturf,
@@ -308,25 +283,20 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/bridge)
 "aO" = (
 /obj/structure/table/reinforced,
 /obj/item/fan,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 4
 	},
 /area/derelict/bridge)
 "aP" = (
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/bridge)
 "aQ" = (
 /obj/effect/landmark/damageturf,
@@ -334,34 +304,29 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/bridge)
 "aR" = (
 /obj/machinery/light/spot{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 4
 	},
 /area/derelict/bridge)
 "aS" = (
 /obj/machinery/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 9
 	},
 /area/derelict/bridge)
 "aT" = (
 /obj/machinery/vending/sovietsoda,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 1
 	},
 /area/derelict/bridge)
 "aU" = (
@@ -370,9 +335,8 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 5
 	},
 /area/derelict/bridge)
 "aV" = (
@@ -395,18 +359,14 @@
 	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
 	name = "Cosmonaut Command Suit"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "aY" = (
 /obj/structure/rack,
 /obj/item/gun/energy/e_gun/old{
 	desc = "A rudimentary energy weapon co-opted by the USSP from a TSF experimental prototype. There are two firing modes."
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "aZ" = (
 /obj/structure/table/wood,
@@ -416,57 +376,44 @@
 	icon_state = "ship_bottle";
 	name = "ship in a bottle"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "ba" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "bb" = (
 /turf/simulated/floor/carpet,
 /area/derelict/bridge)
 "bc" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 8
 	},
 /area/derelict/bridge)
 "bd" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/bridge)
 "be" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 10
 	},
 /area/derelict/bridge)
 "bf" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/turf/simulated/floor/plasteel/dark/blue/edge,
 /area/derelict/bridge)
 "bg" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 6
 	},
 /area/derelict/bridge)
 "bh" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 4
 	},
 /area/derelict/bridge)
 "bi" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
+/turf/simulated/floor/plasteel/dark{
+	dir = 5
 	},
 /area/derelict/bridge)
 "bj" = (
@@ -475,9 +422,8 @@
 	name = "shaky note"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 1
 	},
 /area/derelict/bridge)
 "bk" = (
@@ -495,9 +441,8 @@
 	pixel_y = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 1
 	},
 /area/derelict/bridge)
 "bl" = (
@@ -507,9 +452,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 5
 	},
 /area/derelict/bridge)
 "bm" = (
@@ -527,9 +471,7 @@
 	dir = 8;
 	pixel_x = -24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "bp" = (
 /obj/structure/chair/comfy/red{
@@ -540,9 +482,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "bq" = (
 /obj/structure/table/wood,
@@ -555,9 +495,7 @@
 	info = "This damned shower is going to be the death of me. I can see the way Vostok looks at me when I speak of it, the way his eyes sneer with amusement. Just this morning, I swear the damn thing tried to lock me in! I had to break the manual release just to get out, Vostok nearly shit himself he was laughing so hard.<br><br>Well, we'll see how long he'll be laughing when I write to Commissar Grigor about his insolence; the only thing he will be officer of then is the toilet!";
 	name = "captain's log"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "br" = (
 /obj/structure/chair/stool,
@@ -567,9 +505,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "bs" = (
 /obj/structure/cable{
@@ -578,9 +514,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "bt" = (
 /obj/structure/cable{
@@ -599,9 +533,7 @@
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Wing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/bridge)
 "bv" = (
 /obj/structure/cable{
@@ -610,9 +542,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/bridge)
 "bw" = (
 /obj/structure/cable{
@@ -620,9 +550,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/bridge)
 "bx" = (
 /obj/structure/cable{
@@ -630,50 +558,42 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/bridge)
 "by" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Wing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/bridge)
 "bz" = (
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
+/turf/simulated/floor/plasteel/dark{
+	dir = 5
 	},
 /area/derelict/bridge)
 "bA" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
+/turf/simulated/floor/plasteel/dark{
+	dir = 5
 	},
 /area/derelict/bridge)
 "bB" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
+/turf/simulated/floor/plasteel/dark{
+	dir = 5
 	},
 /area/derelict/bridge)
 "bC" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
+/turf/simulated/floor/plasteel/dark{
+	dir = 5
 	},
 /area/derelict/bridge)
 "bD" = (
@@ -690,9 +610,8 @@
 	},
 /obj/item/cigbutt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 4
 	},
 /area/derelict/bridge)
 "bE" = (
@@ -705,9 +624,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredcorners"
-	},
+/turf/simulated/floor/plasteel/dark/red/corner,
 /area/derelict/arrival)
 "bG" = (
 /obj/structure/rack,
@@ -715,18 +632,15 @@
 	desc = "A wooden truncheon for beating capitalist scum."
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkredcorners"
+/turf/simulated/floor/plasteel/dark/red/corner{
+	dir = 8
 	},
 /area/derelict/arrival)
 "bH" = (
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "bI" = (
 /obj/structure/table/wood,
@@ -735,24 +649,18 @@
 	pixel_y = 3
 	},
 /obj/item/cigbutt,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "bJ" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control{
 	name = "faulty switch"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "bK" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "bL" = (
 /obj/structure/cable{
@@ -760,15 +668,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/bridge)
 "bM" = (
 /obj/structure/chair/office/dark,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/bridge)
 "bN" = (
 /obj/item/reagent_containers/syringe/insulin{
@@ -778,61 +682,51 @@
 /obj/structure/closet/crate/freezer{
 	layer = 2.9
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 4
 	},
 /area/derelict/bridge)
 "bO" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
 /obj/item/tape/random,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 9
 	},
 /area/derelict/bridge)
 "bP" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 5
 	},
 /area/derelict/bridge)
 "bQ" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 4
 	},
 /area/derelict/bridge)
 "bR" = (
 /obj/structure/curtain/open,
 /obj/structure/toilet,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "bS" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredcorners"
-	},
+/turf/simulated/floor/plasteel/dark/red/corner,
 /area/derelict/arrival)
 "bT" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 6
 	},
 /area/derelict/arrival)
 "bU" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 8
 	},
 /area/derelict/arrival)
 "bV" = (
@@ -842,89 +736,71 @@
 /area/derelict/bridge)
 "bW" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 10
 	},
 /area/derelict/bridge)
 "bX" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/cups,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/turf/simulated/floor/plasteel/dark/blue/edge,
 /area/derelict/bridge)
 "bY" = (
 /obj/structure/table/reinforced,
 /obj/item/ashtray/bronze,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/turf/simulated/floor/plasteel/dark/blue/edge,
 /area/derelict/bridge)
 "bZ" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/turf/simulated/floor/plasteel/dark/blue/edge,
 /area/derelict/bridge)
 "ca" = (
 /obj/structure/coatrack,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/turf/simulated/floor/plasteel/dark/blue/edge,
 /area/derelict/bridge)
 "cb" = (
 /obj/structure/table/reinforced,
 /obj/item/folder,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/turf/simulated/floor/plasteel/dark/blue/edge,
 /area/derelict/bridge)
 "cc" = (
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/turf/simulated/floor/plasteel/dark/blue/edge,
 /area/derelict/bridge)
 "cd" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 6
 	},
 /area/derelict/bridge)
 "ce" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 8
 	},
 /area/derelict/bridge)
 "cf" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 1
 	},
 /area/derelict/bridge)
 "cg" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/plastic,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 1
 	},
 /area/derelict/bridge)
 "ch" = (
 /obj/machinery/light/spot{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 4
 	},
 /area/derelict/bridge)
 "ci" = (
@@ -932,15 +808,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
-/area/derelict/crew_quarters)
-"cj" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "ck" = (
 /obj/machinery/shower{
@@ -948,9 +816,7 @@
 	},
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "cl" = (
 /obj/structure/rack,
@@ -959,21 +825,16 @@
 	desc = "A reinforced helmet often used by USSP security personnel.";
 	name = "armoured helmet"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredcorners"
-	},
+/turf/simulated/floor/plasteel/dark/red/corner,
 /area/derelict/arrival)
 "cm" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/turf/simulated/floor/plasteel/dark/red/edge,
 /area/derelict/arrival)
 "cn" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/cleanable/blood/innards,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 6
 	},
 /area/derelict/arrival)
 "co" = (
@@ -982,34 +843,28 @@
 	desc = "It's Comrade Blyatsky! Powered by vodka, communism, and hardbass.";
 	name = "Comrade Blyatsky"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
+/turf/simulated/floor/plasteel/dark{
+	dir = 5
 	},
 /area/derelict/arrival)
 "cp" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 8
 	},
 /area/derelict/arrival)
 "cq" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Wing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "cr" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "cs" = (
 /obj/structure/rack,
@@ -1040,16 +895,13 @@
 "cw" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 10
 	},
 /area/derelict/bridge)
 "cx" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/turf/simulated/floor/plasteel/dark/blue/edge,
 /area/derelict/bridge)
 "cy" = (
 /obj/structure/sink{
@@ -1061,9 +913,7 @@
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "cz" = (
 /obj/structure/rack,
@@ -1075,37 +925,31 @@
 	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
 	name = "Cosmonaut Security Helmet"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkredcorners"
+/turf/simulated/floor/plasteel/dark/red/corner{
+	dir = 4
 	},
 /area/derelict/arrival)
 "cA" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 1
 	},
 /area/derelict/arrival)
 "cB" = (
 /obj/effect/decal/cleanable/blood/tracks,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 1
 	},
 /area/derelict/arrival)
 "cC" = (
 /obj/structure/rack,
 /obj/item/gun/projectile/revolver/doublebarrel,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkredcorners"
+/turf/simulated/floor/plasteel/dark/red/corner{
+	dir = 1
 	},
 /area/derelict/arrival)
 "cD" = (
 /obj/structure/dresser,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "cE" = (
 /obj/structure/table/wood,
@@ -1113,9 +957,7 @@
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_y = 31
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "cF" = (
 /obj/structure/cable{
@@ -1131,9 +973,7 @@
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Wing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/bridge)
 "cG" = (
 /obj/structure/closet/crate/can,
@@ -1143,9 +983,8 @@
 	},
 /obj/item/trash/can,
 /obj/item/trash/semki,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 10
 	},
 /area/derelict/bridge)
 "cH" = (
@@ -1153,9 +992,8 @@
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 4
 	},
 /area/derelict/bridge)
 "cI" = (
@@ -1163,25 +1001,21 @@
 	name = "Bathroom"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "cJ" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/structure/dresser,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 9
 	},
 /area/derelict/crew_quarters)
 "cK" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 5
 	},
 /area/derelict/crew_quarters)
 "cL" = (
@@ -1198,9 +1032,7 @@
 	name = "Armoury"
 	},
 /obj/effect/decal/cleanable/blood/tracks,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "cO" = (
 /obj/structure/curtain/open/shower,
@@ -1219,22 +1051,16 @@
 	name = "Human remains"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/bridge)
 "cP" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "cQ" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/bridge)
 "cR" = (
 /obj/item/shard{
@@ -1266,56 +1092,48 @@
 "cU" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/drinkingglasses,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 10
 	},
 /area/derelict/bridge)
 "cV" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/turf/simulated/floor/plasteel/dark/blue/edge,
 /area/derelict/bridge)
 "cW" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 6
 	},
 /area/derelict/bridge)
 "cX" = (
 /obj/item/bedsheet/blue,
 /obj/structure/bed,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 9
 	},
 /area/derelict/crew_quarters)
 "cY" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 1
 	},
 /area/derelict/crew_quarters)
 "cZ" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 1
 	},
 /area/derelict/crew_quarters)
 "da" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 1
 	},
 /area/derelict/crew_quarters)
 "db" = (
@@ -1324,46 +1142,40 @@
 "dc" = (
 /obj/item/bedsheet/blue,
 /obj/structure/bed,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 4
 	},
 /area/derelict/crew_quarters)
 "dd" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 9
 	},
 /area/derelict/arrival)
 "de" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 1
 	},
 /area/derelict/arrival)
 "df" = (
 /obj/machinery/door/window/westleft,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 5
 	},
 /area/derelict/arrival)
 "dg" = (
 /obj/machinery/photocopier,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 1
 	},
 /area/derelict/arrival)
 "dh" = (
 /obj/structure/filingcabinet,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 5
 	},
 /area/derelict/arrival)
 "di" = (
@@ -1393,9 +1205,8 @@
 "dk" = (
 /obj/item/bedsheet/blue,
 /obj/structure/bed,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 8
 	},
 /area/derelict/crew_quarters)
 "dl" = (
@@ -1405,21 +1216,16 @@
 "dm" = (
 /obj/machinery/computer/security,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 9
 	},
 /area/derelict/arrival)
 "dn" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "do" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "dp" = (
 /obj/structure/table/reinforced,
@@ -1428,16 +1234,13 @@
 	},
 /obj/item/ashtray/plastic,
 /obj/item/cigbutt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 4
 	},
 /area/derelict/arrival)
 "dq" = (
 /obj/structure/chair/office/dark,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "dr" = (
 /obj/effect/decal/remains/human{
@@ -1445,17 +1248,13 @@
 	name = "Human remains"
 	},
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "ds" = (
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/turf/simulated/floor/plasteel/dark/red/edge,
 /area/derelict/arrival)
 "dt" = (
 /obj/structure/table/reinforced,
@@ -1463,9 +1262,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 6
 	},
 /area/derelict/arrival)
 "du" = (
@@ -1483,31 +1281,27 @@
 /obj/item/bedsheet/blue,
 /obj/structure/bed,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 10
 	},
 /area/derelict/crew_quarters)
 "dw" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 0
 	},
 /area/derelict/crew_quarters)
 "dx" = (
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 0
 	},
 /area/derelict/crew_quarters)
 "dy" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 6
 	},
 /area/derelict/crew_quarters)
 "dz" = (
@@ -1518,9 +1312,8 @@
 "dA" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 8
 	},
 /area/derelict/arrival)
 "dB" = (
@@ -1530,9 +1323,8 @@
 	dir = 8
 	},
 /obj/item/grenade/empgrenade,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 4
 	},
 /area/derelict/arrival)
 "dC" = (
@@ -1546,9 +1338,7 @@
 	info = "<b>Recommended Party</b> Comrade Blyatski<br><b>Signing Officer:</b> Mikail Gogochev<hr><small>Captain,<br><br>I recognize the nature of this request my seem strange, but please, hear me out. Comrade Blyatski, though he is but a wee bot, is like iron fist of Commissar Grigor himself! Just the other day he chased that useless bastard Totstoi clean out of brig, you should have seen the way that drunkard whimpered! Like a dog with his tail between his legs.<br><br>Anyways, I digress! If any one is worth of recognition, it is our ever-vigilant and beloved Blyatski, true champion of USSP.<br><br>If you wish to, perhaps, see his vigilance and dedication in person, well! You need only come to inspect armoury.<br><br>Comrade Blyatski awaits your decision.";
 	name = "recommendation for commendation"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/turf/simulated/floor/plasteel/dark/red/edge,
 /area/derelict/arrival)
 "dD" = (
 /obj/structure/table/reinforced,
@@ -1557,9 +1347,7 @@
 	id = "ruslockcom";
 	name = "Bridge Lockdown"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/turf/simulated/floor/plasteel/dark/red/edge,
 /area/derelict/arrival)
 "dE" = (
 /obj/structure/table/reinforced,
@@ -1571,9 +1359,8 @@
 	layer = 3.3;
 	pixel_x = 27
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 6
 	},
 /area/derelict/arrival)
 "dF" = (
@@ -1624,17 +1411,15 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
 "dL" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 8
 	},
 /area/derelict/arrival)
 "dM" = (
 /obj/structure/rack,
 /obj/item/crowbar,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 6
 	},
 /area/derelict/arrival)
 "dN" = (
@@ -1674,9 +1459,8 @@
 	dir = 1;
 	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 9
 	},
 /area/derelict/arrival)
 "dQ" = (
@@ -1686,15 +1470,13 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 1
 	},
 /area/derelict/arrival)
 "dR" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 6
 	},
 /area/derelict/arrival)
 "dS" = (
@@ -1720,9 +1502,8 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
 "dU" = (
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 9
 	},
 /area/derelict/arrival)
 "dV" = (
@@ -1732,9 +1513,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "dW" = (
 /turf/simulated/wall/mineral/titanium/nodecon,
@@ -1761,9 +1540,7 @@
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Wing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -1790,26 +1567,22 @@
 /area/derelict/crew_quarters)
 "ed" = (
 /obj/structure/coatrack,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 9
 	},
 /area/derelict/arrival)
 "ee" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/spray/pepper,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "ef" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/zipties,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 4
 	},
 /area/derelict/arrival)
 "eg" = (
@@ -1821,9 +1594,8 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 9
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -1835,9 +1607,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -1847,9 +1617,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 5
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -1858,9 +1627,7 @@
 /obj/machinery/door/airlock/titanium{
 	name = "Dormitories"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "el" = (
 /obj/structure/cable{
@@ -1873,9 +1640,7 @@
 	dir = 1;
 	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "em" = (
 /obj/structure/chair/stool,
@@ -1884,25 +1649,20 @@
 	name = "Human remains"
 	},
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "en" = (
 /obj/structure/rack,
 /obj/item/clothing/shoes/jackboots{
 	desc = "Nothing quite strikes fear into the hearts of TSF marines like a good pair of jackboots!"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 10
 	},
 /area/derelict/arrival)
 "eo" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/turf/simulated/floor/plasteel/dark/red/edge,
 /area/derelict/arrival)
 "ep" = (
 /obj/structure/window/reinforced{
@@ -1913,9 +1673,7 @@
 	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/turf/simulated/floor/plasteel/dark/red/edge,
 /area/derelict/arrival)
 "eq" = (
 /obj/structure/window/reinforced{
@@ -1923,9 +1681,8 @@
 	},
 /obj/structure/bed,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 6
 	},
 /area/derelict/arrival)
 "er" = (
@@ -1934,18 +1691,16 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 9
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "es" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 5
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -1957,9 +1712,7 @@
 	name = "Derelict Annex"
 	})
 "eu" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "rampbottom"
-	},
+/turf/simulated/floor/plasteel/misc/stairs,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -1969,17 +1722,13 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "rampbottom"
-	},
+/turf/simulated/floor/plasteel/misc/stairs,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "ew" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "rampbottom"
-	},
+/turf/simulated/floor/plasteel/misc/stairs,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -1995,9 +1744,8 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 9
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2009,9 +1757,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 5
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2032,9 +1779,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "eC" = (
 /obj/structure/chair/wood,
@@ -2043,15 +1788,11 @@
 	},
 /area/derelict/crew_quarters)
 "eD" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "eE" = (
 /obj/structure/chair/sofa/right,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "eF" = (
 /obj/structure/chair/sofa/left,
@@ -2062,9 +1803,7 @@
 	pixel_x = -1;
 	pixel_y = 30
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "eG" = (
 /obj/structure/cable{
@@ -2085,9 +1824,7 @@
 /obj/item/trash/spentcasing{
 	icon_state = "762-casing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "eI" = (
 /obj/structure/sign/securearea,
@@ -2103,9 +1840,8 @@
 /obj/machinery/door/airlock/multi_tile/glass{
 	name = "Security Wing"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 8
 	},
 /area/derelict/arrival)
 "eK" = (
@@ -2120,9 +1856,8 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 4
 	},
 /area/derelict/arrival)
 "eL" = (
@@ -2150,9 +1885,8 @@
 /obj/item/storage/bag/tray{
 	pixel_y = 6
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 9
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2162,9 +1896,8 @@
 /obj/item/scalpel{
 	pixel_y = 12
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2178,18 +1911,16 @@
 /obj/machinery/door/airlock/science{
 	name = "Science Wing"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "eR" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 9
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2201,17 +1932,15 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "eT" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 5
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2220,9 +1949,8 @@
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Wing"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2259,9 +1987,8 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2269,9 +1996,8 @@
 "eY" = (
 /obj/structure/engineeringcart,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 5
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2301,15 +2027,11 @@
 /obj/item/trash/spentcasing{
 	icon_state = "s-casing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "fc" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "fd" = (
 /obj/structure/cable{
@@ -2317,16 +2039,12 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "fe" = (
 /obj/structure/closet/crate/can,
 /obj/item/trash/semki,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "ff" = (
 /obj/structure/closet/crate/can,
@@ -2334,9 +2052,8 @@
 /obj/item/trash/can,
 /obj/item/trash/semki,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 9
 	},
 /area/derelict/arrival)
 "fg" = (
@@ -2344,24 +2061,21 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 1
 	},
 /area/derelict/arrival)
 "fh" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency/old,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 5
 	},
 /area/derelict/arrival)
 "fi" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2395,9 +2109,7 @@
 /obj/machinery/door/airlock/science{
 	name = "Science Wing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "purple"
-	},
+/turf/simulated/floor/plasteel/neutral/purple/edge,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -2408,9 +2120,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2427,9 +2138,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -2439,9 +2148,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 4
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2455,9 +2163,7 @@
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Wing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "caution"
-	},
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -2507,9 +2213,8 @@
 	info = "<i>This note has been effaced with all manner of crude drawings that are too vile to properly give a description to.</i><br><small>Totstoi,<br><br>I know it's you who's been feeding my cats alcohol, I do not care what your reasons are but you are getting in the way of important research. This is the fifth cat that I've had to replace this month because of your crude sense of humour, and I will be speaking with Chief Borachov if you don't stop.<br><br>- <i>Nikolai Kartov</i>, Deputy Researcher";
 	name = "Desist at once!"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2520,9 +2225,8 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 5
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2534,9 +2238,7 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "fw" = (
 /obj/structure/chair/wood{
@@ -2554,16 +2256,12 @@
 	},
 /obj/structure/table/wood,
 /obj/item/trash/candle,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "fy" = (
 /obj/effect/decal/cleanable/vomit,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "fz" = (
 /obj/structure/mopbucket,
@@ -2573,9 +2271,8 @@
 /area/derelict/crew_quarters)
 "fA" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 8
 	},
 /area/derelict/arrival)
 "fB" = (
@@ -2588,9 +2285,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "fC" = (
 /obj/structure/cable{
@@ -2598,9 +2293,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "fD" = (
 /obj/item/trash/spentcasing,
@@ -2610,9 +2303,7 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "fE" = (
 /obj/structure/chair/office/dark,
@@ -2622,9 +2313,7 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "fF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2632,9 +2321,8 @@
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
 	name = "decrepit computer"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 6
 	},
 /area/derelict/arrival)
 "fG" = (
@@ -2650,9 +2338,8 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 5
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2677,9 +2364,8 @@
 	name = "Derelict Annex"
 	})
 "fK" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 4
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2692,24 +2378,20 @@
 	})
 "fM" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "fN" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "fO" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 4
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2718,9 +2400,8 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2747,9 +2428,8 @@
 	name = "decrepit computer"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 5
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2770,18 +2450,14 @@
 /area/derelict/crew_quarters)
 "fU" = (
 /obj/item/trash/spentcasing,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "fV" = (
 /obj/structure/chair/stool/bar,
 /obj/item/trash/spentcasing{
 	icon_state = "762-casing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "fW" = (
 /obj/structure/chair/stool/bar,
@@ -2790,9 +2466,7 @@
 	name = "Human remains"
 	},
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "fX" = (
 /obj/structure/cable{
@@ -2800,9 +2474,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "fY" = (
 /obj/structure/table/reinforced,
@@ -2810,18 +2482,15 @@
 	info = "August 21 - Most Excellent Commissar Grigor<br>August 22 - Nobody<br>August 23 - Nobody<br>August 24 - Nobody<br>August 25 - Why do I even bother?<br>August 26 - Nobody<br>August 27 -";
 	name = "visitor log"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "fZ" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 4
 	},
 /area/derelict/arrival)
 "ga" = (
@@ -2835,9 +2504,8 @@
 	faction = list("cat","carp");
 	name = "Experiment 432-A"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "purplecorner"
+/turf/simulated/floor/plasteel/neutral/purple/corner{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2847,9 +2515,8 @@
 	locked = 1
 	},
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 4
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2866,9 +2533,8 @@
 /obj/structure/closet,
 /obj/item/clothing/under/retro/science,
 /obj/item/clothing/under/retro/science,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 6
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2883,9 +2549,8 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 10
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2893,9 +2558,7 @@
 "gg" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/plastic,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/turf/simulated/floor/plasteel/dark/blue/edge,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -2906,18 +2569,16 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 6
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "gi" = (
 /obj/machinery/floodlight,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 10
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2932,9 +2593,8 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 4
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2947,16 +2607,12 @@
 	})
 "gl" = (
 /obj/structure/chair/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "gm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "gn" = (
 /obj/structure/chair/stool/bar,
@@ -2966,39 +2622,31 @@
 /area/derelict/crew_quarters)
 "go" = (
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/crew_quarters)
 "gp" = (
 /obj/structure/table/reinforced,
 /obj/item/ashtray/bronze,
 /obj/item/cigbutt,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/crew_quarters)
 "gq" = (
 /obj/structure/chair{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 9
 	},
 /area/derelict/arrival)
 "gr" = (
 /obj/item/trash/spentcasing,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "gs" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 6
 	},
 /area/derelict/arrival)
 "gt" = (
@@ -3007,18 +2655,15 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 10
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "gu" = (
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "purple"
-	},
+/turf/simulated/floor/plasteel/neutral/purple/edge,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -3028,17 +2673,14 @@
 	},
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 6
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "gw" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "purple"
-	},
+/turf/simulated/floor/plasteel/neutral/purple/edge,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -3050,9 +2692,7 @@
 	dir = 8
 	},
 /obj/structure/curtain/open/shower,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -3065,17 +2705,14 @@
 "gz" = (
 /obj/machinery/recharge_station,
 /obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 10
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "gA" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "caution"
-	},
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -3104,9 +2741,8 @@
 	dir = 1;
 	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3119,9 +2755,8 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 5
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3129,29 +2764,21 @@
 "gE" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/bronze,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "gF" = (
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "gG" = (
 /obj/structure/chair/stool/bar,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "gH" = (
 /obj/item/trash/spentcasing,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/crew_quarters)
 "gI" = (
 /obj/structure/closet/secure_closet/bar,
@@ -3160,9 +2787,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
 /obj/item/reagent_containers/food/drinks/bottle/rum,
 /obj/item/reagent_containers/food/drinks/bottle/kahlua,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/crew_quarters)
 "gJ" = (
 /obj/effect/decal/cleanable/fungus,
@@ -3172,37 +2797,30 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 8
 	},
 /area/derelict/arrival)
 "gL" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "gM" = (
 /obj/item/trash/spentcasing{
 	icon_state = "762-casing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "gN" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 4
 	},
 /area/derelict/arrival)
 "gO" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 9
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3235,9 +2853,8 @@
 "gS" = (
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3261,9 +2878,8 @@
 /obj/item/clothing/under/retro/engineering,
 /obj/item/clothing/under/retro/engineering,
 /obj/structure/closet,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 5
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3271,9 +2887,7 @@
 "gV" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/rag,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/crew_quarters)
 "gW" = (
 /obj/effect/decal/cleanable/blood/drip,
@@ -3284,9 +2898,7 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/crew_quarters)
 "gX" = (
 /obj/structure/table/reinforced,
@@ -3294,9 +2906,7 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/crew_quarters)
 "gY" = (
 /obj/machinery/power/solar{
@@ -3321,29 +2931,23 @@
 /area/derelict/solar_control)
 "ha" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 10
 	},
 /area/derelict/arrival)
 "hb" = (
 /obj/machinery/light/spot,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/arrival)
 "hc" = (
 /obj/item/storage/box/cups,
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/turf/simulated/floor/plasteel/dark/red/edge,
 /area/derelict/arrival)
 "hd" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 6
 	},
 /area/derelict/arrival)
 "he" = (
@@ -3352,9 +2956,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3371,9 +2974,8 @@
 "hg" = (
 /obj/structure/computerframe,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 6
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3394,9 +2996,8 @@
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 10
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3422,25 +3023,20 @@
 	name = "Derelict Annex"
 	})
 "hl" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 4
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "hm" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "hn" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/crew_quarters)
 "ho" = (
 /obj/structure/table/reinforced,
@@ -3448,9 +3044,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/crew_quarters)
 "hp" = (
 /obj/machinery/power/solar{
@@ -3507,9 +3101,7 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Wing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "ramptop"
-	},
+/turf/simulated/floor/plasteel/misc/stairs,
 /area/derelict/arrival)
 "hv" = (
 /obj/structure/cable{
@@ -3520,9 +3112,7 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Wing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "ramptop"
-	},
+/turf/simulated/floor/plasteel/misc/stairs,
 /area/derelict/arrival)
 "hw" = (
 /obj/structure/sink{
@@ -3530,18 +3120,15 @@
 	pixel_x = -12;
 	pixel_y = 2
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 9
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "hx" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "purple"
-	},
+/turf/simulated/floor/plasteel/neutral/purple/edge,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -3550,9 +3137,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 6
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3567,9 +3153,8 @@
 /obj/structure/table/reinforced,
 /obj/item/flashlight,
 /obj/item/stock_parts/cell/high,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 10
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3577,9 +3162,7 @@
 "hB" = (
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "caution"
-	},
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -3591,9 +3174,8 @@
 	})
 "hD" = (
 /obj/machinery/computer/monitor/secret,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 5
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3607,9 +3189,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Eastern Annex"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_stairs"
-	},
+/turf/simulated/floor/plasteel/misc/stairs,
 /area/derelict/crew_quarters)
 "hF" = (
 /obj/structure/sign/barsign,
@@ -3619,9 +3199,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Eastern Annex"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_stairs"
-	},
+/turf/simulated/floor/plasteel/misc/stairs,
 /area/derelict/crew_quarters)
 "hI" = (
 /obj/structure/closet/crate{
@@ -3632,9 +3210,8 @@
 /obj/item/stack/packageWrap,
 /obj/item/stack/packageWrap,
 /obj/item/destTagger,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 9
 	},
 /area/derelict/arrival)
 "hJ" = (
@@ -3643,15 +3220,13 @@
 	opened = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 1
 	},
 /area/derelict/arrival)
 "hK" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 1
 	},
 /area/derelict/arrival)
 "hL" = (
@@ -3660,9 +3235,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 1
 	},
 /area/derelict/arrival)
 "hM" = (
@@ -3670,9 +3244,8 @@
 /obj/machinery/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 5
 	},
 /area/derelict/arrival)
 "hN" = (
@@ -3681,9 +3254,8 @@
 	pixel_x = -12;
 	pixel_y = 2
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3708,9 +3280,8 @@
 /turf/template_noop,
 /area/derelict/solar_control)
 "hP" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3728,9 +3299,8 @@
 	})
 "hR" = (
 /obj/machinery/computer/atmos_alert,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 4
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3742,20 +3312,11 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "hT" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/derelict/crew_quarters)
-"hU" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "hV" = (
 /obj/structure/table,
@@ -3764,23 +3325,18 @@
 	info = "Father Gregor,<br><br>You will have to forgive me, but I am unable to get your order for one of those 'veil shifters' like you asked. I am admittedly unsure what you planned to do with it, the business of the clergy is not mine, but Vostok was quick to put the kaibosh on your order after we lost the last shipment.<br><br>The boys are still reeling from the headaches from last time, and Khoma complains that he sees the blue lights whenever he closes his eyes.<br><br>I am not one to question a man of God but I beg of you, please do not try to order any more of these artifacts. They are cursed, and all manner of demons seem to follow in their wake.<br><br>- <small><i>Andrei Vostovich</i></small>, Supply Technician";
 	name = "My apologies, father"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "hW" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "hX" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 8
 	},
 /area/derelict/arrival)
 "hY" = (
@@ -3800,9 +3356,8 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 4
 	},
 /area/derelict/arrival)
 "ib" = (
@@ -3811,9 +3366,8 @@
 	},
 /obj/structure/closet/l3closet/scientist,
 /obj/item/clothing/glasses/science,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 9
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3837,9 +3391,8 @@
 	info = "<i>A primitive rendition of a crying egg being stomped on by a boot has been scribbled in the right-hand margin of the paper.</i><br><br>Wahwahwah! True egghead! I do not give two shits about your cats or 'syence,' if you write to Chief I will tell that bitch Katerina about your baby boy crush.<br><br>Also, why you sign name on paper? I am next door, fuckhead, I know baby man note is yours as soon as I see it. You write girly letter like I am your lover, maybe if you spend less time in corner with cat you would be real man? Of course, you would still look like camel shit stuck to Totstoi's boot!";
 	name = "dear baby man"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 6
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3869,9 +3422,8 @@
 	})
 "ij" = (
 /obj/structure/closet/secure_closet/engineering_welding,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 10
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3886,9 +3438,8 @@
 	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
 	name = "Cosmonaut Engineering Suit"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 5
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3903,34 +3454,30 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 1
 	},
 /area/derelict/crew_quarters)
 "in" = (
 /obj/item/trash/spentcasing{
 	icon_state = "s-casing"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 4
 	},
 /area/derelict/crew_quarters)
 "io" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 1
 	},
 /area/derelict/crew_quarters)
 "ip" = (
 /obj/structure/table,
 /obj/item/storage/fancy/candle_box,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 4
 	},
 /area/derelict/crew_quarters)
 "iq" = (
@@ -3945,9 +3492,8 @@
 /turf/simulated/wall/mineral/plastitanium,
 /area/derelict/arrival)
 "iv" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 8
 	},
 /area/derelict/arrival)
 "iw" = (
@@ -3973,9 +3519,8 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 4
 	},
 /area/derelict/arrival)
 "iA" = (
@@ -3986,9 +3531,8 @@
 	name = "love poem"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 10
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3999,9 +3543,7 @@
 /obj/item/reagent_containers/glass/beaker{
 	pixel_x = 28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "purple"
-	},
+/turf/simulated/floor/plasteel/neutral/purple/edge,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -4017,9 +3559,8 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 6
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -4051,18 +3592,16 @@
 	})
 "iH" = (
 /obj/machinery/vending/assist,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 10
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "iI" = (
 /obj/structure/closet/firecloset,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 6
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -4074,36 +3613,28 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 8
 	},
 /area/derelict/crew_quarters)
 "iK" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "chapel"
-	},
+/turf/simulated/floor/plasteel/misc/chapel,
 /area/derelict/crew_quarters)
 "iL" = (
 /obj/item/trash/spentcasing,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "iM" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 8
 	},
 /area/derelict/crew_quarters)
 "iN" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "chapel"
-	},
+/turf/simulated/floor/plasteel/misc/chapel,
 /area/derelict/crew_quarters)
 "iP" = (
 /obj/structure/computerframe,
@@ -4136,16 +3667,14 @@
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 9
 	},
 /area/derelict/arrival)
 "iT" = (
 /obj/structure/closet/crate/trashcart,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 1
 	},
 /area/derelict/arrival)
 "iU" = (
@@ -4153,9 +3682,8 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "iV" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 4
 	},
 /area/derelict/arrival)
 "iW" = (
@@ -4167,9 +3695,8 @@
 	layer = 3;
 	name = "Central Annex Lockdown"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -4188,9 +3715,8 @@
 	layer = 3;
 	name = "Central Annex Lockdown"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 4
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -4227,9 +3753,8 @@
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Wing"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -4238,9 +3763,8 @@
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Wing"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 4
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -4254,23 +3778,17 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "je" = (
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "jf" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "jg" = (
 /obj/machinery/light/spot{
@@ -4279,9 +3797,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/southeastcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "jh" = (
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth,
@@ -4317,9 +3833,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Docking Port"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/turf/simulated/floor/plasteel/neutral/brown/edge,
 /area/derelict/arrival)
 "jn" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4349,25 +3863,22 @@
 /area/derelict/arrival)
 "jr" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 5
 	},
 /area/derelict/arrival)
 "js" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "redblue"
+/turf/simulated/floor/plasteel/dark/redblue{
+	dir = 9
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "jt" = (
 /obj/item/trash/spentcasing,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/misc/stairs{
+	dir = 4
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -4378,17 +3889,15 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redblue"
+/turf/simulated/floor/plasteel/dark/redblue{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "jv" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redblue"
+/turf/simulated/floor/plasteel/dark/redblue{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -4404,9 +3913,8 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "redblue"
+/turf/simulated/floor/plasteel/dark/redblue{
+	dir = 5
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -4449,17 +3957,15 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 9
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "jD" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -4470,35 +3976,31 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "jF" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 5
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "jG" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/misc/stairs{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "jH" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 5
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -4518,9 +4020,7 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "jK" = (
 /obj/machinery/door/airlock/external{
@@ -4612,28 +4112,28 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/derelict/arrival)
 "jS" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/neutral{
 	icon_state = "derelict9"
 	},
 /area/derelict/arrival)
 "jT" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/neutral{
 	icon_state = "derelict10"
 	},
 /area/derelict/arrival)
 "jU" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plasteel{
-	icon_state = "derelict11"
+/turf/simulated/floor/plasteel/neutral{
+	icon_state = "derelict11!
 	},
 /area/derelict/arrival)
 "jV" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/neutral{
 	icon_state = "derelict12"
 	},
 /area/derelict/arrival)
 "jW" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/neutral{
 	icon_state = "derelict13"
 	},
 /area/derelict/arrival)
@@ -4641,7 +4141,7 @@
 /obj/item/trash/spentcasing{
 	icon_state = "762-casing"
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/neutral{
 	icon_state = "derelict14"
 	},
 /area/derelict/arrival)
@@ -4656,7 +4156,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/neutral{
 	icon_state = "derelict15"
 	},
 /area/derelict/arrival)
@@ -4666,7 +4166,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/neutral{
 	icon_state = "derelict16"
 	},
 /area/derelict/arrival)
@@ -4785,9 +4285,8 @@
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/misc/stairs{
+	dir = 4
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -4807,9 +4306,8 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redblue"
+/turf/simulated/floor/plasteel/dark/redblue{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -4817,9 +4315,8 @@
 "kk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redblue"
+/turf/simulated/floor/plasteel/dark/redblue{
+	dir = 4
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -4930,9 +4427,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -4963,9 +4459,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/misc/stairs{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -5065,9 +4560,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "kF" = (
 /obj/structure/cable{
@@ -5082,9 +4575,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "kG" = (
 /obj/structure/sign/vacuum,
@@ -5137,33 +4628,33 @@
 	},
 /area/derelict/solar_control)
 "kL" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/neutral{
 	icon_state = "derelict1"
 	},
 /area/derelict/arrival)
 "kM" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/neutral{
 	icon_state = "derelict2"
 	},
 /area/derelict/arrival)
 "kN" = (
 /obj/item/trash/spentcasing,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/neutral{
 	icon_state = "derelict3"
 	},
 /area/derelict/arrival)
 "kO" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/neutral{
 	icon_state = "derelict4"
 	},
 /area/derelict/arrival)
 "kP" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/neutral{
 	icon_state = "derelict5"
 	},
 /area/derelict/arrival)
 "kQ" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/neutral{
 	icon_state = "derelict6"
 	},
 /area/derelict/arrival)
@@ -5173,20 +4664,19 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/neutral{
 	icon_state = "derelict7"
 	},
 /area/derelict/arrival)
 "kS" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/neutral{
 	icon_state = "derelict8"
 	},
 /area/derelict/arrival)
 "kT" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 4
 	},
 /area/derelict/arrival)
 "kU" = (
@@ -5194,41 +4684,34 @@
 /obj/item/trash/spentcasing{
 	icon_state = "762-casing"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "redblue"
+/turf/simulated/floor/plasteel/dark/redblue{
+	dir = 10
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "kV" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/misc/stairs{
+	dir = 4
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "kW" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "redblue"
+/turf/simulated/floor/plasteel/dark/redblue{
+	dir = 10
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "kX" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "redblue"
-	},
+/turf/simulated/floor/plasteel/dark/redblue,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "kY" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "redblue"
-	},
+/turf/simulated/floor/plasteel/dark/redblue,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -5242,9 +4725,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "redblue"
+/turf/simulated/floor/plasteel/dark/redblue{
+	dir = 6
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -5298,18 +4780,15 @@
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 10
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "lf" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "caution"
-	},
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -5319,34 +4798,29 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "caution"
-	},
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "lh" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 6
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "li" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/misc/stairs{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "lj" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 6
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -5356,17 +4830,13 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "ll" = (
 /obj/item/trash/spentcasing{
 	icon_state = "s-casing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "lm" = (
 /obj/structure/table/wood/fancy,
@@ -5384,9 +4854,7 @@
 	dir = 5
 	},
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "lo" = (
 /obj/structure/cable{
@@ -5509,9 +4977,8 @@
 "ly" = (
 /obj/machinery/vending/sovietsoda,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 6
 	},
 /area/derelict/arrival)
 "lz" = (
@@ -5525,9 +4992,8 @@
 	name = "Hydroponics";
 	welded = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -5537,9 +5003,8 @@
 	name = "Hydroponics";
 	welded = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 4
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -5582,9 +5047,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Mess Hall"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -5592,9 +5055,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Mess Hall"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -5610,9 +5071,7 @@
 	pixel_x = 25
 	},
 /obj/effect/decal/warning_stripes/northeastcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/derelict/crew_quarters)
 "lH" = (
 /obj/machinery/power/solar{
@@ -5639,9 +5098,8 @@
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 10
 	},
 /area/derelict/arrival)
 "lL" = (
@@ -5650,9 +5108,7 @@
 	lootcount = 2;
 	name = "2maintenance loot spawner"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/turf/simulated/floor/plasteel/neutral/brown/edge,
 /area/derelict/arrival)
 "lM" = (
 /obj/structure/rack,
@@ -5703,18 +5159,14 @@
 	desc = "An issue of The Griffon. Was Nanotrasen supplying this station at some point?"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "lS" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -5724,16 +5176,12 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "lU" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -5746,9 +5194,7 @@
 /obj/item/trash/tastybread,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/candy,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -5758,28 +5204,24 @@
 	dir = 1
 	},
 /obj/machinery/door/window/eastleft,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 1
 	},
 /area/derelict/crew_quarters)
 "lX" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 4
 	},
 /area/derelict/crew_quarters)
 "lY" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 1
 	},
 /area/derelict/crew_quarters)
 "lZ" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 4
 	},
 /area/derelict/crew_quarters)
 "ma" = (
@@ -5818,9 +5260,8 @@
 "me" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 8
 	},
 /area/derelict/arrival)
 "mf" = (
@@ -5877,17 +5318,13 @@
 	})
 "mn" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "mo" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -5898,59 +5335,46 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "mq" = (
 /obj/machinery/vending/sovietsoda,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "mr" = (
 /obj/structure/closet/coffin,
 /obj/machinery/door/window/eastleft,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 8
 	},
 /area/derelict/crew_quarters)
 "ms" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "chapel"
-	},
+/turf/simulated/floor/plasteel/misc/chapel,
 /area/derelict/crew_quarters)
 "mt" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 8
 	},
 /area/derelict/crew_quarters)
 "mu" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 10
 	},
 /area/derelict/arrival)
 "mv" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/turf/simulated/floor/plasteel/neutral/brown/edge,
 /area/derelict/arrival)
 "mw" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/turf/simulated/floor/plasteel/neutral/brown/edge,
 /area/derelict/arrival)
 "mx" = (
 /obj/structure/closet/crate/can,
@@ -5958,9 +5382,8 @@
 	desc = "No honest Russian would wear this abomination";
 	name = "lucky underwear"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 6
 	},
 /area/derelict/arrival)
 "my" = (
@@ -5999,23 +5422,17 @@
 "mD" = (
 /obj/structure/closet/coffin,
 /obj/machinery/door/window/eastleft,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "mE" = (
 /obj/machinery/space_heater,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "mF" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "mG" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
@@ -6025,9 +5442,8 @@
 	name = "Medical Wing";
 	welded = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/misc/stairs{
+	dir = 1
 	},
 /area/derelict/arrival)
 "mI" = (
@@ -6044,9 +5460,8 @@
 	name = "Medical Wing";
 	welded = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/misc/stairs{
+	dir = 1
 	},
 /area/derelict/arrival)
 "mK" = (
@@ -6065,9 +5480,7 @@
 "mM" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6077,9 +5490,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6090,18 +5501,14 @@
 	icon_state = "1-8"
 	},
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "mP" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/plastic,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6109,9 +5516,8 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Eastern Annex"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/misc/stairs{
+	dir = 1
 	},
 /area/derelict/crew_quarters)
 "mR" = (
@@ -6165,17 +5571,13 @@
 /obj/machinery/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "mZ" = (
 /mob/living/simple_animal/cockroach,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6192,9 +5594,8 @@
 	dir = 8
 	},
 /obj/machinery/kitchen_machine/oven,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitered"
+/turf/simulated/floor/plasteel/white/red/edge{
+	dir = 9
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -6209,9 +5610,8 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitered"
+/turf/simulated/floor/plasteel/white/red/edge{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -6222,9 +5622,8 @@
 	dir = 1
 	},
 /obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitered"
+/turf/simulated/floor/plasteel/white/red/edge{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -6241,29 +5640,18 @@
 	},
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "nf" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
-/area/derelict/crew_quarters)
-"ng" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "nh" = (
 /obj/structure/closet/athletic_mixed,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "ni" = (
 /obj/structure/table/reinforced,
@@ -6307,9 +5695,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitered"
+/turf/simulated/floor/plasteel/white/red/edge{
+	dir = 9
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -6320,17 +5707,13 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "nq" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6338,9 +5721,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6351,9 +5732,7 @@
 /obj/structure/curtain/open/shower,
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "nt" = (
 /obj/structure/window/reinforced{
@@ -6361,24 +5740,18 @@
 	},
 /obj/machinery/door/window/southright,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "nu" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "nv" = (
 /obj/structure/closet/boxinggloves,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "nw" = (
 /obj/machinery/smartfridge,
@@ -6422,9 +5795,7 @@
 	name = "Derelict Annex"
 	})
 "nB" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6435,18 +5806,14 @@
 	pixel_y = 2
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "nD" = (
 /obj/structure/rack,
 /obj/item/soap,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "nE" = (
 /obj/structure/rack,
@@ -6454,9 +5821,7 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "nF" = (
 /obj/structure/table,
@@ -6537,18 +5902,14 @@
 	})
 "nP" = (
 /obj/structure/chair/comfy/brown,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "nQ" = (
 /obj/item/ashtray/plastic,
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6561,18 +5922,14 @@
 	pixel_y = 8
 	},
 /obj/item/pen/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "nS" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/soup/beetsoup,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6595,9 +5952,8 @@
 	name = "suspicious button"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitered"
+/turf/simulated/floor/plasteel/white/red/edge{
+	dir = 9
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -6609,23 +5965,18 @@
 	},
 /area/derelict/crew_quarters)
 "nV" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "orangefull"
-	},
+/turf/simulated/floor/plasteel/neutral/orange,
 /area/derelict/crew_quarters)
 "nW" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "orange"
+/turf/simulated/floor/plasteel/neutral/orange/edge{
+	dir = 1
 	},
 /area/derelict/crew_quarters)
 "nX" = (
 /obj/structure/table,
 /obj/item/ashtray/bronze,
 /obj/item/cigbutt,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "nY" = (
 /obj/structure/table,
@@ -6673,9 +6024,7 @@
 	name = "Derelict Annex"
 	})
 "of" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6683,9 +6032,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6696,9 +6043,7 @@
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6714,40 +6059,33 @@
 	},
 /obj/item/kitchen/rollingpin,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitered"
+/turf/simulated/floor/plasteel/white/red/edge{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "oj" = (
 /obj/machinery/light/spot,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "ok" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "orange"
+/turf/simulated/floor/plasteel/neutral/orange/edge{
+	dir = 8
 	},
 /area/derelict/crew_quarters)
 "ol" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "orange"
+/turf/simulated/floor/plasteel/neutral/orange/edge{
+	dir = 4
 	},
 /area/derelict/crew_quarters)
 "om" = (
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "on" = (
 /obj/item/stack/tile,
@@ -6792,9 +6130,8 @@
 	name = "Hydroponics";
 	welded = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -6805,9 +6142,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6817,9 +6152,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6837,9 +6170,7 @@
 	layer = 3;
 	name = "Central Annex Lockdown"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6849,9 +6180,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6863,9 +6192,7 @@
 	},
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6875,9 +6202,8 @@
 	dir = 8
 	},
 /obj/item/kitchen/knife/butcher,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitered"
+/turf/simulated/floor/plasteel/white/red/edge{
+	dir = 8
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -6886,17 +6212,14 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/flour,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "oB" = (
 /obj/item/beach_ball/holoball,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "orange"
+/turf/simulated/floor/plasteel/neutral/orange/edge{
+	dir = 8
 	},
 /area/derelict/crew_quarters)
 "oC" = (
@@ -6904,9 +6227,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "oD" = (
 /obj/structure/lattice,
@@ -6962,9 +6283,8 @@
 	name = "Hydroponics";
 	welded = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 0
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -6975,9 +6295,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -6990,9 +6308,7 @@
 	layer = 3;
 	name = "Central Annex Lockdown"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -7000,17 +6316,13 @@
 /obj/structure/table/wood,
 /obj/item/toy/cards/deck/black,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "oR" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "orange"
-	},
+/turf/simulated/floor/plasteel/neutral/orange/edge,
 /area/derelict/crew_quarters)
 "oS" = (
 /obj/effect/landmark/damageturf,
@@ -7045,9 +6357,8 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/misc/stairs{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -7058,26 +6369,22 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/misc/stairs{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "oX" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/misc/stairs{
+	dir = 1
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "oY" = (
 /obj/structure/coatrack,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -7091,32 +6398,26 @@
 	layer = 3.3;
 	pixel_x = 27
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "pa" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "pb" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "orange"
+/turf/simulated/floor/plasteel/neutral/orange/edge{
+	dir = 8
 	},
 /area/derelict/crew_quarters)
 "pc" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "orange"
+/turf/simulated/floor/plasteel/neutral/orange/edge{
+	dir = 4
 	},
 /area/derelict/crew_quarters)
 "pd" = (
@@ -7139,31 +6440,23 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "pg" = (
 /obj/structure/closet/walllocker{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "orangefull"
-	},
+/turf/simulated/floor/plasteel/neutral/orange,
 /area/derelict/crew_quarters)
 "ph" = (
 /obj/structure/holohoop{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "orange"
-	},
+/turf/simulated/floor/plasteel/neutral/orange/edge,
 /area/derelict/crew_quarters)
 "pi" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "orange"
-	},
+/turf/simulated/floor/plasteel/neutral/orange/edge,
 /area/derelict/crew_quarters)
 "pj" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
@@ -7197,9 +6490,7 @@
 	locked = 1;
 	name = "Storage Bay"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "po" = (
 /turf/simulated/floor/plating/airless,
@@ -7231,9 +6522,7 @@
 	})
 "pt" = (
 /obj/structure/closet/jcloset,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "pu" = (
 /obj/structure/window/reinforced{
@@ -7246,9 +6535,8 @@
 	},
 /obj/item/storage/bag/trash,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 1
 	},
 /area/derelict/crew_quarters)
 "pv" = (
@@ -7280,9 +6568,7 @@
 /obj/structure/dispenser/oxygen,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	icon_state = "delivery"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/derelict/crew_quarters)
 "pA" = (
 /obj/effect/landmark/burnturf,
@@ -7305,9 +6591,7 @@
 	name = "Derelict Annex"
 	})
 "pC" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "pD" = (
 /obj/structure/window/reinforced{
@@ -7315,9 +6599,8 @@
 	},
 /obj/structure/rack,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 1
 	},
 /area/derelict/crew_quarters)
 "pE" = (
@@ -7332,9 +6615,7 @@
 /obj/item/crowbar,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	icon_state = "delivery"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/derelict/crew_quarters)
 "pH" = (
 /obj/effect/landmark/damageturf,
@@ -7362,32 +6643,25 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 1
 	},
 /area/derelict/crew_quarters)
 "pL" = (
 /obj/structure/window/reinforced,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "pM" = (
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "pN" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/derelict/crew_quarters)
 "pO" = (
 /obj/structure/closet/toolcloset,
@@ -7432,9 +6706,7 @@
 	dir = 8
 	},
 /obj/structure/closet/secure_closet/freezer/fridge,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "pV" = (
 /obj/structure/window/reinforced{
@@ -7447,9 +6719,7 @@
 /obj/item/reagent_containers/food/snacks/grown/potato,
 /obj/item/reagent_containers/food/snacks/grown/potato,
 /obj/item/reagent_containers/food/snacks/grown/potato,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "pW" = (
 /obj/structure/window/reinforced{
@@ -7457,9 +6727,7 @@
 	layer = 2.9
 	},
 /obj/structure/fermenting_barrel,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "pX" = (
 /obj/structure/window/reinforced{
@@ -7470,21 +6738,17 @@
 	layer = 2.9
 	},
 /obj/structure/fermenting_barrel,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "pY" = (
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/misc/stairs{
+	dir = 1
 	},
 /area/derelict/crew_quarters)
 "pZ" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/misc/stairs{
+	dir = 1
 	},
 /area/derelict/crew_quarters)
 "qa" = (
@@ -7511,22 +6775,16 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "qd" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "qe" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "qf" = (
 /obj/effect/landmark/damageturf,
@@ -7548,15 +6806,11 @@
 /area/derelict/arrival)
 "qi" = (
 /obj/machinery/computer/arcade,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "qj" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "qk" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
@@ -7568,15 +6822,11 @@
 /obj/machinery/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "qm" = (
 /obj/machinery/vending/sovietsoda,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "qn" = (
 /obj/structure/window/reinforced,
@@ -7584,9 +6834,7 @@
 	dir = 8
 	},
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "qo" = (
 /obj/structure/window/reinforced,
@@ -7594,9 +6842,7 @@
 	dir = 4
 	},
 /obj/structure/kitchenspike,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/derelict/crew_quarters)
 "qp" = (
 /obj/effect/landmark/burnturf,
@@ -7621,29 +6867,24 @@
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/arrival)
 "qt" = (
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 9
 	},
 /area/derelict/arrival)
 "qu" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 1
 	},
 /area/derelict/arrival)
 "qv" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 5
 	},
 /area/derelict/arrival)
 "qw" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "qx" = (
 /obj/structure/cable{
@@ -7657,9 +6898,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "qy" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "qz" = (
 /obj/machinery/light/spot{
@@ -7671,9 +6910,8 @@
 	layer = 3.3;
 	pixel_x = 27
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 5
 	},
 /area/derelict/arrival)
 "qA" = (
@@ -7723,16 +6961,13 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "qF" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 5
 	},
 /area/derelict/arrival)
 "qG" = (
 /obj/structure/closet/emcloset,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "qH" = (
 /obj/structure/cable{
@@ -7740,9 +6975,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "qI" = (
 /obj/structure/closet/crate/can,
@@ -7752,9 +6985,7 @@
 /obj/item/reagent_containers/syringe/charcoal{
 	list_reagents = list("charcoal" = 13, "salmonella" = 2)
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "qJ" = (
 /obj/machinery/door/airlock/hatch{
@@ -7785,9 +7016,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "qO" = (
 /obj/structure/window/reinforced,
@@ -7813,15 +7042,13 @@
 /turf/simulated/floor/grass,
 /area/derelict/arrival)
 "qR" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
+/turf/simulated/floor/plasteel/neutral/red/corner{
+	dir = 1
 	},
 /area/derelict/arrival)
 "qS" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redcorner"
+/turf/simulated/floor/plasteel/neutral/red/corner{
+	dir = 4
 	},
 /area/derelict/arrival)
 "qT" = (
@@ -7879,9 +7106,8 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 10
 	},
 /area/derelict/arrival)
 "rb" = (
@@ -7928,9 +7154,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 5
 	},
 /area/derelict/arrival)
 "rg" = (
@@ -7939,9 +7164,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "rh" = (
 /obj/structure/cable{
@@ -7949,9 +7172,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 9
 	},
 /area/derelict/arrival)
 "ri" = (
@@ -7965,9 +7187,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/turf/simulated/floor/plasteel/neutral/red/edge,
 /area/derelict/arrival)
 "rj" = (
 /obj/structure/cable{
@@ -7975,31 +7195,24 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/turf/simulated/floor/plasteel/neutral/red/edge,
 /area/derelict/arrival)
 "rk" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/turf/simulated/floor/plasteel/neutral/red/edge,
 /area/derelict/arrival)
 "rl" = (
 /obj/structure/rack,
 /obj/item/newspaper{
 	desc = "An issue of The Griffon. Was Nanotrasen supplying this station at some point?"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 6
 	},
 /area/derelict/arrival)
 "rm" = (
 /obj/structure/closet/crate/secure/loot,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	icon_state = "delivery"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/derelict/crew_quarters)
 "rn" = (
 /obj/structure/closet/medical_wall,
@@ -8014,9 +7227,8 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "rq" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 4
 	},
 /area/derelict/arrival)
 "rr" = (
@@ -8066,29 +7278,23 @@
 /turf/simulated/floor/grass,
 /area/derelict/arrival)
 "ru" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 8
 	},
 /area/derelict/arrival)
 "rv" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "rw" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "rx" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 10
 	},
 /area/derelict/arrival)
 "ry" = (
@@ -8147,17 +7353,14 @@
 /area/derelict/arrival)
 "rC" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 6
 	},
 /area/derelict/arrival)
 "rD" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "rE" = (
 /obj/structure/cable{
@@ -8165,39 +7368,31 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 1
 	},
 /area/derelict/arrival)
 "rF" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 6
 	},
 /area/derelict/arrival)
 "rG" = (
 /obj/structure/chair{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "rH" = (
 /obj/structure/table/wood/poker,
 /obj/item/deck/cards,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "rI" = (
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "rJ" = (
 /obj/structure/closet/crate/can,
@@ -8211,9 +7406,7 @@
 	info = "That idiot bastard Totstoi found my button. Stupid drunk was trying to put change into the free cigarette machine and dropped it. Lo' and behold, dumbass decides to look under the machine for his precious rubles.<br><br>Thankfully that green-livered swine cares more about drink than anything else, managed to buy him off. Will have to move the switch somewhere else now, but where?";
 	name = "worn paper"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "rK" = (
 /obj/structure/window/reinforced{
@@ -8255,9 +7448,7 @@
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/air,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "rO" = (
 /obj/machinery/light/spot,
@@ -8265,9 +7456,8 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 10
 	},
 /area/derelict/arrival)
 "rP" = (
@@ -8285,9 +7475,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/turf/simulated/floor/plasteel/neutral/red/edge,
 /area/derelict/arrival)
 "rQ" = (
 /obj/structure/cable{
@@ -8306,9 +7494,7 @@
 	pixel_y = -25
 	},
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/turf/simulated/floor/plasteel/neutral/red/edge,
 /area/derelict/arrival)
 "rR" = (
 /obj/structure/cable{
@@ -8322,17 +7508,14 @@
 	initialize_directions = 10
 	},
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/turf/simulated/floor/plasteel/neutral/red/edge,
 /area/derelict/arrival)
 "rS" = (
 /obj/machinery/light/spot,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/southwestcorner,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 6
 	},
 /area/derelict/arrival)
 "rT" = (
@@ -8340,9 +7523,7 @@
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "rU" = (
 /obj/structure/window/reinforced{
@@ -8378,9 +7559,7 @@
 "rX" = (
 /obj/structure/table,
 /obj/machinery/computer/library/public,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel/neutral/red,
 /area/derelict/arrival)
 "rY" = (
 /obj/item/cautery,
@@ -13566,8 +12745,8 @@ ac
 ac
 bm
 bR
-cj
-cj
+nu
+nu
 cI
 cY
 db
@@ -14156,9 +13335,9 @@ ac
 aV
 dH
 aV
-ng
-ng
-ng
+qd
+qd
+qd
 pn
 pw
 pw
@@ -14246,11 +13425,11 @@ ac
 aV
 dH
 nU
-ng
-ng
-ng
-ng
-ng
+qd
+qd
+qd
+qd
+qd
 pn
 px
 db
@@ -14428,7 +13607,7 @@ bm
 bm
 ne
 ns
-ng
+qd
 nW
 db
 db
@@ -14520,7 +13699,7 @@ mD
 bm
 nf
 nt
-ng
+qd
 nW
 db
 db
@@ -14610,8 +13789,8 @@ lX
 ms
 hT
 mQ
-ng
-ng
+qd
+qd
 nu
 nW
 db
@@ -14690,21 +13869,21 @@ go
 gV
 hn
 aV
-hU
-hU
+pC
+pC
 hT
 jf
-hU
+pC
 kC
 ll
-hU
-hU
-hU
+pC
+pC
+pC
 hT
 bm
-ng
+qd
 nu
-ng
+qd
 nV
 ol
 ol
@@ -14783,20 +13962,20 @@ gW
 gH
 hH
 hT
-hU
+pC
 iL
 eD
 jI
 kD
 lm
 eD
-hU
-hU
-hU
+pC
+pC
+pC
 mQ
-ng
-ng
-ng
+qd
+qd
+qd
 nX
 om
 oC

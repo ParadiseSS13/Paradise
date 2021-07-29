@@ -13,9 +13,8 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 4
 	},
 /area/shuttle/escape)
 "af" = (
@@ -23,81 +22,66 @@
 /obj/item/folder/red,
 /obj/item/restraints/handcuffs,
 /obj/item/flash,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "ag" = (
 /obj/machinery/computer/robotics,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 9
 	},
 /area/shuttle/escape)
 "ah" = (
 /obj/machinery/computer/crew,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 1
 	},
 /area/shuttle/escape)
 "ai" = (
 /obj/machinery/computer/emergency_shuttle,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 1
 	},
 /area/shuttle/escape)
 "aj" = (
 /obj/machinery/computer/communications,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 5
 	},
 /area/shuttle/escape)
 "ak" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "al" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 4
 	},
 /area/shuttle/escape)
 "am" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 4
 	},
 /area/shuttle/escape)
 "an" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "ao" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "ap" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 4
 	},
 /area/shuttle/escape)
 "ar" = (
@@ -107,18 +91,15 @@
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 9
 	},
 /area/shuttle/escape)
 "as" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "at" = (
 /obj/item/radio/intercom{
@@ -127,33 +108,27 @@
 	pixel_x = 29;
 	pixel_y = -60
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "au" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "ax" = (
 /obj/machinery/computer/station_alert,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkyellow"
+/turf/simulated/floor/plasteel/dark/yellow/edge{
+	dir = 5
 	},
 /area/shuttle/escape)
 "ay" = (
 /obj/machinery/computer/secure_data,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 10
 	},
 /area/shuttle/escape)
 "az" = (
@@ -167,24 +142,19 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "aB" = (
 /obj/machinery/light,
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "aC" = (
 /obj/machinery/computer/atmos_alert,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkyellow"
+/turf/simulated/floor/plasteel/dark/yellow/edge{
+	dir = 6
 	},
 /area/shuttle/escape)
 "aD" = (
@@ -197,17 +167,13 @@
 	normalspeed = 0;
 	req_access_txt = "19"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "aF" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite,
 /area/shuttle/escape)
 "aG" = (
 /obj/machinery/recharger/wallcharger{
@@ -223,9 +189,7 @@
 	id_tag = null;
 	name = "Escape Shuttle Infirmary"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite,
 /area/shuttle/escape)
 "aJ" = (
 /obj/structure/table/reinforced,
@@ -240,9 +204,7 @@
 	normalspeed = 0;
 	req_access_txt = "5"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite,
 /area/shuttle/escape)
 "aM" = (
 /obj/machinery/light{
@@ -251,9 +213,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite,
 /area/shuttle/escape)
 "aN" = (
 /obj/structure/sign/directions/security{
@@ -264,9 +224,7 @@
 /area/shuttle/escape)
 "aO" = (
 /mob/living/simple_animal/bot/secbot,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plasteel/neutral/cafeteria,
 /area/shuttle/escape)
 "aR" = (
 /obj/structure/chair/comfy/shuttle{
@@ -275,28 +233,19 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aS" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plasteel/neutral/cafeteria,
 /area/shuttle/escape)
 "aT" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "aU" = (
 /obj/structure/chair/stool/bar,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plasteel/neutral/cafeteria,
 /area/shuttle/escape)
 "aV" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plasteel/neutral/cafeteria,
 /area/shuttle/escape)
 "aW" = (
 /obj/machinery/door/airlock/security/glass{
@@ -313,10 +262,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "ba" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bb" = (
 /obj/structure/sign/greencross,
@@ -328,9 +274,7 @@
 	dir = 1;
 	on = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite,
 /area/shuttle/escape)
 "bd" = (
 /obj/item/storage/box/drinkingglasses,
@@ -339,16 +283,12 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plasteel/neutral/cafeteria,
 /area/shuttle/escape)
 "be" = (
 /obj/machinery/chem_dispenser/beer,
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plasteel/neutral/cafeteria,
 /area/shuttle/escape)
 "bf" = (
 /obj/structure/table/reinforced,
@@ -361,9 +301,8 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteblue"
+/turf/simulated/floor/plasteel/white/blue/edge{
+	dir = 5
 	},
 /area/shuttle/escape)
 "bg" = (
@@ -378,16 +317,12 @@
 	pixel_x = 5;
 	pixel_y = -28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "bi" = (
 /obj/machinery/chem_dispenser/soda,
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plasteel/neutral/cafeteria,
 /area/shuttle/escape)
 "bj" = (
 /obj/machinery/door/airlock/security/glass{
@@ -403,10 +338,7 @@
 	normalspeed = 0;
 	req_access_txt = "50"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bl" = (
 /obj/structure/chair/comfy/shuttle{
@@ -421,9 +353,7 @@
 /obj/machinery/sleeper/upgraded{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite,
 /area/shuttle/escape)
 "bn" = (
 /obj/structure/table/reinforced,
@@ -468,9 +398,8 @@
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+/turf/simulated/floor/plasteel/white/blue/edge{
+	dir = 4
 	},
 /area/shuttle/escape)
 "by" = (
@@ -521,9 +450,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite,
 /area/shuttle/escape)
 "bH" = (
 /obj/structure/chair/comfy/shuttle{
@@ -532,9 +459,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite,
 /area/shuttle/escape)
 "bI" = (
 /obj/structure/chair/comfy/shuttle{
@@ -576,28 +501,19 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bot"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bP" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bot"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bQ" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bot"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bR" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -656,17 +572,11 @@
 /area/shuttle/escape)
 "bZ" = (
 /obj/machinery/recharge_station/upgraded,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "ca" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "cb" = (
 /obj/machinery/door/airlock/engineering/glass{
@@ -695,22 +605,16 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bot"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "cp" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite,
 /area/shuttle/escape)
 "cw" = (
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+/turf/simulated/floor/plasteel/white/blue/edge{
+	dir = 4
 	},
 /area/shuttle/escape)
 "cA" = (
@@ -720,32 +624,23 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bot"
-	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "cD" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/backpack/medic,
 /obj/item/storage/belt/medical,
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite,
 /area/shuttle/escape)
 "cE" = (
 /obj/structure/bed/roller,
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite,
 /area/shuttle/escape)
 "cG" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex/nitrile,
 /obj/item/clothing/mask/breath,
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite,
 /area/shuttle/escape)
 "cH" = (
 /turf/simulated/wall/mineral/plastitanium,
@@ -757,9 +652,7 @@
 	normalspeed = 0;
 	req_access_txt = "5"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite,
 /area/shuttle/escape)
 "tG" = (
 /obj/machinery/door/airlock/command/glass{
@@ -767,9 +660,7 @@
 	normalspeed = 0;
 	req_access_txt = "63"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "xD" = (
 /obj/structure/table/reinforced,
@@ -779,9 +670,8 @@
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+/turf/simulated/floor/plasteel/white/blue/edge{
+	dir = 4
 	},
 /area/shuttle/escape)
 "PY" = (
@@ -795,9 +685,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite,
 /area/shuttle/escape)
 "Qf" = (
 /obj/machinery/defibrillator_mount/loaded,

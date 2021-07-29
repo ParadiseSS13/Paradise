@@ -15,18 +15,16 @@
 	},
 /obj/structure/bed,
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "warndark"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 8
 	},
 /area/ruin/unpowered)
 "e" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 4
 	},
 /area/ruin/unpowered)
 "f" = (
@@ -38,9 +36,8 @@
 	},
 /obj/structure/bed,
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "warndark"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 8
 	},
 /area/ruin/unpowered)
 "g" = (
@@ -51,21 +48,18 @@
 	dir = 1
 	},
 /obj/structure/bed,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "warndark"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 8
 	},
 /area/ruin/unpowered)
 "h" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 4
 	},
 /area/ruin/unpowered)
 "i" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "warndark"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 8
 	},
 /area/ruin/unpowered)
 "j" = (
@@ -73,34 +67,29 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/unary/outlet_injector,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 4
 	},
 /area/ruin/unpowered)
 "k" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "warndark"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 8
 	},
 /area/ruin/unpowered)
 "l" = (
 /obj/machinery/atmospherics/unary/outlet_injector,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 4
 	},
 /area/ruin/unpowered)
 "m" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/stack/sheet/animalhide/lizard,
 /obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered)
 "n" = (
 /obj/structure/closet/crate/freezer,
@@ -108,16 +97,12 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered)
 "o" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered)
 "p" = (
 /obj/machinery/power/apc/worn_out{
@@ -129,9 +114,8 @@
 	dir = 1;
 	layer = 2.9
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 1
 	},
 /area/ruin/unpowered)
 "q" = (
@@ -139,22 +123,18 @@
 	dir = 1;
 	layer = 2.9
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 1
 	},
 /area/ruin/unpowered)
 "r" = (
 /obj/machinery/door/window/brigdoor/northleft,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 1
 	},
 /area/ruin/unpowered)
 "s" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered)
 "t" = (
 /turf/simulated/floor/plasteel,
@@ -173,18 +153,14 @@
 /area/ruin/unpowered)
 "w" = (
 /obj/structure/kitchenspike,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered)
 "x" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife/butcher,
 /obj/item/restraints/handcuffs,
 /obj/item/reagent_containers/spray/pepper,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered)
 "y" = (
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
@@ -192,16 +168,12 @@
 /area/ruin/unpowered)
 "z" = (
 /obj/machinery/gibber,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered)
 "A" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/straight_jacket,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered)
 "B" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
@@ -209,9 +181,7 @@
 /area/ruin/unpowered)
 "C" = (
 /obj/machinery/door/airlock/security,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered)
 "D" = (
 /obj/item/reagent_containers/glass/bottle/morphine{
@@ -232,9 +202,7 @@
 	pixel_y = 6
 	},
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered)
 "E" = (
 /obj/structure/rack,
@@ -279,15 +247,11 @@
 /obj/item/cautery,
 /obj/item/circular_saw,
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered)
 "L" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered)
 "M" = (
 /obj/structure/table/reinforced,
@@ -296,9 +260,7 @@
 /obj/item/reagent_containers/glass/bottle/mutagen,
 /obj/item/reagent_containers/glass/bottle/mutagen,
 /obj/item/razor,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered)
 "N" = (
 /obj/machinery/suit_storage_unit/security,

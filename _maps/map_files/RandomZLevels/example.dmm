@@ -284,70 +284,50 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "aN" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "yellowcorner"
-	},
+/turf/simulated/floor/plasteel/neutral/yellow/corner,
 /area/awaymission/example)
 "aO" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "yellow"
-	},
+/turf/simulated/floor/plasteel/neutral/yellow/edge,
 /area/awaymission/example)
 "aP" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellowcorner"
+/turf/simulated/floor/plasteel/neutral/yellow/corner{
+	dir = 8
 	},
 /area/awaymission/example)
 "aQ" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellowfull"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 8
 	},
 /area/awaymission/example)
 "aR" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/turf/simulated/floor/plasteel/white/edge,
 /area/awaymission/example)
 "aS" = (
 /obj/structure/chair{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/example)
 "aT" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/example)
 "aU" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/example)
 "aV" = (
 /obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/example)
 "aW" = (
 /obj/machinery/vending/coffee,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/example)
 "aX" = (
 /obj/machinery/door/airlock/medical,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/example)
 "aY" = (
 /obj/structure/window/reinforced,
@@ -391,64 +371,46 @@
 	name = "Privacy Shutters";
 	pixel_y = 25
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/example)
 "bb" = (
 /obj/structure/table,
 /obj/item/healthanalyzer,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/example)
 "bc" = (
 /obj/structure/bed,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/example)
 "bd" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/example)
 "be" = (
 /obj/structure/table,
 /obj/item/reagent_scanner/adv,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/example)
 "bf" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/beaker,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/example)
 "bg" = (
 /obj/structure/table,
 /obj/item/folder/white,
 /obj/item/pen/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/example)
 "bh" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/example)
 "bi" = (
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/reagent_containers/syringe/antiviral,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/example)
 "bj" = (
 /obj/machinery/light{
@@ -457,21 +419,18 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "bk" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellowcorner"
+/turf/simulated/floor/plasteel/neutral/yellow/corner{
+	dir = 4
 	},
 /area/awaymission/example)
 "bl" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 1
 	},
 /area/awaymission/example)
 "bm" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
+/turf/simulated/floor/plasteel/neutral/yellow/corner{
+	dir = 1
 	},
 /area/awaymission/example)
 "bn" = (
@@ -489,9 +448,8 @@
 /turf/simulated/floor/plating,
 /area/awaymission/example)
 "bo" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "stage_stairs"
+/turf/simulated/floor/plasteel/misc/stairs{
+	dir = 8
 	},
 /area/awaymission/example)
 "bp" = (
@@ -531,72 +489,52 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/example)
 "bt" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bu" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bv" = (
 /obj/machinery/door/airlock{
 	name = "Unit 1"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/example)
 "bw" = (
 /obj/machinery/door/airlock{
 	name = "Unit 2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/example)
 "bx" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "by" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bz" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bA" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bB" = (
 /obj/structure/chair/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bC" = (
 /obj/structure/sink{
@@ -604,22 +542,16 @@
 	pixel_x = -12;
 	pixel_y = 2
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/example)
 "bD" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/example)
 "bE" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/example)
 "bF" = (
 /obj/machinery/door/airlock{
@@ -632,16 +564,12 @@
 	density = 0;
 	pixel_x = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bH" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cans/sodawater,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bI" = (
 /obj/structure/bookcase{
@@ -651,49 +579,37 @@
 /obj/item/book/manual/barman_recipes,
 /obj/item/book/manual/chef_recipes,
 /obj/item/book/manual/ripley_build_and_repair,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bJ" = (
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bK" = (
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bL" = (
 /obj/structure/bookcase{
 	density = 0;
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bM" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/wine,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bN" = (
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bO" = (
 /obj/machinery/vending/snack,
@@ -705,27 +621,19 @@
 /obj/item/paper{
 	info = "X X O<br>X O X<br>O X"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bQ" = (
 /obj/structure/piano,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bR" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bS" = (
 /obj/item/reagent_containers/food/snacks/validsalad,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/example)
 "bT" = (
 /obj/machinery/vending/cigarette,
@@ -810,9 +718,8 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "ci" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 4
 	},
 /area/awaymission/example)
 "cj" = (
@@ -835,9 +742,7 @@
 	name = "friday night"
 	},
 /obj/item/cigbutt,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellowcorner"
-	},
+/turf/simulated/floor/plasteel/neutral/yellow/corner,
 /area/awaymission/example)
 "cm" = (
 /obj/item/trash/pistachios,
@@ -893,6 +798,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
+/area/awaymission/example)
+"tr" = (
+/turf/simulated/floor/plasteel/neutral/yellow,
 /area/awaymission/example)
 
 (1,1,1) = {"
@@ -1660,21 +1568,21 @@ aa
 aa
 ab
 ac
-aQ
-aQ
-aQ
-aQ
-aQ
-aQ
-aQ
-aQ
-aQ
-aQ
-aQ
-aQ
-aQ
-aQ
-aQ
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
 ac
 ab
 aa
@@ -1726,7 +1634,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 ac
 ac
 ac
@@ -1740,7 +1648,7 @@ ac
 ac
 ac
 ac
-aQ
+tr
 ac
 ab
 aa
@@ -1792,7 +1700,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 ac
 ab
 ab
@@ -1806,7 +1714,7 @@ ab
 ab
 ab
 ac
-aQ
+tr
 ac
 ab
 aa
@@ -1858,7 +1766,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 ac
 ab
 bt
@@ -1872,7 +1780,7 @@ ce
 aI
 ab
 cl
-aQ
+tr
 ac
 ab
 aa
@@ -1924,7 +1832,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 aD
 ab
 bu
@@ -1938,7 +1846,7 @@ ac
 ac
 ck
 aO
-aQ
+tr
 aD
 ab
 aa
@@ -1990,7 +1898,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 bk
 bn
 bt
@@ -2004,7 +1912,7 @@ ac
 ac
 bp
 aP
-aQ
+tr
 ac
 ab
 ab
@@ -2056,7 +1964,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 bl
 bo
 bt
@@ -2070,7 +1978,7 @@ ac
 ac
 bq
 ac
-aQ
+tr
 bk
 ab
 cn
@@ -2122,7 +2030,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 bm
 bn
 bt
@@ -2136,7 +2044,7 @@ ac
 ac
 bq
 ac
-aQ
+tr
 bl
 ch
 cn
@@ -2188,7 +2096,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 ac
 ab
 ab
@@ -2202,7 +2110,7 @@ ac
 ac
 br
 aN
-aQ
+tr
 bm
 ab
 co
@@ -2254,7 +2162,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 ac
 bp
 aa
@@ -2268,7 +2176,7 @@ ac
 ac
 ck
 aO
-aQ
+tr
 ac
 ab
 cn
@@ -2320,7 +2228,7 @@ aa
 aa
 ab
 ad
-aQ
+tr
 ac
 bq
 aa
@@ -2334,7 +2242,7 @@ aC
 ac
 ab
 aP
-aQ
+tr
 aD
 ab
 cp
@@ -2386,7 +2294,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 ac
 br
 aa
@@ -2400,7 +2308,7 @@ ab
 ab
 ab
 ac
-aQ
+tr
 ac
 ab
 ab
@@ -2452,7 +2360,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 ac
 ab
 ab
@@ -2466,7 +2374,7 @@ aw
 aw
 aM
 ac
-aQ
+tr
 ac
 ab
 aa
@@ -2518,7 +2426,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 bk
 bn
 bt
@@ -2532,7 +2440,7 @@ aJ
 aw
 ab
 ac
-aQ
+tr
 ac
 ab
 aa
@@ -2584,7 +2492,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 bl
 bo
 bt
@@ -2598,7 +2506,7 @@ ab
 ab
 ab
 ac
-aQ
+tr
 ac
 ab
 aa
@@ -2650,7 +2558,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 bm
 bn
 bt
@@ -2664,7 +2572,7 @@ cf
 ac
 ab
 ac
-aQ
+tr
 cm
 ab
 aa
@@ -2716,7 +2624,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 aD
 ab
 ab
@@ -2730,7 +2638,7 @@ cg
 aD
 ab
 ac
-aQ
+tr
 aD
 ab
 aa
@@ -2782,7 +2690,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 ac
 ab
 aa
@@ -2796,7 +2704,7 @@ ac
 cj
 ab
 ac
-aQ
+tr
 ac
 ab
 aa
@@ -2848,7 +2756,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 ac
 ab
 ab
@@ -2862,7 +2770,7 @@ ch
 ab
 ab
 ac
-aQ
+tr
 ac
 ab
 aa
@@ -2914,7 +2822,7 @@ aa
 aa
 ab
 ac
-aQ
+tr
 ac
 ac
 ac
@@ -2928,7 +2836,7 @@ ci
 bk
 ac
 ac
-aQ
+tr
 ac
 ab
 aa

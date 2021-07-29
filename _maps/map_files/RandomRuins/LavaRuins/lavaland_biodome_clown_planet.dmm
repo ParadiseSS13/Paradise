@@ -531,9 +531,8 @@
 	dir = 4;
 	invisibility = 101
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
+/turf/simulated/floor/plasteel/white{
+	dir = 4
 	},
 /area/ruin/powered/clownplanet)
 "aO" = (
@@ -569,9 +568,8 @@
 /obj/structure/table,
 /obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet/escape,
 /obj/item/pen/multi,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
+/turf/simulated/floor/plasteel/white{
+	dir = 4
 	},
 /area/ruin/powered/clownplanet)
 "aR" = (
@@ -581,9 +579,8 @@
 	},
 /obj/structure/table,
 /obj/item/flashlight/lamp/bananalamp,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
+/turf/simulated/floor/plasteel/white{
+	dir = 4
 	},
 /area/ruin/powered/clownplanet)
 "aS" = (
@@ -610,9 +607,8 @@
 	invisibility = 101
 	},
 /obj/item/pickaxe,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
+/turf/simulated/floor/plasteel/white{
+	dir = 4
 	},
 /area/ruin/powered/clownplanet)
 "aU" = (
@@ -624,9 +620,8 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
+/turf/simulated/floor/plasteel/white{
+	dir = 4
 	},
 /area/ruin/powered/clownplanet)
 "aW" = (
@@ -634,9 +629,8 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
+/turf/simulated/floor/plasteel/white{
+	dir = 4
 	},
 /area/ruin/powered/clownplanet)
 "aX" = (
@@ -656,9 +650,8 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
+/turf/simulated/floor/plasteel/white{
+	dir = 4
 	},
 /area/ruin/powered/clownplanet)
 "aZ" = (
@@ -676,9 +669,8 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
+/turf/simulated/floor/plasteel/white{
+	dir = 4
 	},
 /area/ruin/powered/clownplanet)
 "bb" = (
@@ -688,9 +680,8 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
+/turf/simulated/floor/plasteel/white{
+	dir = 4
 	},
 /area/ruin/powered/clownplanet)
 "bc" = (
@@ -701,9 +692,8 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
+/turf/simulated/floor/plasteel/white{
+	dir = 4
 	},
 /area/ruin/powered/clownplanet)
 "be" = (
@@ -714,9 +704,8 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
+/turf/simulated/floor/plasteel/white{
+	dir = 4
 	},
 /area/ruin/powered/clownplanet)
 "bf" = (
@@ -724,15 +713,13 @@
 /area/ruin/powered/clownplanet)
 "bg" = (
 /obj/item/pickaxe,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
+/turf/simulated/floor/plasteel/white{
+	dir = 4
 	},
 /area/ruin/powered/clownplanet)
 "bh" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
+/turf/simulated/floor/plasteel/white{
+	dir = 4
 	},
 /area/ruin/powered/clownplanet)
 "bi" = (
@@ -800,9 +787,8 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
+/turf/simulated/floor/plasteel/white{
+	dir = 4
 	},
 /area/ruin/powered/clownplanet)
 "bn" = (
@@ -852,9 +838,8 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/trunk,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
+/turf/simulated/floor/plasteel/white{
+	dir = 4
 	},
 /area/ruin/powered/clownplanet)
 "br" = (

@@ -76,14 +76,10 @@
 /obj/machinery/sleeper{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/onehalf/dorms_med)
 "am" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/onehalf/dorms_med)
 "an" = (
 /obj/structure/table,
@@ -92,9 +88,7 @@
 	pixel_y = 5
 	},
 /obj/item/storage/firstaid/fire,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/onehalf/dorms_med)
 "ao" = (
 /obj/structure/bed,
@@ -167,9 +161,7 @@
 /area/ruin/onehalf/hallway)
 "aA" = (
 /obj/structure/bed/roller,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/onehalf/dorms_med)
 "aB" = (
 /obj/machinery/light{
@@ -181,9 +173,7 @@
 	pixel_y = 6
 	},
 /obj/item/storage/firstaid,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/onehalf/dorms_med)
 "aC" = (
 /obj/machinery/light{
@@ -225,9 +215,7 @@
 /area/ruin/onehalf/hallway)
 "aJ" = (
 /obj/machinery/iv_drip,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/onehalf/dorms_med)
 "aK" = (
 /obj/structure/cable{
@@ -236,9 +224,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/onehalf/dorms_med)
 "aL" = (
 /obj/structure/disposalpipe/segment{
@@ -369,9 +355,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/onehalf/dorms_med)
 "aW" = (
 /obj/machinery/door/airlock,
@@ -407,9 +391,7 @@
 	name = "Crew Quarters APC";
 	pixel_x = 27
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/onehalf/dorms_med)
 "aZ" = (
 /obj/structure/cable{

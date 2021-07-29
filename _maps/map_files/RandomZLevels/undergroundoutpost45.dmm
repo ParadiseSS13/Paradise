@@ -32,9 +32,7 @@
 "ai" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -51,9 +49,7 @@
 	})
 "ak" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -109,9 +105,7 @@
 	name = "UO45 Central Hall"
 	})
 "ap" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -153,9 +147,8 @@
 	name = "UO45 Central Hall"
 	})
 "au" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/dark/blue/edge{
+	dir = 6
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -184,9 +177,8 @@
 	name = "UO45 Central Hall"
 	})
 "aD" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "floorgrime"
+/turf/simulated/floor/plasteel/neutral{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -194,9 +186,7 @@
 "aE" = (
 /obj/structure/closet/emcloset,
 /obj/item/clothing/mask/breath,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -243,9 +233,7 @@
 	})
 "aJ" = (
 /obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -263,9 +251,7 @@
 /obj/structure/sign/poster/official/safety_internals{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -277,9 +263,7 @@
 	})
 "aN" = (
 /obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -301,17 +285,14 @@
 	})
 "aQ" = (
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
+/turf/simulated/floor/plasteel/neutral/highlight/corner,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "aR" = (
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/plasteel/neutral/highlight/corner{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -340,9 +321,7 @@
 /obj/effect/landmark{
 	name = "awaystart"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -350,9 +329,8 @@
 /obj/effect/landmark{
 	name = "awaystart"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -360,25 +338,20 @@
 "aW" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/cans/cola,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "aX" = (
 /obj/structure/table/wood,
 /obj/item/newspaper,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "aY" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -388,9 +361,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -404,9 +375,8 @@
 /obj/effect/landmark{
 	name = "awaystart"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -414,17 +384,13 @@
 "bb" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/ripley_build_and_repair,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "bc" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -432,9 +398,7 @@
 /obj/structure/chair/comfy/beige{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -456,9 +420,7 @@
 /obj/effect/landmark{
 	name = "awaystart"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -467,17 +429,14 @@
 /obj/effect/landmark{
 	name = "awaystart"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "bh" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -485,9 +444,8 @@
 /obj/machinery/atmospherics/unary/vent_pump{
 	on = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -496,9 +454,7 @@
 /obj/structure/sink{
 	pixel_y = 25
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -507,9 +463,7 @@
 	pixel_y = 25
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -526,17 +480,14 @@
 /obj/structure/chair/comfy/beige{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "bn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -550,9 +501,7 @@
 	pixel_x = 4;
 	pixel_y = 2
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -562,17 +511,14 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/misc/grimy,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "bq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -584,9 +530,7 @@
 	})
 "bs" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -597,9 +541,7 @@
 	name = "UO45 Central Hall"
 	})
 "bu" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -611,9 +553,7 @@
 	pixel_y = -23;
 	req_access = null
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -621,9 +561,7 @@
 /obj/machinery/door/airlock{
 	name = "Unisex Restrooms"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -634,9 +572,8 @@
 	dir = 8;
 	network = list("UO45")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -654,9 +591,7 @@
 /obj/machinery/door/airlock{
 	name = "Unit 2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -664,9 +599,7 @@
 /obj/machinery/door/airlock{
 	name = "Unit 1"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -682,9 +615,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -693,9 +625,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/plasteel/neutral/highlight/corner{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -704,9 +635,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -715,9 +645,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -726,9 +655,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/plasteel/neutral/highlight/corner{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -737,9 +665,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -759,9 +686,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -773,9 +698,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -1540,9 +1463,7 @@
 "dp" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "greencorner"
-	},
+/turf/simulated/floor/plasteel/neutral/green/corner,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -1554,9 +1475,8 @@
 	})
 "dr" = (
 /obj/machinery/vending/hydronutrients,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1569,9 +1489,8 @@
 	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1580,18 +1499,16 @@
 /obj/machinery/vending/hydroseeds{
 	slogan_delay = 700
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "du" = (
 /obj/machinery/biogenerator,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1599,9 +1516,8 @@
 "dv" = (
 /obj/machinery/seed_extractor,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1656,9 +1572,8 @@
 	name = "UO45 Central Hall"
 	})
 "dB" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1679,9 +1594,8 @@
 /obj/structure/sink{
 	pixel_y = 25
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1693,9 +1607,8 @@
 	},
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1705,9 +1618,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1724,9 +1636,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1736,9 +1647,8 @@
 	dir = 4;
 	icon_state = "pipe-j2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1747,9 +1657,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1760,9 +1669,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/glass/bucket,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1776,9 +1684,8 @@
 /obj/structure/sink{
 	pixel_y = 25
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1793,9 +1700,8 @@
 /obj/machinery/firealarm/no_alarm{
 	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1815,17 +1721,15 @@
 /obj/item/plant_analyzer,
 /obj/item/clothing/mask/bandana,
 /obj/item/hatchet,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "dN" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 5
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1853,9 +1757,8 @@
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 30
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1874,9 +1777,8 @@
 /obj/item/storage/belt/security,
 /obj/item/flash,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 9
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1894,17 +1796,14 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 5
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "dT" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/turf/simulated/floor/plasteel/neutral/highlight/edge,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -1913,9 +1812,7 @@
 	dir = 1;
 	on = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
+/turf/simulated/floor/plasteel/neutral/highlight/corner,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -1924,18 +1821,15 @@
 	dir = 1;
 	on = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/plasteel/neutral/highlight/corner{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "dW" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/turf/simulated/floor/plasteel/neutral/highlight/edge,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -1943,9 +1837,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1991,9 +1884,7 @@
 	})
 "ec" = (
 /obj/machinery/hydroponics/constructable,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -2001,9 +1892,8 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "floorgrime"
+/turf/simulated/floor/plasteel/neutral{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2023,9 +1913,8 @@
 /obj/item/clothing/suit/apron,
 /obj/item/clothing/mask/bandana,
 /obj/item/cultivator,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2066,25 +1955,22 @@
 	dir = 1;
 	initialize_directions = 14
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "ej" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "ek" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
+/turf/simulated/floor/plasteel/neutral/red/corner{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2097,18 +1983,16 @@
 	name = "UO45 Central Hall"
 	})
 "em" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "en" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2150,9 +2034,8 @@
 "es" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2208,9 +2091,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/filingcabinet,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2236,17 +2118,15 @@
 	})
 "ey" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "ez" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2255,9 +2135,8 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2278,18 +2157,16 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "eE" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "floorgrime"
+/turf/simulated/floor/plasteel/neutral{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2299,9 +2176,8 @@
 /obj/item/book/manual/hydroponics_pod_people,
 /obj/item/paper/hydroponics,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2362,9 +2238,8 @@
 	pixel_x = -30
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2386,9 +2261,8 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2398,9 +2272,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2412,9 +2285,8 @@
 	name = "UO45 Central Hall"
 	})
 "eQ" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "greencorner"
+/turf/simulated/floor/plasteel/neutral/green/corner{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2458,18 +2330,16 @@
 	pixel_y = 3
 	},
 /obj/item/watertank,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "eV" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2498,9 +2368,7 @@
 /obj/structure/sign/poster/official/safety_report{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/turf/simulated/floor/plasteel/neutral/red/edge,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -2508,9 +2376,8 @@
 /obj/structure/table,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/item/book/manual/security_space_law,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 10
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2519,34 +2386,29 @@
 /obj/machinery/computer/security{
 	network = list("UO45")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 6
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "fa" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
+/turf/simulated/floor/plasteel/neutral/red/corner{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "fb" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "fc" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "greencorner"
-	},
+/turf/simulated/floor/plasteel/neutral/green/corner,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -2566,25 +2428,20 @@
 	})
 "fe" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 6
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "ff" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/turf/simulated/floor/plasteel/neutral/green/edge,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "fg" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/turf/simulated/floor/plasteel/neutral/green/edge,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -2606,9 +2463,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/turf/simulated/floor/plasteel/neutral/green/edge,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -2620,9 +2475,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/turf/simulated/floor/plasteel/neutral/green/edge,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -2636,9 +2489,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/turf/simulated/floor/plasteel/neutral/green/edge,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -2650,9 +2501,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/turf/simulated/floor/plasteel/neutral/green/edge,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -2663,9 +2512,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/turf/simulated/floor/plasteel/neutral/green/edge,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -2676,9 +2523,8 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 6
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2706,27 +2552,24 @@
 	name = "UO45 Central Hall"
 	})
 "fq" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "fr" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/plasteel/neutral/highlight/corner{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "fs" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/plasteel/neutral/highlight/corner{
+	dir = 1
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2741,9 +2584,8 @@
 	pixel_x = 23;
 	req_access = null
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2754,9 +2596,7 @@
 /obj/item/wrench,
 /obj/item/screwdriver,
 /obj/item/reagent_containers/glass/bucket,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -2765,18 +2605,15 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 8
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "fw" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -2808,9 +2645,7 @@
 	icon_state = "1-4";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -2915,9 +2750,8 @@
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "greencorner"
+/turf/simulated/floor/plasteel/neutral/green/corner{
+	dir = 4
 	},
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -2968,9 +2802,7 @@
 	name = "Hydroponics Desk";
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -3062,9 +2894,7 @@
 	})
 "fX" = (
 /obj/machinery/vending/snack,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
@@ -3078,34 +2908,21 @@
 	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "fZ" = (
 /obj/machinery/vending/coffee,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
-	})
-"ga" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
-/area/awaycontent/a2{
-	name = "UO45 Crew Quarters"
 	})
 "gb" = (
 /obj/structure/sink/kitchen{
 	pixel_y = 28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -3168,9 +2985,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -3218,9 +3033,7 @@
 /obj/item/storage/box/mousetraps,
 /obj/item/clothing/under/waiter,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -3240,9 +3053,7 @@
 /obj/item/reagent_containers/food/snacks/meat/monkey,
 /obj/item/reagent_containers/food/snacks/meat/monkey,
 /obj/item/reagent_containers/food/snacks/meat/monkey,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -3303,9 +3114,7 @@
 	name = "Kitchen Cold Room";
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -3335,9 +3144,8 @@
 	name = "UO45 Research"
 	})
 "gB" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "floorgrime"
+/turf/simulated/floor/plasteel/neutral{
+	dir = 8
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -3356,18 +3164,16 @@
 	})
 "gD" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "gE" = (
 /obj/machinery/vending/dinnerware,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -3382,9 +3188,8 @@
 	pixel_x = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -3393,9 +3198,8 @@
 /obj/structure/sink/kitchen{
 	pixel_y = 28
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -3403,9 +3207,8 @@
 "gH" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -3425,17 +3228,13 @@
 	name = "UO45 Central Hall"
 	})
 "gJ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
 "gK" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -3452,9 +3251,7 @@
 "gN" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/turf/simulated/floor/plasteel/white/edge,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -3468,16 +3265,13 @@
 /obj/item/stack/sheet/metal{
 	amount = 23
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/turf/simulated/floor/plasteel/white/edge,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "gP" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -3488,9 +3282,8 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -3516,9 +3309,8 @@
 /obj/machinery/gateway{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 1
 	},
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -3527,9 +3319,8 @@
 /obj/machinery/gateway{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 4
 	},
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -3538,9 +3329,8 @@
 /obj/machinery/gateway{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 8
 	},
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -3559,26 +3349,20 @@
 	pixel_y = 9
 	},
 /obj/item/pen,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
 "gX" = (
 /obj/structure/table,
 /obj/item/folder/white,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
 "gY" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -3586,9 +3370,7 @@
 /obj/machinery/firealarm/no_alarm{
 	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -3605,16 +3387,12 @@
 	c_tag = "Research Lab";
 	network = list("UO45","UO45R")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "hb" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -3632,9 +3410,8 @@
 	pixel_y = 2
 	},
 /obj/item/reagent_containers/dropper,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/edge{
+	dir = 8
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -3697,33 +3474,25 @@
 "hj" = (
 /obj/machinery/vending/snack,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "hk" = (
 /obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "hl" = (
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "hm" = (
 /obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -3731,26 +3500,20 @@
 /obj/structure/table,
 /obj/item/stack/packageWrap,
 /obj/item/reagent_containers/glass/rag,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "ho" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "hp" = (
 /obj/machinery/vending/boozeomat,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -3760,9 +3523,8 @@
 /obj/item/reagent_containers/food/condiment/enzyme{
 	layer = 5
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -3772,18 +3534,16 @@
 	pixel_x = -25
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "hs" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -3805,9 +3565,8 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -3816,9 +3575,8 @@
 /obj/machinery/gateway{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 8
 	},
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -3827,9 +3585,8 @@
 /obj/machinery/gateway{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 8
 	},
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -3838,9 +3595,7 @@
 /obj/machinery/gateway/centeraway{
 	calibrated = 0
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -3849,9 +3604,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -3860,9 +3613,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -3902,9 +3653,7 @@
 	})
 "hD" = (
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -3927,17 +3676,13 @@
 	pixel_x = -32
 	},
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "hF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -3950,9 +3695,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -3972,9 +3715,8 @@
 /obj/item/stock_parts/micro_laser,
 /obj/item/stock_parts/micro_laser,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/edge{
+	dir = 8
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -3985,16 +3727,12 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "hK" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -4002,26 +3740,20 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "hM" = (
 /obj/structure/table/reinforced,
 /obj/item/lighter/zippo,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "hN" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -4029,9 +3761,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -4041,9 +3771,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -4056,9 +3784,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -4070,9 +3796,8 @@
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = 3
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -4082,9 +3807,8 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -4094,9 +3818,8 @@
 	dir = 4;
 	on = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -4104,9 +3827,8 @@
 "hU" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/mint,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -4129,9 +3851,8 @@
 	},
 /obj/structure/table,
 /obj/item/book/manual/chef_recipes,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -4164,9 +3885,8 @@
 /obj/machinery/gateway{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 4
 	},
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -4175,9 +3895,8 @@
 /obj/machinery/gateway{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 1
 	},
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -4188,9 +3907,8 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/misc/vault{
+	dir = 8
 	},
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -4206,9 +3924,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -4216,9 +3932,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -4262,9 +3976,7 @@
 	})
 "ik" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -4275,9 +3987,8 @@
 /obj/item/stack/sheet/glass,
 /obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/matter_bin,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/edge{
+	dir = 8
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -4285,9 +3996,7 @@
 "im" = (
 /obj/structure/table,
 /obj/item/trash/plate,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -4296,18 +4005,14 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "io" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -4315,9 +4020,7 @@
 /obj/structure/table,
 /obj/item/book/manual/barman_recipes,
 /obj/item/reagent_containers/food/drinks/shaker,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -4327,9 +4030,8 @@
 	pixel_x = -24
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -4337,9 +4039,8 @@
 "ir" = (
 /obj/structure/table,
 /obj/item/kitchen/rollingpin,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -4349,18 +4050,15 @@
 	dir = 4
 	},
 /obj/machinery/processor,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "it" = (
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -4369,18 +4067,14 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
 "iv" = (
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -4396,9 +4090,7 @@
 	name = "Gateway Chamber";
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -4411,9 +4103,7 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -4433,9 +4123,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -4447,9 +4135,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/northwestcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -4471,9 +4157,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -4493,9 +4177,8 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/edge{
+	dir = 8
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -4511,35 +4194,27 @@
 "iG" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "iH" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "iI" = (
 /obj/machinery/door/firedoor,
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "iJ" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -4549,9 +4224,8 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -4561,9 +4235,8 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -4585,9 +4258,8 @@
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/storage/fancy/egg_box,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -4675,9 +4347,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -4691,9 +4361,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -4710,9 +4378,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -4720,9 +4386,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -4741,9 +4405,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -4752,9 +4414,7 @@
 /obj/machinery/atmospherics/unary/vent_pump{
 	on = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -4774,9 +4434,7 @@
 	pixel_x = -23;
 	req_access = null
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -4787,18 +4445,15 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "je" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/junction,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -4813,9 +4468,8 @@
 	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -4831,9 +4485,8 @@
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/sugar,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -4900,17 +4553,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
 "jo" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -4918,9 +4567,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -4932,9 +4579,7 @@
 	name = "Gateway Observation";
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -4944,9 +4589,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -4956,18 +4599,14 @@
 /obj/item/folder/white,
 /obj/item/disk/tech_disk,
 /obj/item/disk/design_disk,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "jt" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -4995,17 +4634,13 @@
 	dir = 8;
 	pixel_x = -24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "jx" = (
 /obj/structure/chair,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -5015,18 +4650,14 @@
 	req_access_txt = "201"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "jz" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/cans/beer,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -5037,9 +4668,7 @@
 	network = list("UO45")
 	},
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -5054,9 +4683,7 @@
 	name = "Kitchen";
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -5105,9 +4732,7 @@
 /obj/item/tank/internals/air,
 /obj/item/clothing/mask/gas,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -5127,9 +4752,7 @@
 	req_access_txt = "201"
 	},
 /obj/item/clothing/gloves/color/latex,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -5153,9 +4776,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -5170,9 +4791,7 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -5205,9 +4824,7 @@
 	name = "Research Lab";
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -5248,18 +4865,14 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "jU" = (
 /obj/structure/table,
 /obj/item/kitchen/utensil/fork,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -5267,9 +4880,7 @@
 /obj/machinery/atmospherics/unary/vent_pump{
 	on = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -5287,9 +4898,7 @@
 	req_access = null;
 	start_charge = 100
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -5314,9 +4923,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -5334,9 +4941,7 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -5451,25 +5056,20 @@
 	})
 "kg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
 "kh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
 "ki" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 4
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -5477,17 +5077,14 @@
 "kj" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "kk" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 1
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -5495,9 +5092,8 @@
 "kl" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurple"
+/turf/simulated/floor/plasteel/white/purple/edge{
+	dir = 1
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -5550,9 +5146,7 @@
 	})
 "kr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -5560,9 +5154,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -5570,9 +5162,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -5593,9 +5183,7 @@
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -5604,9 +5192,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -5655,9 +5241,8 @@
 	},
 /obj/item/assembly/prox_sensor,
 /obj/item/assembly/prox_sensor,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 4
 	},
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -5681,9 +5266,7 @@
 	name = "biohazard containment door"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -5703,9 +5286,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -5720,9 +5301,7 @@
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -5735,17 +5314,13 @@
 	name = "Research Division Access";
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
 "kG" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -5753,9 +5328,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 4
 	},
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -5765,9 +5339,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 4
 	},
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -5779,9 +5352,8 @@
 /obj/machinery/atmospherics/unary/vent_pump{
 	on = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 4
 	},
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -5811,9 +5383,8 @@
 	dir = 1;
 	initialize_directions = 14
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 4
 	},
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -5827,18 +5398,15 @@
 	name = "Research Division Access";
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 4
 	},
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
 "kN" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -5847,9 +5415,7 @@
 	dir = 1;
 	initialize_directions = 14
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -5857,9 +5423,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -5869,9 +5433,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -5879,9 +5441,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 4
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -5891,9 +5452,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 4
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -5903,9 +5463,8 @@
 	dir = 1;
 	initialize_directions = 14
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 4
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -5922,9 +5481,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 4
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -5934,9 +5492,8 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 4
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -5945,26 +5502,23 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 4
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "kX" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 4
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "kY" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurple"
+/turf/simulated/floor/plasteel/white/purple/edge{
+	dir = 4
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -5978,9 +5532,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -5988,9 +5540,8 @@
 /obj/machinery/shower{
 	pixel_y = 15
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "warnwhite"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 1
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -6003,9 +5554,8 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "warnwhite"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 9
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -6014,9 +5564,8 @@
 /obj/structure/sink{
 	pixel_y = 25
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "warnwhite"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -6037,9 +5586,8 @@
 /obj/structure/sign/science{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purplecorner"
+/turf/simulated/floor/plasteel/neutral/purple/corner{
+	dir = 8
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -6072,9 +5620,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -6085,9 +5631,7 @@
 /obj/machinery/newscaster{
 	pixel_y = -28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -6104,9 +5648,7 @@
 	pixel_y = -23;
 	req_access = null
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -6119,9 +5661,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -6134,9 +5674,7 @@
 	},
 /obj/structure/disposalpipe/junction,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -6148,9 +5686,7 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -6172,9 +5708,8 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 4
 	},
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -6271,9 +5806,7 @@
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -6312,9 +5845,7 @@
 	name = "Research Division Access";
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -6329,9 +5860,7 @@
 	dir = 1;
 	initialize_directions = 14
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -6345,9 +5874,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
+/turf/simulated/floor/plasteel/white/purple/corner,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -6359,9 +5886,7 @@
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
+/turf/simulated/floor/plasteel/white/purple/corner,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -6384,9 +5909,7 @@
 	dir = 1;
 	network = list("UO45","UO45R")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
+/turf/simulated/floor/plasteel/white/purple/corner,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -6403,9 +5926,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
+/turf/simulated/floor/plasteel/white/purple/corner,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -6424,9 +5945,7 @@
 	name = "Research Division Access";
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
+/turf/simulated/floor/plasteel/white/purple/corner,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -6441,9 +5960,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
+/turf/simulated/floor/plasteel/white/purple/corner,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -6469,9 +5986,7 @@
 	initialize_directions = 14
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
+/turf/simulated/floor/plasteel/white/purple/corner,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -6486,9 +6001,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
+/turf/simulated/floor/plasteel/white/purple/corner,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -6511,9 +6024,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
+/turf/simulated/floor/plasteel/white/purple/corner,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -6533,9 +6044,7 @@
 	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
+/turf/simulated/floor/plasteel/white/purple/corner,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -6548,9 +6057,7 @@
 	dir = 1;
 	initialize_directions = 14
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -6562,9 +6069,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
+/turf/simulated/floor/plasteel/white/purple/corner,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -6573,9 +6078,7 @@
 	dir = 8;
 	on = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
+/turf/simulated/floor/plasteel/white/purple/corner,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -6584,9 +6087,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
+/turf/simulated/floor/plasteel/white/purple/corner,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -6600,16 +6101,12 @@
 	dir = 1;
 	network = list("UO45","UO45R")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
+/turf/simulated/floor/plasteel/white/purple/corner,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "lO" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
+/turf/simulated/floor/plasteel/white/purple/corner,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -6618,9 +6115,7 @@
 	name = "Research Division Access";
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -6632,9 +6127,8 @@
 	})
 "lR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purple"
+/turf/simulated/floor/plasteel/neutral/purple/edge{
+	dir = 8
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -6653,9 +6147,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -6667,9 +6159,7 @@
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = 3
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -6683,9 +6173,7 @@
 	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -6763,9 +6251,8 @@
 	pixel_x = 3;
 	pixel_y = -7
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 4
 	},
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -6791,9 +6278,7 @@
 	name = "UO45 Research"
 	})
 "me" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -6803,9 +6288,7 @@
 	on = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
 	})
@@ -6837,9 +6320,8 @@
 	name = "Research Director's Office";
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -6868,9 +6350,8 @@
 	name = "UO45 Research"
 	})
 "ml" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 1
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -6882,26 +6363,22 @@
 	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "warnwhite"
-	},
+/turf/simulated/floor/plasteel/neutral/yellowblack,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "mn" = (
 /obj/structure/closet/firecloset,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "warnwhite"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 10
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "mo" = (
 /obj/structure/closet/emcloset,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "warnwhite"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 6
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -6911,9 +6388,8 @@
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "purplecorner"
+/turf/simulated/floor/plasteel/neutral/purple/corner{
+	dir = 1
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -7149,9 +6625,8 @@
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/suit/storage/labcoat/science,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7193,9 +6668,8 @@
 	icon_state = "pipe-c"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7205,26 +6679,23 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "mO" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "mP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7232,9 +6703,8 @@
 "mQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7242,9 +6712,8 @@
 "mR" = (
 /obj/structure/table,
 /obj/item/book/manual/security_space_law,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 1
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7259,9 +6728,8 @@
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 9
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7271,9 +6739,8 @@
 /obj/machinery/recharger{
 	pixel_y = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7281,17 +6748,15 @@
 "mU" = (
 /obj/machinery/vending/cola,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 9
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "mV" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 4
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7381,9 +6846,8 @@
 	})
 "nd" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 1
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -7392,9 +6856,8 @@
 /obj/structure/chair/comfy/black{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 1
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -7404,9 +6867,8 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -7430,9 +6892,8 @@
 	pixel_y = 2
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7470,18 +6931,16 @@
 	dir = 1;
 	on = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "nm" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7489,9 +6948,8 @@
 "nn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/chair,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7500,9 +6958,8 @@
 /obj/machinery/computer/security{
 	network = list("UO45")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 8
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7524,9 +6981,8 @@
 	network = list("UO45R")
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 4
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7543,9 +6999,8 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+/turf/simulated/floor/plasteel/white/purple/corner{
+	dir = 4
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7598,9 +7053,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -7637,9 +7091,8 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 9
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -7649,24 +7102,19 @@
 /obj/structure/sign/poster/contraband/smoke{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "nz" = (
 /obj/machinery/vending/coffee,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "nA" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 8
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -7701,9 +7149,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 4
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -7811,9 +7258,8 @@
 /obj/structure/table,
 /obj/item/radio/off,
 /obj/item/laser_pointer,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7850,9 +7296,8 @@
 	pixel_x = 3;
 	pixel_y = -2
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7867,9 +7312,8 @@
 	name = "research monitor";
 	network = list("UO45R")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7882,9 +7326,8 @@
 	pixel_y = 9
 	},
 /obj/item/pen,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7903,9 +7346,8 @@
 /obj/item/paicard{
 	pixel_x = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7924,9 +7366,8 @@
 /obj/item/screwdriver{
 	pixel_y = 10
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 8
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7940,9 +7381,8 @@
 	name = "UO45 Research"
 	})
 "nV" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 4
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -7959,9 +7399,8 @@
 	icon_state = "pipe-c"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/plasteel/neutral/highlight/corner{
+	dir = 4
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8004,9 +7443,8 @@
 	pixel_x = -23;
 	req_access = null
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 8
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8024,9 +7462,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 1
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8045,9 +7482,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 1
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8067,9 +7503,8 @@
 	c_tag = "Dormitories";
 	network = list("UO45")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/plasteel/neutral/highlight/corner{
+	dir = 1
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8088,9 +7523,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 1
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8113,9 +7547,8 @@
 	initialize_directions = 14
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/plasteel/neutral/highlight/corner{
+	dir = 4
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8131,9 +7564,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/plasteel/neutral/highlight/corner{
+	dir = 1
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8176,9 +7608,8 @@
 	initialize_directions = 14
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 1
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8197,9 +7628,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/plasteel/neutral/highlight/corner{
+	dir = 4
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8217,9 +7647,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/plasteel/neutral/highlight/corner{
+	dir = 1
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8240,9 +7669,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 1
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8285,9 +7713,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 4
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8405,9 +7832,8 @@
 	})
 "ow" = (
 /obj/structure/filingcabinet/chestdrawer,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -8431,18 +7857,16 @@
 	pixel_y = -2;
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "oy" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -8453,18 +7877,16 @@
 	pixel_y = 3
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "oA" = (
 /obj/machinery/computer/aifixer,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -8474,9 +7896,8 @@
 	pixel_x = -30
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 8
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -8486,9 +7907,7 @@
 	name = "Security Office";
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -8502,9 +7921,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 8
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8513,9 +7931,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
+/turf/simulated/floor/plasteel/neutral/highlight/corner,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -8524,9 +7940,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/plasteel/neutral/highlight/corner{
+	dir = 8
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8539,9 +7954,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/turf/simulated/floor/plasteel/neutral/highlight/edge,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -8557,9 +7970,7 @@
 "oJ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
+/turf/simulated/floor/plasteel/neutral/highlight/corner,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -8574,9 +7985,8 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/plasteel/neutral/highlight/corner{
+	dir = 8
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8585,17 +7995,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/turf/simulated/floor/plasteel/neutral/highlight/edge,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "oM" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
+/turf/simulated/floor/plasteel/neutral/highlight/corner,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -8620,9 +8026,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/plasteel/neutral/highlight/corner{
+	dir = 8
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8632,9 +8037,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/turf/simulated/floor/plasteel/neutral/highlight/edge,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -8643,9 +8046,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 6
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8776,9 +8178,8 @@
 	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -8821,9 +8222,8 @@
 	icon_state = "pipe-c"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -8849,9 +8249,8 @@
 	pixel_x = 5;
 	pixel_y = -27
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -8860,9 +8259,8 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -8877,17 +8275,14 @@
 	req_access_txt = "201"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/turf/simulated/floor/plasteel/neutral/red/edge,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "ph" = (
 /obj/structure/filingcabinet,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 10
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -8907,9 +8302,8 @@
 /obj/item/restraints/handcuffs,
 /obj/item/flash,
 /obj/item/reagent_containers/spray/pepper,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 6
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -8929,9 +8323,8 @@
 	name = "UO45 Engineering"
 	})
 "pk" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/plasteel/neutral/highlight/corner{
+	dir = 8
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8939,9 +8332,8 @@
 "pl" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 10
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8954,9 +8346,8 @@
 	dir = 4;
 	pixel_x = 24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 4
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -8965,9 +8356,7 @@
 /obj/machinery/door/airlock{
 	name = "Unisex Restrooms"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -9125,9 +8514,7 @@
 	name = "Server Room";
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -9135,9 +8522,7 @@
 /obj/machinery/door/airlock{
 	name = "Private Restroom"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -9190,18 +8575,15 @@
 	name = "Research Storage";
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "pK" = (
 /obj/structure/chair/comfy/black,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 10
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -9220,9 +8602,8 @@
 	})
 "pN" = (
 /obj/structure/chair/comfy/black,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "neutral"
+/turf/simulated/floor/plasteel/neutral/highlight/edge{
+	dir = 6
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -9230,9 +8611,7 @@
 "pO" = (
 /obj/structure/chair/comfy/black,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/turf/simulated/floor/plasteel/neutral/highlight/edge,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -9244,16 +8623,12 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "pQ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -9317,9 +8692,7 @@
 /obj/machinery/door/airlock{
 	name = "Unit 1"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -9332,9 +8705,7 @@
 	pixel_x = 11
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -9395,9 +8766,7 @@
 	})
 "qd" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -9429,9 +8798,7 @@
 	})
 "qg" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -9451,7 +8818,7 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/bluegrid{
+/turf/simulated/floor/plasteel/misc/circuit/blue{
 	name = "Server Base";
 	nitrogen = 500;
 	oxygen = 0;
@@ -9464,7 +8831,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/turf/simulated/floor/bluegrid{
+/turf/simulated/floor/plasteel/misc/circuit/blue{
 	icon_state = "dark";
 	name = "Server Walkway";
 	nitrogen = 500;
@@ -9479,9 +8846,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -9506,9 +8871,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -9518,9 +8881,7 @@
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/clothing/glasses/hud/health,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitecorner"
-	},
+/turf/simulated/floor/plasteel/white/corner,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -9528,9 +8889,8 @@
 /obj/machinery/vending/medical{
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/edge{
+	dir = 6
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -9545,17 +8905,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/item/hand_labeler,
 /obj/item/clothing/accessory/stethoscope,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/turf/simulated/floor/plasteel/white/edge,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "qq" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/edge{
+	dir = 8
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -9570,9 +8927,7 @@
 	pixel_x = -23;
 	req_access = null
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -9582,9 +8937,7 @@
 	pixel_x = 11
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -9630,17 +8983,13 @@
 	})
 "qx" = (
 /obj/structure/chair,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
 "qy" = (
 /obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -9696,9 +9045,8 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 1
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -9717,9 +9065,8 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 1
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -9736,9 +9083,8 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 1
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -9779,9 +9125,8 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 1
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -9796,9 +9141,8 @@
 	sensors = list("UO45_air_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "arrival"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 9
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -9823,9 +9167,8 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
+/turf/simulated/floor/plasteel/neutral/yellow/corner{
+	dir = 1
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -9848,9 +9191,8 @@
 	req_access = null;
 	target_pressure = 4500
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "arrival"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 5
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -9866,9 +9208,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -9880,9 +9220,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -9912,7 +9250,7 @@
 	id_with_upload_string = "3";
 	req_access = null
 	},
-/turf/simulated/floor/bluegrid{
+/turf/simulated/floor/plasteel/misc/circuit/blue{
 	name = "Server Base";
 	nitrogen = 500;
 	oxygen = 0;
@@ -9926,7 +9264,7 @@
 	dir = 8;
 	initialize_directions = 11
 	},
-/turf/simulated/floor/bluegrid{
+/turf/simulated/floor/plasteel/misc/circuit/blue{
 	icon_state = "dark";
 	name = "Server Walkway";
 	nitrogen = 500;
@@ -9945,9 +9283,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -9960,9 +9296,8 @@
 	initialize_directions = 7
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/edge{
+	dir = 4
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -9974,9 +9309,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -9985,9 +9318,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/edge{
+	dir = 8
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -10006,9 +9338,7 @@
 /obj/structure/toilet{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -10017,9 +9347,7 @@
 	name = "Unit 2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -10049,9 +9377,7 @@
 	dir = 4;
 	pixel_x = 11
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -10117,9 +9443,8 @@
 	})
 "ri" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 5
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -10131,9 +9456,8 @@
 /obj/structure/dispenser{
 	pixel_x = -1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 9
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -10148,9 +9472,8 @@
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 30
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 5
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -10181,9 +9504,8 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 1
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -10324,17 +9646,13 @@
 /obj/structure/table,
 /obj/item/folder/white,
 /obj/item/pen,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "rz" = (
 /obj/machinery/computer/rdservercontrol,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -10342,7 +9660,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/turf/simulated/floor/bluegrid{
+/turf/simulated/floor/plasteel/misc/circuit/blue{
 	icon_state = "dark";
 	name = "Server Walkway";
 	nitrogen = 500;
@@ -10392,9 +9710,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/edge{
+	dir = 4
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -10416,18 +9733,15 @@
 	dir = 8;
 	initialize_directions = 7
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
 "rG" = (
 /obj/structure/table,
 /obj/item/storage/box/gloves,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/edge{
+	dir = 8
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -10453,9 +9767,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaycontent/a5{
 	name = "UO45 Research"
 	})
@@ -10481,9 +9793,7 @@
 /obj/machinery/door/airlock{
 	name = "Unisex Showers"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -10519,9 +9829,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -10540,9 +9849,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -10600,9 +9908,8 @@
 	dir = 1;
 	initialize_directions = 14
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -10643,9 +9950,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -10664,9 +9970,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 1
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -10685,9 +9990,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -10705,9 +10009,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -10717,9 +10020,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 4
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -10751,9 +10053,8 @@
 	dir = 1;
 	initialize_directions = 14
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 8
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -10797,9 +10098,8 @@
 	pixel_y = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 4
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -10863,9 +10163,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 5
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -10889,9 +10188,8 @@
 	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 4
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -10991,9 +10289,8 @@
 "sr" = (
 /obj/structure/closet/l3closet/general,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/edge{
+	dir = 1
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -11047,9 +10344,8 @@
 "sw" = (
 /obj/structure/closet/l3closet/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/edge{
+	dir = 1
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -11060,9 +10356,8 @@
 	pixel_x = 2;
 	pixel_y = 6
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 1
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -11078,9 +10373,8 @@
 	pixel_y = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/edge{
+	dir = 1
 	},
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -11090,9 +10384,7 @@
 	dir = 4
 	},
 /obj/item/soap/nanotrasen,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -11101,9 +10393,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -11111,9 +10401,7 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -11121,9 +10409,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "cautioncorner"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -11136,9 +10423,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "cautioncorner"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -11167,9 +10453,8 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "cautioncorner"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -11188,17 +10473,14 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellow"
-	},
+/turf/simulated/floor/plasteel/neutral/yellow/edge,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
 "sI" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "cautioncorner"
+/turf/simulated/floor/plasteel/neutral/yellowblack{
+	dir = 5
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -11208,9 +10490,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 6
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -11220,9 +10501,8 @@
 	dir = 1;
 	initialize_directions = 14
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 4
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -11251,9 +10531,8 @@
 	on = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 8
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -11273,9 +10552,8 @@
 	},
 /obj/structure/table,
 /obj/item/book/manual/security_space_law,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 4
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -11338,9 +10616,8 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 6
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -11527,9 +10804,7 @@
 /obj/machinery/shower{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -11575,9 +10850,8 @@
 	layer = 2.9
 	},
 /obj/machinery/portable_atmospherics/scrubber,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "escape"
+/turf/simulated/floor/plasteel/neutral/redwhite/edge{
+	dir = 1
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -11634,9 +10908,8 @@
 "tt" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/pump,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "arrival"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 1
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -11675,9 +10948,8 @@
 /obj/structure/sign/securearea{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 6
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -11691,9 +10963,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellow"
-	},
+/turf/simulated/floor/plasteel/neutral/yellow/edge,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -11709,9 +10979,8 @@
 	pixel_y = 6;
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 8
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -11725,9 +10994,8 @@
 	pixel_y = 10
 	},
 /obj/item/radio/off,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 4
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -11948,9 +11216,7 @@
 	dir = 1
 	},
 /obj/item/bikehorn/rubberducky,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -11958,9 +11224,7 @@
 /obj/machinery/shower{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
 	})
@@ -12018,9 +11282,8 @@
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "browncorner"
+/turf/simulated/floor/plasteel/neutral/brown/corner{
+	dir = 4
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -12028,9 +11291,8 @@
 "tZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "browncorner"
+/turf/simulated/floor/plasteel/neutral/brown/corner{
+	dir = 1
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -12038,9 +11300,8 @@
 "ua" = (
 /obj/structure/filingcabinet,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 10
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -12069,9 +11330,8 @@
 	},
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 6
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -12121,9 +11381,7 @@
 	})
 "ug" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/turf/simulated/floor/plasteel/neutral/red/edge,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -12144,9 +11402,8 @@
 	on = 1;
 	req_access = null
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 10
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -12210,9 +11467,8 @@
 	sensors = list("UO45_n2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/turf/simulated/floor/plasteel/neutral/red/edge{
+	dir = 6
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -12229,9 +11485,8 @@
 	output_tag = "UO45_o2_out";
 	sensors = list("UO45_o2_sensor" = "Tank")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 6
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -12243,9 +11498,8 @@
 	on = 1;
 	req_access = null
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "blue"
+/turf/simulated/floor/plasteel/neutral/blue/edge{
+	dir = 10
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -12314,9 +11568,8 @@
 	name = "Tank Monitor";
 	sensors = list("UO45_n2_sensor" = "Nitrogen", "UO45_o2_sensor" = "Oxygen", "UO45_waste_sensor" = "Gas Mix Tank")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 9
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -12536,9 +11789,8 @@
 	})
 "uS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "browncorner"
+/turf/simulated/floor/plasteel/neutral/brown/corner{
+	dir = 1
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -12551,9 +11803,8 @@
 	name = "Distribution and Waste Monitor";
 	sensors = list("UO45_mair_in_meter" = "Mixed Air In", "UO45_air_sensor" = "Mixed Air Supply Tank", "UO45_mair_out_meter" = "Mixed Air Out", "UO45_dloop_atm_meter" = "Distribution Loop", "UO45_wloop_atm_meter" = "Waste Loop")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 8
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -12590,9 +11841,8 @@
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 5
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -12766,9 +12016,8 @@
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 6
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -12804,9 +12053,8 @@
 	})
 "vo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 10
 	},
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -12832,9 +12080,8 @@
 "vr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/computer/atmos_alert,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 8
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -12846,9 +12093,8 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 4
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -13002,9 +12248,8 @@
 	dir = 5
 	},
 /obj/machinery/computer/station_alert,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
+/turf/simulated/floor/plasteel/neutral/yellowblack/edge{
+	dir = 10
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -13164,9 +12409,8 @@
 	charge = 100;
 	maxcharge = 15000
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 6
 	},
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -13325,9 +12569,7 @@
 	req_access_txt = "201"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13357,9 +12599,7 @@
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13407,9 +12647,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13524,9 +12762,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13542,9 +12778,7 @@
 	icon_state = "pipe-c"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13553,9 +12787,7 @@
 	pixel_y = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13600,16 +12832,12 @@
 	})
 "wE" = (
 /obj/structure/filingcabinet/chestdrawer,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
 "wF" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13628,9 +12856,7 @@
 "wH" = (
 /obj/structure/chair/office,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13638,9 +12864,7 @@
 /obj/machinery/door/airlock{
 	name = "Private Restroom"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13652,9 +12876,7 @@
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13667,9 +12889,7 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13693,9 +12913,7 @@
 	pixel_y = 4
 	},
 /obj/item/stamp/ce,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13754,18 +12972,14 @@
 	},
 /obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
 "wS" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13786,9 +13000,7 @@
 	req_access = null
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13819,9 +13031,7 @@
 	},
 /obj/item/storage/backpack/satchel_eng,
 /obj/item/clothing/gloves/fingerless,
-/turf/simulated/floor/plasteel{
-	icon_state = "browncorner"
-	},
+/turf/simulated/floor/plasteel/neutral/brown/corner,
 /area/awaycontent/a4{
 	name = "UO45 Mining"
 	})
@@ -13876,9 +13086,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/turf/simulated/floor/plasteel/neutral/brown/edge,
 /area/awaycontent/a4{
 	name = "UO45 Mining"
 	})
@@ -13887,9 +13095,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/turf/simulated/floor/plasteel/neutral/brown/edge,
 /area/awaycontent/a4{
 	name = "UO45 Mining"
 	})
@@ -13901,9 +13107,7 @@
 /obj/item/lighter/zippo{
 	pixel_x = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13914,9 +13118,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13925,17 +13127,13 @@
 	dir = 1;
 	pixel_y = 3
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
 "xd" = (
 /obj/structure/bookcase/manuals/engineering,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13954,17 +13152,13 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
 "xf" = (
 /obj/machinery/computer/station_alert,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -13973,9 +13167,7 @@
 	name = "primary power monitoring console"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -14027,9 +13219,7 @@
 	pixel_y = -24;
 	req_access_txt = "201"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
@@ -26148,7 +25338,7 @@ ec
 fl
 fw
 fM
-ga
+pQ
 gi
 gn
 fO
@@ -26298,9 +25488,9 @@ eo
 fk
 fv
 fN
-ga
-ga
-ga
+pQ
+pQ
+pQ
 gv
 gD
 gP
@@ -26449,7 +25639,7 @@ fm
 fy
 fO
 gb
-ga
+pQ
 go
 fP
 gG

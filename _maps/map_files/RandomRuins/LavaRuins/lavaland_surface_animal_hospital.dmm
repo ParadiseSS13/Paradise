@@ -270,7 +270,7 @@
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/ruin/powered/animal_hospital)
 "aJ" = (
-/turf/simulated/floor/plasteel/grimy{
+/turf/simulated/floor/plasteel/misc/grimy{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300

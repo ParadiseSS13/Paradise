@@ -53,9 +53,7 @@
 "av" = (
 /obj/structure/table,
 /obj/structure/reagent_dispensers/beerkeg,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "ax" = (
 /obj/effect/spawner/window/shuttle,
@@ -312,11 +310,6 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Fore)
-"bR" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "wood-broken"
-	},
-/area/awaymission/BMPship/Fore)
 "bS" = (
 /obj/structure/closet/crate,
 /obj/item/stack/spacecash/c1000,
@@ -396,16 +389,12 @@
 /area/awaymission/BMPship/Gate)
 "cg" = (
 /obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "carpetside"
-	},
+/turf/simulated/floor/wood,
 /area/awaymission/BMPship/Fore)
 "ci" = (
 /obj/machinery/door/airlock/silver,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "carpetside"
+	dir = 1
 	},
 /area/awaymission/BMPship/Fore)
 "cl" = (
@@ -475,11 +464,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
-"cB" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "carpet"
-	},
-/area/awaymission/BMPship/Fore)
 "cC" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -494,9 +478,7 @@
 	pixel_y = 24;
 	req_access = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "cD" = (
 /obj/structure/table,
@@ -507,72 +489,57 @@
 	name = "scribbled note"
 	},
 /obj/item/screwdriver,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "cF" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 8
 	},
 /area/awaymission/BMPship/Midship)
 "cG" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "cH" = (
 /obj/machinery/vending/hydroseeds{
 	slogan_delay = 700
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 1
 	},
 /area/awaymission/BMPship/Midship)
 "cI" = (
 /obj/structure/sink,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 1
 	},
 /area/awaymission/BMPship/Midship)
 "cJ" = (
 /obj/machinery/vending/hydronutrients,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
+/turf/simulated/floor/plasteel/neutral/yellow/edge{
+	dir = 1
 	},
 /area/awaymission/BMPship/Midship)
 "cK" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 4
 	},
 /area/awaymission/BMPship/Midship)
 "cM" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "cN" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge,
 /area/awaymission/BMPship/Midship)
 "cO" = (
 /obj/structure/table,
 /obj/item/kitchen/knife/butcher,
 /obj/item/reagent_containers/food/snacks/meat,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge,
 /area/awaymission/BMPship/Midship)
 "cP" = (
 /obj/machinery/processor,
@@ -582,29 +549,21 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge,
 /area/awaymission/BMPship/Midship)
 "cQ" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge,
 /area/awaymission/BMPship/Midship)
 "cR" = (
 /obj/structure/table,
 /obj/item/kitchen/knife,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "cS" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "cT" = (
 /obj/machinery/light,
@@ -615,51 +574,19 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "cV" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
-"cW" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-13"
-	},
-/area/awaymission/BMPship/Fore)
-"cX" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-7"
-	},
-/area/awaymission/BMPship/Fore)
-"cY" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-7"
-	},
-/area/awaymission/BMPship/Fore)
 "cZ" = (
 /obj/item/reagent_containers/food/snacks/hugemushroomslice,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "db" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge,
 /area/awaymission/BMPship/Midship)
 "dc" = (
 /turf/simulated/floor/plasteel,
@@ -668,69 +595,36 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge,
 /area/awaymission/BMPship/Midship)
 "dg" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
-"dh" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-14"
-	},
-/area/awaymission/BMPship/Fore)
 "di" = (
 /obj/structure/kitchenspike,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
-/area/awaymission/BMPship/Aft)
-"dj" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "dk" = (
 /obj/machinery/door/airlock/silver,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "dl" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/BMPship/Aft)
 "dm" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/BMPship/Aft)
 "dn" = (
 /obj/machinery/gibber,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/BMPship/Aft)
 "do" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
-"dp" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-11"
-	},
-/area/awaymission/BMPship/Fore)
 "dq" = (
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Aft)
@@ -741,9 +635,7 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "ds" = (
 /obj/structure/cable{
@@ -752,10 +644,7 @@
 	icon_state = "1-4";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-11"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "dt" = (
 /obj/item/reagent_containers/food/snacks/hugemushroomslice,
@@ -768,36 +657,26 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge,
 /area/awaymission/BMPship/Midship)
 "dv" = (
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge,
 /area/awaymission/BMPship/Midship)
 "dw" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge,
 /area/awaymission/BMPship/Midship)
 "dx" = (
 /obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "dy" = (
 /obj/machinery/door/window,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge,
 /area/awaymission/BMPship/Midship)
 "dz" = (
 /obj/structure/cable{
@@ -805,23 +684,17 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "dA" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/meat,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/BMPship/Aft)
 "dB" = (
 /obj/item/crowbar,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/BMPship/Aft)
 "dC" = (
 /obj/structure/largecrate,
@@ -832,9 +705,7 @@
 /obj/structure/closet/secure_closet/freezer/meat{
 	opened = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/BMPship/Aft)
 "dE" = (
 /obj/structure/cable{
@@ -856,9 +727,7 @@
 	name = "awaystart"
 	},
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/BMPship/Aft)
 "dG" = (
 /obj/effect/decal/warning_stripes/south,
@@ -870,66 +739,24 @@
 	info = "I'm no scientist, but judging from the design and components, it seems to be some kind of gateway. This thing is gonna be worth a lot of cash to the right man. The boys are excited, as they have every right to be, and I've let them crack into that case of beer we got. I normally wouldn't allow such a thing, but this is a time for celebration! It's not like a couple drinks will hurt anything.";
 	name = "Captain's log entry"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet6-0"
-	},
-/area/awaymission/BMPship/Fore)
-"dI" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet14-8"
-	},
-/area/awaymission/BMPship/Fore)
-"dJ" = (
-/obj/structure/table,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet14-2"
-	},
-/area/awaymission/BMPship/Fore)
-"dK" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "carpet"
-	},
-/area/awaymission/BMPship/Fore)
-"dL" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet10-0"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "dM" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 10
 	},
 /area/awaymission/BMPship/Midship)
 "dN" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/turf/simulated/floor/plasteel/neutral/green/edge,
 /area/awaymission/BMPship/Midship)
 "dO" = (
 /obj/machinery/seed_extractor,
 /obj/item/seeds/plump/walkingmushroom,
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/turf/simulated/floor/plasteel/neutral/green/edge,
 /area/awaymission/BMPship/Midship)
 "dP" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "green"
+/turf/simulated/floor/plasteel/neutral/green/edge{
+	dir = 6
 	},
 /area/awaymission/BMPship/Midship)
 "dR" = (
@@ -945,9 +772,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "dT" = (
 /obj/structure/cable{
@@ -956,9 +781,7 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "dU" = (
 /obj/item/reagent_containers/food/snacks/meat,
@@ -968,9 +791,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "dV" = (
 /obj/machinery/light/small,
@@ -1067,32 +888,14 @@
 /obj/item/multitool,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Aft)
-"ee" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-15"
-	},
-/area/awaymission/BMPship/Fore)
 "ef" = (
 /obj/structure/table,
 /obj/machinery/recharger,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet5-0"
-	},
-/area/awaymission/BMPship/Fore)
-"eg" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet13-4"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "eh" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet13-1"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "ei" = (
 /obj/machinery/light{
@@ -1104,16 +907,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet"
-	},
-/area/awaymission/BMPship/Fore)
-"ej" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet9-0"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "ek" = (
 /obj/structure/cable{
@@ -1122,9 +916,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "el" = (
 /obj/structure/cable{
@@ -1133,17 +925,13 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "em" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "en" = (
 /obj/structure/cable{
@@ -1152,21 +940,8 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
-"eo" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
-/area/awaymission/BMPship/Aft)
 "ep" = (
 /obj/structure/kitchenspike,
 /obj/effect/decal/warning_stripes/south,
@@ -1176,9 +951,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "er" = (
 /turf/simulated/wall/r_wall,
@@ -1196,9 +969,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "eu" = (
 /obj/structure/cable{
@@ -1211,19 +982,11 @@
 /area/awaymission/BMPship/Aft)
 "ev" = (
 /obj/item/shard,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "carpetside"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "ew" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "carpetside"
-	},
+/obj/structure/computerframe,
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "ex" = (
 /obj/structure/cable{
@@ -1238,9 +1001,7 @@
 	icon_state = "1-4";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "ey" = (
 /obj/machinery/door/airlock/titanium,
@@ -1261,10 +1022,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpetside"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Midship)
 "eC" = (
 /obj/structure/cable{
@@ -1273,9 +1031,7 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "eD" = (
 /obj/structure/cable{
@@ -1290,9 +1046,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "eE" = (
 /obj/machinery/shieldwallgen,
@@ -1313,9 +1067,7 @@
 	operating = 0;
 	req_access = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "eG" = (
 /obj/machinery/conveyor{
@@ -1349,18 +1101,14 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "eK" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "eL" = (
 /obj/structure/closet/crate,
@@ -1391,9 +1139,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "eP" = (
 /obj/structure/cable{
@@ -1466,41 +1212,28 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet11-12"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "eW" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet7-3"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "eX" = (
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-14"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "fa" = (
 /obj/item/reagent_containers/glass/bucket,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "fb" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "fc" = (
 /obj/structure/cable{
@@ -1512,9 +1245,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "fd" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1545,9 +1276,7 @@
 /obj/machinery/conveyor_switch/oneway{
 	id = "meatConvey1"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "fj" = (
 /obj/structure/cable{
@@ -1564,17 +1293,13 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Aft)
 "fl" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "fn" = (
 /obj/effect/gibspawner/human,
@@ -1593,18 +1318,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
-"fr" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-13"
-	},
-/area/awaymission/BMPship/Fore)
 "fs" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -1618,10 +1331,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-7"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "fu" = (
 /obj/structure/cable{
@@ -1630,10 +1340,7 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-15"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "fv" = (
 /obj/structure/cable{
@@ -1642,10 +1349,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-7"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "fw" = (
 /obj/structure/cable{
@@ -1660,9 +1364,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "fx" = (
 /obj/structure/cable{
@@ -1677,9 +1379,7 @@
 	icon_state = "1-4";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "fy" = (
 /obj/structure/cable{
@@ -1694,9 +1394,7 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "fz" = (
 /obj/effect/gibspawner/generic,
@@ -1715,55 +1413,25 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "fC" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Aft)
 "fD" = (
 /obj/structure/mopbucket,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
-"fE" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "carpetside"
-	},
-/area/awaymission/BMPship/Fore)
 "fF" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "carpetside"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "fG" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
-"fI" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-11"
-	},
-/area/awaymission/BMPship/Fore)
 "fJ" = (
 /obj/machinery/door/airlock/silver,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpetside"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Midship)
 "fK" = (
 /obj/machinery/door/window{
@@ -1785,9 +1453,7 @@
 	icon_state = "1-4";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "fM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1803,21 +1469,15 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Aft)
 "fO" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "fP" = (
 /obj/effect/gibspawner/generic,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "fQ" = (
 /obj/structure/cable{
@@ -1832,9 +1492,7 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "fS" = (
 /obj/machinery/power/smes/magical{
@@ -1868,10 +1526,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-15"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "fW" = (
 /obj/structure/closet,
@@ -1890,17 +1545,11 @@
 	dir = 4
 	},
 /obj/structure/closet,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "fZ" = (
 /obj/structure/closet,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-15"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "ga" = (
 /obj/item/wrench,
@@ -1915,9 +1564,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "gd" = (
 /obj/structure/window/reinforced{
@@ -1930,9 +1577,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Aft)
 "gf" = (
 /obj/structure/window/reinforced,
@@ -1940,9 +1585,7 @@
 /area/awaymission/BMPship/Aft)
 "gh" = (
 /obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/plasteel{
-	icon_state = "carpetside"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "gi" = (
 /obj/structure/cable{
@@ -1952,9 +1595,7 @@
 	tag = ""
 	},
 /obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/plasteel{
-	icon_state = "carpetside"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "gk" = (
 /obj/structure/window/reinforced{
@@ -1973,9 +1614,7 @@
 /area/awaymission/BMPship/Midship)
 "gm" = (
 /obj/structure/kitchenspike,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "gn" = (
 /obj/structure/cable{
@@ -2007,9 +1646,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "gr" = (
 /obj/structure/window/reinforced{
@@ -2092,9 +1729,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gE" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -2106,9 +1741,7 @@
 	tag = ""
 	},
 /obj/item/kitchen/knife,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "gG" = (
 /obj/structure/cable{
@@ -2117,17 +1750,13 @@
 	icon_state = "1-4";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "gH" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "meatConvey2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "gI" = (
 /obj/structure/cable{
@@ -2136,9 +1765,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "gJ" = (
 /obj/structure/cable{
@@ -2147,15 +1774,11 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "gK" = (
 /obj/item/mop,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "gL" = (
 /obj/effect/decal/warning_stripes/southeast,
@@ -2166,9 +1789,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
 "gN" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -2208,28 +1829,20 @@
 	icon_state = "1-4";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "gU" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/meat,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "gV" = (
 /obj/item/reagent_containers/glass/bucket,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "gX" = (
 /obj/structure/reagent_dispensers,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "gY" = (
 /obj/effect/landmark/damageturf,
@@ -2253,15 +1866,11 @@
 /area/awaymission)
 "hc" = (
 /obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "hd" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "he" = (
 /obj/machinery/door/airlock/silver{
@@ -2480,9 +2089,7 @@
 /obj/effect/decal/warning_stripes/arrow{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/BMPship/Midship)
 "hW" = (
 /obj/machinery/door/airlock/titanium,
@@ -2499,9 +2106,7 @@
 /obj/structure/rack,
 /obj/item/storage/box/lights,
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "ia" = (
 /obj/structure/mecha_wreckage/ripley,
@@ -2539,9 +2144,7 @@
 /obj/structure/rack,
 /obj/item/storage/belt/utility/full,
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "ig" = (
 /obj/structure/closet,
@@ -2619,9 +2222,7 @@
 /area/awaymission/BMPship/Aft)
 "iu" = (
 /obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plasteel/neutral/cafeteria,
 /area/awaymission/BMPship/Aft)
 "iv" = (
 /obj/structure/toilet{
@@ -2630,17 +2231,13 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plasteel/neutral/cafeteria,
 /area/awaymission/BMPship/Aft)
 "iw" = (
 /obj/structure/mirror{
 	pixel_y = 28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plasteel/neutral/cafeteria,
 /area/awaymission/BMPship/Aft)
 "ix" = (
 /obj/item/caution,
@@ -2657,9 +2254,7 @@
 /area/awaymission/BMPship/Aft)
 "iB" = (
 /obj/structure/sink,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plasteel/neutral/cafeteria,
 /area/awaymission/BMPship/Aft)
 "iD" = (
 /obj/item/clothing/gloves/color/yellow,
@@ -2838,9 +2433,7 @@
 /area/awaymission/BMPship/Gate)
 "jn" = (
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/awaymission/BMPship/Aft)
 "jo" = (
 /obj/structure/cable{
@@ -9061,12 +8654,12 @@ aa
 aa
 aU
 aU
-ee
+fF
 ew
 eW
 eW
 fF
-ee
+fF
 aU
 aU
 aa
@@ -9190,13 +8783,13 @@ aa
 aa
 aU
 aU
-cB
-ee
+fF
+fF
 ev
 eV
 eV
-fE
-ee
+fF
+fF
 aU
 gs
 as
@@ -9319,14 +8912,14 @@ aa
 aa
 aU
 aU
-cB
-cB
-ee
-ee
-ee
-ee
-ee
-ee
+fF
+fF
+fF
+fF
+fF
+fF
+fF
+fF
 aU
 gA
 gs
@@ -9448,15 +9041,15 @@ bk
 bk
 aU
 aU
-cW
-dh
+fF
+fF
 dH
 ef
-cW
+fF
 eX
-cW
-dh
-ee
+fF
+fF
+fF
 gh
 gs
 gz
@@ -9575,17 +9168,17 @@ aa
 aU
 bl
 bF
-bR
+bF
 aU
-cB
-cX
-dp
-dJ
+fF
+fF
+fF
+eW
 eh
-cX
-dp
+fF
+fF
 ft
-fI
+fV
 fV
 gi
 gC
@@ -9707,16 +9300,16 @@ bn
 bG
 bF
 cg
-cB
-cW
-dh
-dI
-eg
-cW
-dh
-fr
-dh
-ee
+fF
+fF
+fF
+ew
+fF
+fF
+fF
+fv
+fF
+fF
 aU
 gB
 gD
@@ -9838,14 +9431,14 @@ aU
 aU
 aU
 cC
-cY
+fV
 ds
-dL
-ej
-cX
-dp
+fF
+fF
+fF
+fF
 fv
-dp
+fF
 fZ
 aU
 gu
@@ -9967,15 +9560,15 @@ bv
 bQ
 ar
 ci
-cB
-cB
+fF
+fF
 dr
-dK
+fV
 ei
 ex
 fV
 fu
-cB
+fF
 fY
 aU
 gt
@@ -13479,16 +13072,16 @@ bs
 dC
 am
 di
-dj
-dj
-dj
-dj
+do
+do
+do
+do
 fl
-dj
+do
 gI
 fl
-dj
-dj
+do
+do
 gU
 ai
 dq
@@ -13611,15 +13204,15 @@ am
 di
 dz
 dU
-eo
-eo
+eO
+eO
 fc
-eo
+eO
 fQ
 fc
-eo
+eO
 gG
-dj
+do
 ai
 dq
 dq
@@ -13738,10 +13331,10 @@ aG
 jl
 dV
 am
-dj
-dj
-dj
-dj
+do
+do
+do
+do
 bZ
 eR
 fp
@@ -13749,7 +13342,7 @@ fp
 eR
 gk
 gI
-dj
+do
 hg
 dq
 bd
@@ -13871,7 +13464,7 @@ am
 dk
 ai
 ai
-dj
+do
 bY
 bd
 bd
@@ -13879,7 +13472,7 @@ fz
 fD
 gf
 gI
-dj
+do
 ai
 dq
 dq
@@ -14001,7 +13594,7 @@ am
 dl
 dD
 ai
-dj
+do
 bY
 fn
 bd
@@ -14131,7 +13724,7 @@ am
 dm
 dA
 ai
-dj
+do
 eQ
 eS
 fq
@@ -14139,7 +13732,7 @@ fq
 fU
 gr
 gJ
-eo
+eO
 he
 es
 hK
@@ -14261,14 +13854,14 @@ am
 dl
 dF
 ai
-dj
-dj
-dj
-dj
-dj
-dj
-dj
-dj
+do
+do
+do
+do
+do
+do
+do
+do
 gV
 ai
 hu
@@ -14392,12 +13985,12 @@ dn
 dB
 ai
 et
-dj
-dj
-dj
-dj
+do
+do
+do
+do
 et
-dj
+do
 gK
 gX
 ai

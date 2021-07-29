@@ -122,16 +122,14 @@
 /obj/item/clothing/gloves/fingerless,
 /obj/item/clothing/shoes/workboots,
 /obj/item/clothing/suit/storage/hazardvest,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 8
 	},
 /area/mine/laborcamp)
 "av" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 1
 	},
 /area/mine/laborcamp)
 "aw" = (
@@ -155,7 +153,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "az" = (
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel/misc/circuit/blue,
 /area/mine/maintenance)
 "aA" = (
 /obj/effect/decal/cleanable/dirt,
@@ -195,9 +193,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 1
 	},
 /area/mine/laborcamp)
 "aF" = (
@@ -211,9 +208,8 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 4
 	},
 /area/mine/laborcamp)
 "aI" = (
@@ -240,9 +236,7 @@
 	dir = 4;
 	pixel_x = -23
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge,
 /area/mine/laborcamp)
 "aL" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -273,9 +267,7 @@
 "aP" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/ancient,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge,
 /area/mine/laborcamp)
 "aQ" = (
 /obj/structure/table,
@@ -288,15 +280,12 @@
 	},
 /obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/stack/medical/bruise_pack/advanced,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge,
 /area/mine/laborcamp)
 "aS" = (
 /obj/machinery/mineral/ore_redemption/labor,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 4
 	},
 /area/mine/laborcamp)
 "aT" = (
@@ -315,18 +304,16 @@
 /area/mine/laborcamp)
 "aV" = (
 /obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 4
 	},
 /area/mine/laborcamp)
 "aW" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 4
 	},
 /area/mine/laborcamp)
 "aX" = (
@@ -392,9 +379,8 @@
 	pixel_y = 9
 	},
 /obj/item/pen,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 4
 	},
 /area/mine/laborcamp)
 "bf" = (
@@ -411,9 +397,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 1
 	},
 /area/mine/laborcamp/security)
 "bi" = (
@@ -436,9 +421,8 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 9
 	},
 /area/mine/laborcamp)
 "bk" = (
@@ -454,9 +438,7 @@
 	department = "Labor Camp";
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/turf/simulated/floor/plasteel/neutral/brown/edge,
 /area/mine/laborcamp)
 "bm" = (
 /obj/machinery/light/small,
@@ -464,9 +446,8 @@
 	dir = 9
 	},
 /obj/machinery/cryopod,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 6
 	},
 /area/mine/laborcamp)
 "bn" = (
@@ -474,9 +455,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "browncorner"
-	},
+/turf/simulated/floor/plasteel/neutral/brown/corner,
 /area/mine/laborcamp)
 "bo" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -489,7 +468,7 @@
 	pixel_y = -24;
 	specialfunctions = 4
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/mine/living_quarters)
 "bp" = (
 /obj/effect/turf_decal/tile/purple{
@@ -590,9 +569,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/turf/simulated/floor/plasteel/neutral/brown/edge,
 /area/mine/laborcamp)
 "bz" = (
 /obj/structure/cable{
@@ -891,9 +868,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredcorners"
-	},
+/turf/simulated/floor/plasteel/dark/red/corner,
 /area/mine/laborcamp)
 "ca" = (
 /obj/effect/decal/cleanable/dirt,
@@ -909,9 +884,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/turf/simulated/floor/plasteel/dark/red/edge,
 /area/mine/laborcamp/security)
 "cb" = (
 /obj/machinery/light_switch{
@@ -924,9 +897,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/turf/simulated/floor/plasteel/dark/red/edge,
 /area/mine/laborcamp/security)
 "cc" = (
 /obj/structure/cable{
@@ -943,9 +914,7 @@
 	desc = "Powered by the tears and sweat of laborers.";
 	name = "Prison Ofitser"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/turf/simulated/floor/plasteel/dark/red/edge,
 /area/mine/laborcamp/security)
 "cd" = (
 /obj/structure/table,
@@ -966,9 +935,8 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkredcorners"
+/turf/simulated/floor/plasteel/dark/red/corner{
+	dir = 8
 	},
 /area/mine/laborcamp/security)
 "ce" = (
@@ -997,9 +965,8 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 1
 	},
 /area/mine/laborcamp/security)
 "cj" = (
@@ -1422,7 +1389,7 @@
 /obj/machinery/alarm{
 	pixel_y = 24
 	},
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel/misc/circuit/blue,
 /area/mine/maintenance)
 "dh" = (
 /obj/structure/cable{
@@ -1455,7 +1422,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel/misc/circuit/blue,
 /area/mine/maintenance)
 "dl" = (
 /obj/machinery/mineral/equipment_vendor,
@@ -1571,7 +1538,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel/misc/circuit/blue,
 /area/mine/maintenance)
 "dy" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -1590,7 +1557,7 @@
 	dir = 8;
 	network = list("Mining Outpost")
 	},
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel/misc/circuit/blue,
 /area/mine/maintenance)
 "dA" = (
 /obj/machinery/camera{
@@ -2823,7 +2790,7 @@
 	dir = 4
 	},
 /obj/structure/curtain/open/shower,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/mine/living_quarters)
 "gd" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -2838,7 +2805,7 @@
 	dir = 4
 	},
 /obj/structure/curtain/open/shower,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/mine/living_quarters)
 "gf" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -3229,16 +3196,15 @@
 	dir = 5
 	},
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 4
 	},
 /area/mine/laborcamp)
 "hz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/mine/living_quarters)
 "hA" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3280,9 +3246,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/cigbutt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 4
 	},
 /area/mine/laborcamp)
 "id" = (
@@ -3386,9 +3351,7 @@
 /obj/machinery/mineral/labor_points_checker{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/turf/simulated/floor/plasteel/neutral/brown/edge,
 /area/mine/laborcamp)
 "jg" = (
 /obj/structure/stone_tile,
@@ -3448,9 +3411,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 4
 	},
 /area/mine/laborcamp)
 "jq" = (
@@ -4256,17 +4218,15 @@
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 4
 	},
 /area/mine/laborcamp)
 "oR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/dispenser/oxygen,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 4
 	},
 /area/mine/laborcamp)
 "pa" = (
@@ -4286,9 +4246,8 @@
 "qw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/cigbutt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 1
 	},
 /area/mine/laborcamp)
 "qA" = (
@@ -4302,9 +4261,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 1
 	},
 /area/mine/laborcamp)
 "qL" = (
@@ -4346,9 +4304,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 6
 	},
 /area/mine/laborcamp)
 "rV" = (
@@ -4376,9 +4333,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkredcorners"
+/turf/simulated/floor/plasteel/dark/red/corner{
+	dir = 4
 	},
 /area/mine/laborcamp)
 "sP" = (
@@ -4389,9 +4345,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge,
 /area/mine/laborcamp)
 "sR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4421,9 +4375,8 @@
 	network = list("Labor Camp")
 	},
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 1
 	},
 /area/mine/laborcamp)
 "tI" = (
@@ -4433,13 +4386,11 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/mine/living_quarters)
 "tJ" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/turf/simulated/floor/plasteel/neutral/brown/edge,
 /area/mine/laborcamp)
 "tK" = (
 /obj/structure/ore_box,
@@ -4473,9 +4424,8 @@
 /area/mine/laborcamp)
 "ug" = (
 /obj/item/cigbutt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 8
 	},
 /area/mine/laborcamp)
 "uL" = (
@@ -4502,9 +4452,8 @@
 /obj/item/lighter/random{
 	pixel_x = 2
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 8
 	},
 /area/mine/laborcamp)
 "vI" = (
@@ -4514,9 +4463,8 @@
 	},
 /obj/item/trash/syndi_cakes,
 /obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 4
 	},
 /area/mine/laborcamp)
 "vZ" = (
@@ -4565,9 +4513,8 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 1
 	},
 /area/mine/laborcamp)
 "xA" = (
@@ -4596,17 +4543,15 @@
 /area/shuttle/mining)
 "xR" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "browncorner"
+/turf/simulated/floor/plasteel/neutral/brown/corner{
+	dir = 1
 	},
 /area/mine/laborcamp)
 "ym" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 4
 	},
 /area/mine/laborcamp)
 "yR" = (
@@ -4618,9 +4563,8 @@
 "zo" = (
 /obj/structure/table,
 /obj/item/kitchen/utensil/fork,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 8
 	},
 /area/mine/laborcamp)
 "zt" = (
@@ -4678,9 +4622,8 @@
 /area/shuttle/mining)
 "Cy" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 10
 	},
 /area/mine/laborcamp)
 "CF" = (
@@ -4697,9 +4640,8 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 8
 	},
 /area/mine/laborcamp)
 "Dd" = (
@@ -4751,9 +4693,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 8
 	},
 /area/mine/laborcamp)
 "EG" = (
@@ -4776,7 +4717,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/mine/living_quarters)
 "Fp" = (
 /obj/structure/bed,
@@ -4801,9 +4742,8 @@
 /obj/item/clothing/gloves/fingerless,
 /obj/item/clothing/shoes/workboots,
 /obj/item/clothing/suit/storage/hazardvest,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 8
 	},
 /area/mine/laborcamp)
 "FW" = (
@@ -4842,15 +4782,12 @@
 /area/mine/laborcamp)
 "HA" = (
 /obj/machinery/atmospherics/binary/pump/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/turf/simulated/floor/plasteel/neutral/brown/edge,
 /area/mine/laborcamp)
 "HJ" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 8
 	},
 /area/mine/laborcamp)
 "HK" = (
@@ -4863,9 +4800,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 8
 	},
 /area/mine/laborcamp)
 "Ia" = (
@@ -4892,7 +4828,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/mine/living_quarters)
 "IZ" = (
 /obj/structure/window/reinforced{
@@ -4932,9 +4868,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 4
 	},
 /area/mine/laborcamp)
 "JV" = (
@@ -4967,9 +4902,8 @@
 "Kl" = (
 /obj/structure/table,
 /obj/item/trash/plate,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 8
 	},
 /area/mine/laborcamp)
 "KE" = (
@@ -5008,9 +4942,8 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 1
 	},
 /area/mine/laborcamp)
 "ME" = (
@@ -5020,9 +4953,8 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 9
 	},
 /area/mine/laborcamp)
 "Ne" = (
@@ -5048,7 +4980,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/mine/living_quarters)
 "ND" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5088,9 +5020,8 @@
 /area/mine/laborcamp)
 "Oh" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 4
 	},
 /area/mine/laborcamp)
 "OF" = (
@@ -5114,9 +5045,8 @@
 	dir = 4;
 	pixel_x = -22
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 8
 	},
 /area/mine/laborcamp)
 "Rd" = (
@@ -5134,9 +5064,8 @@
 /obj/item/clothing/gloves/fingerless,
 /obj/item/clothing/shoes/workboots,
 /obj/item/clothing/suit/storage/hazardvest,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 8
 	},
 /area/mine/laborcamp)
 "Rs" = (
@@ -5154,9 +5083,8 @@
 /obj/item/clothing/gloves/fingerless,
 /obj/item/clothing/shoes/workboots,
 /obj/item/clothing/suit/storage/hazardvest,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 8
 	},
 /area/mine/laborcamp)
 "Tj" = (
@@ -5187,16 +5115,15 @@
 	dir = 4
 	},
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/mine/living_quarters)
 "Ts" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 4
 	},
 /area/mine/laborcamp)
 "TN" = (
@@ -5237,9 +5164,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 8
 	},
 /area/mine/laborcamp)
 "Vu" = (
@@ -5277,9 +5203,8 @@
 /obj/machinery/computer/secure_data{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkredcorners"
+/turf/simulated/floor/plasteel/dark/red/corner{
+	dir = 1
 	},
 /area/mine/laborcamp/security)
 "VN" = (
@@ -5291,9 +5216,8 @@
 /area/mine/laborcamp)
 "VO" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 1
 	},
 /area/mine/laborcamp)
 "Wo" = (
@@ -5326,9 +5250,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/turf/simulated/floor/plasteel/neutral/brown/edge,
 /area/mine/laborcamp)
 "WO" = (
 /obj/effect/spawner/window,
@@ -5340,9 +5262,8 @@
 "Xd" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/turf/simulated/floor/plasteel/neutral/brown/edge{
+	dir = 1
 	},
 /area/mine/laborcamp)
 "YJ" = (
@@ -5360,9 +5281,8 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/dark/red/edge{
+	dir = 1
 	},
 /area/mine/laborcamp/security)
 "YY" = (
@@ -5381,7 +5301,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/mine/living_quarters)
 "Zk" = (
 /obj/effect/decal/cleanable/dirt,

@@ -194,9 +194,8 @@
 	dir = 1;
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "aI" = (
@@ -205,9 +204,8 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "aJ" = (
@@ -221,9 +219,8 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/wwvault)
 "aL" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "aM" = (
@@ -236,9 +233,8 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "aP" = (
@@ -417,9 +413,8 @@
 /area/space/nearstation)
 "by" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "bz" = (
@@ -427,9 +422,8 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "bA" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "bB" = (
@@ -445,9 +439,8 @@
 /area/awaymission/wwmines)
 "bE" = (
 /mob/living/simple_animal/hostile/syndicate/ranged/wildwest,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "bF" = (
@@ -518,16 +511,14 @@
 /area/awaymission/wwmines)
 "bQ" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "bR" = (
 /obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "bS" = (
@@ -535,9 +526,8 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "bT" = (
@@ -547,9 +537,8 @@
 /obj/item/reagent_containers/food/snacks/meat/syntiflesh,
 /obj/item/reagent_containers/food/snacks/meat/syntiflesh,
 /obj/item/reagent_containers/food/snacks/meat/syntiflesh,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "bU" = (
@@ -619,36 +608,32 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "cc" = (
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "cd" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "ce" = (
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "cf" = (
@@ -730,9 +715,8 @@
 /area/awaymission/wwmines)
 "cq" = (
 /obj/effect/mob_spawn/human/cook,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "cr" = (
@@ -777,9 +761,8 @@
 	info = " The miners in the town have become sick and almost all production has stopped. They, in a fit of delusion, tossed all of their mining equipment into the furnaces.  They all claimed the same thing. A voice beckoning them to lay down their arms. Stupid miners.";
 	name = "Planer Saul's Journal: Page 4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "cz" = (
@@ -852,9 +835,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wwgov)
 "cN" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaymission/wwgov)
 "cO" = (
 /obj/effect/decal/remains/human,
@@ -865,24 +846,18 @@
 /area/awaymission/wwrefine)
 "cP" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaymission/wwgov)
 "cQ" = (
 /obj/machinery/kitchen_machine/microwave,
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaymission/wwgov)
 "cR" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaymission/wwgov)
 "cS" = (
 /obj/structure/lattice,
@@ -979,23 +954,17 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaymission/wwgov)
 "dh" = (
 /mob/living/simple_animal/hostile/creature,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaymission/wwgov)
 "di" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaymission/wwgov)
 "dj" = (
 /obj/structure/bookcase{
@@ -1091,21 +1060,15 @@
 /area/awaymission/wwgov)
 "dx" = (
 /obj/item/reagent_containers/food/snacks/monkeysdelight,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaymission/wwgov)
 "dy" = (
 /obj/item/reagent_containers/food/snacks/soup/stew,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaymission/wwgov)
 "dz" = (
 /obj/item/kitchen/knife,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaymission/wwgov)
 "dA" = (
 /obj/structure/chair/comfy/brown,
@@ -1166,15 +1129,11 @@
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/creature,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaymission/wwgov)
 "dJ" = (
 /obj/item/kitchen/rollingpin,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaymission/wwgov)
 "dK" = (
 /obj/machinery/light/small{
@@ -1211,15 +1170,11 @@
 /area/awaymission/wwgov)
 "dQ" = (
 /obj/item/reagent_containers/food/drinks/bottle/wine,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaymission/wwgov)
 "dR" = (
 /obj/item/reagent_containers/food/drinks/bottle/patron,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaymission/wwgov)
 "dS" = (
 /obj/item/reagent_containers/food/drinks/drinkingglass,
@@ -1227,9 +1182,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
+/turf/simulated/floor/plasteel/neutral,
 /area/awaymission/wwgov)
 "dT" = (
 /obj/structure/chair/comfy/beige{
@@ -1303,9 +1256,7 @@
 "ec" = (
 /obj/structure/toilet,
 /mob/living/simple_animal/hostile/creature,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/awaymission/wwgov)
 "ed" = (
 /obj/machinery/door/airlock/sandstone,
@@ -1335,9 +1286,8 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "ei" = (
@@ -1345,9 +1295,8 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "ej" = (
@@ -1445,9 +1394,8 @@
 /obj/machinery/shower{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "ez" = (
@@ -1465,25 +1413,22 @@
 /area/awaymission/wwmines)
 "eC" = (
 /obj/item/soap/syndie,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "eD" = (
 /obj/machinery/shower{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "eE" = (
 /obj/machinery/washing_machine,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "eF" = (
@@ -1593,9 +1538,8 @@
 /area/awaymission/wwrefine)
 "eT" = (
 /obj/effect/mine/gas/plasma,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "eU" = (
@@ -1605,9 +1549,8 @@
 "eV" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/washing_machine,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "eW" = (
@@ -1673,16 +1616,14 @@
 /area/awaymission/wwmines)
 "fg" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "fh" = (
 /obj/effect/mob_spawn/human/doctor,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "fi" = (
@@ -1705,9 +1646,8 @@
 /area/awaymission/wwmines)
 "fl" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
+/turf/simulated/floor/plasteel/neutral/cafeteria{
+	dir = 5
 	},
 /area/awaymission/wwmines)
 "fm" = (
@@ -1913,16 +1853,14 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "fR" = (
 /obj/machinery/vending/coffee,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "fS" = (
@@ -1940,9 +1878,8 @@
 /area/awaymission/wwgov)
 "fU" = (
 /obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "fV" = (
@@ -1955,9 +1892,8 @@
 /area/awaymission/wwmines)
 "fX" = (
 /obj/machinery/vending/snack,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "fY" = (
@@ -1969,16 +1905,14 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "ga" = (
 /obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "gb" = (
@@ -2005,16 +1939,14 @@
 /obj/effect/decal/cleanable/blood/gibs/body{
 	icon_state = "gibdown1"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "ge" = (
 /obj/item/stack/medical/bruise_pack,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "gf" = (
@@ -2032,18 +1964,16 @@
 /area/awaymission/wwrefine)
 "gg" = (
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "gh" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "gi" = (
@@ -2073,18 +2003,16 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "gn" = (
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "go" = (
@@ -2126,9 +2054,8 @@
 /obj/effect/decal/cleanable/blood/gibs/body{
 	icon_state = "gibup1"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "gv" = (
@@ -2185,9 +2112,8 @@
 /area/awaymission/wwmines)
 "gD" = (
 /obj/structure/chair/wood,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "gE" = (
@@ -2234,9 +2160,8 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "gM" = (
@@ -2277,9 +2202,8 @@
 	icon_state = "gibup1"
 	},
 /obj/structure/chair/wood,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+/turf/simulated/floor/plasteel/neutral/bluewhite/edge{
+	dir = 8
 	},
 /area/awaymission/wwmines)
 "gU" = (

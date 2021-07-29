@@ -222,9 +222,7 @@
 /obj/structure/toilet{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/ruin/unpowered)
 "aw" = (
 /obj/structure/mirror{
@@ -234,9 +232,7 @@
 	dir = 4;
 	pixel_x = 11
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/ruin/unpowered)
 "ax" = (
 /obj/structure/table,
@@ -350,18 +346,14 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "aK" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/ruin/unpowered)
 "aL" = (
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_y = -8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/ruin/unpowered)
 "aM" = (
 /obj/structure/table,
@@ -419,17 +411,13 @@
 /obj/machinery/shower{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/ruin/unpowered)
 "aU" = (
 /obj/machinery/shower{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/ruin/unpowered)
 "aV" = (
 /obj/machinery/light/small{
@@ -478,9 +466,7 @@
 	dir = 4
 	},
 /obj/item/soap,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/ruin/unpowered)
 "bc" = (
 /obj/structure/grille,
@@ -500,9 +486,7 @@
 /obj/machinery/door/airlock/highsecurity{
 	name = "Bunker"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/misc/freezer,
 /area/ruin/unpowered)
 "bf" = (
 /obj/structure/closet/fireaxecabinet{
@@ -632,36 +616,26 @@
 "bA" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/ruin/unpowered)
 "bB" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/ruin/unpowered)
 "bC" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/ruin/unpowered)
 "bD" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/beans,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/ruin/unpowered)
 "bE" = (
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/ruin/unpowered)
 "bF" = (
 /obj/machinery/seed_extractor,
@@ -705,22 +679,16 @@
 "bK" = (
 /obj/structure/table,
 /obj/item/kitchen/knife,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/ruin/unpowered)
 "bL" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/ruin/unpowered)
 "bM" = (
 /obj/structure/table,
 /obj/item/kitchen/utensil/fork,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/ruin/unpowered)
 "bN" = (
 /obj/machinery/vending/hydronutrients,
@@ -742,15 +710,11 @@
 /area/ruin/unpowered)
 "bR" = (
 /obj/machinery/smartfridge,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/ruin/unpowered)
 "bS" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/ruin/unpowered)
 "bT" = (
 /obj/machinery/vending/hydroseeds{

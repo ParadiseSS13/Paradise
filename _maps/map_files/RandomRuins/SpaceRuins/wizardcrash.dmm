@@ -291,16 +291,14 @@
 /area/ruin/unpowered)
 "ba" = (
 /obj/structure/kitchenspike,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 1
 	},
 /area/ruin/unpowered)
 "bb" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 4
 	},
 /area/ruin/unpowered)
 "bc" = (
@@ -310,9 +308,8 @@
 /area/ruin/unpowered)
 "bd" = (
 /obj/structure/showcase,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 1
 	},
 /area/ruin/unpowered)
 "be" = (
@@ -338,23 +335,18 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "bi" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 8
 	},
 /area/ruin/unpowered)
 "bj" = (
 /obj/item/reagent_containers/food/snacks/meat/human,
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/plasteel{
-	icon_state = "chapel"
-	},
+/turf/simulated/floor/plasteel/misc/chapel,
 /area/ruin/unpowered)
 "bk" = (
 /obj/structure/rack,
-/turf/simulated/floor/plasteel{
-	icon_state = "chapel"
-	},
+/turf/simulated/floor/plasteel/misc/chapel,
 /area/ruin/unpowered)
 "bl" = (
 /mob/living/simple_animal/hostile/creature{
@@ -370,23 +362,20 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "bn" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 1
 	},
 /area/ruin/unpowered)
 "bo" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 4
 	},
 /area/ruin/unpowered)
 "bp" = (
 /obj/structure/rack,
 /obj/item/twohanded/staff,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 4
 	},
 /area/ruin/unpowered)
 "bq" = (
@@ -394,23 +383,18 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "bs" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "chapel"
-	},
+/turf/simulated/floor/plasteel/misc/chapel,
 /area/ruin/unpowered)
 "bt" = (
 /obj/structure/showcase,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 8
 	},
 /area/ruin/unpowered)
 "bu" = (
 /obj/structure/rack,
 /obj/item/twohanded/staff/broom,
-/turf/simulated/floor/plasteel{
-	icon_state = "chapel"
-	},
+/turf/simulated/floor/plasteel/misc/chapel,
 /area/ruin/unpowered)
 "bv" = (
 /obj/machinery/door/airlock/maintenance_hatch,
@@ -455,9 +439,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 4
 	},
 /area/ruin/unpowered)
 "bD" = (
@@ -466,9 +449,8 @@
 /area/ruin/unpowered)
 "bE" = (
 /obj/effect/decal/cleanable/blood/drip,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
+/turf/simulated/floor/plasteel/misc/chapel{
+	dir = 8
 	},
 /area/ruin/unpowered)
 "bF" = (

@@ -195,23 +195,12 @@
 /area/ruin/powered{
 	name = "Space Bar"
 	})
-"aM" = (
-/obj/machinery/door/airlock{
-	name = "Bar Storage";
-	req_access_txt = "25"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
-/area/ruin/powered{
-	name = "Space Bar"
-	})
 "aN" = (
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered{
 	name = "Space Bar"
-	})
+/turf/simulated/floor/wood
 "aO" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/powered{
@@ -1613,7 +1602,7 @@ am
 as
 as
 as
-aM
+ay
 aO
 aO
 aW

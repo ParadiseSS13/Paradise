@@ -270,9 +270,7 @@
 /obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/challenge/main)
 "aV" = (
 /turf/simulated/floor/plasteel{
@@ -290,14 +288,10 @@
 	},
 /area/awaymission/challenge/main)
 "aY" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plasteel/neutral/cafeteria,
 /area/awaymission/challenge/main)
 "aZ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/neutral/bar,
 /area/awaymission/challenge/main)
 "ba" = (
 /obj/effect/decal/cleanable/ash,
@@ -334,9 +328,7 @@
 /area/awaymission/challenge/main)
 "bf" = (
 /mob/living/simple_animal/hostile/winter/santa/stage_1,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plasteel/neutral/cafeteria,
 /area/awaymission/challenge/main)
 "bj" = (
 /obj/structure/flora/rock,
@@ -459,9 +451,7 @@
 /obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plasteel/neutral/cafeteria,
 /area/awaymission/challenge/main)
 "bF" = (
 /obj/machinery/door/poddoor{
@@ -502,7 +492,7 @@
 /obj/effect/landmark{
 	name = "awaystart"
 	},
-/turf/simulated/floor/greengrid,
+/turf/simulated/floor/plasteel/misc/circuit/green,
 /area/awaymission/challenge/start)
 "bL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -525,19 +515,19 @@
 /obj/machinery/gateway{
 	dir = 9
 	},
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel/misc/circuit/blue,
 /area/awaymission/challenge/start)
 "bP" = (
 /obj/machinery/gateway{
 	dir = 1
 	},
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel/misc/circuit/blue,
 /area/awaymission/challenge/start)
 "bQ" = (
 /obj/machinery/gateway{
 	dir = 5
 	},
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel/misc/circuit/blue,
 /area/awaymission/challenge/start)
 "bR" = (
 /turf/simulated/wall/indestructible/syndicate,
@@ -559,17 +549,17 @@
 /obj/machinery/gateway{
 	dir = 8
 	},
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel/misc/circuit/blue,
 /area/awaymission/challenge/start)
 "bV" = (
 /obj/machinery/gateway/centeraway,
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel/misc/circuit/blue,
 /area/awaymission/challenge/start)
 "bW" = (
 /obj/machinery/gateway{
 	dir = 4
 	},
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel/misc/circuit/blue,
 /area/awaymission/challenge/start)
 "bX" = (
 /obj/machinery/power/smes/magical,
@@ -624,17 +614,17 @@
 /obj/machinery/gateway{
 	dir = 10
 	},
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel/misc/circuit/blue,
 /area/awaymission/challenge/start)
 "ce" = (
 /obj/machinery/gateway,
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel/misc/circuit/blue,
 /area/awaymission/challenge/start)
 "cf" = (
 /obj/machinery/gateway{
 	dir = 6
 	},
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel/misc/circuit/blue,
 /area/awaymission/challenge/start)
 "cg" = (
 /turf/simulated/floor/plating,
