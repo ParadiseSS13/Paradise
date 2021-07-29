@@ -1,43 +1,12 @@
-/turf/simulated/floor/vault
+/turf/simulated/floor/rockvault
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "rockvault"
 	smooth = SMOOTH_FALSE
 
-/turf/simulated/wall/vault
+/turf/simulated/wall/rockvault
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rockvault"
 	smooth = SMOOTH_FALSE
-
-/turf/simulated/floor/bluegrid
-	icon = 'icons/turf/floors.dmi'
-	icon_state = "bcircuit"
-
-/turf/simulated/floor/bluegrid/telecomms
-	nitrogen = 100
-	oxygen = 0
-	temperature = 80
-
-/turf/simulated/floor/bluegrid/telecomms/server
-	name = "server base"
-
-/turf/simulated/floor/greengrid
-	icon = 'icons/turf/floors.dmi'
-	icon_state = "gcircuit"
-
-/turf/simulated/floor/greengrid/airless
-	icon_state = "gcircuit"
-	name = "airless floor"
-	oxygen = 0
-	nitrogen = 0
-	temperature = TCMB
-
-/turf/simulated/floor/greengrid/airless/Initialize(mapload)
-	. = ..()
-	name = "floor"
-
-/turf/simulated/floor/redgrid
-	icon = 'icons/turf/floors.dmi'
-	icon_state = "rcircuit"
 
 /turf/simulated/floor/beach
 	name = "beach"
