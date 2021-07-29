@@ -674,9 +674,9 @@ emp_act
 			switch(M.damtype)
 				if("brute")
 					if(M.force > 35) // durand and other heavy mechas
-						drop_item()
-						to_chat(src, "<span class='danger'> The force of the punch sends the items in your hands flying!</span>" )
-					Slowed(2)
+						Paralyse(1)
+					else if(M.force > 20 && !IsWeakened()) // lightweight mechas like gygax
+						Weaken(2)
 					update |= affecting.receive_damage(dmg, 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 				if("fire")
