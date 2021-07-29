@@ -61,7 +61,6 @@
 	if(!.)
 		return FALSE
 	SSmobs.giant_spiders--
-	return ..()
 
 //nursemaids - these create webs and eggs
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
