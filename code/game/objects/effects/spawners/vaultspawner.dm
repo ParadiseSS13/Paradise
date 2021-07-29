@@ -20,9 +20,9 @@
 	for(var/i = lowBoundX,i<=hiBoundX,i++)
 		for(var/j = lowBoundY,j<=hiBoundY,j++)
 			if(i == lowBoundX || i == hiBoundX || j == lowBoundY || j == hiBoundY)
-				new /turf/simulated/wall/vault(locate(i,j,z),type)
+				new /turf/simulated/wall/rockvault(locate(i,j,z),type)
 			else
-				var/turf/T = new /turf/simulated/floor/vault(locate(i, j, z))
+				var/turf/T = new /turf/simulated/floor/rockvault(locate(i, j, z))
 				T.icon_state = "[type]vault"
 
 	qdel(src)
