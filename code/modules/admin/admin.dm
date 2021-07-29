@@ -130,7 +130,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(GLOB.configuration.url.forum_playerinfo_url)
 			body += "<A href='?_src_=holder;webtools=[M.ckey]'>WebInfo</A> | "
 	if(M.client)
-		if(check_watchlist(M.client.ckey))
+		if(M.client.watchlisted)
 			body += "<A href='?_src_=holder;watchremove=[M.ckey]'>Remove from Watchlist</A> | "
 			body += "<A href='?_src_=holder;watchedit=[M.ckey]'>Edit Watchlist Reason</A> "
 		else

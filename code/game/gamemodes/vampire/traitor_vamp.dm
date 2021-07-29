@@ -24,7 +24,7 @@
 	secondary_enemies = CEILING((secondary_enemies_scaling * num_players()), 1)
 
 	for(var/mob/new_player/player in GLOB.player_list)
-		if((player.mind in possible_vampires) && (player.client.prefs.species in secondary_protected_species))
+		if((player.mind in possible_vampires) && (player.client.prefs.active_character.species in secondary_protected_species))
 			possible_vampires -= player.mind
 
 	if(possible_vampires.len > 0)

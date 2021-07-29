@@ -1950,7 +1950,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	if(GLOB.configuration.general.allow_character_metadata)
 		if(client)
-			to_chat(usr, "[src]'s Metainfo:<br>[sanitize(client.prefs.metadata)]")
+			to_chat(usr, "[src]'s Metainfo:<br>[sanitize(client.prefs.active_character.metadata)]")
 		else
 			to_chat(usr, "[src] does not have any stored infomation!")
 	else
