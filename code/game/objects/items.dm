@@ -117,9 +117,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?
 	var/tip_timer = 0
 
-	/// item hover FX
-	var/in_storage = FALSE //is this item inside a storage object?
-	var/outline_filter //holder var for the item outline filter, null when no outline filter on the item.
+	// item hover FX
+	/// Is this item inside a storage object?
+	var/in_storage = FALSE
+	/// Holder var for the item outline filter, null when no outline filter on the item.
+	var/outline_filter 
 
 /obj/item/New()
 	..()
