@@ -41,15 +41,14 @@ something has gone wrong - possibly a corrupt download or the files extracted wr
 or a code issue on the main repo.  Feel free to ask on Discord.
 
 Once that's done, open up the config folder.
-Firstly, you will want to copy everything from the example folder into the regular config folder.
-EG: Move `config/example/config.txt` to `config/config.txt`, and do the same for all the other files.
-You'll want to edit `config.txt` to set your server location,
+Firstly, you will want to copy `config.toml` from the example folder into the regular config folder.
+You'll want to edit the url configuration section of `config.toml` to set your server location,
 so that all your players don't get disconnected at the end of each round.
 It's recommended you don't turn on the gamemodes with probability 0,
 as they have various issues and aren't currently being tested,
 so they may have unknown and bizarre bugs.
 
-You'll also want to edit admins.txt to remove the default admins and add your own.
+You'll also want to edit the admin configuration of `config.toml` to remove the default admins and add your own.
 If you are connecting from localhost to your own test server, you should automatically be admin.
 "Host" is the highest level of access, and the other recommended admin levels for now are
 "Game Admin" and "Moderator".  The format is:
@@ -60,7 +59,7 @@ If you are connecting from localhost to your own test server, you should automat
 
 where the BYOND key must be in lowercase and the admin rank must be properly capitalised.
 There are a bunch more admin ranks, but these two should be enough for most servers,
-assuming you have trustworthy admins. You can define your own ranks in `admin_ranks.txt`
+assuming you have trustworthy admins. You can define your own ranks in the admin section of `config.toml`
 
 Finally, to start the server,
 run Dream Daemon and enter the path to your compiled paradise.dmb file.

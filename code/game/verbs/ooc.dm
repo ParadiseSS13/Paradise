@@ -19,10 +19,10 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD, 0))
-		if(!config.ooc_allowed)
+		if(!GLOB.ooc_enabled)
 			to_chat(src, "<span class='danger'>OOC is globally muted.</span>")
 			return
-		if(!config.dooc_allowed && (mob.stat == DEAD))
+		if(!GLOB.dooc_enabled && (mob.stat == DEAD))
 			to_chat(usr, "<span class='danger'>OOC for dead mobs has been turned off.</span>")
 			return
 		if(prefs.muted & MUTE_OOC)
@@ -42,7 +42,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
-		if(!config.ooc_allowed)
+		if(!GLOB.ooc_enabled)
 			to_chat(src, "<span class='danger'>OOC is globally muted.</span>")
 			return
 		if(handle_spam_prevention(msg, MUTE_OOC, OOC_COOLDOWN))
@@ -62,7 +62,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		if(check_rights(R_MOD,0) && !check_rights(R_ADMIN,0))
 			display_colour = GLOB.moderator_ooc_colour
 		else if(check_rights(R_ADMIN,0))
-			if(config.allow_admin_ooccolor)
+			if(GLOB.configuration.admin.allow_admin_ooc_colour)
 				display_colour = src.prefs.ooccolor
 			else
 				display_colour = GLOB.admin_ooc_colour
@@ -92,20 +92,21 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 						display_name = "[holder.fakekey]/([key])"
 					else
 						display_name = holder.fakekey
-			if(!config.disable_ooc_emoji)
+
+			if(GLOB.configuration.general.enable_ooc_emoji)
 				msg = "<span class='emoji_enabled'>[msg]</span>"
 
 			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
 			SSdiscord.send2discord_simple(DISCORD_WEBHOOK_OOC, "**OOC** | [display_name]: [discord_msg]")
 /proc/toggle_ooc()
-	config.ooc_allowed = ( !config.ooc_allowed )
-	if(config.ooc_allowed)
+	GLOB.ooc_enabled = (!GLOB.ooc_enabled)
+	if(GLOB.ooc_enabled)
 		to_chat(world, "<B>The OOC channel has been globally enabled!</B>")
 	else
 		to_chat(world, "<B>The OOC channel has been globally disabled!</B>")
 
 /proc/auto_toggle_ooc(on)
-	if(config.auto_toggle_ooc_during_round && config.ooc_allowed != on)
+	if(GLOB.configuration.general.auto_disable_ooc && GLOB.ooc_enabled != on)
 		toggle_ooc()
 
 /client/proc/set_ooc(newColor as color)
@@ -175,10 +176,10 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
-		if(!config.looc_allowed)
+		if(!GLOB.looc_enabled)
 			to_chat(src, "<span class='danger'>LOOC is globally muted.</span>")
 			return
-		if(!config.dooc_allowed && (mob.stat == DEAD))
+		if(!GLOB.dooc_enabled && (mob.stat == DEAD))
 			to_chat(usr, "<span class='danger'>LOOC for dead mobs has been turned off.</span>")
 			return
 		if(prefs.muted & MUTE_OOC)
@@ -246,6 +247,70 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 			if(send)
 				to_chat(target, "<span class='ooc'><span class='looc'>LOOC<span class='prefix'>[prefix]: </span><EM>[display_name][admin_stuff]:</EM> <span class='message'>[msg]</span></span></span>")
+
+
+// Ported from /tg/, full credit to SpaceManiac and Timberpoes.
+/client/verb/fit_viewport()
+	set name = "Fit Viewport"
+	set desc = "Fit the size of the map window to match the viewport."
+	set category = "OOC"
+
+	// Fetch aspect ratio
+	var/list/view_size = getviewsize(view)
+	var/aspect_ratio = view_size[1] / view_size[2]
+
+	// Calculate desired pixel width using window size and aspect ratio
+	var/list/sizes = params2list(winget(src, "mainwindow.mainvsplit;mapwindow", "size"))
+
+	// Client closed the window? Some other error? This is unexpected behaviour, let's CRASH with some info.
+	if(!sizes["mapwindow.size"])
+		CRASH("sizes does not contain mapwindow.size key. This means a winget() failed to return what we wanted. --- sizes var: [sizes] --- sizes length: [length(sizes)]")
+
+	var/list/map_size = splittext(sizes["mapwindow.size"], "x")
+
+	// Looks like we didn't expect mapwindow.size to be "ixj" where i and j are numbers.
+	// If we don't get our expected 2 outputs, let's give some useful error info.
+	if(length(map_size) != 2)
+		CRASH("map_size of incorrect length --- map_size var: [map_size] --- map_size length: [length(map_size)]")
+
+
+	var/height = text2num(map_size[2])
+	var/desired_width = round(height * aspect_ratio)
+	if(text2num(map_size[1]) == desired_width)
+		// Nothing to do.
+		return
+
+	var/list/split_size = splittext(sizes["mainwindow.mainvsplit.size"], "x")
+	var/split_width = text2num(split_size[1])
+
+	// Avoid auto-resizing the statpanel and chat into nothing.
+	desired_width = min(desired_width, split_width - 300)
+
+	// Calculate and apply a best estimate
+	// +4 pixels are for the width of the splitter's handle
+	var/pct = 100 * (desired_width + 4) / split_width
+	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
+
+	// Apply an ever-lowering offset until we finish or fail
+	var/delta
+	for(var/safety in 1 to 10)
+		var/after_size = winget(src, "mapwindow", "size")
+		map_size = splittext(after_size, "x")
+		var/produced_width = text2num(map_size[1])
+
+		if(produced_width == desired_width)
+			// Success!
+			return
+		else if(isnull(delta))
+			// Calculate a probably delta based on the difference
+			delta = 100 * (desired_width - produced_width) / split_width
+		else if((delta > 0 && produced_width > desired_width) || (delta < 0 && produced_width < desired_width))
+			// If we overshot, halve the delta and reverse direction
+			delta = -delta / 2
+
+	pct += delta
+	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
+
 
 /mob/proc/get_looc_source()
 	return src

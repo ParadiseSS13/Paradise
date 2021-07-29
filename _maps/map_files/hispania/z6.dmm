@@ -610,9 +610,7 @@
 	info = "<i>To my darling Sergei,<br><br>I will never forget those nights we spent on Cygni, or all the times you took me around in your 2452 Vincent. The way you looked at me that one night, that was the night I knew that you and I were of the same soul.<br><br>I know they made you sell your Vincent when you were reassigned, but I could not let such a beautiful thing go to rust. I have made arrangements and it is here, waiting for you.<br><br>I have enclosed the keys. Please, let them serve as a reminder always of our love and a reason to return. I beg of you, do not let our love go softly into the night.</i>"
 	},
 /obj/item/key{
-	name = "Vincent '52 Key";
-	pixel_x = 0;
-	pixel_y = 0
+	name = "Vincent '52 Key"
 	},
 /obj/item/trash/tapetrash{
 	desc = "A bundle of severely yellowed and highly pretentious looking documents. Unfortunately they appear to be written in cyrillic and encrypted with a cypher.";
@@ -626,7 +624,6 @@
 /area/derelict/bridge)
 "bx" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
 	},
@@ -737,7 +734,6 @@
 /area/derelict/bridge)
 "bI" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
 	},
@@ -768,7 +764,6 @@
 "bL" = (
 /obj/machinery/photocopier,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
 	icon_state = "tube1";
 	dir = 1
 	},
@@ -838,7 +833,6 @@
 /area/djstation)
 "bS" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
 	icon_state = "tube1";
 	dir = 1
 	},
@@ -957,8 +951,7 @@
 "cg" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/derelict/bridge)
 "ch" = (
@@ -1078,8 +1071,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 0
+	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
@@ -1193,8 +1185,7 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/derelict/bridge)
 "cD" = (
@@ -1203,8 +1194,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/derelict/bridge)
 "cE" = (
@@ -1213,8 +1203,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/derelict/bridge)
 "cF" = (
@@ -1223,8 +1212,7 @@
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/derelict/bridge)
 "cG" = (
@@ -1268,13 +1256,11 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/djstation)
 "cL" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
 	icon_state = "tube1";
 	dir = 1
 	},
@@ -1312,7 +1298,6 @@
 /area/derelict/bridge)
 "cP" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
 	},
@@ -1480,7 +1465,6 @@
 /area/derelict/arrival)
 "dl" = (
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken7";
 	icon_state = "wood-broken7"
 	},
 /area/derelict/bridge)
@@ -1570,7 +1554,6 @@
 /area/derelict/bridge)
 "dx" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
 	},
@@ -1596,7 +1579,6 @@
 /area/derelict/crew_quarters)
 "dA" = (
 /obj/machinery/shower{
-	tag = "icon-shower (WEST)";
 	icon_state = "shower";
 	dir = 8
 	},
@@ -1737,8 +1719,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/derelict/arrival)
 "dQ" = (
@@ -1867,8 +1848,7 @@
 "eh" = (
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2227,8 +2207,7 @@
 /obj/machinery/shower{
 	dir = 4;
 	icon_state = "shower";
-	pixel_x = 5;
-	tag = "icon-shower (EAST)"
+	pixel_x = 5
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -2261,8 +2240,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -2461,7 +2439,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
 	},
@@ -2511,7 +2488,6 @@
 "fE" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
-	tag = "icon-shower (EAST)";
 	icon_state = "shower";
 	dir = 4
 	},
@@ -2618,7 +2594,6 @@
 "fQ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
 	},
@@ -2898,7 +2873,6 @@
 "gA" = (
 /obj/structure/closet,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
 	},
@@ -2932,7 +2906,6 @@
 /obj/machinery/recharger,
 /obj/structure/table/reinforced,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
 	icon_state = "tube1";
 	dir = 1
 	},
@@ -3107,7 +3080,6 @@
 /area/derelict/arrival)
 "gZ" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
 	icon_state = "tube1";
 	dir = 1
 	},
@@ -3127,8 +3099,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -3340,7 +3311,6 @@
 /obj/structure/closet/crate/can,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
 	},
@@ -3374,7 +3344,6 @@
 "hx" = (
 /obj/structure/chair/wood,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken7";
 	icon_state = "wood-broken7"
 	},
 /area/derelict/crew_quarters)
@@ -3406,14 +3375,12 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken";
 	icon_state = "wood-broken"
 	},
 /area/derelict/crew_quarters)
 "hC" = (
 /obj/structure/chair/sofa/left,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
 	icon_state = "tube1";
 	dir = 1
 	},
@@ -3939,7 +3906,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
 	icon_state = "wood-broken3"
 	},
 /area/derelict/crew_quarters)
@@ -3953,7 +3919,6 @@
 "iz" = (
 /obj/structure/mopbucket,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken6";
 	icon_state = "wood-broken6"
 	},
 /area/derelict/crew_quarters)
@@ -3982,7 +3947,6 @@
 "iD" = (
 /obj/structure/grille,
 /obj/effect/temp_visual/ratvar/window{
-	tag = "icon-window5_end";
 	icon = 'icons/turf/shuttle.dmi';
 	icon_state = "window5_end";
 	dir = 2
@@ -4063,7 +4027,6 @@
 "iL" = (
 /obj/structure/grille,
 /obj/effect/temp_visual/ratvar/window{
-	tag = "icon-window5_mid";
 	icon = 'icons/turf/shuttle.dmi';
 	icon_state = "window5_mid";
 	dir = 2
@@ -4079,7 +4042,6 @@
 	})
 "iN" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
 	},
@@ -4179,7 +4141,6 @@
 "iW" = (
 /obj/structure/grille,
 /obj/effect/temp_visual/ratvar/window{
-	tag = "icon-window5_end (NORTH)";
 	icon = 'icons/turf/shuttle.dmi';
 	icon_state = "window5_end";
 	dir = 1
@@ -4383,7 +4344,6 @@
 "jr" = (
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken7";
 	icon_state = "wood-broken7"
 	},
 /area/derelict/crew_quarters)
@@ -4473,7 +4433,6 @@
 	dir = 1
 	},
 /obj/machinery/shower{
-	tag = "icon-shower (WEST)";
 	icon_state = "shower";
 	dir = 8
 	},
@@ -4491,7 +4450,6 @@
 /area/derelict/crew_quarters)
 "jD" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
 	},
@@ -4553,7 +4511,6 @@
 /obj/item/stack/cable_coil,
 /obj/item/stack/cable_coil,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
 	icon_state = "tube1";
 	dir = 1
 	},
@@ -4742,7 +4699,6 @@
 /obj/structure/table/reinforced,
 /obj/item/wrench,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
 	},
@@ -4976,8 +4932,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "ramptop";
-	tag = "icon-stage_stairs"
+	icon_state = "ramptop"
 	},
 /area/derelict/arrival)
 "kE" = (
@@ -5000,8 +4955,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "ramptop";
-	tag = "icon-stage_stairs"
+	icon_state = "ramptop"
 	},
 /area/derelict/arrival)
 "kG" = (
@@ -5109,7 +5063,6 @@
 	name = "Eastern Annex"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_stairs";
 	icon_state = "stage_stairs"
 	},
 /area/derelict/crew_quarters)
@@ -5122,7 +5075,6 @@
 	name = "Eastern Annex"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_stairs";
 	icon_state = "stage_stairs"
 	},
 /area/derelict/crew_quarters)
@@ -5296,8 +5248,7 @@
 /obj/item/trash/spentcasing,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -5354,7 +5305,6 @@
 /area/derelict/crew_quarters)
 "lt" = (
 /obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion_r (NORTH)";
 	icon_state = "propulsion_r";
 	dir = 1
 	},
@@ -5372,7 +5322,6 @@
 /area/derelict/crew_quarters)
 "lw" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (NORTH)";
 	icon_state = "heater";
 	dir = 1
 	},
@@ -5727,19 +5676,16 @@
 "mF" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (WEST)"
+	icon_state = "propulsion_l"
 	},
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "burst_r";
-	tag = "icon-burst_r (WEST)"
+	icon_state = "burst_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "mG" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (EAST)";
 	icon_state = "heater";
 	dir = 4
 	},
@@ -5890,8 +5836,7 @@
 "ne" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (WEST)"
+	icon_state = "propulsion_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
@@ -5965,13 +5910,11 @@
 "nq" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (WEST)"
+	icon_state = "propulsion_l"
 	},
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (WEST)"
+	icon_state = "propulsion_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
@@ -6106,7 +6049,6 @@
 /area/syndicate_depot/core)
 "nJ" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
 	icon_state = "bulb1";
 	dir = 4
 	},
@@ -6328,7 +6270,6 @@
 /area/syndicate_depot/core)
 "on" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
 	},
@@ -6692,7 +6633,6 @@
 /area/syndicate_depot/core)
 "po" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
 	},
@@ -6979,8 +6919,7 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/crew_quarters)
 "qc" = (
@@ -7267,8 +7206,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -7614,7 +7552,6 @@
 	})
 "rs" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (NORTH)";
 	icon_state = "heater";
 	dir = 1
 	},
@@ -7886,8 +7823,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rR" = (
@@ -8008,8 +7944,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -8119,7 +8054,6 @@
 	})
 "sk" = (
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
 	icon_state = "rwindow";
 	dir = 4
 	},
@@ -8182,7 +8116,6 @@
 /area/derelict/arrival)
 "ss" = (
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
 	icon_state = "rwindow";
 	dir = 4
 	},
@@ -8207,7 +8140,6 @@
 /obj/structure/window/reinforced,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/derelict/crew_quarters)
@@ -8287,7 +8219,6 @@
 "sB" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/derelict/crew_quarters)
@@ -8421,13 +8352,11 @@
 	})
 "sQ" = (
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
 	icon_state = "rwindow";
 	dir = 4
 	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/derelict/crew_quarters)
@@ -8518,8 +8447,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -8581,8 +8509,7 @@
 "te" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -8803,8 +8730,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/arrival)
 "tH" = (
@@ -8838,8 +8764,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/arrival)
 "tJ" = (
@@ -8922,8 +8847,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/crew_quarters)
 "tR" = (
@@ -9031,8 +8955,7 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -9061,7 +8984,6 @@
 /area/derelict/crew_quarters)
 "uf" = (
 /obj/machinery/shower{
-	tag = "icon-shower (EAST)";
 	icon_state = "shower";
 	dir = 4
 	},
@@ -9170,7 +9092,6 @@
 /area/derelict/crew_quarters)
 "us" = (
 /obj/machinery/shower{
-	tag = "icon-shower (EAST)";
 	icon_state = "shower";
 	dir = 4
 	},
@@ -9258,7 +9179,6 @@
 /obj/structure/rack,
 /obj/item/beach_ball/holoball,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
 	},
@@ -9268,7 +9188,6 @@
 /area/derelict/crew_quarters)
 "uD" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
 	},
@@ -9505,8 +9424,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -9534,8 +9452,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -9543,8 +9460,7 @@
 "va" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -9934,7 +9850,6 @@
 	layer = 2.9
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
 	icon_state = "rwindow";
 	dir = 4
 	},
@@ -9990,8 +9905,7 @@
 "vP" = (
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "redfull");
@@ -10077,7 +9991,6 @@
 /obj/structure/table,
 /obj/item/storage/box/cups,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
 	},
@@ -10111,7 +10024,6 @@
 	pixel_y = 5
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
 	icon_state = "rwindow";
 	dir = 4
 	},
@@ -10263,7 +10175,6 @@
 "wn" = (
 /obj/structure/closet/jcloset,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/derelict/crew_quarters)
@@ -10357,7 +10268,6 @@
 	})
 "wv" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/derelict/crew_quarters)
@@ -10368,7 +10278,6 @@
 "wC" = (
 /obj/effect/landmark/burnturf,
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
 	icon_state = "bulb1";
 	dir = 4
 	},
@@ -10446,7 +10355,6 @@
 /area/derelict/crew_quarters)
 "wO" = (
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
 	icon_state = "rwindow";
 	dir = 4
 	},
@@ -10472,8 +10380,7 @@
 "wQ" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/crew_quarters)
 "wU" = (
@@ -10483,7 +10390,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
 	icon_state = "bulb1";
 	dir = 4
 	},
@@ -10506,7 +10412,6 @@
 /area/derelict/crew_quarters)
 "wX" = (
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
 	icon_state = "rwindow";
 	dir = 4
 	},
@@ -10524,32 +10429,28 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "xc" = (
 /obj/machinery/computer/arcade,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "xe" = (
 /obj/machinery/vending/cigarette/free,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "xg" = (
 /obj/machinery/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "xh" = (
@@ -10565,7 +10466,6 @@
 "xi" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
 	icon_state = "rwindow";
 	dir = 4
 	},
@@ -10590,8 +10490,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "xr" = (
@@ -10615,13 +10514,11 @@
 "xt" = (
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "xv" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
 	},
@@ -10672,8 +10569,7 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "xC" = (
@@ -10690,8 +10586,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "xF" = (
@@ -10729,20 +10624,17 @@
 /area/derelict/arrival)
 "xK" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
 	icon_state = "tube1";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "xL" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
 	icon_state = "rwindow";
 	dir = 4
 	},
@@ -10779,7 +10671,6 @@
 "xQ" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
 	icon_state = "rwindow";
 	dir = 4
 	},
@@ -10810,7 +10701,6 @@
 /area/derelict/arrival)
 "xY" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
 	},
@@ -10856,8 +10746,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "yd" = (
@@ -10917,8 +10806,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "yp" = (
@@ -10931,8 +10819,7 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "yt" = (
@@ -10947,8 +10834,7 @@
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "yw" = (
@@ -10967,8 +10853,7 @@
 /obj/item/deck/cards,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "yz" = (
@@ -10977,8 +10862,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "yB" = (
@@ -10987,8 +10871,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "yC" = (
@@ -11005,8 +10888,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "yD" = (
@@ -11039,8 +10921,7 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "yG" = (
@@ -11049,7 +10930,6 @@
 	layer = 2.9
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
 	icon_state = "rwindow";
 	dir = 4
 	},
@@ -11064,8 +10944,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "yN" = (
@@ -11093,13 +10972,11 @@
 /obj/machinery/computer/library/public,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "yQ" = (
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
 	icon_state = "rwindow";
 	dir = 4
 	},
@@ -11154,7 +11031,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
 	icon_state = "bulb1";
 	dir = 4
 	},
@@ -11619,7 +11495,6 @@
 /obj/machinery/turretid/syndicate{
 	name = "external turret controls";
 	pixel_x = -32;
-	pixel_y = 0;
 	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{

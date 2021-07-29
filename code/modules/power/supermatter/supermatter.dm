@@ -312,7 +312,7 @@
 				//Hilariously enough, running into a closet should make you get hit the hardest.
 				var/mob/living/carbon/human/H = mob
 				H.hallucination += max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1))))
-			var/rads = DETONATION_RADS * sqrt(1 / (get_dist(L, src) + 1))
+			var/rads = (DETONATION_RADS * (sqrt(1 / (get_dist(L, src) + 1)) * sqrt(power / 5))) / (RAD_DOSAGE_MULTIPLIER * 0.25)
 			L.rad_act(rads)
 
 	var/turf/T = get_turf(src)
@@ -525,7 +525,7 @@
 			l.hallucination += power * hallucination_power * D
 			l.hallucination = clamp(l.hallucination, 0, 200)
 	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
-		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src), 1) )
+		var/rads = ((power / 10) * sqrt( 1 / max(get_dist(l, src), 1) )) / RAD_DOSAGE_MULTIPLIER //RAD_DOSAGE_MULTIPLIER is used so that the SM doesn't absolutely murder you with rads
 		l.rad_act(rads)
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
@@ -756,6 +756,12 @@
 				suspicion = "last touched by [AM.fingerprintslast]"
 			message_admins("[src] has consumed [AM], [suspicion] [ADMIN_JMP(src)].")
 			investigate_log("has consumed [AM] - [suspicion].", "supermatter")
+			if(istype(AM, /obj/machinery/power/supermatter_crystal))
+				power += 5000//releases A LOT of power
+				matter_power += 500000
+				damage += 180//drops the integrety by 20%
+				AM.visible_message("<span class='danger'>[AM] smacks into [src], rapidly flashing blasts of pure energy. The energy inside [src] undergoes superradiance scattering!</span>", null,\
+				"<span class='italics'>You hear a loud crack as a wave of heat washes over you.</span>")
 		qdel(AM)
 	if(!iseffect(AM) && power_changes)
 		matter_power += 200

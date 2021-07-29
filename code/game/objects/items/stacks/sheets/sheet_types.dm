@@ -385,6 +385,8 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
 	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
 		return
+	if(usr.holy_check())
+		return
 	if(!is_level_reachable(user.z))
 		to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
 		return

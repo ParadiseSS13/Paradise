@@ -1426,7 +1426,6 @@
 /obj/machinery/door_control{
 	id = "Labor";
 	name = "Labor Camp Lockdown";
-	pixel_x = 0;
 	pixel_y = 25;
 	req_access_txt = "2"
 	},
@@ -2671,7 +2670,6 @@
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 30;
-	pixel_y = 0;
 	req_access_txt = "0"
 	},
 /turf/simulated/floor/plasteel/white,
@@ -3870,7 +3868,6 @@
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_x = 24;
-	pixel_y = 0;
 	specialfunctions = 4
 	},
 /turf/simulated/floor/carpet,
@@ -4121,7 +4118,6 @@
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_x = 24;
-	pixel_y = 0;
 	specialfunctions = 4
 	},
 /turf/simulated/floor/carpet,
@@ -4257,7 +4253,6 @@
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_x = 24;
-	pixel_y = 0;
 	specialfunctions = 4
 	},
 /turf/simulated/floor/carpet,
@@ -4502,8 +4497,7 @@
 /obj/item/clothing/glasses/welding,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -23;
-	pixel_y = 0
+	pixel_x = -23
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/spacepod)
@@ -4581,7 +4575,6 @@
 /obj/item/radio/intercom{
 	dir = 8;
 	name = "Station Intercom (General)";
-	pixel_x = 0;
 	pixel_y = 29
 	},
 /obj/machinery/camera{
@@ -4639,7 +4632,6 @@
 /obj/machinery/flasher_button{
 	id = "gulagshuttleflasher";
 	name = "Flash Control";
-	pixel_x = 0;
 	pixel_y = -26;
 	req_access_txt = "1"
 	},
@@ -4689,8 +4681,7 @@
 "xn" = (
 /obj/machinery/mineral/labor_claim_console{
 	machinedir = 1;
-	pixel_x = 30;
-	pixel_y = 0
+	pixel_x = 30
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/siberia)
@@ -4920,7 +4911,6 @@
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 30;
-	pixel_y = 0;
 	req_access_txt = "0"
 	},
 /obj/item/storage/pill_bottle/patch_pack,

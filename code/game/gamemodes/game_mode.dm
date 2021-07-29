@@ -54,7 +54,7 @@
 		if((player.client)&&(player.ready))
 			playerC++
 
-	if(!config.enable_gamemode_player_limit || (playerC >= required_players))
+	if(!GLOB.configuration.gamemode.enable_gamemode_player_limit || (playerC >= required_players))
 		return 1
 	return 0
 
@@ -229,7 +229,7 @@
 	nr.embeds += nwe // Insertamos el nuevo discord_embed en la lista.
 
 	SSdiscord.send2discord_complex(DISCORD_WEBHOOK_PRIMARY, nr)
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "*Una nueva ronda comenzara en breve.* <@&[config.discord_newround_role_id]>")
+	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "*Una nueva ronda comenzara en breve.")
 
 	return 0
 
@@ -247,7 +247,7 @@
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.client && player.ready && player.has_valid_preferences())
-			if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext))
+			if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, roletext))
 				if(player_old_enough_antag(player.client,role))
 					players += player
 

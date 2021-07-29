@@ -64,6 +64,10 @@
 
 /mob/living/silicon/Destroy()
 	GLOB.silicon_mob_list -= src
+	QDEL_NULL(atmos_control)
+	QDEL_NULL(crew_monitor)
+	QDEL_NULL(law_manager)
+	QDEL_NULL(power_monitor)
 	return ..()
 
 /mob/living/silicon/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
