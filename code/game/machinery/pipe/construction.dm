@@ -73,6 +73,8 @@
 			src.pipe_type = PIPE_SCRUBBER
 		else if(istype(make_from, /obj/machinery/atmospherics/binary/passive_gate))
 			src.pipe_type = PIPE_PASSIVE_GATE
+		else if(istype(make_from, /obj/machinery/atmospherics/binary/relief_valve))
+			src.pipe_type = PIPE_RELIEF_VALVE
 		else if(istype(make_from, /obj/machinery/atmospherics/binary/volume_pump))
 			src.pipe_type = PIPE_VOLUME_PUMP
 		else if(istype(make_from, /obj/machinery/atmospherics/unary/heat_exchanger))
@@ -246,6 +248,7 @@
 			PIPE_PUMP ,\
 			PIPE_VOLUME_PUMP ,\
 			PIPE_PASSIVE_GATE ,\
+			PIPE_RELIEF_VALVE ,\
 			PIPE_MVALVE, \
 			PIPE_DVALVE, \
 			PIPE_DP_VENT, \
@@ -464,6 +467,12 @@
 
 		if(PIPE_PASSIVE_GATE)		//passive gate
 			var/obj/machinery/atmospherics/binary/passive_gate/P = new(src.loc)
+			if(pipename)
+				P.name = pipename
+			P.on_construction(dir, pipe_dir, color)
+
+		if(PIPE_RELIEF_VALVE)		//relief valve
+			var/obj/machinery/atmospherics/binary/relief_valve/P = new(src.loc)
 			if(pipename)
 				P.name = pipename
 			P.on_construction(dir, pipe_dir, color)

@@ -97,6 +97,10 @@
 /obj/machinery/atmospherics/binary/passive_gate
 	description_info = "This is a one-way regulator, allowing gas to flow only at a specific pressure and flow rate.  If the light is green, it is flowing."
 
+//Relief Valves
+/obj/machinery/atmospherics/binary/relief_valve
+	description_info = "This is a one-way valve that releases overpressure, but only if it can overcome the output side. If the light is green, the relief valve is enabled. The blue indicator shows when the valve is being pushed open."
+
 //Normal pumps (high power one inherits from this)
 /obj/machinery/atmospherics/binary/pump
 	description_info = "This moves gas from one pipe to another.  A higher target pressure demands more energy.  The side with the red end is the output."
