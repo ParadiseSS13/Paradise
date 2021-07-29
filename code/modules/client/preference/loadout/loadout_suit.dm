@@ -1,19 +1,19 @@
 /datum/gear/suit
-	subtype_path = /datum/gear/suit
+	main_typepath = /datum/gear/suit
 	slot = slot_wear_suit
 	sort_category = "External Wear"
 
 //WINTER COATS
 /datum/gear/suit/coat
-	subtype_path = /datum/gear/suit/coat
+	main_typepath = /datum/gear/suit/coat
 
 /datum/gear/suit/coat/grey
 	display_name = "winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat
 
 /datum/gear/suit/coat/job
-	subtype_path = /datum/gear/suit/coat/job
-	subtype_cost_overlap = FALSE
+	main_typepath = /datum/gear/suit/coat/job
+	subtype_selection_cost = FALSE
 
 /datum/gear/suit/coat/job/sec
 	display_name = "winter coat, security"
@@ -185,8 +185,8 @@
 	path = /obj/item/clothing/suit/mantle/regal
 
 /datum/gear/suit/mantle/job
-	subtype_path = /datum/gear/suit/mantle/job
-	subtype_cost_overlap = FALSE
+	main_typepath = /datum/gear/suit/mantle/job
+	subtype_selection_cost = FALSE
 
 /datum/gear/suit/mantle/job/captain
 	display_name = "mantle, captain"
@@ -223,5 +223,3 @@
 /datum/gear/suit/witch
 	display_name = "witch robes"
 	path = /obj/item/clothing/suit/wizrobe/marisa/fake
-
-

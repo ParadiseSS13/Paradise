@@ -273,7 +273,7 @@
 		//socks
 		socks = query.item[49]
 		body_accessory = query.item[50]
-		loadout_gear = params2list(query.item[51])
+		loadout_gear = query.item[51]
 		autohiss_mode = text2num(query.item[52])
 
 		saved = TRUE
@@ -311,6 +311,7 @@
 	undershirt		= sanitize_text(undershirt, initial(undershirt))
 	backbag			= sanitize_text(backbag, initial(backbag))
 	b_type			= sanitize_text(b_type, initial(b_type))
+	loadout_gear	= sanitize_json(loadout_gear)
 	autohiss_mode	= sanitize_integer(autohiss_mode, 0, 2, initial(autohiss_mode))
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
@@ -332,10 +333,14 @@
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
 
 //	if(isnull(disabilities)) disabilities = 0
-	if(!player_alt_titles) player_alt_titles = new()
-	if(!organ_data) src.organ_data = list()
-	if(!rlimb_data) src.rlimb_data = list()
-	if(!loadout_gear) loadout_gear = list()
+	if(!player_alt_titles)
+		player_alt_titles = new()
+	if(!organ_data)
+		organ_data = list()
+	if(!rlimb_data)
+		rlimb_data = list()
+	if(!loadout_gear)
+		loadout_gear = list()
 
 	// Check if the current body accessory exists
 	if(!GLOB.body_accessory_by_name[body_accessory])
@@ -358,7 +363,7 @@
 	if(!isemptylist(player_alt_titles))
 		playertitlelist = list2params(player_alt_titles)
 	if(!isemptylist(loadout_gear))
-		gearlist = list2params(loadout_gear)
+		gearlist = json_encode(loadout_gear)
 
 	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM characters WHERE ckey=:ckey ORDER BY slot", list(
 		"ckey" = C.ckey

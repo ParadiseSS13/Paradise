@@ -1,5 +1,5 @@
 /datum/gear/hat
-	subtype_path = /datum/gear/hat
+	main_typepath = /datum/gear/hat
 	slot = slot_head
 	sort_category = "Headwear"
 
@@ -137,8 +137,8 @@
 	path = /obj/item/clothing/head/beret
 
 /datum/gear/hat/beret_job
-	subtype_path = /datum/gear/hat/beret_job
-	subtype_cost_overlap = FALSE
+	main_typepath = /datum/gear/hat/beret_job
+	subtype_selection_cost = FALSE
 
 /datum/gear/hat/beret_job/sec
 	display_name = "security beret"

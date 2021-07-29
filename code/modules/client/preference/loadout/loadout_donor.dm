@@ -1,7 +1,7 @@
 /datum/gear/donor
 	donator_tier = 2
 	sort_category = "Donor"
-	subtype_path = /datum/gear/donor
+	main_typepath = /datum/gear/donor
 
 /datum/gear/donor/furgloves
 	display_name = "Fur Gloves"

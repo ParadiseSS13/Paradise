@@ -16,6 +16,10 @@
 	if(default)			return default
 	if(List && List.len)return pick(List)
 
+/proc/sanitize_json(json_input)
+	if(istext(json_input) && length(json_input))
+		return json_decode(json_input)
+	return list()
 
 
 //more specialised stuff

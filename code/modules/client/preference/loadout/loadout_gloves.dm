@@ -1,5 +1,5 @@
 /datum/gear/gloves
-	subtype_path = /datum/gear/gloves
+	main_typepath = /datum/gear/gloves
 	slot = slot_gloves
 	sort_category = "Gloves"
 

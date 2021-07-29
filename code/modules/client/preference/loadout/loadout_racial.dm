@@ -1,6 +1,6 @@
 /datum/gear/racial
 	sort_category = "Racial"
-	subtype_path = /datum/gear/racial
+	main_typepath = /datum/gear/racial
 	cost = 1
 
 /datum/gear/racial/taj

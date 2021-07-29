@@ -1,11 +1,11 @@
 // Uniform slot
 /datum/gear/uniform
-	subtype_path = /datum/gear/uniform
+	main_typepath = /datum/gear/uniform
 	slot = slot_w_uniform
 	sort_category = "Uniforms and Casual Dress"
 
 /datum/gear/uniform/suit
-	subtype_path = /datum/gear/uniform/suit
+	main_typepath = /datum/gear/uniform/suit
 
 //there's a lot more colors than I thought there were @_@
 
@@ -65,10 +65,6 @@
 	display_name = "jumpsuit, lightgreen"
 	path = /obj/item/clothing/under/color/lightgreen
 
-/datum/gear/uniform/suit/jumpsuitlightblue
-	display_name = "jumpsuit, lightblue"
-	path = /obj/item/clothing/under/color/lightblue
-
 /datum/gear/uniform/suit/jumpsuitlightbrown
 	display_name = "jumpsuit, lightbrown"
 	path = /obj/item/clothing/under/color/lightbrown
@@ -102,7 +98,7 @@
 	path = /obj/item/clothing/under/kilt
 
 /datum/gear/uniform/skirt
-	subtype_path = /datum/gear/uniform/skirt
+	main_typepath = /datum/gear/uniform/skirt
 
 /datum/gear/uniform/skirt/blue
 	display_name = "plaid skirt, blue"
@@ -121,8 +117,8 @@
 	path = /obj/item/clothing/under/blackskirt
 
 /datum/gear/uniform/skirt/job
-	subtype_path = /datum/gear/uniform/skirt/job
-	subtype_cost_overlap = FALSE
+	main_typepath = /datum/gear/uniform/skirt/job
+	subtype_selection_cost = FALSE
 
 /datum/gear/uniform/skirt/job/ce
 	display_name = "skirt, ce"
@@ -211,7 +207,7 @@
 
 
 /datum/gear/uniform/medical
-	subtype_path = /datum/gear/uniform/medical
+	main_typepath = /datum/gear/uniform/medical
 
 /datum/gear/uniform/medical/pscrubs
 	display_name = "medical scrubs, purple"
@@ -224,7 +220,7 @@
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
 
 /datum/gear/uniform/sec
-	subtype_path = /datum/gear/uniform/sec
+	main_typepath = /datum/gear/uniform/sec
 
 /datum/gear/uniform/sec/formal
 	display_name = "security uniform, formal"
@@ -247,7 +243,7 @@
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Security Pod Pilot")
 
 /datum/gear/uniform/shorts
-	subtype_path = /datum/gear/uniform/shorts
+	main_typepath = /datum/gear/uniform/shorts
 
 /datum/gear/uniform/shorts/red
 	display_name = "shorts, red"
@@ -270,7 +266,7 @@
 	path = /obj/item/clothing/under/shorts/grey
 
 /datum/gear/uniform/pants
-	subtype_path = /datum/gear/uniform/pants
+	main_typepath = /datum/gear/uniform/pants
 
 /datum/gear/uniform/pants/jeans
 	display_name = "jeans, classic"

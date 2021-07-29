@@ -1,5 +1,5 @@
 /datum/gear/accessory
-	subtype_path = /datum/gear/accessory
+	main_typepath = /datum/gear/accessory
 	slot = slot_tie
 	sort_category = "Accessories"
 
@@ -154,7 +154,6 @@
 	display_name = "corset, blue"
 	path = /obj/item/clothing/accessory/corset/blue
 
-
 /datum/gear/accessory/armband_red
 	display_name = "armband"
 	path = /obj/item/clothing/accessory/armband
@@ -164,8 +163,8 @@
 	path = /obj/item/clothing/accessory/armband/yb
 
 /datum/gear/accessory/armband_job
-	subtype_path = /datum/gear/accessory/armband_job
-	subtype_cost_overlap = FALSE
+	main_typepath = /datum/gear/accessory/armband_job
+	subtype_selection_cost = FALSE
 
 /datum/gear/accessory/armband_job/sec
 	display_name = " armband, security"

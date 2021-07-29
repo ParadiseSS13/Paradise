@@ -161,9 +161,9 @@
 	path = /obj/item/reagent_containers/food/drinks/flask/barflask
 
 /datum/gear/mug/department
-	subtype_path = /datum/gear/mug/department
+	main_typepath = /datum/gear/mug/department
 	sort_category = "Mugs"
-	subtype_cost_overlap = FALSE
+	subtype_selection_cost = FALSE
 
 /datum/gear/mug/department/eng
 	display_name = "engineer coffee mug"
