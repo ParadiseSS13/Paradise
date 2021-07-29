@@ -79,7 +79,7 @@
 						/area/turret_protected/aisat_interior,
 						/area/aisat,
 						/area/assembly)
-	turf_whitelist = list(/turf/simulated/floor/bluegrid)
+	turf_whitelist = list(/turf/simulated/floor/plasteel/misc/circuit/blue)
 
 /datum/mob_type/ground
 	name = "Ground"

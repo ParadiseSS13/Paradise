@@ -5,7 +5,7 @@
 	invisibility = INVISIBILITY_ABSTRACT
 	anchored = TRUE
 	var/list/elements
-	var/floor_type = /turf/simulated/floor/vault
+	var/floor_type = /turf/simulated/floor/rockvault
 	var/finished = FALSE
 	var/reward_type = /obj/item/reagent_containers/food/snacks/cookie
 	var/element_type = /obj/structure/puzzle_element
