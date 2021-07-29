@@ -116,7 +116,7 @@
 		return
 
 	if(!src.client.holder)
-		if(!config.dsay_allowed)
+		if(!GLOB.dsay_enabled)
 			to_chat(src, "<span class='warning'>Deadchat is globally muted</span>")
 			return
 

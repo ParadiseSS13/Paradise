@@ -414,7 +414,6 @@
 	qdel(query_update)
 
 	message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban.")
-	ryzorbot("notify", "unban=[key_name(usr)]&[pckey]")
 	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_BANS, "[key_name_admin(usr)] removió el ban de [pckey]")
 	log_admin("[key_name(usr)] has lifted [pckey]'s ban.")
 	flag_account_for_forum_sync(pckey)

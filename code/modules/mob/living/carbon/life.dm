@@ -315,8 +315,7 @@
 		AdjustJitter(-restingpwr)
 
 	if(hallucination)
-		spawn handle_hallucinations()
-
+		handle_hallucinations()
 		AdjustHallucinate(-2)
 
 	// Keep SSD people asleep
@@ -349,7 +348,7 @@
 				comfort+= 3
 			adjustBruteLoss(-1 * comfort, FALSE)
 			adjustFireLoss(-1 * comfort)
-		if(prob(10) && health && hal_screwyhud != SCREWYHUD_CRIT)
+		if(prob(10) && health && health_hud_override != HEALTH_HUD_OVERRIDE_CRIT)
 			emote("snore")
 
 	return sleeping

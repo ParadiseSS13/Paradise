@@ -90,6 +90,8 @@
 /mob/living/carbon/proc/has_virus()
 	for(var/thing in viruses)
 		var/datum/disease/D = thing
+		if(!D.discovered) // Early-stage viruses should not show up on med HUD (though health analywers can still pick them up)
+			continue
 		if((!(D.visibility_flags & HIDDEN_SCANNER)) && (D.severity != NONTHREAT))
 			return TRUE
 	return FALSE

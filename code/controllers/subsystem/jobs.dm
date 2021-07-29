@@ -20,12 +20,12 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/Initialize(timeofday)
 	if(!occupations.len)
 		SetupOccupations()
-	LoadJobs("config/jobs.txt")
+	LoadJobs(FALSE)
 	return ..()
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
-	if(!SSdbcore.IsConnected() || !config.use_exp_tracking)
+	if(!SSdbcore.IsConnected() || !GLOB.configuration.jobs.enable_exp_tracking)
 		return
 	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
 
@@ -269,8 +269,8 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/FillAIPosition()
-	if(config && !config.allow_ai)
-		return 0
+	if(!GLOB.configuration.jobs.allow_ai)
+		return FALSE
 
 	var/ai_selected = 0
 	var/datum/job/job = GetJob("AI")
@@ -553,39 +553,29 @@ SUBSYSTEM_DEF(jobs)
 
 
 
-/datum/controller/subsystem/jobs/proc/LoadJobs(jobsfile) //ran during round setup, reads info from jobs.txt -- Urist
-	if(!config.load_jobs_from_txt)
-		return 0
+/datum/controller/subsystem/jobs/proc/LoadJobs(highpop = FALSE) //ran during round setup, reads info from jobs list
+	if(!GLOB.configuration.jobs.enable_job_amount_overrides)
+		return FALSE
 
-	var/list/jobEntries = file2list(jobsfile)
+	var/list/joblist = list()
 
-	for(var/job in jobEntries)
-		if(!job)
+	if(highpop)
+		joblist = GLOB.configuration.jobs.highpop_job_map.Copy()
+	else
+		joblist = GLOB.configuration.jobs.lowpop_job_map.Copy()
+
+	for(var/job in joblist)
+		// Key: name | Value: Amount
+		var/datum/job/J = GetJob(job)
+		if(!J)
 			continue
+		J.total_positions = text2num(joblist[job])
+		J.spawn_positions = text2num(joblist[job])
 
-		job = trim(job)
-		if(!length(job))
-			continue
+		if(job == "AI" || job == "Cyborg") //I dont like this here but it will do for now
+			J.total_positions = 0
 
-		var/pos = findtext(job, "=")
-		var/name = null
-		var/value = null
-
-		if(pos)
-			name = copytext(job, 1, pos)
-			value = copytext(job, pos + 1)
-		else
-			continue
-
-		if(name && value)
-			var/datum/job/J = GetJob(name)
-			if(!J)	continue
-			J.total_positions = text2num(value)
-			J.spawn_positions = text2num(value)
-			if(name == "AI" || name == "Cyborg")//I dont like this here but it will do for now
-				J.total_positions = 0
-
-	return 1
+	return TRUE
 
 
 /datum/controller/subsystem/jobs/proc/HandleFeedbackGathering()

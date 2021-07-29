@@ -242,8 +242,7 @@
 */
 		if(SHUTTLE_DOCKED)
 
-			if(config.map_voting_enabled)
-				SSvote.initiate_vote("map", "the server", TRUE)
+			SSvote.initiate_vote("map", "the server", TRUE)
 			if(time_left <= 0 && SSshuttle.emergencyNoEscape)
 				GLOB.priority_announcement.Announce("Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.")
 				sound_played = 0

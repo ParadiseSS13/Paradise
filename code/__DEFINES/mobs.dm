@@ -283,6 +283,11 @@
 // HISPANIA
 #define EYE_CONTACT_RANGE	5
 
+// Defines used in /mob/living/carbon/human/update_health_hud to override the health status
+#define HEALTH_HUD_OVERRIDE_NONE 0
+#define HEALTH_HUD_OVERRIDE_CRIT 1
+#define HEALTH_HUD_OVERRIDE_DEAD 2
+#define HEALTH_HUD_OVERRIDE_HEALTHY 3
 // Eye protection
 #define FLASH_PROTECTION_SENSITIVE -1
 #define FLASH_PROTECTION_NONE 0

@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(ticker)
 	/// Time the world started, relative to world.time
 	var/round_start_time = 0
 	/// Default timeout for if world.Reboot() doesnt have a time specified
-	var/const/restart_timeout = 600
+	var/const/restart_timeout = 75 SECONDS
 	/// Current status of the game. See code\__DEFINES\game.dm
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
@@ -61,6 +61,8 @@ SUBSYSTEM_DEF(ticker)
 	var/end_state = "undefined"
 	/// Time the real reboot kicks in
 	var/real_reboot_time = 0
+	/// Datum used to generate the end of round scoreboard.
+	var/datum/scoreboard/score = null
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
@@ -77,9 +79,9 @@ SUBSYSTEM_DEF(ticker)
 	switch(current_state)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
-			round_start_time = world.time + (config.pregame_timestart * 10)
+			round_start_time = world.time + (GLOB.configuration.general.lobby_time SECONDS)
 			to_chat(world, "<B><span class='darkmblue'>Welcome to the pre-game lobby!</span></B>")
-			to_chat(world, "Please, setup your character and select ready. Game will start in [config.pregame_timestart] seconds")
+			to_chat(world, "Please, setup your character and select ready. Game will start in [GLOB.configuration.general.lobby_time] seconds")
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
 			for(var/mob/new_player/N in GLOB.player_list)
@@ -112,10 +114,10 @@ SUBSYSTEM_DEF(ticker)
 
 			if(world.time > next_autotransfer)
 				SSvote.autotransfer()
-				next_autotransfer = world.time + config.vote_autotransfer_interval
+				next_autotransfer = world.time + GLOB.configuration.vote.autotransfer_interval_time
 
 			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
-			if(config.continuous_rounds)
+			if(GLOB.configuration.gamemode.disable_certain_round_early_end)
 				mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
 			else
 				game_finished |= mode.check_finished()
@@ -127,6 +129,8 @@ SUBSYSTEM_DEF(ticker)
 			auto_toggle_ooc(TRUE) // Turn it on
 			declare_completion()
 			addtimer(CALLBACK(src, .proc/call_reboot), 5 SECONDS)
+			if(GLOB.configuration.vote.enable_map_voting)
+				SSvote.initiate_vote("map", "the server", TRUE) // Start a map vote. Timing is a little tight here but we should be good.
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
 	if(mode.station_was_nuked)
@@ -136,6 +140,7 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()
+	score = new()
 
 	// Create and announce mode
 	if(GLOB.master_mode == "secret")
@@ -144,7 +149,7 @@ SUBSYSTEM_DEF(ticker)
 	var/list/datum/game_mode/runnable_modes
 
 	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
-		runnable_modes = config.get_runnable_modes()
+		runnable_modes = GLOB.configuration.gamemode.get_runnable_modes()
 		if(!length(runnable_modes))
 			to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
 			force_start = FALSE
@@ -152,9 +157,9 @@ SUBSYSTEM_DEF(ticker)
 			Master.SetRunLevel(RUNLEVEL_LOBBY)
 			return FALSE
 		if(GLOB.secret_force_mode != "secret")
-			var/datum/game_mode/M = config.pick_mode(GLOB.secret_force_mode)
+			var/datum/game_mode/M = GLOB.configuration.gamemode.pick_mode(GLOB.secret_force_mode)
 			if(M.can_start())
-				mode = config.pick_mode(GLOB.secret_force_mode)
+				mode = GLOB.configuration.gamemode.pick_mode(GLOB.secret_force_mode)
 		SSjobs.ResetOccupations()
 		if(!mode)
 			mode = pickweight(runnable_modes)
@@ -162,7 +167,7 @@ SUBSYSTEM_DEF(ticker)
 			var/mtype = mode.type
 			mode = new mtype
 	else
-		mode = config.pick_mode(GLOB.master_mode)
+		mode = GLOB.configuration.gamemode.pick_mode(GLOB.master_mode)
 
 	if(!mode.can_start())
 		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players needed. Reverting to pre-game lobby.")
@@ -264,7 +269,7 @@ SUBSYSTEM_DEF(ticker)
 	round_start_time = world.time
 
 	// Sets the auto shuttle vote to happen after the config duration
-	next_autotransfer = world.time + config.vote_autotransfer_initial
+	next_autotransfer = world.time + GLOB.configuration.vote.autotransfer_initial_time
 
 	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)
@@ -276,9 +281,11 @@ SUBSYSTEM_DEF(ticker)
 
 	if(playercount >= highpop_trigger)
 		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
-		SSjobs.LoadJobs("config/jobs_highpop.txt")
+		SSjobs.LoadJobs(TRUE)
 	else
 		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
+
+	SSnightshift.check_nightshift()
 
 	#ifdef UNIT_TESTS
 	RunUnitTests()
@@ -400,8 +407,7 @@ SUBSYSTEM_DEF(ticker)
 				SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
 				SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
 				EquipCustomItems(player)
-				if(config.roundstart_traits && ishuman(player))
-					SSquirks.AssignQuirks(player, player.client, TRUE)
+				SSquirks.AssignQuirks(player, player.client, TRUE)
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
 			if(!isnewplayer(M))
@@ -484,7 +490,8 @@ SUBSYSTEM_DEF(ticker)
 		if(findtext("[handler]","auto_declare_completion_"))
 			call(mode, handler)()
 
-	scoreboard()
+	// Display the scoreboard window
+	score.scoreboard()
 
 	// Declare the completion of the station goals
 	mode.declare_station_goal_completion()

@@ -310,6 +310,9 @@
 	if(loc == I)
 		return FALSE //Means the item is already in the storage item
 
+	if(!I.can_enter_storage(src, usr))
+		return FALSE
+
 	if(length(contents) >= storage_slots)
 		if(!stop_messages)
 			to_chat(usr, "<span class='warning'>[I] won't fit in [src], make some space!</span>")
