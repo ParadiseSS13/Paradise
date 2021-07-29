@@ -159,7 +159,7 @@
 /turf/simulated/floor/plasteel/dark/blue/edge
 	icon_state = "darkblue"
 /turf/simulated/floor/plasteel/dark/blue/corner
-	icon_state = "darkpurplecorner"
+	icon_state = "darkbluecorner"
 /turf/simulated/floor/plasteel/dark/purple/edge
 	icon_state = "darkpurple"
 /turf/simulated/floor/plasteel/dark/purple/corner
