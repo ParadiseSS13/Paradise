@@ -10,7 +10,7 @@
 	var/plantname = "Plants"		// Name of plant when planted.
 	var/product						// A type path. The thing that is created when the plant is harvested.
 	var/species = ""				// Used to update icons. Should match the name in the sprites unless all icon_* are overriden.
-	var/variant = ""				// Can be set by players with a pen to help remember what a modified plant does.
+	var/variant = ""				// Optional custom name to track modified plants. Can be set with pen or from gene modder.
 
 	var/growing_icon = 'icons/obj/hydroponics/growing.dmi' //the file that stores the sprites of the growing plant from this seed.
 	var/icon_grow					// Used to override grow icon (default is "[species]-grow"). You can use one grow icon for multiple closely related plants with it.
@@ -85,12 +85,12 @@
 	S.weed_rate = weed_rate
 	S.weed_chance = weed_chance
 	S.variant = variant
+	S.apply_variant_name()
 	S.genes = list()
 	for(var/g in genes)
 		var/datum/plant_gene/G = g
 		S.genes += G.Copy()
 	S.reagents_add = reagents_add.Copy() // Faster than grabbing the list from genes.
-	S.apply_variant_name()
 	return S
 
 /obj/item/seeds/proc/get_gene(typepath)
@@ -328,20 +328,19 @@
 
 		return
 	if(istype(O, /obj/item/pen))
-		var/V = input(user, "Choose variant name:", "Plant Variant Naming", variant) as text|null
-		if(!Adjacent(user))
-			return
-		if(isnull(V))
-			return
-		V = copytext(sanitize(html_encode(trim(V))), 1, 64)
-		if((V == "") && (variant != ""))
-			user.show_message("<span class='info'>You remove the variant designation from the [plantname].</span>")
-		else if(V != "")
-			user.show_message("<span class='info'>You designate the [plantname] as the [V] variant.</span>")
-		variant = V
-		apply_variant_name()
+		variant_prompt(user)
 		return
 	..() // Fallthrough to item/attackby() so that bags can pick seeds up
+
+
+// adj parameter changes what Adjacent is called from, such as the gene modder or a tray
+/obj/item/seeds/proc/variant_prompt(mob/user, obj/item/adj = src)
+	var/V = input(user, "Choose variant name:", "Plant Variant Naming", variant) as text|null
+	if(!adj.Adjacent(user) || isnull(V))
+		return
+	variant = copytext(sanitize(html_encode(trim(V))), 1, 64)
+	to_chat(user, "<span class='notice'>You [variant ? "change" : "remove"] the [plantname]'s variant designation.</span>")
+	apply_variant_name()
 
 /obj/item/seeds/proc/apply_variant_name()
 	var/V = (variant == "") ? "" : " \[[variant]]" // If we have a non-empty variant add it to the name
