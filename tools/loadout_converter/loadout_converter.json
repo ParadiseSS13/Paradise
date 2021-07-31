@@ -1,8 +1,14 @@
 {
+	"remove": [
+		"kitty\\+headband",
+		"Mouse\\+Headband",
+		"Noble\\+Clothes"
+	],
 	"special": {
 		"scarf": "/datum/gear/accessory/scarf",
 		"armband": "/datum/gear/accessory/armband_red",
-		"mantle": "/datum/gear/suit/mantle"
+		"mantle": "/datum/gear/suit/mantle",
+		"sandals": "/datum/gear/shoes/sandals"
 	},
 	"standard": {
 		"scarf%2c+red": "/datum/gear/accessory/scarf/red",
