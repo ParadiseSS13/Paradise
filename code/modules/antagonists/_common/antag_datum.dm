@@ -35,8 +35,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/clown_gain_text = "You are no longer clumsy."
 	/// If the owner is a clown, this text will be displayed to them when they lose this datum.
 	var/clown_removal_text = "You are clumsy again."
-	/// The url page name for this antagonist, appended to the end of the wiki url in the form of: [GLOB.configuration.url.wiki_url]/index.php/[wiki_page]
-	var/wiki_page
+	/// The url page name for this antagonist, appended to the end of the wiki url in the form of: [GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name]
+	var/wiki_page_name
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -203,6 +203,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 		announce_objectives()
 	apply_innate_effects()
 	finalize_antag()
+	if(wiki_page_name)
+		to_chat(owner.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name])</span>")
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, .proc/replace_banned_player)
 	return TRUE
@@ -297,9 +299,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  * By default, it shows the the player the wiki page for this specific antag.
  */
 /datum/antagonist/proc/finalize_antag()
-	if(!wiki_page)
-		return
-	to_chat(owner.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page])</span>")
+	return
 
 //Individual roundend report
 /datum/antagonist/proc/roundend_report()

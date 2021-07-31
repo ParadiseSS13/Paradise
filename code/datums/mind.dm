@@ -1121,10 +1121,7 @@
 
 			if("autoobjectives")
 				var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
-				if(isAI(current))
-					T.forge_ai_objectives()
-				else
-					T.forge_human_objectives()
+				T.give_objectives()
 				to_chat(usr, "<span class='notice'>The objectives for traitor [key] have been generated. You can edit them and announce manually.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
