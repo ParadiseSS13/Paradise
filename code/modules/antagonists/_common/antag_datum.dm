@@ -221,8 +221,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	antag_memory = null
 	var/datum/team/team = get_team()
 	team?.remove_member(owner)
-	restore_last_hud_and_role()
 	LAZYREMOVE(owner.antag_datums, src)
+	restore_last_hud_and_role()
 	QDEL_LIST(objectives)
 	qdel(src)
 
@@ -233,12 +233,11 @@ GLOBAL_LIST_EMPTY(antagonists)
  * After the vampire datum gets removed, it sets the owner's antag hud/role to whatever is set for traitor datum.
  */
 /datum/antagonist/proc/restore_last_hud_and_role()
-	if(LAZYLEN(owner.antag_datums) <= 1)
-		// If they only have 1 antag datum, no need to restore anything. `remove_innate_effects()` will handle the removal of their hud.
+	if(!LAZYLEN(owner.antag_datums))
+		// If they only had 1 antag datum, no need to restore anything. `remove_innate_effects()` will handle the removal of their hud.
 		owner.special_role = null
 		return FALSE
-	var/index = owner.antag_datums.Find(src)
-	var/datum/antagonist/A = owner.antag_datums[index - 1]
+	var/datum/antagonist/A = owner.antag_datums[LAZYLEN(owner.antag_datums)]
 	ASSERT(A)
 	A.add_antag_hud(owner.current) // Restore the hud of the previous antagonist datum.
 	owner.special_role = A.special_role
