@@ -45,7 +45,7 @@ export const ActiveConversation = (props, context) => {
             tooltipPosition="bottom-left"
             onClick={() => setClipboardMode(!clipboardMode)} />
         }
-        height="450px"
+        height="420px"
         stretchContents>
         <Section height="97%" overflowY="auto">
           {filter(im => im.target === active_convo)(messages).map((im, i) => (
@@ -56,11 +56,11 @@ export const ActiveConversation = (props, context) => {
               key={i}>
               <Icon
                 fontSize={2.5}
-                color={im.sent ? "#4d9121" : "#cd7a0d"}
+                color={im.sent ? "#3e6189" : "#565656"}
                 position="absolute"
                 left={im.sent ? null : "0px"}
                 right={im.sent ? "0px" : null}
-                bottom="-4px"
+                bottom="-5px"
                 style={{
                   "z-index": "0",
                   "transform": im.sent ? "scale(-1, 1)" : null,
@@ -68,66 +68,78 @@ export const ActiveConversation = (props, context) => {
                 name="comment" />
               <Box
                 inline
-                backgroundColor={im.sent ? "#4d9121" : "#cd7a0d"}
+                backgroundColor={im.sent ? "#3e6189" : "#565656"}
                 p={1}
                 maxWidth="100%"
                 position="relative"
-                textAlign={im.sent ? "left" : "right"}
+                textAlign="left"
                 style={{
                   "z-index": "1",
-                  "border-radius": "10px",
+                  "border-radius": "5px",
                   "word-break": "normal",
+                  "word-wrap": "break-word",
                 }}>
-                {im.sent ? "You:" : "Them:"} {im.message}
+                {im.message}
               </Box>
             </Box>
           ))}
         </Section>
-        <Button
-          mt={1}
-          icon="comment"
-          onClick={() => act("Message", { "target": active_convo })}
-          content="Reply" />
+        <Box textAlign="right">
+          <Button
+            mt={1}
+            icon="comment"
+            onClick={() => act("Message", { "target": active_convo })}
+            content="Reply" />
+        </Box>
       </Section>
     </Box>
   );
 
   if (clipboardMode) {
     body = (
-      <Section
-        level={2}
-        title={"Conversation with " + convo_name + " (" + convo_job + ")"}
-        buttons={
-          <Button
-            icon="eye"
-            selected={clipboardMode}
-            tooltip="Exit Clipboard Mode"
-            tooltipPosition="bottom-left"
-            onClick={() => setClipboardMode(!clipboardMode)} />
-        }
-        height="450px"
-        stretchContents>
-        <Section style={{
-          "height": "97%",
-          "overflow-y": "auto",
-        }}>
-          {filter(im => im.target === active_convo)(messages).map((im, i) => (
-            <Box
-              key={i}
-              color={im.sent ? "#4d9121" : "#cd7a0d"}
-              style={{
-                "word-break": "normal",
-              }}>
-              {im.sent ? "You:" : "Them:"} <Box inline>{im.message}</Box>
-            </Box>
-          ))}
-        </Section>
+      <Box>
         <Button
-          mt={1}
-          icon="comment"
-          onClick={() => act("Message", { "target": active_convo })}
-          content="Reply" />
-      </Section>
+          content="Back"
+          icon="arrow-left"
+          onClick={() => act("Back")} />
+        <Section
+          level={2}
+          title={"Conversation with " + convo_name + " (" + convo_job + ")"}
+          buttons={
+            <Button
+              icon="eye"
+              selected={clipboardMode}
+              tooltip="Exit Clipboard Mode"
+              tooltipPosition="bottom-left"
+              onClick={() => setClipboardMode(!clipboardMode)} />
+          }
+          height="420px"
+          stretchContents>
+          <Section style={{
+            "height": "97%",
+            "overflow-y": "auto",
+          }}>
+            {filter(im => im.target === active_convo)(messages).map((im, i) => (
+              <Box
+                key={i}
+                color={im.sent ? "#2185d0" : "#aaaaaa"}
+                style={{
+                  "word-break": "normal",
+                  "word-wrap": "break-word",
+                }}>
+                {im.sent ? "You:" : "Them:"} {im.message}
+              </Box>
+            ))}
+          </Section>
+          <Box textAlign="right">
+            <Button
+              mt={1}
+              icon="comment"
+              onClick={() => act("Message", { "target": active_convo })}
+              content="Reply" />
+          </Box>
+        </Section>
+      </Box>
     );
   }
 
