@@ -226,7 +226,8 @@
 					if(now >= m["publish_time"])
 						var/datum/feed_message/FM = locateUID(m["uid"])
 						if(FM && !(FM.censor_flags & CENSOR_STORY))
-							FM.view_count++
+							if(isliving(user))
+								FM.view_count++
 							m["view_count"] = FM.view_count
 				// Update the last viewed times for the user
 				LAZYINITLIST(last_views[user_name])
