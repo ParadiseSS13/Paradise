@@ -44,6 +44,9 @@
 	if(check_rights(rights_required = 0, show_msg = 0))
 		return TRUE
 
+	if(config.usewhitelist_nojobbanned && GLOB.jobban_assoclist[src.ckey])
+		return FALSE
+
 	//Whitelisted people are immune to overflow rerouting.
 	if(config.usewhitelist_database && SSdbcore.IsConnected())
 		var/datum/db_query/find_ticket = SSdbcore.NewQuery(
