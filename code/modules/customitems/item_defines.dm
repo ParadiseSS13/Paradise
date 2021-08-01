@@ -1471,7 +1471,7 @@
 
 /obj/item/clothing/head/fluff/lfbowler //Lightfire: Hyperion
 	name = "classy bowler hat"
-	desc = "a very classy looking bowler hat."
+	desc = "A very classy looking bowler hat."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "bowler_lightfire"
 
