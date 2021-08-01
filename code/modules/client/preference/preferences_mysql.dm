@@ -145,7 +145,7 @@
 
 	if(!C) // If the client disconnected during the query, try again later.
 		qdel(src)
-		return
+		return TRUE
 
 	// Let's not have this explode if you sneeze on the DB
 	var/datum/db_query/query = SSdbcore.NewQuery({"SELECT
