@@ -526,7 +526,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Wisewill-JN"] = "wisewill-Janitor"
 			module_sprites["Desolateg-JN"] = "desolateg-Janitor"
 			module_sprites["Ravensdale-JN"] = "ravensdale-Janitor"
-			module_sprites["Sigholtstarsong-JN"] = "sigholtstarsong-Janitor"
 			module_sprites["Sniperfairy-JN"] = "sniperfairy-Janitor"
 			module_sprites["Driker-JN"] = "driker-Janitor"
 			module_sprites["Fullofskittles-JN"] = "fullofskittles-Janitor"
