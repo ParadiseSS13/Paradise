@@ -396,11 +396,11 @@ SUBSYSTEM_DEF(vote)
 		if("toggle_restart")
 			if(admin)
 				GLOB.configuration.vote.allow_restart_votes = !GLOB.configuration.vote.allow_restart_votes
-				log_and_message_admins("[key_name_hidden(usr)] has [GLOB.configuration.vote.allow_restart_votes ? "enabled" : "disabled"] public restart voting.")
+				log_and_message_admins("has [GLOB.configuration.vote.allow_restart_votes ? "enabled" : "disabled"] public restart voting.")
 		if("toggle_gamemode")
 			if(admin)
 				GLOB.configuration.vote.allow_mode_votes = !GLOB.configuration.vote.allow_mode_votes
-				log_and_message_admins("[key_name_hidden(usr)] has [GLOB.configuration.vote.allow_mode_votes ? "enabled" : "disabled"] public gamemode voting.")
+				log_and_message_admins("has [GLOB.configuration.vote.allow_mode_votes ? "enabled" : "disabled"] public gamemode voting.")
 		if("restart")
 			if(GLOB.configuration.vote.allow_restart_votes || admin)
 				initiate_vote("restart",usr.key)
