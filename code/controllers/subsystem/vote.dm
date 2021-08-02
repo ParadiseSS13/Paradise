@@ -95,7 +95,7 @@ SUBSYSTEM_DEF(vote)
 					choices[GLOB.master_mode] += non_voters
 					if(choices[GLOB.master_mode] >= greatest_votes)
 						greatest_votes = choices[GLOB.master_mode]
-			else if(mode == "crew_transfer")
+			else if(mode == "crew transfer")
 				var/factor = 0.5
 				switch(world.time / (10 * 60)) // minutes
 					if(0 to 60)
@@ -176,7 +176,7 @@ SUBSYSTEM_DEF(vote)
 					to_chat(world, "<font color='red'><b>The round will start soon.</b></font>")
 			if("crew transfer")
 				if(. == "Initiate Crew Transfer")
-					init_shift_change(null, 1)
+					init_shift_change(null, TRUE)
 			if("map")
 				// Find target map.
 				var/datum/map/top_voted_map
@@ -314,37 +314,41 @@ SUBSYSTEM_DEF(vote)
 			dat += "(<a href='?src=[UID()];vote=cancel'>Cancel Vote</a>) "
 	else
 		dat += "<div id='vote_div'><h2>Start a vote:</h2><hr><ul><li>"
-		//restart
-		if(admin || GLOB.configuration.vote.allow_restart_votes)
-			dat += "<a href='?src=[UID()];vote=restart'>Restart</a>"
-		else
-			dat += "<font color='grey'>Restart (Disallowed)</font>"
-		dat += "</li><li>"
+		// Crew transfer
 		if(admin || GLOB.configuration.vote.allow_restart_votes)
 			dat += "<a href='?src=[UID()];vote=crew_transfer'>Crew Transfer</a>"
 		else
 			dat += "<font color='grey'>Crew Transfer (Disallowed)</font>"
+		dat += "</li><li>"
+
+		// Restart
+		if(admin || GLOB.configuration.vote.allow_restart_votes)
+			dat += "<a href='?src=[UID()];vote=restart'>Restart</a>"
+		else
+			dat += "<font color='grey'>Restart (Disallowed)</font>"
 		if(admin)
 			dat += "\t(<a href='?src=[UID()];vote=toggle_restart'>[GLOB.configuration.vote.allow_restart_votes ? "Allowed" : "Disallowed"]</a>)"
 		dat += "</li><li>"
-		//gamemode
+
+		// Gamemode
 		if(admin || GLOB.configuration.vote.allow_mode_votes)
-			dat += "<a href='?src=[UID()];vote=gamemode'>GameMode</a>"
+			dat += "<a href='?src=[UID()];vote=gamemode'>Gamemode</a>"
 		else
-			dat += "<font color='grey'>GameMode (Disallowed)</font>"
+			dat += "<font color='grey'>Gamemode (Disallowed)</font>"
 		if(admin)
 			dat += "\t(<a href='?src=[UID()];vote=toggle_gamemode'>[GLOB.configuration.vote.allow_mode_votes ? "Allowed" : "Disallowed"]</a>)"
-
 		dat += "</li><li>"
+
+		// Map
 		if(admin)
 			dat += "<a href='?src=[UID()];vote=map'>Map</a>"
 		else
 			dat += "<font color='grey'>Map (Disallowed)</font>"
+		dat += "</li><li>"
 
-		dat += "</li>"
-		//custom
+		// Custom
 		if(admin)
-			dat += "<li><a href='?src=[UID()];vote=custom'>Custom</a></li>"
+			dat += "<a href='?src=[UID()];vote=custom'>Custom</a></li>"
 		dat += "</ul></div><hr>"
 	var/datum/browser/popup = new(C.mob, "vote", "Voting Panel", nref=src)
 	popup.set_content(dat)
@@ -387,14 +391,16 @@ SUBSYSTEM_DEF(vote)
 				var/votedesc = capitalize(mode)
 				if(mode == "custom")
 					votedesc += " ([question])"
-				log_and_message_admins("cancelled the running [votedesc] vote.")
+				log_and_message_admins("cancelled the running '[votedesc]' vote.")
 				reset()
 		if("toggle_restart")
 			if(admin)
 				GLOB.configuration.vote.allow_restart_votes = !GLOB.configuration.vote.allow_restart_votes
+				log_and_message_admins("[key_name_hidden(usr)] has [GLOB.configuration.vote.allow_restart_votes ? "enabled" : "disabled"] public restart voting.")
 		if("toggle_gamemode")
 			if(admin)
 				GLOB.configuration.vote.allow_mode_votes = !GLOB.configuration.vote.allow_mode_votes
+				log_and_message_admins("[key_name_hidden(usr)] has [GLOB.configuration.vote.allow_mode_votes ? "enabled" : "disabled"] public gamemode voting.")
 		if("restart")
 			if(GLOB.configuration.vote.allow_restart_votes || admin)
 				initiate_vote("restart",usr.key)
