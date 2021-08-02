@@ -41,7 +41,7 @@ SUBSYSTEM_DEF(vote)
 				CHECK_TICK
 
 /datum/controller/subsystem/vote/proc/autotransfer()
-	initiate_vote("crew_transfer","the server")
+	initiate_vote("crew transfer", "the server")
 
 /datum/controller/subsystem/vote/proc/reset()
 	initiator = null
@@ -174,7 +174,7 @@ SUBSYSTEM_DEF(vote)
 				if(!SSticker.ticker_going)
 					SSticker.ticker_going = TRUE
 					to_chat(world, "<font color='red'><b>The round will start soon.</b></font>")
-			if("crew_transfer")
+			if("crew transfer")
 				if(. == "Initiate Crew Transfer")
 					init_shift_change(null, 1)
 			if("map")
@@ -222,7 +222,7 @@ SUBSYSTEM_DEF(vote)
 				if(SSticker.current_state >= 2)
 					return 0
 				choices.Add(GLOB.configuration.gamemode.votable_modes)
-			if("crew_transfer")
+			if("crew transfer")
 				if(check_rights(R_ADMIN|R_MOD))
 					if(SSticker.current_state <= 2)
 						return 0
@@ -266,16 +266,16 @@ SUBSYSTEM_DEF(vote)
 			<a href='?src=[UID()];vote=open'>Click here or type vote to place your vote.</a>
 			You have [GLOB.configuration.vote.vote_time / 10] seconds to vote.</font>"})
 		switch(vote_type)
-			if("crew_transfer", "gamemode", "custom", "map")
+			if("crew transfer", "gamemode", "custom", "map")
 				SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
 		if(mode == "gamemode" && SSticker.ticker_going)
 			SSticker.ticker_going = FALSE
 			to_chat(world, "<font color='red'><b>Round start has been delayed.</b></font>")
-		if(mode == "crew_transfer" && GLOB.ooc_enabled)
+		if(mode == "crew transfer" && GLOB.ooc_enabled)
 			auto_muted = TRUE
 			GLOB.ooc_enabled = FALSE
 			to_chat(world, "<b>The OOC channel has been automatically disabled due to a crew transfer vote.</b>")
-			log_admin("OOC was toggled automatically due to crew_transfer vote.")
+			log_admin("OOC was toggled automatically due to crew transfer vote.")
 			message_admins("OOC has been toggled off automatically.")
 		if(mode == "gamemode" && GLOB.ooc_enabled)
 			auto_muted = TRUE
@@ -406,7 +406,7 @@ SUBSYSTEM_DEF(vote)
 				initiate_vote("map", usr.key)
 		if("crew_transfer")
 			if(GLOB.configuration.vote.allow_restart_votes || admin)
-				initiate_vote("crew_transfer",usr.key)
+				initiate_vote("crew transfer", usr.key)
 		if("custom")
 			if(admin)
 				initiate_vote("custom",usr.key)
