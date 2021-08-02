@@ -35128,16 +35128,14 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_y = 32
 	},
+/obj/item/megaphone,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
 	},
 /area/crew_quarters/heads)
 "byK" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
+/obj/machinery/computer/account_database,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -35147,7 +35145,17 @@
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 30
 	},
-/obj/machinery/computer/account_database,
+/obj/structure/table,
+/obj/item/book/manual/sop_command{
+	pixel_x = 2
+	},
+/obj/item/book/manual/sop_supply{
+	pixel_y = 2
+	},
+/obj/item/book/manual/sop_service{
+	pixel_x = -2;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -35166,8 +35174,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/bed/dogbed/ian,
-/mob/living/simple_animal/pet/dog/corgi/Ian,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "blue"
@@ -36143,6 +36153,12 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bBe" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'HIGH VOLTAGE'";
+	icon_state = "shock";
+	name = "HIGH VOLTAGE";
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
@@ -36309,6 +36325,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/structure/bed/dogbed/ian,
+/mob/living/simple_animal/pet/dog/corgi/Ian,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -36338,7 +36356,7 @@
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "bBC" = (
-/obj/machinery/computer/arcade,
+/obj/structure/bed/dogbed/renault,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bBD" = (
@@ -36349,7 +36367,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/bed/dogbed/renault,
+/obj/machinery/computer/arcade,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bBF" = (
@@ -36720,7 +36738,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/photocopier,
+/obj/machinery/suit_storage_unit/captain,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bCN" = (
@@ -37181,7 +37199,7 @@
 /area/quartermaster/storage)
 "bDS" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
+	dir = 1;
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
@@ -37905,7 +37923,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bFI" = (
-/obj/structure/chair/office/dark{
+/obj/structure/chair/comfy/brown{
 	dir = 4
 	},
 /obj/effect/landmark/start{
@@ -39395,7 +39413,7 @@
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "bIO" = (
-/obj/structure/chair,
+/obj/structure/chair/office/dark,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -40381,10 +40399,6 @@
 /obj/item/folder/blue,
 /obj/item/stamp/hop,
 /obj/item/eftpos,
-/obj/item/book/manual/sop_service,
-/obj/item/book/manual/sop_supply,
-/obj/item/book/manual/sop_command,
-/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
 "bKK" = (
@@ -40394,7 +40408,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/structure/chair{
+/obj/structure/chair/office/dark{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -40402,7 +40416,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
 "bKL" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/office/dark{
 	dir = 4
 	},
 /obj/effect/landmark/start{
@@ -40562,7 +40576,7 @@
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/captain/bedroom)
 "bLe" = (
-/obj/machinery/suit_storage_unit/captain,
+/obj/machinery/photocopier,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bLf" = (
@@ -45349,27 +45363,27 @@
 	},
 /area/medical/surgery1)
 "bUv" = (
+/obj/machinery/computer/borgupload,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai_upload)
+"bUw" = (
+/obj/machinery/camera{
+	c_tag = "AI Upload Chamber"
+	},
 /obj/machinery/power/apc{
 	cell_type = 5000;
 	dir = 1;
 	name = "north bump Important Area";
 	pixel_y = 24
 	},
-/obj/structure/table,
-/obj/item/phone{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai_upload)
-"bUw" = (
-/obj/machinery/computer/aiupload,
-/obj/machinery/camera{
-	c_tag = "AI Upload Chamber"
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -45387,13 +45401,16 @@
 	},
 /obj/structure/table,
 /obj/item/aiModule/nanotrasen,
+/obj/item/phone{
+	pixel_x = -3;
+	pixel_y = 3
+	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bUz" = (
 /obj/machinery/light_switch{
 	pixel_y = 27
 	},
-/obj/machinery/computer/borgupload,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -45730,9 +45747,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/machinery/computer/aiupload,
+/turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bVk" = (
 /obj/machinery/door/firedoor,
@@ -83396,6 +83412,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
+"gvw" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/ai_upload)
 "gAm" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -83454,9 +83475,7 @@
 /area/engine/supermatter)
 "gJI" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "gLY" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
@@ -84635,6 +84654,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"oZi" = (
+/obj/structure/girder/reinforced,
+/turf/simulated/floor/plating,
+/area/maintenance/maintcentral)
 "paA" = (
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/engine,
@@ -84969,9 +84992,8 @@
 /area/crew_quarters/dorms)
 "rKT" = (
 /obj/structure/table,
+/obj/item/paper_bin/nanotrasen,
 /obj/item/pen/multi,
-/obj/item/pen/multi,
-/obj/item/megaphone,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
 "rMo" = (
@@ -85268,6 +85290,19 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"ueO" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 8;
+	icon_state = "open";
+	id_tag = "hop";
+	name = "Privacy Shutters";
+	opacity = 0
+	},
+/obj/structure/cable,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/crew_quarters/heads)
 "ufc" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -85323,12 +85358,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "uQQ" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
-	pixel_y = -32
-	},
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -85345,6 +85374,11 @@
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -85710,9 +85744,7 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "xuG" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -111663,7 +111695,7 @@ bMD
 bEN
 bHg
 uQQ
-bMD
+ueO
 bMD
 bMD
 bMD
@@ -114499,7 +114531,7 @@ bQs
 bZe
 bUw
 bSh
-bTP
+gvw
 bTP
 bZn
 cbh
@@ -114752,7 +114784,7 @@ bFN
 bLc
 kgN
 bQt
-bQr
+oZi
 bZe
 bUv
 bVj
@@ -115013,7 +115045,7 @@ bJn
 bZe
 bUz
 bSl
-bTP
+gvw
 mmR
 bZn
 cbi
