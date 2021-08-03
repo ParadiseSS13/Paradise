@@ -351,7 +351,7 @@
 		to_chat(H, "<span class='warning'>The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
 
 /datum/reagent/acetic_acid
-	name = "acetic acid"
+	name = "Acetic acid"
 	description = "A weak acid that is the main component of vinegar and bad hangovers."
 	color = "#0080ff"
 	reagent_state = LIQUID

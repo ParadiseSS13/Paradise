@@ -1,5 +1,5 @@
 /datum/reagent/phlogiston
-	name = "phlogiston"
+	name = "Phlogiston"
 	description = "It appears to be liquid fire."
 	reagent_state = LIQUID
 	color = "#FFAF00"
@@ -35,7 +35,7 @@
 	return ..()
 
 /datum/reagent/phlogiston/firedust
-	name = "phlogiston dust"
+	name = "Phlogiston dust"
 	description = "And this is solid fire. However that works."
 	temp_fire = 1500
 	temp_deviance = 500
@@ -43,7 +43,7 @@
 	mob_burning = 3 // 15
 
 /datum/reagent/napalm
-	name = "napalm"
+	name = "Napalm"
 	description = "A highly flammable jellied fuel."
 	reagent_state = LIQUID
 	process_flags = ORGANIC | SYNTHETIC

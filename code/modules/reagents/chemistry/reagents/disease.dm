@@ -1,5 +1,5 @@
 /datum/reagent/spider_eggs
-	name = "spider eggs"
+	name = "Spider eggs"
 	description = "A fine dust containing spider eggs. Oh gosh."
 	reagent_state = SOLID
 	color = "#FFFFFF"
@@ -115,7 +115,7 @@
 	return ..()
 
 /datum/reagent/bacon_grease
-	name = "pure bacon grease"
+	name = "Pure bacon grease"
 	description = "Hook me up to an IV of that sweet, sweet stuff!"
 	reagent_state = LIQUID
 	color = "#F7E6B1"
@@ -172,25 +172,25 @@
 	taste_description = "watery milk"
 
 /datum/reagent/mutagen/mutagenvirusfood
-	name = "mutagenic agar"
+	name = "Mutagenic agar"
 	description = "mutates blood"
 	color = "#A3C00F" // rgb: 163,192,15
 
 /datum/reagent/mutagen/mutagenvirusfood/sugar
-	name = "sucrose agar"
+	name = "Sucrose agar"
 	color = "#41B0C0" // rgb: 65,176,192
 	taste_mult = 1.5
 
 /datum/reagent/medicine/diphenhydramine/diphenhydraminevirusfood
-	name = "virus rations"
+	name = "Virus rations"
 	description = "mutates blood"
 	color = "#D18AA5" // rgb: 209,138,165
 
 /datum/reagent/plasma_dust/plasmavirusfood
-	name = "virus plasma"
+	name = "Virus plasma"
 	description = "mutates blood"
 	color = "#A69DA9" // rgb: 166,157,169
 
 /datum/reagent/plasma_dust/plasmavirusfood/weak
-	name = "weakened virus plasma"
+	name = "Weakened virus plasma"
 	color = "#CEC3C6" // rgb: 206,195,198

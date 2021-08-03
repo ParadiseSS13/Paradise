@@ -424,7 +424,7 @@
 	return ..()
 
 /datum/reagent/consumable/flour
-	name = "flour"
+	name = "Flour"
 	description = "This is what you rub all over yourself to pretend to be a ghost."
 	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 0, 0, 0
@@ -802,7 +802,7 @@
 	return ..() | update_flags
 
 /datum/reagent/cholesterol
-	name = "cholesterol"
+	name = "Cholesterol"
 	description = "Pure cholesterol. Probably not very good for you."
 	reagent_state = LIQUID
 	color = "#FFFAC8"
