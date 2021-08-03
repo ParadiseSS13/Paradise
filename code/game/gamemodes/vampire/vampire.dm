@@ -1,9 +1,16 @@
-//This is the gamemode file for the ported goon gamemode vampires.
-//They get a traitor objective and a blood sucking objective
+#define SUBCLASS_HEMOMANCER "hemomancer"
+#define SUBCLASS_GARGANTUA "gargantua"
+#define SUBCLASS_UMBRAE "umbrae"
+#define SUBCLASS_DANTALION "dantalion"
+
+#define BLOOD_DRAIN_LIMIT 200
+#define FULLPOWER_DRAINED_REQUIREMENT 0 // the number of people you need to suck to get become full powered // CHANGE TO 8 AFTER TESTING
+#define FULLPOWER_BLOODTOTAL_REQUIREMENT 1000 // the amount of blood you need to suck to get full power
+
 /datum/game_mode
 	var/list/datum/mind/vampires = list()
 	var/list/datum/mind/vampire_enthralled = list() //those controlled by a vampire
-	var/list/vampire_thralls = list() //vammpires controlling somebody
+	var/list/vampire_thralls = list() //vampires controlling somebody
 
 /datum/game_mode/vampire
 	name = "vampire"
@@ -36,7 +43,7 @@
 
 /datum/game_mode/vampire/announce()
 	to_chat(world, "<B>The current game mode is - Vampires!</B>")
-	to_chat(world, "<B>There are Vampires from Space Transylvania on the station, keep your blood close and neck safe!</B>")
+	to_chat(world, "<B>There are Bluespace Vampires infesting your fellow crewmates, keep your blood close and neck safe!</B>")
 
 /datum/game_mode/vampire/pre_setup()
 
@@ -196,41 +203,53 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	to_chat(vampire.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Vampire)</span>")
 	return
 /datum/vampire
-	var/bloodtotal = 0 // CHANGE TO ZERO WHEN PLAYTESTING HAPPENS
-	var/bloodusable = 0 // CHANGE TO ZERO WHEN PLAYTESTING HAPPENS
+	var/bloodtotal = 1000 // CHANGE TO ZERO WHEN PLAYTESTING HAPPENS
+	var/bloodusable = 1000 // CHANGE TO ZERO WHEN PLAYTESTING HAPPENS
 	var/mob/living/owner = null
-	var/gender = FEMALE
-	var/iscloaking = 0 // handles the vampire cloak toggle
+	var/subclass
+	var/iscloaking = FALSE // handles the vampire cloak toggle
+	var/can_force_doors = FALSE
 	var/list/powers = list() // list of available powers and passives
 	var/mob/living/carbon/human/draining // who the vampire is draining of blood
 	var/nullified = 0 //Nullrod makes them useless for a short while.
+	var/max_thralls = 2
 	var/list/upgrade_tiers = list(
-		/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
-		/obj/effect/proc_holder/spell/vampire/targetted/hypnotise = 0,
-		/obj/effect/proc_holder/spell/vampire/mob_aoe/glare = 0,
+		/obj/effect/proc_holder/spell/self/rejuvenate = 0,
+		/obj/effect/proc_holder/spell/mob_aoe/glare = 0,
 		/datum/vampire_passive/vision = 100,
-		/obj/effect/proc_holder/spell/vampire/self/shapeshift = 100,
-		/obj/effect/proc_holder/spell/vampire/self/cloak = 150,
-		/obj/effect/proc_holder/spell/vampire/targetted/disease = 150,
-		/obj/effect/proc_holder/spell/vampire/bats = 200,
-		/obj/effect/proc_holder/spell/vampire/self/screech = 200,
+		/obj/effect/proc_holder/spell/self/specialize = 150,
 		/datum/vampire_passive/regen = 200,
-		/obj/effect/proc_holder/spell/vampire/shadowstep = 250,
-		/obj/effect/proc_holder/spell/vampire/self/jaunt = 300,
-		/obj/effect/proc_holder/spell/vampire/targetted/enthrall = 300,
-		/datum/vampire_passive/full = 500)
+		/obj/effect/proc_holder/spell/targeted/turf_teleport/shadow_step = 250)
+	var/list/umbrae_powers = list(/obj/effect/proc_holder/spell/self/cloak = 150,
+									/obj/effect/proc_holder/spell/targeted/click/shadow_snare = 300,
+									/obj/effect/proc_holder/spell/targeted/click/dark_passage = 400,
+									/obj/effect/proc_holder/spell/aoe_turf/vamp_extinguish = 600)
+
+	var/list/hemomancer_powers = list(/obj/effect/proc_holder/spell/self/conguring = 150,
+									/obj/effect/proc_holder/spell/targeted/click/blood_tendrils = 250,
+									/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/blood_pool = 400,
+									/obj/effect/proc_holder/spell/blood_eruption = 600)
+
+	var/list/gargantua_powers = list(/obj/effect/proc_holder/spell/self/blood_swell = 150,
+									/obj/effect/proc_holder/spell/self/blood_rush = 250,
+									/datum/vampire_passive/blood_swell_upgrade = 400,
+									/obj/effect/proc_holder/spell/self/overwhelming_force = 600)
+
+	var/list/dantalion_powers = list(/obj/effect/proc_holder/spell/targetted/enthrall = 150)
+
+	var/list/drained_humans = list() // list of the peoples UIDs that we have drained, and how much blood from each one
 
 /datum/vampire/proc/adjust_nullification(base, extra)
 	// First hit should give full nullification, while subsequent hits increase the value slower
 	nullified = max(nullified + extra, base)
 
-/datum/vampire/New(gend = FEMALE)
-	gender = gend
-
 /datum/vampire/proc/force_add_ability(path)
 	var/spell = new path(owner)
 	if(istype(spell, /obj/effect/proc_holder/spell))
 		owner.mind.AddSpell(spell)
+	if(istype(spell, /datum/vampire_passive))
+		var/datum/vampire_passive/passive = spell
+		passive.owner = owner
 	powers += spell
 	owner.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp gets new vision based on his powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
@@ -278,12 +297,15 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		if(hud.vampire_blood_display)
 			hud.remove_vampire_hud()
 	owner.alpha = 255
+	REMOVE_TRAITS_IN(owner, "vampire")
 
-/datum/vampire/proc/handle_bloodsucking(mob/living/carbon/human/H)
+/datum/vampire/proc/handle_bloodsucking(mob/living/carbon/human/H, suck_rate = 5 SECONDS)
 	draining = H
+	var/unique_suck_id = H.UID()
+	if(!(H in drained_humans))
+		if(H.ckey || H.player_ghosted)
+			drained_humans += unique_suck_id
 	var/blood = 0
-	var/old_bloodtotal = 0 //used to see if we increased our blood total
-	var/old_bloodusable = 0 //used to see if we increased our blood usable
 	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
 	if(owner.is_muzzled())
 		to_chat(owner, "<span class='warning'>[owner.wear_mask] prevents you from biting [H]!</span>")
@@ -295,50 +317,56 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		H.LAssailant = null
 	else
 		H.LAssailant = owner
-	while(do_mob(owner, H, 50))
+	while(do_mob(owner, H, suck_rate))
 		if(!(owner.mind in SSticker.mode.vampires))
 			to_chat(owner, "<span class='userdanger'>Your fangs have disappeared!</span>")
 			return
-		old_bloodtotal = bloodtotal
-		old_bloodusable = bloodusable
-		if(H.stat < DEAD)
-			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
-				blood = min(20, H.blood_volume)	// if they have less than 20 blood, give them the remnant else they get 20 blood
-				bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
-				bloodusable += blood / 2
-		else
-			if(H.ckey || H.player_ghosted)
-				blood = min(5, H.blood_volume)	// The dead only give 5 blood
-				bloodtotal += blood
-		if(old_bloodtotal != bloodtotal)
-			if(H.ckey || H.player_ghosted) // Requires ckey regardless if monkey or human, and has not ghosted, otherwise no power
-				to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>")
-		check_vampire_upgrade()
-		H.blood_volume = max(H.blood_volume - 25, 0)
-		//Blood level warnings (Code 'borrowed' from Fulp)
-		if(H.blood_volume)
-			if(H.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
-				to_chat(owner, "<span class='danger'>Your victim's blood volume is dangerously low.</span>")
-			else if(H.blood_volume <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
-				to_chat(owner, "<span class='warning'>Your victim's blood is at an unsafe level.</span>")
-			blood_volume_warning = H.blood_volume //Set to blood volume, so that you only get the message once
-		else
-			to_chat(owner, "<span class='warning'>You have bled your victim dry!</span>")
-			break
+		if(unique_suck_id in drained_humans)
+			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
+				to_chat(owner, "<span class='warning'>You have drained most of the life force from [H]'s blood, and you will get no useable blood from them!</span>")
+				H.blood_volume = max(H.blood_volume - 25, 0)
+			else
+				if(H.stat < DEAD)
+					if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
+						blood = min(20, H.blood_volume)	// if they have less than 20 blood, give them the remnant else they get 20 blood
+						bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
+						bloodusable += blood / 2
+						drained_humans[unique_suck_id] += blood / 2
+						check_vampire_upgrade()
+						to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood, and have [bloodusable] left to use.</b></span>")
+				else
+					if(H.ckey || H.player_ghosted)
+						blood = min(5, H.blood_volume)	// The dead only give 5 blood
+						bloodtotal += blood
+				H.blood_volume = max(H.blood_volume - 25, 0)
+				//Blood level warnings (Code 'borrowed' from Fulp)
+				if(H.blood_volume)
+					if(H.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
+						to_chat(owner, "<span class='danger'>Your victim's blood volume is dangerously low.</span>")
+					else if(H.blood_volume <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
+						to_chat(owner, "<span class='warning'>Your victim's blood is at an unsafe level.</span>")
+					blood_volume_warning = H.blood_volume //Set to blood volume, so that you only get the message once
+				else
+					to_chat(owner, "<span class='warning'>You have bled your victim dry!</span>")
+					break
 
 		if(ishuman(owner))
 			var/mob/living/carbon/human/V = owner
+			V.do_attack_animation(H, ATTACK_EFFECT_BITE)
 			if(!H.ckey && !H.player_ghosted)//Only runs if there is no ckey and the body has not being ghosted while alive
 				to_chat(V, "<span class='notice'><b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b></span>")
 				V.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, V.nutrition + 5))
-			else
-				V.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2)))
+			else if(H in drained_humans)
+				if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
+					V.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, V.nutrition + 5))
+				else
+					V.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2)))
 
 
 	draining = null
 	to_chat(owner, "<span class='notice'>You stop draining [H.name] of blood.</span>")
 
-/datum/vampire/proc/check_vampire_upgrade(announce = 1)
+/datum/vampire/proc/check_vampire_upgrade(announce = TRUE)
 	var/list/old_powers = powers.Copy()
 
 	for(var/ptype in upgrade_tiers)
@@ -346,18 +374,66 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		if(bloodtotal >= level)
 			add_ability(ptype)
 
+	if(!subclass)
+		return
+
+	if(subclass == SUBCLASS_UMBRAE)
+		for(var/power in umbrae_powers)
+			var/level = umbrae_powers[power]
+			if(bloodtotal >= level)
+				add_ability(power)
+
+	if(subclass == SUBCLASS_HEMOMANCER)
+		for(var/power in hemomancer_powers)
+			var/level = hemomancer_powers[power]
+			if(bloodtotal >= level)
+				add_ability(power)
+
+	if(subclass == SUBCLASS_GARGANTUA)
+		for(var/power in gargantua_powers)
+			var/level = gargantua_powers[power]
+			if(bloodtotal >= level)
+				add_ability(power)
+
+	if(subclass == SUBCLASS_DANTALION)
+		for(var/power in dantalion_powers)
+			var/level = dantalion_powers[power]
+			if(bloodtotal >= level)
+				add_ability(power)
+
+	check_full_power_upgrade()
+
 	if(announce)
 		announce_new_power(old_powers)
+
+
+/datum/vampire/proc/check_full_power_upgrade()
+	if(length(drained_humans) >= FULLPOWER_DRAINED_REQUIREMENT && bloodtotal >= 1000)
+		if(subclass == SUBCLASS_HEMOMANCER)
+			add_ability(/obj/effect/proc_holder/spell/self/blood_spill)
+
+		if(subclass == SUBCLASS_UMBRAE)
+			add_ability(/obj/effect/proc_holder/spell/self/eternal_darkness)
+			add_ability(/datum/vampire_passive/xray)
+
+		//if(subclass == SUBCLASS_GARGANTUA) //COMING SOON!!!
+
+
+
+		//if(subclass == SUBCLASS_DANTALION) //COMING SOON!!!
+
+		add_ability(/datum/vampire_passive/full)
+
 
 /datum/vampire/proc/announce_new_power(list/old_powers)
 	for(var/p in powers)
 		if(!(p in old_powers))
-			if(istype(p, /obj/effect/proc_holder/spell/vampire))
-				var/obj/effect/proc_holder/spell/vampire/power = p
-				to_chat(owner, "<span class='notice'>[power.gain_desc]</span>")
+			if(istype(p, /obj/effect/proc_holder/spell))
+				var/obj/effect/proc_holder/spell/power = p
+				to_chat(owner, "<span class='notice'><b>[power.gain_desc]</b></span>")
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p
-				to_chat(owner, "<span class='notice'>[power.gain_desc]</span>")
+				to_chat(owner, "<span class='notice'><b>[power.gain_desc]</b></span>")
 
 /datum/game_mode/proc/remove_vampire(datum/mind/vampire_mind)
 	if(vampire_mind in vampires)
@@ -427,6 +503,8 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		to_chat(owner, "<span class='userdanger'>Your body is turning to ash, get out of the light now!</span>")
 		owner.adjustCloneLoss(10)	//I'm melting!
 		vamp_burn(85)
+		if(owner.cloneloss >= 100)
+			owner.dust()
 
 /datum/vampire/proc/handle_vampire()
 	if(owner.hud_used)
@@ -440,9 +518,9 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			hud.show_hud(hud.hud_version)
 		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
 	handle_vampire_cloak()
-	if(istype(owner.loc, /turf/space))
+	if(istype(get_turf(owner), /turf/space))
 		check_sun()
-	if(istype(owner.loc.loc, /area/chapel) && !get_ability(/datum/vampire_passive/full))
+	if(istype(get_area(owner), /area/chapel) && !get_ability(/datum/vampire_passive/full))
 		vamp_burn(7)
 	nullified = max(0, nullified - 1)
 

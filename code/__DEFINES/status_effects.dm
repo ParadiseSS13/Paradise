@@ -33,6 +33,8 @@
 
 #define STATUS_EFFECT_BLOODDRUNK /datum/status_effect/blooddrunk //Stun immunity and greatly reduced damage taken
 
+#define STATUS_EFFECT_BLOOD_SWELL /datum/status_effect/bloodswell //stun resistance and halfed damage for gargantua vampires
+
 /////////////
 // DEBUFFS //
 /////////////

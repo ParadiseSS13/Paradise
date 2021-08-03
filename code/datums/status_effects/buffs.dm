@@ -81,6 +81,44 @@
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
 		owner.stun_absorption -= "blooddrunk"
 
+/datum/status_effect/bloodswell
+	id = "bloodswell"
+	duration = 30 SECONDS
+	tick_interval = 0
+	alert_type = /obj/screen/alert/status_effect/blood_swell
+	var/bonus_damage_applied = FALSE
+
+/obj/screen/alert/status_effect/blood_swell
+	name = "Blood Swell"
+	desc = "Your body has been infused with crimson magics, your resistance to attacks is greatly increased!"
+	icon_state = "blooddrunk"
+
+/datum/status_effect/bloodswell/on_apply()
+	. = ..()
+	if(.)
+		if(ishuman(owner))
+			var/mob/living/carbon/human/H = owner
+			H.physiology.brute_mod *= 0.5
+			H.physiology.burn_mod *= 0.5
+			H.physiology.stamina_mod *= 0.5
+			H.physiology.stun_mod *= 0.5
+			if(owner.mind.vampire.get_ability(/datum/vampire_passive/blood_swell_upgrade))
+				bonus_damage_applied = TRUE
+				H.physiology.melee_bonus += 10
+				H.dna.species.punchstunthreshold += 8 //higher chance to stun but not 100%
+
+/datum/status_effect/bloodswell/on_remove()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.physiology.brute_mod *= 2
+		H.physiology.burn_mod *= 2
+		H.physiology.stamina_mod *= 2
+		H.physiology.stun_mod *= 2
+		if(bonus_damage_applied)
+			H.physiology.melee_bonus -= 10
+			H.dna.species.punchstunthreshold -= 8
+			bonus_damage_applied = FALSE
+
 /datum/status_effect/exercised
 	id = "Exercised"
 	duration = 1200
