@@ -1943,6 +1943,18 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	else
 		runechat_msg_location = src
 
+/mob/living/carbon/human/verb/Examine_OOC()
+	set name = "Examine Meta-Info (OOC)"
+	set category = "OOC"
+	set src in view()
+
+	if(GLOB.configuration.general.allow_character_metadata)
+		if(client)
+			to_chat(usr, "[src]'s Metainfo:<br>[sanitize(client.prefs.metadata)]")
+		else
+			to_chat(usr, "[src] does not have any stored infomation!")
+	else
+		to_chat(usr, "OOC Metadata is not supported by this server!")
 
 /mob/living/carbon/human/ObjBump(A)
 	if(HAS_TRAIT(src, TRAIT_FORCE_DOORS))
@@ -1962,5 +1974,3 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 				AL.open(TRUE)
 				if(mind?.vampire && HAS_TRAIT_FROM(src, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
 					mind.vampire.bloodusable -= 5
-
-

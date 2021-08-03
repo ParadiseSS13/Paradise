@@ -20,6 +20,9 @@
 	/// Do you want the gun to fit into a turret, defaults to true, used for if a energy gun is too strong to be in a turret, or does not make sense to be in one.
 	var/can_fit_in_turrets = TRUE
 
+/obj/item/gun/energy/detailed_examine()
+	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. To recharge this weapon, use a weapon recharger."
+
 /obj/item/gun/energy/emp_act(severity)
 	cell.use(round(cell.charge / severity))
 	if(chambered)//phil235
@@ -203,3 +206,12 @@
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
 			if(R.cell.use(shot.e_cost)) 		//Take power from the borg...
 				cell.give(shot.e_cost)	//... to recharge the shot
+
+/obj/item/gun/energy/cyborg_recharge(coeff, emagged)
+	if(cell.charge < cell.maxcharge)
+		var/obj/item/ammo_casing/energy/E = ammo_type[select]
+		cell.give(E.e_cost * coeff)
+		on_recharge()
+		update_icon()
+	else
+		charge_tick = 0

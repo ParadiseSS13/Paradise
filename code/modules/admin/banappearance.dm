@@ -40,8 +40,9 @@ DEBUG
 	appearance_loadbanfile()
 */
 // AA 2020-11-25: This entire proc isnt even called. What the actual fuck.
+// AA 2021-05-23: This entire proc STILL isnt even called. I am going to screan.
 /proc/appearance_loadbanfile()
-	if(config.ban_legacy_system)
+	if(!GLOB.configuration.general.use_database_bans)
 		var/savefile/S=new("data/appearance_full.ban")
 		S["keys[0]"] >> GLOB.appearance_keylist
 		log_admin("Loading appearance_rank")
@@ -53,12 +54,12 @@ DEBUG
 	else
 		if(!SSdbcore.IsConnected())
 			log_world("Database connection failed. Reverting to the legacy ban system.")
-			config.ban_legacy_system = 1
+			GLOB.configuration.general.use_database_bans = FALSE
 			appearance_loadbanfile()
 			return
 
 		//appearance bans
-		var/datum/db_query/appearanceban_query = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("ban")] WHERE bantype = 'APPEARANCE_BAN' AND NOT unbanned = 1")
+		var/datum/db_query/appearanceban_query = SSdbcore.NewQuery("SELECT ckey FROM ban WHERE bantype = 'APPEARANCE_BAN' AND NOT unbanned = 1")
 
 		if(!appearanceban_query.warn_execute())
 			qdel(appearanceban_query)
