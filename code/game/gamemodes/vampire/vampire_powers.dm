@@ -272,10 +272,10 @@
 			if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 				continue
 			if(H.check_ear_prot() >= HEARING_PROTECTION_MINOR)
-				to_chat(C, "<span class='warning'><font size='3'><b>You hear a dull shriek and instinctively cover your ears!</font></b></span>")
-				C.Confused(10)
-				C.Stuttering(10)
-				C.Jitter(50)
+				to_chat(H, "<span class='warning'><font size='3'><b>You hear a dull shriek and instinctively cover your ears!</font></b></span>")
+				H.Confused(10)
+				H.Stuttering(10)
+				H.Jitter(50)
 				continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear an ear piercing shriek and your senses dull!</font></b></span>")
 		C.Weaken(4)
