@@ -25504,7 +25504,6 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
 "bno" = (
@@ -99928,7 +99927,6 @@
 	opacity = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -104454,7 +104452,6 @@
 	name = "Prison Lockdown Blast Doors";
 	opacity = 0
 	},
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
