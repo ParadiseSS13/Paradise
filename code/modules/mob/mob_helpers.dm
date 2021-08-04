@@ -79,7 +79,7 @@
 
 /proc/cannotPossess(A)
 	var/mob/dead/observer/G = A
-	if(G.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+	if(G.has_enabled_antagHUD && GLOB.configuration.general.restrict_antag_hud_rejoin)
 		return 1
 	return 0
 
