@@ -78,7 +78,7 @@
 	new_spawn.rename_character(new_spawn.real_name, new_spawn.dna.species.get_random_name(new_spawn.gender))
 
 	to_chat(new_spawn, "<b>Drag the corpses of men and beasts to your nest. It will absorb them to create more of your kind. Glory to the Necropolis!</b>")
-	to_chat(new_spawn, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Ash_Walker)</span>")
+	to_chat(new_spawn, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Ash_Walker)</span>")
 
 /obj/effect/mob_spawn/human/ash_walker/New()
 	. = ..()

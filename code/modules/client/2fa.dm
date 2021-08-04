@@ -1,12 +1,12 @@
 // This is in its own file as it has so much stuff to contend with
 /client/proc/edit_2fa()
-	if(!config._2fa_auth_host)
+	if(!GLOB.configuration.system._2fa_auth_host)
 		alert(usr, "This server does not have 2FA enabled.")
 		return
 	// Client does not have 2FA enabled. Set it up.
 	if(prefs._2fa_status == _2FA_DISABLED)
 		// Get us an auth token
-		var/datum/http_response/qrcr = wrap_http_get("[config._2fa_auth_host]/generateQR?ckey=[ckey]")
+		var/datum/http_response/qrcr = wrap_http_get("[GLOB.configuration.system._2fa_auth_host]/generateQR?ckey=[ckey]")
 		// If this fails, shits gone bad
 		if(qrcr.errored)
 			alert(usr, "Something has gone VERY wrong ingame. Please inform the server host.\nError details: [qrcr.error]")
@@ -27,13 +27,13 @@
 		var/entered_code = input(usr, "Please enter a code from your auth app. Failure to enter the code correctly will abort 2FA setup.", "2FA Validation")
 		if(!entered_code)
 			// Cleanup so they can start again
-			var/datum/db_query/dbq = SSdbcore.NewQuery("DELETE FROM [format_table_name("2fa_secrets")] WHERE ckey=:ckey", list("ckey" = ckey))
+			var/datum/db_query/dbq = SSdbcore.NewQuery("DELETE FROM 2fa_secrets WHERE ckey=:ckey", list("ckey" = ckey))
 			dbq.warn_execute()
 			alert(usr, "2FA Setup aborted!")
 			B.close()
 			return
 
-		var/datum/http_response/vr = wrap_http_get("[config._2fa_auth_host]/validateCode?ckey=[ckey]&code=[entered_code]")
+		var/datum/http_response/vr = wrap_http_get("[GLOB.configuration.system._2fa_auth_host]/validateCode?ckey=[ckey]&code=[entered_code]")
 		// If this fails, shits gone bad
 		if(vr.errored)
 			alert(usr, "Something has gone VERY wrong ingame. Please inform the server host.\nError details: [vr.error]")
@@ -42,7 +42,7 @@
 
 		if(vr.status_code != 200)
 			// Cleanup so they can start again
-			var/datum/db_query/dbq = SSdbcore.NewQuery("DELETE FROM [format_table_name("2fa_secrets")] WHERE ckey=:ckey", list("ckey" = ckey))
+			var/datum/db_query/dbq = SSdbcore.NewQuery("DELETE FROM 2fa_secrets WHERE ckey=:ckey", list("ckey" = ckey))
 			dbq.warn_execute()
 
 			// See if its unauthorised. I used 400 for that dont at me
@@ -86,7 +86,7 @@
 				alert(usr, "2FA deactivation aborted!")
 				return
 
-			var/datum/http_response/vr = wrap_http_get("[config._2fa_auth_host]/validateCode?ckey=[ckey]&code=[entered_code]")
+			var/datum/http_response/vr = wrap_http_get("[GLOB.configuration.system._2fa_auth_host]/validateCode?ckey=[ckey]&code=[entered_code]")
 			// If this fails, shits gone bad
 			if(vr.errored)
 				alert(usr, "Something has gone VERY wrong ingame. Please inform the server host.\nError details: [vr.error]")
@@ -101,7 +101,7 @@
 				return
 
 			// If we are here, they authed properly
-			var/datum/db_query/dbq = SSdbcore.NewQuery("DELETE FROM [format_table_name("2fa_secrets")] WHERE ckey=:ckey", list("ckey" = ckey))
+			var/datum/db_query/dbq = SSdbcore.NewQuery("DELETE FROM 2fa_secrets WHERE ckey=:ckey", list("ckey" = ckey))
 			dbq.warn_execute()
 			prefs._2fa_status = _2FA_DISABLED
 			prefs.save_preferences(src)

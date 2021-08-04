@@ -709,6 +709,8 @@
 	else
 		icon_state = base_icon_state
 
+	name = initial(name)
+
 	return
 
 
