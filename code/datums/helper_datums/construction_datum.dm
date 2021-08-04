@@ -6,6 +6,7 @@
 	var/list/steps
 	var/atom/holder
 	var/result
+	var/index
 	var/list/steps_desc
 	var/taskpath = null // Path of job objective completed.
 
@@ -128,7 +129,6 @@
 			return TRUE
 
 /datum/construction/reversible
-	var/index
 
 /datum/construction/reversible/New(atom)
 	..()
@@ -168,7 +168,6 @@
 #define state_prev "prev"
 
 /datum/construction/reversible2
-	var/index
 	var/base_icon = "durand"
 
 /datum/construction/reversible2/New(atom)

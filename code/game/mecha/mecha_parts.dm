@@ -263,11 +263,11 @@
 	emote = e
 
 /obj/item/mecha_parts/chassis/reticence/hear_message(mob/living/M, msg)
-	if(!istype(M) || !istype(construct, /datum/construction/mecha/reticence))
+	if(!istype(M) || !istype(construct, /datum/construction/reversible/mecha/reticence))
 		return
 	// is the current step the dummy emote object?
 	var/list/steps = construct.steps
-	if(steps[steps.len]["key"] == /obj/effect/dummy/mecha_emote_step)
+	if(steps[construct.index]["key"] == /obj/effect/dummy/mecha_emote_step)
 		construct.action(new /obj/effect/dummy/mecha_emote_step(msg), M)
 
 /obj/item/mecha_parts/part/reticence_torso
