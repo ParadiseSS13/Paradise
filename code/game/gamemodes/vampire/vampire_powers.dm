@@ -7,9 +7,11 @@
 	range = 1
 	charge_max = 1800
 	action_background_icon_state = "bg_vampire"
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	var/required_blood = 0
 	var/gain_desc = null
 	var/deduct_blood_on_cast = TRUE  //Do we want to take the blood when this is cast, or at a later point?
+
 
 /obj/effect/proc_holder/spell/vampire/New()
 	..()
@@ -39,10 +41,6 @@
 		return 0
 	if(vampire.bloodusable < required_blood)
 		to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
-		return 0
-	//chapel check
-	if(istype(loc.loc, /area/chapel) && !fullpower)
-		to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
 		return 0
 	return ..()
 
@@ -424,7 +422,7 @@
 	name = "Mist Form (30)"
 	desc = "You take on the form of mist for a short period of time."
 	gain_desc = "You have gained the Mist Form ability which allows you to take on the form of mist for a short period and pass over any obstacle in your path."
-	action_icon_state = "jaunt"
+	action_icon_state = "mist"
 	charge_max = 600
 	required_blood = 30
 	centcom_cancast = 0
@@ -436,28 +434,23 @@
 		var/originalloc = get_turf(user.loc)
 		var/obj/effect/dummy/spell_jaunt/holder = new /obj/effect/dummy/spell_jaunt(originalloc)
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(originalloc)
-		animation.name = "water"
+		animation.name = "blood"
 		animation.density = 0
 		animation.anchored = 1
 		animation.icon = 'icons/mob/mob.dmi'
-		animation.icon_state = "liquify"
+		animation.icon_state = "empty"
 		animation.layer = 5
 		animation.master = holder
 		U.ExtinguishMob()
-		flick("liquify", animation)
+		flick("mist", animation)
 		user.forceMove(holder)
 		user.client.eye = holder
-		var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()
-		steam.set_up(10, 0, originalloc)
-		steam.start()
 		sleep(jaunt_duration)
 		var/mobloc = get_turf(user.loc)
 		animation.loc = mobloc
-		steam.location = mobloc
-		steam.start()
 		user.canmove = 0
 		sleep(20)
-		flick("reappear",animation)
+		flick("mist_reappear", animation)
 		sleep(5)
 		if(!user.Move(mobloc))
 			for(var/direction in list(1,2,4,8,5,6,9,10))
@@ -476,7 +469,7 @@
 	name = "Shadowstep (30)"
 	desc = "Vanish into the shadows."
 	gain_desc = "You have gained the ability to shadowstep, which makes you disappear into nearby shadows at the cost of blood."
-	action_icon_state = "blink"
+	action_icon_state = "shadowblink"
 	charge_max = 20
 	required_blood = 30
 	centcom_cancast = 0
