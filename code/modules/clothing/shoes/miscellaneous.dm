@@ -327,6 +327,10 @@
 	var/recharging_rate = 60 //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
 
+/obj/item/clothing/shoes/bhop/item_action_slot_check(slot)
+	if(slot == slot_shoes)
+		return TRUE
+
 /obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)
 	if(!isliving(user))
 		return

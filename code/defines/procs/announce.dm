@@ -32,8 +32,8 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 /datum/announcement/priority/command/New(do_log = 1, new_sound = sound('sound/misc/notice2.ogg'), do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	admin_announcement = 1
-	title = "[command_name()] Update"
-	announcement_type = "[command_name()] Update"
+	title = "NAS Trurl Update"
+	announcement_type = "NAS Trurl Update"
 
 /datum/announcement/priority/command/event/New(do_log = 1, new_sound = sound('sound/misc/notice2.ogg'), do_newscast = 0)
 	..(do_log, new_sound, do_newscast)

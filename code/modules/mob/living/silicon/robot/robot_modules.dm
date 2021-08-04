@@ -385,7 +385,7 @@
 		/obj/item/holosign_creator/engineering,
 		/obj/item/gripper,
 		/obj/item/matter_decompiler,
-		/obj/item/floor_painter,
+		/obj/item/painter,
 		/obj/item/areaeditor/blueprints/cyborg,
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
@@ -416,7 +416,11 @@
 		/obj/item/clothing/mask/gas/sechailer/cyborg
 	)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
-	special_rechargables = list(/obj/item/melee/baton/loaded, /obj/item/gun/energy/disabler/cyborg)
+	special_rechargables = list(
+		/obj/item/melee/baton/loaded,
+		/obj/item/gun/energy/disabler/cyborg,
+		/obj/item/gun/energy/laser/cyborg
+	)
 
 /obj/item/robot_module/security/update_cells(unlink_cell = FALSE)
 	var/obj/item/melee/baton/B = locate(/obj/item/melee/baton/loaded) in modules
@@ -551,7 +555,7 @@
 /obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
 	if(component_id == "KA modkits")
 		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/D in src)
-			D.attackby(W, user)
+			D.crowbar_act(user, W)
 		return TRUE
 	return ..()
 
@@ -566,6 +570,7 @@
 		/obj/item/gun/energy/pulse/cyborg,
 		/obj/item/crowbar/cyborg
 	)
+	special_rechargables = list(/obj/item/gun/energy/pulse/cyborg)
 
 // Sydicate assault cyborg module.
 /obj/item/robot_module/syndicate
@@ -658,7 +663,10 @@
 		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
 		/obj/item/borg/destroyer/mobility
 	)
-	special_rechargables = list(/obj/item/melee/baton/loaded)
+	special_rechargables = list(
+		/obj/item/melee/baton/loaded,
+		/obj/item/gun/energy/immolator/multi/cyborg
+	)
 
 /obj/item/robot_module/combat
 	name = "combat robot module"
@@ -674,7 +682,10 @@
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		/obj/item/pickaxe/drill/jackhammer // for breaking walls to execute flanking moves
 	)
-	special_rechargables = list(/obj/item/melee/baton/loaded)
+	special_rechargables = list(
+		/obj/item/melee/baton/loaded,
+		/obj/item/gun/energy/immolator/multi/cyborg
+	)
 
 // Xenomorph cyborg module.
 /obj/item/robot_module/alien/hunter
@@ -716,6 +727,7 @@
 		/obj/item/soap,
 		/obj/item/t_scanner,
 		/obj/item/rpd,
+		/obj/item/analyzer,
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
