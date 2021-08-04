@@ -7024,7 +7024,7 @@
 /obj/item/tank/internals/oxygen/yellow,
 /obj/random/bomb_supply,
 /obj/item/clothing/under/rebeloutfit,
-/obj/item/clothing/suit/poncho/ponchoshame,
+/obj/item/clothing/neck/poncho/ponchoshame,
 /obj/item/clothing/head/sombrero/shamebrero,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)

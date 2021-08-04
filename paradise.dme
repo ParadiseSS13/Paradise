@@ -1411,6 +1411,7 @@
 #include "code\modules\clothing\masks\miscellaneous.dm"
 #include "code\modules\clothing\neck\cloaks.dm"
 #include "code\modules\clothing\neck\mantles.dm"
+#include "code\modules\clothing\neck\ponchos.dm"
 #include "code\modules\clothing\patreon\glasses.dm"
 #include "code\modules\clothing\patreon\hats.dm"
 #include "code\modules\clothing\shoes\colour.dm"

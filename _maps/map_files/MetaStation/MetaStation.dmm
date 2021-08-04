@@ -9376,7 +9376,7 @@
 /area/maintenance/starboard)
 "avA" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/poncho,
+/obj/item/clothing/neck/poncho,
 /obj/item/clothing/head/sombrero,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,

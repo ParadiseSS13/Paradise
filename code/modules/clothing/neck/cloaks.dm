@@ -55,3 +55,30 @@
 	name = "healer's cloak"
 	desc = "Worn by the best and most skilled healers, the handlers of hyposprays, pills, auto-menders and first-aid kits."
 	icon_state = "healercloak"
+
+/obj/item/clothing/neck/toggle/owlwings
+	name = "owl cloak"
+	desc = "A soft brown cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive the ladies mad."
+	w_class = WEIGHT_CLASS_NORMAL
+	icon_state = "owl_wings"
+	item_state = "owl_wings"
+	body_parts_covered = ARMS
+	actions_types = list(/datum/action/item_action/toggle_wings)
+
+/obj/item/clothing/neck/toggle/owlwings/griffinwings
+	name = "griffon cloak"
+	desc = "A plush white cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive your captives mad."
+	icon_state = "griffin_wings"
+	item_state = "griffin_wings"
+
+/obj/item/clothing/neck/toggle/attack_self()
+	if(icon_state == initial(icon_state))
+		icon_state = icon_state + "_t"
+		item_state = icon_state + "_t"
+	else
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+	usr.update_inv_neck()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()

@@ -103,3 +103,16 @@
 	display_name = "cloak, quartermaster"
 	path = /obj/item/clothing/neck/cloak/quartermaster
 	allowed_roles = list("Quartermaster")
+
+//Ponchos
+/datum/gear/neck/poncho
+	display_name = "poncho, classic"
+	path = /obj/item/clothing/neck/poncho
+
+/datum/gear/neck/grponcho
+	display_name = "poncho, green"
+	path = /obj/item/clothing/neck/poncho/green
+
+/datum/gear/neck/rdponcho
+	display_name = "poncho, red"
+	path = /obj/item/clothing/neck/poncho/red

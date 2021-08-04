@@ -117,18 +117,6 @@
 	display_name = "Ian Shirt"
 	path = /obj/item/clothing/suit/ianshirt
 
-/datum/gear/suit/poncho
-	display_name = "poncho, classic"
-	path = /obj/item/clothing/suit/poncho
-
-/datum/gear/suit/grponcho
-	display_name = "poncho, green"
-	path = /obj/item/clothing/suit/poncho/green
-
-/datum/gear/suit/rdponcho
-	display_name = "poncho, red"
-	path = /obj/item/clothing/suit/poncho/red
-
 /datum/gear/suit/tphoodie
 	display_name = "hoodie, Tharsis Polytech"
 	path = /obj/item/clothing/suit/hooded/hoodie/tp

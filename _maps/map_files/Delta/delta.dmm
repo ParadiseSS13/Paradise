@@ -78996,7 +78996,7 @@
 /area/maintenance/starboard)
 "dcK" = (
 /obj/structure/table/wood,
-/obj/item/clothing/suit/toggle/owlwings,
+/obj/item/clothing/neck/toggle/owlwings,
 /obj/item/clothing/under/owl,
 /obj/item/clothing/mask/gas/owl_mask,
 /turf/simulated/floor/plasteel{
