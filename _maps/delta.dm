@@ -10,6 +10,7 @@ z4 = lavaland
 
 Original design by Okand37 of TG Station
 Lovingly ported by Purpose2 to Paradise
+And remapped by ThaumicNik as per SS220 community requests
 */
 
 #if !defined(USING_MAP_DATUM)

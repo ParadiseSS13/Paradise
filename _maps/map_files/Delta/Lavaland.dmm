@@ -2383,7 +2383,7 @@
 /area/lavaland/surface/outdoors)
 "gT" = (
 /obj/structure/stone_tile/slab/cracked,
-/mob/living/simple_animal/hostile/faithless,
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "hg" = (
@@ -2444,7 +2444,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/mob/living/simple_animal/hostile/faithless,
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "hG" = (
@@ -2534,17 +2534,15 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "ij" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
 /obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/mob/living/simple_animal/hostile/faithless,
+/obj/structure/table/reinforced/brass,
+/obj/item/clockwork/weapon/ratvarian_spear,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "ir" = (
@@ -2928,6 +2926,9 @@
 "kp" = (
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
+"ks" = (
+/turf/simulated/wall,
+/area/lavaland/surface/outdoors/explored)
 "ky" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -3417,17 +3418,17 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "mz" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/obj/structure/stone_tile,
-/obj/machinery/door/airlock/cult/unruned/friendly{
-	locked = 1;
-	name = "Ancient Door"
+/obj/structure/stone_tile{
+	dir = 4
 	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "mA" = (
@@ -3724,6 +3725,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/eva)
+"no" = (
+/obj/structure/stone_tile/slab/cracked,
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors)
 "nr" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/warning_stripes/yellow/partial,
@@ -4335,7 +4341,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/faithless,
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "uS" = (
@@ -4573,6 +4579,10 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"yd" = (
+/obj/vehicle/lavaboat,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "yj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -4688,10 +4698,18 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "zM" = (
-/obj/structure/stone_tile/slab/cracked,
-/obj/machinery/door/airlock/cult/unruned/friendly{
-	name = "Ancient Door"
+/obj/structure/stone_tile/cracked{
+	dir = 1
 	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
+/obj/item/storage/toolbox/brass,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "Ak" = (
@@ -4738,19 +4756,14 @@
 	},
 /area/mine/eva)
 "AU" = (
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 4
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
 	},
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/machinery/door/airlock/cult/unruned/friendly{
-	name = "Ancient Door"
-	},
+/obj/structure/stone_tile,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "Bj" = (
@@ -4882,25 +4895,21 @@
 "CE" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
-	dir = 8
+	dir = 4
 	},
-/obj/structure/stone_tile/block/cracked{
+/obj/structure/stone_tile{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/faithless,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "CH" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/mob/living/simple_animal/hostile/faithless,
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center/cracked,
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "CS" = (
@@ -4953,6 +4962,18 @@
 	tag = "icon-wood-broken6"
 	},
 /area/mine/laborcamp)
+"Dh" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/table/reinforced/brass,
+/obj/item/weldingtool/experimental/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors)
 "Dl" = (
 /obj/structure/stone_tile/cracked{
 	dir = 1
@@ -5027,19 +5048,17 @@
 	},
 /area/mine/production)
 "Eh" = (
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
 /obj/structure/stone_tile{
 	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
 	},
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/machinery/door/airlock/cult/unruned/friendly{
-	name = "Ancient Door"
-	},
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "El" = (
@@ -5407,6 +5426,20 @@
 /obj/machinery/vending/cola/free,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
+"Ir" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors)
 "IC" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -5416,17 +5449,16 @@
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "IH" = (
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile/block/cracked{
 	dir = 4
 	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/cracked{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/faithless,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "IK" = (
@@ -5463,15 +5495,17 @@
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "Jy" = (
-/obj/structure/stone_tile/block/cracked{
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/structure/stone_tile/block{
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/machinery/door/airlock/cult/unruned/friendly{
-	name = "Ancient Door"
-	},
+/mob/living/simple_animal/hostile/big_legion,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "JJ" = (
@@ -6003,6 +6037,7 @@
 /area/mine/production)
 "SJ" = (
 /obj/structure/stone_tile/surrounding,
+/obj/structure/closet/crate/necropolis/tendril,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "SK" = (
@@ -6142,6 +6177,20 @@
 	icon_state = "purple"
 	},
 /area/mine/living_quarters)
+"UH" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors)
 "UJ" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -8167,7 +8216,7 @@ aj
 aj
 aj
 aj
-aj
+yd
 an
 an
 an
@@ -9055,7 +9104,7 @@ aw
 aw
 aw
 aw
-aw
+aD
 aw
 aw
 aw
@@ -9309,12 +9358,12 @@ aD
 aw
 aw
 aw
-aw
-aw
-aw
-aw
-aw
-aw
+aD
+aD
+aD
+aD
+aD
+aD
 aw
 aw
 aw
@@ -9565,14 +9614,14 @@ aw
 aw
 aw
 aD
-aw
-aw
-aw
-aw
-aw
 aD
-aw
-aw
+aD
+ks
+aD
+aD
+aD
+ks
+aD
 aD
 aw
 aw
@@ -10088,7 +10137,7 @@ aD
 aD
 aD
 aD
-aw
+aD
 aw
 ab
 aj
@@ -10334,8 +10383,6 @@ OF
 wD
 aw
 aw
-aw
-aw
 aD
 aD
 aD
@@ -10345,8 +10392,10 @@ aD
 aD
 aD
 aD
-aw
-aw
+aD
+aD
+aD
+aD
 aw
 aj
 aj
@@ -10592,7 +10641,7 @@ GF
 aj
 aw
 aw
-aw
+aD
 aD
 aD
 aD
@@ -10849,7 +10898,7 @@ ap
 qT
 aw
 aw
-aw
+aD
 aD
 aD
 aD
@@ -30945,7 +30994,7 @@ aj
 aa
 aa
 qS
-gC
+CE
 Sk
 mY
 aa
@@ -32487,9 +32536,9 @@ aj
 aa
 aa
 hD
-CH
+mq
 Tl
-gC
+UH
 Qy
 hD
 aa
@@ -33003,7 +33052,7 @@ aa
 aa
 qS
 aa
-zM
+nf
 aa
 aa
 aa
@@ -34030,7 +34079,7 @@ aa
 aa
 Sn
 mq
-mS
+mz
 nc
 xU
 XW
@@ -34286,8 +34335,8 @@ aj
 aa
 aa
 yp
-Sk
-CE
+CH
+ng
 gC
 Sk
 Sm
@@ -34801,7 +34850,7 @@ aa
 aa
 aa
 gC
-mY
+AU
 nf
 aa
 aa
@@ -35059,7 +35108,7 @@ aa
 aa
 qS
 aa
-Eh
+nc
 aa
 aa
 aa
@@ -35830,7 +35879,7 @@ aa
 aa
 aa
 aa
-zM
+nf
 aa
 aa
 aa
@@ -36092,7 +36141,7 @@ Qy
 qS
 aa
 mS
-nf
+no
 YI
 hG
 aa
@@ -36601,10 +36650,10 @@ aa
 aa
 Dw
 Sk
-IH
+nc
 gC
 mq
-Jy
+mW
 nc
 wr
 aa
@@ -37371,7 +37420,7 @@ aa
 aa
 aa
 aa
-mY
+hE
 nc
 nf
 qS
@@ -37886,7 +37935,7 @@ aa
 aa
 aa
 aa
-AU
+gC
 aa
 aa
 aa
@@ -39942,7 +39991,7 @@ aa
 aa
 aa
 aa
-mz
+mY
 aa
 aa
 aa
@@ -41741,9 +41790,9 @@ aa
 aa
 wr
 Sk
-mq
+IH
 Sk
-mS
+Ir
 aa
 aa
 aa
@@ -41995,13 +42044,13 @@ aj
 (139,1,1) = {"
 aa
 aa
-tu
+ij
 mS
-mZ
+Eh
 mZ
 mZ
 nf
-tu
+Dh
 aa
 aa
 ab
@@ -42254,7 +42303,7 @@ aa
 qS
 Dw
 Sk
-ij
+mZ
 SJ
 mZ
 Sk
@@ -42509,11 +42558,11 @@ aj
 (141,1,1) = {"
 aa
 aa
-iO
+zM
 mq
+Jy
 mZ
-mZ
-ij
+Eh
 mY
 iO
 aa

@@ -589,6 +589,24 @@
 	))
 
 /**
+  * # Dish Showcase
+  *
+  * Dish variant of the [Smart Fridge][/obj/machinery/smartfridge].
+  */
+/obj/machinery/smartfridge/dish
+	name = "\improper Dish Showcase"
+	desc = "A refrigerated storage unit for some delicious food."
+
+/obj/machinery/smartfridge/dish/Initialize(mapload)
+	. = ..()
+	accepted_items_typecache = typecacheof(list(
+		/obj/item/reagent_containers/food/condiment,
+		/obj/item/kitchen,
+		/obj/item/reagent_containers/glass,
+		/obj/item/reagent_containers/food,
+	))
+
+/**
   * # Drying Rack
   *
   * Variant of the [Smart Fridge][/obj/machinery/smartfridge] for drying stuff.
