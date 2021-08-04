@@ -7207,7 +7207,7 @@
 	dir = 4
 	},
 /obj/machinery/conveyor{
-	dir = 8;
+	dir = 4;
 	id = "garbage"
 	},
 /obj/effect/decal/warning_stripes/southwest,
