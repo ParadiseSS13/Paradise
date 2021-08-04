@@ -11,6 +11,7 @@
 	max_integrity = 250
 	integrity_failure = 25
 	buckle_offset = 0
+	face_while_pulling = FALSE
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
@@ -23,11 +24,6 @@
 		var/obj/structure/chair/wood/W = new/obj/structure/chair/wood(get_turf(src))
 		W.setDir(dir)
 		qdel(src)
-
-/obj/structure/chair/ratvar_act()
-	var/obj/structure/chair/brass/B = new(get_turf(src))
-	B.setDir(dir)
-	qdel(src)
 
 /obj/structure/chair/Move(atom/newloc, direct)
 	..()
@@ -121,7 +117,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(config.ghost_interaction)
+	if(GLOB.configuration.general.ghost_interaction)
 		setDir(turn(dir, 90))
 		handle_rotation()
 		return
@@ -440,9 +436,6 @@
 	turns++
 	if(turns >= 8)
 		STOP_PROCESSING(SSfastprocess, src)
-
-/obj/structure/chair/brass/ratvar_act()
-	return
 
 /obj/structure/chair/brass/AltClick(mob/living/user)
 	turns = 0

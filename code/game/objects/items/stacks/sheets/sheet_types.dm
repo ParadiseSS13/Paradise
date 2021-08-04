@@ -114,12 +114,12 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	is_cyborg = TRUE
 	materials = list()
 
+/obj/item/stack/sheet/metal/cyborg/detailed_examine()
+	return "Use in your hand to bring up the recipe menu. If you have enough sheets, click on something on the list to build it.<br>\
+			You can replenish your supply of metal as a synthetic by recharging."
+
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
-
-/obj/item/stack/sheet/metal/ratvar_act()
-	new /obj/item/stack/tile/brass(loc, amount)
-	qdel(src)
 
 /obj/item/stack/sheet/metal/narsie_act()
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
@@ -378,13 +378,11 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
 	. = ..()
 	icon_state = SSticker.cultdat?.runed_metal_icon_state
 
-/obj/item/stack/sheet/runed_metal/ratvar_act()
-	new /obj/item/stack/tile/brass(loc, amount)
-	qdel(src)
-
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
 	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
+		return
+	if(usr.holy_check())
 		return
 	if(!is_level_reachable(user.z))
 		to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")

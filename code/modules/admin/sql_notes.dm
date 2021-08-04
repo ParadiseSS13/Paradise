@@ -15,7 +15,7 @@
 	else
 		target_ckey = ckey(target_ckey)
 
-	var/datum/db_query/query_find_ckey = SSdbcore.NewQuery("SELECT ckey, exp FROM [format_table_name("player")] WHERE ckey=:ckey", list(
+	var/datum/db_query/query_find_ckey = SSdbcore.NewQuery("SELECT ckey, exp FROM player WHERE ckey=:ckey", list(
 		"ckey" = target_ckey
 	))
 
@@ -54,14 +54,14 @@
 		adminckey = ckey(adminckey)
 
 	if(!server)
-		if(config && config.server_name)
-			server = config.server_name
+		if(GLOB.configuration.general.server_name)
+			server = GLOB.configuration.general.server_name
 
 	// Force cast this to 1/0 incase someone tries to feed bad data
 	automated = !!automated
 
 	var/datum/db_query/query_noteadd = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server, crew_playtime, round_id, automated)
+		INSERT INTO notes (ckey, timestamp, notetext, adminckey, server, crew_playtime, round_id, automated)
 		VALUES (:targetckey, NOW(), :notetext, :adminkey, :server, :crewnum, :roundid, :automated)
 	"}, list(
 		"targetckey" = target_ckey,
@@ -95,7 +95,7 @@
 	if(!note_id)
 		return
 	note_id = text2num(note_id)
-	var/datum/db_query/query_find_note_del = SSdbcore.NewQuery("SELECT ckey, notetext, adminckey FROM [format_table_name("notes")] WHERE id=:note_id", list(
+	var/datum/db_query/query_find_note_del = SSdbcore.NewQuery("SELECT ckey, notetext, adminckey FROM notes WHERE id=:note_id", list(
 		"note_id" = note_id
 	))
 	if(!query_find_note_del.warn_execute())
@@ -107,7 +107,7 @@
 		adminckey = query_find_note_del.item[3]
 	qdel(query_find_note_del)
 
-	var/datum/db_query/query_del_note = SSdbcore.NewQuery("DELETE FROM [format_table_name("notes")] WHERE id=:note_id", list(
+	var/datum/db_query/query_del_note = SSdbcore.NewQuery("DELETE FROM notes WHERE id=:note_id", list(
 		"note_id" = note_id
 	))
 	if(!query_del_note.warn_execute())
@@ -130,7 +130,7 @@
 		return
 	note_id = text2num(note_id)
 	var/target_ckey
-	var/datum/db_query/query_find_note_edit = SSdbcore.NewQuery("SELECT ckey, notetext, adminckey, automated FROM [format_table_name("notes")] WHERE id=:note_id", list(
+	var/datum/db_query/query_find_note_edit = SSdbcore.NewQuery("SELECT ckey, notetext, adminckey, automated FROM notes WHERE id=:note_id", list(
 		"note_id" = note_id
 	))
 	if(!query_find_note_edit.warn_execute())
@@ -148,7 +148,7 @@
 		if(!new_note)
 			return
 		var/edit_text = "Edited by [usr.ckey] on [SQLtime()] from \"[old_note]\" to \"[new_note]\"<hr>"
-		var/datum/db_query/query_update_note = SSdbcore.NewQuery("UPDATE [format_table_name("notes")] SET notetext=:new_note, last_editor=:akey, edits = CONCAT(IFNULL(edits,''),:edit_text) WHERE id=:note_id", list(
+		var/datum/db_query/query_update_note = SSdbcore.NewQuery("UPDATE notes SET notetext=:new_note, last_editor=:akey, edits = CONCAT(IFNULL(edits,''),:edit_text) WHERE id=:note_id", list(
 			"new_note" = new_note,
 			"akey" = usr.ckey,
 			"edit_text" = edit_text,
@@ -182,7 +182,7 @@
 		var/target_sql_ckey = ckey(target_ckey)
 		var/datum/db_query/query_get_notes = SSdbcore.NewQuery({"
 			SELECT id, timestamp, notetext, adminckey, last_editor, server, crew_playtime, round_id, automated
-			FROM [format_table_name("notes")] WHERE ckey=:targetkey ORDER BY timestamp"}, list(
+			FROM notes WHERE ckey=:targetkey ORDER BY timestamp"}, list(
 				"targetkey" = target_sql_ckey
 			))
 		if(!query_get_notes.warn_execute())
@@ -226,7 +226,7 @@
 				search = "^\[^\[:alpha:\]\]"
 			else
 				search = "^[index]"
-		var/datum/db_query/query_list_notes = SSdbcore.NewQuery("SELECT DISTINCT ckey FROM [format_table_name("notes")] WHERE ckey REGEXP :search ORDER BY ckey", list(
+		var/datum/db_query/query_list_notes = SSdbcore.NewQuery("SELECT DISTINCT ckey FROM notes WHERE ckey REGEXP :search ORDER BY ckey", list(
 			"search" = search
 		))
 		if(!query_list_notes.warn_execute())

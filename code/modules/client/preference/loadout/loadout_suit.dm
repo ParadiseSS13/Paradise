@@ -108,6 +108,11 @@
 	path = /obj/item/clothing/suit/armor/secjacket
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
+/datum/gear/suit/secbomberjacket
+	display_name = "security bomber jacket"
+	path = /obj/item/clothing/suit/jacket/pilot
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
+
 /datum/gear/suit/ianshirt
 	display_name = "Ian Shirt"
 	path = /obj/item/clothing/suit/ianshirt

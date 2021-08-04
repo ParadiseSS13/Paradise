@@ -130,6 +130,9 @@ To draw a rune, use a ritual dagger.
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)
 
+/obj/effect/rune/is_cleanable()
+	return TRUE
+
 
 /*
 There are a few different procs each rune runs through when a cultist activates it.
@@ -139,6 +142,8 @@ fail_invoke() is called when the rune fails, via not enough people around or oth
 structure_check() searches for nearby cultist structures required for the invocation. Proper structures are pylons, forges, archives, and altars.
 */
 /obj/effect/rune/proc/can_invoke(mob/living/user)
+	if(user.holy_check())
+		return
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
 	var/list/chanters = list() //people who will actually chant the rune when passed to invoke()
@@ -366,6 +371,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			return
 
 	var/sacrifice_fulfilled
+	var/worthless = FALSE
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(offering.mind)
 		GLOB.sacrificed += offering.mind
@@ -379,13 +385,16 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(sacrifice_fulfilled)
 			to_chat(M, "<span class='cultlarge'>\"Yes! This is the one I desire! You have done well.\"</span>")
 		else
-			if(ishuman(offering) || isrobot(offering))
+			if(ishuman(offering) && offering.mind.offstation_role && offering.mind.special_role != SPECIAL_ROLE_ERT) //If you try it on a ghost role, you get nothing
+				to_chat(M, "<span class='cultlarge'>\"This soul is of no use to either of us.\"</span>")
+				worthless = TRUE
+			else if(ishuman(offering) || isrobot(offering))
 				to_chat(M, "<span class='cultlarge'>\"I accept this sacrifice.\"</span>")
 			else
 				to_chat(M, "<span class='cultlarge'>\"I accept this meager sacrifice.\"</span>")
 	playsound(offering, 'sound/misc/demon_consume.ogg', 100, TRUE)
 
-	if((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind)
+	if(((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind) && !worthless)
 		var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))
 		stone.invisibility = INVISIBILITY_MAXIMUM // So it's not picked up during transfer_soul()
 		stone.transfer_soul("FORCE", offering, user) // If it cannot be added
@@ -591,7 +600,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 			return
 		sacrifices_used += SOULS_TO_REVIVE
 		mob_to_revive.revive()
-		mob_to_revive.grab_ghost()
+		if(mob_to_revive.ghost_can_reenter())
+			mob_to_revive.grab_ghost()
 
 	if(!mob_to_revive.client || mob_to_revive.client.is_afk())
 		set waitfor = FALSE
@@ -985,6 +995,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/narsie/cult_conceal() //can't hide this, and you wouldn't want to
 	return
+
+/obj/effect/rune/narsie/is_cleanable() //No, you can't just yeet a cleaning grenade to remove it.
+	return FALSE
 
 /obj/effect/rune/narsie/invoke(list/invokers)
 	if(used)

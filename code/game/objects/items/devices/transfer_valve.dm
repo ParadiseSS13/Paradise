@@ -59,7 +59,7 @@
 		user.remove_from_mob(A)
 		attached_device = A
 		A.forceMove(src)
-		to_chat(user, "<span class='notice'>You attach the [A] to the valve controls and secure it.</span>")
+		to_chat(user, "<span class='notice'>You attach [A] to the valve controls and secure it.</span>")
 		A.holder = src
 		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
 		if(istype(attached_device, /obj/item/assembly/prox_sensor))

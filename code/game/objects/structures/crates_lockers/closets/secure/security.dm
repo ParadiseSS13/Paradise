@@ -118,7 +118,6 @@
 	new /obj/item/storage/lockbox/mindshield(src)
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/holosign_creator/security(src)
-	new /obj/item/clothing/mask/gas/sechailer/hos(src)
 	new /obj/item/shield/riot/tele(src)
 	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/storage/belt/security/sec(src)

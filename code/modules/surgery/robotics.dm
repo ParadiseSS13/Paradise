@@ -209,7 +209,7 @@
 		current_type = "burn"
 		var/obj/item/stack/cable_coil/C = tool
 		if(!(affected.burn_dam > 0))
-			to_chat(user, "<span class='warning'>The [affected] does not have any burn damage!</span>")
+			to_chat(user, "<span class='warning'>\The [affected] does not have any burn damage!</span>")
 			return -1
 		if(!istype(C))
 			return -1
@@ -223,7 +223,7 @@
 	else if(implement_type in implements_heal_brute)
 		current_type = "brute"
 		if(!(affected.brute_dam > 0 || affected.disfigured))
-			to_chat(user, "<span class='warning'>The [affected] does not require welding repair!</span>")
+			to_chat(user, "<span class='warning'>\The [affected] does not require welding repair!</span>")
 			return -1
 		if(tool.tool_behaviour == TOOL_WELDER)
 			if(!tool.use(1))

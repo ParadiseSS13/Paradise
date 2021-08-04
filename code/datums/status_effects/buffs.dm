@@ -105,6 +105,10 @@
 	alert_type = null
 	var/hand
 	var/deathTick = 0
+	/// How many points the rod has to heal with, maxes at 50, or whatever heal_points_max is set to.
+	var/heal_points = 50
+	/// Max heal points for the rod to spend on healing people
+	var/max_heal_points = 50
 
 /datum/status_effect/hippocraticOath/on_apply()
 	//Makes the user passive, it's in their oath not to harm!
@@ -173,8 +177,12 @@
 			itemUser.adjustStaminaLoss(-1.5)
 			itemUser.adjustBrainLoss(-1.5)
 			itemUser.adjustCloneLoss(-0.5) //Becasue apparently clone damage is the bastion of all health
+		if(heal_points < max_heal_points)
+			heal_points = min(heal_points += 3, max_heal_points)
 		//Heal all those around you, unbiased
 		for(var/mob/living/L in view(7, owner))
+			if(heal_points <= 0)
+				break
 			if(L.health < L.maxHealth)
 				new /obj/effect/temp_visual/heal(get_turf(L), "#375637")
 			if(iscarbon(L))
@@ -185,18 +193,23 @@
 				L.adjustStaminaLoss(-3.5)
 				L.adjustBrainLoss(-3.5)
 				L.adjustCloneLoss(-1) //Becasue apparently clone damage is the bastion of all health
+				heal_points--
 				if(ishuman(L))
 					var/mob/living/carbon/human/H = L
 					for(var/obj/item/organ/external/E in H.bodyparts)
 						if(prob(10))
 							E.mend_fracture()
 							E.internal_bleeding = FALSE
+							heal_points--
 			else if(issilicon(L))
 				L.adjustBruteLoss(-3.5)
 				L.adjustFireLoss(-3.5)
+				heal_points--
 			else if(isanimal(L))
 				var/mob/living/simple_animal/SM = L
 				SM.adjustHealth(-3.5)
+				if(prob(50))
+					heal_points -- // Animals are simpler
 
 /obj/screen/alert/status_effect/regenerative_core
 	name = "Reinforcing Tendrils"

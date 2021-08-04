@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `feedback` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `feedback`;
+CREATE DATABASE  IF NOT EXISTS `paradise_gamedb` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `paradise_gamedb`;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,7 +24,7 @@ CREATE TABLE `characters` (
   `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slot` int(2) NOT NULL,
   `OOC_Notes` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `real_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `real_name` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name_is_always_random` tinyint(1) NOT NULL,
   `gender` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   `age` smallint(4) NOT NULL,
@@ -277,6 +277,7 @@ CREATE TABLE `player` (
   `fupdate` smallint(4) DEFAULT '0',
   `parallax` tinyint(1) DEFAULT '8',
   `byond_date` DATE DEFAULT NULL,
+  `2fa_status` ENUM('DISABLED','ENABLED_IP','ENABLED_ALWAYS') NOT NULL DEFAULT 'DISABLED' COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
@@ -585,3 +586,16 @@ CREATE TABLE `round` (
   `station_name` VARCHAR(80) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- Table structure for table `2fa_secrets`
+--
+CREATE TABLE `2fa_secrets` (
+	`ckey` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`secret` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`date_setup` DATETIME NOT NULL DEFAULT current_timestamp(),
+	`last_time` DATETIME NULL DEFAULT NULL,
+	PRIMARY KEY (`ckey`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
