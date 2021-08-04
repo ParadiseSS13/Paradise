@@ -121,7 +121,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	/// Is this item inside a storage object?
 	var/in_storage = FALSE
 	/// Holder var for the item outline filter, null when no outline filter on the item.
-	var/outline_filter 
+	var/outline_filter
 
 /obj/item/New()
 	..()
@@ -417,6 +417,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if((flags & NODROP) && !(initial(flags) & NODROP)) //Remove NODROP is dropped
 		flags &= ~NODROP
 	in_inventory = FALSE
+	remove_outline()
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 	if(!silent)
 		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
