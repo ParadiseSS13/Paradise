@@ -720,7 +720,6 @@
 	item_color = "captain"
 	desc = "A special helmet designed for only the most fashionable of military figureheads."
 	flags_inv = HIDEFACE
-	permeability_coefficient = 0.01
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 50, "energy" = 25, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 	species_restricted = list("exclude", "Wryn")
 
@@ -737,7 +736,7 @@
 	icon_state = "caparmor"
 	item_state = "capspacesuit"
 	w_class = WEIGHT_CLASS_BULKY
-	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs)
+	allowed = list(/obj/item/tank/internals, /obj/item/flashlight, /obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs)
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 50, "energy" = 25, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/captain
