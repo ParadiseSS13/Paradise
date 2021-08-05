@@ -250,7 +250,7 @@
 	for(var/datum/objective/objective in syndicate.objectives)
 		to_chat(syndicate.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
-	to_chat(syndicate.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Nuclear_Agent)</span>")
+	to_chat(syndicate.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Nuclear_Agent)</span>")
 	return
 
 

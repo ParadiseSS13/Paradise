@@ -27,6 +27,10 @@
 	flight_x_offset = 15
 	shaded_charge = FALSE
 
+/obj/item/gun/energy/gun/advtaser/detailed_examine()
+	return "This is an energy weapon. To recharge this weapon, use a weapon recharger. \
+			To switch between insta-stun and disabler beams, click the weapon in your hand. This weapon can only fire through glass if it is set to disabler beams."
+
 /obj/item/gun/energy/gun/advtaser/cyborg
 	name = "cyborg taser"
 	desc = "An integrated hybrid taser that draws directly from a cyborg's power cell. The weapon contains a limiter to prevent the cyborg's power cell from overheating."

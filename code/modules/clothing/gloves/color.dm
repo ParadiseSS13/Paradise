@@ -9,12 +9,14 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/gloves/color/yellow/power
-	description_antag = "These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables."
 	var/old_mclick_override
 	var/datum/middleClickOverride/power_gloves/mclick_override = new /datum/middleClickOverride/power_gloves
 	var/last_shocked = 0
 	var/shock_delay = 40
 	var/unlimited_power = FALSE // Does this really need explanation?
+
+/obj/item/clothing/gloves/color/yellow/power/detailed_examine_antag()
+	return "These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables."
 
 /obj/item/clothing/gloves/color/yellow/power/equipped(mob/user, slot)
 	if(!ishuman(user))

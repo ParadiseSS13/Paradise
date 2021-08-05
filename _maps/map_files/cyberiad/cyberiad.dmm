@@ -8758,12 +8758,10 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "aua" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/door_timer/cell_1{
-	dir = 1;
-	layer = 4;
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -8943,12 +8941,10 @@
 	},
 /area/security/permabrig)
 "aum" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/machinery/door_timer/cell_3{
-	dir = 1;
-	layer = 4;
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -10780,9 +10776,6 @@
 	},
 /area/security/prison/cell_block/A)
 "axH" = (
-/obj/machinery/door_timer/cell_2{
-	layer = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -10794,6 +10787,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/light,
+/obj/machinery/door_timer/cell_2{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -10823,9 +10819,6 @@
 	},
 /area/security/prison/cell_block/A)
 "axJ" = (
-/obj/machinery/door_timer/cell_4{
-	layer = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -10835,6 +10828,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/door_timer/cell_4{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -11049,13 +11045,11 @@
 /area/security/lobby)
 "ayn" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door_timer/cell_5{
-	dir = 4;
-	layer = 4;
-	pixel_x = 32
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/machinery/door_timer/cell_5{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
@@ -35916,7 +35910,7 @@
 /area/bridge/meeting_room)
 "bzT" = (
 /obj/structure/table,
-/obj/item/aiModule/quarantine,
+/obj/item/aiModule/crewsimov,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36954,25 +36948,7 @@
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
 "bCH" = (
-/obj/structure/table,
-/obj/machinery/door/window{
-	base_state = "right";
-	icon_state = "right";
-	name = "Core Modules";
-	req_access_txt = "20"
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/item/aiModule/crewsimov,
-/obj/item/aiModule/freeformcore,
-/obj/item/aiModule/corp,
-/obj/item/aiModule/paladin,
-/obj/item/aiModule/robocop,
+/obj/machinery/smartfridge/secure/circuits/aiupload/experimental,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bCI" = (
@@ -37572,7 +37548,6 @@
 /area/turret_protected/ai_upload)
 "bEb" = (
 /obj/structure/table,
-/obj/item/aiModule/protectStation,
 /obj/item/aiModule/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -37943,7 +37918,7 @@
 /area/maintenance/port)
 "bFe" = (
 /obj/structure/table,
-/obj/item/aiModule/freeform,
+/obj/item/aiModule/corp,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39781,23 +39756,7 @@
 	},
 /area/turret_protected/ai_upload)
 "bIM" = (
-/obj/structure/table,
-/obj/machinery/door/window{
-	dir = 8;
-	name = "High-Risk Modules";
-	req_access_txt = "20"
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/item/aiModule/oxygen,
-/obj/item/aiModule/oneCrewMember,
-/obj/item/aiModule/purge,
-/obj/item/aiModule/antimov,
+/obj/machinery/smartfridge/secure/circuits/aiupload/highrisk,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bIN" = (
@@ -57498,7 +57457,7 @@
 	},
 /area/medical/virology)
 "cpM" = (
-/obj/machinery/smartfridge/secure/chemistry/virology,
+/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"
