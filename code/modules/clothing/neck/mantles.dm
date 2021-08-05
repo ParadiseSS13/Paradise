@@ -45,7 +45,6 @@
 	desc = "An shawl for the head of personnel. It's remarkably well kept."
 	icon_state = "hopmantle"
 
-//Research Director
 /obj/item/clothing/neck/mantle/research_director
 	name = "research director's mantle"
 	desc = "A tweed mantle, worn by the Research Director. Smells like science."
