@@ -29530,11 +29530,10 @@
 	},
 /area/hallway/primary/central)
 "bvc" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/security/nuke_storage)
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/suit/fire/firefighter,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "bvd" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -29555,10 +29554,7 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
+/turf/simulated/floor/greengrid,
 /area/security/nuke_storage)
 "bvf" = (
 /obj/machinery/light/small{
@@ -30366,9 +30362,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/greengrid,
 /area/security/nuke_storage)
-"bwu" = (
-/turf/simulated/floor/greengrid,
-/area/security/nuke_storage)
 "bwv" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -30890,7 +30883,6 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/vault{
-	icon_state = "door_locked";
 	locked = 1;
 	req_access_txt = "53"
 	},
@@ -30947,9 +30939,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "engine"
-	},
+/turf/simulated/floor/greengrid,
 /area/security/nuke_storage)
 "bxF" = (
 /obj/structure/cable{
@@ -32329,10 +32319,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
+/turf/simulated/floor/greengrid,
 /area/security/nuke_storage)
 "bAK" = (
 /obj/machinery/light/small,
@@ -72512,6 +72499,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/item/clothing/suit/fire/firefighter,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "ddy" = (
@@ -91150,6 +91138,7 @@
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
 /obj/effect/decal/cleanable/cobweb,
+/obj/item/reagent_containers/food/drinks/coffee,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "dQO" = (
@@ -91391,6 +91380,7 @@
 	},
 /obj/item/stack/cable_coil/random,
 /obj/item/multitool,
+/obj/item/clothing/suit/fire/firefighter,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -91441,6 +91431,7 @@
 /obj/machinery/newscaster{
 	pixel_x = 32
 	},
+/obj/item/reagent_containers/food/drinks/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -92141,6 +92132,7 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/emergency,
 /obj/item/wrench,
+/obj/item/reagent_containers/food/drinks/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -136363,7 +136355,7 @@ dQc
 lGw
 rrM
 dRZ
-ets
+bvc
 dSH
 dVo
 dTW
@@ -149371,13 +149363,13 @@ bQa
 bQg
 bng
 aaa
-btL
+abj
 btL
 bwq
 bxB
 bzc
 btL
-btL
+abj
 aaa
 soG
 lWe
@@ -149629,11 +149621,11 @@ boG
 bqB
 abj
 btL
-bvc
+btL
 bwr
 bxC
 bwv
-bvc
+btL
 btL
 abj
 soG
@@ -149887,9 +149879,9 @@ bqC
 aaa
 btL
 bvd
-bwu
+bwv
 bxD
-bwu
+bwv
 bAI
 btL
 aaa
@@ -150401,9 +150393,9 @@ bng
 aaa
 btL
 bvf
-bwu
+bwv
 bxF
-bwu
+bwv
 bAK
 btL
 aaa
@@ -150661,7 +150653,7 @@ bvg
 bwv
 bxG
 bwv
-bvc
+btL
 btL
 abj
 soG
@@ -150913,13 +150905,13 @@ bbi
 abj
 aaa
 aaa
+aaa
 btL
 btL
 btL
 btL
 btL
-btL
-btL
+aaa
 aaa
 bFS
 bFS
