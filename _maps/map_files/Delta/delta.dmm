@@ -24198,7 +24198,6 @@
 	pixel_y = -27
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/secure_closet/cargotech,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
