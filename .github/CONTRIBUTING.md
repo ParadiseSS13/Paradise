@@ -15,7 +15,7 @@ If you believe an issue report is not a "bug", please point out specifically and
 
 #### Guidelines:
  * Comments on Pull Requests and Issues should remain relevant to the subject in question and not derail discussions.
- * Under no circumstances are users to be attacked for their ideas or contributions. All participants on a given PR or issue are expected to be civil. Failure to do so will result  in disciplinary action.<br>
+ * Under no circumstances are users to be attacked for their ideas or contributions. All participants on a given PR or issue are expected to be civil. Failure to do so will result in disciplinary action.<br>
  For more details, see the [Code of Conduct](../CODE_OF_CONDUCT.md).
 
 ## Issues
@@ -489,7 +489,7 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 
 * Always `qdel()` your queries after you are done with them, this cleans up the results and helps things run smoother.
 
-* All changes to the database's layout (schema) must be specified in the database changelog in SQL, as well as reflected in the schema files.
+* All changes to the database's layout (schema) must be specified in the database changelog in SQL, as well as reflected in the schema file.
 
 * Any time the schema is changed the `SQL_VERSION` defines must be incremented, as well as the example config, with an appropriate conversion kit placed
 in the SQL/updates folder.
