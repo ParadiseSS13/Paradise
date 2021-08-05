@@ -16262,7 +16262,6 @@
 "aJG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/sleep)
 "aJI" = (
@@ -19879,7 +19878,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 8
+	dir = 6
 	},
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel{
@@ -27116,7 +27115,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/binary/pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -53972,9 +53971,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
@@ -54715,7 +54711,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -57920,11 +57918,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cso" = (
-/obj/structure/lattice,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/binary/pump/on,
-/turf/space,
-/area/space/nearstation)
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/maintenance/incinerator)
 "csp" = (
 /obj/item/wrench,
 /turf/simulated/floor/plating/airless,
@@ -76624,11 +76624,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "dfD" = (
@@ -123361,7 +123360,7 @@ clz
 bkY
 brW
 clF
-cso
+bKx
 bKx
 bKx
 bKx
@@ -123614,7 +123613,7 @@ cfK
 cfK
 chQ
 aRQ
-cly
+cso
 cly
 cor
 clA
