@@ -1242,12 +1242,6 @@
 "ahC" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
-"ahD" = (
-/obj/effect/landmark{
-	name = "HONKsquad"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "ahE" = (
 /obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
@@ -143147,14 +143141,14 @@ aee
 agk
 agF
 agU
-ahD
 ahC
 ahC
 ahC
 ahC
 ahC
 ahC
-ahD
+ahC
+ahC
 akx
 agE
 agE
@@ -143404,14 +143398,14 @@ aee
 agk
 agF
 agV
-ahD
+ahC
 ahC
 aim
 aim
 aim
 aim
 ajD
-ahD
+ahC
 aky
 akY
 alv
@@ -143918,14 +143912,14 @@ aee
 agk
 agF
 agX
-ahD
+ahC
 ahC
 ail
 ail
 ail
 ail
 ajF
-ahD
+ahC
 aky
 ala
 alv
@@ -144175,14 +144169,14 @@ aee
 agk
 agF
 agU
-ahD
 ahC
 ahC
 ahC
 ahC
 ahC
 ahC
-ahD
+ahC
+ahC
 akz
 agE
 agE
