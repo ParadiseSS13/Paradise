@@ -2,6 +2,7 @@
 	name = "station intercom (General)"
 	desc = "Talk through this."
 	icon_state = "intercom"
+	layer = ABOVE_WINDOW_LAYER
 	anchored = 1
 	w_class = WEIGHT_CLASS_BULKY
 	canhear_range = 2
