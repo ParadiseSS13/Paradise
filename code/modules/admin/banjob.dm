@@ -17,7 +17,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		return
 	GLOB.jobban_keylist.Add(text("[M.ckey] - [rank] ## [reason]"))
 	jobban_assoc_insert(M.ckey, rank, reason)
-	if(config.ban_legacy_system)
+	if(!GLOB.configuration.general.use_database_bans)
 		jobban_savebanfile()
 
 /proc/jobban_client_fullban(ckey, rank)
@@ -25,7 +25,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		return
 	GLOB.jobban_keylist.Add(text("[ckey] - [rank]"))
 	jobban_assoc_insert(ckey, rank)
-	if(config.ban_legacy_system)
+	if(!GLOB.configuration.general.use_database_bans)
 		jobban_savebanfile()
 
 //returns a reason if M is banned from rank, returns 0 otherwise
@@ -33,7 +33,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 	if(!M || !rank)
 		return 0
 
-	if(config.guest_jobban && guest_jobbans(rank))
+	if(GLOB.configuration.jobs.guest_job_ban && guest_jobbans(rank))
 		if(IsGuestKey(M.key))
 			return "Guest Job-ban"
 
@@ -46,7 +46,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 	if(!ckey || !rank)
 		return null
 
-	if(config.guest_jobban && guest_jobbans(rank))
+	if(GLOB.configuration.jobs.guest_job_ban && guest_jobbans(rank))
 		if(IsGuestKey(ckey))
 			return "Guest Job-ban"
 
@@ -56,7 +56,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 	return null
 
 /proc/jobban_loadbanfile()
-	if(config.ban_legacy_system)
+	if(!GLOB.configuration.general.use_database_bans)
 		var/savefile/S=new("data/job_full.ban")
 		S["keys[0]"] >> GLOB.jobban_keylist
 		log_admin("Loading jobban_rank")
@@ -74,12 +74,12 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 	else
 		if(!SSdbcore.IsConnected())
 			log_world("Database connection failed. Reverting to the legacy ban system.")
-			config.ban_legacy_system = 1
+			GLOB.configuration.general.use_database_bans = FALSE
 			jobban_loadbanfile()
 			return
 
 		//Job permabans
-		var/datum/db_query/permabans = SSdbcore.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_PERMABAN' AND isnull(unbanned)")
+		var/datum/db_query/permabans = SSdbcore.NewQuery("SELECT ckey, job FROM ban WHERE bantype = 'JOB_PERMABAN' AND isnull(unbanned)")
 
 		if(!permabans.warn_execute(async=FALSE))
 			qdel(permabans)
@@ -94,7 +94,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		qdel(permabans)
 
 		// Job tempbans
-		var/datum/db_query/tempbans = SSdbcore.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_TEMPBAN' AND isnull(unbanned) AND expiration_time > Now()")
+		var/datum/db_query/tempbans = SSdbcore.NewQuery("SELECT ckey, job FROM ban WHERE bantype = 'JOB_TEMPBAN' AND isnull(unbanned) AND expiration_time > Now()")
 
 		if(!tempbans.warn_execute(async=FALSE))
 			qdel(tempbans)
@@ -132,7 +132,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 			else
 				log_runtime(EXCEPTION("Failed to remove malformed job ban from associative list: [X]"))
 			GLOB.jobban_keylist.Remove(GLOB.jobban_keylist[i])
-			if(config.ban_legacy_system)
+			if(!GLOB.configuration.general.use_database_bans)
 				jobban_savebanfile()
 			return 1
 	return 0
@@ -144,7 +144,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 
 	if(!client || !ckey)
 		return
-	if(config.ban_legacy_system)
+	if(!GLOB.configuration.general.use_database_bans)
 		//using the legacy .txt ban system
 		to_chat(src, "The server is using the legacy ban system. Ask an administrator for help!")
 
@@ -152,7 +152,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		//using the SQL ban system
 		var/is_actually_banned = FALSE
 		var/datum/db_query/select_query = SSdbcore.NewQuery({"
-			SELECT bantime, bantype, reason, job, duration, expiration_time, a_ckey FROM [format_table_name("ban")]
+			SELECT bantime, bantype, reason, job, duration, expiration_time, a_ckey FROM ban
 			WHERE ckey LIKE :ckey AND ((bantype like 'JOB_TEMPBAN' AND expiration_time > Now()) OR (bantype like 'JOB_PERMABAN')) AND isnull(unbanned)
 			ORDER BY bantime DESC LIMIT 100"},
 			list("ckey" = ckey)
@@ -182,7 +182,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		qdel(select_query)
 
 		if(is_actually_banned)
-			if(config.banappeals)
-				to_chat(src, "<span class='warning'>You can appeal the bans at: [config.banappeals]</span>")
+			if(GLOB.configuration.url.banappeals_url)
+				to_chat(src, "<span class='warning'>You can appeal the bans at: [GLOB.configuration.url.banappeals_url]</span>")
 		else
 			to_chat(src, "<span class='warning'>You have no active jobbans!</span>")

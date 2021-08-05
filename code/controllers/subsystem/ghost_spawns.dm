@@ -166,7 +166,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 	if(role_text)
 		if(jobban_isbanned(M, role_text) || jobban_isbanned(M, ROLE_SYNDICATE))
 			return
-	if(config.use_exp_restrictions && min_hours)
+	if(GLOB.configuration.jobs.enable_exp_restrictions && min_hours)
 		if(M.client.get_exp_type_num(EXP_TYPE_LIVING) < min_hours * 60)
 			return
 	if(check_antaghud && cannotPossess(M))
