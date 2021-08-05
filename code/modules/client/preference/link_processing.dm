@@ -993,6 +993,7 @@
 					// Gimmie a freshie
 					var/datum/character_save/CS = new()
 					character_saves[active_character.slot_number] = CS
+					CS.slot_number = active_character.slot_number // Dont lose this
 					active_character = CS
 
 				if("open_load_dialog")
