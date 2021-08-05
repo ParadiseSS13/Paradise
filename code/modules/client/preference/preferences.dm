@@ -494,7 +494,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	for(var/i in 1 to length(character_saves))
 		var/datum/character_save/CS = character_saves[i]
-		name = CS.real_name || "Character [i]"
+		if(CS.from_db)
+			name = CS.real_name
+		else
+			name = "Character [i]"
 		if(i == default_slot)
 			name = "<b>[name]</b>"
 		dat += "<a href='?_src_=prefs;preference=changeslot;num=[i];'>[name]</a><br>"

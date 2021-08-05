@@ -95,6 +95,11 @@
 	/// Character slot number, used for saves and stuff.
 	var/slot_number = 0
 
+// Fuckery to prevent null characters
+/datum/character_save/New()
+	randomise()
+	real_name = random_name(gender, species)
+
 /datum/character_save/proc/save(client/C)
 	var/organlist
 	var/rlimblist
