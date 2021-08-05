@@ -178,7 +178,7 @@
 				spawn()
 					var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_GSPIDER, TRUE, source = S)
 
-					if(candidates.len)
+					if(length(candidates) && !QDELETED(S))
 						var/mob/C = pick(candidates)
 						if(C)
 							S.key = C.key
