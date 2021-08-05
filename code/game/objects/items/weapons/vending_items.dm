@@ -152,3 +152,60 @@
 /obj/item/vending_refill/robotics
 	machine_name = "Robotech Deluxe"
 	icon_state = "refill_engi"
+
+//Departmental clothing vendors
+
+/obj/item/vending_refill/secdrobe
+	machine_name = "SecDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/detdrobe
+	machine_name = "DetDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/medidrobe
+	machine_name = "MediDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/virodrobe
+	machine_name = "ViroDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/chemdrobe
+	machine_name = "ChemDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/genedrobe
+	machine_name = "GeneDrobe"
+	icon_state = "refill_clothes"
+/obj/item/vending_refill/scidrobe
+	machine_name = "SciDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/robodrobe
+	machine_name = "RoboDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/engidrobe
+	machine_name = "EngiDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/atmosdrobe
+	machine_name = "AtmosDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/cargodrobe
+	machine_name = "CargoDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/chefdrobe
+	machine_name = "ChefDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/bardrobe
+	machine_name = "BarDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/hydrodrobe
+	machine_name = "HydroDrobe"
+	icon_state = "refill_clothes"

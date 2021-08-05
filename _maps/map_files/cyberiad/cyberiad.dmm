@@ -875,7 +875,6 @@
 	},
 /area/security/armoury)
 "aej" = (
-/obj/structure/closet/secure_closet/security,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -885,6 +884,7 @@
 	name = "Security Requests Console";
 	pixel_y = 30
 	},
+/obj/machinery/vending/secdrobe,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -1548,13 +1548,13 @@
 	},
 /area/security/medbay)
 "afx" = (
-/obj/structure/closet/wardrobe/red,
 /obj/machinery/light_switch{
 	pixel_y = -25
 	},
-/obj/item/clothing/suit/tracksuit/red,
+/obj/structure/closet/secure_closet/security,
 /turf/simulated/floor/plasteel{
-	icon_state = "redcorner"
+	dir = 6;
+	icon_state = "red"
 	},
 /area/security/main)
 "afJ" = (
@@ -4468,13 +4468,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "amf" = (
-/obj/structure/closet/secure_closet/security,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/item/radio/intercom{
 	pixel_y = 25
 	},
+/obj/machinery/vending/secdrobe,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -5832,7 +5832,12 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel,
+/obj/effect/decal/warning_stripes/red/partial{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
 /area/security/main)
 "aoI" = (
 /obj/structure/cable{
@@ -6354,26 +6359,16 @@
 	icon_state = "dark"
 	},
 /area/security/evidence)
-"apH" = (
-/obj/structure/closet/secure_closet/security,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
-	},
-/area/security/main)
 "apI" = (
-/obj/structure/closet/redcorp,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24
 	},
 /obj/machinery/light,
+/obj/structure/closet/secure_closet/security,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
+	dir = 10;
+	icon_state = "red"
 	},
 /area/security/main)
 "apJ" = (
@@ -6388,16 +6383,6 @@
 	icon_state = "dark"
 	},
 /area/security/evidence)
-"apL" = (
-/obj/structure/closet/secure_closet/security,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
-	},
-/area/security/main)
 "apM" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
@@ -14902,11 +14887,7 @@
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "aGC" = (
-/obj/structure/closet/secure_closet{
-	anchored = 1;
-	name = "Evidence Storage";
-	req_access_txt = "4"
-	},
+/obj/machinery/vending/detdrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -16057,6 +16038,11 @@
 	dir = 1;
 	pixel_y = -22
 	},
+/obj/structure/closet/secure_closet{
+	anchored = 1;
+	name = "Evidence Storage";
+	req_access_txt = "4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -16508,8 +16494,6 @@
 /area/hallway/primary/fore)
 "aKB" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/item/restraints/handcuffs,
-/obj/item/flash,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -25435,7 +25419,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 25
 	},
-/obj/structure/closet/chefcloset,
+/obj/machinery/vending/chefdrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -27657,6 +27641,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/machinery/vending/hydrodrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -28302,15 +28287,13 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bjj" = (
-/obj/structure/closet/gmcloset{
-	name = "formal wardrobe"
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
 /obj/machinery/light_switch{
 	pixel_x = 27
 	},
+/obj/machinery/vending/bardrobe,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bjk" = (
@@ -39872,6 +39855,7 @@
 /obj/machinery/alarm{
 	pixel_y = 24
 	},
+/obj/machinery/vending/cargodrobe,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bJa" = (
@@ -40408,7 +40392,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bJW" = (
-/obj/structure/closet/wardrobe/chemistry_white,
+/obj/machinery/vending/chemdrobe,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteyellow"
@@ -46133,7 +46117,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "bUH" = (
-/obj/structure/closet/wardrobe/robotics_black,
+/obj/machinery/vending/robodrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -46144,13 +46128,13 @@
 	},
 /area/medical/genetics)
 "bUJ" = (
-/obj/structure/closet/wardrobe/genetics_white,
 /obj/machinery/camera{
 	c_tag = "Medbay Genetics"
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 25
 	},
+/obj/machinery/vending/genedrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -54107,19 +54091,7 @@
 	},
 /area/medical/sleeper)
 "cjv" = (
-/obj/structure/closet/wardrobe/medic_white,
-/obj/item/clothing/head/surgery/blue,
-/obj/item/clothing/head/surgery/blue,
-/obj/item/clothing/head/surgery/green,
-/obj/item/clothing/head/surgery/green,
-/obj/item/clothing/head/surgery/purple,
-/obj/item/clothing/head/surgery/purple,
-/obj/item/clothing/suit/storage/fr_jacket,
-/obj/item/clothing/suit/storage/fr_jacket,
-/obj/item/clothing/suit/storage/fr_jacket,
-/obj/item/clothing/under/rank/medical/blue,
-/obj/item/clothing/under/rank/medical/green,
-/obj/item/clothing/under/rank/medical/purple,
+/obj/machinery/vending/medidrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -61824,10 +61796,10 @@
 	},
 /area/medical/virology)
 "cxu" = (
-/obj/structure/closet/wardrobe/virology_white,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/vending/virodrobe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitegreen"
@@ -64206,10 +64178,10 @@
 	},
 /area/toxins/misc_lab)
 "cCd" = (
-/obj/structure/closet/bombcloset,
 /obj/machinery/light_switch{
 	pixel_x = -23
 	},
+/obj/machinery/vending/scidrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -64225,11 +64197,11 @@
 	},
 /area/toxins/misc_lab)
 "cCf" = (
-/obj/structure/closet/secure_closet/scientist,
 /obj/machinery/camera{
 	c_tag = "Research Test Lab West";
 	network = list("Research","SS13")
 	},
+/obj/structure/closet/bombcloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -71126,6 +71098,7 @@
 /obj/machinery/light_switch{
 	pixel_x = 27
 	},
+/obj/machinery/vending/engidrobe,
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cPr" = (
@@ -83715,10 +83688,10 @@
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
 	},
-/obj/structure/closet/wardrobe/atmospherics_yellow,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/vending/atmosdrobe,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dtk" = (
@@ -117135,7 +117108,7 @@ adQ
 aek
 aeA
 aoJ
-aoJ
+aoE
 apI
 anA
 ahk
@@ -117393,7 +117366,7 @@ aej
 aez
 anL
 aoE
-apH
+apJ
 aqA
 ahj
 aiP
@@ -118164,7 +118137,7 @@ amf
 aez
 ahe
 aoF
-apL
+apJ
 anx
 ago
 aiR
