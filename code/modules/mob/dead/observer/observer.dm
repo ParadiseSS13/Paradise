@@ -329,7 +329,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
  * Enables antag HUD only if the ghost belongs to an admin.
  *
  * Arguments:
- * * user - a reference to the ghost's old mob. This argument is required since `src` does not have a `client` at this point.
+ * * user - A reference to the ghost's old mob. This argument is required since `src` does not have a `client` at this point.
  */
 /mob/dead/observer/proc/toggle_all_huds_on(mob/user)
 	show_me_the_hud(DATA_HUD_DIAGNOSTIC)
