@@ -6,7 +6,7 @@
 	log_access_in(client)
 	create_attack_log("<font color='red'>Logged in at [atom_loc_line(get_turf(src))]</font>")
 	create_log(MISC_LOG, "Logged in")
-	if(config.log_access)
+	if(GLOB.configuration.logging.access_logging)
 		for(var/mob/M in GLOB.player_list)
 			if(M == src)	continue
 			if( M.key && (M.key != key) )
@@ -16,7 +16,7 @@
 				if( (M.computer_id == client.computer_id) )
 					if(matches)	matches += " and "
 					matches += "ID ([client.computer_id])"
-					if(!config.disable_cid_warn_popup)
+					if(!GLOB.configuration.general.disable_cid_warning_popup)
 						spawn() alert("You have logged in already with another key this round, please log out of this one NOW or risk being banned!")
 				if(matches)
 					if(M.client)
@@ -67,10 +67,6 @@
 	if(viewing_alternate_appearances && viewing_alternate_appearances.len)
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.display_to(list(src))
-
-	if(!fexists("config/config.txt") || !fexists("config/game_options.txt"))
-		to_chat(src, "<span class='biggerdanger'>The game config files have not been properly set!\n Please copy ALL files from '/config/example' into the parent folder, '/config'.</span>")
-		log_world("The game config files have not been properly set! Please copy ALL files from /config/example into the parent folder, /config.")
 
 	update_client_colour(0)
 	update_morgue()

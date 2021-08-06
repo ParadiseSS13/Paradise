@@ -45,7 +45,7 @@
 /datum/admins/proc/makeTraitors()
 	var/datum/game_mode/traitor/temp = new
 
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -76,7 +76,7 @@
 /datum/admins/proc/makeChangelings()
 
 	var/datum/game_mode/changeling/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -106,7 +106,7 @@
 /datum/admins/proc/makeRevs()
 
 	var/datum/game_mode/revolution/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -156,7 +156,7 @@
 /datum/admins/proc/makeCult()
 
 	var/datum/game_mode/cult/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -517,7 +517,7 @@
 /datum/admins/proc/makeVampires()
 
 	var/datum/game_mode/vampire/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -527,8 +527,8 @@
 	if(!antnum || antnum <= 0)
 		return
 
-	log_admin("[key_name(owner)] tried making Vampires with One-Click-Antag")
-	message_admins("[key_name_admin(owner)] tried making Vampires with One-Click-Antag")
+	log_admin("[key_name(owner)] tried making [antnum] Vampires with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] Vampires with One-Click-Antag")
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(CandCheck(ROLE_VAMPIRE, applicant, temp))

@@ -26,6 +26,10 @@
 	. = ..()
 	. += deconstruction_hints(user)
 
+/obj/structure/lattice/detailed_examine()
+	return "Add a metal floor tile to build a floor on top of the lattice.<br>\
+			Lattices can be made by applying metal rods to a space tile."
+
 /obj/structure/lattice/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.</span>"
 

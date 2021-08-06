@@ -25,14 +25,14 @@
 	var/A = null
 
 	if(!randomise_selection)
-		A = input("Area to teleport to", "Teleport", A) as null|anything in GLOB.teleportlocs
+		A = input("Area to teleport to", "Teleport", A) as null|anything in SSmapping.teleportlocs
 	else
-		A = pick(GLOB.teleportlocs)
+		A = pick(SSmapping.teleportlocs)
 
 	if(!A)
 		return
 
-	var/area/thearea = GLOB.teleportlocs[A]
+	var/area/thearea = SSmapping.teleportlocs[A]
 
 	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
 		to_chat(usr, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")
