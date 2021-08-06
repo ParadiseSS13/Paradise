@@ -325,6 +325,9 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -431,6 +434,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -2101,10 +2105,6 @@
 /area/security/permabrig)
 "agr" = (
 /obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -2116,6 +2116,11 @@
 	opacity = 0
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plating,
 /area/security/hos)
 "ags" = (
@@ -2222,10 +2227,6 @@
 "agF" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -2235,6 +2236,11 @@
 	id_tag = "hosprivacy";
 	name = "privacy shutters";
 	opacity = 0
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
 /area/security/hos)
@@ -2252,10 +2258,6 @@
 "agL" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -2265,6 +2267,11 @@
 	id_tag = "hosprivacy";
 	name = "privacy shutters";
 	opacity = 0
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/security/hos)
@@ -3032,6 +3039,7 @@
 /area/security/hos)
 "ahZ" = (
 /obj/structure/chair/comfy/black,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4880,10 +4888,6 @@
 	},
 /area/security/main)
 "alI" = (
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Pods";
 	req_access_txt = "71"
@@ -5983,6 +5987,16 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -6012,6 +6026,10 @@
 /area/security/main)
 "aof" = (
 /obj/effect/spawner/window/reinforced,
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plating,
 /area/security/main)
 "aog" = (
@@ -6624,6 +6642,7 @@
 	},
 /area/security/main)
 "apB" = (
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -6984,6 +7003,8 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/item/storage/box/evidence,
+/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -7570,9 +7591,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "arQ" = (
-/obj/structure/table,
-/obj/item/storage/box/evidence,
-/obj/item/hand_labeler,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -8183,10 +8202,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/photocopier,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/machinery/vending/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -10848,6 +10867,16 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "ayx" = (
@@ -11062,7 +11091,8 @@
 	id = "armoryshutter";
 	name = "Armory Shutter";
 	pixel_x = 5;
-	pixel_y = -3
+	pixel_y = -3;
+	req_access_txt = "3"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -11935,6 +11965,16 @@
 	id = "Holding Cell";
 	name = "Holding Cell";
 	req_access_txt = "2"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -16785,6 +16825,10 @@
 /area/security/detectives_office)
 "aKO" = (
 /obj/effect/spawner/window/reinforced,
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plating,
 /area/security/processing)
 "aKP" = (
@@ -17094,6 +17138,11 @@
 	id_tag = "Brig";
 	name = "Prisoner Processing";
 	req_access_txt = "63"
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -17420,6 +17469,16 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -78792,6 +78851,19 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"htK" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/security/brig)
 "huo" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -80304,6 +80376,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
+"mel" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/security/processing)
 "mfz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -81822,6 +81902,21 @@
 /area/hallway/secondary/entry{
 	name = "Arrivals"
 	})
+"reS" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/security/brig)
 "rfg" = (
 /obj/structure/chair/stool/bar,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -82391,6 +82486,10 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/security/brig)
 "sBY" = (
@@ -82690,6 +82789,10 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/security/main)
 "tEL" = (
@@ -111358,7 +111461,7 @@ crz
 awz
 aqJ
 aFz
-amE
+alM
 aqJ
 lgv
 aFl
@@ -112904,7 +113007,7 @@ aKc
 atr
 lgv
 aFA
-amE
+alM
 aDU
 aGr
 amx
@@ -113161,7 +113264,7 @@ amx
 aUx
 lgv
 vDc
-amE
+htK
 aDX
 aFo
 fZC
@@ -113675,7 +113778,7 @@ aKB
 aRP
 bfF
 hYq
-sxA
+reS
 hio
 aFq
 amx
@@ -113932,7 +114035,7 @@ aKc
 atr
 lgv
 aFz
-amE
+aKc
 aDY
 aDO
 aGB
@@ -115213,7 +115316,7 @@ axf
 azd
 aAv
 aHf
-aKO
+mel
 atr
 lWo
 aFz
