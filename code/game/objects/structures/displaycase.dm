@@ -41,6 +41,7 @@
 		trigger_alarm()
 
 		emagged = TRUE
+		toggle_lock()
 
 /obj/structure/displaycase/examine(mob/user)
 	. = ..()
@@ -110,12 +111,12 @@
 /obj/structure/displaycase/attackby(obj/item/I, mob/user, params)
 	if(I.GetID() && !broken && openable)
 		if(allowed(user) || emagged)
-			to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
-			toggle_lock(user)
+			to_chat(user, "<span class='notice'>You [open ? "close":"open"] [src].</span>")
+			toggle_lock()
 		else
-			to_chat(user,  "<span class='warning'>Access denied.</span>")
+			to_chat(user, "<span class='warning'>Access denied.</span>")
 	else if(open && !showpiece)
-		if(user.drop_item())
+		if(!(I.flags & (ABSTRACT | DROPDEL)) && user.drop_item())
 			I.forceMove(src)
 			showpiece = I
 			to_chat(user, "<span class='notice'>You put [I] on display</span>")
@@ -151,14 +152,14 @@
 		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 			return
 		to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
-		toggle_lock(user)
+		toggle_lock()
 
 /obj/structure/displaycase/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(default_welder_repair(user, I))
 		broken = FALSE
 
-/obj/structure/displaycase/proc/toggle_lock(mob/user)
+/obj/structure/displaycase/proc/toggle_lock()
 	open = !open
 	update_icon()
 

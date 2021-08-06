@@ -484,7 +484,7 @@
 	head = /obj/item/clothing/head/xenos
 	glasses = /obj/item/clothing/glasses/thermal
 	l_pocket = /obj/item/tank/internals/emergency_oxygen/double
-	r_pocket = /obj/item/toy/toy_xeno
+	r_pocket = /obj/item/toy/figure/xeno
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/clothing/head/welding = 1,

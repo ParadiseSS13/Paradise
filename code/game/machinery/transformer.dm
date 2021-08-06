@@ -107,10 +107,10 @@
 	if(R.mind && !R.client && !R.grab_ghost()) // Make sure this is an actual player first and not just a humanized monkey or something.
 		message_admins("[key_name_admin(R)] was just transformed by a borg factory, but they were SSD. Polling ghosts for a replacement.")
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a malfunctioning cyborg?", ROLE_TRAITOR, poll_time = 15 SECONDS)
-		if(!length(candidates))
+		if(!length(candidates) || QDELETED(R))
 			return
 		var/mob/dead/observer/O = pick(candidates)
-		R.key= O.key
+		R.key = O.key
 
 /obj/machinery/transformer/mime
 	name = "Mimetech Greyscaler"
