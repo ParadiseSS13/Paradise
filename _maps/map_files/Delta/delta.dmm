@@ -70793,6 +70793,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -79541,6 +79544,10 @@
 /obj/item/assembly/prox_sensor,
 /obj/item/assembly/prox_sensor,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -80288,6 +80295,8 @@
 	},
 /area/medical/genetics)
 "dui" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/robot_parts/robot_suit,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "duj" = (
@@ -80306,6 +80315,14 @@
 /obj/item/wrench,
 /obj/item/clothing/glasses/welding,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -80804,12 +80821,11 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "dvp" = (
-/obj/effect/landmark/start{
-	name = "Roboticist"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/computer/rdconsole/robotics,
+/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "dvq" = (
@@ -81285,6 +81301,8 @@
 	pixel_y = 22
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/robotanalyzer,
+/obj/item/mmi/robotic_brain,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -81300,7 +81318,6 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "dws" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "dwt" = (
@@ -81896,7 +81913,7 @@
 	},
 /area/medical/research)
 "dxz" = (
-/obj/structure/filingcabinet/chestdrawer,
+/obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -82603,8 +82620,7 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "dyO" = (
-/obj/item/robot_parts/robot_suit,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "dyP" = (
@@ -82617,7 +82633,7 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "dyQ" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "dyR" = (
@@ -82635,11 +82651,8 @@
 	},
 /area/assembly/robotics)
 "dyT" = (
-/obj/machinery/computer/rdconsole/robotics,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/wall,
 /area/assembly/robotics)
 "dyU" = (
 /obj/structure/disposalpipe/segment,
@@ -83294,13 +83307,19 @@
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
+/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/machine,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/assembly/robotics)
 "dAb" = (
-/obj/effect/decal/warning_stripes/southeast,
-/turf/simulated/floor/plasteel,
+/obj/structure/mirror{
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/assembly/robotics)
 "dAc" = (
 /obj/structure/disposalpipe/trunk{
@@ -84072,13 +84091,12 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
 "dBO" = (
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/machinery/r_n_d/circuit_imprinter,
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table/reinforced,
+/obj/item/robotanalyzer,
+/obj/item/bonegel,
+/obj/item/FixOVein,
+/obj/item/surgicaldrill,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -85861,11 +85879,15 @@
 /area/bridge)
 "dFw" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
+/obj/structure/window/reinforced/polarized{
 	dir = 8
 	},
-/obj/item/cautery,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/tank/internals/anesthetic,
+/obj/item/clothing/mask/breath/medical,
+/obj/item/mmi,
+/obj/item/mmi,
+/obj/item/mmi,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -85884,12 +85906,14 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/ai_status_display{
-	pixel_x = 32
-	},
 /obj/item/retractor,
 /obj/item/hemostat,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/bonesetter,
+/obj/item/stack/medical/bruise_pack/advanced{
+	pixel_x = -4;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -86247,6 +86271,9 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/secure_closet/roboticist,
+/obj/item/radio/headset/headset_sci{
+	pixel_x = -3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -87132,7 +87159,7 @@
 /area/bridge)
 "dHR" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
+/obj/structure/window/reinforced/polarized{
 	dir = 8
 	},
 /obj/item/mmi,
@@ -90817,9 +90844,6 @@
 /area/hallway/secondary/exit)
 "dQq" = (
 /obj/structure/table/reinforced,
-/obj/structure/mirror{
-	pixel_x = 24
-	},
 /obj/structure/sign/nosmoking_2{
 	pixel_y = -32
 	},
@@ -90828,6 +90852,7 @@
 	},
 /obj/item/circular_saw,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/cautery,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -93965,19 +93990,16 @@
 	},
 /area/medical/morgue)
 "dXr" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/structure/noticeboard{
-	pixel_x = 32
-	},
 /obj/machinery/camera{
 	c_tag = "Robotics Lab";
 	dir = 8;
 	network = list("Research","SS13")
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/warning_stripes/southeast,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "dXs" = (
@@ -94945,6 +94967,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permasolitary)
+"eqC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/landmark/start{
+	name = "Roboticist"
+	},
+/obj/effect/decal/warning_stripes/southeastcorner,
+/turf/simulated/floor/plasteel,
+/area/assembly/robotics)
 "eqH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -96669,6 +96701,11 @@
 	},
 /turf/simulated/floor/engine,
 /area/security/podbay)
+"hLd" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
 "hLZ" = (
 /obj/structure/table/glass,
 /obj/item/hemostat{
@@ -96849,6 +96886,14 @@
 	icon_state = "dark"
 	},
 /area/construction/hallway)
+"iaL" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "robodesk";
+	name = "Robotics Desk Shutters"
+	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/assembly/robotics)
 "iaW" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -98149,6 +98194,10 @@
 	icon_state = "solarpanel"
 	},
 /area/maintenance/auxsolarstarboard)
+"kZd" = (
+/obj/effect/decal/warning_stripes/southeast,
+/turf/simulated/floor/plasteel,
+/area/assembly/robotics)
 "lgq" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -99584,6 +99633,10 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/storage)
+"nMD" = (
+/obj/machinery/ai_status_display,
+/turf/simulated/wall,
+/area/assembly/robotics)
 "nNk" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -100043,6 +100096,19 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/security/processing)
+"oSM" = (
+/obj/machinery/door/window/westleft{
+	name = "Robotics Desk";
+	req_access_txt = "29"
+	},
+/obj/machinery/button/windowtint{
+	id = 1;
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
 "oTo" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -101259,6 +101325,13 @@
 	icon_state = "greenblue"
 	},
 /area/hydroponics)
+"rMR" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "purplefull"
+	},
+/area/assembly/robotics)
 "rNi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -101819,6 +101892,19 @@
 "tgE" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/starboard)
+"tiv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/r_n_d/circuit_imprinter,
+/obj/item/reagent_containers/glass/beaker/sulphuric,
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel,
+/area/assembly/robotics)
 "tiS" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -141755,7 +141841,7 @@ dsL
 dvl
 dui
 dvq
-dui
+dyQ
 dzX
 dEX
 dGT
@@ -142011,9 +142097,9 @@ dqn
 dsM
 dvl
 dws
-dvq
+eqC
 dyO
-dzX
+kZd
 dtN
 dtN
 dyP
@@ -142267,10 +142353,10 @@ dqo
 dqm
 dsL
 dvl
-dui
+dyQ
 dvp
-dui
-dzX
+dql
+oSM
 dFw
 dHR
 dql
@@ -142525,9 +142611,9 @@ dsH
 due
 dvm
 dws
-dvq
-dws
-dzX
+tiv
+dyT
+hLd
 dyR
 dzY
 dql
@@ -142783,7 +142869,7 @@ duf
 dvr
 dxz
 dXr
-dyQ
+dql
 dAb
 dyS
 dzZ
@@ -143038,8 +143124,8 @@ drF
 cJq
 drJ
 dwo
+iaL
 drJ
-dql
 dyT
 dBO
 dFy
@@ -143295,12 +143381,12 @@ dfn
 cJq
 drK
 dce
-ddJ
+dce
+rMR
 dql
 dql
 dql
-dql
-dql
+nMD
 dql
 dBH
 dCX
@@ -143553,7 +143639,7 @@ dft
 drL
 cVA
 cVA
-dgC
+cVA
 dam
 doY
 doY
