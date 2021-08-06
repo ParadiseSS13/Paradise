@@ -99,7 +99,7 @@
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
 			H.physiology.brute_mod *= 0.5
-			H.physiology.burn_mod *= 0.5
+			H.physiology.burn_mod *= 0.8
 			H.physiology.stamina_mod *= 0.5
 			H.physiology.stun_mod *= 0.5
 			if(owner.mind.vampire.get_ability(/datum/vampire_passive/blood_swell_upgrade))
@@ -110,10 +110,10 @@
 /datum/status_effect/bloodswell/on_remove()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		H.physiology.brute_mod *= 2
-		H.physiology.burn_mod *= 2
-		H.physiology.stamina_mod *= 2
-		H.physiology.stun_mod *= 2
+		H.physiology.brute_mod /= 0.5
+		H.physiology.burn_mod /= 0.8
+		H.physiology.stamina_mod /= 0.5
+		H.physiology.stun_mod /= 0.5
 		if(bonus_damage_applied)
 			H.physiology.melee_bonus -= 10
 			H.dna.species.punchstunthreshold -= 8

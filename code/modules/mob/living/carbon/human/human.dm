@@ -1973,4 +1973,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 				playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 				AL.open(TRUE)
 				if(mind?.vampire && HAS_TRAIT_FROM(src, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
-					mind.vampire.bloodusable -= 5
+					mind.vampire.bloodusable = max(mind.vampire.bloodusable - 5, 0)
+					if(!mind.vampire.bloodusable)
+						REMOVE_TRAIT(src, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)

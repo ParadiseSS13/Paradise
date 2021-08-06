@@ -35,6 +35,7 @@
 	required_blood = 20
 	vampire_ability = TRUE
 	allowed_type = /turf/simulated
+	click_radius = -1
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
@@ -48,6 +49,7 @@
 	desc = "an almost transparent trap that melts into the shadows."
 	alpha = 60
 	armed = TRUE
+	anchored = TRUE
 	breakouttime = 3 SECONDS
 	flags = DROPDEL
 
@@ -89,6 +91,7 @@
 	required_blood = 30
 	vampire_ability = TRUE
 	allowed_type = /turf/simulated
+	click_radius = -1
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
@@ -132,7 +135,7 @@
 
 /obj/effect/proc_holder/spell/self/eternal_darkness
 	name = "Eternal Darkness"
-	desc = "When toggled, you consume the area around you in darkness and slowly lower the body tempurature of people nearby."
+	desc = "When toggled, you consume the area around you in darkness and slowly lower the body temperature of people nearby."
 	gain_desc = "You have gained the ability to shroud the area around you in darkness, only the strongest of lights can pierce your unholy powers."
 	charge_max = 10 SECONDS
 	vampire_ability = TRUE
@@ -165,7 +168,7 @@
 /datum/vampire_passive/eternal_darkness/process()
 	for(var/mob/living/L in view(6, owner))
 		if(L.affects_vampire(owner))
-			L.adjust_bodytemperature(-10) //10 seconds to start damage
+			L.adjust_bodytemperature(-20 * TEMPERATURE_DAMAGE_COEFFICIENT)
 
 	owner.mind.vampire.bloodusable = max(owner.mind.vampire.bloodusable - 5, 0)
 

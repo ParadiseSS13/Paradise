@@ -34,7 +34,7 @@
 		to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
 		return FALSE
 		//chapel check
-	if(istype(loc.loc, /area/chapel) && !fullpower)
+	if(istype(get_area(vampire.owner), /area/chapel) && !fullpower)
 		to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
 		return FALSE
 
@@ -44,10 +44,11 @@
 
 /obj/effect/proc_holder/spell/mob_aoe/choose_targets(mob/user = usr)
 	var/list/targets[0]
-	for(var/mob/living/carbon/C in oview_or_orange(range, user, selection_type))
-		targets += C
-	for(var/mob/living/silicon/S in oview_or_orange(range, user, selection_type))
-		targets += S
+	for(var/mob/living/L in view(range, user))
+		if(L == user)
+			continue
+
+		targets += L
 
 	if(!targets.len)
 		revert_cast(user)
@@ -127,7 +128,7 @@
 	if(!get_ability(/datum/vampire_passive/regen))
 		return rejuv_multiplier
 
-	if(subclass == SUBCLASS_GARGANTUA)
+	if(SUBCLASS_GARGANTUA in subclass)
 		rejuv_multiplier = min((100 - owner.health)/20, 5) // max healing of 50 brute and burn
 		return rejuv_multiplier
 
@@ -147,28 +148,22 @@
 /obj/effect/proc_holder/spell/self/specialize/cast(mob/user)
 	var/list/options = list("Hemomancer",
 							"Gargantua",
-							"Dantalion",
 							"Umbrae")
 	var/choice = show_radial_menu(user, user, options)
 
 	switch(choice)
 		if("Hemomancer")
-			user.mind.vampire.subclass = SUBCLASS_HEMOMANCER
+			user.mind.vampire.subclass += SUBCLASS_HEMOMANCER
 			user.mind.vampire.upgrade_tiers.Remove(type)
 			user.mind.vampire.remove_ability(src)
 			user.mind.vampire.check_vampire_upgrade()
 		if("Gargantua")
-			user.mind.vampire.subclass = SUBCLASS_GARGANTUA
-			user.mind.vampire.upgrade_tiers.Remove(type)
-			user.mind.vampire.remove_ability(src)
-			user.mind.vampire.check_vampire_upgrade()
-		if("Dantalion")
-			user.mind.vampire.subclass = SUBCLASS_DANTALION
+			user.mind.vampire.subclass += SUBCLASS_GARGANTUA
 			user.mind.vampire.upgrade_tiers.Remove(type)
 			user.mind.vampire.remove_ability(src)
 			user.mind.vampire.check_vampire_upgrade()
 		if("Umbrae")
-			user.mind.vampire.subclass = SUBCLASS_UMBRAE
+			user.mind.vampire.subclass += SUBCLASS_UMBRAE
 			user.mind.vampire.upgrade_tiers.Remove(type)
 			user.mind.vampire.remove_ability(src)
 			user.mind.vampire.check_vampire_upgrade()
@@ -179,6 +174,7 @@
 	action_icon_state = "vampire_glare"
 	charge_max = 30 SECONDS
 	stat_allowed = 1
+	range = 1
 	vampire_ability = TRUE
 	panel = "Vampire"
 	school = "vampire"
@@ -212,7 +208,7 @@
 			target.adjustStaminaLoss(120)
 			target.Weaken(6)
 			target.AdjustSilence(3)
-		target.flash_eyes(2, TRUE, TRUE)
+			target.flash_eyes(2, TRUE, TRUE)
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
 		add_attack_logs(user, target, "(Vampire) Glared at")
 
@@ -246,39 +242,6 @@
 	// - - -
 	// Victim lateral to the victim.
 	return DEVIATION_PARTIAL
-
-
-/obj/effect/proc_holder/spell/self/screech
-	name = "Chiropteran Screech (30)"
-	desc = "An extremely loud shriek that stuns nearby humans and breaks windows as well."
-	gain_desc = "You have gained the Chiropteran Screech ability which stuns anything with ears in a large radius and shatters glass in the process."
-	action_icon_state = "vampire_screech"
-	required_blood = 30
-	vampire_ability = TRUE
-	panel = "Vampire"
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
-
-/obj/effect/proc_holder/spell/self/screech/cast(list/targets, mob/user = usr)
-	user.visible_message("<span class='warning'>[user] lets out an ear piercing shriek!</span>", "<span class='warning'>You let out a loud shriek.</span>", "<span class='warning'>You hear a loud painful shriek!</span>")
-	for(var/mob/living/carbon/C in hearers(4))
-		if(ishuman(C))
-			var/mob/living/carbon/human/H = C
-			if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
-				continue
-		if(!C.affects_vampire())
-			continue
-		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
-		C.Weaken(4)
-		C.AdjustEarDamage(0, 20)
-		C.Stuttering(20)
-		C.Stun(4)
-		C.Jitter(150)
-	for(var/obj/structure/window/W in view(4))
-		W.deconstruct(FALSE)
-	for(var/obj/machinery/light/L in view(4))
-		L.burnout()
-	playsound(user.loc, 'sound/effects/creepyshriek.ogg', 100, 1)
 
 /datum/vampire_passive/regen
 	gain_desc = "Your rejuvination abilities have improved and will now heal you over time when used."
@@ -386,3 +349,94 @@
 
 	sound1 = null
 	sound2 = null
+
+// pure adminbus at the moment
+/proc/isvampirethrall(mob/living/M)
+	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.vampire_enthralled)
+
+/obj/effect/proc_holder/spell/targeted/enthrall
+	name = "Enthrall (150)"
+	desc = "You use a large portion of your power to sway those loyal to none to be loyal to you only."
+	gain_desc = "You have gained the Enthrall ability which at a heavy blood cost allows you to enslave a human that is not loyal to any other for a random period of time."
+	action_icon_state = "vampire_enthrall"
+	required_blood = 150
+	deduct_blood_on_cast = FALSE
+	vampire_ability = TRUE
+	humans_only = TRUE
+	panel = "Vampire"
+	school = "vampire"
+	action_background_icon_state = "bg_vampire"
+
+/obj/effect/proc_holder/spell/targeted/enthrall/cast(list/targets, mob/user = usr)
+	var/datum/vampire/vampire = user.mind.vampire
+	for(var/mob/living/target in targets)
+		user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
+		to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
+		if(do_mob(user, target, 50))
+			if(can_enthrall(user, target))
+				handle_enthrall(user, target)
+				vampire.bloodusable -= required_blood //we take the blood after enthralling, not before
+			else
+				revert_cast(user)
+				to_chat(user, "<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>")
+
+/obj/effect/proc_holder/spell/targeted/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
+	var/enthrall_safe = 0
+	for(var/obj/item/implant/mindshield/L in C)
+		if(L && L.implanted)
+			enthrall_safe = 1
+			break
+	for(var/obj/item/implant/traitor/T in C)
+		if(T && T.implanted)
+			enthrall_safe = 1
+			break
+	if(!C)
+		log_runtime(EXCEPTION("something bad happened on enthralling a mob, attacker is [user] [user.key] \ref[user]"), user)
+		return FALSE
+	if(!C.mind)
+		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
+		return FALSE
+	if(enthrall_safe || (C.mind in SSticker.mode.vampires) || (C.mind.vampire) || (C.mind in SSticker.mode.vampire_enthralled))
+		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
+		return FALSE
+	if(!C.affects_vampire(user))
+		if(C.mind.isholy)
+			C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>Your faith of [SSticker.Bible_deity_name] has kept your mind clear of all evil.</span>")
+		else
+			C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You resist the attack on your mind.</span>")
+		return FALSE
+	if(!ishuman(C))
+		to_chat(user, "<span class='warning'>You can only enthrall humans!</span>")
+		return FALSE
+	return TRUE
+
+/obj/effect/proc_holder/spell/targeted/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H)
+	if(!istype(H))
+		return 0
+	var/ref = "\ref[user.mind]"
+	if(!(ref in SSticker.mode.vampire_thralls))
+		SSticker.mode.vampire_thralls[ref] = list(H.mind)
+	else
+		SSticker.mode.vampire_thralls[ref] += H.mind
+	SSticker.mode.update_vampire_icons_added(H.mind)
+	SSticker.mode.update_vampire_icons_added(user.mind)
+	var/datum/mindslaves/slaved = user.mind.som
+	H.mind.som = slaved
+	slaved.serv += H
+	slaved.add_serv_hud(user.mind, "vampire")//handles master servent icons
+	slaved.add_serv_hud(H.mind, "vampthrall")
+
+	SSticker.mode.vampire_enthralled.Add(H.mind)
+	SSticker.mode.vampire_enthralled[H.mind] = user.mind
+	H.mind.special_role = SPECIAL_ROLE_VAMPIRE_THRALL
+
+	var/datum/objective/protect/serve_objective = new
+	serve_objective.owner = user.mind
+	serve_objective.target = H.mind
+	serve_objective.explanation_text = "You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command."
+	H.mind.objectives += serve_objective
+
+	to_chat(H, "<span class='biggerdanger'>You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command.</span>")
+	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If [H.p_they()] refuse[H.p_s()] to do as you say just adminhelp.</i></span>")
+	H.Stun(2)
+	add_attack_logs(user, H, "Vampire-thralled")
