@@ -52,6 +52,7 @@
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 /obj/item/clothing/head/hardhat/orange
+	name = "orange hard hat"
 	icon_state = "hardhat0_orange"
 	item_state = "hardhat0_orange"
 	item_color = "orange"
@@ -68,6 +69,7 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 
 /obj/item/clothing/head/hardhat/white
+	name = "white hard hat"
 	icon_state = "hardhat0_white"
 	item_state = "hardhat0_white"
 	item_color = "white"
@@ -79,6 +81,7 @@
 	dog_fashion = /datum/dog_fashion/head/hardhat
 
 /obj/item/clothing/head/hardhat/dblue
+	name = "blue hard hat"
 	icon_state = "hardhat0_dblue"
 	item_state = "hardhat0_dblue"
 	item_color = "dblue"

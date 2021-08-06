@@ -1796,8 +1796,9 @@
 					/obj/item/clothing/head/soft/sec = 4,
 					/obj/item/clothing/head/soft/sec/corp = 4,
 					/obj/item/clothing/suit/armor/secjacket = 4,
+					/obj/item/clothing/suit/jacket/pilot = 2,
 					/obj/item/clothing/suit/hooded/wintercoat/security = 4,
-					/obj/item/clothing/gloves/color/black  = 4,
+					/obj/item/clothing/gloves/color/black = 4,
 					/obj/item/clothing/accessory/armband/sec = 6,
 					/obj/item/clothing/shoes/laceup = 4,
 					/obj/item/clothing/shoes/jackboots = 4,
@@ -1833,7 +1834,7 @@
 					/obj/item/clothing/gloves/color/black = 2,
 					/obj/item/clothing/gloves/color/latex = 2,
 					/obj/item/reagent_containers/food/drinks/flask/detflask = 2,
-					/obj/item/storage/fancy/cigarettes/dromedaryco  = 5)
+					/obj/item/storage/fancy/cigarettes/dromedaryco = 5)
 	contraband = list(/obj/item/toy/figure/crew/detective = 1)
 	refill_canister = /obj/item/vending_refill/detdrobe
 
@@ -1843,18 +1844,18 @@
 	icon_state = "medidrobe"
 	ads_list = list("Make those blood stains look fashionable!")
 	vend_reply = "Thank you for using the MediDrobe!"
-	products = list(/obj/item/clothing/under/rank/medical/blue = 3,
+	products = list(/obj/item/clothing/under/rank/medical = 3,
+					/obj/item/clothing/under/rank/medical/skirt = 3,
+					/obj/item/clothing/under/rank/medical/blue = 3,
 					/obj/item/clothing/under/rank/medical/green = 3,
 					/obj/item/clothing/under/rank/medical/purple = 3,
-					/obj/item/clothing/under/rank/medical = 3,
-					/obj/item/clothing/under/rank/medical/skirt = 3,
 					/obj/item/clothing/under/rank/nurse = 3,
 					/obj/item/clothing/under/medigown = 3,
+					/obj/item/clothing/head/beret/med = 3,
 					/obj/item/clothing/head/surgery/blue = 3,
 					/obj/item/clothing/head/surgery/green = 3,
 					/obj/item/clothing/head/surgery/purple = 3,
 					/obj/item/clothing/head/nursehat = 3,
-					/obj/item/clothing/head/beret/med = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/medical = 3,
 					/obj/item/clothing/suit/storage/fr_jacket = 3,
 					/obj/item/clothing/suit/storage/labcoat = 3,
@@ -2015,7 +2016,7 @@
 					/obj/item/clothing/head/hardhat/white = 2,
 					/obj/item/clothing/head/hardhat/orange = 2,
 					/obj/item/clothing/head/hardhat/dblue = 2,
-					/obj/item/clothing/gloves/color/black  = 3,
+					/obj/item/clothing/gloves/color/black = 3,
 					/obj/item/clothing/accessory/armband/engine = 3,
 					/obj/item/clothing/shoes/laceup = 3,
 					/obj/item/clothing/shoes/workboots = 3,
@@ -2090,7 +2091,7 @@
 	icon_state = "hydrobe"
 	ads_list = list("Do you love soil? Then buy our clothes!", "Get outfits to match your green thumb here!")
 	vend_reply = "Thank you for using the HydroDrobe!"
-	products = list(/obj/item/clothing/under/rank/hydroponics  = 3,
+	products = list(/obj/item/clothing/under/rank/hydroponics = 3,
 					/obj/item/reagent_containers/glass/bucket = 3,
 					/obj/item/clothing/suit/apron = 3,
 					/obj/item/clothing/suit/apron/overalls = 3,

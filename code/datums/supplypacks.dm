@@ -910,7 +910,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/vending_refill/wallmed)
 	containername = "medical vending crate"
 
-/datum/supply_packs/medical/clothingvendor
+/datum/supply_packs/medical/vending/clothingvendor
 	name = "Medical Clothing Vendors Crate"
 	cost = 20
 	contains = list(/obj/item/vending_refill/medidrobe,
