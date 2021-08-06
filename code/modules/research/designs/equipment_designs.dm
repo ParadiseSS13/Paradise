@@ -242,6 +242,16 @@
 	materials = list(MAT_METAL = 4500, MAT_SILVER = 2500, MAT_TITANIUM = 3500)
 	category = list("Equipment")
 
+/datum/design/holofan_projector
+	name = "ATMOS holofan projector"
+	desc = "A holographic projector that creates holographic barriers that prevent changes in atmosphere conditions"
+	id = "holofan_projector"
+	req_tech = list("materials" = 4, "engineering" = 6, "magnets" = 7)
+	build_path = /obj/item/holosign_creator/atmos
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_DIAMOND = 1500)
+	category = list("Equipment")
+
 /datum/design/alienwrench
 	name = "Alien Wrench"
 	desc = "An advanced wrench obtained through Abductor technology."
