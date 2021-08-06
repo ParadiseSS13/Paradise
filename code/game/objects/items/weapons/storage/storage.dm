@@ -12,9 +12,9 @@
 	/// No message on putting items in.
 	var/silent = FALSE
 	/// List of objects which this item can store (if set, it can't store anything else)
-	var/list/can_hold = new/list()
+	var/list/can_hold = list()
 	/// List of objects which this item can't store (in effect only if can_hold isn't set)
-	var/list/cant_hold = new/list()
+	var/list/cant_hold = list()
 	/// Max size of objects that this object can store (in effect only if can_hold isn't set)
 	var/max_w_class = WEIGHT_CLASS_SMALL
 	/// The sum of the w_classes of all the items in this storage item.
@@ -41,6 +41,9 @@
 	var/foldable = null
 	/// How much of the stack item do you get.
 	var/foldable_amt = 0
+
+	/// Lazy list of mobs which are currently viewing the storage inventory.
+	var/list/mobs_viewing 
 
 /obj/item/storage/Initialize(mapload)
 	. = ..()
@@ -72,6 +75,15 @@
 	closer.layer = ABOVE_HUD_LAYER
 	closer.plane = ABOVE_HUD_PLANE
 	orient2hud()
+
+/obj/item/storage/Destroy()
+	for(var/obj/O in contents)
+		O.mouse_opacity = initial(O.mouse_opacity)
+
+	QDEL_NULL(boxes)
+	QDEL_NULL(closer)
+	LAZYCLEARLIST(mobs_viewing)
+	return ..()
 
 /obj/item/storage/MouseDrop(obj/over_object)
 	if(!ismob(usr)) //so monkeys can take off their backpacks -- Urist
@@ -177,11 +189,13 @@
 	user.client.screen += closer
 	user.client.screen += contents
 	user.s_active = src
+	LAZYADDOR(mobs_viewing, user)
 
 /**
   * Hides the current container interface from `user`.
   */
 /obj/item/storage/proc/hide_from(mob/user)
+	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too
 	if(!user.client)
 		return
 	user.client.screen -= boxes
@@ -189,6 +203,16 @@
 	user.client.screen -= contents
 	if(user.s_active == src)
 		user.s_active = null
+
+/**
+  * Checks all mobs currently viewing the storage inventory, and hides it if they shouldn't be able to see it.
+  */
+/obj/item/storage/proc/update_viewers()
+	for(var/_M in mobs_viewing)
+		var/mob/M = _M
+		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)))
+			continue
+		hide_from(M)
 
 /obj/item/storage/proc/open(mob/user)
 	if(use_sound)
@@ -374,6 +398,12 @@
 		prevent_warning = TRUE
 	I.forceMove(src)
 	I.on_enter_storage(src)
+
+	for(var/_M in mobs_viewing)
+		var/mob/M = _M
+		if((M.s_active == src) && M.client)
+			M.client.screen += I
+
 	if(usr)
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= I
@@ -412,7 +442,8 @@
 		var/obj/item/storage/fancy/F = src
 		F.update_icon(TRUE)
 
-	for(var/mob/M in range(1, loc))
+	for(var/_M in mobs_viewing)
+		var/mob/M = _M
 		if((M.s_active == src) && M.client)
 			M.client.screen -= I
 
@@ -498,6 +529,10 @@
 				close(M)
 	add_fingerprint(user)
 
+/obj/item/storage/equipped(mob/user, slot, initial)
+	. = ..()
+	update_viewers()
+
 /obj/item/storage/attack_ghost(mob/user)
 	if(isobserver(user))
 		// Revenants don't get to play with the toys.
@@ -538,14 +573,6 @@
   */
 /obj/item/storage/proc/populate_contents()
 	return // Override
-
-/obj/item/storage/Destroy()
-	for(var/obj/O in contents)
-		O.mouse_opacity = initial(O.mouse_opacity)
-
-	QDEL_NULL(boxes)
-	QDEL_NULL(closer)
-	return ..()
 
 /obj/item/storage/emp_act(severity)
 	..()

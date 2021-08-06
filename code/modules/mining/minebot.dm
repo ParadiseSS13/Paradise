@@ -59,6 +59,10 @@
 
 	SetCollectBehavior()
 
+/mob/living/simple_animal/hostile/mining_drone/Destroy()
+	QDEL_NULL(stored_gun)
+	return ..()
+
 /mob/living/simple_animal/hostile/mining_drone/emp_act(severity)
 	adjustHealth(100 / severity)
 	to_chat(src, "<span class='userdanger'>NOTICE: EMP detected, systems damaged!</span>")

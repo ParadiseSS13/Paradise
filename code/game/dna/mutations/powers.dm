@@ -822,9 +822,10 @@
 		else
 			M.change_gender(FEMALE)
 
-	var/new_eyes = input("Please select eye color.", "Character Generation", eyes_organ.eye_color) as null|color
-	if(new_eyes)
-		M.change_eye_color(new_eyes)
+	if(eyes_organ)
+		var/new_eyes = input("Please select eye color.", "Character Generation", eyes_organ.eye_color) as null|color
+		if(new_eyes)
+			M.change_eye_color(new_eyes)
 
 	//Alt heads.
 	if(head_organ.dna.species.bodyflags & HAS_ALT_HEADS)

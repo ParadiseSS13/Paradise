@@ -20,6 +20,7 @@
 	req_access = list(ACCESS_BRIG)
 	anchored = 1    		// can't pick it up
 	density = 0       		// can walk through it.
+	layer = WALL_OBJ_LAYER
 	var/id = null     		// id of door it controls.
 	var/releasetime = 0		// when world.timeofday reaches it - release the prisoner
 	var/timing = 0    		// boolean, true/1 timer is on, false/0 means it's not timing
@@ -124,8 +125,6 @@
 	Radio.listening = 0
 	Radio.config(list("Security" = 0))
 	Radio.follow_target = src
-
-	set_pixel_offsets_from_dir(32, -32, 32, -32)
 
 	spawn(20)
 		for(var/obj/machinery/door/window/brigdoor/M in GLOB.airlocks)
@@ -452,54 +451,37 @@
 		I.overlays += ID
 	return I
 
-
 /obj/machinery/door_timer/cell_1
 	name = "Cell 1"
 	id = "Cell 1"
-	pixel_y = -32
-
 
 /obj/machinery/door_timer/cell_2
 	name = "Cell 2"
 	id = "Cell 2"
-	pixel_y = -32
-
 
 /obj/machinery/door_timer/cell_3
 	name = "Cell 3"
 	id = "Cell 3"
-	pixel_y = -32
-
 
 /obj/machinery/door_timer/cell_4
 	name = "Cell 4"
 	id = "Cell 4"
-	pixel_y = -32
-
 
 /obj/machinery/door_timer/cell_5
 	name = "Cell 5"
 	id = "Cell 5"
-	pixel_y = -32
-
 
 /obj/machinery/door_timer/cell_6
 	name = "Cell 6"
 	id = "Cell 6"
-	pixel_y = -32
-
 
 /obj/machinery/door_timer/cell_7
 	name = "Cell 7"
 	id = "Cell 7"
-	pixel_y = -32
-
 
 /obj/machinery/door_timer/cell_8
 	name = "Cell 8"
 	id = "Cell 8"
-	pixel_y = -32
-
 
 #undef FONT_SIZE
 #undef FONT_COLOR
