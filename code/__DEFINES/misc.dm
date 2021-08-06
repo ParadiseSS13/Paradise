@@ -269,6 +269,7 @@
 		"blue"		= "grey",		\
 		"green"		= "grey",		\
 		"orange"	= "light grey",	\
+		"yellow"	= "light grey",	\
 		"brown"		= "grey",		\
 		"gold"		= "light grey",	\
 		"cyan"		= "silver",		\
@@ -283,8 +284,9 @@
 		"red"		= "darkolivegreen",	\
 		"green"		= "darkslategrey",	\
 		"orange"	= "goldenrod",		\
-		"gold"		= "goldenrod", 		\
+		"yellow"	= "goldenrod", 		\
 		"brown"		= "darkolivegreen",	\
+		"gold"		= "goldenrod", 		\
 		"cyan"		= "steelblue",		\
 		"magenta"	= "blue",			\
 		"purple"	= "darkslategrey",	\
@@ -298,8 +300,9 @@
 		"blue"		= "darkslateblue",	\
 		"green"		= "darkolivegreen",	\
 		"orange"	= "darkkhaki",		\
-		"gold"		= "darkkhaki",		\
+		"yellow"	= "darkkhaki",		\
 		"brown"		= "rebeccapurple",	\
+		"gold"		= "darkkhaki",		\
 		"cyan"		= "darkseagreen",	\
 		"magenta"	= "darkslateblue",	\
 		"purple"	= "darkslateblue",	\
