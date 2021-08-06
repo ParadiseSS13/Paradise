@@ -171,7 +171,7 @@
 	icon_state = "beret_med"
 
 /obj/item/clothing/head/surgery
-	name = "surgical cap"
+	name = "blue surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs."
 	icon_state = "surgcap_blue"
 	flags = BLOCKHEADHAIR
@@ -180,16 +180,19 @@
 		)
 
 /obj/item/clothing/head/surgery/purple
+	name = "purple surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is deep purple."
 	icon_state = "surgcap_purple"
 	dog_fashion = /datum/dog_fashion/head/surgery
 
 /obj/item/clothing/head/surgery/blue
+	name = "blue surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is baby blue."
 	icon_state = "surgcap_blue"
 	dog_fashion = /datum/dog_fashion/head/surgery
 
 /obj/item/clothing/head/surgery/green
+	name = "green surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is dark green."
 	icon_state = "surgcap_green"
 	dog_fashion = /datum/dog_fashion/head/surgery
