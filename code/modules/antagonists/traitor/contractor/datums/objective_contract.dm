@@ -139,7 +139,6 @@
 			"Port Primary Hallway",
 			"Quartermaster's Office",
 			"Research Director's Office",
-			"Research Division",
 			"Research and Development",
 			"Robotics Lab",
 			"Surgery 1",
