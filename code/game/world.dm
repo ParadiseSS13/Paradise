@@ -77,10 +77,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
 
 	// Handle spam prevention
-	if(!GLOB.world_topic_spam_prevention_handlers[address])
-		GLOB.world_topic_spam_prevention_handlers[address] = new /datum/world_topic_spam_prevention_handler
+	if(!GLOB.world_topic_spam_prevention_handlers[addr])
+		GLOB.world_topic_spam_prevention_handlers[addr] = new /datum/world_topic_spam_prevention_handler
 
-	var/datum/world_topic_spam_prevention_handler/sph = GLOB.world_topic_spam_prevention_handlers[address]
+	var/datum/world_topic_spam_prevention_handler/sph = GLOB.world_topic_spam_prevention_handlers[addr]
 
 	// Lock the user out and cancel their topic if needed
 	if(sph.check_lockout())
