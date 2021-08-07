@@ -12083,11 +12083,6 @@
 	c_tag = "Brig - Hallway - Port";
 	dir = 1
 	},
-/obj/machinery/door_timer{
-	id = "Cell 1";
-	name = "Cell 1";
-	pixel_y = -32
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -12096,22 +12091,20 @@
 	},
 /area/security/brig)
 "aBl" = (
-/obj/machinery/door_timer{
-	id = "Cell 2";
-	name = "Cell 2";
-	pixel_y = -32
+/obj/machinery/door_timer/cell_4{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "red"
+	dir = 4;
+	icon_state = "redcorner"
 	},
 /area/security/brig)
 "aBn" = (
-/obj/machinery/door_timer{
-	id = "Cell 3";
-	name = "Cell 3";
-	pixel_y = -32
+/obj/machinery/door_timer/cell_5{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "redcorner"
 	},
 /area/security/brig)
@@ -16040,13 +16033,13 @@
 	codes_txt = "patrol;next_patrol=1-BrigCells";
 	location = "0-SecurityDesk"
 	},
-/mob/living/simple_animal/bot/secbot/beepsky,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/mob/living/simple_animal/bot/secbot/beepsky,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
 "aJn" = (
@@ -17379,7 +17372,6 @@
 "aMc" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -17389,6 +17381,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aMd" = (
@@ -18796,12 +18789,6 @@
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "aPm" = (
-/obj/machinery/door_timer{
-	dir = 1;
-	id = "Cell 4";
-	name = "Cell 4";
-	pixel_y = 32
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -19915,10 +19902,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 8
 	},
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -20964,7 +20951,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/item/aiModule/quarantine,
+/obj/item/aiModule/crewsimov,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -21022,7 +21009,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/item/aiModule/freeform,
+/obj/item/aiModule/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -21134,15 +21121,11 @@
 	},
 /area/storage/primary)
 "aUx" = (
-/obj/machinery/door_timer{
-	dir = 1;
-	id = "Cell 5";
-	name = "Cell 5";
-	pixel_y = 32
+/obj/machinery/door_timer/cell_1{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+	icon_state = "redcorner"
 	},
 /area/security/brig)
 "aUy" = (
@@ -21547,23 +21530,11 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aVw" = (
-/obj/structure/table,
-/obj/item/aiModule/asimov,
-/obj/item/aiModule/freeformcore,
-/obj/machinery/door/window{
-	base_state = "right";
-	icon_state = "right";
-	name = "Core Modules";
-	req_access_txt = "20"
-	},
-/obj/structure/window/reinforced,
-/obj/item/aiModule/corp,
-/obj/item/aiModule/paladin,
-/obj/item/aiModule/robocop,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = 24
 	},
+/obj/machinery/smartfridge/secure/circuits/aiupload/experimental,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -21617,21 +21588,11 @@
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "aVA" = (
-/obj/structure/table,
-/obj/machinery/door/window{
-	dir = 8;
-	name = "High-Risk Modules";
-	req_access_txt = "20"
-	},
-/obj/structure/window/reinforced,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = 24
 	},
-/obj/item/aiModule/antimov,
-/obj/item/aiModule/oxygen,
-/obj/item/aiModule/oneCrewMember,
-/obj/item/aiModule/purge,
+/obj/machinery/smartfridge/secure/circuits/aiupload/highrisk,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -22563,7 +22524,7 @@
 	id = "AI";
 	pixel_y = -24
 	},
-/obj/item/aiModule/protectStation,
+/obj/item/aiModule/corp,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -29681,12 +29642,12 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
 /mob/living/simple_animal/lizard{
 	name = "Wags-His-Tail";
 	real_name = "Wags-His-Tail"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -33906,12 +33867,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
-"buL" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SE"
-	},
-/turf/space,
-/area/space/nearstation)
 "buM" = (
 /obj/structure/transit_tube{
 	icon_state = "D-NW"
@@ -36469,9 +36424,9 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/mob/living/simple_animal/bot/secbot/pingsky,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/mob/living/simple_animal/bot/secbot/pingsky,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -52680,12 +52635,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"chl" = (
-/obj/machinery/atmospherics/pipe/manifold/visible/yellow{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/atmos)
 "chm" = (
 /obj/machinery/light,
 /obj/machinery/power/apc{
@@ -63336,7 +63285,7 @@
 	},
 /obj/structure/rack,
 /obj/effect/decal/warning_stripes/south,
-/obj/item/pipe_painter,
+/obj/item/painter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cDe" = (
@@ -64194,13 +64143,13 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cFd" = (
@@ -66625,7 +66574,7 @@
 /obj/machinery/alarm{
 	pixel_y = 23
 	},
-/obj/machinery/smartfridge/secure/chemistry/virology,
+/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -78509,6 +78458,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
+"glM" = (
+/obj/machinery/door_timer/cell_2{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redcorner"
+	},
+/area/security/brig)
 "gnJ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -79687,6 +79644,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
+"jZd" = (
+/obj/machinery/door_timer/cell_3{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/security/brig)
 "kez" = (
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
@@ -79781,13 +79746,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/turf/space,
-/area/space/nearstation)
-"ktv" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 9
-	},
 /turf/space,
 /area/space/nearstation)
 "ktX" = (
@@ -81304,13 +81262,13 @@
 	},
 /area/security/podbay)
 "ppw" = (
-/mob/living/carbon/human/monkey,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/mob/living/carbon/human/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -109408,7 +109366,7 @@ atr
 aFz
 atr
 aAc
-aFz
+aUx
 aKc
 aDO
 aFh
@@ -110436,7 +110394,7 @@ aDg
 asS
 aqJ
 lgv
-aFz
+glM
 aKc
 aDO
 aFi
@@ -110693,7 +110651,7 @@ aEV
 aJy
 aOY
 aZb
-aBl
+aFl
 akD
 akD
 akD
@@ -111464,7 +111422,7 @@ aFz
 alM
 aqJ
 lgv
-aFl
+jZd
 aKc
 aDO
 aFj
@@ -111721,7 +111679,7 @@ aFB
 ayw
 aOY
 aZb
-aBn
+aFz
 akD
 akD
 akD
@@ -113004,7 +112962,7 @@ akD
 aFg
 aFX
 aKc
-atr
+aBl
 lgv
 aFA
 alM
@@ -113261,7 +113219,7 @@ akD
 amE
 amE
 amx
-aUx
+alF
 lgv
 vDc
 htK
@@ -114032,7 +113990,7 @@ akD
 aFg
 aGE
 aKc
-atr
+aBn
 lgv
 aFz
 aKc
@@ -127966,7 +127924,7 @@ bRg
 bRg
 bRg
 bRg
-chl
+bKc
 ciW
 ckl
 cij
@@ -128984,7 +128942,7 @@ cmL
 nMx
 cmL
 kto
-ktv
+cmN
 bIu
 abq
 bMj
@@ -130768,7 +130726,7 @@ cmL
 cmL
 cmL
 cmL
-ktv
+cmN
 bwL
 aaa
 abq
@@ -134366,7 +134324,7 @@ aaa
 aaa
 aaa
 abq
-buL
+bqY
 bwW
 bxk
 aaa

@@ -205,7 +205,7 @@
 	var/ghostmsg = "Play as [SM.name], pet of [user.name]?"
 	var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M)
 
-	if(!src)
+	if(QDELETED(src) || QDELETED(SM))
 		return
 
 	if(candidates.len)
@@ -375,7 +375,7 @@
 
 	if(istype(O, /obj/vehicle))
 		var/obj/vehicle/V = O
-		var/vehicle_speed_mod = config.run_speed
+		var/vehicle_speed_mod = GLOB.configuration.movement.base_run_speed
 		if(V.vehicle_move_delay <= vehicle_speed_mod)
 			to_chat(user, "<span class='warning'>[V] can't be made any faster!</span>")
 			return ..()
