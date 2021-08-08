@@ -2,7 +2,7 @@
 GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","damaged3","damaged4",
 				"damaged5","panelscorched","floorscorched1","floorscorched2","platingdmg1","platingdmg2",
 				"platingdmg3","plating","light_on","warnplate", "warnplatecorner","metalfoam", "ironfoam",
-				"light_off","wall_thermite","grass1","grass2","grass3","grass4",
+				"light_off","grass1","grass2","grass3","grass4",
 				"asteroid","asteroid_dug","asteroid0","asteroid1","asteroid2","asteroid3","asteroid4",
 				"asteroid5","asteroid6","asteroid7","asteroid8","asteroid9","asteroid10","asteroid11","asteroid12",
 				"oldburning","light-on-r","light-on-y","light-on-g","light-on-b", "wood", "wood-broken", "carpet",
