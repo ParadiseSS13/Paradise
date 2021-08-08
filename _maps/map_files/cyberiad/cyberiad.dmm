@@ -27143,7 +27143,7 @@
 /area/hallway/primary/central/nw)
 "bgW" = (
 /obj/effect/turf_decal{
-	icon_state = "L11"
+	icon_state = "C11"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
@@ -27184,13 +27184,13 @@
 /area/crew_quarters/dorms)
 "bha" = (
 /obj/effect/turf_decal{
-	icon_state = "L1"
+	icon_state = "C1"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "bhb" = (
 /obj/effect/turf_decal{
-	icon_state = "L3"
+	icon_state = "C3"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
@@ -27199,7 +27199,7 @@
 	icon_state = "L3"
 	},
 /obj/effect/turf_decal{
-	icon_state = "L5"
+	icon_state = "C5"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
@@ -27983,7 +27983,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/turf_decal{
-	icon_state = "L7"
+	icon_state = "C7"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
@@ -28003,7 +28003,7 @@
 /area/hallway/primary/port)
 "biK" = (
 /obj/effect/turf_decal{
-	icon_state = "L9"
+	icon_state = "C9"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
@@ -28078,7 +28078,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal{
-	icon_state = "L13"
+	icon_state = "C13"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
@@ -30113,7 +30113,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal{
-	icon_state = "L4"
+	icon_state = "C4"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
@@ -30126,7 +30126,7 @@
 	initialize_directions = 11
 	},
 /obj/effect/turf_decal{
-	icon_state = "L2"
+	icon_state = "C2"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
@@ -30134,7 +30134,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/effect/turf_decal{
-	icon_state = "L8"
+	icon_state = "C8"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
@@ -30158,7 +30158,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal{
-	icon_state = "L6"
+	icon_state = "C6"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
@@ -30170,7 +30170,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal{
-	icon_state = "L12"
+	icon_state = "C12"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
@@ -30186,7 +30186,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal{
-	icon_state = "L10"
+	icon_state = "C10"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
@@ -30203,7 +30203,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal{
-	icon_state = "L14"
+	icon_state = "C14"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
