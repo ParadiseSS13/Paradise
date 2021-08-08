@@ -397,10 +397,6 @@
 
 /obj/item/clothing/glasses/sunglasses/blindfold/fake
     name = "tattered blindfold"
-    desc = "A see-through blindfold perfect for cheating at games like pin the stunbaton on the clown."
-    icon_state = "blindfold"
-    item_state = "blindfold"
-    prescription_upgradable = FALSE
     flash_protect = 0
     tint = 0
 
