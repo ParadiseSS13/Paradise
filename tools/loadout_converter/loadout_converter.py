@@ -1,4 +1,4 @@
-# Converts all existing loadout `gear` listings in the `characters` table from their 'display_name's to their typepaths.
+# Converts all existing loadout `gear` listings in the `characters` table from their display_names to their typepaths.
 # To use, run `python loadout_converter.py {address} {username} {password} {database}` in the console, with the {} arguments being your SQL database information.
 
 # Note: This must ONLY be run once, and ONLY if your loadout records are using the old system.
@@ -26,6 +26,7 @@ with open('loadout_converter.json') as json_file:
 
 cursor.execute("SELECT id, gear FROM characters WHERE gear != \"\";")
 temp = cursor.fetchall()
+
 
 # Convert the rows into a dictionary. (Key: `id`, Value: `gear`)
 print("----------")
