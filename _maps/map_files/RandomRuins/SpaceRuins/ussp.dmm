@@ -3752,11 +3752,6 @@
 	icon_state = "dark"
 	},
 /area/derelict/crew_quarters)
-"hU" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/derelict/crew_quarters)
 "hV" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -4612,38 +4607,44 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/derelict/arrival)
 "jS" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "derelict9"
 	},
+/turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "jT" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "derelict10"
 	},
+/turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "jU" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "derelict11"
 	},
+/turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "jV" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "derelict12"
 	},
+/turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "jW" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "derelict13"
 	},
+/turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "jX" = (
 /obj/item/trash/spentcasing{
 	icon_state = "762-casing"
 	},
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "derelict14"
 	},
+/turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "jY" = (
 /obj/structure/cable{
@@ -4656,9 +4657,10 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "derelict15"
 	},
+/turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "jZ" = (
 /obj/structure/cable{
@@ -4666,9 +4668,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "derelict16"
 	},
+/turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "ka" = (
 /obj/structure/cable{
@@ -5137,35 +5140,41 @@
 	},
 /area/derelict/solar_control)
 "kL" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "derelict1"
 	},
+/turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "kM" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "derelict2"
 	},
+/turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "kN" = (
 /obj/item/trash/spentcasing,
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "derelict3"
 	},
+/turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "kO" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "derelict4"
 	},
+/turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "kP" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "derelict5"
 	},
+/turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "kQ" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "derelict6"
 	},
+/turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "kR" = (
 /obj/structure/cable{
@@ -5173,14 +5182,16 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "derelict7"
 	},
+/turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "kS" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "derelict8"
 	},
+/turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "kT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -14690,16 +14701,16 @@ go
 gV
 hn
 aV
-hU
-hU
+pC
+pC
 hT
 jf
-hU
+pC
 kC
 ll
-hU
-hU
-hU
+pC
+pC
+pC
 hT
 bm
 ng
@@ -14783,16 +14794,16 @@ gW
 gH
 hH
 hT
-hU
+pC
 iL
 eD
 jI
 kD
 lm
 eD
-hU
-hU
-hU
+pC
+pC
+pC
 mQ
 ng
 ng

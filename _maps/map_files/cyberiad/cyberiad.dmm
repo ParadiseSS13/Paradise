@@ -27142,9 +27142,10 @@
 	},
 /area/hallway/primary/central/nw)
 "bgW" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "L11"
 	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "bgX" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -27182,19 +27183,25 @@
 	},
 /area/crew_quarters/dorms)
 "bha" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "L1"
 	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "bhb" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "L3"
 	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "bhc" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
+	icon_state = "L3"
+	},
+/obj/effect/turf_decal{
 	icon_state = "L5"
 	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "bhd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -27975,9 +27982,10 @@
 "biI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "L7"
 	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "biJ" = (
 /obj/structure/cable{
@@ -27994,9 +28002,10 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "biK" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "L9"
 	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "biL" = (
 /obj/structure/cable{
@@ -28068,10 +28077,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	desc = "";
+/obj/effect/turf_decal{
 	icon_state = "L13"
 	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "biP" = (
 /obj/structure/chair/wood{
@@ -30103,9 +30112,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "L4"
 	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "bne" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -30115,16 +30125,18 @@
 	dir = 1;
 	initialize_directions = 11
 	},
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "L2"
 	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "bnf" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "L8"
 	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "bng" = (
 /obj/item/radio/intercom{
@@ -30145,9 +30157,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "L6"
 	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "bni" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -30156,9 +30169,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "L12"
 	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "bnj" = (
 /obj/machinery/navbeacon{
@@ -30171,9 +30185,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
+/obj/effect/turf_decal{
 	icon_state = "L10"
 	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "bnk" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -30187,10 +30202,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	desc = "";
+/obj/effect/turf_decal{
 	icon_state = "L14"
 	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "bnl" = (
 /obj/machinery/camera{
