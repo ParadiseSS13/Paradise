@@ -115,9 +115,3 @@
 #define _2FA_ENABLED_IP "ENABLED_IP"
 /// Client will be prompted for 2FA always
 #define _2FA_ENABLED_ALWAYS "ENABLED_ALWAYS"
-
-///Screentip settings
-#define SCREENTIP_OFF			0
-#define SCREENTIP_SMALL			1
-#define SCREENTIP_MEDIUM		1
-#define SCREENTIP_BIG			1

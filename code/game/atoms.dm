@@ -1160,7 +1160,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	// Statusbar
 	status_bar_set_text(usr, name)
 	// Screentips
-	if(flags & NO_SCREENTIPS_1 || usr?.client?.prefs.toggles2 & PREFTOGGLE_2_ONSCREEN_TIPS)
+	if(flags & NO_SCREENTIPS || usr?.client?.prefs.toggles2 & PREFTOGGLE_2_ONSCREEN_TIPS)
 		usr.hud_used.screentip_text.maptext = ""
 		return
 	usr.hud_used.screentip_text.maptext = MAPTEXT("<span style='text-align: center'><span style='font-size: 32px'><span style='color:[usr.client.prefs.screentip_color]: 32px'>[name]</span>")

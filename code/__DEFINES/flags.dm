@@ -25,7 +25,7 @@
 #define DROPDEL					16384	// When dropped, it calls qdel on itself
 
 ///Whether or not this atom shows screentips when hovered over
-#define NO_SCREENTIPS_1			32768
+#define NO_SCREENTIPS			32768
 
 
 /* Secondary atom flags, for the flags_2 var, denoted with a _2 */
