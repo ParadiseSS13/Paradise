@@ -17,7 +17,8 @@
 					atklog,
 					fuid,
 					parallax,
-					2fa_status
+					2fa_status,
+					screentip_color
 					FROM player
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -47,6 +48,7 @@
 		fuid = text2num(query.item[15])
 		parallax = text2num(query.item[16])
 		_2fa_status = query.item[17]
+		screentip_color = query.item[18]
 
 	qdel(query)
 
@@ -65,6 +67,7 @@
 	atklog = sanitize_integer(atklog, 0, 100, initial(atklog))
 	fuid = sanitize_integer(fuid, 0, 10000000, initial(fuid))
 	parallax = sanitize_integer(parallax, 0, 16, initial(parallax))
+	screentip_color	= sanitize_hexcolor(screentip_color, initial(screentip_color))
 	return 1
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -96,7 +99,8 @@
 					lastchangelog=:lastchangelog,
 					clientfps=:clientfps,
 					parallax=:parallax,
-					2fa_status=:_2fa_status
+					2fa_status=:_2fa_status,
+					screentip_color=:screentip_color
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -115,6 +119,7 @@
 						"clientfps" = clientfps,
 						"parallax" = parallax,
 						"_2fa_status" = _2fa_status,
+						"screentip_color" = screentip_color,
 						"ckey" = C.ckey,
 					)
 					)

@@ -2143,7 +2143,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("screentipcolor")
 					var/new_screentipcolor = input(user, "Choose your screentip colour:", "Game Preference", screentip_color) as color|null
 					if(new_screentipcolor)
-						screentip_color = screentip_color
+						screentip_color = new_screentipcolor
 
 	ShowChoices(user)
 	return 1
