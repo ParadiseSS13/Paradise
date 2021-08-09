@@ -97,6 +97,7 @@
 	var/override_alerts = FALSE //If it is overriding other alerts of the same type
 
 /obj/screen/alert/MouseEntered(location,control,params)
+	. = ..()
 	openToolTip(usr, src, params, title = name, content = desc, theme = alerttooltipstyle)
 
 

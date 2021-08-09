@@ -17,6 +17,7 @@
 	var/destination_x
 	var/destination_y
 	plane = PLANE_SPACE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)

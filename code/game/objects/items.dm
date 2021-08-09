@@ -691,6 +691,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	openToolTip(user, src, params, title = name, content = "[desc]", theme = "")
 
 /obj/item/MouseEntered(location, control, params)
+	. = ..()
 	if(in_inventory)
 		var/timedelay = 8
 		var/user = usr

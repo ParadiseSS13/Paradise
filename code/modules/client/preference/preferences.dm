@@ -209,6 +209,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/_2fa_status = _2FA_DISABLED
 	/// Do we want to force our runechat colour to be white?
 	var/force_white_runechat = FALSE
+	///Do we show screentips, if so, how big?
+	var/screentip_pref = TRUE
+	///Color of screentips at top of screen
+	var/screentip_color = "#ffd391"
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -488,6 +492,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				else
 					dat += "High"
 			dat += "</a><br>"
+			dat += "<b>Set screentip mode:</b> <a href='?_src_=prefs;preference=screentipmode'>[screentip_pref ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>Screentip color:</b><span style='border: 1px solid #161616; background-color: [screentip_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=screentipcolor'>Change</a><BR>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
@@ -2133,6 +2139,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					INVOKE_ASYNC(user.client, /client.proc/edit_2fa)
 					return // We return here to avoid focus being lost
 
+				if("screentipmode")
+					screentip_pref = !screentip_pref
+					toggles2 ^= PREFTOGGLE_2_ONSCREEN_TIPS
+
+				if("screentipcolor")
+					var/new_screentipcolor = input(user, "Choose your screentip color:", "Character Preference", screentip_color) as color|null
+					if(new_screentipcolor)
+						screentip_color = sanitize_ooccolor(new_screentipcolor)
 
 	ShowChoices(user)
 	return 1
