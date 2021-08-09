@@ -1,10 +1,7 @@
 /*!
- * Copyright (c) 2021 Aleksej Komarov
- * SPDX-License-Identifier: MIT
- */
-
-/client/var/status_bar_prev_text = ""
-
+* Copyright (c) 2021 Aleksej Komarov
+* SPDX-License-Identifier: MIT
+*/
 
 /**
  * Set status bar text for the provided `target`.

@@ -1,16 +1,17 @@
 macro "default"
 
+
 menu "menu"
-	elem
+	elem 
 		name = "&File"
 		command = ""
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Quick screenshot\tF2"
 		command = ".screenshot auto"
 		category = "&File"
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Save screenshot as...\tShift+F2"
 		command = ".screenshot"
 		category = "&File"
@@ -20,21 +21,21 @@ menu "menu"
 		command = ".reconnect"
 		category = "&File"
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = ""
 		command = ""
 		category = "&File"
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Quit"
 		command = ".quit"
 		category = "&File"
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Icons"
 		command = ""
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Size"
 		command = ""
 		category = "&Icons"
@@ -82,7 +83,7 @@ menu "menu"
 		can-check = true
 		group = "size"
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Scaling"
 		command = ""
 		category = "&Icons"
@@ -114,25 +115,25 @@ menu "menu"
 		category = "&Icons"
 		can-check = true
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Volume"
 		command = ""
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Open Volume Mixer"
 		command = "Open-Volume-Mixer"
 		category = "&Volume"
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Help"
 		command = ""
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Admin help\tF1"
 		command = "adminhelp"
 		category = "&Help"
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Hotkeys"
 		command = "Hotkey-Help"
 		category = "&Help"
@@ -149,11 +150,11 @@ window "mainwindow"
 		is-default = true
 		saved-params = "pos;size;is-minimized;is-maximized"
 		title = "Paradise Station 13"
+		statusbar = false
 		is-maximized = true
 		icon = 'icons\\paradise.png'
 		macro = "default"
 		menu = "menu"
-		statusbar = false
 	elem "asset_cache_browser"
 		type = BROWSER
 		pos = 0,0
@@ -202,30 +203,36 @@ window "mapwindow"
 		text-color = none
 		is-default = true
 		saved-params = "icon-size"
-		style=".center { text-align: center; } .maptext { font-family: 'Small Fonts'; font-size: 7px; -dm-text-outline: 1px black; color: white; line-height: 1.1; } .small { font-size: 6px; } .big { font-size: 8px; } .reallybig { font-size: 8px; } .extremelybig { font-size: 8px; } .clown { color: #FF69Bf;} .tajaran {color: #803B56;} .skrell {color: #00CED1;} .solcom {color: #22228B;} .com_srus {color: #7c4848;} .zombie	{color: #ff0000;} .soghun {color: #228B22;} .vox {color: #AA00AA;} .diona {color: #804000; font-weight: bold;} .trinary {color: #727272;} .kidan {color: #664205;} .slime {color: #0077AA;} .drask {color: #a3d4eb;} .vulpkanin {color: #B97A57;} .abductor {color: #800080; font-style: italic;} .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; }"
+		style = ".center { text-align: center; } .maptext { font-family: 'Small Fonts'; font-size: 7px; -dm-text-outline: 1px black; color: white; line-height: 1.1; } .small { font-size: 6px; } .big { font-size: 8px; } .reallybig { font-size: 8px; } .extremelybig { font-size: 8px; } .clown { color: #FF69Bf;} .tajaran {color: #803B56;} .skrell {color: #00CED1;} .solcom {color: #22228B;} .com_srus {color: #7c4848;} .zombie\t{color: #ff0000;} .soghun {color: #228B22;} .vox {color: #AA00AA;} .diona {color: #804000; font-weight: bold;} .trinary {color: #727272;} .kidan {color: #664205;} .slime {color: #0077AA;} .drask {color: #a3d4eb;} .vulpkanin {color: #B97A57;} .abductor {color: #800080; font-style: italic;} .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; }"
 	elem "status_bar"
 		type = LABEL
 		pos = 0,464
 		size = 280x16
 		anchor1 = 0,100
+		anchor2 = -1,-1
+		text-color = #ffffff
+		background-color = #222222
 		is-visible = false
+		border = line
+		saved-params = ""
 		text = ""
 		align = left
-		background-color = #222222
-		text-color = #ffffff
-		border = line
+
 window "outputwindow"
 	elem "outputwindow"
 		type = MAIN
-		pos = 0,0
+		pos = 281,0
 		size = 640x480
 		anchor1 = -1,-1
 		anchor2 = -1,-1
+		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		title = "Output window"
 		can-close = false
 		can-minimize = false
 		is-pane = true
+		outer-size = 656x538
+		inner-size = 640x499
 	elem "input"
 		type = INPUT
 		pos = 2,460
@@ -242,8 +249,9 @@ window "outputwindow"
 		size = 80x19
 		anchor1 = 100,100
 		anchor2 = -1,-1
+		background-color = none
 		saved-params = "is-checked"
-		text = "Chat"
+		text = "Say"
 		command = ".winset \"saybutton.is-checked=true?input.command=\"!say \\\"\" macrobutton.is-checked=false:input.command=\"\"saybutton.is-checked=true?mebutton.is-checked=false\""
 		button-type = pushbox
 	elem "mebutton"
@@ -253,11 +261,9 @@ window "outputwindow"
 		anchor1 = 100,100
 		anchor2 = -1,-1
 		background-color = none
-		border = line
 		saved-params = "is-checked"
 		text = "Me"
 		command = ".winset \"mebutton.is-checked=true ? input.command=\"!me \\\"\" : input.command=\"\"mebutton.is-checked=true ? saybutton.is-checked=false\"\"mebutton.is-checked=true ? oocbutton.is-checked=false\""
-		is-flat = true
 		button-type = pushbox
 	elem "browseroutput"
 		type = BROWSER
@@ -268,15 +274,14 @@ window "outputwindow"
 		background-color = #ffffff
 		is-disabled = true
 		saved-params = ""
-		auto-format = false
 
 window "rpane"
 	elem "rpane"
 		type = MAIN
 		pos = 0,0
 		size = 640x480
-		anchor1 = none
-		anchor2 = none
+		anchor1 = -1,-1
+		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
 	elem "rpanewindow"
@@ -292,8 +297,8 @@ window "rpane"
 		type = BUTTON
 		pos = 0,7
 		size = 60x16
-		anchor1 = none
-		anchor2 = none
+		anchor1 = -1,-1
+		anchor2 = -1,-1
 		is-visible = false
 		saved-params = "is-checked"
 		text = "Text"
@@ -305,8 +310,8 @@ window "rpane"
 		type = BUTTON
 		pos = 64,7
 		size = 60x16
-		anchor1 = none
-		anchor2 = none
+		anchor1 = -1,-1
+		anchor2 = -1,-1
 		is-visible = false
 		saved-params = "is-checked"
 		text = "Info"
@@ -317,8 +322,8 @@ window "rpane"
 		type = BUTTON
 		pos = 155,7
 		size = 60x16
-		anchor1 = none
-		anchor2 = none
+		anchor1 = -1,-1
+		anchor2 = -1,-1
 		saved-params = "is-checked"
 		text = "Wiki"
 		command = "wiki"
@@ -326,8 +331,8 @@ window "rpane"
 		type = BUTTON
 		pos = 220,7
 		size = 60x16
-		anchor1 = none
-		anchor2 = none
+		anchor1 = -1,-1
+		anchor2 = -1,-1
 		saved-params = "is-checked"
 		text = "Forum"
 		command = "forum"
@@ -335,8 +340,8 @@ window "rpane"
 		type = BUTTON
 		pos = 285,7
 		size = 60x16
-		anchor1 = none
-		anchor2 = none
+		anchor1 = -1,-1
+		anchor2 = -1,-1
 		saved-params = "is-checked"
 		text = "Rules"
 		command = "rules"
@@ -344,8 +349,8 @@ window "rpane"
 		type = BUTTON
 		pos = 350,7
 		size = 60x16
-		anchor1 = none
-		anchor2 = none
+		anchor1 = -1,-1
+		anchor2 = -1,-1
 		saved-params = "is-checked"
 		text = "GitHub"
 		command = "github"
@@ -353,8 +358,8 @@ window "rpane"
 		type = BUTTON
 		pos = 415,7
 		size = 67x16
-		anchor1 = none
-		anchor2 = none
+		anchor1 = -1,-1
+		anchor2 = -1,-1
 		saved-params = "is-checked"
 		text = "Changelog"
 		command = "Changelog"
@@ -362,8 +367,8 @@ window "rpane"
 		type = BUTTON
 		pos = 487,7
 		size = 60x16
-		anchor1 = none
-		anchor2 = none
+		anchor1 = -1,-1
+		anchor2 = -1,-1
 		font-style = "bold"
 		text-color = #ffffff
 		background-color = #7289da
@@ -374,8 +379,8 @@ window "rpane"
 		type = BUTTON
 		pos = 552,7
 		size = 60x16
-		anchor1 = none
-		anchor2 = none
+		anchor1 = -1,-1
+		anchor2 = -1,-1
 		font-style = "bold"
 		text-color = #ffffff
 		background-color = #ff4500
@@ -386,8 +391,8 @@ window "rpane"
 		type = BUTTON
 		pos = 617,7
 		size = 60x16
-		anchor1 = none
-		anchor2 = none
+		anchor1 = -1,-1
+		anchor2 = -1,-1
 		font-style = "bold"
 		text-color = #ffffff
 		background-color = #008000
@@ -398,8 +403,8 @@ window "rpane"
 		type = BUTTON
 		pos = 561,7
 		size = 60x16
-		anchor1 = none
-		anchor2 = none
+		anchor1 = -1,-1
+		anchor2 = -1,-1
 		is-visible = false
 		saved-params = "is-checked"
 		text = "Browser"
@@ -412,8 +417,8 @@ window "browserwindow"
 		type = MAIN
 		pos = 0,0
 		size = 640x480
-		anchor1 = none
-		anchor2 = none
+		anchor1 = -1,-1
+		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		title = "Browser"
 		is-pane = true

@@ -356,11 +356,3 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_SIMPLE_STAT_PANEL
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL) ? "no longer" : "now"] get detailed information on the status panel.")
-
-/client/verb/toggle_onscreen_tips()
-	set name = "Toggle On Screen Tips"
-	set category = "Preferences"
-	set desc = "Toggles on screen names of hovered items and objects"
-	prefs.toggles2 ^= PREFTOGGLE_2_ONSCREEN_TIPS
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_ONSCREEN_TIPS) ? "no longer" : "now"] get on screen names of hovered items and objects.")

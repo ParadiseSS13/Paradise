@@ -114,6 +114,10 @@
 	/// Is the client watchlisted
 	var/watchlisted = FALSE
 
+
+	/// Makes sure it can return to a blank status bar text when done
+	var/status_bar_prev_text = ""
+
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS

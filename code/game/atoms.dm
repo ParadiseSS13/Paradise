@@ -1154,13 +1154,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		appearance_flags |= PIXEL_SCALE
 	transform = M
 
-//Update the screentip to reflect what we're hoverin over
+//Update the screentip to reflect what we're hovering over
 /atom/MouseEntered(location, control, params)
-	. = ..()
 	// Statusbar
 	status_bar_set_text(usr, name)
 	// Screentips
-	if(flags & NO_SCREENTIPS || usr?.client?.prefs.toggles2 & PREFTOGGLE_2_ONSCREEN_TIPS)
+	if(flags & NO_SCREENTIPS || usr?.client?.prefs.toggles2 & PREFTOGGLE_2_NO_ONSCREEN_TIPS)
 		usr.hud_used.screentip_text.maptext = ""
 		return
-	usr.hud_used.screentip_text.maptext = MAPTEXT("<span style='text-align: center'><span style='font-size: 32px'><span style='color:[usr.client.prefs.screentip_color]: 32px'>[name]</span>")
+	usr.hud_used.screentip_text.maptext = MAPTEXT("<span style='text-align: center; font-size: 32px; color: [usr.client.prefs.screentip_color]'>[name]</span>")
