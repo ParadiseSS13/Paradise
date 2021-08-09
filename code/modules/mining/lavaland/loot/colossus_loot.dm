@@ -237,9 +237,6 @@
 		if(cannotPossess(user))
 			to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return
-		if(!user.can_reenter_corpse)
-			to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
-			return
 		var/be_helper = alert("Become a Lightgeist? (Warning, You can no longer be cloned!)",,"Yes","No")
 		if(be_helper == "No")
 			return

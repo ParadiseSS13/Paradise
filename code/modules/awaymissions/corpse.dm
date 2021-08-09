@@ -36,7 +36,6 @@
 	var/death_cooldown = 0 // How long you have to wait after dying before using it again, in deciseconds. People that join as observers are not included.
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
-	var/mob/dead/observer/O = user
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
 	if(!uses)
@@ -47,9 +46,6 @@
 		return
 	if(cannotPossess(user))
 		to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
-		return
-	if(!O.can_reenter_corpse)
-		to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
 		return
 	if(time_check(user))
 		return

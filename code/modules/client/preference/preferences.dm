@@ -2347,7 +2347,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot, real_name FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot, real_name FROM characters WHERE ckey=:ckey ORDER BY slot", list(
 		"ckey" = user.ckey
 	))
 	var/list/slotnames[max_save_slots]

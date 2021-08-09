@@ -306,10 +306,10 @@
 #define TRIGGER_GUARD_NORMAL 1
 
 // Macro to get the current elapsed round time, rather than total world runtime
-#define ROUND_TIME (SSticker.round_start_time ? (world.time - SSticker.round_start_time) : 0)
+#define ROUND_TIME (SSticker.time_game_started ? (world.time - SSticker.time_game_started) : 0)
 
 // Macro that returns true if it's too early in a round to freely ghost out
-#define TOO_EARLY_TO_GHOST (ROUND_TIME < GLOB.configuration.general.cryo_penalty_period)
+#define TOO_EARLY_TO_GHOST (ROUND_TIME < GLOB.configuration.general.cryo_penalty_period MINUTES)
 
 // Used by radios to indicate that they have sent a message via something other than subspace
 #define RADIO_CONNECTION_FAIL 0
@@ -432,9 +432,6 @@
 /// Prepares a text to be used for maptext. Use this so it doesn't look hideous.
 #define MAPTEXT(text) {"<span class='maptext'>[##text]</span>"}
 
-// Filters
-#define FILTER_AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")
-
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15
 #define FULLSCREEN_OVERLAY_RESOLUTION_Y 15
@@ -490,15 +487,10 @@
 /// Send to the mentor Discord webhook
 #define DISCORD_WEBHOOK_MENTOR "MENTOR"
 
-/// Send to the bans Discord webhook
-#define DISCORD_WEBHOOK_BANS "BANS"
-
-/// Send to the notes Discord webhook
-#define DISCORD_WEBHOOK_NOTES "NOTES"
-
-/// Send to the OOC Discord webhook
-#define DISCORD_WEBHOOK_OOC "OOC"
 // Hallucination severities
 #define HALLUCINATE_MINOR 1
 #define HALLUCINATE_MODERATE 2
 #define HALLUCINATE_MAJOR 3
+
+// Runechat symbol types
+#define RUNECHAT_SYMBOL_EMOTE 1

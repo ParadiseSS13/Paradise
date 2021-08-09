@@ -898,7 +898,6 @@
 						else
 							msg += ", [job]"
 					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
-					SSdiscord.send2discord_simple(DISCORD_WEBHOOK_BANS, "[key_name(usr)] jobbaneo a [key_name_admin(M)] de [msg] por: \n[reason] \nEste jobban será removido en [mins] minutos")
 					message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes</span>", 1)
 					to_chat(M, "<span class='warning'><big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big></span>")
 					to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
@@ -917,7 +916,6 @@
 							if(!msg)	msg = job
 							else		msg += ", [job]"
 						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
-						SSdiscord.send2discord_simple(DISCORD_WEBHOOK_BANS, "[key_name_admin(usr)] jobbaneo a [key_name_admin(M)] de [msg] por: \n[reason] \nEste jobban no será removido automaticamente y debe ser apelado de ser posible.")
 						message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg]</span>", 1)
 						to_chat(M, "<span class='warning'><big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big></span>")
 						to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
@@ -948,7 +946,6 @@
 					else
 						continue
 			if(msg)
-				SSdiscord.send2discord_simple(DISCORD_WEBHOOK_NOTES, "[key_name_admin(usr)] removió el jobban de [key_name_admin(M)] como [msg]")
 				message_admins("<span class='notice'>[key_name_admin(usr)] unbanned [key_name_admin(M)] from [msg]</span>", 1)
 				to_chat(M, "<span class='warning'><big><b>You have been un-jobbanned by [usr.client.ckey] from [msg].</b></big></span>")
 				href_list["jobban2"] = 1 // lets it fall through and refresh
@@ -1020,7 +1017,7 @@
 
 	else if(href_list["noteedits"])
 		var/note_id = text2num(href_list["noteedits"])
-		var/datum/db_query/query_noteedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("notes")] WHERE id=:note_id", list(
+		var/datum/db_query/query_noteedits = SSdbcore.NewQuery("SELECT edits FROM notes WHERE id=:note_id", list(
 			"note_id" = note_id
 		))
 		if(!query_noteedits.warn_execute())
@@ -1076,7 +1073,6 @@
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.</span>")
-				SSdiscord.send2discord_simple(DISCORD_WEBHOOK_BANS, "[key_name(usr)] baneó a [M.ckey] por: \n[reason] \nEste ban será removido en [mins] minutos")
 				to_chat(world, "<b><span class='info'>El jugador <span class='warning'>[M.ckey]</span> fue baneado.</span></b><p><span class='rose'>[reason]</span></p>")
 
 				qdel(M.client)
@@ -1095,7 +1091,6 @@
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.</span>")
-				SSdiscord.send2discord_simple(DISCORD_WEBHOOK_BANS, "[key_name(usr)] baneó a [M.ckey] por: \n[reason] \nEste ban no es temporal y debe ser apelado de ser posible.")
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
 				to_chat(world, "<b><span class='info'>El jugador <span class='warning'>[M.ckey]</span> fue baneado.</span></b><p><span class='rose'>[reason]</span></p>")
 				del(M.client)
@@ -1139,7 +1134,7 @@
 
 	else if(href_list["watcheditlog"])
 		var/target_ckey = href_list["watcheditlog"]
-		var/datum/db_query/query_watchedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("watch")] WHERE ckey=:targetkey", list(
+		var/datum/db_query/query_watchedits = SSdbcore.NewQuery("SELECT edits FROM watch WHERE ckey=:targetkey", list(
 			"targetkey" = target_ckey
 		))
 		if(!query_watchedits.warn_execute())
@@ -2172,7 +2167,7 @@
 		if(!istype(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>")
 			return
-		var/ptypes = list("Lightning bolt", "Fire Death", "Gib")
+		var/ptypes = list("Lightning bolt", "Fire Death", "Gib", "Dust")
 		if(ishuman(M))
 			H = M
 			ptypes += "Brain Damage"
@@ -2187,7 +2182,6 @@
 			ptypes += "Crew Traitor"
 			ptypes += "Floor Cluwne"
 			ptypes += "Shamebrero"
-			ptypes += "Dust"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
@@ -2210,6 +2204,9 @@
 			if("Gib")
 				M.gib(FALSE)
 				logmsg = "gibbed."
+			if("Dust")
+				M.dust()
+				logmsg = "dust"
 
 			// These smiting types are only valid for ishuman() mobs
 			if("Brain Damage")
@@ -2299,35 +2296,46 @@
 				var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
 				H.equip_to_slot_or_del(S, slot_head)
 				logmsg = "shamebrero"
-			if("Dust")
-				H.dust()
-				logmsg = "dust"
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
 			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")
 	else if(href_list["cryossd"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/mob/living/carbon/human/H = locateUID(href_list["cryossd"])
-		if(!istype(H))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
+		var/mob/living/M = locateUID(href_list["cryossd"])
+		var/human = ishuman(M)
+		if(!human && !issilicon(M))
+			to_chat(usr, "<span class='warning'>This can only be used on humans and silicons.</span>")
 			return
-		if(!href_list["cryoafk"] && !isLivingSSD(H))
+		if(!href_list["cryoafk"] && !isLivingSSD(M))
 			to_chat(usr, "<span class='warning'>This can only be used on living, SSD players.</span>")
 			return
-		if(istype(H.loc, /obj/machinery/cryopod))
-			var/obj/machinery/cryopod/P = H.loc
+		if(isAI(M))
+			var/mob/living/silicon/ai/A = M
+			A.cryo_AI()
+		if(istype(M.loc, /obj/machinery/cryopod))
+			var/obj/machinery/cryopod/P = M.loc
 			P.despawn_occupant()
-			log_admin("[key_name(usr)] despawned [H.job] [H] in cryo.")
-			message_admins("[key_name_admin(usr)] despawned [H.job] [H] in cryo.")
-		else if(cryo_ssd(H))
-			log_admin("[key_name(usr)] sent [H.job] [H] to cryo.")
-			message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
+			if(human)
+				var/mob/living/carbon/human/H = M
+				log_admin("[key_name(usr)] despawned [H.job] [H] in cryo.")
+				message_admins("[key_name_admin(usr)] despawned [H.job] [H] in cryo.")
+			else //robot
+				log_admin("[key_name(usr)] despawned [M] in cryo.")
+				message_admins("[key_name_admin(usr)] despawned [M] in cryo.")
+		else if(cryo_ssd(M))
+			if(human)
+				var/mob/living/carbon/human/H = M
+				log_admin("[key_name(usr)] sent [H.job] [H] to cryo.")
+				message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
+			else
+				log_admin("[key_name(usr)] sent [M] to cryo.")
+				message_admins("[key_name_admin(usr)] sent [M] to cryo.")
 			if(href_list["cryoafk"]) // Warn them if they are send to storage and are AFK
-				to_chat(H, "<span class='danger'>The admins have moved you to cryo storage for being AFK. Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
-				SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
-				if(H.client)
-					window_flash(H.client)
+				to_chat(M, "<span class='danger'>The admins have moved you to cryo storage for being AFK. Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
+				SEND_SOUND(M, sound('sound/effects/adminhelp.ogg'))
+				if(M.client)
+					window_flash(M.client)
 	else if(href_list["FaxReplyTemplate"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2517,7 +2525,7 @@
 			if("Central Command")
 				stamptype = "icon"
 				stampvalue = "cent"
-				sendername = command_name()
+				sendername = "NAS Trurl"
 			if("Syndicate")
 				stamptype = "icon"
 				stampvalue = "syndicate"
@@ -2847,7 +2855,7 @@
 	else if(href_list["memoeditlist"])
 		if(!check_rights(R_SERVER)) return
 		var/sql_key = href_list["memoeditlist"]
-		var/datum/db_query/query_memoedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("memo")] WHERE (ckey=:sql_key)", list(
+		var/datum/db_query/query_memoedits = SSdbcore.NewQuery("SELECT edits FROM memo WHERE (ckey=:sql_key)", list(
 			"sql_key" = sql_key
 		))
 		if(!query_memoedits.warn_execute())
@@ -3222,6 +3230,12 @@
 					message_admins("[key_name_admin(usr)] moved the centcom ferry")
 					log_admin("[key_name(usr)] moved the centcom ferry")
 
+			if("gammashuttle")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Gamma Armory")
+				message_admins("[key_name_admin(usr)] moved the gamma armory")
+				log_admin("[key_name(usr)] moved the gamma armory")
+				move_gamma_ship()
+
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")
 			if(ok)
@@ -3380,7 +3394,7 @@
 			if(!newname)
 				return
 			G.name = newname
-			var/description = input("Enter [command_name()] message contents:") as message|null
+			var/description = input("Enter NAS Trurl message contents:") as message|null
 			if(!description)
 				return
 			G.report_message = description
@@ -3400,7 +3414,7 @@
 		var/isbn = text2num(href_list["library_book_id"])
 
 		if(href_list["view_library_book"])
-			var/datum/db_query/query_view_book = SSdbcore.NewQuery("SELECT content, title FROM [format_table_name("library")] WHERE id=:isbn", list(
+			var/datum/db_query/query_view_book = SSdbcore.NewQuery("SELECT content, title FROM library WHERE id=:isbn", list(
 				"isbn" = isbn
 			))
 			if(!query_view_book.warn_execute())
@@ -3427,7 +3441,7 @@
 			return
 
 		else if(href_list["unflag_library_book"])
-			var/datum/db_query/query_unflag_book = SSdbcore.NewQuery("UPDATE [format_table_name("library")] SET flagged = 0 WHERE id=:isbn", list(
+			var/datum/db_query/query_unflag_book = SSdbcore.NewQuery("UPDATE library SET flagged = 0 WHERE id=:isbn", list(
 				"isbn" = isbn
 			))
 			if(!query_unflag_book.warn_execute())
@@ -3439,7 +3453,7 @@
 			message_admins("[key_name_admin(usr)] has unflagged the book [isbn].")
 
 		else if(href_list["delete_library_book"])
-			var/datum/db_query/query_delbook = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=:isbn", list(
+			var/datum/db_query/query_delbook = SSdbcore.NewQuery("DELETE FROM library WHERE id=:isbn", list(
 				"isbn" = isbn
 			))
 			if(!query_delbook.warn_execute())
@@ -3507,7 +3521,7 @@
 		var/unlocked_jobs = ""
 		var/unlocked_species = ""
 		// Get their totals
-		var/datum/db_query/query_get_totals = SSdbcore.NewQuery("SELECT karma, karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey=:ckey", list(
+		var/datum/db_query/query_get_totals = SSdbcore.NewQuery("SELECT karma, karmaspent FROM karmatotals WHERE byondkey=:ckey", list(
 			"ckey" = target_ckey
 		))
 		if(!query_get_totals.warn_execute())
@@ -3521,7 +3535,7 @@
 		qdel(query_get_totals)
 
 		// Now get their unlocks
-		var/datum/db_query/query_get_unlocks = SSdbcore.NewQuery("SELECT job, species FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
+		var/datum/db_query/query_get_unlocks = SSdbcore.NewQuery("SELECT job, species FROM whitelist WHERE ckey=:ckey", list(
 			"ckey" = target_ckey
 		))
 		if(!query_get_unlocks.warn_execute())

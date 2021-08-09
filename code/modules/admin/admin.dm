@@ -315,7 +315,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 	var/key = stripped_input(usr, "Enter ckey to add/remove, or leave blank to cancel:", "VPN Whitelist add/remove", max_length=32)
 	if(key)
-		vpn_whitelist_panel(key)
+		SSipintel.vpn_whitelist_panel(key)
 
 /datum/admins/proc/Jobbans()
 	if(!check_rights(R_BAN))
@@ -788,9 +788,15 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 	if(GLOB.gamma_ship_location == 1)
 		fromArea = locate(/area/shuttle/gamma/space)
 		toArea = locate(/area/shuttle/gamma/station)
+		for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
+			H.unlock(TRUE)
+		GLOB.event_announcement.Announce("Central Command has deployed the Gamma Armory shuttle.", new_sound = 'sound/AI/commandreport.ogg')
 	else
 		fromArea = locate(/area/shuttle/gamma/station)
 		toArea = locate(/area/shuttle/gamma/space)
+		for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
+			H.lock(TRUE)
+		GLOB.event_announcement.Announce("Central Command has recalled the Gamma Armory shuttle.", new_sound = 'sound/AI/commandreport.ogg')
 	fromArea.move_contents_to(toArea)
 
 	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)
