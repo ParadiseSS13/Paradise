@@ -494,3 +494,5 @@
 
 // Runechat symbol types
 #define RUNECHAT_SYMBOL_EMOTE 1
+
+#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))

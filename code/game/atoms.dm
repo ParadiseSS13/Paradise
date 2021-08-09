@@ -1157,6 +1157,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 //Update the screentip to reflect what we're hoverin over
 /atom/MouseEntered(location, control, params)
 	. = ..()
+	// Statusbar
+	status_bar_set_text(usr, name)
+	// Screentips
 	if(flags & NO_SCREENTIPS_1 || usr?.client?.prefs.toggles2 & PREFTOGGLE_2_ONSCREEN_TIPS)
 		usr.hud_used.screentip_text.maptext = ""
 		return
