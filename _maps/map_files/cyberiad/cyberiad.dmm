@@ -82635,6 +82635,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
+"iuV" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "ivi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -125995,10 +126008,10 @@ aGY
 aGX
 aLc
 bhp
-bhp
+aGY
 bjX
 bcb
-aGY
+bhp
 aGY
 aGY
 bjV
@@ -128304,7 +128317,7 @@ aRJ
 aTe
 aVB
 aXX
-aZX
+iuV
 bbF
 aZX
 bfK
