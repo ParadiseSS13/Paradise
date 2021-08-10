@@ -46,8 +46,15 @@
 /obj/structure/inflatable/CanAtmosPass(turf/T)
 	return !density
 
-/obj/structure/inflatable/attack_hand(mob/user as mob)
+/obj/structure/inflatable/attack_hand(mob/user)
 	add_fingerprint(user)
+
+/obj/structure/inflatable/attackby(obj/item/I, mob/living/user, params)
+	if(I.sharp || is_type_in_typecache(I, GLOB.pointed_types))
+		user.do_attack_animation(src, used_item = I)
+		deconstruct(FALSE)
+		return FALSE
+	return ..()
 
 /obj/structure/inflatable/AltClick()
 	if(usr.stat || usr.restrained())
