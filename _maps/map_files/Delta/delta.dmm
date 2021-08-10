@@ -7058,7 +7058,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/machinery/disposal/deliveryChute{
+/obj/structure/disposaloutlet{
 	dir = 4
 	},
 /obj/machinery/conveyor{
@@ -52731,10 +52731,6 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/machinery/requests_console{
-	name = "Detective Requests Console";
-	pixel_y = -30
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -53589,8 +53585,18 @@
 /area/security/range)
 "cju" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger,
+/obj/machinery/recharger{
+	pixel_x = -6;
+	pixel_y = 2
+	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/magnetic_controller{
+	autolink = 1;
+	name = "Firing Range Control Console";
+	path = "w;e;e;w;s;n;n;s";
+	pixel_x = 7;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel,
 /area/security/range)
 "cjv" = (
@@ -54527,8 +54533,9 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/item/target/syndicate,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/target_stake,
+/obj/item/target/syndicate,
 /turf/simulated/floor/plasteel,
 /area/security/range)
 "clj" = (
