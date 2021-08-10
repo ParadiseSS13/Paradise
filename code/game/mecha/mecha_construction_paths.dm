@@ -791,7 +791,7 @@
 /datum/construction/reversible/mecha/honker/action(atom/used_atom,mob/user as mob)
 	return check_step(used_atom,user)
 
-/datum/construction/reversible/mecha/honker/custom_action(step, atom/used_atom, mob/user)
+/datum/construction/reversible/mecha/honker/custom_action(index, diff, atom/used_atom, mob/user)
 	if(!..())
 		return 0
 
@@ -860,7 +860,7 @@
 /datum/construction/reversible/mecha/reticence/action(atom/used_atom,mob/user)
 	return check_step(used_atom,user)
 
-/datum/construction/reversible/mecha/reticence/custom_action(step, atom/used_atom, mob/user)
+/datum/construction/reversible/mecha/reticence/custom_action(index, diff, atom/used_atom, mob/user)
 	if(!..())
 		return 0
 
