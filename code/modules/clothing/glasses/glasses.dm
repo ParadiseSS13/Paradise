@@ -396,9 +396,10 @@
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/sunglasses/blindfold/fake
-    name = "tattered blindfold"
-    flash_protect = 0
-    tint = 0
+	name = "tattered blindfold"
+	desc = "A see-through blindfold perfect for cheating at games like pin the stunbaton on the clown."
+	flash_protect = 0
+	tint = 0
 
 /obj/item/clothing/glasses/sunglasses/prescription
 	prescription = 1
