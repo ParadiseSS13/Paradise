@@ -27556,7 +27556,9 @@
 	name = "Station Intercom (General)";
 	pixel_y = 20
 	},
-/obj/machinery/computer/security,
+/obj/machinery/computer/security{
+	network = list("SS13","Research Outpost","Mining Outpost")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
