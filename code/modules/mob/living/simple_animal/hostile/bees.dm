@@ -179,6 +179,8 @@
 
 /mob/living/simple_animal/hostile/poison/bees/Life(seconds, times_fired)
 	. = ..()
+	if(mind || (mouse_opacity == initial(mouse_opacity)))
+		return
 	var/diff = world.time - last_attack
 	if(diff >= opacity_time)
 		mouse_opacity = initial(mouse_opacity)
