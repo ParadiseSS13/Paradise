@@ -6096,7 +6096,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/emitter,
-/turf/simulated/floor/greengrid,
+/turf/simulated/floor/plating,
 /area/engine/controlroom)
 "auG" = (
 /obj/structure/sign/electricshock,
@@ -6536,7 +6536,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/greengrid,
+/turf/simulated/floor/plating,
 /area/engine/controlroom)
 "avG" = (
 /turf/simulated/floor/plasteel{
@@ -11549,7 +11549,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "aGc" = (
-/obj/structure/cable,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -11560,6 +11559,11 @@
 	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "aGd" = (
@@ -14861,6 +14865,7 @@
 	pixel_x = 22
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "aMO" = (
@@ -15521,6 +15526,7 @@
 	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/computer/sm_monitor,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "aOa" = (
@@ -33560,7 +33566,6 @@
 /turf/simulated/wall,
 /area/maintenance/starboard2)
 "bwS" = (
-/obj/machinery/status_display,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -103693,6 +103698,11 @@
 /obj/structure/dresser,
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
+"wAP" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/radiation,
+/turf/simulated/floor/plasteel,
+/area/engine/controlroom)
 "wIT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/rack,
@@ -129623,7 +129633,7 @@ aFe
 aHh
 aID
 aCk
-aLq
+wAP
 aMN
 aOg
 aPH
@@ -131165,7 +131175,7 @@ aFZ
 aHh
 aID
 atd
-aLq
+wAP
 aNZ
 aOg
 aPG
