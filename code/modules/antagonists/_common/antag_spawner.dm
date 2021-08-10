@@ -48,7 +48,7 @@
 	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
 	var/image/I = new('icons/mob/simple_human.dmi', "syndicate_space_sword")
 	var/list/nuke_candidates = SSghost_spawns.poll_candidates("Do you want to play as a [rolename]?", ROLE_OPERATIVE, TRUE, 15 SECONDS, source = I)
-	if(LAZYLEN(nuke_candidates))
+	if(length(nuke_candidates))
 		checking = FALSE
 		if(QDELETED(src) || !check_usability(user))
 			return

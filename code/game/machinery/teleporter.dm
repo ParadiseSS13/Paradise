@@ -156,7 +156,8 @@
 */
 /obj/machinery/computer/teleporter/proc/resetPowerstation()
 	power_station.engaged = FALSE
-	power_station.teleporter_hub.calibrated = FALSE
+	if(power_station.teleporter_hub.accurate < 3)
+		power_station.teleporter_hub.calibrated = FALSE
 	power_station.teleporter_hub.update_icon()
 
 /**

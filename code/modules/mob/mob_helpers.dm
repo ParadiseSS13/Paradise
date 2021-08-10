@@ -79,7 +79,7 @@
 
 /proc/cannotPossess(A)
 	var/mob/dead/observer/G = A
-	if(G.has_enabled_antagHUD && config.antag_hud_restricted)
+	if(G.has_enabled_antagHUD && GLOB.configuration.general.restrict_antag_hud_rejoin)
 		return 1
 	return 0
 
@@ -116,7 +116,9 @@
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("[question]?", poll_time = 10 SECONDS, min_hours = minhours, source = M)
 	var/mob/dead/observer/theghost = null
 
-	if(LAZYLEN(candidates))
+	if(length(candidates))
+		if(QDELETED(M))
+			return
 		theghost = pick(candidates)
 		to_chat(M, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")

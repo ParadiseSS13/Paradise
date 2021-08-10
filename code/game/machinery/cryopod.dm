@@ -709,6 +709,8 @@
 	else
 		icon_state = base_icon_state
 
+	name = initial(name)
+
 	return
 
 
@@ -756,8 +758,7 @@
 	var/mob/living/silicon/robot/R = occupant
 	if(!istype(R)) return ..()
 
-	R.contents -= R.mmi
-	qdel(R.mmi)
+	QDEL_NULL(R.mmi)
 	for(var/obj/item/I in R.module) // the tools the borg has; metal, glass, guns etc
 		for(var/obj/item/O in I) // the things inside the tools, if anything; mainly for janiborg trash bags
 			O.loc = R
@@ -769,7 +770,7 @@
 	return ..()
 
 
-/proc/cryo_ssd(mob/living/carbon/person_to_cryo)
+/proc/cryo_ssd(mob/living/person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		return 0
 	if(isobj(person_to_cryo.loc))
@@ -777,7 +778,9 @@
 		O.force_eject_occupant(person_to_cryo)
 	var/list/free_cryopods = list()
 	for(var/obj/machinery/cryopod/P in GLOB.machines)
-		if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
+		if(P.occupant)
+			continue
+		if((ishuman(person_to_cryo) && istype(get_area(P), /area/crew_quarters/sleep)) || istype(P, /obj/machinery/cryopod/robot))
 			free_cryopods += P
 	var/obj/machinery/cryopod/target_cryopod = null
 	if(free_cryopods.len)

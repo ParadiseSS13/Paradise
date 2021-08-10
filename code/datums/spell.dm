@@ -121,6 +121,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	var/critfailchance = 0
 	var/centcom_cancast = TRUE //Whether or not the spell should be allowed on the admin zlevel
+	/// Whether or not the spell functions in a holy place
+	var/holy_area_cancast = TRUE
 
 	var/datum/action/spell_action/action = null
 	var/action_icon = 'icons/mob/actions/actions.dmi'
@@ -558,8 +560,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
 		return 0
 
-	if(is_admin_level(user.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
+	var/turf/T = get_turf(user)
+	if(is_admin_level(T.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		return 0
+
+	if(!holy_area_cancast && user.holy_check())
+		return FALSE
 
 	if(charge_check)
 		switch(charge_type)

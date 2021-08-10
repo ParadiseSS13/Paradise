@@ -16,18 +16,17 @@
 /obj/structure/bed,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 8
+	dir = 8;
+	icon_state = "warndark"
 	},
 /area/ruin/unpowered)
 "e" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 4
+	dir = 4;
+	icon_state = "warndark"
 	},
 /area/ruin/unpowered)
 "f" = (
@@ -40,8 +39,8 @@
 /obj/structure/bed,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 8
+	dir = 8;
+	icon_state = "warndark"
 	},
 /area/ruin/unpowered)
 "g" = (
@@ -53,31 +52,30 @@
 	},
 /obj/structure/bed,
 /turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 8
+	dir = 8;
+	icon_state = "warndark"
 	},
 /area/ruin/unpowered)
 "h" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 4
+	dir = 4;
+	icon_state = "warndark"
 	},
 /area/ruin/unpowered)
 "i" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 8
+	dir = 8;
+	icon_state = "warndark"
 	},
 /area/ruin/unpowered)
 "j" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+	dir = 4
 	},
 /obj/machinery/atmospherics/unary/outlet_injector,
 /turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 4
+	dir = 4;
+	icon_state = "warndark"
 	},
 /area/ruin/unpowered)
 "k" = (
@@ -85,15 +83,15 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 8
+	dir = 8;
+	icon_state = "warndark"
 	},
 /area/ruin/unpowered)
 "l" = (
 /obj/machinery/atmospherics/unary/outlet_injector,
 /turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 4
+	dir = 4;
+	icon_state = "warndark"
 	},
 /area/ruin/unpowered)
 "m" = (
@@ -124,10 +122,8 @@
 "p" = (
 /obj/machinery/power/apc/worn_out{
 	dir = 8;
-	pixel_x = -24;
-	pixel_y = 0;
-	cell_type = 2500;
-	operating = 1
+	operating = 1;
+	pixel_x = -24
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -171,8 +167,7 @@
 /area/ruin/unpowered)
 "v" = (
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -263,8 +258,7 @@
 /area/ruin/unpowered)
 "I" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+	dir = 4
 	},
 /obj/machinery/light,
 /obj/structure/table,

@@ -1,0 +1,774 @@
+##########
+# README #
+##########
+#
+# Paradise SS13 Config System
+# This used to be 10+ different text files, now its all condensed into one toml file with sections and proper values
+# This is serialized to json on world load by RUSTG, and then handled inside BYOND
+# Editing this in an IDE such as VSCode is highly recommended so you can lint for errors
+# Commenting out any value will make it use the game default (likely null)
+# If you add new sections, keep them alphabetical
+# Please be careful editing this, as you can break it all if youre not careful. -aa07
+#
+#
+# SECTION LIST (Ctrl+F to jump to these)
+# - admin_configuration
+# - afk_configuration
+# - custom_sprites_configuration
+# - database_configuration
+# - debug_configuration
+# - discord_configuration
+# - event_configuration
+# - gamemode_configuration
+# - gateway_configuration
+# - general_configuration
+# - ipintel_configuration
+# - job_configuration
+# - logging_configuration
+# - movement_configuration
+# - overflow_configuration
+# - ruin_configuration
+# - system_configuration
+# - url_configuration
+# - voting_configuration
+
+
+################################################################
+
+
+[admin_configuration]
+# This section contains all information regarding admin setup. This includes ranks, rights, and if you are using the database-backed admin system
+
+# Set this to true if you are using database-based admins, or false if you want to define them in this file
+# If the database fails, this file will be used as fallback
+use_database_admins = false
+# Auto authenticate localhost users as admin? Useful for test servers, disable in producation
+enable_localhost_autoadmin = false
+# List of admin rank assignments and their permissions
+# These names ARE CASE SENSITIVE
+# +BUILD (or +BUILDMODE) = the ability to use buildmode
+# +ADMIN = general admin tools, verbs etc
+# +BAN = the ability to ban, jobban and fullban
+# +EVENT = Access to event related verbs
+# +SERVER = higher-risk admin verbs and abilities, such as those which affect the server configuration.
+# +DEBUG = debug tools used for diagnosing and fixing problems. It's useful to give this to coders so they can investigate problems on a live server.
+# +PERMISSIONS (or +RIGHTS) = allows you to promote and/or demote people.
+# +POSSESS = the ability to possess objects
+# +STEALTH = the ability to stealthmin (make yourself appear with a fake name to everyone but other admins)
+# +REJUV (or +REJUVINATE) = the ability to heal, respawn, modify damage and use godmode
+# +VAREDIT = everyone may view viewvars/debugvars/whatever you call it. This keyword allows you to actually EDIT those variables.
+# +EVERYTHING (or +HOST or +ALL) = Simply gives you everything without having to type every flag
+# +SOUND (or +SOUNDS) = allows you to upload and play sounds
+# +SPAWN (or +CREATE) = mob transformations, spawning of most atoms including mobs
+# +MOD = Access to low level moderation tools. Not used in Paradise production
+# +MENTOR = Access only to the Question's Ahelp and has little way of metagaming the game.
+# +PROCCALL = Access to call procs on anything. Be careful who you grant this too!
+# +VIEWRUNTIMES = Allows a player to view the runtimes of the server, but not use other debug verbs
+admin_ranks = [
+	# Format: {name = "My Rank", rights = ["+LIST", "+OF", "+RIGHTS"]}
+	{name = "Mentor", rights = ["+MENTOR"]},
+	{name = "Trial Admin", rights = ["+ADMIN", "+BAN", "+STEALTH", "+REJUVINATE"]},
+	{name = "Game Admin", rights = ["+ADMIN", "+BAN", "+STEALTH", "+REJUVINATE", "+DEBUG", "+BUILDMODE", "+EVENT", "+SERVER", "+POSSESS", "+PROCCALL", "+VAREDIT", "+SOUND", "+SPAWN"]},
+	{name = "Head of Staff", rights = ["+EVERYTHING"]},
+	{name = "Hosting Provider", rights = ["+EVERYTHING"]},
+	{name = "Maintainers", rights = ["+EVERYTHING"]}
+]
+# List of people and the admin rank they are assigned to
+admin_assignments = [
+	#{ckey = "Your Name Here", rank = "Hosting Provider"}
+]
+# Allow admins to set their own OOC colour
+allow_admin_ooc_colour = true
+# Map of admin rank colours to their respective rank. Note you can use hex or colour name here.
+admin_rank_colour_map = [
+	{name = "Head of Staff", colour = "#e74c3c"},
+	{name = "Maintainer", colour = "#992d22"},
+	{name = "Server Dev", colour = "#1abc9c"},
+	{name = "Community Manager", colour = "#e91e63"},
+	{name = "Game Admin", colour = "#238afa"},
+	{name = "Trial Admin", colour = "#7fb6fc"},
+	{name = "PR Reviewer", colour = "#c27c0e"},
+	{name = "Mentor", colour = "#f1c40f"},
+]
+
+
+################################################################
+
+
+[afk_configuration]
+# This section contains options for the auto AFK cryo system
+
+# Amount of minutes that a person can be AFK for before they are warned
+afk_warning_minutes = 15
+# Amount of minutes that a person can be AFK for before they are auto cryo'd
+afk_auto_cryo_minutes = 20
+# Amount of minutes that a person can be AFK for before they are despawned
+afk_auto_despawn_minutes = 21
+# Amount of time before SSD people are auto cryo'd
+ssd_auto_cryo_minutes = 15
+
+
+################################################################
+
+
+[custom_sprites_configuration]
+# This section contains a list of information for people with custom sprites for mobs, if they donated
+# It is split by mob type, and screens have their own system
+# Make sure you use CKEYS not KEYS here (EG: affectedarc07 instead of AffectedArc07)
+
+# List of ckeys who have a custom cyborg skin
+cyborgs = ["ckeyhere"]
+# List of ckeys who have a custom AI core style
+ai_core = ["ckeyhere"]
+# List of ckeys who have a custom AI holopad hologram sprite
+ai_hologram = ["ckeyhere"]
+# List of ckeys who have a custom pAI holoform sprite
+pai_holoform = ["ckeyhere"]
+# List of dictionary entries for ckeys with a custom IPC screean
+ipc_screens = [
+	{ckey = "ckeyhere", screens = ["Icon State 1", "Icon State 2"]}
+]
+
+
+################################################################
+
+
+[database_configuration]
+# This section contains all the settings for the ingame database
+# If you are running in production, you will want to be using a database
+
+# Enable/disable the database on a whole
+sql_enabled = false
+# SQL version. If this is a mismatch, round start will be delayed
+sql_version = 25
+# SQL server address. Can be an IP or DNS name
+sql_address = "127.0.0.1"
+# SQL server port
+sql_port = 3306
+# SQL server database name
+sql_database = "paradise_gamedb"
+# SQL server username
+sql_username = "root"
+# SQL server password
+sql_password = "please use something secure in a production environment"
+# Time in seconds for async queries to time out
+async_query_timeout = 10
+# How many threads is the async SQL engine allowed to open. 50 is normal. Trust me.
+async_thread_limit = 50
+
+
+################################################################
+
+
+[discord_configuration]
+# This section contains all the information related to Discord webhook sending from the code
+# If you are using webhooks, please fill out this section in full
+# All role IDs must be STRINGS as BYOND doesnt like ints that big
+enable_discord_webhooks = false
+# List of all webhooks for the primary feed (public channels)
+main_webhook_urls = [
+	"https://webhook.one",
+	"https://webhook.two"
+]
+# List of all webhook URLs for the mentor feed (mentorhelps relay)
+mentor_webhook_urls = [
+	"https://mentor.webhook.one",
+	"https://mentor.webhook.two"
+]
+# List of all webhook URLs for the admin feed (round alerts, ahelps, etc)
+admin_webhook_urls = [
+	"https://admin.webhook.one",
+	"https://admin.webhook.two"
+]
+# Role ID for the admin role on the discord. Set to "" to disable.
+# THIS MUST BE A STRING. BYOND DOESNT LIKE NUMBERS THIS BIG
+admin_role_id = ""
+# Forward all ahelps to the discord? If disabled, ahelps are only forwarded if admins are AFK/Offline
+forward_all_ahelps = true
+
+
+################################################################
+
+
+[event_configuration]
+# This section contains settings for ingame random events
+
+# Disable this to disable all random events
+allow_random_events = true
+# Map of lower bounds for event delays. In minutes.
+event_delay_lower_bounds = {mundane = 10, moderate = 30, major = 50}
+# Map of upper bounds for event delays. In minutes.
+event_delay_upper_bounds = {mundane = 15, moderate = 45, major = 70}
+# Expected round length in minutes. Changes event weights
+expected_round_length = 120
+# Initial delays for the first events firing off. If any of these are commented, a random value based on above thresholds is used.
+# You must specify an upper and lower bound, or the code cries a lot. The events system is so bad good god.
+# Values are in minutes
+event_initial_delays = [
+	#{severity = "mundane", lower_bound = 10, upper_bound = 15},
+	{severity = "moderate", lower_bound = 25, upper_bound = 40},
+	{severity = "major", lower_bound = 55, upper_bound = 75},
+]
+
+
+################################################################
+
+
+[gamemode_configuration]
+# This section contains setups for the gamemodes, as well as their probabilities
+
+# Should antags use account age restrictions?
+antag_account_age_restrictions = false
+# Gamemode probabilities map for if you are using secret or random
+gamemode_probabilities = [
+	{gamemode = "abduction", probability = 0},
+	{gamemode = "blob", probability = 1},
+	{gamemode = "changeling", probability = 3},
+	{gamemode = "cult", probability = 3},
+	{gamemode = "extend-a-traitormongous", probability = 2}, # Autotraitor
+	{gamemode = "extended", probability = 3},
+	{gamemode = "heist", probability = 0},
+	{gamemode = "meteor", probability = 0},
+	{gamemode = "nuclear", probability = 2},
+	{gamemode = "raginmages", probability = 0},
+	{gamemode = "revolution", probability = 0},
+	{gamemode = "shadowling", probability = 1},
+	{gamemode = "traitor", probability = 2},
+	{gamemode = "traitorchan", probability = 3},
+	{gamemode = "traitorvamp", probability = 3},
+	{gamemode = "vampire", probability = 3},
+	{gamemode = "wizard", probability = 2},
+]
+# Maximum cycles (2s) before a shadowling starts to take damage if they dont hatch
+shadowling_max_age = 600 # 20 minutes
+# Do we want the amount of traitors to scale with population?
+traitor_scaling = true
+# Protect mindshielded roles from being antagonists
+prevent_mindshield_antag = true
+# Rounds such as rev, wizard and malf end instantly when the antag has won. Enable the setting below to not do that.
+disable_certain_round_early_end = false
+# Amount of objectives for traitors to get (Does not include escape or hijack)
+traitor_objective_amount = 2
+# Enable player limits on gamemodes. Disable if testing
+enable_gamemode_player_limit = true
+
+
+################################################################
+
+
+[gateway_configuration]
+# This section contains everything relating to the ingame gateway (away mission) system.
+
+# Do we want to enable this at all? Disable for faster load times in testing
+enable_away_mission = true
+# Delay (in deciseconds) before the gateway is usable
+away_mission_delay = 0
+# List of all enabled away missions. Comment out an entry to disable it.
+enabled_away_missions = [
+	#"_maps/map_files/RandomZLevels/academy.dmm",
+	"_maps/map_files/RandomZLevels/beach.dmm",
+	"_maps/map_files/RandomZLevels/blackmarketpackers.dmm",
+	"_maps/map_files/RandomZLevels/centcomAway.dmm",
+	#"_maps/map_files/RandomZLevels/evil_santa.dmm",			# Special christmas mission. Enable for festivities
+	#"_maps/map_files/RandomZLevels/example.dmm",				# Example file. Do not enable.
+	"_maps/map_files/RandomZLevels/moonoutpost19.dmm",
+	#"_maps/map_files/RandomZLevels/spacebattle.dmm",			# Broken/incomplete. Do not enable
+	#"_maps/map_files/RandomZLevels/stationCollision.dmm",		# Broken/incomplete. Do not enable
+	"_maps/map_files/RandomZLevels/terrorspiders.dmm",
+	#"_maps/map_files/RandomZLevels/undergroundoutpost45.dmm",
+	#"_maps/map_files/RandomZLevels/wildwest.dmm",
+]
+
+
+################################################################
+
+
+[general_configuration]
+# General setup for the server (branding, options, etc)
+
+# Name for the server in the list
+server_name = "ParaCode Test"
+# Tag line for the server. This appears as supplementary text
+# EG: The perfect mix of RP & action
+server_tag_line = "ParaCode Testing Server"
+# Server features. Shows in a newline
+server_features = "Medium RP, varied species/jobs."
+# Store bans in the database? If you are in production, you want this on
+use_database_bans = false
+# Allow OOC character metadata notes
+allow_character_metadata = true
+# Lobby time before roundstart (Seconds)
+lobby_time = 240
+# Forbid people without a BYOND account joining the server
+guest_ban = true
+# Player threshold before the automatic panic bunker engages
+panic_bunker_threshold = 150
+# Allow players to use antagHUD?
+allow_antag_hud = true
+# Forbid players from rejoining if they use antag hud
+restrict_antag_hud_rejoin = true
+# Do we want to allow player respawns?
+respawn_enabled = false
+# Enable karma awarding and karma lockouts for jobs and species?
+enable_karma = true
+# Enable/disable the buster for the CID randomiser DLL
+enable_cid_randomiser_buster = false
+# Prevent admins from possessing the singularity
+prevent_admin_singlo_possession = false
+# Force open a reply window whenever someone is admin PM'd. Quite annoying.
+popup_admin_pm = false
+# Announce holidays ingame (such as halloween, christmas, happy [whatever] day)
+allow_holidays = true
+# Enable auto muting in all chat channels
+enable_auto_mute = false
+# Show a warning to players to make them accept a popup if they try to interact with SSD players
+ssd_warning = true
+# Allow ghosts to spin chairs
+ghost_interaction = false
+# Enable/disable starlight to make space without areas be lit up
+starlight = true
+# Disable lobby music on the server
+disable_lobby_music = false
+# Enable this if you want to disable the popup alert for people on the same CID
+disable_cid_warning_popup = false
+# Amount of loadout points people should get
+base_loadout_points = 5
+# Respawnability loss penalty if you cryo below this threshold (Minutes)
+cryo_penalty_period = 30
+# Enable twitter emojis in OOC?
+enable_ooc_emoji = true
+# Auto start the game if running a local test server
+developer_express_start = false
+# Minimum client build for playing the server. Keep above 1421 due to exploits
+minimum_client_build = 1421
+# Give a confirmation when pressing "Start Now". Useful for avoiding starting the live server early
+start_now_confirmation = false
+# BYOND accounts younger than this threshold (days) will cause alerts on first login
+byond_account_age_threshold = 3
+# Maximum CIDs a client can have attached to them before they trip a warning
+max_client_cid_history = 20
+# Enable automatic profiling of rounds to profile.json
+enable_auto_profiler = true
+# Auto disable OOC when round starts?
+auto_disable_ooc = true
+# Enable/disable the breaking of bones
+breakable_bones = true
+# Enable/disable revival pod plants
+enable_revival_pod_plants = true
+# Enable/disable cloning
+enable_cloning = true
+# Randomise shift time instead of it always being 12:00
+randomise_shift_time = true
+# Enable night shift for night lighting
+enable_night_shifts = true
+# Cap for monkeys spawned from monkey cubes
+monkey_cube_cap = 32
+# Make explosions react to obstacles (walls+doors) instead of ignoring them
+reactionary_explosions = true
+# Bomb cap for explosions (Outer devastation. Other values calculate from this)
+bomb_cap = 20
+# Amount of time (deciseconds) for a brain to keep its "spark of life". Set to -1 to disable.
+revival_brain_life = 6000 # 10 minutes
+# Enable random silicon lawset (If said lawset has default = TRUE in the code). Disable for always crewsimov
+random_ai_lawset = true
+
+
+################################################################
+
+
+[ipintel_configuration]
+# This section contains all the information for IPIntel (The Anti VPN system)
+
+# Enable or disable IPIntel entirely
+ipintel_enabled = false
+# Whitelist mode. If true, people on proxies/VPNs will need whitelisting if they arent past the threshold below. If false, admins are merely warned with no automatic action
+whitelist_mode = true
+# Threshold to kick people out (0-1 percentage float)
+bad_rating = 0.98
+# Contact email (required, leaving blank disables this)
+contact_email = "ch@nge.me"
+# How many hours to save good matches for (IPIntel has rate limits)
+hours_save_good = 72
+# How many hours to save bad matches for (IPIntel has rate limits)
+hours_save_bad = 24
+# IPIntel Domain. Do not put http:// in front of it
+ipintel_domain = "check.getipintel.net"
+# Ignore checking IPs with more hours than the threshold below. Requires EXP tracking to be enabled
+playtime_ignore_threshold = 10
+# Details URL for more info on an IP (such as ASN). IP is tacked on the end.
+details_url = "https://iphub.info/?ip="
+
+
+################################################################
+
+
+[job_configuration]
+# This section contains information on job configuartion, as well as the jon amounts
+
+# Disable this if you are in a lowpop environment
+jobs_have_minimal_access = true
+# Require account agre restrictions for job? Requires the database
+restrict_jobs_on_account_age = false
+# Allow admins to bypass all job age restrictions
+restrict_jobs_on_account_age_admin_bypass = true
+# Enable job EXP tracking (playtime)? Requires the database
+enable_exp_tracking = false
+# Enable job EXP-based restrictions (EG: require X hours as officer before warden)? Requires the database
+enable_exp_restrictions = false
+# Allow admins to bypass all EXP restrictions
+enable_exp_admin_bypass = true
+# Allow non-admins to play the AI job
+allow_ai = true
+# Prevent guests (people without BYOND accounts) from playing following positions
+# Captain, HoS, HoP, CE, RD, CMO, Warden, Security, Detective, AI
+guest_job_ban = true
+# Should assistants have maint access?
+assistant_maint_access = true
+# Should the amount of assistants be limited?
+assistant_limit = false
+# If they above setting is enabled, specify a ratio of how many assistants can be allowed per security officers onboard
+assistant_security_ratio = 2
+# Enable to use the custom job amounts here, disable to use the code ones
+enable_job_amount_overrides = true
+# Job slot amount map. These are overrides. If you dont specify a value here, the code will be used as default. -1 is infinite
+job_slot_amounts = [
+	# Commmand
+	{name = "Captain", lowpop = 1, highpop = 1},
+	{name = "Head of Personnel", lowpop = 1, highpop = 1},
+	{name = "Head of Security", lowpop = 1, highpop = 1},
+	{name = "Chief Engineer", lowpop = 1, highpop = 1},
+	{name = "Research Director", lowpop = 1, highpop = 1},
+	{name = "Chief Medical Officer", lowpop = 1, highpop = 1},
+	# Engineering
+	{name = "Atmospheric Technician", lowpop = 3, highpop = 4},
+	{name = "Station Engineer", lowpop = 5, highpop = 6},
+	# Medical
+	{name = "Chemist", lowpop = 2, highpop = 2},
+	{name = "Geneticist", lowpop = 2, highpop = 2},
+	{name = "Medical Doctor", lowpop = 5, highpop = 6},
+	{name = "Virologist", lowpop = 1, highpop = 1},
+	# Science
+	{name = "Robotocist", lowpop = 2, highpop = 2},
+	{name = "Scientist", lowpop = 6, highpop = 7},
+	# Security
+	{name = "Detective", lowpop = 1, highpop = 1},
+	{name = "Security Officer", lowpop = 7, highpop = 8},
+	{name = "Warden", lowpop = 1, highpop = 1},
+	# Service
+	{name = "Bartender", lowpop = 1, highpop = 1},
+	{name = "Botanist", lowpop = 2, highpop = 2},
+	{name = "Chaplain", lowpop = 1, highpop = 1},
+	{name = "Chef", lowpop = 1, highpop = 1},
+	{name = "Janitor", lowpop = 1, highpop = 2},
+	{name = "Lawyer", lowpop = 2, highpop = 2},
+	{name = "Librarian", lowpop = 1, highpop = 1},
+	# Cargo/Supply
+	{name = "Quartermaster", lowpop = 1, highpop = 1},
+	{name = "Shaft Miner", lowpop = 6, highpop = 6},
+	{name = "Cargo Technician", lowpop = 3, highpop = 4},
+	# Silicon
+	{name = "AI", lowpop = 1, highpop = 1},
+	{name = "Cyborg", lowpop = 1, highpop = 1},
+	# Misc
+	{name = "Assistant", lowpop = -1, highpop = -1},
+]
+
+
+################################################################
+
+
+[logging_configuration]
+# Configuration for all things related to logging data to disk
+# If you are in production you will want most of these on
+
+# Log OOC messages
+enable_ooc_logging = true
+# Log ingame say messages
+enable_say_logging = true
+# Log admin actions
+enable_admin_logging = true
+# Log client access (login/logout)
+enable_access_logging = true
+# Log game events (roundstart, results, a lot of other things)
+enable_game_logging = true
+# Enable logging of votes and their results
+enable_vote_logging = true
+# Enable logging of whipers
+enable_whisper_logging = true
+# Enable logging of emotes
+enable_emote_logging = true
+# Enable logging of attacks between players
+enable_attack_logging = true
+# Enable logging of PDA messages
+enable_pda_logging = true
+# Enable runtime logging
+enable_runtime_logging = true
+# Enable world.log output logging
+enable_world_logging = false
+# Log hrefs
+enable_href_logging = true
+# Log admin warning messages
+enable_admin_warning_logging = true
+# Log asay messages
+enable_adminchat_logging = true
+# Log debug messages
+enable_debug_logging = true
+
+
+################################################################
+
+
+[mc_configuration]
+# This section is settings for the MC
+# Dont change these unless you know what you are doing
+
+# Defines world tick lag. 0.5 is default for 20 TPS/FPS (10 * ticklag = TPS/FPS)
+ticklag = 0.5
+# Tick usage percentage limit for the MC during initialization.
+world_init_mc_tick_limit = 500
+# Base MC tick rate. 1 = once per BYOND tick
+base_mc_tick_rate = 1
+# Highpop MC tick rate. Increased to account for lag
+highpop_mc_tick_rate = 1.1
+# Threshold to enable MC highpop mode
+mc_highpop_threshold_enable = 65
+# Threshold to disable MC highpop mode
+mc_highpop_threshold_disable = 60
+
+
+################################################################
+
+
+[movement_configuration]
+# This section contains values for all mob movement stuff.
+# We suggest VVing ingame till you get values you like.
+# In context of this, speed = delay. Lower number = higher speed.
+
+# Base run speed before modifiers
+base_run_speed = 1
+# Base walk speed before modifiers
+base_walk_speed = 4
+# Move delay for humanoids
+human_delay = 1.5
+# Move delay for cyborgs
+robot_delay = 2.5
+# Move delay for xenomorphs
+alien_delay = 1.5
+# Move delay for slimes (xenobio, not slimepeople)
+slime_delay = 1.5
+# Move delay for other simple animals
+animal_delay = 2.5
+
+
+################################################################
+
+
+[overflow_configuration]
+# This contains information for re-routing players to an overflow server
+# We dont use this in production, but you may find it useful
+
+# Cap of players before we start to re-route to the overflow server. 0 to disable
+player_reroute_cap = 0
+# Overflow server location
+overflow_server = "byond://yourdomain.com:1111"
+# List of ckeys who will not get rerouted to the overflow server
+overflow_whitelist = ["keyhere", "anotherhere"]
+
+
+################################################################
+
+
+[ruin_configuration]
+# This section contains configuration for all space ruins and lava ruins
+
+# Globally enable and disable placing of space ruins. Lava ruins will still place.
+enable_space_ruins = true
+# Minimum number of extra zlevels to generate and fill with ruins
+minimum_zlevels = 2
+# Maximum number of extra zlevels to generate and fill with ruins
+maximum_zlevels = 4
+# List of all space ruins that can generate in the world
+# Commenting something out in here DISABLES IT FROM SPAWNING
+active_space_ruins = [
+	"_maps/map_files/RandomRuins/SpaceRuins/way_home.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/asteroid1.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/asteroid2.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/asteroid3.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/asteroid4.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/asteroid5.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/derelict1.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/derelict2.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/derelict3.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/derelict4.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/derelict5.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/spacebar.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/abandonedzoo.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/deepstorage.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/emptyshell.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/gasthelizards.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/intactemptyship.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/mechtransport.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/turretedoutpost.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/debris1.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/debris2.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/debris3.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/listeningpost.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/oldstation.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/onehalf.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/syndiecakesfactory.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/wizardcrash.dmm",
+
+	### The following ruins are based from past pre-spawned Zlevel content ###
+	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/blowntcommsat.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/clownmime.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/dj.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/druglab.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/syndiedepot.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/syndie_space_base.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/ussp_tele.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/ussp.dmm",
+
+
+	# The following is the white ship ruin. Its force-spawned and is required to stop SSshuttle runtiming on startup
+	# Its also important incase a white-ship console is ever built midround
+	# DO NOT DISABLE THIS UNLESS YOU HAVE A GOOD REASON
+	"_maps/map_files/RandomRuins/SpaceRuins/whiteship.dmm",
+
+	# The following is a force-spawned ruin consisting mostly of empty space with a shuttle docking port for the free golem shuttle
+	# Disabling it will lead to the free golem shuttle sometimes being stuck on lavaland.
+	"_maps/map_files/RandomRuins/SpaceRuins/golemtarget.dmm",
+]
+# List of all ruins that can generate on lavaland
+# Commenting something out in here DISABLES IT FROM SPAWNING
+active_lava_ruins = [
+	##BIODOMES
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_beach.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_clown_planet.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_winter.dmm",
+	##RESPAWN
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ash_walker1.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_golem_ship.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hermit.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_seed_vault.dmm",
+	##SIN
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_envy.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_gluttony.dmm",
+	# Greed blacklisted on production because its reward (dice) has a 1/20 chance of making you a wizard
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_greed.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pride.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_sloth.dmm",
+	##MEGAFAUNA
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk1.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk2.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk3.dmm",
+	# Re-removed 7/24/2020, I ran a month-long test of hierophant Jun-Jul and the staff was still too strong. https://github.com/ParadiseSS13/Paradise/pull/13542
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_swarmer_crash.dmm",
+
+	##MISC
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_animal_hospital.dmm",
+	# Cube blacklisted on production because it contains a wishgranter that gives you hijack on use
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cube.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cultaltar.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_dead_ratvar.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_fountain_hall.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pizzaparty.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_puzzle.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_random_ripley.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_survivalpod.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ufo_crash.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_xeno_nest.dmm",
+]
+# Budget for lavaland ruins. A higher number means more will spawn
+lavaland_ruin_budget = 60
+
+
+################################################################
+
+
+[system_configuration]
+# This contains stuff that the host should fill out, relating to backend stuff
+
+# Communications password for authorising world/Topic requests. Comment out to disable
+#communications_password = "generateSomeLongRandomStringHere"
+# Medal hub for tracking lavaland stats
+#medal_hub_address = "hubmakerckey.hubname"
+# Medal hub password for tracking lavaland stats
+#medal_hub_password = "putYourPasswordHere"
+# Do we want to kill the world on reboot instead of restarting it?
+shutdown_on_reboot = false
+# If true to above, an optional shell command can be ran. Defaults to killing DD on windows
+#shutdown_shell_command = "taskkill /im dreamdaemon.exe /f"
+# URL for the 2FA backend HTTP host. Do not use https:// or a trailing slash. Comment out to disable
+#_2fa_auth_host = "http://127.0.0.1:8080"
+
+
+################################################################
+
+
+[url_configuration]
+# Configuration for all the URLs used by the server
+# If you are in production you will want to tweak these to your servers
+# If you comment any of these out, they will be null ingame
+
+# Location of server resources. Used to offload sending the paradise.rsc from DD to a webserver
+# NOTE: This wants paradise.rsc inside a zip file, and it is HTTP ONLY. NO HTTPS
+#rsc_urls = ["http://www.paradisestation.org/windows/paradise.rsc.zip"]
+# Link URL to link forum accounts to ckeys. If set to an empty string, no link option will be offered
+# Token is appended right on the end, so set parameters as needed
+#forum_link_url = "https://example.com/link.php?token="
+# URL for accessing player info from admin webtools
+# Ckey is appended right on the end, so set parameters as needed
+#forum_playerinfo_url = "https://example.com/info.php?ckey="
+# Server location for world reboot. Don't include the byond://, just give the address and port.
+#reboot_url = "byond.paradisestation.org:6666"
+# Forum address
+forum_url = "https://www.paradisestation.org/forum/"
+# Wiki address
+wiki_url = "https://www.paradisestation.org/wiki"
+# Rules address
+rules_url = "https://www.paradisestation.org/rules"
+# Github address
+github_url = "https://github.com/ParadiseSS13/Paradise"
+# Discord address
+#discord_url = "http://example.org"
+# Discord address (forum-based invite)
+discord_forum_url = "https://www.paradisestation.org/forum/discord/invite/general/"
+# Donations address
+donations_url = "https://www.patreon.com/ParadiseStation"
+# Ban appeals URL - usually for a forum or wherever people should go to contact your admins
+ban_appeals_url = "https://www.paradisestation.org/forum/55-unban-requests/"
+# URL for the CentComm ban DB. Doesnt change much. Ckey is slapped on the end
+centcomm_ban_db_url = "https://centcom.melonmesa.com/ban/search/"
+
+
+################################################################
+
+
+[voting_configuration]
+# This section contains all settings relating to the ingame voting system
+
+# Allow players to vote for a round restart?
+allow_vote_restart = false
+# Allow players to vote for a gamemode in lobby?
+allow_vote_mode = false
+# Minimum delay between each vote (deciseconds)
+vote_delay = 18000
+# Time that a vote will last for (deciseconds)
+vote_time = 600
+# Time before the first auto crew transfer vote (deciseconds)
+autotransfer_initial_time = 72000
+# Interval after the first auto transfer vote for the next to be called (deciseconds)
+autotransfer_interval_time = 18000
+# Prevent dead players from voting or starting votes
+prevent_dead_voting = false
+# Default to players not voting by default
+disable_default_vote = true
+# Enable voting for a map on end round
+enable_map_voting = false
+
+
+################################################################
+
+# Congratulations. You reached the end. heres a cookie.

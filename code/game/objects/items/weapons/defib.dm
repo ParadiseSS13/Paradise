@@ -445,6 +445,8 @@
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
 						else if(total_burn >= 180 || total_brute >= 180)
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
+						else if(HAS_TRAIT(H, TRAIT_HUSK))
+							user.visible_message("<span class='notice'>[defib] buzzes: Resucitation failed: Subject is husked.</span>")
 						else if(ghost)
 							if(!ghost.can_reenter_corpse) // DNR or AntagHUD
 								user.visible_message("<span class='notice'>[defib] buzzes: Resucitation failed: No electrical brain activity detected.</span>")

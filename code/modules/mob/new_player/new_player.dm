@@ -115,7 +115,7 @@
 		return FALSE
 
 	if(href_list["consent_signed"])
-		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES (:ckey, Now(), 1)", list(
+		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO privacy (ckey, datetime, consent) VALUES (:ckey, Now(), 1)", list(
 			"ckey" = ckey
 		))
 		// If the query fails we dont want them permenantly stuck on being unable to accept TOS
@@ -129,7 +129,7 @@
 	if(href_list["consent_rejected"])
 		client.tos_consent = FALSE
 		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES (:ckey, Now(), 0)", list(
+		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO privacy (ckey, datetime, consent) VALUES (:ckey, Now(), 0)", list(
 			"ckey" = ckey
 		))
 		// If the query fails we dont want them permenantly stuck on being unable to accept TOS
@@ -214,7 +214,7 @@
 			return
 		if(client.prefs.species in GLOB.whitelisted_species)
 
-			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
+			if(!is_alien_whitelisted(src, client.prefs.species))
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
 				return FALSE
 
@@ -233,7 +233,7 @@
 			client.prefs.load_random_character_slot(client)
 
 		if(client.prefs.species in GLOB.whitelisted_species)
-			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
+			if(!is_alien_whitelisted(src, client.prefs.species))
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
 				return FALSE
 
@@ -257,14 +257,14 @@
 	if(job.available_in_playtime(client))
 		return 0
 
-	if(config.assistantlimit)
+	if(GLOB.configuration.jobs.assistant_limit)
 		if(job.title == "Civilian")
 			var/count = 0
 			var/datum/job/officer = SSjobs.GetJob("Security Officer")
 			var/datum/job/warden = SSjobs.GetJob("Warden")
 			var/datum/job/hos = SSjobs.GetJob("Head of Security")
 			count += (officer.current_positions + warden.current_positions + hos.current_positions)
-			if(job.current_positions > (config.assistantratio * count))
+			if(job.current_positions > (GLOB.configuration.jobs.assistant_security_ratio * count))
 				if(count >= 5) // if theres more than 5 security on the station just let assistants join regardless, they should be able to handle the tide
 					return 1
 				return 0
@@ -603,7 +603,7 @@
 
 /mob/new_player/proc/is_species_whitelisted(datum/species/S)
 	if(!S) return 1
-	return is_alien_whitelisted(src, S.name) || !config.usealienwhitelist || !(IS_WHITELISTED in S.species_traits)
+	return is_alien_whitelisted(src, S.name) || !(IS_WHITELISTED in S.species_traits)
 
 /mob/new_player/get_gender()
 	if(!client || !client.prefs) ..()
