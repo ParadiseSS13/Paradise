@@ -50,6 +50,8 @@
 	var/isqueen = FALSE
 	var/bee_syndicate = FALSE
 	var/icon_base = "bee"
+	var/last_attack = 0
+	var/opacity_time = 1 MINUTES
 	var/static/list/bee_icons = list()
 	var/static/beehometypecache = typecacheof(/obj/structure/beebox)
 	var/static/hydroponicstypecache = typecacheof(/obj/machinery/hydroponics)
@@ -172,11 +174,13 @@
 
 /mob/living/simple_animal/hostile/poison/bees/proc/make_opaque()
 	// If a bee attacks someone, make it very easy to hit for a while
+	last_attack = world.time
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
-	addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/poison/bees/proc/reset_opacity), 1 MINUTES, TIMER_UNIQUE | TIMER_OVERRIDE)
 
-/mob/living/simple_animal/hostile/poison/bees/proc/reset_opacity()
-	if(!mind)
+/mob/living/simple_animal/hostile/poison/bees/Life(seconds, times_fired)
+	. = ..()
+	var/diff = world.time - last_attack
+	if(diff >= opacity_time)
 		mouse_opacity = initial(mouse_opacity)
 
 /mob/living/simple_animal/hostile/poison/bees/sentience_act()
