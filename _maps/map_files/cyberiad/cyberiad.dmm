@@ -82646,11 +82646,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
-"jhp" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/window/reinforced/polarized,
-/turf/simulated/floor/plating,
-/area/crew_quarters)
 "jnm" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -83721,7 +83716,7 @@
 "pMm" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "arrivalcorner"
+	icon_state = "whitecorner"
 	},
 /area/hallway/primary/central/east)
 "pOj" = (
@@ -84885,12 +84880,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
-"wlB" = (
-/obj/machinery/button/windowtint{
-	pixel_y = -25
-	},
-/turf/simulated/floor/wood,
-/area/crew_quarters)
 "wnU" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -84982,7 +84971,10 @@
 /area/quartermaster/miningdock)
 "xcA" = (
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitecorner"
+	},
 /area/hallway/primary/starboard/west)
 "xfQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -85048,11 +85040,6 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
-"xvi" = (
-/obj/structure/window/reinforced/polarized,
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/crew_quarters)
 "xwz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -116409,7 +116396,7 @@ boU
 bxy
 boU
 dhN
-jhp
+ykW
 bhq
 bns
 bkF
@@ -116666,7 +116653,7 @@ pxu
 buU
 boU
 dhr
-jhp
+bce
 bhq
 bnn
 bkF
@@ -116923,7 +116910,7 @@ boU
 qIN
 boU
 dhN
-xvi
+ykW
 bhq
 bnn
 bkF
@@ -117179,7 +117166,7 @@ boU
 boU
 bBO
 boU
-wlB
+dhN
 djg
 dky
 bnn
