@@ -24,7 +24,7 @@ SUBSYSTEM_DEF(changelog)
 	if(!SSdbcore.IsConnected())
 		return ..()
 
-	var/datum/db_query/latest_cl_date = SSdbcore.NewQuery("SELECT CAST(UNIX_TIMESTAMP(date_merged) AS CHAR) AS ut FROM [format_table_name("changelog")] ORDER BY date_merged DESC LIMIT 1")
+	var/datum/db_query/latest_cl_date = SSdbcore.NewQuery("SELECT CAST(UNIX_TIMESTAMP(date_merged) AS CHAR) AS ut FROM changelog ORDER BY date_merged DESC LIMIT 1")
 	if(!latest_cl_date.warn_execute())
 		qdel(latest_cl_date)
 		// Abort if we cant do this
@@ -63,7 +63,7 @@ SUBSYSTEM_DEF(changelog)
 	C.prefs.lastchangelog = current_cl_timestamp
 
 	var/datum/db_query/updatePlayerCLTime = SSdbcore.NewQuery(
-		"UPDATE [format_table_name("player")] SET lastchangelog=:lastchangelog WHERE ckey=:ckey",
+		"UPDATE player SET lastchangelog=:lastchangelog WHERE ckey=:ckey",
 		list(
 			"lastchangelog" = current_cl_timestamp,
 			"ckey" = C.ckey

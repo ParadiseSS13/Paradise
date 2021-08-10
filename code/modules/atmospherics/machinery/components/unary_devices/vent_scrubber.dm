@@ -20,7 +20,6 @@
 
 	var/list/turf/simulated/adjacent_turfs = list()
 
-	var/on = 0
 	var/scrubbing = 1 //0 = siphoning, 1 = scrubbing
 	var/scrub_O2 = 0
 	var/scrub_N2 = 0
@@ -195,6 +194,10 @@
 		check_turfs()
 
 	if(stat & (NOPOWER|BROKEN))
+		return
+
+	var/turf/T = loc
+	if(T.density) //No, you should not be able to get free air from walls
 		return
 
 	if(!node)

@@ -10,7 +10,7 @@
 	if(!isbn)
 		return
 
-	var/datum/db_query/query_delbook = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=:isbn", list(
+	var/datum/db_query/query_delbook = SSdbcore.NewQuery("DELETE FROM library WHERE id=:isbn", list(
 		"isbn" = text2num(isbn) // just to be sure
 	))
 	if(!query_delbook.warn_execute())
@@ -37,7 +37,7 @@
 
 	var/dat = "<table><tr><th>ISBN</th><th>Title</th><th>Total Flags</th><th>Options</th></tr>"
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, title, flagged FROM [format_table_name("library")] WHERE flagged > 0 ORDER BY flagged DESC")
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, title, flagged FROM library WHERE flagged > 0 ORDER BY flagged DESC")
 	if(!query.warn_execute())
 		qdel(query)
 		return

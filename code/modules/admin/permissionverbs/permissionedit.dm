@@ -76,7 +76,7 @@
 	if(!istext(adm_ckey) || !istext(new_rank))
 		return
 
-	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT id FROM [format_table_name("admin")] WHERE ckey=:adm_ckey", list(
+	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT id FROM admin WHERE ckey=:adm_ckey", list(
 		"adm_ckey" = adm_ckey
 	))
 	if(!select_query.warn_execute())
@@ -91,7 +91,7 @@
 	qdel(select_query)
 	flag_account_for_forum_sync(adm_ckey)
 	if(new_admin)
-		var/datum/db_query/insert_query = SSdbcore.NewQuery("INSERT INTO [format_table_name("admin")] (`id`, `ckey`, `admin_rank`, `level`, `flags`) VALUES (null, :adm_ckey, :new_rank, -1, 0)", list(
+		var/datum/db_query/insert_query = SSdbcore.NewQuery("INSERT INTO admin (`id`, `ckey`, `admin_rank`, `level`, `flags`) VALUES (null, :adm_ckey, :new_rank, -1, 0)", list(
 			"adm_ckey" = adm_ckey,
 			"new_rank" = new_rank
 		))
@@ -101,7 +101,7 @@
 		qdel(insert_query)
 
 		var/logtxt = "Added new admin [adm_ckey] to rank [new_rank]"
-		var/datum/db_query/log_query = SSdbcore.NewQuery("INSERT INTO [format_table_name("admin_log")] (`datetime` ,`adminckey` ,`adminip` ,`log` ) VALUES (Now() , :uckey, :uip, :logtxt)", list(
+		var/datum/db_query/log_query = SSdbcore.NewQuery("INSERT INTO admin_log (`datetime` ,`adminckey` ,`adminip` ,`log` ) VALUES (Now() , :uckey, :uip, :logtxt)", list(
 			"uckey" = usr.ckey,
 			"uip" = usr.client.address,
 			"logtxt" = logtxt
@@ -114,7 +114,7 @@
 		to_chat(usr, "<span class='notice'>New admin added.</span>")
 	else
 		if(!isnull(admin_id) && isnum(admin_id))
-			var/datum/db_query/insert_query = SSdbcore.NewQuery("UPDATE [format_table_name("admin")] SET admin_rank=:new_rank WHERE id=:admin_id", list(
+			var/datum/db_query/insert_query = SSdbcore.NewQuery("UPDATE admin SET admin_rank=:new_rank WHERE id=:admin_id", list(
 				"new_rank" = new_rank,
 				"admin_id" = admin_id,
 			))
@@ -124,7 +124,7 @@
 			qdel(insert_query)
 
 			var/logtxt = "Edited the rank of [adm_ckey] to [new_rank]"
-			var/datum/db_query/log_query = SSdbcore.NewQuery("INSERT INTO [format_table_name("admin_log")] (`datetime` ,`adminckey` ,`adminip` ,`log` ) VALUES (Now() , :uckey, :uip, :logtxt)", list(
+			var/datum/db_query/log_query = SSdbcore.NewQuery("INSERT INTO admin_log (`datetime` ,`adminckey` ,`adminip` ,`log` ) VALUES (Now() , :uckey, :uip, :logtxt)", list(
 				"uckey" = usr.ckey,
 				"uip" = usr.client.address,
 				"logtxt" = logtxt,
@@ -168,7 +168,7 @@
 	if(!istext(adm_ckey) || !isnum(new_permission))
 		return
 
-	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT id, flags FROM [format_table_name("admin")] WHERE ckey=:adm_ckey", list(
+	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT id, flags FROM admin WHERE ckey=:adm_ckey", list(
 		"adm_ckey" = adm_ckey
 	))
 	if(!select_query.warn_execute())
@@ -187,7 +187,7 @@
 
 	flag_account_for_forum_sync(adm_ckey)
 	if(admin_rights & new_permission) //This admin already has this permission, so we are removing it.
-		var/datum/db_query/insert_query = SSdbcore.NewQuery("UPDATE [format_table_name("admin")] SET flags=:newflags WHERE id=:admin_id", list(
+		var/datum/db_query/insert_query = SSdbcore.NewQuery("UPDATE admin SET flags=:newflags WHERE id=:admin_id", list(
 			"newflags" = (admin_rights & ~new_permission),
 			"admin_id" = admin_id
 		))
@@ -198,7 +198,7 @@
 
 		var/logtxt = "Removed permission [rights2text(new_permission)] (flag = [new_permission]) to admin [adm_ckey]"
 		var/datum/db_query/log_query = SSdbcore.NewQuery({"
-			INSERT INTO [format_table_name("admin_log")] (`datetime` ,`adminckey` ,`adminip` ,`log`)
+			INSERT INTO admin_log (`datetime` ,`adminckey` ,`adminip` ,`log`)
 			VALUES (Now() , :uckey, :uip, :logtxt)"}, list(
 				"uckey" = usr.ckey,
 				"uip" = usr.client.address,
@@ -210,7 +210,7 @@
 		qdel(log_query)
 		to_chat(usr, "<span class='notice'>Permission removed.</span>")
 	else //This admin doesn't have this permission, so we are adding it.
-		var/datum/db_query/insert_query = SSdbcore.NewQuery("UPDATE [format_table_name("admin")] SET flags=:newflags WHERE id=:admin_id", list(
+		var/datum/db_query/insert_query = SSdbcore.NewQuery("UPDATE admin SET flags=:newflags WHERE id=:admin_id", list(
 			"newflags" = (admin_rights | new_permission),
 			"admin_id" = admin_id
 		))
@@ -221,7 +221,7 @@
 
 		var/logtxt = "Added permission [rights2text(new_permission)] (flag = [new_permission]) to admin [adm_ckey]"
 		var/datum/db_query/log_query = SSdbcore.NewQuery({"
-			INSERT INTO [format_table_name("admin_log")] (`datetime` ,`adminckey` ,`adminip` ,`log`)
+			INSERT INTO admin_log (`datetime` ,`adminckey` ,`adminip` ,`log`)
 			VALUES (Now() , :uckey, :uip, :logtxt)"}, list(
 				"uckey" = usr.ckey,
 				"uip" = usr.client.address,
@@ -240,7 +240,7 @@
 	if(!check_rights(R_PERMISSIONS))
 		return
 
-	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET lastadminrank=:admin_rank WHERE ckey=:ckey", list(
+	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE player SET lastadminrank=:admin_rank WHERE ckey=:ckey", list(
 		"admin_rank" = newrank,
 		"ckey" = ckey
 	))

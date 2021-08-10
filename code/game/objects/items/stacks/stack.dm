@@ -197,15 +197,15 @@
 				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
 			return FALSE
 
-		if(R.window_checks && !valid_window_location(usr.loc, usr.dir))
+		if(R.window_checks && !valid_window_location(get_turf(src), usr.dir))
 			to_chat(usr, "<span class='warning'>\The [R.title] won't fit here!</span>")
 			return FALSE
 
-		if(R.one_per_turf && (locate(R.result_type) in usr.drop_location()))
+		if(R.one_per_turf && (locate(R.result_type) in get_turf(src)))
 			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
 			return FALSE
 
-		if(R.on_floor && !istype(usr.drop_location(), /turf/simulated))
+		if(R.on_floor && !istype(get_turf(src), /turf/simulated))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
 			return FALSE
 
@@ -215,13 +215,13 @@
 			if(!is_level_reachable(usr.z))
 				to_chat(usr, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
 				return
-			if(locate(/obj/structure/cult) in usr.drop_location())
+			if(locate(/obj/structure/cult) in get_turf(src))
 				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
 				return FALSE
 
 		if(R.time)
-			to_chat(usr, "<span class='notice'>Building [R.title] ...</span>")
-			if(!do_after(usr, R.time, target = usr))
+			to_chat(usr, "<span class='notice'>Building [R.title]...</span>")
+			if(!do_after(usr, R.time, target = loc))
 				return 0
 
 		if(get_amount() < R.req_amount * multiplier)
@@ -229,9 +229,9 @@
 
 		var/atom/O
 		if(R.max_res_amount > 1) //Is it a stack?
-			O = new R.result_type(usr.drop_location(), R.res_amount * multiplier)
+			O = new R.result_type(get_turf(src), R.res_amount * multiplier)
 		else
-			O = new R.result_type(usr.drop_location())
+			O = new R.result_type(get_turf(src))
 		O.setDir(usr.dir)
 		use(R.req_amount * multiplier)
 		updateUsrDialog()

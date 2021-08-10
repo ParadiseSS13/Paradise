@@ -205,7 +205,7 @@
 	var/ghostmsg = "Play as [SM.name], pet of [user.name]?"
 	var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M)
 
-	if(!src)
+	if(QDELETED(src) || QDELETED(SM))
 		return
 
 	if(candidates.len)
