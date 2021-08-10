@@ -31,7 +31,6 @@
 	move_to_delay = 0
 	obj_damage = 0
 	environment_smash = 0
-	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
@@ -162,6 +161,7 @@
 	else
 		. = ..()
 		if(. && isliving(target) && (!client || a_intent == INTENT_HARM))
+			make_opaque()
 			var/mob/living/L = target
 			if(L.reagents)
 				if(beegent)
@@ -169,6 +169,19 @@
 					L.reagents.add_reagent(beegent.id, rand(1, 5))
 				else
 					L.reagents.add_reagent("spidertoxin", 5)
+
+/mob/living/simple_animal/hostile/poison/bees/proc/make_opaque()
+	// If a bee attacks someone, make it very easy to hit for a while
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
+	addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/poison/bees/proc/reset_opacity), 1 MINUTES, TIMER_UNIQUE | TIMER_OVERRIDE)
+
+/mob/living/simple_animal/hostile/poison/bees/proc/reset_opacity()
+	if(!mind)
+		mouse_opacity = initial(mouse_opacity)
+
+/mob/living/simple_animal/hostile/poison/bees/sentience_act()
+	. = ..()
+	make_opaque()
 
 /mob/living/simple_animal/hostile/poison/bees/proc/assign_reagent(datum/reagent/R)
 	if(istype(R))
@@ -233,6 +246,7 @@
  	desc = "She's the queen of bees, BZZ BZZ"
  	icon_base = "queen"
  	isqueen = TRUE
+ 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 
 //the Queen doesn't leave the box on her own, and she CERTAINLY doesn't pollinate by herself
@@ -324,6 +338,7 @@
 	search_objects = FALSE //these bees don't care about trivial things like plants, especially when there is havoc to sow
 	bee_syndicate = TRUE
 	var/list/master_and_friends = list()
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 /mob/living/simple_animal/hostile/poison/bees/syndi/New()
 	beegent = GLOB.chemical_reagents_list["facid"] //Prepare to die
