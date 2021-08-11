@@ -307,11 +307,17 @@
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
+/obj/item/radio/headset/ert/alt/solgov
+	name = "\improper Trans-Solar Federation Marine's bowman headset"
+
 /obj/item/radio/headset/ert/alt/commander
 	name = "ERT commander's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs. Can transmit even if telecomms are down."
 	requires_tcomms = FALSE
 	instant = TRUE
+
+/obj/item/radio/headset/ert/alt/commander/solgov
+	name = "\improper Trans-Solar Federation Lieutenant's bowman headset"
 
 /obj/item/radio/headset/centcom
 	name = "centcom officer's bowman headset"
