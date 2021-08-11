@@ -691,7 +691,6 @@
 	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
 	damage_deflection = 10
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	plane = FLOOR_PLANE
 	layer = DISPOSAL_PIPE_LAYER				// slightly lower than wires and other pipes
 	var/base_icon_state	// initial icon state on map
 
@@ -758,9 +757,6 @@
 // update the icon_state to reflect hidden status
 /obj/structure/disposalpipe/proc/update()
 	var/turf/T = get_turf(src)
-	if(T.transparent_floor)
-		update_icon()
-		return
 	hide(T.intact && !istype(T, /turf/space))	// space never hides pipes
 	update_icon()
 
@@ -893,19 +889,14 @@
 
 /obj/structure/disposalpipe/attackby(obj/item/I, mob/user, params)
 	var/turf/T = get_turf(src)
-	if(T.intact || T.transparent_floor)
-		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-		return 		// prevent interaction with T-scanner revealed pipes and pipes under glass
+	if(T.intact)
+		return		// prevent interaction with T-scanner revealed pipes
 
 	add_fingerprint(user)
 
 /obj/structure/disposalpipe/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	var/turf/T = get_turf(src)
 	if(!I.tool_use_check(user, 0))
-		return
-	if(T.transparent_floor)
-		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
@@ -1210,7 +1201,7 @@
 		return
 
 	var/turf/T = src.loc
-	if(T.intact || T.transparent_floor)
+	if(T.intact)
 		return		// prevent interaction with T-scanner revealed pipes
 	src.add_fingerprint(user)
 

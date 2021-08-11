@@ -159,9 +159,9 @@
 		var/cache_name = state
 
 		for(var/D in GLOB.cardinal)
-			var/image/I = image(icon('icons/atmos/pipe_underlays.dmi', icon_state = state, dir = D), layer = GAS_PIPE_HIDDEN_LAYER)
+			var/image/I = image(icon('icons/atmos/pipe_underlays.dmi', icon_state = state, dir = D))
 			underlays[cache_name + "[D]"] = I
 			for(var/pipe_color in GLOB.pipe_colors)
-				I = image(icon('icons/atmos/pipe_underlays.dmi', icon_state = state, dir = D), layer = GAS_PIPE_HIDDEN_LAYER)
+				I = image(icon('icons/atmos/pipe_underlays.dmi', icon_state = state, dir = D))
 				I.color = GLOB.pipe_colors[pipe_color]
 				underlays[state + "[D]" + "[GLOB.pipe_colors[pipe_color]]"] = I
