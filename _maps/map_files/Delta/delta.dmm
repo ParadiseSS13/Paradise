@@ -73282,13 +73282,6 @@
 "cYP" = (
 /turf/simulated/wall,
 /area/medical/psych)
-"cYQ" = (
-/obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 4
-	},
-/turf/simulated/floor/noslip,
-/area/medical/medbay)
 "cYR" = (
 /obj/machinery/light{
 	dir = 1;
@@ -73298,15 +73291,12 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "white"
+	icon_state = "freezerfloor"
 	},
 /area/medical/medbay)
 "cYS" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower,
 /turf/simulated/floor/noslip,
 /area/medical/medbay)
 "cYU" = (
@@ -73755,8 +73745,7 @@
 /area/medical/medbay)
 "cZL" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "white"
+	icon_state = "freezerfloor"
 	},
 /area/medical/medbay)
 "cZM" = (
@@ -99539,6 +99528,12 @@
 	icon_state = "dark"
 	},
 /area/security/processing)
+"jkP" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellowcorner"
+	},
+/area/engine/break_room)
 "jkU" = (
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
@@ -99596,15 +99591,6 @@
 	icon_state = "red"
 	},
 /area/security/warden)
-"jCG" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurplecorner"
-	},
-/area/medical/research)
 "jCU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -100344,6 +100330,12 @@
 	icon_state = "redcorner"
 	},
 /area/hallway/primary/starboard)
+"muI" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/research)
 "muK" = (
 /obj/structure/sink{
 	dir = 8;
@@ -100375,6 +100367,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"mzQ" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurplecorner"
+	},
+/area/medical/research)
 "mDm" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -100846,12 +100847,6 @@
 	icon_state = "neutral"
 	},
 /area/maintenance/fore2)
-"ouI" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
-	},
-/area/engine/break_room)
 "oBE" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/item/vending_refill/coffee,
@@ -101450,13 +101445,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/brig)
-"rGJ" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "cmo"
-	},
-/area/medical/medbay2)
 "rNi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -101857,6 +101845,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permasolitary)
+"tsN" = (
+/obj/structure/chair/comfy/purp{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/medical/research)
 "tvq" = (
 /obj/structure/table,
 /obj/item/toy/figure/crew/syndie,
@@ -102043,15 +102040,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/range)
-"ufn" = (
-/obj/structure/chair/comfy/purp{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurple"
-	},
-/area/medical/research)
 "uiw" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -102596,12 +102584,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permasolitary)
-"wjr" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/research)
 "wmQ" = (
 /obj/item/radio/intercom{
 	pixel_y = 28
@@ -102886,6 +102868,13 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/maintenance/auxsolarstarboard)
+"xKN" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "cmo"
+	},
+/area/medical/medbay2)
 "xKW" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/plasteel{
@@ -130920,7 +130909,7 @@ bID
 byl
 bMy
 bQt
-ouI
+jkP
 bSm
 bUx
 bWw
@@ -136863,7 +136852,7 @@ cHx
 cXU
 cZt
 dau
-jCG
+mzQ
 dau
 dau
 dau
@@ -138151,7 +138140,7 @@ cMb
 cNB
 cPk
 cRa
-wjr
+muI
 cMm
 cMm
 cWO
@@ -138406,7 +138395,7 @@ ddn
 cZt
 cMc
 cPl
-ufn
+tsN
 cRb
 cWu
 cTL
@@ -148178,7 +148167,7 @@ cSI
 cUg
 aQo
 cYP
-cYQ
+cYS
 cZL
 cKO
 aRT
@@ -150740,7 +150729,7 @@ cUA
 cMz
 cJt
 cLf
-rGJ
+xKN
 cOi
 cMC
 cSP
