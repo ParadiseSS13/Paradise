@@ -25,10 +25,6 @@
  * Cooldown system based on an datum-level associative lazylist using timers.
 */
 
-//INDEXES
-//N/A
-
-
 //TIMER COOLDOWN MACROS
 
 #define COMSIG_CD_STOP(cd_index) "cooldown_[cd_index]"
@@ -39,6 +35,7 @@
 #define TIMER_COOLDOWN_CHECK(cd_source, cd_index) LAZYACCESS(cd_source.cooldowns, cd_index)
 
 #define TIMER_COOLDOWN_END(cd_source, cd_index) LAZYREMOVE(cd_source.cooldowns, cd_index)
+
 
 /*
  * Stoppable timer cooldowns.
@@ -52,6 +49,7 @@
 #define S_TIMER_COOLDOWN_RESET(cd_source, cd_index) reset_cooldown(cd_source, cd_index)
 
 #define S_TIMER_COOLDOWN_TIMELEFT(cd_source, cd_index) timeleft(TIMER_COOLDOWN_CHECK(cd_source, cd_index))
+
 
 /*
  * Cooldown system based on storing world.time on a variable, plus the cooldown time.

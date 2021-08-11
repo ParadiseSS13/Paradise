@@ -78,7 +78,6 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/lockdownbyai = 0
 	var/justzap = 0
 	var/obj/item/airlock_electronics/electronics
-	var/shockCooldown = FALSE //Prevents multiple shocks from happening
 	var/obj/item/note //Any papers pinned to the airlock
 	var/previous_airlock = /obj/structure/door_assembly //what airlock assembly mineral plating was applied to
 	var/airlock_material //material of inner filling; if its an airlock with glass, this should be set to "glass"
@@ -103,6 +102,8 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/boltUp = 'sound/machines/boltsup.ogg'
 	var/boltDown = 'sound/machines/boltsdown.ogg'
 	var/is_special = FALSE
+
+	COOLDOWN_DECLARE(shock_cooldown) // Prevents multiple shocks from happening
 
 /obj/machinery/door/airlock/welded
 	welded = TRUE
@@ -299,10 +300,10 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/shock(mob/living/user, prb)
 	if(!istype(user) || !arePowerSystemsOn())
 		return FALSE
-	if(shockCooldown > world.time)
-		return FALSE	//Already shocked someone recently?
+	if(!COOLDOWN_FINISHED(src, shock_cooldown))
+		return FALSE //Already shocked someone recently?
 	if(..())
-		shockCooldown = world.time + 10
+		COOLDOWN_START(src, shock_cooldown, 1 SECONDS)
 		return TRUE
 	else
 		return FALSE
