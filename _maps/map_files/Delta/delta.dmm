@@ -67147,9 +67147,7 @@
 	pixel_x = -28;
 	pixel_y = 30
 	},
-/obj/structure/chair/comfy/purp{
-	dir = 4
-	},
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -67164,7 +67162,6 @@
 	dir = 1;
 	on = 1
 	},
-/obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -67174,9 +67171,7 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/obj/structure/chair/comfy/purp{
-	dir = 8
-	},
+/obj/structure/chair/comfy/purp,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -67800,15 +67795,7 @@
 	},
 /area/medical/research)
 "cNA" = (
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
-	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24;
-	pixel_y = 4
-	},
+/obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -68711,6 +68698,7 @@
 	},
 /area/medical/research)
 "cPl" = (
+/obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -70108,11 +70096,6 @@
 	},
 /area/toxins/xenobiology)
 "cSj" = (
-/obj/structure/table/wood,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = -3;
-	pixel_y = 6
-	},
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
@@ -70889,15 +70872,17 @@
 	},
 /area/medical/research)
 "cTJ" = (
-/obj/structure/table/wood,
-/obj/item/storage/box/donkpockets,
+/obj/structure/chair/comfy/purp,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
 	},
 /area/medical/research)
 "cTL" = (
-/obj/machinery/vending/snack,
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/light_switch{
+	pixel_x = 26
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -71701,15 +71686,19 @@
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "cVj" = (
+/obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
 	},
 /area/medical/research)
 "cVl" = (
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24
+/obj/structure/table/wood,
+/obj/item/storage/box/donkpockets,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 24;
+	pixel_y = -1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -72247,7 +72236,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/vending/cola,
+/obj/machinery/alarm{
+	dir = 8;
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -72494,7 +72486,7 @@
 /area/toxins/lab)
 "cWN" = (
 /obj/structure/chair/comfy/purp{
-	dir = 4
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -72502,18 +72494,16 @@
 	},
 /area/medical/research)
 "cWO" = (
-/obj/structure/table/wood,
 /obj/machinery/light,
-/obj/structure/sign/poster/contraband/lamarr{
-	pixel_y = -32
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
 /area/medical/research)
 "cWP" = (
-/obj/structure/chair/comfy/purp{
-	dir = 8
+/obj/structure/table/wood,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -3;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -99606,6 +99596,15 @@
 	icon_state = "red"
 	},
 /area/security/warden)
+"jCG" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurplecorner"
+	},
+/area/medical/research)
 "jCU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -99854,12 +99853,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
-"kMe" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/research)
 "kOC" = (
 /obj/structure/table,
 /obj/item/storage/fancy/crayons,
@@ -100785,12 +100778,6 @@
 	icon_state = "neutral"
 	},
 /area/maintenance/starboard)
-"ocZ" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
-	},
-/area/engine/break_room)
 "odY" = (
 /obj/machinery/camera{
 	c_tag = "Aft Starboard Solars"
@@ -100838,15 +100825,6 @@
 /obj/structure/filingcabinet,
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
-"omJ" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurplecorner"
-	},
-/area/medical/research)
 "osS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -100868,6 +100846,12 @@
 	icon_state = "neutral"
 	},
 /area/maintenance/fore2)
+"ouI" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellowcorner"
+	},
+/area/engine/break_room)
 "oBE" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/item/vending_refill/coffee,
@@ -101466,6 +101450,13 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/brig)
+"rGJ" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "cmo"
+	},
+/area/medical/medbay2)
 "rNi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -101711,13 +101702,6 @@
 	icon_state = "neutralfull"
 	},
 /area/security/brig)
-"sLl" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "cmo"
-	},
-/area/medical/medbay2)
 "sPS" = (
 /obj/structure/cable,
 /obj/machinery/power/solar_control{
@@ -102059,6 +102043,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/range)
+"ufn" = (
+/obj/structure/chair/comfy/purp{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/medical/research)
 "uiw" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -102603,6 +102596,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permasolitary)
+"wjr" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/research)
 "wmQ" = (
 /obj/item/radio/intercom{
 	pixel_y = 28
@@ -130921,7 +130920,7 @@ bID
 byl
 bMy
 bQt
-ocZ
+ouI
 bSm
 bUx
 bWw
@@ -136864,7 +136863,7 @@ cHx
 cXU
 cZt
 dau
-omJ
+jCG
 dau
 dau
 dau
@@ -137899,7 +137898,7 @@ cSj
 cTJ
 cVj
 cWN
-cZt
+cIW
 cYv
 cKF
 dbV
@@ -138152,11 +138151,11 @@ cMb
 cNB
 cPk
 cRa
-kMe
+wjr
 cMm
 cMm
 cWO
-cZt
+cIW
 cYz
 cKF
 dbV
@@ -138407,13 +138406,13 @@ ddn
 cZt
 cMc
 cPl
-cPl
+ufn
 cRb
 cWu
 cTL
 cVl
 cWP
-cZt
+cIW
 cYA
 cKF
 dbV
@@ -150741,7 +150740,7 @@ cUA
 cMz
 cJt
 cLf
-sLl
+rGJ
 cOi
 cMC
 cSP
