@@ -1644,7 +1644,7 @@
 
 //don't forget to change the refill size if you change the machine's contents!
 /obj/machinery/vending/clothing
-	name = "\improper  ClothesMate" //renamed to make the slogan rhyme
+	name = "\improper ClothesMate" //renamed to make the slogan rhyme
 	desc = "A vending machine for clothing."
 	icon_state = "clothes"
 	slogan_list = list("Dress for success!","Prepare to look swagalicious!","Look at all this free swag!","Why leave style up to fate? Use the ClothesMate!")
