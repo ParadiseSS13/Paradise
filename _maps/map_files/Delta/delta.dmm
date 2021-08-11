@@ -11967,11 +11967,11 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics/abandoned_garden)
 "aGO" = (
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-y"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/junction{
+	dir = 2;
+	icon_state = "pipe-j2"
+	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
 "aGP" = (
@@ -13913,13 +13913,9 @@
 	},
 /area/quartermaster/storage)
 "aKC" = (
-/obj/structure/disposalpipe/junction{
-	dir = 1;
-	icon_state = "pipe-j2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/junction,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -41985,32 +41981,32 @@
 	},
 /area/engine/break_room)
 "bMy" = (
-/obj/structure/chair/comfy/brown{
-	dir = 4
-	},
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
 "bMz" = (
-/obj/structure/table/wood,
 /obj/machinery/light{
 	dir = 1;
 	on = 1
 	},
+/obj/machinery/vending/chinese,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
 "bMA" = (
-/obj/structure/chair/comfy/brown{
-	dir = 8
-	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
+/obj/item/radio/intercom{
+	pixel_x = 29;
+	pixel_y = -1
+	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -42850,10 +42846,15 @@
 /turf/simulated/wall,
 /area/engine/break_room)
 "bOh" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
-/area/engine/break_room)
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = -24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "cautioncorner"
+	},
+/area/hallway/primary/port)
 "bOi" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall,
@@ -42868,24 +42869,32 @@
 /turf/simulated/floor/plasteel,
 /area/storage/tech)
 "bOm" = (
-/obj/structure/sign/poster/contraband/atmosia_independence{
-	pixel_x = 32
-	},
+/obj/structure/chair/comfy/brown,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
 "bOn" = (
-/obj/machinery/firealarm{
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/obj/machinery/power/apc{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "cautioncorner"
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
 	},
-/area/hallway/primary/port)
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "yellow"
+	},
+/area/engine/break_room)
 "bOo" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -44043,7 +44052,7 @@
 	},
 /area/engine/break_room)
 "bQv" = (
-/obj/machinery/vending/chinese,
+/obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -44988,28 +44997,20 @@
 	},
 /area/hallway/primary/central)
 "bSk" = (
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = -3;
-	pixel_y = 6
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 8;
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
 "bSl" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
-/obj/structure/table,
 /obj/item/storage/box/donkpockets,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -45018,8 +45019,8 @@
 "bSm" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/engine/break_room)
 "bSo" = (
@@ -46187,12 +46188,6 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "bUv" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -46202,17 +46197,18 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
 "bUw" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -46244,14 +46240,13 @@
 	},
 /area/engine/break_room)
 "bUz" = (
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
 /obj/machinery/disposal,
+/obj/structure/sign/poster/contraband/atmosia_independence{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -47273,7 +47268,9 @@
 /obj/machinery/ai_status_display{
 	pixel_y = -32
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/chair/comfy/brown{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "yellow"
@@ -47287,18 +47284,18 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/structure/chair/comfy/brown{
-	dir = 4
-	},
+/obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
 "bWx" = (
-/obj/structure/table/wood,
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
+	},
+/obj/structure/chair/comfy/brown{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -47313,9 +47310,11 @@
 	pixel_x = 28;
 	pixel_y = -32
 	},
-/obj/structure/chair/comfy/brown{
-	dir = 8
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -22
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellow"
@@ -47698,8 +47697,7 @@
 /area/hallway/primary/port)
 "bXB" = (
 /obj/structure/disposalpipe/junction{
-	dir = 8;
-	icon_state = "pipe-j2"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -47736,11 +47734,9 @@
 	dir = 8;
 	network = list("SS13","Security")
 	},
-/obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = 28
+/obj/structure/chair/comfy/brown{
+	dir = 1
 	},
-/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -72503,7 +72499,7 @@
 "cWO" = (
 /obj/structure/table/wood,
 /obj/machinery/light,
-/obj/structure/sign/poster/contraband{
+/obj/structure/sign/poster/contraband/lamarr{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -101013,6 +101009,12 @@
 	icon_state = "redfull"
 	},
 /area/security/seceqstorage)
+"pzo" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellowcorner"
+	},
+/area/engine/break_room)
 "pBz" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/browntrenchcoat,
@@ -102176,6 +102178,15 @@
 /obj/machinery/status_display,
 /turf/simulated/wall/r_wall,
 /area/security/permasolitary)
+"uHe" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurplecorner"
+	},
+/area/medical/research)
 "uJk" = (
 /obj/structure/rack,
 /obj/item/gun/energy/ionrifle,
@@ -130375,8 +130386,8 @@ bGH
 bIF
 bKr
 bMw
-bOh
 bQs
+bOn
 bSk
 bUv
 bWu
@@ -130633,8 +130644,8 @@ byl
 byl
 bQs
 bQs
-byl
 bSl
+bIA
 bUw
 bWv
 bwP
@@ -130890,7 +130901,7 @@ bID
 byl
 bMy
 bQt
-bQt
+pzo
 bSm
 bUx
 bWw
@@ -131660,11 +131671,11 @@ bGN
 bIK
 bKw
 byl
+bQs
+bQs
+bQs
 byl
 byl
-bwP
-bwP
-bwP
 bwP
 bXU
 bXU
@@ -131916,8 +131927,8 @@ bty
 bGO
 bWz
 bWz
+bOh
 bWz
-bOn
 bWz
 bWz
 bUA
@@ -136833,7 +136844,7 @@ cHx
 cXU
 cZt
 dau
-dau
+uHe
 dau
 dau
 dau
