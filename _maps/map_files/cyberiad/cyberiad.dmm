@@ -231,7 +231,7 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -417,7 +417,7 @@
 /obj/machinery/recharger,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /turf/simulated/floor/plating,
 /area/security/range)
@@ -607,8 +607,7 @@
 /area/security/range)
 "adH" = (
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /obj/machinery/suit_storage_unit/security/hos,
 /turf/simulated/floor/plasteel{
@@ -792,8 +791,7 @@
 "aed" = (
 /obj/machinery/computer/secure_data,
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /obj/machinery/firealarm{
 	dir = 4;
@@ -957,8 +955,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -1251,7 +1248,7 @@
 	icon_state = "4-8"
 	},
 /obj/item/radio/intercom{
-	pixel_x = 25
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1319,7 +1316,7 @@
 /area/security/prisonershuttle)
 "afa" = (
 /obj/item/radio/intercom{
-	pixel_y = -27
+	pixel_y = -28
 	},
 /obj/structure/table,
 /obj/item/clothing/under/color/orange/prison,
@@ -1358,7 +1355,7 @@
 /obj/machinery/computer/med_data/laptop,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/machinery/light{
 	dir = 8
@@ -1885,8 +1882,7 @@
 	pixel_y = 24
 	},
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -2074,7 +2070,7 @@
 	dir = 4
 	},
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -2141,11 +2137,10 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/item/lock_buster,
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/item/storage/box/chemimp{
 	pixel_x = 4;
@@ -2178,7 +2173,7 @@
 /area/security/medbay)
 "ahQ" = (
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/machinery/camera{
 	c_tag = "Brig Main Hall East 1"
@@ -2541,7 +2536,7 @@
 /area/security/armoury)
 "aix" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -3005,7 +3000,7 @@
 /area/security/podbay)
 "ajt" = (
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /turf/simulated/floor/engine,
 /area/security/podbay)
@@ -3024,8 +3019,7 @@
 /area/security/podbay)
 "ajv" = (
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /obj/machinery/status_display{
 	layer = 4;
@@ -3645,7 +3639,7 @@
 /area/security/hos)
 "akK" = (
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4040,7 +4034,7 @@
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/machinery/light{
 	dir = 8
@@ -4303,7 +4297,6 @@
 "alS" = (
 /obj/structure/closet,
 /obj/item/radio/intercom{
-	dir = 0;
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -4424,8 +4417,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -4435,7 +4427,7 @@
 "amd" = (
 /obj/structure/closet/secure_closet/security,
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -4463,7 +4455,7 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -4627,11 +4619,10 @@
 /obj/structure/table,
 /obj/machinery/recharger,
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /obj/machinery/camera{
 	c_tag = "Brig Warden's Office"
@@ -5306,7 +5297,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -25
+	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -5435,8 +5426,7 @@
 	pixel_x = -28
 	},
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -5454,7 +5444,7 @@
 "aoc" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/machinery/light{
 	dir = 8
@@ -6072,7 +6062,7 @@
 /obj/structure/closet,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -6255,7 +6245,7 @@
 "apA" = (
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = -27
+	pixel_x = -28
 	},
 /obj/structure/table/reinforced,
 /obj/item/stack/medical/bruise_pack/advanced,
@@ -6593,8 +6583,7 @@
 	dir = 8
 	},
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -7327,8 +7316,7 @@
 /area/security/brig)
 "arD" = (
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7851,7 +7839,6 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	dir = 0;
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -8112,7 +8099,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -25
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -8134,7 +8121,6 @@
 "asY" = (
 /obj/structure/chair/office/dark,
 /obj/item/radio/intercom{
-	dir = 0;
 	pixel_x = -28;
 	pixel_y = -28
 	},
@@ -8525,7 +8511,6 @@
 	},
 /obj/machinery/light,
 /obj/item/radio/intercom{
-	dir = 0;
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -8672,7 +8657,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -8846,8 +8831,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9596,7 +9580,7 @@
 /area/security/permabrig)
 "avp" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -10401,14 +10385,14 @@
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "awZ" = (
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10857,7 +10841,6 @@
 /area/security/processing)
 "axQ" = (
 /obj/item/radio/intercom{
-	dir = 0;
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -12186,7 +12169,7 @@
 /obj/item/clothing/glasses/sunglasses/blindfold,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -12310,7 +12293,7 @@
 /obj/item/pen,
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25
+	pixel_x = 24
 	},
 /obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/plasteel{
@@ -12359,8 +12342,7 @@
 	pixel_y = -7
 	},
 /obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = 5
+	pixel_x = 28
 	},
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
@@ -12535,7 +12517,6 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/item/radio/intercom{
-	dir = 0;
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -12544,8 +12525,7 @@
 /area/security/prison/cell_block/A)
 "aBb" = (
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
@@ -12941,7 +12921,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -25
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -13510,7 +13490,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -13883,8 +13863,7 @@
 "aEn" = (
 /obj/structure/chair/office/dark,
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /obj/effect/landmark/start{
 	name = "Detective"
@@ -15267,8 +15246,7 @@
 	dir = 8
 	},
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/machinery/firealarm{
 	pixel_y = 24
@@ -15575,7 +15553,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
@@ -15997,7 +15975,7 @@
 "aJn" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -17791,20 +17769,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/courtroom)
-"aNH" = (
-/obj/structure/grille,
-/obj/structure/window/basic,
-/obj/structure/window/basic{
-	dir = 1
-	},
-/obj/structure/window/basic{
-	dir = 8
-	},
-/obj/structure/window/basic{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint2)
 "aNI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -17836,7 +17800,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/machinery/camera{
 	c_tag = "Fore Primary Hallway South";
@@ -18285,7 +18249,7 @@
 /obj/item/storage/toolbox/electrical,
 /obj/item/multitool,
 /obj/item/radio/intercom{
-	pixel_x = 25
+	pixel_x = 28
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -18390,22 +18354,12 @@
 "aOX" = (
 /obj/structure/lattice,
 /obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 8;
+	name = "8maintenance loot spawner"
+	},
 /turf/space,
 /area/space/nearstation)
-"aOY" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint2)
 "aOZ" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
@@ -18563,7 +18517,7 @@
 "aPx" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -25
+	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
@@ -18646,7 +18600,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -18778,7 +18732,7 @@
 /area/maintenance/electrical)
 "aPT" = (
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -18967,8 +18921,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /obj/structure/table,
 /obj/item/stack/tape_roll,
@@ -19064,8 +19017,7 @@
 "aQA" = (
 /obj/machinery/vending/snack,
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -19125,8 +19077,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -19288,7 +19239,7 @@
 /area/crew_quarters/sleep)
 "aRa" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/machinery/light{
 	dir = 1
@@ -20652,7 +20603,7 @@
 	dir = 8
 	},
 /obj/machinery/alarm{
-	pixel_y = 25
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -20976,15 +20927,14 @@
 /area/crew_quarters/dorms)
 "aUN" = (
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
 "aUO" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/machinery/camera{
 	c_tag = "Medbay Lobby West"
@@ -21001,8 +20951,7 @@
 	},
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = -5;
-	pixel_y = 30
+	pixel_y = 28
 	},
 /obj/structure/table,
 /obj/item/folder/white,
@@ -21166,7 +21115,7 @@
 	dir = 1
 	},
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -21297,8 +21246,7 @@
 "aVx" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/structure/closet/walllocker/emerglocker/north,
 /turf/simulated/floor/plasteel{
@@ -21734,7 +21682,7 @@
 "aWn" = (
 /obj/structure/table,
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/item/t_scanner,
 /turf/simulated/floor/plasteel,
@@ -21742,7 +21690,7 @@
 "aWo" = (
 /obj/structure/table,
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/item/assembly/signaler,
 /obj/item/assembly/signaler,
@@ -21965,8 +21913,7 @@
 /obj/item/stack/packageWrap,
 /obj/item/reagent_scanner/adv,
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/machinery/camera{
 	c_tag = "Medbay Chemistry North"
@@ -22193,7 +22140,7 @@
 /area/chapel/office)
 "aXk" = (
 /obj/machinery/alarm{
-	pixel_y = 25
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -22708,8 +22655,7 @@
 	c_tag = "Medbay Coroner"
 	},
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -22736,7 +22682,7 @@
 /area/medical/morgue)
 "aYr" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -22899,7 +22845,7 @@
 /area/crew_quarters/sleep)
 "aYJ" = (
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/carpet,
@@ -22920,8 +22866,7 @@
 /area/maintenance/fsmaint2)
 "aYL" = (
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -23476,7 +23421,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -23665,7 +23610,7 @@
 /area/library)
 "bav" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/structure/table/wood,
 /obj/item/dice/d20,
@@ -23877,7 +23822,7 @@
 /area/maintenance/fsmaint2)
 "baQ" = (
 /obj/machinery/alarm{
-	pixel_y = 25
+	pixel_y = 24
 	},
 /turf/simulated/floor/engine,
 /area/escapepodbay)
@@ -24459,8 +24404,7 @@
 /area/maintenance/fsmaint2)
 "bbZ" = (
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -24666,8 +24610,7 @@
 /obj/item/pen,
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/chapel/office)
@@ -24690,7 +24633,7 @@
 /area/maintenance/fpmaint)
 "bcw" = (
 /obj/machinery/alarm{
-	pixel_y = 25
+	pixel_y = 24
 	},
 /obj/machinery/camera{
 	c_tag = "Chapel Chaplain's Office"
@@ -25075,7 +25018,7 @@
 /obj/item/flashlight/lamp/bananalamp,
 /obj/item/reagent_containers/food/snacks/pie,
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /turf/simulated/floor/wood,
 /area/clownoffice)
@@ -25118,7 +25061,7 @@
 /obj/structure/statue/tranquillite/mime,
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -25288,7 +25231,7 @@
 	dir = 1
 	},
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/structure/closet/chefcloset,
 /turf/simulated/floor/plasteel{
@@ -25772,7 +25715,7 @@
 /area/crew_quarters/bar)
 "beI" = (
 /obj/item/radio/intercom{
-	pixel_y = -30
+	pixel_y = -28
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -26261,7 +26204,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -26332,7 +26275,7 @@
 /area/crew_quarters/kitchen)
 "bfD" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/structure/closet/secure_closet/hydroponics,
 /obj/structure/cable{
@@ -26407,7 +26350,7 @@
 /area/maintenance/fsmaint2)
 "bfJ" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass,
@@ -26753,7 +26696,7 @@
 "bgw" = (
 /obj/item/radio/intercom{
 	dir = 1;
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -26830,7 +26773,6 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	dir = 0;
 	pixel_x = -28
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -26974,7 +26916,7 @@
 /area/hallway/primary/central/north)
 "bgV" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -27234,7 +27176,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -27558,7 +27500,7 @@
 "bih" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/machinery/light{
 	dir = 8
@@ -27867,8 +27809,7 @@
 	},
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -28076,7 +28017,7 @@
 /area/turret_protected/aisat_interior)
 "bjc" = (
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/closet/secure_closet/bar{
 	req_access_txt = "25"
@@ -28266,8 +28207,7 @@
 /area/clownoffice)
 "bjA" = (
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/machinery/status_display{
 	layer = 4;
@@ -28512,7 +28452,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
@@ -30314,7 +30254,7 @@
 /area/bridge)
 "bob" = (
 /obj/machinery/alarm{
-	pixel_y = 25
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -30428,7 +30368,7 @@
 	c_tag = "Kitchen"
 	},
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/machinery/kitchen_machine/candy_maker,
 /turf/simulated/floor/plasteel{
@@ -30708,6 +30648,7 @@
 /area/crew_quarters/kitchen)
 "boT" = (
 /obj/machinery/firealarm{
+	dir = 1;
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
@@ -30763,7 +30704,6 @@
 "bpa" = (
 /obj/structure/closet/wardrobe/mixed,
 /obj/item/radio/intercom{
-	dir = 0;
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel,
@@ -30771,7 +30711,7 @@
 "bpb" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/structure/table,
 /obj/item/storage/box/lights/mixed,
@@ -30839,7 +30779,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
@@ -31113,7 +31053,7 @@
 "bpF" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -31605,7 +31545,7 @@
 "bqP" = (
 /obj/machinery/computer/secure_data,
 /obj/machinery/alarm{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -31734,7 +31674,7 @@
 "brf" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/machinery/camera{
 	c_tag = "Bar West";
@@ -31913,7 +31853,7 @@
 /area/library)
 "brB" = (
 /obj/item/radio/intercom{
-	pixel_x = 25
+	pixel_x = 28
 	},
 /obj/machinery/libraryscanner,
 /turf/simulated/floor/wood,
@@ -31937,7 +31877,7 @@
 "brE" = (
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25
+	pixel_x = 24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -32171,7 +32111,7 @@
 "bsm" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/tools)
@@ -32541,7 +32481,7 @@
 "btd" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/alarm{
-	pixel_y = 25
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
@@ -33265,7 +33205,7 @@
 "buU" = (
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -33337,7 +33277,7 @@
 /area/security/vacantoffice)
 "bvc" = (
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
@@ -34037,8 +33977,7 @@
 /area/hallway/secondary/exit)
 "bwF" = (
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -34732,7 +34671,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -34878,6 +34817,7 @@
 "byi" = (
 /obj/structure/table/wood,
 /obj/machinery/firealarm{
+	dir = 1;
 	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
@@ -35384,7 +35324,7 @@
 /area/hallway/primary/starboard/west)
 "bzi" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -35621,7 +35561,7 @@
 /obj/item/storage/box,
 /obj/item/storage/box,
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -35858,7 +35798,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -35894,7 +35834,7 @@
 /area/hallway/primary/starboard/west)
 "bAp" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -36253,7 +36193,6 @@
 /area/quartermaster/storage)
 "bBk" = (
 /obj/item/radio/intercom{
-	dir = 0;
 	pixel_x = -28
 	},
 /obj/structure/cable{
@@ -36365,7 +36304,7 @@
 "bBy" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/machinery/porta_turret{
 	dir = 4
@@ -36631,7 +36570,7 @@
 "bCv" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -36706,7 +36645,7 @@
 /area/crew_quarters/captain)
 "bCB" = (
 /obj/item/radio/intercom{
-	pixel_y = -30
+	pixel_y = -28
 	},
 /obj/machinery/light/small,
 /obj/structure/chair/wood/wings{
@@ -36733,7 +36672,7 @@
 "bCF" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -36871,7 +36810,7 @@
 	},
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = -25
+	pixel_x = -28
 	},
 /obj/item/roller,
 /turf/simulated/floor/plasteel{
@@ -37858,7 +37797,7 @@
 /area/quartermaster/storage)
 "bFr" = (
 /obj/machinery/alarm{
-	pixel_y = 25
+	pixel_y = 24
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -37954,7 +37893,7 @@
 /area/quartermaster/office)
 "bFz" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -38024,7 +37963,7 @@
 "bFI" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
@@ -38067,8 +38006,7 @@
 /area/hallway/secondary/entry)
 "bFN" = (
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -38420,7 +38358,7 @@
 "bGu" = (
 /obj/machinery/computer/rdconsole/robotics,
 /obj/machinery/alarm{
-	pixel_y = 25
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -39075,7 +39013,7 @@
 "bHL" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -25
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -39641,7 +39579,7 @@
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -39992,7 +39930,7 @@
 "bJE" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -40136,7 +40074,7 @@
 	dir = 8
 	},
 /obj/machinery/alarm{
-	pixel_y = 25
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -40384,7 +40322,7 @@
 "bKo" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/machinery/r_n_d/destructive_analyzer,
 /obj/effect/decal/warning_stripes/northwest,
@@ -40400,7 +40338,7 @@
 "bKq" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -41107,7 +41045,7 @@
 /obj/machinery/reagentgrinder,
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -41127,8 +41065,7 @@
 	},
 /obj/item/storage/firstaid/brute,
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/machinery/firealarm{
 	pixel_y = 24
@@ -41191,7 +41128,7 @@
 	pixel_x = -23
 	},
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -41363,7 +41300,7 @@
 	dir = 1
 	},
 /obj/machinery/firealarm{
-	pixel_y = 27
+	pixel_y = 24
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
@@ -41717,7 +41654,7 @@
 	},
 /obj/item/storage/firstaid/regular,
 /obj/machinery/alarm{
-	pixel_y = 25
+	pixel_y = 24
 	},
 /obj/machinery/camera{
 	c_tag = "Medbay Medicine Storage"
@@ -42003,7 +41940,7 @@
 	dir = 4
 	},
 /obj/machinery/firealarm{
-	dir = 8;
+	dir = 4;
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -42060,7 +41997,7 @@
 /obj/machinery/light,
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -42212,7 +42149,7 @@
 	icon_state = "2-4"
 	},
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -42310,7 +42247,7 @@
 	},
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_y = -32
+	pixel_y = -28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -42552,7 +42489,7 @@
 "bOt" = (
 /obj/machinery/computer/supplycomp/public,
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -42955,7 +42892,7 @@
 "bPf" = (
 /obj/structure/closet/secure_closet/paramedic,
 /obj/machinery/firealarm{
-	dir = 8;
+	dir = 4;
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -43200,7 +43137,7 @@
 /obj/structure/cable,
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -25
+	pixel_y = -24
 	},
 /obj/structure/closet,
 /turf/simulated/floor/plating,
@@ -44806,7 +44743,7 @@
 "bSC" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer,
 /obj/machinery/alarm{
-	pixel_y = 25
+	pixel_y = 24
 	},
 /obj/machinery/camera{
 	c_tag = "Medbay Cloning"
@@ -44867,8 +44804,7 @@
 /area/medical/genetics)
 "bSH" = (
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -44977,7 +44913,7 @@
 	dir = 8
 	},
 /obj/machinery/firealarm{
-	pixel_y = 27
+	pixel_y = 24
 	},
 /obj/machinery/light{
 	dir = 1
@@ -45172,8 +45108,7 @@
 /area/toxins/lab)
 "bTh" = (
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/machinery/firealarm{
 	pixel_y = 24
@@ -45308,7 +45243,7 @@
 /obj/item/bedsheet/captain,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain/bedroom)
@@ -45500,7 +45435,7 @@
 /area/teleporter)
 "bTS" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/structure/closet/crate,
 /obj/item/crowbar,
@@ -45524,7 +45459,7 @@
 	c_tag = "Teleporter Room"
 	},
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/teleporter)
@@ -45544,8 +45479,7 @@
 "bTY" = (
 /obj/machinery/disposal,
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/firealarm{
@@ -45574,8 +45508,7 @@
 	tag = ""
 	},
 /obj/item/radio/intercom{
-	pixel_x = 29;
-	pixel_y = -1
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -45753,8 +45686,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/structure/table/tray,
 /obj/item/scalpel,
@@ -46242,7 +46174,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -47044,7 +46976,7 @@
 /obj/structure/table,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel,
@@ -47258,7 +47190,7 @@
 /area/medical/genetics)
 "bXt" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -47524,7 +47456,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = -25
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -47589,7 +47521,7 @@
 /obj/item/roller,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -25
+	pixel_x = -24
 	},
 /obj/machinery/light{
 	dir = 8
@@ -48419,8 +48351,7 @@
 	pixel_y = 5
 	},
 /obj/item/radio/intercom{
-	pixel_x = -32;
-	pixel_y = -8
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -48429,8 +48360,7 @@
 /area/medical/cmo)
 "bZx" = (
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -48979,8 +48909,7 @@
 /area/medical/genetics_cloning)
 "cab" = (
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -48988,7 +48917,7 @@
 /area/medical/research)
 "cad" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -49541,7 +49470,7 @@
 "cbe" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /turf/simulated/floor/bluegrid,
 /area/server)
@@ -49573,7 +49502,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/structure/closet/radiation,
 /obj/machinery/light,
@@ -50274,7 +50203,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
@@ -50293,7 +50222,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -50309,8 +50238,7 @@
 	},
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = -5;
-	pixel_y = -30
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -50345,7 +50273,7 @@
 /obj/machinery/light,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/radio/intercom{
-	pixel_y = -25
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -50517,7 +50445,7 @@
 /area/maintenance/asmaint2)
 "ccN" = (
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/closet/l3closet/janitor,
 /turf/simulated/floor/plasteel,
@@ -50525,7 +50453,7 @@
 "ccO" = (
 /obj/structure/closet/jcloset,
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
@@ -50680,7 +50608,7 @@
 "cdb" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/toxins/server)
@@ -51268,7 +51196,7 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
@@ -51326,7 +51254,7 @@
 /area/hallway/primary/central/south)
 "ceC" = (
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
@@ -51534,7 +51462,6 @@
 "cff" = (
 /obj/machinery/computer/security/mining,
 /obj/item/radio/intercom{
-	dir = 0;
 	pixel_x = -28
 	},
 /obj/machinery/camera{
@@ -51765,7 +51692,7 @@
 	pixel_y = 6
 	},
 /obj/machinery/alarm{
-	pixel_y = 25
+	pixel_y = 24
 	},
 /obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/reagent_containers/iv_bag/salglu,
@@ -51876,8 +51803,7 @@
 	pixel_y = 6
 	},
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/machinery/status_display{
 	layer = 4;
@@ -52094,7 +52020,7 @@
 "cfY" = (
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = -25
+	pixel_x = -28
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -52835,7 +52761,7 @@
 "chE" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
@@ -52896,7 +52822,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -23
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -52906,7 +52832,7 @@
 "chM" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -53083,8 +53009,7 @@
 	dir = 6
 	},
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -53141,8 +53066,7 @@
 /area/quartermaster/miningdock)
 "ciq" = (
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /obj/item/stack/ore/iron,
 /obj/effect/decal/warning_stripes/north,
@@ -53458,7 +53382,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
@@ -53473,7 +53397,7 @@
 	},
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = -25
+	pixel_x = -28
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
@@ -53990,8 +53914,7 @@
 	network = list("Telepad","Research","SS13")
 	},
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /obj/structure/sign/nosmoking_2{
 	pixel_y = 32
@@ -54014,7 +53937,7 @@
 "cjK" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -54747,7 +54670,7 @@
 /obj/machinery/washing_machine,
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -55003,7 +54926,7 @@
 "clU" = (
 /obj/item/radio/intercom{
 	dir = 1;
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -55012,8 +54935,7 @@
 /area/toxins/explab_chamber)
 "clV" = (
 /obj/item/radio/intercom{
-	pixel_x = 29;
-	pixel_y = -1
+	pixel_x = 28
 	},
 /turf/simulated/floor/wood,
 /area/blueshield)
@@ -55030,7 +54952,7 @@
 "clX" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -55550,7 +55472,7 @@
 "cmW" = (
 /obj/item/radio/intercom{
 	dir = 1;
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
@@ -55563,8 +55485,7 @@
 /obj/item/extinguisher,
 /obj/item/clothing/mask/gas,
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/item/grenade/chem_grenade/firefighting,
 /turf/simulated/floor/plasteel{
@@ -55585,7 +55506,7 @@
 /area/toxins/mixing)
 "cmZ" = (
 /obj/machinery/alarm{
-	pixel_y = 25
+	pixel_y = 24
 	},
 /obj/effect/decal/warning_stripes/southwestcorner,
 /obj/machinery/portable_atmospherics/canister,
@@ -55792,11 +55713,10 @@
 /area/hallway/primary/aft)
 "cnB" = (
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -55842,8 +55762,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -56261,8 +56180,7 @@
 /area/ntrep)
 "cop" = (
 /obj/item/radio/intercom{
-	pixel_x = 29;
-	pixel_y = -1
+	pixel_x = 28
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -56423,7 +56341,7 @@
 	pixel_x = 32
 	},
 /obj/machinery/alarm{
-	pixel_y = 31
+	pixel_y = 24
 	},
 /obj/machinery/driver_button{
 	id_tag = "toxinsdriver";
@@ -57322,8 +57240,7 @@
 /area/toxins/mixing)
 "cqg" = (
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/machinery/status_display{
 	layer = 4;
@@ -57384,8 +57301,7 @@
 /area/toxins/mixing)
 "cql" = (
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/machinery/atmospherics/unary/thermomachine/freezer,
 /obj/effect/decal/warning_stripes/northwestcorner,
@@ -58200,11 +58116,10 @@
 /obj/structure/closet/l3closet,
 /obj/item/clothing/mask/gas,
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -58432,7 +58347,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -58895,7 +58810,7 @@
 /obj/item/storage/box/monkeycubes/farwacubes,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/machinery/light{
 	dir = 8
@@ -59633,7 +59548,7 @@
 /obj/item/pen,
 /obj/item/radio/intercom{
 	dir = 1;
-	pixel_x = -25
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -59763,7 +59678,7 @@
 /obj/item/storage/box/syringes,
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -25
+	pixel_y = -24
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -59875,7 +59790,7 @@
 /area/medical/cmostore)
 "cuB" = (
 /obj/machinery/alarm{
-	pixel_y = 25
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -59955,7 +59870,7 @@
 "cuJ" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -60422,7 +60337,7 @@
 	dir = 1
 	},
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -61411,7 +61326,7 @@
 "cxx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/firealarm{
-	dir = 8;
+	dir = 4;
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -61425,7 +61340,7 @@
 /obj/item/flashlight/lamp/green,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -23
+	pixel_x = -24
 	},
 /turf/simulated/floor/carpet,
 /area/medical/psych)
@@ -61693,8 +61608,7 @@
 	tag = ""
 	},
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -61833,7 +61747,7 @@
 	},
 /obj/structure/closet/emcloset,
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -61990,8 +61904,7 @@
 	tag = ""
 	},
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -62717,7 +62630,7 @@
 "czW" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/structure/sink{
 	dir = 8;
@@ -63574,7 +63487,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -63605,8 +63518,7 @@
 /obj/structure/table,
 /obj/item/clothing/under/color/grey,
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
@@ -63709,7 +63621,7 @@
 /area/engine/controlroom)
 "cBZ" = (
 /obj/machinery/alarm{
-	pixel_y = 22
+	pixel_y = 24
 	},
 /obj/structure/table,
 /obj/item/radio/electropack,
@@ -63762,8 +63674,7 @@
 "cCe" = (
 /obj/structure/closet/secure_closet/scientist,
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -63816,8 +63727,7 @@
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /obj/machinery/status_display{
 	layer = 4;
@@ -63850,8 +63760,7 @@
 /area/toxins/misc_lab)
 "cCl" = (
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /obj/structure/disaster_counter/scichem{
 	pixel_y = 32
@@ -63865,7 +63774,7 @@
 /obj/machinery/chem_master,
 /obj/item/radio/intercom{
 	dir = 1;
-	pixel_y = 25
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -64419,7 +64328,7 @@
 	pixel_y = 27
 	},
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -64440,7 +64349,7 @@
 	},
 /obj/item/radio/intercom{
 	dir = 1;
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/machinery/atmospherics/binary/volume_pump/on{
 	dir = 8;
@@ -64633,7 +64542,7 @@
 /obj/machinery/hologram/holopad,
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_y = -32
+	pixel_y = -28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
@@ -64945,7 +64854,7 @@
 "cEl" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -65494,13 +65403,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
-"cFv" = (
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/genetics)
 "cFw" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -65937,13 +65839,6 @@
 	icon_state = "vault"
 	},
 /area/toxins/misc_lab)
-"cGe" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/turf/simulated/floor/engine,
-/area/engine/mechanic_workshop)
 "cGf" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -66205,7 +66100,7 @@
 "cGC" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -66396,7 +66291,6 @@
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/effect/decal/warning_stripes/northeast,
 /obj/item/radio/intercom{
-	dir = 0;
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -66970,7 +66864,7 @@
 	sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
 	},
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
@@ -67777,7 +67671,7 @@
 /obj/item/paper/pamphlet,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/item/stack/tape_roll,
 /obj/machinery/camera/motion{
@@ -68760,7 +68654,7 @@
 "cLt" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -69368,7 +69262,7 @@
 /area/toxins/xenobiology)
 "cMK" = (
 /obj/machinery/alarm{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/west)
@@ -69834,8 +69728,7 @@
 /area/assembly/assembly_line)
 "cNL" = (
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -69982,7 +69875,7 @@
 "cOc" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -70420,7 +70313,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -23
+	pixel_x = -24
 	},
 /obj/structure/sink{
 	dir = 8;
@@ -70429,7 +70322,7 @@
 	},
 /obj/item/radio/intercom{
 	dir = 1;
-	pixel_y = 25
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
@@ -70710,7 +70603,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /obj/item/clothing/mask/gas,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
@@ -70989,7 +70882,7 @@
 	dir = 10
 	},
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
@@ -71165,7 +71058,7 @@
 	},
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_y = -32
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -71880,7 +71773,6 @@
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/item/multitool,
 /obj/item/radio/intercom{
-	dir = 0;
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -73110,7 +73002,7 @@
 /area/engine/engineering)
 "cUk" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/structure/table,
 /obj/item/book/manual/engineering_hacking{
@@ -74176,8 +74068,7 @@
 /obj/structure/flora/tree/palm,
 /obj/item/clothing/head/soft/rainbow,
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /turf/simulated/floor/beach/sand,
 /area/hallway/secondary/exit)
@@ -74377,7 +74268,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -74732,8 +74623,7 @@
 "cYd" = (
 /obj/structure/chair,
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -74951,7 +74841,6 @@
 "cYH" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/radio/intercom{
-	dir = 0;
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -75004,7 +74893,7 @@
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/machinery/light,
 /obj/machinery/light{
@@ -75787,7 +75676,7 @@
 /obj/structure/table,
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /obj/item/storage/firstaid/o2{
 	layer = 2.8;
@@ -75880,8 +75769,7 @@
 /area/atmos)
 "daS" = (
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
@@ -75940,8 +75828,8 @@
 "daZ" = (
 /obj/machinery/power/apc{
 	dir = 8;
-	name = "Escape Podbay APC";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -76533,7 +76421,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25
+	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -76841,7 +76729,7 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/item/storage/toolbox/emergency,
 /obj/item/radio/intercom{
-	pixel_y = -30
+	pixel_y = -28
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -77956,7 +77844,7 @@
 "dfC" = (
 /obj/item/radio/intercom{
 	dir = 1;
-	pixel_y = 25
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -78103,25 +77991,13 @@
 	},
 /area/maintenance/storage)
 "dfU" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/tinted{
-	dir = 8;
-	tag = ""
-	},
-/obj/structure/window/reinforced/tinted{
-	dir = 1
-	},
-/obj/structure/window/reinforced/tinted{
-	dir = 4;
-	tag = ""
-	},
-/obj/structure/window/reinforced/tinted,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/effect/spawner/window/reinforced/tinted,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dgb" = (
@@ -78688,7 +78564,7 @@
 "dhN" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -78943,7 +78819,7 @@
 "dix" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/alarm{
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/machinery/light{
 	dir = 1
@@ -79230,7 +79106,7 @@
 /area/crew_quarters/bar)
 "dji" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/machinery/camera{
 	c_tag = "Bar North"
@@ -79364,7 +79240,7 @@
 	dir = 8
 	},
 /obj/machinery/alarm{
-	pixel_y = 22
+	pixel_y = 24
 	},
 /obj/machinery/camera{
 	c_tag = "Hydroponics Pasture"
@@ -79393,19 +79269,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "djA" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/tinted{
-	dir = 8;
-	tag = ""
-	},
-/obj/structure/window/reinforced/tinted{
-	dir = 1
-	},
-/obj/structure/window/reinforced/tinted{
-	dir = 4;
-	tag = ""
-	},
-/obj/structure/window/reinforced/tinted,
+/obj/effect/spawner/window/reinforced/tinted,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "djB" = (
@@ -79681,8 +79545,7 @@
 "dke" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /obj/item/radio/intercom{
 	dir = 4;
@@ -79774,7 +79637,7 @@
 /area/atmos)
 "dkl" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -79935,8 +79798,7 @@
 /area/maintenance/asmaint2)
 "dkH" = (
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /obj/machinery/turretid/stun{
 	control_area = "\improper AI Satellite Service";
@@ -80063,7 +79925,7 @@
 "dkR" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -81050,7 +80912,7 @@
 "dmS" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/machinery/camera/motion{
 	c_tag = "AI Satellite Hallway";
@@ -81768,7 +81630,7 @@
 /obj/machinery/computer/card,
 /obj/item/radio/intercom{
 	dir = 1;
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/machinery/light{
 	dir = 1
@@ -81950,7 +81812,7 @@
 /area/turret_protected/aisat_interior)
 "doI" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -81990,7 +81852,7 @@
 /obj/machinery/computer/station_alert,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -82053,8 +81915,7 @@
 /area/turret_protected/aisat_interior)
 "dpg" = (
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /obj/machinery/teleport/station,
 /turf/simulated/floor/plating,
@@ -82225,7 +82086,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/machinery/space_heater,
 /obj/machinery/camera{
@@ -82260,8 +82121,7 @@
 	})
 "dpV" = (
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /obj/machinery/alarm{
 	dir = 8;
@@ -82486,7 +82346,7 @@
 /area/turret_protected/ai)
 "drq" = (
 /obj/machinery/alarm{
-	pixel_y = 22
+	pixel_y = 24
 	},
 /obj/structure/chair{
 	dir = 8
@@ -82771,7 +82631,7 @@
 "dsh" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -82898,7 +82758,7 @@
 	},
 /obj/item/radio/intercom{
 	dir = 1;
-	pixel_y = 25
+	pixel_y = 28
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plasteel,
@@ -83049,7 +82909,7 @@
 "dtq" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -24
 	},
 /obj/structure/table,
 /obj/item/storage/belt/utility,
@@ -83174,8 +83034,7 @@
 	dir = 4
 	},
 /obj/machinery/light{
-	dir = 1;
-	in_use = 1
+	dir = 1
 	},
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
@@ -83966,7 +83825,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -84089,7 +83948,7 @@
 "lLC" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 1
@@ -84661,7 +84520,7 @@
 	dir = 10
 	},
 /obj/machinery/alarm{
-	pixel_y = 22
+	pixel_y = 24
 	},
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
@@ -85038,7 +84897,6 @@
 	dir = 1
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
 	pixel_y = -28
 	},
 /obj/machinery/light/small,
@@ -85104,7 +84962,7 @@
 "wnU" = (
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -85163,7 +85021,7 @@
 	dir = 1
 	},
 /obj/machinery/firealarm{
-	pixel_y = 27
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -101831,7 +101689,7 @@ aLu
 aLr
 aGn
 aGn
-aOY
+aII
 aGn
 aGn
 aRB
@@ -102601,7 +102459,7 @@ aHl
 aLx
 aGn
 aGn
-aNH
+aII
 aGn
 aGn
 aGn
@@ -104206,7 +104064,7 @@ cBn
 cCD
 cDO
 cEW
-cGe
+cEv
 cFX
 cIG
 cEW
@@ -127861,7 +127719,7 @@ cDg
 bQX
 bQX
 bQX
-cFv
+cfZ
 bQX
 bQX
 cIc
@@ -128632,7 +128490,7 @@ cDh
 bQX
 ciY
 cEE
-cFv
+cfZ
 bQX
 cHf
 cIb
@@ -128642,7 +128500,7 @@ cKE
 ciY
 bQX
 cNh
-cFv
+cfZ
 cep
 aaa
 aaa
