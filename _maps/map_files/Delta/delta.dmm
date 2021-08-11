@@ -66654,10 +66654,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "cLa" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plating,
