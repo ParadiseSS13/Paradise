@@ -165,8 +165,7 @@
 				break
 
 	var/turf/T = src.loc			// hide if turf is not intact
-	if(!T.transparent_floor)
-		hide(T.intact)
+	hide(T.intact)
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible
