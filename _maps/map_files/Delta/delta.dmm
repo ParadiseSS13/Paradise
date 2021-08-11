@@ -46181,11 +46181,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering Break Room";
+	req_access_txt = "10"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bUv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -47291,11 +47295,12 @@
 	},
 /area/engine/break_room)
 "bWx" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
 /obj/structure/chair/comfy/brown{
 	dir = 8
+	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -72727,6 +72732,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -75057,6 +75063,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "white"
@@ -99847,6 +99854,12 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
+"kMe" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/research)
 "kOC" = (
 /obj/structure/table,
 /obj/item/storage/fancy/crayons,
@@ -100772,6 +100785,12 @@
 	icon_state = "neutral"
 	},
 /area/maintenance/starboard)
+"ocZ" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellowcorner"
+	},
+/area/engine/break_room)
 "odY" = (
 /obj/machinery/camera{
 	c_tag = "Aft Starboard Solars"
@@ -100819,6 +100838,15 @@
 /obj/structure/filingcabinet,
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
+"omJ" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurplecorner"
+	},
+/area/medical/research)
 "osS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -101009,12 +101037,6 @@
 	icon_state = "redfull"
 	},
 /area/security/seceqstorage)
-"pzo" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
-	},
-/area/engine/break_room)
 "pBz" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/browntrenchcoat,
@@ -101689,6 +101711,13 @@
 	icon_state = "neutralfull"
 	},
 /area/security/brig)
+"sLl" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "cmo"
+	},
+/area/medical/medbay2)
 "sPS" = (
 /obj/structure/cable,
 /obj/machinery/power/solar_control{
@@ -102178,15 +102207,6 @@
 /obj/machinery/status_display,
 /turf/simulated/wall/r_wall,
 /area/security/permasolitary)
-"uHe" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurplecorner"
-	},
-/area/medical/research)
 "uJk" = (
 /obj/structure/rack,
 /obj/item/gun/energy/ionrifle,
@@ -130901,7 +130921,7 @@ bID
 byl
 bMy
 bQt
-pzo
+ocZ
 bSm
 bUx
 bWw
@@ -136844,7 +136864,7 @@ cHx
 cXU
 cZt
 dau
-uHe
+omJ
 dau
 dau
 dau
@@ -138132,7 +138152,7 @@ cMb
 cNB
 cPk
 cRa
-cMm
+kMe
 cMm
 cMm
 cWO
@@ -150721,7 +150741,7 @@ cUA
 cMz
 cJt
 cLf
-cMC
+sLl
 cOi
 cMC
 cSP
