@@ -1,15 +1,33 @@
+/**
+  * The absolute base class for everything.
+  *
+  * A datum instantiated has no physical world prescence, use an atom if you want something
+  * that actually lives in the world.
+  *
+  * Be very mindful about adding variables to this class, they are inherited by every single
+  * thing in the entire game, and so you can easily cause memory usage to rise a lot with careless
+  * use of variables at this level.
+  */
 /datum
-	var/gc_destroyed //Time when this object was destroyed.
-	var/list/active_timers  //for SStimer
-	var/list/datum_components //for /datum/components
-	/// Status traits attached to this datum
-	var/list/status_traits
+	/**
+	  * Tick count time when this object was destroyed.
+	  *
+	  * If this is non zero then the object has been garbage collected and is awaiting either
+	  * a hard del by the GC subsystme, or to be autocollected (if it has no references)
+	  */
+	var/gc_destroyed
+	/**
+	  * Components attached to this datum.
+	  *
+	  * Lazy associated list in the structure of `type:component/list of components`
+	  */
+	var/list/datum_components
+	/**
+	  * Any datum registered to receive signals from this datum is in this list.
+	  *
+	  * Lazy associated list in the structure of `signal:registree/list of registrees`
+	  */
 	var/list/comp_lookup
-	var/list/list/datum/callback/signal_procs
-	var/signal_enabled = FALSE
-	var/var_edited = FALSE //Warranty void if seal is broken
-	var/tmp/unique_datum_id = null
-
 	/**
 	  * Lazy associative list of currently active cooldowns.
 	  *
@@ -17,6 +35,21 @@
 	  * addtimer() returns the truthy value of -1 when not stoppable, and else a truthy numeric index
 	  */
 	var/list/cooldowns
+
+	/// Active timers with this datum as the target.
+	var/list/active_timers
+	/// Status traits attached to this datum.
+	var/list/status_traits
+
+	/// Lazy associated list in the structure of `signals:proctype` that are run when the datum receives that signal.
+	var/list/list/datum/callback/signal_procs
+	///Is this datum capable of sending signals?
+	var/signal_enabled = FALSE
+
+	/// Has this datum been varedited by an admin?
+	var/var_edited = FALSE //Warranty void if seal is broken
+	/// Unique ID number (UID) of the datum, used in place of `\ref`.
+	var/tmp/unique_datum_id = null
 
 #ifdef REFERENCE_TRACKING
 	var/running_find_references

@@ -455,6 +455,15 @@ SUBSYSTEM_DEF(timer)
 	else
 		. = "[callBack.object.type]"
 
+/**
+ * Create a new timer and insert it in the queue.
+ * You should not call this directly, and should instead use the addtimer macro, which includes source information.
+ *
+ * Arguments:
+ * * callback - The callback to call on timer finish
+ * * wait - Deciseconds to run the timer for
+ * * flags - Flags for this timer, see: code\__DEFINES\subsystems.dm
+ */
 /proc/addtimer(datum/callback/callback, wait = 0, flags = 0)
 	if(!callback)
 		CRASH("addtimer called without a callback")
@@ -499,6 +508,12 @@ SUBSYSTEM_DEF(timer)
 	var/datum/timedevent/timer = new(callback, wait, flags, hash)
 	return timer.id
 
+/**
+ * Delete a timer
+ *
+ * Arguments:
+ * * id - A timerid or a [/datum/timedevent]
+ */
 /proc/deltimer(id)
 	if(!id)
 		return FALSE
