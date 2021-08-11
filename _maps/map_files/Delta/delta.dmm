@@ -40044,7 +40044,8 @@
 /area/engine/break_room)
 "bIz" = (
 /obj/structure/disposalpipe/sortjunction{
-	name = "CE's Junction"
+	name = "CE's Junction";
+	sortType = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -48569,7 +48570,8 @@
 /area/engine/engineering)
 "bZy" = (
 /obj/structure/disposalpipe/sortjunction{
-	name = "Engineering Junction"
+	name = "Engineering Junction";
+	sortType = 4
 	},
 /obj/structure/cable{
 	d1 = 1;
