@@ -34,6 +34,7 @@
 #include "code\__DEFINES\combat.dm"
 #include "code\__DEFINES\construction.dm"
 #include "code\__DEFINES\contractors.dm"
+#include "code\__DEFINES\cooldowns.dm"
 #include "code\__DEFINES\crafting.dm"
 #include "code\__DEFINES\criminal_status.dm"
 #include "code\__DEFINES\cult.dm"

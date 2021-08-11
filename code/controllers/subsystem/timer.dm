@@ -515,6 +515,26 @@ SUBSYSTEM_DEF(timer)
 		return TRUE
 	return FALSE
 
+/**
+ * Get the remaining deciseconds on a timer
+ *
+ * Arguments:
+ * * id a timerid or a /datum/timedevent
+ */
+/proc/timeleft(id)
+	if(!id)
+		return null
+	if(id == TIMER_ID_NULL)
+		CRASH("Tried to get timeleft of a null timerid. Use TIMER_STOPPABLE flag")
+	if(istype(id, /datum/timedevent))
+		var/datum/timedevent/timer = id
+		return timer.timeToRun - world.time
+
+	var/datum/timedevent/timer = SStimer.timer_id_dict[id]
+	if(!timer || timer.spent)
+		return null
+	return timer.timeToRun - (timer.flags & TIMER_CLIENT_TIME ? REALTIMEOFDAY : world.time)
+
 
 #undef BUCKET_LEN
 #undef BUCKET_POS
