@@ -14,7 +14,7 @@
 	var/location_override
 	/// Do we have a special item we give to somewhen when they get this objective?
 	var/special_equipment = null
-	/// If a steal objective has forbiden jobs, and the forbiden jobs would not be in the possession of this item, set this to false
+	/// If a steal objective has forbidden jobs, and the forbidden jobs would not be in the possession of this item, set this to false
 	var/job_possession = TRUE
 
 /datum/theft_objective/proc/check_completion(datum/mind/owner)
