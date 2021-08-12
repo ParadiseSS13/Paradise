@@ -1,5 +1,4 @@
-
-/datum/contractor_hub/ui_act(action, list/params)
+/datum/contractor_hub/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
@@ -44,7 +43,6 @@
 	if(!ui)
 		ui = new(user, src, ui_key, "Contractor", "Syndicate Contractor Uplink", 500, 600, master_ui, state)
 		ui.open()
-		ui.set_autoupdate(FALSE)
 
 /datum/contractor_hub/ui_data(mob/user)
 	var/list/data = list()
@@ -67,6 +65,7 @@
 
 	switch(page)
 		if(HUB_PAGE_CONTRACTS)
+			var/contract_target
 			var/list/contracts_out = list()
 			data["contracts"] = contracts_out
 			for(var/c in contracts)
@@ -99,15 +98,26 @@
 						contract_data["dead_extraction"] = C.dead_extraction
 					if(CONTRACT_STATUS_FAILED)
 						contract_data["fail_reason"] = C.fail_reason
+
 				if(C.contract.extraction_zone)
+					contract_target = C.contract.target?.current
+					var/area/A = get_area(user)
 					contract_data["objective"] = list(
-						extraction_zone = C.contract.extraction_zone.map_name,
-						reward_tc = C.reward_tc[C.chosen_difficulty],
-						reward_credits = C.reward_credits,
+						extraction_name = C.contract.extraction_zone.map_name,
+						locs = list(
+							user_area_id = A.uid,
+							user_coords = ATOM_COORDS(user),
+							target_area_id = C.contract.extraction_zone.uid,
+							target_coords = ATOM_COORDS(C.contract.extraction_zone),
+						),
+						rewards = list(tc = C.reward_tc[C.chosen_difficulty], credits = C.reward_credits)
 					)
 				contracts_out += list(contract_data)
 
-			data["can_extract"] = current_contract?.contract.can_start_extraction_process(ui_host(), usr) || FALSE
+			data["can_extract"] = FALSE
+			if(contract_target)
+				data["can_extract"] = current_contract?.contract.can_start_extraction_process(user, contract_target)
+
 		if(HUB_PAGE_SHOP)
 			var/list/buyables = list()
 			for(var/p in purchases)
