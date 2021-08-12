@@ -32175,9 +32175,6 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_y = -32
 	},
-/obj/structure/disposalpipe/sortjunction{
-	name = "CE's Junction"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
