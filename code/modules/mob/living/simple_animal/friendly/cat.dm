@@ -127,9 +127,9 @@
 				stop_automated_movement = 0
 				break
 		for(var/obj/item/toy/cattoy/T in view(1, src))
-			if(!TIMER_COOLDOWN_CHECK(src, "cat toy"))
+			if(!TIMER_COOLDOWN_CHECK(src, "cat_toy"))
 				custom_emote(1, "bats [T] around with its paw!")
-				TIMER_COOLDOWN_START(src, "cat toy", 40 SECONDS)
+				TIMER_COOLDOWN_START(src, "cat_toy", 40 SECONDS)
 
 /mob/living/simple_animal/pet/cat/handle_automated_movement()
 	. = ..()

@@ -7,14 +7,15 @@
 	magic_fluff_string = "..And draw the Scientist, master of explosive death."
 	tech_fluff_string = "Boot sequence complete. Explosive modules active. Holoparasite swarm online."
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, capable of stealthily booby trapping items."
-	var/bomb_cooldown = 0
+	COOLDOWN_DECLARE(bomb_cooldown)
 	var/default_bomb_cooldown = 20 SECONDS
 
 /mob/living/simple_animal/hostile/guardian/bomb/Stat()
 	..()
 	if(statpanel("Status"))
-		if(bomb_cooldown >= world.time)
-			stat(null, "Bomb Cooldown Remaining: [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] seconds")
+		var/time_left = round(COOLDOWN_TIMELEFT(src, bomb_cooldown) / 10)
+		if(time_left)
+			stat(null, "Bomb Cooldown Remaining: [time_left] second\s")
 
 /mob/living/simple_animal/hostile/guardian/bomb/AltClickOn(atom/movable/A)
 	if(!istype(A))
@@ -23,17 +24,17 @@
 		to_chat(src, "<span class='danger'>You're too far from [A] to disguise it as a bomb.</span>")
 		return
 	if(istype(A, /obj/))
-		if(bomb_cooldown <= world.time && !stat)
+		if(!stat && COOLDOWN_FINISHED(src, bomb_cooldown))
+			COOLDOWN_START(src, bomb_cooldown, default_bomb_cooldown)
 			var/obj/item/guardian_bomb/B = new /obj/item/guardian_bomb(get_turf(A))
 			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")
 			to_chat(src, "<span class='danger'>Success! Bomb on [A] armed!</span>")
 			if(summoner)
 				to_chat(summoner, "<span class='warning'>Your guardian has primed [A] to explode!</span>")
-			bomb_cooldown = world.time + default_bomb_cooldown
 			B.spawner = src
 			B.disguise (A)
 		else
-			to_chat(src, "<span class='danger'>Your power is on cooldown! You must wait another [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] seconds before you can place next bomb.</span>")
+			to_chat(src, "<span class='danger'>Your power is on cooldown! You must wait another [round(COOLDOWN_TIMELEFT(src, bomb_cooldown) / 10)] seconds before you can place next bomb.</span>")
 
 /obj/item/guardian_bomb
 	name = "bomb"

@@ -9,12 +9,14 @@
 	item_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
 	w_class = WEIGHT_CLASS_TINY
 	flags = CONDUCT
-	var/next_use_time
 	var/spamcheck = 0
+	COOLDOWN_DECLARE(halt_cooldown)
 
 /obj/item/hailer/attack_self(mob/living/carbon/user as mob)
-	if(world.time < next_use_time)
+	if(!COOLDOWN_FINISHED(src, halt_cooldown))
 		return
+
+	COOLDOWN_START(src, halt_cooldown, USE_COOLDOWN)
 
 	if(emagged)
 		playsound(get_turf(src), 'sound/voice/binsult.ogg', 100, 1, vary = 0)//hueheuheuheuheuheuhe
@@ -23,9 +25,7 @@
 		playsound(get_turf(src), 'sound/voice/halt.ogg', 100, 1, vary = 0)
 		user.visible_message("<span class='warning'>[user]'s [name] rasps, \"Halt! Security!\"</span>")
 
-	next_use_time = world.time + USE_COOLDOWN
-
-/obj/item/hailer/emag_act(user as mob)
+/obj/item/hailer/emag_act(user)
 	if(!emagged)
 		to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
 		emagged = 1

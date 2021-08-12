@@ -65,7 +65,7 @@ SUBSYSTEM_DEF(tickets)
 		var/datum/ticket/ticket = T
 		if(!(ticket.ticketState == TICKET_OPEN))
 			continue
-		if(world.time > ticket.timeUntilStale && (!ticket.lastStaffResponse || !ticket.staffAssigned))
+		if(COOLDOWN_FINISHED(ticket, stale_timer) && (!ticket.lastStaffResponse || !ticket.staffAssigned))
 			var/id = ticket.makeStale()
 			stales += id
 	return stales
@@ -99,7 +99,7 @@ SUBSYSTEM_DEF(tickets)
 	if((T = checkForOpenTicket(C)))
 		ticketNum = T.ticketNum
 		T.addResponse(C, text)
-		T.setCooldownPeriod()
+		COOLDOWN_START(T, new_ticket_cooldown, TICKET_DUPLICATE_COOLDOWN)
 		to_chat(C.mob, "<span class='[span_class]'>Your [ticket_name] #[ticketNum] remains open! Visit \"My tickets\" under the Admin Tab to view it.</span>")
 		var/url_message = makeUrlMessage(C, text, ticketNum)
 		message_staff(url_message, NONE, TRUE)
@@ -267,7 +267,7 @@ SUBSYSTEM_DEF(tickets)
 //Check if the user already has a ticket open and within the cooldown period.
 /datum/controller/subsystem/tickets/proc/checkForOpenTicket(client/C)
 	for(var/datum/ticket/T in allTickets)
-		if(T.client_ckey == C.ckey && T.ticketState == TICKET_OPEN && (T.ticketCooldown > world.time))
+		if(T.client_ckey == C.ckey && T.ticketState == TICKET_OPEN && !COOLDOWN_FINISHED(T, new_ticket_cooldown))
 			return T
 	return FALSE
 
@@ -320,10 +320,10 @@ SUBSYSTEM_DEF(tickets)
 	var/ticketState
 	/// Has the ticket been converted to another type? (Mhelp to Ahelp, etc.)
 	var/ticket_converted = FALSE
-	/// When the ticket goes stale.
-	var/timeUntilStale
+	/// Timer before the ticket goes stale.
+	COOLDOWN_DECLARE(stale_timer)
 	/// Cooldown before allowing the user to open another ticket.
-	var/ticketCooldown
+	COOLDOWN_DECLARE(new_ticket_cooldown)
 	/// Staff member who has assigned themselves to this ticket.
 	var/client/staffAssigned
 
@@ -333,14 +333,10 @@ SUBSYSTEM_DEF(tickets)
 	content = list()
 	content += cont
 	timeOpened = worldtime2text()
-	timeUntilStale = world.time + TICKET_TIMEOUT
-	setCooldownPeriod()
+	COOLDOWN_START(src, new_ticket_cooldown, TICKET_DUPLICATE_COOLDOWN)
+	COOLDOWN_START(src, stale_timer, TICKET_TIMEOUT)
 	ticketNum = num
 	ticketState = TICKET_OPEN
-
-//Set the cooldown period for the ticket. The time when it's created plus the defined cooldown time.
-/datum/ticket/proc/setCooldownPeriod()
-	ticketCooldown = world.time + TICKET_DUPLICATE_COOLDOWN
 
 //Set the last staff who responded as the client passed as an arguement.
 /datum/ticket/proc/setLastStaffResponse(client/C)

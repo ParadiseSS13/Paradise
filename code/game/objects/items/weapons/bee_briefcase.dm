@@ -13,7 +13,7 @@
 	var/bees_left = 10
 	var/list/blood_list = list()
 	var/sound_file = 'sound/misc/briefcase_bees.ogg'
-	var/next_sound = 0
+	COOLDOWN_DECLARE(sound_cooldown)
 
 /obj/item/bee_briefcase/Destroy()
 	blood_list.Cut()
@@ -61,8 +61,8 @@
 		to_chat(user, "<span class='danger'>The lack of all and any bees at this event has been somewhat of a let-down...</span>")
 		return
 	else
-		if(world.time >= next_sound)		//This cooldown doesn't prevent us from releasing bees, just stops the sound
-			next_sound = world.time + 90
+		if(COOLDOWN_FINISHED(src, sound_cooldown))		//This cooldown doesn't prevent us from releasing bees, just stops the sound
+			COOLDOWN_START(src, sound_cooldown, 9 SECONDS)
 			playsound(loc, sound_file, 35)
 
 		//Release up to 5 bees per use. Without using strange reagent, that means two uses. WITH strange reagent, you can get more if you don't release the last bee

@@ -326,9 +326,13 @@ REAGENT SCANNER
 	throw_range = 7
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 	origin_tech = "magnets=1;engineering=1"
-	var/cooldown = FALSE
-	var/cooldown_time = 250
+	/// Cooldown for the barometer.
+	var/cooldown_time = 25 SECONDS
 	var/accuracy // 0 is the best accuracy.
+
+/obj/item/analyzer/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_CD_STOP("barometer"), .proc/ping)
 
 /obj/item/analyzer/examine(mob/user)
 	. = ..()
@@ -390,7 +394,7 @@ REAGENT SCANNER
 
 	if(!user.incapacitated() && Adjacent(user))
 
-		if(cooldown)
+		if(TIMER_COOLDOWN_CHECK(src, "barometer"))
 			to_chat(user, "<span class='warning'>[src]'s barometer function is prepraring itself.</span>")
 			return
 
@@ -427,15 +431,13 @@ REAGENT SCANNER
 				to_chat(user, "<span class='warning'>[src]'s barometer function was unable to trace any weather patterns.</span>")
 			else
 				to_chat(user, "<span class='warning'>[src]'s barometer function says a storm will land in approximately [butchertime(fixed)].</span>")
-		cooldown = TRUE
-		addtimer(CALLBACK(src,/obj/item/analyzer/proc/ping), cooldown_time)
+		TIMER_COOLDOWN_START(src, "barometer", cooldown_time)
 
 /obj/item/analyzer/proc/ping()
+	SIGNAL_HANDLER
 	if(isliving(loc))
-		var/mob/living/L = loc
-		to_chat(L, "<span class='notice'>[src]'s barometer function is ready!</span>")
+		to_chat(loc, "<span class='notice'>[src]'s barometer function is ready!</span>")
 	playsound(src, 'sound/machines/click.ogg', 100)
-	cooldown = FALSE
 
 /obj/item/analyzer/proc/butchertime(amount)
 	if(!amount)

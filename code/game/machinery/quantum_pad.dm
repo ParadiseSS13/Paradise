@@ -7,9 +7,9 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
 	active_power_usage = 5000
-	var/teleport_cooldown = 400 //30 seconds base due to base parts
+	var/teleport_delay = 40 SECONDS // 40 seconds base due to base parts
 	var/teleport_speed = 50
-	var/last_teleport //to handle the cooldown
+	COOLDOWN_DECLARE(teleport_cooldown)
 	var/teleporting = 0 //if it's in the process of teleporting
 	var/power_efficiency = 1
 	var/obj/machinery/quantumpad/linked_pad = null
@@ -38,8 +38,8 @@
 		E += M.rating
 	teleport_speed = initial(teleport_speed)
 	teleport_speed -= (E*10)
-	teleport_cooldown = initial(teleport_cooldown)
-	teleport_cooldown -= (E * 100)
+	teleport_delay = initial(teleport_delay)
+	teleport_delay -= (E * 100)
 
 /obj/machinery/quantumpad/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -80,8 +80,9 @@
 		to_chat(user, "<span class='warning'>There is no linked pad!</span>")
 		return
 
-	if(world.time < last_teleport + teleport_cooldown)
-		to_chat(user, "<span class='warning'>[src] is recharging power. Please wait [round((last_teleport + teleport_cooldown - world.time) / 10)] seconds.</span>")
+	var/time_left = round(COOLDOWN_TIMELEFT(src, teleport_cooldown) / 10)
+	if(!time_left)
+		to_chat(user, "<span class='warning'>[src] is recharging power. Please wait [time_left] seconds.</span>")
 		return
 
 	if(teleporting)
@@ -124,7 +125,7 @@
 				return
 
 			teleporting = 0
-			last_teleport = world.time
+			COOLDOWN_START(src, teleport_cooldown, teleport_delay)
 
 			// use a lot of power
 			use_power(10000 / power_efficiency)

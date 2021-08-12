@@ -342,8 +342,8 @@
 	deckstyle = "nanotrasen"
 	icon_state = "deck_nanotrasen_full"
 	w_class = WEIGHT_CLASS_SMALL
-	var/cooldown = 0
 	var/list/cards = list()
+	COOLDOWN_DECLARE(shuffle_cooldown)
 
 /obj/item/toy/cards/deck/New()
 	..()
@@ -388,12 +388,12 @@
 	visible_message("<span class='notice'>[user] draws a card from the deck.</span>", "<span class='notice'>You draw a card from the deck.</span>")
 	update_icon()
 
-/obj/item/toy/cards/deck/attack_self(mob/user as mob)
-	if(cooldown < world.time - 50)
+/obj/item/toy/cards/deck/attack_self(mob/user)
+	if(COOLDOWN_FINISHED(src, shuffle_cooldown))
+		COOLDOWN_START(src, shuffle_cooldown, 5 SECONDS)
 		cards = shuffle(cards)
 		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
 		user.visible_message("<span class='notice'>[user] shuffles the deck.</span>", "<span class='notice'>You shuffle the deck.</span>")
-		cooldown = world.time
 
 /obj/item/toy/cards/deck/attackby(obj/item/toy/cards/singlecard/C, mob/living/user, params)
 	..()

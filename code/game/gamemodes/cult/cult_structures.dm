@@ -35,7 +35,6 @@
 //Cult versions cuase fuck map conflicts
 /obj/structure/cult/functional
 	max_integrity = 100
-	var/cooldowntime = 0
 	var/death_message = "<span class='danger'>The structure falls apart.</span>" //The message shown when the structure is destroyed
 	var/death_sound = 'sound/items/bikehorn.ogg'
 	var/heathen_message = "You're a huge nerd, go away. Also, a coder forgot to put a message here."
@@ -44,6 +43,7 @@
 	var/creation_delay = 2400
 	var/list/choosable_items = list("A coder forgot to set this" = /obj/item/grown/bananapeel)
 	var/creation_message = "A dank smoke comes out, and you pass out. When you come to, you notice a %ITEM%!"
+	COOLDOWN_DECLARE(creation_cooldown)
 
 /obj/structure/cult/functional/obj_destruction()
 	visible_message(death_message)
@@ -52,7 +52,7 @@
 
 /obj/structure/cult/functional/examine(mob/user)
 	. = ..()
-	if(iscultist(user) && cooldowntime > world.time)
+	if(iscultist(user) && !COOLDOWN_FINISHED(src, creation_cooldown))
 		. += "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>"
 	. += "<span class='notice'>[src] is [anchored ? "":"not "]secured to the floor.</span>"
 
@@ -82,14 +82,14 @@
 	if(!anchored)
 		to_chat(user, "<span class='cultitalic'>You need to anchor [src] to the floor with a dagger first.</span>")
 		return
-	if(cooldowntime > world.time)
+	if(!COOLDOWN_FINISHED(src, creation_cooldown))
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>")
 		return
 
 	var/choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
 	var/picked_type = choosable_items[choice]
-	if(!QDELETED(src) && picked_type && Adjacent(user) && !user.incapacitated() && cooldowntime <= world.time)
-		cooldowntime = world.time + creation_delay
+	if(!QDELETED(src) && picked_type && Adjacent(user) && !user.incapacitated() && COOLDOWN_FINISHED(src, creation_cooldown))
+		COOLDOWN_START(src, creation_cooldown, creation_delay)
 		var/obj/O = new picked_type
 		if(istype(O, /obj/structure) || !user.put_in_hands(O))
 			O.forceMove(get_turf(src))
@@ -99,7 +99,7 @@
   * Returns the cooldown time in minutes and seconds
   */
 /obj/structure/cult/functional/proc/get_ETA()
-	var/time = cooldowntime - world.time
+	var/time = COOLDOWN_TIMELEFT(src, creation_cooldown)
 	var/minutes = round(time / 600)
 	var/seconds = round(time * 0.1, 1)
 	var/message

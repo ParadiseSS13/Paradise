@@ -9,10 +9,10 @@
 	tech_fluff_string = "Boot sequence complete. Medical modules active. Bluespace modules activated. Holoparasite swarm online."
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, capable of mending wounds and travelling via bluespace."
 	var/turf/simulated/floor/beacon
-	var/beacon_cooldown = 0
-	var/default_beacon_cooldown = 300 SECONDS
 	var/toggle = FALSE
-	var/heal_cooldown = 0
+	var/default_beacon_cooldown = 5 MINUTES
+	COOLDOWN_DECLARE(beacon_cooldown)
+	COOLDOWN_DECLARE(heal_cooldown)
 
 /mob/living/simple_animal/hostile/guardian/healer/sealhealer
 	name = "Seal Sprit"
@@ -40,8 +40,9 @@
 /mob/living/simple_animal/hostile/guardian/healer/Stat()
 	..()
 	if(statpanel("Status"))
-		if(beacon_cooldown >= world.time)
-			stat(null, "Bluespace Beacon Cooldown Remaining: [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] seconds")
+		var/time_left = round(COOLDOWN_TIMELEFT(src, beacon_cooldown) / 10)
+		if(time_left)
+			stat(null, "Bluespace Beacon Cooldown Remaining: [time_left] seconds")
 
 /mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
 	. = ..()
@@ -51,13 +52,13 @@
 			return
 		if(iscarbon(target))
 			changeNext_move(CLICK_CD_MELEE)
-			if(heal_cooldown <= world.time && !stat)
+			if(!stat && COOLDOWN_FINISHED(src, heal_cooldown))
+				COOLDOWN_START(src, heal_cooldown, 2 SECONDS)
 				var/mob/living/carbon/human/C = target
 				C.adjustBruteLoss(-5, robotic=1)
 				C.adjustFireLoss(-5, robotic=1)
 				C.adjustOxyLoss(-5)
 				C.adjustToxLoss(-5)
-				heal_cooldown = world.time + 20
 				if(C == summoner)
 					med_hud_set_health()
 					med_hud_set_status()
@@ -87,9 +88,10 @@
 	set name = "Place Bluespace Beacon"
 	set category = "Guardian"
 	set desc = "Mark a floor as your beacon point, allowing you to warp targets to it. Your beacon will not work in unfavorable atmospheric conditions."
-	if(beacon_cooldown < world.time)
+	if(COOLDOWN_FINISHED(src, beacon_cooldown))
 		var/turf/beacon_loc = get_turf(loc)
 		if(istype(beacon_loc, /turf/simulated/floor))
+			COOLDOWN_START(src, beacon_cooldown, default_beacon_cooldown)
 			var/turf/simulated/floor/F = beacon_loc
 			F.icon = 'icons/turf/floors.dmi'
 			F.name = "bluespace recieving pad"
@@ -99,10 +101,9 @@
 			if(beacon)
 				beacon.ChangeTurf(/turf/simulated/floor/plating)
 			beacon = F
-			beacon_cooldown = world.time + default_beacon_cooldown
 
 	else
-		to_chat(src, "<span class='danger'>Your power is on cooldown! You must wait another [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] seconds before you can place another beacon.</span>")
+		to_chat(src, "<span class='danger'>Your power is on cooldown! You must wait another [round(COOLDOWN_TIMELEFT(src, beacon_cooldown) / 10)] seconds before you can place another beacon.</span>")
 
 /mob/living/simple_animal/hostile/guardian/healer/AltClickOn(atom/movable/A)
 	if(!istype(A))

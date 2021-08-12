@@ -6,7 +6,7 @@
 	var/mob/living/silicon/ai/owner_AI //The owner AI, so we don't have to typecast every time
 	var/uses //If we have multiple uses of the same power
 	var/auto_use_uses = TRUE //If we automatically use up uses on each activation
-	var/cooldown_period //If applicable, the time in deciseconds we have to wait before using any more modules
+	var/cooldown_time //If applicable, the time we have to wait before using any more modules
 
 /datum/action/innate/ai/Grant(mob/living/L)
 	. = ..()
@@ -18,15 +18,15 @@
 
 /datum/action/innate/ai/IsAvailable()
 	. = ..()
-	if(owner_AI && owner_AI.malf_cooldown > world.time)
-		return
+	if(owner_AI && !COOLDOWN_FINISHED(owner_AI, malf_cooldown))
+		return FALSE
 
 /datum/action/innate/ai/Trigger()
 	. = ..()
 	if(auto_use_uses)
 		adjust_uses(-1)
-	if(cooldown_period)
-		owner_AI.malf_cooldown = world.time + cooldown_period
+	if(cooldown_time)
+		COOLDOWN_START(owner_AI, malf_cooldown, cooldown_time)
 
 /datum/action/innate/ai/proc/adjust_uses(amt, silent)
 	uses += amt
@@ -388,7 +388,7 @@
 	desc = "Detonate all non-cyborg RCDs on the station."
 	button_icon_state = "detonate_rcds"
 	uses = 1
-	cooldown_period = 100
+	cooldown_time = 10 SECONDS
 
 /datum/action/innate/ai/destroy_rcds/Activate()
 	for(var/obj/item/rcd/RCD in GLOB.rcd_list)
@@ -697,7 +697,7 @@
 	button_icon_state = "reactivate_cameras"
 	uses = 30
 	auto_use_uses = FALSE
-	cooldown_period = 30
+	cooldown_time = 3 SECONDS
 
 /datum/action/innate/ai/reactivate_cameras/New()
 	..()

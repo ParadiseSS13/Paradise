@@ -31,7 +31,7 @@
 	AIStatus = AI_OFF
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/ectoplasm = 1)
 	var/summoned = FALSE
-	var/cooldown = 0
+	COOLDOWN_DECLARE(manifest_cooldown)
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
 	var/light_on = 0
 	var/luminosity_on = 3
@@ -165,23 +165,21 @@
 //Manifest, Recall, Communicate
 
 /mob/living/simple_animal/hostile/guardian/proc/Manifest()
-	if(cooldown > world.time)
+	if(!COOLDOWN_FINISHED(src, manifest_cooldown) || !summoner)
 		return
-	if(!summoner) return
 	if(loc == summoner)
 		forceMove(get_turf(summoner))
 		new /obj/effect/temp_visual/guardian/phase(loc)
 		reset_perspective()
-		cooldown = world.time + 30
+		COOLDOWN_START(src, manifest_cooldown, 3 SECONDS)
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
-	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
+	if(!summoner || loc == summoner || (!COOLDOWN_FINISHED(src, manifest_cooldown) && !forced))
 		return
-	if(!summoner) return
 	new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
 	forceMove(summoner)
 	buckled = null
-	cooldown = world.time + 30
+	COOLDOWN_START(src, manifest_cooldown, 3 SECONDS)
 
 /mob/living/simple_animal/hostile/guardian/proc/Communicate(message)
 	var/input

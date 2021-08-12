@@ -48,12 +48,12 @@
 
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 /obj/item/multitool/ai_detect
-	var/track_cooldown = 0
-	var/track_delay = 10 //How often it checks for proximity
+	origin_tech = "magnets=1;engineering=2;syndicate=1"
+	COOLDOWN_DECLARE(track_cooldown)
+	var/track_delay = 1 SECONDS //How often it checks for proximity
 	var/detect_state = PROXIMITY_NONE
 	var/rangealert = 8	//Glows red when inside
 	var/rangewarning = 20 //Glows yellow when inside
-	origin_tech = "magnets=1;engineering=2;syndicate=1"
 
 /obj/item/multitool/ai_detect/New()
 	..()
@@ -64,12 +64,12 @@
 	return ..()
 
 /obj/item/multitool/ai_detect/process()
-	if(track_cooldown > world.time)
+	if(!COOLDOWN_FINISHED(src, track_cooldown))
 		return
 	detect_state = PROXIMITY_NONE
 	multitool_detect()
 	icon_state = "[initial(icon_state)][detect_state]"
-	track_cooldown = world.time + track_delay
+	COOLDOWN_START(src, track_cooldown, track_delay)
 
 /obj/item/multitool/ai_detect/proc/multitool_detect()
 	var/turf/our_turf = get_turf(src)

@@ -42,8 +42,6 @@
 	var/list/consumed_mobs = list()
 
 	var/list/nearby_mortals = list()
-	var/cooldown = 0
-	var/gorecooldown = 0
 	var/vialspawned = FALSE
 	loot = list(/obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic, /obj/item/organ/internal/heart/demon)
 	var/playstyle_string = "<B>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: to kill.  \

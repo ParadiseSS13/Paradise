@@ -1,19 +1,19 @@
+#define COOLDOWN_TRANSFORMER "robofactory"
+
 /obj/machinery/transformer
 	name = "Automatic Robotic Factory 5000"
 	desc = "A large metalic machine with an entrance and an exit. A sign on the side reads, 'human go in, robot come out', human must be lying down and alive. Has to cooldown between each use."
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "separator-AO1"
 	layer = MOB_LAYER+1 // Overhead
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	/// TRUE if the factory can transform dead mobs.
 	var/transform_dead = TRUE
 	/// TRUE if the mob can be standing and still be transformed.
 	var/transform_standing = TRUE
-	/// Cooldown between each transformation, in deciseconds.
+	/// Cooldown between each transformation in deciseconds.
 	var/cooldown_duration = 1 MINUTES
-	/// If the factory is currently on cooldown from its last transformation.
-	var/is_on_cooldown = FALSE
 	/// The type of cell that newly created borgs get.
 	var/robot_cell_type = /obj/item/stock_parts/cell/high/plus
 	/// The direction that mobs must moving in to get transformed.
@@ -26,6 +26,7 @@
 	if(_ai)
 		masterAI = _ai
 	initialize_belts()
+	RegisterSignal(src, COMSIG_CD_STOP(COOLDOWN_TRANSFORMER), .proc/cooldown_reset)
 
 /// Used to create all of the belts the transformer will be using. All belts should be pushing `WEST`.
 /obj/machinery/transformer/proc/initialize_belts()
@@ -52,7 +53,7 @@
 
 /obj/machinery/transformer/update_icon()
 	..()
-	if(is_on_cooldown || stat & (BROKEN|NOPOWER))
+	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_TRANSFORMER) || stat & (BROKEN|NOPOWER))
 		icon_state = "separator-AO0"
 	else
 		icon_state = initial(icon_state)
@@ -63,14 +64,14 @@
 	C.setDir(newdir)
 	acceptdir = turn(newdir, 180)
 
-/// Resets `is_on_cooldown` to `FALSE` and updates our icon. Used in a callback after the transformer does a transformation.
-/obj/machinery/transformer/proc/reset_cooldown()
-	is_on_cooldown = FALSE
+/// Updates the icon of the transformer after the cooldown ends. Called by `COMSIG_CD_STOP`.
+/obj/machinery/transformer/proc/cooldown_reset()
+	SIGNAL_HANDLER
 	update_icon()
 
 /obj/machinery/transformer/Bumped(atom/movable/AM)
 	// They have to be human to be transformed.
-	if(is_on_cooldown || !ishuman(AM))
+	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_TRANSFORMER) || !ishuman(AM))
 		return
 
 	var/mob/living/carbon/human/H = AM
@@ -82,7 +83,7 @@
 
 /// Transforms a human mob into a cyborg, connects them to the malf AI which placed the factory.
 /obj/machinery/transformer/proc/do_transform(mob/living/carbon/human/H)
-	if(is_on_cooldown || stat & (BROKEN|NOPOWER))
+	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_TRANSFORMER) || stat & (BROKEN|NOPOWER))
 		return
 
 	if(!transform_dead && H.stat == DEAD)
@@ -93,9 +94,8 @@
 	use_power(5000) // Use a lot of power.
 
 	// Activate the cooldown
-	is_on_cooldown = TRUE
+	TIMER_COOLDOWN_START(src, COOLDOWN_TRANSFORMER, cooldown_duration)
 	update_icon()
-	addtimer(CALLBACK(src, .proc/reset_cooldown), cooldown_duration)
 	addtimer(CALLBACK(null, .proc/playsound, loc, 'sound/machines/ping.ogg', 50, 0), 3 SECONDS)
 
 	H.emote("scream")
@@ -117,7 +117,7 @@
 	desc = "Turns anything placed inside black and white."
 
 /obj/machinery/transformer/mime/Bumped(atom/movable/AM)
-	if(is_on_cooldown)
+	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_TRANSFORMER))
 		return
 
 	// Crossed didn't like people lying down.
@@ -129,7 +129,7 @@
 		return
 
 /obj/machinery/transformer/proc/do_transform_mime(obj/item/I)
-	if(is_on_cooldown || stat & (BROKEN|NOPOWER))
+	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_TRANSFORMER) || stat & (BROKEN|NOPOWER))
 		return
 
 	playsound(loc, 'sound/items/welder.ogg', 50, 1)
@@ -140,9 +140,8 @@
 	I.icon = newicon
 
 	// Activate the cooldown
-	is_on_cooldown = TRUE
+	TIMER_COOLDOWN_START(src, COOLDOWN_TRANSFORMER, cooldown_duration)
 	update_icon()
-	addtimer(CALLBACK(src, .proc/reset_cooldown), cooldown_duration)
 
 /obj/machinery/transformer/xray
 	name = "Automatic X-Ray 5000"
@@ -177,7 +176,7 @@
 		icon_state = initial(icon_state)
 
 /obj/machinery/transformer/xray/Bumped(atom/movable/AM)
-	if(is_on_cooldown)
+	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_TRANSFORMER))
 		return
 
 	// Crossed didn't like people lying down.
@@ -324,3 +323,5 @@
 		return TRUE
 	else
 		return ..()
+
+#undef COOLDOWN_TRANSFORMER

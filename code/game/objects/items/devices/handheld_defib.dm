@@ -1,15 +1,18 @@
+#define COOLDOWN_HAND_DEFIB "handheld_defib"
+
 /obj/item/handheld_defibrillator
 	name = "handheld defibrillator"
 	desc = "Used to restart stopped hearts."
 	icon = 'icons/obj/items.dmi'
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "defib-on"
 	item_state = "defib"
 
 	var/icon_base = "defib"
-	var/cooldown = FALSE
-	var/charge_time = 100
+	var/charge_time = 10 SECONDS
+
+/obj/item/handheld_defibrillator/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_CD_STOP(COOLDOWN_HAND_DEFIB), .proc/recharge)
 
 /obj/item/handheld_defibrillator/emag_act(mob/user)
 	if(!emagged)
@@ -39,7 +42,7 @@
 	if(!istype(H))
 		return ..()
 
-	if(cooldown)
+	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_HAND_DEFIB))
 		to_chat(user, "<span class='warning'>[src] is still charging!</span>")
 		return
 
@@ -73,10 +76,9 @@
 				to_chat(user, "<span class='danger'>[src]'s on board scanner indicates that the target is undergoing a cardiac arrest!</span>")
 				H.set_heartattack(TRUE)
 
-		cooldown = TRUE
 		icon_state = "[icon_base]-shock"
-		addtimer(CALLBACK(src, .proc/short_charge), 10)
-		addtimer(CALLBACK(src, .proc/recharge), charge_time)
+		addtimer(CALLBACK(src, .proc/short_charge), 1 SECONDS)
+		TIMER_COOLDOWN_START(src, COOLDOWN_HAND_DEFIB, charge_time)
 
 	else
 		to_chat(user, "<span class='notice'>[src]'s on board medical scanner indicates that no shock is required.</span>")
@@ -85,6 +87,8 @@
 	icon_state = "[icon_base]-off"
 
 /obj/item/handheld_defibrillator/proc/recharge()
-	cooldown = FALSE
+	SIGNAL_HANDLER
 	icon_state = "[icon_base]-on"
-	playsound(loc, "sound/weapons/flash.ogg", 75, 1)
+	playsound(loc, "sound/weapons/flash.ogg", 75, TRUE)
+
+#undef COOLDOWN_HAND_DEFIB

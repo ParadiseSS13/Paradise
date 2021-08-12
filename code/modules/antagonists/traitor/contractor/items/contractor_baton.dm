@@ -4,7 +4,7 @@
 	// Overrides
 	affect_silicon = TRUE
 	stun_time = 1
-	cooldown = 2.5 SECONDS
+	cooldown_time = 2.5 SECONDS
 	force_off = 5
 	force_on = 15
 	item_state_on = "contractor_baton"

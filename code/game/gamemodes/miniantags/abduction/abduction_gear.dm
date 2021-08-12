@@ -19,7 +19,7 @@
 	allowed = list(/obj/item/abductor, /obj/item/abductor_baton, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
 	var/mode = VEST_STEALTH
 	var/stealth_active = 0
-	var/combat_cooldown = 10
+	COOLDOWN_DECLARE(combat_cooldown)
 	var/datum/icon_snapshot/disguise
 	var/stealth_armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 15, "rad" = 15, "fire" = 70, "acid" = 70)
 	var/combat_armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 50, "rad" = 50, "fire" = 90, "acid" = 90)
@@ -104,7 +104,7 @@
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/Adrenaline()
 	if(ishuman(loc))
-		if(combat_cooldown != initial(combat_cooldown))
+		if(!COOLDOWN_FINISHED(src, combat_cooldown))
 			to_chat(loc, "<span class='warning'>Combat injection is still recharging.</span>")
 			return
 		var/mob/living/carbon/human/M = loc
@@ -112,16 +112,9 @@
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
-		combat_cooldown = 0
-		START_PROCESSING(SSobj, src)
-
-/obj/item/clothing/suit/armor/abductor/vest/process()
-	combat_cooldown++
-	if(combat_cooldown==initial(combat_cooldown))
-		STOP_PROCESSING(SSobj, src)
+		COOLDOWN_START(src, combat_cooldown, 1 SECONDS)
 
 /obj/item/clothing/suit/armor/abductor/Destroy()
-	STOP_PROCESSING(SSobj, src)
 	for(var/obj/machinery/abductor/console/C in GLOB.machines)
 		if(C.vest == src)
 			C.vest = null

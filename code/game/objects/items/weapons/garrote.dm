@@ -11,7 +11,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/mob/living/carbon/human/strangling
 	var/improvised = 0
-	var/garrote_time
+	COOLDOWN_DECLARE(garrote_cooldown)
 
 /obj/item/twohanded/garrote/Destroy()
 	strangling = null
@@ -50,7 +50,7 @@
 		..()
 
 /obj/item/twohanded/garrote/attack(mob/living/carbon/M as mob, mob/user as mob)
-	if(garrote_time > world.time) // Cooldown
+	if(!COOLDOWN_FINISHED(src, garrote_cooldown))
 		return
 
 	if(!istype(user, /mob/living/carbon/human)) // spap_hand is a proc of /mob/living, user is simply /mob
@@ -96,7 +96,7 @@
 			G.hud.name = "kill"
 			M.AdjustSilence(1)
 
-	garrote_time = world.time + 10
+	COOLDOWN_START(src, garrote_cooldown, 1 SECONDS)
 	START_PROCESSING(SSobj, src)
 	strangling = M
 	update_icon()

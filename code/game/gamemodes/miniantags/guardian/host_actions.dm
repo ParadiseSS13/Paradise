@@ -55,6 +55,8 @@
 /datum/action/guardian/recall/Trigger()
 	guardian.Recall()
 
+#define COOLDOWN_GUARDIAN_REPLACE "guardian_replace"
+
 /**
  * # Reset guardian action
  *
@@ -64,15 +66,18 @@
 	name = "Replace Guardian Player"
 	desc = "Replace your guardian's player with a ghost. This can only be done once."
 	button_icon_state = "reset"
-	var/cooldown_timer
+
+/datum/action/guardian/reset_guardian/New(Target)
+	. = ..()
+	RegisterSignal(src, COMSIG_CD_STOP(COOLDOWN_GUARDIAN_REPLACE), .proc/cooldown_reset)
 
 /datum/action/guardian/reset_guardian/IsAvailable()
-	if(cooldown_timer)
+	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_GUARDIAN_REPLACE))
 		return FALSE
 	return TRUE
 
 /datum/action/guardian/reset_guardian/Trigger()
-	if(cooldown_timer)
+	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_GUARDIAN_REPLACE))
 		to_chat(owner, "<span class='warning'>This ability is still recharging.</span>")
 		return
 
@@ -81,7 +86,7 @@
 		return
 
 	// Do this immediately, so the user can't spam a bunch of polls.
-	cooldown_timer = addtimer(CALLBACK(src, .proc/reset_cooldown), 5 MINUTES)
+	TIMER_COOLDOWN_START(src, COOLDOWN_GUARDIAN_REPLACE, 5 MINUTES)
 	UpdateButtonIcon()
 
 	to_chat(owner, "<span class='danger'>Searching for a replacement ghost...</span>")
@@ -102,11 +107,13 @@
 	qdel(src)
 
 /**
- * Takes the action button off cooldown and makes it available again.
- */
-/datum/action/guardian/reset_guardian/proc/reset_cooldown()
-	cooldown_timer = null
+  * Makes the action button available again. Called by `COMSIG_CD_STOP` from the cooldown ending.
+  */
+/datum/action/guardian/reset_guardian/proc/cooldown_reset()
+	SIGNAL_HANDLER
 	UpdateButtonIcon()
+
+#undef COOLDOWN_GUARDIAN_REPLACE
 
 /**
  * Grants all existing `/datum/action/guardian` type actions to the src mob.

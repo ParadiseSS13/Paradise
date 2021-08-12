@@ -20,13 +20,13 @@
 	var/stun_time = 6 SECONDS_TO_LIFE_CYCLES
 	/// The stun time (in life cycles) for silicons
 	var/stun_time_silicon = 10 SECONDS_TO_LIFE_CYCLES
-	/// Cooldown in deciseconds between two knockdowns
-	var/cooldown = 4 SECONDS
+	/// Cooldown between each knockdown
+	var/cooldown_time = 4 SECONDS
 	/// Sound to play when knocking someone down
 	var/stun_sound = 'sound/effects/woodhit.ogg'
 	// Variables
 	/// Whether the baton is on cooldown
-	var/on_cooldown = FALSE
+	COOLDOWN_DECLARE(stun_cooldown)
 	/// Whether the baton is toggled on (to allow attacking)
 	var/on = TRUE
 
@@ -48,7 +48,7 @@
 
 	if(user.a_intent == INTENT_HARM)
 		return ..()
-	if(on_cooldown)
+	if(!COOLDOWN_FINISHED(src, stun_cooldown))
 		return
 	if(issilicon(target) && !affect_silicon)
 		return ..()
@@ -85,8 +85,7 @@
 	// Hit 'em
 	target.LAssailant = iscarbon(user) ? user : null
 	target.Weaken(stun_time)
-	on_cooldown = TRUE
-	addtimer(CALLBACK(src, .proc/cooldown_finished), cooldown)
+	COOLDOWN_START(src, stun_cooldown, cooldown_time)
 	return TRUE
 
 /**
@@ -109,12 +108,6 @@
   */
 /obj/item/melee/classic_baton/proc/on_non_silicon_stun(mob/living/target, mob/living/user)
 	return
-
-/**
-  * Called some time after a non-lethal attack
-  */
-/obj/item/melee/classic_baton/proc/cooldown_finished()
-	on_cooldown = FALSE
 
 /**
   * # Fancy Cane

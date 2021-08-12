@@ -18,9 +18,9 @@
 		visible_message("<span class='danger'>The explosion glances off [src]'s energy shielding!</span>")
 
 /mob/living/simple_animal/hostile/guardian/protector/ToggleMode()
-	if(cooldown > world.time)
+	if(!COOLDOWN_FINISHED(src, manifest_cooldown))
 		return 0
-	cooldown = world.time + 10
+	COOLDOWN_START(src, manifest_cooldown, 1 SECONDS)
 	if(toggle)
 		overlays.Cut()
 		melee_damage_lower = initial(melee_damage_lower)

@@ -23,14 +23,15 @@
 	materials = list(MAT_GLASS=7500, MAT_METAL=1000)
 	origin_tech = "materials=3;combat=4"
 	attack_verb = list("shoved", "bashed")
-	var/cooldown = 0 //shield bash cooldown. based on world.time
+	/// Cooldown timer for hitting the shield with a baton.
+	COOLDOWN_DECLARE(shieldbash_cooldown)
 
-/obj/item/shield/riot/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/melee/baton))
-		if(cooldown < world.time - 25)
-			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
-			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
-			cooldown = world.time
+/obj/item/shield/riot/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/melee/baton))
+		if(COOLDOWN_FINISHED(src, shieldbash_cooldown))
+			user.visible_message("<span class='warning'>[user] bashes [src] with [I]!</span>")
+			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, TRUE)
+			COOLDOWN_START(src, shieldbash_cooldown, 2.5 SECONDS)
 	else
 		..()
 

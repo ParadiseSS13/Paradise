@@ -39,8 +39,8 @@
 	var/uv_super = FALSE
 	/// How many uv cleaning cycles to do, counts down while cleaning takes place.
 	var/uv_cycles = 6
-	var/message_cooldown
 	var/breakout_time = 300
+	COOLDOWN_DECLARE(message_cooldown)
 
 	//abstract these onto machinery eventually
 	var/state_open = FALSE
@@ -481,8 +481,8 @@
 
 /obj/machinery/suit_storage_unit/relaymove(mob/user)
 	if(locked)
-		if(message_cooldown <= world.time)
-			message_cooldown = world.time + 50
+		if(COOLDOWN_FINISHED(src, message_cooldown))
+			COOLDOWN_START(src, message_cooldown, 5 SECONDS)
 			to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")
 		return
 	open_machine()

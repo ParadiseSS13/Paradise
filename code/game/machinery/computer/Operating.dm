@@ -1,4 +1,4 @@
-#define OP_COMPUTER_COOLDOWN 60
+#define OP_COMPUTER_COOLDOWN 6 SECONDS
 
 /obj/machinery/computer/operating
 	name = "operating computer"
@@ -14,7 +14,7 @@
 	var/choice = FALSE //just for going into and out of the options menu
 	var/healthAnnounce = TRUE //healther announcer toggle
 	var/crit = TRUE //crit beeping toggle
-	var/nextTick = OP_COMPUTER_COOLDOWN
+	COOLDOWN_DECLARE(message_cooldown)
 	var/healthAlarm = 50
 	var/oxy = TRUE //oxygen beeping toggle
 	/// Who is on the Operating Table connected to the respective Operating Computer?
@@ -202,8 +202,8 @@
 		patientStatusHolder = table.patient.stat
 		currentPatient = table.patient
 
-	if(nextTick < world.time)
-		nextTick=world.time + OP_COMPUTER_COOLDOWN
+	if(COOLDOWN_FINISHED(src, message_cooldown))
+		COOLDOWN_START(src, message_cooldown, OP_COMPUTER_COOLDOWN)
 		if(crit && table.patient.health <= -50 )
 			playsound(src.loc, 'sound/machines/defib_success.ogg', 50, 0)
 		if(oxy && table.patient.getOxyLoss()>oxyAlarm)
@@ -213,3 +213,5 @@
 		if(table.patient.stat != patientStatusHolder)
 			atom_say("Patient is now [patientStatus]")
 			patientStatusHolder = table.patient.stat
+
+#undef OP_COMPUTER_COOLDOWN

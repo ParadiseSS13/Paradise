@@ -1,3 +1,5 @@
+#define COOLDOWN_AI_SLIPPER "ai_slipper"
+
 /obj/machinery/ai_slipper
 	name = "\improper AI liquid dispenser"
 	icon = 'icons/obj/device.dmi'
@@ -6,11 +8,15 @@
 	plane = FLOOR_PLANE
 	anchored = TRUE
 	max_integrity = 200
+	req_access = list(ACCESS_AI_UPLOAD)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
 	var/uses = 20
 	var/cooldown_time = 10 SECONDS
-	var/cooldown_on = FALSE
-	req_access = list(ACCESS_AI_UPLOAD)
+	COOLDOWN_DECLARE(slip_cooldown)
+
+/obj/machinery/ai_slipper/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_CD_STOP(COOLDOWN_AI_SLIPPER), .proc/recharge)
 
 /obj/machinery/ai_slipper/examine(mob/user)
 	. = ..()
@@ -46,24 +52,25 @@
 	if(!uses)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
-	if(cooldown_on)
+	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_AI_SLIPPER))
 		to_chat(user, "<span class='warning'>[src] is still recharging!</span>")
 		return
-	else
-		new /obj/effect/particle_effect/foam(loc)
-		uses--
-		cooldown_on = TRUE
-		power_change()
-		addtimer(CALLBACK(src, .proc/recharge), cooldown_time)
+
+	new /obj/effect/particle_effect/foam(loc)
+	uses--
+	power_change()
+	TIMER_COOLDOWN_START(src, COOLDOWN_AI_SLIPPER, cooldown_time)
 
 /obj/machinery/ai_slipper/update_icon()
-	if(stat & (NOPOWER|BROKEN) || cooldown_on || !uses)
+	if(stat & (NOPOWER|BROKEN) || TIMER_COOLDOWN_CHECK(src, COOLDOWN_AI_SLIPPER) || !uses)
 		icon_state = "liquid_dispenser"
 	else
 		icon_state = "liquid_dispenser_on"
 
 /obj/machinery/ai_slipper/proc/recharge()
+	SIGNAL_HANDLER
 	if(!uses)
 		return
-	cooldown_on = FALSE
 	power_change()
+
+#undef COOLDOWN_AI_SLIPPER

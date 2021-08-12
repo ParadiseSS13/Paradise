@@ -67,7 +67,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/list/shipping_log = list()
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
-	var/print_cooldown = 0	//cooldown on shipping label printer, stores the  in-game time of when the printer will next be ready
+	COOLDOWN_DECLARE(print_cooldown) // Cooldown on shipping label printer
 	var/obj/item/radio/Radio
 	var/radiochannel = ""
 
@@ -267,7 +267,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				error_message = "Please select a destination."
 			else if(!msgVerified)
 				error_message = "Please verify shipper ID."
-			else if(world.time < print_cooldown)
+			else if(!COOLDOWN_FINISHED(src, print_cooldown))
 				error_message = "Please allow the printer time to prepare the next shipping label."
 			if(error_message)
 				atom_say("[error_message]")
@@ -352,7 +352,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/obj/item/shippingPackage/sp = new /obj/item/shippingPackage(get_turf(src))
 	sp.sortTag = tag_index
 	sp.update_desc()
-	print_cooldown = world.time + 600	//1 minute cooldown before you can print another label, but you can still configure the next one during this time
+	COOLDOWN_START(src, print_cooldown, 60 SECONDS) // 1 minute cooldown before you can print another label, but you can still configure the next one during this time
 
 #undef RQ_NONEW_MESSAGES
 #undef RQ_NORMALPRIORITY

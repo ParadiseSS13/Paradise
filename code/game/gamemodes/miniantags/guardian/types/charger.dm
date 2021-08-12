@@ -3,7 +3,7 @@
 	melee_damage_upper = 15
 	ranged = 1 //technically
 	ranged_message = "charges"
-	ranged_cooldown_time = 40
+	ranged_cooldown_time = 4 SECONDS
 	speed = -1
 	damage_transfer = 0.6
 	playstyle_string = "As a <b>Charger</b> type you do medium damage, have medium damage resistance, move very fast, and can charge at a location, damaging any target hit and forcing them to drop any items they are holding. (Click a tile to use your charge ability)"
@@ -15,7 +15,7 @@
 
 /mob/living/simple_animal/hostile/guardian/charger/Life()
 	. = ..()
-	if(ranged_cooldown <= world.time)
+	if(COOLDOWN_FINISHED(src, ranged_cooldown))
 		if(!chargealert)
 			chargealert = throw_alert("charge", /obj/screen/alert/cancharge)
 	else
@@ -25,7 +25,7 @@
 /mob/living/simple_animal/hostile/guardian/charger/OpenFire(atom/A)
 	if(!charging)
 		visible_message("<span class='danger'>[src] [ranged_message] at [A]!</span>")
-		ranged_cooldown = world.time + ranged_cooldown_time
+		COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 		clear_alert("charge")
 		chargealert = null
 		Shoot(A)

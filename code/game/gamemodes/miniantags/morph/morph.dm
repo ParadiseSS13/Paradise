@@ -1,4 +1,4 @@
-#define MORPH_COOLDOWN 50
+#define MORPH_COOLDOWN_TIME 5 SECONDS
 
 /mob/living/simple_animal/hostile/morph
 	name = "morph"
@@ -36,7 +36,7 @@
 
 	var/morphed = 0
 	var/atom/movable/form = null
-	var/morph_time = 0
+	COOLDOWN_DECLARE(morph_cooldown)
 
 	var/list/examine_text_list
 
@@ -82,7 +82,7 @@
 	return 0
 
 /mob/living/simple_animal/hostile/morph/ShiftClickOn(atom/movable/A)
-	if(morph_time <= world.time && !stat)
+	if(!stat && COOLDOWN_FINISHED(src, morph_cooldown))
 		if(A == src)
 			restore()
 			return
@@ -107,8 +107,7 @@
 	melee_damage_upper = 5
 	speed = 0
 	examine_text_list = form.examine(src)
-	morph_time = world.time + MORPH_COOLDOWN
-	return
+	COOLDOWN_START(src, morph_cooldown, MORPH_COOLDOWN_TIME)
 
 /mob/living/simple_animal/hostile/morph/proc/restore()
 	if(!morphed)
@@ -127,8 +126,7 @@
 	melee_damage_lower = initial(melee_damage_lower)
 	melee_damage_upper = initial(melee_damage_upper)
 	speed = initial(speed)
-
-	morph_time = world.time + MORPH_COOLDOWN
+	COOLDOWN_START(src, morph_cooldown, MORPH_COOLDOWN_TIME)
 
 /mob/living/simple_animal/hostile/morph/death(gibbed)
 	. = ..()
@@ -177,3 +175,5 @@
 				eat(I)
 			return
 	return ..()
+
+#undef MORPH_COOLDOWN_TIME

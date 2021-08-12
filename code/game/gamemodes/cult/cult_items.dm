@@ -601,21 +601,21 @@
 	background_icon_state = "bg_cult"
 	button_icon_state = "bloodspear"
 	var/obj/item/twohanded/cult_spear/spear
-	var/cooldown = 0
+	COOLDOWN_DECLARE(summon_cooldown)
 
 /datum/action/innate/cult/spear/Grant(mob/user, obj/blood_spear)
 	. = ..()
 	spear = blood_spear
 
 /datum/action/innate/cult/spear/Activate()
-	if(owner == spear.loc || cooldown > world.time || owner.holy_check())
+	if(owner == spear.loc || !COOLDOWN_FINISHED(src, summon_cooldown) || owner.holy_check())
 		return
 	var/ST = get_turf(spear)
 	var/OT = get_turf(owner)
 	if(get_dist(OT, ST) > 10)
 		to_chat(owner,"<span class='warning'>The spear is too far away!</span>")
 	else
-		cooldown = world.time + 20
+		COOLDOWN_START(src, summon_cooldown, 2 SECONDS)
 		if(isliving(spear.loc))
 			var/mob/living/L = spear.loc
 			L.unEquip(spear)

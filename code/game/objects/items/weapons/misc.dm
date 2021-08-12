@@ -139,9 +139,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("called", "rang")
 	hitsound = 'sound/weapons/ring.ogg'
-	var/cooldown = 0
+	COOLDOWN_DECLARE(ring_cooldown)
 
 /obj/item/phone/attack_self(mob/user)
-	if(cooldown < world.time - 20)
-		playsound(user.loc, 'sound/weapons/ring.ogg', 50, 1)
-		cooldown = world.time
+	if(!COOLDOWN_FINISHED(src, ring_cooldown))
+		playsound(user.loc, 'sound/weapons/ring.ogg', 50, TRUE)
+		COOLDOWN_START(src, ring_cooldown, 2 SECONDS)

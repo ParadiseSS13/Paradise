@@ -338,7 +338,8 @@
 	var/radiation_intensity = 1.0
 	var/list/datum/dna2/record/buffers[3]
 	var/irradiating = 0
-	var/injector_ready = FALSE	//Quick fix for issue 286 (screwdriver the screen twice to restore injector)	-Pete
+	COOLDOWN_DECLARE(injector_cooldown)
+	var/injector_cooldown_time = 30 SECONDS
 	var/obj/machinery/dna_scannernew/connected = null
 	var/obj/item/disk/data/disk = null
 	var/selected_menu_key = PAGE_UI
@@ -346,6 +347,20 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 400
+
+/obj/machinery/computer/scan_consolenew/Initialize()
+	. = ..()
+	for(var/I in 1 to 3)
+		buffers[I] = new /datum/dna2/record
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/scan_consolenew/LateInitialize()
+	. = ..()
+	for(dir in list(NORTH, EAST, SOUTH, WEST))
+		connected = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
+		if(connected)
+			break
+	COOLDOWN_START(src, injector_cooldown, injector_cooldown_time)
 
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/data)) //INSERT SOME diskS
@@ -358,18 +373,6 @@
 			return
 	else
 		return ..()
-
-/obj/machinery/computer/scan_consolenew/New()
-	..()
-	for(var/i=0;i<3;i++)
-		buffers[i+1]=new /datum/dna2/record
-	spawn(5)
-		for(dir in list(NORTH,EAST,SOUTH,WEST))
-			connected = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
-			if(!isnull(connected))
-				break
-		spawn(250)
-			injector_ready = TRUE
 
 /obj/machinery/computer/scan_consolenew/proc/all_dna_blocks(list/buffer)
 	var/list/arr = list()
@@ -423,7 +426,7 @@
 	data["locked"] = connected.locked
 	data["hasOccupant"] = connected.occupant ? 1 : 0
 
-	data["isInjectorReady"] = injector_ready
+	data["isInjectorReady"] = COOLDOWN_FINISHED(src, injector_cooldown)
 
 	data["hasDisk"] = disk ? 1 : 0
 
@@ -752,7 +755,7 @@
 						connected.occupant.dna.UpdateSE()
 						domutcheck(connected.occupant)
 				if("createInjector")
-					if(!injector_ready)
+					if(!COOLDOWN_FINISHED(src, injector_cooldown))
 						return
 					if(text2num(params["block"]) > 0)
 						var/list/choices = all_dna_blocks((buffer.types & DNA2_BUF_SE) ? buffer.dna.SE : buffer.dna.UI)
@@ -791,8 +794,7 @@
 		return
 
 	// Cooldown
-	injector_ready = FALSE
-	addtimer(CALLBACK(src, .proc/injector_cooldown_finish), 30 SECONDS)
+	COOLDOWN_START(src, injector_cooldown, injector_cooldown_time)
 
 	// Create it
 	var/datum/dna2/record/buf = buffers[buffer_id]
@@ -804,12 +806,6 @@
 	if(connected)
 		I.damage_coeff = connected.damage_coeff
 	return I
-
-/**
-  * Called when the injector creation cooldown finishes
-  */
-/obj/machinery/computer/scan_consolenew/proc/injector_cooldown_finish()
-	injector_ready = TRUE
 
 /**
   * Called in ui_act() to process modal actions

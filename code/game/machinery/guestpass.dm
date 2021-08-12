@@ -44,7 +44,7 @@
 	var/giv_name = "NOT SPECIFIED"
 	var/reason = "NOT SPECIFIED"
 	var/duration = 5
-	var/print_cooldown = 0
+	COOLDOWN_DECLARE(print_cooldown)
 
 	var/list/internal_log = list()
 	var/mode = FALSE  // FALSE - making pass, TRUE - viewing logs
@@ -97,8 +97,8 @@
 		data["printmsg"] = "Card has no access."
 	else if(!length(accesses))
 		data["printmsg"] = "No access types selected."
-	else if(print_cooldown > world.time)
-		data["printmsg"] = "Busy for [(round((print_cooldown - world.time) / 10))]s.."
+	else if(!COOLDOWN_FINISHED(src, print_cooldown))
+		data["printmsg"] = "Busy for [round(COOLDOWN_TIMELEFT(src, print_cooldown) / 10)]s.."
 	else
 		data["printmsg"] = "Print Pass"
 		data["canprint"] = TRUE
@@ -163,8 +163,9 @@
 		if("issue")
 			if(!length(accesses))
 				return
-			if(print_cooldown > world.time)
+			if(!COOLDOWN_FINISHED(src, print_cooldown))
 				return
+			COOLDOWN_START(src, print_cooldown, 10 SECONDS)
 			var/number = add_zero("[rand(0, 9999)]", 4)
 			var/entry = "\[[station_time()]\] Pass #[number] issued by [scan.registered_name] ([scan.assignment]) to [giv_name]. Reason: [reason]. Grants access to following areas: "
 			for(var/i in 1 to length(accesses))
@@ -178,7 +179,6 @@
 			pass.expiration_time = world.time + duration MINUTES
 			pass.reason = reason
 			pass.name = "guest pass #[number]"
-			print_cooldown = world.time + 10 SECONDS
 			entry += ". Expires at [station_time_timestamp("hh:mm:ss", pass.expiration_time)]."
 			internal_log += entry
 		if("access")

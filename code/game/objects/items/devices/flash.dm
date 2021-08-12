@@ -242,9 +242,9 @@
 /obj/item/flash/armimplant
 	name = "photon projector"
 	desc = "A high-powered photon projector implant normally used for lighting purposes, but also doubles as a flashbulb weapon. Self-repair protocols fix the flashbulb if it ever burns out."
-	var/flashcd = 20
-	var/overheat = 0
 	var/obj/item/organ/internal/cyberimp/arm/flash/I = null
+	var/cooldown_time = 2 SECONDS
+	COOLDOWN_DECLARE(flash_cooldown)
 
 /obj/item/flash/armimplant/Destroy()
 	I = null
@@ -254,22 +254,16 @@
 	if(I && I.owner)
 		to_chat(I.owner, "<span class='warning'>Your photon projector implant overheats and deactivates!</span>")
 		I.Retract()
-	overheat = FALSE
-	addtimer(CALLBACK(src, .proc/cooldown), flashcd * 2)
+	COOLDOWN_START(src, flash_cooldown, cooldown_time * 2)
 
 /obj/item/flash/armimplant/try_use_flash(mob/user = null)
-	if(overheat)
+	if(!COOLDOWN_FINISHED(src, flash_cooldown))
 		if(I && I.owner)
 			to_chat(I.owner, "<span class='warning'>Your photon projector is running too hot to be used again so quickly!</span>")
 		return FALSE
-	overheat = TRUE
-	addtimer(CALLBACK(src, .proc/cooldown), flashcd)
-	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
-	update_icon(1)
+	COOLDOWN_START(src, flash_cooldown, cooldown_time)
+	playsound(src.loc, 'sound/weapons/flash.ogg', 100, TRUE)
+	update_icon()
 	return TRUE
-
-/obj/item/flash/armimplant/proc/cooldown()
-	overheat = FALSE
-
 
 /obj/item/flash/synthetic //just a regular flash now

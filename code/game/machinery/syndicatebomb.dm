@@ -1,6 +1,3 @@
-#define BUTTON_COOLDOWN 60 // cant delay the bomb forever
-#define BUTTON_DELAY	50 //five seconds
-
 /obj/machinery/syndicatebomb
 	icon = 'icons/obj/assemblies.dmi'
 	name = "syndicate bomb"
@@ -29,8 +26,8 @@
 	var/obj/effect/countdown/syndicatebomb/countdown
 
 	var/next_beep
-	var/detonation_timer
 	var/explode_now = FALSE
+	COOLDOWN_DECLARE(detonation_timer)
 
 /obj/machinery/syndicatebomb/proc/try_detonate(ignore_active = FALSE)
 	. = (payload in src) && (active || ignore_active) && !defused
@@ -48,7 +45,7 @@
 /obj/machinery/syndicatebomb/process()
 	if(!active)
 		STOP_PROCESSING(SSfastprocess, src)
-		detonation_timer = null
+		COOLDOWN_RESET(src, detonation_timer)
 		next_beep = null
 		countdown.stop()
 		return
@@ -71,7 +68,7 @@
 		playsound(loc, beepsound, volume, 0)
 		next_beep = world.time + 10
 
-	if(active && !defused && ((detonation_timer <= world.time) || explode_now))
+	if(active && !defused && (COOLDOWN_FINISHED(src, detonation_timer) || explode_now))
 		active = FALSE
 		timer_set = initial(timer_set)
 		update_icon()
@@ -106,7 +103,7 @@
 
 /obj/machinery/syndicatebomb/proc/seconds_remaining()
 	if(active)
-		. = max(0, round((detonation_timer - world.time) / 10))
+		. = round(COOLDOWN_TIMELEFT(src, detonation_timer) / 10)
 	else
 		. = timer_set
 
@@ -238,7 +235,7 @@
 	START_PROCESSING(SSfastprocess, src)
 	countdown.start()
 	next_beep = world.time + 10
-	detonation_timer = world.time + (timer_set * 10)
+	COOLDOWN_START(src, detonation_timer, timer_set SECONDS)
 	playsound(loc, 'sound/machines/click.ogg', 30, 1)
 
 /obj/machinery/syndicatebomb/proc/settings(mob/user)
@@ -645,7 +642,8 @@
 		ttv.toggle_valve()
 
 ///Syndicate Detonator (aka the big red button)///
-
+#define BUTTON_COOLDOWN 6 SECONDS // cant delay the bomb forever
+#define BOMB_TIMER		5 SECONDS // five seconds
 /obj/item/syndicatedetonator
 	name = "big red button"
 	desc = "Your standard issue bomb synchronizing button. Five second safety delay to prevent 'accidents'."
@@ -654,29 +652,28 @@
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "syndicate=3"
-	var/timer = 0
-	var/detonated =	0
-	var/existant =	0
+	COOLDOWN_DECLARE(button_cooldown)
 
 /obj/item/syndicatedetonator/attack_self(mob/user)
-	if(timer < world.time)
-		for(var/obj/machinery/syndicatebomb/B in GLOB.machines)
-			if(B.active)
-				B.detonation_timer = world.time + BUTTON_DELAY
-				detonated++
-			existant++
-		playsound(user, 'sound/machines/click.ogg', 20, 1)
-		to_chat(user, "<span class='notice'>[existant] found, [detonated] triggered.</span>")
-		if(detonated)
-			var/turf/T = get_turf(src)
-			var/area/A = get_area(T)
-			detonated--
-			investigate_log("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])", INVESTIGATE_BOMB)
-			add_attack_logs(user, src, "has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using", ATKLOG_FEW)
-			log_game("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])")
-		detonated =	0
-		existant =	0
-		timer = world.time + BUTTON_COOLDOWN
+	var/detonated = 0
+	var/existant =  0
+	if(!COOLDOWN_FINISHED(src, button_cooldown))
+		return
+	COOLDOWN_START(src, button_cooldown, BUTTON_COOLDOWN)
+	for(var/obj/machinery/syndicatebomb/B in GLOB.machines)
+		if(B.active)
+			COOLDOWN_START(B, detonation_timer, BOMB_TIMER)
+			detonated++
+		existant++
+	playsound(user, 'sound/machines/click.ogg', 20, 1)
+	to_chat(user, "<span class='notice'>[existant] found, [detonated] triggered.</span>")
+	if(detonated)
+		var/turf/T = get_turf(src)
+		var/area/A = get_area(T)
+		detonated--
+		investigate_log("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using", ATKLOG_FEW)
+		log_game("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])")
 
 #undef BUTTON_COOLDOWN
-#undef BUTTON_DELAY
+#undef BOMB_TIMER

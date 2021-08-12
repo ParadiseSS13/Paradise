@@ -73,7 +73,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/control_disabled = 0 // Set to 1 to stop AI from interacting via Click() -- TLE
 	var/malfhacking = 0 // More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
-	var/malf_cooldown = 0 //Cooldown var for malf modules, stores a worldtime + cooldown
+	COOLDOWN_DECLARE(malf_cooldown) //Cooldown var for malf modules
 
 	var/obj/machinery/power/apc/malfhack = null
 	var/explosive = 0 //does the AI explode when it dies?
@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
 	var/list/all_eyes = list()
-	var/next_text_announcement
+	COOLDOWN_DECLARE(next_text_announcement)
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
@@ -506,7 +506,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	if(world.time < next_text_announcement)
+	if(!COOLDOWN_FINISHED(src, next_text_announcement))
 		to_chat(src, "<span class='warning'>Please allow one minute to pass between announcements.</span>")
 		return
 
@@ -518,7 +518,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	announcement.Announce(input)
-	next_text_announcement = world.time + TEXT_ANNOUNCEMENT_COOLDOWN
+	COOLDOWN_START(src, next_text_announcement, TEXT_ANNOUNCEMENT_COOLDOWN)
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
 	set name = "Call Emergency Shuttle"

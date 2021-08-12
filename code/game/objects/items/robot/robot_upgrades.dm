@@ -277,9 +277,10 @@
 	require_module = TRUE
 	var/repair_amount = -1
 	var/repair_tick = 1
-	var/on = 0
+	var/on = FALSE
 	var/powercost = 10
 	var/mob/living/silicon/robot/cyborg
+	COOLDOWN_DECLARE(message_cooldown)
 
 /obj/item/borg/upgrade/selfrepair/do_install(mob/living/silicon/robot/R)
 	var/obj/item/borg/upgrade/selfrepair/U = locate() in R
@@ -296,7 +297,7 @@
 /obj/item/borg/upgrade/selfrepair/Destroy()
 	cyborg = null
 	STOP_PROCESSING(SSobj, src)
-	on = 0
+	on = FALSE
 	return ..()
 
 /obj/item/borg/upgrade/selfrepair/ui_action_click()
@@ -320,7 +321,7 @@
 
 /obj/item/borg/upgrade/selfrepair/proc/deactivate()
 	STOP_PROCESSING(SSobj, src)
-	on = 0
+	on = FALSE
 	update_icon()
 
 /obj/item/borg/upgrade/selfrepair/process()
@@ -352,8 +353,8 @@
 			cyborg.cell.use(5)
 		repair_tick = 0
 
-		if(!TIMER_COOLDOWN_CHECK(src, "borg_self_repair"))
-			TIMER_COOLDOWN_START(src, "borg_self_repair", 200 SECONDS)
+		if(COOLDOWN_FINISHED(src, message_cooldown))
+			COOLDOWN_START(src, message_cooldown, 200 SECONDS)
 			var/msgmode = "standby"
 			if(cyborg.health < 0)
 				msgmode = "critical"

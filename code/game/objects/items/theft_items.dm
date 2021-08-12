@@ -13,7 +13,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags_2 = RAD_NO_CONTAMINATE_2 //Don't have the item itself become irradiated when it makes radiation.
 	var/pulse = 0
-	var/cooldown = 0
+	COOLDOWN_DECLARE(pulse_cooldown)
 	var/pulseicon = "plutonium_core_pulse"
 
 /obj/item/nuke_core/Initialize()
@@ -31,8 +31,8 @@
 		return ..()
 
 /obj/item/nuke_core/process()
-	if(cooldown < world.time - 6 SECONDS)
-		cooldown = world.time
+	if(COOLDOWN_FINISHED(src, pulse_cooldown))
+		COOLDOWN_START(src, pulse_cooldown, 6 SECONDS)
 		flick(pulseicon, src)
 		radiation_pulse(src, 400, 2)
 

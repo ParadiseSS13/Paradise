@@ -798,16 +798,16 @@ GLOBAL_LIST_EMPTY(multiverse)
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "voodoo"
 	item_state = "electronic"
+	max_integrity = 10
+	resistance_flags = FLAMMABLE
 	var/mob/living/carbon/human/target = null
 	var/list/mob/living/carbon/human/possible = list()
 	var/obj/item/link = null
-	var/cooldown_time = 30 //3s
-	var/cooldown = 0
-	max_integrity = 10
-	resistance_flags = FLAMMABLE
+	var/cooldown_time = 3 SECONDS
+	COOLDOWN_DECLARE(voodoo_cooldown)
 
 /obj/item/voodoo/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(target && cooldown < world.time)
+	if(target && COOLDOWN_FINISHED(src, voodoo_cooldown))
 		if(is_hot(I))
 			to_chat(target, "<span class='userdanger'>You suddenly feel very hot</span>")
 			target.bodytemperature += 50
@@ -821,7 +821,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			SEND_SOUND(target, sound('sound/items/airhorn.ogg'))
 			target.AdjustEarDamage(0, 3)
 			GiveHint(target)
-		cooldown = world.time +cooldown_time
+		COOLDOWN_START(src, voodoo_cooldown, cooldown_time)
 		return
 
 	if(!link)
@@ -853,7 +853,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 			update_targets()
 			return
 
-	if(target && cooldown < world.time)
+	if(target && COOLDOWN_FINISHED(src, voodoo_cooldown))
+		COOLDOWN_START(src, voodoo_cooldown, cooldown_time)
 		switch(user.zone_selected)
 			if("mouth")
 				var/wgw =  sanitize(input(user, "What would you like the victim to say", "Voodoo", null)  as text)
@@ -889,7 +890,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 				target.Dizzy(10)
 				to_chat(target, "<span class='warning'>You suddenly feel as if your head was hit with a hammer!</span>")
 				GiveHint(target,user)
-		cooldown = world.time + cooldown_time
 
 /obj/item/voodoo/proc/update_targets()
 	possible = list()
