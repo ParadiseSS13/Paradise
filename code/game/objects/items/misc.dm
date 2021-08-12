@@ -37,7 +37,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/petcollar/attack_self(mob/user as mob)
+/obj/item/petcollar/attack_self(mob/user)
 	var/option = "Change Name"
 	if(access_id)
 		option = input(user, "What do you want to do?", "[src]", option) as null|anything in list("Change Name", "Remove ID")
@@ -50,22 +50,23 @@
 				name = "[initial(name)] - [tagname]"
 		if("Remove ID")
 			if(access_id)
-				user.visible_message("<span class='warning'>[user] starts unclipping \the [access_id] from \the [src].</span>")
-				if(do_after(user, 50, target = user) && access_id)
-					user.visible_message("<span class='warning'>[user] unclips \the [access_id] from \the [src].</span>")
+				user.visible_message("<span class='warning'>[user] starts unclipping [access_id] from [src].</span>")
+				if(do_after(user, 5 SECONDS, target = user) && access_id)
+					user.visible_message("<span class='warning'>[user] unclips [access_id] from [src].</span>")
 					access_id.forceMove(get_turf(user))
 					user.put_in_hands(access_id)
 					access_id = null
 
-/obj/item/petcollar/attackby(obj/item/card/id/W, mob/user, params)
-	if(!istype(W))
+/obj/item/petcollar/attackby(obj/item/card/id/I, mob/user, params)
+	if(!istype(I))
 		return ..()
 	if(access_id)
-		to_chat(user, "<span class='warning'>There is already \a [access_id] clipped onto \the [src]</span>")
+		to_chat(user, "<span class='warning'>There is already \an [access_id] clipped onto [src]</span>")
+		return
 	user.drop_item()
-	W.forceMove(src)
-	access_id = W
-	to_chat(user, "<span class='notice'>\The [W] clips onto \the [src] snugly.</span>")
+	I.forceMove(src)
+	access_id = I
+	to_chat(user, "<span class='notice'>[I] clips onto [src] snugly.</span>")
 
 /obj/item/petcollar/GetAccess()
 	return access_id ? access_id.GetAccess() : ..()
@@ -73,7 +74,7 @@
 /obj/item/petcollar/examine(mob/user)
 	. = ..()
 	if(access_id)
-		. += "There is [bicon(access_id)] \a [access_id] clipped onto it."
+		. += "There is [bicon(access_id)] \an [access_id] clipped onto it."
 
 /obj/item/petcollar/equipped(mob/living/simple_animal/user)
 	if(istype(user))
@@ -89,12 +90,12 @@
 	if(istype(M) && src == M.pcollar && M.stat != DEAD)
 		return
 
-	var/area/t = get_area(M)
-	var/obj/item/radio/headset/a = new /obj/item/radio/headset(src)
-	if(istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite))
+	var/area/A = get_area(M)
+	var/obj/item/radio/headset/H = new /obj/item/radio/headset(src)
+	if(istype(A, /area/syndicate_mothership) || istype(A, /area/shuttle/syndicate_elite))
 		//give the syndicats a bit of stealth
-		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")
+		H.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")
 	else
-		a.autosay("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm")
-	qdel(a)
-	STOP_PROCESSING(SSobj, src)
+		H.autosay("[M] has been vandalized in [A.name]!", "[M]'s Death Alarm")
+	qdel(H)
+	return PROCESS_KILL
