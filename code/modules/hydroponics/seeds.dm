@@ -340,7 +340,7 @@
 		return
 	variant = copytext(sanitize(html_encode(trim(V))), 1, 64)
 	if(variant == "")
-		variant == null
+		variant = null
 	to_chat(user, "<span class='notice'>You [variant ? "change" : "remove"] the [plantname]'s variant designation.</span>")
 	apply_variant_name()
 
