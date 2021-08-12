@@ -2300,26 +2300,40 @@
 	else if(href_list["cryossd"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/mob/living/carbon/human/H = locateUID(href_list["cryossd"])
-		if(!istype(H))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
+		var/mob/living/M = locateUID(href_list["cryossd"])
+		var/human = ishuman(M)
+		if(!human && !issilicon(M))
+			to_chat(usr, "<span class='warning'>This can only be used on humans and silicons.</span>")
 			return
-		if(!href_list["cryoafk"] && !isLivingSSD(H))
+		if(!href_list["cryoafk"] && !isLivingSSD(M))
 			to_chat(usr, "<span class='warning'>This can only be used on living, SSD players.</span>")
 			return
-		if(istype(H.loc, /obj/machinery/cryopod))
-			var/obj/machinery/cryopod/P = H.loc
+		if(isAI(M))
+			var/mob/living/silicon/ai/A = M
+			A.cryo_AI()
+		if(istype(M.loc, /obj/machinery/cryopod))
+			var/obj/machinery/cryopod/P = M.loc
 			P.despawn_occupant()
-			log_admin("[key_name(usr)] despawned [H.job] [H] in cryo.")
-			message_admins("[key_name_admin(usr)] despawned [H.job] [H] in cryo.")
-		else if(cryo_ssd(H))
-			log_admin("[key_name(usr)] sent [H.job] [H] to cryo.")
-			message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
+			if(human)
+				var/mob/living/carbon/human/H = M
+				log_admin("[key_name(usr)] despawned [H.job] [H] in cryo.")
+				message_admins("[key_name_admin(usr)] despawned [H.job] [H] in cryo.")
+			else //robot
+				log_admin("[key_name(usr)] despawned [M] in cryo.")
+				message_admins("[key_name_admin(usr)] despawned [M] in cryo.")
+		else if(cryo_ssd(M))
+			if(human)
+				var/mob/living/carbon/human/H = M
+				log_admin("[key_name(usr)] sent [H.job] [H] to cryo.")
+				message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
+			else
+				log_admin("[key_name(usr)] sent [M] to cryo.")
+				message_admins("[key_name_admin(usr)] sent [M] to cryo.")
 			if(href_list["cryoafk"]) // Warn them if they are send to storage and are AFK
-				to_chat(H, "<span class='danger'>The admins have moved you to cryo storage for being AFK. Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
-				SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
-				if(H.client)
-					window_flash(H.client)
+				to_chat(M, "<span class='danger'>The admins have moved you to cryo storage for being AFK. Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
+				SEND_SOUND(M, sound('sound/effects/adminhelp.ogg'))
+				if(M.client)
+					window_flash(M.client)
 	else if(href_list["FaxReplyTemplate"])
 		if(!check_rights(R_ADMIN))
 			return

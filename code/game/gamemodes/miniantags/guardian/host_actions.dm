@@ -90,6 +90,8 @@
 	if(!length(candidates))
 		to_chat(owner, "<span class='danger'>There were no ghosts willing to take control of your guardian. You can try again in 5 minutes.</span>")
 		return
+	if(QDELETED(guardian)) // Just in case
+		return
 
 	var/mob/dead/observer/new_stand = pick(candidates)
 	to_chat(guardian, "<span class='danger'>Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance.</span>")

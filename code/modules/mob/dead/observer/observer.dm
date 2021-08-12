@@ -87,7 +87,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	real_name = name
 
 	//starts ghosts off with all HUDs.
-	toggle_all_huds_on()
+	toggle_all_huds_on(body)
 	..()
 
 /mob/dead/observer/Destroy()
@@ -323,10 +323,23 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	GLOB.ghost_hud_panel.ui_interact(src)
 
-/mob/dead/observer/proc/toggle_all_huds_on()
+/**
+ * Toggles on all HUDs for the ghost player.
+ *
+ * Enables antag HUD only if the ghost belongs to an admin.
+ *
+ * Arguments:
+ * * user - A reference to the ghost's old mob. This argument is required since `src` does not have a `client` at this point.
+ */
+/mob/dead/observer/proc/toggle_all_huds_on(mob/user)
 	show_me_the_hud(DATA_HUD_DIAGNOSTIC)
 	show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+	if(!check_rights((R_ADMIN | R_MOD), FALSE, user))
+		return
+	antagHUD = TRUE
+	for(var/datum/atom_hud/antag/H in GLOB.huds)
+		H.add_hud_to(src)
 
 /mob/dead/observer/verb/set_dnr()
 	set name = "Set DNR"

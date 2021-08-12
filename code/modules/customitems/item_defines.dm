@@ -1470,13 +1470,13 @@
 
 
 /obj/item/clothing/head/fluff/lfbowler //Lightfire: Hyperion
-	name = "Classy bowler hat"
-	desc = "a very classy looking bowler hat"
+	name = "classy bowler hat"
+	desc = "A very classy looking bowler hat."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "bowler_lightfire"
 
 /obj/item/clothing/under/fluff/lfvicsuit //Lightfire: Hyperion
-	name = "Classy victorian suit"
+	name = "classy victorian suit"
 	desc = "A blue and black victorian suit with silver buttons, very fancy!"
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'

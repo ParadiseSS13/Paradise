@@ -287,7 +287,7 @@
 	A.Grant(S)
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pyroclastic anomaly slime?", ROLE_SENTIENT, FALSE, 100, source = S, role_cleanname = "pyroclastic anomaly slime")
-	if(LAZYLEN(candidates))
+	if(length(candidates) && !QDELETED(S))
 		var/mob/dead/observer/chosen = pick(candidates)
 		S.key = chosen.key
 		S.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME

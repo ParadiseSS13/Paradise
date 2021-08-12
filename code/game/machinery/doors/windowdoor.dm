@@ -85,6 +85,13 @@
 	else
 		do_animate("deny")
 
+/obj/machinery/door/window/unrestricted_side(mob/M)
+	var/mob_dir = get_dir(src, M)
+	if(mob_dir == 0) // If the mob is inside the tile
+		mob_dir = GetOppositeDir(dir) // Set it to the inside direction of the windoor
+
+	return mob_dir & unres_sides
+
 /obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return 1
