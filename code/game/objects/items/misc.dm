@@ -80,6 +80,7 @@
 		START_PROCESSING(SSobj, src)
 
 /obj/item/petcollar/dropped(mob/living/simple_animal/user)
+	..()
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/petcollar/process()
