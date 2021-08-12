@@ -86,7 +86,7 @@
 	if(. && isliving(target))
 		var/mob/living/L = target
 		if(L.stat != DEAD)
-			if(!client && ranged && ranged_cooldown <= world.time)
+			if(!client && ranged && COOLDOWN_FINISHED(src, ranged_cooldown))
 				OpenFire()
 		else
 			devour(L)
@@ -126,7 +126,7 @@
 
 /mob/living/simple_animal/hostile/megafauna/proc/SetRecoveryTime(buffer_time)
 	recovery_time = world.time + buffer_time
-	ranged_cooldown = world.time + buffer_time
+	COOLDOWN_START(src, ranged_cooldown, buffer_time)
 
 /mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype, scoretype, crusher_kill)
 	if(!medal_type || admin_spawned || !SSmedals.hub_enabled) //Don't award medals if the medal type isn't set

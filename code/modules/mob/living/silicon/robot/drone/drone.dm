@@ -20,7 +20,7 @@
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
 	/// Cooldown for law syncs
-	var/sync_cooldown = 0
+	COOLDOWN_DECLARE(sync_cooldown)
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.

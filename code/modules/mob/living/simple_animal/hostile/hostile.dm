@@ -26,8 +26,10 @@
 	var/melee_queue_distance = 4 //If target is close enough start preparing to hit them if we have rapid_melee enabled
 
 	var/ranged_message = "fires" //Fluff text for ranged mobs
-	var/ranged_cooldown = 0 //What the current cooldown on ranged attacks is, generally world.time + ranged_cooldown_time
-	var/ranged_cooldown_time = 30 //How long, in deciseconds, the cooldown of ranged attacks is
+	/// Cooldown timer for ranged attacks, based on [/mob/living/simple_animal/hostile/var/ranged_cooldown_time].
+	COOLDOWN_DECLARE(ranged_cooldown)
+	/// How long the cooldown of ranged attacks is
+	var/ranged_cooldown_time = 3 SECONDS
 	var/ranged_ignores_vision = FALSE //if it'll fire ranged attacks even if it lacks vision on its target, only works with environment smash
 	var/check_friendly_fire = 0 // Should the ranged mob check for friendlies when shooting
 	var/retreat_distance = null //If our mob runs from players when they're too close, set in tile distance. By default, mobs do not retreat.
@@ -274,7 +276,7 @@
 			return 0
 		var/target_distance = get_dist(targets_from,target)
 		if(ranged) //We ranged? Shoot at em
-			if(!target.Adjacent(targets_from) && ranged_cooldown <= world.time) //But make sure they're not in range for a melee attack and our range attack is off cooldown
+			if(!target.Adjacent(targets_from) && COOLDOWN_FINISHED(src, ranged_cooldown)) //But make sure they're not in range for a melee attack and our range attack is off cooldown
 				OpenFire(target)
 		if(!Process_Spacemove()) //Drifting
 			walk(src,0)
@@ -297,7 +299,7 @@
 		return 0
 	if(environment_smash)
 		if(target.loc != null && get_dist(targets_from, target.loc) <= vision_range) //We can't see our target, but he's in our vision range still
-			if(ranged_ignores_vision && ranged_cooldown <= world.time) //we can't see our target... but we can fire at them!
+			if(ranged_ignores_vision && COOLDOWN_FINISHED(src, ranged_cooldown)) //we can't see our target... but we can fire at them!
 				OpenFire(target)
 			if((environment_smash & ENVIRONMENT_SMASH_WALLS) || (environment_smash & ENVIRONMENT_SMASH_RWALLS)) //If we're capable of smashing through walls, forget about vision completely after finding our target
 				Goto(target,move_to_delay,minimum_distance)
@@ -391,7 +393,7 @@
 			addtimer(cb, (i - 1)*rapid_fire_delay)
 	else
 		Shoot(A)
-	ranged_cooldown = world.time + ranged_cooldown_time
+	COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 
 /mob/living/simple_animal/hostile/proc/Shoot(atom/targeted_atom)
 	if( QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from )
@@ -486,7 +488,7 @@
 		return 1
 
 /mob/living/simple_animal/hostile/RangedAttack(atom/A, params) //Player firing
-	if(ranged && ranged_cooldown <= world.time)
+	if(ranged && COOLDOWN_FINISHED(src, ranged_cooldown))
 		target = A
 		OpenFire(A)
 	..()

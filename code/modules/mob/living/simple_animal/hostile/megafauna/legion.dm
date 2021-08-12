@@ -36,7 +36,7 @@ Difficulty: Medium
 	del_on_death = 1
 	retreat_distance = 5
 	minimum_distance = 5
-	ranged_cooldown_time = 20
+	ranged_cooldown_time = 2 SECONDS
 	var/size = 5
 	var/charging = 0
 	internal_type = /obj/item/gps/internal/legion
@@ -60,13 +60,13 @@ Difficulty: Medium
 			A.infest(L)
 
 /mob/living/simple_animal/hostile/megafauna/legion/OpenFire(the_target)
-	if(world.time >= ranged_cooldown && !charging)
+	if(COOLDOWN_FINISHED(src, ranged_cooldown) && !charging)
 		if(prob(75))
 			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new(loc)
 			A.GiveTarget(target)
 			A.friends = friends
 			A.faction = faction
-			ranged_cooldown = world.time + ranged_cooldown_time
+			COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 		else
 			visible_message("<span class='warning'><b>[src] charges!</b></span>")
 			SpinAnimation(speed = 20, loops = 5)
@@ -75,8 +75,7 @@ Difficulty: Medium
 			minimum_distance = 0
 			speed = 0
 			charging = 1
-			spawn(50)
-				reset_charge()
+			addtimer(CALLBACK(src, .proc/reset_charge), 5 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/legion/proc/reset_charge()
 	ranged = 1

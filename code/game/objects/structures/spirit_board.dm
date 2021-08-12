@@ -6,9 +6,9 @@
 	density = 1
 	anchored = 0
 	var/used = FALSE
-	var/cooldown = 0
 	var/planchette = "A"
 	var/lastuser = null
+	COOLDOWN_DECLARE(planchette_cooldown)
 
 /obj/structure/spirit_board/examine(mob/user)
 	. = ..()
@@ -34,7 +34,11 @@
 
 	planchette = input("Choose the letter.", "Seance!") in list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
 	add_attack_logs(M, src, "Picked a letter on [src] which was \"[planchette]\".")
-	cooldown = world.time
+
+	var/bonus_time = 0
+	if(M.ckey == lastuser)
+		bonus_time = 1 SECONDS //Give some other people a chance, hog.
+	COOLDOWN_START(src, planchette_cooldown, 3 SECONDS + bonus_time)
 	lastuser = M.ckey
 
 	var/turf/T = loc
@@ -44,12 +48,7 @@
 
 
 /obj/structure/spirit_board/proc/spirit_board_checks(mob/M)
-	//cooldown
-	var/bonus = 0
-	if(M.ckey == lastuser)
-		bonus = 10 //Give some other people a chance, hog.
-
-	if(cooldown > world.time - (30 + bonus))
+	if(!COOLDOWN_FINISHED(src, planchette_cooldown))
 		return 0 //No feedback here, hiding the cooldown a little makes it harder to tell who's really picking letters.
 
 	//lighting check

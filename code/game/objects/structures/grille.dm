@@ -13,13 +13,20 @@
 	armor = list("melee" = 50, "bullet" = 70, "laser" = 70, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0)
 	max_integrity = 50
 	integrity_failure = 20
+	/// Typepath of the rods that the grille drops when deconstructed
 	var/rods_type = /obj/item/stack/rods
+	/// How many rods will the grille drop when deconstructed
 	var/rods_amount = 2
+	/// How many rods will the grille drop when broken
 	var/rods_broken = 1
+	/// Typepath of the grill that will be spawned when this is repaired
 	var/grille_type
+	/// Typepath of the grille that will be spawned when this is broken
 	var/broken_type = /obj/structure/grille/broken
-	var/shockcooldown = 0
-	var/my_shockcooldown = 1 SECONDS
+	/// How many seconds cooldown between each electric shock
+	var/shock_interval = 1 SECONDS
+	/// Cooldown timer for electric shocks
+	COOLDOWN_DECLARE(shock_cooldown)
 
 /obj/structure/grille/detailed_examine()
 	return "A powered and knotted wire underneath this will cause the grille to shock anyone not wearing insulated gloves.<br>\
@@ -60,11 +67,10 @@
 		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
 
 /obj/structure/grille/Bumped(atom/user)
-	if(ismob(user))
-		if(!(shockcooldown <= world.time))
-			return
-		shock(user, 70)
-		shockcooldown = world.time + my_shockcooldown
+	if(!ismob(user) || !COOLDOWN_FINISHED(src, shock_cooldown))
+		return
+	COOLDOWN_START(src, shock_cooldown, shock_interval)
+	shock(user, 70)
 
 /obj/structure/grille/attack_animal(mob/user)
 	. = ..()

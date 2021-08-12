@@ -117,7 +117,7 @@ Difficulty: Hard
 
 	anger_modifier = clamp(((maxHealth - health)/60),0,20)
 	enrage_time = initial(enrage_time) * clamp(anger_modifier / 20, 0.5, 1)
-	ranged_cooldown = world.time + 50
+	COOLDOWN_START(src, ranged_cooldown, 5 SECONDS)
 
 	if(client)
 		switch(chosen_attack)

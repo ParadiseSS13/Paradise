@@ -37,8 +37,8 @@
 	throwforce = 1
 	hitsound = 'sound/effects/ghost2.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
-	var/summon_cooldown = 0
 	var/list/mob/dead/observer/spirits
+	COOLDOWN_DECLARE(summon_cooldown)
 
 /obj/item/melee/ghost_sword/New()
 	..()
@@ -55,14 +55,13 @@
 	. = ..()
 
 /obj/item/melee/ghost_sword/attack_self(mob/user)
-	if(summon_cooldown > world.time)
+	if(!COOLDOWN_FINISHED(src, summon_cooldown))
 		to_chat(user, "You just recently called out for aid. You don't want to annoy the spirits.")
 		return
 	to_chat(user, "You call out for aid, attempting to summon spirits to your side.")
 
 	notify_ghosts("[user] is raising [user.p_their()] [src], calling for your help!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = user, action = NOTIFY_FOLLOW)
-
-	summon_cooldown = world.time + 600
+	COOLDOWN_START(src, summon_cooldown, 60 SECONDS)
 
 /obj/item/melee/ghost_sword/Topic(href, href_list)
 	if(href_list["follow"])

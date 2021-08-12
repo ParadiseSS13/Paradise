@@ -23,8 +23,7 @@
 	speak_emote = list("telepathically cries")
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "falls right through the strange body of the"
-	ranged_cooldown = 0
-	ranged_cooldown_time = 20
+	ranged_cooldown_time = 2 SECONDS
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	retreat_distance = 3
@@ -34,14 +33,14 @@
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
-	if(world.time >= ranged_cooldown)
+	if(COOLDOWN_FINISHED(src, ranged_cooldown))
 		var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A = new brood_type(loc)
 
 		A.admin_spawned = admin_spawned
 		A.GiveTarget(target)
 		A.friends = friends
 		A.faction = faction.Copy()
-		ranged_cooldown = world.time + ranged_cooldown_time
+		COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/AttackingTarget()
 	OpenFire()

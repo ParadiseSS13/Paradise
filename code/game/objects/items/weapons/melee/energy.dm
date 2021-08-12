@@ -274,8 +274,8 @@
 	sharp = TRUE
 	faction_bonus_force = 30
 	nemesis_factions = list("mining", "boss")
-	var/transform_cooldown
 	var/swiping = FALSE
+	COOLDOWN_DECLARE(transform_cooldown)
 
 /obj/item/melee/energy/cleaving_saw/nemesis_effects(mob/living/user, mob/living/target)
 	var/datum/status_effect/saw_bleed/B = target.has_status_effect(STATUS_EFFECT_SAWBLEED)
@@ -289,11 +289,11 @@
 	transform_weapon(user)
 
 /obj/item/melee/energy/cleaving_saw/proc/transform_weapon(mob/living/user, supress_message_text)
-	if(transform_cooldown > world.time)
+	if(!COOLDOWN_FINISHED(src, transform_cooldown))
 		return FALSE
 
-	transform_cooldown = world.time + (CLICK_CD_MELEE * 0.5)
-	user.changeNext_move(CLICK_CD_MELEE * 0.25)
+	COOLDOWN_START(src, transform_cooldown, CLICK_CD_MELEE / 2)
+	user.changeNext_move(CLICK_CD_MELEE / 4)
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -345,7 +345,7 @@
 
 /obj/item/melee/energy/cleaving_saw/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is [active ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	transform_cooldown = 0
+	COOLDOWN_RESET(src, transform_cooldown)
 	transform_weapon(user, TRUE)
 	return BRUTELOSS
 

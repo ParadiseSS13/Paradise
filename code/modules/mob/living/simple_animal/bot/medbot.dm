@@ -34,7 +34,8 @@
 	var/heal_threshold = 10 //Start healing when they have this much damage in a category
 	var/use_beaker = 0 //Use reagents in beaker instead of default treatment agents.
 	var/declare_crit = 1 //If active, the bot will transmit a critical patient alert to MedHUD users.
-	var/declare_cooldown = 0 //Prevents spam of critical patient alerts.
+	/// Cooldown timer to prevent spam of critical patient alerts.
+	COOLDOWN_DECLARE(declare_cooldown)
 	var/stationary_mode = 0 //If enabled, the Medibot will not move automatically.
 	//Setting which reagents to use to treat what by default. By id.
 	var/treatment_brute = "salglu_solution"
@@ -137,7 +138,7 @@
 	oldpatient = null
 	oldloc = null
 	last_found = world.time
-	declare_cooldown = 0
+	COOLDOWN_RESET(src, declare_cooldown)
 	update_icon()
 
 /mob/living/simple_animal/bot/medbot/proc/soft_reset() //Allows the medibot to still actively perform its medical duties without being completely halted as a hard reset does.
@@ -604,15 +605,13 @@
 	..()
 
 /mob/living/simple_animal/bot/medbot/proc/declare(crit_patient)
-	if(declare_cooldown)
+	if(!COOLDOWN_FINISHED(src, declare_cooldown))
 		return
 	if(syndicate_aligned)
 		return
 	var/area/location = get_area(src)
 	speak("Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!", radio_channel)
-	declare_cooldown = 1
-	spawn(200) //Twenty seconds
-		declare_cooldown = 0
+	COOLDOWN_START(src, declare_cooldown, 20 SECONDS)
 
 /obj/machinery/bot_core/medbot
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)

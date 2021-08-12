@@ -64,8 +64,8 @@
 	var/obj/effect/contractor_flare/extraction_flare = null
 	/// The extraction portal.
 	var/obj/effect/portal/redspace/contractor/extraction_portal = null
-	/// The world.time at which the current extraction fulton will vanish and another extraction can be requested.
-	var/extraction_deadline = -1
+	/// Cooldown tracking when the current extraction fulton will vanish and another extraction can be requested.
+	COOLDOWN_DECLARE(extraction_deadline)
 	/// Name of the target to display on the UI.
 	var/target_name
 	/// Fluff message explaining why the kidnapee is the target.
@@ -260,7 +260,7 @@
 		return "Where in space is your uplink?!"
 	else if(status != CONTRACT_STATUS_ACTIVE)
 		return "This contract is not active."
-	else if(extraction_deadline > world.time)
+	else if(!COOLDOWN_FINISHED(src, extraction_deadline))
 		return "Another extraction attempt cannot be made yet."
 
 	var/mob/target = contract.target.current
@@ -273,11 +273,11 @@
 	M.visible_message("<span class='notice'>[M] starts entering a cryptic series of characters on [U].</span>",\
 					  "<span class='notice'>You start entering an extraction signal to your handlers on [U]...</span>")
 	if(do_after(M, EXTRACTION_PHASE_PREPARE, target = M))
-		if(!U.Adjacent(M) || extraction_deadline > world.time)
+		if(!U.Adjacent(M) || !COOLDOWN_FINISHED(src, extraction_deadline))
 			return
 		var/obj/effect/contractor_flare/F = new(get_turf(M))
 		extraction_flare = F
-		extraction_deadline = world.time + extraction_cooldown
+		COOLDOWN_START(src, extraction_deadline, extraction_cooldown)
 		M.visible_message("<span class='notice'>[M] enters a mysterious code on [U] and pulls a black and gold flare from [M.p_their()] belongings before lighting it.</span>",\
 						  "<span class='notice'>You finish entering the signal on [U] and light an extraction flare, initiating the extraction process.</span>")
 		addtimer(CALLBACK(src, .proc/open_extraction_portal, U, M, F), EXTRACTION_PHASE_PORTAL)
@@ -568,7 +568,7 @@
 	QDEL_NULL(extraction_flare)
 	QDEL_NULL(extraction_portal)
 	deltimer(extraction_timer_handle)
-	extraction_deadline = -1
+	COOLDOWN_RESET(src, extraction_deadline)
 	extraction_timer_handle = null
 
 #undef DEFAULT_NAME

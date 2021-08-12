@@ -101,7 +101,7 @@
 
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
 	activation_method = "touch"
-	cooldown_add = 200
+	cooldown_add = 20 SECONDS
 	var/terrain_theme = "winter"
 	var/NewTerrainFloors
 	var/NewTerrainWalls
@@ -175,7 +175,7 @@
 
 /obj/machinery/anomalous_crystal/emitter //Generates a projectile when interacted with
 	activation_method = "touch"
-	cooldown_add = 50
+	cooldown_add = 5 SECONDS
 	var/generated_projectile = /obj/item/projectile/beam/emitter
 
 /obj/machinery/anomalous_crystal/emitter/New()
@@ -311,7 +311,7 @@
 
 /obj/machinery/anomalous_crystal/refresher //Deletes and recreates a copy of the item, "refreshing" it.
 	activation_method = "touch"
-	cooldown_add = 50
+	cooldown_add = 5 SECONDS
 	activation_sound = 'sound/magic/timeparadox2.ogg'
 	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
 										   /obj/item/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink)

@@ -447,8 +447,8 @@
 	unarmed_type = /datum/unarmed_attack/golem/bluespace
 
 	var/datum/action/innate/unstable_teleport/unstable_teleport
-	var/teleport_cooldown = 100
-	var/last_teleport = 0
+	var/teleport_interval = 10 SECONDS
+	COOLDOWN_DECLARE(teleport_cooldown)
 	var/tele_range = 6
 
 /datum/species/golem/bluespace/proc/reactive_teleport(mob/living/carbon/human/H)
@@ -484,16 +484,16 @@
 
 /datum/species/golem/bluespace/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
 	..()
-	if(world.time > last_teleport + teleport_cooldown && M != H &&  M.a_intent != INTENT_HELP)
+	if(COOLDOWN_FINISHED(src, teleport_cooldown) && M != H && M.a_intent != INTENT_HELP)
 		reactive_teleport(H)
 
 /datum/species/golem/bluespace/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
 	..()
-	if(world.time > last_teleport + teleport_cooldown && user != H)
+	if(COOLDOWN_FINISHED(src, teleport_cooldown) && user != H)
 		reactive_teleport(H)
 
 /datum/species/golem/bluespace/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
-	if(world.time > last_teleport + teleport_cooldown)
+	if(COOLDOWN_FINISHED(src, teleport_cooldown))
 		reactive_teleport(H)
 	return TRUE
 
@@ -502,7 +502,7 @@
 	if(ishuman(C))
 		unstable_teleport = new
 		unstable_teleport.Grant(C)
-		last_teleport = world.time
+		COOLDOWN_START(src, teleport_cooldown, teleport_interval)
 
 /datum/species/golem/bluespace/on_species_loss(mob/living/carbon/C)
 	if(unstable_teleport)

@@ -31,7 +31,7 @@
 	deathmessage = "fainted"
 	var/powerlevel = 0 //Tracks our general strength level gained from eating other shrooms
 	var/bruised = 0 //If someone tries to cheat the system by attacking a shroom to lower its health, punish them so that it wont award levels to shrooms that eat it
-	var/recovery_cooldown = 0 //So you can't repeatedly revive it during a fight
+	COOLDOWN_DECLARE(recovery_cooldown) //So you can't repeatedly revive it during a fight
 	var/faint_ticker = 0 //If we hit three, another mushroom's gonna eat us
 	var/image/cap_living = null //Where we store our cap icons so we dont generate them constantly to update our icon
 	var/image/cap_dead = null
@@ -132,9 +132,7 @@
 	faint_ticker = 0
 	revive()
 	UpdateMushroomCap()
-	recovery_cooldown = 1
-	spawn(300)
-		recovery_cooldown = 0
+	COOLDOWN_START(src, recovery_cooldown, 30 SECONDS)
 
 /mob/living/simple_animal/hostile/mushroom/proc/LevelUp(level_gain)
 	if(powerlevel <= 9)
@@ -153,7 +151,7 @@
 
 /mob/living/simple_animal/hostile/mushroom/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/grown/mushroom))
-		if(stat == DEAD && !recovery_cooldown)
+		if(stat == DEAD && COOLDOWN_FINISHED(src, recovery_cooldown))
 			Recover()
 			qdel(I)
 		else

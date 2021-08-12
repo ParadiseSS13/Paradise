@@ -13,9 +13,9 @@
 	exit_delay = 1
 	enter_delay = 2
 	var/pod_moving = FALSE
-	var/launch_cooldown = 0
 	var/reverse_launch = FALSE
 	var/hatch_state = TRANSIT_TUBE_CLOSED
+	COOLDOWN_DECLARE(launch_cooldown)
 
 	var/list/disallowed_mobs = list(/mob/living/silicon/ai)
 
@@ -137,7 +137,7 @@
 	pod_moving = FALSE
 
 /obj/structure/transit_tube/station/process()
-	if(!pod_moving && launch_cooldown <= world.time)
+	if(!pod_moving && COOLDOWN_FINISHED(src, launch_cooldown))
 		launch_pod()
 
 /obj/structure/transit_tube/station/pod_stopped(obj/structure/transit_tube_pod/pod, from_dir)
@@ -145,7 +145,7 @@
 	addtimer(CALLBACK(src, .proc/pod_stopped_callback, pod), 5)
 
 /obj/structure/transit_tube/station/proc/pod_stopped_callback(obj/structure/transit_tube_pod/pod)
-	launch_cooldown = world.time + LAUNCH_COOLDOWN
+	COOLDOWN_START(src, launch_cooldown, LAUNCH_COOLDOWN)
 	open_hatch(pod)
 	sleep(OPEN_DURATION + 2)
 	pod.eject_mindless(dir)

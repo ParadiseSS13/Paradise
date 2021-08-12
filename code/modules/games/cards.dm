@@ -15,13 +15,13 @@
 /obj/item/deck
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/playing_cards.dmi'
-	actions_types = list(/datum/action/item_action/draw_card, /datum/action/item_action/deal_card, /datum/action/item_action/deal_card_multi, /datum/action/item_action/shuffle)
-	var/list/cards = list()
-	var/cooldown = 0 // to prevent spam shuffle
 	throw_speed = 3
 	throw_range = 10
 	throwforce = 0
 	force = 0
+	actions_types = list(/datum/action/item_action/draw_card, /datum/action/item_action/deal_card, /datum/action/item_action/deal_card_multi, /datum/action/item_action/shuffle)
+	var/list/cards = list()
+	COOLDOWN_DECLARE(shuffle_cooldown)
 
 /obj/item/deck/attackby(obj/O as obj, mob/user as mob)
 	if(istype(O,/obj/item/cardhand))
@@ -208,11 +208,11 @@
 
 /obj/item/deck/proc/deckshuffle()
 	var/mob/living/user = usr
-	if(cooldown < world.time - 5 SECONDS)
+	if(COOLDOWN_FINISHED(src, shuffle_cooldown))
+		COOLDOWN_START(src, shuffle_cooldown, 5 SECONDS)
 		cards = shuffle(cards)
 		user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
-		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
-		cooldown = world.time
+		playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 
 
 /obj/item/deck/MouseDrop(atom/over_object) // Code from Paper bin, so you can still pick up the deck

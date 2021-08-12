@@ -23,7 +23,7 @@
 	var/power = 5
 
 	// Based on the power used
-	var/teleport_cooldown = 0 // every index requires a bluespace crystal
+	COOLDOWN_DECLARE(teleport_cooldown) // every index requires a bluespace crystal
 	var/list/power_options = list(5, 10, 20, 25, 30, 40, 50, 80)
 	var/teleporting = 0
 	var/crystals = 0
@@ -158,9 +158,9 @@
 	return
 
 /obj/machinery/computer/telescience/proc/doteleport(mob/user)
-
-	if(teleport_cooldown > world.time)
-		temp_msg = "Telepad is recharging power.<BR>Please wait [round((teleport_cooldown - world.time) / 10)] seconds."
+	var/time_left = round(COOLDOWN_TIMELEFT(src, teleport_cooldown) / 10)
+	if(time_left)
+		temp_msg = "Telepad is recharging power.<BR>Please wait [time_left] seconds."
 		return
 
 	if(teleporting)
@@ -198,7 +198,7 @@
 			if(telepad.stat & NOPOWER)
 				return
 			teleporting = 0
-			teleport_cooldown = world.time + (power * 2)
+			COOLDOWN_START(src, teleport_cooldown, power * 2)
 			teles_left -= 1
 
 			// use a lot of power

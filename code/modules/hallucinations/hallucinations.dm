@@ -44,10 +44,10 @@ GLOBAL_LIST_INIT(hallucinations, list(
   * Called as part of [/mob/living/proc/handle_status_effects] to handle hallucinations.
   */
 /mob/living/carbon/proc/handle_hallucinations()
-	if(!hallucination || next_hallucination > world.time)
+	if(!hallucination || !COOLDOWN_FINISHED(src, hallucination_cooldown))
 		return
 
-	next_hallucination = world.time + rand(HALLUCINATE_COOLDOWN_MIN, HALLUCINATE_COOLDOWN_MAX) / (hallucination * HALLUCINATE_COOLDOWN_FACTOR)
+	COOLDOWN_START(src, hallucination_cooldown, rand(HALLUCINATE_COOLDOWN_MIN, HALLUCINATE_COOLDOWN_MAX) / (hallucination * HALLUCINATE_COOLDOWN_FACTOR))
 	if(!prob(HALLUCINATE_CHANCE))
 		return
 

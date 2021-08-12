@@ -11,10 +11,10 @@
 	hitsound = 'sound/weapons/sear.ogg'
 	needs_permit = TRUE
 	var/storm_type = /datum/weather/ash_storm
-	var/storm_cooldown = 0
+	COOLDOWN_DECLARE(storm_cooldown)
 
 /obj/item/staff/storm/attack_self(mob/user)
-	if(storm_cooldown > world.time)
+	if(!COOLDOWN_FINISHED(src, storm_cooldown))
 		to_chat(user, "<span class='warning'>The staff is still recharging!</span>")
 		return
 
@@ -51,4 +51,4 @@
 	"<span class='notice'>You hold [src] skyward, calling down a terrible storm!</span>")
 	playsound(user, 'sound/magic/staff_change.ogg', 200, 0)
 	A.telegraph()
-	storm_cooldown = world.time + 200
+	COOLDOWN_START(src, storm_cooldown, 20 SECONDS)

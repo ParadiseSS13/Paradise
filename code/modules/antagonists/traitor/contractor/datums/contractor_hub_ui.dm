@@ -92,7 +92,7 @@
 							difficulties[difficulty] = list(name = C.contract.candidate_zones[difficulty].map_name, reward = C.reward_tc[difficulty])
 					if(CONTRACT_STATUS_ACTIVE)
 						contract_data["world_time"] = world.time
-						contract_data["time_left"] = C.extraction_deadline - world.time
+						contract_data["time_left"] = COOLDOWN_TIMELEFT(C, extraction_deadline)
 					if(CONTRACT_STATUS_COMPLETED)
 						contract_data["completed_time"] = C.completed_time
 						contract_data["dead_extraction"] = C.dead_extraction

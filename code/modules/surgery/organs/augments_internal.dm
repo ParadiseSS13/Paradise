@@ -392,7 +392,7 @@
 	if(reviving)
 		revive_cost += 200
 	else
-		COOLDOWN_START(src, reviver_cooldown, reviver_cooldown + 20 SECONDS)
+		COOLDOWN_ADD(src, reviver_cooldown, 20 SECONDS)
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(H.stat != DEAD && prob(50 / severity))

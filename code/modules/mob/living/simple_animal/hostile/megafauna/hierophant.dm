@@ -53,7 +53,7 @@ Difficulty: Hard
 	speed = 10
 	move_to_delay = 10
 	ranged = TRUE
-	ranged_cooldown_time = 40
+	ranged_cooldown_time = 4 SECONDS
 	aggro_vision_range = 21 //so it can see to one side of the arena to the other
 	loot = list(/obj/item/hierophant_club)
 	crusher_loot = list(/obj/item/hierophant_club, /obj/item/crusher_trophy/vortex_talisman)
@@ -123,7 +123,7 @@ Difficulty: Hard
 	var/cross_counter = 1 + round(anger_modifier * 0.12)
 
 	arena_trap(target)
-	ranged_cooldown = world.time + max(5, ranged_cooldown_time - anger_modifier * 0.75) //scale cooldown lower with high anger.
+	COOLDOWN_START(src, ranged_cooldown, max(5, ranged_cooldown_time - anger_modifier * 0.75)) //scale cooldown lower with high anger.
 
 	var/target_slowness = 0
 	var/mob/living/L
@@ -195,7 +195,7 @@ Difficulty: Hard
 		INVOKE_ASYNC(src, .proc/burst, get_turf(src))
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink_spam(blink_counter, target_slowness, cross_counter)
-	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
+	COOLDOWN_START(src, ranged_cooldown, max(5, major_attack_cooldown - anger_modifier * 0.75))
 	if(health < maxHealth * 0.5 && blink_counter > 1)
 		visible_message("<span class='hierophant'>\"Mx ampp rsx iwgeti.\"</span>")
 		var/oldcolor = color
@@ -217,7 +217,7 @@ Difficulty: Hard
 		blink(target)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/cross_blast_spam(blink_counter, target_slowness, cross_counter)
-	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
+	COOLDOWN_START(src, ranged_cooldown, max(5, major_attack_cooldown - anger_modifier * 0.75))
 	visible_message("<span class='hierophant'>\"Piezi mx rsalivi xs vyr.\"</span>")
 	blinking = TRUE
 	var/oldcolor = color
@@ -237,7 +237,7 @@ Difficulty: Hard
 
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/chaser_swarm(blink_counter, target_slowness, cross_counter)
-	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
+	COOLDOWN_START(src, ranged_cooldown, max(5, major_attack_cooldown - anger_modifier * 0.75))
 	visible_message("<span class='hierophant'>\"Mx gerrsx lmhi.\"</span>")
 	blinking = TRUE
 	var/oldcolor = color
@@ -445,9 +445,9 @@ Difficulty: Hard
 		if(target && isliving(target))
 			var/mob/living/L = target
 			if(L.stat != DEAD)
-				if(ranged_cooldown <= world.time)
+				if(COOLDOWN_FINISHED(src, ranged_cooldown))
 					calculate_rage()
-					ranged_cooldown = world.time + max(5, ranged_cooldown_time - anger_modifier * 0.75)
+					COOLDOWN_START(src, ranged_cooldown, max(5, ranged_cooldown_time - anger_modifier * 0.75))
 					INVOKE_ASYNC(src, .proc/burst, get_turf(src))
 				else
 					burst_range = 3

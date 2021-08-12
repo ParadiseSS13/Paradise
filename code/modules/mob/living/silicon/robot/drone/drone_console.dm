@@ -11,7 +11,7 @@
 	/// Used when pinging drones
 	var/drone_call_area = "Engineering"
 	/// Cooldown for area pings
-	var/ping_cooldown = 0
+	COOLDOWN_DECLARE(ping_cooldown)
 
 /obj/machinery/computer/drone_control/Initialize(mapload)
 	. = ..()
@@ -49,7 +49,7 @@
 		data["drone_prod"] = dronefab.produce_drones
 		data["drone_progress"] = dronefab.drone_progress
 	data["selected_area"] = drone_call_area
-	data["ping_cd"] = ping_cooldown > world.time ? TRUE : FALSE
+	data["ping_cd"] = !COOLDOWN_FINISHED(src, ping_cooldown)
 
 	data["drones"] = list()
 	for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
@@ -63,7 +63,7 @@
 			health = round(D.health / D.maxHealth, 0.1),
 			charge = round(D.cell.charge / D.cell.maxcharge, 0.1),
 			location = "[A] ([T.x], [T.y])",
-			sync_cd = D.sync_cooldown > world.time ? TRUE : FALSE
+			sync_cd = !COOLDOWN_FINISHED(D, sync_cooldown)
 		)
 		data["drones"] += list(drone_data)
 	return data
@@ -97,7 +97,7 @@
 			drone_call_area = params["area"]
 
 		if("ping")
-			ping_cooldown = world.time + 1 MINUTES // One minute cooldown to prevent chat spam
+			COOLDOWN_START(src, ping_cooldown, 60 SECONDS) // One minute cooldown to prevent chat spam
 			to_chat(usr, "<span class='notice'>You issue a maintenance request for all active drones, highlighting [drone_call_area].</span>")
 			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
 				if(D.client && D.stat == CONSCIOUS)
@@ -106,7 +106,7 @@
 		if("resync")
 			var/mob/living/silicon/robot/drone/D = locateUID(params["uid"])
 			if(D)
-				D.sync_cooldown = world.time + 1 MINUTES // One minute cooldown to prevent chat spam
+				COOLDOWN_START(D, sync_cooldown, 60 SECONDS) // One minute cooldown to prevent chat spam
 				to_chat(usr, "<span class='notice'>You issue a law synchronization directive for the drone.</span>")
 				D.law_resync()
 

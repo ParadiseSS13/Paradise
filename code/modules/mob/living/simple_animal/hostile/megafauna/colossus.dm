@@ -84,7 +84,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
 	anger_modifier = clamp(((maxHealth - health)/50),0,20)
-	ranged_cooldown = world.time + 120
+	COOLDOWN_START(src, ranged_cooldown, 12 SECONDS)
 
 	if(client)
 		switch(chosen_attack)
@@ -101,7 +101,7 @@ Difficulty: Very Hard
 	if(enrage(target))
 		if(move_to_delay == initial(move_to_delay))
 			visible_message("<span class='colossus'>\"<b>You can't dodge.</b>\"</span>")
-		ranged_cooldown = world.time + 30
+		COOLDOWN_START(src, ranged_cooldown, 3 SECONDS)
 		telegraph()
 		dir_shots(GLOB.alldirs)
 		move_to_delay = 3
@@ -126,7 +126,7 @@ Difficulty: Very Hard
 			return TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
-	ranged_cooldown = world.time + 40
+	COOLDOWN_START(src, ranged_cooldown, 4 SECONDS)
 	dir_shots(GLOB.diagonals)
 	SLEEP_CHECK_DEATH(10)
 	dir_shots(GLOB.cardinal)
@@ -177,7 +177,7 @@ Difficulty: Very Hard
 	P.fire(set_angle)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/random_shots()
-	ranged_cooldown = world.time + 30
+	COOLDOWN_START(src, ranged_cooldown, 3 SECONDS)
 	var/turf/U = get_turf(src)
 	playsound(U, 'sound/magic/clockwork/invoke_general.ogg', 300, TRUE, 5)
 	for(var/T in RANGE_TURFS(12, U) - U)
@@ -185,7 +185,7 @@ Difficulty: Very Hard
 			shoot_projectile(T)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/blast(set_angle)
-	ranged_cooldown = world.time + 20
+	COOLDOWN_START(src, ranged_cooldown, 2 SECONDS)
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	newtonian_move(get_dir(target_turf, src))

@@ -649,12 +649,11 @@
 	flags = NODROP
 	var/smokecount = 0
 	var/bolacount = 0
-	var/cooldown = 0
+	COOLDOWN_DECLARE(replenish_cooldown)
 
 /obj/item/storage/belt/bluespace/owlman/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	cooldown = world.time
 
 /obj/item/storage/belt/bluespace/owlman/populate_contents()
 	for(var/I in 1 to 4)
@@ -667,30 +666,32 @@
 	return ..()
 
 /obj/item/storage/belt/bluespace/owlman/process()
-	if(cooldown < world.time - 600)
-		smokecount = 0
-		var/obj/item/grenade/smokebomb/S
-		for(S in src)
+	if(!COOLDOWN_FINISHED(src, replenish_cooldown))
+		return
+
+	COOLDOWN_START(src, replenish_cooldown, 60 SECONDS)
+	smokecount = 0
+	var/obj/item/grenade/smokebomb/S
+	for(S in src)
+		smokecount++
+	bolacount = 0
+	var/obj/item/restraints/legcuffs/bola/B
+	for(B in src)
+		bolacount++
+	if(smokecount < 4)
+		while(smokecount < 4)
+			new /obj/item/grenade/smokebomb(src)
 			smokecount++
-		bolacount = 0
-		var/obj/item/restraints/legcuffs/bola/B
-		for(B in src)
+	if(bolacount < 2)
+		while(bolacount < 2)
+			new /obj/item/restraints/legcuffs/bola(src)
 			bolacount++
-		if(smokecount < 4)
-			while(smokecount < 4)
-				new /obj/item/grenade/smokebomb(src)
-				smokecount++
-		if(bolacount < 2)
-			while(bolacount < 2)
-				new /obj/item/restraints/legcuffs/bola(src)
-				bolacount++
-		cooldown = world.time
-		update_icon()
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			if(H.belt && H.belt == src)
-				if(H.s_active && H.s_active == src)
-					H.s_active.show_to(H)
+	update_icon()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		if(H.belt && H.belt == src)
+			if(H.s_active && H.s_active == src)
+				H.s_active.show_to(H)
 
 /obj/item/storage/belt/bluespace/attack(mob/M, mob/user, def_zone)
 	return

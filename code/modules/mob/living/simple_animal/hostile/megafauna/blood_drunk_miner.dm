@@ -37,7 +37,7 @@ Difficulty: Medium
 	projectiletype = /obj/item/projectile/kinetic/miner
 	projectilesound = 'sound/weapons/kenetic_accel.ogg'
 	ranged = TRUE
-	ranged_cooldown_time = 16
+	ranged_cooldown_time = 1.6 SECONDS
 	pixel_x = -7
 	crusher_loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator, /obj/item/crusher_trophy/miner_eye)
 	loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator)
@@ -189,8 +189,8 @@ Difficulty: Medium
 	shoot_ka()
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/shoot_ka()
-	if(ranged_cooldown <= world.time && get_dist(src, target) <= MINER_DASH_RANGE && !Adjacent(target))
-		ranged_cooldown = world.time + ranged_cooldown_time
+	if(COOLDOWN_FINISHED(src, ranged_cooldown) && get_dist(src, target) <= MINER_DASH_RANGE && !Adjacent(target))
+		COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 		visible_message("<span class='danger'>[src] fires the proto-kinetic accelerator!</span>")
 		face_atom(target)
 		new /obj/effect/temp_visual/dir_setting/firing_effect(loc, dir)

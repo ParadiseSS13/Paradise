@@ -321,8 +321,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/list/sideslist = list("heads","tails")
 	var/cmineral = null
 	var/name_by_cmineral = TRUE
-	var/cooldown = 0
 	var/credits = 10
+	COOLDOWN_DECLARE(flip_cooldown)
 
 /obj/item/coin/New()
 	..()
@@ -455,10 +455,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		qdel(src)
 
 
-/obj/item/coin/attack_self(mob/user as mob)
-	if(cooldown < world.time - 15)
+/obj/item/coin/attack_self(mob/user)
+	if(COOLDOWN_FINISHED(src, flip_cooldown))
 		var/coinflip = pick(sideslist)
-		cooldown = world.time
+		COOLDOWN_START(src, flip_cooldown, 1.5 SECONDS)
 		flick("coin_[cmineral]_flip", src)
 		icon_state = "coin_[cmineral]_[coinflip]"
 		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)

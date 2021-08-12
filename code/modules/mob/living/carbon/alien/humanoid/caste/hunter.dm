@@ -43,7 +43,7 @@
 #define MAX_ALIEN_LEAP_DIST 7
 
 /mob/living/carbon/alien/humanoid/hunter/proc/leap_at(atom/A)
-	if(pounce_cooldown > world.time)
+	if(!COOLDOWN_FINISHED(src, pounce_cooldown))
 		to_chat(src, "<span class='alertalien'>You are too fatigued to pounce right now!</span>")
 		return
 
@@ -91,7 +91,7 @@
 				Weaken(2, 1, 1)
 
 			toggle_leap(0)
-			pounce_cooldown = world.time + pounce_cooldown_time
+			COOLDOWN_START(src, pounce_cooldown, pounce_cooldown_time)
 		else if(A.density && !A.CanPass(src))
 			visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='alertalien'>[src] smashes into [A]!</span>")
 			Weaken(2, 1, 1)

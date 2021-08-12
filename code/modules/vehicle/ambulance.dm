@@ -17,8 +17,8 @@
 	icon_icon = 'icons/obj/vehicles.dmi'
 	button_icon_state = "docwagon2"
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_LYING | AB_CHECK_CONSCIOUS
-	var/toggle_cooldown = 40
-	var/cooldown = 0
+	var/toggle_cooldown = 4 SECONDS
+	COOLDOWN_DECLARE(siren_cooldown)
 
 
 /datum/action/ambulance_alarm/Trigger()
@@ -30,10 +30,10 @@
 	if(!istype(A) || !A.soundloop)
 		return FALSE
 
-	if(world.time < cooldown + toggle_cooldown)
+	if(!COOLDOWN_FINISHED(src, siren_cooldown))
 		return FALSE
 
-	cooldown = world.time
+	COOLDOWN_START(src, siren_cooldown, toggle_cooldown)
 
 	if(A.soundloop.muted)
 		A.soundloop.start()

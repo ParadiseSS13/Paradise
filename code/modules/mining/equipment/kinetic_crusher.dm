@@ -271,10 +271,10 @@
 	if(ishostile(target))
 		var/mob/living/simple_animal/hostile/H = target
 		if(H.ranged) //briefly delay ranged attacks
-			if(H.ranged_cooldown >= world.time)
-				H.ranged_cooldown += bonus_value
+			if(!COOLDOWN_FINISHED(H, ranged_cooldown))
+				COOLDOWN_ADD(H, ranged_cooldown, bonus_value)
 			else
-				H.ranged_cooldown = bonus_value + world.time
+				COOLDOWN_START(H, ranged_cooldown, bonus_value)
 
 //magmawing watcher
 /obj/item/crusher_trophy/blaster_tubes/magma_wing

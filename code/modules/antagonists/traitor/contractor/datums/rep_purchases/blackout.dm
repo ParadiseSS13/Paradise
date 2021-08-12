@@ -10,16 +10,16 @@
 	var/static/cooldown = 45 MINUTES
 	// Variables
 	/// Static cooldown variable for blackouts.
-	var/static/next_blackout = -1
+	var/static/next_blackout = 0
 
 /datum/rep_purchase/blackout/buy(datum/contractor_hub/hub, mob/living/carbon/human/user)
-	if(next_blackout > world.time)
-		var/timeleft = (next_blackout - world.time) / 10
-		to_chat(user, "<span class='warning'>Another blackout may not be requested for [seconds_to_clock(timeleft)].</span>")
+	var/time_left = round(COOLDOWN_TIMELEFT(src, next_blackout) / 10)
+	if(time_left)
+		to_chat(user, "<span class='warning'>Another blackout may not be requested for [seconds_to_clock(time_left)].</span>")
 		return FALSE
 	return ..()
 
 /datum/rep_purchase/blackout/on_buy(datum/contractor_hub/hub, mob/living/carbon/human/user)
 	..()
-	next_blackout = world.time + cooldown
+	COOLDOWN_START(src, next_blackout, cooldown)
 	power_failure()

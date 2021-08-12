@@ -12,7 +12,7 @@
 	damage_transfer = 0.9
 	can_strip = TRUE
 	projectiletype = /obj/item/projectile/guardian
-	ranged_cooldown_time = 5 //fast!
+	ranged_cooldown_time = 0.5 SECONDS //fast!
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
 	ranged = 1
 	range = 13

@@ -27,7 +27,7 @@
 	var/dreaming = 0 //How many dream images we have left to send
 	var/nightmare = 0
 
-	/// The world.time after which the mob can hallucinate again.
-	var/next_hallucination = 0
+	/// Cooldown timer until the mob can hallucinate again.
+	COOLDOWN_DECLARE(hallucination_cooldown)
 
 	blood_volume = BLOOD_VOLUME_NORMAL

@@ -1,4 +1,4 @@
-#define REGENERATION_DELAY 60  // After taking damage, how long it takes for automatic regeneration to begin for megacarps (ty robustin!)
+#define REGENERATION_DELAY 6 SECONDS  // After taking damage, how long it takes for automatic regeneration to begin for megacarps (ty robustin!)
 
 /mob/living/simple_animal/hostile/carp
 	name = "space carp"
@@ -145,7 +145,7 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 
-	var/regen_cooldown = 0
+	COOLDOWN_DECLARE(regen_cooldown)
 
 /mob/living/simple_animal/hostile/carp/megacarp/Initialize()
 	. = ..()
@@ -158,11 +158,11 @@
 /mob/living/simple_animal/hostile/carp/megacarp/adjustHealth(amount, updating_health = TRUE)
 	. = ..()
 	if(.)
-		regen_cooldown = world.time + REGENERATION_DELAY
+		COOLDOWN_START(src, regen_cooldown, REGENERATION_DELAY)
 
 /mob/living/simple_animal/hostile/carp/megacarp/Life()
 	..()
-	if(regen_cooldown < world.time)
+	if(COOLDOWN_FINISHED(src, regen_cooldown))
 		heal_overall_damage(4)
 
 #undef REGENERATION_DELAY

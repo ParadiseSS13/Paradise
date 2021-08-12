@@ -105,7 +105,7 @@ Difficulty: Medium
 		return
 
 	anger_modifier = clamp(((maxHealth - health)/50),0,20)
-	ranged_cooldown = world.time + ranged_cooldown_time
+	COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 
 	if(client)
 		switch(chosen_attack)
@@ -636,7 +636,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/OpenFire()
 	if(swooping)
 		return
-	ranged_cooldown = world.time + ranged_cooldown_time
+	COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 	fire_stream()
 
 /obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon

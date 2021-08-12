@@ -107,33 +107,27 @@
 	name = "Charged Energy Field"
 	desc = "A powerful energy field that blocks movement. Energy arcs off it."
 	max_integrity = 20
-	var/shockcd = 0
+	COOLDOWN_DECLARE(shock_cooldown)
 
 /obj/structure/holosign/barrier/cyborg/hacked/bullet_act(obj/item/projectile/P)
 	take_damage(P.damage, BRUTE, "melee", 1)	//Yeah no this doesn't get projectile resistance.
-
-/obj/structure/holosign/barrier/cyborg/hacked/proc/cooldown()
-	shockcd = FALSE
 
 /obj/structure/holosign/barrier/cyborg/hacked/attack_hand(mob/living/user)
 	. = ..()
 	if(.)
 		return
-	if(!shockcd)
-		if(isliving(user))
-			var/mob/living/M = user
-			M.electrocute_act(15, "Energy Barrier")
-			shockcd = TRUE
-			addtimer(CALLBACK(src, .proc/cooldown), 5)
+	if(!COOLDOWN_FINISHED(src, shock_cooldown))
+		return
+	if(isliving(user))
+		var/mob/living/M = user
+		M.electrocute_act(15, "Energy Barrier")
+		COOLDOWN_START(src, shock_cooldown, 0.5 SECONDS)
 
 /obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/AM)
-	if(shockcd)
+	if(!COOLDOWN_FINISHED(src, shock_cooldown))
 		return
 
-	if(!isliving(AM))
-		return
-
-	var/mob/living/M = AM
-	M.electrocute_act(15, "Energy Barrier")
-	shockcd = TRUE
-	addtimer(CALLBACK(src, .proc/cooldown), 5)
+	if(isliving(AM))
+		var/mob/living/M = AM
+		M.electrocute_act(15, "Energy Barrier")
+		COOLDOWN_START(src, shock_cooldown, 0.5 SECONDS)

@@ -14,7 +14,7 @@
 	projectilesound = 'sound/weapons/pierce.ogg'
 	ranged = 1
 	ranged_message = "stares"
-	ranged_cooldown_time = 30
+	ranged_cooldown_time = 3 SECONDS
 	throw_message = "does nothing against the hard shell of"
 	vision_range = 2
 	speed = 3
@@ -46,7 +46,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/GiveTarget(new_target)
 	if(..()) //we have a target
-		if(isliving(target) && !target.Adjacent(targets_from) && ranged_cooldown <= world.time)//No more being shot at point blank or spammed with RNG beams
+		if(isliving(target) && !target.Adjacent(targets_from) && COOLDOWN_FINISHED(src, ranged_cooldown))//No more being shot at point blank or spammed with RNG beams
 			OpenFire(target)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/ex_act(severity)

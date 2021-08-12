@@ -6,22 +6,18 @@
 	activated = 1
 	origin_tech = "materials=2;biotech=7;magnets=4;bluespace=4;abductor=5"
 	var/obj/machinery/abductor/pad/home
-	var/cooldown = 30
-	var/total_cooldown = 30
+	/// How long is the delay between each implant activation.
+	var/cooldown_time = 60 SECONDS
+	/// Cooldown timer to track how long is left before the implant is available again.
+	COOLDOWN_DECLARE(recall_cooldown)
 
 /obj/item/implant/abductor/activate()
-	if(cooldown == total_cooldown)
-		home.Retrieve(imp_in,1)
-		cooldown = 0
-		START_PROCESSING(SSobj, src)
+	var/time_left = round(COOLDOWN_TIMELEFT(src, recall_cooldown) / 10)
+	if(time_left)
+		to_chat(imp_in, "<span class='warning'>You must wait [time_left] second\s to use [src] again!</span>")
 	else
-		to_chat(imp_in, "<span class='warning'>You must wait [(total_cooldown - cooldown)*2] seconds to use [src] again!</span>")
-
-/obj/item/implant/abductor/process()
-	if(cooldown < total_cooldown)
-		cooldown++
-		if(cooldown == total_cooldown)
-			STOP_PROCESSING(SSobj, src)
+		COOLDOWN_START(src, recall_cooldown, cooldown_time)
+		home.Retrieve(imp_in)
 
 /obj/item/implant/abductor/implant(mob/source, mob/user)
 	if(..())

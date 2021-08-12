@@ -25,7 +25,7 @@
 	/// Sound to play when knocking someone down
 	var/stun_sound = 'sound/effects/woodhit.ogg'
 	// Variables
-	/// Whether the baton is on cooldown
+	/// Cooldown timer for baton knockdowns
 	COOLDOWN_DECLARE(stun_cooldown)
 	/// Whether the baton is toggled on (to allow attacking)
 	var/on = TRUE

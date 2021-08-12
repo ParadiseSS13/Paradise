@@ -12,7 +12,7 @@
 	mouse_opacity = MOUSE_OPACITY_ICON
 	move_to_delay = 40
 	ranged = TRUE
-	ranged_cooldown_time = 120
+	ranged_cooldown_time = 12 SECONDS
 	friendly = "wails at"
 	speak_emote = list("bellows")
 	vision_range = 4
@@ -64,7 +64,7 @@
 	if(get_dist(src, target) <= 7)//Screen range check, so you can't get tentacle'd offscreen
 		visible_message("<span class='warning'>[src] digs its tentacles under [target]!</span>")
 		new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src)
-		ranged_cooldown = world.time + ranged_cooldown_time
+		COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 		icon_state = icon_aggro
 		pre_attack = FALSE
 

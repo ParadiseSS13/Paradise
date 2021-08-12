@@ -93,7 +93,7 @@
 	ventcrawler = VENTCRAWLER_ALWAYS
 	ranged = TRUE
 	projectiletype = /obj/item/projectile/beam/disabler
-	ranged_cooldown_time = 20
+	ranged_cooldown_time = 2 SECONDS
 	projectilesound = 'sound/weapons/taser2.ogg'
 	loot = list(/obj/effect/decal/cleanable/robot_debris, /obj/item/stack/ore/bluespace_crystal)
 	del_on_death = TRUE

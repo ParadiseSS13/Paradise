@@ -11,8 +11,8 @@ log transactions
 #define CHANGE_SECURITY_LEVEL 1
 #define TRANSFER_FUNDS 2
 #define VIEW_TRANSACTION_LOGS 3
-#define PRINT_DELAY 100
-#define LOCKOUT_TIME 120
+#define PRINT_DELAY 10 SECONDS
+#define LOCKOUT_TIME 12 SECONDS
 
 /obj/machinery/atm
 	name = "Nanotrasen automatic teller machine"
@@ -33,7 +33,7 @@ log transactions
 	var/obj/item/card/held_card
 	var/editing_security_level = 0
 	var/view_screen = DEFAULT_SCREEN
-	var/lastprint = 0 // Printer needs time to cooldown
+	COOLDOWN_DECLARE(print_cooldown)
 
 /obj/machinery/atm/New()
 	..()
@@ -253,10 +253,10 @@ log transactions
 
 		if("balance_statement")
 			if(authenticated_account)
-				if(world.timeofday < lastprint + PRINT_DELAY)
+				if(!COOLDOWN_FINISHED(src, print_cooldown))
 					to_chat(usr, "<span class='notice'>[src] flashes an error on its display.</span>")
 					return
-				lastprint = world.timeofday
+				COOLDOWN_START(src, print_cooldown, PRINT_DELAY)
 				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 				var/obj/item/paper/R = new(loc)
 				R.name = "Account balance: [authenticated_account.owner_name]"
@@ -302,3 +302,10 @@ log transactions
 	var/obj/item/stack/spacecash/C = new(amt = arbitrary_sum)
 	if(!usr?.put_in_hands(C))
 		C.forceMove(get_step(get_turf(src), turn(dir, 180)))
+
+#undef DEFAULT_SCREEN
+#undef CHANGE_SECURITY_LEVEL
+#undef TRANSFER_FUNDS
+#undef VIEW_TRANSACTION_LOGS
+#undef PRINT_DELAY
+#undef LOCKOUT_TIME
