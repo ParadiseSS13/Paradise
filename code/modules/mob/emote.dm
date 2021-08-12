@@ -77,7 +77,9 @@
 
 		// Type 1 (Visual) emotes are sent to anyone in view of the item
 		if(m_type & EMOTE_VISUAL)
-			var/runechat_text = copytext(input, 1, 101)
+			var/runechat_text = input
+			if(length(input) > 100)
+				runechat_text = "[copytext(input, 1, 101)]..."
 			var/list/can_see = get_mobs_in_view(1,src)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 			can_see |= viewers(src,null)
 			for(var/mob/O in can_see)
