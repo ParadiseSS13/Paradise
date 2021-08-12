@@ -343,7 +343,7 @@
 	slot = "heartdrive"
 	var/revive_cost = 0
 	var/reviving = FALSE
-	var/cooldown = 0
+	COOLDOWN_DECLARE(reviver_cooldown)
 
 /obj/item/organ/internal/cyberimp/chest/reviver/hardened
 	name = "Hardened reviver implant"
@@ -354,11 +354,11 @@
 	desc += " The implant has been hardened. It is invulnerable to EMPs."
 
 /obj/item/organ/internal/cyberimp/chest/reviver/on_life()
-	if(cooldown > world.time || owner.suiciding) // don't heal while you're in cooldown!
+	if(!COOLDOWN_FINISHED(src, reviver_cooldown) || owner.suiciding) // don't heal while you're in cooldown!
 		return
 	if(reviving)
 		if(owner.health <= HEALTH_THRESHOLD_CRIT)
-			addtimer(CALLBACK(src, .proc/heal), 30)
+			addtimer(CALLBACK(src, .proc/heal), 3 SECONDS)
 		else
 			reviving = FALSE
 			if(owner.HasDisease(new /datum/disease/critical/shock(0)) && prob(15)) //If they are no longer in crit, but have shock, and pass a 15% chance:
@@ -367,7 +367,7 @@
 					revive_cost += 150
 					to_chat(owner, "<span class='notice'>You feel better.</span>")
 			return
-	cooldown = revive_cost + world.time
+	COOLDOWN_START(src, reviver_cooldown, revive_cost)
 	revive_cost = 0
 	reviving = TRUE
 
@@ -392,7 +392,7 @@
 	if(reviving)
 		revive_cost += 200
 	else
-		cooldown += 200
+		COOLDOWN_START(src, reviver_cooldown, reviver_cooldown + 20 SECONDS)
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(H.stat != DEAD && prob(50 / severity))

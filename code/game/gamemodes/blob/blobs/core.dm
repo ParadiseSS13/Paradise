@@ -6,8 +6,8 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 90)
 	fire_resist = 2
 	point_return = -1
-	var/overmind_get_delay = 0 // we don't want to constantly try to find an overmind, do it every 5 minutes
-	var/resource_delay = 0
+	COOLDOWN_DECLARE(overmind_get_delay) // we don't want to constantly try to find an overmind, do it every 5 minutes
+	COOLDOWN_DECLARE(resource_delay)
 	var/point_rate = 2
 	var/is_offspring = null
 	var/selecting = 0
@@ -62,10 +62,9 @@
 /obj/structure/blob/core/Life(seconds, times_fired)
 	if(!overmind)
 		create_overmind()
-	else
-		if(resource_delay <= world.time)
-			resource_delay = world.time + 10 // 1 second
-			overmind.add_points(point_rate)
+	else if(COOLDOWN_FINISHED(src, resource_delay))
+		COOLDOWN_START(src, resource_delay, 1 SECONDS)
+		overmind.add_points(point_rate)
 	obj_integrity = min(max_integrity, obj_integrity + 1)
 	if(overmind)
 		overmind.update_health_hud()
@@ -90,10 +89,10 @@
 
 
 /obj/structure/blob/core/proc/create_overmind(client/new_overmind, override_delay)
-	if(overmind_get_delay > world.time && !override_delay)
+	if(!COOLDOWN_FINISHED(src, overmind_get_delay) && !override_delay)
 		return
 
-	overmind_get_delay = world.time + 5 MINUTES
+	COOLDOWN_START(src, overmind_get_delay, 5 MINUTES)
 
 	if(overmind)
 		qdel(overmind)

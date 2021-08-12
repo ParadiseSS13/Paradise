@@ -29,7 +29,6 @@
 	var/obj/item/stock_parts/cell/cell
 	var/state = 0
 	var/list/log = new
-	var/last_message = 0
 	var/add_req_access = 1
 	var/maint_access = 1
 	var/dna	//dna-locking the mech
@@ -39,6 +38,7 @@
 	var/lights_power = 6
 	var/frozen = FALSE
 	var/repairing = FALSE
+	COOLDOWN_DECLARE(message_cooldown)
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -79,8 +79,7 @@
 
 	var/destruction_sleep_duration = 1 //Time that mech pilot is put to sleep for if mech is destroyed
 
-	var/melee_cooldown = 10
-	var/melee_can_hit = 1
+	COOLDOWN_DECLARE(melee_cooldown)
 
 	// Action vars
 	var/defence_mode = FALSE
@@ -89,14 +88,13 @@
 	var/leg_overload_coeff = 100
 	var/thrusters_active = FALSE
 	var/smoke = 5
-	var/smoke_ready = 1
-	var/smoke_cooldown = 100
+	COOLDOWN_DECLARE(smoke_cooldown)
 	var/zoom_mode = FALSE
 	var/phasing = FALSE
 	var/phasing_energy_drain = 200
 	var/phase_state = "" //icon_state when phasing
 
-	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
+	hud_possible = list(DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
 /obj/mecha/Initialize()
 	. = ..()
@@ -218,14 +216,14 @@
 			return
 		selected.action(target, params)
 	else
+		if(!COOLDOWN_FINISHED(src, melee_cooldown))
+			return
 		if(internal_damage & MECHA_INT_CONTROL_LOST)
 			target = safepick(oview(1, src))
-		if(!melee_can_hit || !isatom(target))
+		if(!isatom(target))
 			return
 		target.mech_melee_attack(src)
-		melee_can_hit = 0
-		spawn(melee_cooldown)
-			melee_can_hit = 1
+		COOLDOWN_START(src, melee_cooldown, 1 SECONDS)
 
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, 1)
@@ -265,9 +263,9 @@
 		to_chat(user, "<span class='notice'>You climb out from [src].</span>")
 		return 0
 	if(connected_port)
-		if(world.time - last_message > 20)
+		if(COOLDOWN_FINISHED(src, message_cooldown))
 			occupant_message("<span class='warning'>Unable to move while connected to the air system port!</span>")
-			last_message = world.time
+			COOLDOWN_START(src, message_cooldown, 2 SECONDS)
 		return 0
 	if(state)
 		occupant_message("<span class='danger'>Maintenance protocols in effect.</span>")
@@ -282,14 +280,14 @@
 	if(!has_charge(step_energy_drain))
 		return 0
 	if(defence_mode)
-		if(world.time - last_message > 20)
+		if(COOLDOWN_FINISHED(src, message_cooldown))
 			occupant_message("<span class='danger'>Unable to move while in defence mode.</span>")
-			last_message = world.time
+			COOLDOWN_START(src, message_cooldown, 2 SECONDS)
 		return 0
 	if(zoom_mode)
-		if(world.time - last_message > 20)
+		if(COOLDOWN_FINISHED(src, message_cooldown))
 			occupant_message("<span class='danger'>Unable to move while in zoom mode.</span>")
-			last_message = world.time
+			COOLDOWN_START(src, message_cooldown, 2 SECONDS)
 		return 0
 
 	var/move_result = 0

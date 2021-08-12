@@ -8,7 +8,7 @@
 	var/active = 0
 	var/list/holographic_items = list()
 	var/damaged = 0
-	var/last_change = 0
+	COOLDOWN_DECLARE(holodeck_cooldown)
 
 	light_color = LIGHT_COLOR_CYAN
 
@@ -270,16 +270,11 @@
 
 
 /obj/machinery/computer/HolodeckControl/proc/loadProgram(area/A)
+	if(!COOLDOWN_FINISHED(src, holodeck_cooldown))
+		to_chat(usr, "<b>ERROR: Recalibrating projection apparatus.</b>")
+		return
 
-	if(world.time < (last_change + 25))
-		if(world.time < (last_change + 15))//To prevent super-spam clicking, reduced process size and annoyance -Sieve
-			return
-		for(var/mob/M in range(3,src))
-			M.show_message("<b>ERROR. Recalibrating projection apparatus.</b>")
-			last_change = world.time
-			return
-
-	last_change = world.time
+	COOLDOWN_START(src, holodeck_cooldown, 5 SECONDS)
 	active = 1
 
 	for(var/item in holographic_items)

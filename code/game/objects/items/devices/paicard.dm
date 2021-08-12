@@ -6,8 +6,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 	origin_tech = "programming=2"
-	var/request_cooldown = 5 // five seconds
-	var/last_request
+	COOLDOWN_DECLARE(request_cooldown)
 	var/obj/item/radio/radio
 	var/looking_for_personality = 0
 	var/mob/living/silicon/pai/pai
@@ -250,13 +249,12 @@
 			pai.master_dna = dna.unique_enzymes
 			to_chat(pai, "<font color = red><h3>You have been bound to a new master.</h3></font>")
 	if(href_list["request"])
-		var/delta = (world.time / 10) - last_request
-		if(request_cooldown > delta)
-			var/cooldown_time = round(request_cooldown - ((world.time / 10) - last_request), 1)
+		if(!COOLDOWN_FINISHED(src, request_cooldown))
+			var/cooldown_time = round(COOLDOWN_TIMELEFT(src, request_cooldown) / 10)
 			to_chat(usr, "<span class='warning'>The request system is currently offline. Please wait another [cooldown_time] seconds.</span>")
 			return
-		last_request = world.time / 10
-		looking_for_personality = 1
+		COOLDOWN_START(src, request_cooldown, 5 SECONDS)
+		looking_for_personality = TRUE
 		GLOB.paiController.findPAI(src, usr)
 	if(href_list["wipe"])
 		var/confirm = input("Are you CERTAIN you wish to delete the current personality? This action cannot be undone.", "Personality Wipe") in list("Yes", "No")

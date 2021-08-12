@@ -4,12 +4,12 @@
 	icon_state = "blob_resource"
 	max_integrity = 60
 	point_return = 12
-	var/resource_delay = 0
+	COOLDOWN_DECLARE(resource_delay)
 
 /obj/structure/blob/resource/run_action()
-	if(resource_delay > world.time)
+	if(!COOLDOWN_FINISHED(src, resource_delay))
 		return
 	flick("blob_resource_glow", src)
-	resource_delay = world.time + 40 // 4 seconds
+	COOLDOWN_START(src, resource_delay, 4 SECONDS)
 	if(overmind)
 		overmind.add_points(1)

@@ -27,8 +27,10 @@
 	var/ai_menu_state = COMM_SCREEN_MAIN
 	var/aicurrmsg
 
-	var/message_cooldown
-	var/centcomm_message_cooldown
+	/// Cooldown for station announcements.
+	COOLDOWN_DECLARE(message_cooldown)
+	/// Cooldown for messages to Central Command.
+	COOLDOWN_DECLARE(centcomm_message_cooldown)
 	var/tmp_alertlevel = 0
 
 	var/stat_msg1
@@ -134,17 +136,17 @@
 
 		if("announce")
 			if(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT)
-				if(message_cooldown > world.time)
+				if(!COOLDOWN_FINISHED(src, message_cooldown))
 					to_chat(usr, "<span class='warning'>Please allow at least one minute to pass between announcements.</span>")
 					return
 				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement") as null|message
-				if(!input || message_cooldown > world.time || ..() || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
+				if(!input || !COOLDOWN_FINISHED(src, message_cooldown) || ..() || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_MSGLEN_MINIMUM)
 					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_MSGLEN_MINIMUM] character minimum.</span>")
 					return
 				crew_announcement.Announce(input)
-				message_cooldown = world.time + 600 //One minute
+				COOLDOWN_START(src, message_cooldown, 60 SECONDS)
 
 		if("callshuttle")
 			var/input = input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.") as null|message
@@ -218,11 +220,11 @@
 
 		if("nukerequest")
 			if(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT)
-				if(centcomm_message_cooldown > world.time)
+				if(!COOLDOWN_FINISHED(src, centcomm_message_cooldown))
 					to_chat(usr, "<span class='warning'>Arrays recycling. Please stand by.</span>")
 					return
 				var/input = stripped_input(usr, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances.  Transmission does not guarantee a response.", "Self Destruct Code Request.","")
-				if(!input || ..() || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
+				if(!input || ..() || !COOLDOWN_FINISHED(src, centcomm_message_cooldown) || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
 					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum.</span>")
@@ -231,16 +233,16 @@
 				to_chat(usr, "<span class='notice'>Request sent.</span>")
 				log_game("[key_name(usr)] has requested the nuclear codes from Centcomm")
 				GLOB.priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
-				centcomm_message_cooldown = world.time + 6000 // 10 minutes
+				COOLDOWN_START(src, centcomm_message_cooldown, 10 MINUTES)
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
 		if("MessageCentcomm")
 			if(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT)
-				if(centcomm_message_cooldown > world.time)
+				if(!COOLDOWN_FINISHED(src, centcomm_message_cooldown))
 					to_chat(usr, "<span class='warning'>Arrays recycling. Please stand by.</span>")
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
-				if(!input || ..() || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
+				if(!input || ..() || !COOLDOWN_FINISHED(src, centcomm_message_cooldown) || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
 					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum.</span>")
@@ -249,17 +251,17 @@
 				print_centcom_report(input, station_time_timestamp() + " Captain's Message")
 				to_chat(usr, "Message transmitted.")
 				log_game("[key_name(usr)] has made a Centcomm announcement: [input]")
-				centcomm_message_cooldown = world.time + 6000 // 10 minutes
+				COOLDOWN_START(src, centcomm_message_cooldown, 10 MINUTES)
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
 		// OMG SYNDICATE ...LETTERHEAD
 		if("MessageSyndicate")
 			if((is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT) && (src.emagged))
-				if(centcomm_message_cooldown > world.time)
-					to_chat(usr, "Arrays recycling.  Please stand by.")
+				if(!COOLDOWN_FINISHED(src, centcomm_message_cooldown))
+					to_chat(usr, "Arrays recycling. Please stand by.")
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "")
-				if(!input || ..() || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
+				if(!input || ..() || !COOLDOWN_FINISHED(src, centcomm_message_cooldown) || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
 					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum.</span>")
@@ -267,7 +269,7 @@
 				Syndicate_announce(input, usr)
 				to_chat(usr, "Message transmitted.")
 				log_game("[key_name(usr)] has made a Syndicate announcement: [input]")
-				centcomm_message_cooldown = world.time + 6000 // 10 minutes
+				COOLDOWN_START(src, centcomm_message_cooldown, 10 MINUTES)
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
 		if("RestoreBackup")
@@ -367,7 +369,7 @@
 	for(var/i = 1; i <= messagetext.len; i++)
 		msg_data.Add(list(list("title" = messagetitle[i], "body" = messagetext[i], "id" = i)))
 
-	data["messages"]        = msg_data
+	data["messages"] = msg_data
 
 	data["current_message"] = null
 	data["current_message_title"] = null
@@ -375,9 +377,9 @@
 		data["current_message"] = data["is_ai"] ? messagetext[aicurrmsg] : messagetext[currmsg]
 		data["current_message_title"] = data["is_ai"] ? messagetitle[aicurrmsg] : messagetitle[currmsg]
 
-	data["lastCallLoc"]     = SSshuttle.emergencyLastCallLoc ? format_text(SSshuttle.emergencyLastCallLoc.name) : null
-	data["msg_cooldown"] = message_cooldown ? (round((message_cooldown - world.time) / 10)) : 0
-	data["cc_cooldown"] = centcomm_message_cooldown ? (round((centcomm_message_cooldown - world.time) / 10)) : 0
+	data["lastCallLoc"] = SSshuttle.emergencyLastCallLoc ? format_text(SSshuttle.emergencyLastCallLoc.name) : null
+	data["msg_cooldown"] = round(COOLDOWN_TIMELEFT(src, message_cooldown) / 10)
+	data["cc_cooldown"] = round(COOLDOWN_TIMELEFT(src, centcomm_message_cooldown) / 10)
 
 	var/secondsToRefuel = SSshuttle.secondsToRefuel()
 	data["esc_callable"] = SSshuttle.emergency.mode == SHUTTLE_IDLE && !secondsToRefuel ? TRUE : FALSE

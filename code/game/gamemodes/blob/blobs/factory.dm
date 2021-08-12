@@ -6,7 +6,7 @@
 	point_return = 18
 	var/list/spores = list()
 	var/max_spores = 3
-	var/spore_delay = 0
+	COOLDOWN_DECLARE(spore_delay)
 
 /obj/structure/blob/factory/Destroy()
 	for(var/mob/living/simple_animal/hostile/blob/blobspore/spore in spores)
@@ -18,10 +18,10 @@
 /obj/structure/blob/factory/run_action()
 	if(spores.len >= max_spores)
 		return
-	if(spore_delay > world.time)
+	if(!COOLDOWN_FINISHED(src, spore_delay))
 		return
 	flick("blob_factory_glow", src)
-	spore_delay = world.time + 100 // 10 seconds
+	COOLDOWN_START(src, spore_delay, 10 SECONDS)
 	var/mob/living/simple_animal/hostile/blob/blobspore/BS = new/mob/living/simple_animal/hostile/blob/blobspore(src.loc, src)
 	if(overmind)
 		BS.color = overmind.blob_reagent_datum?.complementary_color

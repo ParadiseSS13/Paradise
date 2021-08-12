@@ -20,12 +20,11 @@
  * * * Either world.time or stoppable timer cooldowns, depending on the other factors. Regular timer cooldowns do not support this.
 */
 
+// (Todo: Add documentation to these.)
 
 /*
  * Cooldown system based on an datum-level associative lazylist using timers.
-*/
-
-//TIMER COOLDOWN MACROS
+ */
 
 #define COMSIG_CD_STOP(cd_index) "cooldown_[cd_index]"
 #define COMSIG_CD_RESET(cd_index) "cd_reset_[cd_index]"
@@ -42,7 +41,7 @@
  * Use indexes the same as the regular timer cooldowns.
  * They make use of the TIMER_COOLDOWN_CHECK() and TIMER_COOLDOWN_END() macros the same, just not the TIMER_COOLDOWN_START() one.
  * A bit more expensive than the regular timers, but can be reset before they end and the time left can be checked.
-*/
+ */
 
 #define S_TIMER_COOLDOWN_START(cd_source, cd_index, cd_time) LAZYSET(cd_source.cooldowns, cd_index, addtimer(CALLBACK(GLOBAL_PROC, /.proc/end_cooldown, cd_source, cd_index), cd_time, TIMER_STOPPABLE))
 
@@ -54,7 +53,7 @@
 /*
  * Cooldown system based on storing world.time on a variable, plus the cooldown time.
  * Better performance over timer cooldowns, lower control. Same functionality.
-*/
+ */
 
 #define COOLDOWN_DECLARE(cd_index) var/##cd_index = 0
 

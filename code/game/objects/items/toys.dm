@@ -1396,7 +1396,6 @@
 	icon_state = "toy_mouse"
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
-	var/cooldown = 0
 
 /*
  * Action Figures
@@ -1419,13 +1418,13 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoy"
 	w_class = WEIGHT_CLASS_TINY
-	var/cooldown = 0
 	var/cooldown_time = 3 SECONDS
+	COOLDOWN_DECLARE(action_cooldown)
 
 /obj/item/toy/figure/attack_self(mob/user)
 	..()
-	if(cooldown < world.time)
-		cooldown = world.time + cooldown_time
+	if(COOLDOWN_FINISHED(src, action_cooldown))
+		COOLDOWN_START(src, action_cooldown, cooldown_time)
 		activate(user)
 	else
 		on_cooldown(user)
@@ -1796,17 +1795,15 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "eight-ball"
 	var/use_action = "shakes the ball"
-	var/cooldown = 0
 	var/list/possible_answers = list("Definitely", "All signs point to yes.", "Most likely.", "Yes.", "Ask again later.", "Better not tell you now.", "Future Unclear.", "Maybe.", "Doubtful.", "No.", "Don't count on it.", "Never.")
+	COOLDOWN_DECLARE(wisdom_delay)
 
 /obj/item/toy/eight_ball/attack_self(mob/user as mob)
-	if(!cooldown)
+	if(COOLDOWN_FINISHED(src, wisdom_delay))
 		var/answer = pick(possible_answers)
 		user.visible_message("<span class='notice'>[user] focuses on [user.p_their()] question and [use_action]...</span>")
 		user.visible_message("<span class='notice'>[bicon(src)] [src] says \"[answer]\"</span>")
-		spawn(30)
-			cooldown = 0
-		return
+		COOLDOWN_START(src, wisdom_delay, 3 SECONDS)
 
 /obj/item/toy/eight_ball/conch
 	name = "\improper Magic Conch Shell"

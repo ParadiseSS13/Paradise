@@ -576,16 +576,17 @@
 	special_names = null
 	unarmed_type = /datum/unarmed_attack/golem/bananium
 	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_CHUNKYFINGERS, TRAIT_CLUMSY, TRAIT_COMIC_SANS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN)
-	var/last_honk = 0
-	var/honkooldown = 0
-	var/last_banana = 0
-	var/banana_cooldown = 100
-	var/active = null
+
+	/// Cooldown for producing honks.
+	COOLDOWN_DECLARE(honkooldown)
+	/// Cooldown for producing bananas.
+	COOLDOWN_DECLARE(banana_cooldown)
+	/// Time between possible banana productions.
+	var/banana_delay = 10 SECONDS
 
 /datum/species/golem/bananium/on_species_gain(mob/living/carbon/human/H)
 	..()
-	last_banana = world.time
-	last_honk = world.time
+	COOLDOWN_START(src, banana_cooldown, banana_delay)
 	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), slot_r_store)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), slot_l_store)
 	H.AddElement(/datum/element/waddling)
@@ -601,20 +602,20 @@
 
 /datum/species/golem/bananium/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
 	..()
-	if(world.time > last_banana + banana_cooldown && M != H &&  M.a_intent != INTENT_HELP)
+	if(COOLDOWN_FINISHED(src, banana_cooldown) && M != H && M.a_intent != INTENT_HELP)
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
-		last_banana = world.time
+		COOLDOWN_START(src, banana_cooldown, banana_delay)
 
 /datum/species/golem/bananium/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
 	..()
-	if(world.time > last_banana + banana_cooldown && user != H)
+	if(COOLDOWN_FINISHED(src, banana_cooldown) && user != H)
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
-		last_banana = world.time
+		COOLDOWN_START(src, banana_cooldown, banana_delay)
 
 /datum/species/golem/bananium/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
-	if(world.time > last_banana + banana_cooldown)
+	if(COOLDOWN_FINISHED(src, banana_cooldown))
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
-		last_banana = world.time
+		COOLDOWN_START(src, banana_cooldown, banana_delay)
 	return TRUE
 
 /datum/species/golem/bananium/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
@@ -624,22 +625,18 @@
 		I = AM
 		if(I.thrownby == H) //No throwing stuff at yourself to make bananas
 			return 0
-		else
+		else if(COOLDOWN_FINISHED(src, banana_cooldown))
 			new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
-			last_banana = world.time
+			COOLDOWN_START(src, banana_cooldown, banana_delay)
 
 /datum/species/golem/bananium/handle_life(mob/living/carbon/human/H)
-	if(!active)
-		if(world.time > last_honk + honkooldown)
-			active = 1
-			playsound(get_turf(H), 'sound/items/bikehorn.ogg', 50, 1)
-			last_honk = world.time
-			honkooldown = rand(20, 80)
-			active = null
+	if(COOLDOWN_FINISHED(src, honkooldown))
+		playsound(get_turf(H), 'sound/items/bikehorn.ogg', 50, TRUE)
+		COOLDOWN_START(src, honkooldown, rand(2 SECONDS, 8 SECONDS))
 	..()
 
 /datum/species/golem/bananium/handle_death(gibbed, mob/living/carbon/human/H)
-	playsound(get_turf(H), 'sound/misc/sadtrombone.ogg', 70, 0)
+	playsound(get_turf(H), 'sound/misc/sadtrombone.ogg', 70)
 
 /datum/unarmed_attack/golem/bananium
 	attack_verb = list("HONK")

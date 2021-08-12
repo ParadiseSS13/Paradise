@@ -7,13 +7,18 @@
 	status = ORGAN_ROBOT
 	origin_tech = "materials=4;biotech=7;abductor=3"
 	beating = TRUE
-	var/cooldown_low = 300
-	var/cooldown_high = 300
-	var/next_activation = 0
-	var/uses // -1 For inifinite
-	var/human_only = 0
-	var/active = 0
 	tough = TRUE //not easily broken by combat damage
+
+	/// The minimum time between activations.
+	var/cooldown_low = 30 SECONDS
+	/// The maximum time between activations.
+	var/cooldown_high = 30 SECONDS
+	/// The cooldown for activations.
+	COOLDOWN_DECLARE(activation_cooldown)
+	/// The number of remaining uses this gland has.
+	var/uses = -1 // -1 For inifinite
+	var/human_only = FALSE
+	var/active = FALSE
 
 	var/mind_control_uses = 1
 	var/mind_control_duration = 1800
@@ -31,7 +36,7 @@
 
 /obj/item/organ/internal/heart/gland/proc/Start()
 	active = 1
-	next_activation = world.time + rand(cooldown_low,cooldown_high)
+	COOLDOWN_START(src, activation_cooldown, rand(cooldown_low, cooldown_high))
 
 /obj/item/organ/internal/heart/gland/proc/update_gland_hud()
 	if(!owner)
@@ -87,27 +92,25 @@
 
 /obj/item/organ/internal/heart/gland/on_life()
 	if(!beating)
-		// alien glands are immune to stopping.
-		beating = TRUE
+		beating = TRUE // alien glands are immune to stopping.
 	if(!active)
 		return
 	if(!ownerCheck())
-		active = 0
+		active = FALSE
 		return
-	if(next_activation <= world.time)
+	if(COOLDOWN_FINISHED(src, activation_cooldown))
 		activate()
 		uses--
-		next_activation  = world.time + rand(cooldown_low,cooldown_high)
+		COOLDOWN_START(src, activation_cooldown, rand(cooldown_low, cooldown_high))
 	if(!uses)
-		active = 0
+		active = FALSE
 
 /obj/item/organ/internal/heart/gland/proc/activate()
 	return
 
 /obj/item/organ/internal/heart/gland/heals
-	cooldown_low = 200
-	cooldown_high = 400
-	uses = -1
+	cooldown_low = 20 SECONDS
+	cooldown_high = 40 SECONDS
 	icon_state = "health"
 	mind_control_uses = 3
 	mind_control_duration = 3000
@@ -122,9 +125,8 @@
 	owner.adjustFireLoss(-20)
 
 /obj/item/organ/internal/heart/gland/slime
-	cooldown_low = 600
-	cooldown_high = 1200
-	uses = -1
+	cooldown_low = 60 SECONDS
+	cooldown_high = 2 MINUTES
 	icon_state = "slime"
 	mind_control_uses = 1
 	mind_control_duration = 2400
@@ -144,9 +146,8 @@
 
 /obj/item/organ/internal/heart/gland/mindshock
 	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"
-	cooldown_low = 400
-	cooldown_high = 700
-	uses = -1
+	cooldown_low = 40 SECONDS
+	cooldown_high = 70 SECONDS
 	icon_state = "mindshock"
 	mind_control_uses = 1
 	mind_control_duration = 6000
@@ -170,9 +171,8 @@
 				H.hallucination += 60
 
 /obj/item/organ/internal/heart/gland/pop
-	cooldown_low = 900
-	cooldown_high = 1800
-	uses = -1
+	cooldown_low = 1.5 MINUTES
+	cooldown_high = 3 MINUTES
 	human_only = TRUE
 	icon_state = "species"
 	mind_control_uses = 5
@@ -185,8 +185,8 @@
 
 /obj/item/organ/internal/heart/gland/ventcrawling
 	origin_tech = "materials=4;biotech=5;bluespace=4;abductor=3"
-	cooldown_low = 1800
-	cooldown_high = 2400
+	cooldown_low = 3 MINUTES
+	cooldown_high = 4 MINUTES
 	uses = 1
 	icon_state = "vent"
 	mind_control_uses = 4
@@ -198,8 +198,8 @@
 
 
 /obj/item/organ/internal/heart/gland/viral
-	cooldown_low = 1800
-	cooldown_high = 2400
+	cooldown_low = 3 MINUTES
+	cooldown_high = 4 MINUTES
 	uses = 1
 	icon_state = "viral"
 	mind_control_uses = 1
@@ -234,8 +234,8 @@
 
 /obj/item/organ/internal/heart/gland/emp //TODO : Replace with something more interesting
 	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"
-	cooldown_low = 800
-	cooldown_high = 1200
+	cooldown_low = 80 SECONDS
+	cooldown_high = 2 MINUTES
 	uses = 10
 	icon_state = "emp"
 	mind_control_uses = 3
@@ -246,9 +246,8 @@
 	empulse(get_turf(owner), 2, 5, 1)
 
 /obj/item/organ/internal/heart/gland/spiderman
-	cooldown_low = 450
-	cooldown_high = 900
-	uses = -1
+	cooldown_low = 45 SECONDS
+	cooldown_high = 1.5 MINUTES
 	icon_state = "spider"
 	mind_control_uses = 2
 	mind_control_duration = 2400
@@ -260,9 +259,8 @@
 	S.master_commander = owner
 
 /obj/item/organ/internal/heart/gland/egg
-	cooldown_low = 300
-	cooldown_high = 400
-	uses = -1
+	cooldown_low = 30 SECONDS
+	cooldown_high = 40 SECONDS
 	icon_state = "egg"
 	mind_control_uses = 2
 	mind_control_duration = 1800
@@ -272,9 +270,8 @@
 	new /obj/item/reagent_containers/food/snacks/egg/gland(get_turf(owner))
 
 /obj/item/organ/internal/heart/gland/electric
-	cooldown_low = 800
-	cooldown_high = 1200
-	uses = -1
+	cooldown_low = 80 SECONDS
+	cooldown_high = 2 MINUTES
 	mind_control_uses = 2
 	mind_control_duration = 900
 
@@ -303,9 +300,8 @@
 	playsound(get_turf(owner), 'sound/magic/lightningshock.ogg', 50, 1)
 
 /obj/item/organ/internal/heart/gland/chem
-	cooldown_low = 50
-	cooldown_high = 50
-	uses = -1
+	cooldown_low = 5 SECONDS
+	cooldown_high = 5 SECONDS
 	mind_control_uses = 3
 	mind_control_duration = 1200
 
@@ -315,9 +311,8 @@
 	..()
 
 /obj/item/organ/internal/heart/gland/bloody
-	cooldown_low = 200
-	cooldown_high = 400
-	uses = -1
+	cooldown_low = 20 SECONDS
+	cooldown_high = 40 SECONDS
 
 /obj/item/organ/internal/heart/gland/bloody/activate()
 	owner.blood_volume = max(owner.blood_volume - 20, 0)
@@ -331,10 +326,9 @@
 
 
 /obj/item/organ/internal/heart/gland/plasma
-	cooldown_low = 1200
-	cooldown_high = 1800
+	cooldown_low = 2 MINUTES
+	cooldown_high = 3 MINUTES
 	origin_tech = "materials=4;biotech=4;plasmatech=6;abductor=3"
-	uses = -1
 	mind_control_uses = 1
 	mind_control_duration = 800
 

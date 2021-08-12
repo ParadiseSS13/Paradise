@@ -28,8 +28,8 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/activation_method = "touch"
 	var/activation_damage_type = null
-	var/last_use_timer = 0
-	var/cooldown_add = 30
+	COOLDOWN_DECLARE(reaction_cooldown)
+	var/cooldown_add = 3 SECONDS
 	var/list/affected_targets = list()
 	var/activation_sound = 'sound/effects/break_stone.ogg'
 
@@ -58,13 +58,13 @@
 	ActivationReaction(P.firer, P.flag, P.damage_type)
 
 /obj/machinery/anomalous_crystal/proc/ActivationReaction(mob/user, method, damtype)
-	if(world.time < last_use_timer)
+	if(!COOLDOWN_FINISHED(src, reaction_cooldown))
 		return 0
 	if(activation_damage_type && activation_damage_type != damtype)
 		return 0
 	if(method != activation_method)
 		return 0
-	last_use_timer = (world.time + cooldown_add)
+	COOLDOWN_START(src, reaction_cooldown, cooldown_add)
 	playsound(user, activation_sound, 100, 1)
 	return 1
 

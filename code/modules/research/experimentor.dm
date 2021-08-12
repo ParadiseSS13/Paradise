@@ -610,9 +610,9 @@
 	var/realName = "defined object"
 	var/revealed = FALSE
 	var/realProc
-	var/cooldownMax = 60
-	var/cooldown
+	var/reset_timer = 60
 	var/floof
+	COOLDOWN_DECLARE(power_cooldown)
 
 /obj/item/relic/New()
 	..()
@@ -626,22 +626,21 @@
 		return
 	revealed = TRUE
 	name = realName
-	cooldownMax = rand(60,300)
+	reset_timer = rand(6 SECONDS, 30 SECONDS)
 	realProc = pick("teleport","explode","rapidDupe","petSpray","flash","clean","floofcannon")
 	origin_tech = pick("engineering=[rand(2,5)]","magnets=[rand(2,5)]","plasmatech=[rand(2,5)]","programming=[rand(2,5)]","powerstorage=[rand(2,5)]")
 
 /obj/item/relic/attack_self(mob/user)
-	if(revealed)
-		if(cooldown)
-			to_chat(user, "<span class='warning'>[src] does not react!</span>")
-			return
-		else if(src.loc == user)
-			cooldown = TRUE
-			call(src,realProc)(user)
-			spawn(cooldownMax)
-				cooldown = FALSE
-	else
+	if(!revealed)
 		to_chat(user, "<span class='notice'>You aren't quite sure what to do with this, yet.</span>")
+		return
+	if(!COOLDOWN_FINISHED(src, power_cooldown))
+		to_chat(user, "<span class='warning'>[src] does not react!</span>")
+		return
+	if(loc != user)
+		return
+	COOLDOWN_START(src, power_cooldown, reset_timer)
+	call(src, realProc)(user)
 
 //////////////// RELIC PROCS /////////////////////////////
 

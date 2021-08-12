@@ -2,18 +2,22 @@
 /obj/structure/blob
 	name = "blob"
 	icon = 'icons/mob/blob.dmi'
-	light_range = 3
 	desc = "Some blob creature thingy"
-	density = 0
-	opacity = 0
-	anchored = 1
+	anchored = TRUE
+	light_range = 3
 	max_integrity = 30
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
-	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
-	var/health_timestamp = 0
-	var/brute_resist = 0.5 //multiplies brute damage by this
-	var/fire_resist = 1 //multiplies burn damage by this
-	var/atmosblock = FALSE //if the blob blocks atmos and heat spread
+	/// How many points the blob gets back when it removes a blob of this type. If less than 0, it cannot be removed.
+	var/point_return = 0
+	/// Cooldown time between each regen pulse.
+	COOLDOWN_DECLARE(regen_cooldown)
+	/// Brute damage multiplier.
+	var/brute_resist = 0.5
+	/// Burn damage multiplier.
+	var/fire_resist = 1
+	/// If the blob tile blocks atmos and heat spread.
+	var/atmosblock = FALSE
+	/// The linked overmind.
 	var/mob/camera/blob/overmind
 
 /obj/structure/blob/Initialize(mapload)
@@ -65,12 +69,12 @@
 
 /obj/structure/blob/proc/RegenHealth()
 	// All blobs heal over time when pulsed, but it has a cool down
-	if(health_timestamp > world.time)
-		return 0
+	if(COOLDOWN_FINISHED(src, regen_cooldown))
+		return FALSE
 	if(obj_integrity < max_integrity)
 		obj_integrity = min(max_integrity, obj_integrity + 1)
 		update_icon()
-		health_timestamp = world.time + 10 // 1 seconds
+		COOLDOWN_START(src, regen_cooldown, 1 SECONDS)
 
 
 /obj/structure/blob/proc/Pulse(pulse = 0, origin_dir = 0, a_color)//Todo: Fix spaceblob expand

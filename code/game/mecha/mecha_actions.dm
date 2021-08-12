@@ -163,12 +163,10 @@
 /datum/action/innate/mecha/mech_smoke/Activate()
 	if(!owner || !chassis || chassis.occupant != owner)
 		return
-	if(chassis.smoke_ready && chassis.smoke > 0)
+	if(COOLDOWN_FINISHED(chassis, smoke_cooldown) && chassis.smoke > 0)
 		chassis.smoke_system.start()
 		chassis.smoke--
-		chassis.smoke_ready = 0
-		spawn(chassis.smoke_cooldown)
-			chassis.smoke_ready = 1
+		COOLDOWN_START(chassis, smoke_cooldown, 10 SECONDS)
 	else
 		chassis.occupant_message("<span class='warning'>You are either out of smoke, or the smoke isn't ready yet.</span>")
 
