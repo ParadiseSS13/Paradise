@@ -279,9 +279,9 @@
 			dat += "</div>"
 
 		dat += "<div class='line'><h3>Variant</h3></div><div class='statusDisplay'><table>"
-		dat += "<tr><td width='260px'>[(seed.variant == "") ? "None" : seed.variant]</td>"
+		dat += "<tr><td width='260px'>[seed.variant ? seed.variant : "None"]</td>"
 		dat += "<td><a href='?src=[UID()];set_v=1'>Edit</a></td>"
-		if(seed.variant != "")
+		if(seed.variant)
 			dat += "<td><a href='?src=[UID()];del_v=1'>Remove</a></td>"
 		dat += "</tr></table></div>"
 	else
@@ -405,7 +405,7 @@
 	else if(href_list["del_v"])
 		if(!seed)
 			return
-		seed.variant = ""
+		seed.variant = null
 		seed.apply_variant_name()
 
 	interact(usr)

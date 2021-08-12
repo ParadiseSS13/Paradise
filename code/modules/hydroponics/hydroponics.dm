@@ -344,7 +344,7 @@
 /obj/machinery/hydroponics/examine(user)
 	. = ..()
 	if(myseed)
-		if(myseed.variant != "")
+		if(myseed.variant)
 			. += "<span class='info'>It has the <span class='name'>[myseed.variant]</span> variant of <span class='name'>[myseed.plantname]</span> planted.</span>"
 		else
 			. += "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"

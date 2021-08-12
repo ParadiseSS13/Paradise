@@ -339,11 +339,13 @@
 	if(!adj.Adjacent(user) || isnull(V))
 		return
 	variant = copytext(sanitize(html_encode(trim(V))), 1, 64)
+	if(variant == "")
+		variant == null
 	to_chat(user, "<span class='notice'>You [variant ? "change" : "remove"] the [plantname]'s variant designation.</span>")
 	apply_variant_name()
 
 /obj/item/seeds/proc/apply_variant_name()
-	var/V = (variant == "") ? "" : " \[[variant]]" // If we have a non-empty variant add it to the name
+	var/V = variant ? " \[[variant]]" : "" // If we have a non-empty variant add it to the name
 	var/N = initial(name)
 	if(copytext(name, 1, 13) == "experimental") // Don't delete 'experimental'
 		N = "experimental " + N
