@@ -292,10 +292,9 @@
 	if(user.mind && (user.mind.changeling || user.mind.vampire)) //Prevents changelings and vampires from being able to learn it
 		if(user.mind && user.mind.changeling) //Changelings
 			to_chat(user, "<span class ='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
-			return
 		else //Vampires
 			to_chat(user, "<span class ='warning'>Your blood lust distracts you from the basics of CQC!</span>")
-			return
+		return
 
 	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
 	var/datum/martial_art/cqc/CQC = new(null)
