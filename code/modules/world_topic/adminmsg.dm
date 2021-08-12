@@ -21,7 +21,7 @@
 
 	var/sanitized = sanitize(input["msg"])
 	var/message =	"<font color='red'>Discord PM from <b><a href='?discord_msg=1'>[input["sender"]]</a></b>: [sanitized]</font>"
-	var/amessage =  "<font color='blue'>Discord PM from <a href='?discord_msg=1'>[input["sender"]]</a> to <b>[key_name_admin(C)]</b>: [sanitized]</font>"
+	var/amessage =  "<font color='#EB4E00'>Discord PM from <a href='?discord_msg=1'>[input["sender"]]</a> to <b>[key_name_admin(C)]</b>: [sanitized]</font>"
 
 	// THESE TWO VARS DO VERY DIFFERENT THINGS. DO NOT ATTEMPT TO COMBINE THEM
 	C.received_discord_pm = world.time
