@@ -79510,6 +79510,11 @@
 	dir = 4;
 	initialize_directions = 11
 	},
+/obj/structure/disposalpipe/sortjunction{
+	dir = 2;
+	name = "RD Junction 1";
+	sortType = 13
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -79931,9 +79936,6 @@
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
 "dkL" = (
-/obj/structure/disposalpipe/junction{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -79947,6 +79949,11 @@
 	tag = ""
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/disposalpipe/sortjunction{
+	dir = 4;
+	name = "RD Junction 2";
+	sortType = 13
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
