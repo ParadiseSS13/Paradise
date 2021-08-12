@@ -6,6 +6,7 @@
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode)
 	ammo_x_offset = 3
+	can_holster = TRUE  // Pistol size
 
 /obj/item/gun/energy/shock_revolver
 	name = "tesla revolver"
@@ -16,7 +17,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/shock_revolver)
 	can_flashlight = 0
 	shaded_charge = FALSE
-	can_holster = TRUE  // Pistol size
+	can_holster = TRUE
+
 
 /obj/item/gun/energy/gun/advtaser
 	name = "hybrid taser"
@@ -27,6 +29,7 @@
 	ammo_x_offset = 2
 	flight_x_offset = 15
 	shaded_charge = FALSE
+	can_holster = TRUE  // Pistol size
 
 /obj/item/gun/energy/gun/advtaser/cyborg
 	name = "cyborg taser"
@@ -46,6 +49,7 @@
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 3
+	can_holster = TRUE
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"

@@ -56,7 +56,7 @@
 	var/knife_x_offset = 0
 	var/knife_y_offset = 0
 
-	var/can_holster = TRUE
+	var/can_holster = FALSE  // Anything that can be holstered should be manually set
 
 	var/list/upgrades = list()
 
