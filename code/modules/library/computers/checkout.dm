@@ -20,12 +20,12 @@
 	var/bibledelay = 0 // LOL NO SPAM (1 minute delay) -- Doohl
 	var/booklist
 
-/obj/machinery/computer/library/checkout/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/library/checkout/attack_hand(mob/user as mob)
 	if(..())
 		return
 	interact(user)
 
-/obj/machinery/computer/library/checkout/interact(var/mob/user)
+/obj/machinery/computer/library/checkout/interact(mob/user)
 	if(interact_check(user))
 		return
 
@@ -262,7 +262,7 @@
 		var/datum/cachedbook/target = getBookByID(href_list["del"]) // Sanitized in getBookByID
 		var/ans = alert(usr, "Are you sure you wish to delete \"[target.title]\", by [target.author]? This cannot be undone.", "Library System", "Yes", "No")
 		if(ans=="Yes")
-			var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=:id", list(
+			var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM library WHERE id=:id", list(
 				"id" = text2num(target.id)
 			))
 			if(!query.warn_execute())
@@ -280,13 +280,13 @@
 		var/tckey = ckey(href_list["delbyckey"])
 		var/ans = alert(usr,"Are you sure you wish to delete all books by [tckey]? This cannot be undone.", "Library System", "Yes", "No")
 		if(ans=="Yes")
-			var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE ckey=:ckey", list(
+			var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM library WHERE ckey=:ckey", list(
 				"ckey" = tckey
 			))
 			if(!query.warn_execute())
 				qdel(query)
 				return
-		
+
 			if(query.affected == 0)
 				to_chat(usr, "<span class='danger'>Unable to find any matching rows.</span>")
 				qdel(query)
@@ -387,7 +387,7 @@
 						alert("Connection to Archive has been severed. Aborting.")
 					else
 						var/datum/db_query/query = SSdbcore.NewQuery({"
-							INSERT INTO [format_table_name("library")] (author, title, content, category, ckey, flagged)
+							INSERT INTO library (author, title, content, category, ckey, flagged)
 							VALUES (:author, :title, :content, :category, :ckey, 0)"}, list(
 								"author" = scanner.cache.author,
 								"title" = scanner.cache.name,
@@ -395,7 +395,7 @@
 								"category" = upload_category,
 								"ckey" = usr.ckey
 							))
-						
+
 						if(!query.warn_execute())
 							qdel(query)
 							return
@@ -462,7 +462,7 @@
  * Library Scanner
  */
 
-/obj/machinery/computer/library/checkout/proc/make_external_book(var/datum/cachedbook/newbook)
+/obj/machinery/computer/library/checkout/proc/make_external_book(datum/cachedbook/newbook)
 	if(!newbook || !newbook.id)
 		return
 	var/obj/item/book/B = new newbook.path(loc)

@@ -86,7 +86,7 @@
 	if(delay)
 		lastused = world.time
 
-/obj/item/rpd/proc/can_dispense_pipe(var/pipe_id, var/pipe_type) //Returns TRUE if this is a legit pipe we can dispense, otherwise returns FALSE
+/obj/item/rpd/proc/can_dispense_pipe(pipe_id, pipe_type) //Returns TRUE if this is a legit pipe we can dispense, otherwise returns FALSE
 	for(var/list/L in GLOB.rpd_pipe_list)
 		if(pipe_type != L["pipe_type"]) //Sometimes pipes in different categories have the same pipe_id, so we need to skip anything not in the category we want
 			continue
@@ -142,6 +142,8 @@
 /obj/item/rpd/proc/delete_all_pipes(mob/user, turf/T) //Delete all pipes on a turf
 	var/eaten
 	for(var/obj/item/pipe/P in T)
+		if(P.pipe_type == PIPE_CIRCULATOR) //Skip TEG heat circulators, they aren't really pipes
+			continue
 		QDEL_NULL(P)
 		eaten = TRUE
 	for(var/obj/item/pipe_gsensor/G in T)
@@ -274,7 +276,7 @@
 
 	for(var/obj/O in T)
 		if(O.rpd_blocksusage() == TRUE)
-			to_chat(user, "<span class='warning'>[O] blocks the [src]!</span>")
+			to_chat(user, "<span class='warning'>[O] blocks [src]!</span>")
 			return
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.

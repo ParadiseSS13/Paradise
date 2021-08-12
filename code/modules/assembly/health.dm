@@ -72,7 +72,7 @@
 
 /obj/item/assembly/health/interact(mob/user)//TODO: Change this to the wires thingy
 	if(!secured)
-		user.show_message("<span class='warning'>The [name] is unsecured!</span>")
+		user.show_message("<span class='warning'>[src] is unsecured!</span>")
 		return FALSE
 	var/dat = text("<TT><B>Health Sensor</B> <A href='?src=[UID()];scanning=1'>[scanning?"On":"Off"]</A>")
 	if(scanning && health_scan)

@@ -198,11 +198,11 @@
 			to_chat(usr, "<span class='notice'>You set the pinpointer to locate [locationx],[locationy]</span>")
 
 
-			return attack_self()
+			return attack_self(usr)
 
 		if("Disk Recovery")
 			setting = SETTING_DISK
-			return attack_self()
+			return attack_self(usr)
 
 		if("Other Signature")
 			setting = SETTING_OBJECT
@@ -240,7 +240,7 @@
 							target = C
 							break
 
-			return attack_self()
+			return attack_self(usr)
 
 ///////////////////////
 //nuke op pinpointers//

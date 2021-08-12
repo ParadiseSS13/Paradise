@@ -80,6 +80,7 @@
 			/datum/job/chaplain,
 			/datum/job/ntnavyofficer,
 			/datum/job/ntspecops,
+			/datum/job/ntspecops/solgovspecops,
 			/datum/job/civilian,
 			/datum/job/syndicateofficer
 		)
@@ -226,7 +227,8 @@
 					if(now >= m["publish_time"])
 						var/datum/feed_message/FM = locateUID(m["uid"])
 						if(FM && !(FM.censor_flags & CENSOR_STORY))
-							FM.view_count++
+							if(isliving(user))
+								FM.view_count++
 							m["view_count"] = FM.view_count
 				// Update the last viewed times for the user
 				LAZYINITLIST(last_views[user_name])
@@ -676,6 +678,8 @@
   * * wanted_notice - Whether the alert is a wanted notice notification (overrides announcement)
   */
 /obj/machinery/newscaster/proc/alert_news(announcement, wanted_notice = FALSE)
+	if(!is_operational())
+		return
 	if(wanted_notice)
 		atom_say("Attention! Wanted issue distributed!")
 		playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)

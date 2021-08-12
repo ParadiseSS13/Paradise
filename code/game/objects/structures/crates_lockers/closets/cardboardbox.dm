@@ -8,7 +8,10 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	integrity_failure = 0
-	sound = 'sound/effects/rustle2.ogg'
+	open_sound = 'sound/machines/cardboard_box.ogg'
+	close_sound = 'sound/machines/cardboard_box.ogg'
+	open_sound_volume = 35
+	close_sound_volume = 35
 	material_drop = /obj/item/stack/sheet/cardboard
 	var/amt = 4
 	var/move_delay = 0
@@ -21,7 +24,7 @@
 	var/oldloc = loc
 	step(src, direction)
 	if(oldloc != loc)
-		addtimer(CALLBACK(src, .proc/ResetMoveDelay), config.walk_speed)
+		addtimer(CALLBACK(src, .proc/ResetMoveDelay), GLOB.configuration.movement.base_walk_speed)
 	else
 		move_delay = FALSE
 

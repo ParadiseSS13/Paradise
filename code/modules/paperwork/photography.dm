@@ -167,6 +167,7 @@
 	var/icon_off = "camera_off"
 	var/size = 3
 	var/see_ghosts = 0 //for the spoop of it
+	var/current_photo_num = 1
 
 
 /obj/item/camera/spooky/CheckParts(list/parts_list)
@@ -386,7 +387,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/datum/picture/P = new()
 	if(istype(src,/obj/item/camera/digital))
 		P.fields["name"] = input(user,"Name photo:","photo")
-		P.name = P.fields["name"]//So the name is displayed on the print/delete list.
+		if(!P.fields["name"])
+			P.fields["name"] = "Photo [current_photo_num]"
+			current_photo_num++
+		P.name = P.fields["name"] //So the name is displayed on the print/delete list.
 	else
 		P.fields["name"] = "photo"
 	P.fields["author"] = user
@@ -400,7 +404,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	return P
 
-/obj/item/camera/proc/printpicture(mob/user, var/datum/picture/P)
+/obj/item/camera/proc/printpicture(mob/user, datum/picture/P)
 	var/obj/item/photo/Photo = new/obj/item/photo()
 	Photo.loc = user.loc
 	if(!user.get_inactive_hand())
@@ -411,7 +415,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		blueprints = 0
 	Photo.construct(P)
 
-/obj/item/photo/proc/construct(var/datum/picture/P)
+/obj/item/photo/proc/construct(datum/picture/P)
 	name = P.fields["name"]
 	icon = P.fields["icon"]
 	tiny = P.fields["tiny"]

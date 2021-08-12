@@ -250,7 +250,10 @@ const MessageLog = (props, context) => {
     } >
       {list2iterate.map(m => (
         <Box key={m}>
-          {m}
+          {m.map((i, key) => {
+            return <div key={key}>{i}</div>;
+          })}
+          <hr />
         </Box>
       ))}
     </Section>

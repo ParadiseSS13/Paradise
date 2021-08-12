@@ -458,7 +458,7 @@
 		soft_reset()
 		return
 
-	if(C.stat == DEAD || (C.status_flags & FAKEDEATH))
+	if(C.stat == DEAD || HAS_TRAIT(C, TRAIT_FAKEDEATH))
 		var/list/messagevoice = list("No! Stay with me!" = 'sound/voice/mno.ogg', "Live, damnit! LIVE!" = 'sound/voice/mlive.ogg', "I...I've never lost a patient before. Not today, I mean." = 'sound/voice/mlost.ogg')
 		var/message = pick(messagevoice)
 		speak(message)

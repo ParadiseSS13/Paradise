@@ -8,13 +8,17 @@
 	icon_screen = "teleport"
 	icon_keyboard = "teleport_key"
 	circuit = /obj/item/circuitboard/teleporter
-	var/obj/item/gps/locked = null /// A GPS with a locked destination
-	var/regime = REGIME_TELEPORT /// Switches mode between teleporter, gate and gps
+	/// A GPS with a locked destination
+	var/obj/item/gps/locked = null
+	/// Switches mode between teleporter, gate and gps
+	var/regime = REGIME_TELEPORT
 	var/id = null
-	var/obj/machinery/teleport/station/power_station /// The power station that's connected to the console
-	var/calibrating = FALSE /// Whether calibration is in progress or not. Calibration prevents changes.
-	var/turf/target ///The target turf of the teleporter
-	var/target_list ///lists of suitable teleport targets, dependent on regime. Used in the UI
+	/// The power station that's connected to the console
+	var/obj/machinery/teleport/station/power_station
+	/// Whether calibration is in progress or not. Calibration prevents changes.
+	var/calibrating = FALSE
+	/// The target turf of the teleporter
+	var/turf/target
 
 	/* 	var/area_bypass is for one-time-use teleport cards (such as clown planet coordinates.)
 		Setting this to TRUE will set var/obj/item/gps/locked to null after a player enters the portal and will not allow hand-teles to open portals to that location.
@@ -22,17 +26,11 @@
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE
 
-/obj/machinery/computer/teleporter/New()
-	src.id = "[rand(1000, 9999)]"
-	link_power_station()
-	..()
-	return
-
 /obj/machinery/computer/teleporter/Initialize()
-	..()
+	. = ..()
 	link_power_station()
 	update_icon()
-	target_list = targets_teleport()
+	id = "[rand(1000, 9999)]"
 
 /obj/machinery/computer/teleporter/Destroy()
 	if(power_station)
@@ -58,7 +56,7 @@
 				return
 			L.forceMove(src)
 			locked = L
-			to_chat(user, "<span class='caution'>You insert the GPS device into the [src]'s slot.</span>")
+			to_chat(user, "<span class='caution'>You insert the GPS device into [src]'s slot.</span>")
 	else
 		return ..()
 
@@ -98,7 +96,14 @@
 	data["target"] = (!target || !targetarea) ? "None" : sanitize(targetarea.name)
 	data["calibrating"] = calibrating
 	data["locked"] = locked ? TRUE : FALSE
-	data["targetsTeleport"] = target_list
+	data["targetsTeleport"] = null
+	switch(regime)
+		if(REGIME_TELEPORT)
+			data["targetsTeleport"] = targets_teleport()
+		if(REGIME_GATE)
+			data["targetsTeleport"] = targets_gate()
+		if(REGIME_GPS)
+			data["targetsTeleport"] = null //clears existing entries, target is added by load action
 	return data
 
 /obj/machinery/computer/teleporter/ui_act(action, params)
@@ -118,21 +123,15 @@
 		if("eject") //eject gps device
 			eject()
 		if("load") //load gps coordinates
-			target = locate(locked.locked_location.x,locked.locked_location.y,locked.locked_location.z)
+			target = locate(locked.locked_location.x, locked.locked_location.y, locked.locked_location.z)
 		if("setregime")
 			regime = text2num(params["regime"])
-			if(regime == REGIME_TELEPORT)
-				target_list = targets_teleport()
-			if(regime == REGIME_GATE)
-				target_list = targets_gate()
-			if(regime == REGIME_GPS)
-				target_list = null //clears existing entries, target is added by load action
 			resetPowerstation()
 			target = null
 		if("settarget")
 			resetPowerstation()
-			var/turf/tmpTarget = locate(text2num(params["x"]),text2num(params["y"]),text2num(params["z"]))
-			if(!istype(tmpTarget, /turf))
+			var/turf/tmpTarget = locate(text2num(params["x"]), text2num(params["y"]), text2num(params["z"]))
+			if(!isturf(tmpTarget))
 				atom_say("No valid targets available.")
 				return
 			target = tmpTarget
@@ -157,7 +156,8 @@
 */
 /obj/machinery/computer/teleporter/proc/resetPowerstation()
 	power_station.engaged = FALSE
-	power_station.teleporter_hub.calibrated = FALSE
+	if(power_station.teleporter_hub.accurate < 3)
+		power_station.teleporter_hub.calibrated = FALSE
 	power_station.teleporter_hub.update_icon()
 
 /**
@@ -188,7 +188,6 @@
 		locked.loc = loc
 		locked = null
 	regime = REGIME_TELEPORT
-	target_list = targets_teleport()
 
 /**
 *	Creates a list of viable targets for the teleport. Helper function of ui_data
@@ -315,13 +314,13 @@
 	name = "teleporter hub"
 	desc = "It's the hub of a teleporting machine."
 	icon_state = "tele0"
-	var/accurate = FALSE
+	var/accurate = 0
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
 	var/obj/machinery/teleport/station/power_station
 	var/calibrated //Calibration prevents mutation
-	var/admin_usage = FALSE // if 1, works on z2. If 0, doesn't. Used for admin room teleport.
+	var/admin_usage = FALSE // if 1, works on CC level. If 0, doesn't. Used for admin room teleport.
 
 /obj/machinery/teleport/hub/New()
 	..()
@@ -355,6 +354,8 @@
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		A += M.rating
 	accurate = A
+	if(accurate >= 3)
+		calibrated = TRUE
 
 /obj/machinery/teleport/hub/proc/link_power_station()
 	if(power_station)
@@ -403,10 +404,13 @@
 		if(!calibrated && com.cc_beacon)
 			visible_message("<span class='alert'>Cannot lock on target. Please calibrate the teleporter before attempting long range teleportation.</span>")
 		else if(!calibrated && prob(25 - ((accurate) * 10)) && !com.cc_beacon) //oh dear a problem
-			. = do_teleport(M, locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3), 2, bypass_area_flag = com.area_bypass)
+			var/list/target_z = levels_by_trait(SPAWN_RUINS)
+			target_z -= M.z //Where to sir? Anywhere but here.
+			. = do_teleport(M, locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), pick(target_z)), 2, bypass_area_flag = com.area_bypass)
 		else
 			. = do_teleport(M, com.target, bypass_area_flag = com.area_bypass)
-		calibrated = FALSE
+		if(accurate < 3)
+			calibrated = FALSE
 
 /obj/machinery/teleport/hub/update_icon()
 	if(panel_open)

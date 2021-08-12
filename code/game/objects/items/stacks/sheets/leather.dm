@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 	new/datum/stack_recipe("bloated human costume head", /obj/item/clothing/head/human_head, 5, on_floor = TRUE), \
 	))
 
-/obj/item/stack/sheet/animalhide/human/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/animalhide/human/New(loc, amount=null)
 	recipes = GLOB.human_recipes
 	return ..()
 
@@ -144,7 +144,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	new/datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/sinew, 1, on_floor = 1), \
 	))
 
-/obj/item/stack/sheet/sinew/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/sinew/New(loc, amount=null)
 	recipes = GLOB.sinew_recipes
 	return ..()
 

@@ -10,14 +10,15 @@
 					toggles,
 					toggles_2,
 					sound,
-					volume,
+					volume_mixer,
 					lastchangelog,
 					exp,
 					clientfps,
 					atklog,
 					fuid,
-					parallax
-					FROM [format_table_name("player")]
+					parallax,
+					2fa_status
+					FROM player
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
 					))
@@ -38,26 +39,26 @@
 		toggles = text2num(query.item[7])
 		toggles2 = text2num(query.item[8])
 		sound = text2num(query.item[9])
-		volume = text2num(query.item[10])
+		volume_mixer = deserialize_volume_mixer(query.item[10])
 		lastchangelog = query.item[11]
 		exp = query.item[12]
 		clientfps = text2num(query.item[13])
 		atklog = text2num(query.item[14])
 		fuid = text2num(query.item[15])
 		parallax = text2num(query.item[16])
+		_2fa_status = query.item[17]
 
 	qdel(query)
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
-	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight"), initial(UI_style))
+	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight", "Plasmafire", "Retro", "Slimecore", "Operative"), initial(UI_style))
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, TOGGLES_TOTAL, initial(toggles))
 	toggles2		= sanitize_integer(toggles2, 0, TOGGLES_2_TOTAL, initial(toggles2))
 	sound			= sanitize_integer(sound, 0, 65535, initial(sound))
 	UI_style_color	= sanitize_hexcolor(UI_style_color, initial(UI_style_color))
 	UI_style_alpha	= sanitize_integer(UI_style_alpha, 0, 255, initial(UI_style_alpha))
-	volume			= sanitize_integer(volume, 0, 100, initial(volume))
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	exp	= sanitize_text(exp, initial(exp))
 	clientfps = sanitize_integer(clientfps, 0, 1000, initial(clientfps))
@@ -74,7 +75,12 @@
 			log_runtime(EXCEPTION("[C.key] had a malformed role entry: '[role]'. Removing!"), src)
 			be_special -= role
 
-	var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE [format_table_name("player")]
+	// We're saving volume_mixer here as well, so no point in keeping the timer running
+	if(volume_mixer_saving)
+		deltimer(volume_mixer_saving)
+		volume_mixer_saving = null
+
+	var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE player
 				SET
 					ooccolor=:ooccolour,
 					UI_style=:ui_style,
@@ -86,10 +92,11 @@
 					toggles_2=:toggles2,
 					atklog=:atklog,
 					sound=:sound,
-					volume=:volume,
+					volume_mixer=:volume_mixer,
 					lastchangelog=:lastchangelog,
 					clientfps=:clientfps,
-					parallax=:parallax
+					parallax=:parallax,
+					2fa_status=:_2fa_status
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -103,11 +110,12 @@
 						"toggles2" = num2text(toggles2, CEILING(log(10, (TOGGLES_2_TOTAL)), 1)),
 						"atklog" = atklog,
 						"sound" = sound,
-						"volume" = volume,
+						"volume_mixer" = serialize_volume_mixer(volume_mixer),
 						"lastchangelog" = lastchangelog,
 						"clientfps" = clientfps,
 						"parallax" = parallax,
-						"ckey" = C.ckey
+						"_2fa_status" = _2fa_status,
+						"ckey" = C.ckey,
 					)
 					)
 
@@ -118,14 +126,15 @@
 	qdel(query)
 	return 1
 
-/datum/preferences/proc/load_character(client/C,slot)
+/datum/preferences/proc/load_character(client/C, slot)
 	saved = FALSE
 
-	if(!slot)	slot = default_slot
+	if(!slot)
+		slot = default_slot
 	slot = sanitize_integer(slot, 1, max_save_slots, initial(default_slot))
 	if(slot != default_slot)
 		default_slot = slot
-		var/datum/db_query/firstquery = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET default_slot=:slot WHERE ckey=:ckey", list(
+		var/datum/db_query/firstquery = SSdbcore.NewQuery("UPDATE player SET default_slot=:slot WHERE ckey=:ckey", list(
 			"slot" = slot,
 			"ckey" = C.ckey
 		))
@@ -133,6 +142,10 @@
 			qdel(firstquery)
 			return
 		qdel(firstquery)
+
+	if(!C) // If the client disconnected during the query, try again later.
+		qdel(src)
+		return TRUE
 
 	// Let's not have this explode if you sneeze on the DB
 	var/datum/db_query/query = SSdbcore.NewQuery({"SELECT
@@ -188,7 +201,7 @@
 					body_accessory,
 					gear,
 					autohiss
-				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
+				 	FROM characters WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
 						 "slot" = slot
 					 ))
@@ -352,7 +365,7 @@
 	if(!isemptylist(loadout_gear))
 		gearlist = list2params(loadout_gear)
 
-	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
+	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM characters WHERE ckey=:ckey ORDER BY slot", list(
 		"ckey" = C.ckey
 	))
 	if(!firstquery.warn_execute())
@@ -360,7 +373,7 @@
 		return
 	while(firstquery.NextRow())
 		if(text2num(firstquery.item[1]) == default_slot)
-			var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE [format_table_name("characters")]
+			var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE characters
 											SET
 												OOC_Notes=:metadata,
 												real_name=:real_name,
@@ -436,7 +449,7 @@
 													"f_style" = f_style,
 													"markingstyleslist" = markingstyleslist,
 													"ha_style" = ha_style,
-													"alt_head" = alt_head,
+													"alt_head" = (alt_head ? alt_head : ""), // This it intentional. It wont work without it!
 													"e_colour" = e_colour,
 													"underwear" = underwear,
 													"undershirt" = undershirt,
@@ -485,7 +498,7 @@
 	qdel(firstquery)
 
 	var/datum/db_query/query = SSdbcore.NewQuery({"
-					INSERT INTO [format_table_name("characters")] (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender,
+					INSERT INTO characters (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender,
 											age, species, language,
 											hair_colour, secondary_hair_colour,
 											facial_hair_colour, secondary_facial_hair_colour,
@@ -607,7 +620,7 @@
 	return 1
 
 /datum/preferences/proc/load_random_character_slot(client/C)
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM characters WHERE ckey=:ckey ORDER BY slot", list(
 		"ckey" = C.ckey
 	))
 	var/list/saves = list()
@@ -629,7 +642,7 @@
 /datum/preferences/proc/clear_character_slot(client/C)
 	. = FALSE
 	// Is there a character in that slot?
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM characters WHERE ckey=:ckey AND slot=:slot", list(
 		"ckey" = C.ckey,
 		"slot" = default_slot
 	))
@@ -644,7 +657,7 @@
 
 	qdel(query)
 
-	var/datum/db_query/delete_query = SSdbcore.NewQuery("DELETE FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot", list(
+	var/datum/db_query/delete_query = SSdbcore.NewQuery("DELETE FROM characters WHERE ckey=:ckey AND slot=:slot", list(
 		"ckey" = C.ckey,
 		"slot" = default_slot
 	))
@@ -656,4 +669,25 @@
 	qdel(delete_query)
 
 	saved = FALSE
+	return TRUE
+
+/**
+  * Saves [/datum/preferences/proc/volume_mixer] for the current client.
+  */
+/datum/preferences/proc/save_volume_mixer()
+	volume_mixer_saving = null
+
+	var/datum/db_query/update_query = SSdbcore.NewQuery(
+		"UPDATE player SET volume_mixer=:volume_mixer WHERE ckey=:ckey",
+		list(
+			"volume_mixer" = serialize_volume_mixer(volume_mixer),
+			"ckey" = parent.ckey
+		)
+	)
+
+	if(!update_query.warn_execute())
+		qdel(update_query)
+		return FALSE
+
+	qdel(update_query)
 	return TRUE

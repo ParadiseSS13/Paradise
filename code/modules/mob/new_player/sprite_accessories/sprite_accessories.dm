@@ -17,7 +17,7 @@
 	conversion in savefile.dm
 */
 
-/proc/init_sprite_accessory_subtypes(var/prototype, var/list/L, var/list/male, var/list/female, var/list/full_list)
+/proc/init_sprite_accessory_subtypes(prototype, list/L, list/male, list/female, list/full_list)
 	if(!istype(L))	L = list()
 	if(!istype(male))	male = list()
 	if(!istype(female))	female = list()
@@ -616,3 +616,35 @@
 /datum/sprite_accessory/socks/black_fishnet
 	name = "Black Fishnet"
 	icon_state = "black_fishnet"
+
+/datum/sprite_accessory/socks/stockings_lpink
+	name = "Stockings (Programmer)"
+	icon_state = "stockings_lpink"
+
+/datum/sprite_accessory/socks/stockings_purple
+	name = "Stockings (Purple)"
+	icon_state = "stockings_purple"
+
+/datum/sprite_accessory/socks/stockings_green
+	name = "Stockings (Green)"
+	icon_state = "stockings_green"
+
+/datum/sprite_accessory/socks/stockings_cyan
+	name = "Stockings (Cyan)"
+	icon_state = "stockings_cyan"
+
+/datum/sprite_accessory/socks/stockings_orange
+	name = "Stockings (Orange)"
+	icon_state = "stockings_orange"
+
+/datum/sprite_accessory/socks/stockings_yellow
+	name = "Stockings (Yellow)"
+	icon_state = "stockings_yellow"
+
+/datum/sprite_accessory/socks/stockings_dpink
+	name = "Stockings (Dark Pink)"
+	icon_state = "stockings_dpink"
+
+/datum/sprite_accessory/socks/stockings_blue
+	name = "Stockings (Blue)"
+	icon_state = "stockings_blue"

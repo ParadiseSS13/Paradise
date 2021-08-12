@@ -70,7 +70,7 @@
 	if(used)
 		return
 	if(istype(M,/mob/living))
-		M.apply_effect(rand(20 / (damage_coeff  ** 2), 50 / (damage_coeff  ** 2)), IRRADIATE, 0, 1)
+		M.apply_effect(rand(20 / (damage_coeff ** 2), 50 / (damage_coeff ** 2)), IRRADIATE)
 	var/mob/living/carbon/human/H
 	if(istype(M, /mob/living/carbon/human))
 		H = M
@@ -80,7 +80,7 @@
 		return
 
 	spawn(0) //Some mutations have sleeps in them, like monkey
-		if(!(NOCLONE in M.mutations) && !(H && (NO_DNA in H.dna.species.species_traits))) // prevents drained people from having their DNA changed
+		if(!HAS_TRAIT(M, TRAIT_BADDNA) && !HAS_TRAIT(M, TRAIT_GENELESS)) // prevents drained people from having their DNA changed
 			var/prev_ue = M.dna.unique_enzymes
 			// UI in syringe.
 			if(buf.types & DNA2_BUF_UI)
@@ -103,7 +103,7 @@
 					M.dna.UpdateSE()
 				else
 					M.dna.SetSEValue(block,src.GetValue())
-				domutcheck(M, null, forcedmutation ? MUTCHK_FORCED : 0)
+				domutcheck(M, forcedmutation ? MUTCHK_FORCED : FALSE)
 				M.update_mutations()
 			if(H)
 				H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)
@@ -112,13 +112,8 @@
 	if(used)
 		to_chat(user, "<span class='warning'>This injector is used up!</span>")
 		return
-	if(!M.dna) //You know what would be nice? If the mob you're injecting has DNA, and so doesn't cause runtimes.
+	if(!M.dna || HAS_TRAIT(M, TRAIT_GENELESS) || HAS_TRAIT(M, TRAIT_BADDNA)) //You know what would be nice? If the mob you're injecting has DNA, and so doesn't cause runtimes.
 		return FALSE
-
-	if(ishuman(M)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
-		var/mob/living/carbon/human/H = M
-		if(NO_DNA in H.dna.species.species_traits)
-			return FALSE
 
 	if(!user.IsAdvancedToolUser())
 		return FALSE

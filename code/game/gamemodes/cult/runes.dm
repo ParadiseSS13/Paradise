@@ -130,6 +130,9 @@ To draw a rune, use a ritual dagger.
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)
 
+/obj/effect/rune/is_cleanable()
+	return TRUE
+
 
 /*
 There are a few different procs each rune runs through when a cultist activates it.
@@ -139,6 +142,8 @@ fail_invoke() is called when the rune fails, via not enough people around or oth
 structure_check() searches for nearby cultist structures required for the invocation. Proper structures are pylons, forges, archives, and altars.
 */
 /obj/effect/rune/proc/can_invoke(mob/living/user)
+	if(user.holy_check())
+		return
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
 	var/list/chanters = list() //people who will actually chant the rune when passed to invoke()
@@ -263,6 +268,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/turf/T = get_turf(src)
 	for(var/mob/living/M in T)
 		if(!iscultist(M) || (M.mind && is_sacrifice_target(M.mind)))
+			if(isconstruct(M)) // No offering constructs please
+				continue
 			offer_targets += M
 
 	// Offering a head/brain
@@ -364,6 +371,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			return
 
 	var/sacrifice_fulfilled
+	var/worthless = FALSE
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(offering.mind)
 		GLOB.sacrificed += offering.mind
@@ -377,13 +385,16 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(sacrifice_fulfilled)
 			to_chat(M, "<span class='cultlarge'>\"Yes! This is the one I desire! You have done well.\"</span>")
 		else
-			if(ishuman(offering) || isrobot(offering))
+			if(ishuman(offering) && offering.mind.offstation_role && offering.mind.special_role != SPECIAL_ROLE_ERT) //If you try it on a ghost role, you get nothing
+				to_chat(M, "<span class='cultlarge'>\"This soul is of no use to either of us.\"</span>")
+				worthless = TRUE
+			else if(ishuman(offering) || isrobot(offering))
 				to_chat(M, "<span class='cultlarge'>\"I accept this sacrifice.\"</span>")
 			else
 				to_chat(M, "<span class='cultlarge'>\"I accept this meager sacrifice.\"</span>")
 	playsound(offering, 'sound/misc/demon_consume.ogg', 100, TRUE)
 
-	if((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind)
+	if(((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind) && !worthless)
 		var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))
 		stone.invisibility = INVISIBILITY_MAXIMUM // So it's not picked up during transfer_soul()
 		stone.transfer_soul("FORCE", offering, user) // If it cannot be added
@@ -418,6 +429,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/teleport/Destroy()
 	GLOB.teleport_runes -= src
+	QDEL_NULL(inner_portal)
+	QDEL_NULL(outer_portal)
 	return ..()
 
 /obj/effect/rune/teleport/invoke(list/invokers)
@@ -452,7 +465,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-	if(!src || !Adjacent(user) || QDELETED(src) || user.incapacitated() || !actual_selected_rune)
+	if(QDELETED(src) || QDELETED(actual_selected_rune) ||!Adjacent(user) || user.incapacitated())
 		fail_invoke()
 		return
 
@@ -587,13 +600,14 @@ structure_check() searches for nearby cultist structures required for the invoca
 			return
 		sacrifices_used += SOULS_TO_REVIVE
 		mob_to_revive.revive()
-		mob_to_revive.grab_ghost()
+		if(mob_to_revive.ghost_can_reenter())
+			mob_to_revive.grab_ghost()
 
 	if(!mob_to_revive.client || mob_to_revive.client.is_afk())
 		set waitfor = FALSE
 		to_chat(user, "<span class='cult'>[mob_to_revive] was revived, but their mind is lost! Seeking a lost soul to replace it.</span>")
 		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a revived Cultist?", ROLE_CULTIST, TRUE, poll_time = 20 SECONDS, source = /obj/item/melee/cultblade/dagger)
-		if(length(candidates))
+		if(length(candidates) && !QDELETED(mob_to_revive))
 			var/mob/dead/observer/C = pick(candidates)
 			to_chat(mob_to_revive.mind, "<span class='biggerdanger'>Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form.</span>")
 			message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(mob_to_revive)]) to replace an AFK player.")
@@ -603,7 +617,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			fail_invoke()
 			return
 
-	SEND_SOUND(mob_to_revive, 'sound/ambience/antag/bloodcult.ogg')
+	SEND_SOUND(mob_to_revive, sound('sound/ambience/antag/bloodcult.ogg'))
 	to_chat(mob_to_revive, "<span class='cultlarge'>\"PASNAR SAVRAE YAM'TOTH. Arise.\"</span>")
 	mob_to_revive.visible_message("<span class='warning'>[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes.</span>", \
 								  "<span class='cultlarge'>You awaken suddenly from the void. You're alive!</span>")
@@ -685,7 +699,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			cultists[M.current.real_name] = M.current
 	var/input = input(user, "Who do you wish to call to [src]?", "Acolytes") as null|anything in cultists
 	var/mob/living/cultist_to_summon = cultists[input]
-	if(!src || QDELETED(src) || !Adjacent(user) || user.incapacitated())
+	if(QDELETED(src) || !Adjacent(user) || user.incapacitated())
 		return
 	if(!cultist_to_summon)
 		log_game("Summon Cultist rune failed - no target")
@@ -882,6 +896,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/mob/living/carbon/human/new_human = new(T)
 	new_human.real_name = ghost_to_spawn.real_name
 	new_human.key = ghost_to_spawn.key
+	new_human.gender = ghost_to_spawn.gender
 	new_human.alpha = 150 //Makes them translucent
 	new_human.equipOutfit(/datum/outfit/ghost_cultist) //give them armor
 	new_human.apply_status_effect(STATUS_EFFECT_SUMMONEDGHOST) //ghosts can't summon more ghosts, also lets you see actual ghosts
@@ -981,6 +996,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/narsie/cult_conceal() //can't hide this, and you wouldn't want to
 	return
 
+/obj/effect/rune/narsie/is_cleanable() //No, you can't just yeet a cleaning grenade to remove it.
+	return FALSE
+
 /obj/effect/rune/narsie/invoke(list/invokers)
 	if(used)
 		return
@@ -999,9 +1017,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 	//BEGIN THE SUMMONING
 	gamemode.cult_objs.succesful_summon()
 	used = TRUE
-	color = rgb(255, 0, 0)
+	color = COLOR_RED
 	..()
-	SEND_SOUND(world, 'sound/effects/dimensional_rend.ogg')
+	SEND_SOUND(world, sound('sound/effects/dimensional_rend.ogg'))
 	to_chat(world, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
 	icon_state = "rune_large_distorted"
 	var/turf/T = get_turf(src)

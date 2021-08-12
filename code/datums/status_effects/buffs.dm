@@ -54,34 +54,30 @@
 /datum/status_effect/blooddrunk/on_apply()
 	. = ..()
 	if(.)
+		ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 		if(ishuman(owner))
-			owner.status_flags |= IGNORESLOWDOWN
 			var/mob/living/carbon/human/H = owner
-			for(var/X in H.bodyparts)
-				var/obj/item/organ/external/BP = X
-				BP.brute_mod *= 0.1
-				BP.burn_mod *= 0.1
-			H.dna.species.tox_mod *= 0.1
-			H.dna.species.oxy_mod *= 0.1
-			H.dna.species.clone_mod *= 0.1
-			H.dna.species.stamina_mod *= 0.1
+			H.physiology.brute_mod *= 0.1
+			H.physiology.burn_mod *= 0.1
+			H.physiology.tox_mod *= 0.1
+			H.physiology.oxy_mod *= 0.1
+			H.physiology.clone_mod *= 0.1
+			H.physiology.stamina_mod *= 0.1
 		add_attack_logs(owner, owner, "gained blood-drunk stun immunity", ATKLOG_ALL)
 		owner.add_stun_absorption("blooddrunk", INFINITY, 4)
-		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, 1)
+		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
 
 /datum/status_effect/blooddrunk/on_remove()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		for(var/X in H.bodyparts)
-			var/obj/item/organ/external/BP = X
-			BP.brute_mod *= 10
-			BP.burn_mod *= 10
-		H.dna.species.tox_mod *= 10
-		H.dna.species.oxy_mod *= 10
-		H.dna.species.clone_mod *= 10
-		H.dna.species.stamina_mod *= 10
+		H.physiology.brute_mod *= 10
+		H.physiology.burn_mod *= 10
+		H.physiology.tox_mod *= 10
+		H.physiology.oxy_mod *= 10
+		H.physiology.clone_mod *= 10
+		H.physiology.stamina_mod *= 10
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
-	owner.status_flags &= ~IGNORESLOWDOWN
+	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
 		owner.stun_absorption -= "blooddrunk"
 
@@ -109,6 +105,10 @@
 	alert_type = null
 	var/hand
 	var/deathTick = 0
+	/// How many points the rod has to heal with, maxes at 50, or whatever heal_points_max is set to.
+	var/heal_points = 50
+	/// Max heal points for the rod to spend on healing people
+	var/max_heal_points = 50
 
 /datum/status_effect/hippocraticOath/on_apply()
 	//Makes the user passive, it's in their oath not to harm!
@@ -177,8 +177,12 @@
 			itemUser.adjustStaminaLoss(-1.5)
 			itemUser.adjustBrainLoss(-1.5)
 			itemUser.adjustCloneLoss(-0.5) //Becasue apparently clone damage is the bastion of all health
+		if(heal_points < max_heal_points)
+			heal_points = min(heal_points += 3, max_heal_points)
 		//Heal all those around you, unbiased
 		for(var/mob/living/L in view(7, owner))
+			if(heal_points <= 0)
+				break
 			if(L.health < L.maxHealth)
 				new /obj/effect/temp_visual/heal(get_turf(L), "#375637")
 			if(iscarbon(L))
@@ -189,18 +193,23 @@
 				L.adjustStaminaLoss(-3.5)
 				L.adjustBrainLoss(-3.5)
 				L.adjustCloneLoss(-1) //Becasue apparently clone damage is the bastion of all health
+				heal_points--
 				if(ishuman(L))
 					var/mob/living/carbon/human/H = L
 					for(var/obj/item/organ/external/E in H.bodyparts)
 						if(prob(10))
 							E.mend_fracture()
 							E.internal_bleeding = FALSE
+							heal_points--
 			else if(issilicon(L))
 				L.adjustBruteLoss(-3.5)
 				L.adjustFireLoss(-3.5)
+				heal_points--
 			else if(isanimal(L))
 				var/mob/living/simple_animal/SM = L
 				SM.adjustHealth(-3.5)
+				if(prob(50))
+					heal_points -- // Animals are simpler
 
 /obj/screen/alert/status_effect/regenerative_core
 	name = "Reinforcing Tendrils"
@@ -215,7 +224,7 @@
 	alert_type = /obj/screen/alert/status_effect/regenerative_core
 
 /datum/status_effect/regenerative_core/on_apply()
-	owner.status_flags |= IGNORE_SPEED_CHANGES
+	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
 	owner.adjustBruteLoss(-25)
 	owner.adjustFireLoss(-25)
 	owner.remove_CC()
@@ -231,4 +240,4 @@
 	return TRUE
 
 /datum/status_effect/regenerative_core/on_remove()
-	owner.status_flags &= ~IGNORE_SPEED_CHANGES
+	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)

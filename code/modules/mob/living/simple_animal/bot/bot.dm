@@ -4,6 +4,7 @@
 /mob/living/simple_animal/bot
 	icon = 'icons/obj/aibots.dmi'
 	layer = MOB_LAYER - 0.1
+	mob_biotypes = MOB_ROBOTIC
 	light_range = 3
 	stop_automated_movement = 1
 	wander = 0
@@ -138,12 +139,22 @@
 	update_controls()
 
 /mob/living/simple_animal/bot/New()
+	/*
+		HEY! LISTEN!
+
+		I see you're poking the the bot/New() proc
+		Assuming you are converting this to Initialize() [yay], please see my note in
+		code\game\jobs\job\job.dm | /datum/job/proc/get_access()
+
+		Theres a useless check that bugs me but needs to exist because these things New()
+		-AA07
+	*/
 	..()
 	GLOB.bots_list += src
 	icon_living = icon_state
 	icon_dead = icon_state
 	access_card = new /obj/item/card/id(src)
-//This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
+	//This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	access_card.access += ACCESS_ROBOTICS
 	set_custom_texts()
 	Radio = new/obj/item/radio/headset/bot(src)
@@ -750,11 +761,11 @@ Pass a positive integer as an argument to override a bot's default speed.
 	return 1
 
 // send a radio signal with a single data key/value pair
-/mob/living/simple_animal/bot/proc/post_signal(var/freq, var/key, var/value)
+/mob/living/simple_animal/bot/proc/post_signal(freq, key, value)
 	post_signal_multiple(freq, list("[key]" = value) )
 
 // send a radio signal with multiple data key/values
-/mob/living/simple_animal/bot/proc/post_signal_multiple(var/freq, var/list/keyval)
+/mob/living/simple_animal/bot/proc/post_signal_multiple(freq, list/keyval)
 	if(!is_station_level(z)) //Bot control will only work on station.
 		return
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(freq)
@@ -1034,7 +1045,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/door_opened(obj/machinery/door/D)
 	frustration = 0
 
-/mob/living/simple_animal/bot/handle_message_mode(var/message_mode, var/message, var/verb, var/speaking, var/used_radios)
+/mob/living/simple_animal/bot/handle_message_mode(message_mode, message, verb, speaking, used_radios)
 	switch(message_mode)
 		if("intercom")
 			for(var/obj/item/radio/intercom/I in view(1, src))

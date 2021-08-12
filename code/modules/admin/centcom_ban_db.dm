@@ -14,7 +14,7 @@
   */
 /datum/admins/proc/create_ccbdb_lookup(ckey)
 	// Bail if disabled
-	if(!config.centcom_ban_db_url)
+	if(!GLOB.configuration.url.centcom_ban_db_url)
 		to_chat(usr, "<span class='warning'>The CentCom Ban DB lookup is disabled. Please inform a maintainer or server host.</span>")
 		return
 	// Bail if no ckey is supplied
@@ -22,7 +22,7 @@
 		return
 
 	var/datum/callback/cb = CALLBACK(src, /datum/admins/.proc/ccbdb_lookup_callback, usr, ckey)
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, "[config.centcom_ban_db_url][ckey]", proc_callback=cb)
+	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, "[GLOB.configuration.url.centcom_ban_db_url][ckey]", proc_callback=cb)
 
 /**
   * CCBDB Lookup Callback

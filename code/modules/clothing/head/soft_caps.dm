@@ -38,35 +38,35 @@
 	desc = "It's a baseball hat in a tasteless red colour."
 	icon_state = "redsoft"
 	item_color = "red"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/blue
 	name = "blue cap"
 	desc = "It's a baseball hat in a tasteless blue colour."
 	icon_state = "bluesoft"
 	item_color = "blue"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/green
 	name = "green cap"
 	desc = "It's a baseball hat in a tasteless green colour."
 	icon_state = "greensoft"
 	item_color = "green"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/yellow
 	name = "yellow cap"
 	desc = "It's a baseball hat in a tasteless yellow colour."
 	icon_state = "yellowsoft"
 	item_color = "yellow"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/grey
 	name = "grey cap"
 	desc = "It's a baseball hat in a tasteful grey colour."
 	icon_state = "greysoft"
 	item_color = "grey"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/orange
 	name = "orange cap"
@@ -79,28 +79,28 @@
 	desc = "It's a baseball hat in a tasteless white colour."
 	icon_state = "mimesoft"
 	item_color = "mime"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/purple
 	name = "purple cap"
 	desc = "It's a baseball hat in a tasteless purple colour."
 	icon_state = "purplesoft"
 	item_color = "purple"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/black
 	name = "black cap"
 	desc = "It's a baseball hat in a tasteless black colour."
 	icon_state = "blacksoft"
 	item_color = "black"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/rainbow
 	name = "rainbow cap"
 	desc = "It's a baseball hat in a bright rainbow of colors."
 	icon_state = "rainbowsoft"
 	item_color = "rainbow"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/sec
 	name = "security cap"
@@ -109,7 +109,7 @@
 	item_color = "sec"
 	armor = list("melee" = 35, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
 	strip_delay = 60
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/sec/corp
 	name = "corporate security cap"
@@ -118,15 +118,39 @@
 	item_color = "corp"
 
 /obj/item/clothing/head/soft/solgov
-	name = "Sol Federation marine cap"
-	desc = "A soft cap worn by marines of the Sol Federation."
+	name = "\improper Trans-Solar Federation marine cap"
+	desc = "A soft cap worn by marines of the Trans-Solar Federation."
 	icon_state = "solgovsoft"
 	item_color = "solgov"
 	dog_fashion = null
 
-/obj/item/clothing/head/soft/solgov/command
-	name = "Sol Federation Lieutenant's cap"
-	desc = "A soft cap worn by marines of the Sol Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
-	icon_state = "solgovcsoft"
+/obj/item/clothing/head/soft/solgov/marines
+	armor = list("melee" = 20, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	icon_state = "solgovsoft_flipped"
+	strip_delay = 60
+	flipped = TRUE
+
+/obj/item/clothing/head/soft/solgov/marines/elite
+	name = "\improper Trans-Solar Federation Specops marine cap"
+	desc = "A cap worn by marines of the Trans-Solar Federation Specops division. You aren't quite sure how they made this bulletproof, but you are glad it is!"
+	armor = list("melee" = 35, "bullet" = 60, "laser" = 10, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 50, "fire" = 80, "acid" = 80)
+	icon_state = "solgovelitesoft_flipped"
+	item_color = "solgovelite"
+	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/head/soft/solgov/marines/command
+	name = "\improper Trans-Solar Federation lieutenant's cap"
+	desc = "A soft cap worn by marines of the Trans-Solar Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
+	armor = list("melee" = 20, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	icon_state = "solgovcsoft_flipped"
 	item_color = "solgovc"
 	dog_fashion = null
+	strip_delay = 80
+
+/obj/item/clothing/head/soft/solgov/marines/command/elite
+	name = "\improper Trans-Solar Federation Specops Lieutenant's cap"
+	desc = "A cap worn by marines of the Trans-Solar Federation Specops division. You aren't quite sure how they made this bulletproof, but you are glad it is! The insignia signifies the wearer bears the rank of a Lieutenant."
+	armor= list("melee" = 35, "bullet" = 60, "laser" = 10, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 50, "fire" = 80, "acid" = 80)
+	icon_state = "solgovcelitesoft"
+	item_color = "solgovcelite"
+	resistance_flags = FIRE_PROOF

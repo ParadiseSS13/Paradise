@@ -84,7 +84,6 @@
 	height = 11
 	dir = 4
 	travelDir = 0
-	roundstart_move = "emergency_away"
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
 	var/datum/announcement/priority/emergency_shuttle_docked = new(0, new_sound = sound('sound/AI/shuttledock.ogg'))
@@ -250,8 +249,9 @@
 
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
 				sound_played = 1
+				var/hyperspace_sound = sound('sound/effects/hyperspace_begin.ogg')
 				for(var/area/shuttle/escape/E in world)
-					E << 'sound/effects/hyperspace_begin.ogg'
+					SEND_SOUND(E, hyperspace_sound)
 
 			if(time_left <= 0 && !SSshuttle.emergencyNoEscape)
 				//move each escape pod to its corresponding transit dock
@@ -259,8 +259,9 @@
 					if(is_station_level(M.z)) //Will not launch from the mine/planet
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
+				var/hyperspace_progress_sound = sound('sound/effects/hyperspace_progress.ogg')
 				for(var/area/shuttle/escape/E in world)
-					E << 'sound/effects/hyperspace_progress.ogg'
+					SEND_SOUND(E, hyperspace_progress_sound)
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
 				timer = world.time
@@ -275,8 +276,9 @@
 				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
 					M.dock(SSshuttle.getDock("[M.id]_away"))
 
+				var/hyperspace_end_sound = sound('sound/effects/hyperspace_end.ogg')
 				for(var/area/shuttle/escape/E in world)
-					E << 'sound/effects/hyperspace_end.ogg'
+					SEND_SOUND(E, hyperspace_end_sound)
 
 				// now move the actual emergency shuttle to centcomm
 				// unless the shuttle is "hijacked"
@@ -310,8 +312,8 @@
 	width = 3
 	height = 4
 
-/obj/docking_port/mobile/pod/New()
-	..()
+/obj/docking_port/mobile/pod/Initialize(mapload)
+	. = ..()
 	if(id == "pod")
 		WARNING("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc.")
 
@@ -363,8 +365,6 @@
 	width = 8
 	height = 8
 	dir = 4
-
-	roundstart_move = "backup_away"
 
 /obj/docking_port/mobile/emergency/backup/register()
 	var/current_emergency = SSshuttle.emergency

@@ -18,6 +18,10 @@
 	update_icon()
 	return
 
+/obj/item/gun/projectile/detailed_examine()
+	return "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo. The description \
+			will tell you what caliber you need."
+
 /obj/item/gun/projectile/update_icon()
 	..()
 	if(current_skin)
@@ -35,7 +39,7 @@
 	if(eject_casing)
 		AC.loc = get_turf(src) //Eject casing onto ground.
 		AC.SpinAnimation(10, 1) //next gen special effects
-		playsound(src, chambered.drop_sound, 100, 1)
+		playsound(src, chambered.casing_drop_sound, 100, 1)
 	if(empty_chamber)
 		chambered = null
 	chamber_round()
@@ -67,7 +71,7 @@
 		update_icon()
 		return
 
-/obj/item/gun/projectile/attackby(var/obj/item/A as obj, mob/user as mob, params)
+/obj/item/gun/projectile/attackby(obj/item/A as obj, mob/user as mob, params)
 	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
@@ -164,17 +168,17 @@
 
 /obj/item/gun/projectile/suicide_act(mob/user)
 	if(chambered && chambered.BB && !chambered.BB.nodamage)
-		user.visible_message("<span class='suicide'>[user] is putting the barrel of the [name] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide.</span>")
+		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide.</span>")
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)
 			process_fire(user, user, 0, zone_override = "head")
-			user.visible_message("<span class='suicide'>[user] blows [user.p_their()] brains out with the [name]!</span>")
+			user.visible_message("<span class='suicide'>[user] blows [user.p_their()] brains out with [src]!</span>")
 			return BRUTELOSS
 		else
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
 			return OXYLOSS
 	else
-		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with the [name]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
 		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
 		return OXYLOSS
 

@@ -15,7 +15,7 @@
 /datum/buildmode_mode/atmos/show_help(mob/user)
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 	to_chat(user, "<span class='notice'>Left Mouse Button on turf      = Select corner</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button + Ctrl on turf = Set 'base atmos conditions' for unsimulated turfs in region</span>")
+	to_chat(user, "<span class='notice'>Left Mouse Button + Ctrl on turf = Set 'base atmos conditions' for space turfs in region</span>")
 	to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Adjust target atmos</span>")
 	to_chat(user, "<span class='notice'><b>Notice:</b> Starts out with standard breathable/liveable defaults</span>")
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
@@ -58,7 +58,7 @@
 					S.air.agent_b = ppratio_to_moles(agentbx)
 					S.update_visuals()
 					S.air_update_turf()
-			else if(ctrl_click) // overwrite "default" unsimulated air
+			else if(ctrl_click) // overwrite "default" space air
 				T.temperature = temperature
 				T.oxygen = ppratio_to_moles(oxygen)
 				T.nitrogen = ppratio_to_moles(nitrogen)
@@ -69,4 +69,4 @@
 				T.air_update_turf()
 
 		// admin log
-		log_admin("Build Mode: [key_name(user)] changed the atmos of region [COORD(cornerA)] to [COORD(cornerB)]. T: [temperature], P: [pressure], Ox: [oxygen]%, N2: [nitrogen]%, Plsma: [plasma]%, CO2: [cdiox]%, N2O: [nitrox]%. [ctrl_click ? "Overwrote base unsimulated turf gases." : ""]")
+		log_admin("Build Mode: [key_name(user)] changed the atmos of region [COORD(cornerA)] to [COORD(cornerB)]. T: [temperature], P: [pressure], Ox: [oxygen]%, N2: [nitrogen]%, Plsma: [plasma]%, CO2: [cdiox]%, N2O: [nitrox]%. [ctrl_click ? "Overwrote base space turf gases." : ""]")

@@ -2,7 +2,7 @@ GLOBAL_VAR(CMinutes)
 GLOBAL_DATUM(banlist_savefile, /savefile)
 GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 
-/proc/CheckBan(var/ckey, var/id, var/address)
+/proc/CheckBan(ckey, id, address)
 	if(!GLOB.banlist_savefile)		// if banlist_savefile cannot be located for some reason
 		LoadBans()		// try to load the bans
 		if(!GLOB.banlist_savefile)	// uh oh, can't find bans!
@@ -10,8 +10,8 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 
 	. = list()
 	var/appeal
-	if(config && config.banappeals)
-		appeal = "\nFor more information on your ban, or to appeal, head to <a href='[config.banappeals]'>[config.banappeals]</a>"
+	if(GLOB.configuration.url.banappeals_url)
+		appeal = "\nFor more information on your ban, or to appeal, head to <a href='[GLOB.configuration.url.banappeals_url]'>[GLOB.configuration.url.banappeals_url]</a>"
 	GLOB.banlist_savefile.cd = "/base"
 	if( "[ckey][id]" in GLOB.banlist_savefile.dir )
 		GLOB.banlist_savefile.cd = "[ckey][id]"
@@ -138,7 +138,6 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 		log_admin("Ban Expired: [key]")
 		message_admins("Ban Expired: [key]")
 	else
-		ban_unban_log_save("[key_name_admin(usr)] unbanned [key]")
 		log_admin("[key_name_admin(usr)] unbanned [key]")
 		message_admins("[key_name_admin(usr)] unbanned: [key]")
 		usr.client.holder.DB_ban_unban( ckey(key), BANTYPE_ANY_FULLBAN)

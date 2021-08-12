@@ -418,7 +418,7 @@
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-					dat += "<td><A href='?priv_msg=[M.client?.ckey]'>PM</A></td>"
+					dat += "<td><A href='?priv_msg=[M.client?.ckey]'>PM</A> [ADMIN_FLW(M, "FLW")]</td>"
 				else
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"
@@ -493,9 +493,6 @@
 
 		if(SSticker.mode.vampire_enthralled.len)
 			dat += check_role_table("Vampire Thralls", SSticker.mode.vampire_enthralled)
-
-		if(SSticker.mode.devils.len)
-			dat += check_role_table("Devils", SSticker.mode.devils)
 
 		if(SSticker.mode.xenos.len)
 			dat += check_role_table("Xenos", SSticker.mode.xenos)

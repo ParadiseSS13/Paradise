@@ -86,6 +86,8 @@
 #define LIGHTING_PLANE 15
 #define LIGHTING_LAYER 15
 
+#define RAD_TEXT_LAYER 15.1
+
 #define ABOVE_LIGHTING_PLANE 16
 #define ABOVE_LIGHTING_LAYER 16
 
@@ -115,3 +117,6 @@
 
 #define SPLASHSCREEN_LAYER 23
 #define SPLASHSCREEN_PLANE 23
+
+///Plane master controller keys
+#define PLANE_MASTERS_GAME "plane_masters_game"

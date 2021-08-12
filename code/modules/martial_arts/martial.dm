@@ -6,18 +6,31 @@
 	var/streak = ""
 	var/max_streak_length = 6
 	var/temporary = FALSE
-	var/datum/martial_art/base = null // The permanent style
-	var/deflection_chance = 0 //Chance to deflect projectiles
-	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.
+	/// The permanent style.
+	var/datum/martial_art/base = null
+	/// Chance to deflect projectiles while on throw mode.
+	var/deflection_chance = 0
+	/// Can it reflect projectiles in a random direction?
+	var/reroute_deflection = FALSE
+	///Chance to block melee attacks using items while on throw mode.
+	var/block_chance = 0
 	var/help_verb = null
-	var/no_guns = FALSE	//set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
-	var/no_guns_message = ""	//message to tell the style user if they try and use a gun while no_guns = TRUE (DISHONORABRU!)
+	/// Set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
+	var/no_guns = FALSE
+	/// Message to tell the style user if they try and use a gun while no_guns = TRUE (DISHONORABRU!)
+	var/no_guns_message = ""
 
-	var/has_explaination_verb = FALSE	// If the martial art has it's own explaination verb
+	/// If the martial art has it's own explaination verb.
+	var/has_explaination_verb = FALSE
 
-	var/list/combos = list()							// What combos can the user do? List of combo types
-	var/list/datum/martial_art/current_combos = list()	// What combos are currently (possibly) being performed
-	var/last_hit = 0									// When the last hit happened
+	/// What combos can the user do? List of combo types.
+	var/list/combos = list()
+	/// What combos are currently (possibly) being performed.
+	var/list/datum/martial_art/current_combos = list()
+	/// When the last hit happened.
+	var/last_hit = 0
+	/// If the user is preparing a martial arts stance.
+	var/in_stance = FALSE
 
 /datum/martial_art/New()
 	. = ..()
@@ -135,7 +148,7 @@
 		base = src
 	H.mind.martial_art = src
 
-/datum/martial_art/proc/remove(var/mob/living/carbon/human/H)
+/datum/martial_art/proc/remove(mob/living/carbon/human/H)
 	if(!H.mind)
 		return
 	if(H.mind.martial_art != src)
@@ -144,6 +157,7 @@
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
 	if(base)
 		base.teach(H)
+		base = null
 
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Show Info"
@@ -175,6 +189,9 @@
 /datum/martial_art/proc/explaination_footer(user)
 	return
 
+/datum/martial_art/proc/try_deflect(mob/user)
+		return prob(deflection_chance)
+
 //ITEMS
 
 /obj/item/clothing/gloves/boxing
@@ -189,12 +206,12 @@
 	return
 
 /obj/item/clothing/gloves/boxing/dropped(mob/user)
+	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(slot_gloves) == src)
 		style.remove(H)
-	return
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
@@ -210,13 +227,13 @@
 	return
 
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user)
+	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(slot_belt) == src)
 		style.remove(H)
 		to_chat(user, "<span class='sciradio'>You no longer have an urge to flex your muscles.</span>")
-	return
 
 /obj/item/plasma_fist_scroll
 	name = "frayed scroll"
@@ -255,12 +272,6 @@
 		else //Vampires
 			to_chat(user, "<span class ='warning'>Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!</span>")
 			return
-
-	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! \
-					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you. \
-					However, you are also unable to use any ranged weaponry. \
-					You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>")
-
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
@@ -307,7 +318,7 @@
 
 /obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
 	add_fingerprint(user)
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class ='warning'>You club yourself over the head with [src].</span>")
 		user.Weaken(3)
 		if(ishuman(user))

@@ -266,6 +266,7 @@
 		return TRUE
 	if(operating)
 		return
+	SEND_SIGNAL(src, COMSIG_DOOR_OPEN)
 	operating = TRUE
 	do_animate("opening")
 	set_opacity(0)
@@ -295,6 +296,7 @@
 						autoclose_in(60)
 					return
 
+	SEND_SIGNAL(src, COMSIG_DOOR_CLOSE)
 	operating = TRUE
 
 	do_animate("closing")
@@ -383,3 +385,7 @@
 
 /obj/machinery/door/GetExplosionBlock()
 	return density ? real_explosion_block : 0
+
+/obj/machinery/door/zap_act(power, zap_flags)
+	zap_flags &= ~ZAP_OBJ_DAMAGE
+	. = ..()

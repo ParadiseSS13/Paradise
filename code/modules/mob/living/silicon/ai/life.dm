@@ -60,7 +60,6 @@
 
 				spawn(20)
 					to_chat(src, "Backup battery online. Scanners, camera, and radio interface offline. Beginning fault-detection.")
-					end_multicam()
 					sleep(50)
 					my_area = get_area(src)
 					T = get_turf(src)

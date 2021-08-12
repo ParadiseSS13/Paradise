@@ -31,6 +31,9 @@
 		item_state = SSticker.cultdat.sword_icon
 	..()
 
+/obj/item/melee/cultblade/detailed_examine()
+	return "This blade is a powerful weapon, capable of severing limbs easily, if they are targeted. Nonbelievers are unable to use this weapon."
+
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
 		user.Weaken(5)
@@ -53,9 +56,9 @@
 		user.Confused(10)
 		user.Jitter(6)
 
-	if(HULK in user.mutations)
+	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
-		return FALSE
+		user.unEquip(src, TRUE)
 
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
@@ -119,7 +122,7 @@
 	item_state = "cult_armour"
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank)
+	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
 	slowdown = 1
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
 	magical = TRUE
@@ -159,10 +162,10 @@
 		user.Weaken(5)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(current_charges)
+	if(current_charges && !owner.holy_check())
 		owner.visible_message("<span class='danger'>[attack_text] is deflected in a burst of blood-red sparks!</span>")
 		current_charges--
-		playsound(loc, "sparks", 100, TRUE)
+		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
 		if(!current_charges)
 			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
@@ -200,12 +203,12 @@
 		user.Confused(10)
 		user.Weaken(5)
 	else if(slot == slot_wear_suit)
-		user.status_flags |= GOTTAGOFAST
+		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes")
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user)
 	. = ..()
 	if(user)
-		user.status_flags &= ~GOTTAGOFAST
+		REMOVE_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes")
 
 /obj/item/clothing/head/hooded/flagellant_hood
 	name = "flagellant's robes"
@@ -316,56 +319,54 @@
 	var/mob/living/carbon/C = user
 	if(C.pulling)
 		var/atom/movable/pulled = C.pulling
-		pulled.forceMove(T)
+		var/turf/turf_behind = get_turf(get_step(T, turn(C.dir, 180)))
+		pulled.forceMove(turf_behind)
 		. = pulled
 
 /obj/item/cult_shift/attack_self(mob/user)
+
 	if(!uses || !iscarbon(user))
 		to_chat(user, "<span class='warning'>[src] is dull and unmoving in your hands.</span>")
 		return
 	if(!iscultist(user))
-		user.unEquip(src, 1)
+		user.unEquip(src, TRUE)
 		step(src, pick(GLOB.alldirs))
 		to_chat(user, "<span class='warning'>[src] flickers out of your hands, too eager to move!</span>")
 		return
-
+	if(user.holy_check())
+		return
 	var/outer_tele_radius = 9
 
 	var/mob/living/carbon/C = user
-	var/turf/mobloc = get_turf(C)
-	var/list/turfs = new/list()
-	for(var/turf/T in range(user, outer_tele_radius))
+	var/list/turfs = list()
+	for(var/turf/T in orange(user, outer_tele_radius))
 		if(!is_teleport_allowed(T.z))
 			break
-		if(get_dir(C, T) != C.dir)
+		if(get_dir(C, T) != C.dir) // This seems like a very bad way to do this
 			continue
-		if(T == mobloc)
-			continue
-		if(istype(T, /turf/space))
+		if(isspaceturf(T))
 			continue
 		if(T.x > world.maxx-outer_tele_radius || T.x < outer_tele_radius)
 			continue	//putting them at the edge is dumb
 		if(T.y > world.maxy-outer_tele_radius || T.y < outer_tele_radius)
 			continue
-
 		turfs += T
 
-	if(turfs)
+	if(length(turfs))
 		uses--
+		var/turf/mobloc = get_turf(C)
 		var/turf/destination = pick(turfs)
 		if(uses <= 0)
-			icon_state ="shifter_drained"
-		playsound(mobloc, "sparks", 50, TRUE)
+			icon_state = "shifter_drained"
+		playsound(src, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
 
-		var/atom/movable/pulled = handle_teleport_grab(destination, C)
+		handle_teleport_grab(destination, C)
 		C.forceMove(destination)
-		if(pulled)
-			C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
 
 		new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
-		playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE)
-		playsound(destination, "sparks", 50, TRUE)
+		playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 	else
 		to_chat(C, "<span class='danger'>The veil cannot be torn here!</span>")
@@ -443,7 +444,7 @@
   * The illusion has a 60% chance to be hostile and attack non-cultists, and a 40% chance to just run away from the user.
   */
 /obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(iscultist(owner)) // Cultist holding the shield
+	if(iscultist(owner) && !owner.holy_check()) // Cultist holding the shield
 
 		// Hit by a projectile
 		if(istype(hitby, /obj/item/projectile))
@@ -518,6 +519,10 @@
 
 /obj/item/shield/mirror/IsReflect()
 	if(prob(reflect_chance))
+		if(istype(loc, /mob))
+			var/mob/user = loc
+			if(user.holy_check())
+				return FALSE
 		return TRUE
 	return FALSE
 
@@ -603,7 +608,7 @@
 	spear = blood_spear
 
 /datum/action/innate/cult/spear/Activate()
-	if(owner == spear.loc || cooldown > world.time)
+	if(owner == spear.loc || cooldown > world.time || owner.holy_check())
 		return
 	var/ST = get_turf(spear)
 	var/OT = get_turf(owner)
@@ -628,6 +633,12 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 	flags = NOBLUDGEON | DROPDEL
+
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood/afterattack(atom/target, mob/living/user, flag, params)
+	if(user.holy_check())
+		return
+	..()
+
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood

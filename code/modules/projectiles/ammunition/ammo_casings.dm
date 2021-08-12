@@ -135,7 +135,7 @@
 	desc = "A 12 gauge lead slug."
 	icon_state = "blshell"
 	caliber = "shotgun"
-	drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
+	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 	projectile_type = /obj/item/projectile/bullet
 	materials = list(MAT_METAL=4000)
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
@@ -395,14 +395,18 @@
 	else if((istype(A, /obj/item/pen)) && modified && !FD.pen)
 		if(!user.unEquip(A))
 			return
-		harmful = TRUE
-		A.loc = FD
-		FD.log_override = FALSE
-		FD.pen = A
-		FD.damage = 5
-		FD.nodamage = 0
+		add_pen(A)
 		to_chat(user, "<span class='notice'>You insert [A] into [src].</span>")
 	return
+
+/obj/item/ammo_casing/caseless/foam_dart/proc/add_pen(obj/item/pen/P)
+	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
+	harmful = TRUE
+	P.forceMove(FD)
+	FD.log_override = FALSE
+	FD.pen = P
+	FD.damage = 5
+	FD.nodamage = FALSE
 
 /obj/item/ammo_casing/caseless/foam_dart/attack_self(mob/living/user)
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB

@@ -30,8 +30,8 @@
 		///////////////
 		//SOUND STUFF//
 		///////////////
-	var/ambience_playing = 0
-	var/played			= 0
+
+	var/ambience_playing = FALSE
 
 		////////////
 		//SECURITY//
@@ -56,7 +56,6 @@
 
 	var/global/obj/screen/click_catcher/void
 
-	var/karma = 0
 	var/karma_spent = 0
 	var/karma_tab = 0
 
@@ -68,6 +67,9 @@
 
 	//datum that controls the displaying and hiding of tooltips
 	var/datum/tooltip/tooltips
+
+	/// Persistent storage for the flavour text of examined atoms.
+	var/list/description_holders = list()
 
 	// Their chat window, sort of important.
 	// See /goon/code/datums/browserOutput.dm
@@ -105,3 +107,17 @@
 
 	/// Last world/time that a PM was sent to the player by an admin
 	var/received_discord_pm = -99999 // Yes this super low number is intentional
+
+	/// Has the client accepted the TOS about data collection and other stuff
+	var/tos_consent = FALSE
+
+	/// Is the client watchlisted
+	var/watchlisted = FALSE
+
+/client/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		// I know we will never be in a world where admins are editing client vars to let people bypass TOS
+		// But guess what, if I have the ability to overengineer something, I am going to do it
+		if("tos_consent")
+			return FALSE
+	return ..()

@@ -72,7 +72,7 @@
 		update_icon()
 
 	else if(is_hot(P))
-		if((CLUMSY in user.mutations) && prob(10))
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
 				"<span class='userdanger'>You miss [src] and accidentally light yourself on fire!</span>")
 			user.unEquip(P)

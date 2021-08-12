@@ -57,30 +57,19 @@
 	taste_description = "floor cleaner"
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
-	if(is_cleanable(O))
-		var/obj/effect/decal/cleanable/blood/B = O
-		if(!(istype(B) && B.off_floor))
-			qdel(O)
+	if(istype(O, /obj/effect))
+		var/obj/effect/E = O
+		if(E.is_cleanable())
+			var/obj/effect/decal/cleanable/blood/B = E
+			if(!(istype(B) && B.off_floor))
+				qdel(E)
 	else
 		if(O.simulated)
 			O.color = initial(O.color)
 		O.clean_blood()
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
-	if(volume >= 1)
-		var/floor_only = TRUE
-		for(var/obj/effect/decal/cleanable/C in T)
-			var/obj/effect/decal/cleanable/blood/B = C
-			if(istype(B) && B.off_floor)
-				floor_only = FALSE
-			else
-				qdel(C)
-		T.color = initial(T.color)
-		if(floor_only)
-			T.clean_blood()
-
-		for(var/mob/living/simple_animal/slime/M in T)
-			M.adjustToxLoss(rand(5, 10))
+	T.clean(volume >= 1)
 
 /datum/reagent/space_cleaner/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	M.clean_blood()
@@ -249,6 +238,12 @@
 			if(prob(5))
 				M.AdjustCultSlur(5)//5 seems like a good number...
 				M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
+		if(isvampirethrall(M))
+			if(prob(10))
+				M.say(pick("*gasp", "*cough", "*sneeze"))
+			if(prob(5)) //Same as cult, for the real big tell
+				M.visible_message("<span class='warning'>A fog lifts from [M]'s eyes for a moment, but soon returns.</span>")
+
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(3)
 		if(isvampirethrall(M))
@@ -259,16 +254,11 @@
 			M.SetConfused(0)
 			return
 		if(iscultist(M))
-			SSticker.mode.remove_cultist(M.mind)
+			SSticker.mode.remove_cultist(M.mind, TRUE, TRUE)
 			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
-			if(ishuman(M)) // Unequip all cult clothing
-				var/mob/living/carbon/human/H = M
-				for(var/I in H.contents - (H.bodyparts | H.internal_organs)) // Satanic liver NYI
-					if(is_type_in_list(I, CULT_CLOTHING))
-						H.unEquip(I)
 			return
 	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M
@@ -278,7 +268,7 @@
 			update_flags |= M.adjustStaminaLoss(5, FALSE)
 			if(prob(20))
 				M.emote("scream")
-			M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+			M.mind.vampire.adjust_nullification(5, 2)
 			M.mind.vampire.bloodusable = max(M.mind.vampire.bloodusable - 3,0)
 			if(M.mind.vampire.bloodusable)
 				V.vomit(0,1)
@@ -290,7 +280,7 @@
 			switch(current_cycle)
 				if(1 to 4)
 					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					M.mind.vampire.adjust_nullification(5, 2)
 				if(5 to 12)
 					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
 					update_flags |= M.adjustFireLoss(1, FALSE)
@@ -298,7 +288,7 @@
 					M.Jitter(20)
 					if(prob(20))
 						M.emote("scream")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					M.mind.vampire.adjust_nullification(5, 2)
 				if(13 to INFINITY)
 					to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
 					for(var/mob/O in viewers(M, null))
@@ -310,7 +300,7 @@
 					M.Jitter(30)
 					if(prob(40))
 						M.emote("scream")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					M.mind.vampire.adjust_nullification(5, 2)
 	return ..() | update_flags
 
 
@@ -327,7 +317,7 @@
 				return
 			else
 				to_chat(M, "<span class='warning'>Something holy interferes with your powers!</span>")
-				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+				M.mind.vampire.adjust_nullification(5, 2)
 
 
 /datum/reagent/holywater/reaction_turf(turf/simulated/T, volume)

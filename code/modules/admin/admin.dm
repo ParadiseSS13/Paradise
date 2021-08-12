@@ -2,14 +2,14 @@ GLOBAL_VAR_INIT(BSACooldown, 0)
 GLOBAL_VAR_INIT(nologevent, 0)
 
 ////////////////////////////////
-/proc/message_admins(var/msg)
+/proc/message_admins(msg)
 	msg = "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_ADMINLOGS))
 				to_chat(C, msg)
 
-/proc/msg_admin_attack(var/text, var/loglevel)
+/proc/msg_admin_attack(text, loglevel)
 	if(!GLOB.nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in GLOB.admins)
@@ -34,7 +34,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				to_chat(C, msg)
 			if(important)
 				if(C.prefs?.sound & SOUND_ADMINHELP)
-					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
+					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 				window_flash(C)
 
 /**
@@ -51,10 +51,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				to_chat(C, msg)
 			if(important)
 				if(C.prefs?.sound & SOUND_MENTORHELP)
-					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
+					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 				window_flash(C)
 
-/proc/admin_ban_mobsearch(var/mob/M, var/ckey_to_find, var/mob/admin_to_notify)
+/proc/admin_ban_mobsearch(mob/M, ckey_to_find, mob/admin_to_notify)
 	if(!M || !M.ckey)
 		if(ckey_to_find)
 			for(var/mob/O in GLOB.mob_list)
@@ -70,7 +70,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
-/datum/admins/proc/show_player_panel(var/mob/M in GLOB.mob_list)
+/datum/admins/proc/show_player_panel(mob/M in GLOB.mob_list)
 	set category = null
 	set name = "Show Player Panel"
 	set desc="Edit player (respawn, ban, heal, etc)"
@@ -91,8 +91,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		else
 			body += "\[[M.client.holder ? M.client.holder.rank : "Player"]\] "
 		body += "\[<A href='?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
-		body += "<br>BYOND account registration date: [M.client.byondacc_date || "ERROR"] [M.client.byondacc_age <= config.byond_account_age_threshold ? "<b>" : ""]([M.client.byondacc_age] days old)[M.client.byondacc_age <= config.byond_account_age_threshold ? "</b>" : ""]"
-		body += "<br>Global Ban DB Lookup: [config.centcom_ban_db_url ? "<a href='?_src_=holder;open_ccbdb=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
+		body += "<br>BYOND account registration date: [M.client.byondacc_date || "ERROR"] [M.client.byondacc_age <= GLOB.configuration.general.byond_account_age_threshold ? "<b>" : ""]([M.client.byondacc_age] days old)[M.client.byondacc_age <= GLOB.configuration.general.byond_account_age_threshold ? "</b>" : ""]"
+		body += "<br>Global Ban DB Lookup: [GLOB.configuration.url.centcom_ban_db_url ? "<a href='?_src_=holder;open_ccbdb=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
 
 		body += "<br>"
 
@@ -126,7 +126,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
 		body += "<A href='?_src_=holder;appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</A> | "
 		body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
-		if(config.forum_playerinfo_url)
+		body += "<A href='?_src_=holder;viewkarma=[M.ckey]'>View Karma</A> | "
+		if(GLOB.configuration.url.forum_playerinfo_url)
 			body += "<A href='?_src_=holder;webtools=[M.ckey]'>WebInfo</A> | "
 	if(M.client)
 		if(check_watchlist(M.client.ckey))
@@ -221,7 +222,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				body += "<br><br>"
 				body += "<b>DNA Blocks:</b><br><table border='0'><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>"
 				var/bname
-				for(var/block=1;block<=DNA_SE_LENGTH;block++)
+				for(var/block in 1 to DNA_SE_LENGTH)
 					if(((block-1)%5)==0)
 						body += "</tr><tr><th>[block-1]</th>"
 					bname = GLOB.assigned_blocks[block]
@@ -298,7 +299,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	show_note()
 
-/datum/admins/proc/show_player_notes(var/key as text)
+/datum/admins/proc/show_player_notes(key as text)
 	set category = "Admin"
 	set name = "Show Player Notes"
 
@@ -314,7 +315,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 	var/key = stripped_input(usr, "Enter ckey to add/remove, or leave blank to cancel:", "VPN Whitelist add/remove", max_length=32)
 	if(key)
-		vpn_whitelist_panel(key)
+		SSipintel.vpn_whitelist_panel(key)
 
 /datum/admins/proc/Jobbans()
 	if(!check_rights(R_BAN))
@@ -363,16 +364,47 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_SERVER))
 		return
 
-	var/delay = input("What delay should the restart have (in seconds)?", "Restart Delay", 5) as num|null
-	if(isnull(delay))
-		return
-	else
-		delay = delay * 10
-	message_admins("[key_name_admin(usr)] has initiated a server restart with a delay of [delay/10] seconds")
-	log_admin("[key_name(usr)] has initiated a server restart with a delay of [delay/10] seconds")
-	SSticker.delay_end = 0
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reboot Server") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	world.Reboot("Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key].", "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay)
+	// Give an extra popup if they are rebooting a live server
+	var/is_live_server = TRUE
+	if(usr.client.is_connecting_from_localhost())
+		is_live_server = FALSE
+
+	var/list/options = list("Regular Restart", "Hard Restart")
+	if(world.TgsAvailable()) // TGS lets you kill the process entirely
+		options += "Terminate Process (Kill and restart DD)"
+
+	var/result = input(usr, "Select reboot method", "World Reboot", options[1]) as null|anything in options
+
+	if(is_live_server)
+		if(alert(usr, "WARNING: THIS IS A LIVE SERVER, NOT A LOCAL TEST SERVER. DO YOU STILL WANT TO RESTART","This server is live","Restart","Cancel") != "Restart")
+			return FALSE
+
+	if(result)
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Reboot World") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		var/init_by = "Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key]."
+		switch(result)
+
+			if("Regular Restart")
+				var/delay = input("What delay should the restart have (in seconds)?", "Restart Delay", 5) as num|null
+				if(!delay)
+					return FALSE
+
+
+				// These are pasted each time so that they dont false send if reboot is cancelled
+				message_admins("[key_name_admin(usr)] has initiated a server restart of type [result]")
+				log_admin("[key_name(usr)] has initiated a server restart of type [result]")
+				SSticker.delay_end = FALSE // We arent delayed anymore
+				SSticker.reboot_helper(init_by, "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay * 10)
+
+			if("Hard Restart")
+				message_admins("[key_name_admin(usr)] has initiated a server restart of type [result]")
+				log_admin("[key_name(usr)] has initiated a server restart of type [result]")
+				world.Reboot(fast_track = TRUE)
+
+			if("Terminate Process (Kill and restart DD)")
+				message_admins("[key_name_admin(usr)] has initiated a server restart of type [result]")
+				log_admin("[key_name(usr)] has initiated a server restart of type [result]")
+				world.TgsEndProcess() // Just nuke the entire process if we are royally fucked
 
 /datum/admins/proc/end_round()
 	set category = "Server"
@@ -430,8 +462,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN))
 		return
 
-	config.looc_allowed = !(config.looc_allowed)
-	if(config.looc_allowed)
+	GLOB.looc_enabled = !(GLOB.looc_enabled)
+	if(GLOB.looc_enabled)
 		to_chat(world, "<B>The LOOC channel has been globally enabled!</B>")
 	else
 		to_chat(world, "<B>The LOOC channel has been globally disabled!</B>")
@@ -446,8 +478,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN))
 		return
 
-	config.dsay_allowed = !(config.dsay_allowed)
-	if(config.dsay_allowed)
+	GLOB.dsay_enabled = !(GLOB.dsay_enabled)
+	if(GLOB.dsay_enabled)
 		to_chat(world, "<B>Deadchat has been globally enabled!</B>")
 	else
 		to_chat(world, "<B>Deadchat has been globally disabled!</B>")
@@ -463,7 +495,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN))
 		return
 
-	config.dooc_allowed = !( config.dooc_allowed )
+	GLOB.dooc_enabled = !(GLOB.dooc_enabled)
 	log_admin("[key_name(usr)] toggled Dead OOC.")
 	message_admins("[key_name_admin(usr)] toggled Dead OOC.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead OOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -476,7 +508,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN))
 		return
 
-	config.disable_ooc_emoji = !(config.disable_ooc_emoji)
+	GLOB.configuration.general.enable_ooc_emoji = !(GLOB.configuration.general.enable_ooc_emoji)
 	log_admin("[key_name(usr)] toggled OOC Emoji.")
 	message_admins("[key_name_admin(usr)] toggled OOC Emoji.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC Emoji")
@@ -493,7 +525,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		alert("Unable to start the game as it is not set up.")
 		return
 
-	if(config.start_now_confirmation)
+	if(GLOB.configuration.general.start_now_confirmation)
 		if(alert(usr, "This is a live server. Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
 			return
 
@@ -536,8 +568,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_EVENT))
 		return
 
-	config.allow_ai = !( config.allow_ai )
-	if(!( config.allow_ai ))
+
+	GLOB.configuration.jobs.allow_ai = !(GLOB.configuration.jobs.allow_ai)
+	if(!GLOB.configuration.jobs.allow_ai)
 		to_chat(world, "<B>The AI job is no longer chooseable.</B>")
 	else
 		to_chat(world, "<B>The AI job is chooseable now.</B>")
@@ -554,13 +587,13 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_SERVER))
 		return
 
-	GLOB.abandon_allowed = !( GLOB.abandon_allowed )
-	if(GLOB.abandon_allowed)
+	GLOB.configuration.general.respawn_enabled = !(GLOB.configuration.general.respawn_enabled)
+	if(GLOB.configuration.general.respawn_enabled)
 		to_chat(world, "<B>You may now respawn.</B>")
 	else
-		to_chat(world, "<B>You may no longer respawn :(</B>")
-	message_admins("[key_name_admin(usr)] toggled respawn to [GLOB.abandon_allowed ? "On" : "Off"].", 1)
-	log_admin("[key_name(usr)] toggled respawn to [GLOB.abandon_allowed ? "On" : "Off"].")
+		to_chat(world, "<B>You may no longer respawn</B>")
+	message_admins("[key_name_admin(usr)] toggled respawn to [GLOB.configuration.general.respawn_enabled ? "On" : "Off"].", 1)
+	log_admin("[key_name(usr)] toggled respawn to [GLOB.configuration.general.respawn_enabled ? "On" : "Off"].")
 	world.update_status()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Respawn") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -576,6 +609,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		SSticker.delay_end = !SSticker.delay_end
 		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		message_admins("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
+		if(SSticker.delay_end)
+			SSticker.real_reboot_time = 0 // Immediately show the "Admin delayed round end" message
 		return //alert("Round end delayed", null, null, null, null, null)
 	if(SSticker.ticker_going)
 		SSticker.ticker_going = FALSE
@@ -628,7 +663,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	return 0
 
-/datum/admins/proc/spawn_atom(var/object as text)
+/datum/admins/proc/spawn_atom(object as text)
 	set category = "Debug"
 	set desc = "(atom path) Spawn an atom"
 	set name = "Spawn"
@@ -664,7 +699,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	log_admin("[key_name(usr)] spawned [chosen] at ([usr.x],[usr.y],[usr.z])")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/admins/proc/show_traitor_panel(var/mob/M in GLOB.mob_list)
+/datum/admins/proc/show_traitor_panel(mob/M in GLOB.mob_list)
 	set category = "Admin"
 	set desc = "Edit mobs's memory and role"
 	set name = "Show Traitor Panel"
@@ -690,13 +725,13 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_SERVER))
 		return
 
-	GLOB.guests_allowed = !( GLOB.guests_allowed )
-	if(!( GLOB.guests_allowed ))
+	GLOB.configuration.general.guest_ban = !(GLOB.configuration.general.guest_ban)
+	if(GLOB.configuration.general.guest_ban)
 		to_chat(world, "<B>Guests may no longer enter the game.</B>")
 	else
 		to_chat(world, "<B>Guests may now enter the game.</B>")
-	log_admin("[key_name(usr)] toggled guests game entering [GLOB.guests_allowed ? "" : "dis"]allowed.")
-	message_admins("<span class='notice'>[key_name_admin(usr)] toggled guests game entering [GLOB.guests_allowed ? "" : "dis"]allowed.</span>", 1)
+	log_admin("[key_name(usr)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed.")
+	message_admins("<span class='notice'>[key_name_admin(usr)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed.</span>", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Guests") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/output_ai_laws()
@@ -753,9 +788,15 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 	if(GLOB.gamma_ship_location == 1)
 		fromArea = locate(/area/shuttle/gamma/space)
 		toArea = locate(/area/shuttle/gamma/station)
+		for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
+			H.unlock(TRUE)
+		GLOB.event_announcement.Announce("Central Command has deployed the Gamma Armory shuttle.", new_sound = 'sound/AI/commandreport.ogg')
 	else
 		fromArea = locate(/area/shuttle/gamma/station)
 		toArea = locate(/area/shuttle/gamma/space)
+		for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
+			H.lock(TRUE)
+		GLOB.event_announcement.Announce("Central Command has recalled the Gamma Armory shuttle.", new_sound = 'sound/AI/commandreport.ogg')
 	fromArea.move_contents_to(toArea)
 
 	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)
@@ -767,7 +808,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		GLOB.gamma_ship_location = 1
 	return
 
-/proc/formatJumpTo(var/location,var/where="")
+/proc/formatJumpTo(location, where="")
 	var/turf/loc
 	if(istype(location,/turf/))
 		loc = location
@@ -777,7 +818,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		where=formatLocation(loc)
 	return "<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>[where]</a>"
 
-/proc/formatLocation(var/location)
+/proc/formatLocation(location)
 	var/turf/loc
 	if(istype(location,/turf/))
 		loc = location
@@ -786,7 +827,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 	var/area/A = get_area(location)
 	return "[A.name] - [loc.x],[loc.y],[loc.z]"
 
-/proc/formatPlayerPanel(var/mob/U,var/text="PP")
+/proc/formatPlayerPanel(mob/U, text="PP")
 	return "[ADMIN_PP(U,"[text]")]"
 
 //Kicks all the clients currently in the lobby. The second parameter (kick_only_afk) determins if an is_afk() check is ran, or if all clients are kicked
@@ -806,7 +847,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 //returns 1 to let the dragdrop code know we are trapping this event
 //returns 0 if we don't plan to trap the event
-/datum/admins/proc/cmd_ghost_drag(var/mob/dead/observer/frommob, var/tothing)
+/datum/admins/proc/cmd_ghost_drag(mob/dead/observer/frommob, tothing)
 	if(!istype(frommob))
 		return //extra sanity check to make sure only observers are shoved into things
 

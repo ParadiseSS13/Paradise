@@ -16,19 +16,23 @@
 /obj/effect/proc_holder/spell/aoe_turf/knock/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		for(var/obj/machinery/door/door in T.contents)
-			spawn(1)
-				if(istype(door,/obj/machinery/door/airlock/hatch/gamma))
-					return
-				if(istype(door,/obj/machinery/door/airlock))
-					var/obj/machinery/door/airlock/A = door
-					A.unlock(1)	//forced because it's magic!
-				door.open()
+			INVOKE_ASYNC(src, .proc/try_open_airlock, door)
 		for(var/obj/structure/closet/C in T.contents)
-			spawn(1)
-				if(istype(C, /obj/structure/closet/secure_closet))
-					var/obj/structure/closet/secure_closet/SC = C
-					SC.locked = 0
-				C.open()
+			INVOKE_ASYNC(src, .proc/try_open_closet, C)
+
+/obj/effect/proc_holder/spell/aoe_turf/knock/proc/try_open_airlock(obj/machinery/door/door)
+	if(istype(door, /obj/machinery/door/airlock/hatch/gamma))
+		return
+	if(istype(door, /obj/machinery/door/airlock))
+		var/obj/machinery/door/airlock/A = door
+		A.unlock(TRUE)	//forced because it's magic!
+	door.open()
+
+/obj/effect/proc_holder/spell/aoe_turf/knock/proc/try_open_closet(obj/structure/closet/C)
+	if(istype(C, /obj/structure/closet/secure_closet))
+		var/obj/structure/closet/secure_closet/SC = C
+		SC.locked = FALSE
+	C.open()
 
 /obj/effect/proc_holder/spell/aoe_turf/knock/greater
 	name = "Greater Knock"

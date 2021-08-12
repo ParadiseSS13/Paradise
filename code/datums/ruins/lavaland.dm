@@ -1,9 +1,11 @@
 /datum/map_template/ruin/lavaland
 	prefix = "_maps/map_files/RandomRuins/LavaRuins/"
+	ci_exclude = /datum/map_template/ruin/lavaland
 
 /datum/map_template/ruin/lavaland/biodome
 	cost = 5
 	allow_duplicates = FALSE
+	ci_exclude = /datum/map_template/ruin/lavaland/biodome // This is a parent holder, not a ruin itself
 
 /datum/map_template/ruin/lavaland/biodome/beach
 	name = "Biodome Beach"
@@ -51,14 +53,6 @@
 	cost = 20
 	allow_duplicates = FALSE
 
-/datum/map_template/ruin/lavaland/syndicate_base
-	name = "Syndicate Lava Base"
-	id = "lava-base"
-	description = "A secret base researching illegal bioweapons, it is closely guarded by an elite team of syndicate agents."
-	suffix = "lavaland_surface_syndicate_base1.dmm"
-	cost = 20
-	allow_duplicates = FALSE
-
 /datum/map_template/ruin/lavaland/free_golem
 	name = "Free Golem Ship"
 	id = "golem-ship"
@@ -79,6 +73,7 @@
 /datum/map_template/ruin/lavaland/sin
 	cost = 10
 	allow_duplicates = FALSE
+	ci_exclude = /datum/map_template/ruin/lavaland/sin // This is a parent holder, not a ruin itself
 
 /datum/map_template/ruin/lavaland/sin/envy
 	name = "Ruin of Envy"

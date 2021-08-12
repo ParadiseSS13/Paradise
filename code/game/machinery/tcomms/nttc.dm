@@ -51,6 +51,11 @@
 		"Emergency Response Team Officer" = "dsquadradio",
 		"Nanotrasen Navy Officer" = "dsquadradio",
 		"Special Operations Officer" = "dsquadradio",
+		"Solar Federation Brigadier General" = "dsquadradio",
+		"Solar Federation Specops Lieutenant" = "dsquadradio",
+		"Solar Federation Specops Marine" = "dsquadradio",
+		"Solar Federation Lieutenant" = "dsquadradio",
+		"Solar Federation Marine" = "dsquadradio",
 		// Medical
 		"Chemist" = "medradio",
 		"Chief Medical Officer" = "medradio",
@@ -119,7 +124,9 @@
 	/// List of ERT jobs
 	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	/// List of CentComm jobs
-	var/list/cc_jobs = list("Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
+	var/list/cc_jobs = list("Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation Brigadier General")
+	/// List of SolGov Marine jobs
+	var/list/tsf_jobs = list("Solar Federation Specops Lieutenant", "Solar Federation Specops Marine", "Solar Federation Lieutenant", "Solar Federation Marine")
 	// Defined so code compiles and incase someone has a non-standard job
 	var/job_class = "radio"
 	// NOW FOR ACTUAL TOGGLES
@@ -189,7 +196,7 @@
 
 // This loads a configuration from a JSON string.
 // Fucking broken as shit, someone help me fix this.
-/datum/nttc_configuration/proc/nttc_deserialize(text, var/ckey)
+/datum/nttc_configuration/proc/nttc_deserialize(text, ckey)
 	if(word_blacklist.Find(text)) //uh oh, they tried to be naughty
 		message_admins("<span class='danger'>EXPLOIT WARNING: </span> [ckey] attempted to upload an NTTC configuration containing JS abusable tags!")
 		log_admin("EXPLOIT WARNING: [ckey] attempted to upload an NTTC configuration containing JS abusable tags")
@@ -278,10 +285,15 @@
 	// Makes heads of staff bold
 	if(toggle_command_bold)
 		var/job = tcm.sender_job
-		if((job in ert_jobs) || (job in heads) || (job in cc_jobs))
-			for(var/datum/multilingual_say_piece/S in message_pieces)
-				if(S.message)
-					S.message = "<b>[capitalize(S.message)]</b>" // This only capitalizes the first word
+		if((job in ert_jobs) || (job in heads) || (job in cc_jobs) || (job in tsf_jobs))
+			for(var/I in 1 to length(message_pieces))
+				var/datum/multilingual_say_piece/S = message_pieces[I]
+				if(!S.message)
+					continue
+				if(I == 1 && !istype(S.speaking, /datum/language/noise)) // Capitalise the first section only, unless it's an emote.
+					S.message = "[capitalize(S.message)]"
+				S.message = "<b>[S.message]</b>" // Make everything bolded
+
 
 	// Language Conversion
 	if(setting_language && valid_languages[setting_language])

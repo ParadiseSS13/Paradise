@@ -18,6 +18,22 @@
 	scoop_reagents = list("ash" = 10)
 	mergeable_decal = FALSE
 
+/obj/effect/decal/cleanable/glass
+	name = "tiny shards"
+	desc = "Back to sand."
+	icon = 'icons/obj/shards.dmi'
+	icon_state = "tiny"
+
+/obj/effect/decal/cleanable/glass/Initialize(mapload)
+	. = ..()
+	setDir(pick(GLOB.cardinal))
+
+/obj/effect/decal/cleanable/glass/ex_act()
+	qdel(src)
+
+/obj/effect/decal/cleanable/glass/plasma
+	icon_state = "plasmatiny"
+
 /obj/effect/decal/cleanable/dirt
 	name = "dirt"
 	desc = "Someone should clean that up."
@@ -206,7 +222,7 @@
 	anchored = TRUE
 
 /obj/effect/decal/cleanable/insectguts
-	name = "cockroach guts"
+	name = "bug guts"
 	desc = "One bug squashed. Four more will rise in its place."
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "xfloor1"

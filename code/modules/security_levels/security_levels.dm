@@ -10,7 +10,7 @@ GLOBAL_VAR_INIT(security_level, 0)
 GLOBAL_DATUM_INIT(security_announcement_up, /datum/announcement/priority/security, new(do_log = 0, do_newscast = 0, new_sound = sound('sound/misc/notice1.ogg')))
 GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/security, new(do_log = 0, do_newscast = 0))
 
-/proc/set_security_level(var/level)
+/proc/set_security_level(level)
 	switch(level)
 		if("green")
 			level = SEC_LEVEL_GREEN
@@ -77,21 +77,14 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
 
 			if(SEC_LEVEL_GAMMA)
-				GLOB.security_announcement_up.Announce("Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location. The station's Gamma armory has been unlocked and is ready for use.","Attention! Gamma security level activated!", new_sound = sound('sound/effects/new_siren.ogg'))
+				GLOB.security_announcement_up.Announce("Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location.", "Attention! Gamma security level activated!", sound('sound/effects/new_siren.ogg'))
 				GLOB.security_level = SEC_LEVEL_GAMMA
-
-				move_gamma_ship()
 
 				if(GLOB.security_level < SEC_LEVEL_RED)
 					for(var/obj/machinery/door/airlock/highsecurity/red/R in GLOB.airlocks)
 						if(is_station_level(R.z))
 							R.locked = 0
 							R.update_icon()
-
-				for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
-					if(is_station_level(H.z))
-						H.locked = 0
-						H.update_icon()
 
 				post_status("alert", "gammaalert")
 
@@ -144,7 +137,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		if(SEC_LEVEL_DELTA)
 			return "delta"
 
-/proc/num2seclevel(var/num)
+/proc/num2seclevel(num)
 	switch(num)
 		if(SEC_LEVEL_GREEN)
 			return "green"
@@ -159,7 +152,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		if(SEC_LEVEL_DELTA)
 			return "delta"
 
-/proc/seclevel2num(var/seclevel)
+/proc/seclevel2num(seclevel)
 	switch( lowertext(seclevel) )
 		if("green")
 			return SEC_LEVEL_GREEN
@@ -173,3 +166,18 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			return SEC_LEVEL_EPSILON
 		if("delta")
 			return SEC_LEVEL_DELTA
+
+/proc/get_security_level_colors()
+	switch(GLOB.security_level)
+		if(SEC_LEVEL_GREEN)
+			return "<font color='limegreen'>Green</font>"
+		if(SEC_LEVEL_BLUE)
+			return "<font color='dodgerblue'>Blue</font>"
+		if(SEC_LEVEL_RED)
+			return "<font color='red'>Red</font>"
+		if(SEC_LEVEL_GAMMA)
+			return "<font color='gold'>Gamma</font>"
+		if(SEC_LEVEL_EPSILON)
+			return "<font color='blueviolet'>Epsilon</font>"
+		if(SEC_LEVEL_DELTA)
+			return "<font color='orangered'>Delta</font>"

@@ -123,6 +123,8 @@
 	return ..()
 
 /datum/action/innate/cult/blood_spell/Activate()
+	if(owner.holy_check())
+		return
 	if(magic_path) // If this spell flows from the hand
 		if(!hand_magic) // If you don't already have the spell active
 			hand_magic = new magic_path(owner, src)
@@ -178,10 +180,12 @@
 	..()
 
 /datum/action/innate/cult/blood_spell/emp/Activate()
+	if(owner.holy_check())
+		return
 	owner.visible_message("<span class='warning'>[owner]'s body flashes a bright blue!</span>", \
 						 "<span class='cultitalic'>You speak the cursed words, channeling an electromagnetic pulse from your body.</span>")
 	owner.emp_act(2)
-	empulse(owner, 2, 5, cause = "cult")
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/empulse, owner, 2, 5, TRUE, "cult")
 	owner.whisper(invocation)
 	charges--
 	if(charges <= 0)
@@ -249,7 +253,7 @@
 /datum/action/innate/cult/blood_spell/horror/Destroy()
 	var/obj/effect/proc_holder/horror/destroy = PH
 	. = ..()
-	if(destroy  && !QDELETED(destroy))
+	if(!QDELETED(destroy))
 		QDEL_NULL(destroy)
 
 /datum/action/innate/cult/blood_spell/horror/Activate()
@@ -264,7 +268,7 @@
 /obj/effect/proc_holder/horror/Destroy()
 	var/datum/action/innate/cult/blood_spell/AA = attached_action
 	. = ..()
-	if(AA && !QDELETED(AA))
+	if(!QDELETED(AA))
 		QDEL_NULL(AA)
 
 /obj/effect/proc_holder/horror/proc/toggle(mob/user)
@@ -278,6 +282,8 @@
 		return
 	if(ranged_ability_user.incapacitated() || !iscultist(user))
 		user.ranged_ability.remove_ranged_ability(user)
+		return
+	if(user.holy_check())
 		return
 	var/turf/T = get_turf(ranged_ability_user)
 	if(!isturf(T))
@@ -305,6 +311,8 @@
 	var/revealing = FALSE //if it reveals or not
 
 /datum/action/innate/cult/blood_spell/veiling/Activate()
+	if(owner.holy_check())
+		return
 	if(!revealing) // Hiding stuff
 		owner.visible_message("<span class='warning'>Thin grey dust falls from [owner]'s hand!</span>", \
 		"<span class='cultitalic'>You invoke the veiling spell, hiding nearby runes and cult structures.</span>")
@@ -425,6 +433,8 @@
 	var/mob/living/L = target
 	if(iscultist(target))
 		return
+	if(user.holy_check())
+		return
 	user.visible_message("<span class='warning'>[user] holds up [user.p_their()] hand, which explodes in a flash of red light!</span>", \
 							"<span class='cultitalic'>You attempt to stun [L] with the spell!</span>")
 
@@ -461,12 +471,20 @@
 	invocation = "Sas'so c'arta forbici!"
 
 /obj/item/melee/blood_magic/teleport/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(user.holy_check())
+		return
 	var/list/potential_runes = list()
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
+	var/atom/movable/teleportee
 	if(!iscultist(target) || !proximity)
 		to_chat(user, "<span class='warning'>You can only teleport adjacent cultists with this spell!</span>")
 		return
+	if(user != target) // So that the teleport effect shows on the correct mob
+		teleportee = target
+	else
+		teleportee = user
+
 	for(var/R in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/T = R
 		var/resultkey = T.listkey
@@ -487,16 +505,15 @@
 		log_game("Teleport spell failed - user in away mission")
 		return
 
-	var/mob/living/L = target
 	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-	if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
+	if(QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
 		return
 	uses--
 
-	var/turf/origin = get_turf(user)
+	var/turf/origin = get_turf(teleportee)
 	var/turf/destination = get_turf(actual_selected_rune)
-	INVOKE_ASYNC(actual_selected_rune, /obj/effect/rune/.proc/teleport_effect, user, origin, destination)
+	INVOKE_ASYNC(actual_selected_rune, /obj/effect/rune/.proc/teleport_effect, teleportee, origin, destination)
 
 	if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
 		actual_selected_rune.handle_portal("lava")
@@ -510,7 +527,7 @@
 		target.visible_message("<span class='warning'>Dust flows from [user]'s hand, and [target] disappears in a flash of red light!</span>", \
 		"<span class='cultitalic'>You suddenly find yourself somewhere else!</span>")
 	destination.visible_message("<span class='warning'>There is a boom of outrushing air as something appears above the rune!</span>", null, "<i>You hear a boom.</i>")
-	L.forceMove(destination)
+	teleportee.forceMove(destination)
 	return ..()
 
 //Shackles
@@ -521,6 +538,8 @@
 	color = "#000000" // black
 
 /obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(user.holy_check())
+		return
 	if(iscarbon(target) && proximity)
 		var/mob/living/carbon/C = target
 		if(C.canBeHandcuffed() || C.get_arm_ignore())
@@ -579,6 +598,8 @@
 	Airlocks into brittle runed airlocks after a delay (harm intent)"}
 
 /obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(user.holy_check())
+		return
 	if(proximity_flag)
 		if(channeling)
 			to_chat(user, "<span class='cultitalic'>You are already invoking twisted construction!</span>")
@@ -633,6 +654,8 @@
 	color = "#33cc33" // green
 
 /obj/item/melee/blood_magic/armor/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(user.holy_check())
+		return
 	if(iscarbon(target) && proximity)
 		uses--
 		var/mob/living/carbon/C = target
@@ -656,9 +679,11 @@
 	has_source = FALSE //special, only availible for a blood cost.
 
 /obj/item/melee/blood_magic/empower/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(user.holy_check())
+		return
 	if(proximity_flag)
 
-		//Shielded suit
+		// Shielded suit
 		if(istype(target, /obj/item/clothing/suit/hooded/cultrobes/cult_shield))
 			var/obj/item/clothing/suit/hooded/cultrobes/cult_shield/C = target
 			if(C.current_charges < 3)
@@ -672,7 +697,7 @@
 				to_chat(user, "<span class='warning'>[target] is already at full charge!</span>")
 				return
 
-		//Plasteel to runed metal
+		// Veil Shifter
 		else if(istype(target, /obj/item/cult_shift))
 			var/obj/item/cult_shift/S = target
 			if(S.uses < 4)
@@ -703,6 +728,8 @@
 
 // This should really be split into multiple procs
 /obj/item/melee/blood_magic/manipulator/afterattack(atom/target, mob/living/carbon/human/user, proximity)
+	if(user.holy_check())
+		return
 	if(proximity)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
@@ -843,42 +870,15 @@
 			uses += max(1, temp)
 
 /obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
-	var/list/options = list("Blood Orb (50)", "Blood Recharge (75)", "Blood Spear (150)", "Blood Bolt Barrage (300)")
-	var/choice = input(user, "Choose a greater blood rite...", "Greater Blood Rites") as null|anything in options
+	if(user.holy_check())
+		return
+	var/list/options = list("Blood Orb (50)" = image(icon = 'icons/obj/cult.dmi', icon_state = "summoning_orb"),
+							"Blood Recharge (75)" = image(icon = 'icons/mob/actions/actions_cult.dmi', icon_state = "blood_charge"),
+							"Blood Spear (150)" = image(icon = 'icons/mob/actions/actions_cult.dmi', icon_state = "bloodspear"),
+							"Blood Bolt Barrage (300)" = image(icon = 'icons/mob/actions/actions_cult.dmi', icon_state = "blood_barrage"))
+	var/choice = show_radial_menu(user, src, options)
+
 	switch(choice)
-		if("Blood Spear (150)")
-			if(uses < BLOOD_SPEAR_COST)
-				to_chat(user, "<span class='warning'>You need [BLOOD_SPEAR_COST] charges to perform this rite.</span>")
-			else
-				uses -= BLOOD_SPEAR_COST
-				var/turf/T = get_turf(user)
-				qdel(src)
-				var/datum/action/innate/cult/spear/S = new(user)
-				var/obj/item/twohanded/cult_spear/rite = new(T)
-				S.Grant(user, rite)
-				rite.spear_act = S
-				if(user.put_in_hands(rite))
-					to_chat(user, "<span class='cult'>A [rite.name] appears in your hand!</span>")
-				else
-					user.visible_message("<span class='warning'>A [rite.name] appears at [user]'s feet!</span>", \
-					"<span class='cult'>A [rite.name] materializes at your feet.</span>")
-
-		if("Blood Bolt Barrage (300)")
-			if(uses < BLOOD_BARRAGE_COST)
-				to_chat(user, "<span class='cultitalic'>You need [BLOOD_BARRAGE_COST] charges to perform this rite.</span>")
-			else
-				var/obj/rite = new /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood()
-				uses -= BLOOD_BARRAGE_COST
-				qdel(src)
-				user.swap_hand()
-				user.drop_item()
-				if(user.put_in_hands(rite))
-					to_chat(user, "<span class='cult'>Both of your hands glow with power!</span>")
-				else
-					to_chat(user, "<span class='warning'>You need a free hand for this rite!</span>")
-					uses += BLOOD_BARRAGE_COST // Refund the charges
-					qdel(rite)
-
 		if("Blood Orb (50)")
 			if(uses < BLOOD_ORB_COST)
 				to_chat(user, "<span class='warning'>You need [BLOOD_ORB_COST] charges to perform this rite.</span>")
@@ -898,7 +898,7 @@
 				if(user.put_in_hands(rite))
 					to_chat(user, "<span class='cult'>A [rite.name] appears in your hand!</span>")
 				else
-					user.visible_message("<span class='warning'>A [rite.name] appears at [user]'s feet!</span>", \
+					user.visible_message("<span class='warning'>A [rite.name] appears at [user]'s feet!</span>",
 					"<span class='cult'>A [rite.name] materializes at your feet.</span>")
 
 		if("Blood Recharge (75)")
@@ -913,4 +913,37 @@
 				else
 					to_chat(user, "<span class='warning'>You need a free hand for this rite!</span>")
 					uses += BLOOD_RECHARGE_COST // Refund the charges
+					qdel(rite)
+
+		if("Blood Spear (150)")
+			if(uses < BLOOD_SPEAR_COST)
+				to_chat(user, "<span class='warning'>You need [BLOOD_SPEAR_COST] charges to perform this rite.</span>")
+			else
+				uses -= BLOOD_SPEAR_COST
+				var/turf/T = get_turf(user)
+				qdel(src)
+				var/datum/action/innate/cult/spear/S = new(user)
+				var/obj/item/twohanded/cult_spear/rite = new(T)
+				S.Grant(user, rite)
+				rite.spear_act = S
+				if(user.put_in_hands(rite))
+					to_chat(user, "<span class='cult'>A [rite.name] appears in your hand!</span>")
+				else
+					user.visible_message("<span class='warning'>A [rite.name] appears at [user]'s feet!</span>",
+					"<span class='cult'>A [rite.name] materializes at your feet.</span>")
+
+		if("Blood Bolt Barrage (300)")
+			if(uses < BLOOD_BARRAGE_COST)
+				to_chat(user, "<span class='cultitalic'>You need [BLOOD_BARRAGE_COST] charges to perform this rite.</span>")
+			else
+				var/obj/rite = new /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood()
+				uses -= BLOOD_BARRAGE_COST
+				qdel(src)
+				user.swap_hand()
+				user.drop_item()
+				if(user.put_in_hands(rite))
+					to_chat(user, "<span class='cult'>Both of your hands glow with power!</span>")
+				else
+					to_chat(user, "<span class='warning'>You need a free hand for this rite!</span>")
+					uses += BLOOD_BARRAGE_COST // Refund the charges
 					qdel(rite)

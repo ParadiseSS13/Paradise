@@ -53,7 +53,7 @@
 	fire_sound = 'sound/magic/staff_door.ogg'
 
 /obj/item/gun/magic/staff/slipping
-	name = "staff of slipping"
+	name = "wand of slipping"
 	desc = "An artefact that spits... bananas?"
 	ammo_type = /obj/item/ammo_casing/magic/slipping
 	icon_state = "staffofslipping"

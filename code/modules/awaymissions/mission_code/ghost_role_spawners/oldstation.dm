@@ -71,7 +71,7 @@
 	shoes = /obj/item/clothing/shoes/workboots
 	id = /obj/item/card/id/away/old/eng
 	gloves = /obj/item/clothing/gloves/color/fyellow/old
-	l_pocket = /obj/item/tank/emergency_oxygen
+	l_pocket = /obj/item/tank/internals/emergency_oxygen
 	assignedrole = "Ancient Crew"
 
 /obj/effect/mob_spawn/human/oldeng/Destroy()

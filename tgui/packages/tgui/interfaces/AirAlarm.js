@@ -45,6 +45,7 @@ const AirStatus = (props, context) => {
     locked,
     alarmActivated,
     rcon,
+    target_temp,
   } = data;
 
   let areaStatus;
@@ -113,9 +114,16 @@ const AirStatus = (props, context) => {
               <AnimatedNumber value={air.temperature} /> K / <AnimatedNumber value={air.temperature_c} /> C&nbsp;
               <Button
                 icon="thermometer-full"
-                content={air.temperature_c + " C"}
+                content={target_temp + " C"}
                 onClick={
                   () => act('temperature')
+                } />
+              <Button
+                content={air.thermostat_state ? "On" : "Off"}
+                selected={air.thermostat_state}
+                icon="power-off"
+                onClick={
+                  () => act('thermostat_state')
                 } />
             </Box>
           </LabeledList.Item>
@@ -303,7 +311,7 @@ const AirAlarmScrubbersView = (props, context) => {
           </LabeledList.Item>
           <LabeledList.Item label="Filtering">
             <Button
-              content="Cargon Dioxide"
+              content="Carbon Dioxide"
               selected={s.filter_co2}
               onClick={
                 () => act('command', { cmd: 'co2_scrub', val: (s.filter_co2 === 0 ? 1 : 0), id_tag: s.id_tag })

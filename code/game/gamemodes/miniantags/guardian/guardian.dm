@@ -12,6 +12,7 @@
 	icon_living = "magicOrange"
 	icon_dead = "magicOrange"
 	speed = 0
+	mob_biotypes = NONE
 	a_intent = INTENT_HARM
 	can_change_intents = 0
 	stop_automated_movement = 1
@@ -128,7 +129,7 @@
 		else
 			resulthealth = round((summoner.health / summoner.maxHealth) * 100)
 		if(hud_used)
-			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
+			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#efeeef'>[resulthealth]%</font></div>"
 
 /mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * damage_transfer
@@ -239,6 +240,8 @@
 	var/ling_failure = "The deck refuses to respond to a souless creature such as you."
 	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Assassin", "Lightning", "Charger", "Protector")
 	var/random = FALSE
+	/// What type was picked the first activation
+	var/picked_random_type
 	var/color_list = list("Pink" = "#FFC0CB",
 		"Red" = "#FF0000",
 		"Orange" = "#FFA500",
@@ -247,10 +250,9 @@
 	var/name_list = list("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
-	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
-		if(G.summoner == user)
-			to_chat(user, "You already have a [mob_name]!")
-			return
+	if(has_guardian(user))
+		to_chat(user, "You already have a [mob_name]!")
+		return
 	if(user.mind && (user.mind.changeling || user.mind.vampire))
 		to_chat(user, "[ling_failure]")
 		return
@@ -264,12 +266,29 @@
 		used = FALSE
 		return
 	to_chat(user, "[use_message]")
-	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = src)
+
+	var/guardian_type
+	if(random)
+		if(!picked_random_type) // Only pick the type once. No type fishing
+			picked_random_type = pick(possible_guardians)
+		guardian_type = picked_random_type
+	else
+		guardian_type = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in possible_guardians
+		if(!guardian_type)
+			to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
+			used = FALSE
+			return
+
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the [mob_name] ([guardian_type]) of [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = src, role_cleanname = "[mob_name] ([guardian_type])")
 	var/mob/dead/observer/theghost = null
 
 	if(candidates.len)
 		theghost = pick(candidates)
-		spawn_guardian(user, theghost.key)
+		if(has_guardian(user))
+			to_chat(user, "You already have a [mob_name]!")
+			used = FALSE
+			return
+		spawn_guardian(user, theghost.key, guardian_type)
 	else
 		to_chat(user, "[failure_message]")
 		used = FALSE
@@ -279,12 +298,14 @@
 	if(used)
 		. += "<span class='notice'>[used_message]</span>"
 
-/obj/item/guardiancreator/proc/spawn_guardian(mob/living/user, key)
-	var/guardian_type = "Standard"
-	if(random)
-		guardian_type = pick(possible_guardians)
-	else
-		guardian_type = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in possible_guardians
+/obj/item/guardiancreator/proc/has_guardian(mob/living/user)
+	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
+		if(G.summoner == user)
+			return TRUE
+	return FALSE
+
+
+/obj/item/guardiancreator/proc/spawn_guardian(mob/living/user, key, guardian_type)
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
 	switch(guardian_type)
 
@@ -322,6 +343,7 @@
 	to_chat(G, "You are capable of manifesting or recalling to your master with verbs in the Guardian tab. You will also find a verb to communicate with them privately there.")
 	to_chat(G, "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself.")
 	to_chat(G, "[G.playstyle_string]")
+	to_chat(G, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Guardian)</span>")
 	G.faction = user.faction
 
 	var/color = pick(color_list)

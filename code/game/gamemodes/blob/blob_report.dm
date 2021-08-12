@@ -1,30 +1,17 @@
-/datum/game_mode/blob/proc/send_intercept(var/report = 1)
+/datum/game_mode/blob/proc/send_intercept(report = 1)
 	var/intercepttext = ""
 	var/interceptname = ""
 	switch(report)
 		if(0)
 			return
 		if(1)
-			interceptname = "Level 5-6 Biohazard Response Procedures"
-			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Biohazard Alert.</FONT><HR>"
-			intercepttext += "Reports indicate the probable transfer of a biohazardous agent onto [station_name()] during the last crew deployment cycle.<BR>"
-			intercepttext += "Preliminary analysis of the organism classifies it as a level 5 biohazard. Its origin is unknown.<BR>"
-			intercepttext += "Nanotrasen has issued a directive 7-10 for [station_name()]. The station is to be considered quarantined.<BR>"
-			intercepttext += "Orders for all [station_name()] personnel follows:<BR>"
-			intercepttext += " 1. Do not leave the quarantine area.<BR>"
-			intercepttext += " 2. Locate any outbreaks of the organism on the station.<BR>"
-			intercepttext += " 3. If found, use any neccesary means to contain the organism.<BR>"
-			intercepttext += " 4. Avoid damage to the capital infrastructure of the station.<BR>"
-			intercepttext += "<BR>Note in the event of a quarantine breach or uncontrolled spread of the biohazard, the directive 7-10 may be upgraded to a directive 7-12.<BR>"
-			intercepttext += "Message ends."
-		if(2)
 			var/nukecode = rand(10000, 99999)
 			for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
 				if(bomb && bomb.r_code)
 					if(is_station_level(bomb.z))
 						bomb.r_code = nukecode
 
-			interceptname = "Classified [command_name()] Update"
+			interceptname = "Classified NAS Trurl Update"
 			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Biohazard Alert.</FONT><HR>"
 			intercepttext += "Directive 7-12 has been issued for [station_name()].<BR>"
 			intercepttext += "The biohazard has grown out of control and will soon reach critical mass.<BR>"
@@ -41,7 +28,7 @@
 					to_chat(aiPlayer, "Laws Updated: [law]")
 
 	print_command_report(intercepttext, interceptname, FALSE)
-	GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
+	GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "NAS Trurl Update")
 
 /datum/station_state
 	var/floor = 0
@@ -89,7 +76,7 @@
 			else if(istype(O, /obj/machinery))
 				src.mach += 1
 
-/datum/station_state/proc/score(var/datum/station_state/result)
+/datum/station_state/proc/score(datum/station_state/result)
 	if(!result)	return 0
 	var/output = 0
 	output += (result.floor / max(floor,1))

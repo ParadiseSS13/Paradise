@@ -116,7 +116,7 @@
 	message_admins("[key_name_admin(usr)] has manually reloaded admins")
 	log_admin("[key_name(usr)] has manually reloaded admins")
 
-	load_admins()
+	load_admins(run_async=TRUE)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reload Admins") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 

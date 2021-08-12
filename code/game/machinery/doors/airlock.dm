@@ -57,6 +57,8 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	explosion_block = 1
 	assemblytype = /obj/structure/door_assembly
 	siemens_strength = 1
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_MEDIUM_INSULATION
 	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = AICONTROLDISABLED_OFF
 	var/hackProof = FALSE // if TRUE, this door can't be hacked by the AI
@@ -190,7 +192,7 @@ About the new airlock wires panel:
 			else
 				return
 		else if(user.hallucination > 50 && prob(10) && !operating)
-			if(user.electrocute_act(50, src, 1, illusion = TRUE)) // We'll just go with a flat 50 damage, instead of doing powernet checks
+			if(user.electrocute_act(50, src, flags = SHOCK_ILLUSION)) // We'll just go with a flat 50 damage, instead of doing powernet checks
 				return
 	..(user)
 
@@ -506,40 +508,6 @@ About the new airlock wires panel:
 				playsound(src,doorDeni,50,0,3)
 				sleep(6)
 				update_icon(AIRLOCK_CLOSED)
-
-
-/// Called when a player uses an airlock painter on this airlock
-/obj/machinery/door/airlock/proc/change_paintjob(obj/item/airlock_painter/painter, mob/user)
-	if((!in_range(src, user) && loc != user)) // user should be adjacent to the airlock.
-		return
-
-	if(!painter.paint_setting)
-		to_chat(user, "<span class='warning'>You need to select a paintjob first.</span>")
-		return
-
-	if(!paintable)
-		to_chat(user, "<span class='warning'>This type of airlock cannot be painted.</span>")
-		return
-
-	var/obj/machinery/door/airlock/airlock = painter.available_paint_jobs["[painter.paint_setting]"] // get the airlock type path associated with the airlock name the user just chose
-	var/obj/structure/door_assembly/assembly = initial(airlock.assemblytype)
-
-	if(assemblytype == assembly)
-		to_chat(user, "<span class='notice'>This airlock is already painted [painter.paint_setting]!</span>")
-		return
-
-	if(airlock_material == "glass" && initial(assembly.noglass)) // prevents painting glass airlocks with a paint job that doesn't have a glass version, such as the freezer
-		to_chat(user, "<span class='warning'>This paint job can only be applied to non-glass airlocks.</span>")
-		return
-
-	if(do_after(user, 20, target = src))
-		// applies the user-chosen airlock's icon, overlays and assemblytype to the src airlock
-		painter.paint(user)
-		icon = initial(airlock.icon)
-		overlays_file = initial(airlock.overlays_file)
-		assemblytype = initial(airlock.assemblytype)
-		update_icon()
-
 
 /obj/machinery/door/airlock/examine(mob/user)
 	. = ..()
@@ -952,8 +920,6 @@ About the new airlock wires panel:
 		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
 		note = C
 		update_icon()
-	else if(istype(C, /obj/item/airlock_painter))
-		change_paintjob(C, user)
 	else
 		return ..()
 
@@ -1186,6 +1152,7 @@ About the new airlock wires panel:
 
 	if(!density)
 		return TRUE
+	SEND_SIGNAL(src, COMSIG_AIRLOCK_OPEN)
 	operating = TRUE
 	update_icon(AIRLOCK_OPENING, 1)
 	sleep(1)
@@ -1226,6 +1193,7 @@ About the new airlock wires panel:
 	if(killthis)
 		killthis.ex_act(EXPLODE_HEAVY)//Smashin windows
 
+	SEND_SIGNAL(src, COMSIG_AIRLOCK_CLOSE)
 	operating = TRUE
 	update_icon(AIRLOCK_CLOSING, 1)
 	layer = CLOSED_DOOR_LAYER
@@ -1283,6 +1251,7 @@ About the new airlock wires panel:
 		sleep(6)
 		if(QDELETED(src))
 			return
+		electronics = new /obj/item/airlock_electronics/destroyed()
 		operating = FALSE
 		if(!open())
 			update_icon(AIRLOCK_CLOSED, 1)
@@ -1404,9 +1373,6 @@ About the new airlock wires panel:
 			ae = electronics
 			electronics = null
 			ae.forceMove(loc)
-		if(emagged)
-			ae.icon_state = "door_electronics_smoked"
-			operating = 0
 	qdel(src)
 
 /obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock

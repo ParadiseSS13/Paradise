@@ -7,13 +7,13 @@
 	container_type = OPENCONTAINER
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
 
-/obj/structure/mopbucket/New()
-	..()
+/obj/structure/mopbucket/Initialize(mapload)
+	. = ..()
 	create_reagents(100)
 	GLOB.janitorial_equipment += src
 
-/obj/structure/mopbucket/full/New()
-	..()
+/obj/structure/mopbucket/full/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("water", 100)
 
 /obj/structure/mopbucket/Destroy()
