@@ -13,7 +13,7 @@
 	var/cooldown_low = 30 SECONDS
 	/// The maximum time between activations.
 	var/cooldown_high = 30 SECONDS
-	/// The cooldown for activations.
+	/// The cooldown timer for activations.
 	COOLDOWN_DECLARE(activation_cooldown)
 	/// The number of remaining uses this gland has.
 	var/uses = -1 // -1 For inifinite

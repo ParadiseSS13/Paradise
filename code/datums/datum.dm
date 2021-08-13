@@ -19,13 +19,13 @@
 	/**
 	  * Components attached to this datum.
 	  *
-	  * Lazy associated list in the structure of `type:component/list of components`
+	  * Lazy associated list in the structure of `type: component/list of components`
 	  */
 	var/list/datum_components
 	/**
 	  * Any datum registered to receive signals from this datum is in this list.
 	  *
-	  * Lazy associated list in the structure of `signal:registree/list of registrees`
+	  * Lazy associated list in the structure of `signal: registree/list of registrees`
 	  */
 	var/list/comp_lookup
 	/**
@@ -41,7 +41,7 @@
 	/// Status traits attached to this datum.
 	var/list/status_traits
 
-	/// Lazy associated list in the structure of `signals:proctype` that are run when the datum receives that signal.
+	/// Lazy associated list in the structure of `signals: proctype` that are run when the datum receives that signal.
 	var/list/list/datum/callback/signal_procs
 	///Is this datum capable of sending signals?
 	var/signal_enabled = FALSE

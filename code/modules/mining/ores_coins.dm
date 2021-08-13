@@ -457,8 +457,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/coin/attack_self(mob/user)
 	if(COOLDOWN_FINISHED(src, flip_cooldown))
-		var/coinflip = pick(sideslist)
 		COOLDOWN_START(src, flip_cooldown, 1.5 SECONDS)
+		var/coinflip = pick(sideslist)
 		flick("coin_[cmineral]_flip", src)
 		icon_state = "coin_[cmineral]_[coinflip]"
 		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)

@@ -10,8 +10,8 @@
 	var/label = ""
 	COOLDOWN_DECLARE(picket_sign_cooldown)
 
-/obj/item/picket_sign/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen) || istype(W, /obj/item/toy/crayon))
+/obj/item/picket_sign/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/pen) || istype(I, /obj/item/toy/crayon))
 		var/txt = stripped_input(user, "What would you like to write on the sign?", "Sign Label", null, 30)
 		if(txt)
 			name = "[txt] sign"

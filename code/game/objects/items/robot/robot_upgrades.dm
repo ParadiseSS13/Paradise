@@ -277,7 +277,7 @@
 	require_module = TRUE
 	var/repair_amount = -1
 	var/repair_tick = 1
-	var/on = FALSE
+	var/on = 0
 	var/powercost = 10
 	var/mob/living/silicon/robot/cyborg
 	COOLDOWN_DECLARE(message_cooldown)
@@ -297,7 +297,7 @@
 /obj/item/borg/upgrade/selfrepair/Destroy()
 	cyborg = null
 	STOP_PROCESSING(SSobj, src)
-	on = FALSE
+	on = 0
 	return ..()
 
 /obj/item/borg/upgrade/selfrepair/ui_action_click()
@@ -321,7 +321,7 @@
 
 /obj/item/borg/upgrade/selfrepair/proc/deactivate()
 	STOP_PROCESSING(SSobj, src)
-	on = FALSE
+	on = 0
 	update_icon()
 
 /obj/item/borg/upgrade/selfrepair/process()

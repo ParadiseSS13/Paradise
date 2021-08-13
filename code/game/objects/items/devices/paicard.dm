@@ -249,9 +249,9 @@
 			pai.master_dna = dna.unique_enzymes
 			to_chat(pai, "<font color = red><h3>You have been bound to a new master.</h3></font>")
 	if(href_list["request"])
-		if(!COOLDOWN_FINISHED(src, request_cooldown))
-			var/cooldown_time = round(COOLDOWN_TIMELEFT(src, request_cooldown) / 10)
-			to_chat(usr, "<span class='warning'>The request system is currently offline. Please wait another [cooldown_time] seconds.</span>")
+		var/time_left = round(COOLDOWN_TIMELEFT(src, request_cooldown) / 10)
+		if(time_left)
+			to_chat(usr, "<span class='warning'>The request system is currently offline. Please wait another [time_left] second\s.</span>")
 			return
 		COOLDOWN_START(src, request_cooldown, 5 SECONDS)
 		looking_for_personality = TRUE

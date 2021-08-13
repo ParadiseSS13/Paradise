@@ -610,8 +610,8 @@
 	var/realName = "defined object"
 	var/revealed = FALSE
 	var/realProc
-	var/reset_timer = 60
 	var/floof
+	var/reset_timer = 6 SECONDS
 	COOLDOWN_DECLARE(power_cooldown)
 
 /obj/item/relic/New()

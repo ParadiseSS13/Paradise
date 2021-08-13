@@ -12,7 +12,6 @@
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
 	var/uses = 20
 	var/cooldown_time = 10 SECONDS
-	COOLDOWN_DECLARE(slip_cooldown)
 
 /obj/machinery/ai_slipper/Initialize(mapload)
 	. = ..()

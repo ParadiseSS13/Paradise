@@ -160,7 +160,7 @@
 /obj/machinery/computer/telescience/proc/doteleport(mob/user)
 	var/time_left = round(COOLDOWN_TIMELEFT(src, teleport_cooldown) / 10)
 	if(time_left)
-		temp_msg = "Telepad is recharging power.<BR>Please wait [time_left] seconds."
+		temp_msg = "Telepad is recharging power.<BR>Please wait [time_left] second\s."
 		return
 
 	if(teleporting)

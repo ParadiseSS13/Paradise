@@ -112,7 +112,7 @@
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
-		COOLDOWN_START(src, combat_cooldown, 1 SECONDS)
+		COOLDOWN_START(src, combat_cooldown, 20 SECONDS)
 
 /obj/item/clothing/suit/armor/abductor/Destroy()
 	for(var/obj/machinery/abductor/console/C in GLOB.machines)

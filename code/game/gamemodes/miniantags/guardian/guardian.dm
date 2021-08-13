@@ -165,7 +165,7 @@
 //Manifest, Recall, Communicate
 
 /mob/living/simple_animal/hostile/guardian/proc/Manifest()
-	if(!COOLDOWN_FINISHED(src, manifest_cooldown) || !summoner)
+	if(!summoner || !COOLDOWN_FINISHED(src, manifest_cooldown))
 		return
 	if(loc == summoner)
 		forceMove(get_turf(summoner))

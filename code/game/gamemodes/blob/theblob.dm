@@ -1,15 +1,15 @@
 //I will need to recode parts of this but I am way too tired atm
 /obj/structure/blob
 	name = "blob"
-	icon = 'icons/mob/blob.dmi'
 	desc = "Some blob creature thingy"
+	icon = 'icons/mob/blob.dmi'
 	anchored = TRUE
 	light_range = 3
 	max_integrity = 30
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
 	/// How many points the blob gets back when it removes a blob of this type. If less than 0, it cannot be removed.
 	var/point_return = 0
-	/// Cooldown time between each regen pulse.
+	/// Cooldown timer for each regen pulse.
 	COOLDOWN_DECLARE(regen_cooldown)
 	/// Brute damage multiplier.
 	var/brute_resist = 0.5
@@ -69,7 +69,7 @@
 
 /obj/structure/blob/proc/RegenHealth()
 	// All blobs heal over time when pulsed, but it has a cool down
-	if(COOLDOWN_FINISHED(src, regen_cooldown))
+	if(!COOLDOWN_FINISHED(src, regen_cooldown))
 		return FALSE
 	if(obj_integrity < max_integrity)
 		obj_integrity = min(max_integrity, obj_integrity + 1)

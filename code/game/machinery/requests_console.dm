@@ -67,7 +67,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/list/shipping_log = list()
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
-	COOLDOWN_DECLARE(print_cooldown) // Cooldown on shipping label printer
+	/// Cooldown on shipping label printer
+	COOLDOWN_DECLARE(print_cooldown)
 	var/obj/item/radio/Radio
 	var/radiochannel = ""
 

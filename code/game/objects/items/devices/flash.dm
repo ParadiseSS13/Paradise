@@ -242,7 +242,7 @@
 /obj/item/flash/armimplant
 	name = "photon projector"
 	desc = "A high-powered photon projector implant normally used for lighting purposes, but also doubles as a flashbulb weapon. Self-repair protocols fix the flashbulb if it ever burns out."
-	var/obj/item/organ/internal/cyberimp/arm/flash/I = null
+	var/obj/item/organ/internal/cyberimp/arm/flash/I
 	var/cooldown_time = 2 SECONDS
 	COOLDOWN_DECLARE(flash_cooldown)
 

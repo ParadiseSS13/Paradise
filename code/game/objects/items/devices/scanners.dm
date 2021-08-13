@@ -312,6 +312,8 @@ REAGENT SCANNER
 	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/deconstruct.ogg'
 
+#define COOLDOWN_BAROMETER "barometer"
+
 /obj/item/analyzer
 	desc = "A hand-held environmental scanner which reports current gas levels."
 	name = "analyzer"
@@ -332,7 +334,7 @@ REAGENT SCANNER
 
 /obj/item/analyzer/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_CD_STOP("barometer"), .proc/ping)
+	RegisterSignal(src, COMSIG_CD_STOP(COOLDOWN_BAROMETER), .proc/ping)
 
 /obj/item/analyzer/examine(mob/user)
 	. = ..()
@@ -393,8 +395,7 @@ REAGENT SCANNER
 	..()
 
 	if(!user.incapacitated() && Adjacent(user))
-
-		if(TIMER_COOLDOWN_CHECK(src, "barometer"))
+		if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_BAROMETER))
 			to_chat(user, "<span class='warning'>[src]'s barometer function is prepraring itself.</span>")
 			return
 
@@ -431,13 +432,13 @@ REAGENT SCANNER
 				to_chat(user, "<span class='warning'>[src]'s barometer function was unable to trace any weather patterns.</span>")
 			else
 				to_chat(user, "<span class='warning'>[src]'s barometer function says a storm will land in approximately [butchertime(fixed)].</span>")
-		TIMER_COOLDOWN_START(src, "barometer", cooldown_time)
+		TIMER_COOLDOWN_START(src, COOLDOWN_BAROMETER, cooldown_time)
 
 /obj/item/analyzer/proc/ping()
 	SIGNAL_HANDLER
 	if(isliving(loc))
 		to_chat(loc, "<span class='notice'>[src]'s barometer function is ready!</span>")
-	playsound(src, 'sound/machines/click.ogg', 100)
+	playsound(src, 'sound/machines/click.ogg', 75)
 
 /obj/item/analyzer/proc/butchertime(amount)
 	if(!amount)
@@ -449,6 +450,8 @@ REAGENT SCANNER
 		if(prob(50))
 			amount += inaccurate
 	return DisplayTimeText(max(1, amount))
+
+#undef COOLDOWN_BAROMETER
 
 /obj/item/reagent_scanner
 	name = "reagent scanner"

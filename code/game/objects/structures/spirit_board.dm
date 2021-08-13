@@ -32,7 +32,7 @@
 		used = TRUE
 		notify_ghosts("Someone has begun playing with a [src.name] in [get_area(src)]!", source = src)
 
-	planchette = input("Choose the letter.", "Seance!") in list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
+	planchette = input("Choose the letter.", "Seance!") in GLOB.alphabet_uppercase
 	add_attack_logs(M, src, "Picked a letter on [src] which was \"[planchette]\".")
 
 	var/bonus_time = 0

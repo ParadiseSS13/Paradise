@@ -8,7 +8,7 @@
 	var/obj/machinery/abductor/pad/home
 	/// How long is the delay between each implant activation.
 	var/cooldown_time = 60 SECONDS
-	/// Cooldown timer to track how long is left before the implant is available again.
+	/// Cooldown timer to track how long is left before the implant can be activated.
 	COOLDOWN_DECLARE(recall_cooldown)
 
 /obj/item/implant/abductor/activate()

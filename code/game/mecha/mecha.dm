@@ -79,6 +79,9 @@
 
 	var/destruction_sleep_duration = 1 //Time that mech pilot is put to sleep for if mech is destroyed
 
+	/// How long between each melee hit.
+	var/melee_delay = 1 SECONDS
+	/// Cooldown timer for melee hits.
 	COOLDOWN_DECLARE(melee_cooldown)
 
 	// Action vars
@@ -88,6 +91,9 @@
 	var/leg_overload_coeff = 100
 	var/thrusters_active = FALSE
 	var/smoke = 5
+	/// How long between each smoke deployment.
+	var/smoke_delay = 10 SECONDS
+	/// Cooldown timer for smoke deployment.
 	COOLDOWN_DECLARE(smoke_cooldown)
 	var/zoom_mode = FALSE
 	var/phasing = FALSE
@@ -223,7 +229,7 @@
 		if(!isatom(target))
 			return
 		target.mech_melee_attack(src)
-		COOLDOWN_START(src, melee_cooldown, 1 SECONDS)
+		COOLDOWN_START(src, melee_cooldown, melee_delay)
 
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, 1)

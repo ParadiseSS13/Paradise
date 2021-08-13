@@ -142,6 +142,6 @@
 	COOLDOWN_DECLARE(ring_cooldown)
 
 /obj/item/phone/attack_self(mob/user)
-	if(!COOLDOWN_FINISHED(src, ring_cooldown))
+	if(COOLDOWN_FINISHED(src, ring_cooldown))
 		playsound(user.loc, 'sound/weapons/ring.ogg', 50, TRUE)
 		COOLDOWN_START(src, ring_cooldown, 2 SECONDS)

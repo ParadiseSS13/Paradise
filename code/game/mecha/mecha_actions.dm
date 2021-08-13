@@ -166,7 +166,7 @@
 	if(COOLDOWN_FINISHED(chassis, smoke_cooldown) && chassis.smoke > 0)
 		chassis.smoke_system.start()
 		chassis.smoke--
-		COOLDOWN_START(chassis, smoke_cooldown, 10 SECONDS)
+		COOLDOWN_START(chassis, smoke_cooldown, chassis.smoke_delay)
 	else
 		chassis.occupant_message("<span class='warning'>You are either out of smoke, or the smoke isn't ready yet.</span>")
 

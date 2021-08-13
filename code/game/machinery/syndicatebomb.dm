@@ -665,7 +665,7 @@
 			COOLDOWN_START(B, detonation_timer, BOMB_TIMER)
 			detonated++
 		existant++
-	playsound(user, 'sound/machines/click.ogg', 20, 1)
+	playsound(user, 'sound/machines/click.ogg', 20, TRUE)
 	to_chat(user, "<span class='notice'>[existant] found, [detonated] triggered.</span>")
 	if(detonated)
 		var/turf/T = get_turf(src)

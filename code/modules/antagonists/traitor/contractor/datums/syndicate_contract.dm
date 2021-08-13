@@ -64,7 +64,7 @@
 	var/obj/effect/contractor_flare/extraction_flare = null
 	/// The extraction portal.
 	var/obj/effect/portal/redspace/contractor/extraction_portal = null
-	/// Cooldown tracking when the current extraction fulton will vanish and another extraction can be requested.
+	/// Cooldown variable tracking when the current extraction fulton will vanish and another extraction can be requested.
 	COOLDOWN_DECLARE(extraction_deadline)
 	/// Name of the target to display on the UI.
 	var/target_name
