@@ -223,7 +223,7 @@
 	block = GLOB.lispblock
 
 /datum/dna/gene/disability/lisp/OnSay(mob/M, message)
-	return replacetext(message,"s","th")
+	return replacetext(message,"с",pick("щ","ш","ф"))
 
 /datum/dna/gene/disability/comic
 	name = "Comic"
