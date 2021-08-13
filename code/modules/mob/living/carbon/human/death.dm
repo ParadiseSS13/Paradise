@@ -172,7 +172,7 @@
 	if(!HAS_TRAIT(src, TRAIT_HUSK))
 		var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
 		if(istype(H))
-			H.status |= ORGAN_DISFIGURED
+			H.status &= ~ORGAN_DISFIGURED
 		update_body()
 		update_mutantrace()
 		UpdateAppearance() // reset hair from DNA

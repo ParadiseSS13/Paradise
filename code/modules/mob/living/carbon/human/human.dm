@@ -1274,7 +1274,7 @@
 			item_flags[I] = I.flags
 			I.flags = 0 // Temporary set the flags to 0
 
-	if (!transformation) //Distinguish between creating a mob and switching species
+	if(!transformation) //Distinguish between creating a mob and switching species
 		dna.species.on_species_gain(src)
 
 	if(retain_damage)
