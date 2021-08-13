@@ -102,14 +102,12 @@
 
 /obj/item/organ/external/New(mob/living/carbon/holder)
 	..()
-	if(holder)
-		if(ishuman(holder))
-			var/mob/living/carbon/human/H = holder
-			icobase = H.dna.species.icobase
-			if(istype(H))
-				replaced(H)
-				sync_colour_to_human(H)
-			get_icon()
+	if(ishuman(holder))
+		var/mob/living/carbon/human/H = holder
+		icobase = H.dna.species.icobase
+		replaced(H)
+		sync_colour_to_human(H)
+	get_icon()
 
 
 /obj/item/organ/external/proc/add_limb_flags()
