@@ -333,7 +333,6 @@
 	..() // Fallthrough to item/attackby() so that bags can pick seeds up
 
 
-// adj parameter changes what Adjacent is called from, such as the gene modder or a tray
 /obj/item/seeds/proc/variant_prompt(mob/user, obj/item/container = null)
 	var/prev = variant
 	var/V = input(user, "Choose variant name:", "Plant Variant Naming", variant) as text|null
