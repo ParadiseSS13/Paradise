@@ -43,8 +43,8 @@
 /area/awaymission/academy/headmaster)
 "aj" = (
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
@@ -117,12 +117,12 @@
 /turf/simulated/wall,
 /area/awaymission/academy/headmaster)
 "at" = (
-/obj/structure/mineral_door/wood,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/mineral_door/gold,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "au" = (
@@ -159,7 +159,16 @@
 /area/awaymission/academy/headmaster)
 "ay" = (
 /obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/wood,
+/obj/structure/closet/wardrobe/black,
+/obj/item/clothing/accessory/necklace,
+/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/head/fedora/whitefedora,
+/obj/item/clothing/suit/blacktrenchcoat,
+/obj/item/clothing/suit/leathercoat,
+/obj/item/coin/iron,
+/obj/item/coin/iron,
+/turf/simulated/floor/noslip,
 /area/awaymission/academy/headmaster)
 "az" = (
 /obj/structure/cable{
@@ -168,7 +177,10 @@
 	icon_state = "1-4"
 	},
 /obj/item/stack/sheet/animalhide/monkey,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark";
+	tag = "icon-dark"
+	},
 /area/awaymission/academy/headmaster)
 "aA" = (
 /obj/structure/cable{
@@ -178,12 +190,18 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/obj/structure/mirror{
+	pixel_y = 28
+	},
+/turf/simulated/floor/noslip,
 /area/awaymission/academy/headmaster)
 "aB" = (
 /obj/structure/bed,
 /obj/item/bedsheet/purple,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark";
+	tag = "icon-dark"
+	},
 /area/awaymission/academy/headmaster)
 "aC" = (
 /obj/structure/table/reinforced,
@@ -192,21 +210,27 @@
 /area/awaymission/academy/headmaster)
 "aD" = (
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
+	dir = 4;
+	icon_state = "tube1"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "aE" = (
 /obj/structure/filingcabinet,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark";
+	tag = "icon-dark"
+	},
 /area/awaymission/academy/headmaster)
 "aF" = (
 /turf/simulated/floor/wood,
 /area/awaymission/academy/headmaster)
 "aG" = (
 /obj/structure/safe/floor,
-/turf/simulated/floor/wood,
+/obj/item/documents/syndicate/red,
+/obj/item/coin/gold,
+/obj/item/melee/cultblade,
+/turf/simulated/floor/noslip,
 /area/awaymission/academy/headmaster)
 "aH" = (
 /obj/structure/cable{
@@ -215,8 +239,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
+	dir = 8;
+	icon_state = "tube1"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
@@ -229,13 +253,17 @@
 /obj/structure/cult/archives,
 /obj/item/twohanded/staff,
 /obj/item/spellbook/oneuse/charge,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/noslip,
 /area/awaymission/academy/headmaster)
 "aK" = (
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark";
+	tag = "icon-dark"
+	},
 /area/awaymission/academy/headmaster)
 "aL" = (
 /obj/item/clothing/suit/space/hardsuit/shielded/wizard,
@@ -243,7 +271,10 @@
 /obj/item/stack/sheet/mineral/silver{
 	amount = 20
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark";
+	tag = "icon-dark"
+	},
 /area/awaymission/academy/headmaster)
 "aM" = (
 /obj/structure/table/reinforced,
@@ -286,17 +317,12 @@
 "aS" = (
 /turf/simulated/mineral/random/high_chance,
 /area/awaymission/academy)
-"aT" = (
-/obj/structure/noticeboard,
-/turf/simulated/wall,
-/area/awaymission/academy/headmaster)
 "aU" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/turf/simulated/floor/wood,
 /area/awaymission/academy/headmaster)
 "aV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -311,7 +337,6 @@
 /turf/simulated/floor/wood,
 /area/awaymission/academy/headmaster)
 "aY" = (
-/obj/structure/table/wood,
 /obj/item/paper_bin,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
@@ -351,22 +376,20 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "bf" = (
-/obj/structure/table/wood,
 /obj/item/pen/red,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "bg" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/noslip,
 /area/awaymission/academy/headmaster)
 "bh" = (
-/obj/structure/table/wood,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/item/dice/d20,
+/obj/structure/table/wood,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "bi" = (
@@ -415,12 +438,12 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "bq" = (
-/obj/machinery/door/airlock/gold,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock/gold,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "br" = (
@@ -462,6 +485,8 @@
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
 "bx" = (
+/obj/item/stack/sheet/metal,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
@@ -476,8 +501,8 @@
 "bz" = (
 /mob/living/simple_animal/hostile/mimic/crate,
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault";
-	icon_state = "vault"
+	icon_state = "vault";
+	tag = "icon-vault"
 	},
 /area/awaymission/academy/classrooms)
 "bA" = (
@@ -506,30 +531,36 @@
 /area/awaymission/academy/classrooms)
 "bF" = (
 /turf/simulated/shuttle/wall{
-	tag = "icon-swallc2";
-	icon_state = "swallc2"
+	icon_state = "swallc2";
+	tag = "icon-swallc2"
 	},
 /area/awaymission/academy/classrooms)
 "bG" = (
 /turf/simulated/shuttle/wall{
-	tag = "icon-swall12";
+	dir = 2;
 	icon_state = "swall12";
-	dir = 2
+	tag = "icon-swall12"
 	},
 /area/awaymission/academy/classrooms)
 "bH" = (
 /turf/simulated/shuttle/wall{
-	tag = "icon-swallc1";
-	icon_state = "swallc1"
+	icon_state = "swallc1";
+	tag = "icon-swallc1"
 	},
 /area/awaymission/academy/classrooms)
 "bI" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
 /area/awaymission/academy/headmaster)
 "bJ" = (
+/obj/item/stack/sheet/metal{
+	pixel_y = 10
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
@@ -542,19 +573,17 @@
 /area/awaymission/academy/headmaster)
 "bL" = (
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
+	dir = 4;
+	icon_state = "tube1"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
 "bM" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/headmaster)
 "bN" = (
@@ -568,9 +597,9 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/headmaster)
 "bP" = (
@@ -578,6 +607,14 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/item/stack/sheet/metal{
+	pixel_x = -10;
+	pixel_y = -6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -591,9 +628,9 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/headmaster)
 "bR" = (
@@ -602,6 +639,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/item/stack/sheet/metal{
+	pixel_x = -11
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -622,8 +663,8 @@
 "bU" = (
 /obj/structure/grille,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -640,34 +681,81 @@
 /area/awaymission/academy/classrooms)
 "bW" = (
 /turf/simulated/shuttle/wall{
-	tag = "icon-swall3";
+	dir = 2;
 	icon_state = "swall3";
-	dir = 2
+	tag = "icon-swall3"
 	},
 /area/awaymission/academy/classrooms)
 "bX" = (
-/obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/engine,
+/obj/structure/table/reinforced,
+/obj/item/wrench,
+/obj/item/storage/belt/utility,
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
 /area/awaymission/academy/classrooms)
 "bY" = (
-/obj/structure/target_stake,
-/turf/simulated/floor/engine,
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty{
+	amount = 10
+	},
+/obj/item/stack/sheet/metal/fifty{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/awaymission/academy/classrooms)
 "bZ" = (
-/turf/simulated/floor/engine,
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/stack/sheet/glass/fifty{
+	amount = 10
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
 /area/awaymission/academy/classrooms)
 "ca" = (
-/obj/structure/target_stake,
-/obj/item/target/alien,
-/turf/simulated/floor/engine,
+/obj/structure/chair/office/light{
+	dir = 8
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4";
+	tag = ""
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
 /area/awaymission/academy/classrooms)
 "cb" = (
 /obj/machinery/vending/cigarette,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
 "cc" = (
 /obj/structure/table,
 /obj/item/lighter/random,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
 "cd" = (
@@ -678,8 +766,8 @@
 "ce" = (
 /obj/machinery/autolathe,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
@@ -690,9 +778,9 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/headmaster)
 "cg" = (
@@ -713,8 +801,8 @@
 "ci" = (
 /obj/structure/grille,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/structure/cable,
 /obj/structure/window/reinforced{
@@ -732,9 +820,9 @@
 /area/awaymission/academy/headmaster)
 "cl" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/headmaster)
 "cm" = (
@@ -745,14 +833,18 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/toolbox/fakesyndi,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "cn" = (
 /obj/machinery/computer/area_atmos/area,
+/obj/machinery/light_construct{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/headmaster)
 "co" = (
@@ -777,15 +869,15 @@
 /area/awaymission/academy/headmaster)
 "cr" = (
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
+	dir = 4;
+	icon_state = "tube1"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "cs" = (
 /turf/simulated/shuttle/wall{
-	tag = "icon-swall1";
-	icon_state = "swall1"
+	icon_state = "swall1";
+	tag = "icon-swall1"
 	},
 /area/awaymission/academy/classrooms)
 "ct" = (
@@ -818,6 +910,7 @@
 /area/awaymission/academy/classrooms)
 "cy" = (
 /obj/structure/table,
+/obj/item/katana,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -835,22 +928,20 @@
 /area/awaymission/academy/headmaster)
 "cA" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 8
+	dir = 8;
+	icon_state = "red"
 	},
 /area/awaymission/academy/classrooms)
 "cB" = (
-/obj/item/target,
-/turf/simulated/floor/engine,
-/area/awaymission/academy/classrooms)
-"cC" = (
+/obj/machinery/constructable_frame/machine_frame,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 4
+	icon_state = "white"
 	},
 /area/awaymission/academy/classrooms)
 "cD" = (
 /obj/structure/table,
+/obj/item/reagent_containers/food/pill/patch/nicotine,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
 "cE" = (
@@ -861,6 +952,10 @@
 	icon_state = "1-2"
 	},
 /obj/item/stack/cable_coil/random,
+/obj/machinery/light{
+	dir = 8;
+	icon_state = "tube1"
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "cF" = (
@@ -910,17 +1005,21 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/item/storage/wallet/random,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "cL" = (
 /obj/structure/chair{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
 /area/awaymission/academy/headmaster)
 "cM" = (
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
 /area/awaymission/academy/classrooms)
 "cN" = (
 /obj/structure/cable{
@@ -935,26 +1034,42 @@
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
 "cP" = (
+/obj/structure/table/reinforced,
+/obj/item/stock_parts/cell/high,
+/obj/machinery/cell_charger,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 10
+	icon_state = "white"
 	},
 /area/awaymission/academy/classrooms)
 "cQ" = (
+/obj/structure/chair/office/light{
+	dir = 1;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "red"
+	icon_state = "white"
 	},
 /area/awaymission/academy/classrooms)
 "cR" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 6
+	icon_state = "white"
 	},
 /area/awaymission/academy/classrooms)
 "cS" = (
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
+	dir = 8;
+	icon_state = "tube1"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
@@ -964,26 +1079,29 @@
 	},
 /obj/machinery/portable_atmospherics/pump,
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 8;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (WEST)"
 	},
 /area/awaymission/academy/headmaster)
 "cU" = (
 /obj/structure/closet/crate/internals,
 /obj/item/tank/oxygen,
 /obj/item/tank/oxygen/red,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
 	},
 /area/awaymission/academy/headmaster)
 "cV" = (
 /obj/structure/closet/crate,
 /obj/item/crowbar/red,
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 8;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (WEST)"
 	},
 /area/awaymission/academy/headmaster)
 "cW" = (
@@ -1027,24 +1145,45 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "dc" = (
 /turf/simulated/floor/wood,
 /area/awaymission/academy/classrooms)
 "dd" = (
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/awaymission/academy/classrooms)
 "de" = (
 /turf/simulated/floor/greengrid,
 /area/awaymission/academy/classrooms)
 "df" = (
-/obj/structure/table/wood,
-/turf/simulated/floor/wood,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/awaymission/academy/classrooms)
 "dg" = (
 /obj/structure/table,
@@ -1054,18 +1193,29 @@
 	},
 /obj/item/gun/projectile/shotgun/toy/tommygun,
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
 "dh" = (
+/obj/structure/table/wood,
+/obj/item/book/manual/hydroponics_pod_people,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "green"
 	},
 /area/awaymission/academy/classrooms)
 "di" = (
+/obj/structure/closet/secure_closet/hydroponics{
+	locked = 0
+	},
+/obj/item/clothing/glasses/hud/hydroponic,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/clothing/under/rank/hydroponics,
+/obj/item/circuitboard/hydroponics,
+/obj/item/hatchet/wooden,
+/obj/item/plant_analyzer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -1075,8 +1225,17 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/closet/secure_closet/hydroponics{
+	locked = 0
+	},
+/obj/item/clothing/glasses/hud/hydroponic,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/clothing/under/rank/hydroponics,
+/obj/item/circuitboard/hydroponics,
+/obj/item/hatchet/wooden,
+/obj/item/plant_analyzer,
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 8;
 	icon_state = "green"
 	},
 /area/awaymission/academy/classrooms)
@@ -1084,12 +1243,14 @@
 /obj/structure/sink/kitchen{
 	pixel_y = 28
 	},
+/obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
 	},
 /area/awaymission/academy/classrooms)
 "dl" = (
+/obj/machinery/floodlight,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "green"
@@ -1102,8 +1263,12 @@
 /area/awaymission/academy/classrooms)
 "dn" = (
 /obj/machinery/gibber,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 5;
+	icon_state = "darkblue"
 	},
 /area/awaymission/academy/classrooms)
 "do" = (
@@ -1120,15 +1285,15 @@
 "dq" = (
 /obj/machinery/mech_bay_recharge_port,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
 "dr" = (
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
+	dir = 4;
+	icon_state = "tube1"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -1140,9 +1305,42 @@
 /turf/simulated/floor/wood,
 /area/awaymission/academy/classrooms)
 "dt" = (
+/obj/structure/table/wood,
+/obj/item/seeds/ambrosia/gaia{
+	pixel_x = -4;
+	pixel_y = 6;
+	potency = 95
+	},
+/obj/item/seeds/ambrosia/gaia{
+	pixel_x = -5;
+	pixel_y = -3;
+	potency = 95
+	},
+/obj/item/seeds/ambrosia/gaia{
+	pixel_x = 6;
+	pixel_y = 6;
+	potency = 95
+	},
+/obj/item/seeds/ambrosia/gaia{
+	pixel_x = -7;
+	pixel_y = 6;
+	potency = 95
+	},
+/obj/item/seeds/ambrosia/gaia{
+	pixel_y = 6;
+	potency = 95
+	},
+/obj/item/seeds/ambrosia/gaia{
+	pixel_x = -5;
+	potency = 95
+	},
+/obj/item/seeds/ambrosia/gaia{
+	pixel_x = 4;
+	potency = 95
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "green";
-	dir = 8
+	dir = 8;
+	icon_state = "green"
 	},
 /area/awaymission/academy/classrooms)
 "du" = (
@@ -1154,15 +1352,15 @@
 /area/awaymission/academy/classrooms)
 "dw" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "green";
-	dir = 4
+	dir = 4;
+	icon_state = "green"
 	},
 /area/awaymission/academy/classrooms)
 "dx" = (
 /obj/machinery/computer/mech_bay_power_console,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/greengrid,
 /area/awaymission/academy/classrooms)
@@ -1205,21 +1403,30 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/greengrid,
+/turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
 "dB" = (
+/obj/item/grown/sunflower,
+/obj/effect/decal/straw/light,
 /turf/simulated/floor/grass,
 /area/awaymission/academy/headmaster)
 "dC" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/glass/bucket,
-/turf/simulated/floor/plasteel,
-/area/awaymission/academy/classrooms)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/academyaft)
 "dD" = (
-/obj/structure/closet/crate/hydroponics/prespawned,
-/turf/simulated/floor/plasteel,
-/area/awaymission/academy/classrooms)
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/awaymission/academy/headmaster)
 "dE" = (
 /obj/machinery/door/airlock/freezer,
 /turf/simulated/floor/plasteel{
@@ -1227,12 +1434,10 @@
 	},
 /area/awaymission/academy/classrooms)
 "dF" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/machinery/chem_master/condimaster,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/awaymission/academy/classrooms)
 "dG" = (
@@ -1246,21 +1451,20 @@
 /turf/simulated/floor/greengrid,
 /area/awaymission/academy/classrooms)
 "dI" = (
-/obj/item/seeds/replicapod,
-/turf/simulated/floor/plasteel,
-/area/awaymission/academy/classrooms)
-"dJ" = (
-/obj/structure/table/wood,
-/turf/simulated/floor/plasteel,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/pda/botanist,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
 /area/awaymission/academy/classrooms)
 "dK" = (
-/obj/structure/chair{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
 	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/academy/classrooms)
+/area/awaymission/academy/headmaster)
 "dL" = (
-/obj/item/seeds/tomato/blue/bluespace,
+/obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "dM" = (
@@ -1285,15 +1489,12 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "dO" = (
-/obj/machinery/door/airlock/freezer,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/wall,
 /area/awaymission/academy/classrooms)
 "dP" = (
 /obj/structure/cable{
@@ -1301,9 +1502,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/chem_dispenser,
 /turf/simulated/floor/plasteel{
-	icon_state = "green";
-	dir = 4
+	dir = 4;
+	icon_state = "green"
 	},
 /area/awaymission/academy/classrooms)
 "dQ" = (
@@ -1312,14 +1514,19 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/effect/decal/cleanable/vomit/green,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "darkblue"
 	},
 /area/awaymission/academy/classrooms)
 "dR" = (
 /obj/structure/kitchenspike,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 6;
+	icon_state = "darkblue"
 	},
 /area/awaymission/academy/classrooms)
 "dS" = (
@@ -1332,28 +1539,47 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/item/melee/baseball_bat,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 10;
+	icon_state = "darkblue"
 	},
 /area/awaymission/academy/classrooms)
 "dU" = (
 /obj/effect/landmark{
 	name = "awaystart"
 	},
-/turf/simulated/floor/wood,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/awaymission/academy/classrooms)
 "dV" = (
-/obj/machinery/seed_extractor,
-/turf/simulated/floor/plasteel,
+/obj/effect/decal/straw,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/classrooms)
 "dW" = (
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "dX" = (
-/obj/structure/closet/crate/freezer,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "old sink";
+	pixel_y = 28
+	},
+/obj/effect/decal/cleanable/vomit{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
 	},
 /area/awaymission/academy/classrooms)
 "dY" = (
@@ -1393,11 +1619,13 @@
 	},
 /area/awaymission/academy/classrooms)
 "ee" = (
+/obj/machinery/door/airlock/freezer,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1439,8 +1667,8 @@
 /area/awaymission/academy/classrooms)
 "ej" = (
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
@@ -1448,6 +1676,10 @@
 	equipment = 3;
 	locked = 0;
 	req_access = ""
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -1468,35 +1700,42 @@
 	},
 /area/awaymission/academy/classrooms)
 "em" = (
+/obj/machinery/seed_extractor,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
-	tag = "icon-green (SOUTHWEST)";
+	dir = 10;
 	icon_state = "green";
-	dir = 10
+	tag = "icon-green (SOUTHWEST)"
 	},
 /area/awaymission/academy/classrooms)
 "en" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-green";
-	icon_state = "green"
+	icon_state = "green";
+	tag = "icon-green"
 	},
 /area/awaymission/academy/classrooms)
 "eo" = (
-/obj/machinery/vending/hydroseeds{
-	slogan_delay = 700
+/obj/item/reagent_containers/glass/bucket,
+/obj/machinery/light,
+/obj/effect/decal/cleanable/greenglow,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
 	},
-/turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "ep" = (
-/obj/machinery/vending/hydronutrients,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/vending/hydroseeds,
 /turf/simulated/floor/plasteel{
-	icon_state = "green";
-	dir = 6
+	dir = 6;
+	icon_state = "green"
 	},
 /area/awaymission/academy/classrooms)
 "eq" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/machinery/kitchen_machine/oven,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
 "er" = (
@@ -1524,8 +1763,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "yellow";
-	dir = 10
+	dir = 10;
+	icon_state = "yellow"
 	},
 /area/awaymission/academy/classrooms)
 "ev" = (
@@ -1551,16 +1790,15 @@
 	},
 /area/awaymission/academy/classrooms)
 "ey" = (
-/obj/machinery/door/airlock/freezer,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
 	},
-/area/awaymission/academy/classrooms)
+/area/awaymission/academy/headmaster)
 "ez" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/machinery/door/airlock/external,
@@ -1578,24 +1816,37 @@
 /area/awaymission/academy/headmaster)
 "eC" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 6
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
 "eD" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 6
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
 "eE" = (
-/obj/structure/table/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/table/wood,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "eF" = (
 /obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/drinks/drinkingglass/soda,
+/obj/item/reagent_containers/food/drinks/drinkingglass/soda{
+	pixel_x = 7;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/soda{
+	pixel_x = 4;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/soda{
+	pixel_x = -6;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "barber"
@@ -1662,18 +1913,20 @@
 /area/awaymission/academy/classrooms)
 "eO" = (
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
+	dir = 4;
+	icon_state = "tube1"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
+/obj/structure/chair/sofa/left{
+	dir = 8
 	},
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/classrooms)
 "eP" = (
 /obj/structure/table,
+/obj/item/trash/tastybread,
 /turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 6
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
 "eQ" = (
@@ -1725,16 +1978,17 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 6
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
 "eY" = (
 /obj/structure/table,
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
+	dir = 4;
+	icon_state = "tube1"
 	},
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "barber"
@@ -1769,8 +2023,8 @@
 "fc" = (
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 6
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
 "fd" = (
@@ -1832,8 +2086,8 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 6
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
 "fk" = (
@@ -1844,8 +2098,8 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 6
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
 "fl" = (
@@ -1879,16 +2133,16 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 6
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
 "fp" = (
 /obj/structure/table,
 /obj/item/trash/semki,
 /turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 6
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
 "fq" = (
@@ -1896,8 +2150,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 6
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
 "fr" = (
@@ -1910,14 +2164,15 @@
 /area/awaymission/academy/classrooms)
 "fs" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "cautioncorner";
-	dir = 4
+	dir = 4;
+	icon_state = "cautioncorner"
 	},
 /area/awaymission/academy/classrooms)
 "ft" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/machinery/light_construct,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -1936,9 +2191,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/item/trash/cheesie,
 /turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 6
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
 "fw" = (
@@ -1958,6 +2214,11 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/item/trash/snack_bowl,
+/obj/item/trash/tray{
+	pixel_x = -1;
+	pixel_y = 11
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1994,8 +2255,8 @@
 "fA" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 6
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
 "fB" = (
@@ -2026,6 +2287,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/structure/table,
+/obj/item/candle,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2041,6 +2304,8 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/table,
+/obj/item/cane,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2056,7 +2321,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
 /area/awaymission/academy/classrooms)
 "fH" = (
 /obj/structure/cable{
@@ -2068,8 +2335,8 @@
 /area/awaymission/academy/academyaft)
 "fI" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 1
+	dir = 1;
+	icon_state = "whitehall"
 	},
 /area/awaymission/academy/classrooms)
 "fJ" = (
@@ -2080,6 +2347,8 @@
 /area/awaymission/academy/classrooms)
 "fK" = (
 /obj/effect/decal/cleanable/cobweb,
+/obj/structure/table/wood,
+/obj/item/camera_film,
 /turf/simulated/floor/wood,
 /area/awaymission/academy/classrooms)
 "fL" = (
@@ -2094,20 +2363,21 @@
 	},
 /area/awaymission/academy/academyaft)
 "fN" = (
+/obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault";
-	icon_state = "vault"
+	icon_state = "vault";
+	tag = "icon-vault"
 	},
 /area/awaymission/academy/classrooms)
 "fO" = (
 /obj/structure/grille,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/structure/window/reinforced{
 	dir = 5
@@ -2117,8 +2387,8 @@
 "fP" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault";
-	icon_state = "vault"
+	icon_state = "vault";
+	tag = "icon-vault"
 	},
 /area/awaymission/academy/classrooms)
 "fQ" = (
@@ -2128,8 +2398,8 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 1
+	dir = 1;
+	icon_state = "whitehall"
 	},
 /area/awaymission/academy/classrooms)
 "fR" = (
@@ -2171,18 +2441,18 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 1
+	dir = 1;
+	icon_state = "whitehall"
 	},
 /area/awaymission/academy/classrooms)
 "fX" = (
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault";
-	icon_state = "vault"
+	icon_state = "vault";
+	tag = "icon-vault"
 	},
 /area/awaymission/academy/classrooms)
 "fY" = (
@@ -2199,29 +2469,36 @@
 /obj/structure/table,
 /obj/item/lazarus_injector,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 4
+	dir = 4;
+	icon_state = "whitehall"
 	},
 /area/awaymission/academy/classrooms)
 "gb" = (
-/obj/structure/chair/wood,
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/awaymission/academy/classrooms)
 "gc" = (
-/obj/structure/bookcase,
+/obj/item/clipboard,
+/obj/item/clipboard{
+	pixel_x = -5
+	},
+/obj/item/phone,
 /turf/simulated/floor/wood,
-/area/awaymission/academy/classrooms)
+/area/awaymission/academy/headmaster)
 "gd" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/east,
+/obj/item/rcd,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "ge" = (
 /obj/structure/grille,
 /obj/structure/cable,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/structure/window/reinforced{
 	dir = 5
@@ -2237,20 +2514,20 @@
 /area/awaymission/academy/classrooms)
 "gg" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
 "gh" = (
 /obj/structure/grille,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/structure/window/reinforced{
 	dir = 5
@@ -2260,18 +2537,23 @@
 "gi" = (
 /obj/structure/table/reinforced,
 /obj/item/pen/red,
+/obj/item/megaphone{
+	pixel_x = 5;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
 "gj" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/table/reinforced,
+/obj/item/storage/belt/security,
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
 "gk" = (
@@ -2302,8 +2584,8 @@
 /area/awaymission/academy/classrooms)
 "go" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 4
+	dir = 4;
+	icon_state = "whitehall"
 	},
 /area/awaymission/academy/classrooms)
 "gp" = (
@@ -2315,9 +2597,9 @@
 /obj/machinery/recharger,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
 "gq" = (
@@ -2325,6 +2607,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/east,
+/obj/item/rcd_ammo,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "gr" = (
@@ -2333,18 +2616,24 @@
 /area/awaymission/academy/classrooms)
 "gs" = (
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
+	dir = 4;
+	icon_state = "tube1"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 4
+	dir = 4;
+	icon_state = "whitehall"
 	},
 /area/awaymission/academy/classrooms)
 "gt" = (
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
+	dir = 8;
+	icon_state = "tube1"
+	},
+/obj/structure/table/wood,
+/obj/item/storage/pill_bottle/random_drug_bottle,
+/obj/item/storage/pill_bottle/random_drug_bottle{
+	pixel_x = 9;
+	pixel_y = 6
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/academy/classrooms)
@@ -2355,8 +2644,8 @@
 /area/awaymission/academy/classrooms)
 "gv" = (
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
+	dir = 4;
+	icon_state = "tube1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -2364,13 +2653,13 @@
 /area/awaymission/academy/academyaft)
 "gw" = (
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
+	dir = 8;
+	icon_state = "tube1"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
 "gx" = (
@@ -2405,8 +2694,8 @@
 "gB" = (
 /obj/structure/grille,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/structure/cable,
 /obj/structure/window/reinforced{
@@ -2417,8 +2706,8 @@
 "gC" = (
 /obj/structure/grille,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/structure/cable,
 /obj/structure/window/reinforced{
@@ -2433,9 +2722,9 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
 "gE" = (
@@ -2446,9 +2735,9 @@
 	},
 /obj/item/gun/projectile/shotgun/toy/tommygun,
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
 "gF" = (
@@ -2461,10 +2750,12 @@
 /area/awaymission/academy/academyaft)
 "gG" = (
 /obj/structure/table,
+/obj/item/restraints/handcuffs,
+/obj/item/crowbar,
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
 "gH" = (
@@ -2492,9 +2783,9 @@
 "gL" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
 "gM" = (
@@ -2550,9 +2841,9 @@
 	name = "Summoning Midterm Exam"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
 "gU" = (
@@ -2566,8 +2857,8 @@
 /obj/structure/grille,
 /obj/structure/cable,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/structure/window/reinforced{
 	dir = 5
@@ -2589,15 +2880,15 @@
 /area/awaymission/academy/academyaft)
 "gX" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 2
+	dir = 2;
+	icon_state = "whitehall"
 	},
 /area/awaymission/academy/classrooms)
 "gY" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 2
+	dir = 2;
+	icon_state = "whitehall"
 	},
 /area/awaymission/academy/classrooms)
 "gZ" = (
@@ -2659,9 +2950,9 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
 "hh" = (
@@ -2678,8 +2969,8 @@
 /area/awaymission/academy/classrooms)
 "hi" = (
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
@@ -2697,17 +2988,11 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
+	dir = 5;
 	icon_state = "vault";
-	dir = 5
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
-"hk" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "green";
-	dir = 8
-	},
-/area/awaymission/academy/academyaft)
 "hl" = (
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/academyaft)
@@ -2715,21 +3000,23 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
 /area/awaymission/academy/academyaft)
 "hn" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-green (EAST)";
+	dir = 4;
 	icon_state = "green";
-	dir = 4
+	tag = "icon-green (EAST)"
 	},
 /area/awaymission/academy/academyaft)
 "ho" = (
 /obj/item/crowbar/red,
 /turf/simulated/floor/plasteel{
-	tag = "icon-green (EAST)";
-	icon_state = "green";
-	dir = 4
+	dir = 5;
+	icon_state = "green"
 	},
 /area/awaymission/academy/academyaft)
 "hp" = (
@@ -2788,8 +3075,8 @@
 /obj/machinery/power/smes/magical,
 /obj/structure/cable,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
@@ -2798,8 +3085,8 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
@@ -2816,14 +3103,16 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "hz" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
 	initialize_directions = 11
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
 /area/awaymission/academy/headmaster)
 "hA" = (
 /obj/machinery/door/airlock/gold,
@@ -2832,19 +3121,27 @@
 /area/awaymission/academy/headmaster)
 "hB" = (
 /obj/machinery/atmospherics/unary/vent_pump,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/computer/arcade,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/awaymission/academy/classrooms)
 "hC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
 /area/awaymission/academy/classrooms)
 "hD" = (
 /obj/structure/grille,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
@@ -2920,8 +3217,8 @@
 /area/awaymission/academy/academyaft)
 "hN" = (
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
+	dir = 4;
+	icon_state = "tube1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -2933,77 +3230,72 @@
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
 "hP" = (
-/obj/structure/closet,
-/obj/item/candle,
-/obj/item/candle,
-/obj/item/storage/box/matches,
-/turf/simulated/floor/plasteel,
-/area/awaymission/academy/academyaft)
-"hQ" = (
-/obj/structure/closet,
-/obj/item/storage/belt/soulstone,
-/obj/item/clothing/under/schoolgirl,
-/turf/simulated/floor/plasteel,
-/area/awaymission/academy/academyaft)
+/obj/structure/computerframe,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
 "hR" = (
-/obj/structure/closet,
-/obj/item/clothing/under/blackskirt,
-/obj/item/clothing/glasses/regular,
+/obj/structure/table,
+/obj/item/reagent_containers/food/pill/patch/nicotine{
+	pixel_x = -13
+	},
+/obj/item/reagent_containers/food/pill/patch/nicotine,
 /turf/simulated/floor/plasteel,
-/area/awaymission/academy/academyaft)
+/area/awaymission/academy/headmaster)
 "hS" = (
-/obj/structure/closet,
-/obj/item/clothing/under/color/lightpurple,
-/obj/item/clothing/shoes/sandal,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/academyaft)
 "hT" = (
-/obj/structure/closet,
-/obj/item/lipstick/random,
-/obj/item/clothing/under/schoolgirl,
-/turf/simulated/floor/plasteel,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
 /area/awaymission/academy/academyaft)
 "hU" = (
 /turf/simulated/floor/wood,
 /area/awaymission/academy/academyaft)
 "hV" = (
-/obj/structure/closet,
-/obj/item/clothing/under/color/lightpurple,
-/obj/item/twohanded/staff,
-/turf/simulated/floor/plasteel,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
 /area/awaymission/academy/academyaft)
 "hW" = (
-/obj/structure/closet,
-/obj/item/storage/wallet/random,
-/obj/item/clothing/glasses/regular/hipster,
+/obj/item/stack/sheet/metal,
 /turf/simulated/floor/plasteel,
-/area/awaymission/academy/academyaft)
+/area/awaymission/academy/headmaster)
 "hX" = (
-/obj/structure/closet,
-/obj/item/clothing/head/wizard/fake,
-/obj/item/clothing/suit/wizrobe/fake,
+/obj/item/stack/sheet/metal,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaymission/academy/academyaft)
+/area/awaymission/academy/headmaster)
 "hY" = (
-/obj/structure/closet,
-/obj/item/clothing/under/color/purple,
-/obj/item/poster/random_contraband,
-/turf/simulated/floor/plasteel,
-/area/awaymission/academy/academyaft)
-"hZ" = (
-/obj/structure/closet,
-/obj/item/storage/box/snappops,
-/obj/item/storage/backpack,
-/obj/item/paper{
-	info = "Current Grade: F. Educator's Notes: No improvement shown despite multiple private lessons.  Suggest additional tutilage.";
-	name = "Pyromancy Evaluation"
+/obj/item/stack/sheet/metal,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
 	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/academy/academyaft)
+/area/awaymission/academy/headmaster)
+"hZ" = (
+/obj/item/stack/sheet/metal,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/headmaster)
 "ia" = (
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
+	dir = 8;
+	icon_state = "tube1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -3062,26 +3354,42 @@
 /area/awaymission/academy/academyaft)
 "ii" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
+	dir = 2;
+	icon_state = "cafeteria"
 	},
 /area/awaymission/academy/academyaft)
 "ij" = (
-/obj/structure/mirror{
-	pixel_y = 28
+/obj/structure/closet/secure_closet/hydroponics{
+	locked = 0
 	},
+/obj/item/clothing/glasses/hud/hydroponic,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/clothing/under/rank/hydroponics,
+/obj/item/circuitboard/hydroponics,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/hatchet/wooden,
+/obj/item/plant_analyzer,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
+	dir = 1;
+	icon_state = "green"
 	},
-/area/awaymission/academy/academyaft)
+/area/awaymission/academy/classrooms)
 "ik" = (
-/obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
+/obj/structure/table/wood,
+/obj/item/clothing/glasses/hud/hydroponic/night,
+/obj/item/clothing/mask/cigarette/robustgold{
+	pixel_x = 8;
+	pixel_y = 12
 	},
-/area/awaymission/academy/academyaft)
+/obj/item/clothing/mask/cigarette/robustgold{
+	pixel_x = -5;
+	pixel_y = 12
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/awaymission/academy/classrooms)
 "im" = (
 /obj/machinery/power/smes/magical,
 /obj/structure/cable,
@@ -3093,12 +3401,21 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/academyaft)
 "io" = (
-/obj/structure/mineral_door/iron,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
+/obj/structure/table/wood,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = -4;
+	pixel_y = 6
 	},
-/area/awaymission/academy/academyaft)
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/awaymission/academy/classrooms)
 "ir" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical,
@@ -3106,50 +3423,70 @@
 /area/awaymission/academy/academyaft)
 "is" = (
 /obj/structure/sink{
-	icon_state = "sink";
 	dir = 8;
+	icon_state = "sink";
 	pixel_x = -12;
 	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
+	dir = 2;
+	icon_state = "cafeteria"
 	},
 /area/awaymission/academy/academyaft)
 "it" = (
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
+/obj/structure/closet/crate/hydroponics/prespawned,
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_x = 5;
+	pixel_y = 6
 	},
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/item/clothing/gloves/botanic_leather,
+/obj/item/clothing/gloves/botanic_leather,
+/obj/item/clothing/gloves/botanic_leather,
+/obj/item/cultivator,
+/obj/item/cultivator,
+/obj/item/cultivator,
+/obj/item/shovel/spade,
+/obj/item/watertank,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
+	dir = 1;
+	icon_state = "green"
 	},
-/area/awaymission/academy/academyaft)
+/area/awaymission/academy/classrooms)
 "iu" = (
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
-	},
-/turf/simulated/floor/wood,
-/area/awaymission/academy/academyaft)
-"iv" = (
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/awaymission/academy/academyaft)
-"iw" = (
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
-	},
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/snacks/meat/corgi,
+/obj/item/reagent_containers/food/snacks/meat/corgi,
+/obj/effect/decal/cleanable/cobweb,
+/obj/item/organ/internal/brain,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
+	dir = 9;
+	icon_state = "darkblue"
 	},
-/area/awaymission/academy/academyaft)
+/area/awaymission/academy/classrooms)
+"iv" = (
+/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/item/reagent_containers/food/snacks/meat/corgi,
+/obj/item/reagent_containers/food/snacks/meat/corgi,
+/obj/item/organ/internal/heart,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/awaymission/academy/classrooms)
+"iw" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
 "ix" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3169,35 +3506,22 @@
 	},
 /area/awaymission/academy/academyaft)
 "iz" = (
-/obj/structure/toilet{
-	dir = 8
-	},
-/obj/machinery/light/small{
+/obj/structure/chair{
 	dir = 1
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
-	},
-/area/awaymission/academy/academyaft)
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
 "iA" = (
-/obj/structure/toilet{
-	dir = 4
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
-	},
-/area/awaymission/academy/academyaft)
+/area/awaymission/academy/classrooms)
 "iB" = (
 /mob/living/simple_animal/hostile/statue,
-/turf/simulated/floor/plasteel,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
 /area/awaymission/academy/headmaster)
 "iC" = (
 /obj/machinery/power/port_gen/pacman,
@@ -3206,20 +3530,23 @@
 	},
 /area/awaymission/academy/academyaft)
 "iD" = (
-/obj/structure/toilet{
-	dir = 8
+/obj/structure/table,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/reagentgrinder{
+	pixel_x = -1;
+	pixel_y = 9
 	},
-/obj/machinery/light/small{
-	dir = 1
+/obj/machinery/vending/wallmed{
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
+	dir = 4;
+	icon_state = "green"
 	},
-/area/awaymission/academy/academyaft)
+/area/awaymission/academy/classrooms)
 "iE" = (
 /obj/item/paper,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academyaft)
 "iF" = (
 /obj/item/stack/cable_coil/random,
@@ -3243,16 +3570,9 @@
 /turf/simulated/floor/engine,
 /area/awaymission/academy/academyaft)
 "iK" = (
-/obj/structure/toilet{
-	dir = 8
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/vomit,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken7";
+	tag = "icon-wood-broken7"
 	},
 /area/awaymission/academy/academyaft)
 "iL" = (
@@ -3286,8 +3606,8 @@
 /obj/structure/table,
 /obj/item/beach_ball/holoball,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 1
+	dir = 1;
+	icon_state = "red"
 	},
 /area/awaymission/academy/academyaft)
 "iP" = (
@@ -3333,8 +3653,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "green";
-	dir = 8
+	dir = 8;
+	icon_state = "green"
 	},
 /area/awaymission/academy/academyaft)
 "iS" = (
@@ -3357,10 +3677,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/mineral_door/iron,
 /turf/simulated/floor/plasteel{
-	tag = "icon-green (EAST)";
-	icon_state = "green";
-	dir = 4
+	dir = 1
 	},
 /area/awaymission/academy/academyaft)
 "iU" = (
@@ -3370,15 +3689,15 @@
 /obj/structure/table,
 /obj/item/soulstone,
 /turf/simulated/floor/plasteel/airless{
-	tag = "icon-whitered (EAST)";
+	dir = 4;
 	icon_state = "whitered";
-	dir = 4
+	tag = "icon-whitered (EAST)"
 	},
 /area/awaymission/academy/academyaft)
 "iV" = (
 /obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion_l";
-	icon_state = "propulsion_l"
+	icon_state = "propulsion_l";
+	tag = "icon-propulsion_l"
 	},
 /turf/space,
 /area/awaymission/academy/academyaft)
@@ -3388,16 +3707,16 @@
 /area/awaymission/academy/academyaft)
 "iX" = (
 /obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion_r";
-	icon_state = "propulsion_r"
+	icon_state = "propulsion_r";
+	tag = "icon-propulsion_r"
 	},
 /turf/space,
 /area/awaymission/academy/academyaft)
 "iY" = (
 /obj/structure/grille,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/structure/window/reinforced{
 	dir = 5
@@ -3467,9 +3786,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-green (EAST)";
+	dir = 4;
 	icon_state = "green";
-	dir = 4
+	tag = "icon-green (EAST)"
 	},
 /area/awaymission/academy/academyaft)
 "je" = (
@@ -3528,8 +3847,8 @@
 /area/awaymission/academy/academyaft)
 "jj" = (
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
+	dir = 8;
+	icon_state = "tube1"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
@@ -3549,9 +3868,9 @@
 "jl" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel/airless{
-	tag = "icon-whitered (EAST)";
+	dir = 4;
 	icon_state = "whitered";
-	dir = 4
+	tag = "icon-whitered (EAST)"
 	},
 /area/awaymission/academy/academyaft)
 "jm" = (
@@ -3606,16 +3925,18 @@
 /area/awaymission/academy/classrooms)
 "js" = (
 /obj/structure/window/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/card/emag_broken,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 6
+	dir = 6;
+	icon_state = "red"
 	},
 /area/awaymission/academy/academyaft)
 "jt" = (
 /obj/structure/cult/pylon,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellow";
-	dir = 10
+	dir = 10;
+	icon_state = "yellow"
 	},
 /area/awaymission/academy/academyaft)
 "ju" = (
@@ -3632,10 +3953,11 @@
 /area/awaymission/academy/academyaft)
 "jw" = (
 /obj/structure/window/reinforced,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
-	tag = "icon-white (EAST)";
+	dir = 4;
 	icon_state = "white";
-	dir = 4
+	tag = "icon-white (EAST)"
 	},
 /area/awaymission/academy/academyaft)
 "jx" = (
@@ -3643,9 +3965,9 @@
 /obj/structure/window/reinforced,
 /obj/item/batterer,
 /turf/simulated/floor/plasteel/airless{
-	tag = "icon-whitered (EAST)";
+	dir = 4;
 	icon_state = "whitered";
-	dir = 4
+	tag = "icon-whitered (EAST)"
 	},
 /area/awaymission/academy/academyaft)
 "jy" = (
@@ -3707,8 +4029,8 @@
 	pixel_x = 11
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
+	dir = 2;
+	icon_state = "cafeteria"
 	},
 /area/awaymission/academy/academyaft)
 "jH" = (
@@ -3755,7 +4077,9 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
 /area/awaymission/academy/academyaft)
 "jO" = (
 /obj/machinery/door/airlock/hatch,
@@ -3778,8 +4102,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/structure/window/reinforced{
 	dir = 5
@@ -3812,14 +4136,17 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 5
+	dir = 5;
+	icon_state = "red"
 	},
 /area/awaymission/academy/academyaft)
 "jX" = (
 /obj/machinery/door/window/southright,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
 /area/awaymission/academy/academygate)
 "jY" = (
 /obj/structure/cable{
@@ -3845,7 +4172,9 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
 /area/awaymission/academy/academyaft)
 "ka" = (
 /obj/structure/cable{
@@ -3861,6 +4190,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
 "kc" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
 "kd" = (
@@ -3872,10 +4202,11 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
-	tag = "icon-white (EAST)";
+	dir = 4;
 	icon_state = "white";
-	dir = 4
+	tag = "icon-white (EAST)"
 	},
 /area/awaymission/academy/academyaft)
 "ke" = (
@@ -3887,8 +4218,8 @@
 	req_access = ""
 	},
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academygate)
@@ -3920,8 +4251,8 @@
 "ki" = (
 /obj/structure/grille,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/structure/cable,
 /obj/structure/window/reinforced{
@@ -3940,9 +4271,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 4
+	dir = 4;
+	icon_state = "red"
 	},
 /area/awaymission/academy/academyaft)
 "kk" = (
@@ -3956,22 +4288,25 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
-	tag = "icon-white (EAST)";
+	dir = 4;
 	icon_state = "white";
-	dir = 4
+	tag = "icon-white (EAST)"
 	},
 /area/awaymission/academy/academyaft)
 "kl" = (
 /obj/machinery/gateway{
 	dir = 5
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
 "km" = (
 /obj/machinery/gateway{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
 "kn" = (
@@ -3979,28 +4314,33 @@
 /obj/machinery/gateway/centeraway{
 	calibrated = 0
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
 "ko" = (
 /obj/machinery/gateway{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
 "kp" = (
 /obj/machinery/gateway{
 	dir = 10
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
 "kq" = (
 /obj/machinery/gateway,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
 "kr" = (
 /obj/machinery/gateway{
 	dir = 6
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
 "ks" = (
@@ -4018,8 +4358,8 @@
 /obj/structure/grille,
 /obj/structure/cable,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/structure/window/reinforced{
 	dir = 5
@@ -4029,8 +4369,8 @@
 "kv" = (
 /mob/living/simple_animal/hostile/mimic/crate,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 8
+	dir = 8;
+	icon_state = "red"
 	},
 /area/awaymission/academy/classrooms)
 "kw" = (
@@ -4043,9 +4383,7 @@
 /area/awaymission/academy/academyaft)
 "ky" = (
 /mob/living/simple_animal/hostile/creature,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/dark/telecomms,
 /area/awaymission/academy/classrooms)
 "kz" = (
 /obj/structure/cable{
@@ -4054,9 +4392,9 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/airless{
-	tag = "icon-whitered (EAST)";
+	dir = 4;
 	icon_state = "whitered";
-	dir = 4
+	tag = "icon-whitered (EAST)"
 	},
 /area/awaymission/academy/academyaft)
 "kA" = (
@@ -4096,9 +4434,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 4
+	dir = 4;
+	icon_state = "red"
 	},
 /area/awaymission/academy/academyaft)
 "kH" = (
@@ -4118,8 +4457,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
+	dir = 4;
+	icon_state = "tube1"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
@@ -4131,9 +4470,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/item/trash/spacetwinkie{
+	pixel_x = -13
+	},
+/obj/machinery/light_construct{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 6
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
 "kM" = (
@@ -4143,15 +4488,12 @@
 /turf/simulated/wall,
 /area/awaymission/academy/classrooms)
 "kN" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 6
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
 "kO" = (
@@ -4160,8 +4502,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 6
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
 "kP" = (
@@ -4170,9 +4512,12 @@
 	layer = 2.4;
 	on = 1
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 6
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
 "kQ" = (
@@ -4194,10 +4539,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
-	tag = "icon-white (EAST)";
+	dir = 4;
 	icon_state = "white";
-	dir = 4
+	tag = "icon-white (EAST)"
 	},
 /area/awaymission/academy/academyaft)
 "kT" = (
@@ -4219,9 +4565,10 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 4
+	dir = 4;
+	icon_state = "red"
 	},
 /area/awaymission/academy/academyaft)
 "kW" = (
@@ -4240,10 +4587,11 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
-	tag = "icon-white (EAST)";
+	dir = 4;
 	icon_state = "white";
-	dir = 4
+	tag = "icon-white (EAST)"
 	},
 /area/awaymission/academy/academyaft)
 "kZ" = (
@@ -4300,7 +4648,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/window/southleft,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
 /area/awaymission/academy/academygate)
 "lf" = (
 /obj/structure/cable{
@@ -4344,9 +4694,10 @@
 /area/awaymission/academy/academygate)
 "lj" = (
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
 "lk" = (
@@ -4363,6 +4714,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
 "lm" = (
@@ -4374,6 +4726,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
 "ln" = (
@@ -4385,6 +4738,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
 "lo" = (
@@ -4406,7 +4760,9 @@
 /area/awaymission/academy/academyaft)
 "lq" = (
 /obj/machinery/atmospherics/binary/valve,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
 /area/awaymission/academy/academyaft)
 "lr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden{
@@ -4495,12 +4851,2657 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
+"lV" = (
+/obj/machinery/biogenerator,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/awaymission/academy/classrooms)
+"mn" = (
+/obj/item/trash/liquidfood,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/awaymission/academy/classrooms)
+"mr" = (
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"mu" = (
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/academy/classrooms)
+"mz" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 5;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = -7;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"mD" = (
+/obj/effect/decal/remains/xeno,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark";
+	tag = "icon-dark"
+	},
+/area/awaymission/academy/classrooms)
+"mN" = (
+/obj/structure/closet,
+/obj/item/lipstick/random,
+/obj/item/clothing/under/schoolgirl,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"mQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/headmaster)
+"mY" = (
+/obj/structure/flora/tree/dead,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/academyaft)
+"nb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/metal{
+	pixel_x = -6;
+	pixel_y = -6
+	},
+/obj/item/stack/sheet/metal{
+	pixel_x = 9;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
+/area/awaymission/academy/academyaft)
+"nd" = (
+/obj/structure/decorative_structures/metal/statue/sun,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/headmaster)
+"ne" = (
+/obj/structure/dispenser/plasma,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/awaymission/academy/headmaster)
+"ng" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/item/caution,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/classrooms)
+"nm" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"nr" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/awaymission/academy/classrooms)
+"nI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/sign/restroom{
+	pixel_y = 31
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/academyaft)
+"nL" = (
+/obj/item/stack/sheet/metal{
+	pixel_x = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"nW" = (
+/obj/item/circuitboard/chem_dispenser,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"nX" = (
+/obj/structure/table/wood,
+/obj/item/seeds/tomato/blue/bluespace,
+/obj/item/seeds/replicapod{
+	pixel_x = 6;
+	pixel_y = 2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/awaymission/academy/classrooms)
+"og" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/classrooms)
+"oh" = (
+/obj/structure/lattice,
+/turf/simulated/wall/r_wall,
+/area/space/nearstation)
+"os" = (
+/obj/structure/toilet{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/item/robot_parts/r_leg,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"oD" = (
+/obj/structure/closet,
+/obj/item/clothing/under/color/lightpurple,
+/obj/item/clothing/shoes/sandal,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"pa" = (
+/obj/structure/flora/bush,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/academyaft)
+"pz" = (
+/obj/structure/closet,
+/obj/item/storage/box/snappops,
+/obj/item/storage/backpack,
+/obj/item/paper{
+	info = "Current Grade: F. Educator's Notes: No improvement shown despite multiple private lessons.  Suggest additional tutilage.";
+	name = "Pyromancy Evaluation"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"pN" = (
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
+	},
+/obj/item/stack/sheet/metal{
+	pixel_x = -11;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/headmaster)
+"pS" = (
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/academy/academyaft)
+"pX" = (
+/obj/machinery/vending/coffee/free,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/awaymission/academy/classrooms)
+"qa" = (
+/obj/structure/table,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/glass/beaker{
+	pixel_x = 5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/classrooms)
+"qm" = (
+/obj/structure/sign/botany,
+/turf/simulated/wall,
+/area/awaymission/academy/classrooms)
+"qE" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/closet/secure_closet/bar,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"qP" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"qQ" = (
+/obj/item/reagent_containers/glass/bottle,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"rk" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
+/area/awaymission/academy/academyaft)
+"rn" = (
+/obj/item/stack/sheet/wood{
+	pixel_y = -15
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
+/area/awaymission/academy/academyaft)
+"ry" = (
+/obj/item/stack/sheet/metal,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/headmaster)
+"rA" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/bottle/rum{
+	pixel_x = -17
+	},
+/obj/item/reagent_containers/food/drinks/bottle/cognac,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"rD" = (
+/obj/item/stack/sheet/metal{
+	pixel_y = -7
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/headmaster)
+"rP" = (
+/obj/item/stack/sheet/metal{
+	pixel_x = -8
+	},
+/obj/item/stack/sheet/metal,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/headmaster)
+"rR" = (
+/obj/effect/decal/warning_stripes/southeast,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"rS" = (
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/obj/structure/sign/nosmoking_2{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/academy/classrooms)
+"rV" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
+	dir = 4;
+	icon_state = "plaque";
+	name = "Comemmorative Plaque"
+	},
+/area/awaymission/academy/classrooms)
+"sd" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/snacks/meat/corgi,
+/obj/item/reagent_containers/food/snacks/meat/corgi,
+/obj/item/organ/internal/lungs,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/awaymission/academy/classrooms)
+"sf" = (
+/obj/item/toner,
+/obj/structure/table_frame/wood,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/classrooms)
+"so" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/academyaft)
+"sx" = (
+/obj/machinery/light_construct{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/academy/headmaster)
+"sF" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/academyaft)
+"sH" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/table,
+/obj/machinery/computer/mob_healer_terminal,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"sM" = (
+/obj/structure/table,
+/obj/machinery/smartfridge/disks,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/awaymission/academy/classrooms)
+"sQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/robot,
+/turf/simulated/floor/plasteel/dark/telecomms,
+/area/awaymission/academy/classrooms)
+"sU" = (
+/obj/machinery/constructable_frame/machine_frame,
+/obj/machinery/light_construct{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/awaymission/academy/headmaster)
+"sZ" = (
+/obj/structure/closet/chefcloset,
+/obj/item/storage/fancy/cigarettes/syndicate,
+/obj/item/lighter/random,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/awaymission/academy/classrooms)
+"ta" = (
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/awaymission/academy/academygate)
+"tp" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/awaymission/academy/academyaft)
+"tq" = (
+/obj/structure/sign/picture_frame,
+/turf/simulated/wall,
+/area/awaymission/academy/headmaster)
+"tr" = (
+/obj/item/healthanalyzer/advanced,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkbluecorners"
+	},
+/area/awaymission/academy/classrooms)
+"tv" = (
+/obj/item/stack/sheet/wood{
+	pixel_x = -15;
+	pixel_y = -15
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/academy/headmaster)
+"ub" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	pixel_x = 4;
+	pixel_y = -10
+	},
+/obj/item/clothing/mask/cigarette/pipe{
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/classrooms)
+"ui" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"uj" = (
+/obj/structure/table/wood,
+/obj/random/plushie,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/academyaft)
+"um" = (
+/obj/structure/bookcase,
+/obj/item/spellbook/oneuse/smoke,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/classrooms)
+"un" = (
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/headmaster)
+"uv" = (
+/obj/item/shard,
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_x = -5;
+	pixel_y = 13
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/academy/classrooms)
+"uw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/caution,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/classrooms)
+"uA" = (
+/obj/machinery/vending/boozeomat/syndicate_access,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"uB" = (
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/awaymission/academy/classrooms)
+"uI" = (
+/obj/item/stack/sheet/wood{
+	pixel_x = -5;
+	pixel_y = -6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
+/area/awaymission/academy/academyaft)
+"uQ" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"uU" = (
+/obj/item/grown/cotton,
+/obj/effect/decal/leaves{
+	dir = 1
+	},
+/turf/simulated/floor/grass,
+/area/awaymission/academy/headmaster)
+"va" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"vb" = (
+/obj/item/disk/plantgene{
+	pixel_y = 7
+	},
+/obj/item/disk/plantgene{
+	pixel_x = 6
+	},
+/obj/item/disk/plantgene{
+	pixel_x = -8
+	},
+/obj/item/disk/plantgene{
+	pixel_x = -6;
+	pixel_y = -5
+	},
+/obj/item/disk/plantgene{
+	pixel_x = -8;
+	pixel_y = 1
+	},
+/obj/item/disk/plantgene,
+/obj/item/disk/plantgene{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"vc" = (
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/awaymission/academy/academyaft)
 "vq" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
+"vs" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/computer/arcade,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"vv" = (
+/obj/item/stack/sheet/wood{
+	pixel_x = 12;
+	pixel_y = 6
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/academy/headmaster)
+"vG" = (
+/obj/structure/sign/restroom{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/academyaft)
+"vT" = (
+/obj/structure/mopbucket,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"wa" = (
+/obj/machinery/r_n_d/circuit_imprinter,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"wj" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/r_wall,
+/area/awaymission/academy/academyaft)
+"wk" = (
+/obj/structure/chair/sofa,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"wn" = (
+/obj/item/stack/sheet/metal,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/headmaster)
+"wp" = (
+/obj/item/scythe,
+/obj/structure/flora/ash/cacti,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/academyaft)
+"ws" = (
+/obj/structure/chair/sofa/corner,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"wz" = (
+/obj/effect/decal/ants,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"wB" = (
+/obj/structure/table/wood,
+/obj/item/gps,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/academyaft)
+"wE" = (
+/obj/item/trash/gum{
+	pixel_x = 11
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/awaymission/academy/classrooms)
+"wG" = (
+/obj/structure/chair/comfy/red{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/classrooms)
+"wO" = (
+/obj/item/stack/sheet/metal{
+	pixel_x = -6;
+	pixel_y = -6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/headmaster)
+"wP" = (
+/obj/machinery/vending/cigarette/syndicate/free,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/classrooms)
+"wW" = (
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/headmaster)
+"xe" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3";
+	tag = "icon-wood-broken3"
+	},
+/area/awaymission/academy/classrooms)
+"xg" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"xF" = (
+/obj/structure/mineral_door/wood,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"xK" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/awaymission/academy/academygate)
+"xR" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken5";
+	tag = "icon-wood-broken5"
+	},
+/area/awaymission/academy/academyaft)
+"xS" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/vending/cola/free,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/awaymission/academy/classrooms)
+"xT" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"xV" = (
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/headmaster)
+"xZ" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/academyaft)
+"yb" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/headmaster)
+"yj" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/mineral_door/wood,
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
+"yt" = (
+/obj/structure/chair/wood,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/classrooms)
+"yv" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/cans/cola,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"yx" = (
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/plasteel{
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/headmaster)
+"yA" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"yB" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/item/stack/sheet/metal,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/awaymission/academy/headmaster)
+"yJ" = (
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"yM" = (
+/obj/item/soap/syndie,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"ze" = (
+/obj/structure/closet,
+/obj/item/candle,
+/obj/item/candle,
+/obj/item/storage/box/matches,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"zg" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/academyaft)
+"zm" = (
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"zo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/metal{
+	pixel_x = 9;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
+/area/awaymission/academy/academyaft)
+"zp" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/vending/artvend,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"zu" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken7";
+	tag = "icon-wood-broken7"
+	},
+/area/awaymission/academy/classrooms)
+"zI" = (
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/awaymission/academy/academyaft)
+"zJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/chair/sofa{
+	dir = 8
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/classrooms)
+"zN" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/academyaft)
+"zU" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/closet/cardboard,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"Al" = (
+/obj/item/stack/sheet/metal,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/headmaster)
+"Aq" = (
+/obj/structure/kitchenspike,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/awaymission/academy/classrooms)
+"At" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/item/cigbutt,
+/obj/item/cigbutt{
+	pixel_x = 5;
+	pixel_y = 16
+	},
+/obj/item/cigbutt{
+	pixel_x = -13;
+	pixel_y = 19
+	},
+/obj/item/cigbutt{
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/obj/item/cigbutt{
+	pixel_x = 8;
+	pixel_y = 9
+	},
+/obj/item/cigbutt{
+	pixel_x = -9
+	},
+/obj/item/cigbutt{
+	pixel_x = -10;
+	pixel_y = 8
+	},
+/obj/item/cigbutt{
+	pixel_x = 6;
+	pixel_y = -2
+	},
+/obj/item/cigbutt{
+	pixel_x = -8;
+	pixel_y = -4
+	},
+/obj/item/cigbutt{
+	pixel_x = 5;
+	pixel_y = 7
+	},
+/obj/item/lighter/zippo{
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"Au" = (
+/obj/structure/computerframe,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"Av" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"AA" = (
+/obj/structure/toilet{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/item/reagent_containers/syringe/charcoal,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"AQ" = (
+/obj/machinery/light_construct{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/awaymission/academy/classrooms)
+"AY" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken6";
+	tag = "icon-wood-broken6"
+	},
+/area/awaymission/academy/classrooms)
+"AZ" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/awaymission/academy/classrooms)
+"Bl" = (
+/obj/structure/holohoop{
+	pixel_y = 21
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"Bz" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"BP" = (
+/obj/structure/closet,
+/obj/item/clothing/under/color/lightpurple,
+/obj/item/twohanded/staff,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"BT" = (
+/obj/structure/chair/comfy/red{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/classrooms)
+"Cb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/metal{
+	pixel_x = 9;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/academyaft)
+"Cn" = (
+/obj/item/grown/cotton,
+/obj/effect/decal/leaves,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/headmaster)
+"Cr" = (
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"Cw" = (
+/obj/item/stack/sheet/metal{
+	pixel_x = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/headmaster)
+"CG" = (
+/obj/structure/chair/sofa{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"CH" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/dresser,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/academyaft)
+"CN" = (
+/obj/structure/closet,
+/obj/item/clothing/under/color/purple,
+/obj/item/poster/random_contraband,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"CT" = (
+/obj/structure/table,
+/obj/item/ashtray/glass,
+/obj/item/clothing/mask/cigarette/robustgold{
+	pixel_x = 8;
+	pixel_y = 12
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/awaymission/academy/classrooms)
+"De" = (
+/obj/effect/decal/cleanable/blood{
+	basecolor = "cc1d00"
+	},
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	icon_state = "remains";
+	name = "Human remains"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/awaymission/academy/classrooms)
+"Dh" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"Do" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/awaymission/academy/academyaft)
+"DB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/academyaft)
+"Ec" = (
+/obj/structure/chair/comfy/red{
+	dir = 8
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/classrooms)
+"Ee" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/classrooms)
+"Ep" = (
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"EA" = (
+/obj/item/beach_ball/holoball{
+	pixel_y = 11
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"EB" = (
+/obj/structure/table/wood,
+/obj/item/clothing/mask/cigarette/medical_marijuana,
+/obj/item/clothing/mask/cigarette/medical_marijuana{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/classrooms)
+"EC" = (
+/obj/item/stack/sheet/metal{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/headmaster)
+"ED" = (
+/obj/item/mop/advanced,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"EK" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/item/stack/sheet/metal,
+/obj/structure/grille{
+	density = 0;
+	icon_state = "brokengrille"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"EQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/headmaster)
+"EY" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	pixel_x = 2;
+	pixel_y = -1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"Fc" = (
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/headmaster)
+"Fg" = (
+/obj/structure/closet,
+/obj/item/clothing/head/wizard/fake,
+/obj/item/clothing/suit/wizrobe/fake,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"Fk" = (
+/obj/machinery/smartfridge,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"Fq" = (
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/headmaster)
+"Fu" = (
+/obj/effect/decal/warning_stripes/northeast,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"FA" = (
+/obj/item/stack/sheet/wood{
+	pixel_x = 11;
+	pixel_y = 5
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/academy/headmaster)
+"Gc" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"Ge" = (
+/obj/structure/mineral_door/iron,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"Gg" = (
+/obj/structure/mirror{
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"Gh" = (
+/obj/item/stack/sheet/metal{
+	pixel_x = -10;
+	pixel_y = -6
+	},
+/obj/item/stack/sheet/metal,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/headmaster)
+"Gx" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/rag,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"GA" = (
+/obj/item/grown/sunflower,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/headmaster)
+"GG" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/snacks/beetsoup{
+	desc = "With the taste of execution";
+	name = "borsch";
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/food/drinks/britcup{
+	pixel_x = -3;
+	pixel_y = -2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"GN" = (
+/obj/item/stack/sheet/metal{
+	pixel_x = 9;
+	pixel_y = 11
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/headmaster)
+"GR" = (
+/obj/item/stack/sheet/metal{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/stack/sheet/metal,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/headmaster)
+"GS" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken5";
+	tag = "icon-wood-broken5"
+	},
+/area/awaymission/academy/classrooms)
+"GU" = (
+/obj/structure/janitorialcart,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"GV" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/item/stack/sheet/wood{
+	pixel_x = -5;
+	pixel_y = -6
+	},
+/obj/item/stack/sheet/wood{
+	pixel_x = 11
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/academyaft)
+"GZ" = (
+/obj/structure/computerframe,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"Hd" = (
+/obj/machinery/vending/dinnerware,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"Hg" = (
+/obj/machinery/light{
+	dir = 8;
+	icon_state = "tube1"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"Hh" = (
+/obj/structure/table,
+/obj/item/newspaper,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/awaymission/academy/classrooms)
+"Hn" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/machinery/light,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/academyaft)
+"Hz" = (
+/obj/structure/table/reinforced,
+/obj/item/stock_parts/capacitor,
+/obj/item/stock_parts/manipulator,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
+/area/awaymission/academy/classrooms)
+"HE" = (
+/obj/item/bodyanalyzer,
+/turf/simulated/floor/engine,
+/area/awaymission/academy/academyaft)
+"HH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/classrooms)
+"HV" = (
+/obj/structure/chair/stool{
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"Ie" = (
+/obj/structure/closet,
+/obj/item/storage/wallet/random,
+/obj/item/clothing/glasses/regular/hipster,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"Ig" = (
+/obj/item/weldingtool/mini,
+/obj/item/stack/sheet/metal{
+	pixel_x = 9;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/academyaft)
+"In" = (
+/obj/structure/decorative_structures/metal/statue/moon,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/headmaster)
+"Is" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/headmaster)
+"IC" = (
+/obj/structure/table/wood,
+/obj/item/folder/syndicate/red,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken7";
+	tag = "icon-wood-broken7"
+	},
+/area/awaymission/academy/academyaft)
+"IJ" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	pixel_x = 10;
+	pixel_y = 8
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/classrooms)
+"IN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/mineral_door/wood,
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
+"Jd" = (
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"Jo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/bottle/vermouth{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/classrooms)
+"Jr" = (
+/obj/item/stack/sheet/wood{
+	pixel_x = 11
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/academy/classrooms)
+"Jz" = (
+/obj/machinery/icemachine,
+/obj/effect/decal/cleanable/flour,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"JE" = (
+/obj/structure/sign/vacuum,
+/turf/simulated/wall/r_wall,
+/area/awaymission/academy/classrooms)
+"JH" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
+/area/awaymission/academy/classrooms)
+"JL" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/classrooms)
+"JW" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/tea,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/classrooms)
+"JY" = (
+/obj/structure/sign/nosmoking_1,
+/turf/simulated/wall,
+/area/awaymission/academy/classrooms)
+"Ka" = (
+/obj/structure/coatrack,
+/obj/item/clothing/head/bowlerhat{
+	pixel_x = 5;
+	pixel_y = 10
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
+"Kd" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/condiment/enzyme{
+	layer = 5
+	},
+/obj/item/stack/packageWrap,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/classrooms)
+"Kg" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/awaymission/academy/classrooms)
+"Kn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"Kp" = (
+/obj/structure/chair/sofa/right,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"KI" = (
+/obj/item/stack/sheet/wood{
+	pixel_y = -15
+	},
+/obj/item/stack/sheet/wood{
+	pixel_x = 12;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
+/area/awaymission/academy/academyaft)
+"KJ" = (
+/turf/simulated/floor/bluegrid,
+/area/awaymission/academy/classrooms)
+"KL" = (
+/obj/structure/grille{
+	density = 0;
+	icon_state = "brokengrille"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/academy/classrooms)
+"KM" = (
+/obj/item/grown/sunflower,
+/obj/effect/decal/ants,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/headmaster)
+"Lb" = (
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"Le" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/chair/stool{
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"Li" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/awaymission/academy/classrooms)
+"Lp" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/dropper,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"Lu" = (
+/obj/structure/flora/corn_stalk/alt_2,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/academyaft)
+"Lw" = (
+/obj/structure/closet,
+/obj/item/clothing/under/blackskirt,
+/obj/item/clothing/glasses/regular,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"Lz" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"LG" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/item/book/random,
+/turf/simulated/floor/engine,
+/area/awaymission/academy/academyaft)
+"LO" = (
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/awaymission/academy/classrooms)
+"LR" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/awaymission/academy/classrooms)
+"Mp" = (
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"Mw" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/awaymission/academy/classrooms)
+"My" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/awaymission/academy/academyaft)
+"MA" = (
+/obj/machinery/mecha_part_fabricator,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"MH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/filingcabinet/filingcabinet,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/awaymission/academy/classrooms)
+"MJ" = (
+/obj/structure/table/wood,
+/obj/item/clothing/mask/cigarette/cigar/cohiba,
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 8;
+	pixel_y = -2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/classrooms)
+"MN" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/table,
+/obj/item/trash/plate,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_y = 10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/awaymission/academy/classrooms)
+"MR" = (
+/obj/structure/toilet{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"Nb" = (
+/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/metal{
+	pixel_x = -8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"Nl" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/awaymission/academy/classrooms)
+"Nm" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"NJ" = (
+/obj/item/reagent_containers/food/drinks/bottle/wine,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"NO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/skeleton/head,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark";
+	tag = "icon-dark"
+	},
+/area/awaymission/academy/classrooms)
+"NP" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/bottle/cream,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/classrooms)
+"Of" = (
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"Ok" = (
+/obj/structure/mineral_door/iron,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/academyaft)
+"Oo" = (
+/obj/structure/sink{
+	dir = 8;
+	icon_state = "sink";
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"Ox" = (
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"OD" = (
+/obj/structure/bookcase,
+/obj/item/book/manual/detective,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/classrooms)
+"OI" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/prize_counter,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"OQ" = (
+/obj/item/card/id/prisoner/random,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"Pd" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/mineral_door/iron,
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/awaymission/academy/academyaft)
+"Pm" = (
+/obj/structure/table/wood,
+/obj/random/toolbox,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/academyaft)
+"Pu" = (
+/obj/machinery/vending/coffee/free,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/classrooms)
+"Pv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/mineral_door/iron,
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/awaymission/academy/academyaft)
+"Pz" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"PO" = (
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"PW" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+	pixel_x = 8;
+	pixel_y = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"Qb" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/awaymission/academy/classrooms)
+"Qm" = (
+/obj/item/stack/sheet/metal,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/headmaster)
+"Qp" = (
+/obj/item/stack/sheet/metal{
+	pixel_y = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/academy/headmaster)
+"Qr" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"Qy" = (
+/obj/machinery/photocopier,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/classrooms)
+"Qz" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/landmark{
+	name = "awaystart"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"Rh" = (
+/obj/structure/table/wood/poker,
+/obj/item/deck/cards{
+	pixel_x = 5
+	},
+/obj/item/dice{
+	pixel_x = -6;
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/classrooms)
+"Rj" = (
+/obj/machinery/light{
+	dir = 8;
+	icon_state = "tube1"
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/academy/academyaft)
+"Rk" = (
+/obj/machinery/light_construct,
+/obj/structure/reagent_dispensers/watertank/high,
+/turf/simulated/floor/plasteel{
+	icon_state = "green";
+	tag = "icon-green"
+	},
+/area/awaymission/academy/classrooms)
+"Rv" = (
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/awaymission/academy/classrooms)
+"RD" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/item/stack/sheet/metal{
+	pixel_x = 9;
+	pixel_y = 11
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/awaymission/academy/headmaster)
+"RE" = (
+/obj/structure/table,
+/obj/item/kitchen/rollingpin,
+/obj/item/kitchen/knife,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria";
+	tag = "icon-cafeteria (NORTHEAST)"
+	},
+/area/awaymission/academy/classrooms)
+"RG" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/headmaster)
+"RH" = (
+/obj/structure/table,
+/obj/item/candle,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"RI" = (
+/obj/structure/table,
+/obj/item/trash/can,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/awaymission/academy/classrooms)
+"RU" = (
+/obj/structure/chair/comfy/red,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/classrooms)
+"Sc" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/academyaft)
+"Sd" = (
+/obj/machinery/plantgenes,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/awaymission/academy/classrooms)
+"Se" = (
+/obj/structure/table/wood,
+/obj/random/figure,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/academyaft)
+"Sf" = (
+/obj/structure/table/reinforced,
+/obj/item/mmi/robotic_brain{
+	pixel_y = 10
+	},
+/obj/item/robotanalyzer,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"Sk" = (
+/obj/effect/decal/cleanable/flour,
+/obj/item/trash/waffles,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"Ss" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/awaymission/academy/classrooms)
+"Sz" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"SK" = (
+/obj/item/grown/cotton,
+/obj/effect/decal/leaves{
+	dir = 8
+	},
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/headmaster)
+"SM" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"SV" = (
+/obj/machinery/hydroponics/constructable,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/classrooms)
+"Tm" = (
+/obj/item/stack/sheet/metal{
+	pixel_x = -11
+	},
+/obj/item/stack/sheet/metal,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/headmaster)
+"Tt" = (
+/obj/structure/table,
+/obj/item/multitool,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"TA" = (
+/obj/structure/table,
+/obj/item/stack/packageWrap,
+/obj/item/hand_labeler,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"TI" = (
+/obj/structure/closet,
+/obj/item/storage/belt/soulstone,
+/obj/item/clothing/under/schoolgirl,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"Ui" = (
+/obj/structure/table,
+/obj/item/analyzer,
+/obj/item/assembly/igniter{
+	pixel_x = 10;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/awaymission/academy/classrooms)
+"Uo" = (
+/obj/structure/table/wood,
+/obj/item/folder{
+	pixel_x = 7;
+	pixel_y = 8
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/academy/classrooms)
+"Up" = (
+/obj/item/stack/cable_coil/random,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
+/area/awaymission/academy/classrooms)
+"Ut" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/light,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/academyaft)
+"UI" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"UO" = (
+/obj/effect/decal/cleanable/greenglow,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"UW" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3";
+	tag = "icon-wood-broken3"
+	},
+/area/awaymission/academy/academyaft)
+"Vc" = (
+/obj/item/stack/sheet/wood{
+	pixel_y = -8
+	},
+/obj/item/stack/sheet/wood{
+	pixel_y = -15
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/academyaft)
+"Vt" = (
+/obj/structure/foodcart,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/awaymission/academy/classrooms)
+"Vv" = (
+/obj/structure/computerframe,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"Vy" = (
+/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/metal,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/headmaster)
+"VO" = (
+/obj/machinery/cooker/deepfryer,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"VR" = (
+/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"VZ" = (
+/obj/machinery/slot_machine,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"We" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/awaymission/academy/classrooms)
+"Wf" = (
+/obj/item/stack/sheet/metal{
+	pixel_x = -6;
+	pixel_y = -6
+	},
+/obj/item/stack/sheet/metal{
+	pixel_x = 9;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/academyaft)
+"Wj" = (
+/obj/machinery/kitchen_machine/candy_maker,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"Wm" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/headmaster)
+"Wo" = (
+/obj/item/storage/firstaid/machine{
+	pixel_x = 13
+	},
+/turf/simulated/floor/bluegrid,
+/area/awaymission/academy/classrooms)
+"WD" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorscorched2"
+	},
+/area/awaymission/academy/academyaft)
+"WO" = (
+/obj/machinery/slot_machine,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"WR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/awaymission/academy/classrooms)
+"Xa" = (
+/obj/structure/glowshroom,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark";
+	tag = "icon-dark"
+	},
+/area/awaymission/academy/classrooms)
+"Xb" = (
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/effect/decal/cleanable/flour,
+/obj/item/reagent_containers/food/condiment/milk,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
+"Xh" = (
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"Xj" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/chair,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/awaymission/academy/classrooms)
+"Xq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/metal{
+	pixel_x = 9;
+	pixel_y = 11
+	},
+/obj/item/stack/sheet/wood{
+	pixel_x = -5;
+	pixel_y = -6
+	},
+/obj/item/stack/sheet/wood{
+	pixel_x = 12;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
+/area/awaymission/academy/academyaft)
+"Xt" = (
+/obj/item/cigbutt,
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	icon_state = "remains";
+	name = "Human remains"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "green";
+	tag = "icon-green"
+	},
+/area/awaymission/academy/classrooms)
+"XC" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"XF" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"XR" = (
+/obj/effect/decal/ants,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/headmaster)
+"Yb" = (
+/obj/effect/decal/cleanable/greenglow,
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
+/area/awaymission/academy/classrooms)
+"Yh" = (
+/obj/item/camera_assembly,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
+"Ym" = (
+/obj/item/stack/sheet/wood{
+	pixel_x = -5;
+	pixel_y = -6
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/academyaft)
+"Yq" = (
+/obj/item/stack/sheet/metal{
+	pixel_y = 10
+	},
+/obj/item/stack/sheet/metal{
+	pixel_x = -6;
+	pixel_y = -6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
+/area/awaymission/academy/classrooms)
+"Yr" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken";
+	tag = "icon-wood-broken"
+	},
+/area/awaymission/academy/classrooms)
+"Yz" = (
+/obj/structure/table,
+/obj/item/screwdriver{
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"YB" = (
+/obj/item/stack/sheet/wood{
+	pixel_x = 12
+	},
+/obj/item/stack/sheet/wood{
+	pixel_y = -15
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/academyaft)
+"YE" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/emp,
+/turf/simulated/floor/wood,
+/area/awaymission/academy/academyaft)
+"YP" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/academy/classrooms)
+"Za" = (
+/obj/item/stack/sheet/wood{
+	pixel_x = -5;
+	pixel_y = -6
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/academy/headmaster)
+"Zi" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-22";
+	tag = "icon-plant-22"
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/academy/classrooms)
+"Zs" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/warning_stripes/east,
+/obj/item/gun/projectile/revolver/russian,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"Zz" = (
+/obj/item/stack/sheet/wood{
+	pixel_x = -14;
+	pixel_y = -8
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/academy/headmaster)
+"ZH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/headmaster)
+"ZT" = (
+/obj/machinery/camera{
+	c_tag = "Virology Office";
+	dir = 8;
+	network = list("Medical","SS13")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
 
 (1,1,1) = {"
 aa
@@ -10151,8 +13152,8 @@ bs
 bs
 bs
 ez
-bs
-bs
+JE
+JE
 ez
 bs
 bs
@@ -10393,7 +13394,7 @@ aa
 aa
 aa
 aa
-bs
+JE
 bs
 ce
 cm
@@ -10794,9 +13795,9 @@ bB
 da
 bV
 bV
-cY
+rV
 bV
-dv
+nW
 bE
 eb
 et
@@ -11087,7 +14088,7 @@ hp
 hl
 hp
 gZ
-iI
+LG
 iJ
 iN
 iW
@@ -11199,7 +14200,7 @@ fC
 dY
 fW
 dv
-gn
+Yz
 du
 gA
 du
@@ -11209,7 +14210,7 @@ gZ
 ht
 iL
 hp
-hl
+sF
 hp
 hp
 hp
@@ -11347,7 +14348,7 @@ hN
 iC
 hl
 gZ
-iJ
+HE
 iJ
 iN
 iX
@@ -11455,13 +14456,13 @@ ek
 ek
 ek
 ei
-fi
+zp
 bE
 fI
 fZ
 dv
 dv
-gn
+Tt
 du
 gn
 gY
@@ -11568,15 +14569,15 @@ bF
 bW
 bW
 cs
-cA
-cA
-cP
+Nb
+Sf
+dv
 db
-dc
-dc
-dc
-dc
-dc
+dv
+dv
+og
+bV
+dv
 bE
 eh
 ei
@@ -11585,7 +14586,7 @@ eL
 eT
 ek
 ei
-fi
+OI
 bE
 fJ
 ga
@@ -11696,26 +14697,26 @@ aa
 bs
 bG
 bX
-bZ
-bZ
-cB
+cP
+Hz
+dm
 cM
-cQ
-dc
-dc
-dc
-dc
-dc
-dc
+dv
+Jd
+Xh
+Xh
+qP
+VR
+dv
 ew
-ei
-ei
+uB
+ek
 kH
 eM
 eU
 ek
 ei
-fi
+sH
 bE
 bE
 bE
@@ -11728,7 +14729,7 @@ bE
 gZ
 gZ
 iQ
-gZ
+wj
 gZ
 gZ
 gZ
@@ -11826,48 +14827,48 @@ aP
 bs
 bG
 bY
-bZ
-bZ
-bZ
-cM
 cQ
-dc
+dm
+Dh
 df
-ds
+JL
+nm
+SM
+Qb
 dU
-dc
-dc
-ew
-ei
-ei
+XF
+cN
+xF
+AZ
+ek
 kH
 ek
 ek
 ek
 ei
-fi
+qE
 bE
 fK
-dc
-dc
+Ee
+yt
 gt
-dc
-dc
-dc
-dc
+Jr
+yt
+sf
+ds
 fB
-hk
+Ox
 iR
-hk
+hV
+VZ
 fB
-ii
-ii
+Cr
 is
 ii
-is
+Oo
 ii
 is
-ii
+Bz
 gZ
 aa
 aa
@@ -11956,48 +14957,48 @@ aP
 bs
 bG
 bZ
-bZ
-bZ
-bZ
+cR
+JH
+Lp
 cM
-cQ
-dc
-dc
-dc
-dc
-dc
-dc
+Ep
+yJ
+hP
+KJ
+Au
+mr
+dv
 bE
-ei
-ei
+vs
+HV
 kH
 eL
-eT
+BT
 ek
 ei
 fE
 er
-dc
+Uo
 gb
-df
-ds
-gb
-df
-ds
+zu
+Yr
+zu
 dc
+dc
+Pu
 fB
-hl
+Pz
 iS
-hP
+hl
+ze
 fB
+Gg
+Of
+UO
 ii
 ii
-ii
-ii
-ii
-ii
-ii
-ii
+Of
+Bz
 gZ
 gZ
 iY
@@ -12085,49 +15086,49 @@ aP
 aa
 bs
 bG
-bZ
-bX
-bZ
-bZ
-cM
-cQ
-dc
-df
-ds
-df
-ds
-dc
+hP
+cB
+EY
+TA
+dm
+Ep
+YP
+Kg
+bB
+dp
+mr
+UI
 bE
 hB
-hE
+Le
 kI
-eM
-eU
-ek
+RU
+Rh
+wG
 ei
-ei
+Sz
 er
+wP
 dc
 dc
+um
+GS
+OD
 dc
-dc
-dc
-dc
-dc
-dc
+Zi
 fB
-hl
+Pz
 iS
-hQ
+hS
+TI
 fB
 ii
-ii
-ii
-ii
-ii
-ii
-ii
-ii
+fB
+Ge
+fB
+Ge
+fB
+Ge
 fB
 iO
 kh
@@ -12216,48 +15217,48 @@ aP
 bs
 bG
 ca
-bZ
-bZ
-bZ
-cM
-cQ
-dc
-dc
-dc
-dc
-dc
-dc
+dd
+Up
+dm
+Yb
+MA
+YP
+va
+Wo
+va
+mr
+dv
 bE
-ei
-ei
+vs
+HV
 kH
 ek
-ek
+Ec
 ek
 ei
-ei
+RH
 er
+mu
 dc
-gc
 dc
 kA
-dc
+AY
 gJ
 dc
-dc
+Qy
 fB
 hm
-iS
-hR
+Sc
+hl
+Lw
 fB
-ij
-ii
-it
-ii
-ii
-ii
-it
-ii
+zm
+fB
+Qz
+fB
+yv
+fB
+Nm
 fB
 jW
 kj
@@ -12345,18 +15346,18 @@ aa
 aa
 bs
 bG
-bZ
-bZ
-bZ
-bZ
-cM
-cQ
-dc
-df
-ds
-df
-ds
-dc
+cB
+wa
+Kn
+Qr
+nL
+dv
+Fu
+Mp
+Mp
+Mp
+rR
+og
 bE
 ej
 ex
@@ -12367,27 +15368,27 @@ ev
 ex
 fF
 er
+JW
 dc
-gc
 dc
 gu
-dc
+zu
 gK
 dc
-dc
+Qy
 fB
-hl
+Pz
 iS
 hS
+oD
 fB
-ii
-ii
+Ge
 fB
-io
 fB
-io
 fB
-io
+fB
+fB
+fB
 fB
 jR
 ki
@@ -12478,15 +15479,15 @@ bH
 bW
 bW
 cs
-cC
-cC
-cR
-dd
-dc
-dc
-dc
-dc
-dc
+Lb
+Yq
+og
+cr
+dv
+dv
+dv
+og
+Gc
 bE
 ei
 ei
@@ -12495,34 +15496,34 @@ eM
 eU
 ek
 ei
-fi
+zU
 bE
+rS
 dc
 dc
 dc
 dc
-dc
-dc
-dc
-dc
+xe
+Rv
+Qy
 fB
-hl
-iS
+GZ
+xg
 hT
+mN
 fB
-ik
-ii
+vc
+hU
+hU
+Rj
+hU
+YE
+IC
 fB
-iz
-fB
-iD
-fB
-iK
-fB
-gm
-fL
-fL
-fL
+CH
+zN
+zN
+zN
 fL
 fL
 fL
@@ -12625,29 +15626,29 @@ ek
 ek
 ek
 ei
-fi
+ui
 bE
 bE
 gh
 gC
 gC
 gB
-bE
+JY
 gO
-bE
+JY
 fB
-hn
+fB
 iT
+Pv
 fB
 fB
-fB
-io
-fB
-fB
-fB
-fB
-fB
-fB
+hU
+if
+if
+if
+if
+if
+wB
 fB
 jY
 fH
@@ -12724,18 +15725,18 @@ ah
 ah
 ah
 ab
-aT
+as
 aF
 aF
 aX
 bd
-aF
+gc
 aF
 as
-br
-br
+EQ
+GN
 bI
-br
+RG
 br
 br
 br
@@ -12748,8 +15749,8 @@ aF
 aF
 aF
 as
-ei
-ei
+Bl
+EA
 kH
 eL
 eT
@@ -12763,20 +15764,20 @@ fL
 fL
 gm
 fL
-fD
+zI
 fL
 fB
 fD
-iZ
+tp
+zI
 hU
 hU
 hU
-hU
-iu
-hU
-hU
+if
+mY
+if
 iE
-hU
+if
 hU
 fB
 gP
@@ -12862,7 +15863,7 @@ ah
 ah
 hx
 as
-br
+Tm
 bx
 bJ
 cb
@@ -12870,13 +15871,13 @@ br
 ct
 cD
 cL
-bx
-bJ
+Fc
+Fq
 br
 aF
 dB
-dB
-dB
+GA
+aF
 as
 ei
 ei
@@ -12884,24 +15885,24 @@ kH
 eM
 eU
 fe
-ex
+ev
 fG
-fH
-fH
+GV
+My
 gk
 fD
 fD
 gP
 fD
 fD
-fD
-fB
-fD
+zI
+hb
+zI
 iZ
+fD
+xR
+UW
 hU
-if
-if
-if
 if
 if
 if
@@ -12982,31 +15983,31 @@ as
 as
 as
 ah
-ah
+Ka
 ab
-aF
-aF
+ah
+ah
 ah
 ah
 be
 ah
 hy
 as
-br
-by
-bK
+Gh
+Al
+yb
 cc
 br
 ct
-cD
-br
+hR
+Qm
 by
 bK
 br
 aF
-dB
-dB
-dB
+GA
+KM
+aF
 as
 ei
 ei
@@ -13014,29 +16015,29 @@ kH
 ek
 ek
 ff
-ei
 ek
-fD
-fD
+uB
+Vc
+zI
 fD
 fD
 fD
 gQ
 fH
 gW
-fH
+My
 hr
-fH
+My
 jb
-hU
-hU
-hU
-hU
-hU
-hU
-hU
-hU
-hU
+fD
+fD
+fD
+fD
+fD
+fD
+fD
+fD
+fD
 jN
 hr
 jZ
@@ -13048,9 +16049,9 @@ fD
 fD
 gQ
 fH
-fH
+My
 lc
-ld
+xK
 ld
 ld
 le
@@ -13112,9 +16113,9 @@ aE
 aJ
 as
 ah
-ah
+cu
 aQ
-ah
+cu
 ah
 ah
 aY
@@ -13122,22 +16123,22 @@ bf
 ah
 hy
 as
+Is
+EQ
+EQ
+ZH
+xV
+br
+wW
+wW
 br
 br
 br
-br
-br
-br
-br
-br
-br
-br
-br
+In
 aF
+XR
 aF
-aF
-aF
-as
+tq
 ei
 ei
 kH
@@ -13147,16 +16148,16 @@ ff
 ei
 ei
 fB
-fL
+vG
 fL
 fL
 fL
 fL
 fL
 gm
-fL
+so
 fB
-fD
+zg
 ja
 fH
 fH
@@ -13167,7 +16168,7 @@ fH
 fH
 fH
 fH
-gk
+Hn
 fB
 gP
 fD
@@ -13238,20 +16239,21 @@ ah
 am
 at
 az
-aF
+bg
 aK
 as
 aO
 aV
 aZ
-bg
-bg
+aV
+aV
 bp
 eB
 eE
 aV
 hz
 hA
+dK
 aV
 aV
 aV
@@ -13265,11 +16267,10 @@ aV
 aV
 aV
 aV
-aV
-aV
-aV
+dK
+IN
 hC
-hE
+uw
 kK
 kQ
 kR
@@ -13277,16 +16278,16 @@ fh
 hE
 hE
 kT
-kU
+nI
 kU
 kU
 kU
 kU
 kU
 ha
-kU
+DB
 kT
-kW
+dC
 jc
 kW
 kW
@@ -13297,7 +16298,7 @@ kW
 kW
 kW
 kW
-kW
+Ut
 kT
 ka
 kW
@@ -13368,21 +16369,21 @@ ah
 al
 as
 aA
-aF
-aF
+aU
+bg
 as
 ah
 ah
 ab
-aF
-aU
+ah
+am
 ao
 ba
 bh
 bk
-ao
+dD
 bq
-ao
+dD
 ao
 ao
 ao
@@ -13396,40 +16397,40 @@ ao
 ao
 ao
 ao
-ao
-ao
-ev
-ex
+dD
+yj
+Ss
+ng
 eN
 ev
 ev
 fg
-ei
 ek
-fD
-fD
+uB
+YB
+zI
 fD
 fD
 fD
 fD
 fD
 gP
-fD
+zI
 hb
-fD
+zI
 iZ
-hU
-hU
-hU
-hU
-hU
-hU
-hU
-hU
-hU
-hU
+fD
+fD
+fD
+fD
+fD
+fD
+fD
+fD
+fD
+zI
 hb
-gP
+Do
 fD
 ji
 hl
@@ -13438,9 +16439,9 @@ fD
 fD
 fD
 fD
-fD
+zI
 jO
-jT
+ta
 jT
 jT
 jX
@@ -13502,62 +16503,62 @@ aG
 aL
 as
 am
-ao
+dD
 aR
-ao
+dD
 au
 ah
 bb
 bi
 bl
-aF
-as
-br
-br
-br
-br
 ah
-cu
+as
+Wm
+mQ
+Cw
+wW
+ah
+ah
 an
 br
+hX
+mQ
 br
-br
-br
+nd
 aF
 aF
-aF
-aF
-as
-ei
-ei
-kH
-eL
+FA
+tq
+Kp
+uQ
+Jo
+EB
 eT
 ff
-ei
 ek
-fD
-fD
+uB
+xZ
+zI
 fD
 fD
 fD
 fD
 fD
 gP
-fD
-fB
-fD
+zI
+hb
+zI
 iZ
+fD
 hU
-if
-if
-if
-if
-if
-if
-if
-if
 hU
+iK
+if
+if
+Lu
+pa
+if
+xR
 fB
 gP
 fD
@@ -13634,38 +16635,38 @@ as
 an
 ah
 ab
-aF
-aF
 ah
 ah
 ah
 ah
-aF
+ah
+ah
+ah
 as
-br
-bx
-bJ
-br
+rD
+GR
+wn
+RG
 ah
 ah
 an
-br
-bx
-bJ
-br
+hW
+hY
+ry
+wW
 aF
-dB
-dB
-dB
+uU
+Cn
+Za
 as
-ei
-ei
-kH
-eM
+wk
+rA
+HH
+MJ
 eU
 ff
 ei
-ei
+XC
 fB
 fM
 fL
@@ -13673,20 +16674,20 @@ fL
 gv
 fL
 fL
-gP
+Do
 fL
 fB
 fD
-iZ
+tp
+zI
 hU
 hU
 hU
-hU
-iv
-hU
-hU
-hU
-hU
+if
+mY
+wp
+pa
+if
 hU
 fB
 gP
@@ -13773,29 +16774,29 @@ ah
 bn
 as
 iB
-by
-bK
+Vy
+wO
 br
 ah
-cu
+ah
 an
-br
-by
-bK
-br
+hX
+hZ
+yx
+wW
 aF
-dB
-dB
-dB
+Cn
+SK
+vv
 as
-ei
-ei
-kH
-ek
+wk
+PW
+ub
+IJ
 ek
 ff
 ei
-ei
+vT
 bE
 bE
 bE
@@ -13806,18 +16807,18 @@ bE
 hh
 bE
 fB
-hk
-iR
+fB
+Pd
+Ok
 fB
 fB
-fB
-io
-fB
-fB
-fB
-fB
-fB
-fB
+hU
+if
+if
+if
+if
+if
+uj
 fB
 gP
 fD
@@ -13902,30 +16903,30 @@ bj
 bm
 bo
 as
-br
+EC
+rP
+pN
+wW
+cu
+ah
+ey
 br
 bL
 br
-ah
-ah
-an
-br
-bL
-br
-br
+wW
 aF
-aF
-aF
-aF
+Zz
+tv
+un
 as
-ei
-ei
-kF
+ws
+CG
+zJ
 eO
-ei
-fi
-ei
-ei
+uB
+Nl
+ED
+GU
 bE
 fN
 gg
@@ -13936,24 +16937,24 @@ gg
 hg
 gg
 fB
-hl
-iS
+Vv
+iR
 hV
+BP
 fB
-ii
-ii
+zI
+hU
+hU
+pS
+hU
+Se
+Pm
 fB
-iA
-fB
-iA
-fB
-iA
-fB
-gm
-fL
-fL
-fL
-fL
+CH
+zN
+zN
+zN
+zN
 fL
 fL
 fL
@@ -14066,18 +17067,18 @@ gD
 hj
 gg
 fB
-hl
+Pz
 iS
-hW
+hl
+Ie
 fB
-ii
-ii
+Ge
 fB
-io
 fB
-io
 fB
-io
+fB
+fB
+fB
 fB
 kg
 ku
@@ -14165,7 +17166,7 @@ aa
 aa
 ab
 bM
-cd
+sx
 cl
 cd
 bO
@@ -14174,14 +17175,14 @@ cT
 as
 dh
 dt
-dt
-dt
-dt
-dt
+nX
+lV
+sM
+Sd
 em
 bE
-kL
-eC
+xS
+pX
 eC
 fj
 eC
@@ -14193,21 +17194,21 @@ gg
 gg
 dg
 gL
-gG
+CT
 gL
 fB
 hm
 iS
-hX
+sF
+Fg
 fB
-ij
 ii
-iw
-ii
-ii
-ii
-iw
-ii
+fB
+MR
+fB
+AA
+fB
+os
 fB
 kd
 kk
@@ -14295,7 +17296,7 @@ aa
 aa
 ab
 bP
-cf
+RD
 cq
 cf
 cI
@@ -14303,19 +17304,19 @@ cl
 cd
 as
 di
-du
+iw
 dv
-du
 dv
-du
+vb
+dv
 en
 bE
 kL
 eC
-eC
+wE
 fj
 fo
-eC
+fo
 bE
 bz
 gj
@@ -14323,26 +17324,26 @@ gg
 gg
 gE
 gL
-gG
+Ui
 gL
 fB
-hl
+Pz
 iS
-hY
+sF
+CN
 fB
 ii
-ii
-ii
-ii
-ii
-ii
-ii
-ii
+fB
+Ge
+fB
+Ge
+fB
+Ge
 fB
 iU
 kz
 jl
-kz
+WD
 jx
 gZ
 gZ
@@ -14424,49 +17425,49 @@ ab
 aP
 aP
 ab
-bO
-cd
+yB
+Qp
 cn
 cd
-cl
+sU
 cd
 cl
 as
 dj
 dv
-dv
-dv
-dv
-dv
+PO
+Mw
+iA
+wz
 en
-bE
-kL
-eC
-eC
+LR
+Xj
+Hh
+eX
 fj
 fp
-eC
+RI
 bE
 bz
-gg
-gg
-gg
+MH
+Li
+Li
 gG
 gL
 gT
 gL
 fB
+Pz
+Sc
 hl
-iS
-hZ
+pz
 fB
+Gg
+Hg
 ii
 ii
-ii
-ii
-ii
-ii
-ii
+qQ
+Hg
 ii
 gZ
 gZ
@@ -14564,24 +17565,24 @@ cU
 as
 dk
 jM
-dv
-dv
-dv
-dv
-en
-bE
+dL
+dL
+dL
+dL
+Xt
+At
 kO
 eP
 eX
 fj
 fq
-eC
+fq
 bE
 kv
-cA
-cA
-cA
-cA
+nr
+nr
+WR
+nr
 cA
 cA
 cA
@@ -14589,13 +17590,13 @@ fB
 ho
 jd
 hn
+WO
 fB
 ii
-ii
 jG
-ii
+Yh
 jG
-ii
+ZT
 jG
 ii
 gZ
@@ -14694,12 +17695,12 @@ cV
 as
 di
 du
-dv
-du
-dv
-dv
+dL
+SV
+dL
+Ep
 en
-bE
+KL
 kN
 eC
 eC
@@ -14822,14 +17823,14 @@ ci
 ci
 cW
 as
-di
+ij
 dv
-dv
+iA
 dI
-dv
+wz
 dV
-en
-bE
+Rk
+qm
 kP
 eC
 eD
@@ -14841,7 +17842,7 @@ gd
 gq
 gH
 gM
-gd
+Zs
 gS
 bs
 bs
@@ -14952,19 +17953,19 @@ bT
 cg
 bT
 as
-di
+ik
 dv
-dv
-dv
-dv
-dv
-dv
+dL
+dL
+dL
+Ep
+LO
 ew
 eC
 eC
-eC
-fj
-eC
+eD
+MN
+eX
 eC
 bE
 fS
@@ -15080,15 +18081,15 @@ bT
 bT
 bS
 bT
-bT
+ne
 as
-dj
-dv
-dC
-dJ
+io
+iz
 dL
-dv
-dv
+dL
+dL
+dL
+LO
 ew
 eC
 eC
@@ -15099,7 +18100,7 @@ eC
 bE
 fT
 dv
-dv
+OQ
 gy
 bs
 bs
@@ -15110,8 +18111,8 @@ hp
 jk
 ia
 hp
-hl
-hl
+Wf
+Cb
 hp
 ia
 hl
@@ -15212,20 +18213,20 @@ cp
 ch
 ab
 ab
-di
+it
+iA
 dv
-dD
-dK
+dv
 dN
 dW
 eo
 bE
-eC
+Vt
 eC
 eC
 fj
 eC
-eC
+mn
 bE
 dv
 dv
@@ -15239,11 +18240,11 @@ gZ
 hF
 jh
 ib
-hp
-hp
-hp
-hp
-hl
+rn
+uI
+nb
+Xq
+Ym
 hl
 hp
 iG
@@ -15343,21 +18344,21 @@ ab
 ab
 bs
 dl
-dw
+iD
 dw
 dw
 dP
-dw
+AQ
 ep
 bE
+EK
 eF
-eF
-eF
+mz
 fx
-eF
-eF
+Gx
+GG
 bE
-dv
+fU
 dv
 bs
 bs
@@ -15370,10 +18371,10 @@ hM
 lp
 hp
 hp
-hp
-hp
-hp
-hp
+KI
+rn
+nb
+zo
 hp
 hp
 gZ
@@ -15475,19 +18476,19 @@ bs
 bE
 bE
 dE
-bE
+Fk
 dO
 bE
 bE
 bE
-eG
-eG
+bB
+uv
 eG
 fw
 eG
-eG
-bE
-fU
+NJ
+Hd
+bs
 bs
 bs
 aP
@@ -15503,9 +18504,9 @@ lr
 lt
 lv
 hp
-hp
-hp
-hp
+nb
+zo
+rk
 gZ
 iM
 iJ
@@ -15602,21 +18603,21 @@ aa
 aa
 aa
 bs
-dm
-dm
-dm
-dm
+iu
+sd
+We
+We
 dT
-dX
-dX
 bE
+dX
+Wj
+yM
+RE
+Kd
+NP
+qa
 eG
-eG
-eG
-fw
-eG
-eG
-bE
+Jz
 bs
 bs
 aP
@@ -15634,7 +18635,7 @@ hc
 ls
 hc
 hp
-hl
+Ig
 iF
 gZ
 gZ
@@ -15732,21 +18733,21 @@ aa
 aa
 aa
 bs
-dm
-dm
+iv
+Xa
 ky
-dm
+NO
 dQ
 ee
-ee
-ey
-eV
+Lz
+xT
+Av
 eV
 eV
 fy
 eG
-eG
-bs
+Sk
+Xb
 bs
 aP
 aa
@@ -15863,21 +18864,21 @@ aa
 aa
 bs
 dn
-dm
-dm
-dm
-dm
-dm
-dm
+tr
+mD
+sQ
+De
 bE
+yA
 eG
+VO
 eQ
 eY
 fl
 fr
+uA
 bs
-bs
-aP
+oh
 aP
 aP
 aP
@@ -15993,11 +18994,12 @@ aa
 aa
 bs
 bs
-dm
+sZ
 dF
-dm
+Aq
 dR
-dR
+bs
+eq
 eq
 bs
 bs
@@ -16005,8 +19007,7 @@ bs
 bs
 bs
 bs
-bs
-aP
+oh
 aa
 aa
 aa
