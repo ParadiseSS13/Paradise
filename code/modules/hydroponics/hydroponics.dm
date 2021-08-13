@@ -879,7 +879,7 @@
 		adjustWeeds(-10) //Has a side effect of cleaning up those nasty weeds
 		update_icon()
 	else if(istype(O, /obj/item/pen) && myseed)
-		myseed.variant_prompt(user, src) // adj parameter makes Adjacent use the tray instead of the seed (which would always fail)
+		myseed.variant_prompt(user, src)
 	else
 		return ..()
 

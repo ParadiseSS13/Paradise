@@ -334,11 +334,19 @@
 
 
 // adj parameter changes what Adjacent is called from, such as the gene modder or a tray
-/obj/item/seeds/proc/variant_prompt(mob/user, obj/item/adj = src)
+/obj/item/seeds/proc/variant_prompt(mob/user, obj/item/container = null)
 	var/V = input(user, "Choose variant name:", "Plant Variant Naming", variant) as text|null
-	if(!adj.Adjacent(user) || isnull(V))
+	if(isnull(V)) // Did the user cancel?
 		return
-	variant = copytext(sanitize(html_encode(trim(V))), 1, 64)
+	if(container)
+		if(loc != container) // Was the seed removed from the container?
+			return
+		if(!container.Adjacent(user)) // No remote renaming
+			return
+	else
+		if(!Adjacent(user)) // No remote renaming
+			return
+	variant = copytext(sanitize(html_encode(trim(V))), 1, 64) // Sanitization must happen after null check because it converts nulls to empty strings
 	if(variant == "")
 		variant = null
 	to_chat(user, "<span class='notice'>You [variant ? "change" : "remove"] the [plantname]'s variant designation.</span>")
