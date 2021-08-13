@@ -412,7 +412,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
 		return
 	var/local_damage = brute_dam + damage
-	if(damage > 15 && local_damage > 30 && prob(damage) && !is_robotic())
+	if(damage > 15 && local_damage > 30 && prob(damage))
 		cause_internal_bleeding()
 
 // new damage icon system
@@ -651,10 +651,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/fix_internal_bleeding()
 	if(is_robotic())
-		return FALSE
+		return
 	status &= ~ORGAN_INT_BLEEDING
 	perma_injury = 0
-	return TRUE
 
 /obj/item/organ/external/robotize(company, make_tough = 0, convert_all = 1)
 	..()
