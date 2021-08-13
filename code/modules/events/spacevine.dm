@@ -274,7 +274,7 @@
 	// Bust through windows or other stuff blocking the way
 	if(!target.Enter(holder))
 		for(var/atom/movable/AM in target)
-			if(istype(AM, /obj/structure/spacevine) || !AM.density)
+			if(!AM.density || isvineimmune(AM))
 				continue
 			AM.ex_act(severity)
 	target.ex_act(severity) // vine immunity handled at /mob/ex_act
@@ -697,8 +697,10 @@
 		. = ..()
 
 /proc/isvineimmune(atom/A)
-	. = FALSE
 	if(isliving(A))
 		var/mob/living/M = A
 		if(("vines" in M.faction) || ("plants" in M.faction))
-			. = TRUE
+			return TRUE
+	else if(istype(A, /obj/structure/spacevine) || istype(A, /obj/structure/alien/resin/flower_bud_enemy))
+		return TRUE
+	return FALSE
