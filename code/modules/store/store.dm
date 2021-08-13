@@ -37,7 +37,7 @@ GLOBAL_DATUM_INIT(centcomm_store, /datum/store, new())
 		return 0
 	mind.initial_account.money -= amount
 	var/datum/transaction/T = new()
-	T.target_name = "[command_name()] Merchandising"
+	T.target_name = "NAS Trurl Merchandising"
 	T.purpose = "Purchase of [item.name]"
 	T.amount = -amount
 	T.date = GLOB.current_date_string

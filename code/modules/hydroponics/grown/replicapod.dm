@@ -58,7 +58,7 @@
 	var/obj/machinery/hydroponics/parent = loc
 	var/make_podman = 0
 	var/ckey_holder = null
-	if(config.revival_pod_plants)
+	if(GLOB.configuration.general.enable_revival_pod_plants)
 		if(ckey)
 			for(var/mob/M in GLOB.player_list)
 				if(isobserver(M))

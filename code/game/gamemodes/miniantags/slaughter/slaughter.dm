@@ -92,7 +92,7 @@
 			mind.objectives += fluffObjective
 			to_chat(src, "<B>Objective #[1]</B>: [objective.explanation_text]")
 			to_chat(src, "<B>Objective #[2]</B>: [fluffObjective.explanation_text]")
-		to_chat(src, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Slaughter_Demon)</span>")
+		to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)</span>")
 
 
 /obj/effect/decal/cleanable/blood/innards
@@ -167,6 +167,8 @@
 		if(!demon_candidates.len)
 			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
 			qdel(src)
+			return
+		if(QDELETED(src)) // Just in case
 			return
 		var/mob/M = pick(demon_candidates)
 		var/mob/living/simple_animal/slaughter/cult/S = src
