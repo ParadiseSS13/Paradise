@@ -339,14 +339,10 @@
 	var/V = input(user, "Choose variant name:", "Plant Variant Naming", variant) as text|null
 	if(isnull(V)) // Did the user cancel?
 		return
-	if(container)
-		if(loc != container) // Was the seed removed from the container?
-			return
-		if(!container.Adjacent(user)) // No remote renaming
-			return
-	else
-		if(!Adjacent(user)) // No remote renaming
-			return
+	if(container && (loc != container)) // Was the seed removed from the container, if there is a container?
+		return
+	if(!(container ? container : src).Adjacent(user)) // Is the user next to the seed/container?
+		return
 	variant = copytext(sanitize(html_encode(trim(V))), 1, 64) // Sanitization must happen after null check because it converts nulls to empty strings
 	if(variant == "")
 		variant = null
