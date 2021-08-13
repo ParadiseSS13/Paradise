@@ -24112,6 +24112,9 @@
 	},
 /obj/structure/closet/wardrobe/atmospherics_yellow,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/fireaxecabinet{
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
