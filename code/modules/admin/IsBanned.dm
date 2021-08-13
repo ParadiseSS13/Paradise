@@ -97,10 +97,9 @@
 			qdel(exist_query)
 		else
 			if(!exist_query.NextRow()) // If there isnt a row, they aint been seen before
-				if(GLOB.panic_bunker_enabled)
+				if(SSqueue && SSqueue.queue_enabled && (length(GLOB.clients) > SSqueue.queue_threshold) && !(ckey in SSqueue.queue_bypass_list)) // To the person who tells me in code review "Oh you should use ?. here". No. That logic isnt appropriate here. It needs a dedicated null check due to the length comparison.
 					qdel(exist_query)
-					var/threshold = GLOB.configuration.general.panic_bunker_threshold
-					return list("reason" = "panic bunker", "desc" = "Server is not accepting connections from never-before-seen players until player count is less than [threshold]. Please try again later.")
+					return list("reason" = "server queue", "desc" = "You seem to have managed to skip the server queue, possibly due to connecting during a restart. Please reconnect in 10 minutes. If you still cant connect, please inform the server host.")
 
 		qdel(exist_query)
 

@@ -379,17 +379,6 @@
 		if(M.client)
 			playercount += 1
 
-	// Update the state of the panic bunker based on current playercount
-	var/threshold = GLOB.configuration.general.panic_bunker_threshold
-
-	if((playercount > threshold) && (GLOB.panic_bunker_enabled == FALSE))
-		GLOB.panic_bunker_enabled = TRUE
-		message_admins("Panic bunker has been automatically enabled due to playercount rising above [threshold]")
-
-	if((playercount < threshold) && (GLOB.panic_bunker_enabled == TRUE))
-		GLOB.panic_bunker_enabled = FALSE
-		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
-
 	// Tell clients about active testmerges
 	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
 		to_chat(src, GLOB.revision_info.get_testmerge_chatmessage(TRUE))

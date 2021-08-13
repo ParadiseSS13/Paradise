@@ -301,8 +301,6 @@ allow_character_metadata = true
 lobby_time = 240
 # Forbid people without a BYOND account joining the server
 guest_ban = true
-# Player threshold before the automatic panic bunker engages
-panic_bunker_threshold = 150
 # Allow players to use antagHUD?
 allow_antag_hud = true
 # Forbid players from rejoining if they use antag hud
