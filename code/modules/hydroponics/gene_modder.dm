@@ -407,6 +407,7 @@
 			return
 		seed.variant = null
 		seed.apply_variant_name()
+		to_chat(usr, "<span class='notice'>You remove the [seed.plantname]'s variant designation.</span>")
 
 	interact(usr)
 
