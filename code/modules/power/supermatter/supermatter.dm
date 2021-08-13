@@ -730,7 +730,20 @@
 		return
 	if(moveable && default_unfasten_wrench(user, I, time = 20))
 		return
-	if(user.drop_item())
+	if(istype(I, /obj/item/scalpel/supermatter))
+		var/obj/item/scalpel/supermatter/scalpel = I
+		to_chat(user, "<span class='notice'>You carefully begin to scrape [src] with [I]...</span>")
+		if(I.use_tool(src, user, 10 SECONDS, volume = 100))
+			if(scalpel.uses_left)
+				to_chat(user, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
+				new /obj/item/nuke_core/supermatter_sliver(drop_location())
+				matter_power += 800
+				scalpel.uses_left--
+				if(!scalpel.uses_left)
+					to_chat(user, "<span class='boldwarning'>A tiny piece of [I] falls off, rendering it useless!</span>")
+			else
+				to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
+	else if(user.drop_item())
 		user.visible_message("<span class='danger'>As [user] touches [src] with \a [I], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch [src] with [I], and everything suddenly goes silent.</span>\n<span class='notice'>[I] flashes into dust as you flinch away from [src].</span>",\
 			"<span class='italics'>Everything suddenly goes silent.</span>")
