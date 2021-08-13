@@ -94,7 +94,7 @@
 		CS.randomise()
 		CS.real_name = random_name(CS.gender) // Pick a name
 		CS.valid_save = TRUE
-		CS.save()
+		CS.save(C)
 		C.prefs.active_character = C.prefs.character_saves[1] // Set slot 1 as their active
 		C.prefs.default_slot = 1
 		C.prefs.save_preferences(C)
