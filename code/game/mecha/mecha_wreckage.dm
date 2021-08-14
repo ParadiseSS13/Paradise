@@ -128,6 +128,11 @@
 	name = "\improper Marauder wreckage"
 	icon_state = "marauder-broken"
 
+/obj/structure/mecha_wreckage/ares
+	name = "\improper Ares wreckage"
+	icon_state = "ares-broken"
+	desc = "The truth is you lost an expensive piece of Nanotrasen-issue equipment. That suit is going to come out of your pay, and you will remain in this corporation until you are five hundred and ten years old, which is the number of years it will take for you to pay for an Ares Biohazard Containment Exosuit you have lost!"
+
 /obj/structure/mecha_wreckage/mauler
 	name = "\improper Mauler wreckage"
 	icon_state = "mauler-broken"

@@ -12,6 +12,10 @@
 	var/list/altitems = list()
 	var/flags = 0
 	var/location_override
+	/// Do we have a special item we give to somewhen when they get this objective?
+	var/special_equipment = null
+	/// If a steal objective has forbidden jobs, and the forbidden jobs would not be in the possession of this item, set this to false
+	var/job_possession = TRUE
 
 /datum/theft_objective/proc/check_completion(datum/mind/owner)
 	if(!owner.current)
@@ -137,6 +141,20 @@
 	typepath = /obj/item/clothing/gloves/color/black/krav_maga/sec
 	protected_jobs = list("Head Of Security", "Warden")
 	location_override = "the Warden's Office"
+
+/datum/theft_objective/supermatter_sliver
+	name = "a supermatter sliver"
+	typepath = /obj/item/nuke_core/supermatter_sliver
+	protected_jobs = list("Chief Engineer", "Engineer", "Atmospheric Technician") //Unlike other steal objectives, all jobs in the department have easy access, and would not be noticed at all stealing this
+	location_override = "Engineering. You can use the box and instructions provided to harvest the sliver"
+	special_equipment = /obj/item/storage/box/syndie_kit/supermatter
+	job_possession = FALSE //The CE / engineers / atmos techs do not carry around supermater slivers.
+
+/datum/theft_objective/plutonium_core
+	name = "the plutonium core from the stations nuclear device"
+	typepath = /obj/item/nuke_core/plutonium
+	location_override = "the Vault. You can use the box and instructions provided to remove the core, with some extra tools"
+	special_equipment = /obj/item/storage/box/syndie_kit/nuke
 
 /datum/theft_objective/number
 	var/min=0
