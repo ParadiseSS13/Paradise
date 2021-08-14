@@ -196,6 +196,10 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
+	var/turf/T = loc
+	if(T.density) //No, you should not be able to get free air from walls
+		return
+
 	if(!node)
 		on = 0
 

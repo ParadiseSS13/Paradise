@@ -132,15 +132,15 @@
 						msg="Task #[count] completed! "
 				if(pay>0)
 					if(M.mind.initial_account)
-						M.mind.initial_account.credit(pay, "Payment", "\[CLASSIFIED\] Terminal #[rand(111,333)]", "[command_name()] Payroll")
+						M.mind.initial_account.credit(pay, "Payment", "\[CLASSIFIED\] Terminal #[rand(111,333)]", "NAS Trurl Payroll")
 						msg += "You have been sent the $[pay], as agreed."
 					else
 						msg += "However, we were unable to send you the $[pay] you're entitled."
 					if(useMS && P)
-						useMS.send_pda_message("[P.owner]", "[command_name()] Payroll", msg)
+						useMS.send_pda_message("[P.owner]", "NAS Trurl Payroll", msg)
 
 						var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
-						PM.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
+						PM.notify("<b>Message from NAS Trurl (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
 					break
 
 /datum/game_mode/proc/check_finished() //to be called by ticker
@@ -510,7 +510,7 @@
 
 /datum/game_mode/proc/send_station_goals_message()
 	var/message_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
-	message_text += "<h3>[command_name()] Orders</h3></div><hr>"
+	message_text += "<h3>NAS Trurl Orders</h3></div><hr>"
 	message_text += "<b>Special Orders for [station_name()]:</b><br><br>"
 
 	for(var/datum/station_goal/G in station_goals)
@@ -518,7 +518,7 @@
 		message_text += G.get_report()
 		message_text += "<hr>"
 
-	print_command_report(message_text, "[command_name()] Orders", FALSE)
+	print_command_report(message_text, "NAS Trurl Orders", FALSE)
 
 /datum/game_mode/proc/declare_station_goal_completion()
 	for(var/V in station_goals)

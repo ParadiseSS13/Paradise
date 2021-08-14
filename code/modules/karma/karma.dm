@@ -160,21 +160,19 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	if(!can_give_karma_to_mob(M))
 		return // Check again, just in case things changed while the alert box was up
 
-	M.client.karma++
 	to_chat(usr, "Good karma spent on [M.name].")
 	client.karma_spent = TRUE
 	GLOB.karma_spenders += ckey
 
 	var/special_role = "None"
 	var/assigned_role = "None"
-	var/karma_diary = file("[GLOB.log_directory]/karma.log")
 	if(M.mind)
 		if(M.mind.special_role)
 			special_role = M.mind.special_role
 		if(M.mind.assigned_role)
 			assigned_role = M.mind.assigned_role
-	// AA TODO: Make this use proper RUSTG logging. Why is this a normal file write these are so expensive aaaaaaaaa
-	karma_diary << "[M.name] ([M.key]) [assigned_role]/[special_role]: [M.client.karma] - [time2text(world.timeofday, "hh:mm:ss")] given by [key]"
+
+	rustg_log_write("[GLOB.log_directory]/karma.log", "Karma awarded to [M.name] ([M.key]) (Role: [assigned_role] | Special: [special_role]) - Awarded by [ckey]")
 
 	sql_report_karma(src, M)
 

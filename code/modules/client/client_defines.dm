@@ -56,7 +56,6 @@
 
 	var/global/obj/screen/click_catcher/void
 
-	var/karma = 0
 	var/karma_spent = 0
 	var/karma_tab = 0
 

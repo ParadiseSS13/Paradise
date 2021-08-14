@@ -329,7 +329,7 @@
 				//Hilariously enough, running into a closet should make you get hit the hardest.
 				var/mob/living/carbon/human/H = mob
 				H.hallucination += max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1))))
-			var/rads = (DETONATION_RADS * (sqrt(1 / (get_dist(L, src) + 1)) * sqrt(power / 5))) / (RAD_DOSAGE_MULTIPLIER * 0.25)
+			var/rads = DETONATION_RADS * sqrt(1 / (get_dist(L, src) + 1))
 			L.rad_act(rads)
 
 	var/turf/T = get_turf(src)
@@ -542,7 +542,7 @@
 			l.hallucination += power * hallucination_power * D
 			l.hallucination = clamp(l.hallucination, 0, 200)
 	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
-		var/rads = ((power / 10) * sqrt( 1 / max(get_dist(l, src), 1) )) / RAD_DOSAGE_MULTIPLIER //RAD_DOSAGE_MULTIPLIER is used so that the SM doesn't absolutely murder you with rads
+		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src), 1) )
 		l.rad_act(rads)
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
@@ -730,7 +730,20 @@
 		return
 	if(moveable && default_unfasten_wrench(user, I, time = 20))
 		return
-	if(user.drop_item())
+	if(istype(I, /obj/item/scalpel/supermatter))
+		var/obj/item/scalpel/supermatter/scalpel = I
+		to_chat(user, "<span class='notice'>You carefully begin to scrape [src] with [I]...</span>")
+		if(I.use_tool(src, user, 10 SECONDS, volume = 100))
+			if(scalpel.uses_left)
+				to_chat(user, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
+				new /obj/item/nuke_core/supermatter_sliver(drop_location())
+				matter_power += 800
+				scalpel.uses_left--
+				if(!scalpel.uses_left)
+					to_chat(user, "<span class='boldwarning'>A tiny piece of [I] falls off, rendering it useless!</span>")
+			else
+				to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
+	else if(user.drop_item())
 		user.visible_message("<span class='danger'>As [user] touches [src] with \a [I], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch [src] with [I], and everything suddenly goes silent.</span>\n<span class='notice'>[I] flashes into dust as you flinch away from [src].</span>",\
 			"<span class='italics'>Everything suddenly goes silent.</span>")
