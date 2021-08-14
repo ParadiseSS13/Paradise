@@ -56,9 +56,9 @@
 			new /obj/item/stack/sheet/titaniumglass(src, 2)
 		if(/turf/simulated/floor/transparent/glass/titanium/plasma)
 			new /obj/item/stack/sheet/plastitaniumglass(src, 2)
-		R.use(2)
-		playsound(src, 'sound/items/deconstruct.ogg', 80, TRUE)
-		ChangeTurf(/turf/simulated/floor/plating)
+	R.use(2)
+	playsound(src, 'sound/items/deconstruct.ogg', 80, TRUE)
+	ChangeTurf(/turf/simulated/floor/plating)
 
 
 /turf/simulated/floor/transparent/glass/reinforced
