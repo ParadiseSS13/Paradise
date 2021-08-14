@@ -92039,7 +92039,6 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
