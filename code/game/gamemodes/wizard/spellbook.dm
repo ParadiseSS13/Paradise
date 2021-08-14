@@ -132,7 +132,7 @@
 
 /datum/spellbook_entry/horseman
 	name = "Curse of the Horseman"
-	spell_type = /obj/effect/proc_holder/spell/targeted/click/horsemask
+	spell_type = /obj/effect/proc_holder/spell/horsemask
 	log_name = "HH"
 	category = "Offensive"
 
@@ -1018,7 +1018,7 @@
 	user.Weaken(20)
 
 /obj/item/spellbook/oneuse/horsemask
-	spell = /obj/effect/proc_holder/spell/targeted/click/horsemask
+	spell = /obj/effect/proc_holder/spell/horsemask
 	spellname = "horses"
 	icon_state = "bookhorses"
 	desc = "This book is more horse than your mind has room for."

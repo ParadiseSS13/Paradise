@@ -1,6 +1,3 @@
-#define TARGET_CLOSEST 1
-#define TARGET_RANDOM 2
-
 /obj/effect/proc_holder
 	var/panel = "Debug"//What panel the proc holder needs to go on.
 	var/active = FALSE //Used by toggle based abilities.
@@ -82,6 +79,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	density = 0
 	opacity = 0
 
+	var/datum/spell_targeting/targeting
+
+	var/selection_activated_message		= "<span class='notice'>Click on a target to cast the spell.</span>"
+	var/selection_deactivated_message	= "<span class='notice'>You choose to not cast this spell.</span>"
+
 	var/school = "evocation" //not relevant at now, but may be important later if there are changes to how spells work. the ones I used for now will probably be changed... maybe spell presets? lacking flexibility but with some other benefit?
 
 	var/charge_type = "recharge" //can be recharge or charges, see charge_max and charge_counter descriptions; can also be based on the holder's vars now, use "holder_var" for that
@@ -132,6 +134,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	var/sound = null //The sound the spell makes when it is cast
 
+	/// List with the targeting datums per spell type. Key = src.type, value = the targeting datum created by create_new_targeting()
+	var/static/list/targeting_datums = list()
+
 /* Checks if the user can cast the spell
  * @param charge_check If the proc should do the cooldown check
  * @param start_recharge If the proc should set the cooldown
@@ -149,17 +154,26 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			return 0
 
 	if(start_recharge)
-		switch(charge_type)
-			if("recharge")
-				charge_counter = 0 //doesn't start recharging until the targets selecting ends
-			if("charges")
-				charge_counter-- //returns the charge if the targets selecting fails
-			if("holdervar")
-				adjust_var(user, holder_var_type, holder_var_amount)
+		spend_spell_cost(user)
 
 	if(action)
 		action.UpdateButtonIcon()
 	return 1
+
+/**
+ * Will spend the cost of using this spell once. Will update the action button's icon if there is any
+ * * user - Who used this spell?
+ */
+/obj/effect/proc_holder/spell/proc/spend_spell_cost(mob/user)
+	switch(charge_type)
+		if("recharge")
+			charge_counter = 0 //doesn't start recharging until the targets selecting ends
+		if("charges")
+			charge_counter-- //returns the charge if the targets selecting fails
+		if("holdervar")
+			adjust_var(user, holder_var_type, holder_var_amount)
+	if(action)
+		action.UpdateButtonIcon()
 
 /obj/effect/proc_holder/spell/proc/invocation(mob/user = usr) //spelling the spell out and setting it on recharge/reducing charges amount
 	switch(invocation_type)
@@ -191,17 +205,62 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	else
 		start_recharge()
 
+	if(!targeting_datums[type])
+		targeting_datums[type] = create_new_targeting()
+	targeting = targeting_datums[type]
+
 /obj/effect/proc_holder/spell/Destroy()
 	QDEL_NULL(action)
 	return ..()
 
+/**
+ * Creates and returns the targeting datum for this spell type. Override this!
+ */
+/obj/effect/proc_holder/spell/proc/create_new_targeting()
+	RETURN_TYPE(/datum/spell_targeting)
+	return
+
 /obj/effect/proc_holder/spell/Click()
-	if(cast_check())
-		choose_targets()
+	if(cast_check(TRUE, FALSE, usr)) // TODO check if all recharges are started properly
+		choose_targets(usr)
 	return 1
 
-/obj/effect/proc_holder/spell/proc/choose_targets(mob/user = usr) //depends on subtype - /targeted or /aoe_turf
-	return
+/obj/effect/proc_holder/spell/InterceptClickOn(mob/user, params, atom/A)
+	. = ..()
+	if(.)
+		return
+	targeting.InterceptClickOn(user, params, A, src)
+
+/**
+ * Will try to choose targets using the targeting variable and perform the spell if it can
+ */
+/obj/effect/proc_holder/spell/proc/choose_targets(mob/user = usr) // TODO remove = usr
+	if(targeting.use_intercept_click)
+		if(active)
+			remove_ranged_ability(user, selection_deactivated_message) // TODO put selection_deactivated_message stuff on spell. Rename as well
+			return
+
+		if(targeting.try_auto_target && targeting.attempt_auto_target(user, src))
+			return
+
+		add_ranged_ability(user, selection_activated_message)
+	else
+		var/list/targets = targeting.choose_targets(user, src)
+		try_perform(targets, user)
+
+/**
+ * Will try and perform the spell using the given targets and user. Will spend one charge of the spell
+ */
+/obj/effect/proc_holder/spell/proc/try_perform(list/targets, mob/user)
+	if(!length(targets))
+		to_chat(user, "<span class='warning'>No suitable target found.</span>")
+		return FALSE
+
+	remove_ranged_ability(user) // Targeting succeeded. So remove the click interceptor if there is one. Even if the cast didn't succeed afterwards
+	if(!cast_check(TRUE, TRUE, user))
+		return
+
+	perform(targets, user=user)
 
 /obj/effect/proc_holder/spell/proc/start_recharge()
 	if(action)
@@ -222,7 +281,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	invocation()
 	if(user && user.ckey && make_attack_logs)
 		add_attack_logs(user, targets, "cast the spell [name]", ATKLOG_ALL)
-	spawn(0)
+	spawn(0)// TODO remove this. Recharge is done in another way now
 		if(charge_type == "recharge" && recharge)
 			start_recharge()
 
@@ -426,8 +485,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /obj/effect/proc_holder/spell/targeted/click
 	var/click_radius = 1			// How big the radius around the clicked atom is to find a suitable target. -1 is only the selected atom is considered
-	var/selection_activated_message		= "<span class='notice'>Click on a target to cast the spell.</span>"
-	var/selection_deactivated_message	= "<span class='notice'>You choose to not cast this spell.</span>"
 	var/allowed_type = /mob/living	// Which type the targets have to be
 	var/auto_target_single = TRUE	// If the spell should auto select a target if only one is found
 	/// does this spell generate attack logs?
