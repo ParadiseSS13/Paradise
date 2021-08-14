@@ -16,6 +16,7 @@
 	keep_dir = FALSE
 	intact = FALSE
 	transparent_floor = TRUE
+	heat_capacity = 800
 
 /turf/simulated/floor/transparent/glass/Initialize(mapload)
 	. = ..()
@@ -25,41 +26,39 @@
 	dir = SOUTH //dirs that are not 2/south cause smoothing jank
 	icon_state = "" //Prevents default icon appearing behind the glass
 
-/turf/simulated/floor/transparent/glass/attackby(obj/item/C, mob/user, params)
+/turf/simulated/floor/transparent/glass/crowbar_act(mob/user, obj/item/C)
 	if(!C || !user)
 		return
-	if(istype(C, /obj/item/crowbar))
-		var/obj/item/stack/R = user.get_inactive_hand()
-		if(istype(R, /obj/item/stack/sheet/metal))
-			if(R.get_amount() < 2) //not enough metal in the stack
-				to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle [src]!</span>")
-				return
-			else
-				to_chat(user, "<span class='notice'>You begin replacing [src]...</span>")
-				playsound(src, C.usesound, 80, TRUE)
-				if(do_after(user, 3 SECONDS * C.toolspeed, target = src))
-					if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/plating))
-						if(!transparent_floor)
-							return
-		switch(type) //What material is returned? Depends on the turf
-			if(/turf/simulated/floor/transparent/glass/reinforced)
-				new /obj/item/stack/sheet/rglass(src, 2)
-			if(/turf/simulated/floor/transparent/glass)
-				new /obj/item/stack/sheet/glass(src, 2)
-			if(/turf/simulated/floor/transparent/glass/plasma)
-				new /obj/item/stack/sheet/plasmaglass(src, 2)
-			if(/turf/simulated/floor/transparent/glass/reinforced/plasma)
-				new /obj/item/stack/sheet/plasmarglass(src, 2)
-			if(/turf/simulated/floor/transparent/glass/titanium)
-				new /obj/item/stack/sheet/titaniumglass(src, 2)
-			if(/turf/simulated/floor/transparent/glass/titanium/plastic)
-				new /obj/item/stack/sheet/plastitaniumglass(src, 2)
-			R.use(2)
-			playsound(src, 'sound/items/deconstruct.ogg', 80, TRUE)
-			ChangeTurf(/turf/simulated/floor/plating)
-		else //not holding metal at all
-			to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle \the [src]!</span>")
+	var/obj/item/stack/R = user.get_inactive_hand()
+	if(istype(R, /obj/item/stack/sheet/metal))
+		if(R.get_amount() < 2) //not enough metal in the stack
+			to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle [src]!</span>")
 			return
+		else
+			to_chat(user, "<span class='notice'>You begin replacing [src]...</span>")
+			playsound(src, C.usesound, 80, TRUE)
+			if(do_after(user, 3 SECONDS * C.toolspeed, target = src))
+				if(R.get_amount() < 2 || !transparent_floor)
+					return
+	else //not holding metal at all
+		to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle \the [src]!</span>")
+		return
+	switch(type) //What material is returned? Depends on the turf
+		if(/turf/simulated/floor/transparent/glass/reinforced)
+			new /obj/item/stack/sheet/rglass(src, 2)
+		if(/turf/simulated/floor/transparent/glass)
+			new /obj/item/stack/sheet/glass(src, 2)
+		if(/turf/simulated/floor/transparent/glass/plasma)
+			new /obj/item/stack/sheet/plasmaglass(src, 2)
+		if(/turf/simulated/floor/transparent/glass/reinforced/plasma)
+			new /obj/item/stack/sheet/plasmarglass(src, 2)
+		if(/turf/simulated/floor/transparent/glass/titanium)
+			new /obj/item/stack/sheet/titaniumglass(src, 2)
+		if(/turf/simulated/floor/transparent/glass/titanium/plasma)
+			new /obj/item/stack/sheet/plastitaniumglass(src, 2)
+		R.use(2)
+		playsound(src, 'sound/items/deconstruct.ogg', 80, TRUE)
+		ChangeTurf(/turf/simulated/floor/plating)
 
 
 /turf/simulated/floor/transparent/glass/reinforced
@@ -67,7 +66,7 @@
 	desc = "Jump on it, it can cope. Promise..."
 	icon = 'icons/turf/floors/reinf_glass.dmi'
 	thermal_conductivity = 0.035
-	heat_capacity = 50000
+	heat_capacity = 1600
 
 /turf/simulated/floor/transparent/glass/reinforced/acid_act(acidpwr, acid_volume)
 	acidpwr = min(acidpwr, 50)
@@ -78,7 +77,7 @@
 	desc = "Wait, was space always that color?"
 	icon = 'icons/turf/floors/plasmaglass.dmi'
 	thermal_conductivity = 0.030
-	heat_capacity = 75000
+	heat_capacity = 32000
 
 /turf/simulated/floor/transparent/glass/reinforced/plasma
 	name = "reinforced plasma glass floor"
@@ -91,10 +90,10 @@
 	name = "titanium glass floor"
 	desc = "Stylish AND strong!"
 	icon = 'icons/turf/floors/titaniumglass.dmi'
-	canSmoothWith = list(/turf/simulated/floor/transparent/glass/titanium, /turf/simulated/floor/transparent/glass/titanium/plastic)
+	canSmoothWith = list(/turf/simulated/floor/transparent/glass/titanium, /turf/simulated/floor/transparent/glass/titanium/plasma)
 	thermal_conductivity = 0.025
-	heat_capacity = 325000
+	heat_capacity = 1600
 
-/turf/simulated/floor/transparent/glass/titanium/plastic
+/turf/simulated/floor/transparent/glass/titanium/plasma
 	name = "plastitanium glass floor"
 	icon = 'icons/turf/floors/plastitaniumglass.dmi'

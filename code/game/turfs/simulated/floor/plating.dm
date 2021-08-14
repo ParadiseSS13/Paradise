@@ -78,27 +78,26 @@
 		if(R.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need two sheets to build a [C.name] floor!</span>")
 			return TRUE
-		else
-			to_chat(user, "<span class='notice'>You begin swapping the plating for [C]...</span>")
-			if(do_after(user, 3 SECONDS * C.toolspeed, target = src))
-				if(R.get_amount() >= 2 && !transparent_floor)
-					if(istype(C, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
-						ChangeTurf(/turf/simulated/floor/transparent/glass/plasma)
-					else if(istype(C, /obj/item/stack/sheet/plasmarglass))
-						ChangeTurf(/turf/simulated/floor/transparent/glass/reinforced/plasma)
-					else if(istype(C, /obj/item/stack/sheet/glass))
-						ChangeTurf(/turf/simulated/floor/transparent/glass)
-					else if(istype(C, /obj/item/stack/sheet/rglass))
-						ChangeTurf(/turf/simulated/floor/transparent/glass/reinforced)
-					else if(istype(C, /obj/item/stack/sheet/titaniumglass))
-						ChangeTurf(/turf/simulated/floor/transparent/glass/titanium)
-					else if(istype(C, /obj/item/stack/sheet/plastitaniumglass))
-						ChangeTurf(/turf/simulated/floor/transparent/glass/titanium/plastic)
-					playsound(src, C.usesound, 80, TRUE)
-					R.use(2)
-					to_chat(user, "<span class='notice'>You swap the plating for [C].</span>")
-					new /obj/item/stack/sheet/metal(src, 2)
-				return TRUE
+		to_chat(user, "<span class='notice'>You begin swapping the plating for [C]...</span>")
+		if(do_after(user, 3 SECONDS * C.toolspeed, target = src))
+			if(R.get_amount() >= 2 && !transparent_floor)
+				if(istype(C, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
+					ChangeTurf(/turf/simulated/floor/transparent/glass/plasma)
+				else if(istype(C, /obj/item/stack/sheet/plasmarglass))
+					ChangeTurf(/turf/simulated/floor/transparent/glass/reinforced/plasma)
+				else if(istype(C, /obj/item/stack/sheet/glass))
+					ChangeTurf(/turf/simulated/floor/transparent/glass)
+				else if(istype(C, /obj/item/stack/sheet/rglass))
+					ChangeTurf(/turf/simulated/floor/transparent/glass/reinforced)
+				else if(istype(C, /obj/item/stack/sheet/titaniumglass))
+					ChangeTurf(/turf/simulated/floor/transparent/glass/titanium)
+				else if(istype(C, /obj/item/stack/sheet/plastitaniumglass))
+					ChangeTurf(/turf/simulated/floor/transparent/glass/titanium/plasma)
+				playsound(src, C.usesound, 80, TRUE)
+				R.use(2)
+				to_chat(user, "<span class='notice'>You swap the plating for [C].</span>")
+				new /obj/item/stack/sheet/metal(src, 2)
+			return TRUE
 
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
