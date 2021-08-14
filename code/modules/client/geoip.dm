@@ -275,5 +275,7 @@ var/global/list/geoip_ckey_updated = list()
 		qdel(query)
 		return FALSE
 	if(query.NextRow())
+		qdel(query)
 		return TRUE // At least one row in the whitelist names their ckey. That means they are whitelisted.
+	qdel(query)
 	return FALSE
