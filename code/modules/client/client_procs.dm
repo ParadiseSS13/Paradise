@@ -385,6 +385,9 @@
 
 	INVOKE_ASYNC(src, .proc/cid_count_check)
 
+	if(check_rights(R_ADMIN, FALSE, mob)) // Mob is required. Dont even try without it.
+		to_chat(src, "The queue server is currently [SSqueue.queue_enabled ? "<font color='green'>enabled</font>" : "<font color='disabled'>disabled</font>"], with a threshold of <b>[SSqueue.queue_threshold]</b>. This <b>[SSqueue.persist_queue ? "will" : "will not"]</b> persist through rounds.")
+
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
