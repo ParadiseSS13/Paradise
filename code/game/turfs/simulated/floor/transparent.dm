@@ -26,8 +26,21 @@
 	dir = SOUTH //dirs that are not 2/south cause smoothing jank
 	icon_state = "" //Prevents default icon appearing behind the glass
 
-/turf/simulated/floor/transparent/glass/crowbar_act(mob/user, obj/item/C)
-	if(!C || !user)
+/turf/simulated/floor/transparent/glass/welder_act(mob/user, obj/item/I)
+	if(!broken && !burnt)
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	if(I.use_tool(src, user, volume = I.tool_volume))
+		to_chat(user, "<span class='notice'>You fix some cracks in the glass.</span>")
+		overlays -= current_overlay
+		current_overlay = null
+		burnt = FALSE
+		broken = FALSE
+		update_icon()
+
+/turf/simulated/floor/transparent/glass/crowbar_act(mob/user, obj/item/I)
+	if(!I || !user)
 		return
 	var/obj/item/stack/R = user.get_inactive_hand()
 	if(istype(R, /obj/item/stack/sheet/metal))
@@ -36,8 +49,8 @@
 			return
 		else
 			to_chat(user, "<span class='notice'>You begin replacing [src]...</span>")
-			playsound(src, C.usesound, 80, TRUE)
-			if(do_after(user, 3 SECONDS * C.toolspeed, target = src))
+			playsound(src, I.usesound, 80, TRUE)
+			if(do_after(user, 3 SEIONDS * I.toolspeed, target = src))
 				if(R.get_amount() < 2 || !transparent_floor)
 					return
 	else //not holding metal at all
