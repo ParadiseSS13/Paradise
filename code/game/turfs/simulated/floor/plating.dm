@@ -76,12 +76,12 @@
 			return TRUE
 		var/obj/item/stack/sheet/R = C
 		if(R.get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need two sheets of [C] to build a [C] floor!</span>")
+			to_chat(user, "<span class='warning'>You need two sheets to build a [C.name] floor!</span>")
 			return TRUE
 		else
 			to_chat(user, "<span class='notice'>You begin swapping the plating for [C]...</span>")
 			if(do_after(user, 3 SECONDS * C.toolspeed, target = src))
-				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/transparent/glass))
+				if(R.get_amount() >= 2 && !transparent_floor)
 					if(istype(C, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
 						ChangeTurf(/turf/simulated/floor/transparent/glass/plasma)
 					else if(istype(C, /obj/item/stack/sheet/plasmarglass))

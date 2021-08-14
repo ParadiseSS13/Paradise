@@ -217,7 +217,7 @@ Pipelines + Other Objects -> Pipe network
 	else
 		if(T.transparent_floor)
 			to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-			return
+			return TRUE
 		return ..()
 
 //Called when an atmospherics object is unwrenched while having a large pressure difference
