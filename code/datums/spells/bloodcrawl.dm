@@ -14,13 +14,16 @@
 	var/datum/spell_targeting/targeted/T = new()
 	T.selection_type = SPELL_SELECTION_RANGE
 	T.allowed_type = /obj/effect/decal/cleanable
+	T.random_target = TRUE
 	T.range = 1
+	T.use_turf_of_user = TRUE
 	return T
 
 /obj/effect/proc_holder/spell/bloodcrawl/valid_target(obj/effect/decal/cleanable/target, user)
 	return target.can_bloodcrawl_in()
 
-/obj/effect/proc_holder/spell/bloodcrawl/perform(obj/effect/decal/cleanable/target, recharge = 1, mob/living/user = usr)
+/obj/effect/proc_holder/spell/bloodcrawl/perform(list/targets, recharge = 1, mob/living/user = usr)
+	var/obj/effect/decal/cleanable/target = targets[1]
 	if(istype(user))
 		if(phased)
 			if(user.phasein(target))

@@ -523,6 +523,7 @@
 /obj/effect/proc_holder/spell/raise_vampires/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
 	T.range = 3
+	T.random_target = TRUE
 	T.max_targets = INFINITY
 	return T
 

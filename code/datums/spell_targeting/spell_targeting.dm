@@ -13,6 +13,8 @@
 	var/use_intercept_click = FALSE
 	/// Whether or not the spell will try to auto target first before setting up the intercept click
 	var/try_auto_target = FALSE
+	/// Whether or not the spell should use the turf of the user as starting point
+	var/use_turf_of_user = FALSE
 
 /**
  * Called when choosing the targets for the parent spell
@@ -32,7 +34,7 @@
  */
 /datum/spell_targeting/proc/attempt_auto_target(mob/user, obj/effect/proc_holder/spell/spell)
 	var/atom/target
-	for(var/atom/A in view_or_range(range, user, selection_type))
+	for(var/atom/A in view_or_range(range, use_turf_of_user ? get_turf(user) : user, selection_type))
 		if(valid_target(A, user, spell))
 			if(target)
 				return FALSE // Two targets found. ABORT
@@ -67,4 +69,4 @@
  */
 /datum/spell_targeting/proc/valid_target(target, user, obj/effect/proc_holder/spell/spell)
 	return istype(target, allowed_type) && (include_user || target != user) && \
-		spell.valid_target(target, user) && (target in view_or_range(range, user, selection_type))
+		spell.valid_target(target, user) && (target in view_or_range(range, use_turf_of_user ? get_turf(user) : user, selection_type))

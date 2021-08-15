@@ -150,6 +150,7 @@
 /obj/effect/proc_holder/spell/projectile/magic_missile/lesser/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
 	T.allowed_type = /mob/living
+	T.random_target = TRUE
 	T.max_targets = 6
 	return T
 
