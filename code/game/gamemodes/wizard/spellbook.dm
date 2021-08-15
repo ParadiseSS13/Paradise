@@ -100,7 +100,7 @@
 //Offensive
 /datum/spellbook_entry/blind
 	name = "Blind"
-	spell_type = /obj/effect/proc_holder/spell/targeted/trigger/blind
+	spell_type = /obj/effect/proc_holder/spell/trigger/blind
 	log_name = "BD"
 	category = "Offensive"
 	cost = 1
@@ -229,7 +229,7 @@
 
 /datum/spellbook_entry/sacred_flame
 	name = "Sacred Flame and Fire Immunity"
-	spell_type = /obj/effect/proc_holder/spell/targeted/sacred_flame
+	spell_type = /obj/effect/proc_holder/spell/sacred_flame
 	cost = 1
 	log_name = "SF"
 	category = "Defensive"
@@ -951,7 +951,7 @@
 	user.adjust_nutrition(-200)
 
 /obj/item/spellbook/oneuse/blind
-	spell = /obj/effect/proc_holder/spell/targeted/trigger/blind
+	spell = /obj/effect/proc_holder/spell/trigger/blind
 	spellname = "blind"
 	icon_state = "bookblind"
 	desc = "This book looks blurry, no matter how you look at it."
@@ -1066,7 +1066,7 @@
 	desc = "This book feels like it will rip stuff apart."
 
 /obj/item/spellbook/oneuse/sacredflame
-	spell = /obj/effect/proc_holder/spell/targeted/sacred_flame
+	spell = /obj/effect/proc_holder/spell/sacred_flame
 	spellname = "sacred flame"
 	icon_state = "booksacredflame"
 	desc = "Become one with the flames that burn within... and invite others to do so as well."

@@ -24,12 +24,11 @@
  * * clicked_atom - The atom clicked on. Only available if use_intercept_click is TRUE
  */
 /datum/spell_targeting/proc/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
-	SHOULD_NOT_SLEEP(TRUE) // TODO change this to a var if targeted is needed so cooldown happens before
 	RETURN_TYPE(/list)
 	return
 
 /**
- * Will attempt to auto target the spell. Only works with 1 target
+ * Will attempt to auto target the spell. Only works with 1 target currently
  */
 /datum/spell_targeting/proc/attempt_auto_target(mob/user, obj/effect/proc_holder/spell/spell)
 	var/atom/target
@@ -61,6 +60,7 @@
 /**
  * Checks whether or not the given target is valid. Calls spell.valid_target as well
  *
+ * Arguments:
  * * target - The one who is being considered as a target
  * * user - Who is casting the spell
  * * spell - The spell being cast

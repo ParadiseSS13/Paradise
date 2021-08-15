@@ -15,7 +15,7 @@
 	proj_icon_state = "magicm"
 	proj_name = "a magic missile"
 	proj_lingering = 1
-	proj_type = "/obj/effect/proc_holder/spell/targeted/inflict_handler/magic_missile"
+	proj_type = "/obj/effect/proc_holder/spell/inflict_handler/magic_missile"
 
 	proj_lifespan = 20
 	proj_step_delay = 5
@@ -28,7 +28,7 @@
 
 	sound = 'sound/magic/magic_missile.ogg'
 
-/obj/effect/proc_holder/spell/targeted/inflict_handler/magic_missile
+/obj/effect/proc_holder/spell/inflict_handler/magic_missile
 	amt_weakened = 3
 	sound = 'sound/magic/mm_hit.ogg'
 
@@ -51,7 +51,7 @@
 	proj_icon_state = "bike_horn"
 	proj_name = "A bike horn"
 	proj_lingering = 1
-	proj_type = "/obj/effect/proc_holder/spell/targeted/inflict_handler/honk_missile"
+	proj_type = "/obj/effect/proc_holder/spell/inflict_handler/honk_missile"
 
 	proj_lifespan = 20
 	proj_step_delay = 5
@@ -65,7 +65,7 @@
 
 	sound = 'sound/items/bikehorn.ogg'
 
-/obj/effect/proc_holder/spell/targeted/inflict_handler/honk_missile
+/obj/effect/proc_holder/spell/inflict_handler/honk_missile
 	amt_weakened = 3
 	sound = 'sound/items/bikehorn.ogg'
 
@@ -301,7 +301,7 @@
 	T.range = 3
 	return T
 
-/obj/effect/proc_holder/spell/targeted/trigger/blind
+/obj/effect/proc_holder/spell/trigger/blind
 	name = "Blind"
 	desc = "This spell temporarily blinds a single person and does not require wizard garb."
 
@@ -313,11 +313,11 @@
 	message = "<span class='notice'>Your eyes cry out in pain!</span>"
 	cooldown_min = 50 //12 deciseconds reduction per rank
 
-	starting_spells = list("/obj/effect/proc_holder/spell/targeted/inflict_handler/blind","/obj/effect/proc_holder/spell/genetic/blind")
+	starting_spells = list("/obj/effect/proc_holder/spell/inflict_handler/blind","/obj/effect/proc_holder/spell/genetic/blind")
 
 	action_icon_state = "blind"
 
-/obj/effect/proc_holder/spell/targeted/inflict_handler/blind
+/obj/effect/proc_holder/spell/inflict_handler/blind
 	amt_eye_blind = 10
 	amt_eye_blurry = 20
 	sound = 'sound/magic/blind.ogg'
@@ -427,21 +427,24 @@
 			spawn(0)
 				AM.throw_at(throwtarget, ((clamp((maxthrow - (clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.
 
-/obj/effect/proc_holder/spell/targeted/sacred_flame
+/obj/effect/proc_holder/spell/sacred_flame
 	name = "Sacred Flame"
 	desc = "Makes everyone around you more flammable, and lights yourself on fire."
 	charge_max = 60
 	clothes_req = 0
 	invocation = "FI'RAN DADISKO"
 	invocation_type = "shout"
-	max_targets = 0
-	range = 6
-	include_user = 1
-	selection_type = "view"
 	action_icon_state = "sacredflame"
 	sound = 'sound/magic/fireball.ogg'
 
-/obj/effect/proc_holder/spell/targeted/sacred_flame/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/sacred_flame/create_new_targeting()
+	var/datum/spell_targeting/aoe/A = new()
+	A.include_user = TRUE
+	A.range = 6
+	A.allowed_type = /mob/living
+	return A
+
+/obj/effect/proc_holder/spell/sacred_flame/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in targets)
 		L.adjust_fire_stacks(20)
 	if(isliving(user))
