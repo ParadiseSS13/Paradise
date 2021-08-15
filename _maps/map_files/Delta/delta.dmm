@@ -73694,9 +73694,6 @@
 "daP" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "orangefull"
 	},
