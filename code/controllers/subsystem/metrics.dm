@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(metrics)
 	name = "Metrics"
-	wait = 1 MINUTES
+	wait = 30 SECONDS
 	offline_implications = "Server metrics will no longer be ingested into monitoring systems. No immediate action is needed."
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME // ALL THE LEVELS
 	flags = SS_KEEP_TIMING // This needs to ingest every IRL minute
