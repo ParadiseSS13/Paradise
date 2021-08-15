@@ -702,7 +702,8 @@ shutdown_on_reboot = false
 #shutdown_shell_command = "taskkill /im dreamdaemon.exe /f"
 # URL for the 2FA backend HTTP host. Do not use https:// or a trailing slash. Comment out to disable
 #_2fa_auth_host = "http://127.0.0.1:8080"
-
+# List of IP addresses to be ignored by the world/Topic rate limiting. Useful if you have other services
+topic_ip_ratelimit_bypass = ["127.0.0.1"]
 
 ################################################################
 

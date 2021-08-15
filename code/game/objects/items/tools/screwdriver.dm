@@ -27,6 +27,7 @@
 	desc = "A screwdriver with an ultra thin tip."
 	icon_state = "screwdriver_nuke"
 	toolspeed = 0.5
+	random_color = FALSE
 
 /obj/item/screwdriver/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is stabbing [src] into [user.p_their()] [pick("temple", "heart")]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
