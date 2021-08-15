@@ -319,14 +319,9 @@
 	clothes_req = FALSE
 	stat_allowed = FALSE
 
-	//click_radius = 0
-	//auto_target_single = FALSE	// Give the clueless geneticists a way out and to have them not target themselves
 	selection_activated_message		= "<span class='notice'>Your mind grow cold. Click on a target to cast the spell.</span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind returns to normal.</span>"
-	//allowed_type = /mob/living/carbon
 	invocation_type = "none"
-	selection_type = "range"
-	//include_user = TRUE
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
 	action_icon_state = "genetic_cryo"
@@ -596,15 +591,10 @@
 	clothes_req = FALSE
 	stat_allowed = FALSE
 
-	//click_radius = -1			// Precision required
-	//auto_target_single = FALSE	// Safety to not turn into monkey (420)
 	selection_activated_message		= "<span class='notice'>You body becomes unstable. Click on a target to cast transform into them.</span>"
 	selection_deactivated_message	= "<span class='notice'>Your body calms down again.</span>"
-	//allowed_type = /mob/living/carbon/human
 
 	invocation_type = "none"
-	range = 1
-	selection_type = "range"
 
 	action_icon_state = "genetic_poly"
 
@@ -653,8 +643,6 @@
 	human_req = TRUE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
-	range = -2
-	selection_type = "range"
 
 	action_icon_state = "genetic_empath"
 
@@ -765,7 +753,6 @@
 	clothes_req = 0
 	stat_allowed = 0
 	invocation_type = "none"
-	selection_type = "range"
 
 	action_icon_state = "genetic_morph"
 

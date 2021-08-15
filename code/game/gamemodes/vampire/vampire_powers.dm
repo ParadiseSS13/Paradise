@@ -4,7 +4,6 @@
 	panel = "Vampire"
 	school = "vampire"
 	clothes_req = 0
-	range = 1
 	charge_max = 1800
 	action_background_icon_state = "bg_vampire"
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
@@ -80,11 +79,6 @@
 		return 0
 	return 1
 
-/obj/effect/proc_holder/spell/vampire/proc/can_reach(mob/M as mob)
-	if(M.loc == usr.loc)
-		return 1 //target and source are in the same thing
-	return M in oview_or_orange(range, usr, selection_type)
-
 /obj/effect/proc_holder/spell/vampire/before_cast(list/targets)
 	// sanity check before we cast
 	if(!usr.mind || !usr.mind.vampire)
@@ -108,31 +102,22 @@
 	if(targets.len)
 		to_chat(usr, "<span class='notice'><b>You have [vampire.bloodusable] left to use.</b></span>")
 
-/obj/effect/proc_holder/spell/vampire/targetted/choose_targets(mob/user = usr)
-	var/list/possible_targets[0]
-	for(var/mob/living/carbon/C in oview_or_orange(range, user, selection_type))
-		possible_targets += C
-	var/mob/living/carbon/T = input(user, "Choose your victim.", name) as null|mob in possible_targets
+/obj/effect/proc_holder/spell/vampire/click/create_new_targeting()
+	var/datum/spell_targeting/click/C = new()
+	C.range = 1
+	C.allowed_type = /mob/living
+	C.click_radius = 0
+	return C
 
-	if(!T || !can_reach(T))
-		revert_cast(user)
-		return
+/obj/effect/proc_holder/spell/vampire/self/create_new_targeting()
+	var/datum/spell_targeting/self/S = new()
+	return S
 
-	perform(list(T), user = user)
-
-/obj/effect/proc_holder/spell/vampire/self/choose_targets(mob/user = usr)
-	perform(list(user))
-
-/obj/effect/proc_holder/spell/vampire/mob_aoe/choose_targets(mob/user = usr)
-	var/list/targets[0]
-	for(var/mob/living/carbon/C in oview_or_orange(range, user, selection_type))
-		targets += C
-
-	if(!targets.len)
-		revert_cast(user)
-		return
-
-	perform(targets, user = user)
+/obj/effect/proc_holder/spell/vampire/mob_aoe/create_new_targeting()
+	var/datum/spell_targeting/aoe/A = new()
+	A.allowed_type = /mob/living/carbon
+	A.range = 1
+	return A
 
 /datum/vampire_passive
 	var/gain_desc
@@ -169,13 +154,13 @@
 				U.adjustFireLoss(-2)
 				sleep(35)
 
-/obj/effect/proc_holder/spell/vampire/targetted/hypnotise
+/obj/effect/proc_holder/spell/vampire/click/hypnotise
 	name = "Hypnotise (20)"
 	desc= "A piercing stare that incapacitates your victim for a good length of time."
 	action_icon_state = "vampire_hypnotise"
 	required_blood = 20
 
-/obj/effect/proc_holder/spell/vampire/targetted/hypnotise/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/vampire/click/hypnotise/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		user.visible_message("<span class='warning'>[user]'s eyes flash briefly as [user.p_they()] stare[user.p_s()] into [target]'s eyes</span>")
 		if(do_mob(user, target, 50))
@@ -192,14 +177,14 @@
 			revert_cast(usr)
 			to_chat(usr, "<span class='warning'>You broke your gaze.</span>")
 
-/obj/effect/proc_holder/spell/vampire/targetted/disease
+/obj/effect/proc_holder/spell/vampire/click/disease
 	name = "Diseased Touch (100)"
 	desc = "Touches your victim with infected blood giving them Grave Fever, which will, left untreated, causes toxic building and frequent collapsing."
 	gain_desc = "You have gained the Diseased Touch ability which causes those you touch to become weak unless treated medically."
 	action_icon_state = "vampire_disease"
 	required_blood = 100
 
-/obj/effect/proc_holder/spell/vampire/targetted/disease/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/vampire/click/disease/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/target in targets)
 		to_chat(user, "<span class='warning'>You stealthily infect [target] with your diseased touch.</span>")
 		target.help_shake_act(user)
@@ -283,7 +268,7 @@
 /proc/isvampirethrall(mob/living/M as mob)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.vampire_enthralled)
 
-/obj/effect/proc_holder/spell/vampire/targetted/enthrall
+/obj/effect/proc_holder/spell/vampire/click/enthrall
 	name = "Enthrall (300)"
 	desc = "You use a large portion of your power to sway those loyal to none to be loyal to you only."
 	gain_desc = "You have gained the Enthrall ability which at a heavy blood cost allows you to enslave a human that is not loyal to any other for a random period of time."
@@ -291,7 +276,7 @@
 	required_blood = 300
 	deduct_blood_on_cast = FALSE
 
-/obj/effect/proc_holder/spell/vampire/targetted/enthrall/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/vampire/click/enthrall/cast(list/targets, mob/user = usr)
 	var/datum/vampire/vampire = user.mind.vampire
 	for(var/mob/living/target in targets)
 		user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
@@ -307,7 +292,7 @@
 				revert_cast(user)
 				to_chat(user, "<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>")
 
-/obj/effect/proc_holder/spell/vampire/targetted/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
+/obj/effect/proc_holder/spell/vampire/click/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
 	var/enthrall_safe = 0
 	for(var/obj/item/implant/mindshield/L in C)
 		if(L && L.implanted)
@@ -334,7 +319,7 @@
 		return 0
 	return 1
 
-/obj/effect/proc_holder/spell/vampire/targetted/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H as mob)
+/obj/effect/proc_holder/spell/vampire/click/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H as mob)
 	if(!istype(H))
 		return 0
 	var/ref = "\ref[user.mind]"
@@ -399,20 +384,10 @@
 	required_blood = 75
 	var/num_bats = 2
 
-/obj/effect/proc_holder/spell/vampire/bats/choose_targets(mob/user = usr)
-	var/list/turf/locs = new
-	for(var/direction in GLOB.alldirs) //looking for bat spawns
-		if(locs.len == num_bats) //we found 2 locations and thats all we need
-			break
-		var/turf/T = get_step(usr, direction) //getting a loc in that direction
-		if(AStar(user, T, /turf/proc/Distance, 1, simulated_only = 0)) // if a path exists, so no dense objects in the way its valid salid
-			locs += T
-
-	// pad with player location
-	for(var/i = locs.len + 1 to num_bats)
-		locs += user.loc
-
-	perform(locs, user = user)
+/obj/effect/proc_holder/spell/vampire/bats/create_new_targeting()
+	var/datum/spell_targeting/can_reach_around/R = new()
+	R.max_targets = num_bats
+	return R
 
 /obj/effect/proc_holder/spell/vampire/bats/cast(list/targets, mob/user = usr)
 	for(var/T in targets)
@@ -474,40 +449,34 @@
 	required_blood = 30
 	centcom_cancast = 0
 
-	// Teleport radii
-	var/inner_tele_radius = 0
 	var/outer_tele_radius = 6
 	// Maximum lighting_lumcount.
 	var/max_lum = 1
 
-/obj/effect/proc_holder/spell/vampire/shadowstep/choose_targets(mob/user = usr)
-	var/list/turfs = new/list()
-	for(var/turf/T in range(user, outer_tele_radius))
-		if(T in range(user, inner_tele_radius))
-			continue
-		if(istype(T, /turf/space))
-			continue
-		if(T.density)
-			continue
-		if(T.x > world.maxx-outer_tele_radius || T.x < outer_tele_radius)
-			continue	//putting them at the edge is dumb
-		if(T.y > world.maxy-outer_tele_radius || T.y < outer_tele_radius)
-			continue
+/obj/effect/proc_holder/spell/vampire/shadowstep/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.allowed_type = /turf/simulated
+	T.range = outer_tele_radius
+	T.random_target = TRUE
+	T.selection_type = SPELL_SELECTION_RANGE
+	T.target_priority = SPELL_TARGET_RANDOM
+	return T
 
-		var/lightingcount = T.get_lumcount(0.5) * 10
+/obj/effect/proc_holder/spell/vampire/shadowstep/valid_target(turf/simulated/target, user)
+	if(target.density)
+		return FALSE
+	if(target.x > world.maxx-outer_tele_radius || target.x < outer_tele_radius)
+		return FALSE	//putting them at the edge is dumb
+	if(target.y > world.maxy-outer_tele_radius || target.y < outer_tele_radius)
+		return FALSE
 
-		// LIGHTING CHECK
-		if(lightingcount > max_lum)
-			continue
-		turfs += T
+	var/lightingcount = target.get_lumcount(0.5) * 10
 
-	if(!turfs.len)
-		revert_cast(user)
-		to_chat(user, "<span class='warning'>You cannot find darkness to step to.</span>")
-		return
+	// LIGHTING CHECK
+	if(lightingcount > max_lum)
+		return FALSE
 
-	turfs = list(pick(turfs)) // Pick a single turf for the vampire to jump to.
-	perform(turfs, user = user)
+	return TRUE
 
 // `targets` should only ever contain the 1 valid turf we're jumping to, even though its a list, that's just how the cast() proc works.
 /obj/effect/proc_holder/spell/vampire/shadowstep/cast(list/targets, mob/user = usr)
@@ -554,7 +523,7 @@
 /obj/effect/proc_holder/spell/raise_vampires/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
 	T.range = 3
-	T.max_targets = 0
+	T.max_targets = INFINITY
 	return T
 
 /obj/effect/proc_holder/spell/raise_vampires/cast(list/targets, mob/user = usr)

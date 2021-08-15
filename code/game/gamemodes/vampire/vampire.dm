@@ -206,18 +206,18 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	var/nullified = 0 //Nullrod makes them useless for a short while.
 	var/list/upgrade_tiers = list(
 		/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
-		/obj/effect/proc_holder/spell/vampire/targetted/hypnotise = 0,
+		/obj/effect/proc_holder/spell/vampire/click/hypnotise = 0,
 		/obj/effect/proc_holder/spell/vampire/mob_aoe/glare = 0,
 		/datum/vampire_passive/vision = 100,
 		/obj/effect/proc_holder/spell/vampire/self/shapeshift = 100,
 		/obj/effect/proc_holder/spell/vampire/self/cloak = 150,
-		/obj/effect/proc_holder/spell/vampire/targetted/disease = 150,
+		/obj/effect/proc_holder/spell/vampire/click/disease = 150,
 		/obj/effect/proc_holder/spell/vampire/bats = 200,
 		/obj/effect/proc_holder/spell/vampire/self/screech = 200,
 		/datum/vampire_passive/regen = 200,
 		/obj/effect/proc_holder/spell/vampire/shadowstep = 250,
 		/obj/effect/proc_holder/spell/vampire/self/jaunt = 300,
-		/obj/effect/proc_holder/spell/vampire/targetted/enthrall = 300,
+		/obj/effect/proc_holder/spell/vampire/click/enthrall = 300,
 		/datum/vampire_passive/full = 500)
 
 /datum/vampire/proc/adjust_nullification(base, extra)

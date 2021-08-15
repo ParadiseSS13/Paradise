@@ -25,12 +25,10 @@
 	panel = "Shadowling Abilities"
 	charge_max = 300
 	clothes_req = FALSE
-	range = 10	//has no effect beyond this range, so setting this makes invalid/useless targets not show up in popup
 	action_icon_state = "glare"
 
 	selection_activated_message		= "<span class='notice'>Your prepare to your eyes for a stunning glare! <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>Your eyes relax... for now.</span>"
-	//allowed_type = /mob/living/carbon/human
 
 /obj/effect/proc_holder/spell/glare/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -43,8 +41,6 @@
 	return ..()
 
 /obj/effect/proc_holder/spell/glare/valid_target(mob/living/carbon/human/target, user)
-	if(!..())
-		return FALSE
 	return !target.stat && !is_shadow_or_thrall(target)
 
 /obj/effect/proc_holder/spell/glare/cast(list/targets, mob/user = usr)
@@ -81,7 +77,6 @@
 	panel = "Shadowling Abilities"
 	charge_max = 150 //Short cooldown because people can just turn the lights back on
 	clothes_req = 0
-	range = 5
 	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime)
 	action_icon_state = "veil"
 
@@ -191,7 +186,6 @@
 	name = "Icy Veins"
 	desc = "Instantly freezes the blood of nearby people, stunning them and causing burn damage."
 	panel = "Shadowling Abilities"
-	range = 5
 	charge_max = 250
 	clothes_req = 0
 	action_icon_state = "icy_veins"
@@ -233,17 +227,15 @@
 	panel = "Shadowling Abilities"
 	charge_max = 0
 	clothes_req = FALSE
-	range = 1 //Adjacent to user
 	var/enthralling = FALSE
 	action_icon_state = "enthrall"
 
-	//click_radius = -1 // Precision baby
 	selection_activated_message		= "<span class='notice'>Your prepare your mind to entrall a mortal. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
-	//allowed_type = /mob/living/carbon/human
 
 /obj/effect/proc_holder/spell/enthrall/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
+	T.range = 1
 	T.click_radius = -1
 	return T
 
@@ -256,8 +248,6 @@
 	return ..()
 
 /obj/effect/proc_holder/spell/enthrall/valid_target(mob/living/carbon/human/target, user)
-	if(!..())
-		return FALSE
 	return target.key && target.mind && !target.stat && !is_shadow_or_thrall(target) && target.client
 
 /obj/effect/proc_holder/spell/enthrall/cast(list/targets, mob/user = usr)
@@ -577,14 +567,11 @@
 	name = "Black Recuperation"
 	desc = "Revives or empowers a thrall."
 	panel = "Shadowling Abilities"
-	range = 1
 	charge_max = 600
 	clothes_req = FALSE
 	action_icon_state = "revive_thrall"
-	//click_radius = -1 // Precision baby
 	selection_activated_message		= "<span class='notice'>You start focusing your powers on mending wounds of allies. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
-	//allowed_type = /mob/living/carbon/human
 
 /obj/effect/proc_holder/spell/reviveThrall/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -598,9 +585,6 @@
 	return ..()
 
 /obj/effect/proc_holder/spell/reviveThrall/valid_target(mob/living/carbon/human/target, user)
-	if(!..())
-		return FALSE
-
 	return is_thrall(target)
 
 /obj/effect/proc_holder/spell/reviveThrall/cast(list/targets, mob/user = usr)
@@ -672,13 +656,10 @@
 	name = "Destroy Engines"
 	desc = "Extends the time of the emergency shuttle's arrival by ten minutes using a life force of our enemy. Shuttle will be unable to be recalled. This can only be used once."
 	panel = "Shadowling Abilities"
-	//range = 1
 	clothes_req = FALSE
 	charge_max = 600
-	//click_radius = -1 // Precision baby
 	selection_activated_message		= "<span class='notice'>You start gathering destructive powers to delay the shuttle. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
-	//allowed_type = /mob/living/carbon/human
 	action_icon_state = "extend_shuttle"
 	var/global/extendlimit = 0
 
@@ -705,8 +686,6 @@
 	return ..()
 
 /obj/effect/proc_holder/spell/shadowling_extend_shuttle/valid_target(mob/living/carbon/human/target, user)
-	if(!..())
-		return FALSE
 	return !target.stat && !is_shadow_or_thrall(target)
 
 
@@ -747,7 +726,6 @@
 	action_icon_state = "annihilate"
 	selection_activated_message		= "<span class='notice'>You start thinking about gibs. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
-	//allowed_type = /mob/living/carbon/human
 
 /obj/effect/proc_holder/spell/annihilate/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -784,10 +762,8 @@
 	clothes_req = FALSE
 	action_icon_state = "enthrall"
 
-	//click_radius = -1
 	selection_activated_message		= "<span class='notice'>You start preparing to mindwash over a mortal mind. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
-	//allowed_type = /mob/living/carbon/human
 
 /obj/effect/proc_holder/spell/hypnosis/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -804,8 +780,6 @@
 	return ..()
 
 /obj/effect/proc_holder/spell/hypnosis/valid_target(mob/living/carbon/human/target, user)
-	if(!..())
-		return FALSE
 	return !is_shadow_or_thrall(target) && target.ckey && target.mind && !target.stat
 
 /obj/effect/proc_holder/spell/hypnosis/cast(list/targets, mob/user = usr)
@@ -852,7 +826,6 @@
 	name = "Lightning Storm"
 	desc = "Shocks everyone nearby."
 	panel = "Ascendant"
-	range = 6
 	charge_max = 100
 	clothes_req = 0
 	action_icon_state = "lightning_storm"

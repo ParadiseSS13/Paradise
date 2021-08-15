@@ -7,7 +7,6 @@
 	clothes_req = 0
 	invocation = "AULIE OXIN FIERA"
 	invocation_type = "whisper"
-	range = 3
 	cooldown_min = 20 //20 deciseconds reduction per rank
 
 	action_icon_state = "knock"
@@ -46,7 +45,6 @@
 	charge_max = 200
 	invocation = "MAIOR OXIN FIERA"
 	invocation_type = "shout"
-	range = 7
 	level_max = 0 //Cannot be improved, quality of life since can't be refunded
 	cooldown_min = 200
 	var/used = FALSE

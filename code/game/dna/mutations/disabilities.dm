@@ -495,7 +495,6 @@
 	clothes_req = 0
 	stat_allowed = 0
 	invocation_type = "none"
-	selection_type = "range"
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
 	action_icon_state = "genetic_incendiary"

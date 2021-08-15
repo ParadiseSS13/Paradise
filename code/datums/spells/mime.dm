@@ -9,7 +9,6 @@
 	summon_lifespan = 300
 	charge_max = 300
 	clothes_req = 0
-	range = 0
 	cast_sound = null
 	human_req = 1
 

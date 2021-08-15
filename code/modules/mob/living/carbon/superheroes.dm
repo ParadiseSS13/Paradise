@@ -149,14 +149,11 @@
 	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Civilians only and you can recruit a maximum of 3!."
 	charge_max = 450
 	clothes_req = FALSE
-	range = 1 //Adjacent to user
 	action_icon_state = "spell_greytide"
 	var/recruiting = 0
 
-	//click_radius = -1
 	selection_activated_message		= "<span class='notice'>You start preparing a mindblowing monologue. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>You decide to save your brilliance for another day.</span>"
-	//allowed_type = /mob/living/carbon/human
 
 /obj/effect/proc_holder/spell/recruit/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -176,9 +173,6 @@
 	return ..()
 
 /obj/effect/proc_holder/spell/recruit/valid_target(mob/living/carbon/human/target, user)
-	if(!..())
-		return FALSE
-
 	return target.ckey && !target.stat
 
 /obj/effect/proc_holder/spell/recruit/cast(list/targets,mob/living/user = usr)

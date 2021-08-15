@@ -79,11 +79,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	density = 0
 	opacity = 0
 
-	var/datum/spell_targeting/targeting
-
-	var/selection_activated_message		= "<span class='notice'>Click on a target to cast the spell.</span>"
-	var/selection_deactivated_message	= "<span class='notice'>You choose to not cast this spell.</span>"
-
 	var/school = "evocation" //not relevant at now, but may be important later if there are changes to how spells work. the ones I used for now will probably be changed... maybe spell presets? lacking flexibility but with some other benefit?
 
 	var/charge_type = "recharge" //can be recharge or charges, see charge_max and charge_counter descriptions; can also be based on the holder's vars now, use "holder_var" for that
@@ -104,9 +99,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/invocation = "HURP DURP" //what is uttered when the wizard casts the spell
 	var/invocation_emote_self = null
 	var/invocation_type = "none" //can be none, whisper and shout
-	var/range = 7 //the range of the spell; outer radius for aoe spells
 	var/message = "" //whatever it says to the guy affected by it
-	var/selection_type = "view" //can be "range" or "view"
 	var/spell_level = 0 //if a spell can be taken multiple times, this raises
 	var/level_max = 4 //The max possible level_max is 4
 	var/cooldown_min = 0 //This defines what spell quickened four timeshas as a cooldown. Make sure to set this for every spell
@@ -134,12 +127,19 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	var/sound = null //The sound the spell makes when it is cast
 
+	/// The message displayed when a click based spell gets activated
+	var/selection_activated_message		= "<span class='notice'>Click on a target to cast the spell.</span>"
+	/// The message displayed when a click based spell gets deactivated
+	var/selection_deactivated_message	= "<span class='notice'>You choose to not cast this spell.</span>"
+
 	/// does this spell generate attack logs?
 	var/create_attack_logs = TRUE
 
 	/// If this spell creates custom logs using the write_custom_logs() proc. Will ignore create_attack_logs
 	var/create_custom_logs = FALSE
 
+	/// Which targeting system is used. Set this in create_new_targeting
+	var/datum/spell_targeting/targeting
 	/// List with the targeting datums per spell type. Key = src.type, value = the targeting datum created by create_new_targeting()
 	var/static/list/targeting_datums = list()
 
@@ -222,6 +222,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	if(!targeting_datums[type])
 		targeting_datums[type] = create_new_targeting()
+		if(!targeting_datums[type])
+			stack_trace("Spell of type [type] did not implement create_new_targeting")
 	targeting = targeting_datums[type]
 
 /obj/effect/proc_holder/spell/Destroy()
@@ -236,7 +238,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	return
 
 /obj/effect/proc_holder/spell/Click()
-	//SHOULD_NOT_OVERRIDE(TRUE)
 	if(cast_check(TRUE, FALSE, usr)) // TODO check if all recharges are started properly
 		choose_targets(usr)
 	return 1
@@ -249,9 +250,13 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /**
  * Will try to choose targets using the targeting variable and perform the spell if it can
+ * Do not override this! Override create_new_targeting instead
+ *
+ * Arguments:
+ * * user - The caster of the spell
  */
-/obj/effect/proc_holder/spell/proc/choose_targets(mob/user = usr) // TODO remove = usr
-	//SHOULD_NOT_OVERRIDE(TRUE) TODO uncomment this
+/obj/effect/proc_holder/spell/proc/choose_targets(mob/user) // TODO remove = usr
+	SHOULD_NOT_OVERRIDE(TRUE)
 	if(targeting.use_intercept_click)
 		if(active)
 			remove_ranged_ability(user, selection_deactivated_message) // TODO put selection_deactivated_message stuff on spell. Rename as well
@@ -267,6 +272,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /**
  * Will try and perform the spell using the given targets and user. Will spend one charge of the spell
+ *
+ * Arguments:
+ * * targets - The targets the spell is being performed on
+ * * user - The caster of the spell
  */
 /obj/effect/proc_holder/spell/proc/try_perform(list/targets, mob/user)
 	SHOULD_NOT_OVERRIDE(TRUE)
@@ -320,6 +329,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /**
  * Will write additional logs if create_custom_logs is TRUE and the caster has a ckey. Override this
  *
+ * Arguments:
  * * targets - The targets being targeted by the spell
  * * user - The user of the spell
  */

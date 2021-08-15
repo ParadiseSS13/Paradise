@@ -21,7 +21,6 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
-	range = 0
 	summon_type = list(/turf/simulated/floor/engine/cult)
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
@@ -36,7 +35,6 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
-	range = 0
 	summon_type = list(/turf/simulated/wall/cult/artificer) //we don't want artificer-based runed metal farms
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
@@ -49,7 +47,6 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
-	range = 0
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	delay = 50
@@ -66,7 +63,6 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
-	range = 0
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
 	summon_type = list(/obj/item/soulstone)
@@ -86,7 +82,6 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
-	range = 0
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
 	summon_type = list(/obj/structure/cult/functional/pylon)
@@ -102,7 +97,6 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
-	range = 0
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	summon_type = list(/obj/effect/forcefield/cult)
 	summon_lifespan = 200

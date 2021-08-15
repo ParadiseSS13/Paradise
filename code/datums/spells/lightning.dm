@@ -70,10 +70,6 @@
 	var/mob/living/target = targets[1]
 	Snd = sound(null, repeat = 0, wait = 1, channel = Snd.channel) //byond, why you suck?
 	playsound(get_turf(user), Snd, 50, 0)// Sorry MrPerson, but the other ways just didn't do it the way i needed to work, this is the only way.
-	if(get_dist(user,target)>range)
-		to_chat(user, "<span class='notice'>They are too far away!</span>")
-		Reset(user)
-		return
 
 	playsound(get_turf(user), 'sound/magic/lightningbolt.ogg', 50, 1)
 	user.Beam(target,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5)
@@ -112,7 +108,7 @@
 				current.AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
 		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 		var/list/possible_targets = new
-		for(var/mob/living/M in view_or_range(range,target,"view"))
+		for(var/mob/living/M in view_or_range(targeting.range, target, "view"))
 			if(user == M || target == M && los_check(current,M)) // || origin == M ? Not sure double shockings is good or not
 				continue
 			possible_targets += M

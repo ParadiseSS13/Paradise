@@ -2,8 +2,6 @@
 	var/hand_path = /obj/item/melee/touch_attack
 	var/obj/item/melee/touch_attack/attached_hand = null
 	invocation_type = "none" //you scream on connecting, not summoning
-	//include_user = 1
-	range = -1
 
 /obj/effect/proc_holder/spell/touch/create_new_targeting()
 	var/datum/spell_targeting/self/S = new()

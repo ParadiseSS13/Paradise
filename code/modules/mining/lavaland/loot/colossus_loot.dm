@@ -411,7 +411,6 @@
 	charge_max = 60
 	clothes_req = 0
 	invocation_type = "none"
-	selection_type = "view"
 	action_icon_state = "exit_possession"
 	sound = null
 

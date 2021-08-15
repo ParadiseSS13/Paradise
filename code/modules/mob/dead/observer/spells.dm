@@ -14,8 +14,6 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	desc = "Fuck with the living."
 	selection_deactivated_message	= "<span class='shadowling'>Your presence will not be known. For now.</span>"
 	selection_activated_message		= "<span class='shadowling'>You prepare to reach across the veil. <b>Left-click to influence a target!</b></span>"
-	// auto_target_single = FALSE
-	// allowed_type = /atom // No subtypes are safe from spookage.
 
 	ghost = TRUE
 

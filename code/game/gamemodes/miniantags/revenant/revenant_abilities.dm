@@ -194,7 +194,6 @@
 	name = "Overload Lights"
 	desc = "Directs a large amount of essence into nearby electrical lights, causing lights to shock those nearby."
 	charge_max = 200
-	range = 5
 	stun = 30
 	cast_amount = 45
 	var/shock_range = 2
@@ -234,7 +233,6 @@
 	name = "Defile"
 	desc = "Twists and corrupts the nearby area as well as dispelling holy auras on floors."
 	charge_max = 150
-	range = 4
 	stun = 10
 	reveal = 40
 	unlock_amount = 75
@@ -291,7 +289,6 @@
 	name = "Malfunction"
 	desc = "Corrupts and damages nearby machines and mechanical objects."
 	charge_max = 200
-	range = 2
 	cast_amount = 45
 	unlock_amount = 150
 	action_icon_state = "malfunction"

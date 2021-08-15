@@ -16,27 +16,29 @@
 	if(!length(possible_targets))
 		return null
 
-	if(max_targets == 1) // Only one target
-		var/mob/M
+	if(max_targets == INFINITY) // Unlimited
+		targets = possible_targets
+	else if(max_targets == 1) // Only one target
+		var/atom/target
 		if(!random_target)
-			M = input("Choose the target for the spell.", "Targeting") as mob in possible_targets
+			target = input("Choose the target for the spell.", "Targeting") as mob in possible_targets
 			//Adds a safety check post-input to make sure those targets are actually in range.
-			if(M in view_or_range(range, user, selection_type))
-				targets += M
+			if(target in view_or_range(range, user, selection_type))
+				targets += target
 		else
 			switch(target_priority)
 				if(SPELL_TARGET_RANDOM)
-					M = pick(possible_targets)
+					target = pick(possible_targets)
 				if(SPELL_TARGET_CLOSEST)
-					for(var/mob/living/L in possible_targets)
-						if(M)
-							if(get_dist(user,L) < get_dist(user,M))
-								if(spell.los_check(user, L))
-									M = L
+					for(var/atom/A as anything in possible_targets)
+						if(target)
+							if(get_dist(user, A) < get_dist(user, target))
+								if(spell.los_check(user, A))
+									target = A
 						else
-							if(spell.los_check(user, L))
-								M = L
-			targets += M
+							if(spell.los_check(user, A))
+								target = A
+			targets += target
 	else if(max_targets > 1)
 		do
 			if(can_hit_target_more_than_once)
@@ -44,7 +46,5 @@
 			else
 				targets += pick_n_take(possible_targets)
 		while(length(possible_targets) && length(targets) < max_targets)
-	else // Unlimited
-		targets = possible_targets
 
 	return targets

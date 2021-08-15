@@ -10,7 +10,6 @@
 	invocation = "KN'A FTAGHU, PUCK 'BTHNK!"
 	invocation_type = "shout"
 	cooldown_min = 30 //30 deciseconds reduction per rank
-	selection_type = "range"
 
 	selection_activated_message = "<span class='notice'>You start to quietly neigh an incantation. Click on or near a target to cast the spell.</span>"
 	selection_deactivated_message = "<span class='notice'>You stop neighing to yourself.</span>"
