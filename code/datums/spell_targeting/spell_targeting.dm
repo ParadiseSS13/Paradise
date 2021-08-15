@@ -1,14 +1,14 @@
 /datum/spell_targeting
 	/// The range of the spell; outer radius for aoe spells
 	var/range = 7
-	/// Can be "range" or "view"
-	var/selection_type = "view"
+	/// Can be SPELL_SELECTION_RANGE or SPELL_SELECTION_VIEW
+	var/selection_type = SPELL_SELECTION_VIEW
 	/// How many targets are allowed.
-	var/max_targets
+	var/max_targets = 1
 	/// Which type the targets have to be
-	var/allowed_type = /mob/living
-	/// If it includes user
-	var/include_user = 0
+	var/allowed_type = /mob/living/carbon/human
+	/// If it includes user. Not always used in all spell_targeting objects
+	var/include_user = FALSE
 	/// Whether or not the targeting is done by intercepting a click or not
 	var/use_intercept_click = FALSE
 	/// Whether or not the spell will try to auto target first before setting up the intercept click
@@ -24,7 +24,7 @@
  * * clicked_atom - The atom clicked on. Only available if use_intercept_click is TRUE
  */
 /datum/spell_targeting/proc/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
-	SHOULD_NOT_SLEEP(TRUE)
+	SHOULD_NOT_SLEEP(TRUE) // TODO change this to a var if targeted is needed so cooldown happens before
 	RETURN_TYPE(/list)
 	return
 
@@ -34,7 +34,7 @@
 /datum/spell_targeting/proc/attempt_auto_target(mob/user, obj/effect/proc_holder/spell/spell)
 	var/atom/target
 	for(var/atom/A in view_or_range(range, user, selection_type))
-		if(valid_target(A, user))
+		if(valid_target(A, user, spell))
 			if(target)
 				return FALSE // Two targets found. ABORT
 			target = A
@@ -57,9 +57,14 @@
 /datum/spell_targeting/proc/InterceptClickOn(mob/user, params, atom/A, obj/effect/proc_holder/spell/spell)
 	var/list/targets = choose_targets(user, spell, params, A)
 	spell.try_perform(targets, user)
-	return
 
-
-/datum/spell_targeting/proc/valid_target(target, user)
+/**
+ * Checks whether or not the given target is valid. Calls spell.valid_target as well
+ *
+ * * target - The one who is being considered as a target
+ * * user - Who is casting the spell
+ * * spell - The spell being cast
+ */
+/datum/spell_targeting/proc/valid_target(target, user, obj/effect/proc_holder/spell/spell)
 	return istype(target, allowed_type) && (include_user || target != user) && \
-		(target in view_or_range(range, user, selection_type))
+		spell.valid_target(target, user) && (target in view_or_range(range, user, selection_type))

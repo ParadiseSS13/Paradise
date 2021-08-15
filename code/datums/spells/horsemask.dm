@@ -9,7 +9,6 @@
 	stat_allowed = FALSE
 	invocation = "KN'A FTAGHU, PUCK 'BTHNK!"
 	invocation_type = "shout"
-	range = 7
 	cooldown_min = 30 //30 deciseconds reduction per rank
 	selection_type = "range"
 
@@ -21,7 +20,7 @@
 
 /obj/effect/proc_holder/spell/horsemask/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
-	T.allowed_type = /mob/living/carbon/human
+	T.selection_type = SPELL_SELECTION_RANGE
 	return T
 
 

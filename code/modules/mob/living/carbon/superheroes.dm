@@ -83,7 +83,7 @@
 
 /datum/superheroes/griffin
 	name = "The Griffin"
-	default_spells = list(/obj/effect/proc_holder/spell/targeted/click/recruit)
+	default_spells = list(/obj/effect/proc_holder/spell/recruit)
 	class = "Supervillain"
 	desc = "You are The Griffin, the ultimate supervillain. You thrive on chaos and have no respect for the supposed authority \
 	of the command staff of this station. Along with your gang of dim-witted yet trusty henchmen, you will be able to execute \
@@ -144,7 +144,7 @@
 
 
 //The Griffin's special recruit abilitiy
-/obj/effect/proc_holder/spell/targeted/click/recruit
+/obj/effect/proc_holder/spell/recruit
 	name = "Recruit Greyshirt"
 	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Civilians only and you can recruit a maximum of 3!."
 	charge_max = 450
@@ -153,12 +153,18 @@
 	action_icon_state = "spell_greytide"
 	var/recruiting = 0
 
-	click_radius = -1
+	//click_radius = -1
 	selection_activated_message		= "<span class='notice'>You start preparing a mindblowing monologue. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>You decide to save your brilliance for another day.</span>"
-	allowed_type = /mob/living/carbon/human
+	//allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/recruit/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+/obj/effect/proc_holder/spell/recruit/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.click_radius = -1
+	T.range = 1
+	return T
+
+/obj/effect/proc_holder/spell/recruit/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(SSticker.mode.greyshirts.len >= 3)
 		if(show_message)
 			to_chat(user, "<span class='warning'>You have already recruited the maximum number of henchmen.</span>")
@@ -169,13 +175,13 @@
 		return FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/click/recruit/valid_target(mob/living/carbon/human/target, user)
+/obj/effect/proc_holder/spell/recruit/valid_target(mob/living/carbon/human/target, user)
 	if(!..())
 		return FALSE
 
 	return target.ckey && !target.stat
 
-/obj/effect/proc_holder/spell/targeted/click/recruit/cast(list/targets,mob/living/user = usr)
+/obj/effect/proc_holder/spell/recruit/cast(list/targets,mob/living/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
 	if(target.mind.assigned_role != "Civilian")
 		to_chat(user, "<span class='warning'>You can only recruit Civilians.</span>")

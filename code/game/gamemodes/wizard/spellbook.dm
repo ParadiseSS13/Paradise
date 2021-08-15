@@ -144,7 +144,7 @@
 
 /datum/spellbook_entry/fireball
 	name = "Fireball"
-	spell_type = /obj/effect/proc_holder/spell/targeted/click/fireball
+	spell_type = /obj/effect/proc_holder/spell/fireball
 	log_name = "FB"
 	category = "Offensive"
 
@@ -275,7 +275,7 @@
 
 /datum/spellbook_entry/mindswap
 	name = "Mindswap"
-	spell_type = /obj/effect/proc_holder/spell/targeted/click/mind_transfer
+	spell_type = /obj/effect/proc_holder/spell/mind_transfer
 	log_name = "MT"
 	category = "Mobility"
 
@@ -929,7 +929,7 @@
 	return
 
 /obj/item/spellbook/oneuse/fireball
-	spell = /obj/effect/proc_holder/spell/targeted/click/fireball
+	spell = /obj/effect/proc_holder/spell/fireball
 	spellname = "fireball"
 	icon_state = "bookfireball"
 	desc = "This book feels warm to the touch."
@@ -962,7 +962,7 @@
 	user.EyeBlind(10)
 
 /obj/item/spellbook/oneuse/mindswap
-	spell = /obj/effect/proc_holder/spell/targeted/click/mind_transfer
+	spell = /obj/effect/proc_holder/spell/mind_transfer
 	spellname = "mindswap"
 	icon_state = "bookmindswap"
 	desc = "This book's cover is pristine, though its pages look ragged and torn."
@@ -986,7 +986,7 @@
 		to_chat(user, "<span class='notice'>You stare at the book some more, but there doesn't seem to be anything else to learn...</span>")
 		return
 
-	var/obj/effect/proc_holder/spell/targeted/click/mind_transfer/swapper = new
+	var/obj/effect/proc_holder/spell/mind_transfer/swapper = new
 	swapper.cast(user, stored_swap)
 
 	to_chat(stored_swap, "<span class='warning'>You're suddenly somewhere else... and someone else?!</span>")

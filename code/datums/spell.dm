@@ -134,6 +134,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	var/sound = null //The sound the spell makes when it is cast
 
+	/// does this spell generate attack logs?
+	var/create_logs = TRUE // TODO ensure this is used
+
 	/// List with the targeting datums per spell type. Key = src.type, value = the targeting datum created by create_new_targeting()
 	var/static/list/targeting_datums = list()
 
@@ -159,6 +162,15 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(action)
 		action.UpdateButtonIcon()
 	return 1
+
+/**
+ * Allows for spell specific target validation. Will be used by the spell_targeting datums
+ *
+ * * target - Who is being considered
+ * * user - Who is the user of this spell
+ */
+/obj/effect/proc_holder/spell/proc/valid_target(target, user)
+	return TRUE // TODO check all the implementations
 
 /**
  * Will spend the cost of using this spell once. Will update the action button's icon if there is any
@@ -221,6 +233,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	return
 
 /obj/effect/proc_holder/spell/Click()
+	//SHOULD_NOT_OVERRIDE(TRUE)
 	if(cast_check(TRUE, FALSE, usr)) // TODO check if all recharges are started properly
 		choose_targets(usr)
 	return 1
@@ -253,6 +266,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  * Will try and perform the spell using the given targets and user. Will spend one charge of the spell
  */
 /obj/effect/proc_holder/spell/proc/try_perform(list/targets, mob/user)
+	SHOULD_NOT_OVERRIDE(TRUE)
 	if(!length(targets))
 		to_chat(user, "<span class='warning'>No suitable target found.</span>")
 		return FALSE
@@ -488,8 +502,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/click_radius = 1			// How big the radius around the clicked atom is to find a suitable target. -1 is only the selected atom is considered
 	var/allowed_type = /mob/living	// Which type the targets have to be
 	var/auto_target_single = TRUE	// If the spell should auto select a target if only one is found
-	/// does this spell generate attack logs?
-	var/create_logs = TRUE
+
 
 /obj/effect/proc_holder/spell/targeted/click/Click()
 	// biased goddamn variable types assuming that we're alive. eat shit.
@@ -566,15 +579,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	remove_ranged_ability(user)
 	perform(targets, user = user, make_attack_logs = create_logs)
 	return TRUE
-
-/* Checks if a target is valid
- * Should not include to_chats or other types of messages since this is used often on tons of targets.
- * @param target The target to check
- * @param user The user of the spell
-*/
-/obj/effect/proc_holder/spell/targeted/click/proc/valid_target(target, user)
-	return istype(target, allowed_type) && (include_user || target != user) && \
-		(target in view_or_range(range, user, selection_type))
 
 /obj/effect/proc_holder/spell/targeted/click/choose_targets(mob/user, atom/A) // Not used
 	return

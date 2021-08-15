@@ -19,7 +19,7 @@
 	return 0
 
 
-/obj/effect/proc_holder/spell/targeted/click/glare //Stuns and mutes a human target, depending on the distance relative to the shadowling
+/obj/effect/proc_holder/spell/glare //Stuns and mutes a human target, depending on the distance relative to the shadowling
 	name = "Glare"
 	desc = "Stuns and mutes a target for a decent duration. Duration depends on the proximity to the target."
 	panel = "Shadowling Abilities"
@@ -30,19 +30,24 @@
 
 	selection_activated_message		= "<span class='notice'>Your prepare to your eyes for a stunning glare! <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>Your eyes relax... for now.</span>"
-	allowed_type = /mob/living/carbon/human
+	//allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/glare/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
+/obj/effect/proc_holder/spell/glare/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.range = 10
+	return T
+
+/obj/effect/proc_holder/spell/glare/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
 	if(!shadowling_check(user))
 		return FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/click/glare/valid_target(mob/living/carbon/human/target, user)
+/obj/effect/proc_holder/spell/glare/valid_target(mob/living/carbon/human/target, user)
 	if(!..())
 		return FALSE
 	return !target.stat && !is_shadow_or_thrall(target)
 
-/obj/effect/proc_holder/spell/targeted/click/glare/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/glare/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/H = targets[1]
 
 	user.visible_message("<span class='warning'><b>[user]'s eyes flash a blinding red!</b></span>")
@@ -63,7 +68,7 @@
 		to_chat(H, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted.. you are not able to speak..</span>")
 		addtimer(CALLBACK(src, .proc/do_stun, H, user, loss), duration SECONDS)
 
-/obj/effect/proc_holder/spell/targeted/click/glare/proc/do_stun(mob/living/carbon/human/target, user, stun_time)
+/obj/effect/proc_holder/spell/glare/proc/do_stun(mob/living/carbon/human/target, user, stun_time)
 	if(!istype(target) || target.stat)
 		return
 	target.Stun(stun_time)
@@ -206,7 +211,7 @@
 				M.reagents.add_reagent("frostoil", 15) //Half of a cryosting
 
 
-/obj/effect/proc_holder/spell/targeted/click/enthrall //Turns a target into the shadowling's slave. This overrides all previous loyalties
+/obj/effect/proc_holder/spell/enthrall //Turns a target into the shadowling's slave. This overrides all previous loyalties
 	name = "Enthrall"
 	desc = "Allows you to enslave a conscious, non-braindead, non-catatonic human to your will. This takes some time to cast."
 	panel = "Shadowling Abilities"
@@ -216,12 +221,17 @@
 	var/enthralling = FALSE
 	action_icon_state = "enthrall"
 
-	click_radius = -1 // Precision baby
+	//click_radius = -1 // Precision baby
 	selection_activated_message		= "<span class='notice'>Your prepare your mind to entrall a mortal. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
-	allowed_type = /mob/living/carbon/human
+	//allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/enthrall/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
+/obj/effect/proc_holder/spell/enthrall/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.click_radius = -1
+	return T
+
+/obj/effect/proc_holder/spell/enthrall/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
 	if(enthralling)
 		to_chat(user, "<span class='warning'>You're already enthralling someone!</span>")
 		return FALSE
@@ -229,12 +239,12 @@
 		return FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/click/enthrall/valid_target(mob/living/carbon/human/target, user)
+/obj/effect/proc_holder/spell/enthrall/valid_target(mob/living/carbon/human/target, user)
 	if(!..())
 		return FALSE
 	return target.key && target.mind && !target.stat && !is_shadow_or_thrall(target) && target.client
 
-/obj/effect/proc_holder/spell/targeted/click/enthrall/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/enthrall/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/ling = user
 	listclearnulls(SSticker.mode.shadowling_thralls)
 	if(!(ling.mind in SSticker.mode.shadows))
@@ -363,7 +373,7 @@
 			reviveThrallAcquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Black Recuperation</b> ability. \
 			This will, after a short time, bring a dead thrall completely back to life with no bodily defects.</i></span>")
-			target.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/reviveThrall(null))
+			target.mind.AddSpell(new /obj/effect/proc_holder/spell/reviveThrall(null))
 
 		if(thralls < victory_threshold)
 			to_chat(target, "<span class='shadowling'>You do not have the power to ascend. You require [victory_threshold] thralls, but only [thralls] living thralls are present.</span>")
@@ -534,32 +544,37 @@
 
 
 
-/obj/effect/proc_holder/spell/targeted/click/reviveThrall
+/obj/effect/proc_holder/spell/reviveThrall
 	name = "Black Recuperation"
 	desc = "Revives or empowers a thrall."
 	panel = "Shadowling Abilities"
 	range = 1
 	charge_max = 600
 	clothes_req = FALSE
-	include_user = FALSE
 	action_icon_state = "revive_thrall"
-	click_radius = -1 // Precision baby
+	//click_radius = -1 // Precision baby
 	selection_activated_message		= "<span class='notice'>You start focusing your powers on mending wounds of allies. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
-	allowed_type = /mob/living/carbon/human
+	//allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/reviveThrall/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
+/obj/effect/proc_holder/spell/reviveThrall/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.click_radius = -1
+	T.range = 1
+	return T
+
+/obj/effect/proc_holder/spell/reviveThrall/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
 	if(!shadowling_check(user))
 		return FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/click/reviveThrall/valid_target(mob/living/carbon/human/target, user)
+/obj/effect/proc_holder/spell/reviveThrall/valid_target(mob/living/carbon/human/target, user)
 	if(!..())
 		return FALSE
 
 	return is_thrall(target)
 
-/obj/effect/proc_holder/spell/targeted/click/reviveThrall/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/reviveThrall/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/thrallToRevive = targets[1]
 	if(thrallToRevive.stat == CONSCIOUS)
 		if(isshadowlinglesser(thrallToRevive))
@@ -598,7 +613,7 @@
 										darkness but wither slowly in light. In addition, you now have glare and true shadow walk.</b></span>")
 		thrallToRevive.set_species(/datum/species/shadow/ling/lesser)
 		thrallToRevive.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
-		thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/glare(null))
+		thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/glare(null))
 		thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk(null))
 	else if(thrallToRevive.stat == DEAD)
 		user.visible_message("<span class='danger'>[user] kneels over [thrallToRevive], placing [user.p_their()] hands on [thrallToRevive.p_their()] chest.</span>", \
@@ -624,26 +639,32 @@
 		to_chat(user, "<span class='warning'>The target must be awake to empower or dead to revive.</span>")
 		revert_cast(user)
 
-/obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle
+/obj/effect/proc_holder/spell/shadowling_extend_shuttle
 	name = "Destroy Engines"
 	desc = "Extends the time of the emergency shuttle's arrival by ten minutes using a life force of our enemy. Shuttle will be unable to be recalled. This can only be used once."
 	panel = "Shadowling Abilities"
-	range = 1
+	//range = 1
 	clothes_req = FALSE
 	charge_max = 600
-	click_radius = -1 // Precision baby
+	//click_radius = -1 // Precision baby
 	selection_activated_message		= "<span class='notice'>You start gathering destructive powers to delay the shuttle. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
-	allowed_type = /mob/living/carbon/human
+	//allowed_type = /mob/living/carbon/human
 	action_icon_state = "extend_shuttle"
 	var/global/extendlimit = 0
 
-/obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
+/obj/effect/proc_holder/spell/shadowling_extend_shuttle/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.click_radius = -1
+	T.range = 1
+	return T
+
+/obj/effect/proc_holder/spell/shadowling_extend_shuttle/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
 	if(!shadowling_check(user))
 		return FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+/obj/effect/proc_holder/spell/shadowling_extend_shuttle/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(extendlimit == 1)
 		if(show_message)
 			to_chat(user, "<span class='warning'>Shuttle was already delayed.</span>")
@@ -654,13 +675,13 @@
 		return FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle/valid_target(mob/living/carbon/human/target, user)
+/obj/effect/proc_holder/spell/shadowling_extend_shuttle/valid_target(mob/living/carbon/human/target, user)
 	if(!..())
 		return FALSE
 	return !target.stat && !is_shadow_or_thrall(target)
 
 
-/obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/shadowling_extend_shuttle/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
 
 	user.visible_message("<span class='warning'>[user]'s eyes flash a bright red!</span>", \
@@ -688,19 +709,22 @@
 
 // ASCENDANT ABILITIES BEYOND THIS POINT //
 
-/obj/effect/proc_holder/spell/targeted/click/annihilate
+/obj/effect/proc_holder/spell/annihilate
 	name = "Annihilate"
 	desc = "Gibs someone instantly."
 	panel = "Ascendant"
-	range = 7
 	charge_max = FALSE
 	clothes_req = FALSE
 	action_icon_state = "annihilate"
 	selection_activated_message		= "<span class='notice'>You start thinking about gibs. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
-	allowed_type = /mob/living/carbon/human
+	//allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/annihilate/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/annihilate/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	return T
+
+/obj/effect/proc_holder/spell/annihilate/cast(list/targets, mob/user = usr)
 	var/mob/living/simple_animal/ascendant_shadowling/SHA = user
 	if(SHA.phasing)
 		to_chat(user, "<span class='warning'>You are not in the same plane of existence. Unphase first.</span>")
@@ -723,21 +747,25 @@
 
 
 
-/obj/effect/proc_holder/spell/targeted/click/hypnosis
+/obj/effect/proc_holder/spell/hypnosis
 	name = "Hypnosis"
 	desc = "Instantly enthralls a human."
 	panel = "Ascendant"
-	range = 7
 	charge_max = FALSE
 	clothes_req = FALSE
 	action_icon_state = "enthrall"
 
-	click_radius = -1
+	//click_radius = -1
 	selection_activated_message		= "<span class='notice'>You start preparing to mindwash over a mortal mind. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
-	allowed_type = /mob/living/carbon/human
+	//allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/hypnosis/can_cast(mob/living/simple_animal/ascendant_shadowling/user = usr, charge_check = TRUE, show_message = FALSE)
+/obj/effect/proc_holder/spell/hypnosis/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.click_radius = -1
+	return T
+
+/obj/effect/proc_holder/spell/hypnosis/can_cast(mob/living/simple_animal/ascendant_shadowling/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(!istype(user))
 		return FALSE
 	if(user.phasing)
@@ -746,12 +774,12 @@
 		return FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/click/hypnosis/valid_target(mob/living/carbon/human/target, user)
+/obj/effect/proc_holder/spell/hypnosis/valid_target(mob/living/carbon/human/target, user)
 	if(!..())
 		return FALSE
 	return !is_shadow_or_thrall(target) && target.ckey && target.mind && !target.stat
 
-/obj/effect/proc_holder/spell/targeted/click/hypnosis/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/hypnosis/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
 
 	to_chat(user, "<span class='shadowling'>You instantly rearrange <b>[target]</b>'s memories, hyptonitizing [target.p_them()] into a thrall.</span>")

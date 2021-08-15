@@ -8,15 +8,15 @@
 
 /datum/spell_targeting/click/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
 	var/list/targets = list()
-	if(valid_target(clicked_atom, user))
+	if(valid_target(clicked_atom, user, spell))
 		targets.Add(clicked_atom)
 
-	if(max_targets <= length(targets) || click_radius < 0)
+	if(length(targets) >= max_targets || click_radius < 0)
 		return targets
 
 	var/list/found_others = list()
 	for(var/atom/target in range(click_radius, clicked_atom))
-		if(clicked_atom != target && valid_target(target, user))
+		if(clicked_atom != target && valid_target(target, user, spell))
 			found_others += target
 
 	if(max_targets <= length(found_others) + length(targets))

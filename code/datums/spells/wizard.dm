@@ -303,7 +303,7 @@
 	duration = 300
 	sound = 'sound/magic/blind.ogg'
 
-/obj/effect/proc_holder/spell/targeted/click/fireball
+/obj/effect/proc_holder/spell/fireball
 	name = "Fireball"
 	desc = "This spell fires a fireball at a target and does not require wizard garb."
 
@@ -312,14 +312,14 @@
 	clothes_req = FALSE
 	invocation = "ONI SOMA"
 	invocation_type = "shout"
-	auto_target_single = FALSE // Having this true won't ever find a single target and is just lost processing power
+	//auto_target_single = FALSE // Having this true won't ever find a single target and is just lost processing power
 	range = 20
 	cooldown_min = 20 //10 deciseconds reduction per rank
 
-	click_radius = -1
+	//click_radius = -1
 	selection_activated_message		= "<span class='notice'>Your prepare to cast your fireball spell! <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>You extinguish your fireball...for now.</span>"
-	allowed_type = /atom		// FIRE AT EVERYTHING
+	//allowed_type = /atom		// FIRE AT EVERYTHING
 
 	var/fireball_type = /obj/item/projectile/magic/fireball
 	action_icon_state = "fireball0"
@@ -327,13 +327,18 @@
 
 	active = FALSE
 
-/obj/effect/proc_holder/spell/targeted/click/fireball/update_icon()
+/obj/effect/proc_holder/spell/fireball/create_new_targeting()
+	var/datum/spell_targeting/directional/T = new()
+	T.range = 20
+	return T
+
+/obj/effect/proc_holder/spell/fireball/update_icon()
 	if(!action)
 		return
 	action.button_icon_state = "fireball[active]"
 	action.UpdateButtonIcon()
 
-/obj/effect/proc_holder/spell/targeted/click/fireball/cast(list/targets, mob/living/user = usr)
+/obj/effect/proc_holder/spell/fireball/cast(list/targets, mob/living/user = usr)
 	var/target = targets[1] //There is only ever one target for fireball
 	var/turf/T = user.loc
 	var/turf/U = get_step(user, user.dir) // Get the tile infront of the move, based on their direction

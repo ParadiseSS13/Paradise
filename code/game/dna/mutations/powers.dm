@@ -302,13 +302,13 @@
 	activation_messages = list("You notice a strange cold tingle in your fingertips.")
 	deactivation_messages = list("Your fingers feel warmer.")
 	instability = GENE_INSTABILITY_MODERATE
-	spelltype = /obj/effect/proc_holder/spell/targeted/click/cryokinesis
+	spelltype = /obj/effect/proc_holder/spell/cryokinesis
 
 /datum/mutation/grant_spell/cryo/New()
 	..()
 	block = GLOB.cryoblock
 
-/obj/effect/proc_holder/spell/targeted/click/cryokinesis
+/obj/effect/proc_holder/spell/cryokinesis
 	name = "Cryokinesis"
 	desc = "Drops the bodytemperature of another person."
 	panel = "Abilities"
@@ -319,20 +319,28 @@
 	clothes_req = FALSE
 	stat_allowed = FALSE
 
-	click_radius = 0
-	auto_target_single = FALSE	// Give the clueless geneticists a way out and to have them not target themselves
+	//click_radius = 0
+	//auto_target_single = FALSE	// Give the clueless geneticists a way out and to have them not target themselves
 	selection_activated_message		= "<span class='notice'>Your mind grow cold. Click on a target to cast the spell.</span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind returns to normal.</span>"
-	allowed_type = /mob/living/carbon
+	//allowed_type = /mob/living/carbon
 	invocation_type = "none"
-	range = 7
 	selection_type = "range"
-	include_user = TRUE
+	//include_user = TRUE
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
 	action_icon_state = "genetic_cryo"
 
-/obj/effect/proc_holder/spell/targeted/click/cryokinesis/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/cryokinesis/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.allowed_type = /mob/living/carbon
+	T.click_radius = 0
+	T.try_auto_target = FALSE // Give the clueless geneticists a way out and to have them not target themselves
+	T.selection_type = SPELL_SELECTION_RANGE
+	T.include_user = TRUE
+	return T
+
+/obj/effect/proc_holder/spell/cryokinesis/cast(list/targets, mob/user = usr)
 
 	var/mob/living/carbon/C = targets[1]
 
@@ -612,7 +620,7 @@
 	name = "Polymorphism"
 	desc = "Enables the subject to reconfigure their appearance to mimic that of others."
 
-	spelltype =/obj/effect/proc_holder/spell/targeted/click/polymorph
+	spelltype =/obj/effect/proc_holder/spell/polymorph
 	//cooldown = 1800
 	activation_messages = list("You don't feel entirely like yourself somehow.")
 	deactivation_messages = list("You feel secure in your identity.")
@@ -622,7 +630,7 @@
 	..()
 	block = GLOB.polymorphblock
 
-/obj/effect/proc_holder/spell/targeted/click/polymorph
+/obj/effect/proc_holder/spell/polymorph
 	name = "Polymorph"
 	desc = "Mimic the appearance of others!"
 	panel = "Abilities"
@@ -631,11 +639,11 @@
 	clothes_req = FALSE
 	stat_allowed = FALSE
 
-	click_radius = -1			// Precision required
-	auto_target_single = FALSE	// Safety to not turn into monkey (420)
+	//click_radius = -1			// Precision required
+	//auto_target_single = FALSE	// Safety to not turn into monkey (420)
 	selection_activated_message		= "<span class='notice'>You body becomes unstable. Click on a target to cast transform into them.</span>"
 	selection_deactivated_message	= "<span class='notice'>Your body calms down again.</span>"
-	allowed_type = /mob/living/carbon/human
+	//allowed_type = /mob/living/carbon/human
 
 	invocation_type = "none"
 	range = 1
@@ -643,7 +651,15 @@
 
 	action_icon_state = "genetic_poly"
 
-/obj/effect/proc_holder/spell/targeted/click/polymorph/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/polymorph/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.try_auto_target = FALSE
+	T.click_radius = -1
+	T.range = 1
+	T.selection_type = SPELL_SELECTION_RANGE
+	return T
+
+/obj/effect/proc_holder/spell/polymorph/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
 
 	user.visible_message("<span class='warning'>[user]'s body shifts and contorts.</span>")
