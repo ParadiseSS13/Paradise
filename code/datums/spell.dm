@@ -173,7 +173,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  * * user - Who is the user of this spell
  */
 /obj/effect/proc_holder/spell/proc/valid_target(target, user)
-	return TRUE // TODO check all the implementations
+	return TRUE
 
 /**
  * Will spend the cost of using this spell once. Will update the action button's icon if there is any
@@ -255,11 +255,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  * Arguments:
  * * user - The caster of the spell
  */
-/obj/effect/proc_holder/spell/proc/choose_targets(mob/user) // TODO remove = usr
+/obj/effect/proc_holder/spell/proc/choose_targets(mob/user)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	if(targeting.use_intercept_click)
 		if(active)
-			remove_ranged_ability(user, selection_deactivated_message) // TODO put selection_deactivated_message stuff on spell. Rename as well
+			remove_ranged_ability(user, selection_deactivated_message)
 			return
 
 		if(targeting.try_auto_target && targeting.attempt_auto_target(user, src))
@@ -311,7 +311,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			write_custom_logs(targets, user)
 		if(create_attack_logs)
 			add_attack_logs(user, targets, "cast the spell [name]", ATKLOG_ALL)
-	spawn(0)// TODO remove this. Recharge is done in another way now
+	spawn(0)
 		if(charge_type == "recharge" && recharge)
 			start_recharge()
 
@@ -434,7 +434,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			return 1
 
 
-/obj/effect/proc_holder/spell/aoe_turf // TODO change to just aoe
+/obj/effect/proc_holder/spell/aoe_turf
 	create_attack_logs = FALSE
 	create_custom_logs = TRUE
 
