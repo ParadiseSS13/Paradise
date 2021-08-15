@@ -176,9 +176,3 @@
 //1 = standard hud
 //2 = reduced hud (just hands and intent switcher)
 //3 = no hud (for screenshots)
-
-
-#define HUD_LAYER_SCREEN 20
-
-// Planes are above layers, and this should always be on top.
-#define HUD_PLANE_BUILDMODE 30
