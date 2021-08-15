@@ -1130,8 +1130,6 @@ so that different stomachs can handle things in different ways VB*/
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()
-	if(!GLOB.tinted_weldhelh)
-		return
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
 		overlay_fullscreen("tint", /obj/screen/fullscreen/blind)

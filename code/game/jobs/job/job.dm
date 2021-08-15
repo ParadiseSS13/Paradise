@@ -85,10 +85,13 @@
 		announce(H)
 
 /datum/job/proc/get_access()
-	if(!config)	//Needed for robots.
+	if(!GLOB?.configuration?.jobs)	//Needed for robots.
+		// AA TODO: Remove this once mulebots and stuff use Initialize()
+		// Update: Now that the map is loaded after SSjobs this might not be needed
+		// However, I dont want to take that chance
 		return src.minimal_access.Copy()
 
-	if(config.jobs_have_minimal_access)
+	if(GLOB.configuration.jobs.jobs_have_minimal_access)
 		return src.minimal_access.Copy()
 	else
 		return src.access.Copy()
@@ -103,7 +106,7 @@
 /datum/job/proc/available_in_days(client/C)
 	if(!C)
 		return 0
-	if(!config.use_age_restriction_for_jobs)
+	if(!GLOB.configuration.jobs.restrict_jobs_on_account_age)
 		return 0
 	if(!isnum(C.player_age))
 		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced

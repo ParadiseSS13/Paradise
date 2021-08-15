@@ -168,7 +168,7 @@
 			to_chat(src, "<b>You are invincible and invisible to everyone but other ghosts. Most abilities will reveal you, rendering you vulnerable.</b>")
 			to_chat(src, "<b>To function, you are to drain the life essence from humans. This essence is a resource, as well as your health, and will power all of your abilities.</b>")
 			to_chat(src, "<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>")
-			to_chat(src, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Revenant)</span>")
+			to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Revenant)</span>")
 			var/datum/objective/revenant/objective = new
 			objective.owner = mind
 			mind.objectives += objective
@@ -233,6 +233,8 @@
 
 /mob/living/simple_animal/revenant/proc/castcheck(essence_cost)
 	if(!src)
+		return
+	if(holy_check(src))
 		return
 	var/turf/T = get_turf(src)
 	if(istype(T, /turf/simulated/wall))

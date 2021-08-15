@@ -336,7 +336,7 @@
 
 /obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"
-	desc = "This implant will attempt to revive you if you lose consciousness. For the faint of heart!"
+	desc = "This implant will attempt to heal you out of critical condition. For the faint of heart!"
 	icon_state = "chest_implant"
 	implant_color = "#AD0000"
 	origin_tech = "materials=5;programming=4;biotech=4"
@@ -361,6 +361,11 @@
 			addtimer(CALLBACK(src, .proc/heal), 30)
 		else
 			reviving = FALSE
+			if(owner.HasDisease(new /datum/disease/critical/shock(0)) && prob(15)) //If they are no longer in crit, but have shock, and pass a 15% chance:
+				for(var/datum/disease/critical/shock/S in owner.viruses)
+					S.cure()
+					revive_cost += 150
+					to_chat(owner, "<span class='notice'>You feel better.</span>")
 			return
 	cooldown = revive_cost + world.time
 	revive_cost = 0

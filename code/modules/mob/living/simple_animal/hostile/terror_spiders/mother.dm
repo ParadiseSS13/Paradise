@@ -25,6 +25,7 @@
 	regen_points_per_kill = 200 // >2x normal, since they're food reprocessors
 	idle_ventcrawl_chance = 5
 	spider_tier = TS_TIER_3
+	loudspeaker = TRUE
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/mother
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action

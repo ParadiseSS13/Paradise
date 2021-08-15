@@ -134,6 +134,8 @@
 			on_CD = handle_emote_CD()
 		if("deathgasp", "deathgasps")
 			on_CD = handle_emote_CD(50)
+		if("spin", "spins")
+			on_CD = handle_emote_CD(50)
 		if("sneeze", "sneezes")
 			on_CD = handle_emote_CD()
 		if("clap", "claps")
@@ -442,6 +444,17 @@
 							else
 								message = "<B>[src]</B> does a flip!"
 								SpinAnimation(5,1)
+
+		if("spin", "spins")
+			if(!restrained() && !lying)
+				if(prob(5))
+					spin(30, 1)
+					message = "<B>[src]</B> spins too much!"
+					Dizzy(12)
+					Confused(12)
+				else
+					spin(20, 1)
+					message = "<B>[src]</B> spins!"
 
 		if("aflap", "aflaps")
 			if(!restrained())
@@ -950,7 +963,7 @@
 			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-none/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s), cry, cries, custom, dance, dap(s)-none/mob," \
 			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-none/mob, grin(s), groan(s), grumble(s), grin(s)," \
 			+ " handshake-mob, hug(s)-none/mob, hem, highfive, johnny, jump, kiss(es), laugh(s), look(s)-none/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-none/mob, scream(s), shake(s)," \
-			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10, slap(s), smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-none/mob, tremble(s), twitch(es), twitch(es)_s," \
+			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10, slap(s), smile(s),snap(s), sneeze(s), sniff(s), snore(s), spin(s) stare(s)-none/mob, tremble(s), twitch(es), twitch(es)_s," \
 			+ " wave(s), whimper(s), wink(s), yawn(s)"
 
 			switch(dna.species.name)

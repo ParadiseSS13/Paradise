@@ -8,6 +8,7 @@
 		spellremove(src)
 	mobspellremove(src)
 	QDEL_LIST(viruses)
+	QDEL_LIST(actions)
 	ghostize()
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	for(var/I in tkgrabbed_objects)
@@ -20,6 +21,7 @@
 			AA.viewers -= src
 		viewing_alternate_appearances = null
 	LAssailant = null
+	runechat_msg_location = null
 	return ..()
 
 /mob/Initialize(mapload)
@@ -749,7 +751,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set name = "Respawn"
 	set category = "OOC"
 
-	if(!GLOB.abandon_allowed)
+	if(!GLOB.configuration.general.respawn_enabled)
 		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
 		return
 
@@ -1007,7 +1009,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
-	stat(null, "Round Time: [worldtime2text()]")
+	stat(null, "Server Uptime: [worldtime2text()]")
+	stat(null, "Round Time: [ROUND_TIME ? time2text(ROUND_TIME, "hh:mm:ss") : "N/A"]")
 	stat(null, "Station Time: [station_time_timestamp()]")
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
@@ -1352,20 +1355,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set waitfor = 0
 	if(!spintime || !speed || spintime > 100)
 		CRASH("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
-	var/D = dir
-	while(spintime >= speed)
+	var/end_time = world.time + spintime
+	var/spin_dir = prob(50)
+	while(world.time <= end_time)
 		sleep(speed)
-		switch(D)
-			if(NORTH)
-				D = EAST
-			if(SOUTH)
-				D = WEST
-			if(EAST)
-				D = SOUTH
-			if(WEST)
-				D = NORTH
-		setDir(D)
-		spintime -= speed
+		if(spin_dir)
+			dir = turn(dir, 90)
+		else
+			dir = turn(dir, -90)
 
 /mob/proc/is_literate()
 	return FALSE
@@ -1461,3 +1458,31 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
  */
 /mob/proc/update_runechat_msg_location()
 	return
+
+GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
+	/area/chapel
+)))
+
+/mob/proc/holy_check()
+	if(!is_type_in_typecache(loc.loc, GLOB.holy_areas))
+		return FALSE
+
+	if(!mind)
+		return FALSE
+
+	//Allows fullpower vampires to bypass holy areas
+	var/datum/vampire/vampire = mind.vampire
+	if(vampire && vampire.get_ability(/datum/vampire_passive/full))
+		return FALSE
+
+	//Allows cult to bypass holy areas once they summon
+	var/datum/game_mode/gamemode = SSticker.mode
+	if(iscultist(src) && gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
+		return FALSE
+
+	//Execption for Holy Constructs
+	if(isconstruct(src) && !iscultist(src))
+		return FALSE
+
+	to_chat(src, "<span class='warning'>Your powers are useless on this holy ground.</span>")
+	return TRUE

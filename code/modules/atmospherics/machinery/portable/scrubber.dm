@@ -14,6 +14,11 @@
 	/// Is this scrubber acting on the 3x3 area around it.
 	var/widenet = FALSE
 
+/obj/machinery/portable_atmospherics/scrubber/detailed_examine()
+	return "Filters the air, placing harmful gases into the internal gas container. The container can be emptied by \
+			connecting it to a connector port. The pump can pump the air in (sucking) or out (blowing), at a specific target pressure. The powercell inside can be \
+			replaced by using a screwdriver, and then adding a new cell. A tank of gas can also be attached to the scrubber."
+
 /obj/machinery/portable_atmospherics/scrubber/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
 		..(severity)
