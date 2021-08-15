@@ -180,7 +180,7 @@
 			SSticker.mode.traitors |= mind //Necessary for announcing
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
-	mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision/revenant(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/night_vision/revenant(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/revenant_transmit(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/overload(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/defile(null))

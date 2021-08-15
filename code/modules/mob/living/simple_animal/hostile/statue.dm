@@ -58,7 +58,7 @@
 	// Give spells
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blindness(null))
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision(null))
+	AddSpell(new /obj/effect/proc_holder/spell/night_vision(null))
 
 	// Set creator
 	if(creator)

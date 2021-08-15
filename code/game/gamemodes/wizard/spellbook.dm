@@ -156,40 +156,40 @@
 
 /datum/spellbook_entry/mutate
 	name = "Mutate"
-	spell_type = /obj/effect/proc_holder/spell/targeted/genetic/mutate
+	spell_type = /obj/effect/proc_holder/spell/genetic/mutate
 	log_name = "MU"
 	category = "Offensive"
 
 /datum/spellbook_entry/rod_form
 	name = "Rod Form"
-	spell_type = /obj/effect/proc_holder/spell/targeted/rod_form
+	spell_type = /obj/effect/proc_holder/spell/rod_form
 	log_name = "RF"
 	category = "Offensive"
 
 /datum/spellbook_entry/infinite_guns
 	name = "Lesser Summon Guns"
-	spell_type = /obj/effect/proc_holder/spell/targeted/infinite_guns
+	spell_type = /obj/effect/proc_holder/spell/infinite_guns
 	log_name = "IG"
 	category = "Offensive"
 
 //Defensive
 /datum/spellbook_entry/disabletech
 	name = "Disable Tech"
-	spell_type = /obj/effect/proc_holder/spell/targeted/emplosion/disable_tech
+	spell_type = /obj/effect/proc_holder/spell/emplosion/disable_tech
 	log_name = "DT"
 	category = "Defensive"
 	cost = 1
 
 /datum/spellbook_entry/forcewall
 	name = "Force Wall"
-	spell_type = /obj/effect/proc_holder/spell/targeted/forcewall
+	spell_type = /obj/effect/proc_holder/spell/forcewall
 	log_name = "FW"
 	category = "Defensive"
 	cost = 1
 
 /datum/spellbook_entry/greaterforcewall
 	name = "Greater Force Wall"
-	spell_type = /obj/effect/proc_holder/spell/targeted/forcewall/greater
+	spell_type = /obj/effect/proc_holder/spell/forcewall/greater
 	log_name = "GFW"
 	category = "Defensive"
 	cost = 1
@@ -203,14 +203,14 @@
 
 /datum/spellbook_entry/smoke
 	name = "Smoke"
-	spell_type = /obj/effect/proc_holder/spell/targeted/smoke
+	spell_type = /obj/effect/proc_holder/spell/smoke
 	log_name = "SM"
 	category = "Defensive"
 	cost = 1
 
 /datum/spellbook_entry/lichdom
 	name = "Bind Soul"
-	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
+	spell_type = /obj/effect/proc_holder/spell/lichdom
 	log_name = "LD"
 	category = "Defensive"
 	is_ragin_restricted = TRUE
@@ -262,7 +262,7 @@
 
 /datum/spellbook_entry/jaunt
 	name = "Ethereal Jaunt"
-	spell_type = /obj/effect/proc_holder/spell/targeted/ethereal_jaunt
+	spell_type = /obj/effect/proc_holder/spell/ethereal_jaunt
 	log_name = "EJ"
 	category = "Mobility"
 
@@ -288,14 +288,14 @@
 //Assistance
 /datum/spellbook_entry/charge
 	name = "Charge"
-	spell_type = /obj/effect/proc_holder/spell/targeted/charge
+	spell_type = /obj/effect/proc_holder/spell/charge
 	log_name = "CH"
 	category = "Assistance"
 	cost = 1
 
 /datum/spellbook_entry/summonitem
 	name = "Summon Item"
-	spell_type = /obj/effect/proc_holder/spell/targeted/summonitem
+	spell_type = /obj/effect/proc_holder/spell/summonitem
 	log_name = "IS"
 	category = "Assistance"
 	cost = 1
@@ -940,7 +940,7 @@
 	qdel(src)
 
 /obj/item/spellbook/oneuse/smoke
-	spell = /obj/effect/proc_holder/spell/targeted/smoke
+	spell = /obj/effect/proc_holder/spell/smoke
 	spellname = "smoke"
 	icon_state = "booksmoke"
 	desc = "This book is overflowing with the dank arts."
@@ -994,7 +994,7 @@
 	stored_swap = null
 
 /obj/item/spellbook/oneuse/forcewall
-	spell = /obj/effect/proc_holder/spell/targeted/forcewall
+	spell = /obj/effect/proc_holder/spell/forcewall
 	spellname = "forcewall"
 	icon_state = "bookforcewall"
 	desc = "This book has a dedication to mimes everywhere inside the front cover."
@@ -1038,7 +1038,7 @@
 		to_chat(user, "<span class='notice'>I say thee neigh</span>")
 
 /obj/item/spellbook/oneuse/charge
-	spell = /obj/effect/proc_holder/spell/targeted/charge
+	spell = /obj/effect/proc_holder/spell/charge
 	spellname = "charging"
 	icon_state = "bookcharge"
 	desc = "This book is made of 100% post-consumer wizard."
@@ -1049,7 +1049,7 @@
 	empulse(src, 1, 1)
 
 /obj/item/spellbook/oneuse/summonitem
-	spell = /obj/effect/proc_holder/spell/targeted/summonitem
+	spell = /obj/effect/proc_holder/spell/summonitem
 	spellname = "instant summons"
 	icon_state = "booksummons"
 	desc = "This book is bright and garish, very hard to miss."

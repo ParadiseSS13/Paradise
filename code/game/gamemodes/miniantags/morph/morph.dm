@@ -54,8 +54,8 @@
 
 /mob/living/simple_animal/hostile/morph/wizard/New()
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/smoke)
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall)
+	AddSpell(new /obj/effect/proc_holder/spell/smoke)
+	AddSpell(new /obj/effect/proc_holder/spell/forcewall)
 
 /mob/living/simple_animal/hostile/morph/examine(mob/user)
 	if(morphed)

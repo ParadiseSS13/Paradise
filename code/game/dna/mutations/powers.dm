@@ -530,18 +530,16 @@
 	deactivation_messages = list("Your leg muscles shrink back to normal.")
 	instability = GENE_INSTABILITY_MINOR
 
-	spelltype =/obj/effect/proc_holder/spell/targeted/leap
+	spelltype =/obj/effect/proc_holder/spell/leap
 
 /datum/mutation/grant_spell/jumpy/New()
 	..()
 	block = GLOB.jumpblock
 
-/obj/effect/proc_holder/spell/targeted/leap
+/obj/effect/proc_holder/spell/leap
 	name = "Jump"
 	desc = "Leap great distances!"
 	panel = "Abilities"
-	range = -1
-	include_user = 1
 
 	charge_type = "recharge"
 	charge_max = 60
@@ -552,7 +550,11 @@
 
 	action_icon_state = "genetic_jump"
 
-/obj/effect/proc_holder/spell/targeted/leap/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/leap/create_new_targeting()
+	var/datum/spell_targeting/self/S = new()
+	return S
+
+/obj/effect/proc_holder/spell/leap/cast(list/targets, mob/user = usr)
 	var/failure = FALSE
 	if(istype(user.loc,/mob/) || user.lying || user.stunned || user.buckled || user.stat)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
@@ -796,7 +798,7 @@
 /datum/mutation/grant_spell/morph
 	name = "Morphism"
 	desc = "Enables the subject to reconfigure their appearance to that of any human."
-	spelltype =/obj/effect/proc_holder/spell/targeted/morph
+	spelltype =/obj/effect/proc_holder/spell/morph
 	activation_messages = list("Your body feels if can alter its appearance.")
 	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
 	instability = GENE_INSTABILITY_MINOR
@@ -805,7 +807,7 @@
 	..()
 	block = GLOB.morphblock
 
-/obj/effect/proc_holder/spell/targeted/morph
+/obj/effect/proc_holder/spell/morph
 	name = "Morph"
 	desc = "Mimic the appearance of your choice!"
 	panel = "Abilities"
@@ -814,13 +816,15 @@
 	clothes_req = 0
 	stat_allowed = 0
 	invocation_type = "none"
-	range = -1
-	include_user = 1
 	selection_type = "range"
 
 	action_icon_state = "genetic_morph"
 
-/obj/effect/proc_holder/spell/targeted/morph/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/morph/create_new_targeting()
+	var/datum/spell_targeting/self/S = new()
+	return S
+
+/obj/effect/proc_holder/spell/morph/cast(list/targets, mob/user = usr)
 	if(!ishuman(user))
 		return
 

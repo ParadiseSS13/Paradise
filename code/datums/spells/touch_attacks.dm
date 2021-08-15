@@ -6,8 +6,8 @@
 	range = -1
 
 /obj/effect/proc_holder/spell/touch/create_new_targeting()
-	var/datum/spell_targeting/self/T = new()
-	return T
+	var/datum/spell_targeting/self/S = new()
+	return S
 
 /obj/effect/proc_holder/spell/touch/Click(mob/user = usr)
 	if(attached_hand)
