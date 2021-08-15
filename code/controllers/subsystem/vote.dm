@@ -41,7 +41,7 @@ SUBSYSTEM_DEF(vote)
 				CHECK_TICK
 
 /datum/controller/subsystem/vote/proc/autotransfer()
-	initiate_vote("crew_transfer","the server")
+	initiate_vote("crew transfer", "the server")
 
 /datum/controller/subsystem/vote/proc/reset()
 	initiator = null
@@ -95,7 +95,7 @@ SUBSYSTEM_DEF(vote)
 					choices[GLOB.master_mode] += non_voters
 					if(choices[GLOB.master_mode] >= greatest_votes)
 						greatest_votes = choices[GLOB.master_mode]
-			else if(mode == "crew_transfer")
+			else if(mode == "crew transfer")
 				var/factor = 0.5
 				switch(world.time / (10 * 60)) // minutes
 					if(0 to 60)
@@ -174,9 +174,9 @@ SUBSYSTEM_DEF(vote)
 				if(!SSticker.ticker_going)
 					SSticker.ticker_going = TRUE
 					to_chat(world, "<font color='red'><b>The round will start soon.</b></font>")
-			if("crew_transfer")
+			if("crew transfer")
 				if(. == "Initiate Crew Transfer")
-					init_shift_change(null, 1)
+					init_shift_change(null, TRUE)
 			if("map")
 				// Find target map.
 				var/datum/map/top_voted_map
@@ -222,7 +222,7 @@ SUBSYSTEM_DEF(vote)
 				if(SSticker.current_state >= 2)
 					return 0
 				choices.Add(GLOB.configuration.gamemode.votable_modes)
-			if("crew_transfer")
+			if("crew transfer")
 				if(check_rights(R_ADMIN|R_MOD))
 					if(SSticker.current_state <= 2)
 						return 0
@@ -266,16 +266,16 @@ SUBSYSTEM_DEF(vote)
 			<a href='?src=[UID()];vote=open'>Click here or type vote to place your vote.</a>
 			You have [GLOB.configuration.vote.vote_time / 10] seconds to vote.</font>"})
 		switch(vote_type)
-			if("crew_transfer", "gamemode", "custom", "map")
+			if("crew transfer", "gamemode", "custom", "map")
 				SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
 		if(mode == "gamemode" && SSticker.ticker_going)
 			SSticker.ticker_going = FALSE
 			to_chat(world, "<font color='red'><b>Round start has been delayed.</b></font>")
-		if(mode == "crew_transfer" && GLOB.ooc_enabled)
+		if(mode == "crew transfer" && GLOB.ooc_enabled)
 			auto_muted = TRUE
 			GLOB.ooc_enabled = FALSE
 			to_chat(world, "<b>The OOC channel has been automatically disabled due to a crew transfer vote.</b>")
-			log_admin("OOC was toggled automatically due to crew_transfer vote.")
+			log_admin("OOC was toggled automatically due to crew transfer vote.")
 			message_admins("OOC has been toggled off automatically.")
 		if(mode == "gamemode" && GLOB.ooc_enabled)
 			auto_muted = TRUE
@@ -314,37 +314,41 @@ SUBSYSTEM_DEF(vote)
 			dat += "(<a href='?src=[UID()];vote=cancel'>Cancel Vote</a>) "
 	else
 		dat += "<div id='vote_div'><h2>Start a vote:</h2><hr><ul><li>"
-		//restart
-		if(admin || GLOB.configuration.vote.allow_restart_votes)
-			dat += "<a href='?src=[UID()];vote=restart'>Restart</a>"
-		else
-			dat += "<font color='grey'>Restart (Disallowed)</font>"
-		dat += "</li><li>"
+		// Crew transfer
 		if(admin || GLOB.configuration.vote.allow_restart_votes)
 			dat += "<a href='?src=[UID()];vote=crew_transfer'>Crew Transfer</a>"
 		else
 			dat += "<font color='grey'>Crew Transfer (Disallowed)</font>"
+		dat += "</li><li>"
+
+		// Restart
+		if(admin || GLOB.configuration.vote.allow_restart_votes)
+			dat += "<a href='?src=[UID()];vote=restart'>Restart</a>"
+		else
+			dat += "<font color='grey'>Restart (Disallowed)</font>"
 		if(admin)
 			dat += "\t(<a href='?src=[UID()];vote=toggle_restart'>[GLOB.configuration.vote.allow_restart_votes ? "Allowed" : "Disallowed"]</a>)"
 		dat += "</li><li>"
-		//gamemode
+
+		// Gamemode
 		if(admin || GLOB.configuration.vote.allow_mode_votes)
-			dat += "<a href='?src=[UID()];vote=gamemode'>GameMode</a>"
+			dat += "<a href='?src=[UID()];vote=gamemode'>Gamemode</a>"
 		else
-			dat += "<font color='grey'>GameMode (Disallowed)</font>"
+			dat += "<font color='grey'>Gamemode (Disallowed)</font>"
 		if(admin)
 			dat += "\t(<a href='?src=[UID()];vote=toggle_gamemode'>[GLOB.configuration.vote.allow_mode_votes ? "Allowed" : "Disallowed"]</a>)"
-
 		dat += "</li><li>"
+
+		// Map
 		if(admin)
 			dat += "<a href='?src=[UID()];vote=map'>Map</a>"
 		else
 			dat += "<font color='grey'>Map (Disallowed)</font>"
+		dat += "</li><li>"
 
-		dat += "</li>"
-		//custom
+		// Custom
 		if(admin)
-			dat += "<li><a href='?src=[UID()];vote=custom'>Custom</a></li>"
+			dat += "<a href='?src=[UID()];vote=custom'>Custom</a></li>"
 		dat += "</ul></div><hr>"
 	var/datum/browser/popup = new(C.mob, "vote", "Voting Panel", nref=src)
 	popup.set_content(dat)
@@ -387,14 +391,16 @@ SUBSYSTEM_DEF(vote)
 				var/votedesc = capitalize(mode)
 				if(mode == "custom")
 					votedesc += " ([question])"
-				log_and_message_admins("cancelled the running [votedesc] vote.")
+				log_and_message_admins("cancelled the running '[votedesc]' vote.")
 				reset()
 		if("toggle_restart")
 			if(admin)
 				GLOB.configuration.vote.allow_restart_votes = !GLOB.configuration.vote.allow_restart_votes
+				log_and_message_admins("has [GLOB.configuration.vote.allow_restart_votes ? "enabled" : "disabled"] public restart voting.")
 		if("toggle_gamemode")
 			if(admin)
 				GLOB.configuration.vote.allow_mode_votes = !GLOB.configuration.vote.allow_mode_votes
+				log_and_message_admins("has [GLOB.configuration.vote.allow_mode_votes ? "enabled" : "disabled"] public gamemode voting.")
 		if("restart")
 			if(GLOB.configuration.vote.allow_restart_votes || admin)
 				initiate_vote("restart",usr.key)
@@ -406,7 +412,7 @@ SUBSYSTEM_DEF(vote)
 				initiate_vote("map", usr.key)
 		if("crew_transfer")
 			if(GLOB.configuration.vote.allow_restart_votes || admin)
-				initiate_vote("crew_transfer",usr.key)
+				initiate_vote("crew transfer", usr.key)
 		if("custom")
 			if(admin)
 				initiate_vote("custom",usr.key)
