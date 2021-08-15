@@ -1,18 +1,26 @@
 SUBSYSTEM_DEF(metrics)
 	name = "Metrics"
-	flags = SS_NO_INIT
 	wait = 1 MINUTES
 	offline_implications = "Server metrics will no longer be ingested into monitoring systems. No immediate action is needed."
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME // ALL THE LEVELS
 	/// The real time of day the server started. Used to calculate time drift
 	var/world_init_time = 0 // Not set in here. Set in world/New()
 
+/datum/controller/subsystem/metrics/Initialize(start_timeofday)
+	if(!GLOB.configuration.metrics.enable_metrics)
+		flags |= SS_NO_FIRE // Disable firing to save CPU
+	return ..()
+
+
 /datum/controller/subsystem/metrics/fire(resumed)
-	// AA TODO
-	return
+	SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, GLOB.configuration.metrics.metrics_endpoint, get_metrics_json(), list(
+		"Authorization" = "ApiKey [GLOB.configuration.metrics.metrics_api_token]",
+		"Content-Type" = "application/json"
+	))
 
 /datum/controller/subsystem/metrics/proc/get_metrics_json()
 	var/list/out = list()
+	out["@timestamp"] = time_stamp() // This is required by ElasticSearch, complete with this name. DO NOT REMOVE THIS.
 	out["cpu"] = world.cpu
 	// out["maptick"] = world.map_cpu // TODO: 514
 	out["elapsed_processed"] = world.time
@@ -28,3 +36,8 @@ SUBSYSTEM_DEF(metrics)
 	out["subsystems"] = ss_data
 	// And send it all
 	return json_encode(out)
+
+/*
+/client/verb/debugmetricts()
+	usr << browse(SSmetrics.get_metrics_json(), "window=aadebug")
+*/
