@@ -26,6 +26,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = TRUE //is the ghost able to see things humans can't?
 	var/seedarkness = TRUE
+	var/seerads = FALSE     // can the ghost see radiation?
 	/// Defines from __DEFINES/hud.dm go here based on which huds the ghost has activated.
 	var/list/data_hud_seen = list()
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
@@ -98,12 +99,18 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
+	if (seerads)
+		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
 	. = ..()
 	if(!invisibility)
 		. += "It seems extremely obvious."
+
+/mob/dead/observer/process()
+	if(seerads)
+		show_rads(5)
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -340,6 +347,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	antagHUD = TRUE
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
 		H.add_hud_to(src)
+
+/mob/dead/observer/proc/set_radiation_view(enabled)
+	if (enabled)
+		seerads = TRUE
+		START_PROCESSING(SSobj, src)
+	else
+		seerads = FALSE
+		STOP_PROCESSING(SSobj, src)
 
 /mob/dead/observer/verb/set_dnr()
 	set name = "Set DNR"
