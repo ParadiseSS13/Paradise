@@ -60926,6 +60926,10 @@
 /turf/simulated/wall,
 /area/maintenance/aft)
 "czJ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -76662,6 +76666,15 @@
 	icon_state = "white"
 	},
 /area/medical/surgery2)
+"dzS" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/medical/medbay3)
 "dAs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -82837,6 +82850,19 @@
 /area/medical/medbay2{
 	name = "Medbay Storage"
 	})
+"wZb" = (
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/medbay3)
 "xbe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -105422,7 +105448,7 @@ cvh
 cDe
 cDe
 cyt
-cDe
+wZb
 cNF
 uMx
 bLH
@@ -105679,7 +105705,7 @@ cvk
 cwq
 cwq
 cyw
-cwq
+dzS
 cwq
 pAj
 cwq
