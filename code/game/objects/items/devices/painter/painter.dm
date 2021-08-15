@@ -1,6 +1,7 @@
 /obj/item/painter
 	name = "modular painter"
 	icon = 'icons/obj/painting.dmi'
+	icon_state = "floor_painter"
 	usesound = 'sound/effects/spray2.ogg'
 	flags = CONDUCT | NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL

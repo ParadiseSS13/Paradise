@@ -1,7 +1,6 @@
 /obj/item/bee_briefcase
 	name = "briefcase"
 	desc = "This briefcase has easy-release clasps and smells vaguely of honey and blood..."
-	description_antag = "A briefcase filled with deadly bees, you should inject this with a syringe of your own blood before opening it."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "briefcase"
 	item_state = "briefcase"
@@ -27,6 +26,9 @@
 			. += "<span class='warning'>There are [bees_left] bees still inside in briefcase!</span>"
 		else
 			. += "<span class='danger'>The bees are gone... Colony collapse disorder?</span>"
+
+/obj/item/bee_briefcase/detailed_examine_antag()
+	return "A briefcase filled with deadly bees, you should inject this with a syringe of your own blood before opening it."
 
 /obj/item/bee_briefcase/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))

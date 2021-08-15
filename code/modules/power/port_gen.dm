@@ -222,7 +222,7 @@
 	//or if it is already above upper_limit, limit the increase to 0.
 	var/inc_limit = max(upper_limit - temperature, 0)
 	var/dec_limit = min(temperature - lower_limit, 0)
-	temperature += between(dec_limit, rand(-7 + bias, 7 + bias), inc_limit)
+	temperature += clamp(rand(-7 + bias, 7 + bias), dec_limit, inc_limit)
 
 	if(temperature > max_temperature)
 		overheat()
@@ -239,7 +239,7 @@
 
 	if(temperature > cooling_temperature)
 		var/temp_loss = (temperature - cooling_temperature)/TEMPERATURE_DIVISOR
-		temp_loss = between(2, round(temp_loss, 1), TEMPERATURE_CHANGE_MAX)
+		temp_loss = clamp(round(temp_loss, 1), 2, TEMPERATURE_CHANGE_MAX)
 		temperature = max(temperature - temp_loss, cooling_temperature)
 		SStgui.update_uis(src)
 
