@@ -38539,9 +38539,19 @@
 	},
 /area/turret_protected/ai)
 "bGr" = (
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
-/area/security/checkpoint)
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/window/basic,
+/obj/structure/window/basic{
+	dir = 4
+	},
+/obj/structure/window/basic{
+	dir = 1
+	},
+/turf/simulated/floor/grass,
+/area/hallway/secondary/exit)
 "bGs" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/electricshock{
@@ -72304,7 +72314,7 @@
 "cXd" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/camera{
-	c_tag = "Central Hallway South";
+	c_tag = "Central Hallway South 1";
 	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -76450,7 +76460,7 @@
 	dir = 8;
 	icon_state = "neutralfull"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dfH" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -77876,7 +77886,7 @@
 "diu" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/camera{
-	c_tag = "Brig Security Equipment Lockers";
+	c_tag = "Central Hallway South 2";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -84556,7 +84566,7 @@
 "dwu" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/camera{
-	c_tag = "Mining Dock External";
+	c_tag = "Central Hallway South 3";
 	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -88710,6 +88720,9 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
+/obj/machinery/camera{
+	c_tag = "Central Hallway South 4"
+	},
 /turf/simulated/floor/carpet,
 /area/hallway/primary/aft)
 "dEW" = (
@@ -90402,7 +90415,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dIO" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -90682,11 +90695,14 @@
 /obj/machinery/camera{
 	c_tag = "Departure Lounge Security"
 	},
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 25
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dJB" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -90736,7 +90752,7 @@
 	dir = 1;
 	icon_state = "red"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dJH" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/yellow,
@@ -91669,12 +91685,15 @@
 	dir = 8;
 	icon_state = "neutralfull"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dLK" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/plaque{
+	desc = "NanoTrasen Science Station Kerberos: Comissioned in 2557.";
+	name = "NSS Kerberos dedication plaque"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dLP" = (
@@ -91894,7 +91913,7 @@
 	dir = 8;
 	icon_state = "red"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dMu" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -92238,11 +92257,15 @@
 	},
 /area/chapel/main)
 "dMY" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/window/basic,
+/obj/structure/window/basic{
+	dir = 1
 	},
-/area/security/checkpoint)
+/turf/simulated/floor/grass,
+/area/hallway/secondary/exit)
 "dNa" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/yellow,
@@ -92511,7 +92534,13 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sunnybush,
-/obj/structure/window/full/basic,
+/obj/structure/window/basic,
+/obj/structure/window/basic{
+	dir = 1
+	},
+/obj/structure/window/basic{
+	dir = 8
+	},
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "dNO" = (
@@ -92523,7 +92552,10 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/fernybush,
-/obj/structure/window/full/basic,
+/obj/structure/window/basic,
+/obj/structure/window/basic{
+	dir = 1
+	},
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "dNQ" = (
@@ -94876,7 +94908,7 @@
 	dir = 9;
 	icon_state = "red"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dSW" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -94895,7 +94927,7 @@
 	pixel_y = 1
 	},
 /turf/simulated/floor/plating,
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dSZ" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -94904,11 +94936,14 @@
 	},
 /area/hallway/secondary/exit)
 "dTa" = (
-/obj/structure/window/full/basic,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/window/basic,
+/obj/structure/window/basic{
+	dir = 1
+	},
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "dTe" = (
@@ -94981,7 +95016,7 @@
 	dir = 8;
 	icon_state = "red"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dTj" = (
 /obj/machinery/light{
 	dir = 8
@@ -95181,7 +95216,7 @@
 	dir = 4;
 	icon_state = "red"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dTC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -95206,7 +95241,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dTF" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -95214,13 +95249,19 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dTG" = (
-/obj/structure/window/full/basic,
+/obj/structure/window/basic,
 /obj/structure/flora/ausbushes/sunnybush,
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/reedbush,
+/obj/structure/window/basic{
+	dir = 1
+	},
+/obj/structure/window/basic{
+	dir = 8
+	},
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "dTH" = (
@@ -95250,7 +95291,7 @@
 	dir = 8;
 	icon_state = "red"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dTK" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -95408,7 +95449,7 @@
 	dir = 8;
 	icon_state = "red"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dUl" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -95459,7 +95500,7 @@
 	dir = 8;
 	icon_state = "neutralfull"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dUp" = (
 /obj/structure/table,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -95529,7 +95570,7 @@
 	dir = 4;
 	icon_state = "red"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dUv" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -95549,7 +95590,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dUD" = (
 /obj/structure/closet/secure_closet/CMO,
 /obj/effect/decal/warning_stripes/northeast,
@@ -95842,7 +95883,7 @@
 	dir = 8;
 	icon_state = "neutralfull"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dVq" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -95853,7 +95894,7 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dVv" = (
 /obj/machinery/light{
 	dir = 8
@@ -96264,7 +96305,7 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dWK" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -96563,10 +96604,10 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dXn" = (
 /turf/simulated/wall/r_wall,
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "dXo" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -97583,17 +97624,19 @@
 	},
 /area/security/securearmoury)
 "eFE" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/fernybush,
+/obj/structure/window/basic,
+/obj/structure/window/basic{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+/obj/structure/window/basic{
+	dir = 1
 	},
-/area/security/checkpoint)
+/turf/simulated/floor/grass,
+/area/hallway/secondary/exit)
 "eLI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -97764,7 +97807,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "feV" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -97826,15 +97869,19 @@
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
 "frp" = (
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
-	id_tag = "emergency_home";
-	locked = 1;
-	name = "Escape Airlock"
+/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/leafybush,
+/obj/structure/flora/ausbushes/reedbush,
+/obj/structure/window/basic,
+/obj/structure/window/basic{
+	dir = 4
 	},
-/obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel,
-/area/security/checkpoint)
+/obj/structure/window/basic{
+	dir = 1
+	},
+/turf/simulated/floor/grass,
+/area/hallway/secondary/exit)
 "frI" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -98173,7 +98220,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "gGu" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -98603,10 +98650,6 @@
 /obj/machinery/vending/sustenance,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
-"iuw" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/security/checkpoint)
 "iwQ" = (
 /obj/machinery/light_switch{
 	pixel_y = 26
@@ -100008,7 +100051,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "nPe" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -100342,7 +100385,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "pJE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -100747,7 +100790,7 @@
 	dir = 6;
 	icon_state = "red"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "rnO" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable,
@@ -100934,7 +100977,7 @@
 	dir = 10;
 	icon_state = "red"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "shi" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -101431,9 +101474,6 @@
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_y = 8
-	},
-/obj/machinery/door/window/westleft{
-	req_access_txt = "24"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
@@ -101960,7 +102000,7 @@
 	dir = 8;
 	icon_state = "red"
 	},
-/area/security/checkpoint)
+/area/hallway/secondary/exit)
 "vXX" = (
 /turf/space,
 /area/space/nearstation)
@@ -102031,13 +102071,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
-"wyV" = (
-/obj/effect/turf_decal/plaque{
-	desc = "NanoTrasen Science Station Kerberos: Comissioned in 2557.";
-	name = "NSS Kerberos dedication plaque"
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/exit)
 "wAE" = (
 /obj/structure/dresser,
 /turf/simulated/floor/plating,
@@ -141715,12 +141748,12 @@ dKo
 dLG
 dVe
 dNb
-dNN
+bGr
 dOw
 dKo
 dKo
 dNb
-dNN
+dMY
 dOw
 dKo
 dXJ
@@ -142234,12 +142267,12 @@ dXn
 dQI
 dKo
 dNb
-dNP
+eFE
 dOw
 dKo
 dSD
 dNb
-dTG
+frp
 dUr
 dVb
 dIO
@@ -142738,11 +142771,11 @@ ddd
 dHV
 dIN
 dJG
-dMY
-dMY
+dKo
+dKo
 dUo
 dVp
-eFE
+dKp
 pGr
 nMN
 dJF
@@ -143006,7 +143039,7 @@ dKP
 dKP
 dKP
 dLK
-wyV
+dKP
 dKP
 dKP
 dKP
@@ -143257,7 +143290,7 @@ dTE
 dUv
 dVq
 dWI
-frp
+dKQ
 dIN
 dKQ
 dIO
@@ -143513,9 +143546,9 @@ abj
 abj
 aaa
 aaa
-iuw
-bGr
-iuw
+dIO
+dKP
+dIO
 dKP
 dIO
 abj
@@ -143770,9 +143803,9 @@ aaa
 aaa
 aaa
 aaa
-iuw
-frp
-iuw
+dIO
+dKQ
+dIO
 dKQ
 dIO
 aaa
