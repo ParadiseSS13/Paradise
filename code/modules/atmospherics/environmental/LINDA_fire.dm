@@ -228,7 +228,12 @@
 		for(var/mob/living/L in T)
 			L.adjust_fire_stacks(3)
 			L.IgniteMob()
-			L.bodytemperature = max(temp / 3, L.bodytemperature)
+			if(ishuman(L))
+				var/mob/living/carbon/human/M = L
+				var/heatBlockPercent = 1 - M.get_heat_protection(temp)
+				M.bodytemperature += (temp - M.bodytemperature) * heatBlockPercent / 3
+			else
+				L.bodytemperature = (2 * L.bodytemperature + temp) / 3
 
 /proc/fireflash_s(atom/center, radius, temp, falloff)
 	if(temp < T0C + 60)
@@ -291,7 +296,12 @@
 		for(var/mob/living/L in T)
 			L.adjust_fire_stacks(3)
 			L.IgniteMob()
-			L.bodytemperature = (2 * L.bodytemperature + temp) / 3
+			if(ishuman(L))
+				var/mob/living/carbon/human/M = L
+				var/heatBlockPercent = 1 - M.get_heat_protection(temp)
+				M.bodytemperature += (temp - M.bodytemperature) * heatBlockPercent / 3
+			else
+				L.bodytemperature = (2 * L.bodytemperature + temp) / 3
 
 		if(T.density)
 			continue

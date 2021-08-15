@@ -311,7 +311,7 @@
 	var/packagesAmt = SSshuttle.shoppinglist.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
-	slip.info = "<h3>[command_name()] Shipping Manifest</h3><hr><br>"
+	slip.info = "<h3>NAS Trurl Shipping Manifest</h3><hr><br>"
 	slip.info +="Order: #[ordernum]<br>"
 	slip.info +="Destination: [stationName]<br>"
 	slip.info +="Requested By: [orderedby]<br>"

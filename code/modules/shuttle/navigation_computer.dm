@@ -264,6 +264,8 @@
 	visible_icon = FALSE
 	use_static = FALSE
 	simulated = FALSE
+	// The Shuttle Docker does not trigger the AI Detector
+	ai_detector_visible = FALSE
 	var/list/placement_images = list()
 	var/list/placed_images = list()
 

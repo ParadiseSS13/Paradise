@@ -1,5 +1,5 @@
 //Blocks an attempt to connect before even creating our client datum thing.
-/world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE)
+/world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE, check_2fa = TRUE)
 
 	if(!key || !address || !computer_id)
 		log_adminwarn("Failed Login (invalid data): [key] [address]-[computer_id]")
@@ -28,23 +28,83 @@
 			admin = 1
 
 	//Guest Checking
-	if(!GLOB.guests_allowed && IsGuestKey(key))
+	if(GLOB.configuration.general.guest_ban && IsGuestKey(key))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Guests not allowed")
 		// message_admins("<span class='notice'>Failed Login: [key] - Guests not allowed</span>")
 		INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_BANNED)
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
 
 	//check if the IP address is a known proxy/vpn, and the user is not whitelisted
-	if(check_ipintel && config.ipintel_email && config.ipintel_whitelist && ipintel_is_banned(key, address))
+	if(check_ipintel && GLOB.configuration.ipintel.contact_email && GLOB.configuration.ipintel.whitelist_mode && SSipintel.ipintel_is_banned(key, address))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Proxy/VPN")
 		var/mistakemessage = ""
-		if(config.banappeals)
-			mistakemessage = "\nIf you have to use one, request whitelisting at:  [config.banappeals]"
+		if(GLOB.configuration.url.banappeals_url)
+			mistakemessage = "\nIf you have to use one, request whitelisting at:  [GLOB.configuration.url.banappeals_url]"
 		INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_IPINTEL)
 		return list("reason"="using proxy or vpn", "desc"="\nReason: Proxies/VPNs are not allowed here. [mistakemessage]")
 
 
-	if(config.ban_legacy_system)
+	// If 2FA is enabled, makes sure they were authed within the last minute
+	if(check_2fa && GLOB.configuration.system._2fa_auth_host)
+		// First see if they exist at all
+		var/datum/db_query/check_query = SSdbcore.NewQuery("SELECT 2fa_status, ip FROM player WHERE ckey=:ckey", list("ckey" = ckey(key)))
+
+		if(!check_query.warn_execute())
+			message_admins("Failed to do a DB 2FA check for [key]. You have been warned.")
+			qdel(check_query)
+			return
+
+
+		// If a row is returned, the player exists
+		var/_2fa_enabled = FALSE
+		var/always_check = FALSE
+		var/last_ip
+		if(check_query.NextRow())
+			if(check_query.item[1] != _2FA_DISABLED)
+				_2fa_enabled = TRUE
+			if(check_query.item[1] == _2FA_ENABLED_ALWAYS)
+				always_check = TRUE
+			last_ip = check_query.item[2]
+		qdel(check_query)
+
+		// If client has 2FA enabled, and they either:
+		// Have it set to always check, or their IP is different
+		if(_2fa_enabled && (always_check || (address != last_ip)))
+			// They have 2FA enabled, lets make sure they have authed within the last minute
+			var/datum/db_query/verify_query = SSdbcore.NewQuery("SELECT ckey FROM 2fa_secrets WHERE (last_time BETWEEN NOW() - INTERVAL 1 MINUTE AND NOW()) AND ckey=:ckey LIMIT 1", list(
+				"ckey" = ckey(key)
+			))
+
+			if(!verify_query.warn_execute())
+				message_admins("Failed to do a DB 2FA check for [key]. You have been warned.")
+				qdel(verify_query)
+				return
+
+			if(!verify_query.NextRow())
+				// If no row was returned, fail 2FA
+				qdel(verify_query)
+				return list("reason"="2fa check failed", "desc"="You have 2FA enabled but did not properly authenticate.")
+
+			qdel(verify_query)
+
+	if(SSdbcore.IsConnected())
+		// If we have a DB, see if the player has been seen before
+		var/datum/db_query/exist_query = SSdbcore.NewQuery("SELECT ckey FROM player WHERE ckey=:ckey", list(
+			"ckey" = ckey
+		))
+		// If we didnt execute, skip this part
+		if(!exist_query.warn_execute())
+			qdel(exist_query)
+		else
+			if(!exist_query.NextRow()) // If there isnt a row, they aint been seen before
+				if(GLOB.panic_bunker_enabled)
+					qdel(exist_query)
+					var/threshold = GLOB.configuration.general.panic_bunker_threshold
+					return list("reason" = "panic bunker", "desc" = "Server is not accepting connections from never-before-seen players until player count is less than [threshold]. Please try again later.")
+
+		qdel(exist_query)
+
+	if(!GLOB.configuration.general.use_database_bans)
 		//Ban Checking
 		. = CheckBan(ckey(key), computer_id, address)
 		if(.)
@@ -77,7 +137,7 @@
 			sql_query_params["cid"] = computer_id
 
 		var/datum/db_query/query = SSdbcore.NewQuery({"
-		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype, ban_round_id FROM [format_table_name("ban")]
+		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype, ban_round_id FROM ban
 		WHERE (ckey=:ckeytext [ipquery] [cidquery]) AND (bantype = 'PERMABAN' OR bantype = 'ADMIN_PERMABAN'
 		OR ((bantype = 'TEMPBAN' OR bantype = 'ADMIN_TEMPBAN') AND expiration_time > Now())) AND isnull(unbanned)"}, sql_query_params)
 
@@ -116,8 +176,8 @@
 				expires = " The ban is for [duration] minutes and expires on [expiration] (server time)."
 			else
 				var/appealmessage = ""
-				if(config.banappeals)
-					appealmessage = " You may appeal it at <a href='[config.banappeals]'>[config.banappeals]</a>."
+				if(GLOB.configuration.url.banappeals_url)
+					appealmessage = " You may appeal it at <a href='[GLOB.configuration.url.banappeals_url]'>[GLOB.configuration.url.banappeals_url]</a>."
 				expires = " This ban does not expire automatically and must be appealed.[appealmessage]"
 
 			var/desc = "\nReason: You, or another user of this computer or connection ([pckey]) is banned from playing here. The ban reason is:\n[reason]\nThis ban was applied by [ackey] on [bantime][ban_round_id ? " (Round [ban_round_id])" : ""].[expires]"

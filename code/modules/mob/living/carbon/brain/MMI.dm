@@ -28,7 +28,7 @@
 
 /obj/item/mmi/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/organ/internal/brain/crystal))
-		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with the [src].</span>")
+		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with [src].</span>")
 		return
 	if(istype(O, /obj/item/organ/internal/brain/golem))
 		to_chat(user, "<span class='warning'>You can't find a way to plug [O] into [src].</span>")
@@ -79,8 +79,8 @@
 		if(radio)
 			to_chat(user, "<span class='warning'>[src] already has a radio installed.</span>")
 		else
-			user.visible_message("<span class='notice'>[user] begins to install the [O] into [src]...</span>", \
-				"<span class='notice'>You start to install the [O] into [src]...</span>")
+			user.visible_message("<span class='notice'>[user] begins to install [O] into [src]...</span>", \
+				"<span class='notice'>You start to install [O] into [src]...</span>")
 			if(do_after(user, 20, target=src))
 				if(user.drop_item())
 					user.visible_message("<span class='notice'>[user] installs [O] in [src].</span>", \
@@ -284,3 +284,7 @@
 	if((src_object in view(src)) && get_dist(src_object, src) <= user.client.view)
 		return STATUS_INTERACTIVE	// interactive (green visibility)
 	return user.shared_living_ui_distance()
+
+/obj/item/mmi/forceMove(atom/destination)
+	. = ..()
+	brainmob?.update_runechat_msg_location()

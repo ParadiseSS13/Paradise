@@ -61,6 +61,9 @@
 		return
 	if(istype(W, /obj/item))
 		var/obj/item/IW = W
+		if(IW.flags & (ABSTRACT | NODROP | DROPDEL))
+			to_chat(user, "<span class='warning'>You can't put [IW] into [src]!</span>")
+			return
 		if((loadedWeightClass + IW.w_class) > maxWeightClass)
 			to_chat(user, "<span class='warning'>\The [IW] won't fit into \the [src]!</span>")
 			return

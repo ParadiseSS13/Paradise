@@ -85,6 +85,13 @@
 	else
 		do_animate("deny")
 
+/obj/machinery/door/window/unrestricted_side(mob/M)
+	var/mob_dir = get_dir(src, M)
+	if(mob_dir == 0) // If the mob is inside the tile
+		mob_dir = GetOppositeDir(dir) // Set it to the inside direction of the windoor
+
+	return mob_dir & unres_sides
+
 /obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return 1
@@ -194,11 +201,6 @@
 
 /obj/machinery/door/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
-
-/obj/machinery/door/window/ratvar_act()
-	var/obj/machinery/door/window/clockwork/C = new(loc, dir)
-	C.name = name
-	qdel(src)
 
 /obj/machinery/door/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -357,9 +359,6 @@
 /obj/machinery/door/window/clockwork/emp_act(severity)
 	if(prob(80/severity))
 		open()
-
-/obj/machinery/door/window/clockwork/ratvar_act()
-	obj_integrity = max_integrity
 
 /obj/machinery/door/window/clockwork/hasPower()
 	return TRUE //yup that's power all right

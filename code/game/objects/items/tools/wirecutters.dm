@@ -62,10 +62,20 @@
 	origin_tech = "materials=5;engineering=4;abductor=3"
 	random_color = FALSE
 
+/obj/item/wirecutters/abductor/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
+
 /obj/item/wirecutters/cyborg
 	name = "wirecutters"
 	desc = "This cuts wires."
 	toolspeed = 0.5
+
+/obj/item/wirecutters/cyborg/drone
+
+/obj/item/wirecutters/cyborg/drone/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT) // Drones are linked to the station
 
 /obj/item/wirecutters/power
 	name = "jaws of life"
