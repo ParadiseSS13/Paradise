@@ -34,7 +34,7 @@
 
 	for(var/turf/target in targets)
 		spawn(0)
-			var/obj/effect/proc_holder/spell/targeted/projectile
+			var/obj/effect/proc_holder/spell/projectile
 			projectile = new proj_type(user)
 			projectile.icon = proj_icon
 			projectile.icon_state = proj_icon_state

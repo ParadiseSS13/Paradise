@@ -1112,7 +1112,7 @@
 				to_chat(H, "You have gained the ability to shapeshift into bat form. This is a weak form with no abilities, only useful for stealth.")
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/hellhound)
 				to_chat(H, "You have gained the ability to shapeshift into lesser hellhound form. This is a combat form with different abilities, tough but not invincible. It can regenerate itself over time by resting.")
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/raise_vampires)
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/raise_vampires)
 				to_chat(H, "You have gained the ability to Raise Vampires. This extremely powerful AOE ability affects all humans near you. Vampires/thralls are healed. Corpses are raised as vampires. Others are stunned, then brain damaged, then killed.")
 				H.dna.SetSEState(GLOB.jumpblock, 1)
 				singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)

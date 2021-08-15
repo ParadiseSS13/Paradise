@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/targeted/projectile/magic_missile
+/obj/effect/proc_holder/spell/projectile/magic_missile
 	name = "Magic Missile"
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 
@@ -7,10 +7,7 @@
 	clothes_req = 1
 	invocation = "FORTI GY AMA"
 	invocation_type = "shout"
-	range = 7
 	cooldown_min = 60 //35 deciseconds reduction per rank
-
-	max_targets = 0
 
 	proj_icon_state = "magicm"
 	proj_name = "a magic missile"
@@ -28,12 +25,18 @@
 
 	sound = 'sound/magic/magic_missile.ogg'
 
+/obj/effect/proc_holder/spell/projectile/magic_missile/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.allowed_type = /mob/living
+	T.max_targets = 0
+	return T
+
 /obj/effect/proc_holder/spell/inflict_handler/magic_missile
 	amt_weakened = 3
 	sound = 'sound/magic/mm_hit.ogg'
 
 
-/obj/effect/proc_holder/spell/targeted/projectile/honk_missile
+/obj/effect/proc_holder/spell/projectile/honk_missile
 	name = "Honk Missile"
 	desc = "This spell fires several, slow moving, magic bikehorns at nearby targets."
 
@@ -42,10 +45,7 @@
 	clothes_req = 0
 	invocation = "HONK GY AMA"
 	invocation_type = "shout"
-	range = 7
 	cooldown_min = 60 //35 deciseconds reduction per rank
-
-	max_targets = 0
 
 	proj_icon = 'icons/obj/items.dmi'
 	proj_icon_state = "bike_horn"
@@ -64,6 +64,12 @@
 	action_icon_state = "magicm"
 
 	sound = 'sound/items/bikehorn.ogg'
+
+/obj/effect/proc_holder/spell/projectile/honk_missile/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.allowed_type = /mob/living
+	T.max_targets = 0
+	return T
 
 /obj/effect/proc_holder/spell/inflict_handler/honk_missile
 	amt_weakened = 3
@@ -135,7 +141,7 @@
 
 	sound = 'sound/magic/disable_tech.ogg'
 
-/obj/effect/proc_holder/spell/targeted/turf_teleport/blink
+/obj/effect/proc_holder/spell/turf_teleport/blink
 	name = "Blink"
 	desc = "This spell randomly teleports you a short distance."
 
@@ -144,8 +150,6 @@
 	clothes_req = 1
 	invocation = "none"
 	invocation_type = "none"
-	range = -1
-	include_user = 1
 	cooldown_min = 5 //4 deciseconds reduction per rank
 
 
@@ -162,7 +166,11 @@
 	sound1 = 'sound/magic/blink.ogg'
 	sound2 = 'sound/magic/blink.ogg'
 
-/obj/effect/proc_holder/spell/targeted/area_teleport/teleport
+/obj/effect/proc_holder/spell/turf_teleport/blink/create_new_targeting()
+	var/datum/spell_targeting/self/S = new()
+	return S
+
+/obj/effect/proc_holder/spell/area_teleport/teleport
 	name = "Teleport"
 	desc = "This spell teleports you to a type of area of your selection."
 
@@ -171,8 +179,6 @@
 	clothes_req = 1
 	invocation = "SCYAR NILA"
 	invocation_type = "shout"
-	range = -1
-	include_user = 1
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	smoke_spread = 1
@@ -182,6 +188,10 @@
 
 	sound1 = 'sound/magic/teleport_diss.ogg'
 	sound2 = 'sound/magic/teleport_app.ogg'
+
+/obj/effect/proc_holder/spell/area_teleport/teleport/create_new_targeting()
+	var/datum/spell_targeting/self/S = new()
+	return S
 
 /obj/effect/proc_holder/spell/forcewall
 	name = "Force Wall"

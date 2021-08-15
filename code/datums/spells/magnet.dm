@@ -1,4 +1,5 @@
-/obj/effect/proc_holder/spell/targeted/magnet
+// Disclaimer. This ain't working. Probably never worked
+/obj/effect/proc_holder/spell/magnet
 	name = "Magnetic Pull"
 	desc = "Pulls metalic objects from enemies hands with the power of MAGNETS."
 	charge_type = "recharge"
@@ -6,10 +7,7 @@
 	clothes_req = 0
 	invocation = "UN'LTD P'WAH!"
 	invocation_type = "none"
-	range = 7
 	cooldown_min = 30
-	selection_type = "view"
-	random_target = 1
 	var/energy = 0
 	var/ready = 0
 	var/start_time = 0
@@ -17,17 +15,22 @@
 	var/sound/Snd // so far only way i can think of to stop a sound, thank MSO for the idea.
 	action_icon_state = "tech"
 
+/obj/effect/proc_holder/spell/magnet/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.random_target = TRUE
+	T.allowed_type = /mob/living
+	return T
 
-/obj/effect/proc_holder/spell/targeted/magnet/Click()
+/obj/effect/proc_holder/spell/magnet/Click()
 	if(!ready && start_time == 0)
 		if(cast_check(TRUE, FALSE, usr))
 			StartChargeup()
 	else
-		if(ready && cast_check(TRUE, TRUE, usr))
-			choose_targets()
+		if(ready && cast_check(TRUE, FALSE, usr))
+			choose_targets(usr)
 	return 1
 
-/obj/effect/proc_holder/spell/targeted/magnet/proc/StartChargeup(mob/user = usr)
+/obj/effect/proc_holder/spell/magnet/proc/StartChargeup(mob/user = usr)
 	ready = 1
 	to_chat(user, "<span class='notice'>You start gathering the power.</span>")
 	Snd = new/sound('sound/magic/lightning_chargeup.ogg', channel = 7)
@@ -39,26 +42,26 @@
 		if(ready)
 			Discharge()
 
-/obj/effect/proc_holder/spell/targeted/magnet/proc/Reset(mob/user = usr)
+/obj/effect/proc_holder/spell/magnet/proc/Reset(mob/user = usr)
 	ready = 0
 	energy = 0
 	start_time = 0
 	if(halo)
 		user.overlays.Remove(halo)
 
-/obj/effect/proc_holder/spell/targeted/magnet/revert_cast(mob/user = usr)
+/obj/effect/proc_holder/spell/magnet/revert_cast(mob/user = usr)
 	to_chat(user, "<span class='notice'>No target found in range.</span>")
 	Reset(user)
 	..()
 
-/obj/effect/proc_holder/spell/targeted/magnet/proc/Discharge(mob/user = usr)
+/obj/effect/proc_holder/spell/magnet/proc/Discharge(mob/user = usr)
 	var/mob/living/M = user
 	to_chat(M, "<span class='danger'>You lose control over the power.</span>")
 	Reset(user)
 	start_recharge()
 
 
-/obj/effect/proc_holder/spell/targeted/magnet/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/magnet/cast(list/targets, mob/user = usr)
 	ready = 0
 	var/mob/living/target = targets[1]
 	Snd = sound(null, repeat = 0, wait = 1, channel = Snd.channel) //byond, why you suck?
@@ -94,7 +97,7 @@
 			Bolt(user,target,energy,5,user)
 	Reset(user)
 
-/obj/effect/proc_holder/spell/targeted/magnet/proc/Bolt(mob/origin,mob/target,bolt_energy,bounces, mob/user = usr)
+/obj/effect/proc_holder/spell/magnet/proc/Bolt(mob/origin,mob/target,bolt_energy,bounces, mob/user = usr)
 	origin.Beam(target, icon_state="lightning", icon='icons/effects/effects.dmi', time=5)
 	var/mob/living/carbon/current = target
 	if(bounces < 1)

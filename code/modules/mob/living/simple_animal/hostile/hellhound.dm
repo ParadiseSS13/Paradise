@@ -120,7 +120,7 @@
 	. = ..()
 	// Movement
 	AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt/shift)
-	var/obj/effect/proc_holder/spell/targeted/area_teleport/teleport/telespell = new
+	var/obj/effect/proc_holder/spell/area_teleport/teleport/telespell = new
 	telespell.clothes_req = FALSE
 	telespell.invocation_type = "none"
 	AddSpell(telespell)

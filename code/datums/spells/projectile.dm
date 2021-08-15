@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/targeted/projectile
+/obj/effect/proc_holder/spell/projectile
 	name = "Projectile"
 	desc = "This spell summons projectiles which try to hit the targets."
 
@@ -21,7 +21,7 @@
 	var/proj_lifespan = 15 //in deciseconds * proj_step_delay
 	var/proj_step_delay = 1 //lower = faster
 
-/obj/effect/proc_holder/spell/targeted/projectile/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/projectile/cast(list/targets, mob/user = usr)
 
 	for(var/mob/living/target in targets)
 		spawn(0)

@@ -141,7 +141,7 @@
 /obj/effect/proc_holder/spell/ethereal_jaunt/shift/jaunt_steam(mobloc)
 	return
 
-/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser
+/obj/effect/proc_holder/spell/projectile/magic_missile/lesser
 	name = "Lesser Magic Missile"
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 	action_background_icon_state = "bg_cult"
@@ -152,7 +152,12 @@
 	invocation_type = "none"
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	proj_lifespan = 10
-	max_targets = 6
+
+/obj/effect/proc_holder/spell/projectile/magic_missile/lesser/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.allowed_type = /mob/living
+	T.max_targets = 6
+	return T
 
 /obj/effect/proc_holder/spell/smoke/disable
 	name = "Paralysing Smoke"

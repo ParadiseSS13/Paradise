@@ -538,7 +538,7 @@
 	gain_desc = "You have reached your full potential and are no longer weak to the effects of anything holy and your vision has been improved greatly."
 
 
-/obj/effect/proc_holder/spell/targeted/raise_vampires
+/obj/effect/proc_holder/spell/raise_vampires
 	name = "Raise Vampires"
 	desc = "Summons deadly vampires from bluespace."
 	school = "transmutation"
@@ -547,13 +547,17 @@
 	human_req = 1
 	invocation = "none"
 	invocation_type = "none"
-	max_targets = 0
-	range = 3
 	cooldown_min = 20
 	action_icon_state = "revive_thrall"
 	sound = 'sound/magic/wandodeath.ogg'
 
-/obj/effect/proc_holder/spell/targeted/raise_vampires/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/raise_vampires/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.range = 3
+	T.max_targets = 0
+	return T
+
+/obj/effect/proc_holder/spell/raise_vampires/cast(list/targets, mob/user = usr)
 	new /obj/effect/temp_visual/cult/sparks(user.loc)
 	var/turf/T = get_turf(user)
 	to_chat(user, "<span class='warning'>You call out within bluespace, summoning more vampiric spirits to aid you!</span>")

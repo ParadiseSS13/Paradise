@@ -9,10 +9,13 @@
 			continue
 		if(M.dna?.GetSEState(GLOB.remoteviewblock))
 			remoteviewers += M
+
 	if(!length(remoteviewers))
-		return null
-	var/target = input("Choose the target to spy on.", "Targeting") as null|anything in remoteviewers
-	if(!target)
-		return null
+		return
+
+	var/mob/target = input("Choose the target to spy on.", "Targeting") as null|anything in remoteviewers
+
+	if(QDELETED(target))
+		return
 
 	return list(target)

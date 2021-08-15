@@ -8,8 +8,8 @@
 		As this set lacks any form of healing or resurrection, healing items should be acquired from the station, and you should be careful to avoid being hurt in the first place. <br><br> \
 		</i>Provides Mutate, Ethereal Jaunt, Blink, Magic Missile, and Disintegrate.<i>"
 	log_name = "OM"
-	spells_path = list(/obj/effect/proc_holder/spell/genetic/mutate, /obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/targeted/turf_teleport/blink, \
-		/obj/effect/proc_holder/spell/targeted/projectile/magic_missile, /obj/effect/proc_holder/spell/touch/disintegrate)
+	spells_path = list(/obj/effect/proc_holder/spell/genetic/mutate, /obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/turf_teleport/blink, \
+		/obj/effect/proc_holder/spell/projectile/magic_missile, /obj/effect/proc_holder/spell/touch/disintegrate)
 
 /datum/spellbook_entry/loadout/lich
 	name = "Defense Focus : Lich"
@@ -30,7 +30,7 @@
 		</i>Provides a Belt of Wands, Charge, Ethereal Jaunt, Blink, Repulse, and Disintegrate.<i>"
 	log_name = "UW"
 	items_path = list(/obj/item/storage/belt/wands/full)
-	spells_path = list(/obj/effect/proc_holder/spell/charge, /obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/targeted/turf_teleport/blink, \
+	spells_path = list(/obj/effect/proc_holder/spell/charge, /obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/turf_teleport/blink, \
 		/obj/effect/proc_holder/spell/aoe_turf/repulse, /obj/effect/proc_holder/spell/touch/disintegrate)
 
 //Unique loadouts, which are more gimmicky. Should contain some unique spell or item that separates it from just buying standard wiz spells, and be balanced around a 10 spell point cost.
@@ -41,7 +41,7 @@
 	log_name = "SHH"
 	items_path = list(/obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/greaterwall, /obj/item/clothing/suit/wizrobe/mime, /obj/item/clothing/head/wizard/mime, \
 		/obj/item/clothing/mask/gas/mime/wizard, /obj/item/clothing/shoes/sandal/marisa, /obj/item/cane, /obj/item/stack/tape_roll)
-	spells_path = list(/obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/targeted/turf_teleport/blink, /obj/effect/proc_holder/spell/targeted/area_teleport/teleport, \
+	spells_path = list(/obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/turf_teleport/blink, /obj/effect/proc_holder/spell/area_teleport/teleport, \
 		/obj/effect/proc_holder/spell/touch/mime_malaise, /obj/effect/proc_holder/spell/aoe_turf/knock, /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop)
 	category = "Unique"
 	destroy_spellbook = TRUE
@@ -60,7 +60,7 @@
 		</i>Provides a .357 Revolver, 4 speedloaders of ammo, Ethereal Jaunt, Blink, Summon Item, No Clothes, and Bind Soul, with a unique outfit.<i>"
 	log_name = "GR"
 	items_path = list(/obj/item/gun/projectile/revolver, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/clothing/under/syndicate)
-	spells_path = list(/obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/targeted/turf_teleport/blink, \
+	spells_path = list(/obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/turf_teleport/blink, \
 		/obj/effect/proc_holder/spell/summonitem, /obj/effect/proc_holder/spell/noclothes, /obj/effect/proc_holder/spell/lichdom/gunslinger)
 	category = "Unique"
 	destroy_spellbook = TRUE

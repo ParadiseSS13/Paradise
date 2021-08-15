@@ -379,13 +379,13 @@
 	deactivation_messages = list("You don't feel quite so hungry anymore.")
 	instability = GENE_INSTABILITY_MINOR
 
-	spelltype=/obj/effect/proc_holder/spell/targeted/eat
+	spelltype=/obj/effect/proc_holder/spell/eat
 
 /datum/mutation/grant_spell/mattereater/New()
 	..()
 	block = GLOB.eatblock
 
-/obj/effect/proc_holder/spell/targeted/eat
+/obj/effect/proc_holder/spell/eat
 	name = "Eat"
 	desc = "Eat just about anything!"
 	panel = "Abilities"
@@ -396,34 +396,26 @@
 	clothes_req = 0
 	stat_allowed = 0
 	invocation_type = "none"
-	range = 1
-	selection_type = "view"
 
 	action_icon_state = "genetic_eat"
 
-	var/list/types_allowed = list(
-		/obj/item,
-		/mob/living/simple_animal/pet,
-		/mob/living/simple_animal/hostile,
-		/mob/living/simple_animal/parrot,
-		/mob/living/simple_animal/crab,
-		/mob/living/simple_animal/mouse,
-		/mob/living/carbon/human,
-		/mob/living/simple_animal/slime,
-		/mob/living/carbon/alien/larva,
-		/mob/living/simple_animal/slime,
-		/mob/living/simple_animal/chick,
-		/mob/living/simple_animal/chicken,
-		/mob/living/simple_animal/lizard,
-		/mob/living/simple_animal/cow,
-		/mob/living/simple_animal/spiderbot
-	)
-	var/list/own_blacklist = list(
-		/obj/item/organ,
-		/obj/item/implant
-	)
+/obj/effect/proc_holder/spell/eat/create_new_targeting()
+	var/datum/spell_targeting/matter_eater/M = new()
+	return M
 
-/obj/effect/proc_holder/spell/targeted/eat/proc/doHeal(mob/user)
+/obj/effect/proc_holder/spell/eat/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+	. = ..()
+	if(!.)
+		return
+	var/can_eat = TRUE
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.mask_adjusted))
+			to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
+			can_eat = FALSE
+	return can_eat
+
+/obj/effect/proc_holder/spell/eat/proc/doHeal(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		for(var/name in H.bodyparts_by_name)
@@ -437,46 +429,9 @@
 		H.UpdateDamageIcon()
 		H.updatehealth()
 
-/obj/effect/proc_holder/spell/targeted/eat/choose_targets(mob/user = usr)
-	var/list/targets = new /list()
-	var/list/possible_targets = new /list()
 
-	if(!check_mouth(user))
-		revert_cast(user)
-		return
 
-	for(var/atom/movable/O in view_or_range(range, user, selection_type))
-		if((O in user) && is_type_in_list(O,own_blacklist))
-			continue
-		if(is_type_in_list(O,types_allowed))
-			if(isanimal(O))
-				var/mob/living/simple_animal/SA = O
-				if(!SA.gold_core_spawnable)
-					continue
-			possible_targets += O
-
-	targets += input("Choose the target of your hunger.", "Targeting") as null|anything in possible_targets
-
-	if(!targets.len || !targets[1]) //doesn't waste the spell
-		revert_cast(user)
-		return
-
-	if(!check_mouth(user))
-		revert_cast(user)
-		return
-
-	perform(targets, user = user)
-
-/obj/effect/proc_holder/spell/targeted/eat/proc/check_mouth(mob/user = usr)
-	var/can_eat = TRUE
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.mask_adjusted))
-			to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
-			can_eat = FALSE
-	return can_eat
-
-/obj/effect/proc_holder/spell/targeted/eat/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/eat/cast(list/targets, mob/user = usr)
 	if(!targets.len)
 		to_chat(user, "<span class='notice'>No target found in range.</span>")
 		return
@@ -681,7 +636,7 @@
 	name = "Empathic Thought"
 	desc = "The subject becomes able to read the minds of others for certain information."
 
-	spelltype = /obj/effect/proc_holder/spell/targeted/empath
+	spelltype = /obj/effect/proc_holder/spell/empath
 	activation_messages = list("You suddenly notice more about others than you did before.")
 	deactivation_messages = list("You no longer feel able to sense intentions.")
 	instability = GENE_INSTABILITY_MINOR
@@ -690,7 +645,7 @@
 	..()
 	block = GLOB.empathblock
 
-/obj/effect/proc_holder/spell/targeted/empath
+/obj/effect/proc_holder/spell/empath
 	name = "Read Mind"
 	desc = "Read the minds of others for information."
 	charge_max = 180
@@ -703,19 +658,13 @@
 
 	action_icon_state = "genetic_empath"
 
-/obj/effect/proc_holder/spell/targeted/empath/choose_targets(mob/user = usr)
-	var/list/possible_targets = list()
-	for(var/mob/living/carbon/C in range(7, user))
-		possible_targets += C
-	var/target = input("Choose the target to spy on.", "Targeting") as null|mob in possible_targets
+/obj/effect/proc_holder/spell/empath/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.allowed_type = /mob/living/carbon
+	T.selection_type = SPELL_SELECTION_RANGE
+	return T
 
-	if(!target) //doesn't waste the spell
-		revert_cast(user)
-		return
-
-	perform(list(target), user = user)
-
-/obj/effect/proc_holder/spell/targeted/empath/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/empath/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/M in targets)
 		if(!iscarbon(M))
 			to_chat(user, "<span class='warning'>You may only use this on other organic beings.</span>")
@@ -790,7 +739,7 @@
 
 		if(M.dna?.GetSEState(GLOB.empathblock))
 			to_chat(M, "<span class='warning'>You sense [user.name] reading your mind.</span>")
-		else if(prob(5) || M.mind.assigned_role=="Chaplain")
+		else if(prob(5) || M.mind?.assigned_role=="Chaplain")
 			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")
 
 ///////////////////Vanilla Morph////////////////////////////////////

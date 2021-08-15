@@ -107,7 +107,7 @@
 
 /datum/spellbook_entry/lightningbolt
 	name = "Lightning Bolt"
-	spell_type = /obj/effect/proc_holder/spell/targeted/lightning
+	spell_type = /obj/effect/proc_holder/spell/lightning
 	log_name = "LB"
 	category = "Offensive"
 	cost = 1
@@ -217,7 +217,7 @@
 
 /datum/spellbook_entry/magicm
 	name = "Magic Missile"
-	spell_type = /obj/effect/proc_holder/spell/targeted/projectile/magic_missile
+	spell_type = /obj/effect/proc_holder/spell/projectile/magic_missile
 	log_name = "MM"
 	category = "Defensive"
 
@@ -256,7 +256,7 @@
 
 /datum/spellbook_entry/blink
 	name = "Blink"
-	spell_type = /obj/effect/proc_holder/spell/targeted/turf_teleport/blink
+	spell_type = /obj/effect/proc_holder/spell/turf_teleport/blink
 	log_name = "BL"
 	category = "Mobility"
 
@@ -281,7 +281,7 @@
 
 /datum/spellbook_entry/teleport
 	name = "Teleport"
-	spell_type = /obj/effect/proc_holder/spell/targeted/area_teleport/teleport
+	spell_type = /obj/effect/proc_holder/spell/area_teleport/teleport
 	log_name = "TP"
 	category = "Mobility"
 
@@ -885,7 +885,7 @@
 
 //Single Use Spellbooks
 /obj/item/spellbook/oneuse
-	var/spell = /obj/effect/proc_holder/spell/targeted/projectile/magic_missile //just a placeholder to avoid runtimes if someone spawned the generic
+	var/spell = /obj/effect/proc_holder/spell/projectile/magic_missile //just a placeholder to avoid runtimes if someone spawned the generic
 	var/spellname = "sandbox"
 	var/used = 0
 	name = "spellbook of "

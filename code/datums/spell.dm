@@ -427,102 +427,13 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/aoe_turf // TODO change to just aoe
 	create_attack_logs = FALSE
 	create_custom_logs = TRUE
-	var/inner_radius = -1 //for all your ring spell needs
 
 // Normally, AoE spells will generate an attack log for every turf they loop over, while searching for targets.
 // With this override, all /aoe_turf type spells will only generate 1 log, saying that the user has cast the spell.
 /obj/effect/proc_holder/spell/aoe_turf/write_custom_logs(list/targets, mob/user)
 	add_attack_logs(user, null, "Cast the AoE spell [name]", ATKLOG_ALL)
 
-
-/obj/effect/proc_holder/spell/targeted //can mean aoe for mobs (limited/unlimited number) or one target mob
-	var/max_targets = 1 //leave 0 for unlimited targets in range, 1 for one selectable target in range, more for limited number of casts (can all target one guy, depends on target_ignore_prev) in range
-	var/target_ignore_prev = 1 //only important if max_targets > 1, affects if the spell can be cast multiple times at one person from one cast
-	var/include_user = 0 //if it includes usr in the target list
-	var/random_target = 0 // chooses random viable target instead of asking the caster
-	var/random_target_priority = SPELL_TARGET_CLOSEST // if random_target is enabled how it will pick the target
-	var/humans_only = 0 //for avoiding simple animals and only doing "human" mobs, 0 = all mobs, 1 = humans only
-
-/obj/effect/proc_holder/spell/targeted/choose_targets(mob/user = usr)
-	var/list/targets = list()
-
-	switch(max_targets)
-		if(0) //unlimited
-
-			if(!humans_only)
-				for(var/mob/living/target in view_or_range(range, user, selection_type))
-					targets += target
-			else
-				for(var/mob/living/carbon/human/target in view_or_range(range, user, selection_type))
-					targets += target
-
-		if(1) //single target can be picked
-			if(range < 0)
-				targets += user
-			else
-				var/possible_targets = list()
-
-				if(!humans_only)
-					for(var/mob/living/M in view_or_range(range, user, selection_type))
-						if(!include_user && user == M)
-							continue
-						possible_targets += M
-				else
-					for(var/mob/living/carbon/human/M in view_or_range(range, user, selection_type))
-						if(!include_user && user == M)
-							continue
-						possible_targets += M
-
-				//targets += input("Choose the target for the spell.", "Targeting") as mob in possible_targets
-				//Adds a safety check post-input to make sure those targets are actually in range.
-				var/mob/M
-				if(!random_target)
-					M = input("Choose the target for the spell.", "Targeting") as mob in possible_targets
-				else
-					switch(random_target_priority)
-						if(SPELL_TARGET_RANDOM)
-							M = pick(possible_targets)
-						if(SPELL_TARGET_CLOSEST)
-							for(var/mob/living/L in possible_targets)
-								if(M)
-									if(get_dist(user,L) < get_dist(user,M))
-										if(los_check(user,L))
-											M = L
-								else
-									if(los_check(user,L))
-										M = L
-				if(M in view_or_range(range, user, selection_type)) targets += M
-
-		else
-			var/list/possible_targets = list()
-			if(!humans_only)
-				for(var/mob/living/target in view_or_range(range, user, selection_type))
-					possible_targets += target
-			else
-				for(var/mob/living/carbon/human/target in view_or_range(range, user, selection_type))
-					possible_targets += target
-			for(var/i=1,i<=max_targets,i++)
-				if(!possible_targets.len)
-					break
-				if(target_ignore_prev)
-					var/target = pick(possible_targets)
-					possible_targets -= target
-					targets += target
-				else
-					targets += pick(possible_targets)
-
-	if(!include_user && (user in targets))
-		targets -= user
-
-	if(!targets.len) //doesn't waste the spell
-		revert_cast(user)
-		return
-
-	perform(targets, user=user)
-
-	return
-
-/obj/effect/proc_holder/spell/targeted/proc/los_check(mob/A,mob/B)
+/obj/effect/proc_holder/spell/proc/los_check(mob/A,mob/B)
 	//Checks for obstacles from A to B
 	var/obj/dummy = new(A.loc)
 	dummy.pass_flags |= PASSTABLE

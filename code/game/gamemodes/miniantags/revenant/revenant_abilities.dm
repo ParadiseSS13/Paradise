@@ -112,18 +112,21 @@
 	action_background_icon_state = "bg_revenant"
 
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
-/obj/effect/proc_holder/spell/targeted/revenant_transmit
+/obj/effect/proc_holder/spell/revenant_transmit
 	name = "Transmit"
 	desc = "Telepathically transmits a message to the target."
 	panel = "Revenant Abilities"
 	charge_max = 0
 	clothes_req = 0
-	range = 7
-	include_user = 0
 	action_icon_state = "r_transmit"
 	action_background_icon_state = "bg_revenant"
 
-/obj/effect/proc_holder/spell/targeted/revenant_transmit/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+/obj/effect/proc_holder/spell/revenant_transmit/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.allowed_type = /mob/living
+	return T
+
+/obj/effect/proc_holder/spell/revenant_transmit/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/mob/living/M in targets)
 		spawn(0)
 			var/msg = stripped_input(user, "What do you wish to tell [M]?", null, "")

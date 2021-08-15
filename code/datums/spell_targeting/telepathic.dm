@@ -23,12 +23,12 @@
 			while(valid_targets[result_name])
 			valid_targets[result_name] = M
 	if(!length(valid_targets))
-		return null
+		return
 
 	var/target_name = input("Choose the target to listen to.", "Targeting") as null|anything in valid_targets
 
 	var/mob/living/target = valid_targets[target_name]
-	if(!target)
-		return null
+	if(QDELETED(target))
+		return
 
 	return list(target)

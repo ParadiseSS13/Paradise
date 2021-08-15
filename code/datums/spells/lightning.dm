@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/targeted/lightning
+/obj/effect/proc_holder/spell/lightning
 	name = "Lightning Bolt"
 	desc = "Throws a lightning bolt at the nearby enemy. Classic."
 	charge_type = "recharge"
@@ -6,10 +6,7 @@
 	clothes_req = 1
 	invocation = "UN'LTD P'WAH!"
 	invocation_type = "shout"
-	range = 7
 	cooldown_min = 30
-	selection_type = "view"
-	random_target = 1
 	special_availability_check = 1
 	var/start_time = 0
 	var/ready = 0
@@ -18,21 +15,27 @@
 	var/sound/Snd // so far only way i can think of to stop a sound, thank MSO for the idea.
 	var/damaging = TRUE
 
-/obj/effect/proc_holder/spell/targeted/lightning/lightnian
+/obj/effect/proc_holder/spell/lightning/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.allowed_type = /mob/living
+	T.random_target = TRUE
+	return T
+
+/obj/effect/proc_holder/spell/lightning/lightnian
 	clothes_req = 0
 	invocation_type = "none"
 	damaging = 0
 
-/obj/effect/proc_holder/spell/targeted/lightning/Click()
+/obj/effect/proc_holder/spell/lightning/Click()
 	if(!ready && start_time == 0)
 		if(cast_check(TRUE, FALSE, usr))
 			StartChargeup()
 	else
-		if(ready && cast_check(TRUE, TRUE, usr))
+		if(ready && cast_check(TRUE, FALSE, usr))
 			choose_targets()
 	return 1
 
-/obj/effect/proc_holder/spell/targeted/lightning/proc/StartChargeup(mob/user = usr)
+/obj/effect/proc_holder/spell/lightning/proc/StartChargeup(mob/user = usr)
 	ready = 1
 	to_chat(user, "<span class='notice'>You start gathering the power.</span>")
 	Snd = new/sound('sound/magic/lightning_chargeup.ogg', channel = 7)
@@ -44,25 +47,25 @@
 		if(ready)
 			Discharge()
 
-/obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
+/obj/effect/proc_holder/spell/lightning/proc/Reset(mob/user = usr)
 	ready = 0
 	start_time = 0
 	if(halo)
 		user.overlays.Remove(halo)
 
-/obj/effect/proc_holder/spell/targeted/lightning/revert_cast(mob/user = usr)
+/obj/effect/proc_holder/spell/lightning/revert_cast(mob/user = usr)
 	to_chat(user, "<span class='notice'>No target found in range.</span>")
 	Reset(user)
 	..()
 
-/obj/effect/proc_holder/spell/targeted/lightning/proc/Discharge(mob/user = usr)
+/obj/effect/proc_holder/spell/lightning/proc/Discharge(mob/user = usr)
 	var/mob/living/M = user
 	to_chat(M, "<span class='danger'>You lose control over the spell.</span>")
 	Reset(user)
 	start_recharge()
 
 
-/obj/effect/proc_holder/spell/targeted/lightning/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/lightning/cast(list/targets, mob/user = usr)
 	ready = 0
 	var/mob/living/target = targets[1]
 	Snd = sound(null, repeat = 0, wait = 1, channel = Snd.channel) //byond, why you suck?
@@ -83,7 +86,7 @@
 		Bolt(user,target,0,bounces,user)
 	Reset(user)
 
-/obj/effect/proc_holder/spell/targeted/lightning/proc/Bolt(mob/origin, mob/living/target, bolt_energy, bounces, mob/user = usr)
+/obj/effect/proc_holder/spell/lightning/proc/Bolt(mob/origin, mob/living/target, bolt_energy, bounces, mob/user = usr)
 	origin.Beam(target,icon_state="lightning[rand(1,12)]", icon='icons/effects/effects.dmi', time=5)
 	var/mob/living/current = target
 	if(bounces < 1)

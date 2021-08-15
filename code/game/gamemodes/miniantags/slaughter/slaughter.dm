@@ -131,19 +131,24 @@
 	to emerge from it. You are fast, powerful, and almost invincible. By dragging a dead or unconscious body into a blood pool with you, you will consume it after a time and fully regain \
 	your health. You may use the ability 'Sense Victims' in your Cultist tab to locate a random, living heretic.</span></b>"
 
-/obj/effect/proc_holder/spell/targeted/sense_victims
+/obj/effect/proc_holder/spell/sense_victims
 	name = "Sense Victims"
 	desc = "Sense the location of heretics"
 	charge_max = 0
 	clothes_req = 0
-	range = 20
 	cooldown_min = 0
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_cult"
 	panel = "Demon"
 
-/obj/effect/proc_holder/spell/targeted/sense_victims/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/sense_victims/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.range = 20
+	T.allowed_type = /mob/living
+	return T
+
+/obj/effect/proc_holder/spell/sense_victims/cast(list/targets, mob/user)
 	var/list/victims = targets
 	for(var/mob/living/L in GLOB.alive_mob_list)
 		if(!L.stat && !iscultist(L) && L.key && L != usr)
@@ -183,7 +188,7 @@
 		S.mind.special_role = "Harbinger of the Slaughter"
 		to_chat(S, playstyle_string)
 		SSticker.mode.add_cultist(S.mind)
-		var/obj/effect/proc_holder/spell/targeted/sense_victims/SV = new
+		var/obj/effect/proc_holder/spell/sense_victims/SV = new
 		AddSpell(SV)
 		var/datum/objective/new_objective = new /datum/objective
 		new_objective.owner = S.mind

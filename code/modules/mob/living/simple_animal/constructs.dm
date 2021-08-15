@@ -203,7 +203,7 @@
 	attack_sound = 'sound/weapons/punch2.ogg'
 	construct_type = "builder"
 	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
-							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser,
+							/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/wall,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/floor,
