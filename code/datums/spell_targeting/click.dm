@@ -3,7 +3,7 @@
 	try_auto_target = TRUE
 	/// How big the radius around the clicked atom is to find clicked_atom suitable target. -1 is only the selected atom is considered
 	var/click_radius = 1
-	var/random_target_priority = TARGET_CLOSEST
+	var/random_target_priority = SPELL_TARGET_CLOSEST
 
 
 /datum/spell_targeting/click/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
@@ -23,10 +23,10 @@
 		targets.Add(found_others)
 	else
 		switch(random_target_priority) //Add in the rest
-			if(TARGET_RANDOM)
+			if(SPELL_TARGET_RANDOM)
 				while(length(targets) < max_targets && length(found_others)) // Add the others
 					targets.Add(pick_n_take(found_others))
-			if(TARGET_CLOSEST)
+			if(SPELL_TARGET_CLOSEST)
 				var/list/distances = list()
 				for(var/target in found_others) // maybe not needed TODO check
 					distances[target] = get_dist(user, target)

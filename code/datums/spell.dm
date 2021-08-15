@@ -235,6 +235,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  * Will try to choose targets using the targeting variable and perform the spell if it can
  */
 /obj/effect/proc_holder/spell/proc/choose_targets(mob/user = usr) // TODO remove = usr
+	//SHOULD_NOT_OVERRIDE(TRUE) TODO uncomment this
 	if(targeting.use_intercept_click)
 		if(active)
 			remove_ranged_ability(user, selection_deactivated_message) // TODO put selection_deactivated_message stuff on spell. Rename as well
@@ -398,7 +399,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/target_ignore_prev = 1 //only important if max_targets > 1, affects if the spell can be cast multiple times at one person from one cast
 	var/include_user = 0 //if it includes usr in the target list
 	var/random_target = 0 // chooses random viable target instead of asking the caster
-	var/random_target_priority = TARGET_CLOSEST // if random_target is enabled how it will pick the target
+	var/random_target_priority = SPELL_TARGET_CLOSEST // if random_target is enabled how it will pick the target
 	var/humans_only = 0 //for avoiding simple animals and only doing "human" mobs, 0 = all mobs, 1 = humans only
 
 /obj/effect/proc_holder/spell/aoe_turf //affects all turfs in view or range (depends)
@@ -441,9 +442,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 					M = input("Choose the target for the spell.", "Targeting") as mob in possible_targets
 				else
 					switch(random_target_priority)
-						if(TARGET_RANDOM)
+						if(SPELL_TARGET_RANDOM)
 							M = pick(possible_targets)
-						if(TARGET_CLOSEST)
+						if(SPELL_TARGET_CLOSEST)
 							for(var/mob/living/L in possible_targets)
 								if(M)
 									if(get_dist(user,L) < get_dist(user,M))
@@ -543,10 +544,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 				targets.Add(found_others)
 			else
 				switch(random_target_priority) //Add in the rest
-					if(TARGET_RANDOM)
+					if(SPELL_TARGET_RANDOM)
 						while(targets.len < max_targets && found_others.len) // Add the others
 							targets.Add(pick_n_take(found_others))
-					if(TARGET_CLOSEST)
+					if(SPELL_TARGET_CLOSEST)
 						var/list/distances = list()
 						for(var/target in found_others)
 							distances[target] = get_dist(user, target)
