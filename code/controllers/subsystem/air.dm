@@ -70,6 +70,7 @@ SUBSYSTEM_DEF(air)
 	. = ..()
 	var/list/cust = list()
 	cust["active_turfs"] = length(active_turfs)
+	cust["hotspots"] = length(hotspots)
 	.["custom"] = cust
 
 /datum/controller/subsystem/air/Initialize(timeofday)
