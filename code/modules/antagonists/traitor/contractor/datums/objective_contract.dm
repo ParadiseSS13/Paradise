@@ -110,7 +110,6 @@
 			"AI Satellite Hallway",
 			"Bar",
 			"Cargo Office",
-			"Central Primary Hallway",
 			"Chemistry",
 			"Chief Engineer's office",
 			"Chief Medical Officer's office",

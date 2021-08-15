@@ -531,7 +531,7 @@
 
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
-		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
+		message_admins("<font color='red'><B>Notice: </B></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
 		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 		watchlisted = TRUE
 
