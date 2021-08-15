@@ -19,14 +19,15 @@
 	animal_species = /mob/living/simple_animal/pet/cat
 	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
-	response_help  = "pets"
+	response_help = "pets"
 	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
+	response_harm = "kicks"
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_type = "cat"
 	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target
-	var/eats_mice = 1
+	var/eats_mice = TRUE
+	COOLDOWN_DECLARE(toy_cooldown)
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
@@ -127,9 +128,9 @@
 				stop_automated_movement = 0
 				break
 		for(var/obj/item/toy/cattoy/T in view(1, src))
-			if(!TIMER_COOLDOWN_CHECK(src, "cat_toy"))
-				custom_emote(1, "bats [T] around with its paw!")
-				TIMER_COOLDOWN_START(src, "cat_toy", 40 SECONDS)
+			if(COOLDOWN_FINISHED(src, toy_cooldown))
+				custom_emote(EMOTE_VISUAL, "bats [T] around with its paw!")
+				COOLDOWN_START(src, toy_cooldown, 40 SECONDS)
 
 /mob/living/simple_animal/pet/cat/handle_automated_movement()
 	. = ..()
@@ -216,7 +217,7 @@
 	gender = FEMALE
 	faction = list("syndicate")
 	gold_core_spawnable = NO_SPAWN
-	eats_mice = 0
+	eats_mice = FALSE
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	melee_damage_lower = 5
