@@ -114,19 +114,19 @@
 
 /datum/spellbook_entry/cluwne
 	name = "Curse of the Cluwne"
-	spell_type = /obj/effect/proc_holder/spell/targeted/touch/cluwne
+	spell_type = /obj/effect/proc_holder/spell/touch/cluwne
 	log_name = "CC"
 	category = "Offensive"
 
 /datum/spellbook_entry/banana_touch
 	name = "Banana Touch"
-	spell_type = /obj/effect/proc_holder/spell/targeted/touch/banana
+	spell_type = /obj/effect/proc_holder/spell/touch/banana
 	log_name = "BT"
 	cost = 1
 
 /datum/spellbook_entry/mime_malaise
 	name = "Mime Malaise"
-	spell_type = /obj/effect/proc_holder/spell/targeted/touch/mime_malaise
+	spell_type = /obj/effect/proc_holder/spell/touch/mime_malaise
 	log_name = "MI"
 	cost = 1
 
@@ -138,7 +138,7 @@
 
 /datum/spellbook_entry/disintegrate
 	name = "Disintegrate"
-	spell_type = /obj/effect/proc_holder/spell/targeted/touch/disintegrate
+	spell_type = /obj/effect/proc_holder/spell/touch/disintegrate
 	log_name = "DG"
 	category = "Offensive"
 
@@ -150,7 +150,7 @@
 
 /datum/spellbook_entry/fleshtostone
 	name = "Flesh to Stone"
-	spell_type = /obj/effect/proc_holder/spell/targeted/touch/flesh_to_stone
+	spell_type = /obj/effect/proc_holder/spell/touch/flesh_to_stone
 	log_name = "FS"
 	category = "Offensive"
 
@@ -1060,7 +1060,7 @@
 	qdel(src)
 
 /obj/item/spellbook/oneuse/fake_gib
-	spell = /obj/effect/proc_holder/spell/targeted/touch/fake_disintegrate
+	spell = /obj/effect/proc_holder/spell/touch/fake_disintegrate
 	spellname = "disintegrate"
 	icon_state = "bookfireball"
 	desc = "This book feels like it will rip stuff apart."

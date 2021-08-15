@@ -9,7 +9,7 @@
 		</i>Provides Mutate, Ethereal Jaunt, Blink, Magic Missile, and Disintegrate.<i>"
 	log_name = "OM"
 	spells_path = list(/obj/effect/proc_holder/spell/targeted/genetic/mutate, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt, /obj/effect/proc_holder/spell/targeted/turf_teleport/blink, \
-		/obj/effect/proc_holder/spell/targeted/projectile/magic_missile, /obj/effect/proc_holder/spell/targeted/touch/disintegrate)
+		/obj/effect/proc_holder/spell/targeted/projectile/magic_missile, /obj/effect/proc_holder/spell/touch/disintegrate)
 
 /datum/spellbook_entry/loadout/lich
 	name = "Defense Focus : Lich"
@@ -31,7 +31,7 @@
 	log_name = "UW"
 	items_path = list(/obj/item/storage/belt/wands/full)
 	spells_path = list(/obj/effect/proc_holder/spell/targeted/charge, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt, /obj/effect/proc_holder/spell/targeted/turf_teleport/blink, \
-		/obj/effect/proc_holder/spell/aoe_turf/repulse, /obj/effect/proc_holder/spell/targeted/touch/disintegrate)
+		/obj/effect/proc_holder/spell/aoe_turf/repulse, /obj/effect/proc_holder/spell/touch/disintegrate)
 
 //Unique loadouts, which are more gimmicky. Should contain some unique spell or item that separates it from just buying standard wiz spells, and be balanced around a 10 spell point cost.
 /datum/spellbook_entry/loadout/mimewiz
@@ -42,7 +42,7 @@
 	items_path = list(/obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/greaterwall, /obj/item/clothing/suit/wizrobe/mime, /obj/item/clothing/head/wizard/mime, \
 		/obj/item/clothing/mask/gas/mime/wizard, /obj/item/clothing/shoes/sandal/marisa, /obj/item/cane, /obj/item/stack/tape_roll)
 	spells_path = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt, /obj/effect/proc_holder/spell/targeted/turf_teleport/blink, /obj/effect/proc_holder/spell/targeted/area_teleport/teleport, \
-		/obj/effect/proc_holder/spell/targeted/touch/mime_malaise, /obj/effect/proc_holder/spell/aoe_turf/knock, /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop)
+		/obj/effect/proc_holder/spell/touch/mime_malaise, /obj/effect/proc_holder/spell/aoe_turf/knock, /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop)
 	category = "Unique"
 	destroy_spellbook = TRUE
 
