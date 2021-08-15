@@ -238,7 +238,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	return
 
 /obj/effect/proc_holder/spell/Click()
-	if(cast_check(TRUE, FALSE, usr)) // TODO check if all recharges are started properly
+	if(cast_check(TRUE, FALSE, usr))
 		choose_targets(usr)
 	return 1
 
