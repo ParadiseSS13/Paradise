@@ -16,6 +16,10 @@
 
 	var/cast_sound = 'sound/items/welder.ogg'
 
+/obj/effect/proc_holder/spell/aoe_turf/conjure/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	return T
+
 /obj/effect/proc_holder/spell/aoe_turf/conjure/cast(list/targets,mob/living/user = usr)
 	playsound(get_turf(user), cast_sound, 50,1)
 	for(var/turf/T in targets)
@@ -63,3 +67,8 @@
 	summon_amt = 10
 	range = 3
 	newVars = list("emagged" = 1,"name" = "Wizard's Justicebot")
+
+/obj/effect/proc_holder/spell/aoe_turf/conjure/summonEdSwarm/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 3
+	return T

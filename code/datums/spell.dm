@@ -135,7 +135,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/sound = null //The sound the spell makes when it is cast
 
 	/// does this spell generate attack logs?
-	var/create_logs = TRUE // TODO ensure this is used
+	var/create_attack_logs = TRUE
+
+	/// If this spell creates custom logs using the write_custom_logs() proc. Will ignore create_attack_logs
+	var/create_custom_logs = FALSE
 
 	/// List with the targeting datums per spell type. Key = src.type, value = the targeting datum created by create_new_targeting()
 	var/static/list/targeting_datums = list()
@@ -291,11 +294,14 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	STOP_PROCESSING(SSfastprocess, src)
 	charge_counter = charge_max
 
-/obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = 1, mob/user = usr, make_attack_logs = TRUE) //if recharge is started is important for the trigger spells
+/obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = 1, mob/user = usr) //if recharge is started is important for the trigger spells
 	before_cast(targets)
 	invocation()
-	if(user && user.ckey && make_attack_logs)
-		add_attack_logs(user, targets, "cast the spell [name]", ATKLOG_ALL)
+	if(user && user.ckey)
+		if(create_custom_logs)
+			write_custom_logs(targets, user)
+		if(create_attack_logs)
+			add_attack_logs(user, targets, "cast the spell [name]", ATKLOG_ALL)
 	spawn(0)// TODO remove this. Recharge is done in another way now
 		if(charge_type == "recharge" && recharge)
 			start_recharge()
@@ -310,6 +316,15 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	after_cast(targets)
 	if(action)
 		action.UpdateButtonIcon()
+
+/**
+ * Will write additional logs if create_custom_logs is TRUE and the caster has a ckey. Override this
+ *
+ * * targets - The targets being targeted by the spell
+ * * user - The user of the spell
+ */
+/obj/effect/proc_holder/spell/proc/write_custom_logs(list/targets, mob/user)
+	return
 
 /obj/effect/proc_holder/spell/proc/before_cast(list/targets)
 	if(overlay)
@@ -408,6 +423,18 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		if("holdervar")
 			return 1
 
+
+/obj/effect/proc_holder/spell/aoe_turf // TODO change to just aoe
+	create_attack_logs = FALSE
+	create_custom_logs = TRUE
+	var/inner_radius = -1 //for all your ring spell needs
+
+// Normally, AoE spells will generate an attack log for every turf they loop over, while searching for targets.
+// With this override, all /aoe_turf type spells will only generate 1 log, saying that the user has cast the spell.
+/obj/effect/proc_holder/spell/aoe_turf/write_custom_logs(list/targets, mob/user)
+	add_attack_logs(user, null, "Cast the AoE spell [name]", ATKLOG_ALL)
+
+
 /obj/effect/proc_holder/spell/targeted //can mean aoe for mobs (limited/unlimited number) or one target mob
 	var/max_targets = 1 //leave 0 for unlimited targets in range, 1 for one selectable target in range, more for limited number of casts (can all target one guy, depends on target_ignore_prev) in range
 	var/target_ignore_prev = 1 //only important if max_targets > 1, affects if the spell can be cast multiple times at one person from one cast
@@ -415,9 +442,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/random_target = 0 // chooses random viable target instead of asking the caster
 	var/random_target_priority = SPELL_TARGET_CLOSEST // if random_target is enabled how it will pick the target
 	var/humans_only = 0 //for avoiding simple animals and only doing "human" mobs, 0 = all mobs, 1 = humans only
-
-/obj/effect/proc_holder/spell/aoe_turf //affects all turfs in view or range (depends)
-	var/inner_radius = -1 //for all your ring spell needs
 
 /obj/effect/proc_holder/spell/targeted/choose_targets(mob/user = usr)
 	var/list/targets = list()
@@ -497,27 +521,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	perform(targets, user=user)
 
 	return
-
-/obj/effect/proc_holder/spell/aoe_turf/choose_targets(mob/user = usr)
-	var/list/targets = list()
-
-	for(var/turf/target in view_or_range(range,user,selection_type))
-		if(!(target in view_or_range(inner_radius,user,selection_type)))
-			targets += target
-
-	if(!targets.len) //doesn't waste the spell
-		revert_cast()
-		return
-
-	perform(targets, user=user)
-
-	return
-
-// Normally, AoE spells will generate an attack log for every turf they loop over, while searching for targets.
-// With this override, all /aoe_turf type spells will only generate 1 log, saying that the user has cast the spell.
-/obj/effect/proc_holder/spell/aoe_turf/perform(list/targets, recharge, mob/user, make_attack_logs)
-	add_attack_logs(user, null, "Cast the AoE spell [name]", ATKLOG_ALL)
-	return ..(targets, recharge, user, FALSE)
 
 /obj/effect/proc_holder/spell/targeted/proc/los_check(mob/A,mob/B)
 	//Checks for obstacles from A to B

@@ -231,6 +231,11 @@
 
 	summon_type = list(/obj/effect/timestop/wizard)
 
+/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 0
+	return T
+
 /obj/effect/proc_holder/spell/aoe_turf/conjure/carp
 	name = "Summon Carp"
 	desc = "This spell conjures a simple carp."
@@ -245,6 +250,11 @@
 	summon_type = list(/mob/living/simple_animal/hostile/carp)
 
 	cast_sound = 'sound/magic/summon_karp.ogg'
+
+/obj/effect/proc_holder/spell/aoe_turf/conjure/carp/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 1
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/construct
 	name = "Artificer"
@@ -262,6 +272,11 @@
 	action_icon_state = "artificer"
 	cast_sound = 'sound/magic/summonitems_generic.ogg'
 
+/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 0
+	return T
+
 /obj/effect/proc_holder/spell/aoe_turf/conjure/creature
 	name = "Summon Creature Swarm"
 	desc = "This spell tears the fabric of reality, allowing horrific daemons to spill forth"
@@ -276,6 +291,11 @@
 
 	summon_type = list(/mob/living/simple_animal/hostile/creature)
 	cast_sound = 'sound/magic/summonitems_generic.ogg'
+
+/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/creature/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 3
+	return T
 
 /obj/effect/proc_holder/spell/targeted/trigger/blind
 	name = "Blind"
@@ -362,11 +382,15 @@
 	invocation_type = "shout"
 	range = 5
 	cooldown_min = 150
-	selection_type = "view"
 	sound = 'sound/magic/repulse.ogg'
 	var/maxthrow = 5
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
 	action_icon_state = "repulse"
+
+/obj/effect/proc_holder/spell/aoe_turf/repulse/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 5
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/repulse/cast(list/targets, mob/user = usr, stun_amt = 2)
 	var/list/thrownatoms = list()

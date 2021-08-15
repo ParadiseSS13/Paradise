@@ -28,7 +28,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	invocation = ""
 	invocation_type = "none"
 	// no need to spam admins regarding boo casts
-	create_logs = FALSE
+	create_attack_logs = FALSE
 
 
 /obj/effect/proc_holder/spell/boo/create_new_targeting()

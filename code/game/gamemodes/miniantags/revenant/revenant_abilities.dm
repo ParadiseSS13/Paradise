@@ -198,6 +198,11 @@
 	var/shock_damage = 20
 	action_icon_state = "overload_lights"
 
+/obj/effect/proc_holder/spell/aoe_turf/revenant/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 5
+	return T
+
 /obj/effect/proc_holder/spell/aoe_turf/revenant/overload/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
 		for(var/turf/T in targets)
@@ -236,6 +241,11 @@
 	var/toxdamage = 5
 	var/confusion = 20
 	var/maxconfusion = 30
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/defile/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 4
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/defile/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
@@ -282,6 +292,11 @@
 	cast_amount = 45
 	unlock_amount = 150
 	action_icon_state = "malfunction"
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 2
+	return T
 
 //A note to future coders: do not replace this with an EMP because it will wreck malf AIs and gang dominators and everyone will hate you.
 /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/cast(list/targets, mob/living/simple_animal/revenant/user = usr)

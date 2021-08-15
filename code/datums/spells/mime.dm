@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall
+/obj/effect/proc_holder/spell/aoe_turf/conjure/build/mime_wall
 	name = "Invisible Wall"
 	desc = "The mime's performance transmutates into physical reality."
 	school = "mime"
@@ -16,7 +16,7 @@
 	action_icon_state = "mime"
 	action_background_icon_state = "bg_mime"
 
-/obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall/Click()
+/obj/effect/proc_holder/spell/aoe_turf/conjure/build/mime_wall/Click()
 	if(usr && usr.mind)
 		if(!usr.mind.miming)
 			to_chat(usr, "<span class='notice'>You must dedicate yourself to silence first.</span>")
@@ -123,7 +123,7 @@
 // Mime Spellbooks
 
 /obj/item/spellbook/oneuse/mime
-	spell = /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall
+	spell = /obj/effect/proc_holder/spell/aoe_turf/conjure/build/mime_wall
 	spellname = "Invisible Wall"
 	name = "Miming Manual : "
 	desc = "It contains various pictures of mimes mid-performance, aswell as some illustrated tutorials."
