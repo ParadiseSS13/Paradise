@@ -83,7 +83,9 @@
 	if(!mapload)
 		log_world("### MAP WARNING, [src] spawned outside of mapload!")
 		return
-	var/obj/machinery/door/door = locate(/obj/machinery/door) in loc
+	var/obj/machinery/door/door = locate(/obj/machinery/door/airlock) in loc
+	if(!door)
+		door = locate(/obj/machinery/door/window) in loc
 	if(door)
 		door.unres_sides ^= dir
 	else
