@@ -73,7 +73,7 @@ SUBSYSTEM_DEF(garbage)
 	var/i = 0
 	for(var/list/L in queues)
 		i++
-		.["queue_[i]"] = length(L)
+		cust["queue_[i]"] = length(L)
 
 	.["custom"] = cust
 
