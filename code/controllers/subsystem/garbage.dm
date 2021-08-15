@@ -64,7 +64,10 @@ SUBSYSTEM_DEF(garbage)
 /datum/controller/subsystem/garbage/get_metrics()
 	. = ..()
 	var/list/cust = list()
-	cust["gcr"] = (gcedlasttick / (delslasttick + gcedlasttick))
+	if((delslasttick + gcedlasttick) == 0) // Account for DIV0
+		cust["gcr"] = 0
+	else
+		cust["gcr"] = (gcedlasttick / (delslasttick + gcedlasttick))
 	cust["total_harddels"] = totaldels
 	cust["total_softdels"] = totalgcs
 	var/i = 0
