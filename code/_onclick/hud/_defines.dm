@@ -180,4 +180,5 @@
 
 #define HUD_LAYER_SCREEN 20
 
-#define HUD_LAYER_BUILDMODE 30
+// Planes are above layers, and this should always be on top.
+#define HUD_PLANE_BUILDMODE 30
