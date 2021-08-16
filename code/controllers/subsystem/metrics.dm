@@ -39,6 +39,9 @@ SUBSYSTEM_DEF(metrics)
 	return json_encode(out)
 
 /*
+
+// Uncomment this if you add new metrics to verify how the JSON formats
+
 /client/verb/debugmetricts()
 	usr << browse(SSmetrics.get_metrics_json(), "window=aadebug")
 */

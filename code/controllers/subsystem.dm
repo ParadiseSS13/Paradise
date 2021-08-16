@@ -230,9 +230,12 @@
 			return 0
 	. = ..()
 
-// Returns the metrics for the subsystem.
-// This can be overriden on subtypes for variables that could affect tick usage
-// Example: ATs on SSair
+/**
+  * Returns the metrics for the subsystem.
+  *
+  * This can be overriden on subtypes for variables that could affect tick usage
+  * Example: ATs on SSair
+  */
 /datum/controller/subsystem/proc/get_metrics()
 	SHOULD_CALL_PARENT(TRUE)
 	var/list/out = list()

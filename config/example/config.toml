@@ -16,7 +16,6 @@
 # - afk_configuration
 # - custom_sprites_configuration
 # - database_configuration
-# - debug_configuration
 # - discord_configuration
 # - event_configuration
 # - gamemode_configuration
@@ -25,6 +24,8 @@
 # - ipintel_configuration
 # - job_configuration
 # - logging_configuration
+# - mc_configuration
+# - metrics_configuration
 # - movement_configuration
 # - overflow_configuration
 # - ruin_configuration
