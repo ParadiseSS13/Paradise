@@ -43832,10 +43832,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bSk" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
-/obj/structure/cable,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -43843,6 +43839,9 @@
 /obj/item/radio/intercom{
 	dir = 4;
 	pixel_x = 28
+	},
+/obj/machinery/power/smes{
+	charge = 5e+006
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
@@ -50573,11 +50572,6 @@
 	},
 /area/crew_quarters/hor)
 "ceT" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
