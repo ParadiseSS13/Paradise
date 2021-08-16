@@ -49,7 +49,7 @@
 	..()
 	D.set_light(4)
 
-datum/dog_fashion/head/hardhat
+/datum/dog_fashion/head/hardhat
 	name = "Engineer REAL_NAME"
 	desc = "Trust him, he's an engineer."
 
