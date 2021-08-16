@@ -531,7 +531,7 @@
 
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
-		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
+		message_admins("<font color='red'><B>Notice: </B></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
 		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 		watchlisted = TRUE
 
@@ -563,15 +563,6 @@
 		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, FALSE) // Async to avoid other procs in the client chain being delayed by a web request
 	else
 		//New player!! Need to insert all the stuff
-
-		// Check new peeps for panic bunker
-		// AA TODO: Move this to world.IsBanned()
-		if(GLOB.panic_bunker_enabled)
-			var/threshold = GLOB.configuration.general.panic_bunker_threshold
-			src << "Server is not accepting connections from never-before-seen players until player count is less than [threshold]. Please try again later."
-			qdel(src)
-			return // Dont insert or they can just go in again
-
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO player (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
 			"ip" = address,
@@ -601,11 +592,11 @@
 			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] connecting from localhost.")
 			return
 
-		if(vpn_whitelist_check(ckey))
+		if(SSipintel.vpn_whitelist_check(ckey))
 			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] [address] on whitelist.")
 			return
 
-		var/datum/ipintel/res = get_ip_intel(address)
+		var/datum/ipintel/res = SSipintel.get_ip_intel(address)
 		ip_intel = res.intel
 		verify_ip_intel()
 
@@ -613,7 +604,9 @@
 	if(ip_intel >= GLOB.configuration.ipintel.bad_rating)
 		var/detailsurl = GLOB.configuration.ipintel.details_url ? "(<a href='[GLOB.configuration.ipintel.details_url][address]'>IP Info</a>)" : ""
 		if(GLOB.configuration.ipintel.whitelist_mode)
-			// AA TODO: move this check to world.IsBanned()
+			// Do not move this to isBanned(). This may sound weird, but:
+			// This needs to happen after their account is put into the DB
+			// This way, admins can then note people
 			spawn(40) // This is necessary because without it, they won't see the message, and addtimer cannot be used because the timer system may not have initialized yet
 				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]</span>")
 				var/blockmsg = "<B>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</B>"

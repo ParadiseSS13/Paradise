@@ -1009,7 +1009,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
-	stat(null, "Round Time: [worldtime2text()]") // AA TODO: Make this do "Game Time" and "Round Time" with the ROUND_TIME macro
+	stat(null, "Server Uptime: [worldtime2text()]")
+	stat(null, "Round Time: [ROUND_TIME ? time2text(ROUND_TIME, "hh:mm:ss") : "N/A"]")
 	stat(null, "Station Time: [station_time_timestamp()]")
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
@@ -1457,6 +1458,27 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
  */
 /mob/proc/update_runechat_msg_location()
 	return
+
+
+/**
+ * Show an overlay of radiation levels on radioactive objects.
+ */
+/mob/proc/show_rads(range)
+	for(var/turf/place in range(range, src))
+		var/rads = SSradiation.get_turf_radiation(place)
+		if (rads < RAD_BACKGROUND_RADIATION)
+			continue
+
+		var/strength = round(rads / 1000, 0.1)
+		var/image/pic = image(loc = place)
+		var/mutable_appearance/MA = new()
+		MA.maptext = MAPTEXT("[strength]k")
+		MA.color = "#04e604"
+		MA.layer = RAD_TEXT_LAYER
+		MA.plane = GAME_PLANE
+		pic.appearance = MA
+		flick_overlay(pic, list(client), 10)
+    
 
 GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	/area/chapel

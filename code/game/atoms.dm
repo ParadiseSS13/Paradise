@@ -273,6 +273,12 @@
 /atom/proc/HasProximity(atom/movable/AM)
 	return
 
+/**
+ * Proc which will make the atom act accordingly to an EMP.
+ * This proc can sleep depending on the implementation. So assume it sleeps!
+ *
+ * severity - The severity of the EMP. Either EMP_HEAVY or EMP_LIGHT
+ */
 /atom/proc/emp_act(severity)
 	return
 

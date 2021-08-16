@@ -130,6 +130,8 @@
 #define SOUTH_OF_TURF(T)	locate(T.x, T.y - 1, T.z)
 #define WEST_OF_TURF(T)		locate(T.x - 1, T.y, T.z)
 
+#define ATOM_COORDS(A) list(A.x, A.y, A.z)
+
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
 
@@ -306,7 +308,7 @@
 #define TRIGGER_GUARD_NORMAL 1
 
 // Macro to get the current elapsed round time, rather than total world runtime
-#define ROUND_TIME (SSticker.round_start_time ? (world.time - SSticker.round_start_time) : 0)
+#define ROUND_TIME (SSticker.time_game_started ? (world.time - SSticker.time_game_started) : 0)
 
 // Macro that returns true if it's too early in a round to freely ghost out
 #define TOO_EARLY_TO_GHOST (ROUND_TIME < GLOB.configuration.general.cryo_penalty_period MINUTES)
