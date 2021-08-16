@@ -69399,6 +69399,7 @@
 	dir = 10;
 	initialize_directions = 10
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "cRr" = (
@@ -70045,7 +70046,6 @@
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "cSJ" = (
-/obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -70818,6 +70818,8 @@
 	network = list("Medical","SS13","Security")
 	},
 /obj/structure/cable,
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green,
 /turf/simulated/floor/carpet,
 /area/medical/psych)
 "cUi" = (
@@ -97487,6 +97489,13 @@
 /obj/machinery/blackbox_recorder,
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
+"ebp" = (
+/obj/structure/chair,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitebluecorner"
+	},
+/area/medical/psych)
 "eha" = (
 /obj/machinery/iv_drip,
 /obj/machinery/light/small{
@@ -97703,15 +97712,6 @@
 	icon_state = "barber"
 	},
 /area/security/permabrig)
-"ePN" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitebluecorner"
-	},
-/area/medical/psych)
 "ePS" = (
 /obj/structure/lattice,
 /turf/simulated/wall/r_wall,
@@ -97811,6 +97811,12 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/security/warden)
+"faU" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitebluecorner"
+	},
+/area/medical/psych)
 "fcg" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
@@ -98082,12 +98088,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/security/brig)
-"fVT" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
-	},
-/area/medical/psych)
 "fVZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -98668,12 +98668,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery2)
-"igs" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitebluecorner"
-	},
-/area/medical/psych)
 "iiM" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -98920,6 +98914,14 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery1)
+"jph" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/psych)
 "jqB" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -99283,16 +99285,6 @@
 	icon_state = "solarpanel"
 	},
 /area/maintenance/auxsolarstarboard)
-"lbe" = (
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_x = 28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
-	},
-/area/medical/psych)
 "ljZ" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -99523,6 +99515,18 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/aisat)
+"lXx" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/table/wood,
+/obj/item/storage/briefcase,
+/obj/machinery/light_switch{
+	pixel_x = -26;
+	pixel_y = -4
+	},
+/turf/simulated/floor/wood,
+/area/medical/psych)
 "lZw" = (
 /obj/machinery/ai_status_display{
 	pixel_x = -32
@@ -99539,6 +99543,16 @@
 	icon_state = "redcorner"
 	},
 /area/security/permasolitary)
+"lZA" = (
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitebluecorner"
+	},
+/area/medical/psych)
 "meB" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -100312,14 +100326,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
-"oVa" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/psych)
 "oVe" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
@@ -100328,27 +100334,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/permabrig)
-"oVB" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
-	},
-/area/medical/psych)
 "oXm" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/cable{
@@ -100612,11 +100597,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/surgery1)
-"qhu" = (
-/obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop,
-/turf/simulated/floor/wood,
-/area/medical/psych)
 "qli" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -100933,6 +100913,15 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/brig)
+"rLZ" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitebluecorner"
+	},
+/area/medical/psych)
 "rNi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -101555,6 +101544,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/range)
+"udF" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitebluecorner"
+	},
+/area/medical/psych)
 "uil" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -101703,6 +101698,11 @@
 	icon_state = "dark"
 	},
 /area/security/interrogation)
+"uwf" = (
+/obj/structure/table/wood,
+/obj/machinery/computer/med_data/laptop,
+/turf/simulated/floor/wood,
+/area/medical/psych)
 "uAP" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -101873,6 +101873,27 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
+"vjk" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitebluecorner"
+	},
+/area/medical/psych)
 "vmw" = (
 /obj/structure/fans/tiny,
 /obj/structure/cable{
@@ -102160,13 +102181,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
-"wyJ" = (
-/obj/structure/chair,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitebluecorner"
-	},
-/area/medical/psych)
 "wAE" = (
 /obj/structure/dresser,
 /turf/simulated/floor/plating,
@@ -102368,15 +102382,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery1)
-"xDb" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp/green,
-/obj/item/storage/briefcase,
-/turf/simulated/floor/wood,
-/area/medical/psych)
 "xDn" = (
 /obj/structure/sign/electricshock{
 	pixel_y = 32
@@ -147456,10 +147461,10 @@ cxn
 cxn
 cxn
 cxn
-wyJ
+ebp
 cGF
-igs
-ePN
+udF
+rLZ
 cYP
 cYP
 cYP
@@ -147718,7 +147723,7 @@ hos
 cmt
 bMD
 cLa
-xDb
+lXx
 cOa
 cPQ
 cRp
@@ -147973,9 +147978,9 @@ cxn
 bDD
 buF
 cmt
-oVa
+jph
 cLa
-qhu
+uwf
 cOb
 cPQ
 cRq
@@ -148228,9 +148233,9 @@ cAc
 cyD
 cxn
 bEH
-oVB
-lbe
-fVT
+vjk
+lZA
+faU
 cLb
 cPQ
 cOc
