@@ -167,10 +167,6 @@
 /obj/item/target,
 /obj/item/target,
 /obj/item/target,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/security/range)
 "acD" = (
@@ -681,11 +677,6 @@
 /area/security/armoury)
 "adQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Firing Range";
@@ -8328,6 +8319,11 @@
 	},
 /obj/item/seeds/corn,
 /obj/item/seeds/corn,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -22364,11 +22360,6 @@
 	},
 /area/crew_quarters/sleep)
 "aYt" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/folder/yellow,
@@ -34923,11 +34914,6 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
 	req_access_txt = "63"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -58001,11 +57987,6 @@
 	},
 /area/medical/virology)
 "ctf" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical{
 	autoclose = 0;
@@ -64994,11 +64975,6 @@
 /obj/machinery/door/airlock/medical{
 	name = "Psych Office";
 	req_access_txt = "64"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -79191,14 +79167,15 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "dmO" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
 /obj/structure/cable,
 /obj/machinery/power/compressor{
 	comp_id = "incineratorturbine";
 	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
@@ -80350,10 +80327,6 @@
 	name = "\improper AI Satellite Atmospherics"
 	})
 "dpF" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/machinery/computer/monitor{
 	name = "Grid Power Monitoring Computer"
 	},
