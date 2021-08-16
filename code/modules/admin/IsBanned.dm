@@ -97,9 +97,9 @@
 			qdel(exist_query)
 		else
 			if(!exist_query.NextRow()) // If there isnt a row, they aint been seen before
-				if(SSqueue && SSqueue.queue_enabled && (length(GLOB.clients) > SSqueue.queue_threshold) && !(ckey in SSqueue.queue_bypass_list)) // To the person who tells me in code review "Oh you should use ?. here". No. That logic isnt appropriate here. It needs a dedicated null check due to the length comparison.
+				if(SSqueue?.queue_enabled && (length(GLOB.clients) > SSqueue.queue_threshold) && !(ckey in SSqueue.queue_bypass_list))
 					qdel(exist_query)
-					return list("reason" = "server queue", "desc" = "You seem to have managed to skip the server queue, possibly due to connecting during a restart. Please reconnect in 10 minutes. If you still cant connect, please inform the server host.")
+					return list("reason" = "server queue", "desc" = "You seem to have managed to skip the server queue, possibly due to connecting during a restart. Please reconnect in 10 minutes. If you still cannot connect, please inform the server host.")
 
 		qdel(exist_query)
 
