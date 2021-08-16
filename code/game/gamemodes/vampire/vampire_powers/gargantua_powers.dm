@@ -54,3 +54,24 @@
 /mob/living/carbon/human/proc/remove_speed(source)
 	REMOVE_TRAIT(src, TRAIT_GOTTAGOFAST, source)
 
+/obj/effect/proc_holder/spell/targeted/click/charge
+	name = "Charge(30)"
+	desc = "You charge at the selected position, dealing large amounts of damage and destroying walls."
+	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
+	required_blood = 30
+	vampire_ability = TRUE
+	panel = "Vampire"
+	school = "vampire"
+	action_background_icon_state = "bg_vampire"
+	allowed_type = /atom
+	range = 7
+	auto_target_single = FALSE
+	click_radius = -1
+
+
+/obj/effect/proc_holder/spell/targeted/click/charge/cast(list/targets, mob/user)
+	var/target = targets[1]
+	if(isliving(user))
+		var/mob/living/L = user
+		L.apply_status_effect(STATUS_EFFECT_CHARGING)
+		L.throw_at(target, range, 1, L, FALSE, callback = CALLBACK(L, /mob/living/.proc/remove_status_effect, STATUS_EFFECT_CHARGING))
