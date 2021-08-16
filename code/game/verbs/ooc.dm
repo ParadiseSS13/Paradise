@@ -32,7 +32,6 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!msg)
 		msg = typing_input(src.mob, "", "ooc \"text\"")
 
-	var/discord_msg = "[msg]"
 	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
 	if(!msg)
 		return
@@ -97,7 +96,6 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 				msg = "<span class='emoji_enabled'>[msg]</span>"
 
 			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
-			SSdiscord.send2discord_simple(DISCORD_WEBHOOK_OOC, "**OOC** | [display_name]: [discord_msg]")
 /proc/toggle_ooc()
 	GLOB.ooc_enabled = (!GLOB.ooc_enabled)
 	if(GLOB.ooc_enabled)

@@ -7,8 +7,10 @@ SUBSYSTEM_DEF(ticker)
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
 
-	/// Time the world started, relative to world.time
+	/// Time the game should start, relative to world.time
 	var/round_start_time = 0
+	/// Time that the round started
+	var/time_game_started = 0
 	/// Default timeout for if world.Reboot() doesnt have a time specified
 	var/const/restart_timeout = 75 SECONDS
 	/// Current status of the game. See code\__DEFINES\game.dm
@@ -266,7 +268,7 @@ SUBSYSTEM_DEF(ticker)
 
 	SSdiscord.send2discord_simple("**\[Info]** Round has started") //El _noadmins al final de SSdiscord.send2discord_simple hacia que mencione a los admins cada vez que comenzaba una ronda, lo cual era innecesario
 	auto_toggle_ooc(FALSE) // Turn it off
-	round_start_time = world.time
+	time_game_started = world.time
 
 	// Sets the auto shuttle vote to happen after the config duration
 	next_autotransfer = world.time + GLOB.configuration.vote.autotransfer_initial_time

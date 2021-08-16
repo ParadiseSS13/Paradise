@@ -6,6 +6,10 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/map/map_datum
 	/// What map will be used next round
 	var/datum/map/next_map
+	/// List of all areas that can be accessed via IC means
+	var/list/teleportlocs
+	/// List of all areas that can be accessed via IC and OOC means
+	var/list/ghostteleportlocs
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
 /datum/controller/subsystem/mapping/PreInit()
@@ -19,10 +23,10 @@ SUBSYSTEM_DEF(mapping)
 			map_datum = text2path(lines[1])
 			map_datum = new map_datum
 		catch
-			map_datum = new /datum/map/cyberiad // Assume hispania if non-existent
+			map_datum = new /datum/map/cyberiad // Assume cyberiad if non-existent
 		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
 	else
-		map_datum = new /datum/map/cyberiad // Assume hispania if non-existent
+		map_datum = new /datum/map/cyberiad // Assume cyberiad if non-existent
 
 /datum/controller/subsystem/mapping/Shutdown()
 	if(next_map) // Save map for next round
@@ -62,26 +66,28 @@ SUBSYSTEM_DEF(mapping)
 	log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
 
 	// Now we make a list of areas for teleport locs
-	// AA TODO: Make these locs into lists on the SS itself, not globs
+	teleportlocs = list()
 	for(var/area/AR in world)
 		if(AR.no_teleportlocs)
 			continue
-		if(GLOB.teleportlocs[AR.name])
+		if(teleportlocs[AR.name])
 			continue
 		var/turf/picked = safepick(get_area_turfs(AR.type))
 		if(picked && is_station_level(picked.z))
-			GLOB.teleportlocs[AR.name] = AR
+			teleportlocs[AR.name] = AR
 
-	GLOB.teleportlocs = sortAssoc(GLOB.teleportlocs)
+	teleportlocs = sortAssoc(teleportlocs)
 
+
+	ghostteleportlocs = list()
 	for(var/area/AR in world)
-		if(GLOB.ghostteleportlocs[AR.name])
+		if(ghostteleportlocs[AR.name])
 			continue
 		var/list/turfs = get_area_turfs(AR.type)
 		if(turfs.len)
-			GLOB.ghostteleportlocs[AR.name] = AR
+			ghostteleportlocs[AR.name] = AR
 
-	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
+	ghostteleportlocs = sortAssoc(ghostteleportlocs)
 
 	// World name
 	if(GLOB.configuration.general.server_name)
@@ -128,7 +134,7 @@ SUBSYSTEM_DEF(mapping)
 	if(!SSdbcore.IsConnected())
 		return
 	var/datum/db_query/query_set_map = SSdbcore.NewQuery(
-		"UPDATE [format_table_name("round")] SET start_datetime=NOW(), map_name=:mapname, station_name=:stationname WHERE id=:round_id",
+		"UPDATE round SET start_datetime=NOW(), map_name=:mapname, station_name=:stationname WHERE id=:round_id",
 		list("mapname" = map_datum.technical_name, "stationname" = map_datum.fluff_name, "round_id" = GLOB.round_id)
 	)
 	query_set_map.Execute(async = FALSE) // This happens during a time of intense server lag, so should be non-async
@@ -139,7 +145,7 @@ SUBSYSTEM_DEF(mapping)
 	var/watch = start_watch()
 	log_startup_progress("Loading Lavaland...")
 	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = SELFLOOPING, traits = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK))
-	GLOB.maploader.load_map(file("_maps/map_files/hispania/Lavaland.dmm"), z_offset = lavaland_z_level)
+	GLOB.maploader.load_map(file("_maps/map_files/generic/Lavaland.dmm"), z_offset = lavaland_z_level)
 	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")
 
 /datum/controller/subsystem/mapping/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = /area/space, list/potentialRuins)

@@ -81,12 +81,6 @@ SUBSYSTEM_DEF(jobs)
 			return 0
 		if(job.barred_by_disability(player.client))
 			return 0
-		if(job.age_restringed(player.client))//Restriccion de edad
-			return 0
-		if(job.command_age_restringed(player.client))//Restriccion de edad
-			return 0
-		if(job.captain_age_restringed(player.client))//Restriccion de edad
-			return 0
 		if(!is_job_whitelisted(player, rank))
 			return 0
 
@@ -140,15 +134,6 @@ SUBSYSTEM_DEF(jobs)
 		if(job.barred_by_disability(player.client))
 			Debug("FOC player has disability rendering them ineligible for job, Player: [player]")
 			continue
-		if(job.age_restringed(player.client))
-			Debug("FOC player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
-			continue
-		if(job.command_age_restringed(player.client))
-			Debug("FOC player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
-			continue
-		if(job.captain_age_restringed(player.client))
-			Debug("FOC player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
-			continue
 		if(flag && !(flag in player.client.prefs.be_special))
 			Debug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
@@ -192,18 +177,6 @@ SUBSYSTEM_DEF(jobs)
 
 		if(job.barred_by_disability(player.client))
 			Debug("GRJ player has disability rendering them ineligible for job, Player: [player]")
-			continue
-
-		if(job.age_restringed(player.client))
-			Debug("GRJ player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
-			continue
-
-		if(job.command_age_restringed(player.client))
-			Debug("GRJ player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
-			continue
-
-		if(job.captain_age_restringed(player.client))
-			Debug("GRJ player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
 			continue
 
 		if(player.mind && (job.title in player.mind.restricted_roles))
@@ -383,18 +356,6 @@ SUBSYSTEM_DEF(jobs)
 
 				if(job.barred_by_disability(player.client))
 					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
-					continue
-
-				if(job.age_restringed(player.client))
-					Debug("DO player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
-					continue
-
-				if(job.command_age_restringed(player.client))
-					Debug("DO player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
-					continue
-
-				if(job.captain_age_restringed(player.client))
-					Debug("DO player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
 					continue
 
 				if(player.mind && (job.title in player.mind.restricted_roles))
@@ -603,15 +564,6 @@ SUBSYSTEM_DEF(jobs)
 			if(job.barred_by_disability(player.client))
 				disabled++
 				continue
-			if(job.age_restringed(player.client))
-				disabled++
-				continue
-			if(job.command_age_restringed(player.client))
-				disabled++
-				continue
-			if(job.captain_age_restringed(player.client))
-				disabled++
-				continue
 			if(player.client.prefs.GetJobDepartment(job, 1) & job.flag)
 				high++
 			else if(player.client.prefs.GetJobDepartment(job, 2) & job.flag)
@@ -630,7 +582,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/datum/money_account/M = create_account(H.real_name, rand(150,400)*10, null)
+	var/datum/money_account/M = create_account(H.real_name, rand(50,500)*10, null)
 	var/remembered_info = ""
 
 	remembered_info += "<b>Your account number is:</b> #[M.account_number]<br>"
@@ -788,7 +740,7 @@ SUBSYSTEM_DEF(jobs)
 			continue // If a client logs out in the middle of this
 
 		var/datum/db_query/exp_read = SSdbcore.NewQuery(
-			"SELECT exp FROM [format_table_name("player")] WHERE ckey=:ckey",
+			"SELECT exp FROM player WHERE ckey=:ckey",
 			list("ckey" = C.ckey)
 		)
 
@@ -872,7 +824,7 @@ SUBSYSTEM_DEF(jobs)
 		C.prefs.exp = new_exp
 
 		var/datum/db_query/update_query = SSdbcore.NewQuery(
-			"UPDATE [format_table_name("player")] SET exp =:newexp, lastseen=NOW() WHERE ckey=:ckey",
+			"UPDATE player SET exp =:newexp, lastseen=NOW() WHERE ckey=:ckey",
 			list(
 				"newexp" = new_exp,
 				"ckey" = C.ckey
@@ -882,7 +834,7 @@ SUBSYSTEM_DEF(jobs)
 		player_update_queries += update_query
 
 		var/datum/db_query/update_query_history = SSdbcore.NewQuery({"
-			INSERT INTO [format_table_name("playtime_history")] (ckey, date, time_living, time_ghost)
+			INSERT INTO playtime_history (ckey, date, time_living, time_ghost)
 			VALUES (:ckey, CURDATE(), :addedliving, :addedghost)
 			ON DUPLICATE KEY UPDATE time_living=time_living + VALUES(time_living), time_ghost=time_ghost + VALUES(time_ghost)"},
 			list(

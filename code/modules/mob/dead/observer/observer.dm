@@ -362,7 +362,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, "Not when you're not dead!")
 		return
 
-	var/datum/async_input/A = input_autocomplete_async(usr, "Area to jump to: ", GLOB.ghostteleportlocs)
+	var/datum/async_input/A = input_autocomplete_async(usr, "Area to jump to: ", SSmapping.ghostteleportlocs)
 	A.on_close(CALLBACK(src, .proc/teleport))
 
 /mob/dead/observer/proc/teleport(area/thearea)

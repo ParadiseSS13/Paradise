@@ -169,7 +169,10 @@
 			n = get_step(mob, direct)
 
 	. = mob.SelfMove(n, direct, delay)
-	mob.setDir(direct)
+	if(mob.pulling?.face_while_pulling)
+		mob.setDir(get_dir(mob, mob.pulling)) // Face welding tanks and stuff when pulling
+	else
+		mob.setDir(direct)
 
 	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
 		delay = mob.movement_delay() * 2 //Will prevent mob diagonal moves from smoothing accurately, sadly

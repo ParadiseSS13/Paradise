@@ -427,11 +427,6 @@
 	if(B)
 		B.link_new_cell(unlink_cell)
 
-/obj/item/robot_module/security/update_cells(unlink_cell = FALSE)
-	var/obj/item/melee/baton/B = locate(/obj/item/melee/baton/loaded) in modules
-	if(B)
-		B.link_new_cell(unlink_cell)
-
 // Janitor cyborg module.
 /obj/item/robot_module/janitor
 	name = "janitorial robot module"
@@ -575,6 +570,7 @@
 		/obj/item/gun/energy/pulse/cyborg,
 		/obj/item/crowbar/cyborg
 	)
+	special_rechargables = list(/obj/item/gun/energy/pulse/cyborg)
 
 // Sydicate assault cyborg module.
 /obj/item/robot_module/syndicate
@@ -667,7 +663,10 @@
 		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
 		/obj/item/borg/destroyer/mobility
 	)
-	special_rechargables = list(/obj/item/melee/baton/loaded)
+	special_rechargables = list(
+		/obj/item/melee/baton/loaded,
+		/obj/item/gun/energy/immolator/multi/cyborg
+	)
 
 /obj/item/robot_module/combat
 	name = "combat robot module"
@@ -683,7 +682,10 @@
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		/obj/item/pickaxe/drill/jackhammer // for breaking walls to execute flanking moves
 	)
-	special_rechargables = list(/obj/item/melee/baton/loaded)
+	special_rechargables = list(
+		/obj/item/melee/baton/loaded,
+		/obj/item/gun/energy/immolator/multi/cyborg
+	)
 
 // Xenomorph cyborg module.
 /obj/item/robot_module/alien/hunter
@@ -725,6 +727,7 @@
 		/obj/item/soap,
 		/obj/item/t_scanner,
 		/obj/item/rpd,
+		/obj/item/analyzer,
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,

@@ -16,7 +16,7 @@
 	var/jumpdistance = 4
 	var/jumpspeed = 1
 	attacktext = "bites"
-	attack_sound = 'sound/creatures/headcrab_attack.ogg'
+	attack_sound = 'sound/hispania/creatures/headcrab_attack.ogg'
 	speak_emote = list("hisses")
 	var/is_zombie = 0
 	stat_attack = DEAD // Necessary for them to attack (zombify) dead humans
@@ -70,11 +70,11 @@
 	ranged = 0
 	stat_attack = CONSCIOUS // Disables their targeting of dead mobs once they're already a zombie
 	icon = H.icon
-	speak = list('sound/creatures/zombie_idle1.ogg','sound/creatures/zombie_idle2.ogg','sound/creatures/zombie_idle3.ogg')
+	speak = list('sound/hispania/creatures/zombie_idle1.ogg','sound/hispania/creatures/zombie_idle2.ogg','sound/hispania/creatures/zombie_idle3.ogg')
 	speak_chance = 50
 	speak_emote = list("groans")
 	attacktext = "bites"
-	attack_sound = 'sound/creatures/zombie_attack.ogg'
+	attack_sound = 'sound/hispania/creatures/zombie_attack.ogg'
 	icon_state = "zombie2_s"
 	if(head_organ && !(NO_HAIR in H.dna.species.species_traits))
 		head_organ.h_style = null
@@ -150,7 +150,7 @@
 
 /mob/living/simple_animal/hostile/headcrab/fast/Zombify(mob/living/carbon/human/H)
 	. = ..()
-	speak = list('sound/creatures/fast_zombie_idle1.ogg','sound/creatures/fast_zombie_idle2.ogg','sound/creatures/fast_zombie_idle3.ogg')
+	speak = list('sound/hispania/creatures/fast_zombie_idle1.ogg','sound/hispania/creatures/fast_zombie_idle2.ogg','sound/hispania/creatures/fast_zombie_idle3.ogg')
 
 /mob/living/simple_animal/hostile/headcrab/poison
 	name = "poison headcrab"
@@ -166,7 +166,7 @@
 	jumpspeed = 1
 	melee_damage_lower = 8
 	melee_damage_upper = 20
-	attack_sound = 'sound/creatures/ph_scream1.ogg'
+	attack_sound = 'sound/hispania/creatures/ph_scream1.ogg'
 	speak_emote = list("screech")
 
 /mob/living/simple_animal/hostile/headcrab/poison/update_icons()

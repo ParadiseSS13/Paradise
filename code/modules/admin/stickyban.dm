@@ -35,7 +35,6 @@
 
 			log_admin("[key_name(usr)] has stickybanned [ckey].\nReason: [ban["message"]]")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has stickybanned [ckey].\nReason: [ban["message"]]</span>")
-			SSdiscord.send2discord_simple(DISCORD_WEBHOOK_BANS, "[key_name_admin(usr)] stickybaneó al jugador [ckey] por: \n[ban["message"]]")
 		if("remove")
 			if(!data["ckey"])
 				return
@@ -54,7 +53,6 @@
 
 			log_admin("[key_name(usr)] removed [ckey]'s stickyban")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] removed [ckey]'s stickyban</span>")
-			SSdiscord.send2discord_simple(DISCORD_WEBHOOK_NOTES, "[key_name(usr)] removió el stickyban del jugador [ckey], la razón de este era: \n[ban["message"]]")
 
 		if("remove_alt")
 			if(!data["ckey"])
@@ -103,7 +101,6 @@
 
 			log_admin("[key_name(usr)] has disassociated [alt] from [ckey]'s sticky ban")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has disassociated [alt] from [ckey]'s sticky ban</span>")
-			SSdiscord.send2discord_simple(DISCORD_WEBHOOK_NOTES, "[key_name(usr)] desasoció la cuenta de [alt] de [ckey]")
 
 		if("edit")
 			if(!data["ckey"])

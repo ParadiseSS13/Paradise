@@ -16,6 +16,10 @@
 	can_unwrench = 1
 	var/side_inverted = 0
 
+/obj/machinery/atmospherics/binary/circulator/detailed_examine()
+	return "This generates electricity, depending on the difference in temperature between each side of the machine. The meter in \
+			the center of the machine gives an indicator of how much electricity is being generated."
+
 // Creating a custom circulator pipe subtype to be delivered through cargo
 /obj/item/pipe/circulator
 	name = "circulator/heat exchanger fitting"

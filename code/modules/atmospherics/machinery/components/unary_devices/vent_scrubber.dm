@@ -20,7 +20,6 @@
 
 	var/list/turf/simulated/adjacent_turfs = list()
 
-	var/on = 0
 	var/scrubbing = 1 //0 = siphoning, 1 = scrubbing
 	var/scrub_O2 = 0
 	var/scrub_N2 = 0
@@ -50,6 +49,10 @@
 	if(!id_tag)
 		assign_uid()
 		id_tag = num2text(uid)
+
+/obj/machinery/atmospherics/unary/vent_scrubber/detailed_examine()
+	return "This filters the atmosphere of harmful gas. Filtered gas goes to the pipes connected to it, typically a scrubber pipe. \
+			It can be controlled from an Air Alarm. It can be configured to drain all air rapidly with a 'panic syphon' from an air alarm."
 
 /obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
 	if(initial_loc && frequency == ATMOS_VENTSCRUB)
@@ -191,6 +194,10 @@
 		check_turfs()
 
 	if(stat & (NOPOWER|BROKEN))
+		return
+
+	var/turf/T = loc
+	if(T.density) //No, you should not be able to get free air from walls
 		return
 
 	if(!node)

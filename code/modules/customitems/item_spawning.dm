@@ -4,7 +4,7 @@
 
 	// Grab the info we want.
 	var/datum/db_query/query = SSdbcore.NewQuery({"
-		SELECT cuiPath, cuiPropAdjust, cuiJobMask, cuiDescription, cuiItemName FROM [format_table_name("customuseritems")]
+		SELECT cuiPath, cuiPropAdjust, cuiJobMask, cuiDescription, cuiItemName FROM customuseritems
 		WHERE cuiCKey=:ckey AND (cuiRealName=:realname OR cuiRealName='*')"}, list(
 			"ckey" = M.ckey,
 			"realname" = M.real_name
