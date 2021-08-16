@@ -25562,9 +25562,18 @@
 	},
 /area/crew_quarters/dorms)
 "bfc" = (
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/port)
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/aft)
 "bfd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -26237,6 +26246,7 @@
 	dir = 4;
 	pixel_y = 39
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bgq" = (
@@ -28653,6 +28663,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bls" = (
@@ -28726,7 +28737,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "blF" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -33093,10 +33103,7 @@
 	},
 /area/hallway/secondary/exit)
 "bvQ" = (
-/obj/machinery/door/firedoor{
-	dir = 8;
-	name = "Firelock West"
-	},
+/obj/machinery/door/firedoor,
 /obj/machinery/door/window{
 	base_state = "right";
 	dir = 8;
@@ -59391,9 +59398,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "cvK" = (
@@ -59835,7 +59842,9 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "cwx" = (
@@ -98944,7 +98953,7 @@ aTu
 aTu
 bgn
 blr
-aSf
+bgG
 aMs
 aMs
 aMs
@@ -99199,9 +99208,9 @@ aVe
 bdu
 bgM
 beP
-bfc
+bgz
 blF
-bfc
+bgz
 blK
 bnv
 bnw
@@ -112090,9 +112099,9 @@ ckO
 ckO
 csI
 cua
-cmQ
-cwJ
 ckO
+cwJ
+cmQ
 czA
 cpi
 cAN
@@ -112347,9 +112356,9 @@ cqv
 crU
 ctj
 ctS
-cvJ
+ctj
 cww
-crU
+cvJ
 czz
 cAk
 cAM
@@ -112604,9 +112613,9 @@ cMV
 crV
 ctl
 cue
+cnA
+bfc
 cvK
-cMV
-crV
 cnA
 cHD
 cHD
