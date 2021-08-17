@@ -12,6 +12,12 @@ SUBSYSTEM_DEF(mobs)
 	/// The amount of giant spiders that exist in the world. Used for mob capping.
 	var/giant_spiders = 0
 
+/datum/controller/subsystem/mobs/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["processing"] = length(GLOB.mob_living_list)
+	.["custom"] = cust
+
 /datum/controller/subsystem/mobs/stat_entry()
 	..("P:[GLOB.mob_living_list.len]")
 
