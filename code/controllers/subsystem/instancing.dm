@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(instancing)
 
 /datum/controller/subsystem/instancing/Initialize(start_timeofday)
 	// Do an initial peer check
-	check_peers()
+	check_peers(TRUE) // Force because of time memes
 	UNTIL(initial_check_complete) // Wait here a bit
 	var/startup_msg = "The server [GLOB.configuration.general.server_name] is now starting up. The map is [SSmapping.map_datum.fluff_name] ([SSmapping.map_datum.technical_name])"
 	message_all_peers(startup_msg)
