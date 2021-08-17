@@ -198,13 +198,7 @@
 		apply_mode()
 
 /obj/machinery/alarm/New(loc, direction, building = 0)
-	. = ..()
-	GLOB.air_alarms += src
-	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
-
-	wires = new(src)
-
-	if(building)
+	if(building) // Do this first since the Init uses this later on. TODO refactor to just use an Init
 		if(loc)
 			src.loc = loc
 
@@ -214,10 +208,15 @@
 		buildstage = 0
 		wiresexposed = 1
 		set_pixel_offsets_from_dir(-24, 24, -24, 24)
-		update_icon()
-		return
 
-	first_run()
+	. = ..()
+	GLOB.air_alarms += src
+	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
+
+	wires = new(src)
+
+	if(!building)
+		first_run()
 
 /obj/machinery/alarm/Destroy()
 	SStgui.close_uis(wires)

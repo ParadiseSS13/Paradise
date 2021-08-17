@@ -1467,6 +1467,27 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/update_runechat_msg_location()
 	return
 
+
+/**
+ * Show an overlay of radiation levels on radioactive objects.
+ */
+/mob/proc/show_rads(range)
+	for(var/turf/place in range(range, src))
+		var/rads = SSradiation.get_turf_radiation(place)
+		if (rads < RAD_BACKGROUND_RADIATION)
+			continue
+
+		var/strength = round(rads / 1000, 0.1)
+		var/image/pic = image(loc = place)
+		var/mutable_appearance/MA = new()
+		MA.maptext = MAPTEXT("[strength]k")
+		MA.color = "#04e604"
+		MA.layer = RAD_TEXT_LAYER
+		MA.plane = GAME_PLANE
+		pic.appearance = MA
+		flick_overlay(pic, list(client), 10)
+
+
 GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	/area/chapel
 )))

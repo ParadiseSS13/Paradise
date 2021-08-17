@@ -129,6 +129,7 @@
 	status_flags = 0
 	construct_type = "juggernaut"
 	mob_size = MOB_SIZE_LARGE
+	move_resist = MOVE_FORCE_STRONG
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall)
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \

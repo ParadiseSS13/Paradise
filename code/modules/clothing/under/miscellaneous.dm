@@ -129,6 +129,10 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
 
+/obj/item/clothing/under/rank/centcom/captain/solgov
+	name = "\improper Trans-Solar Federation commander's uniform"
+	desc = "Gold trim on space-black cloth, this uniform is worn by generals of the Trans-Solar Federation. It has exotic materials for protection."
+
 /obj/item/clothing/under/rank/centcom/blueshield
 	name = "formal blueshield's uniform"
 	desc = "Gold trim on space-black cloth, this uniform bears \"Close Protection\" on the left shoulder. It's got exotic materials for protection."

@@ -172,7 +172,7 @@
 		if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
 			if(!client)
 				return 1
-			var/mob/dead/observer/observer = new()
+			var/mob/dead/observer/observer = new(src)
 			src << browse(null, "window=playersetup")
 			spawning = 1
 			stop_sound_channel(CHANNEL_LOBBYMUSIC)

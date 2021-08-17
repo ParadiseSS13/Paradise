@@ -30,6 +30,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/blacklisted_full = list(
 		/datum/job/ntnavyofficer,
 		/datum/job/ntspecops,
+		/datum/job/ntspecops/solgovspecops,
 		/datum/job/civilian,
 		/datum/job/syndicateofficer,
 		/datum/job/explorer // blacklisted so that HOPs don't try prioritizing it, then wonder why that doesn't work

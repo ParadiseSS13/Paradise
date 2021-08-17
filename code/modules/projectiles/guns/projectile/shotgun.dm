@@ -23,6 +23,10 @@
 	return "This is a ballistic weapon. After firing, you will need to pump the gun, by clicking on the gun in your hand. To reload, load more shotgun \
 			shells into the gun."
 
+/obj/item/gun/projectile/shotgun/detailed_examine()
+	return "This is a ballistic weapon. After firing, you will need to pump the gun, by clicking on the gun in your hand. To reload, load more shotgun \
+			shells into the gun."
+
 /obj/item/gun/projectile/shotgun/attackby(obj/item/A, mob/user, params)
 	. = ..()
 	if(.)

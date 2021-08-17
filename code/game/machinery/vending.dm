@@ -1155,6 +1155,7 @@
 
 
 
+
 /obj/machinery/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
 	name = "\improper ShadyCigs Ultra"
 	desc = "Now with extra premium products!"

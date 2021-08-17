@@ -185,7 +185,7 @@
 	owner.visible_message("<span class='warning'>[owner]'s body flashes a bright blue!</span>", \
 						 "<span class='cultitalic'>You speak the cursed words, channeling an electromagnetic pulse from your body.</span>")
 	owner.emp_act(2)
-	empulse(owner, 2, 5, cause = "cult")
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/empulse, owner, 2, 5, TRUE, "cult")
 	owner.whisper(invocation)
 	charges--
 	if(charges <= 0)
