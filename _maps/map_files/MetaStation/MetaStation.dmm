@@ -4884,7 +4884,7 @@
 	},
 /area/security/main)
 "alH" = (
-/obj/structure/closet/wardrobe/red,
+/obj/machinery/vending/secdrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -5878,6 +5878,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/structure/closet/secure_closet/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -14356,18 +14357,8 @@
 	},
 /area/crew_quarters/sleep)
 "aFM" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/clothing/suit/storage/hazardvest,
-/obj/item/clothing/suit/storage/hazardvest,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/vending/engidrobe,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aFO" = (
@@ -14472,7 +14463,18 @@
 /obj/machinery/camera{
 	c_tag = "Engineering - Fore"
 	},
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aGc" = (
@@ -15428,18 +15430,7 @@
 	},
 /area/crew_quarters/sleep)
 "aIa" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/storage/briefcase{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/obj/item/storage/secure/briefcase{
-	pixel_x = 2;
-	pixel_y = -2
-	},
+/obj/machinery/vending/detdrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -17750,6 +17741,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/vending/cargodrobe,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aMU" = (
@@ -27557,8 +27549,9 @@
 	})
 "biz" = (
 /obj/effect/decal/warning_stripes/southwest,
-/obj/structure/closet/wardrobe/atmospherics_yellow,
+/obj/structure/rack,
 /obj/item/flashlight,
+/obj/item/painter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "biA" = (
@@ -27567,8 +27560,9 @@
 	pixel_y = 28
 	},
 /obj/effect/decal/warning_stripes/southeast,
-/obj/structure/closet/wardrobe/atmospherics_yellow,
+/obj/structure/rack,
 /obj/item/flashlight,
+/obj/item/painter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "biB" = (
@@ -36165,6 +36159,14 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
+/obj/item/storage/briefcase{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/storage/secure/briefcase{
+	pixel_x = 2;
+	pixel_y = -2
+	},
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "byE" = (
@@ -36284,14 +36286,10 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "byN" = (
-/obj/structure/closet/gmcloset{
-	desc = "It's a storage unit.";
-	name = "spare gear"
-	},
-/obj/item/wrench,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/machinery/vending/bardrobe,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "byO" = (
@@ -49702,16 +49700,11 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "caT" = (
-/obj/structure/closet{
-	name = "spare parts locker"
-	},
-/obj/item/rack_parts,
-/obj/item/rack_parts,
-/obj/item/wrench,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/vending/chefdrobe,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "caU" = (
@@ -49896,12 +49889,8 @@
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "cbn" = (
-/obj/structure/table/glass,
-/obj/item/book/manual/sop_service{
-	pixel_x = 2;
-	pixel_y = 5
-	},
 /obj/effect/decal/warning_stripes/south,
+/obj/machinery/vending/hydrodrobe,
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "cbo" = (
@@ -50990,7 +50979,6 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
 	},
-/obj/item/storage/backpack/satchel_hyd,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -51292,7 +51280,6 @@
 /area/maintenance/aft)
 "cev" = (
 /obj/structure/closet/secure_closet/hydroponics,
-/obj/item/storage/backpack/satchel_hyd,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -51839,7 +51826,7 @@
 	name = "Station Intercom (Medbay)";
 	pixel_y = 30
 	},
-/obj/structure/closet/wardrobe/medical_white,
+/obj/machinery/vending/medidrobe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -52001,7 +51988,6 @@
 /obj/machinery/light_switch{
 	pixel_x = -26
 	},
-/obj/item/storage/backpack/satchel_hyd,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -54609,10 +54595,12 @@
 /area/maintenance/aft)
 "cll" = (
 /obj/item/wrench,
-/obj/item/clothing/suit/apron,
-/obj/item/clothing/accessory/armband/hydro,
 /obj/structure/table/glass,
 /obj/effect/decal/warning_stripes/northwest,
+/obj/item/book/manual/sop_service{
+	pixel_x = 2;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "clm" = (
@@ -58867,12 +58855,11 @@
 	},
 /area/medical/exam_room)
 "cui" = (
-/obj/structure/closet/wardrobe/chemistry_white,
-/obj/item/storage/backpack/satchel_chem,
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/disaster_counter/chemistry{
 	pixel_y = 32
 	},
+/obj/machinery/vending/chemdrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -63287,9 +63274,8 @@
 /obj/machinery/light_switch{
 	pixel_y = 28
 	},
-/obj/structure/rack,
 /obj/effect/decal/warning_stripes/south,
-/obj/item/painter,
+/obj/machinery/vending/atmosdrobe,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cDe" = (
@@ -64812,11 +64798,11 @@
 	name = "\improper Toxins Lab"
 	})
 "cGz" = (
-/obj/structure/closet/secure_closet/scientist,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/south,
+/obj/machinery/vending/scidrobe,
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
@@ -66777,7 +66763,7 @@
 	},
 /area/medical/genetics_cloning)
 "cKo" = (
-/obj/structure/closet/wardrobe/black,
+/obj/machinery/vending/genedrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -69098,12 +69084,11 @@
 	},
 /area/medical/virology)
 "cOD" = (
-/obj/structure/closet/wardrobe/virology_white,
-/obj/item/storage/backpack/satchel_vir,
 /obj/structure/disposalpipe/segment{
 	dir = 8;
 	icon_state = "pipe-c"
 	},
+/obj/machinery/vending/virodrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -69782,13 +69767,11 @@
 /turf/space,
 /area/space/nearstation)
 "cPV" = (
-/obj/structure/closet/wardrobe/robotics_black{
-	pixel_x = 2
-	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/vending/robodrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -79105,6 +79088,20 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
+"hXk" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/northwestcorner,
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "hYq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -79890,7 +79887,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/northwestcorner,
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -79898,6 +79894,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "kzH" = (
@@ -111245,7 +111242,7 @@ aiP
 ajM
 akg
 agA
-alC
+alH
 alX
 anN
 aof
@@ -125656,8 +125653,8 @@ azs
 aCg
 aEy
 aEz
-aHg
-iof
+aHa
+hXk
 aCg
 vRY
 aJZ
