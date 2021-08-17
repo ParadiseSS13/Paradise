@@ -29,4 +29,4 @@
 	/// Playercount of the peer server on last ping
 	var/playercount
 	/// Last world.time that an operation was attempted
-	var/last_operation_time
+	var/last_operation_time = 0
