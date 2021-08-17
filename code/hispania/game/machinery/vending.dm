@@ -14,7 +14,8 @@
 
 /obj/machinery/vending/boozeomat
 	hispa_products = list(/obj/item/reagent_containers/food/drinks/bottle/hispania/fernet = 5,
-					/obj/item/reagent_containers/food/drinks/bottle/hispania/mezcal = 5)
+					/obj/item/reagent_containers/food/drinks/bottle/hispania/mezcal = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/hispania/white_wine =5)
 	hispa_contraband = list(/obj/item/reagent_containers/food/drinks/bottle/hispania/vampire_bestfriend = 5)
 
 /obj/machinery/vending/coffee
