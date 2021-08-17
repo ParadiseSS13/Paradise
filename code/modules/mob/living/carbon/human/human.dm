@@ -1613,7 +1613,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	else
 		visible_message("<span class='danger'>[src] is trying to perform chest compressions on [H.name]!</span>", "<span class='danger'>You try to perform chest compressions on [H.name]!</span>")
 
-	if(do_mob(src, H, 40))
+	if(do_mob(src, H, 4 SECONDS))
 		if(H.health <= HEALTH_THRESHOLD_CRIT)
 			H.adjustOxyLoss(-15 * cpr_modifier)
 			H.SetLoseBreath(0)
