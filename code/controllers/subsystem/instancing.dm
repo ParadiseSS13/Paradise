@@ -1,9 +1,7 @@
 SUBSYSTEM_DEF(instancing)
 	name = "Instancing"
 	runlevels = RUNLEVEL_INIT | RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME
-	/// Have we announced startup yet
-	var/startup_announced = FALSE
-	/// Has our initial check complete? Used as part of the above
+	/// Has our initial check complete? Used to halt init but not lag the server
 	var/initial_check_complete = FALSE
 	/// Is a check currently running?
 	var/check_running = FALSE
@@ -11,15 +9,13 @@ SUBSYSTEM_DEF(instancing)
 /datum/controller/subsystem/instancing/Initialize(start_timeofday)
 	// Do an initial peer check
 	check_peers()
+	UNTIL(initial_check_complete) // Wait here a bit
+	var/startup_msg = "The server [GLOB.configuration.general.server_name] is now starting up. The map is [SSmapping.map_datum.fluff_name] ([SSmapping.map_datum.technical_name])"
+	message_all_peers(startup_msg)
 	return ..()
 
 /datum/controller/subsystem/instancing/fire(resumed)
 	check_peers()
-	if(initial_check_complete && !startup_announced)
-		startup_announced = TRUE
-		var/startup_msg = "The server [GLOB.configuration.general.server_name] is now starting up. The map is [SSmapping.map_datum.fluff_name] ([SSmapping.map_datum.technical_name])"
-		INVOKE_ASYNC(src, .proc/message_all_peers, startup_msg) // Async
-
 
 /**
   * Refreshes all peers on the server
