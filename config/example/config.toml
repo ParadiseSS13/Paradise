@@ -22,6 +22,7 @@
 # - gamemode_configuration
 # - gateway_configuration
 # - general_configuration
+# - instancing_configuration
 # - ipintel_configuration
 # - job_configuration
 # - logging_configuration
@@ -371,6 +372,21 @@ bomb_cap = 20
 revival_brain_life = 6000 # 10 minutes
 # Enable random silicon lawset (If said lawset has default = TRUE in the code). Disable for always crewsimov
 random_ai_lawset = true
+
+
+################################################################
+
+
+[instancing_configuration]
+# This section contains all the information for instancing servers (Multiple paracode servers on the same database)
+
+# ID of this specific server. Override when needed
+server_id = "paradise_main"
+# List of all peer servers. Add all of the servers inside this configuration.
+# The code will ignore its own instance by port checking
+peer_servers = [
+	#{internal_ip = "10.0.0.30", server_port = 6666, commskey = "please_use_something_secure"}
+]
 
 
 ################################################################

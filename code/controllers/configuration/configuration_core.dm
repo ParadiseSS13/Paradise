@@ -24,6 +24,8 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/gateway_configuration/gateway
 	/// Holder for the general configuration datum
 	var/datum/configuration_section/general_configuration/general
+	/// Holder for the instancing configuration datum
+	var/datum/configuration_section/instancing_configuration/instancing
 	/// Holder for the IPIntel configuration datum
 	var/datum/configuration_section/ipintel_configuration/ipintel
 	/// Holder for the job configuration datum
@@ -79,6 +81,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	gamemode = new()
 	gateway = new()
 	general = new()
+	instancing = new()
 	ipintel = new()
 	jobs = new()
 	logging = new()
@@ -98,6 +101,15 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	raw_data = json_decode(raw_json)
 
 	// Now pass through all our stuff
+	load_all_sections()
+
+	// Clear our list to save RAM
+	raw_data = list()
+
+	// And report the load
+	DIRECT_OUTPUT(world.log, "Config loaded in [stop_watch(start)]s")
+
+/datum/server_configuration/proc/load_all_sections()
 	safe_load(admin, "admin_configuration")
 	safe_load(afk, "afk_configuration")
 	safe_load(custom_sprites, "custom_sprites_configuration")
@@ -107,6 +119,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	safe_load(gamemode, "gamemode_configuration")
 	safe_load(gateway, "gateway_configuration")
 	safe_load(general, "general_configuration")
+	safe_load(instancing, "instancing_configuration")
 	safe_load(ipintel, "ipintel_configuration")
 	safe_load(jobs, "job_configuration")
 	safe_load(logging, "logging_configuration")
@@ -117,12 +130,6 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	safe_load(system, "system_configuration")
 	safe_load(url, "url_configuration")
 	safe_load(vote, "voting_configuration")
-
-	// Clear our list to save RAM
-	raw_data = list()
-
-	// And report the load
-	DIRECT_OUTPUT(world.log, "Config loaded in [stop_watch(start)]s")
 
 // Proc to load up instance-specific overrides
 /datum/server_configuration/proc/load_overrides()
@@ -140,25 +147,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	// Now safely load our overrides.
 	// Due to the nature of config wrappers, only vars that exist in the config file are applied to the config datums.
 	// This means that an override missing a key doesnt null it out from the main server
-	safe_load(admin, "admin_configuration")
-	safe_load(afk, "afk_configuration")
-	safe_load(custom_sprites, "custom_sprites_configuration")
-	safe_load(database, "database_configuration")
-	safe_load(discord, "discord_configuration")
-	safe_load(event, "event_configuration")
-	safe_load(gamemode, "gamemode_configuration")
-	safe_load(gateway, "gateway_configuration")
-	safe_load(general, "general_configuration")
-	safe_load(ipintel, "ipintel_configuration")
-	safe_load(jobs, "job_configuration")
-	safe_load(logging, "logging_configuration")
-	safe_load(mc, "mc_configuration")
-	safe_load(movement, "movement_configuration")
-	safe_load(overflow, "overflow_configuration")
-	safe_load(ruins, "ruin_configuration")
-	safe_load(system, "system_configuration")
-	safe_load(url, "url_configuration")
-	safe_load(vote, "voting_configuration")
+	load_all_sections()
 
 	// Clear our list to save RAM
 	raw_data = list()
