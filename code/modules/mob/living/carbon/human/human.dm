@@ -1638,6 +1638,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return CPR_CHEST_COMPRESSION_ONLY
 	return CPR_RESCUE_BREATHS
 
+#undef CPR_CHEST_COMPRESSION_ONLY
+#undef CPR_RESCUE_BREATHS
+
 /mob/living/carbon/human/canBeHandcuffed()
 	if(get_num_arms() >= 2)
 		return TRUE
