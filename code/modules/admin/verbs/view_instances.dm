@@ -20,3 +20,13 @@
 
 		// If we are here, we are online, so we can do a rich report
 		to_chat(usr, "ID [PS.server_id] - <font color='green'><b>ONLINE</b></font> (Players: [PS.playercount])")
+
+/client/proc/refresh_instances()
+	set name = "Force Refresh Server Instances"
+	set desc = "Force refresh the local cache of server instances"
+	set category = "Server"
+
+	if(!check_rights(R_SERVER))
+		return
+
+	SSinstancing.check_peers(TRUE) // Force check

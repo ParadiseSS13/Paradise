@@ -3,6 +3,8 @@ SUBSYSTEM_DEF(instancing)
 	runlevels = RUNLEVEL_INIT | RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	/// Have we announced startup yet
 	var/startup_announced = FALSE
+	/// Has our initial check complete? Used as part of the above
+	var/initial_check_complete = FALSE
 	/// Is a check currently running?
 	var/check_running = FALSE
 
@@ -13,6 +15,10 @@ SUBSYSTEM_DEF(instancing)
 
 /datum/controller/subsystem/instancing/fire(resumed)
 	check_peers()
+	if(initial_check_complete && !startup_announced)
+		startup_announced = TRUE
+		var/startup_msg = "The server [GLOB.configuration.general.server_name] is now starting up. The map is [SSmapping.map_datum.fluff_name] ([SSmapping.map_datum.technical_name])"
+		INVOKE_ASYNC(src, .proc/message_all_peers, startup_msg) // Async
 
 
 /**
@@ -21,8 +27,10 @@ SUBSYSTEM_DEF(instancing)
   * Called periodically during fire() as well as when a new peer reports itself as online
   * Only one instance of this proc may run at a time
   *
+  * Arguments:
+  * * force - Do we want to force check all of them
   */
-/datum/controller/subsystem/instancing/proc/check_peers()
+/datum/controller/subsystem/instancing/proc/check_peers(force = FALSE)
 	set waitfor = FALSE // This has sleeps if it cant topic so we dont want to bog things down
 	if(check_running)
 		return
@@ -34,10 +42,13 @@ SUBSYSTEM_DEF(instancing)
 	for(var/datum/peer_server/PS in GLOB.configuration.instancing.peers)
 		// If the server hasnt been discovered and its been more than 5 minutes
 		if((!PS.discovered && PS.last_operation_time + 5 MINUTES > world.time))
-			continue
+			if(!force) // No, code review. This is not going in the same line.
+				continue
 
+		// Only run main operations once every minute anyway
 		if(PS.last_operation_time + 1 MINUTES > world.time)
-			continue // Only run main operations once every minute anyway
+			if(!force)
+				continue
 
 		var/peer_response = world.Export("byond://[PS.internal_ip]:[PS.server_port]?server_discovery&key=[PS.commskey]")
 		if(!peer_response)
@@ -58,6 +69,31 @@ SUBSYSTEM_DEF(instancing)
 		PS.last_operation_time = world.time
 
 	check_running = FALSE
+	initial_check_complete = TRUE
 
-/datum/controller/subsystem/instancing/proc/message_all_peers(include_offline = FALSE)
-	return
+/**
+  * Message all peers
+  *
+  * Wrapper for [topic_all_peers] to autoformat a message topic. Will send a server-wide announcement to the other servers
+  * including any relevant detail
+  * Arguments:
+  * * message - Message to send to the other servers
+  * * include_offline - Whether to topic offline servers on the off chance they came online
+  */
+/datum/controller/subsystem/instancing/proc/message_all_peers(message, include_offline = FALSE)
+	var/topic_string = "instance_announce&msg=[html_encode(message)]"
+	topic_all_peers(topic_string, include_offline)
+
+/**
+  * Sends a topic to all peers
+  *
+  * Sends a raw topic to the other servers. WILL APPEND &key=[commskey] ON THE END. PLEASE ACCOUNT FOR THIS.
+  *
+  * Arguments:
+  * * raw_topic - The raw topic to send to the other servers
+  * * include_offline - Whether to topic offline servers on the off chance they came online
+  */
+/datum/controller/subsystem/instancing/proc/topic_all_peers(raw_topic, include_offline = FALSE)
+	for(var/datum/peer_server/PS in GLOB.configuration.instancing.peers)
+		if(PS.online || include_offline)
+			world.Export("byond://[PS.internal_ip]:[PS.server_port]?[raw_topic]&key=[PS.commskey]")
