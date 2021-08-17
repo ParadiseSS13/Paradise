@@ -10,8 +10,8 @@ SUBSYSTEM_DEF(instancing)
 	// Do an initial peer check
 	check_peers(TRUE) // Force because of time memes
 	UNTIL(initial_check_complete) // Wait here a bit
-	var/startup_msg = "The server [GLOB.configuration.general.server_name] is now starting up. The map is [SSmapping.map_datum.fluff_name] ([SSmapping.map_datum.technical_name])"
-	message_all_peers(startup_msg)
+	var/startup_msg = "The server <code>[GLOB.configuration.general.server_name]</code> is now starting up. The map is [SSmapping.map_datum.fluff_name] ([SSmapping.map_datum.technical_name]). You can connect with the <code>Switch Server</code> verb."
+	message_all_peers(startup_msg, send_reping = TRUE)
 	return ..()
 
 /datum/controller/subsystem/instancing/fire(resumed)
@@ -76,9 +76,9 @@ SUBSYSTEM_DEF(instancing)
   * * message - Message to send to the other servers
   * * include_offline - Whether to topic offline servers on the off chance they came online
   */
-/datum/controller/subsystem/instancing/proc/message_all_peers(message, include_offline = FALSE)
+/datum/controller/subsystem/instancing/proc/message_all_peers(message, include_offline = FALSE, send_reping = FALSE)
 	var/topic_string = "instance_announce&msg=[html_encode(message)]"
-	topic_all_peers(topic_string, include_offline)
+	topic_all_peers(topic_string, include_offline, send_reping)
 
 /**
   * Sends a topic to all peers
@@ -89,7 +89,7 @@ SUBSYSTEM_DEF(instancing)
   * * raw_topic - The raw topic to send to the other servers
   * * include_offline - Whether to topic offline servers on the off chance they came online
   */
-/datum/controller/subsystem/instancing/proc/topic_all_peers(raw_topic, include_offline = FALSE)
+/datum/controller/subsystem/instancing/proc/topic_all_peers(raw_topic, include_offline = FALSE, send_reping = FALSE)
 	for(var/datum/peer_server/PS in GLOB.configuration.instancing.peers)
 		if(PS.online || include_offline)
-			world.Export("byond://[PS.internal_ip]:[PS.server_port]?[raw_topic]&key=[PS.commskey]")
+			world.Export("byond://[PS.internal_ip]:[PS.server_port]?[raw_topic]&key=[PS.commskey][send_reping ? "&repoll=1" : ""]")
