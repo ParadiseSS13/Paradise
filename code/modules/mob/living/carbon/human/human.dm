@@ -1593,6 +1593,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	..()
 
+#define CPR_CHEST_COMPRESSION_ONLY	0.75
+#define CPR_RESCUE_BREATHS			1
+
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 	if(H == src)
 		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
@@ -1600,26 +1603,19 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
 		to_chat(src, "<span class='warning'>[H.name] is dead!</span>")
 		return
-	if(!check_has_mouth())
-		to_chat(src, "<span class='danger'>You don't have a mouth, you cannot perform CPR!</span>")
-		return
-	if(!H.check_has_mouth())
-		to_chat(src, "<span class='danger'>They don't have a mouth, you cannot perform CPR!</span>")
-		return
-	if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
-		to_chat(src, "<span class='warning'>Remove your mask first!</span>")
-		return
-	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.mask_adjusted))
-		to_chat(src, "<span class='warning'>Remove [H.p_their()] mask first!</span>")
-		return
 	if(H.receiving_cpr) // To prevent spam stacking
 		to_chat(src, "<span class='warning'>They are already receiving CPR!</span>")
 		return
-	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", "<span class='danger'>You try to perform CPR on [H.name]!</span>")
 	H.receiving_cpr = TRUE
+	var/cpr_modifier = get_cpr_mod(H)
+	if(cpr_modifier == CPR_RESCUE_BREATHS)
+		visible_message("<span class='danger'>[src] is trying to perform chest compressions and rescue breaths on [H.name]!</span>", "<span class='danger'>You try to perform chest compressions and rescue breaths on [H.name]!</span>")
+	else
+		visible_message("<span class='danger'>[src] is trying to perform chest compressions on [H.name]!</span>", "<span class='danger'>You try to perform chest compressions on [H.name]!</span>")
+
 	if(do_mob(src, H, 40))
 		if(H.health <= HEALTH_THRESHOLD_CRIT)
-			H.adjustOxyLoss(-15)
+			H.adjustOxyLoss(-15 * cpr_modifier)
 			H.SetLoseBreath(0)
 			H.AdjustParalysis(-1)
 			H.updatehealth("cpr")
@@ -1632,6 +1628,15 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	else
 		H.receiving_cpr = FALSE
 		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
+
+/mob/living/carbon/human/proc/get_cpr_mod(mob/living/carbon/human/H)
+	if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
+		return CPR_CHEST_COMPRESSION_ONLY
+	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.mask_adjusted))
+		return CPR_CHEST_COMPRESSION_ONLY
+	if(!H.check_has_mouth() || !check_has_mouth())
+		return CPR_CHEST_COMPRESSION_ONLY
+	return CPR_RESCUE_BREATHS
 
 /mob/living/carbon/human/canBeHandcuffed()
 	if(get_num_arms() >= 2)
