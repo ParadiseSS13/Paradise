@@ -16280,7 +16280,7 @@
 "aKQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/camera{
-	c_tag = "Clown's Office";
+	c_tag = "Holodeck West";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -20908,7 +20908,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Dormitory East";
+	c_tag = "Dormitories East";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -23631,7 +23631,7 @@
 "bbi" = (
 /obj/machinery/vending/cola,
 /obj/machinery/camera{
-	c_tag = "Dormitories North-West"
+	c_tag = "Dormitories West"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -25623,7 +25623,7 @@
 	pixel_y = -28
 	},
 /obj/machinery/camera{
-	c_tag = "Dormitory Center";
+	c_tag = "Dormitories Center";
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
@@ -83132,7 +83132,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Holodeck";
+	c_tag = "Holodeck East";
 	dir = 1
 	},
 /obj/item/radio/intercom{
