@@ -616,7 +616,7 @@ so as to remain in compliance with the most up-to-date laws."
 	if(stone)
 		if(alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
 		impossible for you to get back into the game as your regular character.",, "No", "Yes") ==  "Yes")
-			stone.opt_in = TRUE
+			stone?.opt_in = TRUE
 
 /obj/screen/alert/notify_soulstone/Destroy()
 	stone = null

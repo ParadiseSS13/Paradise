@@ -17,6 +17,12 @@ SUBSYSTEM_DEF(acid)
 	acid_overlay = mutable_appearance('icons/effects/effects.dmi', "acid")
 	return ..()
 
+/datum/controller/subsystem/acid/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["processing"] = length(processing)
+	.["custom"] = cust
+
 /datum/controller/subsystem/acid/fire(resumed = 0)
 	if(!resumed)
 		src.currentrun = processing.Copy()

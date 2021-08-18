@@ -486,6 +486,14 @@
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
+/datum/language/terrorspider/broadcast(mob/living/speaker, message, speaker_mask)
+	if(isterrorspider(speaker))
+		var/mob/living/simple_animal/hostile/poison/terror_spider/T = speaker
+		if(T.loudspeaker)
+			..(speaker, "<font size=3><b>[message]</b></font>")
+			return
+	..(speaker, message)
+
 /datum/language/ling
 	name = "Changeling"
 	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."

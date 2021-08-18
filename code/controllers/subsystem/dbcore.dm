@@ -142,7 +142,7 @@ SUBSYSTEM_DEF(dbcore)
 	//This is as close as we can get to the true round end before Disconnect() without changing where it's called, defeating the reason this is a subsystem
 	if(SSdbcore.Connect())
 		var/datum/db_query/query_round_shutdown = SSdbcore.NewQuery(
-			"UPDATE [format_table_name("round")] SET shutdown_datetime = Now(), end_state = :end_state WHERE id = :round_id",
+			"UPDATE round SET shutdown_datetime = Now(), end_state = :end_state WHERE id = :round_id",
 			list("end_state" = SSticker.end_state, "round_id" = GLOB.round_id)
 		)
 		query_round_shutdown.Execute()
@@ -160,7 +160,7 @@ SUBSYSTEM_DEF(dbcore)
 	if(!IsConnected())
 		return
 	var/datum/db_query/query_round_initialize = SSdbcore.NewQuery(
-		"INSERT INTO [format_table_name("round")] (initialize_datetime, server_ip, server_port) VALUES (Now(), INET_ATON(:internet_address), :port)",
+		"INSERT INTO round (initialize_datetime, server_ip, server_port) VALUES (Now(), INET_ATON(:internet_address), :port)",
 		list("internet_address" = world.internet_address || "0", "port" = "[world.port]")
 	)
 	query_round_initialize.Execute(async = FALSE)
@@ -177,7 +177,7 @@ SUBSYSTEM_DEF(dbcore)
 	if(!IsConnected())
 		return
 	var/datum/db_query/query_round_start = SSdbcore.NewQuery(
-		"UPDATE [format_table_name("round")] SET start_datetime=NOW(), commit_hash=:hash WHERE id=:round_id",
+		"UPDATE round SET start_datetime=NOW(), commit_hash=:hash WHERE id=:round_id",
 		list("hash" = GLOB.revision_info.commit_hash, "round_id" = GLOB.round_id)
 	)
 	query_round_start.Execute(async = FALSE) // This happens during a time of intense server lag, so should be non-async
@@ -193,7 +193,7 @@ SUBSYSTEM_DEF(dbcore)
 	if(!IsConnected())
 		return
 	var/datum/db_query/query_round_end = SSdbcore.NewQuery(
-		"UPDATE [format_table_name("round")] SET end_datetime = Now(), game_mode_result = :game_mode_result WHERE id = :round_id",
+		"UPDATE round SET end_datetime = Now(), game_mode_result = :game_mode_result WHERE id = :round_id",
 		list("game_mode_result" = SSticker.mode_result, "station_name" = station_name(), "round_id" = GLOB.round_id)
 	)
 	query_round_end.Execute()

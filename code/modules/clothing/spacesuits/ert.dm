@@ -259,3 +259,38 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/berserker
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
 	slowdown = 0
+
+// Solgov
+
+/obj/item/clothing/head/helmet/space/hardsuit/ert/solgov
+	name = "\improper Trans-Solar Federation Specops Marine helmet"
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	desc = "A helmet worn by marines of the Trans-Solar Federation. Armored, space ready, and fireproof."
+	icon_state = "hardsuit0-solgovmarine"
+	item_state = "hardsuit0-solgovmarine"
+	item_color = "solgovmarine"
+	armor = list("melee" = 35, "bullet" = 60, "laser" = 15, "energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+
+/obj/item/clothing/suit/space/hardsuit/ert/solgov
+	name = "\improper Trans-Solar Federation Specops Marine hardsuit"
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	desc = "A suit worn by marines of the Trans-Solar Federation. Armored, space ready, and fireproof."
+	icon_state = "ert_solgov_marine"
+	item_state = "ert_solgov_marine"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov
+	slowdown = 0
+	armor = list("melee" = 35, "bullet" = 60, "laser" = 15, "energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+
+/obj/item/clothing/head/helmet/space/hardsuit/ert/solgov/command
+	name = "\improper Trans-Solar Federation Specops Lieutenant helmet"
+	desc = "A helmet worn by Lieutenants of the Trans-Solar Federation Marines. Has gold highlights to denote the wearer's rank. Armored, space ready, and fireproof."
+	icon_state = "hardsuit0-solgovcommand"
+	item_state = "hardsuit0-solgovcommand"
+	item_color = "solgovcommand"
+
+/obj/item/clothing/suit/space/hardsuit/ert/solgov/command
+	name = "\improper Trans-Solar Federation Specops Lieutenant hardsuit"
+	desc = "A suit worn by Lieutenants of the Trans-Solar Federation Marines. Has gold highlights to denote the wearer's rank. Armored, space ready, and fireproof."
+	icon_state = "ert_solgov_command"
+	item_state = "ert_solgov_command"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov/command
