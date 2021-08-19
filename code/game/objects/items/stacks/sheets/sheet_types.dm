@@ -114,6 +114,10 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	is_cyborg = TRUE
 	materials = list()
 
+/obj/item/stack/sheet/metal/cyborg/detailed_examine()
+	return "Use in your hand to bring up the recipe menu. If you have enough sheets, click on something on the list to build it.<br>\
+			You can replenish your supply of metal as a synthetic by recharging."
+
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
 
@@ -237,6 +241,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	new/datum/stack_recipe("white beanie", /obj/item/clothing/head/beanie, 2), \
 	null, \
 	new/datum/stack_recipe("blindfold", /obj/item/clothing/glasses/sunglasses/blindfold, 3), \
+	new/datum/stack_recipe("tattered blindfold", /obj/item/clothing/glasses/sunglasses/blindfold/fake, 2), \
 	))
 
 /obj/item/stack/sheet/cloth

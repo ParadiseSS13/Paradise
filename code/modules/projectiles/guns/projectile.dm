@@ -18,6 +18,10 @@
 	update_icon()
 	return
 
+/obj/item/gun/projectile/detailed_examine()
+	return "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo. The description \
+			will tell you what caliber you need."
+
 /obj/item/gun/projectile/update_icon()
 	..()
 	if(current_skin)

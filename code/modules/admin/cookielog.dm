@@ -35,7 +35,7 @@
 	var/has_note = FALSE
 	var/raw_text = ""
 	// Now lets see if we have a note logging the infraction in the past
-	var/datum/db_query/check_existing_note = SSdbcore.NewQuery("SELECT notetext FROM [format_table_name("notes")] WHERE ckey=:ckey AND adminckey=:ackey", list(
+	var/datum/db_query/check_existing_note = SSdbcore.NewQuery("SELECT notetext FROM notes WHERE ckey=:ckey AND adminckey=:ackey", list(
 		"ckey" = cookie_holder_ckey,
 		"ackey" = COOKIERECORD_PSUEDO_CKEY
 	))
@@ -99,7 +99,7 @@
 	serialized_text = serialized_list.Join("<br>")
 
 	if(has_note) // They have a note. Update.
-		var/datum/db_query/update_existing_note = SSdbcore.NewQuery("UPDATE [format_table_name("notes")] SET notetext=:nt, timestamp=NOW(), round_id=:rid WHERE ckey=:ckey AND adminckey=:ackey", list(
+		var/datum/db_query/update_existing_note = SSdbcore.NewQuery("UPDATE notes SET notetext=:nt, timestamp=NOW(), round_id=:rid WHERE ckey=:ckey AND adminckey=:ackey", list(
 			"nt" = serialized_text,
 			"rid" = GLOB.round_id,
 			"ckey" = cookie_holder_ckey,
