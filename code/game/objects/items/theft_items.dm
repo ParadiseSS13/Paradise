@@ -12,7 +12,6 @@
 	item_state = "plutoniumcore"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags_2 = RAD_NO_CONTAMINATE_2 //Don't have the item itself become irradiated when it makes radiation.
-	var/pulse = 0
 	var/cooldown = 0
 	var/pulseicon = "plutonium_core_pulse"
 
@@ -49,14 +48,50 @@
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "core_container_empty"
 	item_state = "metal"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Don't want people trying to break it open with acid, then destroying the core.
 	var/obj/item/nuke_core/plutonium/core
+	var/dented = FALSE
+	var/cracked = FALSE
 
 /obj/item/nuke_core_container/Destroy()
 	QDEL_NULL(core)
 	return ..()
 
+/obj/item/nuke_core_container/ex_act(severity)
+	switch(severity)
+		if(1)
+			if(!cracked)
+				crack_open()
+			return
+		if(2)
+			if(!dented)
+				dented = TRUE
+			return
+
+		if(3)
+			return
+
+/obj/item/nuke_core_container/examine(mob/user)
+	. = ..()
+	if(!cracked)
+		. += "Fine print on the box reads \"Cybersun Industries secure container, guaranteed thermite proof, assistant proof, and explosive resistant.\""
+	if(dented && !cracked)
+		. += "<span class='notice'>[src] looks dented. Perhaps a bigger explosion may break it."
+	if(cracked)
+		. += "<span class='warning'>It is broken, and can no longer store objects safely.</span>"
+
+/obj/item/nuke_core_container/attack_hand(mob/user)
+	if(cracked && core)
+		core.add_fingerprint(user)
+		user.put_in_active_hand(core)
+		core = null
+		icon_state = "core_container_cracked_empty"
+	else
+		return ..()
+
+
 /obj/item/nuke_core_container/proc/load(obj/item/nuke_core/plutonium/new_core, mob/user)
-	if(core || !istype(new_core))
+	if(core || !istype(new_core) || cracked)
 		return
 	new_core.forceMove(src)
 	core = new_core
@@ -82,9 +117,19 @@
 	else
 		load(core, user)
 
+/obj/item/nuke_core_container/proc/crack_open()
+	visible_message("<span class='notice'>[src] bursts open!</span>")
+	if(core)
+		START_PROCESSING(SSobj, core)
+		icon_state = "core_container_cracked_loaded"
+	else
+		icon_state = "core_container_cracked_empty"
+	cracked = TRUE
+
 /obj/item/paper/guides/antag/nuke_instructions
 	info = "How to break into a Nanotrasen nuclear device and remove its plutonium core:<br>\
 	<ul>\
+	<li>Aquire some clothing that protects you from radiation, due to the radioactivity of the core.</li>\
 	<li>Use a screwdriver with a very thin tip (provided) to unscrew the terminal's front panel.</li>\
 	<li>Dislodge and remove the front panel with a crowbar.</li>\
 	<li>Cut the inner metal plate with a welding tool.</li>\
@@ -99,7 +144,7 @@
 /obj/item/paper/guides/antag/supermatter_sliver
 	info = "How to safely extract a supermatter sliver:<br>\
 	<ul>\
-	<li>Approach an active supermatter crystal with radiation shielded personal protective equipment. DO NOT MAKE PHYSICAL CONTACT.</li>\
+	<li>Approach an active supermatter crystal with radiation shielded personal protective equipment, and active magboots. DO NOT MAKE PHYSICAL CONTACT.</li>\
 	<li>Use a supermatter scalpel (provided) to slice off a sliver of the crystal.</li>\
 	<li>Use supermatter extraction tongs (also provided) to safely pick up the sliver you sliced off.</li>\
 	<li>Physical contact of any object with the sliver will dust the object, as well as yourself.</li>\
@@ -183,7 +228,7 @@
 	return ..()
 
 /obj/item/nuke_core_container/supermatter/load(obj/item/retractor/supermatter/I, mob/user)
-	if(!istype(I) || !I.sliver)
+	if(!istype(I) || !I.sliver || sliver)
 		return
 	I.sliver.forceMove(src)
 	sliver = I.sliver
@@ -202,12 +247,51 @@
 		if(ismob(loc))
 			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [sliver] is safely contained.</span>")
 
+/obj/item/nuke_core_container/supermatter/proc/unload(obj/item/retractor/supermatter/I, mob/user)
+	if(!istype(I) || I.sliver)
+		return
+	sliver.forceMove(I)
+	I.sliver = sliver
+	sliver = null
+	I.icon_state = "supermatter_tongs"
+	I.item_state = "supermatter_tongs"
+	I.icon_state = "supermatter_tongs_loaded"
+	I.item_state = "supermatter_tongs_loaded"
+	icon_state = "core_container_cracked_empty"
+	to_chat(user, "<span class='notice'>You carefully pick up [I.sliver] with [I].</span>")
+
 /obj/item/nuke_core_container/supermatter/attackby(obj/item/retractor/supermatter/tongs, mob/user)
 	if(istype(tongs))
-		//try to load shard into core
-		load(tongs, user)
+		if(cracked)
+			//lets take that shard out
+			unload(tongs, user)
+		else
+			//try to load shard into core
+			load(tongs, user)
 	else
 		return ..()
+
+/obj/item/nuke_core_container/supermatter/attack_hand(mob/user)
+	if(cracked && sliver) //What did we say about touching the shard...
+		if(!isliving(user) || user.status_flags & GODMODE)
+			return FALSE
+		user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",
+				"<span class='userdanger'>You reach for [src] with your hands. That was dumb.</span>",
+				"<span class='hear'>Everything suddenly goes silent.</span>")
+		radiation_pulse(user, 500, 2)
+		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
+		user.dust()
+	else
+		return ..()
+
+/obj/item/nuke_core_container/supermatter/crack_open()
+	visible_message("<span class='notice'>[src] bursts open!</span>")
+	if(sliver)
+		START_PROCESSING(SSobj, sliver)
+		icon_state = "supermatter_container_cracked_loaded"
+	else
+		icon_state = "core_container_cracked_empty"
+	cracked = TRUE
 
 /obj/item/scalpel/supermatter
 	name = "supermatter scalpel"
@@ -266,6 +350,8 @@
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)].")
 		investigate_log("has irradiated [key_name(victim)].", "supermatter")
 	else if(istype(AM, /obj/singularity))
+		return
+	else if(istype(AM, /obj/item/nuke_core_container))
 		return
 	else
 		investigate_log("has consumed [AM].", "supermatter")
