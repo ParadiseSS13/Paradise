@@ -1,5 +1,5 @@
 /obj/item/melee/energy/sword
-	..()
+	. = ..()
 	icon = 'icons/hispania/obj/swords.dmi'
 	var/deflect_dots = 3
 	var/deflect_dots_timerid
@@ -25,7 +25,7 @@
 	update_icon()
 
 /obj/item/melee/energy/sword/dropped(mob/user)
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/melee/energy/sword/proc/attempt_reload()
