@@ -19,6 +19,7 @@
 	var/list/datum/martial_art/current_combos = list()	// What combos are currently (possibly) being performed
 	var/last_hit = 0									// When the last hit happened
 	var/in_stance = FALSE // If the user is preparing a martial arts stance
+	var/block_color = COLOR_NT_RED // HISPANIA
 
 /datum/martial_art/New()
 	. = ..()
