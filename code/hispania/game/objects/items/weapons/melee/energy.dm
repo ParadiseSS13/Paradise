@@ -1,10 +1,3 @@
-/obj/item/melee/energy/sword
-	. = ..()
-	icon = 'icons/hispania/obj/swords.dmi'
-	var/deflect_dots = 3
-	var/deflect_dots_timerid
-	var/recently_charged = FALSE
-
 /obj/item/melee/energy/sword/examine(mob/user)
 	. = ..()
 	recently_charged = TRUE

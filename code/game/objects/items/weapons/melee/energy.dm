@@ -106,6 +106,7 @@
 /obj/item/melee/energy/sword
 	name = "energy sword"
 	desc = "May the force be within you."
+	icon = 'icons/hispania/obj/swords.dmi' // HISPANIA
 	icon_state = "sword0"
 	force = 3
 	throwforce = 5
@@ -119,6 +120,9 @@
 	block_chance = 50
 	sharp = 1
 	var/hacked = 0
+	var/deflect_dots = 3 // HISPANIA
+	var/deflect_dots_timerid // HISPANIA
+	var/recently_charged = FALSE // HISPANIA
 
 /obj/item/melee/energy/sword/New()
 	..()
