@@ -19,6 +19,14 @@
 	weapon_weight = WEAPON_HEAVY
 	pb_knockback = 1
 
+/obj/item/gun/projectile/shotgun/detailed_examine()
+	return "This is a ballistic weapon. After firing, you will need to pump the gun, by clicking on the gun in your hand. To reload, load more shotgun \
+			shells into the gun."
+
+/obj/item/gun/projectile/shotgun/detailed_examine()
+	return "This is a ballistic weapon. After firing, you will need to pump the gun, by clicking on the gun in your hand. To reload, load more shotgun \
+			shells into the gun."
+
 /obj/item/gun/projectile/shotgun/attackby(obj/item/A, mob/user, params)
 	. = ..()
 	if(.)
@@ -116,7 +124,7 @@
 			return
 		else
 			afterattack(user, user)
-			user.visible_message("The [src] goes click!", "<span class='notice'>The [src] you are holding goes click.</span>")
+			user.visible_message("[src] goes click!", "<span class='notice'>[src] you are holding goes click.</span>")
 	if(magazine.ammo_count())	//Spill the mag onto the floor
 		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
 		while(get_ammo(0) > 0)
@@ -159,7 +167,7 @@
 			return
 		else
 			afterattack(user, user)
-			user.visible_message("The [src] goes click!", "<span class='notice'>The [src] you are holding goes click.</span>")
+			user.visible_message("[src] goes click!", "<span class='notice'>[src] you are holding goes click.</span>")
 	if(magazine.ammo_count())	//Spill the mag onto the floor
 		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
 		while(get_ammo() > 0)
@@ -306,6 +314,10 @@
 // Automatic Shotguns//
 
 /obj/item/gun/projectile/shotgun/automatic
+
+/obj/item/gun/projectile/shotgun/automatic/detailed_examine()
+	return "This is a ballistic weapon. After firing, it will automatically cycle the next shell. To reload, load more shotgun \
+			shells into the gun."
 
 /obj/item/gun/projectile/shotgun/automatic/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	..()

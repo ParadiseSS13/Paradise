@@ -410,7 +410,7 @@
 	if(!valid_window_location(loc, target_dir))
 		target_dir = turn(dir, 90)
 	if(!valid_window_location(loc, target_dir))
-		to_chat(user, "<span class='warning'>There is no room to rotate the [src]</span>")
+		to_chat(user, "<span class='warning'>There is no room to rotate [src].</span>")
 		return FALSE
 
 	setDir(target_dir)
@@ -702,21 +702,17 @@
 	reinf = FALSE
 	var/made_glow = FALSE
 
-/obj/structure/window/reinforced/clockwork/Initialize(mapload, direct)
-	. = ..()
-	if(fulltile)
-		made_glow = TRUE
-	if(fulltile)
-		new /obj/effect/temp_visual/ratvar/window(get_turf(src))
-
 /obj/structure/window/reinforced/clockwork/spawnDebris(location)
 	. = list()
 	. += new /obj/item/stack/tile/brass(location, (fulltile ? 2 : 1))
 
 /obj/structure/window/reinforced/clockwork/setDir(direct)
 	if(!made_glow)
-		var/obj/effect/E = new /obj/effect/temp_visual/ratvar/window/single(get_turf(src))
-		E.setDir(direct)
+		if(fulltile)
+			new /obj/effect/temp_visual/ratvar/window(get_turf(src))
+		else
+			var/obj/effect/E = new /obj/effect/temp_visual/ratvar/window/single(get_turf(src))
+			E.setDir(direct)
 		made_glow = TRUE
 	..()
 

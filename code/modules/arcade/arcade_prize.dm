@@ -10,8 +10,8 @@
 	var/opening = 0
 	var/possible_contents = list(/obj/random/carp_plushie, /obj/random/plushie, /obj/random/figure, /obj/item/toy/eight_ball, /obj/item/stack/tickets)
 
-/obj/item/toy/prizeball/New()
-	..()
+/obj/item/toy/prizeball/Initialize(mapload)
+	. = ..()
 	icon_state = pick("prizeball_1","prizeball_2","prizeball_3")
 
 /obj/item/toy/prizeball/attack_self(mob/user as mob)

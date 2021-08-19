@@ -23,7 +23,8 @@
 	exp_type = EXP_TYPE_SCIENCE
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives = list(
-		/datum/job_objective/further_research
+		/datum/job_objective/further_research,
+		/datum/job_objective/make_station_goal
 	)
 
 	outfit = /datum/outfit/job/rd
@@ -42,7 +43,7 @@
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
-
+	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science

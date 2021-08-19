@@ -571,7 +571,7 @@
 		cell.update_icon()
 		cell.loc = get_turf(src)
 		cell = null
-		to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
+		to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
 		update_icon()
 		return
 	..()

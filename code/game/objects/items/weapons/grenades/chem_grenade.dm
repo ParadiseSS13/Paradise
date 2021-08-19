@@ -104,7 +104,7 @@
 			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) [contained].")
 			investigate_log("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])[contained].", INVESTIGATE_BOMB)
 			add_attack_logs(user, src, "has primed (contained [contained])", ATKLOG_FEW)
-			to_chat(user, "<span class='warning'>You prime the [name]! [det_time / 10] second\s!</span>")
+			to_chat(user, "<span class='warning'>You prime [src]! [det_time / 10] second\s!</span>")
 			playsound(user.loc, 'sound/weapons/armbomb.ogg', 60, 1)
 			active = 1
 			update_icon()

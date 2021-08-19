@@ -365,7 +365,7 @@
 /obj/item/storage/backpack/duffel/syndie
 	name = "suspicious looking duffelbag"
 	desc = "A large duffelbag for holding extra tactical supplies."
-	icon_state = "duffel-syndie"
+	icon_state = "duffel-syndimed"
 	item_state = "duffel-syndimed"
 	origin_tech = "syndicate=1"
 	silent = TRUE
@@ -375,8 +375,6 @@
 /obj/item/storage/backpack/duffel/syndie/med
 	name = "suspicious duffelbag"
 	desc = "A black and red duffelbag with a red and white cross sewn onto it."
-	icon_state = "duffel-syndimed"
-	item_state = "duffel-syndimed"
 
 /obj/item/storage/backpack/duffel/syndie/ammo
 	name = "suspicious duffelbag"
@@ -612,3 +610,9 @@
 	name = "emergency response team janitor backpack"
 	desc = "A spacious backpack with lots of pockets, worn by janitorial members of a Nanotrasen Emergency Response Team."
 	icon_state = "ert_janitor"
+
+//Solgov
+/obj/item/storage/backpack/ert/solgov
+	name = "\improper TSF marine backpack"
+	desc = "A spacious backpack with lots of pockets, worn by marines of the Trans-Solar Federation."
+	icon_state = "ert_solgov"

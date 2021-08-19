@@ -13,9 +13,9 @@
 	var/list/stating_laws = list()// Channels laws are currently being stated on
 	var/list/alarms_to_show = list()
 	var/list/alarms_to_clear = list()
-	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
-	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
-	var/list/alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Camera")
+	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0)
+	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0)
+	var/list/alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power")
 	//var/list/hud_list[10]
 	var/list/speech_synthesizer_langs = list()	//which languages can be vocalized by the speech synthesizer
 	var/designation = ""
@@ -64,6 +64,10 @@
 
 /mob/living/silicon/Destroy()
 	GLOB.silicon_mob_list -= src
+	QDEL_NULL(atmos_control)
+	QDEL_NULL(crew_monitor)
+	QDEL_NULL(law_manager)
+	QDEL_NULL(power_monitor)
 	return ..()
 
 /mob/living/silicon/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
@@ -109,9 +113,6 @@
 		if(alarm_types_show["Power"])
 			msg += "POWER: [alarm_types_show["Power"]] alarms detected. - "
 
-		if(alarm_types_show["Camera"])
-			msg += "CAMERA: [alarm_types_show["Camera"]] alarms detected. - "
-
 		msg += "<A href=?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)
@@ -134,9 +135,6 @@
 
 		if(alarm_types_clear["Power"])
 			msg += "POWER: [alarm_types_clear["Power"]] alarms cleared. - "
-
-		if(alarm_types_show["Camera"])
-			msg += "CAMERA: [alarm_types_clear["Camera"]] alarms cleared. - "
 
 		msg += "<A href=?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
 
@@ -291,13 +289,7 @@
 
 // this function displays the stations manifest in a separate window
 /mob/living/silicon/proc/show_station_manifest()
-	var/dat
-	dat += "<h4>Crew Manifest</h4>"
-	if(GLOB.data_core)
-		dat += GLOB.data_core.get_manifest(1) // make it monochrome
-	dat += "<br>"
-	src << browse(dat, "window=airoster")
-	onclose(src, "airoster")
+	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.not_incapacitated_state)
 
 /mob/living/silicon/assess_threat() //Secbots won't hunt silicon units
 	return -10
@@ -376,4 +368,3 @@
 /////////////////////////////////// EAR DAMAGE ////////////////////////////////////
 /mob/living/silicon/can_hear()
 	. = TRUE
-

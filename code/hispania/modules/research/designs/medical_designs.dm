@@ -47,3 +47,13 @@
 	materials = list(MAT_METAL=6000, MAT_GLASS=800, MAT_TITANIUM = 850)
 	build_path = /obj/item/reagent_containers/moa
 	category = list("Medical")
+
+/datum/design/handheldbody
+	name = "Handheld Body Scanner"
+	desc = "A handheld scanner capable of deep-scanning an entire body."
+	id = "handbodyscanner"
+	req_tech = list("materials" = 7, "biotech" = 7, "engineering" = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=6000, MAT_GLASS=800, MAT_TITANIUM = 850, MAT_DIAMOND = 250,  MAT_URANIUM = 1500)
+	build_path = /obj/item/bodyanalyzer
+	category = list("Medical")

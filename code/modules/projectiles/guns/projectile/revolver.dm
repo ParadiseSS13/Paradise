@@ -94,13 +94,15 @@
 	icon_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	unique_reskin = TRUE
-	options = list(
-		"The Original" = "detective",
-		"Leopard Spots" = "detective_leopard",
-		"Black Panther" = "detective_panther",
-		"Gold Trim" = "detective_gold",
-		"The Peacemaker" = "detective_peacemaker"
-	)
+
+/obj/item/gun/projectile/revolver/detective/New()
+	..()
+	options["The Original"] = "detective"
+	options["Leopard Spots"] = "detective_leopard"
+	options["Black Panther"] = "detective_panther"
+	options["Gold Trim"] = "detective_gold"
+	options["The Peacemaker"] = "detective_peacemaker"
+	options["Cancel"] = null
 
 /obj/item/gun/projectile/revolver/detective/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")
 	if(magazine.caliber != initial(magazine.caliber))
@@ -157,6 +159,7 @@
 	fire_sound_text = null
 	lefthand_file = null
 	righthand_file = null
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	clumsy_check = 0 //Stole your uplink! Honk!
 	needs_permit = 0 //go away beepsky
 
@@ -341,15 +344,16 @@
 	sawn_desc = "Omar's coming!"
 	can_holster = FALSE
 	unique_reskin = TRUE
-	pb_knockback = 1
-	options = list(
-		"Default" = "dshotgun",
-		"Dark Red Finish" = "dshotgun-d",
-		"Ash" = "dshotgun-f",
-		"Faded Grey" = "dshotgun-g",
-		"Maple" = "dshotgun-l",
-		"Rosewood" = "dshotgun-p",
-	)
+
+/obj/item/gun/projectile/revolver/doublebarrel/New()
+	..()
+	options["Default"] = "dshotgun"
+	options["Dark Red Finish"] = "dshotgun-d"
+	options["Ash"] = "dshotgun-f"
+	options["Faded Grey"] = "dshotgun-g"
+	options["Maple"] = "dshotgun-l"
+	options["Rosewood"] = "dshotgun-p"
+	options["Cancel"] = null
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
@@ -402,8 +406,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "I'm just here for the gasoline."
-	unique_rename = 0
-	unique_reskin = 0
+	unique_reskin = FALSE
 	var/slung = 0
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)

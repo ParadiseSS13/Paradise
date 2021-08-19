@@ -70,7 +70,6 @@
 					<A href='?src=[UID()];secretsfun=infiltrators_syndicate'>Send SIT - Syndicate Infiltration Team</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=striketeam_syndicate'>Send in a Syndie Strike Team</A>&nbsp;&nbsp;
 					<BR><A href='?src=[UID()];secretsfun=striketeam'>Send in the Deathsquad</A>&nbsp;&nbsp;
-					<A href='?src=[UID()];secretsfun=honksquad'>Send in a HONKsquad</A><BR>
 					<A href='?src=[UID()];secretsfun=gimmickteam'>Send in a Gimmick Team</A><BR>
 					<b>Change Security Level</b><BR>
 					<A href='?src=[UID()];secretsfun=securitylevel0'>Security Level - Green</A>&nbsp;&nbsp;
@@ -81,6 +80,9 @@
 					<A href='?src=[UID()];secretsfun=securitylevel5'>Security Level - Delta</A><BR>
 					<b>Create Weather</b><BR>
 					<A href='?src=[UID()];secretsfun=weatherashstorm'>Weather - Ash Storm</A>&nbsp;&nbsp;
+					<BR>
+					<b>Reinforce Station</b><BR>
+					<A href='?src=[UID()];secretsfun=gammashuttle'>Move the Gamma Armory</A>&nbsp;&nbsp;
 					<BR>
 					</center>"}
 		if(2)

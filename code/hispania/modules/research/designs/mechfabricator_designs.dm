@@ -55,5 +55,15 @@
 	id = "Mecha_paintkit"
 	build_type = MECHFAB
 	build_path = /obj/item/paintkit/hispania
+	req_tech = list("engineering" = 1, "combat" = 1, "magnets" = 1)
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
+	category = list("Misc")
+
+/datum/design/phazonpaintkit
+	name = "Phazon paintkit"
+	id = "Phazon_paintkit"
+	build_type = MECHFAB
+	build_path = /obj/item/paintkit/purple_paintkit
+	req_tech = list("engineering" = 5, "combat" = 5, "magnets" = 5)
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_PLASMA = 4000)
 	category = list("Misc")

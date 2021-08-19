@@ -14,7 +14,8 @@
 
 /obj/machinery/vending/boozeomat
 	hispa_products = list(/obj/item/reagent_containers/food/drinks/bottle/hispania/fernet = 5,
-					/obj/item/reagent_containers/food/drinks/bottle/hispania/mezcal = 5)
+					/obj/item/reagent_containers/food/drinks/bottle/hispania/mezcal = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/hispania/white_wine =5)
 	hispa_contraband = list(/obj/item/reagent_containers/food/drinks/bottle/hispania/vampire_bestfriend = 5)
 
 /obj/machinery/vending/coffee
@@ -257,6 +258,7 @@
 					/obj/item/clothing/under/bluehawaiianshirt = 52,
 					/obj/item/clothing/under/orangehawaiianshirt = 52,
 					/obj/item/clothing/under/tourist_suit = 50)
+	hispa_premium = list(/obj/item/clothing/suit/big_chungus = 1, /obj/item/clothing/head/big_chungus = 1)
 
 //este vending es gratis en paradise
 /obj/machinery/vending/hatdispenser
@@ -616,3 +618,6 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 					/obj/item/reagent_containers/food/snacks/proteinbar = 100,
 					/obj/item/reagent_containers/glass/beaker/waterbottle = 30
 					)
+
+/obj/machinery/vending/snack
+	hispa_premium = list(/obj/item/reagent_containers/food/snacks/choco_mre/barcardine = 1)

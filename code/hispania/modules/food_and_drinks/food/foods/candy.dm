@@ -34,28 +34,46 @@
 	desc = "Some brand of non-melting military chocolate with a lot of stimulants. It has a label that says \"WARNING DO NOT EAT MORE THAN ONE\"."
 	icon = 'icons/hispania/obj/food/candy.dmi'
 	icon_state = "mre_candy"
+	var/initial_state
 	list_reagents = list("sugar" = 4, "coffee" = 8, "nicotine" = 20, "epinephrine" = 12, "nutriment" = 0.25)
 	var/open = FALSE
+	antable = FALSE
 	tastes = list("chocolate" = 1, "chemical" = 1, "coffee" = 1)
 	bitesize = 25
+
+/obj/item/reagent_containers/food/snacks/choco_mre/Initialize(mapload)
+	. = ..()
+	initial_state = icon_state
 
 /obj/item/reagent_containers/food/snacks/choco_mre/attack_self()
 	if(!open)
 		open = TRUE
+		antable = TRUE
 		to_chat(usr, "<span class='notice'>You tear \the [src] open.</span>")
 		playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
-		icon_state = "mre_candy_open"
+		icon_state = "[initial_state]open"
 		return
 
 /obj/item/reagent_containers/food/snacks/choco_mre/attack(mob/M as mob, mob/user as mob, def_zone)
 	if(!open && (M == user))
 		open = TRUE
+		antable = TRUE
 		to_chat(user,("You viciously rip \the [src] open with your teeth, swallowing some plastic in the process, you animal."))
 		playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
-		icon_state = "mre_candy_open"
+		icon_state = "[initial_state]open"
 		return
 	if(!open)
 		to_chat(usr, "<span class='warning'>Open \the [src] first!</span>")
 		return
 	else
 		..()
+
+/obj/item/reagent_containers/food/snacks/choco_mre/barcardine
+	name = "barcardine bars"
+	desc = "A bar of chocolate, it smells like the medical bay. <i>\"Chocolate always helps the pain go away.\"</i>"
+	icon = 'icons/hispania/obj/food/candy.dmi'
+	icon_state = "barcardine"
+	trash = /obj/item/trash/barcardine
+	list_reagents = list("sugar" = 5, "epinephrine" = 3, "nutriment" = 1, "hydrocodone" = 2)
+	tastes = list("chocolate" = 1)
+	bitesize = 3

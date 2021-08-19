@@ -367,6 +367,23 @@
 		newgas.temperature = target_temp
 	return newgas
 
+/obj/structure/closet/crate/freezer/iv_storage
+	name = "IV storage freezer"
+	desc = "A freezer used to store IV bags containing various blood types."
+
+/obj/structure/closet/crate/freezer/iv_storage/populate_contents()
+	new /obj/item/reagent_containers/iv_bag/blood/OMinus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/OPlus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/AMinus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/APlus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/BMinus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/BPlus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/random(src)
+	new /obj/item/reagent_containers/iv_bag/blood/random(src)
+	new /obj/item/reagent_containers/iv_bag/blood/random(src)
+	new /obj/item/reagent_containers/iv_bag/salglu(src)
+	new /obj/item/reagent_containers/iv_bag/slime(src)
+
 /obj/structure/closet/crate/can
 	desc = "A large can, looks like a bin to me."
 	name = "garbage can"

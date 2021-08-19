@@ -8,6 +8,7 @@
 		spellremove(src)
 	mobspellremove(src)
 	QDEL_LIST(viruses)
+	QDEL_LIST(actions)
 	ghostize()
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	for(var/I in tkgrabbed_objects)
@@ -20,6 +21,7 @@
 			AA.viewers -= src
 		viewing_alternate_appearances = null
 	LAssailant = null
+	runechat_msg_location = null
 	return ..()
 
 /mob/Initialize(mapload)
@@ -606,7 +608,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	if(next_move >= world.time)
 		return
-	if(!isturf(loc) || istype(A, /obj/effect/temp_visual/point))
+	if(!isturf(loc) || istype(A, /obj/effect/temp_visual/point) || istype(A, /obj/effect/hallucination))
 		return FALSE
 
 	var/tile = get_turf(A)
@@ -757,13 +759,33 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set name = "Respawn"
 	set category = "OOC"
 
-	if(!GLOB.abandon_allowed)
+	if(!GLOB.configuration.general.respawn_enabled)
 		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
 		return
 
 	if(stat != DEAD || !SSticker)
 		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
 		return
+	//Hispania Respawn
+	var/deathtime = world.time - timeofdeath
+	var/deathtimeminutes = round(deathtime / 600)
+	var/pluralcheck = "minute"
+	if(deathtimeminutes == 0)
+		pluralcheck = ""
+	else if(deathtimeminutes == 1)
+		pluralcheck = " [deathtimeminutes] minute and"
+	else if(deathtimeminutes > 1)
+		pluralcheck = " [deathtimeminutes] minutes and"
+	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10, 1)
+
+	if(deathtimeminutes == 60)
+		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
+		to_chat(usr, "<span class='warning'>You must wait 60 minutes to respawn!</span>")
+		return
+
+	if(alert("Are you sure you want to respawn?", "Are you sure?", "Yes", "No") != "Yes")
+		return
+	//Hispania Respawn
 
 	log_game("[key_name(usr)] has respawned.")
 
@@ -898,7 +920,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(href_list["flavor_change"])
 		update_flavor_text()
 
-	return
+	if(href_list["scoreboard"])
+		usr << browse(GLOB.scoreboard, "window=roundstats;size=500x600")
 
 // The src mob is trying to strip an item from someone
 // Defined in living.dm
@@ -1014,7 +1037,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
-	stat(null, "Round Time: [worldtime2text()]")
+	stat(null, "Server Uptime: [worldtime2text()]")
+	stat(null, "Round Time: [ROUND_TIME ? time2text(ROUND_TIME, "hh:mm:ss") : "N/A"]")
 	stat(null, "Station Time: [station_time_timestamp()]")
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
@@ -1334,6 +1358,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
 
 	.["Make 2spooky"] = "?_src_=vars;make_skeleton=[UID()]"
+	.["Hallucinate"] = "?_src_=vars;hallucinate=[UID()]"
 
 	.["Assume Direct Control"] = "?_src_=vars;direct_control=[UID()]"
 	.["Offer Control to Ghosts"] = "?_src_=vars;offer_control=[UID()]"
@@ -1358,20 +1383,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set waitfor = 0
 	if(!spintime || !speed || spintime > 100)
 		CRASH("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
-	var/D = dir
-	while(spintime >= speed)
+	var/end_time = world.time + spintime
+	var/spin_dir = prob(50)
+	while(world.time <= end_time)
 		sleep(speed)
-		switch(D)
-			if(NORTH)
-				D = EAST
-			if(SOUTH)
-				D = WEST
-			if(EAST)
-				D = SOUTH
-			if(WEST)
-				D = NORTH
-		setDir(D)
-		spintime -= speed
+		if(spin_dir)
+			dir = turn(dir, 90)
+		else
+			dir = turn(dir, -90)
 
 /mob/proc/is_literate()
 	return FALSE
@@ -1467,3 +1486,52 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
  */
 /mob/proc/update_runechat_msg_location()
 	return
+
+
+/**
+ * Show an overlay of radiation levels on radioactive objects.
+ */
+/mob/proc/show_rads(range)
+	for(var/turf/place in range(range, src))
+		var/rads = SSradiation.get_turf_radiation(place)
+		if (rads < RAD_BACKGROUND_RADIATION)
+			continue
+
+		var/strength = round(rads / 1000, 0.1)
+		var/image/pic = image(loc = place)
+		var/mutable_appearance/MA = new()
+		MA.maptext = MAPTEXT("[strength]k")
+		MA.color = "#04e604"
+		MA.layer = RAD_TEXT_LAYER
+		MA.plane = GAME_PLANE
+		pic.appearance = MA
+		flick_overlay(pic, list(client), 10)
+
+
+GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
+	/area/chapel
+)))
+
+/mob/proc/holy_check()
+	if(!is_type_in_typecache(loc.loc, GLOB.holy_areas))
+		return FALSE
+
+	if(!mind)
+		return FALSE
+
+	//Allows fullpower vampires to bypass holy areas
+	var/datum/vampire/vampire = mind.vampire
+	if(vampire && vampire.get_ability(/datum/vampire_passive/full))
+		return FALSE
+
+	//Allows cult to bypass holy areas once they summon
+	var/datum/game_mode/gamemode = SSticker.mode
+	if(iscultist(src) && gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
+		return FALSE
+
+	//Execption for Holy Constructs
+	if(isconstruct(src) && !iscultist(src))
+		return FALSE
+
+	to_chat(src, "<span class='warning'>Your powers are useless on this holy ground.</span>")
+	return TRUE

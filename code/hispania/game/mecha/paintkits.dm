@@ -100,3 +100,14 @@
 	new_name = "Skull-Mech"
 	new_desc = "A mech reinforced by the skulls from and ancient monster"
 	allowed_types = list("ripley","firefighter")
+
+//PURPLE PHAZON//
+/obj/item/paintkit/purple_paintkit
+	name = "Purple Paintkit"
+	desc =  "A kit containing all the needed tools and parts to turn an ordinary Phazon into a Purple Phazon."
+	new_icon_carpet = 'icons/hispania/mecha/mecha.dmi'
+	icon_state = "paintkit_2"
+	new_icon = "purple"
+	new_name = "Anomaly"
+	new_desc = "A purple phazon."
+	allowed_types = list("phazon")

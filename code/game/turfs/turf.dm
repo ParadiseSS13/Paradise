@@ -330,6 +330,20 @@
 /turf/proc/Bless()
 	flags |= NOJAUNT
 
+/turf/proc/clean(floor_only)
+	for(var/obj/effect/decal/cleanable/C in src)
+		var/obj/effect/decal/cleanable/blood/B = C
+		if(istype(B) && B.off_floor)
+			floor_only = FALSE
+		else
+			qdel(C)
+	color = initial(color)
+	if(floor_only)
+		clean_blood()
+
+	for(var/mob/living/simple_animal/slime/M in src)
+		M.adjustToxLoss(rand(5, 10))
+
 // Defined here to avoid runtimes
 /turf/proc/MakeDry(wet_setting = TURF_WET_WATER)
 	return

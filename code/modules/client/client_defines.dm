@@ -56,7 +56,6 @@
 
 	var/global/obj/screen/click_catcher/void
 
-	var/karma = 0
 	var/karma_spent = 0
 	var/karma_tab = 0
 
@@ -68,6 +67,9 @@
 
 	//datum that controls the displaying and hiding of tooltips
 	var/datum/tooltip/tooltips
+
+	/// Persistent storage for the flavour text of examined atoms.
+	var/list/description_holders = list()
 
 	// Their chat window, sort of important.
 	// See /goon/code/datums/browserOutput.dm
@@ -118,6 +120,8 @@
 	var/datum/click_handler/CH
 	///////////////////////////
 	var/list/recent_examines // HISPANIA EYE CONTACT
+	var/fullscreen = FALSE // HISPANIA FULLSCREEN
+
 
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)

@@ -119,7 +119,7 @@ SUBSYSTEM_DEF(tgui)
  * Close all UIs attached to src_object.
  * Returns the number of UIs closed.
  *
- * * datum/src_objectThe object/datum which owns the UIs.
+ * * datum/src_object - The object/datum which owns the UIs.
  */
 /datum/controller/subsystem/tgui/proc/close_uis(datum/src_object)
 	if(!src_object.unique_datum_id) // First check if the datum has an UID set

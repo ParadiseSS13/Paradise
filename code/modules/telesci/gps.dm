@@ -1,7 +1,6 @@
 GLOBAL_LIST_EMPTY(GPS_list)
 
 #define EMP_DISABLE_TIME 30 SECONDS
-#define POS_VECTOR(A) list(A.x, A.y, A.z)
 
 /**
   * # GPS
@@ -83,11 +82,11 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		return data
 	var/turf/T = get_turf(src)
 	data["area"] = get_area_name(src, TRUE)
-	data["position"] = POS_VECTOR(T)
+	data["position"] = ATOM_COORDS(T)
 
 	// Saved location
 	if(locked_location)
-		data["saved"] = POS_VECTOR(locked_location)
+		data["saved"] = ATOM_COORDS(locked_location)
 	else
 		data["saved"] = null
 
@@ -96,16 +95,14 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	for(var/g in GLOB.GPS_list)
 		var/obj/item/gps/G = g
 		var/turf/GT = get_turf(G)
-		if(!GT)			//si la turf no existe no se muestra el gps
-			continue 	//hispania estuvo acá
-		if(!G.tracking || G == src)
+		if(isnull(GT) || !G.tracking || G == src)
 			continue
 		if((G.local || same_z) && (GT.z != T.z))
 			continue
 		var/list/signal = list("tag" = G.gpstag, "area" = null, "position" = null)
 		if(!G.emped)
 			signal["area"] = get_area_name(G, TRUE)
-			signal["position"] = POS_VECTOR(GT)
+			signal["position"] = ATOM_COORDS(GT)
 		signals += list(signal)
 	data["signals"] = signals
 
@@ -220,4 +217,3 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	. = ..()
 
 #undef EMP_DISABLE_TIME
-#undef POS_VECTOR

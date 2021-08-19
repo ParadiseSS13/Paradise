@@ -81,14 +81,14 @@
 		user.update_inv_r_hand()
 		user.update_inv_l_hand()
 	if(isrobot(user))
-		to_chat(user, "<span class='notice'>You dedicate your module to [name].</span>")
+		to_chat(user, "<span class='notice'>You dedicate your module to [src].</span>")
 	else
-		to_chat(user, "<span class='notice'>You grab the [name] with both hands.</span>")
+		to_chat(user, "<span class='notice'>You grab [src] with both hands.</span>")
 	if(wieldsound)
 		playsound(loc, wieldsound, 50, 1)
 	var/obj/item/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
 	O.name = "[name] - offhand"
-	O.desc = "Your second grip on the [name]"
+	O.desc = "Your second grip on [src]"
 	user.put_in_inactive_hand(O)
 	return TRUE
 
@@ -306,7 +306,7 @@
 		return
 	..()
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && (wielded) && prob(40))
-		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
+		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
 		user.take_organ_damage(20, 25)
 		return
 	if((wielded) && prob(50))
@@ -643,13 +643,13 @@
 	slot_flags = SLOT_BACK
 	force = 5
 	force_unwielded = 5
-	force_wielded = 20
+	force_wielded = 40
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	var/charged = 5
+	var/charged = 2
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
 
 /obj/item/twohanded/singularityhammer/New()
@@ -661,7 +661,7 @@
 	return ..()
 
 /obj/item/twohanded/singularityhammer/process()
-	if(charged < 5)
+	if(charged < 2)
 		charged++
 
 /obj/item/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
@@ -670,6 +670,8 @@
 
 /obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)
 	for(var/atom/movable/X in orange(5, pull))
+		if(X.move_resist == INFINITY)
+			continue
 		if(X == wielder)
 			continue
 		if((X) && (!X.anchored) && (!ishuman(X)))
@@ -682,7 +684,7 @@
 				var/obj/item/clothing/shoes/magboots/M = H.shoes
 				if(M.magpulse)
 					continue
-			H.apply_effect(1, WEAKEN, 0)
+			H.Weaken(2)
 			step_towards(H, pull)
 			step_towards(H, pull)
 			step_towards(H, pull)
@@ -691,7 +693,7 @@
 	if(!proximity)
 		return
 	if(wielded)
-		if(charged == 5)
+		if(charged == 2)
 			charged = 0
 			if(isliving(A))
 				var/mob/living/Z = A
@@ -717,9 +719,9 @@
 
 /obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
 	do_sparks(5, 1, target.loc)
-	target.visible_message("<span class='danger'>[target.name] was shocked by the [name]!</span>", \
-		"<span class='userdanger'>You feel a powerful shock course through your body sending you flying!</span>", \
-		"<span class='italics'>You hear a heavy electrical crack!</span>")
+	target.visible_message("<span class='danger'>[target] was shocked by [src]!</span>",
+		"<span class='userdanger'>You feel a powerful shock course through your body sending you flying!</span>",
+		"<span class='danger'>You hear a heavy electrical crack!</span>")
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, 200, 4)
 
@@ -783,15 +785,15 @@
 		if(isliving(A))
 			var/mob/living/Z = A
 			if(Z.health >= 1)
-				Z.visible_message("<span class='danger'>[Z.name] was sent flying by a blow from the [name]!</span>", \
-					"<span class='userdanger'>You feel a powerful blow connect with your body and send you flying!</span>", \
+				Z.visible_message("<span class='danger'>[Z.name] was sent flying by a blow from [src]!</span>",
+					"<span class='userdanger'>You feel a powerful blow connect with your body and send you flying!</span>",
 					"<span class='danger'>You hear something heavy impact flesh!.</span>")
 				var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
 				Z.throw_at(throw_target, 200, 4)
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 			else if(wielded && Z.health < 1)
-				Z.visible_message("<span class='danger'>[Z.name] was blown to pieces by the power of [name]!</span>", \
-					"<span class='userdanger'>You feel a powerful blow rip you apart!</span>", \
+				Z.visible_message("<span class='danger'>[Z.name] was blown to pieces by the power of [src]!</span>",
+					"<span class='userdanger'>You feel a powerful blow rip you apart!</span>",
 					"<span class='danger'>You hear a heavy impact and the sound of ripping flesh!.</span>")
 				Z.gib()
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)

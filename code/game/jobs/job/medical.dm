@@ -20,6 +20,9 @@
 	exp_requirements = 2880
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/cmo
+	required_objectives = list(
+		/datum/job_objective/make_station_goal
+	)
 
 /datum/outfit/job/cmo
 	name = "Chief Medical Officer"
@@ -37,7 +40,7 @@
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
-
+	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical

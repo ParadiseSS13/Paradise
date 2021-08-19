@@ -43,9 +43,9 @@
 	return num
 
 //Returns the hex value of a number given a value assumed to be a base-ten value
-/proc/num2hex(num, placeholder)
-	if(!isnum(num)) return
-	if(placeholder == null) placeholder = 2
+/proc/num2hex(num, placeholder = 2)
+	if(!isnum(num) || num < 0)
+		return
 
 	var/hex = ""
 	while(num)
@@ -227,6 +227,8 @@
 			return 'icons/mob/screen_operative.dmi'
 		if("White")
 			return 'icons/mob/screen_white.dmi'
+		if("Vaporwave")
+			return 'icons/hispania/mob/screen_vaporwave.dmi'
 		else
 			return 'icons/mob/screen_midnight.dmi'
 

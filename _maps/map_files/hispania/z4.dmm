@@ -2,8 +2,7 @@
 "aa" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
-	icon_state = "burst_l";
-	tag = "icon-burst_l (EAST)"
+	icon_state = "burst_l"
 	},
 /turf/simulated/wall/indestructible/rock/snow,
 /area/snowland/unexplored)
@@ -90,8 +89,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Docking)
 "ar" = (
@@ -107,8 +105,7 @@
 /obj/structure/barricade/wooden/crude,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Docking)
 "au" = (
@@ -179,12 +176,10 @@
 	},
 /obj/structure/table,
 /obj/item/clothing/mask/breath{
-	pixel_x = 4;
-	pixel_y = 0
+	pixel_x = 4
 	},
 /obj/item/clothing/mask/breath{
-	pixel_x = 4;
-	pixel_y = 0
+	pixel_x = 4
 	},
 /obj/machinery/newscaster{
 	pixel_y = 32
@@ -225,7 +220,6 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (NORTH)";
 	icon_state = "whiteblue";
 	dir = 1
 	},
@@ -236,7 +230,6 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (NORTH)";
 	icon_state = "whiteblue";
 	dir = 1
 	},
@@ -256,7 +249,6 @@
 	layer = 2
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (NORTH)";
 	icon_state = "whiteblue";
 	dir = 1
 	},
@@ -273,7 +265,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (NORTH)";
 	icon_state = "whiteblue";
 	dir = 1
 	},
@@ -281,26 +272,22 @@
 "aM" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (NORTH)";
 	icon_state = "whiteblue";
 	dir = 1
 	},
 /area/TSF_Outpost/Medbay)
 "aN" = (
 /obj/structure/morgue{
-	tag = "icon-morgue1 (WEST)";
 	icon_state = "morgue1";
 	dir = 8
 	},
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25;
-	pixel_y = 0
+	pixel_x = 25
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/TSF_Outpost/Medbay)
 "aO" = (
@@ -333,7 +320,6 @@
 "aR" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
-	tag = "icon-shower (WEST)";
 	icon_state = "shower";
 	dir = 8
 	},
@@ -454,8 +440,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/light_switch{
-	pixel_x = -23;
-	pixel_y = 0
+	pixel_x = -23
 	},
 /turf/simulated/floor/plating,
 /area/TSF_Outpost/Hallway)
@@ -518,7 +503,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (WEST)";
 	icon_state = "whiteblue";
 	dir = 8
 	},
@@ -710,7 +694,6 @@
 	icon_state = "tube1"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (EAST)";
 	icon_state = "whiteblue";
 	dir = 4
 	},
@@ -723,8 +706,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/machinery/light_switch{
-	pixel_x = -23;
-	pixel_y = 0
+	pixel_x = -23
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -747,7 +729,6 @@
 "bQ" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
-	tag = "icon-shower (WEST)";
 	icon_state = "shower";
 	dir = 8
 	},
@@ -786,15 +767,13 @@
 "bV" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
-	tag = "icon-shower (WEST)";
 	icon_state = "shower";
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25;
-	pixel_y = 0
+	pixel_x = 25
 	},
 /obj/effect/baseturf_helper/asteroid/snow_naga,
 /turf/simulated/floor/plasteel{
@@ -881,11 +860,9 @@
 	pixel_y = -24
 	},
 /obj/machinery/light_switch{
-	pixel_x = -23;
-	pixel_y = 0
+	pixel_x = -23
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (SOUTHWEST)";
 	icon_state = "whiteblue";
 	dir = 10
 	},
@@ -900,7 +877,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue";
 	icon_state = "whiteblue"
 	},
 /area/TSF_Outpost/Medbay)
@@ -923,7 +899,6 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue";
 	icon_state = "whiteblue"
 	},
 /area/TSF_Outpost/Medbay)
@@ -937,7 +912,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitebluecorner (WEST)";
 	icon_state = "whitebluecorner";
 	dir = 8
 	},
@@ -947,8 +921,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/TSF_Outpost/Medbay)
 "cj" = (
@@ -965,7 +938,6 @@
 /obj/machinery/iv_drip,
 /obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (EAST)";
 	icon_state = "whiteblue";
 	dir = 4
 	},
@@ -974,8 +946,7 @@
 /obj/structure/sink{
 	dir = 8;
 	icon_state = "sink";
-	pixel_x = -12;
-	pixel_y = 0
+	pixel_x = -12
 	},
 /obj/structure/mirror{
 	pixel_x = -30
@@ -1002,7 +973,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel{
@@ -1192,7 +1162,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (SOUTHWEST)";
 	icon_state = "whiteblue";
 	dir = 10
 	},
@@ -1206,7 +1175,6 @@
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (SOUTHEAST)";
 	icon_state = "whiteblue";
 	dir = 6
 	},
@@ -1224,7 +1192,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel{
@@ -1476,7 +1443,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
@@ -1673,8 +1639,7 @@
 "dI" = (
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25;
-	pixel_y = 0
+	pixel_x = 25
 	},
 /turf/simulated/floor/plasteel,
 /area/TSF_Outpost/Docking)
@@ -2259,8 +2224,7 @@
 	dir = 8
 	},
 /obj/machinery/light_switch{
-	pixel_x = -23;
-	pixel_y = 0
+	pixel_x = -23
 	},
 /turf/simulated/floor/carpet/black,
 /area/TSF_Outpost/CrewDorms)
@@ -2300,8 +2264,7 @@
 /obj/effect/baseturf_helper/asteroid/snow_naga,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "fi" = (
@@ -2331,8 +2294,7 @@
 /obj/item/paper/missionreport,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "fm" = (
@@ -3138,8 +3100,7 @@
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/structure/closet/fireaxecabinet{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/TSF_Outpost/Docking)
@@ -3514,8 +3475,7 @@
 	pixel_y = 7
 	},
 /obj/machinery/light_switch{
-	pixel_x = -23;
-	pixel_y = 0
+	pixel_x = -23
 	},
 /turf/simulated/floor/plasteel,
 /area/TSF_Outpost/Docking)
@@ -3524,7 +3484,6 @@
 /obj/item/folder/yellow,
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = 0;
 	pixel_y = -32;
 	req_access_txt = "0"
 	},
@@ -3935,8 +3894,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jj" = (
@@ -3945,8 +3903,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jk" = (
@@ -3992,8 +3949,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jo" = (
@@ -4003,8 +3959,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jp" = (
@@ -4023,8 +3978,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jq" = (
@@ -4038,8 +3992,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jr" = (
@@ -4051,8 +4004,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "js" = (
@@ -4065,8 +4017,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jt" = (
@@ -4084,8 +4035,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "ju" = (
@@ -4098,8 +4048,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jv" = (
@@ -4109,8 +4058,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jw" = (
@@ -4120,8 +4068,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jx" = (
@@ -4132,8 +4079,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jy" = (
@@ -4150,8 +4096,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jz" = (
@@ -4166,23 +4111,20 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jA" = (
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jB" = (
 /obj/machinery/vending/snack/free,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jC" = (
@@ -4216,13 +4158,11 @@
 /obj/machinery/alarm{
 	dir = 4;
 	icon_state = "alarm0";
-	pixel_x = -22;
-	pixel_y = 0
+	pixel_x = -22
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jJ" = (
@@ -4232,8 +4172,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jK" = (
@@ -4247,8 +4186,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jL" = (
@@ -4257,14 +4195,12 @@
 	pixel_x = 3
 	},
 /obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -3;
-	pixel_y = 0
+	pixel_x = -3
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jM" = (
@@ -4274,8 +4210,7 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jN" = (
@@ -4283,8 +4218,7 @@
 /obj/item/trash/spentcasing,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jO" = (
@@ -4292,8 +4226,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jP" = (
@@ -4301,16 +4234,14 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jQ" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jR" = (
@@ -4321,8 +4252,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jS" = (
@@ -4330,16 +4260,14 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jT" = (
 /obj/machinery/vending/cola/free,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jU" = (
@@ -4375,13 +4303,11 @@
 /area/TSF_Outpost/Hallway)
 "jX" = (
 /obj/machinery/light_switch{
-	pixel_x = -23;
-	pixel_y = 0
+	pixel_x = -23
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jY" = (
@@ -4390,8 +4316,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "jZ" = (
@@ -4402,8 +4327,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "ka" = (
@@ -4415,8 +4339,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "kb" = (
@@ -4428,8 +4351,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "kc" = (
@@ -4441,8 +4363,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "kd" = (
@@ -4456,8 +4377,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "ke" = (
@@ -4469,8 +4389,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "kf" = (
@@ -4480,8 +4399,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "kg" = (
@@ -4503,8 +4421,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "ki" = (
@@ -4513,8 +4430,7 @@
 	pixel_x = 3
 	},
 /obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -3;
-	pixel_y = 0
+	pixel_x = -3
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -4529,8 +4445,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "kj" = (
@@ -4539,16 +4454,14 @@
 /obj/item/trash/canned_fishegg,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "kk" = (
 /obj/machinery/vending/coffee/free,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "kl" = (
@@ -4612,8 +4525,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "kt" = (
@@ -4631,15 +4543,12 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "ku" = (
 /obj/structure/table,
-/obj/item/taperecorder{
-	pixel_y = 0
-	},
+/obj/item/taperecorder,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -4647,8 +4556,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "kv" = (
@@ -4656,8 +4564,7 @@
 /obj/item/storage/bag/uno,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "kw" = (
@@ -4666,8 +4573,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "kx" = (
@@ -4679,24 +4585,21 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "ky" = (
 /obj/machinery/gameboard,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "kz" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "kA" = (
@@ -4709,16 +4612,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "kB" = (
 /obj/machinery/vending/cigarette/free,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "kC" = (
@@ -4923,7 +4824,6 @@
 /area/snowland/unexplored)
 "lt" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (WEST)";
 	icon_state = "heater";
 	dir = 8
 	},
@@ -4970,7 +4870,6 @@
 /area/snowland/unexplored)
 "lE" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (NORTH)";
 	icon_state = "heater";
 	dir = 1
 	},
@@ -5008,8 +4907,7 @@
 "lJ" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular{
-	pixel_x = 2;
-	pixel_y = 0
+	pixel_x = 2
 	},
 /obj/item/storage/firstaid/regular{
 	pixel_x = -2;
@@ -5307,8 +5205,7 @@
 "mF" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -5365,9 +5262,6 @@
 /turf/simulated/wall,
 /area/NT_Polar_Outpost/centrall_hall)
 "mO" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5387,9 +5281,6 @@
 /turf/simulated/wall/rust,
 /area/NT_Polar_Outpost/centrall_hall)
 "mS" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -5494,7 +5385,6 @@
 /area/NT_Polar_Outpost/centrall_hall)
 "nj" = (
 /obj/effect/decal/redspacesthings/floordecals_2,
-/obj/machinery/computer/nagacomputer/server2,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5575,7 +5465,6 @@
 /area/NT_Polar_Outpost/centrall_hall)
 "nu" = (
 /obj/structure/chair/comfy/beige{
-	tag = "icon-comfychair (EAST)";
 	icon_state = "comfychair";
 	dir = 4
 	},
@@ -5585,9 +5474,6 @@
 	},
 /area/NT_Polar_Outpost/centrall_hall)
 "nv" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5639,7 +5525,6 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = -23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -5748,8 +5633,7 @@
 /area/NT_Polar_Outpost/centrall_hall)
 "nO" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -25;
-	pixel_y = 0
+	pixel_x = -25
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -5987,8 +5871,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "floorgrime";
-	tag = "icon-floorgrime (WEST)"
+	icon_state = "floorgrime"
 	},
 /area/NT_Polar_Outpost/centrall_hall)
 "op" = (
@@ -6106,8 +5989,7 @@
 "oI" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -6190,8 +6072,7 @@
 "oV" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/redspacesthings/wall/walldecals_3,
 /turf/simulated/wall,
@@ -6199,8 +6080,7 @@
 "oW" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/redspacesthings/wall/walldecals_3,
 /turf/simulated/wall/rust,
@@ -6247,13 +6127,11 @@
 "pd" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = -30;
-	pixel_y = 0
+	pixel_x = -30
 	},
 /turf/simulated/floor/carpet,
 /area/NT_Polar_Outpost/centrall_hall)
@@ -6292,8 +6170,7 @@
 "pg" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/structure/closet/secure_closet{
 	desc = "It's a secure locker for personnel. The first card swiped gains control.";
@@ -6324,7 +6201,6 @@
 	dir = 10
 	},
 /obj/structure/chair/wood{
-	tag = "icon-wooden_chair (EAST)";
 	icon_state = "wooden_chair";
 	dir = 4
 	},
@@ -6334,8 +6210,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = 30;
-	pixel_y = 0
+	pixel_x = 30
 	},
 /turf/simulated/floor/carpet,
 /area/NT_Polar_Outpost/centrall_hall)
@@ -6370,7 +6245,6 @@
 	pressure_checks = 1
 	},
 /obj/structure/chair/wood{
-	tag = "icon-wooden_chair (NORTH)";
 	icon_state = "wooden_chair";
 	dir = 1
 	},
@@ -6378,7 +6252,6 @@
 	id = "awaydorm2";
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
-	pixel_x = 0;
 	pixel_y = -25;
 	req_access_txt = "0";
 	specialfunctions = 4
@@ -6422,7 +6295,6 @@
 	id = "awaydorm1";
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
-	pixel_x = 0;
 	pixel_y = -25;
 	req_access_txt = "0";
 	specialfunctions = 4
@@ -6463,8 +6335,7 @@
 "pw" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plating,
@@ -6483,7 +6354,6 @@
 	},
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/structure/window/basic{
-	tag = "icon-window (WEST)";
 	icon_state = "window";
 	dir = 8
 	},
@@ -6504,7 +6374,6 @@
 	},
 /obj/structure/reagent_dispensers/fueltank,
 /obj/structure/window/basic{
-	tag = "icon-window (EAST)";
 	icon_state = "window";
 	dir = 4
 	},
@@ -6591,8 +6460,7 @@
 "pM" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -6671,7 +6539,6 @@
 "pX" = (
 /obj/machinery/firealarm/no_alarm{
 	dir = 2;
-	pixel_x = 0;
 	pixel_y = 24
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -6705,8 +6572,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "greencorner";
-	tag = "icon-greencorner"
+	icon_state = "greencorner"
 	},
 /area/NT_Polar_Outpost/centrall_hall)
 "qc" = (
@@ -6733,7 +6599,6 @@
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
 	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -6774,7 +6639,6 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = -23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/effect/landmark/burnturf,
@@ -6910,8 +6774,7 @@
 "qx" = (
 /obj/structure/disposalpipe/junction{
 	dir = 4;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j1 (WEST)"
+	icon_state = "pipe-j2"
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
@@ -6940,7 +6803,6 @@
 	},
 /obj/machinery/firealarm/no_alarm{
 	dir = 2;
-	pixel_x = 0;
 	pixel_y = 24
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -7002,12 +6864,10 @@
 "qE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/structure/chair,
 /obj/structure/reagent_dispensers/peppertank{
-	pixel_x = 0;
 	pixel_y = 30
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -7062,7 +6922,6 @@
 "qK" = (
 /obj/machinery/firealarm/no_alarm{
 	dir = 1;
-	pixel_x = 0;
 	pixel_y = -24
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -7194,15 +7053,13 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "floorgrime";
-	tag = "icon-floorgrime (WEST)"
+	icon_state = "floorgrime"
 	},
 /area/NT_Polar_Outpost/centrall_hall)
 "rb" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/plasteel{
@@ -7344,13 +7201,12 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = -23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/filingcabinet,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_1,
+/obj/machinery/computer/nagacomputer/server,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -7405,7 +7261,6 @@
 	pixel_y = 8
 	},
 /obj/item/reagent_containers/spray/plantbgone{
-	pixel_x = 0;
 	pixel_y = 3
 	},
 /obj/item/watertank,
@@ -7416,7 +7271,6 @@
 /area/NT_Polar_Outpost/centrall_hall)
 "ry" = (
 /obj/structure/chair/office{
-	tag = "icon-chair (EAST)";
 	icon_state = "chair";
 	dir = 4
 	},
@@ -7428,7 +7282,6 @@
 /area/NT_Polar_Outpost/centrall_hall)
 "rz" = (
 /obj/structure/chair/office{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -7453,8 +7306,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "floorgrime";
-	tag = "icon-floorgrime (WEST)"
+	icon_state = "floorgrime"
 	},
 /area/NT_Polar_Outpost/centrall_hall)
 "rD" = (
@@ -7468,8 +7320,7 @@
 "rE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plating,
@@ -7503,8 +7354,7 @@
 	pixel_y = 4
 	},
 /obj/machinery/newscaster/security_unit{
-	pixel_x = -30;
-	pixel_y = 0
+	pixel_x = -30
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -7547,7 +7397,6 @@
 /area/NT_Polar_Outpost/centrall_hall)
 "rM" = (
 /obj/structure/chair/office{
-	tag = "icon-chair (EAST)";
 	icon_state = "chair";
 	dir = 4
 	},
@@ -7560,7 +7409,6 @@
 /area/NT_Polar_Outpost/centrall_hall)
 "rN" = (
 /obj/structure/chair/office{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -7627,7 +7475,6 @@
 	icon_state = "space";
 	layer = 4;
 	name = "EXTERNAL AIRLOCK";
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -7738,8 +7585,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "greencorner";
-	tag = "icon-greencorner"
+	icon_state = "greencorner"
 	},
 /area/NT_Polar_Outpost/centrall_hall)
 "si" = (
@@ -7792,7 +7638,6 @@
 	dir = 2;
 	locked = 0;
 	name = "Hydroponics APC";
-	pixel_x = 0;
 	pixel_y = -25;
 	req_access = null;
 	start_charge = 100
@@ -7812,11 +7657,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 0;
 	pixel_y = -28
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -7830,7 +7673,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7846,7 +7688,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -7862,7 +7703,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -7873,7 +7713,6 @@
 /area/NT_Polar_Outpost/centrall_hall)
 "st" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 0;
 	pixel_y = -28
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7902,7 +7741,6 @@
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
 	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -7990,8 +7828,7 @@
 "sF" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/effect/decal/redspacesthings/wall/walldecals_3,
 /turf/simulated/wall,
@@ -8051,7 +7888,6 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = 23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -8118,7 +7954,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -8155,7 +7990,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -8199,10 +8033,7 @@
 /area/NT_Polar_Outpost/centrall_hall)
 "te" = (
 /obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whitehall"
@@ -8226,7 +8057,6 @@
 "tg" = (
 /obj/machinery/firealarm/no_alarm{
 	dir = 2;
-	pixel_x = 0;
 	pixel_y = 24
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
@@ -8298,8 +8128,7 @@
 "tn" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/carpet,
@@ -8312,7 +8141,6 @@
 	id = "awaydorm3";
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
-	pixel_x = 0;
 	pixel_y = 25;
 	req_access_txt = "0";
 	specialfunctions = 4
@@ -8349,8 +8177,7 @@
 "ts" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/plasteel,
@@ -8385,34 +8212,13 @@
 	icon_state = "greencorner"
 	},
 /area/NT_Polar_Outpost/centrall_hall)
-"tw" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
-/obj/effect/decal/redspacesthings/floordecals_3,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/NT_Polar_Outpost/gate_failure)
 "tx" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (WEST)";
 	icon_state = "heater";
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/snowland/unexplored)
-"ty" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
-/obj/effect/decal/redspacesthings/floordecals_3,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/NT_Polar_Outpost/gate_failure)
 "tz" = (
 /obj/effect/decal/redspacesthings/floordecals_3,
 /mob/living/simple_animal/hostile/netherworld,
@@ -8422,7 +8228,6 @@
 /area/NT_Polar_Outpost/gate_failure)
 "tA" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -8440,7 +8245,6 @@
 	scrub_Toxins = 0
 	},
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -8519,7 +8323,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -8532,7 +8335,6 @@
 "tN" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = 0;
 	pixel_y = -28
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -8601,7 +8403,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -8643,7 +8444,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -8681,16 +8481,6 @@
 	icon_state = "whitehall"
 	},
 /area/NT_Polar_Outpost/research)
-"uc" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
-/obj/effect/decal/redspacesthings/floordecals_3,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
-	},
-/area/NT_Polar_Outpost/gate_failure)
 "ud" = (
 /obj/effect/decal/redspacesthings/floordecals_3,
 /obj/structure/spawner/netherbreach,
@@ -8698,19 +8488,8 @@
 	icon_state = "dark"
 	},
 /area/NT_Polar_Outpost/gate_failure)
-"ue" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
-/obj/effect/decal/redspacesthings/floordecals_3,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/NT_Polar_Outpost/gate_failure)
 "uf" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -8725,12 +8504,10 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = 23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -8846,8 +8623,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "ur" = (
@@ -8918,13 +8694,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
-	},
-/obj/machinery/door/window{
-	dir = 2;
-	name = "Gateway Chamber";
-	req_access_txt = "201"
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
@@ -8942,7 +8712,6 @@
 "uC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -8961,8 +8730,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "uE" = (
@@ -8972,8 +8740,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "uF" = (
@@ -8989,8 +8756,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "uG" = (
@@ -8999,8 +8765,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "uH" = (
@@ -9016,7 +8781,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -9036,8 +8800,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "uL" = (
@@ -9166,18 +8929,11 @@
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/gate_failure)
-"uV" = (
-/obj/effect/landmark/burnturf,
-/obj/effect/decal/redspacesthings/floordecals_3,
-/obj/machinery/computer/nagacomputer/second,
-/turf/simulated/floor/plasteel,
-/area/NT_Polar_Outpost/gate_failure)
 "uW" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
@@ -9194,8 +8950,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "uZ" = (
@@ -9203,8 +8958,7 @@
 /mob/living/simple_animal/hostile/netherworld/blankbody,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "va" = (
@@ -9225,8 +8979,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "vc" = (
@@ -9253,7 +9006,6 @@
 	dir = 4
 	},
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -9265,7 +9017,6 @@
 "vf" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -9334,7 +9085,6 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = -23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -9356,7 +9106,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -9370,7 +9119,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -9526,8 +9274,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/machinery/door/airlock{
 	name = "Kitchen";
@@ -9596,10 +9343,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table,
 /obj/item/folder/white,
-/obj/item/disk/tech_disk{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/disk/tech_disk,
 /obj/item/disk/design_disk,
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
@@ -9622,15 +9366,13 @@
 /area/NT_Polar_Outpost/gate_failure)
 "vT" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -25;
-	pixel_y = 0
+	pixel_x = -25
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "vU" = (
@@ -9656,13 +9398,11 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = 23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-r-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
@@ -9688,8 +9428,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "wa" = (
@@ -9698,22 +9437,19 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = 23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/structure/table,
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "wb" = (
 /obj/structure/table,
 /obj/item/trash/chips,
 /obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -9727,8 +9463,7 @@
 	dir = 4
 	},
 /obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/plasteel{
@@ -9766,7 +9501,6 @@
 /area/NT_Polar_Outpost/centrall_hall)
 "wg" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -9822,7 +9556,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4
 	},
@@ -9895,7 +9628,6 @@
 /obj/item/storage/belt/utility,
 /obj/item/clothing/head/welding,
 /obj/structure/sign/biohazard{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /obj/item/assembly/prox_sensor,
@@ -9903,8 +9635,7 @@
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "warndark";
-	tag = "icon-warndark (EAST)"
+	icon_state = "warndark"
 	},
 /area/NT_Polar_Outpost/gate_failure)
 "wu" = (
@@ -9983,7 +9714,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4
 	},
@@ -9994,7 +9724,6 @@
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4
 	},
@@ -10004,8 +9733,7 @@
 /mob/living/simple_animal/hostile/netherworld/hispanether/corruptcrew,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "floorgrime";
-	tag = "icon-floorgrime (WEST)"
+	icon_state = "floorgrime"
 	},
 /area/NT_Polar_Outpost/centrall_hall)
 "wE" = (
@@ -10018,12 +9746,10 @@
 "wF" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4
 	},
@@ -10039,7 +9765,6 @@
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4
 	},
@@ -10047,8 +9772,7 @@
 "wH" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
@@ -10119,7 +9843,6 @@
 	dir = 1;
 	locked = 0;
 	name = "UO45 Bar APC";
-	pixel_x = 0;
 	pixel_y = 25;
 	req_access = null;
 	start_charge = 100
@@ -10145,7 +9868,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/light/small{
@@ -10171,7 +9893,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/junction{
@@ -10192,7 +9913,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -10213,7 +9933,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -10250,7 +9969,6 @@
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4
 	},
@@ -10265,7 +9983,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4
 	},
@@ -10274,19 +9991,16 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4
 	},
 /area/NT_Polar_Outpost/research)
 "wY" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 0;
 	pixel_y = 30
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4
 	},
@@ -10304,7 +10018,6 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = 23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -10362,8 +10075,7 @@
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "warndark";
-	tag = "icon-warndark (EAST)"
+	icon_state = "warndark"
 	},
 /area/NT_Polar_Outpost/gate_failure)
 "xf" = (
@@ -10381,7 +10093,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -10396,7 +10107,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/cable{
@@ -10422,7 +10132,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10437,7 +10146,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10452,7 +10160,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10466,7 +10173,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -10481,7 +10187,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -10495,13 +10200,11 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
@@ -10514,7 +10217,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10534,7 +10236,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10551,7 +10252,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -10567,7 +10267,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/door/airlock/command{
@@ -10592,7 +10291,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10611,7 +10309,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10632,7 +10329,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10653,15 +10349,13 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "xx" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -3;
-	pixel_y = 0
+	pixel_x = -3
 	},
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = 3
@@ -10669,8 +10363,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "xy" = (
@@ -10679,8 +10372,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "xz" = (
@@ -10691,8 +10383,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "xA" = (
@@ -10700,7 +10391,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -10718,7 +10408,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -10774,7 +10463,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/cable{
@@ -10789,8 +10477,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_3,
@@ -10805,18 +10492,15 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/light,
 /obj/structure/disposalpipe/junction{
 	dir = 8;
-	icon_state = "pipe-j1";
-	tag = "icon-pipe-j1 (EAST)"
+	icon_state = "pipe-j1"
 	},
 /obj/machinery/firealarm/no_alarm{
 	dir = 1;
-	pixel_x = 0;
 	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -10836,7 +10520,6 @@
 	dir = 2;
 	locked = 0;
 	name = "UO45 Research Division APC";
-	pixel_x = 0;
 	pixel_y = -25;
 	req_access = null;
 	start_charge = 100
@@ -10865,8 +10548,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
@@ -10905,7 +10587,6 @@
 "xP" = (
 /obj/machinery/firealarm/no_alarm{
 	dir = 1;
-	pixel_x = 0;
 	pixel_y = -24
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
@@ -10940,8 +10621,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "xS" = (
@@ -11013,8 +10693,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "xZ" = (
@@ -11032,14 +10711,12 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-b-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -11095,8 +10772,7 @@
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "warndark";
-	tag = "icon-warndark (EAST)"
+	icon_state = "warndark"
 	},
 /area/NT_Polar_Outpost/gate_failure)
 "yh" = (
@@ -11140,7 +10816,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/structure/window/basic{
-	tag = "icon-window (EAST)";
 	icon_state = "window";
 	dir = 4
 	},
@@ -11160,7 +10835,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -11176,7 +10850,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -11228,7 +10901,6 @@
 	dir = 5
 	},
 /obj/machinery/newscaster{
-	pixel_x = 0;
 	pixel_y = -28
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -11253,7 +10925,6 @@
 /area/NT_Polar_Outpost/crew)
 "yy" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -11273,7 +10944,6 @@
 "yA" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/simulated/floor/carpet,
@@ -11294,8 +10964,7 @@
 "yD" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = -30;
-	pixel_y = 0
+	pixel_x = -30
 	},
 /turf/simulated/floor/carpet,
 /area/NT_Polar_Outpost/crew)
@@ -11316,7 +10985,6 @@
 /obj/structure/closet/firecloset,
 /obj/machinery/light/small,
 /obj/structure/sign/securearea{
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -11345,7 +11013,6 @@
 /area/NT_Polar_Outpost/gate_failure)
 "yI" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 0;
 	pixel_y = -28
 	},
 /obj/structure/rack{
@@ -11363,7 +11030,6 @@
 	dir = 2;
 	locked = 0;
 	name = "UO45 Gateway APC";
-	pixel_x = 0;
 	pixel_y = -25;
 	req_access = null;
 	start_charge = 100
@@ -11380,7 +11046,6 @@
 "yK" = (
 /obj/machinery/firealarm/no_alarm{
 	dir = 1;
-	pixel_x = 0;
 	pixel_y = -24
 	},
 /obj/structure/rack{
@@ -11426,8 +11091,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "yP" = (
@@ -11479,8 +11143,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "yT" = (
@@ -11494,13 +11157,11 @@
 	id = "awaydorm5";
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
-	pixel_x = 0;
 	pixel_y = -25;
 	req_access_txt = "0";
 	specialfunctions = 4
 	},
 /obj/structure/chair/wood{
-	tag = "icon-wooden_chair (NORTH)";
 	icon_state = "wooden_chair";
 	dir = 1
 	},
@@ -11518,8 +11179,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "yW" = (
@@ -11567,8 +11227,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "zc" = (
@@ -11580,8 +11239,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "zd" = (
@@ -11589,8 +11247,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "ze" = (
@@ -11598,8 +11255,7 @@
 /mob/living/simple_animal/hostile/netherworld,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "zf" = (
@@ -11610,8 +11266,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "zg" = (
@@ -11689,8 +11344,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "zm" = (
@@ -11708,8 +11362,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-b-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/plasteel{
@@ -11721,7 +11374,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/junction,
@@ -11733,7 +11385,6 @@
 /area/NT_Polar_Outpost/crew)
 "zp" = (
 /obj/structure/chair{
-	tag = "icon-chair (EAST)";
 	icon_state = "chair";
 	dir = 4
 	},
@@ -11759,8 +11410,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "zs" = (
@@ -11777,8 +11427,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "zt" = (
@@ -11801,8 +11450,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "zu" = (
@@ -11830,7 +11478,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -11848,7 +11495,6 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = -23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -11859,8 +11505,7 @@
 "zz" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -3;
-	pixel_y = 0
+	pixel_x = -3
 	},
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = 3
@@ -11884,7 +11529,6 @@
 /area/NT_Polar_Outpost/crew)
 "zC" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -11919,7 +11563,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plating,
@@ -11927,7 +11570,6 @@
 "zF" = (
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4
 	},
@@ -11944,7 +11586,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -11964,8 +11605,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "zK" = (
@@ -11973,8 +11613,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "zL" = (
@@ -11987,8 +11626,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "zM" = (
@@ -12003,14 +11641,12 @@
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
 	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "zO" = (
@@ -12019,8 +11655,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "zP" = (
@@ -12037,8 +11672,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "zQ" = (
@@ -12064,7 +11698,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -12090,7 +11723,6 @@
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
 	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -12114,7 +11746,6 @@
 /area/NT_Polar_Outpost/crew)
 "zX" = (
 /obj/structure/chair{
-	tag = "icon-chair (EAST)";
 	icon_state = "chair";
 	dir = 4
 	},
@@ -12146,7 +11777,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -12162,7 +11792,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plating,
@@ -12194,7 +11823,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/light/small{
@@ -12259,16 +11887,14 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "Aj" = (
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "Ak" = (
@@ -12327,7 +11953,6 @@
 /obj/effect/decal/redspacesthings/floordecals_3,
 /mob/living/simple_animal/hostile/netherworld,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4
 	},
@@ -12337,7 +11962,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -12366,7 +11990,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -12376,7 +11999,6 @@
 /area/NT_Polar_Outpost/crew)
 "Au" = (
 /obj/structure/chair/comfy/black{
-	tag = "icon-comfychair (EAST)";
 	icon_state = "comfychair";
 	dir = 4
 	},
@@ -12414,7 +12036,6 @@
 /area/NT_Polar_Outpost/crew)
 "Ax" = (
 /obj/structure/chair/comfy/black{
-	tag = "icon-comfychair (WEST)";
 	icon_state = "comfychair";
 	dir = 8
 	},
@@ -12449,7 +12070,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/light/small{
@@ -12507,7 +12127,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
@@ -12538,7 +12157,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plating,
@@ -12565,7 +12183,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -12583,7 +12200,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -12600,7 +12216,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -12632,8 +12247,7 @@
 "AP" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/structure/sign/science{
 	pixel_x = -32
@@ -12641,8 +12255,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "purplecorner";
-	tag = "icon-purplecorner (WEST)"
+	icon_state = "purplecorner"
 	},
 /area/NT_Polar_Outpost/crew)
 "AQ" = (
@@ -12663,7 +12276,6 @@
 "AS" = (
 /obj/machinery/firealarm/no_alarm{
 	dir = 1;
-	pixel_x = 0;
 	pixel_y = -24
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -12691,7 +12303,6 @@
 /obj/effect/decal/redspacesthings/floordecals_3,
 /obj/structure/mineral_door/meatdoor/fangdoor,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -12718,8 +12329,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "purple";
-	tag = "icon-purple (WEST)"
+	icon_state = "purple"
 	},
 /area/NT_Polar_Outpost/crew)
 "AZ" = (
@@ -12766,7 +12376,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -12780,7 +12389,6 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = -23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/machinery/light/small{
@@ -12792,8 +12400,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "Be" = (
@@ -12802,8 +12409,7 @@
 /mob/living/simple_animal/hostile/netherworld/blankbody,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "Bf" = (
@@ -12822,8 +12428,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "Bg" = (
@@ -12834,8 +12439,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25;
-	pixel_y = 0
+	pixel_x = 25
 	},
 /obj/item/paper/tsfcomply2,
 /turf/simulated/floor/carpet/black,
@@ -12854,8 +12458,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "Bi" = (
@@ -12875,8 +12478,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "Bj" = (
@@ -12885,7 +12487,6 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = -23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/item/radio/off,
@@ -12920,7 +12521,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -12934,8 +12534,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "Bo" = (
@@ -13011,7 +12610,6 @@
 /area/NT_Polar_Outpost/engineering)
 "Bw" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -13043,7 +12641,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/door/airlock/engineering/glass{
@@ -13081,14 +12678,12 @@
 "BD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/sign/securearea{
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "purplecorner";
-	tag = "icon-purplecorner (NORTH)"
+	icon_state = "purplecorner"
 	},
 /area/NT_Polar_Outpost/crew)
 "BE" = (
@@ -13124,7 +12719,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/cable{
@@ -13161,7 +12755,6 @@
 	desc = "A remote control-switch whichs locks the research division down in the event of a biohazard leak or contamination.";
 	id = "UO45_biohazard";
 	name = "Biohazard Door Control";
-	pixel_x = 0;
 	pixel_y = 8;
 	req_access_txt = "201"
 	},
@@ -13169,15 +12762,13 @@
 	desc = "A remote control-switch that controls the privacy shutters.";
 	id = "UO45_rdprivacy";
 	name = "Privacy Shutter Control";
-	pixel_x = 0;
 	pixel_y = -2;
 	req_access_txt = "201"
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "BL" = (
@@ -13189,8 +12780,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "BM" = (
@@ -13212,8 +12802,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "BP" = (
@@ -13229,8 +12818,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "BS" = (
@@ -13238,14 +12826,12 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-r-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/plasteel,
@@ -13303,8 +12889,7 @@
 /area/NT_Polar_Outpost/crew)
 "BZ" = (
 /obj/structure/reagent_dispensers/peppertank{
-	pixel_x = -30;
-	pixel_y = 0
+	pixel_x = -30
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_3,
@@ -13374,7 +12959,6 @@
 	},
 /obj/machinery/firealarm/no_alarm{
 	dir = 2;
-	pixel_x = 0;
 	pixel_y = 24
 	},
 /obj/item/multitool,
@@ -13398,8 +12982,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "arrival";
-	tag = "icon-arrival (NORTHWEST)"
+	icon_state = "arrival"
 	},
 /area/NT_Polar_Outpost/engineering)
 "Cf" = (
@@ -13408,8 +12991,6 @@
 	node1_concentration = 0.8;
 	node2_concentration = 0.2;
 	on = 1;
-	pixel_x = 0;
-	pixel_y = 0;
 	req_access = null;
 	target_pressure = 4500
 	},
@@ -13437,7 +13018,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -13471,7 +13051,6 @@
 "Cn" = (
 /obj/machinery/firealarm/no_alarm{
 	dir = 2;
-	pixel_x = 0;
 	pixel_y = 24
 	},
 /obj/structure/dispenser{
@@ -13485,8 +13064,7 @@
 "Co" = (
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25;
-	pixel_y = 0
+	pixel_x = 25
 	},
 /obj/effect/decal/cleanable/blood,
 /obj/structure/table,
@@ -13501,7 +13079,6 @@
 /obj/item/storage/box,
 /obj/item/storage/box,
 /obj/structure/reagent_dispensers/peppertank{
-	pixel_x = 0;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -13518,8 +13095,7 @@
 "Cr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /mob/living/simple_animal/hostile/netherworld/blankbody,
 /turf/simulated/floor/plasteel,
@@ -13584,14 +13160,12 @@
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
 	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "Cy" = (
@@ -13603,8 +13177,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "Cz" = (
@@ -13617,8 +13190,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "CA" = (
@@ -13629,8 +13201,7 @@
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/research)
 "CB" = (
@@ -13647,7 +13218,6 @@
 	desc = "A remote control-switch whichs locks the research division down in the event of a biohazard leak or contamination.";
 	id = "UO45_biohazard";
 	name = "Biohazard Door Control";
-	pixel_x = 0;
 	pixel_y = -24;
 	req_access_txt = "201"
 	},
@@ -13669,7 +13239,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/junction{
@@ -13692,8 +13261,7 @@
 /obj/structure/sink{
 	dir = 4;
 	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
+	pixel_x = 11
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -13710,7 +13278,6 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = -23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -13724,7 +13291,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -13744,7 +13310,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -13752,8 +13317,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-b-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -13770,11 +13334,9 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/junction{
-	tag = "icon-pipe-y (WEST)";
 	icon_state = "pipe-y";
 	dir = 8
 	},
@@ -13806,8 +13368,7 @@
 /obj/structure/sink{
 	dir = 4;
 	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
+	pixel_x = 11
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -13822,8 +13383,7 @@
 /mob/living/simple_animal/hostile/netherworld/hispanether/corruptcrew,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/NT_Polar_Outpost/crew)
 "CP" = (
@@ -13837,7 +13397,6 @@
 	locked = 1;
 	name = "UO45 Engineering APC";
 	pixel_x = -25;
-	pixel_y = 0;
 	req_access = list(201);
 	start_charge = 100
 	},
@@ -13852,7 +13411,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/cable{
@@ -13939,8 +13497,7 @@
 "CZ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -13951,7 +13508,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -14024,8 +13580,7 @@
 "De" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -14068,7 +13623,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -14083,7 +13637,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -14122,7 +13675,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -14137,7 +13689,6 @@
 	id = "awaydorm7";
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
-	pixel_x = 0;
 	pixel_y = -25;
 	req_access_txt = "0";
 	specialfunctions = 4
@@ -14150,7 +13701,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/alarm/monitor{
@@ -14158,7 +13708,6 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = 23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/machinery/light/small{
@@ -14232,7 +13781,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -14262,7 +13810,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/meter{
@@ -14279,7 +13826,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -14389,22 +13935,19 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/engineering)
 "DN" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -14460,8 +14003,7 @@
 "DR" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/structure/table,
 /obj/item/book/manual/security_space_law,
@@ -14521,7 +14063,6 @@
 /area/NT_Polar_Outpost/research)
 "DW" = (
 /obj/effect/decal/redspacesthings/floordecals_2,
-/obj/machinery/computer/nagacomputer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -14531,8 +14072,7 @@
 /obj/structure/sink{
 	dir = 8;
 	icon_state = "sink";
-	pixel_x = -11;
-	pixel_y = 0
+	pixel_x = -11
 	},
 /obj/structure/mirror{
 	pixel_x = -28
@@ -14544,7 +14084,6 @@
 /area/NT_Polar_Outpost/research)
 "DY" = (
 /obj/structure/toilet{
-	tag = "icon-toilet00 (WEST)";
 	icon_state = "toilet00";
 	dir = 8
 	},
@@ -14570,8 +14109,7 @@
 /obj/structure/table,
 /obj/item/newspaper,
 /obj/machinery/newscaster{
-	pixel_x = 30;
-	pixel_y = 0
+	pixel_x = 30
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -14593,7 +14131,6 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = 23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/effect/decal/cleanable/blood,
@@ -14615,7 +14152,6 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = 23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/effect/decal/cleanable/blood,
@@ -14732,7 +14268,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/light/small{
@@ -14784,7 +14319,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -14812,8 +14346,7 @@
 	},
 /obj/machinery/alarm/monitor/server{
 	dir = 4;
-	pixel_x = -22;
-	pixel_y = 0
+	pixel_x = -22
 	},
 /obj/machinery/r_n_d/server/core{
 	id_with_download_string = "3";
@@ -14904,8 +14437,7 @@
 "EE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/machinery/camera{
 	c_tag = "Engineering Hallway";
@@ -14929,8 +14461,7 @@
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "escape";
-	tag = "icon-escape (NORTH)"
+	icon_state = "escape"
 	},
 /area/NT_Polar_Outpost/engineering)
 "EG" = (
@@ -14938,7 +14469,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -14982,8 +14512,7 @@
 "EJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -25;
-	pixel_y = 0
+	pixel_x = -25
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /obj/effect/decal/redspacesthings,
@@ -14992,8 +14521,7 @@
 "EK" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/item/screwdriver{
 	pixel_y = 10
@@ -15033,7 +14561,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
@@ -15105,7 +14632,6 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = -23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -15131,8 +14657,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_3,
@@ -15184,7 +14709,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -15208,14 +14732,12 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-r-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/machinery/firealarm/no_alarm{
 	dir = 4;
@@ -15235,8 +14757,7 @@
 /obj/structure/sink{
 	dir = 4;
 	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
+	pixel_x = 11
 	},
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -15257,7 +14778,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/binary/pump{
@@ -15303,7 +14823,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -15317,7 +14836,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -15370,7 +14888,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/door/firedoor,
@@ -15382,7 +14899,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -15402,7 +14918,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -15410,8 +14925,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -15454,7 +14968,6 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 0;
 	pixel_y = -30
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -15516,14 +15029,12 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /turf/simulated/floor/plasteel,
 /area/NT_Polar_Outpost/engineering)
@@ -15532,7 +15043,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -15617,7 +15127,6 @@
 /obj/effect/decal/redspacesthings/floordecals_3,
 /obj/structure/mineral_door/meatdoor/fangdoor,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4
 	},
@@ -15637,7 +15146,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -15664,7 +15172,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -15685,7 +15192,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/door/airlock/engineering{
@@ -15745,7 +15251,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -15759,8 +15264,7 @@
 "FU" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-b-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/decal/cleanable/blood,
@@ -15772,8 +15276,7 @@
 	dir = 4
 	},
 /obj/structure/sign/securearea{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -15805,7 +15308,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -15932,7 +15434,6 @@
 /obj/effect/decal/redspacesthings/floordecals_3,
 /mob/living/simple_animal/hostile/netherworld/hispanether/corruptcrew,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4
 	},
@@ -15950,7 +15451,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -15963,7 +15463,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -15977,7 +15476,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel{
@@ -15993,7 +15491,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -16014,7 +15511,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -16036,7 +15532,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -16077,7 +15572,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/door/airlock/engineering{
@@ -16091,7 +15585,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
@@ -16121,7 +15614,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -16134,13 +15626,11 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/plasteel,
@@ -16231,7 +15721,6 @@
 	id = "awaydorm8";
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
-	pixel_x = 0;
 	pixel_y = -25;
 	req_access_txt = "0";
 	specialfunctions = 4
@@ -16263,8 +15752,7 @@
 /obj/machinery/computer/station_alert,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "caution";
-	tag = "icon-caution (SOUTHWEST)"
+	icon_state = "caution"
 	},
 /area/NT_Polar_Outpost/engineering)
 "GO" = (
@@ -16307,7 +15795,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -16431,7 +15918,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
@@ -16500,7 +15986,6 @@
 	id = "awaydorm9";
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
-	pixel_x = 0;
 	pixel_y = 25;
 	req_access_txt = "0";
 	specialfunctions = 4
@@ -16522,7 +16007,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -16566,7 +16050,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -16580,7 +16063,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -16619,7 +16101,6 @@
 	},
 /obj/machinery/firealarm/no_alarm{
 	dir = 1;
-	pixel_x = 0;
 	pixel_y = -24
 	},
 /obj/structure/closet/secure_closet/miner{
@@ -16635,7 +16116,6 @@
 	dir = 2;
 	locked = 0;
 	name = "UO45 Mining APC";
-	pixel_x = 0;
 	pixel_y = -25;
 	req_access = null;
 	start_charge = 100
@@ -16665,15 +16145,13 @@
 "Hw" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-r-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel{
@@ -16697,7 +16175,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
@@ -16747,14 +16224,12 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = 23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -16958,7 +16433,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
@@ -16972,7 +16446,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
@@ -17131,7 +16604,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/light/small{
@@ -17139,8 +16611,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-r-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/plasteel,
@@ -17165,8 +16636,7 @@
 "Iy" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-b-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/simulated/floor/plasteel,
@@ -17210,14 +16680,12 @@
 "ID" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/effect/decal/cleanable/blood,
@@ -17451,8 +16919,7 @@
 "Ju" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-r-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/metal{
@@ -17500,7 +16967,6 @@
 /area/NT_Polar_Outpost/crew)
 "JA" = (
 /obj/machinery/mech_bay_recharge_port{
-	tag = "icon-recharge_port (WEST)";
 	icon_state = "recharge_port";
 	dir = 8
 	},
@@ -17521,8 +16987,7 @@
 "JC" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-b-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/decal/redspacesthings,
@@ -17577,7 +17042,6 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = -23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/structure/closet/emcloset,
@@ -17700,7 +17164,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -17721,8 +17184,7 @@
 /obj/structure/sink{
 	dir = 4;
 	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
+	pixel_x = 11
 	},
 /obj/machinery/light/small,
 /obj/structure/mirror{
@@ -17770,7 +17232,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/light/small{
@@ -17781,7 +17242,6 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = 23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -17920,7 +17380,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -18004,7 +17463,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -18012,8 +17470,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-b-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel{
@@ -18052,7 +17509,6 @@
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_x = -25;
-	pixel_y = 0;
 	req_access_txt = "0";
 	specialfunctions = 4
 	},
@@ -18097,7 +17553,6 @@
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_x = 25;
-	pixel_y = 0;
 	req_access_txt = "0";
 	specialfunctions = 4
 	},
@@ -18142,7 +17597,6 @@
 "KN" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = 0;
 	pixel_y = -28
 	},
 /obj/item/pen,
@@ -18156,8 +17610,7 @@
 /area/NT_Polar_Outpost/crew)
 "KP" = (
 /obj/machinery/shower{
-	dir = 1;
-	pixel_y = 0
+	dir = 1
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/plasteel{
@@ -18167,8 +17620,7 @@
 "KQ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /mob/living/simple_animal/hostile/netherworld,
@@ -18191,10 +17643,7 @@
 /area/NT_Polar_Outpost/research)
 "KS" = (
 /obj/structure/table,
-/obj/item/storage/box/gloves{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/storage/box/gloves,
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -18230,7 +17679,6 @@
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
 	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
@@ -18307,7 +17755,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -18315,8 +17762,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
 /turf/simulated/floor/plating,
@@ -18326,7 +17772,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -18458,7 +17903,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -18475,13 +17919,11 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/junction{
 	dir = 4;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j1 (WEST)"
+	icon_state = "pipe-j2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -18496,7 +17938,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -18513,7 +17954,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -18535,7 +17975,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -18562,7 +18001,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -18588,8 +18026,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/item/stack/rods,
 /obj/effect/decal/redspacesthings/floordecals_3,
@@ -18647,8 +18084,7 @@
 	icon_state = "space";
 	layer = 4;
 	name = "EXTERNAL AIRLOCK";
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
@@ -18812,7 +18248,6 @@
 /area/NT_Polar_Outpost/crew)
 "Mh" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -18871,7 +18306,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -18895,7 +18329,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -18921,12 +18354,10 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/firealarm/no_alarm{
 	dir = 1;
-	pixel_x = 0;
 	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -18983,7 +18414,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -19023,7 +18453,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/effect/decal/cleanable/blood,
@@ -19035,13 +18464,11 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-r-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
 /turf/simulated/floor/plasteel,
@@ -19066,7 +18493,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -19097,7 +18523,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -19107,8 +18532,7 @@
 /area/NT_Polar_Outpost/mining)
 "ML" = (
 /obj/machinery/shower{
-	dir = 1;
-	pixel_y = 0
+	dir = 1
 	},
 /obj/item/bikehorn/rubberducky,
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -19139,7 +18563,6 @@
 	frequency = 1439;
 	locked = 0;
 	pixel_x = -23;
-	pixel_y = 0;
 	req_access = null
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -19171,7 +18594,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -19192,7 +18614,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -19212,7 +18633,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -19230,7 +18650,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -19248,7 +18667,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/light/small{
@@ -19259,8 +18677,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
@@ -19275,7 +18692,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/alarm/monitor{
@@ -19289,8 +18705,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -19304,7 +18719,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -19323,7 +18737,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -19344,7 +18757,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -19388,7 +18800,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -19408,8 +18819,7 @@
 "Nc" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
 /turf/simulated/floor/plasteel,
@@ -19419,7 +18829,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -19444,7 +18853,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 0;
 	pixel_y = -28
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -19464,7 +18872,6 @@
 	},
 /obj/machinery/firealarm/no_alarm{
 	dir = 1;
-	pixel_x = 0;
 	pixel_y = -24
 	},
 /obj/effect/decal/redspacesthings/floordecals_2,
@@ -19747,8 +19154,7 @@
 "NZ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/redspacesthings/wall/walldecals_4,
 /obj/effect/decal/redspacesthings/wall/walldecals_4,
@@ -19922,8 +19328,7 @@
 "OD" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/decal/redspacesthings,
@@ -19983,7 +19388,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/machinery/alarm/monitor{
@@ -20012,7 +19416,6 @@
 	},
 /obj/machinery/firealarm/no_alarm{
 	dir = 1;
-	pixel_x = 0;
 	pixel_y = -24
 	},
 /obj/effect/decal/redspacesthings/floordecals_1,
@@ -20027,7 +19430,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
@@ -20043,7 +19445,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -20078,7 +19479,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -20106,7 +19506,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -20195,7 +19594,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -20244,7 +19642,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
@@ -20262,7 +19659,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/cable{
@@ -20277,8 +19673,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /mob/living/simple_animal/hostile/netherworld/hispanether/corruptcrew,
 /turf/simulated/floor/plasteel,
@@ -20289,9 +19684,6 @@
 	d2 = 2
 	},
 /obj/effect/decal/redspacesthings/floordecals_3,
-/obj/machinery/gateway{
-	dir = 2
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -20395,6 +19787,11 @@
 /obj/item/gun/projectile/shotgun/boltaction,
 /turf/simulated/floor/carpet,
 /area/snowland/explored)
+"Qx" = (
+/obj/effect/decal/redspacesthings/floordecals_3,
+/obj/effect/decal/redspacesthings/wall/walldecals_5,
+/turf/simulated/wall/indestructible/rock/snow,
+/area/NT_Polar_Outpost)
 "Qz" = (
 /obj/item/stack/sheet/leather,
 /turf/simulated/floor/wood,
@@ -20443,6 +19840,11 @@
 /obj/structure/sink/puddle,
 /turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/explored)
+"Rm" = (
+/obj/effect/decal/redspacesthings/floordecals_3,
+/obj/effect/decal/redspacesthings/wall/walldecals_5,
+/turf/simulated/wall/rust,
+/area/NT_Polar_Outpost)
 "Rn" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
@@ -20457,6 +19859,12 @@
 /obj/item/flashlight/flare,
 /turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/explored)
+"RP" = (
+/obj/effect/decal/redspacesthings/wall/walldecals_5,
+/obj/effect/decal/redspacesthings/floordecals_3,
+/obj/effect/decal/redspacesthings/wall/walldecals_5,
+/turf/simulated/wall/rust,
+/area/NT_Polar_Outpost)
 "RR" = (
 /obj/item/chair/wood,
 /turf/simulated/floor/plating/asteroid/snow/naga,
@@ -20477,6 +19885,13 @@
 /obj/effect/decal/cleanable/confetti,
 /turf/simulated/floor/wood,
 /area/snowland/explored)
+"So" = (
+/obj/effect/decal/redspacesthings/floordecals_3,
+/obj/machinery/computer/nagacomputer/second,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/NT_Polar_Outpost)
 "Ss" = (
 /obj/structure/ore_box,
 /turf/simulated/floor/plating/asteroid/snow/naga,
@@ -20509,7 +19924,7 @@
 /turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/explored)
 "Td" = (
-/obj/machinery/computer/nagacomputer/server,
+/obj/structure/spawner/netherbreach,
 /turf/simulated/floor/plating,
 /area/NT_Polar_Outpost/engineering)
 "Tn" = (
@@ -20541,6 +19956,17 @@
 /obj/item/reagent_containers/glass/bucket/wooden,
 /turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/explored)
+"Ux" = (
+/obj/effect/decal/redspacesthings/floordecals_3,
+/obj/effect/decal/redspacesthings/floordecals_3,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/NT_Polar_Outpost)
+"Uz" = (
+/obj/effect/decal/redspacesthings/wall/walldecals_5,
+/turf/simulated/wall/indestructible/rock/snow,
+/area/NT_Polar_Outpost)
 "UD" = (
 /obj/structure/flora/grass/both,
 /turf/simulated/floor/plating/asteroid/snow/naga,
@@ -20548,6 +19974,15 @@
 "UJ" = (
 /turf/simulated/wall/indestructible/rock/snow,
 /area/snowland/explored)
+"US" = (
+/obj/effect/decal/redspacesthings/floordecals_3,
+/obj/structure/necropolis_arch,
+/obj/structure/necropolis_gate/naga_boss,
+/obj/effect/decal/redspacesthings/floordecals_3,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/NT_Polar_Outpost)
 "Vr" = (
 /obj/structure/flora/tree/dead,
 /turf/simulated/floor/plating/asteroid/snow/naga,
@@ -20568,6 +20003,13 @@
 /obj/item/trash/canned_fishegg,
 /turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
+"Wh" = (
+/obj/effect/decal/redspacesthings/floordecals_3,
+/obj/machinery/computer/nagacomputer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/NT_Polar_Outpost)
 "Wj" = (
 /obj/structure/decorative_structures/flammable/grandfather_clock,
 /turf/simulated/floor/wood,
@@ -20612,6 +20054,12 @@
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
+"WY" = (
+/obj/effect/decal/redspacesthings/floordecals_3,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/NT_Polar_Outpost)
 "Xm" = (
 /obj/item/trash/sosjerky,
 /turf/simulated/floor/pod/dark,
@@ -20633,11 +20081,18 @@
 "XV" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
-	icon_state = "burst_l";
-	tag = "icon-burst_l (EAST)"
+	icon_state = "burst_l"
 	},
 /turf/simulated/floor/plating/asteroid/snow/naga,
 /area/snowland/unexplored)
+"XW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/redspacesthings/floordecals_3,
+/obj/machinery/computer/nagacomputer/server2,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/NT_Polar_Outpost/research)
 "Yq" = (
 /obj/effect/decal/cleanable/confetti,
 /obj/structure/bonfire,
@@ -20663,8 +20118,7 @@
 /obj/item/trash/donitos,
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/TSF_Outpost/Kitchen)
 "YS" = (
@@ -20704,6 +20158,13 @@
 /obj/structure/bed,
 /turf/simulated/floor/wood,
 /area/snowland/explored)
+"Zt" = (
+/obj/effect/decal/redspacesthings/floordecals_3,
+/mob/living/simple_animal/hostile/megafauna/wendigo/meatoverlord,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/NT_Polar_Outpost)
 "ZD" = (
 /obj/structure/flora/bush,
 /obj/structure/flora/bush/naga_bush,
@@ -57497,28 +56958,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
 mP
 mP
 mP
@@ -57754,28 +57215,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Rm
+Uz
 mP
 mP
 mP
@@ -58011,28 +57472,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Rm
+Uz
 mP
 mP
 mP
@@ -58268,28 +57729,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+So
+Qx
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Qx
+WY
+WY
+WY
+WY
+WY
+Rm
+Uz
 mP
 Id
 mU
@@ -58525,30 +57986,30 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-Id
+Uz
+WY
+WY
+Qx
+Qx
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Qx
+Qx
+WY
+WY
+Rm
+Rm
+RP
+Kx
+Kx
+mU
 mU
 mH
 mH
@@ -58782,37 +58243,37 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-Id
-mU
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Ux
+Ux
+WY
+mI
+mI
 mI
 mO
-tw
-uc
+mS
+nv
 uz
-uV
+yj
 vm
 vU
 sY
@@ -59039,31 +58500,31 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-Id
-mU
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+US
+WY
+WY
+mI
+mI
 mI
 mS
 ud
@@ -59296,35 +58757,35 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-Id
-sY
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Ux
+WY
+WY
+mI
+mI
 mI
 nv
-ty
-ue
+mS
+mO
 uB
 uX
 vt
@@ -59553,30 +59014,30 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-Id
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Rm
+Rm
+RP
+Kx
+Kx
+mU
 mU
 mI
 mH
@@ -59810,28 +59271,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Rm
+Uz
 mP
 Id
 mU
@@ -60067,28 +59528,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Rm
+Uz
 mP
 mP
 Id
@@ -60324,28 +59785,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+Qx
+Qx
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Qx
+Qx
+WY
+WY
+WY
+WY
+Rm
+Uz
 mP
 mP
 Id
@@ -60581,28 +60042,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 mP
@@ -60838,28 +60299,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 mP
@@ -61095,28 +60556,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Zt
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 mP
@@ -61352,28 +60813,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 mP
@@ -61609,28 +61070,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 mP
@@ -61866,28 +61327,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+Qx
+Qx
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Qx
+Qx
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 mP
@@ -62123,28 +61584,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 mP
@@ -62380,28 +61841,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 mP
@@ -62637,28 +62098,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 mP
@@ -62894,28 +62355,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 mP
@@ -63151,28 +62612,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 mP
@@ -63408,28 +62869,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 mP
@@ -63665,28 +63126,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 mP
@@ -63922,28 +63383,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+Qx
+Qx
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Qx
+Qx
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 mP
@@ -64179,28 +63640,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+Qx
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Wh
+Qx
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 zG
@@ -64436,33 +63897,33 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 zG
 sP
-ta
+XW
 tF
 ut
 uN
@@ -64693,28 +64154,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+WY
+Uz
 mP
 mP
 zG
@@ -64950,28 +64411,28 @@ mP
 mP
 mP
 mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
-mP
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
+Uz
 mP
 zG
 sP
@@ -70085,7 +69546,7 @@ mP
 mW
 rW
 na
-oQ
+op
 oQ
 nq
 nu
@@ -70599,7 +70060,7 @@ mT
 mV
 rY
 ov
-op
+oQ
 oS
 nq
 nz
@@ -70856,7 +70317,7 @@ mV
 mP
 rW
 mY
-oQ
+op
 oS
 nq
 nA

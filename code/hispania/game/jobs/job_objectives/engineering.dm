@@ -21,7 +21,8 @@
 	var/datum/station_goal/ss = new/datum/station_goal/station_shield
 	var/datum/station_goal/bsa = new/datum/station_goal/bluespace_cannon
 	var/datum/station_goal/dnav = new/datum/station_goal/dna_vault
-	if(ss.check_completion() || bsa.check_completion() || dnav.check_completion())
+	var/datum/station_goal/redesp = new/datum/station_goal/redspacesearch
+	if(ss.check_completion() || bsa.check_completion() || dnav.check_completion() || redesp.check_completion())
 		return TRUE
 	return FALSE
 

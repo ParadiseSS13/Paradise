@@ -8,10 +8,6 @@
  *			Misc
  */
 
-
-/proc/format_table_name(table as text)
-	return sqlfdbktableprefix + table
-
 /*
  * Text sanitization
  */
@@ -512,6 +508,7 @@
 		text = replacetext(text, "\[row\]",		"</td><tr>")
 		text = replacetext(text, "\[cell\]",	"<td>")
 		text = replacetext(text, "\[logo\]",	"&ZeroWidthSpace;<img src = ntlogo.png>")
+		text = replacetext(text, "\[pogfish\]",	"&ZeroWidthSpace;<img src = pogfish.png>")
 		text = replacetext(text, "\[time\]",	"[station_time_timestamp()]") // TO DO
 		text = replacetext(text, "\[date\]",	"[GLOB.current_date_string]")
 		text = replacetext(text, "\[station\]", "[SSmapping.map_datum.fluff_name]")
@@ -594,6 +591,7 @@
 	text = replacetext(text, "</td><tr>",				"\[row\]")
 	text = replacetext(text, "<td>",					"\[cell\]")
 	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
+	text = replacetext(text, "<img src = pogfish.png>",	"\[pogfish\]")
 	return text
 
 /datum/html/split_holder
@@ -720,9 +718,9 @@
 /proc/client2rankcolour(client/C)
 	// First check if end user is an admin
 	if(C.holder)
-		if(C.holder.rank in GLOB.rank_colour_map)
+		if(C.holder.rank in GLOB.configuration.admin.rank_colour_map)
 			// Return their rank colour if they are in here
-			return GLOB.rank_colour_map[C.holder.rank]
+			return GLOB.configuration.admin.rank_colour_map[C.holder.rank]
 
 	// If they arent an admin, see if they are a patreon. Just accept any level
 	if(C.donator_level)

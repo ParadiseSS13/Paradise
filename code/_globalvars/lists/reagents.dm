@@ -40,7 +40,7 @@ GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","li
 					"booger","bloodymary","gargleblaster","bravebull","tequilasunrise","toxinsspecial",
 					"beepskysmash","salglu_solution","irishcream","manlydorf","longislandicedtea",
 					"moonshine","b52","irishcoffee","margarita","blackrussian","manhattan",
-					"manhattan_proj","whiskeysoda","antifreeze","barefoot","snowwhite","demonsblood",
+					"manhattan_proj","whiskeysoda","adminfreeze","antifreeze","barefoot","snowwhite","demonsblood",
 					"vodkatonic","ginfizz","bahama_mama","singulo","sbiten","devilskiss","red_mead",
 					"mead","iced_beer","grog","aloe","andalusia","alliescocktail","soy_latte",
 					"cafe_latte","acidspit","amasec","neurotoxin","hippiesdelight","bananahonk",
