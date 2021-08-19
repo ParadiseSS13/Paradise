@@ -329,12 +329,13 @@
 /**
   * The actual proc to turn on the lightbulb.
   *
-  * Do not call directly, use [/obj/machinery/light/proc/update] instead.
+  * Private proc, do not call directly. Use [/obj/machinery/light/proc/update] instead.
   *
   * Sets the light power, range, and colour based on environmental conditions such as night shift and fire alarms.
   * Also handles light bulbs burning out and exploding if `trigger` is `TRUE`.
   */
 /obj/machinery/light/proc/_turn_on(trigger, play_sound = TRUE)
+	PRIVATE_PROC(TRUE)
 	if(QDELETED(src))
 		return
 	turning_on = FALSE
