@@ -35,7 +35,7 @@
 	recently_charged = TRUE
 	update_icon()
 
-	var/recharge_time = 20 SECONDS
+	var/recharge_time = 45 SECONDS
 
 	addtimer(CALLBACK(src, .proc/reload), recharge_time)
 
