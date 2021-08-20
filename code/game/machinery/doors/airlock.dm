@@ -282,7 +282,6 @@ About the new airlock wires panel:
 	else if(duration)	//electrify door for the given duration seconds
 		if(user)
 			shockedby += text("\[[time_stamp()]\] - [user](ckey:[user.ckey])")
-			user.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
 			add_attack_logs(user, src, "Electrified", ATKLOG_ALL)
 		else
 			shockedby += text("\[[time_stamp()]\] - EMP)")

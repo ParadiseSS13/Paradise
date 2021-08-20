@@ -1266,11 +1266,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/get_access()
 	return list() //must return list or IGNORE_ACCESS
 
-/mob/proc/create_attack_log(text, collapse = TRUE)
-	LAZYINITLIST(attack_log_old)
-	create_log_in_list(attack_log_old, text, collapse, last_log)
-	last_log = world.timeofday
-
 /mob/proc/create_debug_log(text, collapse = TRUE)
 	LAZYINITLIST(debug_log)
 	create_log_in_list(debug_log, text, collapse, world.timeofday)
@@ -1478,7 +1473,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		MA.plane = GAME_PLANE
 		pic.appearance = MA
 		flick_overlay(pic, list(client), 10)
-    
+
 
 GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	/area/chapel

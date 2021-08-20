@@ -108,7 +108,6 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 		SSticker.mode.traitors += H.mind
 
 		H.mind.add_antag_datum(/datum/antagonist/survivalist/guns)
-		H.create_attack_log("<font color='red'>was made into a survivalist, and trusts no one!</font>")
 		H.create_log(CONVERSION_LOG, "was made into a survivalist")
 
 	var/gun_type = pick(GLOB.summoned_guns)
@@ -130,7 +129,6 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 		SSticker.mode.traitors += H.mind
 
 		H.mind.add_antag_datum(/datum/antagonist/survivalist/magic)
-		H.create_attack_log("<font color='red'>was made into a survivalist, and trusts no one!</font>")
 		H.create_log(CONVERSION_LOG, "was made into a survivalist")
 
 	var/magic_type = pick(GLOB.summoned_magic)

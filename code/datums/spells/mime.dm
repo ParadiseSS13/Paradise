@@ -142,7 +142,6 @@
 		user.mind.AddSpell(S)
 		to_chat(user, "<span class='notice'>You flip through the pages. Your understanding of the boundaries of reality increases. You can cast [spellname]!</span>")
 		user.create_log(MISC_LOG, "learned the spell [spellname] ([S])")
-		user.create_attack_log("<font color='orange'>[key_name(user)] learned the spell [spellname] ([S]).</font>")
 		onlearned(user)
 
 /obj/item/spellbook/oneuse/mime/recoil(mob/user)

@@ -33,12 +33,10 @@
 	var/computer_id = null
 	var/lastattacker = null // real name of the person  doing the attacking
 	var/lastattackerckey = null // their ckey
-	var/list/attack_log_old = list( )
 	var/list/debug_log = null
 
 	var/last_known_ckey = null	// Used in logging
 
-	var/last_log = 0
 	var/obj/machinery/machine = null
 	var/other_mobs = null
 	var/memory = ""

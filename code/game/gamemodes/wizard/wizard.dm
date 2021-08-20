@@ -57,7 +57,6 @@
 	if(wizard_mind in wizards)
 		SSticker.mode.wizards -= wizard_mind
 		wizard_mind.special_role = null
-		wizard_mind.current.create_attack_log("<span class='danger'>De-wizarded</span>")
 		wizard_mind.current.create_log(CONVERSION_LOG, "De-wizarded")
 		wizard_mind.current.spellremove(wizard_mind.current)
 		wizard_mind.current.faction = list("Station")
