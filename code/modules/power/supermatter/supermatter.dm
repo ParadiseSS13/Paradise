@@ -639,7 +639,7 @@
 		return FALSE
 	if(!istype(Proj.firer, /obj/machinery/power/emitter) && power_changes)
 		investigate_log("has been hit by [Proj] fired by [key_name(Proj.firer)]", "supermatter")
-	if(Proj.flag != "bullet")
+	if(Proj.flag != BULLET)
 		if(power_changes) //This needs to be here I swear
 			power += Proj.damage * bullet_energy
 			if(!has_been_powered)

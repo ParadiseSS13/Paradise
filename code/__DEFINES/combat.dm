@@ -10,6 +10,17 @@
 #define STAMINA 	"stamina"
 #define BRAIN		"brain"
 
+//damage flags
+#define MELEE 		"melee"
+#define BULLET 		"bullet"
+#define LASER 		"laser"
+#define ENERGY 		"energy"
+#define BOMB 		"bomb"
+#define BIO 		"bio"
+#define RAD 		"rad"
+#define FIRE 		"fire"
+#define ACID 		"acid"
+
 #define STUN		"stun"
 #define WEAKEN		"weaken"
 #define PARALYZE	"paralize"

@@ -315,7 +315,7 @@
 	if(HAS_TRAIT(occupant, TRAIT_GENELESS))
 		return TRUE
 
-	var/radiation_protection = occupant.run_armor_check(null, "rad")
+	var/radiation_protection = occupant.run_armor_check(null, RAD)
 	if(radiation_protection > NEGATE_MUTATION_THRESHOLD)
 		return TRUE
 	return FALSE

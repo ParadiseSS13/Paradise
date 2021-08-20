@@ -28,7 +28,7 @@
 	slices_num = 5
 	filling_color = "#8AFF75"
 	list_reagents = list("protein" = 20, "nutriment" = 10, "vitamin" = 5)
-	tastes = list("bread" = 10, "acid" = 10)
+	tastes = list("bread" = 10, ACID = 10)
 
 /obj/item/reagent_containers/food/snacks/xenomeatbreadslice
 	name = "xenomeatbread slice"

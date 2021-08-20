@@ -152,7 +152,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	icon_state = "sheet-plasteel"
 	item_state = "sheet-metal"
 	materials = list(MAT_METAL=2000, MAT_PLASMA=2000)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 80)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
 	resistance_flags = FIRE_PROOF
 	throwforce = 10.0
 	flags = CONDUCT
@@ -205,7 +205,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	icon_state = "sheet-wood"
 	origin_tech = "materials=1;biotech=1"
 	resistance_flags = FLAMMABLE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
 	merge_type = /obj/item/stack/sheet/wood
 
 /obj/item/stack/sheet/wood/New(loc, amount=null)

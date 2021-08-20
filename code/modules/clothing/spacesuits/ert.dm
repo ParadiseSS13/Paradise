@@ -269,7 +269,7 @@
 	icon_state = "hardsuit0-solgovmarine"
 	item_state = "hardsuit0-solgovmarine"
 	item_color = "solgovmarine"
-	armor = list("melee" = 35, "bullet" = 60, "laser" = 15, "energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 35, BULLET = 60, LASER = 15, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/suit/space/hardsuit/ert/solgov
 	name = "\improper Trans-Solar Federation Specops Marine hardsuit"
@@ -279,7 +279,7 @@
 	item_state = "ert_solgov_marine"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov
 	slowdown = 0
-	armor = list("melee" = 35, "bullet" = 60, "laser" = 15, "energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 35, BULLET = 60, LASER = 15, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov/command
 	name = "\improper Trans-Solar Federation Specops Lieutenant helmet"

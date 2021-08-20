@@ -21,7 +21,7 @@
 	/area/turret_protected/ai, /area/storage/emergency, /area/storage/emergency2, /area/crew_quarters/sleep, /area/security/brig, /area/shuttle)
 	target_trait = STATION_LEVEL
 
-	immunity_type = "rad"
+	immunity_type = RAD
 
 /datum/weather/rad_storm/telegraph()
 	..()
@@ -32,7 +32,7 @@
 
 
 /datum/weather/rad_storm/weather_act(mob/living/L)
-	var/resist = L.getarmor(null, "rad")
+	var/resist = L.getarmor(null, RAD)
 	if(prob(40))
 		if(ishuman(L))
 			var/mob/living/carbon/human/H = L

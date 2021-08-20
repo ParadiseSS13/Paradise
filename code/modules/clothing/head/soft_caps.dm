@@ -107,7 +107,7 @@
 	desc = "It's baseball hat in tasteful red colour."
 	icon_state = "secsoft"
 	item_color = "sec"
-	armor = list("melee" = 35, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/softcap
 
@@ -125,7 +125,7 @@
 	dog_fashion = null
 
 /obj/item/clothing/head/soft/solgov/marines
-	armor = list("melee" = 20, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	armor = list(MELEE = 20, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 10, RAD = 0, FIRE = 50, ACID = 60)
 	icon_state = "solgovsoft_flipped"
 	strip_delay = 60
 	flipped = TRUE
@@ -133,7 +133,7 @@
 /obj/item/clothing/head/soft/solgov/marines/elite
 	name = "\improper Trans-Solar Federation Specops marine cap"
 	desc = "A cap worn by marines of the Trans-Solar Federation Specops division. You aren't quite sure how they made this bulletproof, but you are glad it is!"
-	armor = list("melee" = 35, "bullet" = 60, "laser" = 10, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 50, "fire" = 80, "acid" = 80)
+	armor = list(MELEE = 35, BULLET = 60, LASER = 10, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 50, FIRE = 80, ACID = 80)
 	icon_state = "solgovelitesoft_flipped"
 	item_color = "solgovelite"
 	resistance_flags = FIRE_PROOF
@@ -141,7 +141,7 @@
 /obj/item/clothing/head/soft/solgov/marines/command
 	name = "\improper Trans-Solar Federation lieutenant's cap"
 	desc = "A soft cap worn by marines of the Trans-Solar Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
-	armor = list("melee" = 20, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	armor = list(MELEE = 20, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 10, RAD = 0, FIRE = 50, ACID = 60)
 	icon_state = "solgovcsoft_flipped"
 	item_color = "solgovc"
 	dog_fashion = null
@@ -150,7 +150,7 @@
 /obj/item/clothing/head/soft/solgov/marines/command/elite
 	name = "\improper Trans-Solar Federation Specops Lieutenant's cap"
 	desc = "A cap worn by marines of the Trans-Solar Federation Specops division. You aren't quite sure how they made this bulletproof, but you are glad it is! The insignia signifies the wearer bears the rank of a Lieutenant."
-	armor= list("melee" = 35, "bullet" = 60, "laser" = 10, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 50, "fire" = 80, "acid" = 80)
+	armor= list(MELEE = 35, BULLET = 60, LASER = 10, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 50, FIRE = 80, ACID = 80)
 	icon_state = "solgovcelitesoft"
 	item_color = "solgovcelite"
 	resistance_flags = FIRE_PROOF
