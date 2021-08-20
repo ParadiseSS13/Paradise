@@ -131,7 +131,9 @@
 
 /obj/machinery/chem_dispenser/update_icon()
 	if(panel_open)
-		icon_state = "dispenser-o"
+		icon_state = "[initial(icon_state)]-o"
+		return
+	if(is_drink)
 		return
 	if(!powered())
 		icon_state = "dispenser_nopower"
