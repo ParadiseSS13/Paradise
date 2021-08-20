@@ -82,10 +82,7 @@
 
 /obj/item/nuke_core_container/attack_hand(mob/user)
 	if(cracked && core)
-		core.add_fingerprint(user)
-		user.put_in_active_hand(core)
-		core = null
-		icon_state = "core_container_cracked_empty"
+		unload(user)
 	else
 		return ..()
 
@@ -98,6 +95,12 @@
 	icon_state = "core_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
 	addtimer(CALLBACK(src, .proc/seal), 10 SECONDS)
+
+/obj/item/nuke_core_container/proc/unload(mob/user)
+	core.add_fingerprint(user)
+	user.put_in_active_hand(core)
+	core = null
+	icon_state = "core_container_cracked_empty"
 
 /obj/item/nuke_core_container/proc/seal()
 	if(!QDELETED(core))
@@ -124,6 +127,7 @@
 		icon_state = "core_container_cracked_loaded"
 	else
 		icon_state = "core_container_cracked_empty"
+	name = "broken nuke core container"
 	cracked = TRUE
 
 /obj/item/paper/guides/antag/nuke_instructions
@@ -247,14 +251,12 @@
 		if(ismob(loc))
 			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [sliver] is safely contained.</span>")
 
-/obj/item/nuke_core_container/supermatter/proc/unload(obj/item/retractor/supermatter/I, mob/user)
+/obj/item/nuke_core_container/supermatter/unload(obj/item/retractor/supermatter/I, mob/user)
 	if(!istype(I) || I.sliver)
 		return
 	sliver.forceMove(I)
 	I.sliver = sliver
 	sliver = null
-	I.icon_state = "supermatter_tongs"
-	I.item_state = "supermatter_tongs"
 	I.icon_state = "supermatter_tongs_loaded"
 	I.item_state = "supermatter_tongs_loaded"
 	icon_state = "core_container_cracked_empty"
@@ -275,12 +277,17 @@
 	if(cracked && sliver) //What did we say about touching the shard...
 		if(!isliving(user) || user.status_flags & GODMODE)
 			return FALSE
-		user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",
-				"<span class='userdanger'>You reach for [src] with your hands. That was dumb.</span>",
-				"<span class='hear'>Everything suddenly goes silent.</span>")
+		user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [sliver]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",
+				"<span class='userdanger'>You reach for [sliver] with your hands. That was dumb.</span>",
+				"<span class='italics'>Everything suddenly goes silent.</span>")
 		radiation_pulse(user, 500, 2)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
+		message_admins("[sliver] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
+		investigate_log("has consumed [key_name(user)].", "supermatter")
 		user.dust()
+		icon_state = "core_container_cracked_empty"
+		qdel(sliver)
+
 	else
 		return ..()
 
@@ -291,6 +298,7 @@
 		icon_state = "supermatter_container_cracked_loaded"
 	else
 		icon_state = "core_container_cracked_empty"
+	name = "broken supermatter bin"
 	cracked = TRUE
 
 /obj/item/scalpel/supermatter
