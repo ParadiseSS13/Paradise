@@ -268,6 +268,8 @@
 	container_type = OPENCONTAINER
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 
+/obj/item/reagent_containers/glass/beaker/bluespace/update_icon()
+	return
 /obj/item/reagent_containers/glass/beaker/cryoxadone
 	list_reagents = list("cryoxadone" = 30)
 
