@@ -20,6 +20,7 @@
 #define RAD 		"rad"
 #define FIRE 		"fire"
 #define ACID 		"acid"
+#define MAGIC		"magic"
 
 #define STUN		"stun"
 #define WEAKEN		"weaken"
