@@ -126,10 +126,17 @@
 /obj/machinery/chem_dispenser/power_change()
 	if(powered())
 		stat &= ~NOPOWER
-		icon_state = "dispenser"
 	else
 		stat |= NOPOWER
-		icon_state = "[icon_state]_nopower"
+
+/obj/machinery/chem_dispenser/update_icon()
+	if(panel_open)
+		icon_state = "dispenser-o"
+		return
+	if(!powered())
+		icon_state = "dispenser_nopower"
+		return
+	icon_state = "dispenser[beaker ? "_working" : ""]"
 
 /obj/machinery/chem_dispenser/ex_act(severity)
 	if(severity < 3)
@@ -221,6 +228,7 @@
 			if(Adjacent(usr) && !issilicon(usr))
 				usr.put_in_hands(beaker)
 			beaker = null
+			update_icon()
 		else
 			return FALSE
 
@@ -249,6 +257,7 @@
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
 		SStgui.update_uis(src) // update all UIs attached to src
+		update_icon()
 		return
 	return ..()
 
