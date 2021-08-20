@@ -59,16 +59,16 @@
 
 /obj/item/nuke_core_container/ex_act(severity)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			if(!cracked)
 				crack_open()
 			return
-		if(2)
+		if(EXPLODE_HEAVY)
 			if(!dented)
 				dented = TRUE
 			return
 
-		if(3)
+		if(EXPLODE_LIGHT)
 			return
 
 /obj/item/nuke_core_container/examine(mob/user)
@@ -76,7 +76,7 @@
 	if(!cracked)
 		. += "Fine print on the box reads \"Cybersun Industries secure container, guaranteed thermite proof, assistant proof, and explosive resistant.\""
 	if(dented && !cracked)
-		. += "<span class='notice'>[src] looks dented. Perhaps a bigger explosion may break it."
+		. += "<span class='notice'>[src] looks dented. Perhaps a bigger explosion may break it.</span>"
 	if(cracked)
 		. += "<span class='warning'>It is broken, and can no longer store objects safely.</span>"
 
