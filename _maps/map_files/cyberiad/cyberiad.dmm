@@ -17850,12 +17850,12 @@
 /area/maintenance/fpmaint2)
 "aNE" = (
 /obj/machinery/atmospherics/binary/valve,
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aNF" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aNG" = (
 /obj/structure/cable{
@@ -18496,7 +18496,7 @@
 	dir = 8
 	},
 /obj/machinery/meter,
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aPb" = (
 /obj/machinery/door/airlock/maintenance{
@@ -47621,7 +47621,7 @@
 	name = "KEEP CLEAR: EMERGENCY ENTRANCE";
 	pixel_x = 32
 	},
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "bXC" = (
 /obj/structure/cable{
@@ -51645,7 +51645,7 @@
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "ceH" = (
 /obj/structure/cable{
@@ -52656,7 +52656,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "cgK" = (
 /obj/structure/cable{
@@ -52675,7 +52675,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "cgL" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -54047,7 +54047,7 @@
 	tag = ""
 	},
 /obj/machinery/light,
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "cjp" = (
 /obj/structure/cable{
@@ -54074,7 +54074,7 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "cjs" = (
 /obj/structure/cable{
@@ -73828,9 +73828,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"cUF" = (
-/turf/simulated/floor/transparent/glass,
-/area/hallway/primary/central/se)
 "cUG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -79694,7 +79691,10 @@
 	req_access_txt = "17;75"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark"
+	},
 /area/turret_protected/aisat_interior)
 "diK" = (
 /obj/machinery/light/small{
@@ -79764,7 +79764,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark"
+	},
 /area/turret_protected/aisat_interior)
 "diU" = (
 /obj/structure/lattice,
@@ -80127,7 +80130,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark"
+	},
 /area/turret_protected/aisat_interior)
 "djJ" = (
 /obj/structure/cable{
@@ -84011,11 +84017,6 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
-"eOT" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/transparent/glass,
-/area/hallway/primary/central/se)
 "ePY" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -85425,18 +85426,6 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
-"sEA" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/transparent/glass,
-/area/hallway/primary/central/se)
 "sHt" = (
 /turf/simulated/floor/engine,
 /area/holodeck/alphadeck)
@@ -85877,12 +85866,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
-"xrZ" = (
-/obj/machinery/atmospherics/unary/tank/air{
-	dir = 8
-	},
-/turf/simulated/floor/transparent/glass,
-/area/maintenance/fpmaint2)
 "xuG" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -103045,7 +103028,7 @@ aLx
 aLp
 aGn
 aNF
-xrZ
+aOZ
 aOZ
 aPc
 aRC
@@ -118507,8 +118490,8 @@ bXY
 bSi
 bSi
 bSi
-cUF
-sEA
+bFO
+cgr
 cjo
 chf
 cdW
@@ -119021,9 +119004,9 @@ bYa
 bZr
 cbm
 bKN
-eOT
+bKN
 cgJ
-cUF
+bFO
 chf
 ceb
 ceb
@@ -119279,8 +119262,8 @@ bZC
 cbs
 bWf
 bXB
-cUF
-cUF
+bFO
+bFO
 chf
 chf
 chf
