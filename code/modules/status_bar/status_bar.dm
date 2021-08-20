@@ -9,7 +9,7 @@
  * Target can be either of `/client` or `/mob`.
  */
 /proc/status_bar_set_text(target, text)
-	var/client/client = CLIENT_FROM_VAR(target)
+	var/client/client = client_from_var(target)
 	// Stop a winset call if text didn't change.
 	if(!client || client.status_bar_prev_text == text)
 		return
