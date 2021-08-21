@@ -68,11 +68,11 @@
 
 /obj/item/nuke_core_container/examine(mob/user)
 	. = ..()
-	if(cracked) // Cracked open
+	if(cracked) // Cracked open.
 		. += "<span class='warning'>It is broken, and can no longer store objects safely.</span>"
-	else if(dented) // Not cracked, but dented
+	else if(dented) // Not cracked, but dented.
 		. += "<span class='notice'>[src] looks dented. Perhaps a bigger explosion may break it.</span>"
-	else // Not cracked or dented
+	else // Not cracked or dented.
 		. += "Fine print on the box reads \"Cybersun Industries secure container, guaranteed thermite proof, assistant proof, and explosive resistant.\""
 
 /obj/item/nuke_core_container/attack_hand(mob/user)
