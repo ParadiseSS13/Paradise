@@ -133,7 +133,7 @@
 /obj/item/paper/guides/antag/nuke_instructions
 	info = "How to break into a Nanotrasen nuclear device and remove its plutonium core:<br>\
 	<ul>\
-	<li>Aquire some clothing that protects you from radiation, due to the radioactivity of the core.</li>\
+	<li>Acquire some clothing that protects you from radiation, due to the radioactivity of the core.</li>\
 	<li>Use a screwdriver with a very thin tip (provided) to unscrew the terminal's front panel.</li>\
 	<li>Dislodge and remove the front panel with a crowbar.</li>\
 	<li>Cut the inner metal plate with a welding tool.</li>\
