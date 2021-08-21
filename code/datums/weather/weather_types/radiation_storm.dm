@@ -21,7 +21,7 @@
 	/area/turret_protected/ai, /area/storage/emergency, /area/storage/emergency2, /area/crew_quarters/sleep, /area/security/brig, /area/shuttle)
 	target_trait = STATION_LEVEL
 
-	immunity_type = RAD
+	immunity_type = "rad"
 
 /datum/weather/rad_storm/telegraph()
 	..()

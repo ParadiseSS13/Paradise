@@ -86,7 +86,7 @@
 	filling_color = "#43DE18"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("bun" = 4, ACID = 4)
+	tastes = list("bun" = 4, "acid" = 4)
 
 /obj/item/reagent_containers/food/snacks/clownburger
 	name = "clown burger"

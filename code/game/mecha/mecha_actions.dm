@@ -217,9 +217,9 @@
 			new_damtype = "brute"
 			chassis.occupant_message("Your exosuit's hands form into fists.")
 		if("brute")
-			new_damtype = FIRE
+			new_damtype = "fire"
 			chassis.occupant_message("A torch tip extends from your exosuit's hand, glowing red.")
-		if(FIRE)
+		if("fire")
 			new_damtype = "tox"
 			chassis.occupant_message("A bone-chillingly thick plasteel needle protracts from the exosuit's palm.")
 	chassis.damtype = new_damtype

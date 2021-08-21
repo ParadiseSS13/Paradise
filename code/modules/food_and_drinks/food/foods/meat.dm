@@ -108,7 +108,7 @@
 	filling_color = "#43DE18"
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 1)
-	tastes = list("meat" = 1, ACID = 1)
+	tastes = list("meat" = 1, "acid" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spidermeat
 	name = "spider meat"
