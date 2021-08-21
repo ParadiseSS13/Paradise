@@ -106,7 +106,7 @@
 			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [core]'s radiation is contained.</span>")
 
 /obj/item/nuke_core_container/attackby(obj/item/nuke_core/plutonium/core, mob/user)
-	if(!istype(core))
+	if(!istype(core) || cracked)
 		return ..()
 
 	if(!user.drop_item())
@@ -116,7 +116,7 @@
 		load(core, user)
 
 /obj/item/nuke_core_container/proc/crack_open()
-	visible_message("<span class='notice'>[src] bursts open!</span>")
+	visible_message("<span class='boldnotice'>[src] bursts open!</span>")
 	if(core)
 		START_PROCESSING(SSobj, core)
 		icon_state = "core_container_cracked_loaded"
@@ -287,7 +287,7 @@
 		return ..()
 
 /obj/item/nuke_core_container/supermatter/crack_open()
-	visible_message("<span class='notice'>[src] bursts open!</span>")
+	visible_message("<span class='boldnotice'>[src] bursts open!</span>")
 	if(sliver)
 		START_PROCESSING(SSobj, sliver)
 		icon_state = "supermatter_container_cracked_loaded"
