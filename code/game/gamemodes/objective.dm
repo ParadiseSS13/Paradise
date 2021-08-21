@@ -389,7 +389,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 		steal_target = O
 		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
-		if(length(O.protected_jobs))
+		if(length(O.protected_jobs) && O.job_possession)
 			explanation_text += "It may also be in the possession of the [english_list(O.protected_jobs, and_text = " or ")]."
 		if(steal_target.special_equipment)
 			give_kit(steal_target.special_equipment)

@@ -253,7 +253,10 @@
 		/obj/item/key,
 		/obj/item/door_remote,
 		/obj/item/autopsy_scanner,
-		/obj/item/holosign_creator/atmos
+		/obj/item/holosign_creator/atmos,
+		/obj/item/clothing/gloves/color/black/forensics,
+		/obj/item/rcd,
+		/obj/item/rpd
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -341,21 +344,23 @@
 			return CRYO_PRESERVE
 	return CRYO_DESTROY
 
-// This function can not be undone; do not call this unless you are sure
-// Also make sure there is a valid control computer
+
+/obj/machinery/cryopod/proc/handle_contents(obj/item/I)
+	if(length(I.contents)) //Make sure we catch anything not handled by qdel() on the items.
+		if(should_preserve_item(I) != CRYO_DESTROY) // Don't remove the contents of things that need preservation
+			return
+		for(var/obj/item/O in I.contents)
+			if(istype(O, /obj/item/tank)) //Stop eating pockets, you fuck!
+				continue
+			handle_contents(O)
+			O.forceMove(src)
+
 /obj/machinery/cryopod/proc/despawn_occupant()
 	//Drop all items into the pod.
 	for(var/obj/item/I in occupant)
 		occupant.unEquip(I)
 		I.forceMove(src)
-
-		if(I.contents.len) //Make sure we catch anything not handled by qdel() on the items.
-			if(should_preserve_item(I) != CRYO_DESTROY) // Don't remove the contents of things that need preservation
-				continue
-			for(var/obj/item/O in I.contents)
-				if(istype(O, /obj/item/tank)) //Stop eating pockets, you fuck!
-					continue
-				O.forceMove(src)
+		handle_contents(I)
 
 	for(var/obj/machinery/computer/cloning/cloner in GLOB.machines)
 		for(var/datum/dna2/record/R in cloner.records)
