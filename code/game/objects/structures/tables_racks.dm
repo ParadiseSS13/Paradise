@@ -406,11 +406,12 @@
 	. = ..()
 	if(flags & NODECONSTRUCT)
 		return
-	if(isliving(AM))
-		var/mob/living/M = AM
-		if(M.incorporeal_move || M.flying || M.floating)
-			return
-	else
+	if(!isliving(AM))
+		return
+	var/mob/living/L = AM
+	if(L.incorporeal_move || L.flying || L.floating)
+		return
+
 		return
 	// Don't break if they're just flying past
 	if(AM.throwing)
