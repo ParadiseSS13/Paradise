@@ -415,8 +415,7 @@
 	sound = null
 
 /obj/effect/proc_holder/spell/exit_possession/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/exit_possession/cast(list/targets, mob/user = usr)
 	if(!isfloorturf(user.loc))

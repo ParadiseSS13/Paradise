@@ -1,4 +1,9 @@
-/datum/spell_targeting/can_reach_around/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
+/**
+ * A spell targeting system which will return nearby turfs which are reachable from the users location. Will pad the targets with the user's location if needed
+ */
+/datum/spell_targeting/reachable_turfs
+
+/datum/spell_targeting/reachable_turfs/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
 	var/list/turf/locs = list()
 	for(var/direction in GLOB.alldirs)
 		if(length(locs) == max_targets) //we found 2 locations and thats all we need

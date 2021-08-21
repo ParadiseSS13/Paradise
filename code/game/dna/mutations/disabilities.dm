@@ -500,8 +500,7 @@
 	action_icon_state = "genetic_incendiary"
 
 /obj/effect/proc_holder/spell/immolate/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/immolate/cast(list/targets, mob/living/user = usr)
 	var/mob/living/carbon/L = user

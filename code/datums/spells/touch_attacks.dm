@@ -4,8 +4,7 @@
 	invocation_type = "none" //you scream on connecting, not summoning
 
 /obj/effect/proc_holder/spell/touch/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/touch/Click(mob/user = usr)
 	if(attached_hand)

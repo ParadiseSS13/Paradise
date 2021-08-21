@@ -162,13 +162,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(start_recharge)
 		spend_spell_cost(user)
 
-	if(action)
-		action.UpdateButtonIcon()
 	return 1
 
 /**
  * Allows for spell specific target validation. Will be used by the spell_targeting datums
  *
+ * Arguments:
  * * target - Who is being considered
  * * user - Who is the user of this spell
  */
@@ -177,6 +176,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /**
  * Will spend the cost of using this spell once. Will update the action button's icon if there is any
+ *
+ * Arguments:
  * * user - Who used this spell?
  */
 /obj/effect/proc_holder/spell/proc/spend_spell_cost(mob/user)
@@ -232,6 +233,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /**
  * Creates and returns the targeting datum for this spell type. Override this!
+ * Should return a value of type [/datum/spell_targeting]
  */
 /obj/effect/proc_holder/spell/proc/create_new_targeting()
 	RETURN_TYPE(/datum/spell_targeting)
@@ -303,6 +305,14 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	STOP_PROCESSING(SSfastprocess, src)
 	charge_counter = charge_max
 
+/**
+ * Handles all the code for performing a spell once the targets are known
+ *
+ * Arguments:
+ * * targets - The list of targets the spell is being cast on. Will not be empty or null
+ * * recharge - Whether or not the spell should go recharge
+ * * user - The caster of the spell
+ */
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = 1, mob/user = usr) //if recharge is started is important for the trigger spells
 	before_cast(targets)
 	invocation()
@@ -377,6 +387,13 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 				smoke.set_up(smoke_amt, 0, location) // same here
 				smoke.start()
 
+/**
+ * The proc where the actual spell gets cast.
+ *
+ * Arguments:
+ * * targets - The targets being targeted by the spell
+ * * user - The caster of the spell
+ */
 /obj/effect/proc_holder/spell/proc/cast(list/targets, mob/user = usr)
 	return
 

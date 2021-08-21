@@ -18,8 +18,7 @@
 	action_icon_state = "skeleton"
 
 /obj/effect/proc_holder/spell/lichdom/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/lichdom/Destroy()
 	for(var/datum/mind/M in SSticker.mode.wizards) //Make sure no other bones are about

@@ -10,8 +10,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	var/cycles_unused = 0
 
 /obj/effect/proc_holder/spell/shadowling_hatch/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/shadowling_hatch/cast(list/targets, mob/user = usr)
 	if(user.stat || !ishuman(user) || !user || !is_shadow(user || isinspace(user)))
@@ -123,8 +122,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	action_icon_state = "ascend"
 
 /obj/effect/proc_holder/spell/shadowling_ascend/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/shadowling_ascend/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
 	if(!shadowling_check(user))

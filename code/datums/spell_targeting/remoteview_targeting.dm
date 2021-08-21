@@ -1,3 +1,6 @@
+/**
+ * A spell targeting system which will return one user picked target from all alive mobs who have the remoteview block but do not have the psyresist block active.
+ */
 /datum/spell_targeting/remoteview
 
 /datum/spell_targeting/remoteview/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)

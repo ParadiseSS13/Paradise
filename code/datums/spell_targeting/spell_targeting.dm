@@ -1,9 +1,16 @@
+/**
+ * The base class for the targeting systems spells use.
+ *
+ * To create a new targeting datum you just inherit from this base type and override the [/datum/spell_targeting/proc/choose_targets] proc.
+ * Override the [/datum/spell_targeting/proc/valid_target] proc for more complex validations.
+ * More complex behaviour like [auto targeting][/datum/spell_targeting/proc/attempt_auto_target] and [click based][/datum/spell_targeting/proc/InterceptClickOn] activation is possible.
+ */
 /datum/spell_targeting
 	/// The range of the spell; outer radius for aoe spells
 	var/range = 7
 	/// Can be SPELL_SELECTION_RANGE or SPELL_SELECTION_VIEW
 	var/selection_type = SPELL_SELECTION_VIEW
-	/// How many targets are allowed.
+	/// How many targets are allowed. INFINITY is used to target unlimited targets
 	var/max_targets = 1
 	/// Which type the targets have to be
 	var/allowed_type = /mob/living/carbon/human
@@ -41,7 +48,7 @@
 			target = A
 
 	if(target)
-		to_chat(user, "<span class='warning'>Only one target found. Casting [src] on [target]!</span>")
+		to_chat(user, "<span class='warning'>Only one target found. Casting [spell] on [target]!</span>")
 		spell.try_perform(list(target), user)
 		return TRUE
 	return FALSE
@@ -68,5 +75,6 @@
  * * spell - The spell being cast
  */
 /datum/spell_targeting/proc/valid_target(target, user, obj/effect/proc_holder/spell/spell)
+	SHOULD_CALL_PARENT(TRUE)
 	return istype(target, allowed_type) && (include_user || target != user) && \
 		spell.valid_target(target, user) && (target in view_or_range(range, use_turf_of_user ? get_turf(user) : user, selection_type))

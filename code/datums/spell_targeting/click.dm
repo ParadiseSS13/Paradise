@@ -1,3 +1,6 @@
+/**
+ * A click based spell targeting system. The clicked atom will be used to determine who/what to target
+ */
 /datum/spell_targeting/click
 	use_intercept_click = TRUE
 	try_auto_target = TRUE
@@ -15,11 +18,11 @@
 		return targets
 
 	var/list/found_others = list()
-	for(var/atom/target in range(click_radius, clicked_atom))
-		if(clicked_atom != target && valid_target(target, user, spell))
+	for(var/atom/target in range(click_radius, clicked_atom) - clicked_atom)
+		if(valid_target(target, user, spell))
 			found_others += target
 
-	if(max_targets <= length(found_others) + length(targets))
+	if(max_targets >= length(found_others) + length(targets))
 		targets.Add(found_others)
 	else
 		switch(random_target_priority) //Add in the rest
@@ -27,14 +30,8 @@
 				while(length(targets) < max_targets && length(found_others)) // Add the others
 					targets.Add(pick_n_take(found_others))
 			if(SPELL_TARGET_CLOSEST)
-				var/list/distances = list()
-				for(var/target in found_others) // maybe not needed TODO check
-					distances[target] = get_dist(user, target)
-				sortTim(distances, /proc/cmp_numeric_asc, TRUE) // Sort on distance
-				for(var/target in distances)
-					targets.Add(target)
-					if(length(targets) >= max_targets)
-						break
+				// Take the first X. Byond's view/range procs already keep distance in mind. Will have a bias towards the left targets due to this
+				targets += found_others.Copy(1, max_targets - length(targets) + 1)
 
 	return targets
 

@@ -1,3 +1,6 @@
+/**
+ * A spell targeting system which is able to select 1 to many targets in range/view of the caster. Has a random mode, distance from user based mode or a user input mode.
+ */
 /datum/spell_targeting/targeted
 	/// Only important if max_targets > 1, affects if the spell can be cast multiple times at one person from one cast
 	var/can_hit_target_more_than_once = FALSE

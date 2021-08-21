@@ -109,8 +109,7 @@
 	action_icon_state = "shadow_walk"
 
 /obj/effect/proc_holder/spell/shadow_walk/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/shadow_walk/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr)
 	if(!shadowling_check(user))
@@ -146,8 +145,7 @@
 	action_icon_state = "shadow_walk"
 
 /obj/effect/proc_holder/spell/lesser_shadow_walk/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/lesser_shadow_walk/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
@@ -167,8 +165,7 @@
 	action_icon_state = "darksight"
 
 /obj/effect/proc_holder/spell/shadow_vision/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/shadow_vision/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
@@ -300,8 +297,7 @@
 	action_icon_state = "regen_armor"
 
 /obj/effect/proc_holder/spell/shadowling_regenarmor/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/shadowling_regenarmor/cast(list/targets, mob/user = usr)
 	if(!is_shadow(user))
@@ -337,8 +333,7 @@
 	action_icon_state = "collective_mind"
 
 /obj/effect/proc_holder/spell/collective_mind/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/collective_mind/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
 	if(!shadowling_check(user))
@@ -416,8 +411,7 @@
 	action_icon_state = "black_smoke"
 
 /obj/effect/proc_holder/spell/blindness_smoke/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/blindness_smoke/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
 	if(!shadowling_check(user))
@@ -802,8 +796,7 @@
 	action_icon_state = "shadow_walk"
 
 /obj/effect/proc_holder/spell/shadowling_phase_shift/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/shadowling_phase_shift/cast(list/targets, mob/user = usr)
 	var/mob/living/simple_animal/ascendant_shadowling/SHA = user
@@ -864,8 +857,7 @@
 	action_icon_state = "transmit"
 
 /obj/effect/proc_holder/spell/shadowlingAscendantTransmit/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/shadowlingAscendantTransmit/cast(list/targets, mob/user = usr)
 	for(var/mob/living/simple_animal/ascendant_shadowling/target in targets)

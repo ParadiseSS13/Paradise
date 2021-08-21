@@ -18,8 +18,7 @@
 		/mob/living/simple_animal/hostile/construct/armoured)
 
 /obj/effect/proc_holder/spell/shapeshift/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/shapeshift/cast(list/targets, mob/user = usr)
 	for(var/mob/living/M in targets)

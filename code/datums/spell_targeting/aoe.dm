@@ -1,3 +1,6 @@
+/**
+ * An area of effect based spell targeting system. Will return all targets in the given range
+ */
 /datum/spell_targeting/aoe
 	max_targets = INFINITY
 	/// The radius of turfs not being affected. -1 is inactive

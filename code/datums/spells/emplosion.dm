@@ -8,8 +8,7 @@
 	action_icon_state = "emp"
 
 /obj/effect/proc_holder/spell/emplosion/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/emplosion/cast(list/targets, mob/user = usr)
 

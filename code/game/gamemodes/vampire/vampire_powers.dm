@@ -110,8 +110,7 @@
 	return C
 
 /obj/effect/proc_holder/spell/vampire/self/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/vampire/mob_aoe/create_new_targeting()
 	var/datum/spell_targeting/aoe/A = new()
@@ -385,7 +384,7 @@
 	var/num_bats = 2
 
 /obj/effect/proc_holder/spell/vampire/bats/create_new_targeting()
-	var/datum/spell_targeting/can_reach_around/R = new()
+	var/datum/spell_targeting/reachable_turfs/R = new()
 	R.max_targets = num_bats
 	return R
 

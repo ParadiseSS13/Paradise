@@ -1,3 +1,6 @@
+/**
+ * A spell targeting system which will allow the user to select a target from nearby living mobs. The name will be "Unknown entity" if the user can not see them
+ */
 /datum/spell_targeting/telepathic
 
 /datum/spell_targeting/telepathic/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)

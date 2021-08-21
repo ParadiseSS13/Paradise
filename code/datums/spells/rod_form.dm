@@ -14,8 +14,7 @@
 	var/rod_delay = 2
 
 /obj/effect/proc_holder/spell/rod_form/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/rod_form/cast(list/targets,mob/user = usr)
 	for(var/mob/living/M in targets)

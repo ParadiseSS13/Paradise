@@ -10,8 +10,7 @@
 	action_icon_state = "charge"
 
 /obj/effect/proc_holder/spell/charge/create_new_targeting()
-	var/datum/spell_targeting/self/S = new()
-	return S
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/charge/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in targets)

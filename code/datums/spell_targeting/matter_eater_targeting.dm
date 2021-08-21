@@ -1,3 +1,6 @@
+/**
+ * A spell targeting system especially made for the matter eater gene
+ */
 /datum/spell_targeting/matter_eater
 	range = 1
 	var/list/types_allowed = list(
@@ -26,9 +29,9 @@
 	var/list/possible_targets = list()
 
 	for(var/atom/movable/O in view_or_range(range, user, selection_type))
-		if((O in user) && is_type_in_list(O,own_blacklist))
+		if((O in user) && is_type_in_list(O, own_blacklist))
 			continue
-		if(is_type_in_list(O,types_allowed))
+		if(is_type_in_list(O, types_allowed))
 			if(isanimal(O))
 				var/mob/living/simple_animal/SA = O
 				if(!SA.gold_core_spawnable)
