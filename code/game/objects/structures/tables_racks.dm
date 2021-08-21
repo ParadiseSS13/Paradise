@@ -412,7 +412,6 @@
 	if(L.incorporeal_move || L.flying || L.floating)
 		return
 
-		return
 	// Don't break if they're just flying past
 	if(AM.throwing)
 		addtimer(CALLBACK(src, .proc/throw_check, AM), 5)
