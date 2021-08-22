@@ -13,7 +13,7 @@
 	width = 18
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aac" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -933,7 +933,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -24
+	pixel_x = -23
 	},
 /turf/simulated/floor/plating,
 /area/security/permabrig)
@@ -1515,7 +1515,7 @@
 "aeZ" = (
 /obj/machinery/power/apc{
 	dir = 1;
-	name = "north bump";
+	name = "Prisoner Education Chamber APC";
 	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
@@ -1722,7 +1722,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -24
+	pixel_x = -23
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -2522,7 +2522,7 @@
 /area/security/armoury)
 "ahf" = (
 /obj/machinery/alarm{
-	pixel_y = 24
+	pixel_y = 28
 	},
 /obj/structure/rack,
 /obj/item/gun/energy/ionrifle,
@@ -2867,8 +2867,10 @@
 /area/security/permabrig)
 "ahO" = (
 /obj/machinery/power/apc{
+	cell_type = 5000;
 	dir = 1;
-	name = "north bump";
+	name = "Prison Wing APC";
+	pixel_x = 1;
 	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
@@ -3014,7 +3016,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -24
+	pixel_x = -22
 	},
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
@@ -3333,7 +3335,7 @@
 "aiG" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -24
+	pixel_y = -22
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -4066,7 +4068,9 @@
 /area/security/permabrig)
 "akg" = (
 /obj/machinery/power/apc{
-	name = "south bump";
+	cell_type = 5000;
+	name = "Armory APC";
+	pixel_x = 1;
 	pixel_y = -24
 	},
 /obj/machinery/light,
@@ -5357,7 +5361,7 @@
 	dir = 1
 	},
 /obj/machinery/alarm{
-	pixel_y = 24
+	pixel_y = 28
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -5380,9 +5384,21 @@
 	},
 /area/security/main)
 "amI" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/security/podbay)
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fore)
 "amJ" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -5409,8 +5425,18 @@
 /turf/simulated/floor/plating,
 /area/security/warden)
 "amL" = (
-/turf/space,
-/area/security/main)
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/security/brig)
 "amM" = (
 /obj/machinery/computer/secure_data,
 /obj/structure/cable/yellow{
@@ -5471,21 +5497,20 @@
 	},
 /area/security/main)
 "amV" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/light/small{
-	dir = 1
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore)
+/area/security/brig)
 "amW" = (
 /obj/machinery/light{
 	dir = 1
@@ -5507,13 +5532,20 @@
 	name = "\improper Recreation Area"
 	})
 "amX" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 3;
+	name = "3maintenance loot spawner"
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
 	},
 /turf/simulated/floor/plating,
-/area/security/processing)
+/area/maintenance/fore)
 "amZ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -8489,7 +8521,19 @@
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "atF" = (
-/turf/space,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
+	},
+/turf/simulated/floor/plating,
 /area/maintenance/fore)
 "atG" = (
 /obj/structure/table,
@@ -8908,7 +8952,6 @@
 "auF" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = "laborcamp_home";
 	locked = 1;
 	name = "Labor Camp Shuttle Airlock";
 	req_access_txt = "2"
@@ -12065,11 +12108,6 @@
 	c_tag = "Brig - Hallway - Port";
 	dir = 1
 	},
-/obj/machinery/door_timer{
-	id = "Cell 1";
-	name = "Cell 1";
-	pixel_y = -32
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -12078,25 +12116,21 @@
 	},
 /area/security/brig)
 "aBl" = (
-/obj/machinery/door_timer{
-	dir = 1;
-	id = "Cell 5";
-	name = "Cell 5";
+/obj/machinery/door_timer/cell_4{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+	dir = 4;
+	icon_state = "redcorner"
 	},
 /area/security/brig)
 "aBn" = (
-/obj/machinery/door_timer{
-	id = "Cell 2";
-	name = "Cell 2";
-	pixel_y = -32
+/obj/machinery/door_timer/cell_5{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "red"
+	dir = 4;
+	icon_state = "redcorner"
 	},
 /area/security/brig)
 "aBo" = (
@@ -12176,7 +12210,6 @@
 "aBB" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = "laborcamp_home";
 	locked = 1;
 	name = "Labor Camp Shuttle Airlock";
 	req_access_txt = "2"
@@ -14164,7 +14197,7 @@
 "aFq" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -24
+	pixel_y = -22
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -16845,10 +16878,6 @@
 /area/security/detectives_office)
 "aKO" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /turf/simulated/floor/plating,
 /area/security/processing)
 "aKP" = (
@@ -17158,11 +17187,6 @@
 	id_tag = "Brig";
 	name = "Prisoner Processing";
 	req_access_txt = "63"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -17489,16 +17513,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -18796,12 +18810,6 @@
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "aPm" = (
-/obj/machinery/door_timer{
-	dir = 1;
-	id = "Cell 4";
-	name = "Cell 4";
-	pixel_y = 32
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -21136,9 +21144,7 @@
 	},
 /area/storage/primary)
 "aUx" = (
-/obj/machinery/door_timer{
-	id = "Cell 3";
-	name = "Cell 3";
+/obj/machinery/door_timer/cell_1{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -27572,7 +27578,7 @@
 	pixel_y = 20
 	},
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -30776,7 +30782,6 @@
 /obj/item/paper/safe_code{
 	owner = "captain"
 	},
-/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
@@ -34911,7 +34916,10 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/paper_bin/nanotrasen,
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 8
+	},
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -38769,7 +38777,10 @@
 /area/library)
 "bDQ" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin/nanotrasen,
+/obj/item/paper_bin{
+	pixel_x = -4;
+	pixel_y = 10
+	},
 /obj/item/pen{
 	pixel_x = -3;
 	pixel_y = 5
@@ -78571,17 +78582,12 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "glM" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
+/obj/machinery/door_timer/cell_2{
+	pixel_y = -32
 	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/turf/simulated/floor/plasteel{
+	icon_state = "redcorner"
 	},
-/turf/simulated/floor/plating,
 /area/security/brig)
 "gnJ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -78674,14 +78680,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/ntrep)
-"gED" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/maintenance/fore)
 "gIN" = (
 /obj/structure/chair/wood/wings{
 	dir = 8
@@ -79800,19 +79798,12 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "jZd" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
+/obj/machinery/door_timer/cell_3{
+	pixel_y = -32
 	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
 	},
-/turf/simulated/floor/plating,
 /area/security/brig)
 "kez" = (
 /turf/simulated/wall/r_wall,
@@ -80582,14 +80573,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "myY" = (
@@ -82625,21 +82609,6 @@
 "sBY" = (
 /turf/simulated/floor/plating,
 /area/storage/secure)
-"sDC" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fore)
 "sFz" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -108731,7 +108700,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+agD
 aaa
 aaa
 aaa
@@ -109572,7 +109541,7 @@ atr
 aFz
 atr
 aAc
-aFz
+aUx
 aKc
 aDO
 aFh
@@ -110600,7 +110569,7 @@ aDg
 asS
 aqJ
 lgv
-aFz
+glM
 aKc
 aDO
 aFi
@@ -110857,7 +110826,7 @@ aEV
 aJy
 aOY
 aZb
-aBn
+aFl
 akD
 akD
 akD
@@ -111628,7 +111597,7 @@ aFz
 alM
 aqJ
 lgv
-aFl
+jZd
 aKc
 aDO
 aFj
@@ -111885,7 +111854,7 @@ aFB
 ayw
 aOY
 aZb
-aUx
+aFz
 akD
 akD
 akD
@@ -113168,7 +113137,7 @@ akD
 aFg
 aFX
 aKc
-atr
+aBl
 lgv
 aFA
 alM
@@ -113425,10 +113394,10 @@ akD
 amE
 amE
 amx
-aBl
+alF
 lgv
 vDc
-glM
+amL
 aDX
 aFo
 fZC
@@ -113942,7 +113911,7 @@ aKB
 aRP
 bfF
 hYq
-jZd
+amV
 hio
 aFq
 amx
@@ -114196,7 +114165,7 @@ akD
 aFg
 aGE
 aKc
-atr
+aBn
 lgv
 aFz
 aKc
@@ -115480,7 +115449,7 @@ axf
 azd
 aAv
 aHf
-amX
+aKO
 atr
 lWo
 aFz
@@ -116239,7 +116208,7 @@ aid
 aid
 alI
 aid
-atK
+aid
 atK
 atK
 apF
@@ -116502,7 +116471,7 @@ alq
 alq
 alq
 alq
-amL
+alq
 awd
 awJ
 atK
@@ -116759,7 +116728,7 @@ alq
 alq
 alq
 alq
-atF
+alq
 awp
 arR
 amO
@@ -116770,7 +116739,7 @@ aze
 aAx
 aCA
 akD
-msg
+amX
 alW
 ajg
 aBI
@@ -117016,9 +116985,9 @@ alq
 alq
 alq
 alq
-atF
+alq
 awp
-amV
+amI
 amO
 avm
 awG
@@ -117027,7 +116996,7 @@ aze
 aBG
 aAy
 akD
-sDC
+atF
 caj
 ajg
 aKW
@@ -117273,7 +117242,7 @@ alq
 alq
 alq
 alq
-atF
+alq
 awp
 azL
 amO
@@ -117284,7 +117253,7 @@ aze
 aAz
 aze
 akD
-gED
+msg
 alW
 ajg
 aId
@@ -117530,7 +117499,7 @@ alq
 alq
 alq
 alq
-atF
+alq
 awp
 dFD
 amO
@@ -117787,7 +117756,7 @@ alq
 alq
 alq
 alq
-atF
+alq
 awp
 asA
 ayG
@@ -118037,7 +118006,7 @@ aaa
 abq
 abq
 abq
-amI
+abq
 aid
 anQ
 anQ
@@ -118045,7 +118014,7 @@ apI
 anQ
 anQ
 anQ
-anQ
+avv
 asu
 avv
 avv
@@ -126728,7 +126697,7 @@ aaa
 aaa
 aaa
 aaa
-agD
+aaa
 aaa
 aaa
 aaa
