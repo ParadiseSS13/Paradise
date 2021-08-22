@@ -133,9 +133,7 @@
 	if(panel_open)
 		icon_state = "[initial(icon_state)]-o"
 		return
-	if(is_drink)
-		return
-	if(!powered())
+	if(!powered() && !is_drink)
 		icon_state = "dispenser_nopower"
 		return
 	icon_state = "dispenser[beaker ? "_working" : ""]"
