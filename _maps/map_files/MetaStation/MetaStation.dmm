@@ -66291,8 +66291,7 @@
 "cKP" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/medical/virology)
@@ -68300,11 +68299,11 @@
 	},
 /area/medical/virology)
 "cOB" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/structure/chair/stool,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreen"
 	},
-/turf/simulated/wall,
 /area/medical/virology)
 "cOC" = (
 /obj/structure/closet/crate/freezer,
@@ -68330,6 +68329,9 @@
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -68338,7 +68340,7 @@
 /obj/structure/closet/wardrobe/virology_white,
 /obj/item/storage/backpack/satchel_vir,
 /obj/structure/disposalpipe/segment{
-	dir = 8;
+	dir = 1;
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
@@ -68348,6 +68350,10 @@
 "cOE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -68731,10 +68737,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/medical/virology)
-"cPs" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/wall,
-/area/medical/virology)
 "cPt" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical{
@@ -68743,6 +68745,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -69274,6 +69277,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"
@@ -69607,6 +69611,7 @@
 /area/medical/virology)
 "cRe" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -70341,6 +70346,9 @@
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -70351,6 +70359,9 @@
 	name = "virology air connector port"
 	},
 /obj/machinery/portable_atmospherics/canister/air,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -70358,6 +70369,10 @@
 "cSF" = (
 /obj/item/trash/popcorn,
 /obj/structure/table/glass,
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -75365,10 +75380,6 @@
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
-"deu" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/wall/r_wall,
-/area/medical/virology)
 "dez" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -99896,11 +99907,11 @@ cKM
 cFv
 cME
 cFv
-cOB
-cPs
-cPs
-cPs
-deu
+cKM
+cKM
+cKM
+cKM
+cHZ
 cKP
 cHZ
 abq
@@ -100671,7 +100682,7 @@ cOE
 cPt
 cQs
 cRe
-cYM
+cOB
 cSF
 cHZ
 aaa
