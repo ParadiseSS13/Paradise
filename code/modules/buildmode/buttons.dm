@@ -1,7 +1,7 @@
 /obj/screen/buildmode
 	icon = 'icons/misc/buildmode.dmi'
 	var/datum/click_intercept/buildmode/bd
-	layer = HUD_LAYER_BUILDMODE
+	plane = HUD_PLANE_BUILDMODE
 
 /obj/screen/buildmode/New(bld)
 	bd = bld
