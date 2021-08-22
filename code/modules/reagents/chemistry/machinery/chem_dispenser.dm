@@ -136,7 +136,7 @@
 	if(!powered() && !is_drink)
 		icon_state = "dispenser_nopower"
 		return
-	icon_state = "dispenser[beaker ? "_working" : ""]"
+	icon_state = "[initial(icon_state)][beaker ? "_working" : ""]"
 
 /obj/machinery/chem_dispenser/ex_act(severity)
 	if(severity < 3)
