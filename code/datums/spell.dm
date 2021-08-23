@@ -562,9 +562,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	if(!centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		var/turf/T = get_turf(user)
-		if(T)
-			if(is_admin_level(T.z))
-				return FALSE
+		if(T && is_admin_level(T.z))
+			return FALSE
 
 	if(!holy_area_cancast && user.holy_check())
 		return FALSE
