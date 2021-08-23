@@ -215,6 +215,7 @@
 		return 0
 	if(affected.limb_flags & CANNOT_DISMEMBER)
 		return FALSE
+	return TRUE
 
 /datum/surgery_step/generic/amputate/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
