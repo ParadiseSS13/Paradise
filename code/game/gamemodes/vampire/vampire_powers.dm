@@ -457,8 +457,7 @@
 		flick("mist_reappear", animation)
 		sleep(5)
 		if(!user.Move(mobloc))
-			for(var/direction in list(1,2,4,8,5,6,9,10))
-				var/turf/T = get_step(mobloc, direction)
+			for(var/turf/T in orange(7, mobloc))
 				if(T)
 					if(user.Move(T))
 						break
