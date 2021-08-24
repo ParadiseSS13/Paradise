@@ -59,6 +59,10 @@
 		var/mob/living/carbon/C = mover
 		if(allow_walk && (C.m_intent == MOVE_INTENT_WALK || (C.pulledby && C.pulledby.m_intent == MOVE_INTENT_WALK)))
 			return TRUE
+	else if(issilicon(mover))
+		var/mob/living/silicon/S = mover
+		if(allow_walk && (S.m_intent == MOVE_INTENT_WALK || (S.pulledby && S.pulledby.m_intent == MOVE_INTENT_WALK)))
+			return TRUE
 
 /obj/structure/holosign/barrier/engineering
 	icon_state = "holosign_engi"
