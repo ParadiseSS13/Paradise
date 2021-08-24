@@ -99,7 +99,7 @@
 		var/text = "<FONT size = 2><B>The traitors were:</B></FONT><br>"
 		for(var/datum/mind/traitor in traitors)
 			var/traitorwin = 1
-			text += printplayer(traitor)
+			text += printplayer(traitor) + "<br>"
 
 			var/TC_uses = 0
 			var/uplink_true = 0
