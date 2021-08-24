@@ -218,6 +218,7 @@
 	modules += new /obj/item/circular_saw(src)
 	modules += new /obj/item/surgicaldrill(src)
 	modules += new /obj/item/gripper/medical(src)
+	modules += new /obj/item/crowbar/cyborg(src)
 
 	emag = new /obj/item/reagent_containers/spray(src)
 
@@ -287,6 +288,7 @@
 	modules += new /obj/item/gun/energy/disabler/cyborg(src)
 	modules += new /obj/item/holosign_creator/security(src)
 	modules += new /obj/item/clothing/mask/gas/sechailer/cyborg(src)
+	modules += new /obj/item/crowbar/cyborg(src)
 	emag = new /obj/item/gun/energy/laser/cyborg(src)
 
 	fix_modules()
@@ -303,6 +305,7 @@
 	modules += new /obj/item/lightreplacer/cyborg(src)
 	modules += new /obj/item/holosign_creator(src)
 	modules += new /obj/item/extinguisher/mini(src)
+	modules += new /obj/item/crowbar/cyborg(src)
 	emag = new /obj/item/reagent_containers/spray(src)
 
 	emag.reagents.add_reagent("lube", 250)
@@ -333,6 +336,7 @@
 	modules += new /obj/item/lighter/zippo(src)
 	modules += new /obj/item/storage/bag/tray/cyborg(src)
 	modules += new /obj/item/reagent_containers/food/drinks/shaker(src)
+	modules += new /obj/item/crowbar/cyborg(src)
 	emag = new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 
 	var/datum/reagents/R = new/datum/reagents(50)
@@ -392,6 +396,7 @@
 	modules += new /obj/item/t_scanner/adv_mining_scanner/cyborg(src)
 	modules += new /obj/item/gun/energy/kinetic_accelerator/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
+	modules += new /obj/item/crowbar/cyborg(src)
 	emag = new /obj/item/borg/stun(src)
 
 	fix_modules()
