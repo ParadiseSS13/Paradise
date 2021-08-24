@@ -146,27 +146,45 @@
 
 
 /obj/effect/proc_holder/spell/self/specialize/cast(mob/user)
-	var/list/options = list("Hemomancer",
-							"Gargantua",
-							"Umbrae")
-	var/choice = show_radial_menu(user, user, options)
+	ui_interact(user)
 
-	switch(choice)
-		if("Hemomancer")
-			user.mind.vampire.subclass += SUBCLASS_HEMOMANCER
-			user.mind.vampire.upgrade_tiers.Remove(type)
-			user.mind.vampire.remove_ability(src)
-			user.mind.vampire.check_vampire_upgrade()
-		if("Gargantua")
-			user.mind.vampire.subclass += SUBCLASS_GARGANTUA
-			user.mind.vampire.upgrade_tiers.Remove(type)
-			user.mind.vampire.remove_ability(src)
-			user.mind.vampire.check_vampire_upgrade()
-		if("Umbrae")
-			user.mind.vampire.subclass += SUBCLASS_UMBRAE
-			user.mind.vampire.upgrade_tiers.Remove(type)
-			user.mind.vampire.remove_ability(src)
-			user.mind.vampire.check_vampire_upgrade()
+/obj/effect/proc_holder/spell/self/specialize/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "SpecMenu", "Specialisation Menu", 900, 560, master_ui, state)
+		ui.set_autoupdate(FALSE)
+		ui.open()
+
+
+
+/obj/effect/proc_holder/spell/self/specialize/ui_data(mob/user)
+	var/datum/vampire/vamp = user.mind.vampire
+	var/list/data = list("subclasses" = vamp.subclass)
+	return data
+
+/obj/effect/proc_holder/spell/self/specialize/ui_act(action, list/params)
+	if(..())
+		return
+	var/datum/vampire/vamp = usr.mind.vampire
+
+	switch(action)
+		if("umbrae")
+			vamp.add_subclass(SUBCLASS_UMBRAE)
+			vamp.upgrade_tiers -= type
+			vamp.remove_ability(src)
+		if("hemomancer")
+			vamp.add_subclass(SUBCLASS_HEMOMANCER)
+			vamp.upgrade_tiers -= type
+			vamp.remove_ability(src)
+		if("gargantua")
+			vamp.add_ability(SUBCLASS_GARGANTUA)
+			vamp.upgrade_tiers -= type
+			vamp.remove_ability(src)
+
+
+/datum/vampire/proc/add_subclass(subclass_to_add)
+	subclass += subclass_to_add
+	check_vampire_upgrade(TRUE)
 
 /obj/effect/proc_holder/spell/mob_aoe/glare
 	name = "Glare"
