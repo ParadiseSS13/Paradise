@@ -49,7 +49,7 @@
 /obj/item/reagent_containers/food/snacks/spidermeatbreadslice
 	name = "spider meat bread slice"
 	desc = "A slice of meatloaf made from an animal that most likely still wants you dead."
-	icon_state = "xenobreadslice"
+	icon_state = "spidermeatslice"
 	trash = /obj/item/trash/plate
 	list_reagents = list("toxin" = 2)
 
