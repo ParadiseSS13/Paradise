@@ -3252,8 +3252,8 @@
 						survivor_probability = 100
 
 				rightandwrong(SUMMON_MAGIC, usr, survivor_probability)
-
-			if("armotyreset")
+			// The ert armory & tdomereset functions are disabled because they are not needed and the cc is rebuilt.
+			/* if("armotyreset")
 				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
 				if(delete_mobs == "Cancel")
 					return
@@ -3347,7 +3347,7 @@
 				template.copy_contents_to(thunderdome)
 
 				log_admin("[key_name(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].", 1)
-				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].</span>")
+				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].</span>") */
 
 			if("tdomestart")
 				var/confirmation = alert("Start a Thunderdome match?","Confirm","Yes","No")

@@ -2,7 +2,6 @@
 "ae" = (
 /obj/structure/sign/securearea,
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall4";
 	tag = "icon-swall14"
 	},
@@ -31,7 +30,6 @@
 /obj/machinery/vending/security,
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/shuttle/floor,
@@ -42,6 +40,8 @@
 /obj/item/storage/firstaid/brute,
 /obj/item/storage/box/bodybags,
 /obj/item/storage/firstaid/surgery,
+/obj/item/storage/firstaid/tactical,
+/obj/item/storage/firstaid/tactical,
 /turf/simulated/shuttle/floor,
 /area/shuttle/administration)
 "bm" = (
@@ -56,7 +56,7 @@
 	},
 /area/shuttle/administration)
 "ce" = (
-/obj/machinery/autolathe/upgraded{
+/obj/machinery/autolathe/security{
 	hacked = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -78,19 +78,25 @@
 	},
 /area/shuttle/administration)
 "de" = (
-/obj/machinery/suit_storage_unit/security/secure,
 /obj/machinery/light/spot,
+/obj/item/flag/nt,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "df" = (
+/obj/item/clothing/suit/armor/bulletproof,
 /obj/structure/rack,
-/obj/item/storage/box/buck{
-	pixel_x = -3;
-	pixel_y = 3
+/obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/suit/armor/bulletproof,
+/obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/suit/armor/bulletproof,
+/obj/item/clothing/suit/armor/bulletproof,
+/obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/head/helmet/alt,
+/obj/structure/window/reinforced{
+	dir = 4
 	},
-/obj/item/storage/box/buck,
 /obj/structure/window/reinforced,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -105,23 +111,33 @@
 	},
 /area/shuttle/administration)
 "dH" = (
-/obj/structure/rack,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/item/gun/energy/gun,
-/obj/item/gun/energy/gun{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /turf/simulated/shuttle/floor{
-	icon_state = "floor4"
+	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "dP" = (
 /obj/machinery/recharge_station/upgraded,
 /turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"eo" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/clothing/suit/armor/riot,
+/obj/item/clothing/suit/armor/riot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/clothing/suit/armor/riot,
+/obj/item/clothing/suit/armor/riot,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
 /area/shuttle/administration)
 "eI" = (
 /obj/machinery/turretid/stun{
@@ -152,8 +168,14 @@
 "fF" = (
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
+	},
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -169,7 +191,9 @@
 /area/shuttle/administration)
 "gd" = (
 /obj/machinery/door/airlock/shuttle,
-/turf/simulated/shuttle/floor,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/administration)
 "gh" = (
 /obj/structure/chair/comfy/shuttle{
@@ -199,10 +223,11 @@
 /obj/structure/closet/emcloset,
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/administration)
 "iz" = (
 /obj/machinery/porta_turret{
@@ -238,6 +263,8 @@
 "jB" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/lockbox/mindshield,
+/obj/item/storage/lockbox/mindshield,
+/obj/item/storage/lockbox/mindshield,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -251,9 +278,42 @@
 "kf" = (
 /obj/structure/sign/securearea,
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall8";
 	tag = "icon-swall12"
+	},
+/area/shuttle/administration)
+"kO" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/clothing/mask/gas/sechailer/swat,
+/obj/item/clothing/mask/gas/sechailer/swat,
+/obj/item/clothing/mask/gas/sechailer/swat,
+/obj/item/clothing/mask/gas/sechailer/swat,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"le" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/clothing/suit/armor/riot,
+/obj/item/clothing/suit/armor/riot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/clothing/suit/armor/riot,
+/obj/item/clothing/suit/armor/riot,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "mq" = (
@@ -276,7 +336,6 @@
 /area/shuttle/administration)
 "mM" = (
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall13"
 	},
 /area/shuttle/administration)
@@ -300,21 +359,23 @@
 /obj/structure/chair,
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
-/turf/simulated/shuttle/floor,
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 30
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/administration)
 "pa" = (
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall11"
 	},
 /area/shuttle/administration)
 "pK" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "propulsion"
+	dir = 4
 	},
 /turf/simulated/shuttle/plating,
 /area/shuttle/administration)
@@ -322,18 +383,13 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/administration)
 "qQ" = (
-/obj/machinery/recharger/wallcharger{
-	pixel_y = 25
-	},
-/obj/machinery/recharger/wallcharger{
-	pixel_y = 35
-	},
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /obj/machinery/door_control{
@@ -341,6 +397,9 @@
 	name = "Bridge Privacy Shutters";
 	pixel_x = 25;
 	req_access_txt = "19"
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 30
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -350,7 +409,9 @@
 /obj/machinery/door/window/brigdoor/southleft{
 	req_one_access_txt = "2;19"
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/administration)
 "rW" = (
 /obj/structure/grille,
@@ -369,6 +430,14 @@
 	pixel_y = 3
 	},
 /obj/item/kitchen/knife/combat,
+/obj/item/kitchen/knife/combat{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/kitchen/knife/combat{
+	pixel_x = 3;
+	pixel_y = -3
+	},
 /obj/item/kitchen/knife/combat{
 	pixel_x = 3;
 	pixel_y = -3
@@ -415,15 +484,13 @@
 /area/shuttle/administration)
 "uz" = (
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall4";
 	tag = "icon-swall14"
 	},
 /area/shuttle/administration)
 "uW" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 4;
-	icon_state = "heater"
+	dir = 4
 	},
 /obj/structure/window/plasmareinforced{
 	dir = 8
@@ -433,11 +500,12 @@
 "uY" = (
 /obj/structure/window/reinforced,
 /obj/structure/table/reinforced,
-/turf/simulated/shuttle/floor,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/administration)
 "vk" = (
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall_s6"
 	},
 /area/shuttle/administration)
@@ -450,7 +518,6 @@
 "vA" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -469,21 +536,13 @@
 	},
 /area/shuttle/administration)
 "wG" = (
-/obj/structure/rack,
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
+/obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 4
 	},
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_x = 0;
-	pixel_y = 0
-	},
-/obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_x = 0;
-	pixel_y = 0
-	},
-/obj/item/clothing/head/helmet/alt,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -491,25 +550,11 @@
 "wH" = (
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
-/area/shuttle/administration)
-"wQ" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 8;
-	icon_state = "open";
-	id_tag = "Asclshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/turf/space,
 /area/shuttle/administration)
 "xm" = (
 /obj/structure/table/reinforced,
@@ -527,14 +572,21 @@
 /area/shuttle/administration)
 "xF" = (
 /obj/structure/rack,
-/obj/item/storage/box/buck{
-	pixel_x = -3;
-	pixel_y = 3
+/obj/item/gun/energy/gun,
+/obj/item/gun/energy/gun{
+	pixel_x = 3;
+	pixel_y = -3
 	},
-/obj/item/storage/box/buck,
-/obj/structure/window/reinforced,
+/obj/item/gun/energy/gun{
+	pixel_x = 3;
+	pixel_y = -3
+	},
 /obj/structure/window/reinforced{
-	dir = 4
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -549,7 +601,6 @@
 "xK" = (
 /obj/structure/sign/nosmoking_2,
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall3";
 	tag = "icon-swall3"
 	},
@@ -560,7 +611,6 @@
 	},
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/shuttle/floor{
@@ -588,8 +638,10 @@
 	name = "Armory"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	closingLayer = 5;
 	dir = 8;
-	id_tag = "adminarmoryshutters"
+	id_tag = "adminarmoryshutters";
+	layer = 5
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -610,14 +662,70 @@
 "yF" = (
 /obj/machinery/status_display,
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall3"
 	},
 /area/shuttle/administration)
 "zY" = (
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall14"
+	},
+/area/shuttle/administration)
+"Az" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/item/shield/riot,
+/obj/item/shield/riot{
+	pixel_x = 2;
+	pixel_y = -4
+	},
+/obj/item/shield/riot{
+	pixel_x = 2;
+	pixel_y = -4
+	},
+/obj/item/shield/riot{
+	pixel_x = 2;
+	pixel_y = -4
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/shield/riot{
+	pixel_x = 2;
+	pixel_y = -4
+	},
+/obj/item/shield/riot{
+	pixel_x = 2;
+	pixel_y = -4
+	},
+/obj/item/shield/riot{
+	pixel_x = 2;
+	pixel_y = -4
+	},
+/obj/item/shield/riot{
+	pixel_x = 2;
+	pixel_y = -4
+	},
+/obj/item/shield/riot{
+	pixel_x = 2;
+	pixel_y = -4
+	},
+/obj/item/shield/riot{
+	pixel_x = 2;
+	pixel_y = -4
+	},
+/obj/item/shield/riot{
+	pixel_x = 2;
+	pixel_y = -4
+	},
+/obj/item/shield/riot{
+	pixel_x = 2;
+	pixel_y = -4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "AH" = (
@@ -639,16 +747,50 @@
 "Bc" = (
 /obj/structure/rack,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/shield/riot,
-/obj/item/shield/riot{
-	pixel_x = 2;
-	pixel_y = -4
+/obj/structure/window/reinforced,
+/obj/item/grenade/frag{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/grenade/frag{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/grenade/frag{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/grenade/frag{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/grenade/frag{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/grenade/frag{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/grenade/smokebomb{
+	pixel_x = 10
+	},
+/obj/item/grenade/smokebomb{
+	pixel_x = 10
+	},
+/obj/item/grenade/smokebomb{
+	pixel_x = 10
+	},
+/obj/item/grenade/smokebomb{
+	pixel_x = 10
+	},
+/obj/item/grenade/smokebomb{
+	pixel_x = 10
+	},
+/obj/item/grenade/smokebomb{
+	pixel_x = 10
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -681,7 +823,6 @@
 "Bq" = (
 /obj/structure/sign/nosmoking_2,
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall1";
 	tag = "icon-swall1"
 	},
@@ -713,11 +854,18 @@
 /area/shuttle/administration)
 "Du" = (
 /obj/structure/rack,
-/obj/structure/window/reinforced,
 /obj/item/gun/energy/gun,
 /obj/item/gun/energy/gun{
 	pixel_x = 3;
 	pixel_y = -3
+	},
+/obj/item/gun/energy/gun{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -733,24 +881,32 @@
 "Eq" = (
 /obj/structure/sign/securearea,
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall12"
 	},
 /area/shuttle/administration)
 "EQ" = (
 /obj/machinery/door/airlock/shuttle/glass,
-/turf/simulated/shuttle/floor,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/administration)
 "Fd" = (
 /obj/structure/rack,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/item/gun/energy/gun,
 /obj/item/gun/energy/gun{
 	pixel_x = 3;
 	pixel_y = -3
+	},
+/obj/item/gun/energy/gun{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -769,6 +925,7 @@
 /obj/item/gun/energy/immolator/multi{
 	pixel_y = 3
 	},
+/obj/item/gun/energy/immolator/multi,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -776,21 +933,25 @@
 "FF" = (
 /obj/structure/sign/poster/official/enlist,
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall12"
 	},
 /area/shuttle/administration)
 "FT" = (
 /obj/structure/rack,
-/obj/item/storage/box/buck{
+/obj/item/gun/projectile/shotgun/riot/buckshot{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck,
-/obj/structure/window/reinforced,
+/obj/item/gun/projectile/shotgun/riot/buckshot,
+/obj/item/gun/projectile/shotgun/riot/buckshot,
 /obj/structure/window/reinforced{
-	dir = 8
+	dir = 4
 	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/item/gun/projectile/shotgun/riot/buckshot,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -804,16 +965,22 @@
 	},
 /area/shuttle/administration)
 "Gn" = (
+/obj/item/clothing/suit/armor/bulletproof,
+/obj/structure/rack,
+/obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/suit/armor/bulletproof,
+/obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/suit/armor/bulletproof,
+/obj/item/clothing/suit/armor/bulletproof,
+/obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/head/helmet/alt,
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
 	},
-/obj/structure/rack,
-/obj/item/gun/projectile/shotgun/riot/buckshot{
-	pixel_x = -3;
-	pixel_y = 3
+/obj/structure/window/reinforced{
+	dir = 4
 	},
-/obj/item/gun/projectile/shotgun/riot/buckshot,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -839,7 +1006,7 @@
 	opacity = 0
 	},
 /turf/simulated/shuttle/floor{
-	icon_state = "floor4"
+	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "Gy" = (
@@ -859,14 +1026,49 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"Hv" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/rack,
+/obj/item/clothing/shoes/combat/swat,
+/obj/item/clothing/shoes/combat/swat,
+/obj/item/clothing/shoes/combat/swat,
+/obj/item/clothing/shoes/combat/swat,
+/obj/item/clothing/suit/space/swat,
+/obj/item/clothing/suit/space/swat,
+/obj/item/clothing/suit/space/swat,
+/obj/item/clothing/suit/space/swat,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
 /area/shuttle/administration)
 "HN" = (
 /obj/structure/sign/poster/official/do_not_question,
 /obj/item/tank/emergency_oxygen/engi,
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall3"
+	},
+/area/shuttle/administration)
+"HQ" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/clothing/suit/armor/riot,
+/obj/item/clothing/suit/armor/riot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/clothing/suit/armor/riot,
+/obj/item/clothing/suit/armor/riot,
+/obj/structure/window/reinforced,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "Ir" = (
@@ -879,7 +1081,6 @@
 /area/shuttle/administration)
 "IC" = (
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall3"
 	},
 /area/shuttle/administration)
@@ -893,7 +1094,9 @@
 /obj/machinery/door/window/brigdoor/southright{
 	req_one_access_txt = "2;19"
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/administration)
 "Kh" = (
 /turf/simulated/shuttle/floor{
@@ -901,45 +1104,33 @@
 	},
 /area/shuttle/administration)
 "Ki" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+/obj/structure/rack,
+/obj/item/gun/projectile/shotgun/riot/buckshot{
+	pixel_x = -3;
+	pixel_y = 3
 	},
+/obj/item/gun/projectile/shotgun/riot/buckshot,
+/obj/item/gun/projectile/shotgun/riot/buckshot,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_x = 0;
-	pixel_y = 0
-	},
-/obj/structure/rack,
-/obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_x = 0;
-	pixel_y = 0
-	},
-/obj/item/clothing/head/helmet/alt,
+/obj/item/gun/projectile/shotgun/riot/buckshot,
+/obj/structure/window/reinforced,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "KM" = (
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall7"
 	},
 /area/shuttle/administration)
 "Lh" = (
-/obj/structure/rack,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
+/obj/structure/window/full/shuttle,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "adminarmoryshutters"
 	},
-/obj/item/gun/energy/ionrifle{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/gun/energy/ionrifle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -955,7 +1146,6 @@
 /area/shuttle/administration)
 "LP" = (
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall_s9"
 	},
 /area/shuttle/administration)
@@ -967,90 +1157,85 @@
 	},
 /area/shuttle/administration)
 "Mj" = (
-/obj/machinery/vending/medical,
+/obj/machinery/vending/medical{
+	req_access_txt = "0"
+	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/administration)
 "Mo" = (
+/obj/item/clothing/suit/armor/bulletproof,
 /obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_x = 0;
-	pixel_y = 0
-	},
 /obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/clothing/suit/armor/bulletproof,
 /obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/suit/armor/bulletproof,
+/obj/item/clothing/suit/armor/bulletproof,
+/obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/head/helmet/alt,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "MN" = (
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall12"
 	},
 /area/shuttle/administration)
 "MZ" = (
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall3";
 	tag = "icon-swall3"
 	},
 /area/shuttle/administration)
 "Ni" = (
+/obj/structure/rack,
+/obj/item/storage/box/buck{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/buck,
+/obj/item/storage/box/buck,
+/obj/item/storage/box/buck{
+	pixel_x = -3;
+	pixel_y = 3
+	},
 /obj/structure/window/reinforced{
-	dir = 8
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
 	},
-/obj/structure/rack,
-/obj/item/gun/projectile/shotgun/riot/buckshot{
+/obj/item/storage/box/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/projectile/shotgun/riot/buckshot,
+/obj/item/storage/box/buck{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/machinery/light/spot{
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "Ns" = (
 /obj/machinery/recharger/wallcharger{
-	pixel_y = 25
+	pixel_y = 30
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/administration)
 "NF" = (
 /obj/structure/sign/poster/official/here_for_your_safety,
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall3";
 	tag = "icon-swall3"
-	},
-/area/shuttle/administration)
-"NQ" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 1;
-	icon_state = "open";
-	id_tag = "Asclshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "Op" = (
@@ -1060,9 +1245,7 @@
 	},
 /area/shuttle/administration)
 "Ou" = (
-/obj/machinery/autolathe/upgraded{
-	hacked = 1
-	},
+/obj/machinery/autolathe/upgraded,
 /turf/simulated/shuttle/floor,
 /area/shuttle/administration)
 "Pe" = (
@@ -1075,17 +1258,49 @@
 /area/shuttle/administration)
 "Pn" = (
 /obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+/obj/item/storage/box/buck{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/buck,
+/obj/item/storage/box/buck,
+/obj/item/storage/box/buck{
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/suit/armor/riot{
+/obj/item/storage/box/buck{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/buck{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"PE" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/gun/energy/gun/advtaser{
 	pixel_x = 3;
 	pixel_y = -3
+	},
+/obj/item/gun/energy/gun/advtaser,
+/obj/item/gun/energy/gun/advtaser,
+/obj/item/gun/energy/gun/advtaser,
+/obj/item/gun/energy/gun/advtaser,
+/obj/item/gun/energy/gun/advtaser,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -1093,7 +1308,6 @@
 /area/shuttle/administration)
 "PL" = (
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall_s10"
 	},
 /area/shuttle/administration)
@@ -1124,6 +1338,9 @@
 /obj/item/gun/energy/gun/nuclear{
 	pixel_y = 3
 	},
+/obj/item/gun/energy/gun/nuclear{
+	pixel_y = 3
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -1144,13 +1361,13 @@
 	dir = 1;
 	layer = 2.9
 	},
+/obj/item/gun/energy/sniperrifle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "RM" = (
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall8";
 	tag = "icon-swall12"
 	},
@@ -1189,7 +1406,6 @@
 	},
 /obj/machinery/light/spot{
 	dir = 8;
-	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
 	},
 /obj/item/clothing/mask/breath{
@@ -1214,12 +1430,13 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/administration)
 "UR" = (
 /obj/machinery/status_display,
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall12"
 	},
 /area/shuttle/administration)
@@ -1234,12 +1451,11 @@
 	opacity = 0
 	},
 /turf/simulated/shuttle/floor{
-	icon_state = "floor4"
+	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "Vc" = (
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall_s5"
 	},
 /area/shuttle/administration)
@@ -1254,17 +1470,13 @@
 /area/shuttle/administration)
 "VQ" = (
 /obj/structure/rack,
-/obj/structure/window/reinforced,
+/obj/item/gun/energy/ionrifle{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/gun/energy/ionrifle,
 /obj/structure/window/reinforced{
 	dir = 8
-	},
-/obj/item/gun/energy/gun/advtaser{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/gun/energy/gun/advtaser{
-	pixel_x = 0;
-	pixel_y = 0
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -1283,27 +1495,26 @@
 	},
 /obj/machinery/light/spot{
 	dir = 4;
-	icon_state = "tube1";
 	tag = "icon-tube1 (EAST)"
+	},
+/obj/item/restraints/handcuffs{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/restraints/handcuffs{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/restraints/handcuffs{
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "XL" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/item/gun/projectile/shotgun/riot/buckshot{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/shotgun/riot/buckshot,
+/obj/machinery/vending/security,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -1318,10 +1529,10 @@ IC
 IC
 IC
 KM
-wQ
-wQ
-wQ
-wQ
+mq
+mq
+mq
+mq
 KM
 IC
 IC
@@ -1452,10 +1663,10 @@ MN
 (8,1,1) = {"
 RM
 oY
-mw
-mw
-mw
-mw
+dH
+dH
+dH
+dH
 Ur
 kf
 vW
@@ -1471,17 +1682,17 @@ mq
 "}
 (9,1,1) = {"
 UX
-mw
-mw
-mw
-mw
-mw
-mw
+dH
+dH
+dH
+dH
+dH
+dH
 EQ
-mw
-mw
-mw
-mw
+dH
+dH
+dH
+dH
 rb
 Kh
 Kh
@@ -1491,31 +1702,31 @@ jn
 "}
 (10,1,1) = {"
 Gx
-mw
-mw
-mw
-mw
-mw
-mw
+dH
+dH
+dH
+dH
+dH
+dH
 EQ
-mw
-mw
-mw
-mw
+dH
+dH
+dH
+dH
 Ke
 Kh
 Kh
 Kh
-Kh
+fQ
 jn
 "}
 (11,1,1) = {"
 uz
 oY
-mw
-mw
-mw
-mw
+dH
+dH
+dH
+dH
 Hc
 ae
 ir
@@ -1534,7 +1745,7 @@ zY
 MZ
 Bq
 yg
-VC
+Lh
 yg
 yF
 pa
@@ -1551,7 +1762,7 @@ mM
 "}
 (13,1,1) = {"
 MN
-Kh
+wG
 wH
 eL
 Kh
@@ -1561,7 +1772,7 @@ PR
 PV
 PS
 Fo
-wH
+PE
 VQ
 Bc
 Kh
@@ -1570,53 +1781,48 @@ AH
 MN
 "}
 (14,1,1) = {"
-NQ
-Kh
-dH
-Ni
-Kh
-FT
-Mo
+mq
+xF
 Kh
 Kh
 Kh
 Kh
 Kh
-Lh
-Pn
 Kh
 Kh
 Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+jU
 mq
 "}
 (15,1,1) = {"
-NQ
-Kh
+mq
 Du
+Kh
 Gn
-Kh
+Mo
 df
-wG
+Kh
+eo
+le
+HQ
+Kh
+Az
+Hv
+kO
 Kh
 Kh
-Kh
-Kh
-Kh
-Kh
-Kh
-Kh
-Kh
-Kh
+jU
 mq
 "}
 (16,1,1) = {"
-NQ
-Kh
+mq
 Fd
-XL
-Kh
-xF
-Ki
 Kh
 Kh
 Kh
@@ -1627,17 +1833,22 @@ Kh
 Kh
 Kh
 Kh
+Kh
+Kh
+Kh
+Kh
+jU
 mq
 "}
 (17,1,1) = {"
 MN
 fF
-Kh
-Kh
-fF
-Kh
-Kh
-fF
+FT
+Ki
+Ni
+Pn
+XL
+XL
 iz
 yu
 sq

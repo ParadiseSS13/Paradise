@@ -3,6 +3,7 @@
 	desc = "Wheeeeeeeeeeee."
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "snowmobile"
+	move_speed = 0
 	key_type = /obj/item/key/snowmobile
 	generic_pixel_x = 0
 	generic_pixel_y = 4
@@ -10,6 +11,12 @@
 /obj/vehicle/snowmobile/blue
 	name = "blue snowmobile"
 	icon_state = "bluesnowmobile"
+
+/obj/vehicle/snowmobile/key/New()
+	inserted_key = new /obj/item/key/snowmobile(null)
+
+/obj/vehicle/snowmobile/blue/key/New()
+	inserted_key = new /obj/item/key/snowmobile(null)
 
 /obj/item/key/snowmobile
 	name = "snowmobile key"

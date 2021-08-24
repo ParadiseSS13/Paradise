@@ -405,59 +405,62 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	nad_allowed = TRUE
 
-/area/centcom/control
-	name = "\improper Centcom Control"
-	icon_state = "centcom_ctrl"
+// New CC
+/area/centcom/bridge
+	name = "\improper Centcom Bridge"
+	icon_state = "centcom_bridge"
 
-/area/centcom/evac
-	name = "\improper Centcom Emergency Shuttle"
-	icon_state = "centcom_evac"
-
-/area/centcom/suppy
-	name = "\improper Centcom Supply Shuttle"
-	icon_state = "centcom_supply"
+/area/centcom/court
+	name = "\improper Centcom Court"
+	icon_state = "centcom_court"
 
 /area/centcom/ferry
-	name = "\improper Centcom Transport Shuttle"
+	name = "\improper Centcom Ferry Shuttle"
 	icon_state = "centcom_ferry"
-
-/area/centcom/shuttle
-	name = "\improper Centcom Administration Shuttle"
-
-/area/centcom/test
-	name = "\improper Centcom Testing Facility"
-
-/area/centcom/living
-	name = "\improper Centcom Living Quarters"
-
-/area/centcom/specops
-	name = "\improper Centcom Special Ops"
-	icon_state = "centcom_specops"
 
 /area/centcom/gamma
 	name = "\improper Centcom Gamma Armory"
 	icon_state = "centcom_gamma"
 
-/area/centcom/holding
-	name = "\improper Holding Facility"
+/area/centcom/supply
+	name = "\improper Centcom Supply Shuttle"
+	icon_state = "centcom_supply"
 
-/area/centcom/bathroom
-	name = "\improper Centcom Emergency Shuttle Bathrooms"
+/area/centcom/jail
+	name = "\improper Centcom Jail"
+	icon_state = "centcom_jail"
 
-/area/centcom/ertarmory
-	name = "\improper Centcom Ert Armory"
+/area/centcom/zone3
+	name = "\improper Centcom Zone 3"
+	icon_state = "centcom_zone3"
 
-/area/centcom/reset
-	name = "\improper reset armory"
+/area/centcom/zone2
+	name = "\improper Centcom Zone 2"
+	icon_state = "centcom_zone2"
 
-/area/centcom/reset1
-	name = "\improper reset armory"
+/area/centcom/zone1
+	name = "\improper Centcom Zone 1"
+	icon_state = "centcom_zone1"
 
-/area/centcom/reset2
-	name = "\improper reset armory"
+/area/centcom/evac
+	name = "\improper Centcom Evacuation Emergency Shuttle"
+	icon_state = "centcom_evac"
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
-/area/centcom/reset3
-	name = "\improper reset armory"
+/area/centcom/specops
+	name = "\improper Centcom Special Operations Forces"
+	icon_state = "centcom_specops"
+
+/area/centcom/srtops
+	name = "\improper Centcom Special Reaction Team"
+	icon_state = "centcom_srtops"
+
+/area/centcom/blops
+	name = "\improper Centcom Black Operations Squad"
+	icon_state = "centcom_blops"
+
+/area/centcom/shuttle
+	name = "\improper Centcom Administration Shuttle"
 
 //SYNDICATES
 
@@ -484,7 +487,32 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/syndicate_mothership/jail
 	name = "\improper Syndicate Jail"
 
+// USSP
+
+/area/ussp_ship
+	name = "\improper USSP Ship Project 28u"
+	icon_state = "ussp_ship"
+	requires_power = TRUE
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	ambientsounds = HIGHSEC_SOUNDS
+
+// Chrono
+
+/area/chrono_ship
+	name = "\improper Chrono Ship"
+	icon_state = "chrono_ship"
+	requires_power = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	nad_allowed = TRUE
+
 //EXTRA
+
+/area/event_zone
+	name = "\improper Event Zone"
+	icon_state = "event_zone"
+	requires_power = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	nad_allowed = TRUE
 
 /area/asteroid					// -- TLE
 	name = "\improper Asteroid"

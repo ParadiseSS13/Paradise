@@ -28,6 +28,16 @@
 	RefreshParts()
 	build_icon()
 
+/obj/machinery/recharge_station/ert/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/cyborgrecharger(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/capacitor/adv(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/cell/super(null)
+	RefreshParts()	
+
 /obj/machinery/recharge_station/upgraded/New()
 	..()
 	component_parts = list()

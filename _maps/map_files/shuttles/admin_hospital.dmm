@@ -4,74 +4,17 @@
 /area/space)
 "ab" = (
 /turf/simulated/shuttle/wall{
-	icon_state = "swall_s6";
-	dir = 2
+	icon_state = "swall_s6"
 	},
 /area/shuttle/administration)
 "ac" = (
 /turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
+	icon_state = "swall12"
 	},
-/area/shuttle/administration)
-"ad" = (
-/obj/structure/shuttle/window{
-	tag = "icon-window5_end";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	dir = 2
-	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 1;
-	icon_state = "open";
-	id_tag = "Asclshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/obj/structure/grille,
-/turf/space,
-/area/shuttle/administration)
-"ae" = (
-/obj/structure/shuttle/window{
-	tag = "icon-window5_mid";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_mid";
-	dir = 2
-	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 1;
-	icon_state = "open";
-	id_tag = "Asclshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/obj/structure/grille,
-/turf/space,
-/area/shuttle/administration)
-"af" = (
-/obj/structure/shuttle/window{
-	tag = "icon-window5_end (NORTH)";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	dir = 1
-	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 1;
-	icon_state = "open";
-	id_tag = "Asclshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/obj/structure/grille,
-/turf/space,
 /area/shuttle/administration)
 "ag" = (
 /turf/simulated/shuttle/wall{
-	icon_state = "swall14";
-	dir = 2
+	icon_state = "swall14"
 	},
 /area/shuttle/administration)
 "ah" = (
@@ -81,7 +24,6 @@
 	name = "NHV Asclepius"
 	},
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall8";
 	tag = "icon-swall12"
 	},
@@ -131,58 +73,19 @@
 	name = "NHV Asclepius"
 	},
 /turf/simulated/shuttle/wall{
-	tag = "icon-swall14";
 	icon_state = "swall4";
-	dir = 2
+	tag = "icon-swall14"
 	},
-/area/shuttle/administration)
-"al" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 1;
-	icon_state = "open";
-	id_tag = "Asclshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/obj/structure/grille,
-/obj/structure/shuttle/window{
-	tag = "icon-window5_mid";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_mid";
-	dir = 2
-	},
-/turf/space,
-/area/shuttle/administration)
-"am" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 1;
-	icon_state = "open";
-	id_tag = "Asclshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/obj/structure/grille,
-/obj/structure/shuttle/window{
-	tag = "icon-window5_end (NORTH)";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	dir = 1
-	},
-/turf/space,
 /area/shuttle/administration)
 "an" = (
 /turf/simulated/shuttle/wall{
-	icon_state = "swall_s10";
-	dir = 2
+	icon_state = "swall_s10"
 	},
 /area/shuttle/administration)
 "ao" = (
 /turf/simulated/shuttle/wall{
-	tag = "icon-swall3";
 	icon_state = "swall3";
-	dir = 2
+	tag = "icon-swall3"
 	},
 /area/shuttle/administration)
 "ap" = (
@@ -192,7 +95,7 @@
 	},
 /area/shuttle/administration)
 "aq" = (
-/obj/machinery/chem_dispenser,
+/obj/machinery/chem_dispenser/supgraded,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -200,9 +103,8 @@
 "ar" = (
 /obj/machinery/chem_heater,
 /obj/machinery/light{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -227,15 +129,13 @@
 	pixel_y = 1
 	},
 /turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
+	icon_state = "swall3"
 	},
 /area/shuttle/administration)
 "av" = (
 /obj/structure/chair{
-	tag = "icon-chair (EAST)";
-	icon_state = "chair";
-	dir = 4
+	dir = 4;
+	tag = "icon-chair (EAST)"
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -255,7 +155,6 @@
 	},
 /obj/machinery/camera{
 	dir = 8;
-	icon_state = "camera";
 	name = "NHV Asclepius Lobby";
 	network = list("NHV Asclepius")
 	},
@@ -267,13 +166,6 @@
 	},
 /area/shuttle/administration)
 "ay" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/administration)
-"az" = (
 /obj/machinery/clonepod{
 	biomass = 300
 	},
@@ -281,19 +173,26 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
-"aA" = (
+"az" = (
 /obj/machinery/computer/cloning,
 /obj/machinery/light{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
-"aB" = (
+"aA" = (
 /obj/machinery/dna_scannernew,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"aB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -306,22 +205,12 @@
 /area/shuttle/administration)
 "aD" = (
 /turf/simulated/shuttle/wall{
-	icon_state = "swall7";
-	dir = 2
+	icon_state = "swall7"
 	},
 /area/shuttle/administration)
 "aE" = (
 /turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
-	},
-/area/shuttle/administration)
-"aF" = (
-/obj/structure/reagent_dispensers/fueltank/chem{
-	pixel_x = -32
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
+	icon_state = "swall3"
 	},
 /area/shuttle/administration)
 "aG" = (
@@ -348,8 +237,10 @@
 /area/shuttle/administration)
 "aI" = (
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -358,9 +249,8 @@
 "aJ" = (
 /obj/structure/sign/nosmoking_2,
 /turf/simulated/shuttle/wall{
-	tag = "icon-swall1";
 	icon_state = "swall1";
-	dir = 2
+	tag = "icon-swall1"
 	},
 /area/shuttle/administration)
 "aK" = (
@@ -371,7 +261,6 @@
 /area/shuttle/administration)
 "aL" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater";
 	dir = 4
 	},
 /obj/structure/window/plasmareinforced{
@@ -381,8 +270,7 @@
 /area/shuttle/administration)
 "aM" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "propulsion"
+	dir = 4
 	},
 /turf/simulated/shuttle/plating,
 /area/shuttle/administration)
@@ -443,7 +331,6 @@
 /obj/machinery/reagentgrinder,
 /obj/machinery/camera{
 	dir = 4;
-	icon_state = "camera";
 	name = "NHV Asclepius Chemistry";
 	network = list("NHV Asclepius")
 	},
@@ -469,7 +356,6 @@
 "aV" = (
 /obj/machinery/camera{
 	dir = 8;
-	icon_state = "camera";
 	name = "NHV Asclepius Cloning";
 	network = list("NHV Asclepius")
 	},
@@ -480,16 +366,14 @@
 /area/shuttle/administration)
 "aW" = (
 /turf/simulated/shuttle/wall{
-	icon_state = "swall_s9";
-	dir = 2
+	icon_state = "swall_s9"
 	},
 /area/shuttle/administration)
 "aX" = (
-/obj/machinery/iv_drip,
-/obj/item/reagent_containers/iv_bag,
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_x = -32
 	},
+/obj/structure/table/reinforced,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -501,8 +385,8 @@
 	},
 /area/shuttle/administration)
 "aZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 6
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -518,8 +402,7 @@
 "bb" = (
 /obj/machinery/status_display,
 /turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
+	icon_state = "swall3"
 	},
 /area/shuttle/administration)
 "bc" = (
@@ -536,9 +419,15 @@
 /area/shuttle/administration)
 "be" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/spray/cleaner,
-/obj/item/storage/box/gloves,
-/obj/item/storage/box/masks,
+/obj/item/storage/belt/medical,
+/obj/item/storage/belt/medical,
+/obj/item/storage/belt/medical,
+/obj/item/clothing/glasses/hud/health,
+/obj/item/clothing/glasses/hud/health,
+/obj/item/clothing/glasses/hud/health,
+/obj/machinery/light,
+/obj/item/reagent_containers/glass/beaker/cryoxadone,
+/obj/item/reagent_containers/glass/beaker/cryoxadone,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -562,22 +451,16 @@
 	},
 /area/shuttle/administration)
 "bh" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/belt/medical,
-/obj/item/storage/belt/medical,
-/obj/item/storage/belt/medical,
-/obj/item/clothing/glasses/hud/health,
-/obj/item/clothing/glasses/hud/health,
-/obj/item/clothing/glasses/hud/health,
-/obj/machinery/light,
+/obj/machinery/atmospherics/unary/cold_sink/freezer{
+	dir = 1
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "bi" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	dir = 1
-	},
+/obj/item/reagent_containers/iv_bag,
+/obj/machinery/iv_drip,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -590,16 +473,14 @@
 /area/shuttle/administration)
 "bk" = (
 /turf/simulated/shuttle/wall{
-	tag = "icon-swall13";
 	icon_state = "swall13";
-	dir = 2
+	tag = "icon-swall13"
 	},
 /area/shuttle/administration)
 "bl" = (
 /obj/structure/shuttle/window,
 /obj/structure/grille,
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall8";
 	tag = "icon-swall12"
 	},
@@ -608,35 +489,15 @@
 /obj/structure/shuttle/window,
 /obj/structure/grille,
 /turf/simulated/shuttle/wall{
-	tag = "icon-swall14";
 	icon_state = "swall4";
-	dir = 2
+	tag = "icon-swall14"
 	},
 /area/shuttle/administration)
 "bn" = (
 /turf/simulated/shuttle/wall{
-	tag = "icon-swall15";
 	icon_state = "swall15";
-	dir = 2
+	tag = "icon-swall15"
 	},
-/area/shuttle/administration)
-"bo" = (
-/obj/structure/shuttle/window{
-	tag = "icon-window5_end (WEST)";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	dir = 8
-	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 8;
-	icon_state = "open";
-	id_tag = "Asclshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/obj/structure/grille,
-/turf/space,
 /area/shuttle/administration)
 "bp" = (
 /obj/machinery/computer/pandemic,
@@ -647,7 +508,6 @@
 "bq" = (
 /obj/machinery/camera{
 	c_tag = "Tech Storage";
-	dir = 2;
 	name = "NHV Asclepius Command Center";
 	network = list("NHV Asclepius")
 	},
@@ -660,21 +520,17 @@
 	name = "remote shutter control";
 	pixel_x = -5;
 	pixel_y = 35;
-	req_access = list(101);
-	req_access_txt = "0"
+	req_access = list(101)
 	},
 /obj/machinery/keycard_auth{
 	pixel_y = 24
 	},
 /obj/machinery/door_control{
-	dir = 2;
 	id = "asclblast";
 	name = "blast door control";
 	pixel_x = 5;
 	pixel_y = 35;
-	pixel_z = 0;
-	req_access = list(101);
-	req_access_txt = "0"
+	req_access = list(101)
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -696,15 +552,13 @@
 /area/shuttle/administration)
 "bs" = (
 /turf/simulated/shuttle/wall{
-	tag = "icon-swall1";
 	icon_state = "swall1";
-	dir = 2
+	tag = "icon-swall1"
 	},
 /area/shuttle/administration)
 "bt" = (
 /obj/structure/sink{
-	icon_state = "sink";
-	dir = 8;
+	dir = 4;
 	pixel_x = -12;
 	pixel_y = 2
 	},
@@ -714,9 +568,8 @@
 /area/shuttle/administration)
 "bu" = (
 /obj/machinery/light{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_y = 32
@@ -728,77 +581,42 @@
 "bv" = (
 /obj/machinery/vending/medical,
 /obj/machinery/light{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "bw" = (
-/obj/structure/table/tray,
-/obj/item/stack/medical/bruise_pack/advanced,
-/obj/item/scalpel,
-/obj/item/hemostat,
-/obj/item/retractor,
-/obj/item/circular_saw,
-/obj/item/bonegel,
-/obj/item/bonesetter,
-/obj/item/cautery,
-/obj/item/FixOVein,
-/obj/item/surgicaldrill,
-/obj/item/storage/backpack/duffel/medical,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/administration)
-"bx" = (
-/obj/machinery/optable,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/administration)
-"by" = (
-/obj/machinery/computer/operating,
-/obj/machinery/light{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/administration)
-"bz" = (
 /obj/structure/closet/secure_closet/medical3,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
-"bA" = (
-/obj/structure/closet/secure_closet/medical2,
+"bx" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
-"bB" = (
-/obj/structure/shuttle/window{
-	dir = 4;
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_mid";
-	tag = "icon-window5 (EAST)"
+"by" = (
+/obj/machinery/light{
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 8;
-	icon_state = "open";
-	id_tag = "Asclshutters";
-	name = "Blast Shutters";
-	opacity = 0
+/obj/machinery/bodyscanner,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
 	},
-/obj/structure/grille,
-/turf/space,
 /area/shuttle/administration)
 "bC" = (
 /obj/machinery/computer/shuttle/admin{
@@ -830,16 +648,19 @@
 /area/shuttle/administration)
 "bF" = (
 /turf/simulated/shuttle/wall{
-	icon_state = "swall1";
-	dir = 2
+	icon_state = "swall1"
 	},
 /area/shuttle/administration)
 "bG" = (
 /obj/machinery/camera{
 	dir = 4;
-	icon_state = "camera";
 	name = "NHV Asclepius OR 1";
 	network = list("NHV Asclepius")
+	},
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = -12;
+	pixel_y = 2
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -864,33 +685,21 @@
 	},
 /area/shuttle/administration)
 "bJ" = (
-/obj/structure/sink{
-	dir = 4;
-	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
-	},
+/obj/item/stack/medical/bruise_pack/advanced,
+/obj/item/scalpel,
+/obj/item/hemostat,
+/obj/item/retractor,
+/obj/item/circular_saw,
+/obj/item/bonegel,
+/obj/item/bonesetter,
+/obj/item/cautery,
+/obj/item/FixOVein,
+/obj/item/surgicaldrill,
+/obj/item/storage/backpack/duffel/medical,
+/obj/structure/table/reinforced,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
-/area/shuttle/administration)
-"bK" = (
-/obj/structure/shuttle/window{
-	tag = "icon-window5_end (EAST)";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	dir = 4
-	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 8;
-	icon_state = "open";
-	id_tag = "Asclshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/obj/structure/grille,
-/turf/space,
 /area/shuttle/administration)
 "bL" = (
 /obj/machinery/computer/communications{
@@ -914,9 +723,8 @@
 /area/shuttle/administration)
 "bN" = (
 /turf/simulated/shuttle/wall{
-	tag = "icon-swall2";
 	icon_state = "swall2";
-	dir = 2
+	tag = "icon-swall2"
 	},
 /area/shuttle/administration)
 "bO" = (
@@ -949,26 +757,19 @@
 /area/shuttle/administration)
 "bT" = (
 /obj/machinery/light,
-/obj/structure/closet/crate/can,
+/obj/machinery/bodyscanner,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "bU" = (
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
-	name = "Surgery Cleaner"
-	},
-/obj/structure/table/glass,
+/obj/machinery/optable,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "bV" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/machinery/iv_drip,
+/obj/machinery/computer/operating,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -976,27 +777,23 @@
 "bW" = (
 /obj/machinery/status_display,
 /turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
+	icon_state = "swall12"
 	},
 /area/shuttle/administration)
 "bX" = (
 /turf/simulated/shuttle/wall{
-	icon_state = "swall13";
-	dir = 2
+	icon_state = "swall13"
 	},
 /area/shuttle/administration)
 "bY" = (
 /obj/structure/sign/examroom,
 /turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
+	icon_state = "swall12"
 	},
 /area/shuttle/administration)
 "bZ" = (
 /obj/machinery/defibrillator_mount/loaded,
 /turf/simulated/shuttle/wall{
-	dir = 2;
 	icon_state = "swall8";
 	tag = "icon-swall12"
 	},
@@ -1007,7 +804,6 @@
 	},
 /obj/machinery/camera{
 	dir = 5;
-	icon_state = "camera";
 	name = "NHV Asclepius Central";
 	network = list("NHV Asclepius")
 	},
@@ -1017,8 +813,7 @@
 /area/shuttle/administration)
 "cb" = (
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /obj/structure/bed{
 	name = "Triage: High Priority"
@@ -1031,14 +826,12 @@
 "cc" = (
 /obj/structure/sign/nosmoking_2,
 /turf/simulated/shuttle/wall{
-	icon_state = "swall7";
-	dir = 2
+	icon_state = "swall7"
 	},
 /area/shuttle/administration)
 "cd" = (
 /turf/simulated/shuttle/wall{
-	icon_state = "swall11";
-	dir = 2
+	icon_state = "swall11"
 	},
 /area/shuttle/administration)
 "ce" = (
@@ -1053,40 +846,33 @@
 	},
 /area/shuttle/administration)
 "cf" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/item/storage/box/gloves,
+/obj/item/storage/box/masks,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "cg" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	name = "Canister: \[O2] (CRYO)"
-	},
 /obj/machinery/light{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /obj/machinery/camera{
 	dir = 4;
-	icon_state = "camera";
 	name = "NHV Asclepius Cryo";
 	network = list("NHV Asclepius")
 	},
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "ch" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
-	name = "Surgery Cleaner"
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
 	},
-/obj/machinery/cell_charger,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -1101,7 +887,9 @@
 	},
 /area/shuttle/administration)
 "cj" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -1109,9 +897,13 @@
 "ck" = (
 /obj/machinery/camera{
 	dir = 4;
-	icon_state = "camera";
 	name = "NHV Asclepius OR 2";
 	network = list("NHV Asclepius")
+	},
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = -12;
+	pixel_y = 2
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -1181,114 +973,23 @@
 /area/shuttle/administration)
 "ct" = (
 /turf/simulated/shuttle/wall{
-	icon_state = "swall_s5";
-	dir = 2
+	icon_state = "swall_s5"
 	},
 /area/shuttle/administration)
 "cu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5;
-	icon_state = "intact"
-	},
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/machinery/iv_drip,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "cv" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden,
+/obj/structure/closet/secure_closet/medical2,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
-/area/shuttle/administration)
-"cw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4;
-	level = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/administration)
-"cx" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 9;
-	icon_state = "intact"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/administration)
-"hL" = (
-/obj/structure/shuttle/window{
-	tag = "icon-window5_mid";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_mid";
-	dir = 2
-	},
-/obj/structure/grille,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "Asclshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/turf/space,
-/area/shuttle/administration)
-"qa" = (
-/obj/structure/shuttle/window{
-	tag = "icon-window5_end";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	dir = 2
-	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "Asclshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/obj/structure/grille,
-/turf/space,
-/area/shuttle/administration)
-"Kq" = (
-/obj/structure/shuttle/window{
-	tag = "icon-window5_end";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	dir = 2
-	},
-/obj/structure/grille,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "Asclshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/turf/space,
-/area/shuttle/administration)
-"Vi" = (
-/obj/structure/shuttle/window{
-	tag = "icon-window5_end (NORTH)";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	dir = 1
-	},
-/obj/structure/grille,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "Asclshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/turf/space,
 /area/shuttle/administration)
 
 (1,1,1) = {"
@@ -1300,10 +1001,10 @@ aE
 aE
 aE
 aD
-bo
-bB
-bB
-bK
+aP
+aP
+aP
+aP
 aD
 aE
 aE
@@ -1314,7 +1015,7 @@ ct
 (2,1,1) = {"
 ac
 ap
-aF
+aX
 aN
 aS
 aX
@@ -1326,13 +1027,13 @@ bH
 bL
 ac
 cg
-cu
+aw
 aw
 cl
 ac
 "}
 (3,1,1) = {"
-ad
+aP
 aq
 aG
 aw
@@ -1345,14 +1046,14 @@ aR
 aR
 bM
 ac
-aC
-cv
+cp
+aw
 aw
 cm
-qa
+aP
 "}
 (4,1,1) = {"
-ae
+aP
 ar
 aw
 aw
@@ -1365,14 +1066,14 @@ aw
 aw
 aw
 bW
-cf
-cw
+cp
+aw
 aw
 cn
-hL
+aP
 "}
 (5,1,1) = {"
-af
+aP
 as
 aw
 aw
@@ -1385,11 +1086,11 @@ bD
 aP
 bN
 bX
-aC
-cv
+cp
+aw
 aw
 co
-Vi
+aP
 "}
 (6,1,1) = {"
 ac
@@ -1397,16 +1098,16 @@ at
 aw
 aO
 aw
-aw
+bi
 aw
 bj
 bt
 aw
-aw
+cj
 bO
 bY
-cj
-cx
+cp
+aw
 aw
 cp
 ac
@@ -1425,7 +1126,7 @@ aw
 aw
 bP
 bZ
-ch
+cp
 aw
 aw
 cq
@@ -1488,7 +1189,7 @@ aw
 aw
 aw
 aw
-aw
+cs
 ac
 "}
 (11,1,1) = {"
@@ -1537,22 +1238,22 @@ ay
 aw
 aw
 aw
-aw
+cf
 be
 ac
 bw
 bG
 aw
-bR
+cu
 ac
 bw
 ck
 aw
-bR
+cu
 ac
 "}
 (14,1,1) = {"
-ad
+aP
 az
 aw
 aw
@@ -1563,21 +1264,21 @@ ac
 bx
 aw
 aw
-aw
+cv
 ac
 bx
 aw
 aw
-aw
-Kq
+cv
+aP
 "}
 (15,1,1) = {"
-al
+aP
 aA
 aw
 aw
 aw
-aw
+ch
 bh
 ac
 by
@@ -1589,44 +1290,44 @@ by
 aw
 aw
 bT
-hL
+aP
 "}
 (16,1,1) = {"
-am
+aP
+aC
 aB
 aw
 aw
-aw
 aZ
-bi
+ce
 ac
-bz
+bU
 aw
 aw
 bU
 ac
-bz
+bU
 aw
 aw
 bU
-Vi
+aP
 "}
 (17,1,1) = {"
 ac
 aC
-aK
+bf
 aK
 aV
 bf
 ce
 ac
-bA
-aw
+bV
+bJ
 bJ
 bV
 ac
-bA
-aw
+bV
+bJ
 bJ
 bV
 ac
