@@ -224,7 +224,7 @@
 			nadeassembly = null
 			qdel(GetComponent(/datum/component/proximity_monitor))
 		else
-			new /obj/item/stack/cable_coil(get_turf(src), 5)
+			new /obj/item/stack/cable_coil(get_turf(src), 1)
 		if(beakers.len)
 			for(var/obj/O in beakers)
 				O.loc = get_turf(src)
