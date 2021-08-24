@@ -39,7 +39,6 @@
 				for(var/i in 1 to 2)
 					var/mob/living/simple_animal/butterfly/B = new(affected_mob.loc)
 					addtimer(CALLBACK(B, /mob/living/simple_animal/butterfly/.proc/decompose), rand(5, 25) SECONDS)
-	return
 
 /**
  * Made so severe anxiety does not overload the SSmob while keeping it's effect
