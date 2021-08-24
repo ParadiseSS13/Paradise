@@ -11,7 +11,7 @@
 	resistance_flags = NONE
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		)
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -41,7 +41,7 @@
 	name = "security armor"
 	desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/suit.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 	)
 	icon_state = "armor"
 	item_state = "armor"
