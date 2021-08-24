@@ -1,3 +1,4 @@
+import { rad2deg } from 'common/math';
 import { Component, Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Flex, Icon, LabeledList, Modal, Section, Tabs } from '../components';
@@ -260,7 +261,7 @@ const Contracts = (properties, context) => {
               )}
             </Box>
           )}>
-          <Flex width="100%">
+          <Flex>
             <Flex.Item grow="2" mr="0.5rem">
               {contract.fluff_message}
               {!!contract.completed_time && (
@@ -284,28 +285,26 @@ const Contracts = (properties, context) => {
                 </Box>
               )}
             </Flex.Item>
-            <Flex.Item grow="1" flexBasis="100%">
-              <Box mb="0.5rem" color="label">
-                Extraction Zone:
-              </Box>
+            <Flex.Item flexBasis="100%">
+              <Flex mb="0.5rem" color="label">
+                Extraction Zone:&nbsp;
+                {areaArrow(contract)}
+              </Flex>
               {contract.difficulties?.map((difficulty, key) => (
-                <Fragment>
-                  <Button.Confirm
-                    disabled={!!contract_active}
-                    content={difficulty.name + " (" + difficulty.reward + " TC)"}
-                    onClick={() => act("activate", {
-                      uid: contract.uid,
-                      difficulty: key + 1,
-                    })}
-                  />
-                  <br />
-                </Fragment>
+                <Button.Confirm
+                  disabled={!!contract_active}
+                  content={difficulty.name + " (" + difficulty.reward + " TC)"}
+                  onClick={() => act("activate", {
+                    uid: contract.uid,
+                    difficulty: key + 1,
+                  })}
+                />
               ))}
               {!!contract.objective && (
                 <Box color="white" bold>
-                  {contract.objective.extraction_zone}<br />
-                  ({(contract.objective.reward_tc || 0) + " TC"},&nbsp;
-                  {(contract.objective.reward_credits || 0) + " Credits"})
+                  {contract.objective.extraction_name}<br />
+                  ({(contract.objective.rewards.tc || 0) + " TC"},&nbsp;
+                  {(contract.objective.rewards.credits || 0) + " Credits"})
                 </Box>
               )}
             </Flex.Item>
@@ -314,6 +313,29 @@ const Contracts = (properties, context) => {
       ))}
     </Section>
   );
+};
+
+const areaArrow = contract => {
+  if (!contract.objective || (contract.status > 1)) {
+    return;
+  } else {
+    const current_area_id = contract.objective.locs.user_area_id;
+    const c_coords = contract.objective.locs.user_coords;
+    const target_area_id = contract.objective.locs.target_area_id;
+    const t_coords = contract.objective.locs.target_coords;
+    const same_area = (current_area_id === target_area_id);
+    return (
+      <Flex.Item>
+        <Icon
+          name={same_area ? "dot-circle-o" : "arrow-alt-circle-right-o"}
+          color={same_area ? "green" : "yellow"}
+          rotation={same_area ? null : -rad2deg(Math.atan2(t_coords[1] - c_coords[1], t_coords[0] - c_coords[0]))}
+          lineHeight={same_area ? null : "0.85"} // Needed because it jumps upwards otherwise
+          size="1.5"
+        />
+      </Flex.Item>
+    );
+  }
 };
 
 const Hub = (properties, context) => {

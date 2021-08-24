@@ -570,9 +570,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
 		return FALSE
 
-	var/turf/T = get_turf(user)
-	if(is_admin_level(T.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
-		return FALSE
+	if(!centcom_cancast) //Certain spells are not allowed on the centcom zlevel
+		var/turf/T = get_turf(user)
+		if(T && is_admin_level(T.z))
+			return FALSE
 
 	if(!holy_area_cancast && user.holy_check())
 		return FALSE
