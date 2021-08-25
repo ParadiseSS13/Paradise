@@ -855,8 +855,9 @@ About the new airlock wires panel:
 
 	if(unlock()) // Trying to unbolt
 		to_chat(user, "<span class='notice'>The door bolts have been raised.</span>")
+		return
 
-	else if(lock()) // Trying to bolt
+	if(lock()) // Trying to bolt
 		to_chat(user, "<span class='notice'>The door bolts have been dropped.</span>")
 		user.create_log(MISC_LOG, "Bolted", src)
 		add_hiddenprint(user)
