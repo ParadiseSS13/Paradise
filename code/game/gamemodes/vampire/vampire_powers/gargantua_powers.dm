@@ -59,6 +59,7 @@
 	desc = "You charge at the selected position, dealing large amounts of damage and destroying walls."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
 	required_blood = 30
+	charge_max = 30 SECONDS
 	vampire_ability = TRUE
 	panel = "Vampire"
 	school = "vampire"
