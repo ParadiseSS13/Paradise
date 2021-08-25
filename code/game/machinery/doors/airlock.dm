@@ -817,9 +817,9 @@ About the new airlock wires panel:
 			if(wires.is_cut(WIRE_SPEED))
 				to_chat(usr, "<span class='warning'>The timing wire is cut - Cannot alter timing.</span>")
 			else if(normalspeed)
-				normalspeed = 0
+				normalspeed = FALSE
 			else
-				normalspeed = 1
+				normalspeed = TRUE
 		if("open-close")
 			open_close(usr)
 		else
@@ -863,6 +863,17 @@ About the new airlock wires panel:
 	else
 		to_chat(user, "<span class='notice'>Emergency access has been disabled.</span>")
 	update_icon()
+
+/obj/machinery/door/airlock/proc/toggle_speed(mob/user)
+	normalspeed = !normalspeed
+	if(wires.is_cut(WIRE_SPEED))
+		to_chat(user, "<span class='warning'>The timing wire is cut - Cannot alter timing.</span>")
+	else if(normalspeed)
+		normalspeed = TRUE
+		to_chat(user, "<span class='notice'>The door is now in normal mode.</span>")
+	else if(!normalspeed)
+		normalspeed = FALSE
+		to_chat(user, "<span class='notice'>The door is now in fast mode.</span>")
 
 /obj/machinery/door/airlock/attackby(obj/item/C, mob/user, params)
 	add_fingerprint(user)
