@@ -44,6 +44,6 @@
  * Made so severe anxiety does not overload the SSmob while keeping it's effect
  */
 /mob/living/simple_animal/butterfly/proc/decompose()
-	visible_message("<span class='notice'>[src] decomposes due to being outside of its original habitat for too long!</span>", \
+	visible_message("<span class='notice'>[src] decomposes due to being outside of its original habitat for too long!</span>",
 					"<span class='userdanger'>You decompose for being too long out of your habitat!</span>")
 	melt()
