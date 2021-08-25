@@ -143,27 +143,21 @@
 	panel = "Demon"
 
 /obj/effect/proc_holder/spell/sense_victims/create_new_targeting()
-	var/datum/spell_targeting/targeted/T = new()
-	T.range = 20
-	T.allowed_type = /mob/living
-	return T
+	var/datum/spell_targeting/alive_mob_list/A = new()
+	return A
+
+/obj/effect/proc_holder/spell/sense_victims/valid_target(mob/living/target, user)
+	return target.stat == CONSCIOUS && target.key && !iscultist(target) // Only conscious, non cultist players
 
 /obj/effect/proc_holder/spell/sense_victims/cast(list/targets, mob/user)
-	var/list/victims = targets
-	for(var/mob/living/L in GLOB.alive_mob_list)
-		if(!L.stat && !iscultist(L) && L.key && L != usr)
-			victims.Add(L)
-	if(!targets.len)
-		to_chat(usr, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
-		return 0
-	var/mob/living/victim = pick(victims)
+	var/mob/living/victim = targets[1]
 	to_chat(victim, "<span class='userdanger'>You feel an awful sense of being watched...</span>")
 	victim.Stun(3) //HUE
 	var/area/A = get_area(victim)
 	if(!A)
-		to_chat(usr, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
+		to_chat(user, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
 		return 0
-	to_chat(usr, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
+	to_chat(user, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
 
 /mob/living/simple_animal/slaughter/cult/New()
 	..()

@@ -403,6 +403,7 @@
 #include "code\datums\outfits\vv_outfit.dm"
 #include "code\datums\ruins\lavaland.dm"
 #include "code\datums\ruins\space.dm"
+#include "code\datums\spell_targeting\alive_mobs.dm"
 #include "code\datums\spell_targeting\aoe.dm"
 #include "code\datums\spell_targeting\click.dm"
 #include "code\datums\spell_targeting\clicked_atom.dm"
