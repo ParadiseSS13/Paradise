@@ -171,6 +171,8 @@
 	name = "baguette"
 	desc = "Bon appetit!"
 	icon_state = "baguette"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	filling_color = "#E3D796"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
