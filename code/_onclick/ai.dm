@@ -161,12 +161,6 @@
 		user.examinate(src)
 	return
 
-/atom/proc/AIShiftMiddleClickOn(mob/living/user)
-	return
-
-/obj/machinery/door/airlock/AIShiftMiddleClickOn(mob/living/user)
-	toggle_speed()
-
 /atom/proc/AICtrlClick(mob/living/silicon/user)
 	return
 
