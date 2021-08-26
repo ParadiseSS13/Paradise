@@ -116,7 +116,7 @@
 	desc = "WARNING! Offers no real protection, or luminosity, but it is damn fancy!"
 	icon_state = "hardhat0_yellow"
 	item_state = "hardhat0_yellow"
-	dog_fashion = /datum/dog_fashion/head
+	dog_fashion = /datum/dog_fashion/head/hardhat
 
 /obj/item/clothing/head/collectable/HoS
 	name = "collectable HoS hat"
