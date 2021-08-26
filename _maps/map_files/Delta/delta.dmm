@@ -17766,6 +17766,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/machinery/door_control{
+	id = "justice_blast";
+	name = "Space Vent";
+	pixel_y = 34;
+	req_access_txt = "2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -79107,8 +79113,11 @@
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/structure/sign/nosmoking_2{
-	pixel_x = -32
+/obj/machinery/door_control{
+	id = "toxmix1";
+	name = "Space Vent";
+	pixel_x = -32;
+	req_access_txt = "2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -79643,6 +79652,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
 	},
+/obj/structure/sign/nosmoking_2{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -79660,16 +79672,17 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "drp" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
+/obj/machinery/door/poddoor{
+	id_tag = "justice_blast";
+	name = "Justice Blast Door"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/decal/warning_stripes/south,
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/grille{
+	layer = 2.69
 	},
-/area/maintenance/port)
+/turf/simulated/floor/plasteel,
+/area/security/execution)
 "drr" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/pump,
@@ -81874,6 +81887,7 @@
 /area/maintenance/port)
 "dvX" = (
 /obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "neutral"
@@ -96543,6 +96557,14 @@
 /obj/item/clipboard,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
+"kQj" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "kSX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -98143,6 +98165,13 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"raI" = (
+/obj/machinery/door/poddoor{
+	id_tag = "toxmix1";
+	name = "Space Vent"
+	},
+/turf/simulated/floor/engine,
+/area/toxins/mixing)
 "raK" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -99368,6 +99397,17 @@
 	icon_state = "red"
 	},
 /area/security/brig)
+"vxe" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
+/area/maintenance/port)
 "vzz" = (
 /obj/machinery/light{
 	dir = 4
@@ -99773,6 +99813,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/warden)
+"xvA" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "xwk" = (
 /obj/structure/sink{
 	dir = 4;
@@ -131015,9 +131064,9 @@ tkC
 xZl
 tkC
 dkI
-cYe
-drn
-cLA
+kQj
+cAS
+vxe
 drn
 dvV
 dxh
@@ -131272,9 +131321,9 @@ vOk
 dnh
 doD
 dkI
-drp
-dst
-cly
+dmq
+dmq
+xvA
 dst
 dvW
 dWn
@@ -131528,9 +131577,9 @@ dkI
 scG
 fWM
 sJJ
-dkI
-dsq
-cNh
+raI
+vXX
+dmq
 dtP
 cNh
 dvX
@@ -156369,7 +156418,7 @@ aaa
 acF
 abj
 abj
-aIO
+drp
 aNQ
 aPg
 aQJ
