@@ -366,12 +366,8 @@
 /mob/proc/ShiftMiddleClickOn(atom/A)
 	return
 
-/atom/proc/CtrlShiftMiddleClick(mob/user)
-	return
-
 /atom/proc/AltShiftClick(mob/user)
 	return
-
 
 /*
 	Misc helpers
