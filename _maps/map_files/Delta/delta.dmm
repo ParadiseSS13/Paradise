@@ -147,6 +147,9 @@
 	},
 /area/shuttle/vox)
 "aau" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 1
+	},
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "aav" = (
@@ -160,24 +163,16 @@
 	dir = 4;
 	tag = "icon-tube1 (EAST)"
 	},
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8;
+	frequency = 1331;
+	id_tag = "vox_west_vent"
+	},
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "aaw" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "voxshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/obj/structure/grille,
-/obj/structure/shuttle/window{
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	tag = "icon-window5_end"
-	},
-/turf/simulated/shuttle/plating/vox,
+/obj/machinery/computer/camera_advanced/shuttle_docker/vox,
+/turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "aaL" = (
 /obj/structure/table/reinforced,
@@ -228,39 +223,17 @@
 	},
 /area/security/range)
 "abb" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "voxshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/obj/structure/grille,
-/obj/structure/shuttle/window{
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_mid";
-	tag = "icon-window5_mid"
-	},
-/turf/simulated/shuttle/plating/vox,
+/obj/machinery/computer/shuttle/vox,
+/turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "abi" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "voxshutters";
-	name = "Blast Shutters";
-	opacity = 0
+/obj/structure/table,
+/obj/machinery/door_control{
+	id = "voxshutters";
+	name = "remote shutter control";
+	req_access_txt = "152"
 	},
-/obj/structure/grille,
-/obj/structure/shuttle/window{
-	dir = 1;
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	tag = "icon-window5_end (NORTH)"
-	},
-/turf/simulated/shuttle/plating/vox,
+/turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "abj" = (
 /obj/structure/lattice,
@@ -276,6 +249,11 @@
 /obj/machinery/light/spot{
 	dir = 8;
 	tag = "icon-tube1 (WEST)"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	frequency = 1331;
+	id_tag = "vox_east_vent"
 	},
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -308,16 +286,22 @@
 	},
 /area/shuttle/syndicate)
 "abt" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/vox,
-/turf/simulated/shuttle/floor4/vox,
-/area/shuttle/vox)
-"abv" = (
-/obj/machinery/porta_turret/syndicate,
-/turf/simulated/shuttle/wall{
-	dir = 1;
-	icon_state = "diagonalWall3"
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
 	},
-/area/shuttle/syndicate)
+/obj/structure/grille,
+/obj/structure/shuttle/window{
+	icon = 'icons/turf/shuttle.dmi';
+	icon_state = "window5_end";
+	tag = "icon-window5_end"
+	},
+/turf/simulated/shuttle/plating/vox,
+/area/shuttle/vox)
 "abz" = (
 /turf/simulated/shuttle/wall{
 	dir = 4;
@@ -408,17 +392,27 @@
 	},
 /area/shuttle/syndicate)
 "abO" = (
-/obj/machinery/computer/shuttle/vox,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "abT" = (
-/obj/structure/table,
-/obj/machinery/door_control{
-	id = "voxshutters";
-	name = "remote shutter control";
-	req_access_txt = "152"
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
 	},
-/turf/simulated/shuttle/floor4/vox,
+/obj/structure/grille,
+/obj/structure/shuttle/window{
+	icon = 'icons/turf/shuttle.dmi';
+	icon_state = "window5_mid";
+	tag = "icon-window5_mid"
+	},
+/turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "abV" = (
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
@@ -568,10 +562,22 @@
 	},
 /area/shuttle/syndicate)
 "acv" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
 	},
-/turf/simulated/shuttle/floor4/vox,
+/obj/structure/grille,
+/obj/structure/shuttle/window{
+	dir = 1;
+	icon = 'icons/turf/shuttle.dmi';
+	icon_state = "window5_end";
+	tag = "icon-window5_end (NORTH)"
+	},
+/turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "acw" = (
 /obj/structure/chair/comfy/shuttle{
@@ -804,6 +810,9 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/administration)
 "adi" = (
+/obj/machinery/porta_turret/syndicate{
+	pixel_y = -2
+	},
 /turf/simulated/shuttle/wall{
 	dir = 4;
 	icon_state = "diagonalWall3"
@@ -863,6 +872,9 @@
 	},
 /area/shuttle/syndicate_elite)
 "ady" = (
+/obj/machinery/porta_turret/syndicate{
+	pixel_y = -2
+	},
 /turf/simulated/shuttle/wall{
 	icon_state = "diagonalWall3"
 	},
@@ -877,13 +889,16 @@
 /obj/machinery/door/airlock/hatch{
 	req_access_txt = "152"
 	},
-/turf/simulated/shuttle/plating/vox,
+/turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "adI" = (
-/obj/machinery/light{
+/obj/machinery/atmospherics/unary/tank/nitrogen{
 	dir = 4
 	},
-/turf/simulated/shuttle/plating/vox,
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "wall3"
+	},
 /area/shuttle/vox)
 "adJ" = (
 /obj/machinery/door/poddoor/shutters{
@@ -1030,30 +1045,27 @@
 	icon_state = "swall7"
 	},
 /area/shuttle/administration)
-"aek" = (
-/obj/machinery/porta_turret/syndicate,
-/turf/simulated/shuttle/wall{
-	dir = 8;
-	icon_state = "diagonalWall3"
-	},
-/area/shuttle/syndicate)
 "ael" = (
-/obj/machinery/porta_turret/syndicate,
+/obj/machinery/atmospherics/unary/tank/nitrogen{
+	dir = 8
+	},
 /turf/simulated/shuttle/wall{
 	dir = 4;
 	icon_state = "wall3"
 	},
-/area/shuttle/syndicate)
+/area/shuttle/vox)
 "aem" = (
 /obj/item/skeleton/r_arm,
 /turf/space,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "aen" = (
-/obj/machinery/atmospherics/unary/tank/nitrogen{
-	dir = 1
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
+	frequency = 1331;
+	id_tag = "vox_west_vent"
 	},
-/turf/simulated/shuttle/floor4/vox,
+/turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "aeo" = (
 /obj/machinery/door/window{
@@ -1067,30 +1079,31 @@
 	},
 /area/shuttle/syndicate)
 "aep" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
-/turf/simulated/shuttle/floor4/vox,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
+	frequency = 1331;
+	id_tag = "vox_east_vent"
+	},
+/turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "aeq" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
-/obj/machinery/light/spot,
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "aer" = (
-/obj/structure/rack,
-/obj/item/rcd,
-/obj/item/rcd_ammo,
-/obj/item/rcd_ammo,
-/obj/item/rcd_ammo,
+/obj/machinery/light/spot{
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
+	},
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "aes" = (
-/obj/structure/rack,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
+/obj/item/storage/toolbox/electrical,
+/obj/item/storage/toolbox/emergency,
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "aet" = (
@@ -1112,6 +1125,8 @@
 /obj/item/dart_cartridge,
 /obj/item/dart_cartridge,
 /obj/item/dart_cartridge,
+/obj/item/gun/dartgun/vox/medical,
+/obj/item/gun/dartgun/vox/medical,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "aey" = (
@@ -1226,9 +1241,7 @@
 	},
 /area/engine/mechanic_workshop/expedition)
 "aeO" = (
-/obj/machinery/sleeper/upgraded{
-	dir = 4
-	},
+/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "aeP" = (
@@ -1397,16 +1410,15 @@
 	},
 /area/shuttle/syndicate_elite)
 "afh" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/machinery/light/spot,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "afi" = (
-/obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
+/obj/machinery/atmospherics/unary/tank/nitrogen{
 	dir = 1
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "afj" = (
 /obj/structure/rack,
@@ -1414,6 +1426,10 @@
 /obj/item/clothing/suit/space/vox/medic,
 /obj/item/clothing/head/helmet/space/vox/medic,
 /obj/item/clothing/mask/breath,
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "afn" = (
@@ -1653,12 +1669,11 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/syndicate)
 "afX" = (
-/obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
+/obj/machinery/atmospherics/unary/tank/nitrogen{
 	dir = 1
 	},
 /turf/space,
-/turf/simulated/shuttle/plating,
+/turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "afY" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
@@ -1671,9 +1686,9 @@
 	},
 /area/shuttle/syndicate)
 "afZ" = (
-/obj/structure/shuttle/engine/propulsion{
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l"
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/simulated/shuttle/plating,
 /area/shuttle/vox)
@@ -2006,6 +2021,9 @@
 	},
 /area/shuttle/syndicate)
 "ahB" = (
+/obj/machinery/porta_turret/syndicate{
+	pixel_y = 2
+	},
 /turf/simulated/shuttle/wall{
 	dir = 8;
 	icon_state = "diagonalWall3"
@@ -2141,6 +2159,9 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
 "aix" = (
+/obj/machinery/porta_turret/syndicate{
+	pixel_y = 2
+	},
 /turf/simulated/shuttle/wall{
 	dir = 1;
 	icon_state = "diagonalWall3"
@@ -74139,6 +74160,17 @@
 	icon_state = "blue"
 	},
 /area/hydroponics)
+"jyo" = (
+/obj/machinery/door/airlock/shuttle{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch"
+	},
+/turf/simulated/shuttle/floor4,
+/area/shuttle/escape{
+	parallax_movedir = 2
+	})
 "jyy" = (
 /obj/machinery/newscaster{
 	pixel_y = 32
@@ -82797,6 +82829,11 @@
 	},
 /turf/simulated/floor/carpet,
 /area/ntrep)
+"lRC" = (
+/obj/machinery/bodyscanner,
+/obj/machinery/light/spot,
+/turf/simulated/shuttle/floor4/vox,
+/area/shuttle/vox)
 "lRT" = (
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/decal/cleanable/dirt,
@@ -88021,6 +88058,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
+"ndK" = (
+/obj/machinery/sleeper/upgraded{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor4/vox,
+/area/shuttle/vox)
 "ndS" = (
 /obj/machinery/alarm{
 	dir = 8;
@@ -97512,7 +97555,6 @@
 /turf/simulated/floor/wood,
 /area/security/hos)
 "pvA" = (
-/obj/machinery/porta_turret/syndicate,
 /turf/simulated/shuttle/wall{
 	icon_state = "diagonalWall3"
 	},
@@ -98255,7 +98297,6 @@
 	parallax_movedir = 2
 	})
 "pDS" = (
-/obj/machinery/porta_turret/syndicate,
 /turf/simulated/shuttle/wall{
 	dir = 4;
 	icon_state = "diagonalWall3"
@@ -103610,6 +103651,14 @@
 /obj/structure/sign/greencross,
 /turf/simulated/wall/r_wall,
 /area/medical/cmo)
+"qTG" = (
+/obj/structure/rack,
+/obj/item/rcd,
+/obj/item/rcd_ammo,
+/obj/item/rcd_ammo,
+/obj/item/rcd_ammo,
+/turf/simulated/shuttle/floor4/vox,
+/area/shuttle/vox)
 "qTI" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -105791,6 +105840,16 @@
 	icon_state = "dark"
 	},
 /area/bridge)
+"run" = (
+/obj/structure/rack,
+/obj/item/tank/nitrogen,
+/obj/item/tank/nitrogen,
+/obj/item/tank/nitrogen,
+/obj/item/tank/nitrogen,
+/obj/item/tank/nitrogen,
+/obj/item/tank/nitrogen,
+/turf/simulated/shuttle/floor4/vox,
+/area/shuttle/vox)
 "rus" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -108881,6 +108940,13 @@
 /obj/machinery/light,
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
+"skw" = (
+/obj/structure/shuttle/engine/propulsion{
+	icon_state = "propulsion_l";
+	tag = "icon-propulsion_l"
+	},
+/turf/simulated/shuttle/plating,
+/area/shuttle/vox)
 "sky" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -139194,7 +139260,7 @@ aaa
 aaa
 aaa
 aaa
-aek
+ahB
 abz
 abz
 abz
@@ -140466,7 +140532,7 @@ aaa
 aaa
 aaa
 aaa
-aek
+ahB
 abz
 abz
 abz
@@ -140730,7 +140796,7 @@ ade
 anx
 abz
 abz
-ael
+abz
 abz
 abz
 abz
@@ -141758,7 +141824,7 @@ abB
 anx
 abz
 abz
-ael
+abz
 abz
 abz
 abz
@@ -142008,7 +142074,7 @@ aaa
 aaa
 aaa
 aaa
-abv
+aix
 abz
 abz
 abz
@@ -142277,7 +142343,7 @@ aaa
 aeQ
 abB
 afs
-abB
+ade
 anx
 akC
 abB
@@ -143306,7 +143372,7 @@ aaa
 aaa
 aaa
 aaa
-abv
+aix
 abz
 abz
 abz
@@ -173547,7 +173613,7 @@ ubJ
 xnH
 hNA
 kUB
-dUr
+jyo
 xnH
 xnH
 xnH
@@ -190346,7 +190412,7 @@ aaa
 aaa
 aaa
 aad
-aat
+adI
 aat
 aat
 aaf
@@ -190356,8 +190422,8 @@ adJ
 acK
 aat
 aat
+aat
 acE
-aaa
 aaa
 aaa
 aaa
@@ -190604,17 +190670,17 @@ aaa
 aaa
 aaf
 aau
-aau
-abX
-aau
-aau
-aau
-abr
-abr
 aen
+abX
+abr
+aeq
+abr
+abr
+abr
+abr
 afi
 afZ
-aaa
+skw
 aaa
 aaa
 aaa
@@ -190863,15 +190929,15 @@ aag
 aav
 abq
 aaf
-aaf
-aaf
-aau
+abr
+abr
+abr
 adK
 abr
-aep
-afi
+abr
+aeO
 afZ
-aaa
+skw
 aaa
 aaa
 aaa
@@ -191119,16 +191185,16 @@ aaa
 aak
 aat
 aat
-acg
-aaa
 aaf
-aau
+aaf
+aaf
+abr
 adN
 abr
-aeq
-aaf
-acg
-aaa
+abr
+afh
+afZ
+skw
 aaa
 aaa
 aaa
@@ -191379,13 +191445,13 @@ aaa
 aaa
 aaa
 aaf
-aau
+abr
 adS
 aec
-aer
+abr
+qTG
 aaf
-aaa
-aaa
+acg
 aaa
 aaa
 aaa
@@ -191636,12 +191702,12 @@ aad
 acj
 acK
 aaf
-aau
+abr
 adT
 aef
 aes
+run
 aaf
-aaa
 aaa
 aaa
 aaa
@@ -191893,7 +191959,7 @@ aaf
 acn
 acn
 aaf
-aau
+adG
 aat
 aat
 aat
@@ -192146,12 +192212,12 @@ aaa
 aaa
 aad
 aat
-abr
+acn
 abr
 abr
 aaf
-aau
-adG
+abr
+aaf
 aec
 aet
 afj
@@ -192401,13 +192467,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaw
 abt
+aaw
+abr
 abr
 acW
 aaf
-aat
+acW
 aaf
 abr
 abr
@@ -192658,13 +192724,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
+abT
 abb
 abO
-acv
+abr
 ada
 adG
-adI
+abr
 adG
 abr
 abr
@@ -192915,13 +192981,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
+acv
 abi
-abT
 abr
 abr
+acW
 aaf
-aat
+acW
 aaf
 abr
 aec
@@ -193174,12 +193240,12 @@ aaa
 aaa
 aak
 aat
-abr
+acw
 abr
 abr
 aaf
-aau
-adG
+abr
+aaf
 aec
 aeu
 afO
@@ -193435,7 +193501,7 @@ aaf
 acw
 acw
 aaf
-aau
+adG
 aat
 aat
 aat
@@ -193692,12 +193758,12 @@ aak
 acA
 adr
 aaf
-aau
+abr
 adW
 abr
-aeO
+abr
+ndK
 aaf
-aaa
 aaa
 aaa
 aaa
@@ -193949,13 +194015,13 @@ aaa
 aaa
 aaa
 aaf
-aau
+abr
 adX
 abr
 abr
+abr
 aaf
-aaa
-aaa
+acE
 aaa
 aaa
 aaa
@@ -194203,16 +194269,16 @@ aaa
 aad
 aat
 aat
-acE
-aaa
 aaf
-aau
+aaf
+aaf
+abr
 adY
 aem
-afh
-aaf
-acE
-aaa
+abr
+lRC
+afZ
+skw
 aaa
 aaa
 aaa
@@ -194461,15 +194527,15 @@ aas
 abl
 abV
 aaf
-aaf
-aaf
-aau
+abr
+abr
+abr
 adZ
 abr
 aec
-afi
+abr
 afZ
-aaa
+skw
 aaa
 aaa
 aaa
@@ -194716,17 +194782,17 @@ aaa
 aaa
 aaf
 aau
-aau
+aep
 acJ
-aau
-aau
-aau
+abr
+aer
 abr
 abr
-aen
+abr
+abr
 afX
 afZ
-aaa
+skw
 aaa
 aaa
 aaa
@@ -194972,7 +195038,7 @@ aaa
 aaa
 aaa
 aak
-aat
+ael
 aat
 aat
 aaf
@@ -194982,8 +195048,8 @@ aea
 adr
 aat
 aat
+aat
 acg
-aaa
 aaa
 aaa
 aaa
