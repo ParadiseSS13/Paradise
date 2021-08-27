@@ -395,6 +395,12 @@
 	tint = 3				//to make them blind
 	prescription_upgradable = 0
 
+/obj/item/clothing/glasses/sunglasses/blindfold/fake
+	name = "tattered blindfold"
+	desc = "A see-through blindfold perfect for cheating at games like pin the stunbaton on the clown."
+	flash_protect = 0
+	tint = 0
+
 /obj/item/clothing/glasses/sunglasses/prescription
 	prescription = 1
 
@@ -424,9 +430,9 @@
 	..()
 
 /obj/item/clothing/glasses/thermal/monocle
-	name = "thermoncle"
+	name = "thermonocle"
 	desc = "A thermal monocle."
-	icon_state = "thermoncle"
+	icon_state = "thermonocle"
 	flags_cover = null //doesn't protect eyes because it's a monocle, duh
 
 /obj/item/clothing/glasses/thermal/eyepatch

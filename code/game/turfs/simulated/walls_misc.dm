@@ -52,9 +52,8 @@
 	hardness = 10
 	slicing_duration = 80
 	sheet_type = /obj/item/stack/tile/brass
-	sheet_amount = 1
+	sheet_amount = 2
 	girder_type = /obj/structure/clockwork/wall_gear
-	baseturf = /turf/simulated/floor/clockwork/reebe
 	var/heated
 	var/obj/effect/clockwork/overlay/wall/realappearance
 
@@ -69,11 +68,6 @@
 	QDEL_NULL(realappearance)
 	return ..()
 
-/turf/simulated/wall/clockwork/ReplaceWithLattice()
-	..()
-	for(var/obj/structure/lattice/L in src)
-		L.ratvar_act()
-
 /turf/simulated/wall/clockwork/narsie_act()
 	..()
 	if(istype(src, /turf/simulated/wall/clockwork)) //if we haven't changed type
@@ -81,25 +75,6 @@
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
-
-/turf/simulated/wall/clockwork/dismantle_wall(devastated=0, explode=0)
-	if(devastated)
-		devastate_wall()
-		ChangeTurf(baseturf)
-	else
-		playsound(src, 'sound/items/welder.ogg', 100, 1)
-		var/newgirder = break_wall()
-		if(newgirder) //maybe we want a gear!
-			transfer_fingerprints_to(newgirder)
-		ChangeTurf(baseturf)
-
-	for(var/obj/O in src) //Eject contents!
-		if(istype(O, /obj/structure/sign/poster))
-			var/obj/structure/sign/poster/P = O
-			P.roll_and_drop(src)
-		else
-			O.forceMove(src)
-	return TRUE
 
 /turf/simulated/wall/clockwork/devastate_wall()
 	for(var/i in 1 to 2)
@@ -121,20 +96,3 @@
 	if(heated)
 		to_chat(M.occupant, "<span class='userdanger'>The wall's intense heat completely reflects your [M.name]'s attack!</span>")
 		M.take_damage(20, BURN)
-
-/turf/simulated/wall/clockwork/proc/turn_up_the_heat()
-	if(!heated)
-		name = "superheated [name]"
-		visible_message("<span class='warning'>[src] sizzles with heat!</span>")
-		playsound(src, 'sound/machines/fryer/deep_fryer_emerge.ogg', 50, TRUE)
-		heated = TRUE
-		hardness = -100 //Lower numbers are tougher, so this makes the wall essentially impervious to smashing
-		slicing_duration = 150
-		animate(realappearance, color = "#FFC3C3", time = 5)
-	else
-		name = initial(name)
-		visible_message("<span class='notice'>[src] cools down.</span>")
-		heated = FALSE
-		hardness = initial(hardness)
-		slicing_duration = initial(slicing_duration)
-		animate(realappearance, color = initial(realappearance.color), time = 25)

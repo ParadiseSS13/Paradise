@@ -46,6 +46,7 @@
 	// skip any APCs that are too critical to disable
 	var/list/skipped_areas_apc = list(
 		/area/engine/engineering,
+		/area/engine/supermatter,
 		/area/turret_protected/ai)
 	if(announce)
 		GLOB.event_announcement.Announce("Overload detected in [station_name()]'s powernet. Engineering, please repair shorted APCs.", "Systems Power Failure", new_sound = 'sound/AI/attention.ogg')

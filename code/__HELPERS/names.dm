@@ -15,10 +15,6 @@ GLOBAL_VAR(church_name)
 
 	return name
 
-GLOBAL_VAR(command_name)
-/proc/command_name()
-	return GLOB.using_map.dock_name
-
 GLOBAL_VAR(religion_name)
 /proc/religion_name()
 	if(GLOB.religion_name)
@@ -31,11 +27,8 @@ GLOBAL_VAR(religion_name)
 
 	return capitalize(name)
 
-/proc/system_name()
-	return GLOB.using_map.starsys_name
-
 /proc/station_name()
-	return GLOB.using_map.station_name
+	return SSmapping.map_datum.fluff_name
 
 /proc/new_station_name()
 	var/random = rand(1,5)
@@ -142,7 +135,7 @@ GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
 	var/safety[] = list(1,2,3)//Tells the proc which options to remove later on.
 	var/nouns[] = list("love","hate","anger","peace","pride","sympathy","bravery","loyalty","honesty","integrity","compassion","charity","success","courage","deceit","skill","beauty","brilliance","pain","misery","beliefs","dreams","justice","truth","faith","liberty","knowledge","thought","information","culture","trust","dedication","progress","education","hospitality","leisure","trouble","friendships", "relaxation")
 	var/drinks[] = list("vodka and tonic","gin fizz","bahama mama","manhattan","black Russian","whiskey soda","long island tea","margarita","Irish coffee"," manly dwarf","Irish cream","doctor's delight","Beepksy Smash","tequila sunrise","brave bull","gargle blaster","bloody mary","whiskey cola","white Russian","vodka martini","martini","Cuba libre","kahlua","vodka","wine","moonshine")
-	var/locations[] = GLOB.teleportlocs.len ? GLOB.teleportlocs : drinks//if null, defaults to drinks instead.
+	var/locations[] = length(SSmapping.teleportlocs) ? SSmapping.teleportlocs : drinks//if null, defaults to drinks instead.
 
 	var/names[] = list()
 	for(var/datum/data/record/t in GLOB.data_core.general)//Picks from crew manifest.

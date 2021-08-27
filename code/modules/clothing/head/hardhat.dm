@@ -66,6 +66,7 @@
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
+	dog_fashion = /datum/dog_fashion/head/hardhat/red
 
 /obj/item/clothing/head/hardhat/white
 	icon_state = "hardhat0_white"
@@ -76,7 +77,7 @@
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-	dog_fashion = /datum/dog_fashion/head/hardhat
+	dog_fashion = /datum/dog_fashion/head/hardhat/white
 
 /obj/item/clothing/head/hardhat/dblue
 	icon_state = "hardhat0_dblue"

@@ -18,6 +18,7 @@
 	range = 0
 	summon_type = list(/turf/simulated/floor/engine/cult)
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/wall
 	name = "Summon Cult Wall"
@@ -32,6 +33,7 @@
 	range = 0
 	summon_type = list(/turf/simulated/wall/cult/artificer) //we don't want artificer-based runed metal farms
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/wall/reinforced
 	name = "Greater Construction"
@@ -43,13 +45,14 @@
 	invocation_type = "none"
 	range = 0
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	delay = 50
 
 	summon_type = list(/turf/simulated/wall/r_wall)
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone
 	name = "Summon Soulstone"
-	desc = "This spell reaches into Nar'Sie's realm, summoning one of the legendary fragments across time and space"
+	desc = "This spell reaches into Redspace, summoning one of the legendary fragments across time and space"
 	action_icon_state = "summonsoulstone"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
@@ -58,6 +61,7 @@
 	invocation = "none"
 	invocation_type = "none"
 	range = 0
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
 	summon_type = list(/obj/item/soulstone)
 
@@ -68,7 +72,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/pylon
 	name = "Cult Pylon"
-	desc = "This spell conjures a fragile crystal from Nar'Sie's realm. Makes for a convenient light source."
+	desc = "This spell conjures a fragile crystal from Redspace. Makes for a convenient light source."
 	action_icon_state = "pylon"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
@@ -77,6 +81,7 @@
 	invocation = "none"
 	invocation_type = "none"
 	range = 0
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
 	summon_type = list(/obj/structure/cult/functional/pylon)
 
@@ -92,6 +97,7 @@
 	invocation = "none"
 	invocation_type = "none"
 	range = 0
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	summon_type = list(/obj/effect/forcefield/cult)
 	summon_lifespan = 200
 
@@ -111,6 +117,7 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	jaunt_in_time = 12
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out
@@ -118,7 +125,12 @@
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/do_jaunt(mob/living/target)
 	target.set_light(0)
 	..()
-	target.set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
+	if(isconstruct(target))
+		var/mob/living/simple_animal/hostile/construct/C = target
+		if(C.holy)
+			C.set_light(3, 5, LIGHT_COLOR_DARK_BLUE)
+		else
+			C.set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/jaunt_steam(mobloc)
 	return
@@ -132,6 +144,7 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	proj_lifespan = 10
 	max_targets = 6
 
@@ -145,6 +158,7 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	range = -1
 	include_user = 1
 	cooldown_min = 20 //25 deciseconds reduction per rank
