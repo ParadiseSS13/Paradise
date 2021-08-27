@@ -94,11 +94,17 @@
 		return
 	var/turf/newLoc = get_step(src,direction)
 	setDir(direction)
-	if(!(newLoc.flags & NOJAUNT))
+	if(can_move(newLoc))
 		forceMove(newLoc)
 	else
-		to_chat(user, "<span class='warning'>Some strange aura is blocking the way!</span>")
+		to_chat(user, "<span class='warning'>Something is blocking the way!</span>")
 	movedelay = world.time + movespeed
+
+/obj/effect/dummy/spell_jaunt/proc/can_move(turf/T)
+	if((T.flags & NOJAUNT))
+		return FALSE
+	else
+		return TRUE
 
 /obj/effect/dummy/spell_jaunt/ex_act(blah)
 	return
@@ -110,15 +116,14 @@
 	name = "sangunine pool"
 	desc = "a pool of living blood."
 	movespeed = 1.5
-	invisibility = 1
 
 /obj/effect/dummy/spell_jaunt/blood_pool/relaymove(mob/user, direction)
-	if((movedelay > world.time) || reappearing || !direction)
-		return
-	var/turf/newLoc = get_step(src,direction)
-	setDir(direction)
+	..()
+	new /obj/effect/decal/cleanable/blood(loc)
 
-	if(!newLoc.density && !isspaceturf(newLoc))
-		forceMove(newLoc)
-		new /obj/effect/decal/cleanable/blood(newLoc)
-	movedelay = world.time + movespeed
+
+/obj/effect/dummy/spell_jaunt/blood_pool/can_move(turf/T)
+	if(isspaceturf(T) || T.density)
+		return FALSE
+	else
+		return TRUE

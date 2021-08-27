@@ -10,10 +10,10 @@
 	action_background_icon_state = "bg_vampire"
 
 /obj/effect/proc_holder/spell/self/blood_swell/cast(list/targets, mob/user)
-	for(var/target in targets)
-		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			H.apply_status_effect(STATUS_EFFECT_BLOOD_SWELL)
+	var/mob/living/target = targets[1]
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.apply_status_effect(STATUS_EFFECT_BLOOD_SWELL)
 
 /datum/vampire_passive/blood_swell_upgrade
 	gain_desc = "While blood swell is active your unarmed and armed melee attacks deal increased damage."

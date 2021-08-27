@@ -107,11 +107,11 @@
 /mob/living/attacked_by(obj/item/I, mob/living/user, def_zone)
 	send_item_attack_message(I, user)
 	if(I.force)
+		var/bonus_damage = 0
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			apply_damage(I.force + H.physiology.melee_bonus , I.damtype, def_zone)
-		else
-			apply_damage(I.force, I.damtype, def_zone)
+			bonus_damage = H.physiology.melee_bonus
+		apply_damage(I.force + bonus_damage, I.damtype, def_zone)
 		if(I.damtype == BRUTE)
 			if(prob(33))
 				I.add_mob_blood(src)

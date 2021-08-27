@@ -1,6 +1,6 @@
-/obj/effect/proc_holder/spell/self/conguring
+/obj/effect/proc_holder/spell/self/vamp_claws
 	name = "Vampiric Claws (30)"
-	desc = "You channel blood magics to forge deadly vampiric claws that leach blood and strike rapidly."
+	desc = "You channel blood magics to forge deadly vampiric claws that leach blood and strike rapidly. Cannot be used if you are holding something that cannot be dropped."
 	gain_desc = "Your have gained the ability to forge vampiric claws out of your hands."
 	charge_max = 30 SECONDS
 	required_blood = 30
@@ -9,16 +9,21 @@
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 
-/obj/effect/proc_holder/spell/self/conguring/cast(mob/user)
+/obj/effect/proc_holder/spell/self/vamp_claws/cast(mob/user)
 	to_chat(user, "<span class='notice'>You cast down what was in your hands and large blades spring from your knuckles! </span>")
 	var/obj/item/twohanded/required/vamp_claws/claws = new /obj/item/twohanded/required/vamp_claws(user.loc)
 	user.drop_l_hand()
 	user.drop_r_hand()
 	user.put_in_hands(claws)
 
+/obj/effect/proc_holder/spell/self/vamp_claws/can_cast(mob/user, charge_check, show_message)
+	var/mob/living/L = user
+	if(L.canUnEquip(L.l_hand) && L.canUnEquip(L.r_hand))
+		. = ..()
+
 /obj/item/twohanded/required/vamp_claws
 	name = "vampiric claws"
-	desc = "A pair of eldrich claws made of living blood, they seem to flow yet they are solid"
+	desc = "A pair of eldritch claws made of living blood, they seem to flow yet they are solid"
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "blood_blade"
 	item_state = "blood_blade"
@@ -89,8 +94,8 @@
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
 
-	selection_activated_message		= "<span class='notice'>You channel blood magics to weaken the bluespace veil. <B>Left-click to cast at a target area!</B></span>"
-	selection_deactivated_message	= "<span class='notice'>Your magics subside.</span>"
+	selection_activated_message = "<span class='notice'>You channel blood magics to weaken the bluespace veil. <B>Left-click to cast at a target area!</B></span>"
+	selection_deactivated_message = "<span class='notice'>Your magics subside.</span>"
 
 
 /obj/effect/proc_holder/spell/targeted/click/blood_tendrils/cast(list/targets, mob/user)
@@ -107,7 +112,7 @@
 	for(var/mob/living/L in view(distance, src))
 		if(L.affects_vampire(user))
 			L.AdjustSlowed(slowed_amount)
-			L.visible_message("<span class='warning'> [L.name] gets ensared in blood tendrils restricting [p_their(L)] movement!</span>")
+			L.visible_message("<span class='warning'>[L] gets ensared in blood tendrils restricting [p_their(L)] movement!</span>")
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/blood_pool
 	name = "Sanguine Pool (50)"
@@ -143,7 +148,7 @@
 		new /obj/effect/temp_visual/cult/turf/open/floor(T)
 		L.apply_damage(60, BRUTE, BODY_ZONE_CHEST)
 		L.apply_damage(90, STAMINA)
-		L.visible_message("<span class='warning'><b>[L.name] gets impaled by a spike of living blood! </b></span>")
+		L.visible_message("<span class='warning'><b>[L] gets impaled by a spike of living blood! </b></span>")
 
 /obj/effect/proc_holder/spell/blood_eruption/choose_targets(mob/user)
 	var/list/targets = list()
@@ -178,8 +183,7 @@
 			target.mind.vampire.remove_ability(B)
 
 /datum/vampire_passive/blood_spill
-	gain_desc = "The mortals around you fade away..."
-	//var/max_targets = 5
+	gain_desc = "You begin reaping blood from nearby creatures"
 
 /datum/vampire_passive/blood_spill/New()
 	..()
@@ -189,36 +193,6 @@
 	STOP_PROCESSING(SSobj, src)
 	..()
 
-/*/datum/vampire_passive/blood_spill/process()
-	var/turf/T = get_turf(owner)
-	var/list/targets = list()
-	for(var/mob/living/carbon/human/H in view(7, T))
-		if(H.affects_vampire(owner) && !H.stat)
-			targets += H
-	if(!targets.len)
-		return
-
-
-	for(var/i = 1 to max_targets)
-		if(!targets.len)
-			break
-
-		var/mob/living/carbon/human/H = pick(targets) // this is needed to ensure the targets are random
-		targets -= H
-		var/drain_amount = rand(10,20)
-		H.bleed(drain_amount)
-		H.Beam(owner, icon_state = "drainbeam", time = 2 SECONDS)
-		H.adjustBruteLoss(5)
-		owner.heal_overall_damage(10, 10, TRUE)
-		owner.adjustStaminaLoss(-10)
-		if(drain_amount == 20)
-			to_chat(H, "<span class='warning'>You feel your life force draining!</b></span>")
-		owner.mind.vampire.bloodusable = max(owner.mind.vampire.bloodusable - 10, 0)
-		if(!owner.mind.vampire.bloodusable)
-			to_chat(owner, "<span class='warning'>You have run out of useable blood!</b></span>")
-			owner.mind.vampire.remove_ability(src)*/
-
-
 /datum/vampire_passive/blood_spill/process()
 	var/turf/T = get_turf(owner)
 	for(var/mob/living/carbon/human/H in view(7, T))
@@ -226,12 +200,12 @@
 			continue
 
 		if(H.affects_vampire(owner) && !H.stat && H.player_logged)
-			var/drain_amount = rand(10,20)
+			var/drain_amount = rand(10, 20)
 			H.bleed(drain_amount)
 			H.Beam(owner, icon_state = "drainbeam", time = 2 SECONDS)
 			H.adjustBruteLoss(5)
-			owner.heal_overall_damage(drain_amount/2 , drain_amount/2 , TRUE)
-			owner.adjustStaminaLoss(-drain_amount/2)
+			owner.heal_overall_damage(drain_amount / 2 , drain_amount / 2 , TRUE)
+			owner.adjustStaminaLoss(-drain_amount / 2)
 			if(drain_amount == 20)
 				to_chat(H, "<span class='warning'>You feel your life force draining!</b></span>")
 	owner.mind.vampire.bloodusable = max(owner.mind.vampire.bloodusable - 10, 0)
