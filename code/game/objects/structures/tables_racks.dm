@@ -91,8 +91,12 @@
 /obj/structure/table/attack_hand(mob/living/user)
 	..()
 	if(climber)
+		if(climber == user)
+			return
 		climber.Weaken(2)
-		climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You hear [climber.name] get knocked off the table</span>")
+		climber.visible_message("<span class='warning'>[user] knocks [climber] off [src]!</span>", "<span class='userdanger'>[user] knocks you off [src]!</span>")
+		user.do_attack_animation(src, ATTACK_EFFECT_DISARM)
+		playsound(src, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 	else if(Adjacent(user) && user.pulling && user.pulling.pass_flags & PASSTABLE)
 		user.Move_Pulled(src)
 		if(user.pulling.loc == loc)
