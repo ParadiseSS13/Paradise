@@ -69,6 +69,14 @@
 
 	air_update_turf(TRUE)
 
+/obj/structure/window/proc/toggle_polarization()
+	if(opacity)
+		animate(src, color="#FFFFFF", time=5)
+		set_opacity(0)
+	else
+		animate(src, color="#222222", time=5)
+		set_opacity(1)
+
 /obj/structure/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
 
@@ -497,14 +505,6 @@
 	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
 	var/id
 
-/obj/structure/window/reinforced/polarized/proc/toggle()
-	if(opacity)
-		animate(src, color="#FFFFFF", time=5)
-		set_opacity(0)
-	else
-		animate(src, color="#222222", time=5)
-		set_opacity(1)
-
 /obj/machinery/button/windowtint
 	name = "window tint control"
 	icon = 'icons/obj/power.dmi'
@@ -514,8 +514,8 @@
 	var/id = 0
 	var/active = 0
 
-/obj/machinery/button/windowtint/New(turf/loc, w_dir=null)
-	..()
+/obj/machinery/button/windowtint/Initialize(mapload, w_dir=null)
+	. = ..()
 	switch(w_dir)
 		if(NORTH)
 			pixel_y = 25
@@ -532,16 +532,17 @@
 
 	toggle_tint()
 
-/obj/machinery/button/windowtint/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
-		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 30 * W.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You detach \the [src] from the wall.</span>")
-			new/obj/item/mounted/frame/light_switch/windowtint(get_turf(src))
-			qdel(src)
-		return TRUE
-
-	return ..()
+/obj/machinery/button/windowtint/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	user.visible_message("<span class='notice'>[user] starts unwrenching [src] from the wall...</span>", "<span class='notice'>You are unwrenching [src] from the wall...</span>", "<span class='warning'>You hear ratcheting.</span>")
+	. = TRUE
+	if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+		return
+	WRENCH_UNANCHOR_WALL_MESSAGE
+	new/obj/item/mounted/frame/light_switch/windowtint(get_turf(src))
+	qdel(src)
 
 /obj/machinery/button/windowtint/proc/toggle_tint()
 	use_power(5)
@@ -551,11 +552,11 @@
 
 	for(var/obj/structure/window/reinforced/polarized/W in range(src,range))
 		if(W.id == src.id || !W.id)
-			W.toggle()
+			W.toggle_polarization()
 
 	for(var/obj/structure/window/full/reinforced/polarized/W in range(src,range))
 		if(W.id == src.id || !W.id)
-			W.toggle()
+			W.toggle_polarization()
 
 /obj/machinery/button/windowtint/power_change()
 	..()
@@ -670,15 +671,6 @@
 	name = "electrochromic window"
 	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
 	var/id
-
-/obj/structure/window/full/reinforced/polarized/proc/toggle()
-	if(opacity)
-		animate(src, color="#FFFFFF", time=5)
-		set_opacity(0)
-	else
-		animate(src, color="#222222", time=5)
-		set_opacity(1)
-
 /obj/structure/window/full/reinforced/tinted
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
