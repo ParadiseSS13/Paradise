@@ -32,12 +32,18 @@
 	wires["Black"] = 0
 	wires["White"] = 0
 	var/list/w = list("Red","Blue","Green","Yellow","Black","White")
-	src.hack_wire = pick(w)
-	w -= src.hack_wire
-	src.shock_wire = pick(w)
-	w -= src.shock_wire
-	src.disable_wire = pick(w)
-	w -= src.disable_wire
+	hack_wire = pick(w)
+	w -= hack_wire
+	shock_wire = pick(w)
+	w -= shock_wire
+	disable_wire = pick(w)
+	w -= disable_wire
+
+/obj/machinery/r_n_d/Destroy()
+	QDEL_NULL(loaded_item)
+	linked_console = null
+	materials = null
+	return ..()
 
 /obj/machinery/r_n_d/attack_hand(mob/user as mob)
 	if(shocked)
