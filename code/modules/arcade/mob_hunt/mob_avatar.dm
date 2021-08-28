@@ -1,4 +1,3 @@
-
 /obj/effect/nanomob
 	name = "Nano-Mob Avatar"					//will be overridden by the mob datum name value when created
 	desc = "A wild Nano-Mob appeared! Hit it with your PDA with the game open to attempt to capture it!"
@@ -23,9 +22,8 @@
 		addtimer(CALLBACK(src, .proc/despawn), mob_info.lifetime)
 
 /obj/effect/nanomob/Destroy()
-	if(SSmob_hunt)
-		SSmob_hunt.trap_spawns -= src
-		SSmob_hunt.normal_spawns -= src
+	SSmob_hunt.trap_spawns -= src
+	SSmob_hunt.normal_spawns -= src
 	return ..()
 
 /obj/effect/nanomob/proc/update_self()
