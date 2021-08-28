@@ -126,7 +126,7 @@
 	if(!get_ability(/datum/vampire_passive/regen))
 		return rejuv_multiplier
 
-	if(SUBCLASS_GARGANTUA in subclass)
+	if(subclass.improved_rejuv_healing)
 		rejuv_multiplier = min((100 - owner.health)/20, 5) // max healing of 50 brute and burn
 		return rejuv_multiplier
 
@@ -181,7 +181,8 @@
 
 
 /datum/vampire/proc/add_subclass(subclass_to_add)
-	subclass += subclass_to_add
+	var/datum/vampire_subclass/new_subclass = new subclass_to_add
+	subclass = new_subclass
 	check_vampire_upgrade(TRUE)
 
 /obj/effect/proc_holder/spell/mob_aoe/glare
@@ -288,6 +289,7 @@
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
+	gain_desc = "You have gained the ability to Raise Vampires. This extremely powerful AOE ability affects all humans near you. Vampires/thralls are healed. Corpses are raised as vampires. Others are stunned, then brain damaged, then killed."
 
 /obj/effect/proc_holder/spell/targeted/raise_vampires/cast(list/targets, mob/user = usr)
 	new /obj/effect/temp_visual/cult/sparks(user.loc)
@@ -375,7 +377,7 @@
 /obj/effect/proc_holder/spell/targeted/enthrall
 	name = "Enthrall (150)"
 	desc = "You use a large portion of your power to sway those loyal to none to be loyal to you only."
-	gain_desc = "You have gained the Enthrall ability which at a heavy blood cost allows you to enslave a human that is not loyal to any other for a random period of time."
+	gain_desc = "You have gained the ability to thrall people to your will."
 	action_icon_state = "vampire_enthrall"
 	required_blood = 150
 	deduct_blood_on_cast = FALSE

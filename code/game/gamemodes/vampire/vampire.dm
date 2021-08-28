@@ -197,7 +197,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	var/bloodtotal = 0
 	var/bloodusable = 0
 	var/mob/living/owner = null
-	var/list/subclass = list() /// a list of all the subclasses a vampire has, normally limited to only one unless they are an ancient vampire.
+	var/datum/vampire_subclass/subclass /// what vampire subclass the vampire is.
 	var/iscloaking = FALSE // handles the vampire cloak toggle
 	var/can_force_doors = FALSE
 	var/list/powers = list() // list of available powers and passives
@@ -228,6 +228,11 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 									/obj/effect/proc_holder/spell/self/overwhelming_force = 600)
 
 	var/list/drained_humans = list() // list of the peoples UIDs that we have drained, and how much blood from each one
+
+/datum/vampire/Destroy(force, ...)
+	draining = null
+	QDEL_NULL(subclass)
+	. = ..()
 
 /datum/vampire/proc/adjust_nullification(base, extra)
 	// First hit should give full nullification, while subsequent hits increase the value slower
@@ -369,24 +374,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 
 	if(!subclass)
 		return
-
-	if(SUBCLASS_UMBRAE in subclass)
-		for(var/power in umbrae_powers)
-			var/level = umbrae_powers[power]
-			if(bloodtotal >= level)
-				add_ability(power)
-
-	if(SUBCLASS_HEMOMANCER in subclass)
-		for(var/power in hemomancer_powers)
-			var/level = hemomancer_powers[power]
-			if(bloodtotal >= level)
-				add_ability(power)
-
-	if(SUBCLASS_GARGANTUA in subclass)
-		for(var/power in gargantua_powers)
-			var/level = gargantua_powers[power]
-			if(bloodtotal >= level)
-				add_ability(power)
+	subclass.add_subclass_ability(src)
 
 	check_full_power_upgrade()
 
@@ -396,17 +384,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 
 /datum/vampire/proc/check_full_power_upgrade()
 	if(length(drained_humans) >= FULLPOWER_DRAINED_REQUIREMENT && bloodtotal >= FULLPOWER_BLOODTOTAL_REQUIREMENT)
-		if(SUBCLASS_HEMOMANCER in subclass)
-			add_ability(/obj/effect/proc_holder/spell/self/blood_spill)
-
-		if(SUBCLASS_UMBRAE in subclass)
-			add_ability(/obj/effect/proc_holder/spell/self/eternal_darkness)
-			add_ability(/datum/vampire_passive/xray)
-
-		if(SUBCLASS_GARGANTUA in subclass)
-			add_ability(/obj/effect/proc_holder/spell/targeted/click/charge)
-
-		add_ability(/datum/vampire_passive/full)
+		subclass.add_full_power_abilities(src)
 
 
 /datum/vampire/proc/announce_new_power(list/old_powers)

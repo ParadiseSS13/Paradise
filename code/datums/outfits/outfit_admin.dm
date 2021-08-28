@@ -1106,18 +1106,9 @@
 			H.make_vampire()
 		H.mind.vampire.bloodusable = 9999
 		H.mind.vampire.bloodtotal = 9999
-		H.mind.vampire.subclass = list(SUBCLASS_GARGANTUA, SUBCLASS_HEMOMANCER, SUBCLASS_UMBRAE)
-		for(var/obj/effect/proc_holder/spell/self/specialize/S in H.mind.vampire.upgrade_tiers)
-			H.mind.vampire.upgrade_tiers -= S
-		H.mind.vampire.check_vampire_upgrade(0)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shapeshift/bats)
-		to_chat(H, "<span class='notice'><b>You have gained the ability to shapeshift into bat form. This is a weak form with no abilities, only useful for stealth.</b></span>")
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shapeshift/hellhound)
-		to_chat(H, "<span class='notice'><b>You have gained the ability to shapeshift into lesser hellhound form. This is a combat form with different abilities, tough but not invincible. It can regenerate itself over time by resting.</b></span>")
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/raise_vampires)
-		to_chat(H, "<span class='notice'><b>You have gained the ability to Raise Vampires. This extremely powerful AOE ability affects all humans near you. Vampires/thralls are healed. Corpses are raised as vampires. Others are stunned, then brain damaged, then killed.</b></span>")
-		H.mind.vampire.force_add_ability(new /obj/effect/proc_holder/spell/targeted/enthrall)
-		to_chat(H, "<span class='notice'><b> You have gained the ability to thrall people to your will. </b></span>")
+		H.mind.vampire.subclass = new SUBCLASS_ANCIENT
+		H.mind.vampire.remove_ability(/obj/effect/proc_holder/spell/self/specialize) // TODO make this remove the spell from the upgrade_tier list.
+		H.mind.vampire.check_vampire_upgrade(TRUE)
 		H.dna.SetSEState(GLOB.jumpblock, 1)
 		singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
 		H.update_mutations()
