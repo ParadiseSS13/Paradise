@@ -34,6 +34,23 @@
 
 	light_color = LIGHT_COLOR_DARKGREEN
 
+/obj/machinery/computer/message_monitor/Initialize()
+	..()
+	return INITIALIZE_HINT_LATELOAD // Give the message server time to initialize
+
+/obj/machinery/computer/message_monitor/LateInitialize()
+	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
+	if(!linkedServer)
+		if(length(GLOB.message_servers))
+			linkedServer = GLOB.message_servers[1]
+			RegisterSignal(linkedServer, COMSIG_PARENT_QDELETING, .proc/unlink_server)
+
+/obj/machinery/computer/message_monitor/proc/unlink_server()
+	linkedServer = null
+
+/obj/machinery/computer/message_monitor/Destroy()
+	customrecepient = null
+	return ..()
 
 /obj/machinery/computer/message_monitor/screwdriver_act(mob/user, obj/item/I)
 	if(emag) //Stops people from just unscrewing the monitor and putting it back to get the console working again.
@@ -70,14 +87,6 @@
 		icon_screen = normal_icon
 
 	..()
-
-/obj/machinery/computer/message_monitor/Initialize()
-	..()
-	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
-	if(!linkedServer)
-		if(GLOB.message_servers && GLOB.message_servers.len > 0)
-			linkedServer = GLOB.message_servers[1]
-	return
 
 /obj/machinery/computer/message_monitor/attack_hand(mob/user as mob)
 	if(..())
