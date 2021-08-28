@@ -789,7 +789,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/ammo/sniper/antimatter
 	name = "Sniper - .50 Antimatter Magazine"
-	desc = "An 6-round magazine of antimatter ammo for use with .50 sniper rifles. \
+	desc = "A 6-round magazine of antimatter ammo for use with .50 sniper rifles. \
 	Able to heavily damage objects, and delimb people."
 	reference = "50A"
 	item = /obj/item/ammo_box/magazine/sniper_rounds/antimatter
