@@ -12,16 +12,21 @@
 	var/list/clients_encountered = list()		//tracks who has already interacted with us, so they can't attempt a second capture
 	var/image/avatar
 
-/obj/effect/nanomob/New(loc, datum/mob_hunt/new_info)
-	..()
+/obj/effect/nanomob/Initialize(mapload, datum/mob_hunt/new_info)
+	. = ..()
 	if(!new_info)
-		qdel(src)
-		return
+		return INITIALIZE_HINT_QDEL
 	mob_info = new_info
 	update_self()
 	forceMove(mob_info.spawn_point)
 	if(!mob_info.is_trap)
 		addtimer(CALLBACK(src, .proc/despawn), mob_info.lifetime)
+
+/obj/effect/nanomob/Destroy()
+	if(SSmob_hunt)
+		SSmob_hunt.trap_spawns -= src
+		SSmob_hunt.normal_spawns -= src
+	return ..()
 
 /obj/effect/nanomob/proc/update_self()
 	if(!mob_info)
@@ -131,12 +136,6 @@
 	invisibility = 0
 	icon_state = "placeholder"
 	var/obj/machinery/computer/mob_battle_terminal/my_terminal
-
-/obj/effect/nanomob/battle/New(loc, datum/mob_hunt/new_info)
-	. = ..()
-	if(new_info)
-		mob_info = new_info
-		update_self()
 
 /obj/effect/nanomob/battle/update_self()
 	if(!mob_info)

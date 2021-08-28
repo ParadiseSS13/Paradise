@@ -28,6 +28,12 @@
 	disconnect("Program Terminated")
 	STOP_PROCESSING(SSobj, pda)
 
+/datum/data/pda/app/mob_hunter_game/Destroy()
+	STOP_PROCESSING(SSobj, pda)
+	if(SSmob_hunt)
+		SSmob_hunt.connected_clients -= src
+	return ..()
+
 /datum/data/pda/app/mob_hunter_game/proc/scan_nearby()
 	if(!SSmob_hunt || !connected)
 		return
