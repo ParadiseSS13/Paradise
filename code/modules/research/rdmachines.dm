@@ -40,8 +40,9 @@
 	w -= disable_wire
 
 /obj/machinery/r_n_d/Destroy()
-	loaded_item.forceMove(get_turf(src))
-	loaded_item = null
+	if(loaded_item)
+		loaded_item.forceMove(get_turf(src))
+		loaded_item = null
 	linked_console = null
 	materials = null
 	return ..()

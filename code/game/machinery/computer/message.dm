@@ -40,16 +40,16 @@
 
 /obj/machinery/computer/message_monitor/LateInitialize()
 	//Is the monitor isn't linked to a server, and there's a server available, default it to the first one in the list.
-	if(!linkedServer)
-		if(length(GLOB.message_servers))
-			linkedServer = GLOB.message_servers[1]
-			RegisterSignal(linkedServer, COMSIG_PARENT_QDELETING, .proc/unlink_server)
+	if(!linkedServer && length(GLOB.message_servers))
+		linkedServer = GLOB.message_servers[1]
+		RegisterSignal(linkedServer, COMSIG_PARENT_QDELETING, .proc/unlink_server)
 
 /obj/machinery/computer/message_monitor/proc/unlink_server()
 	linkedServer = null
 
 /obj/machinery/computer/message_monitor/Destroy()
 	customrecepient = null
+	linkedServer = null
 	return ..()
 
 /obj/machinery/computer/message_monitor/screwdriver_act(mob/user, obj/item/I)

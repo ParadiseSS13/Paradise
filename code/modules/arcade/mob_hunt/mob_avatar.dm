@@ -24,6 +24,9 @@
 /obj/effect/nanomob/Destroy()
 	SSmob_hunt.trap_spawns -= src
 	SSmob_hunt.normal_spawns -= src
+	clients_encountered.Cut()
+	QDEL_NULL(mob_info)
+	qdel(avatar)
 	return ..()
 
 /obj/effect/nanomob/proc/update_self()
