@@ -514,11 +514,34 @@
 	var/id = 0
 	var/active = 0
 
+/obj/machinery/button/windowtint/New(turf/loc, w_dir=null)
+	..()
+	switch(w_dir)
+		if(NORTH)
+			pixel_y = 25
+		if(SOUTH)
+			pixel_y = -25
+		if(EAST)
+			pixel_x = 25
+		if(WEST)
+			pixel_x = -25
+
 /obj/machinery/button/windowtint/attack_hand(mob/user)
 	if(..())
-		return 1
+		return TRUE
 
 	toggle_tint()
+
+/obj/machinery/button/windowtint/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/wrench))
+		playsound(get_turf(src), W.usesound, 50, 1)
+		if(do_after(user, 30 * W.toolspeed, target = src))
+			to_chat(user, "<span class='notice'>You detach \the [src] from the wall.</span>")
+			new/obj/item/mounted/frame/light_switch/windowtint(get_turf(src))
+			qdel(src)
+		return TRUE
+
+	return ..()
 
 /obj/machinery/button/windowtint/proc/toggle_tint()
 	use_power(5)
@@ -527,6 +550,12 @@
 	update_icon()
 
 	for(var/obj/structure/window/reinforced/polarized/W in range(src,range))
+		if(W.id == src.id || !W.id)
+			spawn(0)
+				W.toggle()
+				return
+
+	for(var/obj/structure/window/full/reinforced/polarized/W in range(src,range))
 		if(W.id == src.id || !W.id)
 			spawn(0)
 				W.toggle()
@@ -589,7 +618,7 @@
 	icon_state = "window"
 	max_integrity = 50
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/polarized, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
 
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
@@ -602,7 +631,7 @@
 	heat_resistance = 32000
 	max_integrity = 300
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/polarized, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
 	rad_insulation = RAD_NO_INSULATION
@@ -616,7 +645,7 @@
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmarglass
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/polarized, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
 	reinf = TRUE
 	max_integrity = 1000
 	explosion_block = 2
@@ -632,7 +661,7 @@
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
 	icon_state = "r_window"
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/polarized, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
 	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
@@ -640,6 +669,19 @@
 	rad_insulation = RAD_HEAVY_INSULATION
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
+
+/obj/structure/window/full/reinforced/polarized
+	name = "electrochromic window"
+	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
+	var/id
+
+/obj/structure/window/full/reinforced/polarized/proc/toggle()
+	if(opacity)
+		animate(src, color="#FFFFFF", time=5)
+		set_opacity(0)
+	else
+		animate(src, color="#222222", time=5)
+		set_opacity(1)
 
 /obj/structure/window/full/reinforced/tinted
 	name = "tinted window"
