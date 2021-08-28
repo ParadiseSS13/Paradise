@@ -45,7 +45,7 @@
 	var/list/targets = list()
 
 	///Tracks if this mind has been a rev or not
-	var/has_been_rev = 0
+	var/has_been_rev = FALSE
 	///Tracks if headrevs are on a conversion cooldown or not
 	var/conversion_on_cooldown = FALSE
 	///How long the cooldown timer is for conversion
