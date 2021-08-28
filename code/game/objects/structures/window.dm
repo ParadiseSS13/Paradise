@@ -551,15 +551,11 @@
 
 	for(var/obj/structure/window/reinforced/polarized/W in range(src,range))
 		if(W.id == src.id || !W.id)
-			spawn(0)
-				W.toggle()
-				return
+			W.toggle()
 
 	for(var/obj/structure/window/full/reinforced/polarized/W in range(src,range))
 		if(W.id == src.id || !W.id)
-			spawn(0)
-				W.toggle()
-				return
+			W.toggle()
 
 /obj/machinery/button/windowtint/power_change()
 	..()
