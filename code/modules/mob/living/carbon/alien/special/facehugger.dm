@@ -40,7 +40,14 @@
 /obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
 	return O.attack_obj(src, user, params)
 
-/obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
+
+
+/obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens with the variable can_grab_facehuggers set to true
+	if(istype(user, /mob/living/carbon/alien/humanoid))
+		var/mob/living/carbon/alien/humanoid/alium = user
+		if(!alium.can_grab_facehuggers)
+			
+			return
 	return attack_hand(user)
 
 /obj/item/clothing/mask/facehugger/attack_hand(mob/user)

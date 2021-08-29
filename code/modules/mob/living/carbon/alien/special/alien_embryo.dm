@@ -65,7 +65,7 @@
 
 
 
-/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(gib_on_success = 1)
+/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(kill_on_success)
 	if(!owner || polling)
 		return
 	polling = 1
@@ -101,8 +101,11 @@
 			new_xeno << sound('sound/voice/hiss5.ogg',0,0,0,100)//To get the player's attention
 			to_chat(new_xeno, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Xenomorph)</span>")
 
-			if(gib_on_success)
-				owner.gib()
+			if(kill_on_success)
+				var/obj/item/organ/internal/heart/E = owner.get_int_organ(/obj/item/organ/internal/heart)
+				if(istype(E))
+					E.receive_damage(50)
+				owner.death()
 			else
 				owner.adjustBruteLoss(40)
 				owner.overlays -= overlay

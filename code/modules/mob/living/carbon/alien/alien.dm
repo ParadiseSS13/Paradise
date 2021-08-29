@@ -25,6 +25,7 @@
 	var/list/alien_organs = list()
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
+	
 
 /mob/living/carbon/alien/New()
 	..()

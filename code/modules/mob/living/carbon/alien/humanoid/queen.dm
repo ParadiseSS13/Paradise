@@ -9,6 +9,7 @@
 	large = 1
 	ventcrawler = 0
 	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
+	can_grab_facehuggers = TRUE
 
 /mob/living/carbon/alien/humanoid/queen/New()
 	//there should only be one queen

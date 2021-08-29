@@ -44,7 +44,7 @@
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 						add_attack_logs(M, src, "Pushed over")
 						visible_message("<span class='danger'>[M] has pushed down [src]!</span>", \
-								"<span class='userdanger'>[M] has pushed down [src]!</span>")
+							"<span class='userdanger'>[M] has pushed down [src]!</span>")
 					else
 						if(prob(50))
 							drop_item()

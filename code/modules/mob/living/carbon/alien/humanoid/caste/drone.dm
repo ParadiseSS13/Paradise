@@ -4,6 +4,7 @@
 	maxHealth = 100
 	health = 100
 	icon_state = "aliend_s"
+	can_grab_facehuggers = TRUE
 
 /mob/living/carbon/alien/humanoid/drone/New()
 	if(src.name == "alien drone")

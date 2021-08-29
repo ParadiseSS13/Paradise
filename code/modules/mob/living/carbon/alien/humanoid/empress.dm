@@ -9,6 +9,7 @@
 	bubble_icon = "alienroyal"
 	large = 1
 	ventcrawler = 0
+	can_grab_facehuggers = TRUE
 
 /mob/living/carbon/alien/humanoid/empress/large
 	name = "alien empress"
