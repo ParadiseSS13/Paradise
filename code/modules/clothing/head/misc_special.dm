@@ -166,7 +166,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-
+	dog_fashion = null
 
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/head.dmi'

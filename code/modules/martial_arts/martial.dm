@@ -289,8 +289,15 @@
 /obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
-	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
+	if(user.mind) //Prevents changelings and vampires from being able to learn it
+		if(user.mind.changeling) //Changelings
+			to_chat(user, "<span class='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
+			return
+		else if(user.mind.vampire) //Vampires
+			to_chat(user, "<span class='warning'>Your blood lust distracts you from the basics of CQC!</span>")
+			return
 
+	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
 	var/datum/martial_art/cqc/CQC = new(null)
 	CQC.teach(user)
 	user.drop_item()
