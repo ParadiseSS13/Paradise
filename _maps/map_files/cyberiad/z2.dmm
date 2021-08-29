@@ -2975,7 +2975,7 @@
 "cNX" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -10717,7 +10717,7 @@
 "iEK" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -14311,7 +14311,7 @@
 "lmi" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -14624,7 +14624,7 @@
 	pixel_y = 30
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -15540,7 +15540,7 @@
 "mfo" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -17376,7 +17376,7 @@
 "nrD" = (
 /obj/structure/table/wood/poker,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -22416,7 +22416,7 @@
 "qXR" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
