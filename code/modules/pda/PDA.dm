@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if( can_use(user) )
 		var/obj/item/pen/O = locate() in src
 		if(O)
-			to_chat(user, "<span class='notice'>You remove the [O] from [src].</span>")
+			to_chat(user, "<span class='notice'>You remove \the [O] from [src].</span>")
 			if(istype(loc, /mob))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)

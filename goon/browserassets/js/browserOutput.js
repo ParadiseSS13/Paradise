@@ -1116,6 +1116,30 @@ $(function() {
 		xmlHttp.send(null);
 	});
 
+	$('#logtofile').click(function(e) {
+		// Supported only under IE 10+.
+		if (window.Blob) {
+			$.ajax({
+				type: 'GET',
+				url: 'browserOutput.css',
+				success: function(styleData) {
+					var chatLogHtml = '<head><title>Chat Log</title><style>' + styleData + '</style></head><body>' + $messages.html() + '</body>';
+
+					var currentData = new Date();
+					var formattedDate = (currentData.getMonth() + 1) + '.' + currentData.getDate() + '.' + currentData.getFullYear();
+					var formattedTime = currentData.getHours() + '-' + currentData.getMinutes();
+
+					var blobObject = new Blob([chatLogHtml]);
+					var fileName = 'ChatLog (' + formattedDate + ' ' + formattedTime + ').html';
+
+					window.navigator.msSaveBlob(blobObject, fileName);
+				}
+			});
+		} else {
+			output('<span class="big red">This function does not supported on your version of Internet Explorer (9 or less). Please, update to the latest version.</span>', 'internal');
+		}
+	});
+
 	$('#highlightTerm').click(function(e) {
 		if ($('.popup .highlightTerm').is(':visible')) {return;}
 		var termInputs = '';

@@ -130,3 +130,14 @@
 	materials = list(MAT_METAL=3000, MAT_GLASS=500)
 	build_path = /obj/item/tank/oxygen/empty
 	category = list("Miscellaneous")
+
+/datum/design/extinguisher_cartridge
+	name = "Envirosuit Extinguisher Cartridge"
+	desc = "A cartridge loaded with a compressed extinguisher mix, used to refill the automatic extinguisher on plasma envirosuits."
+	id = "extinguishercartridge"
+	req_tech = list("materials" = 5, "toxins" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=3000, MAT_GLASS=500)
+	reagents_list = list("firefighting_foam" = 1)
+	build_path = /obj/item/extinguisher_refill
+	category = list("Miscellaneous")

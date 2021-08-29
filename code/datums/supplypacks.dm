@@ -180,6 +180,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "plasmaman life support supplies crate"
 	access = ACCESS_EVA
 
+/datum/supply_packs/emergency/plasmamanextinguisher
+	name = "Plasmaman Extinguisher Cartridges"
+	contains = list(/obj/item/extinguisher_refill,
+					/obj/item/extinguisher_refill,
+					/obj/item/extinguisher_refill,
+					/obj/item/extinguisher_refill)
+	cost = 20
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "plasmaman extinguisher cartridges crate"
+	access = ACCESS_CARGO
+
 /datum/supply_packs/emergency/specialops
 	name = "Special Ops Supplies"
 	contains = list(/obj/item/storage/box/emps,
@@ -1342,7 +1353,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "50 Plasteel Sheets Crate"
 	contains = list(/obj/item/stack/sheet/plasteel/lowplasma)
 	amount = 50
-	cost = 50
+	cost = 60
 	containername = "plasteel sheets crate"
 
 /datum/supply_packs/materials/glass50

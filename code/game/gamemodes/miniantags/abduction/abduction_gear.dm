@@ -737,6 +737,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_closed = "abductor"
 	icon_opened = "abductoropen"
 	material_drop = /obj/item/stack/sheet/mineral/abductor
+	material_drop_amount = 1
 
 /obj/structure/door_assembly/door_assembly_abductor
 	name = "alien airlock assembly"

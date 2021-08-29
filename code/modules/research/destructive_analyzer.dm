@@ -7,7 +7,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 */
 /obj/machinery/r_n_d/destructive_analyzer
 	name = "Destructive Analyzer"
-	desc = "Learn science by destroying things!"
+	desc = "Изучайте науку, разрушая предметы!"
 	icon_state = "d_analyzer"
 	var/decon_mod = 0
 
@@ -62,26 +62,30 @@ Note: Must be placed within 3 tiles of the R&D Console
 	if(disabled)
 		return
 	if(!linked_console)
-		to_chat(user, "<span class='warning'>The [src.name] must be linked to an R&D console first!</span>")
+		to_chat(user, "<span class='warning'>[src.name] сперва требуется подключить к R&D консоли!</span>")
 		return
 	if(busy)
-		to_chat(user, "<span class='warning'>The [src.name] is busy right now.</span>")
+		to_chat(user, "<span class='warning'>[src.name] сейчас занят.</span>")
 		return
 	if(istype(O, /obj/item) && !loaded_item)
+//Ядра аномалий можно разобрать только при улучшеном автомате. 3x4(femto-manipulator,quad-ultra micro-laser,triphasic scanning module)
+		if(istype(O,/obj/item/assembly/signaler/anomaly) && (decon_mod < 12))
+			to_chat(user, "<span class='warning'>[src.name] не может обработать такой сложный предмет!</span>")
+			return
 		if(!O.origin_tech)
-			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
+			to_chat(user, "<span class='warning'>Предмет не имеет технологического происхождения!</span>")
 			return
 		var/list/temp_tech = ConvertReqString2List(O.origin_tech)
 		if(temp_tech.len == 0)
-			to_chat(user, "<span class='warning'>You cannot deconstruct this item!</span>")
+			to_chat(user, "<span class='warning'>Вы не можете разобрать этот предмет!</span>")
 			return
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>\The [O] is stuck to your hand, you cannot put it in the [src.name]!</span>")
+			to_chat(user, "<span class='warning'>[O] прилип к вашей руке и вы не можете поместить его в [src.name]!</span>")
 			return
 		busy = 1
 		loaded_item = O
 		O.loc = src
-		to_chat(user, "<span class='notice'>You add the [O.name] to the [src.name]!</span>")
+		to_chat(user, "<span class='notice'>[O.name] установлен в [src.name]!</span>")
 		flick("d_analyzer_la", src)
 		spawn(10)
 			icon_state = "d_analyzer_l"

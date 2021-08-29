@@ -53,6 +53,8 @@
 			if(istype(W, /obj/item/implant))
 				qdel(W)
 				continue
+			if(affected_mob.unEquip(W)) //Если вещь снимается - снимаем
+				affected_mob.unEquip(W)
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
 			W.loc = affected_mob.loc

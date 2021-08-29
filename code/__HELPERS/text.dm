@@ -507,6 +507,9 @@
 		text = replacetext(text, "\[row\]", 	"")
 		text = replacetext(text, "\[cell\]", 	"")
 		text = replacetext(text, "\[logo\]", 	"")
+		text = replacetext(text, "\[time\]", 	"")
+		text = replacetext(text, "\[date\]", 	"")
+		text = replacetext(text, "\[station\]", "")
 	if(istype(P, /obj/item/toy/crayon))
 		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
 	else 	// They are using "not a crayon" - formatting is OK and such
@@ -524,6 +527,8 @@
 		text = replacetext(text, "\[cell\]",	"<td>")
 		text = replacetext(text, "\[logo\]",	"&ZeroWidthSpace;<img src = ntlogo.png>")
 		text = replacetext(text, "\[time\]",	"[station_time_timestamp()]") // TO DO
+		text = replacetext(text, "\[date\]",	"[GLOB.current_date_string]")
+		text = replacetext(text, "\[station\]", "[station_name()]")
 		if(!no_font)
 			if(P)
 				text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"

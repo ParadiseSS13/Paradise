@@ -539,6 +539,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			// Somehow this href makes me very nervous
 			var/datum/tech/known = files.known_tech[params["id"]]
 			if(t_disk && known)
+				t_disk.name = "[t_disk.default_name] \[[known]\]"
+				t_disk.desc = known.desc + " Level: '[known.level]'"
 				t_disk.stored = known
 			menu = MENU_DISK
 			submenu = SUBMENU_MAIN
