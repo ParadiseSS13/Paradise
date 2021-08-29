@@ -5,6 +5,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
 	fire_sound = 'sound/weapons/gunshots/gunshot_strong.ogg'
+	can_holster = TRUE
 
 /obj/item/gun/projectile/revolver/New()
 	..()
@@ -92,8 +93,7 @@
 	name = ".38 Mars Special"
 	icon_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
-	unique_rename = 1
-	unique_reskin = 1
+	unique_reskin = TRUE
 
 /obj/item/gun/projectile/revolver/detective/New()
 	..()
@@ -159,6 +159,8 @@
 	fire_sound_text = null
 	lefthand_file = null
 	righthand_file = null
+	can_holster = FALSE // Get your fingers out of there!
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	clumsy_check = 0 //Stole your uplink! Honk!
 	needs_permit = 0 //go away beepsky
 
@@ -342,8 +344,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "Omar's coming!"
 	can_holster = FALSE
-	unique_rename = 1
-	unique_reskin = 1
+	unique_reskin = TRUE
 
 /obj/item/gun/projectile/revolver/doublebarrel/New()
 	..()
@@ -406,8 +407,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "I'm just here for the gasoline."
-	unique_rename = 0
-	unique_reskin = 0
+	unique_reskin = FALSE
 	var/slung = 0
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)

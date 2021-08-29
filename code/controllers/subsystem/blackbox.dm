@@ -65,7 +65,7 @@ SUBSYSTEM_DEF(blackbox)
 			sqlversion = versions[FV.key]
 
 		var/datum/db_query/query_feedback_save = SSdbcore.NewQuery({"
-		INSERT IGNORE INTO [format_table_name("feedback")] (datetime, round_id, key_name, key_type, version, json)
+		INSERT IGNORE INTO feedback (datetime, round_id, key_name, key_type, version, json)
 		VALUES (NOW(), :rid, :keyname, :keytype, :version, :json)"}, list(
 			"rid" = text2num(GLOB.round_id),
 			"keyname" = FV.key,
@@ -287,7 +287,7 @@ SUBSYSTEM_DEF(blackbox)
 		lakey = L.lastattackerckey
 
 	var/datum/db_query/deathquery = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("death")] (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss, coord)
+		INSERT INTO death (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss, coord)
 		VALUES (:name, :key, :job, :special, :pod, NOW(), :laname, :lakey, :gender, :bruteloss, :fireloss, :brainloss, :oxyloss, :coord)"},
 		list(
 			"name" = L.real_name,

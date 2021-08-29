@@ -95,7 +95,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			default_deconstruction_crowbar(user, O)
 			return
 		else
-			to_chat(user, "<span class='warning'>You can't load the [src.name] while it's opened.</span>")
+			to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
 			return
 	if(O.is_open_container())
 		return FALSE

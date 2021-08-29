@@ -288,6 +288,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		if(!user.unEquip(src, silent = TRUE))
 			return 0
 
+	if(flags & ABSTRACT)
+		return 0
+
 	else
 		if(isliving(loc))
 			return 0
@@ -420,6 +423,17 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 // called when this item is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
 /obj/item/proc/on_enter_storage(obj/item/storage/S as obj)
 	return
+
+/**
+  * Called to check if this item can be put into a storage item.
+  *
+  * Return `FALSE` if `src` can't be inserted, and `TRUE` if it can.
+  * Arguments:
+  * * S - The [/obj/item/storage] that `src` is being inserted into.
+  * * user - The mob trying to insert the item.
+  */
+/obj/item/proc/can_enter_storage(obj/item/storage/S, mob/user)
+	return TRUE
 
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
 /obj/item/proc/on_found(mob/finder as mob)
@@ -728,3 +742,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(flags & SLOT_PDA)
 		owner.update_inv_wear_pda()
 
+/// Called on cyborg items that need special charging behavior. Override as needed for specific items.
+/obj/item/proc/cyborg_recharge(coeff = 1, emagged = FALSE)
+	return

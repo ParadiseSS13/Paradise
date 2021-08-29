@@ -121,6 +121,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	var/critfailchance = 0
 	var/centcom_cancast = TRUE //Whether or not the spell should be allowed on the admin zlevel
+	/// Whether or not the spell functions in a holy place
+	var/holy_area_cancast = TRUE
 
 	var/datum/action/spell_action/action = null
 	var/action_icon = 'icons/mob/actions/actions.dmi'
@@ -503,8 +505,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		revert_cast(user)
 		return FALSE
 
-	perform(targets, user = user, make_attack_logs = create_logs)
 	remove_ranged_ability(user)
+	perform(targets, user = user, make_attack_logs = create_logs)
 	return TRUE
 
 /* Checks if a target is valid
@@ -556,10 +558,15 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
 		if(show_message)
 			to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
-		return 0
+		return FALSE
 
-	if(is_admin_level(user.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
-		return 0
+	if(!centcom_cancast) //Certain spells are not allowed on the centcom zlevel
+		var/turf/T = get_turf(user)
+		if(T && is_admin_level(T.z))
+			return FALSE
+
+	if(!holy_area_cancast && user.holy_check())
+		return FALSE
 
 	if(charge_check)
 		switch(charge_type)
@@ -567,21 +574,21 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 				if(charge_counter < charge_max)
 					if(show_message)
 						to_chat(user, still_recharging_msg)
-					return 0
+					return FALSE
 			if("charges")
 				if(!charge_counter)
 					if(show_message)
 						to_chat(user, "<span class='notice'>[name] has no charges left.</span>")
-					return 0
+					return FALSE
 	if(!ghost)
 		if(user.stat && !stat_allowed)
 			if(show_message)
 				to_chat(user, "<span class='notice'>You can't cast this spell while incapacitated.</span>")
-			return 0
+			return FALSE
 		if(ishuman(user) && (invocation_type == "whisper" || invocation_type == "shout") && user.is_muzzled())
 			if(show_message)
 				to_chat(user, "Mmmf mrrfff!")
-			return 0
+			return FALSE
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user

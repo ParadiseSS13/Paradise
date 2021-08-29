@@ -26,6 +26,7 @@
 	can_suppress = 0
 	burst_size = 1
 	fire_delay = 0
+	can_holster = TRUE
 	actions_types = list()
 
 /obj/item/gun/projectile/automatic/toy/pistol/update_icon()

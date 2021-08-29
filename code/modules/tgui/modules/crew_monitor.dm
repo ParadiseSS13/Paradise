@@ -38,5 +38,6 @@
 
 	data["isAI"] = isAI(user)
 	data["crewmembers"] = GLOB.crew_repository.health_data(T)
+	data["critThreshold"] = HEALTH_THRESHOLD_CRIT
 
 	return data

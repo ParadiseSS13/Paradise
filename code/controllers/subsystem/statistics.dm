@@ -6,7 +6,7 @@ SUBSYSTEM_DEF(statistics)
 
 
 /datum/controller/subsystem/statistics/Initialize(start_timeofday)
-	if(!config.sql_enabled)
+	if(!SSdbcore.IsConnected())
 		flags |= SS_NO_FIRE // Disable firing if SQL is disabled
 	return ..()
 
@@ -18,7 +18,7 @@ SUBSYSTEM_DEF(statistics)
 		return
 	else
 		var/datum/db_query/statquery = SSdbcore.NewQuery(
-			"INSERT INTO [format_table_name("legacy_population")] (playercount, admincount, time) VALUES (:playercount, :admincount, NOW())",
+			"INSERT INTO legacy_population (playercount, admincount, time) VALUES (:playercount, :admincount, NOW())",
 			list(
 				"playercount" = length(GLOB.clients),
 				"admincount" = length(GLOB.admins)
