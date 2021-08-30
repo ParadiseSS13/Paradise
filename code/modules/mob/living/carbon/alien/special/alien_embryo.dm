@@ -107,6 +107,8 @@
 					E.receive_damage(50)
 				owner.death()
 				owner.overlays -= overlay
+				var/overlay_dead = image('icons/mob/alien.dmi', loc = owner, icon_state = "bursted_lie")
+				owner.overlays += overlay_dead
 			else
 				owner.adjustBruteLoss(40)
 				owner.overlays -= overlay
