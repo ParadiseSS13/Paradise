@@ -141,9 +141,12 @@
 	..()
 
 
-/obj/item/flash/proc/terrible_conversion_proc(mob/M, mob/user)
+/obj/item/flash/proc/terrible_conversion_proc(mob/M, mob/living/user)
 	if(ishuman(M) && ishuman(user) && M.stat != DEAD)
 		if(user.mind && (user.mind in SSticker.mode.head_revolutionaries))
+			if(user.has_status_effect(/datum/status_effect/conversion_cooldown))
+				to_chat(user, "<span class='warning'>You must wait a little longer before recruiting another to your cause!</span>")
+				return
 			if(M.client)
 				if(M.stat == CONSCIOUS)
 					M.mind_initialize() //give them a mind datum if they don't have one.
@@ -152,6 +155,7 @@
 						if(user.mind in SSticker.mode.head_revolutionaries)
 							if(SSticker.mode.add_revolutionary(M.mind))
 								times_used -- //Flashes less likely to burn out for headrevs when used for conversion
+								user.apply_status_effect(/datum/status_effect/conversion_cooldown)
 							else
 								resisted = 1
 					else

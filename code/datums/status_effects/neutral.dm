@@ -45,3 +45,11 @@
 
 /datum/status_effect/high_five/on_remove()
 	owner.visible_message("[owner] was left hanging....")
+
+/datum/status_effect/conversion_cooldown
+	id = "conversion_cooldown"
+	duration = 20 SECONDS
+	alert_type = null
+
+/datum/status_effect/conversion_cooldown/on_remove()
+	to_chat(owner, "You feel ready to recruit someone to the cause!")
