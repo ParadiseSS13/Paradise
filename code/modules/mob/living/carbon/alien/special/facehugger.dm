@@ -46,7 +46,7 @@
 	if(istype(user, /mob/living/carbon/alien/humanoid))
 		var/mob/living/carbon/alien/humanoid/alium = user
 		if(!alium.can_grab_facehuggers)
-			
+			to_chat(user, "<span class='warning'>Your claws are too sharp to handle your unborn sisters!</span>")
 			return
 	return attack_hand(user)
 

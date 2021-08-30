@@ -111,6 +111,9 @@
 				owner.overlays -= overlay
 			qdel(src)
 
+		var/overlay2 = image('icons/mob/alien.dmi', loc = owner, icon_state = "bursted_lie")
+		owner.overlays += overlay2
+
 /*----------------------------------------
 Proc: AddInfectionImages(C)
 Des: Adds the infection image to all aliens for this embryo
