@@ -44,12 +44,7 @@
 	var/list/datum/objective/special_verbs = list()
 	var/list/targets = list()
 
-	///Tracks if this mind has been a rev or not
-	var/has_been_rev = 0
-	///Tracks if headrevs are on a conversion cooldown or not
-	var/conversion_on_cooldown = FALSE
-	///How long the cooldown timer is for conversion
-	var/conversion_cooldown_time = 20 SECONDS
+	var/has_been_rev = 0//Tracks if this mind has been a rev or not
 
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
@@ -1509,13 +1504,6 @@
 	var/obj/item/uplink/hidden/H = find_syndicate_uplink()
 	if(H)
 		qdel(H)
-
-/datum/mind/proc/begin_conversion_cooldown()
-	conversion_on_cooldown = TRUE
-	addtimer(CALLBACK(src, .proc/end_conversion_cooldown), conversion_cooldown_time, TIMER_OVERRIDE)
-
-/datum/mind/proc/end_conversion_cooldown()
-	conversion_on_cooldown = FALSE
 
 /datum/mind/proc/make_Traitor()
 	if(!has_antag_datum(/datum/antagonist/traitor))
