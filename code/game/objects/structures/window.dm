@@ -27,6 +27,8 @@
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/breaksound = "shatter"
 	var/hitsound = 'sound/effects/Glasshit.ogg'
+	/// Used to restore colours from polarised glass
+	var/old_color
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -71,9 +73,12 @@
 
 /obj/structure/window/proc/toggle_polarization()
 	if(opacity)
-		animate(src, color = "#FFFFFF", time = 0.5 SECONDS)
+		if(!old_color)
+			old_color = "#FFFFFF"
+		animate(src, color = old_color, time = 0.5 SECONDS)
 		set_opacity(FALSE)
 	else
+		old_color = color
 		animate(src, color = "#222222", time = 0.5 SECONDS)
 		set_opacity(TRUE)
 
