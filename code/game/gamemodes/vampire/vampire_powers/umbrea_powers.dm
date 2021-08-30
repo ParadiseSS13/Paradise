@@ -91,16 +91,15 @@
 	required_blood = 30
 	vampire_ability = TRUE
 	allowed_type = /turf/simulated
-	click_radius = -1
+	click_radius = 1
+	centcom_cancast = FALSE
+	action_icon_state = "mist"
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 
 /obj/effect/proc_holder/spell/targeted/click/dark_passage/cast(list/targets, mob/user)
-	var/turf/target = targets[1]
-	if(!is_teleport_allowed(target.z))
-		to_chat(user, "<span class='notice'>You cannot teleport here!</span>")
-		return
+	var/turf/target = get_turf(targets[1])
 
 	new /obj/effect/temp_visual/vamp_mist_out(get_turf(user))
 	new /obj/effect/temp_visual/vamp_mist_in(target)

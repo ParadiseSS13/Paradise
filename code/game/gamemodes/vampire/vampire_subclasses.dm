@@ -1,4 +1,5 @@
 /datum/vampire_subclass
+	var/name = "yell at coderbus"
 	var/list/standard_powers
 	var/list/fully_powered_abilities
 	/// whether or not a vampire heals more based on damage taken.
@@ -15,6 +16,7 @@
 		vamp.add_ability(thing)
 
 /datum/vampire_subclass/umbrae
+	name = "umbrae"
 	standard_powers = list(/obj/effect/proc_holder/spell/self/cloak = 150,
 							/obj/effect/proc_holder/spell/targeted/click/shadow_snare = 250,
 							/obj/effect/proc_holder/spell/targeted/click/dark_passage = 400,
@@ -24,6 +26,7 @@
 								/datum/vampire_passive/xray)
 
 /datum/vampire_subclass/hemomancer
+	name = "hemomancer"
 	standard_powers = list(/obj/effect/proc_holder/spell/self/vamp_claws = 150,
 							/obj/effect/proc_holder/spell/targeted/click/blood_tendrils = 250,
 							/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/blood_pool = 400,
@@ -32,6 +35,7 @@
 								/obj/effect/proc_holder/spell/self/blood_spill)
 
 /datum/vampire_subclass/gargantua
+	name = "gargantua"
 	standard_powers = list(/obj/effect/proc_holder/spell/self/blood_swell = 150,
 							/obj/effect/proc_holder/spell/self/blood_rush = 250,
 							/datum/vampire_passive/blood_swell_upgrade = 400,
@@ -41,6 +45,7 @@
 	improved_rejuv_healing = TRUE
 
 /datum/vampire_subclass/ancient
+	name = "ancient"
 	standard_powers = list(/obj/effect/proc_holder/spell/self/vamp_claws,
 							/obj/effect/proc_holder/spell/self/blood_swell,
 							/obj/effect/proc_holder/spell/self/cloak,

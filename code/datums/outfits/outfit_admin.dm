@@ -1106,8 +1106,8 @@
 			H.make_vampire()
 		H.mind.vampire.bloodusable = 9999
 		H.mind.vampire.bloodtotal = 9999
-		H.mind.vampire.subclass = new SUBCLASS_ANCIENT
-		H.mind.vampire.remove_ability(/obj/effect/proc_holder/spell/self/specialize) // TODO make this remove the spell from the upgrade_tier list.
+		H.mind.vampire.add_subclass(SUBCLASS_ANCIENT)
+		H.mind.vampire.upgrade_tiers -= /obj/effect/proc_holder/spell/self/specialize
 		H.mind.vampire.check_vampire_upgrade(TRUE)
 		H.dna.SetSEState(GLOB.jumpblock, 1)
 		singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)

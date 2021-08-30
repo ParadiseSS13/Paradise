@@ -91,6 +91,7 @@
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
+	action_icon_state = "blood_tendril"
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
 
@@ -104,15 +105,24 @@
 	for(var/turf/simulated/blood_turf in view(area_of_affect, T))
 		if(T.density)
 			continue
-		new /obj/effect/temp_visual/cult/turf/open/floor(blood_turf)
+		new /obj/effect/temp_visual/blood_tendril(blood_turf)
 
-	addtimer(CALLBACK(T, /turf./proc/blood_tendrils, area_of_affect, 3, usr), 5)
+	addtimer(CALLBACK(T, /turf./proc/blood_tendrils, area_of_affect, 3, usr), 0.5 SECONDS)
 
 /turf/proc/blood_tendrils(distance, slowed_amount, user)
 	for(var/mob/living/L in view(distance, src))
 		if(L.affects_vampire(user))
 			L.AdjustSlowed(slowed_amount)
 			L.visible_message("<span class='warning'>[L] gets ensared in blood tendrils restricting [p_their(L)] movement!</span>")
+			new /obj/effect/temp_visual/blood_tendril/long(get_turf(L))
+
+/obj/effect/temp_visual/blood_tendril
+	icon = 'icons/mob/actions/actions.dmi'
+	icon_state = "blood_tendril"
+	duration = 1 SECONDS
+
+/obj/effect/temp_visual/blood_tendril/long
+	duration = 2 SECONDS
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/blood_pool
 	name = "Sanguine Pool (50)"
