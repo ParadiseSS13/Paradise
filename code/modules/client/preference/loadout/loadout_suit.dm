@@ -150,31 +150,31 @@
 
 
 /datum/gear/suit/suragi_jacket/medsec
-	display_name = "Suragi Jacket - Medical Security "
+	display_name = "Suragi Jacket - Medical Security"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/medsec
 	allowed_roles = list("Brig Physician")
 
 
 /datum/gear/suit/suragi_jacket/virus
-	display_name = "Suragi Jacket - Virology "
+	display_name = "Suragi Jacket - Virology"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/virus
 	allowed_roles = list("Virologist")
 
 
 /datum/gear/suit/suragi_jacket/chem
-	display_name = "Suragi Jacket - Chemistry "
+	display_name = "Suragi Jacket - Chemistry"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/chem
 	allowed_roles = list("Chemist")
 
 
 /datum/gear/suit/suragi_jacket/genetics
-	display_name = "Suragi Jacket - Genetics "
+	display_name = "Suragi Jacket - Genetics"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/genetics
 	allowed_roles = list("Geneticist")
 
 
 /datum/gear/suit/suragi_jacket/robot
-	display_name = "Suragi Jacket - Robotiscist"
+	display_name = "Suragi Jacket - Roboticist"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/robot
 	allowed_roles = list("Roboticist")
 
