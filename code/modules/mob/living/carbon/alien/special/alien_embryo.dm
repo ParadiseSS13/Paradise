@@ -106,13 +106,11 @@
 				if(istype(E))
 					E.receive_damage(50)
 				owner.death()
+				owner.overlays -= overlay
 			else
 				owner.adjustBruteLoss(40)
 				owner.overlays -= overlay
 			qdel(src)
-
-		var/overlay2 = image('icons/mob/alien.dmi', loc = owner, icon_state = "bursted_lie")
-		owner.overlays += overlay2
 
 /*----------------------------------------
 Proc: AddInfectionImages(C)
