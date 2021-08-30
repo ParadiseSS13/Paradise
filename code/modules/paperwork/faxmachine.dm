@@ -10,6 +10,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
+	var/receive_anim = "faxsend"
 	pass_flags = PASSTABLE
 	var/fax_network = "Local Fax Network"
 	/// If true, prevents fax machine from sending messages to NT machines
@@ -51,11 +52,17 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/longrange
 	name = "long range fax machine"
+	icon_state = "longfax"
+	insert_anim = "longfaxsend"
+	receive_anim = "longfaxreceive"
 	fax_network = "Central Command Quantum Entanglement Network"
 	long_range_enabled = TRUE
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie
 	name = "syndicate long range fax machine"
+	icon_state = "fax"
+	insert_anim = "faxsend"
+	receive_anim = "faxsend"
 	emagged = TRUE
 	syndie_restricted = TRUE
 	req_one_access = list(ACCESS_SYNDICATE)
@@ -293,7 +300,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(department == "Unknown")
 		return FALSE //You can't send faxes to "Unknown"
 
-	flick("faxreceive", src)
+	flick(receive_anim, src)
 
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 

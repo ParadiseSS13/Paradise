@@ -408,6 +408,10 @@
 		return
 	if(!isliving(AM))
 		return
+	var/mob/living/L = AM
+	if(L.incorporeal_move || L.flying || L.floating)
+		return
+
 	// Don't break if they're just flying past
 	if(AM.throwing)
 		addtimer(CALLBACK(src, .proc/throw_check, AM), 5)
