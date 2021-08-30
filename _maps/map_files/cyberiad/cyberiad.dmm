@@ -4646,7 +4646,7 @@
 /obj/structure/sink/kitchen{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
 	name = "old sink";
-	pixel_y = 28
+	pixel_y = 25
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -4778,7 +4778,7 @@
 /obj/structure/reagent_dispensers/watertank,
 /obj/item/reagent_containers/glass/bucket,
 /obj/structure/sink/kitchen{
-	pixel_y = 28
+	pixel_y = 25
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -25977,19 +25977,9 @@
 	},
 /area/crew_quarters/kitchen)
 "bfF" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/closet/secure_closet/hydroponics,
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
-/area/hydroponics)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/turbine)
 "bfG" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
@@ -29189,7 +29179,7 @@
 /area/hallway/primary/port)
 "bmt" = (
 /obj/structure/sink/kitchen{
-	pixel_y = 28
+	pixel_y = 25
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -44922,6 +44912,7 @@
 	},
 /area/medical/genetics_cloning)
 "bUc" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -47009,13 +47000,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/medbay2)
-"bYg" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
 "bYh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -47608,6 +47592,7 @@
 	icon_state = "pipe-c"
 	},
 /obj/effect/decal/warning_stripes/blue/partial,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -47646,6 +47631,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/blue/partial,
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -48079,8 +48065,8 @@
 	},
 /area/medical/reception)
 "bZS" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -48174,7 +48160,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -48207,8 +48195,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "caa" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
@@ -48220,9 +48208,7 @@
 	dir = 4
 	},
 /obj/machinery/hologram/holopad,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -48512,7 +48498,7 @@
 /area/medical/sleeper)
 "caJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -48562,9 +48548,6 @@
 	},
 /area/medical/cryo)
 "caM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -48586,13 +48569,16 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/medical/cryo)
 "caO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
+	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -49186,9 +49172,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -49249,6 +49232,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -51574,7 +51560,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -51605,7 +51590,6 @@
 /obj/effect/landmark/start{
 	name = "Medical Doctor"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -70723,7 +70707,9 @@
 	dir = 4
 	},
 /obj/structure/grille,
-/obj/machinery/meter,
+/obj/machinery/meter{
+	layer = 2.9
+	},
 /turf/simulated/wall/r_wall,
 /area/atmos)
 "cSo" = (
@@ -75091,9 +75077,7 @@
 /turf/simulated/floor/engine/plasma,
 /area/atmos)
 "dcV" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
-	},
+/obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
@@ -75165,18 +75149,16 @@
 	},
 /obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "ddg" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/maintenance/turbine)
-"ddh" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 8
+/obj/machinery/atmospherics/binary/pump{
+	dir = 4
 	},
-/obj/machinery/meter,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "ddi" = (
@@ -77058,7 +77040,7 @@
 /area/crew_quarters/toilet)
 "dhV" = (
 /obj/structure/sink/kitchen{
-	pixel_y = 28
+	pixel_y = 25
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -77724,7 +77706,9 @@
 "djB" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
-/obj/machinery/meter,
+/obj/machinery/meter{
+	layer = 2.9
+	},
 /turf/simulated/wall/r_wall,
 /area/atmos)
 "djC" = (
@@ -77888,6 +77872,7 @@
 /obj/structure/grille,
 /obj/machinery/meter{
 	id = "mair_in_meter";
+	layer = 2.9;
 	name = "Mixed Air Tank In"
 	},
 /turf/simulated/wall/r_wall,
@@ -77903,6 +77888,7 @@
 /obj/structure/grille,
 /obj/machinery/meter{
 	id = "mair_out_meter";
+	layer = 2.9;
 	name = "Mixed Air Tank Out"
 	},
 /turf/simulated/wall/r_wall,
@@ -121525,7 +121511,7 @@ dgT
 cTV
 cYg
 dcz
-dcz
+bfF
 ddg
 ddo
 dgS
@@ -121783,7 +121769,7 @@ cTX
 cYy
 dcA
 dda
-ddh
+cYy
 ddp
 dll
 dlI
@@ -123527,7 +123513,7 @@ aZT
 aZT
 bWd
 bSC
-bYg
+bUa
 bZX
 ccb
 bWD
@@ -124015,7 +124001,7 @@ aGX
 bcg
 bfQ
 beb
-bfF
+bif
 bjW
 beb
 bkU
