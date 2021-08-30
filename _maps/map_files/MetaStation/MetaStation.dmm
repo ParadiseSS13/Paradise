@@ -24101,7 +24101,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering";
-	req_one_access_txt = "10;70"
+	req_one_access_txt = "32;70"
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -36146,7 +36146,7 @@
 "byV" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Engineering Foyer Maintenance";
-	req_one_access_txt = "10;19;70"
+	req_one_access_txt = "32;19;70"
 	},
 /turf/simulated/floor/plating,
 /area/engine/break_room)
