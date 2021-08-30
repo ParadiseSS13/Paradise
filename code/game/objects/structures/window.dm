@@ -71,11 +71,11 @@
 
 /obj/structure/window/proc/toggle_polarization()
 	if(opacity)
-		animate(src, color="#FFFFFF", time=5)
-		set_opacity(0)
+		animate(src, color = "#FFFFFF", time = 0.5 SECONDS)
+		set_opacity(FALSE)
 	else
-		animate(src, color="#222222", time=5)
-		set_opacity(1)
+		animate(src, color = "#222222", time = 0.5 SECONDS)
+		set_opacity(TRUE)
 
 /obj/structure/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
@@ -514,7 +514,7 @@
 	var/id = 0
 	var/active = 0
 
-/obj/machinery/button/windowtint/Initialize(mapload, w_dir=null)
+/obj/machinery/button/windowtint/Initialize(mapload, w_dir = null)
 	. = ..()
 	switch(w_dir)
 		if(NORTH)
@@ -537,7 +537,6 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("<span class='notice'>[user] starts unwrenching [src] from the wall...</span>", "<span class='notice'>You are unwrenching [src] from the wall...</span>", "<span class='warning'>You hear ratcheting.</span>")
-	. = TRUE
 	if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 		return
 	WRENCH_UNANCHOR_WALL_MESSAGE
@@ -554,7 +553,7 @@
 		if(W.id == src.id || !W.id)
 			W.toggle_polarization()
 
-	for(var/obj/structure/window/full/reinforced/polarized/W in range(src,range))
+	for(var/obj/structure/window/full/reinforced/polarized/W in range(src, range))
 		if(W.id == src.id || !W.id)
 			W.toggle_polarization()
 
