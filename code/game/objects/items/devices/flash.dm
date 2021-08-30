@@ -91,7 +91,7 @@
 		if(targeted)
 			if(M.flash_eyes(1, 1))
 				M.AdjustConfused(power)
-				terrible_conversion_proc(M, user)
+				rev_conversion_proc(M, user)
 				M.Stun(1)
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
 				to_chat(user, "<span class='danger'>You blind [M] with the flash!</span>")
@@ -141,32 +141,29 @@
 	..()
 
 
-/obj/item/flash/proc/terrible_conversion_proc(mob/M, mob/living/user)
-	if(ishuman(M) && ishuman(user) && M.stat != DEAD)
-		if(user.mind && (user.mind in SSticker.mode.head_revolutionaries))
-			if(user.has_status_effect(/datum/status_effect/conversion_cooldown))
-				to_chat(user, "<span class='warning'>You must wait a little longer before recruiting another to your cause!</span>")
+/obj/item/flash/proc/rev_conversion_proc(mob/M, mob/living/user)
+	if(!ishuman(M) || !ishuman(user) || M.stat == DEAD)
+		return
+	if(!user.mind || !(user.mind in SSticker.mode.head_revolutionaries))
+		return
+	if(user.has_status_effect(/datum/status_effect/conversion_cooldown))
+		to_chat(user, "<span class='warning'>You must wait a little longer before recruiting another to your cause!</span>")
+		return
+	if(!M.client)
+		to_chat(user, "<span class='warning'>This mind is so vacant that it is not susceptible to influence!</span>")
+		return
+	if(M.stat != CONSCIOUS)
+		to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")
+		return
+	M.mind_initialize() //give them a mind datum if they don't have one.
+	if(!ismindshielded(M))
+		if(user.mind in SSticker.mode.head_revolutionaries)
+			if(SSticker.mode.add_revolutionary(M.mind))
+				times_used -- //Flashes less likely to burn out for headrevs when used for conversion
+				user.apply_status_effect(/datum/status_effect/conversion_cooldown)
 				return
-			if(M.client)
-				if(M.stat == CONSCIOUS)
-					M.mind_initialize() //give them a mind datum if they don't have one.
-					var/resisted
-					if(!ismindshielded(M))
-						if(user.mind in SSticker.mode.head_revolutionaries)
-							if(SSticker.mode.add_revolutionary(M.mind))
-								times_used -- //Flashes less likely to burn out for headrevs when used for conversion
-								user.apply_status_effect(/datum/status_effect/conversion_cooldown)
-							else
-								resisted = 1
-					else
-						resisted = 1
+	to_chat(user, "<span class='warning'>This mind seems resistant to [src]!</span>")
 
-					if(resisted)
-						to_chat(user, "<span class='warning'>This mind seems resistant to [src]!</span>")
-				else
-					to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")
-			else
-				to_chat(user, "<span class='warning'>This mind is so vacant that it is not susceptible to influence!</span>")
 
 
 /obj/item/flash/cyborg
