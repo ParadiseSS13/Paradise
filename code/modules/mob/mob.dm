@@ -32,7 +32,6 @@
 		GLOB.alive_mob_list += src
 	set_focus(src)
 	prepare_huds()
-	runechat_msg_location = src
 	update_runechat_msg_location()
 	. = ..()
 
@@ -1455,9 +1454,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /**
  * Updates the mob's runechat maptext display location.
+ *
+ * By default, we set this to the src mob's `UID()`.
  */
 /mob/proc/update_runechat_msg_location()
-	return
+	runechat_msg_location = UID()
 
 
 /**
