@@ -600,6 +600,8 @@ emp_act
 		visible_message("<span class='danger'>[M] attempted to touch [src]!</span>")
 		return 0
 
+	#define XENO_ARMOR_MULTIPLIER 1.15
+
 	if(..())
 		if(M.a_intent == INTENT_HARM)
 			if(w_uniform)
@@ -619,13 +621,11 @@ emp_act
 			apply_damage(damage, BRUTE, affecting, armor_block)
 			add_attack_logs(M, src, "Alien attacked")
 			updatehealth("alien attack")
-			#define ARM_MULTI 1.15
+
 		if(M.a_intent == INTENT_DISARM) //Runs a check to tackle based off of armor values, with multiplication for leeway. If tackle fails, it checks for disarm. If disarm fails, play failure sound.
 			var/obj/item/organ/external/affecting = get_organ("chest")
-			var/probability = 100 - run_armor_check(affecting, "melee") * ARM_MULTI
+			var/probability = 100 - run_armor_check(affecting, "melee") * XENO_ARMOR_MULTIPLIER
 			probability = clamp(probability, 20, 60)
-
-			#undef ARM_MULTI
 
 			if(prob(probability))
 				Weaken(4)
@@ -641,6 +641,8 @@ emp_act
 			else
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				visible_message("<span class='danger'>[M] has attempted to disarm [src]!</span>")
+
+	#undef XENO_ARMOR_MULTIPLIER
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	. = ..()

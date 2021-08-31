@@ -42,8 +42,8 @@
 
 /obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens with the variable can_grab_facehuggers set to true
 	if(istype(user, /mob/living/carbon/alien/humanoid))
-		var/mob/living/carbon/alien/humanoid/alium = user
-		if(!alium.can_grab_facehuggers)
+		var/mob/living/carbon/alien/humanoid/alien = user
+		if(!alien.can_grab_facehuggers)
 			to_chat(user, "<span class='warning'>Your claws are too sharp to handle your unborn sisters!</span>")
 			return
 	return attack_hand(user)
