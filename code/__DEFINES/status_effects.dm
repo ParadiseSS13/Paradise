@@ -82,3 +82,6 @@
 #define STATUS_EFFECT_CRUSHERDAMAGETRACKING /datum/status_effect/crusher_damage //tracks total kinetic crusher damage on a target
 
 #define STATUS_EFFECT_SYPHONMARK /datum/status_effect/syphon_mark //tracks kills for the KA death syphon module
+
+///Enforces timer between flash conversions for head revolutionaries
+#define STATUS_EFFECT_CONVERSION_COOLDOWN /datum/status_effect/conversion_cooldown

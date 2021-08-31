@@ -146,7 +146,7 @@
 		return
 	if(!user.mind || !(user.mind in SSticker.mode.head_revolutionaries))
 		return
-	if(user.has_status_effect(/datum/status_effect/conversion_cooldown))
+	if(user.has_status_effect(STATUS_EFFECT_CONVERSION_COOLDOWN))
 		to_chat(user, "<span class='warning'>You must wait a little longer before recruiting another to your cause!</span>")
 		return
 	if(!M.client)
@@ -160,7 +160,7 @@
 		if(user.mind in SSticker.mode.head_revolutionaries)
 			if(SSticker.mode.add_revolutionary(M.mind))
 				times_used -- //Flashes less likely to burn out for headrevs when used for conversion
-				user.apply_status_effect(/datum/status_effect/conversion_cooldown)
+				user.apply_status_effect(STATUS_EFFECT_CONVERSION_COOLDOWN)
 				return
 	to_chat(user, "<span class='warning'>This mind seems resistant to [src]!</span>")
 
