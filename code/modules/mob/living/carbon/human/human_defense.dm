@@ -622,12 +622,11 @@ emp_act
 			#define ARM_MULTI 1.15
 		if(M.a_intent == INTENT_DISARM) //Runs a check to tackle based off of armor values, with multiplication for leeway. If tackle fails, it checks for disarm. If disarm fails, play failure sound.
 			var/obj/item/organ/external/affecting = get_organ("chest")
-			var/probability = 100 - run_armor_check(affecting, "melee") * ARM_MULTI 
+			var/probability = 100 - run_armor_check(affecting, "melee") * ARM_MULTI
 			probability = clamp(probability, 20, 60)
 
 			#undef ARM_MULTI
 
-			//to_chat(usr, probability) //nulled incase of further testing. Remove before merging.
 			if(prob(probability))
 				Weaken(4)
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
