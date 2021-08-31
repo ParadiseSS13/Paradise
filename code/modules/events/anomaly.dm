@@ -5,6 +5,11 @@
 
 /datum/event/anomaly/proc/findEventArea()
 	var/static/list/allowed_areas
+	var/static/list/existing_areas = list()
+	for(var/area/AR in world)
+		var/turf/picked = safepick(get_area_turfs(AR.type))
+		if(picked && is_station_level(picked.z))
+			existing_areas += AR
 	if(!allowed_areas)
 		//Places that shouldn't explode
 		var/list/safe_area_types = typecacheof(list(
@@ -20,10 +25,16 @@
 		)
 
 		//Subtypes from the above that actually should explode.
-		var/list/unsafe_area_subtypes = typecacheof(list(/area/engine/break_room))
+		var/list/unsafe_area_subtypes = typecacheof(list(
+		/area/engine/break_room,
+		/area/engine/equipmentstorage,
+		/area/engine/chiefs_office,
+		/area/engine/controlroom,
+		/area/engine/mechanic_workshop
+		))
 
-		allowed_areas = make_associative(GLOB.the_station_areas) - safe_area_types + unsafe_area_subtypes
-	var/list/possible_areas = typecache_filter_list(GLOB.all_areas, allowed_areas)
+		allowed_areas = typecacheof(GLOB.the_station_areas) - safe_area_types + unsafe_area_subtypes
+	var/list/possible_areas = typecache_filter_list(existing_areas, allowed_areas)
 	if(length(possible_areas))
 		return pick(possible_areas)
 
