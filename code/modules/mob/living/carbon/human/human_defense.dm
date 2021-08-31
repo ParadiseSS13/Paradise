@@ -614,24 +614,34 @@ emp_act
 
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
- 				"<span class='userdanger'>[M] has slashed at [src]!</span>")
+				"<span class='userdanger'>[M] has slashed at [src]!</span>")
 
 			apply_damage(damage, BRUTE, affecting, armor_block)
 			add_attack_logs(M, src, "Alien attacked")
 			updatehealth("alien attack")
+			#define ARM_MULTI 1.15
+		if(M.a_intent == INTENT_DISARM) //Runs a check to tackle based off of armor values, with multiplication for leeway. If tackle fails, it checks for disarm. If disarm fails, play failure sound.
+			var/obj/item/organ/external/affecting = get_organ("chest")
+			var/probability = 100 - run_armor_check(affecting, "melee") * ARM_MULTI 
+			probability = clamp(probability, 20, 60)
 
-		if(M.a_intent == INTENT_DISARM) //Always drop item in hand, if no item, get stun instead.
-			var/obj/item/I = get_active_hand()
-			if(I && unEquip(I))
+			#undef ARM_MULTI
+
+			//to_chat(usr, probability) //nulled incase of further testing. Remove before merging.
+			if(prob(probability))
+				Weaken(4)
+				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
+				add_attack_logs(M, src, "Alien tackled")
+				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
+			else if(prob(30))
+				drop_item()
 				playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
+				add_attack_logs(M, src, "Disarmed")
 				visible_message("<span class='danger'>[M] disarms [src]!</span>", "<span class='userdanger'>[M] disarms you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
 				to_chat(M, "<span class='danger'>You disarm [src]!</span>")
 			else
-				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
-				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-				apply_effect(5, WEAKEN, run_armor_check(affecting, "melee"))
-				add_attack_logs(M, src, "Alien tackled")
-				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
+				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+				visible_message("<span class='danger'>[M] has attempted to disarm [src]!</span>")
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	. = ..()
