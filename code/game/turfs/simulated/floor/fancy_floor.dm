@@ -71,10 +71,11 @@
 /turf/simulated/floor/carpet
 	name = "carpet"
 	icon = 'icons/turf/floors/carpet.dmi'
-	icon_state = "carpet"
+	icon_state = "carpet-255"
+	base_icon_state = "carpet"
 	floor_tile = /obj/item/stack/tile/carpet
 	broken_states = list("damaged")
-	smoothing_flags = SMOOTH_CORNERS
+	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET)
 	footstep = FOOTSTEP_CARPET
@@ -90,12 +91,16 @@
 	if(!..())
 		return 0
 	if(!broken && !burnt)
-		if(smoothing_flags)
+		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 			QUEUE_SMOOTH(src)
 	else
 		make_plating()
-		if(smoothing_flags)
+		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 			QUEUE_SMOOTH_NEIGHBORS(src)
+
+//Carpet variant for mapping aid, functionally the same as parent after smoothing.
+/turf/simulated/floor/carpet/lone
+	icon_state = "carpet-0"
 
 /turf/simulated/floor/carpet/break_tile()
 	broken = 1
@@ -110,6 +115,8 @@
 
 /turf/simulated/floor/carpet/black
 	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon_state = "carpet_black-255"
+	base_icon_state = "carpet_black"
 	floor_tile = /obj/item/stack/tile/carpet/black
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET_BLACK)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_BLACK)

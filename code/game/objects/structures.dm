@@ -9,11 +9,12 @@
 
 /obj/structure/New()
 	..()
-	if(smoothing_flags)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
 			QUEUE_SMOOTH(src)
 			QUEUE_SMOOTH_NEIGHBORS(src)
-		icon_state = ""
+		if(smoothing_flags & SMOOTH_CORNERS)
+			icon_state = ""
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
 	if(SSticker)
@@ -27,7 +28,7 @@
 /obj/structure/Destroy()
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
-	if(smoothing_flags)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		var/turf/T = get_turf(src)
 		spawn(0)
 			QUEUE_SMOOTH_NEIGHBORS(T)

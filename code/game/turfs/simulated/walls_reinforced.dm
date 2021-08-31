@@ -2,7 +2,9 @@
 	name = "reinforced wall"
 	desc = "A huge chunk of reinforced metal used to separate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
-	icon_state = "r_wall"
+	icon_state = "reinforced_wall-0"
+	base_icon_state = "reinforced_wall"
+	smoothing_flags = SMOOTH_BITMASK
 	opacity = 1
 	density = 1
 	explosion_block = 2
@@ -214,10 +216,11 @@
 	if(d_state)
 		icon_state = "r_wall-[d_state]"
 		smoothing_flags = NONE
-		clear_smooth_overlays()
 	else
-		smoothing_flags = SMOOTH_CORNERS
-		icon_state = ""
+		smoothing_flags = SMOOTH_BITMASK
+		icon_state = "[base_icon_state]-[smoothing_junction]"
+		QUEUE_SMOOTH_NEIGHBORS(src)
+		QUEUE_SMOOTH(src)
 
 /turf/simulated/wall/r_wall/devastate_wall()
 	new sheet_type(src, sheet_amount)

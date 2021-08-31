@@ -130,8 +130,9 @@
 	name = "lava"
 	baseturf = /turf/simulated/floor/plating/lava/smooth
 	icon = 'icons/turf/floors/lava.dmi'
-	icon_state = "unsmooth"
-	smoothing_flags = SMOOTH_CORNERS | SMOOTH_BORDER
+	icon_state = "lava-255"
+	base_icon_state = "lava"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_FLOOR_LAVA)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_LAVA)
 

@@ -3,8 +3,9 @@
 	desc = "Watch your step."
 	baseturf = /turf/simulated/floor/chasm
 	icon = 'icons/turf/floors/Chasms.dmi'
-	icon_state = "smooth"
-	smoothing_flags = SMOOTH_CORNERS | SMOOTH_BORDER
+	icon_state = "chasms-255"
+	base_icon_state = "chasms"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_TURF_CHASM)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_CHASM)
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf

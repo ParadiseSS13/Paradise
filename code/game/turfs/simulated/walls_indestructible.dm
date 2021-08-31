@@ -56,11 +56,12 @@
 	name = "necropolis wall"
 	desc = "A thick, seemingly indestructible stone wall."
 	icon = 'icons/turf/walls/boss_wall.dmi'
-	icon_state = "wall"
-	baseturf = /turf/simulated/floor/plating/asteroid/basalt
-	smoothing_flags = SMOOTH_CORNERS
+	icon_state = "boss_wall-0"
+	base_icon_state = "boss_wall"
+	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BOSS_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_BOSS_WALLS)
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt
 
 /turf/simulated/wall/indestructible/boss/see_through
 	opacity = FALSE
@@ -74,8 +75,9 @@
 
 /turf/simulated/wall/indestructible/sandstone
 	icon = 'icons/turf/walls/sandstone_wall.dmi'
-	icon_state = "sandstone"
-	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SANDSTONE_WALLS)
+	icon_state = "sandstone_wall-0"
+	base_icon_state = "sandstone_wall"
+	smoothing_flags = SMOOTH_BITMASK
 
 /turf/simulated/wall/indestructible/splashscreen
 	name = "Space Station 13"
@@ -85,14 +87,16 @@
 
 /turf/simulated/wall/indestructible/uranium
 	icon = 'icons/turf/walls/uranium_wall.dmi'
-	icon_state = "uranium"
-	smoothing_flags = SMOOTH_CORNERS
+	icon_state = "uranium_wall-0"
+	base_icon_state = "uranium_wall"
+	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
 
 /turf/simulated/wall/indestructible/wood
 	icon = 'icons/turf/walls/wood_wall.dmi'
-	icon_state = "wood"
-	smoothing_flags = SMOOTH_CORNERS
+	icon_state = "wood_wall-0"
+	base_icon_state = "wood_wall"
+	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WOOD_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WOOD_WALLS)
 
@@ -100,8 +104,9 @@
 	name = "alien wall"
 	desc = "A wall with alien alloy plating."
 	icon = 'icons/turf/walls/abductor_wall.dmi'
-	icon_state = "abductor"
-	smoothing_flags = SMOOTH_CORNERS | SMOOTH_DIAGONAL
+	icon_state = "abductor-0"
+	base_icon_state = "abductor"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_ABDUCTOR_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_WALLS)
 
@@ -118,9 +123,10 @@
 	name = "window"
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
 	icon_state = "fake_window"
+	base_icon_state = "reinforced_window"
 	opacity = FALSE
-	smoothing_flags = SMOOTH_CORNERS
-	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
 
 /turf/simulated/wall/indestructible/fakeglass/Initialize(mapload)
@@ -132,10 +138,12 @@
 /turf/simulated/wall/indestructible/opsglass
 	name = "window"
 	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
-	icon_state = "plastitanium_window"
+	icon_state = "plastitanium_window-0"
+	base_icon_state = "plastitanium_window"
 	opacity = FALSE
-	smoothing_flags = SMOOTH_CORNERS
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_PLASTITANIUM_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
 
 /turf/simulated/wall/indestructible/opsglass/Initialize(mapload)
 	. = ..()
@@ -156,12 +164,17 @@
 	icon_state = "snowrock"
 
 /turf/simulated/wall/indestructible/riveted
-	icon = 'icons/turf/walls.dmi'
-	icon_state = "riveted"
+	icon = 'icons/turf/walls/riveted.dmi'
+	icon_state = "riveted-0"
+	base_icon_state = "riveted"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS)
 
 /turf/simulated/wall/indestructible/syndicate
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
-	icon_state = "map-shuttle"
-	smoothing_flags = SMOOTH_CORNERS
+	icon_state = "plastitanium_wall-0"
+	base_icon_state = "plastitanium_wall"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
