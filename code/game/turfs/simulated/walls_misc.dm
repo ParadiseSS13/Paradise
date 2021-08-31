@@ -4,7 +4,7 @@
 	icon = 'icons/turf/walls/cult_wall.dmi'
 	icon_state = "cult"
 	canSmoothWith = null
-	smooth = SMOOTH_FALSE
+	smoothing_flags = NONE
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
@@ -56,6 +56,8 @@
 	girder_type = /obj/structure/clockwork/wall_gear
 	var/heated
 	var/obj/effect/clockwork/overlay/wall/realappearance
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BRASS_WALL)
+	canSmoothWith = list(SMOOTH_GROUP_BRASS_WALL)
 
 /turf/simulated/wall/clockwork/Initialize()
 	. = ..()

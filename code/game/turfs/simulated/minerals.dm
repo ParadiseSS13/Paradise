@@ -5,8 +5,9 @@
 	icon = 'icons/turf/mining.dmi'
 	icon_state = "rock"
 	var/smooth_icon = 'icons/turf/smoothrocks.dmi'
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = null
+	smoothing_flags = SMOOTH_CORNERS | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_MINERAL_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS)
 	baseturf = /turf/simulated/floor/plating/asteroid/airless
 	opacity = 1
 	density = TRUE
@@ -26,8 +27,6 @@
 	var/defer_change = 0
 
 /turf/simulated/mineral/Initialize(mapload)
-	if(!canSmoothWith)
-		canSmoothWith = list(/turf/simulated/mineral)
 	var/matrix/M = new
 	M.Translate(-4, -4)
 	transform = M
@@ -45,7 +44,7 @@
 
 /turf/simulated/mineral/shuttleRotate(rotation)
 	setDir(angle2dir(rotation + dir2angle(dir)))
-	queue_smooth(src)
+	QUEUE_SMOOTH(src)
 
 /turf/simulated/mineral/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	if(turf_type)

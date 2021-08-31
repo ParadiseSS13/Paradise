@@ -24,8 +24,9 @@
 	climbable = TRUE
 	max_integrity = 100
 	integrity_failure = 30
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/table, /obj/structure/table/reinforced)
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_TABLES)
+	canSmoothWith = list(SMOOTH_GROUP_TABLES)
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
 	var/buildstack = /obj/item/stack/sheet/metal
@@ -48,10 +49,10 @@
 	return "<span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
 
 /obj/structure/table/update_icon()
-	if(smooth && !flipped)
+	if(smoothing_flags && !flipped)
 		icon_state = ""
-		queue_smooth(src)
-		queue_smooth_neighbors(src)
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 	if(flipped)
 		clear_smooth_overlays()
@@ -339,7 +340,7 @@
 	if(dir != NORTH)
 		layer = 5
 	flipped = 1
-	smooth = SMOOTH_FALSE
+	smoothing_flags = NONE
 	flags |= ON_BORDER
 	for(var/D in list(turn(direction, 90), turn(direction, -90)))
 		if(locate(/obj/structure/table,get_step(src,D)))
@@ -365,7 +366,7 @@
 
 	layer = initial(layer)
 	flipped = 0
-	smooth = initial(smooth)
+	smoothing_flags = initial(smoothing_flags)
 	flags &= ~ON_BORDER
 	for(var/D in list(turn(dir, 90), turn(dir, -90)))
 		if(locate(/obj/structure/table,get_step(src,D)))
@@ -386,7 +387,7 @@
 	icon = 'icons/obj/smooth_structures/glass_table.dmi'
 	icon_state = "glass_table"
 	buildstack = /obj/item/stack/sheet/glass
-	canSmoothWith = null
+	smoothing_groups = null
 	max_integrity = 70
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
@@ -474,7 +475,8 @@
 	framestack = /obj/item/stack/sheet/wood
 	buildstack = /obj/item/stack/sheet/wood
 	max_integrity = 70
-	canSmoothWith = list(/obj/structure/table/wood, /obj/structure/table/wood/poker)
+	smoothing_groups = list(SMOOTH_GROUP_WOOD_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES
+	canSmoothWith = list(SMOOTH_GROUP_WOOD_TABLES)
 	resistance_flags = FLAMMABLE
 
 /obj/structure/table/wood/narsie_act(total_override = TRUE)
@@ -503,7 +505,8 @@
 	frame = /obj/structure/table_frame
 	framestack = /obj/item/stack/rods
 	buildstack = /obj/item/stack/tile/carpet
-	canSmoothWith = list(/obj/structure/table/wood/fancy, /obj/structure/table/wood/fancy/black)
+	smoothing_groups = list(SMOOTH_GROUP_FANCY_WOOD_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES or SMOOTH_GROUP_WOOD_TABLES
+	canSmoothWith = list(SMOOTH_GROUP_FANCY_WOOD_TABLES)
 
 /obj/structure/table/wood/fancy/Initialize(mapload)
 	. = ..()
@@ -527,7 +530,7 @@
 	icon_state = "r_table"
 	deconstruction_ready = FALSE
 	buildstack = /obj/item/stack/sheet/plasteel
-	canSmoothWith = list(/obj/structure/table/reinforced, /obj/structure/table)
+	canSmoothWith = list(SMOOTH_GROUP_TABLES)
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list("melee" = 10, "bullet" = 30, "laser" = 30, "energy" = 100, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
@@ -564,7 +567,8 @@
 	buildstack = /obj/item/stack/tile/brass
 	framestackamount = 1
 	buildstackamount = 1
-	canSmoothWith = list(/obj/structure/table/reinforced/brass)
+	smoothing_groups = list(SMOOTH_GROUP_BRASS_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES
+	canSmoothWith = list(SMOOTH_GROUP_BRASS_TABLES)
 
 /obj/structure/table/reinforced/brass/narsie_act()
 	take_damage(rand(15, 45), BRUTE)
@@ -577,7 +581,9 @@
 	name = "surgical tray"
 	desc = "A small metal tray with wheels."
 	anchored = FALSE
-	smooth = SMOOTH_FALSE
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "tray"
 	buildstack = /obj/item/stack/sheet/mineral/titanium

@@ -69,7 +69,7 @@
 					return
 				d_state = RWALL_INTACT
 				update_icon()
-				queue_smooth_neighbors(src)
+				QUEUE_SMOOTH_NEIGHBORS(src)
 				to_chat(user, "<span class='notice'>You repair the last of the damage.</span>")
 			return
 	else
@@ -213,10 +213,10 @@
 
 	if(d_state)
 		icon_state = "r_wall-[d_state]"
-		smooth = SMOOTH_FALSE
+		smoothing_flags = NONE
 		clear_smooth_overlays()
 	else
-		smooth = SMOOTH_TRUE
+		smoothing_flags = SMOOTH_CORNERS
 		icon_state = ""
 
 /turf/simulated/wall/r_wall/devastate_wall()

@@ -46,9 +46,10 @@
 	density = TRUE
 	opacity = TRUE
 	anchored = TRUE
-	canSmoothWith = list(/obj/structure/alien/resin)
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN)
+	canSmoothWith = list(SMOOTH_GROUP_ALIEN_RESIN)
 	max_integrity = 200
-	smooth = SMOOTH_TRUE
 	var/resintype = null
 
 /obj/structure/alien/resin/Initialize()
@@ -74,7 +75,8 @@
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
 	icon_state = "wall0"	//same as resin, but consistency ho!
 	resintype = "wall"
-	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
+	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
 /obj/structure/alien/resin/wall/BlockSuperconductivity()
 	return 1
@@ -92,7 +94,8 @@
 	opacity = 0
 	max_integrity = 160
 	resintype = "membrane"
-	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
+	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
 /obj/structure/alien/resin/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
@@ -116,6 +119,9 @@
 	plane = FLOOR_PLANE
 	icon_state = "weeds"
 	max_integrity = 15
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
+	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS, SMOOTH_GROUP_WALLS)
 	var/obj/structure/alien/weeds/node/linked_node = null
 	var/static/list/weedImageCache
 

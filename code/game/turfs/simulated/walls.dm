@@ -36,14 +36,9 @@
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
 
-	canSmoothWith = list(
-	/turf/simulated/wall,
-	/turf/simulated/wall/r_wall,
-	/obj/structure/falsewall,
-	/obj/structure/falsewall/reinforced,
-	/turf/simulated/wall/rust,
-	/turf/simulated/wall/r_wall/rust)
-	smooth = SMOOTH_TRUE
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS)
 
 /turf/simulated/wall/BeforeChange()
 	for(var/obj/effect/overlay/wall_rot/WR in src)
@@ -76,7 +71,7 @@
 	if(!damage_overlays[1]) //list hasn't been populated
 		generate_overlays()
 
-	queue_smooth(src)
+	QUEUE_SMOOTH(src)
 	if(!damage)
 		if(damage_overlay)
 			overlays -= damage_overlays[damage_overlay]

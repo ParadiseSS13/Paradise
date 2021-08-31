@@ -122,7 +122,7 @@
 	icon = 'icons/turf/floors/seadrop.dmi'
 	icon_state = "seadrop"
 	water_overlay_image = null
-	smooth = SMOOTH_TRUE
+	smoothing_flags = SMOOTH_CORNERS
 	canSmoothWith = list(
 	/turf/simulated/floor/beach/away/water/drop, /turf/simulated/floor/beach/away/water/drop/dense,
 		/turf/simulated/floor/beach/away/water, /turf/simulated/floor/beach/away/water/dense,
@@ -142,7 +142,7 @@
 	name = "Water"
 	icon = 'icons/turf/floors/seadrop-o.dmi'
 	layer = MOB_LAYER + 0.1
-	smooth = SMOOTH_TRUE
+	smoothing_flags = SMOOTH_CORNERS
 	anchored = 1
 	canSmoothWith = list(
 		/turf/simulated/floor/beach/away/water/drop, /turf/simulated/floor/beach/away/water/drop/dense,

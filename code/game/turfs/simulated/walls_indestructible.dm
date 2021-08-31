@@ -57,9 +57,10 @@
 	desc = "A thick, seemingly indestructible stone wall."
 	icon = 'icons/turf/walls/boss_wall.dmi'
 	icon_state = "wall"
-	canSmoothWith = list(/turf/simulated/wall/indestructible/boss, /turf/simulated/wall/indestructible/boss/see_through)
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
-	smooth = SMOOTH_TRUE
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BOSS_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_BOSS_WALLS)
 
 /turf/simulated/wall/indestructible/boss/see_through
 	opacity = FALSE
@@ -69,12 +70,12 @@
 	desc = "A wall made out of a strange metal. The squares on it pulse in a predictable pattern."
 	icon = 'icons/turf/walls/hierophant_wall.dmi'
 	icon_state = "wall"
-	smooth = SMOOTH_TRUE
+	smoothing_flags = SMOOTH_CORNERS
 
 /turf/simulated/wall/indestructible/sandstone
 	icon = 'icons/turf/walls/sandstone_wall.dmi'
 	icon_state = "sandstone"
-	canSmoothWith = list(/turf/simulated/wall/mineral/sandstone, /turf/simulated/wall/indestructible/sandstone, /obj/structure/falsewall/sandstone)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SANDSTONE_WALLS)
 
 /turf/simulated/wall/indestructible/splashscreen
 	name = "Space Station 13"
@@ -85,22 +86,24 @@
 /turf/simulated/wall/indestructible/uranium
 	icon = 'icons/turf/walls/uranium_wall.dmi'
 	icon_state = "uranium"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/turf/simulated/wall/mineral/uranium, /obj/structure/falsewall/uranium, /turf/simulated/wall/indestructible/uranium)
+	smoothing_flags = SMOOTH_CORNERS
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
 
 /turf/simulated/wall/indestructible/wood
 	icon = 'icons/turf/walls/wood_wall.dmi'
 	icon_state = "wood"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/simulated/wall/mineral/wood/nonmetal, /turf/simulated/wall/indestructible/wood)
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WOOD_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WOOD_WALLS)
 
 /turf/simulated/wall/indestructible/alien
 	name = "alien wall"
 	desc = "A wall with alien alloy plating."
 	icon = 'icons/turf/walls/abductor_wall.dmi'
 	icon_state = "abductor"
-	smooth = SMOOTH_TRUE|SMOOTH_DIAGONAL
-	canSmoothWith = list(/turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor, /turf/simulated/wall/indestructible/alien)
+	smoothing_flags = SMOOTH_CORNERS | SMOOTH_DIAGONAL
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_ABDUCTOR_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_WALLS)
 
 /turf/simulated/wall/indestructible/abductor
 	icon = 'icons/turf/walls.dmi'
@@ -116,8 +119,9 @@
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
 	icon_state = "fake_window"
 	opacity = FALSE
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
 
 /turf/simulated/wall/indestructible/fakeglass/Initialize(mapload)
 	. = ..()
@@ -130,8 +134,8 @@
 	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
 	icon_state = "plastitanium_window"
 	opacity = FALSE
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/turf/simulated/wall/indestructible/opsglass, /obj/structure/window/full/plastitanium)
+	smoothing_flags = SMOOTH_CORNERS
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
 
 /turf/simulated/wall/indestructible/opsglass/Initialize(mapload)
 	. = ..()
@@ -158,5 +162,6 @@
 /turf/simulated/wall/indestructible/syndicate
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
 	icon_state = "map-shuttle"
-	smooth = SMOOTH_MORE | SMOOTH_DIAGONAL
-	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /turf/simulated/wall/indestructible/syndicate, /obj/machinery/door/airlock/titanium, /obj/machinery/door/airlock, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium, /turf/simulated/wall/indestructible/opsglass, /obj/structure/window/full/plastitanium)
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)

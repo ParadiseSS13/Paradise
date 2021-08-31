@@ -438,8 +438,8 @@
 //This proc is used to update the icons of nearby windows.
 /obj/structure/window/proc/update_nearby_icons()
 	update_icon()
-	if(smooth)
-		queue_smooth_neighbors(src)
+	if(smoothing_flags)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 /obj/structure/window/update_icon()
 	if(!QDELETED(src))
@@ -448,8 +448,8 @@
 		var/ratio = obj_integrity / max_integrity
 		ratio = CEILING(ratio * 4, 1) * 25
 
-		if(smooth)
-			queue_smooth(src)
+		if(smoothing_flags)
+			QUEUE_SMOOTH(src)
 
 		cut_overlay(crack_overlay)
 		if(ratio > 75)
@@ -582,14 +582,15 @@
 	level = 3
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
 
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
 	icon = 'icons/obj/smooth_structures/window.dmi'
 	icon_state = "window"
 	max_integrity = 50
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
 
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
@@ -601,8 +602,6 @@
 	glass_type = /obj/item/stack/sheet/plasmaglass
 	heat_resistance = 32000
 	max_integrity = 300
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
 	rad_insulation = RAD_NO_INSULATION
@@ -615,8 +614,6 @@
 	glass_decal = /obj/effect/decal/cleanable/glass/plasma
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmarglass
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
 	reinf = TRUE
 	max_integrity = 1000
 	explosion_block = 2
@@ -631,8 +628,6 @@
 	desc = "It looks rather strong. Might take a few good hits to shatter it."
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
 	icon_state = "r_window"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
 	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
@@ -663,8 +658,7 @@
 	heat_resistance = 1600
 	explosion_block = 3
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS)
 	glass_type = /obj/item/stack/sheet/titaniumglass
 
 /obj/structure/window/full/shuttle/narsie_act()
@@ -683,11 +677,9 @@
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
 	rad_insulation = RAD_HEAVY_INSULATION
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
-	canSmoothWith = list(/turf/simulated/wall/indestructible/opsglass, /obj/structure/window/full/plastitanium)
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
 
 /obj/structure/window/reinforced/clockwork
 	name = "brass window"
@@ -725,7 +717,7 @@
 
 /obj/structure/window/reinforced/clockwork/fulltile
 	icon_state = "clockwork_window"
-	smooth = SMOOTH_TRUE
+	smoothing_flags = SMOOTH_CORNERS
 	canSmoothWith = null
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER

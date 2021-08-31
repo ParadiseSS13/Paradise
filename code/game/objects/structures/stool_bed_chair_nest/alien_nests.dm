@@ -7,6 +7,7 @@
 	icon_state = "nest"
 	max_integrity = 120
 	var/image/nest_overlay
+	smoothing_flags = SMOOTH_CORNERS
 	comfort = 0
 	flags = NODECONSTRUCT
 

@@ -25,15 +25,9 @@
 	opacity = TRUE
 	max_integrity = 100
 
-	canSmoothWith = list(
-	/turf/simulated/wall,
-	/turf/simulated/wall/r_wall,
-	/obj/structure/falsewall,
-	/obj/structure/falsewall/brass,
-	/obj/structure/falsewall/reinforced,  // WHY DO WE SMOOTH WITH FALSE R-WALLS WHEN WE DON'T SMOOTH WITH REAL R-WALLS. //because we do smooth with real r-walls now
-	/turf/simulated/wall/rust,
-	/turf/simulated/wall/r_wall/rust)
-	smooth = SMOOTH_TRUE
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS)
 
 /obj/structure/falsewall/Initialize(mapload)
 	. = ..()
@@ -92,7 +86,7 @@
 
 /obj/structure/falsewall/proc/do_the_flick()
 	if(density)
-		smooth = SMOOTH_FALSE
+		smoothing_flags = NONE
 		clear_smooth_overlays()
 		icon_state = "fwall_opening"
 	else
@@ -101,8 +95,8 @@
 /obj/structure/falsewall/update_icon()
 	if(density)
 		icon_state = initial(icon_state)
-		smooth = SMOOTH_TRUE
-		queue_smooth(src)
+		smoothing_flags = SMOOTH_CORNERS
+		QUEUE_SMOOTH(src)
 	else
 		icon_state = "fwall_open"
 
@@ -193,7 +187,8 @@
 	walltype = /turf/simulated/wall/mineral/uranium
 	var/active = null
 	var/last_event = 0
-	canSmoothWith = list(/turf/simulated/wall/mineral/uranium, /obj/structure/falsewall/uranium, /turf/simulated/wall/indestructible/uranium)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_URANIUM_WALLS)
 
 /obj/structure/falsewall/uranium/attackby(obj/item/W as obj, mob/user as mob, params)
 	radiate()
@@ -223,7 +218,8 @@
 	icon_state = "gold"
 	mineral = /obj/item/stack/sheet/mineral/gold
 	walltype = /turf/simulated/wall/mineral/gold
-	canSmoothWith = list(/obj/structure/falsewall/gold, /turf/simulated/wall/mineral/gold)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_GOLD_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_GOLD_WALLS)
 
 /obj/structure/falsewall/silver
 	name = "silver wall"
@@ -232,7 +228,8 @@
 	icon_state = "silver"
 	mineral = /obj/item/stack/sheet/mineral/silver
 	walltype = /turf/simulated/wall/mineral/silver
-	canSmoothWith = list(/obj/structure/falsewall/silver, /turf/simulated/wall/mineral/silver)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SILVER_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_SILVER_WALLS)
 
 /obj/structure/falsewall/diamond
 	name = "diamond wall"
@@ -241,7 +238,8 @@
 	icon_state = "diamond"
 	mineral = /obj/item/stack/sheet/mineral/diamond
 	walltype = /turf/simulated/wall/mineral/diamond
-	canSmoothWith = list(/obj/structure/falsewall/diamond, /turf/simulated/wall/mineral/diamond)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_DIAMOND_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_DIAMOND_WALLS)
 	max_integrity = 800
 
 
@@ -252,7 +250,8 @@
 	icon_state = "plasma"
 	mineral = /obj/item/stack/sheet/mineral/plasma
 	walltype = /turf/simulated/wall/mineral/plasma
-	canSmoothWith = list(/obj/structure/falsewall/plasma, /turf/simulated/wall/mineral/plasma, /turf/simulated/wall/mineral/alien)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_PLASMA_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_PLASMA_WALLS)
 
 /obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)
@@ -282,7 +281,8 @@
 	icon_state = "plasma"
 	mineral = /obj/item/stack/sheet/mineral/abductor
 	walltype = /turf/simulated/wall/mineral/abductor
-	canSmoothWith = list(/turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor, /turf/simulated/wall/indestructible/alien)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_ABDUCTOR_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_WALLS)
 
 
 /obj/structure/falsewall/bananium
@@ -292,7 +292,8 @@
 	icon_state = "bananium"
 	mineral = /obj/item/stack/sheet/mineral/bananium
 	walltype = /turf/simulated/wall/mineral/bananium
-	canSmoothWith = list(/obj/structure/falsewall/bananium, /turf/simulated/wall/mineral/bananium)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BANANIUM_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_BANANIUM_WALLS)
 
 /obj/structure/falsewall/sandstone
 	name = "sandstone wall"
@@ -300,7 +301,8 @@
 	icon_state = "sandstone"
 	mineral = /obj/item/stack/sheet/mineral/sandstone
 	walltype = /turf/simulated/wall/mineral/sandstone
-	canSmoothWith = list(/turf/simulated/wall/mineral/sandstone, /turf/simulated/wall/indestructible/sandstone, /obj/structure/falsewall/sandstone)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SANDSTONE_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_SANDSTONE_WALLS)
 
 /obj/structure/falsewall/wood
 	name = "wooden wall"
@@ -309,7 +311,8 @@
 	icon_state = "wood"
 	mineral = /obj/item/stack/sheet/wood
 	walltype = /turf/simulated/wall/mineral/wood
-	canSmoothWith = list(/obj/structure/falsewall/wood, /turf/simulated/wall/mineral/wood)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WOOD_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WOOD_WALLS)
 
 /obj/structure/falsewall/iron
 	name = "rough metal wall"
@@ -319,7 +322,8 @@
 	mineral = /obj/item/stack/rods
 	mineral_amount = 5
 	walltype = /turf/simulated/wall/mineral/iron
-	canSmoothWith = list(/obj/structure/falsewall/iron, /turf/simulated/wall/mineral/iron)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_IRON_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_IRON_WALLS)
 
 /obj/structure/falsewall/abductor
 	name = "alien wall"
@@ -328,7 +332,8 @@
 	icon_state = "abductor"
 	mineral = /obj/item/stack/sheet/mineral/abductor
 	walltype = /turf/simulated/wall/mineral/abductor
-	canSmoothWith = list(/obj/structure/falsewall/abductor, /turf/simulated/wall/mineral/abductor)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_ABDUCTOR_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_WALLS)
 
 /obj/structure/falsewall/titanium
 	desc = "A light-weight titanium wall used in shuttles."
@@ -336,8 +341,9 @@
 	icon_state = "shuttle"
 	mineral = /obj/item/stack/sheet/mineral/titanium
 	walltype = /turf/simulated/wall/mineral/titanium
-	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/titanium, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_TITANIUM_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 
 /obj/structure/falsewall/plastitanium
 	desc = "An evil wall of plasma and titanium."
@@ -345,8 +351,9 @@
 	icon_state = "shuttle"
 	mineral = /obj/item/stack/sheet/mineral/plastitanium
 	walltype = /turf/simulated/wall/mineral/plastitanium
-	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /turf/simulated/wall/indestructible/syndicate, /turf/simulated/wall/mineral/plastitanium/nodiagonal, /obj/machinery/door/airlock/titanium, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /turf/simulated/wall/indestructible/opsglass, /obj/structure/window/full/plastitanium)
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 
 /obj/structure/falsewall/brass
 	name = "clockwork wall"
@@ -355,7 +362,8 @@
 	icon_state = "clockwork_wall"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	mineral_amount = 1
-	canSmoothWith = list(/obj/effect/clockwork/overlay/wall, /obj/structure/falsewall/brass)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BRASS_WALL)
+	canSmoothWith = list(SMOOTH_GROUP_BRASS_WALL)
 	girder_type = /obj/structure/clockwork/wall_gear/displaced
 	walltype = /turf/simulated/wall/clockwork
 	mineral = /obj/item/stack/tile/brass

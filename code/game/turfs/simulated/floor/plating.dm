@@ -352,8 +352,8 @@
 	temperature = 180
 	baseturf = /turf/simulated/floor/plating/ice
 	slowdown = TRUE
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/turf/simulated/floor/plating/ice/smooth, /turf/simulated/floor/plating/ice)
+	smoothing_flags = SMOOTH_CORNERS
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ICE)
 
 /turf/simulated/floor/plating/ice/Initialize(mapload)
 	. = ..()
@@ -364,8 +364,8 @@
 
 /turf/simulated/floor/plating/ice/smooth
 	icon_state = "smooth"
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/simulated/floor/plating/ice/smooth, /turf/simulated/floor/plating/ice)
+	smoothing_flags = SMOOTH_CORNERS | SMOOTH_BORDER
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ICE)
 
 /turf/simulated/floor/plating/nitrogen
 	oxygen = 0

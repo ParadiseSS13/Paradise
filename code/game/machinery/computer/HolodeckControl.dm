@@ -363,14 +363,14 @@
 
 /obj/structure/table/holotable
 	flags = NODECONSTRUCT
-	canSmoothWith = list(/obj/structure/table/holotable)
+	canSmoothWith = list(SMOOTH_GROUP_TABLES)
 
 /obj/structure/table/holotable/wood
 	name = "wooden table"
 	desc = "A square piece of wood standing on four wooden legs. It can not move."
 	icon = 'icons/obj/smooth_structures/wood_table.dmi'
 	icon_state = "wood_table"
-	canSmoothWith = list(/obj/structure/table/holotable/wood)
+	canSmoothWith = list(SMOOTH_GROUP_WOOD_TABLES)
 
 /obj/structure/chair/stool/holostool
 	flags = NODECONSTRUCT

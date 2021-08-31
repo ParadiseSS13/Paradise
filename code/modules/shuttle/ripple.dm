@@ -7,7 +7,7 @@
 	icon_state = "ripple"
 	anchored = TRUE
 	density = FALSE
-	smooth = SMOOTH_TRUE
+	smoothing_flags = SMOOTH_CORNERS
 	layer = RIPPLE_LAYER
 	alpha = 0
 	duration = 3 * SHUTTLE_RIPPLE_TIME
@@ -15,5 +15,5 @@
 
 /obj/effect/temp_visual/ripple/New()
 	. = ..()
-	queue_smooth(src)
+	QUEUE_SMOOTH(src)
 	animate(src, alpha=255, time=SHUTTLE_RIPPLE_TIME)

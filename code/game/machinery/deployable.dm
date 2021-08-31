@@ -114,8 +114,9 @@
 	pass_flags = LETPASSTHROW
 	bar_material = SAND
 	climbable = TRUE
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/barricade/sandbags, /turf/simulated/wall, /turf/simulated/wall/r_wall, /obj/structure/falsewall, /obj/structure/falsewall/reinforced, /turf/simulated/wall/rust, /turf/simulated/wall/r_wall/rust, /obj/structure/barricade/security)
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_SANDBAGS)
+	canSmoothWith = list(SMOOTH_GROUP_SANDBAGS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SECURITY_BARRICADE)
 	stacktype = null
 
 /obj/structure/barricade/security

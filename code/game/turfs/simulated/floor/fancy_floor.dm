@@ -74,8 +74,9 @@
 	icon_state = "carpet"
 	floor_tile = /obj/item/stack/tile/carpet
 	broken_states = list("damaged")
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET)
 	footstep = FOOTSTEP_CARPET
 	barefootstep = FOOTSTEP_CARPET_BAREFOOT
 	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
@@ -89,12 +90,12 @@
 	if(!..())
 		return 0
 	if(!broken && !burnt)
-		if(smooth)
-			queue_smooth(src)
+		if(smoothing_flags)
+			QUEUE_SMOOTH(src)
 	else
 		make_plating()
-		if(smooth)
-			queue_smooth_neighbors(src)
+		if(smoothing_flags)
+			QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/simulated/floor/carpet/break_tile()
 	broken = 1
@@ -110,13 +111,15 @@
 /turf/simulated/floor/carpet/black
 	icon = 'icons/turf/floors/carpet_black.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/black
-	canSmoothWith = list(/turf/simulated/floor/carpet/black)
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET_BLACK)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET_BLACK)
 
 /turf/simulated/floor/fakespace
 	icon = 'icons/turf/space.dmi'
 	icon_state = "0"
 	floor_tile = /obj/item/stack/tile/fakespace
 	broken_states = list("damaged")
+	smoothing_flags = NONE
 	plane = PLANE_SPACE
 
 /turf/simulated/floor/fakespace/Initialize(mapload)
@@ -133,4 +136,4 @@
 	icon = 'icons/goonstation/turf/floor.dmi'
 	icon_state = "arcade"
 	floor_tile = /obj/item/stack/tile/arcade_carpet
-	smooth = SMOOTH_FALSE
+	smoothing_flags = NONE
