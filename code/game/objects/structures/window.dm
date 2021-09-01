@@ -545,7 +545,7 @@
 	if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 		return
 	WRENCH_UNANCHOR_WALL_MESSAGE
-	new/obj/item/mounted/frame/light_switch/windowtint(get_turf(src))
+	new /obj/item/mounted/frame/light_switch/windowtint(get_turf(src))
 	qdel(src)
 
 /obj/machinery/button/windowtint/proc/toggle_tint()
@@ -559,7 +559,7 @@
 			W.toggle_polarization()
 
 	for(var/obj/structure/window/full/reinforced/polarized/W in range(src, range))
-		if(W.id == src.id || !W.id)
+		if(W.id == id || !W.id)
 			W.toggle_polarization()
 
 /obj/machinery/button/windowtint/power_change()
@@ -675,6 +675,7 @@
 	name = "electrochromic window"
 	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
 	var/id
+	
 /obj/structure/window/full/reinforced/tinted
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
