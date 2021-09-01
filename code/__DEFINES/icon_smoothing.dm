@@ -45,7 +45,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 
 #define SMOOTH_GROUP_FLOOR_GRASS S_TURF(5)				///turf/simulated/floor/plating/grass
 #define SMOOTH_GROUP_FLOOR_ICE S_TURF(6)				///turf/simulated/floor/plating/ice
-
+#define SMOOTH_GROUP_BEACH S_TURF(7)				///turf/simulated/floor/beach/away/water/
 
 #define SMOOTH_GROUP_CARPET S_TURF(10)					///turf/simulated/floor/carpet
 #define SMOOTH_GROUP_CARPET_BLACK S_TURF(11)			///turf/simulated/floor/carpet/black

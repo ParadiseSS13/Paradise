@@ -346,7 +346,7 @@
 /turf/simulated/floor/plating/ice
 	name = "ice sheet"
 	desc = "A sheet of solid ice. Looks slippery."
-	icon = 'icons/turf/floors/ice_turfs.dmi'
+	icon = 'icons/turf/floors/ice_turf.dmi'
 	icon_state = "unsmooth"
 	oxygen = 22
 	nitrogen = 82

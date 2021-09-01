@@ -123,10 +123,8 @@
 	icon_state = "seadrop"
 	water_overlay_image = null
 	smoothing_flags = SMOOTH_CORNERS
-	canSmoothWith = list(
-	/turf/simulated/floor/beach/away/water/drop, /turf/simulated/floor/beach/away/water/drop/dense,
-		/turf/simulated/floor/beach/away/water, /turf/simulated/floor/beach/away/water/dense,
-		/turf/simulated/floor/beach/away/water/edge_drop)
+	smoothing_groups = list(SMOOTH_GROUP_BEACH)
+	canSmoothWith = list(SMOOTH_GROUP_BEACH)
 	var/obj/effect/beach_drop_overlay/water_overlay
 	baseturf = /turf/simulated/floor/beach/away/water/drop
 
@@ -144,10 +142,8 @@
 	layer = MOB_LAYER + 0.1
 	smoothing_flags = SMOOTH_CORNERS
 	anchored = 1
-	canSmoothWith = list(
-		/turf/simulated/floor/beach/away/water/drop, /turf/simulated/floor/beach/away/water/drop/dense,
-		/turf/simulated/floor/beach/away/water, /turf/simulated/floor/beach/away/water/dense,
-		/turf/simulated/floor/beach/away/water/edge_drop)
+	smoothing_groups = list(SMOOTH_GROUP_BEACH)
+	canSmoothWith = list(SMOOTH_GROUP_BEACH)
 
 /turf/simulated/floor/beach/away/water/drop/dense
 	density = TRUE
