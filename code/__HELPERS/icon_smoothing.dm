@@ -152,8 +152,9 @@ DEFINE_BITFIELD(smoothing_junction, list(
 //do not use, use QUEUE_SMOOTH(atom)
 /atom/proc/smooth_icon()
 	smoothing_flags &= ~SMOOTH_QUEUED
-	if (!z)
-		CRASH("[type] called smooth_icon() without being on a z-level")
+	if(!z) //nullspace are not sending their best
+		error("[type] called smooth_icon() without being on a z-level")
+		return
 	if(smoothing_flags & SMOOTH_CORNERS)
 		if(smoothing_flags & SMOOTH_DIAGONAL_CORNERS)
 			corners_diagonal_smooth(calculate_adjacencies())
