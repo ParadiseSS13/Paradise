@@ -69671,7 +69671,7 @@
 	},
 /area/toxins/xenobiology)
 "cQt" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/scalpel,
 /obj/item/hemostat,
 /turf/simulated/floor/plasteel{
