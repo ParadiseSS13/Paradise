@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/self/blood_swell
 	name = "Blood Swell (30)"
-	desc = "You infuse your body with blood, making us highly resistant to stuns and physical damage."
+	desc = "You infuse your body with blood, making you highly resistant to stuns and physical damage."
 	gain_desc = "You have gained the ability to temporarly resist large amounts of stuns and physical damage."
 	charge_max = 40 SECONDS
 	required_blood = 30
@@ -16,11 +16,11 @@
 		H.apply_status_effect(STATUS_EFFECT_BLOOD_SWELL)
 
 /datum/vampire_passive/blood_swell_upgrade
-	gain_desc = "While blood swell is active your unarmed and armed melee attacks deal increased damage."
+	gain_desc = "While blood swell is active all of your melee attacks deal increased damage."
 
 /obj/effect/proc_holder/spell/self/overwhelming_force
 	name = "Overwhelming Force"
-	desc = "When toggled you will automatically pry open doors that you bump into and don't have access to."
+	desc = "When toggled you will automatically pry open doors that you bump into if you do not have access."
 	gain_desc = "You have gained the ability to force open doors at a small blood cost."
 	charge_max = 2 SECONDS
 	vampire_ability = TRUE

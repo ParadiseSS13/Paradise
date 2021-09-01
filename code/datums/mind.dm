@@ -1540,14 +1540,15 @@
 
 		SSticker.mode.equip_syndicate(current)
 
-/datum/mind/proc/make_Vampire()
+/datum/mind/proc/make_vampire(ancient_vampire = FALSE)
 	if(!(src in SSticker.mode.vampires))
 		SSticker.mode.vampires += src
 		SSticker.mode.grant_vampire_powers(current)
 		special_role = SPECIAL_ROLE_VAMPIRE
-		SSticker.mode.forge_vampire_objectives(src)
 		SSticker.mode.greet_vampire(src)
 		SSticker.mode.update_vampire_icons_added(src)
+		if(!ancient_vampire)
+			SSticker.mode.forge_vampire_objectives(src)
 
 /datum/mind/proc/make_Changeling()
 	if(!(src in SSticker.mode.changelings))

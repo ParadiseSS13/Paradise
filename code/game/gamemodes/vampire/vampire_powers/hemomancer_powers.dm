@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/self/vamp_claws
 	name = "Vampiric Claws (30)"
-	desc = "You channel blood magics to forge deadly vampiric claws that leach blood and strike rapidly. Cannot be used if you are holding something that cannot be dropped."
-	gain_desc = "Your have gained the ability to forge vampiric claws out of your hands."
+	desc = "You channel blood magics to forge deadly vampiric claws that leech blood and strike rapidly. Cannot be used if you are holding something that cannot be dropped."
+	gain_desc = "You have gained the ability to forge your hands into vampiric claws."
 	charge_max = 30 SECONDS
 	required_blood = 30
 	vampire_ability = TRUE
@@ -10,7 +10,7 @@
 	action_background_icon_state = "bg_vampire"
 
 /obj/effect/proc_holder/spell/self/vamp_claws/cast(mob/user)
-	to_chat(user, "<span class='notice'>You cast down what was in your hands and large blades spring from your knuckles! </span>")
+	to_chat(user, "<span class='notice'>You drop what was in your hands as large blades spring from your fingers!</span>")
 	var/obj/item/twohanded/required/vamp_claws/claws = new /obj/item/twohanded/required/vamp_claws(user.loc)
 	user.drop_l_hand()
 	user.drop_r_hand()
@@ -29,7 +29,8 @@
 	item_state = "blood_blade"
 	w_class = WEIGHT_CLASS_BULKY
 	flags = ABSTRACT | NODROP | DROPDEL
-	force_wielded = 8
+	force_wielded = 10
+	armour_penetration = 20
 	block_chance = 50
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -37,16 +38,15 @@
 	sprite_sheets_inhand = list("Skrell" = 'icons/mob/species/skrell/held.dmi')
 	var/durability = 20
 	var/blood_drain_amount = 15
+	var/blood_absorbed_amount = 5
 
 /obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity)
 	if(user.mind?.vampire)
 		if(istype(target, /mob/living/carbon))
 			var/mob/living/carbon/C = target
-			if(C.ckey &&!C.stat && C.mind && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
+			if(C.ckey && C.stat != DEAD && C.mind && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
 				C.bleed(blood_drain_amount)
-				user.mind.vampire.bloodtotal += 5
-				user.mind.vampire.bloodusable += 5
-				user.mind.vampire.check_vampire_upgrade()
+				user.mind.vampire.adjust_blood(C, blood_absorbed_amount)
 	durability -= 1
 	if(durability <= 0)
 		qdel(src)
@@ -75,7 +75,7 @@
 	user.changeNext_move(CLICK_CD_MELEE * 0.5)
 
 /obj/item/twohanded/required/vamp_claws/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You dispell your claws!</span>")
+	to_chat(user, "<span class='notice'>You dispel your claws!</span>")
 	qdel(src)
 
 /obj/effect/proc_holder/spell/targeted/click/blood_tendrils
@@ -91,7 +91,6 @@
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
-	action_icon_state = "blood_tendril"
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
 
@@ -117,7 +116,7 @@
 			new /obj/effect/temp_visual/blood_tendril/long(get_turf(L))
 
 /obj/effect/temp_visual/blood_tendril
-	icon = 'icons/mob/actions/actions.dmi'
+	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "blood_tendril"
 	duration = 1 SECONDS
 
@@ -126,7 +125,7 @@
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/blood_pool
 	name = "Sanguine Pool (50)"
-	desc = "You shift your form into a pool of blood, making us invulnerable and able to move through anything thats not a wall or space. You leave a trail of blood behind us when you do this."
+	desc = "You shift your form into a pool of blood, making you invulnerable and able to move through anything that's not a wall or space. You leave a trail of blood behind you when you do this."
 	gain_desc = "You have gained the ability to shift into a pool of blood, allowing you to evade pursuers with great mobility."
 	vampire_ability = TRUE
 	required_blood = 50
@@ -143,7 +142,7 @@
 
 /obj/effect/proc_holder/spell/blood_eruption
 	name = "Blood Eruption (100)"
-	desc = "Every pool of blood in your vision erupts with a spike of living blood, damaging anyone on that tile."
+	desc = "Every pool of blood in sight erupts with a spike of living blood, damaging anyone stood on it."
 	gain_desc = "You have gained the ability to weaponise pools of blood to damage those stood on them."
 	vampire_ability = TRUE
 	required_blood = 100
@@ -155,10 +154,10 @@
 /obj/effect/proc_holder/spell/blood_eruption/cast(list/targets, mob/user)
 	for(var/mob/living/L in targets)
 		var/turf/T = get_turf(L)
-		new /obj/effect/temp_visual/cult/turf/open/floor(T)
+		new /obj/effect/temp_visual/blood_spike(T)
 		L.apply_damage(60, BRUTE, BODY_ZONE_CHEST)
 		L.apply_damage(90, STAMINA)
-		L.visible_message("<span class='warning'><b>[L] gets impaled by a spike of living blood! </b></span>")
+		L.visible_message("<span class='warning'><b>[L] gets impaled by a spike of living blood!</b></span>")
 
 /obj/effect/proc_holder/spell/blood_eruption/choose_targets(mob/user)
 	var/list/targets = list()
@@ -173,6 +172,11 @@
 		return
 
 	perform(targets)
+
+/obj/effect/temp_visual/blood_spike
+	icon = 'icons/effects/vampire_effects.dmi'
+	icon_state = "bloodspike"
+	duration = 0.4 SECONDS
 
 /obj/effect/proc_holder/spell/self/blood_spill
 	name = "The Blood Bringers Rite"

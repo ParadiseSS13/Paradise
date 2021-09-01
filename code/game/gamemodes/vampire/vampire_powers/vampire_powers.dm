@@ -11,34 +11,6 @@
 		return FALSE
 	return TRUE
 
-/obj/effect/proc_holder/spell/proc/vampire_can_cast(blood_cost, deduct_blood_on_cast = TRUE)
-	var/mob/user = usr
-	if(!user.mind)
-		return FALSE
-
-	var/datum/vampire/vampire = user.mind.vampire
-
-	if(!vampire)
-		return FALSE
-
-	var/fullpower = vampire.get_ability(/datum/vampire_passive/full)
-
-	if(user.stat >= DEAD)
-		to_chat(user, "<span class='warning'>Not when you're dead!</span>")
-		return FALSE
-
-	if(vampire.nullified && !fullpower)
-		to_chat(user, "<span class='warning'>Something is blocking your powers!</span>")
-		return FALSE
-	if(vampire.bloodusable < required_blood)
-		to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
-		return FALSE
-		//chapel check
-	if(istype(get_area(vampire.owner), /area/chapel) && !fullpower)
-		to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
-		return FALSE
-
-
 /obj/effect/proc_holder/spell/self/choose_targets(mob/user = usr)
 	perform(list(user))
 
@@ -86,7 +58,7 @@
 /datum/vampire_passive/New()
 	..()
 	if(!gain_desc)
-		gain_desc = "You have gained \the [src] ability."
+		gain_desc = "You can now use [src]."
 
 /obj/effect/proc_holder/spell/self/rejuvenate
 	name = "Rejuvenate"
@@ -205,13 +177,17 @@
 /// Full deviation. Flashed from directly behind or behind-left/behind-rack. Not flashed at all.
 #define DEVIATION_FULL 1
 
-/obj/effect/proc_holder/spell/mob_aoe/glare/cast(list/targets, mob/user = usr)
-	user.visible_message("<span class='warning'>[user]'s eyes emit a blinding flash!</span>")
+/obj/effect/proc_holder/spell/mob_aoe/glare/cast(list/targets, mob/living/user = usr)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
-			to_chat(user, "<span class='warning'>You're blindfolded!</span>")
-			return
+			var/obj/item/clothing/glasses/sunglasses/blindfold/B = H.glasses
+			if(B.tint)
+				to_chat(user, "<span class='warning'>You're blindfolded!</span>")
+				return
+	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
+	user.visible_message("<span class='warning'>[user]'s eyes emit a blinding flash!</span>")
+
 	for(var/mob/living/target in targets)
 		if(!target.affects_vampire())
 			continue
@@ -342,7 +318,7 @@
 	protect_objective.explanation_text = "Protect [M.real_name]."
 	mind.objectives += protect_objective
 	add_attack_logs(M, src, "Vampire-sired")
-	mind.make_Vampire()
+	mind.make_vampire()
 	revive()
 	Weaken(20)
 
@@ -422,12 +398,12 @@
 		return FALSE
 	if(!C.affects_vampire(user))
 		if(C.mind.isholy)
-			C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>Your faith of [SSticker.Bible_deity_name] has kept your mind clear of all evil.</span>")
+			C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>Your faith in [SSticker.Bible_deity_name] has kept your mind clear of all evil.</span>")
 		else
 			C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You resist the attack on your mind.</span>")
 		return FALSE
 	if(!ishuman(C))
-		to_chat(user, "<span class='warning'>You can only enthrall humans!</span>")
+		to_chat(user, "<span class='warning'>You can only enthrall sentient humanoids!</span>")
 		return FALSE
 	return TRUE
 

@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/self/cloak
 	name = "Cloak of Darkness"
-	desc = "Toggles whether you are currently cloaking yourself in darkness."
-	gain_desc = "You have gained the Cloak of Darkness ability which when toggled makes you near invisible in the shroud of darkness."
+	desc = "Toggles whether you are currently cloaking yourself in darkness. When in darkness and toggled on, you move at increased speeds."
+	gain_desc = "You have gained the Cloak of Darkness ability, which when toggled makes you nearly invisible and highly agile in the shroud of darkness."
 	action_icon_state = "vampire_cloak"
 	charge_max = 2 SECONDS
 	vampire_ability = TRUE
@@ -29,8 +29,8 @@
 
 /obj/effect/proc_holder/spell/targeted/click/shadow_snare
 	name = "Shadow Snare (20)"
-	desc = "You summon a trap on the ground, when crossed it will blind the target, extinguish any lights they may have and ensares them."
-	gain_desc = "You have gained the ability to summon a trap that will blind, ensare and turn off lights for anyone who crosses it."
+	desc = "You summon a trap on the ground. When crossed it will blind the target, extinguish any lights they may have, and ensnare them."
+	gain_desc = "You have gained the ability to summon a trap that will blind, ensnare, and turn off the lights of anyone who crosses it."
 	charge_max = 20 SECONDS
 	required_blood = 20
 	vampire_ability = TRUE
@@ -46,7 +46,7 @@
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare
 	name = "shadow snare"
-	desc = "an almost transparent trap that melts into the shadows."
+	desc = "An almost transparent trap that melts into the shadows."
 	alpha = 60
 	armed = TRUE
 	anchored = TRUE
@@ -118,8 +118,8 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/vamp_extinguish
 	name = "Extinguish"
-	desc = "You put out any light souce in an area around you."
-	gain_desc = "You have gained the ability to turn off light sources nearby."
+	desc = "You extinguish any light source in an area around you."
+	gain_desc = "You have gained the ability to extinguish nearby light sources."
 	charge_max = 20 SECONDS
 	vampire_ability = TRUE
 	panel = "Vampire"
@@ -134,7 +134,7 @@
 
 /obj/effect/proc_holder/spell/self/eternal_darkness
 	name = "Eternal Darkness"
-	desc = "When toggled, you consume the area around you in darkness and slowly lower the body temperature of people nearby."
+	desc = "When toggled, you shroud the area around you in darkness and slowly lower the body temperature of people nearby."
 	gain_desc = "You have gained the ability to shroud the area around you in darkness, only the strongest of lights can pierce your unholy powers."
 	charge_max = 10 SECONDS
 	vampire_ability = TRUE

@@ -196,7 +196,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	else
 		start_recharge()
 	if(!gain_desc)
-		gain_desc = "You have gained \the [src] ability."
+		gain_desc = "You can now use [src]."
 
 /obj/effect/proc_holder/spell/Destroy()
 	QDEL_NULL(action)
@@ -636,7 +636,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		var/fullpower = vampire.get_ability(/datum/vampire_passive/full)
 
 		if(user.stat >= DEAD)
-			to_chat(user, "<span class='warning'>Not when you're dead!</span>")
+			to_chat(user, "<span class='warning'>Not while you're dead!</span>")
 			return FALSE
 
 		if(vampire.nullified && !fullpower)

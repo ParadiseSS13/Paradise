@@ -168,7 +168,18 @@
 /datum/game_mode/proc/grant_vampire_powers(mob/living/carbon/vampire_mob)
 	if(!istype(vampire_mob))
 		return
-	vampire_mob.make_vampire()
+	if(!vampire_mob.mind)
+		return
+	var/datum/vampire/vamp
+	if(!vampire_mob.mind.vampire)
+		vamp = new /datum/vampire()
+		vamp.owner = vampire_mob
+		vampire_mob.mind.vampire = vamp
+	else
+		vamp = vampire_mob.mind.vampire
+		vamp.powers.Cut()
+
+	vamp.check_vampire_upgrade(0)
 
 /datum/game_mode/proc/greet_vampire(datum/mind/vampire, you_are=1)
 	var/dat
@@ -176,7 +187,7 @@
 		SEND_SOUND(vampire.current, sound('sound/ambience/antag/vampalert.ogg'))
 		dat = "<span class='danger'>You are a Vampire!</span><br>"
 	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
-You are weak to holy things and starlight. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
+You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
 	to_chat(vampire.current, dat)
 	to_chat(vampire.current, "<B>You must complete the following tasks:</B>")
 
@@ -211,21 +222,6 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 									/obj/effect/proc_holder/spell/self/specialize = 150,
 									/datum/vampire_passive/regen = 200,
 									/obj/effect/proc_holder/spell/targeted/turf_teleport/shadow_step = 250)
-
-	var/list/umbrae_powers = list(/obj/effect/proc_holder/spell/self/cloak = 150,
-									/obj/effect/proc_holder/spell/targeted/click/shadow_snare = 300,
-									/obj/effect/proc_holder/spell/targeted/click/dark_passage = 400,
-									/obj/effect/proc_holder/spell/aoe_turf/vamp_extinguish = 600)
-
-	var/list/hemomancer_powers = list(/obj/effect/proc_holder/spell/self/vamp_claws = 150,
-									/obj/effect/proc_holder/spell/targeted/click/blood_tendrils = 250,
-									/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/blood_pool = 400,
-									/obj/effect/proc_holder/spell/blood_eruption = 600)
-
-	var/list/gargantua_powers = list(/obj/effect/proc_holder/spell/self/blood_swell = 150,
-									/obj/effect/proc_holder/spell/self/blood_rush = 250,
-									/datum/vampire_passive/blood_swell_upgrade = 400,
-									/obj/effect/proc_holder/spell/self/overwhelming_force = 600)
 
 	var/list/drained_humans = list() // list of the peoples UIDs that we have drained, and how much blood from each one
 
@@ -270,20 +266,6 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(current.mind && current.mind.vampire && current.mind.vampire.owner && (current.mind.vampire.owner != current))
 		current.mind.vampire.owner = current
 
-/mob/proc/make_vampire()
-	if(!mind)
-		return
-	var/datum/vampire/vamp
-	if(!mind.vampire)
-		vamp = new /datum/vampire(gender)
-		vamp.owner = src
-		mind.vampire = vamp
-	else
-		vamp = mind.vampire
-		vamp.powers.Cut()
-
-	vamp.check_vampire_upgrade(0)
-
 /datum/vampire/proc/remove_vampire_powers()
 	for(var/P in powers)
 		remove_ability(P)
@@ -319,17 +301,14 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			return
 		if(unique_suck_id in drained_humans)
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
-				to_chat(owner, "<span class='warning'>You have drained most of the life force from [H]'s blood, and you will get no useable blood from them!</span>")
+				to_chat(owner, "<span class='warning'>You have drained most of the life force from [H]'s blood, and you will get no more useable blood from them!</span>")
 				H.blood_volume = max(H.blood_volume - 25, 0)
 			else
 				if(H.stat < DEAD)
 					if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 						blood = min(20, H.blood_volume)
-						bloodtotal += blood * BLOOD_GAINED_MODIFIER
-						bloodusable += blood * BLOOD_GAINED_MODIFIER
-						drained_humans[unique_suck_id] += blood * BLOOD_GAINED_MODIFIER
-						check_vampire_upgrade()
-						to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood, and have [bloodusable] left to use.</b></span>")
+						adjust_blood(H, blood * BLOOD_GAINED_MODIFIER)
+						to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] unit\s of blood, and have [bloodusable] left to use.</b></span>")
 				else
 					if(H.ckey || H.player_ghosted)
 						blood = min(5, H.blood_volume)	// The dead only give 5 blood
@@ -494,17 +473,31 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	var/light_available = T.get_lumcount(0.5) * 10
 
 	if(!istype(T))
-		return 0
+		return
 
 	if(!iscloaking)
 		owner.alpha = 255
-		return 0
+		REMOVE_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+		return
 
 	if(light_available <= 2)
 		owner.alpha = round((255 * 0.15))
-		return 1
+		ADD_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+		return
 	else
+		REMOVE_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
 		owner.alpha = round((255 * 0.80))
+
+/datum/vampire/proc/adjust_blood(mob/living/carbon/C, blood_amount = 0)
+	var/unique_suck_id = C.UID()
+	if(!(unique_suck_id in drained_humans))
+		drained_humans[unique_suck_id] = 0
+	if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
+		return
+	bloodtotal += blood_amount
+	bloodusable += blood_amount
+	drained_humans[unique_suck_id] += blood_amount
+	check_vampire_upgrade(TRUE)
 
 /datum/vampire/proc/vamp_burn(burn_chance)
 	if(prob(burn_chance) && owner.health >= 50)
