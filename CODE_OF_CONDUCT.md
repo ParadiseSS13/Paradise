@@ -28,7 +28,7 @@ While normally provided, Heads of Staff and Maintainers are not obligated to pub
 
 All Pull Requests are expected to be tested prior to submission. If a submitted Pull Request fails to pass CI checks, the likelihood of it being merged will be significantly lower. If you can't take the time to compile/test your Pull Request, do not expect a warm reception.
 
-It is expected that contributors discuss larger design changes on the forums prior to coding a Pull Request. The amount of time spent on any given Pull Request is not relevant. Maintainers are not responsible for contributors wasting their time creating features nobody asked for.
+It is expected that contributors discuss larger changes on the forums prior to coding a Pull Request. The amount of time spent on any given Pull Request is not relevant. Maintainers are not responsible for contributors wasting their time creating features nobody asked for.
 
 Barring highly specific circumstances (such as single line changes, submissions from advanced users, or changes to repo documentation), we will not accept Pull Requests utilising the web editor.
 
