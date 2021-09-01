@@ -5,11 +5,13 @@
 
 /datum/event/anomaly/proc/findEventArea()
 	var/static/list/allowed_areas
-	var/static/list/existing_areas = list()
-	for(var/area/AR in world)
-		var/turf/picked = safepick(get_area_turfs(AR.type))
-		if(picked && is_station_level(picked.z))
-			existing_areas += AR
+	var/static/list/existing_areas
+	if(!existing_areas)
+		existing_areas = list()
+		for(var/area/AR in world)
+			var/turf/picked = safepick(get_area_turfs(AR.type))
+			if(picked && is_station_level(picked.z))
+				existing_areas += AR
 	if(!allowed_areas)
 		//Places that shouldn't explode
 		var/list/safe_area_types = typecacheof(list(
