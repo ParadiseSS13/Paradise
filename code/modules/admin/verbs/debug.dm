@@ -173,7 +173,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 /client/proc/callproc_datum(A as null|area|mob|obj|turf)
 	set category = null
-	set name = "Atom ProcCall"
+	set name = "\[Admin\] Atom ProcCall"
 
 	if(!check_rights(R_PROCCALL))
 		return
@@ -630,7 +630,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 /client/proc/cmd_admin_dress(mob/living/carbon/human/M in GLOB.human_list)
 	set category = "Event"
-	set name = "Select equipment"
+	set name = "\[Admin\] Select equipment"
 
 	if(!check_rights(R_EVENT))
 		return
