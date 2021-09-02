@@ -32,12 +32,9 @@
 	wires["Black"] = 0
 	wires["White"] = 0
 	var/list/w = list("Red","Blue","Green","Yellow","Black","White")
-	hack_wire = pick(w)
-	w -= hack_wire
-	shock_wire = pick(w)
-	w -= shock_wire
-	disable_wire = pick(w)
-	w -= disable_wire
+	hack_wire = pick_n_take(w)
+	shock_wire = pick_n_take(w)
+	disable_wire = pick_n_take(w)
 
 /obj/machinery/r_n_d/Destroy()
 	if(loaded_item)

@@ -16,6 +16,7 @@
 	if(!new_info)
 		return INITIALIZE_HINT_QDEL
 	mob_info = new_info
+	RegisterSignal(mob_info, COMSIG_PARENT_QDELETING, .proc/delete_wrapper)
 	update_self()
 	forceMove(mob_info.spawn_point)
 	if(!mob_info.is_trap)
@@ -24,10 +25,14 @@
 /obj/effect/nanomob/Destroy()
 	SSmob_hunt.trap_spawns -= src
 	SSmob_hunt.normal_spawns -= src
+	mob_info = null // Can't delete this since multiple players can get the exact same /datum/mob_hunt. (This should be refactored)
 	clients_encountered.Cut()
-	QDEL_NULL(mob_info)
-	qdel(avatar)
+	QDEL_NULL(avatar)
 	return ..()
+
+/obj/effect/nanomob/proc/delete_wrapper()
+	SIGNAL_HANDLER
+	qdel(src)
 
 /obj/effect/nanomob/proc/update_self()
 	if(!mob_info)

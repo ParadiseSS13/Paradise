@@ -45,6 +45,7 @@
 		RegisterSignal(linkedServer, COMSIG_PARENT_QDELETING, .proc/unlink_server)
 
 /obj/machinery/computer/message_monitor/proc/unlink_server()
+	SIGNAL_HANDLER
 	linkedServer = null
 
 /obj/machinery/computer/message_monitor/Destroy()
