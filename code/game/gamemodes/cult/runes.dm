@@ -607,7 +607,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		set waitfor = FALSE
 		to_chat(user, "<span class='cult'>[mob_to_revive] was revived, but their mind is lost! Seeking a lost soul to replace it.</span>")
 		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a revived Cultist?", ROLE_CULTIST, TRUE, poll_time = 20 SECONDS, source = /obj/item/melee/cultblade/dagger)
-		if(length(candidates))
+		if(length(candidates) && !QDELETED(mob_to_revive))
 			var/mob/dead/observer/C = pick(candidates)
 			to_chat(mob_to_revive.mind, "<span class='biggerdanger'>Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form.</span>")
 			message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(mob_to_revive)]) to replace an AFK player.")
@@ -948,11 +948,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	V.Grant(ghost)
 	//GM.Grant(ghost)
 	while(!QDELETED(user))
-		if(!(user in T))
-			user.visible_message("<span class='warning'>A spectral tendril wraps around [user] and pulls [user.p_them()] back to the rune!</span>")
-			Beam(user, icon_state = "drainbeam", time = 2)
-			user.forceMove(get_turf(src)) //NO ESCAPE :^)
-		if(user.key)
+		if(user.key || QDELETED(src))
 			user.visible_message("<span class='warning'>[user] slowly relaxes, the glow around [user.p_them()] dimming.</span>",
 								"<span class='danger'>You are re-united with your physical form. [src] releases its hold over you.</span>")
 			user.Weaken(3)
@@ -960,12 +956,16 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(user.health <= 10)
 			to_chat(ghost, "<span class='cultitalic'>Your body can no longer sustain the connection!</span>")
 			break
+		if(!(user in T))
+			user.visible_message("<span class='warning'>A spectral tendril wraps around [user] and pulls [user.p_them()] back to the rune!</span>")
+			Beam(user, icon_state = "drainbeam", time = 2)
+			user.forceMove(get_turf(src)) //NO ESCAPE :^)
 		sleep(5)
-	CM.Remove(ghost)
-	V.Remove(ghost)
-	//GM.Remove(ghost)
+	if(user.grab_ghost())
+		CM.Remove(ghost)
+		V.Remove(ghost)
+		//GM.Remove(ghost)
 	user.remove_atom_colour(ADMIN_COLOUR_PRIORITY, RUNE_COLOR_DARKRED)
-	user.grab_ghost()
 	user = null
 	rune_in_use = FALSE
 

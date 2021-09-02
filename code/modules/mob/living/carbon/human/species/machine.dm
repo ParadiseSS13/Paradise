@@ -46,10 +46,10 @@
 	butt_sprite = "machine"
 
 	has_organ = list(
-		ORGAN_BRAIN = /obj/item/organ/internal/brain/mmi_holder/posibrain,
-		ORGAN_EYES  = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
-		"cell" = /obj/item/organ/internal/cell,
-		"charger" = /obj/item/organ/internal/cyberimp/arm/power_cord
+		ORGAN_BRAIN		= /obj/item/organ/internal/brain/mmi_holder/posibrain,
+		ORGAN_EYES		= /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
+		"cell"			= /obj/item/organ/internal/cell,
+		"charger"		= /obj/item/organ/internal/cyberimp/arm/power_cord
 		)
 	mutantears = /obj/item/organ/internal/ears/microphone
 	has_limbs = list(

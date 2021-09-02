@@ -38,26 +38,26 @@
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
-		ORGAN_HEART	   = /obj/item/organ/internal/heart/diona,
-		ORGAN_LUNGS	   = /obj/item/organ/internal/lungs/diona,
-		ORGAN_LIVER	   = /obj/item/organ/internal/liver/diona,
-		ORGAN_KIDNEYS  = /obj/item/organ/internal/kidneys/diona,
-		ORGAN_BRAIN	   = /obj/item/organ/internal/brain/diona,
-		ORGAN_APPENDIX = /obj/item/organ/internal/appendix/diona,
-		ORGAN_EYES	   = /obj/item/organ/internal/eyes/diona //Default darksight of 2.
+		ORGAN_HEART		= /obj/item/organ/internal/heart/diona,
+		ORGAN_LUNGS		= /obj/item/organ/internal/lungs/diona,
+		ORGAN_LIVER		= /obj/item/organ/internal/liver/diona,
+		ORGAN_KIDNEYS	= /obj/item/organ/internal/kidneys/diona,
+		ORGAN_BRAIN		= /obj/item/organ/internal/brain/diona,
+		ORGAN_APPENDIX	= /obj/item/organ/internal/appendix/diona,
+		ORGAN_EYES		= /obj/item/organ/internal/eyes/diona //Default darksight of 2.
 		)
 	has_limbs = list(
-		ORGAN_CHEST  = list("path" = /obj/item/organ/external/chest/diona),
-		ORGAN_GROIN  = list("path" = /obj/item/organ/external/groin/diona),
-		ORGAN_HEAD	 = list("path" = /obj/item/organ/external/head/diona),
-		ORGAN_ARM_L  = list("path" = /obj/item/organ/external/arm/diona),
-		ORGAN_ARM_R  = list("path" = /obj/item/organ/external/arm/right/diona),
-		ORGAN_LEG_L  = list("path" = /obj/item/organ/external/leg/diona),
-		ORGAN_LEG_R  = list("path" = /obj/item/organ/external/leg/right/diona),
-		ORGAN_HAND_L = list("path" = /obj/item/organ/external/hand/diona),
-		ORGAN_HAND_R = list("path" = /obj/item/organ/external/hand/right/diona),
-		ORGAN_FOOT_L = list("path" = /obj/item/organ/external/foot/diona),
-		ORGAN_FOOT_R = list("path" = /obj/item/organ/external/foot/right/diona)
+		ORGAN_CHEST		= list("path" = /obj/item/organ/external/chest/diona),
+		ORGAN_GROIN		= list("path" = /obj/item/organ/external/groin/diona),
+		ORGAN_HEAD		= list("path" = /obj/item/organ/external/head/diona),
+		ORGAN_ARM_L		= list("path" = /obj/item/organ/external/arm/diona),
+		ORGAN_ARM_R		= list("path" = /obj/item/organ/external/arm/right/diona),
+		ORGAN_LEG_L		= list("path" = /obj/item/organ/external/leg/diona),
+		ORGAN_LEG_R		= list("path" = /obj/item/organ/external/leg/right/diona),
+		ORGAN_HAND_L	= list("path" = /obj/item/organ/external/hand/diona),
+		ORGAN_HAND_R	= list("path" = /obj/item/organ/external/hand/right/diona),
+		ORGAN_FOOT_L	= list("path" = /obj/item/organ/external/foot/diona),
+		ORGAN_FOOT_R	= list("path" = /obj/item/organ/external/foot/right/diona)
 		)
 
 	suicide_messages = list(

@@ -17,7 +17,6 @@
 	dealing with their traders and merchants; those that do rarely enjoy the experience."
 
 	brute_mod = 1.2 //20% more brute damage. Fragile bird bones.
-	brain_mod = 0
 
 	breathid = "n2"
 
@@ -56,14 +55,14 @@
 		)
 
 	has_organ = list(
-		ORGAN_HEART	   = /obj/item/organ/internal/heart/vox,
-		ORGAN_LUNGS	   = /obj/item/organ/internal/lungs/vox,
-		ORGAN_LIVER	   = /obj/item/organ/internal/liver/vox,
-		ORGAN_KIDNEYS  = /obj/item/organ/internal/kidneys/vox,
-		ORGAN_BRAIN	   = /obj/item/organ/internal/brain/vox,
-		ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
-		ORGAN_EYES	   = /obj/item/organ/internal/eyes/vox, //Default darksight of 2.
-		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
+		ORGAN_HEART		= /obj/item/organ/internal/heart/vox,
+		ORGAN_LUNGS		= /obj/item/organ/internal/lungs/vox,
+		ORGAN_LIVER		= /obj/item/organ/internal/liver/vox,
+		ORGAN_KIDNEYS	= /obj/item/organ/internal/kidneys/vox,
+		ORGAN_BRAIN		= /obj/item/organ/internal/brain/vox,
+		ORGAN_APPENDIX	= /obj/item/organ/internal/appendix,
+		ORGAN_EYES		= /obj/item/organ/internal/eyes/vox, //Default darksight of 2.
+		)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",

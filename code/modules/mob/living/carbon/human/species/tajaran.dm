@@ -35,14 +35,14 @@
 	butt_sprite = "tajaran"
 
 	has_organ = list(
-		ORGAN_HEART	   = /obj/item/organ/internal/heart/tajaran,
-		ORGAN_LUNGS	   = /obj/item/organ/internal/lungs/tajaran,
-		ORGAN_LIVER	   = /obj/item/organ/internal/liver/tajaran,
-		ORGAN_KIDNEYS  = /obj/item/organ/internal/kidneys/tajaran,
-		ORGAN_BRAIN	   = /obj/item/organ/internal/brain/tajaran,
-		ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
-		ORGAN_EYES	   = /obj/item/organ/internal/eyes/tajaran /*Most Tajara see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
-															 unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
+		ORGAN_HEART		= /obj/item/organ/internal/heart/tajaran,
+		ORGAN_LUNGS		= /obj/item/organ/internal/lungs/tajaran,
+		ORGAN_LIVER		= /obj/item/organ/internal/liver/tajaran,
+		ORGAN_KIDNEYS	= /obj/item/organ/internal/kidneys/tajaran,
+		ORGAN_BRAIN		= /obj/item/organ/internal/brain/tajaran,
+		ORGAN_APPENDIX	= /obj/item/organ/internal/appendix,
+		ORGAN_EYES		= /obj/item/organ/internal/eyes/tajaran /*Most Tajara see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
+																unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,

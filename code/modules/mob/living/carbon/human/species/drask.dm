@@ -58,7 +58,7 @@
 		ORGAN_LUNGS = /obj/item/organ/internal/lungs/drask,
 		ORGAN_LIVER = /obj/item/organ/internal/liver/drask,
 		ORGAN_BRAIN = /obj/item/organ/internal/brain/drask,
-		ORGAN_EYES  = /obj/item/organ/internal/eyes/drask //5 darksight.
+		ORGAN_EYES	= /obj/item/organ/internal/eyes/drask //5 darksight.
 		)
 
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)

@@ -39,13 +39,13 @@
 	brute_mod = 1.05
 
 	has_organ = list(
-		ORGAN_HEART	   = /obj/item/organ/internal/heart/unathi,
-		ORGAN_LUNGS	   = /obj/item/organ/internal/lungs/unathi,
-		ORGAN_LIVER	   = /obj/item/organ/internal/liver/unathi,
-		ORGAN_KIDNEYS  = /obj/item/organ/internal/kidneys/unathi,
-		ORGAN_BRAIN	   = /obj/item/organ/internal/brain/unathi,
-		ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
-		ORGAN_EYES	   = /obj/item/organ/internal/eyes/unathi //3 darksight.
+		ORGAN_HEART		= /obj/item/organ/internal/heart/unathi,
+		ORGAN_LUNGS		= /obj/item/organ/internal/lungs/unathi,
+		ORGAN_LIVER		= /obj/item/organ/internal/liver/unathi,
+		ORGAN_KIDNEYS	= /obj/item/organ/internal/kidneys/unathi,
+		ORGAN_BRAIN		= /obj/item/organ/internal/brain/unathi,
+		ORGAN_APPENDIX	= /obj/item/organ/internal/appendix,
+		ORGAN_EYES		= /obj/item/organ/internal/eyes/unathi //3 darksight.
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,

@@ -7,13 +7,13 @@
 	butt_sprite = "grey"
 
 	has_organ = list(
-		ORGAN_HEART	   = /obj/item/organ/internal/heart/grey,
-		ORGAN_LUNGS	   = /obj/item/organ/internal/lungs/grey,
-		ORGAN_LIVER	   = /obj/item/organ/internal/liver/grey,
-		ORGAN_KIDNEYS  = /obj/item/organ/internal/kidneys/grey,
-		ORGAN_BRAIN	   = /obj/item/organ/internal/brain/grey,
-		ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
-		ORGAN_EYES	   = /obj/item/organ/internal/eyes/grey //5 darksight.
+		ORGAN_HEART		= /obj/item/organ/internal/heart/grey,
+		ORGAN_LUNGS		= /obj/item/organ/internal/lungs/grey,
+		ORGAN_LIVER		= /obj/item/organ/internal/liver/grey,
+		ORGAN_KIDNEYS	= /obj/item/organ/internal/kidneys/grey,
+		ORGAN_BRAIN		= /obj/item/organ/internal/brain/grey,
+		ORGAN_APPENDIX	= /obj/item/organ/internal/appendix,
+		ORGAN_EYES		= /obj/item/organ/internal/eyes/grey //5 darksight.
 		)
 
 	brute_mod = 1.25 //greys are fragile
