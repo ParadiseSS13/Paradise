@@ -90,6 +90,8 @@
 		var/overlay = image('icons/mob/alien.dmi', loc = owner, icon_state = "burst_lie")
 		owner.overlays += overlay
 
+		var/overlay_dead = image('icons/mob/alien.dmi', loc = owner, icon_state = "bursted_lie")
+
 		spawn(6)
 			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
 			new_xeno.key = C.key
@@ -107,12 +109,16 @@
 					E.receive_damage(50)
 				owner.death()
 				owner.overlays -= overlay
-				var/overlay_dead = image('icons/mob/alien.dmi', loc = owner, icon_state = "bursted_lie")
-				owner.overlays += overlay_dead
+				owner.add_overlay(overlay_dead)
 			else
 				owner.adjustBruteLoss(40)
 				owner.overlays -= overlay
 			qdel(src)
+
+/mob/living/carbon/human/update_revive()
+    var/image/overlay = image('icons/mob/alien.dmi', icon_state = "bursted_lie")
+    cut_overlay(overlay)
+    qdel(overlay)
 
 /*----------------------------------------
 Proc: AddInfectionImages(C)
