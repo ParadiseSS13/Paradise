@@ -98,6 +98,7 @@
 
 //Main category - Spells
 //Offensive
+
 /datum/spellbook_entry/blind
 	name = "Blind"
 	spell_type = /obj/effect/proc_holder/spell/targeted/trigger/blind
@@ -267,6 +268,14 @@
 	category = "Mobility"
 
 //Assistance
+
+/datum/spellbook_entry/shapeshift
+	name = "Shapechange"
+	spell_type = /obj/effect/proc_holder/spell/targeted/shapeshift
+	log_name = "SH"
+	category = "Assistance"
+	cost = 2
+
 /datum/spellbook_entry/charge
 	name = "Charge"
 	spell_type = /obj/effect/proc_holder/spell/targeted/charge

@@ -16,7 +16,6 @@
 	var/list/current_casters = list()
 	var/list/possible_shapes = list(/mob/living/simple_animal/mouse,
 		/mob/living/simple_animal/pet/dog/corgi,
-		/mob/living/simple_animal/bot/ed209,
 		/mob/living/simple_animal/hostile/construct/armoured)
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/cast(list/targets, mob/user = usr)
