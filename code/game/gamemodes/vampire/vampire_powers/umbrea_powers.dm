@@ -39,6 +39,7 @@
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
+	action_icon_state = "shadow_snare"
 
 /obj/effect/proc_holder/spell/targeted/click/shadow_snare/cast(list/targets, mob/user)
 	var/turf/target = targets[1]
@@ -93,7 +94,7 @@
 	allowed_type = /turf/simulated
 	click_radius = 1
 	centcom_cancast = FALSE
-	action_icon_state = "mist"
+	action_icon_state = "dark_passage"
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
@@ -125,6 +126,7 @@
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
+	action_icon_state = "vampire_extinguish"
 
 /obj/effect/proc_holder/spell/aoe_turf/vamp_extinguish/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
@@ -141,6 +143,7 @@
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
+	action_icon_state = "eternal_darkness"
 	var/shroud_power = -4
 
 /obj/effect/proc_holder/spell/self/eternal_darkness/cast(list/targets, mob/user)

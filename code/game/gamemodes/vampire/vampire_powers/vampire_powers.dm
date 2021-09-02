@@ -113,6 +113,7 @@
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
+	action_icon_state = "select_class"
 
 
 /obj/effect/proc_holder/spell/self/specialize/cast(mob/user)

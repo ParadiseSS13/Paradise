@@ -8,6 +8,7 @@
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
+	action_icon_state = "vampire_claws"
 
 /obj/effect/proc_holder/spell/self/vamp_claws/cast(mob/user)
 	to_chat(user, "<span class='notice'>You drop what was in your hands as large blades spring from your fingers!</span>")
@@ -91,6 +92,7 @@
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
+	action_icon_state = "blood_tendrils"
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
 
@@ -133,6 +135,7 @@
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
+	action_icon_state = "blood_pool"
 	jaunt_type_path = /obj/effect/dummy/spell_jaunt/blood_pool
 	jaunt_water_effect = FALSE
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/cult/phase/out
@@ -150,11 +153,14 @@
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
+	action_icon_state = "blood_spikes"
 
 /obj/effect/proc_holder/spell/blood_eruption/cast(list/targets, mob/user)
 	for(var/mob/living/L in targets)
 		var/turf/T = get_turf(L)
-		new /obj/effect/temp_visual/blood_spike(T)
+		var/obj/effect/decal/cleanable/blood/B = locate(/obj/effect/decal/cleanable/blood) in T
+		var/obj/effect/temp_visual/blood_spike/spike = new /obj/effect/temp_visual/blood_spike(T)
+		spike.color = B.basecolor
 		L.apply_damage(60, BRUTE, BODY_ZONE_CHEST)
 		L.apply_damage(90, STAMINA)
 		L.visible_message("<span class='warning'><b>[L] gets impaled by a spike of living blood!</b></span>")
@@ -175,7 +181,7 @@
 
 /obj/effect/temp_visual/blood_spike
 	icon = 'icons/effects/vampire_effects.dmi'
-	icon_state = "bloodspike"
+	icon_state = "bloodspike_white"
 	duration = 0.4 SECONDS
 
 /obj/effect/proc_holder/spell/self/blood_spill
@@ -187,6 +193,7 @@
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
+	action_icon_state = "blood_bringers_rite"
 
 /obj/effect/proc_holder/spell/self/blood_spill/cast(list/targets, mob/user)
 	var/mob/target = targets[1]

@@ -214,8 +214,6 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 	var/list/powers = list() // list of available powers and passives
 	var/mob/living/carbon/human/draining // who the vampire is draining of blood
 	var/nullified = 0 //Nullrod makes them useless for a short while.
-
-	// power lists
 	var/list/upgrade_tiers = list(/obj/effect/proc_holder/spell/self/rejuvenate = 0,
 									/obj/effect/proc_holder/spell/mob_aoe/glare = 0,
 									/datum/vampire_passive/vision = 100,
