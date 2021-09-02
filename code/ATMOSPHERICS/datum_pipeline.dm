@@ -5,7 +5,7 @@
 	var/list/obj/machinery/atmospherics/pipe/members = list()
 	var/list/obj/machinery/atmospherics/other_atmosmch = list()
 
-	var/update = 1
+	var/update = TRUE
 
 	var/alert_pressure = 0
 
@@ -24,7 +24,7 @@
 
 /datum/pipeline/process()//This use to be called called from the pipe networks
 	if(update)
-		update = 0
+		update = FALSE
 		reconcile_air()
 	return
 
@@ -111,6 +111,7 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	other_airs.Add(E.other_airs)
 	E.members.Cut()
 	E.other_atmosmch.Cut()
+	update = TRUE
 	qdel(E)
 
 /obj/machinery/atmospherics/proc/addMember(obj/machinery/atmospherics/A)
@@ -186,7 +187,7 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 				(partial_heat_capacity*target.heat_capacity/(partial_heat_capacity+target.heat_capacity))
 
 			air.temperature -= heat/total_heat_capacity
-	update = 1
+	update = TRUE
 
 /datum/pipeline/proc/reconcile_air()
 	var/list/datum/gas_mixture/GL = list()
