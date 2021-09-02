@@ -613,7 +613,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 /client/proc/make_sound(obj/O in view()) // -- TLE
 	set category = "Event"
-	set name = "Make Sound"
+	set name = "\[Admin\] Make Sound"
 	set desc = "Display a message to everyone who can hear the target"
 
 	if(!check_rights(R_EVENT))
@@ -799,7 +799,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Silicon Laws") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/change_human_appearance_admin(mob/living/carbon/human/H in GLOB.mob_list)
-	set name = "C.M.A. - Admin"
+	set name = "\[Admin\] C.M.A. - Admin"
 	set desc = "Allows you to change the mob appearance"
 	set category = null
 
@@ -825,7 +825,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/change_human_appearance_self(mob/living/carbon/human/H in GLOB.mob_list)
-	set name = "C.M.A. - Self"
+	set name = "\[Admin\] C.M.A. - Self"
 	set desc = "Allows the mob to change its appearance"
 	set category = null
 
@@ -965,7 +965,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 /client/proc/man_up(mob/T as mob in GLOB.player_list)
 	set category = null
-	set name = "Man Up"
+	set name = "\[Admin\] Man Up"
 	set desc = "Tells mob to man up and deal with it."
 
 	if(!check_rights(R_ADMIN))

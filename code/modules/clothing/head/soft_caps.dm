@@ -8,7 +8,7 @@
 	actions_types = list(/datum/action/item_action/flip_cap)
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 
 /obj/item/clothing/head/soft/dropped()

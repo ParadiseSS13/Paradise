@@ -1,7 +1,7 @@
 //allows right clicking mobs to send an admin PM to their client, forwards the selected mob's client to cmd_admin_pm
 /client/proc/cmd_admin_pm_context(mob/M as mob in GLOB.mob_list)
 	set category = null
-	set name = "Admin PM Mob"
+	set name = "\[Admin\] Admin PM Mob"
 	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
 	if(!ismob(M) || !M.client)

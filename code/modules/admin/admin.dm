@@ -72,7 +72,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /datum/admins/proc/show_player_panel(mob/M in GLOB.mob_list)
 	set category = null
-	set name = "Show Player Panel"
+	set name = "\[Admin\] Show Player Panel"
 	set desc="Edit player (respawn, ban, heal, etc)"
 
 	if(!M)
@@ -766,7 +766,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	message_admins("[key_name_admin(usr)] checked the AI laws")
 
 /client/proc/update_mob_sprite(mob/living/carbon/human/H as mob)
-	set name = "Update Mob Sprite"
+	set name = "\[Admin\] Update Mob Sprite"
 	set desc = "Should fix any mob sprite update errors."
 	set category = null
 
