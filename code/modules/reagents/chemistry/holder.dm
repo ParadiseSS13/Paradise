@@ -42,8 +42,17 @@
 			var/datum/chemical_reaction/D = new subtype()
 			var/list/reactions = list()
 
-			if(!D || !length(D.required_reagents)) // Skip impossible reactions
+			// Skip impossible reactions
+			if(!D || !length(D.required_reagents))
 				stack_trace("Invalid chemical reaction: [subtype]")
+				continue
+
+			var/invalid_requirement = FALSE
+			for(var/req in D.required_reagents)
+				if(!ispath(req))
+					stack_trace("Invalid chemical reaction reagent: [req]")
+					invalid_requirement = TRUE
+			if(invalid_requirement)
 				continue
 
 			for(var/reagent in D.required_reagents)
