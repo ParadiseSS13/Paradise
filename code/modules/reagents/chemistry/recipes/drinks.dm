@@ -902,3 +902,51 @@
 	result_amount = 3
 	mix_message = "The ingredients mix into a dark brown godly substance"
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/arnold_palmer
+	name = "Arnold Palmer"
+	id = "arnold_palmer"
+	result = /datum/reagent/consumable/drink/cold/arnold_palmer
+	required_reagents = list(/datum/reagent/consumable/drink/tea/icetea = 1, /datum/reagent/consumable/drink/cold/lemonade = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/gimlet
+	name = "Gimlet"
+	id = "gimlet"
+	result = /datum/reagent/consumable/ethanol/gimlet
+	required_reagents = list(/datum/reagent/consumable/ethanol/gin = 1, /datum/reagent/consumable/drink/limejuice = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/sidecar
+	name = "Sidecar"
+	id = "sidecar"
+	result = /datum/reagent/consumable/ethanol/sidecar
+	required_reagents = list(/datum/reagent/consumable/ethanol/cognac = 1, /datum/reagent/consumable/drink/orangejuice = 1, /datum/reagent/consumable/drink/lemonjuice = 1)
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/whiskey_sour
+	name = "Whiskey Sour"
+	id = "whiskeysour"
+	result = /datum/reagent/consumable/ethanol/whiskey_sour
+	required_reagents = list(/datum/reagent/consumable/ethanol/whiskey = 1, /datum/reagent/consumable/drink/lemonjuice = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/consumable/egg = 1)
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/mint_julep
+	name = "Mint Julep"
+	id = "mintjulep"
+	result = /datum/reagent/consumable/ethanol/mint_julep
+	required_reagents = list(/datum/reagent/consumable/ethanol/whiskey = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/consumable/drink/cold/ice = 1, /datum/reagent/consumable/mint = 1)
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/pina_colada
+	name = "Pina Colada"
+	id = "pinacolada"
+	result = /datum/reagent/consumable/ethanol/pina_colada
+	required_reagents = list(/datum/reagent/consumable/ethanol/rum = 3, /datum/reagent/consumable/drink/pineapplejuice = 2, /datum/reagent/consumable/drink/milk/cream = 1)
+	result_amount = 6
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

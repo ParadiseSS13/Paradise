@@ -1,6 +1,6 @@
 /client/proc/cmd_admin_drop_everything(mob/M as mob in GLOB.mob_list)
 	set category = null
-	set name = "Drop Everything"
+	set name = "\[Admin\] Drop Everything"
 
 	if(!check_rights(R_DEBUG|R_ADMIN))
 		return
@@ -46,7 +46,7 @@
 
 /client/proc/cmd_admin_subtle_message(mob/M as mob in GLOB.mob_list)
 	set category = "Event"
-	set name = "Subtle Message"
+	set name = "\[Admin\] Subtle Message"
 
 	if(!ismob(M))
 		return
@@ -124,7 +124,7 @@
 
 /client/proc/cmd_admin_direct_narrate(mob/M)	// Targetted narrate -- TLE
 	set category = null
-	set name = "Direct Narrate"
+	set name = "\[Admin\] Direct Narrate"
 
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
@@ -151,7 +151,7 @@
 
 /client/proc/cmd_admin_headset_message(mob/M in GLOB.mob_list)
 	set category = "Event"
-	set name = "Headset Message"
+	set name = "\[Admin\] Headset Message"
 
 	admin_headset_message(M)
 
@@ -575,7 +575,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/cmd_admin_rejuvenate(mob/living/M as mob in GLOB.mob_list)
 	set category = null
-	set name = "Rejuvenate"
+	set name = "\[Admin\] Rejuvenate"
 
 	if(!check_rights(R_REJUVINATE))
 		return
@@ -641,7 +641,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/cmd_admin_delete(atom/A as obj|mob|turf in view())
 	set category = null
-	set name = "Delete"
+	set name = "\[Admin\] Delete"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -780,7 +780,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Gibself") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_check_contents(mob/living/M as mob in GLOB.mob_list)
-	set name = "Check Contents"
+	set name = "\[Admin\] Check Contents"
 	set category = null
 
 	if(!check_rights(R_ADMIN))
