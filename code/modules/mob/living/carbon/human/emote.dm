@@ -446,7 +446,7 @@
 								SpinAnimation(5,1)
 
 		if("spin", "spins")
-			if(!restrained())
+			if(!incapacitated(ignore_lying = TRUE))
 				if(prob(5))
 					spin(32, 1)
 					to_chat(usr, "You spin too much!")
