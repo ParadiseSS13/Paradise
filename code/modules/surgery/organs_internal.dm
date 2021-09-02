@@ -132,6 +132,32 @@
 
 		var/obj/item/reagent_containers/C = tool
 
+		if(C.reagents.has_reagent("mitocholide", 5))
+			var/list/dead_organs = list()
+
+			for(var/obj/item/organ/internal/P in affected.internal_organs)
+				if(P.status & ORGAN_DEAD)
+					dead_organs[P] = P.name
+			if(dead_organs.len >= 1)
+				if(dead_organs.len == 1)
+					I = dead_organs[1]
+				else
+					I = input("Choose organ to rejuvenate:", "Rejuvenation", null, null) as null|anything in dead_organs
+				if(istype(C,/obj/item/reagent_containers/syringe))
+					user.visible_message("[user] begins injecting [tool] into [target]'s [I.name].", \
+					"You begin injecting [tool] into [target]'s [I.name].")
+				else
+					user.visible_message("[user] starts pouring some of [tool] over [target]'s [I.name].", \
+					"You start pouring some of [tool] over [target]'s [I.name].")
+			else
+				user.visible_message("[user] notices that no dead organs in [target]'s [affected.name].", \
+				"You notice that no dead organs in [target]'s [affected.name].")
+			return 0
+		else if(C.reagents.has_reagent("mitocholide"))
+			user.visible_message("[user] notices there is not enough mitocholide in [tool].", \
+			"You notice there is not enough mitocholide in [tool].")
+			return 0
+
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
 				if(C.reagents.total_volume <= 0) //end_step handles if there is not enough reagent
@@ -309,6 +335,26 @@
 
 		var/obj/item/reagent_containers/C = tool
 		var/datum/reagents/R = C.reagents
+
+		if(R.has_reagent("mitocholide", 5))
+			if(I == null)
+				user.visible_message("[user] didn't find dead organs in [target]'s [affected.name]", \
+				"You didn't find dead organs in [target]'s [affected.name]")
+				return 0
+			I.rejuvenate()
+			R.remove_reagent("mitocholide", 5)
+			if(istype(C,/obj/item/reagent_containers/syringe))
+				user.visible_message("<span class='notice'> [user] has injected [tool] into [target]'s [I.name].</span>",
+				"<span class='notice'> You have injected [tool] into [target]'s [I.name].</span>")
+			else
+				user.visible_message("<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
+				"<span class='notice'> You have poured some of [tool] over [target]'s [I.name].</span>")
+			return 0
+		else if(C.reagents.has_reagent("mitocholide"))
+			user.visible_message("[user] notices there is not enough mitocholide in [tool].", \
+			"You notice there is not enough mitocholide in [tool].")
+			return 0
+			
 		var/ethanol = 0 //how much alcohol is in the thing
 		var/spaceacillin = 0 //how much actual antibiotic is in the thing
 
