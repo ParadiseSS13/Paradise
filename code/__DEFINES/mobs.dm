@@ -198,26 +198,26 @@
 
 /* Species organ defines */
 // Internal Organs (has_organ)
-#define ORGAN_HEART	   "heart"
-#define ORGAN_LUNGS	   "lungs"
-#define ORGAN_LIVER	   "liver"
-#define ORGAN_KIDNEYS  "kidneys"
-#define ORGAN_BRAIN	   "brain"
-#define ORGAN_APPENDIX "appendix"
-#define ORGAN_EYES	   "eyes"
+#define ORGAN_HEART		"heart"
+#define ORGAN_LUNGS		"lungs"
+#define ORGAN_LIVER		"liver"
+#define ORGAN_KIDNEYS	"kidneys"
+#define ORGAN_BRAIN		"brain"
+#define ORGAN_APPENDIX	"appendix"
+#define ORGAN_EYES		"eyes"
 
 // External Organs (has_limbs)
-#define ORGAN_CHEST  "chest"
-#define ORGAN_GROIN  "groin"
-#define ORGAN_HEAD	 "head"
-#define ORGAN_ARM_L  "l_arm"
-#define ORGAN_ARM_R  "r_arm"
-#define ORGAN_LEG_L  "l_leg"
-#define ORGAN_LEG_R  "r_leg"
-#define ORGAN_HAND_L "l_hand"
-#define ORGAN_HAND_R "r_hand"
-#define ORGAN_FOOT_L "l_foot"
-#define ORGAN_FOOT_R "r_foot"
+#define ORGAN_CHEST		"chest"
+#define ORGAN_GROIN		"groin"
+#define ORGAN_HEAD		"head"
+#define ORGAN_ARM_L		"l_arm"
+#define ORGAN_ARM_R		"r_arm"
+#define ORGAN_LEG_L		"l_leg"
+#define ORGAN_LEG_R		"r_leg"
+#define ORGAN_HAND_L	"l_hand"
+#define ORGAN_HAND_R	"r_hand"
+#define ORGAN_FOOT_L	"l_foot"
+#define ORGAN_FOOT_R	"r_foot"
 
 //Human sub-species
 #define isshadowling(A) (is_species(A, /datum/species/shadow/ling))

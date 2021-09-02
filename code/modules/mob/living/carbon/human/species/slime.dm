@@ -47,17 +47,17 @@
 		)
 	mutantears = null
 	has_limbs = list(
-		ORGAN_CHEST  = list("path" = /obj/item/organ/external/chest/unbreakable),
-		ORGAN_GROIN  = list("path" = /obj/item/organ/external/groin/unbreakable),
-		ORGAN_HEAD	 = list("path" = /obj/item/organ/external/head/unbreakable),
-		ORGAN_ARM_L  = list("path" = /obj/item/organ/external/arm/unbreakable),
-		ORGAN_ARM_R  = list("path" = /obj/item/organ/external/arm/right/unbreakable),
-		ORGAN_LEG_L  = list("path" = /obj/item/organ/external/leg/unbreakable),
-		ORGAN_LEG_R  = list("path" = /obj/item/organ/external/leg/right/unbreakable),
-		ORGAN_HAND_L = list("path" = /obj/item/organ/external/hand/unbreakable),
-		ORGAN_HAND_R = list("path" = /obj/item/organ/external/hand/right/unbreakable),
-		ORGAN_FOOT_L = list("path" = /obj/item/organ/external/foot/unbreakable),
-		ORGAN_FOOT_R = list("path" = /obj/item/organ/external/foot/right/unbreakable)
+		ORGAN_CHEST		= list("path" = /obj/item/organ/external/chest/unbreakable),
+		ORGAN_GROIN		= list("path" = /obj/item/organ/external/groin/unbreakable),
+		ORGAN_HEAD		= list("path" = /obj/item/organ/external/head/unbreakable),
+		ORGAN_ARM_L		= list("path" = /obj/item/organ/external/arm/unbreakable),
+		ORGAN_ARM_R		= list("path" = /obj/item/organ/external/arm/right/unbreakable),
+		ORGAN_LEG_L		= list("path" = /obj/item/organ/external/leg/unbreakable),
+		ORGAN_LEG_R		= list("path" = /obj/item/organ/external/leg/right/unbreakable),
+		ORGAN_HAND_L	= list("path" = /obj/item/organ/external/hand/unbreakable),
+		ORGAN_HAND_R	= list("path" = /obj/item/organ/external/hand/right/unbreakable),
+		ORGAN_FOOT_L	= list("path" = /obj/item/organ/external/foot/unbreakable),
+		ORGAN_FOOT_R	= list("path" = /obj/item/organ/external/foot/right/unbreakable)
 		)
 	suicide_messages = list(
 		"is melting into a puddle!",

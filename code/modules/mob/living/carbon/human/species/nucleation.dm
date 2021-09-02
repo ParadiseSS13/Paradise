@@ -13,7 +13,6 @@
 	language = "Sol Common"
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
-	brain_mod = 0 // at least they've got this going for them
 	species_traits = list(LIPS, IS_WHITELISTED, NO_BLOOD, NO_CLONESCAN)
 	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RADIMMUNE, TRAIT_NOPAIN)
 	dies_at_threshold = TRUE

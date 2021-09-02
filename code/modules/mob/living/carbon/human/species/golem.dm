@@ -34,17 +34,17 @@
 		) //Has standard darksight of 2.
 
 	has_limbs = list(
-		ORGAN_CHEST  = list("path" = /obj/item/organ/external/chest/unbreakable/sturdy),
-		ORGAN_GROIN  = list("path" = /obj/item/organ/external/groin/unbreakable/sturdy),
-		ORGAN_HEAD	 = list("path" = /obj/item/organ/external/head/unbreakable/sturdy),
-		ORGAN_ARM_L  = list("path" = /obj/item/organ/external/arm/unbreakable/sturdy),
-		ORGAN_ARM_R  = list("path" = /obj/item/organ/external/arm/right/unbreakable/sturdy),
-		ORGAN_LEG_L  = list("path" = /obj/item/organ/external/leg/unbreakable/sturdy),
-		ORGAN_LEG_R  = list("path" = /obj/item/organ/external/leg/right/unbreakable/sturdy),
-		ORGAN_HAND_L = list("path" = /obj/item/organ/external/hand/unbreakable/sturdy),
-		ORGAN_HAND_R = list("path" = /obj/item/organ/external/hand/right/unbreakable/sturdy),
-		ORGAN_FOOT_L = list("path" = /obj/item/organ/external/foot/unbreakable/sturdy),
-		ORGAN_FOOT_R = list("path" = /obj/item/organ/external/foot/right/unbreakable/sturdy))
+		ORGAN_CHEST		= list("path" = /obj/item/organ/external/chest/unbreakable/sturdy),
+		ORGAN_GROIN		= list("path" = /obj/item/organ/external/groin/unbreakable/sturdy),
+		ORGAN_HEAD		= list("path" = /obj/item/organ/external/head/unbreakable/sturdy),
+		ORGAN_ARM_L		= list("path" = /obj/item/organ/external/arm/unbreakable/sturdy),
+		ORGAN_ARM_R		= list("path" = /obj/item/organ/external/arm/right/unbreakable/sturdy),
+		ORGAN_LEG_L		= list("path" = /obj/item/organ/external/leg/unbreakable/sturdy),
+		ORGAN_LEG_R		= list("path" = /obj/item/organ/external/leg/right/unbreakable/sturdy),
+		ORGAN_HAND_L	= list("path" = /obj/item/organ/external/hand/unbreakable/sturdy),
+		ORGAN_HAND_R	= list("path" = /obj/item/organ/external/hand/right/unbreakable/sturdy),
+		ORGAN_FOOT_L	= list("path" = /obj/item/organ/external/foot/unbreakable/sturdy),
+		ORGAN_FOOT_R	= list("path" = /obj/item/organ/external/foot/right/unbreakable/sturdy))
 
 	suicide_messages = list(
 		"is crumbling into dust!",
