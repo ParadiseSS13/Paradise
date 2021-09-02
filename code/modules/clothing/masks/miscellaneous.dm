@@ -13,7 +13,7 @@
 	var/locked = FALSE //Indicates if a mask is locked, should always start as 0.
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi'
 		)
 
 // Clumsy folks can't take the mask off themselves.
@@ -91,11 +91,11 @@
 	flags = DROPDEL
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi'
 		)
 
 /obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user)
@@ -119,12 +119,12 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 
 /obj/item/clothing/mask/muzzle/safety/shock
@@ -216,12 +216,12 @@
 	actions_types = list(/datum/action/item_action/adjust)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 
 
@@ -237,12 +237,12 @@
 	dog_fashion = /datum/dog_fashion/head/not_ian
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 
 /obj/item/clothing/mask/fakemoustache/attack_self(mob/user)
@@ -318,8 +318,8 @@
 	var/originalname = ""
 
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 	)
 
 /obj/item/clothing/mask/horsehead/equipped(mob/user, slot)
@@ -427,12 +427,12 @@
 	icon_state = "bandbotany"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 	actions_types = list(/datum/action/item_action/adjust)
 

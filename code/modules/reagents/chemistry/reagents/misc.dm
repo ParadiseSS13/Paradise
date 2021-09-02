@@ -133,13 +133,19 @@
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_description = "a CPU"
 
-
 /datum/reagent/copper
 	name = "Copper"
 	id = "copper"
 	description = "A highly ductile metal."
 	color = "#6E3B08" // rgb: 110, 59, 8
 	taste_description = "copper"
+
+/datum/reagent/copper/reaction_obj(obj/O, volume)
+	if(istype(O, /obj/item/stack/sheet/metal))
+		var/obj/item/stack/sheet/metal/M = O
+		volume = round(min(volume, M.amount), 1)
+		new /obj/item/stack/tile/brass(get_turf(M), volume)
+		M.use(volume)
 
 /datum/reagent/chromium
 	name = "Chromium"
@@ -204,14 +210,17 @@
 	if(exposed_temperature > T0C + 600)
 		var/turf/T = get_turf(holder.my_atom)
 		holder.my_atom.visible_message("<b>The oil burns!</b>")
-		fireflash(T, min(max(0, volume / 40), 8))
+		var/datum/reagents/old_holder = holder
 		fire_flash_log(holder, id)
+		if(holder)
+			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+
+		fireflash(T, min(max(0, volume / 40), 8))
 		var/datum/effect_system/smoke_spread/bad/BS = new
 		BS.set_up(1, 0, T)
 		BS.start()
-		if(holder)
-			holder.add_reagent("ash", round(volume * 0.5))
-			holder.del_reagent(id)
+		if(!QDELETED(old_holder))
+			old_holder.add_reagent("ash", round(volume * 0.5))
 
 /datum/reagent/oil/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
