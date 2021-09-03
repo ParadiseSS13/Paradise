@@ -39,7 +39,7 @@
 	return INITIALIZE_HINT_LATELOAD // Give the message server time to initialize
 
 /obj/machinery/computer/message_monitor/LateInitialize()
-	//Is the monitor isn't linked to a server, and there's a server available, default it to the first one in the list.
+	//If the monitor isn't linked to a server, and there's a server available, default it to the first one in the list.
 	if(!linkedServer && length(GLOB.message_servers))
 		linkedServer = GLOB.message_servers[1]
 		RegisterSignal(linkedServer, COMSIG_PARENT_QDELETING, .proc/unlink_server)

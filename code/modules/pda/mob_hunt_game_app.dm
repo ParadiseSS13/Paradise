@@ -154,8 +154,7 @@
   */
 /datum/data/pda/app/mob_hunter_game/proc/remove_mob(datum/mob_hunt/mob_override = null)
 	SIGNAL_HANDLER
-	var/collection_length = length(my_collection)
-	if(!collection_length)
+	if(!length(my_collection))
 		return
 
 	if(mob_override)
@@ -163,6 +162,7 @@
 	else
 		my_collection -= my_collection[current_index]
 
+	var/collection_length = length(my_collection)
 	if(current_index > collection_length)
 		current_index = collection_length
 
