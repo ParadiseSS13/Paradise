@@ -1269,6 +1269,7 @@
 	// Setup their clumsy gene
 	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
 	H.check_mutations = TRUE
+	ADD_TRAIT(H, TRAIT_NAIVE, INNATE_TRAIT)
 
 	// Setup their headset
 	var/obj/item/radio/R = H.l_ear

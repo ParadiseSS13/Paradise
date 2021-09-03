@@ -176,6 +176,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NODECAY			"no_decay"
 #define TRAIT_NOEXAMINE			"no_examine"
 #define TRAIT_NOPAIN			"no_pain"
+#define TRAIT_NAIVE				"naive"
 
 //***** ITEM TRAITS *****//
 /// Show what machine/door wires do when held.

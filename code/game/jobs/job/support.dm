@@ -296,6 +296,7 @@
 	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
 	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(GLOB.clumsyblock)
+	ADD_TRAIT(H, TRAIT_NAIVE, ROUNDSTART_TRAIT)
 	if(!ismachineperson(H))
 		H.dna.SetSEState(GLOB.comicblock, TRUE)
 		singlemutcheck(H, GLOB.comicblock, MUTCHK_FORCED)
