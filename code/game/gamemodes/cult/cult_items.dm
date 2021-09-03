@@ -677,3 +677,103 @@
 	desc = "It's an orb of crystalized blood. Can be used to transfer blood between cultists."
 	var/blood = 50
 
+/obj/item/rune_portaler //I suck with names
+	name = "reality opener"
+	icon = 'icons/obj/cult.dmi'
+	icon_state = "amulet"
+	desc = "Some ammulet made out of metal, bluespace crystals, and blood. Allows cultists to open portals over teleport runes, destroying the rune in the process."
+
+
+/obj/item/rune_portaler/afterattack(atom/O, mob/user, proximity)
+	. = ..()
+	if(!iscultist(user) && ishuman(user))
+		var/mob/living/carbon/human/H = user
+		to_chat(H, "<span class='cultlarge'>\"So, you want to explore space?\"</span>")
+		to_chat(H, "<span class='warning'>Space flashes around you as you are moved somewhere else!</span>")
+		H.Confused(10)
+		H.flash_eyes(override_blindness_check = TRUE)
+		H.EyeBlind(10)
+		do_teleport(H, get_turf(H), 5, asoundin = 'sound/magic/cult_spell.ogg')
+		qdel(src)
+
+	if(istype(O, /obj/effect/rune))
+		if(!istype(O, /obj/effect/rune/teleport))
+			to_chat(user, "<span class='warning'>[src] only works on teleport runes.</span>")
+			return
+		if(!proximity)
+			to_chat(user, "<span class='warning'>You are too far away from the teleport rune.</span>")
+			return
+		var/obj/effect/rune/teleport/R = O
+		attempt_portal(R, user)
+
+/obj/item/rune_portaler/proc/attempt_portal(var/obj/effect/rune/teleport/R, mob/user)
+	var/list/potential_runes = list()
+	var/list/teleportnames = list()
+	var/list/duplicaterunecount = list()
+	var/turf/T = get_turf(src) //used to tell the other rune where we came from
+
+	for(var/I in GLOB.teleport_runes)
+		var/obj/effect/rune/teleport/target = I
+		var/resultkey = target.listkey
+		if(resultkey in teleportnames)
+			duplicaterunecount[resultkey]++
+			resultkey = "[resultkey] ([duplicaterunecount[resultkey]])"
+		else
+			teleportnames += resultkey
+			duplicaterunecount[resultkey] = 1
+		if(target != R && is_level_reachable(target.z))
+			potential_runes[resultkey] = target
+
+	if(!length(potential_runes))
+		to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
+		return
+
+	if(!is_level_reachable(user.z))
+		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
+		return
+
+	var/input_rune_key = input(user, "Choose a rune to make a portal to.", "Rune to make a portal to") as null|anything in potential_runes //we know what key they picked
+	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
+	if(QDELETED(R) || QDELETED(actual_selected_rune) ||!Adjacent(user) || user.incapacitated())
+		return
+
+	if(is_mining_level(R.z) && !is_mining_level(actual_selected_rune.z))
+		actual_selected_rune.handle_portal("lava")
+	else if(!is_station_level(R.z) || istype(get_area(src), /area/space))
+		actual_selected_rune.handle_portal("space", T)
+	new /obj/effect/portal/cult(get_turf(R), get_turf(actual_selected_rune), src, 4 MINUTES)
+	to_chat(user, "<span class='cultitalic'>You use the magic of the amulet to turn [R] into a portal.</span>")
+	qdel(R)
+	qdel(src)
+
+/obj/effect/portal/cult
+	name = "eldritch portal"
+	desc = "An evil portal made by dark magics. Suprisingly stable. Destroying the rune, or using a multitool on the portal, should close it."
+	icon_state = "portal1"
+	failchance = 0
+	precision = FALSE
+	can_multitool_to_remove = TRUE
+	var/obj/effect/temp_visual/cult_portal_exit/exit = null
+
+/obj/effect/portal/cult/New()
+	..()
+	exit = new /obj/effect/temp_visual/cult_portal_exit
+	exit.forceMove(target)
+
+/obj/effect/portal/cult/attackby(obj/I, mob/user, params)
+	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))
+		to_chat(user, "<span class='cultitalic'>You close the portal with your dagger.</span>")
+		qdel(src)
+	return ..()
+
+/obj/effect/portal/cult/Destroy()
+	qdel(exit)
+	return ..()
+
+/obj/effect/temp_visual/cult_portal_exit
+	name = "eldritch rift"
+	desc = "An exit point for some cult portal. Be on guard, more things may come out of it"
+	icon = 'icons/obj/biomass.dmi'
+	icon_state = "rift"
+	duration = 4 MINUTES
+	color = "red"
