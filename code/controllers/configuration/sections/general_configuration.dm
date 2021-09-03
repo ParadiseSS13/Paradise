@@ -14,8 +14,6 @@
 	var/lobby_time = 240
 	/// Ban all Guest BYOND accounts
 	var/guest_ban = TRUE
-	/// Player threshold to automatically enable panic bunker
-	var/panic_bunker_threshold = 150
 	/// Allow players to use AntagHUD?
 	var/allow_antag_hud = TRUE
 	/// Forbid players from rejoining if they use AntagHUD?
@@ -121,7 +119,6 @@
 
 	// Numbers
 	CONFIG_LOAD_NUM(lobby_time, data["lobby_time"])
-	CONFIG_LOAD_NUM(panic_bunker_threshold, data["panic_bunker_threshold"])
 	CONFIG_LOAD_NUM(base_loadout_points, data["base_loadout_points"])
 	CONFIG_LOAD_NUM(cryo_penalty_period, data["cryo_penalty_period"])
 	CONFIG_LOAD_NUM(minimum_client_build, data["minimum_client_build"])

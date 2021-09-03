@@ -13,7 +13,7 @@
 	actions_types = list(/datum/action/item_action/toggle_paddles)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/back.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/back.dmi'
 		)
 
 	var/paddles_on_defib = TRUE //if the paddles are on the defib (TRUE)

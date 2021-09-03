@@ -167,11 +167,11 @@
 // Underwear Definitions //
 ///////////////////////////
 /datum/sprite_accessory/underwear
-	icon = 'icons/mob/underwear.dmi'
+	icon = 'icons/mob/clothing/underwear.dmi'
 	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/underwear.dmi',
-	"Grey" = 'icons/mob/species/grey/underwear.dmi'
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi'
 	)
 	gender = NEUTER
 
@@ -297,11 +297,11 @@
 // Undershirt Definitions //
 ////////////////////////////
 /datum/sprite_accessory/undershirt
-	icon = 'icons/mob/underwear.dmi'
+	icon = 'icons/mob/clothing/underwear.dmi'
 	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/underwear.dmi',
-	"Grey" = 'icons/mob/species/grey/underwear.dmi')
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi')
 	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/nude
@@ -536,9 +536,9 @@
 // Socks Definitions //
 ///////////////////////
 /datum/sprite_accessory/socks
-	icon = 'icons/mob/underwear.dmi'
+	icon = 'icons/mob/clothing/underwear.dmi'
 	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/underwear.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/underwear.dmi')
 	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude
