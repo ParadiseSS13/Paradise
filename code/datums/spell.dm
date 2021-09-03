@@ -639,7 +639,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			to_chat(user, "<span class='warning'>Not while you're dead!</span>")
 			return FALSE
 
-		if(vampire.nullified && !fullpower)
+		if(vampire.nullified >= VAMPIRE_COMPLETE_NULLIFICATION && !fullpower) // above 100 nullification vampire powers are useless
 			to_chat(user, "<span class='warning'>Something is blocking your powers!</span>")
 			return FALSE
 		if(vampire.bloodusable < required_blood)

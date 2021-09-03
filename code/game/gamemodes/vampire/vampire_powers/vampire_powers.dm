@@ -39,11 +39,13 @@
 
 	// enforce blood
 	var/datum/vampire/vampire = usr.mind.vampire
+	var/blood_cost_modifier = 1 + vampire.nullified/100
+	var/blood_cost = round(required_blood * blood_cost_modifier)
 
-	if(required_blood <= vampire.bloodusable)
+	if(blood_cost <= vampire.bloodusable)
 		if(!deduct_blood_on_cast) //don't take the blood yet if this is false!
 			return
-		vampire.bloodusable -= required_blood
+		vampire.bloodusable -= blood_cost
 		to_chat(usr, "<span class='boldnotice'>You have [vampire.bloodusable] left to use.</span>")
 		return TRUE
 	else
@@ -59,6 +61,10 @@
 	..()
 	if(!gain_desc)
 		gain_desc = "You can now use [src]."
+
+/datum/vampire_passive/Destroy(force, ...)
+	owner = null
+	. = ..()
 
 /obj/effect/proc_holder/spell/self/rejuvenate
 	name = "Rejuvenate"
@@ -378,7 +384,9 @@
 		if(do_mob(user, target, 50))
 			if(can_enthrall(user, target))
 				handle_enthrall(user, target)
-				vampire.bloodusable -= required_blood //we take the blood after enthralling, not before
+				var/blood_cost_modifier = 1 + vampire.nullified/100
+				var/blood_cost = round(required_blood * blood_cost_modifier)
+				vampire.bloodusable -= blood_cost //we take the blood after enthralling, not before
 			else
 				revert_cast(user)
 				to_chat(user, "<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>")

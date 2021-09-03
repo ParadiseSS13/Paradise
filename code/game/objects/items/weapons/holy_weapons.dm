@@ -36,10 +36,10 @@
 
 /obj/item/nullrod/attack(mob/M, mob/living/carbon/user)
 	..()
-	if(ishuman(M) && M.mind?.vampire)
+	if(ishuman(M) && M.mind?.vampire && user.mind.isholy)
 		if(!M.mind.vampire.get_ability(/datum/vampire_passive/full))
 			to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
-			M.mind.vampire.adjust_nullification(5, 2)
+			M.mind.vampire.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
 
 /obj/item/nullrod/pickup(mob/living/user)
 	. = ..()

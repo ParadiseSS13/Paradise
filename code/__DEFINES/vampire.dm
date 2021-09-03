@@ -6,3 +6,6 @@
 #define BLOOD_DRAIN_LIMIT 200 // the amount of blood a vampire can drain from a person.
 #define FULLPOWER_DRAINED_REQUIREMENT 8 // the number of people you need to suck to get become full powered
 #define FULLPOWER_BLOODTOTAL_REQUIREMENT 1000 // the amount of blood you need to suck to get full power
+
+#define VAMPIRE_NULLIFICATION_CAP 120 // the maximum amount a vampire can be nullified naturally.
+#define VAMPIRE_COMPLETE_NULLIFICATION 100 // the point of nullification where vampires can no longer use abilities.
