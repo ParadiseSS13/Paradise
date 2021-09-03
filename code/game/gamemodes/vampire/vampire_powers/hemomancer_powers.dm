@@ -25,17 +25,19 @@
 /obj/item/twohanded/required/vamp_claws
 	name = "vampiric claws"
 	desc = "A pair of eldritch claws made of living blood, they seem to flow yet they are solid"
-	icon = 'icons/obj/cult.dmi'
-	icon_state = "blood_blade"
-	item_state = "blood_blade"
+	icon = 'icons/effects/vampire_effects.dmi'
+	icon_state = "vamp_claws"
+	item_state = "vamp_claws"
 	w_class = WEIGHT_CLASS_BULKY
 	flags = ABSTRACT | NODROP | DROPDEL
 	force_wielded = 10
 	armour_penetration = 20
 	block_chance = 50
 	sharp = TRUE
+	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
+	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi')
 	var/durability = 20
 	var/blood_drain_amount = 15
 	var/blood_absorbed_amount = 5
