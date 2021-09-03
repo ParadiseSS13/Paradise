@@ -36,7 +36,6 @@
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
-	sprite_sheets_inhand = list("Skrell" = 'icons/mob/species/skrell/held.dmi')
 	var/durability = 20
 	var/blood_drain_amount = 15
 	var/blood_absorbed_amount = 5
