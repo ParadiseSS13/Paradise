@@ -653,6 +653,7 @@
 /area/security/prisonershuttle)
 "adM" = (
 /obj/machinery/computer/prisoner{
+	dir = 8;
 	req_access = null;
 	req_access_txt = "2"
 	},
@@ -791,7 +792,9 @@
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "aed" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/secure_data{
+	dir = 8
+	},
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_y = 8
@@ -1001,7 +1004,9 @@
 	},
 /area/security/armoury)
 "aey" = (
-/obj/machinery/computer/brigcells,
+/obj/machinery/computer/brigcells{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -1040,7 +1045,9 @@
 /turf/simulated/floor/carpet,
 /area/security/hos)
 "aeD" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/secure_data{
+	dir = 8
+	},
 /obj/item/radio/intercom/department/security{
 	pixel_x = 25
 	},
@@ -1245,6 +1252,7 @@
 /area/security/warden)
 "aeV" = (
 /obj/machinery/computer/security{
+	dir = 8;
 	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /obj/structure/cable{
@@ -4577,7 +4585,9 @@
 	name = "Head of Security Requests Console";
 	pixel_x = 30
 	},
-/obj/machinery/computer/brigcells,
+/obj/machinery/computer/brigcells{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4684,7 +4694,9 @@
 /turf/simulated/floor/plating,
 /area/security/warden)
 "amE" = (
-/obj/machinery/computer/prisoner,
+/obj/machinery/computer/prisoner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -4829,6 +4841,7 @@
 /area/security/main)
 "amR" = (
 /obj/machinery/computer/security{
+	dir = 8;
 	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /obj/machinery/camera{
@@ -5566,7 +5579,9 @@
 	},
 /area/security/evidence)
 "aom" = (
-/obj/machinery/computer/brigcells,
+/obj/machinery/computer/brigcells{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -5713,7 +5728,9 @@
 	},
 /area/security/prison/cell_block/A)
 "aox" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/secure_data{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -5967,7 +5984,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/computer/card/minor/hos,
+/obj/machinery/computer/card/minor/hos{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6161,6 +6180,7 @@
 /area/security/warden)
 "apk" = (
 /obj/machinery/computer/security{
+	dir = 8;
 	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
@@ -7066,6 +7086,7 @@
 /area/security/lobby)
 "arl" = (
 /obj/machinery/computer/security{
+	dir = 4;
 	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
@@ -8108,6 +8129,7 @@
 /area/lawoffice)
 "asO" = (
 /obj/machinery/computer/prisoner{
+	dir = 4;
 	req_access = null;
 	req_access_txt = "2"
 	},
@@ -8142,7 +8164,9 @@
 	},
 /area/security/lobby)
 "asX" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/secure_data{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -11551,7 +11575,9 @@
 /turf/simulated/floor/plating,
 /area/security/processing)
 "ayZ" = (
-/obj/machinery/computer/shuttle/labor,
+/obj/machinery/computer/shuttle/labor{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "aza" = (
@@ -16137,7 +16163,9 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "aJw" = (
-/obj/machinery/computer/arcade/orion_trail,
+/obj/machinery/computer/arcade/orion_trail{
+	dir = 8
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "aJx" = (
@@ -16155,7 +16183,9 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "aJz" = (
-/obj/machinery/computer/arcade/battle,
+/obj/machinery/computer/arcade/battle{
+	dir = 4
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "aJA" = (
@@ -23411,7 +23441,9 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "aZB" = (
-/obj/machinery/computer/card/minor/ce,
+/obj/machinery/computer/card/minor/ce{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -36969,7 +37001,9 @@
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bCK" = (
-/obj/machinery/computer/aiupload,
+/obj/machinery/computer/aiupload{
+	dir = 1
+	},
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = -21
@@ -36977,7 +37011,9 @@
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bCL" = (
-/obj/machinery/computer/borgupload,
+/obj/machinery/computer/borgupload{
+	dir = 1
+	},
 /obj/item/radio/intercom/private{
 	pixel_y = -28
 	},
@@ -38241,7 +38277,9 @@
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "bFK" = (
-/obj/machinery/computer/communications,
+/obj/machinery/computer/communications{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bFL" = (
@@ -39142,7 +39180,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bHw" = (
-/obj/machinery/computer/card,
+/obj/machinery/computer/card{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bHx" = (
@@ -40273,7 +40313,9 @@
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "bJJ" = (
-/obj/machinery/computer/crew,
+/obj/machinery/computer/crew{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -41122,7 +41164,9 @@
 	name = "Quarantine Lockdown";
 	opacity = 0
 	},
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/med_data{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -41321,7 +41365,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bLP" = (
-/obj/machinery/computer/mech_bay_power_console,
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 4
+	},
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -41550,7 +41596,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/computer/rdconsole/core,
+/obj/machinery/computer/rdconsole/core{
+	dir = 4
+	},
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
 /area/toxins/lab)
@@ -42783,7 +42831,9 @@
 	},
 /area/engine/gravitygenerator)
 "bOt" = (
-/obj/machinery/computer/supplycomp/public,
+/obj/machinery/computer/supplycomp/public{
+	dir = 4
+	},
 /obj/item/radio/intercom{
 	pixel_y = 25
 	},
@@ -42865,7 +42915,9 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "bOA" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/secure_data{
+	dir = 4
+	},
 /obj/machinery/flasher_button{
 	id = "hopflash";
 	pixel_x = 6;
@@ -44612,7 +44664,9 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bRN" = (
-/obj/machinery/computer/supplycomp,
+/obj/machinery/computer/supplycomp{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bRO" = (
@@ -44749,7 +44803,9 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bSd" = (
-/obj/machinery/computer/card,
+/obj/machinery/computer/card{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "blue"
@@ -47171,7 +47227,9 @@
 	},
 /area/medical/genetics_cloning)
 "bWC" = (
-/obj/machinery/computer/cloning,
+/obj/machinery/computer/cloning{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -47289,7 +47347,9 @@
 /area/engine/break_room)
 "bWU" = (
 /obj/machinery/light,
-/obj/machinery/computer/merch,
+/obj/machinery/computer/merch{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bWV" = (
@@ -47351,7 +47411,9 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bXb" = (
-/obj/machinery/computer/security/mining,
+/obj/machinery/computer/security/mining{
+	dir = 4
+	},
 /obj/machinery/keycard_auth{
 	pixel_x = -24
 	},
@@ -47361,7 +47423,9 @@
 	},
 /area/crew_quarters/heads)
 "bXc" = (
-/obj/machinery/computer/message_monitor,
+/obj/machinery/computer/message_monitor{
+	dir = 4
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -48168,7 +48232,9 @@
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
-/obj/machinery/computer/card/minor/rd,
+/obj/machinery/computer/card/minor/rd{
+	dir = 8
+	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -48680,7 +48746,9 @@
 	},
 /area/medical/cryo)
 "bZw" = (
-/obj/machinery/computer/card/minor/cmo,
+/obj/machinery/computer/card/minor/cmo{
+	dir = 4
+	},
 /obj/machinery/camera{
 	c_tag = "Medbay Chief Medical Officer's Office";
 	dir = 4
@@ -49158,7 +49226,9 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor)
 "bZV" = (
-/obj/machinery/computer/aifixer,
+/obj/machinery/computer/aifixer{
+	dir = 8
+	},
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Research Director's Desk";
@@ -49670,7 +49740,9 @@
 	},
 /area/medical/medbay2)
 "caR" = (
-/obj/machinery/computer/crew,
+/obj/machinery/computer/crew{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -49741,7 +49813,9 @@
 	},
 /area/medical/genetics)
 "caX" = (
-/obj/machinery/computer/scan_consolenew,
+/obj/machinery/computer/scan_consolenew{
+	dir = 4
+	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -49881,7 +49955,9 @@
 	},
 /area/medical/research)
 "cbl" = (
-/obj/machinery/computer/teleporter,
+/obj/machinery/computer/teleporter{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/teleporter)
 "cbm" = (
@@ -49938,7 +50014,9 @@
 	},
 /area/crew_quarters/hor)
 "cbq" = (
-/obj/machinery/computer/robotics,
+/obj/machinery/computer/robotics{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -51021,7 +51099,9 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor)
 "cdg" = (
-/obj/machinery/computer/mecha,
+/obj/machinery/computer/mecha{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -51819,7 +51899,9 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
 "cff" = (
-/obj/machinery/computer/security/mining,
+/obj/machinery/computer/security/mining{
+	dir = 4
+	},
 /obj/item/radio/intercom{
 	dir = 0;
 	pixel_x = -28
@@ -52463,14 +52545,18 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
 "cgf" = (
-/obj/machinery/computer/rdservercontrol,
+/obj/machinery/computer/rdservercontrol{
+	dir = 1
+	},
 /obj/machinery/light_switch{
 	pixel_y = -23
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/toxins/server)
 "cgg" = (
-/obj/machinery/computer/message_monitor,
+/obj/machinery/computer/message_monitor{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/toxins/server)
 "cgh" = (
@@ -53600,7 +53686,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/computer/operating,
+/obj/machinery/computer/operating{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -53655,7 +53743,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/computer/operating,
+/obj/machinery/computer/operating{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -55669,7 +55759,9 @@
 	},
 /area/medical/medbreak)
 "cmw" = (
-/obj/machinery/computer/crew,
+/obj/machinery/computer/crew{
+	dir = 8
+	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -56305,7 +56397,9 @@
 	},
 /area/medical/medbreak)
 "cnQ" = (
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/med_data{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -59078,7 +59172,9 @@
 	pixel_y = -24;
 	req_access_txt = "67"
 	},
-/obj/machinery/computer/crew,
+/obj/machinery/computer/crew{
+	dir = 1
+	},
 /obj/machinery/door_control{
 	id = "blueshieldofficedoor";
 	name = "Office Door";
@@ -59144,7 +59240,9 @@
 	pixel_y = -24;
 	req_access_txt = "73"
 	},
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/secure_data{
+	dir = 1
+	},
 /obj/machinery/door_control{
 	id = "ntrepofficedoor";
 	name = "Office Door";
@@ -59283,6 +59381,7 @@
 "csQ" = (
 /obj/structure/cable,
 /obj/machinery/computer/monitor{
+	dir = 8;
 	name = "Grid Power Monitoring Computer"
 	},
 /turf/simulated/floor/plasteel{
@@ -60116,7 +60215,9 @@
 /obj/machinery/light_switch{
 	pixel_x = 27
 	},
-/obj/machinery/computer/security/engineering,
+/obj/machinery/computer/security/engineering{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -61908,6 +62009,7 @@
 	tag = ""
 	},
 /obj/machinery/computer/general_air_control{
+	dir = 8;
 	frequency = 1443;
 	level = 3;
 	name = "Distribution and Waste Monitor";
@@ -62538,7 +62640,9 @@
 /area/maintenance/asmaint)
 "cyK" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/med_data/laptop{
+	dir = 1
+	},
 /turf/simulated/floor/carpet,
 /area/medical/psych)
 "cyL" = (
@@ -62584,7 +62688,9 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/computer/atmos_alert,
+/obj/machinery/computer/atmos_alert{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "cyR" = (
@@ -63271,7 +63377,9 @@
 	},
 /area/toxins/xenobiology)
 "cAg" = (
-/obj/machinery/computer/atmos_alert,
+/obj/machinery/computer/atmos_alert{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -63279,6 +63387,7 @@
 /area/engine/controlroom)
 "cAh" = (
 /obj/machinery/computer/general_air_control{
+	dir = 1;
 	frequency = 1443;
 	level = 3;
 	name = "Distribution and Waste Monitor";
@@ -66962,7 +67071,9 @@
 	layer = 4;
 	pixel_x = 32
 	},
-/obj/machinery/computer/station_alert,
+/obj/machinery/computer/station_alert{
+	dir = 8
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -67441,6 +67552,7 @@
 /area/engine/break_room)
 "cHY" = (
 /obj/machinery/computer/general_air_control{
+	dir = 4;
 	frequency = 1441;
 	name = "Tank Monitor";
 	sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
@@ -68177,7 +68289,9 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "cJp" = (
-/obj/machinery/computer/atmoscontrol,
+/obj/machinery/computer/atmoscontrol{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "cJq" = (
@@ -68275,7 +68389,9 @@
 	dir = 8;
 	pixel_x = -24
 	},
-/obj/machinery/computer/sm_monitor,
+/obj/machinery/computer/sm_monitor{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cJC" = (
@@ -68834,7 +68950,9 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/computer/security/engineering,
+/obj/machinery/computer/security/engineering{
+	dir = 8
+	},
 /obj/machinery/requests_console{
 	department = "Atmospherics";
 	departmentType = 3;
@@ -69278,7 +69396,9 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
-/obj/machinery/computer/rdconsole/mechanics,
+/obj/machinery/computer/rdconsole/mechanics{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -69480,7 +69600,9 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "cLS" = (
-/obj/machinery/computer/security/engineering,
+/obj/machinery/computer/security/engineering{
+	dir = 4
+	},
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -71019,6 +71141,7 @@
 /area/maintenance/aft)
 "cPi" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
+	dir = 8;
 	frequency = 1441;
 	input_tag = "tox_in";
 	name = "Toxin Supply Control";
@@ -72984,7 +73107,9 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/machinery/computer/atmos_alert,
+/obj/machinery/computer/atmos_alert{
+	dir = 4
+	},
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
@@ -73033,6 +73158,7 @@
 /area/maintenance/aft)
 "cTd" = (
 /obj/machinery/computer/operating{
+	dir = 1;
 	icon_state = "operatingb";
 	name = "Robotics Operating Computer";
 	stat = 1
@@ -73193,6 +73319,7 @@
 /area/engine/engineering)
 "cTu" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
+	dir = 8;
 	frequency = 1441;
 	input_tag = "waste_in";
 	name = "Gas Mix Tank Control";
@@ -73787,7 +73914,9 @@
 /turf/simulated/wall/r_wall,
 /area/atmos)
 "cUy" = (
-/obj/machinery/computer/atmos_alert,
+/obj/machinery/computer/atmos_alert{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -74021,7 +74150,9 @@
 	},
 /area/toxins/xenobiology)
 "cVh" = (
-/obj/machinery/computer/security/engineering,
+/obj/machinery/computer/security/engineering{
+	dir = 4
+	},
 /obj/machinery/light_switch{
 	pixel_x = -27
 	},
@@ -74062,6 +74193,7 @@
 /area/engine/engineering)
 "cVl" = (
 /obj/machinery/power/solar_control{
+	dir = 4;
 	id = "portsolar";
 	name = "Aft Port Solar Control"
 	},
@@ -74609,6 +74741,7 @@
 	pixel_x = -28
 	},
 /obj/machinery/computer/monitor{
+	dir = 4;
 	name = "Grid Power Monitoring Computer"
 	},
 /obj/structure/cable{
@@ -75042,7 +75175,9 @@
 	},
 /area/toxins/xenobiology)
 "cXw" = (
-/obj/machinery/computer/station_alert,
+/obj/machinery/computer/station_alert{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cXx" = (
@@ -75297,6 +75432,7 @@
 /area/atmos)
 "cYc" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
+	dir = 8;
 	frequency = 1441;
 	input_tag = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
@@ -77466,6 +77602,7 @@
 "ddp" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
 /obj/machinery/computer/turbine_computer{
+	dir = 1;
 	id = "incineratorturbine"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -78263,6 +78400,7 @@
 /area/atmos)
 "deV" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
+	dir = 8;
 	frequency = 1441;
 	input_tag = "co2_in";
 	name = "Carbon Dioxide Supply Control";
@@ -78422,6 +78560,7 @@
 /area/maintenance/storage)
 "dfn" = (
 /obj/machinery/power/solar_control{
+	dir = 1;
 	id = "starboardsolar";
 	name = "Aft Starboard Solar Control"
 	},
@@ -79188,6 +79327,7 @@
 /area/turret_protected/aisat_interior)
 "dhA" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
+	dir = 1;
 	frequency = 1441;
 	input_tag = "n2_in";
 	name = "Nitrogen Supply Control";
@@ -79216,6 +79356,7 @@
 /area/atmos)
 "dhD" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
+	dir = 1;
 	frequency = 1441;
 	input_tag = "o2_in";
 	name = "Oxygen Supply Control";
@@ -79245,6 +79386,7 @@
 /area/atmos)
 "dhG" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
+	dir = 1;
 	frequency = 1443;
 	input_tag = "air_in";
 	name = "Mixed Air Supply Control";
@@ -82699,7 +82841,9 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_4)
 "doN" = (
-/obj/machinery/computer/station_alert,
+/obj/machinery/computer/station_alert{
+	dir = 4
+	},
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -22
@@ -82745,7 +82889,9 @@
 	},
 /area/turret_protected/aisat_interior)
 "dpb" = (
-/obj/machinery/computer/teleporter,
+/obj/machinery/computer/teleporter{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "dpd" = (
@@ -82887,6 +83033,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/computer/monitor{
+	dir = 8;
 	name = "Grid Power Monitoring Computer"
 	},
 /obj/structure/extinguisher_cabinet{
@@ -85436,6 +85583,12 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"sIB" = (
+/obj/machinery/computer/arcade/orion_trail{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/crew_quarters/arcade)
 "sJK" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -85521,6 +85674,16 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"tFl" = (
+/obj/machinery/computer/scan_consolenew{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurplefull"
+	},
+/area/medical/genetics)
 "tPd" = (
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	id_tag = "engineering_east_airlock";
@@ -85773,7 +85936,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/tcommsat/chamber)
 "whv" = (
-/obj/machinery/computer/HolodeckControl,
+/obj/machinery/computer/HolodeckControl{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "wiS" = (
@@ -85791,6 +85956,12 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"woX" = (
+/obj/machinery/computer/arcade/battle{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/crew_quarters/arcade)
 "wEY" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -121528,7 +121699,7 @@ aGP
 aIs
 aJw
 aKK
-aJz
+woX
 aOc
 aPf
 aQv
@@ -121785,7 +121956,7 @@ aGZ
 aIs
 aJz
 aKK
-aJw
+sIB
 aOf
 aPf
 aQv
@@ -128001,7 +128172,7 @@ bVZ
 bXv
 bYk
 bZB
-caX
+tFl
 bWi
 clp
 clp
