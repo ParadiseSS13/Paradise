@@ -5301,10 +5301,6 @@
 	icon_state = "carpetsymbol"
 	},
 /area/awaymission/academy/academyaft)
-"tq" = (
-/obj/structure/sign/picture_frame,
-/turf/simulated/wall,
-/area/awaymission/academy/headmaster)
 "tr" = (
 /obj/item/healthanalyzer/advanced,
 /turf/simulated/floor/plasteel{
@@ -16138,7 +16134,7 @@ In
 aF
 XR
 aF
-tq
+as
 ei
 ei
 kH
@@ -16528,7 +16524,7 @@ nd
 aF
 aF
 FA
-tq
+as
 Kp
 uQ
 Jo
