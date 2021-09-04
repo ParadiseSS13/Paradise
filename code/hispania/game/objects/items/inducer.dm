@@ -421,10 +421,6 @@
 	desc = "This is a special inducer with a higher cell capacity than normal for Cyborgs"
 	icon_state = "borginducer"
 
-/obj/item/inducer/apc/borg/proc/return_cell()
-	if(cell)
-		return cell
-
 /mob/living/silicon/robot/proc/show_inducer_charge() //Proc para Mostrar la Carga del Cell del Inducer
 	for(var/obj/item/inducer/apc/borg/I in module.basic_modules)
 		if(I.cell)
