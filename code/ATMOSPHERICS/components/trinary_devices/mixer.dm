@@ -109,27 +109,44 @@
 		//No need to mix if target is already full!
 		return 1
 
+	/*
+	Pump mode:
+	If mixing ratio is set to 100:0 or 0:100, mixer will act like a gas pump, avoiding unnecessary checks for actual mixing process
+	pump = 0 - pump mode is OFF
+	pump = 1 - pump mode is ON, transfers gas from intake 1 to outlet (node 1 -> node 3)
+	pump = 2 - pump mode is ON, transfers gas from intake 2 to outlet (node 2 -> node 3)
+	*/
+
+	var/pump = 0
+
+	if(!node1_concentration)
+		pump = 2
+
+	if(!node2_concentration)
+		pump = 1
+
 	//Calculate necessary moles to transfer using PV=nRT
 
 	var/pressure_delta = target_pressure - output_starting_pressure
 	var/transfer_moles1 = 0
 	var/transfer_moles2 = 0
 
-	if(air1.temperature > 0)
+	if((air1.temperature > 0) && ((pump == 0) || (pump == 1)))
 		transfer_moles1 = (node1_concentration*pressure_delta)*air3.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
 
-	if(air2.temperature > 0)
+	if((air2.temperature > 0) && ((pump == 0) || (pump == 2)))
 		transfer_moles2 = (node2_concentration*pressure_delta)*air3.volume/(air2.temperature * R_IDEAL_GAS_EQUATION)
 
-	var/air1_moles = air1.total_moles()
-	var/air2_moles = air2.total_moles()
+	if(pump == 0)
+		var/air1_moles = air1.total_moles()
+		var/air2_moles = air2.total_moles()
 
-	if((air1_moles < transfer_moles1) || (air2_moles < transfer_moles2))
-		if(!transfer_moles1 || !transfer_moles2) return
-		var/ratio = min(air1_moles/transfer_moles1, air2_moles/transfer_moles2)
+		if((air1_moles < transfer_moles1) || (air2_moles < transfer_moles2))
+			if(!transfer_moles1 || !transfer_moles2) return
+			var/ratio = min(air1_moles/transfer_moles1, air2_moles/transfer_moles2)
 
-		transfer_moles1 *= ratio
-		transfer_moles2 *= ratio
+			transfer_moles1 *= ratio
+			transfer_moles2 *= ratio
 
 	//Actually transfer the gas
 
