@@ -159,7 +159,7 @@
 			vamp.upgrade_tiers -= type
 			vamp.remove_ability(src)
 		if("gargantua")
-			vamp.add_ability(SUBCLASS_GARGANTUA)
+			vamp.add_subclass(SUBCLASS_GARGANTUA)
 			vamp.upgrade_tiers -= type
 			vamp.remove_ability(src)
 

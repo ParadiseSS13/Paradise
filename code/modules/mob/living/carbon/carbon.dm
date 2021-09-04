@@ -554,12 +554,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			var/obj/O = hit_atom
 			O.take_damage(150, BRUTE)
 			hit_something = TRUE
-			if(isliving(hit_atom))
-				var/mob/living/L = hit_atom
-				L.adjustBruteLoss(60)
-				L.Weaken(3)
-				shake_camera(L, 4, 3)
-				hit_something = TRUE
+		if(isliving(hit_atom))
+			var/mob/living/L = hit_atom
+			L.adjustBruteLoss(60)
+			L.Weaken(3)
+			shake_camera(L, 4, 3)
+			hit_something = TRUE
 		if(isturf(hit_atom))
 			var/turf/T = hit_atom
 			if(iswallturf(T))

@@ -221,7 +221,7 @@
 		if(NO_BLOOD in H.dna.species.species_traits)
 			continue
 
-		if(H.affects_vampire(owner) && !H.stat && H.player_logged)
+		if(H.affects_vampire(owner) && !H.stat)
 			var/drain_amount = rand(10, 20)
 			H.bleed(drain_amount)
 			H.Beam(owner, icon_state = "drainbeam", time = 2 SECONDS)
