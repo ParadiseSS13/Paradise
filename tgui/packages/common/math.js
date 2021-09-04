@@ -82,3 +82,10 @@ export const keyOfMatchingRange = (value, ranges) => {
     }
   }
 };
+
+/** Paradise/pull/16497
+ * Переводит радианы в градусы.
+ */
+export const rad2deg = rad => {
+  return rad * (180 / Math.PI);
+};

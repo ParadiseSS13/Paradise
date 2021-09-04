@@ -136,6 +136,8 @@
 #define SOUTH_OF_TURF(T)	locate(T.x, T.y - 1, T.z)
 #define WEST_OF_TURF(T)		locate(T.x - 1, T.y, T.z)
 
+#define ATOM_COORDS(A) list(A.x, A.y, A.z)
+
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
 

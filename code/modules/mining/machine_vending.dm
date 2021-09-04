@@ -85,6 +85,7 @@
 		EQUIPMENT("Alien Toy", 						/obj/item/clothing/mask/facehugger/toy, 							300),
 		EQUIPMENT("Cigar", 							/obj/item/clothing/mask/cigarette/cigar/havana, 					150),
 		EQUIPMENT("GAR Meson Scanners", 			/obj/item/clothing/glasses/meson/gar, 								500),
+		EQUIPMENT("GPS upgrade", 					/obj/item/gpsupgrade, 												1000),
 		EQUIPMENT("Laser Pointer", 					/obj/item/laser_pointer, 											300),
 		EQUIPMENT("Luxury Shelter Capsule", 		/obj/item/survivalcapsule/luxury, 									3000),
 		EQUIPMENT("Soap", 							/obj/item/soap/nanotrasen, 											200),

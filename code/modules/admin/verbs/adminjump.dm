@@ -10,17 +10,26 @@
 		return
 
 	var/list/turfs = list()
+	var/turf/last
+
 	for(var/turf/T in A)
+		if(!last)
+			last = T
 		if(T.density)
 			continue
 		if(locate(/obj/structure/grille, T)) // Quick check to not spawn in windows
 			continue
+		last = T
 		turfs.Add(T)
 
 	var/turf/T = pick_n_take(turfs)
 	if(!T)
-		to_chat(src, "Nowhere to jump to!")
-		return
+		if(!last)
+			to_chat(src, "Нет клеток для прыжка. Мапер где-то ошибься.")
+			return
+		else if(alert("Место телепортации может быть опасным. Продолжить?",,"Yes","No") != "Yes")
+			return
+		T = last
 
 	if(isobj(usr.loc))
 		var/obj/O = usr.loc
