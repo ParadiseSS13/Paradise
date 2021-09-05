@@ -358,6 +358,7 @@
 	item_state = "alienpistol"
 	origin_tech = "combat=4;magnets=7;powerstorage=3;abductor=3"
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+	can_holster = TRUE
 
 /obj/item/paper/abductor
 	name = "Dissection Guide"
