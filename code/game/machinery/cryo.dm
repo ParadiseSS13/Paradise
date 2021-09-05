@@ -23,6 +23,7 @@
 	var/next_trans = 0
 	var/current_heat_capacity = 50
 	var/efficiency
+	var/conduction_coefficient = 1
 
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
 
@@ -380,11 +381,6 @@
 	if(air_contents.total_moles() < 10)
 		return
 	if(occupant)
-		if(occupant.stat == 2 || (occupant.health >= 100 && !occupant.has_mutated_organs()))  //Why waste energy on dead or healthy people
-			occupant.bodytemperature = T0C
-			return
-		occupant.bodytemperature += 2*(air_contents.temperature - occupant.bodytemperature)*current_heat_capacity/(current_heat_capacity + air_contents.heat_capacity())
-		occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
 		if(occupant.bodytemperature < T0C)
 			occupant.Sleeping(max(5/efficiency, (1/occupant.bodytemperature)*2000/efficiency))
 			occupant.Paralyse(max(5/efficiency, (1/occupant.bodytemperature)*3000/efficiency))
@@ -404,13 +400,21 @@
 		next_trans = 0
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/heat_gas_contents()
-	if(air_contents.total_moles() < 1)
-		return
-	var/air_heat_capacity = air_contents.heat_capacity()
-	var/combined_heat_capacity = current_heat_capacity + air_heat_capacity
-	if(combined_heat_capacity > 0)
-		var/combined_energy = T20C*current_heat_capacity + air_heat_capacity*air_contents.temperature
-		air_contents.temperature = combined_energy/combined_heat_capacity
+	var/cold_protection = 0
+	var/temperature_delta = air_contents.temperature - occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
+
+	if(ishuman(occupant))
+		var/mob/living/carbon/human/H = occupant
+		cold_protection = H.get_cold_protection(air_contents.temperature)
+
+	if(abs(temperature_delta) > 1)
+		var/air_heat_capacity = air_contents.heat_capacity()
+
+		var/heat = (1 - cold_protection) * conduction_coefficient * temperature_delta * \
+			(air_heat_capacity * current_heat_capacity / (air_heat_capacity + current_heat_capacity))
+
+		air_contents.temperature = clamp(air_contents.temperature - heat / air_heat_capacity, TCMB, INFINITY)
+		occupant.adjust_bodytemperature(heat / current_heat_capacity, TCMB)
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!occupant)
