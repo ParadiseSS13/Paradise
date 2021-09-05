@@ -40,7 +40,6 @@
 #define BELOW_OPEN_DOOR_LAYER 2.6
 #define BLASTDOOR_LAYER 2.65
 #define OPEN_DOOR_LAYER 2.7
-#define DOOR_HELPER_LAYER 2.71 //keep this above OPEN_DOOR_LAYER
 #define PROJECTILE_HIT_THRESHHOLD_LAYER 2.75 //projectiles won't hit objects at or below this layer if possible
 #define TABLE_LAYER 2.8
 #define BELOW_OBJ_LAYER 2.9
@@ -51,11 +50,11 @@
 #define CLOSED_FIREDOOR_LAYER 3.11
 #define SHUTTER_LAYER 3.12 // HERE BE DRAGONS
 #define ABOVE_OBJ_LAYER 3.2
-#define ABOVE_DOOR_LAYER 3.3
-#define ABOVE_WINDOW_LAYER 3.4
-#define SIGN_LAYER 3.6
-#define NOT_HIGH_OBJ_LAYER 3.7
-#define HIGH_OBJ_LAYER 3.8
+#define ABOVE_WINDOW_LAYER 3.3
+#define DOOR_HELPER_LAYER 3.31 // Keep this above doors and windoors
+#define SIGN_LAYER 3.4
+#define NOT_HIGH_OBJ_LAYER 3.5
+#define HIGH_OBJ_LAYER 3.6
 
 #define BELOW_MOB_LAYER 3.9
 #define LYING_MOB_LAYER 3.8

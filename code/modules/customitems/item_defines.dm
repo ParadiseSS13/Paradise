@@ -1746,6 +1746,57 @@
 	icon = 'icons/obj/custom_items.dmi'
 
 
+/obj/item/fluff/lighty_plasman_modkit // LightFire53: Ikelos
+	name = "plasmaman suit modkit"
+	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
+	icon_state = "modkit"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/fluff/lighty_plasman_modkit/afterattack(atom/target, mob/user, proximity, params)
+	if(!proximity || !ishuman(user) || user.incapacitated() || !isitem(target))
+		return
+	var/mob/living/carbon/human/H = user
+
+	if(istype(target, /obj/item/clothing/head/helmet/space/plasmaman))
+		if(used & USED_MOD_HELM)
+			to_chat(H, "<span class='warning'>The kit's helmet modifier has already been used!</span>")
+			return
+
+		var/obj/item/clothing/head/helmet/space/plasmaman/P = target
+		used |= USED_MOD_HELM
+		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
+		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
+		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
+		if(P == H.head)
+			H.unEquip(P, TRUE, TRUE)
+			H.equip_to_slot(F, slot_head, TRUE)
+			H.update_inv_head()
+		qdel(P)
+
+	else if(istype(target, /obj/item/clothing/under/plasmaman))
+		if(used & USED_MOD_SUIT)
+			to_chat(user, "<span class='warning'>The kit's suit modifier has already been used!</span>")
+			return
+
+		var/obj/item/clothing/under/plasmaman/P = target
+		used |= USED_MOD_SUIT
+		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
+		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
+		P.icon_state = "ikelos_envirosuit"
+		P.item_color = "ikelos_envirosuit"
+		P.icon = 'icons/obj/custom_items.dmi'
+
+		if(P == H.w_uniform)
+			H.update_inv_w_uniform()
+
+	else
+		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
+/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff // LightFire53: Ikelos
+	icon_state = "ikelos_envirohelm" // New item needed because `initial(icon_state)` is used.
+	icon = 'icons/obj/custom_items.dmi'
+
+
 /obj/item/fluff/decemviri_spacepod_kit //Decemviri: Sylus Cain
 	name = "Spacepod mod kit"
 	desc = "a kit on tools and a blueprint detailing how to reconfigure a spacepod"

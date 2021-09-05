@@ -19,3 +19,9 @@
 	desc = "You can distinguish pieces of garlic floating"
 	icon_state = "vampire_bestfriend"
 	list_reagents = list("vampire_bf" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/hispania/white_wine
+	name = "Corton-Charlemagne Grand Cru"
+	desc = "The only thing you can spot is some kind of symbol in the middle of the bottle."
+	icon_state = "whitewine"
+	list_reagents = list("whitewine" = 100)

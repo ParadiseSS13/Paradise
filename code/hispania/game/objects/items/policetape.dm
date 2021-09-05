@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(tape_roll_applications, list())
 	icon_state = "tape"
 	desc = "A length of police tape.  Do not cross."
 	max_integrity = 10
-	layer = ABOVE_DOOR_LAYER
+	layer = DOOR_HELPER_LAYER
 	anchored = TRUE
 	var/lifted = 0
 	var/crumpled = 0
@@ -227,7 +227,7 @@ GLOBAL_LIST_INIT(tape_roll_applications, list())
 		var/turf/T = get_turf(A)
 		var/obj/structure/taper/P = new tape_type(T)
 		P.update_icon()
-		P.layer = ABOVE_DOOR_LAYER
+		P.layer = DOOR_HELPER_LAYER
 		to_chat(user, "<span class='notice'>You finish placing \the [src].</span>")
 
 	if (istype(A, /turf/simulated/floor))

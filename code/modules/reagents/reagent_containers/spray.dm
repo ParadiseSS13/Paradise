@@ -78,6 +78,8 @@
 		for(var/atom/T in get_turf(D))
 			D.reagents.reaction(T)
 		sleep(3)
+		if(QDELETED(D))
+			return
 	qdel(D)
 
 
