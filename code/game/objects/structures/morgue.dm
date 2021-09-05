@@ -346,41 +346,37 @@
 		return //don't let you cremate something twice or w/e
 
 	if(contents.len <= 0)
-		for(var/mob/M in viewers(src))
-			M.show_message("<span class='warning'>You hear a hollow crackle.</span>", 1)
-			return
+		audible_message("<span class='warning'>You hear a hollow crackle.</span>")
+		return
 
-	else
-		for(var/mob/M in viewers(src))
-			M.show_message("<span class='warning'>You hear a roar as the crematorium activates.</span>", 1)
+	audible_message("<span class='warning'>You hear a roar as the crematorium activates.</span>")
 
-		cremating = 1
-		locked = 1
-		icon_state = "crema_active"
+	cremating = 1
+	locked = 1
+	icon_state = "crema_active"
 
-		for(var/mob/living/M in search_contents_for(/mob/living))
-			if(QDELETED(M))
-				continue
-			if(M.stat!=2)
-				M.emote("scream")
-			if(istype(user))
-				add_attack_logs(user, M, "Cremated")
-			M.death(1)
-			if(QDELETED(M))
-				continue // Re-check for mobs that delete themselves on death
-			M.ghostize()
-			qdel(M)
+	for(var/mob/living/M in search_contents_for(/mob/living))
+		if(QDELETED(M))
+			continue
+		if(M.stat!=2)
+			M.emote("scream")
+		if(istype(user))
+			add_attack_logs(user, M, "Cremated")
+		M.death(1)
+		if(QDELETED(M))
+			continue // Re-check for mobs that delete themselves on death
+		M.ghostize()
+		qdel(M)
 
-		for(var/obj/O in contents) //obj instead of obj/item so that bodybags and ashes get destroyed. We dont want tons and tons of ash piling up
-			qdel(O)
+	for(var/obj/O in contents) //obj instead of obj/item so that bodybags and ashes get destroyed. We dont want tons and tons of ash piling up
+		qdel(O)
 
-		new /obj/effect/decal/cleanable/ash(src)
-		sleep(30)
-		cremating = 0
-		locked = 0
-		update()
-		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-	return
+	new /obj/effect/decal/cleanable/ash(src)
+	sleep(30)
+	cremating = 0
+	locked = 0
+	update()
+	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 
 /obj/structure/crematorium/Destroy()
 	if(!connected)

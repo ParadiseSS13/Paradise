@@ -87,11 +87,11 @@
 /datum/data/pda/utility/scanmode/halogen/scan_mob(mob/living/C as mob, mob/living/user as mob)
 	C.visible_message("<span class='warning'>[user] has analyzed [C]'s radiation levels!</span>")
 
-	user.show_message("<span class='notice'>Analyzing Results for [C]:</span>")
+	to_chat(user, "<span class='notice'>Analyzing Results for [C]:</span>")
 	if(C.radiation)
-		user.show_message("<span class='notice'>Radiation Level: [C.radiation > 0 ? "</span><span class='danger'>[C.radiation]" : "0"]</span>")
+		to_chat(user, "<span class='notice'>Radiation Level: [C.radiation > 0 ? "</span><span class='danger'>[C.radiation]" : "0"]</span>")
 	else
-		user.show_message("<span class='notice'>No radiation detected.</span>")
+		to_chat(user, "<span class='notice'>No radiation detected.</span>")
 
 /datum/data/pda/utility/scanmode/reagent
 	base_name = "Reagent Scanner"

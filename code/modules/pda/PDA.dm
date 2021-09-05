@@ -325,7 +325,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	if(ismob(loc))
 		var/mob/M = loc
-		M.show_message("<span class='danger'>Your [src] explodes!</span>", 1)
+		M.show_message("<span class='danger'>Your [src] explodes!</span>", MSG_VISIBLE)
 
 	if(T)
 		T.hotspot_expose(700,125)
@@ -360,8 +360,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	else
 		S = 'sound/machines/twobeep_high.ogg'
 	playsound(loc, S, 50, 1)
-	for(var/mob/O in hearers(3, loc))
-		O.show_message(text("[bicon(src)] *[ttone]*"))
+	audible_message("[bicon(src)] *[ttone]*", hearing_distance = 3)
 
 /obj/item/pda/proc/set_ringtone()
 	var/t = input("Please enter new ringtone", name, ttone) as text

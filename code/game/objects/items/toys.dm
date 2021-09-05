@@ -86,7 +86,8 @@
 
 /obj/item/toy/balloon/throw_impact(atom/hit_atom)
 	if(reagents.total_volume >= 1)
-		visible_message("<span class='warning'>[src] bursts!</span>","You hear a pop and a splash.")
+		visible_message("<span class='warning'>[src] bursts!</span>",
+			blind_message = "You hear a pop and a splash.")
 		reagents.reaction(get_turf(hit_atom))
 		for(var/atom/A in get_turf(hit_atom))
 			reagents.reaction(A)
@@ -256,7 +257,8 @@
 	..()
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(src.loc)
-	visible_message("<span class='warning'>[src] explodes!</span>","<span class='warning'>You hear a bang!</span>")
+	visible_message("<span class='warning'>[src] explodes!</span>",
+		blind_message = "<span class='warning'>You hear a bang!</span>")
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
@@ -275,7 +277,7 @@
 	do_sparks(n, c, src)
 	new ash_type(loc)
 	visible_message("<span class='warning'>[src] explodes!</span>",
-		"<span class='italics'>You hear a snap!</span>")
+		blind_message = "<span class='italics'>You hear a snap!</span>")
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
@@ -385,7 +387,7 @@
 	cards -= choice
 	H.pickup(user)
 	user.put_in_active_hand(H)
-	visible_message("<span class='notice'>[user] draws a card from the deck.</span>", "<span class='notice'>You draw a card from the deck.</span>")
+	user.visible_message("<span class='notice'>[user] draws a card from the deck.</span>", "<span class='notice'>You draw a card from the deck.</span>")
 	update_icon()
 
 /obj/item/toy/cards/deck/attack_self(mob/user as mob)

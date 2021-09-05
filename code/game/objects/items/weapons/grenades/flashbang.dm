@@ -43,7 +43,7 @@
 	for(var/mob/living/M in hearers(range, T))
 		if(M.stat == DEAD)
 			continue
-		M.show_message("<span class='warning'>BANG</span>", 2)
+		M.show_message("<span class='warning'>BANG</span>", MSG_AUDIBLE)
 
 		var/distance = max(1, get_dist(source_turf, get_turf(M)))
 		var/stun_amount = max(10 / distance, 3)

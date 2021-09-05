@@ -353,7 +353,8 @@
 	return 0
 
 /obj/machinery/kitchen_machine/proc/start()
-	visible_message("<span class='notice'>\The [src] turns on.</span>", "<span class='notice'>You hear \a [src].</span>")
+	visible_message("<span class='notice'>\The [src] turns on.</span>",
+		blind_message = "<span class='notice'>You hear \a [src].</span>")
 	operating = 1
 	icon_state = on_icon
 	updateUsrDialog()

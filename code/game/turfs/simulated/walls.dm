@@ -382,7 +382,8 @@
 		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 120 * I.toolspeed : 60 * I.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
 			dismantle_wall()
-			visible_message("<span class='warning'>[user] slices apart [src]!</span>", "<span class='warning'>You hear metal being sliced apart.</span>")
+			visible_message("<span class='warning'>[user] slices apart [src]!</span>",
+				blind_message = "<span class='warning'>You hear metal being sliced apart.</span>")
 			return TRUE
 
 	return FALSE
@@ -396,7 +397,8 @@
 		if(do_after(user, isdiamond ? 480 * I.toolspeed : 240 * I.toolspeed, target = src)) // Diamond pickaxe has 0.25 toolspeed, so 120/60
 			to_chat(user, "<span class='notice'>Your [I.name] tears though the last of the reinforced plating.</span>")
 			dismantle_wall()
-			visible_message("<span class='warning'>[user] drills through [src]!</span>", "<span class='warning'>You hear the grinding of metal.</span>")
+			visible_message("<span class='warning'>[user] drills through [src]!</span>",
+				blind_message = "<span class='warning'>You hear the grinding of metal.</span>")
 			return TRUE
 
 	else if(istype(I, /obj/item/pickaxe/drill/jackhammer))
@@ -405,7 +407,8 @@
 		if(do_after(user, isdiamond ? 600 * I.toolspeed : 300 * I.toolspeed, target = src)) // Jackhammer has 0.1 toolspeed, so 60/30
 			to_chat(user, "<span class='notice'>Your [I.name] disintegrates the reinforced plating.</span>")
 			dismantle_wall()
-			visible_message("<span class='warning'>[user] disintegrates [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
+			visible_message("<span class='warning'>[user] disintegrates [src]!</span>",
+				blind_message = "<span class='warning'>You hear the grinding of metal.</span>")
 			return TRUE
 
 	return FALSE

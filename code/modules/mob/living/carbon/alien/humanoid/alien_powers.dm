@@ -29,8 +29,7 @@ Doesn't work on other aliens/AI.*/
 
 	if(powerc(50,1))
 		adjustPlasma(-50)
-		for(var/mob/O in viewers(src, null))
-			O.show_message(text("<span class='alertalien'>[src] has planted some alien weeds!</span>"), 1)
+		visible_message("<span class='alertalien'>[src] has planted some alien weeds!</span>")
 		new /obj/structure/alien/weeds/node(loc)
 	return
 
@@ -119,8 +118,7 @@ Doesn't work on other aliens/AI.*/
 
 		if(!choice || !powerc(55))	return
 		adjustPlasma(-55)
-		for(var/mob/O in viewers(src, null))
-			O.show_message(text("<span class='alertalien'>[src] vomits up a thick purple substance and shapes it!</span>"), 1)
+		visible_message("<span class='alertalien'>[src] vomits up a thick purple substance and shapes it!</span>")
 		switch(choice)
 			if("resin wall")
 				new /obj/structure/alien/resin/wall(loc)

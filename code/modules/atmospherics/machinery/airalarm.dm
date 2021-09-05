@@ -331,7 +331,8 @@
 				return
 			if(!regulating_temperature && thermostat_state == TRUE)
 				regulating_temperature = TRUE
-				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
+				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.",
+					blind_message = "You hear a click and a faint electronic hum.")
 
 			if(target_temperature > MAX_TEMPERATURE)
 				target_temperature = MAX_TEMPERATURE
@@ -355,7 +356,8 @@
 
 				if(abs(environment.temperature - target_temperature) <= 0.5)
 					regulating_temperature = FALSE
-					visible_message("[src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
+					visible_message("[src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.",
+						blind_message = "You hear a click as a faint electronic humming stops.")
 
 			environment.merge(gas)
 

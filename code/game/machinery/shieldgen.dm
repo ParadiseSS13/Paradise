@@ -409,8 +409,8 @@
 		active = 2
 	if(active >= 1)
 		if(power == 0)
-			visible_message("<span class='warning'>[name] shuts down due to lack of power!</span>", \
-				"You hear heavy droning fade out")
+			visible_message("<span class='warning'>[name] shuts down due to lack of power!</span>",
+				blind_message = "You hear heavy droning fade out")
 			icon_state = "Shield_Gen"
 			active = 0
 			for(var/dir in list(NORTH, SOUTH, EAST, WEST))

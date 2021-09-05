@@ -29,7 +29,7 @@
 	if(stat == DEAD)
 		return
 	else
-		show_message("<span class='userdanger'>The blob attacks!</span>")
+		to_chat(src, "<span class='userdanger'>The blob attacks!</span>")
 		adjustBruteLoss(10)
 
 /mob/living/carbon/Move(NewLoc, direct)
@@ -57,9 +57,7 @@
 				return
 
 			last_stomach_attack = world.time
-			for(var/mob/M in hearers(4, src))
-				if(M.client)
-					M.show_message(text("<span class='warning'>You hear something rumbling inside [src]'s stomach...</span>"), 2)
+			audible_message("<span class='warning'>You hear something rumbling inside [src]'s stomach...</span>", hearing_distance = 4)
 
 			var/obj/item/I = user.get_active_hand()
 			if(I && I.force)
@@ -77,9 +75,7 @@
 				else
 					take_organ_damage(d)
 
-				for(var/mob/M in viewers(user, null))
-					if(M.client)
-						M.show_message(text("<span class='warning'><B>[user] attacks [src]'s stomach wall with [I]!</span>"), 2)
+				audible_message("<span class='warning'><B>[user] attacks [src]'s stomach wall with [I]!</span>")
 				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 				if(prob(getBruteLoss() - 50))

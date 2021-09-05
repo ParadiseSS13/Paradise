@@ -22,7 +22,7 @@
 /datum/data/pda/messenger_plugin/virus/clown/user_act(mob/user as mob, obj/item/pda/P)
 	. = ..(user, P)
 	if(.)
-		user.show_message("<span class='notice'>Virus sent!</span>", 1)
+		user.show_message("<span class='notice'>Virus sent!</span>", MSG_VISIBLE)
 		P.honkamt = (rand(15,20))
 		P.ttone = "honk"
 
@@ -33,7 +33,7 @@
 /datum/data/pda/messenger_plugin/virus/mime/user_act(mob/user as mob, obj/item/pda/P)
 	. = ..(user, P)
 	if(.)
-		user.show_message("<span class='notice'>Virus sent!</span>", 1)
+		user.show_message("<span class='notice'>Virus sent!</span>", MSG_VISIBLE)
 		P.silent = TRUE
 		P.ttone = "silence"
 
@@ -53,20 +53,20 @@
 			difficulty += 2
 
 		if(!P.detonate || P.hidden_uplink)
-			user.show_message("<span class='warning'>The target PDA does not seem to respond to the detonation command.</span>", 1)
+			user.show_message("<span class='warning'>The target PDA does not seem to respond to the detonation command.</span>", MSG_VISIBLE)
 			pda.cartridge.charges++
 		else if(prob(difficulty * 12))
-			user.show_message("<span class='warning'>An error flashes on your [pda].</span>", 1)
+			user.show_message("<span class='warning'>An error flashes on your [pda].</span>", MSG_VISIBLE)
 		else if(prob(difficulty * 3))
-			user.show_message("<span class='danger'>Energy feeds back into your [pda]!</span>", 1)
+			user.show_message("<span class='danger'>Energy feeds back into your [pda]!</span>", MSG_VISIBLE)
 			pda.close(user)
 			pda.explode()
 			log_admin("[key_name(user)] just attempted to blow up [P] with the Detomatix cartridge but failed, blowing themselves up")
-			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge but failed, blowing themselves up", 1)
+			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge but failed, blowing themselves up", MSG_VISIBLE)
 		else
-			user.show_message("<span class='notice'>Success!</span>", 1)
+			user.show_message("<span class='notice'>Success!</span>", MSG_VISIBLE)
 			log_admin("[key_name(user)] just attempted to blow up [P] with the Detomatix cartridge and succeded")
-			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge and succeded", 1)
+			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge and succeded", MSG_VISIBLE)
 			P.explode()
 
 /datum/data/pda/messenger_plugin/virus/frame

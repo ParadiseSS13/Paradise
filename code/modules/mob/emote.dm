@@ -29,7 +29,7 @@
 					return target
 
 // All mobs should have custom emote, really..
-/mob/proc/custom_emote(m_type=EMOTE_VISUAL, message = null)
+/mob/proc/custom_emote(m_type=MSG_VISIBLE, message = null)
 	if(stat || !use_me && usr == src)
 		if(usr)
 			to_chat(usr, "You are unable to emote.")
@@ -37,9 +37,9 @@
 	var/muzzled = is_muzzled()
 	if(muzzled)
 		var/obj/item/clothing/mask/muzzle/M = wear_mask
-		if(m_type == EMOTE_SOUND && M.mute >= MUZZLE_MUTE_MUFFLE)
+		if(m_type == MSG_AUDIBLE && M.mute >= MUZZLE_MUTE_MUFFLE)
 			return //Not all muzzles block sound
-	if(m_type == EMOTE_SOUND && !can_speak())
+	if(m_type == MSG_AUDIBLE && !can_speak())
 		return
 
 	var/input
@@ -76,7 +76,7 @@
 				M.show_message(message)
 
 		// Type 1 (Visual) emotes are sent to anyone in view of the item
-		if(m_type & EMOTE_VISUAL)
+		if(m_type & MSG_VISIBLE)
 			var/runechat_text = input
 			if(length(input) > 100)
 				runechat_text = "[copytext(input, 1, 101)]..."
@@ -98,7 +98,7 @@
 
 		// Type 2 (Audible) emotes are sent to anyone in hear range
 		// of the *LOCATION* -- this is important for pAIs to be heard
-		else if(m_type & EMOTE_SOUND)
+		else if(m_type & MSG_AUDIBLE)
 			for(var/mob/O in get_mobs_in_view(7,src))
 
 				if(O.status_flags & PASSEMOTES)

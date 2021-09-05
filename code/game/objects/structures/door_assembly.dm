@@ -249,7 +249,7 @@
 			new /obj/item/stack/sheet/glass(get_turf(src))
 		glass = FALSE
 	else if(!anchored)
-		visible_message("<span class='warning'>[user] disassembles [src].</span>", \
+		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
 			"<span class='notice'>You start to disassemble [src]...</span>",\
 			"<span class='warning'>You hear welding.</span>")
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume))

@@ -95,15 +95,15 @@
 		var/obj/item/stock_parts/cell/C = I
 		C.forceMove(src)
 		cell = C
-		visible_message("[user] inserts a cell into [src].",
-						"<span class='notice'>You insert the new cell into [src].</span>")
+		user.visible_message("[user] inserts a cell into [src].",
+			"<span class='notice'>You insert the new cell into [src].</span>")
 		update_controls()
 	else if(istype(I, /obj/item/crowbar) && open && cell)
 		cell.add_fingerprint(usr)
 		cell.forceMove(loc)
 		cell = null
-		visible_message("[user] crowbars out the power cell from [src].",
-						"<span class='notice'>You pry the powercell out of [src].</span>")
+		user.visible_message("[user] crowbars out the power cell from [src].",
+			"<span class='notice'>You pry the powercell out of [src].</span>")
 		update_controls()
 	else if(istype(I, /obj/item/wrench))
 		if(health < maxHealth)

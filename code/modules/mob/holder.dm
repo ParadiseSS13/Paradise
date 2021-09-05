@@ -31,7 +31,7 @@
 
 /obj/item/holder/proc/show_message(message, m_type)
 	for(var/mob/living/M in contents)
-		M.show_message(message,m_type)
+		M.show_message(message, m_type)
 
 /obj/item/holder/emp_act(intensity)
 	for(var/mob/living/M in contents)

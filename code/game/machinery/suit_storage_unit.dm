@@ -515,7 +515,7 @@
 
 	add_fingerprint(user)
 	if(locked)
-		visible_message("<span class='notice'>You see [user] kicking against the doors of [src]!</span>", \
+		user.visible_message("<span class='notice'>You see [user] kicking against the doors of [src]!</span>", \
 			"<span class='notice'>You start kicking against the doors...</span>")
 		addtimer(CALLBACK(src, .proc/resist_open, user), 300)
 	else
@@ -524,7 +524,7 @@
 
 /obj/machinery/suit_storage_unit/proc/resist_open(mob/user)
 	if(!state_open && occupant && (user in src) && !user.stat) // Check they're still here.
-		visible_message("<span class='notice'>You see [user] burst out of [src]!</span>", \
+		user.visible_message("<span class='notice'>You see [user] burst out of [src]!</span>", \
 			"<span class='notice'>You escape the cramped confines of [src]!</span>")
 		open_machine()
 

@@ -59,7 +59,7 @@
 		return TRUE
 	if("toggle_bolts" in href_list)
 		bolts = !bolts
-		visible_message("<span class='notice'>You hear a quiet click as [src][bolts ? " bolts to the floor" : "'s bolts raise"].</span>", "<span class='notice>You hear a quiet click.</span>")
+		user.visible_message("<span class='notice'>You hear a quiet click as [src][bolts ? " bolts to the floor" : "'s bolts raise"].</span>", "<span class='notice>You hear a quiet click.</span>")
 		return TRUE
 
 /obj/machinery/air_sensor/attackby(obj/item/W as obj, mob/user as mob)

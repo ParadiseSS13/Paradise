@@ -23,7 +23,7 @@
 
 /obj/item/picket_sign/attack_self(mob/living/carbon/human/user)
 	if(delayed)
-		user.show_message("<span class='warning'>Your arm is too tired to do that again so soon!</span>")
+		to_chat(user, "<span class='warning'>Your arm is too tired to do that again so soon!</span>")
 		return
 
 	delayed = 1

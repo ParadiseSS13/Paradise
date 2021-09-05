@@ -139,8 +139,7 @@
 		return FALSE
 	pulse(1)
 
-	for(var/mob/O in hearers(1, loc))
-		O.show_message("[bicon(src)] *beep* *beep*", 3, "*beep* *beep*", 2)
+	audible_message("[bicon(src)] *beep* *beep*")
 	return TRUE
 
 /obj/item/assembly/signaler/proc/set_frequency(new_frequency)

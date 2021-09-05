@@ -40,17 +40,17 @@
 	if(!istype(W))
 		return FALSE
 	if(!anchored)
-		user.show_message("<span class='notice'>The loom needs to be wrenched down.</span>", 1)
+		to_chat(user, "<span class='notice'>The loom needs to be wrenched down.</span>")
 		return FALSE
 	if(W.amount < FABRIC_PER_SHEET)
-		user.show_message("<span class='notice'>You need at least [FABRIC_PER_SHEET] units of fabric before using this.</span>", 1)
+		to_chat(user, "<span class='notice'>You need at least [FABRIC_PER_SHEET] units of fabric before using this.</span>")
 		return FALSE
-	user.show_message("<span class='notice'>You start weaving [W] through the loom...</span>", 1)
+	to_chat(user, "<span class='notice'>You start weaving [W] through the loom...</span>")
 	if(do_after(user, W.pull_effort, target = src))
 		if(W.amount >= FABRIC_PER_SHEET)
 			new W.loom_result(drop_location())
 			W.use(FABRIC_PER_SHEET)
-			user.show_message("<span class='notice'>You weave [W] into a workable fabric.</span>", 1)
+			to_chat(user, "<span class='notice'>You weave [W] into a workable fabric.</span>")
 	return TRUE
 
 #undef FABRIC_PER_SHEET

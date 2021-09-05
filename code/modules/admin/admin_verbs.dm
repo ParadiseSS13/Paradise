@@ -624,7 +624,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		if(!message)
 			return
 		for(var/mob/V in hearers(O))
-			V.show_message(admin_pencode_to_html(message), 2)
+			V.show_message(admin_pencode_to_html(message), MSG_AUDIBLE)
 		log_admin("[key_name(usr)] made [O] at [O.x], [O.y], [O.z] make a sound")
 		message_admins("<span class='notice'>[key_name_admin(usr)] made [O] at [O.x], [O.y], [O.z] make a sound</span>")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -652,7 +652,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		if(!msg)
 			return
 		for(var/mob/V in hearers(mob.control_object))
-			V.show_message("<b>[mob.control_object.name]</b> says: \"" + msg + "\"", 2)
+			V.show_message("<b>[mob.control_object.name]</b> says: \"" + msg + "\"", MSG_AUDIBLE)
 		log_admin("[key_name(usr)] used oSay on [mob.control_object]: [msg]")
 		message_admins("[key_name_admin(usr)] used oSay on [mob.control_object]: [msg]")
 

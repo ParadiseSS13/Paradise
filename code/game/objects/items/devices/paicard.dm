@@ -319,9 +319,8 @@
 		current_emotion = emotion
 
 /obj/item/paicard/proc/alertUpdate()
-	var/turf/T = get_turf_or_move(loc)
-	for(var/mob/M in viewers(T))
-		M.show_message("<span class='notice'>[src] flashes a message across its screen, \"Additional personalities available for download.\"</span>", 3, "<span class='notice'>[src] bleeps electronically.</span>", 2)
+	visible_message("<span class='notice'>[src] flashes a message across its screen, \"Additional personalities available for download.\"</span>",
+		blind_message = "<span class='notice'>[src] bleeps electronically.</span>")
 
 /obj/item/paicard/emp_act(severity)
 	for(var/mob/M in src)

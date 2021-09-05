@@ -400,7 +400,7 @@
 	if(!I.use_tool(src, user, 0, amount = 0, volume = I.tool_volume))
 		return
 	welded = !welded
-	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
+	user.visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
 					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
 					"<span class='warning'>You hear welding.</span>")
 	update_icon()
@@ -454,7 +454,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	welded = !welded
-	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
+	user.visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
 					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
 					"<span class='warning'>You hear welding.</span>")
 	update_icon()

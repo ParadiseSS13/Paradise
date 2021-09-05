@@ -1025,7 +1025,7 @@ About the new airlock wires panel:
 				to_chat(user, "<span class='notice'>You begin cutting the panel's shielding...</span>")
 				if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 					return
-				visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
+				user.visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
 					"<span class='notice'>You cut through \the [src]'s shielding.</span>",
 					"<span class='italics'>You hear welding.</span>")
 				security_level = AIRLOCK_SECURITY_NONE
@@ -1034,7 +1034,7 @@ About the new airlock wires panel:
 				to_chat(user, "<span class='notice'>You begin cutting the outer layer of shielding...</span>")
 				if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 					return
-				visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
+				user.visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
 					"<span class='notice'>You cut through \the [src]'s shielding.</span>",
 					"<span class='italics'>You hear welding.</span>")
 				security_level = AIRLOCK_SECURITY_PLASTEEL_O_S

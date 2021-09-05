@@ -610,7 +610,7 @@
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
 			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
-			M.show_message("[message_start_dead] [message_body]", 2)
+			M.show_message("[message_start_dead] [message_body]", MSG_AUDIBLE)
 
 	for(var/mob/living/S in GLOB.alive_mob_list)
 		if(drone_only && !istype(S,/mob/living/silicon/robot/drone))
@@ -620,7 +620,7 @@
 		else if(!S.binarycheck())
 			continue
 
-		S.show_message("[message_start] [message_body]", 2)
+		S.show_message("[message_start] [message_body]", MSG_AUDIBLE)
 
 	var/list/listening = hearers(1, src)
 	listening -= src
@@ -628,7 +628,7 @@
 	for(var/mob/living/M in listening)
 		if(issilicon(M) || M.binarycheck())
 			continue
-		M.show_message("<i><span class='game say'><span class='name'>synthesised voice</span> <span class='message'>beeps, \"beep beep beep\"</span></span></i>",2)
+		M.show_message("<i><span class='game say'><span class='name'>synthesised voice</span> <span class='message'>beeps, \"beep beep beep\"</span></span></i>", MSG_AUDIBLE)
 
 /datum/language/binary/drone
 	name = "Drone Talk"

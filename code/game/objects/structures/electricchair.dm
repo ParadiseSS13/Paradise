@@ -74,7 +74,8 @@
 
 	flick("echair_shock", src)
 	do_sparks(12, 1, src)
-	visible_message("<span class='danger'>The electric chair went off!</span>", "<span class='danger'>You hear a deep sharp shock!</span>")
+	visible_message("<span class='danger'>The electric chair went off!</span>",
+		blind_message = "<span class='danger'>You hear a deep sharp shock!</span>")
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m

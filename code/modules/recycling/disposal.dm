@@ -119,12 +119,10 @@
 	if(istype(G))	// handle grabbed mob
 		if(ismob(G.affecting))
 			var/mob/GM = G.affecting
-			for(var/mob/V in viewers(usr))
-				V.show_message("[usr] starts putting [GM] into the disposal.", 3)
+			visible_message("[usr] starts putting [GM] into the disposal.")
 			if(do_after(usr, 20, target = GM))
 				GM.forceMove(src)
-				for(var/mob/C in viewers(src))
-					C.show_message("<span class='warning'>[GM] has been placed in [src] by [user].</span>", 3)
+				visible_message("<span class='warning'>[GM] has been placed in [src] by [user].</span>")
 				qdel(G)
 				add_attack_logs(usr, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
 		return
@@ -137,11 +135,7 @@
 	if(I)
 		I.forceMove(src)
 
-	to_chat(user, "You place [I] into [src].")
-	for(var/mob/M in viewers(src))
-		if(M == user)
-			continue
-		M.show_message("[user.name] places [I] into [src].", 3)
+	user.visible_message("[user] places [I] into [src].", "You place [I] into [src].")
 
 	update()
 
@@ -193,10 +187,10 @@
 	var/msg
 	for(var/mob/V in viewers(usr))
 		if(target == user && !user.stat && !user.IsWeakened() && !user.stunned && !user.paralysis)
-			V.show_message("[usr] starts climbing into the disposal.", 3)
+			V.show_message("[usr] starts climbing into the disposal.", MSG_VISIBLE)
 		if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.stunned && !user.paralysis)
 			if(target.anchored) return
-			V.show_message("[usr] starts stuffing [target.name] into the disposal.", 3)
+			V.show_message("[usr] starts stuffing [target.name] into the disposal.", MSG_VISIBLE)
 	if(!do_after(usr, 20, target = target))
 		return
 	if(QDELETED(src) || target_loc != target.loc)
@@ -220,7 +214,7 @@
 	for(var/mob/C in viewers(src))
 		if(C == user)
 			continue
-		C.show_message(msg, 3)
+		C.show_message(msg, MSG_VISIBLE)
 
 	update()
 	return
@@ -483,12 +477,10 @@
 			return
 		if(prob(75))
 			I.forceMove(src)
-			for(var/mob/M in viewers(src))
-				M.show_message("\the [I] lands in \the [src].", 3)
+			visible_message("[I] lands in [src].")
 			update()
 		else
-			for(var/mob/M in viewers(src))
-				M.show_message("\the [I] bounces off of \the [src]'s rim!.", 3)
+			visible_message("[I] bounces off of [src]'s rim!.")
 		return 0
 	else
 		return ..(mover, target, height)

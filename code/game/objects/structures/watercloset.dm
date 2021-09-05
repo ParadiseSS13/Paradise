@@ -333,7 +333,9 @@
 		return
 	if(!I.tool_use_check(user, 0))
 		return
-	visible_message("<span class='notice'>[user] begins slicing [src] free...</span>", "<span class='notice'>You begin slicing [src] free...</span>", "<span class='warning'>You hear welding.</span>")
+	user.visible_message("<span class='notice'>[user] begins slicing [src] free...</span>",
+		"<span class='notice'>You begin slicing [src] free...</span>",
+		"<span class='warning'>You hear welding.</span>")
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
 		user.visible_message("<span class='notice'>[user] cuts [src] loose!</span>", "<span class='notice'>You cut [src] loose!</span>")
 		var/obj/item/mounted/shower/S = new /obj/item/mounted/shower(get_turf(user))

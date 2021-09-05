@@ -22,8 +22,7 @@
 		return 0
 	else if(security_lock && locked)
 		if(do_unlock(user))
-			visible_message("<span class='danger'>[user] unlocks [user.p_their()] [src.name].</span>", \
-								"<span class='userdanger'>[user] unlocks [user.p_their()] [src.name].</span>")
+			visible_message("<span class='danger'>[user] unlocks [user.p_their()] [src.name].</span>")
 	..()
 	return 1
 
@@ -64,16 +63,14 @@
 		var/mob/living/carbon/wearer = locate(href_list["locked"])
 		var/success = 0
 		if(ishuman(usr))
-			visible_message("<span class='danger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>", \
-							"<span class='userdanger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>")
+			visible_message("<span class='danger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>")
 			if(do_mob(usr, wearer, POCKET_STRIP_DELAY))
 				if(locked)
 					success = do_unlock(usr)
 				else
 					success = do_lock(usr)
 			if(success)
-				visible_message("<span class='danger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>", \
-									"<span class='userdanger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>")
+				visible_message("<span class='danger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>")
 				if(usr.machine == wearer && in_range(src, usr))
 					wearer.show_inv(usr)
 		else
@@ -177,7 +174,8 @@
 	return FALSE
 
 /obj/item/clothing/mask/muzzle/safety/shock/proc/process_activation(obj/D, normal = 1, special = 1)
-	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
+	visible_message("[bicon(src)] *beep* *beep*",
+		blind_message = "*beep* *beep*")
 	var/mob/M = can_shock(loc)
 	if(M)
 		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")

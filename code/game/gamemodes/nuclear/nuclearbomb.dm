@@ -217,12 +217,12 @@ GLOBAL_VAR(bomb_set)
 	if(!I.tool_use_check(user, 0))
 		return
 	if(removal_stage == NUKE_INTACT)
-		visible_message("<span class='notice'>[user] starts cutting loose the anchoring bolt covers on [src].</span>",\
+		user.visible_message("<span class='notice'>[user] starts cutting loose the anchoring bolt covers on [src].</span>",\
 		"<span class='notice'>You start cutting loose the anchoring bolt covers with [I]...</span>",\
 		"<span class='warning'>You hear welding.</span>")
 		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_INTACT)
 			return
-		visible_message("<span class='notice'>[user] cuts through the bolt covers on [src].</span>",\
+		user.visible_message("<span class='notice'>[user] cuts through the bolt covers on [src].</span>",\
 		"<span class='notice'>You cut through the bolt cover.</span>")
 		removal_stage = NUKE_COVER_OFF
 	if(removal_stage == NUKE_CORE_PANEL_UNWELDED)
@@ -239,12 +239,12 @@ GLOBAL_VAR(bomb_set)
 		user.visible_message("<span class='notice'>[user] finishes unwelding [src]'s inner core plate...</span>", "<span class='notice'>You finish unwelding [src]'s inner core plate...</span>")
 		removal_stage = NUKE_CORE_PANEL_UNWELDED
 	if(removal_stage == NUKE_COVER_OPEN)
-		visible_message("<span class='notice'>[user] starts cutting apart the anchoring system sealant on [src].</span>",\
+		user.visible_message("<span class='notice'>[user] starts cutting apart the anchoring system sealant on [src].</span>",\
 		"<span class='notice'>You start cutting apart the anchoring system's sealant with [I]...</span>",\
 		"<span class='warning'>You hear welding.</span>")
 		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_COVER_OPEN)
 			return
-		visible_message("<span class='notice'>[user] cuts apart the anchoring system sealant on [src].</span>",\
+		user.visible_message("<span class='notice'>[user] cuts apart the anchoring system sealant on [src].</span>",\
 		"<span class='notice'>You cut apart the anchoring system's sealant.</span></span>")
 		removal_stage = NUKE_SEALANT_OPEN
 

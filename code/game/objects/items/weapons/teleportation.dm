@@ -135,10 +135,10 @@ Frequency:
 	if(!t1 || (!user.is_in_active_hand(src) || user.stat || user.restrained()))
 		return
 	if(active_portals >= 3)
-		user.show_message("<span class='notice'>\The [src] is recharging!</span>")
+		to_chat(user, "<span class='notice'>[src] is recharging!</span>")
 		return
 	var/T = L[t1]
-	user.show_message("<span class='notice'>Locked In.</span>", 2)
+	to_chat(user, "<span class='notice'>Locked In.</span>")
 	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(src), T, src)
 	try_move_adjacent(P)
 	active_portals++
@@ -146,4 +146,4 @@ Frequency:
 	return
 
 /obj/item/hand_tele/portal_destroyed(obj/effect/portal/P)
-    active_portals--
+	active_portals--

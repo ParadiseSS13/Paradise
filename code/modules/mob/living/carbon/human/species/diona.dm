@@ -127,7 +127,7 @@
 					domutcheck(H)
 			else
 				H.adjustFireLoss(rand(5, 15))
-				H.show_message("<span class='warning'>The radiation beam singes you!</span>")
+				to_chat(H, "<span class='warning'>The radiation beam singes you!</span>")
 		if(/obj/item/projectile/energy/florayield)
 			H.set_nutrition(min(H.nutrition + 30, NUTRITION_LEVEL_FULL))
 	return TRUE

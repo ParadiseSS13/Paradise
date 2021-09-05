@@ -431,7 +431,7 @@
 
 /obj/structure/table/glass/proc/table_shatter(mob/living/L)
 	visible_message("<span class='warning'>[src] breaks!</span>",
-		"<span class='danger'>You hear breaking glass.</span>")
+		blind_message = "<span class='danger'>You hear breaking glass.</span>")
 	var/turf/T = get_turf(src)
 	playsound(T, "shatter", 50, 1)
 	for(var/I in debris)

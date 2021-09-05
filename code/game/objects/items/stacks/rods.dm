@@ -67,7 +67,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	if(new_item.get_amount() <= 0)
 		// stack was moved into another one on the pile
 		new_item = locate() in user.loc
-	visible_message("<span class='notice'>[user.name] shapes [src] into metal with [I]!</span>", \
+	user.visible_message("<span class='notice'>[user.name] shapes [src] into metal with [I]!</span>", \
 				 	"<span class='notice'>You shape [src] into metal with [I]!</span>", \
 					"<span class='warning'>You hear welding.</span>")
 	var/replace = user.is_in_inactive_hand(src)

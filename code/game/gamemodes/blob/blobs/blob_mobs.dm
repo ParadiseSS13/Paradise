@@ -226,4 +226,4 @@
 	if(message)
 		for(var/mob/M in GLOB.mob_list)
 			if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
-				M.show_message(rendered, 2)
+				M.show_message(rendered, MSG_AUDIBLE)

@@ -53,7 +53,8 @@
 		return FALSE
 	cooldown = 2
 	pulse(FALSE)
-	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
+	visible_message("[bicon(src)] *beep* *beep*",
+		blind_message = "*beep* *beep*")
 	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
 
 /obj/item/assembly/prox_sensor/process()
@@ -97,7 +98,7 @@
 
 /obj/item/assembly/prox_sensor/interact(mob/user)//TODO: Change this to the wires thingy
 	if(!secured)
-		user.show_message("<span class='warning'>[src] is unsecured!</span>")
+		to_chat(user, "<span class='warning'>[src] is unsecured!</span>")
 		return FALSE
 	var/second = time % 60
 	var/minute = (time - second) / 60

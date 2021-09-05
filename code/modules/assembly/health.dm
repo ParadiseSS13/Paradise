@@ -34,10 +34,10 @@
 		return
 	if(alarm_health == 0)
 		alarm_health = -90
-		user.show_message("You toggle [src] to \"detect death\" mode.")
+		to_chat(user, "<span class='notice'>You toggle [src] to \"detect death\" mode.</span>")
 	else
 		alarm_health = 0
-		user.show_message("You toggle [src] to \"detect critical state\" mode.")
+		to_chat(user, "<span class='notice'>You toggle [src] to \"detect critical state\" mode.</span>")
 
 /obj/item/assembly/health/process()
 	if(!scanning || !secured)
@@ -72,7 +72,7 @@
 
 /obj/item/assembly/health/interact(mob/user)//TODO: Change this to the wires thingy
 	if(!secured)
-		user.show_message("<span class='warning'>[src] is unsecured!</span>")
+		to_chat(user, "<span class='warning'>[src] is unsecured!</span>")
 		return FALSE
 	var/dat = text("<TT><B>Health Sensor</B> <A href='?src=[UID()];scanning=1'>[scanning?"On":"Off"]</A>")
 	if(scanning && health_scan)

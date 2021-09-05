@@ -68,8 +68,8 @@
 		if(istype(W, /obj/item/wirecutters))
 			var/obj/item/wirecutters/WC = W
 			new /obj/item/stack/sheet/cardboard(src.loc, amt)
-			for(var/mob/M in viewers(src))
-				M.show_message("<span class='notice'>\The [src] has been cut apart by [user] with \the [WC].</span>", 3, "You hear cutting.", 2)
+			visible_message("<span class='notice'>[src] has been cut apart by [user] with [WC].</span>",
+				blind_message = "You hear cutting.")
 			qdel(src)
 			return
 		if(istype(W, /obj/item/pen))

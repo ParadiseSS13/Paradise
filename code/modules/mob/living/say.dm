@@ -471,7 +471,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(watching.len)
 		var/rendered = "<span class='game say'><span class='name'>[name]</span> [not_heard].</span>"
 		for(var/mob/M in watching)
-			M.show_message(rendered, 2)
+			M.show_message(rendered, MSG_AUDIBLE)
 
 	return 1
 

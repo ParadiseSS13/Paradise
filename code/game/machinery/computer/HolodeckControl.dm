@@ -211,9 +211,7 @@
 			if(target)
 				loadProgram(target)
 			active = 0
-			for(var/mob/M in range(10,src))
-				M.show_message("The holodeck overloads!")
-
+			visible_message("<span class='danger'>The holodeck overloads!</span>", vision_distance = 10)
 
 			for(var/turf/T in linkedholodeck)
 				if(prob(30))
@@ -274,10 +272,9 @@
 	if(world.time < (last_change + 25))
 		if(world.time < (last_change + 15))//To prevent super-spam clicking, reduced process size and annoyance -Sieve
 			return
-		for(var/mob/M in range(3,src))
-			M.show_message("<b>ERROR. Recalibrating projection apparatus.</b>")
-			last_change = world.time
-			return
+		atom_say("ERROR: Recalibrating projection apparatus.")
+		last_change = world.time
+		return
 
 	last_change = world.time
 	active = 1

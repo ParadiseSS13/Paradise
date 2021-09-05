@@ -561,9 +561,9 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	b_stat = !b_stat
 	if(!istype(src, /obj/item/radio/beacon))
 		if(b_stat)
-			user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
+			to_chat(user, "<span class='notice'>The radio can now be attached and modified!</span>")
 		else
-			user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
+			to_chat(user, "<span class='notice'>The radio can no longer be modified or attached!</span>")
 		updateDialog()
 
 /obj/item/radio/wirecutter_act(mob/user, obj/item/I)

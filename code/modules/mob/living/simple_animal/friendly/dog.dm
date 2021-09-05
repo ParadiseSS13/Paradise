@@ -557,7 +557,7 @@
 		if(isturf(movement_target.loc))
 			movement_target.attack_animal(src) // Eat the thing
 		else if(prob(30) && ishuman(movement_target.loc)) // mean hooman has stolen it
-			custom_emote(EMOTE_VISUAL, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face.")
+			custom_emote(MSG_VISIBLE, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face.")
 
 /obj/item/reagent_containers/food/snacks/meat/corgi
 	name = "Corgi meat"

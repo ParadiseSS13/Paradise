@@ -70,77 +70,101 @@
 	t+= "<span class='notice'>N2O: [environment.sleeping_agent] \n</span>"
 	t+= "<span class='notice'>Agent B: [environment.agent_b] \n</span>"
 
-	usr.show_message(t, 1)
+	to_chat(usr, t)
 
-/mob/proc/show_message(msg, type, alt, alt_type)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
 
-	if(!client)	return
+/// Show a message to this mob (MSG_VISIBLE or MSG_AUDIBLE)
+/mob/proc/show_message(msg, type, alt_msg, alt_type)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
+	if(!client)
+		return
 
 	if(type)
-		if(type & 1 && !has_vision(information_only=TRUE))//Vision related
-			if(!( alt ))
+		if((type & MSG_VISIBLE) && !has_vision(TRUE))//Vision related
+			if(!alt_msg)
 				return
-			else
-				msg = alt
-				type = alt_type
-		if(type & 2 && !can_hear())//Hearing related
-			if(!( alt ))
+			msg = alt_msg
+			type = alt_type
+
+		if((type & MSG_AUDIBLE) && !can_hear())//Hearing related
+			if(!alt_msg)
 				return
-			else
-				msg = alt
-				type = alt_type
-				if(type & 1 && !has_vision(information_only=TRUE))
-					return
+			msg = alt_msg
+			type = alt_type
+			if((type & MSG_VISIBLE) && !has_vision(TRUE))
+				return
+
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != DEAD))
-		to_chat(src, "<I>... You can almost hear someone talking ...</I>")
-	else
-		to_chat(src, msg)
-	return
+		if(type & MSG_AUDIBLE) // Audible
+			to_chat(src, "<I>... You can almost hear something ...</I>")
+		else // Visible
+			to_chat(src, "<I>... You can almost see something ...</I>")
+		return
 
-// Show a message to all mobs in sight of this one
-// This would be for visible actions by the src mob
-// message is the message output to anyone who can see e.g. "[src] does something!"
-// self_message (optional) is what the src mob sees  e.g. "You do something!"
-// blind_message (optional) is what blind people will hear e.g. "You hear something!"
+	to_chat(src, msg)
 
-/mob/visible_message(message, self_message, blind_message)
-	for(var/mob/M in get_mobs_in_view(7, src))
-		if(M.see_invisible < invisibility)
-			continue //can't view the invisible
-		var/msg = message
-		if(self_message && M == src)
-			msg = self_message
-		M.show_message(msg, 1, blind_message, 2)
+/**
+  * Generate a visible message from this atom.
+  *
+  * Shows a message to all player mobs who can see this atom.
+  * Use for atoms performing visible actions.
+  *
+  * Arguments:
+  * * message - The message output to anyone who can see.
+  * * self_message - The message that `src` will see instead of [message]. If null then [message] will be shown. (Optional)
+  * * blind_message - The message blind people will see instead of [message]. If null then nothing will be shown. (Optional)
+  * * vision_distance - How many tiles away can the message be seen. (Optional)
+  * * ignored_mobs - Any mobs in this list will not recieve the message, even if they're in range. (Optional)
+  */
+/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs)
+	var/list/targets = get_mobs_in_view(vision_distance, src)
 
-// Show a message to all mobs in sight of this atom
-// Use for objects performing visible actions
-// message is output to anyone who can see, e.g. "The [src] does something!"
-// blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/atom/proc/visible_message(message, blind_message)
-	for(var/mob/M in get_mobs_in_view(7, src))
+	if(ignored_mobs)
+		if(!islist(ignored_mobs))
+			ignored_mobs = list(ignored_mobs)
+		targets -= ignored_mobs
+
+	if(self_message)
+		targets -= src
+
+	for(var/mob/M in targets)
+		if(!M.client || (M.see_invisible < invisibility)) //can't view the invisible
+			continue
+		M.show_message(message, MSG_VISIBLE, blind_message, MSG_AUDIBLE)
+
+
+/mob/visible_message(message, self_message, blind_message, vision_distance, list/ignored_mobs)
+	. = ..(message, blind_message, vision_distance, ignored_mobs)
+	if(self_message)
+		show_message(self_message, MSG_VISIBLE, blind_message, MSG_AUDIBLE)
+
+
+/**
+  * Show a message to all mobs in earshot of this atom.
+  *
+  * Shows a message to all player mobs who are within [hearing_distance] of this atom.
+  * Use for objects performing audible actions.
+  *
+  * Arguments:
+  * * message - The message output to anyone who can hear.
+  * * deaf_message - The message deaf people will see instead of [message]. If null then nothing will be shown. (Optional)
+  * * hearing_distance - How many tiles away can the message be heard. (Optional)
+  */
+/atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE)
+	for(var/mob/M in get_mobs_in_view(hearing_distance, src))
+		M.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISIBLE)
+
+/mob/audible_message(message, deaf_message, hearing_distance)
+	var/msg = message
+	for(var/mob/M in get_mobs_in_view(hearing_distance, src))
 		if(!M.client)
 			continue
-		M.show_message(message, 1, blind_message, 2)
-
-// Show a message to all mobs in earshot of this one
-// This would be for audible actions by the src mob
-// message is the message output to anyone who can hear.
-// self_message (optional) is what the src mob hears.
-// deaf_message (optional) is what deaf people will see.
-// hearing_distance (optional) is the range, how many tiles away the message can be heard.
-/mob/audible_message(message, deaf_message, hearing_distance)
-	var/range = 7
-	if(hearing_distance)
-		range = hearing_distance
-	var/msg = message
-	for(var/mob/M in get_mobs_in_view(range, src))
-		M.show_message(msg, 2, deaf_message, 1)
+		M.show_message(msg, MSG_AUDIBLE, deaf_message, MSG_VISIBLE)
 
 	// based on say code
 	var/omsg = replacetext(message, "<B>[src]</B> ", "")
 	var/list/listening_obj = new
-	for(var/atom/movable/A in view(range, src))
+	for(var/atom/movable/A in view(hearing_distance, src))
 		if(istype(A, /mob))
 			var/mob/M = A
 			for(var/obj/O in M.contents)
@@ -151,17 +175,6 @@
 	for(var/obj/O in listening_obj)
 		O.hear_message(src, omsg)
 
-// Show a message to all mobs in earshot of this atom
-// Use for objects performing audible actions
-// message is the message output to anyone who can hear.
-// deaf_message (optional) is what deaf people will see.
-// hearing_distance (optional) is the range, how many tiles away the message can be heard.
-/atom/proc/audible_message(message, deaf_message, hearing_distance)
-	var/range = 7
-	if(hearing_distance)
-		range = hearing_distance
-	for(var/mob/M in get_mobs_in_view(range, src))
-		M.show_message(message, 2, deaf_message, 1)
 
 /mob/proc/findname(msg)
 	for(var/mob/M in GLOB.mob_list)

@@ -1006,12 +1006,14 @@
 			user.adjust_nutrition(weedlevel * 15)
 			adjustWeeds(-10)
 			update_icon()
-			visible_message("<span class='danger'>[user] begins rooting through [src], ripping out weeds and eating them noisily.</span>","<span class='danger'>You begin rooting through [src], ripping out weeds and eating them noisily.</span>")
+			user.visible_message("<span class='danger'>[user] begins rooting through [src], ripping out weeds and eating them noisily.</span>",
+				"<span class='danger'>You begin rooting through [src], ripping out weeds and eating them noisily.</span>")
 		else if(nutrilevel < 10)
 			user.adjust_nutrition(-((10 - nutrilevel) * 5))
 			adjustNutri(10)
 			update_icon()
-			visible_message("<span class='danger'>[user] secretes a trickle of green liquid from its tail, refilling [src]'s nutrient tray.</span>","<span class='danger'>You secrete a trickle of green liquid from your tail, refilling [src]'s nutrient tray.</span>")
+			user.visible_message("<span class='danger'>[user] secretes a trickle of green liquid from its tail, refilling [src]'s nutrient tray.</span>",
+				"<span class='danger'>You secrete a trickle of green liquid from your tail, refilling [src]'s nutrient tray.</span>")
 	else
 		return ..()
 

@@ -1064,8 +1064,8 @@
 				smoke.attach(src)
 				smoke.start()
 				do_sparks(3, 1, src)
-				for(var/mob/M in viewers(src))
-					M.show_message("<span class='danger'>[src] suddenly lets out a blast of smoke and some sparks!", 3, "<span class='danger'>You hear sizzling electronics.</span>", 2)
+				visible_message("<span class='danger'>[src] suddenly lets out a blast of smoke and some sparks!",
+					blind_message = "<span class='danger'>You hear sizzling electronics.</span>")
 
 
 /obj/machinery/power/apc/surplus()
