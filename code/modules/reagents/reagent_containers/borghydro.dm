@@ -16,14 +16,14 @@
 	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
 
 	var/list/datum/reagents/reagent_list = list()
-	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone")
-	//var/list/reagent_ids = list("salbutamol", "silver_sulfadiazine", "styptic_powder", "charcoal", "epinephrine", "spaceacillin", "hydrocodone")
-
-/obj/item/reagent_containers/borghypo/surgeon
-	reagent_ids = list("styptic_powder", "epinephrine", "salbutamol")
-
-/obj/item/reagent_containers/borghypo/crisis
-	reagent_ids = list("salglu_solution", "epinephrine", "sal_acid")
+	var/list/reagent_ids = list( \
+		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
+		"mannitol" = list('icons/obj/species_organs/grey.dmi', "brain2"), \
+		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"), \
+		"spaceacillin" = list('icons/effects/effects.dmi', "greenglow"), \
+		"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"), \
+		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
+	
 
 /obj/item/reagent_containers/borghypo/syndicate
 	name = "syndicate cyborg hypospray"
@@ -31,8 +31,26 @@
 	icon_state = "borghypo_s"
 	charge_cost = 20
 	recharge_time = 2
-	reagent_ids = list("syndicate_nanites", "potass_iodide", "hydrocodone")
+	reagent_ids = list( \
+		"syndicate_nanites" = list('icons/mob/swarmer.dmi', "swarmer_ranged"), \
+		"potass_iodide" = list('icons/obj/decals.dmi', "radiation"), \
+		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
 	bypass_protection = 1
+
+/obj/item/reagent_containers/borghypo/upgraded
+	name = "upgraded cyborg hypospray"
+	desc = "An upgraded advanced chemical synthesizer and injection system, designed for heavy-duty medical equipment."
+	reagent_ids = list( \
+		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
+		"mannitol" = list('icons/obj/species_organs/grey.dmi', "brain2"), \
+		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"), \
+		"spaceacillin" = list('icons/effects/effects.dmi', "greenglow"), \
+		"pen_acid" = list('icons/mob/screen_corgi.dmi', "tox1"), \
+		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"), \
+		"perfluorodecalin" = list('icons/obj/surgery.dmi', "lungs"), \
+		"calomel" = list('icons/obj/items.dmi', "soap"), \
+		"oculine" = list('icons/obj/surgery.dmi', "eyes"))
+
 
 /obj/item/reagent_containers/borghypo/New()
 	..()
@@ -100,15 +118,21 @@
 			to_chat(user, "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>")
 
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
-	playsound(loc, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
-	mode++
-	if(mode > reagent_list.len)
-		mode = 1
+	radial_menu(user)
 
-	charge_tick = 0 //Prevents wasted chems/cell charge if you're cycling through modes.
+/obj/item/reagent_containers/borghypo/proc/radial_menu(mob/user)
+	var/list/choices = list()
+	for(var/i in 1 to length(reagent_ids))
+		choices[GLOB.chemical_reagents_list[reagent_ids[i]]] = image(icon = reagent_ids[reagent_ids[i]][1], icon_state = reagent_ids[reagent_ids[i]][2])
+	var/choice = show_radial_menu(user, src, choices)
+	if(!choice)
+		return 0
+	playsound(loc, 'sound/effects/pop.ogg', 50, 0)
+	mode = choices.Find(choice)
+
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]
+	amount_per_transfer_from_this  = (reagent_ids[mode] == "perfluorodecalin") ? 3 : 5
 	to_chat(user, "<span class='notice'>Synthesizer is now producing '[R.name]'.</span>")
-	return
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
 	. = ..()
@@ -127,6 +151,8 @@
 /obj/item/reagent_containers/borghypo/basic
 	name = "Basic Medical Hypospray"
 	desc = "A very basic medical hypospray, capable of providing simple medical treatment in emergencies."
-	reagent_ids = list("salglu_solution", "epinephrine")
+	reagent_ids = list( \
+		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
+		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"))
 
 #undef BORGHYPO_REFILL_VALUE

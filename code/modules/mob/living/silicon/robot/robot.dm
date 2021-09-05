@@ -112,6 +112,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/module_actions = list()
 
 	var/see_reagents = FALSE // Determines if the cyborg can see reagents
+	var/increased_storage = FALSE
 
 /mob/living/silicon/robot/get_cell()
 	return cell
@@ -479,6 +480,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_headlamp()
 
 	speed = 0 // Remove upgrades.
+	increased_storage = FALSE // Remove storage upgrade
 	ionpulse = FALSE
 	magpulse = FALSE
 	add_language("Robot Talk", 1)
