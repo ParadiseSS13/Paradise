@@ -340,13 +340,33 @@
 			anchored = !anchored
 			WRENCH_ANCHOR_MESSAGE
 			playsound(src.loc,W.usesound, 75, 1)
-			consume_wrench(W)
+			if(isrobot(user))
+				var/mob/living/silicon/robot/U = user
+				var/datum/robot_component/A = U.get_armour()
+				if(A)
+					audible_message("<span class='warning'>[U] sounds an alarm! \"CRITICAL ERROR: Armour plate was broken.\"</span>")
+					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
+					A.destroy()
+				else
+					Consume(U)
+			else
+				consume_wrench(W)
 			user.visible_message("<span class='danger'>As [user] tighten bolts of \the [src] with \a [W] the tool disappears</span>")
 		else if (anchored)
 			anchored = !anchored
 			WRENCH_UNANCHOR_MESSAGE
 			playsound(src.loc,W.usesound, 75, 1)
-			consume_wrench(W)
+			if(isrobot(user))
+				var/mob/living/silicon/robot/U = user
+				var/datum/robot_component/A = U.get_armour()
+				if(A)
+					audible_message("<span class='warning'>[U] sounds an alarm! \"CRITICAL ERROR: Armour plate was broken.\"</span>")
+					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
+					A.destroy()
+				else
+					Consume(U)
+			else
+				consume_wrench(W)
 			user.visible_message("<span class='danger'>As [user] loosen bolts of \the [src] with \a [W] the tool disappears</span>")
 	else if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
 		return
@@ -379,7 +399,7 @@
 /obj/machinery/power/supermatter_shard/proc/Consume(atom/movable/AM)
 	if(istype(AM, /mob/living))
 		var/mob/living/user = AM
-		user.dust()
+		user.gib()
 		power += 200
 		message_admins("[src] has consumed [key_name_admin(user)] <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
 		investigate_log("has consumed [key_name(user)].", "supermatter")
