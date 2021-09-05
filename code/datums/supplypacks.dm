@@ -498,9 +498,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,)
+					/obj/item/ammo_box/magazine/wt550m9)
 	cost = 30
 	containername = "auto rifle ammo crate"
+
+/datum/supply_packs/security/armory/wt550ammobox
+	name = "WT-550 Rifle Ammobox Crate"
+	contains = list(/obj/item/ammo_box/c46x30mm,
+					/obj/item/ammo_box/c46x30mm,
+					/obj/item/ammo_box/c46x30mm,
+					/obj/item/ammo_box/c46x30mm)
+	cost = 60
+	containername = "auto rifle ammobox crate"
 
 /////// Implants & etc
 

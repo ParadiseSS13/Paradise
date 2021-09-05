@@ -51,6 +51,30 @@
 	ammo_type = /obj/item/ammo_casing/rubber45
 	max_ammo = 16
 
+/obj/item/ammo_box/c46x30mm
+	name = "ammo box (4.6x30mm)"
+	icon_state = "4630mmbox"
+	ammo_type = /obj/item/ammo_casing/c46x30mm
+	max_ammo = 40
+
+/obj/item/ammo_box/ap46x30mm
+	name = "ammo box (Armour Piercing 4.6x30mm)"
+	icon_state = "4630mmbox"
+	ammo_type = /obj/item/ammo_casing/c46x30mm/ap
+	max_ammo = 40
+
+/obj/item/ammo_box/tox46x30mm
+	name = "ammo box (Toxin Tipped 4.6x30mm)"
+	icon_state = "4630mmbox"
+	ammo_type = /obj/item/ammo_casing/c46x30mm/tox
+	max_ammo = 40
+
+/obj/item/ammo_box/inc46x30mm
+	name = "ammo box (Incendiary 4.6x30mm)"
+	icon_state = "4630mmbox"
+	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
+	max_ammo = 40
+
 /obj/item/ammo_box/a40mm
 	name = "ammo box (40mm grenades)"
 	icon_state = "40mm"

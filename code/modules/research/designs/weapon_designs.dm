@@ -164,6 +164,36 @@
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_URANIUM = 2000)
 	build_path = /obj/item/ammo_box/magazine/wt550m9/wttx
 
+/datum/design/box_oldsmg
+	name = "WT-550 Auto Gun Ammo box (4.6x30mm)"
+	desc = "A 40 round ammo box for the out of date security WT-550 Auto Rifle"
+	id = "box_oldsmg"
+	req_tech = list("combat" = 2, "materials" = 1)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 8000)
+	build_path = /obj/item/ammo_box/c46x30mm
+	category = list("Weapons")
+/datum/design/box_oldsmg/ap_box
+	name = "WT-550 Auto Gun Armour Piercing Ammo box (4.6x30mm AP)"
+	desc = "A 40 round armour piercing ammo box for the out of date security WT-550 Auto Rifle"
+	id = "box_oldsmg_ap"
+	materials = list(MAT_METAL = 12000, MAT_SILVER = 1200)
+	build_path = /obj/item/ammo_box/ap46x30mm
+
+/datum/design/box_oldsmg/ic_box
+	name = "WT-550 Auto Gun Incendiary Ammo box (4.6x30mm IC)"
+	desc = "A 40 round armour piercing ammo box for the out of date security WT-550 Auto Rifle"
+	id = "box_oldsmg_ic"
+	materials = list(MAT_METAL = 12000, MAT_SILVER = 1200, MAT_GLASS = 2000)
+	build_path = /obj/item/ammo_box/inc46x30mm
+
+/datum/design/box_oldsmg/tx_box
+	name = "WT-550 Auto Gun Uranium Ammo box (4.6x30mm TX)"
+	desc = "A 20 round uranium tipped ammo box for the out of date security WT-550 Auto Rifle"
+	id = "box_oldsmg_tx"
+	materials = list(MAT_METAL = 12000, MAT_SILVER = 1200, MAT_URANIUM = 4000)
+	build_path = /obj/item/ammo_box/tox46x30mm
+
 /datum/design/rapidsyringe
 	name = "Rapid Syringe Gun"
 	desc = "A gun that fires many syringes."
