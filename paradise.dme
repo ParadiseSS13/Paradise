@@ -1267,6 +1267,7 @@
 #include "code\hispania\game\objects\structures\stool_bed_chair_nest\bed.dm"
 #include "code\hispania\game\objects\structures\stool_bed_chair_nest\wheelchair.dm"
 #include "code\hispania\game\turf\hispania_floor.dm"
+#include "code\hispania\game\turf\walls_coated.dm"
 #include "code\hispania\modules\assembly\assembly.dm"
 #include "code\hispania\modules\awaymissions\corpse.dm"
 #include "code\hispania\modules\client\preference\preferences.dm"
