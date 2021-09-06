@@ -218,9 +218,13 @@
 
 /obj/effect/proc_holder/spell/vampire/mob_aoe/glare/cast(list/targets, mob/user = usr)
 	user.visible_message("<span class='warning'>[user]'s eyes emit a blinding flash!</span>")
-	if(istype(user:glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
-		to_chat(user, "<span class='warning'>You're blindfolded!</span>")
-		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
+			var/obj/item/clothing/glasses/sunglasses/blindfold/B = H.glasses
+			if(B.tint)
+				to_chat(user, "<span class='warning'>You're blindfolded!</span>")
+				return
 	for(var/mob/living/target in targets)
 		if(!affects(target))
 			continue
@@ -453,8 +457,7 @@
 		flick("mist_reappear", animation)
 		sleep(5)
 		if(!user.Move(mobloc))
-			for(var/direction in list(1,2,4,8,5,6,9,10))
-				var/turf/T = get_step(mobloc, direction)
+			for(var/turf/T in orange(7, mobloc))
 				if(T)
 					if(user.Move(T))
 						break

@@ -22,7 +22,7 @@
 	visor_flags_inv = HIDEEYES|HIDEFACE
 	icon = 'icons/obj/clothing/species/plasmaman/hats.dmi'
 	species_restricted = list("Plasmaman")
-	sprite_sheets = list("Plasmaman" = 'icons/mob/species/plasmaman/helmet.dmi')
+	sprite_sheets = list("Plasmaman" = 'icons/mob/clothing/species/plasmaman/helmet.dmi')
 
 /obj/item/clothing/head/helmet/space/plasmaman/New()
 	..()

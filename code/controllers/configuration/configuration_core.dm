@@ -32,7 +32,9 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/logging_configuration/logging
 	/// Holder for the MC configuration datum
 	var/datum/configuration_section/mc_configuration/mc
-	/// Holder for the MC configuration datum
+	/// Holder for the metrics configuration datum
+	var/datum/configuration_section/metrics_configuration/metrics
+	/// Holder for the movement configuration datum
 	var/datum/configuration_section/movement_configuration/movement
 	/// Holder for the overflow configuration datum
 	var/datum/configuration_section/overflow_configuration/overflow
@@ -71,6 +73,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	jobs = new()
 	logging = new()
 	mc = new()
+	metrics = new()
 	movement = new()
 	overflow = new()
 	ruins = new()
@@ -99,6 +102,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	jobs.load_data(raw_config_data["job_configuration"])
 	logging.load_data(raw_config_data["logging_configuration"])
 	mc.load_data(raw_config_data["mc_configuration"])
+	metrics.load_data(raw_config_data["metrics_configuration"])
 	movement.load_data(raw_config_data["movement_configuration"])
 	overflow.load_data(raw_config_data["overflow_configuration"])
 	ruins.load_data(raw_config_data["ruin_configuration"])

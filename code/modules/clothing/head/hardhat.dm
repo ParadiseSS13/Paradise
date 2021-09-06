@@ -13,7 +13,7 @@
 	resistance_flags = FIRE_PROOF
 	dog_fashion = /datum/dog_fashion/head/hardhat
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 /obj/item/clothing/head/hardhat/attack_self(mob/living/user)
@@ -66,6 +66,7 @@
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
+	dog_fashion = /datum/dog_fashion/head/hardhat/red
 
 /obj/item/clothing/head/hardhat/white
 	icon_state = "hardhat0_white"
@@ -76,7 +77,7 @@
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-	dog_fashion = /datum/dog_fashion/head/hardhat
+	dog_fashion = /datum/dog_fashion/head/hardhat/white
 
 /obj/item/clothing/head/hardhat/dblue
 	icon_state = "hardhat0_dblue"
@@ -97,5 +98,5 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = null
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)

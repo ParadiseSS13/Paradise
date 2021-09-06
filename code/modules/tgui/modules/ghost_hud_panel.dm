@@ -19,7 +19,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 /datum/ui_module/ghost_hud_panel/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.observer_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "GhostHudPanel", name, 250, 171, master_ui, state)
+		ui = new(user, src, ui_key, "GhostHudPanel", name, 250, 207, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -28,6 +28,8 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 	for(var/hud in hud_type_lookup)
 		data[hud] = (hud_type_lookup[hud] in ghost.data_hud_seen)
 	data["ahud"] = ghost.antagHUD
+	// Split radioactivity out as it isn't a true datahud
+	data["radioactivity"] = ghost.seerads
 	return data
 
 /datum/ui_module/ghost_hud_panel/ui_act(action, list/params)
@@ -45,6 +47,12 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 		if("hud_off")
 			var/hud_type = hud_type_lookup[params["hud_type"]]
 			ghost.remove_the_hud(hud_type)
+
+		if("rads_on")
+			ghost.set_radiation_view(TRUE)
+
+		if("rads_off")
+			ghost.set_radiation_view(FALSE)
 
 		if("ahud_on")
 			if(!GLOB.configuration.general.allow_antag_hud && !ghost.client.holder)
