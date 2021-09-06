@@ -1183,7 +1183,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				visible_message("<span class='warning'>[src] pukes all over [p_them()]self!</span>","<span class='warning'>You puke all over yourself!</span>")
 			location.add_vomit_floor(TRUE)
 	if (nutrition > 0)
-		adjust_nutrition(rand(-30, -15)) //❤ Monty unk
+		adjust_nutrition(rand(-30, -15))
 
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	mob_spell_list += S
