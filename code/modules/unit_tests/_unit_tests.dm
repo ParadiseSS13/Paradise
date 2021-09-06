@@ -12,6 +12,7 @@
 #include "spawn_humans.dm"
 #include "sql.dm"
 #include "subsystem_init.dm"
+#include "subsystem_metric_sanity.dm"
 #include "timer_sanity.dm"
 #include "unit_test.dm"
 #endif

@@ -168,8 +168,13 @@
 			direct = newdir
 			n = get_step(mob, direct)
 
-	. = mob.SelfMove(n, direct, delay)
-	if(mob.pulling?.face_while_pulling)
+	var/prev_pulling_loc = null
+	if(mob.pulling)
+		prev_pulling_loc = mob.pulling.loc
+
+	. = mob.SelfMove(n, direct, delay) // The actual movement
+
+	if(prev_pulling_loc && mob.pulling?.face_while_pulling && (mob.pulling.loc != prev_pulling_loc))
 		mob.setDir(get_dir(mob, mob.pulling)) // Face welding tanks and stuff when pulling
 	else
 		mob.setDir(direct)

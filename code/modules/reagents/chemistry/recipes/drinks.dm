@@ -902,3 +902,51 @@
 	result_amount = 3
 	mix_message = "The ingredients mix into a dark brown godly substance"
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/arnold_palmer
+	name = "Arnold Palmer"
+	id = "arnold_palmer"
+	result = "arnold_palmer"
+	required_reagents = list("icetea" = 1, "lemonade" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/gimlet
+	name = "Gimlet"
+	id = "gimlet"
+	result = "gimlet"
+	required_reagents = list("gin" = 1, "limejuice" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/sidecar
+	name = "Sidecar"
+	id = "sidecar"
+	result = "sidecar"
+	required_reagents = list("cognac" = 1, "orangejuice" = 1, "lemonjuice" = 1)
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/whiskey_sour
+	name = "Whiskey Sour"
+	id = "whiskeysour"
+	result = "whiskeysour"
+	required_reagents = list("whiskey" = 1, "lemonjuice" = 1, "sugar" = 1, "egg" = 1)
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/mint_julep
+	name = "Mint Julep"
+	id = "mintjulep"
+	result = "mintjulep"
+	required_reagents = list("whiskey" = 1, "sugar" = 1, "ice" = 1, "mint" = 1)
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/pina_colada
+	name = "Pina Colada"
+	id = "pinacolada"
+	result = "pinacolada"
+	required_reagents = list("rum" = 3, "pineapplejuice" = 2, "cream" = 1)
+	result_amount = 6
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
