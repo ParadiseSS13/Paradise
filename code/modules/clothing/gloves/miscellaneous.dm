@@ -167,7 +167,7 @@
 	var/mob/living/M = loc
 
 	if(M.a_intent in accepted_intents)
-		if(istype(M.mind.martial_art, /datum/martial_art/cqc))
+		if(M.mind.martial_art)
 			M.changeNext_move(CLICK_CD_MELEE)//normal attack speed for hulk, CQC and Carp.
 		else
 			M.changeNext_move(click_speed_modifier)
