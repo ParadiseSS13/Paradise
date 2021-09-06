@@ -1172,8 +1172,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/fakevomit(green = 0, no_text = 0) //for aesthetic vomits that need to be instant and do not stun. -Fox
 	if(stat==DEAD)
 		return
-	var/turf/location = loc
 	if (nutrition > 0)
+		var/turf/location = loc
 		if(istype(location, /turf/simulated))
 			if(green)
 				if(!no_text)
