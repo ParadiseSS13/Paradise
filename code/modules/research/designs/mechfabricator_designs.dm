@@ -1201,7 +1201,7 @@
 	id = "borg_upgrade_storageincreaser"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/storageincreaser
-	req_tech = list(TECH_BLUESPACE = 5, TECH_MATERIAL = 7, TECH_ENGINEERING = 5)
+	req_tech = list("bluespace" = 5, "materials" = 7, "engineering" = 5)
 	materials = list(MAT_METAL=15000, MAT_BLUESPACE=2000, MAT_SILVER=6000)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
@@ -1211,7 +1211,7 @@
 	id = "borg_upgrade_hypospray"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/hypospray
-	req_tech = list(TECH_BIO = 7, TECH_MATERIAL = 7)
+	req_tech = list("biotech" = 7, "materials" = 7)
 	materials = list(MAT_METAL=15000, MAT_URANIUM=2000, MAT_DIAMOND=5000, MAT_SILVER=10000)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
