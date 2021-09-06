@@ -388,9 +388,6 @@
 	else
 		deactivate()
 
-// if(C.energy > 12)
-// 		to_chat(usr, "<span class='warning'>This unit is already equipped with a medical storage increaser.</span>")
-// 		return
 /obj/item/borg/upgrade/storageincreaser
 	name = "storage increaser"
 	desc = "Improves cyborg storage with bluespace technology to store more medicines"
