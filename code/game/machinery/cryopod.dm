@@ -170,12 +170,12 @@
 		dispense_item(I)
 
 /obj/item/circuitboard/cryopodcontrol
-	name = "Circuit board (Cryogenic Oversight Console)"
+	board_name = "Cryogenic Oversight Console"
 	build_path = "/obj/machinery/computer/cryopod"
 	origin_tech = "programming=1"
 
 /obj/item/circuitboard/robotstoragecontrol
-	name = "Circuit board (Robotic Storage Console)"
+	board_name = "Robotic Storage Console"
 	build_path = "/obj/machinery/computer/cryopod/robot"
 	origin_tech = "programming=1"
 
@@ -225,6 +225,7 @@
 	var/willing_time_divisor = 10
 	var/time_entered = 0          // Used to keep track of the safe period.
 	var/obj/item/radio/intercom/announce
+	var/silent = FALSE
 
 	var/obj/machinery/computer/cryopod/control_computer
 	var/last_no_computer_message = 0
@@ -252,7 +253,10 @@
 		/obj/item/key,
 		/obj/item/door_remote,
 		/obj/item/autopsy_scanner,
-		/obj/item/holosign_creator/atmos
+		/obj/item/holosign_creator/atmos,
+		/obj/item/clothing/gloves/color/black/forensics,
+		/obj/item/rcd,
+		/obj/item/rpd
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -340,21 +344,23 @@
 			return CRYO_PRESERVE
 	return CRYO_DESTROY
 
-// This function can not be undone; do not call this unless you are sure
-// Also make sure there is a valid control computer
+
+/obj/machinery/cryopod/proc/handle_contents(obj/item/I)
+	if(length(I.contents)) //Make sure we catch anything not handled by qdel() on the items.
+		if(should_preserve_item(I) != CRYO_DESTROY) // Don't remove the contents of things that need preservation
+			return
+		for(var/obj/item/O in I.contents)
+			if(istype(O, /obj/item/tank)) //Stop eating pockets, you fuck!
+				continue
+			handle_contents(O)
+			O.forceMove(src)
+
 /obj/machinery/cryopod/proc/despawn_occupant()
 	//Drop all items into the pod.
 	for(var/obj/item/I in occupant)
 		occupant.unEquip(I)
 		I.forceMove(src)
-
-		if(I.contents.len) //Make sure we catch anything not handled by qdel() on the items.
-			if(should_preserve_item(I) != CRYO_DESTROY) // Don't remove the contents of things that need preservation
-				continue
-			for(var/obj/item/O in I.contents)
-				if(istype(O, /obj/item/tank)) //Stop eating pockets, you fuck!
-					continue
-				O.forceMove(src)
+		handle_contents(I)
 
 	for(var/obj/machinery/computer/cloning/cloner in GLOB.machines)
 		for(var/datum/dna2/record/R in cloner.records)
@@ -430,23 +436,27 @@
 	//Make an announcement and log the person entering storage.
 	control_computer.frozen_crew += "[occupant.real_name]"
 
-	var/list/ailist = list()
-	for(var/thing in GLOB.ai_list)
-		var/mob/living/silicon/ai/AI = thing
-		if(AI.stat)
-			continue
-		ailist += AI
-	if(length(ailist))
-		var/mob/living/silicon/ai/announcer = pick(ailist)
-		if(announce_rank)
-			announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]", ignore_languages = TRUE)
+	if(!silent)
+		var/list/ailist = list()
+		for(var/thing in GLOB.ai_list)
+			var/mob/living/silicon/ai/AI = thing
+			if(AI.stat)
+				continue
+			ailist += AI
+		if(length(ailist))
+			var/mob/living/silicon/ai/announcer = pick(ailist)
+			if(announce_rank)
+				announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]", ignore_languages = TRUE)
+			else
+				announcer.say(";[occupant.real_name] [on_store_message]", ignore_languages = TRUE)
 		else
-			announcer.say(";[occupant.real_name] [on_store_message]", ignore_languages = TRUE)
-	else
-		if(announce_rank)
-			announce.autosay("[occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
-		else
-			announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
+			if(announce_rank)
+				announce.autosay("[occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
+			else
+				if(announce_rank)
+					announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
+				else
+					announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
 	visible_message("<span class='notice'>[src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
 
 	// Ghost and delete the mob.
@@ -704,12 +714,22 @@
 	else
 		icon_state = base_icon_state
 
+	name = initial(name)
+
 	return
 
 
 //Attacks/effects.
 /obj/machinery/cryopod/blob_act()
 	return //Sorta gamey, but we don't really want these to be destroyed.
+
+/obj/machinery/cryopod/offstation
+	// Won't announce when used for cryoing.
+	silent = TRUE
+
+/obj/machinery/cryopod/offstation/right
+	orient_right = TRUE
+	icon_state = "body_scanner_0-r"
 
 /obj/machinery/computer/cryopod/robot
 	name = "robotic storage console"
@@ -743,8 +763,7 @@
 	var/mob/living/silicon/robot/R = occupant
 	if(!istype(R)) return ..()
 
-	R.contents -= R.mmi
-	qdel(R.mmi)
+	QDEL_NULL(R.mmi)
 	for(var/obj/item/I in R.module) // the tools the borg has; metal, glass, guns etc
 		for(var/obj/item/O in I) // the things inside the tools, if anything; mainly for janiborg trash bags
 			O.loc = R
@@ -756,7 +775,7 @@
 	return ..()
 
 
-/proc/cryo_ssd(mob/living/carbon/person_to_cryo)
+/proc/cryo_ssd(mob/living/person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		return 0
 	if(isobj(person_to_cryo.loc))
@@ -764,7 +783,9 @@
 		O.force_eject_occupant(person_to_cryo)
 	var/list/free_cryopods = list()
 	for(var/obj/machinery/cryopod/P in GLOB.machines)
-		if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
+		if(P.occupant)
+			continue
+		if((ishuman(person_to_cryo) && istype(get_area(P), /area/crew_quarters/sleep)) || istype(P, /obj/machinery/cryopod/robot))
 			free_cryopods += P
 	var/obj/machinery/cryopod/target_cryopod = null
 	if(free_cryopods.len)

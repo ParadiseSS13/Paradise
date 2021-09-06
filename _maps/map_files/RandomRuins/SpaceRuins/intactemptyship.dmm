@@ -7,9 +7,7 @@
 /area/ruin/powered)
 "e" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "propulsion";
-	tag = "icon-propulsion (EAST)"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
@@ -18,8 +16,6 @@
 	dir = 4
 	},
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (WEST)";
-	icon_state = "heater";
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
@@ -107,10 +103,9 @@
 /area/ruin/powered)
 "x" = (
 /obj/machinery/door_control{
+	id = "strange ship";
 	name = "Strange Ship Door Control";
-	pixel_x = 6;
-	pixel_y = 0;
-	id = "strange ship"
+	pixel_x = 6
 	},
 /turf/simulated/wall/mineral/plastitanium,
 /area/ruin/powered)

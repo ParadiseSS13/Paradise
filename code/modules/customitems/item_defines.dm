@@ -34,12 +34,12 @@
 
 /obj/item/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent == INTENT_HARM)
-		user.visible_message("<span class='warning'>[user] stabs [M] with the [src]!</span>", "<span class='warning'>You stab [M] with the [src]!</span>")
-		to_chat(M, "<span class='userdanger'>[user] stabs you with the [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
+		user.visible_message("<span class='warning'>[user] stabs [M] with [src]!</span>", "<span class='warning'>You stab [M] with [src]!</span>")
+		to_chat(M, "<span class='userdanger'>[user] stabs you with [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
 		return
 
 	if(used)
-		to_chat(user, "<span class= 'notice'>The [src] is out of ink.</span>")
+		to_chat(user, "<span class= 'notice'>[src] is out of ink.</span>")
 		return
 
 	if(!istype(M, /mob/living/carbon/human))
@@ -62,10 +62,10 @@
 		return
 
 	if(target == user)
-		to_chat(user, "<span class= 'notice'>You use the [src] to apply a [tattoo_name] to yourself!</span>")
+		to_chat(user, "<span class= 'notice'>You use [src] to apply a [tattoo_name] to yourself!</span>")
 
 	else
-		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with the [src].</span>", "<span class='notice'>You begin to tattoo [target] with the [src]!</span>")
+		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with [src].</span>", "<span class='notice'>You begin to tattoo [target] with [src]!</span>")
 		if(!do_after(user, 30 * toolspeed, target = M))
 			return
 		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
@@ -108,12 +108,12 @@
 			tattoo_g = color2G(ink_color)
 			tattoo_b = color2B(ink_color)
 
-			to_chat(user, "<span class='notice'>You change the color setting on the [src].</span>")
+			to_chat(user, "<span class='notice'>You change the color setting on [src].</span>")
 
 			update_icon()
 
 	else
-		to_chat(user, "<span class='notice'>The [src] is out of ink!</span>")
+		to_chat(user, "<span class='notice'>[src] is out of ink!</span>")
 
 /obj/item/fluff/bird_painter // BirdtTalon: Kahkiri
 	name = "Orb of Onyx"
@@ -292,7 +292,7 @@
 		return
 
 	if(target.change_body_accessory("Jay Wingler Tail"))
-		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
+		to_chat(target, "<span class='notice'>You comb your tail with [src].</span>")
 		used = 1
 
 /obj/item/fluff/desolate_coat_kit //DesolateG: Micheal Smith
@@ -344,7 +344,7 @@
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.sprite_sheets = list(
-			"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
+			"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
 			)
 		user.update_icons()
 		qdel(src)
@@ -460,7 +460,7 @@
 		var/obj/item/clothing/suit/storage/S = target
 		var/obj/item/clothing/suit/storage/fluff/k3_webbing/webbing = new(get_turf(target))
 		webbing.allowed = S.allowed
-		to_chat(user, "<span class='notice'>You modify the [S] with [src].</span>")
+		to_chat(user, "<span class='notice'>You modify [S] with [src].</span>")
 		H.update_inv_wear_suit()
 		qdel(S)
 		qdel(src)
@@ -578,10 +578,6 @@
 		return
 
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
-
-#undef USED_MOD_HELM
-#undef USED_MOD_SUIT
 
 
 //////////////////////////////////
@@ -939,7 +935,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "k3_webbing"
 
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/suit.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 	ignore_suitadjust = 0
 	actions_types = list(/datum/action/item_action/toggle)
 	suit_adjusted = 0
@@ -961,7 +957,7 @@
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.UpdateButtonIcon()
-		to_chat(user, "You turn the [src]'s lighting system [flavour].")
+		to_chat(user, "You turn [src]'s lighting system [flavour].")
 		user.update_inv_wear_suit()
 
 /obj/item/clothing/suit/hooded/hoodie/fluff/xantholne // Xantholne: Meex Zwichsnicrur
@@ -1474,13 +1470,13 @@
 
 
 /obj/item/clothing/head/fluff/lfbowler //Lightfire: Hyperion
-	name = "Classy bowler hat"
-	desc = "a very classy looking bowler hat"
+	name = "classy bowler hat"
+	desc = "A very classy looking bowler hat."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "bowler_lightfire"
 
 /obj/item/clothing/under/fluff/lfvicsuit //Lightfire: Hyperion
-	name = "Classy victorian suit"
+	name = "classy victorian suit"
 	desc = "A blue and black victorian suit with silver buttons, very fancy!"
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
@@ -1489,6 +1485,57 @@
 	item_state = "victorianvest"
 	item_color = "victorianlightfire"
 	displays_id = FALSE
+
+
+/obj/item/fluff/lighty_plasman_modkit // LightFire53: Ikelos
+	name = "plasmaman suit modkit"
+	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
+	icon_state = "modkit"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/fluff/lighty_plasman_modkit/afterattack(atom/target, mob/user, proximity, params)
+	if(!proximity || !ishuman(user) || user.incapacitated() || !isitem(target))
+		return
+	var/mob/living/carbon/human/H = user
+
+	if(istype(target, /obj/item/clothing/head/helmet/space/plasmaman))
+		if(used & USED_MOD_HELM)
+			to_chat(H, "<span class='warning'>The kit's helmet modifier has already been used!</span>")
+			return
+
+		var/obj/item/clothing/head/helmet/space/plasmaman/P = target
+		used |= USED_MOD_HELM
+		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
+		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
+		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
+		if(P == H.head)
+			H.unEquip(P, TRUE, TRUE)
+			H.equip_to_slot(F, slot_head, TRUE)
+			H.update_inv_head()
+		qdel(P)
+
+	else if(istype(target, /obj/item/clothing/under/plasmaman))
+		if(used & USED_MOD_SUIT)
+			to_chat(user, "<span class='warning'>The kit's suit modifier has already been used!</span>")
+			return
+
+		var/obj/item/clothing/under/plasmaman/P = target
+		used |= USED_MOD_SUIT
+		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
+		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
+		P.icon_state = "ikelos_envirosuit"
+		P.item_color = "ikelos_envirosuit"
+		P.icon = 'icons/obj/custom_items.dmi'
+
+		if(P == H.w_uniform)
+			H.update_inv_w_uniform()
+
+	else
+		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
+/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff // LightFire53: Ikelos
+	icon_state = "ikelos_envirohelm" // New item needed because `initial(icon_state)` is used.
+	icon = 'icons/obj/custom_items.dmi'
 
 
 /obj/item/fluff/decemviri_spacepod_kit //Decemviri: Sylus Cain
@@ -1601,7 +1648,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon_state = "kiaoutfit"
 	item_state = "kiaoutfit"
 	item_color = "kiaoutfit"
@@ -1624,7 +1671,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/mask.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
 	icon_state = "kiamask"
 	item_state = "kiamask"
 	item_color = "kiamask"
@@ -1657,10 +1704,13 @@
 	desc = "A simple black dress with a white undercoat, tied with a blue ribbon."
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kikeridress"
 	item_state = "kikeridress"
 	item_color = "kikeridress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	species_restricted = list("Vox")
+
+#undef USED_MOD_HELM
+#undef USED_MOD_SUIT

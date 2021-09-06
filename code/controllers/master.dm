@@ -194,7 +194,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 	var/start_timeofday = REALTIMEOFDAY
 	// Initialize subsystems.
-	current_ticklimit = config.tick_limit_mc_init
+	current_ticklimit = GLOB.configuration.mc.world_init_tick_limit
 	for(var/datum/controller/subsystem/SS in subsystems)
 		if(SS.flags & SS_NO_INIT)
 			continue
@@ -206,8 +206,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 	log_startup_progress("Initializations complete within [time] second[time == 1 ? "" : "s"]!")
 
-	if(config.developer_express_start & SSticker.current_state == GAME_STATE_PREGAME)
-		SSticker.current_state = GAME_STATE_SETTING_UP
+	if(GLOB.configuration.general.developer_express_start)
+		SSticker.force_start = TRUE
 
 	if(!current_runlevel)
 		SetRunLevel(1)
@@ -216,7 +216,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	sortTim(subsystems, /proc/cmp_subsystem_display)
 	// Set world options.
 	// world.fps = CONFIG_GET(number/fps) // TIGER TODO
-	world.tick_lag = config.Ticklag
+	world.tick_lag = GLOB.configuration.mc.ticklag
 	var/initialized_tod = REALTIMEOFDAY
 
 	if(sleep_offline_after_initializations)
@@ -626,10 +626,10 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(!processing)
 		return
 	var/client_count = length(GLOB.clients)
-	if(client_count < config.disable_high_pop_mc_mode_amount)
-		processing = config.base_mc_tick_rate
-	else if(client_count > config.high_pop_mc_mode_amount)
-		processing = config.high_pop_mc_tick_rate
+	if(client_count < GLOB.configuration.mc.highpop_disable_threshold)
+		processing = GLOB.configuration.mc.base_tickrate
+	else if(client_count > GLOB.configuration.mc.highpop_enable_threshold)
+		processing = GLOB.configuration.mc.highpop_tickrate
 
 /datum/controller/master/proc/formatcpu()
 	switch(world.cpu)

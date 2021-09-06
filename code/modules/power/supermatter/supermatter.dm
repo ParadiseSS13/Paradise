@@ -224,6 +224,23 @@
 	if(!immune && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 		. += "<span class='danger'>You get headaches just from looking at it.</span>"
 
+/obj/machinery/power/supermatter_crystal/detailed_examine()
+	return "When energized by a laser (or something hitting it), it emits radiation and heat. If the heat reaches above 7000 kelvin, it will send an alert and start taking damage. \
+			After integrity falls to zero percent, it will delaminate, causing a massive explosion, station-wide radiation spikes, and hallucinations. \
+			Supermatter reacts badly to oxygen in the atmosphere. It'll also heat up really quick if it is in vacuum.<br>\
+			<br>\
+			Supermatter cores are extremely dangerous to be close to, and requires protection to handle properly. The protection you will need is:<br>\
+			Optical meson scanners on your eyes, to prevent hallucinations when looking at the supermatter.<br>\
+			Radiation helmet and suit, as the supermatter is radioactive.<br>\
+			<br>\
+			Touching the supermatter will result in *instant death*, with no corpse left behind! You can drag the supermatter, but anything else will kill you. \
+			It is advised to obtain a genetic backup before trying to drag it."
+
+/obj/machinery/power/supermatter_crystal/detailed_examine_antag()
+	return "Exposing the supermatter to oxygen or vacuum will cause it to start rapidly heating up. Sabotaging the supermatter and making it explode will \
+			cause a period of lag as the explosion is processed by the server, as well as irradiating the entire station and causing hallucinations to happen. \
+			Wearing radiation equipment will protect you from most of the delamination effects sans explosion."
+
 /obj/machinery/power/supermatter_crystal/proc/get_status()
 	var/turf/T = get_turf(src)
 	if(!T)
@@ -280,6 +297,10 @@
 	add_overlay(causality_field, TRUE)
 
 	var/speaking = "[emergency_alert] The supermatter has reached critical integrity failure. Emergency causality destabilization field has been activated."
+	for(var/mob/M in GLOB.player_list) // for all players
+		var/turf/T = get_turf(M)
+		if(istype(T) && atoms_share_level(T, src)) // if the player is on the same zlevel as the SM shared
+			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
 	radio.autosay(speaking, name, null, list(z))
 	for(var/i in SUPERMATTER_COUNTDOWN_TIME to 0 step -10)
 		if(damage < explosion_point) // Cutting it a bit close there engineers
@@ -373,9 +394,9 @@
 	if(last_accent_sound < world.time && prob(20))
 		var/aggression = min(((damage / 800) * (power / 2500)), 1.0) * 100
 		if(damage >= 300)
-			playsound(src, "smdelam", max(50, aggression), FALSE, 40, 30, falloff_distance = 10)
+			playsound(src, "smdelam", max(50, aggression), FALSE, 40, 30, falloff_distance = 10, channel = CHANNEL_ENGINE)
 		else
-			playsound(src, "smcalm", max(50, aggression), FALSE, 25, 25, falloff_distance = 10)
+			playsound(src, "smcalm", max(50, aggression), FALSE, 25, 25, falloff_distance = 10, channel = CHANNEL_ENGINE)
 		var/next_sound = round((100 - aggression) * 5)
 		last_accent_sound = world.time + max(SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN, next_sound)
 
@@ -564,7 +585,7 @@
 			zap_count += 1
 
 		if(zap_count >= 1)
-			playsound(src.loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10)
+			playsound(src.loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10, channel = CHANNEL_ENGINE)
 			for(var/i in 1 to zap_count)
 				supermatter_zap(src, range, clamp(power*2, 4000, 20000), flags)
 
@@ -709,7 +730,20 @@
 		return
 	if(moveable && default_unfasten_wrench(user, I, time = 20))
 		return
-	if(user.drop_item())
+	if(istype(I, /obj/item/scalpel/supermatter))
+		var/obj/item/scalpel/supermatter/scalpel = I
+		to_chat(user, "<span class='notice'>You carefully begin to scrape [src] with [I]...</span>")
+		if(I.use_tool(src, user, 10 SECONDS, volume = 100))
+			if(scalpel.uses_left)
+				to_chat(user, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
+				new /obj/item/nuke_core/supermatter_sliver(drop_location())
+				matter_power += 800
+				scalpel.uses_left--
+				if(!scalpel.uses_left)
+					to_chat(user, "<span class='boldwarning'>A tiny piece of [I] falls off, rendering it useless!</span>")
+			else
+				to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
+	else if(user.drop_item())
 		user.visible_message("<span class='danger'>As [user] touches [src] with \a [I], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch [src] with [I], and everything suddenly goes silent.</span>\n<span class='notice'>[I] flashes into dust as you flinch away from [src].</span>",\
 			"<span class='italics'>Everything suddenly goes silent.</span>")
@@ -752,6 +786,12 @@
 				suspicion = "last touched by [AM.fingerprintslast]"
 			message_admins("[src] has consumed [AM], [suspicion] [ADMIN_JMP(src)].")
 			investigate_log("has consumed [AM] - [suspicion].", "supermatter")
+			if(istype(AM, /obj/machinery/power/supermatter_crystal))
+				power += 5000//releases A LOT of power
+				matter_power += 500000
+				damage += 180//drops the integrety by 20%
+				AM.visible_message("<span class='danger'>[AM] smacks into [src], rapidly flashing blasts of pure energy. The energy inside [src] undergoes superradiance scattering!</span>", null,\
+				"<span class='italics'>You hear a loud crack as a wave of heat washes over you.</span>")
 		qdel(AM)
 	if(!iseffect(AM) && power_changes)
 		matter_power += 200
@@ -803,7 +843,7 @@
 	icon_state = "darkmatter"
 
 /obj/machinery/power/supermatter_crystal/proc/supermatter_pull(turf/center, pull_range = 3)
-	playsound(center, 'sound/weapons/marauder.ogg', 100, TRUE, extrarange = pull_range - world.view)
+	playsound(center, 'sound/weapons/marauder.ogg', 100, TRUE, extrarange = pull_range - world.view, channel = CHANNEL_ENGINE)
 	for(var/atom/movable/P in orange(pull_range,center))
 		if((P.anchored || P.move_resist >= MOVE_FORCE_EXTREMELY_STRONG)) //move resist memes.
 			if(istype(P, /obj/structure/closet))

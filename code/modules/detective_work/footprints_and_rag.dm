@@ -25,7 +25,7 @@
 
 /obj/item/reagent_containers/glass/rag/attack(atom/target as obj|turf|area, mob/user as mob , flag)
 	if(ismob(target) && target.reagents && reagents.total_volume)
-		user.visible_message("<span class='danger'>[user] has smothered \the [target] with \the [src]!</span>", "<span class='danger'>You smother \the [target] with \the [src]!</span>", "You hear some struggling and muffled cries of surprise")
+		user.visible_message("<span class='danger'>[user] has smothered [target] with [src]!</span>", "<span class='danger'>You smother [target] with [src]!</span>", "You hear some struggling and muffled cries of surprise")
 		src.reagents.reaction(target, REAGENT_TOUCH)
 		src.reagents.clear_reagents()
 		return
@@ -35,8 +35,8 @@
 /obj/item/reagent_containers/glass/rag/afterattack(atom/A as obj|turf|area, mob/user as mob,proximity)
 	if(!proximity) return
 	if(istype(A) && (src in user))
-		user.visible_message("[user] starts to wipe down [A] with [src]!")
+		user.visible_message("<span class='notice'>[user] starts to wipe down [A] with [src]!</span>")
 		if(do_after(user, wipespeed, target = A))
-			user.visible_message("[user] finishes wiping off the [A]!")
+			user.visible_message("<span class='notice'>[user] finishes wiping off [A]!</span>")
 			A.clean_blood()
 	return

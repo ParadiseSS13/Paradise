@@ -273,6 +273,7 @@
 	var/atmos_overlay = get_atmos_overlay_by_name(atmos_overlay_type)
 	if(atmos_overlay)
 		vis_contents -= atmos_overlay
+		atmos_overlay_type = null
 
 	atmos_overlay = get_atmos_overlay_by_name(new_overlay_type)
 	if(atmos_overlay)

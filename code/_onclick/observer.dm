@@ -48,7 +48,7 @@
 		ShiftClickOn(A)
 		return
 	if(modifiers["alt"])
-		AltClickOn(A)
+		AltClickNoInteract(src, A)
 		return
 	// You are responsible for checking config.ghost_interaction when you override this function
 	// Not all of them require checking, see below

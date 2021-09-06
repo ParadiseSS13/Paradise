@@ -31,19 +31,20 @@
 	return 1
 
 
-/proc/Get_Angle(atom/movable/start,atom/movable/end)//For beams.
-	if(!start || !end) return 0
+/proc/get_angle(atom/movable/start, atom/movable/end)//For beams.
+	if(!start || !end)
+		return 0
 	var/dy
 	var/dx
-	dy=(32*end.y+end.pixel_y)-(32*start.y+start.pixel_y)
-	dx=(32*end.x+end.pixel_x)-(32*start.x+start.pixel_x)
+	dy = (32 * end.y + end.pixel_y) - (32 * start.y + start.pixel_y)
+	dx = (32 * end.x + end.pixel_x) - (32 * start.x + start.pixel_x)
 	if(!dy)
-		return (dx>=0)?90:270
-	.=arctan(dx/dy)
-	if(dy<0)
-		.+=180
-	else if(dx<0)
-		.+=360
+		return (dx >= 0) ? 90 : 270
+	. = arctan(dx / dy)
+	if(dy < 0)
+		. += 180
+	else if(dx < 0)
+		. += 360
 
 //Returns location. Returns null if no location was found.
 /proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = 0, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
@@ -540,10 +541,6 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/x = min(world.maxx, max(1, A.x + dx))
 	var/y = min(world.maxy, max(1, A.y + dy))
 	return locate(x,y,A.z)
-
-//Makes sure MIDDLE is between LOW and HIGH. If not, it adjusts it. Returns the adjusted value.
-/proc/between(low, middle, high)
-	return max(min(middle, high), low)
 
 //returns random gauss number
 /proc/GaussRand(sigma)
@@ -1248,10 +1245,6 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 			if(abs(O.pixel_x) <= 10 && abs(O.pixel_y) <= 10)
 				return 1
 	return 0
-
-
-/proc/get_angle(atom/a, atom/b)
-		return atan2(b.y - a.y, b.x - a.x)
 
 /proc/atan2(x, y)
 	if(!x && !y) return 0
@@ -2075,7 +2068,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return _list
 
 /// Waits at a line of code until X is true
-#define UNTIL(X) while(!(X)) stoplag()
+#define UNTIL(X) while(!(X)) sleep(world.tick_lag)
 
 // Check if the source atom contains another atom
 /atom/proc/contains(atom/location)
@@ -2088,7 +2081,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /proc/log_connection(ckey, ip, cid, connection_type)
 	ASSERT(connection_type in list(CONNECTION_TYPE_ESTABLISHED, CONNECTION_TYPE_DROPPED_IPINTEL, CONNECTION_TYPE_DROPPED_BANNED, CONNECTION_TYPE_DROPPED_INVALID))
-	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`, `ckey`, `ip`, `computerid`, `result`) VALUES(Now(), :ckey, :ip, :cid, :result)", list(
+	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO connection_log (`datetime`, `ckey`, `ip`, `computerid`, `result`) VALUES(Now(), :ckey, :ip, :cid, :result)", list(
 		"ckey" = ckey,
 		"ip" = "[ip ? ip : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
 		"cid" = cid,
@@ -2119,6 +2112,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "White Noise"
 		if(CHANNEL_AMBIENCE)
 			return "Ambience"
+		if(CHANNEL_ENGINE)
+			return "Engine Ambience"
 
 /proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
 	switch(input_slot_flags)

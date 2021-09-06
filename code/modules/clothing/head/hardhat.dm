@@ -13,7 +13,7 @@
 	resistance_flags = FIRE_PROOF
 	dog_fashion = /datum/dog_fashion/head/hardhat
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 /obj/item/clothing/head/hardhat/attack_self(mob/living/user)
@@ -55,19 +55,18 @@
 	icon_state = "hardhat0_orange"
 	item_state = "hardhat0_orange"
 	item_color = "orange"
-	dog_fashion = null
 
 /obj/item/clothing/head/hardhat/red
+	name = "firefighter helmet"
 	icon_state = "hardhat0_red"
 	item_state = "hardhat0_red"
 	item_color = "red"
-	dog_fashion = null
-	name = "firefighter helmet"
 	flags = STOPSPRESSUREDMAGE
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
+	dog_fashion = /datum/dog_fashion/head/hardhat/red
 
 /obj/item/clothing/head/hardhat/white
 	icon_state = "hardhat0_white"
@@ -78,20 +77,19 @@
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-	dog_fashion = /datum/dog_fashion/head/hardhat
+	dog_fashion = /datum/dog_fashion/head/hardhat/white
 
 /obj/item/clothing/head/hardhat/dblue
 	icon_state = "hardhat0_dblue"
 	item_state = "hardhat0_dblue"
 	item_color = "dblue"
-	dog_fashion = null
 
 /obj/item/clothing/head/hardhat/atmos
+	name = "atmospheric technician's firefighting helmet"
+	desc = "A firefighter's helmet, able to keep the user cool in any situation."
 	icon_state = "hardhat0_atmos"
 	item_state = "hardhat0_atmos"
 	item_color = "atmos"
-	name = "atmospheric technician's firefighting helmet"
-	desc = "A firefighter's helmet, able to keep the user cool in any situation."
 	flags = STOPSPRESSUREDMAGE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	heat_protection = HEAD
@@ -100,5 +98,5 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = null
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)

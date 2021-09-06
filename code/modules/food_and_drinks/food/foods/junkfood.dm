@@ -84,6 +84,14 @@
 	list_reagents = list("nutriment" = 2, "sugar" = 4)
 	tastes = list("bread" = 1)
 
+/obj/item/reagent_containers/food/snacks/stroopwafel
+	name = "stroopwafel"
+	desc = "Straight from the snack factories of Space Den Haag comes a classic dutch treat!"
+	icon_state = "stroopwafel"
+	filling_color = "#EDB878"
+	junkiness = 5
+	list_reagents = list("nutriment" = 10, "sugar" = 4)
+	tastes = list("syrup" = 3, "waffle" = 2)
 
 //////////////////////
 //		Homemade	//

@@ -20,7 +20,7 @@
 	var/mineralType = null
 	var/mineralAmt = 3
 	var/spread = 0 //will the seam spread?
-	var/spreadChance = 0 //the percentual chance of an ore spreading to the neighbouring tiles
+	var/spreadChance = 0 //the percentile chance of an ore spreading to the neighboring tiles
 	var/last_act = 0
 	var/scan_state = "" //Holder for the image we display when we're pinged by a mining scanner
 	var/defer_change = 0
@@ -82,6 +82,7 @@
 /turf/simulated/mineral/proc/gets_drilled()
 	if(mineralType && (mineralAmt > 0))
 		new mineralType(src, mineralAmt)
+		SSticker.score?.score_ore_mined++
 		SSblackbox.record_feedback("tally", "ore_mined", mineralAmt, mineralType)
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)

@@ -84,10 +84,6 @@
 	new /obj/structure/table/wood(loc)
 	qdel(src)
 
-/obj/structure/table/ratvar_act()
-	new /obj/structure/table/reinforced/brass(loc)
-	qdel(src)
-
 /obj/structure/table/do_climb(mob/living/user)
 	. = ..()
 	item_placed(user)
@@ -112,25 +108,27 @@
 
 /obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
-		return 1
+		return TRUE
 	if(istype(mover,/obj/item/projectile))
 		return (check_cover(mover,target))
 	if(ismob(mover))
 		var/mob/M = mover
 		if(M.flying)
-			return 1
+			return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
-		return 1
+		return TRUE
 	if(mover.throwing)
-		return 1
+		return TRUE
 	if(length(get_atoms_of_type(get_turf(mover), /obj/structure/table) - mover))
-		return 1
+		var/obj/structure/table/T = locate(/obj/structure/table) in get_turf(mover)
+		if(!T.flipped)
+			return TRUE
 	if(flipped)
 		if(get_dir(loc, target) == dir)
 			return !density
 		else
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/structure/table/CanAStarPass(ID, dir, caller)
 	. = !density
@@ -410,6 +408,10 @@
 		return
 	if(!isliving(AM))
 		return
+	var/mob/living/L = AM
+	if(L.incorporeal_move || L.flying || L.floating)
+		return
+
 	// Don't break if they're just flying past
 	if(AM.throwing)
 		addtimer(CALLBACK(src, .proc/throw_check, AM), 5)
@@ -571,9 +573,6 @@
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
 
-/obj/structure/table/reinforced/brass/ratvar_act()
-	obj_integrity = max_integrity
-
 /obj/structure/table/tray
 	name = "surgical tray"
 	desc = "A small metal tray with wheels."
@@ -591,7 +590,7 @@
 	verbs -= /obj/structure/table/verb/do_flip
 	typecache_can_hold = typecacheof(typecache_can_hold)
 	for(var/atom/movable/held in get_turf(src))
-		if(is_type_in_typecache(held, typecache_can_hold))
+		if(!held.anchored && held.move_resist != INFINITY && is_type_in_typecache(held, typecache_can_hold))
 			held_items += held.UID()
 
 /obj/structure/table/tray/Move(NewLoc, direct)
@@ -635,9 +634,6 @@
 	return 0
 
 /obj/structure/table/tray/narsie_act()
-	return 0
-
-/obj/structure/table/tray/ratvar_act()
 	return 0
 
 /*

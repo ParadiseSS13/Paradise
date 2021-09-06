@@ -121,19 +121,21 @@
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonbox"
 	w_class = WEIGHT_CLASS_SMALL
-	storage_slots = 6
+	storage_slots = 8
 	icon_type = "crayon"
 	can_hold = list(
 		/obj/item/toy/crayon
 	)
 
 /obj/item/storage/fancy/crayons/populate_contents()
+	new /obj/item/toy/crayon/white(src)
 	new /obj/item/toy/crayon/red(src)
 	new /obj/item/toy/crayon/orange(src)
 	new /obj/item/toy/crayon/yellow(src)
 	new /obj/item/toy/crayon/green(src)
 	new /obj/item/toy/crayon/blue(src)
 	new /obj/item/toy/crayon/purple(src)
+	new /obj/item/toy/crayon/black(src)
 	update_icon()
 
 /obj/item/storage/fancy/crayons/update_icon()

@@ -30,28 +30,38 @@
 		return
 	if(!cargo_holder)
 		return
-	if(istype(target,/obj))
+	if(isobj(target))
 		var/obj/O = target
-		if(!O.anchored)
-			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
-				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
-				O.anchored = 1
-				if(do_after_cooldown(target))
-					cargo_holder.cargo += O
-					O.loc = chassis
-					O.anchored = 0
-					occupant_message("<span class='notice'>[target] successfully loaded.</span>")
-					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
-				else
-					O.anchored = initial(O.anchored)
-			else
-				occupant_message("<span class='warning'>Not enough room in cargo compartment!</span>")
-		else
+		if(istype(target, /obj/machinery/power/supermatter_crystal)) //No, you can't pick up the SM with this you moron, did you think you were clever?
+			var/obj/mecha/working/ripley/R = chassis
+			QDEL_LIST(R.cargo) //We don't want to drop cargo that just spam hits the SM, let's delete it
+			occupant_message("<span class='userdanger'>You realise in horror what you have done as [chassis] starts warping around you!</span>")
+			chassis.occupant.dust()
+			target.Bumped(chassis)
+			return
+		if(O.anchored)
 			occupant_message("<span class='warning'>[target] is firmly secured!</span>")
+			return
+		if(length(cargo_holder.cargo) >= cargo_holder.cargo_capacity)
+			occupant_message("<span class='warning'>Not enough room in cargo compartment!</span>")
+			return
+		chassis.visible_message("<span class='notice'>[chassis] lifts [target] and starts to load it into cargo compartment.</span>")
+		var/anchor_state_before_load = O.anchored
+		O.anchored = TRUE
+		if(!do_after_cooldown(target))
+			O.anchored = anchor_state_before_load
+			return
+		cargo_holder.cargo += O
+		O.forceMove(chassis)
+		O.anchored = FALSE
+		occupant_message("<span class='notice'>[target] was successfully loaded.</span>")
+		log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - length(cargo_holder.cargo)]")
+		return
 
-	else if(istype(target,/mob/living))
+	if(isliving(target))
 		var/mob/living/M = target
-		if(M.stat == DEAD) return
+		if(M.stat == DEAD)
+			return
 		if(chassis.occupant.a_intent == INTENT_HARM)
 			M.take_overall_damage(dam_force)
 			if(!M)
@@ -62,12 +72,10 @@
 								"<span class='italics'>You hear something crack.</span>")
 			add_attack_logs(chassis.occupant, M, "Squeezed with [src] ([uppertext(chassis.occupant.a_intent)]) ([uppertext(damtype)])")
 			start_cooldown()
-		else
-			step_away(M,chassis)
-			occupant_message("<span class='notice'>You push [target] out of the way.</span>")
-			chassis.visible_message("<span class='notice'>[chassis] pushes [target] out of the way.</span>")
-		return 1
-
+			return
+		step_away(M, chassis)
+		occupant_message("<span class='notice'>You push [target] out of the way.</span>")
+		chassis.visible_message("<span class='notice'>[chassis] pushes [target] out of the way.</span>")
 
 
 //This is pretty much just for the death-ripley
@@ -220,7 +228,7 @@
 	switch(mode)
 		if(0)
 			if(istype(target, /turf/simulated/wall))
-				if(istype(target, /turf/simulated/wall/r_wall) && !canRwall)
+				if((istype(target, /turf/simulated/wall/r_wall) && !canRwall) || istype(target, /turf/simulated/wall/indestructible))
 					return 0
 				var/turf/simulated/wall/W = target
 				occupant_message("Deconstructing [target]...")

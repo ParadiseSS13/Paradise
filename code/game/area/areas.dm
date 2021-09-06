@@ -75,6 +75,12 @@
 	///Used to decide what the maximum time between ambience is
 	var/max_ambience_cooldown = 90 SECONDS
 
+/area/New(loc, ...)
+	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
+		GLOB.all_unique_areas[type] = src
+	..()
+
+
 /area/Initialize(mapload)
 	GLOB.all_areas += src
 	icon_state = ""
@@ -96,7 +102,7 @@
 		else if(dynamic_lighting != DYNAMIC_LIGHTING_IFSTARLIGHT)
 			dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	if(dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
-		dynamic_lighting = config.starlight ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
+		dynamic_lighting = GLOB.configuration.general.starlight ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
 
 	. = ..()
 
@@ -340,7 +346,7 @@
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
 	for(var/obj/machinery/light/L in src)
-		L.update()
+		L.update(TRUE, TRUE, FALSE)
 
 /**
   * unset the fire alarm visual affects in an area
@@ -354,7 +360,7 @@
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
 	for(var/obj/machinery/light/L in src)
-		L.update()
+		L.update(TRUE, TRUE, FALSE)
 
 /area/proc/updateicon()
 	var/weather_icon

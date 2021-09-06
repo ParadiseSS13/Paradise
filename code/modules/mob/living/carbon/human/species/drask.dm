@@ -31,7 +31,7 @@
 		"is sucking in warm air!",
 		"is holding their breath!")
 
-	species_traits = list(LIPS, IS_WHITELISTED)
+	species_traits = list(LIPS, IS_WHITELISTED, NO_HAIR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	has_gender = FALSE
@@ -56,7 +56,7 @@
 	has_organ = list(
 		"heart" =      				/obj/item/organ/internal/heart/drask,
 		"lungs" =     				/obj/item/organ/internal/lungs/drask,
-		"metabolic strainer" =      /obj/item/organ/internal/liver/drask,
+		"liver" =      /obj/item/organ/internal/liver/drask,
 		"eyes" =     				/obj/item/organ/internal/eyes/drask, //5 darksight.
 		"brain" =  					/obj/item/organ/internal/brain/drask
 		)

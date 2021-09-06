@@ -39,7 +39,7 @@
 	if(ishuman(M) && M.mind?.vampire)
 		if(!M.mind.vampire.get_ability(/datum/vampire_passive/full))
 			to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
-			M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+			M.mind.vampire.adjust_nullification(5, 2)
 
 /obj/item/nullrod/pickup(mob/living/user)
 	. = ..()
@@ -366,6 +366,15 @@
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
 
+/obj/item/nullrod/armblade/mining
+	flags = NODROP
+	reskin_selectable = FALSE //So 2 of the same nullrod doesnt show up.
+
+/obj/item/nullrod/armblade/mining/pickup(mob/living/user)
+	..()
+	flags += ABSTRACT
+	return FALSE
+
 /obj/item/nullrod/carp
 	name = "carp-sie plushie"
 	desc = "An adorable stuffed toy that resembles the god of all carp. The teeth look pretty sharp. Activate it to recieve the blessing of Carp-Sie."
@@ -471,12 +480,12 @@
 
 			if(target.mind)
 				if(iscultist(target))
-					SSticker.mode.remove_cultist(target.mind) // This proc will handle message generation.
+					SSticker.mode.remove_cultist(target.mind, TRUE, TRUE) // This proc will handle message generation.
 					praying = FALSE
 					return
 
 				if(target.mind.vampire && !target.mind.vampire.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
-					target.mind.vampire.nullified = max(120, target.mind.vampire.nullified + 120)
+					target.mind.vampire.adjust_nullification(120, 50)
 					to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
 					praying = FALSE
 					return
@@ -500,7 +509,7 @@
 		if(holder.l_hand == src || holder.r_hand == src) // Holding this in your hand will
 			for(var/mob/living/carbon/human/H in range(5, loc))
 				if(H.mind && H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full))
-					H.mind.vampire.nullified = max(5, H.mind.vampire.nullified + 2)
+					H.mind.vampire.adjust_nullification(5, 2)
 					if(prob(10))
 						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
 
@@ -552,7 +561,6 @@
 /obj/item/nullrod/missionary_staff
 	name = "holy staff"
 	desc = "It has a mysterious, protective aura."
-	description_antag = "This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. Activate the staff while wearing robes to link, then aim the staff at your victim to try and convert them."
 	reskinned = TRUE
 	reskin_selectable = FALSE
 	icon_state = "godstaff-red"
@@ -565,6 +573,10 @@
 	var/team_color = "red"
 	var/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/robes = null		//the robes linked with this staff
 	var/faith = 99	//a conversion requires 100 faith to attempt. faith recharges over time while you are wearing missionary robes that have been linked to the staff.
+
+/obj/item/nullrod/missionary_staff/detailed_examine_antag()
+	return "This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. \
+			Activate the staff while wearing robes to link, then aim the staff at your victim to try and convert them."
 
 /obj/item/nullrod/missionary_staff/New()
 	..()

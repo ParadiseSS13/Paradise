@@ -40,7 +40,7 @@
 	var/randomspread = 1
 
 	var/unique_rename = TRUE //allows renaming with a pen
-	var/unique_reskin = TRUE //allows one-time reskinning
+	var/unique_reskin = FALSE //allows one-time reskinning
 	var/current_skin = null //the skin choice if we had a reskin
 	var/list/options = list()
 
@@ -56,7 +56,7 @@
 	var/knife_x_offset = 0
 	var/knife_y_offset = 0
 
-	var/can_holster = TRUE
+	var/can_holster = FALSE  // Anything that can be holstered should be manually set
 
 	var/list/upgrades = list()
 
@@ -98,6 +98,9 @@
 			. += "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
 	else if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
+
+/obj/item/gun/detailed_examine() // Truly detailed
+	return "This is a gun."
 
 /obj/item/gun/proc/process_chamber()
 	return 0
@@ -291,7 +294,7 @@
 		else
 			return ..()
 
-/obj/item/gun/attack_obj(obj/O, mob/user)
+/obj/item/gun/attack_obj(obj/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		if(bayonet)
 			O.attackby(bayonet, user)

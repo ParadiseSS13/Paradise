@@ -9,9 +9,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "af" = (
-/obj/machinery/sleeper{
-	dir = 8
-	},
+/obj/machinery/sleeper,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -21,8 +19,7 @@
 "ak" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "burst_r";
-	tag = "icon-burst_r (WEST)"
+	icon_state = "burst_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
@@ -40,8 +37,6 @@
 /area/shuttle/abandoned)
 "aq" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (EAST)";
-	icon_state = "heater";
 	dir = 4
 	},
 /obj/structure/window/reinforced{
@@ -51,9 +46,7 @@
 /area/shuttle/abandoned)
 "ar" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "propulsion";
-	tag = "icon-propulsion (WEST)"
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
@@ -114,8 +107,7 @@
 "aJ" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "burst_l";
-	tag = "icon-burst_l (WEST)"
+	icon_state = "burst_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
@@ -132,7 +124,6 @@
 	},
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
-	icon_state = "pinonfar";
 	id = "whiteship_away";
 	name = "Deep Space"
 	},

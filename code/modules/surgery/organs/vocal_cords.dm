@@ -112,6 +112,9 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		if(owner.stat)
 			return FALSE
+	if(istype(owner.loc, /obj/effect/dummy/spell_jaunt))
+		to_chat(owner, "<span class='warning'>No one can hear you when you are jaunting, no point in talking now!</span>")
+		return FALSE
 	return TRUE
 
 /datum/action/item_action/organ_action/colossus/Trigger()
@@ -139,12 +142,15 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		return FALSE
 	if(owner.stat)
 		return FALSE
+	if(istype(owner.loc, /obj/effect/dummy/spell_jaunt))
+		to_chat(owner, "<span class='warning'>No one can hear you when you are jaunting, no point in talking now!</span>")
+		return FALSE
 	return TRUE
 
 /obj/item/organ/internal/vocal_cords/colossus/handle_speech(message)
 	spans = "colossus yell" //reset spans, just in case someone gets deculted or the cords change owner
 	if(iscultist(owner))
-		spans += " narsiesmall"
+		spans += "narsiesmall"
 	return "<span class=\"[spans]\">[uppertext(message)]</span>"
 
 /obj/item/organ/internal/vocal_cords/colossus/speak_with(message)
@@ -181,6 +187,10 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	//Cultists are closer to their gods and are more powerful, but they'll give themselves away
 	if(iscultist(owner))
 		power_multiplier *= 2
+
+	//It's magic, they are a wizard.
+	if(iswizard(owner))
+		power_multiplier *= 2.5
 
 	//Try to check if the speaker specified a name or a job to focus on
 	var/list/specific_listeners = list()
@@ -242,7 +252,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	else if((findtext(message, GLOB.hallucinate_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			new /obj/effect/hallucination/delusion(get_turf(L),L,duration=150 * power_multiplier,skip_nearby=0)
+			new /obj/effect/hallucination/delusion(get_turf(L), L)
 		next_command = world.time + cooldown_meme
 
 	//WAKE UP
@@ -477,3 +487,10 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 	message_admins("[key_name_admin(owner)] has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].")
 	log_game("[key_name(owner)] has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].")
+
+/obj/item/organ/internal/vocal_cords/colossus/wizard
+	desc = "They carry the voice of an ancient god. This one is enchanted to implant it into yourself when used in hand"
+
+/obj/item/organ/internal/vocal_cords/colossus/wizard/attack_self(mob/living/user)
+	user.drop_item()
+	insert(user)

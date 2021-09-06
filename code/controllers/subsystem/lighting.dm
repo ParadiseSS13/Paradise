@@ -11,9 +11,17 @@ SUBSYSTEM_DEF(lighting)
 /datum/controller/subsystem/lighting/stat_entry()
 	..("L:[length(sources_queue)]|C:[length(corners_queue)]|O:[length(objects_queue)]")
 
+/datum/controller/subsystem/lighting/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["sources_queue"] = length(sources_queue)
+	cust["corners_queue"] = length(corners_queue)
+	cust["objects_queue"] = length(objects_queue)
+	.["custom"] = cust
+
 /datum/controller/subsystem/lighting/Initialize(timeofday)
 	if(!initialized)
-		if(config.starlight)
+		if(GLOB.configuration.general.starlight)
 			for(var/I in GLOB.all_areas)
 				var/area/A = I
 				if(A.dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)

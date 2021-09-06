@@ -100,6 +100,24 @@
 
 /obj/machinery/suit_storage_unit/security/pod_pilot
 	req_access = list(ACCESS_PILOT)
+	
+/obj/machinery/suit_storage_unit/security/hos
+	name = "Head of Security's suit storage unit"
+	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
+	mask_type = /obj/item/clothing/mask/gas/sechailer/hos
+	req_access = list(ACCESS_HOS)
+	
+/obj/machinery/suit_storage_unit/security/hos/secure
+	secure = TRUE
+
+/obj/machinery/suit_storage_unit/gamma
+	name = "gamma shielded suit storage unit"
+	suit_type = /obj/item/clothing/suit/space/hardsuit/shielded/gamma
+	mask_type = /obj/item/clothing/mask/gas/sechailer/swat
+	req_access = list(ACCESS_SECURITY)
+
+/obj/machinery/suit_storage_unit/gamma/secure
+	secure = TRUE
 
 /obj/machinery/suit_storage_unit/atmos
 	name = "atmospherics suit storage unit"
@@ -161,7 +179,7 @@
 	name = "syndicate suit storage unit"
 	suit_type		= /obj/item/clothing/suit/space/hardsuit/syndi
 	mask_type		= /obj/item/clothing/mask/gas/syndicate
-	storage_type	= /obj/item/tank/jetpack/oxygen/harness
+	storage_type	= /obj/item/tank/internals/oxygen/red
 	req_access = list(ACCESS_SYNDICATE)
 	safeties = FALSE	//in a syndicate base, everything can be used as a murder weapon at a moment's notice.
 
@@ -314,8 +332,8 @@
 	if(state_open)
 		if(store_item(I, user))
 			update_icon()
-			updateUsrDialog()
-			to_chat(user, "<span class='notice'>You load the [I] into the storage compartment.</span>")
+			SStgui.update_uis(src)
+			to_chat(user, "<span class='notice'>You load [I] into the storage compartment.</span>")
 		else
 			to_chat(user, "<span class='warning'>You can't fit [I] into [src]!</span>")
 		return
@@ -331,26 +349,42 @@
 	if(default_deconstruction_screwdriver(user, "panel", "close", I))
 		I.play_tool_sound(user, I.tool_volume)
 
+/**
+  * Tries to store the item into whatever slot it can go, returns true if the item is stored successfully.
+  *
+**/
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
-	. = FALSE
 	if(istype(I, /obj/item/clothing/suit) && !suit)
-		suit = I
-		. = TRUE
+		if(try_store_item(I, user))
+			suit = I
+			return TRUE
 	if(istype(I, /obj/item/clothing/head) && !helmet)
-		helmet = I
-		. = TRUE
+		if(try_store_item(I, user))
+			helmet = I
+			return TRUE
 	if(istype(I, /obj/item/clothing/mask) && !mask)
-		mask = I
-		. = TRUE
+		if(try_store_item(I, user))
+			mask = I
+			return TRUE
 	if(istype(I, /obj/item/clothing/shoes) && !boots)
-		boots = I
-		. = TRUE
-	if((istype(I, /obj/item/tank) || I.w_class <= WEIGHT_CLASS_SMALL) && !storage && !.)
-		storage = I
-		. = TRUE
-	if(.)
-		user.drop_item()
+		if(try_store_item(I, user))
+			boots = I
+			return TRUE
+	if((istype(I, /obj/item/tank) || I.w_class <= WEIGHT_CLASS_SMALL) && !storage)
+		if(try_store_item(I, user))
+			storage = I
+			return TRUE
+	return FALSE
+
+/**
+  * Tries to store the item, returns true if it's moved successfully, false otherwise (because of nodrop etc)
+  *
+**/
+/obj/machinery/suit_storage_unit/proc/try_store_item(obj/item/I, mob/user)
+	if(user.drop_item())
 		I.forceMove(src)
+		return TRUE
+	return FALSE
 
 
 /obj/machinery/suit_storage_unit/power_change()
@@ -366,6 +400,7 @@
 	helmet = null
 	suit = null
 	mask = null
+	boots = null
 	storage = null
 	occupant = null
 
@@ -381,10 +416,10 @@
 		return
 	var/mob/living/target = A
 	if(!state_open)
-		to_chat(user, "<span class='warning'>The [src]'s doors are shut!</span>")
+		to_chat(user, "<span class='warning'>[src]'s doors are shut!</span>")
 		return
 	if(!is_operational())
-		to_chat(user, "<span class='warning'>The [src] is not operational!</span>")
+		to_chat(user, "<span class='warning'>[src] is not operational!</span>")
 		return
 	if(occupant || helmet || suit || storage)
 		to_chat(user, "<span class='warning'>It's too cluttered inside to fit in!</span>")
@@ -409,8 +444,6 @@
 	if(uv_cycles)
 		uv_cycles--
 		uv = TRUE
-		locked = TRUE
-		update_icon()
 		if(occupant)
 			var/mob/living/mob_occupant = occupant
 			if(uv_super)
@@ -422,7 +455,6 @@
 	else
 		uv_cycles = initial(uv_cycles)
 		uv = FALSE
-		locked = FALSE
 		for(var/atom/A in contents)
 			A.clean_blood(radiation_clean = FALSE)	// we invoke the radiation cleaning proc directly
 			A.clean_radiation(12)	// instead of letting clean_blood do it
@@ -451,9 +483,10 @@
 			else
 				visible_message("<span class='warning'>[src]'s door slides open, barraging you with the nauseating smell of charred flesh.</span>")
 			playsound(src, 'sound/machines/airlock_close.ogg', 25, 1)
-		open_machine(FALSE)
 		if(occupant)
 			dump_contents()
+		update_icon()
+		SStgui.update_uis(src)
 
 /obj/machinery/suit_storage_unit/relaymove(mob/user)
 	if(locked)
@@ -502,7 +535,7 @@
 	if(drop)
 		dropContents()
 	update_icon()
-	updateUsrDialog()
+	SStgui.update_uis(src)
 
 /obj/machinery/suit_storage_unit/dropContents()
 	var/turf/T = get_turf(src)
@@ -532,66 +565,11 @@
 	if(target && !target.has_buckled_mobs() && (!isliving(target) || !mobtarget.buckled))
 		occupant = target
 		target.forceMove(src)
-	updateUsrDialog()
+	SStgui.update_uis(src)
 	update_icon()
 
 
 ////////
-
-/obj/machinery/suit_storage_unit/attack_hand(mob/user)
-	var/dat
-	if(shocked && !(stat & NOPOWER))
-		if(shock(user, 100))
-			return
-	if(stat & NOPOWER)
-		return
-	if(..())
-		return
-	if(panel_open) //The maintenance panel is open. Time for some shady stuff
-		wires.Interact(user)
-	if(uv) //The thing is running its cauterisation cycle. You have to wait.
-		dat += "<HEAD><TITLE>Suit storage unit</TITLE></HEAD>"
-		dat+= "<font color ='red'><B>Unit is cauterising contents with selected UV ray intensity. Please wait.</font></B><BR>"
-	else
-		if(!broken)
-			dat+= "<B>Welcome to the Unit control panel.</B><HR>"
-			dat+= text("Helmet storage compartment: <B>[]</B><BR>",(helmet ? helmet.name : "</font><font color ='grey'>No helmet detected.") )
-			if(helmet && state_open)
-				dat+="<A href='?src=[UID()];dispense_helmet=1'>Dispense helmet</A><BR>"
-			dat+= text("Suit storage compartment: <B>[]</B><BR>",(suit ? suit.name : "</font><font color ='grey'>No exosuit detected.") )
-			if(suit && state_open)
-				dat+="<A href='?src=[UID()];dispense_suit=1'>Dispense suit</A><BR>"
-			dat+= text("Breathmask storage compartment: <B>[]</B><BR>",(mask ? mask.name : "</font><font color ='grey'>No breathmask detected.") )
-			if(mask && state_open)
-				dat+="<A href='?src=[UID()];dispense_mask=1'>Dispense mask</A><BR>"
-			dat+= text("Magboots storage compartment: <B>[]</B><BR>",(boots ? boots.name : "</font><font color ='grey'>No magboots detected.") )
-			if(boots && state_open)
-				dat+="<A href='?src=[UID()];dispense_magboots=1'>Dispense magboots</A><BR>"
-			dat+= text("Tank storage compartment: <B>[]</B><BR>",(storage ? storage.name : "</font><font color ='grey'>No storage item detected.") )
-			if(storage && state_open)
-				dat+="<A href='?src=[UID()];dispense_storage=1'>Dispense storage item</A><BR>"
-			if(occupant)
-				dat+= "<HR><B><font color ='red'>WARNING: Biological entity detected inside the Unit's storage. Please remove.</B></font><BR>"
-				dat+= "<A href='?src=[UID()];eject_guy=1'>Eject extra load</A>"
-			dat+= text("<HR>Unit is: [] - <A href='?src=[UID()];toggle_open=1'>[] Unit</A> ",(state_open ? "Open" : "Closed"),(state_open ? "Close" : "Open"))
-			if(state_open)
-				dat+="<HR>"
-			else
-				dat+= text(" - <A href='?src=[UID()];toggle_lock=1'>*[] Unit*</A><HR>",(locked ? "Unlock" : "Lock") )
-			dat+= text("Unit status: []",(locked? "<font color ='red'><B>**LOCKED**</B></font><BR>" : "<font color ='green'><B>**UNLOCKED**</B></font><BR>") )
-			dat+= "<A href='?src=[UID()];cook=1'>Start Disinfection cycle</A><BR>"
-			dat += "<BR><BR><A href='?src=[user.UID()];mach_close=suit_storage_unit'>Close control panel</A>"
-		else //Ohhhh shit it's dirty or broken! Let's inform the guy.
-			dat+= "<HEAD><TITLE>Suit storage unit</TITLE></HEAD>"
-			dat+= "<font color='maroon'><B>Unit chamber is too contaminated to continue usage. Please call for a qualified individual to perform maintenance.</font></B><BR><BR>"
-			dat+= "<HR><A href='?src=[user.UID()];mach_close=suit_storage_unit'>Close control panel</A>"
-
-
-	var/datum/browser/popup = new(user, "suit_storage_unit", name, 400, 500)
-	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "suit_storage_unit")
-	return
 
 /obj/machinery/suit_storage_unit/proc/check_allowed(user)
 	if(!(allowed(user) || !secure))
@@ -599,65 +577,69 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/suit_storage_unit/Topic(href, href_list)
+/obj/machinery/suit_storage_unit/attack_hand(mob/user)
+	if(..() || (stat & NOPOWER))
+		return
+	if(shocked && shock(user, 100))
+		return
+	if(panel_open) //The maintenance panel is open. Time for some shady stuff
+		wires.Interact(user)
+	ui_interact(user)
+
+/obj/machinery/suit_storage_unit/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "SuitStorage", name, 402, 268, master_ui, state)
+		ui.set_autoupdate(FALSE)
+		ui.open()
+
+/obj/machinery/suit_storage_unit/ui_data(mob/user)
+	var/list/data = list(
+		"locked" = locked,
+		"open" = state_open,
+		"broken" = broken,
+		"helmet" = helmet ? helmet.name : null,
+		"suit" = suit ? suit.name : null,
+		"magboots" = boots ? boots.name : null,
+		"mask" = mask ? mask.name : null,
+		"storage" = storage ? storage.name : null,
+		"uv" = uv
+	)
+	return data
+
+/obj/machinery/suit_storage_unit/ui_act(action, list/params)
 	if(..())
-		return 1
+		return
+	add_fingerprint(usr)
 	if(shocked && !(stat & NOPOWER))
 		if(shock(usr, 100))
-			return
-	if((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
-		usr.set_machine(src)
-		if(href_list["toggleUV"])
-			toggleUV()
-			updateUsrDialog()
-			update_icon()
-		if(href_list["togglesafeties"])
-			togglesafeties()
-			updateUsrDialog()
-			update_icon()
-		if(href_list["dispense_helmet"])
-			dispense_helmet()
-			updateUsrDialog()
-			update_icon()
-		if(href_list["dispense_suit"])
-			dispense_suit()
-			updateUsrDialog()
-			update_icon()
-		if(href_list["dispense_mask"])
-			dispense_mask()
-			updateUsrDialog()
-			update_icon()
-		if(href_list["dispense_magboots"])
-			dispense_magboots()
-			updateUsrDialog()
-			update_icon()
-		if(href_list["dispense_storage"])
-			dispense_storage()
-			updateUsrDialog()
-			update_icon()
-		if(href_list["toggle_open"])
-			if(!check_allowed(usr))
-				return
-			toggle_open(usr)
-			updateUsrDialog()
-			update_icon()
-		if(href_list["toggle_lock"])
-			if(!check_allowed(usr))
-				return
-			toggle_lock(usr)
-			updateUsrDialog()
-			update_icon()
-		if(href_list["cook"])
-			cook()
-			updateUsrDialog()
-			update_icon()
-		if(href_list["eject_guy"])
-			eject_occupant(usr)
-			updateUsrDialog()
-			update_icon()
-	add_fingerprint(usr)
-	return
+			return FALSE
 
+	. = TRUE
+	switch(action)
+		if("dispense_helmet")
+			dispense_helmet()
+		if("dispense_suit")
+			dispense_suit()
+		if("dispense_mask")
+			dispense_mask()
+		if("dispense_boots")
+			dispense_boots()
+		if("dispense_storage")
+			dispense_storage()
+		if("toggle_open")
+			if(!check_allowed(usr))
+				return FALSE
+			toggle_open(usr)
+		if("toggle_lock")
+			if(!check_allowed(usr))
+				return FALSE
+			toggle_lock(usr)
+		if("cook")
+			cook()
+		if("eject_occupant")
+			eject_occupant(usr)
+	update_icon()
 
 /obj/machinery/suit_storage_unit/proc/toggleUV()
 	if(!panel_open)
@@ -692,7 +674,7 @@
 		mask.forceMove(loc)
 		mask = null
 
-/obj/machinery/suit_storage_unit/proc/dispense_magboots()
+/obj/machinery/suit_storage_unit/proc/dispense_boots()
 	if(!boots)
 		return
 	else
@@ -754,7 +736,7 @@
 		return
 	eject_occupant(usr)
 	add_fingerprint(usr)
-	updateUsrDialog()
+	SStgui.update_uis(src)
 	update_icon()
 	return
 
@@ -785,7 +767,7 @@
 		update_icon()
 
 		add_fingerprint(usr)
-		updateUsrDialog()
+		SStgui.update_uis(src)
 		return
 	else
 		occupant = null
