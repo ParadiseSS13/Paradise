@@ -462,6 +462,35 @@
 		drop_computer_parts()
 	return ..() // will qdel the frame
 
+/obj/structure/computerframe/verb/rotate()
+	set name = "Rotate computer frame"
+	set category = "Object"
+	set src in oview(1)
+
+	if(GLOB.configuration.general.ghost_interaction)
+		setDir(turn(dir, 90))
+		return
+
+	if(usr.incapacitated())
+		return
+
+	if(anchored)
+		to_chat(usr, "<span class='warning'>The frame is anchored to the floor!</span>")
+		return
+
+	setDir(turn(dir, 90))
+
+/obj/structure/computerframe/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	if(anchored)
+		to_chat(user, "<span class='warning'>The frame is anchored to the floor!</span>")
+		return
+	rotate()
+
 /obj/structure/computerframe/obj_break(damage_flag)
 	deconstruct()
 
@@ -544,7 +573,8 @@
 		if(STATE_GLASS)
 			to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 			I.play_tool_sound(src)
-			var/B = new circuit.build_path(loc)
+			var/obj/machinery/computer/B = new circuit.build_path(loc)
+			B.dir = dir
 			if(istype(circuit, /obj/item/circuitboard/supplycomp))
 				var/obj/machinery/computer/supplycomp/SC = B
 				var/obj/item/circuitboard/supplycomp/C = circuit
