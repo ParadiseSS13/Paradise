@@ -33,7 +33,7 @@
 
 /obj/structure/closet/cardboard/open()
 	if(opened || !can_open())
-		return 0
+		return FALSE
 	if(!egged)
 		var/mob/living/Snake = null
 		for(var/mob/living/L in src.contents)
@@ -47,7 +47,7 @@
 						L.do_alert_animation(L)
 						egged = 1
 				alerted << sound('sound/machines/chime.ogg')
-	..()
+	return ..()
 
 /mob/living/proc/do_alert_animation(atom/A)
 	var/image/I

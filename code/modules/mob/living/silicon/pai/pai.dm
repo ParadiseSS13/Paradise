@@ -172,7 +172,7 @@
 	to_chat(src, "<font color=green><b>Communication circuit overload. Shutting down and reloading communication circuits - speech and messaging functionality will be unavailable until the reboot is complete.</b></font>")
 	if(prob(20))
 		visible_message("<span class='warning'>A shower of sparks spray from [src]'s inner workings.</span>",
-			"<span class='warning'>You hear and smell the ozone hiss of electrical sparks being expelled violently.</span>")
+			blind_message = "<span class='warning'>You hear and smell the ozone hiss of electrical sparks being expelled violently.</span>")
 		return death(0)
 
 	switch(pick(1,2,3))

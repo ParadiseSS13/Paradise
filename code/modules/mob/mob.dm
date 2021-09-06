@@ -74,7 +74,7 @@
 
 
 /// Show a message to this mob (MSG_VISIBLE or MSG_AUDIBLE)
-/mob/proc/show_message(msg, type, alt_msg, alt_type)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
+/mob/proc/show_message(msg, type, alt_msg, alt_type)//Message, type of message, alternative message, alt message type
 	if(!client)
 		return
 
@@ -101,7 +101,7 @@
 			to_chat(src, "<I>... You can almost see something ...</I>")
 		return
 
-	to_chat(src, msg)
+	to_chat(src, msg) // Send the actual message
 
 /**
   * Generate a visible message from this atom.
@@ -165,13 +165,12 @@
 	var/omsg = replacetext(message, "<B>[src]</B> ", "")
 	var/list/listening_obj = new
 	for(var/atom/movable/A in view(hearing_distance, src))
-		if(istype(A, /mob))
-			var/mob/M = A
-			for(var/obj/O in M.contents)
+		if(ismob(A))
+			for(var/obj/O in A.contents)
 				listening_obj |= O
-		else if(istype(A, /obj))
-			var/obj/O = A
-			listening_obj |= O
+		else if(isobj(A))
+			listening_obj |= A
+
 	for(var/obj/O in listening_obj)
 		O.hear_message(src, omsg)
 

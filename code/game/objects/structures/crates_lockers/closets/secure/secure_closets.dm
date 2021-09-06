@@ -115,7 +115,7 @@
 	else
 		icon_state = icon_opened
 
-/obj/structure/closet/secure_closet/container_resist(mob/living/L)
+/obj/structure/closet/secure_closet/container_resist(mob/living/L) // This needs to be refactored. Almost identical to the parent proc.
 	var/breakout_time = 2 //2 minutes by default
 	if(opened)
 		if(L.loc == src)
@@ -126,7 +126,7 @@
 
 	//okay, so the closet is either welded or locked... resist!!!
 	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>")
-	visible_message("<span class='danger'>[src] begins to shake violently!</span>", ignored_mobs = list(usr))
+	visible_message("<span class='danger'>[src] begins to shake violently!</span>", ignored_mobs = list(L))
 
 	spawn(0)
 		if(do_after(usr,(breakout_time*60*10), target = src)) //minutes * 60seconds * 10deciseconds

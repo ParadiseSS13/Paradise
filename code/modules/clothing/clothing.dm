@@ -318,7 +318,7 @@ BLIND     // can't see anything
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
 
-	else if(istype(loc, /mob))
+	else if(ismob(loc))
 		switch(sensor_mode)
 			if(0)
 				visible_message("<span class='warning'>[user] disables [loc]'s remote sensing equipment.</span>", vision_distance = 1)
