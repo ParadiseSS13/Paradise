@@ -11,16 +11,19 @@
 	action_icon_state = "vampire_claws"
 
 /obj/effect/proc_holder/spell/self/vamp_claws/cast(mob/user)
-	to_chat(user, "<span class='notice'>You drop what was in your hands as large blades spring from your fingers!</span>")
+	if(user.l_hand || user.r_hand)
+		to_chat(user, "<span class='notice'>You drop what was in your hands as large blades spring from your fingers!</span>")
+		user.drop_l_hand()
+		user.drop_r_hand()
+	else
+		to_chat(user, "<span class='notice'>Large blades of blood spring from your fingers!</span>")
 	var/obj/item/twohanded/required/vamp_claws/claws = new /obj/item/twohanded/required/vamp_claws(user.loc)
-	user.drop_l_hand()
-	user.drop_r_hand()
 	user.put_in_hands(claws)
 
 /obj/effect/proc_holder/spell/self/vamp_claws/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/L = user
 	if(L.canUnEquip(L.l_hand) && L.canUnEquip(L.r_hand))
-		. = ..()
+		return ..()
 
 /obj/item/twohanded/required/vamp_claws
 	name = "vampiric claws"
@@ -44,9 +47,9 @@
 
 /obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity)
 	if(user.mind?.vampire)
-		if(istype(target, /mob/living/carbon))
+		if(iscarbon(target))
 			var/mob/living/carbon/C = target
-			if(C.ckey && C.stat != DEAD && C.mind && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
+			if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
 				C.bleed(blood_drain_amount)
 				user.mind.vampire.adjust_blood(C, blood_absorbed_amount)
 	durability -= 1
@@ -55,12 +58,12 @@
 		to_chat(user, "<span class='warning'>Your claws shatter!</span>")
 
 /obj/item/twohanded/required/vamp_claws/Initialize(mapload)
-	..()
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/twohanded/required/vamp_claws/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	..()
+	return ..()
 
 /obj/item/twohanded/required/vamp_claws/process()
 	durability -= 1
@@ -105,17 +108,17 @@
 	var/turf/T = get_turf(targets[1]) // there should only ever be one entry in targets for this spell
 
 	for(var/turf/simulated/blood_turf in view(area_of_affect, T))
-		if(T.density)
+		if(blood_turf.density)
 			continue
 		new /obj/effect/temp_visual/blood_tendril(blood_turf)
 
-	addtimer(CALLBACK(T, /turf./proc/blood_tendrils, area_of_affect, 3, usr), 0.5 SECONDS)
+	addtimer(CALLBACK(T, /turf./proc/blood_tendrils, area_of_affect, 3, user), 0.5 SECONDS)
 
 /turf/proc/blood_tendrils(distance, slowed_amount, user)
 	for(var/mob/living/L in view(distance, src))
 		if(L.affects_vampire(user))
 			L.AdjustSlowed(slowed_amount)
-			L.visible_message("<span class='warning'>[L] gets ensared in blood tendrils restricting [p_their(L)] movement!</span>")
+			L.visible_message("<span class='warning'>[L] gets ensared in blood tendrils, restricting [L.p_their()] movement!</span>")
 			new /obj/effect/temp_visual/blood_tendril/long(get_turf(L))
 
 /obj/effect/temp_visual/blood_tendril
@@ -213,7 +216,7 @@
 
 /datum/vampire_passive/blood_spill/Destroy(force, ...)
 	STOP_PROCESSING(SSobj, src)
-	..()
+	return ..()
 
 /datum/vampire_passive/blood_spill/process()
 	var/turf/T = get_turf(owner)

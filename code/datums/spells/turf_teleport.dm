@@ -8,7 +8,7 @@
 
 	var/include_space = 0 //whether it includes space tiles in possible teleport locations
 	var/include_dense = 0 //whether it includes dense tiles in possible teleport locations
-	/// whether the spell can teleport to light locations
+	/// Whether the spell can teleport to light locations
 	var/include_light = TRUE
 
 	var/sound1 = 'sound/weapons/zapbang.ogg'

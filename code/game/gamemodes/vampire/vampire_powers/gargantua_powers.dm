@@ -52,7 +52,7 @@
 /obj/effect/proc_holder/spell/self/blood_rush/cast(list/targets, mob/user)
 	ADD_TRAIT(user, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
 	to_chat(user, "<span class='notice'>You feel a rush of energy!</span>")
-	addtimer(CALLBACK(user, /mob/living/carbon/human/.proc/remove_speed, VAMPIRE_TRAIT), 10 SECONDS )
+	addtimer(CALLBACK(user, /mob/living/carbon/human/.proc/remove_speed, VAMPIRE_TRAIT), 10 SECONDS)
 
 /mob/living/carbon/human/proc/remove_speed(source)
 	REMOVE_TRAIT(src, TRAIT_GOTTAGOFAST, source)

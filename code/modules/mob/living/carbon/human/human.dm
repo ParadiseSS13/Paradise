@@ -1965,7 +1965,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			if(AL.welded)
 				to_chat(src, "<span class='warning'>The door is welded.</span>")
 				return
-			else if(AL.locked)
+			if(AL.locked)
 				to_chat(src, "<span class='warning'>The door is bolted.</span>")
 				return
 			if(AL.density)

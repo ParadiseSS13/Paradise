@@ -1109,7 +1109,7 @@
 		H.mind.vampire.add_subclass(SUBCLASS_ANCIENT)
 		H.mind.vampire.upgrade_tiers.Remove(/obj/effect/proc_holder/spell/self/specialize)
 		H.mind.vampire.check_vampire_upgrade(TRUE)
-		H.dna.SetSEState(GLOB.jumpblock, 1)
+		H.dna.SetSEState(GLOB.jumpblock, TRUE)
 		singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
 		H.update_mutations()
 		H.gene_stability = 100

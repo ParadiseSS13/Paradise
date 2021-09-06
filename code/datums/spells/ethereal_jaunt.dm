@@ -101,10 +101,9 @@
 	movedelay = world.time + movespeed
 
 /obj/effect/dummy/spell_jaunt/proc/can_move(turf/T)
-	if((T.flags & NOJAUNT))
+	if(T.flags & NOJAUNT)
 		return FALSE
-	else
-		return TRUE
+	return TRUE
 
 /obj/effect/dummy/spell_jaunt/ex_act(blah)
 	return
@@ -125,5 +124,4 @@
 /obj/effect/dummy/spell_jaunt/blood_pool/can_move(turf/T)
 	if(isspaceturf(T) || T.density)
 		return FALSE
-	else
-		return TRUE
+	return TRUE

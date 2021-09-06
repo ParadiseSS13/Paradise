@@ -177,9 +177,9 @@
 		vampire_mob.mind.vampire = vamp
 	else
 		vamp = vampire_mob.mind.vampire
-		vamp.powers.Cut()
+		QDEL_LIST(vamp.powers)
 
-	vamp.check_vampire_upgrade(0)
+	vamp.check_vampire_upgrade(FALSE)
 
 /datum/game_mode/proc/greet_vampire(datum/mind/vampire, you_are=1)
 	var/dat
@@ -204,6 +204,7 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 		obj_count++
 	to_chat(vampire.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Vampire)</span>")
 	return
+
 /datum/vampire
 	var/bloodtotal = 0
 	var/bloodusable = 0
@@ -224,9 +225,11 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 	var/list/drained_humans = list() // list of the peoples UIDs that we have drained, and how much blood from each one
 
 /datum/vampire/Destroy(force, ...)
+	owner = null
 	draining = null
 	QDEL_NULL(subclass)
-	. = ..()
+	QDEL_LIST(powers)
+	return ..()
 
 /datum/vampire/proc/adjust_nullification(base, extra)
 	// First hit should give full nullification, while subsequent hits increase the value slower
@@ -307,10 +310,9 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 						blood = min(20, H.blood_volume)
 						adjust_blood(H, blood * BLOOD_GAINED_MODIFIER)
 						to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] unit\s of blood, and have [bloodusable] left to use.</b></span>")
-				else
-					if(H.ckey || H.player_ghosted)
-						blood = min(5, H.blood_volume)	// The dead only give 5 blood
-						bloodtotal += blood
+				else if(H.ckey || H.player_ghosted)
+					blood = min(5, H.blood_volume)	// The dead only give 5 blood
+					bloodtotal += blood
 				H.blood_volume = max(H.blood_volume - 25, 0)
 				//Blood level warnings (Code 'borrowed' from Fulp)
 				if(H.blood_volume)
@@ -482,9 +484,9 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 		owner.alpha = round((255 * 0.15))
 		ADD_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
 		return
-	else
-		REMOVE_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
-		owner.alpha = round((255 * 0.80))
+
+	REMOVE_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+	owner.alpha = round((255 * 0.80))
 
 /datum/vampire/proc/adjust_blood(mob/living/carbon/C, blood_amount = 0)
 	var/unique_suck_id = C.UID()

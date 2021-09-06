@@ -273,11 +273,11 @@
 			M.mind.vampire.adjust_nullification(20, 4)
 			M.mind.vampire.bloodusable = max(M.mind.vampire.bloodusable - 3,0)
 			if(M.mind.vampire.bloodusable)
-				V.vomit(0, TRUE, 0)
+				V.vomit(0, TRUE, FALSE)
 				V.adjustBruteLoss(3)
 			else
 				holder.remove_reagent(id, volume)
-				V.vomit(0, FALSE, 0)
+				V.vomit(0, FALSE, FALSE)
 				return
 		else
 			switch(current_cycle)
@@ -293,8 +293,8 @@
 						M.emote("scream")
 					M.mind.vampire.adjust_nullification(20, 4)
 				if(13 to INFINITY)
-					M.visible_message("<span class = 'danger'>[M] suddenly bursts into flames!</span>",
-									"<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
+					M.visible_message("<span class='danger'>[M] suddenly bursts into flames!</span>",
+									"<span class='danger'>You suddenly ignite in a holy fire!</span>")
 					M.fire_stacks = min(5, M.fire_stacks + 3)
 					M.IgniteMob()
 					update_flags |= M.adjustFireLoss(3, FALSE)

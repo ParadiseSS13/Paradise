@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/special_availability_check = 0//Whether the spell needs to bypass the action button's IsAvailable()
 
 	var/sound = null //The sound the spell makes when it is cast
-	/// if the ability is for vampires
+	/// If the ability is for vampires
 	var/vampire_ability = FALSE
 	var/required_blood = 0
 	var/gain_desc = null
@@ -617,7 +617,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 					to_chat(user, "<span class='notice'>Your outfit isn't magical enough, you should put on your robe and wizard hat, as well as your sandals.</span>")
 				return FALSE
 	else
-		if(clothes_req  || human_req || vampire_ability)
+		if(clothes_req || human_req || vampire_ability)
 			if(show_message)
 				to_chat(user, "<span class='notice'>This spell can only be cast by humans!</span>")
 			return FALSE
