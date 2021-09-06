@@ -1173,17 +1173,20 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(stat==DEAD)
 		return
 	var/turf/location = loc
-	if(istype(location, /turf/simulated))
-		if(green)
-			if(!no_text)
-				visible_message("<span class='warning'>[src] vomits up some green goo!</span>","<span class='warning'>You vomit up some green goo!</span>")
-			location.add_vomit_floor(FALSE, TRUE)
-		else
-			if(!no_text)
-				visible_message("<span class='warning'>[src] pukes all over [p_them()]self!</span>","<span class='warning'>You puke all over yourself!</span>")
-			location.add_vomit_floor(TRUE)
 	if (nutrition > 0)
-		adjust_nutrition(rand(-30, -15))
+		if(istype(location, /turf/simulated))
+			if(green)
+				if(!no_text)
+					visible_message("<span class='warning'>[src] vomits up some green goo!</span>","<span class='warning'>You vomit up some green goo!</span>")
+				location.add_vomit_floor(FALSE, TRUE)
+			else
+				if(!no_text)
+					visible_message("<span class='warning'>[src] pukes all over [p_them()]self!</span>","<span class='warning'>You puke all over yourself!</span>")
+				location.add_vomit_floor(TRUE)
+			adjust_nutrition(rand(-30, -15))
+	else
+		if (!no_text)
+			visible_message("<span class='warning'>[src] dry heaves!","<span class='warning'>You attempt to puke but your stomach is empty!")
 
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	mob_spell_list += S
