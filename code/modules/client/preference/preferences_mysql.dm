@@ -103,7 +103,7 @@
 	var/list/datum/character_save/valid_slots = list()
 	for(var/datum/character_save/CS in character_saves)
 		if(CS.valid_save)
-			valid_slots.Add(CS)
+			valid_slots += CS
 
 	if(!length(valid_slots))
 		// They have no valid saves. Lets just randomise #1
@@ -115,7 +115,6 @@
 
 	var/datum/character_save/CS = pick(valid_slots)
 	C.prefs.active_character = CS
-	return
 
 /**
   * Saves [/datum/preferences/proc/volume_mixer] for the current client.

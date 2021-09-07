@@ -286,18 +286,18 @@
 
 	log_client_to_db(tdata) // Make sure our client exists in the DB
 
-	// This is where stuff happens on the client
+	// This is where we load all of the clients stuff from the DB
 	if(SSdbcore.IsConnected())
 		// Load in all our client data from the DB
 		var/list/datum/db_query/login_queries = list() // List of queries to run for login processing
 
-		for(var/datum/client_login_processor/CLP in GLOB.client_login_processors)
+		for(var/datum/client_login_processor/CLP as anything in GLOB.client_login_processors)
 			login_queries[CLP.type] = CLP.get_query(src)
 
 		SSdbcore.MassExecute(login_queries, TRUE, FALSE, TRUE, FALSE) // Warn, no qdel, assoc, no log
 
 		// Now do fancy things with the results
-		for(var/datum/client_login_processor/CLP in GLOB.client_login_processors)
+		for(var/datum/client_login_processor/CLP as anything in GLOB.client_login_processors)
 			CLP.process_result(login_queries[CLP.type], src)
 
 		QDEL_LIST_ASSOC_VAL(login_queries) // Clear out the used queries
@@ -309,7 +309,7 @@
 		prefs.character_saves = list()
 
 		// Random character
-		prefs.character_saves.Add(new /datum/character_save)
+		prefs.character_saves += new /datum/character_save
 		prefs.active_character = prefs.character_saves[1]
 
 		// ToS accepted
@@ -318,8 +318,7 @@
 
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
-	if(world.byond_version >= 511 && byond_version >= 511 && prefs.clientfps)
-		fps = prefs.clientfps
+	fps = prefs.clientfps
 
 	// Log alts
 	if(length(related_accounts_ip))

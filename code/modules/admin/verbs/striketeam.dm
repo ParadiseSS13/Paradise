@@ -141,7 +141,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	var/datum/character_save/S = new()//Randomize appearance for the commando.
 	S.randomise()
 	if(is_leader)
-		S.age = rand(35,45)
+		S.age = rand(35, 45)
 		S.real_name = "[commando_leader_rank] [commando_name]"
 	else
 		S.real_name = "[commando_name]"

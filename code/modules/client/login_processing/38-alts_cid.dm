@@ -11,4 +11,4 @@
 	while(Q.NextRow())
 		if("[Q.item[1]]" == C.ckey)
 			continue
-		C.related_accounts_cid.Add("[Q.item[1]]")
+		C.related_accounts_cid += "[Q.item[1]]"

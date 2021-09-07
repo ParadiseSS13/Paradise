@@ -16,6 +16,7 @@
 			qdel(query_watchfind)
 			return
 		else
+			qdel(query_watchfind)
 			target_ckey = new_ckey
 
 	var/already_watched = FALSE

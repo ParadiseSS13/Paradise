@@ -420,8 +420,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		if(TAB_GEAR)
 			var/total_cost = 0
 			var/list/type_blacklist = list()
-			if(active_character.loadout_gear && length(active_character.loadout_gear))
-				for(var/i = 1, i <= length(active_character.loadout_gear), i++)
+			if(length(active_character.loadout_gear))
+				for(var/i in 1 to length(active_character.loadout_gear))
 					var/datum/gear/G = GLOB.gear_datums[active_character.loadout_gear[i]]
 					if(G)
 						if(!G.subtype_cost_overlap)

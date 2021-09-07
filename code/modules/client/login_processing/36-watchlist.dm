@@ -2,8 +2,8 @@
 	priority = 36
 
 /datum/client_login_processor/watchlist/get_query(client/C)
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT reason FROM watch WHERE ckey=:target_ckey", list(
-		"target_ckey" = C.ckey
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT reason FROM watch WHERE ckey=:ckey", list(
+		"ckey" = C.ckey
 	))
 	return query
 

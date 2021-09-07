@@ -1,6 +1,6 @@
-
 /datum/preferences/proc/process_link(mob/user, list/href_list)
-	if(!user)	return
+	if(!user)
+		return
 
 	var/datum/species/S = GLOB.all_species[active_character.species]
 	if(href_list["preference"] == "job")
@@ -41,7 +41,6 @@
 				active_character.SetChoices(user)
 		return 1
 	else if(href_list["preference"] == "disabilities")
-
 		switch(href_list["task"])
 			if("close")
 				user << browse(null, "window=disabil")
@@ -64,6 +63,7 @@
 			return
 		else
 			user << browse(null, "window=records")
+
 		if(href_list["task"] == "med_record")
 			var/medmsg = input(usr,"Set your medical notes here.","Medical Records",html_decode(active_character.med_record)) as message
 
@@ -83,6 +83,7 @@
 
 				active_character.sec_record = secmsg
 				active_character.SetRecords(user)
+
 		if(href_list["task"] == "gen_record")
 			var/genmsg = input(usr,"Set your employment notes here.","Employment Records",html_decode(active_character.gen_record)) as message
 

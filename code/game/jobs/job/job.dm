@@ -173,7 +173,7 @@
 	if(box && H.dna.species.speciesbox)
 		box = H.dna.species.speciesbox
 
-	if(allow_loadout && H.client && (H.client.prefs.active_character.loadout_gear && length(H.client.prefs.active_character.loadout_gear)))
+	if(allow_loadout && H.client && length(H.client.prefs.active_character.loadout_gear))
 		for(var/gear in H.client.prefs.active_character.loadout_gear)
 			var/datum/gear/G = GLOB.gear_datums[gear]
 			if(G)

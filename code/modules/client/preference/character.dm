@@ -3,18 +3,18 @@
 
 
 /datum/character_save
-	var/real_name						//our character's name
-	var/be_random_name = 0				//whether we are a random name every round
-	var/gender = MALE					//gender of character (well duh)
-	var/age = 30						//age of character
-	var/spawnpoint = "Arrivals Shuttle" //where this character will spawn (0-2).
-	var/b_type = "A+"					//blood type (not-chooseable)
+	var/real_name							//our character's name
+	var/be_random_name = FALSE				//whether we are a random name every round
+	var/gender = MALE						//gender of character (well duh)
+	var/age = 30							//age of character
+	var/spawnpoint = "Arrivals Shuttle" 	//where this character will spawn (0-2).
+	var/b_type = "A+"						//blood type (not-chooseable)
 	var/underwear = "Nude"					//underwear type
 	var/undershirt = "Nude"					//undershirt type
-	var/socks = "Nude"					//socks type
-	var/backbag = GBACKPACK				//backpack type
-	var/ha_style = "None"				//Head accessory style
-	var/hacc_colour = "#000000"			//Head accessory colour
+	var/socks = "Nude"						//socks type
+	var/backbag = GBACKPACK					//backpack type
+	var/ha_style = "None"					//Head accessory style
+	var/hacc_colour = "#000000"				//Head accessory colour. If this line looks badly indented in vscode, its because of the shitty colour square
 	var/list/m_styles = list(
 		"head" = "None",
 		"body" = "None",
@@ -41,14 +41,14 @@
 
 	var/body_accessory = null
 
-	var/speciesprefs = 0//I hate having to do this, I really do (Using this for oldvox code, making names universal I guess
+	var/speciesprefs = 0 //I hate having to do this, I really do (Using this for oldvox code, making names universal I guess
 
-		//Mob preview
+	//Mob preview
 	var/icon/preview_icon = null
 	var/icon/preview_icon_front = null
 	var/icon/preview_icon_side = null
 
-		//Jobs, uses bitflags
+	//Jobs, uses bitflags
 	var/job_support_high = 0
 	var/job_support_med = 0
 	var/job_support_low = 0
@@ -348,7 +348,7 @@
 		"med_record" = med_record,
 		"sec_record" = sec_record,
 		"gen_record" = gen_record,
-		"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentnional. It wont work without it!
+		"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentional. It wont work without it!
 		"disabilities" = disabilities,
 		"organlist" = (organlist ? organlist : ""),
 		"rlimblist" = (rlimblist ? rlimblist : ""),
@@ -443,8 +443,8 @@
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
-	metadata		= sanitize_text(metadata, initial(metadata))
-	real_name		= reject_bad_name(real_name, 1)
+	metadata = sanitize_text(metadata, initial(metadata))
+	real_name = reject_bad_name(real_name, TRUE)
 
 	if(isnull(species))
 		species = "Human"
@@ -459,7 +459,7 @@
 		speciesprefs = initial(speciesprefs)
 
 	if(!real_name)
-		real_name = random_name(gender,species)
+		real_name = random_name(gender, species)
 
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
 	gender			= sanitize_gender(gender, FALSE, !SP.has_gender)
@@ -1771,7 +1771,7 @@
 	var/datum/species/S = GLOB.all_species[species]
 	character.set_species(S.type) // Yell at me if this causes everything to melt
 	if(be_random_name)
-		real_name = random_name(gender,species)
+		real_name = random_name(gender, species)
 
 	character.add_language(language)
 
@@ -1850,7 +1850,7 @@
 		character.m_styles = m_styles
 
 	if(body_accessory)
-		character.body_accessory = GLOB.body_accessory_by_name["[body_accessory]"]
+		character.body_accessory = GLOB.body_accessory_by_name[body_accessory]
 
 	character.backbag = backbag
 
@@ -1918,8 +1918,8 @@
 		character.dna.UpdateSE()
 	domutcheck(character, MUTCHK_FORCED) //'Activates' all the above disabilities.
 
-	character.dna.ready_dna(character, flatten_SE = 0)
-	character.sync_organ_dna(assimilate=1)
+	character.dna.ready_dna(character, flatten_SE = FALSE)
+	character.sync_organ_dna(assimilate = TRUE)
 	character.UpdateAppearance()
 
 	// Do the initial caching of the player's body icons.
@@ -1998,7 +1998,7 @@
 				continue
 			var/available_in_playtime = job.available_in_playtime(user.client)
 			if(available_in_playtime)
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[" + get_exp_format(available_in_playtime) + " as " + job.get_exp_req_type()  + "\]</b></td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[get_exp_format(available_in_playtime)] as [job.get_exp_req_type()]\]</b></td></tr>"
 				continue
 			if(job.barred_by_disability(user.client))
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td></tr>"
@@ -2093,8 +2093,7 @@
 	popup.set_window_options("can_close=0")
 	var/html_string = html.Join()
 	popup.set_content(html_string)
-	popup.open(0)
-	return
+	popup.open(FALSE)
 
 
 /datum/character_save/proc/clear_character_slot(client/C)

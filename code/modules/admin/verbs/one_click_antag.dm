@@ -392,7 +392,7 @@
 	S.randomise()
 	if(syndicate_leader_selected)
 		S.real_name = "[syndicate_commando_leader_rank] [syndicate_commando_name]"
-		S.age = rand(35,45)
+		S.age = rand(35, 45)
 	else
 		S.real_name = "[syndicate_commando_rank] [syndicate_commando_name]"
 	S.copy_to(new_syndicate_commando)
