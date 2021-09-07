@@ -170,13 +170,9 @@
 
 		if("growl", "growls")
 			var/M = handle_emote_param(param)
-			if(miming)
-				message = "<B>[src]</B> acts out a growl[M ? " at [M]" : ""]!"
-				m_type = 1
-			else
-				message = "<B>[src]</B> growls[M ? " at [M]" : ""]!"
-				playsound(loc, "growls", 80, 1, frequency = get_age_pitch())
-				m_type = 2
+			message = "<B>[src]</B> growls[M ? " at [M]" : ""]."
+			playsound(loc, "growls", 80, 1, frequency = get_age_pitch())
+			m_type = 2
 
 		if("ping", "pings")
 			var/M = handle_emote_param(param)

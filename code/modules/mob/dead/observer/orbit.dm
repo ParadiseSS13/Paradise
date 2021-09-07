@@ -31,6 +31,10 @@
 			update_static_data(owner, ui)
 			. = TRUE
 
+/datum/orbit_menu/ui_data(mob/user)
+	var/list/data = list()
+	return data
+
 /datum/orbit_menu/ui_static_data(mob/user)
 	var/list/data = list()
 
@@ -92,7 +96,6 @@
 					)
 					if(SSticker && SSticker.mode)
 						other_antags += list(
-							"Blob" = (mind.special_role == SPECIAL_ROLE_BLOB),
 							"Cultist" = (mind in SSticker.mode.cult),
 							"Wizard" = (mind in SSticker.mode.wizards),
 							"Wizard's Apprentice" = (mind in SSticker.mode.apprentices),
@@ -117,10 +120,6 @@
 				if(isterrorspider(M))
 					var/list/antag_serialized = serialized.Copy()
 					antag_serialized["antag"] = "Terror Spider"
-					antagonists += list(antag_serialized)
-				else if(istype(M, /mob/living/simple_animal/revenant))
-					var/list/antag_serialized = serialized.Copy()
-					antag_serialized["antag"] = "Revenant"
 					antagonists += list(antag_serialized)
 		else
 			misc += list(serialized)

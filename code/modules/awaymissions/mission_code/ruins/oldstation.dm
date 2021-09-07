@@ -43,7 +43,7 @@
 /obj/item/card/id/away/old/apc
 	name = "APC Access ID"
 	desc = "A special ID card that allows access to APC terminals."
-	icon_state = "guest_invalid"
+	icon_state = "centcom_old"
 	access = list(ACCESS_ENGINE_EQUIP)
 
 /obj/item/storage/backpack/old

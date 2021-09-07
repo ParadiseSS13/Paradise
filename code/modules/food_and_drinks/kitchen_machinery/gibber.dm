@@ -24,23 +24,6 @@
 	idle_power_usage = 2
 	active_power_usage = 500
 
-/obj/machinery/gibber/Initialize(mapload)
-	. = ..()
-	overlays += image('icons/obj/kitchen.dmi', "grjam")
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/gibber(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/manipulator(null)
-	RefreshParts()
-
-/obj/machinery/gibber/Destroy()
-	if(contents.len)
-		for(var/atom/movable/A in contents)
-			A.loc = get_turf(src)
-	if(occupant)
-		occupant = null
-	return ..()
-
 /obj/machinery/gibber/suicide_act(mob/user)
 	if(occupant || locked)
 		return FALSE
@@ -52,6 +35,21 @@
 	feedinTopanim()
 	addtimer(CALLBACK(src, .proc/startgibbing, user), 33)
 	return OBLITERATION
+
+/obj/machinery/gibber/Destroy()
+	if(contents.len)
+		for(var/atom/movable/A in contents)
+			A.loc = get_turf(src)
+	if(occupant)
+		occupant = null
+	return ..()
+
+/obj/machinery/gibber/RefreshParts() //If you want to make the machine upgradable, this is where you would change any vars basd on its stock parts.
+	return
+
+/obj/machinery/gibber/New()
+	..()
+	overlays += image('icons/obj/kitchen.dmi', "grjam")
 
 /obj/machinery/gibber/update_icon()
 	overlays.Cut()

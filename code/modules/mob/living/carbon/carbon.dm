@@ -272,8 +272,6 @@
   * * target - The mob who is currently on fire
   */
 /mob/living/carbon/proc/pat_out(mob/living/target)
-	if(target == src)
-		return // Probably shouldn't be able to pat yourself out.
 	var/self_message = "<span class='warning'>You try to extinguish [target]!</span>"
 	if(prob(30) && ishuman(src)) // 30% chance of burning your hands
 		var/mob/living/carbon/human/H = src
