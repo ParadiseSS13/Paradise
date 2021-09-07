@@ -132,7 +132,6 @@
 	filling_color = "#7D5F46"
 	bitesize = 3
 	junkiness = 25
-	antable = FALSE
 	list_reagents = list("nutriment" = 1, "chocolate" = 1)
 	tastes = list("chocolate" = 1)
 

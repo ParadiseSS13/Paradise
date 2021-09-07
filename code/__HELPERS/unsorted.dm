@@ -1926,23 +1926,23 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	return pois
 
-/proc/flash_color(mob_or_client, flash_color = "#960000", flash_time = 2 SECONDS)
-	var/mob/M
+/proc/flash_color(mob_or_client, flash_color="#960000", flash_time=20)
 	var/client/C
-	if(ismob(mob_or_client))
-		M = mob_or_client
-		if(!M.client)
+	if(istype(mob_or_client, /mob))
+		var/mob/M = mob_or_client
+		if(M.client)
+			C = M.client
+		else
 			return
-		C = M.client
-	else if(isclient(mob_or_client))
+	else if(istype(mob_or_client, /client))
 		C = mob_or_client
-		M = C.mob
 
-	if(!istype(C) || !istype(M))
+	if(!istype(C))
 		return
 
 	C.color = flash_color
-	INVOKE_ASYNC(C, /client/.proc/colour_transition, M.get_screen_colour(), flash_time)
+	spawn(0)
+		animate(C, color = initial(C.color), time = flash_time)
 
 #define RANDOM_COLOUR (rgb(rand(0,255),rand(0,255),rand(0,255)))
 

@@ -58,7 +58,6 @@
 	desc = "What is in this anyways?"
 	icon_state = "chinese1"
 	junkiness = 25
-	antable = FALSE
 	list_reagents = list("nutriment" = 1, "beans" = 3, "msg" = 4, "sugar" = 2)
 	tastes = list("noodle" = 1, "vegetables" = 1)
 

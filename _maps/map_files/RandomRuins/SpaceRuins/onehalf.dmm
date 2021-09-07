@@ -726,7 +726,9 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/hallway)
 "bK" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/vending/coffee{
+	name = "\improper Solar's Best Hot Drinks"
+	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/onehalf/hallway)
