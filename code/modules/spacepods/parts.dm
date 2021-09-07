@@ -55,7 +55,7 @@
 			return 0
 	return connectedparts
 
-/obj/item/pod_parts/pod_frame/attackby(var/obj/item/O, mob/user)
+/obj/item/pod_parts/pod_frame/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = O
 		var/list/linkedparts = find_square()

@@ -16,7 +16,6 @@
 	level = 1
 
 /obj/machinery/atmospherics/pipe/manifold/New()
-
 	..()
 
 	alpha = 255
@@ -30,6 +29,9 @@
 			initialize_directions = SOUTH|WEST|NORTH
 		if(WEST)
 			initialize_directions = NORTH|EAST|SOUTH
+
+/obj/machinery/atmospherics/pipe/manifold/detailed_examine()
+	return "A normal pipe with three ends to connect to."
 
 /obj/machinery/atmospherics/pipe/manifold/atmos_init()
 	..()
@@ -55,10 +57,12 @@
 					node3 = target
 				break
 	var/turf/T = src.loc			// hide if turf is not intact
+	if(T.transparent_floor)
+		return
 	hide(T.intact)
 	update_icon()
 
-/obj/machinery/atmospherics/pipe/manifold/hide(var/i)
+/obj/machinery/atmospherics/pipe/manifold/hide(i)
 	if(level == 1 && istype(loc, /turf/simulated))
 		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 
@@ -104,7 +108,7 @@
 	update_icon()
 	..()
 
-/obj/machinery/atmospherics/pipe/manifold/change_color(var/new_color)
+/obj/machinery/atmospherics/pipe/manifold/change_color(new_color)
 	..()
 	//for updating connected atmos device pipes (i.e. vents, manifolds, etc)
 	if(node1)
@@ -114,7 +118,7 @@
 	if(node3)
 		node3.update_underlays()
 
-/obj/machinery/atmospherics/pipe/manifold/update_icon(var/safety = 0)
+/obj/machinery/atmospherics/pipe/manifold/update_icon(safety = 0)
 	..()
 
 	if(!check_icon_cache())
@@ -168,6 +172,10 @@
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
+/obj/machinery/atmospherics/pipe/manifold/visible/scrubbers/detailed_examine()
+	return "This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe."
+
 /obj/machinery/atmospherics/pipe/manifold/visible/supply
 	name="Air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
@@ -176,6 +184,10 @@
 	layer = 2.39
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
+
+/obj/machinery/atmospherics/pipe/manifold/visible/supply/detailed_examine()
+	return "This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe."
 
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow
 	color = PIPE_COLOR_YELLOW
@@ -209,6 +221,10 @@
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers/detailed_examine()
+	return "This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe."
+
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply
 	name="Air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
@@ -217,6 +233,10 @@
 	layer = 2.39
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
+
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply/detailed_examine()
+	return "This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe."
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/yellow
 	color = PIPE_COLOR_YELLOW

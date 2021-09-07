@@ -72,13 +72,6 @@
 /obj/structure/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
 
-/obj/structure/window/ratvar_act()
-	if(!fulltile)
-		new/obj/structure/window/reinforced/clockwork(get_turf(src), dir)
-	else
-		new/obj/structure/window/reinforced/clockwork/fulltile(get_turf(src))
-	qdel(src)
-
 /obj/structure/window/rpd_act()
 	return
 
@@ -166,7 +159,15 @@
 		return 1 //skip the afterattack
 
 	add_fingerprint(user)
-	if(istype(I, /obj/item/grab) && get_dist(src, user) < 2)
+	if(istype(I, /obj/item/stack/rods) && user.a_intent == INTENT_HELP)
+		for(var/obj/structure/grille/G in get_turf(src))
+			if(!G.broken)
+				continue
+			to_chat(user, "<span class='notice'>You start rebuilding the broken grille.</span>")
+			if(do_after(user, 4 SECONDS, FALSE, G))
+				G.repair(user, I)
+
+	else if(istype(I, /obj/item/grab) && get_dist(src, user) < 2)
 		var/obj/item/grab/G = I
 		if(isliving(G.affecting))
 			var/mob/living/M = G.affecting
@@ -193,8 +194,8 @@
 					M.Weaken(5)
 					M.apply_damage(30)
 					take_damage(75)
-			return
-	return ..()
+	else
+		return ..()
 
 
 /obj/structure/window/crowbar_act(mob/user, obj/item/I)
@@ -235,6 +236,7 @@
 			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/check_state_and_anchored, state, anchored)))
 				return
 			anchored = !anchored
+			air_update_turf(TRUE)
 			update_nearby_icons()
 			to_chat(user, "<span class='notice'>You [anchored ? "fasten the frame to":"unfasten the frame from"] the floor.</span>")
 
@@ -389,7 +391,8 @@
 	return TRUE
 
 /obj/structure/window/AltClick(mob/user)
-
+	if(fulltile) // Can't rotate these.
+		return ..()
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
@@ -407,7 +410,7 @@
 	if(!valid_window_location(loc, target_dir))
 		target_dir = turn(dir, 90)
 	if(!valid_window_location(loc, target_dir))
-		to_chat(user, "<span class='warning'>There is no room to rotate the [src]</span>")
+		to_chat(user, "<span class='warning'>There is no room to rotate [src].</span>")
 		return FALSE
 
 	setDir(target_dir)
@@ -699,27 +702,19 @@
 	reinf = FALSE
 	var/made_glow = FALSE
 
-/obj/structure/window/reinforced/clockwork/Initialize(mapload, direct)
-	. = ..()
-	if(fulltile)
-		made_glow = TRUE
-	if(fulltile)
-		new /obj/effect/temp_visual/ratvar/window(get_turf(src))
-
 /obj/structure/window/reinforced/clockwork/spawnDebris(location)
 	. = list()
 	. += new /obj/item/stack/tile/brass(location, (fulltile ? 2 : 1))
 
 /obj/structure/window/reinforced/clockwork/setDir(direct)
 	if(!made_glow)
-		var/obj/effect/E = new /obj/effect/temp_visual/ratvar/window/single(get_turf(src))
-		E.setDir(direct)
+		if(fulltile)
+			new /obj/effect/temp_visual/ratvar/window(get_turf(src))
+		else
+			var/obj/effect/E = new /obj/effect/temp_visual/ratvar/window/single(get_turf(src))
+			E.setDir(direct)
 		made_glow = TRUE
 	..()
-
-/obj/structure/window/reinforced/clockwork/ratvar_act()
-	obj_integrity = max_integrity
-	update_nearby_icons()
 
 /obj/structure/window/reinforced/clockwork/narsie_act()
 	take_damage(rand(25, 75), BRUTE)

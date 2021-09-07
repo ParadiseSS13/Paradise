@@ -117,8 +117,8 @@
 
 /datum/surgery_step/robotics/external/close_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'>[user] closes and secures the hatch on [target]'s [affected.name] with [tool].</span>", \
-	"<span class='notice'>You close and secure the hatch on [target]'s [affected.name] with [tool].</span>")
+	user.visible_message("[user] begins to close and secure the hatch on [target]'s [affected.name] with \the [tool]." , \
+		"You begin to close and secure the hatch on [target]'s [affected.name] with \the [tool].")
 	return SURGERY_SUCCESS
 
 /datum/surgery_step/robotics/external/close_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -142,19 +142,19 @@
 
 	if(TOOL_WELDER == tool.tool_behaviour || istype(tool, /obj/item/gun/energy/plasmacutter))
 		if(affected.brute_dam <= 0 && !affected.disfigured)
-			to_chat(user, "<span class='warning'>The [affected] does not require welding repair!</span>")
+			to_chat(user, "<span class='warning'>\The [affected] does not require welding repair!</span>")
 		else
 			var/obj/item/weldingtool/W = tool
 			if(W && !tool.use(1))
 				return SURGERY_FAILED // Still an early return here
-			user.visible_message("<span class='notice'>[user] begins patching damage to [target]'s [affected.name]'s support structure with [tool].</span>", \
-				"<span class='notice'>You begin patching damage to [target]'s [affected.name]'s support structure with [tool].</span>")
+			user.visible_message("<span class='notice'>[user] begins patching damage to [target]'s [affected.name]'s support structure with \the [tool].</span>", \
+				"<span class='notice'>You begin patching damage to [target]'s [affected.name]'s support structure with \the [tool].</span>")
 			success = TRUE
 
 	if(istype(tool, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = tool
 		if(affected.burn_dam <= 0)
-			to_chat(user, "<span class='warning'>The [affected] does not have any burn damage!</span>")
+			to_chat(user, "<span class='warning'>\The [affected] does not have any burn damage!</span>")
 		else
 			if(C.get_amount() < 4) // 4 because else the stack will disappear after you use 3
 				to_chat(user, "<span class='warning'>You need four or more cable pieces to repair this damage.</span>")

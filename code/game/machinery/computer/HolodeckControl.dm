@@ -12,11 +12,11 @@
 
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/machinery/computer/HolodeckControl/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/HolodeckControl/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
 
-/obj/machinery/computer/HolodeckControl/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/HolodeckControl/attack_hand(mob/user as mob)
 	if(..())
 		return 1
 
@@ -159,7 +159,7 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/HolodeckControl/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
+/obj/machinery/computer/HolodeckControl/attackby(obj/item/D as obj, mob/user as mob, params)
 	return
 
 /obj/machinery/computer/HolodeckControl/emag_act(user as mob)
@@ -221,7 +221,7 @@
 				T.ex_act(3)
 				T.hotspot_expose(1000,500,1)
 
-/obj/machinery/computer/HolodeckControl/proc/derez(var/obj/obj , var/silent = 1)
+/obj/machinery/computer/HolodeckControl/proc/derez(obj/obj , silent = 1)
 	holographic_items.Remove(obj)
 
 	if(obj == null)
@@ -234,17 +234,17 @@
 
 	if(!silent)
 		var/obj/oldobj = obj
-		visible_message("The [oldobj.name] fades away!")
+		visible_message("[oldobj] fades away!")
 	qdel(obj)
 
-/obj/machinery/computer/HolodeckControl/proc/checkInteg(var/area/A)
+/obj/machinery/computer/HolodeckControl/proc/checkInteg(area/A)
 	for(var/turf/T in A)
 		if(istype(T, /turf/space))
 			return 0
 
 	return 1
 
-/obj/machinery/computer/HolodeckControl/proc/togglePower(var/toggleOn = 0)
+/obj/machinery/computer/HolodeckControl/proc/togglePower(toggleOn = 0)
 
 	if(toggleOn)
 		var/area/targetsource = locate(/area/holodeck/source_emptycourt)
@@ -269,7 +269,7 @@
 		active = 0
 
 
-/obj/machinery/computer/HolodeckControl/proc/loadProgram(var/area/A)
+/obj/machinery/computer/HolodeckControl/proc/loadProgram(area/A)
 
 	if(world.time < (last_change + 25))
 		if(world.time < (last_change + 15))//To prevent super-spam clicking, reduced process size and annoyance -Sieve
@@ -505,12 +505,12 @@
 			return
 		G.affecting.loc = src.loc
 		G.affecting.Weaken(5)
-		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into the [src]!</span>")
+		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into [src]!</span>")
 		qdel(W)
 		return
 	else if(istype(W, /obj/item) && get_dist(src,user)<2)
 		user.drop_item(src)
-		visible_message("<span class='notice'>[user] dunks [W] into the [src]!</span>")
+		visible_message("<span class='notice'>[user] dunks [W] into [src]!</span>")
 		return
 
 /obj/structure/holohoop/CanPass(atom/movable/mover, turf/target, height=0)

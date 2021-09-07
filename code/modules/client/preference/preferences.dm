@@ -23,8 +23,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_BORER = 21,
 	ROLE_NINJA = 21,
 	ROLE_GSPIDER = 21,
-	ROLE_ABDUCTOR = 30,
-	ROLE_DEVIL = 14
+	ROLE_ABDUCTOR = 30
 ))
 
 /proc/player_old_enough_antag(client/C, role)
@@ -39,7 +38,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		return 0
 	if(!role)
 		return 0
-	if(!config.use_age_restriction_for_antags)
+	if(!GLOB.configuration.gamemode.antag_account_age_restriction)
 		return 0
 	if(!isnum(C.player_age))
 		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
@@ -49,7 +48,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	return max(0, minimal_player_age_antag - C.player_age)
 
-/proc/check_client_age(client/C, var/days) // If days isn't provided, returns the age of the client. If it is provided, it returns the days until the player_age is equal to or greater than the days variable
+/proc/check_client_age(client/C, days) // If days isn't provided, returns the age of the client. If it is provided, it returns the days until the player_age is equal to or greater than the days variable
 	if(!days)
 		return C.player_age
 	else
@@ -72,7 +71,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/max_gear_slots = 0
 
 	//non-preference stuff
-	var/warns = 0
 	var/muted = 0
 	var/last_ip
 	var/last_id
@@ -184,8 +182,19 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/slot_name = ""
 	var/saved = FALSE // Indicates whether the character comes from the database or not
 
-	// jukebox volume
-	var/volume = 100
+	/// Volume mixer, indexed by channel as TEXT (numerical indexes will not work). Volume goes from 0 to 100.
+	var/list/volume_mixer = list(
+		"1024" = 100, // CHANNEL_LOBBYMUSIC
+		"1023" = 100, // CHANNEL_ADMIN
+		"1022" = 100, // CHANNEL_VOX
+		"1021" = 100, // CHANNEL_JUKEBOX
+		"1020" = 100, // CHANNEL_HEARTBEAT
+		"1019" = 100, // CHANNEL_BUZZ
+		"1018" = 100, // CHANNEL_AMBIENCE
+		"1017" = 100, // CHANNEL_ENGINE
+	)
+	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
+	var/volume_mixer_saving = null
 
 	// BYOND membership
 	var/unlock_content = 0
@@ -195,12 +204,16 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/gear_tab = "General"
 	// Parallax
 	var/parallax = PARALLAX_HIGH
+	/// 2FA status
+	var/_2fa_status = _2FA_DISABLED
+	/// Do we want to force our runechat colour to be white?
+	var/force_white_runechat = FALSE
 
 /datum/preferences/New(client/C)
 	parent = C
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 
-	max_gear_slots = config.max_loadout_points
+	max_gear_slots = GLOB.configuration.general.base_loadout_points
 	var/loaded_preferences_successfully = FALSE
 	if(istype(C))
 		if(!IsGuestKey(C.key))
@@ -348,7 +361,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</td><td width='405px' height='200px' valign='top'>"
 			dat += "<h2>Occupation Choices</h2>"
 			dat += "<a href='?_src_=prefs;preference=job;task=menu'>Set Occupation Preferences</a><br>"
-			if(jobban_isbanned(user, "Records"))
+			if(jobban_isbanned(user, ROLEBAN_RECORDS))
 				dat += "<b>You are banned from using character records.</b><br>"
 			else
 				dat += "<a href=\"byond://?_src_=prefs;preference=records;record=1\">Character Records</a><br>"
@@ -436,6 +449,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			// LEFT SIDE OF THE PAGE
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>General Settings</h2>"
+			dat += "<b>2FA Setup:</b> <a href='?_src_=prefs;preference=edit_2fa'>[_2fastatus_to_text()]</a><br>"
 			if(user.client.holder)
 				dat += "<b>Adminhelp sound:</b> <a href='?_src_=prefs;preference=hear_adminhelps'><b>[(sound & SOUND_ADMINHELP)?"On":"Off"]</b></a><br>"
 			dat += "<b>AFK Cryoing:</b> <a href='?_src_=prefs;preference=afk_watch'>[(toggles2 & PREFTOGGLE_2_AFKWATCH) ? "Yes" : "No"]</a><br>"
@@ -458,7 +472,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Ghost PDA:</b> <a href='?_src_=prefs;preference=ghost_pda'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTPDA) ? "All PDA Messages" : "No PDA Messages"]</b></a><br>"
 			if(check_rights(R_ADMIN,0))
 				dat += "<b>OOC Color:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : GLOB.normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
-			if(config.allow_Metadata)
+			if(GLOB.configuration.general.allow_character_metadata)
 				dat += "<b>OOC Notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
 			dat += "<b>Parallax (Fancy Space):</b> <a href='?_src_=prefs;preference=parallax'>"
 			switch (parallax)
@@ -480,7 +494,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='300px' height='300px' valign='top'>"
 			dat += "<h2>Special Role Settings</h2>"
-			if(jobban_isbanned(user, "Syndicate"))
+			if(jobban_isbanned(user, ROLE_SYNDICATE))
 				dat += "<b>You are banned from special roles.</b>"
 				be_special = list()
 			else
@@ -570,20 +584,20 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	popup.open(0)
 
 
-/datum/preferences/proc/get_gear_metadata(var/datum/gear/G)
+/datum/preferences/proc/get_gear_metadata(datum/gear/G)
 	. = loadout_gear[G.display_name]
 	if(!.)
 		. = list()
 		loadout_gear[G.display_name] = .
 
-/datum/preferences/proc/get_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak)
+/datum/preferences/proc/get_tweak_metadata(datum/gear/G, datum/gear_tweak/tweak)
 	var/list/metadata = get_gear_metadata(G)
 	. = metadata["[tweak]"]
 	if(!.)
 		. = tweak.get_default()
 		metadata["[tweak]"] = .
 
-/datum/preferences/proc/set_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak, var/new_metadata)
+/datum/preferences/proc/set_tweak_metadata(datum/gear/G, datum/gear_tweak/tweak, new_metadata)
 	var/list/metadata = get_gear_metadata(G)
 	metadata["[tweak]"] = new_metadata
 
@@ -752,7 +766,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	popup.open(0)
 	return
 
-/datum/preferences/proc/SetJobPreferenceLevel(var/datum/job/job, var/level)
+/datum/preferences/proc/SetJobPreferenceLevel(datum/job/job, level)
 	if(!job)
 		return 0
 
@@ -867,7 +881,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_BLIND, "Blind")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DEAF, "Deaf")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_MUTE, "Mute")
-	if(!(NO_OBESITY in S.species_traits))
+	if(!(TRAIT_NOFAT in S.inherent_traits))
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_FAT, "Obese")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NERVOUS, "Stutter")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Swedish accent")
@@ -975,7 +989,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	job_karma_low = 0
 
 
-/datum/preferences/proc/GetJobDepartment(var/datum/job/job, var/level)
+/datum/preferences/proc/GetJobDepartment(datum/job/job, level)
 	if(!job || !level)	return 0
 	switch(job.department_flag)
 		if(JOBCAT_SUPPORT)
@@ -1012,7 +1026,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					return job_karma_low
 	return 0
 
-/datum/preferences/proc/SetJobDepartment(var/datum/job/job, var/level)
+/datum/preferences/proc/SetJobDepartment(datum/job/job, level)
 	if(!job || !level)	return 0
 	switch(level)
 		if(1)//Only one of these should ever be active at once so clear them all here
@@ -1087,9 +1101,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				ResetJobs()
 				SetChoices(user)
 			if("learnaboutselection")
-				if(config.wikiurl)
+				if(GLOB.configuration.url.wiki_url)
 					if(alert("Would you like to open the Job selection info in your browser?", "Open Job Selection", "Yes", "No") == "Yes")
-						user << link("[config.wikiurl]/index.php/Job_Selection_and_Assignment")
+						user << link("[GLOB.configuration.url.wiki_url]/index.php/Job_Selection_and_Assignment")
 				else
 					to_chat(user, "<span class='danger'>The Wiki URL is not set in the server configuration.</span>")
 			if("random")
@@ -1306,17 +1320,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("species")
 					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
 					var/prev_species = species
-//						var/whitelisted = 0
 
-					if(config.usealienwhitelist) //If we're using the whitelist, make sure to check it!
-						for(var/Spec in GLOB.whitelisted_species)
-							if(is_alien_whitelisted(user,Spec))
-								new_species += Spec
-//									whitelisted = 1
-//							if(!whitelisted)
-//								alert(user, "You cannot change your species as you need to be whitelisted. If you wish to be whitelisted contact an admin in-game, on the forums, or on IRC.")
-					else //Not using the whitelist? Aliens for everyone!
-						new_species += GLOB.whitelisted_species
+					for(var/species in GLOB.whitelisted_species)
+						if(is_alien_whitelisted(user, species))
+							new_species += species
 
 					species = input("Please select a species", "Character Generation", null) in sortTim(new_species, /proc/cmp_text_asc)
 					var/datum/species/NS = GLOB.all_species[species]
@@ -1399,18 +1406,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("language")
 //						var/languages_available
 					var/list/new_languages = list("None")
-/*
-					if(config.usealienwhitelist)
-						for(var/L in GLOB.all_languages)
-							var/datum/language/lang = GLOB.all_languages[L]
-							if((!(lang.flags & RESTRICTED)) && (is_alien_whitelisted(user, L)||(!( lang.flags & WHITELISTED ))))
-								new_languages += lang
-								languages_available = 1
-
-						if(!(languages_available))
-							alert(user, "There are not currently any available secondary languages.")
-					else
-*/
 					for(var/L in GLOB.all_languages)
 						var/datum/language/lang = GLOB.all_languages[L]
 						if(!(lang.flags & RESTRICTED))
@@ -1422,7 +1417,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(S.autohiss_basic_map)
 						var/list/autohiss_choice = list("Off" = AUTOHISS_OFF, "Basic" = AUTOHISS_BASIC, "Full" = AUTOHISS_FULL)
 						var/new_autohiss_pref = input(user, "Choose your character's auto-accent level:", "Character Preference") as null|anything in autohiss_choice
-						autohiss_mode = autohiss_choice[new_autohiss_pref]
+						if(new_autohiss_pref)
+							autohiss_mode = autohiss_choice[new_autohiss_pref]
 
 				if("metadata")
 					var/new_metadata = input(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference" , metadata)  as message|null
@@ -2013,8 +2009,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
-						to_chat(user, "<span class='info'>You will now get put into cryo dorms after [config.auto_cryo_afk] minutes. \
-								Then after [config.auto_despawn_afk] minutes you will be fully despawned. You will receive a visual and auditory warning before you will be put into cryodorms.</span>")
+						to_chat(user, "<span class='info'>You will now get put into cryo dorms after [GLOB.configuration.afk.auto_cryo_minutes] minutes. \
+								Then after [GLOB.configuration.afk.auto_despawn_minutes] minutes you will be fully despawned. You will receive a visual and auditory warning before you will be put into cryodorms.</span>")
 					else
 						to_chat(user, "<span class='info'>Automatic cryoing turned off.</span>")
 					toggles2 ^= PREFTOGGLE_2_AFKWATCH
@@ -2030,7 +2026,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("UIalpha")
 					var/UI_style_alpha_new = input(user, "Select a new alpha(transparence) parameter for UI, between 50 and 255", UI_style_alpha) as num
-					if(!UI_style_alpha_new | !(UI_style_alpha_new <= 255 && UI_style_alpha_new >= 50)) return
+					if(!UI_style_alpha_new || !(UI_style_alpha_new <= 255 && UI_style_alpha_new >= 50))
+						return
 					UI_style_alpha = UI_style_alpha_new
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
@@ -2130,6 +2127,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
 
+				if("edit_2fa")
+					// Do this async so we arent holding up a topic() call
+					INVOKE_ASYNC(user.client, /client.proc/edit_2fa)
+					return // We return here to avoid focus being lost
+
 
 	ShowChoices(user)
 	return 1
@@ -2139,14 +2141,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	character.set_species(S.type) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender,species)
-
-	if(config.humans_need_surnames)
-		var/firstspace = findtext(real_name, " ")
-		var/name_length = length(real_name)
-		if(!firstspace)	//we need a surname
-			real_name += " [pick(GLOB.last_names)]"
-		else if(firstspace == name_length)
-			real_name += "[pick(GLOB.last_names)]"
 
 	character.add_language(language)
 
@@ -2291,7 +2285,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	if(character.dna.dirtySE)
 		character.dna.UpdateSE()
-	domutcheck(character, null, MUTCHK_FORCED) //'Activates' all the above disabilities.
+	domutcheck(character, MUTCHK_FORCED) //'Activates' all the above disabilities.
 
 	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)
@@ -2304,7 +2298,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot, real_name FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot, real_name FROM characters WHERE ckey=:ckey ORDER BY slot", list(
 		"ckey" = user.ckey
 	))
 	var/list/slotnames[max_save_slots]

@@ -14,34 +14,47 @@
 	. = ..()
 
 /mob/living/carbon/human/Initialize(mapload, datum/species/new_species = /datum/species/human)
-	if(!dna)
-		dna = new /datum/dna(null)
-		// Species name is handled by set_species()
+	create_dna()
 
 	. = ..()
 
-	set_species(new_species, 1, delay_icon_update = 1, skip_same_check = TRUE)
-
-	if(dna.species)
-		real_name = dna.species.get_random_name(gender)
-		name = real_name
-		if(mind)
-			mind.name = real_name
-
-	create_reagents(330)
-
-	handcrafting = new()
-
-	// Set up DNA.
-	if(dna)
-		dna.ready_dna(src)
-		dna.real_name = real_name
-		sync_organ_dna(1)
+	setup_dna(new_species)
+	setup_other()
 
 	UpdateAppearance()
 	GLOB.human_list += src
 
+/**
+  * Sets up DNA and species.
+  *
+  * Arguments:
+  * * new_species - The new species to assign.
+  */
+/mob/living/carbon/human/proc/setup_dna(datum/species/new_species)
+	set_species(new_species, use_default_color = TRUE, delay_icon_update = TRUE, skip_same_check = TRUE)
+	// Name
+	real_name = dna.species.get_random_name(gender)
+	name = real_name
+	if(mind)
+		mind.name = real_name
+	// DNA ready
+	dna.ready_dna(src)
+	dna.real_name = real_name
+	sync_organ_dna()
+
+/**
+  * Sets up other variables and components that may be needed for gameplay.
+  */
+/mob/living/carbon/human/proc/setup_other()
+	create_reagents(330)
+	physiology = new()
+
+/mob/living/carbon/human/ComponentInitialize()
+	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
+
 /mob/living/carbon/human/OpenCraftingMenu()
+	if(!handcrafting)
+		handcrafting = new()
 	handcrafting.ui_interact(src)
 
 /mob/living/carbon/human/prepare_data_huds()
@@ -59,6 +72,7 @@
 	SSmobs.cubemonkeys -= src
 	QDEL_LIST(bodyparts)
 	splinted_limbs.Cut()
+	QDEL_NULL(physiology)
 	GLOB.human_list -= src
 
 /mob/living/carbon/human/dummy
@@ -172,9 +186,12 @@
 			stat(null, "GPS: [COORD(T)]")
 		if(locate(/obj/item/assembly/health) in total_user_contents)
 			stat(null, "Health: [health]")
+
 		if(internal)
 			if(!internal.air_contents)
 				qdel(internal)
+			else if(client?.prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL)
+				stat(null, "Internals Tank Connected")
 			else
 				stat("Internal Atmosphere Info", internal.name)
 				stat("Tank Pressure", internal.air_contents.return_pressure())
@@ -200,91 +217,60 @@
 		stat("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
 
 /mob/living/carbon/human/ex_act(severity)
-	var/shielded = 0
-	var/b_loss = null
-	var/f_loss = null
-
 	if(status_flags & GODMODE)
-		return 0
+		return FALSE
+
+	var/brute_loss = 0
+	var/burn_loss = 0
+	var/bomb_armor = getarmor(null, "bomb")
+	var/list/valid_limbs = list("l_arm", "l_leg", "r_arm", "r_leg")
+	var/limbs_amount = 1
+	var/limb_loss_chance = 50
 
 	switch(severity)
-		if(1)
-			b_loss += 500
-			if(!prob(getarmor(null, "bomb")))
+		if(EXPLODE_DEVASTATE)
+			if(!prob(bomb_armor))
 				gib()
-				return 0
+				return
 			else
+				brute_loss = 200
+				burn_loss = 200
 				var/atom/target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
 				throw_at(target, 200, 4)
+				limbs_amount = 4
 
-				var/limbs_affected = pick(2,3,4)
-				var/obj/item/organ/external/processing_dismember
-				var/list/valid_limbs = bodyparts.Copy()
-
-				while(limbs_affected != 0 && valid_limbs.len > 0)
-					processing_dismember = pick(valid_limbs)
-					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
-						valid_limbs -= processing_dismember
-						limbs_affected -= 1
-					else valid_limbs -= processing_dismember
-
-		if(2)
-			if(!shielded) //literally nothing could change shielded before this so wth
-				b_loss += 60
-
-			f_loss += 60
-
-			var/limbs_affected = 0
-			var/obj/item/organ/external/processing_dismember
-			var/list/valid_limbs = bodyparts.Copy()
-
-			if(prob(getarmor(null, "bomb")))
-				b_loss = b_loss/1.5
-				f_loss = f_loss/1.5
-
-				limbs_affected = pick(1, 1, 2)
-			else
-				limbs_affected = pick(1, 2, 3)
-
-			while(limbs_affected != 0 && valid_limbs.len > 0)
-				processing_dismember = pick(valid_limbs)
-				if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-					processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
-					valid_limbs -= processing_dismember
-					limbs_affected -= 1
-				else valid_limbs -= processing_dismember
-
+		if(EXPLODE_HEAVY)
+			brute_loss = 60
+			burn_loss = 60
+			if(bomb_armor)
+				brute_loss = 30 * (2 - round(bomb_armor * 0.01, 0.05))
+				burn_loss = brute_loss				//Damage gets reduced from 120 to up to 60 combined brute+burn
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(30, 120)
-			if(prob(70) && !shielded)
-				Paralyse(10)
+			Weaken(20 SECONDS_TO_LIFE_CYCLES - (bomb_armor * 1.6 / 10) SECONDS_TO_LIFE_CYCLES) 	//Between ~4 and ~20 seconds of knockdown depending on bomb armor
 
-		if(3)
-			b_loss += 30
-			if(prob(getarmor(null, "bomb")))
-				b_loss = b_loss/2
-
-			else
-
-				var/limbs_affected = pick(0, 1)
-				var/obj/item/organ/external/processing_dismember
-				var/list/valid_limbs = bodyparts.Copy()
-
-				while(limbs_affected != 0 && valid_limbs.len > 0)
-					processing_dismember = pick(valid_limbs)
-					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
-						valid_limbs -= processing_dismember
-						limbs_affected -= 1
-					else valid_limbs -= processing_dismember
-
+		if(EXPLODE_LIGHT)
+			brute_loss = 30
+			if(bomb_armor)
+				brute_loss = 15 * (2 - round(bomb_armor * 0.01, 0.05)) //Reduced from 30 to up to 15
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(15, 60)
-			if(prob(50) && !shielded)
-				Paralyse(10)
+			Weaken(16 SECONDS_TO_LIFE_CYCLES - (bomb_armor * 1.6 / 10) SECONDS_TO_LIFE_CYCLES) //Between no knockdown to ~16 seconds depending on bomb armor
+			valid_limbs = list("l_hand", "l_foot", "r_hand", "r_foot")
+			limb_loss_chance = 25
 
-	take_overall_damage(b_loss,f_loss, TRUE, used_weapon = "Explosive Blast")
+	//attempt to dismember bodyparts
+	for(var/X in valid_limbs)
+		var/obj/item/organ/external/BP = get_organ(X)
+		if(!BP) //limb already blown off, move to the next one without counting it
+			continue
+		if(prob(limb_loss_chance) && !prob(getarmor(BP, "bomb")))
+			BP.droplimb(TRUE, DROPLIMB_SHARP, FALSE, TRUE)
+		limbs_amount--
+		if(!limbs_amount)
+			break
+
+	take_overall_damage(brute_loss, burn_loss, TRUE, used_weapon = "Explosive Blast")
 
 	..()
 
@@ -310,25 +296,24 @@
 	var/list/obscured = check_obscured_slots()
 
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 
-	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[slot_back]'>[(back && !(back.flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A>"
+	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[slot_back]'>[(back && !(back.flags&ABSTRACT)) ? html_encode(back) : "<font color=grey>Empty</font>"]</A>"
 	if(has_breathable_mask && istype(back, /obj/item/tank))
 		dat += "&nbsp;<A href='?src=[UID()];internal=[slot_back]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 
 	dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
-	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? html_encode(head) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
 	if(C)
 		if(slot_wear_mask in obscured)
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Headpocket:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			var/list/items = C.get_contents()
-			if(items.len)
+			if(C.held_item)
 				dat += "<tr><td>&nbsp;&#8627;<B>Headpocket:</B></td><td><A href='?src=[UID()];dislodge_headpocket=1'>Dislodge Items</A></td></tr>"
 			else
 				dat += "<tr><td>&nbsp;&#8627;<B>Headpocket:</B></td><td><font color=grey>Empty</font></td></tr>"
@@ -336,7 +321,7 @@
 	if(slot_wear_mask in obscured)
 		dat += "<tr><td><font color=grey><B>Mask:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 	else
-		dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[slot_wear_mask]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A>"
+		dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[slot_wear_mask]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? html_encode(wear_mask) : "<font color=grey>Empty</font>"]</A>"
 
 		if(istype(wear_mask, /obj/item/clothing/mask/muzzle))
 			var/obj/item/clothing/mask/muzzle/M = wear_mask
@@ -349,23 +334,23 @@
 		if(slot_glasses in obscured)
 			dat += "<tr><td><font color=grey><B>Eyes:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Eyes:</B></td><td><A href='?src=[UID()];item=[slot_glasses]'>[(glasses && !(glasses.flags&ABSTRACT))	? glasses : "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Eyes:</B></td><td><A href='?src=[UID()];item=[slot_glasses]'>[(glasses && !(glasses.flags&ABSTRACT))	? html_encode(glasses) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		if(slot_l_ear in obscured)
 			dat += "<tr><td><font color=grey><B>Left Ear:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Left Ear:</B></td><td><A href='?src=[UID()];item=[slot_l_ear]'>[(l_ear && !(l_ear.flags&ABSTRACT))		? l_ear		: "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Left Ear:</B></td><td><A href='?src=[UID()];item=[slot_l_ear]'>[(l_ear && !(l_ear.flags&ABSTRACT))		? html_encode(l_ear)	: "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		if(slot_r_ear in obscured)
 			dat += "<tr><td><font color=grey><B>Right Ear:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Right Ear:</B></td><td><A href='?src=[UID()];item=[slot_r_ear]'>[(r_ear && !(r_ear.flags&ABSTRACT))		? r_ear		: "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Right Ear:</B></td><td><A href='?src=[UID()];item=[slot_r_ear]'>[(r_ear && !(r_ear.flags&ABSTRACT))		? html_encode(r_ear)		: "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		dat += "<tr><td>&nbsp;</td></tr>"
 
-		dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[UID()];item=[slot_wear_suit]'>[(wear_suit && !(wear_suit.flags&ABSTRACT)) ? wear_suit : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[UID()];item=[slot_wear_suit]'>[(wear_suit && !(wear_suit.flags&ABSTRACT)) ? html_encode(wear_suit) : "<font color=grey>Empty</font>"]</A></td></tr>"
 		if(wear_suit)
-			dat += "<tr><td>&nbsp;&#8627;<B>Suit Storage:</B></td><td><A href='?src=[UID()];item=[slot_s_store]'>[(s_store && !(s_store.flags&ABSTRACT)) ? s_store : "<font color=grey>Empty</font>"]</A>"
+			dat += "<tr><td>&nbsp;&#8627;<B>Suit Storage:</B></td><td><A href='?src=[UID()];item=[slot_s_store]'>[(s_store && !(s_store.flags&ABSTRACT)) ? html_encode(s_store) : "<font color=grey>Empty</font>"]</A>"
 			if(has_breathable_mask && istype(s_store, /obj/item/tank))
 				dat += "&nbsp;<A href='?src=[UID()];internal=[slot_s_store]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 			dat += "</td></tr>"
@@ -375,17 +360,17 @@
 		if(slot_shoes in obscured)
 			dat += "<tr><td><font color=grey><B>Shoes:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Shoes:</B></td><td><A href='?src=[UID()];item=[slot_shoes]'>[(shoes && !(shoes.flags&ABSTRACT))		? shoes		: "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Shoes:</B></td><td><A href='?src=[UID()];item=[html_encode(slot_shoes)]'>[(shoes && !(shoes.flags&ABSTRACT))		? html_encode(shoes)		: "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		if(slot_gloves in obscured)
 			dat += "<tr><td><font color=grey><B>Gloves:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Gloves:</B></td><td><A href='?src=[UID()];item=[slot_gloves]'>[(gloves && !(gloves.flags&ABSTRACT))		? gloves	: "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Gloves:</B></td><td><A href='?src=[UID()];item=[slot_gloves]'>[(gloves && !(gloves.flags&ABSTRACT))		? html_encode(gloves)	: "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		if(slot_w_uniform in obscured)
 			dat += "<tr><td><font color=grey><B>Uniform:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Uniform:</B></td><td><A href='?src=[UID()];item=[slot_w_uniform]'>[(w_uniform && !(w_uniform.flags&ABSTRACT)) ? w_uniform : "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Uniform:</B></td><td><A href='?src=[UID()];item=[slot_w_uniform]'>[(w_uniform && !(w_uniform.flags&ABSTRACT)) ? html_encode(w_uniform) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		if((w_uniform == null && !(dna && dna.species.nojumpsuit)) || (slot_w_uniform in obscured))
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Pockets:</B></font></td></tr>"
@@ -394,7 +379,7 @@
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Suit Sensors:</B></font></td></tr>"
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>PDA:</B></font></td></tr>"
 		else
-			dat += "<tr><td>&nbsp;&#8627;<B>Belt:</B></td><td><A href='?src=[UID()];item=[slot_belt]'>[(belt && !(belt.flags&ABSTRACT)) ? belt : "<font color=grey>Empty</font>"]</A>"
+			dat += "<tr><td>&nbsp;&#8627;<B>Belt:</B></td><td><A href='?src=[UID()];item=[slot_belt]'>[(belt && !(belt.flags&ABSTRACT)) ? html_encode(belt) : "<font color=grey>Empty</font>"]</A>"
 			if(has_breathable_mask && istype(belt, /obj/item/tank))
 				dat += "&nbsp;<A href='?src=[UID()];internal=[slot_belt]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 			dat += "</td></tr>"
@@ -414,8 +399,8 @@
 			else
 				dat += "<font color=grey>Right (Empty)</font>"
 			dat += "</A></td></tr>"
-			dat += "<tr><td>&nbsp;&#8627;<B>ID:</B></td><td><A href='?src=[UID()];item=[slot_wear_id]'>[(wear_id && !(wear_id.flags&ABSTRACT)) ? wear_id : "<font color=grey>Empty</font>"]</A></td></tr>"
-			dat += "<tr><td>&nbsp;&#8627;<B>PDA:</B></td><td><A href='?src=[UID()];item=[slot_wear_pda]'>[(wear_pda && !(wear_pda.flags&ABSTRACT)) ? wear_pda : "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td>&nbsp;&#8627;<B>ID:</B></td><td><A href='?src=[UID()];item=[slot_wear_id]'>[(wear_id && !(wear_id.flags&ABSTRACT)) ? html_encode(wear_id) : "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td>&nbsp;&#8627;<B>PDA:</B></td><td><A href='?src=[UID()];item=[slot_wear_pda]'>[(wear_pda && !(wear_pda.flags&ABSTRACT)) ? html_encode(wear_pda) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 			if(istype(w_uniform, /obj/item/clothing/under))
 				var/obj/item/clothing/under/U = w_uniform
@@ -439,7 +424,7 @@
 	popup.open()
 
 // Get rank from ID, ID inside PDA, PDA, ID in wallet, etc.
-/mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "No id", var/if_no_job = "No job")
+/mob/living/carbon/human/proc/get_authentification_rank(if_no_id = "No id", if_no_job = "No job")
 	var/obj/item/pda/pda = wear_id
 	if(istype(pda))
 		if(pda.id)
@@ -455,7 +440,7 @@
 
 //gets assignment from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
-/mob/living/carbon/human/proc/get_assignment(var/if_no_id = "No id", var/if_no_job = "No job")
+/mob/living/carbon/human/proc/get_assignment(if_no_id = "No id", if_no_job = "No job")
 	var/obj/item/pda/pda = wear_id
 	var/obj/item/card/id/id = wear_id
 	if(istype(pda))
@@ -473,7 +458,7 @@
 
 //gets name from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
-/mob/living/carbon/human/proc/get_authentification_name(var/if_no_id = "Unknown")
+/mob/living/carbon/human/proc/get_authentification_name(if_no_id = "Unknown")
 	var/obj/item/pda/pda = wear_id
 	var/obj/item/card/id/id = wear_id
 	if(istype(pda))
@@ -488,7 +473,7 @@
 	return
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
-/mob/living/carbon/human/get_visible_name(var/id_override = FALSE)
+/mob/living/carbon/human/get_visible_name(id_override = FALSE)
 	if(name_override)
 		return name_override
 	if(wear_mask && (wear_mask.flags_inv & HIDEFACE))	//Wearing a mask which hides our face, use id-name if possible
@@ -504,13 +489,13 @@
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name()
 	var/obj/item/organ/external/head = get_organ("head")
-	if(!head || head.disfigured || cloneloss > 50 || !real_name || (HUSK in mutations))	//disfigured. use id-name if possible
+	if(!head || head.disfigured || cloneloss > 50 || !real_name || HAS_TRAIT(src, TRAIT_HUSK))	//disfigured. use id-name if possible
 		return "Unknown"
 	return real_name
 
 //gets name from ID or PDA itself, ID inside PDA doesn't matter
 //Useful when player is being seen by other mobs
-/mob/living/carbon/human/proc/get_id_name(var/if_no_id = "Unknown")
+/mob/living/carbon/human/proc/get_id_name(if_no_id = "Unknown")
 	var/obj/item/pda/pda = wear_id
 	var/obj/item/card/id/id = wear_id
 	if(istype(pda))		. = pda.owner
@@ -519,7 +504,7 @@
 	return
 
 //gets ID card object from special clothes slot or, if applicable, hands as well
-/mob/living/carbon/human/proc/get_idcard(var/check_hands = FALSE)
+/mob/living/carbon/human/proc/get_idcard(check_hands = FALSE)
 	var/obj/item/card/id/id = wear_id
 	var/obj/item/pda/pda = wear_id
 	if(istype(pda) && pda.id)
@@ -596,6 +581,7 @@
 	else if(!(flags & SHOCK_NOGLOVES)) //This gets the siemens_coeff for all non tesla shocks
 		if(gloves)
 			siemens_coeff *= gloves.siemens_coefficient
+	siemens_coeff *= physiology.siemens_coeff
 	siemens_coeff *= dna.species.siemens_coeff
 	. = ..()
 	//Don't go further if the shock was blocked/too weak.
@@ -937,9 +923,9 @@
 	if(istype(wear_mask, /obj/item/clothing/mask))		//mask
 		var/obj/item/clothing/mask/MFP = wear_mask
 		number += MFP.flash_protect
-	for(var/obj/item/organ/internal/cyberimp/eyes/EFP in internal_organs)
-		number += EFP.flash_protect
-
+	var/obj/item/organ/internal/eyes/E = get_organ_slot("eyes")
+	if(E)
+		number += E.flash_protect
 	return number
 
 /mob/living/carbon/human/check_ear_prot()
@@ -974,7 +960,7 @@
 	return tinted
 
 
-/mob/living/carbon/human/abiotic(var/full_body = 0)
+/mob/living/carbon/human/abiotic(full_body = 0)
 	if(full_body && ((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)) || (src.back || src.wear_mask || src.head || src.shoes || src.w_uniform || src.wear_suit || src.glasses || src.l_ear || src.r_ear || src.gloves)))
 		return 1
 
@@ -1007,7 +993,7 @@
 		else
 			target_zone = user.zone_selected
 
-	if(PIERCEIMMUNE in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
 		. = FALSE
 
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
@@ -1076,7 +1062,7 @@
 	else
 		germ_level += n
 
-/mob/living/carbon/human/proc/check_and_regenerate_organs(var/mob/living/carbon/human/H) //Regenerates missing limbs/organs.
+/mob/living/carbon/human/proc/check_and_regenerate_organs(mob/living/carbon/human/H) //Regenerates missing limbs/organs.
 	var/list/types_of_int_organs = list() //This will hold all the types of organs in the mob before rejuvenation.
 	for(var/obj/item/organ/internal/I in H.internal_organs)
 		types_of_int_organs |= I.type //Compiling the list of organ types. It is possible for organs to be missing from this list if they are absent from the mob.
@@ -1127,12 +1113,9 @@
 	check_and_regenerate_organs(src) //Regenerate limbs and organs only if they're really missing.
 	surgeries.Cut() //End all surgeries.
 
-	if(!isskeleton(src) && (SKELETON in mutations))
-		mutations.Remove(SKELETON)
-	if(NOCLONE in mutations)
-		mutations.Remove(NOCLONE)
-	if(HUSK in mutations)
-		mutations.Remove(HUSK)
+	REMOVE_TRAIT(src, TRAIT_SKELETONIZED, null)
+	REMOVE_TRAIT(src, TRAIT_BADDNA, null)
+	cure_husk()
 
 	if(!client || !key) //Don't boot out anyone already in the mob.
 		for(var/obj/item/organ/internal/brain/H in world)
@@ -1161,7 +1144,7 @@
 		L.damage = L.min_bruised_damage
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
-	if(HULK in mutations)
+	if(HAS_TRAIT(src, TRAIT_HULK))
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		if(..(I, cuff_break = 1))
 			unEquip(I)
@@ -1188,6 +1171,10 @@
 	set desc = "Approximately count somebody's pulse. Requires you to stand still at least 6 seconds."
 	set src in view(1)
 	var/self = 0
+
+	if (!ishuman(src))
+		to_chat(usr, "<span class='notice'>You do not know how to check someone's pulse!</span>")
+		return
 
 	if(usr.stat == 1 || usr.restrained() || !isliving(usr) || usr.is_dead()) return
 
@@ -1218,10 +1205,12 @@
 
 /mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE, keep_flavor_text = FALSE)
 	if(include_species_change)
-		set_species(new_dna.species.type, retain_damage = TRUE)
+		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE)
 	dna = new_dna.Clone()
+	if (include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
+		dna.species.on_species_gain(src)
 	real_name = new_dna.real_name
-	domutcheck(src, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
+	domutcheck(src, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 	if(!keep_flavor_text)
 		flavor_text = ""
 	dna.UpdateSE()
@@ -1231,7 +1220,7 @@
 	sec_hud_set_ID()
 
 
-/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE)
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, use_default_color = FALSE, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, transformation = FALSE)
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
 			return
@@ -1247,8 +1236,7 @@
 		if(gender == PLURAL && oldspecies.has_gender)
 			change_gender(pick(MALE, FEMALE))
 
-		if(oldspecies.default_genes.len)
-			oldspecies.handle_dna(src, TRUE) // Remove any genes that belong to the old species
+		oldspecies.handle_dna(src, TRUE) // Remove any mutations that belong to the old species
 
 		oldspecies.on_species_loss(src)
 
@@ -1267,7 +1255,7 @@
 	hunger_drain = dna.species.hunger_drain
 	digestion_ratio = dna.species.digestion_ratio
 
-	if(dna.species.base_color && default_colour)
+	if(dna.species.base_color && use_default_color)
 		//Apply colour.
 		skin_colour = dna.species.base_color
 	else
@@ -1389,7 +1377,8 @@
 
 	dna.real_name = real_name
 
-	dna.species.on_species_gain(src)
+	if (!transformation) //Distinguish between creating a mob and switching species
+		dna.species.on_species_gain(src)
 
 	update_sight()
 
@@ -1475,12 +1464,9 @@
 
 /mob/living/carbon/human/proc/get_eyecon()
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
-	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
 	if(istype(dna.species) && dna.species.eyes)
 		var/icon/eyes_icon
-		if(eye_implant) //Eye implants override native DNA eye colo(u)r
-			eyes_icon = eye_implant.generate_icon()
-		else if(eyes)
+		if(eyes)
 			eyes_icon = eyes.generate_icon()
 		else //Error 404: Eyes not found!
 			eyes_icon = new('icons/mob/human_face.dmi', dna.species.eyes)
@@ -1504,12 +1490,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(!get_location_accessible(src, "eyes"))
 		return FALSE
 	// Natural eyeshine, any implants, and XRAY - all give shiny appearance.
-	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || (XRAY in mutations))
+	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || HAS_TRAIT(src, TRAIT_XRAY_VISION))
 		return TRUE
 
 	return FALSE
 
-/mob/living/carbon/human/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
+/mob/living/carbon/human/assess_threat(mob/living/simple_animal/bot/secbot/judgebot, lasercolor)
 	if(judgebot.emagged == 2)
 		return 10 //Everyone is a criminal!
 
@@ -1607,16 +1593,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	..()
 
-/mob/living/carbon/human/rad_act(amount)
-	if(RADIMMUNE in dna.species.species_traits)
-		return SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount)
-	. = ..()
-
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 	if(H == src)
 		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
 		return
-	if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
+	if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
 		to_chat(src, "<span class='warning'>[H.name] is dead!</span>")
 		return
 	if(!check_has_mouth())
@@ -1706,20 +1687,20 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/can_eat(flags = 255)
 	return dna.species && (dna.species.dietflags & flags)
 
-/mob/living/carbon/human/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
+/mob/living/carbon/human/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
 	if(!check_has_mouth())
 		to_chat(src, "Where do you intend to put \the [toEat]? You don't have a mouth!")
 		return 0
 	return ..()
 
-/mob/living/carbon/human/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
+/mob/living/carbon/human/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
 		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachineperson(src)))))
 			to_chat(user, "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!")
 			return 0
 	return ..()
 
-/mob/living/carbon/human/selfDrink(var/obj/item/reagent_containers/food/drinks/toDrink)
+/mob/living/carbon/human/selfDrink(obj/item/reagent_containers/food/drinks/toDrink)
 	if(!check_has_mouth())
 		if(!ismachineperson(src))
 			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")
@@ -1767,24 +1748,21 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/is_mechanical()
 	return ..() || (dna.species.bodyflags & ALL_RPARTS) != 0
 
-/mob/living/carbon/human/can_use_guns(var/obj/item/gun/G)
+/mob/living/carbon/human/can_use_guns(obj/item/gun/G)
 	. = ..()
 
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
-		if(HULK in mutations)
-			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
-			return FALSE
-		if(NOGUNS in dna.species.species_traits)
-			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
+		if(HAS_TRAIT(src, TRAIT_CHUNKYFINGERS))
+			to_chat(src, "<span class='warning'>Your meaty finger is far too large for the trigger guard!</span>")
 			return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
 		to_chat(src, "<span class='warning'>[mind.martial_art.no_guns_message]</span>")
 		return FALSE
 
-/mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
+/mob/living/carbon/human/proc/change_icobase(new_icobase, owner_sensitive)
 	for(var/obj/item/organ/external/O in bodyparts)
-		O.change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
+		O.change_organ_icobase(new_icobase, owner_sensitive) //Change the icobase of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 
 /mob/living/carbon/human/serialize()
 	// Currently: Limbs/organs only
@@ -1901,12 +1879,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. += "---"
 
 /mob/living/carbon/human/adjust_nutrition(change)
-	if(NO_HUNGER in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
 	return ..()
 
 /mob/living/carbon/human/set_nutrition(change)
-	if(NO_HUNGER in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
 	return ..()
 
@@ -1914,43 +1892,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(mind && mind.assigned_role == "Cluwne") //HUNKE your suffering never stops
 		makeCluwne()
 
-/mob/living/carbon/human/proc/influenceSin()
-	var/datum/objective/sintouched/O
-	switch(rand(1,7))//traditional seven deadly sins... except lust.
-		if(1) // acedia
-			log_game("[src] was influenced by the sin of Acedia.")
-			O = new /datum/objective/sintouched/acedia
-		if(2) // Gluttony
-			log_game("[src] was influenced by the sin of gluttony.")
-			O = new /datum/objective/sintouched/gluttony
-		if(3) // Greed
-			log_game("[src] was influenced by the sin of greed.")
-			O = new /datum/objective/sintouched/greed
-		if(4) // sloth
-			log_game("[src] was influenced by the sin of sloth.")
-			O = new /datum/objective/sintouched/sloth
-		if(5) // Wrath
-			log_game("[src] was influenced by the sin of wrath.")
-			O = new /datum/objective/sintouched/wrath
-		if(6) // Envy
-			log_game("[src] was influenced by the sin of envy.")
-			O = new /datum/objective/sintouched/envy
-		if(7) // Pride
-			log_game("[src] was influenced by the sin of pride.")
-			O = new /datum/objective/sintouched/pride
-	SSticker.mode.sintouched += src.mind
-	src.mind.objectives += O
-	var/obj_count = 1
-	to_chat(src, "<span class='notice> Your current objectives:")
-	for(var/datum/objective/objective in src.mind.objectives)
-		to_chat(src, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
-
 /mob/living/carbon/human/is_literate()
 	return getBrainLoss() < 100
 
 
-/mob/living/carbon/human/fakefire(var/fire_icon = "Generic_mob_burning")
+/mob/living/carbon/human/fakefire(fire_icon = "Generic_mob_burning")
 	if(!overlays_standing[FIRE_LAYER])
 		overlays_standing[FIRE_LAYER] = image("icon"=fire_dmi, "icon_state"=fire_icon)
 		update_icons()
@@ -1958,10 +1904,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/fakefireextinguish()
 	overlays_standing[FIRE_LAYER] = null
 	update_icons()
+
 /mob/living/carbon/human/proc/cleanSE()	//remove all disabilities/powers
 	for(var/block = 1; block <= DNA_SE_LENGTH; block++)
 		dna.SetSEState(block, FALSE, TRUE)
-		genemutcheck(src, block, null, MUTCHK_FORCED)
+		singlemutcheck(src, block, MUTCHK_FORCED)
 	dna.UpdateSE()
 
 /mob/living/carbon/human/get_spooked()
@@ -1986,4 +1933,25 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
   * Basically just a quick redirect to the DNA handler that gets the species-specific colour handler
   */
 /mob/living/carbon/human/get_runechat_color()
-   return dna.species.get_species_runechat_color(src)
+	if(client?.prefs.toggles2 & PREFTOGGLE_2_FORCE_WHITE_RUNECHAT)
+		return "#FFFFFF" // Force white if they want it
+	return dna.species.get_species_runechat_color(src)
+
+/mob/living/carbon/human/update_runechat_msg_location()
+	if(ismecha(loc))
+		runechat_msg_location = loc.UID()
+	else
+		return ..()
+
+/mob/living/carbon/human/verb/Examine_OOC()
+	set name = "Examine Meta-Info (OOC)"
+	set category = "OOC"
+	set src in view()
+
+	if(GLOB.configuration.general.allow_character_metadata)
+		if(client)
+			to_chat(usr, "[src]'s Metainfo:<br>[sanitize(client.prefs.metadata)]")
+		else
+			to_chat(usr, "[src] does not have any stored infomation!")
+	else
+		to_chat(usr, "OOC Metadata is not supported by this server!")

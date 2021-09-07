@@ -17,7 +17,7 @@
 
 	if(is_ventcrawling(src)) // To stop drones interacting with anything while ventcrawling
 		return
-	if(stat == DEAD)
+	if(stat == DEAD || lockcharge || IsWeakened() || stunned || paralysis || low_power_mode)
 		return
 
 	var/list/modifiers = params2list(params)
@@ -29,6 +29,9 @@
 		return
 	if(modifiers["middle"] && modifiers["ctrl"])
 		CtrlMiddleClickOn(A)
+		return
+	if(modifiers["shift"] && modifiers["middle"])
+		ShiftMiddleClickOn(A)
 		return
 	if(modifiers["middle"])
 		MiddleClickOn(A)
@@ -126,7 +129,8 @@
 	A.BorgCtrlShiftClick(src)
 /mob/living/silicon/robot/AltShiftClickOn(atom/A)
 	A.BorgAltShiftClick(src)
-
+/mob/living/silicon/robot/ShiftMiddleClickOn(atom/A)
+	A.BorgShiftMiddleClick(src)
 
 /atom/proc/BorgShiftClick(mob/user)
 	if(user.client && user.client.eye == user)
@@ -148,6 +152,8 @@
 /atom/proc/BorgAltShiftClick()
 	return
 
+/atom/proc/BorgShiftMiddleClick()
+	return
 
 // AIRLOCKS
 
@@ -163,21 +169,13 @@
 /obj/machinery/door/airlock/BorgAltShiftClick(mob/living/silicon/robot/user)  // Enables emergency override on doors! Forwards to AI code.
 	AIAltShiftClick(user)
 
+/obj/machinery/door/airlock/BorgShiftMiddleClick(mob/living/silicon/robot/user)  //Toggles door timing. Forwards to AI code.
+	AIShiftMiddleClick(user)
 
 // APC
 
 /obj/machinery/power/apc/BorgCtrlClick(mob/living/silicon/robot/user) // turns off/on APCs. Forwards to AI code.
 	AICtrlClick(user)
-
-
-// AI SLIPPER
-
-/obj/machinery/ai_slipper/BorgCtrlClick(mob/living/silicon/robot/user) //Turns liquid dispenser on or off
-	ToggleOn()
-
-/obj/machinery/ai_slipper/BorgAltClick(mob/living/silicon/robot/user) //Dispenses liquid if on
-	Activate()
-
 
 // TURRETCONTROL
 

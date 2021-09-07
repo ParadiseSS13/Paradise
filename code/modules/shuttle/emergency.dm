@@ -86,11 +86,14 @@
 	travelDir = 0
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
-	var/datum/announcement/priority/emergency_shuttle_docked = new(0, new_sound = sound('sound/AI/shuttledock.ogg'))
-	var/datum/announcement/priority/emergency_shuttle_called = new(0, new_sound = sound('sound/AI/shuttlecalled.ogg'))
-	var/datum/announcement/priority/emergency_shuttle_recalled = new(0, new_sound = sound('sound/AI/shuttlerecalled.ogg'))
+	var/datum/announcement/priority/emergency_shuttle_docked = new(0, new_sound = sound('sound/AI/eshuttle_dock.ogg'))
+	var/datum/announcement/priority/emergency_shuttle_called = new(0, new_sound = sound('sound/AI/eshuttle_call.ogg'))
+	var/datum/announcement/priority/emergency_shuttle_recalled = new(0, new_sound = sound('sound/AI/eshuttle_recall.ogg'))
 
 	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
+
+	var/datum/announcement/priority/crew_shuttle_called = new(0, new_sound = sound('sound/AI/cshuttle.ogg'))
+	var/datum/announcement/priority/crew_shuttle_docked = new(0, new_sound = sound('sound/AI/cshuttle_dock.ogg'))
 
 
 /obj/docking_port/mobile/emergency/register()
@@ -146,9 +149,10 @@
 		SSshuttle.emergencyLastCallLoc = signalOrigin
 	else
 		SSshuttle.emergencyLastCallLoc = null
-
-	emergency_shuttle_called.Announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]")
-
+	if(canRecall)
+		emergency_shuttle_called.Announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]")
+	else
+		crew_shuttle_called.Announce("The crew transfer shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason]")
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
 	if(!canRecall)
@@ -230,7 +234,10 @@
 					return
 				mode = SHUTTLE_DOCKED
 				timer = world.time
-				emergency_shuttle_docked.Announce("The Emergency Shuttle has docked with the station. You have [timeLeft(600)] minutes to board the Emergency Shuttle.")
+				if(canRecall)
+					emergency_shuttle_docked.Announce("The emergency shuttle has docked with the station. You have [timeLeft(600)] minutes to board the emergency shuttle.")
+				else
+					crew_shuttle_docked.Announce("The crew transfer shuttle has docked with the station. You have [timeLeft(600)] minutes to board the crew transfer shuttle.")
 
 /*
 				//Gangs only have one attempt left if the shuttle has docked with the station to prevent suffering from dominator delays
@@ -249,8 +256,9 @@
 
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
 				sound_played = 1
+				var/hyperspace_sound = sound('sound/effects/hyperspace_begin.ogg')
 				for(var/area/shuttle/escape/E in world)
-					E << 'sound/effects/hyperspace_begin.ogg'
+					SEND_SOUND(E, hyperspace_sound)
 
 			if(time_left <= 0 && !SSshuttle.emergencyNoEscape)
 				//move each escape pod to its corresponding transit dock
@@ -258,8 +266,9 @@
 					if(is_station_level(M.z)) //Will not launch from the mine/planet
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
+				var/hyperspace_progress_sound = sound('sound/effects/hyperspace_progress.ogg')
 				for(var/area/shuttle/escape/E in world)
-					E << 'sound/effects/hyperspace_progress.ogg'
+					SEND_SOUND(E, hyperspace_progress_sound)
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
 				timer = world.time
@@ -274,8 +283,9 @@
 				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
 					M.dock(SSshuttle.getDock("[M.id]_away"))
 
+				var/hyperspace_end_sound = sound('sound/effects/hyperspace_end.ogg')
 				for(var/area/shuttle/escape/E in world)
-					E << 'sound/effects/hyperspace_end.ogg'
+					SEND_SOUND(E, hyperspace_end_sound)
 
 				// now move the actual emergency shuttle to centcomm
 				// unless the shuttle is "hijacked"

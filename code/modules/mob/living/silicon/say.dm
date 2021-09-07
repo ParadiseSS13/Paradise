@@ -42,7 +42,7 @@
 		used_radios += radio
 		return radio.talk_into(src, message_pieces, message_mode, verb)
 
-/mob/living/silicon/say_quote(var/text)
+/mob/living/silicon/say_quote(text)
 	var/ending = copytext(text, length(text))
 
 	if(ending == "?")
@@ -56,7 +56,7 @@
 #define IS_ROBOT 2
 #define IS_PAI 3
 
-/mob/living/silicon/say_understands(var/other,var/datum/language/speaking = null)
+/mob/living/silicon/say_understands(other, datum/language/speaking = null)
 	//These only pertain to common. Languages are handled by mob/say_understands()
 	if(!speaking)
 		if(istype(other, /mob/living/carbon))
@@ -87,7 +87,7 @@
 		return
 	return 1
 
-/mob/living/silicon/ai/proc/holopad_emote(var/message) //This is called when the AI uses the 'me' verb while using a holopad.
+/mob/living/silicon/ai/proc/holopad_emote(message) //This is called when the AI uses the 'me' verb while using a holopad.
 	message = trim(message)
 
 	if(!message)

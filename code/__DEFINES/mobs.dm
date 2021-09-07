@@ -13,6 +13,19 @@
 #define DROPLIMB_BLUNT 1
 #define DROPLIMB_BURN 2
 
+//Mob bio-types flags
+#define MOB_ORGANIC 	(1 << 0)
+#define MOB_MINERAL		(1 << 1)
+#define MOB_ROBOTIC 	(1 << 2)
+#define MOB_UNDEAD		(1 << 3)
+#define MOB_HUMANOID 	(1 << 4)
+#define MOB_BUG 		(1 << 5)
+#define MOB_BEAST		(1 << 6)  // Not meant for human species, generally
+#define MOB_EPIC		(1 << 7) //megafauna
+#define MOB_REPTILE		(1 << 8)
+#define MOB_SPIRIT		(1 << 9)
+#define MOB_PLANT		(1 << 10)
+
 #define AGE_MIN 17			//youngest a character can be
 #define AGE_MAX 85			//oldest a character can be
 
@@ -263,3 +276,17 @@
 #define HEARING_PROTECTION_MINOR	1
 #define HEARING_PROTECTION_MAJOR	2
 #define HEARING_PROTECTION_TOTAL	3
+
+// Defines used in /mob/living/carbon/human/update_health_hud to override the health status
+#define HEALTH_HUD_OVERRIDE_NONE 0
+#define HEALTH_HUD_OVERRIDE_CRIT 1
+#define HEALTH_HUD_OVERRIDE_DEAD 2
+#define HEALTH_HUD_OVERRIDE_HEALTHY 3
+// Eye protection
+#define FLASH_PROTECTION_SENSITIVE -1
+#define FLASH_PROTECTION_NONE 0
+#define FLASH_PROTECTION_FLASH 1
+#define FLASH_PROTECTION_WELDER 2
+
+#define MAX_EYE_BLURRY_FILTER_SIZE 2
+#define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.1

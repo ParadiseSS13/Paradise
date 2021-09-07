@@ -16,7 +16,7 @@
 	var/title_buttons = ""
 
 
-/datum/browser/New(nuser, nwindow_id, ntitle = 0, nwidth = 0, nheight = 0, var/atom/nref = null)
+/datum/browser/New(nuser, nwindow_id, ntitle = 0, nwidth = 0, nheight = 0, atom/nref = null)
 
 	user = nuser
 	window_id = nwindow_id
@@ -101,7 +101,7 @@
 	[get_footer()]
 	"}
 
-/datum/browser/proc/open(var/use_onclose = 1)
+/datum/browser/proc/open(use_onclose = 1)
 	var/window_size = ""
 	if(width && height)
 		window_size = "size=[width]x[height];"
@@ -145,7 +145,7 @@
 // Otherwise, the user mob's machine var will be reset directly.
 //
 
-/proc/onclose(mob/user, windowid, var/atom/ref=null)
+/proc/onclose(mob/user, windowid, atom/ref=null)
 	if(!user || !user.client) return
 	var/param = "null"
 	if(ref)
@@ -161,7 +161,7 @@
 // if a valid atom reference is supplied, call the atom's Topic() with "close=1"
 // otherwise, just reset the client mob's machine var.
 //
-/client/verb/windowclose(var/atomref as text)
+/client/verb/windowclose(atomref as text)
 	set hidden = 1						// hide this verb from the user's panel
 	set name = ".windowclose"			// no autocomplete on cmd line
 

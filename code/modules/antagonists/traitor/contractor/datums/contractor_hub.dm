@@ -28,6 +28,7 @@
 		/datum/rep_purchase/item/pinpointer,
 		/datum/rep_purchase/item/baton,
 		/datum/rep_purchase/item/fulton,
+		/datum/rep_purchase/item/flare,
 		/datum/rep_purchase/blackout,
 		/datum/rep_purchase/item/zippo,
 		/datum/rep_purchase/item/balloon,
@@ -75,7 +76,7 @@
 /datum/contractor_hub/proc/first_login(mob/user)
 	if(!is_user_authorized(user))
 		return
-	user.playsound_local(user, 'sound/effects/contractstartup.ogg', 30, FALSE)
+	user.playsound_local(user, 'sound/effects/contractstartup.ogg', 30, FALSE, use_reverb = FALSE)
 	generate_contracts()
 	SStgui.update_uis(src)
 

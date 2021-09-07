@@ -28,11 +28,12 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_admin(text)
 	GLOB.admin_log.Add(text)
-	if(config.log_admin)
+	if(GLOB.configuration.logging.admin_logging)
 		rustg_log_write(GLOB.world_game_log, "ADMIN: [text][GLOB.log_end]")
 
 /proc/log_debug(text)
-	if(config.log_debug)
+	// This has presence checks as this may be called before GLOB has loaded
+	if(GLOB?.configuration?.logging.debug_logging)
 		rustg_log_write(GLOB.world_game_log, "DEBUG: [text][GLOB.log_end]")
 
 	for(var/client/C in GLOB.admins)
@@ -40,80 +41,80 @@ GLOBAL_PROTECT(log_end)
 			to_chat(C, "DEBUG: [text]")
 
 /proc/log_game(text)
-	if(config.log_game)
+	if(GLOB.configuration.logging.game_logging)
 		rustg_log_write(GLOB.world_game_log, "GAME: [text][GLOB.log_end]")
 
 /proc/log_vote(text)
-	if(config.log_vote)
+	if(GLOB.configuration.logging.vote_logging)
 		rustg_log_write(GLOB.world_game_log, "VOTE: [text][GLOB.log_end]")
 
 /proc/log_access_in(client/new_client)
-	if(config.log_access)
-		var/message = "[key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version]"
+	if(GLOB.configuration.logging.access_logging)
+		var/message = "[key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version].[new_client.byond_build]"
 		rustg_log_write(GLOB.world_game_log, "ACCESS IN: [message][GLOB.log_end]")
 
 /proc/log_access_out(mob/last_mob)
-	if(config.log_access)
+	if(GLOB.configuration.logging.access_logging)
 		var/message = "[key_name(last_mob)] - IP:[last_mob.lastKnownIP] - CID:[last_mob.computer_id] - BYOND Logged Out"
 		rustg_log_write(GLOB.world_game_log, "ACCESS OUT: [message][GLOB.log_end]")
 
 /proc/log_say(text, mob/speaker)
-	if(config.log_say)
+	if(GLOB.configuration.logging.say_logging)
 		rustg_log_write(GLOB.world_game_log, "SAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_whisper(text, mob/speaker)
-	if(config.log_whisper)
+	if(GLOB.configuration.logging.whisper_logging)
 		rustg_log_write(GLOB.world_game_log, "WHISPER: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_ooc(text, client/user)
-	if(config.log_ooc)
+	if(GLOB.configuration.logging.ooc_logging)
 		rustg_log_write(GLOB.world_game_log, "OOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_aooc(text, client/user)
-	if(config.log_ooc)
+	if(GLOB.configuration.logging.ooc_logging)
 		rustg_log_write(GLOB.world_game_log, "AOOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_looc(text, client/user)
-	if(config.log_ooc)
+	if(GLOB.configuration.logging.ooc_logging)
 		rustg_log_write(GLOB.world_game_log, "LOOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_emote(text, mob/speaker)
-	if(config.log_emote)
+	if(GLOB.configuration.logging.emote_logging)
 		rustg_log_write(GLOB.world_game_log, "EMOTE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_attack(attacker, defender, message)
-	if(config.log_attack)
+	if(GLOB.configuration.logging.attack_logging)
 		rustg_log_write(GLOB.world_game_log, "ATTACK: [attacker] against [defender]: [message][GLOB.log_end]") //Seperate attack logs? Why?
 
 /proc/log_adminsay(text, mob/speaker)
-	if(config.log_adminchat)
+	if(GLOB.configuration.logging.adminchat_logging)
 		rustg_log_write(GLOB.world_game_log, "ADMINSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_qdel(text)
 	rustg_log_write(GLOB.world_qdel_log, "QDEL: [text][GLOB.log_end]")
 
 /proc/log_mentorsay(text, mob/speaker)
-	if(config.log_adminchat)
+	if(GLOB.configuration.logging.adminchat_logging)
 		rustg_log_write(GLOB.world_game_log, "MENTORSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_ghostsay(text, mob/speaker)
-	if(config.log_say)
+	if(GLOB.configuration.logging.say_logging)
 		rustg_log_write(GLOB.world_game_log, "DEADCHAT: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_ghostemote(text, mob/speaker)
-	if(config.log_emote)
+	if(GLOB.configuration.logging.emote_logging)
 		rustg_log_write(GLOB.world_game_log, "DEADEMOTE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_adminwarn(text)
-	if(config.log_adminwarn)
+	if(GLOB.configuration.logging.admin_warning_logging)
 		rustg_log_write(GLOB.world_game_log, "ADMINWARN: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_pda(text, mob/speaker)
-	if(config.log_pda)
+	if(GLOB.configuration.logging.pda_logging)
 		rustg_log_write(GLOB.world_game_log, "PDA: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_chat(text, mob/speaker)
-	if(config.log_pda)
+	if(GLOB.configuration.logging.pda_logging)
 		rustg_log_write(GLOB.world_game_log, "CHAT: [speaker.simple_info_line()] [html_decode(text)][GLOB.log_end]")
 
 /proc/log_misc(text)
@@ -121,7 +122,8 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_world(text)
 	SEND_TEXT(world.log, text)
-	if(config && config.log_world_output)
+	// This has to be presence checked as log_world() is used before world/New().
+	if(GLOB?.configuration?.logging.world_logging)
 		rustg_log_write(GLOB.world_game_log, "WORLD: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_runtime_txt(text) // different from /tg/'s log_runtime because our error handler has a log_runtime proc already that does other stuff
@@ -134,22 +136,30 @@ GLOBAL_PROTECT(log_end)
 /proc/log_href(text)
 	rustg_log_write(GLOB.world_href_log, "HREF: [html_decode(text)][GLOB.log_end]")
 
-/proc/log_asset(text)
-	rustg_log_write(GLOB.world_asset_log, "ASSET: [text][GLOB.log_end]")
-
 /proc/log_runtime_summary(text)
 	rustg_log_write(GLOB.runtime_summary_log, "[text][GLOB.log_end]")
 
 /proc/log_tgui(text)
 	rustg_log_write(GLOB.tgui_log, "[text][GLOB.log_end]")
 
+#ifdef REFERENCE_TRACKING
+/proc/log_gc(text)
+	rustg_log_write(GLOB.gc_log, "[text][GLOB.log_end]")
+	for(var/client/C in GLOB.admins)
+		if(check_rights(R_DEBUG, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
+			to_chat(C, "GC DEBUG: [text]")
+#endif
+
 /proc/log_sql(text)
 	rustg_log_write(GLOB.sql_log, "[text][GLOB.log_end]")
 	SEND_TEXT(world.log, text) // Redirect it to DD too
 
+/proc/log_chat_debug(text)
+	rustg_log_write(GLOB.chat_debug_log, "[text][GLOB.log_end]")
+
 // A logging proc that only outputs after setup is done, to
 // help devs test initialization stuff that happens a lot
-/proc/log_after_setup(var/message)
+/proc/log_after_setup(message)
 	if(SSticker && SSticker.current_state > GAME_STATE_SETTING_UP)
 		to_chat(world, "<span class='danger'>[message]</span>")
 		log_world(message)
@@ -160,7 +170,7 @@ GLOBAL_PROTECT(log_end)
 
 // Helper procs for building detailed log lines
 
-/proc/datum_info_line(var/datum/d)
+/proc/datum_info_line(datum/d)
 	if(!istype(d))
 		return
 	if(!istype(d, /mob))
@@ -168,7 +178,7 @@ GLOBAL_PROTECT(log_end)
 	var/mob/m = d
 	return "[m] ([m.ckey]) ([m.type])"
 
-/proc/atom_loc_line(var/atom/a)
+/proc/atom_loc_line(atom/a)
 	if(!istype(a))
 		return
 	var/turf/t = get_turf(a)

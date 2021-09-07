@@ -38,7 +38,7 @@
 			home = console.pad
 		return 1
 
-/obj/item/implant/abductor/proc/get_team_console(var/team)
+/obj/item/implant/abductor/proc/get_team_console(team)
 	var/obj/machinery/abductor/console/console
 	for(var/obj/machinery/abductor/console/c in GLOB.abductor_equipment)
 		if(c.team == team)

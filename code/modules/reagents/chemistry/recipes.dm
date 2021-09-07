@@ -53,18 +53,37 @@
 				for(var/j = 1, j <= rand(1, 3), j++)
 					step(S, pick(NORTH,SOUTH,EAST,WEST))
 
-/proc/goonchem_vortex(turf/T, setting_type, volume)
-	if(setting_type)
+/**
+  * Throws or pulls objects to/from a chem reaction
+  *
+  * Scales the amount of objects thrown with the volume, unless ignore_volume is TRUE
+  *
+  * Arguments:
+  * * T - The turf to use as the throw from/to point
+  * * pull - Do we want to pull objects towards T (TRUE) or push them away from it (FALSE)
+  * * volume - The volume of reagents. Used to scale the effect is ignore_volume = FALSE
+  * * ignore_volume - Do we want to ignore the volume of reagents and just throw regardless
+  */
+/proc/goonchem_vortex(turf/T, pull, volume, ignore_volume = FALSE)
+	if(pull)
 		new /obj/effect/temp_visual/implosion(T)
 		playsound(T, 'sound/effects/whoosh.ogg', 25, 1) //credit to Robinhood76 of Freesound.org for this.
 	else
 		new /obj/effect/temp_visual/shockwave(T)
 		playsound(T, 'sound/effects/bang.ogg', 25, 1)
-	for(var/atom/movable/X in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
+	// PARADISE EDIT: Allow only a certain amount of atoms to be pulled per unit
+	var/units_per_atom = 5
+	var/atoms_to_move = round(volume / units_per_atom)
+	var/moved_count = 0
+	// The ternary below isnt exactly needed, but it makes code more readable because `pull` is a bool
+	for(var/atom/movable/X in view(2 + (pull ? 1 : 0)  + (volume > 30 ? 1 : 0), T))
 		if(istype(X, /obj/effect))
 			continue  //stop pulling smoke and hotspots please
 		if(X && !X.anchored && X.move_resist <= MOVE_FORCE_DEFAULT)
-			if(setting_type)
+			if(pull)
 				X.throw_at(T, 20 + round(volume * 2), 1 + round(volume / 10))
 			else
 				X.throw_at(get_edge_target_turf(T, get_dir(T, X)), 20 + round(volume * 2), 1 + round(volume / 10))
+			moved_count++
+			if((moved_count >= atoms_to_move) && !ignore_volume)
+				break

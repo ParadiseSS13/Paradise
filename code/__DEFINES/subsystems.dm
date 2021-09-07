@@ -45,7 +45,8 @@
 // Subsystems shutdown in the reverse of the order they initialize in
 // The numbers just define the ordering, they are meaningless otherwise.
 #define INIT_ORDER_PROFILER	101
-#define INIT_ORDER_TITLE 100 // Load this quickly so people dont see a blank lobby screen
+#define INIT_ORDER_QUEUE 100 // Load this quickly so people cant queue skip
+#define INIT_ORDER_TITLE 99 // Load this quickly so people dont see a blank lobby screen
 #define INIT_ORDER_GARBAGE 21
 #define INIT_ORDER_DBCORE 20
 #define INIT_ORDER_BLACKBOX 19
@@ -94,6 +95,7 @@
 #define FIRE_PRIORITY_CLEANUP		10
 #define FIRE_PRIORITY_TICKETS		10
 #define FIRE_PRIORITY_RESEARCH		10
+#define FIRE_PRIORITY_AMBIENCE		10
 #define FIRE_PRIORITY_GARBAGE		15
 #define FIRE_PRIORITY_WET_FLOORS	20
 #define FIRE_PRIORITY_AIR			20

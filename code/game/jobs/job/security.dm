@@ -149,8 +149,7 @@
 	if(visualsOnly)
 		return
 
-	H.dna.SetSEState(GLOB.soberblock,1)
-	H.mutations += SOBER
+	H.dna.SetSEState(GLOB.soberblock, TRUE)
 	H.check_mutations = 1
 
 /datum/job/officer

@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	var/list/temp_price_change[BIOMEDICAL]
 	var/list/viable_mundane_events = list()
 
-/datum/trade_destination/proc/get_custom_eventstring(var/event_type)
+/datum/trade_destination/proc/get_custom_eventstring(event_type)
 	return null
 
 //distance is measured in AU and co-relates to travel time
@@ -35,7 +35,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	viable_random_events = list(SECURITY_BREACH, CULT_CELL_REVEALED, BIOHAZARD_OUTBREAK, PIRATES, ALIEN_RAIDERS)
 	viable_mundane_events = list(RESEARCH_BREAKTHROUGH, RESEARCH_BREAKTHROUGH, BARGAINS, GOSSIP)
 
-/datum/trade_destination/anansi/get_custom_eventstring(var/event_type)
+/datum/trade_destination/anansi/get_custom_eventstring(event_type)
 	if(event_type == RESEARCH_BREAKTHROUGH)
 		return "Thanks to research conducted on the NSS Anansi, Second Green Cross Society wishes to announce a major breakthough in the field of \
 		[pick("mind-machine interfacing","neuroscience","nano-augmentation","genetics")]. Nanotrasen is expected to announce a co-exploitation deal within the fortnight."
@@ -58,7 +58,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	viable_random_events = list(INDUSTRIAL_ACCIDENT, PIRATES, CORPORATE_ATTACK)
 	viable_mundane_events = list(RESEARCH_BREAKTHROUGH, RESEARCH_BREAKTHROUGH)
 
-/datum/trade_destination/redolant/get_custom_eventstring(var/event_type)
+/datum/trade_destination/redolant/get_custom_eventstring(event_type)
 	if(event_type == RESEARCH_BREAKTHROUGH)
 		return "Thanks to research conducted on the OAV Redolant, Osiris Atmospherics wishes to announce a major breakthough in the field of \
 		[pick("plasma research","high energy flux capacitance","super-compressed materials","theoretical particle physics")]. Nanotrasen is expected to announce a co-exploitation deal within the fortnight."

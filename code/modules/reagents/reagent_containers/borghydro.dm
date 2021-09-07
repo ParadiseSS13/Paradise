@@ -31,7 +31,7 @@
 	icon_state = "borghypo_s"
 	charge_cost = 20
 	recharge_time = 2
-	reagent_ids = list("syndicate_nanites", "potass_iodide", "hydrocodone", "salglu_solution", "epinephrine", "spaceacillin")
+	reagent_ids = list("syndicate_nanites", "potass_iodide", "hydrocodone")
 	bypass_protection = 1
 
 /obj/item/reagent_containers/borghypo/New()

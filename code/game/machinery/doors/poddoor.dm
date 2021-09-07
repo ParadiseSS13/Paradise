@@ -97,7 +97,7 @@
 	return ..()
 
 //Multi-tile poddoors don't turn invisible automatically, so we change the opacity of the turfs below instead one by one.
-/obj/machinery/door/poddoor/multi_tile/proc/apply_opacity_to_my_turfs(var/new_opacity)
+/obj/machinery/door/poddoor/multi_tile/proc/apply_opacity_to_my_turfs(new_opacity)
 	for(var/turf/T in locs)
 		T.opacity = new_opacity
 		T.has_opaque_atom = new_opacity

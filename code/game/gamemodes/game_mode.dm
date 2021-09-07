@@ -20,11 +20,15 @@
 	var/explosion_in_progress = 0 //sit back and relax
 	var/list/datum/mind/modePlayer = new
 	var/list/restricted_jobs = list()	// Jobs it doesn't make sense to be.  I.E chaplain or AI cultist
+	var/list/secondary_restricted_jobs = list() // Same as above, but for secondary antagonists
 	var/list/protected_jobs = list()	// Jobs that can't be traitors
 	var/list/protected_species = list() // Species that can't be traitors
+	var/list/secondary_protected_species = list() // Same as above, but for secondary antagonists
 	var/required_players = 0
 	var/required_enemies = 0
 	var/recommended_enemies = 0
+	var/secondary_enemies = 0
+	var/secondary_enemies_scaling = 0 // Scaling rate of secondary enemies
 	var/newscaster_announcements = null
 	var/ert_disabled = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
@@ -50,7 +54,7 @@
 		if((player.client)&&(player.ready))
 			playerC++
 
-	if(!config.enable_gamemode_player_limit || (playerC >= required_players))
+	if(!GLOB.configuration.gamemode.enable_gamemode_player_limit || (playerC >= required_players))
 		return 1
 	return 0
 
@@ -88,7 +92,7 @@
 // I wonder what this could do guessing by the name
 /datum/game_mode/proc/set_mode_in_db()
 	if(SSticker?.mode && SSdbcore.IsConnected())
-		var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery("UPDATE [format_table_name("round")] SET game_mode=:gm WHERE id=:rid", list(
+		var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery("UPDATE round SET game_mode=:gm WHERE id=:rid", list(
 			"gm" = SSticker.mode.name,
 			"rid" = GLOB.round_id
 		))
@@ -128,15 +132,15 @@
 						msg="Task #[count] completed! "
 				if(pay>0)
 					if(M.mind.initial_account)
-						M.mind.initial_account.credit(pay, "Payment", "\[CLASSIFIED\] Terminal #[rand(111,333)]", "[command_name()] Payroll")
+						M.mind.initial_account.credit(pay, "Payment", "\[CLASSIFIED\] Terminal #[rand(111,333)]", "NAS Trurl Payroll")
 						msg += "You have been sent the $[pay], as agreed."
 					else
 						msg += "However, we were unable to send you the $[pay] you're entitled."
 					if(useMS && P)
-						useMS.send_pda_message("[P.owner]", "[command_name()] Payroll", msg)
+						useMS.send_pda_message("[P.owner]", "NAS Trurl Payroll", msg)
 
 						var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
-						PM.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
+						PM.notify("<b>Message from NAS Trurl (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
 					break
 
 /datum/game_mode/proc/check_finished() //to be called by ticker
@@ -223,7 +227,7 @@
 /datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
 	return 0
 
-/datum/game_mode/proc/get_players_for_role(var/role, override_jobbans=0)
+/datum/game_mode/proc/get_players_for_role(role, override_jobbans=0)
 	var/list/players = list()
 	var/list/candidates = list()
 	//var/list/drafted = list()
@@ -234,7 +238,7 @@
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.client && player.ready && player.has_valid_preferences())
-			if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext))
+			if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, roletext))
 				if(player_old_enough_antag(player.client,role))
 					players += player
 
@@ -272,10 +276,10 @@
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
 
-/datum/game_mode/proc/latespawn(var/mob)
+/datum/game_mode/proc/latespawn(mob)
 
 /*
-/datum/game_mode/proc/check_player_role_pref(var/role, var/mob/player)
+/datum/game_mode/proc/check_player_role_pref(role, mob/player)
 	if(player.preferences.be_special & role)
 		return 1
 	return 0
@@ -402,7 +406,7 @@
 			to_chat(M, msg)
 
 //Announces objectives/generic antag text.
-/proc/show_generic_antag_text(var/datum/mind/player)
+/proc/show_generic_antag_text(datum/mind/player)
 	if(player.current)
 		to_chat(player.current, "You are an antagonist! <font color=blue>Within the rules,</font> \
 		try to act as an opposing force to the crew. Further RP and try to make sure \
@@ -411,7 +415,7 @@
 		Think through your actions and make the roleplay immersive! <b>Please remember all \
 		rules aside from those without explicit exceptions apply to antagonists.</b>")
 
-/proc/show_objectives(var/datum/mind/player)
+/proc/show_objectives(datum/mind/player)
 	if(!player || !player.current) return
 
 	var/obj_count = 1
@@ -420,7 +424,7 @@
 		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 
-/proc/get_roletext(var/role)
+/proc/get_roletext(role)
 	return role
 
 /proc/get_nuke_code()
@@ -506,7 +510,7 @@
 
 /datum/game_mode/proc/send_station_goals_message()
 	var/message_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
-	message_text += "<h3>[command_name()] Orders</h3></div><hr>"
+	message_text += "<h3>NAS Trurl Orders</h3></div><hr>"
 	message_text += "<b>Special Orders for [station_name()]:</b><br><br>"
 
 	for(var/datum/station_goal/G in station_goals)
@@ -514,7 +518,7 @@
 		message_text += G.get_report()
 		message_text += "<hr>"
 
-	print_command_report(message_text, "[command_name()] Orders", FALSE)
+	print_command_report(message_text, "NAS Trurl Orders", FALSE)
 
 /datum/game_mode/proc/declare_station_goal_completion()
 	for(var/V in station_goals)

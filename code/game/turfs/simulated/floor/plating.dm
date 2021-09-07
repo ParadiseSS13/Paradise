@@ -6,13 +6,11 @@
 	floor_tile = null
 	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 	burnt_states = list("floorscorched1", "floorscorched2")
-
 	var/unfastened = FALSE
-
-	footstep_sounds = list(
-	"human" = list('sound/effects/footstep/plating_human.ogg'),
-	"xeno"  = list('sound/effects/footstep/plating_xeno.ogg')
-	)
+	footstep = FOOTSTEP_PLATING
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/plating/Initialize(mapload)
 	. = ..()
@@ -72,6 +70,35 @@
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
 		return TRUE
 
+	else if(is_glass_sheet(C))
+		if(broken || burnt)
+			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
+			return TRUE
+		var/obj/item/stack/sheet/R = C
+		if(R.get_amount() < 2)
+			to_chat(user, "<span class='warning'>You need two sheets to build a [C.name] floor!</span>")
+			return TRUE
+		to_chat(user, "<span class='notice'>You begin swapping the plating for [C]...</span>")
+		if(do_after(user, 3 SECONDS * C.toolspeed, target = src))
+			if(R.get_amount() >= 2 && !transparent_floor)
+				if(istype(C, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
+					ChangeTurf(/turf/simulated/floor/transparent/glass/plasma)
+				else if(istype(C, /obj/item/stack/sheet/plasmarglass))
+					ChangeTurf(/turf/simulated/floor/transparent/glass/reinforced/plasma)
+				else if(istype(C, /obj/item/stack/sheet/glass))
+					ChangeTurf(/turf/simulated/floor/transparent/glass)
+				else if(istype(C, /obj/item/stack/sheet/rglass))
+					ChangeTurf(/turf/simulated/floor/transparent/glass/reinforced)
+				else if(istype(C, /obj/item/stack/sheet/titaniumglass))
+					ChangeTurf(/turf/simulated/floor/transparent/glass/titanium)
+				else if(istype(C, /obj/item/stack/sheet/plastitaniumglass))
+					ChangeTurf(/turf/simulated/floor/transparent/glass/titanium/plasma)
+				playsound(src, C.usesound, 80, TRUE)
+				R.use(2)
+				to_chat(user, "<span class='notice'>You swap the plating for [C].</span>")
+				new /obj/item/stack/sheet/metal(src, 2)
+			return TRUE
+
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -127,6 +154,10 @@
 	thermal_conductivity = 0.025
 	heat_capacity = 325000
 	floor_tile = /obj/item/stack/rods
+	footstep = FOOTSTEP_PLATING
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
@@ -184,13 +215,6 @@
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
-
-/turf/simulated/floor/engine/cult/ratvar_act()
-	. = ..()
-	if(istype(src, /turf/simulated/floor/engine/cult)) //if we haven't changed type
-		var/previouscolor = color
-		color = "#FAE48C"
-		animate(src, color = previouscolor, time = 8)
 
 //air filled floors; used in atmos pressure chambers
 
@@ -261,6 +285,10 @@
 	name = "snow"
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/plating/snow/ex_act(severity)
 	return
@@ -272,6 +300,10 @@
 	name = "snow"
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/snow/ex_act(severity)
 	return
@@ -295,7 +327,7 @@
 		if(MFOAM_IRON)
 			icon_state = "ironfoam"
 
-/turf/simulated/floor/plating/metalfoam/attackby(var/obj/item/C, mob/user, params)
+/turf/simulated/floor/plating/metalfoam/attackby(obj/item/C, mob/user, params)
 	if(..())
 		return TRUE
 

@@ -68,7 +68,8 @@
 							break
 
 		var/turf/T = loc			// hide if turf is not intact
-		hide(T.intact)
+		if(!T.transparent_floor)
+			hide(T.intact)
 		update_icon()
 
 /obj/machinery/atmospherics/pipe/simple/check_pressure(pressure)
@@ -128,7 +129,7 @@
 /obj/machinery/atmospherics/pipe/simple/pipeline_expansion()
 	return list(node1, node2)
 
-/obj/machinery/atmospherics/pipe/simple/change_color(var/new_color)
+/obj/machinery/atmospherics/pipe/simple/change_color(new_color)
 	..()
 	//for updating connected atmos device pipes (i.e. vents, manifolds, etc)
 	if(node1)
@@ -136,7 +137,7 @@
 	if(node2)
 		node2.update_underlays()
 
-/obj/machinery/atmospherics/pipe/simple/update_icon(var/safety = 0)
+/obj/machinery/atmospherics/pipe/simple/update_icon(safety = 0)
 	..()
 
 	if(!check_icon_cache())
@@ -162,6 +163,6 @@
 /obj/machinery/atmospherics/pipe/simple/update_underlays()
 	return
 
-/obj/machinery/atmospherics/pipe/simple/hide(var/i)
+/obj/machinery/atmospherics/pipe/simple/hide(i)
 	if(level == 1 && istype(loc, /turf/simulated))
 		invisibility = i ? INVISIBILITY_MAXIMUM : 0

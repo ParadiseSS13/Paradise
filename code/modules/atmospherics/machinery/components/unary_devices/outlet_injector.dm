@@ -13,7 +13,6 @@
 
 	req_one_access_txt = "24;10"
 
-	var/on = 0
 	var/injecting = 0
 
 	var/volume_rate = 50
@@ -29,6 +28,10 @@
 	..()
 	if(id && !id_tag)//I'm not dealing with any more merge conflicts
 		id_tag = id
+
+/obj/machinery/atmospherics/unary/outlet_injector/detailed_examine()
+	return "Outputs the pipe's gas into the atmosphere, similar to an air vent. It can be controlled by a nearby atmospherics computer. \
+			A green light on it means it is on."
 
 /obj/machinery/atmospherics/unary/outlet_injector/Destroy()
 	if(SSradio)
@@ -135,17 +138,15 @@
 
 	if(signal.data["set_volume_rate"] != null)
 		var/number = text2num(signal.data["set_volume_rate"])
-		volume_rate = between(0, number, air_contents.volume)
+		volume_rate = clamp(number, 0, air_contents.volume)
 
 	if(signal.data["status"])
-		spawn(2)
-			broadcast_status()
+		broadcast_status()
 		return //do not update_icon
 
 		//log_admin("DEBUG \[[world.timeofday]\]: outlet_injector/receive_signal: unknown command \"[signal.data["command"]]\"\n[signal.debug_print()]")
 		//return
-	spawn(2)
-		broadcast_status()
+	broadcast_status()
 	update_icon()
 
 	/*hide(var/i) //to make the little pipe section invisible, the icon changes.
@@ -159,7 +160,7 @@
 			on = 0
 		return*/
 
-/obj/machinery/atmospherics/unary/outlet_injector/multitool_menu(var/mob/user,var/obj/item/multitool/P)
+/obj/machinery/atmospherics/unary/outlet_injector/multitool_menu(mob/user, obj/item/multitool/P)
 	return {"
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
@@ -180,5 +181,5 @@
 /obj/machinery/atmospherics/unary/outlet_injector/interact(mob/user as mob)
 	update_multitool_menu(user)
 
-/obj/machinery/atmospherics/unary/outlet_injector/hide(var/i)
+/obj/machinery/atmospherics/unary/outlet_injector/hide(i)
 	update_underlays()

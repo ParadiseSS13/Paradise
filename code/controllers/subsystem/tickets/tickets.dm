@@ -41,6 +41,12 @@ SUBSYSTEM_DEF(tickets)
 
 	var/ticketCounter = 1
 
+/datum/controller/subsystem/tickets/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["tickets"] = length(allTickets) // Not a perf metric but I want to see a graph where SSair usage spikes and 20 tickets come in
+	.["custom"] = cust
+
 /datum/controller/subsystem/tickets/Initialize()
 	if(!close_messages)
 		close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
@@ -142,8 +148,7 @@ SUBSYSTEM_DEF(tickets)
 
 	//Inform the user that they have opened a ticket
 	to_chat(C, "<span class='[span_class]'>You have opened [ticket_name] number #[(getTicketCounter() - 1)]! Please be patient and we will help you soon!</span>")
-	var/ticket_open_sound = sound('sound/effects/adminticketopen.ogg')
-	SEND_SOUND(C, ticket_open_sound)
+	SEND_SOUND(C, sound('sound/effects/adminticketopen.ogg'))
 
 	message_staff(url_title, NONE, TRUE)
 
@@ -215,13 +220,17 @@ SUBSYSTEM_DEF(tickets)
 		"Already Resolved" = "The problem has been resolved already.",
 		"Mentorhelp" = "Please redirect your question to Mentorhelp, as they are better experienced with these types of questions.",
 		"Happens Again" = "Thanks, let us know if it continues to happen.",
-		"Github Issue Report" = "To report a bug, please go to our <a href='[config.githuburl]'>Github page</a>. Then go to 'Issues'. Then 'New Issue'. Then fill out the report form. If the report would reveal current-round information, file it after the round ends.",
 		"Clear Cache" = "To fix a blank screen, go to the 'Special Verbs' tab and press 'Reload UI Resources'. If that fails, clear your BYOND cache (instructions provided with 'Reload UI Resources'). If that still fails, please adminhelp again, stating you have already done the following." ,
 		"IC Issue" = "This is an In Character (IC) issue and will not be handled by admins. You could speak to Security, Internal Affairs, a Departmental Head, Nanotrasen Representetive, or any other relevant authority currently on station.",
 		"Reject" = "Reject",
 		"Man Up" = "Man Up",
-		"Appeal on the Forums" = "Appealing a ban must occur on the forums. Privately messaging, or adminhelping about your ban will not resolve it. To appeal your ban, please head to <a href='[config.banappeals]'>[config.banappeals]</a>"
 		)
+
+	if(GLOB.configuration.url.banappeals_url)
+		response_phrases["Appeal on the Forums"] = "Appealing a ban must occur on the forums. Privately messaging, or adminhelping about your ban will not resolve it. To appeal your ban, please head to <a href='[GLOB.configuration.url.banappeals_url]'>[GLOB.configuration.url.banappeals_url]</a>"
+
+	if(GLOB.configuration.url.github_url)
+		response_phrases["Github Issue Report"] = "To report a bug, please go to our <a href='[GLOB.configuration.url.github_url]'>Github page</a>. Then go to 'Issues'. Then 'New Issue'. Then fill out the report form. If the report would reveal current-round information, file it after the round ends."
 
 	var/sorted_responses = list()
 	for(var/key in response_phrases)	//build a new list based on the short descriptive keys of the master list so we can send this as the input instead of the full paragraphs to the admin choosing which autoresponse
@@ -245,8 +254,7 @@ SUBSYSTEM_DEF(tickets)
 		if("Mentorhelp")
 			convert_ticket(T)
 		else
-			var/msg_sound = sound('sound/effects/adminhelp.ogg')
-			SEND_SOUND(returnClient(N), msg_sound)
+			SEND_SOUND(returnClient(N), sound('sound/effects/adminhelp.ogg'))
 			to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> <span class='adminticketalt'>[response_phrases[message_key]]</span>")//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
 			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:<span class='adminticketalt'> [message_key] </span>") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
 			T.lastStaffResponse = "Autoresponse: [message_key]"
@@ -599,7 +607,7 @@ UI STUFF
 		else
 			usr.client.resolveAllAdminTickets()
 
-/datum/controller/subsystem/tickets/proc/takeTicket(var/index)
+/datum/controller/subsystem/tickets/proc/takeTicket(index)
 	if(assignStaffToTicket(usr.client, index))
 		if(span_class == "mentorhelp")
 			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>")

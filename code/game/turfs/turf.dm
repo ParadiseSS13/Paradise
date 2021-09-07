@@ -6,6 +6,7 @@
 	var/intact = TRUE
 	var/turf/baseturf = /turf/space
 	var/slowdown = 0 //negative for faster, positive for slower
+	var/transparent_floor = FALSE //used to check if pipes should be visible under the turf or not
 
 	///Properties for open tiles (/floor)
 	/// All the gas vars, on the turf, are meant to be utilized for initializing a gas datum and setting its first gas values; the turf vars are never further modified at runtime; it is never directly used for calculations by the atmospherics system.
@@ -34,10 +35,6 @@
 	var/changing_turf = FALSE
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
-
-	var/list/footstep_sounds
-	var/shoe_running_volume = 50
-	var/shoe_walking_volume = 20
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -183,7 +180,7 @@
 // override for space turfs, since they should never hide anything
 /turf/space/levelupdate()
 	for(var/obj/O in src)
-		if(O.level == 1)
+		if(O.level == 1 && O.initialized) // Only do this if the object has initialized
 			O.hide(FALSE)
 
 // Removes all signs of lattice on the pos of the turf -Donkieyo
@@ -334,6 +331,20 @@
 /turf/proc/Bless()
 	flags |= NOJAUNT
 
+/turf/proc/clean(floor_only)
+	for(var/obj/effect/decal/cleanable/C in src)
+		var/obj/effect/decal/cleanable/blood/B = C
+		if(istype(B) && B.off_floor)
+			floor_only = FALSE
+		else
+			qdel(C)
+	color = initial(color)
+	if(floor_only)
+		clean_blood()
+
+	for(var/mob/living/simple_animal/slime/M in src)
+		M.adjustToxLoss(rand(5, 10))
+
 // Defined here to avoid runtimes
 /turf/proc/MakeDry(wet_setting = TURF_WET_WATER)
 	return
@@ -352,7 +363,7 @@
 
 // Returns the surrounding cardinal turfs with open links
 // Including through doors openable with the ID
-/turf/proc/CardinalTurfsWithAccess(var/obj/item/card/id/ID)
+/turf/proc/CardinalTurfsWithAccess(obj/item/card/id/ID)
 	var/list/L = new()
 	var/turf/simulated/T
 
@@ -511,15 +522,6 @@
 
 /turf/proc/can_lay_cable()
 	return can_have_cabling() & !intact
-
-/turf/ratvar_act(force, ignore_mobs, probability = 40)
-	. = (prob(probability) || force)
-	for(var/I in src)
-		var/atom/A = I
-		if(ignore_mobs && ismob(A))
-			continue
-		if(ismob(A) || .)
-			A.ratvar_act()
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon

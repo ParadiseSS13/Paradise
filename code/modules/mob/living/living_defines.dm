@@ -35,6 +35,8 @@
 
 	var/floating = FALSE
 	var/mob_size = MOB_SIZE_HUMAN
+	// What type of mob is this
+	var/mob_biotypes = MOB_ORGANIC
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
 	var/digestion_ratio = 1 //controls how quickly reagents metabolize; largely governered by species attributes.
 

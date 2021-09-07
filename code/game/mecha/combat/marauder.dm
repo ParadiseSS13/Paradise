@@ -44,6 +44,29 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
 	ME.attach(src)
 
+/obj/mecha/combat/marauder/ares
+	name = "Ares"
+	desc = "Heavy-duty, combat exosuit, adapted from rejected early versions of the Marauder to serve as a biohazard containment exosuit. This model, albeit rare, can be found among civilian populations."
+	icon_state = "ares"
+	initial_icon = "ares"
+	operation_req_access = list(ACCESS_SECURITY)
+	max_integrity = 450
+	armor = list(melee = 50, bullet = 40, laser = 20, energy = 20, bomb = 20, bio = 100, rad = 60, fire = 100, acid = 100)
+	max_temperature = 40000
+	wreckage = /obj/structure/mecha_wreckage/ares
+	max_equip = 4
+
+/obj/mecha/combat/marauder/ares/loaded/New()
+	..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray(src)
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg(src)
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster(src)
+	ME.attach(src)
+
 /obj/mecha/combat/marauder/seraph
 	desc = "Heavy-duty, command-type exosuit. This is a custom model, utilized only by high-ranking military personnel."
 	name = "Seraph"

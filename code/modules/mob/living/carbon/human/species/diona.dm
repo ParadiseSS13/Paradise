@@ -2,7 +2,6 @@
 	name = "Diona"
 	name_plural = "Dionaea"
 	icobase = 'icons/mob/human_races/r_diona.dmi'
-	deform = 'icons/mob/human_races/r_def_plant.dmi'
 	language = "Rootspeak"
 	speech_sounds = list('sound/voice/dionatalk1.ogg') //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 	speech_chance = 20
@@ -11,6 +10,7 @@
 
 	burn_mod = 1.25
 	heatmod = 1.5
+	brain_mod = 0
 	var/pod = FALSE //did they come from a pod? If so, they're stronger than normal Diona.
 
 	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange space-dwelling collective \
@@ -21,7 +21,9 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-	species_traits = list(IS_PLANT, NO_GERMS, NO_DECAY)
+	species_traits = list(NO_HAIR)
+	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY)
+	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
 	clothing_flags = HAS_SOCKS
 	default_hair_colour = "#000000"
 	has_gender = FALSE
@@ -36,16 +38,14 @@
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
-		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
-		"respiratory vacuoles" =   /obj/item/organ/internal/lungs/diona,
-		"neural strata" =      /obj/item/organ/internal/heart/diona,
-		"receptor node" =      /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
-		"gas bladder" =        /obj/item/organ/internal/brain/diona,
-		"polyp segment" =      /obj/item/organ/internal/kidneys/diona,
-		"anchoring ligament" = /obj/item/organ/internal/appendix/diona
+		"liver" =   /obj/item/organ/internal/liver/diona,
+		"lungs" =   /obj/item/organ/internal/lungs/diona,
+		"heart" =      /obj/item/organ/internal/heart/diona,
+		"eyes"			 =      /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
+		"brain" =        /obj/item/organ/internal/brain/diona,
+		"kidneys" =      /obj/item/organ/internal/kidneys/diona,
+		"appendix" = /obj/item/organ/internal/appendix/diona
 		)
-
-	vision_organ = /obj/item/organ/internal/eyes/diona
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/diona),
 		"groin" =  list("path" = /obj/item/organ/external/groin/diona),
@@ -111,6 +111,26 @@
 	if(!is_vamp && H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.adjustBruteLoss(2)
 	..()
+
+/datum/species/diona/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
+	switch(P.type)
+		if(/obj/item/projectile/energy/floramut)
+			if(prob(15))
+				H.rad_act(rand(30, 80))
+				H.Weaken(5)
+				H.visible_message("<span class='warning'>[H] writhes in pain as [H.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
+				if(prob(80))
+					randmutb(H)
+					domutcheck(H)
+				else
+					randmutg(H)
+					domutcheck(H)
+			else
+				H.adjustFireLoss(rand(5, 15))
+				H.show_message("<span class='warning'>The radiation beam singes you!</span>")
+		if(/obj/item/projectile/energy/florayield)
+			H.set_nutrition(min(H.nutrition + 30, NUTRITION_LEVEL_FULL))
+	return TRUE
 
 /datum/species/diona/pod //Same name and everything; we want the same limitations on them; we just want their regeneration to kick in at all times and them to have special factions
 	pod = TRUE

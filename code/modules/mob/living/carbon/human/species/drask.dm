@@ -2,7 +2,6 @@
 	name = "Drask"
 	name_plural = "Drask"
 	icobase = 'icons/mob/human_races/r_drask.dmi'
-	deform = 'icons/mob/human_races/r_drask.dmi'
 	language = "Orluum"
 	eyes = "drask_eyes_s"
 
@@ -32,7 +31,7 @@
 		"is sucking in warm air!",
 		"is holding their breath!")
 
-	species_traits = list(LIPS, IS_WHITELISTED)
+	species_traits = list(LIPS, IS_WHITELISTED, NO_HAIR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	has_gender = FALSE
@@ -57,11 +56,11 @@
 	has_organ = list(
 		"heart" =      				/obj/item/organ/internal/heart/drask,
 		"lungs" =     				/obj/item/organ/internal/lungs/drask,
-		"metabolic strainer" =      /obj/item/organ/internal/liver/drask,
+		"liver" =      /obj/item/organ/internal/liver/drask,
 		"eyes" =     				/obj/item/organ/internal/eyes/drask, //5 darksight.
 		"brain" =  					/obj/item/organ/internal/brain/drask
 		)
 
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-	return E.eye_colour
+	return E.eye_color

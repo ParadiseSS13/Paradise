@@ -15,6 +15,7 @@
 	var/icon_reveal = "revenant_revealed"
 	var/icon_stun = "revenant_stun"
 	var/icon_drain = "revenant_draining"
+	mob_biotypes = MOB_SPIRIT
 	incorporeal_move = 3
 	see_invisible = INVISIBILITY_REVENANT
 	invisibility = INVISIBILITY_REVENANT
@@ -159,7 +160,7 @@
 
 /mob/living/simple_animal/revenant/proc/giveObjectivesandGoals()
 			mind.wipe_memory()
-			SEND_SOUND(src, 'sound/effects/ghost.ogg')
+			SEND_SOUND(src, sound('sound/effects/ghost.ogg'))
 			to_chat(src, "<br>")
 			to_chat(src, "<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")
 			to_chat(src, "<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")
@@ -167,7 +168,7 @@
 			to_chat(src, "<b>You are invincible and invisible to everyone but other ghosts. Most abilities will reveal you, rendering you vulnerable.</b>")
 			to_chat(src, "<b>To function, you are to drain the life essence from humans. This essence is a resource, as well as your health, and will power all of your abilities.</b>")
 			to_chat(src, "<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>")
-			to_chat(src, "<b>Be sure to read the wiki page at http://www.paradisestation.org/wiki/index.php/Revenant to learn more.</b>")
+			to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Revenant)</span>")
 			var/datum/objective/revenant/objective = new
 			objective.owner = mind
 			mind.objectives += objective
@@ -232,6 +233,8 @@
 
 /mob/living/simple_animal/revenant/proc/castcheck(essence_cost)
 	if(!src)
+		return
+	if(holy_check(src))
 		return
 	var/turf/T = get_turf(src)
 	if(istype(T, /turf/simulated/wall))

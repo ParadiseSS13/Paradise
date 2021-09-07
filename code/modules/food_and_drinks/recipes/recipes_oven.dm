@@ -59,6 +59,16 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/bananabread
 
+/datum/recipe/oven/banarnarbread
+	reagents = list("milk" = 5, "sugar" = 5, "blood" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/grown/banana
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/banarnarbread
+
 /datum/recipe/oven/muffin
 	reagents = list("milk" = 5, "sugar" = 5)
 	items = list(

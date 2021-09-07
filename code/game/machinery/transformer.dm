@@ -107,10 +107,10 @@
 	if(R.mind && !R.client && !R.grab_ghost()) // Make sure this is an actual player first and not just a humanized monkey or something.
 		message_admins("[key_name_admin(R)] was just transformed by a borg factory, but they were SSD. Polling ghosts for a replacement.")
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a malfunctioning cyborg?", ROLE_TRAITOR, poll_time = 15 SECONDS)
-		if(!length(candidates))
+		if(!length(candidates) || QDELETED(R))
 			return
 		var/mob/dead/observer/O = pick(candidates)
-		R.key= O.key
+		R.key = O.key
 
 /obj/machinery/transformer/mime
 	name = "Mimetech Greyscaler"
@@ -205,10 +205,10 @@
 	if(prob(5))
 		if(prob(75))
 			randmutb(H) // Applies bad mutation
-			domutcheck(H,null,1)
+			domutcheck(H, MUTCHK_FORCED)
 		else
 			randmutg(H) // Applies good mutation
-			domutcheck(H,null,1)
+			domutcheck(H, MUTCHK_FORCED)
 
 
 /obj/machinery/transformer/xray/proc/scan(obj/item/I)
@@ -251,8 +251,6 @@
 	if(prestrip)
 		for(var/obj/item/I in H)
 			if(istype(I, /obj/item/implant))
-				continue
-			if(istype(I, /obj/item/organ))
 				continue
 			qdel(I)
 
@@ -309,7 +307,7 @@
 	H.real_name = template.real_name
 	H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)
 	H.UpdateAppearance()
-	domutcheck(H, null, MUTCHK_FORCED)
+	domutcheck(H, MUTCHK_FORCED)
 	H.update_mutations()
 
 /obj/machinery/transformer/gene_applier/attackby(obj/item/I, mob/living/user, params)

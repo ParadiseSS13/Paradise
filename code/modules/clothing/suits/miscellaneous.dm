@@ -21,7 +21,7 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/redtag
@@ -36,7 +36,7 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /*
@@ -49,7 +49,7 @@
 	item_state = "pirate_old"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/pirate_black
@@ -59,7 +59,7 @@
 	item_state = "pirate"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/hgpirate
@@ -83,7 +83,7 @@
 
 /obj/item/clothing/suit/greatcoat
 	name = "great coat"
-	desc = "A Nazi great coat."
+	desc = "A Nazi great coat." //A what
 	icon_state = "nazi"
 	item_state = "nazi"
 
@@ -122,7 +122,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/apron/overalls
@@ -269,7 +269,7 @@
 	item_state = "classicponcho"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/poncho/green
@@ -373,7 +373,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/suit.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/head/hooded/winterhood
 	name = "winter hood"
@@ -385,7 +385,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/head.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/suit/hooded/wintercoat/captain
 	name = "captain's winter coat"
@@ -502,7 +502,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen)
 	hoodtype = /obj/item/clothing/head/hooded/hood
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/head/hooded/hood
@@ -515,7 +515,7 @@
 	flags_inv = HIDEEARS
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 
 /obj/item/clothing/head/hooded/hood/blue
@@ -576,7 +576,7 @@
 	item_state = "ianshirt"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 
@@ -626,7 +626,7 @@
 	item_state = "brtrenchcoat"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/blacktrenchcoat
@@ -636,7 +636,7 @@
 	item_state = "bltrenchcoat"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 //trackjackets
@@ -653,7 +653,7 @@
 	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/tracksuit/green
@@ -708,7 +708,7 @@
 	icon_state = "white_jacket"
 
 /obj/item/clothing/suit/xenos
-	name = "xenos suit"
+	name = "xeno suit"
 	desc = "A suit made out of chitinous alien hide."
 	icon_state = "xenos"
 	item_state = "xenos_helm"
@@ -762,7 +762,7 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 
 /obj/item/clothing/head/mercy_hood
-	name = "Mercy Hood"
+	name = "mercy Hood"
 	desc = "A soft white hood made of a synthetic fiber that provides improved protection against biohazards. Its elegant design allows a clear field of vision."
 	icon_state = "mercy_hood"
 	item_state = "mercy_hood"
@@ -786,7 +786,7 @@
 	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/jacket/pilot
@@ -803,7 +803,7 @@
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	strip_delay = 60
 	put_on_delay = 40
-	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0, fire = 50, acid = 50)
+	armor = list(melee = 15, bullet = 5, laser = 15, energy = 5, bomb = 15, bio = 0, rad = 0, fire = 30, acid = 30)
 	//End of inheritance from Security armour.
 
 /obj/item/clothing/suit/jacket/leather
@@ -826,9 +826,9 @@
 	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Grey" = 'icons/mob/species/grey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/jacket/leather/overcoat
@@ -839,8 +839,8 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
 /obj/item/clothing/suit/officercoat
-	name = "Clown Officer's Coat"
-	desc = "A classy clown officer's overcoat, also designed by Hugo Boss."
+	name = "clown officer's coat"
+	desc = "A classy clown officer's overcoat, also designed by Hugo Boss." //What and why
 	icon_state = "officersuit"
 	item_state = "officersuit"
 	ignore_suitadjust = 0
@@ -848,11 +848,11 @@
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/soldiercoat
-	name = "Clown Soldier's Coat"
+	name = "clown soldier's coat"
 	desc = "An overcoat for the clown soldier, to keep him warm during those cold winter nights on the front."
 	icon_state = "soldiersuit"
 	item_state = "soldiersuit"
@@ -861,7 +861,7 @@
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/toggle/owlwings
@@ -895,7 +895,7 @@
 		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/lordadmiral
-	name = "Lord Admiral's Coat"
+	name = "lord admiral's coat"
 	desc = "You'll be the Ruler of the King's Navy in no time."
 	icon_state = "lordadmiral"
 	item_state = "lordadmiral"
@@ -912,7 +912,7 @@
 ///Advanced Protective Suit, AKA, God Mode in wearable form.
 
 /obj/item/clothing/suit/advanced_protective_suit
-	name = "Advanced Protective Suit"
+	name = "advanced protective suit"
 	desc = "An incredibly advanced and complex suit; it has so many buttons and dials as to be incomprehensible."
 	w_class = WEIGHT_CLASS_BULKY
 	icon_state = "bomb"
@@ -967,10 +967,12 @@
 
 //Syndicate Chaplain Robe (WOLOLO!)
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe
-	description_antag = "This robe is made of reinforced fibers, granting it superior protection. The robes also wirelessly generate power for the neurotransmitter in the linked missionary staff while being worn."
 	w_class = WEIGHT_CLASS_NORMAL
 	armor = list(melee = 10, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 15, fire = 30, acid = 30)
 	var/obj/item/nullrod/missionary_staff/linked_staff = null
+
+/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/detailed_examine_antag()
+	return "This robe is made of reinforced fibers, granting it superior protection. The robes also wirelessly generate power for the neurotransmitter in the linked missionary staff while being worn."
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/Destroy()
 	if(linked_staff)	//delink on destruction

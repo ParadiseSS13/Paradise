@@ -7,7 +7,10 @@
 	baseturf = /turf/simulated/floor/plating/asteroid
 	icon_state = "asteroid"
 	icon_plating = "asteroid"
-	footstep_sounds = list()
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	var/environment_type = "asteroid"
 	var/turf_type = /turf/simulated/floor/plating/asteroid //Because caves do whacky shit to revert to normal
 	var/floor_variance = 20 //probability floor has a different icon state

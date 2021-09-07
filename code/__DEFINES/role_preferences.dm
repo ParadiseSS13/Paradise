@@ -26,7 +26,6 @@
 #define ROLE_REVENANT			"revenant"
 #define ROLE_HOG_GOD			"hand of god: god" // We're prolly gonna port this one day or another
 #define ROLE_HOG_CULTIST		"hand of god: cultist"
-#define ROLE_DEVIL				"devil"
 #define ROLE_RAIDER				"vox raider"
 #define ROLE_TRADER				"trader"
 #define ROLE_VAMPIRE			"vampire"
@@ -40,10 +39,15 @@
 #define ROLE_ERT				"emergency response team"
 #define ROLE_NYMPH				"Dionaea"
 #define ROLE_GSPIDER			"giant spider"
+#define ROLE_TSPIDER			"terror spider"
 #define ROLE_DRONE				"drone"
 #define ROLE_DEATHSQUAD			"deathsquad"
 #define ROLE_EVENTMISC			"eventmisc"
 #define ROLE_GHOST				"ghost role"
+
+// Misc jobban categories
+#define ROLEBAN_AHUD			"AntagHUD"
+#define ROLEBAN_RECORDS			"Records"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
@@ -54,7 +58,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_CHANGELING = /datum/game_mode/changeling, 		// Changeling
 	ROLE_BORER, 										// Cortical borer
 	ROLE_CULTIST = /datum/game_mode/cult, 				// Cultist
-	ROLE_DEVIL = /datum/game_mode/devil/devil_agents, 	// Devil
 	ROLE_GSPIDER, 										// Giant spider
 	ROLE_GUARDIAN, 										// Guardian
 	ROLE_MORPH, 										// Morph

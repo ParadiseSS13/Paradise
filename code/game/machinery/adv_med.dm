@@ -11,6 +11,15 @@
 	var/mob/living/carbon/human/occupant
 	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
 
+/obj/machinery/bodyscanner/detailed_examine()
+	return "The advanced scanner detects and reports internal injuries such as bone fractures, internal bleeding, and organ damage. \
+			This is useful if you are about to perform surgery.<br>\
+			<br>\
+			Click your target with Grab intent, then click on the scanner to place them in it. Click the red terminal to operate. \
+			Right-click the scanner and click 'Eject Occupant' to remove them. You can enter the scanner yourself in a similar way, using the 'Enter Body Scanner' \
+			verb."
+
+
 /obj/machinery/bodyscanner/Destroy()
 	go_out()
 	return ..()
@@ -321,9 +330,9 @@
 
 		occupantData["intOrgan"] = intOrganData
 
-		occupantData["blind"] = (BLINDNESS in occupant.mutations)
-		occupantData["colourblind"] = (COLOURBLIND in occupant.mutations)
-		occupantData["nearsighted"] = (NEARSIGHTED in occupant.mutations)
+		occupantData["blind"] = HAS_TRAIT(occupant, TRAIT_BLIND)
+		occupantData["colourblind"] = HAS_TRAIT(occupant, TRAIT_COLORBLIND)
+		occupantData["nearsighted"] = HAS_TRAIT(occupant, TRAIT_NEARSIGHT)
 
 	data["occupant"] = occupantData
 	return data
@@ -481,7 +490,7 @@
 
 			if(unknown_body || e.hidden)
 				imp += "Unknown body present:"
-			if(!AN && !open && !infected & !imp)
+			if(!AN && !open && !infected && !imp)
 				AN = "None:"
 			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
 			dat += "</tr>"
@@ -511,11 +520,11 @@
 			dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech][dead]</td><td></td>"
 			dat += "</tr>"
 		dat += "</table>"
-		if(BLINDNESS in occupant.mutations)
+		if(HAS_TRAIT(occupant, TRAIT_BLIND))
 			dat += "<font color='red'>Cataracts detected.</font><BR>"
-		if(COLOURBLIND in occupant.mutations)
+		if(HAS_TRAIT(occupant, TRAIT_COLORBLIND))
 			dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
-		if(NEARSIGHTED in occupant.mutations)
+		if(HAS_TRAIT(occupant, TRAIT_NEARSIGHT))
 			dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 	else
 		dat += "[src] is empty."

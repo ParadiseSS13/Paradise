@@ -37,7 +37,7 @@
 
 	// Failing that...
 	if(!(damagetype & BRUTELOSS) && !(damagetype & FIRELOSS) && !(damagetype & TOXLOSS) && !(damagetype & OXYLOSS))
-		if(NO_BREATHE in dna.species.species_traits)
+		if(HAS_TRAIT(src, TRAIT_NOBREATH))
 			// the ultimate fallback
 			take_overall_damage(max(dmgamt - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0), 0, updating_health = FALSE)
 		else

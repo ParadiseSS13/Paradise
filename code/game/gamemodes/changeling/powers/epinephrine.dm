@@ -9,14 +9,14 @@
 	req_stat = UNCONSCIOUS
 
 //Recover from stuns.
-/datum/action/changeling/epinephrine/sting_action(var/mob/living/user)
+/datum/action/changeling/epinephrine/sting_action(mob/living/user)
 
 	if(user.lying)
 		to_chat(user, "<span class='notice'>We arise.</span>")
 	else
 		to_chat(user, "<span class='notice'>Adrenaline rushes through us.</span>")
 	user.SetSleeping(0)
-	user.stat = 0
+	user.WakeUp()
 	user.SetParalysis(0)
 	user.SetStunned(0)
 	user.SetWeakened(0)

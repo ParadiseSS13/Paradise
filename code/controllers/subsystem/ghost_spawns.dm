@@ -59,11 +59,12 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 	var/category = "[P.hash]_notify_action"
 
+	var/notice_sound = sound('sound/misc/notice2.ogg')
 	for(var/mob/dead/observer/M in (ignore_respawnability ? GLOB.player_list : GLOB.respawnable_list))
 		if(!is_eligible(M, role, antag_age_check, role, min_hours, check_antaghud))
 			continue
 
-		SEND_SOUND(M, 'sound/misc/notice2.ogg')
+		SEND_SOUND(M, notice_sound)
 		if(flash_window)
 			window_flash(M.client)
 
@@ -163,9 +164,9 @@ SUBSYSTEM_DEF(ghost_spawns)
 			if(!player_old_enough_antag(M.client, role))
 				return
 	if(role_text)
-		if(jobban_isbanned(M, role_text) || jobban_isbanned(M, "Syndicate"))
+		if(jobban_isbanned(M, role_text) || jobban_isbanned(M, ROLE_SYNDICATE))
 			return
-	if(config.use_exp_restrictions && min_hours)
+	if(GLOB.configuration.jobs.enable_exp_restrictions && min_hours)
 		if(M.client.get_exp_type_num(EXP_TYPE_LIVING) < min_hours * 60)
 			return
 	if(check_antaghud && cannotPossess(M))
@@ -245,7 +246,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 	if(time_left() <= 0)
 		if(!silent)
 			to_chat(M, "<span class='danger'>Sorry, you were too late for the consideration!</span>")
-			SEND_SOUND(M, 'sound/machines/buzz-sigh.ogg')
+			SEND_SOUND(M, sound('sound/machines/buzz-sigh.ogg'))
 		return
 
 	signed_up += M

@@ -31,10 +31,6 @@
 			update_static_data(owner, ui)
 			. = TRUE
 
-/datum/orbit_menu/ui_data(mob/user)
-	var/list/data = list()
-	return data
-
 /datum/orbit_menu/ui_static_data(mob/user)
 	var/list/data = list()
 
@@ -66,7 +62,7 @@
 		if(istype(M))
 			if(isnewplayer(M))  // People in the lobby screen; only have their ckey as a name.
 				continue
-			if(isobserver(M))
+			if(isobserver(M) && M.client)
 				ghosts += list(serialized)
 			else if(M.mind == null)
 				npcs += list(serialized)
@@ -96,6 +92,7 @@
 					)
 					if(SSticker && SSticker.mode)
 						other_antags += list(
+							"Blob" = (mind.special_role = SPECIAL_ROLE_BLOB),
 							"Cultist" = (mind in SSticker.mode.cult),
 							"Wizard" = (mind in SSticker.mode.wizards),
 							"Wizard's Apprentice" = (mind in SSticker.mode.apprentices),
@@ -104,6 +101,7 @@
 							"Shadowling Thrall" = (mind in SSticker.mode.shadowling_thralls),
 							"Abductor" = (mind in SSticker.mode.abductors),
 							"Revolutionary" = (mind in SSticker.mode.revolutionaries),
+							"Head Revolutionary" = (mind in SSticker.mode.head_revolutionaries)
 						)
 
 					for(var/antag_name in other_antags)
@@ -114,6 +112,16 @@
 						antag_serialized["antag"] = antag_name
 						antagonists += list(antag_serialized)
 
+				// Player terror spiders have their own category to help see how much there are.
+				// Not in the above block because terrors can be known whether AHUD is on or not.
+				if(isterrorspider(M))
+					var/list/antag_serialized = serialized.Copy()
+					antag_serialized["antag"] = "Terror Spider"
+					antagonists += list(antag_serialized)
+				else if(istype(M, /mob/living/simple_animal/revenant))
+					var/list/antag_serialized = serialized.Copy()
+					antag_serialized["antag"] = "Revenant"
+					antagonists += list(antag_serialized)
 		else
 			misc += list(serialized)
 

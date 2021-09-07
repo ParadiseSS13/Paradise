@@ -4,6 +4,7 @@
 	var/throwforce_on = 20
 	var/faction_bonus_force = 0 //Bonus force dealt against certain factions
 	var/list/nemesis_factions //Any mob with a faction that exists in this list will take bonus damage/effects
+	stealthy_audio = TRUE //Most of these are antag weps so we dont want them to be /too/ overt.
 	w_class = WEIGHT_CLASS_SMALL
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	var/icon_state_on
@@ -32,12 +33,12 @@
 		force -= faction_bonus_force
 
 /obj/item/melee/energy/suicide_act(mob/user)
-	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>", \
-						"<span class='suicide'>[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
+	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>", \
+						"<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 		user.take_organ_damage(5,5)
 	active = !active
@@ -99,7 +100,7 @@
 	light_color = LIGHT_COLOR_WHITE
 
 /obj/item/melee/energy/axe/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] swings the [name] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] swings [src] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/melee/energy/sword
@@ -124,6 +125,11 @@
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple")
 
+/obj/item/melee/energy/sword/detailed_examine()
+	return "The energy sword is a very strong melee weapon, capable of severing limbs easily, if they are targeted. It can also has a chance \
+			to block projectiles and melee attacks while it is on and being held. The sword can be toggled on or off by using it in your hand. While it is off, \
+			it can be concealed in your pocket or bag."
+
 /obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
 		return ..()
@@ -132,7 +138,7 @@
 /obj/item/melee/energy/sword/cyborg
 	var/hitcost = 50
 
-/obj/item/melee/energy/sword/cyborg/attack(mob/M, var/mob/living/silicon/robot/R)
+/obj/item/melee/energy/sword/cyborg/attack(mob/M, mob/living/silicon/robot/R)
 	if(R.cell)
 		var/obj/item/stock_parts/cell/C = R.cell
 		if(active && !(C.use(hitcost)))
@@ -291,7 +297,7 @@
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if((CLUMSY in H.mutations) && prob(50))
+		if(HAS_TRAIT(H, TRAIT_CLUMSY) && prob(50))
 			to_chat(H, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 			H.take_organ_damage(10,10)
 	active = !active

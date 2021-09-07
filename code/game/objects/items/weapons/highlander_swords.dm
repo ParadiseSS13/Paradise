@@ -40,6 +40,7 @@
 			sword.style.teach(H, 1)
 
 /obj/item/claymore/highlander/dropped(mob/user)
+	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
