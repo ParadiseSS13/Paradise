@@ -376,7 +376,7 @@
 	if(color)
 		CO = color
 	if(emergency_mode)
-			CO = bulb_emergency_colour
+		CO = bulb_emergency_colour
 	else if(nightshift_enabled)
 		BR = nightshift_light_range
 		PO = nightshift_light_power
