@@ -11,8 +11,8 @@
 #define LIGHT_ON_DELAY_LOWER 1 SECONDS
 #define LIGHT_ON_DELAY_UPPER 3 SECONDS
 
-#define MAXIMUM_SAFE_BACKUP_CHARGE 300
-#define EMERGENCY_LIGHT_POWER_USE 0.2
+#define MAXIMUM_SAFE_BACKUP_CHARGE 600
+#define EMERGENCY_LIGHT_POWER_USE 0.5
 
 /**
   * # Light fixture frame
@@ -619,12 +619,13 @@
 /obj/machinery/light/proc/has_emergency_power(power_used)
 	if(no_emergency || !cell)
 		return FALSE
-	if(static_power_used ? cell.charge >= power_used : cell.charge)
-		return status == LIGHT_OK
+	if(cell.charge >= power_used)
+		return TRUE
 
 // attempts to use power from the installed emergency cell, returns true if it does and false if it doesn't
 /obj/machinery/light/proc/use_emergency_power(power_used = EMERGENCY_LIGHT_POWER_USE)
 	if(!has_emergency_power(power_used))
+		set_light(0, 0, 0) //you, sir, are off!
 		return FALSE
 	if(cell.charge > MAXIMUM_SAFE_BACKUP_CHARGE) //it's meant to handle 120 W, ya doofus
 		visible_message("<span class='warning'>[src] short-circuits from too powerful of a power cell!</span>")
@@ -752,6 +753,7 @@
 /obj/machinery/light/proc/drop_backup_cell(mob/user)
 	var/obj/item/stock_parts/cell/A = new/obj/item/stock_parts/cell/emergency_light()
 	A.forceMove(loc)
+	A.charge = cell.charge
 	if(user)
 		A.add_fingerprint(user)
 		user.put_in_hands(A)
