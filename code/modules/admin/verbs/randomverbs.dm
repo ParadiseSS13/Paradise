@@ -606,7 +606,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		"Custom" = "Cryptic Message")
 
 	var/list/MsgSound = list("Beep" = 'sound/misc/notice2.ogg',
-		"Enemy Communications Intercepted" = 'sound/AI/intercept2.ogg',
+		"Enemy Communications Intercepted" = 'sound/AI/intercept.ogg',
 		"New Command Report Created" = 'sound/AI/commandreport.ogg')
 
 	var/type = input(usr, "Pick a type of report to send", "Report Type", "") as anything in MsgType
