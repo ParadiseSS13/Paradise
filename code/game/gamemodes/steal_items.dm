@@ -74,8 +74,8 @@
 	return 0
 
 /datum/theft_objective/defib
-	name = "a compact defibrillator"
-	typepath = /obj/item/defibrillator/compact
+	name = "the chief medical officer's advanced compact defibrillator"
+	typepath = /obj/item/defibrillator/compact/advanced
 	protected_jobs = list("Chief Medical Officer", "Paramedic")
 	location_override = "the Chief Medical Officer's Office"
 
