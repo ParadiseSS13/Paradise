@@ -231,20 +231,23 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/vending/boozeomat
 	req_components = list(/obj/item/vending_refill/boozeomat = 1)
 
-	var/static/list/vending_names_paths = list(
+	var/static/list/vending_names_paths = list( // This should really get refactored at some point
 		"Booze-O-Mat" =							/obj/machinery/vending/boozeomat,
-		"Solar's Best Hot Drinks" =				/obj/machinery/vending/coffee,
+		"Hot Drinks machine" =					/obj/machinery/vending/coffee,
 		"Getmore Chocolate Corp" =				/obj/machinery/vending/snack,
 		"Mr. Chang" =							/obj/machinery/vending/chinese,
 		"Robust Softdrinks" =					/obj/machinery/vending/cola,
-		"ShadyCigs Deluxe" =					/obj/machinery/vending/cigarette,
+		"cigarette machine" =					/obj/machinery/vending/cigarette,
+		"ShadyCigs Ultra" =						/obj/machinery/vending/cigarette/beach,
 		"Hatlord 9000" =						/obj/machinery/vending/hatdispenser,
 		"Suitlord 9000" =						/obj/machinery/vending/suitdispenser,
 		"Shoelord 9000" =						/obj/machinery/vending/shoedispenser,
 		"AutoDrobe" =							/obj/machinery/vending/autodrobe,
 		"ClothesMate" =							/obj/machinery/vending/clothing,
-		"NanoMed Plus" =						/obj/machinery/vending/medical,
 		"NanoMed" =								/obj/machinery/vending/wallmed,
+		"Emergency NanoMed" =					/obj/machinery/vending/wallmed,
+		"NanoMed Plus" =						/obj/machinery/vending/medical,
+		"SyndiMed Plus" = 						/obj/machinery/vending/medical/syndicate_access,
 		"Vendomat" =							/obj/machinery/vending/assist,
 		"YouTool" =								/obj/machinery/vending/tool,
 		"Engi-Vend" =							/obj/machinery/vending/engivend,
@@ -270,6 +273,9 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/vendor/proc/set_type(type)
 	var/obj/machinery/vending/typepath = vending_names_paths[type]
+	if(!typepath)
+		stack_trace("set_type() called with an invalid type variable. type: [type]")
+
 	build_path = typepath
 	board_name = "[type] Vendor"
 	format_board_name()

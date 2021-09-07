@@ -81,7 +81,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/helmet.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 	)
 
 
@@ -95,7 +95,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 /obj/item/clothing/head/snowman
@@ -108,7 +108,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 /obj/item/clothing/head/that
@@ -273,7 +273,7 @@
 	flags = BLOCKHAIR
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 /obj/item/clothing/head/corgi
@@ -313,7 +313,7 @@
 	icon_state = "fedora"
 
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/head.dmi'
+	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
 /obj/item/clothing/head/fedora/whitefedora
@@ -321,7 +321,7 @@
 	icon_state = "wfedora"
 
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/head.dmi'
+	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
 /obj/item/clothing/head/fedora/brownfedora
@@ -329,7 +329,7 @@
 	icon_state = "bfedora"
 
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/head.dmi'
+	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
 /obj/item/clothing/head/stalhelm //Why do these exist
@@ -436,7 +436,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 	actions_types = list(/datum/action/item_action/caw)
 
@@ -469,7 +469,7 @@
 	flags_inv = HIDEFACE|HIDEEARS
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 /obj/item/clothing/head/papersack/smiley
@@ -480,7 +480,7 @@
 	flags_inv = HIDEFACE|HIDEEARS
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 /obj/item/clothing/head/crown

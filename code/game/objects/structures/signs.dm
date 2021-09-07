@@ -1,18 +1,15 @@
 /obj/structure/sign
 	icon = 'icons/obj/decals.dmi'
-	anchored = 1
-	opacity = 0
-	density = 0
-	layer = 3.5
+	anchored = TRUE
+	layer = NOT_HIGH_OBJ_LAYER
 	max_integrity = 100
-	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 
 /obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
 			if(damage_amount)
-				playsound(src.loc, 'sound/weapons/slash.ogg', 80, TRUE)
+				playsound(loc, 'sound/weapons/slash.ogg', 80, TRUE)
 			else
 				playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE)
 		if(BURN)
@@ -25,50 +22,41 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	to_chat(user, "You unfasten the sign with [I].")
-	var/obj/item/sign/S = new(src.loc)
+	var/obj/item/sign/S = new(get_turf(user)) // This is bad
 	S.name = name
 	S.desc = desc
 	S.icon_state = icon_state
-	//var/icon/I = icon('icons/obj/decals.dmi', icon_state)
-	//S.icon = I.Scale(24, 24)
-	S.sign_state = icon_state
 	qdel(src)
 
 
 /obj/item/sign
 	name = "sign"
-	desc = ""
 	icon = 'icons/obj/decals.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
-	var/sign_state = ""
 
-/obj/item/sign/attackby(obj/item/tool as obj, mob/user as mob)	//construction
-	if(istype(tool, /obj/item/screwdriver) && isturf(user.loc))
-		var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
-		if(direction == "Cancel")
-			return
-		if(QDELETED(src))
-			return
-		var/obj/structure/sign/S = new(user.loc)
-		switch(direction)
-			if("North")
-				S.pixel_y = 32
-			if("East")
-				S.pixel_x = 32
-			if("South")
-				S.pixel_y = -32
-			if("West")
-				S.pixel_x = -32
-			else
-				return
-		S.name = name
-		S.desc = desc
-		S.icon_state = sign_state
-		to_chat(user, "You fasten \the [S] with your [tool].")
-		qdel(src)
-	else
-		return ..()
+/obj/item/sign/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	var/direction = input("In which direction?", "Select direction.") as null|anything in list("North", "South", "East", "West")
+	if(!direction || QDELETED(src) || !in_range(src, user))
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/obj/structure/sign/S = new(get_turf(src)) // This is also bad
+	switch(direction)
+		if("North")
+			S.pixel_y = 32
+		if("South")
+			S.pixel_y = -32
+		if("East")
+			S.pixel_x = 32
+		if("West")
+			S.pixel_x = -32
+	S.name = name
+	S.desc = desc
+	S.icon_state = icon_state
+	to_chat(user, "<span class='notice'>You fasten [src] with [I].</span>")
+	qdel(src)
 
 /obj/structure/sign/double/map
 	name = "station map"
