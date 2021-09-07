@@ -6,4 +6,4 @@ export NODE_VERSION=12
 # Byond Major
 export BYOND_MAJOR=514
 # Byond Minor
-export BYOND_MINOR=1556
+export BYOND_MINOR=1566
