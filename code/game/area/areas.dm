@@ -349,7 +349,7 @@
 	for(var/obj/machinery/light/L in src)
 		L.fire_mode = TRUE
 		L.on = FALSE
-		L.update()
+		L.update(TRUE, TRUE, FALSE)
 
 /**
   * unset the fire alarm visual affects in an area
@@ -367,7 +367,7 @@
 			return
 		L.fire_mode = FALSE
 		L.on = TRUE
-		L.update()
+		L.update(TRUE, TRUE, FALSE)
 
 /area/proc/updateicon()
 	var/weather_icon

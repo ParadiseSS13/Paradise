@@ -13,6 +13,7 @@
 	return 0
 
 /mob/proc/get_screen_colour()
+	return
 
 /mob/proc/update_client_colour(time = 10) //Update the mob's client.color with an animation the specified time in length.
 	if(!client) //No client_colour without client. If the player logs back in they'll be back through here anyway.
