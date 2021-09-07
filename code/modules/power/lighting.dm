@@ -436,7 +436,7 @@
 				. += "The [fitting] has been smashed."
 		if(cell)
 			. += "You see [cell] inside the casing."
-			. += "Its power charge meter reads [(cell.charge / cell.maxcharge) * 100]%."
+			. += "Its power charge meter reads [round(cell.percent())]%."
 		else
 			. += "The light has no power cell for backup power."
 
