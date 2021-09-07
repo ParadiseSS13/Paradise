@@ -247,6 +247,7 @@ to destroy them and players will be able to make replacements.
 		"NanoMed" =								/obj/machinery/vending/wallmed,
 		"Emergency NanoMed" =					/obj/machinery/vending/wallmed,
 		"NanoMed Plus" =						/obj/machinery/vending/medical,
+		"survival pod medical supply" =			/obj/machinery/vending/medical,
 		"SyndiMed Plus" = 						/obj/machinery/vending/medical/syndicate_access,
 		"Vendomat" =							/obj/machinery/vending/assist,
 		"YouTool" =								/obj/machinery/vending/tool,
