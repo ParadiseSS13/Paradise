@@ -447,6 +447,43 @@
 		/obj/item/extinguisher/mini
 	)
 
+/obj/item/robot_module/janitor/Initialize(mapload)
+	. = ..()
+	var/mob/living/silicon/robot/R = loc
+	RegisterSignal(R, COMSIG_MOVABLE_MOVED, .proc/on_cyborg_move)
+
+/**
+ * Proc called after the janitor cyborg has moved, in order to clean atoms at it's new location.
+ *
+ * Arguments:
+ * * mob/living/silicon/robot/R - The cyborg who moved.
+ */
+/obj/item/robot_module/janitor/proc/on_cyborg_move(mob/living/silicon/robot/R)
+	SIGNAL_HANDLER
+
+	if(R.stat == DEAD || !isturf(R.loc))
+		return
+	var/turf/tile = R.loc
+	for(var/A in tile)
+		if(iseffect(A))
+			var/obj/effect/E = A
+			if(!E.is_cleanable())
+				continue
+			var/obj/effect/decal/cleanable/blood/B = E
+			if(istype(B) && B.off_floor)
+				tile.clean_blood()
+			else
+				qdel(E)
+		else if(isitem(A))
+			var/obj/item/I = A
+			I.clean_blood()
+		else if(ishuman(A))
+			var/mob/living/carbon/human/cleaned_human = A
+			if(!cleaned_human.lying)
+				continue
+			cleaned_human.clean_blood()
+			to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
+
 /obj/item/reagent_containers/spray/cyborg_lube
 	name = "Lube spray"
 	list_reagents = list("lube" = 250)
@@ -570,6 +607,7 @@
 		/obj/item/gun/energy/pulse/cyborg,
 		/obj/item/crowbar/cyborg
 	)
+	special_rechargables = list(/obj/item/gun/energy/pulse/cyborg)
 
 // Sydicate assault cyborg module.
 /obj/item/robot_module/syndicate
@@ -662,7 +700,10 @@
 		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
 		/obj/item/borg/destroyer/mobility
 	)
-	special_rechargables = list(/obj/item/melee/baton/loaded)
+	special_rechargables = list(
+		/obj/item/melee/baton/loaded,
+		/obj/item/gun/energy/immolator/multi/cyborg
+	)
 
 /obj/item/robot_module/combat
 	name = "combat robot module"
@@ -678,7 +719,10 @@
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		/obj/item/pickaxe/drill/jackhammer // for breaking walls to execute flanking moves
 	)
-	special_rechargables = list(/obj/item/melee/baton/loaded)
+	special_rechargables = list(
+		/obj/item/melee/baton/loaded,
+		/obj/item/gun/energy/immolator/multi/cyborg
+	)
 
 // Xenomorph cyborg module.
 /obj/item/robot_module/alien/hunter
@@ -720,6 +764,7 @@
 		/obj/item/soap,
 		/obj/item/t_scanner,
 		/obj/item/rpd,
+		/obj/item/analyzer,
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,

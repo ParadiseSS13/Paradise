@@ -5,6 +5,9 @@
 	icon_state = "folded_wall"
 	w_class = WEIGHT_CLASS_NORMAL
 
+/obj/item/inflatable/detailed_examine()
+	return "Inflate by using it in your hand. The inflatable barrier will inflate on your tile. To deflate it, use the 'deflate' verb."
+
 /obj/item/inflatable/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
 	to_chat(user, "<span class='notice'>You inflate [src].</span>")
@@ -25,6 +28,9 @@
 	var/torn = /obj/item/inflatable/torn
 	var/intact = /obj/item/inflatable
 
+/obj/structure/inflatable/detailed_examine()
+	return "To remove these safely, use the 'deflate' verb. Hitting these with any objects will probably puncture and break it forever."
+
 /obj/structure/inflatable/Initialize(location)
 	..()
 	air_update_turf(TRUE)
@@ -40,8 +46,15 @@
 /obj/structure/inflatable/CanAtmosPass(turf/T)
 	return !density
 
-/obj/structure/inflatable/attack_hand(mob/user as mob)
+/obj/structure/inflatable/attack_hand(mob/user)
 	add_fingerprint(user)
+
+/obj/structure/inflatable/attackby(obj/item/I, mob/living/user, params)
+	if(I.sharp || is_type_in_typecache(I, GLOB.pointed_types))
+		user.do_attack_animation(src, used_item = I)
+		deconstruct(FALSE)
+		return FALSE
+	return ..()
 
 /obj/structure/inflatable/AltClick()
 	if(usr.stat || usr.restrained())
@@ -103,6 +116,10 @@
 
 	var/state = 0 //closed, 1 == open
 	var/isSwitchingStates = 0
+
+/obj/structure/inflatable/door/detailed_examine()
+	return "Click the door to open or close it. It only stops air while closed.<br>\
+			To remove these safely, use the 'deflate' verb. Hitting these with any objects will probably puncture and break it forever."
 
 /obj/structure/inflatable/door/attack_ai(mob/user as mob) //those aren't machinery, they're just big fucking slabs of a mineral
 	if(isAI(user)) //so the AI can't open it

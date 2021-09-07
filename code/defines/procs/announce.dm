@@ -32,8 +32,8 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 /datum/announcement/priority/command/New(do_log = 1, new_sound = sound('sound/misc/notice2.ogg'), do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	admin_announcement = 1
-	title = "[command_name()] Update"
-	announcement_type = "[command_name()] Update"
+	title = "NAS Trurl Update"
+	announcement_type = "NAS Trurl Update"
 
 /datum/announcement/priority/command/event/New(do_log = 1, new_sound = sound('sound/misc/notice2.ogg'), do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
@@ -44,12 +44,13 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	title = "Security Announcement"
 	announcement_type = "Security Announcement"
 
-/datum/announcement/proc/Announce(message as text, new_title = "", new_sound = null, do_newscast = newscast, msg_sanitized = 0, from, msg_language)
+/datum/announcement/proc/Announce(message as text, new_title = "", new_sound = null, do_newscast = newscast, msg_sanitized = 0, from, msg_language, new_sound2 = null)
 	if(!message)
 		return
 
 	var/message_title = new_title ? new_title : title
 	var/message_sound = new_sound ? sound(new_sound) : sound
+	var/message_sound2 = new_sound2 ? sound(new_sound2) : sound
 
 	if(!msg_sanitized)
 		message = trim_strip_html_properly(message, allow_lines = 1)
@@ -74,6 +75,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 		NewsCast(message, message_title)
 
 	Sound(message_sound, combined_receivers[1] + combined_receivers[2])
+	Sound(message_sound2, combined_receivers[1] + combined_receivers[2])
 	Log(message, message_title)
 
 /datum/announcement/proc/Get_Receivers(datum/language/message_language)

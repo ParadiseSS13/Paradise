@@ -379,22 +379,14 @@
 		if(M.client)
 			playercount += 1
 
-	// Update the state of the panic bunker based on current playercount
-	var/threshold = GLOB.configuration.general.panic_bunker_threshold
-
-	if((playercount > threshold) && (GLOB.panic_bunker_enabled == FALSE))
-		GLOB.panic_bunker_enabled = TRUE
-		message_admins("Panic bunker has been automatically enabled due to playercount rising above [threshold]")
-
-	if((playercount < threshold) && (GLOB.panic_bunker_enabled == TRUE))
-		GLOB.panic_bunker_enabled = FALSE
-		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
-
 	// Tell clients about active testmerges
 	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
 		to_chat(src, GLOB.revision_info.get_testmerge_chatmessage(TRUE))
 
 	INVOKE_ASYNC(src, .proc/cid_count_check)
+
+	if(check_rights(R_ADMIN, FALSE, mob)) // Mob is required. Dont even try without it.
+		to_chat(src, "The queue server is currently [SSqueue.queue_enabled ? "<font color='green'>enabled</font>" : "<font color='disabled'>disabled</font>"], with a threshold of <b>[SSqueue.queue_threshold]</b>. This <b>[SSqueue.persist_queue ? "will" : "will not"]</b> persist through rounds.")
 
 
 /client/proc/is_connecting_from_localhost()
@@ -442,7 +434,7 @@
 		return
 
 	//Donator stuff.
-	var/datum/db_query/query_donor_select = SSdbcore.NewQuery("SELECT ckey, tier, active FROM `[format_table_name("donators")]` WHERE ckey=:ckey", list(
+	var/datum/db_query/query_donor_select = SSdbcore.NewQuery("SELECT ckey, tier, active FROM donators WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
 
@@ -473,7 +465,7 @@
 	if(!SSdbcore.IsConnected())
 		return
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey=:ckey", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM player WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
 	if(!query.warn_execute())
@@ -488,7 +480,7 @@
 		break
 
 	qdel(query)
-	var/datum/db_query/query_ip = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ip=:address", list(
+	var/datum/db_query/query_ip = SSdbcore.NewQuery("SELECT ckey FROM player WHERE ip=:address", list(
 		"address" = address
 	))
 	if(!query_ip.warn_execute())
@@ -501,7 +493,7 @@
 
 	qdel(query_ip)
 
-	var/datum/db_query/query_cid = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE computerid=:cid", list(
+	var/datum/db_query/query_cid = SSdbcore.NewQuery("SELECT ckey FROM player WHERE computerid=:cid", list(
 		"cid" = computer_id
 	))
 	if(!query_cid.warn_execute())
@@ -531,7 +523,7 @@
 
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
-		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
+		message_admins("<font color='red'><B>Notice: </B></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
 		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 		watchlisted = TRUE
 
@@ -548,7 +540,7 @@
 		if(!client_address) // Localhost can sometimes have no address set
 			client_address = "127.0.0.1"
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
-		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET lastseen = Now(), ip=:sql_ip, computerid=:sql_cid, lastadminrank=:sql_ar WHERE id=:sql_id", list(
+		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE player SET lastseen = Now(), ip=:sql_ip, computerid=:sql_cid, lastadminrank=:sql_ar WHERE id=:sql_id", list(
 			"sql_ip" = client_address,
 			"sql_cid" = computer_id,
 			"sql_ar" = admin_rank,
@@ -563,16 +555,7 @@
 		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, FALSE) // Async to avoid other procs in the client chain being delayed by a web request
 	else
 		//New player!! Need to insert all the stuff
-
-		// Check new peeps for panic bunker
-		// AA TODO: Move this to world.IsBanned()
-		if(GLOB.panic_bunker_enabled)
-			var/threshold = GLOB.configuration.general.panic_bunker_threshold
-			src << "Server is not accepting connections from never-before-seen players until player count is less than [threshold]. Please try again later."
-			qdel(src)
-			return // Dont insert or they can just go in again
-
-		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
+		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO player (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
 			"ip" = address,
 			"cid" = computer_id,
@@ -601,11 +584,11 @@
 			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] connecting from localhost.")
 			return
 
-		if(vpn_whitelist_check(ckey))
+		if(SSipintel.vpn_whitelist_check(ckey))
 			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] [address] on whitelist.")
 			return
 
-		var/datum/ipintel/res = get_ip_intel(address)
+		var/datum/ipintel/res = SSipintel.get_ip_intel(address)
 		ip_intel = res.intel
 		verify_ip_intel()
 
@@ -613,7 +596,9 @@
 	if(ip_intel >= GLOB.configuration.ipintel.bad_rating)
 		var/detailsurl = GLOB.configuration.ipintel.details_url ? "(<a href='[GLOB.configuration.ipintel.details_url][address]'>IP Info</a>)" : ""
 		if(GLOB.configuration.ipintel.whitelist_mode)
-			// AA TODO: move this check to world.IsBanned()
+			// Do not move this to isBanned(). This may sound weird, but:
+			// This needs to happen after their account is put into the DB
+			// This way, admins can then note people
 			spawn(40) // This is necessary because without it, they won't see the message, and addtimer cannot be used because the timer system may not have initialized yet
 				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]</span>")
 				var/blockmsg = "<B>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</B>"
@@ -635,7 +620,7 @@
 	to_chat(src, "<B>You have no verified forum account. <a href='?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
 
 /client/proc/create_oauth_token()
-	var/datum/db_query/query_find_token = SSdbcore.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey=:ckey limit 1", list(
+	var/datum/db_query/query_find_token = SSdbcore.NewQuery("SELECT token FROM oauth_tokens WHERE ckey=:ckey limit 1", list(
 		"ckey" = ckey
 	))
 	// These queries have log_error=FALSE to avoid auth tokens being in plaintext logs
@@ -650,7 +635,7 @@
 
 	var/tokenstr = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
 
-	var/datum/db_query/query_insert_token = SSdbcore.NewQuery("INSERT INTO [format_table_name("oauth_tokens")] (ckey, token) VALUES(:ckey, :tokenstr)", list(
+	var/datum/db_query/query_insert_token = SSdbcore.NewQuery("INSERT INTO oauth_tokens (ckey, token) VALUES(:ckey, :tokenstr)", list(
 		"ckey" = ckey,
 		"tokenstr" = tokenstr,
 	))
@@ -671,7 +656,7 @@
 		if(!fromban)
 			to_chat(src, "Your forum account is already set.")
 		return
-	var/datum/db_query/query_find_link = SSdbcore.NewQuery("SELECT fuid FROM [format_table_name("player")] WHERE ckey=:ckey LIMIT 1", list(
+	var/datum/db_query/query_find_link = SSdbcore.NewQuery("SELECT fuid FROM player WHERE ckey=:ckey LIMIT 1", list(
 		"ckey" = ckey
 	))
 	if(!query_find_link.warn_execute())
@@ -720,7 +705,7 @@
 	var/oldcid = cidcheck[ckey]
 
 	if(!oldcid)
-		var/datum/db_query/query_cidcheck = SSdbcore.NewQuery("SELECT computerid FROM [format_table_name("player")] WHERE ckey=:ckey", list(
+		var/datum/db_query/query_cidcheck = SSdbcore.NewQuery("SELECT computerid FROM player WHERE ckey=:ckey", list(
 			"ckey" = ckey
 		))
 		if(!query_cidcheck.warn_execute())
@@ -790,7 +775,7 @@
 	var/const/adminckey = "CID-Error"
 
 	// Check for notes in the last day - only 1 note per 24 hours
-	var/datum/db_query/query_get_notes = SSdbcore.NewQuery("SELECT id from [format_table_name("notes")] WHERE ckey=:ckey AND adminckey=:adminckey AND timestamp + INTERVAL 1 DAY < NOW()", list(
+	var/datum/db_query/query_get_notes = SSdbcore.NewQuery("SELECT id from notes WHERE ckey=:ckey AND adminckey=:adminckey AND timestamp + INTERVAL 1 DAY < NOW()", list(
 		"ckey" = ckey,
 		"adminckey" = adminckey
 	))
@@ -803,7 +788,7 @@
 	qdel(query_get_notes)
 
 	// Only add a note if their most recent note isn't from the randomizer blocker, either
-	var/datum/db_query/query_get_note = SSdbcore.NewQuery("SELECT adminckey FROM [format_table_name("notes")] WHERE ckey=:ckey ORDER BY timestamp DESC LIMIT 1", list(
+	var/datum/db_query/query_get_note = SSdbcore.NewQuery("SELECT adminckey FROM notes WHERE ckey=:ckey ORDER BY timestamp DESC LIMIT 1", list(
 		"ckey" = ckey
 	))
 	if(!query_get_note.warn_execute())
@@ -1053,7 +1038,7 @@
   */
 /client/proc/get_byond_account_date(notify = FALSE)
 	// First we see if the client has a saved date in the DB
-	var/datum/db_query/query_date = SSdbcore.NewQuery("SELECT byond_date, DATEDIFF(Now(), byond_date) FROM [format_table_name("player")] WHERE ckey=:ckey", list(
+	var/datum/db_query/query_date = SSdbcore.NewQuery("SELECT byond_date, DATEDIFF(Now(), byond_date) FROM player WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
 	if(!query_date.warn_execute())
@@ -1079,7 +1064,7 @@
 	byondacc_date = byond_data["general"]["joined"]
 
 	// Now save it
-	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET byond_date=:date WHERE ckey=:ckey", list(
+	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE player SET byond_date=:date WHERE ckey=:ckey", list(
 		"date" = byondacc_date,
 		"ckey" = ckey
 	))
@@ -1089,7 +1074,7 @@
 	qdel(query_update)
 
 	// Now retrieve the age again because BYOND doesnt have native methods for this
-	var/datum/db_query/query_age = SSdbcore.NewQuery("SELECT DATEDIFF(Now(), byond_date) FROM [format_table_name("player")] WHERE ckey=:ckey", list(
+	var/datum/db_query/query_age = SSdbcore.NewQuery("SELECT DATEDIFF(Now(), byond_date) FROM player WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
 	if(!query_age.warn_execute())
@@ -1124,7 +1109,7 @@
 		tos_consent = TRUE
 		return TRUE
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("privacy")] WHERE ckey=:ckey AND consent=1", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey FROM privacy WHERE ckey=:ckey AND consent=1", list(
 		"ckey" = ckey
 	))
 	if(!query.warn_execute())
@@ -1172,7 +1157,7 @@
 		// Check their notes for CID tracking in the past
 		var/has_note = FALSE
 		var/note_text = ""
-		var/datum/db_query/query_find_track_note = SSdbcore.NewQuery("SELECT notetext FROM [format_table_name("notes")] WHERE ckey=:ckey AND adminckey=:ackey", list(
+		var/datum/db_query/query_find_track_note = SSdbcore.NewQuery("SELECT notetext FROM notes WHERE ckey=:ckey AND adminckey=:ackey", list(
 			"ckey" = ckey,
 			"ackey" = CIDTRACKING_PSUEDO_CKEY
 		))
@@ -1189,7 +1174,7 @@
 			var/new_text = "Connected on the date of this note with unique CID #[cidcount]"
 			// Only update the note if the text is different. Otherwise it bumps the timestamp when it shouldnt
 			if(note_text != new_text)
-				var/datum/db_query/query_update_track_note = SSdbcore.NewQuery("UPDATE [format_table_name("notes")] SET notetext=:notetext, timestamp=NOW(), round_id=:rid WHERE ckey=:ckey AND adminckey=:ackey", list(
+				var/datum/db_query/query_update_track_note = SSdbcore.NewQuery("UPDATE notes SET notetext=:notetext, timestamp=NOW(), round_id=:rid WHERE ckey=:ckey AND adminckey=:ackey", list(
 					"notetext" = new_text,
 					"ckey" = ckey,
 					"ackey" = CIDTRACKING_PSUEDO_CKEY,
@@ -1207,7 +1192,7 @@
 
 		var/show_warning = TRUE
 		// Check if they have a note that matches the warning suppressor
-		var/datum/db_query/query_find_note = SSdbcore.NewQuery("SELECT id FROM [format_table_name("notes")] WHERE ckey=:ckey AND notetext=:notetext", list(
+		var/datum/db_query/query_find_note = SSdbcore.NewQuery("SELECT id FROM notes WHERE ckey=:ckey AND notetext=:notetext", list(
 			"ckey" = ckey,
 			"notetext" = CIDWARNING_SUPPRESSED_NOTETEXT
 		))

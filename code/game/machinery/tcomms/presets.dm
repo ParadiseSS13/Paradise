@@ -29,4 +29,5 @@
 	network_id = "CENTCOMM-RELAY"
 	autolink_id = "STATION-CORE"
 	hidden_link = TRUE
+	password_bypass = TRUE
 

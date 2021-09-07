@@ -18,9 +18,9 @@
 	resistance_flags = NONE
 	max_integrity = 300
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/back.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/back.dmi',
-		"Grey" = 'icons/mob/species/grey/back.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/back.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/back.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/back.dmi'
 		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
 
 /obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -584,3 +584,9 @@
 	name = "emergency response team janitor backpack"
 	desc = "A spacious backpack with lots of pockets, worn by janitorial members of a Nanotrasen Emergency Response Team."
 	icon_state = "ert_janitor"
+
+//Solgov
+/obj/item/storage/backpack/ert/solgov
+	name = "\improper TSF marine backpack"
+	desc = "A spacious backpack with lots of pockets, worn by marines of the Trans-Solar Federation."
+	icon_state = "ert_solgov"
