@@ -210,7 +210,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			L.update()
 
 /proc/epsilon_process()
-	GLOB.security_announcement_up.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.", "Attention! Epsilon security level activated!", 'sound/effects/purge_siren.ogg', new_sound2 = 'sound/AI/epsilon.ogg')
+	GLOB.security_announcement_up.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.", "Attention! Epsilon security level activated!", 'sound/effects/purge_siren.ogg')
 	GLOB.security_level = SEC_LEVEL_EPSILON
 	post_status("alert", "epsilonalert")
 	for(var/area/A as anything in GLOB.all_areas)

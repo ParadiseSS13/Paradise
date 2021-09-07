@@ -636,7 +636,7 @@
 	if(fire_mode)
 		set_light(nightshift_light_range, nightshift_light_power, bulb_emergency_colour)
 	else
-		set_light(brightness_range * 0.25, max(2, 3 * (cell.charge / cell.maxcharge)), bulb_emergency_colour)
+		set_light(3, 1.7, bulb_emergency_colour)
 	return TRUE
 
 /obj/machinery/light/flicker(amount = rand(20, 30))
