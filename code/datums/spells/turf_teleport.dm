@@ -9,7 +9,7 @@
 	var/include_space = 0 //whether it includes space tiles in possible teleport locations
 	var/include_dense = 0 //whether it includes dense tiles in possible teleport locations
 	/// Whether the spell can teleport to light locations
-	var/include_light = TRUE
+	var/include_light_turfs = TRUE
 
 	var/sound1 = 'sound/weapons/zapbang.ogg'
 	var/sound2 = 'sound/weapons/zapbang.ogg'
@@ -26,7 +26,7 @@
 			if(T.density && !include_dense) continue
 			if(T.x>world.maxx-outer_tele_radius || T.x<outer_tele_radius)	continue	//putting them at the edge is dumb
 			if(T.y>world.maxy-outer_tele_radius || T.y<outer_tele_radius)	continue
-			if(!include_light)
+			if(!include_light_turfs)
 				var/lightingcount = T.get_lumcount(0.5) * 10
 				if(lightingcount > 1)
 					continue

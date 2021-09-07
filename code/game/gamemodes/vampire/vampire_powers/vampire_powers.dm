@@ -19,10 +19,9 @@
 	for(var/mob/living/L in view(range, user))
 		if(L == user)
 			continue
-
 		targets += L
 
-	if(!targets.len)
+	if(!length(targets))
 		revert_cast(user)
 		return
 
@@ -39,7 +38,7 @@
 
 	// enforce blood
 	var/datum/vampire/vampire = usr.mind.vampire
-	var/blood_cost_modifier = 1 + vampire.nullified/100
+	var/blood_cost_modifier = 1 + vampire.nullified / 100
 	var/blood_cost = round(required_blood * blood_cost_modifier)
 
 	if(blood_cost <= vampire.bloodusable)
@@ -64,20 +63,23 @@
 
 /datum/vampire_passive/Destroy(force, ...)
 	owner = null
-	. = ..()
+	return ..()
 
-/obj/effect/proc_holder/spell/self/rejuvenate
-	name = "Rejuvenate"
-	desc= "Use reserve blood to enliven your body, removing any incapacitating effects."
-	action_icon_state = "vampire_rejuvinate"
-	charge_max = 200
-	stat_allowed = 1
+/obj/effect/proc_holder/spell/self/vampire
 	vampire_ability = TRUE
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 
-/obj/effect/proc_holder/spell/self/rejuvenate/cast(list/targets, mob/user = usr)
+
+/obj/effect/proc_holder/spell/self/vampire/rejuvenate
+	name = "Rejuvenate"
+	desc = "Use reserve blood to enliven your body, removing any incapacitating effects."
+	action_icon_state = "vampire_rejuvinate"
+	charge_max = 200
+	stat_allowed = 1
+
+/obj/effect/proc_holder/spell/self/vampire/rejuvenate/cast(list/targets, mob/user = usr)
 	var/mob/living/U = user
 
 	U.SetWeakened(0)
@@ -89,15 +91,18 @@
 	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
 	var/rejuv_bonus = U.mind.vampire.get_rejuv_bonus()
 	if(rejuv_bonus)
-		for(var/i = 1 to 5)
-			U.adjustBruteLoss(-2 * rejuv_bonus)
-			U.adjustOxyLoss(-5 * rejuv_bonus)
-			U.adjustToxLoss(-2 * rejuv_bonus)
-			U.adjustFireLoss(-2 * rejuv_bonus)
-			for(var/datum/reagent/R in U.reagents.reagent_list)
-				if(!R.harmless)
-					U.reagents.remove_reagent(R.id, 2 * rejuv_bonus)
-			sleep(35)
+		INVOKE_ASYNC(src, .proc/heal, U, rejuv_bonus)
+
+/obj/effect/proc_holder/spell/self/vampire/rejuvenate/proc/heal(mob/living/user, rejuv_bonus)
+	for(var/i = 1 to 5)
+		user.adjustBruteLoss(-2 * rejuv_bonus)
+		user.adjustOxyLoss(-5 * rejuv_bonus)
+		user.adjustToxLoss(-2 * rejuv_bonus)
+		user.adjustFireLoss(-2 * rejuv_bonus)
+		for(var/datum/reagent/R in user.reagents.reagent_list)
+			if(!R.harmless)
+				user.reagents.remove_reagent(R.id, 2 * rejuv_bonus)
+		sleep(35)
 
 /datum/vampire/proc/get_rejuv_bonus()
 	var/rejuv_multiplier = 0
@@ -105,41 +110,35 @@
 		return rejuv_multiplier
 
 	if(subclass.improved_rejuv_healing)
-		rejuv_multiplier = min((100 - owner.health)/20, 5) // max healing of 50 brute and burn
+		rejuv_multiplier = min((100 - owner.health) / 20, 5) // max healing of 50 brute and burn
 		return rejuv_multiplier
 
 	return 1
 
 
-/obj/effect/proc_holder/spell/self/specialize
+/obj/effect/proc_holder/spell/self/vampire/specialize
 	name = "Choose Specialization"
 	desc = "Choose what sub-class of vampire you want to evolve into."
+	gain_desc = "You can now choose what specialization of vampire you want to evolve into."
 	charge_max = 2 SECONDS
-	vampire_ability = TRUE
-	panel = "Vampire"
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
 	action_icon_state = "select_class"
 
-
-/obj/effect/proc_holder/spell/self/specialize/cast(mob/user)
+/obj/effect/proc_holder/spell/self/vampire/specialize/cast(mob/user)
 	ui_interact(user)
 
-/obj/effect/proc_holder/spell/self/specialize/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
+/obj/effect/proc_holder/spell/self/vampire/specialize/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "SpecMenu", "Specialisation Menu", 900, 570, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
-
-
-/obj/effect/proc_holder/spell/self/specialize/ui_data(mob/user)
+/obj/effect/proc_holder/spell/self/vampire/specialize/ui_data(mob/user)
 	var/datum/vampire/vamp = user.mind.vampire
 	var/list/data = list("subclasses" = vamp.subclass)
 	return data
 
-/obj/effect/proc_holder/spell/self/specialize/ui_act(action, list/params)
+/obj/effect/proc_holder/spell/self/vampire/specialize/ui_act(action, list/params)
 	if(..())
 		return
 	var/datum/vampire/vamp = usr.mind.vampire
@@ -164,15 +163,15 @@
 			vamp.remove_ability(src)
 
 
-/datum/vampire/proc/add_subclass(subclass_to_add)
+/datum/vampire/proc/add_subclass(subclass_to_add, announce = TRUE)
 	var/datum/vampire_subclass/new_subclass = new subclass_to_add
 	subclass = new_subclass
-	check_vampire_upgrade(TRUE)
+	check_vampire_upgrade(announce)
 	SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
 
 /obj/effect/proc_holder/spell/mob_aoe/glare
 	name = "Glare"
-	desc = "A scary glare that incapacitates people for a short while around you."
+	desc = "Your eyes flash, stunning and silencing anyone infront of you. It has lesser effects for those around you."
 	action_icon_state = "vampire_glare"
 	charge_max = 30 SECONDS
 	stat_allowed = 1
@@ -251,14 +250,18 @@
 	// Victim lateral to the victim.
 	return DEVIATION_PARTIAL
 
+#undef DEVIATION_NONE
+#undef DEVIATION_PARTIAL
+#undef DEVIATION_FULL
+
 /datum/vampire_passive/regen
-	gain_desc = "Your rejuvination abilities have improved and will now heal you over time when used."
+	gain_desc = "Your rejuvenation abilities have improved and will now heal you over time when used."
 
 /datum/vampire_passive/vision
 	gain_desc = "Your vampiric vision has improved."
 
 /datum/vampire_passive/full
-	gain_desc = "You have reached your full potential and are no longer weak to the effects of anything holy and your vision has been improved greatly."
+	gain_desc = "You have reached your full potential. You are no longer weak to the effects of anything holy and your vision has improved greatly."
 
 /obj/effect/proc_holder/spell/targeted/raise_vampires
 	name = "Raise Vampires"
@@ -354,14 +357,14 @@
 	inner_tele_radius = 0
 	outer_tele_radius = 6
 
-	include_light = FALSE
+	include_light_turfs = FALSE
 
 	sound1 = null
 	sound2 = null
 
 // pure adminbus at the moment
 /proc/isvampirethrall(mob/living/M)
-	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.vampire_enthralled)
+	return istype(M) && M.mind && SSticker.mode && (M.mind in SSticker.mode.vampire_enthralled)
 
 /obj/effect/proc_holder/spell/targeted/enthrall
 	name = "Enthrall (150)"
@@ -432,6 +435,9 @@
 	SSticker.mode.update_vampire_icons_added(H.mind)
 	SSticker.mode.update_vampire_icons_added(user.mind)
 	var/datum/mindslaves/slaved = user.mind.som
+	if(!slaved)
+		slaved = new()
+		slaved.masters = user.mind
 	H.mind.som = slaved
 	slaved.serv += H
 	slaved.add_serv_hud(user.mind, "vampire")//handles master servent icons

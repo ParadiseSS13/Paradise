@@ -1,16 +1,12 @@
-/obj/effect/proc_holder/spell/self/vamp_claws
+/obj/effect/proc_holder/spell/self/vampire/vamp_claws
 	name = "Vampiric Claws (30)"
 	desc = "You channel blood magics to forge deadly vampiric claws that leech blood and strike rapidly. Cannot be used if you are holding something that cannot be dropped."
 	gain_desc = "You have gained the ability to forge your hands into vampiric claws."
 	charge_max = 30 SECONDS
 	required_blood = 30
-	vampire_ability = TRUE
-	panel = "Vampire"
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
 	action_icon_state = "vampire_claws"
 
-/obj/effect/proc_holder/spell/self/vamp_claws/cast(mob/user)
+/obj/effect/proc_holder/spell/self/vampire/vamp_claws/cast(mob/user)
 	if(user.l_hand || user.r_hand)
 		to_chat(user, "<span class='notice'>You drop what was in your hands as large blades spring from your fingers!</span>")
 		user.drop_l_hand()
@@ -18,9 +14,14 @@
 	else
 		to_chat(user, "<span class='notice'>Large blades of blood spring from your fingers!</span>")
 	var/obj/item/twohanded/required/vamp_claws/claws = new /obj/item/twohanded/required/vamp_claws(user.loc)
+	RegisterSignal(claws, COMSIG_PARENT_QDELETING, .proc/update_spell_icon)
 	user.put_in_hands(claws)
 
-/obj/effect/proc_holder/spell/self/vamp_claws/can_cast(mob/user, charge_check, show_message)
+/obj/effect/proc_holder/spell/self/vampire/vamp_claws/proc/update_spell_icon()
+	SIGNAL_HANDLER
+	action.IsAvailable()
+
+/obj/effect/proc_holder/spell/self/vampire/vamp_claws/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/L = user
 	if(L.canUnEquip(L.l_hand) && L.canUnEquip(L.r_hand))
 		return ..()
@@ -30,9 +31,9 @@
 	desc = "A pair of eldritch claws made of living blood, they seem to flow yet they are solid"
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "vamp_claws"
-	item_state = "vamp_claws"
 	w_class = WEIGHT_CLASS_BULKY
 	flags = ABSTRACT | NODROP | DROPDEL
+	force = 10
 	force_wielded = 10
 	armour_penetration = 20
 	block_chance = 50
@@ -77,7 +78,8 @@
 
 /obj/item/twohanded/required/vamp_claws/melee_attack_chain(mob/user, atom/target, params)
 	..()
-	user.changeNext_move(CLICK_CD_MELEE * 0.5)
+	if(wielded)
+		user.changeNext_move(CLICK_CD_MELEE * 0.5)
 
 /obj/item/twohanded/required/vamp_claws/attack_self(mob/user)
 	to_chat(user, "<span class='notice'>You dispel your claws!</span>")
@@ -165,6 +167,7 @@
 		var/obj/effect/decal/cleanable/blood/B = locate(/obj/effect/decal/cleanable/blood) in T
 		var/obj/effect/temp_visual/blood_spike/spike = new /obj/effect/temp_visual/blood_spike(T)
 		spike.color = B.basecolor
+		playsound(L, 'sound/misc/demon_attack1.ogg', 50, TRUE)
 		L.apply_damage(60, BRUTE, BODY_ZONE_CHEST)
 		L.apply_damage(90, STAMINA)
 		L.visible_message("<span class='warning'><b>[L] gets impaled by a spike of living blood!</b></span>")
@@ -188,18 +191,14 @@
 	icon_state = "bloodspike_white"
 	duration = 0.4 SECONDS
 
-/obj/effect/proc_holder/spell/self/blood_spill
+/obj/effect/proc_holder/spell/self/vampire/blood_spill
 	name = "The Blood Bringers Rite"
 	desc = "When toggled, everyone around you begins to bleed profusely."
 	gain_desc = "You have gained the ability to rip the very life force out of people and absorb it, healing you."
-	vampire_ability = TRUE
 	charge_max = 10 SECONDS
-	panel = "Vampire"
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
 	action_icon_state = "blood_bringers_rite"
 
-/obj/effect/proc_holder/spell/self/blood_spill/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/self/vampire/blood_spill/cast(list/targets, mob/user)
 	var/mob/target = targets[1]
 	if(!target.mind.vampire.get_ability(/datum/vampire_passive/blood_spill))
 		target.mind.vampire.force_add_ability(/datum/vampire_passive/blood_spill)

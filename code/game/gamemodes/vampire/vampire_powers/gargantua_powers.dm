@@ -1,16 +1,12 @@
-/obj/effect/proc_holder/spell/self/blood_swell
+/obj/effect/proc_holder/spell/self/vampire/blood_swell
 	name = "Blood Swell (30)"
 	desc = "You infuse your body with blood, making you highly resistant to stuns and physical damage."
 	gain_desc = "You have gained the ability to temporarly resist large amounts of stuns and physical damage."
 	charge_max = 40 SECONDS
 	required_blood = 30
-	vampire_ability = TRUE
-	panel = "Vampire"
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
 	action_icon_state = "blood_swell"
 
-/obj/effect/proc_holder/spell/self/blood_swell/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/self/vampire/blood_swell/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
@@ -19,47 +15,40 @@
 /datum/vampire_passive/blood_swell_upgrade
 	gain_desc = "While blood swell is active all of your melee attacks deal increased damage."
 
-/obj/effect/proc_holder/spell/self/overwhelming_force
+/obj/effect/proc_holder/spell/self/vampire/overwhelming_force
 	name = "Overwhelming Force"
 	desc = "When toggled you will automatically pry open doors that you bump into if you do not have access."
 	gain_desc = "You have gained the ability to force open doors at a small blood cost."
 	charge_max = 2 SECONDS
-	vampire_ability = TRUE
-	panel = "Vampire"
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
 	action_icon_state = "OH_YEAAAAH"
 
-/obj/effect/proc_holder/spell/self/overwhelming_force/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/self/vampire/overwhelming_force/cast(list/targets, mob/user)
 	if(!HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
 		to_chat(user,"<span class='warning'>You feel MIGHTY!</span>")
 		ADD_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
 	else
 		REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
 
-/obj/effect/proc_holder/spell/self/blood_rush
+/obj/effect/proc_holder/spell/self/vampire/blood_rush
 	name = "Blood Rush (30)"
 	desc = "Infuse yourself with blood magic to boost your movement speed."
 	gain_desc = "You have gained the ability to temporarily move at high speeds."
-	vampire_ability = TRUE
 	charge_max = 30 SECONDS
 	required_blood = 30
-	panel = "Vampire"
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
 	action_icon_state = "blood_rush"
+	var/duration = 10 SECONDS
 
-/obj/effect/proc_holder/spell/self/blood_rush/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/self/vampire/blood_rush/cast(list/targets, mob/user)
 	ADD_TRAIT(user, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
 	to_chat(user, "<span class='notice'>You feel a rush of energy!</span>")
-	addtimer(CALLBACK(user, /mob/living/carbon/human/.proc/remove_speed, VAMPIRE_TRAIT), 10 SECONDS)
+	addtimer(CALLBACK(user, /mob/living/carbon/human/.proc/remove_speed), duration)
 
 /mob/living/carbon/human/proc/remove_speed(source)
-	REMOVE_TRAIT(src, TRAIT_GOTTAGOFAST, source)
+	REMOVE_TRAIT(src, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
 
 /obj/effect/proc_holder/spell/targeted/click/charge
 	name = "Charge(30)"
-	desc = "You charge at the selected position, dealing large amounts of damage and destroying walls."
+	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
 	required_blood = 30
 	charge_max = 30 SECONDS

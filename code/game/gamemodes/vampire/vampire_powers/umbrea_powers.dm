@@ -1,25 +1,21 @@
-/obj/effect/proc_holder/spell/self/cloak
+/obj/effect/proc_holder/spell/self/vampire/cloak
 	name = "Cloak of Darkness"
 	desc = "Toggles whether you are currently cloaking yourself in darkness. When in darkness and toggled on, you move at increased speeds."
 	gain_desc = "You have gained the Cloak of Darkness ability, which when toggled makes you nearly invisible and highly agile in the shroud of darkness."
 	action_icon_state = "vampire_cloak"
 	charge_max = 2 SECONDS
-	vampire_ability = TRUE
-	panel = "Vampire"
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
 
-/obj/effect/proc_holder/spell/self/cloak/New()
+/obj/effect/proc_holder/spell/self/vampire/cloak/New()
 	..()
 	update_name()
 
-/obj/effect/proc_holder/spell/self/cloak/proc/update_name()
+/obj/effect/proc_holder/spell/self/vampire/cloak/proc/update_name()
 	var/mob/living/user = loc
 	if(!ishuman(user) || !user.mind || !user.mind.vampire)
 		return
-	name = "[initial(name)] ([user.mind.vampire.iscloaking ? "Deactivate" : "Activate"])"
+	action.button.name = "[initial(name)] ([user.mind.vampire.iscloaking ? "Deactivate" : "Activate"])"
 
-/obj/effect/proc_holder/spell/self/cloak/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/self/vampire/cloak/cast(list/targets, mob/user = usr)
 	var/datum/vampire/V = user.mind.vampire
 	V.iscloaking = !V.iscloaking
 	update_name()
@@ -103,7 +99,6 @@
 	var/turf/target = get_turf(targets[1])
 
 	new /obj/effect/temp_visual/vamp_mist_out(get_turf(user))
-	new /obj/effect/temp_visual/vamp_mist_in(target)
 
 	user.forceMove(target)
 
@@ -111,11 +106,6 @@
 	duration = 2 SECONDS
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "mist"
-
-/obj/effect/temp_visual/vamp_mist_in
-	duration = 2 SECONDS
-	icon = 'icons/mob/mob.dmi'
-	icon_state = "mist_reappear"
 
 /obj/effect/proc_holder/spell/aoe_turf/vamp_extinguish
 	name = "Extinguish"
@@ -134,19 +124,15 @@
 		for(var/atom/A in T.contents)
 			A.extinguish_light()
 
-/obj/effect/proc_holder/spell/self/eternal_darkness
+/obj/effect/proc_holder/spell/self/vampire/eternal_darkness
 	name = "Eternal Darkness"
 	desc = "When toggled, you shroud the area around you in darkness and slowly lower the body temperature of people nearby."
 	gain_desc = "You have gained the ability to shroud the area around you in darkness, only the strongest of lights can pierce your unholy powers."
 	charge_max = 10 SECONDS
-	vampire_ability = TRUE
-	panel = "Vampire"
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
 	action_icon_state = "eternal_darkness"
 	var/shroud_power = -4
 
-/obj/effect/proc_holder/spell/self/eternal_darkness/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/self/vampire/eternal_darkness/cast(list/targets, mob/user)
 	var/mob/target = targets[1]
 	if(!target.mind.vampire.get_ability(/datum/vampire_passive/eternal_darkness))
 		target.mind.vampire.force_add_ability(/datum/vampire_passive/eternal_darkness)

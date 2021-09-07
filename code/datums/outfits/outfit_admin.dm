@@ -1103,12 +1103,10 @@
 
 	if(H.mind)
 		if(!H.mind.vampire)
-			H.mind.make_vampire()
+			H.mind.make_vampire(TRUE)
 		H.mind.vampire.bloodusable = 9999
 		H.mind.vampire.bloodtotal = 9999
-		H.mind.vampire.add_subclass(SUBCLASS_ANCIENT)
-		H.mind.vampire.upgrade_tiers.Remove(/obj/effect/proc_holder/spell/self/specialize)
-		H.mind.vampire.check_vampire_upgrade(TRUE)
+		H.mind.vampire.add_subclass(SUBCLASS_ANCIENT, FALSE)
 		H.dna.SetSEState(GLOB.jumpblock, TRUE)
 		singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
 		H.update_mutations()
