@@ -4,7 +4,6 @@
 	var/select = 1
 	can_tactical = TRUE
 	can_suppress = 1
-	can_holster = FALSE
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
@@ -143,6 +142,7 @@
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 	burst_size = 2
+	can_holster = TRUE // it's a mini-uzi after all
 
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/m90

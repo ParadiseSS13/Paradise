@@ -9,7 +9,7 @@
 	icon_state = "beanie" //Default white
 	item_color = "beanie"
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		)
 
 /obj/item/clothing/head/beanie/black

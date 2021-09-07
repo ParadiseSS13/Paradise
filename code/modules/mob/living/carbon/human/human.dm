@@ -1939,9 +1939,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/update_runechat_msg_location()
 	if(ismecha(loc))
-		runechat_msg_location = loc
+		runechat_msg_location = loc.UID()
 	else
-		runechat_msg_location = src
+		return ..()
 
 /mob/living/carbon/human/verb/Examine_OOC()
 	set name = "Examine Meta-Info (OOC)"
