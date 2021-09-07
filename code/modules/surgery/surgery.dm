@@ -204,6 +204,9 @@
 
 // Check if the given zone is valid on this surgery step for the given target and stage
 /datum/surgery_step/proc/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
+	if(isalienadult(target))
+		return TRUE // They don't have external organs
+
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(affected_organ_available)

@@ -28,8 +28,7 @@
 #define SURGERY_STAGE_OPEN_INCISION_CUT		"tissue cut"
 
 // Cavity surgery
-#define SURGERY_STAGE_CAVITY_OPEN			"open cavity"
-#define SURGERY_STAGE_CAVITY_CLOSING		"cavity filled"
+#define SURGERY_STAGE_CAVITY				"open cavity"
 
 #define SURGERY_STAGE_BONES_GELLED			"bones gelled"
 #define SURGERY_STAGE_BONES_SET				"bones set"

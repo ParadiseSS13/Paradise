@@ -27,15 +27,15 @@
 
 /datum/surgery_step/cavity/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='warning'>[user]'s hand slips, scraping around inside [target]'s [affected.name] with [tool]!</span>", \
-	"<span class='warning'>Your hand slips, scraping around inside [target]'s [affected.name] with [tool]!</span>")
+	user.visible_message("<span class='warning'>[user]'s hand slips, scraping around inside [target]'s [affected.name][tool ? " with [tool]" : ""]!</span>", \
+	"<span class='warning'>Your hand slips, scraping around inside [target]'s [affected.name][tool ? " with [tool]" : ""]!</span>")
 	affected.receive_damage(20)
 	return SURGERY_FAILED
 
 /datum/surgery_step/cavity/make_space
 	name = "make cavity space"
 	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION_CUT, SURGERY_STAGE_BONES_RETRACTED)
-	next_surgery_stage = SURGERY_STAGE_CAVITY_OPEN
+	next_surgery_stage = SURGERY_STAGE_CAVITY
 	allowed_surgery_tools = SURGERY_TOOLS_MAKE_CAVITY
 	time = 5.4 SECONDS
 
@@ -66,7 +66,7 @@
 
 /datum/surgery_step/cavity/close_space
 	name = "close cavity space"
-	surgery_start_stage = list(SURGERY_STAGE_CAVITY_OPEN, SURGERY_STAGE_CAVITY_CLOSING)
+	surgery_start_stage = SURGERY_STAGE_CAVITY
 	next_surgery_stage = SURGERY_STAGE_SKIN_RETRACTED
 	allowed_surgery_tools = SURGERY_TOOLS_CAUTERIZE
 	time = 2.4 SECONDS
@@ -89,8 +89,8 @@
 /datum/surgery_step/cavity/place_item
 	name = "implant/extract object"
 	priority = 0 // Pretty low
-	surgery_start_stage = SURGERY_STAGE_CAVITY_OPEN
-	next_surgery_stage = SURGERY_STAGE_CAVITY_CLOSING
+	surgery_start_stage = SURGERY_STAGE_CAVITY
+	next_surgery_stage = SURGERY_STAGE_SAME
 	accept_hand = TRUE
 	accept_any_item = TRUE
 	var/obj/item/IC = null
