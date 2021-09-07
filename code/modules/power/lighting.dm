@@ -321,7 +321,7 @@
 			on = FALSE
 	emergency_mode = FALSE
 	if(fire_mode)
-		on = FALSE
+		use_emergency_power()
 	if(on) // Turning on
 		if(instant)
 			_turn_on(trigger, play_sound)
@@ -346,8 +346,6 @@
 			removeStaticPower(static_power_used, STATIC_LIGHT)
 
 /obj/machinery/light/process()
-	if(emergency_mode && !use_emergency_power(EMERGENCY_LIGHT_POWER_USE))
-		update(FALSE) //Disables emergency mode and sets the color to normal
 	if(!cell)
 		return
 	if(has_power())

@@ -347,15 +347,12 @@
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
 	for(var/obj/machinery/light/L in src)
+		if(emergency_mode) //Fires are not legally allowed if the power is off
+			return
 		L.fire_mode = TRUE
-		L.on = FALSE
 		L.update(TRUE, TRUE, FALSE)
 
-/**
-  * unset the fire alarm visual affects in an area
-  *
-  * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
-  */
+///unset the fire alarm visual affects in an area
 /area/proc/unset_fire_alarm_effects()
 	fire = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -366,7 +363,6 @@
 		if(emergency_mode) //The lights stay red until the crisis is resolved
 			return
 		L.fire_mode = FALSE
-		L.on = TRUE
 		L.update(TRUE, TRUE, FALSE)
 
 /area/proc/updateicon()
