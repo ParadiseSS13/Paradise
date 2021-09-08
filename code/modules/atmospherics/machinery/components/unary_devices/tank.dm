@@ -1,7 +1,7 @@
 /obj/machinery/atmospherics/unary/tank
 	icon = 'icons/atmos/tank.dmi'
 	icon_state = "air_map"
-
+	layer = GAS_PIPE_VISIBLE_LAYER
 	name = "pressure tank"
 	desc = "A large vessel containing pressurized gas."
 

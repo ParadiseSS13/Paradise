@@ -62,8 +62,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/max_gear_slots = 0
 
 	//non-preference stuff
-	var/warns = 0
-	var/muted = 0
 	var/last_ip
 	var/last_id
 
