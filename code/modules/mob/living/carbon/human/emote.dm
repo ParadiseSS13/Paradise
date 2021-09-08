@@ -449,7 +449,7 @@
 			if(!incapacitated(ignore_lying = TRUE))
 				if(prob(5))
 					spin(32, 1)
-					to_chat(usr, "You spin too much!")
+					to_chat(src, "<span class='warning'>You spin too much!</span>")
 					Dizzy(12)
 					Confused(12)
 				else

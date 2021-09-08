@@ -1354,19 +1354,17 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set waitfor = FALSE
 	if(!spintime || !speed || spintime > 100)
 		CRASH("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
-	var/D = dir
 	while(spintime >= speed)
 		sleep(speed)
-		switch(D)
+		switch(dir)
 			if(NORTH)
-				D = EAST
+				setDir(EAST)
 			if(SOUTH)
-				D = WEST
+				setDir(WEST)
 			if(EAST)
-				D = SOUTH
+				setDir(SOUTH)
 			if(WEST)
-				D = NORTH
-		setDir(D)
+				setDir(NORTH)
 		spintime -= speed
 
 /mob/proc/is_literate()
