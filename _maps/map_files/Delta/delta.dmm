@@ -96123,11 +96123,8 @@
 	pixel_x = -24
 	},
 /obj/item/ammo_box/shotgun/rubbershot,
-/obj/item/ammo_box/shotgun/buck,
 /obj/item/storage/box/rubbershot,
 /obj/item/storage/box/rubbershot,
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
