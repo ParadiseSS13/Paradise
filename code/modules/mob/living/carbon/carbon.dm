@@ -499,7 +499,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 					if(failed)
 						to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
 						return
-
+			if(isswarmer(src))
+				var/mob/living/simple_animal/hostile/swarmer/S = src
+				if(S.light_range)
+					S.ToggleLight()
 			visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
 			src.loc = vent_found
 			add_ventcrawl(vent_found)

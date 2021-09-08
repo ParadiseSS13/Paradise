@@ -50,6 +50,9 @@
 
 /obj/screen/swarmer/ToggleLight/Click()
 	if(isswarmer(usr))
+		if(is_ventcrawling(usr))
+			to_chat(usr, "You can't toggle light in vent!")
+			return
 		var/mob/living/simple_animal/hostile/swarmer/S = usr
 		S.ToggleLight()
 
