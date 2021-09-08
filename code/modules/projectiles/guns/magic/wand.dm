@@ -182,7 +182,7 @@
 	desc = "This wand shoots... banana peels?"
 	fire_sound = 'sound/items/bikehorn.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/slipping
-	icon_state = "staffofslipping"
+	icon_state = "wandofslipping"
 	max_charges = 5 //5, 4, 3, 2
 
 /obj/item/gun/magic/wand/slipping/zap_self(mob/living/user)
