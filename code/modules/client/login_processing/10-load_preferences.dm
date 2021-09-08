@@ -28,9 +28,4 @@
 	return query
 
 /datum/client_login_processor/load_preferences/process_result(datum/db_query/Q, client/C)
-	C.prefs = GLOB.preferences_datums[C.ckey]
-	if(!C.prefs)
-		C.prefs = new /datum/preferences(C, Q)
-		GLOB.preferences_datums[C.ckey] = C.prefs
-	else
-		C.prefs.parent = C
+	C.prefs = new /datum/preferences(C, Q)

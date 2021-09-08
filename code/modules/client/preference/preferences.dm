@@ -1,6 +1,3 @@
-GLOBAL_LIST_EMPTY(preferences_datums)
-GLOBAL_PROTECT(preferences_datums) // These feel like something that shouldnt be fucked with
-
 GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts to play these roles
 	ROLE_PAI = 0,
 	ROLE_POSIBRAIN = 0,
