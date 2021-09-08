@@ -660,9 +660,11 @@
 			if(status != LIGHT_OK)
 				break
 			on = FALSE
+			no_emergency = TRUE
 			update(FALSE, TRUE, FALSE)
 			sleep(rand(1, 3))
 			on = (status == LIGHT_OK)
+			no_emergency = FALSE
 			update(FALSE, TRUE, FALSE)
 			sleep(rand(1, 10))
 		on = (status == LIGHT_OK)
