@@ -82,7 +82,7 @@
 	dog_fashion = /datum/dog_fashion/head/detective
 
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/head.dmi'
+	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
 //Mime
@@ -176,7 +176,7 @@
 	icon_state = "surgcap_blue"
 	flags = BLOCKHEADHAIR
 	sprite_sheets = list(
-		"Drask" = 'icons/mob/species/drask/head.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
 		)
 
 /obj/item/clothing/head/surgery/purple
@@ -206,11 +206,13 @@
 	icon_state = "solgovcberet"
 	item_color = "solgovc"
 	dog_fashion = null
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	armor = list("melee" = 20, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
 	strip_delay = 80
 
 /obj/item/clothing/head/beret/solgov/command/elite
 	name = "\improper Trans-Solar Federation Specops Lieutenant's beret"
-	desc = "A beret worn by marines of the Trans-Solar Federation Psiops division. The insignia signifies the wearer bears the rank of a Lieutenant."
+	desc = "A beret worn by marines of the Trans-Solar Federation Specops division. The insignia signifies the wearer bears the rank of a Lieutenant."
+	armor = list("melee" = 35, "bullet" = 60, "laser" = 10, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 50, "fire" = 80, "acid" = 80)
 	icon_state = "solgovceliteberet"
 	item_color = "solgovcelite"
+	resistance_flags = FIRE_PROOF

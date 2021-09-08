@@ -527,8 +527,8 @@
 	if(!antnum || antnum <= 0)
 		return
 
-	log_admin("[key_name(owner)] tried making Vampires with One-Click-Antag")
-	message_admins("[key_name_admin(owner)] tried making Vampires with One-Click-Antag")
+	log_admin("[key_name(owner)] tried making [antnum] Vampires with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] Vampires with One-Click-Antag")
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(CandCheck(ROLE_VAMPIRE, applicant, temp))
