@@ -39754,7 +39754,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/sortjunction{
 	name = "CE's Junction";
 	sortType = 5
