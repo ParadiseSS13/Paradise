@@ -5,6 +5,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
 	fire_sound = 'sound/weapons/gunshots/gunshot_strong.ogg'
+	can_holster = TRUE
 
 /obj/item/gun/projectile/revolver/New()
 	..()
@@ -158,6 +159,7 @@
 	fire_sound_text = null
 	lefthand_file = null
 	righthand_file = null
+	can_holster = FALSE // Get your fingers out of there!
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	clumsy_check = 0 //Stole your uplink! Honk!
 	needs_permit = 0 //go away beepsky

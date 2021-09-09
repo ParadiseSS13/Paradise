@@ -12,6 +12,11 @@
 	AA = new(src)
 	soundloop = new(list(src), FALSE)
 
+/obj/vehicle/ambulance/Destroy()
+	QDEL_NULL(AA)
+	QDEL_NULL(soundloop)
+	return ..()
+
 /datum/action/ambulance_alarm
 	name = "Toggle Sirens"
 	icon_icon = 'icons/obj/vehicles.dmi'

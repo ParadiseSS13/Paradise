@@ -137,6 +137,12 @@
 	rotate()
 
 // Chair types
+/obj/structure/chair/light
+	name = "chair"
+	icon_state = "chair_greyscale"
+	resistance_flags = FLAMMABLE
+	item_chair = /obj/item/chair/light
+
 /obj/structure/chair/wood
 	name = "wooden chair"
 	desc = "Old is never too old to not be in fashion."
@@ -268,6 +274,33 @@
 	anchored = TRUE
 	item_chair = null
 	buildstackamount = 1
+	var/image/armrest = null
+
+/obj/structure/chair/sofa/Initialize(mapload)
+	armrest = GetArmrest()
+	armrest.layer = ABOVE_MOB_LAYER
+	return ..()
+
+/obj/structure/chair/sofa/proc/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_armrest")
+
+/obj/structure/chair/sofa/Destroy()
+	QDEL_NULL(armrest)
+	return ..()
+
+/obj/structure/chair/sofa/post_buckle_mob(mob/living/M)
+	. = ..()
+	update_armrest()
+
+/obj/structure/chair/sofa/post_unbuckle_mob(mob/living/M)
+	. = ..()
+	update_armrest()
+
+/obj/structure/chair/sofa/proc/update_armrest()
+	if(has_buckled_mobs())
+		add_overlay(armrest)
+	else
+		cut_overlay(armrest)
 
 /obj/structure/chair/sofa/left
 	icon_state = "sofaend_left"
@@ -277,6 +310,32 @@
 
 /obj/structure/chair/sofa/corner
 	icon_state = "sofacorner"
+
+/obj/structure/chair/sofa/corp
+	name = "sofa"
+	desc = "Soft and cushy."
+	icon_state = "corp_sofamiddle"
+
+/obj/structure/chair/sofa/corp/left
+	icon_state = "corp_sofaend_left"
+
+/obj/structure/chair/sofa/corp/right
+	icon_state = "corp_sofaend_right"
+
+/obj/structure/chair/sofa/corp/corner
+	icon_state = "corp_sofacorner"
+
+/obj/structure/chair/sofa/pew
+	name = "pew"
+	desc = "Rigid and uncomfortable, perfect for keeping you awake and alert."
+	icon_state = "pewmiddle"
+	buildstacktype = /obj/item/stack/sheet/wood
+
+/obj/structure/chair/sofa/pew/left
+	icon_state = "pewend_left"
+
+/obj/structure/chair/sofa/pew/right
+	icon_state = "pewend_right"
 
 /obj/structure/chair/stool
 	name = "stool"
@@ -308,6 +367,10 @@
 	materials = list(MAT_METAL = 2000)
 	var/break_chance = 5 //Likely hood of smashing the chair.
 	var/obj/structure/chair/origin_type = /obj/structure/chair
+
+/obj/item/chair/light
+	icon_state = "chair_greyscale_toppled"
+	origin_type = /obj/structure/chair/light
 
 /obj/item/chair/stool
 	name = "stool"
