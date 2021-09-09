@@ -21,11 +21,22 @@
 	footstep_type = footstep_type_
 	sound_vary = vary
 	switch(footstep_type)
+		// Human stuff
 		if(FOOTSTEP_MOB_HUMAN)
 			if(!ishuman(parent))
-				return COMPONENT_INCOMPATIBLE
+				return COMPONENT_INCOMPATIBLE // Need to be human to get human sounds.
 			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_humanstep)
-			return // Humans don't get past here
+			return
+
+		// Everything else
+		if(FOOTSTEP_OBJ_MACHINE)
+			footstep_sounds = 'sound/effects/bang.ogg'
+			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_simplestep_machine)
+			return
+		if(FOOTSTEP_OBJ_ROBOT)
+			footstep_sounds = 'sound/effects/tank_treads.ogg'
+			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_simplestep_machine)
+			return
 		if(FOOTSTEP_MOB_BAREFOOT)
 			footstep_sounds = GLOB.barefootstep
 		if(FOOTSTEP_MOB_CLAW)
@@ -36,14 +47,6 @@
 			footstep_sounds = GLOB.footstep
 		if(FOOTSTEP_MOB_SLIME)
 			footstep_sounds = 'sound/effects/footstep/slime1.ogg'
-		if(FOOTSTEP_OBJ_MACHINE)
-			footstep_sounds = 'sound/effects/bang.ogg'
-			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_simplestep_machine)
-			return
-		if(FOOTSTEP_OBJ_ROBOT)
-			footstep_sounds = 'sound/effects/tank_treads.ogg'
-			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_simplestep_machine)
-			return
 
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_simplestep)
 
@@ -87,7 +90,7 @@
 		playsound(T, footstep_sounds, volume, sound_vary)
 		return
 
-	// Turf-dependent sound file
+	// Otherwise, turf-dependent sound file
 	var/turf_footstep = get_turf_sound(T, footstep_type)
 	if(!turf_footstep)
 		return
@@ -98,8 +101,17 @@
 		footstep_sounds[turf_footstep][3] + e_range // Range
 	)
 
+///Plays a footstep for machine walking
+/datum/component/footstep/proc/play_simplestep_machine()
+	SIGNAL_HANDLER
+
+	var/turf/simulated/floor/T = get_turf(parent)
+	if(!istype(T))
+		return
+	playsound(T, footstep_sounds, 50, sound_vary)
+
 /**
- * Plays a footstep sound for /human mobs, based on species and footwear.
+ * Plays a footstep sound for `/human` mobs, based on species and footwear.
  *
  * If the mob is wearing shoes then a shoe sound is played, if they're barefoot then the sound will be set by their [/datum/species/var/footstep_type] variable.
  * In both cases the final sound is based on the turf they're walking over. (Metal, wood, carpet, etc.)
@@ -107,14 +119,14 @@
 /datum/component/footstep/proc/play_humanstep()
 	SIGNAL_HANDLER
 
-	if(HAS_TRAIT(parent, TRAIT_SILENT_FOOTSTEPS))
+	var/mob/living/carbon/human/H = parent
+	if(HAS_TRAIT(H, TRAIT_SILENT_FOOTSTEPS))
 		return
 	var/turf/simulated/floor/T = prepare_step()
 	if(!T)
 		return
-	var/mob/living/carbon/human/H = parent
 
-	var/step_type = H.dna.species.footstep_type
+	var/step_type = H.dna.species.footstep_type // Default to barefoot sounds
 
 	if((H.wear_suit?.body_parts_covered | H.w_uniform?.body_parts_covered | H.shoes?.body_parts_covered) & FEET)
 		step_type = FOOTSTEP_MOB_SHOE // Feet are covered
@@ -130,16 +142,6 @@
 		sound_vary,								// Pitch variation
 		step_sounds[turf_footstep][3] + e_range // Range
 	)
-
-
-///Prepares a footstep for machine walking
-/datum/component/footstep/proc/play_simplestep_machine()
-	SIGNAL_HANDLER
-
-	var/turf/simulated/floor/T = get_turf(parent)
-	if(!istype(T))
-		return
-	playsound(T, footstep_sounds, 50, sound_vary)
 
 /datum/component/footstep/proc/get_step_sounds(step_type)
 	switch(step_type)

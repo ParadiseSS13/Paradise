@@ -61,7 +61,7 @@
 	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
 
-	/// Type of footsteps to use if barefoot. (FOOTSTEP_MOB_BAREFOOT, FOOTSTEP_MOB_CLAW, etc.)
+	/// Type of footstep sounds to use if barefoot. (FOOTSTEP_MOB_BAREFOOT, FOOTSTEP_MOB_CLAW, etc.)
 	var/footstep_type = FOOTSTEP_MOB_BAREFOOT
 
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
