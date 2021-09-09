@@ -15305,7 +15305,8 @@
 "aOF" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
-	icon_state = "bar"
+	dir = 5;
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "aOG" = (
@@ -16463,7 +16464,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "bar"
+	dir = 5;
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "aRe" = (
@@ -16686,7 +16688,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "bar"
+	dir = 5;
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "aRC" = (
@@ -95411,6 +95414,13 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"hly" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark"
+	},
+/area/crew_quarters/bar)
 "hmC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -136958,12 +136968,12 @@ aKq
 aFA
 aFA
 aOF
-aUI
+hly
 aRA
 aRd
 aRA
-aUI
-aOG
+hly
+aIZ
 aYZ
 aYZ
 aYZ
