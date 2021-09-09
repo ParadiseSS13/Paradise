@@ -34,6 +34,15 @@
 	reagent_ids = list("syndicate_nanites", "potass_iodide", "hydrocodone")
 	bypass_protection = 1
 
+/obj/item/reagent_containers/borghypo/peace
+	name = "Peace Hypospray"
+	reagent_ids = list("dizzysolution", "tiresolution", "synthpax")
+
+/obj/item/reagent_containers/borghypo/peace/hacked
+	desc = "Everything's peaceful in death!"
+	icon_state = "borghypo_s"
+	reagent_ids = list("dizzysolution", "tiresolution", "synthpax", "tirizene", "sulfonal", "sodium_thiopental", "cyanide", "neurotoxin2")
+
 /obj/item/reagent_containers/borghypo/New()
 	..()
 	for(var/R in reagent_ids)

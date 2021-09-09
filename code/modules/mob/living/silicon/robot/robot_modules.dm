@@ -265,47 +265,6 @@
 /obj/item/robot_module/proc/handle_death(mob/living/silicon/robot/R, gibbed)
 	return
 
-// Standard cyborg module.
-/obj/item/robot_module/standard
-	// if station is fine, assist with constructing station goal room, cleaning, and repairing cables chewed by rats
-	// if medical crisis, assist by providing basic healthcare, retrieving corpses, and monitoring crew lifesigns
-	// if eng crisis, assist by helping repair hull breaches
-	// if sec crisis, assist by opening doors for sec and providing backup zipties on patrols
-	name = "generalist robot module"
-	module_type = "Standard"
-	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_crew_monitor)
-	basic_modules = list(
-		// sec
-		/obj/item/flash/cyborg,
-		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
-		// janitorial
-		/obj/item/soap/nanotrasen,
-		/obj/item/lightreplacer/cyborg,
-		// eng
-		/obj/item/crowbar/cyborg,
-		/obj/item/wrench/cyborg,
-		/obj/item/extinguisher, // for firefighting, and propulsion in space
-		/obj/item/weldingtool/largetank/cyborg,
-		// mining
-		/obj/item/pickaxe,
-		/obj/item/t_scanner/adv_mining_scanner,
-		/obj/item/storage/bag/ore/cyborg,
-		// med
-		/obj/item/healthanalyzer,
-		/obj/item/reagent_containers/borghypo/basic,
-		/obj/item/roller_holder, // for taking the injured to medbay without worsening their injuries or leaving a blood trail the whole way
-		/obj/item/stack/sheet/metal/cyborg,
-		/obj/item/stack/cable_coil/cyborg,
-		/obj/item/stack/rods/cyborg,
-		/obj/item/stack/tile/plasteel/cyborg
-	)
-	emag_modules = list(/obj/item/melee/energy/sword/cyborg)
-	special_rechargables = list(
-		/obj/item/extinguisher,
-		/obj/item/weldingtool/largetank/cyborg,
-		/obj/item/lightreplacer/cyborg
-	)
-
 // Medical cyborg module.
 /obj/item/robot_module/medical
 	name = "medical robot module"
@@ -319,6 +278,7 @@
 		/obj/item/borg_defib,
 		/obj/item/handheld_defibrillator,
 		/obj/item/roller_holder,
+		/obj/item/borg/cyborghug/medical,
 		/obj/item/reagent_containers/borghypo,
 		/obj/item/scalpel/laser/laser1,
 		/obj/item/hemostat,
@@ -401,6 +361,21 @@
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
+
+
+// Peacekeeper cyborg module.
+/obj/item/robot_module/peacekeeper
+	name = "Peacekeeper"
+	module_type = "Standard"
+	basic_modules = list(
+		/obj/item/cookiesynth,
+	 	/obj/item/harmalarm,
+	 	/obj/item/reagent_containers/borghypo/peace,
+	 	/obj/item/holosign_creator/cyborg,
+	 	/obj/item/borg/cyborghug/peacekeeper,
+	 	/obj/item/extinguisher
+/*	 	/obj/item/borg/projectile_dampen*/)
+	emag_modules = list(/obj/item/reagent_containers/borghypo/peace/hacked)
 
 // Security cyborg module.
 /obj/item/robot_module/security
