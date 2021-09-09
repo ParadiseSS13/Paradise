@@ -5,4 +5,4 @@
 
 
 /datum/event/carp_migration/koi/start()
-	spawn_fish(rand(4, 6)) 			//12 to 30 koi, in small groups
+	spawn_fish(rand(4, 6)) //12 to 30 koi, in small groups
