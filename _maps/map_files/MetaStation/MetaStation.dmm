@@ -24101,7 +24101,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering";
-	req_access_txt = "32"
+	req_one_access_txt = "32;70"
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -27167,12 +27167,13 @@
 	},
 /area/storage/tech)
 "bhK" = (
-/obj/structure/reagent_dispensers/spacecleanertank{
-	pixel_y = 30
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 2;
 	icon_state = "pipe-c"
+	},
+/obj/structure/closet/jcloset,
+/obj/machinery/light_switch{
+	pixel_x = 23
 	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
@@ -27719,8 +27720,7 @@
 /area/hallway/primary/central)
 "biY" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/machinery/light_switch{
-	pixel_x = 8;
+/obj/structure/reagent_dispensers/spacecleanertank{
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -28622,7 +28622,7 @@
 "bkL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
+	dir = 5
 	},
 /turf/simulated/floor/plating,
 /area/janitor)
@@ -28631,6 +28631,9 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -29563,12 +29566,12 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
 /mob/living/simple_animal/lizard{
 	name = "Wags-His-Tail";
 	real_name = "Wags-His-Tail"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -29582,9 +29585,6 @@
 	},
 /obj/effect/landmark/start{
 	name = "Janitor"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -29736,14 +29736,12 @@
 	pixel_x = -24
 	},
 /obj/structure/table,
-/obj/item/clothing/gloves/color/orange,
-/obj/item/storage/box/mousetraps,
-/obj/item/storage/box/mousetraps,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/item/key/janitor,
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -30496,6 +30494,8 @@
 /obj/item/grenade/chem_grenade/cleaner,
 /obj/item/grenade/chem_grenade/cleaner,
 /obj/item/grenade/chem_grenade/cleaner,
+/obj/item/storage/box/mousetraps,
+/obj/item/storage/box/mousetraps,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -30663,13 +30663,11 @@
 "boN" = (
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/restraints/legcuffs/beartrap,
-/obj/structure/table,
 /obj/machinery/requests_console{
 	department = "Janitorial";
 	departmentType = 1;
 	pixel_x = -29
 	},
-/obj/item/reagent_containers/spray/cleaner,
 /obj/machinery/camera{
 	c_tag = "Custodial Closet";
 	dir = 4
@@ -30677,9 +30675,12 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
+/obj/item/mop,
+/obj/item/reagent_containers/glass/bucket,
+/obj/structure/rack{
+	dir = 1
 	},
+/obj/item/clothing/gloves/color/orange,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -31240,8 +31241,6 @@
 	dir = 4;
 	pixel_x = 11
 	},
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/mop,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 24
@@ -36147,7 +36146,7 @@
 "byV" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Engineering Foyer Maintenance";
-	req_one_access_txt = "32;19"
+	req_one_access_txt = "32;19;70"
 	},
 /turf/simulated/floor/plating,
 /area/engine/break_room)
@@ -82361,14 +82360,6 @@
 	icon_state = "redfull"
 	},
 /area/security/main)
-"vgQ" = (
-/obj/docking_port/stationary/whiteship{
-	dir = 8;
-	id = "whiteship_cyberiad";
-	name = "North of Cerebron"
-	},
-/turf/space,
-/area/space)
 "vjp" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -136763,7 +136754,7 @@ aaa
 aaa
 aaa
 aaa
-vgQ
+aaa
 aaa
 aaa
 aaa
