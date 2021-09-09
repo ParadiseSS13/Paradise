@@ -12106,15 +12106,11 @@
 	},
 /area/crew_quarters/bar)
 "aHS" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
 	icon_state = "pipe-j2s";
 	name = "Bar Junction";
-	sortType = 4
+	sortType = 19
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -76038,10 +76034,6 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 1;
-	icon_state = "pipe-j2"
-	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
 	name = "RD Junction 1";
@@ -78528,7 +78520,6 @@
 	dir = 8;
 	initialize_directions = 11
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "CMO's Junction";
@@ -95411,7 +95402,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "HoS Junction";
