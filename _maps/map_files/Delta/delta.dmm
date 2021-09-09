@@ -50397,10 +50397,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 5
-	},
-/obj/structure/grille,
+/obj/effect/spawner/window/reinforced/polarized,
 /turf/simulated/floor/plating,
 /area/ntrep)
 "cho" = (
@@ -50418,10 +50415,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 5
-	},
-/obj/structure/grille,
+/obj/effect/spawner/window/reinforced/polarized,
 /turf/simulated/floor/plating,
 /area/ntrep)
 "chp" = (
@@ -50429,10 +50423,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 5
-	},
-/obj/structure/grille,
+/obj/effect/spawner/window/reinforced/polarized,
 /turf/simulated/floor/plating,
 /area/ntrep)
 "chq" = (
@@ -51043,10 +51034,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 5
-	},
+/obj/effect/spawner/window/reinforced/polarized,
 /turf/simulated/floor/plating,
 /area/ntrep)
 "ciL" = (
@@ -51823,10 +51811,7 @@
 /area/crew_quarters/heads/hop)
 "ckt" = (
 /obj/structure/cable,
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 5
-	},
+/obj/effect/spawner/window/reinforced/polarized,
 /turf/simulated/floor/plating,
 /area/ntrep)
 "cku" = (
