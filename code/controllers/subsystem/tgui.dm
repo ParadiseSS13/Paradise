@@ -27,6 +27,13 @@ SUBSYSTEM_DEF(tgui)
 /datum/controller/subsystem/tgui/stat_entry()
 	..("P:[processing_uis.len]")
 
+/datum/controller/subsystem/tgui/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["processing"] = length(processing_uis)
+	.["custom"] = cust
+
+
 /datum/controller/subsystem/tgui/fire(resumed = 0)
 	if (!resumed)
 		src.currentrun = processing_uis.Copy()
@@ -119,7 +126,7 @@ SUBSYSTEM_DEF(tgui)
  * Close all UIs attached to src_object.
  * Returns the number of UIs closed.
  *
- * * datum/src_objectThe object/datum which owns the UIs.
+ * * datum/src_object - The object/datum which owns the UIs.
  */
 /datum/controller/subsystem/tgui/proc/close_uis(datum/src_object)
 	if(!src_object.unique_datum_id) // First check if the datum has an UID set

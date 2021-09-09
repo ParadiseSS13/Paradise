@@ -66,10 +66,10 @@
 	item_state = "welding"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
 		)
 
 /obj/item/clothing/head/collectable/slime
@@ -116,7 +116,7 @@
 	desc = "WARNING! Offers no real protection, or luminosity, but it is damn fancy!"
 	icon_state = "hardhat0_yellow"
 	item_state = "hardhat0_yellow"
-	dog_fashion = /datum/dog_fashion/head
+	dog_fashion = /datum/dog_fashion/head/hardhat
 
 /obj/item/clothing/head/collectable/HoS
 	name = "collectable HoS hat"
@@ -142,5 +142,5 @@
 	item_state = "swat"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi'
 		)

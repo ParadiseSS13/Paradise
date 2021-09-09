@@ -72,6 +72,16 @@
 	build_path = /obj/item/defibrillator
 	category = list("Medical")
 
+/datum/design/compact_defib
+	name = "Compact Defibrillator"
+	desc = "A belt-mounted defibrillator for rapid deployment."
+	id = "compact_defib"
+	req_tech = list("materials" = 7, "biotech" = 7, "powerstorage" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
+	build_path = /obj/item/defibrillator/compact
+	category = list("Medical")
+
 /datum/design/defib_mount
 	name = "Defibrillator Wall Mount"
 	desc = "A wall mount for defibrillator units."

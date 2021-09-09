@@ -1355,7 +1355,7 @@
 	for(var/obj/machinery/light/L in area)
 		if(L.nightshift_allowed)
 			L.nightshift_enabled = nightshift_lights
-			L.update(FALSE)
+			L.update(FALSE, play_sound = FALSE)
 		CHECK_TICK
 
 /obj/machinery/power/apc/proc/relock_callback()
