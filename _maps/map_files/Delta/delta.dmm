@@ -9268,7 +9268,14 @@
 /area/maintenance/fore)
 "aBE" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/table/reinforced,
+/obj/machinery/door/window{
+	dir = 2;
+	name = "Bar Door";
+	req_access_txt = "25"
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -14077,7 +14084,7 @@
 	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aLT" = (
@@ -14614,7 +14621,7 @@
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aNj" = (
@@ -14627,7 +14634,7 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aNk" = (
@@ -15076,7 +15083,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aOd" = (
@@ -15298,13 +15305,12 @@
 "aOF" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aOG" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aOH" = (
@@ -15382,7 +15388,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aOR" = (
@@ -15641,7 +15647,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aPv" = (
@@ -15917,18 +15923,11 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/bar/atrium)
-"aPZ" = (
-/obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
-	},
-/area/crew_quarters/bar)
 "aQb" = (
 /obj/structure/table/wood,
 /obj/item/storage/pill_bottle/dice,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aQc" = (
@@ -15941,14 +15940,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aQd" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/cans/cola,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aQe" = (
@@ -16126,7 +16125,7 @@
 	},
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aQu" = (
@@ -16464,8 +16463,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aRe" = (
@@ -16476,7 +16474,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aRf" = (
@@ -16609,7 +16607,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aRt" = (
@@ -16668,7 +16666,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aRy" = (
@@ -16688,15 +16686,14 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aRC" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/cheesiehonkers,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aRD" = (
@@ -16704,14 +16701,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aRE" = (
 /obj/structure/table/wood,
 /obj/item/deck/cards,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aRH" = (
@@ -17454,7 +17451,7 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aTi" = (
@@ -17514,7 +17511,7 @@
 "aTp" = (
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aTq" = (
@@ -18053,7 +18050,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aUk" = (
@@ -18094,7 +18091,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aUp" = (
@@ -18159,7 +18156,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aUx" = (
@@ -18204,7 +18201,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aUC" = (
@@ -18268,7 +18265,7 @@
 "aUI" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aUJ" = (
@@ -18277,7 +18274,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aUL" = (
@@ -18286,7 +18283,7 @@
 	icon_state = "pipe-y"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aUM" = (
@@ -18908,7 +18905,7 @@
 	},
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aVR" = (
@@ -19038,7 +19035,7 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/chips,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aWh" = (
@@ -19047,26 +19044,26 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aWi" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/britcup,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aWj" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aWk" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aWl" = (
@@ -19916,7 +19913,7 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aXI" = (
@@ -19924,7 +19921,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aXJ" = (
@@ -20075,6 +20072,9 @@
 /area/hallway/primary/fore)
 "aYa" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/item/radio/intercom{
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -20605,7 +20605,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aZc" = (
@@ -20618,7 +20618,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "aZd" = (
@@ -21182,9 +21182,8 @@
 	dir = 4;
 	pixel_x = 28
 	},
-/obj/structure/chair/stool/bar,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "baa" = (
@@ -21577,7 +21576,7 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "baS" = (
@@ -21597,7 +21596,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
 "baU" = (
@@ -22406,16 +22405,11 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/bar)
 "bcx" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/saltshaker,
-/obj/item/reagent_containers/food/drinks/britcup,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/window{
-	dir = 2;
+/obj/machinery/door/airlock/glass{
 	name = "Kitchen";
 	req_access_txt = "28"
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bcy" = (
@@ -23146,11 +23140,18 @@
 	},
 /area/crew_quarters/kitchen)
 "bdR" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 30
+/obj/structure/table/reinforced,
+/obj/machinery/door/window{
+	dir = 2;
+	name = "Kitchen";
+	req_access_txt = "28"
 	},
+/obj/item/reagent_containers/food/drinks/britcup,
+/obj/item/reagent_containers/food/condiment/saltshaker,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull"
+	icon_state = "bar"
 	},
 /area/crew_quarters/kitchen)
 "bdS" = (
@@ -23169,7 +23170,9 @@
 	req_access_txt = "28"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
 /area/crew_quarters/kitchen)
 "bdU" = (
 /turf/simulated/wall,
@@ -23714,7 +23717,9 @@
 	req_access_txt = "28"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
 /area/crew_quarters/kitchen)
 "bfm" = (
 /obj/machinery/kitchen_machine/oven,
@@ -23738,7 +23743,9 @@
 	req_access_txt = "28"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
 /area/crew_quarters/kitchen)
 "bfp" = (
 /obj/machinery/door/firedoor,
@@ -24816,8 +24823,8 @@
 	},
 /area/storage/primary)
 "bhK" = (
-/obj/item/radio/intercom{
-	pixel_y = 28
+/obj/structure/sink/kitchen{
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -136951,12 +136958,12 @@ aKq
 aFA
 aFA
 aOF
-aPZ
+aUI
 aRA
 aRd
 aRA
-aPZ
-aIZ
+aUI
+aOG
 aYZ
 aYZ
 aYZ
@@ -137472,7 +137479,7 @@ aWj
 aLS
 aUj
 aOG
-aTp
+aOG
 bcx
 bdP
 bdQ
@@ -137986,9 +137993,9 @@ aUJ
 aWh
 aUw
 aOG
-aOG
-aYZ
+aTp
 bdR
+bdP
 bgv
 bgB
 bhR
