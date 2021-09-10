@@ -22,11 +22,11 @@
 	var/mob/living/ass = null
 
 	//So that they shut down if too much is printed
-	/// Current static number of items printed
+	/// Current global number of items printed
 	var/static/items_printed = 0
-	/// Maximum static number of items printed
+	/// Maximum global number of items printed
 	var/static/max_items = 300
-	/// If max_items is reached, have admins been notified
+	/// If max_items is reached, have admins been notified yet?
 	var/static/copier_shutdown_logged = FALSE
 
 /obj/machinery/photocopier/attack_ai(mob/user)

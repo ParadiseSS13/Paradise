@@ -1137,7 +1137,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/timedifference = world.time - client.time_died_as_mouse
 	if(client.time_died_as_mouse && timedifference <= MOUSE_RESPAWN_TIME)
 		var/timedifference_text
-		timedifference_text = time2text(MOUSE_RESPAWN_TIME - timedifference,"mm:ss" MINUTES)
+		timedifference_text = time2text(MOUSE_RESPAWN_TIME - timedifference, "mm:ss")
 		to_chat(src, "<span class='warning'>You may only spawn again as a mouse more than [MOUSE_RESPAWN_TIME / 600] minutes after your death. You have [timedifference_text] left.</span>")
 		return
 
