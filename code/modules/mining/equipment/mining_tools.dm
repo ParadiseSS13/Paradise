@@ -42,6 +42,15 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 1000)
 
+/obj/item/pickaxe/bone
+	name = "bone pickaxe"
+	icon_state = "bone_pickaxe"
+	item_state = "bone_pickaxe"
+	origin_tech = "materials=1;engineering=2"
+	toolspeed = 0.7
+	desc = "Do it yourself pickaxe."
+	force = 16
+	materials = list()
 /obj/item/pickaxe/silver
 	name = "silver-plated pickaxe"
 	icon_state = "spickaxe"
@@ -50,6 +59,7 @@
 	toolspeed = 0.5 //mines faster than a normal pickaxe, bought from mining vendor
 	desc = "A silver-plated pickaxe that mines slightly faster than standard-issue."
 	force = 17
+	materials = list(MAT_METAL=1900,MAT_SILVER=100)
 
 /obj/item/pickaxe/gold
 	name = "golden pickaxe"
@@ -59,6 +69,7 @@
 	toolspeed = 0.4
 	desc = "A gold-plated pickaxe that mines faster than standard-issue."
 	force = 18
+	materials = list(MAT_METAL=1900,MAT_GOLD=100)
 
 /obj/item/pickaxe/diamond
 	name = "diamond-tipped pickaxe"
@@ -68,6 +79,7 @@
 	toolspeed = 0.3
 	desc = "A pickaxe with a diamond pick head. Extremely robust at cracking rock walls and digging up dirt."
 	force = 19
+	materials = list(MAT_METAL=1900,MAT_DIAMOND=100)
 
 /obj/item/pickaxe/drill
 	name = "mining drill"

@@ -129,6 +129,14 @@
 	var/extend = 1
 	var/swiping = FALSE
 
+/obj/item/scythe/bone
+	icon_state = "bone_scythe"
+	item_state = "bone_scythe"
+	name = "bone scythe"
+	desc = "Perfect for harvesting. And it's not about plants."
+	force = 14
+	throw_range = 4
+	origin_tech = "materials=1;combat=2"
 /obj/item/scythe/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is beheading [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	if(ishuman(user))
