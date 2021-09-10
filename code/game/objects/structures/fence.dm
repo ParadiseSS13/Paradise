@@ -142,7 +142,7 @@
 			return
 		shock(user, 70)
 		shock_cooldown = TRUE // We do not want bump shock spam!
-		addtimer(CALLBACK(src, .proc/shock_cooldown), 1 SECONDS, TIMER_OVERRIDE)
+		addtimer(CALLBACK(src, .proc/shock_cooldown), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /obj/structure/fence/proc/shock_cooldown()
 	shock_cooldown = FALSE

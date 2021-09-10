@@ -65,25 +65,35 @@
 	return TRUE
 
 /obj/structure/railing/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSFENCE))
+	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
-	..()
-	var/mob/living/M = mover
-	if(M.flying || M.floating || mover.throwing)
+	if(istype(mover, /obj/item/projectile))
 		return TRUE
-	if(get_dir(loc, target) == dir)
-		return !density
-	return TRUE
+	if(ismob(mover))
+		var/mob/M = mover
+		if(M.flying)
+			return TRUE
+	if(mover.throwing)
+		return TRUE
+	if(get_dir(loc, target) != dir)
+		return density
+	return FALSE
 
 /obj/structure/railing/corner/CanPass()
 	return TRUE
 
+/obj/structure/railing/corner/CheckExit()
+	return TRUE
+
 /obj/structure/railing/CheckExit(atom/movable/O, target)
+	var/mob/living/M = O
 	if(istype(O) && O.checkpass(PASSFENCE))
 		return TRUE
-	var/mob/living/M = O
-	if(M.flying | M.floating)
+	if(istype(O, /obj/item/projectile))
 		return TRUE
+	if(ismob(O))
+		if(M.flying | M.floating)
+			return TRUE
 	if(O.throwing)
 		return TRUE
 	if(O.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
