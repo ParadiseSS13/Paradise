@@ -1153,3 +1153,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(degrees)
 		appearance_flags |= PIXEL_SCALE
 	transform = M
+
+///Setter for the `density` variable to append behavior related to its changing.
+/atom/proc/set_density(new_value)
+	if(density == new_value)
+		return
+	. = density
+	density = new_value
