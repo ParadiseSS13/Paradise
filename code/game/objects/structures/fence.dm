@@ -23,6 +23,7 @@
 	var/cuttable = TRUE
 	var/hole_size= NO_HOLE
 	var/invulnerable = FALSE
+	var/shock_cooldown = TRUE
 
 /obj/structure/fence/Initialize()
 	. = ..()
@@ -58,8 +59,30 @@
 	icon_state = "straight_cut3"
 	hole_size = LARGE_HOLE
 
+// shock user with probability prb (if all connections & power are working)
+// returns 1 if shocked, 0 otherwise
+// Totally not stolen from code\game\objects\structures\grille.dm
+
+/obj/structure/fence/proc/shock(mob/user, prb)
+	if(!anchored || broken) // unanchored/broken fences are never connected
+		return FALSE
+	if(!prob(prb))
+		return FALSE
+	if(!in_range(src, user)) //To prevent TK and mech users from getting shocked
+		return FALSE
+	var/turf/T = get_turf(src)
+	var/obj/structure/cable/C = T.get_cable_node()
+	if(C)
+		if(electrocute_mob(user, C, src, 1, TRUE))
+			do_sparks(3, 1, src)
+			return TRUE
+		else
+			return FALSE
+	return FALSE
 
 /obj/structure/fence/wirecutter_act(mob/living/user, obj/item/W)
+	if(shock(user, 100))
+		return
 	if(!cuttable)
 		to_chat(user, "<span class='warning'>This section of the fence can't be cut!</span>")
 		return
@@ -90,6 +113,8 @@
 
 /obj/structure/fence/attackby(obj/item/C, mob/user)
 	. = ..()
+	if(shock(user, 90))
+		return
 	if(istype(C, /obj/item/stack/rods))
 		if(hole_size == NO_HOLE)
 			return
@@ -107,6 +132,22 @@
 					to_chat(user, "<span class='notice'>You repair the fence.</span>")
 					update_cut_status()
 				return TRUE
+
+/obj/structure/fence/Bumped(atom/user)
+	if(ismob(user))
+		if(shock_cooldown)
+			return
+		shock(user, 70)
+		shock_cooldown = TRUE // We do not want bump shock spam!
+		addtimer(CALLBACK(src, .proc/shock_cooldown), 1 SECONDS, TIMER_OVERRIDE)
+
+/obj/structure/fence/proc/shock_cooldown()
+	shock_cooldown = FALSE
+
+/obj/structure/fence/attack_animal(mob/user)
+	. = ..()
+	if(. && !QDELETED(src) && !shock(user, 70))
+		take_damage(rand(5,10), BRUTE, "melee", 1)
 
 /obj/structure/fence/proc/update_cut_status()
 	if(!cuttable)
@@ -158,6 +199,11 @@
 
 /obj/structure/fence/door/proc/can_open(mob/user)
 	return TRUE
+
+/obj/structure/fence/door/CanAStarPass(ID, dir, caller)
+	if(open)
+		return TRUE
+	return FALSE
 
 #undef CUT_TIME
 #undef CLIMB_TIME

@@ -6,6 +6,7 @@
 	density = TRUE
 	anchored = TRUE
 	climbable = TRUE
+	layer = ABOVE_MOB_LAYER
 	var/currently_climbed = FALSE
 
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
