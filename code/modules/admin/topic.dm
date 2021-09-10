@@ -982,7 +982,9 @@
 
 	else if(href_list["removenote"])
 		var/note_id = href_list["removenote"]
-		remove_note(note_id)
+		if(note_id)
+			if((alert("Do you really want to delete this note?","Note deletion confirmation", "Yes", "No") == "Yes") && note_id)
+				remove_note(note_id)
 
 	else if(href_list["editnote"])
 		var/note_id = href_list["editnote"]
