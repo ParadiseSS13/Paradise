@@ -122,7 +122,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	if(M.ckey)
 		body += "<A href='?_src_=holder;boot2=[M.UID()]'>Kick</A> | "
-		body += "<A href='?_src_=holder;warn=[M.ckey]'>Warn</A> | "
 		body += "<A href='?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</A> | "
 		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
 		body += "<A href='?_src_=holder;appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</A> | "
@@ -141,14 +140,13 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += "\ <A href='?_src_=holder;sendbacktolobby=[M.UID()]'>Send back to Lobby</A> | "
 		body += "\ <A href='?_src_=holder;eraseflavortext=[M.UID()]'>Erase Flavor Text</A> | "
 		body += "\ <A href='?_src_=holder;userandomname=[M.UID()]'>Use Random Name</A> | "
-		var/muted = M.client.prefs.muted
 		body += {"<br><b>Mute: </b>
-			\[<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"#6685f5"]'>IC</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_OOC]'><font color='[(muted & MUTE_OOC)?"red":"#6685f5"]'>OOC</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><font color='[(muted & MUTE_PRAY)?"red":"#6685f5"]'>PRAY</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><font color='[(muted & MUTE_ADMINHELP)?"red":"#6685f5"]'>ADMINHELP</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><font color='[(muted & MUTE_DEADCHAT)?"red":"#6685f5"]'>DEADCHAT</font></a>\]
-			(<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><font color='[(muted & MUTE_ALL)?"red":"#6685f5"]'>toggle all</font></a>)
+			\[<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><font color='[check_mute(M.client.ckey, MUTE_IC) ? "red" : "#6685f5"]'>IC</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_OOC]'><font color='[check_mute(M.client.ckey, MUTE_OOC) ? "red" : "#6685f5"]'>OOC</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><font color='[check_mute(M.client.ckey, MUTE_PRAY) ? "red" : "#6685f5"]'>PRAY</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><font color='[check_mute(M.client.ckey, MUTE_ADMINHELP) ? "red" : "#6685f5"]'>ADMINHELP</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><font color='[check_mute(M.client.ckey, MUTE_DEADCHAT) ?" red" : "#6685f5"]'>DEADCHAT</font></a>]
+			(<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><font color='[check_mute(M.client.ckey, MUTE_ALL) ? "red" : "#6685f5"]'>toggle all</font></a>)
 		"}
 
 	var/jumptoeye = ""

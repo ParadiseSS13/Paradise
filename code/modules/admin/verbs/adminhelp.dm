@@ -3,7 +3,7 @@
 	set name = "Adminhelp"
 
 	//handle muting and automuting
-	if(prefs.muted & MUTE_ADMINHELP)
+	if(check_mute(ckey, MUTE_ADMINHELP))
 		to_chat(src, "<font color='red'>Error: Admin-PM: You cannot send adminhelps (Muted).</font>")
 		return
 

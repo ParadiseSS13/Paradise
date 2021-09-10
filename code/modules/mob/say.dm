@@ -51,7 +51,7 @@
 				to_chat(src, "<span class='danger'>Deadchat is globally muted.</span>")
 				return
 
-		if(client.prefs.muted & MUTE_DEADCHAT)
+		if(check_mute(client.ckey, MUTE_DEADCHAT))
 			to_chat(src, "<span class='warning'>You cannot talk in deadchat (muted).</span>")
 			return
 
