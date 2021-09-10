@@ -70,7 +70,7 @@
 	damage = 60
 	damage_type = BRUTE
 	flag = "bullet"
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE
 
 	weaken = 5
 	stun = 5

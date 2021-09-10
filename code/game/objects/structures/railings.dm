@@ -5,6 +5,7 @@
 	icon_state = "railing"
 	density = TRUE
 	anchored = TRUE
+	pass_flags = LETPASSTHROW
 	climbable = TRUE
 	layer = ABOVE_MOB_LAYER
 	var/currently_climbed = FALSE
@@ -64,6 +65,8 @@
 	return TRUE
 
 /obj/structure/railing/CanPass(atom/movable/mover, turf/target)
+	if(istype(mover) && mover.checkpass(PASSFENCE))
+		return TRUE
 	..()
 	var/mob/living/M = mover
 	if(M.flying || M.floating || mover.throwing)
@@ -73,10 +76,11 @@
 	return TRUE
 
 /obj/structure/railing/corner/CanPass()
-	..()
 	return TRUE
 
 /obj/structure/railing/CheckExit(atom/movable/O, target)
+	if(istype(O) && O.checkpass(PASSFENCE))
+		return TRUE
 	var/mob/living/M = O
 	if(M.flying | M.floating)
 		return TRUE

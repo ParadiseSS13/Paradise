@@ -26,12 +26,10 @@
 
 /obj/structure/fence/Initialize()
 	. = ..()
-
 	update_cut_status()
 
 /obj/structure/fence/examine(mob/user)
 	. = ..()
-
 	switch(hole_size)
 		if(MEDIUM_HOLE)
 			. += "There is a large hole in \the [src]."
@@ -57,6 +55,13 @@
 /obj/structure/fence/cut/large
 	icon_state = "straight_cut3"
 	hole_size = LARGE_HOLE
+
+/obj/structure/fence/CanPass(atom/movable/mover, turf/target)
+	if(istype(mover) && mover.checkpass(PASSFENCE))
+		return TRUE
+	if(!density)
+		return TRUE
+	return FALSE
 
 // shock user with probability prb (if all connections & power are working)
 // returns 1 if shocked, 0 otherwise

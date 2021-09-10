@@ -5,6 +5,7 @@
 	damage_type = BURN
 	flag = "energy"
 	is_reflectable = TRUE
+	pass_flags = PASSFENCE
 
 /obj/item/projectile/energy/electrode
 	name = "electrode"

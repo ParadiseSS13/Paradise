@@ -53,7 +53,7 @@
 	nodamage = 1
 	flag = "energy"
 	var/temperature = 300
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE
 
 /obj/item/projectile/temp/New(loc, shot_temp)
 	..()
