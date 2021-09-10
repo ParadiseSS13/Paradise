@@ -88,7 +88,7 @@
 		if(get_turf(M) == get_turf(src))
 			var/turf/T = target
 			if(T.density)
-				return TRUE
+				return FALSE
 			for(var/atom/A in T)
 				if(A.density)
 					return FALSE

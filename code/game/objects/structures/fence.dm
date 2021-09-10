@@ -1,7 +1,6 @@
 //Chain link fences
 //Sprites ported from /VG/
 
-
 #define CUT_TIME 100
 #define CLIMB_TIME 150
 
@@ -23,7 +22,7 @@
 	var/cuttable = TRUE
 	var/hole_size= NO_HOLE
 	var/invulnerable = FALSE
-	var/shock_cooldown = TRUE
+	var/shock_cooldown = FALSE
 
 /obj/structure/fence/Initialize()
 	. = ..()
@@ -64,8 +63,6 @@
 // Totally not stolen from code\game\objects\structures\grille.dm
 
 /obj/structure/fence/proc/shock(mob/user, prb)
-	if(!anchored || broken) // unanchored/broken fences are never connected
-		return FALSE
 	if(!prob(prb))
 		return FALSE
 	if(!in_range(src, user)) //To prevent TK and mech users from getting shocked
@@ -76,11 +73,10 @@
 		if(electrocute_mob(user, C, src, 1, TRUE))
 			do_sparks(3, 1, src)
 			return TRUE
-		else
-			return FALSE
 	return FALSE
 
 /obj/structure/fence/wirecutter_act(mob/living/user, obj/item/W)
+	. = TRUE
 	if(shock(user, 100))
 		return
 	if(!cuttable)
@@ -90,48 +86,50 @@
 		to_chat(user, "<span class='warning'>This fence is too strong to cut through!</span>")
 		return
 	var/current_stage = hole_size
-	if(current_stage >= MAX_HOLE_SIZE)
-		to_chat(user, "<span class='warning'>This fence has too much cut out of it already!</span>")
-		return
-
 	user.visible_message("<span class='danger'>\The [user] starts cutting through \the [src] with \the [W].</span>",\
 	"<span class='danger'>You start cutting through \the [src] with \the [W].</span>")
 	if(W.use_tool(src, user, CUT_TIME * W.toolspeed, volume = W.tool_volume))
 		if(current_stage == hole_size)
-			switch(++hole_size)
-				if(MEDIUM_HOLE)
+			switch(hole_size)
+				if(NO_HOLE)
 					visible_message("<span class='notice'>\The [user] cuts into \the [src] some more.</span>")
 					to_chat(user, "<span class='info'>You could probably fit yourself through that hole now. Although climbing through would be much faster if you made it even bigger.</span>")
 					climbable = TRUE
-				if(LARGE_HOLE)
+					++hole_size
+				if(MEDIUM_HOLE)
 					visible_message("<span class='notice'>\The [user] completely cuts through \the [src].</span>")
 					to_chat(user, "<span class='info'>The hole in \the [src] is now big enough to walk through.</span>")
 					climbable = FALSE
+					++hole_size
+				if(LARGE_HOLE)
+					visible_message("<span class='notice'>\The [user] completely dismantles \the [src].</span>")
+					to_chat(user, "<span class='info'>You completely take apart \the [src].</span>")
+					qdel(src)
+					return
 			update_cut_status()
 			return
 
-
 /obj/structure/fence/attackby(obj/item/C, mob/user)
-	. = ..()
-	if(shock(user, 90))
-		return
 	if(istype(C, /obj/item/stack/rods))
 		if(hole_size == NO_HOLE)
 			return
 		var/obj/item/stack/rods/R = C
 		if(R.get_amount() < HOLE_REPAIR)
 			to_chat(user, "<span class='warning'>You need [HOLE_REPAIR] rods to fix this fence!</span>")
-			return TRUE
-		else
-			to_chat(user, "<span class='notice'>You begin repairing the fence...</span>")
-			if(do_after(user, 30 * C.toolspeed, target = src))
-				if(R.get_amount() >= HOLE_REPAIR && !(hole_size == NO_HOLE))
-					hole_size = NO_HOLE
-					playsound(src, C.usesound, 80, 1)
-					R.use(2)
-					to_chat(user, "<span class='notice'>You repair the fence.</span>")
-					update_cut_status()
-				return TRUE
+			return
+		to_chat(user, "<span class='notice'>You begin repairing the fence...</span>")
+		if(do_after(user, 30 * C.toolspeed, target = src))
+			if(R.get_amount() >= HOLE_REPAIR && !(hole_size == NO_HOLE))
+				R.use(HOLE_REPAIR)
+				playsound(src, C.usesound, 80, 1)
+				hole_size = NO_HOLE
+				obj_integrity = max_integrity
+				to_chat(user, "<span class='notice'>You repair the fence.</span>")
+				update_cut_status()
+				return
+	. = ..()
+	if(shock(user, 90))
+		return
 
 /obj/structure/fence/Bumped(atom/user)
 	if(ismob(user))
@@ -182,9 +180,9 @@
 	density = TRUE
 
 /obj/structure/fence/door/attack_hand(mob/user, list/modifiers)
+	shock(user, 70)
 	if(can_open(user))
 		toggle(user)
-
 	return TRUE
 
 /obj/structure/fence/door/proc/toggle(mob/user)
@@ -199,11 +197,6 @@
 
 /obj/structure/fence/door/proc/can_open(mob/user)
 	return TRUE
-
-/obj/structure/fence/door/CanAStarPass(ID, dir, caller)
-	if(open)
-		return TRUE
-	return FALSE
 
 #undef CUT_TIME
 #undef CLIMB_TIME
