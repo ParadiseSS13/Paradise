@@ -65594,7 +65594,6 @@
 	dir = 1;
 	initialize_directions = 11
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/junction{
 	dir = 1;
 	icon_state = "pipe-j2"
