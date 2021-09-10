@@ -6,7 +6,6 @@
 	nodamage = 1
 	armour_penetration = 100
 	flag = "magic"
-	pass_flags = PASSFENCE
 
 /obj/item/projectile/magic/death
 	name = "bolt of death"
