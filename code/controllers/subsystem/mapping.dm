@@ -6,6 +6,10 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/map/map_datum
 	/// What map will be used next round
 	var/datum/map/next_map
+	/// List of all areas that can be accessed via IC means
+	var/list/teleportlocs
+	/// List of all areas that can be accessed via IC and OOC means
+	var/list/ghostteleportlocs
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
 /datum/controller/subsystem/mapping/PreInit()
@@ -58,30 +62,32 @@ SUBSYSTEM_DEF(mapping)
 	log_startup_progress("Populating lavaland...")
 	var/lavaland_setup_timer = start_watch()
 	seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
-	spawn_rivers(list(level_name_to_num(MINING)))
+	spawn_rivers(level_name_to_num(MINING))
 	log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
 
 	// Now we make a list of areas for teleport locs
-	// AA TODO: Make these locs into lists on the SS itself, not globs
+	teleportlocs = list()
 	for(var/area/AR in world)
 		if(AR.no_teleportlocs)
 			continue
-		if(GLOB.teleportlocs[AR.name])
+		if(teleportlocs[AR.name])
 			continue
 		var/turf/picked = safepick(get_area_turfs(AR.type))
 		if(picked && is_station_level(picked.z))
-			GLOB.teleportlocs[AR.name] = AR
+			teleportlocs[AR.name] = AR
 
-	GLOB.teleportlocs = sortAssoc(GLOB.teleportlocs)
+	teleportlocs = sortAssoc(teleportlocs)
 
+
+	ghostteleportlocs = list()
 	for(var/area/AR in world)
-		if(GLOB.ghostteleportlocs[AR.name])
+		if(ghostteleportlocs[AR.name])
 			continue
 		var/list/turfs = get_area_turfs(AR.type)
 		if(turfs.len)
-			GLOB.ghostteleportlocs[AR.name] = AR
+			ghostteleportlocs[AR.name] = AR
 
-	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
+	ghostteleportlocs = sortAssoc(ghostteleportlocs)
 
 	// World name
 	if(GLOB.configuration.general.server_name)

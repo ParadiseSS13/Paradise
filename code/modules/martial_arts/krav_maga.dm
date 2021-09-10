@@ -104,20 +104,13 @@
 
 /datum/martial_art/krav_maga/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
-	if(prob(60))
-		if(D.hand)
-			if(istype(D.l_hand, /obj/item))
-				var/obj/item/I = D.l_hand
-				if(D.drop_item())
-					A.put_in_hands(I)
-		else
-			if(istype(D.r_hand, /obj/item))
-				var/obj/item/I = D.r_hand
-				if(D.drop_item())
-					A.put_in_hands(I)
+	var/obj/item/I = D.get_active_hand()
+	if(prob(60) && D.unEquip(I))
+		if(!(QDELETED(I) || (I.flags & ABSTRACT)))
+			A.put_in_hands(I)
 		D.visible_message("<span class='danger'>[A] has disarmed [D]!</span>", \
 							"<span class='userdanger'>[A] has disarmed [D]!</span>")
-		playsound(D, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		playsound(D, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	else
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", \
 							"<span class='userdanger'>[A] attempted to disarm [D]!</span>")

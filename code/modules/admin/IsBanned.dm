@@ -35,7 +35,7 @@
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
 
 	//check if the IP address is a known proxy/vpn, and the user is not whitelisted
-	if(check_ipintel && GLOB.configuration.ipintel.contact_email && GLOB.configuration.ipintel.whitelist_mode && ipintel_is_banned(key, address))
+	if(check_ipintel && GLOB.configuration.ipintel.contact_email && GLOB.configuration.ipintel.whitelist_mode && SSipintel.ipintel_is_banned(key, address))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Proxy/VPN")
 		var/mistakemessage = ""
 		if(GLOB.configuration.url.banappeals_url)
@@ -86,6 +86,22 @@
 				return list("reason"="2fa check failed", "desc"="You have 2FA enabled but did not properly authenticate.")
 
 			qdel(verify_query)
+
+	if(SSdbcore.IsConnected())
+		// If we have a DB, see if the player has been seen before
+		var/datum/db_query/exist_query = SSdbcore.NewQuery("SELECT ckey FROM player WHERE ckey=:ckey", list(
+			"ckey" = ckey
+		))
+		// If we didnt execute, skip this part
+		if(!exist_query.warn_execute())
+			qdel(exist_query)
+		else
+			if(!exist_query.NextRow()) // If there isnt a row, they aint been seen before
+				if(SSqueue?.queue_enabled && (length(GLOB.clients) > SSqueue.queue_threshold) && !(ckey in SSqueue.queue_bypass_list))
+					qdel(exist_query)
+					return list("reason" = "server queue", "desc" = "You seem to have managed to skip the server queue, possibly due to connecting during a restart. Please reconnect in 10 minutes. If you still cannot connect, please inform the server host.")
+
+		qdel(exist_query)
 
 	if(!GLOB.configuration.general.use_database_bans)
 		//Ban Checking

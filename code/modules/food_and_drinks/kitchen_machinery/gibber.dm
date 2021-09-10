@@ -139,8 +139,8 @@
 		to_chat(user, "<span class='danger'>This is not suitable for [src]!</span>")
 		return
 
-	if(victim.abiotic(1))
-		to_chat(user, "<span class='danger'>Subject may not have abiotic items on.</span>")
+	if(victim.abiotic(TRUE))
+		to_chat(user, "<span class='danger'>Subject may not have anything on their body.</span>")
 		return
 
 	user.visible_message("<span class='danger'>[user] starts to put [victim] into [src]!</span>")

@@ -8,8 +8,8 @@
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
 #define MIN_CLIENT_VERSION	513		// Minimum byond major version required to play.
 									//I would just like the code ready should it ever need to be used.
-#define SUGGESTED_CLIENT_VERSION	513		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1542
-#define SUGGESTED_CLIENT_BUILD	1542		// only integers (e.g: 1542, 1543) are useful here. This is the part AFTER the ".", IE 1542 out of 513.1542
+#define SUGGESTED_CLIENT_VERSION	514		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1542
+#define SUGGESTED_CLIENT_BUILD	1566		// only integers (e.g: 1542, 1543) are useful here. This is the part AFTER the ".", IE 1542 out of 513.1542
 
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
@@ -113,7 +113,7 @@
 		if(!holder && received_discord_pm < world.time - 6000) // Worse they can do is spam discord for 10 minutes
 			to_chat(usr, "<span class='warning'>You are no longer able to use this, it's been more then 10 minutes since an admin on Discord has responded to you</span>")
 			return
-		if(prefs.muted & MUTE_ADMINHELP)
+		if(check_mute(ckey, MUTE_ADMINHELP))
 			to_chat(usr, "<span class='warning'>You cannot use this as your client has been muted from sending messages to the admins on Discord</span>")
 			return
 		cmd_admin_discord_pm()
@@ -379,22 +379,14 @@
 		if(M.client)
 			playercount += 1
 
-	// Update the state of the panic bunker based on current playercount
-	var/threshold = GLOB.configuration.general.panic_bunker_threshold
-
-	if((playercount > threshold) && (GLOB.panic_bunker_enabled == FALSE))
-		GLOB.panic_bunker_enabled = TRUE
-		message_admins("Panic bunker has been automatically enabled due to playercount rising above [threshold]")
-
-	if((playercount < threshold) && (GLOB.panic_bunker_enabled == TRUE))
-		GLOB.panic_bunker_enabled = FALSE
-		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
-
 	// Tell clients about active testmerges
 	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
 		to_chat(src, GLOB.revision_info.get_testmerge_chatmessage(TRUE))
 
 	INVOKE_ASYNC(src, .proc/cid_count_check)
+
+	if(check_rights(R_ADMIN, FALSE, mob)) // Mob is required. Dont even try without it.
+		to_chat(src, "The queue server is currently [SSqueue.queue_enabled ? "<font color='green'>enabled</font>" : "<font color='disabled'>disabled</font>"], with a threshold of <b>[SSqueue.queue_threshold]</b>. This <b>[SSqueue.persist_queue ? "will" : "will not"]</b> persist through rounds.")
 
 
 /client/proc/is_connecting_from_localhost()
@@ -531,7 +523,7 @@
 
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
-		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
+		message_admins("<font color='red'><B>Notice: </B></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
 		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 		watchlisted = TRUE
 
@@ -563,15 +555,6 @@
 		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, FALSE) // Async to avoid other procs in the client chain being delayed by a web request
 	else
 		//New player!! Need to insert all the stuff
-
-		// Check new peeps for panic bunker
-		// AA TODO: Move this to world.IsBanned()
-		if(GLOB.panic_bunker_enabled)
-			var/threshold = GLOB.configuration.general.panic_bunker_threshold
-			src << "Server is not accepting connections from never-before-seen players until player count is less than [threshold]. Please try again later."
-			qdel(src)
-			return // Dont insert or they can just go in again
-
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO player (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
 			"ip" = address,
@@ -601,11 +584,11 @@
 			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] connecting from localhost.")
 			return
 
-		if(vpn_whitelist_check(ckey))
+		if(SSipintel.vpn_whitelist_check(ckey))
 			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] [address] on whitelist.")
 			return
 
-		var/datum/ipintel/res = get_ip_intel(address)
+		var/datum/ipintel/res = SSipintel.get_ip_intel(address)
 		ip_intel = res.intel
 		verify_ip_intel()
 
@@ -613,7 +596,9 @@
 	if(ip_intel >= GLOB.configuration.ipintel.bad_rating)
 		var/detailsurl = GLOB.configuration.ipintel.details_url ? "(<a href='[GLOB.configuration.ipintel.details_url][address]'>IP Info</a>)" : ""
 		if(GLOB.configuration.ipintel.whitelist_mode)
-			// AA TODO: move this check to world.IsBanned()
+			// Do not move this to isBanned(). This may sound weird, but:
+			// This needs to happen after their account is put into the DB
+			// This way, admins can then note people
 			spawn(40) // This is necessary because without it, they won't see the message, and addtimer cannot be used because the timer system may not have initialized yet
 				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]</span>")
 				var/blockmsg = "<B>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</B>"
