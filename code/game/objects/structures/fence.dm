@@ -20,7 +20,7 @@
 	icon_state = "straight"
 
 	var/cuttable = TRUE
-	var/hole_size= NO_HOLE
+	var/hole_size = NO_HOLE
 	var/invulnerable = FALSE
 	var/shock_cooldown = FALSE
 
@@ -58,6 +58,8 @@
 
 /obj/structure/fence/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSFENCE))
+		return TRUE
+	if(istype(mover, /obj/item/projectile))
 		return TRUE
 	if(!density)
 		return TRUE
