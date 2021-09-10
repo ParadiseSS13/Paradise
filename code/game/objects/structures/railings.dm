@@ -65,7 +65,7 @@
 	return TRUE
 
 /obj/structure/railing/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSTABLE))
+	if(istype(mover) && mover.checkpass(PASSFENCE))
 		return TRUE
 	if(istype(mover, /obj/item/projectile))
 		return TRUE
