@@ -19615,7 +19615,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aTi" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
@@ -23454,7 +23454,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized,
 /turf/simulated/floor/plating,
 /area/crew_quarters)
 "bcb" = (
@@ -23471,12 +23471,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bcd" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/crew_quarters)
 "bce" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized,
 /turf/simulated/floor/plating,
 /area/crew_quarters)
 "bch" = (
@@ -23995,8 +23995,10 @@
 	},
 /area/hallway/primary/central/north)
 "bdw" = (
-/obj/structure/chair/stool/bar{
-	dir = 8
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/button/windowtint{
+	pixel_y = 25;
+	range = 10
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters)
@@ -25436,23 +25438,9 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "bhk" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized,
 /turf/simulated/floor/plating,
-/area/crew_quarters/arcade)
+/area/crew_quarters/bar)
 "bhl" = (
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
@@ -25484,7 +25472,10 @@
 /area/hallway/primary/central/ne)
 "bhr" = (
 /obj/structure/table/reinforced,
-/obj/machinery/chem_dispenser/soda,
+/obj/machinery/chem_dispenser/soda{
+	dir = 8;
+	pixel_y = 3
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -26244,7 +26235,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/slot_machine,
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters)
 "biV" = (
@@ -28687,7 +28680,7 @@
 	pixel_x = 27;
 	pixel_y = 1
 	},
-/obj/machinery/floodlight,
+/obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -29324,7 +29317,9 @@
 	},
 /area/chapel/main)
 "bpQ" = (
-/obj/machinery/slot_machine,
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters)
 "bpR" = (
@@ -29341,7 +29336,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/wood,
 /area/crew_quarters)
 "bpU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -30730,6 +30725,7 @@
 /obj/item/phone{
 	attack_verb = list("bounced a check off","checked-out","tipped");
 	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\". It's old and rusty, clearly non-functional and decorative only.";
+	dir = 1;
 	icon = 'icons/obj/machines/pos.dmi';
 	icon_state = "pos";
 	name = "point of sale"
@@ -31276,14 +31272,9 @@
 	},
 /area/medical/morgue)
 "buP" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/hydroponics/constructable,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/hydroponics)
+/obj/structure/chair/stool/bar,
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "buQ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -33381,11 +33372,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bzh" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -2;
-	pixel_y = 4
-	},
+/obj/machinery/slot_machine,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bzi" = (
@@ -36912,12 +36899,8 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bHs" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 2;
-	pixel_y = 6
-	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/slot_machine,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bHt" = (
@@ -76935,7 +76918,10 @@
 /area/crew_quarters)
 "dhO" = (
 /obj/structure/table/reinforced,
-/obj/machinery/chem_dispenser/beer,
+/obj/machinery/chem_dispenser/beer{
+	dir = 8;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -78080,11 +78066,6 @@
 	},
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
@@ -81897,8 +81878,8 @@
 	},
 /area/crew_quarters/dorms)
 "fWO" = (
-/obj/structure/chair/wood/wings,
 /obj/structure/disposalpipe/segment,
+/obj/structure/chair/stool/bar,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "fWP" = (
@@ -82689,6 +82670,16 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/dorms)
+"kiX" = (
+/obj/machinery/hydroponics/constructable,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/hydroponics)
 "klq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -82984,6 +82975,10 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/dorms)
+"lFF" = (
+/obj/structure/flora/ausbushes/pointybush,
+/turf/simulated/floor/grass,
+/area/hydroponics)
 "lKP" = (
 /obj/structure/reflector/single{
 	anchored = 1;
@@ -83026,6 +83021,10 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/dorms)
+"lQX" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "lRO" = (
 /obj/machinery/hydroponics/soil,
 /obj/machinery/light_switch{
@@ -83919,14 +83918,13 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "rGb" = (
-/obj/machinery/smartfridge{
-	name = "\improper Kitchen Supplies"
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/westright{
+	dir = 1;
+	name = "Hydroponics Desk";
+	req_access_txt = "35"
 	},
-/obj/machinery/door/window/northleft{
-	dir = 2;
-	name = "Kitchen Supplies";
-	req_one_access_txt = "28;35;25"
-	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "greenfull"
 	},
@@ -84619,7 +84617,9 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "vFZ" = (
-/obj/machinery/computer/HolodeckControl,
+/obj/machinery/computer/HolodeckControl{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/dorms)
 "vOB" = (
@@ -84830,6 +84830,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
+/area/hydroponics)
+"wRA" = (
+/obj/machinery/smartfridge{
+	name = "\improper Kitchen and Bar Supplies"
+	},
+/turf/simulated/floor/plating,
 /area/hydroponics)
 "wVD" = (
 /obj/effect/landmark/start{
@@ -85043,6 +85049,9 @@
 	name = "Common Room"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/curtain/open{
+	color = "#AA0000"
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters)
 "ylS" = (
@@ -114978,8 +114987,8 @@ aTb
 bce
 dhN
 dhN
-bdw
-bdw
+dhN
+dhN
 dhN
 cSV
 djg
@@ -115491,7 +115500,7 @@ aZv
 aTb
 djg
 eQX
-boU
+dhN
 wzC
 bpR
 cUr
@@ -115748,7 +115757,7 @@ aZt
 bbg
 djg
 oAs
-boU
+dhN
 kUp
 buM
 ruD
@@ -116005,7 +116014,7 @@ aYv
 lop
 djg
 bdQ
-boU
+dhN
 vml
 bqm
 ihR
@@ -116262,7 +116271,7 @@ aZv
 aTb
 ykW
 dhN
-boU
+dhN
 boU
 bxy
 boU
@@ -116519,7 +116528,7 @@ dnC
 lQS
 aTi
 bdU
-pxu
+bdU
 pxu
 buU
 boU
@@ -116776,7 +116785,7 @@ aZv
 aTb
 ykW
 dhN
-boU
+dhN
 boU
 qIN
 boU
@@ -117032,8 +117041,8 @@ aWE
 aZv
 aTb
 djg
-vXx
-boU
+bdw
+dhN
 bpH
 bBO
 bAp
@@ -117290,7 +117299,7 @@ aZv
 nhb
 djg
 beT
-boU
+dhN
 wzC
 aVC
 cUr
@@ -117547,7 +117556,7 @@ aZt
 aTb
 djg
 bef
-boU
+dhN
 kUp
 vTa
 ruD
@@ -117804,7 +117813,7 @@ aZv
 aTb
 bce
 dWJ
-boU
+dhN
 vml
 bFS
 cVv
@@ -118575,7 +118584,7 @@ eJA
 bdm
 aUS
 aUS
-oRD
+bhk
 aUS
 bJz
 bjo
@@ -119610,7 +119619,7 @@ beH
 bwl
 dkN
 dkN
-usI
+lQX
 dhu
 waB
 ujg
@@ -119866,7 +119875,7 @@ cWG
 cWG
 bwl
 dkN
-bJz
+buP
 bzh
 aUS
 waB
@@ -123458,7 +123467,7 @@ aVG
 aZJ
 bfQ
 bbC
-bhk
+bbC
 hxS
 bbC
 bfQ
@@ -124500,7 +124509,7 @@ bos
 guH
 suq
 bxJ
-bxJ
+lFF
 bxJ
 lRO
 bjB
@@ -124757,8 +124766,8 @@ beb
 beb
 beb
 bjB
+wRA
 bjB
-beb
 beb
 fFJ
 bAr
@@ -125012,9 +125021,9 @@ bhM
 bmA
 bou
 bpV
-bpV
+kiX
 bqa
-buP
+bhM
 bqa
 blb
 bjB
