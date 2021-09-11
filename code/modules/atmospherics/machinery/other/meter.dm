@@ -39,6 +39,9 @@
 	if(!target)
 		target = locate(/obj/machinery/atmospherics/pipe) in loc
 
+/obj/machinery/meter/detailed_examine()
+	return "Measures the volume and temperature of the pipe under the meter."
+
 /obj/machinery/meter/process_atmos()
 	if(!target)
 		icon_state = "meterX"

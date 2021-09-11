@@ -12,6 +12,9 @@
 
 	var/state = TVALVE_STATE_STRAIGHT
 
+/obj/machinery/atmospherics/trinary/tvalve/detailed_examine()
+	return "Click this to toggle the mode. The direction with the green light is where the gas will flow."
+
 /obj/machinery/atmospherics/trinary/tvalve/bypass
 	icon_state = "map_tvalve1"
 	state = TVALVE_STATE_SIDE

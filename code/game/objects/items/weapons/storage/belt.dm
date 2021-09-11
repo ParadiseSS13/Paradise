@@ -409,7 +409,6 @@
 	new /obj/item/soap(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
-	new /obj/item/melee/flyswatter(src)
 	update_icon()
 
 /obj/item/storage/belt/lazarus
@@ -717,7 +716,6 @@
 	new /obj/item/stack/cable_coil(src)
 
 	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/dnainjector/xraymut(src)
 	new /obj/item/dnainjector/firemut(src)
 	new /obj/item/dnainjector/telemut(src)
 	new /obj/item/dnainjector/hulkmut(src)

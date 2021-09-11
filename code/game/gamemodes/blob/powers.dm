@@ -238,7 +238,7 @@
 	blobber.LoseTarget()
 	spawn()
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blobbernaut?", ROLE_BLOB, TRUE, 10 SECONDS, source = blobber)
-		if(candidates.len)
+		if(length(candidates) && !QDELETED(blobber))
 			var/mob/C = pick(candidates)
 			if(C)
 				blobber.key = C.key

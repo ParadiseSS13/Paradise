@@ -8,7 +8,7 @@
 			return FALSE
 		else
 			var/datum/db_query/job_read = SSdbcore.NewQuery(
-				"SELECT job FROM [format_table_name("whitelist")] WHERE ckey=:ckey",
+				"SELECT job FROM whitelist WHERE ckey=:ckey",
 				list("ckey" = M.ckey)
 			)
 
@@ -43,7 +43,7 @@
 		return FALSE
 	else
 		var/datum/db_query/species_read = SSdbcore.NewQuery(
-			"SELECT species FROM [format_table_name("whitelist")] WHERE ckey=:ckey",
+			"SELECT species FROM whitelist WHERE ckey=:ckey",
 			list("ckey" = M.ckey)
 		)
 

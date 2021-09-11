@@ -254,6 +254,17 @@
 			else
 				. += "The cover is closed."
 
+/obj/machinery/power/apc/detailed_examine()
+	return "An APC (Area Power Controller) regulates and supplies backup power for the area they are in. Their power channels are divided \
+			out into 'environmental' (Items that manipulate airflow and temperature), 'lighting' (the lights), and 'equipment' (Everything else that consumes power). \
+			Power consumption and backup power cell charge can be seen from the interface, further controls (turning a specific channel on, off or automatic, \
+			toggling the APC's ability to charge the backup cell, or toggling power for the entire area via master breaker) first requires the interface to be unlocked \
+			with an ID with Engineering access or by one of the station's robots or the artificial intelligence."
+
+/obj/machinery/power/apc/detailed_examine_antag()
+	return "This can be emagged to unlock it. It will cause the APC to have a blue error screen. \
+			Wires can be pulsed remotely with a signaler attached to it. A powersink will also drain any APCs connected to the same wire the powersink is on."
+
 // update the APC icon to show the three base states
 // also add overlays for indicator lights
 /obj/machinery/power/apc/update_icon(force_update = FALSE)
@@ -1344,7 +1355,7 @@
 	for(var/obj/machinery/light/L in area)
 		if(L.nightshift_allowed)
 			L.nightshift_enabled = nightshift_lights
-			L.update(FALSE)
+			L.update(FALSE, play_sound = FALSE)
 		CHECK_TICK
 
 /obj/machinery/power/apc/proc/relock_callback()
