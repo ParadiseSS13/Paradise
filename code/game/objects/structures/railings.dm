@@ -135,5 +135,14 @@
 	if(anchored == checked_anchored)
 		return TRUE
 
-/obj/structure/railing/proc/after_rotation(mob/user,rotation_type)
+/obj/structure/railing/proc/after_rotation(mob/user, rotation_type)
 	add_fingerprint(user)
+
+/obj/structure/railing/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	if(can_be_rotated)
+		setDir(turn(dir, 90))
