@@ -21,7 +21,6 @@ RSF
 	..()
 	desc = "A RSF. It currently holds [matter]/30 fabrication-units."
 	// configured_items[ID_NUMBER] = list("Human-readable name", price in energy, /type/path)
-	configured_items[++configured_items.len] = list("Dosh", 50, /obj/item/stack/spacecash/c10)
 	configured_items[++configured_items.len] = list("Drinking Glass", 50, /obj/item/reagent_containers/food/drinks/drinkingglass)
 	configured_items[++configured_items.len] = list("Paper", 50, /obj/item/paper)
 	configured_items[++configured_items.len] = list("Pen", 50, /obj/item/pen)
