@@ -56,6 +56,12 @@
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
 	return TRUE
 
+/obj/structure/railing/corner/CanPass()
+	return TRUE
+
+/obj/structure/railing/corner/CheckExit()
+	return TRUE
+
 /obj/structure/railing/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSFENCE))
 		return TRUE
@@ -71,12 +77,6 @@
 		return density
 	return FALSE
 
-/obj/structure/railing/corner/CanPass()
-	return TRUE
-
-/obj/structure/railing/corner/CheckExit()
-	return TRUE
-
 /obj/structure/railing/CheckExit(atom/movable/O, target)
 	var/mob/living/M = O
 	if(istype(O) && O.checkpass(PASSFENCE))
@@ -91,24 +91,21 @@
 	if(O.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
 		return TRUE
 	if(currently_climbed)
-		if(get_turf(M) == get_turf(src))
-			var/turf/T = target
-			if(T.density)
-				return FALSE
-			for(var/atom/A in T)
-				if(A.density)
-					return FALSE
-			currently_climbed = FALSE
-			return TRUE
+		return TRUE
 	if(get_dir(O.loc, target) == dir)
 		return FALSE
 	return TRUE
 
 /obj/structure/railing/do_climb(mob/living/user)
+	var/initial_mob_loc = get_turf(user)
 	. = ..()
 	if(.)
 		currently_climbed = TRUE
-		return TRUE
+		if(initial_mob_loc != get_turf(src)) // If we are on the railing, we want to move in the same dir as the railing. Otherwise we get put on the railing
+			currently_climbed = FALSE
+			return
+		user.Move(get_step(user, dir), TRUE)
+		currently_climbed = FALSE
 
 /obj/structure/railing/proc/can_be_rotated(mob/user)
 	if(anchored)
