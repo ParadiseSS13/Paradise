@@ -83,11 +83,11 @@
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
 			if(nuke_status == NUKE_MISSING)
-				to_chat(X, "<span class='userdanger'>Nuclear device is not on station!</span>")
+				to_chat(X, "<span class='userdanger'>The nuclear device is not on station!</span>")
 			else
 				to_chat(X, "<b>The nuke code is [nuke_code].</b>")
 				if(nuke_status == NUKE_CORE_MISSING)
-					to_chat(X, "<span class='userdanger'>Nuclear device does not have a core, and will not arm!</span>")
+					to_chat(X, "<span class='userdanger'>The nuclear device does not have a core, and will not arm!</span>")
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
