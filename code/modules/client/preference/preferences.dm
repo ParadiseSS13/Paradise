@@ -1209,7 +1209,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	if(href_list["preference"] == "gear")
 		if(href_list["toggle_gear"])
 			var/datum/gear/TG = GLOB.gear_datums[text2path(href_list["toggle_gear"])]
-			if(TG.type in loadout_gear)
+			if(TG?.type in loadout_gear)
 				loadout_gear -= TG.type
 			else
 				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)

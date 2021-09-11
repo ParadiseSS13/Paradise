@@ -20,13 +20,13 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	var/cost = 1
 	/// Slot to equip the item to.
 	var/slot
-	/// List of roles which can spawn with the item.
+	/// List of job roles which can spawn with the item.
 	var/list/allowed_roles
 	/// Loadout category of the item listing.
 	var/sort_category = "General"
-	/// List of datums which will alter the item after it has been spawned.
+	/// List of datums which will alter the item after it has been spawned. (NYI)
 	var/list/gear_tweaks = list()
-	/// Set on empty category datums to skip it being added to the list. (/datum/gear/accessory, /datum/gear/suit/coat/job, etc.)
+	/// Set on empty category datums to skip them being added to the list. (/datum/gear/accessory, /datum/gear/suit/coat/job, etc.)
 	var/main_typepath = /datum/gear
 	/// Does selecting a second item with the same `main_typepath` cost loadout points.
 	var/subtype_selection_cost = TRUE
