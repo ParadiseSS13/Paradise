@@ -28,11 +28,11 @@
 	resistance_flags = FIRE_PROOF
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
-		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
-		"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
 
 /obj/item/clothing/head/welding/attack_self(mob/user)
@@ -141,7 +141,7 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = /datum/dog_fashion/head/ushanka
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 /obj/item/clothing/head/ushanka/attack_self(mob/user as mob)
@@ -169,7 +169,7 @@
 	dog_fashion = null
 
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -202,10 +202,10 @@
 	if(!istype(user)) return
 	var/obj/item/organ/external/head/head_organ = user.get_organ("head")
 
-	mob = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kitty")
+	mob = new/icon("icon" = 'icons/mob/clothing/head.dmi', "icon_state" = "kitty")
 	mob.Blend(head_organ.hair_colour, ICON_ADD)
 
-	var/icon/earbit = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kittyinner")
+	var/icon/earbit = new/icon("icon" = 'icons/mob/clothing/head.dmi', "icon_state" = "kittyinner")
 	mob.Blend(earbit, ICON_OVERLAY)
 
 	icon_override = mob
@@ -224,10 +224,10 @@
 /obj/item/clothing/head/kitty/mouse/update_icon(mob/living/carbon/human/user)
 	if(!istype(user)) return
 	var/obj/item/organ/external/head/head_organ = user.get_organ("head")
-	mob = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "mousey")
+	mob = new/icon("icon" = 'icons/mob/clothing/head.dmi', "icon_state" = "mousey")
 	mob.Blend(head_organ.hair_colour, ICON_ADD)
 
-	var/icon/earbit = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "mouseyinner")
+	var/icon/earbit = new/icon("icon" = 'icons/mob/clothing/head.dmi', "icon_state" = "mouseyinner")
 	mob.Blend(earbit, ICON_OVERLAY)
 
 	icon_override = mob
@@ -242,7 +242,7 @@
 	species_disguise = "High-tech robot"
 	dog_fashion = /datum/dog_fashion/head/cardborg
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 
@@ -268,8 +268,8 @@
 	item_state = "head_mirror"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
-		"Drask" = 'icons/mob/species/drask/head.dmi',
-		"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
