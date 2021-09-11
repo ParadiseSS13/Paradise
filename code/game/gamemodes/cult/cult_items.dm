@@ -681,7 +681,8 @@
 	name = "reality opener"
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "amulet"
-	desc = "Some ammulet made out of metal, bluespace crystals, and blood. Allows cultists to open portals over teleport runes, destroying the rune in the process."
+	desc = "Some amulet made out of metal, bluespace crystals, and blood. Allows cultists to open portals over teleport runes, destroying the rune in the process."
+	w_class = WEIGHT_CLASS_SMALL
 
 
 /obj/item/rune_portaler/afterattack(atom/O, mob/user, proximity)
