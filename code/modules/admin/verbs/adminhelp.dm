@@ -6,7 +6,7 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of"
 	set name = "Adminhelp"
 
 	//handle muting and automuting
-	if(prefs.muted & MUTE_ADMINHELP)
+	if(check_mute(ckey, MUTE_ADMINHELP))
 		to_chat(src, "<font color='red'>Error: Admin-PM: You cannot send adminhelps (Muted).</font>")
 		return
 

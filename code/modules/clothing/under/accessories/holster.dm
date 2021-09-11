@@ -10,7 +10,9 @@
 	w_class = WEIGHT_CLASS_NORMAL // so it doesn't fit in pockets
 
 /obj/item/clothing/accessory/holster/Destroy()
-	QDEL_NULL(holstered)
+	if(holstered?.loc == src) // Gun still in the holster
+		holstered.forceMove(loc)
+	holstered = null
 	return ..()
 
 //subtypes can override this to specify what can be holstered
