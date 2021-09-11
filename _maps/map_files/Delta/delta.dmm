@@ -11496,6 +11496,7 @@
 	pixel_x = 26;
 	pixel_y = 26
 	},
+/obj/item/gun/projectile/revolver/doublebarrel,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -13402,7 +13403,14 @@
 /area/maintenance/auxsolarport)
 "aKp" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/wrench,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/cable_coil/random{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/obj/item/stack/cable_coil/random,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -14020,15 +14028,7 @@
 /area/crew_quarters/bar)
 "aLN" = (
 /obj/machinery/light,
-/obj/structure/closet/gmcloset,
-/obj/item/wrench,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/cable_coil/random{
-	pixel_x = 2;
-	pixel_y = 3
-	},
-/obj/item/stack/cable_coil/random,
+/obj/machinery/vending/bardrobe,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -16409,7 +16409,9 @@
 	pixel_x = -22
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/wardrobe/atmospherics_yellow,
+/obj/machinery/shower{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "aRb" = (
@@ -22275,10 +22277,8 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "bci" = (
-/obj/item/radio/intercom{
-	pixel_y = 28
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/vending/hydrodrobe,
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "bcj" = (
@@ -22286,6 +22286,9 @@
 /obj/item/wrench,
 /obj/item/clothing/suit/apron,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/radio/intercom{
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "bck" = (
@@ -22427,8 +22430,8 @@
 	},
 /area/atmos)
 "bcz" = (
-/obj/structure/closet/chefcloset,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/vending/chefdrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -22541,6 +22544,7 @@
 	pixel_y = -27
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/vending/cargodrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -23496,11 +23500,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/closet/wardrobe/atmospherics_yellow,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/fireaxecabinet{
 	pixel_x = 30
 	},
+/obj/machinery/vending/atmosdrobe,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -25351,7 +25355,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/vending/secdrobe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -38466,12 +38470,10 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard2)
 "bHJ" = (
-/obj/structure/table/wood,
-/obj/item/clipboard,
-/obj/item/toy/figure/crew/detective,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
+/obj/machinery/vending/detdrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -40159,6 +40161,8 @@
 /area/security/detectives_office)
 "bLs" = (
 /obj/structure/table/wood,
+/obj/item/clipboard,
+/obj/item/toy/figure/crew/detective,
 /obj/item/clothing/glasses/sunglasses,
 /turf/simulated/floor/plasteel{
 	icon_state = "carpet"
@@ -52365,8 +52369,8 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "clt" = (
-/obj/structure/closet/wardrobe/engineering_yellow,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/vending/engidrobe,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -68551,8 +68555,7 @@
 	},
 /area/medical/medbay3)
 "cUm" = (
-/obj/structure/closet/wardrobe/medical_white,
-/obj/item/storage/backpack/satchel_med,
+/obj/machinery/vending/medidrobe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -69255,11 +69258,11 @@
 /turf/simulated/floor/plasteel,
 /area/medical/chemistry)
 "cVK" = (
-/obj/structure/closet/wardrobe/chemistry_white,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_x = 32
 	},
+/obj/machinery/vending/chemdrobe,
 /turf/simulated/floor/plasteel,
 /area/medical/chemistry)
 "cVL" = (
@@ -77723,9 +77726,7 @@
 	},
 /area/assembly/chargebay)
 "dnG" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
+/obj/machinery/vending/genedrobe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -86624,7 +86625,6 @@
 	},
 /area/hallway/primary/aft)
 "dGT" = (
-/obj/structure/closet/wardrobe/robotics_black,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -86633,6 +86633,7 @@
 	dir = 1;
 	pixel_y = -24
 	},
+/obj/machinery/vending/robodrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -88002,7 +88003,7 @@
 	},
 /area/medical/virology)
 "dJZ" = (
-/obj/structure/closet/wardrobe/virology_white,
+/obj/machinery/vending/virodrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -93866,6 +93867,9 @@
 /obj/structure/table/glass,
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/geneticist,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -95414,6 +95418,13 @@
 	icon_state = "redcorner"
 	},
 /area/security/permasolitary)
+"hAi" = (
+/obj/machinery/vending/scidrobe,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/toxins/misc_lab)
 "hDZ" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -97887,7 +97898,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/closet/wardrobe/red,
+/obj/machinery/vending/secdrobe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -135283,7 +135294,7 @@ cHC
 ddn
 cYA
 cMc
-tsN
+hAi
 tsN
 cRb
 cYA
