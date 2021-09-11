@@ -150,16 +150,16 @@
 	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 	if(!ishuman(usr)) //Make sure they're a mob that has dna
-		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into the [src].</span>")
+		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into [src].</span>")
 		return
 	if(occupant)
-		to_chat(usr, "<span class='boldnotice'>The [src] is already occupied!</span>")
+		to_chat(usr, "<span class='boldnotice'>[src] is already occupied!</span>")
 		return
 	if(usr.abiotic())
-		to_chat(usr, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
+		to_chat(usr, "<span class='boldnotice'>Subject may not hold anything in their hands.</span>")
 		return
 	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into the [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
+		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
 		return
 	usr.stop_pulling()
 	usr.forceMove(src)
@@ -188,21 +188,21 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The [src] is already occupied!</span>")
+		to_chat(user, "<span class='boldnotice'>[src] is already occupied!</span>")
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		to_chat(user, "<span class='danger'>Subject cannot have abiotic items on.</span>")
+		to_chat(user, "<span class='danger'>Subject may not hold anything in their hands.</span>")
 		return
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
 		return
 	if(L == user)
-		visible_message("[user] climbs into the [src].")
+		visible_message("<span class='notice'>[user] climbs into [src].</span>")
 	else
-		visible_message("[user] puts [L.name] into the [src].")
+		visible_message("<span class='notice'>[user] puts [L.name] into [src].</span>")
 	put_in(L)
 	if(user.pulling == L)
 		user.stop_pulling()
@@ -232,10 +232,10 @@
 			to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
 			return
 		if(G.affecting.abiotic())
-			to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
+			to_chat(user, "<span class='boldnotice'>Subject may not hold anything in their hands.</span>")
 			return
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>will not fit into the [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
+			to_chat(user, "<span class='warning'>[G] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
 			return
 		if(panel_open)
 			to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")

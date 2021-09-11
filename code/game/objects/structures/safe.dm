@@ -368,7 +368,8 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/floor/Initialize()
 	. = ..()
 	var/turf/T = loc
-	hide(T.intact)
+	if(!T.transparent_floor)
+		hide(T.intact)
 
 /obj/structure/safe/floor/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
@@ -402,7 +403,7 @@ GLOBAL_LIST_EMPTY(safes)
 	for(var/safe in GLOB.safes)
 		var/obj/structure/safe/S = safe
 		if(owner in S.known_by)
-			info += "<br> The combination for the safe located in the [get_area(S).name] is: [S.get_combination()]<br>"
+			info += "<br> The combination for the safe located in the [get_area_name(S, TRUE)] is: [S.get_combination()]<br>"
 			info_links = info
 			update_icon()
 

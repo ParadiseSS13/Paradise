@@ -11,6 +11,9 @@
 
 	req_one_access_txt = "24;10"
 
+/obj/machinery/atmospherics/binary/valve/detailed_examine()
+	return "Click this to turn the valve. If red, the pipes on each end are separated. Otherwise, they are connected."
+
 /obj/machinery/atmospherics/binary/valve/open
 	open = 1
 	icon_state = "map_valve1"

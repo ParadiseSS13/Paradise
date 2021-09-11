@@ -138,6 +138,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio = new /obj/item/radio/borg(src)
 	common_radio = radio
 
+	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
+		cell = new default_cell_type(src)
+
 	init(alien, connect_to_AI, ai_to_sync_to)
 
 	if(has_camera && !camera)
@@ -150,9 +153,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(mmi == null)
 		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
 		mmi.icon_state = "boris"
-
-	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
-		cell = new default_cell_type(src)
 
 	initialize_components()
 	//if(!unfinished)
@@ -215,20 +215,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		//Check for custom sprite
 		if(!custom_sprite)
-			var/file = file2text("config/custom_sprites.txt")
-			var/lines = splittext(file, "\n")
-
-			for(var/line in lines)
-			// split & clean up
-				var/list/Entry = splittext(line, ":")
-				for(var/i = 1 to Entry.len)
-					Entry[i] = trim(Entry[i])
-
-				if(Entry.len < 2 || Entry[1] != "cyborg")		//ignore incorrectly formatted entries or entries that aren't marked for cyborg
-					continue
-
-				if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
-					custom_sprite = 1
+			if(ckey in GLOB.configuration.custom_sprites.cyborg_ckeys)
+				custom_sprite = TRUE
 
 	if(mmi && mmi.brainmob)
 		mmi.brainmob.name = newname
@@ -296,7 +284,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			to_chat(src, "<span class='boldannounce'>Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug.</span>")
 			ghostize()
-			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
+			log_runtime(EXCEPTION("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey]."), src)
 		mmi = null
 	if(connected_ai)
 		connected_ai.connected_robots -= src
@@ -306,6 +294,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_NULL(cell)
 	QDEL_NULL(robot_suit)
 	QDEL_NULL(spark_system)
+	QDEL_NULL(self_diagnosis)
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
@@ -482,6 +471,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	speed = 0 // Remove upgrades.
 	ionpulse = FALSE
 	magpulse = FALSE
+	weapons_unlock = FALSE
 	add_language("Robot Talk", TRUE)
 	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
 		weather_immunities -= "lava"
@@ -504,30 +494,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set category = "Robot Commands"
 	set name = "Show Station Manifest"
 	show_station_manifest()
-
-/mob/living/silicon/robot/proc/self_diagnosis()
-	if(!is_component_functioning("diagnosis unit"))
-		return null
-
-	var/dat = "<HEAD><TITLE>[src.name] Self-Diagnosis Report</TITLE></HEAD><BODY>\n"
-	for(var/V in components)
-		var/datum/robot_component/C = components[V]
-		if(C.installed == 0)
-			dat += "<b>[C.name]</b><br>MISSING<br>"
-		else
-			dat += "<b>[C.name]</b>[C.installed == -1 ? "<br>DESTROYED" : ""]<br><table><tr><td>Brute Damage:</td><td>[C.brute_damage]</td></tr><tr><td>Electronics Damage:</td><td>[C.electronics_damage]</td></tr><tr><td>Powered:</td><td>[C.is_powered() ? "Yes" : "No"]</td></tr><tr><td>Toggled:</td><td>[ C.toggled ? "Yes" : "No"]</td></table><br>"
-	return dat
-
-/mob/living/silicon/robot/verb/self_diagnosis_verb()
-	set category = "Robot Commands"
-	set name = "Self Diagnosis"
-
-	if(!is_component_functioning("diagnosis unit"))
-		to_chat(src, "<span class='warning'>Your self-diagnosis component isn't functioning.</span>")
-
-	var/dat = self_diagnosis()
-	src << browse(dat, "window=robotdiagnosis")
-
 
 /mob/living/silicon/robot/verb/toggle_component()
 	set category = "Robot Commands"
@@ -635,17 +601,27 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		stat(null, text("No Cell Inserted!"))
 
+/mob/living/silicon/robot/proc/show_gps_coords()
+	if(locate(/obj/item/gps/cyborg) in module.modules)
+		var/turf/T = get_turf(src)
+		stat(null, "GPS: [COORD(T)]")
+
+/mob/living/silicon/robot/proc/show_stack_energy()
+	for(var/storage in module.storages) // Storages should only contain `/datum/robot_energy_storage`
+		var/datum/robot_energy_storage/R = storage
+		stat(null, "[R.statpanel_name]: [R.energy] / [R.max_energy]")
 
 // update the status screen display
 /mob/living/silicon/robot/Stat()
 	..()
-	statpanel("Status")
-	if(client.statpanel == "Status")
-		show_cell_power()
-	var/total_user_contents = GetAllContents()
-	if(locate(/obj/item/gps/cyborg) in total_user_contents)
-		var/turf/T = get_turf(src)
-		stat(null, "GPS: [COORD(T)]")
+	if(!statpanel("Status"))
+		return // They aren't looking at the status panel.
+
+	show_cell_power()
+
+	if(module)
+		show_gps_coords()
+		show_stack_energy()
 
 /mob/living/silicon/robot/restrained()
 	return 0
@@ -708,7 +684,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 					C.brute_damage = WC.brute
 					C.electronics_damage = WC.burn
 
-				to_chat(usr, "<span class='notice'>You install the [W.name].</span>")
+				to_chat(usr, "<span class='notice'>You install [W].</span>")
 
 				return
 
@@ -746,6 +722,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			//This will mean that removing and replacing a power cell will repair the mount, but I don't care at this point. ~Z
 			C.brute_damage = 0
 			C.electronics_damage = 0
+			module?.update_cells()
 			diag_hud_set_borgcell()
 
 	else if(istype(W, /obj/item/encryptionkey/) && opened)
@@ -774,16 +751,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "<span class='warning'>You must access the borg's internals!</span>")
 		else if(!src.module && U.require_module)
 			to_chat(user, "<span class='warning'>The borg must choose a module before it can be upgraded!</span>")
-		else if(U.locked)
-			to_chat(user, "<span class='warning'>The upgrade is locked and cannot be used yet!</span>")
 		else
 			if(!user.drop_item())
 				return
 			if(U.action(src))
-				user.visible_message("<span class = 'notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
+				user.visible_message("<span class='notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
 				U.forceMove(src)
-			else
-				to_chat(user, "<span class='danger'>Upgrade error.</span>")
 
 	else if(istype(W, /obj/item/mmi_radio_upgrade))
 		if(!opened)
@@ -910,7 +883,19 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		spark_system.start()
 	..()
 
-/mob/living/silicon/robot/emag_act(user as mob)
+// Here so admins can unemag borgs.
+/mob/living/silicon/robot/unemag()
+	SetEmagged(FALSE)
+	if(!module)
+		return
+	uneq_all()
+	module.module_type = initial(module.module_type)
+	update_module_icon()
+	module.unemag()
+	clear_supplied_laws()
+	laws = new /datum/ai_laws/crewsimov
+
+/mob/living/silicon/robot/emag_act(mob/user)
 	if(!ishuman(user) && !issilicon(user))
 		return
 	var/mob/living/M = user
@@ -925,7 +910,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 	if(opened)//Cover is open
-		if(emagged)	return//Prevents the X has hit Y with Z message also you cant emag them twice
+		if(emagged)
+			return //Prevents the X has hit Y with Z message also you cant emag them twice
 		if(wiresexposed)
 			to_chat(user, "You must close the panel first")
 			return
@@ -933,11 +919,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			sleep(6)
 			SetEmagged(TRUE)
 			SetLockdown(1) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
-			if(src.hud_used)
-				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
+			if(hud_used)
+				hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
 			disconnect_from_ai()
 			to_chat(user, "You emag [src]'s interface.")
-//			message_admins("[key_name_admin(user)] emagged cyborg [key_name_admin(src)].  Laws overridden.")
 			log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
 			clear_supplied_laws()
 			clear_inherent_laws()
@@ -965,17 +950,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(!mmi.syndiemmi)
 				to_chat(src, "<span class='boldwarning'>ALERT: [M.real_name] is your new master. Obey your new laws and [M.p_their()] commands.</span>")
 			SetLockdown(0)
-			if(src.module && istype(src.module, /obj/item/robot_module/miner))
-				for(var/obj/item/pickaxe/drill/cyborg/D in src.module.modules)
-					qdel(D)
-				src.module.modules += new /obj/item/pickaxe/drill/cyborg/diamond(src.module)
-				src.module.rebuild()
-			if(src.module && istype(src.module, /obj/item/robot_module/medical))
-				for(var/obj/item/borg_defib/F in src.module.modules)
-					F.safety = 0
 			if(module)
+				module.emag_act()
 				module.module_type = "Malf" // For the cool factor
 				update_module_icon()
+				module.rebuild_modules() // This will add the emagged items to the borgs inventory.
 			update_icons()
 		return
 
@@ -1043,51 +1022,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/borg_icons() // Exists so that robot/destroyer can override it
 	return
 
-/mob/living/silicon/robot/proc/installed_modules()
-	if(weapon_lock)
-		to_chat(src, "<span class='warning'>Weapon lock active, unable to use modules! Count:[weaponlock_time]</span>")
-		return
-
-	if(!module)
-		pick_module()
-		return
-	var/dat = {"<A HREF='?src=[UID()];mach_close=robotmod'>Close</A>
-	<BR>
-	<BR>
-	<B>Activated Modules</B>
-	<BR>
-	<table border='0'>
-	<tr><td>Module 1:</td><td>[module_state_1 ? "<A HREF=?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<A>" : "No Module"]</td></tr>
-	<tr><td>Module 2:</td><td>[module_state_2 ? "<A HREF=?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<A>" : "No Module"]</td></tr>
-	<tr><td>Module 3:</td><td>[module_state_3 ? "<A HREF=?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<A>" : "No Module"]</td></tr>
-	</table><BR>
-	<B>Installed Modules</B><BR><BR>
-
-	<table border='0'>"}
-	for(var/obj in module.modules)
-		if(!obj)
-			dat += text("<tr><td><B>Resource depleted</B></td></tr>")
-		else if(activated(obj))
-			dat += text("<tr><td>[obj]</td><td><B>Activated</B></td></tr>")
-		else
-			dat += text("<tr><td>[obj]</td><td><A HREF=?src=[UID()];act=\ref[obj]>Activate</A></td></tr>")
-	if(emagged || weapons_unlock)
-		if(activated(module.emag))
-			dat += text("<tr><td>[module.emag]</td><td><B>Activated</B></td></tr>")
-		else
-			dat += text("<tr><td>[module.emag]</td><td><A HREF=?src=[UID()];act=\ref[module.emag]>Activate</A></td></tr>")
-	dat += "</table>"
-/*
-		if(activated(obj))
-			dat += text("[obj]: \[<B>Activated</B> | <A HREF=?src=[UID()];deact=\ref[obj]>Deactivate</A>\]<BR>")
-		else
-			dat += text("[obj]: \[<A HREF=?src=[UID()];act=\ref[obj]>Activate</A> | <B>Deactivated</B>\]<BR>")
-*/
-	var/datum/browser/popup = new(src, "robotmod", "Modules")
-	popup.set_content(dat)
-	popup.open()
-
-
 /mob/living/silicon/robot/Topic(href, href_list)
 	if(..())
 		return 1
@@ -1113,7 +1047,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return 1
 
 		activate_module(O)
-		installed_modules()
 
 	//Show alerts window if user clicked on "Show alerts" in chat
 	if(href_list["showalerts"])
@@ -1136,7 +1069,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				to_chat(src, "Module isn't activated.")
 		else
 			to_chat(src, "Module isn't activated")
-		installed_modules()
 		return 1
 
 	return 1
@@ -1217,54 +1149,18 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		cell = null
 	qdel(src)
 
-#define BORG_CAMERA_BUFFER 30
-/mob/living/silicon/robot/Move(a, b, flag)
-	var/oldLoc = src.loc
+#define BORG_CAMERA_BUFFER 3 SECONDS
+
+/mob/living/silicon/robot/Move(atom/newloc, direct, movetime)
+	var/oldLoc = loc
 	. = ..()
-	if(.)
-		if(src.camera)
-			if(!updating)
-				updating = 1
-				spawn(BORG_CAMERA_BUFFER)
-					if(camera && oldLoc != src.loc)
-						GLOB.cameranet.updatePortableCamera(src.camera)
-					updating = 0
-	if(module)
-		if(module.type == /obj/item/robot_module/janitor)
-			var/turf/tile = loc
-			if(stat != DEAD && isturf(tile))
-				var/floor_only = TRUE
-				for(var/A in tile)
-					if(istype(A, /obj/effect))
-						if(is_cleanable(A))
-							var/obj/effect/decal/cleanable/blood/B = A
-							if(istype(B) && B.off_floor)
-								floor_only = FALSE
-							else
-								qdel(A)
-					else if(istype(A, /obj/item))
-						var/obj/item/cleaned_item = A
-						cleaned_item.clean_blood()
-					else if(istype(A, /mob/living/carbon/human))
-						var/mob/living/carbon/human/cleaned_human = A
-						if(cleaned_human.lying)
-							if(cleaned_human.head)
-								cleaned_human.head.clean_blood()
-								cleaned_human.update_inv_head()
-							if(cleaned_human.wear_suit)
-								cleaned_human.wear_suit.clean_blood()
-								cleaned_human.update_inv_wear_suit()
-							else if(cleaned_human.w_uniform)
-								cleaned_human.w_uniform.clean_blood()
-								cleaned_human.update_inv_w_uniform()
-							if(cleaned_human.shoes)
-								cleaned_human.shoes.clean_blood()
-								cleaned_human.update_inv_shoes()
-							cleaned_human.clean_blood()
-							to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
-				if(floor_only)
-					tile.clean_blood()
-		return
+	if(. && !updating && camera)
+		updating = TRUE
+		spawn(BORG_CAMERA_BUFFER)
+			if(camera && oldLoc != loc)
+				GLOB.cameranet.updatePortableCamera(camera)
+			updating = FALSE
+
 #undef BORG_CAMERA_BUFFER
 
 /mob/living/silicon/robot/proc/self_destruct()
@@ -1443,7 +1339,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/deathsquad/bullet_act(obj/item/projectile/P)
 	if(istype(P) && P.is_reflectable && P.starting)
-		visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
+		visible_message("<span class='danger'>[P] gets reflected by [src]!</span>", "<span class='userdanger'>[P] gets reflected by [src]!</span>")
 		P.reflect_back(src)
 		return -1
 	return ..(P)

@@ -40,7 +40,6 @@
 	GLOB.hulkblock          = getAssignedBlock("HULK",          numsToAssign, DNA_HARD_BOUNDS, good=1)
 	GLOB.teleblock          = getAssignedBlock("TELE",          numsToAssign, DNA_HARD_BOUNDS, good=1)
 	GLOB.fireblock          = getAssignedBlock("FIRE",          numsToAssign, DNA_HARDER_BOUNDS, good=1)
-	GLOB.xrayblock          = getAssignedBlock("XRAY",          numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	GLOB.clumsyblock        = getAssignedBlock("CLUMSY",        numsToAssign)
 	GLOB.fakeblock          = getAssignedBlock("FAKE",          numsToAssign)
 	GLOB.coughblock         = getAssignedBlock("COUGH",         numsToAssign)
@@ -49,6 +48,10 @@
 	GLOB.twitchblock        = getAssignedBlock("TWITCH",        numsToAssign)
 	GLOB.nervousblock       = getAssignedBlock("NERVOUS",       numsToAssign)
 	GLOB.wingdingsblock     = getAssignedBlock("WINGDINGS",     numsToAssign)
+	GLOB.mesonblock			= getAssignedBlock("MESONS",        numsToAssign, good=1)
+	GLOB.noflashblock		= getAssignedBlock("NOFLASH",       numsToAssign, DNA_HARDER_BOUNDS, good=1)
+	GLOB.nightvisionblock	= getAssignedBlock("NIGHTVISION",   numsToAssign, DNA_HARDER_BOUNDS, good=1)
+
 
 	// Bay muts
 	GLOB.breathlessblock    = getAssignedBlock("BREATHLESS",    numsToAssign, DNA_HARD_BOUNDS, good=1)
@@ -62,7 +65,6 @@
 	GLOB.noprintsblock      = getAssignedBlock("NOPRINTS",      numsToAssign, DNA_HARD_BOUNDS, good=1)
 	GLOB.shockimmunityblock = getAssignedBlock("SHOCKIMMUNITY", numsToAssign, good=1)
 	GLOB.smallsizeblock     = getAssignedBlock("SMALLSIZE",     numsToAssign, DNA_HARD_BOUNDS, good=1)
-
 	//
 	// Goon muts
 	/////////////////////////////////////////////
@@ -114,18 +116,21 @@
 		if(G.block)
 			if(G.block in blocks_assigned)
 				warning("DNA2: Gene [G.name] trying to use already-assigned block [G.block] (used by [english_list(blocks_assigned[G.block])])")
-			GLOB.dna_mutations.Add(G)
+			GLOB.dna_mutations[mutation_type] = G
 			var/list/assignedToBlock[0]
 			if(blocks_assigned[G.block])
-				assignedToBlock=blocks_assigned[G.block]
+				assignedToBlock = blocks_assigned[G.block]
 			assignedToBlock.Add(G.name)
-			blocks_assigned[G.block]=assignedToBlock
+			blocks_assigned[G.block] = assignedToBlock
 			//testing("DNA2: Gene [G.name] assigned to block [G.block].")
+		else
+			qdel(G)
 
 	// I WILL HAVE A LIST OF MUTATIONS THAT MATCHES THE RANDOMIZED BLOCKS GODDAMNIT!
 	for(var/block in 1 to DNA_SE_LENGTH)
 		var/name = GLOB.assigned_blocks[block]
-		for(var/datum/mutation/mutation in GLOB.dna_mutations)
+		for(var/mutation_type in GLOB.dna_mutations)
+			var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
 			if(mutation.name == name || mutation.block == block)
 				if(mutation.block in GLOB.assigned_mutation_blocks)
 					warning("DNA2: Mutation [mutation.name] trying to add to already assigned gene block list (used by [english_list(GLOB.assigned_mutation_blocks[block])])")

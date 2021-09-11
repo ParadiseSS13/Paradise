@@ -1,6 +1,6 @@
 /obj/item/gun/energy/laser
 	name = "laser gun"
-	desc = "A basic energy-based laser gun that fires concentrated beams of light which pass through glass and thin metal."
+	desc = "A WT-650 'Sentinel' laser carbine manufactured by Warp-Tac Inc. The golden shield of Nanotrasen Security is visible."
 	icon_state = "laser"
 	item_state = "laser"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -8,7 +8,7 @@
 	origin_tech = "combat=4;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
-	shaded_charge = 1
+	shaded_charge = TRUE
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -34,6 +34,9 @@
 	ammo_x_offset = 3
 	selfcharge = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/item/gun/energy/laser/captain/detailed_examine()
+	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. Unlike most weapons, this weapon recharges itself."
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"

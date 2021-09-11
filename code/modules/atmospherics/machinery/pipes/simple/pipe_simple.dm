@@ -68,7 +68,8 @@
 							break
 
 		var/turf/T = loc			// hide if turf is not intact
-		hide(T.intact)
+		if(!T.transparent_floor)
+			hide(T.intact)
 		update_icon()
 
 /obj/machinery/atmospherics/pipe/simple/check_pressure(pressure)

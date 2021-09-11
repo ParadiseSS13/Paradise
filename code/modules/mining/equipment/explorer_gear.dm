@@ -16,11 +16,11 @@
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
 
 /obj/item/clothing/head/hooded/explorer
@@ -37,10 +37,10 @@
 	resistance_flags = FIRE_PROOF
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
-		"Drask" = 'icons/mob/species/drask/head.dmi',
-		"Grey" = 'icons/mob/species/grey/head.dmi',
-		"Skrell" = 'icons/mob/species/skrell/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi'
 	)
 
 /obj/item/clothing/suit/space/hostile_environment
@@ -68,7 +68,6 @@
 	var/mob/living/carbon/C = loc
 	if(istype(C) && prob(2)) //cursed by bubblegum
 		if(prob(15))
-			new /obj/effect/hallucination/oh_yeah(get_turf(C), C)
 			to_chat(C, "<span class='colossus'><b>[pick("I AM IMMORTAL.","I SHALL TAKE BACK WHAT'S MINE.","I SEE YOU.","YOU CANNOT ESCAPE ME FOREVER.","DEATH CANNOT HOLD ME.")]</b></span>")
 		else
 			to_chat(C, "<span class='warning'>[pick("You hear faint whispers.","You smell ash.","You feel hot.","You hear a roar in the distance.")]</span>")

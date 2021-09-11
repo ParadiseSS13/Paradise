@@ -39,8 +39,8 @@
 
 /obj/item/twohanded/garrote/wield(mob/living/carbon/user)
 	if(strangling)
-		user.visible_message("<span class='info'>[user] removes the [src] from [strangling]'s neck.</span>", \
-				"<span class='warning'>You remove the [src] from [strangling]'s neck.</span>")
+		user.visible_message("<span class='notice'>[user] removes [src] from [strangling]'s neck.</span>",
+				"<span class='warning'>You remove [src] from [strangling]'s neck.</span>")
 
 		strangling = null
 		update_icon()
@@ -103,8 +103,8 @@
 
 	playsound(src.loc, 'sound/weapons/cablecuff.ogg', 15, 1, -1)
 
-	M.visible_message("<span class='danger'>[U] comes from behind and begins garroting [M] with the [src]!</span>", \
-				  "<span class='userdanger'>[U] begins garroting you with the [src]![improvised ? "" : " You are unable to speak!"]</span>", \
+	M.visible_message("<span class='danger'>[U] comes from behind and begins garroting [M] with [src]!</span>", \
+				  "<span class='userdanger'>[U] begins garroting you with [src]![improvised ? "" : " You are unable to speak!"]</span>", \
 				  "You hear struggling and wire strain against flesh!")
 
 	return
@@ -166,6 +166,6 @@
 
 
 /obj/item/twohanded/garrote/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is wrapping the [src] around [user.p_their()] neck and pulling the handles! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck and pulling the handles! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(src.loc, 'sound/weapons/cablecuff.ogg', 15, 1, -1)
 	return OXYLOSS

@@ -5,6 +5,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
 	fire_sound = 'sound/weapons/gunshots/gunshot_strong.ogg'
+	can_holster = TRUE
 
 /obj/item/gun/projectile/revolver/New()
 	..()
@@ -92,8 +93,7 @@
 	name = ".38 Mars Special"
 	icon_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
-	unique_rename = 1
-	unique_reskin = 1
+	unique_reskin = TRUE
 
 /obj/item/gun/projectile/revolver/detective/New()
 	..()
@@ -159,6 +159,8 @@
 	fire_sound_text = null
 	lefthand_file = null
 	righthand_file = null
+	can_holster = FALSE // Get your fingers out of there!
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	clumsy_check = 0 //Stole your uplink! Honk!
 	needs_permit = 0 //go away beepsky
 
@@ -328,7 +330,11 @@
 	name = "double-barreled shotgun"
 	desc = "A true classic."
 	icon_state = "dshotgun"
-	item_state = "shotgun"
+	item_state = "shotgun_db"
+	lefthand_file = 'icons/mob/inhands/64x64_guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/64x64_guns_righthand.dmi'
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
 	force = 10
@@ -338,8 +344,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "Omar's coming!"
 	can_holster = FALSE
-	unique_rename = 1
-	unique_reskin = 1
+	unique_reskin = TRUE
 
 /obj/item/gun/projectile/revolver/doublebarrel/New()
 	..()
@@ -358,8 +363,10 @@
 		var/obj/item/melee/energy/W = A
 		if(W.active)
 			sawoff(user)
+			item_state = "ishotgun_sawn"
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
 		sawoff(user)
+		item_state = "ishotgun_sawn"
 	else
 		return ..()
 
@@ -389,15 +396,18 @@
 	name = "improvised shotgun"
 	desc = "Essentially a tube that aims shotgun shells."
 	icon_state = "ishotgun"
-	item_state = "shotgun"
+	item_state = "ishotgun"
+	lefthand_file = 'icons/mob/inhands/64x64_guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/64x64_guns_righthand.dmi'
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	slot_flags = null
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "I'm just here for the gasoline."
-	unique_rename = 0
-	unique_reskin = 0
+	unique_reskin = FALSE
 	var/slung = 0
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
@@ -406,6 +416,7 @@
 		if(C.use(10))
 			slot_flags = SLOT_BACK
 			icon_state = "ishotgunsling"
+			item_state = "ishotgunsling"
 			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
 			slung = 1
 			update_icon()
@@ -420,6 +431,7 @@
 	if(slung && (slot_flags & SLOT_BELT) )
 		slung = 0
 		icon_state = "ishotgun-sawn"
+		item_state = "ishotgun_sawn"
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
@@ -436,6 +448,8 @@
 	icon = 'icons/obj/items.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	inhand_x_dimension = 32
+	inhand_y_dimension = 32
 	icon_state = "cane"
 	item_state = "stick"
 	sawn_state = SAWN_OFF

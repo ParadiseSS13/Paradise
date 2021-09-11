@@ -21,13 +21,16 @@
 	var/yelp_sound = 'sound/creatures/dog_yelp.ogg' //Used on death.
 	var/last_eaten = 0
 	footstep_type = FOOTSTEP_MOB_CLAW
+	var/next_spin_message = 0
 
 /mob/living/simple_animal/pet/dog/verb/chasetail()
 	set name = "Chase your tail"
 	set desc = "d'awwww."
 	set category = "Dog"
 
-	visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
+	if(next_spin_message <= world.time)
+		visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
+		next_spin_message = world.time + 5 SECONDS
 	spin(20, 1)
 
 /mob/living/simple_animal/pet/dog/death(gibbed)
@@ -140,8 +143,8 @@
 
 
 	var/dat = 	"<div align='center'><b>Inventory of [name]</b></div><p>"
-	dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[inventory_head]" : "add_inv=head'>Nothing"]</A>"
-	dat += "<br><B>Back:</B> <A href='?src=[UID()];[inventory_back ? "remove_inv=back'>[inventory_back]" : "add_inv=back'>Nothing"]</A>"
+	dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[html_encode(inventory_head)]" : "add_inv=head'>Nothing"]</A>"
+	dat += "<br><B>Back:</B> <A href='?src=[UID()];[inventory_back ? "remove_inv=back'>[html_encode(inventory_back)]" : "add_inv=back'>Nothing"]</A>"
 	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
 
 	var/datum/browser/popup = new(user, "mob[UID()]", "[src]", 440, 250)
@@ -322,7 +325,7 @@
 
 	if(valid)
 		if(health <= 0)
-			to_chat(user, "<span class='notice'>There is merely a dull, lifeless look in [real_name]'s eyes as you put the [item_to_add] on [p_them()].</span>")
+			to_chat(user, "<span class='notice'>There is merely a dull, lifeless look in [real_name]'s eyes as you put [item_to_add] on [p_them()].</span>") // :'(
 		else if(user)
 			user.visible_message("<span class='notice'>[user] puts [item_to_add] on [real_name]'s head. [src] looks at [user] and barks once.</span>",
 				"<span class='notice'>You put [item_to_add] on [real_name]'s head. [src] gives you a peculiar look, then wags [p_their()] tail once and barks.</span>",

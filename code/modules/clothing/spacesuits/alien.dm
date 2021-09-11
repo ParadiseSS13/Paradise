@@ -34,7 +34,7 @@
 	icon = 'icons/obj/clothing/species/unathi/hats.dmi'
 	species_restricted = list("Unathi")
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/species/unathi/helmet.dmi'
+		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/unathi/helmet_cheap
@@ -48,7 +48,7 @@
 	icon = 'icons/obj/clothing/species/unathi/suits.dmi'
 	species_restricted = list("Unathi")
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 
 /obj/item/clothing/suit/space/unathi/rig_cheap
@@ -82,8 +82,8 @@
 	icon = 'icons/obj/clothing/species/vox/suits.dmi'
 	species_restricted = list("Vox", "Vox Armalis")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/suit.dmi',
 		)
 
 /obj/item/clothing/head/helmet/space/vox
@@ -93,8 +93,8 @@
 	icon = 'icons/obj/clothing/species/vox/hats.dmi'
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/head.dmi',
 		)
 
 /obj/item/clothing/head/helmet/space/vox/pressure
@@ -151,7 +151,7 @@
 	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
 	species_restricted = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi'
 		)
 
 /obj/item/clothing/under/vox/vox_casual
@@ -170,8 +170,8 @@
 	item_state = "vox-casual-2"
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/suit.dmi'
 		)
 
 /obj/item/clothing/gloves/color/yellow/vox
@@ -185,8 +185,8 @@
 	icon = 'icons/obj/clothing/species/vox/gloves.dmi'
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/gloves.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/gloves.dmi',
 		)
 
 /obj/item/clothing/shoes/magboots/vox
@@ -197,8 +197,8 @@
 	icon = 'icons/obj/clothing/species/vox/shoes.dmi'
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/feet.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/feet.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/feet.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/feet.dmi'
 		)
 
 /obj/item/clothing/shoes/magboots/vox/attack_self(mob/user)
@@ -213,21 +213,20 @@
 			return
 		var/mob/living/carbon/human/H = user
 		if(H.shoes != src)
-			to_chat(user, "You will have to put on the [src] before you can do that.")
+			to_chat(user, "<span class='warning>You will have to put on [src] before you can do that.</span>")
 			return
-
 
 		flags |= NOSLIP
 		magpulse = 1
 		flags &= ~NODROP	//kinda hard to take off magclaws when you are gripping them tightly.
 		to_chat(user, "You dig your claws deeply into the flooring, bracing yourself.")
-		to_chat(user, "It would be hard to take off the [src] without relaxing your grip first.")
+		to_chat(user, "It would be hard to take off [src] without relaxing your grip first.")
 
 //In case they somehow come off while enabled.
 /obj/item/clothing/shoes/magboots/vox/dropped(mob/user as mob)
 	..()
 	if(src.magpulse)
-		user.visible_message("The [src] go limp as they are removed from [usr]'s feet.", "The [src] go limp as they are removed from your feet.")
+		user.visible_message("[src] go limp as they are removed from [usr]'s feet.", "[src] go limp as they are removed from your feet.")
 		flags &= ~NOSLIP
 		magpulse = 0
 		flags &= ~NODROP

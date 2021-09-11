@@ -7,7 +7,7 @@
 		return
 
 	if(usr.client)
-		if(usr.client.prefs.muted & MUTE_PRAY)
+		if(check_mute(client.ckey, MUTE_PRAY))
 			to_chat(usr, "<span class='warning'>You cannot pray (muted).</span>")
 			return
 		if(client.handle_spam_prevention(msg, MUTE_PRAY, OOC_COOLDOWN))
@@ -55,15 +55,6 @@
 	msg = "<span class='boldnotice'><font color='#DC143C'>SYNDICATE: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_SYNDICATE_REPLY(Sender,"RPLY")]):</span> [msg]"
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
-			to_chat(X, msg)
-			if(X.prefs.sound & SOUND_ADMINHELP)
-				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
-
-/proc/HONK_announce(text, mob/Sender)
-	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
-	msg = "<span class='boldnotice'><font color=pink>HONK: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<A HREF='?_src_=holder;HONKReply=[Sender.UID()]'>RPLY</A>):</span> [msg]"
-	for(var/client/X in GLOB.admins)
-		if(R_EVENT & X.holder.rights)
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))

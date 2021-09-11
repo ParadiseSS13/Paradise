@@ -130,9 +130,11 @@
 	. = ..()
 	var/atom/T = target.loc
 	if(isturf(target) && target.density)
-		CreateDoor(target)
+		if(!(istype(target, /turf/simulated/wall/indestructible)))
+			CreateDoor(target)
 	else if(isturf(T) && T.density)
-		CreateDoor(T)
+		if(!(istype(T, /turf/simulated/wall/indestructible)))
+			CreateDoor(T)
 	else if(istype(target, /obj/machinery/door))
 		OpenDoor(target)
 	else if(istype(target, /obj/structure/closet))
@@ -273,7 +275,7 @@
 				return
 
 		M.create_attack_log("<font color='orange'>[key_name(M)] became [new_mob.real_name].</font>")
-		add_attack_logs(null, M, "became [new_mob.real_name]", ATKLOG_ALL)
+		add_attack_logs(M, M, "became [new_mob.real_name]", ATKLOG_ALL)
 
 		new_mob.a_intent = INTENT_HARM
 		if(M.mind)

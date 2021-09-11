@@ -120,11 +120,11 @@
 		if(ismob(G.affecting))
 			var/mob/GM = G.affecting
 			for(var/mob/V in viewers(usr))
-				V.show_message("[usr] starts putting [GM.name] into the disposal.", 3)
+				V.show_message("[usr] starts putting [GM] into the disposal.", 3)
 			if(do_after(usr, 20, target = GM))
 				GM.forceMove(src)
 				for(var/mob/C in viewers(src))
-					C.show_message("<span class='warning'>[GM.name] has been placed in the [src] by [user].</span>", 3)
+					C.show_message("<span class='warning'>[GM] has been placed in [src] by [user].</span>", 3)
 				qdel(G)
 				add_attack_logs(usr, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
 		return
@@ -137,11 +137,11 @@
 	if(I)
 		I.forceMove(src)
 
-	to_chat(user, "You place \the [I] into the [src].")
+	to_chat(user, "You place [I] into [src].")
 	for(var/mob/M in viewers(src))
 		if(M == user)
 			continue
-		M.show_message("[user.name] places \the [I] into the [src].", 3)
+		M.show_message("[user.name] places [I] into [src].", 3)
 
 	update()
 
@@ -203,11 +203,11 @@
 		return
 	if(target == user && !user.stat && !user.IsWeakened() && !user.stunned && !user.paralysis)	// if drop self, then climbed in
 											// must be awake, not stunned or whatever
-		msg = "[user.name] climbs into the [src]."
-		to_chat(user, "You climb into the [src].")
+		msg = "[user.name] climbs into [src]."
+		to_chat(user, "You climb into [src].")
 	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.stunned && !user.paralysis)
-		msg = "[user.name] stuffs [target.name] into the [src]!"
-		to_chat(user, "You stuff [target.name] into the [src]!")
+		msg = "[user.name] stuffs [target.name] into [src]!"
+		to_chat(user, "You stuff [target.name] into [src]!")
 		if(!iscarbon(user))
 			target.LAssailant = null
 		else
@@ -691,6 +691,7 @@
 	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
 	damage_deflection = 10
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	plane = FLOOR_PLANE
 	layer = DISPOSAL_PIPE_LAYER				// slightly lower than wires and other pipes
 	var/base_icon_state	// initial icon state on map
 
@@ -757,6 +758,9 @@
 // update the icon_state to reflect hidden status
 /obj/structure/disposalpipe/proc/update()
 	var/turf/T = get_turf(src)
+	if(T.transparent_floor)
+		update_icon()
+		return
 	hide(T.intact && !istype(T, /turf/space))	// space never hides pipes
 	update_icon()
 
@@ -889,14 +893,19 @@
 
 /obj/structure/disposalpipe/attackby(obj/item/I, mob/user, params)
 	var/turf/T = get_turf(src)
-	if(T.intact)
-		return		// prevent interaction with T-scanner revealed pipes
+	if(T.intact || T.transparent_floor)
+		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		return 		// prevent interaction with T-scanner revealed pipes and pipes under glass
 
 	add_fingerprint(user)
 
 /obj/structure/disposalpipe/welder_act(mob/user, obj/item/I)
 	. = TRUE
+	var/turf/T = get_turf(src)
 	if(!I.tool_use_check(user, 0))
+		return
+	if(T.transparent_floor)
+		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
@@ -1201,7 +1210,7 @@
 		return
 
 	var/turf/T = src.loc
-	if(T.intact)
+	if(T.intact || T.transparent_floor)
 		return		// prevent interaction with T-scanner revealed pipes
 	src.add_fingerprint(user)
 

@@ -61,7 +61,12 @@
 	icon_state = "tile-wood"
 	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/wood
+	merge_type = /obj/item/stack/tile/wood
 	resistance_flags = FLAMMABLE
+
+/obj/item/stack/tile/wood/cyborg
+	energy_type = /datum/robot_energy_storage/wood_tile
+	is_cyborg = TRUE
 
 //Carpets
 /obj/item/stack/tile/carpet
@@ -101,13 +106,17 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
 
+/obj/item/stack/tile/plasteel/cyborg
+	energy_type = /datum/robot_energy_storage/metal_tile
+	is_cyborg = TRUE
+
 //Light
 /obj/item/stack/tile/light
 	name = "light tiles"
 	gender = PLURAL
 	singular_name = "light floor tile"
-	desc = "A floor tile, made out off glass. Use a multitool on it to change its color."
-	icon_state = "tile_light blue"
+	desc = "A floor tile made of glass, with an integrated light. Use a multitool on it to change its color."
+	icon_state = "tile_white"
 	force = 3
 	throwforce = 5
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")

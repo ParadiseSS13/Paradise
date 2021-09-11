@@ -28,10 +28,10 @@
 				<small>[fluffnotice]</small><hr>"
 	switch(get_area_type())
 		if(AREA_SPACE)
-			text += "<p>According to the [src.name], you are now in <b>outer space</b>.  Hold your breath.</p> \
+			text += "<p>According to [src], you are now in <b>outer space</b>. Hold your breath.</p> \
 			<p><a href='?src=[UID()];create_area=1'>Mark this place as new area.</a></p>"
 		if(AREA_SPECIAL)
-			text += "<p>This place is not noted on the [src.name].</p>"
+			text += "<p>This place is not noted on [src].</p>"
 	return text
 
 
@@ -57,7 +57,7 @@
 	. = ..()
 	var/area/A = get_area()
 	if(get_area_type() == AREA_STATION)
-		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+		. += "<p>According to [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
 	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
 	popup.set_content(.)
 	popup.open()
@@ -79,7 +79,7 @@
 	. = ..()
 	var/area/A = get_area()
 	if(get_area_type() == AREA_STATION)
-		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+		. += "<p>According to [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
 	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
 	popup.set_content(.)
 	popup.open()
@@ -106,7 +106,7 @@
 	. = ..()
 	var/area/A = get_area()
 	if(get_area_type() == AREA_STATION)
-		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+		. += "<p>According to [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
 		. += "<p>You may <a href='?src=[UID()];edit_area=1'> move an amendment</a> to the drawing.</p>"
 	if(!viewing)
 		. += "<p><a href='?src=[UID()];view_blueprints=1'>View structural data</a></p>"

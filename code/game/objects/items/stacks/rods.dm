@@ -21,9 +21,19 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
+	merge_type = /obj/item/stack/rods
+
+/obj/item/stack/rods/detailed_examine()
+	return "Made from metal sheets. You can build a grille by using it in your hand. \
+			Clicking on a floor without any tiles will reinforce the floor. You can make reinforced glass by combining rods and normal glass sheets."
 
 /obj/item/stack/rods/cyborg
+	energy_type = /datum/robot_energy_storage/rods
+	is_cyborg = TRUE
 	materials = list()
+
+/obj/item/stack/rods/cyborg/update_icon()
+	return // icon_state should always be a full stack of rods.
 
 /obj/item/stack/rods/ten
 	amount = 10

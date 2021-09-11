@@ -272,15 +272,19 @@
 	update_all_mob_security_hud()
 	return 1
 
-/*
-Proc for attack log creation, because really why not
-1 argument is the actor
-2 argument is the target of action
-3 is the full description of the action
-4 is whether or not to message admins
-This is always put in the attack log.
-*/
-
+/**
+ * Creates attack (old and new) logs for the user and defense logs for the target.
+ * Will message admins depending on the custom_level, user and target.
+ *
+ * custom_level will determine the log level set. Unless the target is SSD and there is a user doing it
+ * If custom_level is not set then the log level will be determined using the user and the target.
+ *
+ * * Arguments:
+ * * user - The thing doing it. Can be null
+ * * target - The target of the attack
+ * * what_done - What has happened
+ * * custom_level - The log level override
+ */
 /proc/add_attack_logs(atom/user, target, what_done, custom_level)
 	if(islist(target)) // Multi-victim adding
 		var/list/targets = target
@@ -323,7 +327,7 @@ This is always put in the attack log.
 				loglevel = ATKLOG_ALMOSTALL
 	else
 		loglevel = ATKLOG_ALL // Hitting an object. Not a mob
-	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
+	if(user && isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
 		loglevel = ATKLOG_FEW
 
 

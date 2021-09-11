@@ -69,7 +69,8 @@
 	togglelock(user)
 
 /obj/structure/closet/secure_closet/AltClick(mob/user)
-	..()
+	if(opened)
+		return ..()
 	if(Adjacent(user))
 		togglelock(user)
 
@@ -79,7 +80,7 @@
 		locked = FALSE
 		icon_state = icon_off
 		flick(icon_broken, src)
-		to_chat(user, "<span class='notice'>You break the lock on \the [src].</span>")
+		to_chat(user, "<span class='notice'>You break the lock on [src].</span>")
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)
 	add_fingerprint(user)
@@ -126,7 +127,7 @@
 	//okay, so the closet is either welded or locked... resist!!!
 	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>")
 	for(var/mob/O in viewers(src))
-		O.show_message("<span class='danger'>The [src] begins to shake violently!</span>", 1)
+		O.show_message("<span class='danger'>[src] begins to shake violently!</span>", 1)
 
 
 	spawn(0)
