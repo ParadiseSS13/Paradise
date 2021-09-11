@@ -1,5 +1,5 @@
 /obj/item/mmi
-	name = "Man-Machine Interface"
+	name = "\improper Man-Machine Interface"
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
@@ -256,13 +256,13 @@
 		radio_action.Remove(A)
 
 /obj/item/mmi/syndie
-	name = "Syndicate Man-Machine Interface"
+	name = "\improper Syndicate Man-Machine Interface"
 	desc = "Syndicate's own brand of MMI. Mindslaves any brain inserted into it for as long as it's in. Cyborgs made with this MMI will be slaved to the owner. Does not fit into NT AI cores."
 	origin_tech = "biotech=4;programming=4;syndicate=2"
 	syndiemmi = TRUE
 
 /obj/item/mmi/syndie/attack_self(mob/user)
-	if(ishuman(user) && !mindslave_master)
+	if(!mindslave_master && ishuman(user))
 		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
 		mindslave_master = user
 		return
@@ -270,7 +270,7 @@
 		..()
 
 /obj/item/mmi/syndie/attackby(obj/item/O, mob/user, params)
-	if(ishuman(user) && !mindslave_master && istype(O,/obj/item/organ/internal/brain))
+	if(!mindslave_master && ishuman(user) && istype(O,/obj/item/organ/internal/brain))
 		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
 		mindslave_master = user
 	..()
