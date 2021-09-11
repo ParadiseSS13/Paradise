@@ -106,9 +106,7 @@
 
 /obj/structure/railing/do_climb(mob/living/user)
 	. = ..()
-	if(!climbable)
-		return FALSE
-	if(get_turf(user) == get_turf(src))
+	if(.)
 		currently_climbed = TRUE
 		return TRUE
 
