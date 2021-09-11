@@ -440,7 +440,7 @@
 /proc/get_nuke_status()
 	var/nuke_status = NUKE_MISSING
 	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
-		if(bomb && is_station_level(bomb.z))
+		if(is_station_level(bomb.z))
 			nuke_status = NUKE_CORE_MISSING
 			if(bomb.core)
 				nuke_status = NUKE_INTACT
