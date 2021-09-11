@@ -37,7 +37,7 @@ actual development.
 
   * Keep your pull requests small and reviewable whenever possible. Do not bundle unrelated
  fixes even if not bundling it generates more pull requests. In case of mapping PR to add in a feature -
- consult a maintainer on whether it would be appropriate to split up the PRs to add the
+ consult a maintainer on whether it would be appropriate to split up the PR to add the
  feature to multiple maps individually.
 
  * Document and explain your pull requests thoroughly. Failure to do so will delay a PR as
