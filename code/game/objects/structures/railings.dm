@@ -15,34 +15,30 @@
 	density = FALSE
 	climbable = FALSE
 
-/obj/structure/railing/Initialize()
-	. = ..()
-
 /obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
 	..()
 	add_fingerprint(user)
 
 /obj/structure/railing/welder_act(mob/living/user, obj/item/I)
-	if(user.intent == INTENT_HELP)
-		if(obj_integrity < max_integrity)
-			if(!I.tool_start_check(user, amount = 0))
-				return
-			to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
-			if(I.use_tool(src, user, 40, volume = 50))
-				obj_integrity = max_integrity
-				to_chat(user, "<span class='notice'>You repair [src].</span>")
-			return
-
+	if(user.intent != INTENT_HELP)
+		return
+	if(obj_integrity >= max_integrity)
 		to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
 		return
+	if(!I.tool_start_check(user, amount = 0))
+		return
+	to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
+	if(I.use_tool(src, user, 40, volume = 50))
+		obj_integrity = max_integrity
+		to_chat(user, "<span class='notice'>You repair [src].</span>")
 
 /obj/structure/railing/wirecutter_act(mob/living/user, obj/item/I)
-	. = ..()
-	if(!anchored)
-		to_chat(user, "<span class='warning'>You cut apart the railing.</span>")
-		I.play_tool_sound(src, 100)
-		deconstruct()
-		return TRUE
+	if(anchored)
+		return
+	to_chat(user, "<span class='warning'>You cut apart the railing.</span>")
+	I.play_tool_sound(src, 100)
+	deconstruct()
+	return TRUE
 
 /obj/structure/railing/deconstruct(disassembled)
 	if(!(flags & NODECONSTRUCT))
@@ -52,15 +48,11 @@
 
 ///Implements behaviour that makes it possible to unanchor the railing.
 /obj/structure/railing/wrench_act(mob/living/user, obj/item/I)
-	. = ..()
 	if(flags & NODECONSTRUCT)
 		return
 	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")
 	if(I.use_tool(src, user, volume = 75, extra_checks = CALLBACK(src, .proc/check_anchored, anchored)))
-		if(!anchored)
-			anchored = TRUE
-		else
-			anchored = FALSE
+		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
 	return TRUE
 
@@ -92,7 +84,7 @@
 	if(istype(O, /obj/item/projectile))
 		return TRUE
 	if(ismob(O))
-		if(M.flying | M.floating)
+		if(M.flying || M.floating)
 			return TRUE
 	if(O.throwing)
 		return TRUE
@@ -115,9 +107,10 @@
 /obj/structure/railing/do_climb(mob/living/user)
 	. = ..()
 	if(!climbable)
-		return
+		return FALSE
 	if(get_turf(user) == get_turf(src))
 		currently_climbed = TRUE
+		return TRUE
 
 /obj/structure/railing/proc/can_be_rotated(mob/user)
 	if(anchored)

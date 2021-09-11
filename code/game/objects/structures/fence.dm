@@ -51,6 +51,7 @@
 /obj/structure/fence/cut/medium
 	icon_state = "straight_cut2"
 	hole_size = MEDIUM_HOLE
+	climbable = TRUE
 
 /obj/structure/fence/cut/large
 	icon_state = "straight_cut3"
@@ -65,10 +66,11 @@
 		return TRUE
 	return FALSE
 
-// shock user with probability prb (if all connections & power are working)
-// returns 1 if shocked, 0 otherwise
-// Totally not stolen from code\game\objects\structures\grille.dm
-
+/*
+	Shock user with probability prb (if all connections & power are working)
+	Returns TRUE if shocked, FALSE otherwise
+	Totally not stolen from code\game\objects\structures\grille.dm
+*/
 /obj/structure/fence/proc/shock(mob/user, prb)
 	if(!prob(prb))
 		return FALSE
@@ -101,22 +103,21 @@
 				if(NO_HOLE)
 					visible_message("<span class='notice'>\The [user] cuts into \the [src] some more.</span>")
 					to_chat(user, "<span class='info'>You could probably fit yourself through that hole now. Although climbing through would be much faster if you made it even bigger.</span>")
-					climbable = TRUE
-					++hole_size
+					hole_size = MEDIUM_HOLE
 				if(MEDIUM_HOLE)
 					visible_message("<span class='notice'>\The [user] completely cuts through \the [src].</span>")
 					to_chat(user, "<span class='info'>The hole in \the [src] is now big enough to walk through.</span>")
-					climbable = FALSE
-					++hole_size
+					hole_size = LARGE_HOLE
 				if(LARGE_HOLE)
 					visible_message("<span class='notice'>\The [user] completely dismantles \the [src].</span>")
 					to_chat(user, "<span class='info'>You completely take apart \the [src].</span>")
 					qdel(src)
 					return
 			update_cut_status()
-			return
 
 /obj/structure/fence/attackby(obj/item/C, mob/user)
+	if(shock(user, 90))
+		return
 	if(istype(C, /obj/item/stack/rods))
 		if(hole_size == NO_HOLE)
 			return
@@ -125,26 +126,23 @@
 			to_chat(user, "<span class='warning'>You need [HOLE_REPAIR] rods to fix this fence!</span>")
 			return
 		to_chat(user, "<span class='notice'>You begin repairing the fence...</span>")
-		if(do_after(user, 30 * C.toolspeed, target = src))
-			if(R.get_amount() >= HOLE_REPAIR && !(hole_size == NO_HOLE))
-				R.use(HOLE_REPAIR)
-				playsound(src, C.usesound, 80, 1)
-				hole_size = NO_HOLE
-				obj_integrity = max_integrity
-				to_chat(user, "<span class='notice'>You repair the fence.</span>")
-				update_cut_status()
-				return
-	. = ..()
-	if(shock(user, 90))
+		if(do_after(user, 3 SECONDS * C.toolspeed, target = src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))
+			playsound(src, C.usesound, 80, 1)
+			hole_size = NO_HOLE
+			obj_integrity = max_integrity
+			to_chat(user, "<span class='notice'>You repair the fence.</span>")
+			update_cut_status()
 		return
+	. = ..()
 
 /obj/structure/fence/Bumped(atom/user)
-	if(ismob(user))
-		if(shock_cooldown)
-			return
-		shock(user, 70)
-		shock_cooldown = TRUE // We do not want bump shock spam!
-		addtimer(CALLBACK(src, .proc/shock_cooldown), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	if(!ismob(user))
+		return
+	if(shock_cooldown)
+		return
+	shock(user, 70)
+	shock_cooldown = TRUE // We do not want bump shock spam!
+	addtimer(CALLBACK(src, .proc/shock_cooldown), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /obj/structure/fence/proc/shock_cooldown()
 	shock_cooldown = FALSE
@@ -161,11 +159,14 @@
 	switch(hole_size)
 		if(NO_HOLE)
 			icon_state = initial(icon_state)
+			climbable = FALSE
 		if(MEDIUM_HOLE)
 			icon_state = "straight_cut2"
+			climbable = TRUE
 		if(LARGE_HOLE)
 			icon_state = "straight_cut3"
 			new_density = FALSE
+			climbable = FALSE
 	set_density(new_density)
 
 //FENCE DOORS
@@ -199,8 +200,8 @@
 	playsound(src, 'sound/machines/door_open.ogg', 100, TRUE)
 
 /obj/structure/fence/door/proc/update_door_status()
-	set_density(!density)
-	icon_state = density ? "door_closed" : "door_opened"
+	set_density(!open)
+	icon_state = open ? "door_opened" : "door_closed"
 
 /obj/structure/fence/door/proc/can_open(mob/user)
 	return TRUE
@@ -212,3 +213,4 @@
 #undef MEDIUM_HOLE
 #undef LARGE_HOLE
 #undef MAX_HOLE_SIZE
+#undef HOLE_REPAIR
