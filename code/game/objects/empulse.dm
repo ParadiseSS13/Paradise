@@ -1,3 +1,13 @@
+/**
+ * Will cause an EMP on the given epicenter.
+ * This proc can sleep depending on the affected objects. So assume it sleeps!
+ *
+ * epicenter - The center of the EMP. Can be an atom, as long as the given atom is on a turf (in)directly
+ * heavy_range - The max distance from the epicenter where objects will be get heavy EMPed
+ * light_range - The max distance from the epicenter where objects will get light EMPed
+ * log - Whether or not this action should be logged or not. Will use the cause if provided
+ * cause - The cause of the EMP. Used for the logging
+ */
 /proc/empulse(turf/epicenter, heavy_range, light_range, log = FALSE, cause = null)
 	if(!epicenter) return
 

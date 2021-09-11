@@ -74,7 +74,6 @@
 
 //Species traits.
 #define NO_BLOOD		"no_blood"
-#define NOTRANSSTING	"no_trans_sting"
 #define IS_WHITELISTED 	"whitelisted"
 #define LIPS			"lips"
 #define EXOTIC_COLOR	"exotic_blood_color"

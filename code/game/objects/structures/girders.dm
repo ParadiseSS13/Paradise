@@ -28,7 +28,7 @@
 		if(GIRDER_DISASSEMBLED)
 			. += "<span class='notice'>[src] is disassembled! You probably shouldn't be able to see this examine message.</span>"
 
-/obj/structre/girder/detailed_examine()
+/obj/structure/girder/detailed_examine()
 	return "Use metal sheets on this to build a normal wall. Adding plasteel instead will make a reinforced wall.<br>\
 			A false wall can be made by using a crowbar on this girder, and then adding metal or plasteel.<br>\
 			You can dismantle the girder with a wrench."

@@ -446,15 +446,14 @@
 								SpinAnimation(5,1)
 
 		if("spin", "spins")
-			if(!restrained() && !lying)
+			if(!incapacitated(ignore_lying = TRUE))
 				if(prob(5))
-					spin(30, 1)
-					message = "<B>[src]</B> spins too much!"
+					spin(32, 1)
+					to_chat(src, "<span class='warning'>You spin too much!</span>")
 					Dizzy(12)
 					Confused(12)
 				else
 					spin(20, 1)
-					message = "<B>[src]</B> spins!"
 
 		if("aflap", "aflaps")
 			if(!restrained())
