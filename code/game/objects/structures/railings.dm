@@ -119,7 +119,7 @@
 	if(get_turf(user) == get_turf(src))
 		currently_climbed = TRUE
 
-/obj/structure/railing/proc/can_be_rotated(mob/user, rotation_type)
+/obj/structure/railing/proc/can_be_rotated(mob/user)
 	if(anchored)
 		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
 		return FALSE
@@ -135,7 +135,7 @@
 	if(anchored == checked_anchored)
 		return TRUE
 
-/obj/structure/railing/proc/after_rotation(mob/user, rotation_type)
+/obj/structure/railing/proc/after_rotation(mob/user)
 	add_fingerprint(user)
 
 /obj/structure/railing/AltClick(mob/user)
@@ -144,5 +144,5 @@
 		return
 	if(!Adjacent(user))
 		return
-	if(can_be_rotated)
+	if(can_be_rotated(user))
 		setDir(turn(dir, 90))
