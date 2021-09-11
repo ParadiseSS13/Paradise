@@ -25,7 +25,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		if(!GLOB.dooc_enabled && (mob.stat == DEAD))
 			to_chat(usr, "<span class='danger'>OOC for dead mobs has been turned off.</span>")
 			return
-		if(prefs.muted & MUTE_OOC)
+		if(check_mute(ckey, MUTE_OOC))
 			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
 			return
 
@@ -181,7 +181,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		if(!GLOB.dooc_enabled && (mob.stat == DEAD))
 			to_chat(usr, "<span class='danger'>LOOC for dead mobs has been turned off.</span>")
 			return
-		if(prefs.muted & MUTE_OOC)
+		if(check_mute(ckey, MUTE_OOC))
 			to_chat(src, "<span class='danger'>You cannot use LOOC (muted).</span>")
 			return
 

@@ -6,6 +6,19 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"aac" = (
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
+/obj/structure/table,
+/obj/item/radio/electropack,
+/obj/item/assembly/signaler,
+/obj/item/healthanalyzer,
+/obj/item/hand_labeler,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/misc_lab)
 "aaQ" = (
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
@@ -64134,18 +64147,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
-"cBZ" = (
-/obj/machinery/alarm{
-	pixel_y = 22
-	},
-/obj/structure/table,
-/obj/item/radio/electropack,
-/obj/item/assembly/signaler,
-/obj/item/healthanalyzer,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/misc_lab)
 "cCa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -133899,7 +133900,7 @@ cuQ
 bGG
 cyR
 cAP
-cBZ
+aac
 cDw
 cDb
 cEt

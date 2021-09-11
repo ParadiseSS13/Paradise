@@ -89,7 +89,10 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	new/datum/stack_recipe/window("windoor frame", /obj/structure/windoor_assembly, 5, time = 0, on_floor = TRUE, window_checks = TRUE), \
 	null, \
 	new/datum/stack_recipe/window("directional reinforced window", /obj/structure/window/reinforced, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe/window("fulltile reinforced window", /obj/structure/window/full/reinforced, 2, time = 0, on_floor = TRUE, window_checks = TRUE) \
+	new/datum/stack_recipe/window("fulltile reinforced window", /obj/structure/window/full/reinforced, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
+	null, \
+	new/datum/stack_recipe/window("directional electrochromic window", /obj/structure/window/reinforced/polarized, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe/window("fulltile electrochromic window", /obj/structure/window/full/reinforced/polarized, 4, time = 0, on_floor = TRUE, window_checks = TRUE) \
 ))
 
 /obj/item/stack/sheet/rglass
