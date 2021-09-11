@@ -287,7 +287,7 @@ SUBSYSTEM_DEF(ticker)
 	else
 		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
 
-	SSnightshift.check_nightshift()
+	SSnightshift.check_nightshift(TRUE)
 
 	#ifdef UNIT_TESTS
 	RunUnitTests()
