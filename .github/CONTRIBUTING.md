@@ -36,7 +36,7 @@ actual development.
  Due to limitations of the engine, this may not always be possible; but do try your best.
 
   * Keep your pull requests small and reviewable whenever possible. Do not bundle unrelated
- fix even if it generate more pull requests otherwise. In case of mapping PR to add in a feature -
+ fixes even if not bundling it generates more pull requests. In case of mapping PR to add in a feature -
  consult a maintainer on whether it would be appropriate to split up the PRs to add the
  feature to multiple maps individually.
 
