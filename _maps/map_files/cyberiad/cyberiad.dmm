@@ -79429,6 +79429,9 @@
 /area/turret_protected/ai)
 "dnk" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/structure/railing{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -83498,6 +83501,15 @@
 	icon_state = "green"
 	},
 /area/hallway/primary/starboard/west)
+"pgF" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/railing{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/hallway/primary/central/ne)
 "phw" = (
 /obj/machinery/power/supermatter_crystal/engine,
 /turf/simulated/floor/engine,
@@ -84290,6 +84302,12 @@
 /obj/item/geiger_counter,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"uaq" = (
+/obj/structure/railing,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/hallway/primary/central/ne)
 "ubz" = (
 /obj/structure/table,
 /obj/item/rpd,
@@ -84770,6 +84788,14 @@
 /obj/structure/chair/sofa,
 /turf/simulated/floor/carpet,
 /area/crew_quarters)
+"wED" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/hallway/primary/central/ne)
 "wEY" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -84803,6 +84829,7 @@
 	pixel_x = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/railing,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -118595,14 +118622,14 @@ oRD
 oRD
 aUS
 dnk
-waB
-waB
+wED
+wED
 waB
 gVI
 waB
-waB
-waB
-dnk
+wED
+wED
+pgF
 xiq
 bnn
 bkC
@@ -118850,7 +118877,7 @@ vvh
 lpu
 dkN
 dkN
-oRD
+aUS
 waB
 qxa
 qxa
@@ -118859,7 +118886,7 @@ qxa
 qxa
 qxa
 qxa
-waB
+uaq
 xiq
 bnn
 nde
@@ -119887,7 +119914,7 @@ qxa
 qxa
 qxa
 qxa
-waB
+uaq
 xiq
 bnn
 bhq
