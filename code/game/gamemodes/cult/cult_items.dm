@@ -692,14 +692,14 @@
 
 /obj/item/portal_amulet/afterattack(atom/O, mob/user, proximity)
 	. = ..()
-	if(!iscultist(user) && ishuman(user))
-		var/mob/living/carbon/human/H = user
-		to_chat(H, "<span class='cultlarge'>\"So, you want to explore space?\"</span>")
-		to_chat(H, "<span class='warning'>Space flashes around you as you are moved somewhere else!</span>")
-		H.Confused(10)
-		H.flash_eyes(override_blindness_check = TRUE)
-		H.EyeBlind(10)
-		do_teleport(H, get_turf(H), 5, asoundin = 'sound/magic/cult_spell.ogg')
+	if(!iscultist(user) && iscarbon(user))
+		var/mob/living/carbon/M = user
+		to_chat(M, "<span class='cultlarge'>\"So, you want to explore space?\"</span>")
+		to_chat(M, "<span class='warning'>Space flashes around you as you are moved somewhere else!</span>")
+		M.Confused(10)
+		M.flash_eyes(override_blindness_check = TRUE)
+		M.EyeBlind(10)
+		do_teleport(M, get_turf(M), 5, asoundin = 'sound/magic/cult_spell.ogg')
 		qdel(src)
 		return
 
@@ -715,21 +715,21 @@
 
 /obj/item/portal_amulet/proc/attempt_portal(obj/effect/rune/teleport/R, mob/user)
 	var/list/potential_runes = list()
-	var/list/teleportnames = list()
-	var/list/duplicaterunecount = list()
+	var/list/teleport_names = list()
+	var/list/duplicate_rune_count = list()
 	var/turf/T = get_turf(src) //used to tell the other rune where we came from
 
 	for(var/I in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/target = I
-		var/resultkey = target.listkey
-		if(duplicaterunecount[resultkey])
-			duplicaterunecount[resultkey]++
-			resultkey = "[resultkey] ([duplicaterunecount[resultkey]])"
-		else
-			teleportnames += resultkey
-			duplicaterunecount[resultkey] = 1
+		var/result_key = target.listkey
 		if(target != R && is_level_reachable(target.z))
-			potential_runes[resultkey] = target
+			potential_runes[result_key] = target
+		if(result_key in teleport_names)
+			duplicate_rune_count[result_key]++
+			result_key = "[result_key] ([duplicate_rune_count[result_key]])"
+		else
+			teleport_names += result_key
+			duplicate_rune_count[result_key] = 1
 
 	if(!length(potential_runes))
 		to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
