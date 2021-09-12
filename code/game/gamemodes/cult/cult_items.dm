@@ -722,7 +722,7 @@
 	for(var/I in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/target = I
 		var/resultkey = target.listkey
-		if(resultkey in teleportnames)
+		if(duplicaterunecount[resultkey])
 			duplicaterunecount[resultkey]++
 			resultkey = "[resultkey] ([duplicaterunecount[resultkey]])"
 		else
