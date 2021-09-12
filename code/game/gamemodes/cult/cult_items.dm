@@ -701,6 +701,7 @@
 		H.EyeBlind(10)
 		do_teleport(H, get_turf(H), 5, asoundin = 'sound/magic/cult_spell.ogg')
 		qdel(src)
+		return
 
 	if(istype(O, /obj/effect/rune))
 		if(!istype(O, /obj/effect/rune/teleport))
@@ -771,6 +772,7 @@
 		to_chat(user, "<span class='notice'>You close the portal with your [I].</span>")
 		playsound(src, 'sound/magic/magic_missile.ogg', 100, TRUE)
 		qdel(src)
+		return
 	return ..()
 
 /obj/effect/portal/cult/Destroy()
