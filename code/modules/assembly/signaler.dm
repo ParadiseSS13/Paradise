@@ -139,7 +139,8 @@
 		return FALSE
 	pulse(1)
 
-	audible_message("[bicon(src)] *beep* *beep*")
+	visible_message("[bicon(src)] *beep* *beep*",
+		blind_message = "*beep* *beep*")
 	return TRUE
 
 /obj/item/assembly/signaler/proc/set_frequency(new_frequency)

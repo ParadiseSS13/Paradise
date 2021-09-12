@@ -29,7 +29,7 @@
 	if(stat == DEAD)
 		return
 	else
-		to_chat(src, "<span class='userdanger'>The blob attacks!</span>")
+		to_chat(src, "<span class='userdanger'>The blob attacks you!</span>")
 		adjustBruteLoss(10)
 
 /mob/living/carbon/Move(NewLoc, direct)

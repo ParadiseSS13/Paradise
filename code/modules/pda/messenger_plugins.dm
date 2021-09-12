@@ -62,11 +62,11 @@
 			pda.close(user)
 			pda.explode()
 			log_admin("[key_name(user)] just attempted to blow up [P] with the Detomatix cartridge but failed, blowing themselves up")
-			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge but failed, blowing themselves up", MSG_VISIBLE)
+			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge but failed, blowing themselves up")
 		else
 			user.show_message("<span class='notice'>Success!</span>", MSG_VISIBLE)
 			log_admin("[key_name(user)] just attempted to blow up [P] with the Detomatix cartridge and succeded")
-			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge and succeded", MSG_VISIBLE)
+			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge and succeded")
 			P.explode()
 
 /datum/data/pda/messenger_plugin/virus/frame

@@ -1252,7 +1252,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 		var/message_clean = combine_message(message_pieces, null, M)
 		create_chat_message(locateUID(M.runechat_msg_location), message_clean)
-	audible_message(rendered)
+	show_message(rendered, MSG_AUDIBLE)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
 	malfhack = null

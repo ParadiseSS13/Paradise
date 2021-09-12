@@ -17,12 +17,12 @@
 		)
 
 // Clumsy folks can't take the mask off themselves.
-/obj/item/clothing/mask/muzzle/attack_hand(mob/user as mob)
+/obj/item/clothing/mask/muzzle/attack_hand(mob/user)
 	if(user.wear_mask == src && !user.IsAdvancedToolUser())
 		return 0
 	else if(security_lock && locked)
 		if(do_unlock(user))
-			visible_message("<span class='danger'>[user] unlocks [user.p_their()] [src.name].</span>")
+			visible_message("<span class='danger'>[user] unlocks [user.p_their()] [name].</span>")
 	..()
 	return 1
 

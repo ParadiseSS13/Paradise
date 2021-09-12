@@ -119,7 +119,7 @@
 	if(istype(G))	// handle grabbed mob
 		if(ismob(G.affecting))
 			var/mob/GM = G.affecting
-			visible_message("[usr] starts putting [GM] into the disposal.")
+			visible_message("[usr] starts putting [GM] into [src].")
 			if(do_after(usr, 20, target = GM))
 				GM.forceMove(src)
 				visible_message("<span class='warning'>[GM] has been placed in [src] by [user].</span>")

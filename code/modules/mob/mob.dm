@@ -95,10 +95,10 @@
 
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != DEAD))
-		if(type & MSG_AUDIBLE) // Audible
-			to_chat(src, "<I>... You can almost hear something ...</I>")
-		else // Visible
+		if(type & MSG_VISIBLE) // Visible
 			to_chat(src, "<I>... You can almost see something ...</I>")
+		else // Audible
+			to_chat(src, "<I>... You can almost hear something ...</I>")
 		return
 
 	to_chat(src, msg) // Send the actual message
@@ -134,7 +134,7 @@
 
 
 /mob/visible_message(message, self_message, blind_message, vision_distance, list/ignored_mobs)
-	. = ..(message, blind_message, vision_distance, ignored_mobs)
+	. = ..(message, self_message, blind_message, vision_distance, ignored_mobs)
 	if(self_message)
 		show_message(self_message, MSG_VISIBLE, blind_message, MSG_AUDIBLE)
 

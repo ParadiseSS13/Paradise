@@ -43,22 +43,22 @@
 		if(istype(W, /obj/item/screwdriver))
 			if(do_after(user, 20 * W.toolspeed, target = src))
 				open = !open
-				user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", MSG_VISIBLE)
+				to_chat(user, "<span class='notice'>You [open ? "open" : "close"] the service panel.</span>")
 			return
 
 		if((istype(W, /obj/item/multitool)) && (open == 1) && (!l_hacking))
-			user.show_message("<span class='danger'>Now attempting to reset internal memory, please hold.</span>", MSG_VISIBLE)
+			to_chat(user, "<span class='danger'>Now attempting to reset internal memory, please hold.</span>")
 			l_hacking = 1
 			if(do_after(usr, 100 * W.toolspeed, target = src))
 				if(prob(40))
 					l_setshort = 1
 					l_set = 0
-					user.show_message("<span class='danger'>Internal memory reset. Please give it a few seconds to reinitialize.</span>", MSG_VISIBLE)
+					to_chat(user, "<span class='danger'>Internal memory reset. Please give it a few seconds to reinitialize.</span>")
 					sleep(80)
 					l_setshort = 0
 					l_hacking = 0
 				else
-					user.show_message("<span class='danger'>Unable to reset internal memory.</span>", MSG_VISIBLE)
+					to_chat(user, "<span class='danger'>Unable to reset internal memory.</span>")
 					l_hacking = 0
 			else
 				l_hacking = 0

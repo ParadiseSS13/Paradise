@@ -324,8 +324,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/turf/T = get_turf(src.loc)
 
 	if(ismob(loc))
-		var/mob/M = loc
-		M.show_message("<span class='danger'>Your [src] explodes!</span>", MSG_VISIBLE)
+		to_chat(loc, "<span class='danger'>Your [src] explodes!</span>")
 
 	if(T)
 		T.hotspot_expose(700,125)
