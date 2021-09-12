@@ -712,7 +712,7 @@
 		var/obj/effect/rune/teleport/R = O
 		attempt_portal(R, user)
 
-/obj/item/portal_amulet/proc/attempt_portal(var/obj/effect/rune/teleport/R, mob/user)
+/obj/item/portal_amulet/proc/attempt_portal(obj/effect/rune/teleport/R, mob/user)
 	var/list/potential_runes = list()
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
