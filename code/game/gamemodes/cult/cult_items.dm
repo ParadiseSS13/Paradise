@@ -760,12 +760,12 @@
 	icon_state = "portal1"
 	failchance = 0
 	precision = FALSE
-	var/obj/effect/temp_visual/cult_portal_exit/exit = null
+	var/obj/effect/cult_portal_exit/exit = null
 
-/obj/effect/portal/cult/New()
+/obj/effect/portal/cult/Initialize(mapload, target, creator, lifespan)
 	..()
-	exit = new /obj/effect/temp_visual/cult_portal_exit
-	exit.forceMove(target)
+	if(target)
+		exit = new /obj/effect/cult_portal_exit(target)
 
 /obj/effect/portal/cult/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user) || istype(I, /obj/item/nullrod) && user.mind.isholy)
@@ -776,13 +776,13 @@
 	return ..()
 
 /obj/effect/portal/cult/Destroy()
-	qdel(exit)
+	if(exit)
+		QDEL_NULL(exit)
 	return ..()
 
-/obj/effect/temp_visual/cult_portal_exit
+/obj/effect/cult_portal_exit
 	name = "eldritch rift"
 	desc = "An exit point for some cult portal. Be on guard, more things may come out of it"
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
-	duration = 4 MINUTES
 	color = "red"
