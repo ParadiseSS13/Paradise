@@ -682,15 +682,15 @@
 	desc = "It's an orb of crystalized blood. Can be used to transfer blood between cultists."
 	var/blood = 50
 
-/obj/item/rune_portaler //I suck with names
-	name = "reality opener"
+/obj/item/portal_amulet
+	name = "reality sunderer"
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "amulet"
 	desc = "Some amulet made out of metal, bluespace crystals, and blood. Allows cultists to open portals over teleport runes, destroying the rune in the process."
 	w_class = WEIGHT_CLASS_SMALL
 
 
-/obj/item/rune_portaler/afterattack(atom/O, mob/user, proximity)
+/obj/item/portal_amulet/afterattack(atom/O, mob/user, proximity)
 	. = ..()
 	if(!iscultist(user) && ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -712,7 +712,7 @@
 		var/obj/effect/rune/teleport/R = O
 		attempt_portal(R, user)
 
-/obj/item/rune_portaler/proc/attempt_portal(var/obj/effect/rune/teleport/R, mob/user)
+/obj/item/portal_amulet/proc/attempt_portal(var/obj/effect/rune/teleport/R, mob/user)
 	var/list/potential_runes = list()
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
@@ -749,16 +749,16 @@
 		actual_selected_rune.handle_portal("space", T)
 	new /obj/effect/portal/cult(get_turf(R), get_turf(actual_selected_rune), src, 4 MINUTES)
 	to_chat(user, "<span class='cultitalic'>You use the magic of the amulet to turn [R] into a portal.</span>")
+	playsound(src, 'sound/magic/cult_spell.ogg', 100, TRUE)
 	qdel(R)
 	qdel(src)
 
 /obj/effect/portal/cult
 	name = "eldritch portal"
-	desc = "An evil portal made by dark magics. Suprisingly stable. Destroying the rune, or using a multitool on the portal, should close it."
+	desc = "An evil portal made by dark magics. Suprisingly stable."
 	icon_state = "portal1"
 	failchance = 0
 	precision = FALSE
-	can_multitool_to_remove = TRUE
 	var/obj/effect/temp_visual/cult_portal_exit/exit = null
 
 /obj/effect/portal/cult/New()
@@ -767,8 +767,9 @@
 	exit.forceMove(target)
 
 /obj/effect/portal/cult/attackby(obj/I, mob/user, params)
-	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))
-		to_chat(user, "<span class='cultitalic'>You close the portal with your dagger.</span>")
+	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user) || istype(I, /obj/item/nullrod) && user.mind.isholy)
+		to_chat(user, "<span class='notice'>You close the portal with your [I].</span>")
+		playsound(src, 'sound/magic/magic_missile.ogg', 100, TRUE)
 		qdel(src)
 	return ..()
 
