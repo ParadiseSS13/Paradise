@@ -693,7 +693,7 @@
 /obj/item/portal_amulet/afterattack(atom/O, mob/user, proximity)
 	. = ..()
 	if(!iscultist(user))
-		if(!carbon(user))
+		if(!iscarbon(user))
 			return
 		var/mob/living/carbon/M = user
 		to_chat(M, "<span class='cultlarge'>\"So, you want to explore space?\"</span>")
