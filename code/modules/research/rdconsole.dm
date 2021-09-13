@@ -225,7 +225,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/emag_act(user as mob)
 	if(id == 6) //Syndicate protect from emag
-		to_chat(user, "<span class='notice'>You can't Emag this consile</span>")
+		to_chat(user, "<span class='notice'>You can't Emag this console</span>")
 	else if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		req_access = list()
