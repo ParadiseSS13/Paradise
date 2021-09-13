@@ -55,7 +55,10 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 				greet_trader(M)
 				success_spawn = 1
 		if(success_spawn)
-			GLOB.event_announcement.Announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия 4 [station_name()].", "Запрос на стыковку шаттла торговцев принят")
+			var/map_trader_port = 5
+			if(station_name() == "NSS Cyberiad")
+				map_trader_port = 4
+			GLOB.event_announcement.Announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].", "Запрос на стыковку шаттла торговцев принят")
 		else
 			GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
 
