@@ -45,5 +45,5 @@ other types of metals and chemistry for reagents).
 	var/list/reagents_list = list()			//List of reagents. Format: "id" = amount.
 	var/maxstack = 1
 	var/lathe_time_factor = 1			//How many times faster than normal is this to build on the protolathe
-	var/list/consolelimit = list()		//Remove design from consoles with listed ID
+	var/list/console_blacklist = list()	//Remove design from consoles with listed ID
 

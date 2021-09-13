@@ -742,7 +742,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(submenu == SUBMENU_LATHE_CATEGORY)
 		for(var/datum/design/D in matching_designs)
-			if((id in D.consolelimit) || (D.id == "id")) //if forbidden for this console or 'NULL' design NAME
+			if((id in D.console_blacklist) || (D.id == "id")) //if forbidden for this console or 'NULL' design NAME
 				continue
 			var/list/design_list = list()
 			designs_list[++designs_list.len] = design_list
