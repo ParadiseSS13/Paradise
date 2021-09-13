@@ -692,7 +692,9 @@
 
 /obj/item/portal_amulet/afterattack(atom/O, mob/user, proximity)
 	. = ..()
-	if(!iscultist(user) && iscarbon(user))
+	if(!iscultist(user))
+		if(!carbon(user))
+			return
 		var/mob/living/carbon/M = user
 		to_chat(M, "<span class='cultlarge'>\"So, you want to explore space?\"</span>")
 		to_chat(M, "<span class='warning'>Space flashes around you as you are moved somewhere else!</span>")
@@ -763,7 +765,7 @@
 	var/obj/effect/cult_portal_exit/exit = null
 
 /obj/effect/portal/cult/Initialize(mapload, target, creator, lifespan)
-	..()
+	. = ..()
 	if(target)
 		exit = new /obj/effect/cult_portal_exit(target)
 
@@ -776,8 +778,7 @@
 	return ..()
 
 /obj/effect/portal/cult/Destroy()
-	if(exit)
-		QDEL_NULL(exit)
+	QDEL_NULL(exit)
 	return ..()
 
 /obj/effect/cult_portal_exit
