@@ -70,6 +70,7 @@
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1750, MAT_SILVER = 500)
 	build_path = /obj/item/telepad_beacon
 	category = list("Bluespace")
+	consolelimit = list(6)
 
 /datum/design/beacon
 	name = "Tracking Beacon"
@@ -80,6 +81,7 @@
 	materials = list(MAT_METAL = 150, MAT_GLASS = 100)
 	build_path = /obj/item/radio/beacon
 	category = list("Bluespace")
+	consolelimit = list(6)
 
 /datum/design/brpd
 	name = "Bluespace Rapid Pipe Dispenser (BRPD)"

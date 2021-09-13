@@ -276,6 +276,9 @@
 	board_name = "RD Console - Public"
 	build_path = /obj/machinery/computer/rdconsole/public
 
+/obj/item/circuitboard/rdconsole/syndicate
+	board_name = "RD Console - syndicate"
+	build_path = /obj/machinery/computer/rdconsole/syndicate
 
 /obj/item/circuitboard/mecha_control
 	board_name = "Exosuit Control Console"
@@ -411,6 +414,9 @@
 
 /obj/item/circuitboard/rdconsole/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+		if(build_path == /obj/machinery/computer/rdconsole/syndicate) //You can't change Syndicate console type. Steal normal from station
+			to_chat(user, "<span class='warning'>Access Denied</span>")
+			return
 		if(allowed(user))
 			user.visible_message("<span class='notice'>[user] waves [user.p_their()] ID past [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past [src]'s access protocol scanner.</span>")
 			var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "R&D Core") as null|anything in access_types

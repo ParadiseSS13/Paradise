@@ -62,6 +62,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole
 	name = "\improper R&D console"
+	desc = "A console used to interface with R&D tools."
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
@@ -223,7 +224,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	return
 
 /obj/machinery/computer/rdconsole/emag_act(user as mob)
-	if(!emagged)
+	if(id == 6) //Syndicate protect from emag
+		to_chat(user, "<span class='notice'>You can't Emag this consile</span>")
+	else if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		req_access = list()
 		emagged = TRUE
@@ -739,6 +742,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(submenu == SUBMENU_LATHE_CATEGORY)
 		for(var/datum/design/D in matching_designs)
+			if((id in D.consolelimit) || (D.id == "id")) //if forbidden for this console or 'NULL' design NAME
+				continue
 			var/list/design_list = list()
 			designs_list[++designs_list.len] = design_list
 			var/list/design_materials_list = list()
@@ -939,35 +944,36 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/core
 	name = "core R&D console"
-	desc = "A console used to interface with R&D tools."
 	id = 1
 
 /obj/machinery/computer/rdconsole/robotics
 	name = "robotics R&D console"
-	desc = "A console used to interface with R&D tools."
 	id = 2
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/rdconsole/robotics
 
 /obj/machinery/computer/rdconsole/experiment
 	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
-	desc = "A console used to interface with R&D tools."
 	id = 3
 	circuit = /obj/item/circuitboard/rdconsole/experiment
 
 /obj/machinery/computer/rdconsole/mechanics
 	name = "mechanics R&D console"
-	desc = "A console used to interface with R&D tools."
 	id = 4
 	req_access = list(ACCESS_MECHANIC)
 	circuit = /obj/item/circuitboard/rdconsole/mechanics
 
 /obj/machinery/computer/rdconsole/public
 	name = "public R&D console"
-	desc = "A console used to interface with R&D tools."
 	id = 5
 	req_access = list()
 	circuit = /obj/item/circuitboard/rdconsole/public
+
+/obj/machinery/computer/rdconsole/syndicate
+	name = "syndicate R&D console"
+	id = 6
+	req_access = list(ACCESS_SYNDICATE)
+	circuit = /obj/item/circuitboard/rdconsole/syndicate
 
 #undef TECH_UPDATE_DELAY
 #undef DESIGN_UPDATE_DELAY
