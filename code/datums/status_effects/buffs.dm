@@ -92,7 +92,7 @@
 	name = "Blood Swell"
 	desc = "Your body has been infused with crimson magics, your resistance to attacks has greatly increased!"
 	icon = 'icons/mob/actions/actions.dmi'
-	icon_state = "blood_swell_effect"
+	icon_state = "blood_swell_status"
 
 /datum/status_effect/bloodswell/on_apply()
 	. = ..()

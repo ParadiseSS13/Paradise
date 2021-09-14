@@ -62,6 +62,12 @@
 	auto_target_single = FALSE
 	click_radius = -1
 
+/obj/effect/proc_holder/spell/targeted/click/charge/can_cast(mob/user, charge_check, show_message)
+	var/mob/living/L = user
+	if(L.IsWeakened() || L.resting)
+		return FALSE
+	return ..()
+
 
 /obj/effect/proc_holder/spell/targeted/click/charge/cast(list/targets, mob/user)
 	var/target = targets[1]
