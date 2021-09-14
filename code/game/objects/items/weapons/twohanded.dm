@@ -97,7 +97,7 @@
 		var/obj/item/twohanded/O = M.get_inactive_hand()
 		if(istype(O))
 			O.unwield(M)
-	return slot_flags
+	return ..()
 
 /obj/item/twohanded/dropped(mob/user)
 	..()
