@@ -93,13 +93,11 @@
 	return TRUE
 
 /obj/item/twohanded/mob_can_equip(mob/M, slot) //Unwields twohanded items if they're equipped on the back
-	if(!slot_flags)
-		return FALSE
 	if(wielded && slot_flags)
 		var/obj/item/twohanded/O = M.get_inactive_hand()
 		if(istype(O))
 			O.unwield(M)
-	return TRUE
+	return slot_flags
 
 /obj/item/twohanded/dropped(mob/user)
 	..()
