@@ -68736,7 +68736,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/charging_bay)
+/area/engine/corridor_1)
 "cKg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -69190,7 +69190,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/charging_bay)
+/area/engine/corridor_1)
 "cLM" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -69426,7 +69426,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/charging_bay)
+/area/engine/corridor_1)
 "cMF" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -70259,7 +70259,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/charging_bay)
+/area/engine/corridor_1)
 "cOM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/binary/pump{
@@ -70315,11 +70315,6 @@
 "cOX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -72253,9 +72248,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cautioncorner"
@@ -72656,11 +72648,6 @@
 "cWH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/engine/corridor_1)
 "cWI" = (
@@ -73804,7 +73791,7 @@
 /area/engine/corridor_2)
 "cZM" = (
 /turf/simulated/wall,
-/area/engine/charging_bay)
+/area/engine/corridor_1)
 "cZO" = (
 /obj/machinery/light{
 	dir = 1
@@ -80196,11 +80183,6 @@
 	dir = 5;
 	level = 1
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -80234,12 +80216,6 @@
 "dsP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -81262,20 +81238,10 @@
 	pixel_y = -7
 	},
 /obj/item/storage/toolbox/mechanical,
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump Engineering";
-	pixel_x = -24;
-	shock_proof = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/charging_bay)
+/area/engine/corridor_1)
 "ems" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/light/small{
@@ -82053,7 +82019,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/charging_bay)
+/area/engine/corridor_1)
 "eZT" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -84647,7 +84613,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/charging_bay)
+/area/engine/corridor_1)
 "hTh" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -84675,7 +84641,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/charging_bay)
+/area/engine/corridor_1)
 "hUW" = (
 /turf/simulated/wall/r_wall,
 /area/atmos/atmos_aux_storage)
@@ -88751,7 +88717,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/charging_bay)
+/area/engine/corridor_1)
 "lWZ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plasteel{
@@ -89540,10 +89506,6 @@
 	icon_state = "cautioncorner"
 	},
 /area/atmos)
-"mKE" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/engine/charging_bay)
 "mKS" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -89861,7 +89823,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/charging_bay)
+/area/engine/corridor_1)
 "ncW" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
@@ -93177,7 +93139,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/charging_bay)
+/area/engine/corridor_1)
 "qyz" = (
 /turf/simulated/floor/wood,
 /area/maintenance/aft)
@@ -93564,9 +93526,6 @@
 /area/atmos)
 "qWT" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cautioncorner"
@@ -93662,16 +93621,10 @@
 	dir = 6;
 	level = 1
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/charging_bay)
+/area/engine/corridor_1)
 "rbX" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -93935,9 +93888,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -95667,11 +95617,6 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/engine/corridor_1)
 "sPg" = (
@@ -95986,7 +95931,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/charging_bay)
+/area/engine/corridor_1)
 "teW" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -96373,7 +96318,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/charging_bay)
+/area/engine/corridor_1)
 "txm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -96525,25 +96470,11 @@
 	name = "station intercom (General)";
 	pixel_y = -28
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cautioncorner"
 	},
 /area/engine/corridor_1)
-"tEv" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Engineering";
-	name = "Engineering Security Doors";
-	opacity = 0
-	},
-/turf/simulated/floor/plating,
-/area/engine/charging_bay)
 "tFm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -101313,9 +101244,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -128034,7 +127962,7 @@ tvl
 cLG
 tvl
 hTc
-mKE
+gcm
 cOQ
 cOQ
 cOQ
@@ -128544,9 +128472,9 @@ cvI
 cLi
 jsj
 cZM
-tEv
+vnB
 lWD
-tEv
+vnB
 nei
 nei
 cPv
