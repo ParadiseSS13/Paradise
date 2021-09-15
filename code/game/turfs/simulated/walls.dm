@@ -42,7 +42,8 @@
 	/obj/structure/falsewall,
 	/obj/structure/falsewall/reinforced,
 	/turf/simulated/wall/rust,
-	/turf/simulated/wall/r_wall/rust)
+	/turf/simulated/wall/r_wall/rust,
+	/turf/simulated/wall/r_wall/coated)
 	smooth = SMOOTH_TRUE
 
 /turf/simulated/wall/BeforeChange()

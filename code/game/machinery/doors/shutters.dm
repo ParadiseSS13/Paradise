@@ -32,4 +32,4 @@
 
 /obj/machinery/door/poddoor/shutters/radiation/close()
 	. = ..()
-	rad_insulation = RAD_EXTREME_INSULATION
+	rad_insulation = RAD_FULL_INSULATION
