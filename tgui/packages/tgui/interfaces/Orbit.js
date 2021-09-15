@@ -203,7 +203,6 @@ export const Orbit = (props, context) => {
                 key={thing.name}
                 thing={thing} />
             ))}
-
         </Section>
 
         <Section title={`NPCs - (${npcs.length})`}>
@@ -214,7 +213,6 @@ export const Orbit = (props, context) => {
                 key={thing.name}
                 thing={thing} />
             ))}
-
         </Section>
 
         <Section title={`Misc - (${misc.length})`}>
@@ -225,7 +223,6 @@ export const Orbit = (props, context) => {
                 key={thing.name}
                 thing={thing} />
             ))}
-
         </Section>
       </Window.Content>
     </Window>
