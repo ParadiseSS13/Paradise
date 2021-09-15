@@ -255,3 +255,10 @@ Des: Removes all infected images from the alien.
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+#define XENO_BRUTE_ARMOR 0.7
+
+/mob/living/carbon/alien/adjustBruteLoss(amount, updating_health = TRUE)
+	bruteloss = max(bruteloss + amount * XENO_BRUTE_ARMOR, 0)
+
+#undef XENO_BRUTE_ARMOR
