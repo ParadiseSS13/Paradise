@@ -87,7 +87,7 @@
 			Paralyse(effect * blocked)
 		if(IRRADIATE)
 			if(!HAS_TRAIT(src, TRAIT_RADIMMUNE))
-				radiation += max((effect * RAD_DOSAGE_MULTIPLIER) * blocked, 0)
+				radiation += max(effect * blocked, 0)
 		if(SLUR)
 			Slur(effect * blocked)
 		if(STUTTER)
