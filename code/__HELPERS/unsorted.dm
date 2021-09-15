@@ -1545,6 +1545,10 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	A.orbiters += (src)
 
+	// Since we're adding a ghost onto a list on any arbitrary atom, make sure we don't have any garbage collection
+	// issues if the ghost gets deleted
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, .proc/stop_orbit)
+
 	while(orbiting && orbiting == A && A.loc)
 		var/targetloc = get_turf(A)
 		if(!lockinorbit && loc != lastloc && loc != targetloc)
@@ -1564,10 +1568,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 
 /atom/movable/proc/stop_orbit()
-	orbiting.orbiters -= (src)
-	if (orbiting.orbiters.len == 0)
-		qdel(orbiting.orbiters)
-		orbiting.orbiters = null
+	if (orbiting.orbiters)
+		orbiting.orbiters -= (src)
+		if (orbiting.orbiters.len == 0)
+			qdel(orbiting.orbiters)
+			orbiting.orbiters = null
 	orbiting = null
 	transform = cached_transform
 
