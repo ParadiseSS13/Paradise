@@ -106,6 +106,7 @@
 /obj/item/melee/energy/sword
 	name = "energy sword"
 	desc = "May the force be within you."
+	icon = 'icons/hispania/obj/swords.dmi' // HISPANIA
 	icon_state = "sword0"
 	force = 3
 	throwforce = 5
@@ -119,6 +120,9 @@
 	block_chance = 50
 	sharp = 1
 	var/hacked = 0
+	var/deflect_dots = 3 // HISPANIA
+	var/deflect_dots_timerid // HISPANIA
+	var/recently_charged = FALSE // HISPANIA
 
 /obj/item/melee/energy/sword/New()
 	..()
@@ -131,9 +135,15 @@
 			it can be concealed in your pocket or bag."
 
 /obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, args)
 	if(active)
-		return ..()
-	return 0
+		if(attack_type == PROJECTILE_ATTACK)
+			return FALSE
+		else if(prob(final_block_chance))
+			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+			playsound(owner.loc, 'sound/hispania/effects/shieldactivehand.ogg', 50, 1)
+			return TRUE
+	return FALSE
 
 /obj/item/melee/energy/sword/cyborg
 	var/hitcost = 50

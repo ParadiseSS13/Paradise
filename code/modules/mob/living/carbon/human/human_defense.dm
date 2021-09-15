@@ -31,6 +31,17 @@ emp_act
 			P.reflect_back(src)
 			return -1
 
+	if(sword_reflect(P)) // Hispania Energy Swords
+		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by 'energy sword'")
+		P.firer = src
+		P.setAngle(rand(0, 360))
+		playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
+		playsound(src, pick('sound/hispania/weapons/light_reflect.ogg'), 75, TRUE)
+		visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
+				   "<span class='userdanger'>You deflect the [P.name]!</span>")
+		do_sparks(1, 0, src)
+		return -1
+
 	//Shields
 	if(check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration))
 		P.on_hit(src, 100, def_zone)
@@ -230,6 +241,9 @@ emp_act
 
 /mob/living/carbon/human/proc/check_block()
 	if(mind && mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
+		playsound(loc, 'sound/effects/fingersnap.ogg', 25, 1, -1)
+		animate(src, color = mind.martial_art.block_color, time = 1)
+		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 1)
 		return TRUE
 
 /mob/living/carbon/human/emp_act(severity)

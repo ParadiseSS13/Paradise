@@ -522,7 +522,9 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
    					/obj/item/clothing/head/collectable/rabbitears = 2,
 					/obj/item/clothing/head/hairflower = 5,
     				/obj/item/stack/sheet/animalhide/monkey = 5,
-    				/obj/item/stack/sheet/animalhide/lizard = 5)
+    				/obj/item/stack/sheet/animalhide/lizard = 5,
+					/obj/item/clothing/under/bunnysuit = 2,
+					/obj/item/clothing/under/bunnysuit/red = 2)
 	contraband = list(		/obj/item/stack/sheet/animalhide/human = 5)
 	prices = list(/obj/item/storage/wallet = 300,
 					/obj/item/clothing/glasses/monocle = 400,
@@ -555,7 +557,9 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
     				/obj/item/kitchen/knife/folding/wood = 300,
     				/obj/item/kitchen/knife/folding/normal = 550,
     				/obj/item/kitchen/knife/folding/butterfly = 550,
-    				/obj/item/stack/sheet/animalhide/lizard = 500)
+    				/obj/item/stack/sheet/animalhide/lizard = 500,
+					/obj/item/clothing/under/bunnysuit = 500,
+					/obj/item/clothing/under/bunnysuit/red = 500)
 	premium = list(/obj/item/kitchen/knife/folding/wood =5,/obj/item/kitchen/knife/folding/normal =5,/obj/item/kitchen/knife/folding/butterfly =5)
 
 /obj/machinery/vending/artvend/free

@@ -109,6 +109,7 @@
 		var/atom/thing = k
 		if(QDELETED(thing))
 			continue
+		strength = strength / RAD_DOSAGE_MULTIPLIER //We don't want contamination murdering everyone instantly
 		thing.rad_act(strength)
 
 		// This list should only be for types which don't get contaminated but you want to look in their contents

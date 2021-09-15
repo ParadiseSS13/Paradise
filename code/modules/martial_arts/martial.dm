@@ -31,6 +31,8 @@
 	var/last_hit = 0
 	/// If the user is preparing a martial arts stance.
 	var/in_stance = FALSE
+	// HISPANIA
+	var/block_color = COLOR_NT_RED
 
 /datum/martial_art/New()
 	. = ..()

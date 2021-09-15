@@ -392,10 +392,11 @@
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/cable_coil/cyborg,
 		/obj/item/stack/sheet/glass/cyborg,
-		/obj/item/stack/sheet/rglass/cyborg
+		/obj/item/stack/sheet/rglass/cyborg,
+		/obj/item/inducer/apc/borg
 	)
 	emag_modules = list(/obj/item/borg/stun)
-	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg)
+	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg, /obj/item/inducer/apc/borg)
 
 /obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
