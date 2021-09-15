@@ -16,7 +16,7 @@ jobs:
         fetch-depth: 1
         ref: master
     - name: 'Install DMDOC'
-        run: bash tools/ci/install_dmdoc.sh
+      run: bash tools/ci/install_dmdoc.sh
     - name: 'Generate Documentation'
       run: |
         ~/dmdoc
