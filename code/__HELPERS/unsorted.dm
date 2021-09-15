@@ -1503,6 +1503,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 //but then you can never stop it and that's just silly.
 /atom/movable/var/atom/orbiting = null
 /atom/movable/var/cached_transform = null
+/atom/var/list/orbiters = null
 //A: atom to orbit
 //radius: range to orbit at, radius of the circle formed by orbiting
 //clockwise: whether you orbit clockwise or anti clockwise
@@ -1538,6 +1539,12 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments)
 
+	// Only create the list if we're adding a new item, so we don't have a bunch of empty lists on /every/ atom
+	if (!A.orbiters)
+		A.orbiters = list()
+
+	A.orbiters += (src)
+
 	while(orbiting && orbiting == A && A.loc)
 		var/targetloc = get_turf(A)
 		if(!lockinorbit && loc != lastloc && loc != targetloc)
@@ -1550,13 +1557,17 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		sleep(0.6)
 
 	if(orbiting == A) //make sure we haven't started orbiting something else.
-		orbiting = null
+
 		SpinAnimation(0, 0)
-		transform = cached_transform
+		stop_orbit()
 
 
 
 /atom/movable/proc/stop_orbit()
+	orbiting.orbiters -= (src)
+	if (orbiting.orbiters.len == 0)
+		qdel(orbiting.orbiters)
+		orbiting.orbiters = null
 	orbiting = null
 	transform = cached_transform
 

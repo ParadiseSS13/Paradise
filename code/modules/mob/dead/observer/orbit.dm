@@ -62,6 +62,9 @@
 			continue
 
 		serialized["ref"] = "\ref[M]"
+		var/num_orbiters = M.orbiters?.len
+		if (num_orbiters)
+			serialized["orbiters"] = num_orbiters
 
 		if(istype(M))
 			if(isnewplayer(M))  // People in the lobby screen; only have their ckey as a name.

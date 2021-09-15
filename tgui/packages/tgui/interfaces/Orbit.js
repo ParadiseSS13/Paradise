@@ -1,6 +1,6 @@
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Divider, Flex, Icon, Input, Section } from '../components';
+import { Box, Button, Divider, Flex, Icon, Input, Section } from '../components';
 import { Window } from '../layouts';
 
 const PATTERN_NUMBER = / \(([0-9]+)\)$/;
@@ -65,6 +65,13 @@ const OrbitedButton = (props, context) => {
         ref: thing.ref,
       })}>
       {thing.name}
+      {thing.orbiters && (
+        <Box inline ml={1}>
+          {"("}{thing.orbiters}{" "}
+          <Icon name="eye" />
+          {")"}
+        </Box>
+      )}
     </Button>
   );
 };
@@ -187,23 +194,39 @@ export const Orbit = (props, context) => {
             ))}
         </Section>
 
-        <BasicSection
-          title="Dead"
-          source={dead}
-          searchText={searchText}
-        />
+        <Section title={`Dead - (${dead.length})`}>
+          {dead
+            // No need to sort the dead, NPCs or misc
+            .filter(searchFor(searchText))
+            .map(thing => (
+              <OrbitedButton
+                key={thing.name}
+                thing={thing} />
+            ))}
 
-        <BasicSection
-          title="NPCs"
-          source={npcs}
-          searchText={searchText}
-        />
+        </Section>
 
-        <BasicSection
-          title="Misc"
-          source={misc}
-          searchText={searchText}
-        />
+        <Section title={`NPCs - (${npcs.length})`}>
+          {npcs
+            .filter(searchFor(searchText))
+            .map(thing => (
+              <OrbitedButton
+                key={thing.name}
+                thing={thing} />
+            ))}
+
+        </Section>
+
+        <Section title={`Misc - (${misc.length})`}>
+          {misc
+            .filter(searchFor(searchText))
+            .map(thing => (
+              <OrbitedButton
+                key={thing.name}
+                thing={thing} />
+            ))}
+
+        </Section>
       </Window.Content>
     </Window>
   );
