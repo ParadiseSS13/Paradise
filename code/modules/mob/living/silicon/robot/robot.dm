@@ -743,6 +743,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(module)
 		show_gps_coords()
 		show_stack_energy()
+		show_inducer_charge()
 
 /mob/living/silicon/robot/restrained()
 	return 0

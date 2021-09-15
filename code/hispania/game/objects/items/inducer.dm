@@ -413,3 +413,29 @@
 			recharging = FALSE
 			return TRUE
 	recharging = FALSE
+
+/// Inducer para Borgs
+
+/obj/item/inducer/apc/borg
+	name = "Cyborg Industrial Inducer"
+	desc = "This is a special inducer with a higher cell capacity than normal for Cyborgs"
+	icon_state = "borginducer"
+
+/mob/living/silicon/robot/proc/show_inducer_charge() //Proc para Mostrar la Carga del Cell del Inducer
+	for(var/obj/item/inducer/apc/borg/I in module.basic_modules)
+		if(I.cell)
+			stat(null, "Inducer Charge Left: [I.cell.charge]/[I.cell.maxcharge]")
+	
+/obj/item/inducer/apc/update_icon()
+	cut_overlays()
+	if(on)
+		if(cell.percent() >= 100)
+			add_overlay("[icon_state]-charged")
+		else
+			add_overlay("[icon_state]-on")
+	else
+		add_overlay("[icon_state]-unpowered")
+
+/obj/item/inducer/apc/borg/cyborg_recharge(coeff, emagged)
+	var/obj/item/stock_parts/cell/high/plus/C = cell
+	C.give(C.chargerate * coeff)
