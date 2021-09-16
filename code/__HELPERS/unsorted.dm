@@ -1540,14 +1540,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments)
 
 	// Only create the list if we're adding a new item, so we don't have a bunch of empty lists on /every/ atom
-	if (!A.orbiters)
-		A.orbiters = list()
-
-	A.orbiters += src
+	LAZYADD(A.orbiters, src)
 
 	// Since we're adding a ghost onto a list on any arbitrary atom, make sure we don't have any garbage collection
 	// issues if the ghost gets deleted
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, .proc/stop_orbit)
+	RegisterSignal(A, COMSIG_PARENT_QDELETING, .proc/stop_orbit)
 
 	while(orbiting && orbiting == A && A.loc)
 		var/targetloc = get_turf(A)
@@ -1561,17 +1558,13 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		sleep(0.6)
 
 	if(orbiting == A) //make sure we haven't started orbiting something else.
-
 		SpinAnimation(0, 0)
 		stop_orbit()
 
 
 
 /atom/movable/proc/stop_orbit()
-	if (orbiting.orbiters)
-		orbiting.orbiters -= src
-		if (!length(orbiting.orbiters))
-			orbiting.orbiters = null
+	LAZYREMOVE(orbiting.orbiters, src)
 	orbiting = null
 	transform = cached_transform
 
