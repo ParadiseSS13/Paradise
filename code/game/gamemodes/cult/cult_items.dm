@@ -724,14 +724,15 @@
 	for(var/I in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/target = I
 		var/result_key = target.listkey
-		if(target != R && is_level_reachable(target.z))
-			potential_runes[result_key] = target
+		if(target == R || !is_level_reachable(target.z))
+			continue
 		if(result_key in teleport_names)
 			duplicate_rune_count[result_key]++
 			result_key = "[result_key] ([duplicate_rune_count[result_key]])"
 		else
 			teleport_names += result_key
 			duplicate_rune_count[result_key] = 1
+		potential_runes[result_key] = target
 
 	if(!length(potential_runes))
 		to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
@@ -743,7 +744,7 @@
 
 	var/input_rune_key = input(user, "Choose a rune to make a portal to.", "Rune to make a portal to") as null|anything in potential_runes //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-	if(QDELETED(R) || QDELETED(actual_selected_rune) ||!Adjacent(user) || user.incapacitated())
+	if(QDELETED(R) || QDELETED(actual_selected_rune) || !Adjacent(user) || user.incapacitated())
 		return
 
 	if(is_mining_level(R.z) && !is_mining_level(actual_selected_rune.z))
