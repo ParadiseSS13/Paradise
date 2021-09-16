@@ -1543,7 +1543,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	LAZYADD(A.orbiters, src)
 
 	// Since we're adding a ghost onto a list on any arbitrary atom, make sure we don't have any garbage collection
-	// issues if the ghost gets deleted
+	// issues if the atom gets deleted.
 	RegisterSignal(A, COMSIG_PARENT_QDELETING, .proc/stop_orbit)
 
 	while(orbiting && orbiting == A && A.loc)
