@@ -62,7 +62,7 @@
 			continue
 
 		serialized["ref"] = "\ref[M]"
-		var/num_orbiters = M.orbiters?.len
+		var/num_orbiters = length(orbiters)
 		if (num_orbiters)
 			serialized["orbiters"] = num_orbiters
 

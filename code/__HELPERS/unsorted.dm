@@ -1543,7 +1543,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if (!A.orbiters)
 		A.orbiters = list()
 
-	A.orbiters += (src)
+	A.orbiters += src
 
 	// Since we're adding a ghost onto a list on any arbitrary atom, make sure we don't have any garbage collection
 	// issues if the ghost gets deleted
@@ -1569,9 +1569,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /atom/movable/proc/stop_orbit()
 	if (orbiting.orbiters)
-		orbiting.orbiters -= (src)
-		if (orbiting.orbiters.len == 0)
-			qdel(orbiting.orbiters)
+		orbiting.orbiters -= src
+		if (!length(orbiting.orbiters))
 			orbiting.orbiters = null
 	orbiting = null
 	transform = cached_transform
