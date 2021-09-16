@@ -2,25 +2,21 @@
 /area/engine/corridor_1
 	name = "\improper Engineering Corridor 1"
 	icon_state = "engine"
-	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/engine/corridor_2
 	name = "\improper Engineering Corridor 2"
 	icon_state = "engine"
-	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/engine/engineering_workshop
 	name = "Engineering Workshop"
 	icon_state = "engine_smes"
-	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/engine/supermatter_outside
 	name = "Around The SM"
 	icon_state = "engine_control"
-	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/engine/charging_bay
