@@ -10,7 +10,7 @@
 	REMOVE_TRAIT(user, TRAIT_FAKEDEATH, "changeling")
 	for(var/obj/item/grab/G in user.grabbed_by)
 		var/mob/living/carbon/M = G.assailant
-		user.visible_message("<span class='warning'>[user] suddenly hits [M] and slips out of their grab!</span>")
+		user.visible_message("<span class='warning'>[user] suddenly hits [M] in the face and slips out of their grab!</span>")
 		M.Stun(1) //Drops the grab
 		M.apply_damage(5, BRUTE, "head", M.run_armor_check("head", "melee"))
 		playsound(user.loc, 'sound/weapons/punch1.ogg', 25, 1, -1)

@@ -1,7 +1,7 @@
 /datum/action/changeling/biodegrade
 	name = "Biodegrade"
 	desc = "Dissolves restraints or other objects preventing free movement. Costs 30 chemicals."
-	helptext = "This is obvious to nearby people, and can destroy standard restraints and closets."
+	helptext = "This is obvious to nearby people, and can destroy standard restraints and closets, and break you out of grabs."
 	button_icon_state = "biodegrade"
 	chemical_cost = 30 //High cost to prevent spam
 	dna_cost = 2
@@ -64,8 +64,6 @@
 		M.apply_damage(5, BURN, "head", M.run_armor_check("head", "melee"))
 		user.SetStunned(0) //This only triggers if they are grabbed, to have them break out of the grab, without the large stun time. If you use biodegrade as an antistun without being grabbed, it will not work
 		user.SetWeakened(0)
-		user.lying = FALSE
-		user.update_canmove()
 		playsound(user.loc, 'sound/weapons/sear.ogg', 50, TRUE)
 		used = TRUE
 	if(used)

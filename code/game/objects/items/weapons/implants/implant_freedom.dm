@@ -21,8 +21,6 @@
 			M.apply_damage(2, BURN, "l_hand", M.run_armor_check("l_hand", "energy"))
 			C_imp_in.SetStunned(0) //This only triggers if they are grabbed, to have them break out of the grab, without the large stun time.
 			C_imp_in.SetWeakened(0)
-			C_imp_in.lying = FALSE
-			C_imp_in.update_canmove()
 			playsound(C_imp_in.loc, "sound/weapons/Egloves.ogg", 75, 1)
 	if(!uses)
 		qdel(src)
