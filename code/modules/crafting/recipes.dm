@@ -517,6 +517,7 @@
 	reqs = list(/obj/item/stack/sheet/bone = 4,
 				 /obj/item/stack/sheet/sinew = 2)
 	category = CAT_PRIMAL
+
 /datum/crafting_recipe/bonescythe
 	name = "Bone Scythe"
 	result = list(/obj/item/scythe/bone)
@@ -524,6 +525,7 @@
 	reqs = list(/obj/item/stack/sheet/bone = 5,
 				 /obj/item/stack/sheet/sinew = 2)
 	category = CAT_PRIMAL
+
 /datum/crafting_recipe/boneaxe
 	name = "Bone Axe"
 	result = list(/obj/item/twohanded/fireaxe/boneaxe)
