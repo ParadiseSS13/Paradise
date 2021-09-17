@@ -140,12 +140,16 @@
 /datum/mutation/disability/colourblindness/activate(mob/M)
 	..()
 	M.update_client_colour() //Handle the activation of the colourblindness on the mob.
-	M.update_icons() //Apply eyeshine as needed.
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.update_misc_effects()
 
 /datum/mutation/disability/colourblindness/deactivate(mob/M)
 	..()
 	M.update_client_colour() //Handle the deactivation of the colourblindness on the mob.
-	M.update_icons() //Remove eyeshine as needed.
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.update_misc_effects()
 
 /datum/mutation/disability/deaf
 	name = "Deafness"

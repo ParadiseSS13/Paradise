@@ -4,10 +4,10 @@
 
 /mob/living/captive_brain/say(message)
 	if(client)
-		if(client.prefs.muted & MUTE_IC)
+		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, "<span class='warning'>You cannot speak in IC (muted).</span>")
 			return
-		if(client.handle_spam_prevention(message,MUTE_IC))
+		if(client.handle_spam_prevention(message, MUTE_IC))
 			return
 
 	if(istype(loc,/mob/living/simple_animal/borer))

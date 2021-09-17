@@ -8,6 +8,9 @@
 #define LIGHT_BROKEN 2
 #define LIGHT_BURNED 3
 
+#define LIGHT_ON_DELAY_LOWER 1 SECONDS
+#define LIGHT_ON_DELAY_UPPER 3 SECONDS
+
 /**
   * # Light fixture frame
   *
@@ -173,6 +176,8 @@
 	power_channel = LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	/// Is the light on or off?
 	var/on = FALSE
+	/// Is the light currently turning on?
+	var/turning_on = FALSE
 	/// If the light state has changed since the last 'update()', also update the power requirements
 	var/power_state = FALSE
 	/// How much power does it use?
@@ -260,7 +265,7 @@
 			brightness_color = "#a0a080"
 			if(prob(5))
 				break_light_tube(TRUE)
-	update(FALSE)
+	update(FALSE, TRUE, FALSE)
 
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
@@ -290,61 +295,86 @@
 	return
 
 /**
-  * Updates the light's properties
+  * Updates the light's 'on' state and power consumption based on [/obj/machinery/light/var/on].
   *
-  * Updates the icon_state, luminosity, colour, and power usage of the light.
-  * Also handles rigged light bulbs exploding.
   * Arguments:
-  * * trigger - Should this update make the light explode/burn out? (Defaults to TRUE)
+  * * trigger - Should this update check if the light will explode/burn out.
+  * * instant - Will the lightbulb turn on instantly, or after a short delay.
+  * * play_sound - Will the lightbulb play a sound when it's turned on.
   */
-/obj/machinery/light/proc/update(trigger = TRUE)
+/obj/machinery/light/proc/update(trigger = TRUE, instant = FALSE, play_sound = TRUE)
 	switch(status)
 		if(LIGHT_BROKEN, LIGHT_BURNED, LIGHT_EMPTY)
 			on = FALSE
-	update_icon()
-	if(on)
-		var/BR = brightness_range
-		var/PO = brightness_power
-		var/CO = brightness_color
-		if(color)
-			CO = color
-		var/area/A = get_area(src)
-		if(A && A.fire)
-			CO = bulb_emergency_colour
-		else if(nightshift_enabled)
-			BR = nightshift_light_range
-			PO = nightshift_light_power
-			if(!color)
-				CO = nightshift_light_color
-		var/matching = light && BR == light.light_range && PO == light.light_power && CO == light.light_color
-		if(!matching)
-			switchcount++
-			if(rigged)
-				if(status == LIGHT_OK && trigger)
-					log_admin("LOG: Rigged light explosion, last touched by [fingerprintslast]")
-					message_admins("LOG: Rigged light explosion, last touched by [fingerprintslast]")
-					explode()
-			// Whichever number is smallest gets set as the prob
-			// Each spook adds a 0.5% to 1% chance of burnout
-			else if(prob(min(40, switchcount / 10)))
-				if(status == LIGHT_OK && trigger)
-					burnout()
-
-			else
-				use_power = ACTIVE_POWER_USE
-				set_light(BR, PO, CO)
-	else
+	if(on) // Turning on
+		if(instant)
+			_turn_on(trigger, play_sound)
+		else if(!turning_on)
+			turning_on = TRUE
+			addtimer(CALLBACK(src, .proc/_turn_on, trigger, play_sound), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
+	else // Turning off
 		use_power = IDLE_POWER_USE
 		set_light(0)
+		update_icon()
 
 	active_power_usage = (brightness_range * 10)
 	if(on != power_state) // Light was turned on/off, so update the power usage
 		power_state = on
 		if(on)
-			static_power_used = brightness_range * 20 //20W per unit luminosity
+			static_power_used = brightness_range * 20 //20W per unit of luminosity
 			addStaticPower(static_power_used, STATIC_LIGHT)
 		else
 			removeStaticPower(static_power_used, STATIC_LIGHT)
+
+/**
+  * The actual proc to turn on the lightbulb.
+  *
+  * Private proc, do not call directly. Use [/obj/machinery/light/proc/update] instead.
+  *
+  * Sets the light power, range, and colour based on environmental conditions such as night shift and fire alarms.
+  * Also handles light bulbs burning out and exploding if `trigger` is `TRUE`.
+  */
+/obj/machinery/light/proc/_turn_on(trigger, play_sound = TRUE)
+	PRIVATE_PROC(TRUE)
+	if(QDELETED(src))
+		return
+	turning_on = FALSE
+	if(!on)
+		return
+	var/BR = brightness_range
+	var/PO = brightness_power
+	var/CO = brightness_color
+	if(color)
+		CO = color
+	var/area/A = get_area(src)
+	if(A?.fire)
+		CO = bulb_emergency_colour
+	else if(nightshift_enabled)
+		BR = nightshift_light_range
+		PO = nightshift_light_power
+		if(!color)
+			CO = nightshift_light_color
+	if(light && (BR == light.light_range) && (PO == light.light_power) && (CO == light.light_color))
+		return // Nothing's changed here
+
+	switchcount++
+	update_icon()
+	if(trigger && (status == LIGHT_OK))
+		if(rigged)
+			log_admin("LOG: Rigged light explosion, last touched by [fingerprintslast].")
+			message_admins("LOG: Rigged light explosion, last touched by [fingerprintslast].")
+			explode()
+			return
+		// Whichever number is smallest gets set as the prob
+		// Each spook adds a 0.5% to 1% chance of burnout
+		else if(prob(min(40, switchcount / 10)))
+			burnout()
+			return
+
+	use_power = ACTIVE_POWER_USE
+	set_light(BR, PO, CO)
+	if(play_sound)
+		playsound(src, 'sound/machines/light_on.ogg', 60, TRUE)
 
 /obj/machinery/light/proc/burnout()
 	status = LIGHT_BURNED
@@ -404,7 +434,7 @@
 				brightness_color = L.brightness_color
 				lightmaterials = L.materials
 				on = has_power()
-				update()
+				update(TRUE, TRUE, FALSE)
 
 				user.drop_item()	//drop the item to update overlays and such
 				qdel(L)
@@ -538,13 +568,13 @@
 			if(status != LIGHT_OK)
 				break
 			on = FALSE
-			update(FALSE)
+			update(FALSE, TRUE, FALSE)
 			sleep(rand(1, 3))
 			on = (status == LIGHT_OK)
-			update(FALSE)
+			update(FALSE, TRUE, FALSE)
 			sleep(rand(1, 10))
 		on = (status == LIGHT_OK)
-		update(FALSE)
+		update(FALSE, TRUE, FALSE)
 	flickering = FALSE
 
 
@@ -620,7 +650,7 @@
 		user.put_in_active_hand(L)
 
 	status = LIGHT_EMPTY
-	update(FALSE)
+	update()
 	return L
 
 /obj/machinery/light/attack_tk(mob/user)
@@ -649,8 +679,8 @@
 	if(status == LIGHT_OK)
 		return
 	status = LIGHT_OK
-	on = 1
-	update()
+	on = TRUE
+	update(FALSE, TRUE, FALSE)
 
 /obj/machinery/light/zap_act(power, zap_flags)
 	var/explosive = zap_flags & ZAP_MACHINE_EXPLOSIVE
@@ -856,3 +886,10 @@
 	on = FALSE
 	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
 	update(FALSE)
+
+#undef LIGHT_OK
+#undef LIGHT_EMPTY
+#undef LIGHT_BROKEN
+#undef LIGHT_BURNED
+#undef LIGHT_ON_DELAY_LOWER
+#undef LIGHT_ON_DELAY_UPPER

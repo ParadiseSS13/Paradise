@@ -257,7 +257,21 @@ to destroy them and players will be able to make replacements.
 		"Robco Tool Maker" =					/obj/machinery/vending/engineering,
 		"BODA" =								/obj/machinery/vending/sovietsoda,
 		"SecTech" =								/obj/machinery/vending/security,
-		"CritterCare" =							/obj/machinery/vending/crittercare)
+		"CritterCare" =							/obj/machinery/vending/crittercare,
+		"SecDrobe" =							/obj/machinery/vending/secdrobe,
+		"DetDrobe" =							/obj/machinery/vending/detdrobe,
+		"MediDrobe" =							/obj/machinery/vending/medidrobe,
+		"ViroDrobe" =							/obj/machinery/vending/virodrobe,
+		"ChemDrobe" =							/obj/machinery/vending/chemdrobe,
+		"GeneDrobe" =							/obj/machinery/vending/genedrobe,
+		"SciDrobe" =							/obj/machinery/vending/scidrobe,
+		"RoboDrobe" =							/obj/machinery/vending/robodrobe,
+		"EngiDrobe" =							/obj/machinery/vending/engidrobe,
+		"AtmosDrobe" =							/obj/machinery/vending/atmosdrobe,
+		"CargoDrobe" =							/obj/machinery/vending/cargodrobe,
+		"ChefDrobe" =							/obj/machinery/vending/chefdrobe,
+		"BarDrobe" =							/obj/machinery/vending/bardrobe,
+		"HydroDrobe" =							/obj/machinery/vending/hydrodrobe)
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

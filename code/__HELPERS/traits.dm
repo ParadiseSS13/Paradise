@@ -164,6 +164,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLOODCRAWL_EAT	"bloodcrawl_eat"
 #define TRAIT_DWARF				"dwarf"
 #define TRAIT_SILENT_FOOTSTEPS	"silent_footsteps" //makes your footsteps completely silent
+#define TRAIT_MESON_VISION		"meson_vision"
+#define TRAIT_FLASH_PROTECTION	"flash_protection"
+#define TRAIT_NIGHT_VISION		"night_vision"
 
 #define TRAIT_COMIC_SANS		"comic_sans"
 #define TRAIT_NOFINGERPRINTS	"no_fingerprints"

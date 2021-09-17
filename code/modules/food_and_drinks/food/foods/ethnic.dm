@@ -58,6 +58,7 @@
 	desc = "What is in this anyways?"
 	icon_state = "chinese1"
 	junkiness = 25
+	antable = FALSE
 	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/beans = 3, /datum/reagent/msg = 4, /datum/reagent/consumable/sugar = 2)
 	tastes = list("noodle" = 1, "vegetables" = 1)
 
@@ -75,6 +76,7 @@
 	desc = "Tastes like chicken."
 	icon_state = "chinese2"
 	junkiness = 25
+	antable = FALSE
 	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/protein = 1, /datum/reagent/msg = 4, /datum/reagent/consumable/sugar = 4)
 	tastes = list("chicken" = 1)
 
@@ -83,6 +85,7 @@
 	desc = "Made fresh, weekly!"
 	icon_state = "chinese3"
 	junkiness = 25
+	antable = FALSE
 	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/msg = 4, /datum/reagent/consumable/sugar = 3)
 	tastes = list("noodles" = 1)
 
@@ -91,6 +94,7 @@
 	desc = "A timeless classic."
 	icon_state = "chinese4"
 	item_state = "chinese2"
+	antable = FALSE
 	junkiness = 20
 	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/rice = 3, /datum/reagent/msg = 4, /datum/reagent/consumable/sugar = 2)
 	tastes = list("rice" = 1)
