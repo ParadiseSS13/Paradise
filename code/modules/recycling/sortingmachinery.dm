@@ -163,6 +163,8 @@
 
 	if(is_type_in_list(target, no_wrap))
 		return
+	if(is_type_in_list(A.loc, list(/obj/item/smallDelivery, /obj/structure/bigDelivery)))
+		return
 	if(target.anchored)
 		return
 	if(target in user)
