@@ -78,7 +78,7 @@
 
 /obj/item/projectile/bullet/armourpiercing
 	damage = 17
-	armour_penetration = 30
+	armour_penetration = 10
 
 /obj/item/projectile/bullet/armourpiercing/wt550
 	damage = 15
