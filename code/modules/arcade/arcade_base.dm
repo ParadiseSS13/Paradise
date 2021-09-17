@@ -83,7 +83,7 @@
 	return TRUE
 
 /obj/machinery/arcade/crowbar_act(mob/living/user, obj/item/I)
-	if(!component_parts)
+	if(!component_parts || !panel_open)
 		return FALSE
 	default_deconstruction_crowbar(user, I)
 	return TRUE
