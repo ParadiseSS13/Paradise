@@ -86,14 +86,23 @@
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>")
 		return
 
-	var/choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
-	var/picked_type = choosable_items[choice]
+	var/list/pickable_items = get_choosable_items()
+	var/choice = show_radial_menu(user, src, pickable_items, require_near = TRUE)
+	var/picked_type = pickable_items[choice]
 	if(!QDELETED(src) && picked_type && Adjacent(user) && !user.incapacitated() && COOLDOWN_FINISHED(src, creation_cooldown))
 		COOLDOWN_START(src, creation_cooldown, creation_delay)
 		var/obj/O = new picked_type
 		if(istype(O, /obj/structure) || !user.put_in_hands(O))
 			O.forceMove(get_turf(src))
 		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[O.name]"))
+
+/**
+  * Returns the items the cult can craft from this forge.
+  *
+  * Override on children for logic regarding game state.
+  */
+/obj/structure/cult/functional/proc/get_choosable_items()
+	return choosable_items.Copy() // Copied incase its modified on children
 
 /**
   * Returns the cooldown time in minutes and seconds
@@ -159,8 +168,15 @@
 	selection_prompt = "You study the schematics etched on the forge..."
 	selection_title = "Forge"
 	creation_message = "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating a %ITEM%!</span>"
-	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe,
-							"Mirror Shield" = /obj/item/shield/mirror)
+	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe)
+
+/obj/structure/cult/functional/forge/get_choosable_items()
+	. = ..()
+	if(SSticker.cultdat.mirror_shields_active)
+		// Both lines here are needed. If you do it without, youll get issues.
+		. += "Mirror Shield"
+		.["Mirror Shield"] = /obj/item/shield/mirror
+
 
 /obj/structure/cult/functional/forge/Initialize(mapload)
 	. = ..()

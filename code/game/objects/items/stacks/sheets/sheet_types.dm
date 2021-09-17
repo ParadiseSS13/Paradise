@@ -16,12 +16,21 @@
 GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("stool", /obj/structure/chair/stool, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("barstool", /obj/structure/chair/stool/bar, one_per_turf = 1, on_floor = 1),
-	new /datum/stack_recipe("chair", /obj/structure/chair, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("chair (dark)", /obj/structure/chair, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("chair (light)", /obj/structure/chair/light, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("shuttle seat", /obj/structure/chair/comfy/shuttle, 2, one_per_turf = 1, on_floor = 1),
-	new /datum/stack_recipe("sofa (middle)", /obj/structure/chair/sofa, one_per_turf = 1, on_floor = 1),
-	new /datum/stack_recipe("sofa (left)", /obj/structure/chair/sofa/left, one_per_turf = 1, on_floor = 1),
-	new /datum/stack_recipe("sofa (right)", /obj/structure/chair/sofa/right, one_per_turf = 1, on_floor = 1),
-	new /datum/stack_recipe("sofa (corner)", /obj/structure/chair/sofa/corner, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe_list("sofas", list(
+		new /datum/stack_recipe("sofa (middle)", /obj/structure/chair/sofa, 1, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("sofa (left)", /obj/structure/chair/sofa/left, 1, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("sofa (right)", /obj/structure/chair/sofa/right, 1, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("sofa (corner)", /obj/structure/chair/sofa/corner, 1, one_per_turf = TRUE, on_floor = TRUE)
+		)), \
+	new /datum/stack_recipe_list("corporate sofas", list( \
+		new /datum/stack_recipe("sofa (middle)", /obj/structure/chair/sofa/corp, 1, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("sofa (left)", /obj/structure/chair/sofa/corp/left, 1, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("sofa (right)", /obj/structure/chair/sofa/corp/right, 1, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("sofa (corner)", /obj/structure/chair/sofa/corp/corner, 1, one_per_turf = TRUE, on_floor = TRUE), \
+		)), \
 	new /datum/stack_recipe("barber chair", /obj/structure/chair/barber, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wheelchair", /obj/structure/chair/wheelchair, 15, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bed", /obj/structure/bed, 2, one_per_turf = 1, on_floor = 1),
@@ -83,6 +92,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	null,
 	new /datum/stack_recipe("mass driver button frame", /obj/item/mounted/frame/driver_button, 1, time = 50, one_per_turf = 0, on_floor = 1),
 	new /datum/stack_recipe("light switch frame", /obj/item/mounted/frame/light_switch, 1, time = 50, one_per_turf = 0, on_floor = 1),
+	new /datum/stack_recipe("window tint control button frame", /obj/item/mounted/frame/light_switch/windowtint, 1, time = 50, one_per_turf = 0, on_floor = 1),
 	null,
 	new /datum/stack_recipe("grenade casing", /obj/item/grenade/chem_grenade),
 	new /datum/stack_recipe("light fixture frame", /obj/item/mounted/frame/light_fixture, 2),
@@ -176,6 +186,11 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("wood floor tile", /obj/item/stack/tile/wood, 1, 4, 20),
 	new /datum/stack_recipe("wood table frame", /obj/structure/table_frame/wood, 2, time = 10), \
 	new /datum/stack_recipe("wooden chair", /obj/structure/chair/wood, 3, time = 10, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe_list("pews", list(
+		new /datum/stack_recipe("pew (middle)", /obj/structure/chair/sofa/pew, 1, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("pew (left)", /obj/structure/chair/sofa/pew/left, 1, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("pew (right)", /obj/structure/chair/sofa/pew/right, 1, one_per_turf = TRUE, on_floor = TRUE),
+		)), \
 	new /datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("dresser", /obj/structure/dresser, 30, time = 50, one_per_turf = 1, on_floor = 1),

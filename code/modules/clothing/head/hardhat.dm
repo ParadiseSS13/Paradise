@@ -13,7 +13,7 @@
 	resistance_flags = FIRE_PROOF
 	dog_fashion = /datum/dog_fashion/head/hardhat
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 /obj/item/clothing/head/hardhat/attack_self(mob/living/user)
@@ -52,6 +52,7 @@
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 /obj/item/clothing/head/hardhat/orange
+	name = "orange hard hat"
 	icon_state = "hardhat0_orange"
 	item_state = "hardhat0_orange"
 	item_color = "orange"
@@ -69,6 +70,7 @@
 	dog_fashion = /datum/dog_fashion/head/hardhat/red
 
 /obj/item/clothing/head/hardhat/white
+	name = "white hard hat"
 	icon_state = "hardhat0_white"
 	item_state = "hardhat0_white"
 	item_color = "white"
@@ -80,6 +82,7 @@
 	dog_fashion = /datum/dog_fashion/head/hardhat/white
 
 /obj/item/clothing/head/hardhat/dblue
+	name = "blue hard hat"
 	icon_state = "hardhat0_dblue"
 	item_state = "hardhat0_dblue"
 	item_color = "dblue"
@@ -98,5 +101,5 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = null
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)

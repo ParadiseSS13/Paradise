@@ -13,6 +13,7 @@
 	return 0
 
 /mob/proc/get_screen_colour()
+	return
 
 /mob/proc/update_client_colour(time = 10) //Update the mob's client.color with an animation the specified time in length.
 	if(!client) //No client_colour without client. If the player logs back in they'll be back through here anyway.
@@ -30,6 +31,19 @@
 		return worn_glasses.color_view
 	else if(eyes) //If they're not, check to see if their eyes got one of them there colour matrices. Will be null if eyes are robotic/the mob isn't colourblind and they have no default colour matrix.
 		return eyes.get_colourmatrix()
+
+/**
+  * Flash up a color as an overlay on a player's screen, then fade back to normal.
+  *
+  * Arguments:
+  * * flash_color - The color to overlay on the screen.
+  * * flash_time - The time it takes for the color to fade back to normal.
+  */
+/mob/proc/flash_screen_color(flash_color, flash_time)
+	if(!client)
+		return
+	client.color = flash_color
+	INVOKE_ASYNC(client, /client/.proc/colour_transition, get_screen_colour(), flash_time)
 
 /proc/ismindshielded(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
 	for(var/obj/item/implant/mindshield/L in A)

@@ -56,7 +56,7 @@
 	has_organ = list(
 		"heart" =      				/obj/item/organ/internal/heart/drask,
 		"lungs" =     				/obj/item/organ/internal/lungs/drask,
-		"metabolic strainer" =      /obj/item/organ/internal/liver/drask,
+		"liver" =      /obj/item/organ/internal/liver/drask,
 		"eyes" =     				/obj/item/organ/internal/eyes/drask, //5 darksight.
 		"brain" =  					/obj/item/organ/internal/brain/drask
 		)

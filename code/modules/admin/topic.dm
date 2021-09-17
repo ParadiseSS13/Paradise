@@ -446,9 +446,6 @@
 				alert(usr, "This ban has already been lifted / does not exist.", "Error", "Ok")
 				unbanpanel()
 
-	else if(href_list["warn"])
-		usr.client.warn(href_list["warn"])
-
 	else if(href_list["unbane"])
 		if(!check_rights(R_BAN))	return
 
@@ -985,7 +982,8 @@
 
 	else if(href_list["removenote"])
 		var/note_id = href_list["removenote"]
-		remove_note(note_id)
+		if(alert("Do you really want to delete this note?", "Note deletion confirmation", "Yes", "No") == "Yes")
+			remove_note(note_id)
 
 	else if(href_list["editnote"])
 		var/note_id = href_list["editnote"]

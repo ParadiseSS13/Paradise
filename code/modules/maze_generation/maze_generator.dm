@@ -14,7 +14,7 @@
 do { \
 	var/timer = start_watch(); \
 	proc2run ;\
-	log_debug("\[MAZE] Operation '[opname]' on maze at [##x],[##y],[##z] took [stop_watch(timer)]s"); \
+	log_debug("\[MAZE] Operation '[opname]' on maze at [x],[y],[z] took [stop_watch(timer)]s"); \
 } while (FALSE)
 
 

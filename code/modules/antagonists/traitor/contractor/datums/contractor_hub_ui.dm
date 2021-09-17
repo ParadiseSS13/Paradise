@@ -65,7 +65,6 @@
 
 	switch(page)
 		if(HUB_PAGE_CONTRACTS)
-			var/contract_target
 			var/list/contracts_out = list()
 			data["contracts"] = contracts_out
 			for(var/c in contracts)
@@ -100,7 +99,6 @@
 						contract_data["fail_reason"] = C.fail_reason
 
 				if(C.contract.extraction_zone)
-					contract_target = C.contract.target?.current
 					var/area/A = get_area(user)
 					contract_data["objective"] = list(
 						extraction_name = C.contract.extraction_zone.map_name,
@@ -114,9 +112,7 @@
 					)
 				contracts_out += list(contract_data)
 
-			data["can_extract"] = FALSE
-			if(contract_target)
-				data["can_extract"] = current_contract?.contract.can_start_extraction_process(user, contract_target)
+			data["can_extract"] = current_contract?.contract.can_start_extraction_process(user) || FALSE
 
 		if(HUB_PAGE_SHOP)
 			var/list/buyables = list()

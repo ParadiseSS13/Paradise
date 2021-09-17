@@ -1679,9 +1679,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	return md5(dna.uni_identity)
 
-/mob/living/carbon/human/can_see_reagents()
-	for(var/obj/item/clothing/C in src) //If they have some clothing equipped that lets them see reagents, they can see reagents
-		if(C.scan_reagents)
+/mob/living/carbon/human/can_see_reagents() //If they have some glasses or helmet equipped that lets them see reagents, they can see reagents
+	if(istype(head, /obj/item/clothing/head))
+		var/obj/item/clothing/head/hat = head
+		if(hat.scan_reagents)
+			return 1
+	if(istype(glasses, /obj/item/clothing/glasses))
+		var/obj/item/clothing/rscan = glasses
+		if(rscan.scan_reagents)
 			return 1
 
 /mob/living/carbon/human/can_eat(flags = 255)
@@ -1939,9 +1944,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/update_runechat_msg_location()
 	if(ismecha(loc))
-		runechat_msg_location = loc
+		runechat_msg_location = loc.UID()
 	else
-		runechat_msg_location = src
+		return ..()
 
 /mob/living/carbon/human/verb/Examine_OOC()
 	set name = "Examine Meta-Info (OOC)"

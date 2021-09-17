@@ -62,6 +62,7 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 
 /obj/item/clothing/under/rank/security/corp
+	name = "corporate security jumpsuit"
 	icon_state = "sec_corporate"
 	item_state = "sec_corporate"
 	item_color = "sec_corporate"
@@ -84,7 +85,7 @@
 	strip_delay = 50
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi'
 		)
 
 /*

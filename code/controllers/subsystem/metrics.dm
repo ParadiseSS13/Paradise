@@ -23,7 +23,7 @@ SUBSYSTEM_DEF(metrics)
 	var/list/out = list()
 	out["@timestamp"] = time_stamp() // This is required by ElasticSearch, complete with this name. DO NOT REMOVE THIS.
 	out["cpu"] = world.cpu
-	// out["maptick"] = world.map_cpu // TODO: 514
+	out["maptick"] = world.map_cpu
 	out["elapsed_processed"] = world.time
 	out["elapsed_real"] = (REALTIMEOFDAY - world_init_time)
 	out["client_count"] = length(GLOB.clients)
