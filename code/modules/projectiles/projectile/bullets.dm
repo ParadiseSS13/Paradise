@@ -80,9 +80,6 @@
 	damage = 17
 	armour_penetration = 30
 
-/obj/item/projectile/bullet/armourpiercing/wt550
-	damage = 15
-	armour_penetration = 40
 /obj/item/projectile/bullet/pellet
 	name = "pellet"
 	damage = 12.5
