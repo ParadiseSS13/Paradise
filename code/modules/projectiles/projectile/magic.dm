@@ -5,7 +5,7 @@
 	damage_type = OXY
 	nodamage = 1
 	armour_penetration = 100
-	flag = "magic"
+	flag = MAGIC
 
 /obj/item/projectile/magic/death
 	name = "bolt of death"
@@ -367,5 +367,5 @@
 	damage_type = BURN
 	nodamage = FALSE
 	armour_penetration = 0
-	flag = "magic"
+	flag = MAGIC
 	hitsound = 'sound/weapons/barragespellhit.ogg'
