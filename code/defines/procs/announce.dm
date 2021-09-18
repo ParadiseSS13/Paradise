@@ -44,12 +44,13 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	title = "Security Announcement"
 	announcement_type = "Security Announcement"
 
-/datum/announcement/proc/Announce(message as text, new_title = "", new_sound = null, do_newscast = newscast, msg_sanitized = 0, from, msg_language)
+/datum/announcement/proc/Announce(message as text, new_title = "", new_sound = null, do_newscast = newscast, msg_sanitized = 0, from, msg_language, new_sound2 = null)
 	if(!message)
 		return
 
 	var/message_title = new_title ? new_title : title
 	var/message_sound = new_sound ? sound(new_sound) : sound
+	var/message_sound2 = new_sound2 ? sound(new_sound2) : sound
 
 	if(!msg_sanitized)
 		message = trim_strip_html_properly(message, allow_lines = 1)
@@ -74,6 +75,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 		NewsCast(message, message_title)
 
 	Sound(message_sound, combined_receivers[1] + combined_receivers[2])
+	Sound(message_sound2, combined_receivers[1] + combined_receivers[2])
 	Log(message, message_title)
 
 /datum/announcement/proc/Get_Receivers(datum/language/message_language)

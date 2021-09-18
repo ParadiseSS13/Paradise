@@ -5,7 +5,7 @@
 	damage_type = OXY
 	nodamage = 1
 	armour_penetration = 100
-	flag = "magic"
+	flag = MAGIC
 
 /obj/item/projectile/magic/death
 	name = "bolt of death"
@@ -275,7 +275,7 @@
 				return
 
 		M.create_attack_log("<font color='orange'>[key_name(M)] became [new_mob.real_name].</font>")
-		add_attack_logs(null, M, "became [new_mob.real_name]", ATKLOG_ALL)
+		add_attack_logs(M, M, "became [new_mob.real_name]", ATKLOG_ALL)
 
 		new_mob.a_intent = INTENT_HARM
 		if(M.mind)
@@ -367,5 +367,5 @@
 	damage_type = BURN
 	nodamage = FALSE
 	armour_penetration = 0
-	flag = "magic"
+	flag = MAGIC
 	hitsound = 'sound/weapons/barragespellhit.ogg'

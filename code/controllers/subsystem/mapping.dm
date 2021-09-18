@@ -10,6 +10,8 @@ SUBSYSTEM_DEF(mapping)
 	var/list/teleportlocs
 	/// List of all areas that can be accessed via IC and OOC means
 	var/list/ghostteleportlocs
+	///List of areas that exist on the station this shift
+	var/list/existing_station_areas
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
 /datum/controller/subsystem/mapping/PreInit()
@@ -88,6 +90,13 @@ SUBSYSTEM_DEF(mapping)
 			ghostteleportlocs[AR.name] = AR
 
 	ghostteleportlocs = sortAssoc(ghostteleportlocs)
+
+	// Now we make a list of areas that exist on the station. Good for if you don't want to select areas that exist for one station but not others. Directly references
+	existing_station_areas = list()
+	for(var/area/AR in world)
+		var/turf/picked = safepick(get_area_turfs(AR.type))
+		if(picked && is_station_level(picked.z))
+			existing_station_areas += AR
 
 	// World name
 	if(GLOB.configuration.general.server_name)

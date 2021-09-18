@@ -212,6 +212,20 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	GLOB.shuttle_caller_list += src
 	..()
 
+/mob/living/silicon/ai/Destroy()
+	GLOB.ai_list -= src
+	GLOB.shuttle_caller_list -= src
+	SSshuttle.autoEvac()
+	if(malfhacking)
+		deltimer(malfhacking)
+		malfhacking = null
+	QDEL_NULL(eyeobj) // No AI, no Eye
+	QDEL_NULL(aiPDA)
+	QDEL_NULL(aiMulti)
+	QDEL_NULL(aiRadio)
+	QDEL_NULL(builtInCamera)
+	return ..()
+
 /mob/living/silicon/ai/proc/on_mob_init()
 	to_chat(src, "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")
 	to_chat(src, "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>")
@@ -313,17 +327,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			aiPDA.set_name_and_job(newname, "AI")
 
 	return TRUE
-
-/mob/living/silicon/ai/Destroy()
-	GLOB.ai_list -= src
-	GLOB.shuttle_caller_list -= src
-	SSshuttle.autoEvac()
-	QDEL_NULL(eyeobj) // No AI, no Eye
-	if(malfhacking)
-		deltimer(malfhacking)
-		malfhacking = null
-	malfhack = null
-	return ..()
 
 
 /*

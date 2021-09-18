@@ -368,7 +368,8 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/floor/Initialize()
 	. = ..()
 	var/turf/T = loc
-	hide(T.intact)
+	if(!T.transparent_floor)
+		hide(T.intact)
 
 /obj/structure/safe/floor/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0

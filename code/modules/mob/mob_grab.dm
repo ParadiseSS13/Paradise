@@ -342,7 +342,7 @@
 						var/obj/item/clothing/hat = attacker.head
 						if(istype(hat))
 							damage += hat.force * 3
-						affecting.apply_damage(damage*rand(90, 110)/100, BRUTE, "head", affected.run_armor_check(affecting, "melee"))
+						affecting.apply_damage(damage*rand(90, 110)/100, BRUTE, "head", affected.run_armor_check(affecting, MELEE))
 						playsound(assailant.loc, "swing_hit", 25, 1, -1)
 						add_attack_logs(assailant, affecting, "Headbutted")
 						return
