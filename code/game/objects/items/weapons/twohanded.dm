@@ -92,6 +92,11 @@
 	user.put_in_inactive_hand(O)
 	return TRUE
 
+/obj/item/twohanded/mob_can_equip(mob/M, slot) //Unwields twohanded items when they're attempted to be equipped to another slot
+	if(wielded)
+		unwield(M)
+	return ..()
+
 /obj/item/twohanded/dropped(mob/user)
 	..()
 	//handles unwielding a twohanded weapon when dropped as well as clearing up the offhand
