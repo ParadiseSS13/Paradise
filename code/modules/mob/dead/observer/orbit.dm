@@ -121,6 +121,10 @@
 					var/list/antag_serialized = serialized.Copy()
 					antag_serialized["antag"] = "Terror Spider"
 					antagonists += list(antag_serialized)
+				else if(istype(M, /mob/living/simple_animal/revenant))
+					var/list/antag_serialized = serialized.Copy()
+					antag_serialized["antag"] = "Revenant"
+					antagonists += list(antag_serialized)
 		else
 			misc += list(serialized)
 
