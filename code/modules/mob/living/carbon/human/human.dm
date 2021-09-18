@@ -1608,10 +1608,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	H.receiving_cpr = TRUE
 	var/cpr_modifier = get_cpr_mod(H)
-	if(cpr_modifier == CPR_RESCUE_BREATHS)
-		visible_message("<span class='danger'>[src] is trying to perform chest compressions and rescue breaths on [H.name]!</span>", "<span class='danger'>You try to perform chest compressions and rescue breaths on [H.name]!</span>")
-	else
-		visible_message("<span class='danger'>[src] is trying to perform chest compressions on [H.name]!</span>", "<span class='danger'>You try to perform chest compressions on [H.name]!</span>")
+	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", "<span class='danger'>You try to perform CPR on [H.name]!</span>")
 
 	if(do_mob(src, H, 4 SECONDS))
 		if(H.health <= HEALTH_THRESHOLD_CRIT)
@@ -1621,7 +1618,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			H.updatehealth("cpr")
 			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
 
-			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
+			if(cpr_modifier == CPR_RESCUE_BREATHS)
+				to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
 			H.receiving_cpr = FALSE
 			add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
 			return TRUE
@@ -1630,9 +1628,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
 
 /mob/living/carbon/human/proc/get_cpr_mod(mob/living/carbon/human/H)
-	if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
-		return CPR_CHEST_COMPRESSION_ONLY
-	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.mask_adjusted))
+	if(is_mouth_covered() || H.is_mouth_covered())
 		return CPR_CHEST_COMPRESSION_ONLY
 	if(!H.check_has_mouth() || !check_has_mouth())
 		return CPR_CHEST_COMPRESSION_ONLY
