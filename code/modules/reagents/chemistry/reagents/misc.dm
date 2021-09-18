@@ -559,12 +559,6 @@
 	REMOVE_TRAIT(M, TRAIT_PACIFISM, id)
 	..()
 
-/datum/reagent/pax/peaceborg
-	name = "synthpax"
-	id = "synthpax"
-	description = "A colorless liquid that suppresses violence in its subjects. Cheaper to synthesize than normal Pax, but wears off faster."
-	metabolization_rate = 1.5 * REAGENTS_METABOLISM
-
 /datum/reagent/toxin/coffeepowder
 	name = "Coffee Grounds"
 	id = "coffeepowder"

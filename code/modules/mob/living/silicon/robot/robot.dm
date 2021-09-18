@@ -368,11 +368,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Cricket"] = "Cricket-SEC"
 			status_flags &= ~CANPUSH
 
-		if("Peacekeeper")
-			module = new /obj/item/robot_module/peacekeeper(src)
-			module_sprites["Peacekeeper"] = "peace"
-			status_flags &= ~CANPUSH
-
 		if("Engineering")
 			module = new /obj/item/robot_module/engineering(src)
 			module.channels = list("Engineering" = 1)
@@ -425,7 +420,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(modtype)]")
 	rename_character(real_name, get_default_name())
 
-	if(modtype == "Medical" || modtype == "Security" || modtype == "Peacekeeper" || modtype == "Combat")
+	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat")
 		status_flags &= ~CANPUSH
 
 	choose_icon(6,module_sprites)
@@ -1335,7 +1330,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scrambledcodes = 1
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
-	force_modules = list("Engineering", "Medical", "Security")
+	force_modules = list("Engineering", "Medical")
 	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE

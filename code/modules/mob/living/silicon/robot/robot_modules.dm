@@ -278,7 +278,7 @@
 		/obj/item/borg_defib,
 		/obj/item/handheld_defibrillator,
 		/obj/item/roller_holder,
-		/obj/item/borg/cyborghug/medical,
+		/obj/item/borg/cyborghug,
 		/obj/item/reagent_containers/borghypo,
 		/obj/item/scalpel/laser/laser1,
 		/obj/item/hemostat,
@@ -361,21 +361,6 @@
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
-
-
-// Peacekeeper cyborg module.
-/obj/item/robot_module/peacekeeper
-	name = "Peacekeeper"
-	module_type = "Standard"
-	basic_modules = list(
-		/obj/item/cookiesynth,
-	 	/obj/item/harmalarm,
-	 	/obj/item/reagent_containers/borghypo/peace,
-	 	/obj/item/holosign_creator/cyborg,
-	 	/obj/item/borg/cyborghug/peacekeeper,
-	 	/obj/item/extinguisher
-/*	 	/obj/item/borg/projectile_dampen*/)
-	emag_modules = list(/obj/item/reagent_containers/borghypo/peace/hacked)
 
 // Security cyborg module.
 /obj/item/robot_module/security

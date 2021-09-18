@@ -44,7 +44,6 @@
 	var/ccooldown = 0
 	var/scooldown = 0
 	var/shockallowed = FALSE //Can it be a stunarm when emagged. Only PK borgs get this by default.
-	var/boop = FALSE
 
 /obj/item/borg/cyborghug/attack_self(mob/living/user)
 	if(isrobot(user))
@@ -136,81 +135,10 @@
 					user.cell.use(300)
 					ccooldown = world.time + 10
 
-/obj/item/borg/cyborghug/peacekeeper
-	shockallowed = TRUE
-
-/obj/item/borg/cyborghug/medical
-	boop = TRUE
-
 #undef CYBORG_HUGS
 #undef CYBORG_HUG
 #undef CYBORG_SHOCK
 #undef CYBORG_CRUSH
-
-/obj/item/harmalarm
-	name = "\improper Sonic Harm Prevention Tool"
-	desc = "Releases a harmless blast that confuses most organics. For when the harm is JUST TOO MUCH."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "megaphone"
-	var/cooldown = 0
-
-/obj/item/harmalarm/emag_act(mob/user)
-	emagged = !emagged
-	if(emagged)
-		to_chat(user, "<font color='red'>You short out the safeties on [src]!</font>")
-	else
-		to_chat(user, "<font color='red'>You reset the safeties on [src]!</font>")
-
-/obj/item/harmalarm/attack_self(mob/user)
-	var/safety = !emagged
-	if(cooldown > world.time)
-		to_chat(user, "<font color='red'>The device is still recharging!</font>")
-		return
-
-	if(isrobot(user))
-		var/mob/living/silicon/robot/R = user
-		if(!R.cell || R.cell.charge < 1200)
-			to_chat(user, "<span class='warning'>You don't have enough charge to do this!</span>")
-			return
-		R.cell.use(1000)
-		if(R.emagged)
-			safety = FALSE
-
-	if(safety)
-		user.visible_message("<font color='red' size='2'>[user] blares out a near-deafening siren from its speakers!</font>", \
-			"<span class='userdanger'>The siren pierces your hearing and confuses you!</span>", \
-			"<span class='danger'>The siren pierces your hearing!</span>")
-		for(var/mob/living/carbon/M in get_mobs_in_view(9, user))
-			if(!M.check_ear_prot())
-				M.AdjustConfused(6)
-		audible_message("<font color='red' size='7'>HUMAN HARM</font>")
-		playsound(get_turf(src), 'sound/ai/harmalarm.ogg', 70, 3)
-		cooldown = world.time + 200
-		log_game("[key_name(user)] used a Cyborg Harm Alarm in ([AREACOORD(user)])")
-		if(isrobot(user))
-			var/mob/living/silicon/robot/R = user
-			if(R.connected_ai)
-				to_chat(R.connected_ai, "<br><span class='notice'>NOTICE - Peacekeeping 'HARM ALARM' used by: [user]</span><br>")
-
-	else
-		user.audible_message("<font color='red' size='7'>BZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZT</font>")
-		for(var/mob/living/carbon/human/H in get_mobs_in_view(9, user))
-			var/earsafety = FALSE
-			if(H.check_ear_prot())
-				earsafety = TRUE
-
-			if(earsafety)
-				H.AdjustConfused(5)
-				H.AdjustStuttering(10)
-				H.Jitter(10)
-			else
-				H.Weaken(2)
-				H.AdjustConfused(10)
-				H.AdjustStuttering(15)
-				H.Jitter(25)
-		playsound(get_turf(src), 'sound/machines/warning-buzzer.ogg', 130, 3)
-		cooldown = world.time + 600
-		log_game("[key_name(user)] used an emagged Cyborg Harm Alarm in ([AREACOORD(user)])")
 
 /obj/item/borg/overdrive
 	name = "Overdrive"
