@@ -682,3 +682,109 @@
 	desc = "It's an orb of crystalized blood. Can be used to transfer blood between cultists."
 	var/blood = 50
 
+/obj/item/portal_amulet
+	name = "reality sunderer"
+	icon = 'icons/obj/cult.dmi'
+	icon_state = "amulet"
+	desc = "Some amulet made out of metal, bluespace crystals, and blood. Allows cultists to open portals over teleport runes, destroying the rune in the process."
+	w_class = WEIGHT_CLASS_SMALL
+
+
+/obj/item/portal_amulet/afterattack(atom/O, mob/user, proximity)
+	. = ..()
+	if(!iscultist(user))
+		if(!iscarbon(user))
+			return
+		var/mob/living/carbon/M = user
+		to_chat(M, "<span class='cultlarge'>\"So, you want to explore space?\"</span>")
+		to_chat(M, "<span class='warning'>Space flashes around you as you are moved somewhere else!</span>")
+		M.Confused(10)
+		M.flash_eyes(override_blindness_check = TRUE)
+		M.EyeBlind(10)
+		do_teleport(M, get_turf(M), 5, asoundin = 'sound/magic/cult_spell.ogg')
+		qdel(src)
+		return
+
+	if(istype(O, /obj/effect/rune))
+		if(!istype(O, /obj/effect/rune/teleport))
+			to_chat(user, "<span class='warning'>[src] only works on teleport runes.</span>")
+			return
+		if(!proximity)
+			to_chat(user, "<span class='warning'>You are too far away from the teleport rune.</span>")
+			return
+		var/obj/effect/rune/teleport/R = O
+		attempt_portal(R, user)
+
+/obj/item/portal_amulet/proc/attempt_portal(obj/effect/rune/teleport/R, mob/user)
+	var/list/potential_runes = list()
+	var/list/teleport_names = list()
+	var/list/duplicate_rune_count = list()
+	var/turf/T = get_turf(src) //used to tell the other rune where we came from
+
+	for(var/I in GLOB.teleport_runes)
+		var/obj/effect/rune/teleport/target = I
+		var/result_key = target.listkey
+		if(target == R || !is_level_reachable(target.z))
+			continue
+		if(result_key in teleport_names)
+			duplicate_rune_count[result_key]++
+			result_key = "[result_key] ([duplicate_rune_count[result_key]])"
+		else
+			teleport_names += result_key
+			duplicate_rune_count[result_key] = 1
+		potential_runes[result_key] = target
+
+	if(!length(potential_runes))
+		to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
+		return
+
+	if(!is_level_reachable(user.z))
+		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
+		return
+
+	var/input_rune_key = input(user, "Choose a rune to make a portal to.", "Rune to make a portal to") as null|anything in potential_runes //we know what key they picked
+	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
+	if(QDELETED(R) || QDELETED(actual_selected_rune) || !Adjacent(user) || user.incapacitated())
+		return
+
+	if(is_mining_level(R.z) && !is_mining_level(actual_selected_rune.z))
+		actual_selected_rune.handle_portal("lava")
+	else if(!is_station_level(R.z) || istype(get_area(src), /area/space))
+		actual_selected_rune.handle_portal("space", T)
+	new /obj/effect/portal/cult(get_turf(R), get_turf(actual_selected_rune), src, 4 MINUTES)
+	to_chat(user, "<span class='cultitalic'>You use the magic of the amulet to turn [R] into a portal.</span>")
+	playsound(src, 'sound/magic/cult_spell.ogg', 100, TRUE)
+	qdel(R)
+	qdel(src)
+
+/obj/effect/portal/cult
+	name = "eldritch portal"
+	desc = "An evil portal made by dark magics. Suprisingly stable."
+	icon_state = "portal1"
+	failchance = 0
+	precision = FALSE
+	var/obj/effect/cult_portal_exit/exit = null
+
+/obj/effect/portal/cult/Initialize(mapload, target, creator, lifespan)
+	. = ..()
+	if(target)
+		exit = new /obj/effect/cult_portal_exit(target)
+
+/obj/effect/portal/cult/attackby(obj/I, mob/user, params)
+	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user) || istype(I, /obj/item/nullrod) && user.mind.isholy)
+		to_chat(user, "<span class='notice'>You close the portal with your [I].</span>")
+		playsound(src, 'sound/magic/magic_missile.ogg', 100, TRUE)
+		qdel(src)
+		return
+	return ..()
+
+/obj/effect/portal/cult/Destroy()
+	QDEL_NULL(exit)
+	return ..()
+
+/obj/effect/cult_portal_exit
+	name = "eldritch rift"
+	desc = "An exit point for some cult portal. Be on guard, more things may come out of it"
+	icon = 'icons/obj/biomass.dmi'
+	icon_state = "rift"
+	color = "red"
