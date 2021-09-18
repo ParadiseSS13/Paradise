@@ -9,7 +9,7 @@
 	throwforce = 7
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	/// How many life ticks does the stun last for
 	var/stunforce = 7
 	/// Is the baton currently turned on

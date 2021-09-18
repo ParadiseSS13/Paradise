@@ -787,6 +787,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "50M"
 	item = /obj/item/ammo_box/magazine/sniper_rounds
 
+/datum/uplink_item/ammo/sniper/antimatter
+	name = "Sniper - .50 Antimatter Magazine"
+	desc = "A 6-round magazine of antimatter ammo for use with .50 sniper rifles. \
+	Able to heavily damage objects, and delimb people."
+	reference = "50A"
+	item = /obj/item/ammo_box/magazine/sniper_rounds/antimatter
+	cost = 5
+
 /datum/uplink_item/ammo/sniper/soporific
 	name = "Sniper - .50 Soporific Magazine"
 	desc = "A 3-round magazine of soporific ammo designed for use with .50 sniper rifles. Put your enemies to sleep today!"
@@ -1516,7 +1524,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/implants/freedom
 	name = "Freedom Implant"
-	desc = "An implant injected into the body and later activated manually to break out of any restraints. Can be activated up to 4 times."
+	desc = "An implant injected into the body and later activated manually to break out of any restraints or grabs. Can be activated up to 4 times."
 	reference = "FI"
 	item = /obj/item/implanter/freedom
 	cost = 5

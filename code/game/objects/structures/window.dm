@@ -11,7 +11,7 @@
 	can_be_unanchored = TRUE
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
@@ -27,6 +27,8 @@
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/breaksound = "shatter"
 	var/hitsound = 'sound/effects/Glasshit.ogg'
+	/// Used to restore colours from polarised glass
+	var/old_color
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -68,6 +70,17 @@
 	explosion_block = EXPLOSION_BLOCK_PROC
 
 	air_update_turf(TRUE)
+
+/obj/structure/window/proc/toggle_polarization()
+	if(opacity)
+		if(!old_color)
+			old_color = "#FFFFFF"
+		animate(src, color = old_color, time = 0.5 SECONDS)
+		set_opacity(FALSE)
+	else
+		old_color = color
+		animate(src, color = "#222222", time = 0.5 SECONDS)
+		set_opacity(TRUE)
 
 /obj/structure/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
@@ -474,7 +487,7 @@
 	icon_state = "rwindow"
 	reinf = TRUE
 	heat_resistance = 1600
-	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
 	rad_insulation = RAD_HEAVY_INSULATION
 	max_integrity = 50
 	explosion_block = 1
@@ -497,14 +510,6 @@
 	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
 	var/id
 
-/obj/structure/window/reinforced/polarized/proc/toggle()
-	if(opacity)
-		animate(src, color="#FFFFFF", time=5)
-		set_opacity(0)
-	else
-		animate(src, color="#222222", time=5)
-		set_opacity(1)
-
 /obj/machinery/button/windowtint
 	name = "window tint control"
 	icon = 'icons/obj/power.dmi'
@@ -514,11 +519,34 @@
 	var/id = 0
 	var/active = 0
 
+/obj/machinery/button/windowtint/Initialize(mapload, w_dir = null)
+	. = ..()
+	switch(w_dir)
+		if(NORTH)
+			pixel_y = 25
+		if(SOUTH)
+			pixel_y = -25
+		if(EAST)
+			pixel_x = 25
+		if(WEST)
+			pixel_x = -25
+
 /obj/machinery/button/windowtint/attack_hand(mob/user)
 	if(..())
-		return 1
+		return TRUE
 
 	toggle_tint()
+
+/obj/machinery/button/windowtint/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	user.visible_message("<span class='notice'>[user] starts unwrenching [src] from the wall...</span>", "<span class='notice'>You are unwrenching [src] from the wall...</span>", "<span class='warning'>You hear ratcheting.</span>")
+	if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+		return
+	WRENCH_UNANCHOR_WALL_MESSAGE
+	new /obj/item/mounted/frame/light_switch/windowtint(get_turf(src))
+	qdel(src)
 
 /obj/machinery/button/windowtint/proc/toggle_tint()
 	use_power(5)
@@ -528,9 +556,11 @@
 
 	for(var/obj/structure/window/reinforced/polarized/W in range(src,range))
 		if(W.id == src.id || !W.id)
-			spawn(0)
-				W.toggle()
-				return
+			W.toggle_polarization()
+
+	for(var/obj/structure/window/full/reinforced/polarized/W in range(src, range))
+		if(W.id == id || !W.id)
+			W.toggle_polarization()
 
 /obj/machinery/button/windowtint/power_change()
 	..()
@@ -550,7 +580,7 @@
 	heat_resistance = 32000
 	max_integrity = 150
 	explosion_block = 1
-	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
+	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
 
 /obj/structure/window/plasmabasic/BlockSuperconductivity()
@@ -566,7 +596,7 @@
 	reinf = TRUE
 	max_integrity = 500
 	explosion_block = 2
-	armor = list("melee" = 85, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
+	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
 	damage_deflection = 21
 
@@ -589,7 +619,7 @@
 	icon_state = "window"
 	max_integrity = 50
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/polarized, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
 
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
@@ -602,9 +632,9 @@
 	heat_resistance = 32000
 	max_integrity = 300
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/polarized, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
 	explosion_block = 1
-	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
+	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
 
 /obj/structure/window/full/plasmareinforced
@@ -616,11 +646,11 @@
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmarglass
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/polarized, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
 	reinf = TRUE
 	max_integrity = 1000
 	explosion_block = 2
-	armor = list("melee" = 85, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
+	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -632,15 +662,20 @@
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
 	icon_state = "r_window"
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/polarized, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /turf/simulated/wall/indestructible/fakeglass)
 	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
-	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
 	rad_insulation = RAD_HEAVY_INSULATION
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
 
+/obj/structure/window/full/reinforced/polarized
+	name = "electrochromic window"
+	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
+	var/id
+	
 /obj/structure/window/full/reinforced/tinted
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
@@ -662,7 +697,7 @@
 	reinf = TRUE
 	heat_resistance = 1600
 	explosion_block = 3
-	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
 	smooth = SMOOTH_TRUE
 	canSmoothWith = null
 	glass_type = /obj/item/stack/sheet/titaniumglass
@@ -681,7 +716,7 @@
 	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
-	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
 	rad_insulation = RAD_HEAVY_INSULATION
 	smooth = SMOOTH_TRUE
 	canSmoothWith = null
@@ -696,7 +731,7 @@
 	icon_state = "clockwork_window_single"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 80
-	armor = list("melee" = 60, "bullet" = 25, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 60, BULLET = 25, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
 	glass_type = /obj/item/stack/tile/brass
 	reinf = FALSE

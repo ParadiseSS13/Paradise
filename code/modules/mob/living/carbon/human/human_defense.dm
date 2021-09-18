@@ -39,7 +39,7 @@ emp_act
 	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
 		if(!lying && !HAS_TRAIT(src, TRAIT_HULK) && mind.martial_art.try_deflect(src)) //But only if they're not lying down, and hulks can't do it
 			add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
-			visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+			visible_message("<span class='danger'>[src] deflects the projectile!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 			playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
 			if(mind.martial_art.reroute_deflection)
 				P.firer = src
@@ -445,9 +445,9 @@ emp_act
 	if(!I.force)
 		return 0 //item force is zero
 
-	var/armor = run_armor_check(affecting, "melee", "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration = I.armour_penetration)
+	var/armor = run_armor_check(affecting, MELEE, "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
-	if(weapon_sharp && prob(getarmor(user.zone_selected, "melee")))
+	if(weapon_sharp && prob(getarmor(user.zone_selected, MELEE)))
 		weapon_sharp = 0
 	if(armor >= 100)
 		return 0
@@ -591,7 +591,7 @@ emp_act
 		if(stat != DEAD)
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_selected))
-			var/armor_block = run_armor_check(affecting, "melee")
+			var/armor_block = run_armor_check(affecting, MELEE)
 			apply_damage(damage, BRUTE, affecting, armor_block)
 			updatehealth("larva attack")
 
@@ -610,7 +610,7 @@ emp_act
 				visible_message("<span class='danger'>[M] has lunged at [src]!</span>")
 				return 0
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
-			var/armor_block = run_armor_check(affecting, "melee", armour_penetration = 10)
+			var/armor_block = run_armor_check(affecting, MELEE, armour_penetration = 10)
 
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
@@ -629,7 +629,7 @@ emp_act
 			else
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-				apply_effect(5, WEAKEN, run_armor_check(affecting, "melee"))
+				apply_effect(5, WEAKEN, run_armor_check(affecting, MELEE))
 				add_attack_logs(M, src, "Alien tackled")
 				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
 
@@ -644,7 +644,7 @@ emp_act
 		if(!affecting)
 			affecting = get_organ("chest")
 		affecting.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
-		var/armor = run_armor_check(affecting, "melee", armour_penetration = M.armour_penetration)
+		var/armor = run_armor_check(affecting, MELEE, armour_penetration = M.armour_penetration)
 		apply_damage(damage, M.melee_damage_type, affecting, armor)
 		updatehealth("animal attack")
 
@@ -662,7 +662,7 @@ emp_act
 		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
 		if(!affecting)
 			affecting = get_organ("chest")
-		var/armor_block = run_armor_check(affecting, "melee")
+		var/armor_block = run_armor_check(affecting, MELEE)
 		apply_damage(damage, BRUTE, affecting, armor_block)
 
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
