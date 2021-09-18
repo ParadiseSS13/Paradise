@@ -10,20 +10,19 @@
 
 //Recover from stuns.
 /datum/action/changeling/epinephrine/sting_action(mob/living/user)
-
 	if(user.lying)
 		to_chat(user, "<span class='notice'>We arise.</span>")
 	else
 		to_chat(user, "<span class='notice'>Adrenaline rushes through us.</span>")
 	user.SetSleeping(0)
-	user.stat = 0
+	user.WakeUp()
 	user.SetParalysis(0)
 	user.SetStunned(0)
 	user.SetWeakened(0)
-	user.lying = 0
+	user.lying = FALSE
 	user.update_canmove()
 	user.reagents.add_reagent("synaptizine", 20)
 	user.adjustStaminaLoss(-75)
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
-	return 1
+	return TRUE
