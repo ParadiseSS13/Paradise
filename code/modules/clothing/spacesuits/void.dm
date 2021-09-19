@@ -7,11 +7,11 @@
 	item_state = "void"
 	flags_inv = HIDEMASK|HIDEEARS
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
-		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
-		"Vox" = 'icons/mob/species/vox/helmet.dmi')
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi')
 
 /obj/item/clothing/suit/space/nasavoid
 	name = "NASA Void Suit"
@@ -20,10 +20,10 @@
 	desc = "A high tech, NASA Centcom branch designed space suit. Used for AI satellite maintenance."
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/multitool)
 	sprite_sheets = list(
-		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
-		"Vox" = 'icons/mob/species/vox/suit.dmi')
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 //Colors!!!
 /obj/item/clothing/head/helmet/space/nasavoid/green
@@ -75,7 +75,7 @@
 	icon_state = "void-syndi"
 	desc = "A high tech, NASA Centcom branch designed space suit helmet. This one looks rather suspicious."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 80, "acid" = 85)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 80, ACID = 85)
 
 /obj/item/clothing/suit/space/nasavoid/syndi
 	name = "blood-red NASA void suit"
@@ -83,7 +83,7 @@
 	desc = "A high tech, NASA Centcom branch designed space suit. This one looks rather suspicious."
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 80, "acid" = 85)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 80, ACID = 85)
 
 //random spawner
 

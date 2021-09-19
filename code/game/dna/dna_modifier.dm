@@ -156,7 +156,7 @@
 		to_chat(usr, "<span class='boldnotice'>[src] is already occupied!</span>")
 		return
 	if(usr.abiotic())
-		to_chat(usr, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
+		to_chat(usr, "<span class='boldnotice'>Subject may not hold anything in their hands.</span>")
 		return
 	if(usr.has_buckled_mobs()) //mob attached to us
 		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
@@ -194,7 +194,7 @@
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		to_chat(user, "<span class='danger'>Subject cannot have abiotic items on.</span>")
+		to_chat(user, "<span class='danger'>Subject may not hold anything in their hands.</span>")
 		return
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
@@ -232,7 +232,7 @@
 			to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
 			return
 		if(G.affecting.abiotic())
-			to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
+			to_chat(user, "<span class='boldnotice'>Subject may not hold anything in their hands.</span>")
 			return
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[G] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
@@ -315,7 +315,7 @@
 	if(HAS_TRAIT(occupant, TRAIT_GENELESS))
 		return TRUE
 
-	var/radiation_protection = occupant.run_armor_check(null, "rad")
+	var/radiation_protection = occupant.run_armor_check(null, RAD)
 	if(radiation_protection > NEGATE_MUTATION_THRESHOLD)
 		return TRUE
 	return FALSE

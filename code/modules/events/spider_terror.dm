@@ -11,7 +11,7 @@
 
 /datum/event/spider_terror/announce()
 	if(successSpawn)
-		GLOB.command_announcement.Announce("Confirmed outbreak of level 3 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg')
+		GLOB.command_announcement.Announce("Confirmed outbreak of level 3 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak3.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Terror Spiders")
 
@@ -61,4 +61,3 @@
 		successSpawn = TRUE
 
 #undef TS_HIGHPOP_TRIGGER
-

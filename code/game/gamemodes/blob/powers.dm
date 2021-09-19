@@ -237,7 +237,7 @@
 	blobber.AIStatus = AI_OFF
 	blobber.LoseTarget()
 	spawn()
-		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blobbernaut?", ROLE_BLOB, TRUE, 10 SECONDS, source = blobber)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blobbernaut?", ROLE_BLOB, TRUE, 10 SECONDS, source = blobber, role_cleanname = "blobbernaut")
 		if(length(candidates) && !QDELETED(blobber))
 			var/mob/C = pick(candidates)
 			if(C)

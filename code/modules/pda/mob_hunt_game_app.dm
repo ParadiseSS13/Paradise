@@ -28,6 +28,11 @@
 	disconnect("Program Terminated")
 	STOP_PROCESSING(SSobj, pda)
 
+/datum/data/pda/app/mob_hunter_game/Destroy()
+	STOP_PROCESSING(SSobj, pda)
+	SSmob_hunt.connected_clients -= src
+	return ..()
+
 /datum/data/pda/app/mob_hunter_game/proc/scan_nearby()
 	if(!SSmob_hunt || !connected)
 		return
@@ -74,13 +79,14 @@
 		return
 	scan_nearby()
 
-/datum/data/pda/app/mob_hunter_game/proc/register_capture(datum/mob_hunt/captured, wild = 0)
+/datum/data/pda/app/mob_hunter_game/proc/register_capture(datum/mob_hunt/captured, wild = FALSE)
 	if(!captured)
-		return 0
-	my_collection.Add(captured)
+		return FALSE
+	my_collection += captured
+	RegisterSignal(captured, COMSIG_PARENT_QDELETING, .proc/remove_mob)
 	if(wild)
 		wild_captures++
-	return 1
+	return TRUE
 
 /datum/data/pda/app/mob_hunter_game/update_ui(mob/user, list/data)
 	if(!SSmob_hunt || !(src in SSmob_hunt.connected_clients))
@@ -138,12 +144,27 @@
 	card.forceMove(get_turf(pda))
 	remove_mob()
 
-/datum/data/pda/app/mob_hunter_game/proc/remove_mob()
-	if(!my_collection.len)
+/**
+  * Removes a Nanomob from the [my_collection] list.
+  *
+  * The Nanomob that is currently selected in the app ([current_index]) will be removed from the list unless a `mob_override` argument is given, in which case that will be removed instead.
+  *
+  * Arguments:
+  * * mob_override - A specific Nanomob to remove from the list. (Optional)
+  */
+/datum/data/pda/app/mob_hunter_game/proc/remove_mob(datum/mob_hunt/mob_override = null)
+	SIGNAL_HANDLER
+	if(!length(my_collection))
 		return
-	my_collection.Remove(my_collection[current_index])
-	if(current_index > my_collection.len)
-		current_index = my_collection.len
+
+	if(mob_override)
+		my_collection -= mob_override
+	else
+		my_collection -= my_collection[current_index]
+
+	var/collection_length = length(my_collection)
+	if(current_index > collection_length)
+		current_index = collection_length
 
 /datum/data/pda/app/mob_hunter_game/proc/set_trap()
 	if(!my_collection.len || !pda || !hacked)

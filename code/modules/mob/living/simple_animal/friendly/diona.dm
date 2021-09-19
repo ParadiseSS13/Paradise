@@ -65,7 +65,7 @@
 /datum/action/innate/diona/evolve
 	name = "Evolve"
 	icon_icon = 'icons/obj/cloning.dmi'
-	button_icon_state = "pod_1"
+	button_icon_state = "pod_cloning"
 
 /datum/action/innate/diona/evolve/Activate()
 	var/mob/living/simple_animal/diona/user = owner
