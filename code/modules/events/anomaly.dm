@@ -5,13 +5,6 @@
 
 /datum/event/anomaly/proc/findEventArea()
 	var/static/list/allowed_areas
-	var/static/list/existing_areas
-	if(!existing_areas)
-		existing_areas = list()
-		for(var/area/AR in world)
-			var/turf/picked = safepick(get_area_turfs(AR.type))
-			if(picked && is_station_level(picked.z))
-				existing_areas += AR
 	if(!allowed_areas)
 		//Places that shouldn't explode
 		var/list/safe_area_types = typecacheof(list(
@@ -36,7 +29,7 @@
 		))
 
 		allowed_areas = typecacheof(GLOB.the_station_areas) - safe_area_types + unsafe_area_subtypes
-	var/list/possible_areas = typecache_filter_list(existing_areas, allowed_areas)
+	var/list/possible_areas = typecache_filter_list(SSmapping.existing_station_areas, allowed_areas)
 	if(length(possible_areas))
 		return pick(possible_areas)
 

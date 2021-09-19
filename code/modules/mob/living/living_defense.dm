@@ -10,7 +10,7 @@
 	1 - halfblock
 	2 - fullblock
 */
-/mob/living/proc/run_armor_check(def_zone = null, attack_flag = "melee", absorb_text = null, soften_text = null, armour_penetration, penetrated_text)
+/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = null, soften_text = null, armour_penetration, penetrated_text)
 	var/armor = getarmor(def_zone, attack_flag)
 
 	//the if "armor" check is because this is used for everything on /living, including humans
@@ -118,7 +118,7 @@
 		visible_message("<span class='danger'>[src] is hit by [thrown_item]!</span>", "<span class='userdanger'>You're hit by [thrown_item]!</span>")
 		if(!thrown_item.throwforce)
 			return
-		var/armor = run_armor_check(zone, "melee", "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration)
+		var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration)
 		apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, is_sharp(thrown_item), thrown_item)
 		if(QDELETED(src)) //Damage can delete the mob.
 			return

@@ -418,7 +418,7 @@
 		qdel(B)
 
 /datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls
-	name = "odd black liquid"
+	name = "Odd black liquid"
 	id = "blindness_smoke"
 	description = "<::ERROR::> CANNOT ANALYZE REAGENT <::ERROR::>"
 	color = "#000000" //Complete black (RGB: 0, 0, 0)

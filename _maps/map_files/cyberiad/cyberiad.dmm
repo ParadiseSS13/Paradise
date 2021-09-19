@@ -6,6 +6,19 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"aac" = (
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
+/obj/structure/table,
+/obj/item/radio/electropack,
+/obj/item/assembly/signaler,
+/obj/item/healthanalyzer,
+/obj/item/hand_labeler,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/misc_lab)
 "aaQ" = (
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
@@ -1927,21 +1940,27 @@
 	},
 /area/security/brig)
 "agR" = (
-/obj/structure/rack,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/item/storage/box/buck{
+/obj/structure/rack,
+/obj/item/storage/box/beanbag{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck{
-	pixel_x = 3;
-	pixel_y = -3
+/obj/item/storage/box/beanbag,
+/obj/item/storage/box/beanbag{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/beanbag{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/beanbag,
+/obj/item/storage/box/beanbag,
+/obj/structure/window/reinforced{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2426,21 +2445,6 @@
 	dir = 1
 	},
 /obj/structure/rack,
-/obj/item/storage/box/beanbag{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/beanbag,
-/obj/item/storage/box/beanbag{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/beanbag{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/beanbag,
-/obj/item/storage/box/beanbag,
 /obj/item/storage/box/tranquilizer{
 	pixel_x = 3;
 	pixel_y = -3
@@ -64162,18 +64166,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
-"cBZ" = (
-/obj/machinery/alarm{
-	pixel_y = 22
-	},
-/obj/structure/table,
-/obj/item/radio/electropack,
-/obj/item/assembly/signaler,
-/obj/item/healthanalyzer,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/misc_lab)
 "cCa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -133926,7 +133918,7 @@ cuQ
 bGG
 cyR
 cAP
-cBZ
+aac
 cDw
 cDb
 cEt

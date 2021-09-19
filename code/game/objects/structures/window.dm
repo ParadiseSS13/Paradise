@@ -11,7 +11,7 @@
 	can_be_unanchored = TRUE
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
@@ -487,7 +487,7 @@
 	icon_state = "rwindow"
 	reinf = TRUE
 	heat_resistance = 1600
-	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
 	rad_insulation = RAD_HEAVY_INSULATION
 	max_integrity = 50
 	explosion_block = 1
@@ -580,7 +580,7 @@
 	heat_resistance = 32000
 	max_integrity = 150
 	explosion_block = 1
-	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
+	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
 
 /obj/structure/window/plasmabasic/BlockSuperconductivity()
@@ -596,7 +596,7 @@
 	reinf = TRUE
 	max_integrity = 500
 	explosion_block = 2
-	armor = list("melee" = 85, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
+	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
 	damage_deflection = 21
 
@@ -635,7 +635,7 @@
 	heat_resistance = 32000
 	max_integrity = 300
 	explosion_block = 1
-	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
+	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
 
 /obj/structure/window/full/plasmareinforced
@@ -650,7 +650,7 @@
 	reinf = TRUE
 	max_integrity = 1000
 	explosion_block = 2
-	armor = list("melee" = 85, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
+	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -665,7 +665,7 @@
 	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
-	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
 	rad_insulation = RAD_HEAVY_INSULATION
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
@@ -699,7 +699,7 @@
 	reinf = TRUE
 	heat_resistance = 1600
 	explosion_block = 3
-	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
 	glass_type = /obj/item/stack/sheet/titaniumglass
@@ -719,7 +719,7 @@
 	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
-	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
 	rad_insulation = RAD_HEAVY_INSULATION
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
@@ -733,7 +733,7 @@
 	icon_state = "clockwork_window_single"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 80
-	armor = list("melee" = 60, "bullet" = 25, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 60, BULLET = 25, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
 	glass_type = /obj/item/stack/tile/brass
 	reinf = FALSE
