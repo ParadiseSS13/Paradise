@@ -109,7 +109,7 @@
 	if(!get_ability(/datum/vampire_passive/regen))
 		return rejuv_multiplier
 
-	if(subclass.improved_rejuv_healing)
+	if(subclass?.improved_rejuv_healing)
 		rejuv_multiplier = min((100 - owner.health) / 20, 5) // max healing of 50 brute and burn
 		return rejuv_multiplier
 

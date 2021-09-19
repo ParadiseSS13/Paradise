@@ -421,6 +421,9 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 
 		var/turf/T = locate(round(ax, 0.5), round(ay, 0.5), owner.z)
 
+		if(!T)
+			return
+
 		if(T.x == 1 || T.x == world.maxx || T.y == 1 || T.y == world.maxy)
 			break
 
