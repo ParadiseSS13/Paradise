@@ -1417,6 +1417,7 @@
 #include "code\modules\clothing\masks\breath.dm"
 #include "code\modules\clothing\masks\gasmask.dm"
 #include "code\modules\clothing\masks\miscellaneous.dm"
+#include "code\modules\clothing\masks\voicemodulator.dm"
 #include "code\modules\clothing\patreon\glasses.dm"
 #include "code\modules\clothing\patreon\hats.dm"
 #include "code\modules\clothing\shoes\colour.dm"
