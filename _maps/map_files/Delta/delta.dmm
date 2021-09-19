@@ -42060,18 +42060,16 @@
 /area/security/detectives_office)
 "bPp" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/security/wooden_tv,
+/obj/item/flashlight/lamp,
+/obj/item/reagent_containers/food/drinks/flask/detflask,
 /turf/simulated/floor/plasteel{
 	icon_state = "carpet"
 	},
 /area/security/detectives_office)
 "bPq" = (
-/obj/structure/table/wood,
-/obj/item/storage/secure/safe{
-	pixel_x = 32
+/obj/machinery/computer/security/wooden_tv{
+	network = list("SS13","Research Outpost","Mining Outpost")
 	},
-/obj/item/flashlight/lamp,
-/obj/item/reagent_containers/food/drinks/flask/detflask,
 /turf/simulated/floor/plasteel{
 	icon_state = "carpet"
 	},
@@ -89270,14 +89268,13 @@
 	},
 /area/medical/virology)
 "dMA" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/item/storage/secure/safe{
+	pixel_x = 32
 	},
-/obj/machinery/computer/rdconsole/robotics,
-/obj/structure/window/reinforced/polarized,
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel,
-/area/assembly/robotics)
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/security/detectives_office)
 "dMB" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -89878,8 +89875,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/r_n_d/circuit_imprinter,
-/obj/item/reagent_containers/glass/beaker/sulphuric,
+/obj/machinery/computer/rdconsole/robotics,
 /obj/structure/window/reinforced/polarized,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
@@ -90158,20 +90154,15 @@
 	},
 /area/hallway/secondary/exit)
 "dOD" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/maintenance/starboardsolar)
+/obj/machinery/r_n_d/circuit_imprinter,
+/obj/item/reagent_containers/glass/beaker/sulphuric,
+/obj/structure/window/reinforced/polarized,
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plasteel,
+/area/assembly/robotics)
 "dOE" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -90187,19 +90178,20 @@
 /turf/simulated/floor/plating,
 /area/medical/virology)
 "dOF" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8";
+	tag = ""
 	},
 /obj/structure/cable{
 	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	d2 = 8;
+	icon_state = "2-8"
 	},
-/turf/simulated/floor/plating,
-/area/medical/virology)
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/maintenance/starboardsolar)
 "dOG" = (
 /obj/machinery/light{
 	dir = 8
@@ -91015,8 +91007,8 @@
 "dQv" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -91139,14 +91131,18 @@
 	},
 /area/medical/virology)
 "dQH" = (
+/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2"
+	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitegreen"
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4";
+	tag = ""
 	},
+/turf/simulated/floor/plating,
 /area/medical/virology)
 "dQI" = (
 /obj/effect/decal/warning_stripes/north,
@@ -91402,14 +91398,14 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/portsolar)
 "dRf" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable,
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreen"
+	},
 /area/medical/virology)
 "dRg" = (
 /obj/structure/cable{
@@ -95771,8 +95767,8 @@
 /obj/structure/cable,
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
 /area/medical/virology)
@@ -97473,6 +97469,16 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/civilian/barber)
+"nGA" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/medical/virology)
 "nGL" = (
 /obj/machinery/bodyscanner{
 	dir = 4
@@ -138619,7 +138625,7 @@ dqm
 dsL
 dvl
 dui
-dMA
+dOc
 dvp
 dam
 dFw
@@ -138876,7 +138882,7 @@ dsH
 due
 dvm
 dws
-dOc
+dOD
 dav
 dav
 dyR
@@ -147116,7 +147122,7 @@ dLd
 dLY
 dIW
 abj
-dOF
+dQv
 dIc
 dFG
 dFI
@@ -147379,7 +147385,7 @@ dLR
 dMw
 dNj
 dRg
-dRf
+hMu
 abj
 aaa
 aaa
@@ -147887,13 +147893,13 @@ dHa
 dFG
 dFG
 aaa
-dQv
+dQH
 dNW
 deV
 dMy
 dNl
 dRi
-hMu
+nGA
 aaa
 aaa
 aaa
@@ -148403,7 +148409,7 @@ abj
 abj
 dFG
 dNY
-dQH
+dRf
 dMz
 dNn
 dWT
@@ -149096,7 +149102,7 @@ aaa
 aaa
 bFS
 bHP
-dDN
+dMA
 bLu
 bNu
 bPq
@@ -159695,7 +159701,7 @@ aaa
 dij
 aaa
 dak
-dOD
+dOF
 dbc
 aaa
 dak
@@ -159703,7 +159709,7 @@ daT
 dbc
 aaa
 dak
-dOD
+dOF
 dbc
 aaa
 dij
@@ -159956,7 +159962,7 @@ aaa
 aaa
 aaa
 dak
-dOD
+dOF
 dbc
 aaa
 aaa
