@@ -92,6 +92,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	null,
 	new /datum/stack_recipe("mass driver button frame", /obj/item/mounted/frame/driver_button, 1, time = 50, one_per_turf = 0, on_floor = 1),
 	new /datum/stack_recipe("light switch frame", /obj/item/mounted/frame/light_switch, 1, time = 50, one_per_turf = 0, on_floor = 1),
+	new /datum/stack_recipe("window tint control button frame", /obj/item/mounted/frame/light_switch/windowtint, 1, time = 50, one_per_turf = 0, on_floor = 1),
 	null,
 	new /datum/stack_recipe("grenade casing", /obj/item/grenade/chem_grenade),
 	new /datum/stack_recipe("light fixture frame", /obj/item/mounted/frame/light_fixture, 2),
@@ -161,7 +162,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	icon_state = "sheet-plasteel"
 	item_state = "sheet-metal"
 	materials = list(MAT_METAL=2000, MAT_PLASMA=2000)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 80)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
 	resistance_flags = FIRE_PROOF
 	throwforce = 10.0
 	flags = CONDUCT
@@ -219,7 +220,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	icon_state = "sheet-wood"
 	origin_tech = "materials=1;biotech=1"
 	resistance_flags = FLAMMABLE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
 	merge_type = /obj/item/stack/sheet/wood
 
 /obj/item/stack/sheet/wood/New(loc, amount=null)
@@ -375,7 +376,7 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
 	new /datum/stack_recipe/cult("runed girder (used to make cult walls)", /obj/structure/girder/cult, 1, time = 10, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
 	new /datum/stack_recipe/cult("pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
 	new /datum/stack_recipe/cult("forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
-	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, and veil shifters)", /obj/structure/cult/functional/archives, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
+	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, veil shifters, and reality sunderers)", /obj/structure/cult/functional/archives, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
 	new /datum/stack_recipe/cult("altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE),
 	))
 

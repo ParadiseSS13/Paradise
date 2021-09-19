@@ -1351,17 +1351,21 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return FALSE		//overridden in living.dm
 
 /mob/proc/spin(spintime, speed)
-	set waitfor = 0
+	set waitfor = FALSE
 	if(!spintime || !speed || spintime > 100)
 		CRASH("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
-	var/end_time = world.time + spintime
-	var/spin_dir = prob(50)
-	while(world.time <= end_time)
+	while(spintime >= speed)
 		sleep(speed)
-		if(spin_dir)
-			dir = turn(dir, 90)
-		else
-			dir = turn(dir, -90)
+		switch(dir)
+			if(NORTH)
+				setDir(EAST)
+			if(SOUTH)
+				setDir(WEST)
+			if(EAST)
+				setDir(SOUTH)
+			if(WEST)
+				setDir(NORTH)
+		spintime -= speed
 
 /mob/proc/is_literate()
 	return FALSE
@@ -1479,7 +1483,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		MA.plane = GAME_PLANE
 		pic.appearance = MA
 		flick_overlay(pic, list(client), 10)
-    
+
 
 GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	/area/chapel

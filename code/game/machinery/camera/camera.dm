@@ -9,7 +9,7 @@
 	layer = WALL_OBJ_LAYER
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 12
-	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 50)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 50)
 	var/datum/wires/camera/wires = null // Wires datum
 	max_integrity = 100
 	integrity_failure = 50

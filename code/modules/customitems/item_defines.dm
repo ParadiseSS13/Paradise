@@ -1712,5 +1712,17 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	species_restricted = list("Vox")
 
+/obj/item/clothing/mask/gas/fluff/kikerimask //Gangelwaefre: Kikeri
+	name = "Kikeri's Mask"
+	desc = "A light grey mask with masquerade-esque blue details."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
+	icon_state = "kikerimask"
+	item_state = "kikerimask"
+	item_color = "kikerimask"
+	species_restricted = list("Vox")
+
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT

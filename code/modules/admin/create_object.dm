@@ -6,6 +6,7 @@ GLOBAL_LIST_INIT(create_object_forms, list(/obj, /obj/structure, /obj/machinery,
 		var/objectjs = null
 		objectjs = jointext(typesof(/obj), ";")
 		GLOB.create_object_html = file2text('html/create_object.html')
+		GLOB.create_object_html = replacetext(GLOB.create_object_html, "$ATOM$", "Object")
 		GLOB.create_object_html = replacetext(GLOB.create_object_html, "null /* object types */", "\"[objectjs]\"")
 
 	user << browse(replacetext(GLOB.create_object_html, "/* ref src */", UID()), "window=create_object;size=425x475")
@@ -17,6 +18,7 @@ GLOBAL_LIST_INIT(create_object_forms, list(/obj, /obj/structure, /obj/machinery,
 	if(!html_form)
 		var/objectjs = jointext(typesof(path), ";")
 		html_form = file2text('html/create_object.html')
+		html_form = replacetext(html_form, "$ATOM$", "Object")
 		html_form = replacetext(html_form, "null /* object types */", "\"[objectjs]\"")
 		GLOB.create_object_forms[path] = html_form
 

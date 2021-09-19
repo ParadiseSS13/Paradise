@@ -337,10 +337,16 @@
 	fixdir()
 
 	var/pipe_dir = get_pipe_dir()
+	var/turf/T = get_turf(loc)
 
 	for(var/obj/machinery/atmospherics/M in src.loc)
 		if((M.initialize_directions & pipe_dir) && M.check_connect_types_construction(M,src))	// matches at least one direction on either type of pipe
 			to_chat(user, "<span class='warning'>There is already a pipe of the same type at this location.</span>")
+			return 1
+
+	if(pipe_type in list(PIPE_SUPPLY_STRAIGHT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_STRAIGHT, PIPE_SCRUBBERS_BENT, PIPE_HE_STRAIGHT, PIPE_HE_BENT, PIPE_SUPPLY_MANIFOLD, PIPE_SCRUBBERS_MANIFOLD, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_UVENT, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP, PIPE_PASV_VENT, PIPE_DP_VENT, PIPE_PASSIVE_GATE))
+		if(T.transparent_floor) //stops jank with transparent floors and pipes
+			to_chat(user, "<span class='warning'>You can only fix simple pipes and devices over glass floors!</span>")
 			return 1
 
 	switch(pipe_type) //What kind of heartless person thought of doing this?
