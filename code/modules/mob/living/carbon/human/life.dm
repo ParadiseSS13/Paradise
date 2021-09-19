@@ -363,7 +363,7 @@
 		bodytemperature += 11
 	else
 		bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
-		if(mind?.vampire && !mind.vampire.add_ability(/datum/vampire_passive/full))
+		if(mind?.vampire && !mind.vampire.get_ability(/datum/vampire_passive/full) && stat != DEAD)
 			mind.vampire.bloodusable = max(mind.vampire.bloodusable - 5, 0)
 
 /mob/living/carbon/human/proc/get_thermal_protection()
