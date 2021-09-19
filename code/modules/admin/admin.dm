@@ -662,6 +662,74 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	return 0
 
+/**
+  * A proc that return an array of capitalized strings containing name of the antag types they are
+  *
+  * you'll get something like
+  *
+  * Arguments:
+  * * M - the mob you're checking
+  * *
+  */
+/proc/get_antag_type_strings_list(mob/M as mob) // return an array of all the antag types they are with name
+	var/list/antag_list = new/list()
+
+	if(!SSticker || !SSticker.mode)
+		return 0
+	if(!istype(M))
+		return 0
+	if(M.mind in SSticker.mode.head_revolutionaries)
+		antag_list += "Head Rev"
+	if(M.mind in SSticker.mode.revolutionaries)
+		antag_list += "Revolutionary"
+	if(M.mind in SSticker.mode.cult)
+		antag_list += "Cultist"
+	if(M.mind in SSticker.mode.syndicates)
+		antag_list += "Nuclear Operative"
+	if(M.mind in SSticker.mode.wizards)
+		antag_list += "Wizard"
+	if(M.mind in SSticker.mode.changelings)
+		antag_list += "Changeling"
+	if(M.mind in SSticker.mode.abductors)
+		antag_list += "Abductor"
+	if(M.mind in SSticker.mode.vampires)
+		antag_list += "Vampire"
+	if(M.mind in SSticker.mode.vampire_enthralled)
+		antag_list += "Vampire Thrall"
+	if(M.mind in SSticker.mode.shadows)
+		antag_list += "Shadowling"
+	if(M.mind in SSticker.mode.shadowling_thralls)
+		antag_list += "Shadowling Thrall"
+	if(M.mind.has_antag_datum(/datum/antagonist/traitor))
+		antag_list += "Traitor"
+	if(M.mind.has_antag_datum(/datum/antagonist/mindslave))
+		antag_list += "Mindslave"
+	if(isrobot(M))
+		var/mob/living/silicon/robot/R = M
+		if(R.emagged)
+			antag_list += "Emagged Borg"
+	if(!length(antag_list) && M.mind.special_role) // Snowflake check. If none of the above but still special, then other antag. Technically not accurate.
+		antag_list += "Other Antag(s)"
+	return antag_list
+
+/**
+  * A proc that return a string containing all the singled out antags . Empty string if not antag
+  *
+  * Usually, you'd return a FALSE, but since this is consumed by javascript you're in
+  * for a world of hurt if you pass a byond FALSE which get converted into a fucking string anyway and pass for TRUE in check. Fuck.
+  * It always append "(May be other antag)"
+  * Arguments:
+  * * M - the mob you're checking
+  * *
+  */
+/proc/get_antag_type_truncated_plaintext_string(mob/M as mob)
+	var/list/antag_list = get_antag_type_strings_list(M)
+
+	if(length(antag_list))
+		return antag_list.Join(" &amp; ") + " " + "(May be other antag)"
+
+	return ""
+
 /datum/admins/proc/spawn_atom(object as text)
 	set category = "Debug"
 	set desc = "(atom path) Spawn an atom"
