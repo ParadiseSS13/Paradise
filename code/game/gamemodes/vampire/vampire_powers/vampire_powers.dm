@@ -202,7 +202,12 @@
 	for(var/mob/living/target in targets)
 		if(!target.affects_vampire())
 			continue
-		var/deviation = calculate_deviation(target, user)
+
+		var/deviation
+		if(user.weakened || user.resting)
+			deviation = DEVIATION_PARTIAL
+		else
+			deviation = calculate_deviation(target, user)
 
 		if(deviation == DEVIATION_FULL)
 			target.AdjustConfused(3)
