@@ -4,8 +4,9 @@
 	icon = 'icons/turf/floors/glass.dmi'
 	icon_state = "unsmooth"
 	baseturf = /turf/space
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/turf/simulated/floor/transparent/glass, /turf/simulated/floor/transparent/glass/reinforced, /turf/simulated/floor/transparent/glass/plasma, /turf/simulated/floor/transparent/glass/reinforced/plasma)
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_GLASS_FLOOR)
+	canSmoothWith = list(SMOOTH_GROUP_GLASS_FLOOR)
 	footstep = FOOTSTEP_GLASS
 	barefootstep = FOOTSTEP_GLASS_BAREFOOT
 	clawfootstep = FOOTSTEP_GLASS_BAREFOOT
@@ -103,7 +104,8 @@
 	name = "titanium glass floor"
 	desc = "Stylish AND strong!"
 	icon = 'icons/turf/floors/titaniumglass.dmi'
-	canSmoothWith = list(/turf/simulated/floor/transparent/glass/titanium, /turf/simulated/floor/transparent/glass/titanium/plasma)
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_GLASS_FLOOR_TITANIUM)
+	canSmoothWith = list(SMOOTH_GROUP_GLASS_FLOOR_TITANIUM)
 	thermal_conductivity = 0.025
 	heat_capacity = 1600
 

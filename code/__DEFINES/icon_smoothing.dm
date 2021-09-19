@@ -36,16 +36,18 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define S_TURF(num) ((24 * 0) + num) //Not any different from the number itself, but kept this way in case someone wants to expand it by adding stuff before it.
 /* /turf only */
 
-#define SMOOTH_GROUP_TURF S_TURF(0)				///turf/simulated
+#define SMOOTH_GROUP_TURF S_TURF(0)						///turf/simulated
 #define SMOOTH_GROUP_TURF_CHASM S_TURF(1)				///turf/simulated/chasm, /turf/simulated/floor/fakepit
 #define SMOOTH_GROUP_FLOOR_LAVA S_TURF(2)				///turf/simulated/lava/smooth
 #define SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS S_TURF(3)	///turf/simulated/transparent/glass
 
-#define SMOOTH_GROUP_FLOOR S_TURF(4)				///turf/simulated/floor
+#define SMOOTH_GROUP_FLOOR S_TURF(4)					///turf/simulated/floor
 
 #define SMOOTH_GROUP_FLOOR_GRASS S_TURF(5)				///turf/simulated/floor/plating/grass
 #define SMOOTH_GROUP_FLOOR_ICE S_TURF(6)				///turf/simulated/floor/plating/ice
-#define SMOOTH_GROUP_BEACH S_TURF(7)				///turf/simulated/floor/beach/away/water/
+#define SMOOTH_GROUP_BEACH S_TURF(7)					///turf/simulated/floor/beach/away/water/
+#define SMOOTH_GROUP_GLASS_FLOOR S_TURF(8)				///turf/simulated/floor/transparent/glass and subtypes
+#define SMOOTH_GROUP_GLASS_FLOOR_TITANIUM S_TURF(9)		///turf/simulated/floor/transparent/glass/titanium and subtypes
 
 #define SMOOTH_GROUP_CARPET S_TURF(10)					///turf/simulated/floor/carpet
 #define SMOOTH_GROUP_CARPET_BLACK S_TURF(11)			///turf/simulated/floor/carpet/black
