@@ -38,6 +38,11 @@ actual development.
  of a pull request needs to be removed/changed, you may simply modify that single commit.
  Due to limitations of the engine, this may not always be possible; but do try your best.
 
+  * Keep your pull requests small and reviewable whenever possible. Do not bundle unrelated
+ fixes even if not bundling them generates more pull requests. In case of mapping PRs that add features -
+ consult a maintainer on whether it would be appropriate to split up the PR to add the
+ feature to multiple maps individually.
+
  * Document and explain your pull requests thoroughly. Failure to do so will delay a PR as
   we question why changes were made. This is especially important if you're porting a PR
   from another codebase (i.e. TG) and divert from the original. Explaining with single
