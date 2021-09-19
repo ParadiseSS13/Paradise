@@ -12,8 +12,8 @@
 	strip_delay = 130
 
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi',
-		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize()
@@ -59,8 +59,8 @@
 	strip_delay = 130
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
-		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 //Commander
@@ -206,11 +206,11 @@
 	resistance_flags = FIRE_PROOF
 	has_camera = FALSE
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
-		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal
@@ -221,10 +221,10 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
-		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 	hide_tail_by_species = list("Unathi, Tajaran, Vox, Vulpkanin")
 
@@ -269,7 +269,7 @@
 	icon_state = "hardsuit0-solgovmarine"
 	item_state = "hardsuit0-solgovmarine"
 	item_color = "solgovmarine"
-	armor = list("melee" = 35, "bullet" = 60, "laser" = 15, "energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 35, BULLET = 60, LASER = 15, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/suit/space/hardsuit/ert/solgov
 	name = "\improper Trans-Solar Federation Specops Marine hardsuit"
@@ -279,7 +279,7 @@
 	item_state = "ert_solgov_marine"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov
 	slowdown = 0
-	armor = list("melee" = 35, "bullet" = 60, "laser" = 15, "energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 35, BULLET = 60, LASER = 15, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov/command
 	name = "\improper Trans-Solar Federation Specops Lieutenant helmet"

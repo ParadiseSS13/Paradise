@@ -40,10 +40,14 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	/// Target department to send outgoing faxes to
 	var/destination
 
-/obj/machinery/photocopier/faxmachine/New()
-	..()
+/obj/machinery/photocopier/faxmachine/Initialize(mapload)
+	. = ..()
 	GLOB.allfaxes += src
 	update_network()
+
+/obj/machinery/photocopier/faxmachine/Destroy()
+	GLOB.allfaxes -= src
+	return ..()
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
 	if(department != "Unknown")

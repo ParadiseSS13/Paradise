@@ -500,7 +500,7 @@
 	M.RemoveElement(/datum/element/waddling)
 
 /datum/reagent/royal_bee_jelly
-	name = "royal bee jelly"
+	name = "Royal bee jelly"
 	id = "royal_bee_jelly"
 	description = "Royal Bee Jelly, if injected into a Queen Space Bee said bee will split into two bees."
 	color = "#00ff80"
@@ -698,7 +698,7 @@
 
 /datum/reagent/spraytan/proc/set_skin_color(mob/living/carbon/human/H)
 	if(H.dna.species.bodyflags & HAS_SKIN_TONE)
-		H.change_skin_tone(-30)
+		H.change_skin_tone(max(H.s_tone - 10, -195))
 
 	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")

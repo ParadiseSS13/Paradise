@@ -24,7 +24,7 @@
 
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
-	var/armor_block = D.run_armor_check(affecting, "melee")
+	var/armor_block = D.run_armor_check(affecting, MELEE)
 
 	playsound(D.loc, 'sound/weapons/punch1.ogg', 25, 1, -1)
 
@@ -82,7 +82,7 @@
 		return 1 //returns 1 so that they actually miss and don't switch to attackhand damage
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
-	var/armor_block = D.run_armor_check(affecting, "melee")
+	var/armor_block = D.run_armor_check(affecting, MELEE)
 
 	playsound(D.loc, 'sound/weapons/punch1.ogg', 25, 1, -1)
 
