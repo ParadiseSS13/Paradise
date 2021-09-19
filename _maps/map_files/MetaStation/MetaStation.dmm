@@ -2427,15 +2427,7 @@
 /area/maintenance/auxsolarport)
 "agY" = (
 /obj/structure/rack,
-/obj/item/storage/box/buck{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck{
-	pixel_x = 3;
-	pixel_y = -3
-	},
+/obj/item/storage/box/tranquilizer,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -4258,10 +4250,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/hostile/retaliate/araneus,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/mob/living/simple_animal/hostile/retaliate/araneus,
 /turf/simulated/floor/carpet,
 /area/security/hos)
 "akC" = (
@@ -9592,10 +9584,10 @@
 	name = "Port Maintenance"
 	})
 "avY" = (
-/mob/living/simple_animal/mouse,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
@@ -17371,13 +17363,13 @@
 	})
 "aMc" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aMd" = (
@@ -19889,11 +19881,11 @@
 	},
 /area/security/brig)
 "aRQ" = (
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/binary/valve,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -49461,8 +49453,8 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor)
 "caZ" = (
-/mob/living/simple_animal/mouse,
 /obj/structure/disposalpipe/segment,
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "cba" = (
@@ -62965,10 +62957,10 @@
 /area/toxins/storage)
 "cDO" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/cat/Runtime,
 /obj/machinery/light_switch{
 	pixel_y = -25
 	},
+/mob/living/simple_animal/pet/cat/Runtime,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "barber"
