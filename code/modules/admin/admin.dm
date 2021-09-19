@@ -624,48 +624,32 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
-/proc/is_special_character(mob/M as mob) // returns 1 for specail characters and 2 for heroes of gamemode
+/**
+  * A proc that return whether the mob is a "Special Character" aka Antagonist
+  *
+  *
+  *
+  * Arguments:
+  * * M - the mob you're checking
+  * *
+  */
+/proc/is_special_character(mob/M as mob)
 	if(!SSticker || !SSticker.mode)
-		return 0
+		return FALSE
 	if(!istype(M))
-		return 0
-	if((M.mind in SSticker.mode.head_revolutionaries) || (M.mind in SSticker.mode.revolutionaries))
-		if(SSticker.mode.config_tag == "revolution")
-			return 2
-		return 1
-	if(M.mind in SSticker.mode.cult)
-		if(SSticker.mode.config_tag == "cult")
-			return 2
-		return 1
-	if(M.mind in SSticker.mode.syndicates)
-		if(SSticker.mode.config_tag == "nuclear")
-			return 2
-		return 1
-	if(M.mind in SSticker.mode.wizards)
-		if(SSticker.mode.config_tag == "wizard")
-			return 2
-		return 1
-	if(M.mind in SSticker.mode.changelings)
-		if(SSticker.mode.config_tag == "changeling")
-			return 2
-		return 1
-	if(M.mind in SSticker.mode.abductors)
-		if(SSticker.mode.config_tag == "abduction")
-			return 2
-		return 1
+		return FALSE
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
 		if(R.emagged)
-			return 1
-	if(M.mind&&M.mind.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
-		return 1
-
-	return 0
+			return TRUE
+	if(M.mind.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
+		return TRUE
+	return FALSE
 
 /**
   * A proc that return an array of capitalized strings containing name of the antag types they are
   *
-  * you'll get something like
+  *
   *
   * Arguments:
   * * M - the mob you're checking
