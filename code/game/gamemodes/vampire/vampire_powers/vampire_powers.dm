@@ -338,7 +338,7 @@
 	Weaken(20)
 
 /obj/effect/proc_holder/spell/targeted/turf_teleport/shadow_step
-	name = "Shadow Step"
+	name = "Shadow Step (30)"
 	desc = "Teleport to a nearby dark region"
 	gain_desc = "You have gained the ability to shadowstep, which makes you disappear into nearby shadows at the cost of blood."
 	action_icon_state = "shadowblink"
