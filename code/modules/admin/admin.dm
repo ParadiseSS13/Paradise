@@ -627,14 +627,12 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /**
   * A proc that return whether the mob is a "Special Character" aka Antagonist
   *
-  *
-  *
   * Arguments:
   * * M - the mob you're checking
   * *
   */
 /proc/is_special_character(mob/M as mob)
-	if(!SSticker || !SSticker.mode)
+	if(!SSticker.mode)
 		return FALSE
 	if(!istype(M))
 		return FALSE
@@ -649,8 +647,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /**
   * A proc that return an array of capitalized strings containing name of the antag types they are
   *
-  *
-  *
   * Arguments:
   * * M - the mob you're checking
   * *
@@ -658,7 +654,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /proc/get_antag_type_strings_list(mob/M as mob) // return an array of all the antag types they are with name
 	var/list/antag_list = new/list()
 
-	if(!SSticker || !SSticker.mode)
+	if(!SSticker.mode)
 		return 0
 	if(!istype(M))
 		return 0
