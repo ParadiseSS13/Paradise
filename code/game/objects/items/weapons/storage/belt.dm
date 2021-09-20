@@ -716,7 +716,6 @@
 	new /obj/item/stack/cable_coil(src)
 
 	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/dnainjector/xraymut(src)
 	new /obj/item/dnainjector/firemut(src)
 	new /obj/item/dnainjector/telemut(src)
 	new /obj/item/dnainjector/hulkmut(src)

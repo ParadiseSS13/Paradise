@@ -3395,16 +3395,12 @@
 /area/ruin/space/ancientstation/rnd)
 "hU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/particle_accelerator/control_box{
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
-	},
+/obj/machinery/particle_accelerator/control_box,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "hV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/particle_accelerator/particle_emitter/right{
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
-	},
+/obj/structure/particle_accelerator/particle_emitter/right,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "hW" = (
@@ -4029,9 +4025,7 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "jm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/particle_accelerator/particle_emitter/center{
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
-	},
+/obj/structure/particle_accelerator/particle_emitter/center,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "jn" = (
@@ -4747,23 +4741,17 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "kT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/particle_accelerator/particle_emitter/left{
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
-	},
+/obj/structure/particle_accelerator/particle_emitter/left,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "kU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/particle_accelerator/fuel_chamber{
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
-	},
+/obj/structure/particle_accelerator/fuel_chamber,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "kV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/particle_accelerator/end_cap{
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
-	},
+/obj/structure/particle_accelerator/end_cap,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "kW" = (
@@ -4785,9 +4773,7 @@
 /area/ruin/space/ancientstation/rnd)
 "kY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/particle_accelerator/power_box{
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
-	},
+/obj/structure/particle_accelerator/power_box,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "kZ" = (

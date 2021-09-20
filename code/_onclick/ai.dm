@@ -67,6 +67,9 @@
 	if(modifiers["shift"] && modifiers["alt"])
 		AltShiftClickOn(A)
 		return
+	if(modifiers["shift"] && modifiers["middle"])
+		ShiftMiddleClickOn(A)
+		return
 	if(modifiers["middle"])
 		MiddleClickOn(A)
 		if(controlled_mech) //Are we piloting a mech? Placed here so the modifiers are not overridden.
@@ -128,6 +131,8 @@
 	A.AICtrlShiftClick(src)
 /mob/living/silicon/ai/AltShiftClickOn(atom/A)
 	A.AIAltShiftClick(src)
+/mob/living/silicon/ai/ShiftMiddleClickOn(atom/A)
+	A.AIShiftMiddleClick(src)
 /mob/living/silicon/ai/ShiftClickOn(atom/A)
 	A.AIShiftClick(src)
 /mob/living/silicon/ai/CtrlClickOn(atom/A)
@@ -146,6 +151,9 @@
 	return
 
 /atom/proc/AIAltShiftClick()
+	return
+
+/atom/proc/AIShiftMiddleClick()
 	return
 
 /atom/proc/AIShiftClick(mob/living/user) // borgs use this too
@@ -215,3 +223,8 @@
 	if(!ai_control_check(user))
 		return
 	toggle_light(user)
+
+/obj/machinery/door/airlock/AIShiftMiddleClick(mob/user)  // Toggles door timings.
+	if(!ai_control_check(user))
+		return
+	toggle_speed(user)

@@ -8,6 +8,8 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 	// Right off the bat
 	enable_auxtools_debugger()
 
+	SSmetrics.world_init_time = REALTIMEOFDAY
+
 	// Do sanity checks to ensure RUST actually exists
 	if(!fexists(RUST_G))
 		DIRECT_OUTPUT(world.log, "ERROR: RUSTG was not found and is required for the game to function. Server will now exit.")

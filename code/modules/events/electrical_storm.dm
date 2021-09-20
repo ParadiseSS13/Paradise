@@ -3,7 +3,7 @@
 	var/lightsoutRange	= 25
 
 /datum/event/electrical_storm/announce()
-	GLOB.event_announcement.Announce("An electrical storm has been detected in your area, please repair potential electronic overloads.", "Electrical Storm Alert")
+	GLOB.event_announcement.Announce("An electrical storm has been detected in your area, please repair potential electronic overloads.", "Electrical Storm Alert", 'sound/AI/elec_storm.ogg')
 
 /datum/event/electrical_storm/start()
 	var/list/epicentreList = list()
@@ -26,4 +26,3 @@
 		var/obj/effect/landmark/epicentre = thing
 		for(var/obj/machinery/power/apc/apc in range(epicentre, lightsoutRange))
 			INVOKE_ASYNC(apc, /obj/machinery/power/apc.proc/overload_lighting)
-

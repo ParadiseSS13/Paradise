@@ -40,7 +40,6 @@
 	GLOB.hulkblock          = getAssignedBlock("HULK",          numsToAssign, DNA_HARD_BOUNDS, good=1)
 	GLOB.teleblock          = getAssignedBlock("TELE",          numsToAssign, DNA_HARD_BOUNDS, good=1)
 	GLOB.fireblock          = getAssignedBlock("FIRE",          numsToAssign, DNA_HARDER_BOUNDS, good=1)
-	GLOB.xrayblock          = getAssignedBlock("XRAY",          numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	GLOB.clumsyblock        = getAssignedBlock("CLUMSY",        numsToAssign)
 	GLOB.fakeblock          = getAssignedBlock("FAKE",          numsToAssign)
 	GLOB.coughblock         = getAssignedBlock("COUGH",         numsToAssign)
@@ -49,6 +48,10 @@
 	GLOB.twitchblock        = getAssignedBlock("TWITCH",        numsToAssign)
 	GLOB.nervousblock       = getAssignedBlock("NERVOUS",       numsToAssign)
 	GLOB.wingdingsblock     = getAssignedBlock("WINGDINGS",     numsToAssign)
+	GLOB.mesonblock			= getAssignedBlock("MESONS",        numsToAssign, good=1)
+	GLOB.noflashblock		= getAssignedBlock("NOFLASH",       numsToAssign, DNA_HARDER_BOUNDS, good=1)
+	GLOB.nightvisionblock	= getAssignedBlock("NIGHTVISION",   numsToAssign, DNA_HARDER_BOUNDS, good=1)
+
 
 	// Bay muts
 	GLOB.breathlessblock    = getAssignedBlock("BREATHLESS",    numsToAssign, DNA_HARD_BOUNDS, good=1)
@@ -62,7 +65,6 @@
 	GLOB.noprintsblock      = getAssignedBlock("NOPRINTS",      numsToAssign, DNA_HARD_BOUNDS, good=1)
 	GLOB.shockimmunityblock = getAssignedBlock("SHOCKIMMUNITY", numsToAssign, good=1)
 	GLOB.smallsizeblock     = getAssignedBlock("SMALLSIZE",     numsToAssign, DNA_HARD_BOUNDS, good=1)
-
 	//
 	// Goon muts
 	/////////////////////////////////////////////

@@ -20,7 +20,7 @@
 		// Blob damage
 		for(var/obj/structure/blob/B in hear(range + 1, T))
 			var/damage = round(30 / (get_dist(B, T) + 1))
-			B.take_damage(damage, BURN, "melee", FALSE)
+			B.take_damage(damage, BURN, MELEE, FALSE)
 
 		// Stunning & damaging mechanic
 		bang(T, src, range)
