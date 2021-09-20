@@ -398,7 +398,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		// We make a random character
 		new_character.change_gender(pick(MALE,FEMALE))
-		var/datum/character_save/S = new()
+		var/datum/character_save/S = new
 		S.randomise()
 		S.real_name = G_found.real_name
 		S.copy_to(new_character)

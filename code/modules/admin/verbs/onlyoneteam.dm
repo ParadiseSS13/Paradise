@@ -12,7 +12,7 @@
 			continue
 		if(is_type_in_list(H.dna.species, incompatible_species))
 			H.set_species(/datum/species/human)
-			var/datum/character_save/S = new()	// Randomize appearance
+			var/datum/character_save/S = new	// Randomize appearance
 			S.randomise()
 			S.copy_to(H)
 

@@ -992,7 +992,7 @@
 						return FALSE
 					active_character.clear_character_slot(user)
 					// Gimmie a freshie
-					var/datum/character_save/CS = new()
+					var/datum/character_save/CS = new
 					character_saves[active_character.slot_number] = CS
 					CS.slot_number = active_character.slot_number // Dont lose this
 					active_character = CS

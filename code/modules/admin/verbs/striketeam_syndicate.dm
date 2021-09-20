@@ -104,7 +104,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	var/syndicate_commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
 	var/syndicate_commando_name = pick(GLOB.last_names)
 
-	var/datum/character_save/S = new()//Randomize appearance for the commando.
+	var/datum/character_save/S = new //Randomize appearance for the commando.
 	S.randomise()
 	if(is_leader)
 		S.age = rand(35, 45)

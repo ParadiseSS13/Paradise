@@ -130,7 +130,7 @@
 
 	// Setup client login processors.
 	for(var/processor_type in subtypesof(/datum/client_login_processor))
-		var/datum/client_login_processor/CLP = new processor_type()
+		var/datum/client_login_processor/CLP = new processor_type
 		GLOB.client_login_processors += CLP
 	// Sort them by priority, lowest first
 	sortTim(GLOB.client_login_processors, /proc/cmp_login_processor_priority)

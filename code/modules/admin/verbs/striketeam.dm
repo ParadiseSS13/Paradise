@@ -138,7 +138,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
 	var/commando_name = pick(GLOB.commando_names)
 
-	var/datum/character_save/S = new()//Randomize appearance for the commando.
+	var/datum/character_save/S = new //Randomize appearance for the commando.
 	S.randomise()
 	if(is_leader)
 		S.age = rand(35, 45)

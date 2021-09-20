@@ -72,7 +72,7 @@
 	C.prefs.character_saves.len = C.prefs.max_save_slots // Fill the list with empty indexes
 	// Fill it with blank characters first
 	for(var/i in 1 to C.prefs.max_save_slots)
-		var/datum/character_save/CS = new()
+		var/datum/character_save/CS = new
 		CS.slot_number = i
 		C.prefs.character_saves[i] = CS
 

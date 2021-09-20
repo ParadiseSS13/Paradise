@@ -388,7 +388,7 @@
 	var/syndicate_commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
 	var/syndicate_commando_name = pick(GLOB.last_names)
 
-	var/datum/character_save/S = new()//Randomize appearance for the commando.
+	var/datum/character_save/S = new //Randomize appearance for the commando.
 	S.randomise()
 	if(syndicate_leader_selected)
 		S.real_name = "[syndicate_commando_leader_rank] [syndicate_commando_name]"
@@ -577,7 +577,7 @@
 	if(candidates.len)
 		var/teamOneMembers = 5
 		var/teamTwoMembers = 5
-		var/datum/character_save/S = new()
+		var/datum/character_save/S = new
 		S.randomise()
 		for(var/thing in GLOB.landmarks_list)
 			var/obj/effect/landmark/L = thing
