@@ -68638,7 +68638,7 @@
 /turf/simulated/floor/plating,
 /area/medical/medbay)
 "cTZ" = (
-/obj/machinery/smartfridge/secure/chemistry,
+/obj/machinery/smartfridge/medbay,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -73162,17 +73162,12 @@
 	},
 /area/hallway/primary/aft)
 "ddL" = (
-/obj/machinery/smartfridge/medbay,
+/obj/machinery/smartfridge/secure/medbay,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
-	},
-/obj/machinery/door/window/westleft{
-	dir = 4;
-	name = "Chemistry Desk";
-	req_one_access_txt = "5;33"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
