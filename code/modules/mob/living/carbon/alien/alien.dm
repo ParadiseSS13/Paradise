@@ -11,6 +11,9 @@
 	var/nightvision = FALSE
 	see_in_dark = 4
 
+	var/amount_grown = 0
+	var/max_grown = 180
+
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = FALSE
 	var/move_delay_add = FALSE // movement delay to add
@@ -262,3 +265,12 @@ Des: Removes all infected images from the alien.
 	bruteloss = max(bruteloss + amount * XENO_BRUTE_ARMOR, 0)
 
 #undef XENO_BRUTE_ARMOR
+
+/mob/living/carbon/alien/humanoid/Stat()
+	..()
+	stat(null, "Evolution Progress: [amount_grown]/[max_grown]")
+
+/mob/living/carbon/alien/humanoid/adjustPlasma(amount)
+	if(stat != DEAD && amount > 0)
+		amount_grown = min(amount_grown + 1, max_grown)
+	..(amount)

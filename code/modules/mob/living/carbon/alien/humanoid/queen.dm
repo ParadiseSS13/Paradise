@@ -1,8 +1,8 @@
 /mob/living/carbon/alien/humanoid/queen
 	name = "alien queen"
 	caste = "q"
-	maxHealth = 250
-	health = 250
+	maxHealth = 275
+	health = 275
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
 	heal_rate = 5
@@ -10,6 +10,9 @@
 	ventcrawler = 0
 	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
 	can_grab_facehuggers = TRUE
+
+	amount_grown = 0
+	max_grown = 300
 
 /mob/living/carbon/alien/humanoid/queen/New()
 	//there should only be one queen
@@ -73,3 +76,39 @@
 
 	for(var/image/I in overlays_standing)
 		overlays += I
+
+/mob/living/carbon/alien/humanoid/queen/verb/evolve()
+	set name = "Evolve (500)"
+	set desc = "Evolve into an Empress."
+	set category = "Alien"
+
+	if(stat != CONSCIOUS)
+		return
+
+	if(handcuffed || legcuffed)
+		to_chat(src, "<span class='warning'>You cannot evolve when you are cuffed.</span>")
+
+	if(amount_grown >= max_grown && powerc(500))
+		to_chat(src, "<span class='boldnotice'>You are able to grow into an Empress!</span>")
+		to_chat(src, "<B>Empresses</B> <span class='notice'>are slow and tough, as well as powerful in combat, capable of spitting like Sentinels and tanking an insane number of hits.</span>")
+		var/alien_caste = alert(src, "Do you want to evolve into an Empress?","Evolve","Yes","No")
+
+		var/mob/living/carbon/alien/humanoid/new_xeno
+		switch(alien_caste)
+			if("Yes")
+				adjustPlasma(-500)
+				new_xeno = new /mob/living/carbon/alien/humanoid/empress(loc)
+				to_chat(src, "<span class='boldnotice'>You twist and contort, changing shape into an Empress!</span>")
+		if(mind)
+			mind.transfer_to(new_xeno)
+		else
+			new_xeno.key = key
+		new_xeno.mind.name = new_xeno.name
+		qdel(src)
+		return
+	else
+		if(!powerc(500))
+			to_chat(src, "<span class='warning'>You do not have enough plasma.</span>")
+		else
+			to_chat(src, "<span class='warning'>You are not fully grown.</span>")
+		return

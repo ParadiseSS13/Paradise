@@ -9,8 +9,8 @@
 	health = 25
 	density = 0
 
-	var/amount_grown = 0
-	var/max_grown = 200
+	amount_grown = 0
+	max_grown = 200
 	var/time_of_birth
 	death_message = "lets out a waning high-pitched cry."
 	death_sound = null
@@ -29,7 +29,7 @@
 //This needs to be fixed
 /mob/living/carbon/alien/larva/Stat()
 	..()
-	stat(null, "Progress: [amount_grown]/[max_grown]")
+	stat(null, "Evolution Progress: [amount_grown]/[max_grown]")
 
 /mob/living/carbon/alien/larva/adjustPlasma(amount)
 	if(stat != DEAD && amount > 0)
@@ -84,11 +84,3 @@
 /mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE
 
-/* Commented out because it's duplicated in life.dm
-/mob/living/carbon/alien/larva/proc/grow() // Larvae can grow into full fledged Xenos if they survive long enough -- TLE
-	if(icon_state == "larva_l" && !canmove) // This is a shit death check. It is made of shit and death. Fix later.
-		return
-	else
-		var/mob/living/carbon/alien/humanoid/A = new(loc)
-		A.key = key
-		qdel(src) */
