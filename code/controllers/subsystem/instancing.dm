@@ -117,7 +117,7 @@ SUBSYSTEM_DEF(instancing)
 /datum/controller/subsystem/instancing/proc/message_all_peers(message)
 	if(!SSdbcore.IsConnected())
 		return
-	var/topic_string = "instance_announce&msg=[html_encode(message)]"
+	var/topic_string = "instance_announce&msg=[url_encode(message)]"
 	topic_all_peers(topic_string)
 
 /**
@@ -150,6 +150,8 @@ SUBSYSTEM_DEF(instancing)
 			servers_outer[dbq1.item[1]] = list()
 
 		servers_outer[dbq1.item[1]][dbq1.item[2]] = dbq1.item[3] // This should assoc load our data
+
+	qdel(dbq1)
 
 	for(var/server in servers_outer)
 		var/server_data = servers_outer[server]
