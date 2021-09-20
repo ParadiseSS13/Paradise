@@ -54,9 +54,8 @@ SUBSYSTEM_DEF(changelog)
 /datum/controller/subsystem/changelog/proc/UpdatePlayerChangelogDate(client/C)
 	if(!ss_ready)
 		return // Only return here, we dont have to worry about a queue list because this will be called from ShowChangelog()
-	// Technically this is only for the date but we can also do the UI button at the same time
-	var/datum/preferences/P = GLOB.preferences_datums[C.ckey]
-	if(P.toggles & PREFTOGGLE_UI_DARKMODE)
+
+	if(C.prefs.toggles & PREFTOGGLE_UI_DARKMODE)
 		winset(C, "rpane.changelog", "background-color=#40628a;font-color=#ffffff;font-style=none")
 	else
 		winset(C, "rpane.changelog", "background-color=none;font-style=none")

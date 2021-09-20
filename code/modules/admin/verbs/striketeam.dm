@@ -138,13 +138,14 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
 	var/commando_name = pick(GLOB.commando_names)
 
-	var/datum/preferences/A = new()//Randomize appearance for the commando.
+	var/datum/character_save/S = new //Randomize appearance for the commando.
+	S.randomise()
 	if(is_leader)
-		A.age = rand(35,45)
-		A.real_name = "[commando_leader_rank] [commando_name]"
+		S.age = rand(35, 45)
+		S.real_name = "[commando_leader_rank] [commando_name]"
 	else
-		A.real_name = "[commando_name]"
-	A.copy_to(new_commando)
+		S.real_name = "[commando_name]"
+	S.copy_to(new_commando)
 
 
 	new_commando.dna.ready_dna(new_commando)//Creates DNA.
