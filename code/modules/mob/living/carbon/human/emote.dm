@@ -37,7 +37,6 @@
 	switch(act)		//This switch makes sure you have air in your lungs before you scream
 		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes")
 			if(has_status_effect(STATUS_EFFECT_DRYTHROAT) || getOxyLoss() > 35) //no screaming if you don't have enough breath to scream, or a dry throat
-				on_CD = handle_emote_CD()
 				emote("gasp")
 				return
 
