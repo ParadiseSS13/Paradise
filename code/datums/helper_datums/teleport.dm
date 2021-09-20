@@ -183,8 +183,8 @@
 				to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
 	return 1
 
-// Safe location finder
-/proc/find_safe_turf(zlevel, list/zlevels, extended_safety_checks = FALSE)
+// Random safe location finder
+/proc/find_safe_turf(zlevel, list/zlevels)
 	if(!zlevels)
 		if(zlevel)
 			zlevels = list(zlevel)
@@ -198,36 +198,27 @@
 		var/z = pick(zlevels)
 		var/random_location = locate(x,y,z)
 
-		if(!isfloorturf(random_location))
-			continue
-		var/turf/simulated/floor/F = random_location
-		if(!F.air)
-			continue
-
-		var/datum/gas_mixture/A = F.air
-
-		// Can most things breathe?
-		if(A.sleeping_agent)
-			continue
-		if(A.oxygen < 16)
-			continue
-		if(A.toxins)
-			continue
-		if(A.carbon_dioxide >= 10)
-			continue
-
-		// Aim for goldilocks temperatures and pressure
-		if((A.temperature <= 270) || (A.temperature >= 360))
-			continue
-		var/pressure = A.return_pressure()
-		if((pressure <= 20) || (pressure >= 550))
-			continue
-
-		if(extended_safety_checks)
-			if(islava(F)) //chasms aren't /floor, and so are pre-filtered
-				var/turf/simulated/floor/plating/lava/L = F
-				if(!L.is_safe())
-					continue
-
+		if(safety_turf(random_location))
 		// DING! You have passed the gauntlet, and are "probably" safe.
-		return F
+			var/turf/simulated/floor/F = random_location
+			return F
+
+// Checks if the turf is safe to be on
+/proc/safety_turf(location)
+	if(isfloorturf(location))
+		var/turf/simulated/floor/F = location
+		if(F.air)
+			var/datum/gas_mixture/Z = F.air
+			// Can most things breathe?
+			if(Z.oxygen >= 16 && Z.toxins < 0.05 && Z.carbon_dioxide < 10 && Z.sleeping_agent < 1)
+			// Aim for goldilocks temperatures and pressure
+				if((Z.temperature > 270) && (Z.temperature < 360))
+					var/pressure = Z.return_pressure()
+					if((pressure > 20) && (pressure < 550))
+			// Is the floor lava, yet covered?
+						if(islava(F)) //chasms aren't /floor, and so are pre-filtered
+							var/turf/simulated/floor/plating/lava/L = F
+							if(!L.is_safe())
+								return 0
+						return 1
+	return 0
