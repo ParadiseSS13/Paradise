@@ -30,6 +30,7 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 	// Right off the bat, load up the DB
 	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
 	SSdbcore.SetRoundID() // Set the round ID here
+	SSinstancing.seed_data() // Set us up in the DB
 
 	// Setup all log paths and stamp them with startups, including round IDs
 	SetupLogs()

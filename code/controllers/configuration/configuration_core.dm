@@ -24,8 +24,6 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/gateway_configuration/gateway
 	/// Holder for the general configuration datum
 	var/datum/configuration_section/general_configuration/general
-	/// Holder for the instancing configuration datum
-	var/datum/configuration_section/instancing_configuration/instancing
 	/// Holder for the IPIntel configuration datum
 	var/datum/configuration_section/ipintel_configuration/ipintel
 	/// Holder for the job configuration datum
@@ -83,7 +81,6 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	gamemode = new()
 	gateway = new()
 	general = new()
-	instancing = new()
 	ipintel = new()
 	jobs = new()
 	logging = new()
@@ -122,7 +119,6 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	safe_load(gamemode, "gamemode_configuration")
 	safe_load(gateway, "gateway_configuration")
 	safe_load(general, "general_configuration")
-	safe_load(instancing, "instancing_configuration")
 	safe_load(ipintel, "ipintel_configuration")
 	safe_load(jobs, "job_configuration")
 	safe_load(logging, "logging_configuration")

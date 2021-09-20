@@ -139,7 +139,6 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/set_ooc,
 	/client/proc/reset_ooc,
 	/client/proc/set_next_map,
-	/client/proc/refresh_instances,
 	/client/proc/manage_queue,
 	/client/proc/add_queue_server_bypass
 	))

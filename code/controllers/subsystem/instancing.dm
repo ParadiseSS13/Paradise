@@ -1,84 +1,124 @@
 SUBSYSTEM_DEF(instancing)
 	name = "Instancing"
 	runlevels = RUNLEVEL_INIT | RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	wait = 30 SECONDS
+	flags = SS_KEEP_TIMING
 	/// Has our initial check complete? Used to halt init but not lag the server
 	var/initial_check_complete = FALSE
 	/// Is a check currently running?
 	var/check_running = FALSE
 
 /datum/controller/subsystem/instancing/Initialize(start_timeofday)
-	// Do an initial peer check
-	check_peers(TRUE) // Force because of time memes
-	UNTIL(initial_check_complete) // Wait here a bit
+	// Dont even bother if we arent connected
+	if(!SSdbcore.IsConnected())
+		flags |= SS_NO_FIRE
+		return ..()
+	update_heartbeat() // Make sure you do this before announcing to peers, or no one will hear your announcement
 	var/startup_msg = "The server <code>[GLOB.configuration.general.server_name]</code> is now starting up. The map is [SSmapping.map_datum.fluff_name] ([SSmapping.map_datum.technical_name]). You can connect with the <code>Switch Server</code> verb."
-	message_all_peers(startup_msg, send_reping = TRUE)
+	message_all_peers(startup_msg)
 	return ..()
 
 /datum/controller/subsystem/instancing/fire(resumed)
-	check_peers()
+	update_heartbeat()
+	update_playercache()
 
 /**
-  * Refreshes all peers on the server
+  * Playercache updater
   *
-  * Called periodically during fire() as well as when a new peer reports itself as online
-  * Only one instance of this proc may run at a time
-  *
-  * Arguments:
-  * * force - Do we want to force check all of them
+  * Updates the player cache in the DB. Different from heartbeat so we can force invoke it on player operations
   */
-/datum/controller/subsystem/instancing/proc/check_peers(force = FALSE)
-	set waitfor = FALSE // This has sleeps if it cant topic so we dont want to bog things down
-	if(check_running)
+/datum/controller/subsystem/instancing/proc/update_playercache(optional_ckey)
+	// You may be wondering, why the fuck is an "optional ckey" variable here
+	// Well, this is invoked in client/New(), and needs to read from GLOB.clients
+	// However, this proc sleeps, and if you sleep during client/New() once the client is in GLOB.clients, stuff breaks bad
+	// (See my comment rambling in client/New())
+	// By passing the ckey through, we can sleep in this proc and still get the data
+	if(!SSdbcore.IsConnected())
 		return
+	// First iterate clients to get ckeys
+	var/list/ckeys = list()
+	for(var/client/C in GLOB.clients) // No code review. I am not doing the `as anything` bullshit, because we *do* need the type checks here to avoid null clients which do happen sometimes
+		ckeys += C.ckey
+	// Add our optional
+	if(optional_ckey)
+		ckeys += optional_ckey
+	// Note: We dont have to sort the list here. The only time this is read for is a search,
+	// and since BYOND lists are linked lists internally, order doesnt matter
+	var/ckey_json = json_encode(ckeys)
 
-	check_running = TRUE // Dont allow multiple of these
-	// A NOTE TO ANYONE ELSE WHO LOOKS AT THIS
-	// THESE TIMINGS ARE A FUCKING NIGHTMARE AND YOU WILL NEED DEBUG LOGGING TO TEST THEM
-	// DO NOT FUCK WITH THE TIMINGS -aa
-	for(var/datum/peer_server/PS in GLOB.configuration.instancing.peers)
-		// If the server hasnt been discovered and its been more than 5 minutes
-		if((!PS.discovered && PS.last_operation_time + 5 MINUTES > world.time))
-			if(!force) // No, code review. This is not going in the same line.
-				continue
+	// Yes I care about performance savings this much here to mass execute this shit
+	var/list/datum/db_query/queries = list()
+	queries += SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=:json WHERE key_name='playerlist' AND server_id=:sid", list(
+		"json" = ckey_json,
+		"sid" = GLOB.configuration.system.instance_id
+	))
+	queries += SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=:count WHERE key_name='playercount' AND server_id=:sid", list(
+		"count" = length(ckeys),
+		"sid" = GLOB.configuration.system.instance_id
+	))
 
-		// Only run main operations once every minute anyway
-		if(PS.last_operation_time + 1 MINUTES > world.time)
-			if(!force)
-				continue
+	SSdbcore.MassExecute(queries, TRUE, TRUE, FALSE, FALSE)
 
-		var/peer_response = world.Export("byond://[PS.internal_ip]:[PS.server_port]?server_discovery&key=[PS.commskey]")
-		if(!peer_response)
-			PS.online = FALSE // Peer is offline
-			PS.last_operation_time = world.time
-			continue
+/**
+  * Heartbeat updater
+  *
+  * Updates the heartbeat in the DB. Used so other servers can see when this one was alive
+  */
+/datum/controller/subsystem/instancing/proc/update_heartbeat()
+	// this could probably just go in fire() but clean code and profiler ease who cares
+	var/datum/db_query/dbq = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=NOW() WHERE key_name='heartbeat' AND server_id=:sid", list(
+		"sid" = GLOB.configuration.system.instance_id
+	))
+	dbq.warn_execute()
+	qdel(dbq)
 
-		// We got a response
-		PS.discovered = TRUE
-		PS.online = TRUE
-		var/list/peer_data = json_decode(peer_response)
+/**
+  * Seed data
+  *
+  * Seeds all our data into the DB for other servers to discover from.
+  * This is called during world/New() instead of on initialize so it can be done *instantly*
+  */
+/datum/controller/subsystem/instancing/proc/seed_data()
+	// We need to seed a lot of keys, so lets just use a key-value-pair-map to do this easily
+	var/list/kvp_map = list()
+	kvp_map["server_name"] = GLOB.configuration.general.server_name // Name of the server
+	kvp_map["server_port"] = world.port // Server port (used for redirection and topics)
+	kvp_map["topic_key"] = GLOB.configuration.system.topic_key // Server topic key (used for topics)
+	kvp_map["internal_ip"] = GLOB.configuration.system.internal_ip // Server internal IP (used for topics)
+	kvp_map["playercount"] = length(GLOB.clients) // Server client count (used for status info)
+	kvp_map["playerlist"] = json_encode(list()) // Server client list. Used for dupe login checks. This gets filled in later
+	kvp_map["heartbeat"] = SQLtime() // SQL timestamp for heartbeat purposes. Any server without a heartbeat in the last 60 seconds can be considered dead
+	// Also note for above. You may say "But AA you dont need to JSON encode it, just use "\[]"."
+	// Well to that I say, no. This is meant to be JSON regardless, and it should represent that. This proc is ran once during world/New()
+	// An extra nanosecond of load will make zero difference.
 
-		PS.external_ip = peer_data["external_ip"]
-		PS.server_id = peer_data["server_id"]
-		PS.server_name = peer_data["server_name"]
-		PS.playercount = peer_data["playercount"]
+	for(var/key in kvp_map)
+		var/datum/db_query/dbq = SSdbcore.NewQuery("INSERT INTO instance_data_cache (server_id, key_name, key_value) VALUES (:sid, :kn, :kv) ON DUPLICATE KEY UPDATE key_value=:kv2", // Is this necessary? Who knows!
+			list(
+				"sid" = GLOB.configuration.system.instance_id,
+				"kn" = key,
+				"kv" = "[kvp_map[key]]", // String encoding IS necessary since these tables use strings, not ints
+				"kv2" = "[kvp_map[key]]", // Dont know if I need the second but better to be safe
+			)
+		)
+		dbq.warn_execute(FALSE) // Do NOT async execute here because world/New() shouldnt sleep. EVER. You get issues if you do.
+		qdel(dbq)
 
-		PS.last_operation_time = world.time
-
-	check_running = FALSE
-	initial_check_complete = TRUE
 
 /**
   * Message all peers
   *
-  * Wrapper for [topic_all_peers] to autoformat a message topic. Will send a server-wide announcement to the other servers
-  * including any relevant detail
+  * Wrapper for [topic_all_peers] to format the input into a message topic. Will send a server-wide announcement to the other servers
+  *
   * Arguments:
   * * message - Message to send to the other servers
   * * include_offline - Whether to topic offline servers on the off chance they came online
   */
-/datum/controller/subsystem/instancing/proc/message_all_peers(message, include_offline = FALSE, send_reping = FALSE)
+/datum/controller/subsystem/instancing/proc/message_all_peers(message)
+	if(!SSdbcore.IsConnected())
+		return
 	var/topic_string = "instance_announce&msg=[html_encode(message)]"
-	topic_all_peers(topic_string, include_offline, send_reping)
+	topic_all_peers(topic_string)
 
 /**
   * Sends a topic to all peers
@@ -89,7 +129,28 @@ SUBSYSTEM_DEF(instancing)
   * * raw_topic - The raw topic to send to the other servers
   * * include_offline - Whether to topic offline servers on the off chance they came online
   */
-/datum/controller/subsystem/instancing/proc/topic_all_peers(raw_topic, include_offline = FALSE, send_reping = FALSE)
-	for(var/datum/peer_server/PS in GLOB.configuration.instancing.peers)
-		if(PS.online || include_offline)
-			world.Export("byond://[PS.internal_ip]:[PS.server_port]?[raw_topic]&key=[PS.commskey][send_reping ? "&repoll=1" : ""]")
+/datum/controller/subsystem/instancing/proc/topic_all_peers(raw_topic)
+	// Someone here is going to say "AA you shouldnt put load on the DB server you can do sorting in BYOND"
+	// Well let me put it this way. The DB server is an entirely different machine to BYOND,w ith this entire dataset being stored in its RAM, not even on disk
+	// By making the DB server do the work, we can offload from BYOND, which is already strained
+	var/datum/db_query/dbq1 = SSdbcore.NewQuery({"
+		SELECT server_id, key_name, key_value FROM instance_data_cache WHERE server_id IN
+		(SELECT server_id FROM instance_data_cache WHERE server_id !=:sid AND
+		key_name='heartbeat' AND last_updated BETWEEN NOW() - INTERVAL 60 SECOND AND NOW())
+		AND key_name IN ("topic_key", "internal_ip", "server_port")"}, list(
+		"sid" = GLOB.configuration.system.instance_id
+	))
+	if(!dbq1.warn_execute())
+		qdel(dbq1)
+		return
+
+	var/servers_outer = list()
+	while(dbq1.NextRow())
+		if(!servers_outer[dbq1.item[1]])
+			servers_outer[dbq1.item[1]] = list()
+
+		servers_outer[dbq1.item[1]][dbq1.item[2]] = dbq1.item[3] // This should assoc load our data
+
+	for(var/server in servers_outer)
+		var/server_data = servers_outer[server]
+		world.Export("byond://[server_data["internal_ip"]]:[server_data["server_port"]]?[raw_topic]&key=[server_data["topic_key"]]")
