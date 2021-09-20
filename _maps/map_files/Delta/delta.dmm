@@ -9233,6 +9233,9 @@
 	pixel_x = -12
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/reagent_dispensers/spacecleanertank{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "aBx" = (
@@ -96741,15 +96744,6 @@
 	icon_state = "vault"
 	},
 /area/security/prisonershuttle)
-"kBV" = (
-/obj/machinery/computer/arcade{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
-	},
-/area/maintenance/fore2)
 "kCi" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
