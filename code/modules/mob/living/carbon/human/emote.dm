@@ -1,3 +1,6 @@
+#define MAX_SCREAMS_IN_TIMEFRAME 3
+#define TIMEFRAME_FOR_MAX_SCREAMS (30 SECONDS)
+
 /mob/living/carbon/human/emote(act, m_type = 1, message = null, force)
 
 	if((stat == DEAD) || HAS_TRAIT(src, TRAIT_FAKEDEATH))
@@ -33,7 +36,7 @@
 
 	switch(act)		//This switch makes sure you have air in your lungs before you scream
 		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes")
-			if(getOxyLoss() > 35)		//no screaming if you don't have enough breath to scream
+			if(has_status_effect(STATUS_EFFECT_DRYTHROAT) || getOxyLoss() > 35) //no screaming if you don't have enough breath to scream, or a dry throat
 				on_CD = handle_emote_CD()
 				emote("gasp")
 				return
@@ -888,6 +891,10 @@
 				if(!muzzled)
 					message = "<B>[src]</B> [dna.species.scream_verb][M ? " at [M]" : ""]!"
 					m_type = 2
+					++recent_scream_count
+					addtimer(CALLBACK(src, .proc/scream_cooldown), TIMEFRAME_FOR_MAX_SCREAMS)
+					if(recent_scream_count >= MAX_SCREAMS_IN_TIMEFRAME) //3 or more recent screams means no more screaming for a while
+						apply_status_effect(STATUS_EFFECT_DRYTHROAT)
 					if(gender == FEMALE)
 						playsound(loc, dna.species.female_scream_sound, 80, 1, frequency = get_age_pitch())
 					else
@@ -1028,6 +1035,9 @@
 			if(2)
 				audible_message(message)
 
+/mob/living/carbon/human/proc/scream_cooldown()
+	recent_scream_count = max(0, --recent_scream_count) //we should never get negative recent screams
+
 /mob/living/carbon/human/verb/pose()
 	set name = "Set Pose"
 	set desc = "Sets a description which will be shown when someone examines you."
@@ -1041,3 +1051,6 @@
 	set category = "IC"
 
 	update_flavor_text()
+
+#undef MAX_SCREAMS_IN_TIMEFRAME
+#undef TIMEFRAME_FOR_MAX_SCREAMS

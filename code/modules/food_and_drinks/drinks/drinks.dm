@@ -37,6 +37,9 @@
 	if(istype(M, /mob/living/carbon))
 		var/mob/living/carbon/C = M
 		if(C.eat(src, user))
+			if(C.has_status_effect(STATUS_EFFECT_DRYTHROAT))
+				to_chat(user, "<span class='notice'>[src] soothes your dry throat.</span>")
+				C.remove_status_effect(STATUS_EFFECT_DRYTHROAT)
 			return TRUE
 	return FALSE
 

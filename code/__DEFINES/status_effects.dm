@@ -62,6 +62,8 @@
 
 #define STATUS_EFFECT_SAWBLEED /datum/status_effect/saw_bleed //if the bleed builds up enough, takes a ton of damage
 
+#define STATUS_EFFECT_DRYTHROAT /datum/status_effect/dry_throat //scream spammers get a dry throat
+
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
 //#define CURSE_SPAWNING	2 //spawns creatures that attack the target only

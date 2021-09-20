@@ -136,3 +136,18 @@
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
+
+/datum/status_effect/dry_throat
+	id = "dry_throat"
+	duration = 1 MINUTES
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /obj/screen/alert/status_effect/dry_throat
+
+/obj/screen/alert/status_effect/dry_throat
+	name = "Dry throat"
+	desc = "Your throat is totally dry, drink something or wait a while!"
+	icon_state = "dry_throat"
+
+/datum/status_effect/dry_throat/on_remove()
+	var/mob/living/carbon/human/C = owner
+	C.recent_scream_count = 0 //reset their scream counts so they can scream more than once
