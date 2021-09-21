@@ -26,8 +26,7 @@
 	icon_state = speed ? "conveyor-1" : "conveyor0"
 
 /obj/machinery/power/treadmill/Crossed(mob/living/M, oldloc)
-	if(anchored 
-	!M.anchored)
+	if(anchored && !M.anchored)
 		if(!istype(M) || M.dir != dir)
 			throw_off(M)
 		else
