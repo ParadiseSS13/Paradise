@@ -206,13 +206,19 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 /datum/vampire
 	var/bloodtotal = 0
 	var/bloodusable = 0
+	/// the mob tied to the vampire
 	var/mob/living/owner = null
-	var/datum/vampire_subclass/subclass /// what vampire subclass the vampire is.
-	var/iscloaking = FALSE // handles the vampire cloak toggle
-	var/can_force_doors = FALSE
-	var/list/powers = list() // list of available powers and passives
-	var/mob/living/carbon/human/draining // who the vampire is draining of blood
-	var/nullified = 0 //Nullrod makes them useless for a short while.
+	/// what vampire subclass the vampire is.
+	var/datum/vampire_subclass/subclass
+	/// handles the vampire cloak toggle
+	var/iscloaking = FALSE
+	/// list of available powers and passives
+	var/list/powers = list()
+	/// who the vampire is draining of blood
+	var/mob/living/carbon/human/draining
+	/// Nullrods and holywater make their abilities cost more
+	var/nullified = 0
+	/// a list of powers that all vampires unlock and at what blood level they unlock them, the rest of their powers are found in the vampire_subclass datum
 	var/list/upgrade_tiers = list(/obj/effect/proc_holder/spell/self/vampire/rejuvenate = 0,
 									/obj/effect/proc_holder/spell/mob_aoe/glare = 0,
 									/datum/vampire_passive/vision = 100,
@@ -220,7 +226,8 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 									/datum/vampire_passive/regen = 200,
 									/obj/effect/proc_holder/spell/targeted/turf_teleport/shadow_step = 250)
 
-	var/list/drained_humans = list() // list of the peoples UIDs that we have drained, and how much blood from each one
+	/// list of the peoples UIDs that we have drained, and how much blood from each one
+	var/list/drained_humans = list()
 
 /datum/vampire/Destroy(force, ...)
 	owner = null

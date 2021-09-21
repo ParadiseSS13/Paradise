@@ -234,6 +234,5 @@
 			if(drain_amount == 10)
 				to_chat(H, "<span class='warning'>You feel your life force draining!</b></span>")
 	owner.mind.vampire.bloodusable = max(owner.mind.vampire.bloodusable - 10, 0)
-	if(!owner.mind.vampire.bloodusable)
-		to_chat(owner, "<span class='warning'>You have run out of useable blood!</b></span>")
+	if(!owner.mind.vampire.bloodusable || owner.stat == DEAD)
 		owner.mind.vampire.remove_ability(src)

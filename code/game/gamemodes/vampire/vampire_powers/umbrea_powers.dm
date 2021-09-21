@@ -160,7 +160,7 @@
 
 	owner.mind.vampire.bloodusable = max(owner.mind.vampire.bloodusable - 5, 0)
 
-	if(!owner.mind.vampire.bloodusable)
+	if(!owner.mind.vampire.bloodusable || owner.stat == DEAD)
 		owner.mind.vampire.remove_ability(src)
 
 /datum/vampire_passive/xray
