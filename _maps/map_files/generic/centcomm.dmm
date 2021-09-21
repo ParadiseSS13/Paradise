@@ -1913,14 +1913,18 @@
 /area/syndicate_mothership)
 "fP" = (
 /mob/living/carbon/human/monkey,
-/turf/space,
-/area/space)
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "wood"
+	},
+/area/wizard_station)
 "fQ" = (
 /mob/living/simple_animal/hostile/creature{
 	name = "Experiment 35b"
 	},
-/turf/space,
-/area/space)
+/turf/simulated/floor/plasteel/indestructible{
+	icon_state = "grass1"
+	},
+/area/wizard_station)
 "fR" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Shuttle Dock"
@@ -4289,8 +4293,10 @@
 /area/centcom/suppy)
 "nv" = (
 /mob/living/simple_animal/pet/dog/fox/Syndifox,
-/turf/space,
-/area/space)
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
 "nw" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -4699,8 +4705,10 @@
 /area/centcom/evac)
 "oW" = (
 /mob/living/simple_animal/pet/cat/Syndi,
-/turf/space,
-/area/space)
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
 "oZ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave/upgraded,
@@ -6280,8 +6288,8 @@
 /mob/living/silicon/decoy{
 	name = "A.L.I.C.E."
 	},
-/turf/space,
-/area/space)
+/turf/simulated/floor/wood,
+/area/centcom/control)
 "vj" = (
 /obj/structure/rack,
 /obj/item/clothing/under/rank/centcom/captain{
@@ -39856,7 +39864,7 @@ aN
 aN
 aN
 aN
-vi
+aN
 aN
 aN
 aN
@@ -56486,7 +56494,7 @@ aN
 aN
 aN
 aN
-oW
+aN
 aN
 aN
 aN
@@ -57254,7 +57262,7 @@ aN
 aN
 aN
 aN
-nv
+aN
 aN
 aN
 aN
@@ -59261,7 +59269,7 @@ aN
 aN
 aN
 aN
-fQ
+aN
 aN
 aN
 aN
@@ -60689,7 +60697,7 @@ tX
 uP
 wE
 nQ
-zy
+vi
 Bc
 zy
 zy
@@ -61316,7 +61324,7 @@ aN
 aN
 aN
 aN
-fP
+aN
 aN
 aN
 aN
@@ -64504,7 +64512,7 @@ hr
 jr
 jA
 jN
-hr
+oW
 kj
 kr
 kH
@@ -65274,7 +65282,7 @@ eq
 jj
 hr
 hr
-hr
+nv
 hr
 hr
 hr
@@ -71395,7 +71403,7 @@ bQ
 bQ
 dW
 ee
-ee
+fQ
 eg
 ay
 aN
@@ -72679,7 +72687,7 @@ ay
 ay
 ay
 ea
-dg
+fP
 dg
 ei
 ay
