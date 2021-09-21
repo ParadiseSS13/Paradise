@@ -199,7 +199,7 @@
 /datum/reagent/stable_mutagen
 	name = "Stable mutagen"
 	id = "stable_mutagen"
-	description = "Just the regular, boring sort of mutagenic compound.  Works in a completely predictable manner."
+	description = "Just the regular, boring sort of mutagenic compound. Works in a completely predictable manner."
 	reagent_state = LIQUID
 	color = "#7DFF00"
 	taste_description = "slime"
@@ -233,7 +233,7 @@
 			data = B.data.Copy()
 
 /datum/reagent/uranium
-	name ="Uranium"
+	name = "Uranium"
 	id = "uranium"
 	description = "A silvery-white metallic chemical element in the actinide series, weakly radioactive."
 	reagent_state = SOLID
@@ -367,7 +367,7 @@
 		to_chat(H, "<span class='warning'>The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
 
 /datum/reagent/acetic_acid
-	name = "acetic acid"
+	name = "Acetic acid"
 	id = "acetic_acid"
 	description = "A weak acid that is the main component of vinegar and bad hangovers."
 	color = "#0080ff"

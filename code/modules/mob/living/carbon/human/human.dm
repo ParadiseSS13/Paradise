@@ -222,7 +222,7 @@
 
 	var/brute_loss = 0
 	var/burn_loss = 0
-	var/bomb_armor = getarmor(null, "bomb")
+	var/bomb_armor = getarmor(null, BOMB)
 	var/list/valid_limbs = list("l_arm", "l_leg", "r_arm", "r_leg")
 	var/limbs_amount = 1
 	var/limb_loss_chance = 50
@@ -264,7 +264,7 @@
 		var/obj/item/organ/external/BP = get_organ(X)
 		if(!BP) //limb already blown off, move to the next one without counting it
 			continue
-		if(prob(limb_loss_chance) && !prob(getarmor(BP, "bomb")))
+		if(prob(limb_loss_chance) && !prob(getarmor(BP, BOMB)))
 			BP.droplimb(TRUE, DROPLIMB_SHARP, FALSE, TRUE)
 		limbs_amount--
 		if(!limbs_amount)
@@ -280,7 +280,7 @@
 	show_message("<span class='userdanger'>The blob attacks you!</span>")
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
-	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, "melee"))
+	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, MELEE))
 
 /mob/living/carbon/human/get_restraining_item()
 	. = ..()
@@ -1679,9 +1679,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	return md5(dna.uni_identity)
 
-/mob/living/carbon/human/can_see_reagents()
-	for(var/obj/item/clothing/C in src) //If they have some clothing equipped that lets them see reagents, they can see reagents
-		if(C.scan_reagents)
+/mob/living/carbon/human/can_see_reagents() //If they have some glasses or helmet equipped that lets them see reagents, they can see reagents
+	if(istype(head, /obj/item/clothing/head))
+		var/obj/item/clothing/head/hat = head
+		if(hat.scan_reagents)
+			return 1
+	if(istype(glasses, /obj/item/clothing/glasses))
+		var/obj/item/clothing/rscan = glasses
+		if(rscan.scan_reagents)
 			return 1
 
 /mob/living/carbon/human/can_eat(flags = 255)
@@ -1950,7 +1955,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	if(GLOB.configuration.general.allow_character_metadata)
 		if(client)
-			to_chat(usr, "[src]'s Metainfo:<br>[sanitize(client.prefs.metadata)]")
+			to_chat(usr, "[src]'s Metainfo:<br>[sanitize(client.prefs.active_character.metadata)]")
 		else
 			to_chat(usr, "[src] does not have any stored infomation!")
 	else
