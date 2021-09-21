@@ -190,7 +190,7 @@
 	icon_state = null
 	damage = 40
 	damage_type = BRUTE
-	flag = "bomb"
+	flag = BOMB
 	range = 3
 
 	var/pressure_decrease_active = FALSE

@@ -27,6 +27,13 @@ SUBSYSTEM_DEF(tgui)
 /datum/controller/subsystem/tgui/stat_entry()
 	..("P:[processing_uis.len]")
 
+/datum/controller/subsystem/tgui/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["processing"] = length(processing_uis)
+	.["custom"] = cust
+
+
 /datum/controller/subsystem/tgui/fire(resumed = 0)
 	if (!resumed)
 		src.currentrun = processing_uis.Copy()
