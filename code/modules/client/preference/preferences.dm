@@ -413,7 +413,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</td></tr></table>"
 
 		if(TAB_GEAR)
-			var/total_cost = setup_loadout()
+			var/total_cost = build_loadout()
 
 			var/fcolor = "#3366CC"
 			if(total_cost < max_gear_slots)
@@ -552,3 +552,39 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	active_character.SetChoices(user)
 	return 1
+
+/**
+  * Rebuilds the `loadout_gear` list of the [active_character], and returns the total end cost.
+  *
+  * Caches and cuts the existing [/datum/character_save/var/loadout_gear] list and remakes it, checking the `subtype_selection_cost` and overall cost validity of each item.
+  *
+  * If the item's [/datum/gear/var/subtype_selection_cost] is `FALSE`, any future items with the same [/datum/gear/var/main_typepath] will have their cost skipped.
+  * If adding the item will take the total cost over the maximum, it won't be added to the list.
+  *
+  * Arguments:
+  * * new_item - A new [/datum/gear] item to be added to the `loadout_gear` list.
+  */
+/datum/preferences/proc/build_loadout(datum/gear/new_item)
+	var/total_cost = 0
+	var/list/type_blacklist = list()
+	var/list/loadout_cache = active_character.loadout_gear.Copy()
+	active_character.loadout_gear.Cut()
+	if(new_item)
+		loadout_cache += new_item.type
+
+	for(var/I in loadout_cache)
+		var/datum/gear/G = GLOB.gear_datums[text2path(I) || I]
+		if(!G)
+			continue
+		var/added_cost = G.cost
+		if(!G.subtype_selection_cost) // If listings of the same subtype shouldn't have their cost added.
+			if(G.main_typepath in type_blacklist)
+				added_cost = 0
+			else
+				type_blacklist += G.main_typepath
+
+		if((total_cost + added_cost) > max_gear_slots)
+			continue // If the final cost is too high, don't add the item.
+		active_character.loadout_gear += G.type
+		total_cost += added_cost
+	return total_cost
