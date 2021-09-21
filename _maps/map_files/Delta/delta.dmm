@@ -8451,12 +8451,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/storage)
-"azR" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 4
-	},
-/turf/space,
-/area/space/nearstation)
 "azS" = (
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/decal/warning_stripes/northwestcorner,
@@ -12747,13 +12741,6 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/bar)
-"aIT" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 6
-	},
-/turf/space,
-/area/space/nearstation)
 "aIU" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -123074,7 +123061,7 @@ aaa
 aaa
 aaa
 aaa
-vXX
+abj
 aHa
 aIu
 aJN
@@ -123838,13 +123825,13 @@ rvc
 dij
 abj
 aAi
-ayG
-azR
-ayG
-azR
-ayG
-azR
-aIT
+aAi
+aAi
+aAi
+aAi
+aAi
+aAi
+aAe
 aEa
 aGZ
 aIx
@@ -124097,7 +124084,7 @@ aaa
 aAi
 aAi
 aAi
-abj
+aAi
 aAi
 aAi
 aAi
@@ -124352,13 +124339,13 @@ rvc
 dij
 abj
 aAi
+aAi
+aAi
+aAi
+aAi
+aAi
 ayG
-ayG
-ayG
-azR
-ayG
-ayG
-aIT
+aAe
 aEa
 aHa
 aIz
