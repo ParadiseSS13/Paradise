@@ -143,10 +143,20 @@
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /obj/screen/alert/status_effect/dry_throat
 
+/datum/status_effect/dry_throat/on_creation(mob/living/new_owner, ...)
+	if(new_owner && ismachineperson(new_owner))
+		alert_type = /obj/screen/alert/status_effect/overheating_voicebox
+	..()
+
 /obj/screen/alert/status_effect/dry_throat
 	name = "Dry throat"
-	desc = "Your throat is totally dry, drink something or wait a while!"
+	desc = "Your throat is totally dry! Drink something or wait a while."
 	icon_state = "dry_throat"
+
+/obj/screen/alert/status_effect/overheating_voicebox
+	name = "Overheating voicebox"
+	desc = "Your voicebox is overheating! Drink something to cool it, or wait a while."
+	icon_state = "overheating_voicebox"
 
 /datum/status_effect/dry_throat/on_remove()
 	var/mob/living/carbon/human/C = owner
