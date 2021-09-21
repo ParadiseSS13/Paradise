@@ -30,6 +30,9 @@
 	if(modifiers["middle"] && modifiers["ctrl"])
 		CtrlMiddleClickOn(A)
 		return
+	if(modifiers["shift"] && modifiers["middle"])
+		ShiftMiddleClickOn(A)
+		return
 	if(modifiers["middle"])
 		MiddleClickOn(A)
 		return
@@ -126,7 +129,8 @@
 	A.BorgCtrlShiftClick(src)
 /mob/living/silicon/robot/AltShiftClickOn(atom/A)
 	A.BorgAltShiftClick(src)
-
+/mob/living/silicon/robot/ShiftMiddleClickOn(atom/A)
+	A.BorgShiftMiddleClick(src)
 
 /atom/proc/BorgShiftClick(mob/user)
 	if(user.client && user.client.eye == user)
@@ -148,6 +152,8 @@
 /atom/proc/BorgAltShiftClick()
 	return
 
+/atom/proc/BorgShiftMiddleClick()
+	return
 
 // AIRLOCKS
 
@@ -163,6 +169,8 @@
 /obj/machinery/door/airlock/BorgAltShiftClick(mob/living/silicon/robot/user)  // Enables emergency override on doors! Forwards to AI code.
 	AIAltShiftClick(user)
 
+/obj/machinery/door/airlock/BorgShiftMiddleClick(mob/living/silicon/robot/user)  //Toggles door timing. Forwards to AI code.
+	AIShiftMiddleClick(user)
 
 // APC
 

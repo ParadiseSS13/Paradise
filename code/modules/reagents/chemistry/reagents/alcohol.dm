@@ -1458,3 +1458,58 @@
 	drink_desc = "A sawed-off cola bottle filled with Fernet Cola. You can hear cuarteto music coming from the inside."
 	taste_description = "low class heaven"
 	remove_nutrition = 1
+
+/datum/reagent/consumable/ethanol/gimlet
+	name = "Gimlet"
+	id = "gimlet"
+	description = "A sharp cocktail dating back to the 19th century. Gin and lime, nothing else."
+	color = "#DEF8AB" // rgb (222, 248, 171)
+	alcohol_perc = 0.3
+	drink_icon = "gimlet"
+	drink_name = "Gimlet"
+	drink_desc = "There are debates on whether this drink should be half gin and half lime, or three parts gin and one part lime. All you know is, it's alcohol."
+	taste_description = "sharpness"
+
+/datum/reagent/consumable/ethanol/sidecar
+	name = "Sidecar"
+	id = "sidecar"
+	description = "A citrus cocktail of cognac, lemon and orange."
+	color = "#D7A61E" // rgb (215, 166, 30)
+	alcohol_perc = 0.4
+	drink_icon = "sidecar"
+	drink_name = "Sidecar"
+	drink_desc = "You can smell the citrus from here!"
+	taste_description = "smooth cognac and tart citrus"
+
+/datum/reagent/consumable/ethanol/whiskey_sour
+	name = "Whiskey Sour"
+	id = "whiskeysour"
+	description = "A tantalizing mixture of whiskey, sugar, lemon juice... and egg whites?"
+	color = "#E4D629" // rgb (228, 214, 41)
+	alcohol_perc = 0.6
+	drink_icon = "whiskeysour"
+	drink_name = "Whiskey Sour"
+	drink_desc = "Lemon and whiskey, with a cute foamy head!"
+	taste_description = "warm whiskey and sweetness"
+
+/datum/reagent/consumable/ethanol/mint_julep
+	name = "Mint Julep"
+	id = "mintjulep"
+	description = "A refreshing, cold mix of whiskey and mint. Perfect for summer!"
+	color = "#EAE2C8" // rgb (243, 226, 200)
+	alcohol_perc = 0.4
+	drink_icon = "mintjulep"
+	drink_name = "Mint Julep"
+	drink_desc = "A dainty glass of whiskey and mint on the rocks. Perfect for summer!"
+	taste_description = "sweet and cooling mint"
+
+/datum/reagent/consumable/ethanol/pina_colada
+	name = "Pina Colada"
+	id = "pinacolada"
+	description = "Tropical deliciousness."
+	color = "#F9D17D" // rgb (249, 209, 125)
+	alcohol_perc = 0.4
+	drink_icon = "pinacolada"
+	drink_name = "Pina Colada"
+	drink_desc = "After taking a sip, you feel contractually obligated to start singing a certain song of the same name."
+	taste_description = "tart and tropical pineapple"

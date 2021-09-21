@@ -138,6 +138,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio = new /obj/item/radio/borg(src)
 	common_radio = radio
 
+	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
+		cell = new default_cell_type(src)
+
 	init(alien, connect_to_AI, ai_to_sync_to)
 
 	if(has_camera && !camera)
@@ -150,9 +153,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(mmi == null)
 		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
 		mmi.icon_state = "boris"
-
-	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
-		cell = new default_cell_type(src)
 
 	initialize_components()
 	//if(!unfinished)
@@ -215,20 +215,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		//Check for custom sprite
 		if(!custom_sprite)
-			var/file = file2text("config/custom_sprites.txt")
-			var/lines = splittext(file, "\n")
-
-			for(var/line in lines)
-			// split & clean up
-				var/list/Entry = splittext(line, ":")
-				for(var/i = 1 to Entry.len)
-					Entry[i] = trim(Entry[i])
-
-				if(Entry.len < 2 || Entry[1] != "cyborg")		//ignore incorrectly formatted entries or entries that aren't marked for cyborg
-					continue
-
-				if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
-					custom_sprite = 1
+			if(ckey in GLOB.configuration.custom_sprites.cyborg_ckeys)
+				custom_sprite = TRUE
 
 	if(mmi && mmi.brainmob)
 		mmi.brainmob.name = newname
@@ -296,7 +284,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			to_chat(src, "<span class='boldannounce'>Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug.</span>")
 			ghostize()
-			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
+			log_runtime(EXCEPTION("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey]."), src)
 		mmi = null
 	if(connected_ai)
 		connected_ai.connected_robots -= src
@@ -306,12 +294,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_NULL(cell)
 	QDEL_NULL(robot_suit)
 	QDEL_NULL(spark_system)
+	QDEL_NULL(self_diagnosis)
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Generalist", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
+	var/list/modules = list("Engineering", "Medical", "Miner", "Janitor", "Service")
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
 	if(mmi != null && mmi.alien)
@@ -326,14 +315,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 	switch(modtype)
-		if("Generalist")
-			module = new /obj/item/robot_module/standard(src)
-			module.channels = list("Engineering" = 1, "Medical" = 1, "Security" = 1, "Service" = 1, "Supply" = 1)
-			module_sprites["Basic"] = "robot_old"
-			module_sprites["Android"] = "droid"
-			module_sprites["Default"] = "Standard"
-			module_sprites["Noble-STD"] = "Noble-STD"
-
 		if("Service")
 			module = new /obj/item/robot_module/butler(src)
 			module.channels = list("Service" = 1)
@@ -376,17 +357,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			see_reagents = TRUE
 
 		if("Security")
-			if(!weapons_unlock)
-				var/count_secborgs = 0
-				for(var/mob/living/silicon/robot/R in GLOB.alive_mob_list)
-					if(R && R.stat != DEAD && R.module && istype(R.module, /obj/item/robot_module/security))
-						count_secborgs++
-				var/max_secborgs = 2
-				if(GLOB.security_level == SEC_LEVEL_GREEN)
-					max_secborgs = 1
-				if(count_secborgs >= max_secborgs)
-					to_chat(src, "<span class='warning'>There are too many Security cyborgs active. Please choose another module.</span>")
-					return
 			module = new /obj/item/robot_module/security(src)
 			module.channels = list("Security" = 1)
 			module_sprites["Basic"] = "secborg"
@@ -505,30 +475,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set category = "Robot Commands"
 	set name = "Show Station Manifest"
 	show_station_manifest()
-
-/mob/living/silicon/robot/proc/self_diagnosis()
-	if(!is_component_functioning("diagnosis unit"))
-		return null
-
-	var/dat = "<HEAD><TITLE>[src.name] Self-Diagnosis Report</TITLE></HEAD><BODY>\n"
-	for(var/V in components)
-		var/datum/robot_component/C = components[V]
-		if(C.installed == 0)
-			dat += "<b>[C.name]</b><br>MISSING<br>"
-		else
-			dat += "<b>[C.name]</b>[C.installed == -1 ? "<br>DESTROYED" : ""]<br><table><tr><td>Brute Damage:</td><td>[C.brute_damage]</td></tr><tr><td>Electronics Damage:</td><td>[C.electronics_damage]</td></tr><tr><td>Powered:</td><td>[C.is_powered() ? "Yes" : "No"]</td></tr><tr><td>Toggled:</td><td>[ C.toggled ? "Yes" : "No"]</td></table><br>"
-	return dat
-
-/mob/living/silicon/robot/verb/self_diagnosis_verb()
-	set category = "Robot Commands"
-	set name = "Self Diagnosis"
-
-	if(!is_component_functioning("diagnosis unit"))
-		to_chat(src, "<span class='warning'>Your self-diagnosis component isn't functioning.</span>")
-
-	var/dat = self_diagnosis()
-	src << browse(dat, "window=robotdiagnosis")
-
 
 /mob/living/silicon/robot/verb/toggle_component()
 	set category = "Robot Commands"
@@ -1182,55 +1128,18 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		cell = null
 	qdel(src)
 
-#define BORG_CAMERA_BUFFER 30
-/mob/living/silicon/robot/Move(a, b, flag)
-	var/oldLoc = src.loc
+#define BORG_CAMERA_BUFFER 3 SECONDS
+
+/mob/living/silicon/robot/Move(atom/newloc, direct, movetime)
+	var/oldLoc = loc
 	. = ..()
-	if(.)
-		if(src.camera)
-			if(!updating)
-				updating = 1
-				spawn(BORG_CAMERA_BUFFER)
-					if(camera && oldLoc != src.loc)
-						GLOB.cameranet.updatePortableCamera(src.camera)
-					updating = 0
-	if(module)
-		if(module.type == /obj/item/robot_module/janitor)
-			var/turf/tile = loc
-			if(stat != DEAD && isturf(tile))
-				var/floor_only = TRUE
-				for(var/A in tile)
-					if(istype(A, /obj/effect))
-						var/obj/effect/E = A
-						if(E.is_cleanable())
-							var/obj/effect/decal/cleanable/blood/B = E
-							if(istype(B) && B.off_floor)
-								floor_only = FALSE
-							else
-								qdel(E)
-					else if(istype(A, /obj/item))
-						var/obj/item/cleaned_item = A
-						cleaned_item.clean_blood()
-					else if(istype(A, /mob/living/carbon/human))
-						var/mob/living/carbon/human/cleaned_human = A
-						if(cleaned_human.lying)
-							if(cleaned_human.head)
-								cleaned_human.head.clean_blood()
-								cleaned_human.update_inv_head()
-							if(cleaned_human.wear_suit)
-								cleaned_human.wear_suit.clean_blood()
-								cleaned_human.update_inv_wear_suit()
-							else if(cleaned_human.w_uniform)
-								cleaned_human.w_uniform.clean_blood()
-								cleaned_human.update_inv_w_uniform()
-							if(cleaned_human.shoes)
-								cleaned_human.shoes.clean_blood()
-								cleaned_human.update_inv_shoes()
-							cleaned_human.clean_blood()
-							to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
-				if(floor_only)
-					tile.clean_blood()
-		return
+	if(. && !updating && camera)
+		updating = TRUE
+		spawn(BORG_CAMERA_BUFFER)
+			if(camera && oldLoc != loc)
+				GLOB.cameranet.updatePortableCamera(camera)
+			updating = FALSE
+
 #undef BORG_CAMERA_BUFFER
 
 /mob/living/silicon/robot/proc/self_destruct()
@@ -1421,7 +1330,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scrambledcodes = 1
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
-	force_modules = list("Engineering", "Medical", "Security")
+	force_modules = list("Engineering", "Medical")
 	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE

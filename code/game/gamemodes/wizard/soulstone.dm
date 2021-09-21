@@ -328,7 +328,7 @@
 					var/mob/living/simple_animal/hostile/construct/C = new picked_class(shell.loc)
 					C.init_construct(shade, src, shell)
 					to_chat(C, C.playstyle_string)
-					to_chat(C, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Construct)</span>")
+					to_chat(C, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Construct)</span>")
 			else
 				to_chat(user, "<span class='danger'>Creation failed!</span>: The soul stone is empty! Go kill someone!")
 
@@ -430,9 +430,9 @@
 	if(!chosen_ghost) // Failing that, we grab a ghost
 		var/list/consenting_candidates
 		if(purified)
-			consenting_candidates = SSghost_spawns.poll_candidates("Would you like to play as a Holy Shade?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/shade/holy)
+			consenting_candidates = SSghost_spawns.poll_candidates("Would you like to play as a Holy Shade?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/shade/holy, role_cleanname = "holy shade")
 		else
-			consenting_candidates = SSghost_spawns.poll_candidates("Would you like to play as a Shade?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/shade)
+			consenting_candidates = SSghost_spawns.poll_candidates("Would you like to play as a Shade?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/shade, role_cleanname = "shade")
 		if(length(consenting_candidates))
 			chosen_ghost = pick(consenting_candidates)
 	if(!M)

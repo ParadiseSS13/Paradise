@@ -92,6 +92,9 @@
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 			return TRUE
 
+		if(pulledby == L && a_intent != INTENT_HELP) //prevents boosting the person pulling you, but you can still move through them on help intent
+			return TRUE
+
 		if(L.pulling)
 			if(ismob(L.pulling))
 				var/mob/P = L.pulling
@@ -519,22 +522,6 @@
 /mob/living/proc/UpdateDamageIcon()
 	return
 
-
-/mob/living/proc/Examine_OOC()
-	set name = "Examine Meta-Info (OOC)"
-	set category = "OOC"
-	set src in view()
-
-	if(config.allow_Metadata)
-		if(client)
-			to_chat(usr, "[src]'s Metainfo:<br>[client.prefs.metadata]")
-		else
-			to_chat(usr, "[src] does not have any stored infomation!")
-	else
-		to_chat(usr, "OOC Metadata is not supported by this server!")
-
-	return
-
 /mob/living/Move(atom/newloc, direct, movetime)
 	if(buckled && buckled.loc != newloc) //not updating position
 		if(!buckled.anchored)
@@ -773,7 +760,7 @@
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
-	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)))
+	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)) && !HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
 		return 1
@@ -928,15 +915,15 @@
 	if(forced_look)
 		. += 3
 	if(ignorewalk)
-		. += config.run_speed
+		. += GLOB.configuration.movement.base_run_speed
 	else
 		switch(m_intent)
 			if(MOVE_INTENT_RUN)
 				if(drowsyness > 0)
 					. += 6
-				. += config.run_speed
+				. += GLOB.configuration.movement.base_run_speed
 			if(MOVE_INTENT_WALK)
-				. += config.walk_speed
+				. += GLOB.configuration.movement.base_walk_speed
 
 
 /mob/living/proc/can_use_guns(obj/item/gun/G)
@@ -1005,7 +992,7 @@
 
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
 
-	var/blocked = getarmor(null, "rad")
+	var/blocked = getarmor(null, RAD)
 
 	if(amount > RAD_BURN_THRESHOLD)
 		apply_damage(RAD_BURN_CURVE(amount), BURN, null, blocked)

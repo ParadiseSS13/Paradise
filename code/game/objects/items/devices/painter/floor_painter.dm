@@ -23,6 +23,7 @@
 /datum/painter/floor/paint_atom(atom/target, mob/user)
 	if(!istype(target, /turf/simulated/floor/plasteel))
 		to_chat(user, "<span class='warning'>[holder] can only be used on station flooring.</span>")
+		return
 	var/turf/simulated/floor/plasteel/F = target
 
 	if(F.icon_state == floor_state && F.dir == floor_dir)

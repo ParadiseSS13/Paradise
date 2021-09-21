@@ -273,6 +273,12 @@
 /atom/proc/HasProximity(atom/movable/AM)
 	return
 
+/**
+ * Proc which will make the atom act accordingly to an EMP.
+ * This proc can sleep depending on the implementation. So assume it sleeps!
+ *
+ * severity - The severity of the EMP. Either EMP_HEAVY or EMP_LIGHT
+ */
 /atom/proc/emp_act(severity)
 	return
 
@@ -460,7 +466,7 @@
 		filters += filter(arglist(arguments))
 	UNSETEMPTY(filter_data)
 
-/atom/proc/transition_filter(name, time, list/new_params, easing, loop)
+/atom/proc/transition_filter(name, time, list/new_params, easing = LINEAR_EASING, loop = 1)
 	var/filter = get_filter(name)
 	if(!filter)
 		return
@@ -1147,3 +1153,15 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(degrees)
 		appearance_flags |= PIXEL_SCALE
 	transform = M
+
+/*
+	Setter for the `density` variable.
+	Arguments:
+	* new_value - the new density you would want it to set.
+	Returns: Either null if identical to existing density, or the new density if different.
+*/
+/atom/proc/set_density(new_value)
+	if(density == new_value)
+		return
+	. = density
+	density = new_value

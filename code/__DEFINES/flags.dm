@@ -103,6 +103,7 @@
 #define PASSBLOB		8
 #define PASSMOB			16
 #define LETPASSTHROW	32
+#define PASSFENCE		64
 
 //turf-only flags
 #define NOJAUNT		1

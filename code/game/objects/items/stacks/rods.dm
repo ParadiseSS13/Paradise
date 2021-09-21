@@ -1,6 +1,17 @@
 GLOBAL_LIST_INIT(rod_recipes, list ( \
-	new/datum/stack_recipe("grille", /obj/structure/grille, 2, time = 10, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 10, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 10, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 10, one_per_turf = 1, on_floor = 1), \
+	null,
+	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 10, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 10, one_per_turf = 1, on_floor = 1), \
+	null,
+	new /datum/stack_recipe_list("chainlink fence", list( \
+		new /datum/stack_recipe("chainlink fence", /obj/structure/fence, 5, time = 10, one_per_turf = 1, on_floor = 1), \
+		new /datum/stack_recipe("chainlink fence post", /obj/structure/fence/post, 5, time = 10, one_per_turf = 1, on_floor = 1), \
+		new /datum/stack_recipe("chainlink fence corner", /obj/structure/fence/corner, 5, time = 10, one_per_turf = 1, on_floor = 1), \
+		new /datum/stack_recipe("chainlink fence door", /obj/structure/fence/door, 10, time = 10, one_per_turf = 1, on_floor = 1), \
+		new /datum/stack_recipe("chainlink fence end", /obj/structure/fence/end, 3, time = 10, one_per_turf = 1, on_floor = 1), \
+		)), \
 	))
 
 /obj/item/stack/rods
@@ -22,6 +33,10 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	merge_type = /obj/item/stack/rods
+
+/obj/item/stack/rods/detailed_examine()
+	return "Made from metal sheets. You can build a grille by using it in your hand. \
+			Clicking on a floor without any tiles will reinforce the floor. You can make reinforced glass by combining rods and normal glass sheets."
 
 /obj/item/stack/rods/cyborg
 	energy_type = /datum/robot_energy_storage/rods

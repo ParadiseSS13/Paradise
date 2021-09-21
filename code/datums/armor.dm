@@ -52,7 +52,7 @@
 	return vars[rating]
 
 /datum/armor/proc/getList()
-	return list("melee" = melee, "bullet" = bullet, "laser" = laser, "energy" = energy, "bomb" = bomb, "bio" = bio, "rad" = rad, "fire" = fire, "acid" = acid, "magic" = magic)
+	return list(MELEE = melee, BULLET = bullet, LASER = laser, ENERGY = energy, BOMB = bomb, BIO = bio, RAD = rad, FIRE = fire, ACID = acid, MAGIC = magic)
 
 /datum/armor/proc/attachArmor(datum/armor/AA)
 	return getArmor(melee + AA.melee, bullet + AA.bullet, laser + AA.laser, energy + AA.energy, bomb + AA.bomb, bio + AA.bio, rad + AA.rad, fire + AA.fire, acid + AA.acid, magic + AA.magic)

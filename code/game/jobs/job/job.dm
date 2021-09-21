@@ -85,10 +85,13 @@
 		announce(H)
 
 /datum/job/proc/get_access()
-	if(!config)	//Needed for robots.
+	if(!GLOB?.configuration?.jobs)	//Needed for robots.
+		// AA TODO: Remove this once mulebots and stuff use Initialize()
+		// Update: Now that the map is loaded after SSjobs this might not be needed
+		// However, I dont want to take that chance
 		return src.minimal_access.Copy()
 
-	if(config.jobs_have_minimal_access)
+	if(GLOB.configuration.jobs.jobs_have_minimal_access)
 		return src.minimal_access.Copy()
 	else
 		return src.access.Copy()
@@ -103,7 +106,7 @@
 /datum/job/proc/available_in_days(client/C)
 	if(!C)
 		return 0
-	if(!config.use_age_restriction_for_jobs)
+	if(!GLOB.configuration.jobs.restrict_jobs_on_account_age)
 		return 0
 	if(!isnum(C.player_age))
 		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
@@ -120,7 +123,7 @@
 	var/list/prohibited_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	for(var/i = 1, i < prohibited_disabilities.len, i++)
 		var/this_disability = prohibited_disabilities[i]
-		if(C.prefs.disabilities & this_disability)
+		if(C.prefs.active_character.disabilities & this_disability)
 			return 1
 	return 0
 
@@ -170,8 +173,8 @@
 	if(box && H.dna.species.speciesbox)
 		box = H.dna.species.speciesbox
 
-	if(allow_loadout && H.client && (H.client.prefs.loadout_gear && H.client.prefs.loadout_gear.len))
-		for(var/gear in H.client.prefs.loadout_gear)
+	if(allow_loadout && H.client && length(H.client.prefs.active_character.loadout_gear))
+		for(var/gear in H.client.prefs.active_character.loadout_gear)
 			var/datum/gear/G = GLOB.gear_datums[gear]
 			if(G)
 				var/permitted = FALSE
@@ -209,7 +212,7 @@
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
-			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.loadout_gear[G.display_name]))
+			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.active_character.loadout_gear[G.display_name]))
 			if(istype(placed_in))
 				if(isturf(placed_in))
 					to_chat(H, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")

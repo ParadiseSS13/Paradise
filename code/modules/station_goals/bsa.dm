@@ -28,7 +28,7 @@
 	return FALSE
 
 /obj/machinery/bsa
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
+	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	density = 1
 	anchored = 1
 
@@ -260,7 +260,7 @@
 	var/target
 	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/computer/bsa_control
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
+	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_boxp"
 	var/icon_state_broken = "control_box"
 	var/icon_state_nopower = "control_boxw"
@@ -352,7 +352,7 @@
 
 	var/list/options = gps_locators
 	if(area_aim)
-		options += target_all_areas ? GLOB.ghostteleportlocs : GLOB.teleportlocs
+		options += target_all_areas ? SSmapping.ghostteleportlocs : SSmapping.teleportlocs
 	var/V = input(user,"Select target", "Select target",null) in options|null
 	target = options[V]
 

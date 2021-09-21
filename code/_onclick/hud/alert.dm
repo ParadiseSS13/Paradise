@@ -308,6 +308,11 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 		var/mob/living/L = usr
 		return L.resist()
 
+//Constructs
+/obj/screen/alert/holy_fire
+	name = "Holy Fire"
+	desc = "Your body is crumbling from the holy energies. Get out."
+	icon_state = "fire"
 
 //ALIENS
 
@@ -611,7 +616,7 @@ so as to remain in compliance with the most up-to-date laws."
 	if(stone)
 		if(alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
 		impossible for you to get back into the game as your regular character.",, "No", "Yes") ==  "Yes")
-			stone.opt_in = TRUE
+			stone?.opt_in = TRUE
 
 /obj/screen/alert/notify_soulstone/Destroy()
 	stone = null

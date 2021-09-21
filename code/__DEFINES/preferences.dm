@@ -56,10 +56,11 @@
 #define PREFTOGGLE_2_REVERB_DISABLE	512
 #define PREFTOGGLE_2_FORCE_WHITE_RUNECHAT	1024
 #define PREFTOGGLE_2_SIMPLE_STAT_PANEL	2048
+#define PREFTOGGLE_2_SEE_ITEM_OUTLINES 	4096
 
-#define TOGGLES_2_TOTAL 			4095 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_2_TOTAL 			8191 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
-#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_EMOTE_BUBBLE)
+#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_EMOTE_BUBBLE|PREFTOGGLE_2_SEE_ITEM_OUTLINES)
 
 // Sanity checks
 #if TOGGLES_TOTAL > 16777215
@@ -114,3 +115,11 @@
 #define _2FA_ENABLED_IP "ENABLED_IP"
 /// Client will be prompted for 2FA always
 #define _2FA_ENABLED_ALWAYS "ENABLED_ALWAYS"
+
+
+#define MAX_SAVE_SLOTS 30 // Save slots for regular players
+#define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
+
+#define TAB_CHAR 0
+#define TAB_GAME 1
+#define TAB_GEAR 2

@@ -20,10 +20,16 @@
 		)
 
 		//Subtypes from the above that actually should explode.
-		var/list/unsafe_area_subtypes = typecacheof(list(/area/engine/break_room))
+		var/list/unsafe_area_subtypes = typecacheof(list(
+		/area/engine/break_room,
+		/area/engine/equipmentstorage,
+		/area/engine/chiefs_office,
+		/area/engine/controlroom,
+		/area/engine/mechanic_workshop
+		))
 
-		allowed_areas = make_associative(GLOB.the_station_areas) - safe_area_types + unsafe_area_subtypes
-	var/list/possible_areas = typecache_filter_list(GLOB.all_areas, allowed_areas)
+		allowed_areas = typecacheof(GLOB.the_station_areas) - safe_area_types + unsafe_area_subtypes
+	var/list/possible_areas = typecache_filter_list(SSmapping.existing_station_areas, allowed_areas)
 	if(length(possible_areas))
 		return pick(possible_areas)
 
@@ -36,7 +42,7 @@
 		CRASH("Anomaly: No valid turfs found for [impact_area] - [impact_area.type]")
 
 /datum/event/anomaly/announce()
-	GLOB.event_announcement.Announce("Localized hyper-energetic flux wave detected on long range scanners. Expected location of impact: [impact_area.name].", "Anomaly Alert")
+	GLOB.event_announcement.Announce("Localized hyper-energetic flux wave detected on long range scanners. Expected location of impact: [impact_area.name].", "Anomaly Alert", 'sound/AI/anomaly_flux.ogg')
 
 /datum/event/anomaly/start()
 	var/turf/T = pick(get_area_turfs(impact_area))

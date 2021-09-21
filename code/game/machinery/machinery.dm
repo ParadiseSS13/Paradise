@@ -637,7 +637,7 @@ Class Procs:
 	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
 		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
 	else if(zap_flags & ZAP_OBJ_DAMAGE)
-		take_damage(power * 0.0005, BURN, "energy")
+		take_damage(power * 0.0005, BURN, ENERGY)
 		if(prob(40))
 			emp_act(EMP_LIGHT)
 		power -= power * 0.0005
@@ -650,3 +650,19 @@ Class Procs:
 	. = . % 9
 	AM.pixel_x = -8 + ((.%3)*8)
 	AM.pixel_y = -8 + (round( . / 3)*8)
+
+/**
+ * Makes sure the user is allowed to interact with the machine when they use a shortcut, like Control or Alt-clicking.
+ *
+ * Arguments:
+ * * user - the mob who is trying to interact with the machine.
+ */
+/obj/machinery/proc/can_use_shortcut(mob/living/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return FALSE
+	if(ishuman(user) && in_range(src, user))
+		return TRUE
+	if(issilicon(user))
+		return TRUE
+	return FALSE
