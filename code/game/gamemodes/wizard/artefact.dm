@@ -347,9 +347,9 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/multisword/proc/spawn_copy(client/C, turf/T, mob/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
 	if(duplicate_self)
-		user.client.prefs.copy_to(M)
+		user.client.prefs.active_character.copy_to(M)
 	else
-		C.prefs.copy_to(M)
+		C.prefs.active_character.copy_to(M)
 	M.key = C.key
 	M.mind.name = user.real_name
 	to_chat(M, "<B>You are an alternate version of [user.real_name] from another universe! Help [user.p_them()] accomplish [user.p_their()] goals at all costs.</B>")
