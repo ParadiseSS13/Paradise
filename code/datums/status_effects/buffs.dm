@@ -98,6 +98,7 @@
 	. = ..()
 	if(.)
 		if(ishuman(owner))
+			ADD_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
 			var/mob/living/carbon/human/H = owner
 			H.physiology.brute_mod *= 0.5
 			H.physiology.burn_mod *= 0.8
@@ -110,6 +111,7 @@
 
 /datum/status_effect/bloodswell/on_remove()
 	if(ishuman(owner))
+		REMOVE_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
 		var/mob/living/carbon/human/H = owner
 		H.physiology.brute_mod /= 0.5
 		H.physiology.burn_mod /= 0.8

@@ -81,7 +81,7 @@ const GarMenu = (props, context) => {
       <Section title="Gargantua">
         <h3>Focuses on tenacity and melee damage.</h3>
         <p><b>Rejuvenate</b>: Will heal you at an increased rate based on how much damage you have taken.</p>
-        <p><b>Blood swell</b>: Unlocked at 150 blood, increases your resistance to physical damage, stuns and stamina.</p>
+        <p><b>Blood swell</b>: Unlocked at 150 blood, increases your resistance to physical damage, stuns and stamina for 30 seconds. While it is active you cannot fire guns.</p>
         <p><b>Blood rush</b>: Unlocked at 250 blood, gives you a short speed boost when cast.</p>
         <p><b>Blood swell II</b>: Unlocked at 400 blood, increases all melee damage by 10.</p>
         <p><b>Overwhelming force</b>: Unlocked at 600 blood, when toggled, if you bump into a door that you dont have access to, it will force it open.</p>

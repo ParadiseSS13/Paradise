@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/self/vampire/blood_swell
 	name = "Blood Swell (30)"
-	desc = "You infuse your body with blood, making you highly resistant to stuns and physical damage."
+	desc = "You infuse your body with blood, making you highly resistant to stuns and physical damage. However, this makes you unable to fire ranged weapons while it is active."
 	gain_desc = "You have gained the ability to temporarly resist large amounts of stuns and physical damage."
 	charge_max = 40 SECONDS
 	required_blood = 30
