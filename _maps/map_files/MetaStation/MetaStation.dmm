@@ -23902,10 +23902,10 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "baG" = (
-/obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 5
 	},
+/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "baH" = (
@@ -27090,11 +27090,6 @@
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
 	})
-"bhA" = (
-/obj/structure/lattice,
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "bhB" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -77859,14 +77854,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/construction)
-"gyy" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 9
-	},
-/obj/structure/lattice,
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "gyR" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
@@ -79468,10 +79455,10 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "lmi" = (
-/obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 10
 	},
+/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "lpc" = (
@@ -81033,14 +81020,6 @@
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
-"qtt" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 5
-	},
-/obj/structure/lattice,
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "qwd" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -81640,14 +81619,6 @@
 	dir = 9
 	},
 /obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
-"rYO" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 4
-	},
-/obj/structure/lattice,
-/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "rZk" = (
@@ -82519,15 +82490,6 @@
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
-"vfv" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/obj/structure/lattice,
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "vge" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -82551,14 +82513,6 @@
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
-"vmT" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 6
-	},
-/obj/structure/lattice,
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "vmY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -83294,14 +83248,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
-"xLf" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 10
-	},
-/obj/structure/lattice,
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "xOM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -127251,11 +127197,11 @@ gpj
 aJt
 kBa
 gdM
-gyy
-xLf
-qtt
-vmT
-qtt
+rYj
+tgE
+kKa
+bfz
+kKa
 anq
 dfj
 dfu
@@ -127512,7 +127458,7 @@ abq
 bfz
 wxE
 wxE
-gyy
+rYj
 anq
 pRy
 aoN
@@ -127748,7 +127694,7 @@ bal
 axh
 axh
 abq
-aef
+abq
 tZI
 aJJ
 aPy
@@ -127769,7 +127715,7 @@ kKa
 tgE
 wxE
 wxE
-qtt
+kKa
 anq
 dfk
 aoN
@@ -128005,8 +127951,8 @@ asJ
 axh
 axh
 abq
-aef
-aef
+abq
+abq
 aCg
 rRM
 ogE
@@ -128026,7 +127972,7 @@ aKT
 bfz
 wxE
 wxE
-gyy
+rYj
 anq
 dfk
 aoN
@@ -128279,11 +128225,11 @@ aOd
 gZY
 hgN
 aCg
-rYO
-xLf
-vfv
-vfv
-qtt
+aKT
+tgE
+wxE
+wxE
+kKa
 anq
 dfl
 dfl
@@ -128536,11 +128482,11 @@ oWm
 ssZ
 qxn
 aCg
-rYO
-vmT
-vfv
-vfv
-gyy
+aKT
+bfz
+wxE
+wxE
+rYj
 anq
 abq
 abq
@@ -128797,7 +128743,7 @@ aKT
 tgE
 wxE
 wxE
-qtt
+kKa
 aaa
 aaa
 aaa
@@ -129054,7 +129000,7 @@ aKT
 bfz
 wxE
 wxE
-gyy
+rYj
 aaa
 aaa
 aaa
@@ -129311,7 +129257,7 @@ aKT
 tgE
 wxE
 wxE
-qtt
+kKa
 aaa
 aaa
 aaa
@@ -129561,14 +129507,14 @@ abq
 aaa
 aaa
 abq
-aef
+abq
 lmi
 baG
-rYO
-bhA
-xLf
-gyy
-rYO
+aKT
+abq
+tgE
+rYj
+aKT
 aaa
 aaa
 aaa

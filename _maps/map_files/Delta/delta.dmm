@@ -8562,7 +8562,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "aAf" = (
@@ -8588,7 +8588,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "aAj" = (
@@ -9438,7 +9438,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "aBW" = (
@@ -10124,7 +10124,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "aDD" = (
@@ -10333,14 +10333,14 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8
 	},
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice,
 /turf/space,
 /area/engine/controlroom)
 "aEa" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "aEb" = (
@@ -13014,7 +13014,7 @@
 /area/security/permabrig)
 "aJy" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "aJz" = (
@@ -123074,7 +123074,7 @@ aaa
 aaa
 aaa
 aaa
-acF
+vXX
 aHa
 aIu
 aJN
@@ -123841,7 +123841,7 @@ aAi
 ayG
 azR
 ayG
-aAi
+azR
 ayG
 azR
 aIT
@@ -124097,7 +124097,7 @@ aaa
 aAi
 aAi
 aAi
-aAi
+abj
 aAi
 aAi
 aAi
@@ -124355,7 +124355,7 @@ aAi
 ayG
 ayG
 ayG
-aAi
+azR
 ayG
 ayG
 aIT
