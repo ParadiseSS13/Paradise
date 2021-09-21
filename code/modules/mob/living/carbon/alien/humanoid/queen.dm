@@ -23,7 +23,7 @@
 
 	real_name = src.name
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
-	alien_organs += new /obj/item/organ/internal/xenos/acidgland
+	alien_organs += new /obj/item/organ/internal/xenos/acidgland/large
 	alien_organs += new /obj/item/organ/internal/xenos/eggsac
 	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
@@ -31,7 +31,7 @@
 
 /mob/living/carbon/alien/humanoid/queen/movement_delay()
 	. = ..()
-	. += 3
+	. += 2
 
 /mob/living/carbon/alien/humanoid/queen/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	return FALSE

@@ -102,13 +102,22 @@
 		A.updatePlasmaDisplay()
 
 
-/obj/item/organ/internal/xenos/acidgland
+/obj/item/organ/internal/xenos/acidgland/
 	name = "xeno acid gland"
 	icon_state = "acid"
 	parent_organ = "head"
 	slot = "acid"
 	origin_tech = "biotech=5;materials=2;combat=2"
 	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/corrosive_acid)
+
+
+/obj/item/organ/internal/xenos/acidgland/large
+	name = "large xeno acid gland"
+	icon_state = "acid"
+	parent_organ = "head"
+	slot = "acid"
+	origin_tech = "biotech=5;materials=3;combat=3"
+	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/strong_corrosive_acid)
 
 
 /obj/item/organ/internal/xenos/hivenode
