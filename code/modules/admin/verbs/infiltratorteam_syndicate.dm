@@ -124,9 +124,10 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 	var/syndicate_infiltrator_name = random_name(pick(MALE,FEMALE))
 
-	var/datum/preferences/A = new() //Randomize appearance
-	A.real_name = syndicate_infiltrator_name
-	A.copy_to(new_syndicate_infiltrator)
+	var/datum/character_save/S = new //Randomize appearance
+	S.randomise()
+	S.real_name = syndicate_infiltrator_name
+	S.copy_to(new_syndicate_infiltrator)
 	new_syndicate_infiltrator.dna.ready_dna(new_syndicate_infiltrator)
 
 	//Creates mind stuff.

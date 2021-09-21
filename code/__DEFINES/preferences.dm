@@ -116,3 +116,11 @@
 #define _2FA_ENABLED_IP "ENABLED_IP"
 /// Client will be prompted for 2FA always
 #define _2FA_ENABLED_ALWAYS "ENABLED_ALWAYS"
+
+
+#define MAX_SAVE_SLOTS 30 // Save slots for regular players
+#define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
+
+#define TAB_CHAR 0
+#define TAB_GAME 1
+#define TAB_GEAR 2
