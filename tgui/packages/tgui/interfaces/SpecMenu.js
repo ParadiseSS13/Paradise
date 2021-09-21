@@ -33,7 +33,7 @@ const HemoMenu = (props, context) => {
         <p><b>Blood eruption</b>: Unlocked at 600 blood, allows you to manipulate all nearby blood splatters into spikes that impale anyone stood ontop of them.</p>
         <p><b>Full power</b>
           <Divider />
-          <b>The blood bringers rite</b>: When toggled you will rapidly drain the blood of everyone who is nearby and use it to heal yourself and remove stamina damage.
+          <b>The blood bringers rite</b>: When toggled you will rapidly drain the blood of everyone who is nearby and use it to heal yourself slightly and remove any incapacitating effects rapidly.
         </p>
         <Button
           content="Hemomancer"

@@ -169,7 +169,6 @@
 		spike.color = B.basecolor
 		playsound(L, 'sound/misc/demon_attack1.ogg', 50, TRUE)
 		L.apply_damage(60, BRUTE, BODY_ZONE_CHEST)
-		L.apply_damage(90, STAMINA)
 		L.visible_message("<span class='warning'><b>[L] gets impaled by a spike of living blood!</b></span>")
 
 /obj/effect/proc_holder/spell/blood_eruption/choose_targets(mob/user)
@@ -224,13 +223,15 @@
 			continue
 
 		if(H.affects_vampire(owner) && !H.stat)
-			var/drain_amount = rand(10, 20)
+			var/drain_amount = rand(5, 10)
 			H.bleed(drain_amount)
 			H.Beam(owner, icon_state = "drainbeam", time = 2 SECONDS)
-			H.adjustBruteLoss(5)
-			owner.heal_overall_damage(drain_amount / 2 , drain_amount / 2 , TRUE)
-			owner.adjustStaminaLoss(-drain_amount / 2)
-			if(drain_amount == 20)
+			H.adjustBruteLoss(2)
+			owner.heal_overall_damage(8, 2, TRUE)
+			owner.adjustStaminaLoss(-15)
+			owner.AdjustStunned(-1)
+			owner.AdjustWeakened(-1)
+			if(drain_amount == 10)
 				to_chat(H, "<span class='warning'>You feel your life force draining!</b></span>")
 	owner.mind.vampire.bloodusable = max(owner.mind.vampire.bloodusable - 10, 0)
 	if(!owner.mind.vampire.bloodusable)
