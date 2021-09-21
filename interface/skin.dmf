@@ -287,6 +287,15 @@ window "rpane"
 		is-checked = true
 		group = "rpanemode"
 		button-type = pushbox
+	elem "webmap"
+		type = BUTTON
+		pos = 358,7
+		size = 50x16
+		anchor1 = none
+		anchor2 = none
+		saved-params = "is-checked"
+		text = "Map"
+		command = "webmap"
 	elem "infob"
 		type = BUTTON
 		pos = 64,7
@@ -301,8 +310,8 @@ window "rpane"
 		button-type = pushbox
 	elem "wikib"
 		type = BUTTON
-		pos = 155,7
-		size = 60x16
+		pos = 150,7
+		size = 50x16
 		anchor1 = none
 		anchor2 = none
 		saved-params = "is-checked"
@@ -310,8 +319,8 @@ window "rpane"
 		command = "wiki"
 	elem "forumb"
 		type = BUTTON
-		pos = 220,7
-		size = 60x16
+		pos = 202,7
+		size = 50x16
 		anchor1 = none
 		anchor2 = none
 		saved-params = "is-checked"
@@ -319,8 +328,8 @@ window "rpane"
 		command = "forum"
 	elem "rulesb"
 		type = BUTTON
-		pos = 285,7
-		size = 60x16
+		pos = 254,7
+		size = 50x16
 		anchor1 = none
 		anchor2 = none
 		saved-params = "is-checked"
@@ -328,8 +337,8 @@ window "rpane"
 		command = "rules"
 	elem "githubb"
 		type = BUTTON
-		pos = 350,7
-		size = 60x16
+		pos = 306,7
+		size = 50x16
 		anchor1 = none
 		anchor2 = none
 		saved-params = "is-checked"
