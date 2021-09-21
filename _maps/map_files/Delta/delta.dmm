@@ -53751,7 +53751,7 @@
 /area/engine/engineering)
 "cog" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/the_singularitygen,
+/obj/machinery/the_singularitygen/tesla,
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "coh" = (
@@ -53821,11 +53821,6 @@
 "coo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
-"cop" = (
-/obj/machinery/the_singularitygen,
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engine/engine_smes)
 "coq" = (
@@ -55107,11 +55102,6 @@
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
-"cqP" = (
-/obj/machinery/the_singularitygen/tesla,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
 "cqQ" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating/airless,
@@ -128267,8 +128257,8 @@ bXU
 bQr
 bQr
 clv
-cop
-cqP
+cnb
+cnb
 buB
 cso
 cuR
