@@ -82,8 +82,8 @@
 					text += "died"
 				else
 					text += "survived"
-				if(vampire.current.real_name != vampire.name)
-					text += " as [vampire.current.real_name]"
+					if(vampire.vampire.subclass)
+						text += " as a [vampire.vampire.subclass.name]"
 			else
 				text += "body destroyed"
 			text += ")"

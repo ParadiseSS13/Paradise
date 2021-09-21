@@ -200,7 +200,7 @@
 	user.visible_message("<span class='warning'>[user]'s eyes emit a blinding flash!</span>")
 
 	for(var/mob/living/target in targets)
-		if(!target.affects_vampire())
+		if(!target.affects_vampire(user))
 			continue
 
 		var/deviation
@@ -220,7 +220,7 @@
 			target.adjustStaminaLoss(120)
 			target.Weaken(6)
 			target.AdjustSilence(3)
-			target.flash_eyes(2, TRUE, TRUE)
+			target.flash_eyes(1, TRUE, TRUE)
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
 		add_attack_logs(user, target, "(Vampire) Glared at")
 
