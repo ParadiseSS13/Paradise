@@ -12966,7 +12966,7 @@
 	id = "engsm";
 	name = "Radiation Shutters Control";
 	pixel_y = 24;
-	req_access_txt = "24; 10"
+	req_one_access_txt = "24; 10"
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
