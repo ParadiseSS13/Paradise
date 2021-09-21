@@ -26,7 +26,9 @@
 	icon_state = speed ? "conveyor-1" : "conveyor0"
 
 /obj/machinery/power/treadmill/Crossed(mob/living/M, oldloc)
-	if(anchored && !M.anchored)
+	if(anchored 
+	
+	!M.anchored)
 		if(!istype(M) || M.dir != dir)
 			throw_off(M)
 		else
@@ -40,7 +42,7 @@
 
 /obj/machinery/power/treadmill/proc/throw_off(atom/movable/A)
 	// if 2fast, throw the person, otherwise they just slide off, if there's reasonable speed at all
-	if(speed && !A.move_resist == INFINITY)
+	if(speed && A.move_resist < INFINITY)
 		var/dist = max(throw_dist * speed / MAX_SPEED, 1)
 		A.throw_at(get_distant_turf(get_turf(src), reverse_direction(dir), dist), A.throw_range, A.throw_speed, src, 1)
 
