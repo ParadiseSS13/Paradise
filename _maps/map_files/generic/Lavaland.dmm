@@ -4170,6 +4170,7 @@
 /area/mine/lobby)
 "Ax" = (
 /obj/machinery/computer/shuttle/mining{
+	dir = 1;
 	req_access = null
 	},
 /turf/simulated/floor/plasteel,
@@ -4619,7 +4620,7 @@
 	},
 /area/mine/laborcamp)
 "Ml" = (
-/obj/item/bedsheet/brown,
+/obj/item/bedsheet/black,
 /obj/structure/bed,
 /turf/simulated/floor/carpet,
 /area/mine/lobby)
@@ -4750,7 +4751,9 @@
 /turf/simulated/floor/carpet,
 /area/mine/lobby)
 "QC" = (
-/obj/machinery/computer/shuttle/mining,
+/obj/machinery/computer/shuttle/mining{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "QD" = (
