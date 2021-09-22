@@ -26,8 +26,8 @@
 	maxbodytemp = INFINITY
 	faction = list("slaughter")
 	attacktext = "wildly tears into"
-	maxHealth = 200
-	health = 200
+	maxHealth = 130
+	health = 130
 	environment_smash = 1
 	//universal_understand = 1
 	obj_damage = 50
@@ -302,10 +302,10 @@
 	emote_hear = list("gaffaws", "laughs")
 	response_help  = "hugs"
 	attacktext = "wildly tickles"
-	maxHealth = 175
-	health = 175
-	melee_damage_lower = 25
-	melee_damage_upper = 25
+	maxHealth = 125
+	health = 125
+	melee_damage_lower = 20
+	melee_damage_upper = 20
 	playstyle_string = "<B>You are the Laughter Demon, an adorable creature from another existence. You have a single desire: to hug and tickle.  \
 						You may use the blood crawl icon when on blood pools to travel through them, appearing and dissapearing from the station at will. \
 						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to hug them. \
