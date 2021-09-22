@@ -302,38 +302,57 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 	// Pick a module type
-	var/type_choice = show_radial_menu(src, src, get_module_types(), radius = 32)
-	if(!type_choice || module)
+	var/selected_module = show_radial_menu(src, src, get_module_types(), radius = 32)
+	if(!selected_module || module)
 		return
 
 	// Pick a sprite
-	var/module_sprites = get_module_sprites(type_choice)
-	var/sprite_choice = show_radial_menu(src, src, get_module_sprites(type_choice), radius = 42)
-	if(!sprite_choice)
+	var/module_sprites = get_module_sprites(selected_module)
+	var/selected_sprite = show_radial_menu(src, src, module_sprites, radius = 42)
+	if(!selected_sprite)
 		return
 
 	// Now actually set the module and sprites
-	if(!initialise_module(type_choice, sprite_choice, module_sprites))
-		to_chat(src, "<span class='danger'>Cyborg module failed to initialise. This shouldn't happen!</span>") // TODO: Reword this
-		CRASH("Cyborg module failed to initialise. (New module: [type_choice] | New sprite: [sprite_choice] | Current module: [module])")
-	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(type_choice)]")
-	notify_ai(2)
+	initialise_module(selected_module, selected_sprite, module_sprites)
 
-// TODO: Proc documentation
+
+/**
+  * Returns a list of choosable module types, associated with the module icon for the radial menu.
+  *
+  * Key: Module name | Value: Module 'icon'
+  *
+  * By default this returns the Engineering, Janitor, Medical, Mining, and Service modules.
+  * If there are any [/mob/living/silicon/robot/var/force_modules] set, then they are returned instead.
+  * If the MMI has a xenomorph brain in it ([/obj/item/mmi/var/alien]), then only the "Hunter" module is returned.
+  */
 /mob/living/silicon/robot/proc/get_module_types()
-	if(mmi?.alien)
-		return list("Hunter") // TODO: Add icon for this (Or maybe just skip radial menus entirely, same with destroyer)
-	if(length(force_modules))
-		return force_modules.Copy()
-
-	return list(
+	var/list/standard_modules = list(
 		"Engineering" = image('icons/mob/robots.dmi', "engi-radial"),
 		"Janitor" = image('icons/mob/robots.dmi', "jan-radial"),
 		"Medical" = image('icons/mob/robots.dmi', "med-radial"),
 		"Mining" = image('icons/mob/robots.dmi', "mining-radial"),
-		"Service" = image('icons/mob/robots.dmi', "serv-radial")
+		"Service" = image('icons/mob/robots.dmi', "serv-radial"))
+	var/list/special_modules = list(
+		"Combat" = image('icons/mob/robots.dmi', "combat-radial")
 	)
 
+	if(mmi?.alien)
+		return list("Hunter" = image('icons/mob/robots.dmi', "xeno-radial"))
+
+	// Return a list of `force_modules`, with the associated images from the other lists.
+	if(length(force_modules))
+		return (standard_modules + special_modules) & force_modules
+
+	return standard_modules
+
+/**
+  * Returns an associative list of possible borg sprites based on the `selected_module`.
+  *
+  * Key: Sprite name | Value: Sprite icon
+  *
+  * Arguments:
+  * * selected_module - The chosen cyborg module to get the sprites for.
+  */
 /mob/living/silicon/robot/proc/get_module_sprites(selected_module)
 	var/list/module_sprites
 	switch(selected_module)
@@ -386,6 +405,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Noble-SRV" = image('icons/mob/robots.dmi', "Noble-SRV"),
 				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SERV")
 			)
+		if("Combat")
+			module_sprites = list(
+				"Combat" = image('icons/mob/robots.dmi', "ertgamma")
+			)
+		if("Hunter")
+			module_sprites = list(
+				"Xeno-Hu" = image('icons/mob/robots.dmi', "xenoborg-state-a")
+			)
 
 	/* TODO: Fluff sprites
 	if(custom_sprite && check_sprite("[ckey]-[selected_module]"))
@@ -394,19 +421,25 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	return module_sprites
 
-/mob/living/silicon/robot/proc/initialise_module(module_type, module_sprite, sprite_list)
-	switch(module_type)
+/**
+  * Sets up the module items and sprites for the cyborg module chosen in `pick_module()`.
+  *
+  * Arguments:
+  * * selected_module - The name of the module chosen by the player in the previous procs.
+  * * selected_sprite - The name of the sprite chosen by the player in the previous procs.
+  * * module_sprites - The list of sprites possible for the given module. Used to transfer the `icon` and `icon_state` variables to the player.
+  */
+/mob/living/silicon/robot/proc/initialise_module(selected_module, selected_sprite, list/module_sprites)
+	switch(selected_module)
 		if("Engineering")
 			module = new /obj/item/robot_module/engineering(src)
 			module.channels = list("Engineering" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network += "Engineering"
 			magpulse = TRUE
-
 		if("Janitor")
 			module = new /obj/item/robot_module/janitor(src)
 			module.channels = list("Service" = 1)
-
 		if("Medical")
 			module = new /obj/item/robot_module/medical(src)
 			module.channels = list("Medical" = 1)
@@ -414,55 +447,43 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				camera.network += "Medical"
 			status_flags &= ~CANPUSH
 			see_reagents = TRUE
-
 		if("Mining")
 			module = new /obj/item/robot_module/miner(src)
 			module.channels = list("Supply" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network += "Mining Outpost"
-
 		if("Service")
 			module = new /obj/item/robot_module/butler(src)
 			module.channels = list("Service" = 1)
 			see_reagents = TRUE
-			if(module_sprite == "Bro")
+			if(selected_sprite == "Bro")
 				module.module_type = "Brobot"
-
-		// TODO: Properly test these three
-		if("Destroyer")
-			module = new /obj/item/robot_module/destroyer(src)
-			module.channels = list("Security" = 1)
-			icon_state = "droidcombat"
-			status_flags &= ~CANPUSH
-
 		if("Combat")
 			module = new /obj/item/robot_module/combat(src)
-			icon_state = "ertgamma"
 			status_flags &= ~CANPUSH
-
 		if("Hunter")
 			module = new /obj/item/robot_module/alien/hunter(src)
-			icon_state = "xenoborg-state-a"
-			modtype = "Xeno-Hu"
 
 	if(!module)
 		return FALSE
-	designation = modtype
+	modtype = selected_module
+	designation = selected_module
 	module.add_languages(src)
 	module.add_subsystems_and_actions(src)
 	if(!static_radio_channels)
 		radio.config(module.channels)
 	rename_character(real_name, get_default_name())
 
-	var/image/selected_sprite = sprite_list[module_sprite]
-	var/list/names = splittext(module_sprite, "-")
-	icon = selected_sprite.icon
-	icon_state = selected_sprite.icon_state
+	var/image/sprite_image = module_sprites[selected_sprite]
+	var/list/names = splittext(selected_sprite, "-")
+	icon = sprite_image.icon
+	icon_state = sprite_image.icon_state
 	custom_panel = trim(names[1])
 
 	update_module_icon()
 	update_icons()
-	return TRUE
+	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(selected_module)]")
+	notify_ai(2)
 
 /mob/living/silicon/robot/proc/reset_module()
 	notify_ai(2)
@@ -1235,48 +1256,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		clear_alert("locked")
 	lockcharge = state
 	update_canmove()
-
-/mob/living/silicon/robot/proc/choose_icon(triesleft, list/module_sprites)
-
-	if(triesleft<1 || !module_sprites.len)
-		return
-	else
-		triesleft--
-
-	var/icontype
-	lockcharge = 1  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
-	icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
-
-	if(icontype)
-		if(icontype == "Custom")
-			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
-		else
-			icon = 'icons/mob/robots.dmi'
-		icon_state = module_sprites[icontype]
-		if(icontype == "Bro")
-			module.module_type = "Brobot"
-			update_module_icon()
-		lockcharge = null
-		var/list/names = splittext(icontype, "-")
-		custom_panel = trim(names[1])
-	else
-		to_chat(src, "Something is badly wrong with the sprite selection. Harass a coder.")
-		icon_state = module_sprites[1]
-		lockcharge = null
-		return
-
-	update_icons()
-
-	if(triesleft >= 1)
-		var/choice = input("Look at your icon - is this what you want?") in list("Yes","No")
-		if(choice=="No")
-			choose_icon(triesleft, module_sprites)
-			return
-		else
-			triesleft = 0
-			return
-	else
-		to_chat(src, "Your icon has been set. You now require a module reset to change it.")
 
 /mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
