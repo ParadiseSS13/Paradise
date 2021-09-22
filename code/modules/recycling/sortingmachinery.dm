@@ -96,14 +96,12 @@
 		var/atom/A = i
 		A.emp_act(severity)
 
-/obj/item/smallDelivery/attack_self(mob/user as mob)
-	if(wrapped && wrapped.loc) //sometimes items can disappear. For example, bombs. --rastaf0
-		wrapped.loc = user.loc
+/obj/item/smallDelivery/attack_self(mob/user)
+	if(wrapped?.loc == src) //sometimes items can disappear. For example, bombs. --rastaf0
+		wrapped.forceMove(get_turf(src))
 		if(ishuman(user))
 			user.put_in_hands(wrapped)
-		else
-			wrapped.loc = get_turf(src)
-	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
+	playsound(src, 'sound/items/poster_ripped.ogg', 50, TRUE)
 	qdel(src)
 
 /obj/item/smallDelivery/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -162,6 +160,8 @@
 	var/obj/target = A
 
 	if(is_type_in_list(target, no_wrap))
+		return
+	if(is_type_in_list(A.loc, list(/obj/item/smallDelivery, /obj/structure/bigDelivery)))
 		return
 	if(target.anchored)
 		return

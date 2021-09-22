@@ -447,7 +447,7 @@
 	return ..()
 
 /datum/reagent/consumable/flour
-	name = "flour"
+	name = "Flour"
 	id = "flour"
 	description = "This is what you rub all over yourself to pretend to be a ghost."
 	reagent_state = SOLID
@@ -852,7 +852,7 @@
 	return ..() | update_flags
 
 /datum/reagent/cholesterol
-	name = "cholesterol"
+	name = "Cholesterol"
 	id = "cholesterol"
 	description = "Pure cholesterol. Probably not very good for you."
 	reagent_state = LIQUID
