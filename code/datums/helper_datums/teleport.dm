@@ -196,7 +196,7 @@
 		var/x = rand(1, world.maxx)
 		var/y = rand(1, world.maxy)
 		var/z = pick(zlevels)
-		var/turf/random_location = locate(x,y,z)
+		var/turf/random_location = locate(x, y, z)
 
 		if(random_location.is_safe())
 			return random_location
