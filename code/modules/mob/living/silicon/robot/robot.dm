@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// Value incoming burn damage to borgs is multiplied by.
 	var/burn_mod = 1
 
-	var/list/force_modules = list()
+	var/list/force_modules
 	var/allow_rename = TRUE
 	var/weapons_unlock = FALSE
 	var/static_radio_channels = FALSE
@@ -300,104 +300,142 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Engineering", "Medical", "Miner", "Janitor", "Service")
-	if(islist(force_modules) && force_modules.len)
-		modules = force_modules.Copy()
-	if(mmi != null && mmi.alien)
-		modules = list("Hunter")
-	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
-	if(!modtype)
-		return
-	designation = modtype
-	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
 
-	if(module)
+	// Pick a module type
+	var/type_choice = show_radial_menu(src, src, get_module_types(), radius = 32)
+	if(!type_choice || module)
 		return
 
-	switch(modtype)
+	// Pick a sprite
+	var/module_sprites = get_module_sprites(type_choice)
+	var/sprite_choice = show_radial_menu(src, src, get_module_sprites(type_choice), radius = 42)
+	if(!sprite_choice)
+		return
+
+	// Now actually set the module and sprites
+	if(!initialise_module(type_choice, sprite_choice, module_sprites))
+		to_chat(src, "<span class='danger'>Cyborg module failed to initialise. This shouldn't happen!</span>") // TODO: Reword this
+		CRASH("Cyborg module failed to initialise. (New module: [type_choice] | New sprite: [sprite_choice] | Current module: [module])")
+	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(type_choice)]")
+	notify_ai(2)
+
+// TODO: Proc documentation
+/mob/living/silicon/robot/proc/get_module_types()
+	if(mmi?.alien)
+		return list("Hunter") // TODO: Add icon for this (Or maybe just skip radial menus entirely, same with destroyer)
+	if(length(force_modules))
+		return force_modules.Copy()
+
+	return list(
+		"Engineering" = image('icons/mob/robots.dmi', "engi-radial"),
+		"Janitor" = image('icons/mob/robots.dmi', "jan-radial"),
+		"Medical" = image('icons/mob/robots.dmi', "med-radial"),
+		"Mining" = image('icons/mob/robots.dmi', "mining-radial"),
+		"Service" = image('icons/mob/robots.dmi', "serv-radial")
+	)
+
+/mob/living/silicon/robot/proc/get_module_sprites(selected_module)
+	var/list/module_sprites
+	switch(selected_module)
+		if("Engineering")
+			module_sprites = list(
+				"Basic" = image('icons/mob/robots.dmi', "Engineering"),
+				"Antique" = image('icons/mob/robots.dmi', "engineerrobot"),
+				"Landmate" = image('icons/mob/robots.dmi', "landmate"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Engi"),
+				"Noble-ENG" = image('icons/mob/robots.dmi', "Noble-ENG"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-ENGI")
+			)
+		if("Janitor")
+			module_sprites = list(
+				"Basic" = image('icons/mob/robots.dmi', "JanBot2"),
+				"Mopbot" = image('icons/mob/robots.dmi', "janitorrobot"),
+				"Mop Gear Rex" = image('icons/mob/robots.dmi', "mopgearrex"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Jani"),
+				"Noble-CLN" = image('icons/mob/robots.dmi', "Noble-CLN"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-JANI")
+			)
+		if("Medical")
+			module_sprites = list(
+				"Basic" = image('icons/mob/robots.dmi', "Medbot"),
+				"Surgeon" = image('icons/mob/robots.dmi', "surgeon"),
+				"Advanced Droid" = image('icons/mob/robots.dmi', "droid-medical"),
+				"Needles" = image('icons/mob/robots.dmi', "medicalrobot"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Medi"),
+				"Noble-MED" = image('icons/mob/robots.dmi', "Noble-MED"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MEDI")
+			)
+		if("Mining")
+			module_sprites = list(
+				"Basic" = image('icons/mob/robots.dmi', "Miner_old"),
+				"Advanced Droid" = image('icons/mob/robots.dmi', "droid-miner"),
+				"Treadhead" = image('icons/mob/robots.dmi', "Miner"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Mine"),
+				"Noble-DIG" = image('icons/mob/robots.dmi', "Noble-DIG"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MINE"),
+				"Lavaland" = image('icons/mob/robots.dmi', "lavaland")
+			)
 		if("Service")
-			module = new /obj/item/robot_module/butler(src)
-			module.channels = list("Service" = 1)
-			module_sprites["Waitress"] = "Service"
-			module_sprites["Kent"] = "toiletbot"
-			module_sprites["Bro"] = "Brobot"
-			module_sprites["Rich"] = "maximillion"
-			module_sprites["Default"] = "Service2"
-			module_sprites["Standard"] = "Standard-Serv"
-			module_sprites["Noble-SRV"] = "Noble-SRV"
-			module_sprites["Cricket"] = "Cricket-SERV"
-			see_reagents = TRUE
+			module_sprites = list(
+				"Waitress" = image('icons/mob/robots.dmi', "Service"),
+				"Kent" = image('icons/mob/robots.dmi', "toiletbot"),
+				"Bro" = image('icons/mob/robots.dmi', "Brobot"),
+				"Rich" = image('icons/mob/robots.dmi', "maximillion"),
+				"Default" = image('icons/mob/robots.dmi', "Service2"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Serv"),
+				"Noble-SRV" = image('icons/mob/robots.dmi', "Noble-SRV"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SERV")
+			)
 
-		if("Miner")
-			module = new /obj/item/robot_module/miner(src)
-			module.channels = list("Supply" = 1)
+	/* TODO: Fluff sprites
+	if(custom_sprite && check_sprite("[ckey]-[selected_module]"))
+		module_sprites["Custom"] = image('icons/mob/custom_synthetic/custom-synthetic.dmi', "[ckey]-[selected_module]")
+	*/
+
+	return module_sprites
+
+/mob/living/silicon/robot/proc/initialise_module(module_type, module_sprite, sprite_list)
+	switch(module_type)
+		if("Engineering")
+			module = new /obj/item/robot_module/engineering(src)
+			module.channels = list("Engineering" = 1)
 			if(camera && ("Robots" in camera.network))
-				camera.network.Add("Mining Outpost")
-			module_sprites["Basic"] = "Miner_old"
-			module_sprites["Advanced Droid"] = "droid-miner"
-			module_sprites["Treadhead"] = "Miner"
-			module_sprites["Standard"] = "Standard-Mine"
-			module_sprites["Noble-DIG"] = "Noble-DIG"
-			module_sprites["Cricket"] = "Cricket-MINE"
-			module_sprites["Lavaland"] = "lavaland"
+				camera.network += "Engineering"
+			magpulse = TRUE
+
+		if("Janitor")
+			module = new /obj/item/robot_module/janitor(src)
+			module.channels = list("Service" = 1)
 
 		if("Medical")
 			module = new /obj/item/robot_module/medical(src)
 			module.channels = list("Medical" = 1)
 			if(camera && ("Robots" in camera.network))
-				camera.network.Add("Medical")
-			module_sprites["Basic"] = "Medbot"
-			module_sprites["Surgeon"] = "surgeon"
-			module_sprites["Advanced Droid"] = "droid-medical"
-			module_sprites["Needles"] = "medicalrobot"
-			module_sprites["Standard"] = "Standard-Medi"
-			module_sprites["Noble-MED"] = "Noble-MED"
-			module_sprites["Cricket"] = "Cricket-MEDI"
+				camera.network += "Medical"
 			status_flags &= ~CANPUSH
 			see_reagents = TRUE
 
-		if("Security")
-			module = new /obj/item/robot_module/security(src)
-			module.channels = list("Security" = 1)
-			module_sprites["Basic"] = "secborg"
-			module_sprites["Red Knight"] = "Security"
-			module_sprites["Black Knight"] = "securityrobot"
-			module_sprites["Bloodhound"] = "bloodhound"
-			module_sprites["Standard"] = "Standard-Secy"
-			module_sprites["Noble-SEC"] = "Noble-SEC"
-			module_sprites["Cricket"] = "Cricket-SEC"
-			status_flags &= ~CANPUSH
-
-		if("Engineering")
-			module = new /obj/item/robot_module/engineering(src)
-			module.channels = list("Engineering" = 1)
+		if("Mining")
+			module = new /obj/item/robot_module/miner(src)
+			module.channels = list("Supply" = 1)
 			if(camera && ("Robots" in camera.network))
-				camera.network.Add("Engineering")
-			module_sprites["Basic"] = "Engineering"
-			module_sprites["Antique"] = "engineerrobot"
-			module_sprites["Landmate"] = "landmate"
-			module_sprites["Standard"] = "Standard-Engi"
-			module_sprites["Noble-ENG"] = "Noble-ENG"
-			module_sprites["Cricket"] = "Cricket-ENGI"
-			magpulse = 1
+				camera.network += "Mining Outpost"
 
-		if("Janitor")
-			module = new /obj/item/robot_module/janitor(src)
+		if("Service")
+			module = new /obj/item/robot_module/butler(src)
 			module.channels = list("Service" = 1)
-			module_sprites["Basic"] = "JanBot2"
-			module_sprites["Mopbot"]  = "janitorrobot"
-			module_sprites["Mop Gear Rex"] = "mopgearrex"
-			module_sprites["Standard"] = "Standard-Jani"
-			module_sprites["Noble-CLN"] = "Noble-CLN"
-			module_sprites["Cricket"] = "Cricket-JANI"
+			see_reagents = TRUE
+			if(module_sprite == "Bro")
+				module.module_type = "Brobot"
 
-		if("Destroyer") // Rolling Borg
+		// TODO: Properly test these three
+		if("Destroyer")
 			module = new /obj/item/robot_module/destroyer(src)
 			module.channels = list("Security" = 1)
-			icon_state =  "droidcombat"
+			icon_state = "droidcombat"
 			status_flags &= ~CANPUSH
 
-		if("Combat") // Gamma ERT
+		if("Combat")
 			module = new /obj/item/robot_module/combat(src)
 			icon_state = "ertgamma"
 			status_flags &= ~CANPUSH
@@ -407,26 +445,24 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			icon_state = "xenoborg-state-a"
 			modtype = "Xeno-Hu"
 
-	//languages
+	if(!module)
+		return FALSE
+	designation = modtype
 	module.add_languages(src)
-	//subsystems
 	module.add_subsystems_and_actions(src)
-
-	//Custom_sprite check and entry
-	if(custom_sprite && check_sprite("[ckey]-[modtype]"))
-		module_sprites["Custom"] = "[src.ckey]-[modtype]"
-
-	hands.icon_state = lowertext(module.module_type)
-	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(modtype)]")
-	rename_character(real_name, get_default_name())
-
-	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat")
-		status_flags &= ~CANPUSH
-
-	choose_icon(6,module_sprites)
 	if(!static_radio_channels)
 		radio.config(module.channels)
-	notify_ai(2)
+	rename_character(real_name, get_default_name())
+
+	var/image/selected_sprite = sprite_list[module_sprite]
+	var/list/names = splittext(module_sprite, "-")
+	icon = selected_sprite.icon
+	icon_state = selected_sprite.icon_state
+	custom_panel = trim(names[1])
+
+	update_module_icon()
+	update_icons()
+	return TRUE
 
 /mob/living/silicon/robot/proc/reset_module()
 	notify_ai(2)
@@ -445,6 +481,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	languages = list()
 	speech_synthesizer_langs = list()
 	radio.recalculateChannels()
+	custom_panel = null
 
 	update_icons()
 	update_headlamp()
