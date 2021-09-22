@@ -72,3 +72,6 @@
 
 	var/list/splinted_limbs = list() //limbs we know are splinted
 	var/original_eye_color = "#000000"
+
+	/// How many screams have we made recently? "Recently" defined as TIMEFRAME_FOR_MAX_SCREAMS in code/modules/mob/living/carbon/human/emote.dm
+	var/recent_scream_count
