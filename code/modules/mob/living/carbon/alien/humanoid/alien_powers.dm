@@ -69,7 +69,6 @@ Doesn't work on other aliens/AI.*/
 					to_chat(src, "<span class='noticealien'>You need to be closer.</span>")
 	return
 
-
 /mob/living/carbon/alien/humanoid/proc/corrosive_acid(atom/target) //If they right click to corrode, an error will flash if its an invalid target./N
 	set name = "Corrossive Acid (100)"
 	set desc = "Drench an object in acid, destroying it over time."
@@ -86,15 +85,15 @@ Doesn't work on other aliens/AI.*/
 			to_chat(src, "<span class='noticealien'>[target] is too far away.</span>")
 
 /mob/living/carbon/alien/humanoid/proc/strong_corrosive_acid(atom/target) //If they right click to corrode, an error will flash if its an invalid target./N
-	set name = "Corrossive Acid (250)"
+	set name = "Corrossive Acid (200)"
 	set desc = "Drench an object in strong acid, destroying it over time."
 	set category = "Alien"
 
-	if(powerc(250))
+	if(powerc(200))
 		if(target in oview(1))
 			if(target.acid_act(300, 100))
 				visible_message("<span class='alertalien'>[src] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of strong acid!</span>")
-				adjustPlasma(-250)
+				adjustPlasma(-200)
 			else
 				to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
 		else

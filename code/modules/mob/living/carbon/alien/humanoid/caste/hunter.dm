@@ -86,7 +86,6 @@
 				step_towards(src,L)
 			else
 				Weaken(2, 1, 1)
-
 			toggle_leap(0)
 			pounce_cooldown = world.time + pounce_cooldown_time
 
