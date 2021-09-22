@@ -53,7 +53,7 @@
 /turf/simulated/floor/plating/lava/is_safe()
 	if(find_safeties() && ..())
 		return TRUE
-	return
+	return FALSE
 
 /turf/simulated/floor/plating/lava/proc/burn_stuff(AM)
 	. = 0

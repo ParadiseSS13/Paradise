@@ -70,7 +70,7 @@
 /turf/simulated/floor/chasm/is_safe()
 	if(find_safeties() && ..())
 		return TRUE
-	return
+	return FALSE
 
 /turf/simulated/floor/chasm/proc/drop_stuff(AM)
 	. = 0
