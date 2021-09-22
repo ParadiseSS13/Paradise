@@ -41,10 +41,7 @@
 /obj/machinery/computer/teleporter/proc/link_power_station()
 	if(power_station)
 		return
-	for(dir in list(NORTH,EAST,SOUTH,WEST))
-		power_station = locate(/obj/machinery/teleport/station, get_step(src, dir))
-		if(power_station)
-			break
+	power_station = locate(/obj/machinery/teleport/station, orange(1, src))
 	return power_station
 
 /obj/machinery/computer/teleporter/attackby(obj/item/I, mob/living/user, params)
