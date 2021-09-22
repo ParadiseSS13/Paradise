@@ -121,17 +121,17 @@
 		return
 	to_chat(src, "<span class='danger'>You begin to warp [A]</span>")
 	if(do_mob(src, A, 50))
-		if(A.anchored)
-			to_chat(src, "<span class='danger'>You need to hold still!</span>")
-			return
-		if(!beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
-			to_chat(src, "<span class='danger'>You need a beacon to warp things!</span>")
-			return
-		if(isfloorturf(beacon))
-			var/turf/simulated/floor/T = beacon
-			if(T.safety_turf())
+		if(!A.anchored)
+			if(!beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
+				to_chat(src, "<span class='danger'>You need a beacon to warp things!</span>")
+				return
+			var/turf/T = beacon
+			if(T.is_safe())
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(A))
 				do_teleport(A, beacon, 0)
 				new /obj/effect/temp_visual/guardian/phase(get_turf(A))
 				return
-		to_chat(src, "<span class='danger'>The beacon isn't in a safe location!</span>")
+			to_chat(src, "<span class='danger'>The beacon isn't in a safe location!</span>")
+			return
+	else
+		to_chat(src, "<span class='danger'>You need to hold still!</span>")

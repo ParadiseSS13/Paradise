@@ -196,10 +196,7 @@
 		var/x = rand(1, world.maxx)
 		var/y = rand(1, world.maxy)
 		var/z = pick(zlevels)
-		var/random_location = locate(x,y,z)
+		var/turf/random_location = locate(x,y,z)
 
-		if(isfloorturf(random_location))
-			var/turf/simulated/floor/F = random_location
-			if(F.safety_turf())
-			// DING! You have passed the gauntlet, and are "probably" safe.
-				return F
+		if(random_location.is_safe())
+			return random_location

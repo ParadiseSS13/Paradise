@@ -249,7 +249,7 @@
 /turf/proc/BeforeChange()
 	return
 
-/turf/proc/safety_turf()
+/turf/proc/is_safe()
 	return FALSE
 
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
