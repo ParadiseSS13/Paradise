@@ -418,7 +418,7 @@
 
 	throwing = TT
 	if(spin && !no_spin && !no_spin_thrown)
-		SpinAnimation(5, 1, parallel = TRUE)
+		SpinAnimation(5, 1)
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_POST_THROW, TT, spin)
 	SSthrowing.processing[src] = TT
