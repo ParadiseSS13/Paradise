@@ -95,10 +95,8 @@
 		else if(A.density && !A.CanPass(src))
 			visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='alertalien'>[src] smashes into [A]!</span>")
 			Weaken(2, 1, 1)
-<<<<<<< Updated upstream
-=======
 		pounce_cooldown = world.time + pounce_cooldown_time
->>>>>>> Stashed changes
+
 
 		if(leaping)
 			leaping = 0
