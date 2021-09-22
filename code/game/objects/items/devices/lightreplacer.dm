@@ -195,23 +195,16 @@
 			if(target.status != LIGHT_EMPTY)
 				AddShards(1, U)
 				target.status = LIGHT_EMPTY
-				target.update()
 
-			var/obj/item/light/L2 = new target.light_type()
-
-			target.status = L2.status
-			target.switchcount = L2.switchcount
+			var/obj/item/light/replacement = target.light_type
+			target.status = LIGHT_OK
+			target.switchcount = 0
 			target.rigged = emagged
-			target.brightness_range = L2.brightness_range
-			target.brightness_power = L2.brightness_power
-			target.brightness_color = L2.brightness_color
+			target.brightness_range = initial(replacement.brightness_range)
+			target.brightness_power = initial(replacement.brightness_power)
+			target.brightness_color = initial(replacement.brightness_color)
 			target.on = target.has_power()
-			target.update()
-			qdel(L2)
-
-			if(target.on && target.rigged)
-				target.explode()
-			return
+			target.update(TRUE, TRUE, FALSE)
 
 		else
 			to_chat(U, "[src]'s refill light blinks red.")

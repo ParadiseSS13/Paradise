@@ -265,47 +265,6 @@
 /obj/item/robot_module/proc/handle_death(mob/living/silicon/robot/R, gibbed)
 	return
 
-// Standard cyborg module.
-/obj/item/robot_module/standard
-	// if station is fine, assist with constructing station goal room, cleaning, and repairing cables chewed by rats
-	// if medical crisis, assist by providing basic healthcare, retrieving corpses, and monitoring crew lifesigns
-	// if eng crisis, assist by helping repair hull breaches
-	// if sec crisis, assist by opening doors for sec and providing backup zipties on patrols
-	name = "generalist robot module"
-	module_type = "Standard"
-	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_crew_monitor)
-	basic_modules = list(
-		// sec
-		/obj/item/flash/cyborg,
-		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
-		// janitorial
-		/obj/item/soap/nanotrasen,
-		/obj/item/lightreplacer/cyborg,
-		// eng
-		/obj/item/crowbar/cyborg,
-		/obj/item/wrench/cyborg,
-		/obj/item/extinguisher, // for firefighting, and propulsion in space
-		/obj/item/weldingtool/largetank/cyborg,
-		// mining
-		/obj/item/pickaxe,
-		/obj/item/t_scanner/adv_mining_scanner,
-		/obj/item/storage/bag/ore/cyborg,
-		// med
-		/obj/item/healthanalyzer,
-		/obj/item/reagent_containers/borghypo/basic,
-		/obj/item/roller_holder, // for taking the injured to medbay without worsening their injuries or leaving a blood trail the whole way
-		/obj/item/stack/sheet/metal/cyborg,
-		/obj/item/stack/cable_coil/cyborg,
-		/obj/item/stack/rods/cyborg,
-		/obj/item/stack/tile/plasteel/cyborg
-	)
-	emag_modules = list(/obj/item/melee/energy/sword/cyborg)
-	special_rechargables = list(
-		/obj/item/extinguisher,
-		/obj/item/weldingtool/largetank/cyborg,
-		/obj/item/lightreplacer/cyborg
-	)
-
 // Medical cyborg module.
 /obj/item/robot_module/medical
 	name = "medical robot module"
@@ -319,6 +278,7 @@
 		/obj/item/borg_defib,
 		/obj/item/handheld_defibrillator,
 		/obj/item/roller_holder,
+		/obj/item/borg/cyborghug,
 		/obj/item/reagent_containers/borghypo,
 		/obj/item/scalpel/laser/laser1,
 		/obj/item/hemostat,
@@ -446,6 +406,43 @@
 		/obj/item/reagent_containers/spray/cyborg_lube,
 		/obj/item/extinguisher/mini
 	)
+
+/obj/item/robot_module/janitor/Initialize(mapload)
+	. = ..()
+	var/mob/living/silicon/robot/R = loc
+	RegisterSignal(R, COMSIG_MOVABLE_MOVED, .proc/on_cyborg_move)
+
+/**
+ * Proc called after the janitor cyborg has moved, in order to clean atoms at it's new location.
+ *
+ * Arguments:
+ * * mob/living/silicon/robot/R - The cyborg who moved.
+ */
+/obj/item/robot_module/janitor/proc/on_cyborg_move(mob/living/silicon/robot/R)
+	SIGNAL_HANDLER
+
+	if(R.stat == DEAD || !isturf(R.loc))
+		return
+	var/turf/tile = R.loc
+	for(var/A in tile)
+		if(iseffect(A))
+			var/obj/effect/E = A
+			if(!E.is_cleanable())
+				continue
+			var/obj/effect/decal/cleanable/blood/B = E
+			if(istype(B) && B.off_floor)
+				tile.clean_blood()
+			else
+				qdel(E)
+		else if(isitem(A))
+			var/obj/item/I = A
+			I.clean_blood()
+		else if(ishuman(A))
+			var/mob/living/carbon/human/cleaned_human = A
+			if(!cleaned_human.lying)
+				continue
+			cleaned_human.clean_blood()
+			to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
 
 /obj/item/reagent_containers/spray/cyborg_lube
 	name = "Lube spray"

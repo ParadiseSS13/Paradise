@@ -340,7 +340,7 @@
 	 /obj/item/organ/internal/cyberimp/arm/surgery,
 	 /obj/item/organ/internal/cyberimp/chest/nutriment
 	)
-	belt = /obj/item/defibrillator/compact/loaded
+	belt = /obj/item/defibrillator/compact/advanced/loaded
 
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -369,7 +369,7 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
 
-	belt = /obj/item/defibrillator/compact/loaded
+	belt = /obj/item/defibrillator/compact/advanced/loaded
 
 	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
 	r_pocket = /obj/item/reagent_containers/hypospray/autoinjector

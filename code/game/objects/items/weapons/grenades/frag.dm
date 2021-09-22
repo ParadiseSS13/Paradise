@@ -26,7 +26,7 @@
 
 /obj/item/grenade/frag/proc/embed_shrapnel(mob/living/carbon/human/H, amount)
 	for(var/i = 0, i < amount, i++)
-		if(prob(embed_prob - H.getarmor(null, "bomb")))
+		if(prob(embed_prob - H.getarmor(null, BOMB)))
 			var/obj/item/embedded/S = new embedded_type(src)
 			H.hitby(S, skipcatch = 1)
 			S.throwforce = 1
