@@ -78248,6 +78248,17 @@
 /area/construction/Storage{
 	name = "Storage Wing"
 	})
+"hDX" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/machinery/atmospherics/binary/valve/digital{
+	color = "";
+	dir = 4;
+	name = "CO2 Outlet Valve"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/atmos)
 "hEA" = (
 /obj/machinery/camera/autoname{
 	dir = 4
@@ -79782,6 +79793,17 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
+"moV" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/machinery/atmospherics/binary/valve/digital{
+	color = "";
+	dir = 4;
+	name = "Plasma Outlet Valve"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/atmos)
 "msg" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -80151,6 +80173,17 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"nFC" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/machinery/atmospherics/binary/valve/digital{
+	color = "";
+	dir = 4;
+	name = "N2O Outlet Valve"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/atmos)
 "nHB" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -127790,15 +127823,15 @@ bIs
 bKg
 bMh
 bNe
-bPC
+nFC
 bRi
 bSU
 bPC
-bPC
+moV
 bRi
 bSU
 bRi
-bPC
+hDX
 bRi
 bSU
 ceK
