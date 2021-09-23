@@ -11,8 +11,8 @@
 		var/obj/item/I = target.get_active_hand()
 		if(I && target.drop_item())
 			user.put_in_hands(I)
-		target.adjustStaminaLoss(50)
-		target.apply_damage(25, BRUTE)
+		target.adjustStaminaLoss(60)
+		target.apply_damage(20, BRUTE)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Consecutive", ATKLOG_ALL)
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_FAIL

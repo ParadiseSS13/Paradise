@@ -2,7 +2,7 @@
 	name = "CQC"
 	block_chance = 75
 	has_explaination_verb = TRUE
-	combos = list(/datum/martial_combo/cqc/slam, /datum/martial_combo/cqc/kick, /datum/martial_combo/cqc/restrain, /datum/martial_combo/cqc/pressure, /datum/martial_combo/cqc/consecutive)
+	combos = list(/datum/martial_combo/cqc/slam, /datum/martial_combo/cqc/restrain, /datum/martial_combo/cqc/consecutive)
 	var/restraining = FALSE //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/static/list/areas_under_siege = typecacheof(list(/area/crew_quarters/kitchen,
 														/area/crew_quarters/cafeteria,
@@ -34,9 +34,9 @@
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("CQC'd", "neck chopped", "gut punched", "Big Bossed")
-	var/bonus_damage = 13
+	var/bonus_damage = 10
 	if(D.IsWeakened() || D.resting || D.lying)
-		bonus_damage += 5
+		bonus_damage += 3
 		picked_hit_type = "stomps on"
 	D.apply_damage(bonus_damage, BRUTE)
 	if(picked_hit_type == "kicks" || picked_hit_type == "stomps on")
@@ -51,7 +51,8 @@
 							"<span class='userdanger'>[A] leg sweeps you!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 		D.apply_damage(10, BRUTE)
-		D.Weaken(3)
+		D.Weaken(1)
+		D.adjustStaminaLoss(40)
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Leg sweep", ATKLOG_ALL)
 	return TRUE
 

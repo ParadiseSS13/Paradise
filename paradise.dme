@@ -1728,8 +1728,6 @@
 #include "code\modules\martial_arts\combos\martial_combo.dm"
 #include "code\modules\martial_arts\combos\adminfu\healing_palm.dm"
 #include "code\modules\martial_arts\combos\cqc\consecutive.dm"
-#include "code\modules\martial_arts\combos\cqc\kick.dm"
-#include "code\modules\martial_arts\combos\cqc\pressure.dm"
 #include "code\modules\martial_arts\combos\cqc\restrain.dm"
 #include "code\modules\martial_arts\combos\cqc\slam.dm"
 #include "code\modules\martial_arts\combos\krav_maga\leg_sweep.dm"
