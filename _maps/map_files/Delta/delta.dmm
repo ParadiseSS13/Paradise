@@ -56467,11 +56467,11 @@
 /area/library)
 "ctL" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/candle_box,
-/obj/item/storage/fancy/candle_box,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
+/obj/item/storage/fancy/candle_box/full,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -88397,11 +88397,11 @@
 /area/chapel/office)
 "dKf" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/candle_box{
+/obj/item/storage/fancy/candle_box/full{
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/item/storage/fancy/candle_box,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -93034,11 +93034,11 @@
 /area/chapel/office)
 "dUL" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/candle_box{
+/obj/item/storage/fancy/candle_box/full{
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/item/storage/fancy/candle_box,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -93093,11 +93093,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/storage/fancy/candle_box{
+/obj/item/storage/fancy/candle_box/full{
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/item/storage/fancy/candle_box,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/carpet,
 /area/chapel/office)
 "dUR" = (
@@ -97628,8 +97628,8 @@
 /area/security/warden)
 "nCz" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/candle_box,
-/obj/item/storage/fancy/candle_box,
+/obj/item/storage/fancy/candle_box/full,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
 "nDV" = (
