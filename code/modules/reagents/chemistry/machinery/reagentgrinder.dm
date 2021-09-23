@@ -470,9 +470,6 @@
 
 		var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 		while(O.amount) //Grind until there's no more reagents
-			if(O.amount < 1)
-				remove_object(O)
-				break
 			if(!space) //if no free space - exit
 				break
 			O.amount -= 1 //remove one from stack
@@ -480,6 +477,9 @@
 				var/spaceused = min(allowed[r_id] * efficiency, space)
 				space -= spaceused
 				beaker.reagents.add_reagent(r_id, spaceused)
+			if(O.amount < 1) //if leftover small - destroy
+				remove_object(O)
+				break
 
 	//Plants
 	for (var/obj/item/grown/O in holdingitems)
