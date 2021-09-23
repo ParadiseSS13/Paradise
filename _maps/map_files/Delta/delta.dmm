@@ -62099,26 +62099,8 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/port)
 "cFN" = (
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	id_tag = "sw_maint_airlock";
-	pixel_y = 25;
-	tag_airpump = "sw_maint_pump";
-	tag_chamber_sensor = "sw_maint_sensor";
-	tag_exterior_door = "sw_maint_outer";
-	tag_interior_door = "sw_maint_inner"
-	},
-/obj/machinery/airlock_sensor{
-	id_tag = "sw_maint_sensor";
-	pixel_y = 33
-	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	frequency = 1379;
-	id_tag = "sw_maint_pump"
-	},
-/turf/simulated/floor/plasteel,
-/area/maintenance/port)
+/turf/simulated/wall/mineral/titanium,
+/area/space)
 "cFO" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -62127,19 +62109,9 @@
 	},
 /area/maintenance/port)
 "cFP" = (
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1379;
-	master_tag = "sw_maint_airlock";
-	name = "interior access button";
-	pixel_x = -24;
-	pixel_y = 24
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
-	},
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
-/area/maintenance/port)
+/area/space)
 "cFR" = (
 /obj/structure/grille{
 	density = 0;
@@ -62640,14 +62612,18 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "cGw" = (
-/obj/machinery/door/airlock/external{
-	frequency = 1379;
-	id_tag = "sw_maint_outer";
-	locked = 1;
-	name = "West Maintenance External Access"
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_x = 32
 	},
-/turf/simulated/floor/plasteel,
-/area/maintenance/port)
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/space)
 "cGx" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -63049,15 +63025,15 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
 "cHe" = (
-/obj/machinery/portable_atmospherics/canister/air,
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
-	},
-/area/maintenance/port)
+/turf/simulated/floor/mineral/titanium/blue,
+/area/space)
 "cHi" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -63558,18 +63534,9 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
 "cIu" = (
-/obj/machinery/door/airlock/external{
-	frequency = 1379;
-	id_tag = "sw_maint_inner";
-	locked = 1;
-	name = "West Maintenance External Access";
-	req_access_txt = "10;13"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/port)
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/wall/mineral/titanium,
+/area/space)
 "cIv" = (
 /obj/structure/girder,
 /turf/simulated/floor/plasteel{
@@ -64030,10 +63997,16 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "cJL" = (
-/obj/machinery/shieldgen,
-/obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plasteel,
-/area/maintenance/port)
+/obj/docking_port/mobile/pod{
+	id = "pod2";
+	name = "escape pod 2"
+	},
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	name = "Escape Pod Hatch"
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/space)
 "cJM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/atmos{
@@ -64053,6 +64026,7 @@
 /area/maintenance/port)
 "cJP" = (
 /obj/effect/decal/warning_stripes/west,
+/obj/machinery/shieldgen,
 /turf/simulated/floor/plasteel,
 /area/maintenance/port)
 "cJR" = (
@@ -64765,8 +64739,7 @@
 /obj/item/clothing/gloves/color/black,
 /obj/item/wrench,
 /obj/item/crowbar/red,
-/obj/machinery/light/small,
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/maintenance/port)
 "cLD" = (
@@ -66691,17 +66664,8 @@
 /turf/space,
 /area/space/nearstation)
 "cPY" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "sw_maint_airlock";
-	name = "exterior access button";
-	pixel_x = 24;
-	pixel_y = 24
-	},
-/obj/structure/lattice/catwalk,
 /turf/space,
-/area/space/nearstation)
+/area/maintenance/port)
 "cPZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -66877,14 +66841,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/fitness)
-"cQs" = (
-/obj/structure/table,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/plasteel,
-/area/maintenance/port)
 "cQu" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -66893,10 +66849,8 @@
 	},
 /area/maintenance/port)
 "cQv" = (
-/obj/machinery/space_heater,
-/obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plasteel,
-/area/maintenance/port)
+/turf/simulated/wall,
+/area/space)
 "cQw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -67458,10 +67412,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
 "cRD" = (
-/obj/structure/rack,
-/obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel,
-/area/maintenance/port)
+/turf/simulated/floor/plating,
+/area/space)
 "cRE" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -68168,9 +68120,9 @@
 	},
 /area/crew_quarters/fitness)
 "cTg" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
-/turf/simulated/wall/rust,
-/area/maintenance/port)
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/shuttle/pod_2)
 "cTh" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -68179,10 +68131,10 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical)
 "cTi" = (
-/obj/structure/reagent_dispensers/fueltank,
-/obj/effect/decal/warning_stripes/southwest,
-/turf/simulated/floor/plasteel,
-/area/maintenance/port)
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/shuttle/pod_2)
 "cTj" = (
 /obj/structure/closet/secure_closet/engineering_welding,
 /turf/simulated/floor/plating,
@@ -69097,15 +69049,9 @@
 	icon_state = "escape"
 	},
 /area/crew_quarters/fitness)
-"cUP" = (
-/obj/structure/mopbucket,
-/obj/item/mop,
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "cUQ" = (
-/obj/item/reagent_containers/glass/bucket,
-/turf/simulated/floor/plating,
-/area/maintenance/port)
+/turf/space,
+/area/shuttle/pod_2)
 "cUR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/sign/securearea,
@@ -69669,18 +69615,20 @@
 	},
 /area/medical/medbay3)
 "cWk" = (
-/obj/structure/table,
-/obj/item/bikehorn/rubberducky,
-/obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel,
-/area/maintenance/port)
+/turf/simulated/wall,
+/area/shuttle/pod_2)
 "cWl" = (
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/shieldgen,
 /turf/simulated/floor/plasteel,
 /area/maintenance/port)
 "cWm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/unary/portables_connector{
+	layer = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/port)
 "cWn" = (
@@ -70427,9 +70375,25 @@
 	},
 /area/crew_quarters/fitness)
 "cXR" = (
-/obj/structure/reagent_dispensers/watertank,
-/obj/machinery/light/small,
-/turf/simulated/floor/plating,
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	id_tag = "sw_maint_airlock";
+	pixel_y = 25;
+	tag_airpump = "sw_maint_pump";
+	tag_chamber_sensor = "sw_maint_sensor";
+	tag_exterior_door = "sw_maint_outer";
+	tag_interior_door = "sw_maint_inner"
+	},
+/obj/machinery/airlock_sensor{
+	id_tag = "sw_maint_sensor";
+	pixel_y = 33
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	frequency = 1379;
+	id_tag = "sw_maint_pump"
+	},
+/turf/simulated/floor/plasteel,
 /area/maintenance/port)
 "cXS" = (
 /obj/structure/cable{
@@ -70447,6 +70411,9 @@
 /area/maintenance/port)
 "cXT" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/port)
 "cXU" = (
@@ -94899,6 +94866,11 @@
 	},
 /turf/space,
 /area/space)
+"eBk" = (
+/obj/effect/spawner/window/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "eCs" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -94953,6 +94925,12 @@
 	icon_state = "red"
 	},
 /area/security/brig)
+"eNd" = (
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod"
+	},
+/turf/space,
+/area/space/nearstation)
 "eNm" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -95092,6 +95070,20 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
+"fcI" = (
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1379;
+	master_tag = "sw_maint_airlock";
+	name = "interior access button";
+	pixel_x = -24;
+	pixel_y = 24
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "fdI" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -95803,6 +95795,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
+"hjj" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/space)
 "hjo" = (
 /obj/structure/closet/crate,
 /obj/effect/landmark/costume/random,
@@ -95851,6 +95847,12 @@
 	icon_state = "white"
 	},
 /area/hallway/primary/central)
+"hoZ" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/space)
 "hzb" = (
 /obj/machinery/light{
 	dir = 4
@@ -96209,6 +96211,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/medical/psych)
+"iJz" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
+/area/space)
 "iKj" = (
 /obj/machinery/light_switch{
 	pixel_x = -23;
@@ -96512,6 +96520,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/seceqstorage)
+"jJF" = (
+/turf/simulated/floor/plating,
+/area/shuttle/pod_2)
 "jKp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -96593,6 +96604,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/seceqstorage)
+"kct" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1379;
+	id_tag = "sw_maint_outer";
+	locked = 1;
+	name = "West Maintenance External Access"
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/port)
 "khY" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -96678,6 +96698,10 @@
 	icon_state = "red"
 	},
 /area/security/seceqstorage)
+"kom" = (
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plasteel,
+/area/maintenance/port)
 "koC" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/small{
@@ -96729,6 +96753,12 @@
 	icon_state = "vault"
 	},
 /area/security/prisonershuttle)
+"kBz" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/space)
 "kCi" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -97058,6 +97088,10 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/aisat)
+"lWt" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "lZw" = (
 /obj/machinery/ai_status_display{
 	pixel_x = -32
@@ -97644,6 +97678,19 @@
 	icon_state = "red"
 	},
 /area/security/prisonershuttle)
+"nFI" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1379;
+	id_tag = "sw_maint_inner";
+	locked = 1;
+	name = "West Maintenance External Access";
+	req_access_txt = "10;13"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "nFL" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -98504,6 +98551,13 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"rau" = (
+/obj/machinery/light/small,
+/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/rack,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "raB" = (
 /obj/structure/grille/broken,
 /obj/structure/lattice,
@@ -98967,6 +99021,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permasolitary)
+"ssL" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plating,
+/area/space)
 "suy" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -98984,6 +99042,12 @@
 /obj/item/seeds/glowshroom,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
+"sxH" = (
+/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/rack,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "sxS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -98995,6 +99059,11 @@
 	icon_state = "white"
 	},
 /area/toxins/misc_lab)
+"syt" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "sAW" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/plasteel{
@@ -100040,6 +100109,18 @@
 	icon_state = "neutral"
 	},
 /area/maintenance/starboard)
+"vMN" = (
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "sw_maint_airlock";
+	name = "exterior access button";
+	pixel_x = 24;
+	pixel_y = 24
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "vOc" = (
 /obj/structure/table,
 /obj/item/taperecorder,
@@ -100373,6 +100454,10 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
+"xtL" = (
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space)
 "xuC" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -118762,6 +118847,10 @@ aaa
 aaa
 aaa
 aaa
+cQv
+hjj
+hjj
+cQv
 aaa
 aaa
 aaa
@@ -118770,12 +118859,8 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+xtL
+lWt
 aaa
 aaa
 aaa
@@ -119015,23 +119100,23 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-acF
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+cFN
+cFN
+cFN
+cIu
+bPS
+ssL
+ssL
+cQv
 aaa
 aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+lWt
+xtL
 aaa
 aaa
 aaa
@@ -119272,23 +119357,23 @@ aaa
 aaa
 aaa
 aaa
+cFP
+cGw
+cHe
+cJL
+eNd
+cRD
+cRD
+cQv
 aaa
 aaa
 aaa
 aaa
-acF
 aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+xtL
 aaa
 aaa
 aaa
@@ -119529,24 +119614,24 @@ aaa
 aaa
 aaa
 aaa
+cFN
+cFN
+cFN
+cIu
+bPS
+cRD
+cRD
+cQv
+cQv
+hjj
+hjj
+cQv
+cQv
 aaa
 aaa
-aaa
-aaa
-acF
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+lWt
+xtL
+lWt
 aaa
 aaa
 aaa
@@ -119790,20 +119875,20 @@ abj
 abj
 aaa
 aaa
-acF
+bPS
+cRD
+cRD
+cRD
+hoZ
+iJz
+iJz
+cRD
+cQv
+cQv
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+lWt
+xtL
+lWt
 aaa
 aaa
 aaa
@@ -120047,21 +120132,21 @@ cie
 cie
 bXU
 aaa
-acF
+bPS
+kBz
+oEG
+cRD
+oEG
+oEG
+oEG
+cRD
+cRD
+cQv
 aaa
-abj
-aaa
-abj
-abj
-abj
-aaa
-abj
-abj
-abj
-aaa
-abj
-abj
-abj
+lWt
+vMN
+bPS
+vXX
 aaa
 aaa
 aaa
@@ -120303,22 +120388,22 @@ bXU
 bXU
 bXU
 bXU
-abj
-cPY
+vXX
+bPS
+cWn
 cHA
 cHA
-cJK
 cHA
 cHA
+cQv
+cRD
+jJF
+cTg
+cUQ
+cWk
+kct
 cHA
-cJK
-cHA
-cHA
-cCx
-cJK
-cCx
-cCx
-abj
+vXX
 aaa
 aaa
 aaa
@@ -120560,21 +120645,21 @@ cie
 cie
 cie
 bXU
-dmq
-cGw
+cPY
 cHA
-cjV
+drn
+cHA
 cJP
 cLC
-cHA
-cQs
+rau
+cQv
 cRD
 cTi
 cTg
-cUP
+cUQ
 cWk
 cXR
-cCx
+cHA
 aaa
 aaa
 aaa
@@ -120818,21 +120903,21 @@ abj
 cbb
 bXU
 dmq
-cFN
+drn
+drn
 cHA
-cJL
 cWl
-cYb
-cHA
+kom
+sxH
 cQv
-drn
-drn
-cTg
+cRD
+cTi
+cWk
 cUQ
-cWl
-cYb
-cCx
-abj
+cWk
+nFI
+cHA
+vXX
 aaa
 aaa
 aaa
@@ -121075,19 +121160,19 @@ cda
 cbb
 cDx
 bXU
-cIu
+drn
+drn
 cHA
 cHA
-cjX
-cLz
+syt
 cHA
 cHA
-cjX
+dtU
+drn
+cJK
 cHA
 cHA
-cHA
-cjX
-cHA
+fcI
 cHA
 abj
 aaa
@@ -121332,8 +121417,8 @@ cCg
 cbb
 cDx
 bXU
-cFP
-cHe
+drn
+drn
 cIv
 dhG
 cLA
@@ -121345,7 +121430,7 @@ cLA
 drn
 cWm
 cXT
-cHA
+eBk
 abj
 aaa
 aaa
