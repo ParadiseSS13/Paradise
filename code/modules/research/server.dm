@@ -236,7 +236,7 @@
 		if(href_list["access"])
 			screen = 1
 			for(var/obj/machinery/computer/rdconsole/C in GLOB.machines)
-				if(C.sync && !(C.id in list(6))) //ignore all forbidden consoles(6-syndicate)
+				if(C.sync && !(C.id in list(SYNDICATE_RD_CONSOLE))) //ignore all forbidden consoles(6-syndicate)
 					consoles += C
 		else if(href_list["data"])
 			screen = 2

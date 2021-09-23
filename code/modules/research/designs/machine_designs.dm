@@ -91,7 +91,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/teleporter_hub
 	category = list ("Teleportation Machinery")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/teleport_station
 	name = "Machine Board (Teleportation Station)"
@@ -102,7 +102,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/teleporter_station
 	category = list ("Teleportation Machinery")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/teleport_perma
 	name = "Machine Board (Permanent Teleporter)"
@@ -113,7 +113,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/teleporter_perma
 	category = list ("Teleportation Machinery")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/bodyscanner
 	name = "Machine Board (Body Scanner)"
@@ -324,7 +324,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/rdserver
 	category = list("Research Machinery")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/gibber
 	name = "Machine Design (Gibber Board)"

@@ -11,7 +11,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/aicore
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/aifixer
 	name = "Console Board (AI Integrity Restorer)"
@@ -22,7 +22,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/aifixer
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/aiupload
 	name = "Console Board (AI Upload)"
@@ -33,7 +33,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/aiupload
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/atmosalerts
 	name = "Console Board (Atmospheric Alerts)"
@@ -64,7 +64,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/camera
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/clonecontrol
 	name = "Console Board (Cloning Machine Console)"
@@ -85,7 +85,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/communications
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/crewconsole
 	name = "Console Board (Crew Monitoring Computer)"
@@ -96,7 +96,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/crew
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/borgupload
 	name = "Console Board (Cyborg Upload)"
@@ -107,7 +107,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/borgupload
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/scan_console
 	name = "Console Board (DNA Machine)"
@@ -128,7 +128,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/drone_control
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/mechacontrol
 	name = "Console Board (Exosuit Control Console)"
@@ -139,7 +139,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha_control
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/idcardconsole
 	name = "Console Board (ID Computer)"
@@ -150,7 +150,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/card
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/mechapower
 	name = "Console Board (Mech Bay Power Control Console)"
@@ -161,7 +161,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mech_bay_power_console
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/med_data
 	name = "Console Board (Medical Records)"
@@ -172,7 +172,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/med_data
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/message_monitor
 	name = "Console Board (Messaging Monitor Console)"
@@ -243,7 +243,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/rdconsole
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/rdservercontrol
 	name = "Console Board (R&D Server Control Console)"
@@ -254,7 +254,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/rdservercontrol
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/robocontrol
 	name = "Console Board (Robotics Control Console)"
@@ -265,7 +265,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/robotics
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/secdata
 	name = "Console Board (Security Records Console)"
@@ -276,7 +276,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/secure_data
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/solarcontrol
 	name = "Console Board (Solar Control)"
@@ -337,7 +337,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/teleporter
 	category = list("Computer Boards")
-	console_blacklist = list(6)
+	console_blacklist = list(SYNDICATE_RD_CONSOLE)
 
 /datum/design/GAC
 	name = "Console Board (General Air Control)"

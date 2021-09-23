@@ -224,7 +224,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	return
 
 /obj/machinery/computer/rdconsole/emag_act(user as mob)
-	if(id == 6) //Syndicate protect from emag
+	if(id == SYNDICATE_RD_CONSOLE) //Syndicate protect from emag
 		to_chat(user, "<span class='notice'>You can't Emag this console</span>")
 	else if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
@@ -496,7 +496,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	add_fingerprint(usr)
 
-
 	switch(action)
 		if("nav") //Switches menu screens. Converts a sent text string into a number. Saves a LOT of code.
 			var/next_menu = text2num(params["menu"])
@@ -677,7 +676,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("search") //Search for designs with name matching pattern
 			var/query = params["to_search"]
 			var/compare
-
 
 			if(menu == MENU_LATHE)
 				compare = PROTOLATHE
