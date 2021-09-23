@@ -51704,6 +51704,7 @@
 /area/atmos)
 "cfQ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/machinery/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cfR" = (
@@ -53727,8 +53728,9 @@
 	},
 /area/atmos)
 "ckm" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 4
+/obj/machinery/atmospherics/binary/valve/digital/open{
+	dir = 8;
+	name = "Mixed Air Outlet Valve"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -82875,6 +82877,13 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/ai_upload)
+"whC" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4
+	},
+/obj/machinery/meter,
+/turf/simulated/floor/plasteel,
+/area/atmos)
 "wma" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -126550,7 +126559,7 @@ cbg
 bGG
 bGG
 nzX
-bPw
+whC
 bIq
 ciE
 ckh
