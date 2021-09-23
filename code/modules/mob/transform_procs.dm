@@ -109,6 +109,7 @@
 
 	O.update_pipe_vision()
 
+	O.check_custom_sprite()
 	O.Namepick()
 
 	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.

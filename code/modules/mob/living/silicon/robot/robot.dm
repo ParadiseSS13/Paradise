@@ -214,15 +214,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			camera.c_tag = newname
 
 		//Check for custom sprite
-		if(!custom_sprite)
-			if(ckey in GLOB.configuration.custom_sprites.cyborg_ckeys)
-				custom_sprite = TRUE
+		check_custom_sprite()
 
 	if(mmi && mmi.brainmob)
 		mmi.brainmob.name = newname
 
 	return 1
 
+/mob/living/silicon/robot/proc/check_custom_sprite()
+	if(!custom_sprite && (ckey in GLOB.configuration.custom_sprites.cyborg_ckeys))
+		custom_sprite = TRUE
 
 /mob/living/silicon/robot/proc/get_default_name(prefix as text)
 	if(prefix)
@@ -414,10 +415,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Xeno-Hu" = image('icons/mob/robots.dmi', "xenoborg-state-a")
 			)
 
-	/* TODO: Fluff sprites
 	if(custom_sprite && check_sprite("[ckey]-[selected_module]"))
 		module_sprites["Custom"] = image('icons/mob/custom_synthetic/custom-synthetic.dmi', "[ckey]-[selected_module]")
-	*/
 
 	return module_sprites
 
