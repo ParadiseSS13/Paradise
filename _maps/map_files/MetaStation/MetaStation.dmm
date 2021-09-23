@@ -882,15 +882,11 @@
 	},
 /area/security/permabrig)
 "adz" = (
-/obj/structure/bed,
-/obj/item/clothing/suit/straight_jacket,
-/obj/item/clothing/glasses/sunglasses/blindfold,
-/obj/item/clothing/mask/muzzle,
-/obj/item/radio/electropack,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
+/obj/structure/chair/e_chair,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1100,6 +1096,10 @@
 	c_tag = "Prisoner Education Chamber";
 	dir = 4
 	},
+/obj/structure/table,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/mask/muzzle,
+/obj/item/clothing/glasses/sunglasses/blindfold,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "warndark"
@@ -1451,8 +1451,8 @@
 	},
 /obj/item/reagent_containers/dropper,
 /obj/item/assembly/signaler{
-	pixel_x = -3;
-	pixel_y = 2
+	code = 6;
+	frequency = 1445
 	},
 /obj/machinery/alarm{
 	dir = 4;
@@ -44364,7 +44364,11 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/closet/secure_closet/medical2,
+/obj/structure/table,
+/obj/item/tank/internals/anesthetic,
+/obj/item/clothing/mask/breath/medical,
+/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/machine,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -58815,6 +58819,7 @@
 	maxcharge = 15000
 	},
 /obj/effect/decal/warning_stripes/south,
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -63797,9 +63802,8 @@
 	name = "\improper Toxins Lab"
 	})
 "cFD" = (
-/obj/machinery/atmospherics/trinary/filter{
-	dir = 8;
-	req_access = "0"
+/obj/machinery/atmospherics/trinary/mixer{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -64428,6 +64432,7 @@
 	pixel_y = 24
 	},
 /obj/effect/decal/warning_stripes/south,
+/obj/machinery/portable_atmospherics/canister,
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
@@ -64452,7 +64457,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing{
@@ -68120,8 +68124,11 @@
 	pixel_y = -4
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/item/storage/firstaid/machine,
-/obj/item/storage/firstaid/machine,
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/hud/diagnostic,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -68618,10 +68625,6 @@
 /obj/item/circular_saw,
 /obj/item/scalpel{
 	pixel_y = 12
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
 	},
 /obj/item/razor{
 	pixel_y = 5
