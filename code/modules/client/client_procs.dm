@@ -335,11 +335,21 @@
 	spawn() // Goonchat does some non-instant checks in start()
 		chatOutput.start()
 
+	var/_2fa_alert = FALSE // This is so we can display the message where it will be seen
 	if(holder)
-		on_holder_add()
-		add_admin_verbs()
-		// Must be async because any sleeps (happen in sql queries) will break connectings clients
-		INVOKE_ASYNC(src, .proc/admin_memo_output, "Show", FALSE, TRUE)
+		if(GLOB.configuration.system.is_production && (holder.rights & R_ADMIN) && prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
+			// No, check_rights() does not work in the above proc, because we dont have a mob yet
+			_2fa_alert = TRUE
+			// This also has to be manually done since no mob to use check_rights() on
+			deadmin()
+			verbs += /client/proc/readmin
+			GLOB.deadmins += ckey
+		else
+			on_holder_add()
+			add_admin_verbs()
+			// Must be async because any sleeps (happen in sql queries) will break connectings clients
+			INVOKE_ASYNC(src, .proc/admin_memo_output, "Show", FALSE, TRUE)
+
 
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
 	// (but turn them off first, since sometimes BYOND doesn't turn them on properly otherwise)
@@ -411,6 +421,9 @@
 
 	if(check_rights(R_ADMIN, FALSE, mob)) // Mob is required. Dont even try without it.
 		to_chat(src, "The queue server is currently [SSqueue.queue_enabled ? "<font color='green'>enabled</font>" : "<font color='disabled'>disabled</font>"], with a threshold of <b>[SSqueue.queue_threshold]</b>. This <b>[SSqueue.persist_queue ? "will" : "will not"]</b> persist through rounds.")
+
+	if(_2fa_alert)
+		to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 
 
 /client/proc/is_connecting_from_localhost()
@@ -821,6 +834,7 @@
 	winset(src, "rpane.forumb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.rulesb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.githubb", "background-color=#40628a;text-color=#FFFFFF")
+  winset(src, "rpane.webmap", "background-color=#40628a;text-color=#FFFFFF")
 	/* Outputwindow */
 	winset(src, "outputwindow.saybutton", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "outputwindow.mebutton", "background-color=#40628a;text-color=#FFFFFF")
@@ -853,6 +867,7 @@
 	winset(src, "rpane.forumb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.rulesb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.githubb", "background-color=none;text-color=#000000")
+  winset(src, "rpane.webmap", "background-color=none;text-color=#000000")
 	/* Outputwindow */
 	winset(src, "outputwindow.saybutton", "background-color=none;text-color=#000000")
 	winset(src, "outputwindow.mebutton", "background-color=none;text-color=#000000")
