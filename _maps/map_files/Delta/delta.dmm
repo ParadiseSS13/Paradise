@@ -47334,15 +47334,6 @@
 	},
 /area/maintenance/port)
 "bZI" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 3;
@@ -48253,11 +48244,6 @@
 /turf/simulated/wall,
 /area/maintenance/port)
 "cbE" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 4;
@@ -51925,16 +51911,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "cke" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -131134,10 +131110,10 @@ bWH
 cHA
 bZI
 cbE
-cly
-dna
-cHs
-cAS
+dhG
+dtP
+cNh
+drn
 cke
 cly
 dna
