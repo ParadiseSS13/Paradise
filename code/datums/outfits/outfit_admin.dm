@@ -34,7 +34,7 @@
 	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/syndicate
 	id = /obj/item/card/id/syndicate
-	r_pocket = /obj/item/radio/uplink
+	r_pocket = /obj/item/radio/uplink/agent
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1,
 		/obj/item/flashlight = 1,
@@ -55,7 +55,7 @@
 	if(istype(I))
 		apply_to_card(I, H, get_syndicate_access(id_access), name, id_icon)
 
-	var/obj/item/radio/uplink/U = H.r_store
+	var/obj/item/radio/uplink/agent/U = H.r_store
 	if(istype(U))
 		U.uplink.uplink_owner = "[H.key]"
 		U.uplink.crystals = uplink_crystals
@@ -399,7 +399,7 @@
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/suppressor = 1,
 		/obj/item/card/emag = 1,
-		/obj/item/radio/uplink = 1,
+		/obj/item/radio/uplink/agent = 1,
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
 		/obj/item/flashlight = 1
 	)

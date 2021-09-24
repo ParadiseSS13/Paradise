@@ -341,7 +341,7 @@
 						freq += 1
 				freq = freqlist[rand(1, freqlist.len)]
 
-				var/datum/uplink/T = new(R)
+				var/datum/uplink/agent/T = new(R)
 				target_radio.uplink = T
 				T.uplink_owner = "[traitor_mob.key]"
 				target_radio.traitor_frequency = freq
@@ -351,7 +351,7 @@
 				// generate a passcode if the uplink is hidden in a PDA
 				var/pda_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
 
-				var/datum/uplink/T = new(R)
+				var/datum/uplink/agent/T = new(R)
 				R.uplink = T
 				T.uplink_owner = "[traitor_mob.key]"
 				var/obj/item/pda/P = R

@@ -6,7 +6,7 @@
 	origin_tech = "materials=4;magnets=4;programming=4;biotech=4;syndicate=5;bluespace=5"
 
 /obj/item/implant/uplink/New()
-	uplink = new /datum/uplink(src)
+	uplink = new /datum/uplink/agent(src)
 	uplink.crystals = 10
 	..()
 

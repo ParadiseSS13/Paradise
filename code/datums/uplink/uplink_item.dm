@@ -15,12 +15,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 					continue
 				if(I.on_uplink_type.len)
 					for(var/position in 1 to I.on_uplink_type.len)
-						if(!(I.on_uplink_type[position] & uplink_type))
+						if(!istype(uplink_type, I.on_uplink_type[position]))
 							continue is_allowed_on_uplink
 
 				if(I.exclude_from_uplink_type.len)
 					for(var/position in 1 to I.exclude_from_uplink_type.len)
-						if(I.exclude_from_uplink_type[position] & uplink_type)
+						if(istype(uplink_type, I.exclude_from_uplink_type[position]))
 							continue is_allowed_on_uplink
 				if(I.last)
 					last += I
@@ -1781,7 +1781,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, datum/uplink/U)
 	var/obj/structure/closet/crate/C = new(loc)
-	var/list/temp_uplink_list = get_uplink_items()
+	var/list/temp_uplink_list = get_uplink_items(UPLINK_TRAITOR)
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]

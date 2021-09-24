@@ -78,7 +78,7 @@
 		var/lock_code = "[rand(100,999)] [pick("Alpha","Bravo","Charlie","Delta","Echo","Foxtrot","Golf","Hotel","India","Juliet","Kilo","Lima","Mike","November","Oscar","Papa","Quebec","Romeo","Sierra","Tango","Uniform","Victor","Whiskey","X-ray","Yankee","Zulu")]"
 		user.show_message("<span class='notice'>Virus Sent!  The unlock code to the target is: [lock_code]</span>")
 		if(!P.uplink)
-			var/datum/uplink/uplink = new(P)
+			var/datum/uplink/agent/uplink = new(P)
 			P.uplink = uplink
 			P.lock_code = lock_code
 		else

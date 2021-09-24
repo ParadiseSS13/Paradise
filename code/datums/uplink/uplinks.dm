@@ -15,10 +15,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/obj/uplink_holder
 
 	var/used_TC = 0
-
 	var/job = null
 	var/temp_category
-	var/uplink_type = UPLINK_TRAITOR
 
 	/// Whether the uplink is jammed and cannot be used to order items.
 	var/is_jammed = FALSE
@@ -26,22 +24,19 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	/// Whether the uplink is in use or not
 	var/active
 
-/datum/uplink/operative
-	uplink_type = UPLINK_OPERATIVE
-
-/datum/uplink/sst
-	uplink_type = UPLINK_SST
-
-/datum/uplink/admin
-	uplink_type = UPLINK_ADMIN
-
 /datum/uplink/New(new_uplink_holder)
-	..()
 	uplink_holder = new_uplink_holder
 	crystals = SSticker.mode.uplink_crystals
-	uplink_items = get_uplink_items(uplink_type)
-
+	uplink_items = get_uplink_items(src)
 	GLOB.world_uplinks += src
+
+/datum/uplink/agent
+
+/datum/uplink/operative
+
+/datum/uplink/sst
+
+/datum/uplink/admin
 
 /datum/uplink/Destroy()
 	GLOB.world_uplinks -= src
@@ -229,15 +224,17 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 //
 // Includes normal radio uplink, multitool uplink,
 // implant uplink (not the implant tool) and a preset headset uplink.
-
 /obj/item/radio/uplink/New()
 	..()
 	icon_state = "radio"
-	uplink = new /datum/uplink(src)
 
 /obj/item/radio/uplink/attack_self(mob/user)
 	if(uplink)
 		uplink.trigger(user)
+
+/obj/item/radio/uplink/agent/New()
+	..()
+	uplink = new /datum/uplink/agent(src)
 
 /obj/item/radio/uplink/nuclear/New()
 	..()
@@ -254,7 +251,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/multitool/uplink/New()
 	..()
-	uplink = new /datum/uplink(src)
+	uplink = new /datum/uplink/agent(src)
 
 /obj/item/multitool/uplink/attack_self(mob/user as mob)
 	if(uplink)
@@ -265,4 +262,4 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/radio/headset/uplink/New()
 	..()
-	uplink = new /datum/uplink(src)
+	uplink = new /datum/uplink/agent(src)

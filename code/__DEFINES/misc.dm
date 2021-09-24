@@ -498,7 +498,7 @@
 #define RUNECHAT_SYMBOL_EMOTE 1
 
 // Uplink types
-#define UPLINK_TRAITOR 		(1<<0)
-#define UPLINK_OPERATIVE	(1<<1)
-#define UPLINK_SST 			(1<<2)
-#define UPLINK_ADMIN 		(1<<3)
+#define UPLINK_TRAITOR 		/datum/uplink/agent
+#define UPLINK_OPERATIVE	/datum/uplink/operative
+#define UPLINK_SST 			/datum/uplink/sst
+#define UPLINK_ADMIN 		/datum/uplink/admin
