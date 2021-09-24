@@ -89,14 +89,16 @@
 	. = TRUE
 	if(shock(user, 100))
 		return
-	if(!cuttable)
-		if(W.use_tool(src, user, FULL_CUT_TIME * W.toolspeed, volume = W.tool_volume))
-			visible_message("<span class='notice'>\The [user] completely dismantles \the [src].</span>")
-			to_chat(user, "<span class='info'>You completely take apart \the [src].</span>")
-			qdel(src)
-		return
 	if(invulnerable)
 		to_chat(user, "<span class='warning'>This fence is too strong to cut through!</span>")
+		return
+	if(!cuttable)
+		visible_message("<span class='danger'>[user] starts dismantling [src] with [W].</span>")
+		to_chat(user, "<span class='danger'>You start dismantling [src] with [W].</span>")
+		if(W.use_tool(src, user, FULL_CUT_TIME * W.toolspeed, volume = W.tool_volume))
+			visible_message("<span class='notice'>[user] completely dismantles [src].</span>")
+			to_chat(user, "<span class='info'>You completely dismantle [src].</span>")
+			qdel(src)
 		return
 	var/current_stage = hole_size
 	user.visible_message("<span class='danger'>\The [user] starts cutting through \the [src] with \the [W].</span>",\
