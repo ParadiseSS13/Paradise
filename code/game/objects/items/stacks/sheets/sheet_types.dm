@@ -111,11 +111,10 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	desc = "Sheets made out of metal."
 	singular_name = "metal sheet"
 	icon_state = "sheet-metal"
-	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT)
 	throwforce = 10.0
 	flags = CONDUCT
 	resistance_flags = FIRE_PROOF
-	origin_tech = "materials=1"
 	merge_type = /obj/item/stack/sheet/metal
 	point_value = 2
 
@@ -161,7 +160,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	desc = "This sheet is an alloy of iron and plasma."
 	icon_state = "sheet-plasteel"
 	item_state = "sheet-metal"
-	materials = list(MAT_METAL=2000, MAT_PLASMA=2000)
+	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
 	resistance_flags = FIRE_PROOF
 	throwforce = 10.0
@@ -174,9 +173,9 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	recipes = GLOB.plasteel_recipes
 	return ..()
 
-/obj/item/stack/sheet/wood/cyborg
-	energy_type = /datum/robot_energy_storage/wood
-	is_cyborg = TRUE
+/obj/item/stack/sheet/plasteel/lowplasma
+	desc = "This sheet is an alloy of iron and plasma. There are an special barcode 'Low Plasma Level'"
+	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = 200)
 
 /*
  * Wood
@@ -226,6 +225,10 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 /obj/item/stack/sheet/wood/New(loc, amount=null)
 	recipes = GLOB.wood_recipes
 	return ..()
+
+/obj/item/stack/sheet/wood/cyborg
+	energy_type = /datum/robot_energy_storage/wood
+	is_cyborg = TRUE
 
 /*
  * Cloth
@@ -359,7 +362,6 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	desc = "Large sheets of card, like boxes folded flat."
 	singular_name = "cardboard sheet"
 	icon_state = "sheet-card"
-	origin_tech = "materials=1"
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/cardboard
 
