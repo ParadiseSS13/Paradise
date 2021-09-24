@@ -94,7 +94,7 @@
 			visible_message("<span class='notice'>\The [user] completely dismantles \the [src].</span>")
 			to_chat(user, "<span class='info'>You completely take apart \the [src].</span>")
 			qdel(src)
-			return
+		return
 	if(invulnerable)
 		to_chat(user, "<span class='warning'>This fence is too strong to cut through!</span>")
 		return
