@@ -75,6 +75,7 @@
 	if(mover.throwing)
 		return TRUE
 	mover_dir = get_dir(loc, target)
+	//Due to how the other check is done, it would always return density for ordinal directions no matter what
 	if(ordinal_direction_check())
 		return FALSE
 	if(mover_dir != dir)
