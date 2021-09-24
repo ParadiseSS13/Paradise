@@ -206,16 +206,28 @@
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
 	add_fingerprint(user)
-	if(!blood_DNA)
-		return
-	if(blood_overlay && (blood_DNA.len >= 1))	//updated blood overlay, if any
-		overlays.Cut()	//this might delete other item overlays as well but eeeeeh
+	if(blood_overlay)	//updated blood overlay, if any
+		var/blood_color = blood_overlay.color
+		cut_overlay(blood_overlay)
+		qdel(blood_overlay)
+		add_blood_overlay(blood_color)
 
-		var/icon/I = new /icon(icon, icon_state)
-		I.Blend(new /icon('icons/effects/blood.dmi', rgb(255,255,255)), ICON_ADD)
-		I.Blend(new /icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY)
-		blood_overlay = I
-		overlays += blood_overlay
+/obj/item/scythe/tele/blood_splatter_index()
+	return "\ref[icon]-[icon_state]"
+
+/obj/item/scythe/tele/add_blood_overlay(color)
+	var/index = blood_splatter_index()
+	var/icon/blood_splatter_icon = GLOB.blood_splatter_icons[index]
+	if(!blood_splatter_icon)
+		blood_splatter_icon = icon(icon, icon_state)
+		blood_splatter_icon.Blend("#ffffff", ICON_ADD)
+		blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY)
+		blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
+		GLOB.blood_splatter_icons[index] = blood_splatter_icon
+
+	blood_overlay = image(blood_splatter_icon)
+	blood_overlay.color = color
+	add_overlay(blood_overlay)
 
 
 // *************************************
