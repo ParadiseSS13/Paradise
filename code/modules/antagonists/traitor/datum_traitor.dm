@@ -341,8 +341,8 @@
 						freq += 1
 				freq = freqlist[rand(1, freqlist.len)]
 
-				var/obj/item/uplink/hidden/T = new(R)
-				target_radio.hidden_uplink = T
+				var/datum/uplink/T = new(R)
+				target_radio.uplink = T
 				T.uplink_owner = "[traitor_mob.key]"
 				target_radio.traitor_frequency = freq
 				to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features.")
@@ -351,8 +351,8 @@
 				// generate a passcode if the uplink is hidden in a PDA
 				var/pda_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
 
-				var/obj/item/uplink/hidden/T = new(R)
-				R.hidden_uplink = T
+				var/datum/uplink/T = new(R)
+				R.uplink = T
 				T.uplink_owner = "[traitor_mob.key]"
 				var/obj/item/pda/P = R
 				P.lock_code = pda_pass

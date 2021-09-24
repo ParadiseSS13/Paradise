@@ -4,7 +4,7 @@
 	required_players = 0
 
 	uplink_welcome = "Syndicate Uplink Console:"
-	uplink_uses = 10
+	uplink_crystals = 10
 
 /datum/game_mode/sandbox/announce()
 	to_chat(world, "<B>The current game mode is - Sandbox!</B>")

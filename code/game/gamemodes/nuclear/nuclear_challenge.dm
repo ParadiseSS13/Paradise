@@ -71,12 +71,12 @@
 	remainder = total_tc % GLOB.nuclear_uplink_list.len
 
 	for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
-		U.hidden_uplink.uses += player_tc
+		U.uplink.crystals += player_tc
 	while(remainder > 0)
 		for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
 			if(remainder <= 0)
 				break
-			U.hidden_uplink.uses++
+			U.uplink.crystals++
 			remainder--
 
 /obj/item/nuclear_challenge/proc/check_allowed(mob/living/user)

@@ -13,15 +13,15 @@
 	if(target == user) //You can't go around smacking people with crystals to find out if they have an uplink or not.
 		for(var/obj/item/implant/uplink/I in target)
 			if(I && I.imp_in)
-				I.hidden_uplink.uses += amount
+				I.uplink.crystals += amount
 				use(amount)
 				to_chat(user, "<span class='notice'>You press [src] onto yourself and charge your hidden uplink.</span>")
 
 /obj/item/stack/telecrystal/afterattack(obj/item/I, mob/user, proximity)
 	if(!proximity)
 		return
-	if(istype(I) && I.hidden_uplink && I.hidden_uplink.active) //No metagaming by using this on every PDA around just to see if it gets used up.
-		I.hidden_uplink.uses += amount
+	if(istype(I) && I.uplink && I.uplink.active) //No metagaming by using this on every PDA around just to see if it gets used up.
+		I.uplink.crystals += amount
 		use(amount)
 		to_chat(user, "<span class='notice'>You slot [src] into [I] and charge its internal uplink.</span>")
 	else if(istype(I, /obj/item/cartridge/frame))

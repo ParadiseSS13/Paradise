@@ -392,7 +392,7 @@
 				continue
 			else if(istype(I, /obj/item/implant/uplink)) // Uplink stays, but is jammed while in jail
 				var/obj/item/implant/uplink/uplink_implant = I
-				uplink_implant.hidden_uplink.is_jammed = TRUE
+				uplink_implant.uplink.is_jammed = TRUE
 				continue
 			else if(is_type_in_typecache(I, implants_to_keep))
 				continue
@@ -500,7 +500,7 @@
 
 	// Clean up
 	var/obj/item/implant/uplink/uplink_implant = locate() in M
-	uplink_implant?.hidden_uplink?.is_jammed = FALSE
+	uplink_implant?.uplink?.is_jammed = FALSE
 
 	QDEL_LIST(temp_objs)
 

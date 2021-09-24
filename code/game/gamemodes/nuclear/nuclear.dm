@@ -154,12 +154,12 @@
 	remainder = total_tc % GLOB.nuclear_uplink_list.len
 
 	for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
-		U.hidden_uplink.uses += player_tc
+		U.uplink.crystals += player_tc
 	while(remainder > 0)
 		for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
 			if(remainder <= 0)
 				break
-			U.hidden_uplink.uses++
+			U.uplink.crystals++
 			remainder--
 
 /datum/game_mode/proc/create_syndicate(datum/mind/synd_mind, obj/machinery/nuclearbomb/syndicate/the_bomb) // So we don't have inferior species as ops - randomize a human
@@ -258,7 +258,7 @@
 	return 1337 // WHY??? -- Doohl
 
 
-/datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob, uplink_uses = 20)
+/datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob, uplink_crystals = 20)
 	var/radio_freq = SYND_FREQ
 
 	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt(synd_mob)
@@ -274,8 +274,8 @@
 	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(synd_mob.back), slot_in_backpack)
 	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), slot_wear_pda)
 	var/obj/item/radio/uplink/nuclear/U = new /obj/item/radio/uplink/nuclear(synd_mob)
-	U.hidden_uplink.uplink_owner="[synd_mob.key]"
-	U.hidden_uplink.uses = uplink_uses
+	U.uplink.uplink_owner="[synd_mob.key]"
+	U.uplink.crystals = uplink_crystals
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
 
 	if(synd_mob.dna.species)
@@ -401,7 +401,7 @@
 			else
 				text += "body destroyed"
 			text += ")"
-			for(var/obj/item/uplink/H in GLOB.world_uplinks)
+			for(var/datum/uplink/H in GLOB.world_uplinks)
 				if(H && H.uplink_owner && H.uplink_owner==syndicate.key)
 					TC_uses += H.used_TC
 					purchases += H.purchase_log

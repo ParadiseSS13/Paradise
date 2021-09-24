@@ -44,7 +44,7 @@
 
 	var/id_icon = "syndie"
 	var/id_access = "Syndicate Operative"
-	var/uplink_uses = 20
+	var/uplink_crystals = 20
 
 /datum/outfit/admin/syndicate/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -57,8 +57,8 @@
 
 	var/obj/item/radio/uplink/U = H.r_store
 	if(istype(U))
-		U.hidden_uplink.uplink_owner = "[H.key]"
-		U.hidden_uplink.uses = uplink_uses
+		U.uplink.uplink_owner = "[H.key]"
+		U.uplink.crystals = uplink_crystals
 
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
@@ -122,7 +122,7 @@
 	name = "Syndicate Spy"
 	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
-	uplink_uses = 40
+	uplink_crystals = 40
 	id_access = "Syndicate Agent"
 
 	implants = list(

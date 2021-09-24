@@ -159,9 +159,9 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	var/obj/item/implant/uplink/sit/U = new /obj/item/implant/uplink/sit(src)
 	U.implant(src)
 	if (flag_mgmt)
-		U.hidden_uplink.uses = 500
+		U.uplink.crystals = 500
 	else
-		U.hidden_uplink.uses = num_tc
+		U.uplink.crystals = num_tc
 	// Dust
 	var/obj/item/implant/dust/D = new /obj/item/implant/dust(src)
 	D.implant(src)

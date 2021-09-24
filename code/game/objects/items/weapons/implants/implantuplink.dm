@@ -6,35 +6,33 @@
 	origin_tech = "materials=4;magnets=4;programming=4;biotech=4;syndicate=5;bluespace=5"
 
 /obj/item/implant/uplink/New()
-	hidden_uplink = new(src)
-	hidden_uplink.uses = 10
+	uplink = new /datum/uplink(src)
+	uplink.crystals = 10
 	..()
 
 /obj/item/implant/uplink/sit/New()
 	..()
-	if(hidden_uplink)
-		hidden_uplink.uplink_type = "sit"
+	uplink = new /datum/uplink/sst(src)
 
 /obj/item/implant/uplink/admin/New()
 	..()
-	if(hidden_uplink)
-		hidden_uplink.uplink_type = "admin"
+	uplink = new /datum/uplink/admin(src)
 
 /obj/item/implant/uplink/implant(mob/source)
 	var/obj/item/implant/imp_e = locate(src.type) in source
 	if(imp_e && imp_e != src)
-		imp_e.hidden_uplink.uses += hidden_uplink.uses
+		imp_e.uplink.crystals += uplink.crystals
 		qdel(src)
 		return 1
 
 	if(..())
-		hidden_uplink.uplink_owner="[source.key]"
+		uplink.uplink_owner="[source.key]"
 		return 1
 	return 0
 
 /obj/item/implant/uplink/activate()
-	if(hidden_uplink)
-		hidden_uplink.check_trigger(imp_in)
+	if(uplink)
+		uplink.check_trigger(imp_in)
 
 
 /obj/item/implanter/uplink

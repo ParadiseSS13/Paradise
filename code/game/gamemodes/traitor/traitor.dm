@@ -90,7 +90,7 @@
 			var/TC_uses = 0
 			var/uplink_true = 0
 			var/purchases = ""
-			for(var/obj/item/uplink/H in GLOB.world_uplinks)
+			for(var/datum/uplink/H in GLOB.world_uplinks)
 				if(H && H.uplink_owner && H.uplink_owner==traitor.key)
 					TC_uses += H.used_TC
 					uplink_true=1

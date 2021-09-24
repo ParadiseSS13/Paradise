@@ -1,15 +1,7 @@
-//This could either be split into the proper DM files or placed somewhere else all together, but it'll do for now -Nodrak
-
-/*
-
-A list of items and costs is stored under the datum of every game mode, alongside the number of crystals, and the welcoming message.
-
-*/
-
 GLOBAL_LIST_EMPTY(world_uplinks)
 
-/obj/item/uplink
-	var/uses 				// Numbers of crystals
+/datum/uplink
+	var/crystals 				// Numbers of crystals
 	var/hidden_crystals = 0
 	/// List of categories with items inside
 	var/list/uplink_cats
@@ -17,26 +9,41 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/list/uplink_items
 
 	var/purchase_log = ""
-	var/uplink_owner = null//text-only
+	var/uplink_owner = null //text-only
+
+	/// Reference to the object this uplink is attached to
+	var/obj/uplink_holder
+
 	var/used_TC = 0
 
 	var/job = null
 	var/temp_category
-	var/uplink_type = "traitor"
+	var/uplink_type = UPLINK_TRAITOR
+
 	/// Whether the uplink is jammed and cannot be used to order items.
 	var/is_jammed = FALSE
 
-/obj/item/uplink/ui_host()
-	return loc
+	/// Whether the uplink is in use or not
+	var/active
 
-/obj/item/uplink/New()
+/datum/uplink/operative
+	uplink_type = UPLINK_OPERATIVE
+
+/datum/uplink/sst
+	uplink_type = UPLINK_SST
+
+/datum/uplink/admin
+	uplink_type = UPLINK_ADMIN
+
+/datum/uplink/New(new_uplink_holder)
 	..()
-	uses = SSticker.mode.uplink_uses
-	uplink_items = get_uplink_items()
+	uplink_holder = new_uplink_holder
+	crystals = SSticker.mode.uplink_crystals
+	uplink_items = get_uplink_items(uplink_type)
 
 	GLOB.world_uplinks += src
 
-/obj/item/uplink/Destroy()
+/datum/uplink/Destroy()
 	GLOB.world_uplinks -= src
 	return ..()
 
@@ -48,7 +55,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
   * Arguments:
   * * user - User to check
   */
-/obj/item/uplink/proc/generate_item_lists(mob/user)
+/datum/uplink/proc/generate_item_lists(mob/user)
 	if(!job)
 		job = user.mind.assigned_role
 
@@ -66,20 +73,20 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	uplink_cats = cats
 
 //If 'random' was selected
-/obj/item/uplink/proc/chooseRandomItem()
-	if(uses <= 0)
+/datum/uplink/proc/chooseRandomItem()
+	if(crystals <= 0)
 		return
 
 	var/list/random_items = list()
 
 	for(var/IR in uplink_items)
 		var/datum/uplink_item/UI = uplink_items[IR]
-		if(UI.cost <= uses && UI.limited_stock != 0)
+		if(UI.cost <= crystals && UI.limited_stock != 0)
 			random_items += UI
 
 	return pick(random_items)
 
-/obj/item/uplink/proc/buy(datum/uplink_item/UI, reference)
+/datum/uplink/proc/buy(datum/uplink_item/UI, reference)
 	if(is_jammed)
 		to_chat(usr, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
 		return
@@ -95,7 +102,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	return TRUE
 
-/obj/item/uplink/proc/refund(mob/user as mob)
+/datum/uplink/proc/refund(mob/user as mob)
 	var/obj/item/I = user.get_active_hand()
 	if(I) // Make sure there's actually something in the hand before even bothering to check
 		for(var/category in uplink_items)
@@ -104,7 +111,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 				var/path = UI.refund_path || UI.item
 				var/cost = UI.refund_amount || UI.cost
 				if(I.type == path && UI.refundable && I.check_uplink_validity())
-					uses += cost
+					crystals += cost
 					used_TC -= cost
 					to_chat(user, "<span class='notice'>[I] refunded.</span>")
 					qdel(I)
@@ -112,36 +119,14 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		// If we are here, we didnt refund
 		to_chat(user, "<span class='warning'>[I] is not refundable.</span>")
 
-// HIDDEN UPLINK - Can be stored in anything but the host item has to have a trigger for it.
-/* How to create an uplink in 3 easy steps!
 
- 1. All obj/item 's have a hidden_uplink var. By default it's null. Give the item one with "new(src)", it must be in it's contents. Feel free to add "uses".
-
- 2. Code in the triggers. Use check_trigger for this, I recommend closing the item's menu with "usr << browse(null, "window=windowname") if it returns true.
- The var/value is the value that will be compared with the var/target. If they are equal it will activate the menu.
-
- 3. If you want the menu to stay until the users locks his uplink, add an active_uplink_check(mob/user as mob) in your interact/attack_hand proc.
- Then check if it's true, if true return. This will stop the normal menu appearing and will instead show the uplink menu.
-*/
-
-/obj/item/uplink/hidden
-	name = "hidden uplink"
-	desc = "There is something wrong if you're examining this."
-	var/active = 0
-
-// The hidden uplink MUST be inside an obj/item's contents.
-/obj/item/uplink/hidden/New()
-	spawn(2)
-		if(!istype(src.loc, /obj/item))
-			qdel(src)
-	..()
 
 // Toggles the uplink on and off. Normally this will bypass the item's normal functions and go to the uplink menu, if activated.
-/obj/item/uplink/hidden/proc/toggle()
+/datum/uplink/proc/toggle()
 	active = !active
 
 // Directly trigger the uplink. Turn on if it isn't already.
-/obj/item/uplink/hidden/proc/trigger(mob/user as mob)
+/datum/uplink/proc/trigger(mob/user as mob)
 	if(!active)
 		toggle()
 	interact(user)
@@ -149,7 +134,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 // Checks to see if the value meets the target. Like a frequency being a traitor_frequency, in order to unlock a headset.
 // If true, it accesses trigger() and returns 1. If it fails, it returns false. Use this to see if you need to close the
 // current item's menu.
-/obj/item/uplink/hidden/proc/check_trigger(mob/user, value, target)
+/datum/uplink/proc/check_trigger(mob/user, value, target)
 	if(is_jammed)
 		to_chat(user, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
 		return
@@ -158,20 +143,23 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		return TRUE
 	return FALSE
 
-/obj/item/uplink/hidden/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+/datum/uplink/ui_host(mob/user)
+	return uplink_holder
+
+/datum/uplink/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Uplink", name, 900, 600, master_ui, state)
+		ui = new(user, src, ui_key, "Uplink", uplink_holder.name, 900, 600, master_ui, state = state)
 		ui.open()
 
-/obj/item/uplink/hidden/ui_data(mob/user)
+/datum/uplink/ui_data(mob/user)
 	var/list/data = list()
 
-	data["crystals"] = uses
+	data["crystals"] = crystals
 
 	return data
 
-/obj/item/uplink/hidden/ui_static_data(mob/user)
+/datum/uplink/ui_static_data(mob/user)
 	var/list/data = list()
 
 	// Actual items
@@ -197,11 +185,11 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 
 // Interaction code. Gathers a list of items purchasable from the paren't uplink and displays it. It also adds a lock button.
-/obj/item/uplink/hidden/interact(mob/user)
+/datum/uplink/proc/interact(mob/user)
 	ui_interact(user)
 
 // The purchasing code.
-/obj/item/uplink/hidden/ui_act(action, list/params)
+/datum/uplink/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -209,7 +197,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	switch(action)
 		if("lock")
 			toggle()
-			uses += hidden_crystals
+			crystals += hidden_crystals
 			hidden_crystals = 0
 			SStgui.close_uis(src)
 
@@ -228,13 +216,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 // You place this in your uplinkable item to check if an uplink is active or not.
 // If it is, it will display the uplink menu and return 1, else it'll return false.
 // If it returns true, I recommend closing the item's normal menu with "user << browse(null, "window=name")"
-/obj/item/proc/active_uplink_check(mob/user as mob)
+/obj/item/proc/active_uplink_check(mob/user)
 	// Activates the uplink if it's active
-	if(src.hidden_uplink)
-		if(src.hidden_uplink.active)
-			src.hidden_uplink.trigger(user)
-			return 1
-	return 0
+	if(src.uplink)
+		if(src.uplink.active)
+			src.uplink.trigger(user)
+			return TRUE
+	return FALSE
 
 // PRESET UPLINKS
 // A collection of preset uplinks.
@@ -244,17 +232,16 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/radio/uplink/New()
 	..()
-	hidden_uplink = new(src)
 	icon_state = "radio"
+	uplink = new /datum/uplink(src)
 
-/obj/item/radio/uplink/attack_self(mob/user as mob)
-	if(hidden_uplink)
-		hidden_uplink.trigger(user)
+/obj/item/radio/uplink/attack_self(mob/user)
+	if(uplink)
+		uplink.trigger(user)
 
 /obj/item/radio/uplink/nuclear/New()
 	..()
-	if(hidden_uplink)
-		hidden_uplink.uplink_type = "nuclear"
+	uplink = new /datum/uplink/operative(src)
 	GLOB.nuclear_uplink_list += src
 
 /obj/item/radio/uplink/nuclear/Destroy()
@@ -263,21 +250,19 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/radio/uplink/sst/New()
 	..()
-	if(hidden_uplink)
-		hidden_uplink.uplink_type = "sst"
+	uplink = new /datum/uplink/sst(src)
 
 /obj/item/multitool/uplink/New()
 	..()
-	hidden_uplink = new(src)
+	uplink = new /datum/uplink(src)
 
 /obj/item/multitool/uplink/attack_self(mob/user as mob)
-	if(hidden_uplink)
-		hidden_uplink.trigger(user)
+	if(uplink)
+		uplink.trigger(user)
 
 /obj/item/radio/headset/uplink
 	traitor_frequency = 1445
 
 /obj/item/radio/headset/uplink/New()
 	..()
-	hidden_uplink = new(src)
-	hidden_uplink.uses = 20
+	uplink = new /datum/uplink(src)

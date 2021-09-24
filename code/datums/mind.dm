@@ -388,10 +388,10 @@
 		(has_antag_datum(/datum/antagonist/traitor)) || \
 		(src in SSticker.mode.syndicates)))
 		. = "Uplink: <a href='?src=[UID()];common=uplink'>give</a>"
-		var/obj/item/uplink/hidden/suplink = find_syndicate_uplink()
+		var/datum/uplink/suplink = find_syndicate_uplink()
 		var/crystals
 		if(suplink)
-			crystals = suplink.uses
+			crystals = suplink.crystals
 		if(suplink)
 			. += "|<a href='?src=[UID()];common=takeuplink'>take</a>"
 			if(usr.client.holder.rights & (R_SERVER|R_EVENT))
@@ -1405,14 +1405,14 @@
 				message_admins("[key_name_admin(usr)] has taken [key_name_admin(current)]'s uplink")
 			if("crystals")
 				if(usr.client.holder.rights & (R_SERVER|R_EVENT))
-					var/obj/item/uplink/hidden/suplink = find_syndicate_uplink()
+					var/datum/uplink/suplink = find_syndicate_uplink()
 					var/crystals
 					if(suplink)
-						crystals = suplink.uses
+						crystals = suplink.crystals
 					crystals = input("Amount of telecrystals for [key]","Syndicate uplink", crystals) as null|num
 					if(!isnull(crystals))
 						if(suplink)
-							suplink.uses = crystals
+							suplink.crystals = crystals
 							log_admin("[key_name(usr)] has set [key_name(current)]'s telecrystals to [crystals]")
 							message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s telecrystals to [crystals]")
 			if("uplink")
@@ -1496,12 +1496,12 @@
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
 	for(var/obj/item/I in L)
-		if(I.hidden_uplink)
-			return I.hidden_uplink
+		if(I.uplink)
+			return I.uplink
 	return null
 
 /datum/mind/proc/take_uplink()
-	var/obj/item/uplink/hidden/H = find_syndicate_uplink()
+	var/datum/uplink/H = find_syndicate_uplink()
 	if(H)
 		qdel(H)
 

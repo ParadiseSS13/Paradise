@@ -496,3 +496,9 @@
 
 // Runechat symbol types
 #define RUNECHAT_SYMBOL_EMOTE 1
+
+// Uplink types
+#define UPLINK_TRAITOR 		(1<<0)
+#define UPLINK_OPERATIVE	(1<<1)
+#define UPLINK_SST 			(1<<2)
+#define UPLINK_ADMIN 		(1<<3)
