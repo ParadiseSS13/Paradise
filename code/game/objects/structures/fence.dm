@@ -3,6 +3,7 @@
 
 #define CUT_TIME 100
 #define CLIMB_TIME 150
+#define FULL_CUT_TIME 300
 
 #define NO_HOLE 0 //section is intact
 #define MEDIUM_HOLE 1 //medium hole in the section - can climb through
@@ -89,8 +90,11 @@
 	if(shock(user, 100))
 		return
 	if(!cuttable)
-		to_chat(user, "<span class='warning'>This section of the fence can't be cut!</span>")
-		return
+		if(W.use_tool(src, user, FULL_CUT_TIME * W.toolspeed, volume = W.tool_volume))
+			visible_message("<span class='notice'>\The [user] completely dismantles \the [src].</span>")
+			to_chat(user, "<span class='info'>You completely take apart \the [src].</span>")
+			qdel(src)
+			return
 	if(invulnerable)
 		to_chat(user, "<span class='warning'>This fence is too strong to cut through!</span>")
 		return
@@ -208,6 +212,7 @@
 
 #undef CUT_TIME
 #undef CLIMB_TIME
+#undef FULL_CUT_TIME
 
 #undef NO_HOLE
 #undef MEDIUM_HOLE
