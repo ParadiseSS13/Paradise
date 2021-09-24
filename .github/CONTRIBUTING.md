@@ -532,7 +532,7 @@ in the SQL/updates folder.
     
     ![image](https://user-images.githubusercontent.com/12197162/120619480-ecda6f00-c453-11eb-9d9f-abf0d1a99c34.png)
 
-  * Decals are to be used sparingly. Good map design does not require warning tape around everything. Decal overuse contributes to maptick slowdown.
+  * Decals are to be used sparingly. Good map design does not require warning tape around everything.
   * Every **area** should contain only one APC and air alarm.
     * Critical infrastructure rooms (such as the engine, arrivals, and medbay areas) should be given an APC with a larger power cell.
   * Every **room** should contain at least one fire alarm, air vent and scrubber, light switch, station intercom, and security camera.
