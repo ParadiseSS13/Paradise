@@ -3,7 +3,7 @@
 	block_chance = 75
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/cqc/slam, /datum/martial_combo/cqc/restrain, /datum/martial_combo/cqc/consecutive)
-	var/restraining = FALSE //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
+	var/restraining = FALSE //used in cqc's disarm_act to check if the victim is being restrained
 	var/static/list/areas_under_siege = typecacheof(list(/area/crew_quarters/kitchen,
 														/area/crew_quarters/cafeteria,
 														/area/crew_quarters/bar))
@@ -20,6 +20,10 @@
 /datum/martial_art/cqc/proc/drop_restraining()
 	restraining = FALSE
 
+/datum/martial_art/cqc/help_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	MARTIAL_ARTS_ACT_CHECK
+	///Gotta put Help Combo Here
+
 /datum/martial_art/cqc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = D.grabbedby(A, 1)
@@ -27,10 +31,21 @@
 		G.state = GRAB_AGGRESSIVE //Instant aggressive grab
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : aggressively grabbed", ATKLOG_ALL)
 
+	if(restraining && istype(G) && G.affecting == D)
+		///Gotta put Grab Combo Here
+	else
+		restraining = FALSE
+
 	return TRUE
 
 /datum/martial_art/cqc/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
+	var/obj/item/grab/G = A.get_inactive_hand()
+	if(restraining && istype(G) && G.affecting == D)
+		///Gotta put Harm Combo Here
+	else
+		restraining = FALSE
+
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("CQC'd", "neck chopped", "gut punched", "Big Bossed")
@@ -60,10 +75,22 @@
 	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = A.get_inactive_hand()
 	if(restraining && istype(G) && G.affecting == D)
-		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
-							"<span class='userdanger'>[A] puts you into a chokehold!</span>")
-		D.SetSleeping(20)
-		restraining = FALSE
+		for(var/stage = 1, stage<=3, stage++)
+			switch(stage)
+				if(1)
+					to_chat(A, "<span class='notice'>You lock your arms tighter around [D]'s neck!</span>")
+					D.Jitter(4)
+				if(2)
+					to_chat(A, "<span class='notice'You notice [D]'s struggles becoming weaker!</span>")
+					D.visible_message("<span class='warning'>[A] drags [D] down to the ground!</span>")
+					D.AdjustSilence(5)
+				if(3)
+					to_chat(A, "<span class='notice'>You drag [D]'s limp body to the ground!</span>")
+					D.visible_message("<span class='danger'>[A] knocks out [D]!</span>")
+					D.AdjustSleeping(15)
+			if(!do_mob(A, D, 30))
+				to_chat(A, "<span class='warning'>You lose your chokehold on [D]!</span>")
+				return
 		if(G.state < GRAB_NECK)
 			G.state = GRAB_NECK
 		return TRUE
