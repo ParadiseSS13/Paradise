@@ -62804,7 +62804,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "Medbay Junction";
-	sortType = 13
+	sortType = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
