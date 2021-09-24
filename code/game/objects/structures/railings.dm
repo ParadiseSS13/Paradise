@@ -75,19 +75,8 @@
 	if(mover.throwing)
 		return TRUE
 	mover_dir = get_dir(loc, target)
-	switch(dir)
-		if(5)
-			if(mover_dir == 1 || mover_dir == 4)
-				return FALSE
-		if(6)
-			if(mover_dir == 2 || mover_dir == 4)
-				return FALSE
-		if(9)
-			if(mover_dir == 1 || mover_dir == 8)
-				return FALSE
-		if(10)
-			if(mover_dir == 2 || mover_dir == 8)
-				return FALSE
+	if(ordinal_direction_check())
+		return FALSE
 	if(mover_dir != dir)
 		return density
 	return FALSE
@@ -110,20 +99,26 @@
 	mover_dir = get_dir(O.loc, target)
 	if(mover_dir == dir)
 		return FALSE
+	if(ordinal_direction_check())
+		return FALSE
+	return TRUE
+
+// Checks if the direction the mob is trying to move towards would be blocked by a corner railing
+/obj/structure/railing/proc/ordinal_direction_check()
 	switch(dir)
 		if(5)
 			if(mover_dir == 1 || mover_dir == 4)
-				return FALSE
+				return TRUE
 		if(6)
 			if(mover_dir == 2 || mover_dir == 4)
-				return FALSE
+				return TRUE
 		if(9)
 			if(mover_dir == 1 || mover_dir == 8)
-				return FALSE
+				return TRUE
 		if(10)
 			if(mover_dir == 2 || mover_dir == 8)
-				return FALSE
-	return TRUE
+				return TRUE
+	return FALSE
 
 /obj/structure/railing/do_climb(mob/living/user)
 	var/initial_mob_loc = get_turf(user)
