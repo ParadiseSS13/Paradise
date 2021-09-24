@@ -95,7 +95,7 @@
 	if(!cuttable)
 		user.visible_message("<span class='warning'>[user] starts dismantling [src] with [W].</span>",\
 		"<span class='warning'>You start dismantling [src] with [W].</span>")
-		if(W.use_tool(src, user, FULL_CUT_TIME * W.toolspeed, volume = W.tool_volume))
+		if(W.use_tool(src, user, FULL_CUT_TIME, volume = W.tool_volume))
 			user.visible_message("<span class='notice'>[user] completely dismantles [src].</span>",\
 			"<span class='info'>You completely dismantle [src].</span>")
 			qdel(src)
