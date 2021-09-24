@@ -108,6 +108,8 @@
 			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
 			throw_alert(gestalt_alert, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
 			forceMove(M)
+		else if(isrobot(M))
+			M.visible_message("<span class='notice'>[M] playfully boops [src] on the head!</span>", "<span class='notice'>You playfully boop [src] on the head!</span>")
 		else
 			get_scooped(M)
 	else

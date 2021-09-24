@@ -834,6 +834,7 @@
 	winset(src, "rpane.forumb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.rulesb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.githubb", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.webmap", "background-color=#40628a;text-color=#FFFFFF")
 	/* Mainwindow */
 	winset(src, "mainwindow.saybutton", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "mainwindow.mebutton", "background-color=#40628a;text-color=#FFFFFF")
@@ -866,6 +867,7 @@
 	winset(src, "rpane.forumb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.rulesb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.githubb", "background-color=none;text-color=#000000")
+	winset(src, "rpane.webmap", "background-color=none;text-color=#000000")
 	/* Mainwindow */
 	winset(src, "mainwindow.saybutton", "background-color=none;text-color=#000000")
 	winset(src, "mainwindow.mebutton", "background-color=none;text-color=#000000")
