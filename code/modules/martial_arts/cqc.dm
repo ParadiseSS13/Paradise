@@ -79,7 +79,7 @@
 			switch(stage)
 				if(1)
 					to_chat(A, "<span class='notice'>You lock your arms tighter around [D]'s neck!</span>")
-					D.Jitter(4)
+					D.Stuttering(4)
 				if(2)
 					to_chat(A, "<span class='notice'You notice [D]'s struggles becoming weaker!</span>")
 					D.visible_message("<span class='warning'>[A] drags [D] down to the ground!</span>")
