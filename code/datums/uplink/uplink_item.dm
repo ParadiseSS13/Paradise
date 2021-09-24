@@ -77,7 +77,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/cost = 0
 	var/last = 0 // Appear last
 	var/abstract = 0
-	var/list/on_uplink_type = list() //Empty means it is in all uplink types. Otherwise place the uplink type defined in code\datums\uplink\uplinks.dm here.
+	var/list/on_uplink_type = list() //Empty means it is in all uplink types. Otherwise place the uplink type defined in code/__DEFINES/misc.dm here.
 	var/list/exclude_from_uplink_type = list() //Empty does nothing. Place the name of the uplink type you don't want this item to be available in here. This is so you dont have to list EVERY mode to exclude something.
 	var/list/job = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
