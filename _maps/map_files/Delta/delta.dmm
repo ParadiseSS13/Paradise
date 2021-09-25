@@ -5222,7 +5222,7 @@
 /area/engine/controlroom)
 "ate" = (
 /obj/structure/table/wood,
-/obj/item/circuitboard/arcade,
+/obj/item/circuitboard/arcade/battle,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -17321,7 +17321,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
+	req_access_txt = "46"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -17420,6 +17420,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/maintenance{
+	name = "Entertainment Office";
 	req_access_txt = "46"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -61562,6 +61563,8 @@
 /obj/machinery/door/airlock/glass{
 	name = "Cabin"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -63914,7 +63917,7 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "cJr" = (
-/obj/structure/table,
+/obj/structure/table/glass,
 /obj/item/tank/internals/emergency_oxygen/nitrogen{
 	pixel_x = 5;
 	pixel_y = 5
@@ -64555,10 +64558,6 @@
 /turf/simulated/floor/wood,
 /area/hallway/primary/central)
 "cLd" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
@@ -64568,6 +64567,16 @@
 	c_tag = "Medbay Storage Room";
 	dir = 4;
 	network = list("SS13","Medical")
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/autoinjectors{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/box/iv_bags,
+/obj/item/storage/box/pillbottles{
+	pixel_x = -5;
+	pixel_y = -5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -64734,6 +64743,9 @@
 	pixel_y = 28
 	},
 /obj/machinery/cryopod,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -68890,10 +68902,7 @@
 /obj/machinery/defibrillator_mount/loaded{
 	pixel_y = 30
 	},
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
-	name = "Surgery Cleaner"
-	},
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -70774,8 +70783,14 @@
 	},
 /area/medical/medbay)
 "cYM" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/table,
 /obj/machinery/light/small,
+/obj/item/storage/box/masks,
+/obj/item/storage/box/gloves{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
@@ -70853,6 +70868,11 @@
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
+	},
+/obj/item/storage/box/masks,
+/obj/item/storage/box/gloves{
+	pixel_x = 5;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -74683,6 +74703,7 @@
 /obj/item/storage/box/bodybags,
 /obj/item/pen,
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -74768,6 +74789,7 @@
 	},
 /obj/item/screwdriver,
 /obj/effect/decal/warning_stripes/north,
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -79030,13 +79052,14 @@
 	dir = 1
 	},
 /obj/structure/table,
+/obj/item/storage/box/masks,
+/obj/item/storage/box/gloves{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /obj/item/reagent_containers/spray/cleaner{
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
 	name = "Surgery Cleaner"
-	},
-/obj/item/stack/medical/bruise_pack/advanced{
-	pixel_x = -5;
-	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -82320,6 +82343,10 @@
 	c_tag = "Medbay Surgery East";
 	dir = 1;
 	network = list("Medical","SS13")
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -95738,6 +95765,17 @@
 "gTW" = (
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
+"gUi" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/crew_quarters/sleep)
 "haD" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -95978,6 +96016,10 @@
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = -32
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -98106,6 +98148,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
+"oXY" = (
+/obj/machinery/cryopod/right,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/crew_quarters/sleep)
 "pcv" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -98191,6 +98242,13 @@
 	icon_state = "white"
 	},
 /area/toxins/misc_lab)
+"plm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/sleep)
 "pnF" = (
 /obj/structure/window/reinforced,
 /turf/space,
@@ -98447,6 +98505,15 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/courtroom)
+"qqh" = (
+/obj/machinery/cryopod,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/crew_quarters/sleep)
 "qqW" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
@@ -99182,6 +99249,17 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
+"sOo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/crew_quarters/sleep)
 "sPS" = (
 /obj/structure/cable,
 /obj/machinery/alarm{
@@ -99366,6 +99444,19 @@
 /obj/item/paper_bin,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
+"tvI" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/sleep)
 "txW" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -100038,6 +100129,14 @@
 	icon_state = "red"
 	},
 /area/security/brig)
+"vzs" = (
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/sleep)
 "vzz" = (
 /obj/machinery/light{
 	dir = 4
@@ -100265,6 +100364,15 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/exit)
+"why" = (
+/obj/machinery/cryopod/right,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/crew_quarters/sleep)
 "wmQ" = (
 /obj/item/radio/intercom{
 	pixel_y = 28
@@ -153880,13 +153988,13 @@ aFx
 cyY
 cyY
 cBY
-cyY
+why
 bmW
 cFv
 cGV
 cIl
 bmW
-cyY
+oXY
 cBY
 cyY
 cyY
@@ -154137,13 +154245,13 @@ aFx
 cyZ
 cAr
 cAr
-cAr
+gUi
 cEv
-cFv
-cGV
-cIk
+tvI
+vzs
+plm
 cEv
-cAr
+sOo
 cAr
 cAr
 cQj
@@ -154394,7 +154502,7 @@ aFx
 cza
 cAs
 cAs
-cAs
+qqh
 bmW
 bFh
 cGT
