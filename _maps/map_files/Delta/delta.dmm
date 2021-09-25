@@ -96847,6 +96847,14 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
+"kEm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/bikehorn/rubberducky,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/maintenance/port)
 "kGF" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
@@ -100487,7 +100495,8 @@
 	},
 /area/security/securearmoury)
 "wny" = (
-/obj/structure/closet/wardrobe/grey,
+/obj/structure/mopbucket,
+/obj/item/mop,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "wpr" = (
@@ -120993,7 +121002,7 @@ cLC
 qmG
 cHA
 drn
-dsr
+kEm
 cJK
 aaa
 cHA
