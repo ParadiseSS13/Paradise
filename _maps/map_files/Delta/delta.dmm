@@ -12104,7 +12104,9 @@
 	},
 /area/crew_quarters/sleep)
 "aHI" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
 	dir = 4;
@@ -22468,7 +22470,9 @@
 	},
 /area/crew_quarters/sleep)
 "bcn" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
@@ -23763,7 +23767,9 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "bfb" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
@@ -61626,7 +61632,9 @@
 /turf/simulated/wall/r_wall/rust,
 /area/engine/engineering)
 "cEB" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=1";
 	location = "Engineering"
@@ -65291,7 +65299,9 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
 "cMF" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	dir = 8;
@@ -83516,7 +83526,9 @@
 	codes_txt = "delivery;dir=1";
 	location = "Robotics"
 	},
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
@@ -99829,7 +99841,9 @@
 /turf/simulated/floor/plating,
 /area/security/brig)
 "unL" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	dir = 8;
@@ -100779,7 +100793,9 @@
 	codes_txt = "delivery";
 	location = "Science"
 	},
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
 /turf/simulated/floor/plating,
 /area/toxins/misc_lab)
 "xKG" = (
