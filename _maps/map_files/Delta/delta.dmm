@@ -7814,6 +7814,9 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
+/obj/structure/sign/nosmoking_2{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "ayp" = (
@@ -8177,10 +8180,12 @@
 /area/janitor)
 "azm" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/structure/sign/nosmoking_2{
-	pixel_x = 32
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 28
+	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "azn" = (
@@ -8734,12 +8739,11 @@
 	},
 /area/janitor)
 "aAx" = (
-/obj/item/reagent_containers/glass/bucket,
-/obj/structure/janitorialcart,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 28
+/obj/machinery/door/window/westleft{
+	name = "Janitoral Delivery";
+	req_access_txt = "26"
 	},
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plating,
 /area/janitor)
 "aAy" = (
@@ -9266,6 +9270,8 @@
 /obj/machinery/light_switch{
 	pixel_y = -26
 	},
+/obj/structure/janitorialcart,
+/obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
@@ -9299,6 +9305,9 @@
 	pixel_x = 25
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "aBB" = (
@@ -22461,6 +22470,11 @@
 "bcn" = (
 /obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 4;
+	location = "Kitchen"
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bcp" = (
@@ -23751,6 +23765,11 @@
 "bfb" = (
 /obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 8;
+	location = "Hydroponics"
+	},
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "bfc" = (
@@ -32227,6 +32246,11 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 8;
+	location = "Atmospherics"
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -65268,6 +65292,11 @@
 /area/maintenance/starboard)
 "cMF" = (
 /obj/structure/plasticflaps,
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 8;
+	location = "Medbay"
+	},
 /turf/simulated/floor/plasteel,
 /area/medical/medbay2)
 "cMG" = (
@@ -99799,6 +99828,15 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/brig)
+"unL" = (
+/obj/structure/plasticflaps,
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 8;
+	location = "Janitor"
+	},
+/turf/simulated/floor/plating,
+/area/janitor)
 "uod" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -100337,6 +100375,7 @@
 /turf/space,
 /area/space/nearstation)
 "vYC" = (
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -100735,6 +100774,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/brig)
+"xKB" = (
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	location = "Science"
+	},
+/obj/structure/plasticflaps,
+/turf/simulated/floor/plating,
+/area/toxins/misc_lab)
 "xKG" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -134734,7 +134781,7 @@ drn
 cGt
 cHx
 cXU
-cYA
+xKB
 vYC
 mzQ
 viE
@@ -137485,7 +137532,7 @@ aBb
 axb
 axc
 axb
-axb
+unL
 axb
 axb
 aDF
