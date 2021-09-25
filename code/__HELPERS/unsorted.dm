@@ -1515,60 +1515,66 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 //pre_rotation: Chooses to rotate src 90 degress towards the orbit dir (clockwise/anticlockwise), useful for things to go "head first" like ghosts
 //lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels when src gets too far away (eg: ghosts)
 
-/atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lockinorbit = FALSE, forceMove = FALSE)
-	if(!istype(A))
-		return
+// /atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lockinorbit = FALSE, forceMove = FALSE)
+// 	if(!istype(A))
+// 		return
 
-	if(orbiting)
-		stop_orbit()
+// 	if(orbiting)
+// 		stop_orbit()
 
-	orbiting = A
-	var/matrix/initial_transform = matrix(transform)
-	cached_transform = initial_transform
-	var/lastloc = loc
+// 	orbiting = A
+// 	var/matrix/initial_transform = matrix(transform)
+// 	cached_transform = initial_transform
+// 	var/lastloc = loc
 
-	//Head first!
-	if(pre_rotation)
-		var/matrix/M = matrix(transform)
-		var/pre_rot = 90
-		if(!clockwise)
-			pre_rot = -90
-		M.Turn(pre_rot)
-		transform = M
+// 	//Head first!
+// 	if(pre_rotation)
+// 		var/matrix/M = matrix(transform)
+// 		var/pre_rot = 90
+// 		if(!clockwise)
+// 			pre_rot = -90
+// 		M.Turn(pre_rot)
+// 		transform = M
 
-	var/matrix/shift = matrix(transform)
-	shift.Translate(0,radius)
-	transform = shift
+// 	var/matrix/shift = matrix(transform)
+// 	shift.Translate(0,radius)
+// 	transform = shift
 
-	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
+// 	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
 
-	// Only create the list if we're adding a new item, so we don't have a bunch of empty lists on /every/ atom
-	LAZYADD(A.orbiters, src)
+// 	// Only create the list if we're adding a new item, so we don't have a bunch of empty lists on /every/ atom
+// 	LAZYADD(A.orbiters, src)
 
-	// Since we're adding a ghost onto a list on any arbitrary atom, make sure we don't have any garbage collection
-	// issues if the atom gets deleted.
-	RegisterSignal(A, COMSIG_PARENT_QDELETING, .proc/stop_orbit)
+// 	// Since we're adding a ghost onto a list on any arbitrary atom, make sure we don't have any garbage collection
+// 	// issues if the atom gets deleted.
+// 	SEND_SIGNAL(src, COMSIG_ATOM_ORBIT_BEGIN, A)
+// 	RegisterSignal(A, COMSIG_PARENT_QDELETING, .proc/stop_orbit)
 
-	while(orbiting && orbiting == A && A.loc)
-		var/targetloc = get_turf(A)
-		if(!lockinorbit && loc != lastloc && loc != targetloc)
-			break
-		if(forceMove)
-			forceMove(targetloc)
-		else
-			loc = targetloc
-		lastloc = loc
-		sleep(0.6)
+// 	while(orbiting && orbiting == A && A.loc)
+// 		var/targetloc = get_turf(A)
+// 		if(!lockinorbit && loc != lastloc && loc != targetloc)
+// 			break
+// 		if(forceMove)
+// 			forceMove(targetloc)
+// 		else
+// 			loc = targetloc
+// 		lastloc = loc
+// 		sleep(0.6)
 
-	if(orbiting == A) //make sure we haven't started orbiting something else.
-		SpinAnimation(0, 0, parallel = FALSE)
-		stop_orbit()
+// 	if(orbiting == A) //make sure we haven't started orbiting something else.
+// 		SpinAnimation(0, 0, parallel = FALSE)
+// 		stop_orbit()
 
 
-/atom/movable/proc/stop_orbit()
-	LAZYREMOVE(orbiting.orbiters, src)
-	orbiting = null
-	transform = cached_transform
+// /atom/movable/proc/stop_orbit()
+// 	SEND_SIGNAL(src, COMSIG_ATOM_ORBIT_STOP, A)
+// 	LAZYREMOVE(orbiting.orbiters, src)
+// 	orbiting = null
+// 	transform = cached_transform
+
+// /atom/movable/proc/clear_orbiters()
+// 	for atom/movable/orbiter in target.orbiters
+// 		orbiter.stop_orbit()
 
 //Centers an image.
 //Requires:
