@@ -69115,9 +69115,14 @@
 	icon_state = "escape"
 	},
 /area/crew_quarters/fitness)
-"cUQ" = (
-/turf/space,
+"cUP" = (
+/obj/structure/lattice,
+/turf/simulated/wall/r_wall,
 /area/maintenance/port)
+"cUQ" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/pod_2)
 "cUR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/sign/securearea,
@@ -69681,9 +69686,16 @@
 	},
 /area/medical/medbay3)
 "cWk" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/maintenance/port)
+/obj/docking_port/mobile/pod{
+	id = "pod2";
+	name = "escape pod 2"
+	},
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	name = "Escape Pod Hatch"
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/pod_2)
 "cWl" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/shieldgen,
@@ -94971,13 +94983,6 @@
 	icon_state = "red"
 	},
 /area/security/brig)
-"eMO" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "eNm" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -95693,20 +95698,6 @@
 	icon_state = "red"
 	},
 /area/security/brig)
-"gPt" = (
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1379;
-	master_tag = "sw_maint_airlock";
-	name = "interior access button";
-	pixel_x = -24;
-	pixel_y = 24
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "gSt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -95846,6 +95837,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permasolitary)
+"heu" = (
+/mob/living/simple_animal/mouse,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "hfN" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -95871,10 +95866,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"hkL" = (
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel,
-/area/maintenance/port)
 "hly" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
@@ -96158,16 +96149,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"ilq" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/remains/robot,
-/obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/plating,
-/area/maintenance/port)
-"ins" = (
-/obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "ipD" = (
 /obj/structure/closet/wardrobe/pjs,
 /turf/simulated/floor/plating,
@@ -96318,11 +96299,6 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
-"iMz" = (
-/obj/effect/spawner/window/reinforced,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "iMM" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
@@ -96394,19 +96370,6 @@
 	icon_state = "redfull"
 	},
 /area/security/warden)
-"iYR" = (
-/obj/machinery/door/airlock/external{
-	frequency = 1379;
-	id_tag = "sw_maint_inner";
-	locked = 1;
-	name = "West Maintenance External Access";
-	req_access_txt = "10;13"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "jav" = (
 /obj/machinery/door/airlock{
 	name = "Magistrate's Office";
@@ -96429,6 +96392,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
+"jfO" = (
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plasteel,
+/area/maintenance/port)
 "jgO" = (
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "Brig";
@@ -96512,16 +96479,10 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
-"jvt" = (
+"jwe" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/port)
-"jwv" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
 /area/maintenance/port)
 "jAm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -96545,10 +96506,6 @@
 	icon_state = "dark"
 	},
 /area/security/processing)
-"jAZ" = (
-/obj/structure/closet/wardrobe/grey,
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "jBy" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -96579,6 +96536,17 @@
 	icon_state = "cult"
 	},
 /area/magistrateoffice)
+"jEk" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "jFV" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -96649,9 +96617,28 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/misc_lab)
+"jNN" = (
+/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/rack,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "jQY" = (
 /turf/simulated/wall/r_wall,
 /area/security/seceqstorage)
+"jTi" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1379;
+	id_tag = "sw_maint_inner";
+	locked = 1;
+	name = "West Maintenance External Access";
+	req_access_txt = "10;13"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "jUC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
@@ -96838,6 +96825,11 @@
 	icon_state = "vault"
 	},
 /area/security/prisonershuttle)
+"kzt" = (
+/obj/effect/spawner/window/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "kCi" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -96972,10 +96964,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/brig)
-"lkM" = (
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "llI" = (
 /obj/machinery/door/airlock/security{
 	name = "Security Checkpoint";
@@ -96998,18 +96986,6 @@
 	icon_state = "red"
 	},
 /area/security/seceqstorage)
-"lql" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "sw_maint_airlock";
-	name = "exterior access button";
-	pixel_x = 24;
-	pixel_y = 24
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "lso" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -97061,6 +97037,18 @@
 	icon_state = "grimy"
 	},
 /area/security/detectives_office)
+"lzI" = (
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "sw_maint_airlock";
+	name = "exterior access button";
+	pixel_x = 24;
+	pixel_y = 24
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "lzY" = (
 /obj/structure/table/wood,
 /obj/machinery/alarm{
@@ -97476,6 +97464,15 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
+"mDx" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1379;
+	id_tag = "sw_maint_outer";
+	locked = 1;
+	name = "West Maintenance External Access"
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/port)
 "mEk" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -97537,6 +97534,9 @@
 	icon_state = "neutralfull"
 	},
 /area/security/brig)
+"mLP" = (
+/turf/simulated/wall,
+/area/space)
 "mLW" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/west,
@@ -97629,12 +97629,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
-"mWL" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod"
-	},
-/turf/space,
-/area/maintenance/port)
 "mYH" = (
 /obj/machinery/newscaster{
 	pixel_x = -32
@@ -97748,6 +97742,12 @@
 	icon_state = "barber"
 	},
 /area/security/permabrig)
+"nkS" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/maintenance/port)
 "nli" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/cleanliness{
@@ -98050,20 +98050,11 @@
 /obj/structure/filingcabinet,
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
-"oov" = (
-/turf/simulated/wall,
-/area/space)
 "ops" = (
 /obj/structure/window/reinforced,
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"ora" = (
-/obj/effect/decal/warning_stripes/southeast,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/rack,
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "orz" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -98095,14 +98086,6 @@
 	icon_state = "neutral"
 	},
 /area/maintenance/fore2)
-"oxc" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/maintenance/port)
-"oxy" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/space)
 "oBE" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/item/vending_refill/coffee,
@@ -98325,14 +98308,6 @@
 /obj/structure/window/reinforced,
 /turf/space,
 /area/space)
-"poU" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "ppj" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -98351,6 +98326,10 @@
 	icon_state = "redfull"
 	},
 /area/security/seceqstorage)
+"pwS" = (
+/obj/structure/closet/wardrobe/grey,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "pBz" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/browntrenchcoat,
@@ -98507,6 +98486,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permasolitary)
+"pYw" = (
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1379;
+	master_tag = "sw_maint_airlock";
+	name = "interior access button";
+	pixel_x = -24;
+	pixel_y = 24
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "pZf" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -98753,6 +98746,15 @@
 	icon_state = "vault"
 	},
 /area/security/securearmoury)
+"qZr" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/sign/vacuum{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "qZt" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -99146,17 +99148,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
-"seY" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "shi" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -99195,6 +99186,10 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research)
+"snp" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "soN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -99334,6 +99329,13 @@
 	icon_state = "neutralfull"
 	},
 /area/security/brig)
+"sFX" = (
+/obj/machinery/light/small,
+/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/rack,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "sMj" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
@@ -99365,17 +99367,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
-"sSk" = (
-/obj/docking_port/mobile/pod{
-	id = "pod2";
-	name = "escape pod 2"
-	},
-/obj/machinery/door/airlock/titanium{
-	id_tag = "s_docking_airlock";
-	name = "Escape Pod Hatch"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/pod_2)
 "sTz" = (
 /obj/structure/closet/secure_closet/security,
 /turf/simulated/floor/plasteel{
@@ -99445,15 +99436,6 @@
 	icon_state = "red"
 	},
 /area/security/warden)
-"tcs" = (
-/obj/machinery/door/airlock/external{
-	frequency = 1379;
-	id_tag = "sw_maint_outer";
-	locked = 1;
-	name = "West Maintenance External Access"
-	},
-/turf/simulated/floor/plasteel,
-/area/maintenance/port)
 "tdA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -99732,6 +99714,13 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
+"tQH" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "tRM" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -99964,15 +99953,6 @@
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
-"uHw" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/sign/vacuum{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "uJk" = (
 /obj/structure/rack,
 /obj/item/gun/energy/ionrifle,
@@ -99999,6 +99979,10 @@
 	icon_state = "white"
 	},
 /area/security/medbay)
+"uLx" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/space)
 "uQK" = (
 /obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
@@ -100339,6 +100323,10 @@
 /obj/machinery/chem_master,
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
+"vFz" = (
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "vGw" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -100424,13 +100412,6 @@
 	icon_state = "red"
 	},
 /area/security/processing)
-"vRw" = (
-/obj/machinery/light/small,
-/obj/effect/decal/warning_stripes/southwest,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/rack,
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "vSW" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -100440,6 +100421,12 @@
 	icon_state = "red"
 	},
 /area/hallway/secondary/exit)
+"vTb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/robot,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "vVf" = (
 /obj/machinery/chem_dispenser,
 /obj/item/reagent_containers/glass/beaker/large,
@@ -100664,6 +100651,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/security/warden)
+"wXy" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 3;
+	name = "3maintenance loot spawner"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "wXI" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/wall,
@@ -100903,10 +100898,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"xRR" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/wall/mineral/titanium,
-/area/shuttle/pod_2)
 "xUI" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/teargas,
@@ -100950,6 +100941,12 @@
 	icon_state = "dark"
 	},
 /area/security/interrogation)
+"ycQ" = (
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod"
+	},
+/turf/space,
+/area/maintenance/port)
 "ydp" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -119425,8 +119422,8 @@ aaa
 cQv
 cQv
 cQv
-xRR
-lkM
+cUQ
+vFz
 cHA
 cXX
 cXX
@@ -119682,9 +119679,9 @@ vXX
 cRD
 cTg
 cTi
-sSk
-lkM
-mWL
+cWk
+vFz
+ycQ
 drn
 drn
 cHA
@@ -119939,15 +119936,15 @@ aaa
 cQv
 cQv
 cQv
-xRR
-lkM
+cUQ
+vFz
 cHA
-uHw
+qZr
 cXU
 cHA
-oov
-oxy
-oxy
+mLP
+uLx
+uLx
 cHA
 cHA
 aaa
@@ -120195,14 +120192,14 @@ abj
 abj
 abj
 abj
-cWk
+cUP
 dmq
 cHA
 cHA
 drn
-ilq
+vTb
 drn
-eMO
+tQH
 dpX
 cLA
 dtU
@@ -120454,7 +120451,7 @@ cie
 cie
 cie
 bXU
-ins
+snp
 cPY
 drn
 dhG
@@ -120467,7 +120464,7 @@ cCy
 cHA
 aaa
 abj
-lql
+lzI
 bPS
 vXX
 aaa
@@ -120711,7 +120708,7 @@ bXU
 bXU
 bXU
 bXU
-seY
+jEk
 cPY
 drn
 cHA
@@ -120720,11 +120717,11 @@ cHA
 cHA
 cHA
 drn
-jAZ
+pwS
 cJK
-cUQ
+aaa
 cHA
-tcs
+mDx
 cHA
 vXX
 aaa
@@ -120968,18 +120965,18 @@ cie
 cie
 cie
 bXU
-poU
+wXy
 drn
 dhG
 cHA
 cJP
 cLC
-vRw
+sFX
 cHA
 drn
 dsr
 cJK
-cUQ
+aaa
 cHA
 cXR
 cHA
@@ -121230,15 +121227,15 @@ drn
 cXU
 cHA
 cWl
-hkL
-ora
+jfO
+jNN
 cHA
-oxc
-jwv
+heu
+nkS
 cHA
-cUQ
+aaa
 cHA
-iYR
+jTi
 cHA
 vXX
 aaa
@@ -121487,7 +121484,7 @@ drn
 dhG
 cHA
 cHA
-jvt
+jwe
 cHA
 cHA
 dtU
@@ -121495,7 +121492,7 @@ drn
 cJK
 cHA
 cHA
-gPt
+pYw
 cHA
 abj
 aaa
@@ -121753,7 +121750,7 @@ cLA
 drn
 cWm
 cXT
-iMz
+kzt
 abj
 aaa
 aaa
