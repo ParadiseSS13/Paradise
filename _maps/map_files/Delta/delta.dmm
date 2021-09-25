@@ -33075,7 +33075,6 @@
 /area/bridge)
 "bxv" = (
 /obj/machinery/computer/atmos_alert,
-/obj/machinery/computer/atmos_alert,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellow"
@@ -49574,8 +49573,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/security{
-	name = "Security-Storage Backroom";
-	req_access = null;
+	name = "Evidence Storage";
 	req_access_txt = "63"
 	},
 /obj/machinery/door/firedoor,
@@ -73474,7 +73472,9 @@
 	},
 /area/medical/medbay)
 "deh" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/junction{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
@@ -80585,6 +80585,10 @@
 	pixel_x = -32;
 	pixel_y = -32
 	},
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -80598,7 +80602,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/junction{
+	dir = 1;
+	icon_state = "pipe-j2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -96411,6 +96418,15 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
+"jdF" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluecorner"
+	},
+/area/medical/medbay)
 "jgO" = (
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "Brig";
@@ -99285,8 +99301,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/security{
-	name = "Security-Storage Backroom";
-	req_access = null;
+	name = "Evidence Storage";
 	req_access_txt = "63"
 	},
 /obj/machinery/door/firedoor,
@@ -150409,7 +150424,7 @@ cZW
 cUr
 cKV
 dqW
-cSF
+cPJ
 cJg
 dhe
 dye
@@ -150666,7 +150681,7 @@ cZX
 cWd
 dbn
 dcz
-cSF
+jdF
 cKY
 dhf
 diO
