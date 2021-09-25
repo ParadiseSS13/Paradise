@@ -9,6 +9,7 @@
 	climbable = TRUE
 	layer = ABOVE_MOB_LAYER
 	var/currently_climbed = FALSE
+	var/mover_dir = null
 
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
 	icon_state = "railing_corner"
@@ -73,7 +74,11 @@
 			return TRUE
 	if(mover.throwing)
 		return TRUE
-	if(get_dir(loc, target) != dir)
+	mover_dir = get_dir(loc, target)
+	//Due to how the other check is done, it would always return density for ordinal directions no matter what
+	if(ordinal_direction_check())
+		return FALSE
+	if(mover_dir != dir)
 		return density
 	return FALSE
 
@@ -92,9 +97,29 @@
 		return TRUE
 	if(currently_climbed)
 		return TRUE
-	if(get_dir(O.loc, target) == dir)
+	mover_dir = get_dir(O.loc, target)
+	if(mover_dir == dir)
+		return FALSE
+	if(ordinal_direction_check())
 		return FALSE
 	return TRUE
+
+// Checks if the direction the mob is trying to move towards would be blocked by a corner railing
+/obj/structure/railing/proc/ordinal_direction_check()
+	switch(dir)
+		if(5)
+			if(mover_dir == 1 || mover_dir == 4)
+				return TRUE
+		if(6)
+			if(mover_dir == 2 || mover_dir == 4)
+				return TRUE
+		if(9)
+			if(mover_dir == 1 || mover_dir == 8)
+				return TRUE
+		if(10)
+			if(mover_dir == 2 || mover_dir == 8)
+				return TRUE
+	return FALSE
 
 /obj/structure/railing/do_climb(mob/living/user)
 	var/initial_mob_loc = get_turf(user)
@@ -112,7 +137,7 @@
 		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
 		return FALSE
 
-	var/target_dir = turn(dir, -90)
+	var/target_dir = turn(dir, -45)
 
 	if(!valid_window_location(loc, target_dir)) //Expanded to include rails, as well!
 		to_chat(user, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
@@ -133,4 +158,4 @@
 	if(!Adjacent(user))
 		return
 	if(can_be_rotated(user))
-		setDir(turn(dir, 90))
+		setDir(turn(dir, 45))

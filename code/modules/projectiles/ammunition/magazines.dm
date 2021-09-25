@@ -110,7 +110,7 @@
 
 /obj/item/ammo_box/magazine/internal/shot/com
 	name = "combat shotgun internal magazine"
-	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/shot/dual
@@ -132,9 +132,6 @@
 
 /obj/item/ammo_box/magazine/internal/shot/riot/short
 	max_ammo = 3
-
-/obj/item/ammo_box/magazine/internal/shot/riot/buckshot
-	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
 /obj/item/ammo_box/magazine/internal/grenadelauncher
 	name = "grenade launcher internal magazine"

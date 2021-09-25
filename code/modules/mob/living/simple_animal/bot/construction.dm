@@ -214,7 +214,7 @@
 	var/list/allowed_toolbox = list(/obj/item/storage/toolbox/emergency,	//which toolboxes can be made into floorbots
 								/obj/item/storage/toolbox/electrical,
 								/obj/item/storage/toolbox/mechanical,
-								/obj/item/storage/toolbox/green,
+								/obj/item/storage/toolbox/artistic,
 								/obj/item/storage/toolbox/syndicate,
 								/obj/item/storage/toolbox/fakesyndi)
 
@@ -222,8 +222,6 @@
 		..()
 		return
 	if(!is_type_in_list(src, allowed_toolbox))
-		return
-	if(type == /obj/item/storage/toolbox/green/memetic)
 		return
 	if(contents.len >= 1)
 		to_chat(user, "<span class='warning'>They won't fit in, as there is already stuff inside.</span>")
@@ -242,7 +240,7 @@
 				B.toolbox_color = "or"
 			if(/obj/item/storage/toolbox/electrical)
 				B.toolbox_color = "y"
-			if(/obj/item/storage/toolbox/green)
+			if(/obj/item/storage/toolbox/artistic)
 				B.toolbox_color = "g"
 			if(/obj/item/storage/toolbox/syndicate)
 				B.toolbox_color = "s"
