@@ -211,12 +211,13 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pod_1)
 "adg" = (
-/turf/simulated/wall/mineral/titanium,
-/area/shuttle/pod_2)
-"adh" = (
-/obj/effect/spawner/window/shuttle,
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
-/area/shuttle/pod_2)
+/area/hallway/secondary/entry)
+"adh" = (
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plating,
+/area/hallway/secondary/entry)
 "adt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
@@ -257,18 +258,11 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "adz" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_x = 32
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/chair/comfy/shuttle{
+/obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/pod_2)
+/turf/simulated/floor/plating,
+/area/hallway/secondary/entry)
 "adK" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -300,20 +294,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
-"adP" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = 28
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/pod_2)
-"adQ" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/wall/mineral/titanium,
-/area/shuttle/pod_2)
 "adT" = (
 /obj/docking_port/stationary{
 	dir = 2;
@@ -378,16 +358,8 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "aeg" = (
-/obj/docking_port/mobile/pod{
-	id = "pod2";
-	name = "escape pod 2"
-	},
-/obj/machinery/door/airlock/titanium{
-	id_tag = "s_docking_airlock";
-	name = "Escape Pod Hatch"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/pod_2)
+/turf/simulated/floor/plating,
+/area/hallway/secondary/entry)
 "aey" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -428,10 +400,11 @@
 	},
 /area/hallway/secondary/entry)
 "aeK" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/external,
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry)
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/pod_4)
 "aeL" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -62100,7 +62073,7 @@
 /area/maintenance/port)
 "cFN" = (
 /turf/simulated/wall/mineral/titanium,
-/area/space)
+/area/shuttle/pod_2)
 "cFO" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -62109,9 +62082,18 @@
 	},
 /area/maintenance/port)
 "cFP" = (
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating,
-/area/space)
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_x = 32
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/pod_2)
 "cFR" = (
 /obj/structure/grille{
 	density = 0;
@@ -62612,18 +62594,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "cGw" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_x = 32
-	},
-/obj/machinery/light{
-	dir = 4
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = 28
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/space)
+/area/shuttle/pod_2)
 "cGx" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -63025,15 +63004,16 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
 "cHe" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = 28
+/obj/docking_port/mobile/pod{
+	id = "pod2";
+	name = "escape pod 2"
 	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	name = "Escape Pod Hatch"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/space)
+/area/shuttle/pod_2)
 "cHi" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -63533,10 +63513,6 @@
 /obj/item/paper/holodeck,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
-"cIu" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/wall/mineral/titanium,
-/area/space)
 "cIv" = (
 /obj/structure/girder,
 /turf/simulated/floor/plasteel{
@@ -63997,16 +63973,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "cJL" = (
-/obj/docking_port/mobile/pod{
-	id = "pod2";
-	name = "escape pod 2"
-	},
-/obj/machinery/door/airlock/titanium{
-	id_tag = "s_docking_airlock";
-	name = "Escape Pod Hatch"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/space)
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "cJM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/atmos{
@@ -66664,7 +66633,12 @@
 /turf/space,
 /area/space/nearstation)
 "cPY" = (
-/turf/space,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 3;
+	name = "3maintenance loot spawner"
+	},
+/turf/simulated/floor/plating,
 /area/maintenance/port)
 "cPZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -67412,8 +67386,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
 "cRD" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/sign/vacuum{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/port)
 "cRE" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -68120,9 +68100,8 @@
 	},
 /area/crew_quarters/fitness)
 "cTg" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/shuttle/pod_2)
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/pod_4)
 "cTh" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -68131,10 +68110,11 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical)
 "cTi" = (
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
-/area/shuttle/pod_2)
+/area/maintenance/port)
 "cTj" = (
 /obj/structure/closet/secure_closet/engineering_welding,
 /turf/simulated/floor/plating,
@@ -69051,7 +69031,7 @@
 /area/crew_quarters/fitness)
 "cUQ" = (
 /turf/space,
-/area/shuttle/pod_2)
+/area/maintenance/port)
 "cUR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/sign/securearea,
@@ -69615,8 +69595,17 @@
 	},
 /area/medical/medbay3)
 "cWk" = (
-/turf/simulated/wall,
-/area/shuttle/pod_2)
+/obj/docking_port/mobile/pod{
+	dir = 4;
+	id = "pod4";
+	name = "escape pod 4"
+	},
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	name = "Escape Pod Hatch"
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/pod_4)
 "cWl" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/shieldgen,
@@ -94930,7 +94919,7 @@
 	name = "Escape Pod"
 	},
 /turf/space,
-/area/space/nearstation)
+/area/maintenance/port)
 "eNm" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -95692,6 +95681,10 @@
 "gTW" = (
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
+"gWJ" = (
+/mob/living/simple_animal/mouse,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "haD" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -95805,6 +95798,13 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"hkc" = (
+/obj/structure/sign/pods{
+	pixel_x = -32
+	},
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "hly" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
@@ -95851,8 +95851,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/port)
 "hzb" = (
 /obj/machinery/light{
 	dir = 4
@@ -96061,6 +96062,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
+"ieM" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/pod_2)
 "ifj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -96212,11 +96217,14 @@
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "iJz" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/obj/item/radio/intercom{
+	pixel_y = 25
 	},
-/area/space)
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/pod_4)
 "iKj" = (
 /obj/machinery/light_switch{
 	pixel_x = -23;
@@ -96521,8 +96529,9 @@
 /turf/simulated/floor/plasteel,
 /area/security/seceqstorage)
 "jJF" = (
+/obj/structure/closet/wardrobe/grey,
 /turf/simulated/floor/plating,
-/area/shuttle/pod_2)
+/area/maintenance/port)
 "jKp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -96754,11 +96763,16 @@
 	},
 /area/security/prisonershuttle)
 "kBz" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
 	},
-/area/space)
+/obj/machinery/light,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/pod_4)
 "kCi" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -97078,6 +97092,17 @@
 	icon_state = "grimy"
 	},
 /area/chapel/office)
+"lOx" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "lVO" = (
 /obj/machinery/turretid/lethal{
 	control_area = "\improper Telecoms Central Compartment";
@@ -97089,9 +97114,9 @@
 	},
 /area/turret_protected/aisat)
 "lWt" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/pod_4)
 "lZw" = (
 /obj/machinery/ai_status_display{
 	pixel_x = -32
@@ -98313,6 +98338,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/permasolitary)
+"pZG" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/space/nearstation)
 "qcA" = (
 /obj/docking_port/stationary{
 	dwidth = 4;
@@ -98469,6 +98500,10 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
+"qTT" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "qVp" = (
 /obj/structure/table/reinforced,
 /obj/machinery/alarm{
@@ -99022,9 +99057,10 @@
 /turf/simulated/floor/plasteel,
 /area/security/permasolitary)
 "ssL" = (
-/obj/structure/closet/emcloset,
+/obj/machinery/door/airlock/external,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
-/area/space)
+/area/hallway/secondary/entry)
 "suy" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -99297,6 +99333,10 @@
 /obj/item/paper_bin,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
+"tvE" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/pod_2)
 "tFw" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -99988,6 +100028,10 @@
 	icon_state = "dark"
 	},
 /area/tcommsat/chamber)
+"vDR" = (
+/obj/structure/lattice,
+/turf/simulated/wall/r_wall,
+/area/maintenance/port)
 "vDY" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -100160,6 +100204,12 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/misc_lab)
+"waa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/robot,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "wdH" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -100455,9 +100505,9 @@
 	},
 /area/hallway/primary/central)
 "xtL" = (
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "xuC" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -118844,23 +118894,23 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-cQv
-hjj
-hjj
-cQv
-aaa
-aaa
-aaa
-aaa
+dmq
+dmq
+dmq
+dmq
+cJK
+cJK
+cHA
 aaa
 aaa
 aaa
 aaa
-xtL
-lWt
+aaa
+aaa
+aaa
+aaa
+acF
+abj
 aaa
 aaa
 aaa
@@ -119099,15 +119149,15 @@ aaa
 aaa
 aaa
 aaa
-aaa
 cFN
 cFN
 cFN
-cIu
-bPS
-ssL
-ssL
-cQv
+tvE
+cJL
+cHA
+cXX
+cXX
+cHA
 aaa
 aaa
 aaa
@@ -119115,8 +119165,8 @@ aaa
 aaa
 aaa
 aaa
-lWt
-xtL
+abj
+acF
 aaa
 aaa
 aaa
@@ -119355,16 +119405,17 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+vXX
+ieM
 cFP
 cGw
 cHe
 cJL
 eNd
-cRD
-cRD
-cQv
+drn
+drn
+cHA
+abj
 aaa
 aaa
 aaa
@@ -119372,8 +119423,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
-xtL
+acF
 aaa
 aaa
 aaa
@@ -119613,25 +119663,25 @@ aaa
 aaa
 aaa
 aaa
-aaa
 cFN
 cFN
 cFN
-cIu
-bPS
+tvE
+cJL
+cHA
 cRD
-cRD
-cQv
+cXU
+cHA
 cQv
 hjj
 hjj
-cQv
-cQv
+cHA
+cHA
 aaa
 aaa
-lWt
-xtL
-lWt
+abj
+acF
+abj
 aaa
 aaa
 aaa
@@ -119872,23 +119922,23 @@ abj
 abj
 abj
 abj
-abj
-aaa
-aaa
-bPS
-cRD
-cRD
-cRD
+vDR
+dmq
+cHA
+cHA
+drn
+waa
+drn
 hoZ
-iJz
-iJz
-cRD
-cQv
-cQv
+dpX
+cLA
+dtU
+cHA
+cHA
 aaa
-lWt
-xtL
-lWt
+abj
+acF
+abj
 aaa
 aaa
 aaa
@@ -120131,19 +120181,19 @@ cie
 cie
 cie
 bXU
+qTT
+pZG
+drn
+dhG
+drn
+drn
+drn
+dhG
+drn
+cCy
+cHA
 aaa
-bPS
-kBz
-oEG
-cRD
-oEG
-oEG
-oEG
-cRD
-cRD
-cQv
-aaa
-lWt
+abj
 vMN
 bPS
 vXX
@@ -120388,19 +120438,19 @@ bXU
 bXU
 bXU
 bXU
-vXX
-bPS
-cWn
+lOx
+pZG
+drn
 cHA
 cHA
 cHA
 cHA
-cQv
-cRD
+cHA
+drn
 jJF
-cTg
+cJK
 cUQ
-cWk
+cHA
 kct
 cHA
 vXX
@@ -120646,18 +120696,18 @@ cie
 cie
 bXU
 cPY
-cHA
 drn
+dhG
 cHA
 cJP
 cLC
 rau
-cQv
-cRD
-cTi
-cTg
+cHA
+drn
+dsr
+cJK
 cUQ
-cWk
+cHA
 cXR
 cHA
 aaa
@@ -120904,17 +120954,17 @@ cbb
 bXU
 dmq
 drn
-drn
+cXU
 cHA
 cWl
 kom
 sxH
-cQv
-cRD
+cHA
+gWJ
 cTi
-cWk
+cHA
 cUQ
-cWk
+cHA
 nFI
 cHA
 vXX
@@ -121161,7 +121211,7 @@ cbb
 cDx
 bXU
 drn
-drn
+dhG
 cHA
 cHA
 syt
@@ -121417,7 +121467,7 @@ cCg
 cbb
 cDx
 bXU
-drn
+dhG
 drn
 cIv
 dhG
@@ -142119,10 +142169,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-adN
 adb
+acC
+acC
+acC
 adb
 adb
 adb
@@ -142376,13 +142426,13 @@ aaa
 aaa
 aaa
 aaa
-adg
-adg
-adg
-adQ
-aey
 acC
-afc
+adg
+aeg
+aeg
+acC
+xtL
+hkc
 adZ
 adZ
 agm
@@ -142633,13 +142683,13 @@ aaa
 aaa
 aaa
 aaa
-adh
+acC
 adz
-adP
 aeg
-aez
-aeK
+aeg
+ssL
 afh
+aea
 aea
 afM
 ajZ
@@ -142890,13 +142940,13 @@ aaa
 aaa
 aaa
 aaa
-adg
-adg
-adg
-adQ
-aeA
+acC
+adh
+adh
+adh
 acC
 afj
+aeb
 aeb
 afN
 agn
@@ -143147,10 +143197,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-adN
 adb
+aeK
+cWk
+aeK
 adb
 adb
 adb
@@ -143404,10 +143454,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-abj
-abj
+adb
+cTg
+iJz
+cTg
 adb
 aeL
 afd
@@ -143661,10 +143711,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-abj
+adN
+cTg
+kBz
+cTg
 adb
 aeM
 afe
@@ -143919,9 +143969,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-abj
+cTg
+lWt
+cTg
 adb
 aeN
 aff
@@ -144177,8 +144227,8 @@ aaa
 aaa
 aaa
 aaa
-abi
-abj
+vXX
+aaa
 aeB
 aeB
 afg
