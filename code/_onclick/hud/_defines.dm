@@ -57,6 +57,9 @@
 #define ui_alien_storage_r "CENTER+1:18,SOUTH:5"//alien
 #define ui_alien_language_menu "EAST-3:25,SOUTH+1:7"//alien
 #define ui_alienlarva_language_menu "EAST-3:26,SOUTH:5"//alien
+#define ui_alien_strong_acid "CENTER-3:14,SOUTH:5"//alien
+#define ui_alien_neurotoxin "CENTER+2:18,SOUTH:5"//alien
+#define ui_alien_strong_neurotoxin "CENTER+3:18,SOUTH:5"//alien
 
 //Lower right, persistant menu
 //#define ui_dropbutton "11:22,1:5"

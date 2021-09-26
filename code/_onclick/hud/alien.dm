@@ -10,6 +10,42 @@
 		var/mob/living/carbon/alien/humanoid/hunter/AH = usr
 		AH.toggle_leap()
 
+/obj/screen/alien/acid
+	name = "toggle acid"
+	icon_state = "leap_off"
+
+/obj/screen/alien/acid/Click()
+	if(istype(usr, /mob/living/carbon/alien/humanoid))
+		var/mob/living/carbon/alien/humanoid/sentinel/AH = usr
+		AH.toggle_acid()
+
+/obj/screen/alien/strong_acid
+	name = "toggle strong acid"
+	icon_state = "leap_off"
+
+/obj/screen/alien/strong_acid/Click()
+	if(istype(usr, /mob/living/carbon/alien/humanoid))
+		var/mob/living/carbon/alien/humanoid/praetorian/AH = usr
+		AH.toggle_strong_acid()
+
+/obj/screen/alien/neurotoxin
+	name = "toggle neurotoxin"
+	icon_state = "alien_neurotoxin_0"
+
+/obj/screen/alien/neurotoxin/Click()
+	if(istype(usr, /mob/living/carbon/alien/humanoid))
+		var/mob/living/carbon/alien/humanoid/praetorian/AH = usr
+		AH.toggle_neurotoxin()
+
+/obj/screen/alien/strong_neurotoxin
+	name = "toggle strong neurotoxin"
+	icon_state = "alien_neurotoxin_0"
+
+/obj/screen/alien/strong_neurotoxin/Click()
+	if(istype(usr, /mob/living/carbon/alien/humanoid))
+		var/mob/living/carbon/alien/humanoid/praetorian/AH = usr
+		AH.toggle_strong_neurotoxin()
+
 /obj/screen/alien/nightvision
 	name = "toggle night-vision"
 	icon_state = "nightvision1"
@@ -58,6 +94,80 @@
 		mymob.leap_icon.icon = 'icons/mob/screen_alien.dmi'
 		mymob.leap_icon.screen_loc = ui_alien_storage_r
 		static_inventory += mymob.leap_icon
+
+	if(istype(mymob, /mob/living/carbon/alien/humanoid/sentinel))
+		mymob.acid_icon = new /obj/screen/alien/acid() //uses pre-existing alien storage icon position instead of it's own unique one
+		mymob.acid_icon.icon = 'icons/mob/screen_alien.dmi'
+		mymob.acid_icon.screen_loc = ui_alien_storage_l
+		static_inventory += mymob.acid_icon
+
+		mymob.neurotoxin_icon = new /obj/screen/alien/neurotoxin() //uses new icon position
+		mymob.neurotoxin_icon.icon = 'icons/mob/actions/actions_xeno.dmi'
+		mymob.neurotoxin_icon.screen_loc = ui_alien_neurotoxin
+		static_inventory += mymob.neurotoxin_icon
+
+	if(istype(mymob, /mob/living/carbon/alien/humanoid/praetorian))
+		mymob.acid_icon = new /obj/screen/alien/acid()
+		mymob.acid_icon.icon = 'icons/mob/screen_alien.dmi'
+		mymob.acid_icon.screen_loc = ui_alien_storage_l
+		static_inventory += mymob.acid_icon
+
+		mymob.strong_acid_icon = new /obj/screen/alien/strong_acid() //uses new icon position
+		mymob.strong_acid_icon.icon = 'icons/mob/screen_alien.dmi'
+		mymob.strong_acid_icon.screen_loc = ui_alien_strong_acid
+		static_inventory += mymob.strong_acid_icon
+
+		mymob.neurotoxin_icon = new /obj/screen/alien/neurotoxin() //uses new icon position
+		mymob.neurotoxin_icon.icon = 'icons/mob/actions/actions_xeno.dmi'
+		mymob.neurotoxin_icon.screen_loc = ui_alien_neurotoxin
+		static_inventory += mymob.neurotoxin_icon
+
+		mymob.strong_neurotoxin_icon = new /obj/screen/alien/strong_neurotoxin() //uses new icon position
+		mymob.strong_neurotoxin_icon.icon = 'icons/mob/actions/actions_xeno.dmi'
+		mymob.strong_neurotoxin_icon.screen_loc = ui_alien_strong_neurotoxin
+		static_inventory += mymob.strong_neurotoxin_icon
+
+	if(istype(mymob, /mob/living/carbon/alien/humanoid/queen))
+		mymob.acid_icon = new /obj/screen/alien/acid()
+		mymob.acid_icon.icon = 'icons/mob/screen_alien.dmi'
+		mymob.acid_icon.screen_loc = ui_alien_storage_l
+		static_inventory += mymob.acid_icon
+
+		mymob.strong_acid_icon = new /obj/screen/alien/strong_acid()
+		mymob.strong_acid_icon.icon = 'icons/mob/screen_alien.dmi'
+		mymob.strong_acid_icon.screen_loc = ui_alien_strong_acid
+		static_inventory += mymob.strong_acid_icon
+
+		mymob.neurotoxin_icon = new /obj/screen/alien/neurotoxin()
+		mymob.neurotoxin_icon.icon = 'icons/mob/actions/actions_xeno.dmi'
+		mymob.neurotoxin_icon.screen_loc = ui_alien_neurotoxin
+		static_inventory += mymob.neurotoxin_icon
+
+		mymob.strong_neurotoxin_icon = new /obj/screen/alien/strong_neurotoxin()
+		mymob.strong_neurotoxin_icon.icon = 'icons/mob/actions/actions_xeno.dmi'
+		mymob.strong_neurotoxin_icon.screen_loc = ui_alien_strong_neurotoxin
+		static_inventory += mymob.strong_neurotoxin_icon
+
+	if(istype(mymob, /mob/living/carbon/alien/humanoid/empress))
+		mymob.acid_icon = new /obj/screen/alien/acid()
+		mymob.acid_icon.icon = 'icons/mob/screen_alien.dmi'
+		mymob.acid_icon.screen_loc = ui_alien_storage_l
+		static_inventory += mymob.acid_icon
+
+		mymob.strong_acid_icon = new /obj/screen/alien/strong_acid()
+		mymob.strong_acid_icon.icon = 'icons/mob/screen_alien.dmi'
+		mymob.strong_acid_icon.screen_loc = ui_alien_strong_acid
+		static_inventory += mymob.strong_acid_icon
+
+		mymob.neurotoxin_icon = new /obj/screen/alien/neurotoxin()
+		mymob.neurotoxin_icon.icon = 'icons/mob/actions/actions_xeno.dmi'
+		mymob.neurotoxin_icon.screen_loc = ui_alien_neurotoxin
+		static_inventory += mymob.neurotoxin_icon
+
+		mymob.strong_neurotoxin_icon = new /obj/screen/alien/strong_neurotoxin()
+		mymob.strong_neurotoxin_icon.icon = 'icons/mob/actions/actions_xeno.dmi'
+		mymob.strong_neurotoxin_icon.screen_loc = ui_alien_strong_neurotoxin
+		static_inventory += mymob.strong_neurotoxin_icon
 
 //equippable shit
 	inv_box = new /obj/screen/inventory/hand()
