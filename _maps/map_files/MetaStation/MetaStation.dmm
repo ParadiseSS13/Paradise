@@ -26238,6 +26238,29 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
+"bfL" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Xenolab";
+	name = "test chamber blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "bfM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -29826,6 +29849,14 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
+	})
+"bmY" = (
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
 	})
 "bmZ" = (
 /obj/structure/window/reinforced{
@@ -38886,6 +38917,27 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
+"bEz" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "xenobio2";
+	name = "Containment Blast Doors";
+	pixel_y = 4;
+	req_access_txt = "55"
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/warning_stripes/northeast,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "bEA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -45028,6 +45080,9 @@
 /area/hallway/secondary/entry{
 	name = "Arrivals"
 	})
+"bRz" = (
+/turf/simulated/floor/plasteel,
+/area/escapepodbay)
 "bRA" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -47346,6 +47401,17 @@
 /turf/simulated/floor/plasteel,
 /area/ai_monitored/storage/eva{
 	name = "E.V.A. Storage"
+	})
+"bWg" = (
+/obj/machinery/door/window/northleft{
+	dir = 4;
+	name = "Containment Pen #5";
+	req_access_txt = "55"
+	},
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
 	})
 "bWh" = (
 /obj/machinery/alarm{
@@ -70796,7 +70862,10 @@
 	name = "\improper Departure Lounge"
 	})
 "cTQ" = (
-/turf/space,
+/obj/structure/flora/ausbushes,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/bush,
+/turf/simulated/floor/grass,
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
 	})
@@ -71924,28 +71993,6 @@
 	icon_state = "dark"
 	},
 /area/chapel/main)
-"cWw" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Xenolab";
-	name = "test chamber blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "cWz" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
@@ -72387,6 +72434,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"cXy" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/pointybush,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass,
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
 "cXz" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -73970,12 +74025,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/medical/psych)
-"daY" = (
-/obj/machinery/space_heater,
-/turf/simulated/floor/plating,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "dbb" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -76357,20 +76406,6 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
-"dlS" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/decal/warning_stripes/west,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "dmU" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -76386,12 +76421,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/security/main)
-"dnw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/wood,
-/area/maintenance/abandonedbar{
-	name = "New Bar"
-	})
 "dom" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -76432,6 +76461,27 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
+"dre" = (
+/obj/machinery/door/window/southleft{
+	dir = 1;
+	name = "Maximum Security Test Chamber";
+	req_access_txt = "55"
+	},
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
+"drK" = (
+/obj/machinery/door_control{
+	desc = "A remote control-switch for the pod doors.";
+	id = "escapepodbay";
+	name = "Pod Door Control";
+	pixel_y = 24;
+	req_access_txt = "13"
+	},
+/turf/simulated/floor/engine,
+/area/escapepodbay)
 "dtM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -76454,38 +76504,6 @@
 	icon_state = "white"
 	},
 /area/medical/surgery2)
-"dyk" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
-/obj/machinery/camera{
-	c_tag = "Secure Lab - Aft-Starboard";
-	dir = 8;
-	network = list("SS13","RD")
-	},
-/obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
-"dyI" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plating,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "dAs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -76504,6 +76522,30 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"dCE" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = -24
+	},
+/obj/machinery/camera{
+	c_tag = "Secure Lab - Aft-Port";
+	dir = 4;
+	network = list("SS13","RD")
+	},
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "dCV" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -76668,6 +76710,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"dWv" = (
+/obj/machinery/sparker{
+	id = "Xenobio";
+	pixel_x = -25
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "dWX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -76726,6 +76777,15 @@
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
 /area/medical/cmo)
+"ebu" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "ebA" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -76801,6 +76861,17 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"efS" = (
+/obj/machinery/door/window/northleft{
+	dir = 4;
+	name = "Containment Pen #3";
+	req_access_txt = "55"
+	},
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "egZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -76899,24 +76970,24 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
-"eGd" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Escape Pod Bay"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/door/firedoor,
+"eFv" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	d2 = 4;
+	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel,
-/area/escapepodbay)
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "xenobio2";
+	name = "containment blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "eGG" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -76940,19 +77011,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/medical/surgery1)
-"eIT" = (
-/obj/machinery/camera{
-	c_tag = "Escape - Aft";
-	dir = 1
-	},
-/obj/structure/closet/emcloset,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
 "eKV" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -77010,19 +77068,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
-"eQA" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/decal/warning_stripes/southwestcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "eRU" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -77066,12 +77111,43 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
-"eVu" = (
-/obj/structure/closet/emcloset,
-/obj/item/clothing/mask/breath,
-/obj/item/tank/internals/emergency_oxygen,
-/turf/simulated/floor/plasteel,
-/area/escapepodbay)
+"eVm" = (
+/obj/structure/table,
+/obj/machinery/cell_charger{
+	pixel_y = 5
+	},
+/obj/item/stack/cable_coil,
+/obj/item/multitool,
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
+"eYc" = (
+/obj/machinery/door/window/northleft{
+	dir = 4;
+	name = "Containment Pen #4";
+	req_access_txt = "55"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "xenobio7";
+	name = "containment blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "eYE" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -77089,23 +77165,40 @@
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
 	})
-"fbp" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/disposalpipe/segment{
+"faR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "xenobio2";
-	name = "containment blast door";
-	opacity = 0
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
 	},
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
+"feV" = (
+/mob/living/simple_animal/slime,
 /turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
+"ffa" = (
+/obj/item/clothing/mask/gas,
+/obj/item/clothing/mask/gas,
+/obj/item/clothing/mask/gas,
+/obj/item/clothing/glasses/science,
+/obj/item/clothing/glasses/science,
+/obj/structure/table,
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plasteel,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -77202,23 +77295,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
-"fpm" = (
-/obj/structure/window/reinforced,
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	id = "xenobio7";
-	name = "Containment Blast Doors";
-	pixel_y = 4;
-	req_access_txt = "55"
-	},
-/obj/effect/decal/warning_stripes/southwest,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
-"fpy" = (
-/turf/simulated/floor/engine,
-/area/escapepodbay)
 "fsY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -77236,26 +77312,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
-"fte" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "fts" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -77268,15 +77324,6 @@
 	icon_state = "white"
 	},
 /area/medical/virology)
-"fun" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
 "fvO" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -77301,10 +77348,6 @@
 	icon_state = "dark"
 	},
 /area/engine/break_room)
-"fxX" = (
-/obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/engine/vacuum,
-/area/escapepodbay)
 "fyS" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -77313,6 +77356,12 @@
 	icon_state = "white"
 	},
 /area/medical/virology)
+"fzU" = (
+/obj/structure/closet,
+/turf/simulated/floor/plating,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "fBO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -77370,16 +77419,26 @@
 	icon_state = "dark"
 	},
 /area/bridge)
-"fGR" = (
-/obj/machinery/door/poddoor/multi_tile/four_tile_ver{
-	id_tag = "escapepodbay";
-	req_one_access_txt = "13"
+"fHu" = (
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/obj/structure/spacepoddoor{
-	luminosity = 3
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
-/turf/simulated/floor/engine,
-/area/escapepodbay)
+/obj/machinery/atmospherics/binary/pump{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "fHC" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 5
@@ -77387,6 +77446,10 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"fLW" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "fOf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -77394,6 +77457,14 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
+"fOJ" = (
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass,
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
 "fPa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -77401,22 +77472,43 @@
 	icon_state = "dark"
 	},
 /area/chapel/main)
-"fTC" = (
-/obj/structure/table,
-/obj/item/storage/belt/utility,
-/obj/item/stock_parts/cell,
-/obj/item/flashlight,
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "Escape Podbay APC";
-	pixel_y = 25
+"fPf" = (
+/obj/machinery/camera{
+	c_tag = "Departure Lounge Podbay"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/escapepodbay)
+"fPx" = (
+/obj/item/radio/intercom{
+	pixel_y = -25
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
+"fRU" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel,
-/area/escapepodbay)
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "xenobio6";
+	name = "containment blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "fUI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -77437,6 +77529,48 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
+"fXa" = (
+/obj/machinery/door/window/northleft{
+	base_state = "right";
+	dir = 8;
+	icon_state = "right";
+	name = "Containment Pen #3";
+	req_access_txt = "55"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "xenobio2";
+	name = "containment blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
+"fXx" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Escape Pod Bay"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/escapepodbay)
 "fZa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -77496,28 +77630,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
-"gcT" = (
-/obj/machinery/door/window/northleft{
-	dir = 4;
-	name = "Containment Pen #4";
-	req_access_txt = "55"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "xenobio7";
-	name = "containment blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "gda" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -77636,6 +77748,13 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
+"gmB" = (
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/circuitboard/chem_dispenser/beer,
+/turf/simulated/floor/wood,
+/area/maintenance/abandonedbar{
+	name = "New Bar"
+	})
 "gnJ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -77679,26 +77798,42 @@
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
 	})
+"grA" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "xenobio3";
+	name = "Containment Blast Doors";
+	pixel_y = 4;
+	req_access_txt = "55"
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/warning_stripes/northeast,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "gtu" = (
 /obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
 /area/medical/reception)
-"gvA" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/escapepodbay)
+"gvW" = (
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "gwJ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/construction)
-"gxd" = (
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/engine,
-/area/escapepodbay)
 "gyy" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
@@ -77722,29 +77857,6 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
-"gCK" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "gDB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -77756,38 +77868,12 @@
 	icon_state = "dark"
 	},
 /area/bridge)
-"gDI" = (
-/obj/machinery/door/airlock/command{
-	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi';
-	name = "Test Chamber Maintenance";
-	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi';
-	req_access_txt = "47"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "gEi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
 /area/ntrep)
-"gFU" = (
-/obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
-"gHn" = (
-/obj/structure/spacepoddoor{
-	luminosity = 3
-	},
-/turf/simulated/floor/engine,
-/area/escapepodbay)
 "gIN" = (
 /obj/structure/chair/wood/wings{
 	dir = 8
@@ -77801,6 +77887,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/theatre)
+"gJB" = (
+/obj/item/radio/beacon,
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "gKb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -77824,13 +77916,30 @@
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
-"gNb" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
+"gMU" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
-/area/maintenance/abandonedbar{
-	name = "New Bar"
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
 	})
 "gOD" = (
 /obj/structure/cable/yellow{
@@ -77851,15 +77960,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
-"gOU" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
 "gQu" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -77870,23 +77970,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/sleep)
-"gRa" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Xenolab";
-	name = "test chamber blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "gRw" = (
 /obj/effect/spawner/window/reinforced,
 /obj/effect/spawner/airlock/s_to_n,
@@ -77910,24 +77993,6 @@
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
 	})
-"gVT" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "gYM" = (
 /obj/machinery/light{
 	dir = 8
@@ -77950,6 +78015,42 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/civilian/barber)
+"hbz" = (
+/obj/effect/decal/remains/xeno,
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
+"hcg" = (
+/obj/structure/table,
+/obj/item/storage/belt/utility,
+/obj/item/stock_parts/cell,
+/obj/item/flashlight,
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "Escape Podbay APC";
+	pixel_y = 25
+	},
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/escapepodbay)
+"hcN" = (
+/obj/structure/window/reinforced,
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "xenobio8";
+	name = "Containment Blast Doors";
+	pixel_y = 4;
+	req_access_txt = "55"
+	},
+/obj/effect/decal/warning_stripes/southwest,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "hdL" = (
 /obj/structure/cable/yellow{
 	d2 = 8;
@@ -77974,15 +78075,6 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
-"hfi" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plating,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "hgN" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -78053,6 +78145,10 @@
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
 	})
+"hkq" = (
+/obj/machinery/light,
+/turf/simulated/floor/engine,
+/area/escapepodbay)
 "hlZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -78079,6 +78175,14 @@
 	},
 /area/maintenance/abandonedbar{
 	name = "New Bar"
+	})
+"hmE" = (
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
 	})
 "hmM" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -78116,38 +78220,6 @@
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
 	})
-"hoM" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible,
-/obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -29
-	},
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
-"hqf" = (
-/obj/item/radio/intercom{
-	pixel_y = -25
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "hqN" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Supermatter Engine Room";
@@ -78160,6 +78232,15 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"hrQ" = (
+/obj/machinery/shieldwallgen{
+	req_access = list(55)
+	},
+/obj/structure/cable/yellow,
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "huo" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -78167,17 +78248,17 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
-"huC" = (
-/obj/structure/reagent_dispensers/watertank,
-/turf/simulated/floor/plasteel,
-/area/escapepodbay)
-"huP" = (
-/obj/effect/spawner/window/reinforced,
+"hwc" = (
+/obj/machinery/door/airlock/command{
+	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi';
+	name = "Test Chamber Maintenance";
+	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi';
+	req_access_txt = "47"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
-/area/escapepodbay)
-"hvd" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/wall/r_wall,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -78208,6 +78289,14 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/tcommsat/server)
+"hyk" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "hAg" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -78223,27 +78312,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"hAw" = (
-/obj/machinery/door/window/southleft{
-	name = "Maximum Security Test Chamber";
-	req_access_txt = "55"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Xenolab";
-	name = "test chamber blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "hBM" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -78318,62 +78386,6 @@
 	icon_state = "yellow"
 	},
 /area/engine/engineering)
-"hFo" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "xenobio1";
-	name = "containment blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
-"hFX" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
-"hHd" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
-"hHz" = (
-/obj/structure/table,
-/obj/item/mounted/frame/light_fixture,
-/obj/item/mounted/frame/light_fixture,
-/turf/simulated/floor/wood,
-/area/maintenance/abandonedbar{
-	name = "New Bar"
-	})
 "hHE" = (
 /obj/effect/decal/warning_stripes/southwest,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -78404,17 +78416,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/armoury)
-"hJV" = (
-/obj/machinery/door/window/northleft{
-	dir = 4;
-	name = "Containment Pen #1";
-	req_access_txt = "55"
-	},
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "hKu" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -78508,15 +78509,12 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
-"hXj" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/crowbar/red,
-/obj/machinery/firealarm{
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel,
-/area/escapepodbay)
+"hYo" = (
+/obj/structure/disposaloutlet,
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "hYq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -78570,6 +78568,36 @@
 	},
 /turf/space,
 /area/space)
+"ick" = (
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/binary/pump{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
+"icB" = (
+/obj/machinery/door/firedoor,
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/maintenance/abandonedbar{
+	name = "New Bar"
+	})
 "idx" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -78594,23 +78622,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"ifN" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
-"igR" = (
-/obj/machinery/camera{
-	c_tag = "Departure Lounge Podbay"
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/engine,
-/area/escapepodbay)
 "ihM" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -78671,6 +78682,20 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
+	})
+"ikv" = (
+/obj/structure/window/reinforced,
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "xenobio7";
+	name = "Containment Blast Doors";
+	pixel_y = 4;
+	req_access_txt = "55"
+	},
+/obj/effect/decal/warning_stripes/southwest,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
 	})
 "ikO" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -78741,10 +78766,23 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
-"ioO" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+"ipa" = (
+/obj/structure/table,
+/obj/item/assembly/igniter{
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/obj/item/assembly/igniter{
+	pixel_x = 5;
+	pixel_y = -4
+	},
+/obj/item/assembly/igniter{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/obj/item/assembly/igniter{
+	pixel_x = 2;
+	pixel_y = -1
 	},
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology{
@@ -78779,6 +78817,15 @@
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
+	})
+"iyi" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
 	})
 "iyv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -78843,13 +78890,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
-"iIw" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Escape Pod Bay"
-	},
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel,
-/area/escapepodbay)
 "iMC" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/light{
@@ -78858,12 +78898,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry{
 	name = "Arrivals"
-	})
-"iNp" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
 	})
 "iNu" = (
 /turf/simulated/floor/plasteel{
@@ -78882,24 +78916,6 @@
 	icon_state = "browncorner"
 	},
 /area/hallway/primary/port)
-"iQe" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
-	},
-/obj/machinery/portable_atmospherics/canister,
-/obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "iRu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -78943,17 +78959,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/starboard)
-"iTt" = (
-/obj/machinery/door/airlock/command{
-	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi';
-	name = "Test Chamber Maintenance";
-	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi';
-	req_access_txt = "47"
-	},
-/turf/simulated/floor/plating,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "iTR" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -78965,6 +78970,13 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/courtroom)
+"iVE" = (
+/obj/structure/table/wood,
+/obj/item/candle,
+/turf/simulated/floor/carpet,
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
 "iWv" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -78972,13 +78984,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/tcommsat/server)
-"iXH" = (
-/obj/structure/table/wood,
-/obj/item/candle,
-/turf/simulated/floor/carpet,
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
 "iXL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -79057,21 +79062,10 @@
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
 	})
-"jkg" = (
-/obj/structure/table,
-/obj/machinery/cell_charger{
-	pixel_y = 5
-	},
-/obj/item/stack/cable_coil,
-/obj/item/multitool,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+"jie" = (
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
+/area/escapepodbay)
 "jlB" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -79087,6 +79081,15 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay3)
+"jpl" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/crowbar/red,
+/obj/machinery/firealarm{
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel,
+/area/escapepodbay)
 "jrE" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -79102,6 +79105,23 @@
 	icon_state = "bluecorner"
 	},
 /area/hallway/primary/aft)
+"jBx" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Xenolab";
+	name = "test chamber blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "jCi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -79199,24 +79219,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
-"jPA" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable/yellow,
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "xenobio2";
-	name = "containment blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "jQZ" = (
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -79249,6 +79251,24 @@
 	icon_state = "red"
 	},
 /area/security/brig)
+"kei" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "xenobio6";
+	name = "containment blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "kez" = (
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
@@ -79281,50 +79301,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
-"kid" = (
-/obj/machinery/door/window/northleft{
-	base_state = "right";
-	dir = 8;
-	icon_state = "right";
-	name = "Containment Pen #6";
-	req_access_txt = "55"
+"kkJ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
-"kik" = (
-/obj/machinery/constructable_frame/machine_frame,
-/obj/item/circuitboard/vendor,
-/obj/item/vending_refill/boozeomat,
-/obj/item/vending_refill/boozeomat,
-/turf/simulated/floor/wood,
-/area/maintenance/abandonedbar{
-	name = "New Bar"
-	})
-"kkh" = (
-/obj/machinery/constructable_frame/machine_frame,
-/obj/item/circuitboard/chem_dispenser/beer,
-/turf/simulated/floor/wood,
-/area/maintenance/abandonedbar{
-	name = "New Bar"
-	})
-"kma" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plating,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -79345,19 +79326,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"koX" = (
-/obj/structure/table/reinforced,
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/computer/security/telescreen{
-	dir = 1;
-	name = "Test Chamber Monitor";
-	network = list("Xeno");
-	pixel_y = 2
-	},
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "kry" = (
 /obj/structure/chair/stool{
 	pixel_y = 8
@@ -79396,6 +79364,19 @@
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
 	})
+"ksT" = (
+/obj/machinery/camera{
+	c_tag = "Escape - Aft";
+	dir = 1
+	},
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
 "kto" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -79420,11 +79401,30 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
-"kun" = (
-/obj/structure/table/wood/poker,
-/turf/simulated/floor/wood,
-/area/maintenance/abandonedbar{
-	name = "New Bar"
+"kvw" = (
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/engine/vacuum,
+/area/escapepodbay)
+"kvC" = (
+/obj/machinery/door/window/southleft{
+	name = "Maximum Security Test Chamber";
+	req_access_txt = "55"
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Xenolab";
+	name = "test chamber blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
 	})
 "kvG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -79475,6 +79475,26 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
+"kzG" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "xenobio1";
+	name = "containment blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "kzH" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -79533,25 +79553,6 @@
 	icon_state = "brown"
 	},
 /area/storage/primary)
-"kFl" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/landmark/start{
-	name = "Scientist"
-	},
-/obj/machinery/hologram/holopad,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "kGw" = (
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
@@ -79594,6 +79595,20 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/sleep)
+"kLo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/escapepodbay)
 "kLs" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	layer = 2
@@ -79602,6 +79617,17 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"kNg" = (
+/obj/machinery/door/airlock/command{
+	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi';
+	name = "Test Chamber Maintenance";
+	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi';
+	req_access_txt = "47"
+	},
+/turf/simulated/floor/plating,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "kNr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -79637,6 +79663,16 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/paramedic)
+"kQL" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'HIGH VOLTAGE'";
+	icon_state = "shock";
+	name = "HIGH VOLTAGE"
+	},
+/turf/simulated/wall,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "kRX" = (
 /obj/structure/window/plasmareinforced{
 	dir = 1
@@ -79691,27 +79727,6 @@
 /area/hallway/secondary/entry{
 	name = "Arrivals"
 	})
-"kWA" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	id = "xenobio3";
-	name = "Containment Blast Doors";
-	pixel_y = 4;
-	req_access_txt = "55"
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "kXs" = (
 /obj/structure/chair,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -79737,28 +79752,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/theatre)
-"kZJ" = (
-/obj/structure/chair,
-/obj/structure/railing{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
-"lan" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/structure/table/wood/poker,
-/obj/item/deck/cards,
-/turf/simulated/floor/wood,
-/area/maintenance/abandonedbar{
-	name = "New Bar"
-	})
 "law" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -79766,18 +79759,33 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/sleep)
+"lca" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "xenobio7";
+	name = "containment blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "lcc" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/engine/engineering)
-"lcy" = (
-/obj/structure/table,
-/turf/simulated/floor/wood,
-/area/maintenance/abandonedbar{
-	name = "New Bar"
-	})
 "lcL" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -79785,6 +79793,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"lcW" = (
+/obj/structure/closet/emcloset,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/emergency_oxygen,
+/turf/simulated/floor/plasteel,
+/area/escapepodbay)
 "len" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/engine,
@@ -79807,6 +79821,15 @@
 	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
+"lgg" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "lgr" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
@@ -79836,14 +79859,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
-"lgK" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 1
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "lid" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -79864,6 +79879,12 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"lno" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
 "lpc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -79890,40 +79911,6 @@
 	icon_state = "whitegreen"
 	},
 /area/maintenance/aft)
-"ltd" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	id = "xenobio2";
-	name = "Containment Blast Doors";
-	pixel_y = 4;
-	req_access_txt = "55"
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
-"lwd" = (
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
-"lwz" = (
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/ausbushes/sunnybush,
-/obj/structure/flora/ausbushes/ppflowers,
-/turf/simulated/floor/grass,
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
 "lwN" = (
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/structure/grille,/obj/structure/grille,/obj/structure/grille,/obj/structure/grille,/obj/structure/grille,/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
@@ -79934,22 +79921,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
-	})
-"lys" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
 	})
 "lBy" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -79973,16 +79944,6 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
-"lCY" = (
-/obj/structure/table,
-/obj/item/stack/sheet/metal{
-	amount = 10
-	},
-/obj/item/radio/electropack,
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "lDa" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -79994,14 +79955,19 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "lDx" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
-/turf/simulated/wall/r_wall,
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
+	})
+"lEJ" = (
+/obj/item/radio/intercom{
+	name = "Station Intercom (General)";
+	pixel_y = -29
+	},
+/turf/simulated/floor/wood,
+/area/maintenance/abandonedbar{
+	name = "New Bar"
 	})
 "lFH" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -80033,23 +79999,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
-"lGm" = (
-/obj/item/crowbar/red,
-/obj/item/wrench,
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "lGr" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8;
@@ -80069,21 +80018,30 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/aft)
-"lID" = (
-/turf/simulated/floor/plasteel,
-/area/escapepodbay)
+"lIb" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "xenobio3";
+	name = "containment blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "lIR" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
 	},
 /area/hydroponics)
-"lJn" = (
-/obj/item/radio/beacon,
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "lJX" = (
 /obj/structure/window/plasmareinforced,
 /obj/machinery/power/rad_collector{
@@ -80095,26 +80053,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
-"lMb" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/obj/machinery/camera{
-	c_tag = "Secure Lab - Central";
-	dir = 8;
-	network = list("SS13","RD")
-	},
-/obj/effect/decal/warning_stripes/east,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "lOU" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/effect/decal/warning_stripes/west,
@@ -80125,6 +80063,21 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry{
 	name = "Arrivals"
+	})
+"lRu" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
 	})
 "lSh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -80138,16 +80091,13 @@
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
-"lTk" = (
-/obj/machinery/door/window/northleft{
-	dir = 4;
-	name = "Containment Pen #5";
-	req_access_txt = "55"
-	},
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
+"lTf" = (
+/obj/structure/table,
+/obj/item/mounted/frame/light_fixture,
+/obj/item/mounted/frame/light_fixture,
+/turf/simulated/floor/wood,
+/area/maintenance/abandonedbar{
+	name = "New Bar"
 	})
 "lUc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -80162,13 +80112,20 @@
 	},
 /turf/simulated/floor/carpet,
 /area/chapel/main)
-"lVh" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
+"lVa" = (
+/obj/item/crowbar/red,
+/obj/item/wrench,
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
 	},
-/turf/simulated/wall,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plasteel,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -80181,9 +80138,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
-"lZa" = (
-/turf/simulated/wall,
-/area/escapepodbay)
+"lZH" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
+	},
+/turf/simulated/floor/wood,
+/area/maintenance/abandonedbar{
+	name = "New Bar"
+	})
 "mcP" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -80267,21 +80229,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"mjY" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "mmk" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -80340,42 +80287,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
-"mtf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
-"mvP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plasteel,
-/area/escapepodbay)
 "myY" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -80421,12 +80332,6 @@
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
-"mBH" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/escapepodbay)
 "mDj" = (
 /obj/structure/chair/stool{
 	pixel_y = 8
@@ -80442,6 +80347,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
+"mEh" = (
+/turf/simulated/floor/plating,
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
+"mEU" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/plasteel,
+/area/escapepodbay)
 "mFx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -80466,26 +80380,49 @@
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
 	})
-"mJS" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -27
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
-	},
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
 "mKy" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
+	})
+"mLY" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -25
+	},
+/turf/simulated/floor/engine,
+/area/escapepodbay)
+"mNi" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 2;
+	height = 18;
+	id = "skipjack_se";
+	name = "southeast of SS13";
+	width = 19
+	},
+/turf/space,
+/area/space)
+"mNS" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
+/obj/machinery/portable_atmospherics/canister,
+/obj/effect/decal/warning_stripes/northeast,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
 	})
 "mOc" = (
 /obj/structure/cable/yellow{
@@ -80509,17 +80446,13 @@
 	icon_state = "green"
 	},
 /area/hydroponics)
-"mQJ" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/machinery/light,
+"mRF" = (
+/obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+	icon_state = "white"
 	},
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
 	})
 "mRP" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -80568,12 +80501,38 @@
 "mXy" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
-"mYN" = (
-/obj/machinery/constructable_frame/machine_frame,
-/obj/item/circuitboard/chem_dispenser/soda,
-/turf/simulated/floor/wood,
-/area/maintenance/abandonedbar{
-	name = "New Bar"
+"mXN" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
+"mYM" = (
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
 	})
 "mZH" = (
 /obj/structure/chair{
@@ -80593,15 +80552,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
-"naO" = (
-/obj/machinery/shieldwallgen{
-	req_access = list(55)
-	},
-/obj/structure/cable/yellow,
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "naY" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -80633,6 +80583,19 @@
 /obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/wall,
 /area/construction)
+"ncJ" = (
+/obj/machinery/door/window/northleft{
+	base_state = "right";
+	dir = 8;
+	icon_state = "right";
+	name = "Containment Pen #4";
+	req_access_txt = "55"
+	},
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "nej" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -80685,27 +80648,27 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
-"nkh" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 2
+"nmp" = (
+/obj/machinery/door/window/northleft{
+	base_state = "right";
+	dir = 8;
+	icon_state = "right";
+	name = "Containment Pen #5";
+	req_access_txt = "55"
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/decal/warning_stripes/southwest,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
-"nko" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "xenobio1";
+	name = "containment blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -80736,6 +80699,22 @@
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"nuh" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "nuB" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -80753,6 +80732,15 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
+"nwy" = (
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/circuitboard/vendor,
+/obj/item/vending_refill/boozeomat,
+/obj/item/vending_refill/boozeomat,
+/turf/simulated/floor/wood,
+/area/maintenance/abandonedbar{
+	name = "New Bar"
+	})
 "nxh" = (
 /obj/structure/chair{
 	dir = 1
@@ -80785,6 +80773,22 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"nAe" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "nEQ" = (
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1;
@@ -80818,6 +80822,15 @@
 	icon_state = "dark"
 	},
 /area/atmos)
+"nGF" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
 "nHB" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -80839,11 +80852,30 @@
 	},
 /turf/space,
 /area/space)
+"nJq" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/structure/disposaloutlet{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "nKy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
 /area/ntrep)
+"nKR" = (
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "nLH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -80860,24 +80892,6 @@
 "nMC" = (
 /turf/simulated/wall/r_wall,
 /area/storage/secure)
-"nON" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/door_control{
-	id = "xenobio1";
-	name = "Containment Blast Doors";
-	pixel_x = -24;
-	pixel_y = 24;
-	req_access_txt = "55"
-	},
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "nPe" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
@@ -80897,14 +80911,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
-"nUc" = (
-/obj/structure/grille,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
-	name = "KEEP CLEAR: DOCKING AREA"
-	},
-/turf/space,
-/area/escapepodbay)
 "nUW" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -80937,14 +80943,6 @@
 /area/crew_quarters/locker/locker_toilet{
 	name = "\improper Restrooms"
 	})
-"nWf" = (
-/obj/structure/chair/comfy/black{
-	dir = 1
-	},
-/turf/simulated/floor/carpet,
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
 "nXf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/bluegrid,
@@ -80958,6 +80956,31 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"obj" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
+"obv" = (
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "odF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -80980,6 +81003,17 @@
 	},
 /turf/simulated/floor/carpet,
 /area/security/vacantoffice)
+"ofp" = (
+/obj/machinery/light,
+/obj/machinery/camera{
+	c_tag = "Secure Lab - Test Chamber";
+	dir = 1;
+	network = list("SS13","RD")
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "ofz" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -80989,28 +81023,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"ogD" = (
-/obj/structure/table,
-/obj/item/assembly/igniter{
-	pixel_x = -5;
-	pixel_y = 3
-	},
-/obj/item/assembly/igniter{
-	pixel_x = 5;
-	pixel_y = -4
-	},
-/obj/item/assembly/igniter{
-	pixel_x = 2;
-	pixel_y = 6
-	},
-/obj/item/assembly/igniter{
-	pixel_x = 2;
-	pixel_y = -1
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "ogE" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Supermatter Engine Room";
@@ -81026,6 +81038,18 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"oia" = (
+/obj/structure/chair,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
 "oiv" = (
 /turf/simulated/floor/wood,
 /area/hallway/secondary/exit{
@@ -81039,9 +81063,38 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"omx" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating,
+"oko" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "xenobio1";
+	name = "containment blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
+"onh" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Xenolab";
+	name = "test chamber blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -81089,6 +81142,12 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"oDo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/wood,
+/area/maintenance/abandonedbar{
+	name = "New Bar"
+	})
 "oJQ" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -81103,19 +81162,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
-"oJZ" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/decal/warning_stripes/southeastcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "oOs" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/effect/decal/warning_stripes/yellow,
@@ -81141,6 +81187,18 @@
 	},
 /area/medical/medbay2{
 	name = "Medbay Storage"
+	})
+"oSv" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
+	},
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
 	})
 "oTM" = (
 /obj/structure/sign/fire,
@@ -81191,6 +81249,29 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
+"oXp" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
+"oYR" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
 "pad" = (
 /obj/structure/chair/comfy/black,
 /turf/simulated/floor/carpet,
@@ -81231,22 +81312,15 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"pdX" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
+"pdz" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "xenobio8";
-	name = "containment blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
+/obj/structure/table/wood/poker,
+/obj/item/deck/cards,
+/turf/simulated/floor/wood,
+/area/maintenance/abandonedbar{
+	name = "New Bar"
 	})
 "pef" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -81299,6 +81373,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/medical/cmo)
+"phU" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "pjn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -81328,13 +81411,24 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
-"pkG" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
+"pkI" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/item/radio/intercom{
+	name = "Station Intercom (General)";
+	pixel_y = -29
+	},
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -81373,14 +81467,6 @@
 	icon_state = "dark"
 	},
 /area/security/podbay)
-"ppg" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/pointybush,
-/obj/structure/flora/ausbushes/brflowers,
-/turf/simulated/floor/grass,
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
 "ppw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -81393,30 +81479,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/medical/virology)
-"ppR" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/machinery/camera{
-	c_tag = "Secure Lab - Aft-Port";
-	dir = 4;
-	network = list("SS13","RD")
-	},
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "ptc" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -81455,30 +81517,6 @@
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
 	})
-"pvb" = (
-/obj/machinery/door/window/northleft{
-	base_state = "right";
-	dir = 8;
-	icon_state = "right";
-	name = "Containment Pen #1";
-	req_access_txt = "55"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "xenobio3";
-	name = "containment blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "pvu" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -81496,29 +81534,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
-"pzk" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable/yellow,
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Xenolab";
-	name = "test chamber blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "pzX" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -81560,30 +81575,20 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/courtroom)
-"pDo" = (
-/obj/machinery/door/window/northleft{
-	base_state = "right";
-	dir = 8;
-	icon_state = "right";
-	name = "Containment Pen #4";
-	req_access_txt = "55"
+"pGh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
-"pEt" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
-	},
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
+/area/escapepodbay)
 "pHQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
@@ -81707,27 +81712,6 @@
 /area/hallway/secondary/entry{
 	name = "Arrivals"
 	})
-"pSQ" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "xenobio7";
-	name = "containment blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "pTP" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -81792,6 +81776,24 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/toxins/explab)
+"qaQ" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/portable_atmospherics/canister,
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "qbl" = (
 /obj/effect/spawner/airlock,
 /turf/simulated/wall,
@@ -81816,6 +81818,12 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/construction)
+"qdh" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/escapepodbay)
 "qee" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -81849,15 +81857,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/starboard)
-"qgY" = (
-/obj/machinery/sparker{
-	id = "Xenobio";
-	pixel_x = -25
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "qhx" = (
 /obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall/r_wall,
@@ -81898,14 +81897,31 @@
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
 	})
+"qpd" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Escape Pod Bay"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
+/area/escapepodbay)
+"qps" = (
+/obj/machinery/door/poddoor/multi_tile/four_tile_ver{
+	id_tag = "escapepodbay";
+	req_one_access_txt = "13"
+	},
+/obj/structure/spacepoddoor{
+	luminosity = 3
+	},
+/turf/simulated/floor/engine,
+/area/escapepodbay)
 "qpO" = (
 /turf/simulated/wall,
 /area/engine/equipmentstorage)
-"qtg" = (
-/obj/structure/disposaloutlet,
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
+"qqd" = (
+/obj/structure/table,
+/turf/simulated/floor/wood,
+/area/maintenance/abandonedbar{
+	name = "New Bar"
 	})
 "qts" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -81926,15 +81942,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
-"quX" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plating,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "qwd" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -81967,6 +81974,10 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"qzA" = (
+/obj/structure/grille,
+/turf/space,
+/area/escapepodbay)
 "qAG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -81991,17 +82002,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
-"qEb" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "qFg" = (
 /obj/machinery/space_heater,
 /obj/machinery/power/apc{
@@ -82012,25 +82012,6 @@
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
-"qFG" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
-	},
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
 "qHi" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -82064,6 +82045,25 @@
 	icon_state = "cautioncorner"
 	},
 /area/hallway/primary/starboard)
+"qIO" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/wall/r_wall,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
+"qLi" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 2
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/southwest,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "qME" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -82079,6 +82079,23 @@
 	icon_state = "red"
 	},
 /area/security/main)
+"qPm" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "xenobio8";
+	name = "containment blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "qQy" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -82104,14 +82121,16 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
-"qSv" = (
-/obj/machinery/door/window/northleft{
-	dir = 4;
-	name = "Containment Pen #3";
-	req_access_txt = "55"
+"qTa" = (
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel,
+/obj/effect/decal/warning_stripes/southeastcorner,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -82146,6 +82165,17 @@
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
 	})
+"qYP" = (
+/obj/machinery/door/window/northleft{
+	dir = 4;
+	name = "Containment Pen #1";
+	req_access_txt = "55"
+	},
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "raV" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -82154,6 +82184,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
+"rbr" = (
+/obj/structure/grille,
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
+	name = "KEEP CLEAR: DOCKING AREA"
+	},
+/turf/space,
+/area/escapepodbay)
 "rdz" = (
 /obj/item/twohanded/required/kirbyplants{
 	level = 4.1
@@ -82178,41 +82216,20 @@
 	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
-"rhb" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+"rgu" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'HIGH VOLTAGE'";
+	icon_state = "shock";
+	name = "HIGH VOLTAGE"
 	},
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/wall/r_wall,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
-"riH" = (
-/obj/machinery/door_control{
-	desc = "A remote control-switch for the pod doors.";
-	id = "escapepodbay";
-	name = "Pod Door Control";
-	pixel_y = 24;
-	req_access_txt = "13"
-	},
-/turf/simulated/floor/engine,
-/area/escapepodbay)
 "riM" = (
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
-"riV" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "rjj" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -82240,19 +82257,6 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
-"rkl" = (
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
-	},
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
-"rli" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/plasteel,
-/area/escapepodbay)
 "rlJ" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /obj/machinery/light,
@@ -82280,6 +82284,10 @@
 /area/hallway/secondary/entry{
 	name = "Arrivals"
 	})
+"rnz" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plasteel,
+/area/escapepodbay)
 "rpg" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -82289,6 +82297,12 @@
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
+"rpo" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/escapepodbay)
 "rqY" = (
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -82321,20 +82335,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"rvj" = (
-/obj/structure/window/reinforced,
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	id = "xenobio8";
-	name = "Containment Blast Doors";
-	pixel_y = 4;
-	req_access_txt = "55"
-	},
-/obj/effect/decal/warning_stripes/southwest,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "rvu" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -82355,6 +82355,16 @@
 /obj/machinery/power/supermatter_crystal/engine,
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
+"rwo" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/chair,
+/obj/item/cigbutt,
+/turf/simulated/floor/plating,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "rxV" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 5
@@ -82388,8 +82398,19 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
-"rAb" = (
-/obj/effect/decal/warning_stripes/north,
+"rDc" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/landmark/start{
+	name = "Scientist"
+	},
+/obj/machinery/hologram/holopad,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -82448,6 +82469,14 @@
 	icon_state = "neutralcorner"
 	},
 /area/security/brig)
+"rEp" = (
+/obj/structure/flora/ausbushes/genericbush,
+/obj/structure/flora/ausbushes/reedbush,
+/obj/structure/flora/ausbushes,
+/turf/simulated/floor/grass,
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
 "rEw" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -82629,6 +82658,9 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"rYt" = (
+/turf/simulated/floor/engine,
+/area/escapepodbay)
 "rYO" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -82683,17 +82715,18 @@
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
-"siV" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
+"sdC" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
 	},
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+	icon_state = "white"
 	},
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
 	})
 "sjx" = (
 /obj/structure/chair{
@@ -82722,24 +82755,6 @@
 	icon_state = "dark"
 	},
 /area/space/nearstation)
-"smM" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable/yellow,
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "xenobio6";
-	name = "containment blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "soT" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -82776,13 +82791,11 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/carpet,
 /area/library)
-"spH" = (
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
+"sqJ" = (
+/obj/structure/table/wood/poker,
+/turf/simulated/floor/wood,
+/area/maintenance/abandonedbar{
+	name = "New Bar"
 	})
 "srJ" = (
 /obj/structure/cable/yellow{
@@ -82802,35 +82815,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plating,
 /area/engine/engineering)
-"stE" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable/yellow,
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "xenobio3";
-	name = "containment blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
-"svx" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_se";
-	name = "southeast of SS13";
-	width = 19
-	},
-/turf/space,
-/area/space)
 "svF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -82858,19 +82842,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
-"swF" = (
-/obj/machinery/door/window/northleft{
-	base_state = "right";
-	dir = 8;
-	icon_state = "right";
-	name = "Containment Pen #2";
-	req_access_txt = "55"
-	},
-/obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "sxA" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -82884,9 +82855,16 @@
 "sBY" = (
 /turf/simulated/floor/plating,
 /area/storage/secure)
-"sEG" = (
-/obj/structure/closet,
-/turf/simulated/floor/plating,
+"sCk" = (
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/warning_stripes/southwestcorner,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -82906,6 +82884,29 @@
 	},
 /turf/simulated/floor/carpet,
 /area/security/vacantoffice)
+"sHM" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "sJe" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -82920,6 +82921,14 @@
 	},
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
+	})
+"sKo" = (
+/obj/structure/flora/ausbushes/pointybush,
+/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass,
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
 	})
 "sLs" = (
 /obj/structure/cable/yellow{
@@ -82948,22 +82957,6 @@
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
-"sMx" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "sOB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -82971,6 +82964,19 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
+"sOG" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/computer/security/telescreen{
+	dir = 1;
+	name = "Test Chamber Monitor";
+	network = list("Xeno");
+	pixel_y = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "sOJ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/disposalpipe/segment{
@@ -82984,6 +82990,28 @@
 	density = 0;
 	icon_state = "open";
 	id_tag = "xenobio3";
+	name = "containment blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
+"sQo" = (
+/obj/machinery/door/window/northleft{
+	dir = 4;
+	name = "Containment Pen #6";
+	req_access_txt = "55"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "xenobio6";
 	name = "containment blast door";
 	opacity = 0
 	},
@@ -83014,14 +83042,21 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/courtroom)
-"sZK" = (
-/obj/machinery/door/window/southleft{
-	dir = 1;
-	name = "Maximum Security Test Chamber";
+"tam" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/door_control{
+	id = "xenobio1";
+	name = "Containment Blast Doors";
+	pixel_x = -24;
+	pixel_y = 24;
 	req_access_txt = "55"
 	},
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel,
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -83057,6 +83092,9 @@
 	icon_state = "dark"
 	},
 /area/bridge)
+"teU" = (
+/turf/simulated/wall,
+/area/escapepodbay)
 "teW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -83093,6 +83131,48 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
+"tja" = (
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/clothing/mask/gas,
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel,
+/area/escapepodbay)
+"tjg" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/ignition_switch{
+	id = "Xenobio";
+	pixel_x = -6;
+	pixel_y = -2
+	},
+/obj/machinery/door_control{
+	id = "Xenolab";
+	name = "Test Chamber Blast Doors";
+	pixel_x = 4;
+	pixel_y = -2;
+	req_access_txt = "55"
+	},
+/obj/structure/table/reinforced,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/warning_stripes/southeast,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "tjR" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -83108,31 +83188,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/construction)
-"tmV" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "tpg" = (
 /obj/machinery/firealarm{
 	pixel_y = 29
@@ -83147,14 +83202,6 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
-"tsf" = (
-/obj/structure/flora/ausbushes/pointybush,
-/obj/structure/flora/ausbushes/sunnybush,
-/obj/structure/flora/ausbushes/ywflowers,
-/turf/simulated/floor/grass,
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
 "tvk" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -83228,16 +83275,6 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"tAY" = (
-/obj/machinery/door/firedoor,
-/obj/structure/barricade/wooden,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/maintenance/abandonedbar{
-	name = "New Bar"
-	})
 "tBw" = (
 /obj/structure/closet/secure_closet/security,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -83246,14 +83283,6 @@
 	icon_state = "vault"
 	},
 /area/security/main)
-"tBT" = (
-/obj/structure/flora/ausbushes/genericbush,
-/obj/structure/flora/ausbushes/reedbush,
-/obj/structure/flora/ausbushes,
-/turf/simulated/floor/grass,
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
 "tCC" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -83285,11 +83314,40 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
-"tLJ" = (
-/turf/simulated/floor/plating,
+"tHN" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
+"tId" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
 	})
+"tKX" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/structure/disposaloutlet,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "tNG" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -83315,19 +83373,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
-"tQR" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/obj/structure/disposaloutlet,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
-"tRr" = (
-/obj/effect/decal/remains/xeno,
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "tSj" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -83386,12 +83431,6 @@
 	icon_state = "redfull"
 	},
 /area/security/permabrig)
-"tZr" = (
-/mob/living/simple_animal/slime,
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "tZI" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	frequency = 1441;
@@ -83412,15 +83451,15 @@
 /area/security/checkpoint2{
 	name = "Customs"
 	})
-"uaB" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
 "uaQ" = (
 /turf/simulated/wall,
 /area/engine/mechanic_workshop)
+"ubk" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "udB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -83459,18 +83498,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
-"ujJ" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
-"ukt" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "umD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -83492,6 +83519,50 @@
 /area/medical/medbay2{
 	name = "Medbay Storage"
 	})
+"ung" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 24
+	},
+/obj/machinery/camera{
+	c_tag = "Secure Lab - Aft-Starboard";
+	dir = 8;
+	network = list("SS13","RD")
+	},
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
+"unj" = (
+/obj/structure/window/reinforced,
+/obj/machinery/door_control{
+	id = "xenobio6";
+	name = "Containment Blast Doors";
+	pixel_x = 24;
+	pixel_y = 24;
+	req_access_txt = "55"
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal,
+/obj/machinery/alarm{
+	pixel_y = 24
+	},
+/obj/effect/decal/warning_stripes/southwest,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "uov" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -83505,21 +83576,23 @@
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
 	})
-"uuf" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
+"uqY" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
 	},
-/obj/structure/cable/yellow,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "xenobio1";
-	name = "containment blast door";
-	opacity = 0
+/obj/machinery/camera{
+	c_tag = "Secure Lab - Central";
+	dir = 8;
+	network = list("SS13","RD")
 	},
-/turf/simulated/floor/engine,
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -83552,32 +83625,18 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
+"uyB" = (
+/obj/machinery/space_heater,
+/turf/simulated/floor/plating,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "uzt" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
 	},
 /area/hydroponics)
-"uzx" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/binary/pump{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "uAA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -83604,17 +83663,6 @@
 	icon_state = "vault"
 	},
 /area/engine/mechanic_workshop)
-"uEq" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/obj/structure/disposaloutlet{
-	dir = 1
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "uEN" = (
 /obj/effect/landmark/start{
 	name = "Roboticist"
@@ -83671,21 +83719,6 @@
 	icon_state = "white"
 	},
 /area/medical/medbay3)
-"uOq" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "uOL" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -83723,6 +83756,12 @@
 	icon_state = "dark"
 	},
 /area/bridge)
+"uTM" = (
+/obj/structure/spacepoddoor{
+	luminosity = 3
+	},
+/turf/simulated/floor/engine,
+/area/escapepodbay)
 "uTZ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -83744,28 +83783,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"uVb" = (
-/obj/machinery/door/window/northleft{
-	dir = 4;
-	name = "Containment Pen #6";
-	req_access_txt = "55"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "xenobio6";
-	name = "containment blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "uWq" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
@@ -83782,6 +83799,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/atmos)
+"uYQ" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -27
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
+	},
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
 "vaE" = (
 /obj/structure/chair/comfy/beige{
 	dir = 1
@@ -83840,24 +83871,6 @@
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
-"vmK" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "vmT" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
@@ -83878,19 +83891,26 @@
 	icon_state = "vault"
 	},
 /area/engine/mechanic_workshop)
-"vnn" = (
-/obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -29
+"vpD" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/turf/simulated/floor/wood,
-/area/maintenance/abandonedbar{
-	name = "New Bar"
-	})
-"vnM" = (
-/obj/machinery/light,
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "xenobio2";
+	name = "containment blast door";
+	opacity = 0
+	},
 /turf/simulated/floor/engine,
-/area/escapepodbay)
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "vrH" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/centcom{
@@ -83915,30 +83935,6 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
-"vtM" = (
-/obj/machinery/door/window/northleft{
-	base_state = "right";
-	dir = 8;
-	icon_state = "right";
-	name = "Containment Pen #3";
-	req_access_txt = "55"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "xenobio2";
-	name = "containment blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "vtP" = (
 /obj/machinery/conveyor/west{
 	id = "garbage"
@@ -83980,24 +83976,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
-"vAJ" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
-	},
-/obj/machinery/portable_atmospherics/canister,
-/obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "vBv" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
@@ -84130,6 +84108,23 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/courtroom)
+"vQm" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/escapepodbay)
+"vRD" = (
+/obj/machinery/door/window/northleft{
+	base_state = "right";
+	dir = 8;
+	icon_state = "right";
+	name = "Containment Pen #6";
+	req_access_txt = "55"
+	},
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "vRY" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/structure/cable/yellow{
@@ -84145,26 +84140,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"vRZ" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "xenobio6";
-	name = "containment blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "vSx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -84221,6 +84196,15 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/ai_upload)
+"whx" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
 "whC" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
@@ -84233,17 +84217,20 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/crew_quarters/courtroom)
-"wpx" = (
-/obj/item/clothing/mask/gas,
-/obj/item/clothing/mask/gas,
-/obj/item/clothing/mask/gas,
-/obj/item/clothing/glasses/science,
-/obj/item/clothing/glasses/science,
-/obj/structure/table,
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel,
+"wnH" = (
+/obj/effect/decal/warning_stripes/northeastcorner,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
+	})
+"wqq" = (
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/circuitboard/chem_dispenser/soda,
+/turf/simulated/floor/wood,
+/area/maintenance/abandonedbar{
+	name = "New Bar"
 	})
 "wri" = (
 /obj/structure/window/reinforced,
@@ -84271,6 +84258,35 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
+"wsJ" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
+"wtk" = (
+/obj/structure/table,
+/obj/item/stack/sheet/metal{
+	amount = 10
+	},
+/obj/item/radio/electropack,
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "wtP" = (
 /obj/effect/landmark/start{
 	name = "Cargo Technician"
@@ -84329,30 +84345,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
-"wvW" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/chair,
-/obj/item/cigbutt,
-/turf/simulated/floor/plating,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
-"wxB" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/escapepodbay)
 "wxE" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -84368,6 +84360,26 @@
 	icon_state = "white"
 	},
 /area/medical/surgery2)
+"wyO" = (
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "wyX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -84440,6 +84452,15 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay3)
+"wFR" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "wFW" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -84455,34 +84476,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
-"wHN" = (
-/obj/machinery/atmospherics/pipe/simple/visible,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/ignition_switch{
-	id = "Xenobio";
-	pixel_x = -6;
-	pixel_y = -2
-	},
-/obj/machinery/door_control{
-	id = "Xenolab";
-	name = "Test Chamber Blast Doors";
-	pixel_x = 4;
-	pixel_y = -2;
-	req_access_txt = "55"
-	},
-/obj/structure/table/reinforced,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/decal/warning_stripes/southeast,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "wHZ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/securearea{
@@ -84506,10 +84499,28 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"wOx" = (
-/obj/structure/grille,
-/turf/space,
-/area/escapepodbay)
+"wNm" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Xenolab";
+	name = "test chamber blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "wRy" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -84544,23 +84555,6 @@
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
-"wTk" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Xenolab";
-	name = "test chamber blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "wUE" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -84593,6 +84587,30 @@
 	icon_state = "dark"
 	},
 /area/security/podbay)
+"xbP" = (
+/obj/machinery/door/window/northleft{
+	base_state = "right";
+	dir = 8;
+	icon_state = "right";
+	name = "Containment Pen #1";
+	req_access_txt = "55"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "xenobio3";
+	name = "containment blast door";
+	opacity = 0
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "xfn" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -84621,27 +84639,14 @@
 /area/hallway/secondary/entry{
 	name = "Arrivals"
 	})
-"xiV" = (
-/obj/machinery/door/window/northleft{
-	base_state = "right";
-	dir = 8;
-	icon_state = "right";
-	name = "Containment Pen #5";
-	req_access_txt = "55"
+"xhT" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "xenobio1";
-	name = "containment blast door";
-	opacity = 0
-	},
-/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -84666,14 +84671,6 @@
 	icon_state = "caution"
 	},
 /area/atmos)
-"xqw" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -25
-	},
-/turf/simulated/floor/engine,
-/area/escapepodbay)
 "xqz" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
@@ -84689,26 +84686,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
-"xsV" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/binary/pump{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "xtA" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -84740,6 +84717,24 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
+"xvP" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/landmark{
+	name = "lightsout"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "xxA" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -84749,27 +84744,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/engine/gravitygenerator)
-"xyL" = (
-/obj/structure/window/reinforced,
-/obj/machinery/door_control{
-	id = "xenobio6";
-	name = "Containment Blast Doors";
-	pixel_x = 24;
-	pixel_y = 24;
-	req_access_txt = "55"
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/machinery/disposal,
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
-/obj/effect/decal/warning_stripes/southwest,
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "xDw" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/meter,
@@ -84792,6 +84766,19 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/tcommsat/server)
+"xFy" = (
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "xFR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -84823,6 +84810,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
+"xJo" = (
+/obj/machinery/door/window/northleft{
+	base_state = "right";
+	dir = 8;
+	icon_state = "right";
+	name = "Containment Pen #2";
+	req_access_txt = "55"
+	},
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plasteel,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "xJB" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -84844,20 +84844,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
-"xNr" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/clothing/mask/gas,
-/obj/item/clothing/mask/gas{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/turf/simulated/floor/plasteel,
-/area/escapepodbay)
 "xOM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -84866,17 +84852,6 @@
 	icon_state = "stage_stairs"
 	},
 /area/security/podbay)
-"xPv" = (
-/obj/machinery/light,
-/obj/machinery/camera{
-	c_tag = "Secure Lab - Test Chamber";
-	dir = 1;
-	network = list("SS13","RD")
-	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "xSh" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -84896,6 +84871,34 @@
 	icon_state = "dark"
 	},
 /area/chapel/main)
+"xWE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
+"xXc" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology{
+	name = "\improper Secure Lab"
+	})
 "xXW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -106810,12 +106813,12 @@ aaa
 aaa
 aaa
 aaa
-wOx
+qzA
 aaa
 aaa
 aaa
 aaa
-wOx
+qzA
 aaa
 aaa
 aaa
@@ -107067,12 +107070,12 @@ aaa
 aaa
 aaa
 aaa
-nUc
+rbr
 aaa
 aaa
 aaa
 aaa
-nUc
+rbr
 aaa
 aaa
 aaa
@@ -107324,12 +107327,12 @@ dbW
 dbW
 dbW
 dbV
-lZa
-fxX
-fxX
-fxX
-fxX
-lZa
+teU
+kvw
+kvw
+kvw
+kvw
+teU
 aaa
 aaa
 aaa
@@ -107578,15 +107581,15 @@ dbV
 dcw
 ddU
 deT
-mYN
-kkh
-kik
-lZa
-gHn
-gHn
-gHn
-fGR
-lZa
+wqq
+gmB
+nwy
+teU
+uTM
+uTM
+uTM
+qps
+teU
 aaa
 aaa
 aaa
@@ -107838,12 +107841,12 @@ dfD
 dcx
 dcx
 dcx
-lZa
-fpy
-fpy
-fpy
-fpy
-lZa
+teU
+rYt
+rYt
+rYt
+rYt
+teU
 aaa
 aaa
 aaa
@@ -108092,15 +108095,15 @@ dbW
 dcx
 ddW
 dfH
-hHz
-lcy
-lcy
-lZa
-fpy
-fpy
-fpy
-fpy
-lZa
+lTf
+qqd
+qqd
+teU
+rYt
+rYt
+rYt
+rYt
+teU
 aaa
 aaa
 aaa
@@ -108352,12 +108355,12 @@ dfW
 ddX
 ddX
 ddX
-lZa
-riH
-fpy
-fpy
-fpy
-lZa
+teU
+drK
+rYt
+rYt
+rYt
+teU
 aaa
 aaa
 aaa
@@ -108608,13 +108611,13 @@ dej
 dgB
 dcx
 dcx
-gNb
-lZa
-igR
-fpy
-fpy
-vnM
-lZa
+lZH
+teU
+fPf
+rYt
+rYt
+hkq
+teU
 aaa
 aaa
 aaa
@@ -108864,14 +108867,14 @@ dcx
 dcx
 dgW
 dcx
-kun
+sqJ
 dcx
-lZa
-gxd
-gxd
-gxd
-xqw
-lZa
+teU
+jie
+jie
+jie
+mLY
+teU
 aaa
 aaa
 aaa
@@ -109120,15 +109123,15 @@ dbW
 dcz
 deo
 dhF
-dnw
-lan
+oDo
+pdz
 dcx
-lZa
-hXj
-mBH
-lID
-eVu
-lZa
+teU
+jpl
+qdh
+bRz
+lcW
+teU
 aaa
 aaa
 aaa
@@ -109378,14 +109381,14 @@ dcx
 dcx
 ged
 dcx
-kun
-vnn
-lZa
-fTC
-mvP
-gvA
-rli
-lZa
+sqJ
+lEJ
+teU
+hcg
+pGh
+rpo
+mEU
+teU
 aaa
 aaa
 aaa
@@ -109637,12 +109640,12 @@ ged
 dcx
 dcx
 dcx
-lZa
-huC
-wxB
-lID
-xNr
-lZa
+teU
+rnz
+kLo
+bRz
+tja
+teU
 aaa
 aaa
 aaa
@@ -109891,15 +109894,15 @@ dbV
 dbV
 dbW
 hlZ
-tAY
+icB
 dbW
 dbV
-lZa
-huP
-eGd
-iIw
-huP
-lZa
+teU
+vQm
+fXx
+qpd
+vQm
+teU
 aaa
 aaa
 aaa
@@ -110150,12 +110153,12 @@ des
 jhQ
 cWi
 cWi
-siV
-mJS
+oSv
+uYQ
 cWi
-qFG
+faR
 cWi
-fun
+nGF
 cTX
 aaa
 aaa
@@ -110410,7 +110413,7 @@ cLS
 cOZ
 cRt
 cVc
-mtf
+xWE
 cWb
 bPk
 cTX
@@ -110662,14 +110665,14 @@ cZU
 gTp
 cWb
 mGK
-tBT
-kZJ
+rEp
+oia
 cUu
 mGK
-tsf
-kZJ
+sKo
+oia
 cWb
-pEt
+oYR
 cVk
 aaa
 aaa
@@ -110919,14 +110922,14 @@ cZL
 gTp
 cWb
 mGK
-lwz
-kZJ
+fOJ
+oia
 dap
 mGK
-ppg
-kZJ
+cXy
+oia
 cWb
-pEt
+oYR
 cVk
 aaa
 aaa
@@ -111176,14 +111179,14 @@ cTW
 cNz
 cWb
 mGK
-ppg
-kZJ
+cXy
+oia
 cWb
 mGK
-lwz
-kZJ
+fOJ
+oia
 cWb
-mQJ
+oXp
 cVk
 aaa
 aaa
@@ -111433,14 +111436,14 @@ dbZ
 cUz
 cWb
 nxh
-tsf
-kZJ
+sKo
+oia
 cWb
 mGK
-tBT
-kZJ
+rEp
+oia
 cWb
-pEt
+oYR
 cVk
 aaa
 aaa
@@ -111697,7 +111700,7 @@ cTs
 cTW
 cNz
 cWb
-rkl
+tId
 cVk
 aaa
 aaa
@@ -111954,7 +111957,7 @@ cWb
 cWb
 cWb
 cTr
-gOU
+whx
 cVk
 aaa
 aaa
@@ -112210,7 +112213,7 @@ dat
 cYV
 cYV
 cYV
-eIT
+ksT
 cVk
 cVk
 aaa
@@ -112718,12 +112721,12 @@ cWo
 dcD
 cTX
 pad
-iXH
-nWf
+iVE
+bmY
 cTX
-tLJ
+mEh
 cTX
-uaB
+lno
 cVk
 aaa
 aaa
@@ -120436,8 +120439,8 @@ cVG
 cVG
 cVG
 rpg
-lwd
-lwd
+gvW
+gvW
 cVG
 cVG
 cVG
@@ -120685,18 +120688,18 @@ dci
 dcH
 ddw
 rpg
-lwd
-tZr
+gvW
+feV
 ddw
 rpg
-lwd
-tZr
+gvW
+feV
 ddw
 rDg
-lwd
-lwd
+gvW
+gvW
 cVG
-sEG
+fzU
 cVG
 cVG
 cVG
@@ -120942,25 +120945,25 @@ dcj
 dcN
 ddw
 rDg
-lwd
-lwd
+gvW
+gvW
 ddw
 rDg
-lwd
-lwd
+gvW
+gvW
 ddw
 rDg
-lwd
-lwd
+gvW
+gvW
 cVG
-dyI
-omx
-omx
-omx
-omx
-omx
-omx
-quX
+lgg
+ubk
+ubk
+ubk
+ubk
+ubk
+ubk
+phU
 cVG
 aaa
 aaa
@@ -121199,25 +121202,25 @@ dcj
 dcX
 ddw
 rDg
-lwd
-lwd
+gvW
+gvW
 ddw
 rDg
-lwd
-lwd
+gvW
+gvW
 ddw
-hFo
-xiV
-uuf
+kzG
+nmp
+oko
 cVG
-gDI
-cVG
-cVG
+hwc
 cVG
 cVG
 cVG
 cVG
-ifN
+cVG
+cVG
+kkJ
 cVG
 abq
 aaa
@@ -121456,25 +121459,25 @@ dck
 ddv
 ddw
 sOJ
-pvb
-stE
+xbP
+lIb
 ddw
-fbp
-vtM
-jPA
+vpD
+fXa
+eFv
 ddw
 ueD
-lTk
-vAJ
-ppR
-lGm
-naO
+bWg
+mNS
+dCE
+lVa
+hrQ
 cVG
-lwd
-qgY
-tRr
+gvW
+dWv
+hbz
 cVG
-ifN
+kkJ
 cVG
 abq
 aaa
@@ -121713,25 +121716,25 @@ dcl
 ddJ
 cpf
 ueD
-hJV
-kWA
-lVh
+qYP
+grA
+kQL
 ueD
-qSv
-ltd
-lVh
-nON
+efS
+bEz
+kQL
+tam
 dcj
-xsV
-sMx
-koX
-wTk
-lDx
-lwd
-lwd
-lwd
+fHu
+nuh
+sOG
+jBx
+rgu
+gvW
+gvW
+gvW
 cVG
-ifN
+kkJ
 cVG
 aaa
 aaa
@@ -121969,26 +121972,26 @@ dbM
 dcl
 ddK
 dez
-rAb
+nKR
 dcj
-eQA
-dlS
-riV
+sCk
+obj
+mRF
 dcj
-eQA
-pkG
-riV
+sCk
+sdC
+mRF
 dcj
-fte
-hoM
-wHN
-pzk
-gFU
-gFU
-lgK
-lwd
+wyO
+pkI
+tjg
+bfL
+lDx
+lDx
+hyk
+gvW
 cVG
-wvW
+rwo
 cZN
 aaa
 aaa
@@ -122226,29 +122229,29 @@ dbR
 dcq
 ddL
 deB
-lys
-mjY
-tmV
-hFX
-mjY
-kma
-tmV
-mjY
-mjY
-kFl
-gCK
-vmK
-sZK
-hAw
-lwd
-lwd
-lwd
-xPv
+nAe
+lRu
+gMU
+wsJ
+lRu
+xvP
+gMU
+lRu
+lRu
+rDc
+sHM
+mXN
+dre
+kvC
+gvW
+gvW
+gvW
+ofp
 cVG
-hfi
-hvd
-ujJ
-tQR
+iyi
+qIO
+fLW
+tKX
 aaa
 aaa
 aaa
@@ -122483,24 +122486,24 @@ dbS
 dcs
 ddM
 deQ
-rAb
+nKR
 dcj
-oJZ
-lMb
-ukt
+qTa
+uqY
+wnH
 dcj
-oJZ
-spH
-ukt
+qTa
+hmE
+wnH
 dcj
-uOq
-qEb
-nkh
-cWw
-qtg
-lwd
-lJn
-lwd
+mYM
+xhT
+qLi
+wNm
+hYo
+gvW
+gJB
+gvW
 cVG
 cVJ
 cZN
@@ -122740,24 +122743,24 @@ cZj
 dcs
 ddN
 cpf
-rvj
-swF
-gVT
-lVh
-fpm
-pDo
-gVT
-lVh
-rAb
+hcN
+xJo
+tHN
+kQL
+ikv
+ncJ
+tHN
+kQL
+nKR
 dcj
-uzx
-rhb
-wpx
-gRa
-lDx
-lwd
-lwd
-hqf
+ick
+xFy
+ffa
+onh
+rgu
+gvW
+gvW
+fPx
 cVG
 cVJ
 cVG
@@ -122997,24 +123000,24 @@ dbT
 dct
 ddO
 ddw
-pdX
+qPm
 ddD
 cYA
 ddw
 dca
-gcT
-pSQ
+eYc
+lca
 ddw
-xyL
-kid
-iQe
-dyk
-nko
-naO
+unj
+vRD
+qaQ
+ung
+obv
+hrQ
 cVG
-lCY
-jkg
-ogD
+wtk
+eVm
+ipa
 cVG
 cVJ
 cVG
@@ -123254,19 +123257,19 @@ cZW
 dcj
 ddP
 ddw
-lwd
-lwd
+gvW
+gvW
 rDg
 ddw
-lwd
-lwd
+gvW
+gvW
 rDg
 ddw
-vRZ
-uVb
-smM
+fRU
+sQo
+kei
 cVG
-iTt
+kNg
 cVG
 cVG
 cVG
@@ -123511,17 +123514,17 @@ dcv
 dcj
 ddR
 ddw
-lwd
-lwd
+gvW
+gvW
 rDg
 ddw
-lwd
-lwd
+gvW
+gvW
 rDg
 ddw
-ioO
-iNp
-hHd
+ebu
+xXc
+wFR
 cVG
 cVJ
 cVJ
@@ -123768,19 +123771,19 @@ dbU
 dcu
 ddS
 ddw
-lwd
-lwd
-uEq
+gvW
+gvW
+nJq
 ddw
-tZr
-lwd
-uEq
+feV
+gvW
+nJq
 ddw
-lwd
-lwd
+gvW
+gvW
 rDg
 cVG
-daY
+uyB
 cVG
 cVG
 cVG
@@ -124033,9 +124036,9 @@ cVG
 cVG
 cVG
 cVG
-lwd
-lwd
-uEq
+gvW
+gvW
+nJq
 cVG
 cVG
 cVG
@@ -130719,7 +130722,7 @@ aaa
 aaa
 aaa
 aaa
-svx
+mNi
 aaa
 aaa
 aaa
