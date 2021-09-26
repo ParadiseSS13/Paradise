@@ -5,6 +5,7 @@ These are general powers. Specific powers are stored under the appropriate alien
 /*Alien spit now works like a taser shot. It won't home in on the target but will act the same once it does hit.
 Doesn't work on other aliens/AI.*/
 
+var/neurotoxin_type = /obj/item/projectile/bullet/neurotoxin
 
 /mob/living/carbon/proc/powerc(X, Y)//Y is optional, checks for weed planting. X can be null.
 	if(stat)
@@ -74,53 +75,146 @@ Doesn't work on other aliens/AI.*/
 	set desc = "Drench an object in acid, destroying it over time."
 	set category = "Alien"
 
+	if(acid_cooldown > world.time)
+		to_chat(src, "<span class='alertalien'>Your acid glands need to refill!</span>")
+		return
+
 	if(powerc(100))
 		if(target in oview(1))
 			if(target.acid_act(150, 100))
 				visible_message("<span class='alertalien'>[src] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
 				adjustPlasma(-100)
+				acid_cooldown = world.time + acid_cooldown_time
+				toggle_acid(0)
 			else
 				to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
 		else
 			to_chat(src, "<span class='noticealien'>[target] is too far away.</span>")
 
-/mob/living/carbon/alien/humanoid/proc/strong_corrosive_acid(atom/target) //If they right click to corrode, an error will flash if its an invalid target./N
+/mob/living/carbon/alien/humanoid/proc/toggle_acid(message = 1)
+	acid_on_click = !acid_on_click
+	acid_icon.icon_state = "leap_[acid_on_click ? "on":"off"]"
+	if(message)
+		to_chat(src, "<span class='noticealien'>You will now [acid_on_click ? "vomit acid on":"slash at"] enemies!</span>")
+	else
+		return
+
+/mob/living/carbon/alien/humanoid/proc/strong_corrosive_acid(atom/A)
 	set name = "Corrossive Acid (200)"
 	set desc = "Drench an object in strong acid, destroying it over time."
 	set category = "Alien"
 
+	if(strong_acid_cooldown > world.time)
+		to_chat(src, "<span class='alertalien'>Your acid glands need to refill!</span>")
+		return
+
 	if(powerc(200))
-		if(target in oview(1))
-			if(target.acid_act(300, 100))
-				visible_message("<span class='alertalien'>[src] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of strong acid!</span>")
+		if(A in oview(1))
+			if(A.acid_act(300, 100))
+				visible_message("<span class='alertalien'>[src] vomits globs of vile stuff all over [A]. It begins to sizzle and melt under the bubbling mess of strong acid!</span>")
 				adjustPlasma(-200)
+				strong_acid_cooldown = world.time + strong_acid_cooldown_time
+				toggle_strong_acid(0)
 			else
 				to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
 		else
-			to_chat(src, "<span class='noticealien'>[target] is too far away.</span>")
+			to_chat(src, "<span class='noticealien'>[A] is too far away.</span>")
 
-/mob/living/carbon/alien/humanoid/proc/neurotoxin() // ok
+/mob/living/carbon/alien/humanoid/proc/toggle_strong_acid(message = 1)
+	strong_acid_on_click = !strong_acid_on_click
+	strong_acid_icon.icon_state = "leap_[strong_acid_on_click ? "on":"off"]"
+	if(message)
+		to_chat(src, "<span class='noticealien'>You will now [strong_acid_on_click ? "vomit strong acid on":"slash at"] enemies!</span>")
+	else
+		return
+
+/mob/living/carbon/alien/humanoid/proc/toggle_neurotoxin(message = 1)
+	neurotoxin_on_click = !neurotoxin_on_click
+	neurotoxin_icon.icon_state = "alien_neurotoxin_[neurotoxin_on_click ? "1":"0"]"
+
+	if(message)
+		to_chat(src, "<span class='noticealien'>You will now [neurotoxin_on_click ? "spit neurotoxin at":"slash at"] enemies!</span>")
+	else
+		return
+
+/mob/living/carbon/alien/humanoid/proc/toggle_strong_neurotoxin(message = 1)
+	strong_neurotoxin_on_click = !strong_neurotoxin_on_click
+	strong_neurotoxin_icon.icon_state = "alien_neurotoxin_[strong_neurotoxin_on_click ? "1":"0"]"
+
+	if(message)
+		to_chat(src, "<span class='noticealien'>You will now [strong_neurotoxin_on_click ? "spit strong neurotoxin at":"slash at"] enemies!</span>")
+	else
+		return
+
+/mob/living/carbon/alien/humanoid/ClickOn(atom/A, params) //checks if acid is selected, if so, apply acid. Same for other abilities.
+	face_atom(A)
+	if(strong_acid_on_click)
+		strong_corrosive_acid(A)
+	if(acid_on_click)
+		corrosive_acid(A)
+	if(neurotoxin_on_click)
+		neurotoxin(A)
+	if(strong_neurotoxin_on_click)
+		strong_neurotoxin(A)
+	else
+		..()
+
+/mob/living/carbon/alien/humanoid/proc/neurotoxin(list/targets, mob/living/user = usr) // ok
 	set name = "Spit Neurotoxin (50)"
 	set desc = "Spits neurotoxin at someone, paralyzing them for a short time."
 	set category = "Alien"
+
+	if(neurotoxin_cooldown > world.time)
+		to_chat(src, "<span class='alertalien'>Your spit glands need to refill!</span>")
+		return
 
 	if(powerc(50))
 		adjustPlasma(-50)
 		src.visible_message("<span class='danger'>[src] spits neurotoxin!", "<span class='alertalien'>You spit neurotoxin.</span>")
 
-		var/turf/T = loc
-		var/turf/U = get_step(src, dir) // Get the tile infront of the move, based on their direction
+		var/target = targets[1]
+		var/turf/T = user.loc
+		var/turf/U = get_step(user, user.dir)
 		if(!isturf(U) || !isturf(T))
-			return
+			return FALSE
 
-		var/obj/item/projectile/bullet/neurotoxin/A = new /obj/item/projectile/bullet/neurotoxin(usr.loc)
-		A.current = U
-		A.firer = src
-		A.yo = U.y - T.y
-		A.xo = U.x - T.x
-		A.fire()
-		A.newtonian_move(get_dir(U, T))
-		newtonian_move(get_dir(U, T))
+		var/obj/item/projectile/bullet/neurotoxin/NT = new neurotoxin_type(user.loc)
+		NT.current = get_turf(user)
+		NT.preparePixelProjectile(target, get_turf(target), user)
+		NT.fire()
+		user.newtonian_move(get_dir(U, T))
+
+		neurotoxin_cooldown = world.time + neurotoxin_cooldown_time
+		toggle_neurotoxin(0)
+	return
+
+/mob/living/carbon/alien/humanoid/proc/strong_neurotoxin(list/targets, mob/living/user = usr) // ok
+	set name = "Spit Strong Neurotoxin (50)"
+	set desc = "Spits strong neurotoxin at someone, paralyzing them for a short time."
+	set category = "Alien"
+
+	if(neurotoxin_cooldown > world.time)
+		to_chat(src, "<span class='alertalien'>Your spit glands need to refill!</span>")
+		return
+
+	if(powerc(50))
+		adjustPlasma(-50)
+		src.visible_message("<span class='danger'>[src] spits strong neurotoxin!", "<span class='alertalien'>You spit neurotoxin.</span>")
+
+		var/target = targets[1]
+		var/turf/T = user.loc
+		var/turf/U = get_step(user, user.dir)
+		if(!isturf(U) || !isturf(T))
+			return FALSE
+
+		var/obj/item/projectile/bullet/neurotoxin/NT = new neurotoxin_type(user.loc)
+		NT.current = get_turf(user)
+		NT.preparePixelProjectile(target, get_turf(target), user)
+		NT.fire()
+		user.newtonian_move(get_dir(U, T))
+
+		neurotoxin_cooldown = world.time + neurotoxin_cooldown_time
+		toggle_strong_neurotoxin(0)
 	return
 
 /mob/living/carbon/alien/humanoid/proc/resin() // -- TLE
