@@ -12,7 +12,7 @@
 	see_in_dark = 4
 
 	var/amount_grown = 0
-	var/max_grown = 180
+	var/max_grown = 100
 
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = FALSE

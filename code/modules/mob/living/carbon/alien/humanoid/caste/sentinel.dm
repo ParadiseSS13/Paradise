@@ -8,33 +8,6 @@
 	amount_grown = 0
 	max_grown = 180
 
-/mob/living/carbon/alien/humanoid/sentinel/large
-	name = "alien praetorian"
-	icon = 'icons/mob/alienlarge.dmi'
-	icon_state = "prat_s"
-	pixel_x = -16
-	maxHealth = 200
-	health = 200
-	large = 1
-
-/mob/living/carbon/alien/humanoid/sentinel/praetorian
-	name = "alien praetorian"
-	maxHealth = 250
-	health = 250
-	large = 1
-
-/mob/living/carbon/alien/humanoid/sentinel/large/update_icons()
-	overlays.Cut()
-	if(stat == DEAD)
-		icon_state = "prat_dead"
-	else if(stat == UNCONSCIOUS || lying || resting)
-		icon_state = "prat_sleep"
-	else
-		icon_state = "prat_s"
-
-	for(var/image/I in overlays_standing)
-		overlays += I
-
 /mob/living/carbon/alien/humanoid/sentinel/New()
 	if(name == "alien sentinel")
 		name = text("alien sentinel ([rand(1, 1000)])")
@@ -69,7 +42,7 @@
 		switch(alien_caste)
 			if("Yes")
 				adjustPlasma(-250)
-				new_xeno = new /mob/living/carbon/alien/humanoid/sentinel/praetorian(loc)
+				new_xeno = new /mob/living/carbon/alien/humanoid/praetorian(loc)
 				for(var/mob/O in viewers(src, null))
 					O.show_message(text("<span class='alertalien'>[src] begins to twist and contort, changing shape!</span>"), 1)
 		if(mind)

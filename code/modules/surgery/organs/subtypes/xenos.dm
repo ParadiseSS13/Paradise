@@ -151,6 +151,14 @@
 	origin_tech = "biotech=5;combat=5"
 	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/neurotoxin)
 
+/obj/item/organ/internal/xenos/neurotoxin/large
+	name = "large xeno neurotoxin gland"
+	icon_state = "neurotox"
+	parent_organ = "head"
+	slot = "neurotox"
+	origin_tech = "biotech=5;combat=5"
+	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/strong_neurotoxin)
+
 /obj/item/organ/internal/xenos/resinspinner
 	name = "xeno resin organ"//...there tiger....
 	parent_organ = "mouth"
