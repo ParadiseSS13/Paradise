@@ -58,7 +58,7 @@
 			continue
 
 		serialized["ref"] = "\ref[M]"
-		var/num_orbiters = LAZYLEN(M.orbiters)
+		var/num_orbiters = LAZYLEN(M.GetComponent(/datum/component/orbiter)?.orbiter_list)
 		if (num_orbiters)
 			serialized["orbiters"] = num_orbiters
 

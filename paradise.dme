@@ -320,6 +320,7 @@
 #include "code\datums\components\footstep.dm"
 #include "code\datums\components\label.dm"
 #include "code\datums\components\material_container.dm"
+#include "code\datums\components\orbiter.dm"
 #include "code\datums\components\paintable.dm"
 #include "code\datums\components\proximity_monitor.dm"
 #include "code\datums\components\radioactive.dm"
