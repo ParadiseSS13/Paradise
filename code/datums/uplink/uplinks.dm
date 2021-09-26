@@ -121,7 +121,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	active = !active
 
 // Directly trigger the uplink. Turn on if it isn't already.
-/datum/uplink/proc/trigger(mob/user as mob)
+/datum/uplink/proc/trigger(mob/user)
 	if(!active)
 		toggle()
 	interact(user)
@@ -209,13 +209,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 // I placed this here because of how relevant it is.
 // You place this in your uplinkable item to check if an uplink is active or not.
-// If it is, it will display the uplink menu and return 1, else it'll return false.
-// If it returns true, I recommend closing the item's normal menu with "user << browse(null, "window=name")"
+// If it is, it will display the uplink menu and return true, else it'll return false.
+// If it returns true, I recommend closing the item's normal menu
 /obj/item/proc/active_uplink_check(mob/user)
 	// Activates the uplink if it's active
-	if(src.uplink)
-		if(src.uplink.active)
-			src.uplink.trigger(user)
+	if(uplink)
+		if(uplink.active)
+			uplink.trigger(user)
 			return TRUE
 	return FALSE
 
