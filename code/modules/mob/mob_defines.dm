@@ -26,6 +26,10 @@
 	Changing this around would probably require a good look-over the pre-existing code.
 	*/
 	var/obj/screen/leap_icon = null
+	var/obj/screen/strong_acid_icon = null
+	var/obj/screen/acid_icon = null
+	var/obj/screen/neurotoxin_icon = null
+	var/obj/screen/strong_neurotoxin_icon = null
 	var/obj/screen/healthdoll/healthdoll = null
 
 	var/use_me = 1 //Allows all mobs to use the me verb by default, will have to manually specify they cannot

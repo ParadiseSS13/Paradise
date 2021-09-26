@@ -11,10 +11,12 @@
 	ventcrawler = 0
 	can_grab_facehuggers = TRUE
 
-/mob/living/carbon/alien/humanoid/empress/large
+/mob/living/carbon/alien/humanoid/empress/large //adminspawn only, RP or events
 	name = "alien empress"
 	caste = "e"
 	icon = 'icons/mob/alienhuge.dmi'
+	maxHealth = 1000
+	health = 1000
 	icon_state = "empress_s"
 	pixel_x = -32
 
@@ -47,7 +49,7 @@
 	alien_organs += new /obj/item/organ/internal/xenos/acidgland/large
 	alien_organs += new /obj/item/organ/internal/xenos/eggsac
 	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
-	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
+	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin/large
 	..()
 
 /mob/living/carbon/alien/humanoid/empress/verb/lay_egg()

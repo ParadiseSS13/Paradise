@@ -30,7 +30,7 @@
 	alien_organs += new /obj/item/organ/internal/xenos/acidgland/large
 	alien_organs += new /obj/item/organ/internal/xenos/eggsac
 	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
-	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
+	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin/large
 	..()
 
 /mob/living/carbon/alien/humanoid/queen/movement_delay()
