@@ -10,6 +10,8 @@
 	var/medal_hub_password = null
 	/// Do we want the server to kill on reboot instead of keeping the same DD session
 	var/shutdown_on_reboot = FALSE
+	/// Is this server a production server (Has higher security and requires 2FA)
+	var/is_production = FALSE
 	/// If above is true, you can run a shell command
 	var/shutdown_shell_command = null
 	/// 2FA backend server host
@@ -20,6 +22,7 @@
 /datum/configuration_section/system_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
 	CONFIG_LOAD_BOOL(shutdown_on_reboot, data["shutdown_on_reboot"])
+	CONFIG_LOAD_BOOL(is_production, data["is_production"])
 
 	CONFIG_LOAD_STR(topic_key, data["communications_password"])
 	CONFIG_LOAD_STR(medal_hub_address, data["medal_hub_address"])

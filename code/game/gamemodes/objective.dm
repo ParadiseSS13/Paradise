@@ -507,7 +507,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(SSticker.current_state == GAME_STATE_SETTING_UP)
 			for(var/mob/new_player/P in GLOB.player_list)
 				if(P.client && P.ready && P.mind != owner)
-					if(P.client.prefs && (P.client.prefs.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
+					if(P.client.prefs && (P.client.prefs.active_character.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
 						continue
 					n_p++
 		else if(SSticker.current_state == GAME_STATE_PLAYING)
