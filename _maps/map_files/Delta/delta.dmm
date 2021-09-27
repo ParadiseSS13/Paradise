@@ -58726,19 +58726,6 @@
 	c_tag = "Gateway Access";
 	dir = 4
 	},
-/obj/structure/closet/medical_wall{
-	pixel_x = -32
-	},
-/obj/item/stack/medical/bruise_pack,
-/obj/item/stack/medical/bruise_pack/advanced,
-/obj/item/stack/medical/ointment,
-/obj/item/stack/medical/ointment/advanced,
-/obj/item/reagent_containers/glass/bottle/charcoal,
-/obj/item/reagent_containers/glass/bottle/morphine,
-/obj/item/reagent_containers/syringe,
-/obj/item/storage/pill_bottle/painkillers,
-/obj/item/reagent_containers/food/pill/patch/styptic,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "cys" = (

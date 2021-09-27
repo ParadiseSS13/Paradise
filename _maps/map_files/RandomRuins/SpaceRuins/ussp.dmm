@@ -8002,7 +8002,6 @@
 	},
 /area/derelict/crew_quarters)
 "rn" = (
-/obj/structure/closet/medical_wall,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/arrival)
 "ro" = (
