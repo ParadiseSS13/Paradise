@@ -207,7 +207,7 @@
 		if(C.opened && !C.close())
 			continue
 		C.locked = 1
-		C.icon_state = C.icon_locked
+		C.icon_state = C.add_overlay("locked")
 
 	for(var/obj/machinery/treadmill_monitor/T in targets)
 		T.total_joules = 0

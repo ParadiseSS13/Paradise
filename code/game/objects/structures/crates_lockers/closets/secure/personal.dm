@@ -24,12 +24,7 @@
 
 
 /obj/structure/closet/secure_closet/personal/cabinet
-	icon_state = "cabinetdetective_locked"
-	icon_closed = "cabinetdetective"
-	icon_locked = "cabinetdetective_locked"
-	icon_opened = "cabinetdetective_open"
-	icon_broken = "cabinetdetective_broken"
-	icon_off = "cabinetdetective_broken"
+	icon_state = "cabinet"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
@@ -38,16 +33,11 @@
 	close_sound_volume = 50
 
 /obj/structure/closet/secure_closet/personal/cabinet/update_icon()
-	if(broken)
-		icon_state = icon_broken
+	if(!opened)
+		icon_state = icon_closed
 	else
-		if(!opened)
-			if(locked)
-				icon_state = icon_locked
-			else
-				icon_state = icon_closed
-		else
-			icon_state = icon_opened
+		icon_state = icon_opened
+	update_overlays()
 
 /obj/structure/closet/secure_closet/personal/cabinet/populate_contents()
 	new /obj/item/storage/backpack/satchel/withwallet( src )
@@ -72,8 +62,9 @@
 		//they can open all lockers, or nobody owns this, or they own this locker
 		locked = !locked
 		if(locked)
-			icon_state = icon_locked
+			overlays += "locked"
 		else
+			overlays += "unlocked"
 			icon_state = icon_closed
 			registered_name = null
 			desc = initial(desc)

@@ -12,7 +12,7 @@
 	name = "formal closet"
 	desc = "It's a storage unit for formal clothing."
 	icon_state = "black"
-	icon_closed = "black"
+	is_wardrobe = TRUE
 
 /obj/structure/closet/gmcloset/populate_contents()
 	new /obj/item/clothing/head/that(src)
@@ -39,7 +39,7 @@
 	name = "chef's closet"
 	desc = "It's a storage unit for foodservice garments."
 	icon_state = "black"
-	icon_closed = "black"
+	is_wardrobe = TRUE
 
 /obj/structure/closet/chefcloset/populate_contents()
 	new /obj/item/clothing/under/waiter(src)
@@ -66,7 +66,7 @@
 	name = "custodial closet"
 	desc = "It's a storage unit for janitorial clothes and gear."
 	icon_state = "mixed"
-	icon_closed = "mixed"
+	is_wardrobe = TRUE
 
 /obj/structure/closet/jcloset/populate_contents()
 	new /obj/item/flashlight(src)
@@ -106,7 +106,7 @@
 	name = "legal closet"
 	desc = "It's a storage unit for courtroom apparel and items."
 	icon_state = "blue"
-	icon_closed = "blue"
+	is_wardrobe = TRUE
 
 /obj/structure/closet/lawcloset/populate_contents()
 	new /obj/item/storage/box/tapes(src)
@@ -131,7 +131,7 @@
 	name = "paramedic wardrobe"
 	desc = "It's a storage unit for paramedic equipment."
 	icon_state = "blue"
-	icon_closed = "blue"
+	is_wardrobe = TRUE
 
 
 /obj/structure/closet/paramedic/populate_contents()

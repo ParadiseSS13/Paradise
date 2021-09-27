@@ -3,8 +3,6 @@
 	desc = "Just a box..."
 	icon = 'icons/obj/cardboard_boxes.dmi'
 	icon_state = "cardboard"
-	icon_opened = "cardboard_open"
-	icon_closed = "cardboard"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	integrity_failure = 0
