@@ -10,6 +10,8 @@
 	var/icon_closed
 	var/icon_opened
 	var/is_wardrobe
+	var/open_door_sprite = "generic_door"
+	var/shared_open_sprite
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
@@ -31,8 +33,11 @@
 	icon_closed = "[icon_state]"
 	if(!is_wardrobe)
 		icon_opened = "[icon_state]_open"
+	else if(shared_open_sprite)
+		icon_opened = shared_open_sprite
 	else
 		icon_opened = "generic_open"
+		open_door_sprite = "generic_door"
 	if(mapload && !opened)
 		// Youre probably asking, why is this a 0 seconds timer AA?
 		// Well, I will tell you. One day, all /obj/effect/spawner will use Initialize
@@ -312,6 +317,7 @@
 /obj/structure/closet/proc/update_overlays()
 	overlays.Cut()
 	if(opened)
+		overlays += open_door_sprite
 		return
 	if(welded)
 		overlays += "welded"

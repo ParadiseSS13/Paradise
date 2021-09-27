@@ -3,6 +3,7 @@
 	desc = "It's an immobile card-locked storage unit."
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "secure"
+	open_door_sprite = "secure_door"
 	density = TRUE
 	opened = FALSE
 	locked = TRUE
@@ -108,6 +109,7 @@
 /obj/structure/closet/secure_closet/update_overlays() //Putting the welded stuff in update_overlays() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
 	overlays.Cut()
 	if(opened)
+		overlays += open_door_sprite
 		return
 	if(welded)
 		overlays += "welded"

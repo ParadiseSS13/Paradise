@@ -2,6 +2,7 @@
 	name = "cabinet"
 	desc = "Old will forever be in fashion."
 	icon_state = "cabinet"
+	open_door_sprite = "cabient_door"
 	resistance_flags = FLAMMABLE
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
@@ -19,17 +20,20 @@
 	name = "strange closet"
 	desc = "It looks alien!"
 	icon_state = "alien"
+	open_door_sprite = "alien_door"
 
 /obj/structure/closet/gimmick
 	name = "administrative supply closet"
 	desc = "It's a storage unit for things that have no right being here."
 	icon_state = "syndicate1"
+	open_door_sprite = "syndicate1_door"
 	anchored = 0
 
 /obj/structure/closet/gimmick/russian
 	name = "russian surplus closet"
 	desc = "It's a storage unit for Russian standard-issue surplus."
 	icon_state = "syndicate1"
+	open_door_sprite = "syndicate1_door"
 
 /obj/structure/closet/gimmick/russian/populate_contents()
 	new /obj/item/clothing/head/ushanka(src)
@@ -48,6 +52,7 @@
 	name = "tacticool gear closet"
 	desc = "It's a storage unit for Tacticool gear."
 	icon_state = "syndicate1"
+	open_door_sprite = "syndicate1_door"
 
 /obj/structure/closet/gimmick/tacticool/populate_contents()
 	new /obj/item/clothing/glasses/eyepatch(src)
@@ -70,6 +75,7 @@
 	name = "\improper Thunderdome closet"
 	desc = "Everything you need!"
 	icon_state = "syndicate"
+	open_door_sprite = "syndicate_door"
 	anchored = 1
 
 /obj/structure/closet/thunderdome/tdred
@@ -98,6 +104,7 @@
 /obj/structure/closet/thunderdome/tdgreen
 	name = "green-team Thunderdome closet"
 	icon_state = "syndicate1"
+	open_door_sprite = "syndicate1_door"
 
 /obj/structure/closet/thunderdome/tdgreen/populate_contents()
 	new /obj/item/clothing/suit/armor/tdome/green(src)

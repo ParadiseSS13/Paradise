@@ -20,6 +20,7 @@
 /obj/structure/closet/boxinggloves
 	name = "boxing gloves"
 	desc = "It's a storage unit for gloves for use in the boxing ring."
+	is_wardrobe = TRUE
 
 /obj/structure/closet/boxinggloves/populate_contents()
 	new /obj/item/clothing/gloves/boxing/blue(src)
@@ -31,6 +32,7 @@
 /obj/structure/closet/masks
 	name = "mask closet"
 	desc = "IT'S A STORAGE UNIT FOR FIGHTER MASKS OLE!"
+	is_wardrobe = TRUE
 
 /obj/structure/closet/masks/populate_contents()
 	new /obj/item/clothing/mask/luchador(src)

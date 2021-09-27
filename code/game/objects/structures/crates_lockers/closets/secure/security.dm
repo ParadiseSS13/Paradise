@@ -2,6 +2,7 @@
 	name = "captain's locker"
 	req_access = list(ACCESS_CAPTAIN)
 	icon_state = "cap"
+	open_door_sprite = "cap_door"
 
 /obj/structure/closet/secure_closet/captains/populate_contents()
 	if(prob(50))
@@ -35,6 +36,7 @@
 	name = "head of personnel's locker"
 	req_access = list(ACCESS_HOP)
 	icon_state = "hop"
+	open_door_sprite = "hop_door"
 
 /obj/structure/closet/secure_closet/hop/populate_contents()
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
@@ -56,6 +58,7 @@
 	name = "head of personnel's attire"
 	req_access = list(ACCESS_HOP)
 	icon_state = "hop"
+	open_door_sprite = "hop_door"
 
 /obj/structure/closet/secure_closet/hop2/populate_contents()
 	new /obj/item/clothing/under/rank/head_of_personnel(src)
@@ -77,6 +80,7 @@
 	name = "head of security's locker"
 	req_access = list(ACCESS_HOS)
 	icon_state = "hos"
+	open_door_sprite = "hos_door"
 
 /obj/structure/closet/secure_closet/hos/populate_contents()
 	if(prob(50))
@@ -111,6 +115,7 @@
 	name = "warden's locker"
 	req_access = list(ACCESS_ARMORY)
 	icon_state = "warden"
+	open_door_sprite = "sec_door"
 
 /obj/structure/closet/secure_closet/warden/populate_contents()
 	if(prob(50))
@@ -143,6 +148,7 @@
 	name = "security officer's locker"
 	req_access = list(ACCESS_SECURITY)
 	icon_state = "sec"
+	open_door_sprite = "sec_door"
 
 /obj/structure/closet/secure_closet/security/populate_contents()
 	if(prob(50))
@@ -168,6 +174,7 @@
 	name = "brig physician's locker"
 	req_access = list(ACCESS_SECURITY)
 	icon_state = "med"
+	open_door_sprite = "med_door"
 
 /obj/structure/closet/secure_closet/brigdoc/populate_contents()
 	if(prob(50))
@@ -192,6 +199,8 @@
 	name = "blueshield's locker"
 	req_access = list(ACCESS_BLUESHIELD)
 	icon_state = "bs"
+	open_door_sprite = "hop_door"
+	shared_open_sprite = "hop_open"
 
 /obj/structure/closet/secure_closet/blueshield/populate_contents()
 	new /obj/item/storage/briefcase(src)
@@ -221,6 +230,8 @@
 	name = "\improper Nanotrasen Representative's locker"
 	req_access = list(ACCESS_NTREP)
 	icon_state = "ntr"
+	open_door_sprite = "hop_door"
+	shared_open_sprite = "hop_open"
 
 /obj/structure/closet/secure_closet/ntrep/populate_contents()
 	new /obj/item/book/manual/faxes(src)
@@ -273,6 +284,7 @@
 	name = "detective's cabinet"
 	req_access = list(ACCESS_FORENSICS_LOCKERS)
 	icon_state = "cabinet"
+	open_door_sprite = "cabinet_door"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
@@ -342,6 +354,7 @@
 	name = "\improper Magistrate's locker"
 	req_access = list(ACCESS_MAGISTRATE)
 	icon_state = "magi"
+	open_door_sprite = "chaplain_door"
 
 /obj/structure/closet/secure_closet/magistrate/populate_contents()
 	new /obj/item/book/manual/faxes(src)

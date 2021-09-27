@@ -1295,8 +1295,8 @@
 		if(!prison_cell)	return
 
 		var/obj/structure/closet/secure_closet/brig/locker = new /obj/structure/closet/secure_closet/brig(prison_cell)
-		locker.opened = 0
-		locker.locked = 1
+		locker.opened = FALSE
+		locker.locked = TRUE
 
 		//strip their stuff and stick it in the crate
 		for(var/obj/item/I in M)

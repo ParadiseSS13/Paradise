@@ -2,6 +2,7 @@
 	name = "cargo technician's locker"
 	req_access = list(ACCESS_CARGO)
 	icon_state = "cargo"
+	open_door_sprite = "mining_door"
 
 /obj/structure/closet/secure_closet/cargotech/populate_contents()
 	new /obj/item/clothing/under/rank/cargotech(src)
@@ -17,6 +18,7 @@
 	name = "quartermaster's locker"
 	req_access = list(ACCESS_QM)
 	icon_state = "qm"
+	open_door_sprite = "mining_door"
 
 /obj/structure/closet/secure_closet/quartermaster/populate_contents()
 	new /obj/item/clothing/under/rank/cargo(src)

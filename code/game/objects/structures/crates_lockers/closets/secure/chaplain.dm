@@ -3,6 +3,7 @@
 	desc = "A lockable storage unit for Nanotrasen-approved religious attire."
 	req_access = list(ACCESS_CHAPEL_OFFICE)
 	icon_state = "chaplain"
+	open_door_sprite = "chaplain_door"
 
 /obj/structure/closet/secure_closet/chaplain/populate_contents()
 	new /obj/item/clothing/under/rank/chaplain(src)

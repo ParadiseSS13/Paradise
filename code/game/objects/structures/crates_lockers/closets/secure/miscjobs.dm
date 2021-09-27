@@ -2,6 +2,7 @@
 	name = "clown's locker"
 	req_access = list(ACCESS_CLOWN)
 	icon_state = "clown"
+	open_door_sprite = "clown_door"
 
 /obj/structure/closet/secure_closet/clown/populate_contents()
 	new /obj/item/storage/backpack/clown(src)
@@ -22,6 +23,7 @@
 	name = "mime's locker"
 	req_access = list(ACCESS_MIME)
 	icon_state = "mime"
+	open_door_sprite = "mime_door"
 
 /obj/structure/closet/secure_closet/mime/populate_contents()
 	new /obj/item/clothing/head/beret(src)

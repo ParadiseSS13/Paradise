@@ -2,6 +2,8 @@
 	name = "medicine closet"
 	desc = "Filled with medical junk."
 	icon_state = "med"
+	open_door_sprite = "med_door"
+	shared_open_sprite = "med_open"
 	req_access = list(ACCESS_MEDICAL)
 
 /obj/structure/closet/secure_closet/medical1/populate_contents()
@@ -24,6 +26,8 @@
 	name = "anesthetic locker"
 	desc = "Used to knock people out."
 	icon_state = "med"
+	open_door_sprite = "med_door"
+	shared_open_sprite = "med_open"
 	req_access = list(ACCESS_SURGERY)
 
 /obj/structure/closet/secure_closet/medical2/populate_contents()
@@ -39,6 +43,7 @@
 	name = "medical doctor's locker"
 	req_access = list(ACCESS_SURGERY)
 	icon_state = "med_secure"
+	open_door_sprite = "white_secure_door"
 
 /obj/structure/closet/secure_closet/medical3/populate_contents()
 	if(prob(50))
@@ -64,6 +69,8 @@
 	name = "exam room closet"
 	desc = "Filled with exam room materials."
 	icon_state = "med"
+	open_door_sprite = "med_door"
+	shared_open_sprite = "med_open"
 	req_access = list(ACCESS_MEDICAL)
 
 /obj/structure/closet/secure_closet/exam/populate_contents()
@@ -108,6 +115,7 @@
 	name = "psychiatrist's locker"
 	req_access = list(ACCESS_PSYCHIATRIST)
 	icon_state = "med_secure"
+	open_door_sprite = "white_secure_door"
 
 /obj/structure/closet/secure_closet/psychiatrist/populate_contents()
 	new /obj/item/clothing/suit/straight_jacket(src)
@@ -126,6 +134,7 @@
 	name = "chief medical officer's locker"
 	req_access = list(ACCESS_CMO)
 	icon_state = "cmo"
+	open_door_sprite = "cmo_door"
 
 /obj/structure/closet/secure_closet/CMO/populate_contents()
 	if(prob(50))
@@ -178,6 +187,8 @@
 	name = "chemical closet"
 	desc = "Store dangerous chemicals in here."
 	icon_state = "chemical"
+	open_door_sprite = "med_door"
+	shared_open_sprite = "med_open"
 	req_access = list(ACCESS_CHEMISTRY)
 
 /obj/structure/closet/secure_closet/chemical/populate_contents()
@@ -190,6 +201,8 @@
 	name = "paramedic EVA gear"
 	desc = "A locker with a Paramedic EVA suit."
 	icon_state = "med"
+	open_door_sprite = "med_door"
+	shared_open_sprite = "med_open"
 	req_access = list(ACCESS_PARAMEDIC)
 
 /obj/structure/closet/secure_closet/paramedic/populate_contents()
@@ -204,6 +217,8 @@
 	name = "chemical storage closet"
 	desc = "Store dangerous chemicals in here."
 	icon_state = "chemical"
+	open_door_sprite = "med_door"
+	shared_open_sprite = "med_open"
 	req_access = list(ACCESS_CHEMISTRY)
 
 /obj/structure/closet/secure_closet/reagents/populate_contents()

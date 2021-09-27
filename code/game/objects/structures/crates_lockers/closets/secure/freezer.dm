@@ -45,6 +45,7 @@
 /obj/structure/closet/secure_closet/freezer/meat
 	name = "meat fridge"
 	icon_state = "freezer"
+	open_door_sprite = "freezer_door"
 
 /obj/structure/closet/secure_closet/freezer/meat/populate_contents()
 	for(var/i in 1 to 4)
@@ -57,6 +58,7 @@
 /obj/structure/closet/secure_closet/freezer/fridge
 	name = "refrigerator"
 	icon_state = "freezer"
+	open_door_sprite = "freezer_door"
 
 /obj/structure/closet/secure_closet/freezer/fridge/populate_contents()
 	for(var/i in 1 to 5)
@@ -72,6 +74,7 @@
 /obj/structure/closet/secure_closet/freezer/money
 	name = "freezer"
 	icon_state = "freezer"
+	open_door_sprite = "freezer_door"
 	req_access = list(ACCESS_HEADS_VAULT)
 
 /obj/structure/closet/secure_closet/freezer/money/populate_contents()

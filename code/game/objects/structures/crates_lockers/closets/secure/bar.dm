@@ -2,6 +2,7 @@
 	name = "Booze cabinet"
 	req_access = list(ACCESS_BAR)
 	icon_state = "cabinet"
+	open_door_sprite = "cabinet_door"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
