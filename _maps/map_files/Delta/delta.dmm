@@ -6710,15 +6710,15 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=hall1";
-	location = "hall15"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=hall1";
+	location = "hall15"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -7787,9 +7787,6 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/structure/sign/nosmoking_2{
-	pixel_x = 32
-	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "ayp" = (
@@ -8153,12 +8150,10 @@
 /area/janitor)
 "azm" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 28
+/obj/structure/sign/nosmoking_2{
+	pixel_x = 32
 	},
-/obj/structure/window/reinforced,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "azn" = (
@@ -8712,11 +8707,12 @@
 	},
 /area/janitor)
 "aAx" = (
-/obj/machinery/door/window/westleft{
-	name = "Janitoral Delivery";
-	req_access_txt = "26"
+/obj/item/reagent_containers/glass/bucket,
+/obj/structure/janitorialcart,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 28
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plating,
 /area/janitor)
 "aAy" = (
@@ -9243,8 +9239,6 @@
 /obj/machinery/light_switch{
 	pixel_y = -26
 	},
-/obj/structure/janitorialcart,
-/obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
@@ -9278,9 +9272,6 @@
 	pixel_x = 25
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "aBB" = (
@@ -9757,12 +9748,12 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "aCJ" = (
+/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
 	dir = 4;
 	location = "QM #1"
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aCK" = (
@@ -10295,8 +10286,8 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "aDS" = (
-/obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "aDT" = (
@@ -10304,12 +10295,12 @@
 	home_destination = "QM #2";
 	suffix = "#2"
 	},
+/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
 	dir = 4;
 	location = "QM #2"
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aDW" = (
@@ -10973,12 +10964,12 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
 	dir = 4;
 	location = "QM #3"
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aFq" = (
@@ -12077,7 +12068,9 @@
 	},
 /area/crew_quarters/sleep)
 "aHI" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
 	dir = 4;
@@ -12199,12 +12192,12 @@
 	},
 /area/crew_quarters/sleep)
 "aHT" = (
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
 /obj/machinery/conveyor{
 	dir = 4;
 	id = "cargodelivery"
+	},
+/obj/structure/plasticflaps{
+	opacity = 1
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
@@ -14160,12 +14153,12 @@
 	home_destination = "QM #4";
 	suffix = "#4"
 	},
+/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
 	dir = 4;
 	location = "QM #4"
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aLW" = (
@@ -15428,10 +15421,10 @@
 /turf/simulated/wall,
 /area/quartermaster/office)
 "aON" = (
-/obj/structure/plasticflaps,
 /obj/machinery/conveyor{
 	id = "cargodisposals"
 	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
 "aOO" = (
@@ -16089,8 +16082,8 @@
 	},
 /area/quartermaster/office)
 "aQi" = (
-/obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "aQj" = (
@@ -20033,10 +20026,10 @@
 	},
 /area/maintenance/fore)
 "aXK" = (
+/obj/effect/decal/warning_stripes/yellow,
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "aXL" = (
@@ -22441,8 +22434,15 @@
 	},
 /area/crew_quarters/sleep)
 "bcn" = (
-/obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 4;
+	location = "Kitchen"
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bcp" = (
@@ -23424,10 +23424,10 @@
 	},
 /area/quartermaster/miningdock)
 "bel" = (
+/obj/effect/decal/warning_stripes/yellow,
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "bem" = (
@@ -23731,8 +23731,15 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "bfb" = (
-/obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 8;
+	location = "Hydroponics"
+	},
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "bfc" = (
@@ -29481,15 +29488,15 @@
 /obj/effect/landmark{
 	name = "lightsout"
 	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=hall15";
-	location = "hall14"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
 	},
 /obj/machinery/hologram/holopad,
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=hall15";
+	location = "hall14"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -29558,14 +29565,14 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=hall14";
-	location = "hall13"
-	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
 	name = "Quartermaster Junction";
 	sortType = 3
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=hall14";
+	location = "hall13"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -30253,11 +30260,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=engi3";
 	location = "engi2"
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -32203,12 +32210,17 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 8;
+	location = "Atmospherics"
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -35312,10 +35324,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/decal/warning_stripes/yellow,
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "bBX" = (
@@ -41387,10 +41399,10 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "bNC" = (
+/obj/effect/decal/warning_stripes/yellow,
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
 "bND" = (
@@ -45017,15 +45029,15 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=engi2";
-	location = "engi1"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=engi2";
+	location = "engi1"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -45033,15 +45045,15 @@
 	},
 /area/hallway/primary/port)
 "bUC" = (
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=hall4";
-	location = "engi3"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=hall4";
+	location = "engi3"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -45093,12 +45105,12 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=engi1";
 	location = "hall3"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -45275,12 +45287,12 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/effect/landmark{
+	name = "lightsout"
+	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=hall13";
 	location = "hall12"
-	},
-/obj/effect/landmark{
-	name = "lightsout"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -45296,12 +45308,12 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=hall11";
 	location = "hall10"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -45463,10 +45475,6 @@
 /area/hallway/primary/starboard)
 "bVp" = (
 /mob/living/simple_animal/bot/secbot/beepsky,
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=hall12";
-	location = "hall11"
-	},
 /obj/item/radio/beacon,
 /obj/structure/cable{
 	d1 = 1;
@@ -45478,6 +45486,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=hall12";
+	location = "hall11"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -53662,6 +53674,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard2)
 "cnS" = (
+/obj/effect/decal/warning_stripes/yellow,
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
@@ -53669,7 +53682,6 @@
 	codes_txt = "delivery;dir=1";
 	location = "Security"
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/security/range)
 "cnT" = (
@@ -61590,12 +61602,14 @@
 /turf/simulated/wall/r_wall/rust,
 /area/engine/engineering)
 "cEB" = (
-/obj/structure/plasticflaps,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=1";
 	location = "Engineering"
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cEC" = (
@@ -62697,12 +62711,12 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=hall6";
 	location = "hall5"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -62774,14 +62788,14 @@
 	tag = "90Curve"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=hall10";
-	location = "hall9"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=hall10";
+	location = "hall9"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -65244,7 +65258,14 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
 "cMF" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 8;
+	location = "Medbay"
+	},
 /turf/simulated/floor/plasteel,
 /area/medical/medbay2)
 "cMG" = (
@@ -83512,12 +83533,14 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "dyP" = (
+/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=1";
 	location = "Robotics"
 	},
-/obj/structure/plasticflaps,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "dyR" = (
@@ -89176,10 +89199,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dLI" = (
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=hall8";
-	location = "hall7"
-	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Holding Area";
 	req_access_txt = "63"
@@ -89200,6 +89219,10 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=hall8";
+	location = "hall7"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -95610,6 +95633,17 @@
 "goP" = (
 /turf/simulated/wall,
 /area/security/processing)
+"gpU" = (
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 8;
+	location = "Janitor"
+	},
+/turf/simulated/wall,
+/area/janitor)
 "gpX" = (
 /obj/effect/landmark{
 	name = "blobstart"
@@ -96258,6 +96292,16 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery2)
+"iiv" = (
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	location = "Science"
+	},
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/turf/simulated/wall,
+/area/toxins/misc_lab)
 "iiM" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -99122,17 +99166,6 @@
 	icon_state = "solarpanel"
 	},
 /area/maintenance/starboardsolar)
-"rrS" = (
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
-/obj/machinery/navbeacon{
-	codes_txt = "delivery";
-	dir = 8;
-	location = "Janitor"
-	},
-/turf/simulated/floor/plating,
-/area/janitor)
 "rsF" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -101001,12 +101034,12 @@
 	dir = 9
 	},
 /obj/structure/chair/office/dark,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=Armory_North";
 	location = "Armory_South"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
@@ -101048,12 +101081,12 @@
 	auto_patrol = 1
 	},
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=Armory_South";
 	location = "Armory_North"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
 	},
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
@@ -135194,7 +135227,7 @@ drn
 cGt
 cHx
 cXU
-cYA
+iiv
 vYC
 mzQ
 viE
@@ -137945,7 +137978,7 @@ aBb
 axb
 axc
 axb
-rrS
+gpU
 axb
 axb
 aDF
