@@ -18,7 +18,7 @@
 	desc = "A perfectly retrograde identification card. Looks like it could use some flavor."
 	icon = 'icons/obj/card.dmi'
 	icon_state = "retro"
-	access = list(ACCESS_AWAY01)
+	access = list(ACCESS_AWAY01, ACCESS_MINERAL_STOREROOM, ACCESS_CHEMISTRY, ACCESS_RESEARCH)
 
 /obj/item/card/id/away/old/sec
 	name = "Security Officer ID"
