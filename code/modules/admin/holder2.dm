@@ -95,6 +95,24 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 					to_chat(user, "<font color='red'>Error: You are not an admin.</font>")
 	return 0
 
+// Basically the above proc but checks at a /client level
+/proc/check_rights_client(rights_required, show_msg = TRUE, client/C)
+	if(C)
+		if(rights_required)
+			if(C.holder)
+				if(rights_required & C.holder.rights)
+					return TRUE
+				else
+					if(show_msg)
+						to_chat(C, "<font color='red'>Error: You do not have sufficient rights to do that. You require one of the following flags:[rights2text(rights_required," ")].</font>")
+		else
+			if(C.holder)
+				return TRUE
+			else
+				if(show_msg)
+					to_chat(C, "<font color='red'>Error: You are not an admin.</font>")
+	return FALSE
+
 //probably a bit iffy - will hopefully figure out a better solution
 /proc/check_if_greater_rights_than(client/other)
 	if(usr && usr.client)
