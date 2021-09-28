@@ -636,18 +636,22 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		var/fullpower = vampire.get_ability(/datum/vampire_passive/full)
 
 		if(user.stat >= DEAD)
-			to_chat(user, "<span class='warning'>Not while you're dead!</span>")
+			if(show_message)
+				to_chat(user, "<span class='warning'>Not while you're dead!</span>")
 			return FALSE
 
 		if(vampire.nullified >= VAMPIRE_COMPLETE_NULLIFICATION && !fullpower) // above 100 nullification vampire powers are useless
-			to_chat(user, "<span class='warning'>Something is blocking your powers!</span>")
+			if(show_message)
+				to_chat(user, "<span class='warning'>Something is blocking your powers!</span>")
 			return FALSE
 		if(vampire.bloodusable < required_blood)
-			to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
+			if(show_message)
+				to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
 			return FALSE
 		//chapel check
 		if(istype(loc.loc, /area/chapel) && !fullpower)
-			to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
+			if(show_message)
+				to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
 			return FALSE
 
 	return TRUE
