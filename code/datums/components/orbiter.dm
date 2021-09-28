@@ -22,7 +22,6 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 
 	// This isn't always called on initialization
 	RegisterWithParent()
-
 	begin_orbit(orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lock_in_orbit, force_move)
 
 /datum/component/orbiter/RegisterWithParent()
@@ -181,9 +180,6 @@ End the orbit and clean up our transformation
 	else
 		return null
 
-/atom/proc/get_attached_orbiters()
-	return orbiters.GetComponent(/datum/component/orbiter)
-
 /// Utility to get orbiters
 /**
  * Recursive getter method to return a list of all ghosts orbitting this atom
@@ -199,7 +195,7 @@ End the orbit and clean up our transformation
 	processed += src
 	// Make sure we don't shadow outer orbiters
 	var/datum/component/orbiter/atom_orbiters = orbiters
-	if (orbiters)
+	if (atom_orbiters)
 		output += atom_orbiters.orbiter_list
 		for (var/atom/atom_orbiter as anything in atom_orbiters.orbiter_list)
 			output += atom_orbiter.get_all_orbiters(processed, source = FALSE)
