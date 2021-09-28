@@ -72,9 +72,8 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 
 	if(orbiter.orbiting)
 		if (orbiter.orbiting == src)
-			// If we're already orbiting this object, just clean up references.
-			// If we're calling this again anyway, it's possible that the cleanup code
-			// was already called.
+			// If we're just orbiting the same thing, we need to reset the previous state
+			// before we set it again (especially for transforms)
 			end_orbit(orbiter, TRUE)
 		else
 			// Let the original orbiter clean up as needed
@@ -123,13 +122,9 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 End the orbit and clean up our transformation
 */
 /datum/component/orbiter/proc/end_orbit(atom/movable/orbiter, refreshing=FALSE)
-
-
 	if(!(orbiter in orbiter_list))
 		return
 
-	// Since we'll be applying the transformation again if we're starting another orbit
-	// soon after, reset the transform (and all other variables)
 	var/matrix/cached_transform = transform_cache[orbiter]
 
 	orbiter.SpinAnimation(0, 0, parallel = FALSE)
