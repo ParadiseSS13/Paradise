@@ -70,8 +70,6 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	if(!istype(orbiter))
 		return
 
-
-
 	if(orbiter.orbiting)
 		if (orbiter.orbiting == src)
 			// If we're already orbiting this object, just clean up references.
@@ -81,8 +79,6 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 		else
 			// Let the original orbiter clean up as needed
 			orbiter.orbiting.end_orbit(orbiter)
-
-	to_chat(usr, "[orbiter] began orbit")
 
 	// Start building up the orbiter
 	orbiter_list += orbiter
@@ -142,8 +138,6 @@ End the orbit and clean up our transformation
 	orbiter.orbiting = null
 	orbiter.stop_orbit()
 
-	to_chat(usr, "[orbiter] exited orbit")
-
 	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
 
 	orbiter_list -= orbiter
@@ -152,6 +146,10 @@ End the orbit and clean up our transformation
 	// If we're just orbiting the same thing already, don't bother updating
 	if (!orbiter_list && !QDELING(src) && !refreshing)
 		qdel(src)
+
+/////////////////////////////////////////
+
+// Atom procs/vars
 
 /// Who the current atom is orbiting
 /atom/movable/var/datum/component/orbiter/orbiting = null
@@ -180,7 +178,6 @@ End the orbit and clean up our transformation
 	else
 		return null
 
-/// Utility to get orbiters
 /**
  * Recursive getter method to return a list of all ghosts orbitting this atom
  *
