@@ -1297,6 +1297,7 @@
 		var/obj/structure/closet/secure_closet/brig/locker = new /obj/structure/closet/secure_closet/brig(prison_cell)
 		locker.opened = FALSE
 		locker.locked = TRUE
+		locker.update_icon()
 
 		//strip their stuff and stick it in the crate
 		for(var/obj/item/I in M)

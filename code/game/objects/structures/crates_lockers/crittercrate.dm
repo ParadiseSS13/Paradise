@@ -4,6 +4,7 @@
 	icon_state = "critter"
 	icon_opened = "critteropen"
 	icon_closed = "critter"
+	open_door_sprite = null
 	var/already_opened = 0
 	var/content_mob = null
 	var/amount = 1

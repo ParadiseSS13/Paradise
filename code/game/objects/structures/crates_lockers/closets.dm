@@ -31,11 +31,10 @@
 /obj/structure/closet/Initialize(mapload)
 	. = ..()
 	icon_closed = "[icon_state]"
-	if(!is_wardrobe)
-		icon_opened = "[icon_state]_open"
-	else if(shared_open_sprite)
+	icon_opened = "[icon_state]_open"
+	if(shared_open_sprite)
 		icon_opened = shared_open_sprite
-	else
+	if(is_wardrobe)
 		icon_opened = "generic_open"
 		open_door_sprite = "generic_door"
 	if(mapload && !opened)
@@ -314,8 +313,11 @@
 		icon_state = icon_opened
 	update_overlays()
 
-/obj/structure/closet/proc/update_overlays()
+/obj/structure/closet/proc/update_overlays(transparent = FALSE)
 	overlays.Cut()
+	if(transparent && opened)
+		overlays += "[open_door_sprite]_trans"
+		return
 	if(opened)
 		overlays += open_door_sprite
 		return
@@ -396,6 +398,7 @@
 	desc = "A storage unit that moves and stores through the fourth dimension."
 	density = 0
 	icon_state = "bluespace"
+	open_door_sprite = "bluespace_door"
 	storage_capacity = 60
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 
@@ -412,10 +415,12 @@
 	icon_opened = transparent ? "bluespace_open_trans" : "bluespace_open"
 	icon_closed = transparent ? "bluespace_trans" : "bluespace"
 	icon_state = opened ? icon_opened : icon_closed
+	update_overlays(transparent)
 
 /obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
 	if(AM.density)
 		icon_state = opened ? "bluespace_open_trans" : "bluespace_trans"
+		update_overlays(TRUE)
 
 /obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
 	var/turf/T = get_turf(NewLoc)

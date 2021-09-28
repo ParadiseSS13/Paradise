@@ -208,6 +208,7 @@
 			continue
 		C.locked = TRUE
 		C.close()
+		C.update_icon()
 
 	for(var/obj/machinery/treadmill_monitor/T in targets)
 		T.total_joules = 0
