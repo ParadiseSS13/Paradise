@@ -458,10 +458,12 @@ BLIND     // can't see anything
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
-		if(M.matchignite()) // Match isn't lit, but isn't burnt.
+		if(!M.lit && !M.burnt) // Match isn't lit, but isn't burnt.
 			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike [M] on the bottom of [src] to light it.</span>")
+			M.matchignite()
 			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
-		else
+			return
+		if(M.lit && !M.burnt)
 			user.visible_message("<span class='warning'>[user] crushes [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush [M] into the bottom of [src], extinguishing it.</span>")
 			M.dropped()
 		return
