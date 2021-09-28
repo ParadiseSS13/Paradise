@@ -189,9 +189,10 @@
 		H.update_inv_r_hand()
 	// Update blood splatter
 	if(blood_overlay)
+		var/blood_color = blood_overlay.color
 		cut_overlay(blood_overlay)
 		qdel(blood_overlay)
-		add_blood_overlay(blood_overlay_color)
+		add_blood_overlay(blood_color)
 	playsound(loc, extend_sound, 50, TRUE)
 	add_fingerprint(user)
 
@@ -210,5 +211,4 @@
 
 	blood_overlay = image(blood_splatter_icon)
 	blood_overlay.color = color
-	blood_overlay_color = color
 	add_overlay(blood_overlay)
