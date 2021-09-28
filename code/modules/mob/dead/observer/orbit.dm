@@ -58,9 +58,9 @@
 			continue
 
 		serialized["ref"] = "\ref[M]"
-		var/num_orbiters = LAZYLEN(M.GetComponent(/datum/component/orbiter)?.orbiter_list)
-		if (num_orbiters)
-			serialized["orbiters"] = num_orbiters
+		var/list/orbiters = M.get_all_orbiters()
+		if (length(orbiters) > 0)
+			serialized["orbiters"] = length(orbiters)
 
 		if(istype(M))
 			if(isnewplayer(M))  // People in the lobby screen; only have their ckey as a name.

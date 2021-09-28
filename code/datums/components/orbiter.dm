@@ -17,9 +17,9 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	if (!istype(orbiter) || !isatom(parent) || isarea(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	begin_orbit(orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lock_in_orbit, force_move)
+	orbiter_list = list()
 
-	. = ..()
+	begin_orbit(orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lock_in_orbit, force_move)
 
 /datum/component/orbiter/RegisterWithParent()
 	var/atom/target = parent
@@ -30,9 +30,9 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	target.orbiters = null
 
 /datum/component/orbiter/Destroy()
-	var/atom/master = parent
-	if(master.orbiters == src)
-		master.orbiters = null
+	var/atom/owner = parent
+	if(owner.orbiters == src)
+		owner.orbiters = null
 	for(var/i in orbiter_list)
 		end_orbit(i)
 	orbiter_list = null
@@ -48,10 +48,8 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 		var/atom/movable/incoming_orbiter = o
 		incoming_orbiter.orbiting = src
 
-	LAZYADD(orbiter_list, new_comp.orbiter_list)
-
-
-	new_comp.orbiter_list = null
+	orbiter_list += new_comp.orbiter_list
+	new_comp.orbiter_list = list()
 
 /datum/component/orbiter/PostTransfer()
 	if(!isatom(parent) || isarea(parent) || !get_turf(parent))
@@ -69,8 +67,8 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 			end_orbit(orbiter)
 
 	// Start building up the orbiter
+	orbiter_list += orbiter
 	orbiter.orbiting = src
-	LAZYADD(orbiter_list, orbiter)
 	var/matrix/initial_transform = matrix(orbiter.transform)
 	orbiter.cached_transform = initial_transform
 	var/lastloc = orbiter.loc
@@ -103,8 +101,8 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 		lastloc = orbiter.loc
 		sleep(0.6)
 
-	if(orbiter.orbiting == src) //make sure we haven't started orbiting something else.
-		end_orbit(orbiter)
+	// if(orbiter.orbiting == src) //make sure we haven't started orbiting something else.
+	end_orbit(orbiter)
 
 /**
 End the orbit and clean up our transformation
@@ -112,9 +110,7 @@ End the orbit and clean up our transformation
 /datum/component/orbiter/proc/end_orbit(atom/movable/orbiter, refreshing=FALSE)
 	var/matrix/cached_transform = orbiter.cached_transform
 
-	var/atom/movable/asdf = LAZYACCESS(orbiter_list, orbiter)
-
-	if(!orbiter.orbiting)
+	if(!(orbiter in orbiter_list))
 		return
 
 	orbiter.SpinAnimation(0, 0, parallel = FALSE)
@@ -123,12 +119,12 @@ End the orbit and clean up our transformation
 	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
 
 	// Clean up and reset the atom doing the orbiting
-	LAZYREMOVE(orbiter_list, orbiter)
+	orbiter_list -= orbiter
 	orbiter.stop_orbit()
 	orbiter.orbiting = null
 
-	// if (!refreshing && !orbiter_list && !QDELING(src))
-		// qdel(src)
+	// if (!refreshing && length(orbiter_list) == 0 && !QDELING(src))
+	// 	qdel(src)
 
 ///////////
 
@@ -136,9 +132,9 @@ End the orbit and clean up our transformation
 //This is just so you can stop an orbit.
 //orbit() can run without it (swap orbiting for A)
 //but then you can never stop it and that's just silly.
-/atom/movable/var/atom/movable/orbiting = null
+/atom/movable/var/atom/orbiting = null
 /atom/movable/var/cached_transform = null
-/atom/var/list/orbiters = null
+/atom/var/datum/component/orbiter/orbiters = null
 
 /atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lockinorbit = FALSE, forceMove = FALSE)
 	if(!istype(A) || !get_turf(A) || A == src)
@@ -148,6 +144,8 @@ End the orbit and clean up our transformation
 
 /atom/movable/proc/stop_orbit(datum/component/orbiter/orbits)
 	// orbit_target = null
+	// orbits.orbiter_list -= src
+	// src.orbiting = null
 	return // We're just a simple hook
 
 /atom/proc/transfer_observers_to(atom/target)
@@ -167,10 +165,11 @@ End the orbit and clean up our transformation
 		processed = list()
 	if (src in processed)
 		return output
-	if (!source)
-		output += src
 	processed += src
-	var/list/orbiters = GetComponent(/datum/component/orbiter)
-	for (var/atom/atom_orbiter as anything in orbiters)
-		output += atom_orbiter.get_all_orbiters(processed, source = FALSE)
+	// Make sure we don't shadow outer orbiters
+	var/datum/component/orbiter/atom_orbiters = orbiters
+	if (orbiters)
+		output += atom_orbiters.orbiter_list
+		for (var/atom/atom_orbiter as anything in atom_orbiters.orbiter_list)
+			output += atom_orbiter.get_all_orbiters(processed, source = FALSE)
 	return output
