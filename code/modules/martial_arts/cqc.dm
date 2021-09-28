@@ -41,8 +41,23 @@
 /datum/martial_art/cqc/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = A.get_inactive_hand()
+	var/obj/item/organ/external/affected = D.get_organ(A.zone_selected)
+
 	if(restraining && istype(G) && G.affecting == D)
-		///Gotta put Harm Combo Here
+		for(var/stage = 1, stage<=2, stage++)
+			switch(stage)
+				if(1)
+					to_chat(A, "<span class='notice'>You lock your arms tighter around [D]'s [affected]!</span>")
+					D.emote("scream")
+				if(2)
+					to_chat(A, "<span class='notice'You break [D]'s [affected]!</span>")
+					affected.fracture()
+			if(!do_mob(A, D, 45))
+				to_chat(A, "<span class='warning'>You lose your grip on [D]!</span>")
+				return
+		if(G.state < GRAB_NECK)
+			G.state = GRAB_NECK
+		return TRUE
 	else
 		restraining = FALSE
 
