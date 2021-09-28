@@ -34378,6 +34378,17 @@
 /obj/structure/railing/corner{
 	pixel_x = -21
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bAe" = (
@@ -58536,6 +58547,17 @@
 /area/gateway)
 "cyP" = (
 /obj/structure/railing,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "cyQ" = (
@@ -58546,10 +58568,32 @@
 	dir = 8;
 	pixel_x = 21
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "cyR" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10;
+	initialize_directions = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "cyT" = (
@@ -59185,17 +59229,6 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "cAi" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/railing{
 	dir = 10
@@ -59203,58 +59236,20 @@
 /turf/simulated/floor/grass,
 /area/crew_quarters/locker)
 "cAj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/flora/ausbushes/palebush,
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/railing,
 /turf/simulated/floor/grass,
 /area/crew_quarters/locker)
 "cAk" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/railing,
 /turf/simulated/floor/grass,
 /area/crew_quarters/locker)
 "cAl" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/palebush,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/structure/railing{
 	dir = 6
 	},
@@ -68161,6 +68156,7 @@
 /area/maintenance/starboard)
 "cUO" = (
 /obj/structure/chair/comfy/brown,
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "cUP" = (
@@ -93858,19 +93854,19 @@
 	},
 /area/crew_quarters/dorms)
 "egF" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	dir = 9
 	},
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "eha" = (
@@ -95456,17 +95452,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "itU" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/railing,
@@ -96184,7 +96169,7 @@
 /area/maintenance/port)
 "ksl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
@@ -96967,14 +96952,21 @@
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
 "mEE" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
@@ -97606,6 +97598,12 @@
 /obj/structure/filingcabinet,
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
+"okv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/locker)
 "ops" = (
 /obj/structure/window/reinforced,
 /obj/structure/lattice,
@@ -97949,17 +97947,6 @@
 	},
 /area/security/permasolitary)
 "pvg" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/flora/ausbushes/genericbush,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/railing,
@@ -98968,6 +98955,20 @@
 	icon_state = "red"
 	},
 /area/hallway/secondary/exit)
+"sdH" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/locker)
 "sdP" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -99055,17 +99056,6 @@
 	},
 /area/medical/surgery2)
 "spz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/railing,
@@ -99790,17 +99780,6 @@
 	},
 /area/hallway/primary/central)
 "ukR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/railing,
@@ -99895,17 +99874,6 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "uwv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sunnybush,
 /obj/structure/railing,
@@ -101025,6 +100993,20 @@
 	icon_state = "white"
 	},
 /area/medical/research)
+"xBC" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/locker)
 "xBJ" = (
 /obj/structure/railing{
 	dir = 10;
@@ -101148,6 +101130,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"xSq" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/locker)
 "xUx" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	name = "cryodorms"
@@ -148491,7 +148487,7 @@ cxn
 cxn
 cxn
 cxn
-txW
+xSq
 egF
 txW
 cDp
@@ -150806,7 +150802,7 @@ cwd
 txW
 cyP
 cAj
-txW
+okv
 klj
 cIm
 cIm
@@ -151063,7 +151059,7 @@ cwd
 txW
 cyP
 cAk
-txW
+okv
 cDp
 cvV
 cFl
@@ -151320,7 +151316,7 @@ cwd
 txW
 cyQ
 cAl
-cDg
+xBC
 cDn
 cuJ
 cFm
@@ -151577,7 +151573,7 @@ cxv
 cUO
 cyR
 mEE
-txW
+sdH
 cDp
 bDB
 cGR
