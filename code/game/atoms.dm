@@ -657,9 +657,6 @@
 
 GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
-/atom/proc/blood_splatter_index()
-	return "\ref[initial(icon)]-[initial(icon_state)]-[blood_color]"
-
 //returns the mob's dna info as a list, to be inserted in an object's blood_DNA list
 /mob/living/proc/get_blood_dna_list()
 	if(get_blood_id() != "blood")
@@ -735,10 +732,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /obj/item/add_blood(list/blood_dna, b_color)
 	if(!..())
 		return FALSE
-	var/index = blood_splatter_index() //Remove the old overlay, if any
-	var/icon/blood_splatter_icon = GLOB.blood_splatter_icons[index]
-	if(blood_splatter_icon)
-		cut_overlay(blood_splatter_icon)
+	remove_filter("blood_splatter")
 	blood_color = b_color // update the blood color
 	add_blood_overlay() // apply the new overlay
 	return TRUE //we applied blood to the item
@@ -783,17 +777,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /obj/item/proc/add_blood_overlay()
 	if(initial(icon) && initial(icon_state))
-		//try to find a pre-processed blood-splatter. otherwise, make a new one
-		var/index = blood_splatter_index()
-		var/icon/blood_splatter_icon = GLOB.blood_splatter_icons[index]
-		if(!blood_splatter_icon)
-			blood_splatter_icon = icon(initial(icon), initial(icon_state), frame = 1)		//we only want to apply blood-splatters to the initial icon_state for each object
-			blood_splatter_icon.Blend("#ffffff", ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
-			blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
-			blood_splatter_icon.Blend(blood_color, ICON_MULTIPLY) // Color the blood
-			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
-			GLOB.blood_splatter_icons[index] = blood_splatter_icon
-		add_overlay(blood_splatter_icon)
+		var/list/params = GLOB.blood_splatter_icons["[blood_color]"]
+		if(!params)
+			params = layering_filter(icon = icon('icons/effects/blood.dmi', "itemblood"), color = blood_color, blend_mode = BLEND_INSET_OVERLAY)
+			GLOB.blood_splatter_icons["[blood_color]"] = params
+		add_filter("blood_splatter", 1, params)
 
 /atom/proc/clean_blood(radiation_clean = FALSE)
 	germ_level = 0
@@ -825,10 +813,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	. = ..()
 	if(.)
 		if(initial(icon) && initial(icon_state))
-			var/index = blood_splatter_index()
-			var/icon/blood_splatter_icon = GLOB.blood_splatter_icons[index]
-			if(blood_splatter_icon)
-				cut_overlay(blood_splatter_icon)
+			remove_filter("blood_splatter")
 
 /obj/item/clothing/gloves/clean_blood(radiation_clean = FALSE)
 	. = ..()
