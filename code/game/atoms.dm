@@ -730,11 +730,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return transfer_blood_dna(blood_dna)
 
 /obj/item/add_blood(list/blood_dna, b_color)
+	var/blood_count = !blood_DNA ? 0 : length(blood_DNA)
 	if(!..())
 		return FALSE
-	remove_filter("blood_splatter")
 	blood_color = b_color // update the blood color
-	add_blood_overlay() // apply the new overlay
+	if(!blood_count) //apply the blood-splatter overlay if it isn't already in there
+		add_blood_overlay()
 	return TRUE //we applied blood to the item
 
 /obj/item/clothing/gloves/add_blood(list/blood_dna, b_color)
