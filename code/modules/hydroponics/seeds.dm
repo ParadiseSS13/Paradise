@@ -413,7 +413,7 @@
 	for(var/i in 1 to amount_random_traits)
 		var/random_trait = pick((subtypesof(/datum/plant_gene/trait)-typesof(/datum/plant_gene/trait/plant_type)))
 		var/datum/plant_gene/trait/T = new random_trait
-		if(T.can_add(src))
+		if(T.can_add(src) && T.strange_seed) //Add only allowed traits
 			genes += T
 		else
 			qdel(T)

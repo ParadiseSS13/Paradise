@@ -142,6 +142,7 @@
 	var/examine_line = ""
 	var/list/origin_tech = null
 	var/trait_id // must be set and equal for any two traits of the same type
+	var/strange_seed = TRUE	//IF strange seed can get it
 
 /datum/plant_gene/trait/Copy()
 	var/datum/plant_gene/trait/G = ..()
@@ -257,8 +258,6 @@
 		if(batteries_recharged)
 			to_chat(target, "<span class='notice'>Your batteries are recharged!</span>")
 
-
-
 /datum/plant_gene/trait/glow
 	// Makes plant glow. Makes plant in tray glow too.
 	// Adds 1 + potency*rate light range and potency*(rate + 0.01) light_power to products.
@@ -326,6 +325,20 @@
 		to_chat(C, "<span class='warning'>[src] sparks, and burns up!</span>")
 		new /obj/effect/decal/cleanable/molten_object(T)
 		qdel(G)
+
+/datum/plant_gene/trait/noreact
+	// Makes plant reagents not react until squashed.
+	name = "Separated Chemicals"
+	strange_seed = FALSE
+
+/datum/plant_gene/trait/noreact/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+	..()
+	G.reagents.set_reacting(FALSE)
+
+/datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+	if(G && G.reagents)
+		G.reagents.set_reacting(TRUE)
+		G.reagents.handle_reactions()
 
 /datum/plant_gene/trait/maxchem
 	// 2x to max reagents volume.

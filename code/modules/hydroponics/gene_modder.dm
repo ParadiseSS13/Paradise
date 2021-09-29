@@ -484,6 +484,9 @@
 		name = "plant data disk"
 
 /obj/item/disk/plantgene/attack_self(mob/user)
+	if(read_only == 2)
+		to_chat(user, "<span class='notice'>Disk is factory protected.</span>")
+		return
 	read_only = !read_only
 	to_chat(user, "<span class='notice'>You flip the write-protect tab to [read_only ? "protected" : "unprotected"].</span>")
 
@@ -491,6 +494,18 @@
 	. = ..()
 	. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
 
+/*
+ *  Disks with genes
+ */
+/obj/item/disk/plantgene/full
+	read_only = 2 //You can't rewrite it
+
+/obj/item/disk/plantgene/full/New()
+	..()
+	update_name() //Update names only for filled disks
+
+/obj/item/disk/plantgene/full/noreact
+	gene = new /datum/plant_gene/trait/noreact
 
 /*
  *  Plant DNA Disks Box
