@@ -504,9 +504,6 @@
 	..()
 	update_name() //Update names only for filled disks
 
-/obj/item/disk/plantgene/full/noreact
-	gene = new /datum/plant_gene/trait/noreact
-
 /*
  *  Plant DNA Disks Box
  */
