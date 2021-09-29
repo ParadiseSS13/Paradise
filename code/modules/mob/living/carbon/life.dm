@@ -306,8 +306,6 @@
 			AdjustSleeping(1)
 			Paralyse(5)
 
-	if(confused)
-		AdjustConfused(-1)
 
 	//Jitteryness
 	if(jitteriness)

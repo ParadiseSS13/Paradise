@@ -50,7 +50,7 @@
 	flags = DROPDEL
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/Crossed(AM, oldloc)
-	if(!iscarbon(AM))
+	if(!iscarbon(AM) || !armed)
 		return
 	var/mob/living/carbon/C = AM
 	if(C.affects_vampire()) // no parameter here so holy always protects
@@ -58,9 +58,16 @@
 		C.EyeBlind(10)
 		STOP_PROCESSING(SSobj, src) // won't wither away once you are trapped
 		..()
+		if(!iscarbon(loc))
+			qdel(src)
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/attack_hand(mob/user)
 	Crossed(user)
+
+/obj/item/restraints/legcuffs/beartrap/shadow_snare/attack_tk(mob/user)
+	if(iscarbon(user))
+		to_chat(user, "<span class='userdanger'>The snare sends a psychic backlash!</span>")
+		user.EyeBlind(10)
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/process()
 	var/turf/T = get_turf(src)
