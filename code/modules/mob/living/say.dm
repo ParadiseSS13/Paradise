@@ -110,7 +110,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 /mob/living/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	if(client)
-		if(client.prefs.muted & MUTE_IC)
+		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
 			return
 
@@ -303,7 +303,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 /mob/living/emote(act, type, message, force) //emote code is terrible, this is so that anything that isn't already snowflaked to shit can call the parent and handle emoting sanely
 	if(client)
-		if(client.prefs.muted & MUTE_IC)
+		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
 			return
 
@@ -358,7 +358,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 /mob/living/proc/whisper_say(list/message_pieces, verb = "whispers")
 	if(client)
-		if(client.prefs.muted & MUTE_IC)
+		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
 			return
 

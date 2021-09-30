@@ -54,6 +54,9 @@ jobs:
   unit_tests_and_sql:
     name: Unit Tests + SQL Validation
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        maptype: ['/datum/map/cyberiad', '/datum/map/delta', '/datum/map/metastation']
     services:
       mariadb:
         image: mariadb:latest
@@ -85,6 +88,7 @@ jobs:
           tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/dm.sh -DCIBUILDING paradise.dme
+          echo '${{ matrix.maptype }}' > data/next_map.txt
           tools/ci/run_server.sh
 
   windows_dll_tests:

@@ -11,19 +11,17 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	container_type = OPENCONTAINER
 
 	categories = list(
-								"AI Modules",
-								"Computer Boards",
-								"Engineering Machinery",
-								"Exosuit Modules",
-								"Hydroponics Machinery",
-								"Medical Machinery",
-								"Misc. Machinery",
-								"Research Machinery",
-								"Subspace Telecomms",
-								"Teleportation Machinery"
-								)
-
-	reagents = new()
+		"AI Modules",
+		"Computer Boards",
+		"Engineering Machinery",
+		"Exosuit Modules",
+		"Hydroponics Machinery",
+		"Medical Machinery",
+		"Misc. Machinery",
+		"Research Machinery",
+		"Subspace Telecomms",
+		"Teleportation Machinery"
+	)
 
 /obj/machinery/r_n_d/circuit_imprinter/New()
 	..()
@@ -33,8 +31,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
+	create_reagents()
 	RefreshParts()
-	reagents.my_atom = src
 
 /obj/machinery/r_n_d/circuit_imprinter/upgraded/New()
 	..()
@@ -45,7 +43,11 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	RefreshParts()
-	reagents.my_atom = src
+
+/obj/machinery/r_n_d/circuit_imprinter/Destroy()
+	if(linked_console)
+		linked_console.linked_imprinter = null
+	return ..()
 
 /obj/machinery/r_n_d/circuit_imprinter/RefreshParts()
 	reagents.maximum_volume = 0

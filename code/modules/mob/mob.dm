@@ -32,7 +32,6 @@
 		GLOB.alive_mob_list += src
 	set_focus(src)
 	prepare_huds()
-	runechat_msg_location = src
 	update_runechat_msg_location()
 	. = ..()
 
@@ -213,7 +212,6 @@
 		return 0
 
 	equip_to_slot(W, slot, initial) //This proc should not ever fail.
-	W.hotkeyequip(src)
 	return 1
 
 //This is an UNSAFE proc. It merely handles the actual job of equipping. All the checks on whether you can or can't eqip need to be done before! Use mob_can_equip() for that task.
@@ -584,18 +582,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return 1
 
 	var/is_antag = (isAntag(src) || isobserver(src)) //ghosts don't have minds
-	var/list/result= A.examine(src)
-
 	if(client)
 		client.update_description_holders(A, is_antag)
-		LAZYINITLIST(client.recent_examines)
-		face_atom(A)
-		if(isnull(client.recent_examines[A]) || client.recent_examines[A] < world.time)
-			client.recent_examines[A] = world.time + 5 // set the value to when the examine cooldown ends, >> 5 segundos nada mas.
-			RegisterSignal(A, COMSIG_PARENT_QDELETING, .proc/clear_from_recent_examines, override=TRUE) // to flush the value if deleted early
-			addtimer(CALLBACK(src, .proc/clear_from_recent_examines, A), 5)
-			handle_eye_contact(A)
 
+	face_atom(A)
+	var/list/result = A.examine(src)
 	to_chat(src, result.Join("\n"))
 
 //same as above
@@ -766,26 +757,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(stat != DEAD || !SSticker)
 		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
 		return
-	//Hispania Respawn
-	var/deathtime = world.time - timeofdeath
-	var/deathtimeminutes = round(deathtime / 600)
-	var/pluralcheck = "minute"
-	if(deathtimeminutes == 0)
-		pluralcheck = ""
-	else if(deathtimeminutes == 1)
-		pluralcheck = " [deathtimeminutes] minute and"
-	else if(deathtimeminutes > 1)
-		pluralcheck = " [deathtimeminutes] minutes and"
-	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10, 1)
-
-	if(deathtimeminutes == 60)
-		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-		to_chat(usr, "<span class='warning'>You must wait 60 minutes to respawn!</span>")
-		return
-
-	if(alert("Are you sure you want to respawn?", "Are you sure?", "Yes", "No") != "Yes")
-		return
-	//Hispania Respawn
 
 	log_game("[key_name(usr)] has respawned.")
 
@@ -1380,17 +1351,21 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return FALSE		//overridden in living.dm
 
 /mob/proc/spin(spintime, speed)
-	set waitfor = 0
+	set waitfor = FALSE
 	if(!spintime || !speed || spintime > 100)
 		CRASH("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
-	var/end_time = world.time + spintime
-	var/spin_dir = prob(50)
-	while(world.time <= end_time)
+	while(spintime >= speed)
 		sleep(speed)
-		if(spin_dir)
-			dir = turn(dir, 90)
-		else
-			dir = turn(dir, -90)
+		switch(dir)
+			if(NORTH)
+				setDir(EAST)
+			if(SOUTH)
+				setDir(WEST)
+			if(EAST)
+				setDir(SOUTH)
+			if(WEST)
+				setDir(NORTH)
+		spintime -= speed
 
 /mob/proc/is_literate()
 	return FALSE
@@ -1483,9 +1458,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /**
  * Updates the mob's runechat maptext display location.
+ *
+ * By default, we set this to the src mob's `UID()`.
  */
 /mob/proc/update_runechat_msg_location()
-	return
+	runechat_msg_location = UID()
 
 
 /**

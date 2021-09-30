@@ -14,19 +14,16 @@ Note: Must be placed west/left of and R&D console to function.
 	container_type = OPENCONTAINER
 
 	categories = list(
-								"Bluespace",
-								"Equipment",
-								"Janitorial",
-								"Medical",
-								"Mining",
-								"Miscellaneous",
-								"Power",
-								"Stock Parts",
-								"Weapons"
-								)
-
-	reagents = new()
-
+		"Bluespace",
+		"Equipment",
+		"Janitorial",
+		"Medical",
+		"Mining",
+		"Miscellaneous",
+		"Power",
+		"Stock Parts",
+		"Weapons"
+	)
 
 /obj/machinery/r_n_d/protolathe/New()
 	..()
@@ -38,9 +35,8 @@ Note: Must be placed west/left of and R&D console to function.
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
+	create_reagents()
 	RefreshParts()
-
-	reagents.my_atom = src
 
 /obj/machinery/r_n_d/protolathe/upgraded/New()
 	..()
@@ -54,7 +50,10 @@ Note: Must be placed west/left of and R&D console to function.
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	RefreshParts()
 
-	reagents.my_atom = src
+/obj/machinery/r_n_d/protolathe/Destroy()
+	if(linked_console)
+		linked_console.linked_lathe = null
+	return ..()
 
 /obj/machinery/r_n_d/protolathe/RefreshParts()
 	var/T = 0

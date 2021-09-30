@@ -32,7 +32,7 @@
 	act = lowertext(act)
 
 	switch(act)		//This switch makes sure you have air in your lungs before you scream
-		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes", "laugh", "laughs")
+		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes")
 			if(getOxyLoss() > 35)		//no screaming if you don't have enough breath to scream
 				on_CD = handle_emote_CD()
 				emote("gasp")
@@ -125,12 +125,8 @@
 				return
 
 		if("scream", "screams")
-			on_CD = handle_emote_CD(40)
-		if("laugh", "laughs")
-			on_CD = handle_emote_CD(40)
-		if("fart", "farts")
-			on_CD = handle_emote_CD(40)
-		if("flip", "flips", "snap", "snaps")
+			on_CD = handle_emote_CD(50) //longer cooldown
+		if("fart", "farts", "flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
 		if("cough", "coughs", "highfive")
 			on_CD = handle_emote_CD()
@@ -450,15 +446,14 @@
 								SpinAnimation(5,1)
 
 		if("spin", "spins")
-			if(!restrained() && !lying)
+			if(!incapacitated(ignore_lying = TRUE))
 				if(prob(5))
-					spin(30, 1)
-					message = "<B>[src]</B> spins too much!"
+					spin(32, 1)
+					to_chat(src, "<span class='warning'>You spin too much!</span>")
 					Dizzy(12)
 					Confused(12)
 				else
 					spin(20, 1)
-					message = "<B>[src]</B> spins!"
 
 		if("aflap", "aflaps")
 			if(!restrained())
@@ -655,12 +650,6 @@
 				if(!muzzled)
 					message = "<B>[src]</B> laughs[M ? " at [M]" : ""]."
 					m_type = 2
-					//Hispania Laugh Starts Here
-					if(gender == FEMALE)
-						playsound(loc, pick(dna.species.female_laughs_sound), 60, 1, frequency = get_age_pitch()) //Hispania Screams
-					else
-						playsound(loc, pick(dna.species.male_laughs_sound), 60, 1, frequency = get_age_pitch()) //Hispania Screams
-					//Hispania Laugh Ends Here
 				else
 					message = "<B>[src]</B> makes a noise."
 					m_type = 2
@@ -900,11 +889,9 @@
 					message = "<B>[src]</B> [dna.species.scream_verb][M ? " at [M]" : ""]!"
 					m_type = 2
 					if(gender == FEMALE)
-						//playsound(loc, dna.species.female_scream_sound, 80, 1, frequency = get_age_pitch())
-						playsound(loc, pick(dna.species.female_scream_sound), 80, 1, frequency = get_age_pitch()) //Hispania Screams
+						playsound(loc, dna.species.female_scream_sound, 80, 1, frequency = get_age_pitch())
 					else
-						//playsound(loc, dna.species.male_scream_sound, 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
-						playsound(loc, pick(dna.species.male_scream_sound), 80, 1, frequency = get_age_pitch()) //Hispania Screams
+						playsound(loc, dna.species.male_scream_sound, 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
 
 				else
 					message = "<B>[src]</B> makes a very loud noise[M ? " at [M]" : ""]."
@@ -939,10 +926,8 @@
 			var/farted_on_thing = FALSE
 			for(var/atom/A in get_turf(src))
 				farted_on_thing += A.fart_act(src)
-				playsound(loc,'sound/hispania/effects/fart_oc.ogg',50,1)
 			if(!farted_on_thing)
 				message = "<b>[src]</b> [pick("passes wind", "farts")]."
-				playsound(loc,'sound/hispania/effects/fart_oc.ogg',50,1)
 			m_type = 2
 
 		if("hem")
@@ -972,21 +957,6 @@
 					remove_status_effect(STATUS_EFFECT_HIGHFIVE)
 					L.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
 					return
-
-		//HISPANIA EMOTES START HERE
-		if("puke")
-			if(restrained())
-				return
-			if(isrobot(src))
-				return
-			if(handle_emote_CD(600))
-				to_chat(src, "<span class='warning'>You are still recovering forces.</span>")
-				return
-			if(ismachineperson(src)) //los ipc no tienen boca
-				return
-			to_chat(viewers(src), "<span class='warning'>[src] brings [p_their()] fingers to [p_their()] mouth and vomits on the floor!</span>")
-			vomit()
-		//HISPANIA EMOTES END HERE
 
 		if("help")
 			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-none/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s), cry, cries, custom, dance, dap(s)-none/mob," \

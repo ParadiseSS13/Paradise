@@ -2,4 +2,4 @@
 	fluff_name = "NSS Cerebron"
 	technical_name = "MetaStation"
 	map_path = "_maps/map_files/MetaStation/MetaStation.dmm"
-	//map_path = "_maps/map_files/MetaStation/MetaStation_hispania.dmm"
+	webmap_url = "https://affectedarc07.github.io/SS13WebMap/Paradise/MetaStation/"

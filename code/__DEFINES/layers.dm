@@ -26,11 +26,13 @@
 #define DISPOSAL_PIPE_LAYER 2.3
 #define GAS_PIPE_HIDDEN_LAYER 2.35
 #define WIRE_LAYER 2.4
+#define TRANSPARENT_TURF_LAYER 2.41
 #define WIRE_TERMINAL_LAYER 2.45
 #define GAS_SCRUBBER_LAYER 2.46
 #define GAS_PIPE_VISIBLE_LAYER 2.47
 #define GAS_FILTER_LAYER 2.48
 #define GAS_PUMP_LAYER 2.49
+#define HOLOPAD_LAYER 2.491
 #define CONVEYOR_LAYER 2.495
 #define LOW_OBJ_LAYER 2.5
 #define LOW_SIGIL_LAYER 2.52
@@ -56,9 +58,8 @@
 #define NOT_HIGH_OBJ_LAYER 3.5
 #define HIGH_OBJ_LAYER 3.6
 
-#define BELOW_MOB_LAYER 3.9
+#define BELOW_MOB_LAYER 3.7
 #define LYING_MOB_LAYER 3.8
-#define ABOVE_HUMAN_LAYER 4
 //#define MOB_LAYER 4 //For easy recordkeeping; this is a byond define
 #define ABOVE_MOB_LAYER 4.1
 #define WALL_OBJ_LAYER 4.25
@@ -118,6 +119,9 @@
 
 #define SPLASHSCREEN_LAYER 23
 #define SPLASHSCREEN_PLANE 23
+
+// This should always be on top.
+#define HUD_PLANE_BUILDMODE 30
 
 ///Plane master controller keys
 #define PLANE_MASTERS_GAME "plane_masters_game"

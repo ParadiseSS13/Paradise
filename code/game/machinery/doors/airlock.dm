@@ -813,12 +813,7 @@ About the new airlock wires panel:
 				safe = 1
 				to_chat(usr, "<span class='notice'>The door safeties have been enabled.</span>")
 		if("speed-toggle")
-			if(wires.is_cut(WIRE_SPEED))
-				to_chat(usr, "<span class='warning'>The timing wire is cut - Cannot alter timing.</span>")
-			else if(normalspeed)
-				normalspeed = 0
-			else
-				normalspeed = 1
+			toggle_speed(usr)
 		if("open-close")
 			open_close(usr)
 		else
@@ -850,10 +845,16 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/toggle_bolt(mob/user)
 	if(wires.is_cut(WIRE_DOOR_BOLTS))
 		to_chat(user, "<span class='warning'>The door bolt control wire has been cut - Door bolts permanently dropped.</span>")
-	else if(lock())
-		to_chat(user, "<span class='notice'>The door bolts have been dropped.</span>")
-	else if(unlock())
+		return
+
+	if(unlock()) // Trying to unbolt
 		to_chat(user, "<span class='notice'>The door bolts have been raised.</span>")
+		return
+
+	if(lock()) // Trying to bolt
+		to_chat(user, "<span class='notice'>The door bolts have been dropped.</span>")
+		user.create_log(MISC_LOG, "Bolted", src)
+		add_hiddenprint(user)
 
 /obj/machinery/door/airlock/proc/toggle_emergency_status(mob/user)
 	emergency = !emergency
@@ -862,6 +863,17 @@ About the new airlock wires panel:
 	else
 		to_chat(user, "<span class='notice'>Emergency access has been disabled.</span>")
 	update_icon()
+
+/obj/machinery/door/airlock/proc/toggle_speed(mob/user)
+	if(wires.is_cut(WIRE_SPEED))
+		to_chat(user, "<span class='warning'>The timing wire has been cut - Cannot alter timing.</span>")
+		return
+	normalspeed = !normalspeed
+
+	if(normalspeed)
+		to_chat(user, "<span class='notice'>The door is now in <b>normal</b> mode.</span>")
+	else
+		to_chat(user, "<span class='notice'>The door is now in <b>fast</b> mode.</span>")
 
 /obj/machinery/door/airlock/attackby(obj/item/C, mob/user, params)
 	add_fingerprint(user)

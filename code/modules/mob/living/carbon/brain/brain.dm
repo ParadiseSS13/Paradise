@@ -111,8 +111,8 @@ I'm using this for Stat to give it a more nifty interface to work with
 
 /mob/living/carbon/brain/update_runechat_msg_location()
 	if(ismecha(loc))
-		runechat_msg_location = loc
+		runechat_msg_location = loc.UID()
 	else if(container)
-		runechat_msg_location = container
+		runechat_msg_location = container.UID()
 	else
-		runechat_msg_location = src
+		return ..()

@@ -43,7 +43,7 @@
 	var/foldable_amt = 0
 
 	/// Lazy list of mobs which are currently viewing the storage inventory.
-	var/list/mobs_viewing
+	var/list/mobs_viewing 
 
 /obj/item/storage/Initialize(mapload)
 	. = ..()
@@ -466,7 +466,7 @@
 			usr.s_active.show_to(usr)
 	if(I.maptext)
 		I.maptext = ""
-	I.on_exit_storage(src, usr)
+	I.on_exit_storage(src)
 	update_icon()
 	I.mouse_opacity = initial(I.mouse_opacity)
 	return TRUE

@@ -379,7 +379,7 @@
 /obj/item/circuitboard/telesci_console
 	board_name = "Telepad Control Console"
 	build_path = /obj/machinery/computer/telescience
-	origin_tech = "programming=6;bluespace=7;plasmatech=5"
+	origin_tech = "programming=3;bluespace=3;plasmatech=4"
 
 /obj/item/circuitboard/large_tank_control
 	board_name = "Atmospheric Tank Control"
@@ -461,6 +461,17 @@
 	if(!(flags & NODECONSTRUCT))
 		drop_computer_parts()
 	return ..() // will qdel the frame
+
+/obj/structure/computerframe/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	if(anchored)
+		to_chat(user, "<span class='warning'>The frame is anchored to the floor!</span>")
+		return
+	setDir(turn(dir, 90))
 
 /obj/structure/computerframe/obj_break(damage_flag)
 	deconstruct()
@@ -544,7 +555,8 @@
 		if(STATE_GLASS)
 			to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 			I.play_tool_sound(src)
-			var/B = new circuit.build_path(loc)
+			var/obj/machinery/computer/B = new circuit.build_path(loc)
+			B.setDir(dir)
 			if(istype(circuit, /obj/item/circuitboard/supplycomp))
 				var/obj/machinery/computer/supplycomp/SC = B
 				var/obj/item/circuitboard/supplycomp/C = circuit

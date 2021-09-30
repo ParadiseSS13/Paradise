@@ -1,13 +1,13 @@
 /datum/game_mode/traitor/vampire
 	name = "traitor+vampire"
 	config_tag = "traitorvamp"
-	traitors_possible = 2//hard limit on traitors if scaling is turned off
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer")
+	traitors_possible = 3 //hard limit on traitors if scaling is turned off
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Solar Federation General")
 	restricted_jobs = list("Cyborg")
 	secondary_restricted_jobs = list("AI")
-	required_players = 12
+	required_players = 10
 	required_enemies = 1	// how many of each type are required
-	recommended_enemies = 2
+	recommended_enemies = 3
 	secondary_enemies_scaling = 0.025
 	secondary_protected_species = list("Machine")
 
@@ -24,7 +24,7 @@
 	secondary_enemies = CEILING((secondary_enemies_scaling * num_players()), 1)
 
 	for(var/mob/new_player/player in GLOB.player_list)
-		if((player.mind in possible_vampires) && (player.client.prefs.species in secondary_protected_species))
+		if((player.mind in possible_vampires) && (player.client.prefs.active_character.species in secondary_protected_species))
 			possible_vampires -= player.mind
 
 	if(possible_vampires.len > 0)

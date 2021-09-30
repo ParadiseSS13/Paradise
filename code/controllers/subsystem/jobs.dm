@@ -65,7 +65,7 @@ SUBSYSTEM_DEF(jobs)
 	return type_occupations[jobtype]
 
 /datum/controller/subsystem/jobs/proc/GetPlayerAltTitle(mob/new_player/player, rank)
-	return player.client.prefs.GetPlayerAltTitle(GetJob(rank))
+	return player.client.prefs.active_character.GetPlayerAltTitle(GetJob(rank))
 
 /datum/controller/subsystem/jobs/proc/AssignRole(mob/new_player/player, rank, latejoin = 0)
 	Debug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
@@ -121,7 +121,7 @@ SUBSYSTEM_DEF(jobs)
 	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 	var/list/candidates = list()
 	for(var/mob/new_player/player in unassigned)
-		Debug(" - Player: [player] Banned: [jobban_isbanned(player, job.title)] Old Enough: [!job.player_old_enough(player.client)] AvInPlaytime: [job.available_in_playtime(player.client)] Flag && Be Special: [flag] && [player.client.prefs.be_special] Job Department: [player.client.prefs.GetJobDepartment(job, level)] Job Flag: [job.flag] Job Department Flag = [job.department_flag]")
+		Debug(" - Player: [player] Banned: [jobban_isbanned(player, job.title)] Old Enough: [!job.player_old_enough(player.client)] AvInPlaytime: [job.available_in_playtime(player.client)] Flag && Be Special: [flag] && [player.client.prefs.be_special] Job Department: [player.client.prefs.active_character.GetJobDepartment(job, level)] Job Flag: [job.flag] Job Department Flag = [job.department_flag]")
 		if(jobban_isbanned(player, job.title))
 			Debug("FOC isbanned failed, Player: [player]")
 			continue
@@ -140,7 +140,7 @@ SUBSYSTEM_DEF(jobs)
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
-		if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
+		if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 			Debug("FOC pass, Player: [player], Level:[level]")
 			candidates += player
 	return candidates
@@ -367,12 +367,12 @@ SUBSYSTEM_DEF(jobs)
 					continue
 
 				// If the player wants that job on this level, then try give it to him.
-				if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
+				if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 
 					// If the job isn't filled
 					if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
 						Debug("DO pass, Player: [player], Level:[level], Job:[job.title]")
-						Debug(" - Job Flag: [job.flag] Job Department: [player.client.prefs.GetJobDepartment(job, level)] Job Current Pos: [job.current_positions] Job Spawn Positions = [job.spawn_positions]")
+						Debug(" - Job Flag: [job.flag] Job Department: [player.client.prefs.active_character.GetJobDepartment(job, level)] Job Current Pos: [job.current_positions] Job Spawn Positions = [job.spawn_positions]")
 						AssignRole(player, job.title)
 						unassigned -= player
 						break
@@ -380,7 +380,7 @@ SUBSYSTEM_DEF(jobs)
 	// Hand out random jobs to the people who didn't get any in the last check
 	// Also makes sure that they got their preference correct
 	for(var/mob/new_player/player in unassigned)
-		if(player.client.prefs.alternate_option == GET_RANDOM_JOB)
+		if(player.client.prefs.active_character.alternate_option == GET_RANDOM_JOB)
 			GiveRandomJob(player)
 
 	Debug("DO, Standard Check end")
@@ -390,7 +390,7 @@ SUBSYSTEM_DEF(jobs)
 	// Antags, who have to get in, come first
 	for(var/mob/new_player/player in unassigned)
 		if(player.mind.special_role)
-			if(player.client.prefs.alternate_option != BE_ASSISTANT)
+			if(player.client.prefs.active_character.alternate_option != BE_ASSISTANT)
 				GiveRandomJob(player)
 				if(player in unassigned)
 					AssignRole(player, "Civilian")
@@ -399,10 +399,10 @@ SUBSYSTEM_DEF(jobs)
 
 	// Then we assign what we can to everyone else.
 	for(var/mob/new_player/player in unassigned)
-		if(player.client.prefs.alternate_option == BE_ASSISTANT)
+		if(player.client.prefs.active_character.alternate_option == BE_ASSISTANT)
 			Debug("AC2 Assistant located, Player: [player]")
 			AssignRole(player, "Civilian")
-		else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
+		else if(player.client.prefs.active_character.alternate_option == RETURN_TO_LOBBY)
 			player.ready = 0
 			unassigned -= player
 
@@ -564,11 +564,11 @@ SUBSYSTEM_DEF(jobs)
 			if(job.barred_by_disability(player.client))
 				disabled++
 				continue
-			if(player.client.prefs.GetJobDepartment(job, 1) & job.flag)
+			if(player.client.prefs.active_character.GetJobDepartment(job, 1) & job.flag)
 				high++
-			else if(player.client.prefs.GetJobDepartment(job, 2) & job.flag)
+			else if(player.client.prefs.active_character.GetJobDepartment(job, 2) & job.flag)
 				medium++
-			else if(player.client.prefs.GetJobDepartment(job, 3) & job.flag)
+			else if(player.client.prefs.active_character.GetJobDepartment(job, 3) & job.flag)
 				low++
 			else never++ //not selected
 

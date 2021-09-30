@@ -56,8 +56,7 @@
 	qdel(holder)
 	if(!QDELETED(target))
 		if(mobloc.density)
-			for(var/direction in GLOB.alldirs)
-				var/turf/T = get_step(mobloc, direction)
+			for(var/turf/T in orange(7))
 				if(T)
 					if(target.Move(T))
 						break

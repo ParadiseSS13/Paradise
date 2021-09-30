@@ -80,6 +80,7 @@
 
 /obj/machinery/light_switch/attack_hand(mob/user)
 	on = !on
+	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
 	updateicon()
 
 	if(light_connect)

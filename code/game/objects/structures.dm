@@ -21,7 +21,7 @@
 
 /obj/structure/Initialize(mapload)
 	if(!armor)
-		armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	return ..()
 
 /obj/structure/Destroy()
@@ -59,14 +59,14 @@
 
 /obj/structure/proc/do_climb(mob/living/user)
 	if(!can_touch(user) || !climbable)
-		return
+		return FALSE
 	var/blocking_object = density_check()
 	if(blocking_object)
 		to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [blocking_object]!</span>")
-		return
+		return FALSE
 
 	var/turf/T = src.loc
-	if(!T || !istype(T)) return
+	if(!T || !istype(T)) return FALSE
 
 	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
@@ -77,17 +77,18 @@
 	//HISPATRAITS END
 	if(!do_after(user, escala, target = src))
 		climber = null
-		return
+		return FALSE
 
 	if(!can_touch(user) || !climbable)
 		climber = null
-		return
+		return FALSE
 
 	usr.loc = get_turf(src)
 	if(get_turf(user) == get_turf(src))
 		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
 
 	climber = null
+	return TRUE
 
 /obj/structure/proc/structure_shaken()
 
@@ -180,6 +181,6 @@
 
 /obj/structure/zap_act(power, zap_flags)
 	if(zap_flags & ZAP_OBJ_DAMAGE)
-		take_damage(power / 8000, BURN, "energy")
+		take_damage(power / 8000, BURN, ENERGY)
 	power -= power / 2000 //walls take a lot out of ya
 	. = ..()

@@ -165,7 +165,6 @@
 	name = "sandwich"
 	desc = "A grand creation of meat, cheese, bread, and several leaves of lettuce! Arthur Dent would be proud."
 	icon_state = "sandwich"
-	trash = /obj/item/trash/plate
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("meat" = 2, "cheese" = 1, "bread" = 2, "lettuce" = 1)
@@ -174,7 +173,6 @@
 	name = "toasted sandwich"
 	desc = "Now if you only had a pepper bar."
 	icon_state = "toastedsandwich"
-	trash = /obj/item/trash/plate
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 6, "carbon" = 2)
 	tastes = list("toast" = 1)
@@ -182,8 +180,7 @@
 /obj/item/reagent_containers/food/snacks/grilledcheese
 	name = "grilled cheese sandwich"
 	desc = "Goes great with tomato soup!"
-	icon_state = "toastedsandwich"
-	trash = /obj/item/trash/plate
+	icon_state = "grilledcheese"
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 7, "vitamin" = 1) //why make a regualr sandwhich when you can make grilled cheese, with this nutriment value?
 	tastes = list("toast" = 1, "grilled cheese" = 1)
@@ -192,7 +189,6 @@
 	name = "jelly sandwich"
 	desc = "You wish you had some peanut butter to go with this..."
 	icon_state = "jellysandwich"
-	trash = /obj/item/trash/plate
 	filling_color = "#9E3A78"
 	bitesize = 3
 	tastes = list("toast" = 1, "jelly" = 1)

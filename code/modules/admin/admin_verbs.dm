@@ -137,7 +137,9 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/toggle_antagHUD_restrictions,
 	/client/proc/set_ooc,
 	/client/proc/reset_ooc,
-	/client/proc/set_next_map
+	/client/proc/set_next_map,
+	/client/proc/manage_queue,
+	/client/proc/add_queue_server_bypass
 	))
 GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/cmd_admin_list_open_jobs,
@@ -490,51 +492,6 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		log_admin("[key_name(usr)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Big Brother Mode")
 
-#define MAX_WARNS 3
-#define AUTOBANTIME 10
-
-/client/proc/warn(warned_ckey)
-	if(!check_rights(R_ADMIN))
-		return
-
-	if(!warned_ckey || !istext(warned_ckey))	return
-	if(warned_ckey in GLOB.admin_datums)
-		to_chat(usr, "<font color='red'>Error: warn(): You can't warn admins.</font>")
-		return
-
-	var/datum/preferences/D
-	var/client/C = GLOB.directory[warned_ckey]
-	if(C)	D = C.prefs
-	else	D = GLOB.preferences_datums[warned_ckey]
-
-	if(!D)
-		to_chat(src, "<font color='red'>Error: warn(): No such ckey found.</font>")
-		return
-
-	if(++D.warns >= MAX_WARNS)					//uh ohhhh...you'reee iiiiin trouuuubble O:)
-		if(C)
-			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)] resulting in a [AUTOBANTIME] minute ban")
-			log_admin("[key_name(src)] has warned [key_name(C)] resulting in a [AUTOBANTIME] minute ban")
-			to_chat(C, "<font color='red'><BIG><B>You have been autobanned due to a warning by [ckey].</B></BIG><br>This is a temporary ban, it will be removed in [AUTOBANTIME] minutes.")
-			qdel(C)
-		else
-			message_admins("[key_name_admin(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")
-			log_admin("[key_name(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")
-		AddBan(warned_ckey, D.last_id, "Autobanning due to too many formal warnings", ckey, 1, AUTOBANTIME)
-	else
-		if(C)
-			to_chat(C, "<font color='red'><BIG><B>You have been formally warned by an administrator.</B></BIG><br>Further warnings will result in an autoban.</font>")
-			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)]. They have [MAX_WARNS-D.warns] strikes remaining.")
-			log_admin("[key_name(src)] has warned [key_name(C)]. They have [MAX_WARNS-D.warns] strikes remaining.")
-		else
-			message_admins("[key_name_admin(src)] has warned [warned_ckey] (DC). They have [MAX_WARNS-D.warns] strikes remaining.")
-			log_admin("[key_name(src)] has warned [warned_ckey] (DC). They have [MAX_WARNS-D.warns] strikes remaining.")
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Warning") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-#undef MAX_WARNS
-#undef AUTOBANTIME
-
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
 	set category = "Event"
 	set name = "Drop Bomb"
@@ -611,7 +568,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 /client/proc/make_sound(obj/O in view()) // -- TLE
 	set category = "Event"
-	set name = "Make Sound"
+	set name = "\[Admin\] Make Sound"
 	set desc = "Display a message to everyone who can hear the target"
 
 	if(!check_rights(R_EVENT))
@@ -710,6 +667,10 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 				to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.")
 				return
 
+			// Do a little check here
+			if(GLOB.configuration.system.is_production && (GLOB.admin_ranks[rank] & R_ADMIN) && prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
+				to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
+				return
 			D = new(rank, GLOB.admin_ranks[rank], ckey)
 		else
 			if(!SSdbcore.IsConnected())
@@ -740,8 +701,12 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 				if(istext(flags))
 					flags = text2num(flags)
+				// Do a little check here
+				if(GLOB.configuration.system.is_production && (flags & R_ADMIN) && prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
+					to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
+					qdel(admin_read)
+					return
 				D = new(admin_rank, flags, ckey)
-
 			qdel(admin_read)
 
 		var/client/C = GLOB.directory[ckey]
@@ -797,7 +762,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Silicon Laws") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/change_human_appearance_admin(mob/living/carbon/human/H in GLOB.mob_list)
-	set name = "C.M.A. - Admin"
+	set name = "\[Admin\] C.M.A. - Admin"
 	set desc = "Allows you to change the mob appearance"
 	set category = null
 
@@ -823,7 +788,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/change_human_appearance_self(mob/living/carbon/human/H in GLOB.mob_list)
-	set name = "C.M.A. - Self"
+	set name = "\[Admin\] C.M.A. - Self"
 	set desc = "Allows the mob to change its appearance"
 	set category = null
 
@@ -963,7 +928,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 /client/proc/man_up(mob/T as mob in GLOB.player_list)
 	set category = null
-	set name = "Man Up"
+	set name = "\[Admin\] Man Up"
 	set desc = "Tells mob to man up and deal with it."
 
 	if(!check_rights(R_ADMIN))

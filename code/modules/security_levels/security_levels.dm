@@ -33,34 +33,35 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 		switch(level)
 			if(SEC_LEVEL_GREEN)
-				GLOB.security_announcement_down.Announce("Todas las amenazas a la estación han cesado. Todas las armas deben estar enfundadas y las leyes de privacidad se vuelven a aplicar por completo.","¡Atención! Nivel de seguridad bajado a Verde.")
+				GLOB.security_announcement_down.Announce("All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.","Attention! Security level lowered to green.", 'sound/AI/green.ogg')
 				GLOB.security_level = SEC_LEVEL_GREEN
-
 
 				post_status("alert", "outline")
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
-						FA.update_icon()
+						FA.overlays.Cut()
+						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")
 
 			if(SEC_LEVEL_BLUE)
 				if(GLOB.security_level < SEC_LEVEL_BLUE)
-					GLOB.security_announcement_up.Announce("La estación ha recibido información confiable sobre una posible actividad hostil en la estación. El personal de seguridad puede tener armas visibles y se permiten revisiones aleatorias.","¡Atención! Nivel de seguridad elevado a Azul.")
+					GLOB.security_announcement_up.Announce("The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible and random searches are permitted.","Attention! Security level elevated to blue.", 'sound/AI/blue.ogg')
 				else
-					GLOB.security_announcement_down.Announce("La amenaza inmediata ha pasado. Seguridad ya no necesita tener armas desenfundadas en todo momento, pero puede seguir haciéndolas visibles. Las revisiones aleatorias aún están permitidas.","¡Atención! Nivel de seguridad bajado a Azul.")
+					GLOB.security_announcement_down.Announce("The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed.","Attention! Security level lowered to blue.", 'sound/AI/blue.ogg')
 				GLOB.security_level = SEC_LEVEL_BLUE
 
 				post_status("alert", "outline")
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
-						FA.update_icon()
+						FA.overlays.Cut()
+						FA.overlays += image('icons/obj/monitors.dmi', "overlay_blue")
 
 			if(SEC_LEVEL_RED)
 				if(GLOB.security_level < SEC_LEVEL_RED)
-					GLOB.security_announcement_up.Announce("Existe una amenaza inmediata y grave para la estación. Seguridad puede tener armas sin funda en todo momento. Se permiten y aconsejan revisiones aleatorias.Todo el personal debe mantenerse dentro de su departamento respectivo. Civiles reunirse en bar.","¡Atención! ¡Código Rojo!")
+					GLOB.security_announcement_up.Announce("There is an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!", 'sound/AI/red.ogg')
 				else
-					GLOB.security_announcement_down.Announce("El mecanismo de autodestrucción de la estación se ha desactivado, pero aún existe una amenaza inmediata y grave para la estación. Seguridad puede tener armas sin funda en todo momento. Se permiten y aconsejan revisiones aleatorias.","¡Atención! ¡Código Rojo!")
+					GLOB.security_announcement_down.Announce("The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!", 'sound/AI/red.ogg')
 				GLOB.security_level = SEC_LEVEL_RED
 
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in GLOB.airlocks
@@ -72,10 +73,11 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
-						FA.update_icon()
+						FA.overlays.Cut()
+						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
 
 			if(SEC_LEVEL_GAMMA)
-				GLOB.security_announcement_up.Announce("El Comando Central ha ordenado el nivel de seguridad Gamma en la estación. Seguridad debe tener armas equipadas en todo momento, y toda la tripulacion debe buscar a los jefes de departamento para el transporte a un lugar seguro. El arsenal Gamma de la estación se ha desbloqueado y está listo para usar.","¡Atención! ¡Nivel de seguridad Gamma activado!", new_sound = sound('sound/effects/new_siren.ogg'))
+				GLOB.security_announcement_up.Announce("Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location.", "Attention! Gamma security level activated!", 'sound/effects/new_siren.ogg', new_sound2 = 'sound/AI/gamma.ogg')
 				GLOB.security_level = SEC_LEVEL_GAMMA
 
 				if(GLOB.security_level < SEC_LEVEL_RED)
@@ -88,28 +90,31 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
+						FA.overlays.Cut()
+						FA.overlays += image('icons/obj/monitors.dmi', "overlay_gamma")
 						FA.update_icon()
 
 			if(SEC_LEVEL_EPSILON)
-				GLOB.security_announcement_up.Announce("El Comando Central ha ordenado el nivel de seguridad de Epsilon en la estación. Contratos laborales rescindidos.","¡Atención! ¡Nivel de seguridad de Epsilon activado!", new_sound = sound('sound/effects/purge_siren.ogg'))
+				GLOB.security_announcement_up.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.","Attention! Epsilon security level activated!", 'sound/effects/purge_siren.ogg', new_sound2 = 'sound/AI/epsilon.ogg')
 				GLOB.security_level = SEC_LEVEL_EPSILON
-
 
 				post_status("alert", "epsilonalert")
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
-						FA.update_icon()
+						FA.overlays.Cut()
+						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
 
 			if(SEC_LEVEL_DELTA)
-				GLOB.security_announcement_up.Announce("El mecanismo de autodestrucción de la estación ha sido activado. Toda la tripulación tiene instrucciones de localizar inmediatamente y obedecer las ordenes dadas por los jefes departamentales. Cualquier violación de estas órdenes puede ser castigada con la muerte. Esto no es un simulacro.","¡Atención! ¡Nivel de seguridad Delta activado!", new_sound = sound('sound/effects/deltaalarm.ogg'))
+				GLOB.security_announcement_up.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!", 'sound/effects/deltaalarm.ogg', new_sound2 = 'sound/AI/delta.ogg')
 				GLOB.security_level = SEC_LEVEL_DELTA
 
 				post_status("alert", "deltaalert")
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
-						FA.update_icon()
+						FA.overlays.Cut()
+						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
 
 		SSnightshift.check_nightshift(TRUE)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)

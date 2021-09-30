@@ -384,6 +384,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 	for(var/M in invokers)
 		if(sacrifice_fulfilled)
 			to_chat(M, "<span class='cultlarge'>\"Yes! This is the one I desire! You have done well.\"</span>")
+			if(!SSticker.cultdat.mirror_shields_active) // Only show once
+				to_chat(M, "<span class='cultitalic'>You are now able to construct mirror shields inside the daemon forge.</span>")
+				SSticker.cultdat.mirror_shields_active = TRUE
 		else
 			if(ishuman(offering) && offering.mind.offstation_role && offering.mind.special_role != SPECIAL_ROLE_ERT) //If you try it on a ghost role, you get nothing
 				to_chat(M, "<span class='cultlarge'>\"This soul is of no use to either of us.\"</span>")
@@ -948,11 +951,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	V.Grant(ghost)
 	//GM.Grant(ghost)
 	while(!QDELETED(user))
-		if(!(user in T))
-			user.visible_message("<span class='warning'>A spectral tendril wraps around [user] and pulls [user.p_them()] back to the rune!</span>")
-			Beam(user, icon_state = "drainbeam", time = 2)
-			user.forceMove(get_turf(src)) //NO ESCAPE :^)
-		if(user.key)
+		if(user.key || QDELETED(src))
 			user.visible_message("<span class='warning'>[user] slowly relaxes, the glow around [user.p_them()] dimming.</span>",
 								"<span class='danger'>You are re-united with your physical form. [src] releases its hold over you.</span>")
 			user.Weaken(3)
@@ -960,12 +959,16 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(user.health <= 10)
 			to_chat(ghost, "<span class='cultitalic'>Your body can no longer sustain the connection!</span>")
 			break
+		if(!(user in T))
+			user.visible_message("<span class='warning'>A spectral tendril wraps around [user] and pulls [user.p_them()] back to the rune!</span>")
+			Beam(user, icon_state = "drainbeam", time = 2)
+			user.forceMove(get_turf(src)) //NO ESCAPE :^)
 		sleep(5)
-	CM.Remove(ghost)
-	V.Remove(ghost)
-	//GM.Remove(ghost)
+	if(user.grab_ghost())
+		CM.Remove(ghost)
+		V.Remove(ghost)
+		//GM.Remove(ghost)
 	user.remove_atom_colour(ADMIN_COLOUR_PRIORITY, RUNE_COLOR_DARKRED)
-	user.grab_ghost()
 	user = null
 	rune_in_use = FALSE
 

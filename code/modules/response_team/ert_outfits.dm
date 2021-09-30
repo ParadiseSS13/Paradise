@@ -310,7 +310,7 @@
 	suit_store = /obj/item/gun/energy/gun/mini
 	glasses = /obj/item/clothing/glasses/hud/health
 
-	belt = /obj/item/storage/belt/medical/advanced/loaded
+	belt = /obj/item/storage/belt/medical/surgery/loaded
 
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -340,7 +340,7 @@
 	 /obj/item/organ/internal/cyberimp/arm/surgery,
 	 /obj/item/organ/internal/cyberimp/chest/nutriment
 	)
-	belt = /obj/item/defibrillator/compact/loaded
+	belt = /obj/item/defibrillator/compact/advanced/loaded
 
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -351,7 +351,7 @@
 		/obj/item/storage/firstaid/doctor = 1,
 		/obj/item/storage/firstaid/adv = 1,
 		/obj/item/storage/box/autoinjectors = 1,
-		/obj/item/roller/advanced = 1, //Hispania Roller Bed Red ERT
+		/obj/item/roller = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/bodyanalyzer = 1,
 		/obj/item/handheld_defibrillator = 1
@@ -369,7 +369,7 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
 
-	belt = /obj/item/defibrillator/compact/loaded
+	belt = /obj/item/defibrillator/compact/advanced/loaded
 
 	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
 	r_pocket = /obj/item/reagent_containers/hypospray/autoinjector
@@ -379,9 +379,9 @@
 		/obj/item/storage/firstaid/doctor = 1,
 		/obj/item/storage/firstaid/adv = 1,
 		/obj/item/extinguisher/mini = 1,
-		/obj/item/roller/bluespace = 1,  //Hispania Roller Bed Gamma ERT
-		/obj/item/healthanalyzer/advanced = 1,
+		/obj/item/roller = 1,
 		/obj/item/handheld_defibrillator = 1
+
 		)
 
 	cybernetic_implants = list(

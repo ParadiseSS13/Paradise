@@ -207,10 +207,9 @@ Difficulty: Very Hard
 		shoot_projectile(E)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/telegraph()
-	for(var/mob/M in range(10,src))
-		if(M.client)
-			flash_color(M.client, "#C80000", 1)
-			shake_camera(M, 4, 3)
+	for(var/mob/M in range(10, src))
+		M.flash_screen_color("#C80000", 1)
+		shake_camera(M, 4, 3)
 	playsound(src, 'sound/magic/narsie_attack.ogg', 200, TRUE)
 
 

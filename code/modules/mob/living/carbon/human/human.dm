@@ -93,10 +93,10 @@
 
 /mob/living/carbon/human/vox/Initialize(mapload)
 	. = ..(mapload, /datum/species/vox)
-/*
+
 /mob/living/carbon/human/voxarmalis/Initialize(mapload)
 	. = ..(mapload, /datum/species/vox/armalis)
-*/
+
 /mob/living/carbon/human/skeleton/Initialize(mapload)
 	. = ..(mapload, /datum/species/skeleton)
 
@@ -145,13 +145,13 @@
 
 /mob/living/carbon/human/golem/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem)
-/*
+
 /mob/living/carbon/human/wryn/Initialize(mapload)
 	. = ..(mapload, /datum/species/wryn)
 
 /mob/living/carbon/human/nucleation/Initialize(mapload)
 	. = ..(mapload, /datum/species/nucleation)
-*/
+
 /mob/living/carbon/human/drask/Initialize(mapload)
 	. = ..(mapload, /datum/species/drask)
 
@@ -214,7 +214,7 @@
 	if(istype(loc, /obj/spacepod)) // Spacdpods!
 		var/obj/spacepod/S = loc
 		stat("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")
-		stat("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / S.maxhealth) * 100]"]%") //Hispania Spacepods
+		stat("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
 
 /mob/living/carbon/human/ex_act(severity)
 	if(status_flags & GODMODE)
@@ -222,7 +222,7 @@
 
 	var/brute_loss = 0
 	var/burn_loss = 0
-	var/bomb_armor = getarmor(null, "bomb")
+	var/bomb_armor = getarmor(null, BOMB)
 	var/list/valid_limbs = list("l_arm", "l_leg", "r_arm", "r_leg")
 	var/limbs_amount = 1
 	var/limb_loss_chance = 50
@@ -264,7 +264,7 @@
 		var/obj/item/organ/external/BP = get_organ(X)
 		if(!BP) //limb already blown off, move to the next one without counting it
 			continue
-		if(prob(limb_loss_chance) && !prob(getarmor(BP, "bomb")))
+		if(prob(limb_loss_chance) && !prob(getarmor(BP, BOMB)))
 			BP.droplimb(TRUE, DROPLIMB_SHARP, FALSE, TRUE)
 		limbs_amount--
 		if(!limbs_amount)
@@ -280,7 +280,7 @@
 	show_message("<span class='userdanger'>The blob attacks you!</span>")
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
-	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, "melee"))
+	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, MELEE))
 
 /mob/living/carbon/human/get_restraining_item()
 	. = ..()
@@ -1679,9 +1679,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	return md5(dna.uni_identity)
 
-/mob/living/carbon/human/can_see_reagents()
-	for(var/obj/item/clothing/C in src) //If they have some clothing equipped that lets them see reagents, they can see reagents
-		if(C.scan_reagents)
+/mob/living/carbon/human/can_see_reagents() //If they have some glasses or helmet equipped that lets them see reagents, they can see reagents
+	if(istype(head, /obj/item/clothing/head))
+		var/obj/item/clothing/head/hat = head
+		if(hat.scan_reagents)
+			return 1
+	if(istype(glasses, /obj/item/clothing/glasses))
+		var/obj/item/clothing/rscan = glasses
+		if(rscan.scan_reagents)
 			return 1
 
 /mob/living/carbon/human/can_eat(flags = 255)
@@ -1939,9 +1944,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/update_runechat_msg_location()
 	if(ismecha(loc))
-		runechat_msg_location = loc
+		runechat_msg_location = loc.UID()
 	else
-		runechat_msg_location = src
+		return ..()
 
 /mob/living/carbon/human/verb/Examine_OOC()
 	set name = "Examine Meta-Info (OOC)"
@@ -1950,7 +1955,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	if(GLOB.configuration.general.allow_character_metadata)
 		if(client)
-			to_chat(usr, "[src]'s Metainfo:<br>[sanitize(client.prefs.metadata)]")
+			to_chat(usr, "[src]'s Metainfo:<br>[sanitize(client.prefs.active_character.metadata)]")
 		else
 			to_chat(usr, "[src] does not have any stored infomation!")
 	else
