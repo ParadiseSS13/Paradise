@@ -789,15 +789,15 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		var/index = blood_splatter_index()
 		var/icon/blood_splatter_icon = GLOB.blood_splatter_icons[index]
 		if(!blood_splatter_icon)
-			blood_splatter_icon = icon(initial(icon), initial(icon_state), , 1)		//we only want to apply blood-splatters to the initial icon_state for each object
-			blood_splatter_icon.Blend("#fff", ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
+			blood_splatter_icon = icon(initial(icon), initial(icon_state), frame = 1)		//we only want to apply blood-splatters to the initial icon_state for each object
+			blood_splatter_icon.Blend("#ffffff", ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
 			blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
 			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
 			GLOB.blood_splatter_icons[index] = blood_splatter_icon
 
 		blood_overlay = image(blood_splatter_icon)
 		blood_overlay.color = color
-		overlays += blood_overlay
+		add_overlay(blood_overlay)
 
 /atom/proc/clean_blood(radiation_clean = FALSE)
 	germ_level = 0
@@ -827,9 +827,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /obj/item/clean_blood(radiation_clean = FALSE)
 	. = ..()
-	if(.)
-		if(blood_overlay)
-			overlays -= blood_overlay
+	if(. && blood_overlay)
+		cut_overlay(blood_overlay)
+		QDEL_NULL(blood_overlay)
 
 /obj/item/clothing/gloves/clean_blood(radiation_clean = FALSE)
 	. = ..()
