@@ -12,7 +12,7 @@
 	if(!istype(examined_mob) || src == examined_mob || examined_mob.stat >= UNCONSCIOUS || !client || !examined_mob.client?.recent_examines || !(src in examined_mob.client.recent_examines))
 		return
 
-	if(get_dist(src, examined_mob) > EYE_CONTACT_RANGE)
+	if(get_dist(src, examined_mob) > EYE_CzONTACT_RANGE)
 		return
 
 	// check to see if their face is blocked or, if not, a signal blocks it

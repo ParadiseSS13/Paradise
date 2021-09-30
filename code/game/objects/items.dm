@@ -121,6 +121,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/in_storage = FALSE
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
+	var/hispania_icon = FALSE
 
 /obj/item/New()
 	..()
@@ -135,6 +136,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	LAZYINITLIST(attack_verb)
 	if(!move_resist)
 		determine_move_resist()
+
+	icon = (hispania_icon ? 'icons/hispania/obj/items.dmi' : icon)
+	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/items_lefthand.dmi' : lefthand_file)
+	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/items_righthand.dmi' : righthand_file)
 
 /obj/item/Initialize(mapload)
 	. = ..()
