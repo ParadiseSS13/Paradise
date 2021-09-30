@@ -9,34 +9,34 @@
 	icon = 'icons/obj/species_organs/skrell.dmi'
 	icon_state = "skrell_headpocket"
 	origin_tech = "biotech=2"
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_SMALL
 	parent_organ = "head"
 	slot = "headpocket"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
-	var/obj/item/storage/internal/pocket
+	var/obj/item/held_item
 
-/obj/item/organ/internal/headpocket/New()
-	..()
-	pocket = new /obj/item/storage/internal(src)
-	pocket.storage_slots = 1
-	// Allow adjacency calculation to work properly
-	loc = owner
-	// Fit only pocket sized items
-	pocket.max_w_class = WEIGHT_CLASS_SMALL
-	pocket.max_combined_w_class = 2
+/obj/item/organ/internal/headpocket/Destroy()
+	QDEL_NULL(held_item)
+	return ..()
 
 /obj/item/organ/internal/headpocket/on_life()
 	..()
 	var/obj/item/organ/external/head/head = owner.get_organ("head")
-	if(pocket.contents.len && (owner.stunned || !findtextEx(head.h_style, "Tentacles")))
-		owner.visible_message("<span class='notice'>Something falls from [owner]'s head!</span>",
-													"<span class='notice'>Something falls from your head!</span>")
+	if(held_item && !findtextEx(head.h_style, "Tentacles"))
+		owner.visible_message("<span class='notice'>[held_item] falls from [owner]'s [name]!</span>", "<span class='notice'>[held_item] falls from your [name]!</span>")
 		empty_contents()
 
 /obj/item/organ/internal/headpocket/ui_action_click()
-	if(!loc)
-		loc = owner
-	pocket.MouseDrop(owner)
+	if(held_item)
+		owner.visible_message("<span class='notice'>[owner] removes [held_item] from [owner.p_their()] [name].</span>", "<span class='notice'>You remove [held_item] from your [name].</span>")
+		owner.put_in_hands(held_item)
+		held_item = null
+	else
+		var/obj/item/I = owner.get_active_hand()
+		if(I && I.w_class <= WEIGHT_CLASS_SMALL && !istype(I, /obj/item/disk/nuclear) && owner.unEquip(I))
+			owner.visible_message("<span class='notice'>[owner] places [I] into [owner.p_their()] [name].</span>", "<span class='notice'>You place [I] into your [name].</span>")
+			I.forceMove(src)
+			held_item = I
 
 /obj/item/organ/internal/headpocket/on_owner_death()
 	empty_contents()
@@ -46,22 +46,23 @@
 	. = ..()
 
 /obj/item/organ/internal/headpocket/proc/empty_contents()
-	for(var/obj/item/I in pocket.contents)
-		pocket.remove_from_storage(I, get_turf(owner))
-
-/obj/item/organ/internal/headpocket/proc/get_contents()
-	return pocket.contents
+	if(held_item)
+		held_item.forceMove(get_turf(owner))
+		held_item = null
 
 /obj/item/organ/internal/headpocket/emp_act(severity)
-	pocket.emp_act(severity)
+	if(held_item)
+		held_item.emp_act(severity)
 	..()
 
-/obj/item/organ/internal/headpocket/hear_talk(mob/living/M as mob, list/message_pieces)
-	pocket.hear_talk(M, message_pieces)
+/obj/item/organ/internal/headpocket/hear_talk(mob/living/M, list/message_pieces)
+	if(held_item)
+		held_item.hear_talk(M, message_pieces)
 	..()
 
-/obj/item/organ/internal/headpocket/hear_message(mob/living/M as mob, msg)
-	pocket.hear_message(M, msg)
+/obj/item/organ/internal/headpocket/hear_message(mob/living/M, msg)
+	if(held_item)
+		held_item.hear_message(M, msg)
 	..()
 
 /obj/item/organ/internal/heart/skrell

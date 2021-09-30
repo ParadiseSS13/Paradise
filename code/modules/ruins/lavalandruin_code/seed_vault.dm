@@ -2,7 +2,7 @@
 	name = "seed vault seeds"
 	lootcount = 1
 
-	loot = list(/obj/item/seeds/gatfruit = 10,
+	loot = list(/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/glowcap = 10,
 				/obj/item/seeds/cherry/bomb = 10,
 				/obj/item/seeds/berry/glow = 10,
 				/obj/item/seeds/sunflower/moonflower = 8
@@ -18,9 +18,10 @@
 	roundstart = FALSE
 	death = FALSE
 	mob_species = /datum/species/diona/pod
-	flavour_text = "<span class='big bold'>You are a sentient ecosystem,</span><b> an example of the mastery over life that your creators possessed. Your masters, benevolent as they were, created uncounted \
+	description = "You are a diona on Lavaland with access to a full botany setup. Perfect to mess around with plants in peace."
+	flavour_text = "You are a sentient ecosystem, an example of the mastery over life that your creators possessed. Your masters, benevolent as they were, created uncounted \
 	seed vaults and spread them across the universe to every planet they could chart. You are in one such seed vault. Your goal is to cultivate and spread life wherever it will go while waiting \
-	for contact from your creators. Estimated time of last contact: Deployment, 5x10^3 millennia ago.</b>"
+	for contact from your creators. Estimated time of last contact: Deployment, 5x10^3 millennia ago."
 	assignedrole = "Lifebringer"
 
 /obj/effect/mob_spawn/human/seed_vault/special(mob/living/new_spawn)

@@ -5,16 +5,22 @@
 	icon_state = "lipstick"
 	w_class = WEIGHT_CLASS_TINY
 	var/colour = "red"
-	var/open = 0
-	var/list/lipstick_colors = list(
-		"purple" = "purple",
-		"jade" = "#216F43",
-		"lime" = "lime",
-		"black" = "black",
-		"green" = "green",
-		"blue" = "blue",
-		"white" = "white")
+	var/open = FALSE
+	var/static/list/lipstick_colors
 
+/obj/item/lipstick/Initialize(mapload)
+	. = ..()
+	if(!lipstick_colors)
+		lipstick_colors = list(
+			"black" = "#000000",
+			"white" = "#FFFFFF",
+			"red" = "#FF0000",
+			"green" = "#00C000",
+			"blue" = "#0000FF",
+			"purple" = "#D55CD0",
+			"jade" = "#216F43",
+			"lime" = "#00FF00",
+		)
 
 /obj/item/lipstick/purple
 	name = "purple lipstick"
@@ -22,7 +28,7 @@
 
 /obj/item/lipstick/jade
 	name = "jade lipstick"
-	colour = "#216F43"
+	colour = "jade"
 
 /obj/item/lipstick/lime
 	name = "lime lipstick"
@@ -47,40 +53,37 @@
 /obj/item/lipstick/random
 	name = "lipstick"
 
-/obj/item/lipstick/random/New()
-	..()
-	var/lscolor = pick(lipstick_colors)//A random color is picked from the var defined initially in a new var.
-	colour = lipstick_colors[lscolor]//The color of the lipstick is pulled from the new variable (right hand side, HTML & Hex RGB)
-	name = "[lscolor] lipstick"//The new variable is also used to match the name to the color of the lipstick. Kudos to Desolate & Lemon
+/obj/item/lipstick/random/Initialize(mapload)
+	. = ..()
+	colour = pick(lipstick_colors)
+	name = "[colour] lipstick"
 
-
-/obj/item/lipstick/attack_self(mob/user as mob)
-	overlays.Cut()
+/obj/item/lipstick/attack_self(mob/user)
+	cut_overlays()
 	to_chat(user, "<span class='notice'>You twist \the [src] [open ? "closed" : "open"].</span>")
 	open = !open
 	if(open)
-		var/image/colored = image("icon"='icons/obj/items.dmi', "icon_state"="lipstick_uncap_color")
-		colored.color = colour
+		var/mutable_appearance/colored = mutable_appearance('icons/obj/items.dmi', "lipstick_uncap_color")
+		colored.color = lipstick_colors[colour]
 		icon_state = "lipstick_uncap"
-		overlays += colored
+		add_overlay(colored)
 	else
 		icon_state = "lipstick"
 
-/obj/item/lipstick/attack(mob/M as mob, mob/user as mob)
-	if(!open)	return
-
-	if(!istype(M, /mob))	return
+/obj/item/lipstick/attack(mob/M, mob/user)
+	if(!open || !istype(M))
+		return
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.lip_style)	//if they already have lipstick on
+		if(H.lip_style)	// If they already have lipstick on
 			to_chat(user, "<span class='notice'>You need to wipe off the old lipstick first!</span>")
 			return
 		if(H == user)
 			user.visible_message("<span class='notice'>[user] does [user.p_their()] lips with [src].</span>", \
 								 "<span class='notice'>You take a moment to apply [src]. Perfect!</span>")
 			H.lip_style = "lipstick"
-			H.lip_color = colour
+			H.lip_color = lipstick_colors[colour]
 			H.update_body()
 		else
 			user.visible_message("<span class='warning'>[user] begins to do [H]'s lips with \the [src].</span>", \
@@ -89,7 +92,7 @@
 				user.visible_message("<span class='notice'>[user] does [H]'s lips with \the [src].</span>", \
 									 "<span class='notice'>You apply \the [src].</span>")
 				H.lip_style = "lipstick"
-				H.lip_color = colour
+				H.lip_color = lipstick_colors[colour]
 				H.update_body()
 	else
 		to_chat(user, "<span class='notice'>Where are the lips on that?</span>")

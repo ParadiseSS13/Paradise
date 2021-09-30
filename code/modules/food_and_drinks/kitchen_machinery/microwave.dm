@@ -42,15 +42,3 @@
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		E += M.rating
 	efficiency = E
-
-// The following code is present as temporary assurance for compatibility and to avoid merge conflicts for the TG mining port
-// Please delete this portion once all maps are updated to use the new object path: /obj/machinery/kitchen_machine/microwave
-
-/obj/machinery/microwave
-	name = "Microwave spawner"
-	icon = 'icons/obj/kitchen.dmi'
-	icon_state = "mw"
-
-/obj/machinery/microwave/New()
-	new /obj/machinery/kitchen_machine/microwave(get_turf(src))
-	qdel(src)

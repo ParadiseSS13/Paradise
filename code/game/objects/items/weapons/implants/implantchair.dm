@@ -17,13 +17,6 @@
 	var/mob/living/carbon/occupant = null
 	var/injecting = 0
 
-/obj/machinery/implantchair/proc
-	go_out()
-	put_mob(mob/living/carbon/M)
-	implant(var/mob/M)
-	add_implants()
-
-
 /obj/machinery/implantchair/New()
 	..()
 	add_implants()
@@ -87,7 +80,7 @@
 	return
 
 
-/obj/machinery/implantchair/go_out(mob/M)
+/obj/machinery/implantchair/proc/go_out(mob/M)
 	if(!( src.occupant ))
 		return
 	if(M == occupant) // so that the guy inside can't eject himself -Agouri
@@ -101,12 +94,12 @@
 	return
 
 
-/obj/machinery/implantchair/put_mob(mob/living/carbon/M)
+/obj/machinery/implantchair/proc/put_mob(mob/living/carbon/M)
 	if(!iscarbon(M))
-		to_chat(usr, "<span class='warning'>The [src.name] cannot hold this!</span>")
+		to_chat(usr, "<span class='warning'>[src] cannot hold this!</span>")
 		return
 	if(src.occupant)
-		to_chat(usr, "<span class='warning'>The [src.name] is already occupied!</span>")
+		to_chat(usr, "<span class='warning'>[src] is already occupied!</span>")
 		return
 	M.stop_pulling()
 	M.forceMove(src)
@@ -116,22 +109,23 @@
 	return 1
 
 
-/obj/machinery/implantchair/implant(mob/M)
-	if(!istype(M, /mob/living/carbon))
+/obj/machinery/implantchair/proc/implant(mob/M)
+	if(!iscarbon(M))
 		return
-	if(!implant_list.len)	return
+	if(!length(implant_list))
+		return
 	for(var/obj/item/implant/mindshield/imp in implant_list)
-		if(!imp)	continue
+		if(!imp)
+			continue
 		if(istype(imp, /obj/item/implant/mindshield))
-			M.visible_message("<span class='warning'>[M] has been implanted by the [src.name].</span>")
+			visible_message("<span class='warning'>[src] implants [M].</span>")
 
 			if(imp.implant(M))
 				implant_list -= imp
 			break
-	return
 
 
-/obj/machinery/implantchair/add_implants()
+/obj/machinery/implantchair/proc/add_implants()
 	for(var/i=0, i<src.max_implants, i++)
 		var/obj/item/implant/mindshield/I = new /obj/item/implant/mindshield(src)
 		implant_list += I

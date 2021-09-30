@@ -15,7 +15,6 @@
 	container_type = OPENCONTAINER
 	slot_flags = SLOT_BELT
 	var/ignore_flags = FALSE
-	var/emagged = FALSE
 	var/safety_hypo = FALSE
 
 /obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
@@ -75,6 +74,7 @@
 	safety_hypo = TRUE
 
 /obj/item/reagent_containers/hypospray/safety/ert
+	name = "medical hypospray (Omnizine)"
 	list_reagents = list("omnizine" = 30)
 
 /obj/item/reagent_containers/hypospray/CMO

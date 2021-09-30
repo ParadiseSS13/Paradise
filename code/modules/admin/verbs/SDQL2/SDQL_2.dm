@@ -437,16 +437,16 @@
 
 	return v
 
-/proc/SDQL_function(var/datum/object, var/procname, var/list/arguments, source)
+/proc/SDQL_function(datum/object, procname, list/arguments, source)
 	var/list/new_args = list()
 	for(var/arg in arguments)
 		new_args[++new_args.len] = SDQL_expression(source, arg)
 
 	if(object == world) // Global proc.
 		procname = "/proc/[procname]"
-		return call(procname)(arglist(new_args))
+		return (WrapAdminProcCall(GLOBAL_PROC, procname, new_args))
 
-	return call(object, procname)(arglist(new_args))
+	return (WrapAdminProcCall(object, procname, new_args))
 
 /proc/SDQL2_tokenize(query_text)
 

@@ -58,7 +58,7 @@
 	tastes = list("pasta" = 1, "tomato" = 1, "meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/spesslaw
-	name = "Spesslaw"
+	name = "spesslaw"
 	desc = "A lawyer's favourite."
 	icon = 'icons/obj/food/pasta.dmi'
 	icon_state = "spesslaw"
@@ -67,7 +67,7 @@
 	tastes = list("pasta" = 1, "tomato" = 1, "meat" = 2)
 
 /obj/item/reagent_containers/food/snacks/macncheese
-	name = "mac n cheese"
+	name = "mac 'n' cheese"
 	desc = "One of the most comforting foods in the world. Apparently."
 	trash = /obj/item/trash/snack_bowl
 	icon = 'icons/obj/food/pasta.dmi'
@@ -77,7 +77,7 @@
 	tastes = list("pasta" = 1, "cheese" = 1, "comfort" = 1)
 
 /obj/item/reagent_containers/food/snacks/lasagna
-	name = "Lasagna"
+	name = "lasagna"
 	desc = "Tajara love to eat this, for some reason."
 	icon = 'icons/obj/food/pasta.dmi'
 	icon_state = "lasagna"

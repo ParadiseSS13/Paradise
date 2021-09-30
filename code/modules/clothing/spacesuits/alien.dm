@@ -1,6 +1,6 @@
 //Skrell space gear. Sleek like a wetsuit.
 /obj/item/clothing/head/helmet/space/skrell
-	name = "Skrellian helmet"
+	name = "skrellian helmet"
 	desc = "Smoothly contoured and polished to a shine. Still looks like a fishbowl."
 	species_restricted = list("Skrell","Human")
 
@@ -15,7 +15,7 @@
 	item_color = "skrell_helmet_black"
 
 /obj/item/clothing/suit/space/skrell
-	name = "Skrellian hardsuit"
+	name = "skrellian hardsuit"
 	desc = "Seems like a wetsuit with reinforced plating seamlessly attached to it. Very chic."
 	species_restricted = list("Skrell","Human")
 
@@ -34,7 +34,7 @@
 	icon = 'icons/obj/clothing/species/unathi/hats.dmi'
 	species_restricted = list("Unathi")
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/species/unathi/helmet.dmi'
+		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/unathi/helmet_cheap
@@ -48,7 +48,7 @@
 	icon = 'icons/obj/clothing/species/unathi/suits.dmi'
 	species_restricted = list("Unathi")
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 
 /obj/item/clothing/suit/space/unathi/rig_cheap
@@ -75,15 +75,15 @@
 // Can't be equipped by any other species due to bone structure and vox cybernetics.
 /obj/item/clothing/suit/space/vox
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank)
+	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	armor = list(melee = 40, bullet = 40, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30, fire = 80, acid = 85)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	icon = 'icons/obj/clothing/species/vox/suits.dmi'
 	species_restricted = list("Vox", "Vox Armalis")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/suit.dmi',
 		)
 
 /obj/item/clothing/head/helmet/space/vox
@@ -93,8 +93,8 @@
 	icon = 'icons/obj/clothing/species/vox/hats.dmi'
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/head.dmi',
 		)
 
 /obj/item/clothing/head/helmet/space/vox/pressure
@@ -151,7 +151,7 @@
 	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
 	species_restricted = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi'
 		)
 
 /obj/item/clothing/under/vox/vox_casual
@@ -170,13 +170,13 @@
 	item_state = "vox-casual-2"
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/suit.dmi'
 		)
 
 /obj/item/clothing/gloves/color/yellow/vox
-	desc = "These bizarre gauntlets seem to be fitted for... bird claws?"
 	name = "insulated gauntlets"
+	desc = "These bizarre gauntlets seem to be fitted for... bird claws?"
 	icon_state = "gloves-vox"
 	item_state = "gloves-vox"
 	siemens_coefficient = 0
@@ -185,20 +185,20 @@
 	icon = 'icons/obj/clothing/species/vox/gloves.dmi'
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/gloves.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/gloves.dmi',
 		)
 
 /obj/item/clothing/shoes/magboots/vox
-	desc = "A pair of heavy, jagged armoured foot pieces, seemingly suitable for a velociraptor."
 	name = "vox magclaws"
+	desc = "A pair of heavy, jagged armoured foot pieces, seemingly suitable for a velociraptor."
 	item_state = "boots-vox"
 	icon_state = "boots-vox"
 	icon = 'icons/obj/clothing/species/vox/shoes.dmi'
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/feet.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/feet.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/feet.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/feet.dmi'
 		)
 
 /obj/item/clothing/shoes/magboots/vox/attack_self(mob/user)
@@ -213,21 +213,20 @@
 			return
 		var/mob/living/carbon/human/H = user
 		if(H.shoes != src)
-			to_chat(user, "You will have to put on the [src] before you can do that.")
+			to_chat(user, "<span class='warning>You will have to put on [src] before you can do that.</span>")
 			return
-
 
 		flags |= NOSLIP
 		magpulse = 1
 		flags &= ~NODROP	//kinda hard to take off magclaws when you are gripping them tightly.
 		to_chat(user, "You dig your claws deeply into the flooring, bracing yourself.")
-		to_chat(user, "It would be hard to take off the [src] without relaxing your grip first.")
+		to_chat(user, "It would be hard to take off [src] without relaxing your grip first.")
 
 //In case they somehow come off while enabled.
 /obj/item/clothing/shoes/magboots/vox/dropped(mob/user as mob)
 	..()
 	if(src.magpulse)
-		user.visible_message("The [src] go limp as they are removed from [usr]'s feet.", "The [src] go limp as they are removed from your feet.")
+		user.visible_message("[src] go limp as they are removed from [usr]'s feet.", "[src] go limp as they are removed from your feet.")
 		flags &= ~NOSLIP
 		magpulse = 0
 		flags &= ~NODROP

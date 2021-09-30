@@ -15,7 +15,6 @@
 	var/decalinpool = list() // List containing all of the cleanable decals in pool
 	var/linked_area = null
 	var/temperature = NORMAL //The temperature of the pool, starts off on normal, which has no effects.
-	var/temperaturecolor = "" //used for nanoUI fancyness
 	var/srange = 5 //The range of the search for pool turfs, change this for bigger or smaller pools.
 	var/list/linkedmist = list() //Used to keep track of created mist
 	var/deep_water = FALSE		//set to 1 to drown even standing people
@@ -40,8 +39,8 @@
 			var/turf/simulated/floor/beach/water/W = T
 			W.linkedcontroller = src
 			linkedturfs += T
-		else if(istype(T, /turf/unsimulated/beach/water))
-			var/turf/unsimulated/beach/water/W = T
+		else if(istype(T, /turf/simulated/floor/beach/away/water))
+			var/turf/simulated/floor/beach/away/water/W = T
 			W.linkedcontroller = src
 			linkedturfs += T
 
@@ -67,7 +66,7 @@
 	else
 		to_chat(user, "<span class='warning'>Nothing happens.</span>")//If not emagged, don't do anything, and don't tell the user that it can be emagged.
 
-/obj/machinery/poolcontroller/attack_hand(mob/user as mob)
+/obj/machinery/poolcontroller/attack_hand(mob/user)
 	ui_interact(user)
 
 /obj/machinery/poolcontroller/process()
@@ -77,7 +76,7 @@
 /obj/machinery/poolcontroller/proc/processMob()
 	for(var/M in mobinpool) //They're already typecasted when entering the turf
 		// Following two are sanity check. If the mob is no longer in the pool for whatever reason (Looking at you teleport), remove them
-		if(!istype(get_turf(M), /turf/simulated/floor/beach/water) && !istype(get_turf(M), /turf/unsimulated/beach/water)) // Water component when?
+		if(!istype(get_turf(M), /turf/simulated/floor/beach/water) && !istype(get_turf(M), /turf/simulated/floor/beach/away/water)) // Water component when?
 			mobinpool -= M
 			continue
 		handleTemp(M)	//handles pool temp effects on the swimmers
@@ -90,7 +89,7 @@
 			animate(decal, alpha = 10, time = 20)
 			QDEL_IN(decal, 25)
 
-/obj/machinery/poolcontroller/proc/handleTemp(var/mob/M)
+/obj/machinery/poolcontroller/proc/handleTemp(mob/M)
 	if(!M || isAIEye(M) || issilicon(M) || isobserver(M) || M.stat == DEAD)
 		return
 	M.water_act(100, temperature, src)//leave temp at 0, we handle it in the switch. oh wait
@@ -109,16 +108,16 @@
 		if(FRIGID) //YOU'RE AS COLD AS ICE
 			to_chat(M, "<span class='danger'>The water is freezing!</span>")
 
-/obj/machinery/poolcontroller/proc/handleDrowning(var/mob/living/carbon/human/drownee)
+/obj/machinery/poolcontroller/proc/handleDrowning(mob/living/carbon/human/drownee)
 	if(!drownee)
 		return
 
 	if(drownee && ((drownee.lying && !drownee.player_logged) || deep_water)) //Mob lying down and not SSD or water is deep (determined by controller)
 		if(drownee.internal)
 			return //Has internals, no drowning
-		if((NO_BREATHE in drownee.dna.species.species_traits) || (BREATHLESS in drownee.mutations))
+		if(HAS_TRAIT(drownee, TRAIT_NOBREATH))
 			return //doesn't breathe, no drowning
-		if(HAS_TRAIT(drownee,TRAIT_WATERBREATH))
+		if(HAS_TRAIT(drownee, TRAIT_WATERBREATH))
 			return //fish things don't drown
 
 		if(drownee.stat == DEAD)	//Dead spacemen don't drown more
@@ -151,64 +150,74 @@
 	linkedmist.Cut()
 
 
-/obj/machinery/poolcontroller/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/poolcontroller/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "poolcontroller.tmpl", "Pool Controller Interface", 520, 410)
+		ui = new(user, src, ui_key, "PoolController", "Pool Controller Interface", 520, 410)
 		ui.open()
 
-/obj/machinery/poolcontroller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-	var/currenttemp
-	switch(temperature) //So we can output nice things like "Cool" to nanoUI
+/obj/machinery/poolcontroller/proc/temp_to_str(temp)
+	switch(temp) //So we can output nice things like "Cool" to tgUI
 		if(FRIGID)
-			currenttemp = "frigid"
+			return "frigid"
 		if(COOL)
-			currenttemp = "cool"
+			return "cool"
 		if(NORMAL)
-			currenttemp = "normal"
+			return "normal"
 		if(WARM)
-			currenttemp = "warm"
+			return "warm"
 		if(SCALDING)
-			currenttemp = "scalding"
-	data["currentTemp"] = currenttemp
+			return "scalding"
+
+/obj/machinery/poolcontroller/proc/set_temp(val)
+	if (val != WARM && val != NORMAL && val != COOL && !(emagged && (val == SCALDING || val == FRIGID)))
+		return
+
+	if(val == SCALDING)
+		miston()
+	else
+		mistoff()
+
+	temperature = val
+
+
+/obj/machinery/poolcontroller/proc/str_to_temp(str)
+	switch(str)
+		if("frigid")
+			return FRIGID
+		if("cool")
+			return COOL
+		if("normal")
+			return NORMAL
+		if("warm")
+			return WARM
+		if("scalding")
+			return SCALDING
+
+/obj/machinery/poolcontroller/proc/set_temp_str(target)
+	var/temp = str_to_temp(target)
+	if(temp)
+		set_temp(temp)
+
+
+/obj/machinery/poolcontroller/ui_data(mob/user)
+	var/list/data = list()
+	data["currentTemp"] = temp_to_str(temperature)
 	data["emagged"] = emagged
-	data["TempColor"] = temperaturecolor
 
 	return data
 
 
-/obj/machinery/poolcontroller/Topic(href, href_list)
+/obj/machinery/poolcontroller/ui_act(action, list/params)
 	if(..())
-		return 1
+		return
 
-	switch(href_list["temp"])
-		if("Scalding")
-			if(!emagged)
-				return 0
-			temperature = SCALDING
-			temperaturecolor = "#FF0000"
-			miston()
-		if("Frigid")
-			if(!emagged)
-				return 0
-			temperature = FRIGID
-			temperaturecolor = "#00CCCC"
-			mistoff()
-		if("Warm")
-			temperature = WARM
-			temperaturecolor = "#990000"
-			mistoff()
-		if("Cool")
-			temperature = COOL
-			temperaturecolor = "#009999"
-			mistoff()
-		if("Normal")
-			temperature = NORMAL
-			temperaturecolor = ""
-			mistoff()
+	switch(action)
+		if("setTemp")
+			set_temp_str(params["temp"])
+			return TRUE
 
-	return 1
+	return FALSE
 
 #undef FRIGID
 #undef COOL

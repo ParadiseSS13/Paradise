@@ -1,0 +1,142 @@
+@use '../colors.scss';
+
+.Exofab
+{
+  .Dropdown__control { margin-bottom: -1px; }
+  .Dropdown__selected-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 80%;
+    display: inline-block;
+    margin-bottom: -3px;
+  }
+}
+
+.Exofab__materials
+{
+  height: 100%;
+  overflow: auto;
+
+  .Section__content { height: calc(100% - 31px); }
+}
+
+.Exofab__material
+{
+  &:not(.Exofab__material--line)
+  {
+    margin-bottom: 0.25rem;
+
+    .Button
+    {
+      width: 28px;
+      margin-right: 0.5rem;
+
+      img { vertical-align: middle; }
+    }
+  }
+
+  &--line
+  {
+    .Button
+    {
+      background-color: transparent;
+      width: 14px;
+
+      img { width: 16px; }
+    }
+  }
+
+  &--name
+  {
+    color: colors.$label;
+    text-transform: capitalize;
+  }
+
+  .Button
+  {
+    margin-bottom: 0;
+    padding: 0;
+    vertical-align: middle;
+
+    img { margin-left: -2px; }
+  }
+}
+
+.Exofab__queue
+{
+  height: 100%;
+
+  &--queue
+  {
+    .Button {
+      margin: 0;
+      transform: scale(0.75);
+    }
+
+    .Button:first-of-type { margin-left: 0.25rem; }
+  }
+
+  &--time
+  {
+    text-align: center;
+    color: colors.$label;
+  }
+
+  &--deficit
+  {
+    text-align: center;
+    color: colors.$bad;
+    font-weight: bold;
+
+    & > div:not(.Divider)
+    {
+      display: inline-block;
+      margin-bottom: -0.75rem;
+    }
+  }
+
+  .Section__content { height: calc(100% - 31px); }
+  .Exofab__material--amount { margin-right: 0.25rem; }
+}
+
+.Exofab__design
+{
+  &--cost
+  {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 0.33rem;
+
+    & > div { display: inline-block; }
+    .Exofab__material { margin-left: 0.25rem; }
+  }
+
+  &--time
+  {
+    display: inline-block;
+    margin-left: 0.5rem;
+    color: colors.$label;
+
+    i { margin-right: 0.25rem; }
+  }
+}
+
+.Exofab__designs
+{
+  .Section__content {
+    height: calc(100% - 31px);
+    overflow: auto;
+  }
+}
+
+.Exofab__building
+{
+  height: 40px;
+
+  .ProgressBar
+  {
+    width: 100%;
+    height: 100%;
+  }
+  .ProgressBar__content { line-height: 22px; }
+}

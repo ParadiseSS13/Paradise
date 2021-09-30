@@ -7,8 +7,8 @@
 		opacity = FALSE
 		anchored = 1
 		resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-		var/const/max_health = 200
-		var/health = max_health //The shield can only take so much beating (prevents perma-prisons)
+		flags_2 = RAD_NO_CONTAMINATE_2
+		max_integrity = 200
 
 /obj/machinery/shield/New()
 	dir = pick(NORTH, SOUTH, EAST, WEST)
@@ -37,42 +37,6 @@
 /obj/machinery/shield/CanAtmosPass(turf/T)
 	return !density
 
-/obj/machinery/shield/attackby(obj/item/I, mob/user, params)
-	if(!istype(I))
-		return
-
-	//Calculate damage
-	var/aforce = I.force
-	if(I.damtype == BRUTE || I.damtype == BURN)
-		health -= aforce
-
-	//Play a fitting sound
-	playsound(loc, 'sound/effects/empulse.ogg', 75, 1)
-
-	if(health <= 0)
-		visible_message("<span class='notice'>The [src] dissipates</span>")
-		qdel(src)
-		return
-
-	opacity = TRUE
-	spawn(20)
-		if(src)
-			opacity = FALSE
-
-	..()
-
-/obj/machinery/shield/bullet_act(obj/item/projectile/Proj)
-	health -= Proj.damage
-	..()
-	if(health <=0)
-		visible_message("<span class='notice'>The [src] dissipates</span>")
-		qdel(src)
-		return
-	opacity = TRUE
-	spawn(20)
-		if(src)
-			opacity = FALSE
-
 /obj/machinery/shield/ex_act(severity)
 	switch(severity)
 		if(1.0)
@@ -96,36 +60,73 @@
 /obj/machinery/shield/blob_act()
 	qdel(src)
 
+/obj/machinery/shield/cult
+	name = "cult barrier"
+	desc = "A shield summoned by cultists to keep heretics away."
+	max_integrity = 100
+	icon_state = "shield-cult"
 
-/obj/machinery/shield/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	..()
-	var/tforce = 0
-	if(ismob(AM))
-		tforce = 40
-	else if(isobj(AM))
-		var/obj/O = AM
-		tforce = O.throwforce
+/obj/machinery/shield/cult/emp_act(severity)
+	return
 
-	health -= tforce
+/obj/machinery/shield/cult/narsie
+	name = "sanguine barrier"
+	desc = "A potent shield summoned by cultists to defend their rites."
+	max_integrity = 60
 
-	//This seemed to be the best sound for hitting a force field.
-	playsound(loc, 'sound/effects/empulse.ogg', 100, 1)
+/obj/machinery/shield/cult/weak
+	name = "Invoker's Shield"
+	desc = "A weak shield summoned by cultists to protect them while they carry out delicate rituals."
+	max_integrity = 20
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	layer = ABOVE_MOB_LAYER
 
-	//Handle the destruction of the shield
-	if(health <= 0)
-		visible_message("<span class='notice'>The [src] dissipates</span>")
-		qdel(src)
-		return
+/obj/machinery/shield/cult/barrier
+	density = FALSE
+	/// The rune that created the shield itself. Used to delete the rune when the shield is destroyed.
+	var/obj/effect/rune/parent_rune
 
-	//The shield becomes dense to absorb the blow.. purely asthetic.
-	opacity = TRUE
-	spawn(20)
-		if(src)
-			opacity = FALSE
+/obj/machinery/shield/cult/barrier/Initialize()
+	. = ..()
+	invisibility = INVISIBILITY_MAXIMUM
 
+/obj/machinery/shield/cult/barrier/Destroy()
+	if(parent_rune && !QDELETED(parent_rune))
+		QDEL_NULL(parent_rune)
+	return ..()
+
+/obj/machinery/shield/cult/barrier/attack_hand(mob/living/user)
+	parent_rune.attack_hand(user)
+
+/obj/machinery/shield/cult/barrier/attack_animal(mob/living/simple_animal/user)
+	if(iscultist(user))
+		parent_rune.attack_animal(user)
+	else
+		..()
+
+/**
+* Turns the shield on and off.
+*
+* The shield has 2 states: on and off. When on, it will block movement, projectiles, items, etc. and be clearly visible, and block atmospheric gases.
+* When off, the rune no longer blocks anything and turns invisible.
+* The barrier itself is not intended to interact with the conceal runes cult spell for balance purposes.
+*/
+/obj/machinery/shield/cult/barrier/proc/Toggle()
+	var/visible
+	if(!density) // Currently invisible
+		density = TRUE // Turn visible
+		invisibility = initial(invisibility)
+		visible = TRUE
+	else // Currently visible
+		density = FALSE // Turn invisible
+		invisibility = INVISIBILITY_MAXIMUM
+		visible = FALSE
+
+	air_update_turf(1)
+	return visible
 
 /obj/machinery/shieldgen
-	name = "Emergency shield projector"
+	name = "emergency shield projector"
 	desc = "Used to seal minor hull breaches."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shieldoff"
@@ -159,7 +160,12 @@
 	for(var/turf/target_tile in range(2, src))
 		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
 			if(malfunction && prob(33) || !malfunction)
-				deployed_shields += new /obj/machinery/shield(target_tile)
+				var/obj/machinery/shield/new_shield = new(target_tile)
+				RegisterSignal(new_shield, COMSIG_PARENT_QDELETING, .proc/remove_shield) // Ensures they properly GC
+				deployed_shields += new_shield
+
+/obj/machinery/shieldgen/proc/remove_shield(obj/machinery/shield/S)
+	deployed_shields -= S
 
 /obj/machinery/shieldgen/proc/shields_down()
 	if(!active)
@@ -168,15 +174,12 @@
 	active = 0
 	update_icon()
 
-	for(var/obj/machinery/shield/shield_tile in deployed_shields)
-		qdel(shield_tile)
+	QDEL_LIST(deployed_shields)
 
 /obj/machinery/shieldgen/process()
 	if(malfunction && active)
-		if(deployed_shields.len && prob(5))
-			qdel(pick(deployed_shields))
-
-	return
+		if(length(deployed_shields) && prob(5))
+			qdel(pick_n_take(deployed_shields))
 
 /obj/machinery/shieldgen/proc/checkhp()
 	if(health <= 30)
@@ -250,7 +253,7 @@
 			health = max_health
 			malfunction = TRUE
 			playsound(loc, coil.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You repair the [src]!</span>")
+			to_chat(user, "<span class='notice'>You repair [src]!</span>")
 			update_icon()
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
@@ -406,7 +409,7 @@
 		active = 2
 	if(active >= 1)
 		if(power == 0)
-			visible_message("<span class='warning'>The [name] shuts down due to lack of power!</span>", \
+			visible_message("<span class='warning'>[name] shuts down due to lack of power!</span>", \
 				"You hear heavy droning fade out")
 			icon_state = "Shield_Gen"
 			active = 0
@@ -673,6 +676,6 @@
 	phaseout()
 	return ..()
 
-/obj/machinery/shieldwall/syndicate/hitby(AM as mob|obj)
+/obj/machinery/shieldwall/syndicate/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	phaseout()
 	return ..()

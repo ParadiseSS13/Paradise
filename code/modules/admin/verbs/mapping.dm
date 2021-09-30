@@ -22,14 +22,6 @@
 GLOBAL_VAR_INIT(camera_range_display_status, 0)
 GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 
-/obj/effect/debugging/camera_range
-	icon = 'icons/480x480.dmi'
-	icon_state = "25percent"
-
-	New()
-		src.pixel_x = -224
-		src.pixel_y = -224
-
 /obj/effect/debugging/mapfix_marker
 	name = "map fix marker"
 	icon = 'icons/mob/screen_gen.dmi'
@@ -55,13 +47,17 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	else
 		GLOB.camera_range_display_status = 1
 
-	for(var/obj/effect/debugging/camera_range/C in world)
-		qdel(C)
+	for(var/obj/effect/debugging/marker/M in world)
+		qdel(M)
 
 	if(GLOB.camera_range_display_status)
 		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-			new/obj/effect/debugging/camera_range(C.loc)
-	feedback_add_details("admin_verb","mCRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+			for(var/turf/T in orange(7, C))
+				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
+				if(!(F in view(7, C.loc)))
+					qdel(F)
+
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Camera Range Display") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/sec_camera_report()
 	set category = "Mapping"
@@ -100,7 +96,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 
 	output += "</ul>"
 	usr << browse(output,"window=airreport;size=1000x500")
-	feedback_add_details("admin_verb","mCRP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Camera Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/intercom_view()
 	set category = "Mapping"
@@ -123,7 +119,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
 				if(!(F in view(7,I.loc)))
 					qdel(F)
-	feedback_add_details("admin_verb","mIRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Intercom Range Display") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/count_objects_on_z_level()
 	set category = "Mapping"
@@ -161,7 +157,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 					atom_list += A
 
 	to_chat(world, "There are [count] objects of type [type_path] on z-level [num_level].")
-	feedback_add_details("admin_verb","mOBJZ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Count Objects (On Level)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/count_objects_all()
 	set category = "Mapping"
@@ -182,4 +178,29 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 			count++
 
 	to_chat(world, "There are [count] objects of type [type_path] in the game world.")
-	feedback_add_details("admin_verb","mOBJ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Count Objects (Global)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/set_next_map()
+	set category = "Server"
+	set name = "Set Next Map"
+
+	if(!check_rights(R_SERVER))
+		return
+
+	var/list/map_datums = list()
+	for(var/x in subtypesof(/datum/map))
+		var/datum/map/M = x
+		map_datums["[initial(M.fluff_name)] ([initial(M.technical_name)])"] = M // Put our map in
+
+	var/target_map_name = input(usr, "Select target map", "Next map", null) as null|anything in map_datums
+
+	if(!target_map_name)
+		return
+
+	var/datum/map/TM = map_datums[target_map_name]
+	SSmapping.next_map = new TM
+	var/announce_to_players = alert(usr, "Do you wish to tell the playerbase about your choice?", "Announce", "Yes", "No")
+	message_admins("[key_name_admin(usr)] has set the next map to [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])")
+	log_admin("[key_name(usr)] has set the next map to [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])")
+	if(announce_to_players == "Yes")
+		to_chat(world, "<span class='boldannounce'>[key] has chosen the following map for next round: <font color='cyan'>[SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])</font></span>")

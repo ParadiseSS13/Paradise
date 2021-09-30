@@ -85,7 +85,7 @@
 	lifespan = 30
 	endurance = 25
 	mutatelist = list()
-	genes = list(/datum/plant_gene/trait/glow/berry , /datum/plant_gene/trait/noreact, /datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/glow/berry, /datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list("uranium" = 0.25, "iodine" = 0.2, "vitamin" = 0.04, "plantmatter" = 0.1)
 	rarity = 20
 
@@ -181,7 +181,7 @@
 	name = "bunch of grapes"
 	desc = "Nutritious!"
 	icon_state = "grapes"
-	dried_type = /obj/item/reagent_containers/food/snacks/no_raisin
+	dried_type = /obj/item/reagent_containers/food/snacks/no_raisin/healthy
 	filling_color = "#FF1493"
 	bitesize_mod = 2
 	tastes = list("grapes" = 1)

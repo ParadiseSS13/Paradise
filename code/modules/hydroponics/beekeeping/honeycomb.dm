@@ -17,6 +17,8 @@
 	pixel_y = rand(8,-8)
 	update_icon()
 
+/obj/item/reagent_containers/honeycomb/set_APTFT()
+	set hidden = TRUE
 
 /obj/item/reagent_containers/honeycomb/update_icon()
 	overlays.Cut()

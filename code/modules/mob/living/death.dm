@@ -51,7 +51,12 @@
 		// Whew! Good thing I'm indestructible! (or already dead)
 		return FALSE
 
+	..()
 	stat = DEAD
+
+	timeofdeath = world.time
+	create_log(ATTACK_LOG, "died[gibbed ? " (Gibbed)": ""]")
+
 	SetDizzy(0)
 	SetJitter(0)
 	SetLoseBreath(0)
@@ -62,7 +67,7 @@
 	if(mind && suiciding)
 		mind.suicided = TRUE
 	reset_perspective(null)
-	clear_fullscreens()
+	hud_used?.reload_fullscreen()
 	update_sight()
 	update_action_buttons_icon()
 
@@ -71,20 +76,10 @@
 	med_hud_set_health()
 	med_hud_set_status()
 	if(!gibbed && !QDELETED(src))
-		addtimer(CALLBACK(src, .proc/med_hud_set_status), (DEFIB_TIME_LIMIT * 10) + 1)
-
-	for(var/s in ownedSoullinks)
-		var/datum/soullink/S = s
-		S.ownerDies(gibbed, src)
-	for(var/s in sharedSoullinks)
-		var/datum/soullink/S = s
-		S.sharerDies(gibbed, src)
+		addtimer(CALLBACK(src, .proc/med_hud_set_status), DEFIB_TIME_LIMIT + 1)
 
 	if(!gibbed)
 		update_canmove()
-
-	timeofdeath = world.time
-	create_log(ATTACK_LOG, "died[gibbed ? " (Gibbed)": ""]")
 
 	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list += src
@@ -92,10 +87,16 @@
 		mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
 		GLOB.respawnable_list += src
 
+		if(mind.name && !isbrain(src)) // !isbrain() is to stop it from being called twice
+			var/turf/T = get_turf(src)
+			var/area_name = get_area_name(T)
+			for(var/P in GLOB.dead_mob_list)
+				var/mob/M = P
+				if((M.client?.prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) && (isobserver(M) || M.stat == DEAD))
+					to_chat(M, "<span class='deadsay'><b>[mind.name]</b> has died at <b>[area_name]</b>. (<a href='?src=[M.UID()];jump=\ref[T]'>JMP</a>)</span>")
+
 	if(SSticker && SSticker.mode)
 		SSticker.mode.check_win()
-	if(mind && mind.devilinfo) // Expand this into a general-purpose death-response system when appropriate
-		mind.devilinfo.beginResurrectionCheck(src)
 
 	// u no we dead
 	return TRUE

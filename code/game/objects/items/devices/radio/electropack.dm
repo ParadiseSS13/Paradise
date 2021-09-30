@@ -10,8 +10,6 @@
 	materials = list(MAT_METAL=10000, MAT_GLASS=2500)
 	var/code = 2
 
-	is_special = 1
-
 /obj/item/radio/electropack/attack_hand(mob/user as mob)
 	if(src == user.back)
 		to_chat(user, "<span class='notice'>You need help taking this off!</span>")
@@ -54,23 +52,6 @@
 		if(src.flags & NODROP)
 			A.flags |= NODROP
 
-/obj/item/radio/electropack/Topic(href, href_list)
-	if(..())
-		return 1
-
-	if(href_list["freq"])
-		var/new_frequency = sanitize_frequency(frequency + text2num(href_list["freq"]))
-		set_frequency(new_frequency)
-
-	else if(href_list["code"])
-		code += text2num(href_list["code"])
-		code = round(code)
-		code = clamp(code, 1, 100)
-
-	else if(href_list["power"])
-		on = !on
-
-	add_fingerprint(usr)
 
 /obj/item/radio/electropack/receive_signal(datum/signal/signal)
 	if(!signal || signal.encryption != code)
@@ -96,18 +77,48 @@
 	return
 
 
-/obj/item/radio/electropack/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/radio/electropack/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "radio_electro.tmpl", "[name]", 400, 500)
+		ui = new(user, src, ui_key, "Electropack", name, 360, 150, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/item/radio/electropack/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-
+/obj/item/radio/electropack/ui_data(mob/user)
+	var/list/data = list()
 	data["power"] = on
-	data["freq"] = format_frequency(frequency)
+	data["frequency"] = frequency
 	data["code"] = code
-
+	data["minFrequency"] = PUBLIC_LOW_FREQ
+	data["maxFrequency"] = PUBLIC_HIGH_FREQ
 	return data
+
+/obj/item/radio/electropack/ui_act(action, params)
+	if(..())
+		return
+	. = TRUE
+	switch(action)
+		if("power")
+			on = !on
+		if("freq")
+			var/value = params["freq"]
+			if(value)
+				frequency = sanitize_frequency(value)
+				set_frequency(frequency)
+			else
+				. = FALSE
+		if("code")
+			var/value = text2num(params["code"])
+			if(value)
+				value = round(value)
+				code = clamp(value, 1, 100)
+			else
+				. = FALSE
+		if("reset")
+			if(params["reset"] == "freq")
+				frequency = initial(frequency)
+			else if(params["reset"] == "code")
+				code = initial(code)
+			else
+				. = FALSE
+	if(.)
+		add_fingerprint(usr)

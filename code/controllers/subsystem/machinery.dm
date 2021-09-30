@@ -20,6 +20,12 @@ SUBSYSTEM_DEF(machines)
 	fire()
 	return ..()
 
+/datum/controller/subsystem/machines/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["processing"] = length(processing)
+	.["custom"] = cust
+
 /datum/controller/subsystem/machines/proc/makepowernets()
 	for(var/datum/powernet/PN in powernets)
 		qdel(PN)
@@ -42,7 +48,7 @@ SUBSYSTEM_DEF(machines)
 	while(currentrun.len)
 		var/obj/O = currentrun[currentrun.len]
 		currentrun.len--
-		if(O)
+		if(O && !QDELETED(O))
 			var/datum/powernet/newPN = new() // create a new powernet...
 			propagate_network(O, newPN)//... and propagate it to the other side of the cable
 

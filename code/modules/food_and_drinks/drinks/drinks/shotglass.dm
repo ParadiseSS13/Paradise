@@ -7,6 +7,7 @@
 	materials = list(MAT_GLASS=100)
 	var/light_intensity = 2
 	light_color = LIGHT_COLOR_LIGHTBLUE
+	resistance_flags = FLAMMABLE
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/on_reagent_change()
 	if(!isShotFlammable() && (resistance_flags & ON_FIRE))
@@ -30,6 +31,7 @@
 		overlays += filling
 		name = "shot glass of " + reagents.get_master_reagent_name() //No matter what, the glass will tell you the reagent's name. Might be too abusable in the future.
 		if(resistance_flags & ON_FIRE)
+			cut_overlay(GLOB.fire_overlay, TRUE)
 			overlays += "shotglass_fire"
 			name = "flaming [name]"
 	else
@@ -70,7 +72,7 @@
 	return
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack(mob/living/carbon/human/user)
-	if((CLUMSY in user.mutations) && prob(50) && (resistance_flags & ON_FIRE))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && (resistance_flags & ON_FIRE))
 		clumsilyDrink(user)
 	else
 		..()
@@ -87,7 +89,7 @@
 	..()
 	if(!(resistance_flags & ON_FIRE))
 		return
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		clumsilyDrink(user)
 	else
 		user.visible_message("<span class = 'notice'>[user] places [user.p_their()] hand over [src] to put it out!</span>", "<span class = 'notice'>You use your hand to extinguish [src]!</span>")
@@ -96,7 +98,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/MouseDrop(mob/living/carbon/human/user)
 	if(!ishuman(user))
 		return
-	if((CLUMSY in user.mutations) && prob(50) && (resistance_flags & ON_FIRE))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && (resistance_flags & ON_FIRE))
 		clumsilyDrink(user)
 	else
 		..()

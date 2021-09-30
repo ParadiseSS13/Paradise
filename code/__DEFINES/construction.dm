@@ -28,6 +28,12 @@
 #define AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS 1
 #define AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER 2
 
+//used by airlocks and airlock wires.
+#define AICONTROLDISABLED_OFF 0 // Silicons can control the airlock normally.
+#define AICONTROLDISABLED_ON 1 // Silicons cannot control the airlock, but can hack the airlock.
+#define AICONTROLDISABLED_BYPASS 2 // Silicons can control the airlock because they succeeded on the hack
+#define AICONTROLDISABLED_PERMA 3 // Wire cutting an airlock on AICONTROLDISABLED_BYPASS toggles it between AICONTROLDISABLED_BYPASS and this.
+
 //plastic flaps construction states
 #define PLASTIC_FLAPS_NORMAL 0
 #define PLASTIC_FLAPS_DETACHED 1
@@ -43,7 +49,7 @@
 
 //other construction-related things
 
-//windows affected by nar-sie turn this color.
+//windows affected by nar'sie turn this color.
 #define NARSIE_WINDOW_COLOUR "#7D1919"
 
 //let's just pretend fulltile windows being children of border windows is fine

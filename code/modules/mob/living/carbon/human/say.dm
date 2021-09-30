@@ -1,4 +1,4 @@
-/mob/living/carbon/human/say(var/message, var/sanitize = TRUE, var/ignore_speech_problems = FALSE, var/ignore_atmospherics = FALSE)
+/mob/living/carbon/human/say(message, sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE)
 	..(message, sanitize = sanitize, ignore_speech_problems = ignore_speech_problems, ignore_atmospherics = ignore_atmospherics)	//ohgod we should really be passing a datum here.
 
 /mob/living/carbon/human/GetAltName()
@@ -9,7 +9,7 @@
 /mob/living/carbon/human/proc/forcesay(list/append)
 	if(stat == CONSCIOUS)
 		if(client)
-			var/virgin = 1	//has the text been modified yet?
+			var/modified = FALSE	//has the text been modified yet?
 			var/temp = winget(client, "input", "text")
 			if(findtextEx(temp, "Say \"", 1, 7) && length(temp) > 5)	//case sensitive means
 
@@ -17,11 +17,11 @@
 
 				if(findtext(trim_left(temp), ":", 6, 7))	//dept radio
 					temp = copytext(trim_left(temp), 8)
-					virgin = 0
+					modified = TRUE
 
-				if(virgin)
+				if(!modified)
 					temp = copytext(trim_left(temp), 6)	//normal speech
-					virgin = 0
+					modified = TRUE
 
 				while(findtext(trim_left(temp), ":", 1, 2))	//dept radio again (necessary)
 					temp = copytext(trim_left(temp), 3)
@@ -38,7 +38,7 @@
 					say(temp)
 				winset(client, "input", "text=[null]")
 
-/mob/living/carbon/human/say_understands(var/mob/other, var/datum/language/speaking = null)
+/mob/living/carbon/human/say_understands(mob/other, datum/language/speaking = null)
 	if(has_brain_worms()) //Brain worms translate everything. Even mice and alien speak.
 		return 1
 
@@ -62,11 +62,6 @@
 	return ..()
 
 /mob/living/carbon/human/proc/HasVoiceChanger()
-	if(istype(back, /obj/item/rig))
-		var/obj/item/rig/rig = back
-		if(rig.speech && rig.speech.voice_holder && rig.speech.voice_holder.active && rig.speech.voice_holder.voice)
-			return rig.speech.voice_holder.voice
-
 	for(var/obj/item/gear in list(wear_mask, wear_suit, head))
 		if(!gear)
 			continue
@@ -101,7 +96,7 @@
 	if(translator && translator.active)
 		return TRUE
 	// how do species that don't breathe talk? magic, that's what.
-	var/breathes = (!(NO_BREATHE in dna.species.species_traits))
+	var/breathes = (!HAS_TRAIT(src, TRAIT_NOBREATH))
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
 	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
 		return FALSE
@@ -112,7 +107,7 @@
 		return !mind.miming
 	return TRUE
 
-/mob/living/carbon/human/proc/SetSpecialVoice(var/new_voice)
+/mob/living/carbon/human/proc/SetSpecialVoice(new_voice)
 	if(new_voice)
 		special_voice = new_voice
 	return
@@ -124,7 +119,7 @@
 /mob/living/carbon/human/proc/GetSpecialVoice()
 	return special_voice
 
-/mob/living/carbon/human/handle_speech_problems(list/message_pieces, var/verb)
+/mob/living/carbon/human/handle_speech_problems(list/message_pieces, verb)
 	var/span = ""
 	var/obj/item/organ/internal/cyberimp/brain/speech_translator/translator = locate(/obj/item/organ/internal/cyberimp/brain/speech_translator) in internal_organs
 	if(translator)
@@ -134,14 +129,10 @@
 				S.message = "<span class='[span]'>[S.message]</span>"
 			verb = translator.speech_verb
 			return list("verb" = verb)
-	if(mind)
-		span = mind.speech_span
-	if((COMIC in mutations) \
-		|| (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) \
-		|| HAS_TRAIT(src, TRAIT_JESTER))
+	if(HAS_TRAIT(src, TRAIT_COMIC_SANS))
 		span = "sans"
 
-	if(WINGDINGS in mutations)
+	if(HAS_TRAIT(src, TRAIT_WINGDINGS))
 		span = "wingdings"
 
 	var/list/parent = ..()
@@ -151,21 +142,18 @@
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 
-		if(silent || (MUTE in mutations))
+		if(silent || HAS_TRAIT(src, TRAIT_MUTE))
 			S.message = ""
 
 		if(istype(wear_mask, /obj/item/clothing/mask/horsehead))
 			var/obj/item/clothing/mask/horsehead/hoers = wear_mask
 			if(hoers.voicechange)
 				S.message = pick("NEEIIGGGHHHH!", "NEEEIIIIGHH!", "NEIIIGGHH!", "HAAWWWWW!", "HAAAWWW!")
-				verb = pick("whinnies", "neighs", "says")
 
 		if(dna)
-			for(var/datum/dna/gene/gene in GLOB.dna_genes)
-				if(!gene.block)
-					continue
-				if(gene.is_active(src))
-					S.message = gene.OnSay(src, S.message)
+			for(var/mutation_type in active_mutations)
+				var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
+				S.message = mutation.on_say(src, S.message)
 
 		var/braindam = getBrainLoss()
 		if(braindam >= 60)
@@ -178,9 +166,15 @@
 
 		if(span)
 			S.message = "<span class='[span]'>[S.message]</span>"
+
+	if(wear_mask)
+		var/speech_verb_when_masked = wear_mask.change_speech_verb()
+		if(speech_verb_when_masked)
+			verb = speech_verb_when_masked
+
 	return list("verb" = verb)
 
-/mob/living/carbon/human/handle_message_mode(var/message_mode, list/message_pieces, var/verb, var/used_radios)
+/mob/living/carbon/human/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	switch(message_mode)
 		if("intercom")
 			for(var/obj/item/radio/intercom/I in view(1, src))

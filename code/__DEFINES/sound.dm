@@ -6,15 +6,34 @@
 #define CHANNEL_HEARTBEAT 1020 //sound channel for heartbeats
 #define CHANNEL_BUZZ 1019
 #define CHANNEL_AMBIENCE 1018
+#define CHANNEL_ENGINE 1017 // Engine ambient sounds
+
+#define USER_VOLUME(M, C) M?.client?.prefs.get_channel_volume(C)
 
 //THIS SHOULD ALWAYS BE THE LOWEST ONE!
 //KEEP IT UPDATED
 
-#define CHANNEL_HIGHEST_AVAILABLE 1017
+#define CHANNEL_HIGHEST_AVAILABLE 1016
 
+#define MAX_INSTRUMENT_CHANNELS (128 * 6)
+
+///Default range of a sound.
+#define SOUND_RANGE 17
+///default extra range for sounds considered to be quieter
+#define SHORT_RANGE_SOUND_EXTRARANGE -9
+///The range deducted from sound range for things that are considered silent / sneaky
+#define SILENCED_SOUND_EXTRARANGE -11
+///Percentage of sound's range where no falloff is applied
+#define SOUND_DEFAULT_FALLOFF_DISTANCE 1 //For a normal sound this would be 1 tile of no falloff
+///The default exponent of sound falloff
+#define SOUND_FALLOFF_EXPONENT 6
 
 #define SOUND_MINIMUM_PRESSURE 10
-#define FALLOFF_SOUNDS 0.5
+
+#define EQUIP_SOUND_VOLUME 30
+#define PICKUP_SOUND_VOLUME 15
+#define DROP_SOUND_VOLUME 20
+#define YEET_SOUND_VOLUME 90
 
 //Ambience types
 
@@ -69,3 +88,47 @@
 	'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
 	'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
 	'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
+
+//default byond sound environments
+#define SOUND_ENVIRONMENT_NONE -1
+#define SOUND_ENVIRONMENT_GENERIC 0
+#define SOUND_ENVIRONMENT_PADDED_CELL 1
+#define SOUND_ENVIRONMENT_ROOM 2
+#define SOUND_ENVIRONMENT_BATHROOM 3
+#define SOUND_ENVIRONMENT_LIVINGROOM 4
+#define SOUND_ENVIRONMENT_STONEROOM 5
+#define SOUND_ENVIRONMENT_AUDITORIUM 6
+#define SOUND_ENVIRONMENT_CONCERT_HALL 7
+#define SOUND_ENVIRONMENT_CAVE 8
+#define SOUND_ENVIRONMENT_ARENA 9
+#define SOUND_ENVIRONMENT_HANGAR 10
+#define SOUND_ENVIRONMENT_CARPETED_HALLWAY 11
+#define SOUND_ENVIRONMENT_HALLWAY 12
+#define SOUND_ENVIRONMENT_STONE_CORRIDOR 13
+#define SOUND_ENVIRONMENT_ALLEY 14
+#define SOUND_ENVIRONMENT_FOREST 15
+#define SOUND_ENVIRONMENT_CITY 16
+#define SOUND_ENVIRONMENT_MOUNTAINS 17
+#define SOUND_ENVIRONMENT_QUARRY 18
+#define SOUND_ENVIRONMENT_PLAIN 19
+#define SOUND_ENVIRONMENT_PARKING_LOT 20
+#define SOUND_ENVIRONMENT_SEWER_PIPE 21
+#define SOUND_ENVIRONMENT_UNDERWATER 22
+#define SOUND_ENVIRONMENT_DRUGGED 23
+#define SOUND_ENVIRONMENT_DIZZY 24
+#define SOUND_ENVIRONMENT_PSYCHOTIC 25
+//If we ever make custom ones add them here
+
+//"sound areas": easy way of keeping different types of areas consistent.
+#define SOUND_AREA_STANDARD_STATION SOUND_ENVIRONMENT_PARKING_LOT
+#define SOUND_AREA_LARGE_ENCLOSED SOUND_ENVIRONMENT_QUARRY
+#define SOUND_AREA_SMALL_ENCLOSED SOUND_ENVIRONMENT_BATHROOM
+#define SOUND_AREA_TUNNEL_ENCLOSED SOUND_ENVIRONMENT_STONEROOM
+#define SOUND_AREA_LARGE_SOFTFLOOR SOUND_ENVIRONMENT_CARPETED_HALLWAY
+#define SOUND_AREA_MEDIUM_SOFTFLOOR SOUND_ENVIRONMENT_LIVINGROOM
+#define SOUND_AREA_SMALL_SOFTFLOOR SOUND_ENVIRONMENT_ROOM
+#define SOUND_AREA_ASTEROID SOUND_ENVIRONMENT_CAVE
+#define SOUND_AREA_SPACE SOUND_ENVIRONMENT_UNDERWATER
+#define SOUND_AREA_LAVALAND SOUND_ENVIRONMENT_MOUNTAINS
+#define SOUND_AREA_ICEMOON SOUND_ENVIRONMENT_CAVE
+#define SOUND_AREA_WOODFLOOR SOUND_ENVIRONMENT_CITY

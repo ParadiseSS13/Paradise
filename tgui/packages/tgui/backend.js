@@ -7,8 +7,8 @@
  * the response with already existing state.
  */
 
-import { UI_DISABLED, UI_INTERACTIVE } from './constants';
 import { callByond } from './byond';
+import { UI_DISABLED, UI_INTERACTIVE } from './constants';
 
 export const backendUpdate = state => ({
   type: 'backend/update',
@@ -18,6 +18,11 @@ export const backendUpdate = state => ({
 export const backendSetSharedState = (key, nextState) => ({
   type: 'backend/setSharedState',
   payload: { key, nextState },
+});
+
+export const backendDeleteSharedState = keys => ({
+  type: 'backend/deleteSharedState',
+  payload: keys,
 });
 
 export const backendReducer = (state, action) => {
@@ -70,6 +75,15 @@ export const backendReducer = (state, action) => {
         ...state.shared,
         [key]: nextState,
       },
+    };
+  }
+
+  if (type === 'backend/deleteSharedState') {
+    let shared = { ...state.shared };
+    payload.forEach(key => delete shared[key]);
+    return {
+      ...state,
+      shared: shared,
     };
   }
 
@@ -146,6 +160,17 @@ export const useLocalState = (context, key, initialState) => {
       store.dispatch(backendSetSharedState(key, nextState));
     },
   ];
+};
+
+/**
+ * Deletes local states from the Redux store.
+ *
+ * @param {any} context React context.
+ * @param {string} ...keys Keys of states to delete from the store.
+ */
+export const deleteLocalState = (context, ...keys) => {
+  const { store } = context;
+  store.dispatch(backendDeleteSharedState(keys));
 };
 
 /**

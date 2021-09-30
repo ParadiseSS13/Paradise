@@ -7,32 +7,41 @@
 	chemical_cost = -1
 	needs_button = FALSE
 
-/datum/action/changeling/hivemind_comms/on_purchase(var/mob/user)
+/datum/action/changeling/hivemind_comms/on_purchase(mob/user)
 	..()
 	var/datum/changeling/changeling=user.mind.changeling
 	changeling.changeling_speak = 1
 	to_chat(user, "<i><font color=#800080>Use say \":g message\" to communicate with the other changelings.</font></i>")
-	var/datum/action/changeling/hivemind_upload/S1 = new
+	var/datum/action/changeling/hivemind_pick/S1 = new
 	if(!changeling.has_sting(S1))
 		changeling.purchasedpowers+=S1
 		S1.Grant(user)
-	var/datum/action/changeling/hivemind_download/S2 = new
-	if(!changeling.has_sting(S2))
-		S2.Grant(user)
-		changeling.purchasedpowers+=S2
 	return
 
 // HIVE MIND UPLOAD/DOWNLOAD DNA
 GLOBAL_LIST_EMPTY(hivemind_bank)
 
-/datum/action/changeling/hivemind_upload
+/datum/action/changeling/hivemind_pick
 	name = "Hive Channel DNA"
-	desc = "Allows us to channel DNA in the airwaves to allow other changelings to absorb it. Costs 10 chemicals."
-	button_icon_state = "hivemind_channel"
+	desc = "Allows us to upload or absorb DNA in the airwaves. Does not count towards absorb objectives. Costs 10 chemicals."
+	button_icon_state = "hive_absorb"
 	chemical_cost = 10
 	dna_cost = -1
 
-/datum/action/changeling/hivemind_upload/sting_action(var/mob/user)
+/datum/action/changeling/hivemind_pick/sting_action(mob/user)
+	var/datum/changeling/changeling = user.mind.changeling
+	var/channel_pick = alert("Upload or Absorb DNA?", "Channel Select", "Upload", "Absorb")
+
+	if(channel_pick == "Upload")
+		dna_upload(user)
+	if(channel_pick == "Absorb")
+		if(changeling.using_stale_dna(user))//If our current DNA is the stalest, we gotta ditch it.
+			to_chat(user, "<span class='warning'>We have reached our capacity to store genetic information! We must transform before absorbing more.</span>")
+			return
+		else
+			dna_absorb(user)
+
+/datum/action/changeling/proc/dna_upload(mob/user)
 	var/datum/changeling/changeling = user.mind.changeling
 	var/list/names = list()
 	for(var/datum/dna/DNA in (changeling.absorbed_dna+changeling.protected_dna))
@@ -53,26 +62,10 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 
 	GLOB.hivemind_bank += chosen_dna
 	to_chat(user, "<span class='notice'>We channel the DNA of [chosen_name] to the air.</span>")
-	feedback_add_details("changeling_powers","HU")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
-/datum/action/changeling/hivemind_download
-	name = "Hive Absorb DNA"
-	desc = "Allows us to absorb DNA that has been channeled to the airwaves. Does not count towards absorb objectives. Costs 10 chemicals."
-	button_icon_state = "hive_absorb"
-	chemical_cost = 10
-	dna_cost = -1
-
-/datum/action/changeling/hivemind_download/can_sting(var/mob/living/carbon/user)
-	if(!..())
-		return
-	var/datum/changeling/changeling = user.mind.changeling
-	if(changeling.using_stale_dna(user))//If our current DNA is the stalest, we gotta ditch it.
-		to_chat(user, "<span class='warning'>We have reached our capacity to store genetic information! We must transform before absorbing more.</span>")
-		return
-	return 1
-
-/datum/action/changeling/hivemind_download/sting_action(var/mob/user)
+/datum/action/changeling/proc/dna_absorb(mob/user)
 	var/datum/changeling/changeling = user.mind.changeling
 	var/list/names = list()
 	for(var/datum/dna/DNA in GLOB.hivemind_bank)
@@ -91,5 +84,5 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 
 	changeling.store_dna(chosen_dna, user)
 	to_chat(user, "<span class='notice'>We absorb the DNA of [S] from the air.</span>")
-	feedback_add_details("changeling_powers","HD")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

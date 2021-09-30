@@ -3,9 +3,11 @@
 	desc = "A heads-up display that provides important info in (almost) real time."
 	flags = null //doesn't protect eyes because it's a monocle, duh
 	origin_tech = "magnets=3;biotech=2"
-	var/HUDType = null //Hudtype is defined on glasses.dm
 	prescription_upgradable = 1
-	var/list/icon/current = list() //the current hud icons
+	/// The visual icons granted by wearing these glasses.
+	var/HUDType = null
+	/// List of things added to examine text, like security or medical records.
+	var/list/examine_extensions = null
 
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
@@ -26,20 +28,21 @@
 		desc = desc + " The display flickers slightly."
 
 /obj/item/clothing/glasses/hud/health
-	name = "\improper Health Scanner HUD"
+	name = "health scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
 	icon_state = "healthhud"
 	origin_tech = "magnets=3;biotech=2"
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
+	examine_extensions = list(EXAMINE_HUD_MEDICAL)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/health/night
-	name = "\improper Night Vision Health Scanner HUD"
+	name = "night vision health scanner HUD"
 	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
 	icon_state = "healthhudnight"
 	item_state = "glasses"
@@ -57,20 +60,20 @@
 	tint = 1
 
 /obj/item/clothing/glasses/hud/diagnostic
-	name = "Diagnostic HUD"
+	name = "diagnostic HUD"
 	desc = "A heads-up display capable of analyzing the integrity and status of robotics and exosuits."
 	icon_state = "diagnostichud"
 	origin_tech = "magnets=2;engineering=2"
 	HUDType = DATA_HUD_DIAGNOSTIC_BASIC
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/diagnostic/night
-	name = "Night Vision Diagnostic HUD"
+	name = "night vision diagnostic HUD"
 	desc = "A robotics diagnostic HUD fitted with a light amplifier."
 	icon_state = "diagnostichudnight"
 	item_state = "glasses"
@@ -88,18 +91,18 @@
 	tint = 1
 
 /obj/item/clothing/glasses/hud/security
-	name = "\improper Security HUD"
+	name = "security HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status and security records."
 	icon_state = "securityhud"
 	origin_tech = "magnets=3;combat=2"
 	var/global/list/jobs[0]
 	HUDType = DATA_HUD_SECURITY_ADVANCED
-	var/read_only = FALSE
+	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 		)
 
 
@@ -112,7 +115,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/item/clothing/glasses/hud/security/night
-	name = "\improper Night Vision Security HUD"
+	name = "night vision security HUD"
 	desc = "An advanced heads-up display which provides id data and vision in complete darkness."
 	icon_state = "securityhudnight"
 	origin_tech = "magnets=4;combat=4;plasmatech=4;engineering=5"
@@ -121,7 +124,7 @@
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/hud/security/sunglasses/read_only
-	read_only = TRUE
+	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
 /obj/item/clothing/glasses/hud/security/sunglasses
 	name = "HUDSunglasses"
@@ -134,28 +137,28 @@
 	prescription_upgradable = 1
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 	)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/prescription
 	prescription = 1
 
 /obj/item/clothing/glasses/hud/hydroponic
-	name = "Hydroponic HUD"
+	name = "hydroponic HUD"
 	desc = "A heads-up display capable of analyzing the health and status of plants growing in hydro trays and soil."
 	icon_state = "hydroponichud"
 	HUDType = DATA_HUD_HYDROPONIC
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/hydroponic/night
-	name = "Night Vision Hydroponic HUD"
+	name = "night vision hydroponic HUD"
 	desc = "A hydroponic HUD fitted with a light amplifier."
 	icon_state = "hydroponichudnight"
 	item_state = "glasses"
@@ -168,12 +171,13 @@
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an in-built security HUD."
 	icon_state = "tajblind_sec"
 	item_state = "tajblind_sec"
+	flash_protect = FLASH_PROTECTION_FLASH
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/security/tajblind/attack_self()
@@ -189,10 +193,37 @@
 	up = 0
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/health/tajblind/attack_self()
 	toggle_veil()
+
+/obj/item/clothing/glasses/hud/skills
+	name = "skills HUD"
+	desc = "A heads-up display capable of showing the employment history records of NT crew members."
+	icon_state = "skill"
+	item_state = "glasses"
+	HUDType = DATA_HUD_SECURITY_BASIC
+	examine_extensions = list(EXAMINE_HUD_SKILLS)
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Grey"  = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi'
+	)
+
+/obj/item/clothing/glasses/hud/skills/sunglasses
+	name = "skills HUD sunglasses"
+	desc = "Sunglasses with a build-in skills HUD, showing the employment history of nearby NT crew members."
+	icon_state = "sunhudskill"
+	see_in_dark = 1 // None of these three can be converted to booleans. Do not try it.
+	flash_protect = 1
+	tint = 1
+	prescription_upgradable = TRUE
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Grey"  = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi'
+	)

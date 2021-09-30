@@ -189,14 +189,14 @@
 
 /datum/crafting_recipe/oar
 	name = "goliath bone oar"
-	result = /obj/item/oar
+	result = list(/obj/item/oar)
 	reqs = list(/obj/item/stack/sheet/bone = 2)
 	time = 15
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/boat
 	name = "goliath hide boat"
-	result = /obj/vehicle/lavaboat
+	result = list(/obj/vehicle/lavaboat)
 	reqs = list(/obj/item/stack/sheet/animalhide/goliath_hide = 3)
 	time = 50
 	category = CAT_PRIMAL
@@ -247,13 +247,13 @@
 
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 		icon_state = "lantern"
-		wisp.orbit(user, 20)
+		INVOKE_ASYNC(wisp, /atom/movable/.proc/orbit, user, 20)
 		set_light(0)
 
 		user.update_sight()
 		to_chat(user, "<span class='notice'>The wisp enhances your vision.</span>")
 
-		feedback_add_details("wisp_lantern","F") // freed
+		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
 	else
 		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
 
@@ -266,7 +266,7 @@
 		to_chat(user, "<span class='notice'>Your vision returns to normal.</span>")
 
 		icon_state = "lantern-blue"
-		feedback_add_details("wisp_lantern","R") // returned
+		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
 
 /obj/item/wisp_lantern/Initialize(mapload)
 	. = ..()
@@ -300,6 +300,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "blue_cube"
 	var/obj/item/warp_cube/linked
+	var/cooldown = FALSE
 
 /obj/item/warp_cube/Destroy()
 	if(linked)
@@ -315,17 +316,27 @@
 	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
 		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
+	if(cooldown)
+		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
+		return
 
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1, 0, user.loc)
 	smoke.start()
 
 	user.forceMove(get_turf(linked))
-	feedback_add_details("warp_cube","[src.type]")
+	SSblackbox.record_feedback("tally", "warp_cube", 1, type)
 
 	var/datum/effect_system/smoke_spread/smoke2 = new
 	smoke2.set_up(1, 0, user.loc)
 	smoke2.start()
+	cooldown = TRUE
+	linked.cooldown = TRUE
+	addtimer(CALLBACK(src, .proc/reset), 20 SECONDS)
+
+/obj/item/warp_cube/proc/reset()
+	cooldown = FALSE
+	linked.cooldown = FALSE
 
 /obj/item/warp_cube/red
 	name = "red cube"
@@ -358,6 +369,7 @@
 	projectile_type = /obj/item/projectile/hook
 	caliber = "hook"
 	icon_state = "hook"
+	muzzle_flash_effect = null
 
 /obj/item/projectile/hook
 	name = "hook"
@@ -369,7 +381,6 @@
 	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
 	weaken = 3
-	var/chain
 
 /obj/item/projectile/hook/fire(setAngle)
 	if(firer)
@@ -383,7 +394,10 @@
 		var/mob/living/L = target
 		if(!L.anchored)
 			L.visible_message("<span class='danger'>[L] is snagged by [firer]'s hook!</span>")
+			var/old_density = L.density
+			L.density = FALSE // Ensures the hook does not hit the target multiple times
 			L.forceMove(get_turf(firer))
+			L.density = old_density
 
 /obj/item/projectile/hook/Destroy()
 	QDEL_NULL(chain)
@@ -411,7 +425,7 @@
 
 /obj/item/immortality_talisman/attack_self(mob/user)
 	if(cooldown < world.time)
-		feedback_add_details("immortality_talisman","U") // usage
+		SSblackbox.record_feedback("amount", "immortality_talisman_uses", 1) // usage
 		cooldown = world.time + 600
 		user.visible_message("<span class='danger'>[user] vanishes from reality, leaving a a hole in [user.p_their()] place!</span>")
 		var/obj/effect/immortality_talisman/Z = new(get_turf(src.loc))

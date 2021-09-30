@@ -12,7 +12,7 @@
 	var/const/duration = 13 //Directly relates to the 'weaken' duration. Lowered by armor (i.e. helmets)
 	var/isGlass = 1 //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
 
-/obj/item/reagent_containers/food/drinks/bottle/proc/smash(mob/living/target, mob/living/user, ranged = 0)
+/obj/item/reagent_containers/food/drinks/bottle/proc/smash(mob/living/target, mob/living/user, ranged = FALSE)
 
 	//Creates a shattering noise and replaces the bottle with a broken_bottle
 	var/new_location = get_turf(loc)
@@ -66,14 +66,14 @@
 
 		var/mob/living/carbon/human/H = target
 		var/headarmor = 0 // Target's head armor
-		armor_block = H.run_armor_check(affecting, "melee","","",armour_penetration) // For normal attack damage
+		armor_block = H.run_armor_check(affecting, MELEE,"","",armour_penetration) // For normal attack damage
 
 		//If they have a hat/helmet and the user is targeting their head.
 		if(istype(H.head, /obj/item/clothing/head) && affecting == "head")
 
 			// If their head has an armor value, assign headarmor to it, else give it 0.
-			if(H.head.armor.getRating("melee"))
-				headarmor = H.head.armor.getRating("melee")
+			if(H.head.armor.getRating(MELEE))
+				headarmor = H.head.armor.getRating(MELEE)
 			else
 				headarmor = 0
 		else
@@ -84,7 +84,7 @@
 
 	else
 		//Only humans can have armor, right?
-		armor_block = target.run_armor_check(affecting, "melee")
+		armor_block = target.run_armor_check(affecting, MELEE)
 		if(affecting == "head")
 			armor_duration = duration + force
 	armor_duration /= 10
@@ -115,7 +115,7 @@
 	//The reagents in the bottle splash all over the target, thanks for the idea Nodrak
 	SplashReagents(target)
 
-	//Finally, smash the bottle. This kills (del) the bottle.
+	//Finally, smash the bottle. This kills (qdel) the bottle.
 	smash(target, user)
 
 /obj/item/reagent_containers/food/drinks/bottle/proc/SplashReagents(mob/M)
@@ -123,6 +123,18 @@
 		M.visible_message("<span class='danger'>The contents of \the [src] splashes all over [M]!</span>")
 		reagents.reaction(M, REAGENT_TOUCH)
 		reagents.clear_reagents()
+
+/obj/item/reagent_containers/food/drinks/bottle/throw_impact(atom/target,mob/thrower)
+	..()
+	SplashReagents(target)
+	smash(target, thrower, ranged = TRUE)
+
+/obj/item/reagent_containers/food/drinks/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!reagents.total_volume)
+		C.stored_comms["glass"] += 3
+		qdel(src)
+		return TRUE
+	return ..()
 
 //Keeping this here for now, I'll ask if I should keep it here.
 /obj/item/broken_bottle
@@ -140,6 +152,11 @@
 	attack_verb = list("stabbed", "slashed", "attacked")
 	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
 	sharp = 1
+
+/obj/item/broken_bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["glass"] += 3
+	qdel(src)
+	return TRUE
 
 /obj/item/reagent_containers/food/drinks/bottle/gin
 	name = "Griffeater Gin"
@@ -253,6 +270,12 @@
 	volume = 50
 	list_reagents = list("suicider" = 50)
 
+/obj/item/reagent_containers/food/drinks/bottle/fernet
+	name = "Fernet Bronca"
+	desc = "A bottle of pure Fernet Bronca, produced in Cordoba Space Station"
+	icon_state = "fernetbottle"
+	list_reagents = list("fernet" = 100)
+
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice
@@ -327,11 +350,10 @@
 			if(istype(R, A))
 				firestarter = 1
 				break
-	SplashReagents(target)
+	..()
 	if(firestarter && active)
 		target.fire_act()
 		new /obj/effect/hotspot(get_turf(target))
-	..()
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
 	if(is_hot(I) && !active)

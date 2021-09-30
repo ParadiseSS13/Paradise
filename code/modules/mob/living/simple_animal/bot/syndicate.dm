@@ -47,11 +47,14 @@
 	..()
 	update_icon()
 
-/mob/living/simple_animal/bot/ed209/syndicate/get_controls(mob/user)
+/mob/living/simple_animal/bot/ed209/syndicate/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	to_chat(user, "<span class='warning'>[src] has no accessible control panel!</span>")
 	return
 
-/mob/living/simple_animal/bot/ed209/syndicate/show_controls(mob/M)
+/mob/living/simple_animal/bot/ed209/syndicate/ui_data(mob/user)
+	return
+
+/mob/living/simple_animal/bot/ed209/syndicate/ui_act(action, params)
 	return
 
 /mob/living/simple_animal/bot/ed209/syndicate/Topic(href, href_list)

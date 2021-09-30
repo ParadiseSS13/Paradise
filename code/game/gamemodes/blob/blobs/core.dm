@@ -3,7 +3,7 @@
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
 	max_integrity = 400
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 90)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 75, ACID = 90)
 	fire_resist = 2
 	point_return = -1
 	var/overmind_get_delay = 0 // we don't want to constantly try to find an overmind, do it every 5 minutes
@@ -12,22 +12,22 @@
 	var/is_offspring = null
 	var/selecting = 0
 
-/obj/structure/blob/core/New(loc, var/h = 200, var/client/new_overmind = null, var/new_rate = 2, offspring)
+/obj/structure/blob/core/Initialize(mapload, client/new_overmind = null, new_rate = 2, offspring)
+	. = ..()
 	GLOB.blob_cores += src
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	adjustcolors(color) //so it atleast appears
-	if(!overmind)
-		create_overmind(new_overmind)
+	if(offspring)
+		is_offspring = TRUE
 	if(overmind)
 		adjustcolors(overmind.blob_reagent_datum.color)
-	if(offspring)
-		is_offspring = 1
+	if(!overmind)
+		create_overmind(new_overmind)
 	point_rate = new_rate
-	..(loc, h)
 
 
-/obj/structure/blob/core/adjustcolors(var/a_color)
+/obj/structure/blob/core/adjustcolors(a_color)
 	overlays.Cut()
 	color = null
 	var/image/I = new('icons/mob/blob.dmi', "blob")
@@ -48,7 +48,7 @@
 
 /obj/structure/blob/core/ex_act(severity)
 	var/damage = 50 - 10 * severity //remember, the core takes half brute damage, so this is 20/15/10 damage based on severity
-	take_damage(damage, BRUTE, "bomb", 0)
+	take_damage(damage, BRUTE, BOMB, 0)
 
 /obj/structure/blob/core/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, overmind_reagent_trigger = 1)
 	. = ..()
@@ -104,10 +104,11 @@
 	var/mob/C = null
 	var/list/candidates = list()
 	if(!new_overmind)
+		// sendit
 		if(is_offspring)
-			candidates = pollCandidates("Do you want to play as a blob offspring?", ROLE_BLOB, 1)
+			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob offspring?", ROLE_BLOB, TRUE, source = src)
 		else
-			candidates = pollCandidates("Do you want to play as a blob?", ROLE_BLOB, 1)
+			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob?", ROLE_BLOB, TRUE, source = src)
 
 		if(length(candidates))
 			C = pick(candidates)
@@ -116,13 +117,13 @@
 
 	if(C && !QDELETED(src))
 		var/mob/camera/blob/B = new(loc)
+		B.is_offspring = is_offspring
 		B.key = C.key
 		B.blob_core = src
 		overmind = B
 		color = overmind.blob_reagent_datum.color
 		if(B.mind && !B.mind.special_role)
 			B.mind.make_Overmind()
-		B.is_offspring = is_offspring
 
 /obj/structure/blob/core/proc/lateblobtimer()
 	addtimer(CALLBACK(src, .proc/lateblobcheck), 50)

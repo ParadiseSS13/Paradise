@@ -45,4 +45,4 @@
 	playstyle_string = "As a standard type you have no special abilities, but have a high damage resistance and a powerful attack capable of smashing through walls."
 	environment_smash = 2
 	battlecry = "URK"
-	adminseal = TRUE
+	admin_spawned = TRUE

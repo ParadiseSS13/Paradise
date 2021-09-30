@@ -50,6 +50,10 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/stage = 1
 	var/max_stages = 0
 	var/stage_prob = 4
+	/// The fraction of stages the virus must at least be at to show up on medical HUDs. Rounded up.
+	var/discovery_threshold = 0.5
+	/// If TRUE, this virus will show up on medical HUDs. Automatically set when it reaches mid-stage.
+	var/discovered = FALSE
 
 	//Other
 	var/list/viable_mobtypes = list() //typepaths of viable mobs
@@ -75,13 +79,16 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/cure = has_cure()
 
 	if(carrier && !cure)
-		return
+		return TRUE
 
 	stage = min(stage, max_stages)
 
 	if(!cure)
 		if(prob(stage_prob))
 			stage = min(stage + 1,max_stages)
+			if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
+				discovered = TRUE
+				affected_mob.med_hud_set_status()
 	else
 		if(prob(cure_chance))
 			stage = max(stage - 1, 1)
@@ -89,6 +96,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(disease_flags & CURABLE)
 		if(cure && prob(cure_chance))
 			cure()
+			return FALSE
+	return TRUE
 
 
 /datum/disease/proc/has_cure()

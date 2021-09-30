@@ -1,7 +1,7 @@
 /mob/living/carbon/human/proc/monkeyize()
 	var/mob/H = src
 	H.dna.SetSEState(GLOB.monkeyblock,1)
-	genemutcheck(H,GLOB.monkeyblock,null,MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.monkeyblock, MUTCHK_FORCED)
 
 /mob/new_player/AIize()
 	spawning = 1
@@ -38,32 +38,42 @@
 
 	O.rename_self("AI",1)
 
-	spawn()
-		qdel(src)
+	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
 	return O
 
 
 
-//human -> robot
-/mob/living/carbon/human/proc/Robotize()
+/**
+	For transforming humans into robots (cyborgs).
+
+	Arguments:
+	* cell_type: A type path of the cell the new borg should receive.
+	* connect_to_default_AI: TRUE if you want /robot/New() to handle connecting the borg to the AI with the least borgs.
+	* AI: A reference to the AI we want to connect to.
+*/
+/mob/living/carbon/human/proc/Robotize(cell_type = null, connect_to_default_AI = TRUE, mob/living/silicon/ai/AI = null)
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
-	regenerate_icons()
+
 	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
-	for(var/t in bodyparts)
-		qdel(t)
-	for(var/i in internal_organs)
-		qdel(i)
 
-	var/mob/living/silicon/robot/O = new /mob/living/silicon/robot( loc )
+	// Creating a new borg here will connect them to a default AI and notify that AI, if `connect_to_default_AI` is TRUE.
+	var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(loc, connect_to_AI = connect_to_default_AI)
 
-	// cyborgs produced by Robotize get an automatic power cell
-	O.cell = new /obj/item/stock_parts/cell/high(O)
+	// If `AI` is passed in, we want to connect to that AI specifically.
+	if(AI)
+		O.lawupdate = TRUE
+		O.connect_to_ai(AI)
+
+	if(!cell_type)
+		O.cell = new /obj/item/stock_parts/cell/high(O)
+	else
+		O.cell = new cell_type(O)
 
 	O.gender = gender
 	O.invisibility = 0
@@ -77,26 +87,31 @@
 	else
 		O.key = key
 
-	O.loc = loc
+	O.forceMove(loc)
 	O.job = "Cyborg"
-	O.notify_ai(1)
 
 	if(O.mind && O.mind.assigned_role == "Cyborg")
-		if(O.mind.role_alt_title == "Android")
-			O.mmi = new /obj/item/mmi/robotic_brain(O)
-		else if(O.mind.role_alt_title == "Robot")
-			O.mmi = null //Robots do not have removable brains.
-		else
-			O.mmi = new /obj/item/mmi(O)
-
-		if(O.mmi) O.mmi.transfer_identity(src) //Does not transfer key/client.
+		var/obj/item/mmi/new_mmi
+		switch(O.mind.role_alt_title)
+			if("Robot")
+				new_mmi = new /obj/item/mmi/robotic_brain(O)
+				if(new_mmi.brainmob)
+					new_mmi.brainmob.name = O.name
+			if("Cyborg")
+				new_mmi = new /obj/item/mmi(O)
+			else
+				// This should never happen, but oh well
+				new_mmi = new /obj/item/mmi(O)
+		new_mmi.transfer_identity(src) //Does not transfer key/client.
+		// Replace the MMI.
+		QDEL_NULL(O.mmi)
+		O.mmi = new_mmi
 
 	O.update_pipe_vision()
 
 	O.Namepick()
 
-	spawn(0)//To prevent the proc from returning null.
-		qdel(src)
+	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
 	return O
 
 //human -> alien
@@ -128,9 +143,7 @@
 
 	to_chat(new_xeno, "<B>You are now an alien.</B>")
 	new_xeno.update_pipe_vision()
-	spawn(0)//To prevent the proc from returning null.
-		qdel(src)
-	return
+	qdel(src)
 
 /mob/living/carbon/human/proc/slimeize(reproduce as num)
 	if(notransform)
@@ -183,9 +196,7 @@
 
 	to_chat(new_corgi, "<B>You are now a Corgi. Yap Yap!</B>")
 	new_corgi.update_pipe_vision()
-	spawn(0)//To prevent the proc from returning null.
-		qdel(src)
-	return
+	qdel(src)
 
 /mob/living/carbon/human/Animalize()
 
@@ -214,9 +225,7 @@
 
 	to_chat(new_mob, "You suddenly feel more... animalistic.")
 	new_mob.update_pipe_vision()
-	spawn()
-		qdel(src)
-	return
+	qdel(src)
 
 /mob/proc/Animalize()
 
@@ -233,7 +242,7 @@
 	qdel(src)
 
 
-/mob/living/carbon/human/proc/paize(var/name)
+/mob/living/carbon/human/proc/paize(name)
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
@@ -257,11 +266,9 @@
 
 	to_chat(pai, "<B>You have become a pAI! Your name is [pai.name].</B>")
 	pai.update_pipe_vision()
-	spawn(0)//To prevent the proc from returning null.
-		qdel(src)
-	return
+	qdel(src)
 
-/mob/proc/safe_respawn(var/MP)
+/mob/proc/safe_respawn(MP)
 	if(!MP)
 		return 0
 
@@ -292,7 +299,7 @@
 	if(ispath(MP, /mob/living/simple_animal/butterfly))
 		return 1
 
-	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, "Syndicate"))
+	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, ROLE_SYNDICATE))
 		return 1
 
 	if(ispath(MP, /mob/living/simple_animal/diona) && !jobban_isbanned(src, ROLE_NYMPH))

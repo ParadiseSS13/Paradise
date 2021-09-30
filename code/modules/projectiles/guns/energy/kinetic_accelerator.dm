@@ -6,7 +6,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
 	cell_type = /obj/item/stock_parts/cell/emproof
 	needs_permit = 0
-	unique_rename = 1
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
 	weapon_weight = WEAPON_LIGHT
 	can_flashlight = 1
@@ -88,7 +87,7 @@
 	if(!holds_charge)
 		empty()
 
-/obj/item/gun/energy/kinetic_accelerator/shoot_live_shot()
+/obj/item/gun/energy/kinetic_accelerator/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	. = ..()
 	attempt_reload()
 
@@ -173,6 +172,7 @@
 //Casing
 /obj/item/ammo_casing/energy/kinetic
 	projectile_type = /obj/item/projectile/kinetic
+	muzzle_flash_color = null
 	select_name = "kinetic"
 	e_cost = 500
 	fire_sound = 'sound/weapons/kenetic_accel.ogg' // fine spelling there chap
@@ -190,7 +190,7 @@
 	icon_state = null
 	damage = 40
 	damage_type = BRUTE
-	flag = "bomb"
+	flag = BOMB
 	range = 3
 
 	var/pressure_decrease_active = FALSE
@@ -275,7 +275,7 @@
 		return ..()
 
 /obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/R)
-	if(..())
+	if(!..())
 		return
 
 	for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/H in R.module.modules)

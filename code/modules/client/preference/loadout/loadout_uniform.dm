@@ -4,6 +4,103 @@
 	slot = slot_w_uniform
 	sort_category = "Uniforms and Casual Dress"
 
+/datum/gear/uniform/suit
+	subtype_path = /datum/gear/uniform/suit
+
+//there's a lot more colors than I thought there were @_@
+
+/datum/gear/uniform/suit/jumpsuitblack
+	display_name = "jumpsuit, black"
+	path = /obj/item/clothing/under/color/black
+
+/datum/gear/uniform/suit/jumpsuitblue
+	display_name = "jumpsuit, blue"
+	path = /obj/item/clothing/under/color/blue
+
+/datum/gear/uniform/suit/jumpsuitgreen
+	display_name = "jumpsuit, green"
+	path = /obj/item/clothing/under/color/green
+
+/datum/gear/uniform/suit/jumpsuitgrey
+	display_name = "jumpsuit, grey"
+	path = /obj/item/clothing/under/color/grey
+
+/datum/gear/uniform/suit/jumpsuitorange
+	display_name = "jumpsuit, orange"
+	path = /obj/item/clothing/under/color/orange
+
+/datum/gear/uniform/suit/jumpsuitpink
+	display_name = "jumpsuit, pink"
+	path = /obj/item/clothing/under/color/pink
+
+/datum/gear/uniform/suit/jumpsuitred
+	display_name = "jumpsuit, red"
+	path = /obj/item/clothing/under/color/red
+
+/datum/gear/uniform/suit/jumpsuitwhite
+	display_name = "jumpsuit, white"
+	path = /obj/item/clothing/under/color/white
+
+/datum/gear/uniform/suit/jumpsuityellow
+	display_name = "jumpsuit, yellow"
+	path = /obj/item/clothing/under/color/yellow
+
+/datum/gear/uniform/suit/jumpsuitlightblue
+	display_name = "jumpsuit, lightblue"
+	path = /obj/item/clothing/under/color/lightblue
+
+/datum/gear/uniform/suit/jumpsuitaqua
+	display_name = "jumpsuit, aqua"
+	path = /obj/item/clothing/under/color/aqua
+
+/datum/gear/uniform/suit/jumpsuitpurple
+	display_name = "jumpsuit, purple"
+	path = /obj/item/clothing/under/color/purple
+
+/datum/gear/uniform/suit/jumpsuitlightpurple
+	display_name = "jumpsuit, lightpurple"
+	path = /obj/item/clothing/under/color/lightpurple
+
+/datum/gear/uniform/suit/jumpsuitlightgreen
+	display_name = "jumpsuit, lightgreen"
+	path = /obj/item/clothing/under/color/lightgreen
+
+/datum/gear/uniform/suit/jumpsuitlightblue
+	display_name = "jumpsuit, lightblue"
+	path = /obj/item/clothing/under/color/lightblue
+
+/datum/gear/uniform/suit/jumpsuitlightbrown
+	display_name = "jumpsuit, lightbrown"
+	path = /obj/item/clothing/under/color/lightbrown
+
+/datum/gear/uniform/suit/jumpsuitbrown
+	display_name = "jumpsuit, brown"
+	path = /obj/item/clothing/under/color/brown
+
+/datum/gear/uniform/suit/jumpsuityellowgreen
+	display_name = "jumpsuit, yellowgreen"
+	path = /obj/item/clothing/under/color/yellowgreen
+
+/datum/gear/uniform/suit/jumpsuitdarkblue
+	display_name = "jumpsuit, darkblue"
+	path = /obj/item/clothing/under/color/darkblue
+
+/datum/gear/uniform/suit/jumpsuitlightred
+	display_name = "jumpsuit, lightred"
+	path = /obj/item/clothing/under/color/lightred
+
+/datum/gear/uniform/suit/jumpsuitdarkred
+	display_name = "jumpsuit, darkred"
+	path = /obj/item/clothing/under/color/darkred
+
+/datum/gear/uniform/suit/soviet
+	display_name = "USSP uniform"
+	path = /obj/item/clothing/under/soviet
+
+/datum/gear/uniform/suit/kilt
+	display_name = "a kilt"
+	path = /obj/item/clothing/under/kilt
+
 /datum/gear/uniform/skirt
 	subtype_path = /datum/gear/uniform/skirt
 
@@ -223,3 +320,7 @@
 	display_name = "pants, camo"
 	path = /obj/item/clothing/under/pants/camo
 
+/datum/gear/uniform/suit/tacticool
+	display_name = "tacticool turtleneck"
+	description = "A sleek black turtleneck paired with some khakis (WARNING DOES NOT HAVE SUIT SENSORS)"
+	path = /obj/item/clothing/under/syndicate/tacticool

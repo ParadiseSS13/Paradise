@@ -146,3 +146,4 @@
 /obj/machinery/floodlight/extinguish_light()
 	on = 0
 	set_light(0)
+	update_icon()

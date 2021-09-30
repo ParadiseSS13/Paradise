@@ -18,22 +18,68 @@
 	display_name = "a pack of Midoris"
 	path = /obj/item/storage/fancy/cigarettes/cigpack_midori
 
+/datum/gear/smokingpipe
+	display_name = "smoking pipe"
+	path = /obj/item/clothing/mask/cigarette/pipe
+	cost = 2
+
 /datum/gear/lighter
 	display_name = "a cheap lighter"
 	path = /obj/item/lighter
 
+/datum/gear/matches
+	display_name = "a box of matches"
+	path = /obj/item/storage/box/matches
+
+/datum/gear/candlebox
+	display_name = "a box candles"
+	description = "For setting the mood or for occult rituals."
+	path = /obj/item/storage/fancy/candle_box/full
+
 /datum/gear/rock
 	display_name = "a pet rock"
 	path = /obj/item/toy/pet_rock
+
+/datum/gear/camera
+	display_name = "a camera"
+	path = /obj/item/camera
+
+/datum/gear/redfoxplushie
+	display_name = "a red fox plushie"
+	path = /obj/item/toy/plushie/red_fox
+
+/datum/gear/blackcatplushie
+	display_name = "a black cat plushie"
+	path = /obj/item/toy/plushie/black_cat
+
+/datum/gear/voxplushie
+	display_name = "a vox plushie"
+	path = /obj/item/toy/plushie/voxplushie
+
+/datum/gear/lizardplushie
+	display_name = "a lizard plushie"
+	path = /obj/item/toy/plushie/lizardplushie
+
+/datum/gear/deerplushie
+	display_name = "a deer plushie"
+	path = /obj/item/toy/plushie/deer
+
+/datum/gear/carpplushie
+	display_name = "a carp plushie"
+	path = /obj/item/toy/carpplushie
 
 /datum/gear/sechud
 	display_name = "a classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Internal Affairs Agent","Magistrate")
 
-/datum/gear/matches
-	display_name = "a box of matches"
-	path = /obj/item/storage/box/matches
+/datum/gear/cryaonbox
+	display_name = "a box of crayons"
+	path = /obj/item/storage/fancy/crayons
+
+/datum/gear/cane
+	display_name = "a walking cane"
+	path = /obj/item/cane
 
 /datum/gear/cards
 	display_name = "a deck of standard cards"
@@ -50,6 +96,10 @@
 /datum/gear/headphones
 	display_name = "a pair of headphones"
 	path = /obj/item/clothing/ears/headphones
+
+/datum/gear/fannypack
+	display_name = "a fannypack"
+	path = /obj/item/storage/belt/fannypack
 
 /datum/gear/blackbandana
 	display_name = "bandana, black"
@@ -105,6 +155,11 @@
 	cost = 2
 	sort_category = "Mugs"
 
+/datum/gear/mug/flask
+	display_name = "flask"
+	description = "A flask for drink transportation. You'll need to supply your own beverage though."
+	path = /obj/item/reagent_containers/food/drinks/flask/barflask
+
 /datum/gear/mug/department
 	subtype_path = /datum/gear/mug/department
 	sort_category = "Mugs"
@@ -138,3 +193,62 @@
 	display_name = "crewmember coffee mug"
 	description = "A crewmember's coffee mug, emblazoned in the colors of the Service department."
 	path = /obj/item/reagent_containers/food/drinks/mug/serv
+
+
+//////////////////////
+//	  Instruments	//
+//////////////////////
+
+/datum/gear/instrument
+	display_name = "Synthesizer"
+	path = /obj/item/instrument/piano_synth
+	sort_category = "Instruments"
+	cost = 2
+
+/datum/gear/instrument/accordion
+	display_name = "Accordion"
+	path = /obj/item/instrument/accordion
+
+/datum/gear/instrument/banjo
+	display_name = "Banjo"
+	path = /obj/item/instrument/banjo
+
+/datum/gear/instrument/eguitar
+	display_name = "Electric guitar"
+	path = /obj/item/instrument/eguitar
+
+/datum/gear/instrument/glock
+	display_name = "Glockenspiel"
+	path = /obj/item/instrument/glockenspiel
+
+/datum/gear/instrument/guitar
+	display_name = "Guitar"
+	path = /obj/item/instrument/guitar
+
+/datum/gear/instrument/harmonica
+	display_name = "Harmonica"
+	path = /obj/item/instrument/harmonica
+
+/datum/gear/instrument/recorder
+	display_name = "Recorder"
+	path = /obj/item/instrument/recorder
+
+/datum/gear/instrument/sax
+	display_name = "Saxophone"
+	path = /obj/item/instrument/saxophone
+
+/datum/gear/instrument/trumpet
+	display_name = "Trumpet"
+	path = /obj/item/instrument/trumpet
+
+/datum/gear/instrument/trombone
+	display_name = "Trombone"
+	path = /obj/item/instrument/trombone
+
+/datum/gear/instrument/violin
+	display_name = "Violin"
+	path = /obj/item/instrument/violin
+
+/datum/gear/instrument/xylo
+	display_name = "Xylophone"
+	path = /obj/item/instrument/xylophone

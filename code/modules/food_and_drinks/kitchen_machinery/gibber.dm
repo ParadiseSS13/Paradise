@@ -24,6 +24,21 @@
 	idle_power_usage = 2
 	active_power_usage = 500
 
+/obj/machinery/gibber/Initialize(mapload)
+	. = ..()
+	add_overlay("grjam")
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/gibber(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	RefreshParts()
+
+/obj/machinery/gibber/Destroy()
+	for(var/atom/movable/A in contents)
+		A.forceMove(get_turf(src))
+	occupant = null
+	return ..()
+
 /obj/machinery/gibber/suicide_act(mob/user)
 	if(occupant || locked)
 		return FALSE
@@ -35,21 +50,6 @@
 	feedinTopanim()
 	addtimer(CALLBACK(src, .proc/startgibbing, user), 33)
 	return OBLITERATION
-
-/obj/machinery/gibber/Destroy()
-	if(contents.len)
-		for(var/atom/movable/A in contents)
-			A.loc = get_turf(src)
-	if(occupant)
-		occupant = null
-	return ..()
-
-/obj/machinery/gibber/RefreshParts() //If you want to make the machine upgradable, this is where you would change any vars basd on its stock parts.
-	return
-
-/obj/machinery/gibber/New()
-	..()
-	overlays += image('icons/obj/kitchen.dmi', "grjam")
 
 /obj/machinery/gibber/update_icon()
 	overlays.Cut()
@@ -128,25 +128,25 @@
 
 /obj/machinery/gibber/proc/move_into_gibber(mob/user, mob/living/victim)
 	if(occupant)
-		to_chat(user, "<span class='danger'>The [src] is full, empty it first!</span>")
+		to_chat(user, "<span class='danger'>[src] is full, empty it first!</span>")
 		return
 
 	if(operating)
-		to_chat(user, "<span class='danger'>The [src] is locked and running, wait for it to finish.</span>")
+		to_chat(user, "<span class='danger'>[src] is locked and running, wait for it to finish.</span>")
 		return
 
 	if(!ishuman(victim))
-		to_chat(user, "<span class='danger'>This is not suitable for the [src]!</span>")
+		to_chat(user, "<span class='danger'>This is not suitable for [src]!</span>")
 		return
 
-	if(victim.abiotic(1))
-		to_chat(user, "<span class='danger'>Subject may not have abiotic items on.</span>")
+	if(victim.abiotic(TRUE))
+		to_chat(user, "<span class='danger'>Subject may not have anything on their body.</span>")
 		return
 
-	user.visible_message("<span class='danger'>[user] starts to put [victim] into the [src]!</span>")
+	user.visible_message("<span class='danger'>[user] starts to put [victim] into [src]!</span>")
 	add_fingerprint(user)
 	if(do_after(user, 30, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
-		user.visible_message("<span class='danger'>[user] stuffs [victim] into the [src]!</span>")
+		user.visible_message("<span class='danger'>[user] stuffs [victim] into [src]!</span>")
 
 		victim.forceMove(src)
 		occupant = victim
@@ -234,7 +234,7 @@
 		return
 
 	if(UserOverride)
-		msg_admin_attack("[key_name_admin(occupant)] was gibbed by an autogibber (\the [src]) [ADMIN_JMP(src)]")
+		add_attack_logs(user, occupant, "gibbed by an autogibber ([src])")
 		log_game("[key_name(occupant)] was gibbed by an autogibber ([src]) (X:[x] Y:[y] Z:[z])")
 
 	if(operating)
@@ -387,8 +387,6 @@
 			var/obj/item/implant/I = O
 			if(I.implanted)
 				continue
-		if(istype(O,/obj/item/organ))
-			continue
 		if(O.flags & NODROP || stealthmode)
 			qdel(O) //they are already dead by now
 		H.unEquip(O)

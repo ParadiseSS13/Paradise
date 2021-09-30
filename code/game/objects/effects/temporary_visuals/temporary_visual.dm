@@ -35,3 +35,13 @@
 	if(set_dir)
 		setDir(set_dir)
 	. = ..()
+
+/obj/effect/temp_visual/target_angled
+	randomdir = FALSE
+
+/obj/effect/temp_visual/target_angled/Initialize(mapload, atom/target)
+	. = ..()
+	if(target)
+		var/matrix/M = new
+		M.Turn(get_angle(src, target))
+		transform = M

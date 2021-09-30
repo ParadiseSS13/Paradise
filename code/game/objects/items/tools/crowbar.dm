@@ -9,14 +9,15 @@
 	slot_flags = SLOT_BELT
 	force = 5
 	throwforce = 7
-	item_state = "crowbar"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
+	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
+	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 	toolspeed = 1
 
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_CROWBAR
 
 /obj/item/crowbar/red

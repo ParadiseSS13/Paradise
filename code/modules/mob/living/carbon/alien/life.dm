@@ -37,6 +37,6 @@
 
 /mob/living/carbon/alien/handle_fire()//Aliens on fire code
 	. = ..()
-	if(.) //if the mob isn't on fire anymore
+	if(!.) //if the mob isn't on fire anymore
 		return
 	adjust_bodytemperature(BODYTEMP_HEATING_MAX) //If you're on fire, you heat up!

@@ -39,7 +39,7 @@
 			adjust_nutrition(-(hunger_drain * 0.1))
 			if(m_intent == MOVE_INTENT_RUN)
 				adjust_nutrition(-(hunger_drain * 0.1))
-		if((FAT in mutations) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
+		if(HAS_TRAIT(src, TRAIT_FAT) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			bodytemperature += 2
 
 		// Moving around increases germ_level faster
@@ -79,7 +79,7 @@
 
 				for(var/mob/M in viewers(user, null))
 					if(M.client)
-						M.show_message(text("<span class='warning'><B>[user] attacks [src]'s stomach wall with the [I.name]!</span>"), 2)
+						M.show_message(text("<span class='warning'><B>[user] attacks [src]'s stomach wall with [I]!</span>"), 2)
 				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 				if(prob(getBruteLoss() - 50))
@@ -91,11 +91,13 @@
 	return FALSE
 
 
-/mob/living/carbon/proc/vomit(var/lost_nutrition = 10, var/blood = 0, var/stun = 1, var/distance = 0, var/message = 1)
-	if(src.is_muzzled())
+/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1)
+	if(ismachineperson(src)) //IPCs do not vomit particulates
+		return FALSE
+	if(is_muzzled())
 		if(message)
 			to_chat(src, "<span class='warning'>The muzzle prevents you from vomiting!</span>")
-		return 0
+		return FALSE
 	if(stun)
 		Stun(4)
 	if(nutrition < 100 && !blood)
@@ -125,7 +127,7 @@
 			T = get_step(T, dir)
 			if(is_blocked_turf(T))
 				break
-	return 1
+	return TRUE
 
 /mob/living/carbon/gib()
 	. = death(1)
@@ -142,54 +144,43 @@
 		M.forceMove(drop_location())
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 
-/mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
-	if(status_flags & GODMODE)	//godmode
-		return FALSE
-	if(NO_SHOCK in mutations) //shockproof
-		return FALSE
-	if(tesla_shock && tesla_ignore)
-		return FALSE
-	shock_damage *= siemens_coeff
-	if(dna && dna.species)
-		shock_damage *= dna.species.siemens_coeff
-	if(shock_damage < 1 && !override)
-		return FALSE
-	if(reagents.has_reagent("teslium"))
-		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
-	if(illusion)
-		adjustStaminaLoss(shock_damage)
-	else
-		take_overall_damage(0, shock_damage, TRUE, used_weapon = "Electrocution")
-		shock_internal_organs(shock_damage)
-	visible_message(
-		"<span class='danger'>[src] was shocked by \the [source]!</span>",
-		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>",
-		"<span class='italics'>You hear a heavy electrical crack.</span>")
-	AdjustJitter(1000) //High numbers for violent convulsions
+///Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
+/mob/living/carbon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+	. = ..()
+	if(!.)
+		return
+	//Propagation through pulling
+	if(!(flags & SHOCK_ILLUSION))
+		var/list/shocking_queue = list()
+		if(iscarbon(pulling) && source != pulling)
+			shocking_queue += pulling
+		if(iscarbon(pulledby) && source != pulledby)
+			shocking_queue += pulledby
+		if(iscarbon(buckled) && source != buckled)
+			shocking_queue += buckled
+		for(var/mob/living/carbon/carried in buckled_mobs)
+			if(source != carried)
+				shocking_queue += carried
+		//Found our victims, now lets shock them all
+		for(var/victim in shocking_queue)
+			var/mob/living/carbon/C = victim
+			C.electrocute_act(shock_damage * 0.75, src, 1, flags)
+	//Stun
+	var/should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
+	if(should_stun)
+		Stun(2)
+	//Jitter and other fluff.
+	AdjustJitter(1000)
 	do_jitter_animation(jitteriness)
 	AdjustStuttering(2)
-	if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
-		Stun(2)
-	spawn(20)
-		AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
-		if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
-			Stun(3)
-			Weaken(3)
-	if(shock_damage > 200)
-		src.visible_message(
-			"<span class='danger'>[src] was arc flashed by the [source]!</span>",
-			"<span class='userdanger'>The [source] arc flashes and electrocutes you!</span>",
-			"<span class='italics'>You hear a lightning-like crack!</span>")
-		playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
-		explosion(loc, -1, 0, 2, 2)
+	addtimer(CALLBACK(src, .proc/secondary_shock, should_stun), 20)
+	return shock_damage
 
-	if(override)
-		return override
-	else
-		return shock_damage
-
-
+///Called slightly after electrocute act to reduce jittering and apply a secondary stun.
+/mob/living/carbon/proc/secondary_shock(should_stun)
+	AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
+	if(should_stun)
+		Weaken(3)
 
 /mob/living/carbon/swap_hand()
 	var/obj/item/item_in_hand = src.get_active_hand()
@@ -207,7 +198,7 @@
 		H.update_icon()
 
 
-/mob/living/carbon/activate_hand(var/selhand) //0 or "r" or "right" for right hand; 1 or "l" or "left" for left hand.
+/mob/living/carbon/activate_hand(selhand) //0 or "r" or "right" for right hand; 1 or "l" or "left" for left hand.
 
 	if(istext(selhand))
 		selhand = lowertext(selhand)
@@ -221,6 +212,11 @@
 		swap_hand()
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
+	if(stat == DEAD)
+		if(M != src)
+			M.visible_message("<span class='notice'>[M] desperately shakes [src] trying to wake [p_them()] up, but sadly there is no reaction!</span>", \
+			"<span class='notice'>You shake [src] trying to wake [p_them()], sadly they appear to be too far gone!</span>")
+		return
 	if(health >= HEALTH_THRESHOLD_CRIT)
 		if(src == M && ishuman(src))
 			check_self_for_injuries()
@@ -266,6 +262,32 @@
 							H.wear_suit.add_fingerprint(M)
 						else if(H.w_uniform)
 							H.w_uniform.add_fingerprint(M)
+
+/**
+  * Handles patting out a fire on someone.
+  *
+  * Removes 0.5 fire stacks per pat, with a 30% chance of the user burning their hand if they don't have adequate heat resistance.
+  * Arguments:
+  * * src - The mob doing the patting
+  * * target - The mob who is currently on fire
+  */
+/mob/living/carbon/proc/pat_out(mob/living/target)
+	var/self_message = "<span class='warning'>You try to extinguish [target]!</span>"
+	if(prob(30) && ishuman(src)) // 30% chance of burning your hands
+		var/mob/living/carbon/human/H = src
+		var/protected = FALSE // Protected from the fire
+		if((H.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(H, TRAIT_RESISTHEAT) || HAS_TRAIT(H, TRAIT_RESISTHEATHANDS))
+			protected = TRUE
+
+		var/obj/item/organ/external/active_hand = H.get_active_hand()
+		if(active_hand && !protected) // Wouldn't really work without a hand
+			active_hand.receive_damage(0, 5)
+			self_message = "<span class='danger'>You burn your hand trying to extinguish [target]!</span>"
+			H.update_icons()
+
+	target.visible_message("<span class='warning'>[src] tries to extinguish [target]!</span>", self_message)
+	playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+	target.adjust_fire_stacks(-0.5)
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
@@ -316,7 +338,7 @@
 			to_chat(src, "<span class='info'>You're completely exhausted.</span>")
 		else
 			to_chat(src, "<span class='info'>You feel fatigued.</span>")
-	if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
+	if(HAS_TRAIT(H, TRAIT_SKELETONIZED) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
@@ -326,9 +348,6 @@
 	if(.)
 		if(visual)
 			return
-		if(weakeyes)
-			Stun(2)
-
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 		if(!E || (E && E.weld_proof))
 			return
@@ -375,30 +394,30 @@
 
 			else
 				to_chat(src, "<span class='warning'>Your eyes are really starting to hurt. This can't be good for you!</span>")
-		if(mind && has_bane(BANE_LIGHT))
-			mind.disrupt_spells(-500)
 		return 1
 
 	else if(damage == 0) // just enough protection
 		if(prob(20))
 			to_chat(src, "<span class='notice'>Something bright flashes in the corner of your vision!</span>")
-			if(mind && has_bane(BANE_LIGHT))
-				mind.disrupt_spells(0)
 
 
 /mob/living/carbon/proc/tintcheck()
 	return 0
 
+/mob/living/carbon/proc/create_dna()
+	if(!dna)
+		dna = new()
+
 /mob/living/carbon/proc/getDNA()
 	return dna
 
-/mob/living/carbon/proc/setDNA(var/datum/dna/newDNA)
+/mob/living/carbon/proc/setDNA(datum/dna/newDNA)
 	dna = newDNA
 
 
 GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
 
-/mob/living/handle_ventcrawl(var/atom/clicked_on) // -- TLE -- Merged by Carn
+/mob/living/handle_ventcrawl(atom/clicked_on) // -- TLE -- Merged by Carn
 	if(!Adjacent(clicked_on))
 		return
 
@@ -468,8 +487,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 					var/failed = 0
 					if(istype(I, /obj/item/implant))
 						continue
-					if(istype(I, /obj/item/organ))
-						continue
 					if(I.flags & ABSTRACT)
 						continue
 					else
@@ -514,10 +531,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/update_pipe_vision()
 	if(pipes_shown.len)
-		if(!istype(loc, /obj/machinery/atmospherics))
+		if(!is_ventcrawling(src))
 			remove_ventcrawl()
 	else
-		if(istype(loc, /obj/machinery/atmospherics))
+		if(is_ventcrawling(src))
 			add_ventcrawl(loc)
 
 
@@ -538,6 +555,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			take_organ_damage(10)
 	if(iscarbon(hit_atom) && hit_atom != src)
 		var/mob/living/carbon/victim = hit_atom
+		if(victim.flying)
+			return
 		if(hurt)
 			victim.take_organ_damage(10)
 			take_organ_damage(10)
@@ -599,7 +618,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
-		unEquip(I)
+		unEquip(I, silent = TRUE)
 
 		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
 			to_chat(src, "<span class='notice'>You set [I] down gently on the ground.</span>")
@@ -625,7 +644,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/get_restraining_item()
 	return handcuffed
 
-/mob/living/carbon/unEquip(obj/item/I, force) //THIS PROC DID NOT CALL ..()
+/mob/living/carbon/unEquip(obj/item/I, force, silent = FALSE) //THIS PROC DID NOT CALL ..()
 	. = ..() //Sets the default return value to what the parent returns.
 	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
 		return
@@ -645,25 +664,26 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		update_handcuffed()
 	else if(I == legcuffed)
 		legcuffed = null
+		toggle_move_intent()
 		update_inv_legcuffed()
 
 /mob/living/carbon/show_inv(mob/user)
 	user.set_machine(src)
 
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 
-	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[slot_back]'>[(back && !(back.flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A>"
+	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[slot_back]'>[(back && !(back.flags&ABSTRACT)) ? html_encode(back) : "<font color=grey>Empty</font>"]</A>"
 	if(istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/tank))
 		dat += "&nbsp;<A href='?src=[UID()];internal=[slot_back]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 
 	dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
-	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? html_encode(head) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[slot_wear_mask]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[slot_wear_mask]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? html_encode(wear_mask) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	if(istype(wear_mask, /obj/item/clothing/mask/muzzle))
 		var/obj/item/clothing/mask/muzzle/M = wear_mask
@@ -743,7 +763,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return null
 
 //generates realistic-ish pulse output based on preset levels
-/mob/living/carbon/proc/get_pulse(var/method)	//method 0 is for hands, 1 is for machines, more accurate
+/mob/living/carbon/proc/get_pulse(method)	//method 0 is for hands, 1 is for machines, more accurate
 	var/temp = 0								//see setup.dm:694
 	switch(src.pulse)
 		if(PULSE_NONE)
@@ -767,60 +787,59 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 
 /mob/living/carbon/proc/canBeHandcuffed()
-	return 0
+	return FALSE
 
 /mob/living/carbon/fall(forced)
-    loc.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
+	loc.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
 
 /mob/living/carbon/is_muzzled()
-	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
+	return(istype(wear_mask, /obj/item/clothing/mask/muzzle))
 
 /mob/living/carbon/resist_buckle()
-	spawn(0)
-		resist_muzzle()
-	var/obj/item/I
-	if((I = get_restraining_item())) // If there is nothing to restrain him then he is not restrained
-		var/breakouttime = I.breakouttime
-		var/displaytime = breakouttime / 10
-		changeNext_move(CLICK_CD_BREAKOUT)
-		last_special = world.time + CLICK_CD_BREAKOUT
-		visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>", \
-					"<span class='notice'>You attempt to unbuckle yourself... (This will take around [displaytime] seconds and you need to stay still.)</span>")
-		if(do_after(src, breakouttime, 0, target = src))
-			if(!buckled)
-				return
-			buckled.user_unbuckle_mob(src,src)
-		else
-			if(src && buckled)
-				to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
+	INVOKE_ASYNC(src, .proc/resist_muzzle)
+	var/obj/item/I = get_restraining_item()
+	if(!I) // If there is nothing to restrain him then he is not restrained
+		buckled.user_unbuckle_mob(src, src)
+		return
+
+	var/time = I.breakouttime
+	visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>",
+				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [time / 10] seconds and you need to stay still.)</span>")
+	if(!do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, .proc/buckle_check))))
+		if(src && buckled)
+			to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
 	else
-		buckled.user_unbuckle_mob(src,src)
+		if(!buckled)
+			return
+		buckled.user_unbuckle_mob(src, src)
+
+/mob/living/carbon/proc/buckle_check()
+	if(!buckled) // No longer buckled
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
-	Weaken(3, 1, 1) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+	Weaken(3, TRUE, 1) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
 	update_canmove()
-	spin(32,2)
-	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_them()]self out!</span>", \
+	spin(32, 2)
+	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_them()]self out!</span>",
 		"<span class='notice'>You stop, drop, and roll!</span>")
-	sleep(30)
+	sleep(3 SECONDS)
 	if(fire_stacks <= 0)
-		visible_message("<span class='danger'>[src] has successfully extinguished [p_them()]self!</span>", \
+		visible_message("<span class='danger'>[src] has successfully extinguished [p_them()]self!</span>",
 			"<span class='notice'>You extinguish yourself.</span>")
 		ExtinguishMob()
 
 
 /mob/living/carbon/resist_restraints()
-	spawn(0)
-		resist_muzzle()
+	INVOKE_ASYNC(src, .proc/resist_muzzle)
 	var/obj/item/I = null
 	if(handcuffed)
 		I = handcuffed
 	else if(legcuffed)
 		I = legcuffed
 	if(I)
-		changeNext_move(CLICK_CD_BREAKOUT)
-		last_special = world.time + CLICK_CD_BREAKOUT
 		cuff_resist(I)
 
 /mob/living/carbon/resist_muzzle()
@@ -866,6 +885,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				legcuffed.forceMove(drop_location())
 				legcuffed.dropped()
 				legcuffed = null
+				toggle_move_intent()
 				update_inv_legcuffed()
 				return
 			else
@@ -892,6 +912,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				return
 			else if(I == legcuffed)
 				legcuffed = null
+				toggle_move_intent()
 				update_inv_legcuffed()
 				return
 			return 1
@@ -965,6 +986,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(legcuffed)
 		var/obj/item/W = legcuffed
 		legcuffed = null
+		toggle_move_intent()
 		update_inv_legcuffed()
 		if(client)
 			client.screen -= W
@@ -1006,7 +1028,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/proc/can_eat(flags = 255)
 	return 1
 
-/mob/living/carbon/proc/eat(var/obj/item/reagent_containers/food/toEat, mob/user, var/bitesize_override)
+/mob/living/carbon/proc/eat(obj/item/reagent_containers/food/toEat, mob/user, bitesize_override)
 	if(!istype(toEat))
 		return 0
 	var/fullness = nutrition + 10
@@ -1024,10 +1046,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(!forceFed(toEat, user, fullness))
 			return 0
 	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
-	GLOB.score_foodeaten++
+	SSticker.score.score_food_eaten++
 	return 1
 
-/mob/living/carbon/proc/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
+/mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
 	if(ispill(toEat))
 		to_chat(src, "<span class='notify'>You [toEat.apply_method] [toEat].</span>")
 	else
@@ -1047,10 +1069,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			return 0
 	return 1
 
-/mob/living/carbon/proc/selfDrink(var/obj/item/reagent_containers/food/drinks/toDrink, mob/user)
+/mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/food/drinks/toDrink, mob/user)
 	return 1
 
-/mob/living/carbon/proc/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
+/mob/living/carbon/proc/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(ispill(toEat) || fullness <= (600 * (1 + overeatduration / 1000)))
 		if(!toEat.instant_application)
 			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
@@ -1064,13 +1086,13 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	visible_message("<span class='warning'>[user] forces [src] to [toEat.apply_method] [toEat].</span>")
 	return 1
 
-/mob/living/carbon/proc/forceFedAttackLog(var/obj/item/reagent_containers/food/toEat, mob/user)
+/mob/living/carbon/proc/forceFedAttackLog(obj/item/reagent_containers/food/toEat, mob/user)
 	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagents.log_list(toEat)]", toEat.reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
 so that different stomachs can handle things in different ways VB*/
-/mob/living/carbon/proc/consume(var/obj/item/reagent_containers/food/toEat, var/bitesize_override, var/can_taste_container = TRUE)
+/mob/living/carbon/proc/consume(obj/item/reagent_containers/food/toEat, bitesize_override, can_taste_container = TRUE)
 	var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 	if(!toEat.reagents)
 		return
@@ -1108,8 +1130,6 @@ so that different stomachs can handle things in different ways VB*/
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()
-	if(!GLOB.tinted_weldhelh)
-		return
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
 		overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
@@ -1125,6 +1145,10 @@ so that different stomachs can handle things in different ways VB*/
 		. += HT.tint
 	if(wear_mask)
 		. += wear_mask.tint
+
+	var/obj/item/organ/internal/eyes/E = get_organ_slot("eyes")
+	if(E)
+		. += E.tint
 
 /mob/living/carbon/human/get_total_tint()
 	. = ..()
@@ -1153,10 +1177,6 @@ so that different stomachs can handle things in different ways VB*/
 		update_inv_wear_mask()
 	update_inv_head()
 
-/mob/living/carbon/proc/shock_internal_organs(intensity)
-	for(var/obj/item/organ/O in internal_organs)
-		O.shock_organ(intensity)
-
 /mob/living/carbon/update_sight()
 	if(!client)
 		return
@@ -1170,23 +1190,25 @@ so that different stomachs can handle things in different ways VB*/
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
 
-	for(var/obj/item/organ/internal/cyberimp/eyes/E in internal_organs)
-		sight |= E.vision_flags
-		if(E.see_in_dark)
-			see_in_dark = max(see_in_dark, E.see_in_dark)
-		if(E.see_invisible)
-			see_invisible = min(see_invisible, E.see_invisible)
-		if(!isnull(E.lighting_alpha))
-			lighting_alpha = min(lighting_alpha, E.lighting_alpha)
-
 	if(client.eye != src)
 		var/atom/A = client.eye
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
 
-	if(XRAY in mutations)
+	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
+		sight |= (SEE_MOBS)
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(src, TRAIT_XRAY_VISION))
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_in_dark = 8
+		see_in_dark = max(see_in_dark, 8)
+
+	if(HAS_TRAIT(src, TRAIT_MESON_VISION))
+		sight |= SEE_TURFS
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))
+		see_in_dark = max(see_in_dark, 8)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
@@ -1199,14 +1221,14 @@ so that different stomachs can handle things in different ways VB*/
 		I.extinguish() //extinguishes our clothes
 	..()
 
-/mob/living/carbon/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
+/mob/living/carbon/clean_blood(radiation_clean = FALSE, clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	if(head)
-		if(head.clean_blood())
+		if(head.clean_blood(radiation_clean))
 			update_inv_head()
 		if(head.flags_inv & HIDEMASK)
 			clean_mask = FALSE
 	if(wear_suit)
-		if(wear_suit.clean_blood())
+		if(wear_suit.clean_blood(radiation_clean))
 			update_inv_wear_suit()
 		if(wear_suit.flags_inv & HIDESHOES)
 			clean_feet = FALSE

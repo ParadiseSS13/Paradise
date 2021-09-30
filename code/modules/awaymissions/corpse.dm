@@ -16,7 +16,9 @@
 	var/death = TRUE //Kill the mob
 	var/roundstart = TRUE //fires on initialize
 	var/instant = FALSE	//fires on New
-	var/flavour_text = "The mapper forgot to set this!"
+	var/flavour_text = ""	//flavour/fluff about the role, optional.
+	var/description = "A description for this has not been set. This is either an oversight or an admin-spawned spawner not in normal use."	//intended as OOC info about the role
+	var/important_info = ""	//important info such as rules that apply to you, etc. Optional.
 	var/faction = null
 	var/permanent = FALSE	//If true, the spawner will not disappear upon running out of uses.
 	var/random = FALSE		//Don't set a name or gender, just go random
@@ -31,9 +33,9 @@
 	var/banType = ROLE_GHOST
 	var/ghost_usable = TRUE
 	var/offstation_role = TRUE // If set to true, the role of the user's mind will be set to offstation
+	var/death_cooldown = 0 // How long you have to wait after dying before using it again, in deciseconds. People that join as observers are not included.
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
-	var/mob/dead/observer/O = user
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
 	if(!uses)
@@ -45,8 +47,7 @@
 	if(cannotPossess(user))
 		to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return
-	if(!O.can_reenter_corpse)
-		to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
+	if(time_check(user))
 		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role == "No")
@@ -83,6 +84,30 @@
 
 /obj/effect/mob_spawn/proc/equip(mob/M)
 	return
+
+/obj/effect/mob_spawn/proc/time_check(mob/user)
+	var/deathtime = world.time - user.timeofdeath
+	var/joinedasobserver = FALSE
+	if(isobserver(user))
+		var/mob/dead/observer/G = user
+		if(G.started_as_observer)
+			joinedasobserver = TRUE
+
+	var/deathtimeminutes = round(deathtime / 600)
+	var/pluralcheck = "minute"
+	if(deathtimeminutes == 0)
+		pluralcheck = ""
+	else if(deathtimeminutes == 1)
+		pluralcheck = " [deathtimeminutes] minute and"
+	else if(deathtimeminutes > 1)
+		pluralcheck = " [deathtimeminutes] minutes and"
+	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10, 1)
+
+	if(deathtime <= death_cooldown && !joinedasobserver)
+		to_chat(user, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
+		to_chat(user, "<span class='warning'>You must wait [death_cooldown / 600] minutes to respawn!</span>")
+		return TRUE
+	return FALSE
 
 /obj/effect/mob_spawn/proc/create(ckey, flavour = TRUE, name)
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
@@ -192,9 +217,9 @@
 		H.set_species(mob_species)
 
 	if(husk)
-		H.ChangeToHusk()
+		H.Drain()
 	else //Because for some reason I can't track down, things are getting turned into husks even if husk = false. It's in some damage proc somewhere.
-		H.mutations.Remove(HUSK)
+		H.cure_husk()
 	H.underwear = "Nude"
 	H.undershirt = "Nude"
 	H.socks = "Nude"
@@ -336,7 +361,7 @@
 	name = "sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
-	flavour_text = "<span class='big bold'>You are a space doctor!</span>"
+	flavour_text = "You are a space doctor!"
 	assignedrole = "Space Doctor"
 
 /obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H)
@@ -470,11 +495,14 @@
 	name = "bartender sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
-	flavour_text = "<span class='big bold'>You are a space bartender!</span><b> Time to mix drinks and change lives.</b>"
+	description = "Stuck on Lavaland, you could try getting back to civilisation...or serve drinks to those that wander by."
+	flavour_text = "You are a space bartender! Time to mix drinks and change lives. Wait, where did your bar just get transported to?"
 	assignedrole = "Space Bartender"
 
 /obj/effect/mob_spawn/human/beach/alive/lifeguard
-	flavour_text = "<span class='big bold'>You're a spunky lifeguard!</span><b> It's up to you to make sure nobody drowns or gets eaten by sharks and stuff.</b>"
+	flavour_text = "You're a spunky lifeguard! It's up to you to make sure nobody drowns or gets eaten by sharks and stuff. Then suddenly your entire beach was transported to this strange hell.\
+	 You aren't trained for this, but you'll still keep your guests alive!"
+	description = "Try to survive on lavaland with the pitiful equipment of a lifeguard. Or hide in your biodome."
 	mob_gender = "female"
 	name = "lifeguard sleeper"
 	id_job = "Lifeguard"
@@ -502,7 +530,8 @@
 	name = "beach bum sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
-	flavour_text = "You are a beach bum!"
+	flavour_text = "You are a beach bum! You think something just happened to the beach but you don't really pay too much attention."
+	description = "Try to survive on lavaland or just enjoy the beach, waiting for visitors."
 	assignedrole = "Beach Bum"
 
 /datum/outfit/beachbum
@@ -523,6 +552,7 @@
 	roundstart = FALSE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
+	description = "Be a spooky scary skeleton."	//not mapped in anywhere so admin spawner, who knows what they'll use this for.
 	flavour_text = "By unknown powers, your skeletal remains have been reanimated! Walk this mortal plain and terrorize all living adventurers who dare cross your path."
 	assignedrole = "Skeleton"
 

@@ -59,6 +59,16 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/bananabread
 
+/datum/recipe/oven/banarnarbread
+	reagents = list("milk" = 5, "sugar" = 5, "blood" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/grown/banana
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/banarnarbread
+
 /datum/recipe/oven/muffin
 	reagents = list("milk" = 5, "sugar" = 5)
 	items = list(
@@ -162,6 +172,12 @@
 		/obj/item/reagent_containers/food/snacks/grown/potato
 	)
 	result = /obj/item/reagent_containers/food/snacks/loadedbakedpotato
+
+/datum/recipe/oven/yakiimo
+	items = list(
+		/obj/item/reagent_containers/food/snacks/grown/potato/sweet
+	)
+	result = /obj/item/reagent_containers/food/snacks/yakiimo
 
 ////cookies by Ume
 
@@ -457,6 +473,12 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/flatbread
 
+/datum/recipe/oven/toastedsandwich
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sandwich
+	)
+	result = /obj/item/reagent_containers/food/snacks/toastedsandwich
+
 /datum/recipe/oven/turkey  // Magic
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat,
@@ -467,6 +489,14 @@
 		/obj/item/reagent_containers/food/snacks/stuffing
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/turkey
+
+/datum/recipe/oven/tofurkey
+	items = list(
+		/obj/item/reagent_containers/food/snacks/tofu,
+		/obj/item/reagent_containers/food/snacks/tofu,
+		/obj/item/reagent_containers/food/snacks/stuffing,
+	)
+	result = /obj/item/reagent_containers/food/snacks/tofurkey
 
 /datum/recipe/oven/lasagna
 	items = list(

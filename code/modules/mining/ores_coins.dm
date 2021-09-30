@@ -18,8 +18,6 @@
 	..()
 	pixel_x = rand(0, 16) - 8
 	pixel_y = rand(0, 8) - 8
-	if(is_mining_level(z))
-		GLOB.score_oremined++ //When ore spawns, increment score.  Only include ore spawned on mining level (No Clown Planet)
 
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -220,7 +218,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/datum/wires/explosive/gibtonite/wires
 
 /obj/item/twohanded/required/gibtonite/Destroy()
-	QDEL_NULL(wires)
+	if(wires)
+		SStgui.close_uis(wires)
+		QDEL_NULL(wires)
 	return ..()
 
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
@@ -259,7 +259,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	else
 		..()
 
-/obj/item/twohanded/required/gibtonite/bullet_act(var/obj/item/projectile/P)
+/obj/item/twohanded/required/gibtonite/bullet_act(obj/item/projectile/P)
 	GibtoniteReaction(P.firer)
 	..()
 
@@ -273,7 +273,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		icon_state = "Gibtonite active"
 		var/turf/bombturf = get_turf(src)
 		var/notify_admins = 0
-		if(z != 5)//Only annoy the admins ingame if we're triggered off the mining zlevel
+		if(!is_mining_level(z))//Only annoy the admins ingame if we're triggered off the mining zlevel
 			notify_admins = 1
 
 		if(notify_admins)

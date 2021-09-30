@@ -4,25 +4,19 @@
 	icon_state = "earmuffs"
 	item_state = "earmuffs"
 	flags = EARBANGPROTECT
-	flags_2 = HEALS_EARS_2
 	strip_delay = 15
 	put_on_delay = 25
 	resistance_flags = FLAMMABLE
 
-/obj/item/clothing/ears/headphones
-	name = "headphones"
-	desc = "Unce unce unce unce."
-	var/on = 0
-	icon_state = "headphones0"
-	item_state = null
-	actions_types = list(/datum/action/item_action/toggle_headphones)
+/obj/item/clothing/ears/earmuffs/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/earhealing)
 
-/obj/item/clothing/ears/headphones/attack_self(mob/user)
-	on = !on
-	icon_state = "headphones[on]"
+/obj/item/clothing/ears/earmuffs/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && ((slot == slot_l_ear) || (slot == slot_r_ear)))
+		ADD_TRAIT(user, TRAIT_DEAF, CLOTHING_TRAIT)
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-
-	user.update_inv_ears()
+/obj/item/clothing/ears/earmuffs/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_DEAF, CLOTHING_TRAIT)

@@ -1,0 +1,2288 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aM" = (
+/obj/item/stack/rods,
+/obj/item/stack/sheet/metal,
+/turf/template_noop,
+/area/space)
+"bb" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"bk" = (
+/obj/structure/grille/broken,
+/turf/template_noop,
+/area/space)
+"cc" = (
+/obj/item/reagent_containers/food/snacks/syndicake,
+/obj/item/reagent_containers/food/snacks/syndicake,
+/obj/item/reagent_containers/food/snacks/syndicake,
+/turf/simulated/floor/plating/airless,
+/area/space)
+"dy" = (
+/obj/structure/lattice,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"es" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"fq" = (
+/obj/machinery/autolathe,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"fU" = (
+/obj/machinery/door/airlock/mining/glass{
+	locked = 1;
+	name = "Egg processing"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"fY" = (
+/obj/item/stack/sheet/metal,
+/turf/template_noop,
+/area/template_noop)
+"gy" = (
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"hm" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"ho" = (
+/turf/space,
+/area/ruin/space)
+"iK" = (
+/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/metal,
+/turf/space,
+/area/ruin/space)
+"jf" = (
+/obj/item/trash/syndi_cakes,
+/turf/template_noop,
+/area/template_noop)
+"jv" = (
+/obj/item/stack/cable_coil/cut,
+/turf/template_noop,
+/area/space)
+"jR" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/cigarettes/cigpack_random,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"ke" = (
+/obj/structure/lattice,
+/turf/space,
+/area/ruin)
+"kh" = (
+/obj/structure/lattice,
+/obj/item/stack/rods,
+/turf/template_noop,
+/area/space)
+"ky" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/turf/simulated/wall,
+/area/ruin/unpowered)
+"ls" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space)
+"lK" = (
+/obj/machinery/power/apc/noalarm{
+	area = null;
+	dir = 8;
+	keep_preset_name = 1;
+	light_power = 0;
+	locked = 0;
+	max_integrity = 0;
+	name = "Manufacturing control room  APC";
+	pixel_y = -24;
+	shorted = 1;
+	start_charge = -1
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"mc" = (
+/obj/structure/grille/broken,
+/turf/space,
+/area/ruin/space)
+"mx" = (
+/obj/item/trash/syndi_cakes,
+/turf/template_noop,
+/area/space)
+"nV" = (
+/obj/machinery/conveyor/east{
+	id = null
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/space)
+"ob" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/ruin/unpowered)
+"om" = (
+/obj/item/reagent_containers/food/snacks/syndicake,
+/obj/item/reagent_containers/food/snacks/syndicake,
+/obj/item/reagent_containers/food/snacks/syndicake,
+/obj/item/reagent_containers/food/snacks/syndicake,
+/obj/item/reagent_containers/food/snacks/syndicake,
+/obj/item/reagent_containers/food/snacks/syndicake,
+/turf/simulated/floor/plasteel/airless,
+/area/space)
+"oJ" = (
+/obj/item/stack/rods,
+/turf/template_noop,
+/area/space)
+"oO" = (
+/obj/machinery/door/airlock/mining/glass{
+	name = "Nexus"
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"pb" = (
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/space)
+"pd" = (
+/turf/template_noop,
+/area/space)
+"pR" = (
+/obj/machinery/conveyor/northeast{
+	id = null
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"qS" = (
+/obj/machinery/door/airlock/mining/glass{
+	name = "EVA Storage"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"rJ" = (
+/obj/structure/lattice,
+/turf/space,
+/area/ruin/space)
+"rL" = (
+/obj/item/reagent_containers/food/snacks/syndicake,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin)
+"rU" = (
+/obj/machinery/space_heater,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"sN" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"ub" = (
+/obj/item/stack/rods,
+/turf/space,
+/area/space)
+"uA" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/snacks/syndicake,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"uF" = (
+/obj/machinery/conveyor/east{
+	id = null
+	},
+/obj/machinery/gibber/autogibber,
+/obj/structure/plasticflaps{
+	canmove = 0
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"wB" = (
+/obj/item/trash/syndi_cakes,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"xB" = (
+/obj/effect/spawner/random_spawners/oil_maybe,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"xT" = (
+/turf/simulated/floor/plating/airless,
+/area/space)
+"yU" = (
+/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/metal,
+/turf/space,
+/area/space)
+"zd" = (
+/obj/machinery/power/apc/noalarm{
+	area = null;
+	dir = 8;
+	keep_preset_name = 1;
+	locked = 0;
+	name = "EVA room APC";
+	pixel_x = -24;
+	start_charge = -1
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"zo" = (
+/turf/simulated/wall,
+/area/space)
+"zt" = (
+/obj/item/stack/sheet/metal,
+/turf/template_noop,
+/area/space)
+"zF" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"zP" = (
+/obj/structure/rack{
+	dir = 4
+	},
+/obj/random/tool,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"zY" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"AH" = (
+/obj/structure/lattice,
+/obj/item/stack/sheet/metal,
+/turf/template_noop,
+/area/template_noop)
+"AJ" = (
+/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/turf/simulated/wall,
+/area/space)
+"BG" = (
+/obj/machinery/door/airlock/mining/glass{
+	locked = 1;
+	name = "Manufacturing Control Room"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"BI" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Cp" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"CY" = (
+/obj/item/stack/rods,
+/turf/template_noop,
+/area/template_noop)
+"Da" = (
+/turf/space,
+/area/space)
+"Dz" = (
+/obj/machinery/conveyor/east{
+	id = null
+	},
+/mob/living/simple_animal/pet/dog/corgi,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Ej" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"EJ" = (
+/turf/simulated/wall,
+/area/ruin/unpowered)
+"Fw" = (
+/obj/item/stack/cable_coil/cut,
+/turf/template_noop,
+/area/template_noop)
+"Fy" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"FO" = (
+/obj/machinery/suit_storage_unit/syndicate,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Gm" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"GB" = (
+/mob/living/simple_animal/pet/dog/corgi,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Hx" = (
+/obj/machinery/conveyor/east{
+	id = null
+	},
+/mob/living/simple_animal/pet/dog/corgi,
+/mob/living/simple_animal/pet/dog/corgi,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Hy" = (
+/turf/template_noop,
+/area/template_noop)
+"HQ" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Ic" = (
+/turf/simulated/floor/plating/burnt,
+/area/ruin)
+"Id" = (
+/obj/effect/spawner/random_spawners/oil_maybe,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"IB" = (
+/obj/structure/lattice,
+/turf/space,
+/area/ruin/unpowered)
+"IJ" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"JI" = (
+/obj/effect/spawner/random_spawners/syndicate/loot,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Ki" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"Kr" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"KD" = (
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"KS" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin)
+"Le" = (
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/power/port_gen/pacman,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Lq" = (
+/mob/living/simple_animal/pet/dog/corgi,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Mi" = (
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"Nw" = (
+/obj/machinery/power/smes,
+/obj/structure/cable/blue{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"NQ" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"OA" = (
+/obj/structure/computerframe,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"OK" = (
+/obj/item/reagent_containers/food/snacks/syndicake,
+/turf/space,
+/area/space)
+"OU" = (
+/turf/simulated/floor/plasteel/airless,
+/area/ruin)
+"Qv" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/trash/syndi_cakes,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"QF" = (
+/obj/machinery/conveyor/east{
+	dir = 2;
+	id = null
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin)
+"QI" = (
+/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/turf/simulated/wall,
+/area/ruin)
+"Ra" = (
+/obj/machinery/power/terminal{
+	dir = 4
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Rg" = (
+/obj/machinery/door/airlock/mining/glass{
+	locked = 1;
+	max_integrity = 300000;
+	name = "Corgi processing";
+	normal_integrity = 300000
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Ry" = (
+/obj/item/stack/cable_coil/random,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"RB" = (
+/mob/living/simple_animal/hostile/alien/sentinel{
+	animal_species = /mob/living/simple_animal/pet/dog;
+	attack_sound = 'sound/weapons/bite.ogg';
+	attacktext = "bites";
+	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 1, "clone" = 1, "stamina" = 1, "oxy" = 1);
+	death_sound = null;
+	deathmessage = "";
+	desc = "This is no longer a goodboy. Not anymore. He has seen too much.";
+	icon = 'icons/mob/pets.dmi';
+	icon_living = "corgi";
+	icon_state = "corgi";
+	name = "angry corgi";
+	retreat_distance = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Tj" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/syndicate,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Tt" = (
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"TM" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"TT" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Uq" = (
+/obj/machinery/conveyor/east{
+	id = null
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin)
+"UC" = (
+/obj/machinery/tcomms/relay/ruskie{
+	network_id = "SYNDICAKES-FACTORY"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"UR" = (
+/obj/item/trash/syndi_cakes,
+/turf/space,
+/area/space)
+"Vf" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Vt" = (
+/obj/machinery/conveyor/north/ccw{
+	id = null
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"VH" = (
+/obj/structure/lattice,
+/obj/random/tool,
+/turf/space,
+/area/space)
+"VR" = (
+/obj/structure/lattice,
+/turf/simulated/floor/plating/airless,
+/area/space)
+"WL" = (
+/turf/space,
+/area/ruin/unpowered)
+"Xd" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"XZ" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"YR" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"YU" = (
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Zs" = (
+/obj/machinery/conveyor/east{
+	id = null
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Zt" = (
+/obj/machinery/conveyor/east{
+	dir = 2;
+	id = null
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/space)
+
+(1,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(2,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(3,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+ob
+ob
+ob
+ob
+ob
+ob
+EJ
+EJ
+EJ
+EJ
+EJ
+EJ
+EJ
+EJ
+Ki
+Ki
+Ki
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(4,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+EJ
+EJ
+EJ
+EJ
+EJ
+EJ
+EJ
+Le
+Vf
+zd
+rU
+sN
+FO
+EJ
+EJ
+EJ
+pb
+pd
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(5,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+EJ
+JI
+Lq
+IJ
+gy
+gy
+EJ
+Ra
+sN
+Gm
+sN
+sN
+sN
+Tt
+KD
+Tt
+pb
+pb
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(6,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+EJ
+gy
+Hx
+Lq
+Dz
+gy
+EJ
+Nw
+hm
+TT
+Id
+sN
+Ej
+EJ
+EJ
+EJ
+pb
+pd
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(7,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+EJ
+gy
+Dz
+gy
+Dz
+gy
+EJ
+UC
+sN
+Gm
+sN
+sN
+zY
+EJ
+pd
+pd
+ls
+pd
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(8,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+EJ
+gy
+Zs
+gy
+Zs
+gy
+EJ
+fq
+sN
+Gm
+sN
+YU
+OA
+EJ
+pd
+pd
+ls
+pd
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(9,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+EJ
+gy
+Zs
+gy
+Zs
+xB
+EJ
+sN
+GB
+Gm
+TM
+sN
+sN
+EJ
+pd
+pd
+ls
+pd
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(10,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+EJ
+pR
+Vt
+Vt
+Vt
+gy
+EJ
+XZ
+BI
+Gm
+uA
+OA
+jR
+EJ
+pd
+pd
+ls
+pd
+pd
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(11,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+EJ
+Zs
+EJ
+EJ
+EJ
+Rg
+EJ
+EJ
+EJ
+qS
+EJ
+EJ
+EJ
+EJ
+EJ
+EJ
+EJ
+EJ
+pd
+pd
+pd
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(12,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+EJ
+Zs
+zF
+TM
+Qv
+lK
+EJ
+gy
+IJ
+Fy
+gy
+gy
+Ry
+Kr
+OU
+OU
+OU
+EJ
+pd
+pd
+pd
+OK
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(13,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+EJ
+Zs
+zF
+Tj
+zP
+Xd
+ky
+Cp
+Cp
+es
+gy
+rJ
+rJ
+Kr
+rL
+KS
+OU
+EJ
+pd
+pd
+pd
+pd
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(14,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+EJ
+Zs
+EJ
+sN
+wB
+sN
+BG
+gy
+gy
+gy
+gy
+gy
+gy
+oO
+OU
+KS
+KS
+EJ
+pd
+pd
+pd
+pd
+oJ
+Hy
+Hy
+Hy
+Hy
+Hy
+fY
+Hy
+Hy
+Hy
+Hy
+"}
+(15,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+EJ
+Zs
+zF
+TM
+RB
+wB
+EJ
+IB
+gy
+gy
+gy
+gy
+gy
+EJ
+KS
+KS
+rJ
+EJ
+pd
+pd
+mx
+pd
+pd
+pd
+Hy
+fY
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(16,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+EJ
+Zs
+zF
+bb
+OA
+sN
+EJ
+WL
+IB
+gy
+YR
+HQ
+HQ
+EJ
+OU
+KS
+rJ
+EJ
+zt
+oJ
+pd
+pd
+pd
+jv
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(17,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+EJ
+uF
+EJ
+EJ
+EJ
+fU
+EJ
+EJ
+EJ
+oO
+EJ
+EJ
+EJ
+EJ
+OU
+KS
+OK
+Da
+pd
+pd
+NQ
+zt
+pd
+pd
+pd
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(18,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+VR
+Uq
+OU
+OU
+KS
+KS
+OU
+ho
+OU
+OU
+OU
+OU
+ho
+iK
+KS
+Da
+OK
+OK
+pd
+pd
+NQ
+zo
+pd
+pd
+pd
+pd
+OK
+Hy
+Hy
+fY
+Hy
+Hy
+Hy
+"}
+(19,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+pd
+rJ
+rJ
+rJ
+KS
+rJ
+KS
+rJ
+Ic
+Ic
+ub
+NQ
+OU
+KS
+NQ
+NQ
+Da
+OK
+yU
+Da
+NQ
+AJ
+pd
+OK
+pd
+pd
+pd
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(20,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+pd
+nV
+xT
+mc
+KS
+mc
+KS
+KS
+Da
+NQ
+Da
+NQ
+Da
+Da
+UR
+ub
+Da
+Da
+pd
+pd
+NQ
+NQ
+pd
+pd
+pd
+zt
+pd
+pd
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(21,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Ki
+xT
+pd
+Zt
+rJ
+Zt
+Zt
+NQ
+Ic
+Da
+Da
+Da
+Da
+OK
+Da
+Da
+OK
+OK
+Da
+pd
+NQ
+Da
+Da
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+Hy
+Ki
+Hy
+Hy
+"}
+(22,1,1) = {"
+Hy
+Hy
+CY
+Hy
+Hy
+Hy
+Hy
+xT
+pd
+pd
+zo
+pd
+zo
+zo
+NQ
+ub
+Da
+Da
+Da
+Da
+Da
+Da
+Da
+Da
+Da
+ub
+zt
+pd
+pd
+pd
+mx
+pd
+pd
+pd
+pd
+OK
+Hy
+Hy
+Hy
+Hy
+"}
+(23,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Ki
+Mi
+dy
+VR
+pd
+pd
+pd
+pd
+pd
+zt
+pd
+pd
+Ic
+OU
+OU
+Da
+NQ
+pd
+pd
+pd
+pd
+pd
+pd
+oJ
+pd
+zt
+ls
+pd
+pd
+pd
+Hy
+Hy
+Hy
+Hy
+"}
+(24,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Ki
+Hy
+Hy
+Hy
+Ki
+Hy
+pd
+oJ
+OK
+pd
+pd
+bk
+NQ
+QF
+QF
+QF
+QF
+Da
+xT
+oJ
+pd
+pd
+pd
+cc
+VH
+pd
+pd
+pd
+pd
+pd
+pd
+ls
+Hy
+Hy
+Hy
+Hy
+"}
+(25,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+CY
+Hy
+Hy
+Hy
+Hy
+pd
+pd
+ke
+OK
+pd
+zo
+NQ
+NQ
+QI
+NQ
+NQ
+pd
+pd
+zt
+NQ
+NQ
+om
+zo
+pd
+OK
+pd
+oJ
+pd
+pd
+zt
+Hy
+Hy
+Hy
+Hy
+"}
+(26,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Ki
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+NQ
+ls
+pd
+pd
+pd
+pd
+pd
+zo
+zo
+Da
+Da
+pd
+oJ
+pd
+pd
+pd
+Hy
+Hy
+Hy
+Hy
+"}
+(27,1,1) = {"
+Hy
+Hy
+CY
+Hy
+Hy
+Hy
+Hy
+AH
+CY
+CY
+Hy
+fY
+Hy
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+OK
+pd
+oJ
+pd
+mx
+pd
+pd
+OK
+pd
+pd
+pd
+pd
+pd
+Hy
+Hy
+Hy
+Hy
+"}
+(28,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+pd
+NQ
+OK
+pd
+pd
+aM
+pd
+mx
+pd
+pd
+pd
+oJ
+pd
+pd
+pd
+pd
+pd
+pd
+aM
+pd
+pd
+Hy
+Hy
+Hy
+Hy
+jf
+"}
+(29,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+CY
+Hy
+Hy
+Hy
+Hy
+CY
+Hy
+Hy
+Hy
+Fw
+Hy
+pd
+oJ
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+OK
+oJ
+pd
+kh
+pd
+pd
+pd
+pd
+pd
+pd
+Hy
+Hy
+Hy
+fY
+Hy
+Hy
+"}
+(30,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+CY
+CY
+Hy
+pd
+pd
+pd
+pd
+ls
+pd
+OK
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+oJ
+zt
+pd
+pd
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(31,1,1) = {"
+Hy
+Hy
+Hy
+fY
+Hy
+Hy
+Ki
+Hy
+Hy
+Hy
+Ki
+Hy
+CY
+Hy
+Hy
+Hy
+Hy
+pd
+pd
+pd
+pd
+pd
+ls
+pd
+pd
+oJ
+pd
+pd
+aM
+pd
+pd
+pd
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(32,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+fY
+Hy
+Hy
+Hy
+Hy
+kh
+pd
+pd
+zt
+pd
+pd
+ls
+pd
+pd
+pd
+pd
+pd
+pd
+Hy
+Hy
+Fw
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(33,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+CY
+Hy
+CY
+Hy
+fY
+Hy
+Hy
+Hy
+Hy
+Hy
+jf
+Hy
+Hy
+Hy
+Hy
+pd
+pd
+pd
+pd
+pd
+NQ
+zt
+pd
+pd
+oJ
+pd
+fY
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(34,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+CY
+Hy
+Hy
+Hy
+CY
+Hy
+fY
+Hy
+CY
+Hy
+Hy
+pd
+oJ
+pd
+pd
+OK
+pd
+pd
+pd
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(35,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Ki
+Hy
+Hy
+Hy
+CY
+CY
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+pd
+pd
+ls
+pd
+pd
+pd
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+fY
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(36,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+CY
+Hy
+Hy
+Hy
+Hy
+fY
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(37,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Fw
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(38,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(39,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+jf
+Hy
+Hy
+Hy
+Hy
+fY
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}
+(40,1,1) = {"
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+Hy
+"}

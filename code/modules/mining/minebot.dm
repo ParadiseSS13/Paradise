@@ -59,6 +59,10 @@
 
 	SetCollectBehavior()
 
+/mob/living/simple_animal/hostile/mining_drone/Destroy()
+	QDEL_NULL(stored_gun)
+	return ..()
+
 /mob/living/simple_animal/hostile/mining_drone/emp_act(severity)
 	adjustHealth(100 / severity)
 	to_chat(src, "<span class='userdanger'>NOTICE: EMP detected, systems damaged!</span>")
@@ -336,6 +340,8 @@
 		M.move_to_delay = initial(M.move_to_delay) + base_speed_add
 		if(M.stored_gun)
 			M.stored_gun.overheat_time += base_cooldown_add
+		if(M.mind)
+			M.mind.offstation_role = TRUE
 
 /**********************Mining drone cube**********************/
 

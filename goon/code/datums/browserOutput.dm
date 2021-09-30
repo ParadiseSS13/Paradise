@@ -20,7 +20,6 @@ var/list/chatResources = list(
 #define MAX_COOKIE_LENGTH 5
 
 /var/savefile/iconCache = new /savefile("data/iconCache.sav")
-/var/chatDebug = file("data/chatDebug.log")
 
 /datum/chatOutput
 	var/client/owner = null
@@ -38,6 +37,7 @@ var/list/chatResources = list(
 	. = ..()
 
 	owner = C
+	SSchat_pings.chat_datums += src
 
 /datum/chatOutput/proc/start()
 	if(!owner)
@@ -75,7 +75,7 @@ var/list/chatResources = list(
 			if(!owner || loaded)
 				return
 
-/datum/chatOutput/Topic(var/href, var/list/href_list)
+/datum/chatOutput/Topic(href, list/href_list)
 	if(usr.client != owner)
 		return 1
 
@@ -92,7 +92,10 @@ var/list/chatResources = list(
 			data = doneLoading(arglist(params))
 
 		if("debug")
-			data = debug(arglist(params))
+			if(!length(params))
+				return
+			var/error = params[1]
+			log_chat_debug("Client: [owner.key || owner] triggered JS error: [error][GLOB.log_end]")
 
 		if("ping")
 			data = ping(arglist(params))
@@ -109,24 +112,31 @@ var/list/chatResources = list(
 
 	loaded = TRUE
 	winset(owner, "browseroutput", "is-disabled=false")
+	owner << output(null, "browseroutput:rebootFinished")
 	if(owner.holder)
 		loadAdmin()
+	if(owner.mob?.mind?.has_antag_datum(/datum/antagonist/traitor))
+		notify_syndicate_codes() // Send them the current round's codewords
+	else
+		clear_syndicate_codes() // Flush any codewords they may have in chat
 	for(var/message in messageQueue)
 		to_chat(owner, message)
 
 	messageQueue = null
-	src.sendClientData()
+	// We can only store a cookie on the client if they actually accept TOS because GDPR is GDPR
+	if(owner.tos_consent)
+		sendClientData()
 
-	pingLoop()
+	updatePing()
 
-/datum/chatOutput/proc/pingLoop()
-	set waitfor = FALSE
+// PARADISE EDIT: This just updates the ping and is called from SSchat_pings
+/datum/chatOutput/proc/updatePing()
+	if(!owner)
+		qdel(src)
+		return
+	ehjax_send(data = owner.is_afk(29 SECONDS) ? "softPang" : "pang") // SoftPang isn't handled anywhere but it'll always reset the opts.lastPang.
 
-	while (owner)
-		ehjax_send(data = owner.is_afk(29 SECONDS) ? "softPang" : "pang") // SoftPang isn't handled anywhere but it'll always reset the opts.lastPang.
-		sleep(30 SECONDS)
-
-/datum/chatOutput/proc/ehjax_send(var/client/C = owner, var/window = "browseroutput", var/data)
+/datum/chatOutput/proc/ehjax_send(client/C = owner, window = "browseroutput", data)
 	if(islist(data))
 		data = json_encode(data)
 	C << output("[data]", "[window]:ehjaxCallback")
@@ -158,6 +168,11 @@ var/list/chatResources = list(
 		return
 
 	if(cookie != "none")
+		var/regex/crashy_thingy = new /regex("(\\\[ *){5}")
+		if(crashy_thingy.Find(cookie))
+			message_admins("[key_name(src.owner)] tried to crash the server using malformed JSON")
+			log_admin("[key_name(owner)] tried to crash the server using malformed JSON")
+			return
 		var/list/connData = json_decode(cookie)
 		if(connData && islist(connData) && connData.len > 0 && connData["connData"])
 			connectionHistory = connData["connData"]
@@ -173,24 +188,44 @@ var/list/chatResources = list(
 				var/list/row = connectionHistory[i]
 				if(!row || row.len < 3 || !(row["ckey"] && row["compid"] && row["ip"]))
 					return
-				if(world.IsBanned(key=row["ckey"], address=row["ip"], computer_id=row["compid"], type=null, check_ipintel=FALSE))
+				if(world.IsBanned(key=row["ckey"], address=row["ip"], computer_id=row["compid"], type=null, check_ipintel=FALSE, check_2fa=FALSE))
 					found = row
 					break
 				CHECK_TICK
 			//Add autoban using the DB_ban_record function
 			//Uh oh this fucker has a history of playing on a banned account!!
 			if (found.len > 0)
-				message_admins("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
+				message_admins("[key_name(src.owner)] <span class='boldannounce'>has a cookie from a banned account!</span> (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 				log_admin("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
+				new /datum/cookie_record(owner.ckey, found["ckey"], found["ip"], found["compid"])
 
 	cookieSent = 1
 
 /datum/chatOutput/proc/ping()
 	return "pong"
 
-/datum/chatOutput/proc/debug(error)
-	error = "\[[time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")]\] Client : [owner.key ? owner.key : owner] triggered JS error: [error]"
-	chatDebug << error
+/**
+  * Sends the lists of code phrases and responses to Goonchat for clientside highlighting
+  *
+  * Arguments:
+  * * phrases - List of code phrases
+  * * responses - List of code responses
+  */
+/datum/chatOutput/proc/notify_syndicate_codes(phrases = GLOB.syndicate_code_phrase, responses = GLOB.syndicate_code_response)
+	var/urlphrases = url_encode(copytext(phrases, 1, length(phrases)))
+	var/urlresponses = url_encode(copytext(responses, 1, length(responses)))
+	owner << output("[urlphrases]&[urlresponses]", "browseroutput:codewords")
+
+/**
+  * Clears any locally stored code phrases to highlight
+  */
+/datum/chatOutput/proc/clear_syndicate_codes()
+	owner << output(null, "browseroutput:codewordsClear")
+
+/datum/chatOutput/Destroy(force)
+	SSchat_pings.chat_datums -= src
+	return ..()
+
 
 /client/verb/debug_chat()
 	set hidden = 1
@@ -202,7 +237,7 @@ var/list/chatResources = list(
 //Converts an icon to base64. Operates by putting the icon in the iconCache savefile,
 // exporting it as text, and then parsing the base64 from that.
 // (This relies on byond automatically storing icons in savefiles as base64)
-/proc/icon2base64(var/icon/icon, var/iconKey = "misc")
+/proc/icon2base64(icon/icon, iconKey = "misc")
 	if (!isicon(icon)) return 0
 
 	iconCache[iconKey] << icon
@@ -210,7 +245,7 @@ var/list/chatResources = list(
 	var/list/partial = splittext(iconData, "{")
 	return replacetext(copytext(partial[2], 3, -5), "\n", "")
 
-/proc/bicon(var/obj, var/use_class = 1)
+/proc/bicon(obj, use_class = 1)
 	var/class = use_class ? "class='icon misc'" : null
 	if (!obj)
 		return
@@ -245,8 +280,8 @@ var/list/chatResources = list(
 var/to_chat_filename
 var/to_chat_line
 var/to_chat_src
-// Call using macro: to_chat(target, message, flag)
-/proc/to_chat_immediate(target, message, flag)
+
+/proc/to_chat(target, message, flag)
 	if(!is_valid_tochat_message(message) || !is_valid_tochat_target(target))
 		target << message
 
@@ -266,13 +301,11 @@ var/to_chat_src
 			targetstring += ", [D.type]"
 
 		// The final output
-		log_runtime(new/exception("DEBUG: to_chat called with invalid message/target.", to_chat_filename, to_chat_line), to_chat_src, list("Message: '[message]'", "Target: [targetstring]"))
-		return
+		CRASH("DEBUG: to_chat called with invalid message/target. Message: '[message]'. Target: [targetstring].")
 
 	else if(is_valid_tochat_message(message))
 		if(istext(target))
-			log_runtime(EXCEPTION("Somehow, to_chat got a text as a target"))
-			return
+			CRASH("Somehow, to_chat got a text as a target, message: '[message]', target: '[target]'")
 
 		message = replacetext(message, "\n", "<br>")
 
@@ -303,18 +336,5 @@ var/to_chat_src
 			output_message += "&[url_encode(flag)]"
 
 		target << output(output_message, "browseroutput:output")
-
-/proc/to_chat(target, message, flag)
-	/*
-	If any of the following conditions are met, do NOT use SSchat. These conditions include:
-		- Is the MC still initializing?
-		- Has SSchat initialized?
-		- Has SSchat been offlined due to MC crashes?
-	If any of these are met, use the old chat system, otherwise people wont see messages
-	*/
-	if(Master.current_runlevel == RUNLEVEL_INIT || !SSchat?.initialized || SSchat?.flags & SS_NO_FIRE)
-		to_chat_immediate(target, message, flag)
-		return
-	SSchat.queue(target, message, flag)
 
 #undef MAX_COOKIE_LENGTH

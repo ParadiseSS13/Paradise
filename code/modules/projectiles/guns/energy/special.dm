@@ -7,6 +7,7 @@
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 	origin_tech = "combat=4;magnets=4"
 	w_class = WEIGHT_CLASS_HUGE
+	can_holster = FALSE
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
@@ -16,9 +17,6 @@
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
-
-/obj/item/gun/energy/ionrifle/isHandgun()
-	return 0
 
 /obj/item/gun/energy/ionrifle/carbine
 	name = "ion carbine"
@@ -39,6 +37,7 @@
 	origin_tech = "combat=4;materials=4;biotech=5;plasmatech=6"
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	ammo_x_offset = 1
+	can_holster = TRUE
 
 /obj/item/gun/energy/decloner/update_icon()
 	..()
@@ -58,6 +57,7 @@
 	modifystate = 1
 	ammo_x_offset = 1
 	selfcharge = 1
+	can_holster = TRUE
 
 // Meteor Gun //
 /obj/item/gun/energy/meteorgun
@@ -87,10 +87,10 @@
 /obj/item/gun/energy/mindflayer
 	name = "\improper Mind Flayer"
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."
-	icon_state = "xray"
+	icon_state = "flayer"
 	item_state = null
+	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
-	ammo_x_offset = 2
 
 // Energy Crossbows //
 /obj/item/gun/energy/kinetic_accelerator/crossbow
@@ -104,17 +104,22 @@
 	suppressed = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt)
 	weapon_weight = WEAPON_LIGHT
-	unique_rename = 0
+	unique_rename = FALSE
 	overheat_time = 20
 	holds_charge = TRUE
 	unique_frequency = TRUE
 	can_flashlight = 0
 	max_mod_capacity = 0
 	empty_state = null
+	can_holster = TRUE
 
-/obj/item/gun/energy/kinetic_accelerator/crossbow/ninja
-	name = "energy dart thrower"
-	ammo_type = list(/obj/item/ammo_casing/energy/dart)
+/obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine()
+	return "This is an energy weapon. To fire the weapon, have your gun mode set to 'fire', \
+			then click where you want to fire."
+
+/obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine_antag()
+	return "This is a stealthy weapon which fires poisoned bolts at your target. When it hits someone, they will suffer a stun effect, in \
+			addition to toxins. The energy crossbow recharges itself slowly, and can be concealed in your pocket or bag."
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
@@ -135,8 +140,8 @@
 /obj/item/gun/energy/kinetic_accelerator/suicide_act(mob/user)
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	user.visible_message("<span class='suicide'>[user] cocks the [name] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
-	shoot_live_shot()
+	user.visible_message("<span class='suicide'>[user] cocks [src] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+	shoot_live_shot(user, user, FALSE, FALSE)
 	return OXYLOSS
 
 // Plasma Cutters //
@@ -157,6 +162,7 @@
 	force = 12
 	sharp = 1
 	can_charge = 0
+	can_holster = TRUE
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
@@ -204,6 +210,8 @@
 	item_state = null
 	icon_state = "wormhole_projector1"
 	origin_tech = "combat=4;bluespace=6;plasmatech=4;engineering=4"
+	charge_delay = 5
+	selfcharge = TRUE
 	var/obj/effect/portal/blue
 	var/obj/effect/portal/orange
 
@@ -293,6 +301,7 @@
 	clumsy_check = 0
 	selfcharge = 1
 	ammo_x_offset = 3
+	can_holster = TRUE  // you'll never see it coming
 
 /obj/item/gun/energy/toxgun
 	name = "plasma pistol"
@@ -304,6 +313,7 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
 	shaded_charge = 1
+	can_holster = TRUE
 
 // Energy Sniper //
 /obj/item/gun/energy/sniperrifle
@@ -312,11 +322,133 @@
 	icon_state = "esniper"
 	origin_tech = "combat=6;materials=5;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/sniper)
+	item_state = null
+	weapon_weight = WEAPON_HEAVY
 	slot_flags = SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
+	can_holster = FALSE
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = 1
+
+/obj/item/gun/energy/sniperrifle/detailed_examine()
+	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. To recharge this weapon, use a weapon recharger. \
+			To use the scope, use the appropriate verb in the object tab."
+
+/obj/item/gun/energy/bsg
+	name = "\improper B.S.G"
+	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasen's BSA division."
+	icon_state = "bsg"
+	item_state = "bsg"
+	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
+	ammo_type = list(/obj/item/ammo_casing/energy/bsg)
+	weapon_weight = WEAPON_HEAVY
+	w_class = WEIGHT_CLASS_HUGE
+	can_holster = FALSE
+	slot_flags = SLOT_BACK
+	cell_type = /obj/item/stock_parts/cell/bsg
+	shaded_charge = TRUE
+	can_fit_in_turrets = FALSE //Crystal would shatter, or someone would try to put an empty gun in the frame.
+	var/obj/item/assembly/signaler/anomaly/flux/core = null
+	var/has_bluespace_crystal = FALSE
+	var/admin_model = FALSE //For the admin gun, prevents crystal shattering, so anyone can use it, and you dont need to carry backup crystals.
+
+/obj/item/gun/energy/bsg/Destroy()
+	QDEL_NULL(core)
+	return ..()
+
+/obj/item/gun/energy/bsg/examine(mob/user)
+	. = ..()
+	if(core && has_bluespace_crystal)
+		. += "<span class='notice'>[src] is fully operational!</span>"
+	else if(core)
+		. += "<span class='warning'>It has a flux anomaly core installed, but no bluespace crystal installed.</span>"
+	else if(has_bluespace_crystal)
+		. += "<span class='warning'>It has a bluespace crystal installed, but no flux anomaly core installed.</span>"
+	else
+		. += "<span class='warning'>It is missing a flux anomaly core and bluespace crystal to be operational.</span>"
+
+/obj/item/gun/energy/bsg/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
+		if(has_bluespace_crystal)
+			to_chat(user, "<span class='notice'>[src] already has a bluespace crystal installed.</span>")
+			return
+		var/obj/item/stack/S = O
+		if(!loc || !S || S.get_amount() < 1)
+			return
+		to_chat(user, "<span class='notice'>You load [O] into [src].</span>")
+		S.use(1)
+		has_bluespace_crystal = TRUE
+		update_icon()
+		return
+
+	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
+		if(core)
+			to_chat(user, "<span class='notice'>[src] already has a [O]!</span>")
+			return
+		if(!user.drop_item())
+			to_chat(user, "<span class='warning'>[O] is stuck to your hand!</span>")
+			return
+		to_chat(user, "<span class='notice'>You insert [O] into [src], and [src] starts to warm up.</span>")
+		O.forceMove(src)
+		core = O
+		update_icon()
+	else
+		return ..()
+
+/obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
+	if(!has_bluespace_crystal)
+		to_chat(user, "<span class='warning'>[src] has no bluespace crystal to power it!</span>")
+		return
+	if(!core)
+		to_chat(user, "<span class='warning'>[src] has no flux anomaly core to power it!</span>")
+		return
+	return ..()
+
+/obj/item/gun/energy/bsg/process_chamber()
+	if(prob(25))
+		shatter()
+	..()
+	update_icon()
+
+/obj/item/gun/energy/bsg/update_icon()
+	. = ..()
+	if(core)
+		if(has_bluespace_crystal)
+			icon_state = "bsg_finished"
+		else
+			icon_state = "bsg_core"
+	else if(has_bluespace_crystal)
+		icon_state = "bsg_crystal"
+	else
+		icon_state = "bsg"
+
+/obj/item/gun/energy/bsg/emp_act(severity)
+	..()
+	if(prob(75 / severity))
+		if(has_bluespace_crystal)
+			shatter()
+
+/obj/item/gun/energy/bsg/proc/shatter()
+	if(admin_model)
+		return
+	visible_message("<span class='warning'>[src]'s bluespace crystal shatters!</span>")
+	playsound(src, 'sound/effects/pylon_shatter.ogg', 50, TRUE)
+	has_bluespace_crystal = FALSE
+	update_icon()
+
+/obj/item/gun/energy/bsg/prebuilt
+	icon_state = "bsg_finished"
+	has_bluespace_crystal = TRUE
+
+/obj/item/gun/energy/bsg/prebuilt/Initialize(mapload)
+	. = ..()
+	core = new /obj/item/assembly/signaler/anomaly/flux
+	update_icon()
+
+/obj/item/gun/energy/bsg/prebuilt/admin
+	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasen's BSA division. This is an executive model, and its bluespace crystal will not shatter."
+	admin_model = TRUE
 
 // Temperature Gun //
 /obj/item/gun/energy/temperature
@@ -337,8 +469,6 @@
 
 	var/powercost = ""
 	var/powercostcolor = ""
-
-	var/emagged = 0			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
 	var/dat = ""
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
@@ -422,7 +552,7 @@
 		update_icon()
 
 		if(istype(loc, /mob/living/carbon))
-			var /mob/living/carbon/M = loc
+			var/mob/living/carbon/M = loc
 			if(src == M.machine)
 				update_dat()
 				M << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x102")
@@ -512,6 +642,7 @@
 	selfcharge = 1
 	ammo_x_offset = 3
 	var/mimic_type = /obj/item/gun/projectile/automatic/pistol //Setting this to the mimicgun type does exactly what you think it will.
+	can_holster = TRUE
 
 /obj/item/gun/energy/mimicgun/newshot()
 	var/obj/item/ammo_casing/energy/mimic/M = ammo_type[select]

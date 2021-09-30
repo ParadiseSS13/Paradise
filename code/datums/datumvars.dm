@@ -1,5 +1,14 @@
 // reference: /client/proc/modify_variables(var/atom/O, var/param_var_name = null, var/autodetect_class = 0)
 
+/**
+  * Proc to check if a datum allows proc calls on it
+  *
+  * Returns TRUE if you can call a proc on the datum, FALSE if you cant
+  *
+  */
+/datum/proc/CanProcCall(procname)
+	return TRUE
+
 /datum/proc/can_vv_get(var_name)
 	return TRUE
 
@@ -69,7 +78,7 @@
 
 /client/proc/debug_variables(datum/D in world)
 	set category = "Debug"
-	set name = "View Variables"
+	set name = "\[Admin\] View Variables"
 
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
@@ -436,7 +445,7 @@
 	usr << browse(html, "window=variables[refid];size=475x650")
 
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
-/proc/debug_variable(name, value, level, var/datum/DA = null, sanitize = TRUE)
+/proc/debug_variable(name, value, level, datum/DA = null, sanitize = TRUE)
 	var/header
 	if(DA)
 		if(islist(DA))
@@ -733,6 +742,24 @@
 		log_admin("[key_name_admin(usr)] has turned [key_name_admin(H)] into a skeleton")
 		href_list["datumrefresh"] = href_list["make_skeleton"]
 
+	else if(href_list["hallucinate"])
+		if(!check_rights(R_SERVER | R_EVENT))
+			return
+
+		var/mob/living/carbon/C = locateUID(href_list["hallucinate"])
+		if(!istype(C))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon</span>")
+			return
+
+		var/haltype = input(usr, "Select the hallucination type:", "Hallucinate") as null|anything in subtypesof(/obj/effect/hallucination)
+		if(!haltype)
+			return
+
+		C.hallucinate(haltype)
+		message_admins("[key_name(usr)] has given [key_name(C)] the [haltype] hallucination")
+		log_admin("[key_name_admin(usr)] has given [key_name_admin(C)] the [haltype] hallucination")
+		href_list["datumrefresh"] = href_list["hallucinate"]
+
 	else if(href_list["offer_control"])
 		if(!check_rights(R_ADMIN))	return
 
@@ -866,10 +893,10 @@
 		if(!result || !A)
 			return TRUE
 
-		A.armor = A.armor.setRating(armorlist["melee"], armorlist["bullet"], armorlist["laser"], armorlist["energy"], armorlist["bomb"], armorlist["bio"], armorlist["rad"], armorlist["fire"], armorlist["acid"], armorlist["magic"])
+		A.armor = A.armor.setRating(armorlist[MELEE], armorlist[BULLET], armorlist[LASER], armorlist[ENERGY], armorlist[BOMB], armorlist[BIO], armorlist[RAD], armorlist[FIRE], armorlist[ACID], armorlist[MAGIC])
 
-		log_admin("[key_name(usr)] modified the armor on [A] to: melee = [armorlist["melee"]], bullet = [armorlist["bullet"]], laser = [armorlist["laser"]], energy = [armorlist["energy"]], bomb = [armorlist["bomb"]], bio = [armorlist["bio"]], rad = [armorlist["rad"]], fire = [armorlist["fire"]], acid = [armorlist["acid"]], magic = [armorlist["magic"]]")
-		message_admins("<span class='notice'>[key_name(usr)] modified the armor on [A] to: melee = [armorlist["melee"]], bullet = [armorlist["bullet"]], laser = [armorlist["laser"]], energy = [armorlist["energy"]], bomb = [armorlist["bomb"]], bio = [armorlist["bio"]], rad = [armorlist["rad"]], fire = [armorlist["fire"]], acid = [armorlist["acid"]], magic = [armorlist["magic"]]")
+		log_admin("[key_name(usr)] modified the armor on [A] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], bio = [armorlist[BIO]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]")
+		message_admins("<span class='notice'>[key_name(usr)] modified the armor on [A] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], bio = [armorlist[BIO]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]")
 		return TRUE
 
 	else if(href_list["addreagent"]) /* Made on /TG/, credit to them. */
@@ -1231,22 +1258,6 @@
 		message_admins("[key_name_admin(usr)] has removed the organ [rem_organ] from [key_name_admin(M)]")
 		log_admin("[key_name(usr)] has removed the organ [rem_organ] from [key_name(M)]")
 		qdel(rem_organ)
-
-	else if(href_list["fix_nano"])
-		if(!check_rights(R_DEBUG)) return
-
-		var/mob/H = locateUID(href_list["fix_nano"])
-
-		if(!istype(H) || !H.client)
-			to_chat(usr, "This can only be done on mobs with clients")
-			return
-
-		H.client.reload_nanoui_resources()
-
-		to_chat(usr, "Resource files sent")
-		to_chat(H, "Your NanoUI Resource files have been refreshed")
-
-		log_admin("[key_name(usr)] resent the NanoUI resource files to [key_name(H)]")
 
 	else if(href_list["regenerateicons"])
 		if(!check_rights(0))	return

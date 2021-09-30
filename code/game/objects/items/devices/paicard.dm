@@ -18,13 +18,6 @@
 	name = "syndicate personal AI device"
 	faction = list("syndicate")
 
-/obj/item/paicard/relaymove(var/mob/user, var/direction)
-	if(user.stat || user.stunned)
-		return
-	var/obj/item/rig/rig = get_rig()
-	if(istype(rig))
-		rig.forced_move(direction, user)
-
 /obj/item/paicard/New()
 	..()
 	overlays += "pai-off"
@@ -310,7 +303,7 @@
 
 /obj/item/paicard
 	var/current_emotion = 1
-/obj/item/paicard/proc/setEmotion(var/emotion)
+/obj/item/paicard/proc/setEmotion(emotion)
 	if(pai)
 		overlays.Cut()
 		switch(emotion)
@@ -336,5 +329,6 @@
 	..()
 
 /obj/item/paicard/extinguish_light()
-	pai.extinguish_light()
-	set_light(0)
+	if(pai)
+		pai.extinguish_light()
+		set_light(0)

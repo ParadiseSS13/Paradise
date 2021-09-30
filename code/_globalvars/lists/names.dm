@@ -20,5 +20,3 @@ GLOBAL_LIST_INIT(dream_strings, file2list("config/names/dreams.txt"))
 GLOBAL_LIST_INIT(nightmare_strings, file2list("config/names/nightmares.txt"))
 //loaded on startup because of "
 //would include in rsc if ' was used
-
-GLOBAL_LIST_INIT(vox_name_syllables, list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))

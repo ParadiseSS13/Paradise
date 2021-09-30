@@ -16,7 +16,7 @@
 /obj/item/assembly_holder/proc/attach(obj/item/D, obj/item/D2, mob/user)
 	return
 
-/obj/item/assembly_holder/proc/process_activation(var/obj/item/D)
+/obj/item/assembly_holder/proc/process_activation(obj/item/D)
 	return
 
 /obj/item/assembly_holder/IsAssemblyHolder()
@@ -41,19 +41,25 @@
 	if(!A1.remove_item_from_storage(src))
 		if(user)
 			user.remove_from_mob(A1)
-		A1.loc = src
+		A1.forceMove(src)
 	if(!A2.remove_item_from_storage(src))
 		if(user)
 			user.remove_from_mob(A2)
-		A2.loc = src
+		A2.forceMove(src)
 	A1.holder = src
 	A2.holder = src
 	a_left = A1
 	a_right = A2
+	if(has_prox_sensors())
+		AddComponent(/datum/component/proximity_monitor)
 	name = "[A1.name]-[A2.name] assembly"
 	update_icon()
 	return TRUE
 
+/obj/item/assembly_holder/proc/has_prox_sensors()
+	if(istype(a_left, /obj/item/assembly/prox_sensor) || istype(a_right, /obj/item/assembly/prox_sensor))
+		return TRUE
+	return FALSE
 
 /obj/item/assembly_holder/update_icon()
 	overlays.Cut()

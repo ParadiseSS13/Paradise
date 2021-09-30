@@ -4,6 +4,7 @@
 	icon_state = "pulse"
 	item_state = null
 	w_class = WEIGHT_CLASS_BULKY
+	can_holster = FALSE
 	force = 10
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
@@ -12,9 +13,6 @@
 
 /obj/item/gun/energy/pulse/emp_act(severity)
 	return
-
-/obj/item/gun/energy/pulse/isHandgun()
-	return 0
 
 /obj/item/gun/energy/pulse/cyborg
 
@@ -41,11 +39,9 @@
 	slot_flags = SLOT_BELT
 	icon_state = "pulse_pistol"
 	item_state = "gun"
+	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/pulse/pistol
 	can_charge = 0
-
-/obj/item/gun/energy/pulse/pistol/isHandgun()
-	return 1
 
 /obj/item/gun/energy/pulse/destroyer
 	name = "pulse destroyer"
@@ -66,10 +62,8 @@
 	desc = "A compact pulse core in a classic handgun frame for Nanotrasen officers. It's not the size of the gun, it's the size of the hole it puts through people."
 	icon_state = "m1911"
 	item_state = "gun"
+	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/infinite
-
-/obj/item/gun/energy/pulse/pistol/m1911/isHandgun()
-	return 1
 
 /obj/item/gun/energy/pulse/turret
 	name = "pulse turret gun"

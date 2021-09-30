@@ -13,7 +13,7 @@
 	materials = list(MAT_METAL=500)
 	origin_tech = "engineering=3;combat=3"
 	breakouttime = 600 //Deciseconds = 60s = 1 minutes
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //For disposable cuffs
 	var/ignoresClumsy = FALSE
@@ -29,7 +29,7 @@
 		to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
 		return
 
-	if((CLUMSY in user.mutations) && prob(50) && (!ignoresClumsy))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && (!ignoresClumsy))
 		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
 		apply_cuffs(user, user)
 		return
@@ -54,10 +54,7 @@
 		if(do_mob(user, C, 30))
 			apply_cuffs(C, user, remove_src)
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-			if(istype(src, /obj/item/restraints/handcuffs/cable))
-				feedback_add_details("handcuffs", "C")
-			else
-				feedback_add_details("handcuffs", "H")
+			SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 
 			add_attack_logs(user, C, "Handcuffed ([src])")
 		else
@@ -126,13 +123,15 @@
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
 	..()
 
-/obj/item/restraints/handcuffs/cable/proc/cable_color(var/colorC)
-	if(colorC)
-		if(colorC == "rainbow")
-			colorC = color_rainbow()
-		color = colorC
-	else
+/obj/item/restraints/handcuffs/cable/proc/cable_color(colorC)
+	if(!colorC)
 		color = COLOR_RED
+	else if(colorC == "rainbow")
+		color = color_rainbow()
+	else if(colorC == "orange") //byond only knows 16 colors by name, and orange isn't one of them
+		color = COLOR_ORANGE
+	else
+		color = colorC
 
 /obj/item/restraints/handcuffs/cable/proc/color_rainbow()
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
@@ -146,7 +145,7 @@
 	desc = "Use this to keep prisoners in line. Or you know, your significant other."
 	icon_state = "pinkcuffs"
 
-/obj/item/restraints/handcuffs/cable/attackby(var/obj/item/I, mob/user as mob, params)
+/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user as mob, params)
 	..()
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
@@ -192,6 +191,11 @@
 /obj/item/restraints/handcuffs/cable/zipties/used
 	desc = "A pair of broken zipties."
 	icon_state = "cuff_white_used"
+
+/obj/item/restraints/handcuffs/cable/zipties/used/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["glass"] += 1
+	qdel(src)
+	return TRUE
 
 /obj/item/restraints/handcuffs/cable/zipties/used/attack()
 	return

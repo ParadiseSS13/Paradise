@@ -5,11 +5,11 @@
 	var/turf/T = get_turf(A)
 	return T ? T.loc : null
 
-/proc/get_area_name(N) //get area by its name
-	for(var/area/A in world)
-		if(A.name == N)
-			return A
-	return 0
+/proc/get_area_name(atom/X, format_text = FALSE)
+	var/area/A = isarea(X) ? X : get_area(X)
+	if(!A)
+		return null
+	return format_text ? format_text(A.name) : A.name
 
 /proc/get_location_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
@@ -31,9 +31,27 @@
 		areas |= T.loc
 	return areas
 
+/proc/get_open_turf_in_dir(atom/center, dir)
+	var/turf/T = get_ranged_target_turf(center, dir, 1)
+	if(T && !T.density)
+		return T
+
+/proc/get_adjacent_open_turfs(atom/center)
+	. = list(get_open_turf_in_dir(center, NORTH),
+			get_open_turf_in_dir(center, SOUTH),
+			get_open_turf_in_dir(center, EAST),
+			get_open_turf_in_dir(center, WEST))
+	listclearnulls(.)
+
+/proc/get_adjacent_open_areas(atom/center)
+	. = list()
+	var/list/adjacent_turfs = get_adjacent_open_turfs(center)
+	for(var/I in adjacent_turfs)
+		. |= get_area(I)
+
 // Like view but bypasses luminosity check
 
-/proc/hear(var/range, var/atom/source)
+/proc/hear(range, atom/source)
 	var/lum = source.luminosity
 	source.luminosity = 6
 
@@ -127,7 +145,7 @@
 // It will keep doing this until it checks every content possible. This will fix any problems with mobs, that are inside objects,
 // being unable to hear people due to being in a box within a bag.
 
-/proc/recursive_mob_check(var/atom/O,  var/list/L = list(), var/recursion_limit = 3, var/client_check = 1, var/sight_check = 1, var/include_radio = 1)
+/proc/recursive_mob_check(atom/O,  list/L = list(), recursion_limit = 3, client_check = 1, sight_check = 1, include_radio = 1)
 
 	//GLOB.debug_mob += O.contents.len
 	if(!recursion_limit)
@@ -156,7 +174,7 @@
 // The old system would loop through lists for a total of 5000 per function call, in an empty server.
 // This new system will loop at around 1000 in an empty server.
 
-/proc/get_mobs_in_view(var/R, var/atom/source, var/include_clientless = FALSE)
+/proc/get_mobs_in_view(R, atom/source, include_clientless = FALSE)
 	// Returns a list of mobs in range of R from source. Used in radio and say code.
 
 	var/turf/T = get_turf(source)
@@ -182,7 +200,7 @@
 	return hear
 
 
-/proc/get_mobs_in_radio_ranges(var/list/obj/item/radio/radios)
+/proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	var/list/speaker_coverage = list()
@@ -211,7 +229,7 @@
 			var/turf/ear = get_turf(M)
 			if(ear)
 				// Ghostship is magic: Ghosts can hear radio chatter from anywhere
-				if(speaker_coverage[ear] || (istype(M, /mob/dead/observer) && M.get_preference(CHAT_GHOSTRADIO)))
+				if(speaker_coverage[ear] || (istype(M, /mob/dead/observer) && M.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO)))
 					. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
 	return .
 
@@ -245,7 +263,7 @@
 				return 0
 	return 1
 
-/proc/isInSight(var/atom/A, var/atom/B)
+/proc/isInSight(atom/A, atom/B)
 	var/turf/Aturf = get_turf(A)
 	var/turf/Bturf = get_turf(B)
 
@@ -275,7 +293,7 @@
 		if(AM.Move(get_step(T, direction)))
 			break
 
-/proc/get_mob_by_key(var/key)
+/proc/get_mob_by_key(key)
 	for(var/mob/M in GLOB.mob_list)
 		if(M.ckey == lowertext(key))
 			return M
@@ -290,7 +308,7 @@
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
-						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G,"Syndicate")))
+						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G, ROLE_SYNDICATE)))
 							if(override_age || player_old_enough_antag(G.client,be_special_type))
 								candidates += G.client
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt
@@ -306,7 +324,7 @@
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
-						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G,"Syndicate")))
+						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G, ROLE_SYNDICATE)))
 							if(override_age || player_old_enough_antag(G.client,be_special_type))
 								candidates += G
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt
@@ -321,22 +339,22 @@
 	O.screen_loc = screen_loc
 	return O
 
-/proc/Show2Group4Delay(obj/O, list/group, delay=0)
-	if(!isobj(O))	return
-	if(!group)	group = GLOB.clients
-	for(var/client/C in group)
-		C.screen += O
-	if(delay)
-		spawn(delay)
-			for(var/client/C in group)
-				C.screen -= O
+/proc/remove_images_from_clients(image/I, list/show_to)
+	for(var/client/C in show_to)
+		C.images -= I
 
 /proc/flick_overlay(image/I, list/show_to, duration)
 	for(var/client/C in show_to)
 		C.images += I
-	spawn(duration)
-		for(var/client/C in show_to)
-			C.images -= I
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/remove_images_from_clients, I, show_to), duration, TIMER_CLIENT_TIME)
+
+/proc/flick_overlay_view(image/I, atom/target, duration) //wrapper for the above, flicks to everyone who can see the target atom
+	var/list/viewing = list()
+	for(var/m in viewers(target))
+		var/mob/M = m
+		if(M.client)
+			viewing += M.client
+	flick_overlay(I, viewing, duration)
 
 /proc/get_active_player_count()
 	// Get active players who are playing in the round
@@ -344,7 +362,7 @@
 	for(var/i = 1; i <= GLOB.player_list.len; i++)
 		var/mob/M = GLOB.player_list[i]
 		if(M && M.client)
-			if(istype(M, /mob/new_player)) // exclude people in the lobby
+			if(isnewplayer(M)) // exclude people in the lobby
 				continue
 			else if(isobserver(M)) // Ghosts are fine if they were playing once (didn't start as observers)
 				var/mob/dead/observer/O = M
@@ -374,7 +392,7 @@
 	src.dest_x = dest_x
 	src.dest_y = dest_y
 
-/proc/projectile_trajectory(var/src_x, var/src_y, var/rotation, var/angle, var/power)
+/proc/projectile_trajectory(src_x, src_y, rotation, angle, power)
 
 	// returns the destination (Vx,y) that a projectile shot at [src_x], [src_y], with an angle of [angle],
 	// rotated at [rotation] and with the power of [power]
@@ -392,7 +410,7 @@
 	return new /datum/projectile_data(src_x, src_y, time, distance, power_x, power_y, dest_x, dest_y)
 
 
-/proc/mobs_in_area(var/area/the_area, var/client_needed=0, var/moblist=GLOB.mob_list)
+/proc/mobs_in_area(area/the_area, client_needed=0, moblist=GLOB.mob_list)
 	var/list/mobs_found[0]
 	var/area/our_area = get_area(the_area)
 	for(var/mob/M in moblist)
@@ -403,7 +421,7 @@
 		mobs_found += M
 	return mobs_found
 
-/proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
+/proc/alone_in_area(area/the_area, mob/must_be_alone, check_type = /mob/living/carbon)
 	var/area/our_area = get_area(the_area)
 	for(var/C in GLOB.alive_mob_list)
 		if(!istype(C, check_type))
@@ -425,66 +443,8 @@
 	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
 		. = TRUE
 
-proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
-	var/roletext = be_special_type ? get_roletext(be_special_type) : null
-	var/list/mob/dead/observer/candidates = list()
-	var/time_passed = world.time
-	if(!Question)
-		Question = "Would you like to be a special role?"
-
-	for(var/mob/dead/observer/G in (ignore_respawnability ? GLOB.player_list : GLOB.respawnable_list))
-		if(!G.key || !G.client)
-			continue
-		if(be_special_type)
-			if(!(be_special_type in G.client.prefs.be_special))
-				continue
-			if(antag_age_check)
-				if(!player_old_enough_antag(G.client, be_special_type))
-					continue
-		if(roletext)
-			if(jobban_isbanned(G, roletext) || jobban_isbanned(G, "Syndicate"))
-				continue
-		if(config.use_exp_restrictions && min_hours)
-			if(G.client.get_exp_type_num(EXP_TYPE_LIVING) < min_hours * 60)
-				continue
-		if(check_antaghud && cannotPossess(G))
-			continue
-		spawn(0)
-			G << 'sound/misc/notice2.ogg'//Alerting them to their consideration
-			if(flashwindow)
-				window_flash(G.client)
-			var/ans = alert(G,Question,"Please answer in [poll_time/10] seconds!","No","Yes","Not This Round")
-			if(!G?.client)
-				return
-			switch(ans)
-				if("Yes")
-					to_chat(G, "<span class='notice'>Choice registered: Yes.</span>")
-					if((world.time-time_passed)>poll_time)//If more than 30 game seconds passed.
-						to_chat(G, "<span class='danger'>Sorry, you were too late for the consideration!</span>")
-						G << 'sound/machines/buzz-sigh.ogg'
-						return
-					candidates += G
-				if("No")
-					to_chat(G, "<span class='danger'>Choice registered: No.</span>")
-					return
-				if("Not This Round")
-					to_chat(G, "<span class='danger'>Choice registered: No.</span>")
-					to_chat(G, "<span class='notice'>You will no longer receive notifications for the role '[roletext]' for the rest of the round.</span>")
-					G.client.prefs.be_special -= be_special_type
-					return
-				else
-					return
-	sleep(poll_time)
-
-	//Check all our candidates, to make sure they didn't log off during the 30 second wait period.
-	for(var/mob/dead/observer/G in candidates)
-		if(!G.key || !G.client)
-			candidates.Remove(G)
-
-	return candidates
-
-/proc/pollCandidatesWithVeto(adminclient, adminusr, max_slots, Question, be_special_type, antag_age_check = 0, poll_time = 300, ignore_respawnability = 0, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
-	var/list/willing_ghosts = pollCandidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud)
+/proc/pollCandidatesWithVeto(adminclient, adminusr, max_slots, Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = FALSE, flashwindow = TRUE, check_antaghud = TRUE, source, role_cleanname)
+	var/list/willing_ghosts = SSghost_spawns.poll_candidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud, source, role_cleanname)
 	var/list/selected_ghosts = list()
 	if(!willing_ghosts.len)
 		return selected_ghosts
@@ -509,6 +469,84 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_tim
 		var/mob/M = C
 		if(M.client)
 			C = M.client
-	if(!C || !C.prefs.windowflashing)
+	if(!C || !(C.prefs.toggles2 & PREFTOGGLE_2_WINDOWFLASHING))
 		return
 	winset(C, "mainwindow", "flash=5")
+
+/**
+  * Returns a list of vents that can be used as a potential spawn if they meet the criteria set by the arguments
+  *
+  * Will not include parent-less vents to the returned list.
+  * Arguments:
+  * * unwelded_only - Whether the list should only include vents that are unwelded
+  * * exclude_mobs_nearby - Whether to exclude vents that are near living mobs regardless of visibility
+  * * nearby_mobs_range - The range at which to look for living mobs around the vent for the above argument
+  * * exclude_visible_by_mobs - Whether to exclude vents that are visible to any living mob
+  * * min_network_size - The minimum length (non-inclusive) of the vent's parent network. A smaller number means vents in small networks (Security, Virology) will appear in the list
+  * * station_levels_only - Whether to only consider vents that are in a Z-level with a STATION_LEVEL trait
+  * * z_level - The Z-level number to look for vents in. Defaults to all
+  */
+/proc/get_valid_vent_spawns(unwelded_only = TRUE, exclude_mobs_nearby = FALSE, nearby_mobs_range = world.view, exclude_visible_by_mobs = FALSE, min_network_size = 50, station_levels_only = TRUE, z_level = 0)
+	ASSERT(min_network_size >= 0)
+	ASSERT(z_level >= 0)
+
+	var/num_z_levels = length(GLOB.space_manager.z_list)
+	var/list/non_station_levels[num_z_levels] // Cache so we don't do is_station_level for every vent!
+
+	. = list()
+	for(var/object in GLOB.all_vent_pumps) // This only contains vent_pumps so don't bother with type checking
+		var/obj/machinery/atmospherics/unary/vent_pump/vent = object
+		var/vent_z = vent.z
+		if(z_level && vent_z != z_level)
+			continue
+		if(station_levels_only && (non_station_levels[vent_z] || !is_station_level(vent_z)))
+			non_station_levels[vent_z] = TRUE
+			continue
+		if(unwelded_only && vent.welded)
+			continue
+		if(exclude_mobs_nearby)
+			var/turf/T = get_turf(vent)
+			var/mobs_nearby = FALSE
+			for(var/mob/living/M in orange(nearby_mobs_range, T))
+				if(!M.is_dead())
+					mobs_nearby = TRUE
+					break
+			if(mobs_nearby)
+				continue
+		if(exclude_visible_by_mobs)
+			var/turf/T = get_turf(vent)
+			var/visible_by_mobs = FALSE
+			for(var/mob/living/M in viewers(world.view, T))
+				if(!M.is_dead())
+					visible_by_mobs = TRUE
+					break
+			if(visible_by_mobs)
+				continue
+		if(!vent.parent) // This seems to have been an issue in the past, so this is here until it's definitely fixed
+			// Can cause heavy message spam in some situations (e.g. pipenets breaking)
+			// log_debug("get_valid_vent_spawns(), vent has no parent: [vent], qdeled: [QDELETED(vent)], loc: [vent.loc]")
+			continue
+		if(length(vent.parent.other_atmosmch) <= min_network_size)
+			continue
+		. += vent
+
+/**
+ * Get a bounding box of a list of atoms.
+ *
+ * Arguments:
+ * - atoms - List of atoms. Can accept output of view() and range() procs.
+ *
+ * Returns: list(x1, y1, x2, y2)
+ */
+/proc/get_bbox_of_atoms(list/atoms)
+	var/list/list_x = list()
+	var/list/list_y = list()
+	for(var/_a in atoms)
+		var/atom/a = _a
+		list_x += a.x
+		list_y += a.y
+	return list(
+		min(list_x),
+		min(list_y),
+		max(list_x),
+		max(list_y))

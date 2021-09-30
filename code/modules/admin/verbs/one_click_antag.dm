@@ -1,4 +1,4 @@
-client/proc/one_click_antag()
+/client/proc/one_click_antag()
 	set name = "Create Antagonist"
 	set desc = "Auto-create an antagonist of your choice"
 	set category = "Event"
@@ -25,14 +25,14 @@ client/proc/one_click_antag()
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
 
-/datum/admins/proc/CandCheck(var/role = null, var/mob/living/carbon/human/M, var/datum/game_mode/temp = null)
+/datum/admins/proc/CandCheck(role = null, mob/living/carbon/human/M, datum/game_mode/temp = null)
   // You pass in ROLE define (optional), the applicant, and the gamemode, and it will return true / false depending on whether the applicant qualify for the candidacy in question
-	if(jobban_isbanned(M, "Syndicate"))
+	if(jobban_isbanned(M, ROLE_SYNDICATE))
 		return FALSE
 	if(M.stat || !M.mind || M.mind.special_role || M.mind.offstation_role)
 		return FALSE
 	if(temp)
-		if((M.mind.assigned_role in temp.restricted_jobs) || (M.client.prefs.species in temp.protected_species))
+		if((M.mind.assigned_role in temp.restricted_jobs) || (M.client.prefs.active_character.species in temp.protected_species))
 			return FALSE
 	if(role) // Don't even bother evaluating if there's no role
 		if(player_old_enough_antag(M.client,role) && (role in M.client.prefs.be_special) && !M.client.skip_antag && (!jobban_isbanned(M, role)))
@@ -45,7 +45,7 @@ client/proc/one_click_antag()
 /datum/admins/proc/makeTraitors()
 	var/datum/game_mode/traitor/temp = new
 
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -76,7 +76,7 @@ client/proc/one_click_antag()
 /datum/admins/proc/makeChangelings()
 
 	var/datum/game_mode/changeling/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -106,7 +106,7 @@ client/proc/one_click_antag()
 /datum/admins/proc/makeRevs()
 
 	var/datum/game_mode/revolution/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -137,7 +137,8 @@ client/proc/one_click_antag()
 	var/confirm = alert("Are you sure?", "Confirm creation", "Yes", "No")
 	if(confirm != "Yes")
 		return 0
-	var/list/candidates = pollCandidates("Do you wish to be considered for the position of a Wizard Foundation 'diplomat'?", "wizard")
+	var/image/I = new('icons/mob/simple_human.dmi', "wizard")
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", "wizard", source = I)
 
 	log_admin("[key_name(owner)] tried making a Wizard with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a Wizard with One-Click-Antag")
@@ -155,12 +156,12 @@ client/proc/one_click_antag()
 /datum/admins/proc/makeCult()
 
 	var/datum/game_mode/cult/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
-	var/antnum = input(owner, "How many cultists you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	var/antnum = input(owner, "How many cultists do you want to create? Enter 0 to cancel.", "Amount:", 0) as num
 	if(!antnum || antnum <= 0) // 5 because cultist can really screw balance over if spawned in high amount.
 		return
 	log_admin("[key_name(owner)] tried making a Cult with One-Click-Antag")
@@ -170,21 +171,17 @@ client/proc/one_click_antag()
 		if(CandCheck(ROLE_CULTIST, applicant, temp))
 			candidates += applicant
 
-	if(candidates.len)
-		var/numCultists = min(candidates.len, antnum)
+	if(length(candidates))
+		var/numCultists = min(length(candidates), antnum)
 
-		for(var/i = 0, i<numCultists, i++)
+		for(var/I in 1 to numCultists)
 			H = pick(candidates)
+			to_chat(H, CULT_GREETING)
 			SSticker.mode.add_cultist(H.mind)
+			SSticker.mode.equip_cultist(H)
 			candidates.Remove(H)
-			if(!GLOB.summon_spots.len)
-				while(GLOB.summon_spots.len < SUMMON_POSSIBILITIES)
-					var/area/summon = pick(return_sorted_areas() - GLOB.summon_spots)
-					if(summon && is_station_level(summon.z) && summon.valid_territory)
-						GLOB.summon_spots += summon
-
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 
@@ -202,7 +199,7 @@ client/proc/one_click_antag()
 
 	for(var/mob/G in GLOB.respawnable_list)
 		if(istype(G) && G.client && (ROLE_OPERATIVE in G.client.prefs.be_special))
-			if(!jobban_isbanned(G, "operative") && !jobban_isbanned(G, "Syndicate"))
+			if(!jobban_isbanned(G, ROLE_OPERATIVE) && !jobban_isbanned(G, ROLE_SYNDICATE))
 				if(player_old_enough_antag(G.client,ROLE_OPERATIVE))
 					spawn(0)
 						switch(alert(G,"Do you wish to be considered for a nuke team being sent in?","Please answer in 30 seconds!","Yes","No"))
@@ -241,7 +238,7 @@ client/proc/one_click_antag()
 		var/obj/effect/landmark/nuke_spawn = locate("landmark*Nuclear-Bomb")
 		var/obj/effect/landmark/closet_spawn = locate("landmark*Nuclear-Closet")
 
-		var/nuke_code = "[rand(10000, 99999)]"
+		var/nuke_code = rand(10000, 99999)
 
 		if(nuke_spawn)
 			var/obj/item/paper/P = new
@@ -285,18 +282,14 @@ client/proc/one_click_antag()
 	return 1
 
 /datum/admins/proc/makeAliens()
-	var/datum/event/alien_infestation/E = new /datum/event/alien_infestation
-
 	var/antnum = input(owner, "How many aliens you want to create? Enter 0 to cancel.","Amount:", 0) as num
 	if(!antnum || antnum <= 0)
 		return
+	var/datum/event/alien_infestation/E = new /datum/event/alien_infestation
+	E.spawncount = antnum
 	log_admin("[key_name(owner)] tried making Aliens with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making Aliens with One-Click-Antag")
 
-	E.spawncount = antnum
-	// TODO The fact we have to do this rather than just have events start
-	// when we ask them to, is bad.
-	E.processing = TRUE
 	return TRUE
 
 /*
@@ -323,7 +316,7 @@ client/proc/one_click_antag()
 
 		//Generates a list of commandos from active ghosts. Then the user picks which characters to respawn as the commandos.
 		for(var/mob/G in GLOB.respawnable_list)
-			if(!jobban_isbanned(G, "Syndicate"))
+			if(!jobban_isbanned(G, ROLE_SYNDICATE))
 				spawn(0)
 					switch(alert(G,"Do you wish to be considered for an elite syndicate strike team being sent in?","Please answer in 30 seconds!","Yes","No"))
 						if("Yes")
@@ -375,14 +368,14 @@ client/proc/one_click_antag()
 	return 1
 
 
-/proc/makeBody(var/mob/dead/observer/G_found) // Uses stripped down and bastardized code from respawn character
+/proc/makeBody(mob/dead/observer/G_found) // Uses stripped down and bastardized code from respawn character
 	if(!G_found || !G_found.key)	return
 
 	//First we spawn a dude.
 	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))//The mob being spawned.
 
-	var/datum/preferences/A = new(G_found.client)
-	A.copy_to(new_character)
+	// Then clone stuff over
+	G_found.client.prefs.active_character.copy_to(new_character)
 
 	new_character.dna.ready_dna(new_character)
 	new_character.key = G_found.key
@@ -395,13 +388,14 @@ client/proc/one_click_antag()
 	var/syndicate_commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
 	var/syndicate_commando_name = pick(GLOB.last_names)
 
-	var/datum/preferences/A = new()//Randomize appearance for the commando.
+	var/datum/character_save/S = new //Randomize appearance for the commando.
+	S.randomise()
 	if(syndicate_leader_selected)
-		A.real_name = "[syndicate_commando_leader_rank] [syndicate_commando_name]"
-		A.age = rand(35,45)
+		S.real_name = "[syndicate_commando_leader_rank] [syndicate_commando_name]"
+		S.age = rand(35, 45)
 	else
-		A.real_name = "[syndicate_commando_rank] [syndicate_commando_name]"
-	A.copy_to(new_syndicate_commando)
+		S.real_name = "[syndicate_commando_rank] [syndicate_commando_name]"
+	S.copy_to(new_syndicate_commando)
 
 	new_syndicate_commando.dna.ready_dna(new_syndicate_commando)//Creates DNA.
 
@@ -434,7 +428,7 @@ client/proc/one_click_antag()
 	for(var/mob/G in GLOB.respawnable_list)
 		if(istype(G) && G.client && (ROLE_RAIDER in G.client.prefs.be_special))
 			if(player_old_enough_antag(G.client,ROLE_RAIDER))
-				if(!jobban_isbanned(G, "raider") && !jobban_isbanned(G, "Syndicate"))
+				if(!jobban_isbanned(G, ROLE_RAIDER) && !jobban_isbanned(G, ROLE_SYNDICATE))
 					spawn(0)
 						switch(alert(G,"Do you wish to be considered for a vox raiding party arriving on the station?","Please answer in 30 seconds!","Yes","No"))
 							if("Yes")
@@ -524,7 +518,7 @@ client/proc/one_click_antag()
 /datum/admins/proc/makeVampires()
 
 	var/datum/game_mode/vampire/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -534,8 +528,8 @@ client/proc/one_click_antag()
 	if(!antnum || antnum <= 0)
 		return
 
-	log_admin("[key_name(owner)] tried making Vampires with One-Click-Antag")
-	message_admins("[key_name_admin(owner)] tried making Vampires with One-Click-Antag")
+	log_admin("[key_name(owner)] tried making [antnum] Vampires with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] Vampires with One-Click-Antag")
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(CandCheck(ROLE_VAMPIRE, applicant, temp))
@@ -583,7 +577,8 @@ client/proc/one_click_antag()
 	if(candidates.len)
 		var/teamOneMembers = 5
 		var/teamTwoMembers = 5
-		var/datum/preferences/A = new()
+		var/datum/character_save/S = new
+		S.randomise()
 		for(var/thing in GLOB.landmarks_list)
 			var/obj/effect/landmark/L = thing
 			if(L.name == "tdome1")
@@ -592,7 +587,7 @@ client/proc/one_click_antag()
 
 				var/mob/living/carbon/human/newMember = new(L.loc)
 
-				A.copy_to(newMember)
+				S.copy_to(newMember)
 
 				newMember.dna.ready_dna(newMember)
 
@@ -614,7 +609,7 @@ client/proc/one_click_antag()
 
 				var/mob/living/carbon/human/newMember = new(L.loc)
 
-				A.copy_to(newMember)
+				S.copy_to(newMember)
 
 				newMember.dna.ready_dna(newMember)
 

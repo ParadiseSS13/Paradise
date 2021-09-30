@@ -4,7 +4,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "barrel"
 	density = TRUE
-	anchored = FALSE
+	anchored = TRUE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
 	pressure_resistance = 2 * ONE_ATMOSPHERE
 	max_integrity = 300
@@ -65,6 +65,26 @@
 		to_chat(user, "<span class='notice'>You close [src], letting you draw from its tap.</span>")
 	update_icon()
 
+/obj/structure/fermenting_barrel/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+		deconstruct(disassembled = TRUE)
+
+/obj/structure/fermenting_barrel/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I, time = 20)
+
+/obj/structure/fermenting_barrel/deconstruct(disassembled = FALSE)
+	var/mat_drop = 15
+	if(disassembled)
+		mat_drop = 30
+	new /obj/item/stack/sheet/wood(drop_location(), mat_drop)
+	..()
+
 /obj/structure/fermenting_barrel/update_icon()
 	if(open)
 		icon_state = "barrel_open"
@@ -73,7 +93,7 @@
 
 /datum/crafting_recipe/fermenting_barrel
 	name = "Wooden Barrel"
-	result = /obj/structure/fermenting_barrel
+	result = list(/obj/structure/fermenting_barrel)
 	reqs = list(/obj/item/stack/sheet/wood = 30)
 	time = 50
 	category = CAT_PRIMAL

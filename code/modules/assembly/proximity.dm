@@ -13,6 +13,10 @@
 	var/timing = 0
 	var/time = 10
 
+/obj/item/assembly/prox_sensor/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/proximity_monitor)
+
 /obj/item/assembly/prox_sensor/describe()
 	if(timing)
 		return "<span class='notice'>The proximity sensor is arming.</span>"
@@ -93,7 +97,7 @@
 
 /obj/item/assembly/prox_sensor/interact(mob/user)//TODO: Change this to the wires thingy
 	if(!secured)
-		user.show_message("<span class='warning'>The [name] is unsecured!</span>")
+		user.show_message("<span class='warning'>[src] is unsecured!</span>")
 		return FALSE
 	var/second = time % 60
 	var/minute = (time - second) / 60

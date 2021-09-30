@@ -8,6 +8,7 @@
 	icon_aggro = "Basilisk_alert"
 	icon_dead = "Basilisk_dead"
 	icon_gib = "syndicate_gib"
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	move_to_delay = 20
 	projectiletype = /obj/item/projectile/temp/basilisk
 	projectilesound = 'sound/weapons/pierce.ogg'
@@ -40,7 +41,7 @@
 	damage = 0
 	damage_type = BURN
 	nodamage = TRUE
-	flag = "energy"
+	flag = ENERGY
 	temperature = 50
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/GiveTarget(new_target)

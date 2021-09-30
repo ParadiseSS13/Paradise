@@ -1,9 +1,11 @@
-#define MED_DATA_MAIN	1	// Main menu
 #define MED_DATA_R_LIST	2	// Record list
 #define MED_DATA_MAINT	3	// Records maintenance
 #define MED_DATA_RECORD	4	// Record
 #define MED_DATA_V_DATA	5	// Virus database
 #define MED_DATA_MEDBOT	6	// Medbot monitor
+
+#define FIELD(N, V, E) list(field = N, value = V, edit = E)
+#define MED_FIELD(N, V, E, LB) list(field = N, value = V, edit = E, line_break = LB)
 
 /obj/machinery/computer/med_data //TODO:SANITY
 	name = "medical records console"
@@ -12,16 +14,47 @@
 	icon_screen = "medcomp"
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
 	circuit = /obj/item/circuitboard/med_data
-	var/obj/item/card/id/scan = null
-	var/authenticated = null
-	var/rank = null
 	var/screen = null
 	var/datum/data/record/active1 = null
 	var/datum/data/record/active2 = null
-	var/temp = null
+	var/list/temp = null
 	var/printing = null
+	// The below are used to make modal generation more convenient
+	var/static/list/field_edit_questions
+	var/static/list/field_edit_choices
 
 	light_color = LIGHT_COLOR_DARKBLUE
+
+/obj/machinery/computer/med_data/Initialize()
+	..()
+	field_edit_questions = list(
+		// General
+		"sex" = "Please select new sex:",
+		"age" = "Please input new age:",
+		"fingerprint" = "Please input new fingerprint hash:",
+		"p_stat" = "Please select new physical status:",
+		"m_stat" = "Please select new mental status:",
+		// Medical
+		"blood_type" = "Please select new blood type:",
+		"b_dna" = "Please input new DNA:",
+		"mi_dis" = "Please input new minor disabilities:",
+		"mi_dis_d" = "Please summarize minor disabilities:",
+		"ma_dis" = "Please input new major disabilities:",
+		"ma_dis_d" = "Please summarize major disabilities:",
+		"alg" = "Please input new allergies:",
+		"alg_d" = "Please summarize allergies:",
+		"cdi" = "Please input new current diseases:",
+		"cdi_d" = "Please summarize current diseases:",
+		"notes" = "Please input new important notes:",
+	)
+	field_edit_choices = list(
+		// General
+		"sex" = list("Male", "Female"),
+		"p_stat" = list("*Deceased*", "*SSD*", "Active", "Physically Unfit", "Disabled"),
+		"m_stat" = list("*Insane*", "*Unstable*", "*Watch*", "Stable"),
+		// Medical
+		"blood_type" = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"),
+	)
 
 /obj/machinery/computer/med_data/Destroy()
 	active1 = null
@@ -29,11 +62,7 @@
 	return ..()
 
 /obj/machinery/computer/med_data/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/card/id) && !scan)
-		usr.drop_item()
-		O.forceMove(src)
-		scan = O
-		ui_interact(user)
+	if(ui_login_attackby(O, user))
 		return
 	return ..()
 
@@ -46,19 +75,21 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/computer/med_data/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/med_data/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "med_data.tmpl", name, 800, 380)
+		ui = new(user, src, ui_key, "MedicalRecords", "Medical Records", 800, 380, master_ui, state)
 		ui.open()
+		ui.set_autoupdate(FALSE)
 
-/obj/machinery/computer/med_data/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
+/obj/machinery/computer/med_data/ui_data(mob/user)
+	var/list/data = list()
 	data["temp"] = temp
-	data["scan"] = scan ? scan.name : null
-	data["authenticated"] = authenticated
 	data["screen"] = screen
-	if(authenticated)
+	data["printing"] = printing
+	// This proc appends login state to data.
+	ui_login_data(data, user)
+	if(data["loginState"]["logged_in"])
 		switch(screen)
 			if(MED_DATA_R_LIST)
 				if(!isnull(GLOB.data_core.general))
@@ -72,17 +103,17 @@
 				if(istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1))
 					var/list/fields = list()
 					general["fields"] = fields
-					fields[++fields.len] = list("field" = "Name:", "value" = active1.fields["name"], "edit" = null)
-					fields[++fields.len] = list("field" = "ID:", "value" = active1.fields["id"], "edit" = null)
-					fields[++fields.len] = list("field" = "Sex:", "value" = active1.fields["sex"], "edit" = "sex")
-					fields[++fields.len] = list("field" = "Age:", "value" = active1.fields["age"], "edit" = "age")
-					fields[++fields.len] = list("field" = "Fingerprint:", "value" = active1.fields["fingerprint"], "edit" = "fingerprint")
-					fields[++fields.len] = list("field" = "Physical Status:", "value" = active1.fields["p_stat"], "edit" = "p_stat")
-					fields[++fields.len] = list("field" = "Mental Status:", "value" = active1.fields["m_stat"], "edit" = "m_stat")
+					fields[++fields.len] = FIELD("Name", active1.fields["name"], null)
+					fields[++fields.len] = FIELD("ID", active1.fields["id"], null)
+					fields[++fields.len] = FIELD("Sex", active1.fields["sex"], "sex")
+					fields[++fields.len] = FIELD("Age", active1.fields["age"], "age")
+					fields[++fields.len] = FIELD("Fingerprint", active1.fields["fingerprint"], "fingerprint")
+					fields[++fields.len] = FIELD("Physical Status", active1.fields["p_stat"], "p_stat")
+					fields[++fields.len] = FIELD("Mental Status", active1.fields["m_stat"], "m_stat")
 					var/list/photos = list()
 					general["photos"] = photos
-					photos[++photos.len] = list("photo" = active1.fields["photo-south"])
-					photos[++photos.len] = list("photo" = active1.fields["photo-west"])
+					photos[++photos.len] = active1.fields["photo-south"]
+					photos[++photos.len] = active1.fields["photo-west"]
 					general["has_photos"] = (active1.fields["photo-south"] || active1.fields["photo-west"] ? 1 : 0)
 					general["empty"] = 0
 				else
@@ -93,17 +124,17 @@
 				if(istype(active2, /datum/data/record) && GLOB.data_core.medical.Find(active2))
 					var/list/fields = list()
 					medical["fields"] = fields
-					fields[++fields.len] = list("field" = "Blood Type:", "value" = active2.fields["blood_type"], "edit" = "blood_type", "line_break" = 0)
-					fields[++fields.len] = list("field" = "DNA:", "value" = active2.fields["b_dna"], "edit" = "b_dna", "line_break" = 1)
-					fields[++fields.len] = list("field" = "Minor Disabilities:", "value" = active2.fields["mi_dis"], "edit" = "mi_dis", "line_break" = 0)
-					fields[++fields.len] = list("field" = "Details:", "value" = active2.fields["mi_dis_d"], "edit" = "mi_dis_d", "line_break" = 1)
-					fields[++fields.len] = list("field" = "Major Disabilities:", "value" = active2.fields["ma_dis"], "edit" = "ma_dis", "line_break" = 0)
-					fields[++fields.len] = list("field" = "Details:", "value" = active2.fields["ma_dis_d"], "edit" = "ma_dis_d", "line_break" = 1)
-					fields[++fields.len] = list("field" = "Allergies:", "value" = active2.fields["alg"], "edit" = "alg", "line_break" = 0)
-					fields[++fields.len] = list("field" = "Details:", "value" = active2.fields["alg_d"], "edit" = "alg_d", "line_break" = 1)
-					fields[++fields.len] = list("field" = "Current Diseases:", "value" = active2.fields["cdi"], "edit" = "cdi", "line_break" = 0)
-					fields[++fields.len] = list("field" = "Details:", "value" = active2.fields["cdi_d"], "edit" = "cdi_d", "line_break" = 1)
-					fields[++fields.len] = list("field" = "Important Notes:", "value" = active2.fields["notes"], "edit" = "notes", "line_break" = 0)
+					fields[++fields.len] = MED_FIELD("Blood Type", active2.fields["blood_type"], "blood_type", FALSE)
+					fields[++fields.len] = MED_FIELD("DNA", active2.fields["b_dna"], "b_dna", TRUE)
+					fields[++fields.len] = MED_FIELD("Minor Disabilities", active2.fields["mi_dis"], "mi_dis", FALSE)
+					fields[++fields.len] = MED_FIELD("Details", active2.fields["mi_dis_d"], "mi_dis_d", TRUE)
+					fields[++fields.len] = MED_FIELD("Major Disabilities", active2.fields["ma_dis"], "ma_dis", FALSE)
+					fields[++fields.len] = MED_FIELD("Details", active2.fields["ma_dis_d"], "ma_dis_d", TRUE)
+					fields[++fields.len] = MED_FIELD("Allergies", active2.fields["alg"], "alg", FALSE)
+					fields[++fields.len] = MED_FIELD("Details", active2.fields["alg_d"], "alg_d", TRUE)
+					fields[++fields.len] = MED_FIELD("Current Diseases", active2.fields["cdi"], "cdi", FALSE)
+					fields[++fields.len] = MED_FIELD("Details", active2.fields["cdi_d"], "cdi_d", TRUE)
+					fields[++fields.len] = MED_FIELD("Important Notes", active2.fields["notes"], "notes", TRUE)
 					if(!active2.fields["comments"] || !islist(active2.fields["comments"]))
 						active2.fields["comments"] = list()
 					medical["comments"] = active2.fields["comments"]
@@ -127,7 +158,9 @@
 					var/turf/T = get_turf(M)
 					if(T)
 						var/medbot = list()
+						var/area/A = get_area(T)
 						medbot["name"] = M.name
+						medbot["area"] = A.name
 						medbot["x"] = T.x
 						medbot["y"] = T.y
 						medbot["on"] = M.on
@@ -138,395 +171,254 @@
 						else
 							medbot["use_beaker"] = 0
 						data["medbots"] += list(medbot)
+
+	data["modal"] = ui_modal_data(src)
 	return data
 
-/obj/machinery/computer/med_data/Topic(href, href_list)
+/obj/machinery/computer/med_data/ui_act(action, params)
 	if(..())
-		return 1
+		return
+	if(stat & (NOPOWER|BROKEN))
+		return
 
 	if(!GLOB.data_core.general.Find(active1))
 		active1 = null
 	if(!GLOB.data_core.medical.Find(active2))
 		active2 = null
 
-	if(href_list["temp"])
-		temp = null
+	. = TRUE
+	if(ui_act_modal(action, params))
+		return
+	if(ui_login_act(action, params))
+		return
 
-	if(href_list["temp_action"])
-		if(href_list["temp_action"])
-			var/temp_href = splittext(href_list["temp_action"], "=")
-			switch(temp_href[1])
-				if("del_all2")
-					for(var/datum/data/record/R in GLOB.data_core.medical)
-						qdel(R)
-					setTemp("<h3>All records deleted.</h3>")
-				if("p_stat")
-					if(active1)
-						switch(temp_href[2])
-							if("deceased")
-								active1.fields["p_stat"] = "*Deceased*"
-							if("ssd")
-								active1.fields["p_stat"] = "*SSD*"
-							if("active")
-								active1.fields["p_stat"] = "Active"
-							if("unfit")
-								active1.fields["p_stat"] = "Physically Unfit"
-							if("disabled")
-								active1.fields["p_stat"] = "Disabled"
-				if("m_stat")
-					if(active1)
-						switch(temp_href[2])
-							if("insane")
-								active1.fields["m_stat"] = "*Insane*"
-							if("unstable")
-								active1.fields["m_stat"] = "*Unstable*"
-							if("watch")
-								active1.fields["m_stat"] = "*Watch*"
-							if("stable")
-								active1.fields["m_stat"] = "Stable"
-				if("blood_type")
-					if(active2)
-						switch(temp_href[2])
-							if("an")
-								active2.fields["blood_type"] = "A-"
-							if("bn")
-								active2.fields["blood_type"] = "B-"
-							if("abn")
-								active2.fields["blood_type"] = "AB-"
-							if("on")
-								active2.fields["blood_type"] = "O-"
-							if("ap")
-								active2.fields["blood_type"] = "A+"
-							if("bp")
-								active2.fields["blood_type"] = "B+"
-							if("abp")
-								active2.fields["blood_type"] = "AB+"
-							if("op")
-								active2.fields["blood_type"] = "O+"
-				if("del_r2")
-					QDEL_NULL(active2)
-
-	if(href_list["scan"])
-		if(scan)
-			scan.forceMove(loc)
-			if(ishuman(usr) && !usr.get_active_hand())
-				usr.put_in_hands(scan)
-			scan = null
+	switch(action)
+		if("cleartemp")
+			temp = null
 		else
-			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/card/id))
-				usr.drop_item()
-				I.forceMove(src)
-				scan = I
+			. = FALSE
 
-	if(href_list["login"])
-		if(isAI(usr))
-			authenticated = usr.name
-			rank = "AI"
-		else if(isrobot(usr))
-			authenticated = usr.name
-			var/mob/living/silicon/robot/R = usr
-			rank = "[R.modtype] [R.braintype]"
-		else if(istype(scan, /obj/item/card/id))
-			if(check_access(scan))
-				authenticated = scan.registered_name
-				rank = scan.assignment
+	if(.)
+		return
 
-		if(authenticated)
-			active1 = null
-			active2 = null
-			screen = MED_DATA_MAIN
+	if(ui_login_get().logged_in)
+		. = TRUE
+		switch(action)
+			if("screen")
+				screen = clamp(text2num(params["screen"]) || 0, MED_DATA_R_LIST, MED_DATA_MEDBOT)
+				active1 = null
+				active2 = null
+			if("vir")
+				var/type = text2path(params["vir"] || "")
+				if(!ispath(type, /datum/disease))
+					return
 
-	if(authenticated)
-		if(href_list["logout"])
-			authenticated = null
-			screen = null
-			active1 = null
-			active2 = null
+				var/datum/disease/D = new type(0)
+				var/list/payload = list(
+					name = D.name,
+					max_stages = D.max_stages,
+					spread_text = D.spread_text,
+					cure = D.cure_text || "None",
+					desc = D.desc,
+					severity = D.severity
+				)
+				ui_modal_message(src, "virus", "", null, payload)
+				qdel(D)
+			if("del_all")
+				for(var/datum/data/record/R in GLOB.data_core.medical)
+					qdel(R)
+				set_temp("All medical records deleted.")
+			if("del_r")
+				if(active2)
+					set_temp("Medical record deleted.")
+					qdel(active2)
+			if("d_rec")
+				var/datum/data/record/general_record = locate(params["d_rec"] || "")
+				if(!GLOB.data_core.general.Find(general_record))
+					set_temp("Record not found.", "danger")
+					return
 
-		if(href_list["screen"])
-			screen = text2num(href_list["screen"])
-			if(screen < 1)
-				screen = MED_DATA_MAIN
+				var/datum/data/record/medical_record
+				for(var/datum/data/record/M in GLOB.data_core.medical)
+					if(M.fields["name"] == general_record.fields["name"] && M.fields["id"] == general_record.fields["id"])
+						medical_record = M
+						break
 
-			active1 = null
-			active2 = null
-
-		if(href_list["vir"])
-			var/type = href_list["vir"]
-			var/datum/disease/D = new type(0)
-			var/afs = ""
-			for(var/mob/M in D.viable_mobtypes)
-				afs += "[initial(M.name)];"
-			var/severity = D.severity
-			switch(severity)
-				if("Harmful", "Minor")
-					severity = "<span class='good'>[severity]</span>"
-				if("Medium")
-					severity = "<span class='average'>[severity]</span>"
-				if("Dangerous!")
-					severity = "<span class='bad'>[severity]</span>"
-				if("BIOHAZARD THREAT!")
-					severity = "<h4><span class='bad'>[severity]</span></h4>"
-			setTemp({"<b>Name:</b> [D.name]
-					<BR><b>Number of stages:</b> [D.max_stages]
-					<BR><b>Spread:</b> [D.spread_text] Transmission
-					<BR><b>Possible Cure:</b> [(D.cure_text||"none")]
-					<BR><b>Affected Lifeforms:</b>[afs]<BR>
-					<BR><b>Notes:</b> [D.desc]<BR>
-					<BR><b>Severity:</b> [severity]"})
-			qdel(D)
-
-		if(href_list["del_all"])
-			var/list/buttons = list()
-			buttons[++buttons.len] = list("name" = "Yes", "icon" = "check", "href" = "del_all2=1")
-			buttons[++buttons.len] = list("name" = "No", "icon" = "times", "href" = null)
-			setTemp("<h3>Are you sure you wish to delete all records?</h3>", buttons)
-
-		if(href_list["field"])
-			if(..())
-				return 1
-			var/a1 = active1
-			var/a2 = active2
-			switch(href_list["field"])
-				if("fingerprint")
-					if(istype(active1, /datum/data/record))
-						var/t1 = copytext(trim(sanitize(input("Please input fingerprint hash:", "Med. records", active1.fields["fingerprint"], null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || ..() || active1 != a1)
-							return 1
-						active1.fields["fingerprint"] = t1
-				if("sex")
-					if(istype(active1, /datum/data/record))
-						if(active1.fields["sex"] == "Male")
-							active1.fields["sex"] = "Female"
-						else
-							active1.fields["sex"] = "Male"
-				if("age")
-					if(istype(active1, /datum/data/record))
-						var/t1 = input("Please input age:", "Med. records", active1.fields["age"], null) as num
-						if(!t1 || ..() || active1 != a1)
-							return 1
-						active1.fields["age"] = t1
-				if("mi_dis")
-					if(istype(active2, /datum/data/record))
-						var/t1 = copytext(trim(sanitize(input("Please input minor disabilities list:", "Med. records", active2.fields["mi_dis"], null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || ..() || active2 != a2)
-							return 1
-						active2.fields["mi_dis"] = t1
-				if("mi_dis_d")
-					if(istype(active2, /datum/data/record))
-						var/t1 = copytext(trim(sanitize(input("Please summarize minor dis.:", "Med. records", active2.fields["mi_dis_d"], null) as message)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || ..() || active2 != a2)
-							return 1
-						active2.fields["mi_dis_d"] = t1
-				if("ma_dis")
-					if(istype(active2, /datum/data/record))
-						var/t1 = copytext(trim(sanitize(input("Please input major diabilities list:", "Med. records", active2.fields["ma_dis"], null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || ..() || active2 != a2)
-							return 1
-						active2.fields["ma_dis"] = t1
-				if("ma_dis_d")
-					if(istype(active2, /datum/data/record))
-						var/t1 = copytext(trim(sanitize(input("Please summarize major dis.:", "Med. records", active2.fields["ma_dis_d"], null) as message)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || ..() || active2 != a2)
-							return 1
-						active2.fields["ma_dis_d"] = t1
-				if("alg")
-					if(istype(active2, /datum/data/record))
-						var/t1 = copytext(trim(sanitize(input("Please state allergies:", "Med. records", active2.fields["alg"], null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || ..() || active2 != a2)
-							return 1
-						active2.fields["alg"] = t1
-				if("alg_d")
-					if(istype(active2, /datum/data/record))
-						var/t1 = copytext(trim(sanitize(input("Please summarize allergies:", "Med. records", active2.fields["alg_d"], null) as message)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || ..() || active2 != a2)
-							return 1
-						active2.fields["alg_d"] = t1
-				if("cdi")
-					if(istype(active2, /datum/data/record))
-						var/t1 = copytext(trim(sanitize(input("Please state diseases:", "Med. records", active2.fields["cdi"], null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || ..() || active2 != a2)
-							return 1
-						active2.fields["cdi"] = t1
-				if("cdi_d")
-					if(istype(active2, /datum/data/record))
-						var/t1 = copytext(trim(sanitize(input("Please summarize diseases:", "Med. records", active2.fields["cdi_d"], null) as message)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || ..() || active2 != a2)
-							return 1
-						active2.fields["cdi_d"] = t1
-				if("notes")
-					if(istype(active2, /datum/data/record))
-						var/t1 = copytext(html_encode(trim(input("Please summarize notes:", "Med. records", html_decode(active2.fields["notes"]), null) as message)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || ..() || active2 != a2)
-							return 1
-						active2.fields["notes"] = t1
-				if("p_stat")
-					if(istype(active1, /datum/data/record))
-						var/list/buttons = list()
-						buttons[++buttons.len] = list("name" = "*Deceased*", "icon" = "stethoscope", "href" = "p_stat=deceased", "status" = (active1.fields["p_stat"] == "*Deceased*" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "*SSD*", "icon" = "stethoscope", "href" = "p_stat=ssd", "status" = (active1.fields["p_stat"] == "*SSD*" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "Active", "icon" = "stethoscope", "href" = "p_stat=active", "status" = (active1.fields["p_stat"] == "Active" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "Physically Unfit", "icon" = "stethoscope", "href" = "p_stat=unfit", "status" = (active1.fields["p_stat"] == "Physically Unfit" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "Disabled", "icon" = "stethoscope", "href" = "p_stat=disabled", "status" = (active1.fields["p_stat"] == "Disabled" ? "selected" : null))
-						setTemp("<h3>Physical Condition</h3>", buttons)
-				if("m_stat")
-					if(istype(active1, /datum/data/record))
-						var/list/buttons = list()
-						buttons[++buttons.len] = list("name" = "*Insane*", "icon" = "stethoscope", "href" = "m_stat=insane", "status" = (active1.fields["m_stat"] == "*Insane*" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "*Unstable*", "icon" = "stethoscope", "href" = "m_stat=unstable", "status" = (active1.fields["m_stat"] == "*Unstable*" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "*Watch*", "icon" = "stethoscope", "href" = "m_stat=watch", "status" = (active1.fields["m_stat"] == "*Watch*" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "Stable", "icon" = "stethoscope", "href" = "m_stat=stable", "status" = (active1.fields["m_stat"] == "Stable" ? "selected" : null))
-						setTemp("<h3>Mental Condition</h3>", buttons)
-				if("blood_type")
-					if(istype(active2, /datum/data/record))
-						var/list/buttons = list()
-						buttons[++buttons.len] = list("name" = "A-", "icon" = "tint", "href" = "blood_type=an", "status" = (active2.fields["blood_type"] == "A-" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "A+", "icon" = "tint", "href" = "blood_type=ap", "status" = (active2.fields["blood_type"] == "A+" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "B-", "icon" = "tint", "href" = "blood_type=bn", "status" = (active2.fields["blood_type"] == "B-" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "B+", "icon" = "tint", "href" = "blood_type=bp", "status" = (active2.fields["blood_type"] == "B+" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "AB-", "icon" = "tint", "href" = "blood_type=abn", "status" = (active2.fields["blood_type"] == "AB-" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "AB+", "icon" = "tint", "href" = "blood_type=abp", "status" = (active2.fields["blood_type"] == "AB+" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "O-", "icon" = "tint", "href" = "blood_type=on", "status" = (active2.fields["blood_type"] == "O-" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "O+", "icon" = "tint", "href" = "blood_type=op", "status" = (active2.fields["blood_type"] == "O+" ? "selected" : null))
-						setTemp("<h3>Blood Type</h3>", buttons)
-				if("b_dna")
-					if(istype(active2, /datum/data/record))
-						var/t1 = copytext(trim(sanitize(input("Please input DNA hash:", "Med. records", active2.fields["b_dna"], null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || ..() || active2 != a2)
-							return 1
-						active2.fields["b_dna"] = t1
-				if("vir_name")
-					var/datum/data/record/v = locate(href_list["edit_vir"])
-					if(v)
-						var/t1 = copytext(trim(sanitize(input("Please input pathogen name:", "VirusDB", v.fields["name"], null)  as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || ..() || active1 != a1)
-							return 1
-						v.fields["name"] = t1
-				if("vir_desc")
-					var/datum/data/record/v = locate(href_list["edit_vir"])
-					if(v)
-						var/t1 = copytext(trim(sanitize(input("Please input information about pathogen:", "VirusDB", v.fields["description"], null) as message)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || ..() || active1 != a1)
-							return 1
-						v.fields["description"] = t1
-
-		if(href_list["del_r"])
-			if(active2)
-				var/list/buttons = list()
-				buttons[++buttons.len] = list("name" = "Yes", "icon" = "check", "href" = "del_r2=1", "status" = null)
-				buttons[++buttons.len] = list("name" = "No", "icon" = "times", "href" = null, "status" = null)
-				setTemp("<h3>Are you sure you wish to delete the record (Medical Portion Only)?</h3>", buttons)
-
-		if(href_list["d_rec"])
-			var/datum/data/record/R = locate(href_list["d_rec"])
-			var/datum/data/record/M = locate(href_list["d_rec"])
-			if(!GLOB.data_core.general.Find(R))
-				setTemp("<h3 class='bad'>Record not found!</h3>")
-				return 1
-			for(var/datum/data/record/E in GLOB.data_core.medical)
-				if(E.fields["name"] == R.fields["name"] && E.fields["id"] == R.fields["id"])
-					M = E
-			active1 = R
-			active2 = M
-			screen = MED_DATA_RECORD
-
-		if(href_list["new"])
-			if(istype(active1, /datum/data/record) && !istype(active2, /datum/data/record))
-				var/datum/data/record/R = new /datum/data/record()
-				R.fields["name"] = active1.fields["name"]
-				R.fields["id"] = active1.fields["id"]
-				R.name = "Medical Record #[R.fields["id"]]"
-				R.fields["blood_type"] = "Unknown"
-				R.fields["b_dna"] = "Unknown"
-				R.fields["mi_dis"] = "None"
-				R.fields["mi_dis_d"] = "No minor disabilities have been declared."
-				R.fields["ma_dis"] = "None"
-				R.fields["ma_dis_d"] = "No major disabilities have been diagnosed."
-				R.fields["alg"] = "None"
-				R.fields["alg_d"] = "No allergies have been detected in this patient."
-				R.fields["cdi"] = "None"
-				R.fields["cdi_d"] = "No diseases have been diagnosed at the moment."
-				R.fields["notes"] = "No notes."
-				GLOB.data_core.medical += R
-				active2 = R
+				active1 = general_record
+				active2 = medical_record
 				screen = MED_DATA_RECORD
-
-		if(href_list["add_c"])
-			if(!istype(active2, /datum/data/record))
-				return 1
-			var/a2 = active2
-			var/t1 = copytext(trim(sanitize(input("Add Comment:", "Med. records", null, null) as message)), 1, MAX_MESSAGE_LEN)
-			if(!t1 || ..() || active2 != a2)
-				return 1
-			active2.fields["comments"] += "Made by [authenticated] ([rank]) on [GLOB.current_date_string] [station_time_timestamp()]<BR>[t1]"
-
-		if(href_list["del_c"])
-			var/index = min(max(text2num(href_list["del_c"]) + 1, 1), length(active2.fields["comments"]))
-			if(istype(active2, /datum/data/record) && active2.fields["comments"][index])
-				active2.fields["comments"] -= active2.fields["comments"][index]
-
-		if(href_list["search"])
-			var/t1 = clean_input("Search String: (Name, DNA, or ID)", "Med. records", null, null)
-			if(!t1 || ..())
-				return 1
-			active1 = null
-			active2 = null
-			t1 = lowertext(t1)
-			for(var/datum/data/record/R in GLOB.data_core.medical)
-				if(t1 == lowertext(R.fields["name"]) || t1 == lowertext(R.fields["id"]) || t1 == lowertext(R.fields["b_dna"]))
+			if("new")
+				if(istype(active1, /datum/data/record) && !istype(active2, /datum/data/record))
+					var/datum/data/record/R = new /datum/data/record()
+					R.fields["name"] = active1.fields["name"]
+					R.fields["id"] = active1.fields["id"]
+					R.name = "Medical Record #[R.fields["id"]]"
+					R.fields["blood_type"] = "Unknown"
+					R.fields["b_dna"] = "Unknown"
+					R.fields["mi_dis"] = "None"
+					R.fields["mi_dis_d"] = "No minor disabilities have been declared."
+					R.fields["ma_dis"] = "None"
+					R.fields["ma_dis_d"] = "No major disabilities have been diagnosed."
+					R.fields["alg"] = "None"
+					R.fields["alg_d"] = "No allergies have been detected in this patient."
+					R.fields["cdi"] = "None"
+					R.fields["cdi_d"] = "No diseases have been diagnosed at the moment."
+					R.fields["notes"] = "No notes."
+					GLOB.data_core.medical += R
 					active2 = R
-			if(!active2)
-				setTemp("<h3 class='bad'>Could not locate record [t1].</h3>")
-			else
+					screen = MED_DATA_RECORD
+					set_temp("Medical record created.", "success")
+			if("del_c")
+				var/index = text2num(params["del_c"] || "")
+				if(!index || !istype(active2, /datum/data/record))
+					return
+
+				var/list/comments = active2.fields["comments"]
+				index = clamp(index, 1, length(comments))
+				if(comments[index])
+					comments.Cut(index, index + 1)
+			if("search")
+				active1 = null
+				active2 = null
+				var/t1 = lowertext(params["t1"] || "")
+				if(!length(t1))
+					return
+
+				for(var/datum/data/record/R in GLOB.data_core.medical)
+					if(t1 == lowertext(R.fields["name"]) || t1 == lowertext(R.fields["id"]) || t1 == lowertext(R.fields["b_dna"]))
+						active2 = R
+						break
+				if(!active2)
+					set_temp("Medical record not found. You must enter the person's exact name, ID or DNA.", "danger")
+					return
 				for(var/datum/data/record/E in GLOB.data_core.general)
 					if(E.fields["name"] == active2.fields["name"] && E.fields["id"] == active2.fields["id"])
 						active1 = E
+						break
 				screen = MED_DATA_RECORD
+			if("print_p")
+				if(!printing)
+					printing = TRUE
+					playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+					SStgui.update_uis(src)
+					addtimer(CALLBACK(src, .proc/print_finish), 5 SECONDS)
+			else
+				return FALSE
 
-		if(href_list["print_p"])
-			if(!printing)
-				printing = 1
-				playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-				sleep(50)
-				var/obj/item/paper/P = new /obj/item/paper(loc)
-				P.info = "<CENTER><B>Medical Record</B></CENTER><BR>"
-				if(istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1))
-					P.info += {"Name: [active1.fields["name"]] ID: [active1.fields["id"]]
-					<BR>\nSex: [active1.fields["sex"]]
-					<BR>\nAge: [active1.fields["age"]]
-					<BR>\nFingerprint: [active1.fields["fingerprint"]]
-					<BR>\nPhysical Status: [active1.fields["p_stat"]]
-					<BR>\nMental Status: [active1.fields["m_stat"]]<BR>"}
+/**
+  * Called in ui_act() to process modal actions
+  *
+  * Arguments:
+  * * action - The action passed by tgui
+  * * params - The params passed by tgui
+  */
+/obj/machinery/computer/med_data/proc/ui_act_modal(action, params)
+	. = TRUE
+	var/id = params["id"] // The modal's ID
+	var/list/arguments = istext(params["arguments"]) ? json_decode(params["arguments"]) : params["arguments"]
+	switch(ui_modal_act(src, action, params))
+		if(UI_MODAL_OPEN)
+			switch(id)
+				if("edit")
+					var/field = arguments["field"]
+					if(!length(field) || !field_edit_questions[field])
+						return
+					var/question = field_edit_questions[field]
+					var/choices = field_edit_choices[field]
+					if(length(choices))
+						ui_modal_choice(src, id, question, arguments = arguments, value = arguments["value"], choices = choices)
+					else
+						ui_modal_input(src, id, question, arguments = arguments, value = arguments["value"])
+				if("add_c")
+					ui_modal_input(src, id, "Please enter your message:")
 				else
-					P.info += "<B>General Record Lost!</B><BR>"
-				if(istype(active2, /datum/data/record) && GLOB.data_core.medical.Find(active2))
-					P.info += {"<BR>\n<CENTER><B>Medical Data</B></CENTER>
-					<BR>\nBlood Type: [active2.fields["blood_type"]]
-					<BR>\nDNA: [active2.fields["b_dna"]]<BR>\n
-					<BR>\nMinor Disabilities: [active2.fields["mi_dis"]]
-					<BR>\nDetails: [active2.fields["mi_dis_d"]]<BR>\n
-					<BR>\nMajor Disabilities: [active2.fields["ma_dis"]]
-					<BR>\nDetails: [active2.fields["ma_dis_d"]]<BR>\n
-					<BR>\nAllergies: [active2.fields["alg"]]
-					<BR>\nDetails: [active2.fields["alg_d"]]<BR>\n
-					<BR>\nCurrent Diseases: [active2.fields["cdi"]] (per disease info placed in log/comment section)
-					<BR>\nDetails: [active2.fields["cdi_d"]]<BR>\n
-					<BR>\nImportant Notes:
-					<BR>\n\t[active2.fields["notes"]]<BR>\n
-					<BR>\n
-					<CENTER><B>Comments/Log</B></CENTER><BR>"}
-					for(var/c in active2.fields["comments"])
-						P.info += "[c]<BR>"
-				else
-					P.info += "<B>Medical Record Lost!</B><BR>"
-				P.info += "</TT>"
-				P.name = "paper- 'Medical Record: [active1.fields["name"]]'"
-				printing = 0
-	return 1
+					return FALSE
+		if(UI_MODAL_ANSWER)
+			var/answer = params["answer"]
+			switch(id)
+				if("edit")
+					var/field = arguments["field"]
+					if(!length(field) || !field_edit_questions[field])
+						return
+					var/list/choices = field_edit_choices[field]
+					if(length(choices) && !(answer in choices))
+						return
 
-/obj/machinery/computer/med_data/proc/setTemp(text, list/buttons = list())
-	temp = list("text" = text, "buttons" = buttons, "has_buttons" = buttons.len > 0)
+					if(field == "age")
+						var/new_age = text2num(answer)
+						if(new_age < AGE_MIN || new_age > AGE_MAX)
+							set_temp("Invalid age. It must be between [AGE_MIN] and [AGE_MAX].", "danger")
+							return
+						answer = new_age
+
+					if(istype(active2) && (field in active2.fields))
+						active2.fields[field] = answer
+					else if(istype(active1) && (field in active1.fields))
+						active1.fields[field] = answer
+				if("add_c")
+					var/datum/ui_login/state = ui_login_get()
+					if(!length(answer) || !istype(active2) || !length(state.name))
+						return
+					active2.fields["comments"] += list(list(
+						header = "Made by [state.name] ([state.name]) on [GLOB.current_date_string] [station_time_timestamp()]",
+						text = answer
+					))
+				else
+					return FALSE
+		else
+			return FALSE
+
+/**
+  * Called when the print timer finishes
+  */
+/obj/machinery/computer/med_data/proc/print_finish()
+	var/obj/item/paper/P = new /obj/item/paper(loc)
+	P.info = "<center></b>Medical Record</b></center><br>"
+	if(istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1))
+		P.info += {"Name: [active1.fields["name"]] ID: [active1.fields["id"]]
+		<br>\nSex: [active1.fields["sex"]]
+		<br>\nAge: [active1.fields["age"]]
+		<br>\nFingerprint: [active1.fields["fingerprint"]]
+		<br>\nPhysical Status: [active1.fields["p_stat"]]
+		<br>\nMental Status: [active1.fields["m_stat"]]<br>"}
+	else
+		P.info += "</b>General Record Lost!</b><br>"
+	if(istype(active2, /datum/data/record) && GLOB.data_core.medical.Find(active2))
+		P.info += {"<br>\n<center></b>Medical Data</b></center>
+		<br>\nBlood Type: [active2.fields["blood_type"]]
+		<br>\nDNA: [active2.fields["b_dna"]]<br>\n
+		<br>\nMinor Disabilities: [active2.fields["mi_dis"]]
+		<br>\nDetails: [active2.fields["mi_dis_d"]]<br>\n
+		<br>\nMajor Disabilities: [active2.fields["ma_dis"]]
+		<br>\nDetails: [active2.fields["ma_dis_d"]]<br>\n
+		<br>\nAllergies: [active2.fields["alg"]]
+		<br>\nDetails: [active2.fields["alg_d"]]<br>\n
+		<br>\nCurrent Diseases: [active2.fields["cdi"]] (per disease info placed in log/comment section)
+		<br>\nDetails: [active2.fields["cdi_d"]]<br>\n
+		<br>\nImportant Notes:
+		<br>\n\t[active2.fields["notes"]]<br>\n
+		<br>\n
+		<center></b>Comments/Log</b></center><br>"}
+		for(var/c in active2.fields["comments"])
+			P.info += "[c]<br>"
+	else
+		P.info += "</b>Medical Record Lost!</b><br>"
+	P.info += "</tt>"
+	P.name = "paper - 'Medical Record: [active1.fields["name"]]'"
+	printing = FALSE
+	SStgui.update_uis(src)
+
+/**
+  * Sets a temporary message to display to the user
+  *
+  * Arguments:
+  * * text - Text to display, null/empty to clear the message from the UI
+  * * style - The style of the message: (color name), info, success, warning, danger, virus
+  */
+/obj/machinery/computer/med_data/proc/set_temp(text = "", style = "info", update_now = FALSE)
+	temp = list(text = text, style = style)
+	if(update_now)
+		SStgui.update_uis(src)
 
 /obj/machinery/computer/med_data/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -555,6 +447,10 @@
 
 	..(severity)
 
+/obj/machinery/computer/med_data/ui_login_on_login(datum/ui_login/state)
+	active1 = null
+	active2 = null
+	screen = MED_DATA_R_LIST
 
 /obj/machinery/computer/med_data/laptop
 	name = "medical laptop"
@@ -564,9 +460,10 @@
 	icon_screen = "medlaptop"
 	density = 0
 
-#undef MED_DATA_MAIN
 #undef MED_DATA_R_LIST
 #undef MED_DATA_MAINT
 #undef MED_DATA_RECORD
 #undef MED_DATA_V_DATA
 #undef MED_DATA_MEDBOT
+#undef FIELD
+#undef MED_FIELD

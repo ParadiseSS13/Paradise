@@ -45,10 +45,7 @@
 	..()
 	impacted_z_levels = z_levels
 
-/datum/weather/proc/telegraph()
-	if(stage == STARTUP_STAGE)
-		return
-	stage = STARTUP_STAGE
+/datum/weather/proc/generate_area_list()
 	var/list/affectareas = list()
 	for(var/V in get_areas(area_type))
 		affectareas += V
@@ -58,6 +55,12 @@
 		var/area/A = V
 		if(A.z in impacted_z_levels)
 			impacted_areas |= A
+
+/datum/weather/proc/telegraph()
+	if(stage == STARTUP_STAGE)
+		return
+	stage = STARTUP_STAGE
+	generate_area_list()
 	weather_duration = rand(weather_duration_lower, weather_duration_upper)
 	START_PROCESSING(SSweather, src)
 	update_areas()

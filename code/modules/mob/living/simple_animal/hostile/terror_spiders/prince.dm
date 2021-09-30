@@ -26,9 +26,11 @@
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	idle_ventcrawl_chance = 0
 	spider_tier = TS_TIER_3
+	loudspeaker = TRUE
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/purple
 	ai_spins_webs = FALSE
+	gender = MALE
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/death(gibbed)
 	if(can_die() && !hasdied && spider_uo71)

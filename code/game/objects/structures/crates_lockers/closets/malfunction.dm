@@ -5,8 +5,7 @@
 	icon_closed = "syndicate"
 	icon_opened = "syndicateopen"
 
-/obj/structure/closet/malf/suits/New()
-	..()
+/obj/structure/closet/malf/suits/populate_contents()
 	new /obj/item/tank/jetpack/void(src)
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/effect/nasavoidsuitspawner(src)

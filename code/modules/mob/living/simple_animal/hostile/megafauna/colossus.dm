@@ -122,8 +122,8 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/L)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		if(H.martial_art && prob(H.martial_art.deflection_chance))
-			. = TRUE
+		if(H.mind && H.mind.martial_art && prob(H.mind.martial_art.deflection_chance))
+			return TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
 	ranged_cooldown = world.time + 40
@@ -189,7 +189,7 @@ Difficulty: Very Hard
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	newtonian_move(get_dir(target_turf, src))
-	var/angle_to_target = Get_Angle(src, target_turf)
+	var/angle_to_target = get_angle(src, target_turf)
 	if(isnum(set_angle))
 		angle_to_target = set_angle
 	var/static/list/colossus_shotgun_shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)
@@ -205,10 +205,9 @@ Difficulty: Very Hard
 		shoot_projectile(E)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/telegraph()
-	for(var/mob/M in range(10,src))
-		if(M.client)
-			flash_color(M.client, "#C80000", 1)
-			shake_camera(M, 4, 3)
+	for(var/mob/M in range(10, src))
+		M.flash_screen_color("#C80000", 1)
+		shake_camera(M, 4, 3)
 	playsound(src, 'sound/magic/narsie_attack.ogg', 200, TRUE)
 
 
@@ -240,6 +239,14 @@ Difficulty: Very Hard
 		var/random_y = rand(0, 72)
 		AT.pixel_y += random_y
 	return ..()
+
+/mob/living/simple_animal/hostile/megafauna/colossus/float(on) //we don't want this guy to float, messes up his animations
+	if(throwing)
+		return
+	if(on && !floating)
+		floating = TRUE
+	else if(!on && floating)
+		floating = FALSE
 
 /obj/item/projectile/colossus
 	name ="death bolt"

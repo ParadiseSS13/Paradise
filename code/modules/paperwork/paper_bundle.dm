@@ -16,10 +16,12 @@
 	var/screen = 0
 
 /obj/item/paper_bundle/New(default_papers = TRUE)
+	. = ..()
 	if(default_papers) // This is to avoid runtime occuring from a paper bundle being created without a paper in it.
 		new /obj/item/paper(src)
 		new /obj/item/paper(src)
 		amount += 1
+		
 /obj/item/paper_bundle/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	var/obj/item/paper/P
@@ -166,7 +168,7 @@
 		if(href_list["remove"])
 			var/obj/item/W = src[page]
 			usr.put_in_hands(W)
-			to_chat(usr, "<span class='notice'>You remove the [W.name] from the bundle.</span>")
+			to_chat(usr, "<span class='notice'>You remove [W] from the bundle.</span>")
 			if(amount == 1)
 				var/obj/item/paper/P = src[1]
 				usr.unEquip(src)

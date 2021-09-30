@@ -69,9 +69,9 @@
 
 	if(!can_use())
 		return
-	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
-	M.notify_silent = !M.notify_silent
-	to_chat(usr, "<span class='notice'>PDA ringer toggled [(M.notify_silent ? "Off" : "On")]!</span>")
+
+	silent = !silent
+	to_chat(usr, "<span class='notice'>PDA ringer toggled [(silent ? "Off" : "On")]!</span>")
 
 /obj/item/pda/silicon/attack_self(mob/user as mob)
 	if((honkamt > 0) && (prob(60)))//For clown virus.
@@ -97,8 +97,8 @@
 /obj/item/pda/silicon/pai/can_use()
 	var/mob/living/silicon/pai/pAI = usr
 	if(!istype(pAI))
-		return 0
-	if(!pAI.software["messenger"])
+		return FALSE
+	if(!pAI.installed_software["messenger"])
 		to_chat(usr, "<span class='warning'>You have not purchased the digital messenger!</span>")
-		return 0
+		return FALSE
 	return ..() && !pAI.silence_time

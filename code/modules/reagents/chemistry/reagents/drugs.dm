@@ -143,7 +143,7 @@
 		else if(effect <= 7)
 			M.emote("collapse")
 			to_chat(M, "<span class='warning'>Your heart is pounding!</span>")
-			M << 'sound/effects/singlebeat.ogg'
+			SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
 			update_flags |= M.Paralyse(5, FALSE)
 			M.Jitter(30)
 			update_flags |= M.adjustToxLoss(6, FALSE)
@@ -290,7 +290,7 @@
 				H.visible_message("<span class='warning'>[M]'s skin is rotting away!</span>")
 				update_flags |= H.adjustBruteLoss(25, FALSE)
 				H.emote("scream")
-				H.ChangeToHusk()
+				H.become_husk("krokodil_overdose")
 				H.emote("faint")
 		else if(effect <= 7)
 			M.emote("shiver")
@@ -322,13 +322,13 @@
 	update_flags |= M.AdjustWeakened(-2.5, FALSE)
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
 	update_flags |= M.SetSleeping(0, FALSE)
-	M.status_flags |= GOTTAGOFAST
+	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	if(prob(50))
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/methamphetamine/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	..()
 
 /datum/reagent/methamphetamine/overdose_process(mob/living/M, severity)
@@ -407,9 +407,9 @@
 /datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
 		to_chat(M, "<span class = 'danger'><font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>You feel FUCKED UP!!!!!!</font></span>")
-		M << 'sound/effects/singlebeat.ogg'
+		SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
 		M.emote("faint")
-		M.apply_effect(5, IRRADIATE, negate_armor = 1)
+		M.apply_effect(5, IRRADIATE)
 		M.adjustToxLoss(5)
 		M.adjustBrainLoss(10)
 	else
@@ -568,21 +568,21 @@
 /datum/reagent/fliptonium/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(current_cycle == 5)
-		M.SpinAnimation(speed = 11, loops = -1)
+		M.SpinAnimation(speed = 11, loops = -1, parallel = FALSE)
 	if(current_cycle == 10)
-		M.SpinAnimation(speed = 10, loops = -1)
+		M.SpinAnimation(speed = 10, loops = -1, parallel = FALSE)
 	if(current_cycle == 15)
-		M.SpinAnimation(speed = 9, loops = -1)
+		M.SpinAnimation(speed = 9, loops = -1, parallel = FALSE)
 	if(current_cycle == 20)
-		M.SpinAnimation(speed = 8, loops = -1)
+		M.SpinAnimation(speed = 8, loops = -1, parallel = FALSE)
 	if(current_cycle == 25)
-		M.SpinAnimation(speed = 7, loops = -1)
+		M.SpinAnimation(speed = 7, loops = -1, parallel = FALSE)
 	if(current_cycle == 30)
-		M.SpinAnimation(speed = 6, loops = -1)
+		M.SpinAnimation(speed = 6, loops = -1, parallel = FALSE)
 	if(current_cycle == 40)
-		M.SpinAnimation(speed = 5, loops = -1)
+		M.SpinAnimation(speed = 5, loops = -1, parallel = FALSE)
 	if(current_cycle == 50)
-		M.SpinAnimation(speed = 4, loops = -1)
+		M.SpinAnimation(speed = 4, loops = -1, parallel = FALSE)
 
 	M.AdjustDrowsy(-6)
 	update_flags |= M.AdjustParalysis(-1.5, FALSE)
@@ -594,11 +594,11 @@
 
 /datum/reagent/fliptonium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST || method == REAGENT_TOUCH)
-		M.SpinAnimation(speed = 12, loops = -1)
+		M.SpinAnimation(speed = 12, loops = -1, parallel = FALSE)
 	..()
 
 /datum/reagent/fliptonium/on_mob_delete(mob/living/M)
-	M.SpinAnimation(speed = 12, loops = -1)
+	M.SpinAnimation(speed = 12, loops = -1, parallel = FALSE)
 
 /datum/reagent/fliptonium/overdose_process(mob/living/M, severity)
 	var/list/overdose_info = ..()
@@ -640,18 +640,18 @@
 /datum/reagent/rotatium/on_mob_life(mob/living/carbon/M)
 	if(M.hud_used)
 		if(current_cycle >= 20 && current_cycle % 20 == 0)
-			var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
+			var/atom/movable/plane_master_controller/pm_controller = M.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 			var/rotation = min(round(current_cycle / 20), 89) // By this point the player is probably puking and quitting anyway
-			for(var/whole_screen in screens)
-				animate(whole_screen, transform = matrix(rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING, loop = -1)
+			for(var/key in pm_controller.controlled_planes)
+				animate(pm_controller.controlled_planes[key], transform = matrix(rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING, loop = -1)
 				animate(transform = matrix(-rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING)
 	return ..()
 
 /datum/reagent/rotatium/on_mob_delete(mob/living/M)
-	if(M && M.hud_used)
-		var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
-		for(var/whole_screen in screens)
-			animate(whole_screen, transform = matrix(), time = 5, easing = QUAD_EASING)
+	if(M?.hud_used)
+		var/atom/movable/plane_master_controller/pm_controller = M.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+		for(var/key in pm_controller.controlled_planes)
+			animate(pm_controller.controlled_planes[key], transform = matrix(), time = 5, easing = QUAD_EASING)
 	..()
 
 //////////////////////////////
@@ -684,7 +684,7 @@
 	update_flags |= M.AdjustStunned(-2, FALSE)
 	update_flags |= M.AdjustWeakened(-2, FALSE)
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
-	M.status_flags |= GOTTAGOFAST
+	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	M.Jitter(3)
 	update_flags |= M.adjustBrainLoss(0.5, FALSE)
 	if(prob(5))
@@ -692,7 +692,7 @@
 	return ..() | update_flags
 
 /datum/reagent/lube/ultra/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	..()
 
 /datum/reagent/lube/ultra/overdose_process(mob/living/M, severity)

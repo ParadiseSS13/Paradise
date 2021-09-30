@@ -9,9 +9,16 @@ SUBSYSTEM_DEF(processing)
 	var/stat_tag = "P" //Used for logging
 	var/list/processing = list()
 	var/list/currentrun = list()
+	offline_implications = "Objects using the default processor will no longer process. Shuttle call recommended."
 
 /datum/controller/subsystem/processing/stat_entry()
 	..("[stat_tag]:[processing.len]")
+
+/datum/controller/subsystem/processing/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["processing"] = length(processing)
+	.["custom"] = cust
 
 /datum/controller/subsystem/processing/fire(resumed = 0)
 	if(!resumed)

@@ -68,14 +68,6 @@
 	tele_proof = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
-/area/awaymission/UO71/mother
-	name = "UO71 Mother Containment"
-	icon_state = "awaycontent10"
-	fire = TRUE
-	requires_power = FALSE
-	tele_proof = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-
 /area/awaymission/UO71/loot
 	name = "UO71 Loot Vault"
 	icon_state = "awaycontent11"
@@ -90,6 +82,7 @@
 	This facility is sealed shut by order of Commander Marquez. Do not enter.<br>
 	Terror spiders live here. We believe they are a weapon developed by the syndicate.<br>
 	Any surviving personnel are to evacuate immediately via the gateway.<br>
+	Any arriving response team is advised to use the ID Upgrade Machine to obtain local access.<br>
 	"}
 
 /obj/item/paper/terrorspiders2
@@ -97,12 +90,9 @@
 	info = {"<b>Status Report on the 'Terrors'</b><br>
 	<br>
 	All the spiders are deadly. We know this much already. Within an hour of their appearance, they have killed several staff.<br>
-	Three, however, bear particular mention, as they appear to be leading the spider hivemind.<br>
+	Two, however, bear particular mention, as they appear to be leading the spider hivemind.<br>
 	<br>
-	The Mother is held in containment 1. Advise leaving her alone.<br>
-	It is likely that the hundreds of tiny spiders swarming over her back would come to her defense if she was threatened.<br>
-	<br>
-	The Prince is held in containment 2. He appears very aggressive, incredibly fast, strong, and durable. Extreme force and agility would be required to neutralize him.<br>
+	The Prince is held in containment. He appears very aggressive, incredibly fast, strong, and durable. Extreme force and agility would be required to neutralize him.<br>
 	It is likely the appearance of the prince was related to our initial aggression against the Queen. These things can THINK.<br>
 	<br>
 	The Queen cannot be contained. She lives in the old bar, south of mining. She continues to breed dangerous spiders at an alarming rate.<br>
@@ -123,8 +113,8 @@
 	I have seeded the Terror Queen egg in a dingy looking bar that bored engineers constructed near the mining tunnels.<br>
 	No doubt she will grow soon.<br>
 	<br>
-	I have also placed the Mother and Prince eggs nearby, injected with sedative. Hopefully the dimwitted NT scientists bring them back for study.<br>
-	With any luck, the Queen will sense them telepathically, think NT is holding her children hostage, and attack.<br>
+	I have also placed the Prince egg nearby, injected with sedative. Hopefully the dimwitted NT scientists bring them back for study.<br>
+	With any luck, the Queen will sense them telepathically, think NT is holding her prince hostage, and attack.<br>
 	<br>
 	I am going to extract out of the gateway before this all goes down.<br>
 	I don't imagine the staff have very long to live once the Queen declares war on this place.<br>
@@ -134,10 +124,10 @@
 	name = "paper - 'Prescription for Jones, David'"
 	info = {"PRESCRIPTION FOR: David Jones<br>
 	RANK: Miner<br>
-	FOR: Haloperidol<br>
-	REASON FOR TREATMENT: Hallucinations, Paranoia<br>
-	CAUSE: Hallucinations caused by encounter with toxic spit of spider in the caves. Paranoia caused by disappearing staff and suspicions of syndicate infiltration.<br>
-	TREATMENT PLAN: Take as needed. See Dr. Phloxi in one week if symptoms persist. <br>
+	FOR: Charcoal<br>
+	REASON FOR TREATMENT: Toxins in bloodstream<br>
+	CAUSE: Bitten by a black terror spider.<br>
+	TREATMENT PLAN: Take hourly. See Dr. Phloxi if symptoms persist more than three hours.<br>
 	"}
 
 /obj/item/paper/terrorspiders5
@@ -149,9 +139,8 @@
 	<p>Green<br>Will lay eggs on dead bodies, breeding more spiders.</p>
 	<p>Black<br>Even a single bite is enough to kill a humanoid, given time.</p>
 	<p>White<br>Injects a parasitic agent. Deemed to pose too great an infection risk to study.</p>
-	<p>Purple<br>Only seen guarding the nest of the Queen to the south. Appear to be territorial, and very dangerous.</p>
-	<p>Prince<br>Held in containment 2. Appears to be a sort of super-warrior. Fast, strong, and thickly armored.</p>
-	<p>Mother<br>Carries hordes of spiderlings on its back. Held in containment 1. </p>
+	<p>Purple<br>Seen guarding key areas and important spiders. Appear to be territorial, and very dangerous.</p>
+	<p>Prince<br>Held in containment. Appears to be a sort of super-warrior. Fast, strong, and thickly armored.</p>
 	<p>Queen<br>Unable to contain. Present south of Cargo before contact was lost. Presumed ruler of the local hive.</p>
 	"}
 

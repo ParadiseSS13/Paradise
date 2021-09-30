@@ -11,7 +11,7 @@
 	slot_flags = SLOT_BELT | SLOT_EARS
 	attack_verb = list("attacked", "coloured")
 	toolspeed = 1
-	var/colour = "#FF0000" //RGB
+	var/colour = COLOR_RED
 	var/drawtype = "rune"
 	var/list/graffiti = list("body","amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa","up","down","left","right","heart","borgsrogue","voxpox","shitcurity","catbeast","hieroglyphs1","hieroglyphs2","hieroglyphs3","security","syndicate1","syndicate2","nanotrasen","lie","valid","arrowleft","arrowright","arrowup","arrowdown","chicken","hailcrab","brokenheart","peace","scribble","scribble2","scribble3","skrek","squish","tunnelsnake","yip","youaredead")
 	var/list/letters = list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
@@ -29,7 +29,7 @@
 /obj/item/toy/crayon/New()
 	..()
 	name = "[colourName] crayon" //Makes crayons identifiable in things like grinders
-	drawtype = pick(pick(graffiti), pick(letters), "rune[rand(1,10)]")
+	drawtype = pick(pick(graffiti), pick(letters), "rune[rand(1, 8)]")
 
 /obj/item/toy/crayon/attack_self(mob/living/user as mob)
 	update_window(user)
@@ -40,8 +40,8 @@
 	dat += "<hr>"
 	dat += "<h3>Runes:</h3><br>"
 	dat += "<a href='?src=[UID()];type=random_rune'>Random rune</a>"
-	for(var/i = 1; i <= 10; i++)
-		dat += "<a href='?src=[UID()];type=rune[i]'>Rune[i]</a>"
+	for(var/i = 1; i <= 8; i++)
+		dat += "<a href='?src=[UID()];type=rune[i]'>Rune [i]</a>"
 		if(!((i + 1) % 3)) //3 buttons in a row
 			dat += "<br>"
 	dat += "<hr>"
@@ -69,7 +69,7 @@
 		if("letter")
 			temp = input("Choose the letter.", "Scribbles") in letters
 		if("random_rune")
-			temp = "rune[rand(1,10)]"
+			temp = "rune[rand(1, 8)]"
 		if("random_graffiti")
 			temp = pick(graffiti)
 		else
@@ -123,56 +123,61 @@
 
 /obj/item/toy/crayon/red
 	icon_state = "crayonred"
-	colour = "#DA0000"
+	colour = COLOR_RED
 	colourName = "red"
 
 /obj/item/toy/crayon/orange
 	icon_state = "crayonorange"
-	colour = "#FF9300"
+	colour = COLOR_ORANGE
 	colourName = "orange"
 
 /obj/item/toy/crayon/yellow
 	icon_state = "crayonyellow"
-	colour = "#FFF200"
+	colour = COLOR_YELLOW
 	colourName = "yellow"
 
 /obj/item/toy/crayon/green
 	icon_state = "crayongreen"
-	colour = "#A8E61D"
+	colour = COLOR_GREEN
 	colourName = "green"
 
 /obj/item/toy/crayon/blue
 	icon_state = "crayonblue"
-	colour = "#00B7EF"
+	colour = COLOR_BLUE
 	colourName = "blue"
 
 /obj/item/toy/crayon/purple
 	icon_state = "crayonpurple"
-	colour = "#DA00FF"
+	colour = COLOR_PURPLE
 	colourName = "purple"
 
 /obj/item/toy/crayon/random/New()
 	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
 	switch(icon_state)
 		if("crayonred")
-			colour = "#DA0000"
+			colour = COLOR_RED
 			colourName = "red"
 		if("crayonorange")
-			colour = "#FF9300"
+			colour = COLOR_ORANGE
 			colourName = "orange"
 		if("crayonyellow")
-			colour = "#FFF200"
+			colour = COLOR_YELLOW
 			colourName = "yellow"
 		if("crayongreen")
-			colour = "#A8E61D"
+			colour =COLOR_GREEN
 			colourName = "green"
 		if("crayonblue")
-			colour = "#00B7EF"
+			colour = COLOR_BLUE
 			colourName = "blue"
 		if("crayonpurple")
-			colour = "#DA00FF"
+			colour = COLOR_PURPLE
 			colourName = "purple"
 	..()
+
+/obj/item/toy/crayon/black
+	icon_state = "crayonblack"
+	colour = "#000000"
+	colourName = "black"
 
 /obj/item/toy/crayon/white
 	icon_state = "crayonwhite"
@@ -197,10 +202,10 @@
 	if(!Adjacent(usr) || usr.incapacitated())
 		return
 	if(href_list["color"])
-		if(colour != "#FFFFFF")
-			colour = "#FFFFFF"
+		if(colour != COLOR_WHITE)
+			colour = COLOR_WHITE
 		else
-			colour = "#000000"
+			colour = COLOR_BLACK
 		update_window(usr)
 	else
 		..()
@@ -232,23 +237,23 @@
 //Spraycan stuff
 
 /obj/item/toy/crayon/spraycan
-	icon_state = "spraycan_cap"
+	name = "\improper Nanotrasen-brand Rapid Paint Applicator"
 	desc = "A metallic container containing tasty paint."
+	icon_state = "spraycan_cap"
 	var/capped = 1
 	instant = 1
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 
 /obj/item/toy/crayon/spraycan/New()
 	..()
-	name = "Nanotrasen-brand Rapid Paint Applicator"
 	update_icon()
 
 /obj/item/toy/crayon/spraycan/attack_self(mob/living/user as mob)
 	var/choice = input(user,"Spraycan options") in list("Toggle Cap","Change Drawing","Change Color")
 	switch(choice)
 		if("Toggle Cap")
-			to_chat(user, "<span class='notice'>You [capped ? "Remove" : "Replace"] the cap of the [src]</span>")
-			capped = capped ? 0 : 1
+			to_chat(user, "<span class='notice'>You [capped ? "remove" : "replace"] the cap of [src].</span>")
+			capped = !capped
 			icon_state = "spraycan[capped ? "_cap" : ""]"
 			update_icon()
 		if("Change Drawing")

@@ -3,7 +3,7 @@
 	appearance_flags = TILE_BOUND
 	glide_size = 8 // Default, adjusted when mobs move based on their movement delays
 	var/last_move = null
-	var/anchored = 0
+	var/anchored = FALSE
 	var/move_resist = MOVE_RESIST_DEFAULT
 	var/move_force = MOVE_FORCE_DEFAULT
 	var/pull_force = PULL_FORCE_DEFAULT
@@ -13,13 +13,15 @@
 	var/datum/thrownthing/throwing = null
 	var/throw_speed = 2 //How many tiles to move per ds when being thrown. Float values are fully supported
 	var/throw_range = 7
-	var/no_spin = 0
-	var/no_spin_thrown = 0
-	var/moved_recently = 0
+	var/no_spin = FALSE
+	var/no_spin_thrown = FALSE
+	var/moved_recently = FALSE
 	var/mob/pulledby = null
 	var/atom/movable/pulling
+	/// Face towards the atom while pulling it
+	var/face_while_pulling = FALSE
 	var/throwforce = 0
-	var/canmove = 1
+	var/canmove = TRUE
 
 	var/inertia_dir = 0
 	var/atom/inertia_last_loc
@@ -29,11 +31,6 @@
 
 	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
 	var/list/client_mobs_in_contents
-	var/area/areaMaster
-
-/atom/movable/New()
-	. = ..()
-	areaMaster = get_area(src)
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
@@ -50,6 +47,7 @@
 		loc.handle_atom_del(src)
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
+	LAZYCLEARLIST(client_mobs_in_contents)
 	loc = null
 	if(pulledby)
 		pulledby.stop_pulling()
@@ -60,7 +58,7 @@
 /atom/movable/proc/get_cell()
 	return
 
-/atom/movable/proc/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
+/atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	if(QDELETED(AM))
 		return FALSE
 	if(!(AM.can_be_pulled(src, state, force)))
@@ -86,19 +84,17 @@
 	if(ismob(AM))
 		var/mob/M = AM
 		add_attack_logs(src, M, "passively grabbed", ATKLOG_ALMOSTALL)
-		if(!supress_message)
+		if(show_message)
 			visible_message("<span class='warning'>[src] has grabbed [M] passively!</span>")
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
 	if(pulling)
-		pulling.pulledby = null
 		var/mob/living/ex_pulled = pulling
+		pulling.pulledby = null
 		pulling = null
-		pulledby = null
-		if(isliving(ex_pulled))
-			var/mob/living/L = ex_pulled
-			L.update_canmove()// mob gets up if it was lyng down in a chokehold
+		if(!QDELETED(ex_pulled) && istype(ex_pulled))
+			ex_pulled.update_canmove()// mob gets up if it was lyng down in a chokehold
 
 /atom/movable/proc/check_pulling()
 	if(pulling)
@@ -119,18 +115,24 @@
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
 
-/atom/movable/proc/can_be_pulled(user, grab_state, force)
+/atom/movable/proc/can_be_pulled(user, grab_state, force, show_message = FALSE)
 	if(src == user || !isturf(loc))
 		return FALSE
-	if(anchored || throwing)
+	if(anchored || move_resist == INFINITY)
+		if(show_message)
+			to_chat(user, "<span class='warning'>[src] appears to be anchored to the ground!</span>")
+		return FALSE
+	if(throwing)
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
+		if(show_message)
+			to_chat(user, "<span class='warning'>[src] is too heavy to pull!</span>")
 		return FALSE
 	return TRUE
 
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
-/atom/movable/proc/setLoc(var/T, var/teleported=0)
+/atom/movable/proc/setLoc(T, teleported=0)
 	loc = T
 
 /atom/movable/Move(atom/newloc, direct = 0, movetime)
@@ -217,6 +219,12 @@
 		newtonian_move(Dir)
 	if(length(client_mobs_in_contents))
 		update_parallax_contents()
+
+	var/datum/light_source/L
+	var/thing
+	for (thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
+		L = thing
+		L.source_atom.update_light()
 	return TRUE
 
 // Change glide size for the duration of one movement
@@ -292,6 +300,7 @@
 	if(client)
 		reset_perspective(destination)
 	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
+	update_runechat_msg_location()
 
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
@@ -299,7 +308,7 @@
 //Return 0 to have src start/keep drifting in a no-grav area and 1 to stop/not start drifting
 //Mobs should return 1 if they should be able to move of their own volition, see client/Move() in mob_movement.dm
 //movement_dir == 0 when stopping or any dir when trying to move
-/atom/movable/proc/Process_Spacemove(var/movement_dir = 0)
+/atom/movable/proc/Process_Spacemove(movement_dir = 0)
 	if(has_gravity(src))
 		return 1
 
@@ -409,6 +418,7 @@
 	if(spin && !no_spin && !no_spin_thrown)
 		SpinAnimation(5, 1)
 
+	SEND_SIGNAL(src, COMSIG_MOVABLE_POST_THROW, TT, spin)
 	SSthrowing.processing[src] = TT
 	TT.tick()
 
@@ -421,6 +431,7 @@
 	simulated = FALSE
 
 /atom/movable/overlay/New()
+	. = ..()
 	verbs.Cut()
 	return
 
@@ -431,9 +442,6 @@
 /atom/movable/overlay/attack_hand(a, b, c)
 	if(master)
 		return master.attack_hand(a, b, c)
-
-/atom/movable/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
-	return TRUE
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc,direct,movetime)
 	for(var/m in buckled_mobs)
@@ -505,26 +513,34 @@
 		return //don't do an animation if attacking self
 	var/pixel_x_diff = 0
 	var/pixel_y_diff = 0
+	var/turn_dir = 1
+
 	var/direction = get_dir(src, A)
 	if(direction & NORTH)
 		pixel_y_diff = 8
+		turn_dir = prob(50) ? -1 : 1
 	else if(direction & SOUTH)
 		pixel_y_diff = -8
+		turn_dir = prob(50) ? -1 : 1
 
 	if(direction & EAST)
 		pixel_x_diff = 8
 	else if(direction & WEST)
 		pixel_x_diff = -8
+		turn_dir = -1
 
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, time = 2)
+	var/matrix/initial_transform = matrix(transform)
+	var/matrix/rotated_transform = transform.Turn(5 * turn_dir)
+	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform = rotated_transform, time = 0.1 SECONDS, easing = CUBIC_EASING)
+	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform = initial_transform, time = 0.2 SECONDS, easing = SINE_EASING)
 
 /atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item)
 	var/image/I
 	if(visual_effect_icon)
 		I = image('icons/effects/effects.dmi', A, visual_effect_icon, A.layer + 0.1)
 	else if(used_item)
-		I = image(used_item.icon, A, used_item.icon_state, A.layer + 0.1)
+		I = image(icon = used_item, loc = A, layer = A.layer + 0.1)
+		I.plane = GAME_PLANE
 
 		// Scale the icon.
 		I.transform *= 0.75
@@ -552,17 +568,23 @@
 	// Who can see the attack?
 	var/list/viewing = list()
 	for(var/mob/M in viewers(A))
-		if(M.client && M.client.prefs.show_ghostitem_attack)
+		if(M.client && M.client.prefs.toggles2 & PREFTOGGLE_2_ITEMATTACK)
 			viewing |= M.client
 
-	flick_overlay(I, viewing, 5) // 5 ticks/half a second
+	I.appearance_flags |= RESET_TRANSFORM | KEEP_APART
+	flick_overlay(I, viewing, 7) // 7 ticks/half a second
 
 	// And animate the attack!
 	var/t_color = "#ffffff"
-	if(ismob(src) &&  ismob(A) && (!used_item))
+	if(ismob(src) && ismob(A) && !used_item)
 		var/mob/M = src
 		t_color = M.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
-	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3, color = t_color)
+	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 0.3 SECONDS, color = t_color)
+	animate(time = 0.1 SECONDS)
+	animate(alpha = 0, time = 0.3 SECONDS, easing = CIRCULAR_EASING | EASE_OUT)
 
 /atom/movable/proc/portal_destroyed(obj/effect/portal/P)
 	return
+
+/atom/movable/proc/decompile_act(obj/item/matter_decompiler/C, mob/user) // For drones to decompile mobs and objs. See drone for an example.
+	return FALSE

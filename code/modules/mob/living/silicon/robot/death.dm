@@ -29,8 +29,8 @@
 		return FALSE
 	notransform = 1
 	canmove = 0
-	icon = null
 	invisibility = 101
+	dust_animation()
 	if(mmi)
 		qdel(mmi)	//Delete the MMI first so that it won't go popping out.
 	GLOB.dead_mob_list -= src
@@ -53,7 +53,7 @@
 			emote("deathgasp", force = TRUE)
 
 		if(module)
-			module.handle_death(gibbed)
+			module.handle_death(src, gibbed)
 
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
@@ -72,4 +72,4 @@
 
 	update_icons()
 
-	sql_report_cyborg_death(src)
+	SSblackbox.ReportDeath(src)

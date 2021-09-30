@@ -25,6 +25,8 @@
 	#define ORE_LEVEL "Mining"
 	// Levels the AI can control bots on
 	#define AI_OK "AI Allowed"
+	/// Ruins will spawn on this z-level
+	#define SPAWN_RUINS "Spawn Ruins"
 
 // Level names
 	#define MAIN_STATION "Main Station"

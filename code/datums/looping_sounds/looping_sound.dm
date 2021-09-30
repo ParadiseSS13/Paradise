@@ -24,9 +24,15 @@
 	var/end_sound
 	var/chance
 	var/volume = 100
-	var/muted = TRUE
+	var/vary = FALSE
 	var/max_loops
 	var/direct
+	var/extra_range = 0
+	var/falloff_exponent
+	var/muted = TRUE
+	var/falloff_distance
+	/// Channel of the audio, random otherwise
+	var/channel
 
 /datum/looping_sound/New(list/_output_atoms = list(), start_immediately = FALSE, _direct = FALSE)
 	if(!mid_sounds)
@@ -71,14 +77,16 @@
 	var/list/atoms_cache = output_atoms
 	var/sound/S = sound(soundfile)
 	if(direct)
-		S.channel = open_sound_channel()
-		S.volume = volume
+		S.channel = channel || SSsounds.random_available_channel()
 	for(var/i in 1 to atoms_cache.len)
 		var/atom/thing = atoms_cache[i]
 		if(direct)
+			if(ismob(thing))
+				var/mob/M = thing
+				S.volume = volume * (USER_VOLUME(M, channel) || 1)
 			SEND_SOUND(thing, S)
 		else
-			playsound(thing, S, volume)
+			playsound(thing, S, volume, vary, extra_range, falloff_exponent = falloff_exponent, falloff_distance = falloff_distance, channel = channel)
 
 /datum/looping_sound/proc/get_sound(looped, _mid_sounds)
 	if(!_mid_sounds)

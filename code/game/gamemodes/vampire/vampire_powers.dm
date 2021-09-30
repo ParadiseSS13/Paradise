@@ -7,15 +7,18 @@
 	range = 1
 	charge_max = 1800
 	action_background_icon_state = "bg_vampire"
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	var/required_blood = 0
 	var/gain_desc = null
+	var/deduct_blood_on_cast = TRUE  //Do we want to take the blood when this is cast, or at a later point?
+
 
 /obj/effect/proc_holder/spell/vampire/New()
 	..()
 	if(!gain_desc)
 		gain_desc = "You have gained \the [src] ability."
 
-/obj/effect/proc_holder/spell/vampire/cast_check(skipcharge = 0, mob/living/user = usr)
+/obj/effect/proc_holder/spell/vampire/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
 	if(!user.mind)
 		return 0
 	if(!ishuman(user))
@@ -39,13 +42,9 @@
 	if(vampire.bloodusable < required_blood)
 		to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
 		return 0
-	//chapel check
-	if(istype(loc.loc, /area/chapel) && !fullpower)
-		to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
-		return 0
 	return ..()
 
-/obj/effect/proc_holder/spell/vampire/can_cast(mob/user = usr)
+/obj/effect/proc_holder/spell/vampire/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(!user.mind)
 		return 0
 	if(!ishuman(user))
@@ -99,6 +98,8 @@
 	var/datum/vampire/vampire = usr.mind.vampire
 
 	if(required_blood <= vampire.bloodusable)
+		if(!deduct_blood_on_cast) //don't take the blood yet if this is false!
+			return
 		vampire.bloodusable -= required_blood
 	else
 		// stop!!
@@ -145,7 +146,7 @@
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate
 	name = "Rejuvenate"
-	desc= "Flush your system with spare blood to remove any incapacitating effects."
+	desc= "Use reserve blood to enliven your body, removing any incapacitating effects."
 	action_icon_state = "vampire_rejuvinate"
 	charge_max = 200
 	stat_allowed = 1
@@ -158,7 +159,7 @@
 	user.SetParalysis(0)
 	user.SetSleeping(0)
 	U.adjustStaminaLoss(-75)
-	to_chat(user, "<span class='notice'>You flush your system with clean blood and remove any incapacitating effects.</span>")
+	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
 	spawn(1)
 		if(usr.mind.vampire.get_ability(/datum/vampire_passive/regen))
 			for(var/i = 1 to 5)
@@ -217,9 +218,13 @@
 
 /obj/effect/proc_holder/spell/vampire/mob_aoe/glare/cast(list/targets, mob/user = usr)
 	user.visible_message("<span class='warning'>[user]'s eyes emit a blinding flash!</span>")
-	if(istype(user:glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
-		to_chat(user, "<span class='warning'>You're blindfolded!</span>")
-		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
+			var/obj/item/clothing/glasses/sunglasses/blindfold/B = H.glasses
+			if(B.tint)
+				to_chat(user, "<span class='warning'>You're blindfolded!</span>")
+				return
 	for(var/mob/living/target in targets)
 		if(!affects(target))
 			continue
@@ -264,13 +269,13 @@
 			continue
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
-			if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs))
+			if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 				continue
 		if(!affects(C))
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
 		C.Weaken(4)
-		C.MinimumDeafTicks(20)
+		C.AdjustEarDamage(0, 20)
 		C.Stuttering(20)
 		C.Stun(4)
 		C.Jitter(150)
@@ -288,8 +293,10 @@
 	gain_desc = "You have gained the Enthrall ability which at a heavy blood cost allows you to enslave a human that is not loyal to any other for a random period of time."
 	action_icon_state = "vampire_enthrall"
 	required_blood = 300
+	deduct_blood_on_cast = FALSE
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/cast(list/targets, mob/user = usr)
+	var/datum/vampire/vampire = user.mind.vampire
 	for(var/mob/living/target in targets)
 		user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
 		to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
@@ -299,6 +306,7 @@
 		if(do_mob(user, target, 50))
 			if(can_enthrall(user, target))
 				handle_enthrall(user, target)
+				vampire.bloodusable -= required_blood //we take the blood after enthralling, not before
 			else
 				revert_cast(user)
 				to_chat(user, "<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>")
@@ -354,10 +362,10 @@
 	var/datum/objective/protect/serve_objective = new
 	serve_objective.owner = user.mind
 	serve_objective.target = H.mind
-	serve_objective.explanation_text = "You have been Enthralled by [user]. Follow [user.p_their()] every command."
+	serve_objective.explanation_text = "You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command."
 	H.mind.objectives += serve_objective
 
-	to_chat(H, "<span class='biggerdanger'>You have been Enthralled by [user]. Follow [user.p_their()] every command.</span>")
+	to_chat(H, "<span class='biggerdanger'>You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command.</span>")
 	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If [H.p_they()] refuse[H.p_s()] to do as you say just adminhelp.</i></span>")
 	H.Stun(2)
 	add_attack_logs(user, H, "Vampire-thralled")
@@ -418,7 +426,7 @@
 	name = "Mist Form (30)"
 	desc = "You take on the form of mist for a short period of time."
 	gain_desc = "You have gained the Mist Form ability which allows you to take on the form of mist for a short period and pass over any obstacle in your path."
-	action_icon_state = "jaunt"
+	action_icon_state = "mist"
 	charge_max = 600
 	required_blood = 30
 	centcom_cancast = 0
@@ -430,32 +438,26 @@
 		var/originalloc = get_turf(user.loc)
 		var/obj/effect/dummy/spell_jaunt/holder = new /obj/effect/dummy/spell_jaunt(originalloc)
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(originalloc)
-		animation.name = "water"
+		animation.name = "blood"
 		animation.density = 0
 		animation.anchored = 1
 		animation.icon = 'icons/mob/mob.dmi'
-		animation.icon_state = "liquify"
+		animation.icon_state = "empty"
 		animation.layer = 5
 		animation.master = holder
 		U.ExtinguishMob()
-		flick("liquify", animation)
+		flick("mist", animation)
 		user.forceMove(holder)
 		user.client.eye = holder
-		var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()
-		steam.set_up(10, 0, originalloc)
-		steam.start()
 		sleep(jaunt_duration)
 		var/mobloc = get_turf(user.loc)
 		animation.loc = mobloc
-		steam.location = mobloc
-		steam.start()
 		user.canmove = 0
 		sleep(20)
-		flick("reappear",animation)
+		flick("mist_reappear", animation)
 		sleep(5)
 		if(!user.Move(mobloc))
-			for(var/direction in list(1,2,4,8,5,6,9,10))
-				var/turf/T = get_step(mobloc, direction)
+			for(var/turf/T in orange(7, mobloc))
 				if(T)
 					if(user.Move(T))
 						break
@@ -470,7 +472,7 @@
 	name = "Shadowstep (30)"
 	desc = "Vanish into the shadows."
 	gain_desc = "You have gained the ability to shadowstep, which makes you disappear into nearby shadows at the cost of blood."
-	action_icon_state = "blink"
+	action_icon_state = "shadowblink"
 	charge_max = 20
 	required_blood = 30
 	centcom_cancast = 0
@@ -564,7 +566,7 @@
 		H.raise_vampire(user)
 
 
-/mob/living/carbon/human/proc/raise_vampire(var/mob/M)
+/mob/living/carbon/human/proc/raise_vampire(mob/M)
 	if(!istype(M))
 		log_debug("human/proc/raise_vampire called with invalid argument.")
 		return

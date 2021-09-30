@@ -1,7 +1,16 @@
 // List is required to compile the resources into the game when it loads.
 // Dynamically loading it has bad results with sounds overtaking each other, even with the wait variable.
 
-GLOBAL_LIST_INIT(vox_sounds, list("," = 'sound/vox_fem/,.ogg',
+GLOBAL_LIST_INIT(vox_alerts, list(
+"bizwarn" = 'sound/vox_fem/bizwarn.ogg',
+"bloop" = 'sound/vox_fem/bloop.ogg',
+"buzwarn" = 'sound/vox_fem/buzwarn.ogg',
+"dadeda" = 'sound/vox_fem/dadeda.ogg',
+"deeoo" = 'sound/vox_fem/deeoo.ogg'
+))
+
+GLOBAL_LIST_INIT(vox_sounds, list(
+"," = 'sound/vox_fem/,.ogg',
 "." = 'sound/vox_fem/..ogg',
 "a" = 'sound/vox_fem/a.ogg',
 "abortions" = 'sound/vox_fem/abortions.ogg',

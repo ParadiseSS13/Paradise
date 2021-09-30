@@ -16,7 +16,7 @@
 	max_integrity = 100
 
 /obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee")
+	if(damage_flag == MELEE)
 		switch(damage_type)
 			if(BRUTE)
 				damage_amount *= 0.25
@@ -280,12 +280,14 @@
 /obj/structure/alien/egg/proc/Grow()
 	icon_state = "egg"
 	status = GROWN
+	AddComponent(/datum/component/proximity_monitor)
 
 /obj/structure/alien/egg/proc/Burst(kill = TRUE)	//drops and kills the hugger if any is remaining
 	if(status == GROWN || status == GROWING)
 		icon_state = "egg_hatched"
 		flick("egg_opening", src)
 		status = BURSTING
+		qdel(GetComponent(/datum/component/proximity_monitor))
 		spawn(15)
 			status = BURST
 			var/obj/item/clothing/mask/facehugger/child = GetFacehugger()

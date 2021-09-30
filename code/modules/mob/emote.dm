@@ -12,13 +12,13 @@
 	emote_cd = TRUE	// Starting cooldown
 	spawn(cooldown)
 		if(emote_cd == 2)
-			return TRUE // Don't reset if cooldown emotes were disabled by an admin during the cooldown
+			return // Don't reset if cooldown emotes were disabled by an admin during the cooldown
 		emote_cd = FALSE // Cooldown complete, ready for more!
 	return FALSE // Proceed with emote
 
 //--FalseIncarnate
 
-/mob/proc/handle_emote_param(var/target, var/not_self, var/vicinity, var/return_mob) //Only returns not null if the target param is valid.
+/mob/proc/handle_emote_param(target, not_self, vicinity, return_mob) //Only returns not null if the target param is valid.
 	var/view_vicinity = vicinity ? vicinity : null									 //not_self means we'll only return if target is valid and not us
 	if(target)																		 //vicinity is the distance passed to the view proc.
 		for(var/mob/A in view(view_vicinity, null))									 //if set, return_mob will cause this proc to return the mob instead of just its name if the target is valid.
@@ -29,7 +29,7 @@
 					return target
 
 // All mobs should have custom emote, really..
-/mob/proc/custom_emote(var/m_type=EMOTE_VISUAL,var/message = null)
+/mob/proc/custom_emote(m_type=EMOTE_VISUAL, message = null)
 	if(stat || !use_me && usr == src)
 		if(usr)
 			to_chat(usr, "You are unable to emote.")
@@ -72,11 +72,14 @@
 			if(findtext(message, " snores.")) //Because we have so many sleeping people.
 				break
 
-			if(isobserver(M) && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
+			if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
 				M.show_message(message)
 
 		// Type 1 (Visual) emotes are sent to anyone in view of the item
 		if(m_type & EMOTE_VISUAL)
+			var/runechat_text = input
+			if(length(input) > 100)
+				runechat_text = "[copytext(input, 1, 101)]..."
 			var/list/can_see = get_mobs_in_view(1,src)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 			can_see |= viewers(src,null)
 			for(var/mob/O in can_see)
@@ -90,6 +93,8 @@
 						M.show_message(message, m_type)
 
 				O.show_message(message, m_type)
+				if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+					O.create_chat_message(src, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
 
 		// Type 2 (Audible) emotes are sent to anyone in hear range
 		// of the *LOCATION* -- this is important for pAIs to be heard
@@ -106,17 +111,17 @@
 
 				O.show_message(message, m_type)
 
-/mob/proc/emote_dead(var/message)
-	if(client.prefs.muted & MUTE_DEADCHAT)
+/mob/proc/emote_dead(message)
+	if(check_mute(client.ckey, MUTE_DEADCHAT))
 		to_chat(src, "<span class='warning'>You cannot send deadchat emotes (muted).</span>")
 		return
 
-	if(!(client.prefs.toggles & CHAT_DEAD))
+	if(!(client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
 		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
 		return
 
 	if(!src.client.holder)
-		if(!config.dsay_allowed)
+		if(!GLOB.dsay_enabled)
 			to_chat(src, "<span class='warning'>Deadchat is globally muted</span>")
 			return
 
@@ -135,11 +140,11 @@
 
 	if(message)
 		for(var/mob/M in GLOB.player_list)
-			if(istype(M, /mob/new_player))
+			if(isnewplayer(M))
 				continue
 
-			if(check_rights(R_ADMIN|R_MOD, 0, M) && M.get_preference(CHAT_DEAD)) // Show the emote to admins/mods
+			if(check_rights(R_ADMIN|R_MOD, 0, M) && M.get_preference(PREFTOGGLE_CHAT_DEAD)) // Show the emote to admins/mods
 				to_chat(M, message)
 
-			else if(M.stat == DEAD && M.get_preference(CHAT_DEAD)) // Show the emote to regular ghosts with deadchat toggled on
+			else if(M.stat == DEAD && M.get_preference(PREFTOGGLE_CHAT_DEAD)) // Show the emote to regular ghosts with deadchat toggled on
 				M.show_message(message, 2)

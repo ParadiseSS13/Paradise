@@ -111,61 +111,71 @@
 	last_found = world.time
 
 /mob/living/simple_animal/bot/secbot/set_custom_texts()
-
 	text_hack = "You overload [name]'s target identification system."
 	text_dehack = "You reboot [name] and restore the target identification."
 	text_dehack_fail = "[name] refuses to accept your authority!"
 
-/mob/living/simple_animal/bot/secbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += text({"
-<TT><B>[window_name]</B></TT><BR><BR>
-Status: []<BR>
-Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
-Maintenance panel panel is [open ? "opened" : "closed"]"},
+/mob/living/simple_animal/bot/secbot/show_controls(mob/M)
+	ui_interact(M)
 
-"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>" )
+/mob/living/simple_animal/bot/secbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "BotSecurity", name, 500, 500)
+		ui.open()
 
-	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += text({"<BR>
-Arrest Unidentifiable Persons: []<BR>
-Arrest for Unauthorized Weapons: []<BR>
-Arrest for Warrant: []<BR>
-Operating Mode: []<BR>
-Report Arrests[]<BR>
-Auto Patrol: []"},
+/mob/living/simple_animal/bot/secbot/ui_data(mob/user)
+	var/list/data = list(
+		"locked" = locked, // controls, locked or not
+		"noaccess" = topic_denied(user), // does the current user have access? admins, silicons etc can still access bots with locked controls
+		"maintpanel" = open,
+		"on" = on,
+		"autopatrol" = auto_patrol,
+		"painame" = paicard ? paicard.pai.name : null,
+		"canhack" = canhack(user),
+		"emagged" = emagged, // this is an int, NOT a boolean
+		"remote_disabled" = remote_disabled, // -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
+		"check_id" = idcheck,
+		"check_weapons" = weaponscheck,
+		"check_warrant" = check_records,
+		"arrest_mode" = arrest_type, // detain or arrest
+		"arrest_declare" = declare_arrests // announce arrests on radio
+	)
+	return data
 
-"<A href='?src=[UID()];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>",
-"<A href='?src=[UID()];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>",
-"<A href='?src=[UID()];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>",
-"<A href='?src=[UID()];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>",
-"<A href='?src=[UID()];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>",
-"<A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>" )
-
-	return	dat
-
-/mob/living/simple_animal/bot/secbot/Topic(href, href_list)
-	if(..())
-		return 1
-
-	switch(href_list["operation"])
-		if("idcheck")
-			idcheck = !idcheck
-			update_controls()
-		if("weaponscheck")
+/mob/living/simple_animal/bot/secbot/ui_act(action, params)
+	if (..())
+		return
+	if(topic_denied(usr))
+		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		return
+	add_fingerprint(usr)
+	. = TRUE
+	switch(action)
+		if("power")
+			if(on)
+				turn_off()
+			else
+				turn_on()
+		if("autopatrol")
+			auto_patrol = !auto_patrol
+			bot_reset()
+		if("hack")
+			handle_hacking(usr)
+		if("disableremote")
+			remote_disabled = !remote_disabled
+		if("authweapon")
 			weaponscheck = !weaponscheck
-			update_controls()
-		if("ignorerec")
+		if("authid")
+			idcheck = !idcheck
+		if("authwarrant")
 			check_records = !check_records
-			update_controls()
-		if("switchmode")
+		if("arrtype")
 			arrest_type = !arrest_type
-			update_controls()
-		if("declarearrests")
+		if("arrdeclare")
 			declare_arrests = !declare_arrests
-			update_controls()
+		if("ejectpai")
+			ejectpai()
 
 /mob/living/simple_animal/bot/secbot/proc/retaliate(mob/living/carbon/human/H)
 	threatlevel = H.assess_threat(src)
@@ -412,7 +422,7 @@ Auto Patrol: []"},
 			break
 		else
 			continue
-/mob/living/simple_animal/bot/secbot/proc/check_for_weapons(var/obj/item/slot_item)
+/mob/living/simple_animal/bot/secbot/proc/check_for_weapons(obj/item/slot_item)
 	if(slot_item && slot_item.needs_permit)
 		return 1
 	return 0
@@ -433,7 +443,7 @@ Auto Patrol: []"},
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()
 
-/mob/living/simple_animal/bot/secbot/attack_alien(var/mob/living/carbon/alien/user as mob)
+/mob/living/simple_animal/bot/secbot/attack_alien(mob/living/carbon/alien/user as mob)
 	..()
 	if(!isalien(target))
 		target = user

@@ -51,6 +51,6 @@
 	Additionally calls the parent's `after_slip()` proc on the `victim`.
 */
 /datum/component/slippery/proc/Slip(datum/source, mob/living/carbon/human/victim)
-	if(istype(victim) && prob(slip_chance) && victim.slip(description, stun, weaken, slip_tiles, walking_is_safe, slip_always, slip_verb))
+	if(istype(victim) && !victim.flying && prob(slip_chance) && victim.slip(description, stun, weaken, slip_tiles, walking_is_safe, slip_always, slip_verb))
 		var/atom/movable/owner = parent
 		owner.after_slip(victim)

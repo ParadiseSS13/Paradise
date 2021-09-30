@@ -16,7 +16,7 @@
 			death()
 			return
 
-		if(paralysis || sleeping || getOxyLoss() > 50 || (HEALTH_THRESHOLD_CRIT <= health && check_death_method()))
+		if(paralysis || sleeping || getOxyLoss() > 50 || (health <= HEALTH_THRESHOLD_CRIT && check_death_method()))
 			if(stat == CONSCIOUS)
 				KnockOut()
 				create_debug_log("fell unconscious, trigger reason: [reason]")

@@ -18,7 +18,7 @@
 	resistance_flags = FLAMMABLE
 	origin_tech = "biotech=1"
 
-/obj/item/reagent_containers/food/snacks/grown/New(newloc, var/obj/item/seeds/new_seed = null)
+/obj/item/reagent_containers/food/snacks/grown/New(newloc, obj/item/seeds/new_seed = null)
 	..()
 	if(!tastes)
 		tastes = list("[name]" = 1)
@@ -42,6 +42,8 @@
 		seed.prepare_result(src)
 		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 		add_juice()
+		if(seed.variant)
+			name += " \[[seed.variant]]"
 
 /obj/item/reagent_containers/food/snacks/grown/Destroy()
 	QDEL_NULL(seed)
@@ -117,6 +119,7 @@
 /obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom)
 	if(!..()) //was it caught by a mob?
 		if(seed)
+			log_action(thrownby, hit_atom, "Thrown [src] at")
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_throw_impact(src, hit_atom)
 			if(seed.get_gene(/datum/plant_gene/trait/squash))
@@ -147,11 +150,11 @@
 
 	qdel(src)
 
-/obj/item/reagent_containers/food/snacks/grown/On_Consume()
-	if(iscarbon(usr))
+/obj/item/reagent_containers/food/snacks/grown/On_Consume(mob/M, mob/user)
+	if(iscarbon(M))
 		if(seed)
 			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.on_consume(src, usr)
+				T.on_consume(src, M)
 	..()
 
 /obj/item/reagent_containers/food/snacks/grown/after_slip(mob/living/carbon/human/H)
@@ -167,6 +170,11 @@
 		trash = null
 		return
 	return ..()
+
+/obj/item/reagent_containers/food/snacks/grown/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["wood"] += 4
+	qdel(src)
+	return TRUE
 
 // For item-containing growns such as eggy or gatfruit
 /obj/item/reagent_containers/food/snacks/grown/shell/attack_self(mob/user)
@@ -184,4 +192,17 @@
 		D.consume(src)
 	else
 		return ..()
+
+/obj/item/reagent_containers/food/snacks/grown/proc/log_action(mob/user, atom/target, what_done)
+	var/reagent_str = reagents.log_list()
+	var/genes_str = "No genes"
+	if(seed && length(seed.genes))
+		var/list/plant_gene_names = list()
+		for(var/thing in seed.genes)
+			var/datum/plant_gene/G = thing
+			if(G.dangerous)
+				plant_gene_names += G.name
+		genes_str = english_list(plant_gene_names)
+
+	add_attack_logs(user, target, "[what_done] ([reagent_str] | [genes_str])")
 

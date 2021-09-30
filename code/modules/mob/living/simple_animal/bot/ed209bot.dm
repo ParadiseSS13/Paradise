@@ -102,64 +102,77 @@
 	text_dehack = "You restore [name]'s combat inhibitor."
 	text_dehack_fail = "[name] ignores your attempts to restrict [p_them()]!"
 
-/mob/living/simple_animal/bot/ed209/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += text({"
-	<TT><B>Security Unit v2.6 controls</B></TT><BR><BR>
-	Status: []<BR>
-	Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
-	Maintenance panel panel is [open ? "opened" : "closed"]<BR>"},
+/mob/living/simple_animal/bot/ed209/show_controls(mob/M)
+	ui_interact(M)
 
-	"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>" )
+/mob/living/simple_animal/bot/ed209/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "BotSecurity", name, 500, 500)
+		ui.open()
 
-	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += "Auto Patrol <A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A><BR>"
+/mob/living/simple_animal/bot/ed209/ui_data(mob/user)
+	var/list/data = list(
+		"locked" = locked, // controls, locked or not
+		"noaccess" = topic_denied(user), // does the current user have access? admins, silicons etc can still access bots with locked controls
+		"maintpanel" = open,
+		"on" = on,
+		"autopatrol" = auto_patrol,
+		"painame" = paicard ? paicard.pai.name : null,
+		"canhack" = canhack(user),
+		"emagged" = emagged, // this is an int, NOT a boolean
+		"remote_disabled" = remote_disabled, // -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
+		"check_id" = idcheck,
+		"check_weapons" = weaponscheck,
+		"check_warrant" = check_records,
+		"arrest_mode" = arrest_type, // detain or arrest
+		"arrest_declare" = declare_arrests // announce arrests on radio
+	)
+	return data
 
-		if(!lasercolor)
-			dat += text({"<BR>
-			Arrest Unidentifiable Persons: []<BR>
-			Arrest for Unauthorized Weapons: []<BR>
-			Arrest for Warrant: []<BR>
-			<BR>
-			Operating Mode: []<BR>
-			Report Arrests[]<BR>"},
-
-			"<A href='?src=[UID()];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>",
-			"<A href='?src=[UID()];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>",
-			"<A href='?src=[UID()];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>",
-			"<A href='?src=[UID()];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>",
-			"<A href='?src=[UID()];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>")
-
-	return dat
-
-/mob/living/simple_animal/bot/ed209/Topic(href, href_list)
-	if(lasercolor && (istype(usr,/mob/living/carbon/human)))
-		var/mob/living/carbon/human/H = usr
-		if((lasercolor == "b") && (istype(H.wear_suit, /obj/item/clothing/suit/redtag)))//Opposing team cannot operate it
-			return
-		else if((lasercolor == "r") && (istype(H.wear_suit, /obj/item/clothing/suit/bluetag)))
-			return
-	if(..())
-		return 1
-
-	switch(href_list["operation"])
-		if("idcheck")
-			idcheck = !idcheck
-			update_controls()
-		if("weaponscheck")
+/mob/living/simple_animal/bot/ed209/ui_act(action, params)
+	if (..())
+		return
+	if(topic_denied(usr))
+		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		return
+	add_fingerprint(usr)
+	. = TRUE
+	switch(action)
+		if("power")
+			if(on)
+				turn_off()
+			else
+				turn_on()
+		if("autopatrol")
+			auto_patrol = !auto_patrol
+			bot_reset()
+		if("hack")
+			handle_hacking(usr)
+		if("disableremote")
+			remote_disabled = !remote_disabled
+		if("authweapon")
 			weaponscheck = !weaponscheck
-			update_controls()
-		if("ignorerec")
+		if("authid")
+			idcheck = !idcheck
+		if("authwarrant")
 			check_records = !check_records
-			update_controls()
-		if("switchmode")
+		if("arrtype")
 			arrest_type = !arrest_type
-			update_controls()
-		if("declarearrests")
+		if("arrdeclare")
 			declare_arrests = !declare_arrests
-			update_controls()
+		if("ejectpai")
+			ejectpai()
+
+
+/mob/living/simple_animal/bot/ed209/topic_denied(mob/user)
+	if(lasercolor && ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if((lasercolor == "b") && (istype(H.wear_suit, /obj/item/clothing/suit/redtag))) //Opposing team cannot operate it
+			return TRUE
+		else if((lasercolor == "r") && (istype(H.wear_suit, /obj/item/clothing/suit/bluetag)))
+			return TRUE
+	return ..()
 
 /mob/living/simple_animal/bot/ed209/proc/retaliate(mob/living/carbon/human/H)
 	threatlevel = H.assess_threat(src)
@@ -366,7 +379,7 @@
 		else
 			continue
 
-/mob/living/simple_animal/bot/ed209/proc/check_for_weapons(var/obj/item/slot_item)
+/mob/living/simple_animal/bot/ed209/proc/check_for_weapons(obj/item/slot_item)
 	if(slot_item && slot_item.needs_permit)
 		return 1
 	return 0
@@ -461,7 +474,6 @@
 	if(!isalien(target))
 		target = user
 		mode = BOT_HUNT
-
 
 /mob/living/simple_animal/bot/ed209/emp_act(severity)
 

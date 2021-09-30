@@ -15,9 +15,13 @@
 	ammo_x_offset = 2
 	var/shaded_charge = 0 //if this gun uses a stateful charge bar for more detail
 	var/selfcharge = 0
-	var/use_external_power = 0 //if set, the weapon will look for an external power source to draw from, otherwise it recharges magically
 	var/charge_tick = 0
 	var/charge_delay = 4
+	/// Do you want the gun to fit into a turret, defaults to true, used for if a energy gun is too strong to be in a turret, or does not make sense to be in one.
+	var/can_fit_in_turrets = TRUE
+
+/obj/item/gun/energy/detailed_examine()
+	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. To recharge this weapon, use a weapon recharger."
 
 /obj/item/gun/energy/emp_act(severity)
 	cell.use(round(cell.charge / severity))
@@ -68,11 +72,6 @@
 		charge_tick = 0
 		if(!cell)
 			return // check if we actually need to recharge
-		var/obj/item/ammo_casing/energy/E = ammo_type[select]
-		if(use_external_power)
-			var/obj/item/stock_parts/cell/external = get_external_cell()
-			if(!external || !external.use(E.e_cost)) //Take power from the borg...
-				return								//Note, uses /10 because of shitty mods to the cell system
 		cell.give(100) //... to recharge the shot
 		on_recharge()
 		update_icon()
@@ -171,10 +170,10 @@
 
 /obj/item/gun/energy/suicide_act(mob/user)
 	if(can_shoot())
-		user.visible_message("<span class='suicide'>[user] is putting the barrel of the [name] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide.</span>")
+		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide.</span>")
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)
-			user.visible_message("<span class='suicide'>[user] melts [user.p_their()] face off with the [name]!</span>")
+			user.visible_message("<span class='suicide'>[user] melts [user.p_their()] face off with [src]!</span>")
 			playsound(loc, fire_sound, 50, 1, -1)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 			cell.use(shot.e_cost)
@@ -184,7 +183,7 @@
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
 			return OXYLOSS
 	else
-		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with the [name]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
 		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
 		return OXYLOSS
 
@@ -208,13 +207,11 @@
 			if(R.cell.use(shot.e_cost)) 		//Take power from the borg...
 				cell.give(shot.e_cost)	//... to recharge the shot
 
-/obj/item/gun/energy/proc/get_external_cell()
-	if(istype(loc, /obj/item/rig_module))
-		var/obj/item/rig_module/module = loc
-		if(module.holder && module.holder.wearer)
-			var/mob/living/carbon/human/H = module.holder.wearer
-			if(istype(H) && H.back)
-				var/obj/item/rig/suit = H.back
-				if(istype(suit))
-					return suit.cell
-	return null
+/obj/item/gun/energy/cyborg_recharge(coeff, emagged)
+	if(cell.charge < cell.maxcharge)
+		var/obj/item/ammo_casing/energy/E = ammo_type[select]
+		cell.give(E.e_cost * coeff)
+		on_recharge()
+		update_icon()
+	else
+		charge_tick = 0

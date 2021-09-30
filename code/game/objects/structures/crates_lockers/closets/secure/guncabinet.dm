@@ -9,12 +9,6 @@
 	icon_broken = "base"
 	icon_off = "base"
 
-/obj/structure/closet/secure_closet/guncabinet/New()
-	..()
-	update_icon()
-
-
-
 /obj/structure/closet/secure_closet/guncabinet/toggle()
 	..()
 	update_icon()

@@ -49,7 +49,7 @@
 				to_chat(user, "<span class='notice'>We stealthily stab [target] with a minor proboscis...</span>")
 				to_chat(target, "<span class='userdanger'>You experience a stabbing sensation and your ears begin to ring...</span>")
 			if(3)
-				to_chat(user, "<span class='notice'>You mold the [target]'s mind like clay, [target.p_they()] can now speak in the hivemind!</span>")
+				to_chat(user, "<span class='notice'>You mold [target]'s mind like clay, [target.p_they()] can now speak in the hivemind!</span>")
 				to_chat(target, "<span class='userdanger'>A migraine throbs behind your eyes, you hear yourself screaming - but your mouth has not opened!</span>")
 				for(var/mob/M in GLOB.mob_list)
 					if(GLOB.all_languages["Changeling"] in M.languages)
@@ -60,7 +60,7 @@
 				to_chat(target, "<font color=#800040><span class='boldannounce'>You can now communicate in the changeling hivemind, say \":g message\" to communicate!</span>")
 				target.reagents.add_reagent("salbutamol", 40) // So they don't choke to death while you interrogate them
 				sleep(1800)
-		feedback_add_details("changeling_powers","A[stage]")
+		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 		if(!do_mob(user, target, 20))
 			to_chat(user, "<span class='warning'>Our link with [target] has ended!</span>")
 			target.remove_language("Changeling")

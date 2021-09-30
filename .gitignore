@@ -19,7 +19,6 @@ data/
 /_maps/map_files/**/backup/*
 /_maps/map_files/**/*.dmm.backup
 /_maps/quicksave/*
-/nano/debug.html
 **/__pycache__/*
 *.db
 stddef.dm
@@ -36,5 +35,3 @@ stddef.dm
 
 # ignore midi2piano build cache
 /tools/midi2piano/midi2piano/obj/*
-
-

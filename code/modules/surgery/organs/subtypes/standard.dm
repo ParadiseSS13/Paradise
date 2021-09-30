@@ -17,6 +17,17 @@
 	encased = "ribcage"
 	convertable_children = list(/obj/item/organ/external/groin)
 
+/obj/item/organ/external/chest/emp_act(severity)
+	..()
+	if(!is_robotic() || emp_proof || !tough) // Augmented chest suffocates the user on EMP.
+		return
+	switch(severity)
+		if(1)
+			owner?.adjustStaminaLoss(20)
+		if(2)
+			owner?.adjustStaminaLoss(10)
+	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, causing fatigue!</span>")
+
 /obj/item/organ/external/groin
 	name = "lower body"
 	limb_name = "groin"
@@ -43,6 +54,16 @@
 	can_grasp = 1
 	convertable_children = list(/obj/item/organ/external/hand)
 
+/obj/item/organ/external/arm/emp_act(severity)
+	..()
+	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
+		return
+	var/hand = (body_part == ARM_LEFT) ? owner.l_hand : owner.r_hand
+	if(hand && owner.canUnEquip(hand))
+		owner.unEquip(hand)
+		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
+		owner.custom_emote(1, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
+
 /obj/item/organ/external/arm/right
 	limb_name = "r_arm"
 	name = "right arm"
@@ -65,6 +86,22 @@
 	can_stand = 1
 	convertable_children = list(/obj/item/organ/external/foot)
 
+/obj/item/organ/external/leg/emp_act(severity)
+	..()
+	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
+		return
+	if(owner.weakened)
+		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, preventing you from getting back up!</span>")
+		owner.custom_emote(1, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
+	else
+		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping you to the ground!</span>")
+		owner.custom_emote(1, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
+	switch(severity)
+		if(1)
+			owner.AdjustWeakened(4)
+		if(2)
+			owner.AdjustWeakened(2)
+
 /obj/item/organ/external/leg/right
 	limb_name = "r_leg"
 	name = "right leg"
@@ -86,6 +123,22 @@
 	parent_organ = "l_leg"
 	amputation_point = "left ankle"
 	can_stand = 1
+
+/obj/item/organ/external/foot/emp_act(severity)
+	..()
+	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
+		return
+	if(owner.weakened)
+		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, preventing you from getting back up!</span>")
+		owner.custom_emote(1, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
+	else
+		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping you to the ground!</span>")
+		owner.custom_emote(1, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
+	switch(severity)
+		if(1)
+			owner.AdjustWeakened(4)
+		if(2)
+			owner.AdjustWeakened(2)
 
 /obj/item/organ/external/foot/remove()
 	if(owner && owner.shoes) owner.unEquip(owner.shoes)
@@ -111,6 +164,16 @@
 	parent_organ = "l_arm"
 	amputation_point = "left wrist"
 	can_grasp = 1
+
+/obj/item/organ/external/hand/emp_act(severity)
+	..()
+	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
+		return
+	var/hand = (body_part == HAND_LEFT) ? owner.l_hand : owner.r_hand
+	if(hand && owner.canUnEquip(hand))
+		owner.unEquip(hand)
+		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
+		owner.custom_emote(1, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
 
 /obj/item/organ/external/hand/remove()
 	if(owner)
@@ -210,3 +273,14 @@
 /obj/item/organ/external/head/set_dna(datum/dna/new_dna)
 	..()
 	new_dna.write_head_attributes(src)
+
+/obj/item/organ/external/head/emp_act(severity)
+	..()
+	if(!is_robotic() || emp_proof || !tough) // Augmented head confuses the user on EMP.
+		return
+	switch(severity)
+		if(1)
+			owner?.AdjustConfused(30)
+		if(2)
+			owner?.AdjustConfused(20)
+	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, overloading your motor control!</span>")

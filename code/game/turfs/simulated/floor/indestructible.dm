@@ -15,9 +15,6 @@
 /turf/simulated/floor/indestructible/narsie_act()
 	return
 
-/turf/simulated/floor/indestructible/ratvar_act(force, ignore_mobs)
-	return
-
 /turf/simulated/floor/indestructible/burn_down()
 	return
 
@@ -45,6 +42,11 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
+	footstep = FOOTSTEP_LAVA
+	barefootstep = FOOTSTEP_LAVA
+	clawfootstep = FOOTSTEP_LAVA
+	heavyfootstep = FOOTSTEP_LAVA
 
 /turf/simulated/floor/indestructible/necropolis/Initialize(mapload)
 	. = ..()
@@ -52,8 +54,8 @@
 		icon_state = "necro[rand(2,3)]"
 
 /turf/simulated/floor/indestructible/necropolis/air
-	oxygen = 0
-	nitrogen = 0
+	oxygen = MOLES_O2STANDARD
+	nitrogen = MOLES_N2STANDARD
 	temperature = T20C
 
 /turf/simulated/floor/indestructible/boss //you put stone tiles on this and use it as a base
@@ -64,6 +66,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 
 /turf/simulated/floor/indestructible/boss/air
 	oxygen = MOLES_O2STANDARD
@@ -77,6 +80,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	smooth = SMOOTH_TRUE
 
 /turf/simulated/floor/indestructible/hierophant/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)

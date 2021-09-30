@@ -23,36 +23,43 @@
         return
     ui_interact(user)
 
-/obj/machinery/computer/brigcells/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-    ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-    if(!ui)
-        ui = new(user, src, ui_key, "brig_cells.tmpl", "Brig Cell Management", 1000, 400)
-        ui.open()
-        ui.set_auto_update(1)
+/obj/machinery/computer/brigcells/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "BrigCells", "Brig Cell Management", 1000, 400, master_ui, state)
+		ui.open()
 
-/obj/machinery/computer/brigcells/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-    var/data[0]
-    var/list/timers = list()
-    for(var/obj/machinery/door_timer/T in GLOB.celltimers_list)
-        var/timer = list()
-        timer["cell_id"] = T.name
-        timer["occupant"] = T.occupant
-        timer["crimes"] = T.crimes
-        timer["brigged_by"] = T.officer
-        if(T.time == 0)
-            timer["background"] = "'background-color:#007f47'"
-        else
-            timer["background"] = "'background-color:#890E26'"
-        timer["time_set"] = seconds_to_clock(T.time / 10)
-        timer["time_left"] = seconds_to_clock(T.timeleft())
-        timer["ref"] = "\ref[T]"
-        timers[++timers.len] += timer
-    timers = sortByKey(timers, "cell_id")
-    data["cells"] = timers
-    return data
+/obj/machinery/computer/brigcells/ui_data(mob/user)
+	var/list/data = list()
+	var/list/timers = list()
+	for(var/obj/machinery/door_timer/T in GLOB.celltimers_list)
+		var/timer = list()
+		timer["cell_id"] = T.name
+		timer["occupant"] = T.occupant
+		timer["crimes"] = T.crimes
+		timer["brigged_by"] = T.officer
+		timer["time_set_seconds"] = round(T.timetoset / 10, 1)
+		timer["time_left_seconds"] = round(T.timeleft(), 1)
+		timer["ref"] = "\ref[T]"
+		timers[++timers.len] += timer
+	timers = sortByKey(timers, "cell_id")
+	data["cells"] = timers
+	return data
 
-/obj/machinery/computer/brigcells/Topic(href, href_list)
-    if(href_list["release"])
-        var/obj/machinery/door_timer/T = locate(href_list["release"])
-        T.timer_end()
-        T.Radio.autosay("Timer stopped manually from a cell management console.", T.name, "Security", list(z))
+/obj/machinery/computer/brigcells/ui_act(action, params)
+	if (..())
+		return FALSE
+
+	if(!allowed(usr))
+		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		return FALSE
+
+	if (action == "release")
+		var/ref = params["ref"]
+		var/obj/machinery/door_timer/T = locate(ref)
+		if (T)
+			T.timer_end()
+			T.Radio.autosay("Timer stopped manually from a cell management console.", T.name, "Security", list(z))
+		return TRUE
+
+	return FALSE

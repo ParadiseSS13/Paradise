@@ -109,7 +109,7 @@
 	item_color = "psyche"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi'
 		)
 
 /obj/item/clothing/under/color/lightblue
@@ -127,6 +127,10 @@
 	icon_state = "purple"
 	item_state = "p_suit"
 	item_color = "purple"
+
+/obj/item/clothing/under/color/purple/sensor	//for jani ert
+	sensor_mode = SENSOR_COORDS
+	random_sensor = FALSE
 
 /obj/item/clothing/under/color/lightpurple
 	name = "light purple jumpsuit"

@@ -272,6 +272,16 @@
 	build_path = /obj/item/circuitboard/solar_control
 	category = list("Computer Boards")
 
+/datum/design/sm_monitor
+	name = "Console Board (Supermatter Monitoring)"
+	desc = "Allows for the construction of circuit boards used to build a supermatter monitoring console"
+	id = "sm_monitor"
+	req_tech = list("programming" = 2, "powerstorage" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/sm_monitor
+	category = list("Computer Boards")
+
 /datum/design/spacepodlocator
 	name = "Console Board (Spacepod Locator)"
 	desc = "Allows for the construction of circuit boards used to build a space-pod locating console"

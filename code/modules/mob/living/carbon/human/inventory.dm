@@ -6,7 +6,7 @@
 		qdel(W)
 	return null
 
-/mob/living/carbon/human/proc/is_in_hands(var/typepath)
+/mob/living/carbon/human/proc/is_in_hands(typepath)
 	if(istype(l_hand,typepath))
 		return l_hand
 	if(istype(r_hand,typepath))
@@ -66,15 +66,7 @@
 		if(slot_tie)
 			return TRUE
 
-// The actual dropping happens at the mob level - checks to prevent drops should
-// come here
-/mob/living/carbon/human/canUnEquip(obj/item/I, force)
-	. = ..()
-	var/obj/item/organ/O = I
-	if(istype(O) && O.owner == src)
-		. = 0 // keep a good grip on your heart
-
-/mob/living/carbon/human/unEquip(obj/item/I, force)
+/mob/living/carbon/human/unEquip(obj/item/I, force, silent = FALSE)
 	. = ..() //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
 	if(!. || !I)
 		return
@@ -178,7 +170,8 @@
 
 
 //This is an UNSAFE proc. Use mob_can_equip() before calling this one! Or rather use equip_to_slot_if_possible() or advanced_equip_to_slot_if_possible()
-/mob/living/carbon/human/equip_to_slot(obj/item/I, slot)
+// Initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
+/mob/living/carbon/human/equip_to_slot(obj/item/I, slot, initial = FALSE)
 	if(!slot)
 		return
 	if(!istype(I))
@@ -195,7 +188,7 @@
 
 	I.screen_loc = null
 	I.forceMove(src)
-	I.equipped(src, slot)
+	I.equipped(src, slot, initial)
 	I.layer = ABOVE_HUD_LAYER
 	I.plane = ABOVE_HUD_PLANE
 
@@ -314,7 +307,7 @@
 		return FALSE
 	if(istype(I, /obj/item/stack))
 		var/obj/item/stack/S = I
-		if(S.amount == 0)
+		if(!S.get_amount())
 			qdel(I)
 			return FALSE
 	if(put_in_active_hand(I))

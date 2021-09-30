@@ -21,8 +21,8 @@
 	if(!QDELETED(src))
 		qdel(src)
 
-/obj/item/grenade/proc/clown_check(var/mob/living/user)
-	if((CLUMSY in user.mutations) && prob(50))
+/obj/item/grenade/proc/clown_check(mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
 		active = 1
 		icon_state = initial(icon_state) + "_active"
@@ -64,7 +64,7 @@
 /obj/item/grenade/attack_self(mob/user as mob)
 	if(!active)
 		if(clown_check(user))
-			to_chat(user, "<span class='warning'>You prime the [name]! [det_time/10] seconds!</span>")
+			to_chat(user, "<span class='warning'>You prime [src]! [det_time/10] seconds!</span>")
 			active = 1
 			icon_state = initial(icon_state) + "_active"
 			add_fingerprint(user)
@@ -73,6 +73,7 @@
 			message_admins("[key_name_admin(usr)] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
 			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])")
 			investigate_log("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])", INVESTIGATE_BOMB)
+			add_attack_logs(user, src, "has primed for detonation", ATKLOG_FEW)
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.throw_mode_on()
@@ -93,16 +94,16 @@
 		switch(det_time)
 			if("1")
 				det_time = 10
-				to_chat(user, "<span class='notice'>You set the [name] for 1 second detonation time.</span>")
+				to_chat(user, "<span class='notice'>You set [src] for 1 second detonation time.</span>")
 			if("10")
 				det_time = 30
-				to_chat(user, "<span class='notice'>You set the [name] for 3 second detonation time.</span>")
+				to_chat(user, "<span class='notice'>You set [src] for 3 second detonation time.</span>")
 			if("30")
 				det_time = 50
-				to_chat(user, "<span class='notice'>You set the [name] for 5 second detonation time.</span>")
+				to_chat(user, "<span class='notice'>You set [src] for 5 second detonation time.</span>")
 			if("50")
 				det_time = 1
-				to_chat(user, "<span class='notice'>You set the [name] for instant detonation.</span>")
+				to_chat(user, "<span class='notice'>You set [src] for instant detonation.</span>")
 		add_fingerprint(user)
 	..()
 

@@ -94,7 +94,7 @@
 /obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/user)
 	target.visible_message("<span class='danger'>[chassis] is drilling [target] with [src]!</span>",
 						"<span class='userdanger'>[chassis] is drilling you with [src]!</span>")
-	add_attack_logs(user, target, "DRILLED with [src] (INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
+	add_attack_logs(user, target, "DRILLED with [src] ([uppertext(user.a_intent)]) ([uppertext(damtype)])")
 	if(target.stat == DEAD && target.getBruteLoss() >= 200)
 		add_attack_logs(user, target, "gibbed")
 		if(LAZYLEN(target.butcher_results))
@@ -106,7 +106,7 @@
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 			var/obj/item/organ/external/target_part = H.get_organ(ran_zone("chest"))
-			H.apply_damage(10, BRUTE, "chest", H.run_armor_check(target_part, "melee"))
+			H.apply_damage(10, BRUTE, "chest", H.run_armor_check(target_part, MELEE))
 
 			//blood splatters
 			blood_color = H.dna.species.blood_color

@@ -9,12 +9,13 @@
 //  and to tell our new DNA datum which values to set in order to turn something
 //  on or off.
 GLOBAL_LIST_INIT(dna_activity_bounds, new(DNA_SE_LENGTH))
-GLOBAL_LIST_INIT(assigned_gene_blocks, new(DNA_SE_LENGTH))
+GLOBAL_LIST_INIT(assigned_mutation_blocks, new(DNA_SE_LENGTH))
 
 // Used to determine what each block means (admin hax and species stuff on /vg/, mostly)
 GLOBAL_LIST_INIT(assigned_blocks, new(DNA_SE_LENGTH))
 
-GLOBAL_LIST_EMPTY(dna_genes)
+/// Assoc list. Key = type of the mutation, value = the mutation
+GLOBAL_LIST_EMPTY(dna_mutations)
 
 GLOBAL_LIST_EMPTY(good_blocks)
 GLOBAL_LIST_EMPTY(bad_blocks)
@@ -85,7 +86,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	// FIXME:  Species-specific defaults pls
 	var/obj/item/organ/external/head/H = character.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
-	var/datum/species/S = character.dna.species
 
 	/*// Body Accessory
 	if(!character.body_accessory)
@@ -121,15 +121,19 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 	SetUIValueRange(DNA_UI_SKIN_TONE,	35-character.s_tone,	220,	1) // Value can be negative.
 
-	if(S.has_gender)
-		SetUIState(DNA_UI_GENDER, character.gender!=MALE, 1)
-	else
-		SetUIState(DNA_UI_GENDER, pick(0,1), 1)
-
 	/*SetUIValueRange(DNA_UI_BACC_STYLE,	bodyacc,	GLOB.facial_hair_styles_list.len,	1)*/
 	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		GLOB.marking_styles_list.len,		1)
 	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		GLOB.marking_styles_list.len,		1)
 	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		GLOB.marking_styles_list.len,		1)
+
+	//Set the Gender
+	switch(character.gender)
+		if(FEMALE)
+			SetUITriState(DNA_UI_GENDER, DNA_GENDER_FEMALE, 1)
+		if(MALE)
+			SetUITriState(DNA_UI_GENDER, DNA_GENDER_MALE, 1)
+		if(PLURAL)
+			SetUITriState(DNA_UI_GENDER, DNA_GENDER_PLURAL, 1)
 
 
 	UpdateUI()
@@ -170,7 +174,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/value = GetUIValue(block)
 	return round(1 + (value / 4096) * maxvalue)
 
-// Is the UI gene "on" or "off"?
+// Is the UI mutation "on" or "off"?
 // For UI, this is simply a check of if the value is > 2050.
 /datum/dna/proc/GetUIState(block)
 	if(block <= 0)
@@ -178,7 +182,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	return UI[block] > 2050
 
 
-// Set UI gene "on" (1) or "off" (0)
+// Set UI mutation "on" (1) or "off" (0)
 /datum/dna/proc/SetUIState(block, on, defer = FALSE)
 	if(block <= 0)
 		return
@@ -188,6 +192,36 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	else
 		val=rand(1, 2049)
 	SetUIValue(block, val, defer)
+
+//Get Tri State Block State
+/datum/dna/proc/GetUITriState(block)
+	if(block <= 0)
+		return
+	var/val = GetUIValue(block)
+	switch(val)
+		if(1 to 1395)
+			return 0
+		if(1396 to 2760)
+			return 1
+		if(2761 to 4095)
+			return 2
+
+// Set Trinary UI Block State
+/datum/dna/proc/SetUITriState(block, value, defer = FALSE)
+	if(block <= 0)
+		return
+	ASSERT(value >= 0)
+	ASSERT(value <= 2)
+	var/val
+	switch(value)
+		if(0)
+			val = rand(1, 1395)
+		if(1)
+			val = rand(1396, 2760)
+		if(2)
+			val = rand(2761, 4095)
+	SetUIValue(block, val, defer)
+
 
 // Get a hex-encoded UI block.
 /datum/dna/proc/GetUIBlock(block)
@@ -266,7 +300,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/value = GetSEValue(block)
 	return round(1 + (value / 4096) * maxvalue)
 
-// Is the block "on" (1) or "off" (0)? (Un-assigned genes are always off.)
+// Is the block "on" (1) or "off" (0)? (Un-assigned mutations are always off.)
 /datum/dna/proc/GetSEState(block)
 	if(block <= 0)
 		return FALSE
@@ -410,4 +444,4 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	destination.dna.species.handle_dna(destination) // Handle DNA has to be re-called as the DNA was changed.
 
 	destination.UpdateAppearance()
-	domutcheck(destination, null, MUTCHK_FORCED)
+	domutcheck(destination, MUTCHK_FORCED)

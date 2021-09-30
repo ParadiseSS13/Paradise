@@ -4,7 +4,7 @@
 	if(!src.holder)
 		to_chat(src, "Only administrators may use this command.")
 		return
-	feedback_add_details("admin_verb","CP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Piping") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 	if(alert("WARNING: This command should not be run on a live server. Do you want to continue?", "Check Piping", "No", "Yes") == "No")
 		return
@@ -49,7 +49,7 @@
 	if(!src.holder)
 		to_chat(src, "Only administrators may use this command.")
 		return
-	feedback_add_details("admin_verb","CPOW") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Power") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 	for(var/datum/powernet/PN in SSmachines.powernets)
 		if(!PN.nodes || !PN.nodes.len)

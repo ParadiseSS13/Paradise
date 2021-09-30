@@ -25,6 +25,9 @@
 /obj/effect/acid_act()
 	return
 
+/obj/effect/proc/is_cleanable() //Called when you want to clean something, and usualy delete it after
+	return FALSE
+
 /obj/effect/mech_melee_attack(obj/mecha/M)
 	return 0
 
@@ -44,6 +47,39 @@
 		if(3)
 			if(prob(25))
 				qdel(src)
+
+/**
+ * # The abstract object
+ *
+ * This is an object that is intended to able to be placed, but that is completely invisible.
+ * The object should be immune to all forms of damage, or things that can delete it, such as the singularity, or explosions.
+ */
+/obj/effect/abstract
+	name = "Abstract object"
+	invisibility = INVISIBILITY_ABSTRACT
+	layer = TURF_LAYER
+	density = FALSE
+	icon = null
+	icon_state = null
+
+// Most of these overrides procs below are overkill, but better safe than sorry.
+/obj/effect/abstract/swarmer_act()
+	return
+
+/obj/effect/abstract/bullet_act(obj/item/projectile/P)
+	return
+
+/obj/effect/abstract/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	return
+
+/obj/effect/abstract/singularity_act()
+	return
+
+/obj/effect/abstract/narsie_act()
+	return
+
+/obj/effect/abstract/ex_act(severity)
+	return
 
 /obj/effect/decal
 	plane = FLOOR_PLANE

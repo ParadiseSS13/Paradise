@@ -11,6 +11,7 @@
 #define COLOR_WHITE 		   "#FFFFFF"
 #define COLOR_GRAY      	   "#808080"
 #define COLOR_BLACK            "#000000"
+#define COLOR_HALF_TRANSPARENT_BLACK    "#0000007A"
 #define COLOR_NAVY_BLUE        "#000080"
 #define COLOR_LIGHT_GREEN      "#008000"
 #define COLOR_DARK_GRAY        "#404040"
@@ -100,6 +101,11 @@
 #define COLOR_ASSEMBLY_BLUE    "#38559E"
 #define COLOR_ASSEMBLY_PURPLE  "#6F6192"
 
+//blood colors
+
+#define COLOR_BLOOD_BASE "#A10808"
+#define COLOR_BLOOD_MACHINE "#1F181F"
+
 // Pipe colours
 #define	PIPE_COLOR_GREY		"#ffffff"	//yes white is grey
 #define	PIPE_COLOR_RED		"#ff0000"
@@ -108,3 +114,12 @@
 #define	PIPE_COLOR_GREEN	"#00ff00"
 #define	PIPE_COLOR_YELLOW	"#ffcc00"
 #define	PIPE_COLOR_PURPLE	"#5c1ec0"
+
+///Main colors for UI themes
+#define COLOR_THEME_MIDNIGHT "#6086A0"
+#define COLOR_THEME_PLASMAFIRE "#FFB200"
+#define COLOR_THEME_RETRO "#24CA00"
+#define COLOR_THEME_SLIMECORE "#4FB259"
+#define COLOR_THEME_OPERATIVE "#B8221F"
+#define COLOR_THEME_GLASS "#75A4C4"
+#define COLOR_THEME_CLOCKWORK "#CFBA47"

@@ -10,8 +10,8 @@
 	var/codelen = 4
 	integrity_failure = 0 //no breaking open the crate
 
-/obj/structure/closet/crate/secure/loot/New()
-	..()
+/obj/structure/closet/crate/secure/loot/Initialize(mapload)
+	. = ..()
 	var/list/digits = list("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	code = ""
 	for(var/i = 0, i < codelen, i++)
@@ -19,6 +19,7 @@
 		code += dig
 		digits -= dig  //Player can enter codes with matching digits, but there are never matching digits in the answer
 
+/obj/structure/closet/crate/secure/loot/populate_contents()
 	var/loot = rand(1,100) //100 different crates with varying chances of spawning
 	switch(loot)
 		if(1 to 5) //5% chance
@@ -60,7 +61,7 @@
 		if(53 to 54)
 			new /obj/item/toy/balloon(src)
 		if(55 to 56)
-			var/newitem = pick(subtypesof(/obj/item/toy/prize))
+			var/newitem = pick(subtypesof(/obj/item/toy/figure/mech))
 			new newitem(src)
 		if(57 to 58)
 			new /obj/item/toy/syndicateballoon(src)
@@ -82,7 +83,7 @@
 			new /obj/item/clothing/head/corgi(src)
 		if(67 to 68)
 			for(var/i in 1 to rand(4, 7))
-				var /newitem = pick(subtypesof(/obj/item/stock_parts))
+				var/newitem = pick(subtypesof(/obj/item/stock_parts))
 				new newitem(src)
 		if(69 to 70)
 			new /obj/item/stack/ore/bluespace_crystal(src, 5)
@@ -103,21 +104,7 @@
 			new /obj/item/toy/katana(src)
 		if(85 to 86)
 			new /obj/item/defibrillator/compact(src)
-		if(87) //1% chance
-			new /obj/item/weed_extract(src)
-		if(88)
-			new /obj/item/organ/internal/brain(src)
-		if(89)
-			new /obj/item/organ/internal/brain/xeno(src)
-		if(90)
-			new /obj/item/organ/internal/heart(src)
-		if(91)
-			new /obj/item/soulstone/anybody(src)
-		if(92)
-			new /obj/item/katana(src)
-		if(93)
-			new /obj/item/dnainjector/xraymut(src)
-		if(94)
+		if(87 to 88)
 			new /obj/item/storage/backpack/clown(src)
 			new /obj/item/clothing/under/rank/clown(src)
 			new /obj/item/clothing/shoes/clown_shoes(src)
@@ -127,6 +114,18 @@
 			new /obj/item/toy/crayon/rainbow(src)
 			new /obj/item/reagent_containers/spray/waterflower(src)
 			new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
+		if(89) //1% chance
+			new /obj/item/weed_extract(src)
+		if(90)
+			new /obj/item/organ/internal/brain(src)
+		if(91)
+			new /obj/item/organ/internal/brain/xeno(src)
+		if(92)
+			new /obj/item/organ/internal/heart(src)
+		if(93)
+			new /obj/item/soulstone/anybody(src)
+		if(94)
+			new /obj/item/katana(src)
 		if(95)
 			new /obj/item/clothing/under/mime(src)
 			new /obj/item/clothing/shoes/black(src)

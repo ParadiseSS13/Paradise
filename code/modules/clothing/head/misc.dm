@@ -5,7 +5,7 @@
 	icon_state = "centcom"
 	desc = "It's good to be emperor."
 	item_state = "centhat"
-	armor = list("melee" = 30, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 30, BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 80
 
 /obj/item/clothing/head/hairflower
@@ -21,10 +21,11 @@
 	item_state = "pwig"
 
 /obj/item/clothing/head/justice_wig
-	name = "Justice wig"
+	name = "justice wig"
 	desc = "A fancy powdered wig given to arbitrators of the law. It looks itchy."
 	icon_state = "jwig"
 	item_state = "jwig"
+	dog_fashion = /datum/dog_fashion/head/justice_wig
 
 /obj/item/clothing/head/beret/blue
 	icon_state = "beret_blue"
@@ -80,7 +81,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/helmet.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 	)
 
 
@@ -94,7 +95,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 /obj/item/clothing/head/snowman
@@ -107,7 +108,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 /obj/item/clothing/head/that
@@ -187,6 +188,7 @@
 	icon_state = "bowler_hat"
 	item_state = "bowler_hat"
 	desc = "For that industrial age look."
+	dog_fashion = /datum/dog_fashion/head/bowlerhat
 
 /obj/item/clothing/head/beaverhat
 	name = "beaver hat"
@@ -271,7 +273,7 @@
 	flags = BLOCKHAIR
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 /obj/item/clothing/head/corgi
@@ -298,10 +300,10 @@
 	flags = BLOCKHAIR
 
 /obj/item/clothing/head/xenos
-	name = "xenos helmet"
+	name = "xeno helmet"
+	desc = "A helmet made out of chitinous alien hide."
 	icon_state = "xenos"
 	item_state = "xenos_helm"
-	desc = "A helmet made out of chitinous alien hide."
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
@@ -310,59 +312,71 @@
 	desc = "Someone wearing this definitely makes them cool"
 	icon_state = "fedora"
 
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
+
 /obj/item/clothing/head/fedora/whitefedora
 	name = "white fedora"
 	icon_state = "wfedora"
+
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
 
 /obj/item/clothing/head/fedora/brownfedora
 	name = "brown fedora"
 	icon_state = "bfedora"
 
-/obj/item/clothing/head/stalhelm
-	name = "Clown Stalhelm"
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
+
+/obj/item/clothing/head/stalhelm //Why do these exist
+	name = "clown stalhelm"
 	desc = "The typical clown soldier's helmet."
 	icon_state = "stalhelm"
 	item_state = "stalhelm"
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
-/obj/item/clothing/head/panzer
-	name = "Clown HONKMech Cap"
+/obj/item/clothing/head/panzer //Why
+	name = "clown HONKMech cap"
 	desc = "The softcap worn by HONK Mech pilots."
 	icon_state = "panzercap"
 	item_state = "panzercap"
 	flags = BLOCKHAIR
 
-/obj/item/clothing/head/naziofficer
-	name = "Clown Officer Cap"
+/obj/item/clothing/head/naziofficer //Ah, come on
+	name = "clown officer cap"
 	desc = "The peaked clown officer's cap, disturbingly similar to the warden's."
 	icon_state = "officercap"
 	item_state = "officercap"
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
-/obj/item/clothing/head/beret/purple
+/obj/item/clothing/head/beret/purple //Fluff?
 	name = "Pierson Family Beret"
 	desc = " A purple beret, with a small golden crescent moon sewn onto it."
 	icon_state = "beret_purple"
 	item_state = "purpleberet"
 
 /obj/item/clothing/head/beret/centcom/officer
-	name = "officers beret"
+	name = "officer beret"
 	desc = "A black beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
 	icon_state = "beret_centcom_officer"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/centcom/officer/navy
-	name = "navy blue officers beret"
+	name = "navy blue officer beret"
 	desc = "A navy blue beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
 	icon_state = "beret_centcom_officer_navy"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/centcom/captain
-	name = "captains beret"
+	name = "captain's beret"
 	desc = "A white beret adorned with the shield—a cobalt kite shield with an engraved sword—of the Nanotrasen security forces, worn only by those captaining a vessel of the Nanotrasen Navy."
 	icon_state = "beret_centcom_captain"
 
@@ -389,8 +403,8 @@
 	dog_fashion = null
 
 /obj/item/clothing/head/cone
-	desc = "This cone is trying to warn you of something!"
 	name = "warning cone"
+	desc = "This cone is trying to warn you of something!"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cone"
 	item_state = "cone"
@@ -401,6 +415,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("warned", "cautioned", "smashed")
 	resistance_flags = NONE
+	dog_fashion = /datum/dog_fashion/head/cone
 
 /obj/item/clothing/head/jester
 	name = "jester hat"
@@ -421,7 +436,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 	actions_types = list(/datum/action/item_action/caw)
 
@@ -435,7 +450,7 @@
 
 
 /obj/item/clothing/head/lordadmiralhat
-	name = "Lord Admiral's Hat"
+	name = "lord admiral's hat"
 	desc = "A hat suitable for any man of high and exalted rank."
 	icon_state = "lordadmiralhat"
 	item_state = "lordadmiralhat"
@@ -454,7 +469,7 @@
 	flags_inv = HIDEFACE|HIDEEARS
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 /obj/item/clothing/head/papersack/smiley
@@ -465,14 +480,14 @@
 	flags_inv = HIDEFACE|HIDEEARS
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 /obj/item/clothing/head/crown
 	name = "crown"
 	desc = "A crown fit for a king, a petty king maybe."
 	icon_state = "crown"
-	armor = list("melee" = 15, "bullet" = 0, "laser" = 0,"energy" = 15, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/head/crown/fancy

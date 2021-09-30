@@ -1,7 +1,7 @@
 /obj/item/projectile/guardian
 	name = "crystal spray"
 	icon_state = "guardian"
-	damage = 5
+	damage = 25
 	damage_type = BRUTE
 	armour_penetration = 100
 
@@ -10,8 +10,9 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 10
 	damage_transfer = 0.9
+	can_strip = TRUE
 	projectiletype = /obj/item/projectile/guardian
-	ranged_cooldown_time = 1 //fast!
+	ranged_cooldown_time = 5 //fast!
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
 	ranged = 1
 	range = 13
@@ -35,6 +36,7 @@
 			alpha = 255
 			range = 13
 			incorporeal_move = 0
+			can_strip = TRUE
 			to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
 			toggle = FALSE
 		else
@@ -46,6 +48,7 @@
 			alpha = 60
 			range = 255
 			incorporeal_move = 1
+			can_strip = FALSE  //spiritual pickpocketting is forbidden
 			to_chat(src, "<span class='danger'>You switch to scout mode.</span>")
 			toggle = TRUE
 	else

@@ -30,7 +30,7 @@
 			else
 				// Target prioritization by spider type. BRUTE spiders prioritize lower armor values, POISON spiders prioritize poisonable targets
 				if(ai_target_method == TS_DAMAGE_BRUTE)
-					var/theirarmor = C.getarmor(type = "melee")
+					var/theirarmor = C.getarmor(type = MELEE)
 					// Example values: Civilian: 2, Engineer w/ Hardsuit: 10, Sec Officer with armor: 19, HoS: 48, Deathsquad: 80
 					if(theirarmor < 10)
 						targets1 += C
@@ -126,7 +126,7 @@
 					spider_steps_taken++
 					CreatePath(entry_vent)
 					step_to(src,entry_vent)
-					if(spider_debug > 0)
+					if(spider_debug)
 						visible_message("<span class='notice'>[src] moves towards the vent [entry_vent].</span>")
 			else
 				path_to_vent = 0

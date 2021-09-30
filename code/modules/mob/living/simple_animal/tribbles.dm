@@ -51,7 +51,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 			qdel(src)
 
 
-/mob/living/simple_animal/tribble/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/mob/living/simple_animal/tribble/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/scalpel))
 		to_chat(user, "<span class='notice'>You try to neuter the tribble, but it's moving too much and you fail!</span>")
 	else if(istype(O, /obj/item/cautery))
@@ -112,7 +112,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	to_chat(user, "<span class='notice'>The tribble gets up and wanders around.</span>")
 	. = ..()
 
-/obj/item/toy/tribble/attackby(var/obj/item/O as obj, var/mob/user as mob) //neutering and un-neutering
+/obj/item/toy/tribble/attackby(obj/item/O as obj, mob/user as mob) //neutering and un-neutering
 	..()
 	if(istype(O, /obj/item/scalpel) && src.gestation != null)
 		gestation = null
@@ -180,7 +180,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	item_state = "furcoat"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO
-	allowed = list (/obj/item/tank/emergency_oxygen)
+	allowed = list (/obj/item/tank/internals/emergency_oxygen)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 

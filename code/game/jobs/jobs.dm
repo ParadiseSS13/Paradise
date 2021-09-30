@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(supply_positions, list(
 	"Shaft Miner"
 ))
 
-GLOBAL_LIST_INIT(service_positions, (support_positions - supply_positions + list("Head of Personnel")))
+GLOBAL_LIST_INIT(service_positions, (list("Head of Personnel") + (support_positions - supply_positions)))
 
 
 GLOBAL_LIST_INIT(security_positions, list(
@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(whitelisted_positions, list(
 ))
 
 
-/proc/guest_jobbans(var/job)
+/proc/guest_jobbans(job)
 	return (job in GLOB.whitelisted_positions)
 
 /proc/get_job_datums()
@@ -119,7 +119,7 @@ GLOBAL_LIST_INIT(whitelisted_positions, list(
 
 	return occupations
 
-/proc/get_alternate_titles(var/job)
+/proc/get_alternate_titles(job)
 	var/list/jobs = get_job_datums()
 	var/list/titles = list()
 

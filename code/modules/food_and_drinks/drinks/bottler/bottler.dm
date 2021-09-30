@@ -23,6 +23,7 @@
 	var/bottling = 0
 
 /obj/machinery/bottler/New()
+	. = ..()
 	if(!available_recipes)
 		available_recipes = list()
 		acceptable_items = list()
@@ -113,7 +114,7 @@
 		O.forceMove(src)
 	updateUsrDialog()
 
-/obj/machinery/bottler/proc/eject_items(var/slot)
+/obj/machinery/bottler/proc/eject_items(slot)
 	var/obj/item/O = null
 	if(!slot)
 		for(var/i = 1, i <= slots.len, i++)
@@ -205,7 +206,7 @@
 		containers[con_type] = min(containers[con_type], max_define)
 		S.use(sheets_to_use)
 	else
-		visible_message("<span class='warning'>[src] rejects the [S] because it already is fully stocked with [con_type]s.</span>")
+		visible_message("<span class='warning'>[src] rejects [S] because it already is fully stocked with [con_type]s.</span>")
 
 /obj/machinery/bottler/proc/select_recipe()
 	for(var/datum/bottler_recipe/recipe in available_recipes)
@@ -234,7 +235,7 @@
 	if(containers[con_type])
 		//empties aren't sealed, so let's open it quietly
 		drink_container = new drink_container()
-		drink_container.canopened = 1
+		drink_container.canopened = TRUE
 		drink_container.container_type |= OPENCONTAINER
 		drink_container.forceMove(loc)
 		containers[con_type]--

@@ -21,24 +21,24 @@
 	var/use_sound = 'sound/weapons/flash.ogg'
 
 /obj/item/flash/proc/clown_check(mob/user)
-	if(user && (CLUMSY in user.mutations) && prob(50))
+	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		flash_carbon(user, user, 15, 0)
 		return 0
 	return 1
 
-/obj/item/flash/attackby(obj/item/W, mob/user, params)
+/obj/item/flash/attackby(obj/item/I, mob/user, params)
 	if(can_overcharge)
-		if(istype(W, /obj/item/screwdriver))
+		if(istype(I, /obj/item/screwdriver))
 			if(battery_panel)
-				to_chat(user, "<span class='notice'>You close the battery compartment on the [src].</span>")
+				to_chat(user, "<span class='notice'>You close the battery compartment on [src].</span>")
 				battery_panel = 0
 			else
-				to_chat(user, "<span class='notice'>You open the battery compartment on the [src].</span>")
+				to_chat(user, "<span class='notice'>You open the battery compartment on [src].</span>")
 				battery_panel = 1
 		if(battery_panel && !overcharged)
-			if(istype(W, /obj/item/stock_parts/cell))
-				to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
-				qdel(W)
+			if(istype(I, /obj/item/stock_parts/cell))
+				to_chat(user, "<span class='notice'>You jam [I] into the battery compartment on [src].</span>")
+				qdel(I)
 				overcharged = 1
 				overlays += "overcharge"
 
@@ -51,10 +51,10 @@
 /obj/item/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = 1
 	icon_state = "[initial(icon_state)]burnt"
-	visible_message("<span class='notice'>The [src.name] burns out!</span>")
+	visible_message("<span class='notice'>[src] burns out!</span>")
 
 
-/obj/item/flash/proc/flash_recharge(var/mob/user)
+/obj/item/flash/proc/flash_recharge(mob/user)
 	if(prob(times_used * 2))	//if you use it 5 times in a minute it has a 10% chance to break!
 		burn_out()
 		return 0
@@ -85,12 +85,10 @@
 	return TRUE
 
 
-/obj/item/flash/proc/flash_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, targeted = 1)
+/obj/item/flash/proc/flash_carbon(mob/living/carbon/M, mob/user = null, power = 5, targeted = 1)
 	if(user)
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(targeted)
-			if(M.weakeyes)
-				M.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
 			if(M.flash_eyes(1, 1))
 				M.AdjustConfused(power)
 				terrible_conversion_proc(M, user)
@@ -98,9 +96,6 @@
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
 				to_chat(user, "<span class='danger'>You blind [M] with the flash!</span>")
 				to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
-				if(M.weakeyes)
-					M.Stun(2)
-					M.visible_message("<span class='disarm'>[M] gasps and shields [M.p_their()] eyes!</span>", "<span class='userdanger'>You gasp and shield your eyes!</span>")
 			else
 				visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
 				to_chat(user, "<span class='warning'>You fail to blind [M] with the flash!</span>")
@@ -123,16 +118,16 @@
 	else if(issilicon(M))
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(M.flash_eyes(affect_silicon = 1))
-			M.Weaken(rand(5,10))
-			user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [M]'s sensors with the [src.name]!</span>")
+			M.Weaken(rand(4, 6))
+			user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with [src]!</span>", "<span class='danger'>You overload [M]'s sensors with [src]!</span>")
 		return 1
-	user.visible_message("<span class='disarm'>[user] fails to blind [M] with the [src.name]!</span>", "<span class='warning'>You fail to blind [M] with the [src.name]!</span>")
+	user.visible_message("<span class='disarm'>[user] fails to blind [M] with [src]!</span>", "<span class='warning'>You fail to blind [M] with [src]!</span>")
 
 
 /obj/item/flash/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!try_use_flash(user))
 		return 0
-	user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
+	user.visible_message("<span class='disarm'>[user]'s [src] emits a blinding light!</span>", "<span class='danger'>Your [src] emits a blinding light!</span>")
 	for(var/mob/living/carbon/M in oviewers(3, null))
 		flash_carbon(M, user, 3, 0)
 
@@ -163,7 +158,7 @@
 						resisted = 1
 
 					if(resisted)
-						to_chat(user, "<span class='warning'>This mind seems resistant to the [name]!</span>")
+						to_chat(user, "<span class='warning'>This mind seems resistant to [src]!</span>")
 				else
 					to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")
 			else
@@ -180,6 +175,12 @@
 /obj/item/flash/cyborg/attack_self(mob/user)
 	..()
 	new /obj/effect/temp_visual/borgflash(get_turf(src))
+
+/obj/item/flash/cyborg/cyborg_recharge(coeff, emagged)
+	if(broken)
+		broken = FALSE
+		times_used = 0
+		icon_state = "flash"
 
 /obj/item/flash/cameraflash
 	name = "camera"

@@ -1,5 +1,6 @@
 @use 'sass:color';
 @use '../colors.scss';
+@use '../base.scss';
 
 $color-title: #ffffff !default;
 $color-background: rgba(0, 0, 0, 0.33) !default;
@@ -18,13 +19,45 @@ $color-separator: colors.$primary !default;
   box-shadow: inset 0 0 5px $color-shadow;
   box-sizing: border-box;
 
+  // Fancy scrollbar
+  scrollbar-base-color: color.scale(
+    base.$color-bg,
+    $lightness: -25%);
+  scrollbar-face-color: color.scale(
+    base.$color-bg,
+    $lightness: 10%);
+  scrollbar-3dlight-color: color.scale(
+    base.$color-bg,
+    $lightness: 0%);
+  scrollbar-highlight-color: color.scale(
+    base.$color-bg,
+    $lightness: 0%);
+  scrollbar-track-color: color.scale(
+    base.$color-bg,
+    $lightness: -25%);
+  scrollbar-arrow-color: color.scale(
+    base.$color-bg,
+    $lightness: 50%);
+  scrollbar-shadow-color: color.scale(
+    base.$color-bg,
+    $lightness: 10%);
+
   &:last-child {
     margin-bottom: 0;
   }
 }
 
+.Section--flex {
+  display: flex;
+  flex-flow: column;
+}
+
+.Section--flex .Section__content {
+  overflow: auto;
+  flex: 1;
+}
+
 .Section__title {
-  position: relative;
   padding: 6px;
   border-bottom: 2px solid $color-separator;
 }
@@ -43,6 +76,14 @@ $color-separator: colors.$primary !default;
 
 .Section__content {
   padding: 8px 6px;
+}
+
+.Section__content--noTopPadding {
+  padding-top: 0;
+}
+
+.Section__content--stretchContents {
+  height: 100%;
 }
 
 .Section--level--1 .Section__titleText {

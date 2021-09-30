@@ -6,10 +6,10 @@
 		qdel(src)
 	owner = new_owner
 
-/datum/spawners_menu/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = FALSE, datum/topic_state/state = GLOB.ghost_state, datum/nanoui/master_ui = null)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/spawners_menu/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/ui_state/state = GLOB.observer_state, datum/tgui/master_ui = null)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "spawners_menu.tmpl", "Spawners Menu", 700, 600, master_ui, state = state)
+		ui = new(user, src, ui_key, "SpawnersMenu", "Spawners Menu", 700, 600, master_ui, state = state)
 		ui.open()
 
 /datum/spawners_menu/ui_data(mob/user)
@@ -19,31 +19,34 @@
 		var/list/this = list()
 		this["name"] = spawner
 		this["desc"] = ""
+		this["important_info"] = ""
+		this["fluff"] = ""
 		this["uids"] = list()
-		for(var/spawner_obj in GLOB.mob_spawners[spawner])
+		for(var/spawner_obj in GLOB.mob_spawners[spawner])//each spawner can contain multiple actual spawners, we use only one desc/info
 			this["uids"] += "\ref[spawner_obj]"
-			if(!this["desc"])
+			if(!this["desc"])	//haven't set descriptions yet
 				if(istype(spawner_obj, /obj/effect/mob_spawn))
 					var/obj/effect/mob_spawn/MS = spawner_obj
-					this["desc"] = MS.flavour_text
+					this["desc"] = MS.description
+					this["important_info"] = MS.important_info
+					this["fluff"] = MS.flavour_text
 				else
 					var/obj/O = spawner_obj
 					this["desc"] = O.desc
 		this["amount_left"] = LAZYLEN(GLOB.mob_spawners[spawner])
 		data["spawners"] += list(this)
-
 	return data
 
-/datum/spawners_menu/Topic(href, href_list)
+/datum/spawners_menu/ui_act(action, params)
 	if(..())
-		return 1
-	var/spawners = replacetext(href_list["uid"], ",", ";")
+		return
+	var/spawners = replacetext(params["ID"], ",", ";")
 	var/list/possible_spawners = params2list(spawners)
 	var/obj/effect/mob_spawn/MS = locate(pick(possible_spawners))
 	if(!MS || !istype(MS))
 		log_runtime(EXCEPTION("A ghost tried to interact with an invalid spawner, or the spawner didn't exist."))
 		return
-	switch(href_list["action"])
+	switch(action)
 		if("jump")
 			owner.forceMove(get_turf(MS))
 			. = TRUE

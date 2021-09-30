@@ -1,4 +1,4 @@
-/mob/dead/observer/DblClickOn(var/atom/A, var/params)
+/mob/dead/observer/DblClickOn(atom/A, params)
 	if(client.click_intercept)
 		// Not doing a click intercept here, because otherwise we double-tap with the `ClickOn` proc.
 		// But we return here since we don't want to do regular dblclick handling
@@ -18,7 +18,7 @@
 		forceMove(get_turf(A))
 		update_parallax_contents()
 
-/mob/dead/observer/ClickOn(var/atom/A, var/params)
+/mob/dead/observer/ClickOn(atom/A, params)
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
@@ -41,21 +41,24 @@
 			if(M)
 				admin_mob_info(M)
 			return
+	if(modifiers["middle"])
+		MiddleClickOn(A)
+		return
 	if(modifiers["shift"])
 		ShiftClickOn(A)
 		return
 	if(modifiers["alt"])
-		AltClickOn(A)
+		AltClickNoInteract(src, A)
 		return
 	// You are responsible for checking config.ghost_interaction when you override this function
 	// Not all of them require checking, see below
 	A.attack_ghost(src)
 
 // We don't need a fucking toggle.
-/mob/dead/observer/ShiftClickOn(var/atom/A)
+/mob/dead/observer/ShiftClickOn(atom/A)
 	examinate(A)
 
-/atom/proc/attack_ghost(mob/user as mob)
+/atom/proc/attack_ghost(mob/user)
 	return
 
 // health + cyborg analyzer for ghosts

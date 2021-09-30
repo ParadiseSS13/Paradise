@@ -314,6 +314,7 @@
 	playsound(chassis, 'sound/items/syringeproj.ogg', 50, 1)
 	log_message("Launched [mechsyringe] from [src], targeting [target].")
 	var/mob/originaloccupant = chassis.occupant
+	var/original_target_zone = originaloccupant.zone_selected
 	spawn(0)
 		src = null //if src is deleted, still process the syringe
 		var/max_range = 6
@@ -330,7 +331,7 @@
 			if(M)
 				var/R
 				mechsyringe.visible_message("<span class=\"attack\"> [M] was hit by the syringe!</span>")
-				if(M.can_inject(null, TRUE))
+				if(M.can_inject(originaloccupant, TRUE, original_target_zone))
 					if(mechsyringe.reagents)
 						for(var/datum/reagent/A in mechsyringe.reagents.reagent_list)
 							R += A.id + " ("
@@ -467,7 +468,7 @@
 		occupant_message("Syringe loaded.")
 		update_equip_info()
 		return 1
-	occupant_message("The [src] syringe chamber is full.")
+	occupant_message("[src] syringe chamber is full.")
 	return 0
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/analyze_reagents(atom/A)
@@ -482,7 +483,7 @@
 		if(R.can_synth && add_known_reagent(R.id, R.name))
 			occupant_message("Reagent analyzed, identified as [R.name] and added to database.")
 			send_byjax(chassis.occupant,"msyringegun.browser","reagents_form",get_reagents_form())
-	occupant_message("Analyzis complete.")
+	occupant_message("Analysis complete.")
 	return 1
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/add_known_reagent(r_id,r_name)

@@ -12,15 +12,13 @@
 	dir = EAST
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100)
+	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100)
 	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
 	var/reinf = 0
-	var/cancolor = TRUE
 	var/shards = 2
 	var/rods = 2
 	var/cable = 1
-	var/list/debris = list()
 
 /obj/machinery/door/window/New(loc, set_dir)
 	..()
@@ -29,18 +27,9 @@
 	if(req_access && req_access.len)
 		icon_state = "[icon_state]"
 		base_state = icon_state
-	if(!color && cancolor)
-		color = color_windows(src)
-	for(var/i in 1 to shards)
-		debris += new /obj/item/shard(src)
-	if(rods)
-		debris += new /obj/item/stack/rods(src, rods)
-	if(cable)
-		debris += new /obj/item/stack/cable_coil(src, cable)
 
 /obj/machinery/door/window/Destroy()
 	density = FALSE
-	QDEL_LIST(debris)
 	if(obj_integrity == 0)
 		playsound(src, "shatter", 70, 1)
 	QDEL_NULL(electronics)
@@ -56,6 +45,11 @@
 	. = ..()
 	if(emagged)
 		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
+
+/obj/machinery/door/window/emp_act(severity)
+	. = ..()
+	if(prob(20 / severity))
+		open()
 
 /obj/machinery/door/window/proc/open_and_close()
 	open()
@@ -90,6 +84,13 @@
 		open_and_close()
 	else
 		do_animate("deny")
+
+/obj/machinery/door/window/unrestricted_side(mob/M)
+	var/mob_dir = get_dir(src, M)
+	if(mob_dir == 0) // If the mob is inside the tile
+		mob_dir = GetOppositeDir(dir) // Set it to the inside direction of the windoor
+
+	return mob_dir & unres_sides
 
 /obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
@@ -185,19 +186,21 @@
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT) && !disassembled)
-		for(var/obj/fragment in debris)
-			fragment.forceMove(get_turf(src))
-			transfer_fingerprints_to(fragment)
-			debris -= fragment
+		for(var/obj/item/shard/debris in spawnDebris(drop_location()))
+			transfer_fingerprints_to(debris) // transfer fingerprints to shards only
 	qdel(src)
+
+/obj/machinery/door/window/proc/spawnDebris(location)
+	. = list()
+	for(var/i in 1 to shards)
+		. += new /obj/item/shard(location)
+	if(rods)
+		. += new /obj/item/stack/rods(location, rods)
+	if(cable)
+		. += new /obj/item/stack/cable_coil(location, cable)
 
 /obj/machinery/door/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
-
-/obj/machinery/door/window/ratvar_act()
-	var/obj/machinery/door/window/clockwork/C = new(loc, dir)
-	C.name = name
-	qdel(src)
 
 /obj/machinery/door/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -218,8 +221,9 @@
 	if(!operating && density && !emagged)
 		emagged = TRUE
 		operating = TRUE
+		electronics = new /obj/item/airlock_electronics/destroyed()
 		flick("[base_state]spark", src)
-		playsound(src, "sparks", 75, 1)
+		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		sleep(6)
 		operating = FALSE
 		open(2)
@@ -278,11 +282,6 @@
 				WA.update_icon()
 				WA.created_name = name
 
-				if(emagged)
-					to_chat(user, "<span class='warning'>You discard the damaged electronics.</span>")
-					qdel(src)
-					return
-
 				to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 
 				var/obj/item/airlock_electronics/ae
@@ -291,9 +290,9 @@
 					if(!req_access)
 						check_access()
 					if(req_access.len)
-						ae.conf_access = req_access
+						ae.selected_accesses = req_access
 					else if(req_one_access.len)
-						ae.conf_access = req_one_access
+						ae.selected_accesses = req_one_access
 						ae.one_access = 1
 				else
 					ae = electronics
@@ -344,12 +343,11 @@
 	shards = 0
 	rods = 0
 	resistance_flags = ACID_PROOF | FIRE_PROOF
-	cancolor = FALSE
 	var/made_glow = FALSE
 
-/obj/machinery/door/window/clockwork/New(loc, set_dir)
-	..()
-	debris += new/obj/item/stack/tile/brass(src, 2)
+/obj/machinery/door/window/clockwork/spawnDebris(location)
+	. = ..()
+	. = new /obj/item/stack/tile/brass(location, 2)
 
 /obj/machinery/door/window/clockwork/setDir(direct)
 	if(!made_glow)
@@ -361,9 +359,6 @@
 /obj/machinery/door/window/clockwork/emp_act(severity)
 	if(prob(80/severity))
 		open()
-
-/obj/machinery/door/window/clockwork/ratvar_act()
-	obj_integrity = max_integrity
 
 /obj/machinery/door/window/clockwork/hasPower()
 	return TRUE //yup that's power all right

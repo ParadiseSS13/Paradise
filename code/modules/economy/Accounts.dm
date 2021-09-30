@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 		GLOB.station_account = new()
 		GLOB.station_account.owner_name = "[station_name()] Station Account"
 		GLOB.station_account.account_number = rand(111111, 999999)
-		GLOB.station_account.remote_access_pin = rand(1111, 111111)
+		GLOB.station_account.remote_access_pin = rand(111111, 999999)
 		GLOB.station_account.money = STATION_START_CASH
 
 		//create an entry in the account transaction log for when it was created
@@ -35,7 +35,7 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 	var/datum/money_account/department_account = new()
 	department_account.owner_name = "[department] Account"
 	department_account.account_number = rand(111111, 999999)
-	department_account.remote_access_pin = rand(1111, 111111)
+	department_account.remote_access_pin = rand(111111, 999999)
 	department_account.money = DEPARTMENT_START_CASH
 
 	//create an entry in the account transaction log for when it was created
@@ -50,12 +50,12 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 //the current ingame time (hh:mm:ss) can be obtained by calling:
 //station_time_timestamp("hh:mm:ss")
 
-/proc/create_account(var/new_owner_name = "Default user", var/starting_funds = 0, var/obj/machinery/computer/account_database/source_db)
+/proc/create_account(new_owner_name = "Default user", starting_funds = 0, obj/machinery/computer/account_database/source_db)
 
 	//create a new account
 	var/datum/money_account/M = new()
 	M.owner_name = new_owner_name
-	M.remote_access_pin = rand(1111, 111111)
+	M.remote_access_pin = rand(111111, 999999)
 	M.money = starting_funds
 
 	//create an entry in the account transaction log for when it was created
@@ -87,8 +87,9 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 		R.name = "Account information: [M.owner_name]"
 
 		var/overseer = "Unknown"
-		if(source_db.held_card)
-			overseer = source_db.held_card.registered_name
+		var/datum/ui_login/L = source_db.ui_login_get()
+		if(L.id)
+			overseer = L.id.registered_name
 		R.info = {"<b>Account details (confidential)</b><br><hr><br>
 			<i>Account holder:</i> [M.owner_name]<br>
 			<i>Account number:</i> [M.account_number]<br>
@@ -147,18 +148,18 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 	return 0
 
 //this returns the first account datum that matches the supplied accnum/pin combination, it returns null if the combination did not match any account
-/proc/attempt_account_access(var/attempt_account_number, var/attempt_pin_number, var/security_level_passed = 0,var/pin_needed=1)
+/proc/attempt_account_access(attempt_account_number, attempt_pin_number, security_level_passed = 0, pin_needed=1)
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == attempt_account_number)
 			if( D.security_level <= security_level_passed && (!D.security_level || D.remote_access_pin == attempt_pin_number || !pin_needed) )
 				return D
 
-/obj/machinery/computer/account_database/proc/get_account(var/account_number)
+/obj/machinery/computer/account_database/proc/get_account(account_number)
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == account_number)
 			return D
 
-/proc/attempt_account_access_nosec(var/attempt_account_number)
+/proc/attempt_account_access_nosec(attempt_account_number)
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == attempt_account_number)
 			return D

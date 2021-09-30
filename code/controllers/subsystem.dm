@@ -2,6 +2,8 @@
 /datum/controller/subsystem
 	// Metadata; you should define these.
 	name = "fire codertrain" //name of the subsystem
+	/// Subsystem ID. Used for when we need a technical name for the SS
+	var/ss_id = "fire_codertrain_again"
 	var/init_order = INIT_ORDER_DEFAULT		//order of initialization. Higher numbers are initialized first, lower numbers later. Use defines in __DEFINES/subsystems.dm for easy understanding of order.
 	var/wait = 20			//time to wait (in deciseconds) between each call to fire(). Must be a positive integer.
 	var/priority = FIRE_PRIORITY_DEFAULT	//When mutiple subsystems need to run in the same tick, higher priority subsystems will run first and be given a higher share of the tick before MC_TICK_CHECK triggers a sleep
@@ -35,7 +37,7 @@
 
 	var/static/list/failure_strikes //How many times we suspect a subsystem type has crashed the MC, 3 strikes and you're out!
 
-	var/offline_implications = "None" // What are the implications of this SS being offlined?
+	var/offline_implications = "None. No immediate action is needed." // What are the implications of this SS being offlined?
 
 //Do not override
 ///datum/controller/subsystem/New()
@@ -162,9 +164,7 @@
 /datum/controller/subsystem/Initialize(start_timeofday)
 	initialized = TRUE
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
-	var/msg = "Initialized [name] subsystem within [time] second[time == 1 ? "" : "s"]!"
-	to_chat(world, "<span class='boldannounce'>[msg]</span>")
-	log_world(msg)
+	log_startup_progress("Initialized within [time] second[time == 1 ? "" : "s"]!")
 	return time
 
 //hook for printing stats to the "MC" statuspanel for admins to see performance and related stats etc.
@@ -229,3 +229,17 @@
 		if("queued_priority") //editing this breaks things.
 			return 0
 	. = ..()
+
+/**
+  * Returns the metrics for the subsystem.
+  *
+  * This can be overriden on subtypes for variables that could affect tick usage
+  * Example: ATs on SSair
+  */
+/datum/controller/subsystem/proc/get_metrics()
+	SHOULD_CALL_PARENT(TRUE)
+	var/list/out = list()
+	out["cost"] = cost
+	out["tick_usage"] = tick_usage
+	out["custom"] = list() // Override as needed on child
+	return out

@@ -1,5 +1,5 @@
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
-	if(!tool_attack_chain(user, target) && pre_attackby(target, user, params))
+	if(!tool_attack_chain(user, target) && pre_attack(target, user, params))
 		// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
 		var/resolved = target.attackby(src, user, params)
 		if(!resolved && target && !QDELETED(src))
@@ -18,7 +18,7 @@
 		return
 	return
 
-/obj/item/proc/pre_attackby(atom/A, mob/living/user, params) //do stuff before attackby!
+/obj/item/proc/pre_attack(atom/A, mob/living/user, params) //do stuff before attackby!
 	if(is_hot(src) && A.reagents && !ismob(A))
 		to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
 		A.reagents.temperature_reagents(is_hot(src))
@@ -31,32 +31,32 @@
 	return FALSE
 
 /obj/attackby(obj/item/I, mob/living/user, params)
-	return ..() || (can_be_hit && I.attack_obj(src, user))
+	return ..() || (can_be_hit && I.attack_obj(src, user, params))
 
 /mob/living/attackby(obj/item/I, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(attempt_harvest(I, user))
-		return 1
+		return TRUE
 	return I.attack(src, user)
 
 /obj/item/proc/attack(mob/living/M, mob/living/user, def_zone)
 	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user)
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
 	if(flags & (NOBLUDGEON))
-		return 0
+		return FALSE
 	if(can_operate(M))  //Checks if mob is lying down on table for surgery
 		if(istype(src,/obj/item/robot_parts))//popup override for direct attach
 			if(!attempt_initiate_surgery(src, M, user,1))
-				return 0
+				return FALSE
 			else
-				return 1
+				return TRUE
 		if(istype(src,/obj/item/organ/external))
 			var/obj/item/organ/external/E = src
 			if(E.is_robotic()) // Robot limbs are less messy to attach
 				if(!attempt_initiate_surgery(src, M, user,1))
-					return 0
+					return FALSE
 				else
-					return 1
+					return TRUE
 		var/obj/item/organ/external/O = M.get_organ(user.zone_selected)
 		if((is_sharp(src) || (isscrewdriver(src) && O?.is_robotic())) && user.a_intent == INTENT_HELP)
 			if(!attempt_initiate_surgery(src, M, user))
@@ -73,7 +73,7 @@
 	else
 		SEND_SIGNAL(M, COMSIG_ITEM_ATTACK)
 		if(hitsound)
-			playsound(loc, hitsound, get_clamped_volume(), 1, -1)
+			playsound(loc, hitsound, get_clamped_volume(), TRUE, extrarange = stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
 
 	M.lastattacker = user.real_name
 	M.lastattackerckey = user.ckey
@@ -81,13 +81,13 @@
 	user.do_attack_animation(M)
 	. = M.attacked_by(src, user, def_zone)
 
-	add_attack_logs(user, M, "Attacked with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", (M.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
+	add_attack_logs(user, M, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)])", (M.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 
 	add_fingerprint(user)
 
 
 //the equivalent of the standard version of attack() but for object targets.
-/obj/item/proc/attack_obj(obj/O, mob/living/user)
+/obj/item/proc/attack_obj(obj/O, mob/living/user, params)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
 		return
 	if(flags & (NOBLUDGEON))
@@ -102,7 +102,7 @@
 /obj/attacked_by(obj/item/I, mob/living/user)
 	if(I.force)
 		user.visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
-	take_damage(I.force, I.damtype, "melee", 1)
+	take_damage(I.force, I.damtype, MELEE, 1)
 
 /mob/living/attacked_by(obj/item/I, mob/living/user, def_zone)
 	send_item_attack_message(I, user)

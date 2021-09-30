@@ -4,34 +4,34 @@
 /area/template_noop)
 "b" = (
 /turf/simulated/wall/cult,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "c" = (
 /obj/structure/healingfountain,
 /turf/simulated/floor/engine/cult,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "d" = (
 /obj/structure/fluff/divine/conduit,
 /turf/simulated/floor/engine/cult,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "e" = (
 /obj/structure/sacrificealtar,
 /turf/simulated/floor/engine/cult,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "f" = (
 /turf/simulated/floor/engine/cult,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "g" = (
 /mob/living/simple_animal/butterfly,
 /turf/simulated/floor/engine/cult,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "h" = (
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/engine/cult,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "i" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/engine/cult,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 
 (1,1,1) = {"
 a

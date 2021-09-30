@@ -1,84 +1,89 @@
-GLOBAL_LIST_EMPTY(priority_air_alarms)
-GLOBAL_LIST_EMPTY(minor_air_alarms)
-
-
 /obj/machinery/computer/atmos_alert
 	name = "atmospheric alert computer"
 	desc = "Used to access the station's atmospheric sensors."
 	circuit = /obj/item/circuitboard/atmos_alert
+	var/ui_x = 350
+	var/ui_y = 300
 	icon_keyboard = "atmos_key"
 	icon_screen = "alert:0"
 	light_color = LIGHT_COLOR_CYAN
+	var/list/priority_alarms = list()
+	var/list/minor_alarms = list()
+	var/receive_frequency = ATMOS_FIRE_FREQ
 
-/obj/machinery/computer/atmos_alert/New()
-	..()
-	SSalarms.atmosphere_alarm.register(src, /obj/machinery/computer/station_alert/.proc/update_icon)
+/obj/machinery/computer/atmos_alert/Initialize(mapload)
+	. = ..()
+	set_frequency(receive_frequency)
 
 /obj/machinery/computer/atmos_alert/Destroy()
-    SSalarms.atmosphere_alarm.unregister(src)
-    return ..()
+	SSradio.remove_object(src, receive_frequency)
+	return ..()
 
 /obj/machinery/computer/atmos_alert/attack_hand(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/atmos_alert/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/atmos_alert/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "atmos_alert.tmpl", src.name, 500, 500)
+		ui = new(user, src, ui_key, "AtmosAlertConsole", name, ui_x, ui_y, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/computer/atmos_alert/ui_data(mob/user, datum/topic_state/state)
-	var/data[0]
-	var/major_alarms[0]
-	var/minor_alarms[0]
+/obj/machinery/computer/atmos_alert/ui_data(mob/user)
+	var/list/data = list()
 
-	for(var/datum/alarm/alarm in SSalarms.atmosphere_alarm.major_alarms())
-		major_alarms[++major_alarms.len] = list("name" = sanitize(alarm.alarm_name()), "ref" = "\ref[alarm]")
-
-	for(var/datum/alarm/alarm in SSalarms.atmosphere_alarm.minor_alarms())
-		minor_alarms[++minor_alarms.len] = list("name" = sanitize(alarm.alarm_name()), "ref" = "\ref[alarm]")
-
-	data["priority_alarms"] = major_alarms
-	data["minor_alarms"] = minor_alarms
+	data["priority"] = list()
+	for(var/zone in priority_alarms)
+		data["priority"] |= zone
+	data["minor"] = list()
+	for(var/zone in minor_alarms)
+		data["minor"] |= zone
 
 	return data
 
-/obj/machinery/computer/atmos_alert/update_icon()
-	var/list/alarms = SSalarms.atmosphere_alarm.major_alarms()
-	if(alarms.len)
-		icon_screen = "alert:2"
-	else
-		alarms = SSalarms.atmosphere_alarm.minor_alarms()
-		if(alarms.len)
-			icon_screen = "alert:1"
-		else
-			icon_screen = "alert:0"
-	..()
-
-/obj/machinery/computer/atmos_alert/Topic(href, href_list)
+/obj/machinery/computer/atmos_alert/ui_act(action, params)
 	if(..())
-		return 1
+		return
+	switch(action)
+		if("clear")
+			var/zone = params["zone"]
+			if(zone in priority_alarms)
+				to_chat(usr, "<span class='notice'>Priority alarm for [zone] cleared.</span>")
+				priority_alarms -= zone
+				. = TRUE
+			if(zone in minor_alarms)
+				to_chat(usr, "<span class='notice'>Minor alarm for [zone] cleared.</span>")
+				minor_alarms -= zone
+				. = TRUE
+	update_icon()
 
-	if(href_list["clear_alarm"])
-		var/datum/alarm/alarm = locate(href_list["clear_alarm"]) in SSalarms.atmosphere_alarm.alarms
-		if(alarm)
-			for(var/datum/alarm_source/alarm_source in alarm.sources)
-				var/obj/machinery/alarm/air_alarm = alarm_source.source
-				if(istype(air_alarm))
-					var/list/new_ref = list("atmos_reset" = 1)
-					air_alarm.Topic(href, new_ref, state = GLOB.air_alarm_topic)
-					update_icon()
-		return 1
+/obj/machinery/computer/atmos_alert/set_frequency(new_frequency)
+	SSradio.remove_object(src, receive_frequency)
+	receive_frequency = new_frequency
+	radio_connection = SSradio.add_object(src, receive_frequency, RADIO_ATMOSIA)
 
-GLOBAL_DATUM_INIT(air_alarm_topic, /datum/topic_state/air_alarm_topic, new)
+/obj/machinery/computer/atmos_alert/receive_signal(datum/signal/signal)
+	if(!signal)
+		return
 
-/datum/topic_state/air_alarm_topic/href_list(var/mob/user)
-	var/list/extra_href = list()
-	extra_href["remote_connection"] = 1
-	extra_href["remote_access"] = 1
+	var/zone = signal.data["zone"]
+	var/severity = signal.data["alert"]
 
-	return extra_href
+	if(!zone || !severity)
+		return
 
-/datum/topic_state/air_alarm_topic/can_use_topic(var/src_object, var/mob/user)
-	return STATUS_INTERACTIVE
+	minor_alarms -= zone
+	priority_alarms -= zone
+	if(severity == "severe")
+		priority_alarms += zone
+	else if(severity == "minor")
+		minor_alarms += zone
+	update_icon()
+
+/obj/machinery/computer/atmos_alert/update_icon()
+	if(length(priority_alarms))
+		icon_screen = "alert:2"
+	else if(length(minor_alarms))
+		icon_screen = "alert:1"
+	else
+		icon_screen = "alert:0"
+	..()

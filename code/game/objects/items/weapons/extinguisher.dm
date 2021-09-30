@@ -57,7 +57,7 @@
 	to_chat(user, "The safety is [safety ? "on" : "off"].")
 	return
 
-/obj/item/extinguisher/attack_obj(obj/O, mob/living/user)
+/obj/item/extinguisher/attack_obj(obj/O, mob/living/user, params)
 	if(AttemptRefill(O, user))
 		refilling = TRUE
 		return FALSE
@@ -106,6 +106,8 @@
 
 		src.last_use = world.time
 
+		if(reagents.chem_temp > 300 || reagents.chem_temp < 280)
+			add_attack_logs(user, target, "Sprayed with superheated or cooled fire extinguisher at Temperature [reagents.chem_temp]K")
 		playsound(src.loc, 'sound/effects/extinguish.ogg', 75, 1, -3)
 
 		var/direction = get_dir(src,target)
@@ -178,3 +180,6 @@
 					sleep(2)
 	else
 		return ..()
+
+/obj/item/extinguisher/cyborg_recharge(coeff, emagged)
+	reagents.check_and_add("water", max_water, 5 * coeff)

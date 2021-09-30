@@ -10,12 +10,23 @@
  */
 /obj/item/stack
 	origin_tech = "materials=1"
-	var/list/recipes = list() // /datum/stack_recipe
+	/// Whether this stack is a `/cyborg` subtype or not.
+	var/is_cyborg = FALSE
+	/// The energy storage datum that will be used with this stack. Used only with `/cyborg` type stacks.
+	var/datum/robot_energy_storage/source
+	/// Which `robot_energy_storage` to choose when this stack is created in cyborgs. Used only with `/cyborg` type stacks.
+	var/energy_type
+	/// How much energy using 1 sheet from the stack costs. Used only with `/cyborg` type stacks.
+	var/cost = 1
+	/// A list of recipes buildable with this stack.
+	var/list/recipes = list()
 	var/singular_name
 	var/amount = 1
 	var/to_transfer = 0
 	var/max_amount = 50 //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
+	var/recipe_width = 400 //Width of the recipe popup
+	var/recipe_height = 400 //Height of the recipe popup
 
 /obj/item/stack/New(loc, new_amount, merge = TRUE)
 	..()
@@ -50,15 +61,27 @@
 
 /obj/item/stack/examine(mob/user)
 	. = ..()
-	if(in_range(user, src))
+	if(!in_range(user, src))
+		return
+
+	if(is_cyborg)
 		if(singular_name)
-			. += "There are [amount] [singular_name]\s in the stack."
+			. += "There is enough energy for [get_amount()] [singular_name]\s."
 		else
-			. += "There are [amount] [name]\s in the stack."
-		. +="<span class='notice'>Alt-click to take a custom amount.</span>"
+			. += "There is enough energy for [get_amount()]."
+		return
+
+	if(singular_name)
+		. += "There are [amount] [singular_name]\s in the stack."
+	else
+		. += "There are [amount] [name]\s in the stack."
+	. +="<span class='notice'>Alt-click to take a custom amount.</span>"
 
 /obj/item/stack/proc/add(newamount)
-	amount += newamount
+	if(is_cyborg)
+		source.add_charge(newamount * cost)
+	else
+		amount += newamount
 	update_icon()
 
 /obj/item/stack/attack_self(mob/user)
@@ -85,8 +108,10 @@
 	if(!recipes)
 		return
 
-	if(amount <= 0)
+	if(get_amount() <= 0)
 		user << browse(null, "window=stack")
+		if(is_cyborg)
+			to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [name]!</span>")
 		return
 
 	user.set_machine(src) //for correct work of onclose
@@ -96,7 +121,7 @@
 		var/datum/stack_recipe_list/srl = recipe_list[recipes_sublist]
 		recipe_list = srl.recipes
 
-	var/t1 = "Amount Left: [amount]<br>"
+	var/t1 = "Amount Left: [get_amount()]<br>"
 	for(var/i in 1 to recipe_list.len)
 		var/E = recipe_list[i]
 		if(isnull(E))
@@ -112,7 +137,7 @@
 
 		if(istype(E, /datum/stack_recipe))
 			var/datum/stack_recipe/R = E
-			var/max_multiplier = round(amount / R.req_amount)
+			var/max_multiplier = round(get_amount() / R.req_amount)
 			var/title
 			var/can_build = 1
 			can_build = can_build && (max_multiplier > 0)
@@ -138,7 +163,7 @@
 				if(!(max_multiplier in multipliers))
 					t1 += " <A href='?src=[UID()];make=[i];multiplier=[max_multiplier]'>[max_multiplier * R.res_amount]x</A>"
 
-	var/datum/browser/popup = new(user, "stack", name, 400, 400)
+	var/datum/browser/popup = new(user, "stack", name, recipe_width, recipe_height)
 	popup.set_content(t1)
 	popup.open(0)
 	onclose(user, "stack")
@@ -152,7 +177,7 @@
 		list_recipes(usr, text2num(href_list["sublist"]))
 
 	if(href_list["make"])
-		if(amount < 1)
+		if(amount < 0 && !is_cyborg)
 			qdel(src) //Never should happen
 
 		var/list/recipes_list = recipes
@@ -165,46 +190,57 @@
 		if(!multiplier || multiplier <= 0 || multiplier > 50) // Href exploit checks
 			multiplier = 1
 
-		if(amount < R.req_amount * multiplier)
-			if(R.req_amount * multiplier>1)
+		if(get_amount() < R.req_amount * multiplier)
+			if(R.req_amount * multiplier > 1)
 				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.req_amount * multiplier] [R.title]\s!</span>")
 			else
 				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
-			return 0
-
-		if(R.window_checks && !valid_window_location(usr.loc, usr.dir))
-			to_chat(usr, "<span class='warning'>The [R.title] won't fit here!</span>")
 			return FALSE
 
-		if(R.one_per_turf && (locate(R.result_type) in usr.drop_location()))
-			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
-			return 0
+		if(R.window_checks && !valid_window_location(get_turf(src), usr.dir))
+			to_chat(usr, "<span class='warning'>\The [R.title] won't fit here!</span>")
+			return FALSE
 
-		if(R.on_floor && !istype(usr.drop_location(), /turf/simulated))
+		if(R.one_per_turf && (locate(R.result_type) in get_turf(src)))
+			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
+			return FALSE
+
+		if(R.on_floor && !istype(get_turf(src), /turf/simulated))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
-			return 0
+			return FALSE
+
+		if(R.no_cult_structure)
+			if(usr.holy_check())
+				return
+			if(!is_level_reachable(usr.z))
+				to_chat(usr, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+				return
+			if(locate(/obj/structure/cult) in get_turf(src))
+				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+				return FALSE
 
 		if(R.time)
-			to_chat(usr, "<span class='notice'>Building [R.title] ...</span>")
-			if(!do_after(usr, R.time, target = usr))
+			to_chat(usr, "<span class='notice'>Building [R.title]...</span>")
+			if(!do_after(usr, R.time, target = loc))
 				return 0
 
-		if(amount < R.req_amount * multiplier)
+		if(get_amount() < R.req_amount * multiplier)
 			return
 
 		var/atom/O
 		if(R.max_res_amount > 1) //Is it a stack?
-			O = new R.result_type(usr.drop_location(), R.res_amount * multiplier)
+			O = new R.result_type(get_turf(src), R.res_amount * multiplier)
 		else
-			O = new R.result_type(usr.drop_location())
+			O = new R.result_type(get_turf(src))
 		O.setDir(usr.dir)
 		use(R.req_amount * multiplier)
+		updateUsrDialog()
 
 		R.post_build(src, O)
 
 		if(amount < 1) // Just in case a stack's amount ends up fractional somehow
 			var/oldsrc = src
-			src = null //dont kill proc after del()
+			src = null //dont kill proc after qdel()
 			usr.unEquip(oldsrc, 1)
 			qdel(oldsrc)
 			if(istype(O, /obj/item))
@@ -225,6 +261,8 @@
 /obj/item/stack/use(used, check = TRUE)
 	if(check && zero_amount())
 		return FALSE
+	if(is_cyborg)
+		return source.use_charge(used * cost)
 	if(amount < used)
 		return FALSE
 	amount -= used
@@ -234,6 +272,8 @@
 	return TRUE
 
 /obj/item/stack/proc/get_amount()
+	if(is_cyborg)
+		return round(source.energy / cost)
 	return amount
 
 /obj/item/stack/proc/get_max_amount()
@@ -252,7 +292,7 @@
 	return F
 
 /obj/item/stack/attack_hand(mob/user)
-	if(user.is_in_inactive_hand(src) && amount > 1)
+	if(user.is_in_inactive_hand(src) && get_amount() > 1)
 		change_stack(user, 1)
 		if(src && usr.machine == src)
 			spawn(0)
@@ -265,6 +305,8 @@
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(!in_range(src, user))
+		return
+	if(is_cyborg)
 		return
 	if(!ishuman(usr))
 		return
@@ -299,11 +341,9 @@
 // Returns TRUE if the stack amount is zero.
 // Also qdels the stack gracefully if it is.
 /obj/item/stack/proc/zero_amount()
+	if(is_cyborg)
+		return source.energy < cost
 	if(amount < 1)
-		if(isrobot(loc))
-			var/mob/living/silicon/robot/R = loc
-			if(locate(src) in R.module.modules)
-				R.module.modules -= src
 		if(ismob(loc))
 			var/mob/living/L = loc // At this stage, stack code is so horrible and atrocious, I wouldn't be all surprised ghosts can somehow have stacks. If this happens, then the world deserves to burn.
 			L.unEquip(src, TRUE)
@@ -319,7 +359,10 @@
 	if(QDELETED(S) || QDELETED(src) || S == src) //amusingly this can cause a stack to consume itself, let's not allow that.
 		return FALSE
 	var/transfer = get_amount()
-	transfer = min(transfer, S.max_amount - S.amount)
+	if(S.is_cyborg)
+		transfer = min(transfer, round((S.source.max_energy - S.source.energy) / S.cost))
+	else
+		transfer = min(transfer, S.max_amount - S.amount)
 	if(transfer <= 0)
 		return
 	if(pulledby)
@@ -327,6 +370,7 @@
 	S.copy_evidences(src)
 	S.add(transfer)
 	use(transfer)
+	return transfer
 
 /obj/item/stack/proc/copy_evidences(obj/item/stack/from)
 	blood_DNA			= from.blood_DNA

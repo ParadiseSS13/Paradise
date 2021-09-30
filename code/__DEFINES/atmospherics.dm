@@ -3,6 +3,7 @@
 #define GAS_PL	(1 << 2)
 #define GAS_CO2	(1 << 3)
 #define GAS_N2O	(1 << 4)
+#define GAS_A_B	(1 << 5)
 
 //ATMOS
 //stuff you should probably leave well alone!
@@ -12,6 +13,11 @@
 #define TCRYO					265		// -48.15degC
 #define T0C						273.15	// 0degC
 #define T20C					293.15	// 20degC
+/// -14C - Temperature used for kitchen cold room, medical freezer, etc.
+#define COLD_ROOM_TEMP			259.15
+
+/// -193C - Temperature used for server rooms
+#define SERVER_ROOM_TEMP			80
 
 #define MOLES_CELLSTANDARD		(ONE_ATMOSPHERE*CELL_VOLUME/(T20C*R_IDEAL_GAS_EQUATION))	//moles in a 2.5 m^3 cell at 101.325 Pa and 20 degC
 #define M_CELL_WITH_RATIO		(MOLES_CELLSTANDARD * 0.005) //compared against for superconductivity
@@ -20,8 +26,8 @@
 #define MOLES_O2STANDARD		(MOLES_CELLSTANDARD*O2STANDARD)	// O2 standard value (21%)
 #define MOLES_N2STANDARD		(MOLES_CELLSTANDARD*N2STANDARD)	// N2 standard value (79%)
 #define CELL_VOLUME				2500	//liters in a cell
-#define BREATH_VOLUME			0.5		//liters in a normal breath
-#define BREATH_MOLES 			(ONE_ATMOSPHERE * BREATH_VOLUME /(T20C*R_IDEAL_GAS_EQUATION))
+//liters in a normal breath
+#define BREATH_VOLUME			1
 #define BREATH_PERCENTAGE		(BREATH_VOLUME/CELL_VOLUME)					//Amount of air to take a from a tile
 
 //EXCITED GROUPS
@@ -123,6 +129,8 @@
 #define TANK_RUPTURE_PRESSURE				(40.*ONE_ATMOSPHERE)	//Tank spills all contents into atmosphere
 #define TANK_FRAGMENT_PRESSURE				(50.*ONE_ATMOSPHERE)	//Boom 3x3 base explosion
 #define TANK_FRAGMENT_SCALE	    			(10.*ONE_ATMOSPHERE)	//+1 for each SCALE kPa aboe threshold
+#define TANK_MAX_RELEASE_PRESSURE 			(ONE_ATMOSPHERE * 3)
+#define TANK_MIN_RELEASE_PRESSURE 			0
 #define TANK_DEFAULT_RELEASE_PRESSURE 		16
 
 // Atmos alarm defines
@@ -132,3 +140,7 @@
 
 //LAVALAND
 #define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 50 //what pressure you have to be under to increase the effect of equipment meant for lavaland
+
+// Reactions
+#define N2O_DECOMPOSITION_MIN_ENERGY		1400
+#define N2O_DECOMPOSITION_ENERGY_RELEASED	200000

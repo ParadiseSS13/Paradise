@@ -5,7 +5,7 @@
 	var/obj/effect/tear/TE
 
 /datum/event/tear/announce()
-	GLOB.event_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert")
+	GLOB.event_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert", 'sound/AI/anomaly.ogg')
 
 /datum/event/tear/start()
 	var/turf/T = pick(get_area_turfs(impact_area))
@@ -34,10 +34,7 @@
 	animation.icon_state = "newtear"
 	animation.icon = 'icons/effects/tear.dmi'
 	animation.master = src
-	spawn(15)
-		if(animation)
-			qdel(animation)
-
+	QDEL_IN(animation, 1.5 SECONDS)
 	addtimer(CALLBACK(src, .proc/spew_critters), rand(30, 120))
 
 /obj/effect/tear/proc/spew_critters()

@@ -49,12 +49,16 @@
 			if(M)
 				var/mob/dead/observer/G = M.get_ghost()
 
-				if(M.client)
-					icon_state = "morgue3"
-					desc = initial(desc) + "\n[status_descriptors[4]]"
-				else if(G && G.client) //There is a ghost and it is connected to the server
-					icon_state = "morgue5"
-					desc = initial(desc) + "\n[status_descriptors[6]]"
+				if(M.mind && !M.mind.suicided)
+					if(M.client)
+						icon_state = "morgue3"
+						desc = initial(desc) + "\n[status_descriptors[4]]"
+					else if(G && G.client) //There is a ghost and it is connected to the server
+						icon_state = "morgue5"
+						desc = initial(desc) + "\n[status_descriptors[6]]"
+					else
+						icon_state = "morgue2"
+						desc = initial(desc) + "\n[status_descriptors[3]]"
 				else
 					icon_state = "morgue2"
 					desc = initial(desc) + "\n[status_descriptors[3]]"
@@ -72,21 +76,21 @@
 /obj/structure/morgue/ex_act(severity)
 	switch(severity)
 		if(1.0)
-			for(var/atom/movable/A as mob|obj in src)
+			for(var/atom/movable/A in src)
 				A.forceMove(loc)
 				ex_act(severity)
 			qdel(src)
 			return
 		if(2.0)
 			if(prob(50))
-				for(var/atom/movable/A as mob|obj in src)
+				for(var/atom/movable/A in src)
 					A.forceMove(loc)
 					ex_act(severity)
 				qdel(src)
 				return
 		if(3.0)
 			if(prob(5))
-				for(var/atom/movable/A as mob|obj in src)
+				for(var/atom/movable/A in src)
 					A.forceMove(loc)
 					ex_act(severity)
 				qdel(src)
@@ -95,7 +99,7 @@
 
 /obj/structure/morgue/attack_hand(mob/user as mob)
 	if(connected)
-		for(var/atom/movable/A as mob|obj in connected.loc)
+		for(var/atom/movable/A in connected.loc)
 			if(!( A.anchored ))
 				A.forceMove(src)
 		playsound(loc, open_sound, 50, 1)
@@ -109,7 +113,7 @@
 		if(T.contents.Find(connected))
 			connected.connected = src
 			icon_state = "morgue0"
-			for(var/atom/movable/A as mob|obj in src)
+			for(var/atom/movable/A in src)
 				A.forceMove(connected.loc)
 			connected.icon_state = "morguet"
 			connected.dir = dir
@@ -121,18 +125,12 @@
 
 /obj/structure/morgue/attackby(P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/pen))
-		var/t = input(user, "What would you like the label to be?", text("[]", name), null)  as text
-		if(user.get_active_hand() != P)
+		var/t = rename_interactive(user, P)
+		if(isnull(t))
 			return
-		if((!in_range(src, usr) && loc != user))
-			return
-		t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
+		cut_overlays()
 		if(t)
-			name = text("Morgue- '[]'", t)
-			overlays += image(icon, "morgue_label")
-		else
-			name = "Morgue"
-			overlays.Cut()
+			add_overlay(image(icon, "morgue_label"))
 		add_fingerprint(user)
 		return
 	return ..()
@@ -147,7 +145,7 @@
 	if(T.contents.Find(connected))
 		connected.connected = src
 		icon_state = "morgue0"
-		for(var/atom/movable/A as mob|obj in src)
+		for(var/atom/movable/A in src)
 			A.forceMove(connected.loc)
 		connected.icon_state = "morguet"
 	else
@@ -155,10 +153,15 @@
 	return
 
 /obj/structure/morgue/Destroy()
-	QDEL_NULL(connected)
+	if(!connected)
+		var/turf/T = loc
+		for(var/atom/movable/A in src)
+			A.forceMove(T)
+	else
+		QDEL_NULL(connected)
 	return ..()
 
-/obj/structure/morgue/container_resist(var/mob/living/L)
+/obj/structure/morgue/container_resist(mob/living/L)
 	var/mob/living/carbon/CM = L
 	if(!istype(CM))
 		return
@@ -266,21 +269,21 @@
 /obj/structure/crematorium/ex_act(severity)
 	switch(severity)
 		if(1.0)
-			for(var/atom/movable/A as mob|obj in src)
+			for(var/atom/movable/A in src)
 				A.forceMove(loc)
 				ex_act(severity)
 			qdel(src)
 			return
 		if(2.0)
 			if(prob(50))
-				for(var/atom/movable/A as mob|obj in src)
+				for(var/atom/movable/A in src)
 					A.forceMove(loc)
 					ex_act(severity)
 				qdel(src)
 				return
 		if(3.0)
 			if(prob(5))
-				for(var/atom/movable/A as mob|obj in src)
+				for(var/atom/movable/A in src)
 					A.forceMove(loc)
 					ex_act(severity)
 				qdel(src)
@@ -292,7 +295,7 @@
 		to_chat(usr, "<span class='warning'>It's locked.</span>")
 		return
 	if((connected) && (locked == 0))
-		for(var/atom/movable/A as mob|obj in connected.loc)
+		for(var/atom/movable/A in connected.loc)
 			if(!( A.anchored ))
 				A.forceMove(src)
 		playsound(loc, open_sound, 50, 1)
@@ -306,7 +309,7 @@
 		if(T.contents.Find(connected))
 			connected.connected = src
 			icon_state = "crema0"
-			for(var/atom/movable/A as mob|obj in src)
+			for(var/atom/movable/A in src)
 				A.forceMove(connected.loc)
 			connected.icon_state = "cremat"
 		else
@@ -316,16 +319,7 @@
 
 /obj/structure/crematorium/attackby(P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/pen))
-		var/t = input(user, "What would you like the label to be?", text("[]", name), null)  as text
-		if(user.get_active_hand() != P)
-			return
-		if((!in_range(src, usr) > 1 && loc != user))
-			return
-		t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
-		if(t)
-			name = text("Crematorium- '[]'", t)
-		else
-			name = "Crematorium"
+		rename_interactive(user, P)
 		add_fingerprint(user)
 		return
 	return ..()
@@ -340,7 +334,7 @@
 	if(T.contents.Find(connected))
 		connected.connected = src
 		icon_state = "crema0"
-		for(var/atom/movable/A as mob|obj in src)
+		for(var/atom/movable/A in src)
 			A.forceMove(connected.loc)
 		connected.icon_state = "cremat"
 	else
@@ -389,10 +383,15 @@
 	return
 
 /obj/structure/crematorium/Destroy()
-	QDEL_NULL(connected)
+	if(!connected)
+		var/turf/T = loc
+		for(var/atom/movable/A in src)
+			A.forceMove(T)
+	else
+		QDEL_NULL(connected)
 	return ..()
 
-/obj/structure/crematorium/container_resist(var/mob/living/L)
+/obj/structure/crematorium/container_resist(mob/living/L)
 	var/mob/living/carbon/CM = L
 	if(!istype(CM))
 		return
@@ -458,6 +457,10 @@
 	name = "crematorium igniter"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "crema_switch"
+	power_channel = EQUIP
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 100
+	active_power_usage = 5000
 	anchored = 1.0
 	req_access = list(ACCESS_CREMATORIUM)
 	var/on = 0
@@ -470,13 +473,17 @@
 		return attack_hand(user)
 
 /obj/machinery/crema_switch/attack_hand(mob/user)
-	if(allowed(usr) || user.can_advanced_admin_interact())
-		for(var/obj/structure/crematorium/C in world)
-			if(C.id == id)
-				if(!C.cremating)
-					C.cremate(user)
-	else
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+	if(powered(power_channel)) // Do we have power?
+		if(allowed(usr) || user.can_advanced_admin_interact())
+			use_power(400000)
+			for(var/obj/structure/crematorium/C in world)
+				if(C.id == id)
+					if(!C.cremating)
+						C.cremate(user)
+
+
+		else
+			to_chat(usr, "<span class='warning'>Access denied.</span>")
 
 /mob/proc/update_morgue()
 	if(stat == DEAD)

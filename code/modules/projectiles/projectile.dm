@@ -35,7 +35,7 @@
 	var/tile_dropoff_s = 0	//same as above but for stamina
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
-	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
+	var/flag = BULLET //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
 	var/projectile_type = "/obj/item/projectile"
 	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
 	var/is_reflectable = FALSE // Can it be reflected or not?
@@ -59,6 +59,9 @@
 	var/ricochet_chance = 30
 
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary
+
+	/// For when you want your projectile to have a chain coming out of the gun
+	var/chain = null
 
 /obj/item/projectile/New()
 	permutated = list()
@@ -148,22 +151,21 @@
 			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
-	var/reagent_note
-	var/has_reagents = FALSE
+	var/additional_log_text
+	if(blocked)
+		additional_log_text = " [blocked]% blocked"
 	if(reagents && reagents.reagent_list)
-		reagent_note = " REAGENTS:"
+		var/reagent_note = "REAGENTS:"
 		for(var/datum/reagent/R in reagents.reagent_list)
 			reagent_note += R.id + " ("
 			reagent_note += num2text(R.volume) + ") "
-			has_reagents = TRUE
+		additional_log_text = "[additional_log_text] (containing [reagent_note])"
+
 	if(!log_override && firer && !alwayslog)
-		if(has_reagents)
-			add_attack_logs(firer, L, "Shot with a [type] (containing [reagent_note])")
-		else
-			add_attack_logs(firer, L, "Shot with a [type]")
+		add_attack_logs(firer, L, "Shot with a [type][additional_log_text]")
 	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
-/obj/item/projectile/proc/get_splatter_blockage(var/turf/step_over, var/atom/target, var/splatter_dir, var/target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
+/obj/item/projectile/proc/get_splatter_blockage(turf/step_over, atom/target, splatter_dir, target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
 	var/turf/step_cardinal = !(splatter_dir in list(NORTH, SOUTH, EAST, WEST)) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
 
 	if(step_over.density && !step_over.CanPass(target, step_over, 1)) //Preliminary simple check.
@@ -227,10 +229,10 @@
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
-/obj/item/projectile/Process_Spacemove(var/movement_dir = 0)
+/obj/item/projectile/Process_Spacemove(movement_dir = 0)
 	return 1 //Bullets don't drift in space
 
-/obj/item/projectile/proc/fire(var/setAngle)
+/obj/item/projectile/proc/fire(setAngle)
 	set waitfor = FALSE
 	if(setAngle)
 		Angle = setAngle
@@ -240,15 +242,15 @@
 			if((!current || loc == current))
 				current = locate(clamp(x + xo, 1, world.maxx), clamp(y + yo, 1, world.maxy), z)
 			if(isnull(Angle))
-				Angle = round(Get_Angle(src, current))
+				Angle = round(get_angle(src, current))
 			if(spread)
 				Angle += (rand() - 0.5) * spread
 			var/matrix/M = new
 			M.Turn(Angle)
 			transform = M
 
-			var/Pixel_x = round(sin(Angle) + 16 * sin(Angle) * 2)
-			var/Pixel_y = round(cos(Angle) + 16 * cos(Angle) * 2)
+			var/Pixel_x = round(sin(Angle) + 16 * sin(Angle) * 2, 1)
+			var/Pixel_y = round(cos(Angle) + 16 * cos(Angle) * 2, 1)
 			var/pixel_x_offset = pixel_x + Pixel_x
 			var/pixel_y_offset = pixel_y + Pixel_y
 			var/new_x = x
@@ -287,7 +289,7 @@
 			Range()
 		sleep(max(1, speed))
 
-obj/item/projectile/proc/reflect_back(atom/source, list/position_modifiers = list(0, 0, 0, 0, 0, -1, 1, -2, 2))
+/obj/item/projectile/proc/reflect_back(atom/source, list/position_modifiers = list(0, 0, 0, 0, 0, -1, 1, -2, 2))
 	if(starting)
 		var/new_x = starting.x + pick(position_modifiers)
 		var/new_y = starting.y + pick(position_modifiers)
@@ -306,7 +308,7 @@ obj/item/projectile/proc/reflect_back(atom/source, list/position_modifiers = lis
 		xo = new_x - curloc.x
 		Angle = null // Will be calculated in fire()
 
-obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
+/obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
 	..()
 	if(isliving(AM) && AM.density && !checkpass(PASSMOB))
 		Bump(AM, 1)
@@ -315,7 +317,7 @@ obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile wi
 	ammo_casing = null
 	return ..()
 
-/obj/item/projectile/proc/dumbfire(var/dir)
+/obj/item/projectile/proc/dumbfire(dir)
 	current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
 	fire()
 

@@ -1,6 +1,6 @@
 /obj/item/clothing/shoes/magboots
-	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
 	name = "magboots"
+	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
 	icon_state = "magboots0"
 	origin_tech = "materials=3;magnets=4;engineering=4"
 	var/magboot_state = "magboots"
@@ -8,10 +8,18 @@
 	var/slowdown_active = 2
 	var/slowdown_passive = SHOES_SLOWDOWN
 	var/magpulse_name = "mag-pulse traction system"
+	var/gustprotection = FALSE									//this is for unsafe_unwrenching protection
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/shoes/magboots/atmos
+	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
+	name = "atmospheric magboots"
+	icon_state = "atmosmagboots0"
+	magboot_state = "atmosmagboots"
+	gustprotection = TRUE
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
 	if(magpulse)
@@ -38,29 +46,30 @@
 
 
 /obj/item/clothing/shoes/magboots/advance
-	desc = "Advanced magnetic boots that have a lighter magnetic pull, placing less burden on the wearer."
 	name = "advanced magboots"
+	desc = "Advanced magnetic boots that have a lighter magnetic pull, placing less burden on the wearer."
 	icon_state = "advmag0"
 	magboot_state = "advmag"
+	gustprotection = TRUE
 	slowdown_active = SHOES_SLOWDOWN
 	origin_tech = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/shoes/magboots/syndie
-	desc = "Reverse-engineered magnetic boots that have a heavy magnetic pull. Property of Gorlex Marauders."
 	name = "blood-red magboots"
+	desc = "Reverse-engineered magnetic boots that have a heavy magnetic pull. Property of Gorlex Marauders."
 	icon_state = "syndiemag0"
 	magboot_state = "syndiemag"
 	origin_tech = "magnets=4;syndicate=2"
 
-obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
-	desc = "Reverse-engineered magboots that appear to be based on an advanced model, as they have a lighter magnetic pull. Property of Gorlex Marauders."
+/obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	name = "advanced blood-red magboots"
+	desc = "Reverse-engineered magboots that appear to be based on an advanced model, as they have a lighter magnetic pull. Property of Gorlex Marauders."
 	slowdown_active = SHOES_SLOWDOWN
 
 /obj/item/clothing/shoes/magboots/clown
-	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! There's a red light on the side."
 	name = "clown shoes"
+	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! There's a red light on the side."
 	icon_state = "clownmag0"
 	magboot_state = "clownmag"
 	item_state = "clown_shoes"
@@ -69,10 +78,12 @@ obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	slowdown_passive = SHOES_SLOWDOWN+1
 	magpulse_name = "honk-powered traction system"
 	item_color = "clown"
-	silence_steps = 1
-	shoe_sound = "clownstep"
 	origin_tech = "magnets=4;syndicate=2"
 	var/enabled_waddle = TRUE
+
+/obj/item/clothing/shoes/magboots/clown/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
 
 /obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot)
 	. = ..()

@@ -13,23 +13,17 @@ Note: Must be placed west/left of and R&D console to function.
 	icon_state = "protolathe"
 	container_type = OPENCONTAINER
 
-	var/efficiency_coeff
-
-	var/list/categories = list(
-								"Bluespace",
-								"Computer Parts",
-								"Equipment",
-								"Janitorial",
-								"Medical",
-								"Mining",
-								"Miscellaneous",
-								"Power",
-								"Stock Parts",
-								"Weapons"
-								)
-
-	reagents = new()
-
+	categories = list(
+		"Bluespace",
+		"Equipment",
+		"Janitorial",
+		"Medical",
+		"Mining",
+		"Miscellaneous",
+		"Power",
+		"Stock Parts",
+		"Weapons"
+	)
 
 /obj/machinery/r_n_d/protolathe/New()
 	..()
@@ -41,9 +35,8 @@ Note: Must be placed west/left of and R&D console to function.
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
+	create_reagents()
 	RefreshParts()
-
-	reagents.my_atom = src
 
 /obj/machinery/r_n_d/protolathe/upgraded/New()
 	..()
@@ -57,7 +50,10 @@ Note: Must be placed west/left of and R&D console to function.
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	RefreshParts()
 
-	reagents.my_atom = src
+/obj/machinery/r_n_d/protolathe/Destroy()
+	if(linked_console)
+		linked_console.linked_lathe = null
+	return ..()
 
 /obj/machinery/r_n_d/protolathe/RefreshParts()
 	var/T = 0
@@ -66,21 +62,21 @@ Note: Must be placed west/left of and R&D console to function.
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		T += M.rating
 	materials.max_amount = T * 75000
-	T = 1.2
+	T = 12
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		T -= M.rating/10
-	efficiency_coeff = min(max(0, T), 1)
+		T -= M.rating
+	efficiency_coeff = min(max(0, T / 10), 1)
 
-/obj/machinery/r_n_d/protolathe/proc/check_mat(datum/design/being_built, var/M)	// now returns how many times the item can be built with the material
+/obj/machinery/r_n_d/protolathe/check_mat(datum/design/being_built, M)	// now returns how many times the item can be built with the material
 	var/A = materials.amount(M)
 	if(!A)
 		A = reagents.get_reagent_amount(M)
-		A = A / max(1, (being_built.reagents_list[M]))
+		A = A / max(1, (being_built.reagents_list[M] * efficiency_coeff))
 	else
-		A = A / max(1, (being_built.materials[M]))
+		A = A / max(1, (being_built.materials[M] * efficiency_coeff))
 	return A
 
-/obj/machinery/r_n_d/protolathe/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/r_n_d/protolathe/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(shocked)
 		if(shock(user,50))
 			return TRUE
@@ -105,7 +101,7 @@ Note: Must be placed west/left of and R&D console to function.
 			default_deconstruction_crowbar(user, O)
 			return 1
 		else
-			to_chat(user, "<span class='warning'>You can't load the [src.name] while it's opened.</span>")
+			to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
 			return 1
 	if(O.is_open_container())
 		return FALSE

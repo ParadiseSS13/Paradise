@@ -59,6 +59,10 @@
 		if(stat & (BROKEN|NOPOWER))
 			return
 
+		if(emag_cooldown > world.time)
+			to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
+			return
+
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 		for(var/i = 0, i < copies, i++)
 			if(toner <= 0)
@@ -73,9 +77,6 @@
 					message_admins("Photocopier cap of [GLOB.copier_max_items] papers reached, all photocopiers are now disabled. This may be the cause of any lag.")
 					GLOB.copier_items_printed_logged = TRUE
 				break
-
-			if(emag_cooldown > world.time)
-				return
 
 			if(istype(copyitem, /obj/item/paper))
 				copy(copyitem)
@@ -112,6 +113,7 @@
 			updateUsrDialog()
 		else if(check_ass())
 			to_chat(ass, "<span class='notice'>You feel a slight pressure on your ass.</span>")
+			atom_say("Attention: Unable to remove large object!")
 			updateUsrDialog()
 	else if(href_list["min"])
 		if(copies > 1)
@@ -185,7 +187,7 @@
 	. = TRUE
 	default_unfasten_wrench(user, I)
 
-/obj/machinery/photocopier/proc/copy(var/obj/item/paper/copy)
+/obj/machinery/photocopier/proc/copy(obj/item/paper/copy)
 	var/obj/item/paper/c = new /obj/item/paper (loc)
 	c.header = copy.header
 	c.info = copy.info
@@ -217,7 +219,7 @@
 	return c
 
 
-/obj/machinery/photocopier/proc/photocopy(var/obj/item/photo/photocopy)
+/obj/machinery/photocopier/proc/photocopy(obj/item/photo/photocopy)
 	var/obj/item/photo/p = new /obj/item/photo (loc)
 	p.name = photocopy.name
 	p.icon = photocopy.icon
@@ -239,6 +241,7 @@
 	var/icon/temp_img
 	if(!check_ass()) //You have to be sitting on the copier and either be a xeno or a human without clothes on.
 		return
+	atom_say("Attention: Posterior Placed on Printing Plaque!")
 	if(emagged)
 		if(ishuman(ass))
 			var/mob/living/carbon/human/H = ass
@@ -280,7 +283,7 @@
 	return p
 
 //If need_toner is 0, the copies will still be lightened when low on toner, however it will not be prevented from printing. TODO: Implement print queues for fax machines and get rid of need_toner
-/obj/machinery/photocopier/proc/bundlecopy(var/obj/item/paper_bundle/bundle, var/need_toner=1)
+/obj/machinery/photocopier/proc/bundlecopy(obj/item/paper_bundle/bundle, need_toner=1)
 	var/obj/item/paper_bundle/P = new /obj/item/paper_bundle (src, default_papers = FALSE)
 	for(var/obj/item/W in bundle)
 		if(toner <= 0 && need_toner)
@@ -313,7 +316,6 @@
 			toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)
-	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.
 	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || target == ass)
 		return
 	src.add_fingerprint(user)
@@ -331,7 +333,7 @@
 		copyitem = null
 	updateUsrDialog()
 
-/obj/machinery/photocopier/proc/check_ass() //I'm not sure wether I made this proc because it's good form or because of the name.
+/obj/machinery/photocopier/proc/check_ass() //I'm not sure whether I made this proc because it's good form or because of the name.
 	if(!ass)
 		return 0
 	if(ass.loc != src.loc)
@@ -340,7 +342,6 @@
 		return 0
 	else
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
-		atom_say("Attention: Posterior Placed on Printing Plaque!")
 		return 1
 
 /obj/machinery/photocopier/emag_act(user as mob)

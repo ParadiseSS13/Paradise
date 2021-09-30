@@ -31,7 +31,7 @@
 	else if(M.stat == DEAD)
 		activate("death")
 
-/obj/item/implant/death_alarm/activate(var/cause)
+/obj/item/implant/death_alarm/activate(cause)
 	var/mob/M = imp_in
 	var/area/t = get_area(M)
 
@@ -47,7 +47,7 @@
 				a.autosay("[mobname] has died in [t.name]!", "[mobname]'s Death Alarm")
 			qdel(src)
 		if("emp")
-			var/name = prob(50) ? t.name : pick(GLOB.teleportlocs)
+			var/name = prob(50) ? t.name : pick(SSmapping.teleportlocs)
 			a.autosay("[mobname] has died in [name]!", "[mobname]'s Death Alarm")
 		else
 			a.autosay("[mobname] has died-zzzzt in-in-in...", "[mobname]'s Death Alarm")

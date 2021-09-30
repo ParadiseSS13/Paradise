@@ -9,6 +9,7 @@ SUBSYSTEM_DEF(sun)
 	var/dy
 	var/rate
 	var/list/solars	= list()
+	var/solar_gen_rate = 1500
 
 /datum/controller/subsystem/sun/Initialize(start_timeofday)
 	// Lets work out an angle for the "sun" to rotate around the station

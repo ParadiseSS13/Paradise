@@ -26,7 +26,7 @@
 	return !density
 
 // When destroyed by explosions, properly handle contents.
-obj/structure/transit_tube/ex_act(severity)
+/obj/structure/transit_tube/ex_act(severity)
 	switch(severity)
 		if(1.0)
 			for(var/atom/movable/AM in contents)

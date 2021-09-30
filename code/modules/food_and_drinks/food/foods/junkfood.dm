@@ -11,6 +11,7 @@
 	trash = /obj/item/trash/chips
 	filling_color = "#E8C31E"
 	junkiness = 20
+	antable = FALSE
 	list_reagents = list("nutriment" = 1, "sodiumchloride" = 1, "sugar" = 3)
 	tastes = list("crisps" = 1)
 
@@ -21,6 +22,7 @@
 	trash = /obj/item/trash/sosjerky
 	filling_color = "#631212"
 	junkiness = 25
+	antable = FALSE
 	list_reagents = list("protein" = 1, "sugar" = 3)
 	tastes = list("chewy beef" = 1)
 
@@ -31,6 +33,7 @@
 	trash = /obj/item/trash/pistachios
 	filling_color = "#BAD145"
 	junkiness = 20
+	antable = FALSE
 	list_reagents = list("plantmatter" = 2, "sodiumchloride" = 1, "sugar" = 4)
 	tastes = list("pistachios" = 1)
 
@@ -41,6 +44,7 @@
 	trash = /obj/item/trash/raisins
 	filling_color = "#343834"
 	junkiness = 25
+	antable = FALSE
 	list_reagents = list("plantmatter" = 2, "sugar" = 4)
 	tastes = list("dried raisins" = 1)
 
@@ -48,6 +52,7 @@
 	name = "Space Twinkie"
 	icon_state = "space_twinkie"
 	desc = "Guaranteed to survive longer then you will."
+	trash = /obj/item/trash/spacetwinkie
 	filling_color = "#FFE591"
 	junkiness = 25
 	list_reagents = list("sugar" = 4)
@@ -60,6 +65,7 @@
 	trash = /obj/item/trash/cheesie
 	filling_color = "#FFA305"
 	junkiness = 25
+	antable = FALSE
 	list_reagents = list("nutriment" = 1, "fake_cheese" = 2, "sugar" = 3)
 	tastes = list("cheese" = 1, "crisps" = 2)
 
@@ -70,6 +76,7 @@
 	filling_color = "#FF5D05"
 	trash = /obj/item/trash/syndi_cakes
 	bitesize = 3
+	antable = FALSE
 	list_reagents = list("nutriment" = 4, "salglu_solution" = 5)
 	tastes = list("sweetness" = 3, "cake" = 1)
 
@@ -80,9 +87,18 @@
 	trash = /obj/item/trash/tastybread
 	filling_color = "#A66829"
 	junkiness = 20
+	antable = FALSE
 	list_reagents = list("nutriment" = 2, "sugar" = 4)
 	tastes = list("bread" = 1)
 
+/obj/item/reagent_containers/food/snacks/stroopwafel
+	name = "stroopwafel"
+	desc = "Straight from the snack factories of Space Den Haag comes a classic dutch treat!"
+	icon_state = "stroopwafel"
+	filling_color = "#EDB878"
+	junkiness = 5
+	list_reagents = list("nutriment" = 10, "sugar" = 4)
+	tastes = list("syrup" = 3, "waffle" = 2)
 
 //////////////////////
 //		Homemade	//

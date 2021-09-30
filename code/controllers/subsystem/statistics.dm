@@ -6,7 +6,7 @@ SUBSYSTEM_DEF(statistics)
 
 
 /datum/controller/subsystem/statistics/Initialize(start_timeofday)
-	if(!config.sql_enabled)
+	if(!SSdbcore.IsConnected())
 		flags |= SS_NO_FIRE // Disable firing if SQL is disabled
 	return ..()
 
@@ -14,15 +14,15 @@ SUBSYSTEM_DEF(statistics)
 	sql_poll_players()
 
 /datum/controller/subsystem/statistics/proc/sql_poll_players()
-	if(!config.sql_enabled)
+	if(!SSdbcore.IsConnected())
 		return
-	var/playercount = GLOB.clients.len
-	var/admincount = GLOB.admins.len
-	if(!GLOB.dbcon.IsConnected())
-		log_game("SQL ERROR during player polling. Failed to connect.")
 	else
-		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("legacy_population")] (playercount, admincount, time) VALUES ([playercount], [admincount], '[sqltime]')")
-		if(!query.Execute())
-			var/err = query.ErrorMsg()
-			log_game("SQL ERROR during playercount polling. Error: \[[err]\]\n")
+		var/datum/db_query/statquery = SSdbcore.NewQuery(
+			"INSERT INTO legacy_population (playercount, admincount, time) VALUES (:playercount, :admincount, NOW())",
+			list(
+				"playercount" = length(GLOB.clients),
+				"admincount" = length(GLOB.admins)
+			)
+		)
+		statquery.warn_execute()
+		qdel(statquery)

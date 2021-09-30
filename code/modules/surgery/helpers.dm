@@ -1,4 +1,4 @@
-/proc/attempt_initiate_surgery(obj/item/I, mob/living/M, mob/user, var/override )
+/proc/attempt_initiate_surgery(obj/item/I, mob/living/M, mob/user, override)
 	if(istype(M))
 		var/mob/living/carbon/human/H
 		var/obj/item/organ/external/affecting
@@ -10,6 +10,9 @@
 								/obj/item/lighter = 60,			\
 								/obj/item/weldingtool = 30
 								)
+
+		if(M == user)
+			return // no self surgery
 
 		if(istype(M, /mob/living/carbon/human))
 			H = M
@@ -113,7 +116,7 @@
 /proc/get_pain_modifier(mob/living/carbon/human/M) //returns modfier to make surgery harder if patient is conscious and feels pain
 	if(M.stat) //stat=0 if CONSCIOUS, 1=UNCONSCIOUS and 2=DEAD. Operating on dead people is easy, too. Just sleeping won't work, though.
 		return 1
-	if(NO_PAIN in M.dna.species.species_traits)//if you don't feel pain, you can hold still
+	if(HAS_TRAIT(M, TRAIT_NOPAIN))//if you don't feel pain, you can hold still
 		return 1
 	if(M.reagents.has_reagent("hydrocodone"))//really good pain killer
 		return 0.99

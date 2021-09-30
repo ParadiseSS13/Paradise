@@ -1,7 +1,9 @@
+@use 'sass:color';
 @use '../base.scss';
 @use '../functions.scss' as *;
 
 $border-color: #88bfff !default;
+$border-color-disabled: color.adjust($border-color, $saturation: -100%, $lightness: -25%) !default;
 $border-radius: base.$border-radius !default;
 
 .Input {
@@ -18,6 +20,15 @@ $border-radius: base.$border-radius !default;
   margin-right: 2px;
   line-height: 17px;
   overflow: visible;
+  white-space: nowrap;
+
+  &--disabled {
+    color: #777;
+    border-color: $border-color-disabled;
+    border-color: rgba($border-color-disabled, 0.75);
+    background-color: #333;
+    background-color: rgba(0, 0, 0, 0.25);
+  }
 }
 
 .Input--fluid {
@@ -49,6 +60,27 @@ $border-radius: base.$border-radius !default;
   background-color: transparent;
   color: #fff;
   color: inherit;
+
+  &:-ms-input-placeholder {
+    font-style: italic;
+    color: #777;
+    color: rgba(255, 255, 255, 0.45);
+  }
+}
+
+.Input__textarea {
+  border: 0;
+  width: calc(100% + 4px);
+  font-size: 12px;
+  line-height: 17px;
+  margin-left: -4px;
+  font-family: Verdana, sans-serif;
+  background-color: transparent;
+  color: #fff;
+  color: inherit;
+  resize: both;
+  overflow: auto;
+  white-space: pre-wrap;
 
   &:-ms-input-placeholder {
     font-style: italic;

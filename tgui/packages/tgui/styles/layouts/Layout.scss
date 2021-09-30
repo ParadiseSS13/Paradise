@@ -7,9 +7,8 @@
   bottom: 0;
   left: 0;
   right: 0;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  margin-bottom: -6px;
+  overflow: hidden;
+  margin: 6px;
 
   // Fancy scrollbar
   scrollbar-base-color: color.scale(
@@ -35,7 +34,20 @@
     $lightness: 10%);
 }
 
+.Layout__content--flexRow {
+  display: flex;
+  flex-flow: row;
+}
+
+.Layout__content--flexColumn {
+  display: flex;
+  flex-flow: column;
+}
+
 .Layout__content--scrollable {
-  overflow-y: scroll;
-  margin-bottom: 0;
+  overflow-y: auto;
+}
+
+.Layout__content--noMargin {
+  margin: 0;
 }

@@ -5,7 +5,7 @@ GLOBAL_VAR(claw_game_html)
 	desc = "One of the most infuriating ways to win a toy."
 	icon = 'icons/obj/arcade.dmi'
 	icon_state = "clawmachine_1_on"
-	token_price = 15
+	token_price = 5
 	window_name = "Claw Game"
 	var/machine_image = "_1"
 	var/bonus_prize_chance = 5		//chance to dispense a SECOND prize if you win, increased by matter bin rating
@@ -57,7 +57,7 @@ GLOBAL_VAR(claw_game_html)
 	else
 		atom_say("WINNER!")
 	new /obj/item/toy/prizeball(get_turf(src))
-	playsound(src.loc, 'sound/arcade/win.ogg', 50, 1, extrarange = -3, falloff = 10)
+	playsound(loc, 'sound/arcade/win.ogg', 50, TRUE)
 	addtimer(CALLBACK(src, .proc/update_icon), 10)
 
 /obj/machinery/arcade/claw/start_play(mob/user as mob)
@@ -66,7 +66,14 @@ GLOBAL_VAR(claw_game_html)
 	for(var/i in 1 to img_resources.len)
 		user << browse_rsc(img_resources[i])
 	var/my_game_html = replacetext(GLOB.claw_game_html, "/* ref src */", UID())
-	user << browse(my_game_html, "window=[window_name];size=915x600;can_resize=0")
+	var/datum/browser/popup = new(user, window_name, name, 915, 700, src)
+	popup.set_content(my_game_html)
+	popup.add_stylesheet("page.css", 'code/modules/arcade/page.css')
+	popup.add_stylesheet("Button.scss", 'tgui/packages/tgui/styles/components/Button.scss')
+	popup.add_script("jquery-1.8.2.min.js", 'html/browser/jquery-1.8.2.min.js')
+	popup.add_script("jquery-ui-1.8.24.custom.min.js", 'html/browser/jquery-ui-1.8.24.custom.min.js')
+	popup.open()
+	user.set_machine(src)
 
 /obj/machinery/arcade/claw/Topic(href, list/href_list)
 	if(..())

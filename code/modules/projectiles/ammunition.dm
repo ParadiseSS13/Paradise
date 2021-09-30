@@ -8,7 +8,7 @@
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
 	var/fire_sound = null						//What sound should play when this ammo is fired
-	var/drop_sound = "casingdrop"               //What sound should play when this ammo hits the ground
+	var/casing_drop_sound = "casingdrop"               //What sound should play when this ammo hits the ground
 	var/caliber = null							//Which kind of guns it can be loaded into
 	var/projectile_type = null					//The bullet type to create when New() is called
 	var/obj/item/projectile/BB = null 			//The loaded bullet
@@ -18,6 +18,15 @@
 	var/randomspread = 0						//Randomspread for automatics
 	var/click_cooldown_override = 0				//Override this to make your gun have a faster fire rate, in tenths of a second. 4 is the default gun cooldown.
 	var/harmful = TRUE //pacifism check for boolet, set to FALSE if bullet is non-lethal
+
+	/// What type of muzzle flash effect will be shown. If null then no effect and flash of light will be shown
+	var/muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
+	/// What color the flash has. If null then the flash won't cause lighting
+	var/muzzle_flash_color = LIGHT_COLOR_TUNGSTEN
+	/// What range the muzzle flash has
+	var/muzzle_flash_range = MUZZLE_FLASH_RANGE_WEAK
+	/// How strong the flash is
+	var/muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 
 /obj/item/ammo_casing/New()
 	..()
@@ -79,6 +88,13 @@
 				to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
 		..()
 
+/obj/item/ammo_casing/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!BB)
+		C.stored_comms["metal"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
+
 //Boxes of ammo
 /obj/item/ammo_box
 	name = "ammo box (generic)"
@@ -97,6 +113,7 @@
 	var/ammo_type = /obj/item/ammo_casing
 	var/max_ammo = 7
 	var/multiple_sprites = 0
+	var/icon_prefix // boxes with multiple sprites use this as their base
 	var/caliber
 	var/multiload = 1
 	var/list/initial_mats //For calculating refund values.
@@ -123,6 +140,7 @@
 		if(keep)
 			stored_ammo.Insert(1,b)
 		update_mat_value()
+		update_icon()
 		return b
 
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = 0)
@@ -191,11 +209,12 @@
 		update_icon()
 
 /obj/item/ammo_box/update_icon()
+	var/icon_base = initial(icon_prefix) ? initial(icon_prefix) : initial(icon_state)
 	switch(multiple_sprites)
 		if(1)
-			icon_state = "[initial(icon_state)]-[stored_ammo.len]"
+			icon_state = "[icon_base]-[stored_ammo.len]"
 		if(2)
-			icon_state = "[initial(icon_state)]-[stored_ammo.len ? "[max_ammo]" : "0"]"
+			icon_state = "[icon_base]-[stored_ammo.len ? "[max_ammo]" : "0"]"
 	desc = "[initial(desc)] There are [stored_ammo.len] shell\s left!"
 
 /obj/item/ammo_box/proc/update_mat_value()

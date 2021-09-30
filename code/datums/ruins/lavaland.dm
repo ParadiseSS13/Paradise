@@ -1,9 +1,11 @@
 /datum/map_template/ruin/lavaland
 	prefix = "_maps/map_files/RandomRuins/LavaRuins/"
+	ci_exclude = /datum/map_template/ruin/lavaland
 
 /datum/map_template/ruin/lavaland/biodome
 	cost = 5
 	allow_duplicates = FALSE
+	ci_exclude = /datum/map_template/ruin/lavaland/biodome // This is a parent holder, not a ruin itself
 
 /datum/map_template/ruin/lavaland/biodome/beach
 	name = "Biodome Beach"
@@ -16,7 +18,7 @@
 	name = "Biodome Winter"
 	id = "biodome-winter"
 	description = "For those getaways where you want to get back to nature, but you don't want to leave the fortified military compound where you spend your days. \
-	Includes a unique(*) laser pistol display case, and the recently introduced I.C.E(tm)."
+	Includes the recently introduced I.C.E(tm)."
 	suffix = "lavaland_biodome_winter.dmm"
 
 /datum/map_template/ruin/lavaland/biodome/clown
@@ -42,20 +44,12 @@
 	cost = 10
 	allow_duplicates = FALSE
 
-datum/map_template/ruin/lavaland/ash_walker
+/datum/map_template/ruin/lavaland/ash_walker
 	name = "Ash Walker Nest"
 	id = "ash-walker"
 	description = "A race of unbreathing lizards live here, that run faster than a human can, worship a broken dead city, and are capable of reproducing by something involving tentacles? \
 	Probably best to stay clear."
 	suffix = "lavaland_surface_ash_walker1.dmm"
-	cost = 20
-	allow_duplicates = FALSE
-
-/datum/map_template/ruin/lavaland/syndicate_base
-	name = "Syndicate Lava Base"
-	id = "lava-base"
-	description = "A secret base researching illegal bioweapons, it is closely guarded by an elite team of syndicate agents."
-	suffix = "lavaland_surface_syndicate_base1.dmm"
 	cost = 20
 	allow_duplicates = FALSE
 
@@ -79,6 +73,7 @@ datum/map_template/ruin/lavaland/ash_walker
 /datum/map_template/ruin/lavaland/sin
 	cost = 10
 	allow_duplicates = FALSE
+	ci_exclude = /datum/map_template/ruin/lavaland/sin // This is a parent holder, not a ruin itself
 
 /datum/map_template/ruin/lavaland/sin/envy
 	name = "Ruin of Envy"

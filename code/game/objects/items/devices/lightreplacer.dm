@@ -52,7 +52,6 @@
 	origin_tech = "magnets=3;engineering=4"
 	force = 8
 
-	var/emagged = FALSE
 	var/max_uses = 20
 	var/uses = 10
 	// How much to increase per each glass?
@@ -180,7 +179,7 @@
 		playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	return new_bulbs
 
-/obj/item/lightreplacer/proc/Charge(var/mob/user)
+/obj/item/lightreplacer/proc/Charge(mob/user)
 	charge += 1
 	if(charge > 3)
 		AddUses(1)
@@ -191,28 +190,21 @@
 		if(CanUse(U))
 			if(!Use(U))
 				return
-			to_chat(U, "<span class='notice'>You replace [target.fitting] with [src].</span>")
+			to_chat(U, "<span class='notice'>You replace the light [target.fitting] with [src].</span>")
 
 			if(target.status != LIGHT_EMPTY)
 				AddShards(1, U)
 				target.status = LIGHT_EMPTY
-				target.update()
 
-			var/obj/item/light/L2 = new target.light_type()
-
-			target.status = L2.status
-			target.switchcount = L2.switchcount
+			var/obj/item/light/replacement = target.light_type
+			target.status = LIGHT_OK
+			target.switchcount = 0
 			target.rigged = emagged
-			target.brightness_range = L2.brightness_range
-			target.brightness_power = L2.brightness_power
-			target.brightness_color = L2.brightness_color
+			target.brightness_range = initial(replacement.brightness_range)
+			target.brightness_power = initial(replacement.brightness_power)
+			target.brightness_color = initial(replacement.brightness_color)
 			target.on = target.has_power()
-			target.update()
-			qdel(L2)
-
-			if(target.on && target.rigged)
-				target.explode()
-			return
+			target.update(TRUE, TRUE, FALSE)
 
 		else
 			to_chat(U, "[src]'s refill light blinks red.")
@@ -223,7 +215,7 @@
 
 /obj/item/lightreplacer/proc/Emag()
 	emagged = !emagged
-	playsound(loc, "sparks", 100, TRUE)
+	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	if(emagged)
 		name = "shortcircuited [initial(name)]"
 	else
@@ -262,6 +254,10 @@
 
 /obj/item/lightreplacer/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return
+
+/obj/item/lightreplacer/cyborg/cyborg_recharge(coeff, emagged)
+	for(var/I in 1 to coeff)
+		Charge()
 
 #undef LIGHT_OK
 #undef LIGHT_EMPTY

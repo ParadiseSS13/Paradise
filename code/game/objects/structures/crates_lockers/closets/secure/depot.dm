@@ -9,11 +9,6 @@
 	var/is_armory = FALSE
 	var/ignore_use = FALSE
 
-
-/obj/structure/closet/secure_closet/syndicate/depot/New()
-	. = ..()
-	update_icon()
-
 /obj/structure/closet/secure_closet/syndicate/depot/emag_act()
 	. = ..()
 	loot_pickup()
@@ -29,7 +24,7 @@
 
 /obj/structure/closet/secure_closet/syndicate/depot/proc/loot_pickup()
 	if(!ignore_use)
-		var/area/syndicate_depot/core/depotarea = areaMaster
+		var/area/syndicate_depot/core/depotarea = get_area(src)
 		if(istype(depotarea))
 			depotarea.locker_looted()
 			if(is_armory)
@@ -37,13 +32,13 @@
 
 /obj/structure/closet/secure_closet/syndicate/depot/attack_animal(mob/M)
 	if(isanimal(M) && ("syndicate" in M.faction))
-		to_chat(M, "<span class='warning'>The [src] resists your attack!</span>")
+		to_chat(M, "<span class='warning'>[src] resists your attack!</span>")
 		return
 	return ..()
 
 /obj/structure/closet/secure_closet/syndicate/depot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs))
-		to_chat(user, "<span class='warning'>Bluespace interference prevents the [W] from locking onto [src]!</span>")
+		to_chat(user, "<span class='warning'>Bluespace interference prevents [W] from locking onto [src]!</span>")
 		return
 	return ..()
 

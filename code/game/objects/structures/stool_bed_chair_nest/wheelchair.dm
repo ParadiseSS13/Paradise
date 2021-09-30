@@ -4,6 +4,7 @@
 	item_chair = null
 	anchored = FALSE
 	movable = TRUE
+	buildstackamount = 15
 
 	var/move_delay = null
 
@@ -156,3 +157,6 @@
 
 		else
 			. = 1
+
+/obj/structure/chair/wheelchair/bike/wrench_act(mob/user, obj/item/I)
+	return

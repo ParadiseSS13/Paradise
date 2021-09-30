@@ -61,6 +61,6 @@
 					new web_type(T)
 
 /obj/structure/spider/terrorweb/gray
-	alpha = 100
+	alpha = 150
 	name = "transparent web"
 	desc = "This web is partly transparent, making it harder to see, and easier to get caught by."

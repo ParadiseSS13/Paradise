@@ -12,6 +12,7 @@
 	volume = 50
 	resistance_flags = NONE
 	antable = FALSE
+	var/chugging = FALSE
 
 /obj/item/reagent_containers/food/drinks/New()
 	..()
@@ -36,31 +37,35 @@
 	if(istype(M, /mob/living/carbon))
 		var/mob/living/carbon/C = M
 		if(C.eat(src, user))
-			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-				var/mob/living/silicon/robot/borg = user
-				borg.cell.use(30)
-				var/refill = reagents.get_master_reagent_id()
-				if(refill in GLOB.drinks) // Only synthesize drinks
-					addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, bitesize), 600)
 			return TRUE
 	return FALSE
 
 /obj/item/reagent_containers/food/drinks/MouseDrop(atom/over_object) //CHUG! CHUG! CHUG!
+	if(!iscarbon(over_object))
+		return
 	var/mob/living/carbon/chugger = over_object
-	if (!(container_type & DRAINABLE))
+	if(!(container_type & DRAINABLE))
 		to_chat(chugger, "<span class='notice'>You need to open [src] first!</span>")
 		return
-	if(istype(chugger) && loc == chugger && src == chugger.get_active_hand() && reagents.total_volume)
-		chugger.visible_message("<span class='notice'>[chugger] raises the [src] to [chugger.p_their()] mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!</span>", "<span class='notice'>You start chugging [src].</span>", "<span class='notice'>You hear what sounds like gulping.</span>")
-		while(do_mob(chugger, chugger, 40)) //Between the default time for do_mob and the time it takes for a vampire to suck blood.
+	if(reagents.total_volume && loc == chugger && src == chugger.get_active_hand())
+		chugger.visible_message("<span class='notice'>[chugger] raises [src] to [chugger.p_their()] mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!</span>",
+			"<span class='notice'>You start chugging [src].</span>",
+			"<span class='notice'>You hear what sounds like gulping.</span>")
+		chugging = TRUE
+		while(do_after_once(chugger, 4 SECONDS, TRUE, chugger, null, "You stop chugging [src]."))
 			chugger.eat(src, chugger, 25) //Half of a glass, quarter of a bottle.
 			if(!reagents.total_volume) //Finish in style.
 				chugger.emote("gasp")
-				chugger.visible_message("<span class='notice'>[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!</span>", "<span class='notice'>You finish off the [src]![prob(50) ? " Maybe that wasn't such a good idea..." : ""]</span>", "<span class='notice'>You hear a gasp and a clink.</span>")
+				chugger.visible_message("<span class='notice'>[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!</span>",
+					"<span class='notice'>You finish off [src]![prob(50) ? " Maybe that wasn't such a good idea..." : ""]</span>",
+					"<span class='notice'>You hear a gasp and a clink.</span>")
 				break
+		chugging = FALSE
 
 /obj/item/reagent_containers/food/drinks/afterattack(obj/target, mob/user, proximity)
 	if(!proximity)
+		return
+	if(chugging)
 		return
 
 	if(target.is_refillable() && is_drainable()) //Something like a glass. Player probably wants to transfer TO it.
@@ -72,23 +77,8 @@
 			to_chat(user, "<span class='warning'> [target] is full.</span>")
 			return FALSE
 
-		var/datum/reagent/refill
-		var/datum/reagent/refillName
-		if(isrobot(user))
-			refill = reagents.get_master_reagent_id()
-			refillName = reagents.get_master_reagent_name()
-
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'> You transfer [trans] units of the solution to [target].</span>")
-
-		if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-			if(refill in GLOB.drinks) // Only synthesize drinks
-				var/mob/living/silicon/robot/bro = user
-				var/chargeAmount = max(30,4*trans)
-				bro.cell.use(chargeAmount)
-				to_chat(user, "<span class='notice'>Now synthesizing [trans] units of [refillName]...</span>")
-				addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, trans), 300)
-				addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 300)
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!is_refillable())
@@ -226,7 +216,7 @@
 	desc = "Made in Space Switzerland."
 	icon_state = "hot_coco"
 	item_state = "coffee"
-	list_reagents = list("chocolate" = 30)
+	list_reagents = list("hot_coco" = 15, "chocolate" = 6, "water" = 9)
 	resistance_flags = FREEZE_PROOF
 
 /obj/item/reagent_containers/food/drinks/weightloss

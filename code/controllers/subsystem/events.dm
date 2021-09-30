@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(events)
 	name = "Events"
 	init_order = INIT_ORDER_EVENTS
 	runlevels = RUNLEVEL_GAME
+	flags = SS_KEEP_TIMING
 	offline_implications = "Random events will no longer happen. No immediate action is needed."
 	// Report events at the end of the rouund
 	var/report_at_round_end = 0
@@ -40,7 +41,7 @@ SUBSYSTEM_DEF(events)
 		var/datum/event_container/EC = event_containers[i]
 		EC.process()
 
-/datum/controller/subsystem/events/proc/event_complete(var/datum/event/E)
+/datum/controller/subsystem/events/proc/event_complete(datum/event/E)
 	if(!E.event_meta)	// datum/event is used here and there for random reasons, maintaining "backwards compatibility"
 		log_debug("Event of '[E.type]' with missing meta-data has completed.")
 		return
@@ -65,11 +66,11 @@ SUBSYSTEM_DEF(events)
 
 	log_debug("Event '[EM.name]' has completed at [station_time_timestamp()].")
 
-/datum/controller/subsystem/events/proc/delay_events(var/severity, var/delay)
+/datum/controller/subsystem/events/proc/delay_events(severity, delay)
 	var/datum/event_container/EC = event_containers[severity]
 	EC.next_event_time += delay
 
-/datum/controller/subsystem/events/proc/Interact(var/mob/living/user)
+/datum/controller/subsystem/events/proc/Interact(mob/living/user)
 
 	var/html = GetInteractWindow()
 
@@ -113,7 +114,7 @@ SUBSYSTEM_DEF(events)
 			html += "<td>[EM.name]</td>"
 			html += "<td><A align='right' href='?src=[UID()];set_weight=\ref[EM]'>[EM.weight]</A></td>"
 			html += "<td>[EM.min_weight]</td>"
-			html += "<td>[EM.max_weight]</td>"
+			html += "<td>[EM.max_weight == INFINITY ? "No max" : EM.max_weight]</td>"
 			html += "<td><A align='right' href='?src=[UID()];toggle_oneshot=\ref[EM]'>[EM.one_shot]</A></td>"
 			html += "<td><A align='right' href='?src=[UID()];toggle_enabled=\ref[EM]'>[EM.enabled]</A></td>"
 			html += "<td><span class='alert'>[EM.get_weight(number_active_with_role())]</span></td>"
@@ -212,38 +213,38 @@ SUBSYSTEM_DEF(events)
 
 	if(href_list["toggle_report"])
 		report_at_round_end = !report_at_round_end
-		admin_log_and_message_admins("has [report_at_round_end ? "enabled" : "disabled"] the round end event report.")
+		log_and_message_admins("has [report_at_round_end ? "enabled" : "disabled"] the round end event report.")
 	else if(href_list["dec_timer"])
 		var/datum/event_container/EC = locate(href_list["event"])
 		var/decrease = (60 * RaiseToPower(10, text2num(href_list["dec_timer"])))
 		EC.next_event_time -= decrease
-		admin_log_and_message_admins("decreased timer for [GLOB.severity_to_string[EC.severity]] events by [decrease/600] minute(s).")
+		log_and_message_admins("decreased timer for [GLOB.severity_to_string[EC.severity]] events by [decrease/600] minute(s).")
 	else if(href_list["inc_timer"])
 		var/datum/event_container/EC = locate(href_list["event"])
 		var/increase = (60 * RaiseToPower(10, text2num(href_list["inc_timer"])))
 		EC.next_event_time += increase
-		admin_log_and_message_admins("increased timer for [GLOB.severity_to_string[EC.severity]] events by [increase/600] minute(s).")
+		log_and_message_admins("increased timer for [GLOB.severity_to_string[EC.severity]] events by [increase/600] minute(s).")
 	else if(href_list["select_event"])
 		var/datum/event_container/EC = locate(href_list["select_event"])
 		var/datum/event_meta/EM = EC.SelectEvent()
 		if(EM)
-			admin_log_and_message_admins("has queued the [GLOB.severity_to_string[EC.severity]] event '[EM.name]'.")
+			log_and_message_admins("has queued the [GLOB.severity_to_string[EC.severity]] event '[EM.name]'.")
 	else if(href_list["pause"])
 		var/datum/event_container/EC = locate(href_list["pause"])
 		EC.delayed = !EC.delayed
-		admin_log_and_message_admins("has [EC.delayed ? "paused" : "resumed"] countdown for [GLOB.severity_to_string[EC.severity]] events.")
+		log_and_message_admins("has [EC.delayed ? "paused" : "resumed"] countdown for [GLOB.severity_to_string[EC.severity]] events.")
 	else if(href_list["interval"])
 		var/delay = input("Enter delay modifier. A value less than one means events fire more often, higher than one less often.", "Set Interval Modifier") as num|null
 		if(delay && delay > 0)
 			var/datum/event_container/EC = locate(href_list["interval"])
 			EC.delay_modifier = delay
-			admin_log_and_message_admins("has set the interval modifier for [GLOB.severity_to_string[EC.severity]] events to [EC.delay_modifier].")
+			log_and_message_admins("has set the interval modifier for [GLOB.severity_to_string[EC.severity]] events to [EC.delay_modifier].")
 	else if(href_list["stop"])
 		if(alert("Stopping an event may have unintended side-effects. Continue?","Stopping Event!","Yes","No") != "Yes")
 			return
 		var/datum/event/E = locate(href_list["stop"])
 		var/datum/event_meta/EM = E.event_meta
-		admin_log_and_message_admins("has stopped the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
+		log_and_message_admins("has stopped the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
 		E.kill()
 	else if(href_list["view_events"])
 		selected_event_container = locate(href_list["view_events"])
@@ -265,23 +266,23 @@ SUBSYSTEM_DEF(events)
 			var/datum/event_meta/EM = locate(href_list["set_weight"])
 			EM.weight = weight
 			if(EM != new_event)
-				admin_log_and_message_admins("has changed the weight of the [GLOB.severity_to_string[EM.severity]] event '[EM.name]' to [EM.weight].")
+				log_and_message_admins("has changed the weight of the [GLOB.severity_to_string[EM.severity]] event '[EM.name]' to [EM.weight].")
 	else if(href_list["toggle_oneshot"])
 		var/datum/event_meta/EM = locate(href_list["toggle_oneshot"])
 		EM.one_shot = !EM.one_shot
 		if(EM != new_event)
-			admin_log_and_message_admins("has [EM.one_shot ? "set" : "unset"] the oneshot flag for the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
+			log_and_message_admins("has [EM.one_shot ? "set" : "unset"] the oneshot flag for the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
 	else if(href_list["toggle_enabled"])
 		var/datum/event_meta/EM = locate(href_list["toggle_enabled"])
 		EM.enabled = !EM.enabled
-		admin_log_and_message_admins("has [EM.enabled ? "enabled" : "disabled"] the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
+		log_and_message_admins("has [EM.enabled ? "enabled" : "disabled"] the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
 	else if(href_list["remove"])
 		if(alert("This will remove the event from rotation. Continue?","Removing Event!","Yes","No") != "Yes")
 			return
 		var/datum/event_meta/EM = locate(href_list["remove"])
 		var/datum/event_container/EC = locate(href_list["EC"])
 		EC.available_events -= EM
-		admin_log_and_message_admins("has removed the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
+		log_and_message_admins("has removed the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
 	else if(href_list["add"])
 		if(!new_event.name || !new_event.event_type)
 			return
@@ -289,12 +290,12 @@ SUBSYSTEM_DEF(events)
 			return
 		new_event.severity = selected_event_container.severity
 		selected_event_container.available_events += new_event
-		admin_log_and_message_admins("has added \a [GLOB.severity_to_string[new_event.severity]] event '[new_event.name]' of type [new_event.event_type] with weight [new_event.weight].")
+		log_and_message_admins("has added \a [GLOB.severity_to_string[new_event.severity]] event '[new_event.name]' of type [new_event.event_type] with weight [new_event.weight].")
 		new_event = new
 	else if(href_list["clear"])
 		var/datum/event_container/EC = locate(href_list["clear"])
 		if(EC.next_event)
-			admin_log_and_message_admins("has dequeued the [GLOB.severity_to_string[EC.severity]] event '[EC.next_event.name]'.")
+			log_and_message_admins("has dequeued the [GLOB.severity_to_string[EC.severity]] event '[EC.next_event.name]'.")
 			EC.next_event = null
 
 	Interact(usr)

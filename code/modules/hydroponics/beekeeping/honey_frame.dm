@@ -8,5 +8,6 @@
 
 
 /obj/item/honey_frame/New()
+	. = ..()
 	pixel_x = rand(8,-8)
 	pixel_y = rand(8,-8)

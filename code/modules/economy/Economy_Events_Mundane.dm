@@ -14,7 +14,7 @@
 	//copy-pasted from the admin verbs to submit new newscaster messages
 	var/datum/feed_message/newMsg = new /datum/feed_message
 	newMsg.author = "Nyx Daily"
-	newMsg.is_admin_message = 1
+	newMsg.admin_locked = TRUE
 
 	//see if our location has custom event info for this event
 	newMsg.body = affected_dest.get_custom_eventstring()
@@ -126,12 +126,10 @@
 				Nyx Daily is offering discount tickets for two to see [random_name(pick(MALE,FEMALE))] live in return for eyewitness reports and up to the minute coverage."
 
 
-	for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
-		if(FC.channel_name == "Nyx Daily")
-			FC.messages += newMsg
-			break
-	for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allNewscasters)
-		NEWSCASTER.newsAlert("Nyx Daily")
+	GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(newMsg)
+	for(var/nc in GLOB.allNewscasters)
+		var/obj/machinery/newscaster/NC = nc
+		NC.alert_news("Nyx Daily")
 
 /datum/event/trivial_news
 	endWhen = 10
@@ -145,9 +143,7 @@
 	newMsg.body = pick(file2list("config/news/trivial.txt"))
 	newMsg.body = replacetext(newMsg.body,"{{AFFECTED}}",affected_dest.name)
 
-	for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
-		if(FC.channel_name == "The Gibson Gazette")
-			FC.messages += newMsg
-			break
-	for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allNewscasters)
-		NEWSCASTER.newsAlert("The Gibson Gazette")
+	GLOB.news_network.get_channel_by_name("The Gibson Gazette")?.add_message(newMsg)
+	for(var/nc in GLOB.allNewscasters)
+		var/obj/machinery/newscaster/NC = nc
+		NC.alert_news("The Gibson Gazette")

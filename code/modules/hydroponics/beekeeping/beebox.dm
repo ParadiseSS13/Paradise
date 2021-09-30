@@ -174,11 +174,11 @@
 			queen_bee = qb.queen
 			qb.queen = null
 		else
-			visible_message("<span class='notice'>The [qb] refuses to settle down. Maybe it's something to do with its reagent?</span>")
+			visible_message("<span class='notice'>[qb] refuses to settle down. Maybe it's something to do with its reagent?</span>")
 			return
 
 		if(queen_bee)
-			visible_message("<span class='notice'>[user] sets [qb] down inside the apiary, making it [user.p_their()] new home.</span>")
+			visible_message("<span class='notice'>[user] sets [qb] down inside the apiary, making it [qb.p_their()] new home.</span>")
 			var/relocated = 0
 			for(var/b in bees)
 				var/mob/living/simple_animal/hostile/poison/bees/B = b
@@ -198,10 +198,17 @@
 		return
 	return ..()
 
+/obj/structure/beebox/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+		deconstruct(disassembled = TRUE)
+
 /obj/structure/beebox/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
 	default_unfasten_wrench(user, I, time = 20)
 
 /obj/structure/beebox/attack_hand(mob/user)
@@ -261,15 +268,18 @@
 					visible_message("<span class='notice'>[user] removes the queen from the apiary.</span>")
 					queen_bee = null
 
-/obj/structure/beebox/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/wood(loc, 20)
+/obj/structure/beebox/deconstruct(disassembled = FALSE)
+	var/mat_drop = 20
+	if(disassembled)
+		mat_drop = 40
+	new /obj/item/stack/sheet/wood(loc, mat_drop)
 	for(var/mob/living/simple_animal/hostile/poison/bees/B in bees)
 		if(B.loc == src)
 			B.forceMove(drop_location())
 	for(var/obj/item/honey_frame/HF in honey_frames)
 		HF.forceMove(drop_location())
 		honey_frames -= HF
-	qdel(src)
+	..()
 
 /obj/structure/beebox/unwrenched
 	anchored = FALSE

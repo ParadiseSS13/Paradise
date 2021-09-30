@@ -6,6 +6,7 @@
 	icon_living = "bat"
 	icon_dead = "bat_dead"
 	icon_gib = "bat_dead"
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak_chance = 0
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
@@ -16,6 +17,7 @@
 	maxHealth = 20
 	health = 20
 	mob_size = MOB_SIZE_TINY
+	flying = TRUE
 	harm_intent_damage = 8
 	melee_damage_lower = 10
 	melee_damage_upper = 10
@@ -31,26 +33,15 @@
 //	break_stuff_probability = 2
 
 	faction = list("scarybat")
-	var/mob/living/owner
 	gold_core_spawnable = HOSTILE_SPAWN
 
-/mob/living/simple_animal/hostile/scarybat/New(loc, mob/living/L as mob)
-	..()
+/mob/living/simple_animal/hostile/scarybat/Initialize(mapload, mob/living/L)
+	. = ..()
 	if(istype(L))
-		owner = L
+		faction += "\ref[L]"
 
-/mob/living/simple_animal/hostile/scarybat/Process_Spacemove(var/check_drift = 0)
+/mob/living/simple_animal/hostile/scarybat/Process_Spacemove(check_drift = 0)
 	return ..()	//No drifting in space for space carp!	//original comments do not steal
-
-/mob/living/simple_animal/hostile/scarybat/Found(var/atom/A)//This is here as a potential override to pick a specific target if available
-	if(istype(A) && A == owner)
-		return 0
-	return ..()
-
-/mob/living/simple_animal/hostile/scarybat/CanAttack(var/atom/the_target)//This is here as a potential override to pick a specific target if available
-	if(istype(the_target) && the_target == owner)
-		return 0
-	return ..()
 
 /mob/living/simple_animal/hostile/scarybat/AttackingTarget()
 	. =..()

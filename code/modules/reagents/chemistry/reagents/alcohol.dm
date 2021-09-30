@@ -17,12 +17,9 @@
 
 /datum/reagent/consumable/ethanol/reaction_obj(obj/O, volume)
 	if(istype(O,/obj/item/paper))
-		if(istype(O,/obj/item/paper/contract/infernal))
-			O.visible_message("<span class='warning'>The solution ignites on contact with [O].</span>")
-		else
-			var/obj/item/paper/paperaffected = O
-			paperaffected.clearpaper()
-			paperaffected.visible_message("<span class='notice'>The solution melts away the ink on the paper.</span>")
+		var/obj/item/paper/paperaffected = O
+		paperaffected.clearpaper()
+		paperaffected.visible_message("<span class='notice'>The solution melts away the ink on the paper.</span>")
 	if(istype(O,/obj/item/book))
 		if(volume >= 5)
 			var/obj/item/book/affectedbook = O
@@ -179,7 +176,7 @@
 	description = "Anime's favorite drink."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
-	drink_icon = "ginvodkaglass"
+	drink_icon = "sake"
 	drink_name = "Glass of Sake"
 	drink_desc = "A glass of Sake."
 	taste_description = "sake"
@@ -375,6 +372,18 @@
 	drink_name = "Whiskey Cola"
 	drink_desc = "An innocent-looking mixture of cola and Whiskey. Delicious."
 	taste_description = "whiskey and coke"
+
+/datum/reagent/consumable/ethanol/daiquiri
+	name = "Daiquiri"
+	id = "daiquiri"
+	description = "Lime juice and sugar mixed with rum. A sweet and refreshing mix."
+	reagent_state = LIQUID
+	color = "#61d961" // rgb: 38, 85, 38
+	alcohol_perc = 0.4
+	drink_icon = "daiquiriglass"
+	drink_name = "Daiquiri"
+	drink_desc = "When Botany gives you limes, make daiquiris."
+	taste_description = "sweetened lime juice and rum"
 
 /datum/reagent/consumable/ethanol/martini
 	name = "Classic Martini"
@@ -678,6 +687,25 @@
 	if(M.bodytemperature < 330)
 		M.bodytemperature = min(330, M.bodytemperature + (20 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
 	return ..()
+
+/datum/reagent/consumable/ethanol/adminfreeze
+	name = "Admin Freeze"
+	id = "adminfreeze"
+	description = "Ultimate Punishment."
+	reagent_state = LIQUID
+	color = "#30F0FF" // rgb: 048, 240, 255
+	dizzy_adj = 4
+	alcohol_perc = 1.5 // oof
+	drink_icon = "adminfreeze"
+	drink_name = "Admin Freeze"
+	drink_desc = "The ultimate punishment."
+	taste_description = "a series of bad decisions"
+
+/datum/reagent/consumable/ethanol/adminfreeze/reaction_mob(mob/living/M, method = REAGENT_INGEST, volume)
+	..()
+	if(method == REAGENT_INGEST)
+		M.apply_status_effect(/datum/status_effect/freon/watcher)
+		M.adjust_bodytemperature(-110)
 
 /datum/reagent/consumable/ethanol/barefoot
 	name = "Barefoot"
@@ -1387,7 +1415,101 @@
 	color = rgb(51, 19, 3) //Sickly brown
 	dizzy_adj = 21
 	alcohol_perc = 3 //I warned you
-	drink_icon = "glass_brown2"
+	drink_icon = "bacchusblessing"
 	drink_name = "Bacchus' Blessing"
 	drink_desc = "You didn't think it was possible for a liquid to be so utterly revolting. Are you sure about this...?"
 	taste_description = "a wall of bricks"
+
+/datum/reagent/consumable/ethanol/fernet
+	name = "Fernet"
+	id = "fernet"
+	description = "An incredibly bitter herbal liqueur used as a digestif."
+	color = "#1B2E24" // rgb: 27, 46, 36
+	alcohol_perc = 0.5
+	drink_icon = "fernetpuro"
+	drink_name = "glass of pure fernet"
+	drink_desc = "Why are you drinking this pure?"
+	taste_description = "utter bitterness"
+	var/remove_nutrition = 2
+
+/datum/reagent/consumable/ethanol/fernet/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(!M.nutrition)
+		switch(rand(1, 3))
+			if(1)
+				to_chat(M, "<span class='warning'>You feel hungry...</span>")
+			if(2)
+				update_flags |= M.adjustToxLoss(1, FALSE)
+				to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
+	else
+		if(prob(60))
+			M.adjust_nutrition(-remove_nutrition)
+			M.overeatduration = 0
+	return ..() | update_flags
+
+/datum/reagent/consumable/ethanol/fernet/fernet_cola
+	name = "Fernet Cola"
+	id = "fernet_cola"
+	description = "A very popular and bittersweet digestif, ideal after a heavy meal. Best served on a sawed-off cola bottle as per tradition."
+	color = "#390600" // rgb: 57, 6, 0
+	alcohol_perc = 0.2
+	drink_icon = "fernetcola"
+	drink_name = "glass of fernet cola"
+	drink_desc = "A sawed-off cola bottle filled with Fernet Cola. You can hear cuarteto music coming from the inside."
+	taste_description = "low class heaven"
+	remove_nutrition = 1
+
+/datum/reagent/consumable/ethanol/gimlet
+	name = "Gimlet"
+	id = "gimlet"
+	description = "A sharp cocktail dating back to the 19th century. Gin and lime, nothing else."
+	color = "#DEF8AB" // rgb (222, 248, 171)
+	alcohol_perc = 0.3
+	drink_icon = "gimlet"
+	drink_name = "Gimlet"
+	drink_desc = "There are debates on whether this drink should be half gin and half lime, or three parts gin and one part lime. All you know is, it's alcohol."
+	taste_description = "sharpness"
+
+/datum/reagent/consumable/ethanol/sidecar
+	name = "Sidecar"
+	id = "sidecar"
+	description = "A citrus cocktail of cognac, lemon and orange."
+	color = "#D7A61E" // rgb (215, 166, 30)
+	alcohol_perc = 0.4
+	drink_icon = "sidecar"
+	drink_name = "Sidecar"
+	drink_desc = "You can smell the citrus from here!"
+	taste_description = "smooth cognac and tart citrus"
+
+/datum/reagent/consumable/ethanol/whiskey_sour
+	name = "Whiskey Sour"
+	id = "whiskeysour"
+	description = "A tantalizing mixture of whiskey, sugar, lemon juice... and egg whites?"
+	color = "#E4D629" // rgb (228, 214, 41)
+	alcohol_perc = 0.6
+	drink_icon = "whiskeysour"
+	drink_name = "Whiskey Sour"
+	drink_desc = "Lemon and whiskey, with a cute foamy head!"
+	taste_description = "warm whiskey and sweetness"
+
+/datum/reagent/consumable/ethanol/mint_julep
+	name = "Mint Julep"
+	id = "mintjulep"
+	description = "A refreshing, cold mix of whiskey and mint. Perfect for summer!"
+	color = "#EAE2C8" // rgb (243, 226, 200)
+	alcohol_perc = 0.4
+	drink_icon = "mintjulep"
+	drink_name = "Mint Julep"
+	drink_desc = "A dainty glass of whiskey and mint on the rocks. Perfect for summer!"
+	taste_description = "sweet and cooling mint"
+
+/datum/reagent/consumable/ethanol/pina_colada
+	name = "Pina Colada"
+	id = "pinacolada"
+	description = "Tropical deliciousness."
+	color = "#F9D17D" // rgb (249, 209, 125)
+	alcohol_perc = 0.4
+	drink_icon = "pinacolada"
+	drink_name = "Pina Colada"
+	drink_desc = "After taking a sip, you feel contractually obligated to start singing a certain song of the same name."
+	taste_description = "tart and tropical pineapple"

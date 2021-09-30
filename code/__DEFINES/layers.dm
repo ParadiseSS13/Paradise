@@ -7,6 +7,7 @@
 #define PLANE_SPACE_PARALLAX -90
 
 #define FLOOR_PLANE -2
+#define FLOOR_OVERLAY_PLANE -1.5
 #define GAME_PLANE -1
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
@@ -25,11 +26,13 @@
 #define DISPOSAL_PIPE_LAYER 2.3
 #define GAS_PIPE_HIDDEN_LAYER 2.35
 #define WIRE_LAYER 2.4
+#define TRANSPARENT_TURF_LAYER 2.41
 #define WIRE_TERMINAL_LAYER 2.45
 #define GAS_SCRUBBER_LAYER 2.46
 #define GAS_PIPE_VISIBLE_LAYER 2.47
 #define GAS_FILTER_LAYER 2.48
 #define GAS_PUMP_LAYER 2.49
+#define HOLOPAD_LAYER 2.491
 #define CONVEYOR_LAYER 2.495
 #define LOW_OBJ_LAYER 2.5
 #define LOW_SIGIL_LAYER 2.52
@@ -39,7 +42,6 @@
 #define BELOW_OPEN_DOOR_LAYER 2.6
 #define BLASTDOOR_LAYER 2.65
 #define OPEN_DOOR_LAYER 2.7
-#define DOOR_HELPER_LAYER 2.71 //keep this above OPEN_DOOR_LAYER
 #define PROJECTILE_HIT_THRESHHOLD_LAYER 2.75 //projectiles won't hit objects at or below this layer if possible
 #define TABLE_LAYER 2.8
 #define BELOW_OBJ_LAYER 2.9
@@ -51,6 +53,7 @@
 #define SHUTTER_LAYER 3.12 // HERE BE DRAGONS
 #define ABOVE_OBJ_LAYER 3.2
 #define ABOVE_WINDOW_LAYER 3.3
+#define DOOR_HELPER_LAYER 3.31 // Keep this above doors and windoors
 #define SIGN_LAYER 3.4
 #define NOT_HIGH_OBJ_LAYER 3.5
 #define HIGH_OBJ_LAYER 3.6
@@ -79,8 +82,13 @@
 #define MASSIVE_OBJ_LAYER 11
 #define POINT_LAYER 12
 
+#define CHAT_LAYER 12.0001 // Do not insert layers between these two values
+#define CHAT_LAYER_MAX 12.9999
+
 #define LIGHTING_PLANE 15
 #define LIGHTING_LAYER 15
+
+#define RAD_TEXT_LAYER 15.1
 
 #define ABOVE_LIGHTING_PLANE 16
 #define ABOVE_LIGHTING_LAYER 16
@@ -111,3 +119,9 @@
 
 #define SPLASHSCREEN_LAYER 23
 #define SPLASHSCREEN_PLANE 23
+
+// This should always be on top.
+#define HUD_PLANE_BUILDMODE 30
+
+///Plane master controller keys
+#define PLANE_MASTERS_GAME "plane_masters_game"

@@ -9,8 +9,7 @@
 	icon_broken = "chaplainsecurebroken"
 	icon_off = "chaplainsecureoff"
 
-/obj/structure/closet/secure_closet/chaplain/New()
-	..()
+/obj/structure/closet/secure_closet/chaplain/populate_contents()
 	new /obj/item/clothing/under/rank/chaplain(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/suit/hooded/nun(src)
@@ -23,7 +22,8 @@
 	new /obj/item/storage/backpack/cultpack(src)
 	new /obj/item/clothing/head/helmet/riot/knight/templar(src)
 	new /obj/item/clothing/suit/armor/riot/knight/templar(src)
-	new /obj/item/soulstone/anybody/chaplain(src)
+	new /obj/item/clothing/suit/storage/labcoat(src)
+	new /obj/item/soulstone/anybody/purified/chaplain(src)
 	new /obj/item/storage/fancy/candle_box/eternal(src)
 	new /obj/item/storage/fancy/candle_box/eternal(src)
 	new /obj/item/storage/fancy/candle_box/eternal(src)

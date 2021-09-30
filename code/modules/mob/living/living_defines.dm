@@ -2,6 +2,11 @@
 	see_invisible = SEE_INVISIBLE_LIVING
 	pressure_resistance = 10
 
+	// Will be determined based on mob size if left null. Done in living/proc/determine_move_and_pull_forces()
+	move_resist = null
+	move_force = null
+	pull_force = null
+
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
 	var/health = 100 	//A mob's health
@@ -28,8 +33,10 @@
 	var/on_fire = 0 //The "Are we on fire?" var
 	var/fire_stacks = 0 //Tracks how many stacks of fire we have on, max is usually 20
 
-	var/floating = 0
+	var/floating = FALSE
 	var/mob_size = MOB_SIZE_HUMAN
+	// What type of mob is this
+	var/mob_biotypes = MOB_ORGANIC
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
 	var/digestion_ratio = 1 //controls how quickly reagents metabolize; largely governered by species attributes.
 
@@ -51,10 +58,6 @@
 
 	var/gene_stability = DEFAULT_GENE_STABILITY
 	var/ignore_gene_stability = 0
-
-	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
-
-	var/tesla_ignore = FALSE
 
 	var/list/say_log = list() //a log of what we've said, plain text, no spans or junk, essentially just each individual "message"
 	var/list/emote_log = list() //like say_log but for emotes

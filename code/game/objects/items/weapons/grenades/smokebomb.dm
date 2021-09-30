@@ -19,7 +19,7 @@
 
 /obj/item/grenade/smokebomb/prime()
 	playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
-	src.smoke.set_up(10, 0, usr.loc)
+	smoke.set_up(10, 0)
 	spawn(0)
 		src.smoke.start()
 		sleep(10)
@@ -31,7 +31,7 @@
 
 	for(var/obj/structure/blob/B in view(8,src))
 		var/damage = round(30/(get_dist(B,src)+1))
-		B.take_damage(damage, BURN, "melee", 0)
+		B.take_damage(damage, BURN, MELEE, 0)
 	sleep(80)
 	qdel(src)
 	return

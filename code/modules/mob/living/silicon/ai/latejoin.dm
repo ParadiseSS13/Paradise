@@ -1,15 +1,5 @@
 GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 
-/hook/roundstart/proc/spawn_empty_ai()
-	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
-		if(S.name != "AI")
-			continue
-		if(locate(/mob/living) in S.loc)
-			continue
-		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(S))
-
-	return 1
-
 /mob/living/silicon/ai/verb/wipe_core()
 	set name = "Wipe Core"
 	set category = "OOC"
@@ -19,8 +9,9 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	if(alert("WARNING: This will immediately wipe your core and ghost you, removing your character from the round permanently (similar to cryo and robotic storage). Are you entirely sure you want to do this?",
 					"Wipe Core", "No", "No", "Yes") != "Yes")
 		return
+	cryo_AI()
 
-	// We warned you.
+/mob/living/silicon/ai/proc/cryo_AI()
 	GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(loc)
 	GLOB.global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight")
 
@@ -38,7 +29,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 			current_mode.possible_traitors.Remove(src)
 
 	// Ghost the current player and disallow them to return to the body
-	ghostize(FALSE)
+	ghostize()
 	// Delete the old AI shell
 	qdel(src)
 

@@ -17,13 +17,18 @@
 	var/healverb = "bandage"
 
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
+	if(get_amount() <= 0)
+		if(is_cyborg)
+			to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [singular_name]\s!</span>")
+		return TRUE
+
 	if(!iscarbon(M) && !isanimal(M))
 		to_chat(user, "<span class='danger'>[src] cannot be applied to [M]!</span>")
-		return 1
+		return TRUE
 
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='danger'>You don't have the dexterity to do this!</span>")
-		return 1
+		return TRUE
 
 
 	if(ishuman(M))
@@ -115,6 +120,7 @@
 	desc = "Some sterile gauze to wrap around bloody stumps."
 	icon_state = "gauze"
 	origin_tech = "biotech=2"
+	max_amount = 12
 	heal_brute = 10
 	stop_bleeding = 1800
 
@@ -164,10 +170,16 @@
 	singular_name = "advanced trauma kit"
 	desc = "An advanced trauma kit for severe injuries."
 	icon_state = "traumakit"
+	max_amount = 6
 	heal_brute = 25
 	stop_bleeding = 0
 
+/obj/item/stack/medical/bruise_pack/advanced/cyborg
+	energy_type = /datum/robot_energy_storage/medical/adv_brute_kit
+	is_cyborg = TRUE
 
+/obj/item/stack/medical/bruise_pack/advanced/cyborg/syndicate
+	energy_type = /datum/robot_energy_storage/medical/adv_brute_kit/syndicate
 
 //Ointment//
 
@@ -208,6 +220,13 @@
 	icon_state = "burnkit"
 	heal_burn = 25
 
+/obj/item/stack/medical/ointment/advanced/cyborg
+	energy_type = /datum/robot_energy_storage/medical/adv_burn_kit
+	is_cyborg = TRUE
+
+/obj/item/stack/medical/ointment/advanced/cyborg/syndicate
+	energy_type = /datum/robot_energy_storage/medical/adv_burn_kit/syndicate
+
 //Medical Herbs//
 /obj/item/stack/medical/bruise_pack/comfrey
 	name = "\improper Comfrey leaf"
@@ -216,9 +235,16 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "tea_aspera_leaves"
 	color = "#378C61"
+	max_amount = 6
 	stop_bleeding = 0
 	heal_brute = 12
+	drop_sound = 'sound/misc/moist_impact.ogg'
+	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
+	hitsound = 'sound/misc/moist_impact.ogg'
 
+/obj/item/stack/medical/bruise_pack/comfrey/heal(mob/living/M, mob/user)
+	playsound(src, 'sound/misc/soggy.ogg', 30, TRUE)
+	return ..()
 
 /obj/item/stack/medical/ointment/aloe
 	name = "\improper Aloe Vera leaf"
@@ -276,6 +302,13 @@
 		affecting.splinted_count = H.step_count
 		H.handle_splints()
 		use(1)
+
+/obj/item/stack/medical/splint/cyborg
+	energy_type = /datum/robot_energy_storage/medical/splint
+	is_cyborg = TRUE
+
+/obj/item/stack/medical/splint/cyborg/syndicate
+	energy_type = /datum/robot_energy_storage/medical/splint/syndicate
 
 /obj/item/stack/medical/splint/tribal
 	name = "tribal splints"

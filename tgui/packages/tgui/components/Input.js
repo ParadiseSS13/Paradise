@@ -76,6 +76,11 @@ export class Input extends Component {
     const input = this.inputRef.current;
     if (input) {
       input.value = toInputValue(nextValue);
+      if (this.props.autofocus) {
+        input.focus();
+        input.selectionStart = 0;
+        input.selectionEnd = input.value.length;
+      }
     }
   }
 
@@ -104,6 +109,12 @@ export class Input extends Component {
       value,
       maxLength,
       placeholder,
+      autofocus,
+      disabled,
+      // Multiline props
+      multiline,
+      cols = 32,
+      rows = 4,
       ...boxProps
     } = props;
     // Box props
@@ -117,21 +128,37 @@ export class Input extends Component {
         className={classes([
           'Input',
           fluid && 'Input--fluid',
+          disabled && 'Input--disabled',
           className,
         ])}
         {...rest}>
         <div className="Input__baseline">
           .
         </div>
-        <input
-          ref={this.inputRef}
-          className="Input__input"
-          placeholder={placeholder}
-          onInput={this.handleInput}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onKeyDown={this.handleKeyDown}
-          maxLength={maxLength} />
+        {multiline ? (
+          <textarea
+            ref={this.inputRef}
+            className="Input__textarea"
+            placeholder={placeholder}
+            onInput={this.handleInput}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
+            maxLength={maxLength}
+            cols={cols}
+            rows={rows}
+            disabled={disabled} />
+        ) : (
+          <input
+            ref={this.inputRef}
+            className="Input__input"
+            placeholder={placeholder}
+            onInput={this.handleInput}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
+            onKeyDown={this.handleKeyDown}
+            maxLength={maxLength}
+            disabled={disabled} />
+        )}
       </Box>
     );
   }

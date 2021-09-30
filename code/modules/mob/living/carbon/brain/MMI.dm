@@ -23,9 +23,12 @@
 	// Needed to fix a rather insane bug when a posibrain/robotic brain commits suicide
 	var/dead_icon = "mmi_dead"
 
-/obj/item/mmi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+	/// Time at which the ghost belonging to the mind in the mmi can be pinged again to be borged
+	var/next_possible_ghost_ping
+
+/obj/item/mmi/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/organ/internal/brain/crystal))
-		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with the [src].</span>")
+		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with [src].</span>")
 		return
 	if(istype(O, /obj/item/organ/internal/brain/golem))
 		to_chat(user, "<span class='warning'>You can't find a way to plug [O] into [src].</span>")
@@ -44,9 +47,10 @@
 			visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
 			brainmob = B.brainmob
 			B.brainmob = null
-			brainmob.forceMove(src)
 			brainmob.container = src
+			brainmob.forceMove(src)
 			brainmob.stat = CONSCIOUS
+			brainmob.see_invisible = initial(brainmob.see_invisible)
 			GLOB.respawnable_list -= brainmob
 			GLOB.dead_mob_list -= brainmob//Update dem lists
 			GLOB.alive_mob_list += brainmob
@@ -65,7 +69,7 @@
 
 			if(radio_action)
 				radio_action.UpdateButtonIcon()
-			feedback_inc("cyborg_mmis_filled",1)
+			SSblackbox.record_feedback("amount", "mmis_filled", 1)
 		else
 			to_chat(user, "<span class='warning'>You can't drop [B]!</span>")
 
@@ -75,8 +79,8 @@
 		if(radio)
 			to_chat(user, "<span class='warning'>[src] already has a radio installed.</span>")
 		else
-			user.visible_message("<span class='notice'>[user] begins to install the [O] into [src]...</span>", \
-				"<span class='notice'>You start to install the [O] into [src]...</span>")
+			user.visible_message("<span class='notice'>[user] begins to install [O] into [src]...</span>", \
+				"<span class='notice'>You start to install [O] into [src]...</span>")
 			if(do_after(user, 20, target=src))
 				if(user.drop_item())
 					user.visible_message("<span class='notice'>[user] installs [O] in [src].</span>", \
@@ -124,7 +128,7 @@
 		icon_state = "mmi_empty"
 		name = "Man-Machine Interface"
 
-/obj/item/mmi/proc/transfer_identity(var/mob/living/carbon/human/H)//Same deal as the regular brain proc. Used for human-->robot people.
+/obj/item/mmi/proc/transfer_identity(mob/living/carbon/human/H)//Same deal as the regular brain proc. Used for human-->robot people.
 	brainmob = new(src)
 	brainmob.name = H.real_name
 	brainmob.real_name = H.real_name
@@ -146,7 +150,7 @@
 
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
 //problem i was having with alien/nonalien brain drops.
-/obj/item/mmi/proc/dropbrain(var/turf/dropspot)
+/obj/item/mmi/proc/dropbrain(turf/dropspot)
 	if(isnull(held_brain))
 		log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)]."), src)
 		to_chat(brainmob, "<span class='userdanger'>Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!</span>")
@@ -164,7 +168,7 @@
 	held_brain.forceMove(dropspot)
 	held_brain = null
 
-/obj/item/mmi/proc/become_occupied(var/new_icon)
+/obj/item/mmi/proc/become_occupied(new_icon)
 	icon_state = new_icon
 	if(radio)
 		radio_action.ApplyIcon()
@@ -192,7 +196,7 @@
 	procname = "ui_interact"
 	var/obj/item/mmi = null
 
-/datum/action/generic/configure_mmi_radio/New(var/Target, var/obj/item/mmi/M)
+/datum/action/generic/configure_mmi_radio/New(Target, obj/item/mmi/M)
 	. = ..()
 	mmi = M
 
@@ -225,13 +229,6 @@
 			if(3)
 				brainmob.emp_damage += rand(0,10)
 	..()
-
-/obj/item/mmi/relaymove(var/mob/user, var/direction)
-	if(user.stat || user.stunned)
-		return
-	var/obj/item/rig/rig = src.get_rig()
-	if(rig)
-		rig.forced_move(direction, user)
 
 /obj/item/mmi/Destroy()
 	if(isrobot(loc))
@@ -282,18 +279,12 @@
 	return 1
 
 // As a synthetic, the only limit on visibility is view range
-/obj/item/mmi/contents_nano_distance(var/src_object, var/mob/living/user)
+/obj/item/mmi/contents_ui_distance(src_object, mob/living/user)
+	. = ..()
 	if((src_object in view(src)) && get_dist(src_object, src) <= user.client.view)
 		return STATUS_INTERACTIVE	// interactive (green visibility)
-	return user.shared_living_nano_distance(src_object)
+	return user.shared_living_ui_distance()
 
-// For now the only thing that is helped by this is radio access
-// Later a more intricate system for MMI UI interaction can be established
-/obj/item/mmi/contents_nano_interact(var/src_object, var/mob/living/user)
-	if(!istype(user, /mob/living/carbon/brain))
-		log_runtime(EXCEPTION("Somehow a non-brain mob is inside an MMI!"), user)
-		return ..()
-	var/mob/living/carbon/brain/BM = user
-	if(BM.container == src && src_object == radio)
-		return STATUS_INTERACTIVE
-	return ..()
+/obj/item/mmi/forceMove(atom/destination)
+	. = ..()
+	brainmob?.update_runechat_msg_location()

@@ -190,29 +190,58 @@
 	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
 
 
-/mob/living/simple_animal/bot/cleanbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += text({"
-<TT><B>Cleaner v1.1 controls</B></TT><BR><BR>
-Status: []<BR>
-Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
-Maintenance panel panel is [open ? "opened" : "closed"]"},
-text("<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>"))
-	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += text({"<BR>Cleans Blood: []<BR>"}, text("<A href='?src=[UID()];operation=blood'>[blood ? "Yes" : "No"]</A>"))
-		dat += text({"<BR>Patrol station: []<BR>"}, text("<A href='?src=[UID()];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A>"))
-	return dat
+/mob/living/simple_animal/bot/cleanbot/show_controls(mob/M)
+	ui_interact(M)
 
-/mob/living/simple_animal/bot/cleanbot/Topic(href, href_list)
-	if(..())
-		return 1
-	switch(href_list["operation"])
+/mob/living/simple_animal/bot/cleanbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "BotClean", name, 500, 500)
+		ui.open()
+
+/mob/living/simple_animal/bot/cleanbot/ui_data(mob/user)
+	var/list/data = list(
+		"locked" = locked, // controls, locked or not
+		"noaccess" = topic_denied(user), // does the current user have access? admins, silicons etc can still access bots with locked controls
+		"maintpanel" = open,
+		"on" = on,
+		"autopatrol" = auto_patrol,
+		"painame" = paicard ? paicard.pai.name : null,
+		"canhack" = canhack(user),
+		"emagged" = emagged, // this is an int, NOT a boolean
+		"remote_disabled" = remote_disabled, // -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
+		"cleanblood" = blood
+	)
+	return data
+
+/mob/living/simple_animal/bot/cleanbot/ui_act(action, params)
+	if (..())
+		return
+	if(topic_denied(usr))
+		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		return
+	add_fingerprint(usr)
+	. = TRUE
+	switch(action)
+		if("power")
+			if(on)
+				turn_off()
+			else
+				turn_on()
+		if("autopatrol")
+			auto_patrol = !auto_patrol
+			bot_reset()
+		if("hack")
+			handle_hacking(usr)
+		if("disableremote")
+			remote_disabled = !remote_disabled
 		if("blood")
 			blood =!blood
 			get_targets()
-			update_controls()
+		if("ejectpai")
+			ejectpai()
+
+
 
 /mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
 	if(istype(A,/obj/effect/decal/cleanable))

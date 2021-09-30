@@ -14,8 +14,7 @@
 	icon_state = "black"
 	icon_closed = "black"
 
-/obj/structure/closet/gmcloset/New()
-	..()
+/obj/structure/closet/gmcloset/populate_contents()
 	new /obj/item/clothing/head/that(src)
 	new /obj/item/clothing/head/that(src)
 	new /obj/item/radio/headset/headset_service(src)
@@ -42,8 +41,7 @@
 	icon_state = "black"
 	icon_closed = "black"
 
-/obj/structure/closet/chefcloset/New()
-	..()
+/obj/structure/closet/chefcloset/populate_contents()
 	new /obj/item/clothing/under/waiter(src)
 	new /obj/item/clothing/under/waiter(src)
 	new /obj/item/radio/headset/headset_service(src)
@@ -70,26 +68,36 @@
 	icon_state = "mixed"
 	icon_closed = "mixed"
 
-/obj/structure/closet/jcloset/New()
-	..()
-	new /obj/item/clothing/under/rank/janitor(src)
-	new /obj/item/radio/headset/headset_service(src)
-	new /obj/item/cartridge/janitor(src)
+/obj/structure/closet/jcloset/populate_contents()
+	new /obj/item/flashlight(src)
 	new /obj/item/flashlight(src)
 	new /obj/item/melee/flyswatter(src)
+	new /obj/item/melee/flyswatter(src)
+	new /obj/item/clothing/shoes/galoshes(src)
 	new /obj/item/clothing/shoes/galoshes(src)
 	new /obj/item/soap(src)
+	new /obj/item/soap(src)
+	new /obj/item/reagent_containers/spray/cleaner(src)
 	new /obj/item/caution(src)
 	new /obj/item/caution(src)
 	new /obj/item/caution(src)
 	new /obj/item/caution(src)
 	new /obj/item/storage/bag/trash(src)
+	new /obj/item/storage/bag/trash(src)
+	new /obj/item/lightreplacer(src)
 	new /obj/item/lightreplacer(src)
 	new /obj/item/holosign_creator(src)
-	new /obj/item/clothing/gloves/color/black(src)
-	new /obj/item/clothing/head/soft/purple(src)
+	new /obj/item/holosign_creator(src)
+	new /obj/item/watertank/janitor(src)
 	new /obj/item/watertank/janitor(src)
 	new /obj/item/storage/belt/janitor(src)
+	new /obj/item/storage/belt/janitor(src)
+	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/head/soft/purple(src)
+	new /obj/item/radio/headset/headset_service(src)
+	new /obj/item/radio/headset/headset_service(src)
+	new /obj/item/clothing/under/rank/janitor(src)
+	new /obj/item/cartridge/janitor(src)
 
 /*
  * Lawyer
@@ -100,8 +108,7 @@
 	icon_state = "blue"
 	icon_closed = "blue"
 
-/obj/structure/closet/lawcloset/New()
-	..()
+/obj/structure/closet/lawcloset/populate_contents()
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/book/manual/faxes(src)
 	new /obj/item/clothing/under/lawyer/female(src)
@@ -127,7 +134,7 @@
 	icon_closed = "blue"
 
 
-/obj/structure/closet/paramedic/New()
+/obj/structure/closet/paramedic/populate_contents()
 	new /obj/item/clothing/under/rank/medical/paramedic(src)
 	new /obj/item/clothing/under/rank/medical/paramedic(src)
 	new /obj/item/radio/headset/headset_med(src)
@@ -142,5 +149,5 @@
 	new /obj/item/clothing/head/soft/blue(src)
 	new /obj/item/clothing/suit/storage/paramedic(src)
 	new /obj/item/clothing/suit/storage/paramedic(src)
-	new /obj/item/tank/emergency_oxygen/engi(src)
-	new /obj/item/tank/emergency_oxygen/engi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)

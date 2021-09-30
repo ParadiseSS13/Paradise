@@ -291,11 +291,11 @@
 			add_attack_logs(user, target, "Surgically removed [I.name]. INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user, tool)
 			var/obj/item/thing = I.remove(target)
-			if(!istype(thing))
-				thing.forceMove(get_turf(target))
-			else
-				user.put_in_hands(thing)
-
+			if(thing) // some "organs", like egg infections, can have I.remove(target) return null, and so we can't use "thing" in that case
+				if(istype(thing))
+					user.put_in_hands(thing)
+				else
+					thing.forceMove(get_turf(target))
 			target.update_icons()
 		else
 			user.visible_message("<span class='notice'>[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!</span>",

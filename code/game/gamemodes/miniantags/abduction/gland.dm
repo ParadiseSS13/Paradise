@@ -54,6 +54,9 @@
 	to_chat(owner, "<span class='mind_control'>[command]</span>")
 	active_mind_control = TRUE
 	log_admin("[key_name(user)] sent an abductor mind control message to [key_name(owner)]: [command]")
+	message_admins("[key_name_admin(user)] sent an abductor mind control message to [key_name_admin(owner)]: [command]")
+	user.create_log(CONVERSION_LOG, "sent an abductor mind control message: '[command]'", owner)
+	owner.create_log(CONVERSION_LOG, "received an abductor mind control message: '[command]'", user)
 	update_gland_hud()
 
 	addtimer(CALLBACK(src, .proc/clear_mind_control), mind_control_duration)
@@ -65,7 +68,7 @@
 	active_mind_control = FALSE
 	update_gland_hud()
 
-/obj/item/organ/internal/heart/gland/remove(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/remove(mob/living/carbon/M, special = 0)
 	active = 0
 	if(initial(uses) == 1)
 		uses = initial(uses)
@@ -74,7 +77,7 @@
 	clear_mind_control()
 	. = ..()
 
-/obj/item/organ/internal/heart/gland/insert(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/insert(mob/living/carbon/M, special = 0)
 	..()
 	if(special != 2 && uses) // Special 2 means abductor surgery
 		Start()
@@ -110,6 +113,8 @@
 	mind_control_duration = 3000
 
 /obj/item/organ/internal/heart/gland/heals/activate()
+	if(!(owner.mob_biotypes & MOB_ORGANIC))
+		return
 	to_chat(owner, "<span class='notice'>You feel curiously revitalized.</span>")
 	owner.adjustToxLoss(-20)
 	owner.adjustBruteLoss(-20)
@@ -278,23 +283,23 @@
 	if(ishuman(owner))
 		owner.gene_stability += GENE_INSTABILITY_MODERATE // give them this gene for free
 		owner.dna.SetSEState(GLOB.shockimmunityblock, TRUE)
-		genemutcheck(owner, GLOB.shockimmunityblock,  null, MUTCHK_FORCED)
+		singlemutcheck(owner, GLOB.shockimmunityblock, MUTCHK_FORCED)
 
 /obj/item/organ/internal/heart/gland/electric/remove(mob/living/carbon/M, special = 0)
 	if(ishuman(owner))
 		owner.gene_stability -= GENE_INSTABILITY_MODERATE // but return it to normal once it's removed
 		owner.dna.SetSEState(GLOB.shockimmunityblock, FALSE)
-		genemutcheck(owner, GLOB.shockimmunityblock,  null, MUTCHK_FORCED)
+		singlemutcheck(owner, GLOB.shockimmunityblock, MUTCHK_FORCED)
 	return ..()
 
 /obj/item/organ/internal/heart/gland/electric/activate()
 	owner.visible_message("<span class='danger'>[owner]'s skin starts emitting electric arcs!</span>",\
 	"<span class='warning'>You feel electric energy building up inside you!</span>")
-	playsound(get_turf(owner), "sparks", 100, 1, -1)
+	playsound(get_turf(owner), "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	addtimer(CALLBACK(src, .proc/zap), rand(30, 100))
 
 /obj/item/organ/internal/heart/gland/electric/proc/zap()
-	tesla_zap(owner, 4, 8000)
+	tesla_zap(owner, 4, 8000, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN)
 	playsound(get_turf(owner), 'sound/magic/lightningshock.ogg', 50, 1)
 
 /obj/item/organ/internal/heart/gland/chem

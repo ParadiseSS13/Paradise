@@ -15,12 +15,22 @@
  */
 GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("stool", /obj/structure/chair/stool, one_per_turf = 1, on_floor = 1),
-	new /datum/stack_recipe("chair", /obj/structure/chair, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("barstool", /obj/structure/chair/stool/bar, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("chair (dark)", /obj/structure/chair, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("chair (light)", /obj/structure/chair/light, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("shuttle seat", /obj/structure/chair/comfy/shuttle, 2, one_per_turf = 1, on_floor = 1),
-	new /datum/stack_recipe("sofa (middle)", /obj/structure/chair/sofa, one_per_turf = 1, on_floor = 1),
-	new /datum/stack_recipe("sofa (left)", /obj/structure/chair/sofa/left, one_per_turf = 1, on_floor = 1),
-	new /datum/stack_recipe("sofa (right)", /obj/structure/chair/sofa/right, one_per_turf = 1, on_floor = 1),
-	new /datum/stack_recipe("sofa (corner)", /obj/structure/chair/sofa/corner, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe_list("sofas", list(
+		new /datum/stack_recipe("sofa (middle)", /obj/structure/chair/sofa, 1, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("sofa (left)", /obj/structure/chair/sofa/left, 1, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("sofa (right)", /obj/structure/chair/sofa/right, 1, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("sofa (corner)", /obj/structure/chair/sofa/corner, 1, one_per_turf = TRUE, on_floor = TRUE)
+		)), \
+	new /datum/stack_recipe_list("corporate sofas", list( \
+		new /datum/stack_recipe("sofa (middle)", /obj/structure/chair/sofa/corp, 1, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("sofa (left)", /obj/structure/chair/sofa/corp/left, 1, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("sofa (right)", /obj/structure/chair/sofa/corp/right, 1, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("sofa (corner)", /obj/structure/chair/sofa/corp/corner, 1, one_per_turf = TRUE, on_floor = TRUE), \
+		)), \
 	new /datum/stack_recipe("barber chair", /obj/structure/chair/barber, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wheelchair", /obj/structure/chair/wheelchair, 15, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bed", /obj/structure/bed, 2, one_per_turf = 1, on_floor = 1),
@@ -53,7 +63,6 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe/rods("metal rod", /obj/item/stack/rods, 1, 2, 50),
 	null,
 	new /datum/stack_recipe("computer frame", /obj/structure/computerframe, 5, time = 25, one_per_turf = 1, on_floor = 1),
-	new /datum/stack_recipe("modular console", /obj/machinery/modular_computer/console/buildable/, 10, time = 25, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wall girders", /obj/structure/girder, 2, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("machine frame", /obj/machinery/constructable_frame/machine_frame, 5, time = 25, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("turret frame", /obj/machinery/porta_turret_construct, 5, time = 25, one_per_turf = 1, on_floor = 1),
@@ -83,6 +92,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	null,
 	new /datum/stack_recipe("mass driver button frame", /obj/item/mounted/frame/driver_button, 1, time = 50, one_per_turf = 0, on_floor = 1),
 	new /datum/stack_recipe("light switch frame", /obj/item/mounted/frame/light_switch, 1, time = 50, one_per_turf = 0, on_floor = 1),
+	new /datum/stack_recipe("window tint control button frame", /obj/item/mounted/frame/light_switch/windowtint, 1, time = 50, one_per_turf = 0, on_floor = 1),
 	null,
 	new /datum/stack_recipe("grenade casing", /obj/item/grenade/chem_grenade),
 	new /datum/stack_recipe("light fixture frame", /obj/item/mounted/frame/light_fixture, 2),
@@ -110,20 +120,22 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	point_value = 2
 
 /obj/item/stack/sheet/metal/cyborg
+	energy_type = /datum/robot_energy_storage/metal
+	is_cyborg = TRUE
 	materials = list()
+
+/obj/item/stack/sheet/metal/cyborg/detailed_examine()
+	return "Use in your hand to bring up the recipe menu. If you have enough sheets, click on something on the list to build it.<br>\
+			You can replenish your supply of metal as a synthetic by recharging."
 
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
-
-/obj/item/stack/sheet/metal/ratvar_act()
-	new /obj/item/stack/tile/brass(loc, amount)
-	qdel(src)
 
 /obj/item/stack/sheet/metal/narsie_act()
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
 	qdel(src)
 
-/obj/item/stack/sheet/metal/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/metal/New(loc, amount=null)
 	recipes = GLOB.metal_recipes
 	return ..()
 
@@ -150,7 +162,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	icon_state = "sheet-plasteel"
 	item_state = "sheet-metal"
 	materials = list(MAT_METAL=2000, MAT_PLASMA=2000)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 80)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
 	resistance_flags = FIRE_PROOF
 	throwforce = 10.0
 	flags = CONDUCT
@@ -158,9 +170,13 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	merge_type = /obj/item/stack/sheet/plasteel
 	point_value = 23
 
-/obj/item/stack/sheet/plasteel/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/plasteel/New(loc, amount=null)
 	recipes = GLOB.plasteel_recipes
 	return ..()
+
+/obj/item/stack/sheet/wood/cyborg
+	energy_type = /datum/robot_energy_storage/wood
+	is_cyborg = TRUE
 
 /*
  * Wood
@@ -170,6 +186,11 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("wood floor tile", /obj/item/stack/tile/wood, 1, 4, 20),
 	new /datum/stack_recipe("wood table frame", /obj/structure/table_frame/wood, 2, time = 10), \
 	new /datum/stack_recipe("wooden chair", /obj/structure/chair/wood, 3, time = 10, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe_list("pews", list(
+		new /datum/stack_recipe("pew (middle)", /obj/structure/chair/sofa/pew, 1, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("pew (left)", /obj/structure/chair/sofa/pew/left, 1, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("pew (right)", /obj/structure/chair/sofa/pew/right, 1, one_per_turf = TRUE, on_floor = TRUE),
+		)), \
 	new /datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("dresser", /obj/structure/dresser, 30, time = 50, one_per_turf = 1, on_floor = 1),
@@ -199,10 +220,10 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	icon_state = "sheet-wood"
 	origin_tech = "materials=1;biotech=1"
 	resistance_flags = FLAMMABLE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
 	merge_type = /obj/item/stack/sheet/wood
 
-/obj/item/stack/sheet/wood/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/wood/New(loc, amount=null)
 	recipes = GLOB.wood_recipes
 	return ..()
 
@@ -222,6 +243,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	new/datum/stack_recipe("mining satchel", /obj/item/storage/bag/ore, 4), \
 	new/datum/stack_recipe("chemistry bag", /obj/item/storage/bag/chemistry, 4), \
 	new/datum/stack_recipe("bio bag", /obj/item/storage/bag/bio, 4), \
+	new/datum/stack_recipe("fish bag", /obj/item/storage/bag/fish, 4), \
 	null, \
 	new/datum/stack_recipe("improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, 1, 2, 6), \
 	new/datum/stack_recipe("rag", /obj/item/reagent_containers/glass/rag, 1), \
@@ -234,6 +256,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	new/datum/stack_recipe("white beanie", /obj/item/clothing/head/beanie, 2), \
 	null, \
 	new/datum/stack_recipe("blindfold", /obj/item/clothing/glasses/sunglasses/blindfold, 3), \
+	new/datum/stack_recipe("tattered blindfold", /obj/item/clothing/glasses/sunglasses/blindfold/fake, 2), \
 	))
 
 /obj/item/stack/sheet/cloth
@@ -246,6 +269,8 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/cloth
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 /obj/item/stack/sheet/cloth/New(loc, amount=null)
 	recipes = GLOB.cloth_recipes
@@ -271,6 +296,8 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/durathread
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 /obj/item/stack/sheet/durathread/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.durathread_recipes
@@ -310,10 +337,11 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	new /datum/stack_recipe("cardborg suit", /obj/item/clothing/suit/cardborg, 3),
 	new /datum/stack_recipe("cardborg helmet", /obj/item/clothing/head/cardborg),
 	new /datum/stack_recipe("pizza box", /obj/item/pizzabox),
+	new /datum/stack_recipe("donut box", /obj/item/storage/fancy/donut_box/empty, 1),
 	new /datum/stack_recipe("folder", /obj/item/folder),
 	new /datum/stack_recipe("cardboard tube", /obj/item/c_tube),
 	new /datum/stack_recipe("cardboard box", /obj/structure/closet/cardboard, 4),
-	new/datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5),
+	new /datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5)
 ))
 
 /obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
@@ -335,7 +363,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/cardboard
 
-/obj/item/stack/sheet/cardboard/New(var/loc, var/amt = null)
+/obj/item/stack/sheet/cardboard/New(loc, amt = null)
 	recipes = GLOB.cardboard_recipes
 	return ..()
 
@@ -344,12 +372,12 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
  */
 
 GLOBAL_LIST_INIT(cult_recipes, list ( \
-	new/datum/stack_recipe/cult("runed door", /obj/machinery/door/airlock/cult, 1, time = 50, one_per_turf = 1, on_floor = 1),
-	new/datum/stack_recipe/cult("runed girder", /obj/structure/girder/cult, 1, time = 50, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe/cult("pylon", /obj/structure/cult/functional/pylon, 3, time = 40, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe/cult("forge", /obj/structure/cult/functional/forge, 5, time = 40, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe/cult("archives", /obj/structure/cult/functional/archives, 2, time = 40, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe/cult("altar", /obj/structure/cult/functional/altar, 5, time = 40, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe/cult("runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, 1, time = 50, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE),
+	new /datum/stack_recipe/cult("runed girder (used to make cult walls)", /obj/structure/girder/cult, 1, time = 10, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
+	new /datum/stack_recipe/cult("pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
+	new /datum/stack_recipe/cult("forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
+	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, veil shifters, and reality sunderers)", /obj/structure/cult/functional/archives, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
+	new /datum/stack_recipe/cult("altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE),
 	))
 
 /obj/item/stack/sheet/runed_metal
@@ -360,18 +388,17 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
 	item_state = "sheet-metal"
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
+	recipe_width = 700
 
 /obj/item/stack/sheet/runed_metal/New()
 	. = ..()
 	icon_state = SSticker.cultdat?.runed_metal_icon_state
 
-/obj/item/stack/sheet/runed_metal/ratvar_act()
-	new /obj/item/stack/tile/brass(loc, amount)
-	qdel(src)
-
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
 	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
+		return
+	if(usr.holy_check())
 		return
 	if(!is_level_reachable(user.z))
 		to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
@@ -380,8 +407,8 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
 	return ..()
 
 /datum/stack_recipe/cult
-   one_per_turf = 1
-   on_floor = 1
+   one_per_turf = TRUE
+   on_floor = TRUE
 
 /datum/stack_recipe/cult/post_build(obj/item/stack/S, obj/result)
    if(ishuman(S.loc))
@@ -389,10 +416,13 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
       H.bleed(5)
    ..()
 
+/obj/item/stack/sheet/runed_metal/ten
+	amount = 10
+
 /obj/item/stack/sheet/runed_metal/fifty
 	amount = 50
 
-/obj/item/stack/sheet/runed_metal/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/runed_metal/New(loc, amount=null)
 	recipes = GLOB.cult_recipes
 	return ..()
 
@@ -471,7 +501,8 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("cane mould", /obj/item/kitchen/mould/cane, 1, on_floor = 1), \
 	new /datum/stack_recipe("cash mould", /obj/item/kitchen/mould/cash, 1, on_floor = 1), \
 	new /datum/stack_recipe("coin mould", /obj/item/kitchen/mould/coin, 1, on_floor = 1), \
-	new /datum/stack_recipe("sucker mould", /obj/item/kitchen/mould/loli, 1, on_floor = 1)))
+	new /datum/stack_recipe("sucker mould", /obj/item/kitchen/mould/loli, 1, on_floor = 1), \
+	new /datum/stack_recipe("warning cone", /obj/item/clothing/head/cone, 5, on_floor = 1)))
 
 /obj/item/stack/sheet/plastic
 	name = "plastic"

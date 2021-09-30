@@ -39,8 +39,15 @@
 		underlays += filling
 
 	if(!is_open_container())
-		var/image/lid = image(icon, src, "lid_bottle")
+		var/image/lid = image(icon, src, "lid_[icon_state]")
 		overlays += lid
+
+/obj/item/reagent_containers/glass/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!reagents.total_volume)
+		C.stored_comms["glass"] += 3
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/item/reagent_containers/glass/bottle/toxin
 	name = "toxin bottle"

@@ -31,6 +31,9 @@
 /proc/cmp_subsystem_priority(datum/controller/subsystem/a, datum/controller/subsystem/b)
 	return a.priority - b.priority
 
+/proc/cmp_filter_data_priority(list/A, list/B)
+	return A["priority"] - B["priority"]
+
 /proc/cmp_timer(datum/timedevent/a, datum/timedevent/b)
 	return a.timeToRun - b.timeToRun
 
@@ -48,3 +51,6 @@
 		return A.plane - B.plane
 	else
 		return A.layer - B.layer
+
+/proc/cmp_login_processor_priority(datum/client_login_processor/A, datum/client_login_processor/B)
+	return A.priority - B.priority

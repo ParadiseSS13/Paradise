@@ -6,49 +6,44 @@
 	template = "pda_messenger"
 
 	var/toff = 0 //If 1, messenger disabled
-	var/list/tnote[0]  //Current Texts
+	var/list/tnote = list()  //Current Texts
 	var/last_text //No text spamming
 
 	var/m_hidden = 0 // Is the PDA hidden from the PDA list?
 	var/active_conversation = null // New variable that allows us to only view a single conversation.
 	var/list/conversations = list()    // For keeping up with who we have PDA messsages from.
-	var/latest_post = 0
-	var/auto_scroll = 1
 
 /datum/data/pda/app/messenger/start()
 	. = ..()
 	unnotify()
-	latest_post = 0
 
 /datum/data/pda/app/messenger/update_ui(mob/user as mob, list/data)
-	data["silent"] = notify_silent						// does the pda make noise when it receives a message?
+	data["silent"] = pda.silent						// does the pda make noise when it receives a message?
 	data["toff"] = toff									// is the messenger function turned off?
-	data["active_conversation"] = active_conversation	// Which conversation are we following right now?
+	// Yes I know convo is awful, but it lets me stay inside the 80 char TGUI line limit
+	data["active_convo"] = active_conversation	// Which conversation are we following right now?
 
 	has_back = active_conversation
 	if(active_conversation)
 		data["messages"] = tnote
 		for(var/c in tnote)
 			if(c["target"] == active_conversation)
-				data["convo_name"] = sanitize(c["owner"])
-				data["convo_job"] = sanitize(c["job"])
+				data["convo_name"] = c["owner"]
+				data["convo_job"] = c["job"]
 				break
-		data["auto_scroll"] = auto_scroll
-		data["latest_post"] = latest_post
-		latest_post = tnote.len
 	else
-		var/convopdas[0]
-		var/pdas[0]
+		var/list/convopdas = list()
+		var/list/pdas = list()
 		for(var/A in GLOB.PDAs)
 			var/obj/item/pda/P = A
 			var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
 			if(!P.owner || PM.toff || P == pda || PM.m_hidden)
 				continue
-			if(conversations.Find("\ref[P]"))
-				convopdas.Add(list(list("Name" = "[P]", "Reference" = "\ref[P]", "Detonate" = "[P.detonate]", "inconvo" = "1")))
+			if(conversations.Find("[P.UID()]"))
+				convopdas.Add(list(list("Name" = "[P]", "uid" = "[P.UID()]", "Detonate" = "[P.detonate]", "inconvo" = "1")))
 			else
-				pdas.Add(list(list("Name" = "[P]", "Reference" = "\ref[P]", "Detonate" = "[P.detonate]", "inconvo" = "0")))
+				pdas.Add(list(list("Name" = "[P]", "uid" = "[P.UID()]", "Detonate" = "[P.detonate]", "inconvo" = "0")))
 
 		data["convopdas"] = convopdas
 		data["pdas"] = pdas
@@ -57,28 +52,34 @@
 		if(pda.cartridge)
 			for(var/A in pda.cartridge.messenger_plugins)
 				var/datum/data/pda/messenger_plugin/P = A
-				plugins += list(list(name = P.name, icon = P.icon, ref = "\ref[P]"))
+				plugins += list(list(name = P.name, icon = P.icon, uid = "[P.UID()]"))
 		data["plugins"] = plugins
 
 		if(pda.cartridge)
 			data["charges"] = pda.cartridge.charges ? pda.cartridge.charges : 0
 
-/datum/data/pda/app/messenger/Topic(href, list/href_list)
-	if(!pda.can_use())
+/datum/data/pda/app/messenger/ui_act(action, list/params)
+	if(..())
 		return
+
 	unnotify()
 
-	switch(href_list["choice"])
+	var/play_beep = TRUE
+
+	. = TRUE
+
+
+	switch(action)
 		if("Toggle Messenger")
 			toff = !toff
 		if("Toggle Ringer")//If viewing texts then erase them, if not then toggle silent status
-			notify_silent = !notify_silent
+			pda.silent = !pda.silent
 		if("Clear")//Clears messages
-			if(href_list["option"] == "All")
+			if(params["option"] == "All")
 				tnote.Cut()
 				conversations.Cut()
-			if(href_list["option"] == "Convo")
-				var/new_tnote[0]
+			if(params["option"] == "Convo")
+				var/list/new_tnote = list()
 				for(var/i in tnote)
 					if(i["target"] != active_conversation)
 						new_tnote[++new_tnote.len] = i
@@ -86,43 +87,41 @@
 				conversations.Remove(active_conversation)
 
 			active_conversation = null
-			latest_post = 0
 		if("Message")
-			var/obj/item/pda/P = locate(href_list["target"])
+			play_beep = FALSE
+			var/obj/item/pda/P = locateUID(params["target"])
 			create_message(usr, P)
-			if(href_list["target"] in conversations)            // Need to make sure the message went through, if not welp.
-				active_conversation = href_list["target"]
-				latest_post = 0
+			if(params["target"] in conversations)            // Need to make sure the message went through, if not welp.
+				active_conversation = params["target"]
 		if("Select Conversation")
-			var/P = href_list["convo"]
+			var/P = params["target"]
 			for(var/n in conversations)
 				if(P == n)
 					active_conversation = P
-					latest_post = 0
 		if("Messenger Plugin")
-			if(!href_list["target"] || !href_list["plugin"])
+			if(!params["target"] || !params["plugin"])
 				return
 
-			var/obj/item/pda/P = locate(href_list["target"])
+			var/obj/item/pda/P = locateUID(params["target"])
 			if(!P)
 				to_chat(usr, "PDA not found.")
 
-			var/datum/data/pda/messenger_plugin/plugin = locate(href_list["plugin"])
+			var/datum/data/pda/messenger_plugin/plugin = locateUID(params["plugin"])
 			if(plugin && (plugin in pda.cartridge.messenger_plugins))
 				plugin.messenger = src
 				plugin.user_act(usr, P)
 		if("Back")
 			active_conversation = null
-			latest_post = 0
-		if("Autoscroll")
-			auto_scroll = !auto_scroll
 
-/datum/data/pda/app/messenger/proc/create_message(var/mob/living/U, var/obj/item/pda/P)
+	if(play_beep && !pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
+
+
+/datum/data/pda/app/messenger/proc/create_message(mob/living/U, obj/item/pda/P)
 	var/t = input(U, "Please enter message", name, null) as text|null
 	if(!t)
 		return
 	t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
-	t = readd_quotes(t)
 	if(!t || !istype(P))
 		return
 	if(!in_range(pda, U) && pda.loc != U)
@@ -170,36 +169,53 @@
 
 	if(!sendable) // Are we in the range of a reciever?
 		to_chat(U, "<span class='warning'>ERROR: No connection to server.</span>")
+		if(!pda.silent)
+			playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 		return
 
 	if(!receivable) // Is our recipient in the range of a reciever?
 		to_chat(U, "<span class='warning'>ERROR: No connection to recipient.</span>")
+		if(!pda.silent)
+			playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 		return
 
 	if(useMS && sendable && receivable) // only send the message if its going to work
 
 
 		useMS.send_pda_message("[P.owner]","[pda.owner]","[t]")
-		tnote.Add(list(list("sent" = 1, "owner" = "[P.owner]", "job" = "[P.ownjob]", "message" = "[t]", "target" = "\ref[P]")))
-		PM.tnote.Add(list(list("sent" = 0, "owner" = "[pda.owner]", "job" = "[pda.ownjob]", "message" = "[t]", "target" = "\ref[pda]")))
+		tnote.Add(list(list("sent" = 1, "owner" = "[P.owner]", "job" = "[P.ownjob]", "message" = "[html_decode(t)]", "target" = "[P.UID()]")))
+		PM.tnote.Add(list(list("sent" = 0, "owner" = "[pda.owner]", "job" = "[pda.ownjob]", "message" = "[html_decode(t)]", "target" = "[pda.UID()]")))
 		pda.investigate_log("<span class='game say'>PDA Message - <span class='name'>[U.key] - [pda.owner]</span> -> <span class='name'>[P.owner]</span>: <span class='message'>[t]</span></span>", "pda")
 
 		// Show it to ghosts
 		for(var/mob/M in GLOB.dead_mob_list)
-			if(isobserver(M) && M.client && (M.client.prefs.toggles & CHAT_GHOSTPDA))
+			if(isobserver(M) && M.client && (M.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTPDA))
 				var/ghost_message = "<span class='name'>[pda.owner]</span> ([ghost_follow_link(pda, ghost=M)]) <span class='game say'>PDA Message</span> --> <span class='name'>[P.owner]</span> ([ghost_follow_link(P, ghost=M)]): <span class='message'>[t]</span>"
 				to_chat(M, "[ghost_message]")
 
-		if(!conversations.Find("\ref[P]"))
-			conversations.Add("\ref[P]")
-		if(!PM.conversations.Find("\ref[pda]"))
-			PM.conversations.Add("\ref[pda]")
+		if(!conversations.Find("[P.UID()]"))
+			conversations.Add("[P.UID()]")
+		if(!PM.conversations.Find("[pda.UID()]"))
+			PM.conversations.Add("[pda.UID()]")
 
-		SSnanoui.update_user_uis(U, P) // Update the sending user's PDA UI so that they can see the new message
-		PM.notify("<b>Message from [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='?src=[PM.UID()];choice=Message;target=\ref[pda]'>Reply</a>)")
-		log_pda("(PDA: [src.name]) sent \"[t]\" to [P.name]", usr)
+		SStgui.update_uis(src)
+		PM.notify("<b>Message from [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='?src=[PM.UID()];choice=Message;target=[pda.UID()]'>Reply</a>)")
+		log_pda("(PDA: [src.name]) sent \"[t]\" to [P.name]", U)
+		var/log_message = "sent PDA message \"[t]\" using [pda]"
+		var/receiver
+		if(ishuman(P.loc))
+			receiver = P.loc
+			log_message = "[log_message] to [P]"
+		else
+			receiver = P
+			log_message = "[log_message] (no holder)"
+		U.create_log(MISC_LOG, log_message, receiver)
+		if(!pda.silent)
+			playsound(pda, 'sound/machines/terminal_success.ogg', 15, TRUE)
 	else
 		to_chat(U, "<span class='notice'>ERROR: Messaging server is not responding.</span>")
+		if(!pda.silent)
+			playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 
 /datum/data/pda/app/messenger/proc/available_pdas()
 	var/list/names = list()
@@ -230,3 +246,15 @@
 
 /datum/data/pda/app/messenger/proc/can_receive()
 	return pda.owner && !toff && !hidden
+
+// Handler for the in-chat reply button
+/datum/data/pda/app/messenger/Topic(href, href_list)
+	if(!pda.can_use())
+		return
+	unnotify()
+	switch(href_list["choice"])
+		if("Message")
+			var/obj/item/pda/P = locateUID(href_list["target"])
+			create_message(usr, P)
+			if(href_list["target"] in conversations)            // Need to make sure the message went through, if not welp.
+				active_conversation = href_list["target"]

@@ -62,8 +62,13 @@
 		Retract()
 	..()
 
+/obj/item/organ/internal/cyberimp/arm/proc/check_cuffs()
+	if(owner.handcuffed)
+		to_chat(owner, "<span class='warning'>The handcuffs interfere with [src]!</span>")
+		return TRUE
+
 /obj/item/organ/internal/cyberimp/arm/proc/Retract()
-	if(!holder || (holder in src))
+	if(!holder || (holder in src) || check_cuffs())
 		return
 
 	owner.visible_message("<span class='notice'>[owner] retracts [holder] back into [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
@@ -79,10 +84,9 @@
 	holder = null
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 
-/obj/item/organ/internal/cyberimp/arm/proc/Extend(var/obj/item/item)
-	if(!(item in src))
+/obj/item/organ/internal/cyberimp/arm/proc/Extend(obj/item/item)
+	if(!(item in src) || check_cuffs())
 		return
-
 
 	holder = item
 
@@ -138,7 +142,7 @@
 	else
 		Retract()
 
-/obj/item/organ/internal/cyberimp/arm/proc/check_menu(var/mob/user)
+/obj/item/organ/internal/cyberimp/arm/proc/check_menu(mob/user)
 	return (owner && owner == user && owner.stat != DEAD && (src in owner.internal_organs) && !holder)
 
 /obj/item/organ/internal/cyberimp/arm/proc/radial_menu(mob/user)
@@ -212,6 +216,17 @@
 		return TRUE
 	return FALSE
 
+/obj/item/organ/internal/cyberimp/arm/hacking
+	name = "hacking arm implant"
+	desc = "A small arm implant containing an advanced screwdriver, wirecutters, and multitool designed for engineers and on-the-field machine modification. Actually legal, despite what the name may make you think."
+	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4;abductor=3"
+	contents = newlist(/obj/item/screwdriver/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/abductor)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/device.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "hacktool")
+
+/obj/item/organ/internal/cyberimp/arm/hacking/l
+	parent_organ = "l_arm"
+
 /obj/item/organ/internal/cyberimp/arm/esword
 	name = "arm-mounted energy blade"
 	desc = "An illegal, and highly dangerous cybernetic implant that can project a deadly blade of concentrated enregy."
@@ -275,6 +290,30 @@
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel-med")
 
 /obj/item/organ/internal/cyberimp/arm/surgery/l
+	parent_organ = "l_arm"
+	slot = "l_arm_device"
+
+/obj/item/organ/internal/cyberimp/arm/janitorial
+	name = "janitorial toolset implant"
+	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm"
+	contents = newlist(/obj/item/mop/advanced, /obj/item/soap, /obj/item/lightreplacer, /obj/item/holosign_creator, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
+	origin_tech = "materials=3;engineering=4;biotech=3"
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt")
+
+/obj/item/organ/internal/cyberimp/arm/janitorial/l
+	parent_organ = "l_arm"
+	slot = "l_arm_device"
+
+/obj/item/organ/internal/cyberimp/arm/botanical
+	name = "botanical toolset implant"
+	desc = "A set of botanical tools hidden behind a concealed panel on the user's arm"
+	contents = newlist(/obj/item/plant_analyzer, /obj/item/cultivator, /obj/item/hatchet, /obj/item/shovel/spade, /obj/item/wirecutters, /obj/item/wrench)
+	origin_tech = "materials=3;engineering=4;biotech=3"
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "botanybelt")
+
+/obj/item/organ/internal/cyberimp/arm/botanical/l
 	parent_organ = "l_arm"
 	slot = "l_arm_device"
 

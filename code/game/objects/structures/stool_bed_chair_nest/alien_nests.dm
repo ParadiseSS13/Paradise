@@ -10,9 +10,9 @@
 	comfort = 0
 	flags = NODECONSTRUCT
 
-/obj/structure/bed/nest/New()
+/obj/structure/bed/nest/Initialize(mapload)
+	. = ..()
 	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer=MOB_LAYER - 0.2)
-	return ..()
 
 /obj/structure/bed/nest/user_unbuckle_mob(mob/living/user)
 	if(has_buckled_mobs())
@@ -89,3 +89,6 @@
 		return attack_hand(user)
 	else
 		return ..()
+
+/obj/structure/bed/nest/prevents_buckled_mobs_attacking()
+	return TRUE

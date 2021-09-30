@@ -1,0 +1,613 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"b" = (
+/obj/structure/disposalpipe/segment,
+/turf/space,
+/area/space)
+"c" = (
+/obj/structure/lattice,
+/obj/structure/disposalpipe/broken{
+	dir = 1
+	},
+/turf/space,
+/area/space)
+"d" = (
+/obj/structure/lattice,
+/turf/space,
+/area/template_noop)
+"e" = (
+/obj/structure/grille/broken,
+/turf/space,
+/area/space)
+"g" = (
+/obj/structure/disposalpipe/broken{
+	dir = 4
+	},
+/turf/space,
+/area/space)
+"h" = (
+/obj/structure/disposalpipe/broken{
+	dir = 8
+	},
+/obj/item/stack/cable_coil/cut,
+/turf/space,
+/area/space)
+"l" = (
+/obj/item/stack/cable_coil/cut,
+/turf/space,
+/area/space)
+"m" = (
+/obj/effect/spawner/random_spawners/grille_often,
+/turf/space,
+/area/space)
+"n" = (
+/obj/effect/spawner/random_spawners/grille_maybe,
+/turf/space,
+/area/space)
+"o" = (
+/obj/random/tool,
+/turf/space,
+/area/space)
+"p" = (
+/obj/structure/girder/displaced,
+/turf/space,
+/area/space)
+"r" = (
+/turf/space,
+/area/template_noop)
+"t" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/space,
+/area/space)
+"u" = (
+/obj/structure/door_assembly/door_assembly_sec,
+/obj/item/airlock_electronics,
+/turf/space,
+/area/space)
+"v" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"x" = (
+/obj/structure/disposalpipe/junction,
+/turf/space,
+/area/space)
+"y" = (
+/turf/simulated/floor/plating/burnt,
+/area/space)
+"z" = (
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/plating,
+/area/space)
+"B" = (
+/obj/structure/lattice,
+/obj/item/stack/sheet/metal,
+/turf/space,
+/area/space)
+"C" = (
+/obj/structure/disposalpipe/broken{
+	dir = 1
+	},
+/turf/space,
+/area/space)
+"D" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plating/burnt,
+/area/space)
+"E" = (
+/obj/item/stack/rods,
+/turf/space,
+/area/space)
+"F" = (
+/turf/simulated/floor/plating,
+/area/space)
+"G" = (
+/obj/random/toolbox,
+/turf/simulated/floor/plating/burnt,
+/area/space)
+"I" = (
+/obj/structure/grille/broken,
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"J" = (
+/obj/structure/disposalpipe/broken,
+/turf/space,
+/area/space)
+"K" = (
+/obj/item/shard,
+/turf/space,
+/area/space)
+"N" = (
+/obj/structure/lattice,
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"O" = (
+/obj/machinery/power/apc/worn_out{
+	pixel_y = -24
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/space)
+"Q" = (
+/obj/effect/decal/cleanable/shreds{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plating,
+/area/space)
+"T" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating/burnt,
+/area/space)
+"U" = (
+/obj/effect/spawner/random_barrier/wall_probably,
+/turf/space,
+/area/space)
+"V" = (
+/turf/simulated/wall,
+/area/space)
+"X" = (
+/turf/space,
+/area/space)
+"Y" = (
+/obj/item/shard,
+/turf/simulated/floor/plating,
+/area/space)
+"Z" = (
+/obj/item/stack/sheet/metal,
+/turf/space,
+/area/space)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+r
+r
+r
+r
+r
+r
+r
+r
+r
+d
+d
+d
+r
+r
+d
+r
+a
+a
+"}
+(3,1,1) = {"
+a
+d
+v
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+r
+a
+"}
+(4,1,1) = {"
+a
+d
+X
+m
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+v
+Z
+X
+X
+d
+a
+"}
+(5,1,1) = {"
+a
+r
+X
+g
+F
+X
+E
+I
+X
+X
+v
+X
+F
+v
+v
+X
+X
+X
+r
+a
+"}
+(6,1,1) = {"
+a
+r
+J
+x
+C
+E
+v
+F
+X
+E
+X
+v
+g
+Z
+X
+X
+F
+X
+r
+a
+"}
+(7,1,1) = {"
+a
+r
+X
+X
+y
+E
+X
+E
+Y
+X
+n
+X
+h
+E
+F
+X
+v
+X
+r
+a
+"}
+(8,1,1) = {"
+a
+r
+X
+X
+X
+B
+l
+p
+X
+X
+y
+p
+X
+X
+X
+E
+X
+X
+r
+a
+"}
+(9,1,1) = {"
+a
+r
+X
+v
+X
+o
+X
+X
+Z
+l
+X
+E
+a
+X
+X
+V
+X
+X
+r
+a
+"}
+(10,1,1) = {"
+a
+r
+X
+Z
+Q
+v
+X
+y
+v
+D
+y
+U
+X
+X
+E
+X
+X
+n
+r
+a
+"}
+(11,1,1) = {"
+a
+r
+X
+X
+I
+v
+v
+X
+v
+t
+O
+V
+X
+X
+F
+E
+Z
+X
+d
+a
+"}
+(12,1,1) = {"
+a
+r
+X
+X
+X
+X
+J
+b
+c
+v
+G
+V
+X
+E
+e
+X
+X
+X
+r
+a
+"}
+(13,1,1) = {"
+a
+r
+X
+X
+X
+V
+X
+Z
+X
+X
+X
+u
+X
+X
+X
+X
+e
+Z
+r
+a
+"}
+(14,1,1) = {"
+a
+r
+X
+X
+X
+X
+v
+X
+v
+N
+E
+E
+K
+X
+v
+o
+X
+X
+r
+a
+"}
+(15,1,1) = {"
+a
+r
+X
+E
+X
+X
+X
+X
+E
+J
+C
+X
+X
+X
+X
+X
+X
+X
+d
+a
+"}
+(16,1,1) = {"
+a
+r
+X
+X
+E
+X
+T
+X
+Z
+X
+n
+v
+X
+z
+n
+X
+Z
+X
+d
+a
+"}
+(17,1,1) = {"
+a
+r
+X
+X
+X
+X
+X
+X
+X
+X
+F
+X
+X
+X
+p
+X
+X
+X
+r
+a
+"}
+(18,1,1) = {"
+a
+r
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+v
+X
+X
+X
+X
+r
+a
+"}
+(19,1,1) = {"
+a
+a
+r
+r
+r
+r
+d
+r
+d
+r
+r
+r
+r
+r
+r
+r
+r
+r
+a
+a
+"}
+(20,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}

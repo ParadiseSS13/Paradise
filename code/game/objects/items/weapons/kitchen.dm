@@ -31,7 +31,7 @@
 	flags = CONDUCT
 	attack_verb = list("attacked", "stabbed", "poked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	sharp = 0
 	var/max_contents = 1
 
@@ -42,26 +42,23 @@
 
 	create_reagents(5)
 
-/obj/item/kitchen/utensil/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(!istype(M))
+/obj/item/kitchen/utensil/attack(mob/living/carbon/C, mob/living/carbon/user)
+	if(!istype(C))
 		return ..()
 
 	if(user.a_intent != INTENT_HELP)
 		if(user.zone_selected == "head" || user.zone_selected == "eyes")
-			if((CLUMSY in user.mutations) && prob(50))
-				M = user
-			return eyestab(M,user)
+			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+				C = user
+			return eyestab(C, user)
 		else
 			return ..()
 
-	if(contents.len)
+	if(length(contents))
 		var/obj/item/reagent_containers/food/snacks/toEat = contents[1]
 		if(istype(toEat))
-			if(M.eat(toEat, user))
-				toEat.On_Consume(M, user)
-				spawn(0)
-					if(toEat)
-						qdel(toEat)
+			if(C.eat(toEat, user))
+				toEat.On_Consume(C, user)
 				overlays.Cut()
 				return
 
@@ -117,13 +114,13 @@
 	materials = list(MAT_METAL=12000)
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sharp = TRUE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/bayonet = FALSE	//Can this be attached to a gun?
 
 /obj/item/kitchen/knife/suicide_act(mob/user)
-	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
-						"<span class='suicide'>[user] is slitting [user.p_their()] throat with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
-						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>"))
+	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
+						"<span class='suicide'>[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
+						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>"))
 	return BRUTELOSS
 
 /obj/item/kitchen/knife/plastic
@@ -201,7 +198,7 @@
 	materials = list()
 	origin_tech = "biotech=3;combat=2"
 	attack_verb = list("shanked", "shivved")
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 
 /*

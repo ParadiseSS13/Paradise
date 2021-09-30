@@ -166,12 +166,13 @@
 					if(!check_pathtools(user, R, contents))
 						return ", missing tool."
 					var/list/parts = del_reqs(R, user)
-					var/atom/movable/I = new R.result (get_turf(user.loc))
-					I.CheckParts(parts, R)
-					if(isitem(I))
-						user.put_in_hands(I)
-					if(send_feedback)
-						feedback_add_details("object_crafted","[I.type]")
+					for(var/I in R.result)
+						var/atom/movable/M = new I (get_turf(user))
+						M.CheckParts(parts)
+						if(isitem(M))
+							user.put_in_hands(M)
+						if(send_feedback)
+							SSblackbox.record_feedback("tally", "object_crafted", 1, M.type)
 					return 0
 				return "."
 			return ", missing tool."
@@ -244,7 +245,7 @@
 				var/obj/item/stack/SD
 				while(amt > 0)
 					S = locate(A) in surroundings
-					if(S.amount >= amt)
+					if(S.get_amount() >= amt)
 						if(!locate(S.type) in Deletion)
 							SD = new S.type()
 							Deletion += SD
@@ -297,14 +298,14 @@
 		Deletion.Cut(Deletion.len)
 		qdel(DL)
 
-/datum/personal_crafting/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, datum/topic_state/state = GLOB.not_incapacitated_turf_state)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/personal_crafting/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.not_incapacitated_turf_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "personal_crafting.tmpl", "Crafting Menu", 700, 800, state = state)
+		ui = new(user, src, ui_key, "PersonalCrafting", "Crafting Menu", 700, 800, master_ui, state)
 		ui.open()
 
 /datum/personal_crafting/proc/close(mob/user)
-	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
+	var/datum/tgui/ui = SStgui.get_open_ui(user, src, "main")
 	if(ui)
 		ui.close()
 
@@ -312,10 +313,12 @@
 	var/list/data = list()
 	var/list/subs = list()
 	var/cur_subcategory = CAT_NONE
+
 	var/cur_category = categories[viewing_category]
 	if(islist(subcategories[viewing_category]))
 		subs = subcategories[viewing_category]
 		cur_subcategory = subs[viewing_subcategory]
+
 	data["busy"] = busy
 	data["prev_cat"] = categories[prev_cat()]
 	data["prev_subcat"] = subs[prev_subcat()]
@@ -329,6 +332,7 @@
 	var/list/surroundings = get_surroundings(user)
 	var/list/can_craft = list()
 	var/list/cant_craft = list()
+
 	for(var/rec in GLOB.crafting_recipes)
 		var/datum/crafting_recipe/R = rec
 
@@ -341,49 +345,52 @@
 			can_craft += list(build_recipe_data(R))
 		else
 			cant_craft += list(build_recipe_data(R))
+
 	data["can_craft"] = can_craft
 	data["cant_craft"] = cant_craft
 	return data
 
-/datum/personal_crafting/Topic(href, href_list)
+/datum/personal_crafting/ui_act(action, list/params)
 	if(..())
 		return
 
-	if(href_list["make"])
-		var/datum/crafting_recipe/TR = locate(href_list["make"]) in GLOB.crafting_recipes
-		busy = TRUE
-		SSnanoui.update_uis(src)
-		var/fail_msg = construct_item(usr, TR)
-		if(!fail_msg)
-			to_chat(usr, "<span class='notice'>[TR.name] constructed.</span>")
-			if(TR.alert_admins_on_craft)
-				message_admins("[usr.ckey] has created a [TR.name] at [ADMIN_COORDJMP(usr)]")
-		else
-			to_chat(usr, "<span class ='warning'>Construction failed[fail_msg]</span>")
-		busy = FALSE
-		SSnanoui.update_uis(src)
-	if(href_list["forwardCat"])
-		viewing_category = next_cat(FALSE)
-		. = TRUE
-	if(href_list["backwardCat"])
-		viewing_category = prev_cat(FALSE)
-		. = TRUE
-	if(href_list["forwardSubCat"])
-		viewing_subcategory = next_subcat()
-		. = TRUE
-	if(href_list["backwardSubCat"])
-		viewing_subcategory = prev_subcat()
-		. = TRUE
-	if(href_list["toggle_recipes"])
-		display_craftable_only = !display_craftable_only
-		. = TRUE
-	if(href_list["toggle_compact"])
-		display_compact = !display_compact
-		. = TRUE
+	. = TRUE
 
-	SSnanoui.update_uis(src)
+	switch(action)
+		if("make")
+			var/datum/crafting_recipe/TR = locate(params["make"]) in GLOB.crafting_recipes
+			if(!istype(TR))
+				return
+			busy = TRUE
+			SStgui.update_uis(src)
+			var/fail_msg = construct_item(usr, TR)
+			if(!fail_msg)
+				to_chat(usr, "<span class='notice'>[TR.name] constructed.</span>")
+				if(TR.alert_admins_on_craft)
+					message_admins("[key_name_admin(usr)] has created a [TR.name] at [ADMIN_COORDJMP(usr)]")
+			else
+				to_chat(usr, "<span class='warning'>Construction failed[fail_msg]</span>")
+			busy = FALSE
+			SStgui.update_uis(src)
 
-//Next works nicely with modular arithmetic
+		if("forwardCat")
+			viewing_category = next_cat(FALSE)
+
+		if("backwardCat")
+			viewing_category = prev_cat(FALSE)
+
+		if("forwardSubCat")
+			viewing_subcategory = next_subcat()
+
+		if("backwardSubCat")
+			viewing_subcategory = prev_subcat()
+
+		if("toggle_recipes")
+			display_craftable_only = !display_craftable_only
+
+		if("toggle_compact")
+			display_compact = !display_compact
+
 //Next works nicely with modular arithmetic
 /datum/personal_crafting/proc/next_cat(readonly = TRUE)
 	if (!readonly)

@@ -35,6 +35,7 @@ export const Knob = props => {
     size,
     bipolar,
     children,
+    popUpPosition,
     ...rest
   } = props;
   return (
@@ -102,7 +103,10 @@ export const Knob = props => {
               </div>
             </div>
             {dragging && (
-              <div className="Knob__popupValue">
+              <div className={classes([
+                'Knob__popupValue',
+                popUpPosition && 'Knob__popupValue--' + popUpPosition,
+              ])}>
                 {displayElement}
               </div>
             )}

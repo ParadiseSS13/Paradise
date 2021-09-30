@@ -4,6 +4,8 @@
 	anchored = 1
 	density = 1
 	layer = BELOW_OBJ_LAYER
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	var/state = GIRDER_NORMAL
 	var/girderpasschance = 20 // percentage chance that a projectile passes through the girder.
 	max_integrity = 200
@@ -25,6 +27,11 @@
 			. += "<span class='notice'>The bolts are <i>loosened</i>, but the <b>screws</b> are holding [src] together.</span>"
 		if(GIRDER_DISASSEMBLED)
 			. += "<span class='notice'>[src] is disassembled! You probably shouldn't be able to see this examine message.</span>"
+
+/obj/structure/girder/detailed_examine()
+	return "Use metal sheets on this to build a normal wall. Adding plasteel instead will make a reinforced wall.<br>\
+			A false wall can be made by using a crowbar on this girder, and then adding metal or plasteel.<br>\
+			You can dismantle the girder with a wrench."
 
 /obj/structure/girder/proc/refundMetal(metalAmount) //refunds metal used in construction when deconstructed
 	for(var/i=0;i < metalAmount;i++)
@@ -70,20 +77,20 @@
 			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
 			return
 		if(istype(W, /obj/item/stack/sheet/runed_metal))
-			to_chat(user, "<span class='warning'>You can't seem to make the metal bend..</span>")
+			to_chat(user, "<span class='warning'>You can't seem to make the metal bend.</span>")
 			return
 
 		if(istype(W,/obj/item/stack/rods))
 			var/obj/item/stack/rods/S = W
 			if(state == GIRDER_DISPLACED)
-				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need at least two rods to create a false wall!</span>")
+				if(S.get_amount() < 5)
+					to_chat(user, "<span class='warning'>You need at least five rods to create a false wall!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start building a reinforced false wall...</span>")
 				if(do_after(user, 20, target = src))
-					if(!loc || !S || S.get_amount() < 2)
+					if(!loc || !S || S.get_amount() < 5)
 						return
-					S.use(2)
+					S.use(5)
 					to_chat(user, "<span class='notice'>You create a false wall. Push on it to open or close the passage.</span>")
 					var/obj/structure/falsewall/iron/FW = new (loc)
 					transfer_fingerprints_to(FW)
@@ -336,8 +343,7 @@
 			return
 		state = GIRDER_DISASSEMBLED
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
-		var/obj/item/stack/sheet/metal/M = new(loc, 2)
-		M.add_fingerprint(user)
+		refundMetal(metalUsed)
 		qdel(src)
 	else
 		if(!isfloorturf(loc))
@@ -404,6 +410,9 @@
 	girderpasschance = 0
 	max_integrity = 350
 
+/obj/structure/girder/reinforced/detailed_examine()
+	return "Add another sheet of plasteel to finish."
+
 /obj/structure/girder/cult
 	name = "runed girder"
 	desc = "Framework made of a strange and shockingly cold metal. It doesn't seem to have any bolts."
@@ -413,17 +422,13 @@
 	metalUsed = 1
 	metal_type = /obj/item/stack/sheet/runed_metal
 
-/obj/structure/girder/cult/New()
+/obj/structure/girder/cult/Initialize(mapload)
 	. = ..()
 	icon_state = SSticker.cultdat?.cult_girder_icon_state
 
-/obj/structure/girder/cult/refundMetal(metalAmount)
-	for(var/i=0;i < metalAmount;i++)
-		new /obj/item/stack/sheet/runed_metal(get_turf(src))
-
 /obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
-	if(istype(W, /obj/item/tome) && iscultist(user)) //Cultists can demolish cult girders instantly with their tomes
+	if(istype(W, /obj/item/melee/cultblade/dagger) && iscultist(user)) //Cultists can demolish cult girders instantly with their dagger
 		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")
 		refundMetal(metalUsed)
 		qdel(src)
@@ -451,7 +456,7 @@
 			to_chat(user, "<span class='warning'>You need at least one sheet of runed metal to construct a runed wall!</span>")
 			return 0
 		user.visible_message("<span class='notice'>[user] begins laying runed metal on [src]...</span>", "<span class='notice'>You begin constructing a runed wall...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 10, target = src))
 			if(R.get_amount() < 1 || !R)
 				return
 			user.visible_message("<span class='notice'>[user] plates [src] with runed metal.</span>", "<span class='notice'>You construct a runed wall.</span>")

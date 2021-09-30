@@ -1,6 +1,6 @@
 /obj/item/clothing/gloves/color/yellow
-	desc = "These gloves will protect the wearer from electric shock."
 	name = "insulated gloves"
+	desc = "These gloves will protect the wearer from electric shock."
 	icon_state = "yellow"
 	item_state = "ygloves"
 	siemens_coefficient = 0
@@ -9,12 +9,14 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/gloves/color/yellow/power
-	description_antag = "These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables."
 	var/old_mclick_override
 	var/datum/middleClickOverride/power_gloves/mclick_override = new /datum/middleClickOverride/power_gloves
 	var/last_shocked = 0
 	var/shock_delay = 40
 	var/unlimited_power = FALSE // Does this really need explanation?
+
+/obj/item/clothing/gloves/color/yellow/power/detailed_examine_antag()
+	return "These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables."
 
 /obj/item/clothing/gloves/color/yellow/power/equipped(mob/user, slot)
 	if(!ishuman(user))
@@ -30,6 +32,7 @@
 			to_chat(H, "<span class='biggerdanger'>You feel like you have UNLIMITED POWER!!</span>")
 
 /obj/item/clothing/gloves/color/yellow/power/dropped(mob/user, slot)
+	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
@@ -51,8 +54,8 @@
 	siemens_coefficient = 1
 
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
-	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
 	name = "budget insulated gloves"
+	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
 	icon_state = "yellow"
 	item_state = "ygloves"
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
@@ -65,19 +68,19 @@
 	siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
 
 /obj/item/clothing/gloves/color/fyellow/old
-	desc = "Old and worn out insulated gloves, hopefully they still work."
 	name = "worn out insulated gloves"
+	desc = "Old and worn out insulated gloves, hopefully they still work."
 
 /obj/item/clothing/gloves/color/fyellow/old/New()
 	..()
 	siemens_coefficient = pick(0,0,0,0.5,0.5,0.5,0.75)
 
 /obj/item/clothing/gloves/color/black
-	desc = "These gloves are fire-resistant."
 	name = "black gloves"
+	desc = "These gloves are fire-resistant."
 	icon_state = "black"
 	item_state = "bgloves"
-	item_color="brown"
+	item_color="black"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
@@ -225,8 +228,8 @@
 
 
 /obj/item/clothing/gloves/color/captain
-	desc = "Regal blue gloves, with a nice gold trim. Swanky."
 	name = "captain's gloves"
+	desc = "Regal blue gloves, with a nice gold trim. Swanky."
 	icon_state = "captain"
 	item_state = "egloves"
 	item_color = "captain"
@@ -237,4 +240,4 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 60
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 50)

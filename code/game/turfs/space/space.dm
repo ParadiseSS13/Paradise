@@ -19,6 +19,7 @@
 	plane = PLANE_SPACE
 
 /turf/space/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	if(!istype(src, /turf/space/transit))
 		icon_state = SPACE_ICON_STATE
 	vis_contents.Cut() //removes inherited overlays
@@ -53,7 +54,7 @@
 	S.apply_transition(src)
 
 /turf/space/proc/update_starlight()
-	if(config.starlight)
+	if(GLOB.configuration.general.starlight)
 		for(var/t in RANGE_TURFS(1,src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			if(isspaceturf(t))
 				//let's NOT update this that much pls
