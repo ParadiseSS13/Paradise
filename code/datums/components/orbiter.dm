@@ -1,7 +1,9 @@
 /datum/component/orbiter
 	can_transfer = TRUE
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
+	/// List of observers orbiting the parent
 	var/list/orbiter_list
+	/// Cached transforms from before the orbiter started orbiting, to be restored on stopping their orbit
 	var/list/transform_cache
 
 /**
@@ -79,9 +81,12 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 			// Let the original orbiter clean up as needed
 			orbiter.orbiting.end_orbit(orbiter)
 
-	// Start building up the orbiter
 	orbiter_list += orbiter
 	orbiter.orbiting = src
+
+	// Save the orbiter's transform so we can restore it when they stop orbiting
+	transform_cache[orbiter] = orbiter.transform
+
 	var/lastloc = orbiter.loc
 
 	//Head first!
@@ -119,7 +124,9 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 		end_orbit(orbiter)
 
 /**
-End the orbit and clean up our transformation
+* End the orbit and clean up our transformation.
+* If this removes the last atom orbiting us, then qdel ourselves.
+* If refreshing == TRUE, variables will be cleaned up as necessary, but src won't be qdeled.
 */
 /datum/component/orbiter/proc/end_orbit(atom/movable/orbiter, refreshing=FALSE)
 	if(!(orbiter in orbiter_list))
@@ -138,7 +145,6 @@ End the orbit and clean up our transformation
 	orbiter_list -= orbiter
 	transform_cache -= orbiter
 
-	// If we're just orbiting the same thing already, don't bother updating
 	if (!orbiter_list && !QDELING(src) && !refreshing)
 		qdel(src)
 
@@ -152,11 +158,11 @@ End the orbit and clean up our transformation
 /// who's orbiting the current atom
 /atom/var/datum/component/orbiter/orbiters = null
 
-/atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lockinorbit = FALSE, forceMove = FALSE)
+/atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lock_in_orbit = FALSE, force_move = FALSE)
 	if(!istype(A) || !get_turf(A) || A == src)
 		return
 	// Adding a new component every time works as our dupe type will make us just inherit the new orbiter
-	return A.AddComponent(/datum/component/orbiter, src, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit, forceMove)
+	return A.AddComponent(/datum/component/orbiter, src, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lock_in_orbit, force_move)
 
 /atom/movable/proc/stop_orbit(datum/component/orbiter/orbits)
 	return // We're just a simple hook
