@@ -257,13 +257,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Chaplain")
 
 /datum/uplink_item/jobspecific/artistic_toolbox
-	name = "His Grace"
-	desc = "An incredibly dangerous weapon recovered from a station overcome by the grey tide. Once activated, He will thirst for blood and must be used to kill to sate that thirst. \
-	His Grace grants gradual regeneration and complete stun immunity to His wielder, but be wary: if He gets too hungry, He will become impossible to drop and eventually kill you if not fed. \
-	However, if left alone for long enough, He will fall back to slumber. \
-	To activate His Grace, simply unlatch Him."
-	reference = "HG"
-	item = /obj/item/his_grace
+	name = "Artistic Toolbox"
+	desc = "An accursed toolbox that grants its followers extreme power at the cost of requiring repeated sacrifices to it. If sacrifices are not provided, it will turn on its follower."
+	reference = "HGAT"
+	item = /obj/item/storage/toolbox/green/memetic
 	cost = 20
 	job = list("Chaplain")
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
@@ -790,14 +787,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "50M"
 	item = /obj/item/ammo_box/magazine/sniper_rounds
 
-/datum/uplink_item/ammo/sniper/antimatter
-	name = "Sniper - .50 Antimatter Magazine"
-	desc = "A 6-round magazine of antimatter ammo for use with .50 sniper rifles. \
-	Able to heavily damage objects, and delimb people."
-	reference = "50A"
-	item = /obj/item/ammo_box/magazine/sniper_rounds/antimatter
-	cost = 5
-
 /datum/uplink_item/ammo/sniper/soporific
 	name = "Sniper - .50 Soporific Magazine"
 	desc = "A 3-round magazine of soporific ammo designed for use with .50 sniper rifles. Put your enemies to sleep today!"
@@ -860,11 +849,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
 	desc = "This scroll contains the secrets of an ancient martial arts technique. You will master unarmed combat, \
-			deflecting ranged weapon fire when you are in a defensive stance (throw mode). Learning this art means you will also refuse to use dishonorable ranged weaponry. \
+			deflecting all ranged weapon fire, but you also refuse to use dishonorable ranged weaponry. \
 			Unable to be understood by vampire and changeling agents."
 	reference = "SCS"
 	item = /obj/item/sleeping_carp_scroll
-	cost = 13
+	cost = 17
 	excludefrom = list(/datum/game_mode/nuclear)
 	refundable = TRUE
 	cant_discount = TRUE
@@ -875,7 +864,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CQC"
 	item = /obj/item/CQC_manual
 	cost = 13
-	cant_discount = TRUE
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -964,14 +952,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/toy/carpplushie/dehy_carp
 	cost = 2
 
-/datum/uplink_item/stealthy_weapons/combat_plus
-	name = "Combat Gloves Plus"
-	desc = "Combat gloves with installed nanochips that teach you Krav Maga when worn, great as a cheap backup weapon. Warning, the nanochips will override any other fighting styles such as CQC."
-	reference = "CGP"
-	item = /obj/item/clothing/gloves/color/black/krav_maga/combat
-	cost = 5
-	gamemodes = list(/datum/game_mode/nuclear)
-
 // GRENADES AND EXPLOSIVES
 
 /datum/uplink_item/explosives
@@ -1028,7 +1008,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 11
 	surplus = 0
 	cant_discount = TRUE
-	hijack_only = TRUE
 
 /datum/uplink_item/explosives/emp_bomb
 	name = "EMP bomb"
@@ -1172,15 +1151,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CHAM"
 	item = /obj/item/storage/box/syndie_kit/chameleon
 	cost = 4
-	excludefrom = list(/datum/game_mode/nuclear)
-
-/datum/uplink_item/stealthy_tools/voice_modulator
-	name = "Chameleon Voice Modulator Mask"
-	desc = "A syndicate tactical mask equipped with chameleon technology and a sound modulator for disguising your voice. \
-			While the mask is active, your voice will sound unrecognizable to others"
-	reference = "CVMM"
-	item = /obj/item/clothing/mask/gas/voice_modulator/chameleon
-	cost = 1
 	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/chameleon/nuke
@@ -1447,7 +1417,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Power Sink"
 	desc = "When screwed to wiring attached to an electric grid, then activated, this large device places excessive load on the grid, causing a stationwide blackout. The sink cannot be carried because of its excessive size. Ordering this sends you a small beacon that will teleport the power sink to your location on activation."
 	reference = "PS"
-	item = /obj/item/radio/beacon/syndicate/power_sink
+	item = /obj/item/powersink
 	cost = 10
 
 /datum/uplink_item/device_tools/singularity_beacon
@@ -1536,7 +1506,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/implants/freedom
 	name = "Freedom Implant"
-	desc = "An implant injected into the body and later activated manually to break out of any restraints or grabs. Can be activated up to 4 times."
+	desc = "An implant injected into the body and later activated manually to break out of any restraints. Can be activated up to 4 times."
 	reference = "FI"
 	item = /obj/item/implanter/freedom
 	cost = 5
