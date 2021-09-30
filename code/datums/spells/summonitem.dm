@@ -79,7 +79,7 @@
 						for(var/X in C.bodyparts)
 							var/obj/item/organ/external/part = X
 							if(item_to_retrieve in part.embedded_objects)
-								part.embedded_objects -= item_to_retrieve
+								part.remove_embedded_object(item_to_retrieve)
 								to_chat(C, "<span class='warning'>\The [item_to_retrieve] that was embedded in your [part] has mysteriously vanished. How fortunate!</span>")
 								if(!C.has_embedded_objects())
 									C.clear_alert("embeddedobject")
