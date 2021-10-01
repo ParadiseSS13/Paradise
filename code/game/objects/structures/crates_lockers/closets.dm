@@ -314,15 +314,15 @@
 	update_overlays()
 
 /obj/structure/closet/proc/update_overlays(transparent = FALSE)
-	overlays.Cut()
+	cut_overlays()
 	if(transparent && opened)
-		overlays += "[open_door_sprite]_trans"
+		add_overlay("[open_door_sprite]_trans")
 		return
 	if(opened)
-		overlays += open_door_sprite
+		add_overlay(open_door_sprite)
 		return
 	if(welded)
-		overlays += "welded"
+		add_overlay("welded")
 
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That

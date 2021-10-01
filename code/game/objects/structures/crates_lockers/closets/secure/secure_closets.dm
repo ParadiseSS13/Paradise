@@ -73,7 +73,7 @@
 	if(!broken)
 		broken = TRUE
 		locked = FALSE
-		overlays += "sparking"
+		add_overlay("sparking")
 		to_chat(user, "<span class='notice'>You break the lock on [src].</span>")
 		addtimer(CALLBACK(src, .proc/update_icon), 1 SECONDS)
 
@@ -107,18 +107,18 @@
 	update_overlays()
 
 /obj/structure/closet/secure_closet/update_overlays() //Putting the welded stuff in update_overlays() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
-	overlays.Cut()
+	cut_overlays()
 	if(opened)
-		overlays += open_door_sprite
+		add_overlay(open_door_sprite)
 		return
 	if(welded)
-		overlays += "welded"
+		add_overlay("welded")
 	if(broken)
 		return
 	if(locked)
-		overlays += "locked"
+		add_overlay("locked")
 	else
-		overlays += "unlocked"
+		add_overlay("unlocked")
 
 /obj/structure/closet/secure_closet/container_resist(mob/living/L)
 	var/breakout_time = 2 //2 minutes by default
