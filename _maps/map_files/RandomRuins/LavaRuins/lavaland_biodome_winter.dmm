@@ -358,10 +358,12 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/mineral/silver,
 /area/ruin/powered/snow_biodome)
+"AJ" = (
+/obj/item/twohanded/required/chainsaw,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
 "AM" = (
-/obj/structure/table,
-/obj/item/pen,
-/obj/item/paper,
+/obj/machinery/vending/coffee/free,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "BI" = (
@@ -442,6 +444,8 @@
 "QK" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes/cigpack_carp,
+/obj/item/paper,
+/obj/item/pen,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "QN" = (
@@ -1200,7 +1204,7 @@ aa
 Wg
 Wg
 ak
-ak
+AJ
 aB
 ak
 ak
