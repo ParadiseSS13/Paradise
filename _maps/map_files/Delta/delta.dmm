@@ -57576,8 +57576,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 8
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -70885,7 +70885,9 @@
 /area/maintenance/port)
 "cZp" = (
 /obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -71784,7 +71786,6 @@
 	},
 /area/toxins/mixing)
 "dbi" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/sign/examroom,
 /turf/simulated/wall,
 /area/medical/medbay3)
@@ -72425,8 +72426,8 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/disposalpipe/junction{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -97113,6 +97114,14 @@
 	icon_state = "grimy"
 	},
 /area/chapel/office)
+"lKV" = (
+/obj/machinery/door/firedoor,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/medical/medbay3)
 "lVO" = (
 /obj/machinery/turretid/lethal{
 	control_area = "\improper Telecoms Central Compartment";
@@ -98308,6 +98317,15 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/sleep)
+"plU" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/medical/medbay3)
 "pnF" = (
 /obj/structure/window/reinforced,
 /turf/space,
@@ -98657,6 +98675,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/south)
+"qBB" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/medical/medbay)
 "qHs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10;
@@ -148106,9 +148130,9 @@ cSO
 cXl
 dcE
 daa
-cZQ
-dbu
-cMp
+plU
+lKV
+qBB
 dcv
 ded
 dgB
@@ -148365,7 +148389,7 @@ dcE
 daa
 cZp
 dbi
-cKU
+cKV
 cwo
 cSF
 dil
