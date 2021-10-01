@@ -2422,10 +2422,14 @@
 
 			var/input = input(src.owner, "Please enter a reason for denying [key_name(H)]'s ERT request.","Outgoing message from CentComm", "")
 			if(!input)	return
+			var/announce_to_crew = alert(owner, "Announce ERT request denial to crew or only to the sender [key_name(H)]?", "Send reason to who", "Crew", "Sender") == "Crew"
 			GLOB.ert_request_answered = TRUE
-			to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
-			log_admin("[src.owner] denied [key_name(H)]'s ERT request with the message [input].")
-			to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [input].</span>")
+			log_admin("[owner] denied [key_name(H)]'s ERT request with the message [input]. Announced to [announce_to_crew ? "the entire crew." : "only the sender"].")
+			if(announce_to_crew)
+				GLOB.event_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time. Your ERT request has been denied for the following reasons:\n[input]", "ERT Unavailable")
+			else
+				to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
+				to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [input].</span>")
 		else
 			src.owner.response_team()
 
