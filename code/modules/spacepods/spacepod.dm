@@ -612,7 +612,6 @@
 
 /obj/spacepod/sec/Initialize(mapload)
 	. = ..()
-	var/obj/item/spacepod_equipment/weaponry/burst_taser/T = new /obj/item/spacepod_equipment/weaponry/taser
 	T.loc = equipment_system
 	equipment_system.weapon_system = T
 	equipment_system.weapon_system.my_atom = src

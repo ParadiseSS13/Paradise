@@ -36,7 +36,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	hispania_icon = FALSE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/armor/vest/combat
@@ -47,7 +47,7 @@
 	blood_overlay_type = "armor"
 	hispania_icon = FALSE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/armor/vest/security
@@ -101,7 +101,7 @@
 	item_state = "blueshield"
 	hispania_icon = FALSE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/armor/vest/bloody
@@ -112,7 +112,7 @@
 	sprite_sheets = null
 	hispania_icon = FALSE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/armor/secjacket
@@ -173,7 +173,7 @@
 	dog_fashion = null
 	hispania_icon = FALSE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/armor/vest/warden/alt
@@ -193,7 +193,7 @@
 	resistance_flags = FIRE_PROOF
 	hispania_icon = FALSE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/armor/vest/capcarapace/alt
@@ -260,7 +260,7 @@
 	resistance_flags = FLAMMABLE
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 30, "energy" = 5, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 50)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 	armor = list(MELEE = 20, BULLET = 10, LASER = 30, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50)
 
@@ -304,7 +304,7 @@
 	dog_fashion = null
 	hispania_icon = FALSE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 //Reactive armor
@@ -568,7 +568,7 @@
 	armor = list(melee = 30, bullet = 30, laser = 30, energy = 30, bomb = 20, bio = 0, rad = 0, fire = 50, acid = 50)
 	hispania_icon = FALSE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 //Commander
