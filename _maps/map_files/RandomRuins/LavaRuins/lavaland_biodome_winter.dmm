@@ -371,6 +371,10 @@
 /obj/structure/barricade/wooden/crude/snow,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
+"CD" = (
+/obj/structure/closet/secure_closet/freezer/fridge/open,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
 "Dd" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/hooded/wintercoat/science,
@@ -754,7 +758,7 @@ tb
 (10,1,1) = {"
 Wg
 Wg
-af
+CD
 Wg
 ak
 ak
