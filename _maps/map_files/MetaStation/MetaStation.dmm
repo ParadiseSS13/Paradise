@@ -70206,15 +70206,9 @@
 	},
 /area/chapel/office)
 "cSh" = (
-/obj/item/spellbook/oneuse/smoke{
-	name = "mysterious old book of "
-	},
 /obj/item/reagent_containers/food/drinks/bottle/holywater{
 	pixel_x = -2;
 	pixel_y = 2
-	},
-/obj/item/nullrod{
-	pixel_x = 4
 	},
 /obj/item/organ/internal/heart,
 /obj/structure/closet/secure_closet/chaplain,
