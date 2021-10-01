@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/longrange/Initialize(mapload)
 	. = ..()
-	overlays += "longfax"
+	add_overlay("longfax")
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie
 	name = "syndicate long range fax machine"
@@ -72,7 +72,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie/Initialize(mapload)
 	. = ..()
-	overlays += "syndiefax"
+	add_overlay("syndiefax")
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie/update_network()
 	if(department != "Unknown")
