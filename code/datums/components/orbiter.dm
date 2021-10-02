@@ -72,6 +72,8 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	if(!istype(orbiter))
 		return
 
+	var/was_orbiting = orbiter.orbiting != null
+
 	if(orbiter.orbiting)
 		if (orbiter.orbiting == src)
 			// If we're just orbiting the same thing, we need to reset the previous state
@@ -104,7 +106,9 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 
 	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_BEGIN, orbiter)
 
-	orbiter.SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
+	// If we changed orbits, we didn't stop our rotation, and don't need to start it up again
+	if (!was_orbiting)
+		orbiter.SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
 
 	while(orbiter.orbiting && orbiter.orbiting == src && orbiter.loc)
 		var/targetloc = get_turf(parent)
@@ -118,9 +122,10 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 		sleep(0.6)
 
 	// If we start orbiting something else, the cleanup happens at the start of this proc, not here.
-	// That being said, if we break the loop for some reason while still orbiting
-	// (such as manually moving), make sure we clean up after ourselves.
+	// This should only happen if we manually stop orbiting, rather than moving to some other target.
 	if(orbiter.orbiting == src)
+		// Only end the spin animation when we're actually ending an orbit, not just changing targets
+		orbiter.SpinAnimation(0, 0, parallel = FALSE)
 		end_orbit(orbiter)
 
 /**
@@ -134,7 +139,6 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 
 	var/matrix/cached_transform = transform_cache[orbiter]
 
-	orbiter.SpinAnimation(0, 0, parallel = FALSE)
 	orbiter.transform = cached_transform
 
 	orbiter.orbiting = null
