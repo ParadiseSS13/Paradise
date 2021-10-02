@@ -215,10 +215,10 @@ effective or pretty fucking useless.
 			to_chat(user, "<span class='userdanger'>[src] buzzes and activates!</span>")
 			attempt_teleport(user, TRUE)
 		else //Well, it either is on a floor / locker, and won't teleport someone, OR it's in someones bag. As such, we need to check the turf to see if people are there.
-			var/turf/teleportturf = get_turf(src)
-			for(var/mob/living/user in teleportturf)
+			var/turf/teleport_turf = get_turf(src)
+			for(var/mob/living/user in teleport_turf)
 				if(!teleported_something)
-					teleportturf.visible_message("<span class='danger'>[src] activates spoderaticaly, teleporting everyone around it!</span>")
+					teleport_turf.visible_message("<span class='danger'>[src] activates sporadically, teleporting everyone around it!</span>")
 					teleported_something = TRUE
 				attempt_teleport(user, TRUE)
 			if(!teleported_something)
