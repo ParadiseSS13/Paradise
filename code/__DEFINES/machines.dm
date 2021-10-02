@@ -25,7 +25,7 @@
 #define	AUTOLATHE		4	//Uses glass/metal only.
 #define CRAFTLATHE		8	//Uses fuck if I know. For use eventually.
 #define MECHFAB			16 	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
-#define PODFAB			32 	//Used by the spacepod part fabricator. Same idea as the mechfab
+// #define PODFAB			32 	//Used by the spacepod part fabricator. Same idea as the mechfab // AA 2021-10-02 - Removed. Kept for flag consistency.
 #define BIOGENERATOR	64 	//Uses biomass
 #define SMELTER			128 //uses various minerals
 //Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
