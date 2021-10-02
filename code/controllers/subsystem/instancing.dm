@@ -3,10 +3,6 @@ SUBSYSTEM_DEF(instancing)
 	runlevels = RUNLEVEL_INIT | RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 30 SECONDS
 	flags = SS_KEEP_TIMING
-	/// Has our initial check complete? Used to halt init but not lag the server
-	var/initial_check_complete = FALSE
-	/// Is a check currently running?
-	var/check_running = FALSE
 
 /datum/controller/subsystem/instancing/Initialize(start_timeofday)
 	// Dont even bother if we arent connected
@@ -131,7 +127,7 @@ SUBSYSTEM_DEF(instancing)
   */
 /datum/controller/subsystem/instancing/proc/topic_all_peers(raw_topic)
 	// Someone here is going to say "AA you shouldnt put load on the DB server you can do sorting in BYOND"
-	// Well let me put it this way. The DB server is an entirely different machine to BYOND,w ith this entire dataset being stored in its RAM, not even on disk
+	// Well let me put it this way. The DB server is an entirely different machine to BYOND, with this entire dataset being stored in its RAM, not even on disk
 	// By making the DB server do the work, we can offload from BYOND, which is already strained
 	var/datum/db_query/dbq1 = SSdbcore.NewQuery({"
 		SELECT server_id, key_name, key_value FROM instance_data_cache WHERE server_id IN
@@ -156,3 +152,35 @@ SUBSYSTEM_DEF(instancing)
 	for(var/server in servers_outer)
 		var/server_data = servers_outer[server]
 		world.Export("byond://[server_data["internal_ip"]]:[server_data["server_port"]]?[raw_topic]&key=[server_data["topic_key"]]")
+
+
+/**
+  * Player checker
+  *
+  * Check all connected peers to see if a player exists in the player cache
+  * This is used to make sure players dont log into 2 servers at once
+  * Arguments:
+  * ckey - The ckey to check if they are logged into another server
+  */
+/datum/controller/subsystem/instancing/proc/check_player(ckey)
+	// Please see above rant on L133
+	var/datum/db_query/dbq1 = SSdbcore.NewQuery({"
+		SELECT server_id, key_value FROM instance_data_cache WHERE server_id IN
+		(SELECT server_id FROM instance_data_cache WHERE server_id != :sid AND
+		key_name='heartbeat' AND last_updated BETWEEN NOW() - INTERVAL 60 SECOND AND NOW())
+		AND key_name IN ("playerlist")"}, list(
+		"sid" = GLOB.configuration.system.instance_id
+	))
+	if(!dbq1.warn_execute())
+		qdel(dbq1)
+		return
+
+	while(dbq1.NextRow())
+		var/list/other_server_cache = json_decode(dbq1.item[2])
+		if(ckey in other_server_cache)
+			var/target_server = dbq1.item[1] // Yes. This var is necessary.
+			qdel(dbq1)
+			return target_server
+
+	qdel(dbq1)
+	return null // If we are here, it means we didnt find our player on another server
