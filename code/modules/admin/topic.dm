@@ -2424,12 +2424,12 @@
 				GLOB.event_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time. Your ERT request has been denied for the following reasons:\n[reason]", "ERT Unavailable")
 			else
 				if(H.stat != CONSCIOUS)
-					to_chat(owner, "<span class='warning'>The person you are trying to contact is not conscious. ERT denied but no message has been send.</span>")
+					to_chat(owner, "<span class='warning'>The person you are trying to contact is not conscious. ERT denied but no message has been sent.</span>")
 					return
 				if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-					to_chat(owner, "<span class='warning'>The person you are trying to contact is not wearing a headset. ERT denied but no message has been send.</span>")
+					to_chat(owner, "<span class='warning'>The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent.</span>")
 					return
-				to_chat(owner, "You sent [reason] to [H] via a secure channel.")
+				to_chat(owner, "<span class='notice'>You sent [reason] to [H] via a secure channel.</span>")
 				to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [reason].</span>")
 		else
 			owner.response_team()
