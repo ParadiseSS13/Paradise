@@ -5,7 +5,7 @@
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "helm-command"
 	item_color = "ert_commander"
-	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50, fire = 80, acid = 80)
+	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 50, FIRE = 80, ACID = 80)
 	resistance_flags = FIRE_PROOF
 	var/obj/machinery/camera/camera
 	var/has_camera = TRUE
@@ -50,7 +50,7 @@
 	item_state = "suit-command"
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
-	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50, fire = 80, acid = 80)
+	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 50, FIRE = 80, ACID = 80)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
 	/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
 	/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
@@ -121,6 +121,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer
 	name = "emergency response team engineer helmet"
 	desc = "A helmet worn by engineers of a Nanotrasen Emergency Response Team. Has yellow highlights. Armoured and space ready."
+	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 75, FIRE = 80, ACID = 80)
 	icon_state = "hardsuit0-ert_engineer"
 	item_state = "helm-orange"
 	item_color = "ert_engineer"
@@ -129,6 +130,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
 	name = "elite emergency response team engineer helmet"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 80)
 	icon_state = "hardsuit0-gammaengineer"
 	item_color = "gammaengineer"
 
@@ -137,12 +139,14 @@
 	desc = "A suit worn by the engineers of a Nanotrasen Emergency Response Team. Has yellow highlights. Armoured, space ready, and fire resistant."
 	icon_state = "ert_engineer"
 	item_state = "suit-orange"
+	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 75, FIRE = 80, ACID = 80)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer
 
 /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
 	name = "elite emergency response team engineer suit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gengineer"
+	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 80)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
 
 //Medical

@@ -668,6 +668,10 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 				to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.")
 				return
 
+			// Do a little check here
+			if(GLOB.configuration.system.is_production && (GLOB.admin_ranks[rank] & R_ADMIN) && prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
+				to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
+				return
 			D = new(rank, GLOB.admin_ranks[rank], ckey)
 		else
 			if(!SSdbcore.IsConnected())
@@ -698,8 +702,12 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 				if(istext(flags))
 					flags = text2num(flags)
+				// Do a little check here
+				if(GLOB.configuration.system.is_production && (flags & R_ADMIN) && prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
+					to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
+					qdel(admin_read)
+					return
 				D = new(admin_rank, flags, ckey)
-
 			qdel(admin_read)
 
 		var/client/C = GLOB.directory[ckey]

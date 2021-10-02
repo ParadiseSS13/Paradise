@@ -284,11 +284,6 @@
 
 /obj/machinery/suit_storage_unit/Destroy()
 	SStgui.close_uis(wires)
-	QDEL_NULL(suit)
-	QDEL_NULL(helmet)
-	QDEL_NULL(mask)
-	QDEL_NULL(boots)
-	QDEL_NULL(storage)
 	QDEL_NULL(wires)
 	return ..()
 

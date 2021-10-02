@@ -720,6 +720,8 @@ shutdown_on_reboot = false
 #_2fa_auth_host = "http://127.0.0.1:8080"
 # List of IP addresses to be ignored by the world/Topic rate limiting. Useful if you have other services
 topic_ip_ratelimit_bypass = ["127.0.0.1"]
+# Turn this to true if you are running a production server
+is_production = false
 # Server instance ID. This is used for tagging the server in the database
 # You do NOT want to change this once you are running in production
 instance_id = "aa_debug"
