@@ -12280,7 +12280,7 @@
 	pixel_y = -8
 	},
 /obj/machinery/camera{
-	c_tag = "Medbay Storage";
+	c_tag = "Cargo Dock east";
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -13442,7 +13442,7 @@
 "aKr" = (
 /obj/structure/table/reinforced,
 /obj/machinery/camera{
-	c_tag = "Bar";
+	c_tag = "Bar North";
 	dir = 4;
 	pixel_y = -22
 	},
@@ -15860,7 +15860,7 @@
 	},
 /obj/item/storage/fancy/crayons,
 /obj/machinery/camera{
-	c_tag = "Theatre Backstage"
+	c_tag = "Clown and Mime office"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redbluefull"
@@ -17481,7 +17481,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Arrivals North";
+	c_tag = "Cargo Disposals Sorting";
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/east,
@@ -18364,7 +18364,7 @@
 "aUS" = (
 /obj/structure/table,
 /obj/machinery/camera{
-	c_tag = "Medbay Lobby East"
+	c_tag = "Cargo office"
 	},
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
@@ -19363,7 +19363,7 @@
 "aWG" = (
 /obj/machinery/light,
 /obj/machinery/camera{
-	c_tag = "Arrivals North";
+	c_tag = "Cargo Dock south";
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -20578,7 +20578,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Atrium";
+	c_tag = "Bar South";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -20764,7 +20764,7 @@
 	pixel_x = -24
 	},
 /obj/machinery/camera{
-	c_tag = "Cargo Office SouthWest";
+	c_tag = "Cargo Dock SouthWest";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -20829,7 +20829,7 @@
 	pixel_y = -24
 	},
 /obj/machinery/camera{
-	c_tag = "Arrivals North";
+	c_tag = "Quartermaster Office";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -25935,7 +25935,7 @@
 "bjO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
-	c_tag = "Atmospherics South-East";
+	c_tag = "Mining Dock";
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -43736,16 +43736,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/hallway/primary/port)
-"bSB" = (
-/obj/machinery/camera{
-	c_tag = "Fore Hallway South";
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "browncorner"
-	},
-/area/hallway/primary/fore)
 "bSC" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -76925,7 +76915,7 @@
 "dlm" = (
 /obj/machinery/light,
 /obj/machinery/camera{
-	c_tag = "Medbay Psych Office Corridor East";
+	c_tag = "Medbay Cloning";
 	dir = 1
 	},
 /obj/machinery/bodyscanner,
@@ -141133,7 +141123,7 @@ bhY
 bhY
 blq
 bhY
-bSB
+bhY
 bMb
 bov
 aXY
