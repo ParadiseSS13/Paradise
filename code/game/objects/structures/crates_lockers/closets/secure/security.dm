@@ -200,7 +200,7 @@
 	req_access = list(ACCESS_BLUESHIELD)
 	icon_state = "bs"
 	open_door_sprite = "hop_door"
-	shared_open_sprite = "hop_open"
+	icon_opened = "hop_open"
 
 /obj/structure/closet/secure_closet/blueshield/populate_contents()
 	new /obj/item/storage/briefcase(src)
@@ -231,7 +231,7 @@
 	req_access = list(ACCESS_NTREP)
 	icon_state = "ntr"
 	open_door_sprite = "hop_door"
-	shared_open_sprite = "hop_open"
+	icon_opened = "hop_open"
 
 /obj/structure/closet/secure_closet/ntrep/populate_contents()
 	new /obj/item/book/manual/faxes(src)

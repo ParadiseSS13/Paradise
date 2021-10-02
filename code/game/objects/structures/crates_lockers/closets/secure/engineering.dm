@@ -44,7 +44,7 @@
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	icon_state = "eng_elec"
 	open_door_sprite = "eng_door"
-	shared_open_sprite = "eng_open"
+	icon_opened = "eng_open"
 
 /obj/structure/closet/secure_closet/engineering_electrical/populate_contents()
 	new /obj/item/clothing/gloves/color/yellow(src)
@@ -66,7 +66,7 @@
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	icon_state = "eng_weld"
 	open_door_sprite = "eng_door"
-	shared_open_sprite = "eng_open"
+	icon_opened = "eng_open"
 
 /obj/structure/closet/secure_closet/engineering_welding/populate_contents()
 	new /obj/item/clothing/head/welding(src)

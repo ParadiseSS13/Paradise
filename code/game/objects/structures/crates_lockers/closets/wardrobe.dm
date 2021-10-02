@@ -1,7 +1,8 @@
 /obj/structure/closet/wardrobe
 	name = "wardrobe"
 	desc = "It's a storage unit for standard-issue Nanotrasen attire."
-	is_wardrobe = TRUE
+	icon_opened = "generic_open"
+	open_door_sprite = "generic_door"
 	icon_state = "blue"
 
 /obj/structure/closet/wardrobe/generic

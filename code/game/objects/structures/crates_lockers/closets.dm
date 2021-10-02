@@ -9,9 +9,7 @@
 	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60)
 	var/icon_closed
 	var/icon_opened
-	var/is_wardrobe
 	var/open_door_sprite = "generic_door"
-	var/shared_open_sprite
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
@@ -31,12 +29,8 @@
 /obj/structure/closet/Initialize(mapload)
 	. = ..()
 	icon_closed = "[icon_state]"
-	icon_opened = "[icon_state]_open"
-	if(shared_open_sprite)
-		icon_opened = shared_open_sprite
-	if(is_wardrobe)
-		icon_opened = "generic_open"
-		open_door_sprite = "generic_door"
+	if(!icon_opened)
+		icon_opened = "[icon_state]_open"
 	if(mapload && !opened)
 		// Youre probably asking, why is this a 0 seconds timer AA?
 		// Well, I will tell you. One day, all /obj/effect/spawner will use Initialize

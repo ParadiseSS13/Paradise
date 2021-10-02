@@ -3,7 +3,7 @@
 	desc = "Filled with medical junk."
 	icon_state = "med"
 	open_door_sprite = "med_door"
-	shared_open_sprite = "med_open"
+	icon_opened = "med_open"
 	req_access = list(ACCESS_MEDICAL)
 
 /obj/structure/closet/secure_closet/medical1/populate_contents()
@@ -27,7 +27,7 @@
 	desc = "Used to knock people out."
 	icon_state = "med"
 	open_door_sprite = "med_door"
-	shared_open_sprite = "med_open"
+	icon_opened = "med_open"
 	req_access = list(ACCESS_SURGERY)
 
 /obj/structure/closet/secure_closet/medical2/populate_contents()
@@ -70,7 +70,7 @@
 	desc = "Filled with exam room materials."
 	icon_state = "med"
 	open_door_sprite = "med_door"
-	shared_open_sprite = "med_open"
+	icon_opened = "med_open"
 	req_access = list(ACCESS_MEDICAL)
 
 /obj/structure/closet/secure_closet/exam/populate_contents()
@@ -188,7 +188,7 @@
 	desc = "Store dangerous chemicals in here."
 	icon_state = "chemical"
 	open_door_sprite = "med_door"
-	shared_open_sprite = "med_open"
+	icon_opened = "med_open"
 	req_access = list(ACCESS_CHEMISTRY)
 
 /obj/structure/closet/secure_closet/chemical/populate_contents()
@@ -202,7 +202,7 @@
 	desc = "A locker with a Paramedic EVA suit."
 	icon_state = "med"
 	open_door_sprite = "med_door"
-	shared_open_sprite = "med_open"
+	icon_opened = "med_open"
 	req_access = list(ACCESS_PARAMEDIC)
 
 /obj/structure/closet/secure_closet/paramedic/populate_contents()
@@ -218,7 +218,7 @@
 	desc = "Store dangerous chemicals in here."
 	icon_state = "chemical"
 	open_door_sprite = "med_door"
-	shared_open_sprite = "med_open"
+	icon_opened = "med_open"
 	req_access = list(ACCESS_CHEMISTRY)
 
 /obj/structure/closet/secure_closet/reagents/populate_contents()

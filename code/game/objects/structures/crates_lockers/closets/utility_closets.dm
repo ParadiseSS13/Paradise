@@ -88,7 +88,7 @@
 	desc = "It's a storage unit for tools."
 	icon_state = "eng_tool"
 	open_door_sprite = "eng_door"
-	shared_open_sprite = "eng_open"
+	icon_opened = "eng_open"
 
 /obj/structure/closet/toolcloset/populate_contents()
 	if(prob(40))
@@ -131,7 +131,7 @@
 	desc = "It's a storage unit for rad-protective suits."
 	icon_state = "eng_rad"
 	open_door_sprite = "eng_door"
-	shared_open_sprite = "eng_open"
+	icon_opened = "eng_open"
 
 /obj/structure/closet/radiation/populate_contents()
 	new /obj/item/geiger_counter(src)

@@ -67,7 +67,7 @@
 	desc = "Store dangerous chemicals in here."
 	icon_state = "rchemical"
 	open_door_sprite = "med_door"
-	shared_open_sprite = "med_open"
+	icon_opened = "med_open"
 	req_access = list(ACCESS_TOX_STORAGE)
 
 /obj/structure/closet/secure_closet/research_reagents/populate_contents()
