@@ -10,8 +10,6 @@
 	new /obj/item/clothing/head/bio_hood/general( src )
 
 /obj/structure/closet/l3closet/general
-	icon_state = "bio"
-	open_door_sprite = "bio_door"
 
 /obj/structure/closet/l3closet/general/populate_contents()
 	new /obj/item/clothing/suit/bio_suit/general( src )

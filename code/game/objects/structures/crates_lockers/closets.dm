@@ -60,8 +60,6 @@
 		// Ensure the storage cap is respected
 		if(++itemcount >= storage_capacity)
 			break
-	if(istype(src, /obj/structure/closet/secure_closet/guncabinet))
-		update_icon()
 
 // Fix for #383 - C4 deleting fridges with corpses
 /obj/structure/closet/Destroy()

@@ -21,8 +21,6 @@
 	new /obj/item/clothing/under/color/white( src )
 	new /obj/item/clothing/shoes/white( src )
 
-
-
 /obj/structure/closet/secure_closet/personal/cabinet
 	icon_state = "cabinet"
 	open_door_sprite = "cabient_door"
@@ -32,13 +30,6 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
 	close_sound_volume = 50
-
-/obj/structure/closet/secure_closet/personal/cabinet/update_icon()
-	if(!opened)
-		icon_state = icon_closed
-	else
-		icon_state = icon_opened
-	update_overlays()
 
 /obj/structure/closet/secure_closet/personal/cabinet/populate_contents()
 	new /obj/item/storage/backpack/satchel/withwallet( src )
@@ -63,9 +54,9 @@
 		//they can open all lockers, or nobody owns this, or they own this locker
 		locked = !locked
 		if(locked)
-			overlays += "locked"
+			add_overlay("locked")
 		else
-			overlays += "unlocked"
+			add_overlay("unlocked")
 			icon_state = icon_closed
 			registered_name = null
 			desc = initial(desc)

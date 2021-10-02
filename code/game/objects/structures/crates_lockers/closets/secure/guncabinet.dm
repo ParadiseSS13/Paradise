@@ -9,6 +9,10 @@
 	..()
 	update_icon()
 
+/obj/structure/closet/secure_closet/guncabinet/take_contents()
+	..()
+	update_icon()
+
 /obj/structure/closet/secure_closet/guncabinet/emag_act(mob/user)
 	if(!broken)
 		broken = TRUE
@@ -17,7 +21,7 @@
 		update_icon()
 
 /obj/structure/closet/secure_closet/guncabinet/update_overlays()
-	overlays.Cut()
+	cut_overlays()
 	if(!opened)
 		var/lazors = 0
 		var/shottas = 0
@@ -40,9 +44,8 @@
 				gun.pixel_x = i*4
 				overlays += gun
 
-		overlays += "door"
-
+		add_overlay("door")
 		if(broken)
-			overlays += "off"
+			add_overlay("off")
 		else if(locked)
-			overlays += "locked"
+			add_overlay("locked")

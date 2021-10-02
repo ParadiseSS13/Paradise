@@ -4,10 +4,8 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "secure"
 	open_door_sprite = "secure_door"
-	density = TRUE
 	opened = FALSE
 	locked = TRUE
-	broken = FALSE
 	can_be_emaged = TRUE
 	max_integrity = 250
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
@@ -97,14 +95,6 @@
 		togglelock(usr)
 	else
 		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
-
-/obj/structure/closet/secure_closet/update_icon()
-	if(!opened)
-		icon_state = icon_closed
-		update_overlays()
-		return
-	icon_state = icon_opened
-	update_overlays()
 
 /obj/structure/closet/secure_closet/update_overlays() //Putting the welded stuff in update_overlays() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
 	cut_overlays()
