@@ -151,7 +151,7 @@
 	gain_desc = "You have gained the ability to weaponise pools of blood to damage those stood on them."
 	vampire_ability = TRUE
 	required_blood = 100
-	charge_max = 100 SECONDS
+	charge_max = 200 SECONDS
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
@@ -164,12 +164,12 @@
 		var/obj/effect/temp_visual/blood_spike/spike = new /obj/effect/temp_visual/blood_spike(T)
 		spike.color = B.basecolor
 		playsound(L, 'sound/misc/demon_attack1.ogg', 50, TRUE)
-		L.apply_damage(60, BRUTE, BODY_ZONE_CHEST)
+		L.apply_damage(50, BRUTE, BODY_ZONE_CHEST)
 		L.visible_message("<span class='warning'><b>[L] gets impaled by a spike of living blood!</b></span>")
 
 /obj/effect/proc_holder/spell/blood_eruption/choose_targets(mob/user)
 	var/list/targets = list()
-	for(var/mob/living/L in view(7, user))
+	for(var/mob/living/L in view(4, user))
 		var/turf/T = get_turf(L)
 		if(locate(/obj/effect/decal/cleanable/blood) in T)
 			if(L.affects_vampire(user) && !isLivingSSD(L))
@@ -184,7 +184,7 @@
 /obj/effect/temp_visual/blood_spike
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "bloodspike_white"
-	duration = 0.4 SECONDS
+	duration = 0.3 SECONDS
 
 /obj/effect/proc_holder/spell/self/vampire/blood_spill
 	name = "The Blood Bringers Rite"
@@ -202,7 +202,7 @@
 			target.mind.vampire.remove_ability(B)
 
 /datum/vampire_passive/blood_spill
-	gain_desc = "You begin reaping blood from nearby creatures"
+	var/max_beams = 10
 
 /datum/vampire_passive/blood_spill/New()
 	..()
@@ -213,13 +213,18 @@
 	return ..()
 
 /datum/vampire_passive/blood_spill/process()
+	var/beam_number = 0
 	var/turf/T = get_turf(owner)
 	for(var/mob/living/carbon/human/H in view(7, T))
+		if(beam_number >= max_beams)
+			break
+
 		if(NO_BLOOD in H.dna.species.species_traits)
 			continue
 
 		if(H.affects_vampire(owner) && !H.stat)
 			var/drain_amount = rand(5, 10)
+			beam_number++
 			H.bleed(drain_amount)
 			H.Beam(owner, icon_state = "drainbeam", time = 2 SECONDS)
 			H.adjustBruteLoss(2)
