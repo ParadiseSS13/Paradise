@@ -44,6 +44,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	move_resist = MOVE_FORCE_NORMAL
 	density = 1
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
+	d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED
 	mob_size = MOB_SIZE_LARGE
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	see_in_dark = 8

@@ -886,7 +886,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/computer/prisoner{
-	dir = 1
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -4371,6 +4371,7 @@
 "sO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/security{
+	dir = 4;
 	network = list("Labor Camp")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5275,7 +5276,7 @@
 /area/mine/production)
 "VJ" = (
 /obj/machinery/computer/secure_data{
-	dir = 1
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;

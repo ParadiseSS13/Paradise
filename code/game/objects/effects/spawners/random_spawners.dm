@@ -307,9 +307,3 @@
 	name = "80pc vaultdoor 20pc wall"
 	result = list(/obj/machinery/door/airlock/hatch/syndicate/vault = 4,
 		/turf/simulated/wall/mineral/plastitanium/nodiagonal = 1)
-
-
-/obj/effect/spawner/random_spawners/syndicate/layout/spacepod
-	name = "50pc loot spacepod"
-	result = list(/obj/spacepod/syndi = 1,
-		/obj/spacepod/syndi/unlocked = 1)

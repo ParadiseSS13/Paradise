@@ -290,8 +290,13 @@
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "by" = (
-/obj/structure/spacepoddoor,
-/turf/simulated/floor/plating,
+/obj/machinery/door_control{
+	id = "whiteshippoddoor";
+	name = "Pod Door Control";
+	pixel_x = -24;
+	pixel_y = 24
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "bz" = (
 /obj/machinery/door/airlock/public/glass{
@@ -304,11 +309,10 @@
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "bC" = (
-/obj/structure/spacepoddoor,
 /obj/machinery/door/poddoor/multi_tile/two_tile_ver{
 	id_tag = "whiteshippoddoor"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "bD" = (
 /obj/machinery/door_control{

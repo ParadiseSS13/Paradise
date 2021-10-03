@@ -206,17 +206,6 @@
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
 	add_fingerprint(user)
-	if(!blood_DNA)
-		return
-	if(blood_overlay && (blood_DNA.len >= 1))	//updated blood overlay, if any
-		overlays.Cut()	//this might delete other item overlays as well but eeeeeh
-
-		var/icon/I = new /icon(icon, icon_state)
-		I.Blend(new /icon('icons/effects/blood.dmi', rgb(255,255,255)), ICON_ADD)
-		I.Blend(new /icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY)
-		blood_overlay = I
-		overlays += blood_overlay
-
 
 // *************************************
 // Nutrient defines for hydroponics
