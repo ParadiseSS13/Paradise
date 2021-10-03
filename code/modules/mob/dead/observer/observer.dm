@@ -389,21 +389,20 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!isobserver(usr))
 		to_chat(usr, "Not when you're not dead!")
 		return
-	var/target //the area to teleport to
-	target = input(src, "Area to teleport to", "Teleport to a location") as null|anything in return_sorted_areas()
-	if(target)
-		return teleport(target)
+	var/target = input("Area to teleport to", "Teleport to a location") as null|anything in SSmapping.ghostteleportlocs
+	var/area/A = SSmapping.teleportlocs[target]
+	teleport(A)
 
 /mob/dead/observer/proc/teleport(area/A)
 	if(!A || !isobserver(usr))
 		return
 
 	var/list/turfs = list()
-	for(var/turf/T in A)
+	for(var/turf/T in get_area_turfs(A.type))
 		turfs += T
 
-	if(!turfs)
-		to_chat(src, "Nowhere to jump to!")
+	if(!length(turfs))
+		to_chat(src, "<span class='warning'>Nowhere to jump to!</span>")
 		return
 	forceMove(pick(turfs))
 	update_parallax_contents()
