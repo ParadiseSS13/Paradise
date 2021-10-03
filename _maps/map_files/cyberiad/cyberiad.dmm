@@ -3413,10 +3413,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/item/storage/belt/fannypack/yellow,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 8;
-	name = "8maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "aks" = (
@@ -3501,6 +3498,10 @@
 	},
 /obj/item/bikehorn/rubberducky,
 /obj/item/clothing/head/crown,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 3;
+	name = "3maintenance loot spawner"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "akB" = (
@@ -8442,10 +8443,7 @@
 /area/maintenance/apmaint)
 "atW" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/apmaint)
 "atX" = (
@@ -24309,10 +24307,7 @@
 "bcI" = (
 /obj/structure/closet/wardrobe/pjs,
 /obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 8;
-	name = "8maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "bcM" = (
@@ -60496,10 +60491,7 @@
 	dir = 4;
 	pixel_y = 8
 	},
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cyh" = (
@@ -60584,8 +60576,8 @@
 	dir = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
+	lootcount = 2;
+	name = "2maintenance loot spawner"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -61996,8 +61988,8 @@
 	dir = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 8;
-	name = "8maintenance loot spawner"
+	lootcount = 2;
+	name = "2maintenance loot spawner"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -64250,10 +64242,7 @@
 /area/maintenance/aft)
 "cFP" = (
 /obj/structure/table/wood/poker,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5"
 	},
@@ -64650,10 +64639,7 @@
 /obj/item/chair/stool{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 8;
-	name = "8maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cGH" = (
@@ -82100,6 +82086,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"pDY" = (
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "pMd" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/structure/cable{
@@ -107270,7 +107263,7 @@ cqr
 coL
 cgQ
 ajx
-cvp
+pDY
 czM
 cyk
 czM
