@@ -12966,7 +12966,7 @@
 	id = "engsm";
 	name = "Radiation Shutters Control";
 	pixel_y = 24;
-	req_access_txt = "10; 24"
+	req_access_txt = "24"
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -25716,6 +25716,10 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/atmos/glass{
+	name = "Power Monitoring";
+	req_one_access_txt = "24"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -41561,7 +41565,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering";
-	req_access_txt = "24; 10"
+	req_access_txt = "32"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -44946,7 +44950,7 @@
 	},
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering Break Room";
-	req_access_txt = "24; 10"
+	req_access_txt = "32"
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
@@ -97429,10 +97433,9 @@
 /area/security/interrogation)
 "mfl" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "mft" = (
