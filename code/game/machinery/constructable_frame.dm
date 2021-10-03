@@ -231,23 +231,20 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/vending/boozeomat
 	req_components = list(/obj/item/vending_refill/boozeomat = 1)
 
-	var/static/list/vending_names_paths = list( // This should really get refactored at some point
+	var/static/list/vending_names_paths = list(
 		"Booze-O-Mat" =							/obj/machinery/vending/boozeomat,
-		"Hot Drinks machine" =					/obj/machinery/vending/coffee,
+		"Solar's Best Hot Drinks" =				/obj/machinery/vending/coffee,
 		"Getmore Chocolate Corp" =				/obj/machinery/vending/snack,
 		"Mr. Chang" =							/obj/machinery/vending/chinese,
 		"Robust Softdrinks" =					/obj/machinery/vending/cola,
-		"cigarette machine" =					/obj/machinery/vending/cigarette,
-		"ShadyCigs Ultra" =						/obj/machinery/vending/cigarette/beach,
+		"ShadyCigs Deluxe" =					/obj/machinery/vending/cigarette,
 		"Hatlord 9000" =						/obj/machinery/vending/hatdispenser,
 		"Suitlord 9000" =						/obj/machinery/vending/suitdispenser,
 		"Shoelord 9000" =						/obj/machinery/vending/shoedispenser,
 		"AutoDrobe" =							/obj/machinery/vending/autodrobe,
 		"ClothesMate" =							/obj/machinery/vending/clothing,
-		"NanoMed" =								/obj/machinery/vending/wallmed,
-		"Emergency NanoMed" =					/obj/machinery/vending/wallmed,
 		"NanoMed Plus" =						/obj/machinery/vending/medical,
-		"SyndiMed Plus" = 						/obj/machinery/vending/medical/syndicate_access,
+		"NanoMed" =								/obj/machinery/vending/wallmed,
 		"Vendomat" =							/obj/machinery/vending/assist,
 		"YouTool" =								/obj/machinery/vending/tool,
 		"Engi-Vend" =							/obj/machinery/vending/engivend,
@@ -260,7 +257,21 @@ to destroy them and players will be able to make replacements.
 		"Robco Tool Maker" =					/obj/machinery/vending/engineering,
 		"BODA" =								/obj/machinery/vending/sovietsoda,
 		"SecTech" =								/obj/machinery/vending/security,
-		"CritterCare" =							/obj/machinery/vending/crittercare)
+		"CritterCare" =							/obj/machinery/vending/crittercare,
+		"SecDrobe" =							/obj/machinery/vending/secdrobe,
+		"DetDrobe" =							/obj/machinery/vending/detdrobe,
+		"MediDrobe" =							/obj/machinery/vending/medidrobe,
+		"ViroDrobe" =							/obj/machinery/vending/virodrobe,
+		"ChemDrobe" =							/obj/machinery/vending/chemdrobe,
+		"GeneDrobe" =							/obj/machinery/vending/genedrobe,
+		"SciDrobe" =							/obj/machinery/vending/scidrobe,
+		"RoboDrobe" =							/obj/machinery/vending/robodrobe,
+		"EngiDrobe" =							/obj/machinery/vending/engidrobe,
+		"AtmosDrobe" =							/obj/machinery/vending/atmosdrobe,
+		"CargoDrobe" =							/obj/machinery/vending/cargodrobe,
+		"ChefDrobe" =							/obj/machinery/vending/chefdrobe,
+		"BarDrobe" =							/obj/machinery/vending/bardrobe,
+		"HydroDrobe" =							/obj/machinery/vending/hydrodrobe)
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -273,9 +284,6 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/vendor/proc/set_type(type)
 	var/obj/machinery/vending/typepath = vending_names_paths[type]
-	if(!typepath)
-		stack_trace("set_type() called with an invalid type variable. type: [type]")
-
 	build_path = typepath
 	board_name = "[type] Vendor"
 	format_board_name()
@@ -701,18 +709,6 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/sheet/glass = 1)
-
-/obj/item/circuitboard/podfab
-	board_name = "Spacepod Fabricator"
-	build_path = /obj/machinery/mecha_part_fabricator/spacepod
-	board_type = "machine"
-	origin_tech = "programming=2;engineering=2"
-	req_components = list(
-							/obj/item/stock_parts/matter_bin = 2,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stack/sheet/glass = 1)
-
 
 /obj/item/circuitboard/clonepod
 	board_name = "Clone Pod"

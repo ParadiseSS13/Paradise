@@ -26,7 +26,7 @@
 
 /obj/machinery/gibber/Initialize(mapload)
 	. = ..()
-	overlays += image('icons/obj/kitchen.dmi', "grjam")
+	add_overlay("grjam")
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/gibber(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -34,11 +34,9 @@
 	RefreshParts()
 
 /obj/machinery/gibber/Destroy()
-	if(contents.len)
-		for(var/atom/movable/A in contents)
-			A.loc = get_turf(src)
-	if(occupant)
-		occupant = null
+	for(var/atom/movable/A in contents)
+		A.forceMove(get_turf(src))
+	occupant = null
 	return ..()
 
 /obj/machinery/gibber/suicide_act(mob/user)
@@ -141,8 +139,8 @@
 		to_chat(user, "<span class='danger'>This is not suitable for [src]!</span>")
 		return
 
-	if(victim.abiotic(1))
-		to_chat(user, "<span class='danger'>Subject may not have abiotic items on.</span>")
+	if(victim.abiotic(TRUE))
+		to_chat(user, "<span class='danger'>Subject may not have anything on their body.</span>")
 		return
 
 	user.visible_message("<span class='danger'>[user] starts to put [victim] into [src]!</span>")

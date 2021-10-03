@@ -180,7 +180,7 @@
 /obj/item/reagent_containers/food/snacks/grilledcheese
 	name = "grilled cheese sandwich"
 	desc = "Goes great with tomato soup!"
-	icon_state = "toastedsandwich"
+	icon_state = "grilledcheese"
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 7, "vitamin" = 1) //why make a regualr sandwhich when you can make grilled cheese, with this nutriment value?
 	tastes = list("toast" = 1, "grilled cheese" = 1)

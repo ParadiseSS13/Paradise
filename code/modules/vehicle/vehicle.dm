@@ -9,7 +9,7 @@
 	can_buckle = TRUE
 	buckle_lying = FALSE
 	max_integrity = 300
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 60, ACID = 60)
 	var/key_type
 	var/held_key_type //Similar to above, but the vehicle needs the key in hands as opposed to inserted into the ignition
 	var/obj/item/key/inserted_key

@@ -847,10 +847,6 @@
 		var/obj/mecha/M = loc
 		loc_temp =  M.return_temperature()
 
-	else if(istype(loc, /obj/spacepod))
-		var/obj/spacepod/S = loc
-		loc_temp = S.return_temperature()
-
 	else if(istype(loc, /obj/structure/transit_tube_pod))
 		loc_temp = environment.temperature
 
@@ -992,7 +988,7 @@
 
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
 
-	var/blocked = getarmor(null, "rad")
+	var/blocked = getarmor(null, RAD)
 
 	if(amount > RAD_BURN_THRESHOLD)
 		apply_damage(RAD_BURN_CURVE(amount), BURN, null, blocked)

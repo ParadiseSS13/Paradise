@@ -187,28 +187,5 @@
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
-	// Update blood splatter
-	if(blood_overlay)
-		cut_overlay(blood_overlay)
-		qdel(blood_overlay)
-		add_blood_overlay(blood_overlay_color)
 	playsound(loc, extend_sound, 50, TRUE)
 	add_fingerprint(user)
-
-/obj/item/melee/classic_baton/telescopic/blood_splatter_index()
-	return "\ref[icon]-[icon_state]"
-
-/obj/item/melee/classic_baton/telescopic/add_blood_overlay(color)
-	var/index = blood_splatter_index()
-	var/icon/blood_splatter_icon = GLOB.blood_splatter_icons[index]
-	if(!blood_splatter_icon)
-		blood_splatter_icon = icon(icon, icon_state)
-		blood_splatter_icon.Blend("#ffffff", ICON_ADD)
-		blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY)
-		blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
-		GLOB.blood_splatter_icons[index] = blood_splatter_icon
-
-	blood_overlay = image(blood_splatter_icon)
-	blood_overlay.color = color
-	blood_overlay_color = color
-	add_overlay(blood_overlay)

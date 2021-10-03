@@ -464,12 +464,15 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			if(GLOB.stealthminID[P] == txt)
 				return P
 
-// Returns the atom sitting on the turf.
-// For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
-/proc/get_atom_on_turf(atom/movable/M)
+//Returns the atom sitting on the turf.
+//For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
+//Optional arg 'type' to stop once it reaches a specific type instead of a turf.
+/proc/get_atom_on_turf(atom/movable/M, stop_type)
 	var/atom/loc = M
-	while(loc && loc.loc && !istype(loc.loc, /turf/))
+	while(loc?.loc && !isturf(loc.loc))
 		loc = loc.loc
+		if(stop_type && istype(loc, stop_type))
+			break
 	return loc
 
 /*
@@ -1536,7 +1539,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	shift.Translate(0,radius)
 	transform = shift
 
-	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments)
+	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
 
 	while(orbiting && orbiting == A && A.loc)
 		var/targetloc = get_turf(A)
@@ -1551,7 +1554,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	if(orbiting == A) //make sure we haven't started orbiting something else.
 		orbiting = null
-		SpinAnimation(0, 0)
+		SpinAnimation(0, 0, parallel = FALSE)
 		transform = cached_transform
 
 
@@ -1774,8 +1777,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/item/robot_parts = "ROBOT_PARTS",
 			/obj/item/seeds = "SEED",
 			/obj/item/slime_extract = "SLIME_CORE",
-			/obj/item/spacepod_equipment/weaponry = "POD_WEAPON",
-			/obj/item/spacepod_equipment = "POD_EQUIP",
 			/obj/item/stack/sheet/mineral = "MINERAL",
 			/obj/item/stack/sheet = "SHEET",
 			/obj/item/stack/tile = "TILE",
@@ -1925,24 +1926,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			pois[name] = A
 
 	return pois
-
-/proc/flash_color(mob_or_client, flash_color = "#960000", flash_time = 2 SECONDS)
-	var/mob/M
-	var/client/C
-	if(ismob(mob_or_client))
-		M = mob_or_client
-		if(!M.client)
-			return
-		C = M.client
-	else if(isclient(mob_or_client))
-		C = mob_or_client
-		M = C.mob
-
-	if(!istype(C) || !istype(M))
-		return
-
-	C.color = flash_color
-	INVOKE_ASYNC(C, /client/.proc/colour_transition, M.get_screen_colour(), flash_time)
 
 #define RANDOM_COLOUR (rgb(rand(0,255),rand(0,255),rand(0,255)))
 
