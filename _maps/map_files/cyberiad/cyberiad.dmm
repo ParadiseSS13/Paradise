@@ -83420,10 +83420,6 @@
 /obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
-"knm" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/space)
 "krB" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -84436,7 +84432,7 @@
 "rZE" = (
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/aft)
 "saD" = (
 /obj/effect/spawner/random_barrier/wall_probably,
 /turf/simulated/floor/plating,
@@ -84869,12 +84865,6 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
-"vZe" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "war" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -84971,9 +84961,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/miningdock)
-"wXb" = (
-/turf/simulated/floor/plating,
-/area/space)
 "xcB" = (
 /obj/structure/chair{
 	dir = 8
@@ -85030,10 +85017,6 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
-"xxJ" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
-/turf/simulated/floor/plating,
-/area/space)
 "xyo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -108953,7 +108936,7 @@ cLq
 cRK
 cRC
 cRC
-wXb
+cNB
 cRG
 cWn
 cOx
@@ -109210,7 +109193,7 @@ cLv
 cRE
 cSS
 cKb
-vZe
+cEM
 cRG
 rNN
 cOx
@@ -109467,7 +109450,7 @@ cLv
 cRE
 cTd
 cKb
-xxJ
+rNN
 qrr
 cNB
 cLi
@@ -109724,7 +109707,7 @@ cOr
 cOV
 cKb
 cKb
-wXb
+cNB
 qrr
 rNN
 cLi
@@ -109981,7 +109964,7 @@ cKb
 cKb
 cKb
 cUh
-xxJ
+rNN
 cRI
 dsU
 jSI
@@ -110235,7 +110218,7 @@ cJx
 cNZ
 cLf
 cKb
-wXb
+cNB
 cPb
 dsG
 dsG
@@ -110492,7 +110475,7 @@ cJx
 cNZ
 cLd
 cKb
-wXb
+cNB
 cPj
 cSU
 cSU
@@ -110749,7 +110732,7 @@ cME
 cMx
 cLf
 cKb
-wXb
+cNB
 cPj
 cSU
 cUk
@@ -111006,7 +110989,7 @@ cJx
 cJx
 cLn
 cKb
-wXb
+cNB
 cPj
 cSU
 cUj
@@ -111263,7 +111246,7 @@ cNG
 cNG
 cLf
 cKb
-wXb
+cNB
 gSd
 cSU
 dsI
@@ -111520,7 +111503,7 @@ cNG
 cOG
 cOE
 cKb
-wXb
+cNB
 cPj
 cSU
 dsH
@@ -111777,7 +111760,7 @@ cJx
 cJx
 cOQ
 cKb
-vZe
+cEM
 cPh
 cSU
 dsK
@@ -112034,7 +112017,7 @@ cJx
 cJx
 cLD
 cKb
-wXb
+cNB
 cPj
 cSU
 dsK
@@ -112291,7 +112274,7 @@ cJx
 cJx
 cPv
 cKb
-wXb
+cNB
 cPj
 cSU
 dsL
@@ -112548,7 +112531,7 @@ cJx
 cJx
 cNG
 cKb
-knm
+cGk
 cPj
 cSU
 dsK
@@ -112805,7 +112788,7 @@ cNw
 cNG
 cNG
 cKb
-wXb
+cNB
 cPj
 cSU
 dsK
@@ -113062,7 +113045,7 @@ cNK
 cMU
 cNK
 cKb
-wXb
+cNB
 cPj
 cRR
 cFC
@@ -113319,7 +113302,7 @@ cMG
 cMG
 cPL
 cJZ
-wXb
+cNB
 cPj
 cRR
 cUu
