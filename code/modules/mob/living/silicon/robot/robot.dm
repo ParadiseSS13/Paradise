@@ -300,7 +300,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Generalist", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
+	var/list/modules = list("Engineering", "Medical", "Miner", "Janitor", "Service")
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
 	if(mmi != null && mmi.alien)
@@ -315,14 +315,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 	switch(modtype)
-		if("Generalist")
-			module = new /obj/item/robot_module/standard(src)
-			module.channels = list("Engineering" = 1, "Medical" = 1, "Security" = 1, "Service" = 1, "Supply" = 1)
-			module_sprites["Basic"] = "robot_old"
-			module_sprites["Android"] = "droid"
-			module_sprites["Default"] = "Standard"
-			module_sprites["Noble-STD"] = "Noble-STD"
-
 		if("Service")
 			module = new /obj/item/robot_module/butler(src)
 			module.channels = list("Service" = 1)
@@ -365,17 +357,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			see_reagents = TRUE
 
 		if("Security")
-			if(!weapons_unlock)
-				var/count_secborgs = 0
-				for(var/mob/living/silicon/robot/R in GLOB.alive_mob_list)
-					if(R && R.stat != DEAD && R.module && istype(R.module, /obj/item/robot_module/security))
-						count_secborgs++
-				var/max_secborgs = 2
-				if(GLOB.security_level == SEC_LEVEL_GREEN)
-					max_secborgs = 1
-				if(count_secborgs >= max_secborgs)
-					to_chat(src, "<span class='warning'>There are too many Security cyborgs active. Please choose another module.</span>")
-					return
 			module = new /obj/item/robot_module/security(src)
 			module.channels = list("Security" = 1)
 			module_sprites["Basic"] = "secborg"
@@ -1349,7 +1330,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scrambledcodes = 1
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
-	force_modules = list("Engineering", "Medical", "Security")
+	force_modules = list("Engineering", "Medical")
 	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE

@@ -18,7 +18,7 @@
 /datum/gear/suit/coat/job/sec
 	display_name = "Winter coat, security"
 	path = /obj/item/clothing/suit/hooded/wintercoat/security
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/suit/coat/job/captain
 	display_name = "Winter coat, captain"
@@ -38,7 +38,7 @@
 /datum/gear/suit/coat/job/engi
 	display_name = "Winter coat, engineering"
 	path = /obj/item/clothing/suit/hooded/wintercoat/engineering
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic")
+	allowed_roles = list("Chief Engineer", "Station Engineer")
 
 /datum/gear/suit/coat/job/atmos
 	display_name = "Winter coat, atmospherics"
@@ -106,12 +106,12 @@
 /datum/gear/suit/secjacket
 	display_name = "Security jacket"
 	path = /obj/item/clothing/suit/armor/secjacket
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/suit/secbomberjacket
 	display_name = "Security bomber jacket"
-	path = /obj/item/clothing/suit/jacket/pilot
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
+	path = /obj/item/clothing/suit/jacket/secbomber
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/suit/ianshirt
 	display_name = "Ian Shirt"

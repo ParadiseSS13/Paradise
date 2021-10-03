@@ -71,7 +71,7 @@
 /datum/gear/sechud
 	display_name = "Classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Internal Affairs Agent","Magistrate")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Internal Affairs Agent","Magistrate")
 
 /datum/gear/cryaonbox
 	display_name = "Box of crayons"
@@ -168,7 +168,7 @@
 /datum/gear/mug/department/eng
 	display_name = "Coffee mug, engineering"
 	description = "An engineer's coffee mug, emblazoned in the colors of the Engineering department."
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic", "Life Support Specialist")
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
 	path = /obj/item/reagent_containers/food/drinks/mug/eng
 
 /datum/gear/mug/department/med
@@ -186,7 +186,7 @@
 /datum/gear/mug/department/sec
 	display_name = "Coffee mug, security"
 	description = "An officer's coffee mug, emblazoned in the colors of the Security department."
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot", "Brig Physician", "Internal Affairs Agent")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Internal Affairs Agent")
 	path = /obj/item/reagent_containers/food/drinks/mug/sec
 
 /datum/gear/mug/department/serv

@@ -6,17 +6,17 @@
 /datum/gear/hat/hhat_yellow
 	display_name = "Hardhat, yellow"
 	path = /obj/item/clothing/head/hardhat
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic", "Life Support Specialist")
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
 
 /datum/gear/hat/hhat_orange
 	display_name = "Hardhat, orange"
 	path = /obj/item/clothing/head/hardhat/orange
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic", "Life Support Specialist")
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
 
 /datum/gear/hat/hhat_blue
 	display_name = "Hardhat, blue"
 	path = /obj/item/clothing/head/hardhat/dblue
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic", "Life Support Specialist")
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
 
 /datum/gear/hat/that
 	display_name = "Top hat"
@@ -57,12 +57,12 @@
 /datum/gear/hat/capcsec
 	display_name = "Security cap, corporate"
 	path = /obj/item/clothing/head/soft/sec/corp
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
 /datum/gear/hat/capsec
 	display_name = "Security cap"
 	path = /obj/item/clothing/head/soft/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
 /datum/gear/hat/capred
 	display_name = "Cap, red"
@@ -143,7 +143,7 @@
 /datum/gear/hat/beret_job/sec
 	display_name = "Beret, security"
 	path = /obj/item/clothing/head/beret/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
 /datum/gear/hat/beret_job/sci
 	display_name = "Beret, science"
