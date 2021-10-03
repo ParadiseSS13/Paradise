@@ -58,7 +58,7 @@
 #define JOB_NANO				(1<<0)
 #define JOB_BLUESHIELD		(1<<1)
 #define JOB_BARBER			(1<<3)
-#define JOB_MECHANIC			(1<<4)
+// #define JOB_MECHANIC			(1<<4)  // AA07 2021-10-02 - Removed: Kept for history sake
 #define JOB_BRIGDOC			(1<<5)
 #define JOB_JUDGE				(1<<6)
-#define JOB_PILOT				(1<<7)
+// #define JOB_PILOT				(1<<7) // AA07 2021-10-02 - Removed: Kept for history sake

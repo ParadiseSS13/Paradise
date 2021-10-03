@@ -31,7 +31,6 @@
 		"Science",
 		"Robotics",
 		"Research Director's Desk",
-		"Mechanic",
 		"Engineering" = list(MAT_METAL, MAT_GLASS, MAT_PLASMA),
 		"Chief Engineer's Desk" = list(MAT_METAL, MAT_GLASS, MAT_PLASMA),
 		"Atmospherics" = list(MAT_METAL, MAT_GLASS, MAT_PLASMA),

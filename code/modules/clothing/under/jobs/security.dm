@@ -183,11 +183,3 @@
 	item_state = "brig_physf"
 	item_color = "brig_physf"
 	permeability_coefficient = 0.50
-
-//Pod Pilot
-/obj/item/clothing/under/rank/security/pod_pilot
-	name = "pod pilot's jumpsuit"
-	desc = "Suit for your regular pod pilot."
-	icon_state = "pod_pilot"
-	item_state = "pod_pilot"
-	item_color = "pod_pilot"
