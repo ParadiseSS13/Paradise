@@ -21,6 +21,8 @@
 
 	var/max_mod_capacity = 100
 	var/list/modkits = list()
+	/// Can upgrades be installed on the gun?
+	var/modable = TRUE
 
 	var/recharge_timerid
 
@@ -29,14 +31,14 @@
 /obj/item/gun/energy/kinetic_accelerator/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		if(max_mod_capacity)
+		if(modable)
 			. += "<b>[get_remaining_mod_capacity()]%</b> mod capacity remaining."
 			for(var/A in get_modkits())
 				var/obj/item/borg/upgrade/modkit/M = A
 				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"
 
 /obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/borg/upgrade/modkit))
+	if(istype(I, /obj/item/borg/upgrade/modkit) && modable)
 		var/obj/item/borg/upgrade/modkit/MK = I
 		MK.install(src, user)
 	else
@@ -44,6 +46,8 @@
 
 /obj/item/gun/energy/kinetic_accelerator/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
+	if(!modable)
+		return
 	if(!modkits.len)
 		to_chat(user, "<span class='notice'>There are no modifications currently installed.</span>")
 		return
@@ -270,7 +274,11 @@
 
 /obj/item/borg/upgrade/modkit/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/gun/energy/kinetic_accelerator) && !issilicon(user))
-		install(A, user)
+		var/obj/item/gun/energy/kinetic_accelerator/KA = A
+		if(KA.modable)
+			install(A, user)
+		else
+			return ..()
 	else
 		return ..()
 
