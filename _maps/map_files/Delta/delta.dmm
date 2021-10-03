@@ -8711,8 +8711,16 @@
 	},
 /area/janitor)
 "aAx" = (
-/obj/item/reagent_containers/glass/bucket,
-/obj/structure/janitorialcart,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/window/westleft{
+	name = "Janitoral Delivery";
+	req_access_txt = "26"
+	},
 /turf/simulated/floor/plating,
 /area/janitor)
 "aAy" = (
@@ -9239,6 +9247,8 @@
 /obj/machinery/light_switch{
 	pixel_y = -26
 	},
+/obj/item/reagent_containers/glass/bucket,
+/obj/structure/janitorialcart,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
