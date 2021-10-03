@@ -24,8 +24,7 @@
 		/area/engine/break_room,
 		/area/engine/equipmentstorage,
 		/area/engine/chiefs_office,
-		/area/engine/controlroom,
-		/area/engine/mechanic_workshop
+		/area/engine/controlroom
 		))
 
 		allowed_areas = typecacheof(GLOB.the_station_areas) - safe_area_types + unsafe_area_subtypes
