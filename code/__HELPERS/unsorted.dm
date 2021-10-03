@@ -1554,7 +1554,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	if(orbiting == A) //make sure we haven't started orbiting something else.
 		orbiting = null
-		SpinAnimation(0, 0)
+		SpinAnimation(0, 0, parallel = FALSE)
 		transform = cached_transform
 
 

@@ -89,9 +89,9 @@
 	if(density)
 		smoothing_flags = NONE
 		clear_smooth_overlays()
-		icon_state = "fwall_opening"
+		flick("fwall_opening", src)
 	else
-		icon_state = "fwall_closing"
+		flick("fwall_closing", src)
 
 /obj/structure/falsewall/update_icon()
 	if(opening)
@@ -325,6 +325,7 @@
 /obj/structure/falsewall/sandstone
 	name = "sandstone wall"
 	desc = "A wall with sandstone plating."
+	icon = 'icons/turf/walls/sandstone_wall.dmi'
 	icon_state = "sandstone_wall-0"
 	base_icon_state = "sandstone_wall"
 	mineral = /obj/item/stack/sheet/mineral/sandstone
