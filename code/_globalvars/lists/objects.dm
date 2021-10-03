@@ -6,7 +6,6 @@ GLOBAL_LIST_INIT(landmarks_list, list())				//list of all landmarks created
 GLOBAL_LIST_INIT(surgery_steps, list())				//list of all surgery steps  |BS12
 GLOBAL_LIST_INIT(side_effects, list())				//list of all medical sideeffects types by thier names |BS12
 GLOBAL_LIST_INIT(mechas_list, list())				//list of all mechs. Used by hostile mobs target tracking.
-GLOBAL_LIST_INIT(spacepods_list, list())				//list of all space pods. Used by hostile mobs target tracking.
 GLOBAL_LIST_INIT(joblist, list())					//list of all jobstypes, minus borg and AI
 GLOBAL_LIST_INIT(airlocks, list())					//list of all airlocks
 GLOBAL_LIST_INIT(singularities, list())				//list of all singularities

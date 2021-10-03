@@ -211,11 +211,6 @@
 				stat("Total Blood", "[mind.vampire.bloodtotal]")
 				stat("Usable Blood", "[mind.vampire.bloodusable]")
 
-	if(istype(loc, /obj/spacepod)) // Spacdpods!
-		var/obj/spacepod/S = loc
-		stat("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")
-		stat("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
-
 /mob/living/carbon/human/ex_act(severity)
 	if(status_flags & GODMODE)
 		return FALSE
@@ -1955,7 +1950,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	if(GLOB.configuration.general.allow_character_metadata)
 		if(client)
-			to_chat(usr, "[src]'s Metainfo:<br>[sanitize(client.prefs.metadata)]")
+			to_chat(usr, "[src]'s Metainfo:<br>[sanitize(client.prefs.active_character.metadata)]")
 		else
 			to_chat(usr, "[src] does not have any stored infomation!")
 	else

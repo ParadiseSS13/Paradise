@@ -565,11 +565,11 @@
 	layer = 2.9
 	},
 /obj/structure/rack,
-/obj/item/gun/projectile/shotgun/riot/buckshot{
+/obj/item/gun/projectile/shotgun/riot{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/projectile/shotgun/riot/buckshot,
+/obj/item/gun/projectile/shotgun/riot,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Gx" = (
@@ -705,11 +705,11 @@
 	layer = 2.9
 	},
 /obj/structure/rack,
-/obj/item/gun/projectile/shotgun/riot/buckshot{
+/obj/item/gun/projectile/shotgun/riot{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/projectile/shotgun/riot/buckshot,
+/obj/item/gun/projectile/shotgun/riot,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Ns" = (
@@ -914,11 +914,11 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/gun/projectile/shotgun/riot/buckshot{
+/obj/item/gun/projectile/shotgun/riot{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/projectile/shotgun/riot/buckshot,
+/obj/item/gun/projectile/shotgun/riot,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 
