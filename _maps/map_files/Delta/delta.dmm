@@ -25717,10 +25717,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/atmos/glass{
-	name = "Power Monitoring";
-	req_one_access_txt = "24"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
