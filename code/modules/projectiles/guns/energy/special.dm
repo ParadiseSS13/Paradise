@@ -110,7 +110,6 @@
 	unique_frequency = TRUE
 	can_flashlight = 0
 	max_mod_capacity = 0
-	modable = FALSE
 	empty_state = null
 	can_holster = TRUE
 
