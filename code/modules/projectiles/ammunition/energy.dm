@@ -271,6 +271,14 @@
 	delay = 50
 	select_name = "snipe"
 
+/obj/item/ammo_casing/energy/emitter
+	projectile_type = /obj/item/projectile/beam/emitter
+	muzzle_flash_color = LIGHT_COLOR_GREEN
+	fire_sound = 'sound/weapons/emitter.ogg'
+	e_cost = 500 // about 28 shots on an engineering borg from a borging machine, assuming some power is used for lights / movement. May need to change.
+	delay = 3 SECONDS // Lasers fire every second
+	select_name = "emitter"
+
 /obj/item/ammo_casing/energy/bsg
 	projectile_type = /obj/item/projectile/energy/bsg
 	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
