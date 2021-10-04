@@ -1287,3 +1287,33 @@
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_CLOWN), "Clown")
 	H.sec_hud_set_ID()
+
+// Hispania Outfits
+
+/datum/outfit/admin/bishop
+	name = "Bishop"
+
+	uniform = /obj/item/clothing/under/rank/chaplain/cassock
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/laceup
+	l_ear = /obj/item/radio/headset/ert
+	id = /obj/item/card/id/silver
+	pda = /obj/item/pda
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1,
+		/obj/item/storage/bag/plasticbag/mre = 1,
+		/obj/item/clothing/suit/chasuble/bishop = 1,
+		/obj/item/clothing/head/miter = 1
+	)
+
+	implants = list(/obj/item/implant/mindshield)
+
+/datum/outfit/admin/bishop/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_centcom_access("VIP Guest"), "Bishop",)
+	H.sec_hud_set_ID()

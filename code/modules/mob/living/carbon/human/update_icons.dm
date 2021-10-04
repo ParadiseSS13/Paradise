@@ -531,6 +531,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_w_uniform()
 	remove_overlay(UNIFORM_LAYER)
+	remove_overlay(OVER_SHOE_LAYER)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_w_uniform]
 		if(inv)
@@ -557,6 +558,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/image/bloodsies	= image("icon" = dna.species.blood_mask, "icon_state" = "uniformblood")
 			bloodsies.color = w_uniform.blood_color
 			standing.overlays += bloodsies
+
+		var/obj/item/clothing/under/U = w_uniform
+		if(istype(U) && U.over_shoe)
+			standing.layer = -OVER_SHOE_LAYER
+			overlays_standing[OVER_SHOE_LAYER] = standing
+			apply_overlay(OVER_SHOE_LAYER)		
 
 		if(w_uniform.accessories.len)	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE. // oh my god kys whoever made this if statement jfc :gun:
 			for(var/obj/item/clothing/accessory/A in w_uniform:accessories)
@@ -824,6 +831,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		standing.alpha = head.alpha
 		standing.color = head.color
 		overlays_standing[HEAD_LAYER] = standing
+		standing.pixel_y = head.pixelYoffset
 	apply_overlay(HEAD_LAYER)
 
 /mob/living/carbon/human/update_inv_belt()

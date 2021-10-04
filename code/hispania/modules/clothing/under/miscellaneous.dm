@@ -27,3 +27,9 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	desc = "A sexy bunny suit, it is red. Made by KCompanies and distributed by D&N."
 	hispania_icon = TRUE
 	species_restricted = list("exclude", "Grey", "Vox")
+
+/obj/item/clothing/under/dress
+	over_shoe = TRUE
+
+/obj/item/clothing/under/wedding
+	over_shoe = TRUE

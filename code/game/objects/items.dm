@@ -117,6 +117,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	//variables hispania
 	var/hispania_icon = FALSE
 	var/outline_filter
+	var/pixelYoffset = 0
 
 	//Tooltip vars
 	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?
