@@ -491,7 +491,7 @@
 				var/mob/living/carbon/human/H = parrot_interest
 				var/obj/item/organ/external/affecting = H.get_organ(ran_zone(pick(parrot_dam_zone)))
 
-				H.apply_damage(damage, BRUTE, affecting, H.run_armor_check(affecting, "melee"), sharp = TRUE)
+				H.apply_damage(damage, BRUTE, affecting, H.run_armor_check(affecting, MELEE), sharp = TRUE)
 				custom_emote(EMOTE_VISUAL, pick("pecks [H]'s [affecting].", "cuts [H]'s [affecting] with its talons."))
 			else
 				L.adjustBruteLoss(damage)

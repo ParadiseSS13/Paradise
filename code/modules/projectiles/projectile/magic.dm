@@ -5,7 +5,7 @@
 	damage_type = OXY
 	nodamage = 1
 	armour_penetration = 100
-	flag = "magic"
+	flag = MAGIC
 
 /obj/item/projectile/magic/death
 	name = "bolt of death"
@@ -267,9 +267,10 @@
 			if("human")
 				new_mob = new /mob/living/carbon/human(M.loc)
 				var/mob/living/carbon/human/H = new_mob
-				var/datum/preferences/A = new()	//Randomize appearance for the human
-				A.species = get_random_species(TRUE)
-				A.copy_to(new_mob)
+				var/datum/character_save/S = new //Randomize appearance for the human
+				S.species = get_random_species(TRUE)
+				S.randomise()
+				S.copy_to(new_mob)
 				randomize = H.dna.species.name
 			else
 				return
@@ -367,5 +368,5 @@
 	damage_type = BURN
 	nodamage = FALSE
 	armour_penetration = 0
-	flag = "magic"
+	flag = MAGIC
 	hitsound = 'sound/weapons/barragespellhit.ogg'

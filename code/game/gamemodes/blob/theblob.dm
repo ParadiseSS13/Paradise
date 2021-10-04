@@ -8,7 +8,7 @@
 	opacity = 0
 	anchored = 1
 	max_integrity = 30
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
 	var/health_timestamp = 0
 	var/brute_resist = 0.5 //multiplies brute damage by this
@@ -144,7 +144,7 @@
 	L.blob_act(src)
 
 /obj/structure/blob/zap_act(power, zap_flags)
-	take_damage(power * 0.0025, BURN, "energy")
+	take_damage(power * 0.0025, BURN, ENERGY)
 	power -= power * 0.0025 //You don't get to do it for free
 	return ..() //You don't get to do it for free
 
