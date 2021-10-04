@@ -208,11 +208,12 @@
 
 /obj/item/deck/proc/deckshuffle()
 	var/mob/living/user = usr
-	if(cooldown < world.time - 5 SECONDS)
-		cards = shuffle(cards)
-		user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
-		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
-		cooldown = world.time
+	if(!isobserver(user))
+		if(cooldown < world.time - 5 SECONDS)
+			cards = shuffle(cards)
+			user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
+			playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
+			cooldown = world.time
 
 
 /obj/item/deck/MouseDrop(atom/over_object) // Code from Paper bin, so you can still pick up the deck
