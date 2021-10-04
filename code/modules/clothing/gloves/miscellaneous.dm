@@ -165,12 +165,10 @@
 /obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)
 	var/mob/living/M = loc
 
-	if(M.a_intent in accepted_intents)
-		if(M.mind.martial_art || HAS_TRAIT(M, TRAIT_HULK))
-			M.changeNext_move(CLICK_CD_MELEE)//normal attack speed for hulk, CQC and Carp.
-		else
-			M.changeNext_move(click_speed_modifier)
-	.= FALSE
+	if((M.a_intent in accepted_intents) && !M.mind.martial_art?.can_use(M) && !HAS_TRAIT(M, TRAIT_HULK))
+		M.changeNext_move(click_speed_modifier)
+
+	return FALSE
 
 /obj/item/clothing/gloves/fingerless/rapid/admin
 	name = "advanced interactive gloves"

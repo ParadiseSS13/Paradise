@@ -3,6 +3,7 @@
 
 #define CUT_TIME 100
 #define CLIMB_TIME 150
+#define FULL_CUT_TIME 300
 
 #define NO_HOLE 0 //section is intact
 #define MEDIUM_HOLE 1 //medium hole in the section - can climb through
@@ -88,29 +89,34 @@
 	. = TRUE
 	if(shock(user, 100))
 		return
-	if(!cuttable)
-		to_chat(user, "<span class='warning'>This section of the fence can't be cut!</span>")
-		return
 	if(invulnerable)
 		to_chat(user, "<span class='warning'>This fence is too strong to cut through!</span>")
 		return
+	if(!cuttable)
+		user.visible_message("<span class='warning'>[user] starts dismantling [src] with [W].</span>",\
+		"<span class='warning'>You start dismantling [src] with [W].</span>")
+		if(W.use_tool(src, user, FULL_CUT_TIME, volume = W.tool_volume))
+			user.visible_message("<span class='notice'>[user] completely dismantles [src].</span>",\
+			"<span class='info'>You completely dismantle [src].</span>")
+			qdel(src)
+		return
 	var/current_stage = hole_size
-	user.visible_message("<span class='danger'>\The [user] starts cutting through \the [src] with \the [W].</span>",\
-	"<span class='danger'>You start cutting through \the [src] with \the [W].</span>")
+	user.visible_message("<span class='warning'>[user] starts cutting through [src] with [W].</span>",\
+	"<span class='warning'>You start cutting through [src] with [W].</span>")
 	if(W.use_tool(src, user, CUT_TIME * W.toolspeed, volume = W.tool_volume))
 		if(current_stage == hole_size)
 			switch(hole_size)
 				if(NO_HOLE)
-					visible_message("<span class='notice'>\The [user] cuts into \the [src] some more.</span>")
-					to_chat(user, "<span class='info'>You could probably fit yourself through that hole now. Although climbing through would be much faster if you made it even bigger.</span>")
+					user.visible_message("<span class='notice'>[user] cuts into [src] some more.</span>",\
+					"<span class='info'>You could probably fit yourself through that hole now. Although climbing through would be much faster if you made it even bigger.</span>")
 					hole_size = MEDIUM_HOLE
 				if(MEDIUM_HOLE)
-					visible_message("<span class='notice'>\The [user] completely cuts through \the [src].</span>")
-					to_chat(user, "<span class='info'>The hole in \the [src] is now big enough to walk through.</span>")
+					user.visible_message("<span class='notice'>[user] completely cuts through [src].</span>",\
+					"<span class='info'>The hole in [src] is now big enough to walk through.</span>")
 					hole_size = LARGE_HOLE
 				if(LARGE_HOLE)
-					visible_message("<span class='notice'>\The [user] completely dismantles \the [src].</span>")
-					to_chat(user, "<span class='info'>You completely take apart \the [src].</span>")
+					user.visible_message("<span class='notice'>[user] completely dismantles [src].</span>",\
+					"<span class='info'>You completely take apart [src].</span>")
 					qdel(src)
 					return
 			update_cut_status()
@@ -208,6 +214,7 @@
 
 #undef CUT_TIME
 #undef CLIMB_TIME
+#undef FULL_CUT_TIME
 
 #undef NO_HOLE
 #undef MEDIUM_HOLE
