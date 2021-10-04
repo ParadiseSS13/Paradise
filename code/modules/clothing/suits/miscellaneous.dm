@@ -21,7 +21,7 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/redtag
@@ -36,7 +36,7 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /*
@@ -49,7 +49,7 @@
 	item_state = "pirate_old"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/pirate_black
@@ -59,7 +59,7 @@
 	item_state = "pirate"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/hgpirate
@@ -122,7 +122,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/apron/overalls
@@ -269,7 +269,7 @@
 	item_state = "classicponcho"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/poncho/green
@@ -370,10 +370,10 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/suit.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/head/hooded/winterhood
 	name = "winter hood"
@@ -385,14 +385,14 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/head.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/suit/hooded/wintercoat/captain
 	name = "captain's winter coat"
 	icon_state = "wintercoat_captain"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatcaptain"
-	armor = list("melee" = 25, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
+	armor = list(MELEE = 25, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/captain
 
@@ -404,7 +404,7 @@
 	icon_state = "wintercoat_sec"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatsecurity"
-	armor = list("melee" = 15, "bullet" = 10, "laser" = 15, "energy" = 5, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
 
@@ -417,7 +417,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatmedical"
 	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 0, "acid" = 45)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, RAD = 0, FIRE = 0, ACID = 45)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical
 
 /obj/item/clothing/head/hooded/winterhood/medical
@@ -440,7 +440,7 @@
 	icon_state = "wintercoat_engi"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatengineer"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 20, "fire" = 30, "acid" = 45)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 20, FIRE = 30, ACID = 45)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/t_scanner, /obj/item/rcd)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering
 
@@ -481,7 +481,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatminer"
 	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/miner
 
 /obj/item/clothing/head/hooded/winterhood/miner
@@ -502,7 +502,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen)
 	hoodtype = /obj/item/clothing/head/hooded/hood
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/head/hooded/hood
@@ -515,7 +515,7 @@
 	flags_inv = HIDEEARS
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 
 /obj/item/clothing/head/hooded/hood/blue
@@ -576,7 +576,7 @@
 	item_state = "ianshirt"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 
@@ -626,7 +626,7 @@
 	item_state = "brtrenchcoat"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/blacktrenchcoat
@@ -636,7 +636,7 @@
 	item_state = "bltrenchcoat"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 //trackjackets
@@ -653,7 +653,7 @@
 	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/tracksuit/green
@@ -786,10 +786,10 @@
 	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
-/obj/item/clothing/suit/jacket/pilot
+/obj/item/clothing/suit/jacket/secbomber
 	name = "security bomber jacket"
 	desc = "A stylish and worn-in armoured black bomber jacket emblazoned with the NT Security crest on the left breast. Looks rugged."
 	w_class = WEIGHT_CLASS_NORMAL
@@ -803,7 +803,7 @@
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	strip_delay = 60
 	put_on_delay = 40
-	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0, fire = 50, acid = 50)
+	armor = list(melee = 15, bullet = 5, laser = 15, energy = 5, bomb = 15, bio = 0, rad = 0, fire = 30, acid = 30)
 	//End of inheritance from Security armour.
 
 /obj/item/clothing/suit/jacket/leather
@@ -826,9 +826,9 @@
 	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Grey" = 'icons/mob/species/grey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/jacket/leather/overcoat
@@ -848,7 +848,7 @@
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/soldiercoat
@@ -861,7 +861,7 @@
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/toggle/owlwings
@@ -967,10 +967,12 @@
 
 //Syndicate Chaplain Robe (WOLOLO!)
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe
-	description_antag = "This robe is made of reinforced fibers, granting it superior protection. The robes also wirelessly generate power for the neurotransmitter in the linked missionary staff while being worn."
 	w_class = WEIGHT_CLASS_NORMAL
 	armor = list(melee = 10, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 15, fire = 30, acid = 30)
 	var/obj/item/nullrod/missionary_staff/linked_staff = null
+
+/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/detailed_examine_antag()
+	return "This robe is made of reinforced fibers, granting it superior protection. The robes also wirelessly generate power for the neurotransmitter in the linked missionary staff while being worn."
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/Destroy()
 	if(linked_staff)	//delink on destruction

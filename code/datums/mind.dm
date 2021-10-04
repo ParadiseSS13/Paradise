@@ -85,6 +85,10 @@
 	original = null
 	return ..()
 
+/datum/mind/proc/get_display_key()
+	var/clientKey = current?.client.get_display_key()
+	return clientKey ? clientKey : key
+
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current

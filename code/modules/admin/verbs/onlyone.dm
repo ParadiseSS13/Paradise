@@ -11,8 +11,9 @@
 			continue
 		if(is_type_in_list(H.dna.species, incompatible_species))
 			H.set_species(/datum/species/human)
-			var/datum/preferences/A = new()	// Randomize appearance
-			A.copy_to(H)
+			var/datum/character_save/S = new	// Randomize appearance
+			S.randomise()
+			S.copy_to(H)
 
 		SSticker.mode.traitors += H.mind
 		H.mind.special_role = SPECIAL_ROLE_TRAITOR

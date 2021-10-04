@@ -13,7 +13,7 @@
 /datum/game_mode/revolution
 	name = "revolution"
 	config_tag = "revolution"
-	restricted_jobs = list("Security Officer", "Warden", "Detective", "Internal Affairs Agent", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician")
+	restricted_jobs = list("Security Officer", "Warden", "Detective", "Internal Affairs Agent", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician")
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 3
@@ -38,7 +38,7 @@
 /datum/game_mode/revolution/pre_setup()
 	possible_revolutionaries = get_players_for_role(ROLE_REV)
 
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs
 
 
@@ -110,7 +110,7 @@
 		to_chat(rev_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
 		obj_count++
-	to_chat(rev_mind.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Revolution)</span>")
+	to_chat(rev_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Revolution)</span>")
 
 /////////////////////////////////////////////////////////////////////////////////
 //This are equips the rev heads with their gear, and makes the clown not clumsy//
@@ -214,13 +214,13 @@
 //Checks if the round is over//
 ///////////////////////////////
 /datum/game_mode/revolution/check_finished()
-	if(config.continuous_rounds)
+	if(GLOB.configuration.gamemode.disable_certain_round_early_end)
 		if(finished != 0)
 			SSshuttle.emergencyNoEscape = 0
 			if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 				SSshuttle.emergency.mode = SHUTTLE_DOCKED
 				SSshuttle.emergency.timer = world.time
-				GLOB.command_announcement.Announce("Hostile enviroment resolved. You have 3 minutes to board the Emergency Shuttle.", null, 'sound/AI/shuttledock.ogg')
+				GLOB.command_announcement.Announce("Hostile enviroment resolved. You have 3 minutes to board the Emergency Shuttle.", null, 'sound/AI/eshuttle_dock.ogg')
 		return ..()
 	if(finished != 0)
 		return TRUE

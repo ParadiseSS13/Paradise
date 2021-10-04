@@ -29,6 +29,11 @@ Note: Must be placed within 3 tiles of the R&D Console
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	RefreshParts()
 
+/obj/machinery/r_n_d/destructive_analyzer/Destroy()
+	if(linked_console)
+		linked_console.linked_destroy = null
+	return ..()
+
 /obj/machinery/r_n_d/destructive_analyzer/RefreshParts()
 	var/T = 0
 	for(var/obj/item/stock_parts/S in component_parts)

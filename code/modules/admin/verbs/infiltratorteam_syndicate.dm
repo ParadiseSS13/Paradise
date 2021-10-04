@@ -34,7 +34,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			return
 	var/tctext = input(src, "How much TC do you want to give each team member? Suggested: 20-30. They cannot trade TC.") as num
 	var/tcamount = text2num(tctext)
-	tcamount = between(0, tcamount, 1000)
+	tcamount = clamp(tcamount, 0, 1000)
 	if(GLOB.sent_syndicate_infiltration_team == 1)
 		if(alert("A Syndicate Infiltration Team has already been sent. Sure you want to send another?",,"Yes","No")=="No")
 			return
@@ -124,9 +124,10 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 	var/syndicate_infiltrator_name = random_name(pick(MALE,FEMALE))
 
-	var/datum/preferences/A = new() //Randomize appearance
-	A.real_name = syndicate_infiltrator_name
-	A.copy_to(new_syndicate_infiltrator)
+	var/datum/character_save/S = new //Randomize appearance
+	S.randomise()
+	S.real_name = syndicate_infiltrator_name
+	S.copy_to(new_syndicate_infiltrator)
 	new_syndicate_infiltrator.dna.ready_dna(new_syndicate_infiltrator)
 
 	//Creates mind stuff.

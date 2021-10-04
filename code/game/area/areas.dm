@@ -102,7 +102,7 @@
 		else if(dynamic_lighting != DYNAMIC_LIGHTING_IFSTARLIGHT)
 			dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	if(dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
-		dynamic_lighting = config.starlight ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
+		dynamic_lighting = GLOB.configuration.general.starlight ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
 
 	. = ..()
 
@@ -346,7 +346,7 @@
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
 	for(var/obj/machinery/light/L in src)
-		L.update()
+		L.update(TRUE, TRUE, FALSE)
 
 /**
   * unset the fire alarm visual affects in an area
@@ -360,7 +360,7 @@
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
 	for(var/obj/machinery/light/L in src)
-		L.update()
+		L.update(TRUE, TRUE, FALSE)
 
 /area/proc/updateicon()
 	var/weather_icon

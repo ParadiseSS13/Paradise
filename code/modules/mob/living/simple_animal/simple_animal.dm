@@ -332,7 +332,7 @@
 	. = speed
 	if(forced_look)
 		. += 3
-	. += config.animal_delay
+	. += GLOB.configuration.movement.animal_delay
 
 /mob/living/simple_animal/Stat()
 	..()
@@ -396,10 +396,6 @@
 	if(ismecha(the_target))
 		var/obj/mecha/M = the_target
 		if(M.occupant)
-			return FALSE
-	if(isspacepod(the_target))
-		var/obj/spacepod/S = the_target
-		if(S.pilot)
 			return FALSE
 	return TRUE
 

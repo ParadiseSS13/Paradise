@@ -18,28 +18,28 @@
 	max_damage = 35
 	min_broken_damage = 20
 	amputation_point = "upper left trunk"
-	convertable_children = list(/obj/item/organ/external/arm/diona)
+	convertable_children = list(/obj/item/organ/external/hand/diona)
 
 /obj/item/organ/external/arm/right/diona
 	name = "right upper tendril"
 	max_damage = 35
 	min_broken_damage = 20
 	amputation_point = "upper right trunk"
-	convertable_children = list(/obj/item/organ/external/arm/right/diona)
+	convertable_children = list(/obj/item/organ/external/hand/right/diona)
 
 /obj/item/organ/external/leg/diona
 	name = "left lower tendril"
 	max_damage = 35
 	min_broken_damage = 20
 	amputation_point = "lower left fork"
-	convertable_children = list(/obj/item/organ/external/leg/diona)
+	convertable_children = list(/obj/item/organ/external/foot/diona)
 
 /obj/item/organ/external/leg/right/diona
 	name = "right lower tendril"
 	max_damage = 35
 	min_broken_damage = 20
 	amputation_point = "lower right fork"
-	convertable_children = list(/obj/item/organ/external/leg/right/diona)
+	convertable_children = list(/obj/item/organ/external/foot/right/diona)
 
 /obj/item/organ/external/foot/diona
 	name = "left foot"

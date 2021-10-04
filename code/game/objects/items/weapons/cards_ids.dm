@@ -89,7 +89,7 @@
 	var/list/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
 	slot_flags = SLOT_ID
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
 
@@ -416,7 +416,6 @@
 							"gold",
 							"silver",
 							"centcom",
-							"centcom_old",
 							"security",
 							"medical",
 							"HoS",
@@ -735,7 +734,7 @@
 	registered_name = "HoS"
 	icon_state = "HoS"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
-			            ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
+			            ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
 			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
 			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS)
 
@@ -763,7 +762,7 @@
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
 			            ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
 			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
-			            ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MECHANIC, ACCESS_MINERAL_STOREROOM)
+			            ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/clown
 	name = "Pink ID"
@@ -891,7 +890,7 @@
 	return list("data","id","gold","silver","security","medical","research","cargo","engineering","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
 
 /proc/get_centcom_card_skins()
-	return list("centcom","centcom_old","nanotrasen","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
+	return list("centcom","nanotrasen","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
 
 /proc/get_all_card_skins()
 	return get_station_card_skins() + get_centcom_card_skins()
@@ -910,8 +909,6 @@
 			return "Research Director"
 		if("CE")
 			return "Chief Engineer"
-		if("centcom_old")
-			return "Centcom Old"
 		if("ERT_leader")
 			return "ERT Leader"
 		if("ERT_empty")
