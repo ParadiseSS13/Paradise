@@ -80,7 +80,7 @@
 	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
 		to_chat(user, "<span class='warning'>Your fingers can't press the button!</span>")
 		return
-	if(!(target in view(7, get_turf(user))))
+	if(!(target in view(7, get_turf(user)))) // Use the turf as center so it won't use the potential xray of the user
 		to_chat(user, "<span class='warning'>There is something in the way!</span>")
 		return
 
