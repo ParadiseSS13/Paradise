@@ -312,9 +312,9 @@
 	if(shocked)
 		if(shock(user, 100))
 			return
-	if (user.a_intent != INTENT_HELP)
-		return ..()
 	if(!is_operational())
+		if(user.a_intent != INTENT_HELP)
+			return ..()
 		if(panel_open)
 			to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
 		else
