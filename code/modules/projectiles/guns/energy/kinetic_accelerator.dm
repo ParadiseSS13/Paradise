@@ -44,7 +44,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
-	if(max_mod_capacity == 0)
+	if(!max_mod_capacity)
 		return
 	if(!modkits.len)
 		to_chat(user, "<span class='notice'>There are no modifications currently installed.</span>")
