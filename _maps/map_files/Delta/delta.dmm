@@ -34499,7 +34499,9 @@
 /area/security/nuke_storage)
 "bAK" = (
 /obj/machinery/light/small,
-/obj/structure/safe,
+/obj/structure/safe{
+	known_by = list("captain")
+	},
 /obj/item/clothing/head/bearpelt,
 /obj/item/folder/documents,
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
