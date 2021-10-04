@@ -100,13 +100,13 @@
 
 /obj/machinery/suit_storage_unit/security/pod_pilot
 	req_access = list(ACCESS_PILOT)
-	
+
 /obj/machinery/suit_storage_unit/security/hos
 	name = "Head of Security's suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
 	mask_type = /obj/item/clothing/mask/gas/sechailer/hos
 	req_access = list(ACCESS_HOS)
-	
+
 /obj/machinery/suit_storage_unit/security/hos/secure
 	secure = TRUE
 
@@ -315,6 +315,8 @@
 	if(shocked)
 		if(shock(user, 100))
 			return
+	if (user.a_intent != INTENT_HELP)
+		return ..()
 	if(!is_operational())
 		if(panel_open)
 			to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
