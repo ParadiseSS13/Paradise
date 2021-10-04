@@ -397,6 +397,29 @@
 	))
 
 /**
+  * # Food and Drink Cart
+  *
+  * Variant of the [Smart Fridge][/obj/machinery/smartfridge] that holds food and drinks in a mobile form
+  */
+/obj/machinery/smartfridge/foodcart
+	name = "\improper Food and Drink Cart"
+	desc = "A portable cart for hawking your food and drink wares around the station"
+	icon = 'icons/obj/foodcart.dmi'
+	icon_state = "cart"
+	anchored = FALSE
+	use_power = NO_POWER_USE
+	visible_contents = FALSE
+
+
+/obj/machinery/smartfridge/foodcart/Initialize(mapload)
+	. = ..()
+	accepted_items_typecache = typecacheof(list(
+		/obj/item/reagent_containers/food/snacks,
+		/obj/item/reagent_containers/food/drinks,
+		/obj/item/reagent_containers/food/condiment,
+	))
+
+/**
   * # Circuit Boards Storage
   *
   * Circuit variant of the [Smart Fridge][/obj/machinery/smartfridge].

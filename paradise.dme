@@ -1060,7 +1060,6 @@
 #include "code\game\objects\structures\fence.dm"
 #include "code\game\objects\structures\flora.dm"
 #include "code\game\objects\structures\fluff.dm"
-#include "code\game\objects\structures\foodcart.dm"
 #include "code\game\objects\structures\girders.dm"
 #include "code\game\objects\structures\grille.dm"
 #include "code\game\objects\structures\guillotine.dm"
