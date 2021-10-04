@@ -83532,7 +83532,7 @@
 /obj/item/paper{
 	info = "I.O.U. some shinies - Mr V. Ox"
 	},
-/mob/living/simple_animal/hostile/scarybat/batswarm,
+/mob/living/simple_animal/hostile/scarybat,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "kYw" = (
