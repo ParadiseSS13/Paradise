@@ -29818,6 +29818,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/vending/walldrobe/chap{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
