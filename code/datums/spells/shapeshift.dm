@@ -96,10 +96,10 @@
 	invocation_type = "none"
 	action_icon_state = "vampire_bats"
 
-	shapeshift_type = /mob/living/simple_animal/hostile/scarybat/batswarm
-	current_shapes = list(/mob/living/simple_animal/hostile/scarybat/batswarm)
+	shapeshift_type = /mob/living/simple_animal/hostile/scarybat/adminvampire
+	current_shapes = list(/mob/living/simple_animal/hostile/scarybat/adminvampire)
 	current_casters = list()
-	possible_shapes = list(/mob/living/simple_animal/hostile/scarybat/batswarm)
+	possible_shapes = list(/mob/living/simple_animal/hostile/scarybat/adminvampire)
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/hellhound
 	name = "Lesser Hellhound Form"

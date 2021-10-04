@@ -41,7 +41,6 @@
 		"Engine Technician" = "engradio",
 		"Life Support Specialist" = "engradio",
 		"Maintenance Technician" = "engradio",
-		"Mechanic" = "engradio",
 		"Station Engineer" = "engradio",
 		// Central Command
 		"Emergency Response Team Engineer" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
@@ -92,7 +91,6 @@
 		"Internal Affairs Agent" = "secradio",
 		"Magistrate" = "secradio",
 		"Security Officer" = "secradio",
-		"Security Pod Pilot" = "secradio",
 		"Warden" = "secradio",
 		// Supply
 		"Quartermaster" = "supradio",

@@ -68,8 +68,6 @@
 			targets2 += M
 		else
 			targets3 += M
-	for(var/obj/spacepod/S in view(src, vision_range))
-		targets3 += S
 	if(targets1.len)
 		return targets1
 	if(targets2.len)
@@ -188,11 +186,6 @@
 			if(M.occupant)
 				enemies |= M
 				enemies |= M.occupant
-		else if(istype(A, /obj/spacepod))
-			var/obj/spacepod/M = A
-			if(M.pilot)
-				enemies |= M
-				enemies |= M.pilot
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/H in ts_nearby)
 		var/retaliate_faction_check = 0
 		for(var/F in faction)
