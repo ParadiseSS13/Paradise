@@ -50501,7 +50501,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light_switch{
-	pixel_x = 25
+	dir = 8;
+	pixel_x = 25;
+	pixel_y = -2
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -79617,6 +79619,7 @@
 /area/maintenance/port)
 "drp" = (
 /obj/machinery/button/windowtint{
+	dir = 1;
 	pixel_y = -24
 	},
 /obj/item/twohanded/required/kirbyplants,
@@ -82704,10 +82707,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/centcom{
-	id_tag = null;
+/obj/machinery/door/airlock{
 	name = "Morgue";
-	opacity = 1;
 	req_access_txt = "6"
 	},
 /turf/simulated/floor/plasteel{
@@ -84099,10 +84100,8 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/centcom{
-	id_tag = null;
+/obj/machinery/door/airlock{
 	name = "Morgue";
-	opacity = 1;
 	req_access_txt = "6"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -84799,10 +84798,8 @@
 /area/hallway/primary/aft)
 "dBS" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/centcom{
-	id_tag = null;
+/obj/machinery/door/airlock{
 	name = "Morgue";
-	opacity = 1;
 	req_access_txt = "6"
 	},
 /obj/structure/disposalpipe/segment{
@@ -88406,10 +88403,6 @@
 /area/hallway/secondary/exit)
 "dKr" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/centcom{
-	name = "Chapel";
-	opacity = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -88521,9 +88514,8 @@
 	},
 /area/chapel/office)
 "dKK" = (
-/obj/machinery/door/airlock/centcom{
+/obj/machinery/door/airlock/glass{
 	name = "Chapel Morgue";
-	opacity = 1;
 	req_access_txt = "27"
 	},
 /turf/simulated/floor/plasteel{
@@ -88549,12 +88541,12 @@
 /area/chapel/main)
 "dKO" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/centcom{
-	name = "Chapel";
-	opacity = 1
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 2;
+	name = "Chapel"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -89563,9 +89555,9 @@
 /area/chapel/main)
 "dMX" = (
 /obj/structure/chair/wood,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 28
+/obj/machinery/button/windowtint{
+	dir = 8;
+	pixel_x = 25
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
@@ -90156,9 +90148,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/centcom{
+/obj/machinery/door/airlock/glass{
 	name = "Chapel Morgue";
-	opacity = 1;
 	req_access_txt = "27"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -91784,9 +91775,8 @@
 /area/chapel/main)
 "dRP" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/centcom{
+/obj/machinery/door/airlock/glass{
 	name = "Chapel Office";
-	opacity = 1;
 	req_access_txt = "27"
 	},
 /turf/simulated/floor/plasteel{
@@ -91988,9 +91978,8 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "dSr" = (
-/obj/machinery/door/airlock/centcom{
+/obj/machinery/door/airlock/glass{
 	name = "Chapel Office";
-	opacity = 1;
 	req_access_txt = "27"
 	},
 /turf/simulated/floor/plasteel{
@@ -92629,9 +92618,8 @@
 	},
 /area/chapel/office)
 "dUd" = (
-/obj/machinery/door/airlock/centcom{
+/obj/machinery/door/airlock/glass{
 	name = "Chapel Office";
-	opacity = 1;
 	req_access_txt = "27"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -95067,6 +95055,10 @@
 	icon_state = "white"
 	},
 /area/hallway/primary/central)
+"fgT" = (
+/obj/effect/spawner/window/reinforced/polarized,
+/turf/simulated/floor/plating,
+/area/chapel/main)
 "fhF" = (
 /turf/space,
 /area/shuttle/gamma/station)
@@ -99481,6 +99473,16 @@
 	icon_state = "red"
 	},
 /area/security/seceqstorage)
+"sVr" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/chapel/main)
 "sWi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -137882,7 +137884,7 @@ dNK
 dOt
 dOZ
 dOr
-dMj
+sVr
 dRa
 dRA
 dJx
@@ -138130,15 +138132,15 @@ dku
 dHA
 ddy
 dJx
-dKm
+fgT
 dKr
 dKO
-dKm
+fgT
 dJx
-dKm
+fgT
 dJx
 dJx
-dKm
+fgT
 dJx
 dJx
 dJx
