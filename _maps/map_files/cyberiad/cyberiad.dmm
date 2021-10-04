@@ -85075,7 +85075,7 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "xWX" = (
-/mob/living/simple_animal/hostile/scarybat/batswarm,
+/mob/living/simple_animal/hostile/scarybat,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "ycV" = (
