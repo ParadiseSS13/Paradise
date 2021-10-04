@@ -251,7 +251,7 @@
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
 		if(!player.client.skip_antag)
-			if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
+			if((role in player.client.prefs.be_special) && !(player.client.prefs.active_character.species in protected_species))
 				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
 				candidates += player.mind
 				players -= player
@@ -463,7 +463,7 @@
 	var/jobtext = ""
 	if(ply.assigned_role)
 		jobtext = " the <b>[ply.assigned_role]</b>"
-	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext] and"
+	var/text = "<b>[ply.get_display_key()]</b> was <b>[ply.name]</b>[jobtext] and"
 	if(ply.current)
 		if(ply.current.stat == DEAD)
 			text += " <span class='redtext'>died</span>"
@@ -480,7 +480,7 @@
 	return text
 
 /proc/printeventplayer(datum/mind/ply)
-	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>"
+	var/text = "<b>[ply.get_display_key()]</b> was <b>[ply.name]</b>"
 	if(ply.special_role != SPECIAL_ROLE_EVENTMISC)
 		text += " the [ply.special_role]"
 	text += " and"

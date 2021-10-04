@@ -868,7 +868,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(b_type & PROTOLATHE) lathe_types += "Protolathe"
 				if(b_type & AUTOLATHE) lathe_types += "Autolathe"
 				if(b_type & MECHFAB) lathe_types += "Mech Fabricator"
-				if(b_type & PODFAB) lathe_types += "Spacepod Fabricator"
 				if(b_type & BIOGENERATOR) lathe_types += "Biogenerator"
 				if(b_type & SMELTER) lathe_types += "Smelter"
 			var/list/materials = list()
@@ -954,13 +953,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	desc = "A console used to interface with R&D tools."
 	id = 3
 	circuit = /obj/item/circuitboard/rdconsole/experiment
-
-/obj/machinery/computer/rdconsole/mechanics
-	name = "mechanics R&D console"
-	desc = "A console used to interface with R&D tools."
-	id = 4
-	req_access = list(ACCESS_MECHANIC)
-	circuit = /obj/item/circuitboard/rdconsole/mechanics
 
 /obj/machinery/computer/rdconsole/public
 	name = "public R&D console"

@@ -64,7 +64,7 @@
 	desc = "A heads-up display capable of analyzing the integrity and status of robotics and exosuits."
 	icon_state = "diagnostichud"
 	origin_tech = "magnets=2;engineering=2"
-	HUDType = DATA_HUD_DIAGNOSTIC
+	HUDType = DATA_HUD_DIAGNOSTIC_BASIC
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',

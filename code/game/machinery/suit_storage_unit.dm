@@ -98,15 +98,12 @@
 /obj/machinery/suit_storage_unit/security/secure
 	secure = TRUE
 
-/obj/machinery/suit_storage_unit/security/pod_pilot
-	req_access = list(ACCESS_PILOT)
-	
 /obj/machinery/suit_storage_unit/security/hos
 	name = "Head of Security's suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
 	mask_type = /obj/item/clothing/mask/gas/sechailer/hos
 	req_access = list(ACCESS_HOS)
-	
+
 /obj/machinery/suit_storage_unit/security/hos/secure
 	secure = TRUE
 
@@ -284,11 +281,6 @@
 
 /obj/machinery/suit_storage_unit/Destroy()
 	SStgui.close_uis(wires)
-	QDEL_NULL(suit)
-	QDEL_NULL(helmet)
-	QDEL_NULL(mask)
-	QDEL_NULL(boots)
-	QDEL_NULL(storage)
 	QDEL_NULL(wires)
 	return ..()
 
