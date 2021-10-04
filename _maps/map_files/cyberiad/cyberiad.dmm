@@ -64421,7 +64421,9 @@
 	},
 /area/toxins/misc_lab)
 "cDI" = (
-/obj/machinery/computer/drone_control,
+/obj/machinery/computer/drone_control{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "cDJ" = (
