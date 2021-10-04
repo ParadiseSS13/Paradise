@@ -198,6 +198,11 @@
 
 	..()	//redirect to hsrc.Topic()
 
+
+/client/proc/get_display_key()
+	var/fakekey = src?.holder?.fakekey
+	return fakekey ? fakekey : key
+
 /client/proc/is_content_unlocked()
 	if(!prefs.unlock_content)
 		to_chat(src, "Become a BYOND member to access member-perks and features, as well as support the engine that makes this game possible. <a href='http://www.byond.com/membership'>Click here to find out more</a>.")
