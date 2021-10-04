@@ -287,6 +287,8 @@
 
 	log_client_to_db(tdata) // Make sure our client exists in the DB
 
+	pai_save = new(src)
+
 	// This is where we load all of the clients stuff from the DB
 	if(SSdbcore.IsConnected())
 		// Load in all our client data from the DB
@@ -449,6 +451,7 @@
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 	QDEL_NULL(chatOutput)
+	QDEL_NULL(pai_save)
 	if(movingmob)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
