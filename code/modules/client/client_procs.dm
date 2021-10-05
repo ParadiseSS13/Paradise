@@ -147,14 +147,10 @@
 							karma_purchase(karma,5,"job","Brig Physician")
 						if("3")
 							karma_purchase(karma,30,"job","Nanotrasen Representative")
-						if("5")
+						if("4")
 							karma_purchase(karma,30,"job","Blueshield")
-						if("6")
-							karma_purchase(karma,30,"job","Mechanic")
-						if("7")
+						if("5")
 							karma_purchase(karma,45,"job","Magistrate")
-						if("9")
-							karma_purchase(karma,30,"job","Security Pod Pilot")
 					return
 				if(href_list["KarmaBuy2"])
 					var/karma=verify_karma()
@@ -201,6 +197,11 @@
 			src << link(href_list["link"])
 
 	..()	//redirect to hsrc.Topic()
+
+
+/client/proc/get_display_key()
+	var/fakekey = src?.holder?.fakekey
+	return fakekey ? fakekey : key
 
 /client/proc/is_content_unlocked()
 	if(!prefs.unlock_content)

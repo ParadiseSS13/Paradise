@@ -122,7 +122,7 @@
 	for(var/datum/data/vending_product/R in (product_records + coin_records + hidden_records))
 		var/obj/item/I = R.product_path
 		var/pp = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")
-		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state)))]"
+		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
 	if(LAZYLEN(slogan_list))
 		// So not all machines speak at the exact same time.
 		// The first time this machine says something will be at slogantime + this random value,
@@ -1798,7 +1798,7 @@
 					/obj/item/clothing/head/soft/sec = 4,
 					/obj/item/clothing/head/soft/sec/corp = 4,
 					/obj/item/clothing/suit/armor/secjacket = 4,
-					/obj/item/clothing/suit/jacket/pilot = 2,
+					/obj/item/clothing/suit/jacket/secbomber = 2,
 					/obj/item/clothing/suit/hooded/wintercoat/security = 4,
 					/obj/item/clothing/gloves/color/black = 4,
 					/obj/item/clothing/accessory/armband/sec = 6,

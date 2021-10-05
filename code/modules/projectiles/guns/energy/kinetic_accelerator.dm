@@ -36,7 +36,7 @@
 				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"
 
 /obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/borg/upgrade/modkit))
+	if(istype(I, /obj/item/borg/upgrade/modkit) && max_mod_capacity)
 		var/obj/item/borg/upgrade/modkit/MK = I
 		MK.install(src, user)
 	else
@@ -44,6 +44,8 @@
 
 /obj/item/gun/energy/kinetic_accelerator/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
+	if(!max_mod_capacity)
+		return
 	if(!modkits.len)
 		to_chat(user, "<span class='notice'>There are no modifications currently installed.</span>")
 		return
@@ -270,7 +272,11 @@
 
 /obj/item/borg/upgrade/modkit/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/gun/energy/kinetic_accelerator) && !issilicon(user))
-		install(A, user)
+		var/obj/item/gun/energy/kinetic_accelerator/KA = A
+		if(KA.max_mod_capacity)
+			install(A, user)
+		else
+			return ..()
 	else
 		return ..()
 
