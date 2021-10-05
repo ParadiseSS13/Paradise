@@ -508,6 +508,7 @@
 /obj/structure/window/reinforced/polarized
 	name = "electrochromic window"
 	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
+	glass_amount = 2
 	var/id
 
 /obj/machinery/button/windowtint
@@ -674,8 +675,9 @@
 /obj/structure/window/full/reinforced/polarized
 	name = "electrochromic window"
 	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
+	glass_amount = 4
 	var/id
-	
+
 /obj/structure/window/full/reinforced/tinted
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."

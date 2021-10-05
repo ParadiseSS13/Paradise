@@ -674,3 +674,107 @@
 
 /datum/unarmed_attack/golem/tranquillite
 	attack_sound = null
+
+/datum/species/golem/cloth
+	name = "Cloth Golem"
+	icobase = 'icons/mob/human_races/r_cloth_golem.dmi'
+	flesh_color = "#E9E9E9"
+	blood_color = "#E9E9E9"
+	info_text = "As a <span class='danger'>Cloth Golem</span>, you are able to reform yourself after death, provided your remains aren't burned or destroyed. You are, of course, very flammable. \
+	Being made of cloth, your body is magic resistant and faster than that of other golems, but weaker and less resilient."
+	inherent_traits = list(TRAIT_RESISTCOLD, TRAIT_NOBREATH, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_CHUNKYFINGERS, TRAIT_NOPAIN)
+	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
+	brute_mod = 0.85 //15% damage reduction
+	burn_mod = 1.7 // don't get burned
+	tox_mod = 0.85
+	clone_mod = 0.85
+	brain_mod = 0.85
+	stamina_mod = 0.85
+	speed_mod = 1 // not as heavy as stone
+	punchdamagelow = 4
+	punchstunthreshold = 7
+	punchdamagehigh = 8 // not as heavy as stone
+	prefix = "Cloth"
+	golem_colour = null
+	special_names = null
+
+/datum/species/golem/cloth/get_random_name()
+	var/pharaoh_name = pick("Neferkare", "Hudjefa", "Khufu", "Mentuhotep", "Ahmose", "Amenhotep", "Thutmose", "Hatshepsut", "Tutankhamun", "Ramses", "Seti", \
+	"Merenptah", "Djer", "Semerkhet", "Nynetjer", "Khafre", "Pepi", "Intef", "Ay") //yes, Ay was an actual pharaoh
+	var/golem_name = "[pharaoh_name] \Roman[rand(1,99)]"
+	return golem_name
+
+/datum/species/golem/cloth/handle_life(mob/living/carbon/human/H)
+	if(H.fire_stacks < 1)
+		H.adjust_fire_stacks(1) //always prone to burning
+	..()
+
+/datum/species/golem/cloth/handle_death(gibbed, mob/living/carbon/human/H)
+	if(gibbed)
+		return
+	if(H.on_fire)
+		H.visible_message("<span class='danger'>[H] burns into ash!</span>")
+		H.dust()
+		return
+
+	H.visible_message("<span class='danger'>[H] falls apart into a pile of bandages!</span>")
+	new /obj/structure/cloth_pile(get_turf(H), H)
+	..()
+
+/obj/structure/cloth_pile
+	name = "pile of bandages"
+	desc = "It emits a strange aura, as if there was still life within it..."
+	max_integrity = 50
+	armor = list(MELEE = 90, BULLET = 90, LASER = 25, ENERGY = 80, BOMB = 50, BIO = 100, FIRE = -50, ACID = -50)
+	icon = 'icons/obj/items.dmi'
+	icon_state = "pile_bandages"
+	resistance_flags = FLAMMABLE
+	var/revive_time = 900
+	var/mob/living/carbon/human/cloth_golem
+
+/obj/structure/cloth_pile/Initialize(mapload, mob/living/carbon/human/H)
+	. = ..()
+	if(!QDELETED(H) && is_species(H, /datum/species/golem/cloth))
+		H.unequip_everything()
+		H.forceMove(src)
+		cloth_golem = H
+		to_chat(cloth_golem, "<span class='notice'>You start gathering your life energy, preparing to rise again...</span>")
+		addtimer(CALLBACK(src, .proc/revive), revive_time)
+	else
+		return INITIALIZE_HINT_QDEL
+
+/obj/structure/cloth_pile/Destroy()
+	QDEL_NULL(cloth_golem)
+	return ..()
+
+/obj/structure/cloth_pile/burn()
+	visible_message("<span class='danger'>[src] burns into ash!</span>")
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	..()
+
+/obj/structure/cloth_pile/proc/revive()
+	if(QDELETED(src) || QDELETED(cloth_golem)) //QDELETED also checks for null, so if no cloth golem is set this won't runtime
+		return
+	if(cloth_golem.suiciding)
+		QDEL_NULL(cloth_golem)
+		return
+
+	invisibility = INVISIBILITY_MAXIMUM //disappear before the animation
+	new /obj/effect/temp_visual/mummy_animation(get_turf(src))
+	cloth_golem.revive()
+	cloth_golem.grab_ghost() //won't pull if it's a suicide
+	sleep(20)
+	cloth_golem.forceMove(get_turf(src))
+	cloth_golem.visible_message("<span class='danger'>[src] rises and reforms into [cloth_golem]!</span>", "<span class='userdanger'>You reform into yourself!</span>")
+	cloth_golem = null
+	qdel(src)
+
+/obj/structure/cloth_pile/attackby(obj/item/P, mob/living/carbon/human/user, params)
+	. = ..()
+
+	if(resistance_flags & ON_FIRE)
+		return
+
+	if(is_hot(P))
+		visible_message("<span class='danger'>[src] bursts into flames!</span>")
+		fire_act()

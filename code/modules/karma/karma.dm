@@ -271,19 +271,11 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			else
 				dat += "Nanotrasen Representative - <font color='green'>Unlocked</font><br>"
 			if(!("Blueshield" in joblist))
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 30KP</a><br>"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=4'>Unlock Blueshield -- 30KP</a><br>"
 			else
 				dat += "Blueshield - <font color='green'>Unlocked</font><br>"
-			if(!("Security Pod Pilot" in joblist))
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 30KP</a><br>"
-			else
-				dat += "Security Pod Pilot - <font color='green'>Unlocked</font><br>"
-			if(!("Mechanic" in joblist))
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 30KP</a><br>"
-			else
-				dat += "Mechanic - <font color='green'>Unlocked</font><br>"
 			if(!("Magistrate" in joblist))
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=5'>Unlock Magistrate -- 45KP</a><br>"
 			else
 				dat+= "Magistrate - <font color='green'>Unlocked</font><br>"
 
@@ -350,6 +342,12 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			if("Nanotrasen Recruiter" in purchased)
 				refundable += "Nanotrasen Recruiter"
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Nanotrasen Recruiter;KarmaRefundType=job;KarmaRefundCost=10'>Refund Nanotrasen Recruiter -- 10KP</a><br>"
+			if("Mechanic" in purchased)
+				refundable += "Mechanic"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Mechanic;KarmaRefundType=job;KarmaRefundCost=30'>Refund Mechanic -- 30KP</a><br>"
+			if("Security Pod Pilot" in purchased)
+				refundable += "Security Pod Pilot"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Security Pod Pilot;KarmaRefundType=job;KarmaRefundCost=30'>Refund Security Pod Pilot -- 30KP</a><br>"
 
 			if(!refundable.len)
 				dat += "You do not have any refundable karma purchases.<br>"
@@ -512,7 +510,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 /client/proc/karmarefund(type, name, cost)
 	switch(name)
 		if("Tajaran Ambassador","Unathi Ambassador","Skrell Ambassador","Diona Ambassador","Kidan Ambassador",
-		"Slime People Ambassador","Grey Ambassador","Vox Ambassador","Customs Officer")
+		"Slime People Ambassador","Grey Ambassador","Vox Ambassador","Customs Officer", "Mechanic", "Security Pod Pilot")
 			cost = 30
 		if("Nanotrasen Recruiter")
 			cost = 10

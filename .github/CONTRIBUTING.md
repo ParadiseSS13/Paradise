@@ -465,7 +465,7 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
   ```DM
   //Bad
   var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey='[target_ckey]'")
-  
+
   //Good
   var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey=:target_ckey", list(
     "target_ckey" = target_ckey
@@ -502,11 +502,13 @@ in the SQL/updates folder.
 * Queries must never specify the database, be it in code, or in text files in the repo.
 
 ### Mapping Standards
+* For map edit PRs, we do not accept 'change for the sake of change' remaps, unless you have very good reasoning to do so. Maintainers reserve the right to close your PR if we disagree with your reasoning.
+
 * Map Merge
   * The following guideline for map merging applies to people who are **NOT** using StrongDMM, please see the StrongDMM section if you are.
     * You **MUST** run Map Merge prior to opening your PR when updating existing maps to minimize the change differences (even when using third party mapping programs such as FastDMM.)
     * Failure to run Map Merge on a map after using third party mapping programs (such as FastDMM) greatly increases the risk of the map's key dictionary becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
-    
+
 * StrongDMM
   * When using StrongDMM, the following options **MUST** be enabled to avoid file bloat. They can be found under `File > Preferences > Save Options` in SDMM.
     * Map save format: This **MUST** be set to **TGM** if you do not want to run Map Merge. Enabling this setting means SDMM will automatically map merge, letting you skip manual merging.
@@ -526,10 +528,10 @@ in the SQL/updates folder.
   * NEVER run cables under wall turfs.
   * Keep floor turf variations to a minimum. Generally, more than 3 floor turf types in one room is bad design.
   * Run air pipes together where possible. The first example below is to be avoided, the second is optimal:
-  
+
     ![image](https://user-images.githubusercontent.com/12197162/120011088-d22c7400-bfd5-11eb-867f-7b137ac5b1b2.png) ![image](https://user-images.githubusercontent.com/12197162/120011126-dfe1f980-bfd5-11eb-96b2-c83238a9cdcf.png)
-  * Pipe layouts should be logical and predictable, easy to understand at a glance. Always avoid complex layouts like in this example: 
-    
+  * Pipe layouts should be logical and predictable, easy to understand at a glance. Always avoid complex layouts like in this example:
+
     ![image](https://user-images.githubusercontent.com/12197162/120619480-ecda6f00-c453-11eb-9d9f-abf0d1a99c34.png)
 
   * Decals are to be used sparingly. Good map design does not require warning tape around everything. Decal overuse contributes to maptick slowdown.
