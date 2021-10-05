@@ -129,7 +129,6 @@
 		else
 			update_icon_closing()
 
-
 /obj/structure/closet/fireaxecabinet/attack_tk(mob/user as mob)
 	if(localopened && fireaxe)
 		fireaxe.forceMove(loc)
