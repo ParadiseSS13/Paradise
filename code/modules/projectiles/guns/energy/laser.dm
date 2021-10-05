@@ -143,7 +143,7 @@
 
 /obj/item/gun/energy/emitter
 	name = "mobile emitter"
-	desc = "An emitter someone removed from its base, and attached to a laser cannon frame, to try to make a weapon."
+	desc = "An emitter removed from its base, and attached to a laser cannon frame."
 	icon_state = "emittercannon"
 	item_state = "laser"
 	w_class = WEIGHT_CLASS_BULKY
