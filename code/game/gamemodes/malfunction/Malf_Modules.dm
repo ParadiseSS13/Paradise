@@ -787,7 +787,7 @@
 	if(AI.builtInCamera)
 		QDEL_NULL(AI.builtInCamera)
 
-/datum/AI_Module/large/cameracrack
+/datum/AI_Module/large/engi_upgrade
 	module_name = "Engineering Cyborg Emitter Upgrade"
 	mod_pick_name = "emitter"
 	description = "Downloads firmwear that activates the built in emitter in all enginering cyborgs linked to you. Cyborgs built after this upgrade will have it."
@@ -797,7 +797,7 @@
 	unlock_text = "<span class='notice'>Firmwear downloaded. Bugs removed. Built in emitters operating at 73% efficency.</span>"
 	unlock_sound = 'sound/items/rped.ogg'
 
-/datum/AI_Module/large/cameracrack/upgrade(mob/living/silicon/ai/AI)
+/datum/AI_Module/large/engi_upgrade/upgrade(mob/living/silicon/ai/AI)
 	AI.purchased_modules += /obj/item/robot_module/engineering
 	log_game("[key_name(usr)] purchased emitters for all engineering cyborgs.")
 	message_admins("<span class='notice'>[key_name_admin(usr)] purchased emitters for all engineering cyborgs!</span>")
