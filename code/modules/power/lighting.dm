@@ -349,8 +349,10 @@
 	if(!cell)
 		return
 	if(has_power())
-		cell.charge = min(cell.maxcharge, cell.charge + EMERGENCY_LIGHT_POWER_USE) //Recharge emergency power automatically while not using it
-	else if(emergency_mode)
+		if(cell.charge != cell.maxcharge)
+			cell.charge = min(cell.maxcharge, cell.charge + EMERGENCY_LIGHT_POWER_USE) //Recharge emergency power automatically while not using it
+		return
+	if(emergency_mode)
 		use_emergency_power()
 
 /**
