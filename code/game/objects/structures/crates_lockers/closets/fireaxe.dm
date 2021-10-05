@@ -18,7 +18,6 @@
 /obj/structure/closet/fireaxecabinet/populate_contents()
 	fireaxe = new/obj/item/twohanded/fireaxe(src)
 	update_icon()	// So its initial icon doesn't show it without the fireaxe
-	. = ..()
 
 /obj/structure/closet/fireaxecabinet/examine(mob/user)
 	. = ..()
