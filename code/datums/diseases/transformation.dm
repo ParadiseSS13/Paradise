@@ -42,7 +42,7 @@
 		if(stage5)
 			to_chat(affected_mob, pick(stage5))
 		if(jobban_isbanned(affected_mob, job_role))
-			affected_mob.death(1)
+			affected_mob.death()
 			return
 		if(affected_mob.notransform)
 			return
