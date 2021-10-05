@@ -423,6 +423,13 @@
 /datum/action/item_action/remove_badge
 	name = "Remove Holobadge"
 
+
+// Clown Acrobat Shoes
+/datum/action/item_action/rolling
+	name = "Tactical Roll"
+	desc = "Activates the clown shoes' ankle-stimulating module, allowing the user to do a short slide forward going through anyone."
+	button_icon_state = "clown"
+
 // Jump boots
 /datum/action/item_action/bhop
 	name = "Activate Jump Boots"

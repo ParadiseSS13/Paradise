@@ -111,6 +111,30 @@
 	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And powerful! Somehow."
 	magical = TRUE
 
+/obj/item/clothing/shoes/clown_shoes/tactical
+	actions_types = list(/datum/action/item_action/rolling)
+	var/slide_distance = 6
+	var/recharging_rate = 100
+	var/recharging_time = 0
+
+/obj/item/clothing/shoes/clown_shoes/tactical/ui_action_click(mob/user, action)
+	if(!isliving(user))
+		return
+	if(recharging_time > world.time)
+		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
+		return
+	user.pass_flags += PASSMOB
+	user.Weaken(2)
+	playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
+	recharging_time = world.time + recharging_rate
+	user.visible_message("<span class='warning'>[usr] slides forward!</span>")
+	var/sliding_this_way = user.dir
+	for(var/i=0, i<slide_distance, i++)
+		step(user, sliding_this_way)
+		sleep(1)
+	user.SetWeakened(0)
+	user.pass_flags -= PASSMOB
+
 /obj/item/clothing/shoes/jackboots
 	name = "jackboots"
 	desc = "Nanotrasen-issue Security combat boots for combat scenarios or combat situations. All combat, all the time."
