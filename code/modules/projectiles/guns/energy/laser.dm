@@ -143,10 +143,11 @@
 
 /obj/item/gun/energy/emitter
 	name = "mobile emitter"
-	desc = "An emitter someone removed from its base, and an attached to a power cell, to try to make a weapon."
-	icon_state = "lasercannon"
+	desc = "An emitter someone removed from its base, and attached to a laser cannon frame, to try to make a weapon."
+	icon_state = "emittercannon"
 	item_state = "laser"
 	w_class = WEIGHT_CLASS_BULKY
+	shaded_charge = TRUE
 	can_holster = FALSE
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/emitter)
@@ -154,7 +155,8 @@
 
 /obj/item/gun/energy/emitter/cyborg
 	name = "mounted emitter"
-	desc = "An emitter mounted to your cyborg frame, draining charge from your cell."
+	desc = "An emitter built into to your cyborg frame, draining charge from your cell."
+	ammo_type = list(/obj/item/ammo_casing/energy/emitter/cyborg)
 
 /obj/item/gun/energy/emitter/cyborg/newshot()
 	..()
