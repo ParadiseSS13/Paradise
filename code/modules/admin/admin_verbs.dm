@@ -362,7 +362,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	if(!check_rights(R_ADMIN))
 		return
-	if(!mob || !isliving(mob))
+	if(!isliving(mob))
 		return
 
 	if(mob.invisibility == INVISIBILITY_OBSERVER)
