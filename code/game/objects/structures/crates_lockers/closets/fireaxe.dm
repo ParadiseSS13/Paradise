@@ -129,10 +129,6 @@
 		else
 			update_icon_closing()
 
-/obj/structure/closet/fireaxecabinet/Destroy()
-	fireaxe.forceMove(get_turf(src))
-	fireaxe = null
-	return ..()
 
 /obj/structure/closet/fireaxecabinet/attack_tk(mob/user as mob)
 	if(localopened && fireaxe)
