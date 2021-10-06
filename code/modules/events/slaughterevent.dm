@@ -36,7 +36,7 @@
 		kill()
 		return
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(pick(spawn_locs))
-	var/mob/living/simple_animal/slaughter/S = new /mob/living/simple_animal/slaughter/(holder)
+	var/mob/living/simple_animal/slaughter/lesser/S = new /mob/living/simple_animal/slaughter/lesser/(holder)
 	S.holder = holder
 	player_mind.transfer_to(S)
 	player_mind.assigned_role = "Slaughter Demon"
