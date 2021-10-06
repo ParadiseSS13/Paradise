@@ -425,9 +425,9 @@
 
 
 // Clown Acrobat Shoes
-/datum/action/item_action/rolling
-	name = "Tactical Roll"
-	desc = "Activates the clown shoes' ankle-stimulating module, allowing the user to do a short slide forward going through anyone."
+/datum/action/item_action/slipping
+	name = "Tactical Slip"
+	desc = "Activates the clown shoes' ankle-stimulating module, allowing the user to do a short slip forward going under anyone."
 	button_icon_state = "clown"
 
 // Jump boots

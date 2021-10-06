@@ -177,7 +177,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Clown Acrobatic Shoes"
 	desc = "A pair of modified clown shoes fitted with a built-in propultion system that allows the user to perform a short slip below anyone. Turning on the waddle dampeners removes the slowdown on the shoes."
 	reference = "CAS"
-	item = /obj/item/clothing/shoes/clown_shoes/tactical
+	item = /obj/item/clothing/shoes/clown_shoes/slippers
 	cost = 3
 	surplus = 75
 	job = list("Clown")

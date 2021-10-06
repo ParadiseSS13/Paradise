@@ -111,13 +111,13 @@
 	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And powerful! Somehow."
 	magical = TRUE
 
-/obj/item/clothing/shoes/clown_shoes/tactical
-	actions_types = list(/datum/action/item_action/rolling)
+/obj/item/clothing/shoes/clown_shoes/slippers
+	actions_types = list(/datum/action/item_action/slipping)
 	var/slide_distance = 6
 	var/recharging_rate = 80
 	var/recharging_time = 0
 
-/obj/item/clothing/shoes/clown_shoes/tactical/ui_action_click(mob/user, action)
+/obj/item/clothing/shoes/clown_shoes/slippers/ui_action_click(mob/user, action)
 	if(!isliving(user))
 		return
 	if(recharging_time > world.time)
@@ -137,7 +137,7 @@
 	user.SetWeakened(0)
 	user.pass_flags = prev_pass_flags
 
-/obj/item/clothing/shoes/clown_shoes/tactical/CtrlClick(mob/living/user)
+/obj/item/clothing/shoes/clown_shoes/slippers/CtrlClick(mob/living/user)
 	if(!isliving(user))
 		return
 	if(user.get_active_hand() != src)
