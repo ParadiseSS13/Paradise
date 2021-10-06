@@ -346,7 +346,7 @@
 			removeStaticPower(static_power_used, STATIC_LIGHT)
 
 /obj/machinery/light/process()
-	if(!cell || emergency_mode || status == LIGHT_EMPTY || status == LIGHT_BROKEN)
+	if(!cell || emergency_mode || status != LIGHT_OK)
 		use_emergency_power()
 		return
 	if(!has_power())
