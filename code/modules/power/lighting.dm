@@ -346,11 +346,10 @@
 			removeStaticPower(static_power_used, STATIC_LIGHT)
 
 /obj/machinery/light/process()
-	if(!cell)
-		return
-	if(emergency_mode)
+	if(!cell || emergency_mode || status == LIGHT_EMPTY || status == LIGHT_BROKEN)
 		use_emergency_power()
-	else if(!has_power())
+		return
+	if(!has_power())
 		return
 	if(cell.charge == cell.maxcharge)
 		return
@@ -627,7 +626,7 @@
 
 // attempts to use power from the installed emergency cell, returns true if it does and false if it doesn't
 /obj/machinery/light/proc/use_emergency_power(power_used = EMERGENCY_LIGHT_POWER_USE)
-	if(!has_emergency_power(power_used))
+	if(!has_emergency_power(power_used) || (status == LIGHT_EMPTY || status == LIGHT_BROKEN))
 		set_light(0, 0, 0) //you, sir, are off!
 		return FALSE
 	if(cell.charge > MAXIMUM_SAFE_BACKUP_CHARGE) //it's meant to handle 120 W, ya doofus
