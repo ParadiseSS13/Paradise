@@ -15,7 +15,6 @@
 	name = "Crewsimov"
 	law_header = "Three Laws of Robotics"
 	selectable = TRUE
-	default = TRUE
 
 /datum/ai_laws/crewsimov/New()
 	add_inherent_law("You may not injure a crew member or, through inaction, allow a crew member to come to harm.")
