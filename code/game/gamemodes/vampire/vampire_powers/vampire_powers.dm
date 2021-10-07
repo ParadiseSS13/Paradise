@@ -110,7 +110,7 @@
 		return rejuv_multiplier
 
 	if(subclass?.improved_rejuv_healing)
-		rejuv_multiplier = min((100 - owner.health) / 20, 5) // max healing of 50 brute and burn
+		rejuv_multiplier = clamp((100 - owner.health) / 20, 1, 5) // brute and burn healing between 5 and 50
 		return rejuv_multiplier
 
 	return 1

@@ -137,6 +137,7 @@
 	gain_desc = "You have gained the ability to shroud the area around you in darkness, only the strongest of lights can pierce your unholy powers."
 	charge_max = 10 SECONDS
 	action_icon_state = "eternal_darkness"
+	required_blood = 5
 	var/shroud_power = -4
 
 /obj/effect/proc_holder/spell/self/vampire/eternal_darkness/cast(list/targets, mob/user)

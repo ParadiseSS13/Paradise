@@ -147,7 +147,7 @@
 
 /obj/effect/proc_holder/spell/blood_eruption
 	name = "Blood Eruption (100)"
-	desc = "Every pool of blood in sight erupts with a spike of living blood, damaging anyone stood on it."
+	desc = "Every pool of blood in 4 tiles erupts with a spike of living blood, damaging anyone stood on it."
 	gain_desc = "You have gained the ability to weaponise pools of blood to damage those stood on them."
 	vampire_ability = TRUE
 	required_blood = 100
@@ -192,6 +192,7 @@
 	gain_desc = "You have gained the ability to rip the very life force out of people and absorb it, healing you."
 	charge_max = 10 SECONDS
 	action_icon_state = "blood_bringers_rite"
+	required_blood = 10
 
 /obj/effect/proc_holder/spell/self/vampire/blood_spill/cast(list/targets, mob/user)
 	var/mob/target = targets[1]

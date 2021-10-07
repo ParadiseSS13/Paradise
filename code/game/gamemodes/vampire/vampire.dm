@@ -465,6 +465,9 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 		vamp_burn(7)
 	nullified = max(0, nullified - 2)
 
+	if(var_edited)
+		check_vampire_upgrade(TRUE)
+
 /datum/vampire/proc/handle_vampire_cloak()
 	if(!ishuman(owner))
 		owner.alpha = 255
@@ -489,15 +492,19 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 	owner.alpha = round((255 * 0.80))
 
 /datum/vampire/proc/adjust_blood(mob/living/carbon/C, blood_amount = 0)
-	var/unique_suck_id = C.UID()
-	if(!(unique_suck_id in drained_humans))
-		drained_humans[unique_suck_id] = 0
-	if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
-		return
+	if(C)
+		var/unique_suck_id = C.UID()
+		if(!(unique_suck_id in drained_humans))
+			drained_humans[unique_suck_id] = 0
+		if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
+			return
+		drained_humans[unique_suck_id] += blood_amount
 	bloodtotal += blood_amount
 	bloodusable += blood_amount
-	drained_humans[unique_suck_id] += blood_amount
 	check_vampire_upgrade(TRUE)
+	for(var/obj/effect/proc_holder/spell/S in powers)
+		if(S.action)
+			S.action.UpdateButtonIcon()
 
 /datum/vampire/proc/vamp_burn(burn_chance)
 	if(prob(burn_chance) && owner.health >= 50)

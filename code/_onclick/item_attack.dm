@@ -100,9 +100,13 @@
 	return
 
 /obj/attacked_by(obj/item/I, mob/living/user)
+	var/damage = I.force
 	if(I.force)
 		user.visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
-	take_damage(I.force, I.damtype, MELEE, 1)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		damage += H.physiology.melee_bonus
+	take_damage(damage, I.damtype, MELEE, 1)
 
 /mob/living/attacked_by(obj/item/I, mob/living/user, def_zone)
 	send_item_attack_message(I, user)

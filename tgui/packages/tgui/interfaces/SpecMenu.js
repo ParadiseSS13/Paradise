@@ -30,7 +30,7 @@ const HemoMenu = (props, context) => {
         <p><b>Vampiric claws</b>: Unlocked at 150 blood, allows you to summon a robust pair of claws that attack rapidly and drain a targets blood.</p>
         <p><b>Blood tendrils</b>: Unlocked at 250 blood, allows you to slow everyone in a targeted 3x3 area after a short delay.</p>
         <p><b>Sanguine pool</b>: Unlocked at 400 blood, allows you to travel at high speeds for a short duration. Doing this leaves behind blood splatters. You can move through anything but walls and space when doing this.</p>
-        <p><b>Blood eruption</b>: Unlocked at 600 blood, allows you to manipulate all nearby blood splatters into spikes that impale anyone stood ontop of them.</p>
+        <p><b>Blood eruption</b>: Unlocked at 600 blood, allows you to manipulate all nearby blood splatters, in 4 tiles around you, into spikes that impale anyone stood ontop of them.</p>
         <p><b>Full power</b>
           <Divider />
           <b>The blood bringers rite</b>: When toggled you will rapidly drain the blood of everyone who is nearby and use it to heal yourself slightly and remove any incapacitating effects rapidly.
