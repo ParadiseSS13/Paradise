@@ -415,7 +415,7 @@ SUBSYSTEM_DEF(ticker)
 			if(!isnewplayer(M))
 				to_chat(M, "Captainship not forced on anyone.")
 
-/datum/controller/subsystem/ticker/proc/equip_cuis(var/mob/living/carbon/human/H)
+/datum/controller/subsystem/ticker/proc/equip_cuis(mob/living/carbon/human/H)
 	for(var/datum/custom_user_item/cui in H.client.cui_entries)
 		// Skip items with invalid character names
 		if(cui.characer_name != H.real_name)
