@@ -46,7 +46,7 @@
 	alpha = 60
 	armed = TRUE
 	anchored = TRUE
-	breakouttime = 3 SECONDS
+	breakouttime = 5 SECONDS
 	flags = DROPDEL
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/Crossed(AM, oldloc)
@@ -58,7 +58,7 @@
 		C.EyeBlind(10)
 		STOP_PROCESSING(SSobj, src) // won't wither away once you are trapped
 		..()
-		if(!iscarbon(loc))
+		if(!iscarbon(loc)) // if it fails to latch onto someone for whatever reason, delete itself, we don't want unarmed ones lying around.
 			qdel(src)
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/attack_hand(mob/user)
@@ -91,7 +91,7 @@
 	name = "Dark Passage (30)"
 	desc = "You teleport to a targeted turf."
 	gain_desc = "You have gained the ability to blink a short distance towards a targeted turf."
-	charge_max = 15 SECONDS
+	charge_max = 40 SECONDS
 	required_blood = 30
 	vampire_ability = TRUE
 	allowed_type = /turf/simulated
