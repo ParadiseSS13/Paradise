@@ -418,7 +418,7 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/proc/equip_cuis(mob/living/carbon/human/H)
 	for(var/datum/custom_user_item/cui in H.client.cui_entries)
 		// Skip items with invalid character names
-		if(cui.characer_name != H.real_name)
+		if((cui.characer_name != H.real_name) && !cui.all_characters_allowed)
 			continue
 
 		var/ok = FALSE
