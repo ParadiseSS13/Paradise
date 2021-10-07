@@ -24,6 +24,7 @@
 	var/last_act = 0
 	var/scan_state = "" //Holder for the image we display when we're pinged by a mining scanner
 	var/defer_change = 0
+	var/mine_time = 4 SECONDS //Changes how fast the turf is mined by pickaxes, multiplied by toolspeed
 
 /turf/simulated/mineral/Initialize(mapload)
 	if(!canSmoothWith)
@@ -65,13 +66,13 @@
 		if(!isturf(T))
 			return
 
-		if(last_act + (40 * P.toolspeed) > world.time) // Prevents message spam
+		if(last_act + (mine_time * P.toolspeed) > world.time) // Prevents message spam
 			return
 		last_act = world.time
 		to_chat(user, "<span class='notice'>You start picking...</span>")
 		P.playDigSound()
 
-		if(do_after(user, 40 * P.toolspeed, target = src))
+		if(do_after(user, mine_time * P.toolspeed, target = src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
 				gets_drilled(user)
@@ -169,6 +170,12 @@
 /turf/simulated/mineral/ancient
 	name = "ancient rock"
 	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
+
+/turf/simulated/mineral/ancient/outer
+	name = "cold ancient rock"
+	desc = "This ancient and pickaxe vulnerable rock seems colder and smoother than usual due to being exposed to space and space dust!"
+	icon_state = "rock_labor"
+	mine_time = 8 SECONDS
 
 /turf/simulated/mineral/random/high_chance
 	icon_state = "rock_highchance"
