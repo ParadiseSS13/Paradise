@@ -176,6 +176,7 @@
 	desc = "This ancient and pickaxe vulnerable rock seems colder and smoother than usual due to being exposed to space and space dust!"
 	icon_state = "rock_labor"
 	mine_time = 8 SECONDS
+	color = COLOR_ANCIENT_ROCK
 
 /turf/simulated/mineral/random/high_chance
 	icon_state = "rock_highchance"
