@@ -26,8 +26,12 @@
 	if(!HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
 		to_chat(user,"<span class='warning'>You feel MIGHTY!</span>")
 		ADD_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
+		user.status_flags &= ~CANPUSH
+		user.move_resist = MOVE_FORCE_STRONG
 	else
 		REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
+		user.move_resist = MOVE_FORCE_DEFAULT
+		user.status_flags |= CANPUSH
 
 /obj/effect/proc_holder/spell/self/vampire/blood_rush
 	name = "Blood Rush (30)"
@@ -43,7 +47,7 @@
 	to_chat(user, "<span class='notice'>You feel a rush of energy!</span>")
 	addtimer(CALLBACK(user, /mob/living/carbon/human/.proc/remove_speed), duration)
 
-/mob/living/carbon/human/proc/remove_speed(source)
+/mob/living/carbon/human/proc/remove_speed()
 	REMOVE_TRAIT(src, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
 
 /obj/effect/proc_holder/spell/targeted/click/charge
