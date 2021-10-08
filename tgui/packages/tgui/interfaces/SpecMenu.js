@@ -53,7 +53,7 @@ const UmbrMenu = (props, context) => {
     <Flex.Item grow={1} basis="33%">
       <Section title="Umbrae">
         <h3>Focuses on darkness, stealth ambushing and mobility.</h3>
-        <p><b>Cloak of darkness</b>: Unlocked at 150 blood, when toggled, allows you to become nearly invisible and move rapidly when in dark regions.</p>
+        <p><b>Cloak of darkness</b>: Unlocked at 150 blood, when toggled, allows you to become nearly invisible and move rapidly when in dark regions. While active, burn damage is more effective against you.</p>
         <p><b>Shadow snare</b>: Unlocked at 250 blood, allows you to summon a trap that when crossed blinds and ensares the victim. This trap is hard to see, but withers in the light.</p>
         <p><b>Dark passage</b>: Unlocked at 400 blood, allows you to target a turf on screen, you will then teleport to that turf.</p>
         <p><b>Extinguish</b>: Unlocked at 600 blood, allows you to snuff out nearby electronic light sources and glowshrooms.</p>
@@ -84,7 +84,7 @@ const GarMenu = (props, context) => {
         <p><b>Blood swell</b>: Unlocked at 150 blood, increases your resistance to physical damage, stuns and stamina for 30 seconds. While it is active you cannot fire guns.</p>
         <p><b>Blood rush</b>: Unlocked at 250 blood, gives you a short speed boost when cast.</p>
         <p><b>Blood swell II</b>: Unlocked at 400 blood, increases all melee damage by 10.</p>
-        <p><b>Overwhelming force</b>: Unlocked at 600 blood, when toggled, if you bump into a door that you dont have access to, it will force it open.</p>
+        <p><b>Overwhelming force</b>: Unlocked at 600 blood, when toggled, if you bump into a door that you dont have access to, it will force it open. In addition, you cannot be pushed or pulled while it is active.</p>
         <p><b>Full Power</b>
           <Divider />
           <b>Charge</b>: You gain the ability to charge at a target. Destroying and knocking back pretty much anything you collide with.

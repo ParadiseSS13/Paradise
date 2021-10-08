@@ -18,6 +18,13 @@
 /obj/effect/proc_holder/spell/self/vampire/cloak/cast(list/targets, mob/user = usr)
 	var/datum/vampire/V = user.mind.vampire
 	V.iscloaking = !V.iscloaking
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(V.iscloaking)
+			H.physiology.burn_mod *= 1.3
+		else
+			H.physiology.burn_mod /= 1.3
+
 	update_name()
 	to_chat(user, "<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>")
 
@@ -95,7 +102,7 @@
 	required_blood = 30
 	vampire_ability = TRUE
 	allowed_type = /turf/simulated
-	click_radius = 1
+	click_radius = 0
 	centcom_cancast = FALSE
 	action_icon_state = "dark_passage"
 	panel = "Vampire"

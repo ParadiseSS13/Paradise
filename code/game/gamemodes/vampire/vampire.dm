@@ -465,9 +465,6 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 		vamp_burn(7)
 	nullified = max(0, nullified - 2)
 
-	if(var_edited)
-		check_vampire_upgrade(TRUE)
-
 /datum/vampire/proc/handle_vampire_cloak()
 	if(!ishuman(owner))
 		owner.alpha = 255
@@ -531,3 +528,7 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 	static_inventory -= vampire_blood_display
 	QDEL_NULL(vampire_blood_display)
 	show_hud(hud_version)
+
+/datum/vampire/vv_edit_var(var_name, var_value)
+	. = ..()
+	check_vampire_upgrade(TRUE)
