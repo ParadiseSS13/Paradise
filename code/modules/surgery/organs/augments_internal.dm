@@ -300,6 +300,7 @@
 	var/hunger_threshold = NUTRITION_LEVEL_STARVING
 	var/synthesizing = 0
 	var/poison_amount = 5
+	var/disabled_by_emp = FALSE
 	slot = "stomach"
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
 
@@ -307,6 +308,8 @@
 	if(!owner)
 		return
 	if(synthesizing)
+		return
+	if(disabled_by_emp)
 		return
 	if(owner.stat == DEAD)
 		return
@@ -319,11 +322,20 @@
 /obj/item/organ/internal/cyberimp/chest/nutriment/proc/synth_cool()
 	synthesizing = FALSE
 
+/obj/item/organ/internal/cyberimp/chest/nutriment/proc/emp_cool()
+	disabled_by_emp = FALSE
+
 /obj/item/organ/internal/cyberimp/chest/nutriment/emp_act(severity)
 	if(!owner || emp_proof)
 		return
+	owner.vomit(100, FALSE, TRUE, 3, FALSE)	// because when else do we ever use projectile vomiting
+	owner.loc.visible_message("<span class='warning'>The contents of [owner]'s stomach erupt violently from [owner.p_their()] mouth!</span>",
+	"<span class='warning'>You hear vomiting and a sickening splattering against the floor!")
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
-	to_chat(owner, "<span class='warning'>You feel like your insides are burning.</span>")
+	disabled_by_emp = TRUE		// Disable the implant for a little bit so this effect actually matters
+	synthesizing = FALSE
+	addtimer(CALLBACK(src, .proc/emp_cool), 60 SECONDS)
+	to_chat(owner, "<span class='warning'>You feel like your insides are burning!</span>")
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
