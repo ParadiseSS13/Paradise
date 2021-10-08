@@ -2699,6 +2699,9 @@
 	dir = 4
 	},
 /obj/machinery/hologram/holopad,
+/obj/machinery/computer/guestpass{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -3209,7 +3212,6 @@
 	icon_state = "pipe-c"
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -19865,7 +19867,6 @@
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -20080,7 +20081,6 @@
 	})
 "aUs" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel,
@@ -21234,7 +21234,6 @@
 	c_tag = "Medbay Chemistry North"
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -23926,7 +23925,6 @@
 /area/chapel/office)
 "bcC" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -23973,7 +23971,6 @@
 /area/hallway/secondary/entry)
 "bcM" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel,
@@ -27486,15 +27483,14 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -24
+	pixel_x = -27
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bjV" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
-	pixel_y = -31
+	pixel_y = -30
 	},
 /obj/machinery/light,
 /obj/structure/disposalpipe/segment{
@@ -27538,8 +27534,7 @@
 /area/maintenance/fsmaint2)
 "bjY" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 5;
-	pixel_y = -32
+	pixel_y = -30
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -30610,7 +30605,7 @@
 /area/civilian/pet_store)
 "bqG" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -24
+	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/tools)
@@ -33404,8 +33399,7 @@
 /area/turret_protected/ai_upload)
 "bxr" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 5;
-	pixel_y = -32
+	pixel_y = -30
 	},
 /obj/machinery/light_switch{
 	dir = 1;
@@ -36837,7 +36831,6 @@
 /area/hallway/primary/starboard/east)
 "bFs" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
 	pixel_y = 30
 	},
 /obj/structure/cable{
@@ -41525,14 +41518,13 @@
 /area/crew_quarters/captain)
 "bOz" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -27;
-	pixel_y = 1
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
@@ -41748,7 +41740,7 @@
 /obj/item/storage/firstaid/toxin,
 /obj/structure/table,
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 25
+	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -42249,7 +42241,6 @@
 "bPX" = (
 /obj/structure/closet/emcloset,
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 5;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel,
@@ -44744,7 +44735,7 @@
 	c_tag = "Medbay Genetics"
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 25
+	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -45253,15 +45244,14 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "bVP" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -27;
-	pixel_y = 1
-	},
 /obj/structure/table,
 /obj/item/radio/beacon,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel,
 /area/teleporter)
@@ -47710,7 +47700,6 @@
 /area/medical/research)
 "cal" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -50397,8 +50386,7 @@
 /area/medical/surgery1)
 "cfB" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 5;
-	pixel_y = -32
+	pixel_y = -30
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -53313,7 +53301,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -30
+	pixel_x = -27
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -54928,7 +54916,7 @@
 /area/toxins/storage)
 "coC" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -24
+	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -56956,7 +56944,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -24
+	pixel_x = -27
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -59377,12 +59365,11 @@
 /area/maintenance/apmaint)
 "cwJ" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -27;
-	pixel_y = 1
-	},
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -71249,7 +71236,7 @@
 /area/maintenance/asmaint)
 "cWr" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 27
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -76100,7 +76087,6 @@
 /area/turret_protected/aisat_interior)
 "diG" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -76663,7 +76649,6 @@
 	c_tag = "Central Hallway North-West"
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 5;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -79167,7 +79152,6 @@
 	name = "Grid Power Monitoring Computer"
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
 	pixel_y = 30
 	},
 /obj/structure/cable{
@@ -79181,7 +79165,6 @@
 "dpK" = (
 /obj/machinery/cryopod/robot,
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plating,
