@@ -193,7 +193,7 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/rcd
-	name = "Mounted RCD"
+	name = "mounted RCD"
 	desc = "An exosuit-mounted Rapid Construction Device. (Can be attached to: Any exosuit)"
 	icon_state = "mecha_rcd"
 	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"

@@ -261,7 +261,7 @@
 	icon_state = "oldcomp"
 	icon_screen = "library"
 	icon_keyboard = null
-	name = "DoorMex Control Computer"
+	name = "\improper DoorMex control computer"
 	circuit = /obj/item/circuitboard/olddoor
 
 
@@ -343,7 +343,7 @@
 	return
 
 /obj/structure/deathsquad_tele
-	name = "Mech Teleporter"
+	name = "mech teleporter"
 	density = 0
 	anchored = 1
 	icon = 'icons/obj/stationobjs.dmi'
