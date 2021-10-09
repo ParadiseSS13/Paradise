@@ -304,6 +304,12 @@
 	slot = "stomach"
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
 
+/obj/item/organ/internal/cyberimp/chest/nutriment/hardened/Initialize(mapload)
+	. = ..()
+	// Define this here so it doesn't need to be redefined for each sub-implant
+	if (emp_proof)
+		desc += " The implant has been hardened. It is invulnerable to EMPs."
+
 /obj/item/organ/internal/cyberimp/chest/nutriment/on_life()
 	if(!owner)
 		return
@@ -345,6 +351,13 @@
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
+/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
+	name = "hardened nutrient pump implant"
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened
+	name = "hardened nutrient pump implant PLUS"
+	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"
