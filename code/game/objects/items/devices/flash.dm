@@ -270,6 +270,3 @@
 
 /obj/item/flash/armimplant/proc/cooldown()
 	overheat = FALSE
-
-
-/obj/item/flash/synthetic //just a regular flash now

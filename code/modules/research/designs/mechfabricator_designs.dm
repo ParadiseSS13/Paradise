@@ -1204,15 +1204,15 @@
 	construction_time = 200
 	category = list("Misc")
 
-/datum/design/synthetic_flash
-	name = "Synthetic Flash"
-	desc = "A synthetic flash used mostly in borg construction."
+/datum/design/flash
+	name = "Flash"
+	desc = "A flash used mostly in borg construction or self defense."
 	id = "sflash"
 	req_tech = list("magnets" = 3, "combat" = 2)
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 750, MAT_GLASS = 750)
 	construction_time = 100
-	build_path = /obj/item/flash/synthetic
+	build_path = /obj/item/flash
 	category = list("Misc")
 
 /datum/design/voice_standard
