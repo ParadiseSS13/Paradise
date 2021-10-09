@@ -540,7 +540,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/datum/job/captain/All = new/datum/job/captain
 	access_card.access = All.get_access() // Give the bot temporary all access
 
-	set_path(get_path_to(src, waypoint, /turf/proc/Distance_cardinal, 0, 200, id=access_card))
+	set_path(get_path_to(src, waypoint, /turf/proc/Distance_cardinal, 0, 200, id = access_card))
 	calling_ai = caller //Link the AI to the bot!
 	ai_waypoint = waypoint
 
