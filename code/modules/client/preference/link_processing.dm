@@ -96,29 +96,17 @@
 
 	if(href_list["preference"] == "gear")
 		if(href_list["toggle_gear"])
-			var/datum/gear/TG = GLOB.gear_datums[href_list["toggle_gear"]]
-			if(TG.display_name in active_character.loadout_gear)
-				active_character.loadout_gear -= TG.display_name
+			var/datum/gear/TG = GLOB.gear_datums[text2path(href_list["toggle_gear"])]
+			if(TG && (TG.type in active_character.loadout_gear))
+				active_character.loadout_gear -= TG.type
 			else
 				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)
 					to_chat(user, "<span class='warning'>That gear is only available at a higher donation tier than you are on.</span>")
 					return
-				var/total_cost = 0
-				var/list/type_blacklist = list()
-				for(var/gear_name in active_character.loadout_gear)
-					var/datum/gear/G = GLOB.gear_datums[gear_name]
-					if(istype(G))
-						if(!G.subtype_cost_overlap)
-							if(G.subtype_path in type_blacklist)
-								continue
-							type_blacklist += G.subtype_path
-						total_cost += G.cost
+				build_loadout(TG)
 
-				if((total_cost + TG.cost) <= max_gear_slots)
-					active_character.loadout_gear += TG.display_name
-
-		else if(href_list["gear"] && href_list["tweak"])
-			var/datum/gear/gear = GLOB.gear_datums[href_list["gear"]]
+		else if(href_list["gear"] && href_list["tweak"]) // NYI
+			var/datum/gear/gear = GLOB.gear_datums[text2path(href_list["gear"])]
 			var/datum/gear_tweak/tweak = locate(href_list["tweak"])
 			if(!tweak || !istype(gear) || !(tweak in gear.gear_tweaks))
 				return
