@@ -1,3 +1,16 @@
+/*
+##################################################################################
+##																				##
+##								IMPORTANT README								##
+##																				##
+##	  Changing any /datum/gear typepaths --WILL-- break people's loadouts.		##
+##	The typepaths are stored directly in the `players.gear` column of the DB.	##
+##	    Please inform the server host if you wish to modify any of these.		##
+##																				##
+##################################################################################
+*/
+
+
 // Uniform slot
 /datum/gear/uniform
 	main_typepath = /datum/gear/uniform

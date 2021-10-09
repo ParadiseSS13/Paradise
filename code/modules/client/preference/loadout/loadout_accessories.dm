@@ -1,3 +1,16 @@
+/*
+##################################################################################
+##																				##
+##								IMPORTANT README								##
+##																				##
+##	  Changing any /datum/gear typepaths --WILL-- break people's loadouts.		##
+##	The typepaths are stored directly in the `players.gear` column of the DB.	##
+##	    Please inform the server host if you wish to modify any of these.		##
+##																				##
+##################################################################################
+*/
+
+
 /datum/gear/accessory
 	main_typepath = /datum/gear/accessory
 	slot = slot_tie
