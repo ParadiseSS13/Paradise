@@ -597,5 +597,18 @@ CREATE TABLE `2fa_secrets` (
 	`date_setup` DATETIME NOT NULL DEFAULT current_timestamp(),
 	`last_time` DATETIME NULL DEFAULT NULL,
 	PRIMARY KEY (`ckey`) USING BTREE
-)
-COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
+) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
+
+--
+-- Table structure for table `pai_saves`
+--
+CREATE TABLE `pai_saves` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`ckey` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`pai_name` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`description` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`preferred_role` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`ooc_comments` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`id`) USING BTREE,
+	UNIQUE INDEX `ckey` (`ckey`) USING BTREE
+) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;

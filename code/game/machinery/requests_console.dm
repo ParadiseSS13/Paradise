@@ -20,7 +20,7 @@
 #define RCS_SHIP_LOG 10	// View Shipping Label Log
 
 //Radio list
-#define ENGI_ROLES list("Atmospherics","Mechanic","Engineering","Chief Engineer's Desk","Telecoms Admin")
+#define ENGI_ROLES list("Atmospherics","Engineering","Chief Engineer's Desk","Telecoms Admin")
 #define SEC_ROLES list("Warden","Security","Brig Medbay","Head of Security's Desk")
 #define MISC_ROLES list("Bar","Chapel","Kitchen","Hydroponics","Janitorial")
 #define MED_ROLES list("Virology","Chief Medical Officer's Desk","Medbay")
