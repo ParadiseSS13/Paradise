@@ -416,6 +416,8 @@ SUBSYSTEM_DEF(ticker)
 				to_chat(M, "Captainship not forced on anyone.")
 
 /datum/controller/subsystem/ticker/proc/equip_cuis(mob/living/carbon/human/H)
+	if(!H.client)
+		return // If they are spawning without a client (somehow), they *cant* have a CUI list
 	for(var/datum/custom_user_item/cui in H.client.cui_entries)
 		// Skip items with invalid character names
 		if((cui.characer_name != H.real_name) && !cui.all_characters_allowed)
