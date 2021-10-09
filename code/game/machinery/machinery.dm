@@ -502,6 +502,7 @@ Class Procs:
 			"<span class='notice'>You apply some [O] at [src]'s damaged areas.</span>")
 	else
 		return ..()
+
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
 	if((flags & NODECONSTRUCT))
@@ -519,15 +520,23 @@ Class Procs:
 						break
 				for(var/obj/item/stock_parts/B in W.contents)
 					if(istype(B, P) && istype(A, P))
-						if(B.rating > A.rating)
-							W.remove_from_storage(B, src)
-							W.handle_item_insertion(A, 1)
-							component_parts -= A
-							component_parts += B
-							B.loc = null
-							to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
-							shouldplaysound = 1
-							break
+						//If it's cell - check: 1) Max charge is better? 2) Max charge same but current charge better? - If both NO -> next content
+						if(ispath(B.type, /obj/item/stock_parts/cell))
+							var/obj/item/stock_parts/cell/tA = A
+							var/obj/item/stock_parts/cell/tB = B
+							if(!(tB.maxcharge > tA.maxcharge) && !((tB.maxcharge == tA.maxcharge) && (tB.charge > tA.charge)))
+								continue
+						//If it's not cell and not better -> next content
+						else if(B.rating <= A.rating)
+							continue
+						W.remove_from_storage(B, src)
+						W.handle_item_insertion(A, 1)
+						component_parts -= A
+						component_parts += B
+						B.loc = null
+						to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
+						shouldplaysound = 1
+						break
 			RefreshParts()
 		else
 			to_chat(user, display_parts(user))
