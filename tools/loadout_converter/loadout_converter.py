@@ -3,7 +3,7 @@
 
 # Note: This must ONLY be run once, and ONLY if your loadout records are using the old system.
 
-import re, mysql.connector, argparse, json, time
+import mysql.connector, argparse, json, time
 
 parser = argparse.ArgumentParser()
 parser.add_argument("address", help="SQL server address (Use 127.0.0.1 for the current computer)")
@@ -17,58 +17,64 @@ cursor = db.cursor()
 
 startwatch = time.time()
 
-with open('loadout_converter.json') as json_file:
-	json = json.load(json_file)
-	removals = json["remove"]
-	# Format for both replacement variables is (Key: `display_name`, Value: typepath)
-	standard_replacements = json["standard"]
-	special_replacements = json["special"]
+try:
+    with open('loadout_converter.json') as json_file:
+        file_json = json.load(json_file)
+        # Format for both replacement variables is (Key: `display_name`, Value: typepath)
+        standard_replacements = file_json["standard"]
+        special_replacements = file_json["special"]
+except FileNotFoundError:
+    print("Could not find the conversion file. Please make sure you're running the script from tools/loadout_converter/, not the repo root!")
 
 cursor.execute("SELECT id, gear FROM characters WHERE gear != \"\";")
 temp = cursor.fetchall()
 
-
 # Convert the rows into a dictionary. (Key: `id`, Value: `gear`)
 print("----------")
-loadouts = {}
+raw_loadouts = {}
+converted_loadouts = {}
 for i in temp:
-	row = {i[0]: i[1]}
-	loadouts.update(row)
+    raw_loadouts[i[0]] = i[1]
 print("Cached gear listings.")
-
 
 # Replace all `display_name`s in the list with their typepaths.
 print("Converting gear listings...")
-for gear in loadouts:
-	for item in standard_replacements:
-		loadouts[gear] = loadouts[gear].replace(item, f"\"{standard_replacements[item]}\"")
+for user_id in raw_loadouts:
 
-	for item in removals:
-		loadouts[gear] = re.sub(fr'{item}(&|)|(&|){item}', "", loadouts[gear])
-		# Replace anything in `removals` with "", plus an & before OR after if there is one.
+    loadout_entry = raw_loadouts[user_id]
+    # First split on &
+    loadout_split = []
+    if "&" in loadout_entry:
+        loadout_split = loadout_entry.split("&")
+    else:
+        loadout_split.append(loadout_entry)
 
-	for item in special_replacements:
-		loadouts[gear] = re.sub(fr'(^|&)(?:{item})($|&)', fr'\1"{special_replacements[item]}"\2', loadouts[gear])
-		# This is horrible, but as far as I can tell there's no other way of doing it.
-		# If the subtype is converted first and then the parent type, you get "/datum/gear/accessory//datum/gear/accessory/scarf/christmas".
-		# If the parent type is converted first and then the subtype, you get "/datum/gear/accessory/scarf%2c+christmas".
-		# This regex ensures that either the start of the string, the end of the string, or an & character are surrounding `item`, so no false matches.
+    # Now lets cleanup our entries
+    for i in range(len(loadout_split)):
+        if "=" in loadout_split[i]:
+            loadout_split[i] = loadout_split[i].replace("=", "")
 
-	if not loadouts[gear]:
-		continue # If after the replacements there's nothing left, don't reformat it.
+    new_loadout = []
 
-	# Convert to JSON formatting.
-	loadouts[gear] = loadouts[gear].replace("&", ",")
-	loadouts[gear] = "[" + loadouts[gear] + "]"
-print("Converted {} gear listings.".format(len(loadouts)))
+    # Now we can get down to business
+    for loadout_item in loadout_split:
+        if loadout_item in standard_replacements:
+            new_loadout.append(standard_replacements[loadout_item])
 
+        if loadout_item in special_replacements:
+            new_loadout.append(special_replacements[loadout_item])
+
+    # Convert to JSON formatting.
+    converted_loadouts[user_id] = json.dumps(new_loadout)
+
+print("Converted {} gear listings.".format(len(raw_loadouts)))
 
 # Update the database.
 print("Updating database entries...")
-for id in loadouts:
-	gear = loadouts[id]
-	stmt = "UPDATE characters SET gear = %s WHERE id = %s;"
-	cursor.execute(stmt, (gear, id))
+for id in converted_loadouts:
+    user_loadout = converted_loadouts[id]
+    stmt = "UPDATE characters SET gear = %s WHERE id = %s;"
+    cursor.execute(stmt, (user_loadout, id))
 db.commit()
 
 stopwatch = time.time()
