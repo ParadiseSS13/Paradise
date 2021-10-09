@@ -409,6 +409,7 @@
 	anchored = FALSE
 	use_power = NO_POWER_USE
 	visible_contents = FALSE
+	face_while_pulling = FALSE
 
 
 /obj/machinery/smartfridge/foodcart/Initialize(mapload)
@@ -418,6 +419,20 @@
 		/obj/item/reagent_containers/food/drinks,
 		/obj/item/reagent_containers/food/condiment,
 	))
+
+/obj/machinery/smartfridge/foodcart/screwdriver_act(mob/living/user, obj/item/I)
+	return
+
+/obj/machinery/smartfridge/foodcart/crowbar_act(mob/living/user, obj/item/I)
+	return
+
+/obj/machinery/smartfridge/foodcart/exchange_parts()
+	return
+
+/obj/machinery/smartfridge/foodcart/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 4)
+	qdel(src)
 
 /**
   * # Circuit Boards Storage
