@@ -34,7 +34,6 @@ print("----------")
 raw_loadouts = {}
 converted_loadouts = {}
 for i in temp:
-    # We use strings here so it doesnt try use indexes
     raw_loadouts[i[0]] = i[1]
 print("Cached gear listings.")
 
