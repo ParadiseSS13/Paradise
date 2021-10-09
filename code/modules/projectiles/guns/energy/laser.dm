@@ -115,7 +115,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
 
 /obj/item/gun/energy/immolator
-	name = "Immolator laser gun"
+	name = "immolator laser gun"
 	desc = "A modified laser gun, shooting highly concetrated beams with higher intensity that ignites the target, for the cost of draining more power per shot"
 	icon_state = "immolator"
 	item_state = "laser"

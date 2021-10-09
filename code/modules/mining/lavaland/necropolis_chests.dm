@@ -92,7 +92,7 @@
 
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disc
-	name = "KA Mod Disk"
+	name = "\improper KA mod disk"
 	desc = "A design disc containing the design for a unique kinetic accelerator modkit. It's compatible with a research console."
 	icon_state = "datadisk1"
 	var/modkit_design = /datum/design/unique_modkit
@@ -102,19 +102,19 @@
 	blueprint = new modkit_design
 
 /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe
-	name = "Offensive Mining Explosion Mod Disk"
+	name = "\improper KA mod disk (Offensive mining explosion)"
 	modkit_design = /datum/design/unique_modkit/offensive_turf_aoe
 
 /obj/item/disk/design_disk/modkit_disc/rapid_repeater
-	name = "Rapid Repeater Mod Disk"
+	name = "\improper KA mod disk (Rapid repeater)"
 	modkit_design = /datum/design/unique_modkit/rapid_repeater
 
 /obj/item/disk/design_disk/modkit_disc/resonator_blast
-	name = "Resonator Blast Mod Disk"
+	name = "\improper KA mod disk (Resonator blast)"
 	modkit_design = /datum/design/unique_modkit/resonator_blast
 
 /obj/item/disk/design_disk/modkit_disc/bounty
-	name = "Death Syphon Mod Disk"
+	name = "\improper KA mod disk (Death syphon)"
 	modkit_design = /datum/design/unique_modkit/bounty
 
 /datum/design/unique_modkit

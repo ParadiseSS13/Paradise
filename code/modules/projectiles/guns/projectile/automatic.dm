@@ -234,7 +234,7 @@
 
 //ARG Assault Rifle//
 /obj/item/gun/projectile/automatic/ar
-	name = "ARG"
+	name = "\improper ARG"
 	desc = "A robust assault rile used by Nanotrasen fighting forces."
 	icon_state = "arg"
 	item_state = "arg"
